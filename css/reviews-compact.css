@@ -1,0 +1,10 @@
+/* Review UI refinement: compact form below, detailed ratings only in modal */
+.vc-reviews{background:#f7f3ed;padding:34px 20px 48px}.vc-reviews-head,.vc-reviews-summary,.vc-reviews-list{display:none!important}.vc-review-form{margin-top:0;background:rgba(239,233,224,.72);border:1px solid rgba(210,201,190,.72);box-shadow:none}.vc-review-form-title{margin-bottom:18px}.vc-review-form-title h3{font-size:29px}.vc-review-form-title>span{background:rgba(255,253,249,.78);color:#80786f}.vc-rating-explainer{background:rgba(255,255,255,.48);border-color:#ddd6cc}.vc-score-field,.vc-comment-area,.vc-live-average{background:rgba(255,253,249,.78)}
+
+/* Quiet hero badge: neutral container, score itself carries a subtle conditional tint */
+.vc-quick-badge{background:rgba(248,247,245,.78);border-color:rgba(135,128,119,.26);box-shadow:0 4px 14px rgba(46,42,37,.055);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);color:#35312c}.vc-quick-badge:hover{border-color:rgba(105,98,90,.42);box-shadow:0 6px 16px rgba(46,42,37,.08);transform:translateY(-1px)}.vc-quick-copy strong{color:#3e3933}.vc-quick-copy small{color:#807970}.vc-quick-badge>b{background:color-mix(in srgb,var(--vc-score-color,#777) 18%,rgba(255,255,255,.72));border:1px solid color-mix(in srgb,var(--vc-score-color,#777) 38%,transparent);color:color-mix(in srgb,var(--vc-score-color,#777) 86%,#222);box-shadow:none}.vc-quick-badge>i{color:#999188}.vc-quick-empty>span{color:#777067}.vc-quick-empty{background:rgba(248,247,245,.72)}
+
+/* Conditional tint is also used quietly inside the detail drawer */
+.vc-modal-score>b,.vc-card-score b{background:color-mix(in srgb,var(--vc-score-color,#777) 18%,#fff);border:1px solid color-mix(in srgb,var(--vc-score-color,#777) 40%,transparent);color:color-mix(in srgb,var(--vc-score-color,#777) 88%,#222);box-shadow:none}.vc-modal-metric>i>em{background:#8b857d}.vc-modal-trust{background:#f1f1ee;color:#666c66}.vc-modal-comments .vc-card-score b{background:color-mix(in srgb,var(--vc-score-color,#777) 18%,#fff)}
+
+@media(max-width:700px){.vc-reviews{padding:28px 16px 40px}.vc-review-form-title h3{font-size:26px}}
