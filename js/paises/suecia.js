@@ -1,5 +1,5 @@
 window.SWEDEN_CONTENT={
-  name:"Suecia",continent:"Europa",tagline:"Ciudades tranquilas, naturaleza y diseño nórdico ♡",description:"Guías por ciudades y regiones, itinerarios de una sola zona o combinados y un planificador para encontrar la ruta que mejor encaja contigo.",heroImage:"https://images.unsplash.com/photo-1509356843151-3e7d96241e11?auto=format&fit=crop&w=1800&q=88",
+  name:"Suecia",continent:"Europa",tagline:"Ciudades tranquilas, naturaleza y diseño nórdico",description:"Guías por ciudades y regiones, itinerarios de una sola zona o combinados y un planificador para encontrar la ruta que mejor encaja contigo.",heroImage:"https://images.unsplash.com/photo-1509356843151-3e7d96241e11?auto=format&fit=crop&w=1800&q=88",
   facts:[['CAPITAL','Estocolmo'],['IDIOMA','Sueco'],['MONEDA','Corona sueca · SEK'],['POBLACIÓN','≈ 10,6 millones']],
   guides:[
     {title:'Estocolmo',tag:'CIUDAD',image:'https://images.unsplash.com/photo-1509356843151-3e7d96241e11?auto=format&fit=crop&w=1000&q=88',text:'Qué ver, barrios, transporte, gastronomía y consejos para descubrir la capital sueca.',days:'3 días',scores:{experience:9.1,photogenic:9.3,things:9.0,food:8.4,transport:9.3,safety:9.5,value:7.4},available:true,href:'estocolmo/index.html',interests:['ciudad','cultura','gastronomia'],transports:['publico','avion'],minDays:2,maxDays:4},
