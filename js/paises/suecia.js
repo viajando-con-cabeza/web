@@ -4,47 +4,19 @@ window.SWEDEN_CONTENT={
   tagline:"Ciudades tranquilas, naturaleza y diseño nórdico ♡",
   description:"Guías por ciudades y regiones, itinerarios de una sola zona o combinados y un planificador para encontrar la ruta que mejor encaja contigo.",
   heroImage:"https://images.unsplash.com/photo-1509356843151-3e7d96241e11?auto=format&fit=crop&w=1800&q=88",
-  facts:[
-    ['CAPITAL','Estocolmo'],
-    ['IDIOMA','Sueco'],
-    ['MONEDA','Corona sueca · SEK'],
-    ['POBLACIÓN','≈ 10,6 millones']
-  ],
+  facts:[['CAPITAL','Estocolmo'],['IDIOMA','Sueco'],['MONEDA','Corona sueca · SEK'],['POBLACIÓN','≈ 10,6 millones']],
   guides:[
-    {title:'Estocolmo',tag:'CIUDAD',image:'https://images.unsplash.com/photo-1509356843151-3e7d96241e11?auto=format&fit=crop&w=1000&q=88',text:'Qué ver, barrios, transporte, gastronomía y consejos para descubrir la capital sueca.',days:'3 días',rating:null,available:false,interests:['ciudad','cultura','gastronomia'],transports:['publico'],minDays:2,maxDays:4,bestMonths:[5,6,7,8,9],possibleMonths:[1,2,3,4,5,6,7,8,9,10,11,12]},
-    {title:'Gotemburgo',tag:'CIUDAD',image:'https://images.unsplash.com/photo-1508189860359-777d945909ef?auto=format&fit=crop&w=1000&q=88',text:'Una guía práctica para conocer Gotemburgo, sus barrios, ambiente portuario y alrededores.',days:'2–3 días',rating:null,available:false,interests:['ciudad','gastronomia','costa'],transports:['publico'],minDays:2,maxDays:3,bestMonths:[5,6,7,8,9],possibleMonths:[4,5,6,7,8,9,10]},
-    {title:'Costa Oeste',tag:'REGIÓN',image:'https://images.unsplash.com/photo-1520769945061-0a448c463865?auto=format&fit=crop&w=1000&q=88',text:'Pueblos costeros, islas, carreteras panorámicas y rincones del oeste de Suecia.',days:'2–4 días',rating:null,available:false,interests:['costa','naturaleza','roadtrip','pueblos'],transports:['coche'],minDays:2,maxDays:4,bestMonths:[6,7,8,9],possibleMonths:[5,6,7,8,9,10]},
-    {title:'Dalarna',tag:'REGIÓN',image:'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1000&q=88',text:'Naturaleza, pueblos, tradición sueca y paisajes para bajar el ritmo y recorrer con calma.',days:'3–5 días',rating:null,available:false,interests:['naturaleza','lagos','pueblos','roadtrip'],transports:['coche'],minDays:3,maxDays:5,bestMonths:[6,7,8,9],possibleMonths:[5,6,7,8,9,10]},
-    {title:'Zona de los Lagos',tag:'NATURALEZA',image:'https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=1000&q=88',text:'Una escapada entre lagos, bosques y paisajes tranquilos para combinar con otras regiones.',days:'2 días',rating:null,available:false,interests:['naturaleza','lagos','roadtrip'],transports:['coche'],minDays:2,maxDays:2,bestMonths:[6,7,8,9],possibleMonths:[5,6,7,8,9,10]}
+    {title:'Estocolmo',tag:'CIUDAD',image:'https://images.unsplash.com/photo-1509356843151-3e7d96241e11?auto=format&fit=crop&w=1000&q=88',text:'Qué ver, barrios, transporte, gastronomía y consejos para descubrir la capital sueca.',days:'3 días',scores:{experience:9.1,photogenic:9.3,things:9.0,food:8.4,transport:9.3,safety:9.5,value:7.4},available:false,interests:['ciudad','cultura','gastronomia'],transports:['publico'],minDays:2,maxDays:4,bestMonths:[5,6,7,8,9],possibleMonths:[1,2,3,4,5,6,7,8,9,10,11,12]},
+    {title:'Gotemburgo',tag:'CIUDAD',image:'https://images.unsplash.com/photo-1508189860359-777d945909ef?auto=format&fit=crop&w=1000&q=88',text:'Una guía práctica para conocer Gotemburgo, sus barrios, ambiente portuario y alrededores.',days:'2–3 días',scores:{experience:8.5,photogenic:8.3,things:8.2,food:8.7,transport:9.0,safety:9.4,value:7.7},available:false,interests:['ciudad','gastronomia','costa'],transports:['publico'],minDays:2,maxDays:3,bestMonths:[5,6,7,8,9],possibleMonths:[4,5,6,7,8,9,10]},
+    {title:'Costa Oeste',tag:'REGIÓN',image:'https://images.unsplash.com/photo-1520769945061-0a448c463865?auto=format&fit=crop&w=1000&q=88',text:'Pueblos costeros, islas, carreteras panorámicas y rincones del oeste de Suecia.',days:'2–4 días',scores:{experience:9.4,photogenic:9.6,things:8.7,food:8.6,transport:7.7,safety:9.6,value:8.0},available:false,interests:['costa','naturaleza','roadtrip','pueblos'],transports:['coche'],minDays:2,maxDays:4,bestMonths:[6,7,8,9],possibleMonths:[5,6,7,8,9,10]},
+    {title:'Dalarna',tag:'REGIÓN',image:'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1000&q=88',text:'Naturaleza, pueblos, tradición sueca y paisajes para bajar el ritmo y recorrer con calma.',days:'3–5 días',scores:{experience:9.2,photogenic:9.5,things:8.5,food:7.9,transport:7.4,safety:9.7,value:8.2},available:false,interests:['naturaleza','lagos','pueblos','roadtrip'],transports:['coche'],minDays:3,maxDays:5,bestMonths:[6,7,8,9],possibleMonths:[5,6,7,8,9,10]},
+    {title:'Zona de los Lagos',tag:'NATURALEZA',image:'https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=1000&q=88',text:'Una escapada entre lagos, bosques y paisajes tranquilos para combinar con otras regiones.',days:'2 días',scores:{experience:9.0,photogenic:9.5,things:8.0,food:7.5,transport:7.2,safety:9.7,value:8.4},available:false,interests:['naturaleza','lagos','roadtrip'],transports:['coche'],minDays:2,maxDays:2,bestMonths:[6,7,8,9],possibleMonths:[5,6,7,8,9,10]}
   ],
   itineraries:[
     {title:'Estocolmo en 3 días',tag:'3 DÍAS · CIUDAD',text:'Nuestro recorrido de 3 días por Estocolmo, organizado día a día.',image:'https://images.unsplash.com/photo-1509356843151-3e7d96241e11?auto=format&fit=crop&w=1000&q=88',available:false,interests:['ciudad','cultura','gastronomia'],transports:['publico'],minDays:3,maxDays:3,bestMonths:[5,6,7,8,9],possibleMonths:[1,2,3,4,5,6,7,8,9,10,11,12]},
     {title:'Estocolmo + Dalarna en 7 días',tag:'7 DÍAS · COMBINADO',text:'Una combinación de ciudad y naturaleza: Estocolmo y Dalarna en una sola ruta.',image:'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1000&q=88',available:false,interests:['ciudad','naturaleza','lagos','pueblos'],transports:['coche'],minDays:7,maxDays:7,bestMonths:[6,7,8,9],possibleMonths:[5,6,7,8,9,10]},
     {title:'Suecia en 14 días',tag:'14 DÍAS · NUESTRA RUTA',text:'Nuestra ruta completa por Gotemburgo, Costa Oeste, Dalarna, zona de los lagos y Estocolmo.',image:'https://images.unsplash.com/photo-1520769945061-0a448c463865?auto=format&fit=crop&w=1000&q=88',available:false,interests:['ciudad','naturaleza','costa','lagos','roadtrip','pueblos'],transports:['coche'],minDays:14,maxDays:14,bestMonths:[6,7,8,9],possibleMonths:[5,6,7,8,9,10]}
   ],
-  planning:[
-    ['📅 MES DEL VIAJE','No elimina destinos automáticamente: diferencia entre meses ideales y meses posibles.'],
-    ['⏱ DÍAS DISPONIBLES','Busca un itinerario exacto o combina varias guías para aprovechar el tiempo.'],
-    ['♡ QUÉ TE APETECE','Ciudad, naturaleza, costa, lagos, cultura, gastronomía, pueblos o road trip.'],
-    ['🚆 CÓMO TE MUEVES','Prioriza opciones que encajen mejor con transporte público o coche.']
-  ],
-  planner:{
-    months:[
-      {value:'1',label:'Enero'},{value:'2',label:'Febrero'},{value:'3',label:'Marzo'},{value:'4',label:'Abril'},
-      {value:'5',label:'Mayo'},{value:'6',label:'Junio'},{value:'7',label:'Julio'},{value:'8',label:'Agosto'},
-      {value:'9',label:'Septiembre'},{value:'10',label:'Octubre'},{value:'11',label:'Noviembre'},{value:'12',label:'Diciembre'}
-    ],
-    days:[
-      {value:'3',label:'2–3 días'},{value:'5',label:'4–5 días'},{value:'7',label:'6–7 días'},
-      {value:'10',label:'8–10 días'},{value:'14',label:'11–14 días'}
-    ],
-    interests:[
-      {value:'ciudad',label:'🏙 Ciudades'},{value:'naturaleza',label:'🌲 Naturaleza'},{value:'costa',label:'🌊 Costa'},
-      {value:'lagos',label:'🏞 Lagos'},{value:'cultura',label:'🎨 Cultura'},{value:'gastronomia',label:'🍴 Gastronomía'},
-      {value:'roadtrip',label:'🚗 Road trip'},{value:'pueblos',label:'🏡 Pueblos'}
-    ],
-    transports:[
-      {value:'publico',label:'🚆 Transporte público'},{value:'coche',label:'🚗 Coche'},{value:'',label:'Me da igual'}
-    ]
-  }
+  planning:[['📅 CUÁNDO IR','Mejor época, clima, horas de luz y qué esperar en cada temporada.'],['🛏 DÓNDE DORMIR','Zonas recomendadas y cómo elegir alojamiento según tu ruta.'],['🚗 CÓMO MOVERSE','Coche, tren y transporte público: qué compensa en cada zona.'],['💰 PRESUPUESTO','Precios orientativos, dónde merece la pena gastar y dónde ahorrar.'],['📱 INTERNET Y PAGOS','Conectividad, tarjetas y todo lo práctico para viajar sin complicaciones.'],['🎒 ANTES DE VIAJAR','Equipaje, reservas, entradas y pequeños detalles que conviene preparar.']],
+  planner:{months:[{value:'1',label:'Enero'},{value:'2',label:'Febrero'},{value:'3',label:'Marzo'},{value:'4',label:'Abril'},{value:'5',label:'Mayo'},{value:'6',label:'Junio'},{value:'7',label:'Julio'},{value:'8',label:'Agosto'},{value:'9',label:'Septiembre'},{value:'10',label:'Octubre'},{value:'11',label:'Noviembre'},{value:'12',label:'Diciembre'}],days:[{value:'3',label:'2–3 días'},{value:'5',label:'4–5 días'},{value:'7',label:'6–7 días'},{value:'10',label:'8–10 días'},{value:'14',label:'11–14 días'}],interests:[{value:'ciudad',label:'🏙 Ciudades'},{value:'naturaleza',label:'🌲 Naturaleza'},{value:'costa',label:'🌊 Costa'},{value:'lagos',label:'🏞 Lagos'},{value:'cultura',label:'🎨 Cultura'},{value:'gastronomia',label:'🍴 Gastronomía'},{value:'roadtrip',label:'🚗 Road trip'},{value:'pueblos',label:'🏡 Pueblos'}],transports:[{value:'publico',label:'🚆 Transporte público'},{value:'coche',label:'🚗 Coche'},{value:'',label:'Me da igual'}]}
 };
