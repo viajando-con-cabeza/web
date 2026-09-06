@@ -65,8 +65,48 @@ function init(){
       if(fieldset) fieldset.querySelector('legend b').textContent='2';
       if(transportLabel) transportLabel.querySelector('b').textContent='3';
       if(button) button.textContent='DESCUBRIR MI RUTA →';
+      setupSeasonAwarePlanner(planner,form);
     }
   }
+}
+
+function setupSeasonAwarePlanner(box,form){
+  const c=window.SWEDEN_CONTENT;
+  const out=box.querySelector('.planner-result');
+  if(!c||!out)return;
+  const pool=[...c.itineraries,...c.guides];
+  const seasonFit={
+    'Estocolmo':{verano:4,primavera:3,otono:2,invierno:3},
+    'Gotemburgo':{verano:4,primavera:3,otono:2,invierno:1},
+    'Costa Oeste':{verano:6,primavera:2,otono:0,invierno:-9},
+    'Dalarna':{verano:4,primavera:2,otono:3,invierno:2},
+    'Zona de los Lagos':{verano:5,primavera:2,otono:2,invierno:-5},
+    'Estocolmo en 3 días':{verano:4,primavera:3,otono:2,invierno:3},
+    'Estocolmo + Dalarna en 7 días':{verano:6,primavera:2,otono:3,invierno:1},
+    'Suecia en 14 días':{verano:7,primavera:1,otono:1,invierno:-10}
+  };
+  const seasonNote=(title,season)=>{
+    if(!season)return 'La época no ha condicionado esta recomendación.';
+    if(season==='invierno'&&(title==='Costa Oeste'||title==='Zona de los Lagos'||title==='Suecia en 14 días'))return 'En invierno no priorizaríamos esta ruta: pierde puntos por época.';
+    if(season==='verano'&&(title==='Costa Oeste'||title==='Zona de los Lagos'||title==='Suecia en 14 días'))return 'El verano favorece especialmente esta ruta.';
+    return 'La época elegida encaja razonablemente con esta opción.';
+  };
+  form.onsubmit=e=>{
+    e.preventDefault();
+    const fd=new FormData(form),days=+fd.get('days'),move=fd.get('transport'),season=fd.get('season'),likes=fd.getAll('interest');
+    const ranked=pool.map(x=>{
+      let s=days>=x.minDays&&days<=x.maxDays?8:Math.max(0,5-Math.abs(days-(x.minDays+x.maxDays)/2));
+      if(move)s+=x.transports.includes(move)?4:-2;
+      s+=likes.filter(v=>x.interests.includes(v)).length*4;
+      if(season&&seasonFit[x.title])s+=seasonFit[x.title][season]||0;
+      if(season==='invierno'&&x.interests.includes('costa'))s-=3;
+      if(season==='invierno'&&x.interests.includes('roadtrip')&&x.title!=='Dalarna')s-=2;
+      return{x,s};
+    }).sort((a,b)=>b.s-a.s).slice(0,3);
+    const top=ranked[0].x;
+    out.innerHTML=`<div class="planner-result-head"><p class="country-script">Tu Suecia empieza a tomar forma ♡</p><h3>${top.title.toUpperCase()}</h3><p>Hemos cruzado días, intereses, transporte y época del año. La estación ahora sí cambia el resultado cuando una ruta pierde sentido fuera de temporada.</p></div><div class="planner-results-grid">${ranked.map((r,i)=>`<article><span>${i?'TAMBIÉN TE PUEDE ENCAJAR':'TU MEJOR ENCAJE'}</span><h4>${r.x.title}</h4><p>${r.x.text}</p><small>${seasonNote(r.x.title,season)}</small><b>${r.x.minDays===r.x.maxDays?r.x.minDays:r.x.minDays+'–'+r.x.maxDays} DÍAS · ${i?'ALTERNATIVA':'RECOMENDADA'}</b></article>`).join('')}</div>`;
+    out.hidden=false;out.scrollIntoView({behavior:'smooth',block:'nearest'});
+  };
 }
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
 })();
