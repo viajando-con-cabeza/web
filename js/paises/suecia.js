@@ -20,7 +20,7 @@ window.SWEDEN_CONTENT={
     {title:'Experiencias únicas',tag:'A TU MEDIDA',text:'Auroras boreales, islas, hiking o viajes en familia. Diseña tu ruta.',image:'https://images.unsplash.com/photo-1483347756197-71ef80e95f73?auto=format&fit=crop&w=1000&q=88',available:false,meta:['EXPERIENCIAS ÚNICAS','PERSONALIZABLE']}
   ],
   preparation:[
-    {icon:'◷',title:'Cuándo ir',text:'Clima, mejores meses y qué esperar en cada estación.',image:'https://images.unsplash.com/photo-1483347756197-71ef80e95f73?auto=format&fit=crop&w=900&q=85',available:true,href:'cuando-ir.html'},
+    {icon:'◷',title:'Cuándo ir',text:'Clima, mejores meses y qué esperar en cada estación.',image:'https://images.unsplash.com/photo-1483347756197-71ef80e95f73?auto=format&fit=crop&w=900&q=85',available:true,href:'../../planifica/'},
     {icon:'✈',title:'Cómo llegar',text:'Vuelos, aeropuertos principales y opciones de transporte.',image:'https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=900&q=85',available:false},
     {icon:'🚆',title:'Moverse por Suecia',text:'Coche, tren, autobús y nuestros consejos para moverte fácilmente.',image:'https://images.unsplash.com/photo-1473445361085-b9a07f55608b?auto=format&fit=crop&w=900&q=85',available:false},
     {icon:'⌂',title:'Alojamiento',text:'Tipos de alojamiento y nuestras recomendaciones.',image:'https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=900&q=85',available:false},
