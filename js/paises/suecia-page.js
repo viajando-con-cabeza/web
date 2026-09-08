@@ -1,5 +1,5 @@
 (function(){
-function esc(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot',"'":'&#39;'}[c]))}
+function esc(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
 const W={experience:25,photogenic:20,things:15,food:10,transport:10,safety:10,value:10};
 function rating(s){return Object.keys(W).reduce((n,k)=>n+(Number(s&&s[k])||0)*W[k]/100,0)}
 function fmt(n){return n.toFixed(1).replace('.',',')}
