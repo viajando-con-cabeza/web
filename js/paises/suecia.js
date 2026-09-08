@@ -19,12 +19,12 @@ window.SWEDEN_CONTENT={
     {title:'Suecia en 14 días',tag:'14 DÍAS · NUESTRA RUTA',text:'Nuestra ruta completa por Gotemburgo, Costa Oeste, Dalarna, zona de los lagos y Estocolmo.',image:'https://images.unsplash.com/photo-1520769945061-0a448c463865?auto=format&fit=crop&w=1000&q=88',available:false}
   ],
   preparation:[
-    {icon:'◷',title:'Cuándo ir',text:'Clima, mejores meses y qué esperar en cada estación.',image:'https://images.unsplash.com/photo-1483347756197-71ef80e95f73?auto=format&fit=crop&w=900&q=85',available:false},
-    {icon:'✈',title:'Cómo llegar',text:'Vuelos, aeropuertos principales y opciones de transporte.',image:'https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=900&q=85',available:false},
-    {icon:'🚆',title:'Moverse por Suecia',text:'Coche, tren, autobús y nuestros consejos para moverte fácilmente.',image:'https://images.unsplash.com/photo-1473445361085-b9a07f55608b?auto=format&fit=crop&w=900&q=85',available:false},
-    {icon:'⌂',title:'Alojamiento',text:'Tipos de alojamiento y nuestras recomendaciones.',image:'https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=900&q=85',available:false},
-    {icon:'€',title:'Presupuesto',text:'Cuánto cuesta un viaje a Suecia y cómo ahorrar sin renunciar a la experiencia.',image:'https://images.unsplash.com/photo-1580519542036-c47de6196ba5?auto=format&fit=crop&w=900&q=85',available:false},
-    {icon:'▣',title:'Documentación',text:'Requisitos de entrada, seguro de viaje y otros aspectos importantes.',image:'https://images.unsplash.com/photo-1544735716-392fe2489ffa?auto=format&fit=crop&w=900&q=85',available:false}
+    {icon:'◷',title:'Cuándo ir',text:'Nosotros priorizaríamos finales de primavera y verano si quieres carretera, naturaleza y días muy largos. Invierno sólo si buscas nieve y otro tipo de viaje.',image:'https://images.unsplash.com/photo-1483347756197-71ef80e95f73?auto=format&fit=crop&w=900&q=85',available:false},
+    {icon:'✈',title:'Cómo llegar',text:'Para una primera ruta, volar a Estocolmo suele ser la opción más sencilla. Gotemburgo también puede encajar si tu viaje se concentra en la costa oeste.',image:'https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=900&q=85',available:false},
+    {icon:'🚆',title:'Moverse por Suecia',text:'En ciudades usaríamos transporte público; para costa, lagos y pueblos, el coche da mucha más libertad y hace la ruta bastante más cómoda.',image:'https://images.unsplash.com/photo-1473445361085-b9a07f55608b?auto=format&fit=crop&w=900&q=85',available:false},
+    {icon:'⌖',title:'Qué zona elegir',text:'No intentaríamos abarcar todo el país. Elegir Estocolmo y una segunda zona, como Costa Oeste o Dalarna, suele dar un viaje más equilibrado.',image:'https://images.unsplash.com/photo-1520769945061-0a448c463865?auto=format&fit=crop&w=900&q=85',available:false},
+    {icon:'⌂',title:'Alojamiento',text:'Reservaríamos con antelación en ciudades y zonas muy demandadas. En road trip, mezclar hoteles, cabañas y alojamientos rurales funciona muy bien.',image:'https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=900&q=85',available:false},
+    {icon:'€',title:'Presupuesto',text:'Suecia no es barata, pero se puede controlar bastante el gasto. Alojamiento y comidas son las partidas donde más se nota planificar con tiempo.',image:'https://images.unsplash.com/photo-1580519542036-c47de6196ba5?auto=format&fit=crop&w=900&q=85',available:false}
   ],
   faq:[
     {question:'¿Es seguro viajar a Suecia?',answer:'Sí. En general es un destino muy seguro para viajar, aplicando las precauciones habituales.'},
