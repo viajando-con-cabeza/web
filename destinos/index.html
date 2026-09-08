@@ -9,8 +9,23 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=DM+Sans:wght@400;500;600;700;800&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../css/paginas.css">
-  <link rel="stylesheet" href="../css/destinos.css">
-  <link rel="stylesheet" href="../css/destinos-maps.css">
+  <link rel="stylesheet" href="../css/destinos.css?v=20260908-5">
+  <link rel="stylesheet" href="../css/destinos-maps.css?v=20260908-5">
+  <style>
+    .destinos-hero{position:relative!important;overflow:hidden!important;background:linear-gradient(90deg,#fbfaf7 0%,#f8f5ef 58%,#f5f1ea 100%)!important;min-height:355px!important}
+    .destinos-hero-overlay{display:none!important}
+    .destinos-hero::after{content:"";position:absolute;z-index:0;left:37%;top:18px;width:min(52vw,700px);height:310px;background:url('../assets/images/destinos/world-map-vcc.jpg?v=20260908-5') center/contain no-repeat!important;opacity:.96;pointer-events:none}
+    .destinos-hero-inner{position:relative;z-index:2;max-width:none!important}
+    .destinos-hero-copy{max-width:470px!important}
+    .destinos-hero-script{position:absolute!important;left:auto!important;right:3.5%!important;top:32px!important;text-align:center!important;transform:rotate(-4deg);z-index:3}
+    .continent-visual{background-color:#f7f5f0!important;background-position:center!important;background-repeat:no-repeat!important;background-size:contain!important;min-height:300px!important}
+    .continent-visual-europa{background-image:url('../assets/images/destinos/europa-vcc.jpg?v=20260908-5')!important}
+    .continent-visual-asia{background-image:url('../assets/images/destinos/asia-vcc.jpg?v=20260908-5')!important}
+    .continent-visual-america{background-image:url('../assets/images/destinos/america-vcc.jpg?v=20260908-5')!important}
+    .continent-visual-oceania{background-image:url('../assets/images/destinos/oceania-vcc.jpg?v=20260908-5')!important}
+    @media(max-width:980px){.destinos-hero::after{left:43%;width:62vw}.continent-visual{min-height:240px!important}}
+    @media(max-width:720px){.destinos-hero{min-height:420px!important}.destinos-hero::after{left:8%;top:180px;width:84%;height:210px}.continent-visual{min-height:220px!important}}
+  </style>
 </head>
 <body>
 <header class="page-header"></header>
@@ -29,14 +44,7 @@
     <div class="continent-block" id="europa">
       <div class="continent-visual continent-visual-europa" aria-hidden="true"></div>
       <div class="continent-panel">
-        <div class="continent-head">
-          <div>
-            <p class="continent-kicker">EUROPA</p>
-            <h2>Europa</h2>
-            <p>Ciudades con historia, naturaleza impresionante y mil rincones por descubrir.</p>
-          </div>
-          <div class="continent-meta"><span>13 destinos</span><a href="#europa-grid">Ver todos →</a></div>
-        </div>
+        <div class="continent-head"><div><p class="continent-kicker">EUROPA</p><h2>Europa</h2><p>Ciudades con historia, naturaleza impresionante y mil rincones por descubrir.</p></div><div class="continent-meta"><span>13 destinos</span><a href="#europa-grid">Ver todos →</a></div></div>
         <div class="country-list" id="europa-grid">
           <a class="country-row" href="alemania/index.html"><img src="https://flagcdn.com/w80/de.png" alt=""><span>Alemania</span><b>→</b></a>
           <a class="country-row" href="austria/index.html"><img src="https://flagcdn.com/w80/at.png" alt=""><span>Austria</span><b>→</b></a>
@@ -54,69 +62,11 @@
         </div>
       </div>
     </div>
-
     <div class="flight-divider"><span></span><b>✈</b><span></span><em>La próxima aventura<br>también te espera</em></div>
-
-    <div class="continent-block" id="asia">
-      <div class="continent-visual continent-visual-asia" aria-hidden="true"></div>
-      <div class="continent-panel">
-        <div class="continent-head">
-          <div>
-            <p class="continent-kicker">ASIA</p>
-            <h2>Asia</h2>
-            <p>Tradición, modernidad y paisajes que no se olvidan.</p>
-          </div>
-          <div class="continent-meta"><span>4 destinos</span><a href="#asia-grid">Ver todos →</a></div>
-        </div>
-        <div class="country-list" id="asia-grid">
-          <a class="country-row" href="emiratos-arabes-unidos/index.html"><img src="https://flagcdn.com/w80/ae.png" alt=""><span>Emiratos Árabes Unidos</span><b>→</b></a>
-          <a class="country-row" href="indonesia/index.html"><img src="https://flagcdn.com/w80/id.png" alt=""><span>Indonesia</span><b>→</b></a>
-          <a class="country-row" href="malasia/index.html"><img src="https://flagcdn.com/w80/my.png" alt=""><span>Malasia</span><b>→</b></a>
-          <a class="country-row" href="singapur/index.html"><img src="https://flagcdn.com/w80/sg.png" alt=""><span>Singapur</span><b>→</b></a>
-        </div>
-      </div>
-    </div>
-
-    <div class="continent-block" id="america">
-      <div class="continent-visual continent-visual-america" aria-hidden="true"></div>
-      <div class="continent-panel">
-        <div class="continent-head">
-          <div>
-            <p class="continent-kicker">AMÉRICA</p>
-            <h2>América</h2>
-            <p>Naturaleza salvaje, culturas fascinantes y experiencias inolvidables.</p>
-          </div>
-          <div class="continent-meta"><span>2 destinos</span><a href="#america-grid">Ver todos →</a></div>
-        </div>
-        <div class="country-list" id="america-grid">
-          <a class="country-row" href="eeuu/index.html"><img src="https://flagcdn.com/w80/us.png" alt=""><span>Estados Unidos</span><b>→</b></a>
-          <a class="country-row" href="mexico/index.html"><img src="https://flagcdn.com/w80/mx.png" alt=""><span>México</span><b>→</b></a>
-        </div>
-      </div>
-    </div>
-
-    <div class="continent-block" id="oceania">
-      <div class="continent-visual continent-visual-oceania" aria-hidden="true"></div>
-      <div class="continent-panel">
-        <div class="continent-head">
-          <div>
-            <p class="continent-kicker">OCEANÍA</p>
-            <h2>Oceanía</h2>
-            <p>Grandes paisajes, ciudades vibrantes y naturaleza al otro lado del mundo.</p>
-          </div>
-          <div class="continent-meta"><span>1 destino</span><a href="#oceania-grid">Ver destino →</a></div>
-        </div>
-        <div class="country-list country-list-single" id="oceania-grid">
-          <a class="country-row" href="australia/index.html"><img src="https://flagcdn.com/w80/au.png" alt=""><span>Australia</span><b>→</b></a>
-        </div>
-      </div>
-    </div>
-
-    <div class="coming-soon">
-      <div class="coming-icon">⌖</div>
-      <div><h3>Más destinos en camino...</h3><p>Seguimos explorando el mundo para traerte nuevas guías e inspirarte en tu próxima aventura.</p></div>
-      <a href="../itinerarios/">Sigue el viaje →</a>
-    </div>
+    <div class="continent-block" id="asia"><div class="continent-visual continent-visual-asia" aria-hidden="true"></div><div class="continent-panel"><div class="continent-head"><div><p class="continent-kicker">ASIA</p><h2>Asia</h2><p>Tradición, modernidad y paisajes que no se olvidan.</p></div><div class="continent-meta"><span>4 destinos</span><a href="#asia-grid">Ver todos →</a></div></div><div class="country-list" id="asia-grid"><a class="country-row" href="emiratos-arabes-unidos/index.html"><img src="https://flagcdn.com/w80/ae.png" alt=""><span>Emiratos Árabes Unidos</span><b>→</b></a><a class="country-row" href="indonesia/index.html"><img src="https://flagcdn.com/w80/id.png" alt=""><span>Indonesia</span><b>→</b></a><a class="country-row" href="malasia/index.html"><img src="https://flagcdn.com/w80/my.png" alt=""><span>Malasia</span><b>→</b></a><a class="country-row" href="singapur/index.html"><img src="https://flagcdn.com/w80/sg.png" alt=""><span>Singapur</span><b>→</b></a></div></div></div>
+    <div class="continent-block" id="america"><div class="continent-visual continent-visual-america" aria-hidden="true"></div><div class="continent-panel"><div class="continent-head"><div><p class="continent-kicker">AMÉRICA</p><h2>América</h2><p>Naturaleza salvaje, culturas fascinantes y experiencias inolvidables.</p></div><div class="continent-meta"><span>2 destinos</span><a href="#america-grid">Ver todos →</a></div></div><div class="country-list" id="america-grid"><a class="country-row" href="eeuu/index.html"><img src="https://flagcdn.com/w80/us.png" alt=""><span>Estados Unidos</span><b>→</b></a><a class="country-row" href="mexico/index.html"><img src="https://flagcdn.com/w80/mx.png" alt=""><span>México</span><b>→</b></a></div></div></div>
+    <div class="continent-block" id="oceania"><div class="continent-visual continent-visual-oceania" aria-hidden="true"></div><div class="continent-panel"><div class="continent-head"><div><p class="continent-kicker">OCEANÍA</p><h2>Oceanía</h2><p>Grandes paisajes, ciudades vibrantes y naturaleza al otro lado del mundo.</p></div><div class="continent-meta"><span>1 destino</span><a href="#oceania-grid">Ver destino →</a></div></div><div class="country-list country-list-single" id="oceania-grid"><a class="country-row" href="australia/index.html"><img src="https://flagcdn.com/w80/au.png" alt=""><span>Australia</span><b>→</b></a></div></div></div>
+    <div class="coming-soon"><div class="coming-icon">⌖</div><div><h3>Más destinos en camino...</h3><p>Seguimos explorando el mundo para traerte nuevas guías e inspirarte en tu próxima aventura.</p></div><a href="../itinerarios/">Sigue el viaje →</a></div>
   </section>
 </main>
 <footer class="page-footer"><div class="footer-copy">© 2026 Viajando con Cabeza · Todos los derechos reservados</div></footer>
