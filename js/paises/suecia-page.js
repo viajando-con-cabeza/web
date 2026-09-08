@@ -10,7 +10,7 @@ function itineraryPlaceholder(){return `<article class="country-itinerary vcc-pl
 function carousel(items,type){return `<div class="sweden-carousel-wrap vcc-four-carousel"><button class="carousel-arrow prev" data-carousel-prev aria-label="Anterior">←</button><div class="sweden-carousel" data-carousel="${type}">${items}</div><button class="carousel-arrow next" data-carousel-next aria-label="Siguiente">→</button></div>`}
 function prepCard(x){return `<article class="vcc-prep-card"><div class="vcc-prep-image"><img src="${esc(x.image)}" alt="${esc(x.title)}" loading="lazy"><span>${esc(x.icon)}</span></div><div class="vcc-prep-copy"><h3>${esc(x.title)}</h3><p>${esc(x.text)}</p><div class="vcc-card-action">${x.available&&x.href?`<a class="vcc-prep-action" href="${esc(x.href)}">${esc(x.ctaLabel||'VER MÁS')} →</a>`:'<span class="vcc-soon">PRÓXIMAMENTE</span>'}</div></div></article>`}
 const FAQ_META=[['SEGURIDAD','♢'],['MEJOR ÉPOCA','▣'],['REQUISITOS','▤'],['CLIMA','☼'],['PAGOS','▱'],['CÓMO MOVERSE','✈'],['ENCHUFES','⌁'],['QUÉ LLEVAR','♙'],['PRESUPUESTO','€'],['CONECTIVIDAD','⌁']];
-function faq(x,n){const m=FAQ_META[n]||['SUECIA','＋'];return `<details class="vcc-faq-item"><summary><span class="vcc-faq-icon" aria-hidden="true">${m[1]}</span><span class="vcc-faq-category">${m[0]}</span><span class="vcc-faq-question">${esc(x.question)}</span><span class="vcc-faq-teaser">${esc(x.answer)}</span><b aria-hidden="true">+</b></summary><div class="vcc-faq-answer"><p>${esc(x.answer)}</p></div></details>`}
+function faq(x,n){const m=FAQ_META[n]||['SUECIA','＋'];return `<details class="vcc-faq-item"><summary aria-expanded="false"><span class="vcc-faq-icon" aria-hidden="true">${m[1]}</span><span class="vcc-faq-category">${m[0]}</span><span class="vcc-faq-question">${esc(x.question)}</span><span class="vcc-faq-teaser">${esc(x.answer)}</span><b aria-hidden="true">+</b></summary><div class="vcc-faq-answer"><p>${esc(x.answer)}</p></div></details>`}
 function render(){const c=window.SWEDEN_CONTENT,root=document.getElementById('country-content');if(!c||!root)return;const facts=c.facts.map(x=>`<div class="country-fact"><strong>${esc(x[0])}</strong><span>${esc(x[1])}</span></div>`).join('');const itin=[...c.itineraries];while(itin.length<4)itin.push(null);root.innerHTML=`
 <section class="country-hero" style="background-image:url('${esc(c.heroImage)}')"><div class="country-hero-inner"><div class="country-breadcrumb"><a href="../../index.html">Inicio</a><span>›</span><a href="../index.html">Destinos</a><span>›</span><strong>Suecia</strong></div><div class="country-hero-card"><div class="country-eyebrow">📍 EUROPA</div><h1>SUECIA</h1><p class="country-script">${esc(c.tagline)}</p><p class="country-desc">${esc(c.description)}</p><div class="country-facts">${facts}</div><a class="hero-start" href="#guias">EMPIEZA A EXPLORAR ↓</a></div></div></section>
 <nav class="country-nav"><div class="country-nav-inner"><a href="#guias">GUÍAS</a><a href="#itinerarios">ITINERARIOS</a><a href="#planifica">PLANIFICA TU VIAJE</a><a href="#faq">PREGUNTAS FRECUENTES</a></div></nav>
@@ -21,7 +21,13 @@ function render(){const c=window.SWEDEN_CONTENT,root=document.getElementById('co
 <section class="vcc-inspiration" style="background-image:url('${esc(c.inspirationImage)}')"><div><p>Viaja mejor,</p><strong>viaja con cabeza</strong></div></section>
 <section id="faq" class="vcc-faq-section"><div class="vcc-faq-top"><div><p class="vcc-faq-kicker">ANTES DE VIAJAR</p><h2>PREGUNTAS FRECUENTES</h2><p class="vcc-faq-intro">Todo lo que necesitas saber para viajar a Suecia con tranquilidad.</p></div><div class="vcc-faq-side"><p>Viajar mejor<br>empieza con<br>buenas preguntas</p><div class="vcc-faq-brandmark" aria-hidden="true"></div></div></div><div class="vcc-faq-grid">${c.faq.map(faq).join('')}</div></section>
 </main>`;
-root.querySelectorAll('.vcc-faq-item').forEach(item=>item.addEventListener('toggle',()=>{const b=item.querySelector('summary b');if(b)b.textContent=item.open?'−':'+'}));
+const faqItems=[...root.querySelectorAll('.vcc-faq-item')];
+faqItems.forEach(item=>item.addEventListener('toggle',()=>{
+  if(item.open)faqItems.forEach(other=>{if(other!==item&&other.open)other.open=false});
+  const summary=item.querySelector('summary');const b=summary&&summary.querySelector('b');
+  if(summary)summary.setAttribute('aria-expanded',item.open?'true':'false');
+  if(b)b.textContent=item.open?'−':'+';
+}));
 }
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',render);else render();
 })();
