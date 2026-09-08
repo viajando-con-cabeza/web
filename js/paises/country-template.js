@@ -7,7 +7,7 @@
   function imageMarkup(item,className){
     const image=`<img src="${esc(item.image)}" alt="${esc(item.imageAlt||item.title||'')}" loading="lazy">`;
     const href=item.imageHref||item.href;
-    return href&&item.available!==false?`<a class="${className||'country-image-link'}" href="${esc(href)}" aria-label="${esc(item.imageLabel||item.title||'Ver detalle')}">${image}</a>`:image;
+    return href&&item.available!==false?`<a class="${className||'country-image-link'}" href="${esc(href)}" aria-label="${esc(item.imageLabel||item.title||'Ver detalle')}" style="display:block;width:100%;color:inherit;text-decoration:none">${image}</a>`:image;
   }
   function guide(g){
     const r=rating(g.scores||{}),action=g.available&&g.href?`<a class="country-btn" href="${esc(g.href)}">${esc(g.ctaLabel||'VER GUÍA')} →</a>`:'<span class="country-soon">PRÓXIMAMENTE</span>';
