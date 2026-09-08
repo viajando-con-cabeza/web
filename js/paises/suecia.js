@@ -27,6 +27,22 @@ window.COUNTRY_CONFIG={
     {title:'Estocolmo + Dalarna en 7 días',tag:'7 DÍAS · COMBINADO',text:'Una combinación de ciudad y naturaleza: Estocolmo y Dalarna en una sola ruta.',image:'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1000&q=88',available:false},
     {title:'Suecia en 14 días',tag:'14 DÍAS · NUESTRA RUTA',text:'Nuestra ruta completa por Gotemburgo, Costa Oeste, Dalarna, zona de los lagos y Estocolmo.',image:'https://images.unsplash.com/photo-1520769945061-0a448c463865?auto=format&fit=crop&w=1000&q=88',available:false}
   ],
+  budget:{
+    kicker:'Cuánto cuesta viajar',
+    title:'PRESUPUESTO PARA SUECIA',
+    description:'Suecia no es barata, pero saber dónde se concentra el gasto ayuda muchísimo a organizar el viaje sin recortar lo que de verdad merece la pena.',
+    items:[
+      {icon:'⌂',label:'GASTO PRINCIPAL',title:'Alojamiento',text:'Es una de las partidas donde más se nota reservar con tiempo, especialmente en Estocolmo y en temporada alta.',note:'RESERVAR ANTES COMPENSA'},
+      {icon:'◌',label:'MUY VARIABLE',title:'Comida',text:'Restaurantes y cenas pueden subir el presupuesto rápido. Combinar restaurantes, fika y opciones informales funciona muy bien.',note:'FÁCIL DE AJUSTAR'},
+      {icon:'→',label:'DEPENDE DE LA RUTA',title:'Transporte',text:'En ciudad el transporte público funciona muy bien; en road trip hay que contar coche, combustible y posibles ferris.',note:'PLANIFICAR LA RUTA AYUDA'},
+      {icon:'✦',label:'DONDE ELEGIR',title:'Experiencias',text:'Museos, saunas, barcos o actividades especiales son la parte donde nosotros preferimos reservar margen y no ir demasiado justos.',note:'PRIORIZAR LO QUE IMPORTA'}
+    ],
+    script:'Gastar mejor, no gastar menos',
+    philosophyTitle:'NUESTRA FORMA DE ENTENDER EL PRESUPUESTO',
+    philosophyText:'No intentaríamos convertir Suecia en un destino barato a cualquier precio. Preferimos cerrar bien alojamiento y transporte, controlar las comidas del día a día y dejar margen para esas experiencias que hacen que el viaje merezca la pena.',
+    summaryLabel:'EN QUÉ NOS FIJARÍAMOS',
+    summary:[['ALOJAMIENTO','Reserva con tiempo'],['COMIDA','Combina opciones'],['TRANSPORTE','Define bien la ruta'],['EXPERIENCIAS','Deja margen']]
+  },
   preparation:[
     {icon:'◷',title:'Cuándo ir',text:'Nosotros priorizaríamos finales de primavera y verano si quieres carretera, naturaleza y días muy largos. Invierno sólo si buscas nieve y otro tipo de viaje.',image:'https://images.unsplash.com/photo-1483347756197-71ef80e95f73?auto=format&fit=crop&w=900&q=85',imageHref:'../../planifica/index.html',available:true,href:'../../planifica/index.html',ctaLabel:'VER DETALLE'},
     {icon:'✈',title:'Cómo llegar',text:'Para una primera ruta, volar a Estocolmo suele ser la opción más sencilla. Gotemburgo también puede encajar si tu viaje se concentra en la costa oeste.',image:'https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=900&q=85',available:false},
