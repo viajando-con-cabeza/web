@@ -1,6 +1,6 @@
 (function(){
 function init(){
-  const header=document.querySelector('.page-header'),nav=document.querySelector('.country-nav'),links=[...document.querySelectorAll('.country-nav a')],sections=['guias','itinerarios','presupuesto','planifica','faq','planificador'].map(id=>document.getElementById(id)).filter(Boolean);
+  const header=document.querySelector('.page-header'),nav=document.querySelector('.country-nav'),links=[...document.querySelectorAll('.country-nav a')],sections=['guias','itinerarios','planifica','faq','planificador'].map(id=>document.getElementById(id)).filter(Boolean);
   let navTrigger=0;
   const spacer=document.createElement('div');spacer.className='country-nav-spacer';if(nav&&nav.parentNode)nav.parentNode.insertBefore(spacer,nav);
   const syncFixed=()=>{if(!nav)return;const hh=header?Math.round(header.getBoundingClientRect().height):0,nh=Math.round(nav.getBoundingClientRect().height),shouldFix=window.scrollY>=navTrigger;if(shouldFix){nav.classList.add('is-fixed');nav.style.position='fixed';nav.style.left='0';nav.style.right='0';nav.style.width='100%';nav.style.top=hh+'px';nav.style.zIndex='50';spacer.style.height=nh+'px'}else{nav.classList.remove('is-fixed');nav.style.position='relative';nav.style.left='';nav.style.right='';nav.style.width='';nav.style.top='';nav.style.zIndex='';spacer.style.height='0px'}};
