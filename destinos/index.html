@@ -9,74 +9,37 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=DM+Sans:wght@400;500;600;700;800&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../css/paginas.css">
-  <link rel="stylesheet" href="../css/destinos.css?v=20260908-7">
+  <link rel="stylesheet" href="../css/destinos.css?v=20260909-1">
   <style>
     .destinos-hero{position:relative!important;overflow:hidden!important;background:linear-gradient(90deg,#fbfaf7 0%,#f8f5ef 58%,#f7f3ec 100%)!important;min-height:390px!important}
     .destinos-hero-overlay{display:none!important}
-    .destinos-hero::after{content:"";position:absolute;z-index:0;right:1.5%;top:20px;width:min(62vw,860px);height:350px;background:url('../assets/images/destinos/hero-map-approved-vcc.webp?v=1') center/contain no-repeat!important;opacity:1;pointer-events:none}
+    .destinos-hero::after{content:"";position:absolute;z-index:0;right:1.5%;top:20px;width:min(62vw,860px);height:350px;background:url('../assets/images/destinos/hero-map-approved-vcc.webp?v=2') center/contain no-repeat!important;opacity:1;pointer-events:none}
     .destinos-hero::before{display:none!important}
     .destinos-hero-inner{position:relative;z-index:2;max-width:none!important;padding-left:5%!important}
     .destinos-hero h1{font-family:Georgia,'Times New Roman',serif!important;font-weight:600!important;letter-spacing:-2px!important}
     .destinos-hero-copy{max-width:410px!important;font-size:17px!important}
     .destinos-hero-script{position:absolute!important;left:7%!important;right:auto!important;top:235px!important;text-align:left!important;transform:rotate(-6deg);z-index:3;color:#667b78!important}
-
-    .destinos-page{padding-top:30px!important}
-    .continent-block{position:relative!important;display:block!important;max-width:1420px!important;margin:0 auto 20px!important;background:#fff!important;border:1px solid #eee7e0!important;border-radius:14px!important;overflow:hidden!important;box-shadow:0 8px 24px rgba(43,32,25,.035)!important}
-    .continent-panel{padding:28px 30px 26px!important}
-    .continent-head{position:relative!important;min-height:180px!important;padding:22px 2px 22px 230px!important;display:flex!important;justify-content:space-between!important;gap:28px!important;align-items:flex-start!important;border-bottom:1px solid #e9e0d8!important}
-    .continent-visual{position:absolute!important;left:28px!important;top:22px!important;width:175px!important;height:165px!important;min-height:0!important;background-color:transparent!important;background-position:center!important;background-repeat:no-repeat!important;background-size:contain!important;z-index:2!important;pointer-events:none!important}
-    .continent-visual-europa{background-image:url('../assets/images/destinos/europa-map-v3.svg?v=1')!important}
-    .continent-visual-asia{background-image:url('../assets/images/destinos/asia-map-v3.svg?v=1')!important}
-    .continent-visual-america{background-image:url('../assets/images/destinos/america-map-v3.svg?v=1')!important}
-    .continent-visual-oceania{background-image:url('../assets/images/destinos/oceania-map-v3.svg?v=1')!important}
-    #asia .continent-head,#america .continent-head,#oceania .continent-head{min-height:175px!important}
-    .country-list{padding-top:18px!important}
-
-    @media(max-width:980px){
-      .destinos-hero::after{right:-4%;width:68vw;opacity:.94}
-      .continent-head{padding-left:190px!important}.continent-visual{left:22px!important;width:145px!important;height:145px!important}
-    }
-    @media(max-width:720px){
-      .destinos-hero{min-height:470px!important}.destinos-hero-inner{padding:42px 22px 240px!important}.destinos-hero::after{left:3%;right:auto;top:225px;width:94%;height:220px;opacity:1}.destinos-hero-script{left:auto!important;right:8%!important;top:185px!important;font-size:24px!important;text-align:right!important}
-      .continent-panel{padding:20px 16px 22px!important}.continent-head{min-height:148px!important;padding:14px 0 16px 135px!important}.continent-visual{left:14px!important;top:14px!important;width:105px!important;height:120px!important}.continent-meta{padding-top:0!important}.country-list{grid-template-columns:1fr!important}
-    }
+    .continent-nav{background:#fbf8f4;border-top:1px solid #eee7df;border-bottom:1px solid #e9e0d8;padding:16px 4.2% 18px;position:relative;z-index:20}
+    .continent-nav-inner{max-width:1420px;margin:0 auto}.continent-nav-title{margin:0 0 10px;font:700 10px/1 'DM Sans',sans-serif;letter-spacing:2.2px;color:#706962;text-transform:uppercase}.continent-nav-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}.continent-dropdown{background:#fff;border:1px solid #e7dfd7;border-radius:9px;overflow:hidden}.continent-dropdown summary{list-style:none;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:13px 15px;font:700 12px/1.2 'DM Sans',sans-serif;color:#25211e;user-select:none}.continent-dropdown summary::-webkit-details-marker{display:none}.continent-dropdown summary::after{content:'⌄';font-size:16px;line-height:1;color:#7a736c;transition:transform .18s ease}.continent-dropdown[open] summary::after{transform:rotate(180deg)}.continent-dropdown[open] summary{background:#f9f6f1;border-bottom:1px solid #ece4dc}.continent-country-list{display:grid;grid-template-columns:1fr;gap:0;padding:6px 0}.continent-country-list a{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:9px 15px;text-decoration:none;color:#3b3632;font:500 11px/1.25 'DM Sans',sans-serif}.continent-country-list a:hover{background:#fbf7f2;color:#111}.continent-country-list a span:last-child{color:#9b938c;font-size:13px}
+    .destinos-page{padding-top:30px!important}.continent-block{position:relative!important;display:block!important;max-width:1420px!important;margin:0 auto 20px!important;background:#fff!important;border:1px solid #eee7e0!important;border-radius:14px!important;overflow:hidden!important;box-shadow:0 8px 24px rgba(43,32,25,.035)!important}.continent-panel{padding:28px 30px 26px!important}.continent-head{position:relative!important;min-height:180px!important;padding:22px 2px 22px 230px!important;display:flex!important;justify-content:space-between!important;gap:28px!important;align-items:flex-start!important;border-bottom:1px solid #e9e0d8!important}.continent-visual{position:absolute!important;left:28px!important;top:22px!important;width:175px!important;height:165px!important;min-height:0!important;background-color:transparent!important;background-position:center!important;background-repeat:no-repeat!important;background-size:contain!important;z-index:2!important;pointer-events:none!important}.continent-visual-europa{background-image:url('../assets/images/destinos/europa-map-v3.svg?v=2')!important}.continent-visual-asia{background-image:url('../assets/images/destinos/asia-map-v3.svg?v=2')!important}.continent-visual-america{background-image:url('../assets/images/destinos/america-map-v3.svg?v=2')!important}.continent-visual-oceania{background-image:url('../assets/images/destinos/oceania-map-v3.svg?v=2')!important}#asia .continent-head,#america .continent-head,#oceania .continent-head{min-height:175px!important}.country-list{padding-top:18px!important}
+    @media(max-width:980px){.destinos-hero::after{right:-4%;width:68vw;opacity:.94}.continent-head{padding-left:190px!important}.continent-visual{left:22px!important;width:145px!important;height:145px!important}}
+    @media(max-width:900px){.continent-nav-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+    @media(max-width:720px){.destinos-hero{min-height:470px!important}.destinos-hero-inner{padding:42px 22px 240px!important}.destinos-hero::after{left:3%;right:auto;top:225px;width:94%;height:220px;opacity:1}.destinos-hero-script{left:auto!important;right:8%!important;top:185px!important;font-size:24px!important;text-align:right!important}.continent-panel{padding:20px 16px 22px!important}.continent-head{min-height:148px!important;padding:14px 0 16px 135px!important}.continent-visual{left:14px!important;top:14px!important;width:105px!important;height:120px!important}.continent-meta{padding-top:0!important}.country-list{grid-template-columns:1fr!important}}
+    @media(max-width:560px){.continent-nav{padding:12px 14px 14px}.continent-nav-grid{grid-template-columns:1fr;gap:7px}.continent-nav-title{margin-bottom:8px}.continent-dropdown summary{padding:12px 13px}.continent-country-list a{padding:9px 13px}}
   </style>
 </head>
 <body>
 <header class="page-header"></header>
 <main>
-  <section class="destinos-hero">
-    <div class="destinos-hero-overlay"></div>
-    <div class="destinos-hero-inner">
-      <p class="destinos-kicker">EXPLORA EL MUNDO</p>
-      <h1>Destinos</h1>
-      <p class="destinos-hero-copy">Ideas, guías e inspiración para descubrir cada rincón del planeta. ¿A qué continente te apetece viajar?</p>
-      <p class="destinos-hero-script">Buenos viajes,<br>mejores historias</p>
-    </div>
-  </section>
-
+  <section class="destinos-hero"><div class="destinos-hero-overlay"></div><div class="destinos-hero-inner"><p class="destinos-kicker">EXPLORA EL MUNDO</p><h1>Destinos</h1><p class="destinos-hero-copy">Ideas, guías e inspiración para descubrir cada rincón del planeta. ¿A qué continente te apetece viajar?</p><p class="destinos-hero-script">Buenos viajes,<br>mejores historias</p></div></section>
+  <section class="continent-nav" aria-label="Explora destinos por continente"><div class="continent-nav-inner"><p class="continent-nav-title">Explora por continente</p><div class="continent-nav-grid">
+    <details class="continent-dropdown"><summary>Europa</summary><div class="continent-country-list"><a href="alemania/index.html"><span>Alemania</span><span>→</span></a><a href="austria/index.html"><span>Austria</span><span>→</span></a><a href="belgica/index.html"><span>Bélgica</span><span>→</span></a><a href="espana/index.html"><span>España</span><span>→</span></a><a href="estonia/index.html"><span>Estonia</span><span>→</span></a><a href="francia/index.html"><span>Francia</span><span>→</span></a><a href="hungria/index.html"><span>Hungría</span><span>→</span></a><a href="italia/index.html"><span>Italia</span><span>→</span></a><a href="letonia/index.html"><span>Letonia</span><span>→</span></a><a href="lituania/index.html"><span>Lituania</span><span>→</span></a><a href="suecia/index.html"><span>Suecia</span><span>→</span></a><a href="suiza/index.html"><span>Suiza</span><span>→</span></a><a href="turquia/index.html"><span>Turquía</span><span>→</span></a></div></details>
+    <details class="continent-dropdown"><summary>Asia</summary><div class="continent-country-list"><a href="emiratos-arabes-unidos/index.html"><span>Emiratos Árabes Unidos</span><span>→</span></a><a href="indonesia/index.html"><span>Indonesia</span><span>→</span></a><a href="malasia/index.html"><span>Malasia</span><span>→</span></a><a href="singapur/index.html"><span>Singapur</span><span>→</span></a></div></details>
+    <details class="continent-dropdown"><summary>América</summary><div class="continent-country-list"><a href="eeuu/index.html"><span>Estados Unidos</span><span>→</span></a><a href="mexico/index.html"><span>México</span><span>→</span></a></div></details>
+    <details class="continent-dropdown"><summary>Oceanía</summary><div class="continent-country-list"><a href="australia/index.html"><span>Australia</span><span>→</span></a></div></details>
+  </div></div></section>
   <section class="destinos-page">
-    <div class="continent-block" id="europa">
-      <div class="continent-visual continent-visual-europa" aria-hidden="true"></div>
-      <div class="continent-panel">
-        <div class="continent-head"><div><p class="continent-kicker">EUROPA</p><h2>Europa</h2><p>Ciudades con historia, naturaleza impresionante y mil rincones por descubrir.</p></div><div class="continent-meta"><span>13 destinos</span><a href="#europa-grid">Ver todos →</a></div></div>
-        <div class="country-list" id="europa-grid">
-          <a class="country-row" href="alemania/index.html"><img src="https://flagcdn.com/w80/de.png" alt=""><span>Alemania</span><b>→</b></a>
-          <a class="country-row" href="austria/index.html"><img src="https://flagcdn.com/w80/at.png" alt=""><span>Austria</span><b>→</b></a>
-          <a class="country-row" href="belgica/index.html"><img src="https://flagcdn.com/w80/be.png" alt=""><span>Bélgica</span><b>→</b></a>
-          <a class="country-row" href="espana/index.html"><img src="https://flagcdn.com/w80/es.png" alt=""><span>España</span><b>→</b></a>
-          <a class="country-row" href="estonia/index.html"><img src="https://flagcdn.com/w80/ee.png" alt=""><span>Estonia</span><b>→</b></a>
-          <a class="country-row" href="francia/index.html"><img src="https://flagcdn.com/w80/fr.png" alt=""><span>Francia</span><b>→</b></a>
-          <a class="country-row" href="hungria/index.html"><img src="https://flagcdn.com/w80/hu.png" alt=""><span>Hungría</span><b>→</b></a>
-          <a class="country-row" href="italia/index.html"><img src="https://flagcdn.com/w80/it.png" alt=""><span>Italia</span><b>→</b></a>
-          <a class="country-row" href="letonia/index.html"><img src="https://flagcdn.com/w80/lv.png" alt=""><span>Letonia</span><b>→</b></a>
-          <a class="country-row" href="lituania/index.html"><img src="https://flagcdn.com/w80/lt.png" alt=""><span>Lituania</span><b>→</b></a>
-          <a class="country-row" href="suecia/index.html"><img src="https://flagcdn.com/w80/se.png" alt=""><span>Suecia</span><b>→</b></a>
-          <a class="country-row" href="suiza/index.html"><img src="https://flagcdn.com/w80/ch.png" alt=""><span>Suiza</span><b>→</b></a>
-          <a class="country-row" href="turquia/index.html"><img src="https://flagcdn.com/w80/tr.png" alt=""><span>Turquía <small>Europa / Asia</small></span><b>→</b></a>
-        </div>
-      </div>
-    </div>
+    <div class="continent-block" id="europa"><div class="continent-visual continent-visual-europa" aria-hidden="true"></div><div class="continent-panel"><div class="continent-head"><div><p class="continent-kicker">EUROPA</p><h2>Europa</h2><p>Ciudades con historia, naturaleza impresionante y mil rincones por descubrir.</p></div><div class="continent-meta"><span>13 destinos</span><a href="#europa-grid">Ver todos →</a></div></div><div class="country-list" id="europa-grid"><a class="country-row" href="alemania/index.html"><img src="https://flagcdn.com/w80/de.png" alt=""><span>Alemania</span><b>→</b></a><a class="country-row" href="austria/index.html"><img src="https://flagcdn.com/w80/at.png" alt=""><span>Austria</span><b>→</b></a><a class="country-row" href="belgica/index.html"><img src="https://flagcdn.com/w80/be.png" alt=""><span>Bélgica</span><b>→</b></a><a class="country-row" href="espana/index.html"><img src="https://flagcdn.com/w80/es.png" alt=""><span>España</span><b>→</b></a><a class="country-row" href="estonia/index.html"><img src="https://flagcdn.com/w80/ee.png" alt=""><span>Estonia</span><b>→</b></a><a class="country-row" href="francia/index.html"><img src="https://flagcdn.com/w80/fr.png" alt=""><span>Francia</span><b>→</b></a><a class="country-row" href="hungria/index.html"><img src="https://flagcdn.com/w80/hu.png" alt=""><span>Hungría</span><b>→</b></a><a class="country-row" href="italia/index.html"><img src="https://flagcdn.com/w80/it.png" alt=""><span>Italia</span><b>→</b></a><a class="country-row" href="letonia/index.html"><img src="https://flagcdn.com/w80/lv.png" alt=""><span>Letonia</span><b>→</b></a><a class="country-row" href="lituania/index.html"><img src="https://flagcdn.com/w80/lt.png" alt=""><span>Lituania</span><b>→</b></a><a class="country-row" href="suecia/index.html"><img src="https://flagcdn.com/w80/se.png" alt=""><span>Suecia</span><b>→</b></a><a class="country-row" href="suiza/index.html"><img src="https://flagcdn.com/w80/ch.png" alt=""><span>Suiza</span><b>→</b></a><a class="country-row" href="turquia/index.html"><img src="https://flagcdn.com/w80/tr.png" alt=""><span>Turquía <small>Europa / Asia</small></span><b>→</b></a></div></div></div>
     <div class="flight-divider"><span></span><b>✈</b><span></span><em>La próxima aventura<br>también te espera</em></div>
     <div class="continent-block" id="asia"><div class="continent-visual continent-visual-asia" aria-hidden="true"></div><div class="continent-panel"><div class="continent-head"><div><p class="continent-kicker">ASIA</p><h2>Asia</h2><p>Tradición, modernidad y paisajes que no se olvidan.</p></div><div class="continent-meta"><span>4 destinos</span><a href="#asia-grid">Ver todos →</a></div></div><div class="country-list" id="asia-grid"><a class="country-row" href="emiratos-arabes-unidos/index.html"><img src="https://flagcdn.com/w80/ae.png" alt=""><span>Emiratos Árabes Unidos</span><b>→</b></a><a class="country-row" href="indonesia/index.html"><img src="https://flagcdn.com/w80/id.png" alt=""><span>Indonesia</span><b>→</b></a><a class="country-row" href="malasia/index.html"><img src="https://flagcdn.com/w80/my.png" alt=""><span>Malasia</span><b>→</b></a><a class="country-row" href="singapur/index.html"><img src="https://flagcdn.com/w80/sg.png" alt=""><span>Singapur</span><b>→</b></a></div></div></div>
     <div class="continent-block" id="america"><div class="continent-visual continent-visual-america" aria-hidden="true"></div><div class="continent-panel"><div class="continent-head"><div><p class="continent-kicker">AMÉRICA</p><h2>América</h2><p>Naturaleza salvaje, culturas fascinantes y experiencias inolvidables.</p></div><div class="continent-meta"><span>2 destinos</span><a href="#america-grid">Ver todos →</a></div></div><div class="country-list" id="america-grid"><a class="country-row" href="eeuu/index.html"><img src="https://flagcdn.com/w80/us.png" alt=""><span>Estados Unidos</span><b>→</b></a><a class="country-row" href="mexico/index.html"><img src="https://flagcdn.com/w80/mx.png" alt=""><span>México</span><b>→</b></a></div></div></div>
@@ -84,7 +47,5 @@
     <div class="coming-soon"><div class="coming-icon">⌖</div><div><h3>Más destinos en camino...</h3><p>Seguimos explorando el mundo para traerte nuevas guías e inspirarte en tu próxima aventura.</p></div><a href="../itinerarios/">Sigue el viaje →</a></div>
   </section>
 </main>
-<footer class="page-footer"><div class="footer-copy">© 2026 Viajando con Cabeza · Todos los derechos reservados</div></footer>
-<script src="../js/site-header.js"></script>
-</body>
-</html>
+<footer class="page-footer"><div class="footer-copy">© 2026 Viajando con Cabeza · Todos los derechos reservados</div></footer><script src="../js/site-header.js"></script>
+</body></html>
