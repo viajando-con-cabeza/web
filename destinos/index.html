@@ -11,10 +11,76 @@
   <link rel="stylesheet" href="../css/paginas.css">
   <link rel="stylesheet" href="../css/destinos.css">
   <link rel="stylesheet" href="../css/destinos-maps.css">
+  <style>
+    .continent-nav{background:#fbf8f4;border-bottom:1px solid #e9e0d8;padding:16px 4.2% 18px;position:relative;z-index:20}
+    .continent-nav-inner{max-width:1420px;margin:0 auto}
+    .continent-nav-title{margin:0 0 10px;font:700 10px/1 'DM Sans',sans-serif;letter-spacing:2.2px;color:#706962;text-transform:uppercase}
+    .continent-nav-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+    .continent-dropdown{background:#fff;border:1px solid #e7dfd7;border-radius:9px;overflow:hidden}
+    .continent-dropdown summary{list-style:none;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:13px 15px;font:700 12px/1.2 'DM Sans',sans-serif;color:#25211e;user-select:none}
+    .continent-dropdown summary::-webkit-details-marker{display:none}
+    .continent-dropdown summary::after{content:'⌄';font-size:16px;line-height:1;color:#7a736c;transition:transform .18s ease}
+    .continent-dropdown[open] summary::after{transform:rotate(180deg)}
+    .continent-dropdown[open] summary{background:#f9f6f1;border-bottom:1px solid #ece4dc}
+    .continent-country-list{display:grid;grid-template-columns:1fr;gap:0;padding:6px 0}
+    .continent-country-list a{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:9px 15px;text-decoration:none;color:#3b3632;font:500 11px/1.25 'DM Sans',sans-serif}
+    .continent-country-list a:hover{background:#fbf7f2;color:#111}
+    .continent-country-list a span:last-child{color:#9b938c;font-size:13px}
+    @media(max-width:900px){.continent-nav-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+    @media(max-width:560px){.continent-nav{padding:12px 14px 14px}.continent-nav-grid{grid-template-columns:1fr;gap:7px}.continent-nav-title{margin-bottom:8px}.continent-dropdown summary{padding:12px 13px}.continent-country-list a{padding:9px 13px}}
+  </style>
 </head>
 <body>
 <header class="page-header"></header>
 <main>
+  <section class="continent-nav" aria-label="Explora destinos por continente">
+    <div class="continent-nav-inner">
+      <p class="continent-nav-title">Explora por continente</p>
+      <div class="continent-nav-grid">
+        <details class="continent-dropdown">
+          <summary>Europa</summary>
+          <div class="continent-country-list">
+            <a href="alemania/index.html"><span>Alemania</span><span>→</span></a>
+            <a href="austria/index.html"><span>Austria</span><span>→</span></a>
+            <a href="belgica/index.html"><span>Bélgica</span><span>→</span></a>
+            <a href="espana/index.html"><span>España</span><span>→</span></a>
+            <a href="estonia/index.html"><span>Estonia</span><span>→</span></a>
+            <a href="francia/index.html"><span>Francia</span><span>→</span></a>
+            <a href="hungria/index.html"><span>Hungría</span><span>→</span></a>
+            <a href="italia/index.html"><span>Italia</span><span>→</span></a>
+            <a href="letonia/index.html"><span>Letonia</span><span>→</span></a>
+            <a href="lituania/index.html"><span>Lituania</span><span>→</span></a>
+            <a href="suecia/index.html"><span>Suecia</span><span>→</span></a>
+            <a href="suiza/index.html"><span>Suiza</span><span>→</span></a>
+            <a href="turquia/index.html"><span>Turquía</span><span>→</span></a>
+          </div>
+        </details>
+        <details class="continent-dropdown">
+          <summary>Asia</summary>
+          <div class="continent-country-list">
+            <a href="emiratos-arabes-unidos/index.html"><span>Emiratos Árabes Unidos</span><span>→</span></a>
+            <a href="indonesia/index.html"><span>Indonesia</span><span>→</span></a>
+            <a href="malasia/index.html"><span>Malasia</span><span>→</span></a>
+            <a href="singapur/index.html"><span>Singapur</span><span>→</span></a>
+          </div>
+        </details>
+        <details class="continent-dropdown">
+          <summary>América</summary>
+          <div class="continent-country-list">
+            <a href="eeuu/index.html"><span>Estados Unidos</span><span>→</span></a>
+            <a href="mexico/index.html"><span>México</span><span>→</span></a>
+          </div>
+        </details>
+        <details class="continent-dropdown">
+          <summary>Oceanía</summary>
+          <div class="continent-country-list">
+            <a href="australia/index.html"><span>Australia</span><span>→</span></a>
+          </div>
+        </details>
+      </div>
+    </div>
+  </section>
+
   <section class="destinos-hero">
     <div class="destinos-hero-overlay"></div>
     <div class="destinos-hero-inner">
