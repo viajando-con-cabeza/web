@@ -1,25 +1,27 @@
-:root{--soon-ink:#17191b;--soon-coral:#e97861;--soon-line:#ded7ca}
-.soon-page{min-height:calc(100vh - 50px);background:#fff}
-.soon-hero{position:relative;isolation:isolate;min-height:clamp(650px,calc(100vh - 50px),850px);display:grid;place-items:center;overflow:hidden;padding:64px 24px}
-.soon-photo{position:absolute;inset:0;z-index:-2;background:linear-gradient(90deg,rgba(14,17,18,.60),rgba(14,17,18,.20)),url('../assets/images/home/hero.jpg') center 54%/cover no-repeat;transform:scale(1.01)}
-.soon-hero:after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(0,0,0,.05),rgba(0,0,0,.19))}
-.soon-card{position:relative;width:min(680px,100%);padding:52px 64px 48px;background:rgba(250,248,243,.96);box-shadow:0 25px 70px rgba(10,12,13,.24);text-align:center}
-.soon-card:before,.soon-card:after{content:"";position:absolute;top:20px;bottom:20px;width:1px;background:var(--soon-line)}
-.soon-card:before{left:20px}.soon-card:after{right:20px}
-.soon-route{display:flex;align-items:center;justify-content:center;gap:14px;color:#6f706f;font-size:.7rem;font-weight:800;letter-spacing:.16em}
-.soon-route i{display:block;width:58px;height:1px;background:var(--soon-coral);position:relative}
-.soon-route i:after{content:"";position:absolute;right:-1px;top:-3px;width:7px;height:7px;border-top:1px solid var(--soon-coral);border-right:1px solid var(--soon-coral);transform:rotate(45deg)}
-.soon-kicker{margin:24px 0 3px;color:var(--soon-coral);font:600 1.65rem/1.1 "Caveat",cursive}
-.soon-card h1{margin:0;color:var(--soon-ink);font:600 clamp(3.3rem,8vw,6.1rem)/.94 "Oswald",sans-serif;letter-spacing:-.045em}
-.soon-lead{margin:22px 0 6px;color:var(--soon-ink);font-size:1.08rem;font-weight:700}
-.soon-copy{max-width:510px;margin:0 auto;color:#5e605f;font-size:.96rem;line-height:1.7}
-.soon-stamp{position:relative;width:128px;height:128px;margin:26px auto 28px;border:1px solid var(--soon-coral);border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;color:var(--soon-coral);transform:rotate(-5deg)}
-.soon-stamp:before{content:"";position:absolute;width:114px;height:114px;border:1px dashed rgba(233,120,97,.58);border-radius:50%}
-.soon-stamp span,.soon-stamp small{font-size:.55rem;font-weight:800;letter-spacing:.14em}.soon-stamp strong{font:600 1rem/1.1 "Oswald",sans-serif;letter-spacing:.04em}.soon-stamp small{margin-top:5px;font-size:.45rem}
-.soon-actions{display:flex;align-items:center;justify-content:center;gap:22px;flex-wrap:wrap}
-.soon-primary{display:inline-flex;align-items:center;gap:13px;min-height:46px;padding:0 22px;background:var(--soon-ink);color:#fff;font-size:.7rem;font-weight:800;letter-spacing:.08em;transition:.2s ease}
+:root{--soon-ink:#17191b;--soon-coral:#e97861;--soon-cream:#f7f3eb;--soon-line:#ded7ca}
+.soon-page{min-height:calc(100vh - 50px);background:var(--soon-cream)}
+.soon-hero{position:relative;min-height:clamp(650px,calc(100vh - 50px),820px);display:grid;place-items:center;overflow:hidden;padding:72px 24px}
+.soon-card{position:relative;z-index:2;display:grid;grid-template-columns:minmax(280px,.88fr) minmax(430px,1.12fr);width:min(1050px,100%);min-height:570px;background:#fff;box-shadow:0 28px 80px rgba(38,33,26,.13)}
+.soon-image{position:relative;display:flex;flex-direction:column;justify-content:space-between;padding:34px;background:linear-gradient(180deg,rgba(10,12,13,.08),rgba(10,12,13,.72)),url('../assets/images/home/hero.jpg') center/cover no-repeat;color:#fff}
+.soon-image:after{content:"";position:absolute;inset:15px;border:1px solid rgba(255,255,255,.55);pointer-events:none}
+.soon-image span{position:relative;z-index:1;font-size:.62rem;font-weight:800;letter-spacing:.2em}
+.soon-image p{position:relative;z-index:1;margin:0;font:500 2rem/1.12 "Oswald",sans-serif;letter-spacing:-.02em;text-transform:uppercase}
+.soon-content{display:flex;flex-direction:column;justify-content:center;padding:58px 62px}
+.soon-eyebrow{display:flex;align-items:center;gap:10px;color:#77766f;font-size:.62rem;font-weight:800;letter-spacing:.16em}
+.soon-eyebrow span{width:7px;height:7px;border-radius:50%;background:var(--soon-coral);box-shadow:0 0 0 4px rgba(233,120,97,.13)}
+.soon-kicker{margin:28px 0 4px;color:var(--soon-coral);font:600 1.65rem/1.1 "Caveat",cursive}
+.soon-card h1{margin:0;color:var(--soon-ink);font:600 clamp(3.5rem,6.3vw,6rem)/.9 "Oswald",sans-serif;letter-spacing:-.055em}
+.soon-lead{margin:28px 0 6px;color:var(--soon-ink);font-size:1.08rem;font-weight:700}
+.soon-copy{max-width:500px;margin:0;color:#686864;font-size:.94rem;line-height:1.7}
+.soon-note{display:grid;gap:3px;margin:26px 0 30px;padding:13px 0 13px 18px;border-left:2px solid var(--soon-coral)}
+.soon-note strong{font-size:.61rem;letter-spacing:.15em}.soon-note span{color:#656560;font-size:.85rem}
+.soon-actions{display:flex;align-items:center;gap:22px;flex-wrap:wrap}
+.soon-primary{display:inline-flex;align-items:center;gap:13px;min-height:46px;padding:0 22px;background:var(--soon-ink);color:#fff;font-size:.68rem;font-weight:800;letter-spacing:.08em;transition:.2s ease}
 .soon-primary:hover{background:var(--soon-coral);transform:translateY(-2px)}
-.soon-primary span{font-size:1rem}.soon-secondary{padding:10px 2px;border-bottom:1px solid var(--soon-ink);color:var(--soon-ink);font-size:.68rem;font-weight:800;letter-spacing:.08em}
-.soon-plane{position:absolute;right:max(24px,8vw);bottom:52px;width:150px;filter:brightness(0) invert(1);opacity:.78;transform:rotate(7deg)}
-@media(max-width:720px){.soon-hero{min-height:calc(100svh - 84px);padding:38px 18px}.soon-card{padding:42px 34px 38px}.soon-card:before{left:13px}.soon-card:after{right:13px}.soon-plane{display:none}.soon-kicker{font-size:1.45rem}.soon-card h1{font-size:clamp(3rem,16vw,4.7rem)}.soon-copy{font-size:.9rem}.soon-actions{gap:14px;flex-direction:column}.soon-primary,.soon-secondary{width:100%;justify-content:center}.soon-stamp{width:116px;height:116px}.soon-stamp:before{width:103px;height:103px}}
+.soon-primary span{font-size:1rem}.soon-secondary{padding:10px 2px;border-bottom:1px solid var(--soon-ink);color:var(--soon-ink);font-size:.66rem;font-weight:800;letter-spacing:.08em}
+.soon-route-line{position:absolute;z-index:1;display:flex;align-items:center;left:max(18px,4vw);right:max(18px,4vw);top:45%;opacity:.42}
+.soon-dot{width:7px;height:7px;border-radius:50%;background:var(--soon-coral)}.soon-dashes{flex:1;border-top:1px dashed var(--soon-coral)}
+.soon-route-line img{width:115px;margin-left:-8px;filter:sepia(1) saturate(5) hue-rotate(320deg);transform:rotate(4deg)}
+@media(max-width:860px){.soon-hero{padding:44px 20px}.soon-card{grid-template-columns:1fr;max-width:650px}.soon-image{min-height:230px;background-position:center 58%}.soon-image p{font-size:1.7rem}.soon-content{padding:46px 50px}.soon-route-line{display:none}}
+@media(max-width:560px){.soon-hero{min-height:auto;padding:24px 14px 36px}.soon-card{min-height:0}.soon-image{min-height:190px;padding:26px}.soon-image:after{inset:11px}.soon-image p{font-size:1.45rem}.soon-content{padding:38px 28px 34px}.soon-kicker{margin-top:23px;font-size:1.45rem}.soon-card h1{font-size:clamp(3rem,15vw,4.2rem)}.soon-lead{margin-top:22px}.soon-copy{font-size:.9rem}.soon-actions{gap:13px;flex-direction:column}.soon-primary,.soon-secondary{width:100%;justify-content:center}.soon-secondary{text-align:center}}
 @media(prefers-reduced-motion:reduce){.soon-primary{transition:none}}
