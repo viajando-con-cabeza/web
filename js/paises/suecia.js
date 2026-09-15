@@ -8,9 +8,9 @@ window.COUNTRY_CONFIG={
   inspirationImage:"https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1800&q=86",
   paths:{home:"../../index.html",destinations:"../index.html"},
   sections:{
-    guides:{kicker:"Descubre Suecia",title:"GUÍAS DE VIAJE",description:"Ciudades, regiones y rincones para encontrar la Suecia que mejor encaja contigo."},
-    itineraries:{kicker:"Combina las piezas",title:"ITINERARIOS EN SUECIA",description:"Rutas listas para organizar el viaje según los días que tengas.",minimumCards:4},
-    preparation:{kicker:"Antes de viajar a Suecia",title:"PLANIFICA TU VIAJE",description:"Información práctica y nuestra opinión para preparar Suecia sin perder tiempo en lo que realmente importa."},
+    guides:{kicker:"Descubre Suecia",title:"GUÍAS DE VIAJE",description:"Ciudades y rincones para descubrir Suecia."},
+    itineraries:{kicker:"Combina las piezas",title:"ITINERARIOS EN SUECIA",description:"Rutas listas según los días que tengas.",minimumCards:4},
+    preparation:{kicker:"Antes de viajar a Suecia",title:"PLANIFICA TU VIAJE",description:"Información práctica para preparar tu viaje."},
     inspiration:{line1:"Viaja mejor,",line2:"viaja con cabeza"},
     faq:{kicker:"Antes de viajar",title:"PREGUNTAS FRECUENTES",description:"Todo lo que necesitas saber para viajar a Suecia con tranquilidad.",sideLine1:"Viajar mejor",sideLine2:"empieza con",sideLine3:"buenas preguntas"}
   },
