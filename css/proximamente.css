@@ -1,0 +1,25 @@
+:root{--soon-ink:#17191b;--soon-coral:#e97861;--soon-line:#ded7ca}
+.soon-page{min-height:calc(100vh - 50px);background:#fff}
+.soon-hero{position:relative;isolation:isolate;min-height:clamp(650px,calc(100vh - 50px),850px);display:grid;place-items:center;overflow:hidden;padding:64px 24px}
+.soon-photo{position:absolute;inset:0;z-index:-2;background:linear-gradient(90deg,rgba(14,17,18,.60),rgba(14,17,18,.20)),url('../assets/images/home/hero.jpg') center 54%/cover no-repeat;transform:scale(1.01)}
+.soon-hero:after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(0,0,0,.05),rgba(0,0,0,.19))}
+.soon-card{position:relative;width:min(680px,100%);padding:52px 64px 48px;background:rgba(250,248,243,.96);box-shadow:0 25px 70px rgba(10,12,13,.24);text-align:center}
+.soon-card:before,.soon-card:after{content:"";position:absolute;top:20px;bottom:20px;width:1px;background:var(--soon-line)}
+.soon-card:before{left:20px}.soon-card:after{right:20px}
+.soon-route{display:flex;align-items:center;justify-content:center;gap:14px;color:#6f706f;font-size:.7rem;font-weight:800;letter-spacing:.16em}
+.soon-route i{display:block;width:58px;height:1px;background:var(--soon-coral);position:relative}
+.soon-route i:after{content:"";position:absolute;right:-1px;top:-3px;width:7px;height:7px;border-top:1px solid var(--soon-coral);border-right:1px solid var(--soon-coral);transform:rotate(45deg)}
+.soon-kicker{margin:24px 0 3px;color:var(--soon-coral);font:600 1.65rem/1.1 "Caveat",cursive}
+.soon-card h1{margin:0;color:var(--soon-ink);font:600 clamp(3.3rem,8vw,6.1rem)/.94 "Oswald",sans-serif;letter-spacing:-.045em}
+.soon-lead{margin:22px 0 6px;color:var(--soon-ink);font-size:1.08rem;font-weight:700}
+.soon-copy{max-width:510px;margin:0 auto;color:#5e605f;font-size:.96rem;line-height:1.7}
+.soon-stamp{position:relative;width:128px;height:128px;margin:26px auto 28px;border:1px solid var(--soon-coral);border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;color:var(--soon-coral);transform:rotate(-5deg)}
+.soon-stamp:before{content:"";position:absolute;width:114px;height:114px;border:1px dashed rgba(233,120,97,.58);border-radius:50%}
+.soon-stamp span,.soon-stamp small{font-size:.55rem;font-weight:800;letter-spacing:.14em}.soon-stamp strong{font:600 1rem/1.1 "Oswald",sans-serif;letter-spacing:.04em}.soon-stamp small{margin-top:5px;font-size:.45rem}
+.soon-actions{display:flex;align-items:center;justify-content:center;gap:22px;flex-wrap:wrap}
+.soon-primary{display:inline-flex;align-items:center;gap:13px;min-height:46px;padding:0 22px;background:var(--soon-ink);color:#fff;font-size:.7rem;font-weight:800;letter-spacing:.08em;transition:.2s ease}
+.soon-primary:hover{background:var(--soon-coral);transform:translateY(-2px)}
+.soon-primary span{font-size:1rem}.soon-secondary{padding:10px 2px;border-bottom:1px solid var(--soon-ink);color:var(--soon-ink);font-size:.68rem;font-weight:800;letter-spacing:.08em}
+.soon-plane{position:absolute;right:max(24px,8vw);bottom:52px;width:150px;filter:brightness(0) invert(1);opacity:.78;transform:rotate(7deg)}
+@media(max-width:720px){.soon-hero{min-height:calc(100svh - 84px);padding:38px 18px}.soon-card{padding:42px 34px 38px}.soon-card:before{left:13px}.soon-card:after{right:13px}.soon-plane{display:none}.soon-kicker{font-size:1.45rem}.soon-card h1{font-size:clamp(3rem,16vw,4.7rem)}.soon-copy{font-size:.9rem}.soon-actions{gap:14px;flex-direction:column}.soon-primary,.soon-secondary{width:100%;justify-content:center}.soon-stamp{width:116px;height:116px}.soon-stamp:before{width:103px;height:103px}}
+@media(prefers-reduced-motion:reduce){.soon-primary{transition:none}}
