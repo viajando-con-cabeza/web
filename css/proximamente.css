@@ -6,11 +6,13 @@
 .soon-image:after{content:"";position:absolute;inset:15px;border:1px solid rgba(255,255,255,.55);pointer-events:none}
 .soon-image span{position:relative;z-index:1;font-size:.62rem;font-weight:800;letter-spacing:.2em}
 .soon-image p{position:relative;z-index:1;margin:0;font:500 2rem/1.12 "Oswald",sans-serif;letter-spacing:-.02em;text-transform:uppercase}
+.soon-workmark{position:absolute;z-index:1;left:50%;top:50%;display:grid;place-items:center;gap:9px;width:128px;height:128px;border:1px dashed rgba(255,255,255,.78);border-radius:50%;transform:translate(-50%,-50%) rotate(-7deg);background:rgba(20,22,22,.12);backdrop-filter:blur(2px)}
+.soon-workmark svg{width:33px;height:33px;fill:none;stroke:#fff;stroke-width:1.25;stroke-linecap:round;stroke-linejoin:round}.soon-workmark small{font-size:.5rem;font-weight:800;letter-spacing:.12em}
 .soon-content{display:flex;flex-direction:column;justify-content:center;padding:58px 62px}
 .soon-eyebrow{display:flex;align-items:center;gap:10px;color:#77766f;font-size:.62rem;font-weight:800;letter-spacing:.16em}
 .soon-eyebrow span{width:7px;height:7px;border-radius:50%;background:var(--soon-coral);box-shadow:0 0 0 4px rgba(233,120,97,.13)}
 .soon-kicker{margin:28px 0 4px;color:var(--soon-coral);font:600 1.65rem/1.1 "Caveat",cursive}
-.soon-card h1{margin:0;color:var(--soon-ink);font:600 clamp(3.5rem,6.3vw,6rem)/.9 "Oswald",sans-serif;letter-spacing:-.055em}
+.soon-card h1{max-width:520px;margin:0;color:var(--soon-ink);font:600 clamp(3.4rem,5.7vw,5.35rem)/.91 "Oswald",sans-serif;letter-spacing:-.055em}
 .soon-lead{margin:28px 0 6px;color:var(--soon-ink);font-size:1.08rem;font-weight:700}
 .soon-copy{max-width:500px;margin:0;color:#686864;font-size:.94rem;line-height:1.7}
 .soon-note{display:grid;gap:3px;margin:26px 0 30px;padding:13px 0 13px 18px;border-left:2px solid var(--soon-coral)}
@@ -22,6 +24,6 @@
 .soon-route-line{position:absolute;z-index:1;display:flex;align-items:center;left:max(18px,4vw);right:max(18px,4vw);top:45%;opacity:.42}
 .soon-dot{width:7px;height:7px;border-radius:50%;background:var(--soon-coral)}.soon-dashes{flex:1;border-top:1px dashed var(--soon-coral)}
 .soon-route-line img{width:115px;margin-left:-8px;filter:sepia(1) saturate(5) hue-rotate(320deg);transform:rotate(4deg)}
-@media(max-width:860px){.soon-hero{padding:44px 20px}.soon-card{grid-template-columns:1fr;max-width:650px}.soon-image{min-height:230px;background-position:center 58%}.soon-image p{font-size:1.7rem}.soon-content{padding:46px 50px}.soon-route-line{display:none}}
-@media(max-width:560px){.soon-hero{min-height:auto;padding:24px 14px 36px}.soon-card{min-height:0}.soon-image{min-height:190px;padding:26px}.soon-image:after{inset:11px}.soon-image p{font-size:1.45rem}.soon-content{padding:38px 28px 34px}.soon-kicker{margin-top:23px;font-size:1.45rem}.soon-card h1{font-size:clamp(3rem,15vw,4.2rem)}.soon-lead{margin-top:22px}.soon-copy{font-size:.9rem}.soon-actions{gap:13px;flex-direction:column}.soon-primary,.soon-secondary{width:100%;justify-content:center}.soon-secondary{text-align:center}}
+@media(max-width:860px){.soon-hero{padding:44px 20px}.soon-card{grid-template-columns:1fr;max-width:650px}.soon-image{min-height:250px;background-position:center 58%}.soon-image p{font-size:1.7rem}.soon-workmark{width:104px;height:104px}.soon-workmark svg{width:28px;height:28px}.soon-content{padding:46px 50px}.soon-route-line{display:none}}
+@media(max-width:560px){.soon-hero{min-height:auto;padding:24px 14px 36px}.soon-card{min-height:0}.soon-image{min-height:215px;padding:26px}.soon-image:after{inset:11px}.soon-image p{font-size:1.45rem}.soon-workmark{top:48%;width:92px;height:92px}.soon-workmark svg{width:24px;height:24px}.soon-workmark small{font-size:.42rem}.soon-content{padding:38px 28px 34px}.soon-kicker{margin-top:23px;font-size:1.45rem}.soon-card h1{font-size:clamp(2.85rem,14vw,4rem)}.soon-lead{margin-top:22px}.soon-copy{font-size:.9rem}.soon-actions{gap:13px;flex-direction:column}.soon-primary,.soon-secondary{width:100%;justify-content:center}.soon-secondary{text-align:center}}
 @media(prefers-reduced-motion:reduce){.soon-primary{transition:none}}
