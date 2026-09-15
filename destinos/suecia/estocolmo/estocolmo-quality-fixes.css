@@ -1,0 +1,29 @@
+/* Ajustes de la landing de Estocolmo para igualarla con la landing general de Suecia. */
+html,body{max-width:100%;overflow-x:clip}
+.st-shell{width:100%;max-width:100%;overflow-x:clip}
+
+/* Contenido siempre dentro del ancho editorial: evita el desplazamiento horizontal de toda la página. */
+.st-main,.country-main.after-inspiration{width:min(1180px,calc(100% - 48px))!important;max-width:1180px!important;margin-left:auto!important;margin-right:auto!important;box-sizing:border-box!important}
+.st-discover,.st-half-section,.st-carousel-wrap,.st-card-carousel,.vcc-plan-section,.vcc-prep-grid{min-width:0!important;max-width:100%!important;box-sizing:border-box!important}
+.st-card-carousel{width:100%!important}
+
+/* Navegación de secciones: arranca en el margen izquierdo del contenedor, como Suecia. */
+.st-tabs{justify-content:flex-start!important;text-align:left!important}
+.st-tabs a{flex:0 0 auto!important;text-align:left!important}
+
+/* Acciones de Qué ver e Itinerario: mismo lenguaje visual que las tarjetas de Suecia. */
+.st-card-carousel .vcc-card-action,.st-featured-itinerary .vcc-card-action{margin-top:auto!important;padding-top:10px!important;display:flex!important;align-items:flex-end!important;justify-content:flex-start!important;min-height:42px!important;width:100%!important}
+.st-card-carousel .country-btn,.st-featured-itinerary .country-btn{position:relative!important;display:inline-flex!important;align-items:center!important;width:auto!important;min-width:92px!important;min-height:38px!important;margin:-14px -20px -12px -16px!important;padding:14px 20px 12px 16px!important;border:0!important;border-radius:0!important;background:transparent!important;box-shadow:none!important;color:#a65340!important;text-decoration:none!important;cursor:pointer!important;font-size:8.6px!important;line-height:1.2!important;font-weight:800!important;letter-spacing:.035em!important;white-space:nowrap!important;z-index:2!important}
+.st-card-carousel .country-btn:hover,.st-featured-itinerary .country-btn:hover{color:#78392d!important;text-decoration:underline!important;text-underline-offset:3px!important}
+.st-card-carousel .country-soon,.st-featured-itinerary .country-soon{display:inline!important;width:auto!important;min-width:0!important;min-height:0!important;padding:0!important;border:0!important;border-radius:0!important;background:transparent!important;box-shadow:none!important;color:#c9bcb2!important;font-size:8.6px!important;line-height:1.2!important;font-weight:800!important;letter-spacing:.035em!important;white-space:nowrap!important}
+
+/* Planifica tu viaje: la acción queda anclada abajo a la izquierda, independientemente del largo del texto. */
+.vcc-prep-card{display:flex!important;flex-direction:column!important;height:100%!important}
+.vcc-prep-copy{display:flex!important;flex-direction:column!important;align-items:flex-start!important;flex:1 1 auto!important;width:100%!important}
+.vcc-prep-copy .vcc-card-action{margin-top:auto!important;padding-top:10px!important;display:flex!important;align-items:flex-end!important;justify-content:flex-start!important;min-height:42px!important;width:100%!important}
+.vcc-prep-copy .vcc-prep-action{align-self:flex-start!important}
+.vcc-prep-copy .vcc-soon{align-self:flex-start!important;color:#c9bcb2!important}
+
+@media(max-width:850px){
+  .st-main,.country-main.after-inspiration{width:calc(100% - 28px)!important}
+}
