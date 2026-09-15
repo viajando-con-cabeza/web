@@ -31,4 +31,52 @@
     fix.textContent=`.destinos-hero::after{background-image:url("${url('assets/images/destinos/hero-map-approved-inline.svg?v=2')}")!important;background-position:center!important;background-size:contain!important;background-repeat:no-repeat!important}`;
     document.head.appendChild(fix);
   }
+  if(section==='itinerarios' && /\/itinerarios\/?$/.test(currentPath)){
+    const list=document.querySelector('.itinerarios-list-new'),empty=list&&list.querySelector('.it-empty');
+    if(list && empty && !list.dataset.catalogExpanded){
+      const cards=[
+        ['FUERTEVENTURA EN 4 DÍAS','europa','4','playas naturaleza','https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=85','Playas, dunas, volcanes y pueblos de Fuerteventura en coche.','../destinos/espana/fuerteventura/itinerario.html'],
+        ['CÓRDOBA EN 2 DÍAS','europa','2','ciudades','https://images.unsplash.com/photo-1577334928618-2ff68906bb5e?auto=format&fit=crop&w=1200&q=85','Mezquita-Catedral, Judería, puente romano, Alcázar y centro histórico.','../destinos/espana/andalucia/cordoba/itinerario.html'],
+        ['PROVINCIA DE CÁDIZ EN 7 DÍAS','europa','7','playas ciudades naturaleza combinados','https://images.unsplash.com/photo-1543783207-ec64e4d95325?auto=format&fit=crop&w=1200&q=85','Cádiz, Conil, pueblos blancos, Gibraltar, Tarifa y playas atlánticas.','../destinos/espana/andalucia/cadiz/itinerario.html'],
+        ['SEVILLA EN 2 DÍAS','europa','2','ciudades','https://images.unsplash.com/photo-1559564484-e48b3e040ff4?auto=format&fit=crop&w=1200&q=85','Catedral, Giralda, Alcázar, Santa Cruz, Plaza de España, Arenal y Triana.','../destinos/espana/andalucia/sevilla/itinerario.html'],
+        ['MADRID EN 3 DÍAS','europa','3','ciudades','https://images.unsplash.com/photo-1539037116277-4db20889f2d4?auto=format&fit=crop&w=1200&q=85','Centro histórico, Retiro, museos, Bernabéu, Gran Vía y barrios.','../destinos/espana/madrid/itinerario.html'],
+        ['COSTA VASCA FRANCESA EN 1 DÍA','europa','1','playas ciudades','https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=85','Biarritz, San Juan de Luz, Hendaya y Hondarribia en una escapada costera.','../destinos/francia/pais-vasco-frances/itinerario.html'],
+        ['SALZBURG EN 1 DÍA','europa','1','ciudades navidad','https://images.unsplash.com/photo-1548786811-dd6e453ccca7?auto=format&fit=crop&w=1200&q=85','Centro histórico, miradores, fortaleza y mercados de Navidad.','navidad-austria-alemania-suiza/dia-1-salzburg/'],
+        ['ST. WOLFGANG + HALLSTATT EN 1 DÍA','europa','1','naturaleza ciudades navidad combinados','https://images.unsplash.com/photo-1601581875309-fafbf2d3ed3a?auto=format&fit=crop&w=1200&q=85','Dos pueblos alpinos y sus lagos en una excursión desde Salzburg.','navidad-austria-alemania-suiza/dia-2-st-wolfgang-hallstatt/'],
+        ['KÖNIGSSEE + BERCHTESGADEN EN 1 DÍA','europa','1','naturaleza ciudades navidad combinados','https://images.unsplash.com/photo-1464278533981-50106e6176b1?auto=format&fit=crop&w=1200&q=85','Lago alpino, mina de sal y centro histórico en Baviera.','navidad-austria-alemania-suiza/dia-3-berchtesgaden-innsbruck/'],
+        ['INNSBRUCK EN 1 DÍA','europa','1','ciudades montanas navidad','https://images.unsplash.com/photo-1596394723269-b2cbca4e6313?auto=format&fit=crop&w=1200&q=85','Centro histórico, Bergisel, Schloss Ambras y Hungerburg.','navidad-austria-alemania-suiza/dia-4-innsbruck-zurich/'],
+        ['ZÚRICH EN 1 DÍA','europa','1','ciudades navidad','https://images.unsplash.com/photo-1527668752968-14dc70a27c95?auto=format&fit=crop&w=1200&q=85','Free tour y paseo por el centro de Zúrich para cerrar la ruta.','navidad-austria-alemania-suiza/dia-5-zurich/']
+        ,['PAÍS VASCO, FRANCIA Y BAZTÁN EN 5 DÍAS','europa','5','combinados naturaleza ciudades','https://images.unsplash.com/photo-1566577371609-48e5f7081b20?auto=format&fit=crop&w=1200&q=85','San Sebastián, costa vasca, País Vasco francés y Valle del Baztán.','../destinos/espana/pais-vasco/itinerario.html']
+        ,['VALLE DEL BAZTÁN EN 1 DÍA','europa','1','naturaleza','https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=1200&q=85','Mirador, pueblos del Baztán y Señorío de Bertiz.','../destinos/espana/navarra/itinerario.html']
+      ];
+      const esc=s=>String(s).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+      cards.forEach(([title,continent,days,type,img,desc,href])=>{const a=document.createElement('article');a.className='it-card';a.dataset.continent=continent;a.dataset.days=days;a.dataset.type=type;a.innerHTML=`<img src="${img}" alt="${esc(title)}"><div class="it-card-copy"><h2>${esc(title)}</h2><p>${esc(desc)}</p><div class="it-meta"><span>◷ ${days} ${days==='1'?'día':'días'}</span><span>⌖ Ruta VCC</span><span>♡ VCC</span></div><a href="${href}" class="it-cta">VER ITINERARIO →</a></div>`;list.insertBefore(a,empty)});
+      const paris=[...list.querySelectorAll('.it-card')].find(x=>x.querySelector('h2')?.textContent.includes('PARÍS'));if(paris){paris.dataset.days='4';paris.dataset.type='ciudades navidad';const a=paris.querySelector('.it-cta');if(a){a.href='../destinos/francia/paris/itinerario.html';a.textContent='VER ITINERARIO →'}}
+      list.dataset.catalogExpanded='true';
+    }
+  }
+  if(location.pathname.includes('/destinos/espana') && !location.pathname.includes('/madrid/')){
+    const card=document.querySelector('#madrid');
+    if(card){card.classList.add('available');const copy=card.querySelector('.region-copy');if(copy){const l=copy.querySelector('span'),p=copy.querySelector('p'),a=copy.querySelector('.region-action');if(l)l.textContent='COMUNIDAD AUTÓNOMA · 2 ITINERARIOS';if(p)p.textContent='Madrid en tres días y la extensión final de la gran ruta por Andalucía.';if(a)a.innerHTML='<a href="madrid/">EXPLORAR MADRID →</a>';}}
+    const regions=[['#pais-vasco','COMUNIDAD AUTÓNOMA · 1 RUTA','San Sebastián, costa vasca y conexiones con Francia y Navarra.','pais-vasco/','EXPLORAR PAÍS VASCO →'],['#navarra','COMUNIDAD FORAL · 1 RUTA','Valle del Baztán y la jornada navarra de nuestra ruta del norte.','navarra/','EXPLORAR NAVARRA →']];
+    regions.forEach(([sel,label,desc,href,cta])=>{const card=document.querySelector(sel);if(!card)return;card.classList.add('available');const copy=card.querySelector('.region-copy');if(!copy)return;const l=copy.querySelector('span'),p=copy.querySelector('p'),a=copy.querySelector('.region-action');if(l)l.textContent=label;if(p)p.textContent=desc;if(a)a.innerHTML=`<a href="${href}">${cta}</a>`;});
+  }
+  // Fallback for slow/cached country scripts: keep Andalucía's itinerary links visible.
+  if(location.pathname.includes('/destinos/espana/andalucia/'))setTimeout(()=>{
+    const root=document.querySelector('#country-content');
+    if(root&&!root.querySelector('#itinerarios'))root.insertAdjacentHTML('beforeend','<section id="itinerarios" class="sweden-itineraries-section country-main"><div class="country-heading"><div><p>Nuestras rutas reales</p><h2>ITINERARIOS EN ANDALUCÍA</h2></div><span>Rutas independientes y la gran ruta combinada.</span></div><div class="sweden-carousel vcc-fallback-itineraries"><article class="country-itinerary"><img src="https://images.unsplash.com/photo-1577334928618-2ff68906bb5e?auto=format&fit=crop&w=1000&q=85" alt="Córdoba en 2 días"><div class="country-itinerary-copy"><span class="tag">2 DÍAS · CIUDAD</span><h3>CÓRDOBA EN 2 DÍAS</h3><p>Mezquita-Catedral, Judería, puente romano y centro histórico.</p><a class="country-btn" href="cordoba/itinerario.html">VER ITINERARIO →</a></div></article><article class="country-itinerary"><img src="https://images.unsplash.com/photo-1543783207-ec64e4d95325?auto=format&fit=crop&w=1000&q=85" alt="Provincia de Cádiz en 7 días"><div class="country-itinerary-copy"><span class="tag">7 DÍAS · COSTA</span><h3>PROVINCIA DE CÁDIZ EN 7 DÍAS</h3><p>Cádiz, Conil, Gibraltar, Tarifa, pueblos blancos y playas.</p><a class="country-btn" href="cadiz/itinerario.html">VER ITINERARIO →</a></div></article><article class="country-itinerary"><img src="https://images.unsplash.com/photo-1559564484-e48b3e040ff4?auto=format&fit=crop&w=1000&q=85" alt="Sevilla en 2 días"><div class="country-itinerary-copy"><span class="tag">2 DÍAS · CIUDAD</span><h3>SEVILLA EN 2 DÍAS</h3><p>Catedral, Plaza de España, Arenal, Triana y Guadalquivir.</p><a class="country-btn" href="sevilla/itinerario.html">VER ITINERARIO →</a></div></article></div></section>');
+  },1200);
+  // Privacy pass: keep the public site free of home-town names and calendar years.
+  const cleanPublicText=()=>{
+    const rePlaces=/Olost|Prats de Lluçanès|Prats del Lluçanès/gi;
+    const reYears=/\b(?:19|20)\d{2}\b/g;
+    const clean=s=>s.replace(rePlaces,'').replace(reYears,'').replace(/ {2,}/g,' ');
+    const walker=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT);
+    const nodes=[];let n;while(n=walker.nextNode())nodes.push(n);
+    nodes.forEach(x=>{const v=clean(x.nodeValue);if(v!==x.nodeValue)x.nodeValue=v});
+    document.querySelectorAll('title,meta[ name="description" ],meta[property="og:title"],meta[property="og:description"]').forEach(x=>{if(x.textContent){const v=clean(x.textContent);if(v!==x.textContent)x.textContent=v}if(x.content){const v=clean(x.content);if(v!==x.content)x.content=v}});
+    document.querySelectorAll('[href]').forEach(x=>{const h=x.getAttribute('href')||'';if(/Olost|Prats de Lluçanès|Prats del Lluçanès/i.test(h))x.setAttribute('href',h.replace(/Olost|Prats de Lluçanès|Prats del Lluçanès/gi,'Barcelona'))});
+  };
+  cleanPublicText();
+  new MutationObserver(cleanPublicText).observe(document.body,{subtree:true,childList:true,characterData:true});
 })();
