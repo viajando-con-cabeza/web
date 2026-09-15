@@ -19,6 +19,10 @@ html,body{max-width:100%;overflow-x:clip}
 .vcc-sweden-page .country-heading h2,.vcc-faq-top h2{font-family:"Oswald",sans-serif!important;font-size:40px!important;font-weight:500!important;line-height:1!important;letter-spacing:0!important;color:var(--country-ink)!important;text-transform:uppercase!important}
 .vcc-sweden-page .country-heading>span{font-family:"DM Sans",sans-serif!important;font-size:12px!important;line-height:1.5!important;font-weight:400!important;color:#716a64!important;text-align:right!important;white-space:nowrap!important;max-width:none!important}
 .st-discover .country-heading>span{flex:1 1 auto!important}
+/* Planifica sigue la misma cabecera en una sola fila que Qué ver e Itinerario.
+   FAQ conserva expresamente su introducción debajo. */
+#planifica>.country-heading{display:flex!important;align-items:flex-end!important;justify-content:space-between!important;gap:20px!important}
+#planifica>.country-heading>span{display:block!important;flex:1 1 auto!important;margin:0 0 2px!important;text-align:right!important;white-space:nowrap!important;max-width:none!important}
 
 /* Tarjetas: misma tipografía, borde, radio y estados; el ancho sigue siendo propio de Estocolmo. */
 .st-card-carousel>.country-guide-card,.st-featured-itinerary,#planifica .vcc-prep-card{background:#fff!important;border:1px solid var(--country-line)!important;border-radius:10px!important;box-shadow:none!important;overflow:hidden!important}
@@ -48,6 +52,6 @@ html,body{max-width:100%;overflow-x:clip}
 
 @media(max-width:1050px){#planifica .vcc-prep-grid{grid-template-columns:repeat(3,minmax(0,1fr))!important}}
 @media(max-width:850px){.st-main,.country-main.after-inspiration{width:calc(100% - 28px)!important}.st-tabs{top:var(--vcc-header-h,0px)!important}}
-@media(max-width:720px){.vcc-sweden-page .country-heading>span{text-align:left!important;white-space:normal!important}}
+@media(max-width:720px){.vcc-sweden-page .country-heading>span,#planifica>.country-heading>span{text-align:left!important;white-space:normal!important}#planifica>.country-heading{display:block!important}#planifica>.country-heading>span{margin-top:10px!important}}
 @media(max-width:600px){#planifica .vcc-prep-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}}
 @media(max-width:420px){#planifica .vcc-prep-grid{grid-template-columns:1fr!important}}
