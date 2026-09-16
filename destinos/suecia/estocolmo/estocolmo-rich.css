@@ -669,3 +669,139 @@ body {
     font-size: 31px;
   }
 }
+
+/* Itinerary hero: exact geometry and typography of the Stockholm guide, without its white card */
+.rich-hero {
+  height: 460px;
+  min-height: 460px;
+  align-items: center;
+  overflow: visible;
+  color: var(--rich-ink);
+}
+.rich-hero:after {
+  background: linear-gradient(
+    90deg,
+    rgba(248, 244, 238, 0.96) 0%,
+    rgba(248, 244, 238, 0.82) 38%,
+    rgba(248, 244, 238, 0.08) 68%,
+    rgba(248, 244, 238, 0) 100%
+  );
+}
+.rich-hero-inner {
+  width: min(1180px, calc(100% - 48px));
+  height: 100%;
+}
+.rich-crumb {
+  top: 8px;
+  left: 0;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  color: #665f58;
+  font-size: 11px;
+}
+.rich-crumb a {
+  color: inherit;
+}
+.route-hero-copy {
+  top: 32px;
+  left: 0;
+  width: min(520px, 100%);
+  padding: 29px 38px 32px;
+}
+.route-hero-kicker {
+  margin-bottom: 10px;
+  color: var(--rich-coral);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.9px;
+}
+.rich-hero h1 {
+  max-width: 100%;
+  color: var(--rich-ink);
+  font-size: 77px;
+  line-height: 0.9;
+  letter-spacing: -2px;
+}
+.route-hero-script {
+  margin: 11px 0 12px !important;
+  color: var(--rich-coral);
+  font-size: 29px !important;
+  font-weight: 600;
+  line-height: 1.1 !important;
+}
+.rich-hero .route-hero-copy > p:not(.route-hero-script) {
+  max-width: 420px;
+  color: #171717;
+  font-size: 14px;
+  line-height: 1.6;
+}
+.rich-facts {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+  margin-top: 26px;
+  padding-top: 22px;
+  border-top: 1px solid var(--rich-line);
+}
+.rich-facts span {
+  color: #171717;
+  font-size: 10px;
+  font-weight: 800;
+}
+.rich-tabs {
+  top: 50px;
+  min-height: 50px;
+  height: 50px;
+  justify-content: flex-start;
+  gap: 38px;
+  padding-left: max(24px, calc((100vw - 1180px) / 2));
+  padding-right: max(24px, calc((100vw - 1180px) / 2));
+  border-top: 1px solid var(--rich-line);
+}
+.rich-tabs a {
+  padding: 17px 0 14px;
+  font-size: 11px;
+  line-height: 1;
+}
+@media (max-width: 560px) {
+  .rich-hero {
+    height: 500px;
+    min-height: 500px;
+    background-position: 65% center;
+  }
+  .rich-hero:after {
+    background: rgba(248, 244, 238, 0.72);
+  }
+  .rich-hero-inner {
+    width: calc(100% - 28px);
+  }
+  .rich-crumb {
+    top: 8px;
+    font-size: 7px;
+    gap: 4px;
+  }
+  .route-hero-copy {
+    top: 42px;
+    width: 100%;
+    padding: 25px 24px 27px;
+  }
+  .rich-hero h1 {
+    max-width: 100%;
+    font-size: 58px;
+  }
+  .route-hero-script {
+    font-size: 24px !important;
+  }
+  .rich-hero .route-hero-copy > p:not(.route-hero-script) {
+    font-size: 12px;
+  }
+  .rich-facts {
+    grid-template-columns: 1fr 1fr;
+  }
+  .rich-tabs {
+    gap: 24px;
+    padding-left: 14px;
+    padding-right: 14px;
+  }
+}
