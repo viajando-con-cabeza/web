@@ -32,3 +32,10 @@ jobs:
             exit 1
           fi
           echo 'Production validation passed.'
+
+      - name: Deploy production Worker
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: deploy
