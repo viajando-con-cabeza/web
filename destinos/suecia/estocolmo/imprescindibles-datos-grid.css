@@ -3,13 +3,13 @@
   html body .imp-page .place-copy .facts {
     display: grid !important;
     grid-template-columns: minmax(0, 36fr) minmax(0, 36fr) minmax(0, 28fr) !important;
-    grid-template-rows: repeat(2, minmax(28px, auto)) !important;
+    grid-template-rows: repeat(2, minmax(24px, auto)) !important;
     width: 100% !important;
     max-width: 100% !important;
     justify-content: stretch !important;
     align-items: center !important;
     column-gap: 12px !important;
-    row-gap: 12px !important;
+    row-gap: 6px !important;
   }
   html body .imp-page .place-copy .facts > span {
     display: flex !important;
@@ -19,10 +19,9 @@
     min-width: 0 !important;
     width: 100% !important;
     max-width: 100% !important;
-    min-height: 28px !important;
+    min-height: 24px !important;
     box-sizing: border-box !important;
     margin: 0 !important;
-    /* Recullem totes les icones, inclosa la puntuació, 7 px cap a la dreta. */
     padding: 0 0 0 7px !important;
     gap: 8px !important;
     border: 0 !important;
@@ -36,7 +35,6 @@
   html body .imp-page .place-copy .facts > span:nth-child(3) { grid-column: 3 !important; grid-row: 1 !important; }
   html body .imp-page .place-copy .facts > span:nth-child(4) { grid-column: 1 !important; grid-row: 2 !important; }
   html body .imp-page .place-copy .facts > span:nth-child(5) { grid-column: 2 !important; grid-row: 2 !important; }
-  /* Mateix espai reservat per a totes les icones, inclosa la puntuació. */
   html body .imp-page .place-copy .facts .ico {
     flex: 0 0 38px !important;
     width: 38px !important;
@@ -65,7 +63,7 @@
     justify-content: stretch !important;
     width: 100% !important;
     column-gap: 12px !important;
-    row-gap: 12px !important;
+    row-gap: 7px !important;
   }
   html body .imp-page .place-copy .facts > span {
     min-width: 0 !important;
@@ -75,5 +73,28 @@
     padding-left: 4px !important;
     white-space: normal !important;
     overflow-wrap: break-word !important;
+  }
+}
+/* Menys alçada sense canviar tipografia, amplades ni disposició. */
+html body .imp-page .place-copy .facts {
+  margin: 8px 0 10px !important;
+}
+html body .imp-page .place-copy .advice {
+  margin: 7px 0 0 !important;
+  padding: 10px 15px !important;
+  gap: 12px !important;
+}
+html body .imp-page .place-copy .advice .paper-plane {
+  width: 44px !important;
+  height: 44px !important;
+  flex: 0 0 44px !important;
+}
+html body .imp-page .place-copy .advice p {
+  margin: 2px 0 0 !important;
+}
+@media (max-width: 650px) {
+  html body .imp-page .place-copy .advice {
+    padding: 9px 12px !important;
+    gap: 10px !important;
   }
 }
