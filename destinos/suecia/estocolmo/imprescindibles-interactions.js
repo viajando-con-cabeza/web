@@ -60,6 +60,19 @@
     counter.setAttribute('aria-live', 'polite');
     stage.insertBefore(counter, thumbnails);
   }
+  /* Reutilitzem la descripció editorial que ja apareix a cada fitxa. */
+  let placeInfo = stage?.querySelector('.lb-place-info');
+  let placeDescription = placeInfo?.querySelector('p');
+  if (stage && !placeInfo) {
+    placeInfo = document.createElement('aside');
+    placeInfo.className = 'lb-place-info';
+    placeInfo.setAttribute('aria-label', 'Descripción del lugar');
+    const heading = document.createElement('h3');
+    heading.textContent = 'Sobre este lugar';
+    placeDescription = document.createElement('p');
+    placeInfo.append(heading, placeDescription);
+    stage.append(placeInfo);
+  }
   let album = [], current = 0, focusBefore = null;
   const show = i => {
     if (!album.length || !image) return;
@@ -87,7 +100,10 @@
     try {album = JSON.parse(gallery.dataset.images || '[]');} catch {album = [];}
     if (!album.length) return;
     focusBefore = document.activeElement;
-    if (caption) caption.textContent = gallery.closest('.place')?.querySelector('h2')?.textContent || 'Estocolmo';
+    const place = gallery.closest('.place');
+    if (caption) caption.textContent = place?.querySelector('h2')?.textContent || 'Estocolmo';
+    if (placeDescription) placeDescription.textContent = place?.querySelector('.place-copy > p')?.textContent?.trim() || '';
+    if (placeInfo) placeInfo.scrollTop = 0;
     thumbnails.replaceChildren();
     album.forEach((src,j) => {
       const button = document.createElement('button');
