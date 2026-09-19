@@ -134,3 +134,31 @@ html body .imp-page .imp-hero {
     background-position: 62% center, 62% center !important;
   }
 }
+
+/* Mòdul final de l'itinerari, sense pressupost. */
+html body .imp-page .vcc-itinerary-feature {
+  display: grid;
+  grid-template-columns: minmax(0, 43%) minmax(0, 57%);
+  width: min(1180px, calc(100% - 48px));
+  min-height: 295px;
+  margin: 50px auto 90px;
+  overflow: hidden;
+  border: 1px solid #e8ded3;
+  border-radius: 13px;
+  background: #fff;
+  box-shadow: 0 8px 28px rgba(52, 35, 26, .035);
+}
+html body .imp-page .vcc-itinerary-feature-image {position: relative;display:block;min-height:295px;overflow:hidden;}
+html body .imp-page .vcc-itinerary-feature-image img {display:block;width:100%;height:100%;object-fit:cover;transition:transform .25s ease;}
+html body .imp-page .vcc-itinerary-feature-image:hover img {transform:scale(1.025);}
+html body .imp-page .vcc-itinerary-feature-image span {position:absolute;top:18px;left:18px;padding:8px 11px;border-radius:4px;background:#1c1c1c;color:#fff;font:800 11px/1 'DM Sans',sans-serif;letter-spacing:.025em;}
+html body .imp-page .vcc-itinerary-feature-copy {display:flex;flex-direction:column;align-items:flex-start;justify-content:center;gap:12px;padding:32px 40px;min-width:0;font-family:'DM Sans',sans-serif;}
+html body .imp-page .vcc-itinerary-feature-kicker {color:#b65b49;font:800 12px/1.2 'DM Sans',sans-serif;letter-spacing:.09em;}
+html body .imp-page .vcc-itinerary-feature-copy h2 {margin:0;color:#191919;font:500 clamp(32px,3vw,45px)/1.1 'Oswald',sans-serif;}
+html body .imp-page .vcc-itinerary-feature-copy p {margin:0;max-width:550px;color:#49443f;font:400 15px/1.65 'DM Sans',sans-serif;}
+html body .imp-page .vcc-itinerary-feature-details {display:flex;flex-wrap:wrap;gap:10px 22px;color:#665f58;font:600 12px/1.5 'DM Sans',sans-serif;}
+html body .imp-page .vcc-itinerary-feature-cta {display:inline-flex;align-items:center;justify-content:center;margin-top:6px;padding:13px 19px;border-radius:6px;background:#cf705c;color:white;text-decoration:none;font:800 12px/1.25 'DM Sans',sans-serif;transition:background .2s ease;}
+html body .imp-page .vcc-itinerary-feature-cta:hover {background:#a65340;}
+html body .imp-page .vcc-itinerary-feature-cta:focus-visible,html body .imp-page .vcc-itinerary-feature-image:focus-visible {outline:3px solid #a65340;outline-offset:3px;}
+@media(max-width:800px){html body .imp-page .vcc-itinerary-feature{grid-template-columns:1fr;width:calc(100% - 28px);margin:28px auto 55px;}html body .imp-page .vcc-itinerary-feature-image{min-height:240px;height:240px;}html body .imp-page .vcc-itinerary-feature-copy{padding:27px 24px;}html body .imp-page .vcc-itinerary-feature-copy p{font-size:14px;}}
+@media(prefers-reduced-motion:reduce){html body .imp-page .vcc-itinerary-feature-image img{transition:none;}}
