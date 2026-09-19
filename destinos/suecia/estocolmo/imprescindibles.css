@@ -123,3 +123,14 @@ html body #lightbox .lb-stage {
     height: min(92dvh, 800px) !important;
   }
 }
+
+/* Nou fons VCC: el fons anterior es manté com a reserva fins que es pugi l'asset. */
+html body .imp-page .imp-hero {
+  background: url('../../../assets/images/background_que_ver_imprescindibles_vcc.webp') center / cover no-repeat,
+              url('https://images.unsplash.com/photo-1509356843151-3e7d96241e11?auto=format&fit=crop&w=2200&q=90') center / cover no-repeat !important;
+}
+@media (max-width: 650px) {
+  html body .imp-page .imp-hero {
+    background-position: 62% center, 62% center !important;
+  }
+}
