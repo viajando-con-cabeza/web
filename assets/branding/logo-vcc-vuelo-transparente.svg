@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 180" role="img" aria-label="Logo VCC amb fons transparent">
+  <defs>
+    <!-- El fitxer original porta una imatge incrustada amb blanc; convertim només els tons gairebé blancs en transparència, mantenint les línies negres i l'avió coral. -->
+    <filter id="transparent-white" color-interpolation-filters="sRGB" x="0" y="0" width="100%" height="100%">
+      <feColorMatrix type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  -1.25 -1.25 -1.25 0 3.72"/>
+    </filter>
+  </defs>
+  <image href="logo-vcc-vuelo.svg" width="180" height="180" filter="url(#transparent-white)"/>
+</svg>
