@@ -150,6 +150,16 @@
     });
     gallery.replaceChildren(mosaic);
   });
+  /* Recomanació al final de la guia: mateix llenguatge visual, sense pressupost. */
+  const main = document.querySelector('.imp-page .imp-main');
+  if (main && !document.getElementById('vcc-itinerary-feature')) {
+    const feature = document.createElement('section');
+    feature.id = 'vcc-itinerary-feature';
+    feature.className = 'vcc-itinerary-feature';
+    feature.setAttribute('aria-labelledby','vcc-itinerary-feature-title');
+    feature.innerHTML = `<a class="vcc-itinerary-feature-image" href="itinerario.html?dias=3" aria-label="Ver itinerario de Estocolmo en 3 días"><img loading="lazy" src="https://images.unsplash.com/photo-1509356843151-3e7d96241e11?auto=format&fit=crop&w=1200&q=85" alt="Vista panorámica de Estocolmo"><span>ITINERARIO DESTACADO</span></a><div class="vcc-itinerary-feature-copy"><span class="vcc-itinerary-feature-kicker">DESCUBRE ESTOCOLMO</span><h2 id="vcc-itinerary-feature-title">ESTOCOLMO EN 3 DÍAS</h2><p>Del encanto de Gamla Stan a los museos de Djurgården y los miradores de Södermalm. Organiza tu escapada con una ruta por horas, fotografías y mapas interactivos.</p><div class="vcc-itinerary-feature-details"><span>◷ 3 días</span><span>⌖ Mapa interactivo</span><span>↗ Ruta día a día</span></div><a class="vcc-itinerary-feature-cta" href="itinerario.html?dias=3">VER ITINERARIO COMPLETO →</a></div>`;
+    main.after(feature);
+  }
   if (!overlay || !image || !thumbnails || !previous || !next || !close) return;
   previous.addEventListener('click',() => show(current-1));
   next.addEventListener('click',() => show(current+1));
