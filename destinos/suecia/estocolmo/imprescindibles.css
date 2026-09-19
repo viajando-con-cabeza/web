@@ -54,7 +54,7 @@ html body #lightbox .lb-counter {
   html body #lightbox .lb-caption { font-size: 18px !important; }
 }
 
-/* Visor Booking: capçalera més compacta, separador discontinu i creu sense cercle. */
+/* Visor Booking: capçalera compacta sense separador i creu sense cercle. */
 html body #lightbox .lb-stage {
   grid-template-rows: 44px minmax(0, 1fr) 34px 100px !important;
 }
@@ -70,13 +70,8 @@ html body #lightbox .lb-caption {
   background: #fff !important;
 }
 html body #lightbox .lb-caption::after {
-  content: '' !important;
-  position: absolute !important;
-  left: 22px !important;
-  right: 22px !important;
-  bottom: 0 !important;
-  height: 1px !important;
-  background: repeating-linear-gradient(to right, #d8cfc5 0 4px, transparent 4px 9px) !important;
+  content: none !important;
+  display: none !important;
 }
 html body #lightbox .lb-close {
   top: 6px !important;
