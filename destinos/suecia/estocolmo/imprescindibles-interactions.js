@@ -1,4 +1,4 @@
-/* Quality: mosaic Booking de fins a cinc imatges visibles. Fotografies de mostra Unsplash, substituïbles per fotos VCC. */
+/* Quality: barra sincronitzada, mosaic Booking i visor accessible amb comptador. */
 (() => {
   const nav = document.getElementById('placeNav');
   const sections = [...document.querySelectorAll('.imp-main .place[id]')];
@@ -36,8 +36,7 @@
     queue();
   }
 
-  /* Àlbum de demostració: 15 fotografies diferents de Stockholm / Vasa.
-     En producció substituir aquest catàleg per fotografies pròpies i específiques de cada lloc. */
+  /* Fotografies de demostració: es poden substituir per originals de VCC. */
   const unsplash = id => `https://unsplash.com/photos/${id}/download?w=1200`;
   const city = [
     'mJAMq6b5yQo','Mr4pKe6GvSI','VPPIMOrXasA','Oa0VyfkUyuo','4R2byovEbLc',
@@ -53,23 +52,34 @@
   const previous = stage?.querySelector('.lb-prev');
   const next = stage?.querySelector('.lb-next');
   const close = stage?.querySelector('.lb-close');
+  let counter = stage?.querySelector('.lb-counter');
+  if (stage && thumbnails && !counter) {
+    counter = document.createElement('div');
+    counter.className = 'lb-counter';
+    counter.setAttribute('role', 'status');
+    counter.setAttribute('aria-live', 'polite');
+    stage.insertBefore(counter, thumbnails);
+  }
   let album = [], current = 0, focusBefore = null;
   const show = i => {
     if (!album.length || !image) return;
     current = (i + album.length) % album.length;
     image.src = album[current];
-    image.alt = caption?.textContent || 'Fotografía de Estocolmo';
+    image.alt = `${caption?.textContent || 'Estocolmo'} · fotografía ${current + 1} de ${album.length}`;
+    if (counter) counter.textContent = `${current + 1} / ${album.length}`;
     [...thumbnails.children].forEach((button,j) => {
       button.classList.toggle('active',j === current);
       button.setAttribute('aria-pressed', String(j === current));
     });
-    thumbnails.children[current]?.scrollIntoView({block:'nearest',inline:'nearest'});
+    const selected = thumbnails.children[current];
+    if (selected) thumbnails.scrollTo({left:Math.max(0,selected.offsetLeft - thumbnails.offsetLeft - (thumbnails.clientWidth - selected.offsetWidth)/2),behavior:'smooth'});
     previous.hidden = next.hidden = album.length < 2;
   };
   const dismiss = () => {
     overlay.classList.remove('open');
     overlay.setAttribute('aria-hidden','true');
     image.removeAttribute('src');
+    if (counter) counter.textContent = '';
     focusBefore?.focus?.();
   };
   const open = (gallery, index) => {
@@ -99,7 +109,6 @@
     try {own = JSON.parse(original?.dataset.images || '[]');} catch {own = [];}
     const requested = placeIndex + 1;
     const source = placeIndex === 1 ? [...vasa, ...city] : [...city.slice(placeIndex % city.length), ...city.slice(0,placeIndex % city.length)];
-    /* Les fotos originals es mantenen en primer lloc quan existeixen. */
     const photos = [...new Set([...own.filter(Boolean), ...source])].slice(0,requested);
     gallery.dataset.images = JSON.stringify(photos);
     gallery.dataset.count = String(photos.length);
@@ -131,8 +140,15 @@
   document.addEventListener('keydown',e => {
     if (!overlay.classList.contains('open')) return;
     if (e.key === 'Escape') dismiss();
-    if (e.key === 'ArrowLeft') show(current-1);
-    if (e.key === 'ArrowRight') show(current+1);
+    if (e.key === 'ArrowLeft' && album.length > 1) show(current-1);
+    if (e.key === 'ArrowRight' && album.length > 1) show(current+1);
+    if (e.key === 'Tab') {
+      const focusable = [...overlay.querySelectorAll('button:not([hidden])')].filter(button => button.getClientRects().length);
+      if (!focusable.length) return;
+      const first = focusable[0], last = focusable[focusable.length-1];
+      if (e.shiftKey && document.activeElement === first) {e.preventDefault();last.focus();}
+      else if (!e.shiftKey && document.activeElement === last) {e.preventDefault();first.focus();}
+    }
   });
   overlay.setAttribute('role','dialog'); overlay.setAttribute('aria-modal','true');
   overlay.setAttribute('aria-label','Galería de fotografías'); overlay.setAttribute('aria-hidden','true');
