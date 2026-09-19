@@ -1,50 +1,131 @@
-/* Retocs puntuals de les fitxes: no alterem portada, mosaic ni lightbox. */
+/* Retocs finals de les fitxes. No es modifica la portada ni el visor de fotos. */
+html body .imp-page .place {
+  align-items: center !important;
+}
+html body .imp-page .place-copy {
+  align-self: center !important;
+  justify-content: center !important;
+  box-sizing: border-box !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  min-width: 0 !important;
+}
 html body .imp-page .place-copy > p {
+  font-family: 'DM Sans', sans-serif !important;
   font-size: 13.5px !important;
   line-height: 1.7 !important;
   margin-bottom: 15px !important;
 }
-/* Dades més llegibles, repartides en dues línies a l'escriptori. */
+/* Alçada una mica més baixa, conservant els cinc enquadraments de Booking. */
+html body .imp-page .gallery-mosaic {
+  aspect-ratio: 1.56 !important;
+}
+html body .imp-page .gallery-mosaic.count-1 {
+  aspect-ratio: 1.65 !important;
+}
+/* La xifra de fotos addicionals comparteix la mateixa DM Sans de la guia. */
+html body .imp-page .gallery-mosaic .gallery-more {
+  font-family: 'DM Sans', sans-serif !important;
+  font-size: 11px !important;
+  font-weight: 700 !important;
+  line-height: 1.25 !important;
+  letter-spacing: 0 !important;
+  text-transform: none !important;
+}
+/* Cinc dades existents, agrupades en dues files estables i llegibles.
+   No s'afegeixen xifres ni informacions no verificades. */
 html body .imp-page .place-copy .facts {
   display: grid !important;
   grid-template-columns: repeat(3, max-content) !important;
   align-items: center !important;
   justify-content: start !important;
-  gap: 11px 18px !important;
+  column-gap: 19px !important;
+  row-gap: 10px !important;
+  font-family: 'DM Sans', sans-serif !important;
   font-size: 12px !important;
   line-height: 1.35 !important;
-  margin: 9px 0 17px !important;
+  margin: 10px 0 17px !important;
 }
 html body .imp-page .place-copy .facts > span {
-  min-width: 0 !important;
-  min-height: 20px !important;
-  padding: 0 !important;
+  display: inline-flex !important;
+  align-items: center !important;
   gap: 7px !important;
+  min-width: 0 !important;
+  min-height: 22px !important;
+  padding: 0 !important;
   border: 0 !important;
+  white-space: nowrap !important;
 }
-html body .imp-page .place-copy .facts > span:nth-child(4) {grid-column: 1 !important;grid-row: 2 !important;}
-html body .imp-page .place-copy .facts > span:nth-child(5) {grid-column: 2 / 4 !important;grid-row: 2 !important;}
-/* Pictogrames discrets però identificables: lloc, ubicació, durada i mapa. */
-html body .imp-page .place-copy .facts .ico {font-size: 0 !important;color: #a65340 !important;line-height: 1 !important;}
-html body .imp-page .place-copy .facts .ico::before {font: 700 16px/1 'DM Sans',sans-serif !important;display:inline-block !important;}
-html body .imp-page .place-copy .facts > span:nth-child(1) .ico::before {content: '▧' !important;}
-html body .imp-page .place-copy .facts > span:nth-child(2) .ico::before {content: '⌖' !important;font-size:19px !important;}
-html body .imp-page .place-copy .facts > span:nth-child(3) .ico::before {content: '◷' !important;font-size:19px !important;}
-html body .imp-page .place-copy .facts .fact-map .ico::before {content: '↗' !important;font-size:17px !important;}
-html body .imp-page .place-copy .facts .fact-map a {font-size: 11.5px !important;}
-/* El mateix logotip amb els blancs del fitxer original convertits en transparència. */
+html body .imp-page .place-copy .facts > span:nth-child(4) {
+  grid-column: 1 !important;
+  grid-row: 2 !important;
+  gap: 8px !important;
+}
+html body .imp-page .place-copy .facts > span:nth-child(4)::before {
+  content: 'Valoración VCC' !important;
+  font-family: 'DM Sans', sans-serif !important;
+  font-size: 11px !important;
+  font-weight: 600 !important;
+  color: #665f58 !important;
+}
+html body .imp-page .place-copy .facts > span:nth-child(5) {
+  grid-column: 2 / 4 !important;
+  grid-row: 2 !important;
+}
+/* Icones sobries i recognoscibles: tipus de lloc, ubicació, temps i enllaç. */
+html body .imp-page .place-copy .facts .ico {
+  font-size: 0 !important;
+  color: #a65340 !important;
+  line-height: 1 !important;
+}
+html body .imp-page .place-copy .facts .ico::before {
+  display: inline-block !important;
+  font: 700 16px/1 'DM Sans', sans-serif !important;
+}
+html body .imp-page .place-copy .facts > span:nth-child(1) .ico::before { content: '▧' !important; }
+html body .imp-page .place-copy .facts > span:nth-child(2) .ico::before { content: '⌖' !important; font-size: 19px !important; }
+html body .imp-page .place-copy .facts > span:nth-child(3) .ico::before { content: '◷' !important; font-size: 19px !important; }
+html body .imp-page .place-copy .facts .fact-map .ico::before { content: '↗' !important; font-size: 17px !important; }
+html body .imp-page .place-copy .facts .fact-map a {
+  font-family: 'DM Sans', sans-serif !important;
+  font-size: 11.5px !important;
+}
+/* Consejo VCC: el requadre segueix exactament els marges del títol. */
+html body .imp-page .place-copy .advice {
+  align-self: stretch !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+}
 html body .imp-page .place-copy .advice .paper-plane {
   background: transparent url('../../../assets/branding/logo-vcc-vuelo-transparente.svg') center / contain no-repeat !important;
   mix-blend-mode: normal !important;
 }
-@media (max-width: 650px) {
-  html body .imp-page .place-copy > p {font-size: 13px !important;}
+@media (max-width: 850px) {
   html body .imp-page .place-copy .facts {
-    grid-template-columns: repeat(2, minmax(0, max-content)) !important;
-    gap: 9px 13px !important;
-    font-size: 11px !important;
+    grid-template-columns: repeat(2, max-content) !important;
+    column-gap: 14px !important;
+    row-gap: 10px !important;
   }
   html body .imp-page .place-copy .facts > span:nth-child(4),
-  html body .imp-page .place-copy .facts > span:nth-child(5) {grid-column: auto !important;grid-row: auto !important;}
-  html body .imp-page .place-copy .facts .fact-map a {font-size: 11px !important;}
+  html body .imp-page .place-copy .facts > span:nth-child(5) {
+    grid-column: auto !important;
+    grid-row: auto !important;
+  }
+}
+@media (max-width: 650px) {
+  html body .imp-page .place-copy > p { font-size: 13px !important; }
+  html body .imp-page .gallery-mosaic { aspect-ratio: 1.43 !important; }
+  html body .imp-page .gallery-mosaic.count-1 { aspect-ratio: 4 / 3 !important; }
+  html body .imp-page .gallery-mosaic .gallery-more { font-size: 10px !important; }
+  html body .imp-page .place-copy .facts {
+    grid-template-columns: repeat(2, minmax(0, max-content)) !important;
+    font-size: 11px !important;
+    gap: 9px 12px !important;
+  }
+  html body .imp-page .place-copy .facts > span { white-space: normal !important; }
+  html body .imp-page .place-copy .facts > span:nth-child(4)::before { font-size: 10px !important; }
+  html body .imp-page .place-copy .facts .fact-map a { font-size: 11px !important; }
 }
