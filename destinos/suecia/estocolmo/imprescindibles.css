@@ -53,3 +53,67 @@ html body #lightbox .lb-counter {
 @media (max-width: 650px) {
   html body #lightbox .lb-caption { font-size: 18px !important; }
 }
+
+/* Visor Booking: capçalera més compacta, separador discontinu i creu sense cercle. */
+html body #lightbox .lb-stage {
+  grid-template-rows: 44px minmax(0, 1fr) 34px 100px !important;
+}
+html body #lightbox .lb-caption {
+  position: relative !important;
+  min-height: 0 !important;
+  height: 44px !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  border: 0 !important;
+  font-size: 0 !important;
+  line-height: 0 !important;
+  background: #fff !important;
+}
+html body #lightbox .lb-caption::after {
+  content: '' !important;
+  position: absolute !important;
+  left: 22px !important;
+  right: 22px !important;
+  bottom: 0 !important;
+  height: 1px !important;
+  background: repeating-linear-gradient(to right, #d8cfc5 0 4px, transparent 4px 9px) !important;
+}
+html body #lightbox .lb-close {
+  top: 6px !important;
+  right: 16px !important;
+  width: 32px !important;
+  height: 32px !important;
+  min-width: 32px !important;
+  min-height: 32px !important;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  color: #1f1f1f !important;
+  font: 400 30px/1 'DM Sans', sans-serif !important;
+}
+html body #lightbox .lb-close:hover {
+  opacity: .75 !important;
+}
+html body #lightbox .lb-close:focus-visible {
+  outline: 2px solid #a65340 !important;
+  outline-offset: 2px !important;
+}
+@media (max-width: 800px) {
+  html body #lightbox .lb-stage {
+    grid-template-rows: 44px minmax(0, 1fr) 28px 76px minmax(72px, auto) !important;
+  }
+}
+@media (max-width: 650px) {
+  html body #lightbox .lb-caption { height: 44px !important; }
+  html body #lightbox .lb-close {
+    top: 7px !important;
+    right: 12px !important;
+    width: 30px !important;
+    height: 30px !important;
+    min-width: 30px !important;
+    min-height: 30px !important;
+    font-size: 27px !important;
+  }
+}
