@@ -1,0 +1,50 @@
+/* Retocs puntuals de les fitxes: no alterem portada, mosaic ni lightbox. */
+html body .imp-page .place-copy > p {
+  font-size: 13.5px !important;
+  line-height: 1.7 !important;
+  margin-bottom: 15px !important;
+}
+/* Dades més llegibles, repartides en dues línies a l'escriptori. */
+html body .imp-page .place-copy .facts {
+  display: grid !important;
+  grid-template-columns: repeat(3, max-content) !important;
+  align-items: center !important;
+  justify-content: start !important;
+  gap: 11px 18px !important;
+  font-size: 12px !important;
+  line-height: 1.35 !important;
+  margin: 9px 0 17px !important;
+}
+html body .imp-page .place-copy .facts > span {
+  min-width: 0 !important;
+  min-height: 20px !important;
+  padding: 0 !important;
+  gap: 7px !important;
+  border: 0 !important;
+}
+html body .imp-page .place-copy .facts > span:nth-child(4) {grid-column: 1 !important;grid-row: 2 !important;}
+html body .imp-page .place-copy .facts > span:nth-child(5) {grid-column: 2 / 4 !important;grid-row: 2 !important;}
+/* Pictogrames discrets però identificables: lloc, ubicació, durada i mapa. */
+html body .imp-page .place-copy .facts .ico {font-size: 0 !important;color: #a65340 !important;line-height: 1 !important;}
+html body .imp-page .place-copy .facts .ico::before {font: 700 16px/1 'DM Sans',sans-serif !important;display:inline-block !important;}
+html body .imp-page .place-copy .facts > span:nth-child(1) .ico::before {content: '▧' !important;}
+html body .imp-page .place-copy .facts > span:nth-child(2) .ico::before {content: '⌖' !important;font-size:19px !important;}
+html body .imp-page .place-copy .facts > span:nth-child(3) .ico::before {content: '◷' !important;font-size:19px !important;}
+html body .imp-page .place-copy .facts .fact-map .ico::before {content: '↗' !important;font-size:17px !important;}
+html body .imp-page .place-copy .facts .fact-map a {font-size: 11.5px !important;}
+/* El mateix logotip amb els blancs del fitxer original convertits en transparència. */
+html body .imp-page .place-copy .advice .paper-plane {
+  background: transparent url('../../../assets/branding/logo-vcc-vuelo-transparente.svg') center / contain no-repeat !important;
+  mix-blend-mode: normal !important;
+}
+@media (max-width: 650px) {
+  html body .imp-page .place-copy > p {font-size: 13px !important;}
+  html body .imp-page .place-copy .facts {
+    grid-template-columns: repeat(2, minmax(0, max-content)) !important;
+    gap: 9px 13px !important;
+    font-size: 11px !important;
+  }
+  html body .imp-page .place-copy .facts > span:nth-child(4),
+  html body .imp-page .place-copy .facts > span:nth-child(5) {grid-column: auto !important;grid-row: auto !important;}
+  html body .imp-page .place-copy .facts .fact-map a {font-size: 11px !important;}
+}
