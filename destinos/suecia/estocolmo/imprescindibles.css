@@ -1,4 +1,30 @@
-/* Mantener estilos originales y aplicar portada VCC */
+/* Estilos de imprescindibles: base, portada y galeria. */
 @import url('./imprescindibles-original.css');
 @import url('./imprescindibles-vcc-layout.css');
 @import url('./imprescindibles-interactions.css');
+
+/* El HTML contiene una regla posterior con !important y la misma especificidad
+   que anulaba los cambios previos: estos selectores la superan expresamente. */
+html body .imp-page .imp-hero {
+  height: 465px !important;
+  min-height: 465px !important;
+  max-height: 465px !important;
+}
+html body .imp-page .imp-card {
+  top: 90px !important;
+}
+@media (max-width: 850px) {
+  html body .imp-page .imp-hero {
+    height: 450px !important;
+    min-height: 450px !important;
+    max-height: 450px !important;
+  }
+}
+@media (max-width: 650px) {
+  html body .imp-page .imp-hero {
+    height: 440px !important;
+    min-height: 440px !important;
+    max-height: 440px !important;
+  }
+  html body .imp-page .imp-card { top: 85px !important; }
+}
