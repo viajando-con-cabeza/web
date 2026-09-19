@@ -68,17 +68,17 @@
     placeInfo.className = 'lb-place-info';
     placeInfo.setAttribute('aria-label', 'Descripción del lugar');
     const heading = document.createElement('h3');
-    heading.textContent = 'Sobre este lugar';
     placeDescription = document.createElement('p');
     placeInfo.append(heading, placeDescription);
     stage.append(placeInfo);
   }
+  const placeHeading = placeInfo?.querySelector('h3');
   let album = [], current = 0, focusBefore = null;
   const show = i => {
     if (!album.length || !image) return;
     current = (i + album.length) % album.length;
     image.src = album[current];
-    image.alt = `${caption?.textContent || 'Estocolmo'} · fotografía ${current + 1} de ${album.length}`;
+    image.alt = `${placeHeading?.textContent || 'Estocolmo'} · fotografía ${current + 1} de ${album.length}`;
     if (counter) counter.textContent = `${current + 1} / ${album.length}`;
     [...thumbnails.children].forEach((button,j) => {
       button.classList.toggle('active',j === current);
@@ -101,7 +101,9 @@
     if (!album.length) return;
     focusBefore = document.activeElement;
     const place = gallery.closest('.place');
-    if (caption) caption.textContent = place?.querySelector('h2')?.textContent || 'Estocolmo';
+    const placeName = place?.querySelector('h2')?.textContent?.trim() || 'Estocolmo';
+    if (caption) caption.textContent = '';
+    if (placeHeading) placeHeading.textContent = placeName;
     if (placeDescription) placeDescription.textContent = place?.querySelector('.place-copy > p')?.textContent?.trim() || '';
     if (placeInfo) placeInfo.scrollTop = 0;
     thumbnails.replaceChildren();
