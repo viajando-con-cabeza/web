@@ -32,3 +32,23 @@ html body .imp-page .imp-card {
   }
   html body .imp-page .imp-card { top: 85px !important; }
 }
+
+/* Visor: títols Oswald com els llocs; comptador i controls en DM Sans. */
+html body #lightbox .lb-caption {
+  font-family: 'Oswald', sans-serif !important;
+  font-size: 22px !important;
+  font-weight: 500 !important;
+  line-height: 1.25 !important;
+  letter-spacing: 0 !important;
+  text-transform: uppercase !important;
+}
+html body #lightbox .lb-counter {
+  font-family: 'DM Sans', sans-serif !important;
+  font-size: 13px !important;
+  font-weight: 600 !important;
+  line-height: 1 !important;
+  font-variant-numeric: tabular-nums !important;
+}
+@media (max-width: 650px) {
+  html body #lightbox .lb-caption { font-size: 18px !important; }
+}
