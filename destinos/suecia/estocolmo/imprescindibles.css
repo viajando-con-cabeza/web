@@ -112,3 +112,14 @@ html body #lightbox .lb-close:focus-visible {
     font-size: 27px !important;
   }
 }
+
+/* Una mica més d'alçada per al visor i la fotografia, sense ocupar tota la pantalla. */
+html body #lightbox .lb-stage {
+  height: min(92dvh, 900px) !important;
+  max-height: calc(100dvh - 24px) !important;
+}
+@media (max-width: 800px) {
+  html body #lightbox .lb-stage {
+    height: min(92dvh, 800px) !important;
+  }
+}
