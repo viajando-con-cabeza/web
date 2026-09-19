@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 180" role="img" aria-label="Logo VCC amb avió de paper, sense fons">
+  <defs>
+    <!-- El logo d'origen porta el fons clar dins del PNG incrustat: convertim
+         els píxels gairebé blancs en transparència i preservem negres i corall. -->
+    <filter id="remove-light-background" x="-2%" y="-2%" width="104%" height="104%" color-interpolation-filters="sRGB">
+      <feColorMatrix type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  -1 -1 -1 0 2.91"/>
+    </filter>
+  </defs>
+  <image href="logo-vcc-vuelo.svg" width="180" height="180" filter="url(#remove-light-background)"/>
+</svg>
