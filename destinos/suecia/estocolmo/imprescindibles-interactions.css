@@ -1,8 +1,9 @@
 /* Ajustos d'imprescindibles: portada compacta, barra sticky i mosaic fotogràfic. */
 /* Sticky necessita que els contenidors ancestres no retallin l'overflow. */
 .imp-page{overflow:visible!important;overflow-x:visible!important;overflow-y:visible!important}
-.imp-page .imp-hero{height:550px!important;min-height:550px!important}
-.imp-page .imp-card{top:116px!important}
+/* Portada més estreta verticalment: barra immediatament sota la foto. */
+.imp-page .imp-hero{height:465px!important;min-height:465px!important}
+.imp-page .imp-card{top:90px!important}
 .imp-page .place-nav-wrap{position:sticky!important;top:var(--vcc-header-h,50px)!important;z-index:100!important;display:block!important;visibility:visible!important;opacity:1!important;transform:none!important;width:100%!important;height:43px!important;min-height:43px!important;margin:0!important;background:#fff!important;overflow:visible!important}
 .imp-page .place-nav-shell,.imp-page .place-nav{height:43px!important;min-height:43px!important}
 .imp-page .place-nav a{font-size:10.5px!important}
@@ -32,5 +33,5 @@
 #lightbox{z-index:2000!important}
 #lightbox .lb-stage{width:min(1200px,100%)!important}
 body:has(#lightbox.open){overflow:hidden!important}
-@media(max-width:800px){.imp-page .imp-hero{height:490px!important;min-height:490px!important}.imp-page .imp-card{top:105px!important}.imp-page .place{grid-template-columns:1fr!important;gap:20px!important}}
-@media(max-width:650px){.imp-page .imp-hero{height:460px!important;min-height:460px!important}.imp-page .imp-card{top:102px!important}.imp-page .gallery-mosaic{gap:5px!important}.imp-page .facts>span{padding:5px 8px!important}.imp-page .facts>span:first-child{padding-left:0!important}}
+@media(max-width:800px){.imp-page .imp-hero{height:450px!important;min-height:450px!important}.imp-page .imp-card{top:90px!important}.imp-page .place{grid-template-columns:1fr!important;gap:20px!important}}
+@media(max-width:650px){.imp-page .imp-hero{height:440px!important;min-height:440px!important}.imp-page .imp-card{top:85px!important}.imp-page .gallery-mosaic{gap:5px!important}.imp-page .facts>span{padding:5px 8px!important}.imp-page .facts>span:first-child{padding-left:0!important}}
