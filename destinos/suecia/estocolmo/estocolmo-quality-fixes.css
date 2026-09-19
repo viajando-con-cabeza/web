@@ -67,3 +67,11 @@ body>.shared-header .shared-menu,body>.shared-header .shared-menu a{font-family:
 .st-shell .st-tabs{height:43px!important;min-height:43px!important}
 .st-shell .st-tabs a{font-family:'DM Sans',sans-serif!important;font-size:10.5px!important;font-weight:800!important;line-height:1!important;padding:13px 0 12px!important}
 @media(max-width:720px){body>.shared-header .shared-menu,body>.shared-header .shared-menu a{font-size:10px!important}.st-shell .st-tabs a{font-size:10px!important}}
+
+/* Las cuatro métricas comparten la misma línea superior, sin estilos de botón ni valoración sobredimensionada. */
+.st-shell .st-facts{align-items:start!important}
+.st-shell .st-facts>.st-fact{align-self:start!important;min-width:0!important;margin:0!important;padding-top:0!important;transform:none!important}
+.st-shell .st-facts>.st-rating-fact{display:flex!important;flex-direction:column!important;align-items:flex-start!important;justify-content:flex-start!important;appearance:none!important;-webkit-appearance:none!important;line-height:1!important}
+.st-shell .st-facts>.st-rating-fact>span{font-family:'DM Sans',sans-serif!important;font-size:10px!important;font-weight:800!important;line-height:1.2!important;margin:0!important;padding:0!important}
+.st-shell .st-facts>.st-rating-fact>strong{font-family:'Oswald',sans-serif!important;font-size:16px!important;font-weight:500!important;line-height:1.2!important;margin:3px 0 0!important;padding:0!important}
+.st-shell .st-facts>.st-rating-fact>small{font-family:'DM Sans',sans-serif!important;font-size:9px!important;font-weight:400!important;line-height:1.2!important;margin:2px 0 0!important;padding:0!important}
