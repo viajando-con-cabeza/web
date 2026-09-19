@@ -17,59 +17,38 @@
 <link rel="stylesheet" href="estocolmo-quality-fixes.css">
 <link rel="stylesheet" href="imprescindibles.css">
 <style>
-html{scroll-behavior:auto}
-body{background:#faf7f2}
-.imp-hero{height:430px!important;position:relative!important;background:
-linear-gradient(90deg,rgba(16,22,20,.80) 0%,rgba(16,22,20,.57) 36%,rgba(16,22,20,.15) 66%,rgba(16,22,20,.05) 100%),
-url('https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?auto=format&fit=crop&w=2200&q=88') center 48%/cover no-repeat!important;color:#fff!important}
-.imp-hero:after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.04),rgba(0,0,0,.12));pointer-events:none}
-.imp-hero-inner{width:min(1180px,calc(100% - 48px))!important;height:100%;margin:auto;position:relative;z-index:2}
-.imp-crumb{position:absolute!important;top:24px!important;left:0!important;width:100%;display:flex!important;align-items:center!important;gap:8px!important;font-family:'DM Sans',sans-serif!important;font-size:11px!important;font-weight:600!important;color:#fff!important;text-shadow:0 1px 5px rgba(0,0,0,.28)}
-.imp-crumb a{color:#fff!important;text-decoration:none}.imp-crumb span{opacity:.6}.imp-crumb strong{font-weight:800}
-.imp-card{position:absolute!important;left:0!important;top:82px!important;width:min(610px,62vw)!important;background:transparent!important;border:0!important;border-radius:0!important;padding:0!important;box-shadow:none!important;color:#fff!important}
-.imp-card .eyebrow{font-family:'DM Sans',sans-serif!important;font-size:10px!important;font-weight:800!important;letter-spacing:.11em!important;color:#f28a73!important;margin:0 0 11px!important}
-.imp-hero .imp-card h1{position:static!important;margin:0!important;max-width:600px!important;font-family:'Oswald',sans-serif!important;font-size:clamp(48px,5vw,68px)!important;font-weight:500!important;line-height:.91!important;letter-spacing:-.02em!important;color:#fff!important;text-shadow:0 3px 18px rgba(0,0,0,.3)!important}
-.imp-hero .imp-card .imp-script{position:static!important;margin:10px 0 11px!important;font-family:'Caveat',cursive!important;font-size:31px!important;font-weight:600!important;line-height:1!important;color:#ef8069!important;transform:rotate(-1deg)!important}
-.imp-script:after{display:none!important}
-.imp-hero .imp-card .imp-lead{position:static!important;max-width:540px!important;margin:0!important;font-family:'DM Sans',sans-serif!important;font-size:12px!important;line-height:1.6!important;color:rgba(255,255,255,.94)!important}
-.imp-facts{display:flex!important;gap:0!important;align-items:stretch!important;margin-top:17px!important;padding-top:14px!important;border-top:1px solid rgba(255,255,255,.34)!important;color:#fff!important;font-size:9px!important}
-.imp-facts span{padding:0 20px!important;border-right:1px solid rgba(255,255,255,.28)!important}.imp-facts span:first-child{padding-left:0!important}.imp-facts span:last-child{border-right:0!important}
-.imp-facts b{display:block!important;font-size:10px!important;margin-bottom:2px!important}.imp-facts small{color:rgba(255,255,255,.76)!important;font-size:8px!important}
-.place-nav-wrap{position:sticky!important;top:50px!important;z-index:75!important;background:#fff!important;border-top:1px solid #e8ded5!important;border-bottom:1px solid #e8ded5!important;box-shadow:0 2px 10px rgba(43,35,30,.04)!important}
-.place-nav-shell{width:min(1180px,calc(100% - 30px))!important;min-height:52px!important;margin:auto!important;display:flex!important;align-items:center!important;gap:7px!important}
-.place-nav{width:auto!important;min-width:0!important;flex:1!important;min-height:52px!important;margin:0!important;display:flex!important;align-items:center!important;gap:8px!important;overflow-x:auto!important;scrollbar-width:none!important;scroll-behavior:smooth!important;padding:5px 0!important}.place-nav::-webkit-scrollbar{display:none!important}
-.place-nav a{flex:0 0 auto!important;display:inline-flex!important;align-items:center!important;justify-content:center!important;min-height:36px!important;padding:0 14px!important;border:1px solid #ece5de!important;border-radius:8px!important;background:#faf8f5!important;color:#423e3a!important;text-decoration:none!important;font-family:'DM Sans',sans-serif!important;font-size:9px!important;font-weight:700!important;line-height:1!important;text-transform:none!important;white-space:nowrap!important}
-.place-nav a:hover,.place-nav a.active{background:#cf705c!important;border-color:#cf705c!important;color:#fff!important}
-.place-nav-arrow{width:34px!important;height:34px!important;flex:0 0 34px!important;border:1px solid #e2d9d1!important;border-radius:50%!important;background:#fff!important;color:#a65340!important;font-size:19px!important;cursor:pointer!important;display:grid!important;place-items:center!important}.place-nav-arrow:disabled{opacity:.24!important;cursor:default!important}
-.imp-main{width:min(1180px,calc(100% - 48px))!important;margin:0 auto 60px!important}
-.place{scroll-margin-top:118px!important;grid-template-columns:minmax(0,1.06fr) minmax(360px,.94fr)!important;gap:42px!important;padding:46px 0!important;border-bottom:0!important}
-.place:not(:first-child){padding-top:48px!important}.place:not(:first-child)::before,.place:not(:first-child)::after{content:none!important;display:none!important}
-.place:nth-of-type(2n+1):not(:first-child){padding-top:108px!important}
-.place:nth-of-type(2n+1):not(:first-child)::before{content:''!important;display:block!important;position:absolute!important;left:0!important;top:10px!important;width:100%!important;height:54px!important;background:url('../../../assets/icons/paper-plane-trail.svg') center/78px 50px no-repeat,url('../../../assets/icons/vcc-place-divider.svg') center/100% 50px no-repeat!important;opacity:.9!important;pointer-events:none!important}
-.gallery-main{border-radius:8px!important}.place-kicker{font-family:'Caveat',cursive!important;font-size:22px!important;color:#cf705c!important}.place-copy h2{font-family:'Oswald',sans-serif!important;font-size:34px!important;font-weight:500!important}.place-copy>p{font-family:'DM Sans',sans-serif!important;font-size:12px!important;line-height:1.65!important}.facts{font-family:'DM Sans',sans-serif!important;font-size:10px!important}.advice b{font-size:10px!important}.advice p{font-size:10.5px!important;line-height:1.5!important}
-.gallery[data-count="1"] .thumbs,.gallery[data-count="1"] .photo-count{display:none!important}
-@media(max-width:800px){.imp-hero{height:455px!important;background-position:center!important}.imp-hero-inner{width:calc(100% - 28px)!important}.imp-card{top:78px!important;width:100%!important}.imp-hero .imp-card h1{font-size:44px!important}.imp-hero .imp-card .imp-script{font-size:27px!important}.imp-hero .imp-card .imp-lead{font-size:11px!important}.imp-facts{flex-wrap:wrap!important}.imp-facts span{padding:0 12px!important}.place-nav-wrap{top:88px!important}.place-nav-shell{width:calc(100% - 10px)!important}.place-nav-arrow{width:30px!important;height:30px!important;flex-basis:30px!important}.place{grid-template-columns:1fr!important;gap:18px!important}.imp-main{width:calc(100% - 24px)!important}.place:nth-of-type(2n+1):not(:first-child){padding-top:96px!important}}
+html{scroll-behavior:auto}body{background:#faf7f2}
+.imp-page .imp-hero{height:670px!important;min-height:670px!important}
+.imp-page .imp-main{width:min(1180px,calc(100% - 48px))!important;margin:0 auto 60px!important}
+.imp-page .place{scroll-margin-top:115px!important;padding:42px 0!important;border-bottom:0!important}
+.imp-page .place:not(:first-child){padding-top:48px!important}
+.imp-page .place:not(:first-child)::before,.imp-page .place:not(:first-child)::after{content:none!important;display:none!important}
+.imp-page .place:nth-of-type(2n+1):not(:first-child){padding-top:108px!important}
+.imp-page .place:nth-of-type(2n+1):not(:first-child)::before{content:''!important;display:block!important;position:absolute!important;left:0!important;top:10px!important;width:100%!important;height:54px!important;background:url('../../../assets/icons/paper-plane-trail.svg') center/78px 50px no-repeat,url('../../../assets/icons/vcc-place-divider.svg') center/100% 50px no-repeat!important;opacity:.9!important;pointer-events:none!important}
+.imp-page .gallery-main{border-radius:8px!important}
+.imp-page .place-kicker{font-family:'Caveat',cursive!important;font-size:22px!important;color:#cf705c!important}
+.imp-page .place-copy h2{font-family:'Oswald',sans-serif!important;font-size:34px!important;font-weight:500!important}
+.imp-page .place-copy>p{font-family:'DM Sans',sans-serif!important;font-size:12px!important;line-height:1.65!important}
+.imp-page .facts{font-family:'DM Sans',sans-serif!important;font-size:10px!important}
+.imp-page .advice b{font-size:10px!important}.imp-page .advice p{font-size:10.5px!important;line-height:1.5!important}
+.imp-page .gallery[data-count="1"] .thumbs,.imp-page .gallery[data-count="1"] .photo-count{display:none!important}
+@media(max-width:850px){.imp-page .imp-hero{height:550px!important;min-height:550px!important}.imp-page .place{grid-template-columns:1fr!important;gap:16px!important}.imp-page .imp-main{width:calc(100% - 28px)!important}}
+@media(max-width:650px){.imp-page .imp-hero{height:480px!important;min-height:480px!important}.imp-page .place:nth-of-type(2n+1):not(:first-child){padding-top:96px!important}}
 </style>
 </head>
 <body>
 <header class="page-header"></header>
 <div class="imp-page">
 <section class="imp-hero">
-  <div class="imp-hero-inner">
-    <nav class="imp-crumb" aria-label="Ruta de navegación"><a href="../../../index.html">Inicio</a><span>›</span><a href="../../index.html">Destinos</a><span>›</span><a href="../index.html">Suecia</a><span>›</span><a href="index.html">Estocolmo</a><span>›</span><strong>Qué ver</strong></nav>
-    <div class="imp-card">
-      <div class="eyebrow">📍 SUECIA · ESTOCOLMO</div>
-      <h1>QUÉ VER EN ESTOCOLMO</h1>
-      <p class="imp-script">Nuestros imprescindibles</p>
-      <p class="imp-lead">15 lugares para descubrir la historia, los barrios, los museos y las islas de Estocolmo, con información y consejos para cada parada.</p>
-      <div class="imp-facts"><span><b>15 LUGARES</b><small>Explora a tu ritmo</small></span><span><b>3 DÍAS</b><small>Ruta orientativa</small></span><span><b>ESTOCOLMO</b><small>Historia · islas · cultura</small></span></div>
-    </div>
-  </div>
+<div class="imp-hero-inner">
+<nav class="imp-crumb" aria-label="Ruta de navegación"><a href="../../../index.html">Inicio</a><span>›</span><a href="../../index.html">Destinos</a><span>›</span><a href="../index.html">Suecia</a><span>›</span><a href="index.html">Estocolmo</a><span>›</span><strong>Qué ver</strong></nav>
+<div class="imp-card"><div class="eyebrow">📍 SUECIA · ESTOCOLMO</div><h1>QUÉ VER EN ESTOCOLMO</h1><p class="imp-script">Nuestros imprescindibles</p><p class="imp-lead">15 lugares para descubrir la historia, los barrios, los museos y las islas de Estocolmo, con información y consejos para cada parada.</p><div class="imp-facts"><span><b>15 LUGARES</b><small>Explora a tu ritmo</small></span><span><b>3 DÍAS</b><small>Ruta orientativa</small></span><span><b>ESTOCOLMO</b><small>Historia · islas · cultura</small></span></div></div>
+</div>
 </section>
 <nav class="place-nav-wrap" aria-label="Índice de lugares"><div class="place-nav-shell"><button id="navPrev" class="place-nav-arrow" aria-label="Desplazar a la izquierda">‹</button><div class="place-nav" id="placeNav"></div><button id="navNext" class="place-nav-arrow" aria-label="Desplazar a la derecha">›</button></div></nav>
 <main class="imp-main" id="places"></main>
 </div>
-<div class="lightbox" id="lightbox"><div class="lb-stage"><button class="lb-close">×</button><button class="lb-prev">‹</button><img alt=""><button class="lb-next">›</button><div class="lb-caption"></div><div class="lb-thumbs"></div></div></div>
+<div class="lightbox" id="lightbox"><div class="lb-stage"><button class="lb-close" type="button" aria-label="Cerrar galería">×</button><button class="lb-prev" type="button" aria-label="Foto anterior">‹</button><img alt=""><button class="lb-next" type="button" aria-label="Foto siguiente">›</button><div class="lb-caption"></div><div class="lb-thumbs"></div></div></div>
 <script src="../../../js/site-header.js"></script>
 <script>
 const IMG={old:'https://images.unsplash.com/photo-1520769669658-f07657f5a307?auto=format&fit=crop&w=1200&q=88',city:'https://images.unsplash.com/photo-1509356843151-3e7d96241e11?auto=format&fit=crop&w=1200&q=88',green:'https://images.unsplash.com/photo-1517825738774-7de9363ef735?auto=format&fit=crop&w=1200&q=88',water:'https://images.unsplash.com/photo-1534274988757-a28bf1a57c17?auto=format&fit=crop&w=1200&q=88'};
@@ -90,15 +69,16 @@ const data=[
 ['kungstradgarden','Kungsträdgården','Parque urbano','Una pausa en pleno centro','Este parque céntrico es un lugar para descansar entre visitas, pasear y observar el ambiente de Estocolmo.','Norrmalm','30–60 min',3,'Un respiro entre visitas','Aprovéchalo como parada de paso.','green','city'],
 ['stromkajen','Strömkajen','Paseo junto al agua','La ciudad empieza en sus muelles','El paseo junto a los muelles de Strömkajen permite observar el centro desde el agua y enlazar distintos puntos de interés caminando.','Centro','30–60 min',3,'Agua y vida urbana','Combínalo con un trayecto en barco.','water','city','green']
 ];
-const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot',"'":'&#39;'}[c]));
-const rating=n=>`<span class="vcc-rating r${n}"><i></i><i></i><i></i><i></i><i></i></span>`;
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const rating=n=>`<span class="vcc-rating r${n}" aria-label="Valoración VCC: ${n} de 5"><i></i><i></i><i></i><i></i><i></i></span>`;
 const nav=document.getElementById('placeNav');
 nav.innerHTML=data.map((p,i)=>`<a href="#${p[0]}" class="${i===0?'active':''}">${esc(p[1])}</a>`).join('');
 const main=document.getElementById('places');
-main.innerHTML=data.map((p,i)=>{const imgs=p.slice(10).map(k=>IMG[k]);return `<section class="place" id="${p[0]}"><div class="gallery" data-count="${imgs.length}"><div class="gallery-main" data-images='${JSON.stringify(imgs)}'><img src="${imgs[0]}" alt="${esc(p[1])}" loading="lazy"><span class="photo-note">${esc(p[8])}</span><span class="photo-count">1 / ${imgs.length}</span></div><div class="thumbs">${imgs.map((u,j)=>`<button type="button" class="${j===0?'is-active':''}" data-i="${j}"><img src="${u}" alt=""></button>`).join('')}</div></div><div class="place-copy"><div class="place-kicker">${esc(p[3])}</div><h2>${esc(p[1]).toUpperCase()}</h2><p>${esc(p[4])}</p><div class="facts"><span><b class="ico">◆</b>${esc(p[2])}</span><span><b class="ico">●</b>${esc(p[5])}</span><span><b class="ico">◷</b>${esc(p[6])}</span><span>${rating(p[7])}</span></div><div class="advice"><div class="paper-plane"></div><div><b>CONSEJO VCC</b><p>${esc(p[9])}</p></div></div><a class="map-btn" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(p[1]+' Stockholm')}">VER EN GOOGLE MAPS →</a></div></section>`}).join('');
+main.innerHTML=data.map((p,i)=>{const imgs=p.slice(10).map(k=>IMG[k]);const maps=`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(p[1]+' Stockholm')}`;return `<section class="place" id="${p[0]}"><div class="gallery" data-count="${imgs.length}"><div class="gallery-main" data-images='${JSON.stringify(imgs)}'><img src="${imgs[0]}" alt="${esc(p[1])}" loading="lazy"><span class="photo-count">1 / ${imgs.length}</span></div><div class="thumbs">${imgs.map((u,j)=>`<button type="button" class="${j===0?'is-active':''}" data-i="${j}" aria-label="Ver fotografía ${j+1}"><img src="${u}" alt=""></button>`).join('')}</div></div><div class="place-copy"><div class="place-kicker">${esc(p[3])}</div><h2>${esc(p[1]).toUpperCase()}</h2><p>${esc(p[4])}</p><div class="facts"><span><b class="ico">◆</b>${esc(p[2])}</span><span><b class="ico">●</b>${esc(p[5])}</span><span><b class="ico">◷</b>${esc(p[6])}</span><span>${rating(p[7])}</span><span class="fact-map"><b class="ico">⌖</b><a target="_blank" rel="noopener noreferrer" href="${maps}" aria-label="Abrir ${esc(p[1])} en Google Maps">Google Maps</a></span></div><div class="advice"><div class="paper-plane" role="img" aria-label="Logo VCC"></div><div><b>CONSEJO VCC</b><p>${esc(p[9])}</p></div></div></div></section>`}).join('');
 nav.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{nav.querySelectorAll('a').forEach(x=>x.classList.remove('active'));a.classList.add('active')}));
 const prev=document.getElementById('navPrev'),next=document.getElementById('navNext');const update=()=>{prev.disabled=nav.scrollLeft<5;next.disabled=nav.scrollLeft+nav.clientWidth>=nav.scrollWidth-5};prev.onclick=()=>nav.scrollBy({left:-Math.max(nav.clientWidth*.7,280),behavior:'smooth'});next.onclick=()=>nav.scrollBy({left:Math.max(nav.clientWidth*.7,280),behavior:'smooth'});nav.addEventListener('scroll',update,{passive:true});window.addEventListener('resize',update);update();
 document.querySelectorAll('.gallery').forEach(g=>{const main=g.querySelector('.gallery-main'),hero=main.querySelector('img'),count=main.querySelector('.photo-count'),btns=[...g.querySelectorAll('.thumbs button')],imgs=JSON.parse(main.dataset.images);btns.forEach(b=>b.onclick=()=>{const i=+b.dataset.i;hero.src=imgs[i];if(count)count.textContent=`${i+1} / ${imgs.length}`;btns.forEach(x=>x.classList.toggle('is-active',x===b))})});
 </script>
+<script src="imprescindibles-interactions.js" defer></script>
 </body>
 </html>
