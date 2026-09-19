@@ -1,0 +1,18 @@
+/* Ajustes específicos de la guía de imprescindibles. */
+.imp-page .place{grid-template-columns:minmax(0,1.03fr) minmax(0,.97fr)!important;gap:25px!important;align-items:start!important}
+.imp-page .gallery{max-width:none!important}
+.imp-page .gallery-main{cursor:zoom-in!important}
+.imp-page .gallery-main:after,.imp-page .photo-note{content:none!important;display:none!important}
+.imp-page .gallery-main:focus-visible{outline:2px solid #a65340;outline-offset:4px}
+.imp-page .paper-plane{width:50px!important;height:50px!important;flex:0 0 50px!important;background:#fff url('../../../assets/branding/logo-vcc-vuelo.svg') center/contain no-repeat!important;border:0!important;border-radius:0!important}
+.imp-page .paper-plane:before{content:none!important;display:none!important}
+.imp-page .facts{gap:0!important;align-items:center!important}
+.imp-page .facts .fact-map{border-right:0!important}
+.imp-page .facts .fact-map a{color:#a65340!important;text-decoration:none!important;font-family:'DM Sans',sans-serif!important;font-size:10px!important;font-weight:800!important;white-space:nowrap!important}
+.imp-page .facts .fact-map a:hover,.imp-page .facts .fact-map a:focus-visible{text-decoration:underline!important;text-underline-offset:3px!important}
+.imp-page .map-btn{display:none!important}
+.imp-page .lightbox{z-index:2000!important}
+.imp-page .lb-stage{width:min(1200px,100%)!important}
+body:has(#lightbox.open){overflow:hidden!important}
+@media(max-width:800px){.imp-page .place{grid-template-columns:1fr!important;gap:16px!important}}
+@media(max-width:650px){.imp-page .facts>span{padding:5px 8px!important}.imp-page .facts>span:first-child{padding-left:0!important}}
