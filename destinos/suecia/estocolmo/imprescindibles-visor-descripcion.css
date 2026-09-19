@@ -1,0 +1,59 @@
+/* Visor de fotos: descripción del lugar en columna lateral, sin comentarios inventados. */
+html body #lightbox .lb-stage {
+  grid-template-columns: minmax(0, 1fr) minmax(250px, 290px) !important;
+  grid-template-rows: 60px minmax(0, 1fr) 34px 100px !important;
+}
+html body #lightbox .lb-caption {
+  grid-column: 1 / -1 !important;
+  font-family: 'Oswald', sans-serif !important;
+  font-weight: 500 !important;
+  font-size: 19px !important;
+  letter-spacing: .015em !important;
+}
+html body #lightbox .lb-stage > img,
+html body #lightbox .lb-counter,
+html body #lightbox .lb-thumbs {
+  grid-column: 1 !important;
+}
+html body #lightbox .lb-stage > img { width: calc(100% - 92px) !important; }
+html body #lightbox .lb-next { right: 304px !important; }
+html body #lightbox .lb-place-info {
+  grid-column: 2 !important;
+  grid-row: 2 / 5 !important;
+  min-width: 0 !important;
+  overflow-y: auto !important;
+  border-left: 1px solid #eee9e4 !important;
+  background: #fff !important;
+  padding: 26px 22px !important;
+  color: #333 !important;
+  font-family: 'DM Sans', sans-serif !important;
+}
+html body #lightbox .lb-place-info h3 {
+  margin: 0 0 15px !important;
+  color: #a65340 !important;
+  font: 700 15px/1.4 'DM Sans', sans-serif !important;
+}
+html body #lightbox .lb-place-info p {
+  margin: 0 !important;
+  color: #49443f !important;
+  font: 400 13px/1.75 'DM Sans', sans-serif !important;
+  overflow-wrap: anywhere !important;
+}
+@media (max-width: 800px) {
+  html body #lightbox .lb-stage {
+    grid-template-columns: minmax(0, 1fr) !important;
+    grid-template-rows: 54px minmax(0, 1fr) 28px 76px minmax(72px, auto) !important;
+  }
+  html body #lightbox .lb-stage > img { width: calc(100% - 76px) !important; }
+  html body #lightbox .lb-next { right: 5px !important; }
+  html body #lightbox .lb-place-info {
+    grid-column: 1 !important;
+    grid-row: 5 !important;
+    max-height: 125px !important;
+    border-left: 0 !important;
+    border-top: 1px solid #eee9e4 !important;
+    padding: 10px 16px 14px !important;
+  }
+  html body #lightbox .lb-place-info h3 { margin-bottom: 4px !important; font-size: 12px !important; }
+  html body #lightbox .lb-place-info p { font-size: 12px !important; line-height: 1.5 !important; }
+}
