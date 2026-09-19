@@ -15,7 +15,11 @@ html body #lightbox .lb-counter,
 html body #lightbox .lb-thumbs {
   grid-column: 1 !important;
 }
-html body #lightbox .lb-stage > img { width: calc(100% - 92px) !important; }
+/* Situa el límit superior de la fotografia a l'inici de la fila del visor. */
+html body #lightbox .lb-stage > img {
+  width: calc(100% - 92px) !important;
+  object-position: center top !important;
+}
 html body #lightbox .lb-next { right: 304px !important; }
 html body #lightbox .lb-place-info {
   position: relative !important;
@@ -25,15 +29,15 @@ html body #lightbox .lb-place-info {
   overflow-y: auto !important;
   border-left: 0 !important;
   background: #fff !important;
-  padding: 26px 22px !important;
+  padding: 0 22px 26px !important;
   color: #333 !important;
   font-family: 'DM Sans', sans-serif !important;
 }
-/* Separador interior: més alt, amb marges simètrics. */
+/* La línia i el títol comencen on comença la fotografia, sense marge superior extra. */
 html body #lightbox .lb-place-info::before {
   content: '' !important;
   position: absolute !important;
-  top: 18px !important;
+  top: 0 !important;
   bottom: 18px !important;
   left: 0 !important;
   width: 1px !important;
