@@ -1,38 +1,36 @@
-/* Ajustos finals dels imprescindibles: únicament aquesta pàgina. */
-/* Un ancestor amb overflow:clip impedeix que la navegació sticky segueixi el scroll. */
+/* Ajustos d'imprescindibles: portada compacta, barra sticky i mosaic fotogràfic. */
+/* Sticky necessita que els contenidors ancestres no retallin l'overflow. */
 .imp-page{overflow:visible!important;overflow-x:visible!important;overflow-y:visible!important}
-.imp-page .place-nav-wrap{position:sticky!important;top:var(--vcc-header-h,50px)!important;z-index:100!important;display:block!important;visibility:visible!important;opacity:1!important;transform:none!important;width:100%!important;height:43px!important;min-height:43px!important;margin:0!important;inset-inline:0!important;background:#fff!important;overflow:visible!important}
+.imp-page .imp-hero{height:550px!important;min-height:550px!important}
+.imp-page .imp-card{top:116px!important}
+.imp-page .place-nav-wrap{position:sticky!important;top:var(--vcc-header-h,50px)!important;z-index:100!important;display:block!important;visibility:visible!important;opacity:1!important;transform:none!important;width:100%!important;height:43px!important;min-height:43px!important;margin:0!important;background:#fff!important;overflow:visible!important}
 .imp-page .place-nav-shell,.imp-page .place-nav{height:43px!important;min-height:43px!important}
 .imp-page .place-nav a{font-size:10.5px!important}
-/* Foto gran dins d'un marc i miniatures proporcionals segons el nombre real de fotos. */
-.imp-page .place{grid-template-columns:minmax(0,1.03fr) minmax(0,.97fr)!important;gap:25px!important;align-items:start!important}
-.imp-page .gallery{display:flex!important;flex-direction:column!important;gap:9px!important;min-width:0!important;max-width:none!important}
-.imp-page .gallery-main{position:relative!important;display:block!important;overflow:hidden!important;width:100%!important;border:1px solid #e5ddd5!important;border-radius:9px!important;background:#fff!important;cursor:pointer!important}
-.imp-page .gallery-main img{display:block!important;width:100%!important;height:100%!important;object-fit:cover!important;cursor:pointer!important}
-.imp-page .gallery .thumbs{display:grid!important;grid-template-columns:repeat(var(--gallery-columns,3),minmax(0,1fr))!important;gap:8px!important;width:100%!important;margin:0!important;padding:0!important;overflow:visible!important}
-.imp-page .gallery .thumbs button{display:block!important;min-width:0!important;width:100%!important;height:76px!important;max-height:none!important;margin:0!important;padding:0!important;overflow:hidden!important;border:1px solid #e5ddd5!important;border-radius:6px!important;background:#fff!important;cursor:pointer!important}
-.imp-page .gallery .thumbs button.is-active{border-color:#cf705c!important;box-shadow:inset 0 0 0 1px #cf705c!important}
-.imp-page .gallery .thumbs button img{display:block!important;width:100%!important;height:100%!important;object-fit:cover!important;cursor:pointer!important}
-.imp-page .gallery[data-count="1"] .thumbs,.imp-page .gallery[data-count="1"] .photo-count{display:none!important}
-.imp-page .gallery[data-count="2"]{--gallery-columns:2}
-.imp-page .gallery[data-count="3"]{--gallery-columns:3}
-.imp-page .gallery[data-count="4"]{--gallery-columns:4}
-.imp-page .gallery[data-count="5"]{--gallery-columns:5}
-.imp-page .gallery[data-count="6"]{--gallery-columns:6}
-/* No hi ha lupa, etiqueta ni cursor d'ampliació: la fotografia és un enllaç clicable. */
-.imp-page .gallery-main:before,.imp-page .gallery-main:after,.imp-page .photo-note,.imp-page .zoom-icon,.imp-page .photo-zoom{content:none!important;display:none!important}
-.imp-page .gallery-main,.imp-page .gallery-main *, .imp-page .gallery .thumbs button{cursor:pointer!important}
-.imp-page .gallery-main:focus-visible{outline:2px solid #a65340;outline-offset:4px}
-/* El logotip actual es fusiona amb el fons sense el requadre blanc extern. */
-.imp-page .paper-plane{width:50px!important;height:50px!important;flex:0 0 50px!important;background:transparent url('../../../assets/branding/logo-vcc-vuelo.svg') center/contain no-repeat!important;border:0!important;border-radius:0!important;box-shadow:none!important;mix-blend-mode:multiply!important}
-.imp-page .paper-plane:before,.imp-page .paper-plane:after{content:none!important;display:none!important}
+/* Fotos i text equilibrats, sense l'espai original excessiu. */
+.imp-page .place{grid-template-columns:minmax(0,1.03fr) minmax(0,.97fr)!important;gap:34px!important;align-items:start!important}
+.imp-page .gallery{width:100%!important;max-width:none!important;min-width:0!important;display:block!important}
+/* El JS substitueix la foto amb miniatures per un mosaic de fotos diferents. */
+.imp-page .gallery-mosaic{display:grid!important;gap:8px!important;width:100%!important;min-width:0!important;overflow:hidden!important;border-radius:10px!important}
+.imp-page .gallery-mosaic.count-1{grid-template-columns:minmax(0,1fr)!important;grid-template-rows:1fr!important;aspect-ratio:16/10}
+.imp-page .gallery-mosaic.count-2{grid-template-columns:repeat(2,minmax(0,1fr))!important;grid-template-rows:1fr!important;aspect-ratio:16/10}
+.imp-page .gallery-mosaic.count-3{grid-template-columns:1.15fr .85fr!important;grid-template-rows:repeat(2,minmax(0,1fr))!important;aspect-ratio:16/10}
+.imp-page .gallery-mosaic.count-3 .gallery-tile:first-child{grid-row:1/span 2!important}
+.imp-page .gallery-mosaic.count-4{grid-template-columns:repeat(2,minmax(0,1fr))!important;grid-template-rows:repeat(2,minmax(0,1fr))!important;aspect-ratio:16/10}
+.imp-page .gallery-mosaic .gallery-tile{min-height:0!important;min-width:0!important;width:100%!important;height:100%!important;margin:0!important;padding:0!important;display:block!important;position:relative!important;border:1px solid #e5ddd5!important;border-radius:6px!important;overflow:hidden!important;background:transparent!important;box-shadow:none!important;cursor:pointer!important;appearance:none!important;-webkit-appearance:none!important}
+.imp-page .gallery-mosaic .gallery-tile img{display:block!important;width:100%!important;height:100%!important;min-height:0!important;max-height:none!important;object-fit:cover!important;aspect-ratio:auto!important;cursor:pointer!important}
+.imp-page .gallery-mosaic .gallery-tile:focus-visible{outline:2px solid #a65340!important;outline-offset:-3px!important}
+.imp-page .gallery-mosaic .gallery-tile::before,.imp-page .gallery-mosaic .gallery-tile::after{display:none!important;content:none!important}
+.imp-page .gallery-main,.imp-page .thumbs,.imp-page .photo-note,.imp-page .photo-count{display:none!important}
+/* L'SVG actual conté blanc incrustat: multiply deixa veure el color de fons real. */
+.imp-page .paper-plane{width:50px!important;height:50px!important;flex:0 0 50px!important;border:0!important;border-radius:0!important;box-shadow:none!important;background:transparent url('../../../assets/branding/logo-vcc-vuelo.svg') center/contain no-repeat!important;mix-blend-mode:multiply!important}
+.imp-page .paper-plane::before,.imp-page .paper-plane::after{display:none!important;content:none!important}
 .imp-page .facts{gap:0!important;align-items:center!important}
 .imp-page .facts .fact-map{border-right:0!important}
-.imp-page .facts .fact-map a{color:#a65340!important;text-decoration:none!important;font-family:'DM Sans',sans-serif!important;font-size:10px!important;font-weight:800!important;white-space:nowrap!important}
+.imp-page .facts .fact-map a{color:#a65340!important;text-decoration:none!important;font:800 10px/1.2 'DM Sans',sans-serif!important;white-space:nowrap!important}
 .imp-page .facts .fact-map a:hover,.imp-page .facts .fact-map a:focus-visible{text-decoration:underline!important;text-underline-offset:3px!important}
 .imp-page .map-btn{display:none!important}
-.lightbox{z-index:2000!important}
-.lightbox .lb-stage{width:min(1200px,100%)!important}
+#lightbox{z-index:2000!important}
+#lightbox .lb-stage{width:min(1200px,100%)!important}
 body:has(#lightbox.open){overflow:hidden!important}
-@media(max-width:800px){.imp-page .place{grid-template-columns:1fr!important;gap:16px!important}}
-@media(max-width:650px){.imp-page .facts>span{padding:5px 8px!important}.imp-page .facts>span:first-child{padding-left:0!important}.imp-page .gallery .thumbs button{height:62px!important}}
+@media(max-width:800px){.imp-page .imp-hero{height:490px!important;min-height:490px!important}.imp-page .imp-card{top:105px!important}.imp-page .place{grid-template-columns:1fr!important;gap:20px!important}}
+@media(max-width:650px){.imp-page .imp-hero{height:460px!important;min-height:460px!important}.imp-page .imp-card{top:102px!important}.imp-page .gallery-mosaic{gap:5px!important}.imp-page .facts>span{padding:5px 8px!important}.imp-page .facts>span:first-child{padding-left:0!important}}
