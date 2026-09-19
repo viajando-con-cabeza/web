@@ -1,80 +1,50 @@
-/* Navegació sincronitzada i mosaic de fotos tipus Booking. Només imprescindibles. */
+/* Quality: mosaic Booking de fins a cinc imatges visibles. Fotografies de mostra Unsplash, substituïbles per fotos VCC. */
 (() => {
   const nav = document.getElementById('placeNav');
   const sections = [...document.querySelectorAll('.imp-main .place[id]')];
   const links = [...(nav?.querySelectorAll('a[href^="#"]') || [])];
   if (nav && sections.length && links.length) {
-    let activeId = '';
-    let ticking = false;
-    const setActive = (id) => {
-      if (!id || activeId === id) return;
-      activeId = id;
-      const active = links.find(link => link.getAttribute('href') === '#' + id);
-      links.forEach(link => {
-        const selected = link === active;
-        link.classList.toggle('active', selected);
-        if (selected) link.setAttribute('aria-current', 'location');
-        else link.removeAttribute('aria-current');
+    let active = '', queued = false;
+    const highlight = id => {
+      if (active === id) return;
+      active = id;
+      const chosen = links.find(a => a.getAttribute('href') === '#' + id);
+      links.forEach(a => {
+        a.classList.toggle('active', a === chosen);
+        if (a === chosen) a.setAttribute('aria-current', 'location');
+        else a.removeAttribute('aria-current');
       });
-      if (active) {
-        const left = active.offsetLeft - nav.offsetLeft - (nav.clientWidth - active.offsetWidth) / 2;
-        nav.scrollTo({left: Math.max(0, left), behavior: 'smooth'});
-      }
+      if (chosen) nav.scrollTo({left: Math.max(0, chosen.offsetLeft - nav.offsetLeft - (nav.clientWidth - chosen.offsetWidth) / 2), behavior:'smooth'});
     };
     const sync = () => {
-      ticking = false;
+      queued = false;
       const header = document.querySelector('.shared-header');
       const bar = document.querySelector('.place-nav-wrap');
-      const threshold = (header?.getBoundingClientRect().height || 50) + (bar?.getBoundingClientRect().height || 43) + 45;
-      let current = sections[0].id;
+      const limit = (header?.offsetHeight || 50) + (bar?.offsetHeight || 43) + 45;
+      let id = sections[0].id;
       for (const section of sections) {
-        if (section.getBoundingClientRect().top <= threshold) current = section.id;
+        if (section.getBoundingClientRect().top <= limit) id = section.id;
         else break;
       }
-      setActive(current);
+      highlight(id);
     };
-    const schedule = () => {
-      if (ticking) return;
-      ticking = true;
-      requestAnimationFrame(sync);
-    };
-    links.forEach(link => link.addEventListener('click', () => setActive(link.getAttribute('href').slice(1))));
-    window.addEventListener('scroll', schedule, {passive: true});
-    window.addEventListener('resize', schedule);
-    window.addEventListener('hashchange', schedule);
-    schedule();
+    const queue = () => {if (!queued) {queued = true; requestAnimationFrame(sync);}};
+    links.forEach(a => a.addEventListener('click', () => highlight(a.hash.slice(1))));
+    window.addEventListener('scroll', queue, {passive:true});
+    window.addEventListener('resize', queue);
+    window.addEventListener('hashchange', queue);
+    queue();
   }
 
-  /* Convertim la galeria antiga (principal + selectors repetits) en un únic mosaic.
-     Conservem la llista original d'imatges i no alterem el contingut dels llocs. */
-  document.querySelectorAll('.imp-main .gallery').forEach(gallery => {
-    const original = gallery.querySelector('.gallery-main');
-    if (!original) return;
-    let sources = [];
-    try { sources = JSON.parse(original.dataset.images || '[]'); } catch { sources = []; }
-    if (!Array.isArray(sources)) return;
-    const photos = [...new Set(sources.filter(src => typeof src === 'string' && src))];
-    if (!photos.length) return;
-    gallery.dataset.images = JSON.stringify(photos);
-    gallery.dataset.count = String(photos.length);
-    const mosaic = document.createElement('div');
-    mosaic.className = `gallery-mosaic count-${Math.min(photos.length, 4)}`;
-    photos.forEach((src, index) => {
-      const tile = document.createElement('button');
-      tile.type = 'button';
-      tile.className = 'gallery-tile';
-      tile.dataset.i = String(index);
-      tile.setAttribute('aria-label', `Ampliar fotografía ${index + 1} de ${photos.length}`);
-      const img = document.createElement('img');
-      img.src = src;
-      img.alt = gallery.closest('.place')?.querySelector('h2')?.textContent || 'Estocolmo';
-      img.loading = 'lazy';
-      tile.append(img);
-      mosaic.append(tile);
-    });
-    gallery.replaceChildren(mosaic);
-  });
-
+  /* Àlbum de demostració: 15 fotografies diferents de Stockholm / Vasa.
+     En producció substituir aquest catàleg per fotografies pròpies i específiques de cada lloc. */
+  const unsplash = id => `https://unsplash.com/photos/${id}/download?w=1200`;
+  const city = [
+    'mJAMq6b5yQo','Mr4pKe6GvSI','VPPIMOrXasA','Oa0VyfkUyuo','4R2byovEbLc',
+    'EAe_AWX92ds','MTVNmZ3giQA','ovCfRHRg2IQ','UZC72aP5gog','qLpKUb-ScZY',
+    '2WP6etuxw98','Xca0hoSXaRg','vFxwpG3R2XU','TM10cRgMaiI','17fQ9mJT-aw'
+  ].map(unsplash);
+  const vasa = ['TM10cRgMaiI','17fQ9mJT-aw','Lr9PlVUih_0','rFErChXo_qQ','PgTkZZLsl-s'].map(unsplash);
   const overlay = document.getElementById('lightbox');
   const stage = overlay?.querySelector('.lb-stage');
   const image = stage?.querySelector(':scope > img');
@@ -83,69 +53,87 @@
   const previous = stage?.querySelector('.lb-prev');
   const next = stage?.querySelector('.lb-next');
   const close = stage?.querySelector('.lb-close');
-  if (!overlay || !image || !thumbnails || !previous || !next || !close) return;
-  let photos = [];
-  let index = 0;
-  let lastFocus = null;
-  const show = (i) => {
-    if (!photos.length) return;
-    index = (i + photos.length) % photos.length;
-    image.src = photos[index];
+  let album = [], current = 0, focusBefore = null;
+  const show = i => {
+    if (!album.length || !image) return;
+    current = (i + album.length) % album.length;
+    image.src = album[current];
     image.alt = caption?.textContent || 'Fotografía de Estocolmo';
-    [...thumbnails.children].forEach((button, j) => {
-      button.classList.toggle('active', j === index);
-      button.setAttribute('aria-pressed', String(j === index));
+    [...thumbnails.children].forEach((button,j) => {
+      button.classList.toggle('active',j === current);
+      button.setAttribute('aria-pressed', String(j === current));
     });
-    const active = thumbnails.children[index];
-    if (active) thumbnails.scrollTo({left: active.offsetLeft - thumbnails.offsetLeft - (thumbnails.clientWidth - active.clientWidth) / 2, behavior: 'smooth'});
-    previous.hidden = next.hidden = photos.length < 2;
+    thumbnails.children[current]?.scrollIntoView({block:'nearest',inline:'nearest'});
+    previous.hidden = next.hidden = album.length < 2;
   };
   const dismiss = () => {
     overlay.classList.remove('open');
-    overlay.setAttribute('aria-hidden', 'true');
+    overlay.setAttribute('aria-hidden','true');
     image.removeAttribute('src');
-    lastFocus?.focus?.();
+    focusBefore?.focus?.();
   };
-  document.querySelectorAll('.imp-main .gallery').forEach(gallery => {
-    let urls = [];
-    try { urls = JSON.parse(gallery.dataset.images || '[]'); } catch { urls = []; }
-    if (!Array.isArray(urls) || !urls.length) return;
-    gallery.querySelectorAll('.gallery-tile').forEach(tile => {
-      tile.addEventListener('click', () => {
-        photos = urls;
-        lastFocus = tile;
-        if (caption) caption.textContent = gallery.closest('.place')?.querySelector('h2')?.textContent || 'Estocolmo';
-        thumbnails.replaceChildren();
-        photos.forEach((src, j) => {
-          const button = document.createElement('button');
-          button.type = 'button';
-          button.setAttribute('aria-label', `Ver fotografía ${j + 1} de ${photos.length}`);
-          const thumb = document.createElement('img');
-          thumb.src = src;
-          thumb.alt = '';
-          button.append(thumb);
-          button.addEventListener('click', () => show(j));
-          thumbnails.append(button);
-        });
-        overlay.classList.add('open');
-        overlay.setAttribute('aria-hidden', 'false');
-        show(Number(tile.dataset.i) || 0);
-        close.focus();
-      });
+  const open = (gallery, index) => {
+    if (!overlay || !image || !thumbnails || !close) return;
+    try {album = JSON.parse(gallery.dataset.images || '[]');} catch {album = [];}
+    if (!album.length) return;
+    focusBefore = document.activeElement;
+    if (caption) caption.textContent = gallery.closest('.place')?.querySelector('h2')?.textContent || 'Estocolmo';
+    thumbnails.replaceChildren();
+    album.forEach((src,j) => {
+      const button = document.createElement('button');
+      button.type = 'button';
+      button.setAttribute('aria-label',`Ver fotografía ${j+1} de ${album.length}`);
+      const thumb = document.createElement('img'); thumb.src = src; thumb.alt = '';
+      button.append(thumb);
+      button.addEventListener('click',() => show(j));
+      thumbnails.append(button);
     });
+    overlay.classList.add('open');
+    overlay.setAttribute('aria-hidden','false');
+    show(index);
+    close.focus();
+  };
+  document.querySelectorAll('.imp-main .gallery').forEach((gallery, placeIndex) => {
+    const original = gallery.querySelector('.gallery-main');
+    let own = [];
+    try {own = JSON.parse(original?.dataset.images || '[]');} catch {own = [];}
+    const requested = placeIndex + 1;
+    const source = placeIndex === 1 ? [...vasa, ...city] : [...city.slice(placeIndex % city.length), ...city.slice(0,placeIndex % city.length)];
+    /* Les fotos originals es mantenen en primer lloc quan existeixen. */
+    const photos = [...new Set([...own.filter(Boolean), ...source])].slice(0,requested);
+    gallery.dataset.images = JSON.stringify(photos);
+    gallery.dataset.count = String(photos.length);
+    const mosaic = document.createElement('div');
+    mosaic.className = `gallery-mosaic count-${Math.min(photos.length,5)}`;
+    photos.slice(0,5).forEach((src,index) => {
+      const tile = document.createElement('button');
+      tile.type='button'; tile.className='gallery-tile'; tile.dataset.i=String(index);
+      tile.setAttribute('aria-label',`Ampliar fotografía ${index+1} de ${photos.length}`);
+      const img=document.createElement('img'); img.src=src;
+      img.alt=`${gallery.closest('.place')?.querySelector('h2')?.textContent || 'Estocolmo'} · fotografía ${index+1}`;
+      img.loading='lazy';
+      tile.append(img);
+      if (index === 4 && photos.length > 5) {
+        const more=document.createElement('span'); more.className='gallery-more';
+        more.textContent=`+${photos.length-5} fotos más`;
+        tile.append(more);
+      }
+      tile.addEventListener('click',() => open(gallery,index));
+      mosaic.append(tile);
+    });
+    gallery.replaceChildren(mosaic);
   });
-  previous.addEventListener('click', () => photos.length && show(index - 1));
-  next.addEventListener('click', () => photos.length && show(index + 1));
-  close.addEventListener('click', dismiss);
-  overlay.addEventListener('click', e => {if (e.target === overlay) dismiss();});
-  document.addEventListener('keydown', e => {
+  if (!overlay || !image || !thumbnails || !previous || !next || !close) return;
+  previous.addEventListener('click',() => show(current-1));
+  next.addEventListener('click',() => show(current+1));
+  close.addEventListener('click',dismiss);
+  overlay.addEventListener('click',e => {if (e.target === overlay) dismiss();});
+  document.addEventListener('keydown',e => {
     if (!overlay.classList.contains('open')) return;
     if (e.key === 'Escape') dismiss();
-    if (e.key === 'ArrowLeft' && photos.length > 1) show(index - 1);
-    if (e.key === 'ArrowRight' && photos.length > 1) show(index + 1);
+    if (e.key === 'ArrowLeft') show(current-1);
+    if (e.key === 'ArrowRight') show(current+1);
   });
-  overlay.setAttribute('role', 'dialog');
-  overlay.setAttribute('aria-modal', 'true');
-  overlay.setAttribute('aria-label', 'Galería de fotografías');
-  overlay.setAttribute('aria-hidden', 'true');
+  overlay.setAttribute('role','dialog'); overlay.setAttribute('aria-modal','true');
+  overlay.setAttribute('aria-label','Galería de fotografías'); overlay.setAttribute('aria-hidden','true');
 })();
