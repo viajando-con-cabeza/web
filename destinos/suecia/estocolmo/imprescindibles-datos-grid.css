@@ -124,3 +124,46 @@ html body .imp-page .place-copy .advice p {
     display: none !important;
   }
 }
+
+/* Separador característic VCC abans de la targeta de l'itinerari.
+   El pseudo-element queda fora de la targeta, sense modificar-ne les lletres. */
+html body .imp-page .vcc-itinerary-feature.vcc-itinerary-feature {
+  position: relative !important;
+  overflow: visible !important;
+  margin-top: 134px !important;
+}
+html body .imp-page .vcc-itinerary-feature.vcc-itinerary-feature::before {
+  content: '' !important;
+  display: block !important;
+  position: absolute !important;
+  left: 0 !important;
+  right: 0 !important;
+  top: -105px !important;
+  height: 60px !important;
+  background: url('../../../assets/icons/paper-plane-trail.svg') center / 88px 54px no-repeat,
+              url('../../../assets/icons/vcc-place-divider.svg') center / 100% 54px no-repeat !important;
+  opacity: .9 !important;
+  pointer-events: none !important;
+}
+html body .imp-page .vcc-itinerary-feature.vcc-itinerary-feature .vcc-itinerary-feature-image {
+  border-radius: 11px 0 0 11px !important;
+}
+html body .imp-page .vcc-itinerary-feature.vcc-itinerary-feature .vcc-itinerary-feature-copy {
+  border-radius: 0 11px 11px 0 !important;
+}
+@media (max-width: 800px) {
+  html body .imp-page .vcc-itinerary-feature.vcc-itinerary-feature {
+    margin-top: 105px !important;
+  }
+  html body .imp-page .vcc-itinerary-feature.vcc-itinerary-feature::before {
+    top: -83px !important;
+    height: 48px !important;
+    background-size: 70px 42px, 100% 42px !important;
+  }
+  html body .imp-page .vcc-itinerary-feature.vcc-itinerary-feature .vcc-itinerary-feature-image {
+    border-radius: 11px 11px 0 0 !important;
+  }
+  html body .imp-page .vcc-itinerary-feature.vcc-itinerary-feature .vcc-itinerary-feature-copy {
+    border-radius: 0 0 11px 11px !important;
+  }
+}
