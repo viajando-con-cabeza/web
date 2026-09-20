@@ -249,3 +249,33 @@ html body .imp-page .vcc-itinerary-feature-image:focus-visible {
 @media (prefers-reduced-motion: reduce) {
   html body .imp-page .vcc-itinerary-feature-image img { transition: none !important; }
 }
+
+/* Quality: la navegació dels llocs té la mateixa escala que el header.
+   Més especificitat que les regles mòbils originals i els estils de pàgina. */
+html body .imp-page .place-nav-wrap,
+html body .imp-page .place-nav-wrap .place-nav-shell,
+html body .imp-page .place-nav-wrap .place-nav-shell .place-nav {
+  height:39px!important;
+  min-height:39px!important;
+  max-height:39px!important;
+}
+html body .imp-page .place-nav-wrap .place-nav-shell .place-nav a {
+  box-sizing:border-box!important;
+  display:inline-flex!important;
+  align-items:center!important;
+  height:39px!important;
+  min-height:39px!important;
+  max-height:39px!important;
+  padding:0!important;
+  font-family:'DM Sans',sans-serif!important;
+  font-size:12px!important;
+  font-weight:800!important;
+  line-height:1.15!important;
+  letter-spacing:0!important;
+  text-transform:uppercase!important;
+}
+@media(max-width:720px){
+  html body .imp-page .place-nav-wrap .place-nav-shell .place-nav a {
+    font-size:11px!important;
+  }
+}
