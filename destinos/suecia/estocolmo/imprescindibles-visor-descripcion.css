@@ -96,16 +96,15 @@ html body .imp-page .imp-main .place:not(:first-child)::before {
   }
 }
 
-/* Mòbil: fotografies una mica més grans i títol/descripció lleugerament més avall.
-   L'object-fit contain conserva les fotos horitzontals i verticals sense retallar. */
+/* Mòbil: fotos més grans i text més avall a tots els llocs; sense retallar imatges. */
 @media (max-width: 800px) {
   html body #lightbox.lightbox .lb-stage {
-    grid-template-rows: 44px minmax(0, clamp(265px, 42dvh, 370px)) 26px 64px minmax(0, 1fr) !important;
+    grid-template-rows: 44px minmax(0, clamp(280px, 45dvh, 390px)) 26px 64px minmax(0, 1fr) !important;
     align-content: start !important;
   }
   html body #lightbox.lightbox .lb-stage > img {
     grid-row: 2 !important;
-    width: calc(100% - 44px) !important;
+    width: calc(100% - 24px) !important;
     height: 100% !important;
     min-height: 0 !important;
     max-height: 100% !important;
@@ -125,7 +124,7 @@ html body .imp-page .imp-main .place:not(:first-child)::before {
     min-height: 0 !important;
     max-height: none !important;
     overflow-y: auto !important;
-    padding: 30px 16px 18px !important;
+    padding: 38px 16px 18px !important;
   }
 }
 
