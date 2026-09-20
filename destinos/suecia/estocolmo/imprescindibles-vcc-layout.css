@@ -28,3 +28,44 @@
 .imp-page .place{scroll-margin-top:calc(var(--vcc-header-h,50px) + 55px)!important}
 @media(max-width:850px){.imp-page .imp-hero{height:clamp(450px,62vh,530px)!important;min-height:450px!important}.imp-page .imp-card{top:100px!important;width:min(620px,86vw)!important}.imp-page .place-nav-shell{padding:0 34px!important}.imp-page #navPrev{left:2px!important}.imp-page #navNext{right:2px!important}.imp-page .place-nav{gap:24px!important}}
 @media(max-width:650px){.imp-page .imp-hero{height:480px!important;min-height:480px!important;background-position:62% center!important;background-image:linear-gradient(90deg,rgba(248,244,238,.95),rgba(248,244,238,.69)),url('https://images.unsplash.com/photo-1509356843151-3e7d96241e11?auto=format&fit=crop&w=2200&q=90')!important}.imp-page .imp-hero-inner{width:calc(100% - 28px)!important}.imp-page .imp-crumb{top:12px!important;font-size:10px!important}.imp-page .imp-crumb span{margin:0 5px!important}.imp-page .imp-card{top:100px!important;width:100%!important}.imp-page .imp-hero .imp-card h1{font-size:clamp(42px,10vw,58px)!important}.imp-page .imp-hero .imp-card .imp-script{font-size:27px!important}.imp-page .imp-hero .imp-card .imp-lead{font-size:12px!important}.imp-page .place-nav{gap:22px!important}.imp-page .place-nav a{font-size:10px!important}}
+
+/* Separador editorial de l'itinerari: fotografia panoràmica a tota l'amplada
+   amb una nota blanca, independent de la targeta gris de sota. */
+html body .imp-page .vcc-itinerary-feature {
+  position: relative !important;
+  overflow: visible !important;
+  margin-top: 350px !important;
+}
+html body .imp-page .vcc-itinerary-feature::before {
+  content: '' !important;
+  position: absolute !important;
+  left: 50% !important;
+  bottom: calc(100% + 36px) !important;
+  transform: translateX(-50%) !important;
+  width: 100vw !important;
+  height: 250px !important;
+  display: block !important;
+  background: linear-gradient(90deg,rgba(18,18,18,.12),transparent 65%),url('https://images.unsplash.com/photo-1509356843151-3e7d96241e11?auto=format&fit=crop&w=2200&q=90') center 52%/cover no-repeat !important;
+  pointer-events: none !important;
+}
+html body .imp-page .vcc-itinerary-feature::after {
+  content: 'Estocolmo se vive mejor, sin prisas' !important;
+  position: absolute !important;
+  left: 22px !important;
+  bottom: calc(100% + 126px) !important;
+  z-index: 1 !important;
+  box-sizing: border-box !important;
+  max-width: min(270px,calc(100vw - 52px)) !important;
+  padding: 18px 22px !important;
+  background: #fffaf5 !important;
+  color: #4f3d36 !important;
+  font: 600 25px/1.1 'Caveat',cursive !important;
+  box-shadow: 0 4px 18px rgba(29,22,18,.10) !important;
+  transform: rotate(-3deg) !important;
+  pointer-events: none !important;
+}
+@media(max-width:800px){
+  html body .imp-page .vcc-itinerary-feature {margin-top:250px!important}
+  html body .imp-page .vcc-itinerary-feature::before {height:170px!important;bottom:calc(100% + 28px)!important}
+  html body .imp-page .vcc-itinerary-feature::after {left:18px!important;bottom:calc(100% + 86px)!important;max-width:205px!important;padding:12px 15px!important;font-size:21px!important}
+}
