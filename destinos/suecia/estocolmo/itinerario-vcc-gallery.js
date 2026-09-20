@@ -1,7 +1,64 @@
 (() => {
+  /* La página de itinerario comparte ahora escala y márgenes con la guía. */
+  const aligned = document.createElement('link');
+  aligned.rel = 'stylesheet';
+  aligned.href = 'itinerario-quality-alineacion.css?v=1';
+  document.head.append(aligned);
+
+  const navRoot = document.querySelector('.vcc-nav-inner');
+  if (navRoot) {
+    const dayLinks = [...document.querySelectorAll('.day-section[id]')].map(section => ({
+      href: `#${section.id}`,
+      label: `DÍA ${section.id.replace(/^dia/, '')}`
+    }));
+    navRoot.replaceChildren();
+    [{href:'#resumen',label:'INTRODUCCIÓN'}, ...dayLinks].forEach(({href,label}) => {
+      const a = document.createElement('a');
+      a.href = href;
+      a.textContent = label;
+      navRoot.append(a);
+    });
+  }
+  /* Contexto editorial corto para cada parada; los horarios existentes se respetan. */
+  const notes = {
+    dia1: [
+      'Comienza por el palacio y su entorno histórico.',
+      'Recorre la plaza y observa sus fachadas de colores.',
+      'Pasea por las calles antiguas y sus rincones.',
+      'Haz una pausa para comer en el casco antiguo.',
+      'Acércate a la isla y disfruta de las vistas.',
+      'Termina la jornada junto al agua.'
+    ],
+    dia2: [
+      'Reserva tiempo para conocer el barco y su historia.',
+      'Camina por los senderos y espacios verdes de la isla.',
+      'Descansa antes de continuar con las visitas.',
+      'Escoge la visita que más te apetezca; no hace falta verlo todo.',
+      'Disfruta del trayecto sobre el agua al regresar.'
+    ],
+    dia3: [
+      'Descubre las calles y tiendas del barrio a tu ritmo.',
+      'Haz una parada para contemplar la ciudad.',
+      'Tómate un descanso en una cafetería.',
+      'Elige entre fotografía contemporánea y arte en las estaciones.',
+      'Termina explorando otra zona del centro.'
+    ]
+  };
+  document.querySelectorAll('.day-section[id]').forEach(section => {
+    section.querySelectorAll('.timeline li').forEach((stop,index) => {
+      const destination = stop.querySelector('span');
+      if (!destination || destination.querySelector('.stop-detail')) return;
+      const note = notes[section.id]?.[index];
+      if (!note) return;
+      const detail = document.createElement('small');
+      detail.className = 'stop-detail';
+      detail.textContent = note;
+      destination.append(detail);
+    });
+  });
+
   const modal = document.getElementById('dayLightbox');
   if (!modal) return;
-  // Cuatro imágenes distintas: una principal y tres mosaicos secundarios visibles.
   const galleryFix = document.createElement('style');
   galleryFix.textContent = '.day-mosaic.count-4{grid-template-columns:1.25fr 1fr 1fr!important;grid-template-rows:repeat(2,minmax(0,1fr))!important}.day-mosaic.count-4 button:first-child{grid-column:1;grid-row:1/3}.day-mosaic.count-4 button:nth-child(2){grid-column:2/4;grid-row:1}.day-mosaic.count-4 button:nth-child(3){grid-column:2;grid-row:2}.day-mosaic.count-4 button:nth-child(4){display:block!important;grid-column:3;grid-row:2}';
   document.head.append(galleryFix);
