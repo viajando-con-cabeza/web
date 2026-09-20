@@ -225,3 +225,56 @@ html body:has(.imp-page) .imp-page .imp-crumb span {margin:0!important;opacity:.
     column-gap:7px!important;
   }
 }
+
+/* Menús de les tres guies: mateixa mida real i barra secundària compacta.
+   Sense modificar els enllaços, els marges del contingut ni el menú principal. */
+html body.country-page > .shared-header .shared-menu a,
+html body:has(.st-shell) > .shared-header .shared-menu a,
+html body:has(.imp-page) > .shared-header .shared-menu a,
+html body.country-page .country-nav a,
+html body:has(.st-shell) .st-shell .st-tabs a,
+html body:has(.imp-page) .imp-page .place-nav a {
+  font-family:'DM Sans',sans-serif!important;
+  font-size:12px!important;
+  font-weight:800!important;
+  line-height:1.15!important;
+  letter-spacing:0!important;
+}
+html body.country-page .country-nav,
+html body:has(.st-shell) .st-shell .st-tabs,
+html body:has(.imp-page) .imp-page .place-nav-wrap,
+html body.country-page .country-nav-inner,
+html body:has(.imp-page) .imp-page .place-nav-shell,
+html body:has(.imp-page) .imp-page .place-nav {
+  height:39px!important;
+  min-height:39px!important;
+  max-height:39px!important;
+}
+html body.country-page .country-nav-inner,
+html body:has(.st-shell) .st-shell .st-tabs,
+html body:has(.imp-page) .imp-page .place-nav-shell,
+html body:has(.imp-page) .imp-page .place-nav {
+  align-items:center!important;
+}
+html body.country-page .country-nav a,
+html body:has(.st-shell) .st-shell .st-tabs a,
+html body:has(.imp-page) .imp-page .place-nav a {
+  box-sizing:border-box!important;
+  height:39px!important;
+  min-height:39px!important;
+  padding:0!important;
+  display:inline-flex!important;
+  align-items:center!important;
+  flex:0 0 auto!important;
+}
+@media(max-width:720px){
+  html body.country-page > .shared-header .shared-menu a,
+  html body:has(.st-shell) > .shared-header .shared-menu a,
+  html body:has(.imp-page) > .shared-header .shared-menu a,
+  html body.country-page .country-nav a,
+  html body:has(.st-shell) .st-shell .st-tabs a,
+  html body:has(.imp-page) .imp-page .place-nav a {font-size:11px!important;}
+  html body.country-page [id],
+  html body:has(.st-shell) .st-shell [id],
+  html body:has(.imp-page) .imp-page .place[id] {scroll-margin-top:128px!important;}
+}
