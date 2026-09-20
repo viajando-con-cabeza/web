@@ -165,42 +165,54 @@
   next.addEventListener('click',() => show(current+1));
   close.addEventListener('click',dismiss);
   overlay.addEventListener('click',e => {if (e.target === overlay) dismiss();});
-  /* Un sol gest per a dit, llapis i ratolí: només damunt la foto principal.
-     Deixem el desplaçament vertical del mòbil i els controls existents intactes. */
+
+  /* El gest anterior només escoltava sobre l'element img: si la foto era
+     horitzontal i hi havia marges blancs, l'arrossegament no s'iniciava.
+     Escoltem tota la franja visual i distingim el gest horitzontal del scroll. */
   image.draggable = false;
-  image.style.touchAction = 'pan-y';
   image.style.userSelect = 'none';
   image.style.webkitUserSelect = 'none';
   image.style.cursor = 'grab';
-  let drag = null;
   image.addEventListener('dragstart', e => e.preventDefault());
-  image.addEventListener('pointerdown', e => {
-    if (!overlay.classList.contains('open') || album.length < 2 || (e.pointerType === 'mouse' && e.button !== 0)) return;
-    if (drag) return;
-    drag = {id: e.pointerId, x: e.clientX, y: e.clientY, horizontal: false};
-    image.style.cursor = 'grabbing';
-    if (e.pointerType === 'mouse') {
-      e.preventDefault();
-      image.setPointerCapture(e.pointerId);
-    }
-  });
-  image.addEventListener('pointermove', e => {
-    if (!drag || drag.id !== e.pointerId) return;
-    const dx = e.clientX - drag.x, dy = e.clientY - drag.y;
-    if (!drag.horizontal && Math.abs(dx) > 12 && Math.abs(dx) > Math.abs(dy) * 1.2) drag.horizontal = true;
-  });
-  const finishDrag = (e, cancelled = false) => {
-    if (!drag || drag.id !== e.pointerId) return;
-    const dx = e.clientX - drag.x, dy = e.clientY - drag.y;
-    const isSwipe = !cancelled && drag.horizontal && Math.abs(dx) >= 45 && Math.abs(dx) > Math.abs(dy) * 1.2;
-    drag = null;
-    image.style.cursor = 'grab';
-    if (image.hasPointerCapture(e.pointerId)) image.releasePointerCapture(e.pointerId);
-    if (isSwipe) show(current + (dx < 0 ? 1 : -1));
+  const overPhoto = (x, y) => {
+    const area = image.getBoundingClientRect();
+    return x >= area.left - 24 && x <= area.right + 24 && y >= area.top && y <= area.bottom;
   };
-  image.addEventListener('pointerup', e => finishDrag(e));
-  image.addEventListener('pointercancel', e => finishDrag(e, true));
-  image.addEventListener('lostpointercapture', e => finishDrag(e, true));
+  const switchOnSwipe = (dx, dy) => {
+    if (album.length > 1 && Math.abs(dx) >= 38 && Math.abs(dx) > Math.abs(dy) * 1.2) {
+      show(current + (dx < 0 ? 1 : -1));
+    }
+  };
+  let pointerDrag = null;
+  stage.addEventListener('pointerdown', e => {
+    if (e.pointerType !== 'mouse' || e.button !== 0 || !overlay.classList.contains('open') || album.length < 2 || !overPhoto(e.clientX, e.clientY)) return;
+    pointerDrag = {id:e.pointerId, x:e.clientX, y:e.clientY};
+    image.style.cursor = 'grabbing';
+    e.preventDefault();
+  });
+  window.addEventListener('pointerup', e => {
+    if (!pointerDrag || pointerDrag.id !== e.pointerId) return;
+    const drag = pointerDrag;
+    pointerDrag = null;
+    image.style.cursor = 'grab';
+    if (overlay.classList.contains('open')) switchOnSwipe(e.clientX - drag.x, e.clientY - drag.y);
+  });
+  window.addEventListener('pointercancel', () => {pointerDrag = null; image.style.cursor = 'grab';});
+  window.addEventListener('blur', () => {pointerDrag = null; image.style.cursor = 'grab';});
+  let touchDrag = null;
+  stage.addEventListener('touchstart', e => {
+    if (!overlay.classList.contains('open') || album.length < 2 || e.touches.length !== 1) {touchDrag = null; return;}
+    const t = e.touches[0];
+    touchDrag = overPhoto(t.clientX, t.clientY) ? {id:t.identifier, x:t.clientX, y:t.clientY} : null;
+  }, {passive:true});
+  stage.addEventListener('touchend', e => {
+    if (!touchDrag) return;
+    const t = [...e.changedTouches].find(t => t.identifier === touchDrag.id);
+    if (t) switchOnSwipe(t.clientX - touchDrag.x, t.clientY - touchDrag.y);
+    touchDrag = null;
+  }, {passive:true});
+  stage.addEventListener('touchcancel', () => {touchDrag = null;}, {passive:true});
+
   document.addEventListener('keydown',e => {
     if (!overlay.classList.contains('open')) return;
     if (e.key === 'Escape') dismiss();
