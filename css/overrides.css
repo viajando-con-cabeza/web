@@ -19,3 +19,126 @@
 .about-photo{height:510px}
 @media(max-width:900px){.page-nav{flex-wrap:wrap;padding:10px 0}.page-menu{order:3;width:100%;justify-content:center}.page-menu a{padding:8px 0 12px}.page-menu a.active::after{bottom:3px}.page-logo img{width:145px;height:58px}}
 @media(max-width:550px){.page-header{position:relative}.page-nav{justify-content:center}.page-logo{width:100%;justify-content:center}.page-logo img{width:150px}.page-menu{gap:14px}.page-menu a{font-size:9px}.page-intro .plane{font-size:42px;opacity:.35}.page-intro h1{letter-spacing:-2px}.about-photo{height:360px}}
+
+/* Quality · Guies de Suècia i Estocolm: dues barres enganxades en mòbil.
+   Cap altra pàgina hereta aquests ajustos. L'alçada fixa coincideix amb
+   la fila del logo (45px) i la del menú principal (33px). */
+@media (max-width:720px) {
+  html body:is(.country-page, :has(.st-shell), :has(.imp-page)) > .shared-header {
+    position:sticky!important;
+    top:0!important;
+    height:78px!important;
+    min-height:78px!important;
+    z-index:1100!important;
+    background:#fff!important;
+  }
+  html body:is(.country-page, :has(.st-shell), :has(.imp-page)) > .shared-header .shared-nav {
+    display:grid!important;
+    grid-template-columns:minmax(0,1fr) auto!important;
+    grid-template-rows:45px 33px!important;
+    height:78px!important;
+    min-height:78px!important;
+    width:calc(100% - 28px)!important;
+    margin-inline:auto!important;
+    padding:0!important;
+    align-items:center!important;
+    row-gap:0!important;
+  }
+  html body:is(.country-page, :has(.st-shell), :has(.imp-page)) > .shared-header .shared-menu {
+    grid-column:1 / -1!important;
+    grid-row:2!important;
+    align-self:stretch!important;
+    max-width:100%!important;
+    min-width:0!important;
+    margin:0!important;
+    padding:0!important;
+    overflow-x:auto!important;
+    overflow-y:hidden!important;
+    white-space:nowrap!important;
+  }
+  html body.country-page .country-nav,
+  html body:has(.st-shell) .st-shell .st-tabs,
+  html body:has(.imp-page) .imp-page .place-nav-wrap {
+    position:sticky!important;
+    top:78px!important;
+    margin-top:0!important;
+    z-index:1000!important;
+    background:#fff!important;
+  }
+  html body:has(.st-shell) .st-shell .st-tabs,
+  html body:has(.imp-page) .imp-page .place-nav-wrap {
+    height:43px!important;
+    min-height:43px!important;
+  }
+  html body:has(.st-shell) .st-shell .st-tabs {
+    overflow-x:auto!important;
+    overflow-y:hidden!important;
+    flex-wrap:nowrap!important;
+    gap:24px!important;
+    padding-inline:14px!important;
+    scrollbar-width:none!important;
+  }
+  html body:has(.imp-page) .imp-page .place-nav-shell {
+    height:43px!important;
+    min-height:43px!important;
+  }
+  html body:has(.imp-page) .imp-page .place-nav {
+    height:43px!important;
+    min-height:43px!important;
+  }
+  /* Les ancores queden per sota dels dos menús, no amagades. */
+  html body.country-page [id],
+  html body:has(.st-shell) .st-shell [id],
+  html body:has(.imp-page) .imp-page .place[id] {
+    scroll-margin-top:132px!important;
+  }
+  /* Estocolm: mateixes vores de 14px que Suècia i cap títol desbordat. */
+  html body:has(.st-shell) .st-shell .st-hero-inner {
+    width:calc(100% - 28px)!important;
+    max-width:100%!important;
+    margin-inline:auto!important;
+  }
+  html body:has(.st-shell) .st-shell .st-crumb {
+    width:100%!important;
+    max-width:100%!important;
+    left:0!important;
+    transform:none!important;
+    top:13px!important;
+    padding:0!important;
+  }
+  html body:has(.st-shell) .st-shell .st-card {
+    box-sizing:border-box!important;
+    left:0!important;
+    right:0!important;
+    top:57px!important;
+    width:100%!important;
+    max-width:100%!important;
+    margin:0!important;
+    padding:24px 22px!important;
+    overflow-wrap:anywhere!important;
+  }
+  html body:has(.st-shell) .st-shell .st-card h1 {
+    font-size:clamp(43px,11.5vw,65px)!important;
+    max-width:100%!important;
+    overflow-wrap:normal!important;
+    word-break:normal!important;
+    letter-spacing:-.035em!important;
+  }
+  html body:has(.st-shell) .st-shell .st-card .st-script,
+  html body:has(.st-shell) .st-shell .st-card .st-desc {
+    max-width:100%!important;
+  }
+  html body:has(.st-shell) .st-shell .st-hero {
+    height:730px!important;
+    min-height:730px!important;
+  }
+  html body:has(.st-shell) .st-shell .st-main {
+    width:calc(100% - 28px)!important;
+    max-width:100%!important;
+    margin-inline:auto!important;
+  }
+}
+@media (max-width:380px) {
+  html body:has(.st-shell) .st-shell .st-card {padding-inline:17px!important;}
+  html body:has(.st-shell) .st-shell .st-card h1 {font-size:clamp(40px,11vw,48px)!important;}
+}
