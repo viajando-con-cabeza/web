@@ -20,253 +20,94 @@
 @media(max-width:900px){.page-nav{flex-wrap:wrap;padding:10px 0}.page-menu{order:3;width:100%;justify-content:center}.page-menu a{padding:8px 0 12px}.page-menu a.active::after{bottom:3px}.page-logo img{width:145px;height:58px}}
 @media(max-width:550px){.page-header{position:relative}.page-nav{justify-content:center}.page-logo{width:100%;justify-content:center}.page-logo img{width:150px}.page-menu{gap:14px}.page-menu a{font-size:9px}.page-intro .plane{font-size:42px;opacity:.35}.page-intro h1{letter-spacing:-2px}.about-photo{height:360px}}
 
-/* Quality · Guies de Suècia i Estocolm: dues barres enganxades en mòbil.
-   Cap altra pàgina hereta aquests ajustos. L'alçada fixa coincideix amb
-   la fila del logo (45px) i la del menú principal (33px). */
+/* Quality: dues barres juntes només en mòbil. */
 @media (max-width:720px) {
   html body:is(.country-page, :has(.st-shell), :has(.imp-page)) > .shared-header {
-    position:sticky!important;
-    top:0!important;
-    height:78px!important;
-    min-height:78px!important;
-    z-index:1100!important;
-    background:#fff!important;
+    position:sticky!important;top:0!important;height:78px!important;min-height:78px!important;z-index:1100!important;background:#fff!important;
   }
   html body:is(.country-page, :has(.st-shell), :has(.imp-page)) > .shared-header .shared-nav {
-    display:grid!important;
-    grid-template-columns:minmax(0,1fr) auto!important;
-    grid-template-rows:45px 33px!important;
-    height:78px!important;
-    min-height:78px!important;
-    width:calc(100% - 28px)!important;
-    margin-inline:auto!important;
-    padding:0!important;
-    align-items:center!important;
-    row-gap:0!important;
+    display:grid!important;grid-template-columns:minmax(0,1fr) auto!important;grid-template-rows:45px 33px!important;height:78px!important;min-height:78px!important;width:calc(100% - 28px)!important;margin-inline:auto!important;padding:0!important;align-items:center!important;row-gap:0!important;
   }
   html body:is(.country-page, :has(.st-shell), :has(.imp-page)) > .shared-header .shared-menu {
-    grid-column:1 / -1!important;
-    grid-row:2!important;
-    align-self:stretch!important;
-    max-width:100%!important;
-    min-width:0!important;
-    margin:0!important;
-    padding:0!important;
-    overflow-x:auto!important;
-    overflow-y:hidden!important;
-    white-space:nowrap!important;
+    grid-column:1 / -1!important;grid-row:2!important;align-self:stretch!important;max-width:100%!important;min-width:0!important;margin:0!important;padding:0!important;overflow-x:auto!important;overflow-y:hidden!important;white-space:nowrap!important;
   }
   html body.country-page .country-nav,
   html body:has(.st-shell) .st-shell .st-tabs,
   html body:has(.imp-page) .imp-page .place-nav-wrap {
-    position:sticky!important;
-    top:78px!important;
-    margin-top:0!important;
-    z-index:1000!important;
-    background:#fff!important;
+    position:sticky!important;top:78px!important;margin-top:0!important;z-index:1000!important;background:#fff!important;
   }
   html body:has(.st-shell) .st-shell .st-tabs,
-  html body:has(.imp-page) .imp-page .place-nav-wrap {
-    height:43px!important;
-    min-height:43px!important;
-  }
+  html body:has(.imp-page) .imp-page .place-nav-wrap {height:43px!important;min-height:43px!important;}
   html body:has(.st-shell) .st-shell .st-tabs {
-    overflow-x:auto!important;
-    overflow-y:hidden!important;
-    flex-wrap:nowrap!important;
-    gap:24px!important;
-    padding-inline:14px!important;
-    scrollbar-width:none!important;
+    overflow-x:auto!important;overflow-y:hidden!important;flex-wrap:nowrap!important;gap:24px!important;padding-inline:14px!important;scrollbar-width:none!important;
   }
-  html body:has(.imp-page) .imp-page .place-nav-shell {
-    height:43px!important;
-    min-height:43px!important;
-  }
-  html body:has(.imp-page) .imp-page .place-nav {
-    height:43px!important;
-    min-height:43px!important;
-  }
-  /* Les ancores queden per sota dels dos menús, no amagades. */
+  html body:has(.imp-page) .imp-page .place-nav-shell,
+  html body:has(.imp-page) .imp-page .place-nav {height:43px!important;min-height:43px!important;}
   html body.country-page [id],
   html body:has(.st-shell) .st-shell [id],
-  html body:has(.imp-page) .imp-page .place[id] {
-    scroll-margin-top:132px!important;
-  }
-  /* Estocolm: mateixes vores de 14px que Suècia i cap títol desbordat. */
-  html body:has(.st-shell) .st-shell .st-hero-inner {
-    width:calc(100% - 28px)!important;
-    max-width:100%!important;
-    margin-inline:auto!important;
-  }
-  html body:has(.st-shell) .st-shell .st-crumb {
-    width:100%!important;
-    max-width:100%!important;
-    left:0!important;
-    transform:none!important;
-    top:13px!important;
-    padding:0!important;
-  }
-  html body:has(.st-shell) .st-shell .st-card {
-    box-sizing:border-box!important;
-    left:0!important;
-    right:0!important;
-    top:57px!important;
-    width:100%!important;
-    max-width:100%!important;
-    margin:0!important;
-    padding:24px 22px!important;
-    overflow-wrap:anywhere!important;
-  }
-  html body:has(.st-shell) .st-shell .st-card h1 {
-    font-size:clamp(43px,11.5vw,65px)!important;
-    max-width:100%!important;
-    overflow-wrap:normal!important;
-    word-break:normal!important;
-    letter-spacing:-.035em!important;
-  }
+  html body:has(.imp-page) .imp-page .place[id] {scroll-margin-top:132px!important;}
+  /* La targeta de ciutat s'adapta a l'amplada mòbil sense desbordar. */
+  html body:has(.st-shell) .st-shell .st-hero-inner {width:calc(100% - 28px)!important;max-width:100%!important;margin-inline:auto!important;}
+  html body:has(.st-shell) .st-shell .st-crumb {width:100%!important;max-width:100%!important;left:0!important;transform:none!important;top:13px!important;padding:0!important;}
+  html body:has(.st-shell) .st-shell .st-card {box-sizing:border-box!important;left:0!important;right:0!important;top:57px!important;width:100%!important;max-width:100%!important;margin:0!important;padding:24px 22px!important;overflow-wrap:anywhere!important;}
+  html body:has(.st-shell) .st-shell .st-card h1 {font-size:clamp(43px,11.5vw,65px)!important;max-width:100%!important;overflow-wrap:normal!important;word-break:normal!important;letter-spacing:-.035em!important;}
   html body:has(.st-shell) .st-shell .st-card .st-script,
-  html body:has(.st-shell) .st-shell .st-card .st-desc {
-    max-width:100%!important;
-  }
-  html body:has(.st-shell) .st-shell .st-hero {
-    height:730px!important;
-    min-height:730px!important;
-  }
-  html body:has(.st-shell) .st-shell .st-main {
-    width:calc(100% - 28px)!important;
-    max-width:100%!important;
-    margin-inline:auto!important;
-  }
+  html body:has(.st-shell) .st-shell .st-card .st-desc {max-width:100%!important;}
+  html body:has(.st-shell) .st-shell .st-hero {height:730px!important;min-height:730px!important;}
+  html body:has(.st-shell) .st-shell .st-main {width:calc(100% - 28px)!important;max-width:100%!important;margin-inline:auto!important;}
 }
-@media (max-width:380px) {
-  html body:has(.st-shell) .st-shell .st-card {padding-inline:17px!important;}
-  html body:has(.st-shell) .st-shell .st-card h1 {font-size:clamp(40px,11vw,48px)!important;}
-}
+@media(max-width:380px){html body:has(.st-shell) .st-shell .st-card{padding-inline:17px!important}html body:has(.st-shell) .st-shell .st-card h1{font-size:clamp(40px,11vw,48px)!important}}
 
-/* Una sola escala tipogràfica per als dos menús de les tres guies.
-   Els selectors guanyen els ajustos específics posteriors sense canviar les alçades. */
+/* La mateixa família, pes i escala als menús de les tres guies. */
 html body.country-page > .shared-header .shared-menu a,
 html body:has(.st-shell) > .shared-header .shared-menu a,
 html body:has(.imp-page) > .shared-header .shared-menu a,
 html body.country-page .country-nav a,
 html body:has(.st-shell) .st-shell .st-tabs a,
 html body:has(.imp-page) .imp-page .place-nav a {
-  font-family:'DM Sans',sans-serif!important;
-  font-size:12px!important;
-  font-weight:800!important;
-  line-height:1!important;
-  letter-spacing:0!important;
-  text-transform:uppercase!important;
-}
-@media (max-width:720px) {
-  html body.country-page > .shared-header .shared-menu a,
-  html body:has(.st-shell) > .shared-header .shared-menu a,
-  html body:has(.imp-page) > .shared-header .shared-menu a,
-  html body.country-page .country-nav a,
-  html body:has(.st-shell) .st-shell .st-tabs a,
-  html body:has(.imp-page) .imp-page .place-nav a {
-    font-size:11px!important;
-  }
+  font-family:'DM Sans',sans-serif!important;font-size:12px!important;font-weight:800!important;line-height:1.15!important;letter-spacing:0!important;text-transform:uppercase!important;
 }
 
-/* Molles de pa compartides: mateixa posició respecte a la portada, marges i text.
-   Suècia tenia el breadcrumb dins el flux; Estocolm i imprescindibles, absolut.
-   Totes tres ara es posicionen des de la part superior de la fotografia. */
-html body.country-page .country-hero,
-html body:has(.st-shell) .st-shell .st-hero,
-html body:has(.imp-page) .imp-page .imp-hero {position:relative!important;}
-html body.country-page .country-hero .country-hero-inner {position:static!important;}
-html body:has(.st-shell) .st-shell .st-hero-inner,
-html body:has(.imp-page) .imp-page .imp-hero-inner {position:relative!important;height:100%!important;}
-html body.country-page .country-hero .country-breadcrumb,
-html body:has(.st-shell) .st-shell .st-crumb,
-html body:has(.imp-page) .imp-page .imp-crumb {
-  position:absolute!important;
-  top:20px!important;
-  left:max(24px,calc((100% - 1180px)/2))!important;
-  right:max(24px,calc((100% - 1180px)/2))!important;
-  width:auto!important;
-  max-width:none!important;
-  height:auto!important;
-  margin:0!important;
-  padding:0!important;
-  transform:none!important;
-  z-index:4!important;
-  display:flex!important;
-  flex-wrap:wrap!important;
-  align-items:center!important;
-  column-gap:8px!important;
-  row-gap:3px!important;
-  color:#48433f!important;
-  text-shadow:none!important;
-  font-family:'DM Sans',sans-serif!important;
-  font-size:12px!important;
-  font-weight:500!important;
-  line-height:1.5!important;
-  letter-spacing:0!important;
-}
-html body.country-page .country-hero .country-breadcrumb a,
-html body:has(.st-shell) .st-shell .st-crumb a,
-html body:has(.imp-page) .imp-page .imp-crumb a {color:inherit!important;font:inherit!important;text-decoration:none!important;}
-html body.country-page .country-hero .country-breadcrumb strong,
-html body:has(.st-shell) .st-shell .st-crumb strong,
-html body:has(.imp-page) .imp-page .imp-crumb strong {font-weight:800!important;color:#48433f!important;}
-html body.country-page .country-hero .country-breadcrumb span,
-html body:has(.st-shell) .st-shell .st-crumb span,
-html body:has(.imp-page) .imp-page .imp-crumb span {margin:0!important;opacity:.65!important;color:inherit!important;}
+/* IMPORTANT: Les molles de pa es reposicionen NOMÉS en mòbil.
+   A escriptori cada hero conserva el seu contenidor i el seu layout originals. */
 @media(max-width:720px){
+  html body.country-page .country-hero,
+  html body:has(.st-shell) .st-shell .st-hero,
+  html body:has(.imp-page) .imp-page .imp-hero {position:relative!important;}
+  html body.country-page .country-hero .country-hero-inner {position:static!important;}
+  html body:has(.st-shell) .st-shell .st-hero-inner,
+  html body:has(.imp-page) .imp-page .imp-hero-inner {position:relative!important;height:100%!important;}
   html body.country-page .country-hero .country-breadcrumb,
   html body:has(.st-shell) .st-shell .st-crumb,
   html body:has(.imp-page) .imp-page .imp-crumb {
-    top:14px!important;
-    left:14px!important;
-    right:14px!important;
-    font-size:12px!important;
-    column-gap:7px!important;
+    position:absolute!important;top:14px!important;left:14px!important;right:14px!important;width:auto!important;max-width:none!important;height:auto!important;margin:0!important;padding:0!important;transform:none!important;z-index:4!important;display:flex!important;flex-wrap:wrap!important;align-items:center!important;column-gap:7px!important;row-gap:3px!important;color:#48433f!important;text-shadow:none!important;font-family:'DM Sans',sans-serif!important;font-size:12px!important;font-weight:500!important;line-height:1.5!important;letter-spacing:0!important;
   }
+  html body:has(.st-shell) .st-shell .st-crumb {left:0!important;right:0!important;top:13px!important;}
+  html body.country-page .country-hero .country-breadcrumb a,
+  html body:has(.st-shell) .st-shell .st-crumb a,
+  html body:has(.imp-page) .imp-page .imp-crumb a {color:inherit!important;font:inherit!important;text-decoration:none!important;}
+  html body.country-page .country-hero .country-breadcrumb strong,
+  html body:has(.st-shell) .st-shell .st-crumb strong,
+  html body:has(.imp-page) .imp-page .imp-crumb strong {font-weight:800!important;color:#48433f!important;}
+  html body.country-page .country-hero .country-breadcrumb span,
+  html body:has(.st-shell) .st-shell .st-crumb span,
+  html body:has(.imp-page) .imp-page .imp-crumb span {margin:0!important;opacity:.65!important;color:inherit!important;}
 }
 
-/* Menús de les tres guies: mateixa mida real i barra secundària compacta.
-   Sense modificar els enllaços, els marges del contingut ni el menú principal. */
-html body.country-page > .shared-header .shared-menu a,
-html body:has(.st-shell) > .shared-header .shared-menu a,
-html body:has(.imp-page) > .shared-header .shared-menu a,
-html body.country-page .country-nav a,
-html body:has(.st-shell) .st-shell .st-tabs a,
-html body:has(.imp-page) .imp-page .place-nav a {
-  font-family:'DM Sans',sans-serif!important;
-  font-size:12px!important;
-  font-weight:800!important;
-  line-height:1.15!important;
-  letter-spacing:0!important;
-}
+/* Barra secundària compacta, sense alterar la disposició de portada d'escriptori. */
 html body.country-page .country-nav,
 html body:has(.st-shell) .st-shell .st-tabs,
 html body:has(.imp-page) .imp-page .place-nav-wrap,
 html body.country-page .country-nav-inner,
 html body:has(.imp-page) .imp-page .place-nav-shell,
-html body:has(.imp-page) .imp-page .place-nav {
-  height:39px!important;
-  min-height:39px!important;
-  max-height:39px!important;
-}
+html body:has(.imp-page) .imp-page .place-nav {height:39px!important;min-height:39px!important;max-height:39px!important;}
 html body.country-page .country-nav-inner,
 html body:has(.st-shell) .st-shell .st-tabs,
 html body:has(.imp-page) .imp-page .place-nav-shell,
-html body:has(.imp-page) .imp-page .place-nav {
-  align-items:center!important;
-}
+html body:has(.imp-page) .imp-page .place-nav {align-items:center!important;}
 html body.country-page .country-nav a,
 html body:has(.st-shell) .st-shell .st-tabs a,
-html body:has(.imp-page) .imp-page .place-nav a {
-  box-sizing:border-box!important;
-  height:39px!important;
-  min-height:39px!important;
-  padding:0!important;
-  display:inline-flex!important;
-  align-items:center!important;
-  flex:0 0 auto!important;
-}
+html body:has(.imp-page) .imp-page .place-nav a {box-sizing:border-box!important;height:39px!important;min-height:39px!important;padding:0!important;display:inline-flex!important;align-items:center!important;flex:0 0 auto!important;}
 @media(max-width:720px){
   html body.country-page > .shared-header .shared-menu a,
   html body:has(.st-shell) > .shared-header .shared-menu a,
