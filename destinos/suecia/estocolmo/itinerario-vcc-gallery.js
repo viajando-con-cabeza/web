@@ -1,6 +1,10 @@
 (() => {
   const modal = document.getElementById('dayLightbox');
   if (!modal) return;
+  // Cuatro imágenes distintas: una principal y tres mosaicos secundarios visibles.
+  const galleryFix = document.createElement('style');
+  galleryFix.textContent = '.day-mosaic.count-4{grid-template-columns:1.25fr 1fr 1fr!important;grid-template-rows:repeat(2,minmax(0,1fr))!important}.day-mosaic.count-4 button:first-child{grid-column:1;grid-row:1/3}.day-mosaic.count-4 button:nth-child(2){grid-column:2/4;grid-row:1}.day-mosaic.count-4 button:nth-child(3){grid-column:2;grid-row:2}.day-mosaic.count-4 button:nth-child(4){display:block!important;grid-column:3;grid-row:2}';
+  document.head.append(galleryFix);
   const stage = modal.querySelector('.day-lightbox-stage');
   const image = modal.querySelector('.day-lightbox-stage > img');
   const counter = modal.querySelector('.day-lightbox-counter');
