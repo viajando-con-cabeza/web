@@ -16,7 +16,8 @@ html body .imp-page .place-copy > p {
   line-height: 1.7 !important;
   margin-bottom: 15px !important;
 }
-/* Alçada una mica més baixa, conservant els cinc enquadraments de Booking. */
+/* Mides del mosaic: base i versió mòbil. L'ajust d'ordinador va al final
+   per evitar que aquesta regla posterior anul·li el mosaic Booking. */
 html body .imp-page .gallery-mosaic {
   aspect-ratio: 1.56 !important;
 }
@@ -128,4 +129,11 @@ html body .imp-page .place-copy .advice .paper-plane {
   html body .imp-page .place-copy .facts > span { white-space: normal !important; }
   html body .imp-page .place-copy .facts > span:nth-child(4)::before { font-size: 10px !important; }
   html body .imp-page .place-copy .facts .fact-map a { font-size: 11px !important; }
+}
+
+/* Ordinador (inclosa l'opció «versió d'ordinador» del navegador mòbil):
+   preval sobre la regla general d'aquest fitxer, mantenint l'amplada. */
+@media (min-width: 851px) {
+  html body .imp-page .gallery-mosaic { aspect-ratio: 0.90 !important; }
+  html body .imp-page .gallery-mosaic.count-1 { aspect-ratio: 0.98 !important; }
 }
