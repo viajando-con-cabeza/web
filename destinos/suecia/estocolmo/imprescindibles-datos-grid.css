@@ -98,3 +98,29 @@ html body .imp-page .place-copy .advice p {
     gap: 10px !important;
   }
 }
+
+/* Mòbil: les molles de pa i el títol parteixen del mateix marge interior.
+   Sobreescriu el padding genèric dels nav sense alterar la barra sticky. */
+@media (max-width: 650px) {
+  html body .imp-page .imp-hero .imp-hero-inner .imp-crumb,
+  html body .imp-page .imp-hero .imp-hero-inner .imp-card {
+    left: 0 !important;
+    right: auto !important;
+    margin-left: 0 !important;
+    padding-left: 0 !important;
+    transform: none !important;
+  }
+  html body .imp-page .imp-hero .imp-hero-inner .imp-crumb {
+    box-sizing: border-box !important;
+    width: 100% !important;
+    padding-right: 0 !important;
+    justify-content: flex-start !important;
+    flex-wrap: nowrap !important;
+    white-space: nowrap !important;
+    overflow-x: auto !important;
+    scrollbar-width: none !important;
+  }
+  html body .imp-page .imp-hero .imp-hero-inner .imp-crumb::-webkit-scrollbar {
+    display: none !important;
+  }
+}
