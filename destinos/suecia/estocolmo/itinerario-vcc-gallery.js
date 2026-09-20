@@ -1,120 +1,80 @@
 (() => {
-  /* Estilos compartidos con la guía de Estocolmo. */
-  const aligned = document.createElement('link');
-  aligned.rel = 'stylesheet';
-  aligned.href = 'itinerario-quality-alineacion.css?v=2';
-  document.head.append(aligned);
-  const navRoot = document.querySelector('.vcc-nav-inner');
-  if (navRoot) {
-    const dayLinks = [...document.querySelectorAll('.day-section[id]')].map(section => ({href:`#${section.id}`,label:`DÍA ${section.id.replace(/^dia/, '')}`}));
-    navRoot.replaceChildren();
-    [{href:'#resumen',label:'INTRODUCCIÓN'}, ...dayLinks].forEach(({href,label}) => {
-      const a = document.createElement('a'); a.href=href; a.textContent=label; navRoot.append(a);
-    });
+  for (const href of ['itinerario-quality-alineacion.css?v=2','itinerario-resumen-carrusel.css?v=1']) {
+    const link=document.createElement('link');link.rel='stylesheet';link.href=href;document.head.append(link);
   }
-  const notes = {
-    dia1: [
-      'Comienza por el palacio y su entorno histórico; consulta los horarios si quieres visitar el interior.',
-      'Detente en la plaza de las fachadas de colores y descubre las callejuelas que salen de ella.',
-      'Continúa a pie entre la catedral y los pasajes del casco antiguo, sin seguir una ruta rígida.',
-      'Haz una pausa para comer en Gamla Stan y reponer fuerzas antes de cruzar a otra isla.',
-      'Acércate a la orilla de Riddarholmen para contemplar el perfil de la ciudad desde el agua.',
-      'Termina junto al Ayuntamiento y sus jardines; comprueba previamente las opciones de visita interior.'
-    ],
-    dia2: [
-      'Dedica la mañana a conocer el barco del siglo XVII y la historia de su recuperación.',
-      'Camina por los senderos y espacios verdes de la isla, dejando tiempo para disfrutar de sus rincones.',
-      'Busca un lugar tranquilo para comer y descansar antes de la siguiente visita.',
-      'Escoge Skansen u otro museo según tus intereses y su horario; no hace falta abarcarlo todo.',
-      'Regresa disfrutando de las vistas desde el agua y comprueba previamente la frecuencia del ferry.'
-    ],
-    dia3: [
-      'Empieza por las calles, tiendas pequeñas y plazas del barrio para conocer su ambiente.',
-      'Sube al mirador y disfruta de las vistas de Gamla Stan y del lago Mälaren.',
-      'Haz una pausa para un café sueco y una comida sin prisas.',
-      'Elige entre una exposición de fotografía o las estaciones decoradas del metro.',
-      'Cierra el día paseando por otra zona céntrica según el tiempo y tus ganas.'
-    ]
+  const sections=[...document.querySelectorAll('.day-section[id]')];
+  const navRoot=document.querySelector('.vcc-nav-inner');
+  if(navRoot){navRoot.replaceChildren();[{href:'#resumen',label:'INTRODUCCIÓN'},...sections.map(s=>({href:'#'+s.id,label:'DÍA '+s.id.replace(/^dia/,'')}))].forEach(({href,label})=>{const a=document.createElement('a');a.href=href;a.textContent=label;navRoot.append(a);});}
+  // Carrusel: la cantidad de páginas se calcula a partir de los días reales, no se inventan días.
+  const overview=document.querySelector('.overview-list');
+  if(overview){
+    const cards=[...overview.querySelectorAll('.overview-card')];
+    cards.forEach((card,index)=>{
+      const kicker=card.querySelector('small');
+      const title=card.querySelector('h3');
+      if(kicker){kicker.classList.add('vcc-overview-kicker');kicker.textContent=kicker.textContent.trim().replace(/\s*[·]\s*/,' · ');}
+      if(title)title.classList.add('vcc-overview-title');
+      card.setAttribute('aria-label',`Ir al día ${index+1}: ${title?.textContent||''}`);
+    });
+    const total=Math.ceil(cards.length/3);
+    const controls=document.createElement('div');controls.className='vcc-overview-controls';controls.setAttribute('aria-label','Páginas del resumen');
+    const previous=document.createElement('button');previous.type='button';previous.textContent='‹';previous.setAttribute('aria-label','Mostrar los tres días anteriores');
+    const dots=document.createElement('div');dots.className='vcc-overview-dots';
+    const next=document.createElement('button');next.type='button';next.textContent='›';next.setAttribute('aria-label','Mostrar los tres días siguientes');
+    controls.append(previous,dots,next);overview.append(controls);
+    let page=0,gestureX=null,gestureY=null;
+    const renderPage=(newPage)=>{
+      page=Math.max(0,Math.min(total-1,newPage));
+      cards.forEach((card,i)=>{card.hidden=Math.floor(i/3)!==page;});
+      previous.disabled=page===0;next.disabled=page===total-1;
+      [...dots.children].forEach((dot,i)=>{dot.setAttribute('aria-current',String(i===page));});
+    };
+    for(let i=0;i<total;i++){
+      const dot=document.createElement('button');dot.type='button';dot.setAttribute('aria-label',`Mostrar días ${i*3+1} a ${Math.min((i+1)*3,cards.length)}`);dot.addEventListener('click',()=>renderPage(i));dots.append(dot);
+    }
+    previous.addEventListener('click',()=>renderPage(page-1));next.addEventListener('click',()=>renderPage(page+1));
+    overview.addEventListener('pointerdown',event=>{if(event.target.closest('button,a'))return;gestureX=event.clientX;gestureY=event.clientY;});
+    overview.addEventListener('pointerup',event=>{if(gestureX===null)return;const dx=event.clientX-gestureX,dy=event.clientY-gestureY;gestureX=gestureY=null;if(Math.abs(dx)>48&&Math.abs(dx)>Math.abs(dy)*1.2)renderPage(page+(dx<0?1:-1));});
+    overview.addEventListener('pointercancel',()=>{gestureX=gestureY=null;});
+    controls.hidden=total<=1;renderPage(0);
+  }
+  // El mapa sigue siendo interactivo: solo retiramos las dos etiquetas superpuestas.
+  const map=document.querySelector('.vcc-summary-map');
+  map?.querySelector('.map-note')?.remove();
+  map?.querySelector('a')?.remove();
+  const notes={
+    dia1:['Comienza por el palacio y su entorno histórico; consulta los horarios si quieres visitar el interior.','Detente en la plaza de las fachadas de colores y descubre las callejuelas que salen de ella.','Continúa a pie entre la catedral y los pasajes del casco antiguo, sin seguir una ruta rígida.','Haz una pausa para comer en Gamla Stan y reponer fuerzas antes de cruzar a otra isla.','Acércate a la orilla de Riddarholmen para contemplar el perfil de la ciudad desde el agua.','Termina junto al Ayuntamiento y sus jardines; comprueba previamente las opciones de visita interior.'],
+    dia2:['Dedica la mañana a conocer el barco del siglo XVII y la historia de su recuperación.','Camina por los senderos y espacios verdes de la isla, dejando tiempo para disfrutar de sus rincones.','Busca un lugar tranquilo para comer y descansar antes de la siguiente visita.','Escoge Skansen u otro museo según tus intereses y su horario; no hace falta abarcarlo todo.','Regresa disfrutando de las vistas desde el agua y comprueba previamente la frecuencia del ferry.'],
+    dia3:['Empieza por las calles, tiendas pequeñas y plazas del barrio para conocer su ambiente.','Sube al mirador y disfruta de las vistas de Gamla Stan y del lago Mälaren.','Haz una pausa para un café sueco y una comida sin prisas.','Elige entre una exposición de fotografía o las estaciones decoradas del metro.','Cierra el día paseando por otra zona céntrica según el tiempo y tus ganas.']
   };
-  const introductions = {
+  const introductions={
     dia1:'Empieza en Gamla Stan, el corazón histórico de la ciudad, entre plazas de colores, callejuelas empedradas y edificios que cuentan siglos de historia. Por la mañana descubrirás el entorno del Palacio Real y la catedral; después, un paseo junto al agua te llevará a Riddarholmen y al Ayuntamiento. Lo más especial es dejarse sorprender por los pasajes y las vistas entre islas.',
     dia2:'Hoy toca combinar una de las visitas más singulares de Estocolmo con la naturaleza de Djurgården. El Museo Vasa permite conocer de cerca un barco del siglo XVII; al salir, cambia el ritmo y disfruta de los caminos verdes de la isla. Elige otra visita cultural solo si te apetece y termina con el trayecto en ferry: las vistas desde el agua son parte de la experiencia.',
     dia3:'Dedica la última jornada a una Estocolmo más cotidiana: tiendas independientes, cafeterías y calles con personalidad en Södermalm. Asómate a Monteliusvägen para ver Gamla Stan desde otra perspectiva, reserva una pausa para el fika y completa la tarde con Fotografiska o el arte del metro. Lo mejor es combinar los miradores con tiempo libre para descubrir el barrio a tu ritmo.'
   };
-  const tips = {
+  const tips={
     dia1:'Empieza temprano en Gamla Stan para disfrutar de sus calles con menos gente. Deja margen entre paradas: los rincones que encuentras sin buscarlos suelen ser parte de lo mejor del recorrido.',
     dia2:'Elige uno o dos museos como máximo y consulta los horarios con antelación. Guarda un rato para caminar sin rumbo por Djurgården y, si encaja con tu ruta, vuelve en ferry para ver la ciudad desde el agua.',
     dia3:'Intenta llegar a Monteliusvägen con buena luz y lleva calzado cómodo para las cuestas. Si llueve, intercambia el mirador por Fotografiska o por una ruta por las estaciones artísticas del metro.'
   };
-  document.querySelectorAll('.day-section[id]').forEach((section,index) => {
-    const intro = section.querySelector('.day-intro');
-    const kicker = intro?.querySelector('.hand');
-    if (kicker) kicker.textContent=`Día ${index+1} · ${kicker.textContent.trim().replace(/\.{3}$/, '')}`;
-    const paragraph = intro?.querySelector(':scope > p');
-    if (paragraph && introductions[section.id]) paragraph.textContent=introductions[section.id];
-    const tip = intro?.querySelector('.day-tip div');
-    if (tip && tips[section.id]) {const title=tip.querySelector('strong');tip.textContent=tips[section.id];if(title) tip.prepend(title);}
-    section.querySelectorAll('.timeline li').forEach((stop,stopIndex) => {
-      const destination=stop.querySelector('span');
-      if (!destination || destination.querySelector('.stop-detail')) return;
-      const note=notes[section.id]?.[stopIndex];
-      if (!note) return;
-      const detail=document.createElement('small');detail.className='stop-detail';detail.textContent=note;destination.append(detail);
-    });
-    const route=section.querySelector('.day-schedule .map-button');
-    if(route && intro){route.classList.add('day-route-link');intro.append(route);}
+  sections.forEach((section,index)=>{
+    const intro=section.querySelector('.day-intro'),kicker=intro?.querySelector('.hand');
+    if(kicker&&!/^Día \d+ ·/.test(kicker.textContent))kicker.textContent=`Día ${index+1} · ${kicker.textContent.trim().replace(/\.{3}$/,'')}`;
+    const paragraph=intro?.querySelector(':scope > p');if(paragraph&&introductions[section.id])paragraph.textContent=introductions[section.id];
+    const tip=intro?.querySelector('.day-tip div');if(tip&&tips[section.id]){const heading=tip.querySelector('strong');tip.textContent=tips[section.id];if(heading)tip.prepend(heading);}
+    section.querySelectorAll('.timeline li').forEach((stop,i)=>{const destination=stop.querySelector('span');if(!destination||destination.querySelector('.stop-detail')||!notes[section.id]?.[i])return;const small=document.createElement('small');small.className='stop-detail';small.textContent=notes[section.id][i];destination.append(small);});
+    const route=section.querySelector('.day-schedule .map-button');if(route&&intro){route.classList.add('day-route-link');intro.append(route);}
   });
-  const modal = document.getElementById('dayLightbox');
-  if (!modal) return;
-  const galleryFix = document.createElement('style');
-  galleryFix.textContent = '.day-mosaic.count-4{grid-template-columns:1.25fr 1fr 1fr!important;grid-template-rows:repeat(2,minmax(0,1fr))!important}.day-mosaic.count-4 button:first-child{grid-column:1;grid-row:1/3}.day-mosaic.count-4 button:nth-child(2){grid-column:2/4;grid-row:1}.day-mosaic.count-4 button:nth-child(3){grid-column:2;grid-row:2}.day-mosaic.count-4 button:nth-child(4){display:block!important;grid-column:3;grid-row:2}';
-  document.head.append(galleryFix);
-  const stage=modal.querySelector('.day-lightbox-stage');
-  const image=modal.querySelector('.day-lightbox-stage > img');
-  const counter=modal.querySelector('.day-lightbox-counter');
-  const thumbs=modal.querySelector('.day-lightbox-thumbs');
-  const title=modal.querySelector('.day-lightbox-info h3');
-  const description=modal.querySelector('.day-lightbox-info p');
-  const close=modal.querySelector('.day-lightbox-close');
+  const modal=document.getElementById('dayLightbox');if(!modal)return;
+  const galleryFix=document.createElement('style');galleryFix.textContent='.day-mosaic.count-4{grid-template-columns:1.25fr 1fr 1fr!important;grid-template-rows:repeat(2,minmax(0,1fr))!important}.day-mosaic.count-4 button:first-child{grid-column:1;grid-row:1/3}.day-mosaic.count-4 button:nth-child(2){grid-column:2/4;grid-row:1}.day-mosaic.count-4 button:nth-child(3){grid-column:2;grid-row:2}.day-mosaic.count-4 button:nth-child(4){display:block!important;grid-column:3;grid-row:2}';document.head.append(galleryFix);
+  const stage=modal.querySelector('.day-lightbox-stage'),image=modal.querySelector('.day-lightbox-stage > img'),counter=modal.querySelector('.day-lightbox-counter'),thumbs=modal.querySelector('.day-lightbox-thumbs'),title=modal.querySelector('.day-lightbox-info h3'),description=modal.querySelector('.day-lightbox-info p'),close=modal.querySelector('.day-lightbox-close');
   let currentImages=[],currentIndex=0,lastFocus=null,originX=null,originY=null;
-  const galleries=document.querySelectorAll('.day-mosaic');
-  const render=()=>{
-    if(!currentImages.length)return;
-    const item=currentImages[currentIndex];image.src=item.src;image.alt=item.alt;
-    counter.textContent=`${currentIndex+1} / ${currentImages.length}`;
-    thumbs.replaceChildren();
-    currentImages.forEach((photo,index)=>{
-      const button=document.createElement('button');button.type='button';button.className=index===currentIndex?'active':'';
-      button.setAttribute('aria-label',`Ver foto ${index+1} de ${currentImages.length}`);
-      const thumb=document.createElement('img');thumb.src=photo.src;thumb.alt=photo.alt;button.append(thumb);
-      button.addEventListener('click',()=>{currentIndex=index;render();});thumbs.append(button);
-      if(index===currentIndex)button.scrollIntoView({block:'nearest',inline:'nearest'});
-    });
-  };
+  const render=()=>{if(!currentImages.length)return;const item=currentImages[currentIndex];image.src=item.src;image.alt=item.alt;counter.textContent=`${currentIndex+1} / ${currentImages.length}`;thumbs.replaceChildren();currentImages.forEach((photo,index)=>{const button=document.createElement('button');button.type='button';button.className=index===currentIndex?'active':'';button.setAttribute('aria-label',`Ver foto ${index+1} de ${currentImages.length}`);const thumb=document.createElement('img');thumb.src=photo.src;thumb.alt=photo.alt;button.append(thumb);button.addEventListener('click',()=>{currentIndex=index;render();});thumbs.append(button);if(index===currentIndex)button.scrollIntoView({block:'nearest',inline:'nearest'});});};
   const move=delta=>{if(!currentImages.length)return;currentIndex=(currentIndex+delta+currentImages.length)%currentImages.length;render();};
-  const hide=()=>{modal.hidden=true;document.body.style.overflow='';image.removeAttribute('src');if(lastFocus?.focus)lastFocus.focus();};
-  galleries.forEach(gallery=>{
-    const buttons=[...gallery.querySelectorAll('button[data-photo]')];
-    const images=buttons.map(button=>({src:button.dataset.photo,alt:button.querySelector('img')?.alt||gallery.dataset.title||'Estocolmo'}));
-    buttons.forEach((button,index)=>button.addEventListener('click',()=>{
-      currentImages=images;currentIndex=index;lastFocus=button;
-      title.textContent=gallery.dataset.title||'';description.textContent=gallery.dataset.description||'';
-      modal.hidden=false;document.body.style.overflow='hidden';render();close.focus();
-    }));
-  });
-  close.addEventListener('click',hide);
-  modal.querySelector('.day-lightbox-prev').addEventListener('click',()=>move(-1));
-  modal.querySelector('.day-lightbox-next').addEventListener('click',()=>move(1));
-  modal.addEventListener('click',e=>{if(e.target===modal)hide();});
-  document.addEventListener('keydown',e=>{
-    if(modal.hidden)return;
-    if(e.key==='Escape')hide();else if(e.key==='ArrowRight')move(1);else if(e.key==='ArrowLeft')move(-1);
-    else if(e.key==='Tab'){const focusables=[...modal.querySelectorAll('button:not([disabled])')];const index=focusables.indexOf(document.activeElement);if(e.shiftKey&&index===0){e.preventDefault();focusables.at(-1).focus();}else if(!e.shiftKey&&index===focusables.length-1){e.preventDefault();focusables[0].focus();}}
-  });
-  stage.addEventListener('pointerdown',e=>{if(e.target.closest('button'))return;originX=e.clientX;originY=e.clientY;try{stage.setPointerCapture(e.pointerId);}catch(_){}});
-  stage.addEventListener('pointerup',e=>{if(originX===null)return;const dx=e.clientX-originX,dy=e.clientY-originY;originX=originY=null;if(Math.abs(dx)>45&&Math.abs(dx)>Math.abs(dy)*1.2)move(dx<0?1:-1);});
-  stage.addEventListener('pointercancel',()=>{originX=originY=null;});
-  const nav=[...document.querySelectorAll('.vcc-nav a[href^="#"]')];
-  const updateNav=()=>{const hash=location.hash||'#resumen';nav.forEach(a=>a.classList.toggle('is-active',a.getAttribute('href')===hash));};
-  window.addEventListener('hashchange',updateNav);updateNav();
+  const hide=()=>{modal.hidden=true;document.body.style.overflow='';image.removeAttribute('src');lastFocus?.focus?.();};
+  document.querySelectorAll('.day-mosaic').forEach(gallery=>{const buttons=[...gallery.querySelectorAll('button[data-photo]')],images=buttons.map(button=>({src:button.dataset.photo,alt:button.querySelector('img')?.alt||gallery.dataset.title||'Estocolmo'}));buttons.forEach((button,index)=>button.addEventListener('click',()=>{currentImages=images;currentIndex=index;lastFocus=button;title.textContent=gallery.dataset.title||'';description.textContent=gallery.dataset.description||'';modal.hidden=false;document.body.style.overflow='hidden';render();close.focus();}));});
+  close.addEventListener('click',hide);modal.querySelector('.day-lightbox-prev').addEventListener('click',()=>move(-1));modal.querySelector('.day-lightbox-next').addEventListener('click',()=>move(1));modal.addEventListener('click',event=>{if(event.target===modal)hide();});
+  document.addEventListener('keydown',event=>{if(modal.hidden)return;if(event.key==='Escape')hide();else if(event.key==='ArrowRight')move(1);else if(event.key==='ArrowLeft')move(-1);else if(event.key==='Tab'){const focusables=[...modal.querySelectorAll('button:not([disabled])')],i=focusables.indexOf(document.activeElement);if(event.shiftKey&&i===0){event.preventDefault();focusables.at(-1).focus();}else if(!event.shiftKey&&i===focusables.length-1){event.preventDefault();focusables[0].focus();}}});
+  stage.addEventListener('pointerdown',event=>{if(event.target.closest('button'))return;originX=event.clientX;originY=event.clientY;try{stage.setPointerCapture(event.pointerId);}catch(_){}});stage.addEventListener('pointerup',event=>{if(originX===null)return;const dx=event.clientX-originX,dy=event.clientY-originY;originX=originY=null;if(Math.abs(dx)>45&&Math.abs(dx)>Math.abs(dy)*1.2)move(dx<0?1:-1);});stage.addEventListener('pointercancel',()=>{originX=originY=null;});
+  const nav=[...document.querySelectorAll('.vcc-nav a[href^="#"]')],updateNav=()=>{const hash=location.hash||'#resumen';nav.forEach(a=>a.classList.toggle('is-active',a.getAttribute('href')===hash));};window.addEventListener('hashchange',updateNav);updateNav();
 })();
