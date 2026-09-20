@@ -1,0 +1,22 @@
+/* Resumen: hasta tres días visibles por página, sin alterar los días existentes. */
+.vcc-summary .overview-list{display:flex!important;flex-direction:column!important;align-items:stretch!important;gap:10px!important;grid-column:auto!important;min-width:0!important}
+.overview-card{flex:0 0 auto!important;min-width:0!important;width:100%!important;box-sizing:border-box!important}
+.overview-card[hidden]{display:none!important}
+.vcc-summary-map .map-note,.vcc-summary-map>a{display:none!important}
+.vcc-overview-controls{display:flex;align-items:center;justify-content:center;gap:13px;min-height:26px;margin-top:4px}
+.vcc-overview-controls[hidden]{display:none!important}
+.vcc-overview-controls button{display:grid;place-items:center;appearance:none;background:transparent;color:#a65340;border:0;padding:5px;cursor:pointer;font:700 18px/1 'DM Sans',sans-serif}
+.vcc-overview-controls button:disabled{opacity:.28;cursor:default}
+.vcc-overview-dots{display:flex;align-items:center;gap:10px}
+.vcc-overview-dots button{width:11px;height:11px;border:1.5px solid #a65340;border-radius:50%;background:#fff;padding:0;flex:0 0 11px}
+.vcc-overview-dots button[aria-current='true']{background:#a65340}
+.vcc-overview-dots button:focus-visible,.vcc-overview-controls>button:focus-visible{outline:2px solid #a65340;outline-offset:4px}
+.overview-card .vcc-overview-kicker{font-family:'DM Sans',sans-serif;font-weight:800;font-size:10px;letter-spacing:.03em;color:#a65340;text-transform:uppercase}
+.overview-card .vcc-overview-title{font-family:'Oswald',sans-serif;font-weight:500;font-size:17px;line-height:1.16;margin:4px 0}
+/* Prolongar el eje temporal hasta la última parada, sin depender del enlace de mapas. */
+.day-schedule .timeline{position:relative;border-left:0!important;padding-left:14px!important;margin-bottom:0!important}
+.day-schedule .timeline:before{content:'';position:absolute;left:0;top:7px;bottom:7px;width:1px;background:#b96c5c}
+.day-schedule .timeline li{margin-bottom:15px!important}
+.day-schedule .timeline li:last-child{margin-bottom:0!important}
+.day-schedule .timeline li:before{left:-17px!important}
+@media(max-width:950px){.vcc-summary .overview-list{grid-column:1/-1!important}.overview-card{min-height:88px!important}}
