@@ -97,3 +97,30 @@ html body .imp-page .imp-main .place:not(:first-child)::before {
     padding-top: 96px !important;
   }
 }
+
+/* Mòbil: limitar l'espai reservat a la foto i cedir la resta a la descripció.
+   object-fit:contain mostra sencera qualsevol orientació, sense retalls. */
+@media (max-width: 800px) {
+  html body #lightbox .lb-stage {
+    grid-template-rows: 44px minmax(0, min(38dvh, 320px)) 26px 76px minmax(0, 1fr) !important;
+  }
+  html body #lightbox .lb-stage > img {
+    grid-row: 2 !important;
+    width: calc(100% - 66px) !important;
+    height: 100% !important;
+    min-height: 0 !important;
+    max-height: 100% !important;
+    object-fit: contain !important;
+    object-position: center center !important;
+    align-self: center !important;
+  }
+  html body #lightbox .lb-counter { grid-row: 3 !important; }
+  html body #lightbox .lb-thumbs { grid-row: 4 !important; }
+  html body #lightbox .lb-place-info {
+    grid-row: 5 !important;
+    min-height: 0 !important;
+    max-height: none !important;
+    overflow-y: auto !important;
+    padding: 12px 16px 18px !important;
+  }
+}
