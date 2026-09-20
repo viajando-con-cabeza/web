@@ -98,12 +98,11 @@ html body .imp-page .imp-main .place:not(:first-child)::before {
   }
 }
 
-/* Mòbil: limitar l'alçada REAL de la fila de la fotografia, també davant
-   els overrides posteriors d'imprescindibles.css. Les dues orientacions
-   es mostren senceres i la descripció comença just després de miniatures. */
+/* Mòbil: alçada intermèdia de la foto perquè el text comenci una mica més avall,
+   sense recuperar l'espai buit excessiu. Les dues orientacions es mostren senceres. */
 @media (max-width: 800px) {
   html body #lightbox.lightbox .lb-stage {
-    grid-template-rows: 44px minmax(0, clamp(180px, 30dvh, 250px)) 26px 64px minmax(0, 1fr) !important;
+    grid-template-rows: 44px minmax(0, clamp(230px, 35dvh, 315px)) 26px 64px minmax(0, 1fr) !important;
     align-content: start !important;
   }
   html body #lightbox.lightbox .lb-stage > img {
