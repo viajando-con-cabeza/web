@@ -98,13 +98,15 @@ html body .imp-page .imp-main .place:not(:first-child)::before {
   }
 }
 
-/* Mòbil: foto una mica més compacta perquè el text comenci abans.
-   object-fit:contain preserva les imatges horitzontals i verticals completes. */
+/* Mòbil: limitar l'alçada REAL de la fila de la fotografia, també davant
+   els overrides posteriors d'imprescindibles.css. Les dues orientacions
+   es mostren senceres i la descripció comença just després de miniatures. */
 @media (max-width: 800px) {
-  html body #lightbox .lb-stage {
-    grid-template-rows: 44px minmax(0, min(32dvh, 270px)) 26px 64px minmax(0, 1fr) !important;
+  html body #lightbox.lightbox .lb-stage {
+    grid-template-rows: 44px minmax(0, clamp(180px, 30dvh, 250px)) 26px 64px minmax(0, 1fr) !important;
+    align-content: start !important;
   }
-  html body #lightbox .lb-stage > img {
+  html body #lightbox.lightbox .lb-stage > img {
     grid-row: 2 !important;
     width: calc(100% - 66px) !important;
     height: 100% !important;
@@ -114,14 +116,14 @@ html body .imp-page .imp-main .place:not(:first-child)::before {
     object-position: center center !important;
     align-self: center !important;
   }
-  html body #lightbox .lb-counter { grid-row: 3 !important; }
-  html body #lightbox .lb-thumbs {
+  html body #lightbox.lightbox .lb-counter { grid-row: 3 !important; }
+  html body #lightbox.lightbox .lb-thumbs {
     grid-row: 4 !important;
     padding-top: 5px !important;
     padding-bottom: 5px !important;
   }
-  html body #lightbox .lb-thumbs button { height: 48px !important; }
-  html body #lightbox .lb-place-info {
+  html body #lightbox.lightbox .lb-thumbs button { height: 48px !important; }
+  html body #lightbox.lightbox .lb-place-info {
     grid-row: 5 !important;
     min-height: 0 !important;
     max-height: none !important;
