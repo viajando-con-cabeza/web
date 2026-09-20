@@ -44,3 +44,10 @@ body:has(#lightbox.open){overflow:hidden!important}
 @media(max-width:800px){html body .imp-page .place{grid-template-columns:1fr!important;gap:20px!important}html body .imp-page .gallery-mosaic{aspect-ratio:1.48!important}html body #lightbox{padding:8px!important}html body #lightbox .lb-stage{width:calc(100vw - 16px)!important;height:min(90dvh,760px)!important;grid-template-rows:54px minmax(0,1fr) 30px 82px!important}html body #lightbox .lb-stage>img{width:calc(100% - 80px)!important}html body #lightbox .lb-thumbs{padding:8px 12px!important}html body #lightbox .lb-thumbs button{flex-basis:68px!important;width:68px!important;height:54px!important}html body #lightbox .lb-prev{left:5px!important}html body #lightbox .lb-next{right:5px!important}}
 @media(max-width:650px){html body .imp-page .gallery-mosaic{gap:5px!important;aspect-ratio:1.3!important}html body .imp-page .gallery-mosaic.count-1{aspect-ratio:4/3!important}html body .imp-page .gallery-mosaic .gallery-more{font-size:10px!important}html body .imp-page .place-copy .advice{padding:12px!important}html body #lightbox .lb-caption{font-size:12px!important;padding:14px 54px!important}html body #lightbox .lb-stage>img{width:calc(100% - 66px)!important}html body #lightbox .lb-close,html body #lightbox .lb-prev,html body #lightbox .lb-next{width:32px!important;height:32px!important;font-size:23px!important}}
 @media(prefers-reduced-motion:reduce){html body #lightbox .lb-thumbs{scroll-behavior:auto!important}}
+
+/* Ordinador: marcs del mosaic lleugerament més alts, mantenint-ne
+   l'amplada i la composició de fins a cinc fotografies. */
+@media (min-width: 851px) {
+  html body .imp-page .gallery-mosaic { aspect-ratio: 1.28 !important; }
+  html body .imp-page .gallery-mosaic.count-1 { aspect-ratio: 1.36 !important; }
+}
