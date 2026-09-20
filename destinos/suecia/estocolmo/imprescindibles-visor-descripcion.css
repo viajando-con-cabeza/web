@@ -15,7 +15,6 @@ html body #lightbox .lb-counter,
 html body #lightbox .lb-thumbs {
   grid-column: 1 !important;
 }
-/* Situa el límit superior de la fotografia a l'inici de la fila del visor. */
 html body #lightbox .lb-stage > img {
   width: calc(100% - 92px) !important;
   object-position: center top !important;
@@ -33,7 +32,6 @@ html body #lightbox .lb-place-info {
   color: #333 !important;
   font-family: 'DM Sans', sans-serif !important;
 }
-/* La línia i el títol comencen on comença la fotografia, sense marge superior extra. */
 html body #lightbox .lb-place-info::before {
   content: '' !important;
   position: absolute !important;
@@ -128,5 +126,27 @@ html body .imp-page .imp-main .place:not(:first-child)::before {
     max-height: none !important;
     overflow-y: auto !important;
     padding: 8px 16px 18px !important;
+  }
+}
+
+/* Escriptori: foto horitzontal o vertical centrada dins la zona visual;
+   títol i descripció centrats verticalment al costat de la foto. */
+@media (min-width: 801px) {
+  html body #lightbox.lightbox .lb-stage > img {
+    object-fit: contain !important;
+    object-position: center center !important;
+    align-self: center !important;
+    justify-self: center !important;
+  }
+  html body #lightbox.lightbox .lb-place-info {
+    grid-row: 2 / 3 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    padding: 18px 22px !important;
+  }
+  html body #lightbox.lightbox .lb-place-info::before {
+    top: 0 !important;
+    bottom: 0 !important;
   }
 }
