@@ -165,6 +165,42 @@
   next.addEventListener('click',() => show(current+1));
   close.addEventListener('click',dismiss);
   overlay.addEventListener('click',e => {if (e.target === overlay) dismiss();});
+  /* Un sol gest per a dit, llapis i ratolí: només damunt la foto principal.
+     Deixem el desplaçament vertical del mòbil i els controls existents intactes. */
+  image.draggable = false;
+  image.style.touchAction = 'pan-y';
+  image.style.userSelect = 'none';
+  image.style.webkitUserSelect = 'none';
+  image.style.cursor = 'grab';
+  let drag = null;
+  image.addEventListener('dragstart', e => e.preventDefault());
+  image.addEventListener('pointerdown', e => {
+    if (!overlay.classList.contains('open') || album.length < 2 || (e.pointerType === 'mouse' && e.button !== 0)) return;
+    if (drag) return;
+    drag = {id: e.pointerId, x: e.clientX, y: e.clientY, horizontal: false};
+    image.style.cursor = 'grabbing';
+    if (e.pointerType === 'mouse') {
+      e.preventDefault();
+      image.setPointerCapture(e.pointerId);
+    }
+  });
+  image.addEventListener('pointermove', e => {
+    if (!drag || drag.id !== e.pointerId) return;
+    const dx = e.clientX - drag.x, dy = e.clientY - drag.y;
+    if (!drag.horizontal && Math.abs(dx) > 12 && Math.abs(dx) > Math.abs(dy) * 1.2) drag.horizontal = true;
+  });
+  const finishDrag = (e, cancelled = false) => {
+    if (!drag || drag.id !== e.pointerId) return;
+    const dx = e.clientX - drag.x, dy = e.clientY - drag.y;
+    const isSwipe = !cancelled && drag.horizontal && Math.abs(dx) >= 45 && Math.abs(dx) > Math.abs(dy) * 1.2;
+    drag = null;
+    image.style.cursor = 'grab';
+    if (image.hasPointerCapture(e.pointerId)) image.releasePointerCapture(e.pointerId);
+    if (isSwipe) show(current + (dx < 0 ? 1 : -1));
+  };
+  image.addEventListener('pointerup', e => finishDrag(e));
+  image.addEventListener('pointercancel', e => finishDrag(e, true));
+  image.addEventListener('lostpointercapture', e => finishDrag(e, true));
   document.addEventListener('keydown',e => {
     if (!overlay.classList.contains('open')) return;
     if (e.key === 'Escape') dismiss();
