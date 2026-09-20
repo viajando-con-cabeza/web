@@ -168,3 +168,60 @@ html body:has(.imp-page) .imp-page .place-nav a {
     font-size:11px!important;
   }
 }
+
+/* Molles de pa compartides: mateixa posició respecte a la portada, marges i text.
+   Suècia tenia el breadcrumb dins el flux; Estocolm i imprescindibles, absolut.
+   Totes tres ara es posicionen des de la part superior de la fotografia. */
+html body.country-page .country-hero,
+html body:has(.st-shell) .st-shell .st-hero,
+html body:has(.imp-page) .imp-page .imp-hero {position:relative!important;}
+html body.country-page .country-hero .country-hero-inner {position:static!important;}
+html body:has(.st-shell) .st-shell .st-hero-inner,
+html body:has(.imp-page) .imp-page .imp-hero-inner {position:relative!important;height:100%!important;}
+html body.country-page .country-hero .country-breadcrumb,
+html body:has(.st-shell) .st-shell .st-crumb,
+html body:has(.imp-page) .imp-page .imp-crumb {
+  position:absolute!important;
+  top:20px!important;
+  left:max(24px,calc((100% - 1180px)/2))!important;
+  right:max(24px,calc((100% - 1180px)/2))!important;
+  width:auto!important;
+  max-width:none!important;
+  height:auto!important;
+  margin:0!important;
+  padding:0!important;
+  transform:none!important;
+  z-index:4!important;
+  display:flex!important;
+  flex-wrap:wrap!important;
+  align-items:center!important;
+  column-gap:8px!important;
+  row-gap:3px!important;
+  color:#48433f!important;
+  text-shadow:none!important;
+  font-family:'DM Sans',sans-serif!important;
+  font-size:12px!important;
+  font-weight:500!important;
+  line-height:1.5!important;
+  letter-spacing:0!important;
+}
+html body.country-page .country-hero .country-breadcrumb a,
+html body:has(.st-shell) .st-shell .st-crumb a,
+html body:has(.imp-page) .imp-page .imp-crumb a {color:inherit!important;font:inherit!important;text-decoration:none!important;}
+html body.country-page .country-hero .country-breadcrumb strong,
+html body:has(.st-shell) .st-shell .st-crumb strong,
+html body:has(.imp-page) .imp-page .imp-crumb strong {font-weight:800!important;color:#48433f!important;}
+html body.country-page .country-hero .country-breadcrumb span,
+html body:has(.st-shell) .st-shell .st-crumb span,
+html body:has(.imp-page) .imp-page .imp-crumb span {margin:0!important;opacity:.65!important;color:inherit!important;}
+@media(max-width:720px){
+  html body.country-page .country-hero .country-breadcrumb,
+  html body:has(.st-shell) .st-shell .st-crumb,
+  html body:has(.imp-page) .imp-page .imp-crumb {
+    top:14px!important;
+    left:14px!important;
+    right:14px!important;
+    font-size:12px!important;
+    column-gap:7px!important;
+  }
+}
