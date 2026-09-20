@@ -1,4 +1,4 @@
-/* Resumen: hasta tres días visibles por página, sin alterar los días existentes. */
+/* Resumen: hasta tres días visibles por página, incluso con cuatro o más días. */
 .vcc-summary .overview-list{display:flex!important;flex-direction:column!important;align-items:stretch!important;gap:10px!important;grid-column:auto!important;min-width:0!important}
 .overview-card{flex:0 0 auto!important;min-width:0!important;width:100%!important;box-sizing:border-box!important}
 .overview-card[hidden]{display:none!important}
@@ -11,12 +11,28 @@
 .vcc-overview-dots button{width:11px;height:11px;border:1.5px solid #a65340;border-radius:50%;background:#fff;padding:0;flex:0 0 11px}
 .vcc-overview-dots button[aria-current='true']{background:#a65340}
 .vcc-overview-dots button:focus-visible,.vcc-overview-controls>button:focus-visible{outline:2px solid #a65340;outline-offset:4px}
-.overview-card .vcc-overview-kicker{font-family:'DM Sans',sans-serif;font-weight:800;font-size:10px;letter-spacing:.03em;color:#a65340;text-transform:uppercase}
-.overview-card .vcc-overview-title{font-family:'Oswald',sans-serif;font-weight:500;font-size:17px;line-height:1.16;margin:4px 0}
-/* Prolongar el eje temporal hasta la última parada, sin depender del enlace de mapas. */
-.day-schedule .timeline{position:relative;border-left:0!important;padding-left:14px!important;margin-bottom:0!important}
-.day-schedule .timeline:before{content:'';position:absolute;left:0;top:7px;bottom:7px;width:1px;background:#b96c5c}
-.day-schedule .timeline li{margin-bottom:15px!important}
-.day-schedule .timeline li:last-child{margin-bottom:0!important}
-.day-schedule .timeline li:before{left:-17px!important}
+.overview-card .vcc-overview-kicker{font-family:'Caveat',cursive!important;font-weight:600!important;font-size:17px!important;letter-spacing:0!important;color:#b96553!important;text-transform:none!important;line-height:1.15!important}
+.overview-card .vcc-overview-title{font-family:'Oswald',sans-serif!important;font-weight:500!important;font-size:19px!important;line-height:1.16!important;margin:4px 0!important}
+/* El alto del hero ya no desplaza la barra blanca fuera de la primera pantalla. */
+@media(min-width:721px){
+ body .vcc-hero{min-height:0!important;height:auto!important}
+ body .vcc-hero-inner{padding-top:12px!important;padding-bottom:12px!important}
+ body .vcc-crumb{margin-bottom:10px!important}
+ body .vcc-hero-card{min-height:0!important;padding:24px 42px 26px!important;width:min(685px,100%)!important}
+ body .vcc-hero h1{font-size:clamp(48px,5vw,68px)!important}
+ body .vcc-facts{margin-top:16px!important;padding-top:13px!important}
+ body .vcc-hero .script{margin:7px 0 10px!important}
+}
+/* La línea recorre solo las paradas: termina junto al último punto, no al final de la columna. */
+body .day-schedule .timeline{position:relative!important;border-left:0!important;padding-left:14px!important;padding-bottom:0!important;margin-bottom:0!important;flex:0 0 auto!important}
+body .day-schedule .timeline::before{content:'';position:absolute;left:0;top:7px;bottom:7px;width:1px;background:#b96c5c}
+body .day-2 .timeline::before{background:#397362}
+body .day-3 .timeline::before{background:#396a9a}
+body .day-schedule .timeline li{margin-bottom:15px!important}
+body .day-schedule .timeline li:last-child{margin-bottom:0!important}
+body .day-schedule .timeline li::before{left:-17px!important;z-index:2}
+body .day-schedule .timeline li:last-child::after{content:'';position:absolute;left:-18px;top:8px;bottom:0;width:3px;background:#fff;z-index:1;pointer-events:none}
+body .day-demo{display:block!important;min-height:0!important;padding:42px 0 55px!important;max-width:760px}
+body .day-demo .day-intro{min-height:0!important;max-width:760px!important}
 @media(max-width:950px){.vcc-summary .overview-list{grid-column:1/-1!important}.overview-card{min-height:88px!important}}
+@media(max-width:720px){body .vcc-hero-inner{padding-bottom:12px!important}body .vcc-hero-card{padding:22px 22px 24px!important}}
