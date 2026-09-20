@@ -27,3 +27,39 @@ html body .st-shell .st-card .rating-details:not([hidden]) .rating-row i{height:
   html body .st-shell .st-card .rating-details:not([hidden]) .rating-head{margin-bottom:2px!important;padding-bottom:5px!important}
   html body .st-shell .st-card .rating-details:not([hidden]) .rating-row{margin:1px 0!important;font-size:9px!important}
 }
+
+/* Igualar les dues targetes en alçada i evitar que el subtítol de l'itinerari
+   sobresurti de la seva columna en escriptori i en mode escriptori del mòbil. */
+@media (min-width: 851px) {
+  html body .st-shell .st-discover {
+    align-items: stretch !important;
+  }
+  html body .st-shell .st-discover > .st-half-section {
+    display: flex !important;
+    flex-direction: column !important;
+    min-width: 0 !important;
+  }
+  html body .st-shell .st-discover .st-carousel-wrap,
+  html body .st-shell .st-discover .st-featured-itinerary {
+    flex: 1 1 auto !important;
+    min-height: 0 !important;
+  }
+  html body .st-shell .st-single-itinerary .st-featured-itinerary {
+    height: 100% !important;
+  }
+  html body .st-shell .st-single-itinerary .st-half-heading {
+    min-width: 0 !important;
+  }
+  html body .st-shell .st-single-itinerary .st-half-heading > div {
+    min-width: 0 !important;
+    flex: 0 1 auto !important;
+  }
+  html body .st-shell .st-single-itinerary .st-half-heading > span {
+    min-width: 0 !important;
+    max-width: 46% !important;
+    flex: 0 1 46% !important;
+    white-space: normal !important;
+    overflow-wrap: break-word !important;
+    text-align: right !important;
+  }
+}
