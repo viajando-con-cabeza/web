@@ -1,0 +1,25 @@
+/* VCC: diseño central del piloto de Suecia. Cambia aquí los valores corporativos. */
+:root {
+  --vcc-color-accent: #c86f5d;
+  --vcc-color-paper: #f8f4ee;
+  --vcc-color-ink: #171717;
+  --vcc-color-line: #e8ded3;
+  --vcc-content-width: 1180px;
+}
+/* Compatibilidad con las hojas de estilo actuales, sin alterar su diseño inicial. */
+:root {
+  --country-coral: var(--vcc-color-accent);
+  --country-paper: var(--vcc-color-paper);
+  --country-ink: var(--vcc-color-ink);
+  --country-line: var(--vcc-color-line);
+}
+.country-page .country-hero-inner,
+.country-page .country-nav-inner,
+.country-page .country-main {
+  width: min(var(--vcc-content-width), calc(100% - 48px));
+}
+@media (max-width: 560px) {
+  .country-page .country-hero-inner,
+  .country-page .country-nav-inner,
+  .country-page .country-main { width: calc(100% - 28px); }
+}
