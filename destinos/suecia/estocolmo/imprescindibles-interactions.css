@@ -35,3 +35,16 @@
 body:has(#lightbox.open){overflow:hidden!important}
 @media(max-width:800px){.imp-page .imp-hero{height:450px!important;min-height:450px!important}.imp-page .imp-card{top:90px!important}.imp-page .place{grid-template-columns:1fr!important;gap:20px!important}}
 @media(max-width:650px){.imp-page .imp-hero{height:440px!important;min-height:440px!important}.imp-page .imp-card{top:85px!important}.imp-page .gallery-mosaic{gap:5px!important}.imp-page .facts>span{padding:5px 8px!important}.imp-page .facts>span:first-child{padding-left:0!important}}
+
+/* Quality: cinc separadors vectorials VCC transparents, alternats en ordre estable.
+   Se n'insereix un entre CADA lloc, sense reordenar ni tocar el mosaic ni les galeries.
+   La combinació de selectors supera les regles inline antigues amb !important. */
+html body .imp-page .imp-main .place:not(:first-child){position:relative!important;padding-top:132px!important}
+html body .imp-page .imp-main .place:not(:first-child)::after{content:none!important;display:none!important}
+html body .imp-page .imp-main .place:not(:first-child)::before{content:''!important;display:block!important;position:absolute!important;left:0!important;top:0!important;width:100%!important;height:112px!important;opacity:.95!important;pointer-events:none!important;background-image:url('../../../assets/icons/vcc-separador-vuelo-1.svg')!important;background-repeat:no-repeat!important;background-position:center!important;background-size:100% 100%!important}
+html body .imp-page .imp-main .place:nth-of-type(5n+2)::before{background-image:url('../../../assets/icons/vcc-separador-vuelo-1.svg')!important}
+html body .imp-page .imp-main .place:nth-of-type(5n+3)::before{background-image:url('../../../assets/icons/vcc-separador-vuelo-2.svg')!important}
+html body .imp-page .imp-main .place:nth-of-type(5n+4)::before{background-image:url('../../../assets/icons/vcc-separador-vuelo-3.svg')!important}
+html body .imp-page .imp-main .place:nth-of-type(5n+5)::before{background-image:url('../../../assets/icons/vcc-separador-vuelo-4.svg')!important}
+html body .imp-page .imp-main .place:nth-of-type(5n+1):not(:first-child)::before{background-image:url('../../../assets/icons/vcc-separador-vuelo-5.svg')!important}
+@media(max-width:650px){html body .imp-page .imp-main .place:not(:first-child){padding-top:103px!important}html body .imp-page .imp-main .place:not(:first-child)::before{height:85px!important}}
