@@ -1,0 +1,71 @@
+/* Portada de imprescindibles: misma identidad que la guía de Estocolmo, sin tarjeta. */
+.imp-page .imp-hero{height:clamp(450px,62vh,570px)!important;min-height:450px!important;position:relative!important;background:linear-gradient(90deg,rgba(248,244,238,.96) 0%,rgba(248,244,238,.82) 38%,rgba(248,244,238,.08) 68%,rgba(248,244,238,0) 100%),url('https://images.unsplash.com/photo-1509356843151-3e7d96241e11?auto=format&fit=crop&w=2200&q=90') center/cover no-repeat!important;color:#171717!important}
+.imp-page .imp-hero:after{background:transparent!important}
+.imp-page .imp-hero-inner{width:min(1180px,calc(100% - 48px))!important;height:100%!important;margin:0 auto!important}
+/* Breadcrumb alineado con el de la guía principal (sin sombra ni colores de la versión oscura). */
+.imp-page .imp-crumb{position:absolute!important;top:12px!important;left:0!important;width:100%!important;display:flex!important;align-items:center!important;gap:0!important;margin:0!important;padding:0!important;color:#665f58!important;text-shadow:none!important;font-family:'DM Sans',sans-serif!important;font-size:11px!important;font-weight:400!important;line-height:1.4!important;transform:none!important}
+.imp-page .imp-crumb a{color:inherit!important;text-decoration:none!important;font-weight:400!important}
+.imp-page .imp-crumb span{opacity:1!important;margin:0 8px!important;color:#9b928a!important}
+.imp-page .imp-crumb strong{font-weight:800!important;color:#4f4a45!important}
+/* Título directamente sobre la fotografía. */
+.imp-page .imp-card{position:absolute!important;top:100px!important;left:0!important;width:min(690px,78vw)!important;background:transparent!important;border:0!important;border-radius:0!important;box-shadow:none!important;padding:0!important;color:#171717!important;backdrop-filter:none!important}
+.imp-page .imp-card .eyebrow{font-family:'DM Sans',sans-serif!important;font-size:11px!important;font-weight:800!important;letter-spacing:.09em!important;color:#c86f5d!important;margin:0 0 13px!important}
+.imp-page .imp-hero .imp-card h1{font-family:'Oswald',sans-serif!important;font-size:clamp(56px,5.2vw,77px)!important;font-weight:500!important;line-height:.98!important;letter-spacing:-.02em!important;color:#171717!important;text-shadow:none!important;max-width:690px!important;margin:0!important}
+.imp-page .imp-hero .imp-card .imp-script{font-family:'Caveat',cursive!important;font-size:32px!important;font-weight:600!important;line-height:1.12!important;color:#c86f5d!important;transform:rotate(-1deg)!important;margin:14px 0 14px!important}
+.imp-page .imp-hero .imp-card .imp-lead{font-family:'DM Sans',sans-serif!important;font-size:14px!important;font-weight:400!important;line-height:1.65!important;max-width:560px!important;color:#171717!important;margin:0!important}
+.imp-page .imp-facts{display:none!important}
+/* Barra de los 15 lugares: visible justo debajo de una portada más compacta. */
+.imp-page .place-nav-wrap{position:sticky!important;top:var(--vcc-header-h,50px)!important;z-index:75!important;width:100%!important;height:43px!important;min-height:43px!important;background:#fff!important;border-top:1px solid #e8ded3!important;border-bottom:1px solid #e8ded3!important;box-shadow:none!important}
+.imp-page .place-nav-shell{position:relative!important;width:100%!important;max-width:none!important;height:43px!important;min-height:43px!important;margin:0!important;padding:0 max(24px,calc((100vw - 1180px)/2))!important;display:flex!important;align-items:center!important;gap:0!important;background:#fff!important}
+.imp-page .place-nav{flex:1 1 auto!important;width:100%!important;min-width:0!important;height:43px!important;min-height:43px!important;display:flex!important;align-items:center!important;justify-content:flex-start!important;gap:38px!important;margin:0!important;padding:0!important;overflow-x:auto!important;overflow-y:hidden!important;scrollbar-width:none!important;scroll-behavior:smooth!important;background:transparent!important}
+.imp-page .place-nav::-webkit-scrollbar{display:none!important}
+.imp-page .place-nav a{flex:0 0 auto!important;display:inline-flex!important;align-items:center!important;justify-content:center!important;width:auto!important;max-width:none!important;height:43px!important;min-height:43px!important;margin:0!important;padding:13px 0 12px!important;border:0!important;border-bottom:2px solid transparent!important;border-radius:0!important;background:transparent!important;box-shadow:none!important;color:#171717!important;font-family:'DM Sans',sans-serif!important;font-size:10.5px!important;font-weight:800!important;line-height:1!important;letter-spacing:0!important;text-transform:uppercase!important;white-space:nowrap!important;text-decoration:none!important}
+.imp-page .place-nav a:hover,.imp-page .place-nav a.active{color:#a65340!important;border-bottom-color:#cf705c!important;background:transparent!important}
+.imp-page .place-nav-arrow{position:absolute!important;top:50%!important;transform:translateY(-50%)!important;z-index:2!important;display:grid!important;place-items:center!important;width:28px!important;height:28px!important;min-height:28px!important;flex:0 0 28px!important;margin:0!important;padding:0!important;border:0!important;border-radius:50%!important;background:#fff!important;box-shadow:none!important;color:#a65340!important;font-size:23px!important;cursor:pointer!important}
+.imp-page #navPrev{left:max(1px,calc((100vw - 1180px)/2 - 34px))!important}
+.imp-page #navNext{right:max(1px,calc((100vw - 1180px)/2 - 34px))!important}
+/* Los anclajes no quedan ocultos debajo de los dos menús fijos. */
+.imp-page .place{scroll-margin-top:calc(var(--vcc-header-h,50px) + 55px)!important}
+@media(max-width:850px){.imp-page .imp-hero{height:clamp(450px,62vh,530px)!important;min-height:450px!important}.imp-page .imp-card{top:100px!important;width:min(620px,86vw)!important}.imp-page .place-nav-shell{padding:0 34px!important}.imp-page #navPrev{left:2px!important}.imp-page #navNext{right:2px!important}.imp-page .place-nav{gap:24px!important}}
+@media(max-width:650px){.imp-page .imp-hero{height:480px!important;min-height:480px!important;background-position:62% center!important;background-image:linear-gradient(90deg,rgba(248,244,238,.95),rgba(248,244,238,.69)),url('https://images.unsplash.com/photo-1509356843151-3e7d96241e11?auto=format&fit=crop&w=2200&q=90')!important}.imp-page .imp-hero-inner{width:calc(100% - 28px)!important}.imp-page .imp-crumb{top:12px!important;font-size:10px!important}.imp-page .imp-crumb span{margin:0 5px!important}.imp-page .imp-card{top:100px!important;width:100%!important}.imp-page .imp-hero .imp-card h1{font-size:clamp(42px,10vw,58px)!important}.imp-page .imp-hero .imp-card .imp-script{font-size:27px!important}.imp-page .imp-hero .imp-card .imp-lead{font-size:12px!important}.imp-page .place-nav{gap:22px!important}.imp-page .place-nav a{font-size:10px!important}}
+
+/* Separador editorial de l'itinerari: fotografia panoràmica a tota l'amplada
+   amb una nota blanca, independent de la targeta gris de sota. */
+html body .imp-page .vcc-itinerary-feature {
+  position: relative !important;
+  overflow: visible !important;
+  margin-top: 350px !important;
+}
+html body .imp-page .vcc-itinerary-feature::before {
+  content: '' !important;
+  position: absolute !important;
+  left: 50% !important;
+  bottom: calc(100% + 36px) !important;
+  transform: translateX(-50%) !important;
+  width: 100vw !important;
+  height: 250px !important;
+  display: block !important;
+  background: linear-gradient(90deg,rgba(18,18,18,.12),transparent 65%),url('https://images.unsplash.com/photo-1509356843151-3e7d96241e11?auto=format&fit=crop&w=2200&q=90') center 52%/cover no-repeat !important;
+  pointer-events: none !important;
+}
+html body .imp-page .vcc-itinerary-feature::after {
+  content: 'Estocolmo se vive mejor, sin prisas' !important;
+  position: absolute !important;
+  left: 22px !important;
+  bottom: calc(100% + 126px) !important;
+  z-index: 1 !important;
+  box-sizing: border-box !important;
+  max-width: min(270px,calc(100vw - 52px)) !important;
+  padding: 18px 22px !important;
+  background: #fffaf5 !important;
+  color: #4f3d36 !important;
+  font: 600 25px/1.1 'Caveat',cursive !important;
+  box-shadow: 0 4px 18px rgba(29,22,18,.10) !important;
+  transform: rotate(-3deg) !important;
+  pointer-events: none !important;
+}
+@media(max-width:800px){
+  html body .imp-page .vcc-itinerary-feature {margin-top:250px!important}
+  html body .imp-page .vcc-itinerary-feature::before {height:170px!important;bottom:calc(100% + 28px)!important}
+  html body .imp-page .vcc-itinerary-feature::after {left:18px!important;bottom:calc(100% + 86px)!important;max-width:205px!important;padding:12px 15px!important;font-size:21px!important}
+}

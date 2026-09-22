@@ -1,0 +1,39 @@
+/* Itinerario Quality: escala compartida con la guía de Estocolmo. */
+:root{--vcc-header-h:50px}
+body>.shared-header{height:50px!important;min-height:50px!important;box-sizing:border-box!important}
+body>.shared-header .shared-nav{width:min(1180px,calc(100% - 48px))!important;height:50px!important;grid-template-columns:138px 1fr 92px!important;column-gap:16px!important}
+body>.shared-header .shared-menu,body>.shared-header .shared-menu a{font-family:'DM Sans',sans-serif!important;font-size:12px!important;font-weight:800!important;line-height:1.15!important;letter-spacing:0!important;text-transform:uppercase!important}
+body .vcc-hero{min-height:610px!important;height:auto!important;align-items:stretch!important}
+body .vcc-hero-inner{width:min(1180px,calc(100% - 48px))!important;max-width:1180px!important;margin:0 auto!important;padding:14px 0 14px!important;display:flex!important;flex-direction:column!important;align-items:flex-start!important;justify-content:flex-start!important;box-sizing:border-box!important}
+body .vcc-crumb{display:flex!important;flex-wrap:wrap!important;align-items:center!important;column-gap:0!important;min-height:18px!important;margin:0 0 12px!important;padding:0!important;font-family:'DM Sans',sans-serif!important;font-size:11px!important;font-weight:400!important;line-height:1.4!important;letter-spacing:0!important;text-transform:none!important;color:#665f58!important}
+body .vcc-crumb a{color:inherit!important;margin:0!important;text-decoration:none!important}
+body .vcc-crumb span{margin:0 9px!important;color:#8d8279!important}
+body .vcc-hero-card{width:min(685px,100%)!important;max-width:685px!important;min-height:550px!important;margin:0!important;padding:38px 48px 43px!important;border-radius:15px!important;box-sizing:border-box!important;display:flex!important;flex-direction:column!important;justify-content:center!important;background:rgba(255,253,249,.96)!important}
+body .vcc-eyebrow{font-size:11px!important;line-height:1.2!important;margin:0 0 13px!important}
+body .vcc-hero h1{font-family:'Oswald',sans-serif!important;font-size:77px!important;font-weight:500!important;line-height:.98!important;letter-spacing:0!important;max-width:100%!important;overflow-wrap:normal!important}
+body .vcc-hero .script{font:600 29px/1.1 'Caveat',cursive!important;margin:12px 0 15px!important}
+body .vcc-hero-card>p:not(.script){font:400 14px/1.65 'DM Sans',sans-serif!important;max-width:100%!important}
+body .vcc-facts{width:100%!important;grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:13px!important;padding-top:22px!important;margin-top:27px!important}
+body .vcc-facts span{min-width:0!important;line-height:1.4!important}
+/* Navegación secundaria: mismo tamaño y márgenes que la guía. */
+body .vcc-nav{height:39px!important;min-height:39px!important;max-height:39px!important;top:var(--vcc-header-h,50px)!important;background:#fff!important;border-top:1px solid #e8ded3!important;border-bottom:1px solid #e8ded3!important;box-shadow:none!important}
+body .vcc-nav-inner{width:100%!important;max-width:none!important;min-height:39px!important;height:39px!important;justify-content:flex-start!important;gap:38px!important;padding-left:max(24px,calc((100vw - 1180px)/2))!important;padding-right:max(24px,calc((100vw - 1180px)/2))!important}
+body .vcc-nav a{font-family:'DM Sans',sans-serif!important;font-size:12px!important;font-weight:800!important;line-height:1.15!important;letter-spacing:0!important;height:39px!important;min-height:39px!important;padding:0!important}
+/* La columna de horarios ocupa toda la altura disponible; el enlace de mapas se traslada a la introducción. */
+body .day-section{min-height:510px!important;padding-top:42px!important;padding-bottom:30px!important;grid-template-columns:minmax(0,32%) minmax(0,28%) minmax(0,40%)!important;gap:24px!important;align-items:stretch!important;box-sizing:border-box!important}
+body .day-intro{padding:0!important;margin:0!important;align-items:stretch!important;min-width:0!important}
+body .day-intro .day-label{display:none!important}
+body .day-intro .hand{font-family:'Caveat',cursive!important;font-size:27px!important;line-height:1.15!important;color:#c86f5d!important;margin:0 0 9px!important}
+body .day-intro h2{font-family:'Oswald',sans-serif!important;font-size:clamp(27px,2.8vw,36px)!important;font-weight:500!important;line-height:1.12!important;margin-top:0!important}
+body .day-intro>p{font-size:14px!important;line-height:1.65!important;margin-left:0!important;margin-right:0!important}
+body .day-tip{width:100%!important;max-width:100%!important;margin-left:0!important;margin-right:0!important;margin-top:auto!important;padding:14px 15px!important;box-sizing:border-box!important;align-self:stretch!important}
+body .day-intro .day-route-link{align-self:flex-start!important;margin-top:13px!important}
+body .day-schedule{padding-top:3px!important;display:flex!important;flex-direction:column!important}
+body .timeline{flex:1 1 auto!important;padding-bottom:15px!important;margin-bottom:0!important}
+body .timeline li{margin-bottom:13px!important;align-items:start!important}
+body .timeline li>span{display:block!important;min-width:0!important}
+body .timeline li .stop-detail{display:block!important;margin-top:3px!important;font:400 11px/1.45 'DM Sans',sans-serif!important;color:#736b64!important}
+body .day-gallery{align-self:center!important;width:100%!important}
+body .day-mosaic{aspect-ratio:1.32!important}
+@media(max-width:950px){body .day-section{grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important;min-height:0!important}.day-gallery{grid-column:1/-1!important}.day-intro{min-height:300px!important}}
+@media(max-width:720px){:root{--vcc-header-h:0px}body>.shared-header{height:auto!important;min-height:0!important}body>.shared-header .shared-nav{width:calc(100% - 28px)!important;height:auto!important;grid-template-columns:minmax(0,1fr) auto!important}body>.shared-header .shared-menu,body>.shared-header .shared-menu a{font-size:11px!important}body .vcc-hero{min-height:0!important}body .vcc-hero-inner{width:calc(100% - 28px)!important;padding:12px 0 18px!important}body .vcc-crumb{font-size:11px!important;margin-bottom:12px!important}body .vcc-hero-card{width:100%!important;max-width:100%!important;min-height:0!important;padding:26px 24px 31px!important}body .vcc-hero h1{font-size:clamp(40px,10vw,57px)!important}body .vcc-hero .script{font-size:25px!important}body .vcc-facts{grid-template-columns:repeat(2,minmax(0,1fr))!important}body .vcc-nav{top:0!important}body .vcc-nav-inner{gap:24px!important;padding-left:14px!important;padding-right:14px!important}body .vcc-nav a{font-size:11px!important}body .day-section{display:flex!important;flex-direction:column!important;min-height:0!important;gap:18px!important;padding-top:30px!important;padding-bottom:14px!important}body .day-intro{min-height:0!important}body .day-tip{margin-top:8px!important}body .day-gallery{width:100%!important}body .day-mosaic{aspect-ratio:1.45!important}}

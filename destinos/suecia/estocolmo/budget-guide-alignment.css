@@ -1,0 +1,18 @@
+/* Presupuesto: mismos anchos y escala que la guía de Estocolmo en Quality. */
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=Oswald:wght@400;500;600&display=swap');
+.budget-page .st-shell{--country-line:#e8ded3;--country-coral:#c86f5d;--country-ink:#171717}
+/* Migas de pan alineadas con el contenedor de 1180px de la guía. */
+.budget-page .sub-hero .st-crumb{position:absolute;top:20px;left:50%;transform:translateX(-50%);width:min(1180px,calc(100% - 48px));max-width:1180px;margin:0;padding:0;font-family:'DM Sans',sans-serif;font-size:11px;line-height:1.5;color:#665f58;z-index:3}
+.budget-page .sub-hero .st-crumb a{color:inherit}
+/* La portada sigue sin recuadro, pero utiliza la tipografía corporativa de la guía. */
+.budget-page .sub-hero h1{font-family:'Oswald',sans-serif;font-size:76px;font-weight:500;line-height:.9;letter-spacing:-2px;text-transform:uppercase;margin:10px 0 14px;max-width:900px}
+.budget-page .sub-hero .script{font-family:'Caveat',cursive;font-size:29px!important;font-weight:600;line-height:1.1}
+.budget-page .sub-hero>div:last-child>span{font-family:'DM Sans',sans-serif;font-size:11px;font-weight:800;letter-spacing:.9px}
+/* Valores exactos de estocolmo-quality-fixes.css para la barra secundaria. */
+.budget-page .st-shell .st-tabs{position:sticky;top:var(--vcc-header-h,50px);z-index:50;height:43px;min-height:43px;display:flex;align-items:center;justify-content:flex-start;gap:38px;padding-left:max(24px,calc((100vw - 1180px)/2));padding-right:max(24px,calc((100vw - 1180px)/2));background:#fff;border-top:1px solid var(--country-line);border-bottom:1px solid var(--country-line);overflow-x:auto;overscroll-behavior-x:contain;scrollbar-width:none}
+.budget-page .st-shell .st-tabs::-webkit-scrollbar{display:none}
+.budget-page .st-shell .st-tabs a{flex:0 0 auto;position:relative;padding:13px 0 12px;font-family:'DM Sans',sans-serif;font-size:11.5px;font-weight:800;line-height:1;letter-spacing:0;white-space:nowrap;color:var(--country-ink)}
+.budget-page .st-shell .st-tabs a:hover{color:var(--country-coral)}
+@media(max-width:850px){.budget-page .st-shell .st-tabs{top:var(--vcc-header-h,0px)}}
+@media(max-width:720px){.budget-page .sub-hero .st-crumb{width:calc(100% - 28px)}.budget-page .sub-hero h1{font-size:58px;letter-spacing:-1px}.budget-page .sub-hero .script{font-size:24px!important}.budget-page .st-shell .st-tabs{gap:24px;padding-left:14px;padding-right:14px}.budget-page .st-shell .st-tabs a{font-size:10.5px}}
+@media(max-width:380px){.budget-page .sub-hero h1{font-size:49px}}

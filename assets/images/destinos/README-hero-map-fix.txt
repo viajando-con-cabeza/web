@@ -1,1 +1,0 @@
-Temporary marker for the Destinos hero-map fix. Safe to remove later.
