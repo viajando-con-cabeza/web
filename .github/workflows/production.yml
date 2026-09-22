@@ -32,3 +32,6 @@ jobs:
             exit 1
           fi
           echo 'Production validation passed.'
+
+      - name: Verify Sweden architecture and template
+        run: node tools/validate-sweden.cjs
