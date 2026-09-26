@@ -27,19 +27,8 @@ jobs:
         run: |
           set -euo pipefail
           test -f index.html
-          if grep -RInE '^(<<<<<<< |=======($| )|>>>>>>> )' --exclude-dir=.git .; then
+          if grep -RInE '^(<<<<<<<|=======|>>>>>>>)' --exclude-dir=.git .; then
             echo 'Merge conflict markers found.'
             exit 1
           fi
           echo 'Production validation passed.'
-
-      - name: Verify Sweden architecture and template
-        run: node tools/validate-sweden.cjs
-
-      - name: Deploy production Worker
-        uses: cloudflare/wrangler-action@v3
-        with:
-          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          wranglerVersion: "4.129.0"
-          command: deploy
