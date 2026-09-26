@@ -23,3 +23,181 @@ body.budget-vcc{margin:0;background:#fbf8f4;color:#1e1d1b;font-family:"DM Sans",
 @media(max-width:980px){.style-band{grid-template-columns:1fr}.mode-cards{grid-template-columns:repeat(2,1fr)}.mid-grid,.dual-panels,.surprise-wrap{grid-template-columns:1fr}.philosophy{grid-template-columns:1fr 1fr}.philosophy-badge{grid-column:1/-1}.surprise-cards{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:720px){.budget-hero{height:360px}.budget-hero-inner,.budget-main{width:calc(100% - 28px)}.hero-scribble{display:none}.st-tabs{top:0!important;padding:0 14px!important;gap:24px!important}.mode-cards{grid-template-columns:1fr 1fr}.mid-grid{grid-template-columns:1fr}.chart-layout{grid-template-columns:1fr}.donut{margin:auto}.category-row{grid-template-columns:1fr}.calc-meta{grid-template-columns:1fr 1fr 1fr}.philosophy{grid-template-columns:1fr}.philosophy>img{height:190px}.tip-circles{grid-template-columns:repeat(2,1fr)}.related-grid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:460px){.mode-cards,.surprise-cards,.related-grid{grid-template-columns:1fr}.calc-meta{grid-template-columns:1fr}.tip-circles{grid-template-columns:1fr 1fr}}
+
+/* Quality · portada y barra de Presupuesto calcadas al sistema de Qué ver */
+html body.budget-vcc .budget-hero{
+  height:465px!important;
+  min-height:465px!important;
+  max-height:465px!important;
+  position:relative!important;
+  color:#171717!important;
+  background:
+    linear-gradient(90deg,rgba(248,244,238,.97) 0%,rgba(248,244,238,.89) 35%,rgba(248,244,238,.35) 57%,rgba(248,244,238,.04) 76%,rgba(248,244,238,0) 100%),
+    url('https://plus.unsplash.com/premium_photo-1661310088188-fe31cbd67e91?auto=format&fit=crop&fm=jpg&q=88&w=2400') center 48%/cover no-repeat!important;
+}
+html body.budget-vcc .budget-hero-inner{
+  width:min(1180px,calc(100% - 48px))!important;
+  height:100%!important;
+  margin:0 auto!important;
+  position:relative!important;
+  display:block!important;
+  padding:0!important;
+}
+html body.budget-vcc .budget-crumb{
+  position:absolute!important;
+  top:12px!important;
+  left:0!important;
+  width:100%!important;
+  display:flex!important;
+  align-items:center!important;
+  gap:0!important;
+  margin:0!important;
+  padding:0!important;
+  color:#665f58!important;
+  opacity:1!important;
+  text-shadow:none!important;
+  font-family:'DM Sans',sans-serif!important;
+  font-size:11px!important;
+  font-weight:400!important;
+  line-height:1.4!important;
+}
+html body.budget-vcc .budget-crumb a{color:inherit!important;font-weight:400!important}
+html body.budget-vcc .budget-crumb span{margin:0 8px!important;color:#9b928a!important}
+html body.budget-vcc .budget-crumb strong{font-weight:800!important;color:#4f4a45!important}
+html body.budget-vcc .budget-hero-card{
+  position:absolute!important;
+  top:90px!important;
+  left:0!important;
+  width:min(690px,78vw)!important;
+  margin:0!important;
+  padding:0!important;
+  background:transparent!important;
+  border:0!important;
+  box-shadow:none!important;
+}
+html body.budget-vcc .budget-hero-card .hero-eyebrow{
+  display:block!important;
+  margin:0 0 13px!important;
+  color:#c86f5d!important;
+  font-family:'DM Sans',sans-serif!important;
+  font-size:11px!important;
+  font-weight:800!important;
+  line-height:1!important;
+  letter-spacing:.09em!important;
+}
+html body.budget-vcc .budget-hero .budget-hero-card h1{
+  max-width:690px!important;
+  margin:0!important;
+  color:#171717!important;
+  text-shadow:none!important;
+  font-family:'Oswald',sans-serif!important;
+  font-size:clamp(56px,5.2vw,77px)!important;
+  font-weight:500!important;
+  line-height:.98!important;
+  letter-spacing:-.02em!important;
+  text-transform:uppercase!important;
+}
+html body.budget-vcc .budget-hero-card .hero-intro{
+  margin:14px 0 14px!important;
+  color:#c86f5d!important;
+  font-family:'Caveat',cursive!important;
+  font-size:32px!important;
+  font-weight:600!important;
+  line-height:1.12!important;
+  transform:rotate(-1deg)!important;
+}
+html body.budget-vcc .budget-hero-card .hero-lead{
+  max-width:560px!important;
+  margin:0!important;
+  color:#171717!important;
+  font-family:'DM Sans',sans-serif!important;
+  font-size:14px!important;
+  font-weight:400!important;
+  line-height:1.65!important;
+}
+html body.budget-vcc .hero-scribble{display:none!important}
+
+/* Misma barra inferior, medidas y tipografía que Qué ver */
+html body.budget-vcc .st-tabs{
+  position:sticky!important;
+  top:var(--vcc-header-h,50px)!important;
+  z-index:75!important;
+  width:100%!important;
+  height:39px!important;
+  min-height:39px!important;
+  max-height:39px!important;
+  margin:0!important;
+  padding:0 max(24px,calc((100vw - 1180px)/2))!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:flex-start!important;
+  gap:38px!important;
+  overflow-x:auto!important;
+  overflow-y:hidden!important;
+  background:#fff!important;
+  border-top:1px solid #e8ded3!important;
+  border-bottom:1px solid #e8ded3!important;
+  box-shadow:none!important;
+  scrollbar-width:none!important;
+}
+html body.budget-vcc .st-tabs a{
+  box-sizing:border-box!important;
+  flex:0 0 auto!important;
+  display:inline-flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  height:39px!important;
+  min-height:39px!important;
+  max-height:39px!important;
+  margin:0!important;
+  padding:0!important;
+  border:0!important;
+  border-bottom:2px solid transparent!important;
+  border-radius:0!important;
+  background:transparent!important;
+  color:#171717!important;
+  font-family:'DM Sans',sans-serif!important;
+  font-size:12px!important;
+  font-weight:800!important;
+  line-height:1.15!important;
+  letter-spacing:0!important;
+  text-transform:uppercase!important;
+  white-space:nowrap!important;
+}
+html body.budget-vcc .st-tabs a:first-child,
+html body.budget-vcc .st-tabs a:hover,
+html body.budget-vcc .st-tabs a:focus-visible{
+  color:#a65340!important;
+  border-bottom-color:#cf705c!important;
+}
+html body.budget-vcc .st-tabs a:first-child:after{content:none!important}
+html body.budget-vcc .budget-main section[id]{scroll-margin-top:105px!important}
+
+@media(max-width:850px){
+  html body.budget-vcc .budget-hero{
+    height:450px!important;
+    min-height:450px!important;
+    max-height:450px!important;
+  }
+  html body.budget-vcc .budget-hero-inner{width:calc(100% - 28px)!important}
+  html body.budget-vcc .budget-hero-card{top:90px!important;width:min(620px,86vw)!important}
+  html body.budget-vcc .st-tabs{top:var(--vcc-header-h,0px)!important}
+}
+@media(max-width:650px){
+  html body.budget-vcc .budget-hero{
+    height:440px!important;
+    min-height:440px!important;
+    max-height:440px!important;
+    background:
+      linear-gradient(90deg,rgba(248,244,238,.96),rgba(248,244,238,.72)),
+      url('https://plus.unsplash.com/premium_photo-1661310088188-fe31cbd67e91?auto=format&fit=crop&fm=jpg&q=88&w=1600') 62% center/cover no-repeat!important;
+  }
+  html body.budget-vcc .budget-crumb{font-size:10px!important}
+  html body.budget-vcc .budget-crumb span{margin:0 5px!important}
+  html body.budget-vcc .budget-hero-card{top:85px!important;width:100%!important}
+  html body.budget-vcc .budget-hero .budget-hero-card h1{font-size:clamp(42px,10vw,58px)!important}
+  html body.budget-vcc .budget-hero-card .hero-intro{font-size:27px!important}
+  html body.budget-vcc .budget-hero-card .hero-lead{font-size:12px!important}
+  html body.budget-vcc .st-tabs{gap:22px!important;padding:0 14px!important}
+  html body.budget-vcc .st-tabs a{font-size:11px!important}
+}
