@@ -44,3 +44,251 @@ body.budget-vcc{margin:0;background:#faf7f2;color:#252a28;font-family:'DM Sans',
 @media(max-width:980px){.philosophy-story{grid-template-columns:1fr 1fr}.philosophy-side{grid-column:1/-1;flex-direction:row;gap:18px}.mode-cards{grid-template-columns:repeat(2,1fr)}.calculator-grid,.spend-grid{grid-template-columns:1fr}.surprise-grid,.related-grid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:720px){.budget-hero{height:440px;min-height:440px;background-position:62% center}.budget-hero-inner,.budget-main,.related-inner{width:calc(100% - 28px)}.budget-hero-card{top:85px;width:100%}.budget-hero-card h1{font-size:clamp(42px,10vw,58px)}.hero-intro{font-size:27px}.hero-lead{font-size:12px}.st-tabs{top:var(--vcc-header-h,0px)!important;gap:22px!important;padding:0 14px!important}.st-tabs a{font-size:11px!important}.section-heading,.related-head,.philosophy-intro{display:block}.section-heading>span,.related-head>span,.philosophy-intro p{text-align:left;display:block;margin-top:9px}.philosophy-story{grid-template-columns:1fr}.philosophy-side{grid-column:auto}.philosophy-photo{min-height:220px}.philosophy-copy{padding:24px}.mode-cards{grid-template-columns:1fr 1fr}.chart-layout{grid-template-columns:1fr}.donut{margin:auto}.surprise-grid,.related-grid{grid-template-columns:1fr 1fr}.category-row{grid-template-columns:1fr}.calc-top{grid-template-columns:1fr 1fr 1fr}}
 @media(max-width:460px){.mode-cards,.surprise-grid,.related-grid{grid-template-columns:1fr}.calc-top{grid-template-columns:1fr}.philosophy-side{display:block}.philosophy-side img{margin:12px auto 0}.section-heading h2,.related-head h2{font-size:32px}}
+
+/* --- Interior final aprobado: réplica del mockup, manteniendo hero/header/tabs VCC --- */
+html body.budget-vcc .budget-main{padding-top:34px!important}
+html body.budget-vcc .budget-section{margin-bottom:64px!important}
+html body.budget-vcc .section-heading{margin-bottom:18px!important}
+html body.budget-vcc .section-heading p,
+html body.budget-vcc .related-head p{
+  font-family:'DM Sans',sans-serif!important;
+  font-size:9px!important;
+  font-weight:800!important;
+  line-height:1.2!important;
+  letter-spacing:.13em!important;
+  text-transform:uppercase!important;
+  color:#ef6f61!important;
+}
+html body.budget-vcc .section-heading h2,
+html body.budget-vcc .related-head h2{
+  font-family:'Cormorant Garamond',serif!important;
+  font-size:36px!important;
+  font-weight:700!important;
+  line-height:1!important;
+  letter-spacing:-.015em!important;
+  text-transform:none!important;
+}
+html body.budget-vcc .section-heading>span,
+html body.budget-vcc .related-head>span{
+  font-size:10px!important;
+  line-height:1.45!important;
+  max-width:400px!important;
+}
+
+/* Filosofía VCC: collage editorial de la propuesta aprobada */
+html body.budget-vcc .philosophy-story{
+  grid-template-columns:1.18fr 1.35fr .72fr!important;
+  min-height:250px!important;
+  border:0!important;
+  border-radius:14px!important;
+  background:#f6efe7!important;
+  overflow:hidden!important;
+}
+html body.budget-vcc .philosophy-photo{min-height:250px!important}
+html body.budget-vcc .philosophy-photo img{filter:saturate(.9) contrast(.97)!important}
+html body.budget-vcc .photo-note{
+  left:14px!important;
+  bottom:16px!important;
+  max-width:155px!important;
+  padding:11px 13px!important;
+  font-size:18px!important;
+  background:#fffaf6!important;
+}
+html body.budget-vcc .philosophy-copy{padding:25px 28px!important}
+html body.budget-vcc .philosophy-copy h3{
+  font-family:'Cormorant Garamond',serif!important;
+  font-size:32px!important;
+  font-weight:700!important;
+  line-height:1!important;
+  margin:0 0 12px!important;
+}
+html body.budget-vcc .philosophy-copy p{font-size:10.5px!important;line-height:1.55!important}
+html body.budget-vcc .philosophy-highlight{border-top:0!important;padding-top:0!important}
+html body.budget-vcc .philosophy-side{padding:18px!important}
+html body.budget-vcc .philosophy-side img{width:132px!important;height:132px!important}
+html body.budget-vcc .side-script{font-size:20px!important}
+html body.budget-vcc .philosophy-intro{
+  margin:18px 0 12px!important;
+  align-items:center!important;
+}
+html body.budget-vcc .philosophy-intro h3{
+  font-family:'Cormorant Garamond',serif!important;
+  font-size:22px!important;
+  font-weight:700!important;
+}
+html body.budget-vcc .philosophy-intro p{font-size:9.5px!important}
+
+/* Cuatro modos: compactos como el mockup */
+html body.budget-vcc .mode-cards{gap:10px!important}
+html body.budget-vcc .mode-card{
+  min-height:118px!important;
+  padding:13px 15px!important;
+  grid-template-columns:47px 1fr!important;
+  gap:12px!important;
+  border-radius:9px!important;
+}
+html body.budget-vcc .mode-icon{width:47px!important;height:47px!important}
+html body.budget-vcc .mode-icon svg{width:31px!important;height:31px!important}
+html body.budget-vcc .mode-card h3{
+  font-family:'DM Sans',sans-serif!important;
+  font-size:10px!important;
+  font-weight:800!important;
+  margin-bottom:2px!important;
+}
+html body.budget-vcc .mode-card p{
+  font-size:8.5px!important;
+  line-height:1.35!important;
+  margin-bottom:3px!important;
+}
+html body.budget-vcc .mode-card strong{
+  display:inline-block!important;
+  margin-right:5px!important;
+  font-family:'Cormorant Garamond',serif!important;
+  font-size:23px!important;
+  font-weight:700!important;
+}
+html body.budget-vcc .mode-card small{font-size:7px!important}
+html body.budget-vcc .mode-ribbon{font-size:7px!important;padding:4px 8px!important}
+
+/* Calculadora: gran título serif, bloque compacto */
+html body.budget-vcc .calculator-section{
+  padding-top:18px!important;
+  border-top:1px solid #eadfd5!important;
+}
+html body.budget-vcc .calculator-grid{gap:16px!important}
+html body.budget-vcc .breakdown-card,
+html body.budget-vcc .calculator-card{
+  padding:18px 20px!important;
+  border-radius:11px!important;
+  min-height:0!important;
+}
+html body.budget-vcc .breakdown-head h3{
+  font-family:'Cormorant Garamond',serif!important;
+  font-size:28px!important;
+  font-weight:700!important;
+}
+html body.budget-vcc .chart-layout{grid-template-columns:165px 1fr!important;gap:18px!important}
+html body.budget-vcc .donut{width:155px!important;height:155px!important}
+html body.budget-vcc .donut-inner strong{
+  font-family:'Cormorant Garamond',serif!important;
+  font-size:29px!important;
+  font-weight:700!important;
+}
+html body.budget-vcc .legend{gap:8px!important}
+html body.budget-vcc .legend-row{font-size:9px!important}
+html body.budget-vcc .calc-top{margin-bottom:7px!important}
+html body.budget-vcc .calc-control{padding:5px!important}
+html body.budget-vcc .category-row{margin:5px 0!important;font-size:9px!important}
+html body.budget-vcc .category-row select{padding:6px 8px!important;font-size:9px!important}
+html body.budget-vcc .calc-total{margin-top:8px!important;padding-top:8px!important}
+html body.budget-vcc .calc-total strong{
+  font-family:'Cormorant Garamond',serif!important;
+  font-size:31px!important;
+  font-weight:700!important;
+}
+
+/* Cómo ahorrar: una sola banda clara con carrusel */
+html body.budget-vcc .savings-section{
+  padding:24px 20px!important;
+  border:0!important;
+  border-radius:14px!important;
+  background:#eef5ef!important;
+}
+html body.budget-vcc .savings-section .section-heading{margin-bottom:13px!important}
+html body.budget-vcc .carousel-shell{grid-template-columns:28px minmax(0,1fr) 28px!important;gap:6px!important}
+html body.budget-vcc .carousel-arrow{width:28px!important;height:28px!important;font-size:19px!important}
+html body.budget-vcc .tips-track{gap:10px!important}
+html body.budget-vcc .saving-tip{flex-basis:145px!important}
+html body.budget-vcc .line-icon{
+  width:58px!important;height:58px!important;margin-bottom:7px!important;font-size:21px!important;
+  border-color:#d6d0ca!important;
+}
+html body.budget-vcc .saving-tip h3,
+html body.budget-vcc .spend-panel h4{
+  font-family:'DM Sans',sans-serif!important;
+  font-size:9px!important;
+  font-weight:800!important;
+  line-height:1.25!important;
+}
+html body.budget-vcc .saving-tip p,
+html body.budget-vcc .spend-panel article p{
+  font-size:8px!important;
+  line-height:1.35!important;
+}
+
+/* En qué gastar / en qué no: dos paneles pastel como la imagen */
+html body.budget-vcc .spend-section{
+  padding-top:0!important;
+  border:0!important;
+}
+html body.budget-vcc .spend-grid{gap:12px!important}
+html body.budget-vcc .spend-panel{padding:15px 16px!important;border-radius:12px!important}
+html body.budget-vcc .spend-panel.worth{background:#edf4ea!important}
+html body.budget-vcc .spend-panel.skip{background:#fbedE7!important}
+html body.budget-vcc .spend-title{margin-bottom:10px!important}
+html body.budget-vcc .spend-title h3{
+  font-family:'Cormorant Garamond',serif!important;
+  font-size:21px!important;
+  font-weight:700!important;
+}
+html body.budget-vcc .spend-title p{font-size:8px!important}
+html body.budget-vcc .spend-title>span{width:22px!important;height:22px!important;font-size:12px!important}
+html body.budget-vcc .compact .tips-track article{flex-basis:118px!important}
+html body.budget-vcc .photo-track img{width:70px!important;height:70px!important;margin-bottom:6px!important}
+html body.budget-vcc .no-spend-track .line-icon{width:70px!important;height:70px!important;margin-bottom:6px!important}
+
+/* Gastos sorpresa: cuatro tarjetas bajas y limpias */
+html body.budget-vcc .surprise-section{
+  padding-top:22px!important;
+  border-top:1px solid #eadfd5!important;
+}
+html body.budget-vcc .surprise-grid{gap:9px!important}
+html body.budget-vcc .surprise-grid article{
+  min-height:84px!important;
+  padding:12px 13px!important;
+  gap:9px!important;
+}
+html body.budget-vcc .surprise-icon{font-size:20px!important}
+html body.budget-vcc .surprise-grid h3{
+  font-family:'DM Sans',sans-serif!important;
+  font-size:9px!important;
+  font-weight:800!important;
+}
+html body.budget-vcc .surprise-grid p{font-size:7.8px!important}
+
+/* Guías relacionadas: fondo distinto, pegadas al final como el diseño aprobado */
+html body.budget-vcc .related-section{
+  padding:28px 0 34px!important;
+  background:linear-gradient(90deg,#eaf2ee,#e3eef1)!important;
+}
+html body.budget-vcc .related-head{margin-bottom:13px!important}
+html body.budget-vcc .related-grid{gap:8px!important}
+html body.budget-vcc .related-grid img{height:82px!important}
+html body.budget-vcc .related-grid a{padding:9px 10px!important}
+html body.budget-vcc .related-grid strong{
+  font-family:'DM Sans',sans-serif!important;
+  font-size:9px!important;
+  font-weight:800!important;
+}
+html body.budget-vcc .related-grid span{font-size:7.5px!important}
+
+/* El hero, header y barra superior se mantienen exactamente con el sistema habitual. */
+@media(max-width:980px){
+  html body.budget-vcc .philosophy-story{grid-template-columns:1fr 1fr!important}
+  html body.budget-vcc .mode-card{grid-template-columns:44px 1fr!important}
+}
+@media(max-width:720px){
+  html body.budget-vcc .budget-section{margin-bottom:48px!important}
+  html body.budget-vcc .philosophy-story{grid-template-columns:1fr!important}
+  html body.budget-vcc .philosophy-side{grid-column:auto!important}
+  html body.budget-vcc .mode-cards{grid-template-columns:1fr 1fr!important}
+  html body.budget-vcc .calculator-grid,
+  html body.budget-vcc .spend-grid{grid-template-columns:1fr!important}
+  html body.budget-vcc .surprise-grid,
+  html body.budget-vcc .related-grid{grid-template-columns:1fr 1fr!important}
+}
+@media(max-width:460px){
+  html body.budget-vcc .mode-cards,
+  html body.budget-vcc .surprise-grid,
+  html body.budget-vcc .related-grid{grid-template-columns:1fr!important}
+}
