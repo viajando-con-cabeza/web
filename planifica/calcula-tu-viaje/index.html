@@ -1,0 +1,101 @@
+<!DOCTYPE html><html lang="es"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Calcula tu viaje | Viajando con Cabeza</title>
+<meta name="description" content="Calcula un presupuesto orientativo para tu viaje con datos VCC reales por destino.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Cormorant+Garamond:wght@600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../css/paginas.css"><link rel="stylesheet" href="../../css/overrides.css">
+<style>
+:root{--c:#ef633f;--ink:#17191b;--paper:#fffaf4;--cream:#f3e8dc;--line:#e7ddd3;--muted:#6d6862}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font-family:"DM Sans",Arial,sans-serif}.shell{width:min(1180px,calc(100% - 48px));margin:auto}.k{font-size:11px;color:var(--c);font-weight:800;letter-spacing:.14em}
+.hero{background:#f4e9de}.hero-in{padding:34px 0 30px}.crumb{font-size:9px;color:#716b64;margin-bottom:22px}.hero h1{font-family:"Cormorant Garamond",Georgia,serif;font-size:clamp(50px,5.5vw,72px);line-height:.93;letter-spacing:-.04em;margin:8px 0 14px}.hero h1 em{font-style:normal;color:var(--c)}.hero p{max-width:760px;font-size:16px;line-height:1.55}.meta{display:flex;gap:18px;flex-wrap:wrap;margin-top:18px;font-size:11px;font-weight:700}
+.calc-wrap{padding:36px 0 46px;background:#fbf6ef}.calculator{display:grid;grid-template-columns:1.05fr .95fr;gap:18px;align-items:start}.panel,.ticket{background:#fff;border:1px solid var(--line);border-radius:18px}.panel{padding:22px}.panel h2,.ticket h2,.why h2{font-family:"Cormorant Garamond",Georgia,serif}.panel h2{font-size:34px;margin:5px 0 18px}.field{margin-bottom:16px}.field label{display:block;font-size:9px;font-weight:800;letter-spacing:.1em;margin-bottom:7px;color:#57514b}.field select,.field input{width:100%;border:1px solid var(--line);border-radius:10px;padding:12px 13px;background:#fff;font:inherit;font-size:12px}.trip-row{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.partidas{margin-top:18px;border-top:1px solid var(--line);padding-top:18px}.partida{display:grid;grid-template-columns:1fr 145px 70px;gap:10px;align-items:center;padding:10px 0;border-bottom:1px solid #f2ece6}.partida span{font-size:11px;font-weight:600}.partida select{border:1px solid var(--line);border-radius:8px;padding:8px;background:#fff;font:inherit;font-size:10px}.partida strong{text-align:right;font-size:11px}.flight{display:grid;grid-template-columns:1fr 120px;gap:12px;align-items:end;margin-top:16px;padding:14px;background:#fff8f4;border:1px solid #f3d6cb;border-radius:12px}.flight p{margin:3px 0 0;font-size:9px;color:var(--muted)}.flight input{border:1px solid var(--line);border-radius:9px;padding:10px;font:inherit;font-size:11px;width:100%}
+.ticket{padding:24px;position:sticky;top:20px;background:#1c1d1f;color:#fff;overflow:hidden}.ticket:after{content:"";position:absolute;width:220px;height:220px;border:1px solid rgba(255,255,255,.08);border-radius:50%;right:-80px;top:-80px}.ticket .k{color:#ff9a7d}.ticket h2{font-size:39px;margin:4px 0}.ticket .sub{font-size:10px;color:#c8c6c3}.grand{margin:24px 0 6px;font-size:50px;font-weight:800;letter-spacing:-.05em}.perday{font-size:11px;color:#cbc8c5}.break{margin-top:22px;border-top:1px solid #3b3c3f}.line{display:flex;justify-content:space-between;gap:10px;padding:11px 0;border-bottom:1px solid #333538;font-size:10px}.line b{font-size:11px}.totalparty{margin-top:16px;background:#2a2c2f;border-radius:12px;padding:14px;display:flex;justify-content:space-between;gap:12px}.totalparty span{font-size:9px;color:#c9c7c4}.totalparty strong{font-size:18px}.ticket-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:16px}.ticket-actions a{display:flex;align-items:center;justify-content:center;min-height:42px;border-radius:999px;text-decoration:none;font-size:9px;font-weight:800}.primary{background:var(--c);color:#fff}.secondary{background:#fff;color:#222}.notice{margin-top:12px;font-size:8px;color:#aaa;line-height:1.5}
+.why{padding:42px 0;background:#fff}.whygrid{display:grid;grid-template-columns:1.15fr repeat(3,1fr);gap:14px}.why article{border:1px solid var(--line);border-radius:14px;padding:19px;background:#fbf6ef}.why article:first-child{background:#f3e8dc}.why h2{font-size:30px;margin:5px 0}.why h3{font-size:12px;margin:0 0 5px}.why p{font-size:10px;line-height:1.55;color:var(--muted)}
+@media(max-width:900px){.calculator{grid-template-columns:1fr}.ticket{position:static}.whygrid{grid-template-columns:1fr 1fr}}@media(max-width:560px){.shell{width:calc(100% - 24px)}.hero h1{font-size:43px}.trip-row,.whygrid{grid-template-columns:1fr}.partida{grid-template-columns:1fr}.partida strong{text-align:left}.ticket-actions{grid-template-columns:1fr}.flight{grid-template-columns:1fr}}
+</style></head><body><header class="page-header"></header><main>
+<section class="hero"><div class="shell hero-in"><div class="crumb">INICIO · PLANIFICA · CALCULA TU VIAJE</div><span class="k">HERRAMIENTA VCC</span><h1>Calcula cuánto puede costar<br><em>tu próximo viaje</em></h1><p>Personaliza días, viajeros y nivel de gasto. Cuando tenemos un presupuesto VCC publicado, usamos esas mismas referencias para que los números sean coherentes con nuestras guías.</p><div class="meta"><span>✓ Datos VCC</span><span>✓ Ajustable por partida</span><span>✓ Total por persona</span><span>✓ Sin inventar destinos</span></div></div></section>
+
+<section class="calc-wrap"><div class="shell calculator">
+<section class="panel">
+<span class="k">CONFIGURA TU VIAJE</span><h2>Haz tus números</h2>
+<div class="field"><label>DESTINO</label><select id="destination"><option value="estocolmo">Estocolmo · Suecia</option><option disabled>Roma · próximamente</option><option disabled>Fuerteventura · próximamente</option><option disabled>Más destinos · próximamente</option></select></div>
+<div class="trip-row">
+<div class="field"><label>DÍAS</label><input id="days" type="number" min="1" max="30" value="4"></div>
+<div class="field"><label>NOCHES</label><input id="nights" type="number" min="0" max="30" value="3"></div>
+<div class="field"><label>VIAJEROS</label><input id="people" type="number" min="1" max="12" value="2"></div>
+</div>
+<div class="partidas">
+<div class="partida"><span>🛏 Alojamiento</span><select data-cat="alojamiento"><option value="mochilero">Mochilero</option><option value="vcc" selected>VCC</option><option value="medio">Medio</option><option value="lujo">Lujo</option></select><strong id="p-alojamiento">35 €</strong></div>
+<div class="partida"><span>🍴 Comida</span><select data-cat="comida"><option value="mochilero">Mochilero</option><option value="vcc" selected>VCC</option><option value="medio">Medio</option><option value="lujo">Lujo</option></select><strong id="p-comida">25 €</strong></div>
+<div class="partida"><span>🚇 Transporte</span><select data-cat="transporte"><option value="mochilero">Mochilero</option><option value="vcc" selected>VCC</option><option value="medio">Medio</option><option value="lujo">Lujo</option></select><strong id="p-transporte">15 €</strong></div>
+<div class="partida"><span>🎟 Actividades</span><select data-cat="actividades"><option value="mochilero">Mochilero</option><option value="vcc" selected>VCC</option><option value="medio">Medio</option><option value="lujo">Lujo</option></select><strong id="p-actividades">25 €</strong></div>
+<div class="partida"><span>✦ Extras</span><select data-cat="extras"><option value="mochilero">Mochilero</option><option value="vcc" selected>VCC</option><option value="medio">Medio</option><option value="lujo">Lujo</option></select><strong id="p-extras">10 €</strong></div>
+</div>
+<div class="flight"><div><b>✈ Vuelos ida y vuelta</b><p>Introduce el precio por persona que hayas encontrado. El vuelo no forma parte del presupuesto diario VCC porque cambia según origen y fechas.</p></div><input id="flight" type="number" min="0" step="1" value="0" aria-label="Precio de vuelos por persona"></div>
+</section>
+
+<aside class="ticket">
+<span class="k">TU VIAJE</span><h2>Estocolmo</h2><div class="sub" id="ticket-meta">4 días · 3 noches · 2 viajeros</div>
+<div class="grand" id="per-person">405 €</div><div class="perday" id="per-day">101 € por día y persona + vuelo</div>
+<div class="break">
+<div class="line"><span>✈ Vuelos</span><b id="r-flight">0 €</b></div>
+<div class="line"><span>🛏 Alojamiento</span><b id="r-alojamiento">105 €</b></div>
+<div class="line"><span>🍴 Comida</span><b id="r-comida">100 €</b></div>
+<div class="line"><span>🚇 Transporte</span><b id="r-transporte">60 €</b></div>
+<div class="line"><span>🎟 Actividades</span><b id="r-actividades">100 €</b></div>
+<div class="line"><span>✦ Extras</span><b id="r-extras">40 €</b></div>
+</div>
+<div class="totalparty"><span>TOTAL PARA TODOS LOS VIAJEROS</span><strong id="party-total">810 €</strong></div>
+<div class="ticket-actions"><a class="primary" href="/destinos/suecia/estocolmo/presupuesto.html">VER PRESUPUESTO REAL →</a><a class="secondary" href="/destinos/suecia/estocolmo/">VER GUÍA →</a></div>
+<div class="notice">Estimación orientativa basada en referencias VCC. Los precios reales pueden variar según fechas, disponibilidad y forma de viajar.</div>
+</aside>
+</div></section>
+
+<section class="why"><div class="shell whygrid">
+<article><span class="k">CÓMO LO CALCULAMOS</span><h2>La misma lógica que en nuestros presupuestos</h2><p>No mantenemos una calculadora con números separados. Cuando un destino tiene presupuesto VCC, esta herramienta reutiliza esas mismas referencias.</p></article>
+<article><h3>🛏 Alojamiento por noche</h3><p>Se multiplica por las noches y por el número de viajeros.</p></article>
+<article><h3>🍴 Gastos por día</h3><p>Comida, transporte, actividades y extras se calculan por día.</p></article>
+<article><h3>✈ Vuelos aparte</h3><p>Los introduces tú porque dependen mucho del origen y las fechas.</p></article>
+</div></section>
+</main><footer class="page-footer"><div class="footer-copy">© Viajando con Cabeza · Todos los derechos reservados</div></footer>
+<script src="../../js/site-header.js"></script><script>
+(()=>{
+const prices={
+ lujo:{alojamiento:120,comida:65,transporte:25,actividades:55,extras:35},
+ medio:{alojamiento:70,comida:40,transporte:18,actividades:35,extras:17},
+ vcc:{alojamiento:35,comida:25,transporte:15,actividades:25,extras:10},
+ mochilero:{alojamiento:25,comida:15,transporte:10,actividades:10,extras:5}
+};
+const cats=["alojamiento","comida","transporte","actividades","extras"];
+const euro=n=>Math.round(n).toLocaleString("es-ES")+" €";
+const clamp=(id,min,max)=>{const el=document.getElementById(id);let v=Number(el.value);if(!Number.isFinite(v))v=min;v=Math.max(min,Math.min(max,v));el.value=v;return v};
+function sync(){
+ const days=clamp("days",1,30),nights=clamp("nights",0,30),people=clamp("people",1,12),flight=clamp("flight",0,10000);
+ const selected={};document.querySelectorAll("[data-cat]").forEach(s=>selected[s.dataset.cat]=s.value);
+ const unit={};cats.forEach(c=>{unit[c]=prices[selected[c]][c];document.getElementById("p-"+c).textContent=euro(unit[c])});
+ const breakdown={
+   flight,
+   alojamiento:unit.alojamiento*nights,
+   comida:unit.comida*days,
+   transporte:unit.transporte*days,
+   actividades:unit.actividades*days,
+   extras:unit.extras*days
+ };
+ document.getElementById("r-flight").textContent=euro(breakdown.flight);
+ document.getElementById("r-alojamiento").textContent=euro(breakdown.alojamiento);
+ document.getElementById("r-comida").textContent=euro(breakdown.comida);
+ document.getElementById("r-transporte").textContent=euro(breakdown.transporte);
+ document.getElementById("r-actividades").textContent=euro(breakdown.actividades);
+ document.getElementById("r-extras").textContent=euro(breakdown.extras);
+ const perPerson=Object.values(breakdown).reduce((a,b)=>a+b,0);
+ document.getElementById("per-person").textContent=euro(perPerson);
+ document.getElementById("per-day").textContent=euro((perPerson-flight)/days)+" por día y persona + vuelo";
+ document.getElementById("party-total").textContent=euro(perPerson*people);
+ document.getElementById("ticket-meta").textContent=days+" días · "+nights+" noches · "+people+" viajero"+(people===1?"":"s");
+}
+document.querySelectorAll("input,[data-cat]").forEach(el=>el.addEventListener("input",sync));
+document.querySelectorAll("[data-cat]").forEach(el=>el.addEventListener("change",sync));
+sync();
+})();
+</script></body></html>
