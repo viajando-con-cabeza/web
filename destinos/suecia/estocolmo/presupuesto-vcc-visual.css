@@ -2,12 +2,12 @@ body.budget-vcc{margin:0;background:#fbf8f4;color:#202020;font-family:'DM Sans',
 .budget-vcc *{box-sizing:border-box}.budget-vcc a{text-decoration:none;color:inherit}.budget-vcc .st-shell{--wine:#a65340;--coral:#cf705c;--line:#e8ded3;--cream:#fbf6ef;--max:1180px;--vcc-header-h:50px}
 
 /* HEADER/HERO/TABS: mismo sistema del blog */
-.budget-hero{height:670px!important;min-height:670px!important;position:relative!important;background:linear-gradient(90deg,rgba(248,244,238,.96) 0%,rgba(248,244,238,.82) 38%,rgba(248,244,238,.08) 68%,rgba(248,244,238,0) 100%),url('../../../assets/backgrounds/presupuesto-vcc-background.jpg?v=20260927d') center/cover no-repeat!important;color:#171717!important}
+.budget-hero{height:610px!important;min-height:610px!important;position:relative!important;background:linear-gradient(90deg,rgba(248,244,238,.96) 0%,rgba(248,244,238,.82) 38%,rgba(248,244,238,.08) 68%,rgba(248,244,238,0) 100%),url('../../../assets/backgrounds/presupuesto-vcc-background.jpg?v=20260927b') center/cover no-repeat!important;color:#171717!important}
 .budget-hero-inner{width:min(1180px,calc(100% - 48px))!important;height:100%!important;margin:0 auto!important;position:relative!important}
 .budget-crumb{position:absolute!important;top:12px!important;left:0!important;width:100%!important;display:flex!important;align-items:center!important;gap:0!important;margin:0!important;padding:0!important;color:#665f58!important;text-shadow:none!important;font-family:'DM Sans',sans-serif!important;font-size:11px!important;font-weight:400!important;line-height:1.4!important;transform:none!important}.budget-crumb span{opacity:1!important;margin:0 8px!important;color:#9b928a!important}.budget-crumb strong{font-weight:800!important;color:#4f4a45!important}
 .budget-hero-card{position:absolute!important;top:100px!important;left:0!important;width:min(690px,78vw)!important;background:transparent!important;border:0!important;border-radius:0!important;box-shadow:none!important;padding:0!important;color:#171717!important;backdrop-filter:none!important}.hero-eyebrow{font-family:'DM Sans',sans-serif!important;font-size:11px!important;font-weight:800!important;letter-spacing:.09em!important;color:#c86f5d!important;margin:0 0 13px!important}
 .budget-hero-card h1{font-family:'Oswald',sans-serif!important;font-size:clamp(56px,5.2vw,77px)!important;font-weight:500!important;line-height:.98!important;letter-spacing:-.02em!important;color:#171717!important;text-shadow:none!important;max-width:690px!important;margin:0!important}.hero-intro{font-family:'Caveat',cursive!important;font-size:32px!important;font-weight:600!important;line-height:1.12!important;color:#c86f5d!important;transform:rotate(-1deg)!important;margin:14px 0 14px!important}.hero-lead{font-family:'DM Sans',sans-serif!important;font-size:14px!important;font-weight:400!important;line-height:1.65!important;max-width:560px!important;color:#171717!important;margin:0!important}
-.st-tabs{position:sticky!important;top:var(--vcc-header-h,50px)!important;z-index:75!important;width:100%!important;height:39px!important;display:flex!important;align-items:center!important;gap:38px!important;padding:0 max(24px,calc((100vw - 1180px)/2))!important;background:#fff!important;border-top:1px solid var(--line)!important;border-bottom:1px solid var(--line)!important;overflow-x:auto!important;scrollbar-width:none!important}.st-tabs::-webkit-scrollbar{display:none}.st-tabs a{height:39px!important;display:inline-flex!important;align-items:center!important;flex:0 0 auto!important;border-bottom:2px solid transparent!important;font:800 12px/1 'DM Sans',sans-serif!important;text-transform:uppercase!important;color:#171717!important;white-space:nowrap!important}.st-tabs a:first-child,.st-tabs a:hover{color:var(--wine)!important;border-bottom-color:var(--coral)!important}
+.st-tabs{position:sticky!important;top:var(--vcc-header-h,50px)!important;z-index:75!important;width:100%!important;height:43px!important;min-height:43px!important;max-height:43px!important;display:flex!important;align-items:center!important;gap:38px!important;padding:0 max(24px,calc((100vw - 1180px)/2))!important;margin:0!important;background:#fff!important;border-top:1px solid #e8ded3!important;border-bottom:1px solid #e8ded3!important;overflow-x:auto!important;overflow-y:hidden!important;scrollbar-width:none!important}.st-tabs::-webkit-scrollbar{display:none}.st-tabs a{height:43px!important;min-height:43px!important;max-height:43px!important;display:inline-flex!important;align-items:center!important;flex:0 0 auto!important;border-bottom:2px solid transparent!important;font:800 12px/1 'DM Sans',sans-serif!important;text-transform:uppercase!important;color:#171717!important;white-space:nowrap!important}.st-tabs a:first-child,.st-tabs a:hover{color:var(--wine)!important;border-bottom-color:var(--coral)!important}
 
 /* LAYOUT GENERAL */
 .budget-main{width:min(var(--max),calc(100% - 48px));margin:auto;padding:30px 0 0}.budget-main section[id]{scroll-margin-top:105px}.budget-section{margin:0 0 44px}
@@ -90,4 +90,27 @@ body.budget-vcc{margin:0;background:#fbf8f4;color:#202020;font-family:'DM Sans',
   .hero-lead{font-size:12px!important}
   .st-tabs{gap:22px!important;padding:0 14px!important}
   .st-tabs a{font-size:10px!important}
+}
+
+/* Corrigeix les fletxes heretades d'estocolmo.css: mai han de sortir als laterals del hero */
+html body.budget-vcc .carousel-shell{position:relative!important}
+html body.budget-vcc .carousel-shell .carousel-arrow{
+  position:static!important;
+  top:auto!important;
+  left:auto!important;
+  right:auto!important;
+  bottom:auto!important;
+  transform:none!important;
+  margin:0!important;
+  z-index:2!important;
+}
+html body.budget-vcc .carousel-shell .carousel-arrow.prev,
+html body.budget-vcc .carousel-shell .carousel-arrow.next{
+  left:auto!important;
+  right:auto!important;
+}
+
+/* Hero una mica més compacte a desktop perquè la barra quedi visible sota la portada */
+@media(min-width:851px){
+  html body.budget-vcc .budget-hero{height:610px!important;min-height:610px!important}
 }
