@@ -114,3 +114,19 @@ html body.budget-vcc .carousel-shell .carousel-arrow.next{
 @media(min-width:851px){
   html body.budget-vcc .budget-hero{height:610px!important;min-height:610px!important}
 }
+
+/* Manté la barra horitzontal visible sota la portada a qualsevol alçada de pantalla */
+@media(min-width:851px){
+  html body.budget-vcc .budget-hero{
+    height:clamp(480px,calc(100dvh - var(--vcc-header-h,50px) - 43px),610px)!important;
+    min-height:480px!important;
+    max-height:610px!important;
+  }
+}
+@supports not (height:100dvh){
+  @media(min-width:851px){
+    html body.budget-vcc .budget-hero{
+      height:clamp(480px,calc(100vh - var(--vcc-header-h,50px) - 43px),610px)!important;
+    }
+  }
+}
