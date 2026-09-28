@@ -16,3 +16,135 @@ html,body{max-width:100%;overflow-x:clip}body{color:var(--it-ink);font-family:'D
 @media(max-width:950px){.vcc-summary{grid-template-columns:1fr 1fr}.overview-list{grid-column:1/-1;grid-template-columns:repeat(3,minmax(0,1fr))}.day-section{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:20px}.day-gallery{grid-column:1/-1}.day-mosaic{aspect-ratio:2.2}.day-intro{min-height:310px}}
 @media(max-width:650px){.vcc-hero{min-height:500px;background-position:65% center}.vcc-hero-inner{width:calc(100% - 28px);padding:25px 0}.vcc-hero-card{padding:25px 24px 27px}.vcc-hero h1{font-size:clamp(39px,10vw,57px)}.vcc-hero .script{font-size:24px}.vcc-nav{top:var(--vcc-header-h,0px)}.vcc-nav-inner{gap:24px;padding:0 14px}.vcc-nav a{font-size:10.5px}.vcc-shell{width:calc(100% - 28px)}.vcc-summary{display:block;padding:32px 0}.vcc-summary-map{margin:20px 0;min-height:260px}.vcc-summary-map iframe{min-height:260px}.overview-list{grid-template-columns:1fr}.day-section{display:flex;flex-direction:column;gap:18px;padding-top:24px}.day-intro{min-height:0}.day-tip{margin-top:6px}.day-gallery{width:100%}.day-mosaic{aspect-ratio:1.45;gap:5px}.flight-divider{height:75px}.flight-divider img{height:55px}.flight-divider span{font-size:14px}.day-lightbox{padding:10vh 12px 4vh}.day-lightbox-panel{display:flex;flex-direction:column;height:min(83dvh,750px);border-radius:16px}.day-lightbox-stage{flex:1 1 60%;min-height:0;padding:40px 19px 6px}.day-lightbox-stage>img{max-height:calc(100% - 115px)}.day-lightbox-counter{padding:8px 0}.day-lightbox-thumbs button{flex-basis:56px;width:56px;height:47px}.day-lightbox-info{flex:0 0 auto;max-height:30%;min-height:90px;padding:15px 20px 20px;border-left:0;border-top:1px solid var(--it-line)}.day-lightbox-info h3{font-size:16px;margin-bottom:7px}.day-lightbox-info p{font-size:12px}.day-lightbox-close{top:8px;right:12px}.day-lightbox-prev{left:0}.day-lightbox-next{right:0}}
 @media(prefers-reduced-motion:reduce){.day-mosaic img{transition:none}}
+
+
+/* Quality 2026-09-28 · hero de itinerario alineado con Qué ver: sin tarjeta y navegación más abajo */
+body .vcc-hero{
+  min-height:510px!important;
+  height:510px!important;
+  display:block!important;
+  background:
+    linear-gradient(90deg,rgba(248,244,238,.97) 0%,rgba(248,244,238,.89) 38%,rgba(248,244,238,.28) 60%,rgba(248,244,238,.03) 78%,rgba(248,244,238,0) 100%),
+    url('https://images.unsplash.com/photo-1509356843151-3e7d96241e11?auto=format&fit=crop&w=2200&q=90') center 48%/cover no-repeat!important;
+}
+body .vcc-hero-inner{
+  width:min(1180px,calc(100% - 48px))!important;
+  height:100%!important;
+  margin:0 auto!important;
+  padding:0!important;
+  position:relative!important;
+  display:block!important;
+}
+body .vcc-crumb{
+  position:absolute!important;
+  top:12px!important;
+  left:0!important;
+  width:100%!important;
+  margin:0!important;
+  padding:0!important;
+  color:#665f58!important;
+  font:400 11px/1.4 'DM Sans',sans-serif!important;
+  text-shadow:none!important;
+}
+body .vcc-hero-card{
+  position:absolute!important;
+  top:96px!important;
+  left:0!important;
+  width:min(720px,78vw)!important;
+  max-width:720px!important;
+  min-height:0!important;
+  margin:0!important;
+  padding:0!important;
+  display:block!important;
+  background:transparent!important;
+  border:0!important;
+  border-radius:0!important;
+  box-shadow:none!important;
+  backdrop-filter:none!important;
+}
+body .vcc-eyebrow{
+  margin:0 0 13px!important;
+  color:#c86f5d!important;
+  font:800 11px/1.2 'DM Sans',sans-serif!important;
+  letter-spacing:.09em!important;
+}
+body .vcc-hero h1{
+  max-width:720px!important;
+  margin:0!important;
+  color:#171717!important;
+  font-family:'Oswald',sans-serif!important;
+  font-size:clamp(56px,5.2vw,77px)!important;
+  font-weight:500!important;
+  line-height:.98!important;
+  letter-spacing:-.02em!important;
+  text-shadow:none!important;
+}
+body .vcc-hero .script{
+  margin:14px 0 14px!important;
+  color:#c86f5d!important;
+  font:600 31px/1.1 'Caveat',cursive!important;
+}
+body .vcc-hero-card>p:not(.script){
+  max-width:600px!important;
+  margin:0!important;
+  color:#171717!important;
+  font:400 14px/1.65 'DM Sans',sans-serif!important;
+}
+body .vcc-facts{
+  display:flex!important;
+  flex-wrap:wrap!important;
+  gap:24px!important;
+  width:auto!important;
+  max-width:690px!important;
+  margin:21px 0 0!important;
+  padding:15px 0 0!important;
+  border-top:1px solid rgba(120,102,89,.28)!important;
+  font:800 9.5px/1.35 'DM Sans',sans-serif!important;
+  background:transparent!important;
+}
+body .vcc-facts span{white-space:nowrap!important}
+
+/* Barra secundaria justo al pie del hero, como en las otras guías */
+body .vcc-nav{
+  position:sticky!important;
+  top:var(--vcc-header-h,50px)!important;
+  z-index:75!important;
+  height:43px!important;
+  min-height:43px!important;
+  max-height:43px!important;
+  margin:0!important;
+  background:#fff!important;
+  border-top:1px solid #e8ded3!important;
+  border-bottom:1px solid #e8ded3!important;
+  box-shadow:none!important;
+}
+body .vcc-nav-inner{
+  height:43px!important;
+  min-height:43px!important;
+  padding-left:max(24px,calc((100vw - 1180px)/2))!important;
+  padding-right:max(24px,calc((100vw - 1180px)/2))!important;
+}
+body .vcc-nav a{
+  height:43px!important;
+  min-height:43px!important;
+  font-size:11px!important;
+}
+
+@media(max-width:720px){
+  body .vcc-hero{
+    height:465px!important;
+    min-height:465px!important;
+    background:
+      linear-gradient(90deg,rgba(248,244,238,.96),rgba(248,244,238,.73)),
+      url('https://images.unsplash.com/photo-1509356843151-3e7d96241e11?auto=format&fit=crop&w=1600&q=90') 62% center/cover no-repeat!important;
+  }
+  body .vcc-hero-inner{width:calc(100% - 28px)!important}
+  body .vcc-hero-card{top:82px!important;width:100%!important;max-width:100%!important}
+  body .vcc-hero h1{font-size:clamp(42px,10vw,58px)!important}
+  body .vcc-hero .script{font-size:27px!important}
+  body .vcc-hero-card>p:not(.script){font-size:12px!important}
+  body .vcc-facts{gap:12px 18px!important;font-size:8.5px!important}
+  body .vcc-nav{top:var(--vcc-header-h,0px)!important}
+  body .vcc-nav-inner{height:43px!important;min-height:43px!important;padding:0 14px!important;gap:22px!important}
+  body .vcc-nav a{height:43px!important;min-height:43px!important;font-size:10px!important}
+}
