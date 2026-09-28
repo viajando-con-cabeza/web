@@ -148,3 +148,190 @@ body .vcc-nav a{
   body .vcc-nav-inner{height:43px!important;min-height:43px!important;padding:0 14px!important;gap:22px!important}
   body .vcc-nav a{height:43px!important;min-height:43px!important;font-size:10px!important}
 }
+
+
+/* FINAL HERO FIX · 2026-09-28
+   Copia la geometría de Qué ver y usa el background genérico de itinerarios. */
+html body .vcc-hero{
+  position:relative!important;
+  display:block!important;
+  height:670px!important;
+  min-height:670px!important;
+  max-height:670px!important;
+  overflow:hidden!important;
+  color:#171717!important;
+  background:
+    linear-gradient(90deg,
+      rgba(248,244,238,.97) 0%,
+      rgba(248,244,238,.90) 30%,
+      rgba(248,244,238,.58) 48%,
+      rgba(248,244,238,.15) 68%,
+      rgba(248,244,238,0) 86%),
+    url('itinerarios-background.svg') center center/cover no-repeat!important;
+}
+html body .vcc-hero-inner{
+  position:relative!important;
+  display:block!important;
+  width:min(1180px,calc(100% - 48px))!important;
+  height:100%!important;
+  margin:0 auto!important;
+  padding:0!important;
+}
+html body .vcc-crumb{
+  position:absolute!important;
+  z-index:3!important;
+  top:12px!important;
+  left:0!important;
+  width:100%!important;
+  display:flex!important;
+  align-items:center!important;
+  min-height:0!important;
+  margin:0!important;
+  padding:0!important;
+  color:#665f58!important;
+  font:400 11px/1.4 'DM Sans',sans-serif!important;
+  letter-spacing:0!important;
+  text-transform:none!important;
+  text-shadow:none!important;
+}
+html body .vcc-crumb a{color:inherit!important;text-decoration:none!important;font-weight:400!important}
+html body .vcc-crumb span{margin:0 8px!important;color:#9b928a!important}
+html body .vcc-crumb strong{font-weight:800!important;color:#4f4a45!important}
+
+html body .vcc-hero-card{
+  position:absolute!important;
+  z-index:2!important;
+  top:100px!important;
+  left:0!important;
+  display:block!important;
+  width:min(690px,78vw)!important;
+  max-width:690px!important;
+  min-height:0!important;
+  margin:0!important;
+  padding:0!important;
+  color:#171717!important;
+  background:transparent!important;
+  border:0!important;
+  border-radius:0!important;
+  box-shadow:none!important;
+  backdrop-filter:none!important;
+}
+html body .vcc-eyebrow{
+  margin:0 0 13px!important;
+  color:#c86f5d!important;
+  font-family:'DM Sans',sans-serif!important;
+  font-size:11px!important;
+  font-weight:800!important;
+  line-height:1.2!important;
+  letter-spacing:.09em!important;
+}
+html body .vcc-hero h1{
+  max-width:690px!important;
+  margin:0!important;
+  color:#171717!important;
+  font-family:'Oswald',sans-serif!important;
+  font-size:clamp(56px,5.2vw,77px)!important;
+  font-weight:500!important;
+  line-height:.98!important;
+  letter-spacing:-.02em!important;
+  text-transform:uppercase!important;
+  text-shadow:none!important;
+  overflow-wrap:normal!important;
+}
+html body .vcc-hero .script{
+  margin:14px 0 14px!important;
+  color:#c86f5d!important;
+  font-family:'Caveat',cursive!important;
+  font-size:32px!important;
+  font-weight:600!important;
+  line-height:1.12!important;
+  transform:rotate(-1deg)!important;
+}
+html body .vcc-hero-card>p:not(.script){
+  max-width:560px!important;
+  margin:0!important;
+  color:#171717!important;
+  font-family:'DM Sans',sans-serif!important;
+  font-size:14px!important;
+  font-weight:400!important;
+  line-height:1.65!important;
+}
+html body .vcc-facts{
+  display:none!important;
+}
+
+/* Barra secundaria: misma altura y espaciado visual que Qué ver */
+html body .vcc-nav{
+  position:sticky!important;
+  top:var(--vcc-header-h,50px)!important;
+  z-index:75!important;
+  width:100%!important;
+  height:43px!important;
+  min-height:43px!important;
+  max-height:43px!important;
+  margin:0!important;
+  background:#fff!important;
+  border-top:1px solid #e8ded3!important;
+  border-bottom:1px solid #e8ded3!important;
+  box-shadow:none!important;
+}
+html body .vcc-nav-inner{
+  width:100%!important;
+  max-width:none!important;
+  height:43px!important;
+  min-height:43px!important;
+  margin:0!important;
+  padding:0 max(24px,calc((100vw - 1180px)/2))!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:flex-start!important;
+  gap:38px!important;
+  overflow-x:auto!important;
+  scrollbar-width:none!important;
+}
+html body .vcc-nav-inner::-webkit-scrollbar{display:none!important}
+html body .vcc-nav a{
+  position:relative!important;
+  flex:0 0 auto!important;
+  display:inline-flex!important;
+  align-items:center!important;
+  height:43px!important;
+  min-height:43px!important;
+  margin:0!important;
+  padding:13px 0 12px!important;
+  border:0!important;
+  border-bottom:2px solid transparent!important;
+  color:#171717!important;
+  font:800 10.5px/1 'DM Sans',sans-serif!important;
+  text-decoration:none!important;
+  text-transform:uppercase!important;
+  white-space:nowrap!important;
+}
+html body .vcc-nav a:hover,
+html body .vcc-nav a.is-active{
+  color:#a65340!important;
+  border-bottom-color:#cf705c!important;
+}
+html body .vcc-nav a::after{content:none!important}
+
+@media(max-width:850px){
+  html body .vcc-hero{height:550px!important;min-height:550px!important;max-height:550px!important}
+  html body .vcc-hero-card{top:100px!important;width:min(620px,86vw)!important}
+}
+@media(max-width:650px){
+  html body .vcc-hero{
+    height:480px!important;min-height:480px!important;max-height:480px!important;
+    background:
+      linear-gradient(90deg,rgba(248,244,238,.95),rgba(248,244,238,.69)),
+      url('itinerarios-background.svg') 62% center/cover no-repeat!important;
+  }
+  html body .vcc-hero-inner{width:calc(100% - 28px)!important}
+  html body .vcc-crumb{top:12px!important;font-size:10px!important}
+  html body .vcc-crumb span{margin:0 5px!important}
+  html body .vcc-hero-card{top:100px!important;width:100%!important;max-width:100%!important}
+  html body .vcc-hero h1{font-size:clamp(42px,10vw,58px)!important}
+  html body .vcc-hero .script{font-size:27px!important}
+  html body .vcc-hero-card>p:not(.script){font-size:12px!important}
+  html body .vcc-nav-inner{gap:22px!important;padding:0 14px!important}
+  html body .vcc-nav a{font-size:10px!important}
+}
