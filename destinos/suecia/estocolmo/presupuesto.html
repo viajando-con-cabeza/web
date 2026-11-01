@@ -212,8 +212,10 @@ function sync(){
     daily+=v;
     document.getElementById("price-"+c).textContent=euro(v);
   });
+  const selectedCosts=cats.map(c=>prices[state.choices[c]][c]*(c==="alojamiento"?state.nights:state.days)*state.people);
+  const selectedSum=selectedCosts.reduce((a,b)=>a+b,0);
   let arc=0; const colors=["#cf705c","#e4a65a","#5ca5a2","#6e9e77","#c9ad7b"];
-  document.querySelector(".donut").style.background="conic-gradient("+cats.map((c,i)=>{const start=arc;arc+=prices[state.choices[c]][c]/daily*100;return colors[i]+" "+start+"% "+arc+"%";}).join(",")+")";
+  document.querySelector(".donut").style.background="conic-gradient("+cats.map((c,i)=>{const start=arc;arc+=selectedSum?selectedCosts[i]/selectedSum*100:0;return colors[i]+" "+start+"% "+arc+"%";}).join(",")+")";
   cats.forEach(c=>{
     const v=prices[state.choices[c]][c];
     document.getElementById("legend-"+c).textContent=euro(v*(c==="alojamiento"?state.nights:state.days)*state.people);
