@@ -496,3 +496,33 @@ html body .day-section{
   html{scroll-padding-top:76px!important}
   html body .day-section{scroll-margin-top:76px!important}
 }
+
+
+/* Quality 2026-11-01c · Anclajes exactos y títulos de día más contenidos */
+html{
+  scroll-padding-top:122px!important;
+}
+html body .day-section{
+  scroll-margin-top:122px!important;
+}
+html body .day-section + .day-section{
+  margin-top:0!important;
+}
+html body .day-section:not(:last-of-type){
+  margin-bottom:72px!important;
+}
+html body .day-intro h2{
+  font-size:clamp(25px,2.35vw,32px)!important;
+  line-height:1.12!important;
+}
+@media(max-width:850px){
+  html{scroll-padding-top:116px!important}
+  html body .day-section{scroll-margin-top:116px!important}
+  html body .day-section:not(:last-of-type){margin-bottom:60px!important}
+}
+@media(max-width:650px){
+  html{scroll-padding-top:108px!important}
+  html body .day-section{scroll-margin-top:108px!important}
+  html body .day-section:not(:last-of-type){margin-bottom:52px!important}
+  html body .day-intro h2{font-size:29px!important}
+}
