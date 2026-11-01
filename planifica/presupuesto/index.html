@@ -4,7 +4,7 @@
 <meta name="description" content="Todos nuestros presupuestos reales de viaje reunidos en un solo lugar. Compara destinos y abre el presupuesto completo de cada viaje.">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Cormorant+Garamond:wght@600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../../css/paginas.css"><link rel="stylesheet" href="../../css/overrides.css">
+<link rel="stylesheet" href="/configuracion/css/paginas.css"><link rel="stylesheet" href="/configuracion/css/overrides.css">
 <style>
 :root{--c:#ef633f;--ink:#17191b;--paper:#fffaf4;--cream:#f3e8dc;--line:#e8ded4;--muted:#6d6862;--green:#e2f1e6}
 *{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font-family:"DM Sans",Arial,sans-serif}.shell{width:min(1180px,calc(100% - 48px));margin:auto}.k{font-size:11px;color:var(--c);font-weight:800;letter-spacing:.14em}
@@ -31,6 +31,6 @@
 <section class="how"><div class="shell howgrid"><article><span class="k">CÓMO FUNCIONA</span><h2>Un hub, no otra guía duplicada</h2><p>Planifica → Presupuesto sirve para descubrir y comparar. Los detalles, consejos y calculadoras siguen en la página de presupuesto de cada destino. Así mantenemos una única fuente de información y evitamos duplicar contenido.</p></article><article><span class="k">PRÓXIMAMENTE</span><h2>Más destinos</h2><p>Cada vez que creemos un nuevo presupuesto, añadiremos una tarjeta aquí. Con suficientes destinos podremos activar filtros por duración y rango de precio.</p></article></div></section>
 <section class="next"><div class="shell nextin"><span class="k">SIGUE PLANIFICANDO</span><h2>¿Qué necesitas ahora?</h2><p>Completa el resto del viaje desde Planifica.</p><div class="nextgrid"><a href="/planifica/vuelos/"><b>Vuelos</b><small>Compara aerolíneas</small>→</a><a href="/planifica/alojamientos/"><b>Alojamiento</b><small>Dónde reservamos</small>→</a><a href="/itinerarios/"><b>Itinerarios</b><small>Organiza la ruta</small>→</a><a href="/planifica/"><b>Mapas</b><small>Organiza lugares</small>→</a></div></div></section>
 </main><footer class="page-footer"><div class="footer-copy">© Viajando con Cabeza · Todos los derechos reservados</div></footer>
-<script src="../../js/site-header.js"></script><script>
+<script src="/configuracion/js/site-header.js"></script><script>
 (()=>{const bs=[...document.querySelectorAll('.filterbar button')],cards=[...document.querySelectorAll('.destination')];bs.forEach(b=>b.addEventListener('click',()=>{bs.forEach(x=>x.classList.remove('active'));b.classList.add('active');const f=b.dataset.filter;cards.forEach(c=>c.hidden=f!=='all'&&c.dataset.continent!==f)}));})();
 </script></body></html>

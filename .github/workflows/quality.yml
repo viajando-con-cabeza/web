@@ -26,7 +26,7 @@ jobs:
           fetch-depth: 0
 
       - name: Generate Planifica hubs
-        run: node scripts/generate-planifica-hubs.mjs
+        run: node configuracion/scripts/generate-planifica-hubs.mjs
 
       - name: Commit generated hubs
         shell: bash
@@ -41,6 +41,9 @@ jobs:
             git commit -m "Auto-update Planifica hubs"
             git push origin HEAD:quality
           fi
+
+      - name: Check local links and resources
+        run: node configuracion/scripts/comprobar-rutas.mjs
 
       - name: Validate static site
         shell: bash

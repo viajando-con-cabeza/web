@@ -1,0 +1,1041 @@
+/* =========================================================
+   ROMA — Viajando con Cabeza
+   Página principal del destino
+   ========================================================= */
+
+:root {
+  --roma-bg: #f7f3ed;
+  --roma-card: #fffdfa;
+  --roma-text: #202124;
+  --roma-muted: #6d6963;
+  --roma-coral: #d96f54;
+  --roma-coral-dark: #bd5840;
+  --roma-green: #7d8976;
+  --roma-green-soft: #e9ede6;
+  --roma-pink-soft: #f5e9e1;
+  --roma-border: #e5dfd7;
+  --roma-white: #ffffff;
+  --roma-shadow: 0 12px 30px rgba(32, 33, 36, .08);
+  --roma-radius: 18px;
+  --roma-max: 1180px;
+}
+
+/* =========================================================
+   BASE
+   ========================================================= */
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--roma-bg);
+  color: var(--roma-text);
+  font-family: "DM Sans", Arial, sans-serif;
+  line-height: 1.55;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  color: inherit;
+}
+
+.roma-page {
+  overflow: hidden;
+}
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+
+.roma-header {
+  background: #fffdfa;
+  border-bottom: 1px solid var(--roma-border);
+  position: relative;
+  z-index: 20;
+}
+
+.roma-header-inner {
+  width: min(var(--roma-max), calc(100% - 60px));
+  min-height: 70px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 35px;
+}
+
+.roma-logo {
+  display: inline-flex;
+  flex-direction: column;
+  text-decoration: none;
+  line-height: .85;
+}
+
+.roma-logo-main {
+  font-size: 20px;
+  font-weight: 900;
+  letter-spacing: .06em;
+}
+
+.roma-logo-sub {
+  margin-top: 5px;
+  margin-left: 27px;
+  font-family: "Fraunces", Georgia, serif;
+  font-size: 10px;
+  font-style: italic;
+}
+
+.roma-nav {
+  display: flex;
+  align-items: center;
+  gap: 34px;
+}
+
+.roma-nav a {
+  text-decoration: none;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.roma-nav a:hover {
+  color: var(--roma-coral);
+}
+
+.roma-social {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.roma-social a {
+  text-decoration: none;
+  font-size: 15px;
+}
+
+/* =========================================================
+   HERO
+   ========================================================= */
+
+.roma-hero {
+  position: relative;
+  min-height: 500px;
+  background-image:
+    linear-gradient(90deg, rgba(247,243,237,.18), rgba(247,243,237,.02)),
+    none;
+  background-size: cover;
+  background-position: center;
+}
+
+.roma-hero-inner {
+  width: min(var(--roma-max), calc(100% - 60px));
+  min-height: 500px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+}
+
+.roma-breadcrumb {
+  position: absolute;
+  top: 15px;
+  left: 50%;
+  width: min(var(--roma-max), calc(100% - 60px));
+  transform: translateX(-50%);
+  color: #3f3d39;
+  font-size: 11px;
+}
+
+.roma-breadcrumb a {
+  text-decoration: none;
+}
+
+.roma-breadcrumb span {
+  margin: 0 7px;
+  opacity: .55;
+}
+
+.roma-hero-card {
+  width: 450px;
+  margin-top: 35px;
+  padding: 35px 38px 30px;
+  background: rgba(255,253,250,.96);
+  border-radius: 15px;
+  box-shadow: 0 20px 45px rgba(32,33,36,.12);
+}
+
+.roma-location {
+  margin-bottom: 20px;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+
+.roma-location::before {
+  content: "⌖";
+  margin-right: 8px;
+  font-size: 16px;
+}
+
+.roma-hero h1 {
+  margin: 0;
+  font-family: "Fraunces", Georgia, serif;
+  font-size: clamp(62px, 7vw, 90px);
+  line-height: .85;
+  letter-spacing: -.055em;
+  font-weight: 700;
+}
+
+.roma-hero-script {
+  margin: 15px 0 16px;
+  color: var(--roma-coral);
+  font-family: "Fraunces", Georgia, serif;
+  font-size: 19px;
+  font-style: italic;
+}
+
+.roma-hero-description {
+  max-width: 350px;
+  margin: 0;
+  font-size: 12px;
+  line-height: 1.7;
+}
+
+.roma-hero-description strong {
+  font-weight: 800;
+}
+
+.roma-hero-facts {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+  margin-top: 28px;
+  padding-top: 22px;
+  border-top: 1px solid var(--roma-border);
+}
+
+.roma-hero-fact {
+  min-width: 0;
+}
+
+.roma-hero-icon {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 19px;
+}
+
+.roma-hero-fact strong {
+  display: block;
+  font-size: 10px;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.roma-hero-fact span {
+  display: block;
+  margin-top: 2px;
+  color: var(--roma-muted);
+  font-size: 9px;
+}
+
+/* =========================================================
+   DESTINATION NAV
+   ========================================================= */
+
+.roma-destination-nav {
+  background: #fffdfa;
+  border-bottom: 1px solid var(--roma-border);
+}
+
+.roma-destination-nav-inner {
+  width: min(var(--roma-max), calc(100% - 60px));
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.roma-destination-nav-inner::-webkit-scrollbar {
+  display: none;
+}
+
+.roma-destination-nav a {
+  flex: 0 0 auto;
+  position: relative;
+  padding: 20px 13px 17px;
+  text-decoration: none;
+  font-size: 10px;
+  font-weight: 800;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.roma-destination-nav a.active::after,
+.roma-destination-nav a:hover::after {
+  content: "";
+  position: absolute;
+  left: 10px;
+  right: 10px;
+  bottom: 0;
+  height: 2px;
+  background: var(--roma-coral);
+}
+
+/* =========================================================
+   MAIN
+   ========================================================= */
+
+.roma-main {
+  width: min(var(--roma-max), calc(100% - 60px));
+  margin: 0 auto;
+  padding: 48px 0 80px;
+}
+
+.roma-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 2.05fr) minmax(280px, .9fr);
+  gap: 30px;
+  align-items: start;
+}
+
+.roma-main-column {
+  min-width: 0;
+}
+
+.roma-side-column {
+  min-width: 0;
+}
+
+/* =========================================================
+   SECTION TITLE
+   ========================================================= */
+
+.roma-section-title {
+  margin-bottom: 25px;
+}
+
+.roma-section-title h2 {
+  margin: 0;
+  font-family: "Fraunces", Georgia, serif;
+  font-size: 30px;
+  line-height: 1;
+  letter-spacing: -.025em;
+}
+
+.roma-section-title h2::before {
+  content: "✦";
+  margin-right: 12px;
+  color: var(--roma-coral);
+  font-family: Arial, sans-serif;
+  font-size: 15px;
+}
+
+.roma-section-title p {
+  max-width: 570px;
+  margin: 12px 0 0;
+  color: var(--roma-muted);
+  font-size: 13px;
+}
+
+/* =========================================================
+   GUÍA RÁPIDA
+   ========================================================= */
+
+.roma-guide {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(260px, .9fr);
+  gap: 25px;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.roma-guide-copy {
+  padding: 15px 0;
+}
+
+.roma-guide-copy p {
+  max-width: 480px;
+  margin: 0 0 25px;
+  color: #4f4c47;
+  font-size: 13px;
+  line-height: 1.8;
+}
+
+.roma-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 11px 17px;
+  border-radius: 5px;
+  background: var(--roma-coral);
+  color: white;
+  text-decoration: none;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: .03em;
+  text-transform: uppercase;
+  transition: transform .2s ease, background .2s ease;
+}
+
+.roma-button::after {
+  content: "→";
+  font-size: 14px;
+}
+
+.roma-button:hover {
+  background: var(--roma-coral-dark);
+  transform: translateY(-2px);
+}
+
+.roma-guide-image {
+  height: 205px;
+  overflow: hidden;
+  border-radius: 10px;
+}
+
+.roma-guide-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* =========================================================
+   DÍAS
+   ========================================================= */
+
+.roma-days-section {
+  margin-top: 38px;
+}
+
+.roma-day-tabs {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.roma-day-tab {
+  padding: 8px 18px;
+  border: 1px solid var(--roma-border);
+  border-radius: 6px;
+  background: transparent;
+  font-family: inherit;
+  font-size: 10px;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.roma-day-tab.active {
+  border-color: var(--roma-coral);
+  background: var(--roma-coral);
+  color: white;
+}
+
+.roma-days-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+
+.roma-day-card {
+  overflow: hidden;
+  border: 1px solid var(--roma-border);
+  border-radius: 9px;
+  background: var(--roma-card);
+}
+
+.roma-day-image {
+  position: relative;
+  height: 150px;
+  overflow: hidden;
+}
+
+.roma-day-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform .35s ease;
+}
+
+.roma-day-card:hover .roma-day-image img {
+  transform: scale(1.04);
+}
+
+.roma-day-label {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  padding: 6px 9px;
+  border-radius: 4px;
+  background: rgba(255,253,250,.95);
+  font-size: 9px;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.roma-day-body {
+  padding: 15px;
+}
+
+.roma-day-body h3 {
+  margin: 0 0 8px;
+  font-family: "Fraunces", Georgia, serif;
+  font-size: 15px;
+  line-height: 1.15;
+}
+
+.roma-day-body p {
+  min-height: 42px;
+  margin: 0 0 15px;
+  color: var(--roma-muted);
+  font-size: 10px;
+  line-height: 1.6;
+}
+
+.roma-day-link {
+  color: var(--roma-coral-dark);
+  text-decoration: none;
+  font-size: 9px;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.roma-day-link::after {
+  content: "  →";
+}
+
+/* =========================================================
+   ¿CUÁNTOS DÍAS?
+   ========================================================= */
+
+.roma-days-info {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  align-items: center;
+  margin: 25px 0 38px;
+  padding: 24px 30px;
+  border-radius: 10px;
+  background: #f5eee5;
+}
+
+.roma-days-info-copy {
+  text-align: center;
+}
+
+.roma-days-info h3 {
+  margin: 0 0 7px;
+  font-family: "Fraunces", Georgia, serif;
+  font-size: 17px;
+}
+
+.roma-days-info p {
+  margin: 0;
+  color: var(--roma-muted);
+  font-size: 11px;
+}
+
+.roma-days-info-art {
+  min-height: 100px;
+  border-left: 1px solid rgba(32,33,36,.08);
+  background-image: none;
+  background-size: cover;
+  background-position: center;
+  opacity: .8;
+  border-radius: 6px;
+}
+
+/* =========================================================
+   IMPRESCINDIBLES
+   ========================================================= */
+
+.roma-must {
+  margin-top: 38px;
+}
+
+.roma-must-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 12px;
+}
+
+.roma-must-item {
+  text-align: center;
+}
+
+.roma-must-icon {
+  width: 48px;
+  height: 48px;
+  margin: 0 auto 9px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: #f4eee6;
+  font-size: 20px;
+}
+
+.roma-must-item strong {
+  display: block;
+  font-size: 10px;
+}
+
+.roma-must-item span {
+  display: block;
+  margin-top: 3px;
+  color: var(--roma-muted);
+  font-size: 8px;
+}
+
+/* =========================================================
+   SIDEBAR CARDS
+   ========================================================= */
+
+.roma-side-card {
+  margin-bottom: 18px;
+  padding: 25px;
+  border-radius: 11px;
+  background: var(--roma-green-soft);
+}
+
+.roma-side-card.pink {
+  background: var(--roma-pink-soft);
+}
+
+.roma-side-card.white {
+  background: var(--roma-card);
+  border: 1px solid var(--roma-border);
+}
+
+.roma-side-card h3 {
+  margin: 0 0 18px;
+  font-size: 11px;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.roma-side-card p {
+  margin: 0;
+  color: #53514d;
+  font-size: 11px;
+  line-height: 1.8;
+}
+
+.roma-side-card .signature {
+  margin-top: 15px;
+  font-family: "Fraunces", Georgia, serif;
+  font-size: 22px;
+  font-style: italic;
+}
+
+.roma-useful-list,
+.roma-budget-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.roma-useful-list li,
+.roma-budget-list li {
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+  padding: 10px 0;
+  border-top: 1px solid rgba(32,33,36,.09);
+  font-size: 10px;
+}
+
+.roma-useful-list li:first-child,
+.roma-budget-list li:first-child {
+  padding-top: 0;
+  border-top: 0;
+}
+
+.roma-useful-list a {
+  text-decoration: none;
+}
+
+.roma-useful-list a::after {
+  content: "→";
+  float: right;
+  margin-left: 15px;
+  font-size: 13px;
+}
+
+.roma-budget-list span:last-child {
+  white-space: nowrap;
+}
+
+.roma-budget-total {
+  margin-top: 18px;
+  padding-top: 15px;
+  border-top: 1px solid rgba(32,33,36,.12);
+}
+
+.roma-budget-total span {
+  display: block;
+  font-size: 9px;
+}
+
+.roma-budget-total strong {
+  display: block;
+  margin-top: 2px;
+  font-size: 20px;
+}
+
+/* =========================================================
+   MAP CARD
+   ========================================================= */
+
+.roma-map-card {
+  position: relative;
+  overflow: hidden;
+  margin-top: 18px;
+  padding: 25px;
+  min-height: 185px;
+  border-radius: 11px;
+  background: var(--roma-green-soft);
+}
+
+.roma-map-card h3 {
+  margin: 0 0 10px;
+  font-size: 11px;
+  text-transform: uppercase;
+}
+
+.roma-map-card p {
+  max-width: 190px;
+  margin: 0 0 18px;
+  color: #53514d;
+  font-size: 10px;
+  line-height: 1.7;
+}
+
+.roma-map-illustration {
+  position: absolute;
+  right: 15px;
+  bottom: 10px;
+  width: 110px;
+  height: 90px;
+  opacity: .7;
+}
+
+.roma-map-button {
+  position: relative;
+  z-index: 2;
+  display: inline-block;
+  padding: 8px 11px;
+  border: 1px solid rgba(32,33,36,.18);
+  border-radius: 4px;
+  background: rgba(255,255,255,.55);
+  text-decoration: none;
+  font-size: 9px;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+/* =========================================================
+   VIAJE REAL
+   ========================================================= */
+
+.roma-real-trip {
+  display: grid;
+  grid-template-columns: 165px minmax(0, 1.5fr) minmax(280px, 1fr);
+  gap: 25px;
+  align-items: center;
+  margin-top: 42px;
+  padding: 18px;
+  border-radius: 11px;
+  background: #f3e8dd;
+}
+
+.roma-real-photo {
+  height: 110px;
+  overflow: hidden;
+  border-radius: 7px;
+}
+
+.roma-real-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.roma-real-label {
+  margin: 0 0 7px;
+  font-size: 10px;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.roma-real-copy p {
+  margin: 0;
+  color: #57534e;
+  font-size: 10px;
+  line-height: 1.65;
+}
+
+.roma-real-signature {
+  margin-top: 10px;
+  font-family: "Fraunces", Georgia, serif;
+  font-size: 19px;
+  font-style: italic;
+}
+
+.roma-real-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
+
+.roma-real-stat {
+  text-align: center;
+}
+
+.roma-real-stat strong {
+  display: block;
+  font-size: 17px;
+  line-height: 1;
+}
+
+.roma-real-stat span {
+  display: block;
+  margin-top: 5px;
+  color: var(--roma-muted);
+  font-size: 8px;
+}
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
+
+.roma-footer {
+  padding: 45px 0;
+  background: var(--roma-text);
+  color: white;
+}
+
+.roma-footer-inner {
+  width: min(var(--roma-max), calc(100% - 60px));
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 30px;
+}
+
+.roma-footer-logo {
+  font-size: 14px;
+  font-weight: 900;
+  letter-spacing: .08em;
+}
+
+.roma-footer p {
+  margin: 0;
+  color: rgba(255,255,255,.6);
+  font-size: 10px;
+}
+
+/* =========================================================
+   RESPONSIVE — TABLET
+   ========================================================= */
+
+@media (max-width: 950px) {
+
+  .roma-nav {
+    gap: 17px;
+  }
+
+  .roma-nav a {
+    font-size: 10px;
+  }
+
+  .roma-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .roma-side-column {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+  }
+
+  .roma-side-card {
+    margin-bottom: 0;
+  }
+
+  .roma-map-card {
+    grid-column: 1 / -1;
+  }
+
+  .roma-must-grid {
+    grid-template-columns: repeat(3, 1fr);
+    row-gap: 25px;
+  }
+
+  .roma-real-trip {
+    grid-template-columns: 150px 1fr;
+  }
+
+  .roma-real-stats {
+    grid-column: 1 / -1;
+  }
+}
+
+/* =========================================================
+   RESPONSIVE — MÓBIL
+   ========================================================= */
+
+@media (max-width: 680px) {
+
+  .roma-header-inner {
+    width: calc(100% - 28px);
+    min-height: auto;
+    padding: 14px 0;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .roma-nav {
+    order: 3;
+    width: 100%;
+    gap: 20px;
+    overflow-x: auto;
+    padding-bottom: 3px;
+    scrollbar-width: none;
+  }
+
+  .roma-nav::-webkit-scrollbar {
+    display: none;
+  }
+
+  .roma-social {
+    margin-left: auto;
+  }
+
+  .roma-hero {
+    min-height: 650px;
+    background-position: 58% center;
+  }
+
+  .roma-hero-inner {
+    width: calc(100% - 28px);
+    min-height: 650px;
+    align-items: flex-end;
+    padding-bottom: 25px;
+  }
+
+  .roma-breadcrumb {
+    width: calc(100% - 28px);
+    top: 13px;
+    font-size: 9px;
+  }
+
+  .roma-hero-card {
+    width: 100%;
+    margin-top: 50px;
+    padding: 27px 24px 24px;
+  }
+
+  .roma-hero h1 {
+    font-size: 61px;
+  }
+
+  .roma-hero-script {
+    font-size: 17px;
+  }
+
+  .roma-hero-facts {
+    gap: 8px;
+  }
+
+  .roma-hero-fact strong {
+    font-size: 8px;
+  }
+
+  .roma-hero-fact span {
+    font-size: 8px;
+  }
+
+  .roma-destination-nav-inner {
+    width: 100%;
+    justify-content: flex-start;
+    gap: 8px;
+    padding: 0 14px;
+  }
+
+  .roma-destination-nav a {
+    padding-left: 9px;
+    padding-right: 9px;
+  }
+
+  .roma-main {
+    width: calc(100% - 28px);
+    padding: 40px 0 60px;
+  }
+
+  .roma-guide {
+    grid-template-columns: 1fr;
+  }
+
+  .roma-guide-image {
+    height: 230px;
+  }
+
+  .roma-days-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .roma-day-image {
+    height: 190px;
+  }
+
+  .roma-days-info {
+    grid-template-columns: 1fr;
+    padding: 25px 20px;
+  }
+
+  .roma-days-info-art {
+    min-height: 120px;
+    border-left: 0;
+  }
+
+  .roma-must-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .roma-side-column {
+    display: block;
+  }
+
+  .roma-side-card {
+    margin-bottom: 15px;
+  }
+
+  .roma-real-trip {
+    grid-template-columns: 1fr;
+  }
+
+  .roma-real-photo {
+    height: 190px;
+  }
+
+  .roma-real-stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .roma-footer-inner {
+    width: calc(100% - 28px);
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

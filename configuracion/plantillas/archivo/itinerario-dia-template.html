@@ -1,0 +1,43 @@
+<!--
+PLANTILLA REUTILIZABLE · ITINERARIO DÍA A DÍA
+
+Estructura obligatoria para cada día:
+1. day-kicker + h2: título del día
+2. itinerary-map: Google Maps del recorrido
+3. day-description: descripción narrativa
+4. day-columns: mañana / tarde / noche
+5. photo-gallery: galería fotográfica
+
+DISEÑO REUTILIZABLE:
+- Cada lugar/actividad de mañana, tarde o noche debe enlazar a la página "Qué ver" del destino.
+- El enlace usa la clase itinerary-place-link y termina con el círculo negro y flecha blanca.
+- Ejemplo: <a class="itinerary-place-link" href="que-ver.html"><span>Lugar</span><span class="itinerary-place-arrow">→</span></a>
+- La clase hero-itinerary debe añadirse al hero de cada página de itinerario para mostrar el avión azul de fondo.
+
+GALERÍA:
+- Las fotos deben vivir dentro de destinos/<pais>/<ciudad>/img/dia-X/
+- Preferentemente JPG optimizado para web.
+- La galería es grande y tiene separación mínima entre fotografías.
+- El visitante hace clic para abrir el visor.
+- Las flechas izquierda/derecha recorren solo las fotos de ese día.
+- También funcionan ←, → y Esc del teclado.
+- El efecto hover es naranja con texto blanco.
+- El componente visual está en /configuracion/css/itinerary-gallery.css y la lógica en /configuracion/js/itinerary-gallery.js.
+
+Para crear un itinerario de 3, 4, 5 días o más, duplica el bloque <section class="day-section"> por cada día y sustituye el contenido.
+-->
+<section class="day-section">
+  <span class="day-kicker">Día X</span>
+  <h2>Título descriptivo del día</h2>
+  <div class="itinerary-map"><iframe src="URL_GOOGLE_MAPS_EMBED" title="Mapa del itinerario del día X" loading="lazy" allowfullscreen></iframe></div>
+  <div class="day-description"><p>Descripción narrativa del recorrido, experiencias y recomendaciones del día.</p><p>Segundo párrafo con información útil sobre las visitas y el recorrido.</p></div>
+  <div class="day-columns">
+    <div class="day-column"><h3>Por la mañana</h3><ul><li><a class="itinerary-place-link" href="que-ver.html"><span>Lugar o actividad</span><span class="itinerary-place-arrow">→</span></a></li><li><a class="itinerary-place-link" href="que-ver.html"><span>Lugar o actividad</span><span class="itinerary-place-arrow">→</span></a></li><li><a class="itinerary-place-link" href="que-ver.html"><span>Lugar o actividad</span><span class="itinerary-place-arrow">→</span></a></li></ul></div>
+    <div class="day-column"><h3>Por la tarde</h3><ul><li><a class="itinerary-place-link" href="que-ver.html"><span>Lugar o actividad</span><span class="itinerary-place-arrow">→</span></a></li><li><a class="itinerary-place-link" href="que-ver.html"><span>Lugar o actividad</span><span class="itinerary-place-arrow">→</span></a></li><li><a class="itinerary-place-link" href="que-ver.html"><span>Lugar o actividad</span><span class="itinerary-place-arrow">→</span></a></li></ul></div>
+    <div class="day-column"><h3>Por la noche</h3><ul><li><a class="itinerary-place-link" href="que-ver.html"><span>Lugar o actividad</span><span class="itinerary-place-arrow">→</span></a></li><li><a class="itinerary-place-link" href="que-ver.html"><span>Lugar o actividad</span><span class="itinerary-place-arrow">→</span></a></li></ul></div>
+  </div>
+  <div class="photo-gallery">
+    <figure class="photo-frame"><img src="img/dia-X/nombre-foto.jpg" alt="Descripción SEO de la fotografía" loading="lazy"><figcaption class="photo-caption">Descripción</figcaption></figure>
+    <!-- Repetir las fotografías del día -->
+  </div>
+</section>

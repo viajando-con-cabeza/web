@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>{{TITLE}}</title>
+<meta name="description" content="{{DESCRIPTION}}">
+<link rel="canonical" href="{{CANONICAL}}">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=DM+Sans:wght@400;500;600;700;800&family=Oswald:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/configuracion/css/paginas.css">
+<link rel="stylesheet" href="/configuracion/css/overrides.css">
+<link rel="stylesheet" href="/configuracion/css/suecia-redesign.css">
+<link rel="stylesheet" href="/configuracion/css/suecia-fixes.css">
+<link rel="stylesheet" href="/configuracion/css/destinos/suecia/estocolmo/estocolmo.css">
+<link rel="stylesheet" href="/configuracion/css/destinos/suecia/estocolmo/estocolmo-quality-fixes.css">
+<link rel="stylesheet" href="/configuracion/css/plantillas/imprescindibles.css">
+<style>
+html{scroll-behavior:auto}body{background:#faf7f2}
+.imp-page .imp-hero{height:670px!important;min-height:670px!important}
+.imp-page .imp-main{width:min(1180px,calc(100% - 48px))!important;margin:0 auto 60px!important}
+.imp-page .place{scroll-margin-top:115px!important;padding:42px 0!important;border-bottom:0!important}
+.imp-page .place:not(:first-child){padding-top:48px!important}
+.imp-page .place:not(:first-child)::before,.imp-page .place:not(:first-child)::after{content:none!important;display:none!important}
+.imp-page .place:not(:first-child){padding-top:78px!important}
+html body .imp-page .imp-main .place:not(:first-child)::before{
+  content:''!important;
+  display:block!important;
+  position:absolute!important;
+  left:50%!important;
+  right:auto!important;
+  top:16px!important;
+  transform:translateX(-50%)!important;
+  width:min(360px,36%)!important;
+  height:42px!important;
+  background-position:center center!important;
+  background-size:100% auto!important;
+  background-repeat:no-repeat!important;
+  opacity:.96!important;
+  pointer-events:none!important;
+}
+html body .imp-page .imp-main .place.vcc-divider-01:not(:first-child)::before{background-image:url('/configuracion/imagenes/iconos/vcc-separadores/separador-01.svg?v=20260927h')!important}
+html body .imp-page .imp-main .place.vcc-divider-02:not(:first-child)::before{background-image:url('/configuracion/imagenes/iconos/vcc-separadores/separador-02.svg?v=20260927h')!important}
+html body .imp-page .imp-main .place.vcc-divider-03:not(:first-child)::before{background-image:url('/configuracion/imagenes/iconos/vcc-separadores/separador-03.svg?v=20260927h')!important}
+html body .imp-page .imp-main .place.vcc-divider-04:not(:first-child)::before{background-image:url('/configuracion/imagenes/iconos/vcc-separadores/separador-04.svg?v=20260927g')!important}
+html body .imp-page .imp-main .place.vcc-divider-05:not(:first-child)::before{background-image:url('/configuracion/imagenes/iconos/vcc-separadores/separador-05.svg?v=20260927g')!important}
+html body .imp-page .imp-main .place.vcc-divider-06:not(:first-child)::before{background-image:url('/configuracion/imagenes/iconos/vcc-separadores/separador-06.svg?v=20260927g')!important}
+html body .imp-page .imp-main .place.vcc-divider-07:not(:first-child)::before{background-image:url('/configuracion/imagenes/iconos/vcc-separadores/separador-07.svg?v=20260928b')!important}
+html body .imp-page .imp-main .place.vcc-divider-08:not(:first-child)::before{background-image:url('/configuracion/imagenes/iconos/vcc-separadores/separador-08.svg?v=20260928b')!important}
+html body .imp-page .imp-main .place.vcc-divider-09:not(:first-child)::before{background-image:url('/configuracion/imagenes/iconos/vcc-separadores/separador-09.svg?v=20260927h')!important}
+html body .imp-page .imp-main .place.vcc-divider-10:not(:first-child)::before{background-image:url('/configuracion/imagenes/iconos/vcc-separadores/separador-10.svg?v=20260928b')!important}
+.imp-page .gallery-main{border-radius:8px!important}
+.imp-page .place-kicker{font-family:'Caveat',cursive!important;font-size:22px!important;color:#cf705c!important}
+.imp-page .place-copy h2{font-family:'Oswald',sans-serif!important;font-size:34px!important;font-weight:500!important}
+.imp-page .place-copy>p{font-family:'DM Sans',sans-serif!important;font-size:12px!important;line-height:1.65!important}
+.imp-page .facts{font-family:'DM Sans',sans-serif!important;font-size:10px!important}
+.imp-page .advice b{font-size:10px!important}.imp-page .advice p{font-size:10.5px!important;line-height:1.5!important}
+.imp-page .gallery[data-count="1"] .thumbs,.imp-page .gallery[data-count="1"] .photo-count{display:none!important}
+@media(max-width:850px){.imp-page .imp-hero{height:550px!important;min-height:550px!important}.imp-page .place{grid-template-columns:1fr!important;gap:16px!important}.imp-page .imp-main{width:calc(100% - 28px)!important}}
+@media(max-width:650px){
+  .imp-page .imp-hero{height:480px!important;min-height:480px!important}
+  .imp-page .place:not(:first-child){padding-top:70px!important}
+  html body .imp-page .imp-main .place:not(:first-child)::before{
+    left:50%!important;
+    right:auto!important;
+    width:min(250px,66%)!important;
+    height:32px!important;
+    top:14px!important;
+    transform:translateX(-50%)!important;
+    background-size:100% auto!important;
+    background-position:center center!important
+  }
+}
+</style>
+<meta name="robots" content="noindex,nofollow"></head>
+<body>
+<header class="page-header"></header>
+<div class="imp-page">
+<section class="imp-hero">
+<div class="imp-hero-inner">
+<nav class="imp-crumb" aria-label="Ruta de navegación"><a href="/">Inicio</a><span>›</span><a href="/destinos/">Destinos</a><span>›</span><a href="{{COUNTRY_URL}}">{{COUNTRY}}</a><span>›</span><a href="index.html">{{CITY}}</a><span>›</span><strong>Qué ver</strong></nav>
+<div class="imp-card"><div class="eyebrow">📍 {{EYEBROW}}</div><h1>{{HEADING}}</h1><p class="imp-script">{{SUBTITLE}}</p><p class="imp-lead">{{INTRO}}</p></div>
+</div>
+</section>
+<nav class="place-nav-wrap" aria-label="Índice de lugares"><div class="place-nav-shell"><button id="navPrev" class="place-nav-arrow" aria-label="Desplazar a la izquierda">‹</button><div class="place-nav" id="placeNav"></div><button id="navNext" class="place-nav-arrow" aria-label="Desplazar a la derecha">›</button></div></nav>
+<main class="imp-main" id="places"></main>
+</div>
+<div class="lightbox" id="lightbox"><div class="lb-stage"><button class="lb-close" type="button" aria-label="Cerrar galería">×</button><button class="lb-prev" type="button" aria-label="Foto anterior">‹</button><img alt=""><button class="lb-next" type="button" aria-label="Foto siguiente">›</button><div class="lb-caption"></div><div class="lb-thumbs"></div></div></div>
+<script src="/configuracion/js/site-header.js"></script>
+<script>
+const IMG={{IMAGES_JSON}};
+const data={{PLACES_JSON}};
+const mapQuery={{MAP_QUERY_JSON}};
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const rating=n=>`<span class="vcc-rating r${n}" aria-label="Valoración VCC: ${n} de 5"><i></i><i></i><i></i><i></i><i></i></span>`;
+const nav=document.getElementById('placeNav');
+nav.innerHTML=data.map((p,i)=>`<a href="#${p[0]}" class="${i===0?'active':''}">${esc(p[1])}</a>`).join('');
+const main=document.getElementById('places');
+const DIVIDER_COUNT=10;
+const dividerClass=i=>i===0?'':` vcc-divider-${String(((i-1)%DIVIDER_COUNT)+1).padStart(2,'0')}`;
+main.innerHTML=data.map((p,i)=>{const imgs=p.slice(10).map(k=>IMG[k]);const maps=`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(p[1]+' '+mapQuery)}`;return `<section class="place${dividerClass(i)}" id="${p[0]}"><div class="gallery" data-count="${imgs.length}"><div class="gallery-main" data-images='${JSON.stringify(imgs)}'><img src="${imgs[0]}" alt="${esc(p[1])}" loading="lazy"><span class="photo-count">1 / ${imgs.length}</span></div><div class="thumbs">${imgs.map((u,j)=>`<button type="button" class="${j===0?'is-active':''}" data-i="${j}" aria-label="Ver fotografía ${j+1}"><img src="${u}" alt=""></button>`).join('')}</div></div><div class="place-copy"><div class="place-kicker">${esc(p[3])}</div><h2>${esc(p[1]).toUpperCase()}</h2><p>${esc(p[4])}</p><div class="facts"><span><b class="ico">◆</b>${esc(p[2])}</span><span><b class="ico">●</b>${esc(p[5])}</span><span><b class="ico">◷</b>${esc(p[6])}</span><span>${rating(p[7])}</span><span class="fact-map"><b class="ico">⌖</b><a target="_blank" rel="noopener noreferrer" href="${maps}" aria-label="Abrir ${esc(p[1])} en Google Maps">Google Maps</a></span></div><div class="advice"><div class="paper-plane" role="img" aria-label="Logo VCC"></div><div><b>CONSEJO VCC</b><p>${esc(p[9])}</p></div></div></div></section>`}).join('');
+nav.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{nav.querySelectorAll('a').forEach(x=>x.classList.remove('active'));a.classList.add('active')}));
+const prev=document.getElementById('navPrev'),next=document.getElementById('navNext');const update=()=>{prev.disabled=nav.scrollLeft<5;next.disabled=nav.scrollLeft+nav.clientWidth>=nav.scrollWidth-5};prev.onclick=()=>nav.scrollBy({left:-Math.max(nav.clientWidth*.7,280),behavior:'smooth'});next.onclick=()=>nav.scrollBy({left:Math.max(nav.clientWidth*.7,280),behavior:'smooth'});nav.addEventListener('scroll',update,{passive:true});window.addEventListener('resize',update);update();
+document.querySelectorAll('.gallery').forEach(g=>{const main=g.querySelector('.gallery-main'),hero=main.querySelector('img'),count=main.querySelector('.photo-count'),btns=[...g.querySelectorAll('.thumbs button')],imgs=JSON.parse(main.dataset.images);btns.forEach(b=>b.onclick=()=>{const i=+b.dataset.i;hero.src=imgs[i];if(count)count.textContent=`${i+1} / ${imgs.length}`;btns.forEach(x=>x.classList.toggle('is-active',x===b))})});
+</script>
+<script src="/configuracion/js/plantillas/galeria-lugares.js" defer></script>
+</body>
+</html>
