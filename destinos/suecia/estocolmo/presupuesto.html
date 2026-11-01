@@ -15,7 +15,7 @@
 <link rel="stylesheet" href="../../../css/suecia-fixes.css">
 <link rel="stylesheet" href="estocolmo.css">
 <link rel="stylesheet" href="estocolmo-quality-fixes.css">
-<link rel="stylesheet" href="presupuesto-vcc-visual.css?v=20261101refine5">
+<link rel="stylesheet" href="presupuesto-vcc-visual.css?v=20261101subtle6">
 </head>
 <body class="budget-vcc">
 <header class="page-header"></header>
@@ -110,7 +110,7 @@
         <span class="daily-label">según tu selección</span>
       </div>
       <div class="chart-layout">
-        <div class="donut"><div class="donut-inner"><strong style="font-size:25px">Tu viaje</strong><small>reparto del presupuesto</small></div></div>
+        <div class="donut"><div class="donut-inner"><strong id="donut-daily">101,25 €</strong><small>media por persona y día</small></div></div>
         <div class="legend">
           <div class="legend-row" style="--dot:#cf705c"><i></i><span>Alojamiento</span><strong id="legend-alojamiento">0 €</strong></div>
           <div class="legend-row" style="--dot:#e4a65a"><i></i><span>Comida</span><strong id="legend-comida">0 €</strong></div>
@@ -227,6 +227,7 @@ function sync(){
     (prices[state.choices.comida].comida+prices[state.choices.transporte].transporte+
      prices[state.choices.actividades].actividades+prices[state.choices.extras].extras)*state.days)*state.people;
   document.getElementById("grand-total").textContent=euro(total);
+  document.getElementById("donut-daily").textContent=(total/state.people/state.days).toLocaleString("es-ES",{maximumFractionDigits:2})+" €";
   document.getElementById("trip-total").textContent=state.people+" viajeros · "+state.days+" días · "+state.nights+" noches";
 }
 document.querySelectorAll("[data-category]").forEach(s=>s.addEventListener("change",()=>{state.choices[s.dataset.category]=s.value;sync()}));
