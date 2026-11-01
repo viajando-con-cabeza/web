@@ -361,3 +361,72 @@ html body.budget-vcc{background:#fbf8f4;color:#171717}
 @media(max-width:650px){.budget-vcc .profile-art.retro-profile-art{max-height:320px;aspect-ratio:3/4;width:240px;margin:8px auto 0}.budget-vcc .donut{width:min(260px,80%)}.budget-vcc .donut-inner strong{font-size:43px}.budget-vcc .calculator-card,.budget-vcc .breakdown-card{padding:20px}.budget-vcc .calc-total{padding:18px;gap:12px}.budget-vcc .calc-total strong{font-size:42px}.budget-vcc .daily-ticket strong{font-size:26px}.budget-vcc .breakdown-head{display:block}.budget-vcc .daily-label{display:block;margin-top:8px}}
 
 .budget-vcc .philosophy-profile{overflow:visible}.budget-vcc .retro-profile-art{border-radius:0 0 10px 10px}
+
+/* Compact article rhythm and numbered editorial carousels */
+.budget-vcc .philosophy-profile{padding:15px 14px 8px;height:auto;min-height:0}
+.budget-vcc .profile-art.retro-profile-art{height:166px;width:125px;aspect-ratio:auto;margin:4px auto 0;background-size:400% 100%;border-radius:4px}
+.budget-vcc .profile-price strong{font-size:27px}
+.budget-vcc .profile-top{gap:8px}
+.budget-vcc .profile-name p{font-size:10px}
+.budget-vcc .calculator-grid{gap:22px;align-items:stretch}
+.budget-vcc .breakdown-card,.budget-vcc .calculator-card{padding:20px}
+.budget-vcc .breakdown-head h3{font-size:27px}
+.budget-vcc .chart-layout{display:flex;flex-direction:row;align-items:center;justify-content:center;gap:23px;margin:20px 0;padding:0}
+.budget-vcc .donut{width:clamp(170px,18vw,235px)}
+.budget-vcc .donut-inner strong{font-size:39px}
+.budget-vcc .donut-inner small{font-size:10px}
+.budget-vcc .legend{width:auto;flex:1;gap:11px;min-width:0}
+.budget-vcc .legend-row{font-size:10px;grid-template-columns:8px minmax(0,1fr) auto;gap:5px;padding-bottom:8px}
+.budget-vcc .calc-ticket-head{padding-bottom:12px;margin-bottom:12px}
+.budget-vcc .calc-ticket-head h3{font-size:26px;margin:5px 0}
+.budget-vcc .calc-ticket-head p{font-size:11px}
+.budget-vcc .calc-control{padding:7px 4px}
+.budget-vcc .calc-top{margin-bottom:9px}
+.budget-vcc .category-row{margin:4px 0;padding:0}
+.budget-vcc .category-row select{padding:6px 8px;font-size:11px}
+.budget-vcc .calc-total{padding:14px 18px;margin:13px 0 0}
+.budget-vcc .calc-total strong{font-size:38px;margin:2px 0}
+.budget-vcc .daily-ticket strong{font-size:25px}
+.budget-vcc .calc-total small{font-size:16px}
+.budget-vcc .calc-foot{padding:7px 0;font-size:9px}
+.budget-vcc .budget-assumptions{font-size:9px;margin-top:8px}
+.budget-vcc .savings-section .carousel-shell{grid-template-columns:30px minmax(0,1fr) 30px;gap:12px}
+.budget-vcc .saving-tip{flex:0 0 calc((100% - 36px)/3);text-align:left;background:#fffdf9;border:1px solid #e8ded3;border-radius:9px;padding:20px;scroll-snap-align:start}
+.budget-vcc .savings-section .tips-track{gap:18px;align-items:stretch;scroll-snap-type:x mandatory}
+.budget-vcc .saving-number{display:inline-flex;align-items:center;font:600 12px/1 'Oswald',sans-serif;letter-spacing:.1em;color:#a65340;border-bottom:2px solid #cf705c;padding:0 0 8px;margin:0 0 13px}
+.budget-vcc .saving-tip h3{font-size:22px;margin:0 0 9px}
+.budget-vcc .saving-tip p{font-size:12px;line-height:1.65}
+.budget-vcc .carousel-arrow{width:30px;height:30px;border-color:#ddcdbf;color:#a65340;box-shadow:none}
+.budget-vcc .spend-grid{gap:22px}
+.budget-vcc .spend-panel{padding:23px;border:1px solid #deded1;border-radius:10px}
+.budget-vcc .spend-panel.worth{background:#f0f2e9}
+.budget-vcc .spend-panel.skip{background:#f5eee4;border-color:#e6dac8}
+.budget-vcc .spend-title{gap:11px;align-items:center;margin-bottom:21px}
+.budget-vcc .spend-title>.panel-symbol{width:31px;height:31px;font-size:23px;font-weight:400;color:#64735b;background:#e1e7d8;border-radius:50%;flex:none}
+.budget-vcc .skip .spend-title>.panel-symbol{background:#eadcc8;color:#95714e}
+.budget-vcc .spend-title h3{font-size:24px;margin:0 0 5px}
+.budget-vcc .spend-title p{font-size:11px;line-height:1.5;margin:0}
+.budget-vcc .compact .tips-track{gap:17px;scroll-snap-type:x mandatory}
+.budget-vcc .compact .tips-track article{flex:0 0 calc((100% - 17px)/2);padding:0 2px;text-align:left}
+.budget-vcc .photo-track img{width:100%;height:95px;border-radius:5px;margin:0 0 13px;object-fit:cover;filter:saturate(.75)}
+.budget-vcc .no-spend-track .line-icon{width:100%;height:95px;border:1px solid #dfd0bc;border-radius:5px;background:#fffbf5;margin:0 0 13px;color:#907052}
+.budget-vcc .editorial-icon svg{width:52px;height:52px}
+.budget-vcc .spend-panel h4{font-size:20px;margin-bottom:8px}
+.budget-vcc .spend-panel article p{font-size:11px;line-height:1.6}
+@media(max-width:1100px){
+.budget-vcc .chart-layout{gap:26px}.budget-vcc .legend{max-width:280px}
+}
+@media(max-width:720px){
+.budget-vcc .saving-tip{flex-basis:calc((100% - 18px)/2);padding:16px}
+.budget-vcc .spend-grid{grid-template-columns:1fr}
+.budget-vcc .chart-layout{flex-direction:column;gap:24px}
+.budget-vcc .donut{width:220px}
+.budget-vcc .legend{width:100%;max-width:350px}
+.budget-vcc .legend-row{font-size:12px}
+}
+@media(max-width:480px){
+.budget-vcc .saving-tip{flex-basis:100%}
+.budget-vcc .profile-art.retro-profile-art{height:166px;width:125px}
+.budget-vcc .compact .tips-track article{flex-basis:100%}
+.budget-vcc .savings-section .carousel-shell{gap:8px}
+}
