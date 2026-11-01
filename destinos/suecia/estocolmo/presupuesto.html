@@ -106,17 +106,17 @@
   <div class="calculator-grid">
     <section class="breakdown-card">
       <div class="breakdown-head">
-        <div><span class="kicker">EJEMPLO VCC</span><h3>¿En qué se va el dinero?</h3></div>
-        <span class="daily-label">por día y persona</span>
+        <div><h3>¿En qué se va el dinero?</h3></div>
+        <span class="daily-label">según tu selección</span>
       </div>
       <div class="chart-layout">
-        <div class="donut"><div class="donut-inner"><strong id="donut-total">110 €</strong><small>por persona y día</small></div></div>
+        <div class="donut"><div class="donut-inner"><strong style="font-size:25px">Tu viaje</strong><small>reparto del presupuesto</small></div></div>
         <div class="legend">
-          <div class="legend-row" style="--dot:#cf705c"><i></i><span>Alojamiento</span><strong id="legend-alojamiento">35 € · 32%</strong></div>
-          <div class="legend-row" style="--dot:#e4a65a"><i></i><span>Comida</span><strong id="legend-comida">25 € · 23%</strong></div>
-          <div class="legend-row" style="--dot:#5ca5a2"><i></i><span>Transporte</span><strong id="legend-transporte">15 € · 14%</strong></div>
-          <div class="legend-row" style="--dot:#6e9e77"><i></i><span>Actividades</span><strong id="legend-actividades">25 € · 23%</strong></div>
-          <div class="legend-row" style="--dot:#c9ad7b"><i></i><span>Extras</span><strong id="legend-extras">10 € · 9%</strong></div>
+          <div class="legend-row" style="--dot:#cf705c"><i></i><span>Alojamiento</span><strong id="legend-alojamiento">0 €</strong></div>
+          <div class="legend-row" style="--dot:#e4a65a"><i></i><span>Comida</span><strong id="legend-comida">0 €</strong></div>
+          <div class="legend-row" style="--dot:#5ca5a2"><i></i><span>Transporte</span><strong id="legend-transporte">0 €</strong></div>
+          <div class="legend-row" style="--dot:#6e9e77"><i></i><span>Actividades</span><strong id="legend-actividades">0 €</strong></div>
+          <div class="legend-row" style="--dot:#c9ad7b"><i></i><span>Extras</span><strong id="legend-extras">0 €</strong></div>
         </div>
       </div>
     </section>
@@ -133,9 +133,8 @@
       <div class="category-row"><span>🚇 Transporte</span><select data-category="transporte"><option value="mochilero">Mochilero</option><option value="vcc" selected>VCC</option><option value="medio">Medio</option><option value="lujo">Lujo</option></select><strong id="price-transporte">15 €</strong></div>
       <div class="category-row"><span>🎟 Actividades</span><select data-category="actividades"><option value="mochilero">Mochilero</option><option value="vcc" selected>VCC</option><option value="medio">Medio</option><option value="lujo">Lujo</option></select><strong id="price-actividades">25 €</strong></div>
       <div class="category-row"><span>✦ Extras</span><select data-category="extras"><option value="mochilero">Mochilero</option><option value="vcc" selected>VCC</option><option value="medio">Medio</option><option value="lujo">Lujo</option></select><strong id="price-extras">10 €</strong></div>
-      <div class="calc-total"><div><span>TU VIAJE, EN NÚMEROS</span><strong id="grand-total">810 €</strong><small id="per-person-total">405 € por persona</small></div><div class="daily-ticket"><span>POR PERSONA Y DÍA*</span><strong id="daily-total">110 €</strong></div></div>
-      <p class="calc-foot" id="trip-total" aria-live="polite">Para 2 viajeros · 4 días / 3 noches · total estimado: 810 €</p>
-    <p class="budget-assumptions">Importes orientativos · Sin vuelos. Alojamiento por noche; resto de partidas por día. *Referencia diaria con una noche de alojamiento.</p></section>
+      <div class="calc-total"><div><span>TOTAL ESTIMADO</span><strong id="grand-total" aria-live="polite">810 €</strong><small id="trip-total">2 viajeros · 4 días · 3 noches</small></div></div>
+      <p class="budget-assumptions" style="font-size:11px;line-height:1.5;margin-top:10px">No incluye vuelos ni transporte de ida y vuelta hasta el destino.</p></section>
   </div>
 </section>
 
@@ -213,13 +212,11 @@ function sync(){
     daily+=v;
     document.getElementById("price-"+c).textContent=euro(v);
   });
-  document.getElementById("daily-total").textContent=euro(daily);
-  document.getElementById("donut-total").textContent=euro(daily);
   let arc=0; const colors=["#cf705c","#e4a65a","#5ca5a2","#6e9e77","#c9ad7b"];
   document.querySelector(".donut").style.background="conic-gradient("+cats.map((c,i)=>{const start=arc;arc+=prices[state.choices[c]][c]/daily*100;return colors[i]+" "+start+"% "+arc+"%";}).join(",")+")";
   cats.forEach(c=>{
     const v=prices[state.choices[c]][c];
-    document.getElementById("legend-"+c).textContent=euro(v)+" · "+Math.round(v/daily*100)+"%";
+    document.getElementById("legend-"+c).textContent=euro(v*(c==="alojamiento"?state.nights:state.days)*state.people);
   });
   document.getElementById("days-output").textContent=state.days;
   document.getElementById("nights-output").textContent=state.nights;
@@ -228,8 +225,7 @@ function sync(){
     (prices[state.choices.comida].comida+prices[state.choices.transporte].transporte+
      prices[state.choices.actividades].actividades+prices[state.choices.extras].extras)*state.days)*state.people;
   document.getElementById("grand-total").textContent=euro(total);
-  document.getElementById("per-person-total").textContent=euro(total/state.people)+" por persona";
-  document.getElementById("trip-total").textContent="Para "+state.people+" viajeros · "+state.days+" días / "+state.nights+" noches · total estimado: "+euro(total);
+  document.getElementById("trip-total").textContent=state.people+" viajeros · "+state.days+" días · "+state.nights+" noches";
 }
 document.querySelectorAll("[data-category]").forEach(s=>s.addEventListener("change",()=>{state.choices[s.dataset.category]=s.value;sync()}));
 document.querySelectorAll("[data-step]").forEach(b=>b.addEventListener("click",()=>{
