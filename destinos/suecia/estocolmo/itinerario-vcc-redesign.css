@@ -535,3 +535,27 @@ html body .day-section{
 html body .vcc-summary{
   padding-top:18px!important;
 }
+
+
+/* Quality 2026-11-01e · Volver al anclaje nativo, solo un poco más arriba */
+html{scroll-padding-top:96px!important}
+html body .day-section{
+  scroll-margin-top:96px!important;
+  padding-top:18px!important;
+}
+html body .vcc-summary{
+  scroll-margin-top:96px!important;
+  padding-top:28px!important;
+}
+html body .day-section + .day-section{margin-top:0!important}
+html body .day-section:not(:last-of-type){margin-bottom:64px!important}
+@media(max-width:850px){
+  html{scroll-padding-top:92px!important}
+  html body .day-section,
+  html body .vcc-summary{scroll-margin-top:92px!important}
+}
+@media(max-width:650px){
+  html{scroll-padding-top:88px!important}
+  html body .day-section,
+  html body .vcc-summary{scroll-margin-top:88px!important}
+}
