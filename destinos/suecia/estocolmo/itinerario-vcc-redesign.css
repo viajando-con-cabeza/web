@@ -335,3 +335,129 @@ html body .vcc-nav a::after{content:none!important}
   html body .vcc-nav-inner{gap:22px!important;padding:0 14px!important}
   html body .vcc-nav a{font-size:10px!important}
 }
+
+
+/* Quality 2026-11-01 · Hero del itinerario alineado visualmente con Qué ver */
+html body .vcc-hero{
+  position:relative!important;
+  min-height:465px!important;
+  height:465px!important;
+  max-height:465px!important;
+  overflow:hidden!important;
+  background:
+    url('../../../assets/images/background_que_ver_imprescindibles_vcc.webp') center/cover no-repeat,
+    url('https://images.unsplash.com/photo-1509356843151-3e7d96241e11?auto=format&fit=crop&w=2200&q=90') center/cover no-repeat!important;
+  color:#171717!important;
+}
+html body .vcc-hero-inner{
+  position:relative!important;
+  width:min(1180px,calc(100% - 48px))!important;
+  height:100%!important;
+  min-height:465px!important;
+  margin:0 auto!important;
+  padding:0!important;
+}
+html body .vcc-crumb{
+  position:absolute!important;
+  top:12px!important;
+  left:0!important;
+  z-index:3!important;
+  display:flex!important;
+  align-items:center!important;
+  gap:0!important;
+  width:100%!important;
+  margin:0!important;
+  padding:0!important;
+  color:#665f58!important;
+  font-family:'DM Sans',sans-serif!important;
+  font-size:11px!important;
+  font-weight:400!important;
+  line-height:1.4!important;
+  letter-spacing:0!important;
+  text-transform:none!important;
+}
+html body .vcc-crumb a{color:inherit!important;text-decoration:none!important;font-weight:400!important}
+html body .vcc-crumb span{margin:0 8px!important;color:#9b928a!important}
+html body .vcc-crumb strong{font-weight:800!important;color:#4f4a45!important}
+html body .vcc-hero-card{
+  position:absolute!important;
+  top:90px!important;
+  left:0!important;
+  width:min(690px,78vw)!important;
+  margin:0!important;
+  padding:0!important;
+  background:transparent!important;
+  border:0!important;
+  border-radius:0!important;
+  box-shadow:none!important;
+  backdrop-filter:none!important;
+  color:#171717!important;
+}
+html body .vcc-eyebrow{
+  margin:0 0 13px!important;
+  color:#c86f5d!important;
+  font-family:'DM Sans',sans-serif!important;
+  font-size:11px!important;
+  font-weight:800!important;
+  line-height:1.2!important;
+  letter-spacing:.09em!important;
+}
+html body .vcc-hero h1{
+  max-width:690px!important;
+  margin:0!important;
+  color:#171717!important;
+  font-family:'Oswald',sans-serif!important;
+  font-size:clamp(56px,5.2vw,77px)!important;
+  font-weight:500!important;
+  line-height:.98!important;
+  letter-spacing:-.02em!important;
+  text-transform:uppercase!important;
+  text-shadow:none!important;
+}
+html body .vcc-hero .script{
+  margin:14px 0!important;
+  color:#c86f5d!important;
+  font-family:'Caveat',cursive!important;
+  font-size:32px!important;
+  font-weight:600!important;
+  line-height:1.12!important;
+  transform:rotate(-1deg)!important;
+}
+html body .vcc-hero-card>p:not(.script){
+  max-width:560px!important;
+  margin:0!important;
+  color:#171717!important;
+  font-family:'DM Sans',sans-serif!important;
+  font-size:14px!important;
+  font-weight:400!important;
+  line-height:1.65!important;
+}
+html body .vcc-facts{display:none!important}
+
+@media(max-width:850px){
+  html body .vcc-hero,
+  html body .vcc-hero-inner{
+    height:450px!important;
+    min-height:450px!important;
+    max-height:450px!important;
+  }
+  html body .vcc-hero-card{top:90px!important;width:min(620px,86vw)!important}
+}
+@media(max-width:650px){
+  html body .vcc-hero,
+  html body .vcc-hero-inner{
+    height:440px!important;
+    min-height:440px!important;
+    max-height:440px!important;
+  }
+  html body .vcc-hero{
+    background-position:62% center,62% center!important;
+  }
+  html body .vcc-hero-inner{width:calc(100% - 28px)!important}
+  html body .vcc-crumb{top:12px!important;font-size:10px!important}
+  html body .vcc-crumb span{margin:0 5px!important}
+  html body .vcc-hero-card{top:85px!important;width:100%!important}
+  html body .vcc-hero h1{font-size:clamp(42px,10vw,58px)!important}
+  html body .vcc-hero .script{font-size:27px!important}
+  html body .vcc-hero-card>p:not(.script){font-size:12px!important}
+}
