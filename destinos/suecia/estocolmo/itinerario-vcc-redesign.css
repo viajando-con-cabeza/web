@@ -461,3 +461,23 @@ html body .vcc-facts{display:none!important}
   html body .vcc-hero .script{font-size:27px!important}
   html body .vcc-hero-card>p:not(.script){font-size:12px!important}
 }
+
+
+/* Quality 2026-11-01 · Espaciado entre días y anclajes exactos */
+html{scroll-padding-top:104px!important}
+html body .day-section{
+  scroll-margin-top:104px!important;
+}
+html body .day-section + .day-section{
+  margin-top:72px!important;
+}
+@media(max-width:850px){
+  html{scroll-padding-top:96px!important}
+  html body .day-section{scroll-margin-top:96px!important}
+  html body .day-section + .day-section{margin-top:60px!important}
+}
+@media(max-width:650px){
+  html{scroll-padding-top:92px!important}
+  html body .day-section{scroll-margin-top:92px!important}
+  html body .day-section + .day-section{margin-top:52px!important}
+}
