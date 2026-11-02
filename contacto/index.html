@@ -36,10 +36,11 @@
 <img class="contact-plane-logo" src="/configuracion/imagenes/marca/logo-vcc-vuelo-transparent.svg" alt="Viajando con Cabeza">
 <h2>¡ESTAREMOS ENCANTADOS<br>DE AYUDARTE!</h2>
 <p class="form-intro">Rellena el formulario y te responderemos lo antes posible.</p>
+<div id="contactSuccess" role="status" aria-live="polite" hidden style="margin:0 0 18px;padding:16px 18px;background:#f2e4d8;border:1px solid #e7ddd4;border-radius:5px;color:#292724"><strong style="display:block;font:500 23px/1.2 Caveat,cursive;color:#b94f34;margin-bottom:5px">¡Mensaje enviado!</strong><span style="font:400 13px/1.6 DM Sans,sans-serif">Hemos recibido tu mensaje. Gracias por escribirnos; te responderemos lo antes posible.</span></div>
 <form id="contactForm" action="https://formsubmit.co/info@viajandoconcabeza.com" method="POST">
 <input type="hidden" name="_subject" value="Nuevo mensaje desde Viajando con Cabeza">
 <input type="hidden" name="_template" value="table">
-<input type="hidden" name="_next" value="https://www.quality.viajandoconcabeza.com/contacto/gracias/">
+<input type="hidden" name="_next" value="https://www.quality.viajandoconcabeza.com/contacto/?sent=1">
 <label class="sr-only" for="contactName">Nombre</label><input id="contactName" name="nombre" type="text" placeholder="Nombre *" autocomplete="name" required>
 <label class="sr-only" for="contactEmail">Email</label><input id="contactEmail" name="email" type="email" placeholder="Email *" autocomplete="email" required>
 <label class="sr-only" for="contactSubject">Asunto</label><select id="contactSubject" name="asunto"><option value="">Asunto</option><option>Dudas sobre un viaje</option><option>Colaboraciones</option><option>Sugerencias para el blog</option><option>Otro tema</option></select>
