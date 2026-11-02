@@ -120,5 +120,5 @@ const prev=document.getElementById('navPrev'),next=document.getElementById('navN
 document.querySelectorAll('.gallery').forEach(g=>{const main=g.querySelector('.gallery-main'),hero=main.querySelector('img'),count=main.querySelector('.photo-count'),btns=[...g.querySelectorAll('.thumbs button')],imgs=JSON.parse(main.dataset.images);btns.forEach(b=>b.onclick=()=>{const i=+b.dataset.i;hero.src=imgs[i];if(count)count.textContent=`${i+1} / ${imgs.length}`;btns.forEach(x=>x.classList.toggle('is-active',x===b))})});
 </script>
 <script src="/configuracion/js/plantillas/imprescindibles-interactions.js" defer></script>
-</body>
+<script src="/configuracion/js/site-footer.js?v=20261102"></script></body>
 </html>
