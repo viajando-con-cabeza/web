@@ -178,3 +178,28 @@ body:has(.contact-page) .contact-cta .contact-eyebrow{background:transparent!imp
   body:has(.contact-page) .contact-cta h2{font-size:29px!important}
 }
 @media(prefers-reduced-motion:reduce){body:has(.planifica-page) *,body.about-vcc *,body:has(.contact-page) *{scroll-behavior:auto!important;transition:none!important}}
+
+/* CONTACTO · refinamiento solicitado: hero editorial, redes completas y mapamundi */
+body:has(.contact-page) .contact-hero-content{padding:48px 0!important}
+body:has(.contact-page) .contact-hero .contact-eyebrow{display:none!important}
+body:has(.contact-page) .contact-hero h1{font-family:"Oswald",sans-serif!important;font-size:clamp(34px,3.6vw,48px)!important;font-weight:500!important;line-height:1.08!important;letter-spacing:0!important;margin:0 0 7px!important;text-transform:uppercase!important}
+body:has(.contact-page) .contact-hero-script{font-family:"Caveat",cursive!important;font-size:clamp(21px,2.2vw,28px)!important;line-height:1.2!important;color:var(--vcc-orange-dark)!important;margin:0 0 8px!important;max-width:none!important}
+body:has(.contact-page) .contact-hero p:not(.contact-hero-script){font-family:"DM Sans",sans-serif!important;font-size:15px!important;line-height:1.65!important;max-width:590px!important;margin:0!important}
+body:has(.contact-page) .contact-plane-logo{position:absolute!important;right:22px!important;top:18px!important;width:52px!important;height:52px!important;object-fit:contain!important;opacity:.9!important}
+body:has(.contact-page) .contact-form-wrap{position:relative!important;padding-top:82px!important}
+body:has(.contact-page) .contact-form-wrap .contact-eyebrow{display:none!important}
+body:has(.contact-page) .contact-form-wrap h2{margin-top:0!important}
+body:has(.contact-page) .contact-icon svg{width:27px!important;height:27px!important}
+body:has(.contact-page) .contact-method strong{font-size:19px!important}
+body:has(.contact-page) .contact-method em{text-decoration:none!important}
+body:has(.contact-page) .contact-note{margin-top:25px!important;padding-top:22px!important}
+body:has(.contact-page) .contact-postcard.world-map-image{height:190px!important;max-width:100%!important;margin:18px auto 0!important;padding:0!important;border:8px solid #fffdfb!important;border-radius:5px!important;transform:rotate(-1.5deg)!important;background:#e9e5dd!important;overflow:hidden!important;box-shadow:0 6px 18px rgba(58,42,30,.09)!important}
+body:has(.contact-page) .world-map-image img{display:block!important;width:100%!important;height:100%!important;object-fit:cover!important;object-position:center!important}
+body:has(.contact-page) .contact-postcard.world-map-image:before{display:none!important}
+@media(max-width:650px){
+ body:has(.contact-page) .contact-hero h1{font-size:clamp(30px,8vw,38px)!important}
+ body:has(.contact-page) .contact-hero-script{font-size:23px!important}
+ body:has(.contact-page) .contact-plane-logo{width:42px!important;height:42px!important;right:13px!important;top:13px!important}
+ body:has(.contact-page) .contact-form-wrap{padding-top:72px!important}
+ body:has(.contact-page) .contact-postcard.world-map-image{height:145px!important}
+}
