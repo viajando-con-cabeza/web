@@ -280,9 +280,11 @@ body:has(.contact-page) .world-map-image img{
 }
 
 
-/* Contacto · eyebrow manuscrito, como los acentos editoriales de Estocolmo */
-body:has(.contact-page) .contact-eyebrow{
-  display:inline-block!important;background:transparent!important;padding:0!important;
-  color:var(--vcc-orange-dark)!important;font:600 25px/1.12 "Caveat",cursive!important;
-  letter-spacing:0!important;text-transform:none!important;
+/* Contacto · mismo acento editorial que los encabezados de la guía de Suecia/Estocolmo */
+body:has(.contact-page) .contact-hero .contact-eyebrow{
+  display:block!important;width:max-content!important;margin:0 0 9px!important;
+  padding:0!important;background:transparent!important;
+  font-family:"Caveat",cursive!important;font-size:25px!important;font-weight:600!important;
+  line-height:1!important;letter-spacing:0!important;text-transform:none!important;
+  color:var(--country-coral,#cf705c)!important;
 }
