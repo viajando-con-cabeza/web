@@ -7,7 +7,7 @@
 .planifica-script{font:600 clamp(21px,2.3vw,30px)/1.12 "Caveat",cursive;margin:0;color:#252a2e}
 .planifica-flight{display:flex;align-items:center;gap:10px;width:170px;margin-top:20px;color:var(--pl-orange)}
 .planifica-flight span{height:2px;background:var(--pl-orange);flex:1}.planifica-flight b{font-size:24px;color:var(--pl-ink);font-weight:400}
-.planifica-hero-image{position:absolute;inset:0 0 0 35%;background:linear-gradient(90deg,#f6e8d3 0%,rgba(246,232,211,.8) 12%,rgba(246,232,211,0) 48%),url("https://images.unsplash.com/photo-1452421822248-d4c2b47f0c9a?auto=format&fit=crop&w=1800&q=85") center/cover no-repeat}
+.planifica-hero-image{position:absolute;inset:0 0 0 35%;background:linear-gradient(90deg,#f6e8d3 0%,rgba(246,232,211,.78) 12%,rgba(246,232,211,.08) 48%),url("https://images.unsplash.com/photo-1472396961693-142e6e269027?auto=format&fit=crop&w=1800&q=85") center/cover no-repeat}
 .planifica-section-intro{text-align:center;max-width:720px;margin:0 auto 28px;padding:0 12px}
 .planifica-section-intro h2{font:600 clamp(28px,3.2vw,42px)/1.06 "Oswald",Impact,sans-serif;letter-spacing:-.02em;margin:9px 0 10px;color:var(--pl-ink)}
 .planifica-section-intro h2 em{font:600 .92em "Caveat",cursive;color:var(--pl-orange)}
@@ -17,7 +17,7 @@
 .planifica-card:hover{transform:translateY(-4px);border-color:#e9a66f;box-shadow:0 9px 22px #18191b12}
 .planifica-card-icon{width:66px;height:62px;display:grid;place-items:center;margin:0 auto 10px;font:600 45px/1 "Oswald",sans-serif;color:#192b39;position:relative}
 .planifica-card-icon:before{content:"";position:absolute;width:52px;height:52px;border-radius:50%;background:#f8e5cb;z-index:0}
-.planifica-card-icon{isolation:isolate}.planifica-card-icon:after{content:attr(data-icon);position:relative;z-index:1}
+.planifica-card-icon{isolation:isolate}.planifica-card-icon svg{position:relative;z-index:1;width:39px;height:39px;display:block;overflow:visible}.planifica-card-icon:after{content:none}
 .planifica-card h3{font:600 19px/1.15 "Oswald",Impact,sans-serif;margin:0 0 7px;letter-spacing:.01em}
 .planifica-card p{font:400 13px/1.45 "DM Sans",sans-serif;color:#555;margin:0;max-width:235px}
 .planifica-card-link{margin-top:auto;padding-top:13px;color:var(--pl-orange);font:700 11px/1.2 "DM Sans",sans-serif;letter-spacing:.04em}.planifica-card-link b{font-size:17px;margin-left:5px}
@@ -31,3 +31,14 @@
 @media(max-width:950px){.planifica-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.planifica-hero{min-height:300px}.planifica-hero-copy{padding-left:30px}.planifica-hero-image{left:35%}.planifica-bottom-stamp{display:none}}
 @media(max-width:600px){.planifica-page{width:calc(100% - 28px);padding-bottom:38px}.planifica-hero{min-height:300px;margin:14px 0 26px}.planifica-hero-copy{padding:28px 20px;max-width:88%}.planifica-hero h1{font-size:clamp(42px,12vw,60px)}.planifica-script{font-size:22px}.planifica-hero-image{left:0;opacity:.38;background-position:58% center}.planifica-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.planifica-card{min-height:205px;padding:17px 10px 14px}.planifica-card-icon{height:53px;width:55px;font-size:37px}.planifica-card h3{font-size:16px}.planifica-card p{font-size:12px}.planifica-card-link{font-size:10px}.planifica-section-intro h2{font-size:29px}.planifica-section-intro p{font-size:13px}.planifica-bottom{padding:22px 18px;display:block}.planifica-bottom h2{font-size:29px}.planifica-bottom-button{margin-top:17px}}
 @media(prefers-reduced-motion:reduce){.planifica-card{transition:none}.planifica-card:hover{transform:none}}
+
+/* Correcciones de iconografía y tarjetas: SVG inline y cajas uniformes */
+.planifica-card{min-width:0;min-height:228px;border-radius:12px;overflow:hidden}
+.planifica-card-icon{flex:0 0 66px}
+.planifica-card-icon svg{width:40px;height:40px}
+.planifica-card h3{min-height:23px}
+.planifica-card p{flex:1 0 auto}
+.planifica-card-link{display:flex;align-items:center;justify-content:center;gap:6px}
+.planifica-card:focus-visible,.planifica-bottom-button:focus-visible{outline:3px solid var(--pl-orange);outline-offset:3px}
+.planifica-hero-image{background-color:#e8d8c4}
+@media(max-width:600px){.planifica-card{min-height:218px}.planifica-card-icon{flex-basis:58px}.planifica-card-icon svg{width:35px;height:35px}}
