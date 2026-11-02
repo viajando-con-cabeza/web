@@ -1,1 +1,68 @@
-<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>Contacto | Viajando con Cabeza</title><meta name="description" content="Contacta con Viajando con Cabeza para dudas, colaboraciones y consultas sobre viajes."><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"><link rel="stylesheet" href="/configuracion/css/paginas.css"><link rel="stylesheet" href="/configuracion/css/overrides.css"></head><body><header class="page-header"></header><main class="page-container"><section class="page-intro"><span class="plane">✈</span><h1>CONTACTO</h1><p>¿Hablamos? Estamos al otro lado.</p></section><section class="contact-layout"><div class="contact-options"><div class="contact-option"><h3>💬 ¿TIENES DUDAS?</h3><p>Escríbenos y te ayudamos a planificar tu viaje.</p></div><div class="contact-option"><h3>🤝 COLABORACIONES</h3><p>¿Eres una marca y quieres trabajar con nosotros? Hablemos.</p></div><div class="contact-option"><h3>✉️ OTROS TEMAS</h3><p>Cualquier otra consulta, propuesta o sugerencia.</p></div></div><form class="contact-form"><div class="form-row"><input type="text" name="nombre" placeholder="Nombre" required><input type="email" name="email" placeholder="Email" required></div><input type="text" name="asunto" placeholder="Asunto"><textarea name="mensaje" placeholder="Mensaje" required></textarea><button type="submit" class="btn-page">ENVIAR MENSAJE →</button></form></section></main><footer class="vcc-global-footer"></footer><script src="/configuracion/js/site-header.js"></script><script src="/configuracion/js/site-footer.js?v=20261102"></script></body></html>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Contacto | Viajando con Cabeza</title>
+<meta name="description" content="¿Tienes alguna pregunta, sugerencia o propuesta? Contacta con Viajando con Cabeza.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Oswald:wght@400;500;600;700&family=Caveat:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/configuracion/css/contacto.css?v=20261102">
+</head>
+<body>
+<header class="page-header"></header>
+<main class="contact-page">
+<section class="contact-hero">
+<div class="contact-hero-content">
+<span class="contact-eyebrow">¿HABLAMOS?</span>
+<h1>CONTACTA CON<br>VIAJANDO CON CABEZA</h1>
+<p>¿Tienes alguna pregunta, sugerencia o quieres compartir<br class="desktop-only"> tu próxima aventura con nosotros? ¡Escríbenos!</p>
+<div class="contact-flight-line" aria-hidden="true"><span></span><b>✈</b></div>
+</div>
+</section>
+<section class="contact-main">
+<div class="contact-inner">
+<aside class="contact-info">
+<h2>NUESTRAS FORMAS DE CONTACTAR</h2>
+<a class="contact-method" href="mailto:hola@viajandoconcabeza.com"><span class="contact-icon" aria-hidden="true">✉</span><span><strong>Email</strong><em>hola@viajandoconcabeza.com</em></span></a>
+<a class="contact-method" href="https://www.instagram.com/viajandoconcabeza/" target="_blank" rel="noopener"><span class="contact-icon" aria-hidden="true">◎</span><span><strong>Síguenos en Instagram</strong><em>@viajandoconcabeza</em></span></a>
+<a class="contact-method" href="https://www.youtube.com/" target="_blank" rel="noopener"><span class="contact-icon video-icon" aria-hidden="true">▶</span><span><strong>Suscríbete en YouTube</strong><em>Viajando con Cabeza</em></span></a>
+<div class="contact-note"><p>¡Nos vemos en el próximo viaje!</p><span class="note-swoosh" aria-hidden="true"></span><div class="contact-postcard" role="img" aria-label="Postal ilustrada de mapas y cámara de viaje"><span class="postcard-stamp">VCC<br>✈</span><span class="postcard-map">✦ &nbsp; MAPA DEL MUNDO &nbsp; ✦</span><span class="postcard-camera">◉</span></div></div>
+</aside>
+<section class="contact-form-wrap">
+<div class="form-stamp" aria-hidden="true">✈<span>VCC · CORREO</span></div>
+<span class="contact-eyebrow">ENVÍANOS UN MENSAJE</span>
+<h2>¡ESTAREMOS ENCANTADOS<br>DE AYUDARTE!</h2>
+<p class="form-intro">Rellena el formulario y te responderemos lo antes posible.</p>
+<form id="contactForm">
+<label class="sr-only" for="contactName">Nombre</label><input id="contactName" name="nombre" type="text" placeholder="Nombre *" autocomplete="name" required>
+<label class="sr-only" for="contactEmail">Email</label><input id="contactEmail" name="email" type="email" placeholder="Email *" autocomplete="email" required>
+<label class="sr-only" for="contactSubject">Asunto</label><select id="contactSubject" name="asunto"><option value="">Asunto</option><option>Dudas sobre un viaje</option><option>Colaboraciones</option><option>Sugerencias para el blog</option><option>Otro tema</option></select>
+<label class="sr-only" for="contactMessage">Tu mensaje</label><textarea id="contactMessage" name="mensaje" placeholder="Tu mensaje *" required rows="5"></textarea>
+<label class="privacy-check"><input type="checkbox" required><span>Acepto la <a href="/politica-de-privacidad/">política de privacidad</a> *</span></label>
+<button type="submit">ENVIAR MENSAJE <span aria-hidden="true">→</span></button>
+<p class="form-feedback" id="contactFeedback" aria-live="polite"></p>
+</form>
+</section>
+</div>
+</section>
+<section class="contact-cta">
+<div class="contact-cta-inner"><span class="contact-eyebrow">GRACIAS POR ESTAR AQUÍ</span><h2>SEGUIMOS VIAJANDO JUNTOS</h2><p>Porque viajar, mejor en buena compañía.</p></div>
+</section>
+</main>
+<footer class="vcc-global-footer"></footer>
+<script src="/configuracion/js/site-header.js"></script>
+<script src="/configuracion/js/site-footer.js?v=20261102"></script>
+<script>
+document.getElementById('contactForm').addEventListener('submit',function(e){
+e.preventDefault();
+const data=new FormData(this);
+const subject=data.get('asunto')||'Mensaje desde la web';
+const body='Nombre: '+data.get('nombre')+'\nEmail: '+data.get('email')+'\n\n'+data.get('mensaje');
+document.getElementById('contactFeedback').textContent='Se abrirá tu aplicación de correo para enviar el mensaje.';
+window.location.href='mailto:hola@viajandoconcabeza.com?subject='+encodeURIComponent(subject)+'&body='+encodeURIComponent(body);
+});
+</script>
+</body>
+</html>
