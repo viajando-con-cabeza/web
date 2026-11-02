@@ -221,34 +221,40 @@ body:has(.contact-page) .world-map-image img{object-fit:contain!important;object
 body:has(.contact-page) .contact-cta h2{color:#fff!important;text-shadow:none!important}
 body:has(.contact-page) .contact-cta p{color:#fff!important;text-shadow:none!important}
 
-/* CONTACTO · nueva propuesta VCC en negro y naranja */
-body:has(.contact-page) .contact-hero{background-image:linear-gradient(90deg,rgba(20,20,20,.96) 0%,rgba(20,20,20,.88) 42%,rgba(20,20,20,.45) 100%),url("https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=2000&q=90")!important;background-color:#171717!important}
-body:has(.contact-page) .contact-hero h1{color:#fff!important}
-body:has(.contact-page) .contact-hero-script{color:#f47721!important}
-body:has(.contact-page) .contact-hero p:not(.contact-hero-script){color:#f5f1ed!important}
-body:has(.contact-page) .contact-flight-line{color:#f47721!important}
-body:has(.contact-page) .contact-flight-line span{background:#f47721!important}
-body:has(.contact-page) .contact-flight-line b{color:#fff!important}
-body:has(.contact-page) .contact-main{background:#f6f1eb!important}
-body:has(.contact-page) .contact-info h2{color:#171717!important}
-body:has(.contact-page) .contact-icon{background:#f47721!important;color:#171717!important}
-body:has(.contact-page) .contact-method em{color:#c94f0b!important}
-body:has(.contact-page) .contact-note{border-top-color:#d7c9bc!important}
-body:has(.contact-page) .contact-note p{color:#171717!important}
-body:has(.contact-page) .contact-postcard.world-map-image{width:100%!important;max-width:none!important;height:185px!important;box-sizing:border-box!important;padding:0!important;border:5px solid #f47721!important;border-radius:3px!important;transform:none!important;background:#fff!important;overflow:hidden!important}
-body:has(.contact-page) .world-map-image img{width:100%!important;height:100%!important;object-fit:cover!important;object-position:center!important;padding:0!important;background:#fff!important;filter:grayscale(1) contrast(1.15)!important;opacity:1!important}
-body:has(.contact-page) .contact-form-wrap{background:#1b1b1b!important;border:1px solid #f47721!important;border-radius:5px!important;box-shadow:0 8px 24px rgba(0,0,0,.12)!important}
-body:has(.contact-page) .contact-form-wrap h2{color:#fff!important}
-body:has(.contact-page) .form-intro{color:#e2ddd8!important}
-body:has(.contact-page) .contact-plane-logo{filter:brightness(0) invert(1)!important}
-body:has(.contact-page) #contactForm input[type=text],body:has(.contact-page) #contactForm input[type=email],body:has(.contact-page) #contactForm select,body:has(.contact-page) #contactForm textarea{background:#fff!important;border-color:#5a514a!important;color:#171717!important}
-body:has(.contact-page) .privacy-check{color:#f3ede7!important}
-body:has(.contact-page) .privacy-check a{color:#ff9a53!important}
-body:has(.contact-page) #contactForm button{background:#f47721!important;color:#171717!important}
-body:has(.contact-page) #contactForm button:hover{background:#ff913e!important}
-body:has(.contact-page) .form-feedback{color:#d7cec6!important}
-body:has(.contact-page) .contact-cta{background-image:linear-gradient(90deg,rgba(15,15,15,.92),rgba(15,15,15,.48)),url("https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=2000&q=90")!important}
-body:has(.contact-page) .contact-cta .contact-eyebrow{color:#f47721!important}
+/* CONTACTO · acento VCC sutil, editorial y cálido */
+body:has(.contact-page) .contact-hero{
+  background-image:linear-gradient(90deg,rgba(250,246,241,.97) 0%,rgba(250,246,241,.88) 40%,rgba(250,246,241,.18) 78%,rgba(250,246,241,.04)),url("https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=2000&q=90")!important;
+  background-color:#e9ded2!important;
+}
+body:has(.contact-page) .contact-hero h1{color:var(--vcc-ink)!important}
+body:has(.contact-page) .contact-hero-script{color:var(--vcc-orange-dark)!important}
+body:has(.contact-page) .contact-flight-line{color:var(--vcc-orange)!important}
+body:has(.contact-page) .contact-flight-line span{background:var(--vcc-orange)!important}
+body:has(.contact-page) .contact-flight-line b{color:var(--vcc-ink)!important}
+body:has(.contact-page) .contact-form-wrap{
+  background:#fffdfb!important;border:1px solid var(--vcc-line)!important;
+  border-top:3px solid var(--vcc-orange)!important;border-radius:6px!important;
+  box-shadow:0 5px 18px rgba(58,42,30,.055)!important;
+}
+body:has(.contact-page) .contact-form-wrap h2{color:var(--vcc-ink)!important}
+body:has(.contact-page) .contact-plane-logo{filter:none!important}
+body:has(.contact-page) .contact-icon{background:#f3e2d8!important;color:var(--vcc-orange-dark)!important}
+body:has(.contact-page) .contact-method em{color:var(--vcc-orange-dark)!important}
+body:has(.contact-page) .contact-postcard.world-map-image{
+  width:100%!important;max-width:none!important;height:185px!important;box-sizing:border-box!important;
+  padding:0!important;border:1px solid #e5c9b8!important;border-radius:4px!important;
+  transform:none!important;background:#f4e9df!important;overflow:hidden!important;
+}
+body:has(.contact-page) .world-map-image img{
+  width:100%!important;height:100%!important;object-fit:cover!important;object-position:center!important;
+  padding:0!important;background:#f4e9df!important;filter:grayscale(.55) sepia(.12) contrast(1.02)!important;opacity:.92!important;
+}
+body:has(.contact-page) #contactForm button{background:var(--vcc-orange)!important;color:#fff!important}
+body:has(.contact-page) #contactForm button:hover{background:var(--vcc-orange-dark)!important}
+body:has(.contact-page) .contact-cta{
+  background-image:linear-gradient(90deg,rgba(26,29,28,.75),rgba(26,29,28,.22)),url("https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=2000&q=90")!important;
+}
+body:has(.contact-page) .contact-cta .contact-eyebrow{background:transparent!important;color:#f4b28d!important;padding:0!important}
 body:has(.contact-page) .contact-cta h2{color:#fff!important;text-shadow:none!important}
 body:has(.contact-page) .contact-cta p{color:#fff!important;text-shadow:none!important}
 @media(max-width:650px){body:has(.contact-page) .contact-postcard.world-map-image{height:160px!important}}
