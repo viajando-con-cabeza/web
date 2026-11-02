@@ -7,7 +7,7 @@
 .planifica-script{font:600 clamp(21px,2.3vw,30px)/1.12 "Caveat",cursive;margin:0;color:#252a2e}
 .planifica-flight{display:flex;align-items:center;gap:10px;width:170px;margin-top:20px;color:var(--pl-orange)}
 .planifica-flight span{height:2px;background:var(--pl-orange);flex:1}.planifica-flight b{font-size:24px;color:var(--pl-ink);font-weight:400}
-.planifica-hero-image{position:absolute;inset:0 0 0 35%;background:linear-gradient(90deg,#f6e8d3 0%,rgba(246,232,211,.78) 12%,rgba(246,232,211,.08) 48%),url("https://images.unsplash.com/photo-1472396961693-142e6e269027?auto=format&fit=crop&w=1800&q=85") center/cover no-repeat}
+.planifica-hero-image{position:absolute;inset:0 0 0 35%;background-color:#e8d8c4;background-image:linear-gradient(90deg,#f6e8d3 0%,rgba(246,232,211,.82) 12%,rgba(246,232,211,.08) 48%),url("https://images.unsplash.com/photo-1472396961693-142e6e269027?auto=format&fit=crop&w=1800&q=85");background-position:center;background-size:cover;background-repeat:no-repeat}
 .planifica-section-intro{text-align:center;max-width:720px;margin:0 auto 28px;padding:0 12px}
 .planifica-section-intro h2{font:600 clamp(28px,3.2vw,42px)/1.06 "Oswald",Impact,sans-serif;letter-spacing:-.02em;margin:9px 0 10px;color:var(--pl-ink)}
 .planifica-section-intro h2 em{font:600 .92em "Caveat",cursive;color:var(--pl-orange)}
@@ -42,3 +42,17 @@
 .planifica-card:focus-visible,.planifica-bottom-button:focus-visible{outline:3px solid var(--pl-orange);outline-offset:3px}
 .planifica-hero-image{background-color:#e8d8c4}
 @media(max-width:600px){.planifica-card{min-height:218px}.planifica-card-icon{flex-basis:58px}.planifica-card-icon svg{width:35px;height:35px}}
+
+/* Revisión general Quality: iconos SVG inline, tarjetas y responsividad */
+.planifica-card-icon{width:66px;height:62px;flex:0 0 62px;display:grid;place-items:center;margin:0 auto 12px;position:relative;color:#23313a}
+.planifica-card-icon:before{content:"";position:absolute;width:52px;height:52px;border-radius:50%;background:#f8e5cb;z-index:0}
+.planifica-card-icon svg{position:relative;z-index:1;display:block;width:39px;height:39px}
+.planifica-card{box-sizing:border-box;min-width:0;min-height:232px;border-radius:12px;overflow:hidden}
+.planifica-card h3{min-height:23px}
+.planifica-card p{flex:1 0 auto}
+.planifica-card-link{display:flex;align-items:center;justify-content:center;gap:6px}
+.planifica-card:focus-visible,.planifica-bottom-button:focus-visible{outline:3px solid var(--pl-orange);outline-offset:3px}
+.planifica-hero-image{background-color:#e8d8c4}
+@media(max-width:950px){.planifica-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.planifica-hero{min-height:300px}.planifica-hero-copy{padding-left:30px}.planifica-hero-image{left:30%}.planifica-bottom{flex-wrap:wrap}}
+@media(max-width:600px){.planifica-card{min-height:218px;padding:17px 10px 14px}.planifica-card-icon{height:53px;width:55px;flex-basis:53px}.planifica-card-icon svg{width:35px;height:35px}.planifica-card h3{font-size:16px;min-height:35px}.planifica-card p{font-size:12px}.planifica-card-link{font-size:10px}.planifica-hero-copy{max-width:92%}.planifica-hero-image{left:0;opacity:.36;background-position:58% center}}
+@media(max-width:360px){.planifica-grid{grid-template-columns:1fr}.planifica-card{min-height:195px}}
