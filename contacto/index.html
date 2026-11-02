@@ -55,14 +55,7 @@
 <script src="/configuracion/js/site-header.js"></script>
 <script src="/configuracion/js/site-footer.js?v=20261102"></script>
 <script>
-document.getElementById('contactForm').addEventListener('submit',function(e){
-e.preventDefault();
-const data=new FormData(this);
-const subject=data.get('asunto')||'Mensaje desde la web';
-const body='Nombre: '+data.get('nombre')+'\nEmail: '+data.get('email')+'\n\n'+data.get('mensaje');
-document.getElementById('contactFeedback').textContent='Se abrirá tu aplicación de correo. Pulsa Enviar allí para completar el envío.';
-window.location.href='mailto:adminviajandoconcabeza@gmail.com?subject='+encodeURIComponent(subject)+'&body='+encodeURIComponent(body);
-});
+// El formulario se envía directamente a FormSubmit.
 </script>
 </body>
 </html>
