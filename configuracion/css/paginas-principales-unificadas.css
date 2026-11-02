@@ -258,3 +258,23 @@ body:has(.contact-page) .contact-cta .contact-eyebrow{background:transparent!imp
 body:has(.contact-page) .contact-cta h2{color:#fff!important;text-shadow:none!important}
 body:has(.contact-page) .contact-cta p{color:#fff!important;text-shadow:none!important}
 @media(max-width:650px){body:has(.contact-page) .contact-postcard.world-map-image{height:160px!important}}
+
+/* CONTACTO · subtítulo editorial y fotografía inspiradora */
+body:has(.contact-page) .contact-hero .contact-eyebrow{
+  display:block!important;width:max-content!important;
+  margin:0 0 9px!important;padding:0!important;
+  background:transparent!important;color:var(--vcc-orange-dark)!important;
+  font:700 11px/1.4 "DM Sans",sans-serif!important;
+  letter-spacing:.12em!important;text-transform:uppercase!important;
+}
+body:has(.contact-page) .contact-postcard.world-map-image{
+  height:230px!important;border:1px solid #e5c9b8!important;
+  border-radius:5px!important;overflow:hidden!important;
+}
+body:has(.contact-page) .world-map-image img{
+  object-fit:cover!important;object-position:center 58%!important;
+  filter:none!important;opacity:1!important;
+}
+@media(max-width:650px){
+ body:has(.contact-page) .contact-postcard.world-map-image{height:175px!important}
+}
