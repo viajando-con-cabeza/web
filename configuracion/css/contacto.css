@@ -69,3 +69,15 @@ a{color:inherit}
 .form-feedback{font-size:11px;line-height:1.5;color:#6f5c4b}
 .contact-note p{font-size:27px}
 @media(max-width:600px){.contact-info h2{font-size:21px}.contact-method strong{font-size:18px}.contact-form-wrap h2{font-size:27px}.contact-eyebrow{font-size:10px}}
+
+/* Ajuste de escala: titulares más contenidos, en línea con Nosotros */
+.contact-hero h1{font-size:clamp(31px,3.25vw,43px);line-height:1.08;letter-spacing:-.025em}
+.contact-form-wrap h2{font-size:clamp(23px,2.2vw,29px);line-height:1.12;letter-spacing:0}
+.contact-cta h2{font-size:clamp(27px,2.8vw,36px);line-height:1.12}
+.contact-info h2{font-size:clamp(21px,1.9vw,26px);line-height:1.14}
+@media(max-width:600px){
+.contact-hero h1{font-size:clamp(29px,8vw,37px);line-height:1.08}
+.contact-form-wrap h2{font-size:26px;line-height:1.12}
+.contact-cta h2{font-size:27px}
+.contact-info h2{font-size:21px}
+}
