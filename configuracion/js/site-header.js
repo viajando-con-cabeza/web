@@ -23,7 +23,7 @@
   const menu = isEnglish ? [['inicio','HOME'],['destinos','DESTINATIONS'],['itinerarios','ITINERARIES'],['planifica','PLAN'],['nosotros','ABOUT'],['contacto','CONTACT']] : [['inicio','INICIO'],['destinos','DESTINOS'],['itinerarios','ITINERARIOS'],['planifica','PLANIFICA'],['nosotros','NOSOTROS'],['contacto','CONTACTO']];
   const instagramIcon='<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" class="shared-solid"/></svg>';
   const tiktokIcon='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14.5 4v10.1a4.4 4.4 0 1 1-3.7-4.3v3a1.7 1.7 0 1 0 1 1.6V4h2.7c.3 2.3 1.7 3.8 4.2 4.2v2.7a7.6 7.6 0 0 1-4.2-1.6"/></svg>';
-  const youtubeIcon='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 8.2a3 3 0 0 0-2.1-2.1C17 5.5 12 5.5 12 5.5s-5 0-6.9.6A3 3 0 0 0 3 8.2 31 31 0 0 0 2.5 12 31 31 0 0 0 3 15.8a3 3 0 0 0 2.1 2.1c1.9.6 6.9.6 6.9.6s5 0 6.9-.6a3 3 0 0 0 2.1-2.1 31 31 0 0 0 .5-3.8 31 31 0 0 0-.5-3.8Z"/><path class="shared-solid" d="m10 9 5 3-5 3Z"/></svg>';
+  const youtubeIcon='<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="5.5" width="19" height="13" rx="4"/><path class="shared-solid" d="m10 9 5 3-5 3Z"/></svg>'
   const languageTargets = { inicio:{es:'/',en:'/en/'}, nosotros:{es:'/nosotros/',en:'/en/about/'}, contacto:{es:'/contacto/',en:'/en/contact/'} };
   const languageTarget = languageTargets[section] || {es:currentPath,en:'/en/not-available/'};
   const languageSwitch=`<div class="shared-language" aria-label="Language"><a href="${languageTarget.es}" lang="es" class="${isEnglish?"":"active"}" aria-label="Español">ES</a><span aria-hidden="true">|</span><a href="${languageTarget.en}" lang="en" class="${isEnglish?"active":""}" aria-label="English">EN</a></div>`;
@@ -31,6 +31,11 @@
   // Preserve already-rendered HTML navigation; only fill legacy empty placeholders.
   const existing=document.querySelector('.site-header, .page-header, .shared-header');
   if (existing?.matches('.shared-header') && existing.querySelector('.shared-menu a')) {
+    // Refresh the three icons without replacing the working shared header.
+    const socialLinks=existing.querySelectorAll('.shared-social a');
+    [instagramIcon,tiktokIcon,youtubeIcon].forEach((svg,i)=>{
+      if(socialLinks[i]) socialLinks[i].innerHTML=svg;
+    });
     // Static header stays visible and functional even if this script fails later.
   } else if (existing) {
     existing.outerHTML=header;
@@ -38,6 +43,45 @@
     document.body.insertAdjacentHTML('afterbegin',header);
   }
   if(!document.getElementById('shared-header-style')){const style=document.createElement('style');style.id='shared-header-style';style.textContent='.shared-header{height:50px;background:#fff;border-bottom:1px solid #eee;position:sticky;top:0;z-index:1000;width:100%;font-family:"DM Sans",sans-serif}.shared-nav{width:min(1180px,calc(100% - 48px));height:50px;margin:auto;display:grid;grid-template-columns:138px 1fr 92px 52px;align-items:center;column-gap:16px}.shared-brand{display:flex;align-items:center;width:134px;height:44px}.shared-brand img{display:block;width:128px;height:42px;object-fit:contain;object-position:left center}.shared-menu{display:flex;align-items:center;justify-content:center;gap:25px;font-size:9.3px;font-weight:800}.shared-menu a{color:#111315;text-decoration:none;padding:18px 0 16px;position:relative;white-space:nowrap}.shared-menu a:hover{color:#ef7168}.shared-menu a.active:after{content:"";position:absolute;left:0;right:0;bottom:9px;height:2px;background:#ef7168}.shared-social{display:flex;justify-content:flex-end;align-items:center;gap:12px}.shared-language{display:flex;align-items:center;justify-content:flex-end;gap:5px;font:800 10px/1 "DM Sans",sans-serif;white-space:nowrap}.shared-language a{color:#777;text-decoration:none;padding:7px 2px}.shared-language a.active,.shared-language a:hover{color:#ef7168}.shared-social a{display:grid;place-items:center;width:22px;height:22px;color:#0f1113;text-decoration:none}.shared-social a:hover{color:#ef7168}.shared-social svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}.shared-social .shared-solid{fill:currentColor;stroke:none}@media(max-width:720px){.shared-header{height:auto;position:relative}.shared-nav{width:calc(100% - 28px);height:auto;grid-template-columns:minmax(0,1fr) auto;padding:4px 0}.shared-brand{width:122px;height:41px}.shared-brand img{width:118px;height:39px}.shared-social{display:flex;gap:10px;justify-self:end;flex-shrink:0}.shared-language{grid-column:2;grid-row:1;align-self:start;margin-top:4px;justify-self:end}.shared-social a{width:28px;height:28px}.shared-social svg{width:19px;height:19px}.shared-menu{grid-column:1/3;order:3;overflow-x:auto;justify-content:flex-start;gap:18px;padding:2px 0 1px;scrollbar-width:none}.shared-menu::-webkit-scrollbar{display:none}.shared-menu a{padding:4px 0}.shared-menu a.active:after{bottom:0}}@media(max-width:380px){.shared-nav{width:calc(100% - 20px)}.shared-language{grid-column:2;grid-row:1;margin-right:0}.shared-brand{width:108px}.shared-brand img{width:104px}.shared-social{gap:6px}.shared-social a{width:26px;height:26px}.shared-social svg{width:18px;height:18px}}';document.head.appendChild(style);}
+
+  // Social icons: consistent 24px hit area and optically matched 19px drawings.
+  if (!document.getElementById('vcc-header-social-icons')) {
+    const socialStyle=document.createElement('style');
+    socialStyle.id='vcc-header-social-icons';
+    socialStyle.textContent=`
+      html body > .shared-header .shared-social a {
+        box-sizing:border-box!important;
+        display:grid!important;
+        place-items:center!important;
+        width:25px!important;
+        height:25px!important;
+        flex:0 0 25px!important;
+        padding:0!important;
+        margin:0!important;
+      }
+      html body > .shared-header .shared-social svg {
+        display:block!important;
+        width:19px!important;
+        height:19px!important;
+        fill:none!important;
+        stroke:currentColor!important;
+        stroke-width:1.8!important;
+        stroke-linecap:round!important;
+        stroke-linejoin:round!important;
+      }
+      html body > .shared-header .shared-social svg .shared-solid {
+        fill:currentColor!important;
+        stroke:none!important;
+      }
+      @media(max-width:380px) {
+        html body > .shared-header .shared-social a {
+          width:22px!important;height:22px!important;flex-basis:22px!important;
+        }
+        html body > .shared-header .shared-social svg {width:17px!important;height:17px!important}
+      }
+    `;
+    document.head.appendChild(socialStyle);
+  }
   // Single source of truth for the main navigation across every page.
   // Match the type scale used by the Sweden/Stockholm guides without changing secondary tabs.
   if(!document.getElementById('vcc-global-navigation-unified')){
