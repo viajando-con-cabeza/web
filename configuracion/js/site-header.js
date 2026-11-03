@@ -36,7 +36,7 @@
     const unified=document.createElement('style');
     unified.id='vcc-global-navigation-unified';
     unified.textContent=`
-      html body > .shared-header .shared-nav { width:min(1180px,calc(100% - 48px))!important; max-width:1180px!important; margin-inline:auto!important; }
+      html body > .shared-header .shared-nav { width:100%!important; max-width:none!important; margin-inline:0!important; padding-inline:24px!important; box-sizing:border-box!important; }
       html body > .shared-header .shared-menu { font-family:'DM Sans',sans-serif!important; font-size:12px!important; font-weight:800!important; line-height:1.15!important; letter-spacing:0!important; text-transform:uppercase!important; gap:25px!important; }
       html body > .shared-header .shared-menu a { font:inherit!important; font-size:12px!important; font-weight:800!important; line-height:1.15!important; letter-spacing:0!important; text-transform:uppercase!important; }
       @media(max-width:720px) {
