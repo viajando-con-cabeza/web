@@ -318,3 +318,52 @@ body:has(.planifica-page) .planifica-cta .planifica-section-label{color:#f4b28d!
  body:has(.planifica-page) .planifica-editorial,
  body:has(.planifica-page) .planifica-cta-inner{width:calc(100% - 30px)!important}
 }
+
+
+/* PLANIFICA · hero con más personalidad y cierre en el formato de Nosotros */
+body:has(.planifica-page) .planifica-hero{
+  min-height:390px!important;background:#292724!important;isolation:isolate;
+}
+body:has(.planifica-page) .planifica-hero-image{
+  z-index:-1!important;inset:0!important;
+  background-image:linear-gradient(90deg,rgba(25,27,27,.82) 0%,rgba(25,27,27,.62) 48%,rgba(25,27,27,.18) 100%),url("https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?auto=format&fit=crop&w=2200&q=90")!important;
+  background-position:center 54%!important;background-size:cover!important;
+}
+body:has(.planifica-page) .planifica-hero-copy{
+  width:min(1120px,calc(100% - 48px))!important;padding:62px 0 56px!important;
+}
+body:has(.planifica-page) .planifica-kicker{
+  color:#f4b28d!important;font:600 25px/1 "Caveat",cursive!important;
+  letter-spacing:0!important;text-transform:none!important;margin:0 0 13px!important;
+}
+body:has(.planifica-page) .planifica-hero h1{
+  max-width:780px!important;color:#fff!important;
+  font:600 clamp(39px,5.1vw,66px)/1.02 "Oswald",Impact,sans-serif!important;
+  letter-spacing:-.015em!important;margin:0 0 15px!important;
+  text-shadow:0 2px 18px rgba(0,0,0,.22);
+}
+body:has(.planifica-page) .planifica-hero h1 span{color:#f08a48!important}
+body:has(.planifica-page) .planifica-script{
+  color:#fff!important;font:600 clamp(23px,2.4vw,31px)/1.15 "Caveat",cursive!important;
+}
+body:has(.planifica-page) .planifica-flight{color:#f08a48!important}
+body:has(.planifica-page) .planifica-flight span{background:#f08a48!important}
+body:has(.planifica-page) .planifica-flight b{color:#fff!important}
+body:has(.planifica-page) .planifica-postcard img{
+  background:#eee!important;object-fit:cover!important;
+}
+body:has(.planifica-page) .planifica-cta .planifica-section-label{
+  display:inline-block!important;background:transparent!important;color:#f4b28d!important;
+  padding:0!important;margin:0 0 10px!important;
+  font:800 12px/1.4 "DM Sans",sans-serif!important;letter-spacing:.045em!important;
+  text-transform:uppercase!important;
+}
+@media(max-width:650px){
+ body:has(.planifica-page) .planifica-hero{min-height:390px!important}
+ body:has(.planifica-page) .planifica-hero-copy{width:calc(100% - 30px)!important;padding:52px 0 42px!important}
+ body:has(.planifica-page) .planifica-hero-image{
+  background-image:linear-gradient(90deg,rgba(25,27,27,.78),rgba(25,27,27,.4)),url("https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?auto=format&fit=crop&w=1200&q=85")!important;
+  background-position:58% center!important;
+ }
+ body:has(.planifica-page) .planifica-hero h1{font-size:clamp(38px,10vw,52px)!important}
+}
