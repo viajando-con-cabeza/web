@@ -83,3 +83,69 @@
 .planifica-bottom h2 em{font-style:normal;color:#c65c20}
 .planifica-bottom-button{background:#e85b08;color:#211d19;border-radius:3px;font-size:10px}
 @media(max-width:600px){.planifica-page{padding-bottom:34px}.planifica-hero{min-height:350px}.planifica-hero-copy{width:calc(100% - 36px);padding:40px 0}.planifica-hero h1{font-size:clamp(29px,8vw,37px)}.planifica-hero-image{background-image:linear-gradient(90deg,rgba(250,239,220,.96),rgba(250,239,220,.75) 68%,rgba(250,239,220,.2)),url("https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1200&q=80");background-position:62% center}.planifica-grid,.planifica-bottom{width:calc(100% - 36px)}.planifica-section-intro{padding-top:28px}.planifica-section-intro h2{font-size:26px}.planifica-bottom{padding:22px 18px}.planifica-bottom h2{font-size:27px}}
+
+
+/* PLANIFICA · rediseño editorial alineado con Nosotros y Contacto */
+body:has(.planifica-page){margin:0;background:#faf4eb;color:#211e1a;font-family:"DM Sans",sans-serif}
+body:has(.planifica-page) .planifica-page{width:100%;max-width:none;padding:0 0 0;background:#faf4eb;color:#211e1a}
+body:has(.planifica-page) .planifica-hero{min-height:320px;margin:0;border:0;background:#e9d9c7;position:relative}
+body:has(.planifica-page) .planifica-hero-copy{width:min(1120px,calc(100% - 48px));max-width:none;margin:0 auto;padding:48px 0;z-index:2}
+body:has(.planifica-page) .planifica-kicker{display:inline-block;background:transparent;color:#c65c20;padding:0;font:700 11px/1.4 "DM Sans",sans-serif;letter-spacing:.12em}
+body:has(.planifica-page) .planifica-hero h1{font:600 clamp(34px,3.6vw,48px)/1.08 "Oswald",sans-serif;letter-spacing:0;margin:10px 0;color:#211e1a}
+body:has(.planifica-page) .planifica-script{font:600 clamp(23px,2.4vw,31px)/1.15 "Caveat",cursive;color:#c65c20}
+body:has(.planifica-page) .planifica-hero-image{inset:0;background-image:linear-gradient(90deg,rgba(250,244,235,.97) 0%,rgba(250,244,235,.86) 36%,rgba(250,244,235,.1) 76%),url("https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=2000&q=90");background-position:center 52%;background-size:cover}
+body:has(.planifica-page) .planifica-flight{margin-top:18px;color:#c65c20}
+body:has(.planifica-page) .planifica-flight span{background:#c65c20}
+body:has(.planifica-page) .planifica-grid-section{padding:30px 0 8px;background:#faf4eb}
+body:has(.planifica-page) .planifica-grid{width:min(1120px,calc(100% - 48px));margin:0 auto;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+body:has(.planifica-page) .planifica-card{min-height:184px;padding:18px 18px 15px;background:#fffdfb;border:1px solid #e6d9cd;border-radius:7px;box-shadow:0 4px 14px rgba(58,42,30,.035);text-decoration:none;color:#211e1a;transition:transform .2s,border-color .2s}
+body:has(.planifica-page) .planifica-card:hover{transform:translateY(-3px);border-color:#d7a27d;box-shadow:0 7px 18px rgba(58,42,30,.07)}
+body:has(.planifica-page) .planifica-card-icon{width:66px;height:60px;flex:0 0 60px;margin:0 auto 9px;color:#211e1a}
+body:has(.planifica-page) .planifica-card-icon:before{display:none}
+body:has(.planifica-page) .planifica-card-icon svg{width:54px;height:54px}
+body:has(.planifica-page) .planifica-card h3{font:600 20px/1.15 "Oswald",sans-serif;min-height:0;margin:0 0 6px;text-align:center}
+body:has(.planifica-page) .planifica-card p{font:400 12px/1.5 "DM Sans",sans-serif;color:#655c54;max-width:260px;flex:1 0 auto;margin:0 auto;text-align:center}
+body:has(.planifica-page) .planifica-card-link{display:flex;align-items:center;justify-content:center;gap:6px;margin-top:10px;padding:0;color:#c65c20;font:800 10px/1.3 "DM Sans",sans-serif;letter-spacing:.04em}
+body:has(.planifica-page) .planifica-card-link b{font-size:16px;margin:0}
+body:has(.planifica-page) .planifica-editorial{width:min(1120px,calc(100% - 48px));margin:0 auto;padding:34px 0 38px;display:grid;grid-template-columns:.95fr 1.05fr;gap:48px;align-items:center}
+body:has(.planifica-page) .planifica-postcard{background:#fffdfb;padding:10px 10px 13px;transform:rotate(-2deg);box-shadow:0 5px 18px rgba(58,42,30,.1);border:1px solid #e7d9cb}
+body:has(.planifica-page) .planifica-postcard img{display:block;width:100%;height:225px;object-fit:cover;filter:saturate(.82) sepia(.1)}
+body:has(.planifica-page) .planifica-postcard span{display:block;text-align:center;padding:8px 0 0;font:600 29px/1 "Caveat",cursive;color:#211e1a}
+body:has(.planifica-page) .planifica-section-label{display:inline-block;background:transparent;color:#c65c20;padding:0;font:700 11px/1.4 "DM Sans",sans-serif;letter-spacing:.12em}
+body:has(.planifica-page) .planifica-advice h2{font:600 clamp(28px,2.8vw,38px)/1.12 "Oswald",sans-serif;margin:8px 0 12px;color:#211e1a}
+body:has(.planifica-page) .planifica-advice h2 em{font:600 1em/1 "Caveat",cursive;color:#c65c20}
+body:has(.planifica-page) .planifica-advice p,body:has(.planifica-page) .planifica-advice li{font:400 14px/1.65 "DM Sans",sans-serif;color:#5f5852}
+body:has(.planifica-page) .planifica-advice ul{list-style:none;padding:0;margin:14px 0 0}
+body:has(.planifica-page) .planifica-advice li{position:relative;padding-left:27px;margin:7px 0}
+body:has(.planifica-page) .planifica-advice li:before{content:"✓";position:absolute;left:0;top:0;color:#e8792b;font-size:19px;font-weight:800}
+body:has(.planifica-page) .planifica-cta{min-height:235px;display:flex;align-items:center;position:relative;overflow:hidden;background:linear-gradient(90deg,rgba(24,25,26,.78),rgba(24,25,26,.36)),url("https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=2000&q=90") center 55%/cover;color:#fff}
+body:has(.planifica-page) .planifica-cta-inner{width:min(1120px,calc(100% - 48px));margin:0 auto;padding:30px 0}
+body:has(.planifica-page) .planifica-cta .planifica-section-label{color:#f3b28c}
+body:has(.planifica-page) .planifica-cta h2{font:600 clamp(30px,3.2vw,42px)/1.12 "Oswald",sans-serif;margin:8px 0;color:#fff}
+body:has(.planifica-page) .planifica-cta p{font:400 14px/1.6 "DM Sans",sans-serif;color:#fff;margin:0 0 15px}
+body:has(.planifica-page) .planifica-cta a{display:inline-flex;align-items:center;gap:14px;background:#e8792b;color:#fff;text-decoration:none;padding:12px 17px;border-radius:4px;font:800 10px/1.3 "DM Sans",sans-serif}
+body:has(.planifica-page) .planifica-cta a:hover{background:#c65c20}
+body:has(.planifica-page) .planifica-cta a b{font-size:17px}
+@media(max-width:900px){body:has(.planifica-page) .planifica-grid{grid-template-columns:repeat(2,minmax(0,1fr))}body:has(.planifica-page) .planifica-editorial{gap:30px}}
+@media(max-width:650px){
+ body:has(.planifica-page) .planifica-hero{min-height:390px}
+ body:has(.planifica-page) .planifica-hero-copy{width:calc(100% - 30px);padding:34px 0}
+ body:has(.planifica-page) .planifica-hero-image{background-image:linear-gradient(90deg,rgba(250,244,235,.96),rgba(250,244,235,.78) 70%,rgba(250,244,235,.25)),url("https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1200&q=88");background-position:62% center}
+ body:has(.planifica-page) .planifica-hero h1{font-size:clamp(34px,9vw,43px)}
+ body:has(.planifica-page) .planifica-grid-section{padding:20px 0 0}
+ body:has(.planifica-page) .planifica-grid{width:calc(100% - 30px);gap:10px}
+ body:has(.planifica-page) .planifica-card{min-height:190px;padding:15px 9px 13px}
+ body:has(.planifica-page) .planifica-card-icon{height:52px;flex-basis:52px}
+ body:has(.planifica-page) .planifica-card-icon svg{width:45px;height:45px}
+ body:has(.planifica-page) .planifica-card h3{font-size:17px}
+ body:has(.planifica-page) .planifica-card p{font-size:11px}
+ body:has(.planifica-page) .planifica-card-link{font-size:9px}
+ body:has(.planifica-page) .planifica-editorial{width:calc(100% - 36px);grid-template-columns:1fr;gap:24px;padding:30px 0}
+ body:has(.planifica-page) .planifica-postcard{max-width:520px;margin:0 auto}
+ body:has(.planifica-page) .planifica-postcard img{height:190px}
+ body:has(.planifica-page) .planifica-advice h2{font-size:29px}
+ body:has(.planifica-page) .planifica-advice p,body:has(.planifica-page) .planifica-advice li{font-size:12px}
+ body:has(.planifica-page) .planifica-cta{min-height:255px}
+ body:has(.planifica-page) .planifica-cta-inner{width:calc(100% - 30px);padding:28px 0}
+ body:has(.planifica-page) .planifica-cta h2{font-size:31px}
+}
