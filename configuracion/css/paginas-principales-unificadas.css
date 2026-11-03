@@ -435,3 +435,39 @@ body:has(.planifica-page) .planifica-cta p{
  body:has(.planifica-page) .planifica-cta h2{font-size:27px!important}
  body:has(.planifica-page) .planifica-cta p{font-size:14px!important}
 }
+
+
+/* PLANIFICA · cierre: réplica del CTA final de Nosotros, sin alterar su escala */
+body:has(.planifica-page) .contact-cta.about-ending{
+  position:relative!important;min-height:230px!important;display:flex!important;align-items:center!important;
+  overflow:hidden!important;padding:0!important;
+  background:linear-gradient(90deg,rgba(26,29,28,.75),rgba(26,29,28,.22)),
+    url("https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=2000&q=90") center 52%/cover no-repeat!important;
+  color:#fff!important;
+}
+body:has(.planifica-page) .contact-cta.about-ending .ending-photo,
+body:has(.planifica-page) .contact-cta.about-ending .ending-overlay{display:none!important}
+body:has(.planifica-page) .contact-cta.about-ending .contact-cta-inner{
+  width:min(var(--vcc-content),calc(100% - var(--vcc-gutter)))!important;
+  margin-inline:auto!important;padding:32px 0!important;position:relative!important;z-index:1!important;
+}
+body:has(.planifica-page) .contact-cta.about-ending .contact-eyebrow{
+  display:inline-block!important;background:transparent!important;color:#f4b28d!important;
+  padding:0!important;margin:0 0 10px!important;
+  font:800 10px/1.4 "DM Sans",sans-serif!important;letter-spacing:.045em!important;
+  text-transform:uppercase!important;
+}
+body:has(.planifica-page) .contact-cta.about-ending h2{
+  font:600 29px/1.12 "Oswald",Impact,sans-serif!important;color:#fff!important;
+  margin:0 0 8px!important;text-shadow:none!important;
+}
+body:has(.planifica-page) .contact-cta.about-ending p{
+  font:400 14px/1.6 "DM Sans",Arial,sans-serif!important;color:#fff!important;
+  margin:0!important;text-shadow:none!important;
+}
+@media(max-width:600px){
+ body:has(.planifica-page) .contact-cta.about-ending{min-height:175px!important;background-position:center!important}
+ body:has(.planifica-page) .contact-cta.about-ending .contact-cta-inner{width:calc(100% - 36px)!important}
+ body:has(.planifica-page) .contact-cta.about-ending h2{font-size:27px!important}
+ body:has(.planifica-page) .contact-cta.about-ending p{font-size:14px!important}
+}
