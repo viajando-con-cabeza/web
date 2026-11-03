@@ -288,3 +288,33 @@ body:has(.contact-page) .contact-hero .contact-eyebrow{
   line-height:1!important;letter-spacing:0!important;text-transform:none!important;
   color:#cf705c!important;
 }
+
+
+/* PLANIFICA · ajuste de ancho completo y sobretítulos idénticos a Nosotros */
+body:has(.planifica-page) .planifica-page{
+  width:100%!important;max-width:none!important;margin:0!important;padding:0!important;
+}
+body:has(.planifica-page) .planifica-hero{width:100%!important;margin:0!important}
+body:has(.planifica-page) .planifica-hero-copy{
+  width:min(1120px,calc(100% - 48px))!important;margin:0 auto!important;
+}
+body:has(.planifica-page) .planifica-grid,
+body:has(.planifica-page) .planifica-editorial,
+body:has(.planifica-page) .planifica-cta-inner{
+  width:min(1120px,calc(100% - 48px))!important;margin-left:auto!important;margin-right:auto!important;
+}
+body:has(.planifica-page) .planifica-kicker,
+body:has(.planifica-page) .planifica-section-label{
+  display:block!important;width:max-content!important;margin:0 0 9px!important;
+  padding:0!important;background:transparent!important;
+  color:#cf705c!important;font-family:"Caveat",cursive!important;
+  font-size:25px!important;font-weight:600!important;line-height:1!important;
+  letter-spacing:0!important;text-transform:none!important;
+}
+body:has(.planifica-page) .planifica-cta .planifica-section-label{color:#f4b28d!important}
+@media(max-width:650px){
+ body:has(.planifica-page) .planifica-hero-copy,
+ body:has(.planifica-page) .planifica-grid,
+ body:has(.planifica-page) .planifica-editorial,
+ body:has(.planifica-page) .planifica-cta-inner{width:calc(100% - 30px)!important}
+}
