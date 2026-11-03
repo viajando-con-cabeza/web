@@ -367,3 +367,71 @@ body:has(.planifica-page) .planifica-cta .planifica-section-label{
  }
  body:has(.planifica-page) .planifica-hero h1{font-size:clamp(38px,10vw,52px)!important}
 }
+
+
+/* PLANIFICA · hero con el mismo lenguaje visual y mensaje de marca que Nosotros */
+body:has(.planifica-page) .planifica-hero{
+  min-height:430px!important;display:flex!important;align-items:center!important;
+  background:#d6c5ad!important;isolation:auto!important;
+}
+body:has(.planifica-page) .planifica-hero-image{
+  z-index:0!important;inset:0!important;
+  background-image:linear-gradient(90deg,rgba(248,240,227,.96),rgba(248,240,227,.87) 42%,rgba(248,240,227,.22) 78%,rgba(248,240,227,.05)),url("https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=2000&q=90")!important;
+  background-position:center 55%!important;background-size:cover!important;
+}
+body:has(.planifica-page) .planifica-hero-copy{
+  width:min(1120px,calc(100% - 48px))!important;padding:44px 0 40px!important;
+}
+body:has(.planifica-page) .planifica-kicker{
+  display:block!important;width:max-content!important;margin:0 0 12px!important;
+  padding:0!important;background:transparent!important;color:#cf705c!important;
+  font:600 25px/1 "Caveat",cursive!important;letter-spacing:0!important;text-transform:none!important;
+}
+body:has(.planifica-page) .planifica-hero h1{
+  max-width:950px!important;color:#292724!important;
+  font:600 clamp(36px,4.05vw,54px)/1.08 "Oswald",Impact,sans-serif!important;
+  letter-spacing:0!important;margin:0 0 15px!important;text-shadow:none!important;
+}
+body:has(.planifica-page) .planifica-hero h1 em{
+  display:inline-block;font-style:normal!important;color:#bd563b!important;
+}
+body:has(.planifica-page) .planifica-script{
+  max-width:700px!important;color:#292724!important;
+  font:400 15px/1.65 "DM Sans",sans-serif!important;
+}
+body:has(.planifica-page) .planifica-flight{color:#bd563b!important}
+body:has(.planifica-page) .planifica-flight span{background:#bd563b!important}
+body:has(.planifica-page) .planifica-flight b{color:#292724!important}
+
+/* PLANIFICA · cierre copiado de Nosotros, con la misma estructura y jerarquía */
+body:has(.planifica-page) .planifica-cta.contact-cta.about-ending{
+  min-height:230px!important;display:flex!important;align-items:center!important;
+  padding:0!important;overflow:hidden!important;
+  background:linear-gradient(90deg,rgba(18,28,30,.72),rgba(18,28,30,.24)),url("https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=2000&q=85") center 52%/cover no-repeat!important;
+  color:#fff!important;
+}
+body:has(.planifica-page) .planifica-cta .planifica-cta-inner{
+  width:min(1220px,calc(100% - 64px))!important;margin:auto!important;padding:32px 0!important;
+}
+body:has(.planifica-page) .planifica-cta .contact-eyebrow{
+  display:inline-block!important;background:transparent!important;color:#f4b28d!important;
+  padding:0!important;margin:0 0 10px!important;
+  font:800 12px/1.4 "DM Sans",sans-serif!important;letter-spacing:.045em!important;text-transform:uppercase!important;
+}
+body:has(.planifica-page) .planifica-cta h2{
+  color:#fff!important;font:600 clamp(27px,2.8vw,36px)/1.12 "Oswald",Impact,sans-serif!important;
+  margin:0 0 8px!important;text-shadow:none!important;
+}
+body:has(.planifica-page) .planifica-cta p{
+  color:#fff!important;margin:0!important;font:400 16px/1.5 "DM Sans",Arial,sans-serif!important;
+  text-shadow:none!important;
+}
+@media(max-width:700px){
+ body:has(.planifica-page) .planifica-hero{min-height:440px!important}
+ body:has(.planifica-page) .planifica-hero-copy{width:calc(100% - 36px)!important;padding:34px 0!important}
+ body:has(.planifica-page) .planifica-hero h1{font-size:clamp(29px,7.8vw,38px)!important}
+ body:has(.planifica-page) .planifica-cta{min-height:260px!important}
+ body:has(.planifica-page) .planifica-cta .planifica-cta-inner{width:calc(100% - 36px)!important}
+ body:has(.planifica-page) .planifica-cta h2{font-size:27px!important}
+ body:has(.planifica-page) .planifica-cta p{font-size:14px!important}
+}
