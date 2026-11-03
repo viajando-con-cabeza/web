@@ -40,6 +40,28 @@
       html body > .shared-header .shared-menu { font-family:'DM Sans',sans-serif!important; font-size:12px!important; font-weight:800!important; line-height:1.15!important; letter-spacing:0!important; text-transform:uppercase!important; gap:25px!important; }
       html body > .shared-header .shared-menu a { font:inherit!important; font-size:12px!important; font-weight:800!important; line-height:1.15!important; letter-spacing:0!important; text-transform:uppercase!important; }
       @media(max-width:720px) {
+        html body > .shared-header .shared-nav { display:grid!important; grid-template-columns:minmax(0,1fr) auto auto!important; grid-template-rows:auto auto!important; align-items:center!important; column-gap:10px!important; row-gap:2px!important; padding:4px 0!important; width:calc(100% - 28px)!important; }
+        html body > .shared-header .shared-brand { grid-column:1!important; grid-row:1!important; justify-self:start!important; }
+        html body > .shared-header .shared-social { grid-column:2!important; grid-row:1!important; display:flex!important; justify-self:end!important; align-self:center!important; align-items:center!important; gap:8px!important; margin:0!important; }
+        html body > .shared-header .shared-language { grid-column:3!important; grid-row:1!important; justify-self:end!important; align-self:center!important; margin:0!important; white-space:nowrap!important; }
+        html body > .shared-header .shared-menu { grid-column:1/4!important; grid-row:2!important; width:100%!important; min-width:0!important; display:flex!important; overflow-x:auto!important; justify-content:flex-start!important; gap:18px!important; padding:3px 0 2px!important; }
+        html body > .shared-header .shared-social a { display:grid!important; place-items:center!important; width:25px!important; height:25px!important; flex:0 0 25px!important; }
+        html body > .shared-header .shared-social svg { display:block!important; width:18px!important; height:18px!important; }
+      }
+      @media(max-width:380px) {
+        html body > .shared-header .shared-nav { width:calc(100% - 20px)!important; column-gap:7px!important; }
+        html body > .shared-header .shared-brand { width:104px!important; }
+        html body > .shared-header .shared-brand img { width:100px!important; }
+        html body > .shared-header .shared-social { gap:5px!important; }
+        html body > .shared-header .shared-social a { width:22px!important; height:22px!important; flex-basis:22px!important; }
+        html body > .shared-header .shared-social svg { width:17px!important; height:17px!important; }
+      }
+    `;
+
+      html body > .shared-header .shared-nav { width:calc(100% - 80px)!important; max-width:none!important; margin-inline:auto!important; }
+      html body > .shared-header .shared-menu { font-family:'DM Sans',sans-serif!important; font-size:12px!important; font-weight:800!important; line-height:1.15!important; letter-spacing:0!important; text-transform:uppercase!important; gap:25px!important; }
+      html body > .shared-header .shared-menu a { font:inherit!important; font-size:12px!important; font-weight:800!important; line-height:1.15!important; letter-spacing:0!important; text-transform:uppercase!important; }
+      @media(max-width:720px) {
         html body > .shared-header .shared-nav { width:calc(100% - 28px)!important; }
         html body > .shared-header .shared-menu { gap:18px!important; }
         html body > .shared-header .shared-menu a { font-size:11px!important; }
