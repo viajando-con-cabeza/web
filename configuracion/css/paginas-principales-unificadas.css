@@ -578,3 +578,56 @@ body.planifica-vcc .planifica-about-hero .hero-signoff{
  body.planifica-vcc .planifica-about-hero .hero-lead{font-size:12px}
  body.planifica-vcc .planifica-about-hero .hero-signoff{font-size:11px}
 }
+
+
+/* PLANIFICA · corrección visual basada directamente en el hero de Nosotros */
+body.planifica-vcc .planifica-about-hero{
+  min-height:550px!important;display:flex!important;align-items:center!important;
+  position:relative!important;overflow:hidden!important;background:#d6c5ad!important;
+}
+body.planifica-vcc .planifica-about-hero .about-hero-photo{
+  background-image:url("https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?auto=format&fit=crop&w=2000&q=90")!important;
+  background-position:center 54%!important;background-size:cover!important;
+}
+body.planifica-vcc .planifica-about-hero .about-hero-shade{
+  background:linear-gradient(90deg,rgba(248,240,227,.96),rgba(248,240,227,.87) 42%,rgba(248,240,227,.22) 78%,rgba(248,240,227,.05))!important;
+}
+body.planifica-vcc .planifica-about-hero .about-hero-copy{
+  position:relative!important;z-index:1!important;
+  width:calc(100% - 112px)!important;max-width:none!important;
+  margin:0 auto!important;padding:28px 0 24px!important;
+}
+body.planifica-vcc .planifica-about-hero .eyebrow{
+  display:block!important;width:max-content!important;margin:0 0 9px!important;
+  padding:0!important;background:transparent!important;
+  font:600 25px/1 "Caveat",cursive!important;letter-spacing:0!important;
+  text-transform:none!important;color:#cf705c!important;
+}
+body.planifica-vcc .planifica-about-hero h1{
+  font:600 clamp(29px,2.9vw,38px)/1.12 "Oswald",sans-serif!important;
+  letter-spacing:0!important;margin:10px 0!important;max-width:790px!important;
+  color:#292724!important;text-shadow:none!important;
+}
+body.planifica-vcc .planifica-about-hero h1 em{font-style:normal!important;color:#c65c20!important}
+body.planifica-vcc .planifica-about-hero .hero-lead{
+  font:400 13px/1.5 "DM Sans",sans-serif!important;max-width:790px!important;
+  margin:0 0 10px!important;color:#292724!important;
+}
+body.planifica-vcc .planifica-about-hero .hero-signoff{
+  border-top:1px solid #8e7156!important;padding-top:8px!important;max-width:790px!important;
+  font:600 12px "Oswald",sans-serif!important;margin-top:0!important;color:#292724!important;
+}
+@media(max-width:900px){
+ body.planifica-vcc .planifica-about-hero{min-height:430px!important}
+ body.planifica-vcc .planifica-about-hero .about-hero-copy{width:calc(100% - 64px)!important}
+ body.planifica-vcc .planifica-about-hero h1{font-size:clamp(30px,4.6vw,40px)!important}
+}
+@media(max-width:650px){
+ body.planifica-vcc .planifica-about-hero{min-height:440px!important;align-items:flex-end!important}
+ body.planifica-vcc .planifica-about-hero .about-hero-copy{width:calc(100% - 30px)!important;padding:20px 0!important}
+ body.planifica-vcc .planifica-about-hero .about-hero-photo{background-position:62% center!important}
+ body.planifica-vcc .planifica-about-hero .about-hero-shade{background:linear-gradient(0deg,rgba(248,240,227,.97),rgba(248,240,227,.78) 65%,rgba(248,240,227,.12))!important}
+ body.planifica-vcc .planifica-about-hero h1{font-size:clamp(29px,8vw,37px)!important;margin:9px 0!important}
+ body.planifica-vcc .planifica-about-hero .hero-lead{font-size:12px!important}
+ body.planifica-vcc .planifica-about-hero .hero-signoff{font-size:11px!important}
+}
