@@ -36,15 +36,16 @@
     const unified=document.createElement('style');
     unified.id='vcc-global-navigation-unified';
     unified.textContent=`
-      html body > .shared-header .shared-nav { width:100%!important; max-width:none!important; margin-inline:0!important; padding-inline:24px!important; box-sizing:border-box!important; }
+      html body > .shared-header { width:100%!important; max-width:100%!important; margin:0!important; box-sizing:border-box!important; }
+      html body > .shared-header .shared-nav { width:min(1180px,calc(100% - 48px))!important; max-width:1180px!important; margin-inline:auto!important; padding-inline:0!important; box-sizing:border-box!important; }
       html body > .shared-header .shared-menu { font-family:'DM Sans',sans-serif!important; font-size:12px!important; font-weight:800!important; line-height:1.15!important; letter-spacing:0!important; text-transform:uppercase!important; gap:25px!important; }
       html body > .shared-header .shared-menu a { font:inherit!important; font-size:12px!important; font-weight:800!important; line-height:1.15!important; letter-spacing:0!important; text-transform:uppercase!important; }
+      html body > .shared-header .shared-menu a.active { color:#ef7168!important; }
       @media(max-width:720px) {
-        html body > .shared-header .shared-nav { width:100%!important; max-width:100%!important; padding-inline:14px!important; margin-inline:0!important; box-sizing:border-box!important; }
+        html body > .shared-header { width:100%!important; max-width:100%!important; margin:0!important; }
+        html body > .shared-header .shared-nav { width:100%!important; max-width:100%!important; padding-inline:14px!important; margin:0!important; box-sizing:border-box!important; }
         html body > .shared-header .shared-menu { gap:18px!important; }
         html body > .shared-header .shared-menu a { font-size:11px!important; }
-        html body > .shared-header { width:100vw!important; max-width:100vw!important; margin-inline:calc(50% - 50vw)!important; box-sizing:border-box!important; }
-        html body:has(.contact-page), html body.about-vcc { width:100%!important; max-width:100%!important; overflow-x:clip!important; }
       }
       @media(max-width:380px) { html body > .shared-header .shared-nav { width:100%!important; padding-inline:10px!important; } }
     `;
