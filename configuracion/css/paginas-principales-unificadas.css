@@ -883,3 +883,46 @@ body.planifica-vcc .about-hero h1{
   html body:has(.planifica-page) > .shared-header .shared-social a{width:22px!important;height:22px!important;flex-basis:22px!important}
   html body:has(.planifica-page) > .shared-header .shared-social svg{width:17px!important;height:17px!important}
 }
+
+/* VCC: uniform hero eyebrow top alignment across five main sections */
+@media(min-width:901px){
+  body.about-vcc .about-hero,
+  body.destinos-vcc .destinos-about-hero,
+  body.itinerarios-vcc .itinerarios-hero,
+  body.planifica-vcc .planifica-about-hero,
+  body:has(.contact-page) .contact-hero{
+    align-items:flex-start!important;
+  }
+  body.about-vcc .about-hero > .about-hero-copy,
+  body.destinos-vcc .destinos-about-hero > .about-hero-copy,
+  body.itinerarios-vcc .itinerarios-hero > .about-hero-copy,
+  body.planifica-vcc .planifica-about-hero > .about-hero-copy,
+  body:has(.contact-page) .contact-hero > .contact-hero-content{
+    align-self:flex-start!important;
+    padding-top:48px!important;
+  }
+}
+@media(max-width:900px){
+  body.about-vcc .about-hero,
+  body.destinos-vcc .destinos-about-hero,
+  body.itinerarios-vcc .itinerarios-hero,
+  body.planifica-vcc .planifica-about-hero,
+  body:has(.contact-page) .contact-hero{
+    align-items:flex-start!important;
+  }
+  body.about-vcc .about-hero > .about-hero-copy,
+  body.destinos-vcc .destinos-about-hero > .about-hero-copy,
+  body.itinerarios-vcc .itinerarios-hero > .about-hero-copy,
+  body.planifica-vcc .planifica-about-hero > .about-hero-copy,
+  body:has(.contact-page) .contact-hero > .contact-hero-content{
+    align-self:flex-start!important;
+    padding-top:28px!important;
+  }
+}
+body.about-vcc .about-hero .eyebrow,
+body.destinos-vcc .destinos-about-hero .eyebrow,
+body.itinerarios-vcc .itinerarios-hero .eyebrow,
+body.planifica-vcc .planifica-about-hero .eyebrow,
+body:has(.contact-page) .contact-hero .contact-eyebrow{
+  margin-top:0!important;
+}
