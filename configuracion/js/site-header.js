@@ -57,16 +57,16 @@
         html body > .shared-header .shared-social svg { width:17px!important; height:17px!important; }
       }
     `;
-    // Keep the header flush with the viewport; only the navigation links scroll.
-    unified.textContent += `
-      html, body { max-width:100%; }
-      html body > .shared-header { width:100%!important; max-width:100%!important; box-sizing:border-box!important; }
+
+      html body > .shared-header .shared-nav { width:calc(100% - 80px)!important; max-width:none!important; margin-inline:auto!important; }
+      html body > .shared-header .shared-menu { font-family:'DM Sans',sans-serif!important; font-size:12px!important; font-weight:800!important; line-height:1.15!important; letter-spacing:0!important; text-transform:uppercase!important; gap:25px!important; }
+      html body > .shared-header .shared-menu a { font:inherit!important; font-size:12px!important; font-weight:800!important; line-height:1.15!important; letter-spacing:0!important; text-transform:uppercase!important; }
       @media(max-width:720px) {
-        html body > .shared-header .shared-nav { box-sizing:border-box!important; max-width:100%!important; }
-        html body > .shared-header .shared-menu { box-sizing:border-box!important; overflow-x:auto!important; overflow-y:hidden!important; flex-wrap:nowrap!important; white-space:nowrap!important; scrollbar-width:none!important; overscroll-behavior-x:contain!important; -webkit-overflow-scrolling:touch!important; padding-right:14px!important; }
-        html body > .shared-header .shared-menu a { flex:0 0 auto!important; font-size:12px!important; }
-        html body > .shared-header .shared-menu::-webkit-scrollbar { display:none; }
+        html body > .shared-header .shared-nav { width:calc(100% - 28px)!important; }
+        html body > .shared-header .shared-menu { gap:18px!important; }
+        html body > .shared-header .shared-menu a { font-size:11px!important; }
       }
+      @media(max-width:380px) { html body > .shared-header .shared-nav { width:calc(100% - 20px)!important; } }
     `;
     document.head.appendChild(unified);
   }
