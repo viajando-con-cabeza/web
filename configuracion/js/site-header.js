@@ -57,6 +57,7 @@
         html body > .shared-header .shared-social svg { width:17px!important; height:17px!important; }
       }
     `;
+    unified.textContent += `
 
       html body > .shared-header .shared-nav { width:calc(100% - 80px)!important; max-width:none!important; margin-inline:auto!important; }
       html body > .shared-header .shared-menu { font-family:'DM Sans',sans-serif!important; font-size:12px!important; font-weight:800!important; line-height:1.15!important; letter-spacing:0!important; text-transform:uppercase!important; gap:25px!important; }
