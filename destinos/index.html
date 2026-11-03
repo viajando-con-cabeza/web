@@ -119,12 +119,79 @@ body{background:var(--vcc-d-paper);color:var(--vcc-d-ink);font-family:"DM Sans",
 .vcc-destinos button:focus-visible,.vcc-destinos a:focus-visible,.vcc-destinos summary:focus-visible,.vcc-destinos input:focus-visible,.vcc-destinos select:focus-visible{outline:3px solid #d96847;outline-offset:3px}
 @media(max-width:900px){.vcc-d-hero{min-height:300px}.vcc-d-herocopy{width:calc(100% - 36px)}}
 @media(max-width:650px){.vcc-d-hero{min-height:255px;background-position:center,58% center;background-size:cover,auto 100%}.vcc-d-herocopy{width:calc(100% - 30px);padding:30px 0}.vcc-d-hero h1{font-size:59px}.vcc-d-kicker{font-size:29px}.vcc-d-hero p:last-child{font-size:13px;max-width:280px}.vcc-d-intro{font-size:12px}.vcc-d-heading{font-size:28px}.vcc-continent-choice{flex:0 0 114px;min-height:107px}.vcc-continent-choice .vcc-continent-map{height:60px;width:75px}.vcc-continent-choice strong{font-size:17px}.vcc-accordion-name strong{font-size:19px}.vcc-route-copy h3{font-size:23px}}
+
+/* DESTINOS · estructura y dimensiones idénticas al hero de Nosotros/Planifica.
+   Se conserva únicamente su propia imagen y sus textos. */
+body.destinos-vcc .about-hero{
+  min-height:360px!important;display:flex!important;align-items:center!important;
+  position:relative!important;overflow:hidden!important;border:0!important;
+  background-color:#e9ded2!important;
+}
+body.destinos-vcc .about-hero-copy{
+  position:relative!important;z-index:2!important;
+  width:min(var(--vcc-content),calc(100% - var(--vcc-gutter)))!important;
+  max-width:none!important;margin:0 auto!important;padding:48px 0!important;
+}
+body.destinos-vcc .about-hero-shade{
+  background:linear-gradient(90deg,rgba(250,246,241,.97) 0%,rgba(250,246,241,.88) 40%,rgba(250,246,241,.18) 78%,rgba(250,246,241,.04))!important;
+}
+body.destinos-vcc .about-hero-photo{
+  position:absolute!important;inset:0!important;
+  background-image:url("/destinos/imagenes/hero-map-approved-inline.svg")!important;
+  background-position:center 52%!important;background-size:cover!important;background-repeat:no-repeat!important;
+}
+body.destinos-vcc .about-hero .eyebrow{
+  display:inline-block!important;padding:4px 9px!important;
+  background:var(--vcc-orange)!important;color:#fffaf6!important;
+  font:800 10px/1.4 "DM Sans",sans-serif!important;letter-spacing:.075em!important;
+  text-transform:uppercase!important;
+}
+body.destinos-vcc .about-hero h1{
+  font-family:"Oswald",sans-serif!important;font-weight:500!important;
+  font-size:clamp(34px,3.6vw,48px)!important;line-height:1.08!important;
+  letter-spacing:-.025em!important;margin:12px 0!important;
+  max-width:760px!important;color:var(--vcc-ink)!important;
+}
+body.destinos-vcc .about-hero h1 em{
+  font-style:normal!important;color:var(--vcc-orange-dark)!important;
+}
+body.destinos-vcc .about-hero .hero-lead{
+  font:400 15px/1.65 "DM Sans",sans-serif!important;color:#4f4a45!important;
+  max-width:590px!important;margin:0!important;
+}
+body.destinos-vcc .about-hero .hero-signoff{
+  margin-top:18px!important;border-top:1px solid #cbb9a8!important;
+  padding-top:10px!important;max-width:590px!important;
+  font:700 11px/1.5 "DM Sans",sans-serif!important;
+  letter-spacing:.035em!important;color:#655b52!important;
+}
+@media(max-width:900px){
+ body.destinos-vcc .about-hero{min-height:390px!important}
+ body.destinos-vcc .about-hero-copy{width:calc(100% - 30px)!important;padding:28px 0!important}
+ body.destinos-vcc .about-hero h1{font-size:clamp(29px,7.7vw,38px)!important;line-height:1.1!important}
+ body.destinos-vcc .about-hero .hero-lead{font-size:13px!important;line-height:1.6!important}
+ body.destinos-vcc .about-hero .hero-signoff{font-size:11px!important}
+}
+@media(max-width:650px){
+ body.destinos-vcc .about-hero{min-height:390px!important;align-items:center!important}
+ body.destinos-vcc .about-hero-copy{width:calc(100% - 30px)!important;padding:28px 0!important}
+ body.destinos-vcc .about-hero-photo{background-position:62% center!important}
+ body.destinos-vcc .about-hero-shade{
+  background:linear-gradient(90deg,rgba(250,246,241,.97),rgba(250,246,241,.78) 68%,rgba(250,246,241,.2))!important;
+ }
+ body.destinos-vcc .about-hero h1{font-size:clamp(29px,7.7vw,38px)!important;line-height:1.1!important}
+ body.destinos-vcc .about-hero .hero-lead{font-size:13px!important;line-height:1.6!important}
+}
+
+
+
 </style>
+<link rel="stylesheet" href="/configuracion/css/paginas-principales-unificadas.css?v=20261105">
 </head>
-<body>
+<body class="destinos-vcc">
 <style id="vcc-header-fallback">.shared-header{position:sticky;top:0;z-index:1100;background:#fff;width:100%;max-width:100%;border-bottom:1px solid #eee;font-family:'DM Sans',Arial,sans-serif;box-sizing:border-box}.shared-header *{box-sizing:border-box}.shared-nav{width:calc(100% - 40px);max-width:1180px;margin:0 auto;min-height:54px;display:grid;grid-template-columns:140px minmax(0,1fr) 95px 48px;gap:14px;align-items:center}.shared-brand{display:flex;align-items:center}.shared-brand img{width:135px;height:46px;object-fit:contain}.shared-menu{display:flex;justify-content:center;align-items:center;gap:22px;min-width:0}.shared-menu a{color:#171717;text-decoration:none;font-size:12px;font-weight:800;white-space:nowrap;padding:16px 0 12px;position:relative}.shared-menu a.active:after{content:"";height:3px;background:#e88980;position:absolute;bottom:4px;left:0;right:0}.shared-social{display:flex;align-items:center;justify-content:end;gap:12px}.shared-social a{display:inline-flex;color:#111}.shared-social svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}.shared-social svg .shared-solid{fill:currentColor;stroke:none}.shared-language{display:flex;justify-content:end;gap:6px;font:800 12px 'DM Sans',Arial,sans-serif}.shared-language a{color:#777;text-decoration:none}.shared-language a.active{color:#dc776e}@media(max-width:720px){.shared-nav{width:calc(100% - 24px);max-width:100%;grid-template-columns:minmax(0,1fr) auto auto;grid-template-rows:50px 37px;gap:0 10px}.shared-brand{grid-column:1;grid-row:1}.shared-brand img{width:125px;height:44px}.shared-social{grid-column:2;grid-row:1;gap:8px}.shared-social svg{width:19px;height:19px}.shared-language{grid-column:3;grid-row:1}.shared-menu{grid-column:1/-1;grid-row:2;justify-content:flex-start;gap:19px;overflow-x:auto;overflow-y:hidden;white-space:nowrap;scrollbar-width:none;-webkit-overflow-scrolling:touch;width:100%;padding-right:12px}.shared-menu::-webkit-scrollbar{display:none}.shared-menu a{flex:none;padding:7px 0 10px;font-size:12px}}@media(max-width:360px){.shared-nav{column-gap:6px}.shared-brand img{width:103px}.shared-social{gap:5px}.shared-social svg{width:17px;height:17px}.shared-menu{gap:15px}}</style><header class="shared-header"><div class="shared-nav"><a class="shared-brand" href="/" aria-label="Viajando con Cabeza"><img src="/configuracion/imagenes/marca/logo-viajando-con-cabeza.svg" alt="Viajando con Cabeza"></a><nav class="shared-menu" aria-label="Navegación principal"><a href="/">INICIO</a><a href="/destinos/" class="active">DESTINOS</a><a href="/itinerarios/">ITINERARIOS</a><a href="/planifica/">PLANIFICA</a><a href="/nosotros/">NOSOTROS</a><a href="/contacto/">CONTACTO</a></nav><div class="shared-social"><a href="https://www.instagram.com/viajaconcabeza/" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle class="shared-solid" cx="17.5" cy="6.5" r="1"/></svg></a><a href="https://www.tiktok.com/@viajaconcabeza" target="_blank" rel="noopener noreferrer" aria-label="TikTok"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14.5 4v10.1a4.4 4.4 0 1 1-3.7-4.3v3a1.7 1.7 0 1 0 1 1.6V4h2.7c.3 2.3 1.7 3.8 4.2 4.2v2.7a7.6 7.6 0 0 1-4.2-1.6"/></svg></a><a href="https://www.youtube.com/@viajaconcabeza" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 8.2a3 3 0 0 0-2.1-2.1C17 5.5 12 5.5 12 5.5s-5 0-6.9.6A3 3 0 0 0 3 8.2 31 31 0 0 0 2.5 12a31 31 0 0 0 2.1 2.1c1.9.6 6.9.6 6.9.6s5 0 6.9-.6a3 3 0 0 0 2.1-2.1 31 31 0 0 0 .5-3.8 31 31 0 0 0-.5-3.8Z"/><path class="shared-solid" d="m10 9 5 3-5 3Z"/></svg></a></div><div class="shared-language"><a href="/" class="active">ES</a><span>|</span><a href="/en/" class="">EN</a></div></div></header>
 <main class="vcc-destinos">
-<section class="vcc-d-hero" aria-labelledby="destinos-titulo"><div class="vcc-d-herocopy"><p class="vcc-d-kicker">Explora el mundo a tu ritmo</p><h1 id="destinos-titulo">DESTINOS</h1><div class="vcc-d-underline"></div><p>Explora el mundo país por país, con cabeza.</p></div></section>
+<section class="about-hero destinos-about-hero" aria-labelledby="destinos-titulo"><div class="about-hero-photo"></div><div class="about-hero-shade"></div><div class="about-hero-copy shell"><span class="eyebrow">Explora el mundo a tu ritmo</span><h1 id="destinos-titulo">DESCUBRE EL MUNDO<br>PAÍS POR PAÍS.<br><em>VIAJA CON CABEZA.</em></h1><p class="hero-lead">Encuentra todos nuestros destinos organizados por continente y país, con sus ciudades, guías y consejos para viajar mejor.</p><div class="hero-signoff">UN MUNDO POR DESCUBRIR. CADA VIAJE, MEJOR PENSADO.</div></div></section>
 <div class="vcc-d-shell">
 <p class="vcc-d-intro">Todos nuestros destinos, organizados por países.<br>Elige un continente o busca un país para encontrar sus ciudades, itinerarios y presupuestos.</p>
 <section aria-labelledby="continentes-titulo"><h2 class="vcc-d-heading" id="continentes-titulo">Explora por continente</h2><div class="vcc-d-continent-row"><button type="button" class="vcc-continent-choice" data-target="europa" aria-pressed="false"><img class="vcc-continent-map" src="/destinos/imagenes/europa-map-v3.svg" alt="" aria-hidden="true" loading="lazy"><strong>Europa</strong></button><button type="button" class="vcc-continent-choice" data-target="asia" aria-pressed="false"><img class="vcc-continent-map" src="/destinos/imagenes/asia-map-v3.svg" alt="" aria-hidden="true" loading="lazy"><strong>Asia</strong></button><button type="button" class="vcc-continent-choice" data-target="america" aria-pressed="false"><img class="vcc-continent-map" src="/destinos/imagenes/america-map-v3.svg" alt="" aria-hidden="true" loading="lazy"><strong>América</strong></button><button type="button" class="vcc-continent-choice" data-target="africa" aria-pressed="false"><img class="vcc-continent-map" src="/destinos/imagenes/africa-map-v3.svg" alt="" aria-hidden="true" loading="lazy"><strong>África</strong></button><button type="button" class="vcc-continent-choice" data-target="oceania" aria-pressed="false"><img class="vcc-continent-map" src="/destinos/imagenes/oceania-map-v3.svg" alt="" aria-hidden="true" loading="lazy"><strong>Oceanía</strong></button></div>
