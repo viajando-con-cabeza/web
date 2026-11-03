@@ -205,6 +205,97 @@
   } else {
     resetHeaderMenu();
   }
+
+  // Final layout guard: the header is sized to the visual viewport, not
+  // to overflowing country-page content. Only the second-row menu scrolls.
+  if (!document.getElementById('vcc-header-viewport-guard')) {
+    const guard=document.createElement('style');
+    guard.id='vcc-header-viewport-guard';
+    guard.textContent=`
+      @media(max-width:720px){
+        html,body{max-width:100%!important;overflow-x:clip!important}
+        html body > .shared-header{
+          position:sticky!important;
+          top:0!important;
+          left:0!important;
+          right:0!important;
+          display:block!important;
+          width:100%!important;
+          max-width:100%!important;
+          min-width:0!important;
+          margin:0!important;
+          padding:0!important;
+          border:0!important;
+          border-bottom:1px solid #e7ddd4!important;
+          background:#fff!important;
+          box-sizing:border-box!important;
+          overflow:hidden!important;
+          z-index:1100!important;
+        }
+        html body > .shared-header > .shared-nav{
+          width:100%!important;
+          max-width:100%!important;
+          min-width:0!important;
+          margin:0!important;
+          box-sizing:border-box!important;
+          padding:0!important;
+          height:auto!important;
+          min-height:0!important;
+          display:grid!important;
+          grid-template-columns:minmax(0,1fr) auto auto!important;
+          grid-template-rows:50px 40px!important;
+          column-gap:8px!important;
+          row-gap:0!important;
+        }
+        html body > .shared-header .shared-brand{
+          grid-column:1!important;grid-row:1!important;
+          margin:0 0 0 14px!important;
+          min-width:0!important;
+        }
+        html body > .shared-header .shared-social{
+          grid-column:2!important;grid-row:1!important;
+          margin:0!important;justify-self:end!important;
+        }
+        html body > .shared-header .shared-language{
+          grid-column:3!important;grid-row:1!important;
+          margin:0 14px 0 0!important;justify-self:end!important;
+        }
+        html body > .shared-header .shared-menu{
+          grid-column:1/-1!important;grid-row:2!important;
+          width:100%!important;max-width:100%!important;min-width:0!important;
+          box-sizing:border-box!important;
+          margin:0!important;
+          padding:0 14px!important;
+          display:flex!important;
+          flex-wrap:nowrap!important;
+          gap:20px!important;
+          align-items:center!important;
+          justify-content:flex-start!important;
+          white-space:nowrap!important;
+          overflow-x:auto!important;
+          overflow-y:hidden!important;
+          scrollbar-width:none!important;
+          overscroll-behavior-x:contain!important;
+          -webkit-overflow-scrolling:touch!important;
+          scroll-snap-type:none!important;
+          scroll-padding:0!important;
+        }
+        html body > .shared-header .shared-menu a{
+          flex:0 0 auto!important;
+          padding:9px 0 11px!important;
+          font:800 12px/1.15 "DM Sans",sans-serif!important;
+          scroll-snap-align:none!important;
+        }
+        html body > .shared-header .shared-menu a.active::after{bottom:3px!important}
+      }
+      @media(max-width:380px){
+        html body > .shared-header .shared-brand{margin-left:10px!important}
+        html body > .shared-header .shared-language{margin-right:10px!important}
+        html body > .shared-header .shared-menu{padding-inline:10px!important;gap:17px!important}
+      }
+    `;
+    document.head.appendChild(guard);
+  }
   if(section==='destinos'){
     const fix=document.createElement('style');
     fix.id='destinos-approved-hero-fix';
