@@ -168,6 +168,43 @@
     `;
     document.head.appendChild(fix);
   }
+
+  // Stable navigation position across pages and browser back/forward cache.
+  // This must NOT run on scroll, only when the page is entered/restored.
+  if (!document.getElementById('vcc-menu-scroll-stability')) {
+    const style=document.createElement('style');
+    style.id='vcc-menu-scroll-stability';
+    style.textContent=`
+      @media(max-width:720px){
+        html body > .shared-header .shared-menu{
+          scroll-behavior:auto!important;
+          scroll-snap-type:x proximity!important;
+          scroll-padding-inline:14px!important;
+          touch-action:pan-x!important;
+        }
+        html body > .shared-header .shared-menu a{
+          scroll-snap-align:start!important;
+          scroll-snap-stop:normal!important;
+        }
+      }
+    `;
+    document.head.appendChild(style);
+  }
+  const resetHeaderMenu=()=>{
+    const menu=document.querySelector('body > .shared-header .shared-menu');
+    if (!menu) return;
+    menu.scrollLeft=0;
+  };
+  // pageshow also fires when the browser restores a page from cache.
+  window.addEventListener('pageshow',()=>{
+    resetHeaderMenu();
+    requestAnimationFrame(()=>requestAnimationFrame(resetHeaderMenu));
+  });
+  if (document.readyState==='loading') {
+    document.addEventListener('DOMContentLoaded', resetHeaderMenu, {once:true});
+  } else {
+    resetHeaderMenu();
+  }
   if(section==='destinos'){
     const fix=document.createElement('style');
     fix.id='destinos-approved-hero-fix';
