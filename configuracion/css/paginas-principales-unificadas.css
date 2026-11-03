@@ -471,3 +471,65 @@ body:has(.planifica-page) .contact-cta.about-ending p{
  body:has(.planifica-page) .contact-cta.about-ending h2{font-size:27px!important}
  body:has(.planifica-page) .contact-cta.about-ending p{font-size:14px!important}
 }
+
+
+/* PLANIFICA · hero con la misma composición, escala y espaciado que Nosotros */
+body:has(.planifica-page) .planifica-hero{
+  min-height:360px!important;display:flex!important;align-items:center!important;
+  position:relative!important;margin:0!important;padding:0!important;border:0!important;
+  overflow:hidden!important;background:#d6c5ad!important;color:#292724!important;
+}
+body:has(.planifica-page) .planifica-hero-image,
+body:has(.planifica-page) .planifica-hero-shade{position:absolute!important;inset:0!important}
+body:has(.planifica-page) .planifica-hero-image{
+  z-index:0!important;left:0!important;opacity:1!important;
+  background-image:url("https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?auto=format&fit=crop&w=2000&q=90")!important;
+  background-position:center 54%!important;background-size:cover!important;background-repeat:no-repeat!important;
+}
+body:has(.planifica-page) .planifica-hero-shade{
+  z-index:1!important;background:linear-gradient(90deg,rgba(248,240,227,.96),rgba(248,240,227,.87) 42%,rgba(248,240,227,.22) 78%,rgba(248,240,227,.05))!important;
+}
+body:has(.planifica-page) .planifica-hero-copy{
+  position:relative!important;z-index:2!important;
+  width:min(1120px,calc(100% - 48px))!important;max-width:none!important;
+  margin:0 auto!important;padding:48px 0!important;
+}
+body:has(.planifica-page) .planifica-kicker{
+  display:inline-block!important;width:auto!important;margin:0 0 12px!important;
+  background:#e8792b!important;color:#211e1a!important;padding:3px 8px!important;
+  font:800 10px/1.4 "DM Sans",sans-serif!important;letter-spacing:.025em!important;
+  text-transform:none!important;
+}
+body:has(.planifica-page) .planifica-hero h1{
+  max-width:760px!important;color:#292724!important;
+  font:600 clamp(34px,3.6vw,48px)/1.08 "Oswald",sans-serif!important;
+  letter-spacing:-.025em!important;margin:10px 0!important;text-shadow:none!important;
+}
+body:has(.planifica-page) .planifica-hero h1 em{
+  display:inline!important;font-style:normal!important;color:#c65c20!important;
+}
+body:has(.planifica-page) .planifica-script{
+  display:block!important;max-width:590px!important;margin:0 0 10px!important;
+  color:#4f4a45!important;font:400 15px/1.65 "DM Sans",sans-serif!important;
+}
+body:has(.planifica-page) .planifica-hero-signoff{
+  max-width:590px!important;border-top:1px solid #cbb9a8!important;
+  padding-top:10px!important;margin-top:18px!important;
+  color:#655b52!important;font:700 11px/1.5 "DM Sans",sans-serif!important;
+  letter-spacing:.035em!important;
+}
+@media(max-width:900px){
+ body:has(.planifica-page) .planifica-hero{min-height:300px!important}
+ body:has(.planifica-page) .planifica-hero h1{font-size:clamp(30px,4.6vw,40px)!important}
+}
+@media(max-width:650px){
+ body:has(.planifica-page) .planifica-hero{min-height:390px!important;align-items:flex-end!important}
+ body:has(.planifica-page) .planifica-hero-copy{width:calc(100% - 30px)!important;padding:28px 0!important}
+ body:has(.planifica-page) .planifica-hero-image{background-position:62% center!important}
+ body:has(.planifica-page) .planifica-hero-shade{
+  background:linear-gradient(0deg,rgba(248,240,227,.97),rgba(248,240,227,.78) 65%,rgba(248,240,227,.12))!important;
+ }
+ body:has(.planifica-page) .planifica-hero h1{font-size:clamp(29px,7.7vw,38px)!important;margin:9px 0!important}
+ body:has(.planifica-page) .planifica-script{font-size:13px!important;line-height:1.6!important}
+ body:has(.planifica-page) .planifica-hero-signoff{font-size:11px!important}
+}
