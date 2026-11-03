@@ -243,7 +243,7 @@
           min-height:0!important;
           display:grid!important;
           grid-template-columns:minmax(0,1fr) auto auto!important;
-          grid-template-rows:50px 40px!important;
+          grid-template-rows:45px 33px!important;
           column-gap:8px!important;
           row-gap:0!important;
         }
