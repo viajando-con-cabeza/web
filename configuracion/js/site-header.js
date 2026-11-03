@@ -79,6 +79,95 @@
     `;
     document.head.appendChild(unified);
   }
+  // Normalize the exact same full-width mobile header on every page.
+  // The menu alone scrolls; the white header and underline span the viewport.
+  if (!document.getElementById('vcc-mobile-header-edge-fix')) {
+    const fix=document.createElement('style');
+    fix.id='vcc-mobile-header-edge-fix';
+    fix.textContent=`
+      @media(max-width:720px) {
+        html body > .shared-header {
+          box-sizing:border-box!important;
+          display:block!important;
+          width:100%!important;
+          max-width:100%!important;
+          min-width:0!important;
+          margin:0!important;
+          overflow:visible!important;
+          background:#fff!important;
+          border-bottom:1px solid #eee!important;
+        }
+        html body > .shared-header > .shared-nav {
+          box-sizing:border-box!important;
+          display:grid!important;
+          width:100%!important;
+          max-width:100%!important;
+          min-width:0!important;
+          margin:0!important;
+          padding:4px 0 0!important;
+          grid-template-columns:minmax(0,1fr) auto auto!important;
+          grid-template-rows:50px 37px!important;
+          column-gap:8px!important;
+          row-gap:0!important;
+        }
+        html body > .shared-header .shared-brand {
+          grid-column:1!important;
+          grid-row:1!important;
+          justify-self:start!important;
+          margin-left:14px!important;
+        }
+        html body > .shared-header .shared-social {
+          grid-column:2!important;
+          grid-row:1!important;
+          justify-self:end!important;
+        }
+        html body > .shared-header .shared-language {
+          grid-column:3!important;
+          grid-row:1!important;
+          justify-self:end!important;
+          margin-right:14px!important;
+        }
+        html body > .shared-header .shared-menu {
+          box-sizing:border-box!important;
+          display:flex!important;
+          grid-column:1 / -1!important;
+          grid-row:2!important;
+          width:100%!important;
+          max-width:100%!important;
+          min-width:0!important;
+          margin:0!important;
+          padding:0 14px!important;
+          gap:20px!important;
+          justify-content:flex-start!important;
+          flex-wrap:nowrap!important;
+          white-space:nowrap!important;
+          overflow-x:auto!important;
+          overflow-y:hidden!important;
+          scrollbar-width:none!important;
+          -webkit-overflow-scrolling:touch!important;
+          overscroll-behavior-x:contain!important;
+        }
+        html body > .shared-header .shared-menu::-webkit-scrollbar{display:none!important}
+        html body > .shared-header .shared-menu a{
+          display:inline-flex!important;
+          align-items:center!important;
+          flex:0 0 auto!important;
+          padding:8px 0 10px!important;
+          font:800 12px/1.15 "DM Sans",sans-serif!important;
+          white-space:nowrap!important;
+        }
+        html body > .shared-header .shared-menu a.active::after {
+          bottom:2px!important;
+        }
+      }
+      @media(max-width:380px){
+        html body > .shared-header .shared-brand{margin-left:10px!important}
+        html body > .shared-header .shared-language{margin-right:10px!important}
+        html body > .shared-header .shared-menu{padding-inline:10px!important;gap:17px!important}
+      }
+    `;
+    document.head.appendChild(fix);
+  }
   if(section==='destinos'){
     const fix=document.createElement('style');
     fix.id='destinos-approved-hero-fix';
