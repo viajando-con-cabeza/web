@@ -13,13 +13,12 @@
   }
   const section = getSection();
   const isEnglish = /^\/en(?:\/|$)/i.test(currentPath);
-  const links = {
-    inicio: url('index.html'), destinos: url('destinos/index.html'), itinerarios: url('itinerarios/index.html'), planifica: url('planifica/index.html'), nosotros: url('nosotros/index.html'), contacto: url('contacto/index.html'), logo: url('/configuracion/imagenes/marca/logo-viajando-con-cabeza.svg'),
+  const links = isEnglish ? {inicio:url('en/index.html'),destinos:url('en/index.html#destinations'),itinerarios:url('en/index.html#itineraries'),planifica:url('en/index.html#planning'),nosotros:url('en/index.html#about'),contacto:url('en/index.html#contact'),logo: url('/configuracion/imagenes/marca/logo-viajando-con-cabeza.svg'),
     instagram: 'https://www.instagram.com/viajaconcabeza/',
     tiktok: 'https://www.tiktok.com/@viajaconcabeza',
     youtube: 'https://www.youtube.com/@viajaconcabeza'
-  };
-  const menu = isEnglish ? [['inicio','HOME'],['destinos','DESTINATIONS'],['itinerarios','ITINERARIES'],['planifica','PLAN'],['nosotros','ABOUT'],['contacto','CONTACT']] : [['inicio','INICIO'],['destinos','DESTINOS'],['itinerarios','ITINERARIOS'],['planifica','PLANIFICA'],['nosotros','NOSOTROS'],['contacto','CONTACTO']];
+  } : {
+    inicio: url('index.html'), destinos: url('destinos/index.html'), itinerarios: url('itinerarios/index.html'), planifica: url('planifica/index.html'), nosotros: url('nosotros/index.html'), contacto: url('contacto/index.html'), logo: ? [['inicio','HOME'],['destinos','DESTINATIONS'],['itinerarios','ITINERARIES'],['planifica','PLAN'],['nosotros','ABOUT'],['contacto','CONTACT']] : [['inicio','INICIO'],['destinos','DESTINOS'],['itinerarios','ITINERARIOS'],['planifica','PLANIFICA'],['nosotros','NOSOTROS'],['contacto','CONTACTO']];
   const instagramIcon='<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" class="shared-solid"/></svg>';
   const tiktokIcon='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14.5 4v10.1a4.4 4.4 0 1 1-3.7-4.3v3a1.7 1.7 0 1 0 1 1.6V4h2.7c.3 2.3 1.7 3.8 4.2 4.2v2.7a7.6 7.6 0 0 1-4.2-1.6"/></svg>';
   const youtubeIcon='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 8.2a3 3 0 0 0-2.1-2.1C17 5.5 12 5.5 12 5.5s-5 0-6.9.6A3 3 0 0 0 3 8.2 31 31 0 0 0 2.5 12 31 31 0 0 0 3 15.8a3 3 0 0 0 2.1 2.1c1.9.6 6.9.6 6.9.6s5 0 6.9-.6a3 3 0 0 0 2.1-2.1 31 31 0 0 0 .5-3.8 31 31 0 0 0-.5-3.8Z"/><path class="shared-solid" d="m10 9 5 3-5 3Z"/></svg>';
