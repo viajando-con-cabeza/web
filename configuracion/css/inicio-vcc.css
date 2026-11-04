@@ -380,3 +380,74 @@ body.inicio-vcc .home-hero-polaroids{display:none!important}
  body.inicio-vcc .home-hero-layout{min-height:630px}
  body.inicio-vcc .home-hero h1{font-size:clamp(28px,7.7vw,32px)}
 }
+
+/* Inicio · hero fotográfico corporativo, reutiliza la misma foto que Destinos.
+   Override encapsulado para sustituir definitivamente el antiguo SVG dibujado. */
+body.inicio-vcc .home-hero{
+  background-color:#f5eee5;
+  background-image:url('/configuracion/imagenes/continentes/hero-map-approved-inline.svg');
+  background-repeat:no-repeat;
+  background-size:cover;
+  background-position:center 47%;
+  min-height:500px;
+}
+body.inicio-vcc .home-hero-layout{
+  min-height:500px;
+  padding:45px 0 46px;
+}
+body.inicio-vcc .home-hero-wash{
+  background:linear-gradient(90deg,rgba(250,246,241,.97) 0%,rgba(250,246,241,.90) 30%,rgba(250,246,241,.67) 48%,rgba(250,246,241,.12) 79%,rgba(250,246,241,.03) 100%);
+}
+body.inicio-vcc .home-hero-copy{
+  width:min(780px,72%);
+  max-width:72%;
+}
+body.inicio-vcc .home-script{
+  margin-bottom:14px;
+  font-size:clamp(27px,2.7vw,38px);
+}
+body.inicio-vcc .home-hero h1{
+  font-size:clamp(40px,3.8vw,61px);
+  line-height:1.09;
+  margin-bottom:17px;
+}
+body.inicio-vcc .home-hero-copy>p:not(.home-hero-manifesto){
+  margin-bottom:19px;
+  line-height:1.52;
+}
+body.inicio-vcc .home-hero-copy>.home-hero-manifesto{
+  padding-top:14px;
+  line-height:1.44;
+}
+@media(max-width:900px){
+  body.inicio-vcc .home-hero{min-height:490px;background-position:58% center}
+  body.inicio-vcc .home-hero-layout{min-height:490px;padding:41px 0}
+  body.inicio-vcc .home-hero-copy{width:85%;max-width:85%}
+}
+@media(max-width:720px){
+  body.inicio-vcc .home-hero{
+    min-height:580px;
+    background-size:auto 100%;
+    background-position:57% center;
+  }
+  body.inicio-vcc .home-hero-layout{
+    min-height:580px;
+    padding:45px 0 50px;
+    align-items:flex-start;
+  }
+  body.inicio-vcc .home-hero-copy{width:100%;max-width:100%}
+  body.inicio-vcc .home-hero-wash{
+    background:linear-gradient(90deg,rgba(250,246,241,.97) 0%,rgba(250,246,241,.87) 61%,rgba(250,246,241,.47) 100%);
+  }
+  body.inicio-vcc .home-script{font-size:clamp(25px,7.2vw,34px);margin-bottom:18px}
+  body.inicio-vcc .home-hero h1{
+    font-size:clamp(30px,7.8vw,46px);
+    margin-bottom:19px;line-height:1.14;
+  }
+  body.inicio-vcc .home-hero-copy>p:not(.home-hero-manifesto){margin-bottom:22px}
+  body.inicio-vcc .home-hero-copy>.home-hero-manifesto{padding-top:16px}
+}
+@media(max-width:370px){
+  body.inicio-vcc .home-hero{min-height:610px}
+  body.inicio-vcc .home-hero-layout{min-height:610px}
+}
