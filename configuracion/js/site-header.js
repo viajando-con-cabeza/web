@@ -393,7 +393,7 @@
   if(section==='destinos'){
     const fix=document.createElement('style');
     fix.id='destinos-approved-hero-fix';
-    fix.textContent=`.destinos-hero::after{background-image:url("${url('/destinos/imagenes/hero-map-approved-inline.svg?v=2')}")!important;background-position:center!important;background-size:contain!important;background-repeat:no-repeat!important}`;
+    fix.textContent=`.destinos-hero::after{background-image:url("${url('/configuracion/imagenes/fondos/hero-map-approved-inline.svg?v=2')}")!important;background-position:center!important;background-size:contain!important;background-repeat:no-repeat!important}`;
     document.head.appendChild(fix);
   }
   if(section==='itinerarios' && /\/itinerarios\/?$/.test(currentPath)){
