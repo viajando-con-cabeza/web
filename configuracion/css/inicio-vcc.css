@@ -776,3 +776,217 @@ body.inicio-vcc .home-stories-grid{align-items:start}
 @media(prefers-reduced-motion:reduce){
  body.inicio-vcc .home-feature-card{transition:none}
 }
+
+/* VCC HOME · filas perfectamente simétricas (mismo límite derecho y tamaño de tarjeta).
+   Planifica e Instagram conservan sus posiciones en la segunda columna. */
+@media(min-width:901px){
+  body.inicio-vcc .home-feature-grid,
+  body.inicio-vcc .home-stories-grid{
+    display:grid!important;
+    grid-template-columns:minmax(0,1.16fr) minmax(0,.84fr)!important;
+    column-gap:25px!important;
+    align-items:start!important;
+  }
+  body.inicio-vcc .home-featured-itineraries,
+  body.inicio-vcc .home-featured-guide,
+  body.inicio-vcc .home-planning,
+  body.inicio-vcc .home-instagram{min-width:0;width:100%}
+}
+body.inicio-vcc .home-featured-itineraries .home-carousel-track,
+body.inicio-vcc .home-featured-guide .home-carousel-track{
+  grid-auto-columns:calc((100% - 22px)/3);
+  gap:11px;
+}
+body.inicio-vcc .home-featured-itineraries .home-feature-card,
+body.inicio-vcc .home-featured-guide .home-feature-card{
+  height:192px;
+}
+body.inicio-vcc .home-featured-itineraries .home-feature-photo,
+body.inicio-vcc .home-featured-guide .home-feature-photo{
+  height:96px;
+  min-height:96px;
+  flex-basis:96px;
+}
+body.inicio-vcc .home-featured-itineraries .home-feature-details,
+body.inicio-vcc .home-featured-guide .home-feature-details{padding:7px 9px 8px}
+body.inicio-vcc .home-featured-itineraries .home-feature-details h3,
+body.inicio-vcc .home-featured-guide .home-feature-details h3{font-size:15px}
+body.inicio-vcc .home-featured-itineraries .home-carousel-wrap,
+body.inicio-vcc .home-featured-guide .home-carousel-wrap{width:100%}
+
+/* Planifica · postal editorial cálida, compacta y alineada con las tarjetas. */
+body.inicio-vcc .home-planning{
+  display:grid;
+  grid-template-columns:37% minmax(0,1fr);
+  gap:6px;
+  height:192px;
+  min-height:192px;
+  margin:0!important;
+  padding:12px 15px;
+  align-items:center;
+  align-self:auto;
+  border:1px solid #e9d9c8;
+  border-radius:11px;
+  background:linear-gradient(128deg,#f5e6d6 0%,#f8ecdf 60%,#f1dfc9 100%);
+  box-shadow:0 4px 15px #5c3d2310;
+  overflow:hidden;
+}
+body.inicio-vcc .home-planning-visual{position:relative;min-width:0;align-self:center}
+body.inicio-vcc .home-planning-art{
+  width:100%;height:142px;max-height:142px;
+  max-width:none;object-fit:contain;display:block;
+  filter:drop-shadow(0 5px 5px #693f211c);
+}
+body.inicio-vcc .home-planning-stamp{
+  position:absolute;left:0;bottom:0;
+  transform:rotate(-7deg);
+  border:1px solid #d8ab8f;border-radius:4px;
+  color:#a55744;background:#fcf5ee;
+  padding:1px 6px;font:700 15px/1.25 "Caveat",cursive;
+}
+body.inicio-vcc .home-planning-copy{min-width:0}
+body.inicio-vcc .home-planning-eyebrow{
+  display:block;margin-bottom:1px;
+  font:600 17px/1 "Caveat",cursive;color:#b65a45;
+}
+body.inicio-vcc .home-planning h2{
+  font:500 clamp(22px,2vw,29px)/1.04 "Oswald",sans-serif;
+  margin:0 0 5px;letter-spacing:-.02em;
+}
+body.inicio-vcc .home-planning p{
+  max-width:290px;margin:0 0 7px;
+  font:400 10.5px/1.42 "DM Sans",sans-serif;color:#54483f;
+}
+body.inicio-vcc .home-planning-tags{
+  display:flex;align-items:center;flex-wrap:wrap;gap:5px;
+  margin-bottom:8px;
+}
+body.inicio-vcc .home-planning-tags span{
+  font:700 8px/1.1 "DM Sans",sans-serif;color:#985542;
+  border:1px solid #dfc1aa;border-radius:20px;background:#fffaf3a8;
+  padding:3px 6px;
+}
+body.inicio-vcc .home-planning .home-btn{
+  min-height:30px;padding:7px 10px;
+  font-size:9px;gap:8px;border-radius:5px;
+}
+body.inicio-vcc .home-planning .home-btn span{font-size:13px}
+
+/* Instagram · vista previa editorial de inspiración, sin fingir posts reales. */
+body.inicio-vcc .home-instagram{
+  width:100%;padding-left:0;border-left:0;min-width:0;
+}
+body.inicio-vcc .home-instagram .home-section-heading{gap:5px}
+body.inicio-vcc .home-instagram-profile-link{
+  font-size:9px;letter-spacing:0;padding-bottom:7px;
+}
+body.inicio-vcc .home-instagram-photos{
+  display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:10px;width:100%;max-width:none;min-width:0;
+}
+body.inicio-vcc .home-instagram-photos a.home-insta-post{
+  display:flex;flex-direction:column;
+  min-width:0;height:167px;aspect-ratio:auto!important;
+  background:#fffdfa;
+  border:1px solid #e8dbcf;
+  border-radius:9px;overflow:hidden;
+  text-decoration:none;
+  box-shadow:0 3px 11px #3d2d2011;
+  transition:transform .2s,box-shadow .2s;
+}
+body.inicio-vcc .home-instagram-photos a.home-insta-post:hover{
+  transform:translateY(-2px);box-shadow:0 6px 18px #3d2d2022;
+}
+body.inicio-vcc .home-insta-top{
+  display:flex;align-items:center;gap:5px;
+  height:23px;min-height:23px;padding:4px 7px;
+  color:#51463f;font:800 9px/1 "DM Sans",sans-serif;
+}
+body.inicio-vcc .home-insta-top svg{
+  position:static;width:13px;height:13px;stroke:#c4634b;fill:none;
+  filter:none;flex:none;stroke-width:2;
+}
+body.inicio-vcc .home-insta-top span:last-child{margin-left:auto;color:#b9aea5;letter-spacing:1px}
+body.inicio-vcc .home-insta-picture{
+  display:block;position:relative;
+  min-width:0;height:115px;flex:1 1 auto;overflow:hidden;
+}
+body.inicio-vcc .home-instagram-photos .home-insta-picture img{
+  display:block;width:100%;height:100%;object-fit:cover;
+  background:#ebe0d4;transition:transform .25s;
+}
+body.inicio-vcc .home-instagram-photos .home-insta-post:hover img{transform:scale(1.035)}
+body.inicio-vcc .home-insta-type{
+  position:absolute;left:6px;bottom:6px;
+  padding:3px 5px;border-radius:3px;background:#fffaf1e8;
+  color:#6d4e42;font:700 8px/1 "DM Sans",sans-serif;
+}
+body.inicio-vcc .home-insta-caption{
+  height:25px;min-height:25px;padding:5px 6px;
+  display:flex;align-items:center;gap:5px;
+  overflow:hidden;color:#5b4f48;
+  font:600 8px/1.15 "DM Sans",sans-serif;
+}
+body.inicio-vcc .home-insta-caption svg{
+  position:static;width:12px;height:12px;flex:none;
+  stroke:#ce735c;fill:none;filter:none;stroke-width:2;
+}
+body.inicio-vcc .home-insta-caption span{
+  white-space:nowrap;text-overflow:ellipsis;overflow:hidden;
+}
+body.inicio-vcc .home-instagram-note{
+  color:#947463;
+  font:600 9px/1.4 "DM Sans",sans-serif;
+  margin:6px 0 0;
+  text-align:center;
+}
+@media(min-width:901px) and (max-width:1130px){
+  body.inicio-vcc .home-planning{grid-template-columns:30% minmax(0,1fr);gap:5px;padding:10px}
+  body.inicio-vcc .home-planning h2{font-size:22px}
+  body.inicio-vcc .home-planning-eyebrow{font-size:14px}
+  body.inicio-vcc .home-planning-art{height:125px}
+  body.inicio-vcc .home-planning-tags span{font-size:7px;padding:3px 4px}
+  body.inicio-vcc .home-instagram-profile-link{font-size:8px}
+}
+@media(max-width:900px){
+  body.inicio-vcc .home-feature-grid,
+  body.inicio-vcc .home-stories-grid{grid-template-columns:minmax(0,1fr)!important}
+  body.inicio-vcc .home-planning{height:auto;min-height:180px;grid-template-columns:170px minmax(0,1fr);padding:15px 20px}
+  body.inicio-vcc .home-instagram{width:100%}
+}
+@media(max-width:650px){
+  body.inicio-vcc .home-featured-itineraries .home-carousel-track,
+  body.inicio-vcc .home-featured-guide .home-carousel-track{
+    grid-auto-columns:calc((100% - 11px)/2);gap:11px;
+  }
+  body.inicio-vcc .home-featured-itineraries .home-feature-card,
+  body.inicio-vcc .home-featured-guide .home-feature-card{height:208px}
+  body.inicio-vcc .home-featured-itineraries .home-feature-photo,
+  body.inicio-vcc .home-featured-guide .home-feature-photo{height:113px;min-height:113px;flex-basis:113px}
+  body.inicio-vcc .home-planning{grid-template-columns:95px minmax(0,1fr);gap:8px;padding:12px;min-height:180px}
+  body.inicio-vcc .home-planning-art{height:115px;max-height:115px}
+  body.inicio-vcc .home-planning h2{font-size:24px}
+  body.inicio-vcc .home-instagram-photos{gap:6px}
+  body.inicio-vcc .home-instagram-photos a.home-insta-post{height:151px}
+  body.inicio-vcc .home-insta-top{height:21px;min-height:21px}
+  body.inicio-vcc .home-insta-caption{height:23px;min-height:23px}
+}
+@media(max-width:440px){
+  body.inicio-vcc .home-featured-itineraries .home-carousel-track,
+  body.inicio-vcc .home-featured-guide .home-carousel-track{grid-auto-columns:83%}
+  body.inicio-vcc .home-featured-itineraries .home-feature-card,
+  body.inicio-vcc .home-featured-guide .home-feature-card{height:230px}
+  body.inicio-vcc .home-featured-itineraries .home-feature-photo,
+  body.inicio-vcc .home-featured-guide .home-feature-photo{height:126px;min-height:126px;flex-basis:126px}
+  body.inicio-vcc .home-planning{grid-template-columns:80px minmax(0,1fr)}
+  body.inicio-vcc .home-planning h2{font-size:21px}
+  body.inicio-vcc .home-planning-tags{gap:3px}
+  body.inicio-vcc .home-planning-tags span{font-size:7px;padding:3px 4px}
+  body.inicio-vcc .home-planning-eyebrow{font-size:14px}
+  body.inicio-vcc .home-instagram .home-section-heading{flex-wrap:wrap}
+  body.inicio-vcc .home-instagram-photos{grid-template-columns:repeat(3,minmax(0,1fr))}
+  body.inicio-vcc .home-instagram-photos a.home-insta-post{height:126px}
+  body.inicio-vcc .home-insta-top{font-size:8px;padding:3px 4px}
+  body.inicio-vcc .home-insta-caption{font-size:7px;padding:3px 4px}
+  body.inicio-vcc .home-insta-type{font-size:7px;padding:2px 3px}
+}
