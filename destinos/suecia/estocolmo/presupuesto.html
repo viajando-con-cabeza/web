@@ -24,6 +24,54 @@ html body.budget-vcc{background:#faf6f1!important}
 html body.budget-vcc > .st-shell{background:#faf6f1!important}
 html body.budget-vcc .st-shell > main.budget-main{background:transparent!important}
 </style>
+<style id="vcc-budget-final-polish">
+/* El papel beige es el fondo: módulos blancos, controles blancos, bordes grises */
+html body.budget-vcc .vcc-method-hero,
+html body.budget-vcc .vcc-method-flow,
+html body.budget-vcc .vcc-principles article,
+html body.budget-vcc .mode-card,
+html body.budget-vcc .philosophy-profile,
+html body.budget-vcc .philosophy-profile.medium,
+html body.budget-vcc .philosophy-profile.backpacker,
+html body.budget-vcc .philosophy-profile.vcc-choice,
+html body.budget-vcc .breakdown-card,
+html body.budget-vcc .calculator-card,
+html body.budget-vcc .saving-tip,
+html body.budget-vcc .decision-panel,
+html body.budget-vcc .spend-panel.worth,
+html body.budget-vcc .spend-panel.skip,
+html body.budget-vcc .surprise-grid.tips-track article,
+html body.budget-vcc .stockholm-apply{background:#fff!important;border-color:#e2ddd6!important}
+html body.budget-vcc .philosophy-profile.vcc-choice{border-color:#c86f5d!important}
+html body.budget-vcc .calc-control,
+html body.budget-vcc .category-row select,
+html body.budget-vcc .stepper button,
+html body.budget-vcc .donut-inner,
+html body.budget-vcc .profile-icon,
+html body.budget-vcc .decision-carousel .carousel-arrow,
+html body.budget-vcc .carousel-shell .carousel-arrow,
+html body.budget-vcc .no-spend-track .line-icon{background:#fff!important;border:1px solid #d8d8d8!important;color:#292724!important;box-shadow:none!important}
+html body.budget-vcc .category-row select{appearance:auto;cursor:pointer}
+html body.budget-vcc .calc-total{background:#fff!important;border:1px solid #e2ddd6!important}
+html body.budget-vcc .calc-total span,html body.budget-vcc .calc-total small{color:#655c54!important}
+/* Pequeño bloque editorial de cierre sin fotografías */
+html body.budget-vcc .related-section{background:#172026!important;color:#fffaf5!important;border:0!important;padding:49px 0 55px!important}
+html body.budget-vcc .related-inner{width:min(1180px,calc(100% - 48px));margin:auto}
+html body.budget-vcc .related-head{margin:0 0 24px!important;display:block}
+html body.budget-vcc .related-head p{color:#de9a83!important;font:600 28px/1 "Caveat",cursive!important;margin:0 0 10px!important}
+html body.budget-vcc .related-head h2{color:#fffaf5!important;font:500 clamp(27px,3.2vw,40px)/1.1 "Oswald",sans-serif!important;margin:0 0 9px!important}
+html body.budget-vcc .related-head span{color:#c8c8c7!important;font:400 13px/1.5 "DM Sans",sans-serif!important}
+html body.budget-vcc .related-grid{display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:12px!important}
+html body.budget-vcc .related-grid .related-text-link{min-height:117px;display:flex!important;align-items:center;justify-content:space-between;gap:8px;padding:17px!important;border:1px solid #586067!important;border-radius:7px;background:#202b30!important;text-decoration:none!important;transition:background .2s,border-color .2s}
+html body.budget-vcc .related-grid .related-text-link:hover{background:#293940!important;border-color:#df9c80!important}
+html body.budget-vcc .related-text-link>span{display:flex;flex-direction:column;gap:6px;min-width:0}
+html body.budget-vcc .related-grid .related-text-link small{font:800 9px/1.2 "DM Sans",sans-serif;color:#e5a18d;letter-spacing:.08em}
+html body.budget-vcc .related-grid .related-text-link strong{font:500 19px/1.2 "Oswald",sans-serif;color:#fffaf5}
+html body.budget-vcc .related-grid .related-text-link em{font:400 11px/1.35 "DM Sans",sans-serif;color:#d1d1cd;font-style:normal}
+html body.budget-vcc .related-grid .related-text-link b{display:inline-flex;flex:0 0 auto;position:static!important;width:26px;height:26px;align-items:center;justify-content:center;background:transparent!important;color:#e5a18d!important;font-size:20px;font-weight:400}
+@media(max-width:800px){html body.budget-vcc .related-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}}
+@media(max-width:520px){html body.budget-vcc .related-inner{width:calc(100% - 30px)}html body.budget-vcc .related-grid{grid-template-columns:1fr!important}html body.budget-vcc .related-grid .related-text-link{min-height:90px;padding:14px!important}}
+</style>
 <style id="vcc-budget-single-active">
 /* Únicament la pestanya activa es destaca. El primer enllaç ja no queda marcat permanentment. */
 html body.budget-vcc .st-tabs a,
@@ -194,15 +242,15 @@ html body.budget-vcc .st-tabs a:hover:not(.is-active){color:#c86f5d!important}
   </div><button class="carousel-arrow next" type="button" aria-label="Gasto sorpresa siguiente">›</button></div>
 </section>
 
-<section class="related-section">
+<section class="related-section" aria-labelledby="budget-related-title">
   <div class="related-inner">
-    <div class="related-head"><div><p>Continúa planificando</p><h2>SIGUE DESCUBRIENDO ESTOCOLMO</h2></div><span>Tu próxima parada empieza aquí.</span></div>
-    <div class="related-grid">
-      <article><a href="imprescindibles.html"><img src="https://images.unsplash.com/photo-1520769669658-f07657f5a307?auto=format&fit=crop&w=700&q=84" alt="Estocolmo"><div class="related-card-copy"><strong>Qué ver en Estocolmo</strong><span>Imprescindibles y rincones</span><b aria-hidden="true">↗</b></div></a></article>
-      <article><a href="donde-dormir.html"><img src="https://images.unsplash.com/photo-1564501049412-61c2a3083791?auto=format&fit=crop&w=700&q=84" alt="Hotel"><div class="related-card-copy"><strong>Dónde dormir</strong><span>Zonas y consejos</span><b aria-hidden="true">↗</b></div></a></article>
-      <article><a href="itinerario.html?dias=3"><img src="https://images.unsplash.com/photo-1509356843151-3e7d96241e11?auto=format&fit=crop&w=700&q=84" alt="Estocolmo"><div class="related-card-copy"><strong>Itinerario 3 días</strong><span>Ruta día a día</span><b aria-hidden="true">↗</b></div></a></article>
-      <article><a href="como-moverse.html"><img src="https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&w=700&q=84" alt="Transporte"><div class="related-card-copy"><strong>Cómo moverse</strong><span>Metro, bus y ferry</span><b aria-hidden="true">↗</b></div></a></article>
-    </div>
+    <div class="related-head"><div><p>Continúa planificando</p><h2 id="budget-related-title">SIGUE DESCUBRIENDO ESTOCOLMO</h2><span>Todo lo que necesitas para seguir preparando tu viaje</span></div></div>
+    <nav class="related-grid" aria-label="Más guías de Estocolmo">
+      <a href="imprescindibles.html" class="related-text-link"><span><small>01 / DESCUBRE</small><strong>QUÉ VER</strong><em>Imprescindibles y rincones</em></span><b aria-hidden="true">↗</b></a>
+      <a href="donde-dormir.html" class="related-text-link"><span><small>02 / DESCANSA</small><strong>DÓNDE DORMIR</strong><em>Zonas y consejos</em></span><b aria-hidden="true">↗</b></a>
+      <a href="itinerario.html?dias=3" class="related-text-link"><span><small>03 / ORGANIZA</small><strong>ITINERARIO 3 DÍAS</strong><em>Ruta día a día</em></span><b aria-hidden="true">↗</b></a>
+      <a href="como-moverse.html" class="related-text-link"><span><small>04 / EXPLORA</small><strong>CÓMO MOVERSE</strong><em>Metro, bus y ferry</em></span><b aria-hidden="true">↗</b></a>
+    </nav>
   </div>
 </section>
 
