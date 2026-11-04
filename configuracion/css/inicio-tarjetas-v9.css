@@ -1,0 +1,113 @@
+/* Inicio Quality v9 · corrección real de las dos tarjetas según captura móvil (modo escritorio).
+   No cambia carruseles, cabecera ni el diseño del resto del sitio. */
+body.inicio-vcc .home-planning{
+  height:auto!important;
+  min-height:245px!important;
+  overflow:hidden!important;
+  grid-template-columns:38% minmax(0,1fr)!important;
+  align-items:stretch!important;
+}
+body.inicio-vcc .home-planning-visual{
+  position:relative!important;
+  min-height:245px!important;
+  align-self:stretch!important;
+}
+body.inicio-vcc .home-planning-visual img{
+  width:100%!important;height:100%!important;
+  object-fit:cover!important;object-position:center!important;
+}
+body.inicio-vcc .home-planning-copy{
+  display:flex!important;flex-direction:column!important;
+  align-items:flex-start!important;justify-content:center!important;
+  min-height:245px!important;height:auto!important;
+  padding:17px 17px 18px!important;
+  box-sizing:border-box!important;
+}
+body.inicio-vcc .home-planning-eyebrow{
+  font-size:clamp(17px,1.6vw,22px)!important;
+  margin:0 0 5px!important;
+}
+body.inicio-vcc .home-planning h2{
+  font-size:clamp(24px,2.15vw,32px)!important;
+  line-height:1.08!important;margin:0 0 8px!important;
+}
+body.inicio-vcc .home-planning p{
+  max-width:unset!important;
+  font-size:clamp(11px,.98vw,13px)!important;
+  line-height:1.48!important;margin:0 0 11px!important;
+}
+body.inicio-vcc .home-planning-tags{
+  gap:6px!important;margin:0 0 12px!important;
+}
+body.inicio-vcc .home-planning-tags span{
+  font-size:9px!important;padding:5px 8px!important;
+}
+body.inicio-vcc .home-planning .home-btn{
+  position:relative!important;display:inline-flex!important;
+  align-items:center!important;justify-content:center!important;
+  min-height:34px!important;margin:0!important;
+  padding:9px 14px!important;
+  font-size:10px!important;line-height:1.25!important;
+  flex:0 0 auto!important;visibility:visible!important;
+}
+body.inicio-vcc .home-contact{
+  justify-content:space-between!important;
+  align-items:flex-start!important;
+  padding:18px 18px 16px!important;
+}
+body.inicio-vcc .home-contact-symbol{
+  width:92px!important;height:70px!important;max-width:92px!important;
+  margin:0 0 4px!important;align-self:flex-start!important;
+  display:flex!important;align-items:center!important;justify-content:flex-start!important;
+}
+body.inicio-vcc .home-contact-symbol img{
+  width:92px!important;height:70px!important;max-width:100%!important;
+  object-fit:contain!important;object-position:left center!important;
+}
+body.inicio-vcc .home-contact h2{
+  font-size:clamp(25px,2.1vw,31px)!important;
+  line-height:1.08!important;margin:0 0 8px!important;
+}
+body.inicio-vcc .home-contact p{
+  max-width:100%!important;
+  font-size:clamp(11px,.95vw,13px)!important;
+  line-height:1.52!important;margin:0 0 12px!important;
+}
+body.inicio-vcc .home-contact .home-btn{
+  align-self:flex-start!important;margin-top:auto!important;
+  min-height:34px!important;font-size:10px!important;
+  padding:9px 12px!important;
+}
+@media(max-width:1120px) and (min-width:901px){
+  body.inicio-vcc .home-planning{grid-template-columns:35% minmax(0,1fr)!important}
+  body.inicio-vcc .home-planning-copy{padding:12px 12px 14px!important}
+  body.inicio-vcc .home-planning h2{font-size:25px!important}
+  body.inicio-vcc .home-planning-tags span{font-size:8px!important;padding:4px 6px!important}
+  body.inicio-vcc .home-contact{padding:12px!important}
+  body.inicio-vcc .home-contact-symbol{width:75px!important;height:58px!important;max-width:75px!important}
+  body.inicio-vcc .home-contact-symbol img{width:75px!important;height:58px!important}
+  body.inicio-vcc .home-contact h2{font-size:26px!important}
+}
+@media(max-width:900px){
+  body.inicio-vcc .home-planning{height:auto!important;min-height:252px!important;grid-template-columns:38% minmax(0,1fr)!important}
+  body.inicio-vcc .home-planning-visual{min-height:252px!important}
+  body.inicio-vcc .home-planning-copy{min-height:252px!important;padding:12px!important}
+  body.inicio-vcc .home-planning h2{font-size:25px!important}
+  body.inicio-vcc .home-contact{padding:14px!important}
+}
+@media(max-width:530px){
+  body.inicio-vcc .home-planning{grid-template-columns:33% minmax(0,1fr)!important;min-height:280px!important}
+  body.inicio-vcc .home-planning-visual{min-height:280px!important}
+  body.inicio-vcc .home-planning-copy{min-height:280px!important;padding:12px 10px!important}
+  body.inicio-vcc .home-planning-eyebrow{font-size:17px!important}
+  body.inicio-vcc .home-planning h2{font-size:22px!important}
+  body.inicio-vcc .home-planning p{font-size:11px!important}
+  body.inicio-vcc .home-planning-tags span{font-size:8px!important;padding:4px 6px!important}
+  body.inicio-vcc .home-planning .home-btn{font-size:9px!important;padding:8px 10px!important}
+  body.inicio-vcc .home-contact{padding:12px!important}
+  body.inicio-vcc .home-contact-symbol{width:58px!important;height:48px!important;max-width:58px!important}
+  body.inicio-vcc .home-contact-symbol img{width:58px!important;height:48px!important}
+  body.inicio-vcc .home-contact h2{font-size:22px!important}
+  body.inicio-vcc .home-contact p{font-size:10px!important}
+  body.inicio-vcc .home-contact .home-btn{font-size:8px!important;padding:8px!important}
+}
