@@ -990,3 +990,41 @@ body:has(.contact-page) .contact-page .contact-hero{
   background-position:center center!important;
   background-size:cover!important;
 }
+
+
+/* VCC | Hero overlays coordinados entre las cinco páginas principales.
+   La imagen sigue siendo independiente: el velo claro se aplica de izquierda a derecha. */
+:root{
+  --vcc-main-hero-veil:linear-gradient(90deg,
+    rgba(250,246,241,.97) 0%,
+    rgba(250,246,241,.88) 40%,
+    rgba(250,246,241,.18) 78%,
+    rgba(250,246,241,.04) 100%);
+}
+body.destinos-vcc .destinos-about-hero > .about-hero-shade,
+body.itinerarios-vcc .itinerarios-hero > .about-hero-shade,
+body.planifica-vcc .planifica-about-hero > .about-hero-shade,
+body.about-vcc .about-hero > .about-hero-shade{
+  background:var(--vcc-main-hero-veil)!important;
+}
+/* Contacto no contiene .about-hero-shade: utilizamos su pseudo-elemento. */
+body:has(.contact-page) .contact-page .contact-hero::after{
+  content:""!important;
+  position:absolute!important;
+  inset:0!important;
+  z-index:0!important;
+  pointer-events:none!important;
+  background:var(--vcc-main-hero-veil)!important;
+}
+body:has(.contact-page) .contact-page .contact-hero > .contact-hero-content{
+  position:relative!important;
+  z-index:1!important;
+}
+@media(max-width:650px){
+  :root{
+    --vcc-main-hero-veil:linear-gradient(90deg,
+      rgba(250,246,241,.97) 0%,
+      rgba(250,246,241,.78) 68%,
+      rgba(250,246,241,.20) 100%);
+  }
+}
