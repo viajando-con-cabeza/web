@@ -120,5 +120,52 @@ const prev=document.getElementById('navPrev'),next=document.getElementById('navN
 document.querySelectorAll('.gallery').forEach(g=>{const main=g.querySelector('.gallery-main'),hero=main.querySelector('img'),count=main.querySelector('.photo-count'),btns=[...g.querySelectorAll('.thumbs button')],imgs=JSON.parse(main.dataset.images);btns.forEach(b=>b.onclick=()=>{const i=+b.dataset.i;hero.src=imgs[i];if(count)count.textContent=`${i+1} / ${imgs.length}`;btns.forEach(x=>x.classList.toggle('is-active',x===b))})});
 </script>
 <script src="/configuracion/js/plantillas/imprescindibles-interactions.js" defer></script>
-<script src="/configuracion/js/site-footer.js?v=20261102"></script></body>
+<script src="/configuracion/js/site-footer.js?v=20261102"></script><script id="vcc-single-active-subnav">
+(function(){
+  const nav=document.querySelector('.st-tabs, .place-nav');
+  if(!nav)return;
+  const entries=Array.from(nav.querySelectorAll('a[href^="#"]')).map(a=>({a,section:document.getElementById(decodeURIComponent(a.hash.slice(1)))})).filter(item=>item.section);
+  if(!entries.length)return;
+  let suppressUntil=0, frame=0, current=null;
+  function select(entry){
+    if(!entry || entry===current)return;
+    current=entry;
+    for(const item of entries){
+      const chosen=item===entry;
+      item.a.classList.toggle('is-active',chosen);
+      item.a.classList.toggle('active',chosen);
+      if(chosen)item.a.setAttribute('aria-current','location');else item.a.removeAttribute('aria-current');
+    }
+  }
+  function update(){
+    frame=0;
+    if(performance.now()<suppressUntil)return;
+    const topNav=nav.closest('.st-tabs, .place-nav-wrap');
+    const header=document.querySelector('.shared-header, .page-header');
+    const cutoff=(header?header.getBoundingClientRect().height:0)+(topNav?topNav.getBoundingClientRect().height:43)+26;
+    let selected=entries[0];
+    for(const entry of entries){if(entry.section.getBoundingClientRect().top<=cutoff)selected=entry;}
+    select(selected);
+  }
+  function queue(){if(!frame)frame=requestAnimationFrame(update);}
+  for(const entry of entries){
+    entry.a.addEventListener('click',()=>{
+      select(entry);
+      suppressUntil=performance.now()+850;
+      setTimeout(queue,900);
+    });
+  }
+  window.addEventListener('scroll',queue,{passive:true});
+  window.addEventListener('resize',queue,{passive:true});
+  window.addEventListener('hashchange',()=>{
+    const match=entries.find(x=>x.a.hash===location.hash);
+    if(match)select(match);
+    suppressUntil=performance.now()+500;
+    setTimeout(queue,550);
+  });
+  const hashEntry=entries.find(x=>x.a.hash===location.hash);
+  select(hashEntry||entries[0]);
+  queue();
+})();
+</script></body>
 </html>
