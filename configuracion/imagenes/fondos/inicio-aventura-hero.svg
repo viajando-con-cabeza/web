@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-label="Mapa de viaje con cámara, pasaporte, brújula y cuaderno de ruta">
+<defs>
+ <linearGradient id="paper" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#f6ebdc"/><stop offset=".55" stop-color="#f9f2e9"/><stop offset="1" stop-color="#e9d5bf"/></linearGradient>
+ <radialGradient id="light"><stop stop-color="#fffdfa" stop-opacity=".85"/><stop offset="1" stop-color="#fffdfa" stop-opacity="0"/></radialGradient>
+ <pattern id="roads" width="190" height="150" patternUnits="userSpaceOnUse" patternTransform="rotate(-18)">
+  <path d="M-10 25L220 35M0 115L220 105M38 -10L53 175M150 -10L128 175" fill="none" stroke="#c5a88c" stroke-width="2" opacity=".42"/>
+  <path d="M-30 68Q60 46 210 77M90 -20Q110 60 93 170" fill="none" stroke="#d98e7b" stroke-width="1.9" opacity=".32"/>
+  <path d="M-30 68Q60 46 210 77" fill="none" stroke="#fff8e9" stroke-width="1" stroke-dasharray="4 10"/>
+ </pattern>
+ <linearGradient id="camera" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#58514d"/><stop offset=".4" stop-color="#222324"/><stop offset="1" stop-color="#05090b"/></linearGradient>
+ <radialGradient id="lens"><stop stop-color="#8d776a"/><stop offset=".25" stop-color="#1a1b23"/><stop offset=".56" stop-color="#484e56"/><stop offset=".65" stop-color="#151719"/><stop offset="1" stop-color="#080c0f"/></radialGradient>
+ <linearGradient id="passport" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#9b3744"/><stop offset=".5" stop-color="#773141"/><stop offset="1" stop-color="#4e1c2a"/></linearGradient>
+ <filter id="shadow" x="-30%" y="-30%" width="170%" height="180%"><feGaussianBlur stdDeviation="13"/></filter>
+</defs>
+<rect width="1600" height="900" fill="url(#paper)"/>
+<rect width="1600" height="900" fill="url(#roads)"/>
+<g fill="none" stroke="#b9a48f" opacity=".35" stroke-width="3">
+<path d="M0 390Q290 140 510 330T1050 300T1600 260"/><path d="M0 575Q330 450 570 515T1140 430T1600 490"/>
+<path d="M200 0L420 900M670 0L770 900M1150 0L980 900"/>
+</g>
+<ellipse cx="420" cy="310" rx="730" ry="580" fill="url(#light)"/>
+<g transform="translate(1160 170) rotate(14)">
+ <rect x="-90" y="-85" width="390" height="255" rx="30" fill="#675346" opacity=".23" filter="url(#shadow)"/>
+ <rect x="-120" y="-105" width="365" height="240" rx="24" fill="url(#camera)" stroke="#4a3d35" stroke-width="10"/>
+ <path d="M-86 -105v-35h108v35M70 -105v-31h78v31" stroke="#39393a" fill="#363535" stroke-width="12"/>
+ <rect x="-100" y="-85" width="160" height="175" fill="#252526" rx="12"/>
+ <path d="M-95 -62h153M-95 62h150" stroke="#aaa49b" opacity=".5" stroke-width="8"/>
+ <circle cx="150" cy="18" r="143" fill="#101112" stroke="#b1aaa0" stroke-width="8"/>
+ <circle cx="150" cy="18" r="125" fill="#17191c" stroke="#292b2c" stroke-width="20"/>
+ <circle cx="150" cy="18" r="105" fill="url(#lens)" stroke="#94826b" stroke-width="5"/>
+ <circle cx="150" cy="18" r="65" fill="#1c2229" stroke="#5b5961" stroke-width="12"/>
+ <circle cx="135" cy="-4" r="18" fill="#8c9297" opacity=".16"/><path d="M105 -43Q125 -63 159 -54" fill="none" stroke="#b6c3cb" stroke-opacity=".36" stroke-width="9"/>
+</g>
+<g transform="translate(1190 620) rotate(11)">
+ <rect x="-15" y="-12" width="260" height="345" rx="10" fill="#47312c" opacity=".26" filter="url(#shadow)"/>
+ <rect width="260" height="345" rx="7" fill="url(#passport)" stroke="#b87574" stroke-width="7"/>
+ <rect x="18" y="18" width="224" height="309" rx="2" fill="none" stroke="#d3a46b" opacity=".35"/>
+ <text x="130" y="87" fill="#ebc795" font-family="Georgia,serif" text-anchor="middle" font-size="20" letter-spacing="4">PASAPORTE</text>
+ <circle cx="130" cy="170" r="55" stroke="#d5b987" fill="none" stroke-width="3"/>
+ <ellipse cx="130" cy="170" rx="26" ry="55" stroke="#d5b987" fill="none" stroke-width="3"/>
+ <path d="M75 170h110M90 140h80M90 200h80" stroke="#d5b987" fill="none" stroke-width="3"/>
+ <path d="M110 250h40" stroke="#d5b987" stroke-width="4"/>
+</g>
+<g transform="translate(640 765) rotate(-11)">
+ <rect x="-5" y="-5" width="420" height="250" rx="9" fill="#7b5940" opacity=".3" filter="url(#shadow)"/>
+ <rect width="420" height="250" rx="10" fill="#fff9ef" stroke="#c6ad92" stroke-width="8"/>
+ <g stroke="#c9bbae" opacity=".6" stroke-width="2"><path d="M25 65h370M25 98h370M25 131h370M25 164h370M25 197h370"/></g>
+ <g fill="none" stroke="#9a7967" stroke-width="4"><path d="M24 18v215M40 18v215"/></g>
+ <g fill="none" stroke="#8c6d59" stroke-width="5"><path d="M15 15q-20 7 0 20M15 50q-20 7 0 20M15 85q-20 7 0 20M15 120q-20 7 0 20M15 155q-20 7 0 20M15 190q-20 7 0 20"/></g>
+ <text x="70" y="56" fill="#796458" font-size="27" font-family="Georgia,serif" font-style="italic">Próximo viaje</text>
+ <g stroke="#aa7460" stroke-width="3" fill="none"><path d="M74 88h17v17H74zM79 96l6 6 11-18M74 128h17v17H74zM79 136l6 6 11-18M74 168h17v17H74zM79 176l6 6 11-18"/></g>
+ <g fill="#806b61" font-family="Georgia,serif" font-size="21" font-style="italic"><text x="105" y="105">Destino</text><text x="105" y="145">Itinerario</text><text x="105" y="185">Presupuesto</text></g>
+</g>
+<g transform="translate(118 720) rotate(-14)">
+ <ellipse cy="25" rx="142" ry="82" fill="#bf9961" opacity=".65"/>
+ <ellipse cy="20" rx="135" ry="72" fill="#e9d1a4"/>
+ <ellipse cy="-3" rx="78" ry="55" fill="#c9ab7b"/>
+ <path d="M-75 0q75 32 150 0" fill="none" stroke="#463d31" stroke-width="14"/>
+</g>
+<g transform="translate(440 840)">
+ <circle r="54" fill="#9b744d" opacity=".24" filter="url(#shadow)"/>
+ <circle r="52" fill="#ba985c" stroke="#e3c68f" stroke-width="6"/>
+ <circle r="42" fill="#f0ddbb" stroke="#866d4d" stroke-width="2"/>
+ <path d="M0 -33v66M-33 0h66" stroke="#745f4d" stroke-width="2"/>
+ <path d="M0 -35l12 40-12-7-12 7z" fill="#8c5244"/>
+</g>
+</svg>
