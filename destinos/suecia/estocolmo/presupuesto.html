@@ -17,6 +17,13 @@
 <link rel="stylesheet" href="/configuracion/css/destinos/suecia/estocolmo/estocolmo-quality-fixes.css">
 <link rel="stylesheet" href="/configuracion/css/plantillas/presupuesto-vcc-visual.css?v=20261101subtle6">
 <link rel="stylesheet" href="/configuracion/css/destinos/suecia/estocolmo/presupuesto-armonia.css?v=20261104-fondo-beige">
+<style id="vcc-budget-page-background">
+/* Color de base corporativo; no colorear tarjetas ni widgets */
+html:has(body.budget-vcc){background-color:#faf6f1!important}
+html body.budget-vcc{background:#faf6f1!important}
+html body.budget-vcc > .st-shell{background:#faf6f1!important}
+html body.budget-vcc .st-shell > main.budget-main{background:transparent!important}
+</style>
 <style id="vcc-budget-single-active">
 /* Únicament la pestanya activa es destaca. El primer enllaç ja no queda marcat permanentment. */
 html body.budget-vcc .st-tabs a,
