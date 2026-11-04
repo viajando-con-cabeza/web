@@ -178,3 +178,118 @@ body.inicio-vcc .home-recent-grid small{display:block;font:500 11px/1.35 "DM San
 @media(prefers-reduced-motion:reduce){
  body.inicio-vcc .home-btn,body.inicio-vcc .home-itinerary,body.inicio-vcc .home-instagram-photos img,body.inicio-vcc .home-recent-grid a{transition:none}
 }
+
+/* AJUSTES DE FIDELIDAD · maqueta Inicio aprobada.
+   Las reglas se mantienen encapsuladas para no alterar otras páginas. */
+@media(min-width:901px){
+  body.inicio-vcc .home-hero{min-height:273px;height:273px}
+  body.inicio-vcc .home-hero-layout{min-height:273px;height:273px;padding:20px 0 12px}
+  body.inicio-vcc .home-hero-copy{width:680px;max-width:680px;padding-left:76px}
+  body.inicio-vcc .home-script{font-size:23px;margin-bottom:5px}
+  body.inicio-vcc .home-hero h1{font-size:clamp(40px,3.6vw,50px);line-height:1.13;white-space:nowrap;margin:0 0 9px}
+  body.inicio-vcc .home-hero-copy>p{font-size:13px;line-height:1.5;max-width:535px;margin:0 0 12px}
+  body.inicio-vcc .home-actions .home-btn{min-height:36px;padding:9px 16px}
+  body.inicio-vcc .home-signoff{margin-top:10px;font-size:23px}
+  body.inicio-vcc .home-hero-polaroids{right:170px;top:25px;transform:scale(.92);transform-origin:top right}
+  body.inicio-vcc .home-benefits{min-height:70px;margin-top:-10px!important}
+  body.inicio-vcc .home-feature-grid{grid-template-columns:1.16fr .84fr;gap:25px;align-items:center;margin-top:20px!important}
+  body.inicio-vcc .home-section-heading{margin-bottom:12px}
+  body.inicio-vcc .home-section-heading h2{font-size:31px;line-height:1.12}
+  body.inicio-vcc .home-kicker{font-size:18px}
+  body.inicio-vcc .home-itinerary-image{height:135px}
+  body.inicio-vcc .home-itinerary-meta{min-height:30px}
+  body.inicio-vcc .home-planning{min-height:170px;padding:12px 15px;grid-template-columns:39% 1fr;gap:10px;align-self:end;margin-bottom:1px}
+  body.inicio-vcc .home-planning-art{max-width:200px;max-height:160px}
+  body.inicio-vcc .home-planning h2{font-size:32px;margin:0 0 7px}
+  body.inicio-vcc .home-planning p{font-size:12px;line-height:1.46;margin-bottom:10px}
+  body.inicio-vcc .home-stories-grid{grid-template-columns:1.08fr .92fr;gap:23px;margin-top:19px!important}
+  body.inicio-vcc .home-guide-layout{grid-template-columns:48% minmax(0,1fr);gap:18px}
+  body.inicio-vcc .home-guide-image{height:190px}
+  body.inicio-vcc .home-guide-copy h3{font-size:23px;line-height:1.14;margin-bottom:6px}
+  body.inicio-vcc .home-guide-copy p{font-size:11px;line-height:1.48;margin-bottom:7px}
+  body.inicio-vcc .home-guide-score{margin-bottom:10px}
+  body.inicio-vcc .home-instagram{padding-left:23px}
+  body.inicio-vcc .home-instagram-photos a{aspect-ratio:1.13}
+  body.inicio-vcc .home-instagram-handle{margin-top:12px}
+  body.inicio-vcc .home-about{grid-template-columns:180px 215px minmax(0,1fr) 210px;gap:16px;min-height:116px;padding:10px 20px;margin-top:24px!important}
+  body.inicio-vcc .home-about-visual{height:103px}
+  body.inicio-vcc .home-about-visual img{height:100%;width:100%;object-fit:cover;object-position:center 60%;background:#fff;border:5px solid #fff;box-shadow:0 3px 12px #57443429;transform:rotate(-4deg);border-radius:1px}
+  body.inicio-vcc .home-about-title{border-right:1px solid #cdbbaa;padding-right:14px}
+  body.inicio-vcc .home-about h2{font-size:31px;white-space:nowrap}
+  body.inicio-vcc .home-about-summary p{font-size:13px;line-height:1.53;margin:0}
+  body.inicio-vcc .home-about-link{display:inline-flex;gap:5px;margin-top:6px}
+  body.inicio-vcc .home-about-doodle{display:block;width:100%;max-height:104px;object-fit:contain}
+}
+body.inicio-vcc .home-hero h1 em{
+  display:inline-block;
+  color:#fff;
+  background:var(--vcc-orange-dark);
+  font-style:normal;
+  padding:0 13px 6px;
+  margin-left:3px;
+  clip-path:polygon(2% 3%,98% 0,100% 16%,98% 29%,100% 88%,96% 96%,4% 100%,0 89%,2% 65%,0 32%);
+  box-decoration-break:clone;
+  -webkit-box-decoration-break:clone;
+  transform:rotate(-.6deg)
+}
+body.inicio-vcc .home-feature-grid .home-section-heading{align-items:end}
+body.inicio-vcc .home-section-heading h2:after{width:83px;height:2px;margin-top:4px}
+body.inicio-vcc .home-itinerary .home-tape{
+  background:#f6e5c8;
+  font-size:clamp(22px,2.15vw,27px);
+  padding:2px 15px 4px;
+  left:50%;
+  transform:translateX(-50%) rotate(-3deg);
+  text-align:center;
+}
+body.inicio-vcc .home-itinerary .home-itinerary-image img{display:block}
+body.inicio-vcc .home-planning{
+  background-color:#f1e4d5;
+  background-image:radial-gradient(ellipse at 8% 92%,#f6e8d6 0,transparent 66%),linear-gradient(90deg,#f5e7d5cc,#f7ede1be);
+  border:0;
+}
+body.inicio-vcc .home-planning:before{display:none}
+body.inicio-vcc .home-instagram-photos img{object-fit:contain;background:#eee3d6}
+body.inicio-vcc .home-guide-image .home-tape{bottom:-23px;left:50%;transform:translateX(-50%) rotate(-4deg)}
+body.inicio-vcc .home-guide-score span{font-size:18px}
+body.inicio-vcc .home-about{
+  background-color:#f1e4d7;
+  background-image:radial-gradient(ellipse at 14% 50%,#f9f0e1 0,#f2e3d4 55%,#f4e8de 100%);
+  border:0;
+}
+body.inicio-vcc .home-about-doodle{display:block}
+body.inicio-vcc .home-about-summary p{color:#4e453e}
+@media(min-width:901px) and (max-width:1150px){
+  body.inicio-vcc .home-hero-copy{padding-left:26px}
+  body.inicio-vcc .home-hero h1{font-size:41px}
+  body.inicio-vcc .home-hero-polaroids{right:95px;transform:scale(.68);transform-origin:top right}
+  body.inicio-vcc .home-benefit{padding:7px 4px}
+  body.inicio-vcc .home-benefit strong{font-size:15px}
+  body.inicio-vcc .home-planning h2{font-size:27px}
+  body.inicio-vcc .home-about{grid-template-columns:140px 175px minmax(0,1fr) 145px}
+  body.inicio-vcc .home-about h2{font-size:27px}
+}
+@media(max-width:900px){
+  body.inicio-vcc .home-hero h1{line-height:1.12}
+  body.inicio-vcc .home-hero h1 em{padding:0 9px 4px;margin-left:0}
+  body.inicio-vcc .home-about{grid-template-columns:140px 1fr 160px;min-height:130px}
+  body.inicio-vcc .home-about-visual{height:106px}
+  body.inicio-vcc .home-about-visual img{height:100%;width:100%;object-fit:cover;border:5px solid #fff;box-shadow:0 3px 12px #57443429;transform:rotate(-3deg)}
+  body.inicio-vcc .home-about-title{border-right:0;padding-right:0}
+  body.inicio-vcc .home-about-summary{grid-column:2;grid-row:2}
+  body.inicio-vcc .home-about-doodle{grid-column:3;grid-row:1/3;max-width:160px}
+  body.inicio-vcc .home-about h2{font-size:28px}
+}
+@media(max-width:720px){
+  body.inicio-vcc .home-itinerary-image{height:170px}
+  body.inicio-vcc .home-about{grid-template-columns:100px minmax(0,1fr);gap:13px;min-height:0}
+  body.inicio-vcc .home-about-visual{grid-column:1;grid-row:1;height:98px}
+  body.inicio-vcc .home-about-title{grid-column:2;grid-row:1;align-self:center}
+  body.inicio-vcc .home-about-summary{grid-column:1/-1;grid-row:2}
+  body.inicio-vcc .home-about-doodle{display:none}
+}
+@media(max-width:530px){
+  body.inicio-vcc .home-hero h1 em{display:inline-block}
+  body.inicio-vcc .home-guide-image{height:235px}
+  body.inicio-vcc .home-about h2{font-size:26px}
+}
