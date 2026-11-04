@@ -213,6 +213,56 @@
     document.head.appendChild(fix);
   }
 
+  // Desktop header: reserve explicit room for language controls on every page.
+  // Override page-specific legacy header grids without changing mobile layout.
+  if (!document.getElementById('vcc-header-desktop-language-fix')) {
+    const style=document.createElement('style');
+    style.id='vcc-header-desktop-language-fix';
+    style.textContent=`
+      @media(min-width:721px) {
+        html body > .shared-header { width:100%!important; max-width:100%!important; }
+        html body > .shared-header > .shared-nav {
+          box-sizing:border-box!important;
+          display:grid!important;
+          width:calc(100% - 80px)!important;
+          max-width:none!important;
+          min-width:0!important;
+          grid-template-columns:140px minmax(0,1fr) 100px 65px!important;
+          align-items:center!important;
+          column-gap:16px!important;
+          margin-inline:auto!important;
+        }
+        html body > .shared-header .shared-brand { grid-column:1!important; min-width:0!important; }
+        html body > .shared-header .shared-menu { grid-column:2!important; min-width:0!important; }
+        html body > .shared-header .shared-social { grid-column:3!important; min-width:0!important; justify-content:flex-end!important; }
+        html body > .shared-header .shared-language {
+          grid-column:4!important;
+          display:flex!important;
+          visibility:visible!important;
+          opacity:1!important;
+          min-width:0!important;
+          justify-content:flex-end!important;
+          align-items:center!important;
+          white-space:nowrap!important;
+          margin:0!important;
+          position:static!important;
+        }
+        html body > .shared-header .shared-language a { display:inline-block!important; }
+      }
+      @media(min-width:721px) and (max-width:1050px) {
+        html body > .shared-header > .shared-nav {
+          width:calc(100% - 32px)!important;
+          grid-template-columns:120px minmax(0,1fr) 82px 55px!important;
+          column-gap:9px!important;
+        }
+        html body > .shared-header .shared-menu { gap:12px!important; }
+        html body > .shared-header .shared-menu a { font-size:10px!important; }
+        html body > .shared-header .shared-social { gap:5px!important; }
+      }
+    `;
+    document.head.appendChild(style);
+  }
+
   // Stable navigation position across pages and browser back/forward cache.
   // This must NOT run on scroll, only when the page is entered/restored.
   if (!document.getElementById('vcc-menu-scroll-stability')) {
