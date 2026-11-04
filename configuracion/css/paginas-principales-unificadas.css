@@ -930,3 +930,43 @@ body:has(.contact-page) .contact-hero .contact-eyebrow{
 /* Contacto: arte propio en configuración; lectura clara en desktop y móvil. */
 body:has(.contact-page) .contact-hero{background-image:linear-gradient(90deg,rgba(255,250,243,.94) 0%,rgba(255,250,243,.83) 34%,rgba(255,250,243,.15) 67%,rgba(255,250,243,0) 100%),url("/configuracion/imagenes/fondos/contacto-vcc-background.svg?v=20261104")!important;background-color:#fff8ef!important;background-position:center center!important;background-size:cover!important;background-repeat:no-repeat!important}
 @media(max-width:650px){body:has(.contact-page) .contact-hero{background-image:linear-gradient(90deg,rgba(255,250,243,.94) 0%,rgba(255,250,243,.78) 60%,rgba(255,250,243,.47) 100%),url("/configuracion/imagenes/fondos/contacto-vcc-background.svg?v=20261104")!important;background-position:60% center!important}}
+
+
+/* VCC · Altura única del hero principal (referencia visual: Nosotros).
+   Aplicado solo a las cinco páginas de navegación; no a las guías interiores. */
+@media (min-width: 901px) {
+  body.about-vcc .about-hero,
+  body.destinos-vcc .destinos-about-hero,
+  body.itinerarios-vcc .itinerarios-hero,
+  body.planifica-vcc .planifica-about-hero,
+  body:has(.contact-page) .contact-page .contact-hero {
+    height: 425px !important;
+    min-height: 425px !important;
+    max-height: 425px !important;
+    box-sizing: border-box !important;
+  }
+}
+@media (min-width: 651px) and (max-width: 900px) {
+  body.about-vcc .about-hero,
+  body.destinos-vcc .destinos-about-hero,
+  body.itinerarios-vcc .itinerarios-hero,
+  body.planifica-vcc .planifica-about-hero,
+  body:has(.contact-page) .contact-page .contact-hero {
+    height: 390px !important;
+    min-height: 390px !important;
+    max-height: 390px !important;
+    box-sizing: border-box !important;
+  }
+}
+@media (max-width: 650px) {
+  body.about-vcc .about-hero,
+  body.destinos-vcc .destinos-about-hero,
+  body.itinerarios-vcc .itinerarios-hero,
+  body.planifica-vcc .planifica-about-hero,
+  body:has(.contact-page) .contact-page .contact-hero {
+    min-height: 440px !important;
+    height: auto !important;
+    max-height: none !important;
+    box-sizing: border-box !important;
+  }
+}
