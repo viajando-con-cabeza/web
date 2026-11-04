@@ -53,13 +53,7 @@ document.documentElement.style.setProperty('--it-mobile-header-height',head+'px'
 const pinned=mobile&&placeholder.getBoundingClientRect().top<=head;
 nav.classList.toggle('it-nav-pinned',pinned);
 placeholder.style.height=pinned?'43px':'0px';
-const limit=head+(mobile?65:58);
-const visibleItems=items.filter(item=>getComputedStyle(item.a).display!=='none');
-let active=visibleItems[0];
-for(const item of visibleItems){if(item.el.getBoundingClientRect().top<=limit)active=item;}
-for(const item of items){
-item.a.classList.toggle('is-active',item===active);
-if(item===active)item.a.setAttribute('aria-current','location');else item.a.removeAttribute('aria-current');
+
 }
 }
 function update(){if(!raf)raf=requestAnimationFrame(render);}
@@ -69,4 +63,4 @@ if(window.ResizeObserver&&header)new ResizeObserver(update).observe(header);
 nav.addEventListener('click',event=>{const a=event.target.closest('a[href^="#"]');if(a){for(const item of items){const selected=item.a===a;item.a.classList.toggle('is-active',selected);if(selected)item.a.setAttribute('aria-current','location');else item.a.removeAttribute('aria-current');}}update();});
 update();
 })();
-</script></body></html>
+</script><script src="/configuracion/js/destinos/suecia/estocolmo/vcc-section-scrollspy.js?v=20261104"></script></body></html>
