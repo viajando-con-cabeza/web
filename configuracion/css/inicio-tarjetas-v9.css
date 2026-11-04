@@ -111,3 +111,65 @@ body.inicio-vcc .home-contact .home-btn{
   body.inicio-vcc .home-contact p{font-size:10px!important}
   body.inicio-vcc .home-contact .home-btn{font-size:8px!important;padding:8px!important}
 }
+
+/* V10 · Enlaces de texto como «VER TODOS» y Planifica más compacta. */
+body.inicio-vcc .home-planning{
+  height:192px!important;min-height:192px!important;
+  grid-template-columns:36% minmax(0,1fr)!important;
+}
+body.inicio-vcc .home-planning-visual{min-height:0!important;height:100%!important}
+body.inicio-vcc .home-planning-copy{
+  height:100%!important;min-height:0!important;
+  justify-content:center!important;
+  padding:10px 13px!important;
+}
+body.inicio-vcc .home-planning-eyebrow{
+  font-size:clamp(15px,1.25vw,19px)!important;margin-bottom:3px!important;
+}
+body.inicio-vcc .home-planning h2{
+  font-size:clamp(21px,1.85vw,27px)!important;margin-bottom:5px!important;
+}
+body.inicio-vcc .home-planning p{
+  font-size:clamp(9px,.83vw,11px)!important;
+  line-height:1.38!important;margin-bottom:7px!important;
+}
+body.inicio-vcc .home-planning-tags{gap:4px!important;margin-bottom:7px!important}
+body.inicio-vcc .home-planning-tags span{font-size:8px!important;padding:3px 5px!important}
+body.inicio-vcc .home-planning .home-card-more,
+body.inicio-vcc .home-contact .home-card-more{
+  display:inline-flex!important;align-items:center!important;justify-content:flex-start!important;
+  align-self:flex-start!important;flex:0 0 auto!important;
+  width:auto!important;min-width:0!important;min-height:0!important;
+  height:auto!important;margin:0!important;padding:0 0 2px!important;
+  border:0!important;border-radius:0!important;background:transparent!important;
+  color:var(--vcc-orange-dark,#b94f34)!important;
+  font:800 10px/1.3 "DM Sans",sans-serif!important;
+  white-space:nowrap!important;letter-spacing:0!important;box-shadow:none!important;
+  text-decoration:none!important;
+}
+body.inicio-vcc .home-planning .home-card-more span,
+body.inicio-vcc .home-contact .home-card-more span{
+  font-size:16px!important;margin-left:4px!important;font-weight:500!important;
+}
+body.inicio-vcc .home-planning .home-card-more:hover,
+body.inicio-vcc .home-contact .home-card-more:hover{
+  background:transparent!important;color:var(--vcc-ink,#292724)!important;
+}
+body.inicio-vcc .home-contact .home-card-more{margin-top:auto!important}
+@media(max-width:900px){
+  body.inicio-vcc .home-planning{height:205px!important;min-height:205px!important}
+  body.inicio-vcc .home-planning-copy{padding:10px!important}
+}
+@media(max-width:530px){
+  body.inicio-vcc .home-planning{
+    height:auto!important;min-height:215px!important;
+    grid-template-columns:34% minmax(0,1fr)!important;
+  }
+  body.inicio-vcc .home-planning-visual{min-height:215px!important}
+  body.inicio-vcc .home-planning-copy{height:auto!important;min-height:215px!important;padding:9px!important}
+  body.inicio-vcc .home-planning-eyebrow{font-size:15px!important}
+  body.inicio-vcc .home-planning h2{font-size:20px!important}
+  body.inicio-vcc .home-planning p{font-size:10px!important}
+  body.inicio-vcc .home-planning .home-card-more,
+  body.inicio-vcc .home-contact .home-card-more{font-size:9px!important}
+}
