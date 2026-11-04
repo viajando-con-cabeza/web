@@ -295,3 +295,88 @@ body.inicio-vcc .home-about-summary p{color:#4e453e}
   body.inicio-vcc .home-guide-image{height:235px}
   body.inicio-vcc .home-about h2{font-size:26px}
 }
+
+/* Portada aventurera · portada inspirada en Destinos, sin botones, con arte en configuración.
+   Overrides finales del hero; todas las reglas se aíslan a body.inicio-vcc. */
+body.inicio-vcc .home-hero{
+  min-height:540px;height:auto;
+  background-color:#f6ecdf;
+  background-image:url('/configuracion/imagenes/fondos/inicio-aventura-hero.svg');
+  background-size:cover;background-position:center center;
+}
+body.inicio-vcc .home-hero-wash{
+  z-index:0;
+  background:linear-gradient(90deg,rgba(252,248,241,.95) 0%,rgba(252,248,241,.87) 33%,rgba(252,248,241,.29) 68%,rgba(252,248,241,.04) 100%);
+}
+body.inicio-vcc .home-hero-layout{
+  min-height:540px;height:auto;display:flex;align-items:center;
+  padding:58px 0 62px;
+}
+body.inicio-vcc .home-hero-copy{
+  width:min(760px,70%);max-width:70%;
+  padding:0!important;position:relative;z-index:2;
+}
+body.inicio-vcc .home-script{
+  width:auto;margin:0 0 19px;
+  font:600 clamp(27px,3.2vw,42px)/1.1 "Caveat",cursive;
+  color:#cd725e;
+}
+body.inicio-vcc .home-hero h1{
+  font:500 clamp(38px,4.25vw,67px)/1.12 "Oswald",sans-serif;
+  white-space:normal;letter-spacing:-.025em;
+  margin:0 0 23px;color:#1c1c1b;
+}
+body.inicio-vcc .home-hero h1 span,
+body.inicio-vcc .home-hero h1 em{display:block}
+body.inicio-vcc .home-hero h1 em{
+  background:none!important;color:#c76750!important;
+  clip-path:none;transform:none;padding:0!important;margin:0!important;
+  font-style:normal;font-weight:500;
+}
+body.inicio-vcc .home-hero-copy>p:not(.home-hero-manifesto){
+  margin:0 0 25px;max-width:615px;
+  font:400 clamp(14px,1.4vw,18px)/1.6 "DM Sans",sans-serif;color:#4d4743;
+}
+body.inicio-vcc .home-hero-copy>.home-hero-manifesto{
+  max-width:610px;margin:0;padding:19px 0 0;
+  border-top:1px solid #bdb0a2;
+  font:800 clamp(12px,1.25vw,17px)/1.6 "DM Sans",sans-serif;
+  letter-spacing:.015em;color:#625a54;
+}
+body.inicio-vcc .home-hero-polaroids{display:none!important}
+@media(max-width:900px){
+  body.inicio-vcc .home-hero{min-height:560px}
+  body.inicio-vcc .home-hero-layout{min-height:560px}
+  body.inicio-vcc .home-hero-copy{width:83%;max-width:83%}
+  body.inicio-vcc .home-hero-wash{background:linear-gradient(90deg,rgba(252,248,241,.95),rgba(252,248,241,.77) 68%,rgba(252,248,241,.4))}
+}
+@media(max-width:720px){
+  body.inicio-vcc .home-hero{
+    min-height:630px;
+    background-position:62% center;background-size:auto 100%;
+  }
+  body.inicio-vcc .home-hero-layout{
+    min-height:630px;padding:49px 0 64px;align-items:flex-start;
+  }
+  body.inicio-vcc .home-hero-copy{width:100%;max-width:100%}
+  body.inicio-vcc .home-script{font-size:clamp(25px,7.2vw,35px);margin-bottom:21px}
+  body.inicio-vcc .home-hero h1{
+    font-size:clamp(31px,7.9vw,48px);
+    line-height:1.17;margin:0 0 22px;letter-spacing:-.02em;
+  }
+  body.inicio-vcc .home-hero-copy>p:not(.home-hero-manifesto){
+    max-width:480px;font-size:clamp(13px,3.5vw,17px);line-height:1.65;margin-bottom:25px;
+  }
+  body.inicio-vcc .home-hero-copy>.home-hero-manifesto{
+    font-size:clamp(11px,3vw,15px);padding-top:19px;max-width:450px;
+  }
+  body.inicio-vcc .home-hero-wash{
+    background:linear-gradient(90deg,rgba(252,248,241,.93),rgba(252,248,241,.83) 65%,rgba(252,248,241,.49));
+  }
+  body.inicio-vcc .home-benefits{margin-top:0!important}
+}
+@media(max-width:400px){
+ body.inicio-vcc .home-hero{min-height:630px}
+ body.inicio-vcc .home-hero-layout{min-height:630px}
+ body.inicio-vcc .home-hero h1{font-size:clamp(28px,7.7vw,32px)}
+}
