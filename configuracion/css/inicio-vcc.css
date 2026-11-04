@@ -990,3 +990,231 @@ body.inicio-vcc .home-instagram-note{
   body.inicio-vcc .home-insta-caption{font-size:7px;padding:3px 4px}
   body.inicio-vcc .home-insta-type{font-size:7px;padding:2px 3px}
 }
+
+/* INICIO 2026-11-04 · composición aprobada: Planifica + Instagram y Contacto.
+   Solo se modifican paneles de la columna derecha. Carruseles inalterados. */
+body.inicio-vcc .home-planning{
+  display:grid!important;
+  grid-template-columns:44% minmax(0,1fr)!important;
+  width:100%;height:250px;min-height:250px;
+  padding:0!important;gap:0!important;margin:0!important;
+  overflow:hidden;align-self:start!important;align-items:stretch!important;
+  border:1px solid #edd6c4;border-radius:14px;
+  background:linear-gradient(100deg,#f9dcc5 0%,#ffeddd 66%,#fff5e8 100%)!important;
+  box-shadow:0 4px 16px rgba(88,53,31,.08);
+}
+body.inicio-vcc .home-planning::before{display:none!important}
+body.inicio-vcc .home-planning-visual{
+  height:100%;position:relative;overflow:hidden;
+  align-self:stretch!important;
+}
+body.inicio-vcc .home-planning-visual img{
+  width:100%;height:100%;max-height:none;
+  object-fit:cover;object-position:55% center;
+  display:block;filter:none;
+}
+body.inicio-vcc .home-planning-copy{
+  min-width:0;display:flex;flex-direction:column;
+  align-items:flex-start;justify-content:center;
+  padding:16px 14px 16px 7px;
+  background:linear-gradient(90deg,rgba(255,238,220,.23),rgba(255,245,232,.92));
+}
+body.inicio-vcc .home-planning-eyebrow{
+  margin:0 0 5px;
+  font:600 clamp(16px,1.55vw,23px)/1 "Caveat",cursive;
+  color:#b7543e;
+}
+body.inicio-vcc .home-planning h2{
+  font:500 clamp(23px,2.05vw,34px)/1.04 "Oswald",sans-serif;
+  letter-spacing:-.015em;margin:0 0 8px!important;
+  color:#25211f;
+}
+body.inicio-vcc .home-planning p{
+  font:400 clamp(10px,.95vw,13px)/1.43 "DM Sans",sans-serif;
+  margin:0 0 10px!important;max-width:330px;color:#514640;
+}
+body.inicio-vcc .home-planning-tags{
+  display:flex;gap:5px;flex-wrap:wrap;margin:0 0 12px;
+}
+body.inicio-vcc .home-planning-tags span{
+  display:inline-flex;align-items:center;
+  font:700 9px/1 "DM Sans",sans-serif;
+  color:#9d563e;background:rgba(255,253,249,.88);
+  border:1px solid #edc8ad;border-radius:20px;
+  padding:6px 8px;white-space:nowrap;
+}
+body.inicio-vcc .home-planning .home-btn{
+  display:inline-flex!important;
+  min-height:35px;padding:9px 14px;font-size:10px;
+  background:#d86b4d;border-radius:5px;
+}
+body.inicio-vcc .home-planning .home-btn:hover{background:#b95439}
+
+/* Mismo grid que en la maqueta: dos paneles en la columna derecha. */
+body.inicio-vcc .home-social-contact{
+  width:100%;min-width:0;
+  display:grid;grid-template-columns:minmax(0,1.38fr) minmax(0,.84fr);
+  gap:13px;align-items:stretch;
+}
+body.inicio-vcc .home-social-contact .home-instagram,
+body.inicio-vcc .home-social-contact .home-contact{
+  border:1px solid #edcfb8;border-radius:14px;
+  background:linear-gradient(135deg,#fff4e9,#fde9d7);
+  min-width:0;padding:13px;
+  box-shadow:0 3px 12px #5e3a2710;
+  overflow:hidden;
+}
+body.inicio-vcc .home-social-contact .home-instagram{
+  display:flex;flex-direction:column;
+}
+body.inicio-vcc .home-social-eyebrow{
+  color:#c45f47;font:600 clamp(16px,1.6vw,23px)/1 "Caveat",cursive;
+  margin:0 0 5px;
+}
+body.inicio-vcc .home-social-eyebrow span{font:700 14px "DM Sans",sans-serif}
+body.inicio-vcc .home-social-heading{
+  display:flex;align-items:center;justify-content:space-between;gap:7px;
+  margin:0 0 9px;
+}
+body.inicio-vcc .home-social-heading h2{
+  color:#24211e;font:500 clamp(19px,1.62vw,26px)/1.06 "Oswald",sans-serif;
+  margin:0;min-width:0;
+}
+body.inicio-vcc .home-social-heading svg{
+  width:25px;height:25px;min-width:25px;
+  stroke:#d75d56;fill:none;stroke-width:1.8;
+}
+body.inicio-vcc .home-insta-largepost{
+  display:flex;flex-direction:column;
+  background:#fffdfa;border:1px solid #ebddd4;
+  border-radius:10px;min-width:0;overflow:hidden;
+  text-decoration:none;color:#2f2823;
+  box-shadow:0 3px 10px rgba(65,43,31,.08);
+}
+body.inicio-vcc .home-insta-largepost:hover{border-color:#d88670}
+body.inicio-vcc .home-insta-topline{
+  display:flex;align-items:center;gap:6px;padding:6px 8px;
+  min-height:35px;font:700 10px/1 "DM Sans",sans-serif;
+}
+body.inicio-vcc .home-insta-topline>span:last-child{margin-left:auto;color:#7e6c63}
+body.inicio-vcc .home-insta-avatar{
+  width:24px;height:24px;min-width:24px;
+  border-radius:50%;display:grid;place-items:center;
+  border:2px solid #ed784d;background:#fffaf5;
+  color:#bc5c3c;font:700 10px "Caveat",cursive;
+}
+body.inicio-vcc .home-insta-photo{
+  width:100%;height:146px;position:relative;overflow:hidden;
+  display:block;background:#e5e1d9;
+}
+body.inicio-vcc .home-insta-photo img{
+  width:100%;height:100%;object-fit:cover;display:block;
+}
+body.inicio-vcc .home-insta-inspiration{
+  position:absolute;left:7px;bottom:6px;
+  padding:4px 6px;background:#fff9f0eb;border-radius:3px;
+  font:800 8px/1.2 "DM Sans",sans-serif;color:#9d5e47;
+}
+body.inicio-vcc .home-insta-footer{
+  display:flex;justify-content:space-between;align-items:center;
+  height:24px;padding:2px 9px;
+  font:700 18px/1 "DM Sans",sans-serif;color:#cc6448;
+}
+body.inicio-vcc .home-insta-save{font-size:16px;color:#322b26}
+body.inicio-vcc .home-insta-text{
+  padding:3px 9px 8px;
+  color:#51463f;font:500 10px/1.35 "DM Sans",sans-serif;
+  display:-webkit-box;-webkit-box-orient:vertical;
+  -webkit-line-clamp:2;overflow:hidden;
+}
+body.inicio-vcc .home-insta-profile-link{
+  display:block;align-self:flex-start;margin-top:auto;padding-top:8px;
+  font:800 9px/1.2 "DM Sans",sans-serif;color:#c35b43;
+  text-decoration:none;
+}
+body.inicio-vcc .home-insta-profile-link:hover{text-decoration:underline}
+body.inicio-vcc .home-contact{
+  display:flex;flex-direction:column;align-items:flex-start;justify-content:center;
+}
+body.inicio-vcc .home-contact-symbol{
+  width:100%;max-width:165px;align-self:center;
+  margin:0 auto 7px;
+}
+body.inicio-vcc .home-contact-symbol svg{display:block;width:100%;height:auto}
+body.inicio-vcc .home-contact h2{
+  font:500 clamp(23px,2.2vw,34px)/1.05 "Oswald",sans-serif;
+  color:#27221f;margin:0 0 9px;
+}
+body.inicio-vcc .home-contact p{
+  color:#4f453f;font:400 clamp(10px,.98vw,13px)/1.48 "DM Sans",sans-serif;
+  margin:0 0 13px;max-width:230px;
+}
+body.inicio-vcc .home-contact .home-btn{
+  margin-top:auto;display:inline-flex!important;
+  min-height:34px;font:800 9px/1.2 "DM Sans",sans-serif;
+  background:#d86b4d;border-radius:5px;
+  padding:8px 11px;gap:7px;
+}
+body.inicio-vcc .home-contact .home-btn:hover{background:#b95439}
+
+/* La maqueta mantiene carruseles a la izquierda, sin agrandarlos. */
+@media(min-width:901px){
+  body.inicio-vcc .home-feature-grid,
+  body.inicio-vcc .home-stories-grid{
+    grid-template-columns:minmax(0,1.16fr) minmax(0,.84fr)!important;
+    gap:25px!important;
+  }
+  body.inicio-vcc .home-stories-grid{margin-top:19px!important}
+}
+@media(min-width:901px) and (max-width:1120px){
+  body.inicio-vcc .home-planning{grid-template-columns:39% minmax(0,1fr);height:244px;min-height:244px}
+  body.inicio-vcc .home-planning-copy{padding:12px 9px 12px 5px}
+  body.inicio-vcc .home-planning-tags span{font-size:8px;padding:5px 6px}
+  body.inicio-vcc .home-social-contact{grid-template-columns:minmax(0,1.28fr) minmax(0,.9fr);gap:8px}
+  body.inicio-vcc .home-social-contact .home-instagram,
+  body.inicio-vcc .home-social-contact .home-contact{padding:9px}
+  body.inicio-vcc .home-insta-photo{height:120px}
+  body.inicio-vcc .home-contact-symbol{max-width:125px}
+  body.inicio-vcc .home-contact .home-btn{font-size:8px;padding:7px}
+}
+@media(max-width:900px){
+  body.inicio-vcc .home-planning{
+    grid-template-columns:42% minmax(0,1fr)!important;
+    height:240px;min-height:240px;
+  }
+  body.inicio-vcc .home-planning-copy{padding:14px}
+  body.inicio-vcc .home-planning h2{font-size:32px}
+  body.inicio-vcc .home-social-contact{grid-template-columns:minmax(0,1.35fr) minmax(0,1fr)}
+  body.inicio-vcc .home-insta-photo{height:170px}
+}
+@media(max-width:530px){
+  body.inicio-vcc .home-planning{
+    grid-template-columns:40% minmax(0,1fr)!important;
+    height:245px;min-height:245px;
+  }
+  body.inicio-vcc .home-planning-copy{padding:10px 9px}
+  body.inicio-vcc .home-planning-eyebrow{font-size:17px}
+  body.inicio-vcc .home-planning h2{font-size:24px}
+  body.inicio-vcc .home-planning p{font-size:10px}
+  body.inicio-vcc .home-planning-tags{gap:4px;margin-bottom:8px}
+  body.inicio-vcc .home-planning-tags span{font-size:8px;padding:5px}
+  body.inicio-vcc .home-planning .home-btn{font-size:9px;padding:7px}
+  body.inicio-vcc .home-social-contact{gap:8px;grid-template-columns:minmax(0,1.2fr) minmax(0,.88fr)}
+  body.inicio-vcc .home-social-contact .home-instagram,
+  body.inicio-vcc .home-social-contact .home-contact{padding:9px}
+  body.inicio-vcc .home-social-eyebrow{font-size:18px}
+  body.inicio-vcc .home-social-heading h2{font-size:18px}
+  body.inicio-vcc .home-social-heading svg{width:19px;height:19px;min-width:19px}
+  body.inicio-vcc .home-insta-photo{height:125px}
+  body.inicio-vcc .home-insta-text{font-size:9px}
+  body.inicio-vcc .home-contact-symbol{max-width:110px}
+  body.inicio-vcc .home-contact h2{font-size:23px}
+  body.inicio-vcc .home-contact p{font-size:10px}
+  body.inicio-vcc .home-contact .home-btn{font-size:8px;padding:8px 6px;gap:3px}
+}
+@media(max-width:375px){
+  body.inicio-vcc .home-social-contact{grid-template-columns:minmax(0,1fr)}
+  body.inicio-vcc .home-contact{min-height:175px}
+  body.inicio-vcc .home-contact-symbol{max-width:95px}
+  body.inicio-vcc .home-contact p{max-width:100%}
+}
