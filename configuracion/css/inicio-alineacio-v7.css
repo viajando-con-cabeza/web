@@ -1,0 +1,87 @@
+/* Inici VCC v7 — to pedra/ivori, icones vectorials corporatives i alineació exacta. */
+body.inicio-vcc .home-planning{
+  top:0!important;
+  border:1px solid #e4d7cb!important;
+  background:#f5f0e9!important;
+  box-shadow:0 4px 14px rgba(51,39,28,.05)!important;
+}
+body.inicio-vcc .home-planning-copy{
+  background:#f8f4ee!important;
+}
+body.inicio-vcc .home-planning-visual{
+  background:#e8ddd0!important;
+}
+body.inicio-vcc .home-planning-tags span{
+  display:inline-flex!important;align-items:center!important;gap:5px!important;
+  padding:4px 7px!important;
+  background:#fffdfa!important;
+  border:1px solid #e4d5c8!important;
+  color:#805b4e!important;
+}
+body.inicio-vcc .home-planning-tags span img{
+  display:block!important;flex:0 0 14px!important;
+  width:14px!important;height:14px!important;min-width:14px!important;
+  object-fit:contain!important;opacity:1!important;visibility:visible!important;
+}
+body.inicio-vcc .home-social-contact .home-instagram,
+body.inicio-vcc .home-social-contact .home-contact{
+  background:#f8f4ee!important;
+  border:1px solid #e4d7cb!important;
+  box-shadow:0 4px 14px rgba(51,39,28,.05)!important;
+}
+body.inicio-vcc .home-insta-brand-icon{
+  display:block!important;width:20px!important;height:20px!important;
+  flex:0 0 20px!important;
+  object-fit:contain!important;opacity:1!important;
+}
+body.inicio-vcc .home-insta-footer img,
+body.inicio-vcc .home-insta-iconset img{
+  display:block!important;width:15px!important;height:15px!important;
+  flex:0 0 15px!important;object-fit:contain!important;
+  opacity:1!important;visibility:visible!important;
+}
+body.inicio-vcc .home-insta-iconset{gap:9px!important}
+body.inicio-vcc .home-contact-symbol{
+  display:grid!important;place-items:center!important;
+  width:85px!important;max-width:85px!important;
+  height:70px!important;margin:0 auto 7px!important;
+}
+body.inicio-vcc .home-contact-symbol img{
+  display:block!important;width:76px!important;height:70px!important;
+  object-fit:contain!important;
+}
+body.inicio-vcc .home-contact .home-btn{
+  display:inline-flex!important;
+  flex-shrink:0!important;
+  margin-top:auto!important;
+}
+@media (min-width:901px){
+  body.inicio-vcc .home-planning{
+    margin-top:58px!important; /* valor de fallback; JS v7 sincronitza al píxel */
+    align-self:start!important;
+    height:192px!important;
+    min-height:192px!important;
+  }
+  body.inicio-vcc .home-feature-grid,
+  body.inicio-vcc .home-stories-grid{
+    grid-template-columns:minmax(0,1.16fr) minmax(0,.84fr)!important;
+    column-gap:25px!important;
+  }
+  body.inicio-vcc .home-social-contact{
+    align-items:stretch!important;
+  }
+}
+@media(max-width:900px){
+  body.inicio-vcc .home-planning{margin-top:0!important}
+  body.inicio-vcc .home-social-contact .home-instagram,
+  body.inicio-vcc .home-social-contact .home-contact{
+    height:auto!important;min-height:230px!important;
+  }
+}
+@media(max-width:530px){
+  body.inicio-vcc .home-planning-tags span img{
+    width:12px!important;height:12px!important;min-width:12px!important;flex-basis:12px!important;
+  }
+  body.inicio-vcc .home-contact-symbol{width:57px!important;height:55px!important}
+  body.inicio-vcc .home-contact-symbol img{width:52px!important;height:52px!important}
+}
