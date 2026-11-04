@@ -37,7 +37,7 @@
       image.alt=typeof p.alt==="string"?p.alt.slice(0,180):"Última publicación de Viajando con Cabeza";
       card.href=p.permalink;
       card.setAttribute("aria-label","Abrir la última publicación real en Instagram");
-      heading.textContent="ÚLTIMO POST EN INSTAGRAM";
+      heading.textContent="INSTAGRAM";
       if(placeholder)placeholder.remove();
       caption.textContent=typeof p.caption==="string"&&p.caption.trim()?p.caption.trim().slice(0,160):"Ver publicación en Instagram";
     }catch{ /* conservar la vista de inspiración si no hay conexión/API */ }
