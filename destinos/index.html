@@ -206,26 +206,26 @@ body.destinos-vcc .about-hero .hero-signoff{
 /* Rutas multipaís: mismas proporciones y lenguaje visual que las tarjetas destacadas de Inicio */
 .vcc-d-note{max-width:none;margin:24px 0 0;text-align:left;padding:12px 18px;background:#f4e9df;border-left:3px solid #d96847;border-radius:4px;font:500 13px/1.55 "DM Sans",sans-serif;color:#65554a}
 .vcc-route-carousel{position:relative;min-width:0}
-.vcc-route-grid{display:grid;grid-auto-flow:column;grid-auto-columns:calc((100% - 28px)/3);grid-template-columns:none;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;overscroll-behavior-x:contain;padding:2px 2px 8px}
+.vcc-route-grid{display:grid;grid-auto-flow:column;grid-auto-columns:calc((100% - 48px)/5);grid-template-columns:none;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;overscroll-behavior-x:contain;padding:2px 2px 8px}
 .vcc-route-grid::-webkit-scrollbar{display:none}
 .vcc-route-card{display:flex;flex-direction:column;min-width:0;min-height:0;padding:0;gap:0;overflow:hidden;background:#fffefa;border:1px solid #e6d9cf;border-radius:9px;scroll-snap-align:start;box-shadow:0 3px 10px rgba(55,38,26,.05)}
 .vcc-route-card[hidden]{display:none!important}
-.vcc-route-photo{position:relative;width:100%;height:170px;flex:none;overflow:hidden;background:#eee4d8}
+.vcc-route-photo{position:relative;width:100%;height:120px;flex:none;overflow:hidden;background:#eee4d8}
 .vcc-route-photo img{display:block;width:100%;height:100%;max-width:none;object-fit:cover;border:0;box-shadow:none;transform:none;border-radius:0}
-.vcc-route-photo-kind{position:absolute;top:10px;left:10px;border-radius:5px;background:#fffaf2ed;padding:5px 8px;color:#664338;font:800 10px/1.2 "DM Sans",sans-serif}
-.vcc-route-content{display:flex;flex:1;flex-direction:column;align-items:start;gap:10px;padding:16px 17px 18px}
-.vcc-route-content h3{font:600 clamp(21px,2.3vw,27px)/1.15 "Oswald",sans-serif;color:#292724;margin:0}
-.vcc-route-facts{display:flex;align-items:center;flex-wrap:wrap;gap:8px 14px;color:#ad5944;font:700 12px/1.3 "DM Sans",sans-serif}
-.vcc-route-countryline{display:flex;flex-wrap:wrap;align-items:center;gap:5px 9px;min-height:24px;color:#544a42;font:500 12px/1.4 "DM Sans",sans-serif}
-.vcc-route-flags{font-size:20px;line-height:1.2;letter-spacing:1px;white-space:nowrap}
-.vcc-route-link{margin-top:auto;padding-top:8px;font:800 11px/1.2 "DM Sans",sans-serif;color:#ac5140!important;letter-spacing:.02em}
+.vcc-route-photo-kind{position:absolute;top:6px;left:6px;border-radius:5px;background:#fffaf2ed;padding:4px 6px;color:#664338;font:800 9px/1.2 "DM Sans",sans-serif}
+.vcc-route-content{display:flex;flex:1;flex-direction:column;align-items:start;gap:7px;padding:11px 11px 12px}
+.vcc-route-content h3{font:600 clamp(16px,1.35vw,19px)/1.13 "Oswald",sans-serif;color:#292724;margin:0}
+.vcc-route-facts{display:flex;align-items:center;flex-wrap:wrap;gap:5px 9px;color:#ad5944;font:700 10px/1.3 "DM Sans",sans-serif}
+.vcc-route-countryline{display:flex;flex-wrap:wrap;align-items:center;gap:4px 6px;min-height:21px;color:#544a42;font:500 10px/1.4 "DM Sans",sans-serif}
+.vcc-route-flags{display:inline-flex;gap:4px;align-items:center;white-space:nowrap;flex:none}.vcc-route-flags img{display:block;width:19px;height:13px;object-fit:cover;box-shadow:0 0 0 1px #00000020;border-radius:2px}
+.vcc-route-link{margin-top:auto;padding-top:5px;font:800 9px/1.2 "DM Sans",sans-serif;color:#ac5140!important;letter-spacing:.02em}
 .vcc-route-link:hover{text-decoration:underline}
-.vcc-route-arrow{position:absolute;z-index:3;top:43%;transform:translateY(-50%);display:grid;place-items:center;width:36px;height:36px;border:1px solid #dfd3c9;border-radius:50%;background:#fffdf9f7;box-shadow:0 4px 12px #3b2d2026;color:#292724;font-size:20px;cursor:pointer}
+.vcc-route-arrow{position:absolute;z-index:3;top:43%;transform:translateY(-50%);display:grid;place-items:center;width:32px;height:32px;border:1px solid #dfd3c9;border-radius:50%;background:#fffdf9f7;box-shadow:0 4px 12px #3b2d2026;color:#292724;font-size:20px;cursor:pointer}
 .vcc-route-prev{left:-16px}.vcc-route-next{right:-16px}
 .vcc-route-arrow:disabled{opacity:.26;cursor:default;pointer-events:none}
-.vcc-route-arrow[aria-hidden=true]{opacity:0;pointer-events:none}
-@media(max-width:800px){.vcc-route-grid{grid-auto-columns:calc((100% - 14px)/2)}}
-@media(max-width:550px){.vcc-route-grid{grid-auto-columns:86%;gap:12px}.vcc-route-photo{height:170px}.vcc-route-prev{left:-9px}.vcc-route-next{right:-9px}.vcc-d-note{margin-top:18px;font-size:12px}}
+.vcc-route-arrow[aria-hidden=true]{opacity:.26;pointer-events:none}
+@media(max-width:1100px){.vcc-route-grid{grid-auto-columns:calc((100% - 36px)/4)}}@media(max-width:850px){.vcc-route-grid{grid-auto-columns:calc((100% - 24px)/3)}}@media(max-width:650px){.vcc-route-grid{grid-auto-columns:calc((100% - 12px)/2)}}
+@media(max-width:550px){.vcc-route-grid{grid-auto-columns:72%;gap:12px}.vcc-route-photo{height:135px}.vcc-route-prev{left:-9px}.vcc-route-next{right:-9px}.vcc-d-note{margin-top:18px;font-size:12px}}
 </style>
 <link rel="stylesheet" href="/configuracion/css/paginas-principales-unificadas.css?v=20261104-gradient-unificat">
 <style id="vcc-destinos-hero-match">
@@ -316,10 +316,10 @@ body.destinos-vcc .destinos-about-hero .hero-signoff{
 <div class="vcc-route-carousel" aria-label="Rutas multipaís destacadas"><button type="button" class="vcc-route-arrow vcc-route-prev" aria-label="Ver rutas anteriores" disabled>←</button><div class="vcc-route-grid" tabindex="0" aria-label="Desliza para descubrir las rutas multipaís">
 <article class="vcc-route-card" data-countries="Austria Alemania Suiza">
 <div class="vcc-route-photo"><img loading="lazy" src="https://images.unsplash.com/photo-1504218727796-db522606b16f?auto=format&fit=crop&w=800&q=86" alt="Montañas nevadas de los Alpes"><span class="vcc-route-photo-kind">🧭 Ruta multipaís</span></div>
-<div class="vcc-route-content"><h3>NAVIDAD POR LOS ALPES</h3><div class="vcc-route-facts"><span><strong>5 días</strong></span><span><strong>3 países</strong></span></div><div class="vcc-route-countryline"><span class="vcc-route-flags" aria-label="Austria, Alemania, Suiza">🇦🇹 🇩🇪 🇨🇭</span><span>Austria · Alemania · Suiza</span></div><a class="vcc-route-link" href="/itinerarios/navidad-austria-alemania-suiza/">VER ITINERARIO →</a></div></article>
+<div class="vcc-route-content"><h3>NAVIDAD POR LOS ALPES</h3><div class="vcc-route-facts"><span><strong>5 días</strong></span><span><strong>3 países</strong></span></div><div class="vcc-route-countryline"><span class="vcc-route-flags" aria-label="Austria, Alemania, Suiza"><img src="https://flagcdn.com/w40/at.png" alt="Austria" loading="lazy"><img src="https://flagcdn.com/w40/de.png" alt="Alemania" loading="lazy"><img src="https://flagcdn.com/w40/ch.png" alt="Suiza" loading="lazy"></span><span>Austria · Alemania · Suiza</span></div><a class="vcc-route-link" href="/itinerarios/navidad-austria-alemania-suiza/">VER ITINERARIO →</a></div></article>
 <article class="vcc-route-card" data-countries="España Francia">
 <div class="vcc-route-photo"><img loading="lazy" src="https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=800&q=86" alt="Montañas al atardecer del País Vasco y Baztán"><span class="vcc-route-photo-kind">🧭 Ruta multipaís</span></div>
-<div class="vcc-route-content"><h3>PAÍS VASCO Y BAZTÁN</h3><div class="vcc-route-facts"><span><strong>5 días</strong></span><span><strong>2 países</strong></span></div><div class="vcc-route-countryline"><span class="vcc-route-flags" aria-label="España, Francia">🇪🇸 🇫🇷</span><span>España · Francia</span></div><a class="vcc-route-link" href="/destinos/espana/pais-vasco/itinerario.html">VER ITINERARIO →</a></div></article>
+<div class="vcc-route-content"><h3>PAÍS VASCO Y BAZTÁN</h3><div class="vcc-route-facts"><span><strong>5 días</strong></span><span><strong>2 países</strong></span></div><div class="vcc-route-countryline"><span class="vcc-route-flags" aria-label="España, Francia"><img src="https://flagcdn.com/w40/es.png" alt="España" loading="lazy"><img src="https://flagcdn.com/w40/fr.png" alt="Francia" loading="lazy"></span><span>España · Francia</span></div><a class="vcc-route-link" href="/destinos/espana/pais-vasco/itinerario.html">VER ITINERARIO →</a></div></article>
 </div><button type="button" class="vcc-route-arrow vcc-route-next" aria-label="Ver más rutas" disabled>→</button></div><p class="vcc-d-empty" id="vcc-route-empty" role="status">No hay rutas multipaís para ese país todavía.</p></section>
 
 </div>
@@ -356,7 +356,7 @@ search.addEventListener('input',apply);sorting.addEventListener('change',apply);
 const routeSelect=document.getElementById('vcc-route-country'),routes=[...document.querySelectorAll('.vcc-route-card')];
 const routeTrack=document.querySelector('.vcc-route-grid'),routePrev=document.querySelector('.vcc-route-prev'),routeNext=document.querySelector('.vcc-route-next');
 function updateRouteArrows(){const visible=routes.filter(c=>!c.hidden);const overflow=routeTrack.scrollWidth>routeTrack.clientWidth+3;routePrev.disabled=!overflow||routeTrack.scrollLeft<=3;routeNext.disabled=!overflow||routeTrack.scrollLeft+routeTrack.clientWidth>=routeTrack.scrollWidth-3;routePrev.setAttribute('aria-hidden',overflow?'false':'true');routeNext.setAttribute('aria-hidden',overflow?'false':'true')}
-function moveRoutes(direction){const first=routes.find(c=>!c.hidden);if(!first)return;routeTrack.scrollBy({left:direction*(first.getBoundingClientRect().width+14),behavior:'smooth'})}
+function moveRoutes(direction){const first=routes.find(c=>!c.hidden);if(!first)return;const gap=parseFloat(getComputedStyle(routeTrack).columnGap)||12;routeTrack.scrollBy({left:direction*(first.getBoundingClientRect().width+gap),behavior:'smooth'})}
 routePrev.addEventListener('click',()=>moveRoutes(-1));routeNext.addEventListener('click',()=>moveRoutes(1));routeTrack.addEventListener('scroll',updateRouteArrows,{passive:true});window.addEventListener('resize',updateRouteArrows);
 function filterRoutes(){let count=0;routes.forEach(card=>{card.hidden=routeSelect.value!=='all'&&!card.dataset.countries.split(' ').includes(routeSelect.value);if(!card.hidden)count++});routeTrack.scrollLeft=0;document.getElementById('vcc-route-empty').style.display=count?'none':'block';requestAnimationFrame(updateRouteArrows)}
 routeSelect.addEventListener('change',filterRoutes);apply();filterRoutes();
