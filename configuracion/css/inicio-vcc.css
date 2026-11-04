@@ -637,3 +637,19 @@ body.inicio-vcc .home-hero-copy>.home-hero-manifesto{
     line-height:1.4;padding-top:11px;
   }
 }
+
+/* WebP original VCC · el primer fons es mostrarà quan el binari s'hagi pujat
+   a configuracion/imagenes/fondos/. El segon manté la portada operativa mentre no hi sigui. */
+body.inicio-vcc .home-hero::before{
+  background-image:
+    url('/configuracion/imagenes/fondos/vcc-inicio-background.webp'),
+    url('https://images.unsplash.com/photo-1488646953014-85cb44e25828?auto=format&fit=crop&w=2400&q=90')!important;
+  background-size:cover,cover!important;
+  background-position:center center,center center!important;
+  filter:none!important;
+}
+@media(max-width:720px){
+ body.inicio-vcc .home-hero::before{
+   background-position:57% center,60% center!important;
+ }
+}
