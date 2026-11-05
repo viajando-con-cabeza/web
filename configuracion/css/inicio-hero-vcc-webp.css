@@ -1,17 +1,43 @@
-/* Portada VCC — imatge WebP aprovada; l'asset es manté a configuracion/imagenes/fondos/.
-   Segona capa: imatge de reserva mentre l'arxiu WebP no és present. */
+/* VCC Inicio · portada retro en WebP; enquadrament sense retallar el títol ni el logo de la tassa.
+   La imatge es mostra sencera verticalment (o amb retall mínim en escriptori).
+   La zona esquerra es fon amb el color de fons per garantir la lectura. */
+body.inicio-vcc .home-hero{
+  background:#f5e8dd!important;
+}
 body.inicio-vcc .home-hero::before{
   background-image:
     url('/configuracion/imagenes/fondos/inicio-vcc-hero.webp'),
-    url('https://images.unsplash.com/photo-1488646953014-85cb44e25828?auto=format&fit=crop&w=2400&q=90') !important;
-  background-position:center center,center center !important;
-  background-size:cover,cover !important;
-  background-repeat:no-repeat,no-repeat !important;
+    linear-gradient(90deg,#f5e8dd 0%,#f9e9de 52%,#f5cda9 100%)!important;
+  background-size:auto 110%,cover!important;
+  background-position:right center,center center!important;
+  background-repeat:no-repeat,no-repeat!important;
   filter:none!important;
   transform:none!important;
 }
+body.inicio-vcc .home-hero-wash{
+  background:linear-gradient(90deg,
+    rgba(250,246,241,.97) 0%,
+    rgba(250,246,241,.86) 26%,
+    rgba(250,246,241,.38) 42%,
+    rgba(250,246,241,.07) 64%,
+    transparent 85%)!important;
+}
+@media(max-width:900px){
+  body.inicio-vcc .home-hero::before{
+    background-size:auto 100%,cover!important;
+    background-position:75% center,center!important;
+  }
+}
 @media(max-width:720px){
   body.inicio-vcc .home-hero::before{
-    background-position:65% center,60% center!important;
+    background-size:auto 100%,cover!important;
+    background-position:67% center,center!important;
+  }
+  body.inicio-vcc .home-hero-wash{
+    background:linear-gradient(90deg,
+      rgba(250,246,241,.96) 0%,
+      rgba(250,246,241,.88) 48%,
+      rgba(250,246,241,.44) 78%,
+      rgba(250,246,241,.16) 100%)!important;
   }
 }
