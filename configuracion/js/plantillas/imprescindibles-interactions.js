@@ -75,29 +75,17 @@
   }
   const placeHeading = placeInfo?.querySelector('h3');
   let album = [], current = 0, focusBefore = null;
-  /* Evitar imatges trencades i duplicacions massives mentre R2 dona errors.
-     DSC06555 és la foto que ja s'havia vist carregar a la web. */
-  const r2KnownPhoto = 'https://img.viajandoconcabeza.com/destinos/suecia/goteborg/2026-dia1/DSC06555.webp';
+  /* Les URL R2 són independents. Mai repetir una altra foto com a fallback,
+     ni esborrar la miniatura quan el servidor no retorna el WebP. */
   const photoError = event => {
     const img = event.currentTarget;
-    const tile = img.closest('.gallery-tile');
-    const lbThumb = img.closest('.lb-thumbs button');
+    const tile = img.closest('.gallery-tile, .lb-thumbs button');
+    img.dataset.loadError = 'true';
     if (tile) {
-      const gallery = tile.closest('.gallery');
-      if (tile === tile.parentElement?.firstElementChild && !img.src.endsWith('/DSC06555.webp')) {
-        img.src = r2KnownPhoto;
-      } else {
-        tile.remove();
-        if (gallery) {
-          const remaining = gallery.querySelectorAll('.gallery-tile');
-          const mosaic = gallery.querySelector('.gallery-mosaic');
-          if (mosaic) mosaic.className = 'gallery-mosaic count-' + Math.min(remaining.length,5);
-        }
-      }
-    } else if (lbThumb) {
-      lbThumb.remove();
-    } else if (img === image && img.src !== r2KnownPhoto) {
-      img.src = r2KnownPhoto;
+      tile.classList.add('photo-load-error');
+      const filename = new URL(img.src, location.href).pathname.split('/').pop();
+      tile.title = 'No es pot carregar ' + filename + ' des de Cloudflare R2';
+      img.alt = 'Imatge no disponible: ' + filename;
     }
   };
   if (image) image.addEventListener('error',photoError);
@@ -164,8 +152,8 @@
     gallery.dataset.images = JSON.stringify(photos);
     gallery.dataset.count = String(photos.length);
     const mosaic = document.createElement('div');
-    mosaic.className = `gallery-mosaic count-${Math.min(photos.length,5)}`;
-    photos.slice(0,5).forEach((src,index) => {
+    mosaic.className = `gallery-mosaic count-${Math.min(photos.length,6)}`;
+    photos.slice(0,6).forEach((src,index) => {
       const tile = document.createElement('button');
       tile.type='button'; tile.className='gallery-tile'; tile.dataset.i=String(index);
       tile.setAttribute('aria-label',`Ampliar fotografía ${index+1} de ${photos.length}`);
@@ -175,9 +163,9 @@
       img.loading = 'lazy';
       img.addEventListener('error',photoError);
       tile.append(img);
-      if (index === 4 && photos.length > 5) {
+      if (index === 5 && photos.length > 6) {
         const more=document.createElement('span'); more.className='gallery-more';
-        more.textContent=`+${photos.length-5} fotos más`;
+        more.textContent=`+${photos.length-6} fotos más`;
         tile.append(more);
       }
       tile.addEventListener('click',() => open(gallery,index));
