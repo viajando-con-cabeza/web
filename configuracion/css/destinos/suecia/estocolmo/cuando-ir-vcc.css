@@ -383,3 +383,31 @@ html body.ci-page :is(#consejo,#mes-a-mes,#estaciones){
   scroll-margin-top:calc(var(--vcc-header-h,87px) + 58px);
  }
 }
+
+/* 2026-11-05: robust fixed subheader while scrolling, keeping its original space */
+html body.ci-page .ci-subnav{
+ position:relative!important;
+ top:auto!important;
+ left:auto!important;
+ right:auto!important;
+ z-index:90!important;
+ width:100%!important;
+ box-sizing:border-box!important;
+}
+html body.ci-page .ci-subnav.ci-subnav-pinned{
+ position:fixed!important;
+ top:var(--ci-nav-top,50px)!important;
+ left:0!important;
+ right:0!important;
+ z-index:90!important;
+ box-shadow:0 2px 7px rgba(36,26,20,.06)!important;
+}
+html body.ci-page .ci-subnav-placeholder{
+ display:block;
+ height:0;
+ width:100%;
+ pointer-events:none;
+}
+html body.ci-page :is(#consejo,#mes-a-mes,#estaciones){
+ scroll-margin-top:var(--ci-sticky-offset,115px)!important;
+}
