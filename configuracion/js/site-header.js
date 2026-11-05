@@ -461,7 +461,7 @@
       const isPendingDestination=/\/proximamente\/?(?:[?#].*)?$|\/coming-soon\/?(?:[?#].*)?$/i.test(href);
       // Las guías e itinerarios de países sin publicar nunca deben abrir páginas antiguas.
       let isUnpublishedGuide=false;
-      if (/^VER\\s+(?:ITINERARIO|GU[IÍ]A)(?:\\s|$)/i.test(label)) {
+      if (/^VER\s+(?:ITINERARIO|GU[IÍ]A)(?:\s|$)/i.test(label)) {
         try {
           const target=new URL(href,location.href);
           const route=target.pathname;
