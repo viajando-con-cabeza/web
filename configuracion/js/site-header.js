@@ -445,4 +445,29 @@
   };
   cleanPublicText();
   new MutationObserver(cleanPublicText).observe(document.body,{subtree:true,childList:true,characterData:true});
+
+  // Estado editorial global: "Próximamente" siempre deshabilitado y gris.
+  const vccPendingStyle=document.createElement('style');
+  vccPendingStyle.textContent='.vcc-pending,.home-feature-pending,body.inicio-vcc .home-feature-pending,.it-card .it-cta.vcc-pending,.vcc-route-link.vcc-pending{color:#b6aaa1!important;text-decoration:none!important;cursor:default!important;pointer-events:none!important}.vcc-country.vcc-pending-country{opacity:.58;cursor:default!important;pointer-events:none!important}.vcc-country.vcc-pending-country .vcc-country-arrow{display:none!important}';
+  document.head.appendChild(vccPendingStyle);
+  const normalizePending=(root)=>{
+    const candidates=[];
+    if(root.nodeType===1&&root.matches('a'))candidates.push(root);
+    if(root.querySelectorAll)candidates.push(...root.querySelectorAll('a'));
+    candidates.forEach(a=>{
+      const href=a.getAttribute('href')||'';
+      const label=(a.textContent||'').trim();
+      const isPending=/^PR[ÓO]XIMAMENTE\\s*(?:→|›)?$/i.test(label);
+      const isPendingDestination=/\\/proximamente\\/?(?:[?#].*)?$|\\/coming-soon\\/?(?:[?#].*)?$/i.test(href);
+      if(!isPending&&!isPendingDestination)return;
+      const span=document.createElement('span');
+      span.className=a.className||'';
+      span.classList.add(isPending?'vcc-pending':'vcc-pending-country');
+      if(isPending){span.textContent='PRÓXIMAMENTE';}else{span.innerHTML=a.innerHTML;}
+      for(const attr of a.attributes){if(attr.name.startsWith('data-'))span.setAttribute(attr.name,attr.value)}
+      a.replaceWith(span);
+    });
+  };
+  normalizePending(document.body);
+  new MutationObserver(records=>records.forEach(r=>r.addedNodes.forEach(n=>normalizePending(n)))).observe(document.body,{childList:true,subtree:true});
 })();
