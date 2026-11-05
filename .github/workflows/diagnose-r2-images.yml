@@ -1,24 +1,35 @@
-name: Diagnose R2 source HTML
+name: Diagnose runtime R2 URL
 on:
   push:
     branches: [quality]
     paths:
       - '.github/workflows/diagnose-r2-images.yml'
 jobs:
-  check-html:
+  browser:
     runs-on: ubuntu-latest
     steps:
-      - name: Compare deployed inline R2 URL with R2 object
-        shell: bash
+      - name: Inspect R2 base at runtime in Chrome
         run: |
           set -euo pipefail
-          page='https://www.quality.viajandoconcabeza.com/destinos/suecia/estocolmo/imprescindibles.html'
-          echo '=== Deployed HTML R2 lines ==='
-          curl -sSL --max-time 25 "$page" -o /tmp/quality.html
-          grep -oE '.{0,80}R2_GOTEBORG.{0,150}' /tmp/quality.html | head -n 6 || true
-          grep -oE '.{0,80}2026-dia1.{0,80}' /tmp/quality.html | head -n 3 || true
-          grep -oE '.{0,80}goteborg/-dia1.{0,100}' /tmp/quality.html | head -n 3 || true
-          echo '=== Deployed HTML version ==='
-          grep -o 'imprescindibles-interactions.js?v=[^"]*' /tmp/quality.html | head -n 2 || true
-          echo '=== Cloudflare response for wrong path ==='
-          curl -Ls -o /dev/null -w '%{http_code} %{content_type}\n' 'https://img.viajandoconcabeza.com/destinos/suecia/goteborg/-dia1/DSC06553.webp'
+          python -m pip install --quiet playwright
+          python - <<'PY'
+          from playwright.sync_api import sync_playwright
+          with sync_playwright() as p:
+            browser=p.chromium.launch(headless=True,executable_path='/usr/bin/google-chrome',args=['--no-sandbox'])
+            page=browser.new_page()
+            page.goto('https://www.quality.viajandoconcabeza.com/destinos/suecia/estocolmo/imprescindibles.html',wait_until='domcontentloaded',timeout=30000)
+            page.wait_for_timeout(3000)
+            probes={
+            'constantR2': 'R2_GOTEBORG',
+            'photosFirst': 'R2_PHOTOS[0]',
+            'initialData': 'document.querySelector(".gallery-main").dataset.images',
+            'derivedData': 'document.querySelector(".gallery").dataset.images',
+            'inlineBg': 'document.querySelector(".gallery-tile").style.backgroundImage',
+            'HTML_contains_correct': 'document.documentElement.outerHTML.includes("goteborg/2026-dia1")',
+            'HTML_contains_broken': 'document.documentElement.outerHTML.includes("goteborg/-dia1")'
+            }
+            for name,js in probes.items():
+              try: print(name,repr(page.evaluate(js)))
+              except Exception as e:print(name,'ERROR',str(e)[:150])
+            browser.close()
+          PY
