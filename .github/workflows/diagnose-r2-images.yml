@@ -1,38 +1,23 @@
-name: Diagnose runtime R2 URL
+name: Diagnose deployed image path
 on:
   push:
     branches: [quality]
     paths:
       - '.github/workflows/diagnose-r2-images.yml'
-      - 'destinos/suecia/estocolmo/imprescindibles.html'
 jobs:
-  browser:
+  read-live:
     runs-on: ubuntu-latest
     steps:
-      - name: Inspect R2 base at runtime in Chrome
+      - name: Check HTML served by Cloudflare quality
+        shell: bash
         run: |
           set -euo pipefail
-          python -m pip install --quiet playwright
-          python - <<'PY'
-          from playwright.sync_api import sync_playwright
-          with sync_playwright() as p:
-            browser=p.chromium.launch(headless=True,executable_path='/usr/bin/google-chrome',args=['--no-sandbox'])
-            page=browser.new_page()
-            page.goto('https://www.quality.viajandoconcabeza.com/destinos/suecia/estocolmo/imprescindibles.html',wait_until='domcontentloaded',timeout=30000)
-            page.wait_for_timeout(3000)
-            probes={
-            'constantR2': 'R2_GOTEBORG',
-            'photosFirst': 'R2_PHOTOS[0]',
-            'initialData': 'document.querySelector(".gallery-main").dataset.images',
-            'derivedData': 'document.querySelector(".gallery").dataset.images',
-            'inlineBg': 'document.querySelector(".gallery-tile").style.backgroundImage',
-            'HTML_contains_correct': 'document.documentElement.outerHTML.includes("goteborg/2026-dia1")',
-            'HTML_contains_broken': 'document.documentElement.outerHTML.includes("goteborg/-dia1")',
-            'remoteImageResponse': 'R2_PHOTOS[0]'
-            }
-            for name,js in probes.items():
-              try: print(name,repr(page.evaluate(js)))
-              except Exception as e:print(name,'ERROR',str(e)[:150])
-            print('CANONICAL WEBP CHECK', page.evaluate('R2_PHOTOS[0]'))
-            browser.close()
-          PY
+          for variant in normal bust; do
+            url='https://www.quality.viajandoconcabeza.com/destinos/suecia/estocolmo/imprescindibles.html'
+            if [ "$variant" = bust ]; then url="$url?verify-r2=3f22262a"; fi
+            curl -sSL --max-time 25 "$url" -o /tmp/test.html
+            echo "::group::"$variant
+            grep -oE 'const R2_GOTEBORG[^;]+;' /tmp/test.html || true
+            grep -oE 'imprescindibles-interactions.js\?v=[^"]+' /tmp/test.html | head -n 1 || true
+            echo "::endgroup::"
+          done
