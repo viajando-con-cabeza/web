@@ -4,6 +4,7 @@ on:
     branches: [quality]
     paths:
       - '.github/workflows/diagnose-r2-images.yml'
+      - 'destinos/suecia/estocolmo/imprescindibles.html'
 jobs:
   browser:
     runs-on: ubuntu-latest
@@ -26,10 +27,12 @@ jobs:
             'derivedData': 'document.querySelector(".gallery").dataset.images',
             'inlineBg': 'document.querySelector(".gallery-tile").style.backgroundImage',
             'HTML_contains_correct': 'document.documentElement.outerHTML.includes("goteborg/2026-dia1")',
-            'HTML_contains_broken': 'document.documentElement.outerHTML.includes("goteborg/-dia1")'
+            'HTML_contains_broken': 'document.documentElement.outerHTML.includes("goteborg/-dia1")',
+            'remoteImageResponse': 'R2_PHOTOS[0]'
             }
             for name,js in probes.items():
               try: print(name,repr(page.evaluate(js)))
               except Exception as e:print(name,'ERROR',str(e)[:150])
+            print('CANONICAL WEBP CHECK', page.evaluate('R2_PHOTOS[0]'))
             browser.close()
           PY
