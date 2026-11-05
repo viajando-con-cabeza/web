@@ -9,20 +9,36 @@ jobs:
   check-r2:
     runs-on: ubuntu-latest
     steps:
-      - name: Test public WebP with and without referer
+      - name: Check site headers and rendered browser mosaic
         shell: bash
         run: |
           set -euo pipefail
-          base='https://img.viajandoconcabeza.com/destinos/suecia/goteborg/2026-dia1'
-          for file in DSC06553.webp DSC06555.webp DSC06564.webp; do
-            for mode in direct embedded; do
-              echo "::group::file=$file mode=$mode"
-              if [[ "$mode" == embedded ]]; then
-                curl -sSL --max-time 20 -o /dev/null -D /tmp/r2-header.txt -H 'Referer: https://www.quality.viajandoconcabeza.com/destinos/suecia/estocolmo/imprescindibles.html' -H 'Sec-Fetch-Dest: image' -H 'Sec-Fetch-Mode: no-cors' "$base/$file" || true
-              else
-                curl -sSL --max-time 20 -o /dev/null -D /tmp/r2-header.txt "$base/$file" || true
-              fi
-              grep -iE '^(HTTP/|content-type:|content-security-policy:|cross-origin-resource-policy:|cross-origin-embedder-policy:|access-control-allow-origin:|location:|cf-ray:|server:)' /tmp/r2-header.txt || true
-              echo "::endgroup::"
-            done
-          done
+          page='https://www.quality.viajandoconcabeza.com/destinos/suecia/estocolmo/imprescindibles.html'
+          echo '=== Headers from quality page ==='
+          curl -sSLI --max-time 25 "$page" | grep -iE '^(HTTP/|content-type:|content-security-policy:|cross-origin-resource-policy:|cross-origin-embedder-policy:|access-control-allow-origin:|location:|server:)' || true
+          echo '=== Chrome executable ==='
+          command -v google-chrome || true
+          python -m pip install --quiet playwright
+          python - <<'PY'
+          from playwright.sync_api import sync_playwright
+          url='https://www.quality.viajandoconcabeza.com/destinos/suecia/estocolmo/imprescindibles.html'
+          with sync_playwright() as p:
+            chromium=p.chromium.launch(headless=True,executable_path='/usr/bin/google-chrome',args=['--no-sandbox'])
+            page=chromium.new_page(viewport={'width':1280,'height':800})
+            failures=[]
+            console=[]
+            responses=[]
+            page.on('requestfailed',lambda r:failures.append((r.url,r.failure)))
+            page.on('console',lambda m:console.append((m.type,m.text)) if m.type=='error' else None)
+            page.on('response',lambda r:responses.append((r.status,r.url)) if 'DSC065' in r.url else None)
+            print('page goto',page.goto(url,timeout=45000,wait_until='domcontentloaded').status)
+            page.wait_for_timeout(9000)
+            print('TITLE',page.title())
+            print('MOSAIC ELEMENTS',page.locator('.gallery-mosaic').count())
+            print('FIRST 7 MOSAICS',page.locator('.gallery-mosaic').evaluate_all('items => items.slice(0,7).map(el => ({count:el.children.length, firstImage:getComputedStyle(el.children[0]).backgroundImage, firstInline:el.children[0].style.backgroundImage}))'))
+            print('HTTP RESPONSES',responses[:40])
+            print('REQUEST FAILURES',failures[:40])
+            print('CONSOLE ERRORS',console[:40])
+            print('CSP META',page.locator('meta[http-equiv="Content-Security-Policy"]').count())
+            chromium.close()
+          PY
