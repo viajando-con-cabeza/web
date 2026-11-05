@@ -88,7 +88,7 @@
       img.alt = 'Imatge no disponible: ' + filename;
     }
   };
-  if (image) image.addEventListener('error',photoError);
+  if (image) { image.referrerPolicy = 'no-referrer'; image.addEventListener('error',photoError); }
   const show = i => {
     if (!album.length || !image) return;
     current = (i + album.length) % album.length;
@@ -128,6 +128,7 @@
       button.type = 'button';
       button.setAttribute('aria-label',`Ver fotografía ${j+1} de ${album.length}`);
       const thumb = document.createElement('img');
+      thumb.referrerPolicy = 'no-referrer';
       thumb.src = src;
       thumb.alt = '';
       thumb.addEventListener('error',photoError);
@@ -158,6 +159,7 @@
       tile.type='button'; tile.className='gallery-tile'; tile.dataset.i=String(index);
       tile.setAttribute('aria-label',`Ampliar fotografía ${index+1} de ${photos.length}`);
       const img = document.createElement('img');
+      img.referrerPolicy = 'no-referrer';
       img.src = src;
       img.alt = `${gallery.closest('.place')?.querySelector('h2')?.textContent || 'Estocolmo'} · fotografía ${index+1}`;
       img.loading = 'lazy';
