@@ -25,20 +25,28 @@
     const first=itins.getBoundingClientRect(), grid=featureGrid.getBoundingClientRect();
     const top=Math.max(0,Math.round(first.top-grid.top));
     planning.style.setProperty("margin-top",top+"px","important");
-    // Align the TOP of both social/contact cards with the guide cards,
-    // rather than using a barely visible fixed 9px margin.
-    const guideTop=guides.getBoundingClientRect().top;
-    const previousMargin=parseFloat(window.getComputedStyle(social).marginTop)||0;
-    const socialUnshiftedTop=social.getBoundingClientRect().top-previousMargin;
-    const offset=Math.max(0,Math.round(guideTop-socialUnshiftedTop));
-    social.style.setProperty("margin-top",offset+"px","important");
-    // Let CSS grid size both cards from their real content. A fixed height
-    // previously clipped Contact and made Instagram extend below its neighbour.
+    // Align BOTTOM of both cards with the featured guide cards.
+    // Move them visibly down by shortening the panels rather than keeping a 245px minimum.
+    const guideBottom=guides.getBoundingClientRect().bottom;
+    const desiredHeight=210;
+    // Reset before measuring to prevent accumulation during resize/observer events.
+    social.style.setProperty("margin-top","0px","important");
+    social.style.removeProperty("height");
     for(const panel of [insta,contact]){
       panel.style.removeProperty("height");
       panel.style.removeProperty("min-height");
     }
-    social.style.removeProperty("height");
+    const rowTop=social.getBoundingClientRect().top;
+    const offset=Math.max(0,Math.round(guideBottom-rowTop-desiredHeight));
+    social.style.setProperty("margin-top",offset+"px","important");
+    // When the guide is smaller than expected, still prevent overflow.
+    const available=Math.max(185,Math.round(guideBottom-(rowTop+offset)));
+    const height=Math.min(desiredHeight,available);
+    social.style.setProperty("height",height+"px","important");
+    for(const panel of [insta,contact]){
+      panel.style.setProperty("height",height+"px","important");
+      panel.style.setProperty("min-height","0px","important");
+    }
   }
   function schedule(){
     if(raf)cancelAnimationFrame(raf);
