@@ -268,3 +268,61 @@ html body.ci-page .ci-recommendation{margin-top:0!important}
  html body.ci-page .ci-objective strong{font-size:10px!important}
  html body.ci-page .ci-intro{margin:15px auto 16px!important;font-size:11px}
 }
+
+/* 2026-11-05: compact objective controls and balanced intro spacing */
+@media(min-width:901px){
+ html body.ci-page .ci-objective-grid{
+  width:min(1080px,100%)!important;
+  margin-inline:auto!important;
+  grid-template-columns:repeat(6,minmax(0,1fr))!important;
+  gap:9px!important;
+ }
+ html body.ci-page .ci-objective{
+  min-height:75px!important;
+  padding:8px 6px!important;
+  gap:4px!important;
+  border-radius:9px!important;
+ }
+ html body.ci-page .ci-objective-icon{font-size:22px!important}
+ html body.ci-page .ci-objective strong{font-size:10px!important}
+ html body.ci-page .ci-intro{
+  max-width:none!important;
+  width:100%!important;
+  margin:24px auto!important;
+  font-size:11.5px!important;
+  line-height:1.5!important;
+  text-align:center!important;
+ }
+ html body.ci-page .ci-recommendation{
+  width:min(1120px,100%)!important;
+  min-height:0!important;
+  margin:0 auto 32px!important;
+  grid-template-columns:50px minmax(0,1.15fr) minmax(0,.95fr)!important;
+  gap:14px!important;
+  padding:13px 23px!important;
+  border-radius:16px!important;
+ }
+ html body.ci-page .ci-recommendation-symbol{font-size:38px!important}
+ html body.ci-page .ci-recommendation h3{font-size:clamp(25px,2.5vw,31px)!important;margin:2px 0 3px!important}
+ html body.ci-page .ci-recommendation p{font-size:10.5px!important}
+ html body.ci-page .ci-recommendation ul{padding-top:0!important;padding-bottom:0!important}
+ html body.ci-page .ci-recommendation li{font-size:10px!important;margin:2px 0!important}
+}
+@media(min-width:601px) and (max-width:900px){
+ html body.ci-page .ci-objective-grid{
+  width:100%!important;
+  grid-template-columns:repeat(3,minmax(0,1fr))!important;
+  gap:8px!important;
+ }
+ html body.ci-page .ci-objective{min-height:73px!important;padding:8px 5px!important}
+ html body.ci-page .ci-objective-icon{font-size:21px!important}
+ html body.ci-page .ci-intro{margin:20px auto!important}
+ html body.ci-page .ci-recommendation{padding:15px 18px!important;margin-bottom:28px!important}
+}
+@media(max-width:600px){
+ html body.ci-page .ci-objective{min-height:70px!important;padding:7px 5px!important;gap:4px!important}
+ html body.ci-page .ci-objective-icon{font-size:20px!important}
+ html body.ci-page .ci-intro{margin:17px auto!important}
+ html body.ci-page .ci-recommendation{padding:15px!important;margin-bottom:26px!important}
+ html body.ci-page .ci-recommendation h3{font-size:28px!important}
+}
