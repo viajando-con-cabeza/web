@@ -24,13 +24,13 @@ body.country-page .vcc-inspiration>.vcc-inspiration-photo{
   position:absolute!important;inset:0!important;
   display:block!important;width:100%!important;height:100%!important;
   object-fit:cover!important;object-position:center 55%!important;
-  opacity:1!important;z-index:-1!important;
+  opacity:1!important;z-index:0!important;
 }
 body.country-page .vcc-inspiration::before{
-  z-index:0!important;pointer-events:none!important;
+  z-index:1!important;pointer-events:none!important;
   background:linear-gradient(90deg,rgba(15,27,31,.26),rgba(15,27,31,.03))!important;
 }
-body.country-page .vcc-inspiration>div{z-index:1!important}
+body.country-page .vcc-inspiration>div{z-index:2!important}
 @media(max-width:560px){
   body.country-page #planifica .vcc-prep-image{height:105px!important;min-height:105px!important}
 }
