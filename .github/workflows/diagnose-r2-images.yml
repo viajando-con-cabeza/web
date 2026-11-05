@@ -1,41 +1,30 @@
-name: Verify fixed R2 gallery in Chrome
+name: Final verification of all ten R2 images
 on:
   push:
     branches: [quality]
     paths:
       - '.github/workflows/diagnose-r2-images.yml'
 jobs:
-  browser:
+  verify-all:
     runs-on: ubuntu-latest
     steps:
-      - name: Verify deployed quality version, R2 requests, and mosaic backgrounds
+      - name: Download all R2 WebP files and verify content hashes
         shell: bash
         run: |
           set -euo pipefail
-          python -m pip install --quiet playwright
+          mkdir -p /tmp/r2-images
+          base='https://img.viajandoconcabeza.com/destinos/suecia/goteborg/2026-dia1'
+          for n in 06553 06554 06555 06558 06560 06564 06576 06578 06585 06588; do
+            file="DSC$n.webp"
+            code=$(curl -sSL --fail --max-time 30 -o "/tmp/r2-images/$file" -w '%{http_code}' "$base/$file")
+            printf '%s %s bytes=%s magic=%s\n' "$file" "$code" "$(stat -c '%s' "/tmp/r2-images/$file")" "$(file -b --mime-type "/tmp/r2-images/$file")"
+            test "$code" = 200
+            test "$(file -b --mime-type "/tmp/r2-images/$file")" = image/webp
+          done
           python - <<'PY'
-          from playwright.sync_api import sync_playwright
-          with sync_playwright() as p:
-            browser=p.chromium.launch(headless=True, executable_path='/usr/bin/google-chrome',args=['--no-sandbox'])
-            base='https://www.quality.viajandoconcabeza.com/destinos/suecia/estocolmo/imprescindibles.html'
-            for attempt in range(1,5):
-              page=browser.new_page()
-              responses=[]
-              failures=[]
-              page.on('response',lambda r:responses.append((r.status,r.url)) if 'DSC065' in r.url else None)
-              page.on('requestfailed',lambda r:failures.append((r.url,r.failure)) if 'DSC065' in r.url else None)
-              page.goto(base + '?check-r2-version=' + str(attempt) + '-e2a974',wait_until='domcontentloaded',timeout=35000)
-              page.wait_for_timeout(6000)
-              version=page.locator('script[src*="imprescindibles-interactions"]').get_attribute('src')
-              prefix=page.evaluate('R2_GOTEBORG')
-              first=page.locator('.gallery-tile').first.evaluate('(e)=>e.style.backgroundImage')
-              print('ATTEMPT',attempt,'JS',version,'BASE',prefix,'FIRST_TILE',first,flush=True)
-              print('PHOTO_RESPONSES',responses[:15],flush=True)
-              print('FAILED',failures[:15],flush=True)
-              page.close()
-              if 'r2-path-fixed-v13' in version and '/2026-dia1/' in first:
-                print('VERIFIED_CORRECT_PATH',True,flush=True)
-                break
-              if attempt < 4: import time;time.sleep(9)
-            browser.close()
+          import hashlib,glob
+          files=sorted(glob.glob('/tmp/r2-images/*'))
+          hashes=[hashlib.sha256(open(f,'rb').read()).hexdigest() for f in files]
+          print('WEBP_FILES',len(files),'DISTINCT_HASHES',len(set(hashes)))
+          assert len(files)==10 and len(set(hashes))==10
           PY
