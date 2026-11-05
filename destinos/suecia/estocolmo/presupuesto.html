@@ -15,7 +15,7 @@
 <link rel="stylesheet" href="/configuracion/css/suecia-fixes.css">
 <link rel="stylesheet" href="/configuracion/css/destinos/suecia/estocolmo/estocolmo.css">
 <link rel="stylesheet" href="/configuracion/css/destinos/suecia/estocolmo/estocolmo-quality-fixes.css">
-<link rel="stylesheet" href="/configuracion/css/plantillas/presupuesto-vcc-visual.css?v=20261105-hero505">
+<link rel="stylesheet" href="/configuracion/css/plantillas/presupuesto-vcc-visual.css?v=20261105-hero410-total1">
 <link rel="stylesheet" href="/configuracion/css/destinos/suecia/estocolmo/presupuesto-armonia.css?v=20261104-fondo-beige">
 <style id="vcc-budget-page-background">
 /* Color de base corporativo; no colorear tarjetas ni widgets */
@@ -347,68 +347,94 @@ html body.budget-vcc .calculator-card .calc-total #grand-total{
 }
 </style>
 <style id="vcc-budget-total-three-columns-20261105">
-/* Tres columnas verdaderas en escritorio: título, resumen e importe */
+/* Una única fila real: título · personas/días/noches · importe */
 html body.budget-vcc .calculator-card .calc-total{
- display:grid!important;
- grid-template-columns:max-content minmax(0,1fr) max-content!important;
- align-items:baseline!important;
- gap:8px 16px!important;
- min-height:0!important;
- width:100%!important;
- padding:9px 0 2px!important;
- margin:9px 0 0!important;
- background:transparent!important;
- border:0!important;
- border-top:1px solid #e9ded5!important;
- border-radius:0!important;
- box-shadow:none!important;
- box-sizing:border-box!important;
+ display:grid!important;grid-template-columns:max-content minmax(0,1fr) max-content!important;
+ align-items:center!important;column-gap:12px!important;row-gap:0!important;
+ min-width:0!important;width:100%!important;min-height:0!important;
+ padding:9px 0 2px!important;margin:9px 0 0!important;
+ background:transparent!important;border:0!important;border-top:1px solid #e9ded5!important;
+ border-radius:0!important;box-shadow:none!important;
 }
 html body.budget-vcc .calculator-card .calc-total .vcc-total-title{
- font:800 11px/1.3 'DM Sans',sans-serif!important;
- letter-spacing:.02em!important;color:#ac5943!important;
- white-space:nowrap!important;
+ grid-column:1!important;grid-row:1!important;min-width:0!important;
+ font:800 10px/1.2 'DM Sans',sans-serif!important;
+ letter-spacing:0!important;color:#ac5943!important;white-space:nowrap!important;
 }
 html body.budget-vcc .calculator-card .calc-total .vcc-total-meta{
- font:500 10px/1.3 'DM Sans',sans-serif!important;
+ grid-column:2!important;grid-row:1!important;min-width:0!important;
+ font:500 9px/1.2 'DM Sans',sans-serif!important;
  color:#73675e!important;white-space:nowrap!important;
- min-width:0!important;
 }
 html body.budget-vcc .calculator-card .calc-total #grand-total{
- display:block!important;
- margin:0!important;
- padding:0!important;
- font:600 clamp(24px,2.4vw,31px)/1 'Oswald',sans-serif!important;
+ grid-column:3!important;grid-row:1!important;display:block!important;
+ margin:0!important;padding:0!important;align-self:center!important;
+ font:600 27px/1 'Oswald',sans-serif!important;
  color:#bd624a!important;background:none!important;
  border:0!important;border-radius:0!important;box-shadow:none!important;
- white-space:nowrap!important;
- text-align:right!important;
+ white-space:nowrap!important;text-align:right!important;
 }
-@media(max-width:1050px){
+@media(max-width:780px){
  html body.budget-vcc .calculator-card .calc-total{
-  grid-template-columns:minmax(0,1fr) max-content!important;
-  row-gap:2px!important;
+  grid-template-columns:minmax(0,1fr) max-content!important;row-gap:4px!important;
  }
- html body.budget-vcc .calculator-card .calc-total .vcc-total-title{grid-column:1;grid-row:1;white-space:normal!important}
- html body.budget-vcc .calculator-card .calc-total .vcc-total-meta{grid-column:1;grid-row:2}
- html body.budget-vcc .calculator-card .calc-total #grand-total{grid-column:2;grid-row:1/3;align-self:center}
-}
-@media(min-width:1051px) and (max-width:1240px){
- html body.budget-vcc .calculator-card .calc-total{gap:7px!important}
- html body.budget-vcc .calculator-card .calc-total .vcc-total-title{font-size:10px!important}
- html body.budget-vcc .calculator-card .calc-total .vcc-total-meta{font-size:9px!important}
+ html body.budget-vcc .calculator-card .calc-total .vcc-total-title{grid-column:1!important;grid-row:1!important;white-space:normal!important}
+ html body.budget-vcc .calculator-card .calc-total .vcc-total-meta{grid-column:1!important;grid-row:2!important}
+ html body.budget-vcc .calculator-card .calc-total #grand-total{grid-column:2!important;grid-row:1 / 3!important}
 }
 </style>
 <style id="vcc-budget-hero-unified-20261105">
-/* Hero alineado con la ficha de Estocolmo: 505px reales y navegación inmediatamente después */
-html body.budget-vcc .st-shell > .budget-hero{height:505px!important;min-height:505px!important;max-height:505px!important;background-position:center 48%!important}
-html body.budget-vcc .budget-hero .budget-crumb{top:18px!important}
-html body.budget-vcc .budget-hero .budget-hero-card{top:90px!important;width:min(690px,78vw)!important}
-html body.budget-vcc .budget-hero .budget-hero-card h1{font-size:clamp(42px,3.6vw,56px)!important;line-height:1.07!important;letter-spacing:-.018em!important;max-width:680px!important}
-html body.budget-vcc .budget-hero .hero-intro{font-size:29px!important;margin:14px 0 10px!important}
-html body.budget-vcc .budget-hero .hero-lead{font-size:14px!important;line-height:1.5!important;max-width:560px!important}
-@media(max-width:850px){html body.budget-vcc .st-shell > .budget-hero{height:510px!important;min-height:510px!important;max-height:510px!important}html body.budget-vcc .budget-hero .budget-hero-card{top:94px!important}html body.budget-vcc .budget-hero .budget-hero-card h1{font-size:clamp(38px,6vw,53px)!important}}
-@media(max-width:600px){html body.budget-vcc .st-shell > .budget-hero{height:auto!important;min-height:450px!important;max-height:none!important}html body.budget-vcc .budget-hero .budget-hero-inner{min-height:450px!important;height:auto!important;padding-bottom:28px!important}html body.budget-vcc .budget-hero .budget-hero-card{position:relative!important;top:auto!important;left:auto!important;margin-top:86px!important;width:100%!important}html body.budget-vcc .budget-hero .budget-hero-card h1{font-size:clamp(33px,8.2vw,46px)!important}}
+/* La navegación secundaria debe verse en el primer pantallazo en escritorio */
+html body.budget-vcc .st-shell > section.budget-hero{
+ display:block!important;box-sizing:border-box!important;
+ height:410px!important;min-height:410px!important;max-height:410px!important;
+ margin:0!important;padding:0!important;overflow:hidden!important;
+ background-position:center 49%!important;
+}
+html body.budget-vcc .budget-hero .budget-hero-inner{
+ box-sizing:border-box!important;width:min(1180px,calc(100% - 48px))!important;
+ height:100%!important;min-height:0!important;padding:0!important;margin:0 auto!important;
+}
+html body.budget-vcc .budget-hero .budget-crumb{
+ position:absolute!important;top:16px!important;left:0!important;
+ width:100%!important;font:400 11px/1.5 'DM Sans',sans-serif!important;
+ margin:0!important;padding:0!important;transform:none!important;
+}
+html body.budget-vcc .budget-hero .budget-crumb strong{font-weight:700!important}
+html body.budget-vcc .budget-hero .budget-hero-card{
+ position:absolute!important;top:78px!important;left:0!important;
+ width:min(700px,78vw)!important;margin:0!important;padding:0!important;
+}
+html body.budget-vcc .budget-hero .hero-eyebrow{font-size:11px!important;margin:0 0 10px!important}
+html body.budget-vcc .budget-hero .budget-hero-card h1{
+ font:500 clamp(38px,3.65vw,54px)/1.06 'Oswald',sans-serif!important;
+ letter-spacing:-.018em!important;max-width:700px!important;margin:0!important;
+}
+html body.budget-vcc .budget-hero .hero-intro{
+ font-size:27px!important;line-height:1.1!important;margin:12px 0 9px!important;
+}
+html body.budget-vcc .budget-hero .hero-lead{
+ font-size:13px!important;line-height:1.5!important;max-width:560px!important;margin:0!important;
+}
+@media(max-width:850px){
+ html body.budget-vcc .st-shell > section.budget-hero{height:430px!important;min-height:430px!important;max-height:430px!important}
+ html body.budget-vcc .budget-hero .budget-hero-card{top:85px!important;width:min(100%,640px)!important}
+ html body.budget-vcc .budget-hero .budget-hero-card h1{font-size:clamp(35px,5.4vw,47px)!important}
+}
+@media(max-width:600px){
+ html body.budget-vcc .st-shell > section.budget-hero{
+  height:auto!important;min-height:370px!important;max-height:none!important;overflow:visible!important;
+ }
+ html body.budget-vcc .budget-hero .budget-hero-inner{
+  width:calc(100% - 30px)!important;height:auto!important;min-height:370px!important;padding:0 0 26px!important;
+ }
+ html body.budget-vcc .budget-hero .budget-hero-card{
+  position:relative!important;top:auto!important;left:auto!important;margin:72px 0 0!important;width:100%!important;
+ }
+ html body.budget-vcc .budget-hero .budget-hero-card h1{font-size:clamp(31px,8vw,42px)!important}
+ html body.budget-vcc .budget-hero .hero-intro{font-size:25px!important;margin:10px 0 8px!important}
+ html body.budget-vcc .budget-hero .hero-lead{font-size:12px!important}
+}
 </style>
 <style id="vcc-budget-single-active">
 /* Únicament la pestanya activa es destaca. El primer enllaç ja no queda marcat permanentment. */
