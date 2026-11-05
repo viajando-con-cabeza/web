@@ -47,7 +47,7 @@
   const overlay = document.getElementById('lightbox');
   const stage = overlay?.querySelector('.lb-stage');
   const r2Demo = document.querySelector('.imp-page[data-gallery-source="r2"]') !== null;
-  const image = stage?.querySelector(':scope > img');
+  const image = stage?.querySelector(':scope > .lb-photo');
   const thumbnails = stage?.querySelector('.lb-thumbs');
   const caption = stage?.querySelector('.lb-caption');
   const previous = stage?.querySelector('.lb-prev');
@@ -75,26 +75,20 @@
   }
   const placeHeading = placeInfo?.querySelector('h3');
   let album = [], current = 0, focusBefore = null;
-  /* Les URL R2 són independents. Mai repetir una altra foto com a fallback,
-     ni esborrar la miniatura quan el servidor no retorna el WebP. */
-  const photoError = event => {
-    const img = event.currentTarget;
-    const tile = img.closest('.gallery-tile, .lb-thumbs button');
-    img.dataset.loadError = 'true';
-    if (tile) {
-      tile.classList.add('photo-load-error');
-      const filename = new URL(img.src, location.href).pathname.split('/').pop();
-      tile.title = 'No es pot carregar ' + filename + ' des de Cloudflare R2';
-      img.alt = 'Imatge no disponible: ' + filename;
-    }
+  /* La portada de la pàgina carrega R2 amb background-image.
+     Fem exactament el mateix per al mosaic, miniatures i visor, sense <img src>.
+     No s'injecta cap imatge alternativa ni es repeteixen fotografies. */
+  const useR2Background = (node, src) => {
+    node.style.setProperty('background-image', 'url("' + src + '")', 'important');
+    node.style.setProperty('background-position', 'center', 'important');
+    node.style.setProperty('background-repeat', 'no-repeat', 'important');
   };
-  if (image) { image.referrerPolicy = 'no-referrer'; image.addEventListener('error',photoError); }
   const show = i => {
     if (!album.length || !image) return;
     current = (i + album.length) % album.length;
     const label = `${placeHeading?.textContent || 'Estocolmo'} · fotografía ${current + 1} de ${album.length}`;
-    image.src = album[current];
-    image.alt = label;
+    useR2Background(image, album[current]);
+    image.setAttribute('aria-label', label);
     if (counter) counter.textContent = `${current + 1} / ${album.length}`;
     [...thumbnails.children].forEach((button,j) => {
       button.classList.toggle('active',j === current);
@@ -107,7 +101,7 @@
   const dismiss = () => {
     overlay.classList.remove('open');
     overlay.setAttribute('aria-hidden','true');
-    image.removeAttribute('src');
+    image.style.removeProperty('background-image');
     if (counter) counter.textContent = '';
     focusBefore?.focus?.();
   };
@@ -127,12 +121,8 @@
       const button = document.createElement('button');
       button.type = 'button';
       button.setAttribute('aria-label',`Ver fotografía ${j+1} de ${album.length}`);
-      const thumb = document.createElement('img');
-      thumb.referrerPolicy = 'no-referrer';
-      thumb.src = src;
-      thumb.alt = '';
-      thumb.addEventListener('error',photoError);
-      button.append(thumb);
+      useR2Background(button, src);
+      button.style.setProperty('background-size', 'cover', 'important');
       button.addEventListener('click',() => show(j));
       thumbnails.append(button);
     });
@@ -158,13 +148,8 @@
       const tile = document.createElement('button');
       tile.type='button'; tile.className='gallery-tile'; tile.dataset.i=String(index);
       tile.setAttribute('aria-label',`Ampliar fotografía ${index+1} de ${photos.length}`);
-      const img = document.createElement('img');
-      img.referrerPolicy = 'no-referrer';
-      img.src = src;
-      img.alt = `${gallery.closest('.place')?.querySelector('h2')?.textContent || 'Estocolmo'} · fotografía ${index+1}`;
-      img.loading = 'lazy';
-      img.addEventListener('error',photoError);
-      tile.append(img);
+      useR2Background(tile, src);
+      tile.style.setProperty('background-size', 'cover', 'important');
       if (index === 5 && photos.length > 6) {
         const more=document.createElement('span'); more.className='gallery-more';
         more.textContent=`+${photos.length-6} fotos más`;
