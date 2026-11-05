@@ -29,3 +29,15 @@
 .cl-page .cl-subnav a[aria-current=page]{background:transparent;border-color:#c76e45}
 .cl-page .cl-steps li:before{background:#c76e45}
 @media(max-width:620px){.cl-page .cl-card{top:102px}.cl-page .cl-transport{min-height:270px}.cl-page .cl-illustration{height:77px}.cl-page .cl-illustration svg{height:75px}.cl-page .cl-transport h3{font-size:23px}.cl-page .cl-title{margin-bottom:25px}}
+
+.cl-page .cl-airports{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.cl-page .cl-airports .cl-panel{min-width:0}
+.cl-page .cl-airports .cl-panel h3{font-size:25px}
+.cl-page .cl-airports .cl-panel a{font-weight:700;color:#b85c38;font-size:13px}
+.cl-page .cl-kicker{font:600 22px/1.2 'Caveat',cursive!important;color:#c66d48;margin:0 0 7px}
+.cl-page .cl-method-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.cl-page .cl-method-grid>div{padding:15px 17px;border:1px solid #e7dcd0;border-radius:10px;background:#fbf8f1}
+.cl-page .cl-method-grid strong{font:500 20px 'Oswald',sans-serif;display:block;color:#234039;margin-bottom:4px}
+.cl-page .cl-method-grid span{font-size:13px;line-height:1.55}
+@media(max-width:800px){.cl-page .cl-airports{grid-template-columns:1fr}}
+@media(max-width:620px){.cl-page .cl-method-grid{grid-template-columns:1fr}}
