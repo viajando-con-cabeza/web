@@ -121,6 +121,8 @@ html body .imp-page .related-grid .related-text-link .vcc-related-icon{flex:0 0 
 html body .imp-page .related-grid .related-text-link .vcc-related-arrow{margin-left:auto!important;color:#e79b72!important;background:none!important;font-size:21px!important}
 @media(max-width:1030px){html body .imp-page .related-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:11px!important}}
 @media(max-width:580px){html body .imp-page .related-inner{width:calc(100% - 30px)}html body .imp-page .related-grid{grid-template-columns:1fr!important;gap:9px!important}html body .imp-page .related-grid .related-text-link{min-height:70px!important;padding:10px 13px!important}}
+/* Prova temporal R2: tercera fotografia de Göteborg com a portada. */
+html body .imp-page .imp-hero{background-image:url("https://img.viajandoconcabeza.com/destinos/suecia/goteborg/2026-dia1/DSC06555.webp")!important;background-position:center center!important;background-size:cover!important;background-repeat:no-repeat!important}
 </style>
 </head>
 <body>
@@ -149,7 +151,9 @@ html body .imp-page .related-grid .related-text-link .vcc-related-arrow{margin-l
 <div class="lightbox" id="lightbox"><div class="lb-stage"><button class="lb-close" type="button" aria-label="Cerrar galería">×</button><button class="lb-prev" type="button" aria-label="Foto anterior">‹</button><img alt=""><button class="lb-next" type="button" aria-label="Foto siguiente">›</button><div class="lb-caption"></div><div class="lb-thumbs"></div></div></div>
 <script src="/configuracion/js/site-header.js"></script>
 <script>
-const IMG={old:'https://images.unsplash.com/photo-1520769669658-f07657f5a307?auto=format&fit=crop&w=1200&q=88',city:'https://images.unsplash.com/photo-1509356843151-3e7d96241e11?auto=format&fit=crop&w=1200&q=88',green:'https://images.unsplash.com/photo-1517825738774-7de9363ef735?auto=format&fit=crop&w=1200&q=88',water:'https://images.unsplash.com/photo-1534274988757-a28bf1a57c17?auto=format&fit=crop&w=1200&q=88'};
+/* Prova temporal: fotos de Göteborg a les galeries d'Estocolm. Canviar per les definitives. */
+const R2_GOTEBORG='https://img.viajandoconcabeza.com/destinos/suecia/goteborg/2026-dia1/';
+const IMG={old:R2_GOTEBORG+'DSC06553.webp',city:R2_GOTEBORG+'DSC06554.webp',green:R2_GOTEBORG+'DSC06558.webp',water:R2_GOTEBORG+'DSC06560.webp',extra1:R2_GOTEBORG+'DSC06564.webp',extra2:R2_GOTEBORG+'DSC06576.webp',extra3:R2_GOTEBORG+'DSC06578.webp'};
 const data=[
 ['gamla-stan','Gamla Stan','Barrio histórico','Perderse también es viajar','Gamla Stan es el lugar donde mejor se entiende el origen de Estocolmo. Sus calles estrechas y empedradas atraviesan un casco antiguo lleno de fachadas ocres, plazas pequeñas e iglesias. Merece la pena alejarse de las calles principales y descubrir pasajes más tranquilos.','Estocolmo','2–3 horas',5,'Calles con historia','Ve a primera hora o vuelve al atardecer para disfrutar de calles más tranquilas.','old'],
 ['vasa','Museo Vasa','Museo','Un barco que lo cambia todo','El Vasa conserva prácticamente completo un barco de guerra del siglo XVII hundido en su viaje inaugural. Recorrer sus plantas permite verlo desde distintas alturas y comprender su historia.','Djurgården','2–3 horas',4,'Una historia que impresiona','Comprueba los horarios y dedica al menos dos horas.','city','old'],
@@ -167,6 +171,8 @@ const data=[
 ['kungstradgarden','Kungsträdgården','Parque urbano','Una pausa en pleno centro','Este parque céntrico es un lugar para descansar entre visitas, pasear y observar el ambiente de Estocolmo.','Norrmalm','30–60 min',3,'Un respiro entre visitas','Aprovéchalo como parada de paso.','green','city'],
 ['stromkajen','Strömkajen','Paseo junto al agua','La ciudad empieza en sus muelles','El paseo junto a los muelles de Strömkajen permite observar el centro desde el agua y enlazar distintos puntos de interés caminando.','Centro','30–60 min',3,'Agua y vida urbana','Combínalo con un trayecto en barco.','water','city','green']
 ];
+/* Repartim diverses imatges R2 entre les 15 parades, sense alterar-ne els textos. */
+data.forEach((place,i)=>{const additional=['extra1','extra2','extra3'][i%3];if(!place.slice(10).includes(additional))place.push(additional)});
 const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const rating=n=>`<span class="vcc-rating r${n}" aria-label="Valoración VCC: ${n} de 5"><i></i><i></i><i></i><i></i><i></i></span>`;
 const nav=document.getElementById('placeNav');
