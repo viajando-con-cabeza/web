@@ -126,59 +126,7 @@ html body .imp-page .imp-hero{
   background:linear-gradient(90deg,rgba(250,247,242,.93) 0%,rgba(250,247,242,.79) 29%,rgba(250,247,242,.39) 53%,rgba(250,247,242,.08) 78%),url("https://img.viajandoconcabeza.com/destinos/suecia/goteborg/2026-dia1/DSC06555.webp") center center / cover no-repeat!important;
 }
 @media(max-width:650px){html body .imp-page .imp-hero{background:linear-gradient(90deg,rgba(250,247,242,.91),rgba(250,247,242,.54) 77%,rgba(250,247,242,.28)),url("https://img.viajandoconcabeza.com/destinos/suecia/goteborg/2026-dia1/DSC06555.webp") 57% center / cover no-repeat!important}}
-/* Prova R2: mostrar fotografies amb background-image, igual que la portada.
-   Evita les imatges trencades als mosaics si el navegador no carrega l'etiqueta img. */
-html body .imp-page[data-gallery-source="r2"] .gallery,
-html body .imp-page[data-gallery-source="r2"] .gallery .gallery-mosaic,
-html body .imp-page[data-gallery-source="r2"] .gallery .gallery-tile,
-html body .imp-page[data-gallery-source="r2"] .gallery .gallery-main{
-  background-image:url("https://img.viajandoconcabeza.com/destinos/suecia/goteborg/2026-dia1/DSC06555.webp")!important;
-  background-position:center!important;
-  background-size:cover!important;
-  background-repeat:no-repeat!important;
-}
-html body .imp-page[data-gallery-source="r2"] .gallery .gallery-tile img,
-html body .imp-page[data-gallery-source="r2"] .gallery .gallery-main img{visibility:hidden!important}
-html body #lightbox.r2-demo .lb-stage > img{
-  background-size:contain!important;background-repeat:no-repeat!important;
-  background-position:center!important;
-}
-/* Correcció específica de prova R2: les quatre fotos tenen cada una el seu fons. */
-html body .imp-page[data-gallery-source="r2"] .gallery .gallery-mosaic{
-  background-image:none!important;
-}
-html body .imp-page[data-gallery-source="r2"] .gallery .gallery-mosaic .gallery-tile{
-  background-color:#f5f0ea!important;
-  background-repeat:no-repeat!important;
-  background-position:center!important;
-  background-size:cover!important;
-}
-html body #lightbox.r2-demo .lb-stage>.lb-r2-photo{
-  background-color:#fff!important;
-  background-repeat:no-repeat!important;
-  background-position:center!important;
-  background-size:contain!important;
-  min-width:0!important;
-  overflow:hidden!important;
-}
-/* Visor de fotos de Cloudflare R2: superfície real sense img trencada. */
-html body #lightbox.r2-demo .lb-stage>.lb-r2-photo{
-  grid-row:2!important;grid-column:1!important;
-  display:block!important;position:relative!important;
-  min-height:0!important;width:100%!important;height:100%!important;
-  max-width:100%!important;max-height:100%!important;
-  background-color:#f4f0eb!important;background-position:center!important;
-  background-repeat:no-repeat!important;background-size:contain!important;
-  border:0!important;box-sizing:border-box!important;
-}
-html body #lightbox.r2-demo .lb-thumbs button{
-  background-position:center!important;background-repeat:no-repeat!important;
-  background-size:cover!important;
-}
-html body .imp-page[data-gallery-source="r2"] .gallery .gallery-tile{
-  background-position:center!important;background-repeat:no-repeat!important;
-  background-size:cover!important;
-}
+/* R2: galeries originals d'imatges WebP. Sense fons CSS ni zoom artificial. */
 /* Logo VCC oficial en el consejo, sense icona antiga ni superposicions. */
 html body .imp-page .advice{display:flex!important;align-items:center!important;gap:12px!important}
 html body .imp-page .advice .vcc-advice-logo{display:block!important;position:static!important;flex:0 0 46px!important;width:46px!important;height:46px!important;max-width:46px!important;max-height:46px!important;object-fit:contain!important;margin:0!important;padding:0!important;background:transparent!important}
@@ -249,7 +197,7 @@ nav.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{nav.querySe
 const prev=document.getElementById('navPrev'),next=document.getElementById('navNext');const update=()=>{prev.disabled=nav.scrollLeft<5;next.disabled=nav.scrollLeft+nav.clientWidth>=nav.scrollWidth-5};prev.onclick=()=>nav.scrollBy({left:-Math.max(nav.clientWidth*.7,280),behavior:'smooth'});next.onclick=()=>nav.scrollBy({left:Math.max(nav.clientWidth*.7,280),behavior:'smooth'});nav.addEventListener('scroll',update,{passive:true});window.addEventListener('resize',update);update();
 document.querySelectorAll('.gallery').forEach(g=>{const main=g.querySelector('.gallery-main'),hero=main.querySelector('img'),count=main.querySelector('.photo-count'),btns=[...g.querySelectorAll('.thumbs button')],imgs=JSON.parse(main.dataset.images);btns.forEach(b=>b.onclick=()=>{const i=+b.dataset.i;hero.src=imgs[i];if(count)count.textContent=`${i+1} / ${imgs.length}`;btns.forEach(x=>x.classList.toggle('is-active',x===b))})});
 </script>
-<script src="/configuracion/js/plantillas/imprescindibles-interactions.js?v=20261105-r2-full-frame-5" defer></script>
+<script src="/configuracion/js/plantillas/imprescindibles-interactions.js?v=20261105-native-img-6" defer></script>
 <script src="/configuracion/js/site-footer.js?v=20261102"></script><script id="vcc-single-active-subnav">
 (function(){
   const nav=document.querySelector('.st-tabs, .place-nav');
