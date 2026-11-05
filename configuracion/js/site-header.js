@@ -416,8 +416,8 @@
         ,['VALLE DEL BAZTÁN EN 1 DÍA','europa','1','naturaleza','https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=1200&q=85','Mirador, pueblos del Baztán y Señorío de Bertiz.','../destinos/espana/navarra/itinerario.html']
       ];
       const esc=s=>String(s).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
-      cards.forEach(([title,continent,days,type,img,desc,href])=>{const a=document.createElement('article');a.className='it-card';a.dataset.continent=continent;a.dataset.days=days;a.dataset.type=type;a.innerHTML=`<img src="${img}" alt="${esc(title)}"><div class="it-card-copy"><h2>${esc(title)}</h2><p>${esc(desc)}</p><div class="it-meta"><span>◷ ${days} ${days==='1'?'día':'días'}</span><span>⌖ Ruta VCC</span><span>♡ VCC</span></div><a href="${href}" class="it-cta">VER ITINERARIO →</a></div>`;list.insertBefore(a,empty)});
-      const paris=[...list.querySelectorAll('.it-card')].find(x=>x.querySelector('h2')?.textContent.includes('PARÍS'));if(paris){paris.dataset.days='4';paris.dataset.type='ciudades navidad';const a=paris.querySelector('.it-cta');if(a){a.href='../destinos/francia/paris/itinerario.html';a.textContent='VER ITINERARIO →'}}
+      cards.forEach(([title,continent,days,type,img,desc,href])=>{const a=document.createElement('article');a.className='it-card';a.dataset.continent=continent;a.dataset.days=days;a.dataset.type=type;a.innerHTML=`<img src="${img}" alt="${esc(title)}"><div class="it-card-copy"><h2>${esc(title)}</h2><p>${esc(desc)}</p><div class="it-meta"><span>◷ ${days} ${days==='1'?'día':'días'}</span><span>⌖ Ruta VCC</span><span>♡ VCC</span></div><span class="it-cta vcc-pending">PRÓXIMAMENTE</span></div>`;list.insertBefore(a,empty)});
+      const paris=[...list.querySelectorAll('.it-card')].find(x=>x.querySelector('h2')?.textContent.includes('PARÍS'));if(paris){paris.dataset.days='4';paris.dataset.type='ciudades navidad';// París sigue pendiente hasta publicar su guía.}
       list.dataset.catalogExpanded='true';
     }
   }
