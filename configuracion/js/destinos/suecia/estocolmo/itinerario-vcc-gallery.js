@@ -3,15 +3,10 @@
 for(const href of ['/configuracion/css/plantillas/itinerario-quality-alineacion.css?v=3','/configuracion/css/plantillas/itinerario-resumen-carrusel.css?v=2']){const link=document.createElement('link');link.rel='stylesheet';link.href=href;document.head.append(link);}
 const sections=[...document.querySelectorAll('.day-section[id]')];
 const overview=document.querySelector('.overview-list');
-// Cuarto día EXCLUSIVAMENTE demostrativo: no se presenta como ruta publicada.
-if(sections.length===3&&overview){
- const card=document.createElement('a');card.className='overview-card';card.href='#dia4';card.innerHTML='<img loading="lazy" src="https://images.unsplash.com/photo-1509356843151-3e7d96241e11?auto=format&fit=crop&w=400&q=80" alt="Fotografía ilustrativa de Estocolmo"><div><small>DÍA 4 · EJEMPLO</small><h3>Un día extra en Estocolmo</h3><p>Demostración del carrusel. Ruta pendiente de definir. →</p></div>';overview.append(card);
- const sample=document.createElement('article');sample.id='dia4';sample.className='day-section day-4 day-demo';sample.innerHTML='<div class="day-intro"><span class="hand">Día 4 · Ejemplo de navegación</span><h2>Un día extra en Estocolmo</h2><p>Este cuarto día sirve para probar la navegación del carrusel. Aún no hemos preparado ni publicado una ruta para esta jornada.</p></div>';document.querySelector('.route-end')?.before(sample);sections.push(sample);
-}
 const navRoot=document.querySelector('.vcc-nav-inner');if(navRoot){navRoot.replaceChildren();[{href:'#resumen',label:'INTRODUCCIÓN'},...sections.map((s,i)=>({href:'#'+s.id,label:'DÍA '+(i+1)}))].forEach(({href,label})=>{const a=document.createElement('a');a.href=href;a.textContent=label;navRoot.append(a);});}
 if(overview){
  const cards=[...overview.querySelectorAll('.overview-card')];
- const titles=[['Día 1 · Donde empieza la magia','Gamla Stan, Palacio Real y el corazón histórico'],['Día 2 · Naturaleza y vida junto al mar','Museo Vasa, Djurgården y la Estocolmo más verde'],['Día 3 · Vistas que se quedan para siempre','Södermalm, miradores y la Estocolmo más local'],['Día 4 · Ejemplo de navegación','Un día extra en Estocolmo']];
+ const titles=[['Día 1 · Donde empieza la magia','Gamla Stan, Palacio Real y el corazón histórico'],['Día 2 · Naturaleza y vida junto al mar','Museo Vasa, Djurgården y la Estocolmo más verde'],['Día 3 · Vistas que se quedan para siempre','Södermalm, miradores y la Estocolmo más local']];
  cards.forEach((card,i)=>{const small=card.querySelector('small'),title=card.querySelector('h3');if(small&&titles[i]){small.classList.add('vcc-overview-kicker');small.textContent=titles[i][0];}if(title&&titles[i]){title.classList.add('vcc-overview-title');title.textContent=titles[i][1];}card.setAttribute('aria-label',`Ir al día ${i+1}: ${title?.textContent||''}`);});
  const pages=Math.ceil(cards.length/3),controls=document.createElement('div');controls.className='vcc-overview-controls';controls.setAttribute('aria-label','Páginas del resumen');
  const previous=document.createElement('button');previous.type='button';previous.textContent='‹';previous.setAttribute('aria-label','Grupo anterior de días');
