@@ -505,3 +505,46 @@ html body .cl-page.cl-landing .cl-illustration.cl-artwork.cl-artwork-4{
   font-size:12px!important;width:auto!important;
  }
 }
+
+
+/* V12 · Imatges de transport com <img> reals, no background-image. */
+html body .cl-page.cl-landing .cl-landing-hero .cl-crumb.vcc-crumb{
+ position:relative!important;
+ left:-12px!important;top:auto!important;right:auto!important;
+ transform:none!important;
+ width:auto!important;max-width:none!important;
+ margin:0 0 23px!important;
+ padding:0!important;
+ font:500 12px/1.5 'DM Sans',sans-serif!important;
+ letter-spacing:0!important;color:#48433f!important;
+ column-gap:7px!important;row-gap:3px!important;
+}
+html body .cl-page.cl-landing .cl-landing-hero .cl-crumb.vcc-crumb a{
+ font:inherit!important;color:inherit!important;text-decoration:none!important
+}
+html body .cl-page.cl-landing .cl-landing-hero .cl-crumb.vcc-crumb strong{
+ font-weight:800!important;color:#48433f!important
+}
+html body .cl-page.cl-landing .cl-illustration.cl-artwork{
+ display:flex!important;align-items:center!important;justify-content:center!important;
+ background:none!important;
+ height:132px!important;min-height:132px!important;
+ width:100%!important;overflow:hidden!important;
+}
+html body .cl-page.cl-landing .cl-illustration.cl-artwork .cl-transport-photo{
+ display:block!important;
+ width:100%!important;height:100%!important;
+ max-width:100%!important;
+ object-fit:contain!important;
+ object-position:center center!important;
+ opacity:1!important;visibility:visible!important;
+ border:0!important;background:transparent!important;
+ filter:none!important;
+}
+@media(max-width:1370px){
+ html body .cl-page.cl-landing .cl-illustration.cl-artwork{height:115px!important;min-height:115px!important}
+}
+@media(max-width:560px){
+ html body .cl-page.cl-landing .cl-illustration.cl-artwork{height:94px!important;min-height:94px!important}
+ html body .cl-page.cl-landing .cl-landing-hero .cl-crumb.vcc-crumb{left:-5px!important}
+}
