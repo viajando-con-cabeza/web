@@ -15,7 +15,7 @@
 <link rel="stylesheet" href="/configuracion/css/suecia-fixes.css">
 <link rel="stylesheet" href="/configuracion/css/destinos/suecia/estocolmo/estocolmo.css">
 <link rel="stylesheet" href="/configuracion/css/destinos/suecia/estocolmo/estocolmo-quality-fixes.css">
-<link rel="stylesheet" href="/configuracion/css/plantillas/presupuesto-vcc-visual.css?v=20261101subtle6">
+<link rel="stylesheet" href="/configuracion/css/plantillas/presupuesto-vcc-visual.css?v=20261105-hero505">
 <link rel="stylesheet" href="/configuracion/css/destinos/suecia/estocolmo/presupuesto-armonia.css?v=20261104-fondo-beige">
 <style id="vcc-budget-page-background">
 /* Color de base corporativo; no colorear tarjetas ni widgets */
@@ -400,64 +400,15 @@ html body.budget-vcc .calculator-card .calc-total #grand-total{
 }
 </style>
 <style id="vcc-budget-hero-unified-20261105">
-/* Portada de Presupuesto: hero compacto para alinear el subheader con Estocolmo */
-html body.budget-vcc .st-shell > .budget-hero{
- box-sizing:border-box!important;
- height:550px!important;min-height:550px!important;max-height:550px!important;
- background-position:center 48%!important;
-}
-html body.budget-vcc .budget-hero .budget-hero-inner{
- width:min(1180px,calc(100% - 48px))!important;height:100%!important;
-}
+/* Hero alineado con la ficha de Estocolmo: 505px reales y navegación inmediatamente después */
+html body.budget-vcc .st-shell > .budget-hero{height:505px!important;min-height:505px!important;max-height:505px!important;background-position:center 48%!important}
 html body.budget-vcc .budget-hero .budget-crumb{top:18px!important}
-html body.budget-vcc .budget-hero .budget-hero-card{
- top:98px!important;width:min(690px,78vw)!important;
-}
-html body.budget-vcc .budget-hero .hero-eyebrow{
- font-size:11px!important;margin-bottom:12px!important;
-}
-html body.budget-vcc .budget-hero h1{
- font-size:clamp(48px,4.25vw,64px)!important;
- line-height:1.06!important;letter-spacing:-.018em!important;
- max-width:680px!important;
-}
-html body.budget-vcc .budget-hero .hero-intro{
- font-size:30px!important;margin:19px 0 11px!important;line-height:1.1!important;
-}
-html body.budget-vcc .budget-hero .hero-lead{
- font-size:14px!important;line-height:1.55!important;max-width:580px!important;
-}
-@media(max-width:850px){
- html body.budget-vcc .st-shell > .budget-hero{
-  height:525px!important;min-height:525px!important;max-height:525px!important;
- }
- html body.budget-vcc .budget-hero .budget-hero-inner{width:calc(100% - 30px)!important}
- html body.budget-vcc .budget-hero .budget-hero-card{
-  top:100px!important;width:min(100%,620px)!important;
- }
- html body.budget-vcc .budget-hero h1{font-size:clamp(38px,6vw,55px)!important}
-}
-@media(max-width:600px){
- html body.budget-vcc .st-shell > .budget-hero{
-  height:auto!important;min-height:440px!important;max-height:none!important;
- }
- html body.budget-vcc .budget-hero .budget-hero-inner{
-  min-height:440px!important;height:auto!important;padding-bottom:28px!important;
- }
- html body.budget-vcc .budget-hero .budget-hero-card{
-  position:relative!important;top:auto!important;left:auto!important;
-  width:100%!important;margin-top:92px!important;
- }
- html body.budget-vcc .budget-hero h1{
-  font-size:clamp(34px,8.2vw,47px)!important;line-height:1.08!important;
- }
- html body.budget-vcc .budget-hero .hero-intro{
-  font-size:26px!important;margin:12px 0 9px!important;
- }
- html body.budget-vcc .budget-hero .hero-lead{
-  font-size:12px!important;line-height:1.5!important;
- }
-}
+html body.budget-vcc .budget-hero .budget-hero-card{top:90px!important;width:min(690px,78vw)!important}
+html body.budget-vcc .budget-hero .budget-hero-card h1{font-size:clamp(42px,3.6vw,56px)!important;line-height:1.07!important;letter-spacing:-.018em!important;max-width:680px!important}
+html body.budget-vcc .budget-hero .hero-intro{font-size:29px!important;margin:14px 0 10px!important}
+html body.budget-vcc .budget-hero .hero-lead{font-size:14px!important;line-height:1.5!important;max-width:560px!important}
+@media(max-width:850px){html body.budget-vcc .st-shell > .budget-hero{height:510px!important;min-height:510px!important;max-height:510px!important}html body.budget-vcc .budget-hero .budget-hero-card{top:94px!important}html body.budget-vcc .budget-hero .budget-hero-card h1{font-size:clamp(38px,6vw,53px)!important}}
+@media(max-width:600px){html body.budget-vcc .st-shell > .budget-hero{height:auto!important;min-height:450px!important;max-height:none!important}html body.budget-vcc .budget-hero .budget-hero-inner{min-height:450px!important;height:auto!important;padding-bottom:28px!important}html body.budget-vcc .budget-hero .budget-hero-card{position:relative!important;top:auto!important;left:auto!important;margin-top:86px!important;width:100%!important}html body.budget-vcc .budget-hero .budget-hero-card h1{font-size:clamp(33px,8.2vw,46px)!important}}
 </style>
 <style id="vcc-budget-single-active">
 /* Únicament la pestanya activa es destaca. El primer enllaç ja no queda marcat permanentment. */
