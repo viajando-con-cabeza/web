@@ -4,7 +4,7 @@ const skip=new Set(['.git','node_modules','preview-dist','.openai']);
 function walk(dir){return fs.readdirSync(dir,{withFileTypes:true}).flatMap(e=>skip.has(e.name)?[]:e.isDirectory()?walk(path.join(dir,e.name)):[path.join(dir,e.name)]);}
 const errors=[];let checked=0;
 function verify(value,file,kind){
- value=value.replaceAll('&quot;','"').replaceAll('&#34;','"').replaceAll('&#39;',"'").replaceAll('&apos;',"'").replaceAll('&amp;','&');if(!value||/^(https?:|data:|mailto:|tel:|#|\/\/|javascript:)/i.test(value)||/[${}<>]/.test(value))return;
+ value=value.replaceAll('&quot;','"').replaceAll('&#34;','"').replaceAll('&#39;',"'").replaceAll('&apos;',"'").replaceAll('&amp;','&').replace(/^["']|["']$/g,'');if(!value||/^(https?:|data:|mailto:|tel:|#|\/\/|javascript:)/i.test(value)||/[${}<>]/.test(value))return;
  const bare=value.split(/[?#]/)[0];if(!bare)return;
  // Resolve ordinary relative paths directly; absolute site paths relative to repository root.
  const full=bare.startsWith('/')?path.join(root,bare.slice(1)):path.resolve(path.dirname(file),bare);
