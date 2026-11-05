@@ -16,6 +16,7 @@
 <link rel="stylesheet" href="/configuracion/css/destinos/suecia/estocolmo/estocolmo.css">
 <link rel="stylesheet" href="/configuracion/css/destinos/suecia/estocolmo/estocolmo-quality-fixes.css">
 <link rel="stylesheet" href="/configuracion/css/plantillas/imprescindibles.css">
+<link rel="stylesheet" href="/configuracion/css/componentes/guias-relacionadas-vcc.css?v=20261105-compact2">
 <style>
 html{scroll-behavior:auto}body{background:#faf7f2}
 .imp-page .imp-hero{height:670px!important;min-height:670px!important}
@@ -103,6 +104,23 @@ html body .imp-page main.imp-main .place-heading-line::after{content:none!import
  html body .imp-page main.imp-main section.place:nth-of-type(2n+1):not(:first-child){padding-top:28px!important}
  html body .imp-page main.imp-main .place-heading-label::before{inset:-18px -35px;filter:blur(10px)}
 }
+/* Guías relacionadas: reutiliza el fondo, tipografías y tarjetas de presupuesto. */
+html body .imp-page .related-section{background:linear-gradient(90deg,rgba(18,28,30,.72),rgba(18,28,30,.24)),url("https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=2000&q=85") center 52%/cover no-repeat!important;color:#fffaf5!important;border:0!important;padding:36px 0 40px!important}
+html body .imp-page .related-inner{width:min(1180px,calc(100% - 48px));margin:auto}
+html body .imp-page .related-head{margin:0 0 17px!important;display:block}
+html body .imp-page .related-head p{color:#de9a83!important;font:600 28px/1 'Caveat',cursive!important;margin:0 0 10px!important}
+html body .imp-page .related-head h2{color:#fffaf5!important;font:500 clamp(27px,3.2vw,40px)/1.1 'Oswald',sans-serif!important;margin:0 0 9px!important}
+html body .imp-page .related-head span{color:#c8c8c7!important;font:400 13px/1.5 'DM Sans',sans-serif!important}
+html body .imp-page .related-grid{display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:14px!important}
+html body .imp-page .related-grid .related-text-link{min-height:88px!important;display:flex!important;align-items:center!important;justify-content:flex-start!important;gap:11px!important;padding:13px 14px!important;border:1px solid rgba(211,225,223,.48)!important;border-radius:13px!important;background:rgba(28,42,47,.94)!important;text-decoration:none!important;box-shadow:0 8px 20px rgba(0,0,0,.12)!important}
+html body .imp-page .related-grid .related-text-link:hover{background:rgba(43,61,66,.97)!important;border-color:#e4a18d!important}
+html body .imp-page .related-grid .related-text-link .vcc-related-copy{display:flex!important;flex:1 1 auto;flex-direction:column;gap:4px!important;min-width:0}
+html body .imp-page .related-grid .related-text-link strong{font:500 21px/1.1 'Oswald',sans-serif!important;color:#fff!important;margin:0!important}
+html body .imp-page .related-grid .related-text-link em{font:400 11px/1.35 'DM Sans',sans-serif!important;color:#e1dfdb!important;font-style:normal!important}
+html body .imp-page .related-grid .related-text-link .vcc-related-icon{flex:0 0 34px!important;width:34px!important;height:34px!important;color:#e79b72!important}
+html body .imp-page .related-grid .related-text-link .vcc-related-arrow{margin-left:auto!important;color:#e79b72!important;background:none!important;font-size:21px!important}
+@media(max-width:1030px){html body .imp-page .related-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:11px!important}}
+@media(max-width:580px){html body .imp-page .related-inner{width:calc(100% - 30px)}html body .imp-page .related-grid{grid-template-columns:1fr!important;gap:9px!important}html body .imp-page .related-grid .related-text-link{min-height:70px!important;padding:10px 13px!important}}
 </style>
 </head>
 <body>
@@ -116,6 +134,17 @@ html body .imp-page main.imp-main .place-heading-line::after{content:none!import
 </section>
 <nav class="place-nav-wrap" aria-label="Índice de lugares"><div class="place-nav-shell"><button id="navPrev" class="place-nav-arrow" aria-label="Desplazar a la izquierda">‹</button><div class="place-nav" id="placeNav"></div><button id="navNext" class="place-nav-arrow" aria-label="Desplazar a la derecha">›</button></div></nav>
 <main class="imp-main" id="places"></main>
+<section class="related-section" aria-labelledby="imp-related-title">
+  <div class="related-inner">
+    <div class="related-head"><p>Continúa planificando</p><h2 id="imp-related-title">SIGUE DESCUBRIENDO ESTOCOLMO</h2><span>Todo lo que necesitas para seguir preparando tu viaje</span></div>
+    <nav class="related-grid vcc-related-cards" aria-label="Más guías de Estocolmo">
+      <a href="presupuesto.html" class="related-text-link vcc-related-link"><svg class="vcc-related-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="15" rx="2"/><path d="M3 10h18M7 15h4"/><circle cx="17" cy="15" r="1.5"/></svg><span class="vcc-related-copy"><strong>PRESUPUESTO</strong><em>Cuánto cuesta viajar</em></span><b class="vcc-related-arrow" aria-hidden="true">→</b></a>
+      <a href="donde-dormir.html" class="related-text-link vcc-related-link"><svg class="vcc-related-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 19V5m18 14V9H3v10M3 15h18M7 9V6h5v3m1 0V6h5v3"/></svg><span class="vcc-related-copy"><strong>DÓNDE DORMIR</strong><em>Zonas y consejos</em></span><b class="vcc-related-arrow" aria-hidden="true">→</b></a>
+      <a href="itinerario.html?dias=3" class="related-text-link vcc-related-link"><svg class="vcc-related-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 5 9 3l6 2 6-2v16l-6 2-6-2-6 2V5Zm6-2v16m6-14v16"/><path d="M6 14c3-3 7 2 11-4" stroke-dasharray="2 2"/></svg><span class="vcc-related-copy"><strong>ITINERARIO 3 DÍAS</strong><em>Ruta día a día</em></span><b class="vcc-related-arrow" aria-hidden="true">→</b></a>
+      <a href="como-moverse.html" class="related-text-link vcc-related-link"><svg class="vcc-related-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="3" width="14" height="16" rx="3"/><path d="M5 11h14M8 22l2-3m6 0 2 3M9 7h6"/><circle cx="9" cy="15" r="1"/><circle cx="15" cy="15" r="1"/></svg><span class="vcc-related-copy"><strong>CÓMO MOVERSE</strong><em>Metro, bus y ferry</em></span><b class="vcc-related-arrow" aria-hidden="true">→</b></a>
+    </nav>
+  </div>
+</section>
 </div>
 <div class="lightbox" id="lightbox"><div class="lb-stage"><button class="lb-close" type="button" aria-label="Cerrar galería">×</button><button class="lb-prev" type="button" aria-label="Foto anterior">‹</button><img alt=""><button class="lb-next" type="button" aria-label="Foto siguiente">›</button><div class="lb-caption"></div><div class="lb-thumbs"></div></div></div>
 <script src="/configuracion/js/site-header.js"></script>
