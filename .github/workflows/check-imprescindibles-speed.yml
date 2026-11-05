@@ -1,0 +1,63 @@
+name: Verify optimized VCC gallery
+on:
+  push:
+    branches: [quality]
+    paths:
+      - '.github/workflows/check-imprescindibles-speed.yml'
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Real Chrome loading and mobile lightbox width check
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m pip install --quiet playwright
+          python - <<'PY'
+          import time
+          from playwright.sync_api import sync_playwright
+          with sync_playwright() as p:
+            browser=p.chromium.launch(headless=True,executable_path='/usr/bin/google-chrome',args=['--no-sandbox'])
+            base='https://www.quality.viajandoconcabeza.com/destinos/suecia/estocolmo/imprescindibles.html'
+            passed=False
+            for attempt in range(1,7):
+              page=browser.new_page(viewport={'width':390,'height':844},device_scale_factor=2)
+              responses=[]
+              failed=[]
+              page.on('response',lambda r:responses.append((r.status,r.url)) if '/optimizadas/' in r.url else None)
+              page.on('requestfailed',lambda r:failed.append((r.url,r.failure)) if '/optimizadas/' in r.url else None)
+              page.goto(base+'?fast-vcc-test='+str(attempt)+'-965c95',wait_until='domcontentloaded',timeout=35000)
+              page.wait_for_timeout(4500)
+              v=page.locator('script[src*="imprescindibles-interactions"]').get_attribute('src') or ''
+              thumbs=page.locator('.gallery-mosaic').count()
+              first=page.locator('.gallery-tile').first.evaluate('(e)=>e.style.backgroundImage') if thumbs else ''
+              print('ATTEMPT',attempt,'SCRIPT',v,'MOSAICS',thumbs,'FIRST',first,flush=True)
+              if 'webp-fast-v15' not in v:
+                page.close()
+                time.sleep(6)
+                continue
+              assert thumbs==15, thumbs
+              assert '/optimizadas/mini/DSC06553.webp' in first,first
+              button=page.locator('.gallery-mosaic').nth(2).locator('button').nth(1)
+              button.scroll_into_view_if_needed()
+              button.click()
+              page.wait_for_timeout(3500)
+              img=page.locator('#lightbox .lb-photo')
+              info=img.evaluate('(e)=>({url:e.style.backgroundImage,width:e.getBoundingClientRect().width, stage:e.closest(".lb-stage").getBoundingClientRect().width,size:getComputedStyle(e).backgroundSize})')
+              codes=[(code,url) for code,url in responses]
+              print('LIGHTBOX',info,flush=True)
+              print('IMG_RESPONSES',codes,flush=True)
+              print('IMG_FAILURES',failed,flush=True)
+              assert '/optimizadas/visor/DSC06554.webp' in info['url']
+              assert info['width'] >= 0.98*info['stage'], (info['width'], info['stage'])
+              assert info['size']=='contain',info['size']
+              assert any(c==200 and '/optimizadas/visor/DSC06554.webp' in u for c,u in codes), codes
+              assert not failed,failed
+              assert all(code==200 for code,url in codes),codes
+              passed=True
+              page.close()
+              break
+            browser.close()
+            if not passed: raise RuntimeError('optimized gallery deployment/version not yet verified')
+            print('PASS: optimized WebP previews, loaded image and full-width photo',flush=True)
+          PY
