@@ -14,9 +14,22 @@ function verify(value,file,kind){
 }
 for(const file of walk(root)){
  if(file.includes('/configuracion/plantillas/'))continue;
+ if(!/\.(html|css)$/.test(file))continue; // Do not interpret binary WebP/JPEG files as UTF-8.
  const s=fs.readFileSync(file,'utf8');
- if(file.endsWith('.html'))for(const m of s.matchAll(/\b(?:src|href|poster)\s*=\s*["']([^"']+)["']/gi))verify(m[1],file,'html');
- if(/\.(html|css)$/.test(file))for(const m of s.matchAll(/url\(\s*["']?([^)'"\s]+)["']?\s*\)/g))verify(m[1],file,'css');
+ if(file.endsWith('.html')){
+   for(const m of s.matchAll(/\b(?:src|href|poster)\s*=\s*["']([^"']+)["']/gi))verify(m[1],file,'html');
+   if(s.includes('data-coming="true style='))errors.push({file:path.relative(root,file),kind:'malformed HTML attribute: data-coming'});
+ }
+ for(const m of s.matchAll(/url\(\s*["']?([^)'"\s]+)["']?\s*\)/g))verify(m[1],file,'css');
+}
+const redirectFile=path.join(root,'_redirects');
+if(fs.existsSync(redirectFile)){
+  for(const line of fs.readFileSync(redirectFile,'utf8').split(/\r?\n/)){
+    const trimmed=line.trim();
+    if(!trimmed||trimmed.startsWith('#'))continue;
+    const [,target]=trimmed.split(/\s+/);
+    if(target?.startsWith('/')&&!target.includes('*')&&!target.includes(':'))verify(target,redirectFile,'redirect');
+  }
 }
 const report={checked,errors};
 if(process.argv.includes('--json'))console.log(JSON.stringify(report,null,2));else{console.log(`${checked} rutas locales revisadas; ${errors.length} recursos o enlaces ausentes.`);for(const e of errors)console.log(`${e.file}: ${e.url}`);}
