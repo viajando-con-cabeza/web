@@ -232,3 +232,176 @@ html body .cl-page .cl-mini-rec p{font:400 11px/1.55 'DM Sans',sans-serif!import
  html body .cl-page .cl-mini-rec{min-height:115px!important}
 }
 @media(max-width:370px){html body .cl-page .cl-transport-group{min-height:430px!important}}
+
+
+/* VCC · Cómo llegar landing v9 — composició fidel al mockup aprovat.
+   Scoped to .cl-landing: individual article templates stay unchanged. */
+html body .cl-page.cl-landing{background:#faf7f2;color:#242a26;font-family:'DM Sans',sans-serif}
+html body .cl-landing .cl-landing-hero{
+ background:
+ linear-gradient(90deg,rgba(250,247,242,.97) 0%,rgba(250,247,242,.91) 23%,rgba(250,247,242,.77) 41%,rgba(250,247,242,.44) 72%,rgba(250,247,242,.25) 100%),
+ url('/configuracion/imagenes/como-llegar-universal-vcc.webp') center center / cover no-repeat;
+ min-height:690px;
+ padding:17px max(20px,calc((100vw - 1650px)/2 + 24px)) 18px;
+ position:relative;
+ isolation:isolate;
+}
+html body .cl-landing .cl-landing-hero .cl-crumb{
+ position:relative!important;
+ inset:auto!important;transform:none!important;
+ display:flex!important;align-items:center!important;flex-wrap:wrap!important;
+ gap:0!important;max-width:none!important;
+ font:500 12px/1.4 'DM Sans',sans-serif!important;
+ color:#62574e!important;margin:0 0 23px!important;text-shadow:none!important;
+}
+html body .cl-landing .cl-crumb span{padding:0 9px!important;color:#ab9688!important}
+html body .cl-landing .cl-crumb strong{color:#252622!important}
+html body .cl-landing .cl-landing-stage{
+ display:grid;grid-template-columns:minmax(245px,300px) minmax(0,1fr);
+ align-items:start;gap:13px;width:100%;
+}
+html body .cl-landing .cl-landing-intro{padding:10px 6px 0 0;text-align:left}
+html body .cl-landing .cl-landing-label{
+ display:inline-flex;align-items:center;
+ padding:8px 13px;background:#d87430;
+ clip-path:polygon(0% 14%,4% 4%,94% 0,100% 14%,97% 92%,6% 100%,0 83%);
+ font:600 17px/1 'Oswald',sans-serif;color:#fff;letter-spacing:.03em
+}
+html body .cl-landing .cl-landing-intro h1{
+ font:600 clamp(42px,3.8vw,61px)/1.04 'Oswald',sans-serif!important;
+ letter-spacing:-.01em;color:#181b18;margin:16px 0 10px!important;
+}
+html body .cl-landing .cl-landing-underline{
+ height:5px;width:90px;border-radius:80%;background:#d36e34;
+ transform:rotate(-1.5deg);margin:12px 0 19px;
+}
+html body .cl-landing .cl-landing-kicker{
+ font:600 29px/1.08 'Caveat',cursive!important;
+ color:#c36843;margin:0 0 14px!important;
+}
+html body .cl-landing .cl-landing-description{
+ font:400 14px/1.65 'DM Sans',sans-serif;
+ color:#34342e;margin:0!important;max-width:270px;
+}
+html body .cl-landing .cl-direction-sign{position:relative;width:155px;height:200px;margin:22px auto 0 20px;transform:rotate(-3deg)}
+html body .cl-landing .cl-sign-post{
+ position:absolute;top:7px;bottom:0;left:71px;width:13px;
+ border-radius:6px;background:linear-gradient(90deg,#ab7142,#e6b77c,#91613c);
+ box-shadow:2px 3px 6px #49301c24;
+}
+html body .cl-landing .cl-sign-arrow{
+ position:absolute;left:10px;top:0;
+ width:148px;height:31px;
+ padding:3px 0 0 15px;text-align:left;
+ color:#fdf6e9;font:700 21px/1 'Oswald',sans-serif;
+ background:#3a796e;
+ clip-path:polygon(0 5%,89% 0,100% 50%,89% 100%,0 93%,4% 50%);
+ box-shadow:2px 4px 4px #0003;
+}
+html body .cl-landing .cl-sign-arrow:nth-child(3){top:39px;background:#d39b61;transform:scaleX(-1)}
+html body .cl-landing .cl-sign-arrow:nth-child(4){top:78px;background:#396d64}
+html body .cl-landing .cl-sign-arrow:nth-child(5){top:117px;background:#c87d51;transform:scaleX(-1)}
+html body .cl-landing .cl-sign-arrow:nth-child(6){top:156px;background:#3b796e}
+html body .cl-landing .cl-landing-cards{
+ display:grid;grid-template-columns:repeat(5,minmax(0,1fr));
+ gap:8px;align-items:stretch;min-width:0;
+}
+html body .cl-landing .cl-transport-group{
+ display:flex!important;flex-direction:column!important;min-height:550px!important;
+ padding:11px 10px 12px!important;
+ background:rgba(255,252,247,.92)!important;
+ border:1px solid #e9ddd1!important;border-radius:17px!important;
+ box-shadow:0 6px 13px rgba(63,43,19,.10)!important;
+ gap:5px!important;text-align:center!important;
+}
+html body .cl-landing .cl-illustration.cl-artwork{
+ flex:0 0 auto!important;height:132px!important;min-height:132px!important;
+ width:100%!important;background-color:transparent!important;
+ background-image:url('/configuracion/imagenes/como-llegar-transportes-sprite.webp')!important;
+ background-repeat:no-repeat!important;background-size:500% 100%!important;
+ border-radius:9px!important;
+}
+html body .cl-landing .cl-artwork-0{background-position:0% center!important}
+html body .cl-landing .cl-artwork-1{background-position:25% center!important}
+html body .cl-landing .cl-artwork-2{background-position:50% center!important}
+html body .cl-landing .cl-artwork-3{background-position:75% center!important}
+html body .cl-landing .cl-artwork-4{background-position:100% center!important}
+html body .cl-landing .cl-transport-group h3{
+ font:600 25px/1.15 'Oswald',sans-serif!important;
+ color:#184c40!important;margin:6px 0!important;white-space:normal!important;
+}
+html body .cl-landing .cl-mode-glyph{font:600 19px/1 'DM Sans',sans-serif;color:#b9783a;vertical-align:2px;margin-right:3px}
+html body .cl-landing .cl-transport-group>p{
+ font:400 11px/1.45 'DM Sans',sans-serif!important;
+ min-height:53px!important;margin:0 0 5px!important;color:#3d3d38!important;
+}
+html body .cl-landing .cl-quicklinks{width:100%;margin:0!important;gap:0!important}
+html body .cl-landing .cl-guide-link{
+ min-height:62px!important;display:flex!important;flex-direction:column!important;
+ gap:3px!important;align-items:stretch!important;
+ padding:8px 2px!important;border-top:1px solid #e8d9ca!important;border-bottom:0!important;
+ text-align:left!important;text-decoration:none!important;
+}
+html body .cl-landing .cl-guide-title{
+ font:700 10.5px/1.35 'DM Sans',sans-serif!important;color:#26352e!important;
+}
+html body .cl-landing .cl-guide-cta{font:800 9px/1.15 'DM Sans',sans-serif!important;color:#c26736!important}
+html body .cl-landing .cl-guide-link:hover .cl-guide-title{color:#c26736!important}
+html body .cl-landing .cl-landing-recommendation{
+ display:flex;align-items:center;gap:19px;
+ margin:18px 0 0 clamp(0px,16.7vw,285px);
+ padding:12px 22px;border-radius:90px;
+ background:linear-gradient(90deg,rgba(229,237,225,.94),rgba(244,238,219,.94));
+ border:1px solid #e4e5d8;min-height:95px;
+}
+html body .cl-landing .cl-advice-seal{
+ border:2px solid #203b34;border-radius:50%;min-width:70px;width:70px;height:70px;
+ display:flex;flex-direction:column;align-items:center;justify-content:center;
+ font:700 21px/1.1 'Caveat',cursive;transform:rotate(-8deg);color:#1d4036;box-shadow:inset 0 0 0 4px #e9eee6;
+}
+html body .cl-landing .cl-advice-seal span{font:700 24px/1 'Oswald',sans-serif}
+html body .cl-landing .cl-advice-title{flex:0 0 175px;padding-right:14px;border-right:1px solid #b9bcae}
+html body .cl-landing .cl-advice-title span{font:600 35px/1 'Caveat',cursive;color:#205349;white-space:nowrap}
+html body .cl-landing .cl-landing-recommendation p{font:400 12.5px/1.55 'DM Sans',sans-serif;margin:0;color:#39433a}
+html body .cl-landing .cl-landing-note{font:400 11px/1.5 'DM Sans',sans-serif;text-align:center;margin:9px 20px 26px;color:#72665b}
+@media(max-width:1370px){
+ html body .cl-landing .cl-landing-stage{grid-template-columns:245px minmax(0,1fr);gap:10px}
+ html body .cl-landing .cl-transport-group{padding:10px 8px 12px!important;min-height:580px!important}
+ html body .cl-landing .cl-transport-group h3{font-size:22px!important}
+ html body .cl-landing .cl-illustration.cl-artwork{height:115px!important;min-height:115px!important}
+ html body .cl-landing .cl-landing-intro h1{font-size:48px!important}
+ html body .cl-landing .cl-landing-recommendation{margin-left:235px}
+}
+@media(max-width:1100px){
+ html body .cl-landing .cl-landing-stage{display:block}
+ html body .cl-landing .cl-landing-intro{display:grid;grid-template-columns:1fr 1fr;column-gap:20px;padding:0 0 20px}
+ html body .cl-landing .cl-landing-label,html body .cl-landing .cl-landing-intro h1,html body .cl-landing .cl-landing-underline{grid-column:1}
+ html body .cl-landing .cl-landing-kicker,html body .cl-landing .cl-landing-description{grid-column:2}
+ html body .cl-landing .cl-landing-kicker{align-self:end}
+ html body .cl-landing .cl-direction-sign{display:none}
+ html body .cl-landing .cl-transport-group{min-height:515px!important}
+ html body .cl-landing .cl-landing-recommendation{margin-left:0}
+}
+@media(max-width:850px){
+ html body .cl-landing .cl-landing-cards{grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+ html body .cl-landing .cl-transport-group{min-height:500px!important}
+ html body .cl-landing .cl-landing-recommendation{border-radius:20px}
+}
+@media(max-width:560px){
+ html body .cl-landing .cl-landing-hero{padding:16px 13px}
+ html body .cl-landing .cl-landing-intro{display:block}
+ html body .cl-landing .cl-landing-intro h1{font-size:43px!important}
+ html body .cl-landing .cl-landing-kicker{margin-top:14px!important}
+ html body .cl-landing .cl-landing-description{max-width:100%}
+ html body .cl-landing .cl-landing-cards{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+ html body .cl-landing .cl-transport-group{min-height:500px!important}
+ html body .cl-landing .cl-illustration.cl-artwork{height:94px!important;min-height:94px!important}
+ html body .cl-landing .cl-transport-group h3{font-size:20px!important}
+ html body .cl-landing .cl-guide-title{font-size:10px!important}
+ html body .cl-landing .cl-landing-recommendation{gap:10px;padding:12px;margin-top:16px;flex-wrap:wrap}
+ html body .cl-landing .cl-advice-seal{width:50px;min-width:50px;height:50px}
+ html body .cl-landing .cl-advice-title{flex:1;padding:0;border:0}
+ html body .cl-landing .cl-advice-title span{font-size:29px}
+ html body .cl-landing .cl-landing-recommendation p{flex:0 0 100%;font-size:12px}
+}
+@media(max-width:365px){html body .cl-landing .cl-landing-cards{grid-template-columns:1fr}html body .cl-landing .cl-transport-group{min-height:400px!important}}
