@@ -34,31 +34,26 @@ html body .imp-page .imp-main .place:nth-of-type(3n+2)::after{
 }
 html body .imp-page .imp-main .place:nth-of-type(2n+1):not(:first-child){padding-top:35px!important}
 html body .imp-page .imp-main .place-heading{grid-column:1/-1;min-width:0;width:100%;margin:0 0 3px}
-html body .imp-page .imp-main .place-heading-line{display:flex;align-items:center;gap:15px;min-width:0}
+html body .imp-page .imp-main .place-heading-line{display:flex;align-items:center;justify-content:center;gap:0;min-width:0}
 html body .imp-page .imp-main .place-heading-line::before,
-html body .imp-page .imp-main .place-heading-line::after{content:"";height:1px;min-width:12px;flex:1 1 auto;background:#c76850}
-html body .imp-page .imp-main .place-heading-label{display:inline-flex;gap:9px;align-items:center;justify-content:center;flex:0 1 auto;min-width:0;position:relative;isolation:isolate;padding:9px 23px;background:transparent;border-radius:0;transform:rotate(-.3deg)}
-/* Efecte esprai: nucli pigmentat difuminat i microgotes disperses, sense contorn de cinta. */
+html body .imp-page .imp-main .place-heading-line::after{content:none!important;display:none!important}
+html body .imp-page .imp-main .place-heading-label{
+ display:inline-flex;gap:9px;align-items:center;justify-content:center;
+ flex:0 1 auto;min-width:0;position:relative;isolation:isolate;
+ padding:10px 25px;background:transparent!important;border:0!important;
+ border-radius:0;transform:none;
+}
+/* Esprai transparent, sense punts ni contorn: el color es fon al fons progressivament. */
 html body .imp-page .imp-main .place-heading-label::before{
- content:"";position:absolute;z-index:-1;
- inset:-19px -30px;pointer-events:none;
+ content:"";display:block;position:absolute;z-index:-1;pointer-events:none;
+ inset:-24px -65px;
  background:
-  radial-gradient(ellipse 48% 46% at 29% 48%,rgba(223,116,66,.52) 0%,rgba(231,135,83,.38) 48%,transparent 100%),
-  radial-gradient(ellipse 51% 45% at 72% 52%,rgba(228,127,72,.50) 0%,rgba(240,162,112,.32) 52%,transparent 100%),
-  radial-gradient(ellipse 62% 47% at 52% 51%,rgba(248,185,142,.49) 0%,rgba(249,192,157,.30) 56%,transparent 100%);
- filter:blur(5px);opacity:.96;
+   radial-gradient(ellipse 65% 56% at 41% 49%,rgba(224,114,62,.25) 0%,rgba(235,146,95,.17) 43%,rgba(245,185,141,.07) 72%,transparent 100%),
+   radial-gradient(ellipse 58% 53% at 68% 51%,rgba(226,128,76,.18) 0%,rgba(241,167,120,.10) 52%,transparent 100%);
+ filter:blur(12px);
+ opacity:.84;
 }
-html body .imp-page .imp-main .place-heading-label::after{
- content:"";position:absolute;z-index:-1;
- inset:-22px -32px;pointer-events:none;
- background:
-  radial-gradient(circle,rgba(197,98,57,.48) 0 .75px,transparent 1.25px) 2px 4px/11px 13px,
-  radial-gradient(circle,rgba(211,108,60,.36) 0 1.1px,transparent 1.8px) 5px 2px/19px 17px,
-  radial-gradient(circle,rgba(221,124,76,.32) 0 .6px,transparent 1.1px) 0 0/7px 9px;
- -webkit-mask-image:radial-gradient(ellipse 67% 47% at 50% 50%,#000 24%,rgba(0,0,0,.95) 48%,rgba(0,0,0,.33) 76%,transparent 100%);
- mask-image:radial-gradient(ellipse 67% 47% at 50% 50%,#000 24%,rgba(0,0,0,.95) 48%,rgba(0,0,0,.33) 76%,transparent 100%);
- opacity:.74;
-}
+html body .imp-page .imp-main .place-heading-label::after{content:none!important;display:none!important;background:none!important}
 html body .imp-page .imp-main .place-number{color:#b94e28;font:600 25px/1 'Oswald',sans-serif;white-space:nowrap}
 html body .imp-page .imp-main .place-heading h2{margin:0;color:#222;font:500 clamp(22px,2.1vw,31px)/1.12 'Oswald',sans-serif;white-space:normal}
 html body .imp-page .imp-main .place-copy .place-kicker{display:block!important;order:0!important;margin:0 0 6px!important;text-align:left!important;color:#c56851;font:600 26px/1.1 'Caveat',cursive!important}
@@ -85,6 +80,28 @@ html body .imp-page .imp-main .place-copy>h2{display:none!important}
   .imp-page .imp-hero{height:480px!important;min-height:480px!important}
   html body .imp-page .imp-main .place:not(:first-child),html body .imp-page .imp-main .place:nth-of-type(2n+1):not(:first-child){padding-top:28px!important}
 
+}
+/* Eliminar definitivament tots els separadors antics, inclosos els :nth-of-type de la plantilla. */
+html body .imp-page main.imp-main section.place::before,
+html body .imp-page main.imp-main section.place::after,
+html body .imp-page main.imp-main section.place:nth-of-type(2n+1):not(:first-child)::before,
+html body .imp-page main.imp-main section.place:nth-of-type(2n+1):not(:first-child)::after,
+html body .imp-page main.imp-main section.place:nth-of-type(3n+1)::before,
+html body .imp-page main.imp-main section.place:nth-of-type(3n+2)::after{
+ content:none!important;display:none!important;visibility:hidden!important;
+ background:none!important;background-image:none!important;
+ height:0!important;width:0!important;opacity:0!important;
+}
+html body .imp-page main.imp-main section.place,
+html body .imp-page main.imp-main section.place:nth-of-type(2n+1):not(:first-child){
+ padding-top:35px!important;
+}
+html body .imp-page main.imp-main .place-heading-line::before,
+html body .imp-page main.imp-main .place-heading-line::after{content:none!important;display:none!important}
+@media(max-width:650px){
+ html body .imp-page main.imp-main section.place,
+ html body .imp-page main.imp-main section.place:nth-of-type(2n+1):not(:first-child){padding-top:28px!important}
+ html body .imp-page main.imp-main .place-heading-label::before{inset:-18px -35px;filter:blur(10px)}
 }
 </style>
 </head>
