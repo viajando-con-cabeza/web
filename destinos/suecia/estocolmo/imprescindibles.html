@@ -38,21 +38,26 @@ html body .imp-page .imp-main .place-heading-line{display:flex;align-items:cente
 html body .imp-page .imp-main .place-heading-line::before,
 html body .imp-page .imp-main .place-heading-line::after{content:"";height:1px;min-width:12px;flex:1 1 auto;background:#c76850}
 html body .imp-page .imp-main .place-heading-label{display:inline-flex;gap:9px;align-items:center;justify-content:center;flex:0 1 auto;min-width:0;position:relative;isolation:isolate;padding:9px 23px;background:transparent;border-radius:0;transform:rotate(-.3deg)}
-/* Pintada suau de spray, sense un requadre geometric. */
+/* Efecte esprai: nucli pigmentat difuminat i microgotes disperses, sense contorn de cinta. */
 html body .imp-page .imp-main .place-heading-label::before{
- content:"";position:absolute;z-index:-1;inset:-8px -14px;
+ content:"";position:absolute;z-index:-1;
+ inset:-19px -30px;pointer-events:none;
  background:
- radial-gradient(ellipse at 12% 45%,rgba(242,166,120,.25) 0 32%,transparent 70%),
- radial-gradient(ellipse at 77% 50%,rgba(244,175,136,.38) 0 40%,transparent 78%),
- linear-gradient(90deg,rgba(248,206,177,.72),rgba(248,215,190,.85) 42%,rgba(248,205,174,.67));
- clip-path:polygon(1% 38%,6% 23%,12% 27%,18% 12%,31% 17%,41% 9%,57% 16%,69% 7%,81% 16%,92% 13%,99% 29%,95% 43%,100% 56%,94% 66%,97% 77%,83% 80%,75% 90%,62% 85%,50% 95%,34% 85%,19% 89%,9% 79%,1% 73%,5% 57%);
- filter:blur(2.5px);opacity:.92;pointer-events:none;
+  radial-gradient(ellipse 48% 46% at 29% 48%,rgba(223,116,66,.52) 0%,rgba(231,135,83,.38) 48%,transparent 100%),
+  radial-gradient(ellipse 51% 45% at 72% 52%,rgba(228,127,72,.50) 0%,rgba(240,162,112,.32) 52%,transparent 100%),
+  radial-gradient(ellipse 62% 47% at 52% 51%,rgba(248,185,142,.49) 0%,rgba(249,192,157,.30) 56%,transparent 100%);
+ filter:blur(5px);opacity:.96;
 }
 html body .imp-page .imp-main .place-heading-label::after{
- content:"";position:absolute;z-index:-1;inset:-8px -14px;
- background:radial-gradient(circle,rgba(202,105,65,.24) 0 1px,transparent 1.7px) 0 0/13px 10px;
- clip-path:polygon(1% 35%,18% 9%,65% 6%,99% 27%,98% 76%,68% 93%,15% 91%,0 70%);
- opacity:.5;pointer-events:none;
+ content:"";position:absolute;z-index:-1;
+ inset:-22px -32px;pointer-events:none;
+ background:
+  radial-gradient(circle,rgba(197,98,57,.48) 0 .75px,transparent 1.25px) 2px 4px/11px 13px,
+  radial-gradient(circle,rgba(211,108,60,.36) 0 1.1px,transparent 1.8px) 5px 2px/19px 17px,
+  radial-gradient(circle,rgba(221,124,76,.32) 0 .6px,transparent 1.1px) 0 0/7px 9px;
+ -webkit-mask-image:radial-gradient(ellipse 67% 47% at 50% 50%,#000 24%,rgba(0,0,0,.95) 48%,rgba(0,0,0,.33) 76%,transparent 100%);
+ mask-image:radial-gradient(ellipse 67% 47% at 50% 50%,#000 24%,rgba(0,0,0,.95) 48%,rgba(0,0,0,.33) 76%,transparent 100%);
+ opacity:.74;
 }
 html body .imp-page .imp-main .place-number{color:#b94e28;font:600 25px/1 'Oswald',sans-serif;white-space:nowrap}
 html body .imp-page .imp-main .place-heading h2{margin:0;color:#222;font:500 clamp(22px,2.1vw,31px)/1.12 'Oswald',sans-serif;white-space:normal}
