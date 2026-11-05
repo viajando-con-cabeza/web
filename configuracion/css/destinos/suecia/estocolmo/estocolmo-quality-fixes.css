@@ -79,3 +79,30 @@ body>.shared-header .shared-menu,body>.shared-header .shared-menu a{font-family:
 /* Solo tipografía: el menú secundario se percibía menor; no modificar la altura de la barra. */
 .st-shell .st-tabs a{font-size:11.5px!important}
 @media(max-width:720px){.st-shell .st-tabs a{font-size:10.5px!important}}
+
+
+/* 2026-11-05 · Mostrar íntegros los cuatro fondos universales en las miniaturas
+   de Planifica. Antes el recorte de 84 px ocultaba sus ilustraciones. */
+#planifica .vcc-prep-image{
+  height:120px!important;
+  flex:0 0 120px!important;
+  overflow:hidden!important;
+  background:#eef0ee!important;
+}
+#planifica .vcc-prep-image>img{
+  width:100%!important;
+  height:100%!important;
+  display:block!important;
+}
+#planifica .vcc-prep-card:nth-child(n+3) .vcc-prep-image>img{
+  object-fit:contain!important;
+  object-position:center center!important;
+  background:#eef0ee!important;
+}
+#planifica .vcc-prep-card:nth-child(-n+2) .vcc-prep-image>img{
+  object-fit:cover!important;
+  object-position:center center!important;
+}
+@media(max-width:600px){
+  #planifica .vcc-prep-image{height:118px!important;flex-basis:118px!important}
+}
