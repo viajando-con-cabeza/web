@@ -672,3 +672,39 @@ html body .cl-page.cl-landing .cl-guide-link:focus-visible .cl-guide-cta b{
   margin-left:33px!important;
  }
 }
+
+
+/* V15: breadcrumbs fixed to identical 54px page inset as Imprescindibles screenshot.
+   Preserve card starting position after taking breadcrumbs out of normal flow. */
+html body .cl-page.cl-landing .cl-landing-hero{
+ position:relative!important;
+}
+html body .cl-page.cl-landing .cl-landing-hero nav.cl-crumb.vcc-crumb{
+ position:absolute!important;
+ top:20px!important;
+ left:54px!important;
+ right:auto!important;
+ width:auto!important;
+ max-width:calc(100% - 80px)!important;
+ margin:0!important;
+ padding:0!important;
+ transform:none!important;
+ z-index:5!important;
+ font:500 12px/1.5 'DM Sans',sans-serif!important;
+ color:#48433f!important;
+ column-gap:7px!important;row-gap:3px!important;
+}
+html body .cl-page.cl-landing .cl-landing-stage{
+ margin-top:55px!important;
+}
+html body .cl-page.cl-landing .cl-illustration.cl-artwork .cl-transport-photo{
+ -webkit-mask-image:none!important;mask-image:none!important;
+ width:100%!important;height:100%!important;
+ object-fit:contain!important;object-position:center!important;
+}
+@media(max-width:650px){
+ html body .cl-page.cl-landing .cl-landing-hero nav.cl-crumb.vcc-crumb{
+  left:15px!important;top:17px!important;max-width:calc(100% - 30px)!important;
+ }
+ html body .cl-page.cl-landing .cl-landing-stage{margin-top:62px!important;}
+}
