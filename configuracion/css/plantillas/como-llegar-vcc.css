@@ -708,3 +708,25 @@ html body .cl-page.cl-landing .cl-illustration.cl-artwork .cl-transport-photo{
  }
  html body .cl-page.cl-landing .cl-landing-stage{margin-top:62px!important;}
 }
+
+
+/* V17 — elimina el doble render: les imatges HTML són l'única font.
+   Els selectors anteriors .cl-artwork-N encara injectaven un WebP com a fons. */
+html body .cl-page.cl-landing .cl-landing-cards .cl-transport-group .cl-illustration.cl-artwork,
+html body .cl-page.cl-landing .cl-landing-cards .cl-transport-group .cl-illustration.cl-artwork.cl-artwork-0,
+html body .cl-page.cl-landing .cl-landing-cards .cl-transport-group .cl-illustration.cl-artwork.cl-artwork-1,
+html body .cl-page.cl-landing .cl-landing-cards .cl-transport-group .cl-illustration.cl-artwork.cl-artwork-2,
+html body .cl-page.cl-landing .cl-landing-cards .cl-transport-group .cl-illustration.cl-artwork.cl-artwork-3,
+html body .cl-page.cl-landing .cl-landing-cards .cl-transport-group .cl-illustration.cl-artwork.cl-artwork-4{
+ background:none!important;
+ background-image:none!important;
+ background-color:transparent!important;
+}
+html body .cl-page.cl-landing .cl-landing-hero nav.cl-crumb.vcc-crumb{
+ left:30px!important;
+}
+@media(max-width:650px){
+ html body .cl-page.cl-landing .cl-landing-hero nav.cl-crumb.vcc-crumb{
+  left:15px!important;
+ }
+}
