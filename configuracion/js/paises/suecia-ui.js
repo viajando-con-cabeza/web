@@ -1,12 +1,32 @@
 (function(){
 function init(){
-  const header=document.querySelector('.page-header'),nav=document.querySelector('.country-nav'),links=[...document.querySelectorAll('.country-nav a')],sections=['guias','itinerarios','planifica','faq','planificador'].map(id=>document.getElementById(id)).filter(Boolean);
+  const header=document.querySelector('.shared-header, .page-header'),nav=document.querySelector('.country-nav'),links=[...document.querySelectorAll('.country-nav a')],sections=['guias','itinerarios','planifica','faq','planificador'].map(id=>document.getElementById(id)).filter(Boolean);
   let navTrigger=0;
   const spacer=document.createElement('div');spacer.className='country-nav-spacer';if(nav&&nav.parentNode)nav.parentNode.insertBefore(spacer,nav);
   const syncFixed=()=>{if(!nav)return;const hh=header?Math.round(header.getBoundingClientRect().height):0,nh=Math.round(nav.getBoundingClientRect().height),shouldFix=window.scrollY>=navTrigger;if(shouldFix){nav.classList.add('is-fixed');nav.style.position='fixed';nav.style.left='0';nav.style.right='0';nav.style.width='100%';nav.style.top=hh+'px';nav.style.zIndex='50';spacer.style.height=nh+'px'}else{nav.classList.remove('is-fixed');nav.style.position='relative';nav.style.left='';nav.style.right='';nav.style.width='';nav.style.top='';nav.style.zIndex='';spacer.style.height='0px'}};
   const syncSticky=()=>{const hh=header?Math.round(header.getBoundingClientRect().height):0,nh=nav?Math.round(nav.getBoundingClientRect().height):0;document.documentElement.style.setProperty('--vcc-header-h',hh+'px');document.documentElement.style.setProperty('--vcc-country-nav-h',nh+'px');if(nav&&!nav.classList.contains('is-fixed'))navTrigger=nav.getBoundingClientRect().top+window.scrollY-hh;syncFixed()};
   syncSticky();window.addEventListener('load',syncSticky);window.addEventListener('resize',syncSticky);window.addEventListener('scroll',syncFixed,{passive:true});
-  links.forEach(a=>a.addEventListener('click',()=>{links.forEach(x=>x.classList.remove('active'));a.classList.add('active')}));if(links[0])links[0].classList.add('active');
+  /* Anclas con offset real: cabecera fija + subheader, calculado en el primer clic. */
+  const scrollToSection=(id,updateHash=true)=>{
+    const target=document.getElementById(id);if(!target)return;
+    syncSticky();
+    const hh=header?Math.round(header.getBoundingClientRect().height):0;
+    const nh=nav?Math.round(nav.getBoundingClientRect().height):0;
+    const top=Math.max(0,Math.round(target.getBoundingClientRect().top+window.scrollY-hh-nh-16));
+    window.scrollTo({top,behavior:'instant'});
+    if(updateHash&&window.location.hash!=='#'+id)history.pushState(null,'','#'+id);
+    links.forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+id));
+  };
+  links.forEach(a=>a.addEventListener('click',e=>{
+    const href=a.getAttribute('href')||'';
+    if(!href.startsWith('#'))return;
+    const id=decodeURIComponent(href.slice(1));
+    if(!document.getElementById(id))return;
+    e.preventDefault();
+    scrollToSection(id);
+  }));
+  if(links[0])links[0].classList.add('active');
+  if(window.location.hash)requestAnimationFrame(()=>scrollToSection(decodeURIComponent(window.location.hash.slice(1)),false));
   const setActive=()=>{const y=(header?header.getBoundingClientRect().height:0)+(nav?nav.getBoundingClientRect().height:0)+24;let current=sections[0];sections.forEach(s=>{if(s.getBoundingClientRect().top<=y)current=s});links.forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+current.id))};window.addEventListener('scroll',setActive,{passive:true});window.addEventListener('resize',setActive);setActive();
   const wireCarousel=(r,prev,next)=>{if(!r||!prev||!next)return;const update=()=>{prev.disabled=r.scrollLeft<4;next.disabled=r.scrollLeft+r.clientWidth>=r.scrollWidth-4};const step=()=>Math.max(r.clientWidth*.72,280);prev.onclick=()=>r.scrollBy({left:-step(),behavior:'smooth'});next.onclick=()=>r.scrollBy({left:step(),behavior:'smooth'});
     let active=false,axis='',sx=0,sy=0,startLeft=0,pid=null;
