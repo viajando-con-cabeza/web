@@ -168,3 +168,12 @@ html body .cl-page .cl-guide-page .cl-panel a{color:#b15b39;font-weight:700}
  html body .cl-page .cl-guide-page .cl-card{width:96%!important}
  html body .cl-page .cl-guide-page .cl-card h1{font-size:clamp(32px,8.5vw,45px)!important}
 }
+
+/* Correct scope for independently indexed articles (same element has both classes). */
+html body .cl-page.cl-guide-page .cl-card{width:min(700px,65%)!important}
+html body .cl-page.cl-guide-page .cl-card h1{font-size:clamp(35px,3.8vw,58px)!important;line-height:1.12!important}
+html body .cl-page.cl-guide-page .cl-panel .cl-article-title{font:500 29px/1.2 'Oswald',sans-serif;color:#24453b;margin:0 0 16px}
+html body .cl-page.cl-guide-page .cl-panel p{font-size:14px;line-height:1.75}
+html body .cl-page.cl-guide-page .cl-panel a{color:#b15b39;font-weight:700}
+@media(max-width:850px){html body .cl-page.cl-guide-page .cl-card{width:78%!important}}
+@media(max-width:650px){html body .cl-page.cl-guide-page .cl-card{width:96%!important}html body .cl-page.cl-guide-page .cl-card h1{font-size:clamp(32px,8.5vw,45px)!important}}
