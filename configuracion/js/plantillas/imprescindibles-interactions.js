@@ -46,7 +46,17 @@
   const vasa = ['TM10cRgMaiI','17fQ9mJT-aw','Lr9PlVUih_0','rFErChXo_qQ','PgTkZZLsl-s'].map(unsplash);
   const overlay = document.getElementById('lightbox');
   const stage = overlay?.querySelector('.lb-stage');
-  const image = stage?.querySelector(':scope > img');
+  const r2Demo = document.querySelector('.imp-page[data-gallery-source="r2"]') !== null;
+  let image = stage?.querySelector(':scope > img');
+  /* En la prova R2, el visor usa una superfície CSS i no una etiqueta img.
+     L'element img donava la icona d'arxiu trencat malgrat funcionar al hero. */
+  if (r2Demo && image) {
+    const surface = document.createElement('div');
+    surface.className = 'lb-r2-photo';
+    surface.setAttribute('role','img');
+    image.replaceWith(surface);
+    image = surface;
+  }
   const thumbnails = stage?.querySelector('.lb-thumbs');
   const caption = stage?.querySelector('.lb-caption');
   const previous = stage?.querySelector('.lb-prev');
@@ -74,22 +84,20 @@
   }
   const placeHeading = placeInfo?.querySelector('h3');
   let album = [], current = 0, focusBefore = null;
-  const r2Demo = document.querySelector('.imp-page[data-gallery-source="r2"]') !== null;
-  const transparentPixel = 'data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=';
+  const r2Fallback = 'https://img.viajandoconcabeza.com/destinos/suecia/goteborg/2026-dia1/DSC06555.webp';
+  const r2Background = url => 'url("' + url + '"), url("' + r2Fallback + '")';
   const show = i => {
     if (!album.length || !image) return;
     current = (i + album.length) % album.length;
+    const label = `${placeHeading?.textContent || 'Estocolmo'} · fotografía ${current + 1} de ${album.length}`;
     if (r2Demo) {
-      image.src = transparentPixel;
-      image.style.backgroundImage = 'url("' + album[current] + '")';
-      image.style.backgroundRepeat = 'no-repeat';
-      image.style.backgroundPosition = 'center';
-      image.style.backgroundSize = 'contain';
+      image.style.setProperty('background-image', r2Background(album[current]), 'important');
+      image.setAttribute('aria-label',label);
     } else {
       image.style.backgroundImage = '';
       image.src = album[current];
+      image.alt = label;
     }
-    image.alt = `${placeHeading?.textContent || 'Estocolmo'} · fotografía ${current + 1} de ${album.length}`;
     if (counter) counter.textContent = `${current + 1} / ${album.length}`;
     [...thumbnails.children].forEach((button,j) => {
       button.classList.toggle('active',j === current);
@@ -123,7 +131,9 @@
       button.type = 'button';
       button.setAttribute('aria-label',`Ver fotografía ${j+1} de ${album.length}`);
       if (r2Demo) {
-        button.style.background = 'url("' + src + '") center / cover no-repeat';
+        button.style.setProperty('background-image',r2Background(src),'important');
+        button.style.backgroundPosition='center';
+        button.style.backgroundSize='cover';
       } else {
         const thumb = document.createElement('img'); thumb.src = src; thumb.alt = '';
         button.append(thumb);
@@ -154,10 +164,16 @@
       const tile = document.createElement('button');
       tile.type='button'; tile.className='gallery-tile'; tile.dataset.i=String(index);
       tile.setAttribute('aria-label',`Ampliar fotografía ${index+1} de ${photos.length}`);
-      const img=document.createElement('img'); img.src=src;
-      img.alt=`${gallery.closest('.place')?.querySelector('h2')?.textContent || 'Estocolmo'} · fotografía ${index+1}`;
-      img.loading='lazy';
-      tile.append(img);
+      if (r2Demo) {
+        tile.style.setProperty('background-image',r2Background(src),'important');
+        tile.style.backgroundPosition='center';
+        tile.style.backgroundSize='cover';
+      } else {
+        const img=document.createElement('img'); img.src=src;
+        img.alt=`${gallery.closest('.place')?.querySelector('h2')?.textContent || 'Estocolmo'} · fotografía ${index+1}`;
+        img.loading='lazy';
+        tile.append(img);
+      }
       if (index === 4 && photos.length > 5) {
         const more=document.createElement('span'); more.className='gallery-more';
         more.textContent=`+${photos.length-5} fotos más`;
