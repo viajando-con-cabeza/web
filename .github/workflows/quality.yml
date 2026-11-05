@@ -11,7 +11,8 @@ permissions:
 
 concurrency:
   group: quality
-  cancel-in-progress: true
+  # The workflow pushes its generated files back to quality; do not cancel validation mid-run.
+  cancel-in-progress: false
 
 jobs:
   validate:
