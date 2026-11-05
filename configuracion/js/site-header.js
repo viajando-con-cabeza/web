@@ -448,7 +448,7 @@
 
   // Estado editorial global: "Próximamente" siempre deshabilitado y gris.
   const vccPendingStyle=document.createElement('style');
-  vccPendingStyle.textContent='.vcc-pending,.home-feature-pending,body.inicio-vcc .home-feature-pending,.it-card .it-cta.vcc-pending,.vcc-route-link.vcc-pending{color:#b6aaa1!important;text-decoration:none!important;cursor:default!important;pointer-events:none!important}.vcc-country.vcc-pending-country{opacity:.58;cursor:default!important;pointer-events:none!important}.vcc-country.vcc-pending-country .vcc-country-arrow{display:none!important}';
+  vccPendingStyle.textContent='.vcc-pending,.home-feature-pending,body.inicio-vcc .home-feature-pending,.it-card .it-cta.vcc-pending,.vcc-route-link.vcc-pending{color:#b6aaa1!important;text-decoration:none!important;cursor:default!important;pointer-events:none!important}.vcc-country.vcc-pending-country{opacity:.58;cursor:default!important;pointer-events:none!important}.vcc-country.vcc-pending-country .vcc-country-arrow{display:none!important}.country-btn.vcc-pending,.vcc-card-action .vcc-pending,.it-cta.vcc-pending{background:transparent!important;border:0!important;box-shadow:none!important;padding:0!important;color:#aaa29c!important;pointer-events:none!important}';
   document.head.appendChild(vccPendingStyle);
   const normalizePending=(root)=>{
     const candidates=[];
@@ -459,11 +459,23 @@
       const label=(a.textContent||'').trim();
       const isPending=/^PR[ÓO]XIMAMENTE\s*(?:→|›)?$/i.test(label);
       const isPendingDestination=/\/proximamente\/?(?:[?#].*)?$|\/coming-soon\/?(?:[?#].*)?$/i.test(href);
-      if(!isPending&&!isPendingDestination)return;
+      // Las guías e itinerarios de países sin publicar nunca deben abrir páginas antiguas.
+      let isUnpublishedGuide=false;
+      if (/^VER\\s+(?:ITINERARIO|GU[IÍ]A)(?:\\s|$)/i.test(label)) {
+        try {
+          const target=new URL(href,location.href);
+          const route=target.pathname;
+          isUnpublishedGuide=target.origin===location.origin && (
+            (route.startsWith('/destinos/') && !route.startsWith('/destinos/suecia/')) ||
+            (route.startsWith('/itinerarios/') && route!=='/itinerarios/')
+          );
+        } catch(e) { /* URL inválida: no cambiar enlace */ }
+      }
+      if(!isPending&&!isPendingDestination&&!isUnpublishedGuide)return;
       const span=document.createElement('span');
       span.className=a.className||'';
-      span.classList.add(isPending?'vcc-pending':'vcc-pending-country');
-      if(isPending){span.textContent='PRÓXIMAMENTE';}else{span.innerHTML=a.innerHTML;}
+      span.classList.add((isPending||isUnpublishedGuide)?'vcc-pending':'vcc-pending-country');
+      if(isPending||isUnpublishedGuide){span.textContent='PRÓXIMAMENTE';}else{span.innerHTML=a.innerHTML;}
       for(const attr of a.attributes){if(attr.name.startsWith('data-'))span.setAttribute(attr.name,attr.value)}
       a.replaceWith(span);
     });
