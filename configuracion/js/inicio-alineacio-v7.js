@@ -34,7 +34,7 @@
     social.style.setProperty("margin-top",offset+"px","important");
     const guideEnd=guides.getBoundingClientRect().bottom;
     const socialTop=social.getBoundingClientRect().top;
-    const target=Math.max(180,Math.round(guideEnd-socialTop));
+    const target=Math.max(245,Math.round(guideEnd-socialTop));
     for(const panel of [insta,contact]){
       panel.style.setProperty("height",target+"px","important");
       panel.style.setProperty("min-height",target+"px","important");
