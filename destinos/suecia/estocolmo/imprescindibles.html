@@ -25,15 +25,38 @@ html{scroll-behavior:auto}body{background:#faf7f2}
 html body .imp-page .imp-main .place{padding:35px 0 30px!important;row-gap:20px!important;column-gap:48px!important;scroll-margin-top:104px!important}
 html body .imp-page .imp-main .place:not(:first-child){padding-top:35px!important}
 html body .imp-page .imp-main .place::before,html body .imp-page .imp-main .place::after{content:none!important;display:none!important;background:none!important}
+html body .imp-page .imp-main .place:nth-of-type(2n+1):not(:first-child)::before,
+html body .imp-page .imp-main .place:nth-of-type(2n+1):not(:first-child)::after,
+html body .imp-page .imp-main .place:nth-of-type(3n+1)::before,
+html body .imp-page .imp-main .place:nth-of-type(3n+2)::after{
+ content:none!important;display:none!important;width:0!important;height:0!important;
+ background:none!important;background-image:none!important;
+}
+html body .imp-page .imp-main .place:nth-of-type(2n+1):not(:first-child){padding-top:35px!important}
 html body .imp-page .imp-main .place-heading{grid-column:1/-1;min-width:0;width:100%;margin:0 0 3px}
 html body .imp-page .imp-main .place-heading-line{display:flex;align-items:center;gap:15px;min-width:0}
 html body .imp-page .imp-main .place-heading-line::before,
 html body .imp-page .imp-main .place-heading-line::after{content:"";height:1px;min-width:12px;flex:1 1 auto;background:#c76850}
-html body .imp-page .imp-main .place-heading-label{display:inline-flex;gap:9px;align-items:center;justify-content:center;flex:0 1 auto;min-width:0;padding:8px 19px 9px;background:#f9dfcc;border-radius:45% 55% 48% 52% / 30% 40% 60% 38%;transform:rotate(-.3deg)}
+html body .imp-page .imp-main .place-heading-label{display:inline-flex;gap:9px;align-items:center;justify-content:center;flex:0 1 auto;min-width:0;position:relative;isolation:isolate;padding:9px 23px;background:transparent;border-radius:0;transform:rotate(-.3deg)}
+/* Pintada suau de spray, sense un requadre geometric. */
+html body .imp-page .imp-main .place-heading-label::before{
+ content:"";position:absolute;z-index:-1;inset:-8px -14px;
+ background:
+ radial-gradient(ellipse at 12% 45%,rgba(242,166,120,.25) 0 32%,transparent 70%),
+ radial-gradient(ellipse at 77% 50%,rgba(244,175,136,.38) 0 40%,transparent 78%),
+ linear-gradient(90deg,rgba(248,206,177,.72),rgba(248,215,190,.85) 42%,rgba(248,205,174,.67));
+ clip-path:polygon(1% 38%,6% 23%,12% 27%,18% 12%,31% 17%,41% 9%,57% 16%,69% 7%,81% 16%,92% 13%,99% 29%,95% 43%,100% 56%,94% 66%,97% 77%,83% 80%,75% 90%,62% 85%,50% 95%,34% 85%,19% 89%,9% 79%,1% 73%,5% 57%);
+ filter:blur(2.5px);opacity:.92;pointer-events:none;
+}
+html body .imp-page .imp-main .place-heading-label::after{
+ content:"";position:absolute;z-index:-1;inset:-8px -14px;
+ background:radial-gradient(circle,rgba(202,105,65,.24) 0 1px,transparent 1.7px) 0 0/13px 10px;
+ clip-path:polygon(1% 35%,18% 9%,65% 6%,99% 27%,98% 76%,68% 93%,15% 91%,0 70%);
+ opacity:.5;pointer-events:none;
+}
 html body .imp-page .imp-main .place-number{color:#b94e28;font:600 25px/1 'Oswald',sans-serif;white-space:nowrap}
 html body .imp-page .imp-main .place-heading h2{margin:0;color:#222;font:500 clamp(22px,2.1vw,31px)/1.12 'Oswald',sans-serif;white-space:normal}
-html body .imp-page .imp-main .place-heading .place-heading-kicker{margin:4px auto 0;text-align:center;color:#c56851;font:600 26px/1.1 'Caveat',cursive}
-html body .imp-page .imp-main .place-copy .place-kicker,
+html body .imp-page .imp-main .place-copy .place-kicker{display:block!important;order:0!important;margin:0 0 6px!important;text-align:left!important;color:#c56851;font:600 26px/1.1 'Caveat',cursive!important}
 html body .imp-page .imp-main .place-copy>h2{display:none!important}
 @media(max-width:850px){html body .imp-page .imp-main .place{column-gap:16px!important;row-gap:18px!important}}
 @media(max-width:650px){
@@ -43,7 +66,7 @@ html body .imp-page .imp-main .place-copy>h2{display:none!important}
  html body .imp-page .imp-main .place-heading-label{gap:6px;padding:7px 11px}
  html body .imp-page .imp-main .place-number{font-size:20px}
  html body .imp-page .imp-main .place-heading h2{font-size:22px}
- html body .imp-page .imp-main .place-heading .place-heading-kicker{font-size:22px}
+ html body .imp-page .imp-main .place-copy .place-kicker{font-size:22px!important}
 }
 .imp-page .gallery-main{border-radius:8px!important}
 .imp-page .place-kicker{font-family:'Caveat',cursive!important;font-size:22px!important;color:#cf705c!important}
@@ -55,17 +78,8 @@ html body .imp-page .imp-main .place-copy>h2{display:none!important}
 @media(max-width:850px){.imp-page .imp-hero{height:550px!important;min-height:550px!important}.imp-page .place{grid-template-columns:1fr!important;gap:16px!important}.imp-page .imp-main{width:calc(100% - 28px)!important}}
 @media(max-width:650px){
   .imp-page .imp-hero{height:480px!important;min-height:480px!important}
-  .imp-page .place:not(:first-child){padding-top:70px!important}
-  html body .imp-page .imp-main .place:not(:first-child)::before{
-    left:50%!important;
-    right:auto!important;
-    width:min(250px,66%)!important;
-    height:32px!important;
-    top:14px!important;
-    transform:translateX(-50%)!important;
-    background-size:100% auto!important;
-    background-position:center center!important
-  }
+  html body .imp-page .imp-main .place:not(:first-child),html body .imp-page .imp-main .place:nth-of-type(2n+1):not(:first-child){padding-top:28px!important}
+
 }
 </style>
 </head>
@@ -108,7 +122,7 @@ const nav=document.getElementById('placeNav');
 nav.innerHTML=data.map((p,i)=>`<a href="#${p[0]}" class="${i===0?'active':''}">${esc(p[1])}</a>`).join('');
 const main=document.getElementById('places');
 
-main.innerHTML=data.map((p,i)=>{const imgs=p.slice(10).map(k=>IMG[k]);const maps=`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(p[1]+' Stockholm')}`;return `<section class="place" id="${p[0]}"><header class="place-heading"><div class="place-heading-line"><div class="place-heading-label"><span class="place-number">${String(i+1).padStart(2,"0")} ·</span><h2>${esc(p[1]).toUpperCase()}</h2></div></div><p class="place-heading-kicker">${esc(p[3])}</p></header><div class="gallery" data-count="${imgs.length}"><div class="gallery-main" data-images='${JSON.stringify(imgs)}'><img src="${imgs[0]}" alt="${esc(p[1])}" loading="lazy"><span class="photo-count">1 / ${imgs.length}</span></div><div class="thumbs">${imgs.map((u,j)=>`<button type="button" class="${j===0?'is-active':''}" data-i="${j}" aria-label="Ver fotografía ${j+1}"><img src="${u}" alt=""></button>`).join('')}</div></div><div class="place-copy"><p>${esc(p[4])}</p><div class="facts"><span><b class="ico">◆</b>${esc(p[2])}</span><span><b class="ico">●</b>${esc(p[5])}</span><span><b class="ico">◷</b>${esc(p[6])}</span><span>${rating(p[7])}</span><span class="fact-map"><b class="ico">⌖</b><a target="_blank" rel="noopener noreferrer" href="${maps}" aria-label="Abrir ${esc(p[1])} en Google Maps">Google Maps</a></span></div><div class="advice"><div class="paper-plane" role="img" aria-label="Logo VCC"></div><div><b>CONSEJO VCC</b><p>${esc(p[9])}</p></div></div></div></section>`}).join('');
+main.innerHTML=data.map((p,i)=>{const imgs=p.slice(10).map(k=>IMG[k]);const maps=`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(p[1]+' Stockholm')}`;return `<section class="place" id="${p[0]}"><header class="place-heading"><div class="place-heading-line"><div class="place-heading-label"><span class="place-number">${String(i+1).padStart(2,"0")} ·</span><h2>${esc(p[1]).toUpperCase()}</h2></div></div></header><div class="gallery" data-count="${imgs.length}"><div class="gallery-main" data-images='${JSON.stringify(imgs)}'><img src="${imgs[0]}" alt="${esc(p[1])}" loading="lazy"><span class="photo-count">1 / ${imgs.length}</span></div><div class="thumbs">${imgs.map((u,j)=>`<button type="button" class="${j===0?'is-active':''}" data-i="${j}" aria-label="Ver fotografía ${j+1}"><img src="${u}" alt=""></button>`).join('')}</div></div><div class="place-copy"><div class="place-kicker">${esc(p[3])}</div><p>${esc(p[4])}</p><div class="facts"><span><b class="ico">◆</b>${esc(p[2])}</span><span><b class="ico">●</b>${esc(p[5])}</span><span><b class="ico">◷</b>${esc(p[6])}</span><span>${rating(p[7])}</span><span class="fact-map"><b class="ico">⌖</b><a target="_blank" rel="noopener noreferrer" href="${maps}" aria-label="Abrir ${esc(p[1])} en Google Maps">Google Maps</a></span></div><div class="advice"><div class="paper-plane" role="img" aria-label="Logo VCC"></div><div><b>CONSEJO VCC</b><p>${esc(p[9])}</p></div></div></div></section>`}).join('');
 nav.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{nav.querySelectorAll('a').forEach(x=>x.classList.remove('active'));a.classList.add('active')}));
 const prev=document.getElementById('navPrev'),next=document.getElementById('navNext');const update=()=>{prev.disabled=nav.scrollLeft<5;next.disabled=nav.scrollLeft+nav.clientWidth>=nav.scrollWidth-5};prev.onclick=()=>nav.scrollBy({left:-Math.max(nav.clientWidth*.7,280),behavior:'smooth'});next.onclick=()=>nav.scrollBy({left:Math.max(nav.clientWidth*.7,280),behavior:'smooth'});nav.addEventListener('scroll',update,{passive:true});window.addEventListener('resize',update);update();
 document.querySelectorAll('.gallery').forEach(g=>{const main=g.querySelector('.gallery-main'),hero=main.querySelector('img'),count=main.querySelector('.photo-count'),btns=[...g.querySelectorAll('.thumbs button')],imgs=JSON.parse(main.dataset.images);btns.forEach(b=>b.onclick=()=>{const i=+b.dataset.i;hero.src=imgs[i];if(count)count.textContent=`${i+1} / ${imgs.length}`;btns.forEach(x=>x.classList.toggle('is-active',x===b))})});
