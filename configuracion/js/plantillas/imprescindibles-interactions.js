@@ -47,16 +47,7 @@
   const overlay = document.getElementById('lightbox');
   const stage = overlay?.querySelector('.lb-stage');
   const r2Demo = document.querySelector('.imp-page[data-gallery-source="r2"]') !== null;
-  let image = stage?.querySelector(':scope > img');
-  /* En la prova R2, el visor usa una superfície CSS i no una etiqueta img.
-     L'element img donava la icona d'arxiu trencat malgrat funcionar al hero. */
-  if (r2Demo && image) {
-    const surface = document.createElement('div');
-    surface.className = 'lb-r2-photo';
-    surface.setAttribute('role','img');
-    image.replaceWith(surface);
-    image = surface;
-  }
+  const image = stage?.querySelector(':scope > img');
   const thumbnails = stage?.querySelector('.lb-thumbs');
   const caption = stage?.querySelector('.lb-caption');
   const previous = stage?.querySelector('.lb-prev');
@@ -85,22 +76,18 @@
   const placeHeading = placeInfo?.querySelector('h3');
   let album = [], current = 0, focusBefore = null;
   const r2Fallback = 'https://img.viajandoconcabeza.com/destinos/suecia/goteborg/2026-dia1/DSC06555.webp';
-  const r2Background = url => 'url("' + url + '"), url("' + r2Fallback + '")';
+  /* El visor i els mosaics fan servir <img> amb object-fit, com abans de R2. */
+  const photoError = event => {
+    const img = event.currentTarget;
+    if (r2Demo && img.src !== r2Fallback) { img.src = r2Fallback; }
+  };
+  if (image) image.addEventListener('error',photoError);
   const show = i => {
     if (!album.length || !image) return;
     current = (i + album.length) % album.length;
     const label = `${placeHeading?.textContent || 'Estocolmo'} · fotografía ${current + 1} de ${album.length}`;
-    if (r2Demo) {
-      image.style.setProperty('background-image', 'url("' + album[current] + '")', 'important');
-      image.style.setProperty('background-size', 'contain', 'important');
-      image.style.setProperty('background-position', 'center center', 'important');
-      image.style.setProperty('background-repeat', 'no-repeat', 'important');
-      image.setAttribute('aria-label',label);
-    } else {
-      image.style.backgroundImage = '';
-      image.src = album[current];
-      image.alt = label;
-    }
+    image.src = album[current];
+    image.alt = label;
     if (counter) counter.textContent = `${current + 1} / ${album.length}`;
     [...thumbnails.children].forEach((button,j) => {
       button.classList.toggle('active',j === current);
@@ -133,19 +120,15 @@
       const button = document.createElement('button');
       button.type = 'button';
       button.setAttribute('aria-label',`Ver fotografía ${j+1} de ${album.length}`);
-      if (r2Demo) {
-        button.style.setProperty('background-image','url("' + src + '")','important');
-        button.style.backgroundPosition='center';
-        button.style.backgroundSize='cover';
-      } else {
-        const thumb = document.createElement('img'); thumb.src = src; thumb.alt = '';
-        button.append(thumb);
-      }
+      const thumb = document.createElement('img');
+      thumb.src = src;
+      thumb.alt = '';
+      thumb.addEventListener('error',photoError);
+      button.append(thumb);
       button.addEventListener('click',() => show(j));
       thumbnails.append(button);
     });
-    overlay.classList.toggle('r2-demo', r2Demo);
-    overlay.classList.add('open');
+     overlay.classList.add('open');
     overlay.setAttribute('aria-hidden','false');
     show(index);
     close.focus();
@@ -167,16 +150,12 @@
       const tile = document.createElement('button');
       tile.type='button'; tile.className='gallery-tile'; tile.dataset.i=String(index);
       tile.setAttribute('aria-label',`Ampliar fotografía ${index+1} de ${photos.length}`);
-      if (r2Demo) {
-        tile.style.setProperty('background-image','url("' + src + '")','important');
-        tile.style.backgroundPosition='center';
-        tile.style.backgroundSize='cover';
-      } else {
-        const img=document.createElement('img'); img.src=src;
-        img.alt=`${gallery.closest('.place')?.querySelector('h2')?.textContent || 'Estocolmo'} · fotografía ${index+1}`;
-        img.loading='lazy';
-        tile.append(img);
-      }
+      const img = document.createElement('img');
+      img.src = src;
+      img.alt = `${gallery.closest('.place')?.querySelector('h2')?.textContent || 'Estocolmo'} · fotografía ${index+1}`;
+      img.loading = 'lazy';
+      img.addEventListener('error',photoError);
+      tile.append(img);
       if (index === 4 && photos.length > 5) {
         const more=document.createElement('span'); more.className='gallery-more';
         more.textContent=`+${photos.length-5} fotos más`;
