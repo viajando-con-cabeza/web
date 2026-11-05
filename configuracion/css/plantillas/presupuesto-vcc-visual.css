@@ -562,12 +562,10 @@ html body.budget-vcc{background:#fbf8f4;color:#171717}
 .budget-vcc .donut-inner small{max-width:100px;text-align:center;font-size:9px;line-height:1.4}
 @media(max-width:480px){.budget-vcc .donut-inner #donut-daily{font-size:30px}}
 
-/* Hero alineado con la ficha de Estocolmo: 505px reales y navegación inmediatamente después */
-html body.budget-vcc .st-shell > .budget-hero{height:505px!important;min-height:505px!important;max-height:505px!important;background-position:center 48%!important}
-html body.budget-vcc .budget-hero .budget-crumb{top:18px!important}
-html body.budget-vcc .budget-hero .budget-hero-card{top:90px!important;width:min(690px,78vw)!important}
-html body.budget-vcc .budget-hero .budget-hero-card h1{font-size:clamp(42px,3.6vw,56px)!important;line-height:1.07!important;letter-spacing:-.018em!important;max-width:680px!important}
-html body.budget-vcc .budget-hero .hero-intro{font-size:29px!important;margin:14px 0 10px!important}
-html body.budget-vcc .budget-hero .hero-lead{font-size:14px!important;line-height:1.5!important;max-width:560px!important}
-@media(max-width:850px){html body.budget-vcc .st-shell > .budget-hero{height:510px!important;min-height:510px!important;max-height:510px!important}html body.budget-vcc .budget-hero .budget-hero-card{top:94px!important}html body.budget-vcc .budget-hero .budget-hero-card h1{font-size:clamp(38px,6vw,53px)!important}}
-@media(max-width:600px){html body.budget-vcc .st-shell > .budget-hero{height:auto!important;min-height:450px!important;max-height:none!important}html body.budget-vcc .budget-hero .budget-hero-inner{min-height:450px!important;height:auto!important;padding-bottom:28px!important}html body.budget-vcc .budget-hero .budget-hero-card{position:relative!important;top:auto!important;left:auto!important;margin-top:86px!important;width:100%!important}html body.budget-vcc .budget-hero .budget-hero-card h1{font-size:clamp(33px,8.2vw,46px)!important}}
+/* Portada de presupuesto: subheader visible en el primer pantallazo */
+html body.budget-vcc .st-shell > section.budget-hero{height:410px!important;min-height:410px!important;max-height:410px!important;overflow:hidden!important}
+html body.budget-vcc .budget-hero .budget-hero-card{top:78px!important}
+html body.budget-vcc .budget-hero .budget-hero-card h1{font-size:clamp(38px,3.65vw,54px)!important;line-height:1.06!important}
+html body.budget-vcc .budget-hero .budget-crumb{top:16px!important}
+@media(max-width:850px){html body.budget-vcc .st-shell > section.budget-hero{height:430px!important;min-height:430px!important;max-height:430px!important}}
+@media(max-width:600px){html body.budget-vcc .st-shell > section.budget-hero{height:auto!important;min-height:370px!important;max-height:none!important;overflow:visible!important}}
