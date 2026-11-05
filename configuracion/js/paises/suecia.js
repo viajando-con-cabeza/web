@@ -33,9 +33,9 @@ window.COUNTRY_CONFIG={
   preparation:[
     {icon:'◷',title:'Cuándo ir',text:'Nosotros priorizaríamos finales de primavera y verano si quieres carretera, naturaleza y días muy largos. Invierno sólo si buscas nieve y otro tipo de viaje.',image:'/configuracion/imagenes/fondos/cuando-ir-vcc-sin-texto.webp',imageHref:'../../planifica/index.html',available:true,href:'../../planifica/index.html',ctaLabel:'VER MÁS'},
     {icon:'✈',title:'Cómo llegar',text:'Para una primera ruta, volar a Estocolmo suele ser la opción más sencilla. Gotemburgo también puede encajar si tu viaje se concentra en la costa oeste.',image:'/configuracion/imagenes/como-llegar-universal-vcc.webp',imageHref:'como-llegar.html',available:true,href:'como-llegar.html',ctaLabel:'VER MÁS'},
-    {icon:'🚆',title:'Moverse por Suecia',text:'En ciudades usaríamos transporte público; para costa, lagos y pueblos, el coche da mucha más libertad y hace la ruta bastante más cómoda.',image:'/configuracion/imagenes/fondos/moverse.svg',available:false},
+    {icon:'🚆',title:'Moverse por Suecia',text:'En ciudades usaríamos transporte público; para costa, lagos y pueblos, el coche da mucha más libertad y hace la ruta bastante más cómoda.',image:'/configuracion/imagenes/fondos/como-moverse-universal-gris.svg',available:false},
     {icon:'⌖',title:'Qué zona elegir',text:'No intentaríamos abarcar todo el país. Elegir Estocolmo y una segunda zona, como Costa Oeste o Dalarna, suele dar un viaje más equilibrado.',image:'/configuracion/imagenes/fondos/que-zona-elegir.svg',available:false},
-    {icon:'⌂',title:'Alojamiento',text:'Reservaríamos con antelación en ciudades y zonas muy demandadas. En road trip, mezclar hoteles, cabañas y alojamientos rurales funciona muy bien.',image:'/configuracion/imagenes/fondos/alojamiento.svg',available:false},
+    {icon:'⌂',title:'Alojamiento',text:'Reservaríamos con antelación en ciudades y zonas muy demandadas. En road trip, mezclar hoteles, cabañas y alojamientos rurales funciona muy bien.',image:'/configuracion/imagenes/fondos/donde-alojarse-universal-gris.svg',available:false},
     {icon:'€',title:'Presupuesto',text:'Suecia no es barata, pero se puede controlar bastante el gasto. Alojamiento y comidas son las partidas donde más se nota planificar con tiempo.',image:'/configuracion/imagenes/fondos/presupuesto.svg',available:false}
   ],
   faq:[
