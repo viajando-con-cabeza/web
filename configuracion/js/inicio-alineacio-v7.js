@@ -27,8 +27,9 @@
     planning.style.setProperty("margin-top",top+"px","important");
     // Align BOTTOM of both cards with the featured guide cards.
     // Move them visibly down by shortening the panels rather than keeping a 245px minimum.
-    const guideBottom=guides.getBoundingClientRect().bottom;
-    const desiredHeight=210;
+    const guideRect=guides.getBoundingClientRect();
+    const guideBottom=guideRect.bottom;
+    const desiredHeight=Math.min(210,Math.round(guideRect.height));
     // Reset before measuring to prevent accumulation during resize/observer events.
     social.style.setProperty("margin-top","0px","important");
     social.style.removeProperty("height");
@@ -40,7 +41,7 @@
     const offset=Math.max(0,Math.round(guideBottom-rowTop-desiredHeight));
     social.style.setProperty("margin-top",offset+"px","important");
     // When the guide is smaller than expected, still prevent overflow.
-    const available=Math.max(185,Math.round(guideBottom-(rowTop+offset)));
+    const available=Math.max(0,Math.round(guideBottom-(rowTop+offset)));
     const height=Math.min(desiredHeight,available);
     social.style.setProperty("height",height+"px","important");
     for(const panel of [insta,contact]){
