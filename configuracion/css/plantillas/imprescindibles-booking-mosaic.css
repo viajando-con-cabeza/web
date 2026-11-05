@@ -56,3 +56,36 @@ body:has(#lightbox.open){overflow:hidden!important}
   html body .imp-page .gallery-mosaic { aspect-ratio: 0.72 !important; }
   html body .imp-page .gallery-mosaic.count-1 { aspect-ratio: 0.80 !important; }
 }
+
+/* R2: mateixa càrrega CSS que la portada (funcional), sense etiquetes <img> trencades. */
+html body .imp-page .gallery-mosaic .gallery-tile{
+  background-size:cover!important;
+  background-position:center!important;
+  background-repeat:no-repeat!important;
+}
+html body #lightbox .lb-stage > .lb-photo{
+  grid-column:1!important;
+  grid-row:2!important;
+  justify-self:center!important;
+  align-self:center!important;
+  display:block!important;
+  width:calc(100% - 126px)!important;
+  height:100%!important;
+  min-height:0!important;
+  max-height:100%!important;
+  background-color:#fff!important;
+  background-size:contain!important;
+  background-position:center!important;
+  background-repeat:no-repeat!important;
+}
+html body #lightbox .lb-thumbs button{
+  background-size:cover!important;
+  background-position:center!important;
+  background-repeat:no-repeat!important;
+}
+@media (max-width:800px){
+  html body #lightbox .lb-stage > .lb-photo{width:calc(100% - 80px)!important}
+}
+@media (max-width:650px){
+  html body #lightbox .lb-stage > .lb-photo{width:calc(100% - 66px)!important}
+}
