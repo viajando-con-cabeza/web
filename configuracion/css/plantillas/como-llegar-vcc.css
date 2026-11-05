@@ -132,3 +132,39 @@ html body .cl-page .cl-shell{padding-top:28px!important}
  html body .cl-page .cl-hero-kicker{font-size:25px!important}
  html body .cl-page .cl-lead{font-size:12px!important;max-width:310px!important}
 }
+
+/* VCC v7: degradado editorial idéntico en intención a Cuándo ir. */
+html body .cl-page .cl-hero{
+ background-color:#faf7f2!important;
+ background-image:
+ linear-gradient(90deg,rgba(250,247,242,.98) 0%,rgba(250,247,242,.92) 19%,rgba(250,247,242,.78) 33%,rgba(250,247,242,.45) 49%,rgba(250,247,242,.08) 70%,rgba(250,247,242,0) 86%),
+ url('/configuracion/imagenes/como-llegar-universal-vcc.webp')!important;
+ background-size:cover,cover!important;
+ background-position:center center,center center!important;
+}
+html body .cl-page .cl-illustration.cl-artwork{height:110px!important;min-height:110px!important;background:radial-gradient(ellipse 57% 46% at 50% 55%,rgba(205,227,208,.48),rgba(242,210,167,.14) 62%,transparent 77%)!important}
+html body .cl-page .cl-artwork svg{height:108px!important;width:100%!important;max-width:205px!important;filter:drop-shadow(0px 5px 3px rgba(36,64,53,.13))!important}
+html body .cl-page .cl-transport-group{min-height:465px}
+html body .cl-page .cl-transport-group h3{font-size:25px!important}
+html body .cl-page .cl-mini-rec{min-height:102px}
+html body .cl-page .cl-guide-page .cl-card{width:min(700px,65%)!important}
+html body .cl-page .cl-guide-page .cl-card h1{font-size:clamp(35px,3.8vw,58px)!important;line-height:1.12!important}
+html body .cl-page .cl-guide-page .cl-card .cl-lead{font-size:13px!important}
+html body .cl-page .cl-guide-page .cl-panel .cl-article-title{font:500 29px/1.2 'Oswald',sans-serif;color:#24453b;margin:0 0 16px}
+html body .cl-page .cl-guide-page .cl-panel p{font-size:14px;line-height:1.75}
+html body .cl-page .cl-guide-page .cl-panel a{color:#b15b39;font-weight:700}
+@media(max-width:850px){
+ html body .cl-page .cl-hero{background-position:center center,56% center!important}
+ html body .cl-page .cl-guide-page .cl-card{width:78%!important}
+}
+@media(max-width:650px){
+ html body .cl-page .cl-hero{
+  background-image:linear-gradient(90deg,rgba(250,247,242,.97) 0%,rgba(250,247,242,.88) 42%,rgba(250,247,242,.42) 76%,rgba(250,247,242,.10) 100%),url('/configuracion/imagenes/como-llegar-universal-vcc.webp')!important;
+  background-position:center center,62% center!important;
+ }
+ html body .cl-page .cl-artwork svg{height:84px!important}
+ html body .cl-page .cl-illustration.cl-artwork{height:86px!important;min-height:86px!important}
+ html body .cl-page .cl-transport-group{min-height:435px}
+ html body .cl-page .cl-guide-page .cl-card{width:96%!important}
+ html body .cl-page .cl-guide-page .cl-card h1{font-size:clamp(32px,8.5vw,45px)!important}
+}
