@@ -258,6 +258,69 @@ html body.budget-vcc .philosophy-profile .profile-icon .vcc-profile-svg{
  }
 }
 </style>
+<style id="vcc-budget-cards-first-option-20261105">
+/* Primera propuesta aprobada: tarjetas compactas con ilustración panorámica baja */
+html body.budget-vcc .philosophy-profile-grid{
+ display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr))!important;
+ gap:18px!important;align-items:stretch!important;margin:14px 0 0!important;
+}
+html body.budget-vcc .philosophy-profile-grid .philosophy-profile{
+ display:flex!important;flex-direction:column!important;min-width:0!important;
+ height:auto!important;min-height:0!important;overflow:visible!important;
+ padding:15px 14px 0!important;border-radius:13px!important;
+ border:1px solid #e5dcd3!important;background:#fff!important;
+ box-shadow:0 3px 12px rgba(63,43,25,.045)!important;
+}
+html body.budget-vcc .philosophy-profile-grid .philosophy-profile.vcc-choice{
+ border:2px solid #cf705c!important;padding:14px 13px 0!important;
+}
+html body.budget-vcc .philosophy-profile .profile-top{
+ display:grid!important;grid-template-columns:48px minmax(0,1fr)!important;
+ gap:8px 10px!important;align-items:center!important;min-width:0!important;
+}
+html body.budget-vcc .philosophy-profile .profile-icon{
+ width:48px!important;height:48px!important;min-width:48px!important;min-height:48px!important;
+ grid-row:1!important;
+}
+html body.budget-vcc .philosophy-profile .profile-name{min-width:0!important}
+html body.budget-vcc .philosophy-profile .profile-name h3{
+ font-size:21px!important;line-height:1.1!important;margin:0 0 4px!important;
+}
+html body.budget-vcc .philosophy-profile .profile-name p{
+ font-size:10.5px!important;line-height:1.38!important;margin:0!important;
+}
+html body.budget-vcc .philosophy-profile .profile-price{
+ grid-column:1/-1!important;margin:3px 0 0!important;display:flex!important;
+ align-items:baseline!important;gap:9px!important;
+}
+html body.budget-vcc .philosophy-profile .profile-price strong{font-size:30px!important;line-height:1!important}
+html body.budget-vcc .philosophy-profile .profile-price small{font-size:10px!important;line-height:1.3!important}
+html body.budget-vcc .philosophy-profile .profile-art.retro-profile-art{
+ display:block!important;flex:none!important;align-self:stretch!important;
+ width:calc(100% + 28px)!important;height:86px!important;aspect-ratio:auto!important;
+ margin:10px -14px 0!important;max-height:none!important;
+ background-image:url('/configuracion/imagenes/ilustraciones/budget-profiles-wide.webp')!important;
+ background-size:100% 400%!important;background-repeat:no-repeat!important;
+ border-radius:0 0 12px 12px!important;mix-blend-mode:normal!important;
+}
+html body.budget-vcc .philosophy-profile.vcc-choice .profile-art.retro-profile-art{
+ width:calc(100% + 26px)!important;margin-left:-13px!important;margin-right:-13px!important;
+}
+html body.budget-vcc .philosophy-profile .profile-ribbon{
+ top:-12px!important;left:50%!important;border-radius:5px!important;
+ background:#cf705c!important;padding:6px 13px!important;
+}
+@media(max-width:950px){
+ html body.budget-vcc .philosophy-profile-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:18px!important}
+}
+@media(max-width:560px){
+ html body.budget-vcc .philosophy-profile-grid{grid-template-columns:minmax(0,1fr)!important;gap:20px!important}
+ html body.budget-vcc .philosophy-profile-grid .philosophy-profile{padding:14px 13px 0!important}
+ html body.budget-vcc .philosophy-profile-grid .philosophy-profile.vcc-choice{padding:13px 12px 0!important}
+ html body.budget-vcc .philosophy-profile .profile-art.retro-profile-art{width:calc(100% + 26px)!important;margin:10px -13px 0!important;height:95px!important}
+ html body.budget-vcc .philosophy-profile.vcc-choice .profile-art.retro-profile-art{width:calc(100% + 24px)!important;margin-left:-12px!important;margin-right:-12px!important}
+}
+</style>
 <style id="vcc-budget-single-active">
 /* Únicament la pestanya activa es destaca. El primer enllaç ja no queda marcat permanentment. */
 html body.budget-vcc .st-tabs a,
