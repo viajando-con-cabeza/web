@@ -1,11 +1,11 @@
 /* Inici VCC · fons panoràmic real 3000 × 1000, sense retalls ni franges.
    La zona esquerra ja està integrada al mateix WebP; no cal máscara CSS. */
 body.inicio-vcc .home-hero{
-  background:#dbeaf6!important;
+  background:#eeedeb!important;
 }
 body.inicio-vcc .home-hero::before{
-  background-image:linear-gradient(100deg,rgba(183,217,243,.32),rgba(199,225,246,.20)),url('/configuracion/imagenes/fondos/inicio-vcc-hero-panoramico.webp')!important;
-  background-blend-mode:color;
+  background-image:linear-gradient(100deg,rgba(224,224,224,.11),rgba(235,235,235,.06)),url('/configuracion/imagenes/fondos/inicio-vcc-hero-panoramico.webp')!important;
+  background-blend-mode:normal;
   background-size:cover!important;
   background-position:center center!important;
   background-repeat:no-repeat!important;
@@ -16,9 +16,9 @@ body.inicio-vcc .home-hero::before{
 }
 body.inicio-vcc .home-hero-wash{
   background:linear-gradient(90deg,
-    rgba(218,235,252,.50) 0%,
-    rgba(193,222,249,.25) 29%,
-    rgba(181,216,248,.08) 49%,
+    rgba(240,239,237,.40) 0%,
+    rgba(233,233,232,.17) 29%,
+    rgba(230,230,230,.04) 49%,
     transparent 65%)!important;
 }
 @media(max-width:720px){
@@ -26,6 +26,6 @@ body.inicio-vcc .home-hero-wash{
     background-position:67% center!important;
   }
   body.inicio-vcc .home-hero-wash{
-    background:linear-gradient(90deg,rgba(225,240,252,.92),rgba(207,230,250,.74) 70%,rgba(193,222,249,.36))!important;
+    background:linear-gradient(90deg,rgba(242,241,239,.88),rgba(235,234,232,.68) 70%,rgba(232,232,231,.27))!important;
   }
 }
