@@ -75,11 +75,13 @@
   }
   const placeHeading = placeInfo?.querySelector('h3');
   let album = [], current = 0, focusBefore = null;
-  const r2Fallback = 'https://img.viajandoconcabeza.com/destinos/suecia/goteborg/2026-dia1/DSC06555.webp';
-  /* El visor i els mosaics fan servir <img> amb object-fit, com abans de R2. */
+  /* No substituir imatges R2 que fallen per una altra foto:
+     això feia aparèixer la mateixa DSC06555 a totes les miniatures. */
   const photoError = event => {
     const img = event.currentTarget;
-    if (r2Demo && img.src !== r2Fallback) { img.src = r2Fallback; }
+    img.dataset.loadError = 'true';
+    img.setAttribute('title', 'No s’ha pogut carregar aquesta fotografia de Cloudflare R2');
+    img.closest('.gallery-tile, .lb-thumbs button')?.classList.add('photo-load-error');
   };
   if (image) image.addEventListener('error',photoError);
   const show = i => {
