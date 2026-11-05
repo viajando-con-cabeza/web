@@ -106,3 +106,16 @@ body>.shared-header .shared-menu,body>.shared-header .shared-menu a{font-family:
 @media(max-width:600px){
   #planifica .vcc-prep-image{height:118px!important;flex-basis:118px!important}
 }
+
+/* Asociación directa de cada SVG original a su propia tarjeta de Estocolmo. */
+#planifica .vcc-prep-image.vcc-prep-svg-background{
+  display:block!important;
+  background-repeat:no-repeat!important;
+  background-position:center center!important;
+  background-size:100% 100%!important;
+  background-color:#eef0ee!important;
+  height:120px!important;
+  flex:0 0 120px!important;
+}
+#planifica .vcc-prep-image.vcc-prep-svg-background>span{z-index:2!important}
+@media(max-width:600px){#planifica .vcc-prep-image.vcc-prep-svg-background{height:118px!important;flex-basis:118px!important}}
