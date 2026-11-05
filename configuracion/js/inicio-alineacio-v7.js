@@ -32,14 +32,13 @@
     const socialUnshiftedTop=social.getBoundingClientRect().top-previousMargin;
     const offset=Math.max(0,Math.round(guideTop-socialUnshiftedTop));
     social.style.setProperty("margin-top",offset+"px","important");
-    const guideEnd=guides.getBoundingClientRect().bottom;
-    const socialTop=social.getBoundingClientRect().top;
-    const target=Math.max(245,Math.round(guideEnd-socialTop));
+    // Let CSS grid size both cards from their real content. A fixed height
+    // previously clipped Contact and made Instagram extend below its neighbour.
     for(const panel of [insta,contact]){
-      panel.style.setProperty("height",target+"px","important");
-      panel.style.setProperty("min-height",target+"px","important");
+      panel.style.removeProperty("height");
+      panel.style.removeProperty("min-height");
     }
-    social.style.setProperty("height",target+"px","important");
+    social.style.removeProperty("height");
   }
   function schedule(){
     if(raf)cancelAnimationFrame(raf);
