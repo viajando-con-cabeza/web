@@ -665,3 +665,10 @@ img {
         grid-template-columns: 1fr;
     }
 }
+
+/* VCC GLOBAL PENDING STATE 20261105 — same grey on every page */
+.vcc-pending,.home-feature-pending,.it-card .it-cta.vcc-pending,.vcc-route-link.vcc-pending,
+a[aria-disabled="true"],[data-vcc-status="proximamente"]{
+ color:#aaa29c!important;text-decoration:none!important;cursor:default!important;pointer-events:none!important;
+}
+.vcc-country.vcc-pending-country{opacity:.58;cursor:default!important;pointer-events:none!important}
