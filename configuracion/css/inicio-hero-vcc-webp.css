@@ -1,0 +1,17 @@
+/* Portada VCC — imatge WebP aprovada; l'asset es manté a configuracion/imagenes/fondos/.
+   Segona capa: imatge de reserva mentre l'arxiu WebP no és present. */
+body.inicio-vcc .home-hero::before{
+  background-image:
+    url('/configuracion/imagenes/fondos/inicio-vcc-hero.webp'),
+    url('https://images.unsplash.com/photo-1488646953014-85cb44e25828?auto=format&fit=crop&w=2400&q=90') !important;
+  background-position:center center,center center !important;
+  background-size:cover,cover !important;
+  background-repeat:no-repeat,no-repeat !important;
+  filter:none!important;
+  transform:none!important;
+}
+@media(max-width:720px){
+  body.inicio-vcc .home-hero::before{
+    background-position:65% center,60% center!important;
+  }
+}
