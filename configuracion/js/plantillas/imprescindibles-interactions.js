@@ -127,7 +127,9 @@
     try {own = JSON.parse(original?.dataset.images || '[]');} catch {own = [];}
     const requested = placeIndex + 1;
     const source = placeIndex === 1 ? [...vasa, ...city] : [...city.slice(placeIndex % city.length), ...city.slice(0,placeIndex % city.length)];
-    const photos = [...new Set([...own.filter(Boolean), ...source])].slice(0,requested);
+    /* Les guies marcades com a prova R2 han d'utilitzar exclusivament les fotos declarades a la pàgina. */
+    const onlyOwn = document.querySelector('.imp-page[data-gallery-source="r2"]') !== null;
+    const photos = onlyOwn ? own.filter(Boolean) : [...new Set([...own.filter(Boolean), ...source])].slice(0,requested);
     gallery.dataset.images = JSON.stringify(photos);
     gallery.dataset.count = String(photos.length);
     const mosaic = document.createElement('div');
