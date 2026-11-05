@@ -255,3 +255,45 @@ body.inicio-vcc .home-planning-visual img{
   body.inicio-vcc .home-contact p{font-size:10px!important;line-height:1.36!important}
   body.inicio-vcc .home-contact .home-card-more{font-size:9px!important}
 }
+
+/* V14 · Instagram i Contacto: una sola fila de targetes, mateixa alçada real. */
+body.inicio-vcc .home-social-contact{
+  display:grid!important;
+  height:auto!important;
+  align-items:stretch!important;
+  grid-auto-rows:auto!important;
+}
+body.inicio-vcc .home-social-contact .home-instagram,
+body.inicio-vcc .home-social-contact .home-contact{
+  height:auto!important;
+  min-height:245px!important;
+  align-self:stretch!important;
+  box-sizing:border-box!important;
+  overflow:hidden!important;
+}
+body.inicio-vcc .home-instagram .home-insta-largepost{
+  display:flex!important;
+  flex-direction:column!important;
+  flex:1 1 auto!important;
+  min-height:0!important;
+}
+body.inicio-vcc .home-instagram .home-insta-photo{
+  min-height:96px!important;
+  flex:1 1 auto!important;
+}
+body.inicio-vcc .home-contact .home-card-more{
+  flex-shrink:0!important;
+  margin-top:auto!important;
+}
+@media(max-width:900px){
+  body.inicio-vcc .home-social-contact .home-instagram,
+  body.inicio-vcc .home-social-contact .home-contact{
+    min-height:240px!important;
+  }
+}
+@media(max-width:530px){
+  body.inicio-vcc .home-social-contact .home-instagram,
+  body.inicio-vcc .home-social-contact .home-contact{
+    min-height:245px!important;
+  }
+}
