@@ -1,0 +1,66 @@
+name: Generate optimized R2 WebP previews
+on:
+  push:
+    branches: [quality]
+    paths:
+      - '.github/workflows/generate-r2-previews.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: generate-r2-previews
+  cancel-in-progress: false
+jobs:
+  optimize:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: quality
+          fetch-depth: 0
+      - name: Convert ten originals into small thumbs and screen-sized previews
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m pip install --quiet Pillow
+          python - <<'PY'
+          import io,os,urllib.request,hashlib
+          from PIL import Image,ImageOps
+          base='https://img.viajandoconcabeza.com/destinos/suecia/goteborg/2026-dia1/'
+          root='destinos/suecia/goteborg/imagenes/optimizadas'
+          names=['DSC06553','DSC06554','DSC06555','DSC06558','DSC06560','DSC06564','DSC06576','DSC06578','DSC06585','DSC06588']
+          total_original=total_thumb=total_viewer=0
+          for name in names:
+              req=urllib.request.Request(base+name+'.webp',headers={'User-Agent':'VCC-Preview-Generator/1.0'})
+              data=urllib.request.urlopen(req,timeout=35).read()
+              im=Image.open(io.BytesIO(data))
+              im=ImageOps.exif_transpose(im)
+              if im.mode not in ('RGB','RGBA'): im=im.convert('RGB')
+              total_original+=len(data)
+              for part,width,quality in [('mini',560,76),('visor',1680,82)]:
+                  img=im.copy()
+                  img.thumbnail((width,width), Image.Resampling.LANCZOS)
+                  target=f'{root}/{part}/{name}.webp'
+                  os.makedirs(os.path.dirname(target),exist_ok=True)
+                  img.save(target,format='WEBP',quality=quality,method=5)
+                  size=os.path.getsize(target)
+                  if part=='mini':total_thumb+=size
+                  else:total_viewer+=size
+                  print(f'{part}: {name} {img.size} {size} bytes',flush=True)
+          print(f'TOTAL_BYTES original={total_original} mini={total_thumb} visor={total_viewer}',flush=True)
+          assert len(names)==10
+          PY
+      - name: Commit optimized images to quality
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add destinos/suecia/goteborg/imagenes/optimizadas/
+          if git diff --cached --quiet; then
+            echo 'Optimized previews already committed'
+          else
+            git commit -m 'Cache small WebP previews for R2 galleries and lightbox'
+            git pull --rebase origin quality
+            git push origin HEAD:quality
+          fi
