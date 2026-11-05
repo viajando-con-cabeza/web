@@ -74,10 +74,21 @@
   }
   const placeHeading = placeInfo?.querySelector('h3');
   let album = [], current = 0, focusBefore = null;
+  const r2Demo = document.querySelector('.imp-page[data-gallery-source="r2"]') !== null;
+  const transparentPixel = 'data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=';
   const show = i => {
     if (!album.length || !image) return;
     current = (i + album.length) % album.length;
-    image.src = album[current];
+    if (r2Demo) {
+      image.src = transparentPixel;
+      image.style.backgroundImage = 'url("' + album[current] + '")';
+      image.style.backgroundRepeat = 'no-repeat';
+      image.style.backgroundPosition = 'center';
+      image.style.backgroundSize = 'contain';
+    } else {
+      image.style.backgroundImage = '';
+      image.src = album[current];
+    }
     image.alt = `${placeHeading?.textContent || 'Estocolmo'} · fotografía ${current + 1} de ${album.length}`;
     if (counter) counter.textContent = `${current + 1} / ${album.length}`;
     [...thumbnails.children].forEach((button,j) => {
@@ -111,11 +122,16 @@
       const button = document.createElement('button');
       button.type = 'button';
       button.setAttribute('aria-label',`Ver fotografía ${j+1} de ${album.length}`);
-      const thumb = document.createElement('img'); thumb.src = src; thumb.alt = '';
-      button.append(thumb);
+      if (r2Demo) {
+        button.style.background = 'url("' + src + '") center / cover no-repeat';
+      } else {
+        const thumb = document.createElement('img'); thumb.src = src; thumb.alt = '';
+        button.append(thumb);
+      }
       button.addEventListener('click',() => show(j));
       thumbnails.append(button);
     });
+    overlay.classList.toggle('r2-demo', r2Demo);
     overlay.classList.add('open');
     overlay.setAttribute('aria-hidden','false');
     show(index);
