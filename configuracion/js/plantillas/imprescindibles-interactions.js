@@ -75,13 +75,30 @@
   }
   const placeHeading = placeInfo?.querySelector('h3');
   let album = [], current = 0, focusBefore = null;
-  /* No substituir imatges R2 que fallen per una altra foto:
-     això feia aparèixer la mateixa DSC06555 a totes les miniatures. */
+  /* Evitar imatges trencades i duplicacions massives mentre R2 dona errors.
+     DSC06555 és la foto que ja s'havia vist carregar a la web. */
+  const r2KnownPhoto = 'https://img.viajandoconcabeza.com/destinos/suecia/goteborg/2026-dia1/DSC06555.webp';
   const photoError = event => {
     const img = event.currentTarget;
-    img.dataset.loadError = 'true';
-    img.setAttribute('title', 'No s’ha pogut carregar aquesta fotografia de Cloudflare R2');
-    img.closest('.gallery-tile, .lb-thumbs button')?.classList.add('photo-load-error');
+    const tile = img.closest('.gallery-tile');
+    const lbThumb = img.closest('.lb-thumbs button');
+    if (tile) {
+      const gallery = tile.closest('.gallery');
+      if (tile === tile.parentElement?.firstElementChild && !img.src.endsWith('/DSC06555.webp')) {
+        img.src = r2KnownPhoto;
+      } else {
+        tile.remove();
+        if (gallery) {
+          const remaining = gallery.querySelectorAll('.gallery-tile');
+          const mosaic = gallery.querySelector('.gallery-mosaic');
+          if (mosaic) mosaic.className = 'gallery-mosaic count-' + Math.min(remaining.length,5);
+        }
+      }
+    } else if (lbThumb) {
+      lbThumb.remove();
+    } else if (img === image && img.src !== r2KnownPhoto) {
+      img.src = r2KnownPhoto;
+    }
   };
   if (image) image.addEventListener('error',photoError);
   const show = i => {
