@@ -88,7 +88,7 @@
      la fotografia actual en resolució de pantalla. */
   const optimizedPhoto = (original, size) => {
     const filename = String(original).split('/').pop();
-    if (!/^DSC[0-9]+\\.webp$/i.test(filename)) return original;
+    if (!/^DSC[0-9]+[.]webp$/i.test(filename)) return original;
     return '/destinos/suecia/goteborg/imagenes/optimizadas/' + size + '/' + filename;
   };
   const show = i => {
