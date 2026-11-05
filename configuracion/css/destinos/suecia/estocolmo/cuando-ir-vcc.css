@@ -172,3 +172,22 @@ html body.ci-page nav.vcc-crumb.ci-crumb strong{
  }
  html body.ci-page nav.vcc-crumb.ci-crumb span{margin:0 5px!important}
 }
+
+/* Ready for approved text-free photographic WebP (keep existing illustration as fallback until file is uploaded). */
+html body.ci-page .ci-hero{
+ background-image:
+  url('/configuracion/imagenes/fondos/cuando-ir-vcc-sin-texto.webp'),
+  url('/configuracion/imagenes/fondos/cuando-ir-vcc-ilustracion.webp?v=20261105-final');
+ background-size:cover,cover;
+ background-position:center center,center right;
+}
+@media(max-width:600px){
+ html body.ci-page .ci-hero::before{
+  background-image:
+   linear-gradient(180deg,rgba(248,240,229,.92) 0,rgba(248,240,229,.58) 42px,rgba(248,240,229,0) 85px),
+   url('/configuracion/imagenes/fondos/cuando-ir-vcc-sin-texto.webp'),
+   url('/configuracion/imagenes/fondos/cuando-ir-vcc-ilustracion.webp?v=20261105-final')!important;
+  background-size:cover,cover,cover!important;
+  background-position:center,right center,right center!important;
+ }
+}
