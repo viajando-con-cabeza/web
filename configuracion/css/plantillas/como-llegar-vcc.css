@@ -608,3 +608,67 @@ html body .cl-page.cl-landing .cl-advice-copy p{
  html body .cl-page.cl-landing .cl-advice-heading{font-size:12px!important}
  html body .cl-page.cl-landing .cl-advice-copy p{font-size:11.5px!important}
 }
+
+/* V14 · final breadcumbs and transport illustration polish */
+html body .cl-page.cl-landing .cl-landing-hero .cl-crumb.vcc-crumb{
+ left:0!important;right:auto!important;top:auto!important;
+ width:auto!important;
+ margin:0 0 23px 32px!important;
+ padding:0!important;
+ display:flex!important;
+ column-gap:7px!important;
+ font:500 12px/1.5 'DM Sans',sans-serif!important;
+ color:#48433f!important;
+}
+html body .cl-page.cl-landing .cl-landing-hero .cl-crumb.vcc-crumb a{
+ font:inherit!important;color:inherit!important;
+}
+html body .cl-page.cl-landing .cl-landing-hero .cl-crumb.vcc-crumb strong{
+ color:#48433f!important;font-weight:800!important;
+}
+html body .cl-page.cl-landing .cl-landing-hero .cl-crumb.vcc-crumb span{
+ padding:0!important;opacity:.65!important;
+}
+html body .cl-page.cl-landing .cl-illustration.cl-artwork{
+ background:transparent!important;
+ border-radius:0!important;
+ overflow:visible!important;
+}
+html body .cl-page.cl-landing .cl-illustration.cl-artwork .cl-transport-photo{
+ -webkit-mask-image:radial-gradient(ellipse 70% 70% at 50% 51%,#000 62%,rgba(0,0,0,.85) 76%,transparent 100%)!important;
+ mask-image:radial-gradient(ellipse 70% 70% at 50% 51%,#000 62%,rgba(0,0,0,.85) 76%,transparent 100%)!important;
+ -webkit-mask-repeat:no-repeat!important;mask-repeat:no-repeat!important;
+}
+html body .cl-page.cl-landing .cl-guide-link{
+ display:grid!important;
+ grid-template-columns:minmax(0,1fr) 22px!important;
+ align-items:center!important;
+ gap:7px!important;
+}
+html body .cl-page.cl-landing .cl-guide-cta{
+ align-self:center!important;
+ justify-self:end!important;
+ display:flex!important;
+ align-items:center!important;
+ justify-content:center!important;
+ color:#a6a39c!important;
+ font-size:16px!important;
+}
+html body .cl-page.cl-landing .cl-guide-cta b{
+ font-size:16px!important;
+ color:inherit!important;
+ transition:color .15s ease,transform .15s ease!important;
+}
+html body .cl-page.cl-landing .cl-guide-link:hover .cl-guide-cta,
+html body .cl-page.cl-landing .cl-guide-link:focus-visible .cl-guide-cta{
+ color:#c26736!important;
+}
+html body .cl-page.cl-landing .cl-guide-link:hover .cl-guide-cta b,
+html body .cl-page.cl-landing .cl-guide-link:focus-visible .cl-guide-cta b{
+ transform:translate(2px,-2px);
+}
+@media(max-width:560px){
+ html body .cl-page.cl-landing .cl-landing-hero .cl-crumb.vcc-crumb{
+  margin-left:33px!important;
+ }
+}
