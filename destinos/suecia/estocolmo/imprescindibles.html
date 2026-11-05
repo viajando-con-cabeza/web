@@ -211,7 +211,7 @@ nav.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{nav.querySe
 const prev=document.getElementById('navPrev'),next=document.getElementById('navNext');const update=()=>{prev.disabled=nav.scrollLeft<5;next.disabled=nav.scrollLeft+nav.clientWidth>=nav.scrollWidth-5};prev.onclick=()=>nav.scrollBy({left:-Math.max(nav.clientWidth*.7,280),behavior:'smooth'});next.onclick=()=>nav.scrollBy({left:Math.max(nav.clientWidth*.7,280),behavior:'smooth'});nav.addEventListener('scroll',update,{passive:true});window.addEventListener('resize',update);update();
 document.querySelectorAll('.gallery').forEach(g=>{const main=g.querySelector('.gallery-main'),hero=main.querySelector('img'),count=main.querySelector('.photo-count'),btns=[...g.querySelectorAll('.thumbs button')],imgs=JSON.parse(main.dataset.images);btns.forEach(b=>b.onclick=()=>{const i=+b.dataset.i;hero.src=imgs[i];if(count)count.textContent=`${i+1} / ${imgs.length}`;btns.forEach(x=>x.classList.toggle('is-active',x===b))})});
 </script>
-<script src="/configuracion/js/plantillas/imprescindibles-interactions.js?v=20261105-r2-only-2" defer></script>
+<script src="/configuracion/js/plantillas/imprescindibles-interactions.js?v=20261105-r2-bg-fix-3" defer></script>
 <script src="/configuracion/js/site-footer.js?v=20261102"></script><script id="vcc-single-active-subnav">
 (function(){
   const nav=document.querySelector('.st-tabs, .place-nav');
