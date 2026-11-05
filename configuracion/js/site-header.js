@@ -457,8 +457,8 @@
     candidates.forEach(a=>{
       const href=a.getAttribute('href')||'';
       const label=(a.textContent||'').trim();
-      const isPending=/^PR[ÓO]XIMAMENTE\\s*(?:→|›)?$/i.test(label);
-      const isPendingDestination=/\\/proximamente\\/?(?:[?#].*)?$|\\/coming-soon\\/?(?:[?#].*)?$/i.test(href);
+      const isPending=/^PR[ÓO]XIMAMENTE\s*(?:→|›)?$/i.test(label);
+      const isPendingDestination=/\/proximamente\/?(?:[?#].*)?$|\/coming-soon\/?(?:[?#].*)?$/i.test(href);
       if(!isPending&&!isPendingDestination)return;
       const span=document.createElement('span');
       span.className=a.className||'';
