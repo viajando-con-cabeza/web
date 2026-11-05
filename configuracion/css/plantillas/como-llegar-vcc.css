@@ -41,3 +41,22 @@
 .cl-page .cl-method-grid span{font-size:13px;line-height:1.55}
 @media(max-width:800px){.cl-page .cl-airports{grid-template-columns:1fr}}
 @media(max-width:620px){.cl-page .cl-method-grid{grid-template-columns:1fr}}
+
+/* 2026-11: hero d'arribada amb jerarquia exacta d'Imprescindibles, sense vinyeta */
+html body .cl-page .cl-hero{height:600px;min-height:600px;position:relative;background:linear-gradient(90deg,rgba(250,247,242,.16),rgba(250,247,242,0) 74%),url('/configuracion/imagenes/como-llegar-universal-vcc.webp') center/cover, url('https://images.unsplash.com/photo-1509356843151-3e7d96241e11?auto=format&fit=crop&w=2200&q=90') center/cover!important}
+html body .cl-page .cl-hero-inner{width:min(1480px,calc(100% - 90px));max-width:none}
+html body .cl-page .cl-crumb{top:22px;left:0;font:400 12px/1.45 'DM Sans',sans-serif;color:#514c45;text-shadow:none;gap:10px}
+html body .cl-page .cl-crumb strong{font-weight:700;color:#2b2b29}
+html body .cl-page .cl-card{position:absolute;top:125px;left:0;width:min(880px,68%);padding:0;background:transparent;border:0;border-radius:0;box-shadow:none}
+html body .cl-page .cl-eyebrow{font:700 13px/1.35 'DM Sans',sans-serif;letter-spacing:1.2px;color:#c5634e}
+html body .cl-page .cl-eyebrow:before{content:'📍';font-size:12px;letter-spacing:0;margin-right:7px}
+html body .cl-page .cl-card h1{font:500 clamp(48px,5.4vw,83px)/1.09 'Oswald',sans-serif;color:#151817;margin:15px 0 20px;letter-spacing:0}
+html body .cl-page .cl-script{font:600 clamp(26px,2.8vw,38px)/1.1 'Caveat',cursive;color:#ca7157;margin:0 0 14px}
+html body .cl-page .cl-lead{font:400 15px/1.8 'DM Sans',sans-serif;color:#252722;max-width:720px;margin:0}
+html body .cl-page .cl-hero:after{content:none!important}
+html body .cl-page .cl-subheader{position:sticky;top:var(--vcc-header-h,55px);z-index:45;background:#fff;border-top:1px solid #e7ded6;border-bottom:1px solid #e7ded6}
+html body .cl-page .cl-subheader-inner{max-width:1180px;margin:auto;display:flex;align-items:center;gap:35px;height:48px;overflow-x:auto;scrollbar-width:none}
+html body .cl-page .cl-subheader a{font:800 11px/1.2 'DM Sans',sans-serif;color:#171717;padding:16px 0 14px;border-bottom:3px solid transparent;white-space:nowrap;text-decoration:none}
+html body .cl-page .cl-subheader a:hover,html body .cl-page .cl-subheader a[aria-current='page']{color:#b65b43;border-bottom-color:#cf705c}
+@media(max-width:900px){html body .cl-page .cl-hero{height:520px;min-height:520px}html body .cl-page .cl-card{width:min(730px,85%);top:120px}html body .cl-page .cl-hero-inner{width:calc(100% - 52px)}html body .cl-page .cl-subheader-inner{padding:0 20px}}
+@media(max-width:650px){html body .cl-page .cl-hero{height:480px;min-height:480px;background-position:58% center,center center,center center!important}html body .cl-page .cl-card{top:123px;left:0;width:100%}html body .cl-page .cl-hero-inner{width:calc(100% - 34px)}html body .cl-page .cl-card h1{font-size:clamp(41px,10vw,60px)}html body .cl-page .cl-lead{font-size:13px;line-height:1.6;max-width:94%}html body .cl-page .cl-subheader-inner{gap:21px;padding:0 15px}}
