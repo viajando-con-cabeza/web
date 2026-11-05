@@ -1,0 +1,75 @@
+/* V15 · targetes compactes sota Guías destacadas, mateix cantell inferior.
+   El JS d'alineació defineix l'alçada exacta des de les targetes de guia. */
+@media(min-width:901px){
+  body.inicio-vcc .home-social-contact{
+    grid-auto-rows:minmax(0,1fr)!important;
+    align-items:stretch!important;
+    min-height:0!important;
+  }
+  body.inicio-vcc .home-social-contact .home-instagram,
+  body.inicio-vcc .home-social-contact .home-contact{
+    min-height:0!important;
+    max-height:100%!important;
+    height:100%!important;
+    padding:8px 10px!important;
+    box-sizing:border-box!important;
+    overflow:hidden!important;
+  }
+  body.inicio-vcc .home-social-eyebrow{
+    font-size:14px!important;line-height:1!important;margin:0 0 2px!important;
+  }
+  body.inicio-vcc .home-social-heading{
+    margin-bottom:4px!important;min-height:0!important;
+  }
+  body.inicio-vcc .home-social-heading h2{
+    font-size:clamp(13px,1.18vw,18px)!important;
+    line-height:1.05!important;white-space:nowrap!important;
+  }
+  body.inicio-vcc .home-insta-brand-icon{
+    width:15px!important;height:15px!important;flex-basis:15px!important;
+  }
+  body.inicio-vcc .home-instagram .home-insta-largepost{
+    flex:1 1 0!important;min-height:0!important;max-height:100%!important;
+    overflow:hidden!important;
+  }
+  body.inicio-vcc .home-insta-topline{min-height:22px!important;padding:2px 5px!important;gap:4px!important}
+  body.inicio-vcc .home-insta-avatar{width:15px!important;height:15px!important;min-width:15px!important}
+  body.inicio-vcc .home-instagram .home-insta-photo{
+    min-height:0!important;flex:1 1 0!important;overflow:hidden!important;
+  }
+  body.inicio-vcc .home-insta-footer{height:18px!important;min-height:18px!important;padding:1px 5px!important}
+  body.inicio-vcc .home-insta-footer img{width:12px!important;height:12px!important}
+  body.inicio-vcc .home-insta-text{
+    display:block!important;flex:0 0 auto!important;
+    white-space:nowrap!important;overflow:hidden!important;text-overflow:ellipsis!important;
+    padding:2px 5px 3px!important;font-size:8px!important;line-height:1.2!important;
+  }
+  body.inicio-vcc .home-contact{
+    justify-content:flex-start!important;gap:0!important;
+  }
+  body.inicio-vcc .home-contact-symbol{
+    flex:0 0 38px!important;
+    width:52px!important;height:38px!important;max-width:52px!important;
+    margin:0 0 3px!important;
+  }
+  body.inicio-vcc .home-contact-symbol img{width:52px!important;height:38px!important}
+  body.inicio-vcc .home-contact h2{
+    font-size:clamp(20px,1.65vw,25px)!important;
+    margin:0 0 5px!important;line-height:1.07!important;
+  }
+  body.inicio-vcc .home-contact p{
+    font-size:10px!important;line-height:1.34!important;
+    margin:0 0 5px!important;max-width:100%!important;
+  }
+  body.inicio-vcc .home-contact .home-card-more{
+    flex:0 0 auto!important;margin-top:auto!important;
+    font-size:9px!important;padding:3px 0 0!important;
+    white-space:nowrap!important;
+  }
+}
+@media(max-width:900px){
+  body.inicio-vcc .home-social-contact .home-instagram,
+  body.inicio-vcc .home-social-contact .home-contact{
+    min-height:0!important;height:auto!important;
+  }
+}
