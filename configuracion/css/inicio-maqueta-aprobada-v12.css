@@ -297,3 +297,53 @@ body.inicio-vcc .home-contact .home-card-more{
     min-height:245px!important;
   }
 }
+
+/* V15: targetes Instagram + Contacto més avall, amb la base alineada a Guías destacadas. */
+@media(min-width:901px){
+  body.inicio-vcc .home-social-contact{
+    align-self:start!important;
+    grid-auto-rows:minmax(0,1fr)!important;
+    min-height:0!important;
+    overflow:hidden!important;
+  }
+  body.inicio-vcc .home-social-contact .home-instagram,
+  body.inicio-vcc .home-social-contact .home-contact{
+    min-height:0!important;
+    height:100%!important;
+    overflow:hidden!important;
+    padding:9px 10px!important;
+  }
+  body.inicio-vcc .home-social-eyebrow{
+    font-size:15px!important;margin-bottom:2px!important;
+  }
+  body.inicio-vcc .home-social-heading{
+    margin-bottom:5px!important;
+  }
+  body.inicio-vcc .home-insta-topline{
+    min-height:23px!important;padding:3px 5px!important;
+  }
+  body.inicio-vcc .home-instagram .home-insta-photo{
+    min-height:62px!important;
+    flex:1 1 auto!important;
+  }
+  body.inicio-vcc .home-insta-footer{min-height:19px!important;height:19px!important}
+  body.inicio-vcc .home-insta-text{
+    padding:2px 5px 4px!important;
+    white-space:nowrap!important;
+    text-overflow:ellipsis!important;
+    overflow:hidden!important;
+  }
+  body.inicio-vcc .home-contact-symbol{
+    width:54px!important;height:43px!important;
+    max-width:54px!important;flex-basis:43px!important;
+    margin-bottom:4px!important;
+  }
+  body.inicio-vcc .home-contact-symbol img{
+    width:54px!important;height:43px!important;
+  }
+  body.inicio-vcc .home-contact h2{font-size:25px!important;margin-bottom:5px!important}
+  body.inicio-vcc .home-contact p{
+    font-size:10px!important;line-height:1.37!important;margin-bottom:4px!important;
+  }
+  body.inicio-vcc .home-contact .home-card-more{padding-top:5px!important}
+}
