@@ -139,6 +139,35 @@ html body.budget-vcc .related-section{padding:36px 0 40px!important}
 html body.budget-vcc .related-head{margin-bottom:17px!important}
 @media(max-width:520px){html body.budget-vcc .decision-panel .decision-row{grid-template-columns:36px minmax(0,1fr)!important;gap:10px!important}html body.budget-vcc .decision-panel .vcc-decision-symbol{width:33px;height:33px;font-size:22px}html body.budget-vcc .related-grid .related-text-link{min-height:72px!important}}
 </style>
+<style id="vcc-budget-carousels-responsive-20261105">
+/* Cómo ahorrar y gastos sorpresa: 3 visibles en escritorio, 2 en tablets y 1 en móviles estrechos */
+html body.budget-vcc .savings-section .carousel-shell,
+html body.budget-vcc .surprise-section .carousel-shell{display:grid!important;grid-template-columns:30px minmax(0,1fr) 30px!important;align-items:center!important;gap:10px!important;min-width:0}
+html body.budget-vcc .savings-section .tips-track,
+html body.budget-vcc .surprise-section .tips-track{display:flex!important;gap:14px!important;min-width:0!important;width:100%!important;overflow-x:auto!important;overflow-y:hidden!important;scroll-snap-type:x mandatory!important;scroll-behavior:smooth!important;scrollbar-width:none!important;overscroll-behavior-x:contain!important;align-items:stretch!important}
+html body.budget-vcc .savings-section .tips-track::-webkit-scrollbar,
+html body.budget-vcc .surprise-section .tips-track::-webkit-scrollbar{display:none}
+html body.budget-vcc .savings-section .saving-tip,
+html body.budget-vcc .surprise-section .surprise-grid.tips-track article{box-sizing:border-box!important;flex:0 0 calc((100% - 28px)/3)!important;min-width:0!important;scroll-snap-align:start!important;background:#fff!important;border:1px solid #e2ddd6!important;border-radius:10px!important}
+html body.budget-vcc .savings-section .saving-tip{padding:18px!important}
+html body.budget-vcc .surprise-section .surprise-grid.tips-track article{padding:18px!important}
+html body.budget-vcc .savings-section .carousel-arrow,
+html body.budget-vcc .surprise-section .carousel-arrow{position:static!important;transform:none!important;width:30px!important;height:30px!important;border:1px solid #dccfc5!important;border-radius:50%!important;background:#fff!important;color:#b15a43!important;cursor:pointer}
+@media(max-width:900px){
+ html body.budget-vcc .savings-section .saving-tip,
+ html body.budget-vcc .surprise-section .surprise-grid.tips-track article{flex-basis:calc((100% - 14px)/2)!important}
+}
+@media(max-width:560px){
+ html body.budget-vcc .savings-section .carousel-shell,
+ html body.budget-vcc .surprise-section .carousel-shell{grid-template-columns:26px minmax(0,1fr) 26px!important;gap:6px!important}
+ html body.budget-vcc .savings-section .tips-track,
+ html body.budget-vcc .surprise-section .tips-track{gap:10px!important}
+ html body.budget-vcc .savings-section .saving-tip,
+ html body.budget-vcc .surprise-section .surprise-grid.tips-track article{flex-basis:100%!important;padding:15px!important}
+ html body.budget-vcc .savings-section .carousel-arrow,
+ html body.budget-vcc .surprise-section .carousel-arrow{width:26px!important;height:26px!important}
+}
+</style>
 <style id="vcc-budget-single-active">
 /* Únicament la pestanya activa es destaca. El primer enllaç ja no queda marcat permanentment. */
 html body.budget-vcc .st-tabs a,
@@ -370,8 +399,14 @@ document.querySelectorAll(".carousel-shell").forEach(carousel=>{
   const track=carousel.querySelector(".tips-track");
   const prev=carousel.querySelector(".prev"),next=carousel.querySelector(".next");
   if(prev&&next&&track){
-    prev.addEventListener("click",()=>track.scrollBy({left:-(track.firstElementChild.getBoundingClientRect().width+parseFloat(getComputedStyle(track).gap||0)),behavior:"smooth"}));
-    next.addEventListener("click",()=>track.scrollBy({left:(track.firstElementChild.getBoundingClientRect().width+parseFloat(getComputedStyle(track).gap||0)),behavior:"smooth"}));
+    const move=(direction)=>{
+      const item=track.firstElementChild;
+      if(!item)return;
+      const gap=parseFloat(getComputedStyle(track).gap)||0;
+      track.scrollBy({left:direction*(item.getBoundingClientRect().width+gap),behavior:"smooth"});
+    };
+    prev.addEventListener("click",()=>move(-1));
+    next.addEventListener("click",()=>move(1));
   }
 });
 sync();
