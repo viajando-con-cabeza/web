@@ -1,41 +1,30 @@
-/* VCC · portada: mostrar l'escena completa sense franja vertical entre imatge i fons.
-   Mateix WebP d'alta qualitat, sense zoom: ajustem l'escala a l'altura
-   i integrem el costat esquerre amb una mascara de degradat. */
+/* Inici VCC · fons panoràmic real 3000 × 1000, sense retalls ni franges.
+   La zona esquerra ja està integrada al mateix WebP; no cal máscara CSS. */
 body.inicio-vcc .home-hero{
-  background:linear-gradient(95deg,#faf6f1 0%,#f8eee5 34%,#f9e3d5 57%,#eebc9d 100%)!important;
+  background:#f5e9dc!important;
 }
 body.inicio-vcc .home-hero::before{
-  background-image:url('/configuracion/imagenes/fondos/inicio-vcc-hero.webp')!important;
-  background-size:auto 100%!important;
-  background-position:right center!important;
+  background-image:url('/configuracion/imagenes/fondos/inicio-vcc-hero-panoramico.webp')!important;
+  background-size:cover!important;
+  background-position:center center!important;
   background-repeat:no-repeat!important;
   filter:none!important;
   transform:none!important;
-  -webkit-mask-image:linear-gradient(90deg,transparent 20%,rgba(0,0,0,.06) 32%,rgba(0,0,0,.45) 41%,#000 58%)!important;
-  mask-image:linear-gradient(90deg,transparent 20%,rgba(0,0,0,.06) 32%,rgba(0,0,0,.45) 41%,#000 58%)!important;
+  -webkit-mask-image:none!important;
+  mask-image:none!important;
 }
 body.inicio-vcc .home-hero-wash{
   background:linear-gradient(90deg,
-    rgba(250,246,241,.92) 0%,
-    rgba(250,246,241,.68) 26%,
-    rgba(250,246,241,.25) 43%,
-    transparent 66%)!important;
-}
-@media(max-width:900px){
-  body.inicio-vcc .home-hero::before{
-    background-size:auto 100%!important;
-    background-position:right center!important;
-    -webkit-mask-image:linear-gradient(90deg,transparent 7%,rgba(0,0,0,.3) 32%,#000 58%)!important;
-    mask-image:linear-gradient(90deg,transparent 7%,rgba(0,0,0,.3) 32%,#000 58%)!important;
-  }
+    rgba(250,246,241,.50) 0%,
+    rgba(250,246,241,.22) 29%,
+    rgba(250,246,241,.04) 49%,
+    transparent 65%)!important;
 }
 @media(max-width:720px){
   body.inicio-vcc .home-hero::before{
     background-position:67% center!important;
-    -webkit-mask-image:none!important;
-    mask-image:none!important;
   }
   body.inicio-vcc .home-hero-wash{
-    background:linear-gradient(90deg,rgba(250,246,241,.96),rgba(250,246,241,.85) 57%,rgba(250,246,241,.3))!important;
+    background:linear-gradient(90deg,rgba(250,246,241,.93),rgba(250,246,241,.72) 70%,rgba(250,246,241,.32))!important;
   }
 }
