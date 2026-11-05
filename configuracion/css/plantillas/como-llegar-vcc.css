@@ -459,3 +459,49 @@ html body .cl-page.cl-landing .cl-artwork-4{background-image:url('/configuracion
  html body .cl-page.cl-landing .cl-landing-kicker{font-size:26px!important}
  html body .cl-page.cl-landing .cl-illustration.cl-artwork{height:94px!important;min-height:94px!important}
 }
+
+/* 2026-11-05 V11 · Breadcrumbs igual a Imprescindibles; restaurar il·lustracions.
+   Els assets individuals són vàlids; un selector anterior amb més especificitat
+   fixava background-image:none sobre les targetes. */
+html body .cl-page.cl-landing .cl-landing-hero .cl-crumb.vcc-crumb{
+ position:relative!important;
+ top:auto!important;left:auto!important;right:auto!important;
+ transform:none!important;
+ width:auto!important;max-width:none!important;
+ margin:0 0 23px!important;padding:0!important;
+ display:flex!important;align-items:center!important;flex-wrap:wrap!important;
+ column-gap:7px!important;row-gap:3px!important;
+ color:#48433f!important;text-shadow:none!important;
+ font-family:'DM Sans',sans-serif!important;
+ font-size:12px!important;font-weight:500!important;
+ line-height:1.5!important;letter-spacing:0!important;
+}
+html body .cl-page.cl-landing .cl-landing-hero .cl-crumb.vcc-crumb a{
+ color:inherit!important;font:inherit!important;text-decoration:none!important;
+}
+html body .cl-page.cl-landing .cl-landing-hero .cl-crumb.vcc-crumb strong{
+ font-weight:800!important;color:#48433f!important;
+}
+html body .cl-page.cl-landing .cl-landing-hero .cl-crumb.vcc-crumb span{
+ margin:0!important;padding:0!important;opacity:.65!important;color:inherit!important;
+}
+html body .cl-page.cl-landing .cl-illustration.cl-artwork.cl-artwork-0{
+ background-image:url('/configuracion/imagenes/como-llegar-avion-vcc.webp')!important;
+}
+html body .cl-page.cl-landing .cl-illustration.cl-artwork.cl-artwork-1{
+ background-image:url('/configuracion/imagenes/como-llegar-tren-vcc.webp')!important;
+}
+html body .cl-page.cl-landing .cl-illustration.cl-artwork.cl-artwork-2{
+ background-image:url('/configuracion/imagenes/como-llegar-ferry-vcc.webp')!important;
+}
+html body .cl-page.cl-landing .cl-illustration.cl-artwork.cl-artwork-3{
+ background-image:url('/configuracion/imagenes/como-llegar-autobus-vcc.webp')!important;
+}
+html body .cl-page.cl-landing .cl-illustration.cl-artwork.cl-artwork-4{
+ background-image:url('/configuracion/imagenes/como-llegar-coche-vcc.webp')!important;
+}
+@media(max-width:560px){
+ html body .cl-page.cl-landing .cl-landing-hero .cl-crumb.vcc-crumb{
+  font-size:12px!important;width:auto!important;
+ }
+}
