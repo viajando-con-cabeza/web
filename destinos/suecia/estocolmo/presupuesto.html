@@ -219,6 +219,26 @@ html body.budget-vcc .breakdown-card .donut{flex-shrink:0!important}
  html body.budget-vcc .breakdown-card .legend-row{min-height:35px!important}
 }
 </style>
+<style id="vcc-budget-balanced-calculator-20261105">
+/* Tarjetas gemelas: compactar el planner y centrar verticalmente el gráfico.
+   En móvil las tarjetas conservan su altura natural y se apilan. */
+@media(min-width:1160px){
+ html body.budget-vcc .calculator-grid{align-items:stretch!important}
+ html body.budget-vcc .calculator-grid>.breakdown-card{display:flex!important;flex-direction:column!important}
+ html body.budget-vcc .breakdown-card .chart-layout{flex:1 1 auto!important;align-content:center!important;align-items:center!important}
+ html body.budget-vcc .breakdown-card .donut{margin-inline:auto!important}
+ html body.budget-vcc .calculator-card .calc-top{margin-bottom:7px!important}
+ html body.budget-vcc .calculator-card .calc-control{min-height:60px!important;gap:4px!important}
+ html body.budget-vcc .calculator-card .category-row{padding:2px 0!important}
+ html body.budget-vcc .calculator-card .calc-total{margin-top:8px!important;padding:9px 12px!important}
+ html body.budget-vcc .calc-ticket-head{margin-bottom:8px!important;padding-bottom:7px!important}
+}
+@media(min-width:821px) and (max-width:1159px){
+ html body.budget-vcc .calculator-grid{align-items:stretch!important}
+ html body.budget-vcc .calculator-grid>.breakdown-card{display:flex!important;flex-direction:column!important}
+ html body.budget-vcc .breakdown-card .chart-layout{flex:1 1 auto!important;align-content:center!important}
+}
+</style>
 <style id="vcc-budget-profile-svg-icons-20261105">
 /* Iconos SVG corporativos independientes; la tarjeta VCC usa el logo de marca original */
 html body.budget-vcc .philosophy-profile .profile-icon{
