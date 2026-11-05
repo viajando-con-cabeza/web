@@ -400,43 +400,63 @@ html body.budget-vcc .calculator-card .calc-total #grand-total{
 }
 </style>
 <style id="vcc-budget-hero-unified-20261105">
-/* Hero de Presupuesto con la misma escala que Planifica, Nosotros y Contacto */
-html body.budget-vcc .budget-hero{
- height:345px!important;min-height:345px!important;max-height:345px!important;
+/* Portada de Presupuesto: escala de Estocolmo (hero 595px, subheader inmediatamente debajo) */
+html body.budget-vcc .st-shell > .budget-hero{
+ box-sizing:border-box!important;
+ height:595px!important;min-height:595px!important;max-height:595px!important;
  background-position:center 48%!important;
 }
 html body.budget-vcc .budget-hero .budget-hero-inner{
  width:min(1180px,calc(100% - 48px))!important;height:100%!important;
 }
-html body.budget-vcc .budget-hero .budget-crumb{top:14px!important}
+html body.budget-vcc .budget-hero .budget-crumb{top:18px!important}
 html body.budget-vcc .budget-hero .budget-hero-card{
- top:72px!important;width:min(690px,78vw)!important;
+ top:117px!important;width:min(690px,78vw)!important;
 }
 html body.budget-vcc .budget-hero .hero-eyebrow{
- font-size:11px!important;margin-bottom:10px!important;
+ font-size:11px!important;margin-bottom:12px!important;
 }
 html body.budget-vcc .budget-hero h1{
- font-size:clamp(34px,3.6vw,48px)!important;line-height:1.08!important;
- letter-spacing:0!important;max-width:720px!important;
+ font-size:clamp(48px,4.25vw,64px)!important;
+ line-height:1.06!important;letter-spacing:-.018em!important;
+ max-width:680px!important;
 }
 html body.budget-vcc .budget-hero .hero-intro{
- font-size:28px!important;margin:10px 0 9px!important;line-height:1.1!important;
+ font-size:30px!important;margin:19px 0 11px!important;line-height:1.1!important;
 }
 html body.budget-vcc .budget-hero .hero-lead{
- font-size:13px!important;line-height:1.5!important;max-width:570px!important;
+ font-size:14px!important;line-height:1.55!important;max-width:580px!important;
 }
 @media(max-width:850px){
- html body.budget-vcc .budget-hero{height:390px!important;min-height:390px!important;max-height:none!important}
+ html body.budget-vcc .st-shell > .budget-hero{
+  height:525px!important;min-height:525px!important;max-height:525px!important;
+ }
  html body.budget-vcc .budget-hero .budget-hero-inner{width:calc(100% - 30px)!important}
- html body.budget-vcc .budget-hero .budget-hero-card{top:75px!important;width:min(100%,620px)!important}
- html body.budget-vcc .budget-hero h1{font-size:clamp(31px,5vw,43px)!important}
+ html body.budget-vcc .budget-hero .budget-hero-card{
+  top:100px!important;width:min(100%,620px)!important;
+ }
+ html body.budget-vcc .budget-hero h1{font-size:clamp(38px,6vw,55px)!important}
 }
 @media(max-width:600px){
- html body.budget-vcc .budget-hero{height:390px!important;min-height:390px!important;max-height:none!important}
- html body.budget-vcc .budget-hero .budget-hero-card{top:85px!important;width:100%!important}
- html body.budget-vcc .budget-hero h1{font-size:clamp(29px,8vw,37px)!important;line-height:1.08!important}
- html body.budget-vcc .budget-hero .hero-intro{font-size:26px!important;margin:9px 0!important}
- html body.budget-vcc .budget-hero .hero-lead{font-size:12px!important;line-height:1.45!important}
+ html body.budget-vcc .st-shell > .budget-hero{
+  height:auto!important;min-height:440px!important;max-height:none!important;
+ }
+ html body.budget-vcc .budget-hero .budget-hero-inner{
+  min-height:440px!important;height:auto!important;padding-bottom:28px!important;
+ }
+ html body.budget-vcc .budget-hero .budget-hero-card{
+  position:relative!important;top:auto!important;left:auto!important;
+  width:100%!important;margin-top:92px!important;
+ }
+ html body.budget-vcc .budget-hero h1{
+  font-size:clamp(34px,8.2vw,47px)!important;line-height:1.08!important;
+ }
+ html body.budget-vcc .budget-hero .hero-intro{
+  font-size:26px!important;margin:12px 0 9px!important;
+ }
+ html body.budget-vcc .budget-hero .hero-lead{
+  font-size:12px!important;line-height:1.5!important;
+ }
 }
 </style>
 <style id="vcc-budget-single-active">
