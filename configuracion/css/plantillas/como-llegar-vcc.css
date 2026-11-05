@@ -548,3 +548,63 @@ html body .cl-page.cl-landing .cl-illustration.cl-artwork .cl-transport-photo{
  html body .cl-page.cl-landing .cl-illustration.cl-artwork{height:94px!important;min-height:94px!important}
  html body .cl-page.cl-landing .cl-landing-hero .cl-crumb.vcc-crumb{left:-5px!important}
 }
+
+
+/* V13: Consejo VCC — mateix format que la guia Imprescindibles */
+html body .cl-page.cl-landing .cl-landing-recommendation{
+ display:flex!important;
+ align-items:center!important;
+ justify-content:flex-start!important;
+ gap:19px!important;
+ width:min(770px,100%)!important;
+ min-height:98px!important;
+ margin:25px auto 10px!important;
+ padding:18px 24px!important;
+ background:#fff!important;
+ border:1px solid #e8dacf!important;
+ border-radius:19px!important;
+ box-shadow:none!important;
+ flex-wrap:nowrap!important;
+}
+html body .cl-page.cl-landing .cl-advice-logo{
+ display:block!important;
+ width:62px!important;
+ height:62px!important;
+ min-width:62px!important;
+ object-fit:contain!important;
+ flex:0 0 auto!important;
+}
+html body .cl-page.cl-landing .cl-advice-copy{
+ display:flex!important;
+ flex-direction:column!important;
+ align-items:flex-start!important;
+ gap:5px!important;
+ flex:1 1 auto!important;
+ min-width:0!important;
+}
+html body .cl-page.cl-landing .cl-advice-heading{
+ display:block!important;
+ font:700 14px/1.25 'DM Sans',sans-serif!important;
+ color:#a94f37!important;
+ letter-spacing:0!important;
+}
+html body .cl-page.cl-landing .cl-advice-copy p{
+ font:400 13px/1.65 'DM Sans',sans-serif!important;
+ color:#46403b!important;
+ margin:0!important;
+ flex:auto!important;
+}
+@media(max-width:560px){
+ html body .cl-page.cl-landing .cl-landing-recommendation{
+  gap:11px!important;
+  padding:13px!important;
+  border-radius:16px!important;
+  margin:20px auto 10px!important;
+  flex-wrap:nowrap!important;
+ }
+ html body .cl-page.cl-landing .cl-advice-logo{
+  width:49px!important;height:49px!important;min-width:49px!important;
+ }
+ html body .cl-page.cl-landing .cl-advice-heading{font-size:12px!important}
+ html body .cl-page.cl-landing .cl-advice-copy p{font-size:11.5px!important}
+}
