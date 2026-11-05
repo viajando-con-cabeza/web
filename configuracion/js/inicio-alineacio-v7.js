@@ -19,11 +19,19 @@
       contact.style.removeProperty("height");
       contact.style.removeProperty("min-height");
       social.style.removeProperty("height");
+      social.style.removeProperty("margin-top");
       return;
     }
     const first=itins.getBoundingClientRect(), grid=featureGrid.getBoundingClientRect();
     const top=Math.max(0,Math.round(first.top-grid.top));
     planning.style.setProperty("margin-top",top+"px","important");
+    // Align the TOP of both social/contact cards with the guide cards,
+    // rather than using a barely visible fixed 9px margin.
+    const guideTop=guides.getBoundingClientRect().top;
+    const previousMargin=parseFloat(window.getComputedStyle(social).marginTop)||0;
+    const socialUnshiftedTop=social.getBoundingClientRect().top-previousMargin;
+    const offset=Math.max(0,Math.round(guideTop-socialUnshiftedTop));
+    social.style.setProperty("margin-top",offset+"px","important");
     const guideEnd=guides.getBoundingClientRect().bottom;
     const socialTop=social.getBoundingClientRect().top;
     const target=Math.max(180,Math.round(guideEnd-socialTop));
