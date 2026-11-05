@@ -219,6 +219,25 @@ html body.budget-vcc .breakdown-card .donut{flex-shrink:0!important}
  html body.budget-vcc .breakdown-card .legend-row{min-height:35px!important}
 }
 </style>
+<style id="vcc-budget-profile-svg-icons-20261105">
+/* Iconos SVG corporativos independientes; la tarjeta VCC usa el logo de marca original */
+html body.budget-vcc .philosophy-profile .profile-icon{
+ width:48px!important;height:48px!important;min-width:48px!important;min-height:48px!important;
+ display:grid!important;place-items:center!important;padding:0!important;margin:0!important;
+ overflow:visible!important;border:0!important;box-shadow:none!important;
+ background:transparent!important;border-radius:50%!important;flex:none!important;
+}
+html body.budget-vcc .philosophy-profile .profile-icon .vcc-profile-svg{
+ display:block!important;width:100%!important;height:100%!important;
+ max-width:100%!important;max-height:100%!important;object-fit:contain!important;
+ border:0!important;background:transparent!important;box-shadow:none!important;
+}
+@media(max-width:650px){
+ html body.budget-vcc .philosophy-profile .profile-icon{
+ width:43px!important;height:43px!important;min-width:43px!important;min-height:43px!important;
+ }
+}
+</style>
 <style id="vcc-budget-single-active">
 /* Únicament la pestanya activa es destaca. El primer enllaç ja no queda marcat permanentment. */
 html body.budget-vcc .st-tabs a,
@@ -271,7 +290,7 @@ html body.budget-vcc .st-tabs a:hover:not(.is-active){color:#c86f5d!important}
   <div class="philosophy-profile-grid">
     <article class="philosophy-profile luxury">
       <div class="profile-top">
-        <span class="profile-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="m3 7 4 3 5-7 5 7 4-3-2 12H5L3 7Z"/><path d="M6 15h12M6 22h12"/></svg></span>
+        <span class="profile-icon" aria-hidden="true"><img class="vcc-profile-svg" src="/configuracion/imagenes/iconos/presupuesto-lujo-vcc.svg" width="48" height="48" alt="" loading="eager" decoding="async"></span>
         <div class="profile-name"><h3>LUJO</h3><p>Comodidad total y<br>experiencias premium.</p></div>
         <div class="profile-price"><strong>300 €</strong><small>por persona y día</small></div>
       </div>
@@ -280,7 +299,7 @@ html body.budget-vcc .st-tabs a:hover:not(.is-active){color:#c86f5d!important}
 
     <article class="philosophy-profile medium">
       <div class="profile-top">
-        <span class="profile-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 21V7l8-4 8 4v14M2 21h20M8 21v-5h8v5M8 8h1m6 0h1M8 12h1m6 0h1"/></svg></span>
+        <span class="profile-icon" aria-hidden="true"><img class="vcc-profile-svg" src="/configuracion/imagenes/iconos/presupuesto-medio-vcc.svg" width="48" height="48" alt="" loading="eager" decoding="async"></span>
         <div class="profile-name"><h3>MEDIO</h3><p>Equilibrio entre<br>comodidad y precio.</p></div>
         <div class="profile-price"><strong>180 €</strong><small>por persona y día</small></div>
       </div>
@@ -290,7 +309,7 @@ html body.budget-vcc .st-tabs a:hover:not(.is-active){color:#c86f5d!important}
     <article class="philosophy-profile vcc-choice">
       <span class="profile-ribbon">NUESTRA FORMA</span>
       <div class="profile-top">
-        <span class="profile-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="m3 11 18-8-8 18-3-7-7-3Z"/><path d="m10 14 5-5"/></svg></span>
+        <span class="profile-icon" aria-hidden="true"><img class="vcc-profile-svg" src="/configuracion/imagenes/marca/logo-vcc.svg" width="48" height="48" alt="" loading="eager" decoding="async"></span>
         <div class="profile-name"><h3>VCC</h3><p>Calidad y cero<br>gastos inútiles.</p></div>
         <div class="profile-price"><strong>110 €</strong><small>por persona y día</small></div>
       </div>
@@ -299,7 +318,7 @@ html body.budget-vcc .st-tabs a:hover:not(.is-active){color:#c86f5d!important}
 
     <article class="philosophy-profile backpacker">
       <div class="profile-top">
-        <span class="profile-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="6" width="14" height="16" rx="4"/><path d="M9 6V4a3 3 0 0 1 6 0v2M5 11h14M8 16h8v6M3 12v7m18-7v7M9 10v3m6-3v3"/></svg></span>
+        <span class="profile-icon" aria-hidden="true"><img class="vcc-profile-svg" src="/configuracion/imagenes/iconos/presupuesto-mochilero-vcc.svg" width="48" height="48" alt="" loading="eager" decoding="async"></span>
         <div class="profile-name"><h3>MOCHILERO</h3><p>La esencia, viajando<br>ligero y con ingenio.</p></div>
         <div class="profile-price"><strong>65 €</strong><small>por persona y día</small></div>
       </div>
