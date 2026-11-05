@@ -220,3 +220,51 @@ html body.ci-page .ci-hero {
  html body.ci-page .ci-hero::after{display:none!important}
  html body.ci-page .ci-hero-copy{padding-top:234px!important}
 }
+
+/* VCC compact layout 2026-11-05: Planifica-scale hero, smaller goals, intro between cards */
+html body.ci-page .ci-hero h1{
+ font-family:'Oswald',sans-serif!important;
+ font-size:clamp(34px,3.6vw,48px)!important;
+ line-height:1.08!important;
+ font-weight:600!important;
+ letter-spacing:-.025em!important;
+ margin:12px 0!important;
+}
+html body.ci-page .ci-hero-copy{max-width:540px}
+html body.ci-page .ci-objectives .ci-heading{margin-bottom:13px}
+html body.ci-page .ci-objective-grid{gap:10px}
+html body.ci-page .ci-objective{
+ min-height:88px!important;
+ padding:11px 7px!important;
+ gap:6px!important;
+ border-radius:10px!important;
+}
+html body.ci-page .ci-objective-icon{font-size:25px!important}
+html body.ci-page .ci-objective strong{
+ font-size:10.5px!important;
+ line-height:1.28!important;
+ max-width:130px;
+}
+html body.ci-page .ci-intro{
+ max-width:780px;
+ text-align:center;
+ margin:18px auto 19px!important;
+ font-size:12px;
+ line-height:1.65;
+ color:#665c52;
+}
+html body.ci-page .ci-recommendation{margin-top:0!important}
+@media(max-width:900px){
+ html body.ci-page .ci-objective{min-height:84px!important}
+}
+@media(max-width:600px){
+ html body.ci-page .ci-hero h1{
+  font-size:clamp(34px,9vw,43px)!important;
+  line-height:1.08!important;
+ }
+ html body.ci-page .ci-objective-grid{gap:7px}
+ html body.ci-page .ci-objective{min-height:76px!important;padding:9px 5px!important}
+ html body.ci-page .ci-objective-icon{font-size:22px!important}
+ html body.ci-page .ci-objective strong{font-size:10px!important}
+ html body.ci-page .ci-intro{margin:15px auto 16px!important;font-size:11px}
+}
