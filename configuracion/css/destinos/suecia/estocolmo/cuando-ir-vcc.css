@@ -412,19 +412,28 @@ html body.ci-page :is(#consejo,#mes-a-mes,#estaciones){
  scroll-margin-top:var(--ci-sticky-offset,115px)!important;
 }
 
-/* Hero alignment with Estocolmo guide (505px reference), with a little extra breathing room.
-   Subheader remains directly adjacent to the hero; lowering it is achieved by the hero height,
-   not by adding a disconnected gap. */
-@media(min-width:721px){
+/* Igualar la altura del hero al Presupuesto de Estocolmo: 435px escritorio.
+   Dejar el subheader inmediatamente debajo y visible en la primera pantalla. */
+@media(min-width:851px){
+ html body.ci-page .ci-hero,
+ html body.ci-page .ci-hero-inner{
+  height:435px!important;
+  min-height:435px!important;
+  max-height:435px!important;
+ }
  html body.ci-page .ci-hero{
-  min-height:535px!important;
-  height:535px!important;
   background-size:cover!important;
   background-position:center center!important;
  }
+ html body.ci-page .ci-hero-inner{padding-bottom:25px!important}
+ html body.ci-page .ci-hero-copy{padding-top:33px!important}
+}
+@media(min-width:721px) and (max-width:850px){
+ html body.ci-page .ci-hero,
  html body.ci-page .ci-hero-inner{
-  min-height:535px!important;
-  height:535px!important;
-  padding-bottom:46px!important;
+  height:430px!important;
+  min-height:430px!important;
+  max-height:430px!important;
  }
+ html body.ci-page .ci-hero-inner{padding-bottom:22px!important}
 }
