@@ -4,7 +4,7 @@ window.COUNTRY_CONFIG={
   continent:"Europa",
   tagline:"Ciudades tranquilas, naturaleza y diseño nórdico",
   description:"Guías, rutas y recomendaciones para descubrir Suecia sin intentar verlo todo.",
-  heroImage:"https://images.unsplash.com/photo-1509356843151-3e7d96241e11?auto=format&fit=crop&w=1800&q=88",
+  heroImage:"https://img.viajandoconcabeza.com/destinos/suecia/goteborg/2026-dia1/DSC06560.webp",
   inspirationImage:"https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1800&q=86",
   paths:{home:"../../index.html",destinations:"../index.html"},
   sections:{
