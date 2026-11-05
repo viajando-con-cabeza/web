@@ -161,7 +161,9 @@ html body .imp-page .advice>div:last-child{min-width:0;flex:1}
 <script src="/configuracion/js/site-header.js"></script>
 <script>
 /* Prova temporal: fotos de Göteborg a les galeries d'Estocolm. Canviar per les definitives. */
-const R2_GOTEBORG='https://img.viajandoconcabeza.com/destinos/suecia/goteborg/2026-dia1/';
+/* Separar el nom de carpeta per evitar la transformació que eliminava
+   l'any 2026 del literal JavaScript servit a quality. */
+const R2_GOTEBORG='https://img.viajandoconcabeza.com/destinos/suecia/goteborg/' + '20' + '26-dia1/';
 /* Fotografies WebP visibles al bucket R2, ordenades pel nom del fitxer.
    La captura mostra 10 objectes: no inventar els noms dels cinc següents. */
 const R2_PHOTOS=[
