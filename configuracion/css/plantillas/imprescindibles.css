@@ -289,3 +289,27 @@ html body .imp-page .vcc-itinerary-feature {
 html body .imp-page .vcc-itinerary-feature-copy {
   background: #f0efed !important;
 }
+
+/* VCC · visor a tota l'amplada, fotografia completa (sense zoom/retall).
+   La regla anterior reservava 66–126 px horitzontals. */
+html body #lightbox.lightbox .lb-stage > .lb-photo {
+  width: 100% !important;
+  min-width: 0 !important;
+  max-width: 100% !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  background-position: center center !important;
+  background-size: contain !important;
+}
+@media (max-width: 800px) {
+  html body #lightbox.lightbox .lb-stage {
+    grid-template-rows: 44px minmax(0, clamp(220px, calc((100vw - 16px) * 0.75), 440px)) 26px 64px minmax(0, 1fr) !important;
+  }
+  html body #lightbox.lightbox .lb-stage > .lb-photo {
+    grid-column: 1 !important;
+    grid-row: 2 !important;
+    height: 100% !important;
+    justify-self: stretch !important;
+    align-self: center !important;
+  }
+}
