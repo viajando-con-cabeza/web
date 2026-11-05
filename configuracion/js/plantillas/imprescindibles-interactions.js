@@ -139,7 +139,11 @@
     const source = placeIndex === 1 ? [...vasa, ...city] : [...city.slice(placeIndex % city.length), ...city.slice(0,placeIndex % city.length)];
     /* Les guies marcades com a prova R2 han d'utilitzar exclusivament les fotos declarades a la pàgina. */
     const onlyOwn = document.querySelector('.imp-page[data-gallery-source="r2"]') !== null;
-    const photos = onlyOwn ? own.filter(Boolean) : [...new Set([...own.filter(Boolean), ...source])].slice(0,requested);
+    /* Protecció addicional: una transformació del HTML desplegat estava
+       convertint /2026-dia1/ en /-dia1/ i provocant 404. Normalitzem
+       totes les URL abans de carregar les fotos. */
+    const correctR2Url = value => String(value).replace('/goteborg/-dia1/', '/goteborg/' + '20' + '26-dia1/');
+    const photos = (onlyOwn ? own.filter(Boolean) : [...new Set([...own.filter(Boolean), ...source])].slice(0,requested)).map(correctR2Url);
     gallery.dataset.images = JSON.stringify(photos);
     gallery.dataset.count = String(photos.length);
     const mosaic = document.createElement('div');
