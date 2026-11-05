@@ -1,10 +1,11 @@
 /* Inici VCC · fons panoràmic real 3000 × 1000, sense retalls ni franges.
    La zona esquerra ja està integrada al mateix WebP; no cal máscara CSS. */
 body.inicio-vcc .home-hero{
-  background:#f5e9dc!important;
+  background:#dbeaf6!important;
 }
 body.inicio-vcc .home-hero::before{
-  background-image:url('/configuracion/imagenes/fondos/inicio-vcc-hero-panoramico.webp')!important;
+  background-image:linear-gradient(100deg,rgba(183,217,243,.32),rgba(199,225,246,.20)),url('/configuracion/imagenes/fondos/inicio-vcc-hero-panoramico.webp')!important;
+  background-blend-mode:color;
   background-size:cover!important;
   background-position:center center!important;
   background-repeat:no-repeat!important;
