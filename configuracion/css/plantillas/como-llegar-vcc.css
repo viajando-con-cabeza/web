@@ -405,3 +405,57 @@ html body .cl-landing .cl-landing-note{font:400 11px/1.5 'DM Sans',sans-serif;te
  html body .cl-landing .cl-landing-recommendation p{flex:0 0 100%;font-size:12px}
 }
 @media(max-width:365px){html body .cl-landing .cl-landing-cards{grid-template-columns:1fr}html body .cl-landing .cl-transport-group{min-height:400px!important}}
+
+
+/* V10 · Ajustos finals aprovats, limitats a la portada Cómo llegar */
+html body .cl-page.cl-landing .cl-landing-hero .cl-crumb.vcc-crumb{
+ box-sizing:border-box!important;
+ display:flex!important;flex-wrap:wrap!important;align-items:center!important;
+ width:min(1180px,calc(100% - 48px))!important;
+ margin:0 auto 23px!important;
+ top:auto!important;left:auto!important;
+ padding:0!important;
+ font:400 11px/1.45 'DM Sans',sans-serif!important;
+ color:#6e6159!important;letter-spacing:0!important;
+}
+html body .cl-page.cl-landing .cl-crumb.vcc-crumb span{padding:0 8px!important;color:#a99482!important}
+html body .cl-page.cl-landing .cl-crumb.vcc-crumb strong{font-weight:700!important;color:#302820!important}
+html body .cl-page.cl-landing .cl-landing-intro{padding-top:16px!important}
+html body .cl-page.cl-landing .cl-landing-kicker{
+ font:600 30px/1.1 'Caveat',cursive!important;
+ color:#c36843!important;margin:0 0 12px!important;
+}
+html body .cl-page.cl-landing .cl-landing-intro h1{margin:0 0 12px!important}
+html body .cl-page.cl-landing .cl-landing-underline{margin:15px 0 20px!important}
+html body .cl-page.cl-landing .cl-illustration.cl-artwork{
+ display:block!important;
+ width:100%!important;
+ height:132px!important;
+ min-height:132px!important;
+ background-image:none!important;
+ background-color:transparent!important;
+ background-repeat:no-repeat!important;
+ background-size:contain!important;
+ background-position:center center!important;
+ box-shadow:none!important;
+}
+html body .cl-page.cl-landing .cl-artwork-0{background-image:url('/configuracion/imagenes/como-llegar-avion-vcc.webp')!important}
+html body .cl-page.cl-landing .cl-artwork-1{background-image:url('/configuracion/imagenes/como-llegar-tren-vcc.webp')!important}
+html body .cl-page.cl-landing .cl-artwork-2{background-image:url('/configuracion/imagenes/como-llegar-ferry-vcc.webp')!important}
+html body .cl-page.cl-landing .cl-artwork-3{background-image:url('/configuracion/imagenes/como-llegar-autobus-vcc.webp')!important}
+html body .cl-page.cl-landing .cl-artwork-4{background-image:url('/configuracion/imagenes/como-llegar-coche-vcc.webp')!important}
+@media(max-width:1370px){
+ html body .cl-page.cl-landing .cl-illustration.cl-artwork{height:115px!important;min-height:115px!important}
+}
+@media(max-width:1100px){
+ html body .cl-page.cl-landing .cl-landing-intro{display:block!important}
+ html body .cl-page.cl-landing .cl-landing-kicker{margin-bottom:13px!important}
+}
+@media(max-width:560px){
+ html body .cl-page.cl-landing .cl-landing-hero .cl-crumb.vcc-crumb{
+  width:100%!important;margin-bottom:18px!important;
+  font-size:10px!important;
+ }
+ html body .cl-page.cl-landing .cl-landing-kicker{font-size:26px!important}
+ html body .cl-page.cl-landing .cl-illustration.cl-artwork{height:94px!important;min-height:94px!important}
+}
