@@ -307,6 +307,45 @@ html body.budget-vcc .calculator-card .budget-assumptions{margin-top:8px!importa
  html body.budget-vcc .calculator-card .vcc-price-block small{font-size:7px!important}
 }
 </style>
+<style id="vcc-budget-total-singleline-20261105">
+/* Resumen en una única fila en escritorio y calculadora ligeramente más baja */
+@media(min-width:1160px){
+ html body.budget-vcc .calculator-grid{align-items:stretch!important}
+ html body.budget-vcc .calculator-grid .breakdown-card,
+ html body.budget-vcc .calculator-grid .calculator-card{padding:13px 17px!important}
+ html body.budget-vcc .breakdown-head{margin-bottom:6px!important}
+ html body.budget-vcc .breakdown-card .donut{width:min(100%,235px)!important}
+ html body.budget-vcc .breakdown-card .legend-row{min-height:34px!important;padding:4px 0!important}
+ html body.budget-vcc .calculator-card .calc-ticket-head{padding-bottom:8px!important;margin-bottom:9px!important}
+ html body.budget-vcc .calculator-card .calc-top{margin-bottom:7px!important}
+ html body.budget-vcc .calculator-card .calc-control{min-height:61px!important;gap:4px!important}
+ html body.budget-vcc .calculator-card .category-row{padding:3px 0!important}
+ html body.budget-vcc .calculator-card .calc-total{margin-top:8px!important;padding:9px 0 1px!important}
+ html body.budget-vcc .calculator-card .budget-assumptions{margin-top:5px!important}
+}
+html body.budget-vcc .calculator-card .calc-total .vcc-total-description{
+ display:flex!important;flex-direction:row!important;flex-wrap:wrap!important;
+ align-items:baseline!important;justify-content:flex-start!important;gap:6px 13px!important;
+ min-width:0!important;flex:1 1 auto!important;
+}
+html body.budget-vcc .calculator-card .calc-total .vcc-total-description span{
+ white-space:nowrap!important;flex:none!important;
+}
+html body.budget-vcc .calculator-card .calc-total .vcc-total-description small{
+ white-space:nowrap!important;flex:none!important;font-size:10px!important;
+}
+html body.budget-vcc .calculator-card .calc-total #grand-total{
+ margin-left:auto!important;flex:none!important;text-align:right!important;
+}
+@media(max-width:620px){
+ html body.budget-vcc .calculator-card .calc-total .vcc-total-description{
+  flex-direction:column!important;gap:3px!important;
+ }
+ html body.budget-vcc .calculator-card .calc-total .vcc-total-description span{
+  white-space:normal!important;
+ }
+}
+</style>
 <style id="vcc-budget-single-active">
 /* Únicament la pestanya activa es destaca. El primer enllaç ja no queda marcat permanentment. */
 html body.budget-vcc .st-tabs a,
