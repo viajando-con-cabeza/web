@@ -1,0 +1,28 @@
+name: Diagnose R2 images
+on:
+  push:
+    branches: [quality]
+    paths:
+      - '.github/workflows/diagnose-r2-images.yml'
+  workflow_dispatch:
+jobs:
+  check-r2:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Test public WebP with and without referer
+        shell: bash
+        run: |
+          set -euo pipefail
+          base='https://img.viajandoconcabeza.com/destinos/suecia/goteborg/2026-dia1'
+          for file in DSC06553.webp DSC06555.webp DSC06564.webp; do
+            for mode in direct embedded; do
+              echo "::group::file=$file mode=$mode"
+              if [[ "$mode" == embedded ]]; then
+                curl -sSL --max-time 20 -o /dev/null -D /tmp/r2-header.txt -H 'Referer: https://www.quality.viajandoconcabeza.com/destinos/suecia/estocolmo/imprescindibles.html' -H 'Sec-Fetch-Dest: image' -H 'Sec-Fetch-Mode: no-cors' "$base/$file" || true
+              else
+                curl -sSL --max-time 20 -o /dev/null -D /tmp/r2-header.txt "$base/$file" || true
+              fi
+              grep -iE '^(HTTP/|content-type:|content-security-policy:|cross-origin-resource-policy:|cross-origin-embedder-policy:|access-control-allow-origin:|location:|cf-ray:|server:)' /tmp/r2-header.txt || true
+              echo "::endgroup::"
+            done
+          done
