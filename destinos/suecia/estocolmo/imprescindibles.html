@@ -143,6 +143,24 @@ html body #lightbox.r2-demo .lb-stage > img{
   background-size:contain!important;background-repeat:no-repeat!important;
   background-position:center!important;
 }
+/* Visor de fotos de Cloudflare R2: superfície real sense img trencada. */
+html body #lightbox.r2-demo .lb-stage>.lb-r2-photo{
+  grid-row:2!important;grid-column:1!important;
+  display:block!important;position:relative!important;
+  min-height:0!important;width:100%!important;height:100%!important;
+  max-width:100%!important;max-height:100%!important;
+  background-color:#f4f0eb!important;background-position:center!important;
+  background-repeat:no-repeat!important;background-size:contain!important;
+  border:0!important;box-sizing:border-box!important;
+}
+html body #lightbox.r2-demo .lb-thumbs button{
+  background-position:center!important;background-repeat:no-repeat!important;
+  background-size:cover!important;
+}
+html body .imp-page[data-gallery-source="r2"] .gallery .gallery-tile{
+  background-position:center!important;background-repeat:no-repeat!important;
+  background-size:cover!important;
+}
 /* Logo VCC oficial en el consejo, sense icona antiga ni superposicions. */
 html body .imp-page .advice{display:flex!important;align-items:center!important;gap:12px!important}
 html body .imp-page .advice .vcc-advice-logo{display:block!important;position:static!important;flex:0 0 46px!important;width:46px!important;height:46px!important;max-width:46px!important;max-height:46px!important;object-fit:contain!important;margin:0!important;padding:0!important;background:transparent!important}
@@ -206,12 +224,14 @@ const nav=document.getElementById('placeNav');
 nav.innerHTML=data.map((p,i)=>`<a href="#${p[0]}" class="${i===0?'active':''}">${esc(p[1])}</a>`).join('');
 const main=document.getElementById('places');
 
-main.innerHTML=data.map((p,i)=>{const imgs=[R2_TEST_PHOTO];const maps=`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(p[1]+' Stockholm')}`;return `<section class="place" id="${p[0]}"><header class="place-heading"><div class="place-heading-line"><div class="place-heading-label"><span class="place-number">${String(i+1).padStart(2,"0")} ·</span><h2>${esc(p[1]).toUpperCase()}</h2></div></div></header><div class="gallery" data-count="${imgs.length}"><div class="gallery-main" data-images='${JSON.stringify(imgs)}'><img src="${imgs[0]}" alt="${esc(p[1])}" loading="lazy"><span class="photo-count">1 / ${imgs.length}</span></div><div class="thumbs">${imgs.map((u,j)=>`<button type="button" class="${j===0?'is-active':''}" data-i="${j}" aria-label="Ver fotografía ${j+1}"><img src="${u}" alt=""></button>`).join('')}</div></div><div class="place-copy"><div class="place-kicker">${esc(p[3])}</div><p>${esc(p[4])}</p><div class="facts"><span><b class="ico">◆</b>${esc(p[2])}</span><span><b class="ico">●</b>${esc(p[5])}</span><span><b class="ico">◷</b>${esc(p[6])}</span><span>${rating(p[7])}</span><span class="fact-map"><b class="ico">⌖</b><a target="_blank" rel="noopener noreferrer" href="${maps}" aria-label="Abrir ${esc(p[1])} en Google Maps">Google Maps</a></span></div><div class="advice"><img class="vcc-advice-logo" src="/configuracion/imagenes/marca/logo-vcc.svg" width="46" height="46" alt="Logo oficial VCC" loading="lazy"><div><b>CONSEJO VCC</b><p>${esc(p[9])}</p></div></div></div></section>`}).join('');
+main.innerHTML=data.map((p,i)=>{const imgs=i===1
+  ? ['DSC06553.webp','DSC06554.webp','DSC06555.webp','DSC06558.webp'].map(name=>R2_GOTEBORG+name)
+  : [R2_TEST_PHOTO];const maps=`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(p[1]+' Stockholm')}`;return `<section class="place" id="${p[0]}"><header class="place-heading"><div class="place-heading-line"><div class="place-heading-label"><span class="place-number">${String(i+1).padStart(2,"0")} ·</span><h2>${esc(p[1]).toUpperCase()}</h2></div></div></header><div class="gallery" data-count="${imgs.length}"><div class="gallery-main" data-images='${JSON.stringify(imgs)}'><img src="${imgs[0]}" alt="${esc(p[1])}" loading="lazy"><span class="photo-count">1 / ${imgs.length}</span></div><div class="thumbs">${imgs.map((u,j)=>`<button type="button" class="${j===0?'is-active':''}" data-i="${j}" aria-label="Ver fotografía ${j+1}"><img src="${u}" alt=""></button>`).join('')}</div></div><div class="place-copy"><div class="place-kicker">${esc(p[3])}</div><p>${esc(p[4])}</p><div class="facts"><span><b class="ico">◆</b>${esc(p[2])}</span><span><b class="ico">●</b>${esc(p[5])}</span><span><b class="ico">◷</b>${esc(p[6])}</span><span>${rating(p[7])}</span><span class="fact-map"><b class="ico">⌖</b><a target="_blank" rel="noopener noreferrer" href="${maps}" aria-label="Abrir ${esc(p[1])} en Google Maps">Google Maps</a></span></div><div class="advice"><img class="vcc-advice-logo" src="/configuracion/imagenes/marca/logo-vcc.svg" width="46" height="46" alt="Logo oficial VCC" loading="lazy"><div><b>CONSEJO VCC</b><p>${esc(p[9])}</p></div></div></div></section>`}).join('');
 nav.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{nav.querySelectorAll('a').forEach(x=>x.classList.remove('active'));a.classList.add('active')}));
 const prev=document.getElementById('navPrev'),next=document.getElementById('navNext');const update=()=>{prev.disabled=nav.scrollLeft<5;next.disabled=nav.scrollLeft+nav.clientWidth>=nav.scrollWidth-5};prev.onclick=()=>nav.scrollBy({left:-Math.max(nav.clientWidth*.7,280),behavior:'smooth'});next.onclick=()=>nav.scrollBy({left:Math.max(nav.clientWidth*.7,280),behavior:'smooth'});nav.addEventListener('scroll',update,{passive:true});window.addEventListener('resize',update);update();
 document.querySelectorAll('.gallery').forEach(g=>{const main=g.querySelector('.gallery-main'),hero=main.querySelector('img'),count=main.querySelector('.photo-count'),btns=[...g.querySelectorAll('.thumbs button')],imgs=JSON.parse(main.dataset.images);btns.forEach(b=>b.onclick=()=>{const i=+b.dataset.i;hero.src=imgs[i];if(count)count.textContent=`${i+1} / ${imgs.length}`;btns.forEach(x=>x.classList.toggle('is-active',x===b))})});
 </script>
-<script src="/configuracion/js/plantillas/imprescindibles-interactions.js?v=20261105-r2-bg-fix-3" defer></script>
+<script src="/configuracion/js/plantillas/imprescindibles-interactions.js?v=20261105-r2-modal-grid-4" defer></script>
 <script src="/configuracion/js/site-footer.js?v=20261102"></script><script id="vcc-single-active-subnav">
 (function(){
   const nav=document.querySelector('.st-tabs, .place-nav');
