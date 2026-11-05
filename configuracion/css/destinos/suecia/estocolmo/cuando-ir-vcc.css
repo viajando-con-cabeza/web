@@ -411,3 +411,20 @@ html body.ci-page .ci-subnav-placeholder{
 html body.ci-page :is(#consejo,#mes-a-mes,#estaciones){
  scroll-margin-top:var(--ci-sticky-offset,115px)!important;
 }
+
+/* Hero alignment with Estocolmo guide (505px reference), with a little extra breathing room.
+   Subheader remains directly adjacent to the hero; lowering it is achieved by the hero height,
+   not by adding a disconnected gap. */
+@media(min-width:721px){
+ html body.ci-page .ci-hero{
+  min-height:535px!important;
+  height:535px!important;
+  background-size:cover!important;
+  background-position:center center!important;
+ }
+ html body.ci-page .ci-hero-inner{
+  min-height:535px!important;
+  height:535px!important;
+  padding-bottom:46px!important;
+ }
+}
