@@ -83,11 +83,19 @@
     node.style.setProperty('background-position', 'center', 'important');
     node.style.setProperty('background-repeat', 'no-repeat', 'important');
   };
+  /* WebP redimensionats a partir dels originals R2, generats i cachejats a
+     quality. El dataset conserva les URL originals; el visor demana només
+     la fotografia actual en resolució de pantalla. */
+  const optimizedPhoto = (original, size) => {
+    const filename = String(original).split('/').pop();
+    if (!/^DSC[0-9]+\\.webp$/i.test(filename)) return original;
+    return '/destinos/suecia/goteborg/imagenes/optimizadas/' + size + '/' + filename;
+  };
   const show = i => {
     if (!album.length || !image) return;
     current = (i + album.length) % album.length;
     const label = `${placeHeading?.textContent || 'Estocolmo'} · fotografía ${current + 1} de ${album.length}`;
-    useR2Background(image, album[current]);
+    useR2Background(image, optimizedPhoto(album[current], 'visor'));
     image.setAttribute('aria-label', label);
     if (counter) counter.textContent = `${current + 1} / ${album.length}`;
     [...thumbnails.children].forEach((button,j) => {
@@ -121,7 +129,7 @@
       const button = document.createElement('button');
       button.type = 'button';
       button.setAttribute('aria-label',`Ver fotografía ${j+1} de ${album.length}`);
-      useR2Background(button, src);
+      useR2Background(button, optimizedPhoto(src, 'mini'));
       button.style.setProperty('background-size', 'cover', 'important');
       button.addEventListener('click',() => show(j));
       thumbnails.append(button);
@@ -152,7 +160,7 @@
       const tile = document.createElement('button');
       tile.type='button'; tile.className='gallery-tile'; tile.dataset.i=String(index);
       tile.setAttribute('aria-label',`Ampliar fotografía ${index+1} de ${photos.length}`);
-      useR2Background(tile, src);
+      useR2Background(tile, optimizedPhoto(src, 'mini'));
       tile.style.setProperty('background-size', 'cover', 'important');
       if (index === 5 && photos.length > 6) {
         const more=document.createElement('span'); more.className='gallery-more';
