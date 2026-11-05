@@ -91,7 +91,10 @@
     current = (i + album.length) % album.length;
     const label = `${placeHeading?.textContent || 'Estocolmo'} · fotografía ${current + 1} de ${album.length}`;
     if (r2Demo) {
-      image.style.setProperty('background-image', r2Background(album[current]), 'important');
+      image.style.setProperty('background-image', 'url("' + album[current] + '")', 'important');
+      image.style.setProperty('background-size', 'contain', 'important');
+      image.style.setProperty('background-position', 'center center', 'important');
+      image.style.setProperty('background-repeat', 'no-repeat', 'important');
       image.setAttribute('aria-label',label);
     } else {
       image.style.backgroundImage = '';
@@ -131,7 +134,7 @@
       button.type = 'button';
       button.setAttribute('aria-label',`Ver fotografía ${j+1} de ${album.length}`);
       if (r2Demo) {
-        button.style.setProperty('background-image',r2Background(src),'important');
+        button.style.setProperty('background-image','url("' + src + '")','important');
         button.style.backgroundPosition='center';
         button.style.backgroundSize='cover';
       } else {
@@ -165,7 +168,7 @@
       tile.type='button'; tile.className='gallery-tile'; tile.dataset.i=String(index);
       tile.setAttribute('aria-label',`Ampliar fotografía ${index+1} de ${photos.length}`);
       if (r2Demo) {
-        tile.style.setProperty('background-image',r2Background(src),'important');
+        tile.style.setProperty('background-image','url("' + src + '")','important');
         tile.style.backgroundPosition='center';
         tile.style.backgroundSize='cover';
       } else {
