@@ -152,7 +152,7 @@
   });
   /* Recomanació al final de la guia: mateix llenguatge visual, sense pressupost. */
   const main = document.querySelector('.imp-page .imp-main');
-  if (main && !document.getElementById('vcc-itinerary-feature')) {
+  if (main && !document.querySelector('.imp-page .related-section') && !document.getElementById('vcc-itinerary-feature')) {
     const feature = document.createElement('section');
     feature.id = 'vcc-itinerary-feature';
     feature.className = 'vcc-itinerary-feature';
