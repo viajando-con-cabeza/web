@@ -135,7 +135,7 @@ html:has(body.vcc-desktop-gallery-open) {
     flex:1;
     overflow:hidden;
     background:#fff;
-    touch-action:pan-y;
+    touch-action:none;
   }
   #vcc-mobile-gallery .vcc-mobile-photo-full {
     display:block;
@@ -146,6 +146,17 @@ html:has(body.vcc-desktop-gallery-open) {
     background-size:contain;
     background-position:center center;
     background-repeat:no-repeat;
+    transform-origin:center center;
+    will-change:transform;
+    user-select:none;
+    -webkit-user-select:none;
+    -webkit-touch-callout:none;
+  }
+  #vcc-mobile-gallery .vcc-mobile-photo-stage.is-zoomed {
+    cursor:grab;
+  }
+  #vcc-mobile-gallery .vcc-mobile-photo-stage.is-zoomed:active {
+    cursor:grabbing;
   }
   #vcc-mobile-gallery .vcc-mobile-photo-hint {
     min-height:46px;
