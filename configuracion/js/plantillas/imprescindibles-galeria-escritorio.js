@@ -152,9 +152,8 @@
     else if(event.target===layer) closeGallery();
   });
 
-  /* Visor individual: conserva la foto nítida i permet el zoom NATIU
-     del navegador de tota la pantalla (Ctrl + roda / Ctrl + + / trackpad).
-     Sense zoom JS sobre la imatge, que causava lentitud i bloquejava el zoom general. */
+  /* Visor individual: clic a la fotografia = zoom visual immediat.
+     La roda i el zoom natiu del navegador no es bloquegen. */
   const enlargedPhoto = existingStage?.querySelector('.lb-photo');
   // La imatge era un fons CSS: per arrodonir les cantonades visibles,
   // superposem el mateix fitxer WebP amb un element <img> real.
@@ -178,6 +177,7 @@
   function syncRoundedPhoto() {
     if (!enlargedPhoto || !roundedImage) return;
     const sequence=++photoSequence;
+    resetPhotoZoom();
     clearTimeout(upgradeTimer);
     enlargedPhoto.classList.remove('vcc-dg-rounded-ready');
     if (!photoVisible()) return;
@@ -199,6 +199,9 @@
         full.onload=async()=>{
           try {if (full.decode) await full.decode();} catch (_) {}
           if (sequence!==photoSequence || !photoVisible()) return;
+          // Conservem l'ampliació si el WebP original arriba mentre fem zoom.
+          full.style.transform=roundedImage.style.transform;
+          full.style.transformOrigin=roundedImage.style.transformOrigin;
           roundedImage.replaceWith(full);
           roundedImage=full;
         };
@@ -225,8 +228,66 @@
     return Number.isInteger(position) ? activeSources[position-1] : null;
   }
 
+  // El transform s'aplica al mateix img descodificat; no es fa cap nova petició.
+  let zoomed=false;
+  let zoomPanX=0, zoomPanY=0;
+  let zoomOriginX=50, zoomOriginY=50;
+  let zoomDrag=null;
+  let ignoreZoomClick=false;
+  const PHOTO_ZOOM=2.1;
+  const applyPhotoZoom=(animate=false)=>{
+    if (!roundedImage) return;
+    roundedImage.style.transition=animate?'transform 130ms ease-out':'none';
+    roundedImage.style.transformOrigin=zoomOriginX+'% '+zoomOriginY+'%';
+    roundedImage.style.transform=zoomed
+      ? 'translate3d('+zoomPanX+'px,'+zoomPanY+'px,0) scale('+PHOTO_ZOOM+')'
+      : 'none';
+    enlargedPhoto.classList.toggle('vcc-dg-is-zoomed',zoomed);
+  };
+  const resetPhotoZoom=()=>{
+    zoomed=false;zoomPanX=0;zoomPanY=0;
+    zoomOriginX=50;zoomOriginY=50;
+    zoomDrag=null;ignoreZoomClick=false;
+    if (roundedImage) applyPhotoZoom(false);
+  };
   if (enlargedPhoto) {
-    enlargedPhoto.setAttribute('title','Per ampliar tota la pantalla: Ctrl + roda del ratolí o Ctrl + +');
+    enlargedPhoto.setAttribute('title','Clica per ampliar la fotografia');
+    enlargedPhoto.addEventListener('click',event=>{
+      if (!photoVisible()) return;
+      if (ignoreZoomClick){ignoreZoomClick=false;return;}
+      if (!roundedImage?.complete || !roundedImage.naturalWidth) return;
+      if (!zoomed){
+        const rect=roundedImage.getBoundingClientRect();
+        zoomOriginX=Math.max(0,Math.min(100,(event.clientX-rect.left)/rect.width*100));
+        zoomOriginY=Math.max(0,Math.min(100,(event.clientY-rect.top)/rect.height*100));
+        zoomPanX=0;zoomPanY=0;zoomed=true;
+      } else {
+        zoomed=false;zoomPanX=0;zoomPanY=0;
+      }
+      applyPhotoZoom(true);
+    });
+    enlargedPhoto.addEventListener('pointerdown',event=>{
+      if (!zoomed || event.button!==0 || !photoVisible())return;
+      zoomDrag={id:event.pointerId,x:event.clientX,y:event.clientY,panX:zoomPanX,panY:zoomPanY,moved:false};
+      enlargedPhoto.setPointerCapture(event.pointerId);
+    });
+    enlargedPhoto.addEventListener('pointermove',event=>{
+      if (!zoomDrag || event.pointerId!==zoomDrag.id)return;
+      const dx=event.clientX-zoomDrag.x,dy=event.clientY-zoomDrag.y;
+      if(Math.hypot(dx,dy)>5)zoomDrag.moved=true;
+      if(!zoomDrag.moved)return;
+      zoomPanX=zoomDrag.panX+dx;
+      zoomPanY=zoomDrag.panY+dy;
+      applyPhotoZoom(false);
+    });
+    const finishPhotoPan=()=>{
+      if (!zoomDrag)return;
+      if(zoomDrag.moved)ignoreZoomClick=true;
+      zoomDrag=null;
+    };
+    enlargedPhoto.addEventListener('pointerup',finishPhotoPan);
+    enlargedPhoto.addEventListener('pointercancel',finishPhotoPan);
+
     new MutationObserver(() => syncRoundedPhoto())
       .observe(enlargedPhoto,{attributes:true,attributeFilter:['aria-label']});
   }
@@ -234,6 +295,7 @@
   existingLightbox?.addEventListener('vcc:lightbox-closed',()=>{
     ++photoSequence;
     clearTimeout(upgradeTimer);
+    resetPhotoZoom();
     enlargedPhoto?.classList.remove('vcc-dg-rounded-ready');
     if(layer.hidden || !activeGallery) return;
     layer.setAttribute('aria-hidden','false');
