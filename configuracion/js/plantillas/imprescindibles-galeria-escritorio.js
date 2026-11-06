@@ -93,6 +93,7 @@
     if (infoTitle) infoTitle.textContent = asideTitle.textContent;
     if (infoText) infoText.textContent = asideDescription.textContent;
     existingLightbox?.classList.toggle('vcc-dg-single', Number(activeGallery.dataset.count) === 1);
+    syncRoundedPhoto();
   };
 
   const openGallery = gallery => {
@@ -157,6 +158,39 @@
      Clic: 1× / 2.4×. Roda: 1–4×. Arrossegar: explorar detalls.
      Les fletxes i miniatures continuen canviant de fotografia. */
   const enlargedPhoto = existingStage?.querySelector('.lb-photo');
+  // La imatge era un fons CSS: per arrodonir les cantonades visibles,
+  // superposem el mateix fitxer WebP amb un element <img> real.
+  let roundedImage = null;
+  if (enlargedPhoto) {
+    const matte = document.createElement('div');
+    matte.className = 'vcc-dg-rounded-matte';
+    matte.setAttribute('aria-hidden', 'true');
+    roundedImage = document.createElement('img');
+    roundedImage.alt = '';
+    roundedImage.decoding = 'async';
+    roundedImage.draggable = false;
+    matte.append(roundedImage);
+    enlargedPhoto.append(matte);
+  }
+  function syncRoundedPhoto() {
+    if (!enlargedPhoto || !roundedImage) return;
+    enlargedPhoto.classList.remove('vcc-dg-rounded-ready');
+    if (!photoVisible()) return;
+    const raw = enlargedPhoto.style.backgroundImage;
+    const quoted = raw.startsWith('url(') ? raw.slice(4, -1).trim() : '';
+    const src = (quoted.startsWith('"') || quoted.startsWith("'"))
+      ? quoted.slice(1, -1) : quoted;
+    if (!src || src === 'none') return;
+    roundedImage.onload = () => {
+      if (roundedImage.getAttribute('src') === src &&
+          photoVisible() && roundedImage.naturalWidth) {
+        enlargedPhoto.classList.add('vcc-dg-rounded-ready');
+      }
+    };
+    roundedImage.onerror = () => enlargedPhoto.classList.remove('vcc-dg-rounded-ready');
+    roundedImage.src = src;
+    if (roundedImage.complete && roundedImage.naturalWidth) roundedImage.onload();
+  }
   let zoomLayer = null;
   let zoomLevel = 1;
   let zoomX = 0;
@@ -286,7 +320,7 @@
     setDesktopZoom(zoomLevel*factor,event.clientX,event.clientY);
   },{passive:false});
   if (enlargedPhoto) {
-    new MutationObserver(() => resetDesktopZoom()).observe(enlargedPhoto,{attributes:true,attributeFilter:['aria-label']});
+    new MutationObserver(() => {resetDesktopZoom();syncRoundedPhoto();}).observe(enlargedPhoto,{attributes:true,attributeFilter:['aria-label']});
   }
   window.addEventListener('resize',()=>{
     if(photoVisible() && zoomLevel>1)drawZoom();
@@ -310,6 +344,7 @@
 
   existingLightbox?.addEventListener('vcc:lightbox-closed',()=>{
     resetDesktopZoom();
+    enlargedPhoto?.classList.remove('vcc-dg-rounded-ready');
     if(layer.hidden || !activeGallery) return;
     layer.setAttribute('aria-hidden','false');
     if(clickedGridImage?.isConnected) clickedGridImage.focus({preventScroll:true});
