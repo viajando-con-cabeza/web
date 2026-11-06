@@ -27,7 +27,7 @@ jobs:
               current.wait_for_timeout(1300)
               css=current.locator('link[href*="galeria-escritorio.css"]').get_attribute('href') or ''
               print('ATTEMPT',attempt,'CSS',css,flush=True)
-              if 'unified-header-v7' in css:
+              if 'unified-header-v8' in css:
                 page=current
                 break
               current.close()
@@ -74,8 +74,8 @@ jobs:
                 countSize:c(counter).fontSize, countText:counter.textContent,
                 countY:r(counter).top, counterTransform:c(counter).transform,
                 previousFontSize:c(left).fontSize, nextFontSize:c(right).fontSize,
-                prevBorder:c(left,'::before').borderBottomWidth,
-                nextBorder:c(right,'::before').borderBottomWidth,
+                prevIcon:c(left).backgroundImage,
+                nextIcon:c(right).backgroundImage,
                 thumbCount:panel.querySelectorAll('.lb-thumbs button').length
               };
             }""")
@@ -96,8 +96,8 @@ jobs:
             assert imgVals['countText']=='2 / 9'
             assert imgVals['thumbCount']==9
             assert imgVals['previousFontSize']=='0px' and imgVals['nextFontSize']=='0px'
-            assert imgVals['prevBorder'] in ('1.6px','1.59375px'),imgVals
-            assert imgVals['nextBorder'] in ('1.6px','1.59375px')
+            assert 'data:image/svg+xml' in imgVals['prevIcon'],imgVals
+            assert 'data:image/svg+xml' in imgVals['nextIcon'],imgVals
             assert abs(gridVals['imageTop']-imgVals['image']['top'])<2,(gridVals['imageTop'],imgVals['image']['top'])
             modal.locator('.vcc-dg-photo-back').click()
             assert grid.is_visible()
