@@ -20,7 +20,7 @@ jobs:
             browser=p.chromium.launch(headless=True,executable_path='/usr/bin/google-chrome',args=['--no-sandbox'])
             desktop=None
             errors=[]
-            for attempt in range(1,7):
+            for attempt in range(1,16):
               page=browser.new_page(viewport={'width':1440,'height':900})
               page.on('pageerror',lambda e:errors.append(str(e)))
               page.goto(base+'?photo-space-v6-check='+str(attempt)+'-85faee7',wait_until='domcontentloaded',timeout=45000)
@@ -31,7 +31,7 @@ jobs:
                 desktop=page
                 break
               page.close()
-              time.sleep(6)
+              time.sleep(9)
             assert desktop,'New CSS not deployed'
             page=desktop
             page.locator('.gallery').nth(6).locator('.gallery-tile').first.click()
