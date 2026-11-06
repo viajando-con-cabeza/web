@@ -1,0 +1,45 @@
+name: Verify published transport SVGs
+
+on:
+  push:
+    branches: [quality]
+    paths:
+      - '.github/workflows/verify-live-transport-svg.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  inspect-live:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Inspect deployed HTML and SVGs
+        shell: bash
+        run: |
+          python - <<'PY'
+          import urllib.request, re, hashlib
+          base='https://www.quality.viajandoconcabeza.com'
+          pages=[
+              '/destinos/suecia/estocolmo/como-llegar',
+              '/destinos/suecia/estocolmo/como-llegar.html',
+          ]
+          for p in pages:
+              try:
+                  req=urllib.request.Request(base+p,headers={'User-Agent':'Mozilla/5.0 (compatible; VCCAudit/1.0)','Cache-Control':'no-cache'})
+                  with urllib.request.urlopen(req,timeout=20) as f:
+                      html=f.read().decode('utf-8','replace')
+                      print('PAGE',p,'status',f.status,'final',f.url,'len',len(html))
+                      for name in ('avion','coche','autobus'):
+                          new=f'transporte-{name}.svg?v=20261106-premium3'
+                          print('HTML',name, new in html, 'old_art',f'como-llegar-{name}-vcc.webp' in html)
+                      print('CSS premium3', 'como-llegar-vcc.css?v=20261106-premium3' in html)
+              except Exception as exc: print('PAGE_ERROR',p,type(exc).__name__,str(exc)[:300])
+          for n in ('avion','coche','autobus'):
+              p=f'/configuracion/imagenes/ilustraciones/transportes/transporte-{n}.svg?v=20261106-premium3-audit'
+              try:
+                  req=urllib.request.Request(base+p,headers={'User-Agent':'Mozilla/5.0 (compatible; VCCAudit/1.0)','Cache-Control':'no-cache'})
+                  with urllib.request.urlopen(req,timeout=20) as f:
+                      b=f.read()
+                      print('SVG',n,'status',f.status,'mime',f.headers.get('Content-Type'),'len',len(b),'png-embedded',b'data:image/png;base64' in b,'sha256',hashlib.sha256(b).hexdigest()[:20])
+              except Exception as exc: print('SVG_ERROR',n,type(exc).__name__,str(exc)[:300])
+          PY
