@@ -7,7 +7,7 @@
   const imageRoot = '/destinos/suecia/goteborg/imagenes/optimizadas/mini/';
   const miniUrl = source => {
     const name = String(source).match(/(DSC[0-9]+[.]webp)(?:[?#].*)?$/i);
-    return name ? imageRoot + name[1] : source;
+    return source; // Mosaic amb WebP original R2, sense miniatures recomprimides.
   };
 
   const layer = document.createElement('div');
