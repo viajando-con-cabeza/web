@@ -38,6 +38,7 @@
   document.body.append(layer);
   const grid = layer.querySelector('.vcc-dg-grid');
   const scroll = layer.querySelector('.vcc-dg-scroll');
+  const mosaicPanel = layer.querySelector('.vcc-dg-panel');
   const heading = layer.querySelector('.vcc-dg-heading strong');
   const asideTitle = layer.querySelector('.vcc-dg-place');
   const asideDescription = layer.querySelector('.vcc-dg-description');
@@ -84,7 +85,7 @@
     clickedGridImage = tile;
     layer.setAttribute('aria-hidden', 'true');
     window.VCCImprescindiblesLightbox.open(activeGallery, index);
-    startPanBaseline();
+    syncViewerPan();
     /* El visor ampliat comparteix títol i informació amb el mosaic previ. */
     const name = heading.textContent;
     const caption = existingStage?.querySelector('.lb-caption');
@@ -136,6 +137,7 @@
     layer.setAttribute('aria-hidden','false');
     document.body.classList.add('vcc-desktop-gallery-open');
     window.VCCGalleryScrollLock?.acquire('desktop');
+    startPanBaseline();
     closeButton.focus({preventScroll:true});
   };
 
@@ -231,129 +233,136 @@
     return Number.isInteger(position) ? activeSources[position-1] : null;
   }
 
-  // Zoom natiu intacte. El pan del visor es calcula únicament amb
-  // coordenades CSS del mateix contenidor (sense barrejar visualViewport
-  // amb clientX/clientY). El cursor dirigeix la vista sense prémer res.
+  // Únic motor de moviment per als dos visors: mosaic i foto individual.
+  // El zoom real continua sent del navegador. Només desplacem el panell
+  // quan el navegador ha reduït l'espai visible, sense clicar ni arrossegar.
   let panBaseline=null;
-  let panPointer=null;
+  let panMode=null;
   let panFrame=0;
-  let panSyncFrame=0;
+  let panPointer={x:.5,y:.5};
   let panX=0,panY=0;
-  const clamp01=value=>Math.min(1,Math.max(0,value));
-  const panBounds=()=>{
-    const rect=existingLightbox.getBoundingClientRect();
-    return {
-      x:Math.max(0,panBaseline.stageWidth-Math.max(1,rect.width)),
-      y:Math.max(0,panBaseline.stageHeight-Math.max(1,rect.height))
-    };
-  };
-  const cancelPanFrame=()=>{
+  const clamp01=value=>Math.max(0,Math.min(1,value));
+  const stopPan=()=>{
     if(panFrame){cancelAnimationFrame(panFrame);panFrame=0;}
-    if(panSyncFrame){cancelAnimationFrame(panSyncFrame);panSyncFrame=0;}
+  };
+  const clearPanelPan=()=>{
+    stopPan();
+    for(const [modal,panel] of [[layer,mosaicPanel],[existingLightbox,existingStage]]){
+      modal?.classList.remove('vcc-native-pan-enabled');
+      modal?.style.removeProperty('--vcc-pan-width');
+      modal?.style.removeProperty('--vcc-pan-height');
+      if(panel)panel.style.transform='';
+    }
+    panMode=null;
+    panX=0;panY=0;
   };
   const resetViewerPan=()=>{
-    if(!existingLightbox || !existingStage)return;
-    cancelPanFrame();
-    panPointer=null;
-    panX=0;panY=0;
-    existingLightbox.classList.remove('vcc-native-pan-enabled');
-    existingLightbox.style.removeProperty('--vcc-pan-width');
-    existingLightbox.style.removeProperty('--vcc-pan-height');
-    existingStage.style.transform='';
+    clearPanelPan();
+    panPointer={x:.5,y:.5};
   };
   const zoomRatio=()=>{
     if(!panBaseline)return 1;
     return Math.max(
       panBaseline.viewportWidth/Math.max(1,window.innerWidth),
       panBaseline.viewportHeight/Math.max(1,window.innerHeight),
-      (window.devicePixelRatio||1)/Math.max(0.01,panBaseline.pixelRatio),
-      (window.visualViewport?.scale||1)/Math.max(0.01,panBaseline.visualScale)
+      (window.devicePixelRatio||1)/Math.max(.01,panBaseline.pixelRatio),
+      (window.visualViewport?.scale||1)/Math.max(.01,panBaseline.visualScale)
     );
   };
-  function positionPan(){
+  const activePanel=()=>{
+    if(!panBaseline || layer.hidden ||
+       !document.body.classList.contains('vcc-desktop-gallery-open'))return null;
+    if(photoVisible() && existingLightbox && existingStage){
+      return {kind:'photo',modal:existingLightbox,panel:existingStage,
+        width:panBaseline.photoWidth,height:panBaseline.photoHeight};
+    }
+    if(!existingLightbox?.classList.contains('open')){
+      return {kind:'mosaic',modal:layer,panel:mosaicPanel,
+        width:panBaseline.mosaicWidth,height:panBaseline.mosaicHeight};
+    }
+    return null;
+  };
+  const boundsFor=view=>{
+    const rect=view.modal.getBoundingClientRect();
+    const vw=Math.max(1,Math.min(rect.width,window.visualViewport?.width||rect.width));
+    const vh=Math.max(1,Math.min(rect.height,window.visualViewport?.height||rect.height));
+    return {x:Math.max(0,view.width-vw),y:Math.max(0,view.height-vh)};
+  };
+  const followPointer=()=>{
     panFrame=0;
-    if(!panPointer || !photoVisible() ||
-        !existingLightbox.classList.contains('vcc-native-pan-enabled'))return;
-    const max=panBounds();
-    const targetX=-max.x*panPointer.x;
-    const targetY=-max.y*panPointer.y;
-    // Interpolació ràpida però gradual: res de salts a les cantonades.
-    panX+=(targetX-panX)*0.24;
-    panY+=(targetY-panY)*0.24;
-    if(Math.abs(targetX-panX)<0.25)panX=targetX;
-    if(Math.abs(targetY-panY)<0.25)panY=targetY;
-    existingStage.style.transform='translate3d('+panX.toFixed(2)+'px,'+panY.toFixed(2)+'px,0)';
+    const view=activePanel();
+    if(!view || !panMode || panMode!==view.kind ||
+       !view.modal.classList.contains('vcc-native-pan-enabled'))return;
+    const bounds=boundsFor(view);
+    const targetX=-bounds.x*panPointer.x;
+    const targetY=-bounds.y*panPointer.y;
+    // Moviment reversible i progressiu, sense saltar als extrems.
+    panX+=(targetX-panX)*.3;
+    panY+=(targetY-panY)*.3;
+    if(Math.abs(targetX-panX)<.3)panX=targetX;
+    if(Math.abs(targetY-panY)<.3)panY=targetY;
+    view.panel.style.transform='translate3d('+panX.toFixed(2)+'px,'+
+      panY.toFixed(2)+'px,0)';
     if(panX!==targetX || panY!==targetY)
-      panFrame=requestAnimationFrame(positionPan);
-  }
+      panFrame=requestAnimationFrame(followPointer);
+  };
   const syncViewerPan=()=>{
-    if(!photoVisible() || !panBaseline || !existingStage || !existingLightbox)return;
-    const active=zoomRatio()>1.035;
-    const wasActive=existingLightbox.classList.contains('vcc-native-pan-enabled');
-    if(!active){
-      if(wasActive){
-        cancelPanFrame();
-        existingLightbox.classList.remove('vcc-native-pan-enabled');
-        existingLightbox.style.removeProperty('--vcc-pan-width');
-        existingLightbox.style.removeProperty('--vcc-pan-height');
-        existingStage.style.transform='';
-        panX=0;panY=0;
-      }
+    const view=activePanel();
+    if(!view || zoomRatio()<=1.035){
+      if(panMode)clearPanelPan();
       return;
     }
-    if(!wasActive){
-      existingLightbox.style.setProperty('--vcc-pan-width',panBaseline.stageWidth+'px');
-      existingLightbox.style.setProperty('--vcc-pan-height',panBaseline.stageHeight+'px');
-      existingLightbox.classList.add('vcc-native-pan-enabled');
-      // Posició inicial central: es pot navegar en totes dues direccions.
-      const max=panBounds();
-      panX=-max.x/2;panY=-max.y/2;
-      existingStage.style.transform='translate3d('+panX.toFixed(2)+'px,'+panY.toFixed(2)+'px,0)';
+    if(panMode!==view.kind){
+      clearPanelPan();
+      panMode=view.kind;
+      view.modal.style.setProperty('--vcc-pan-width',view.width+'px');
+      view.modal.style.setProperty('--vcc-pan-height',view.height+'px');
+      view.modal.classList.add('vcc-native-pan-enabled');
+      const bounds=boundsFor(view);
+      panX=-bounds.x/2;panY=-bounds.y/2;
+      view.panel.style.transform='translate3d('+panX.toFixed(2)+'px,'+
+        panY.toFixed(2)+'px,0)';
     }
-    if(panPointer && !panFrame)panFrame=requestAnimationFrame(positionPan);
+    if(!panFrame)panFrame=requestAnimationFrame(followPointer);
   };
   const startPanBaseline=()=>{
-    if(!existingStage || !existingLightbox)return;
     resetViewerPan();
+    if(!mosaicPanel)return;
     panBaseline={
       viewportWidth:window.innerWidth,
       viewportHeight:window.innerHeight,
       pixelRatio:window.devicePixelRatio||1,
       visualScale:window.visualViewport?.scale||1,
-      stageWidth:existingStage.offsetWidth,
-      stageHeight:existingStage.offsetHeight
+      mosaicWidth:mosaicPanel.offsetWidth,
+      mosaicHeight:mosaicPanel.offsetHeight,
+      // El visor individual té 18 px de marge a cada costat a 100%.
+      // Guardem les dimensions d'abans del zoom, fins i tot si s'obre després.
+      photoWidth:Math.max(1,window.innerWidth-36),
+      photoHeight:Math.max(1,window.innerHeight-36)
     };
   };
   const queuePanSync=()=>{
-    if(!panBaseline || !photoVisible() || panSyncFrame)return;
-    panSyncFrame=requestAnimationFrame(()=>{
-      panSyncFrame=0;
-      syncViewerPan();
-    });
+    if(!panBaseline)return;
+    requestAnimationFrame(syncViewerPan);
   };
   window.addEventListener('resize',queuePanSync,{passive:true});
   window.visualViewport?.addEventListener('resize',queuePanSync,{passive:true});
-  // El zoom Ctrl+rodeta continua sent 100% del navegador.
   window.addEventListener('wheel',event=>{
-    if(photoVisible() && (event.ctrlKey || event.metaKey))
-      requestAnimationFrame(()=>requestAnimationFrame(queuePanSync));
+    if(panBaseline && (event.ctrlKey||event.metaKey))
+      requestAnimationFrame(()=>requestAnimationFrame(syncViewerPan));
   },{capture:true,passive:true});
-  if(existingLightbox){
-    existingLightbox.addEventListener('pointermove',event=>{
-      if(event.pointerType!=='mouse' || event.buttons!==0 || !photoVisible())return;
-      if(event.target.closest('button, a, input, textarea, select'))return;
-      // clientX i getBoundingClientRect utilitzen la MATEIXA escala.
-      const rect=existingLightbox.getBoundingClientRect();
-      if(rect.width<1 || rect.height<1)return;
-      panPointer={
-        x:clamp01((event.clientX-rect.left)/rect.width),
-        y:clamp01((event.clientY-rect.top)/rect.height)
-      };
-      syncViewerPan();
-      if(existingLightbox.classList.contains('vcc-native-pan-enabled') && !panFrame)
-        panFrame=requestAnimationFrame(positionPan);
-    },{passive:true});
-  }
+  document.addEventListener('pointermove',event=>{
+    if(!panBaseline || event.pointerType!=='mouse' || event.buttons!==0)return;
+    const view=activePanel();
+    if(!view)return;
+    const rect=view.modal.getBoundingClientRect();
+    if(rect.width<1||rect.height<1)return;
+    panPointer={
+      x:clamp01((event.clientX-rect.left)/rect.width),
+      y:clamp01((event.clientY-rect.top)/rect.height)
+    };
+    syncViewerPan();
+  },{capture:true,passive:true});
 
   // El zoom de tota la pàgina és responsabilitat del navegador.
   // No interceptem wheel, Ctrl+wheel o els gestos del trackpad.
@@ -371,6 +380,7 @@
     enlargedPhoto?.classList.remove('vcc-dg-rounded-ready');
     if(layer.hidden || !activeGallery) return;
     layer.setAttribute('aria-hidden','false');
+    syncViewerPan();
     if(clickedGridImage?.isConnected) clickedGridImage.focus({preventScroll:true});
     else closeButton.focus({preventScroll:true});
   });
