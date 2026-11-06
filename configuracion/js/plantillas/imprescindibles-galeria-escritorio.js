@@ -119,7 +119,7 @@
       const img=document.createElement('img');
       img.src=miniUrl(url);
       img.alt=name+' · fotografía '+(index+1);
-      img.loading=index<6?'eager':'lazy';
+      img.loading='lazy';
       img.decoding='async';
       button.append(img);
       button.addEventListener('click',()=>openPhoto(index,button));
