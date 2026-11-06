@@ -2,7 +2,7 @@
    Mosaic de la pàgina → tres columnes → visor actual amb descripció lateral. */
 #vcc-desktop-gallery[hidden] { display:none!important }
 #lightbox .vcc-dg-photo-back {display:none!important}
-@media (min-width:801px) {
+@media screen {
   body.vcc-desktop-gallery-open {overflow:hidden!important}
   #vcc-desktop-gallery {
     position:fixed;
@@ -552,5 +552,41 @@
   }
   html body.vcc-desktop-gallery-open #lightbox.lightbox.vcc-native-pan-enabled .lb-stage > .lb-photo {
     cursor:pointer!important;
+  }
+}
+
+/* El visor d'escriptori segueix visible després de Ctrl+rodeta, fins i
+   tot si el viewport virtual baixa dels 801px del breakpoint mòbil. */
+@media screen {
+  html body.vcc-desktop-gallery-open #vcc-desktop-gallery:not([hidden]) {
+    display:grid!important;
+  }
+  html body.vcc-desktop-gallery-open #vcc-desktop-gallery.vcc-native-pan-enabled:not([hidden]) {
+    display:block!important;
+    position:fixed!important;
+    inset:0!important;
+    padding:0!important;
+    margin:0!important;
+    overflow:hidden!important;
+  }
+  html body.vcc-desktop-gallery-open #vcc-desktop-gallery.vcc-native-pan-enabled .vcc-dg-panel {
+    position:absolute!important;
+    top:0!important;
+    left:0!important;
+    width:var(--vcc-pan-width)!important;
+    min-width:var(--vcc-pan-width)!important;
+    max-width:none!important;
+    height:var(--vcc-pan-height)!important;
+    min-height:var(--vcc-pan-height)!important;
+    max-height:none!important;
+    margin:0!important;
+    display:flex!important;
+    flex-direction:column!important;
+    will-change:transform;
+    transform-origin:top left!important;
+    transition:none!important;
+  }
+  html body.vcc-desktop-gallery-open #vcc-desktop-gallery.vcc-native-pan-enabled .vcc-dg-main {
+    grid-template-columns:minmax(0,1fr) minmax(245px,290px)!important;
   }
 }
