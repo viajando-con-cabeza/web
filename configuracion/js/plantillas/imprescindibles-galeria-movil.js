@@ -126,9 +126,10 @@
     const url = preview(photos[selected], 'visor');
     large.style.backgroundImage = 'url("' + url + '")';
     // Calculem els límits de desplaçament segons l'aspecte real del WebP.
+    const currentPhoto = selected;
     const probe = new Image();
     probe.onload = () => {
-      if (selected === index && !photoView.hidden) {
+      if (selected === currentPhoto && !photoView.hidden) {
         naturalWidth=probe.naturalWidth;naturalHeight=probe.naturalHeight;
         renderZoom();
       }
