@@ -18,7 +18,7 @@ jobs:
         with:
           ref: quality
           fetch-depth: 0
-      - name: Convert ten originals into small thumbs and screen-sized previews
+      - name: Convert R2 originals into small thumbs, fast previews and HQ 2200px WebPs
         shell: bash
         run: |
           set -euo pipefail
@@ -37,7 +37,7 @@ jobs:
               im=ImageOps.exif_transpose(im)
               if im.mode not in ('RGB','RGBA'): im=im.convert('RGB')
               total_original+=len(data)
-              for part,width,quality in [('mini',560,76),('visor',1680,82)]:
+              for part,width,quality in [('mini',560,76),('visor',1680,82),('visor-alta',2200,90)]:
                   img=im.copy()
                   img.thumbnail((width,width), Image.Resampling.LANCZOS)
                   target=f'{root}/{part}/{name}.webp'
@@ -46,8 +46,8 @@ jobs:
                   size=os.path.getsize(target)
                   if part=='mini':total_thumb+=size
                   else:total_viewer+=size
-                  print(f'{part}: {name} {img.size} {size} bytes',flush=True)
-          print(f'TOTAL_BYTES original={total_original} mini={total_thumb} visor={total_viewer}',flush=True)
+                  print(f'{part}: {name} original={im.size} result={img.size} {size} bytes',flush=True)
+          print(f'TOTAL_BYTES original={total_original} mini={total_thumb} standard_and_high_quality_visor={total_viewer}',flush=True)
           assert len(names)==10
           PY
       - name: Commit optimized images to quality
