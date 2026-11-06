@@ -415,3 +415,48 @@ html body.ci-page .ci-recommendation-symbol img{
 @media(max-width:600px){
   html body.ci-page .ci-objective-icon img{width:22px;height:22px}
 }
+
+/* VCC 2026-11-06 — Estaciones y tiempo: SVG negros en lugar de emojis.
+   Los spans conservan el lugar original y el diseño de las tarjetas. */
+html body.ci-page .ci-season-grid .ci-season-icon {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: 44px;
+  height: 44px;
+  line-height: 1;
+}
+html body.ci-page .ci-season-grid .ci-season-icon img {
+  display: block;
+  width: 44px;
+  height: 44px;
+  max-width: 100%;
+  object-fit: contain;
+}
+html body.ci-page .ci-weather {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  line-height: 1;
+}
+html body.ci-page .ci-weather img {
+  display: block;
+  width: 32px;
+  height: 32px;
+  max-width: 100%;
+  object-fit: contain;
+}
+@media (max-width: 600px) {
+  html body.ci-page .ci-season-grid .ci-season-icon,
+  html body.ci-page .ci-season-grid .ci-season-icon img {
+    width: 42px;
+    height: 42px;
+  }
+  html body.ci-page .ci-weather,
+  html body.ci-page .ci-weather img {
+    width: 30px;
+    height: 30px;
+  }
+}
