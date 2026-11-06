@@ -152,8 +152,7 @@
     else if(event.target===layer) closeGallery();
   });
 
-  /* Visor individual: clic a la fotografia = zoom visual immediat.
-     La roda i el zoom natiu del navegador no es bloquegen. */
+  /* Visor individual: zoom amb rodeta amunt/avall, sense clic. */
   const enlargedPhoto = existingStage?.querySelector('.lb-photo');
   // La imatge era un fons CSS: per arrodonir les cantonades visibles,
   // superposem el mateix fitxer WebP amb un element <img> real.
@@ -228,46 +227,46 @@
     return Number.isInteger(position) ? activeSources[position-1] : null;
   }
 
-  // El transform s'aplica al mateix img descodificat; no es fa cap nova petició.
-  let zoomed=false;
+  let zoomLevel=1;
   let zoomPanX=0, zoomPanY=0;
   let zoomOriginX=50, zoomOriginY=50;
   let zoomDrag=null;
-  let ignoreZoomClick=false;
-  const PHOTO_ZOOM=2.1;
-  const applyPhotoZoom=(animate=false)=>{
+  const MIN_ZOOM=1, MAX_ZOOM=4;
+  const applyPhotoZoom=()=>{
     if (!roundedImage) return;
-    roundedImage.style.transition=animate?'transform 130ms ease-out':'none';
+    roundedImage.style.transition='none';
     roundedImage.style.transformOrigin=zoomOriginX+'% '+zoomOriginY+'%';
-    roundedImage.style.transform=zoomed
-      ? 'translate3d('+zoomPanX+'px,'+zoomPanY+'px,0) scale('+PHOTO_ZOOM+')'
+    roundedImage.style.transform=zoomLevel>1.001
+      ? 'translate3d('+zoomPanX+'px,'+zoomPanY+'px,0) scale('+zoomLevel+')'
       : 'none';
-    enlargedPhoto.classList.toggle('vcc-dg-is-zoomed',zoomed);
+    enlargedPhoto.classList.toggle('vcc-dg-is-zoomed',zoomLevel>1.001);
   };
   const resetPhotoZoom=()=>{
-    zoomed=false;zoomPanX=0;zoomPanY=0;
+    zoomLevel=1;zoomPanX=0;zoomPanY=0;
     zoomOriginX=50;zoomOriginY=50;
-    zoomDrag=null;ignoreZoomClick=false;
-    if (roundedImage) applyPhotoZoom(false);
+    zoomDrag=null;
+    applyPhotoZoom();
   };
   if (enlargedPhoto) {
-    enlargedPhoto.setAttribute('title','Clica per ampliar la fotografia');
-    enlargedPhoto.addEventListener('click',event=>{
-      if (!photoVisible()) return;
-      if (ignoreZoomClick){ignoreZoomClick=false;return;}
+    enlargedPhoto.setAttribute('title','Roda del ratolí amunt per ampliar i avall per reduir');
+    enlargedPhoto.addEventListener('wheel',event=>{
+      if (!photoVisible() || event.ctrlKey || event.metaKey) return;
+      event.preventDefault();
       if (!roundedImage?.complete || !roundedImage.naturalWidth) return;
-      if (!zoomed){
+      const delta=event.deltaY*(event.deltaMode===1?16:event.deltaMode===2?200:1);
+      const next=Math.min(MAX_ZOOM,Math.max(MIN_ZOOM,zoomLevel*Math.exp(-delta*0.0018)));
+      if (Math.abs(next-zoomLevel)<0.0001)return;
+      if (zoomLevel===1 && next>1) {
         const rect=roundedImage.getBoundingClientRect();
         zoomOriginX=Math.max(0,Math.min(100,(event.clientX-rect.left)/rect.width*100));
         zoomOriginY=Math.max(0,Math.min(100,(event.clientY-rect.top)/rect.height*100));
-        zoomPanX=0;zoomPanY=0;zoomed=true;
-      } else {
-        zoomed=false;zoomPanX=0;zoomPanY=0;
       }
-      applyPhotoZoom(true);
-    });
+      zoomLevel=next;
+      if (zoomLevel<=1.001){zoomLevel=1;zoomPanX=0;zoomPanY=0;}
+      applyPhotoZoom();
+    },{passive:false});
     enlargedPhoto.addEventListener('pointerdown',event=>{
-      if (!zoomed || event.button!==0 || !photoVisible())return;
+      if (zoomLevel<=1.001 || event.button!==0 || !photoVisible())return;
       zoomDrag={id:event.pointerId,x:event.clientX,y:event.clientY,panX:zoomPanX,panY:zoomPanY,moved:false};
       enlargedPhoto.setPointerCapture(event.pointerId);
     });
@@ -282,7 +281,6 @@
     });
     const finishPhotoPan=()=>{
       if (!zoomDrag)return;
-      if(zoomDrag.moved)ignoreZoomClick=true;
       zoomDrag=null;
     };
     enlargedPhoto.addEventListener('pointerup',finishPhotoPan);
