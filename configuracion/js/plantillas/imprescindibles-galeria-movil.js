@@ -91,7 +91,8 @@
   }
   function warmNeighbors() {
     if (photos.length < 2) return;
-    [1, -1, 2].forEach(offset => warmPreview(selected + offset));
+    // Sense precàrrega de tres WebP originals grans: el navegador ja els desa en memòria cau.
+    // Les fotos veïnes es demanen només en navegar-hi.
   }
   // El retall suau s'aplica només a fotografies horitzontals.
   // Tant la foto activa com la que entra pel costat utilitzen el mateix marc.
@@ -359,7 +360,7 @@
       const img = document.createElement('img');
       img.src = preview(url, 'mini');
       img.alt = placeTitle + ', foto ' + (index + 1);
-      img.loading = index < 3 ? 'eager' : 'lazy';
+      img.loading = 'lazy';
       img.decoding = 'async';
       button.append(img);
       button.addEventListener('click', () => {
