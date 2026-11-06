@@ -5,7 +5,7 @@
   'use strict';
   const desktop = window.matchMedia('(min-width: 801px)');
   // Mostra exactament el WebP de Cloudflare R2 també al mosaic.
-  const miniUrl = source => source;
+  const miniUrl = source => String(source).replace(/(\/2026-dia1\/)(DSC\d+\.webp)$/i,'$1_preview/mini/$2');
 
   const layer = document.createElement('div');
   layer.id = 'vcc-desktop-gallery';
@@ -169,27 +169,57 @@
     matte.append(roundedImage);
     enlargedPhoto.append(matte);
   }
+  let photoSequence=0;
+  let upgradeTimer=null;
+  // El visor obre una previsualització nítida de R2 immediatament,
+  // i després substitueix el mateix <img> per l'original ja descodificat.
+  // No hi ha una segona capa de zoom ni descàrregues originals al mosaic.
   function syncRoundedPhoto() {
     if (!enlargedPhoto || !roundedImage) return;
+    const sequence=++photoSequence;
+    clearTimeout(upgradeTimer);
     enlargedPhoto.classList.remove('vcc-dg-rounded-ready');
     if (!photoVisible()) return;
-    const raw = enlargedPhoto.style.backgroundImage;
-    const quoted = raw.startsWith('url(') ? raw.slice(4, -1).trim() : '';
-    const src = (quoted.startsWith('"') || quoted.startsWith("'"))
-      ? quoted.slice(1, -1) : quoted;
-    if (!src || src === 'none') return;
-    roundedImage.onload = () => {
-      if (roundedImage.getAttribute('src') === src &&
-          photoVisible() && roundedImage.naturalWidth) {
-        photoDimensions={width:roundedImage.naturalWidth,height:roundedImage.naturalHeight};
-        enlargedPhoto.classList.add('vcc-dg-rounded-ready');
-        drawZoom();
+    const originalUrl=photoSource();
+    const raw=enlargedPhoto.style.backgroundImage;
+    const quoted=raw.startsWith('url(') ? raw.slice(4,-1).trim() : '';
+    const previewUrl=(quoted.startsWith('"') || quoted.startsWith("'")) ? quoted.slice(1,-1) : quoted;
+    if (!previewUrl || previewUrl==='none') return;
+    roundedImage.onload=()=>{
+      if (sequence!==photoSequence || !photoVisible()) return;
+      photoDimensions={width:roundedImage.naturalWidth,height:roundedImage.naturalHeight};
+      enlargedPhoto.classList.add('vcc-dg-rounded-ready');
+      drawZoom();
+      if (!originalUrl || previewUrl===originalUrl) return;
+      upgradeTimer=setTimeout(()=>{
+        if (sequence!==photoSequence || !photoVisible()) return;
+        const full=new Image();
+        full.alt='';
+        full.draggable=false;
+        full.decoding='async';
+        full.onload=async()=>{
+          try {if (full.decode) await full.decode();} catch (_) {}
+          if (sequence!==photoSequence || !photoVisible()) return;
+          full.style.transition='none';
+          full.style.transform=roundedImage.style.transform;
+          roundedImage.replaceWith(full);
+          roundedImage=full;
+          photoDimensions={width:full.naturalWidth,height:full.naturalHeight};
+          drawZoom();
+        };
+        full.onerror=()=>{}; // La previsualització segueix visible.
+        full.src=originalUrl;
+      },180);
+    };
+    roundedImage.onerror=()=>{
+      if (sequence!==photoSequence) return;
+      // Si falta el derivat, recuperem directament l'original de R2.
+      if (originalUrl && roundedImage.getAttribute('src')!==originalUrl) {
+        roundedImage.src=originalUrl;
       }
     };
-    roundedImage.onerror = () => enlargedPhoto.classList.remove('vcc-dg-rounded-ready');
-    // No reasignem src si ja coincideix: evita descodificacions repetides.
-    if (roundedImage.getAttribute('src') !== src) roundedImage.src = src;
-    if (roundedImage.complete && roundedImage.naturalWidth) roundedImage.onload();
+    if (roundedImage.getAttribute('src')!==previewUrl) roundedImage.src=previewUrl;
+    else if (roundedImage.complete && roundedImage.naturalWidth) roundedImage.onload();
   }
   let zoomLayer = null;
   let zoomLevel = 1;
@@ -328,6 +358,8 @@
   });
 
   existingLightbox?.addEventListener('vcc:lightbox-closed',()=>{
+    ++photoSequence;
+    clearTimeout(upgradeTimer);
     resetDesktopZoom();
     enlargedPhoto?.classList.remove('vcc-dg-rounded-ready');
     if(layer.hidden || !activeGallery) return;
