@@ -57,6 +57,7 @@
     root.hidden = true;
     root.setAttribute('aria-hidden', 'true');
     document.body.classList.remove('vcc-mobile-gallery-open');
+    window.VCCGalleryScrollLock?.release('mobile');
     large.style.removeProperty('background-image');
     previousTile = null;
     if (focusBefore && focusBefore.isConnected) focusBefore.focus({preventScroll: true});
@@ -120,6 +121,7 @@
     root.hidden = false;
     root.setAttribute('aria-hidden', 'false');
     document.body.classList.add('vcc-mobile-gallery-open');
+    window.VCCGalleryScrollLock?.acquire('mobile');
     scroller.scrollTop = 0;
     gridView.querySelector('.vcc-mobile-nav').focus({preventScroll: true});
   }
