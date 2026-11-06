@@ -29,7 +29,7 @@ for name in NAMES:
     # Light sharpening improves edge definition at retina density; preserve original colours.
     resized = resized.filter(ImageFilter.UnsharpMask(radius=1.5, percent=115, threshold=3))
     webp_path = DEST / f'transporte-{name}-hq.webp'
-    resized.save(webp_path, format='WEBP', lossless=True, method=6, exact=True)
+    resized.save(webp_path, format='WEBP', quality=94, method=6, exact=True)
     with Image.open(webp_path) as check:
         check.verify()
     data = base64.b64encode(webp_path.read_bytes()).decode('ascii')
