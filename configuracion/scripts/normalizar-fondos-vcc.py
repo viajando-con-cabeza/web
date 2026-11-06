@@ -113,6 +113,8 @@ replacements = {PFX + name: PFX + "fondos-" + key + ".webp"
 replacements["/configuracion/imagenes/backgrounds/donde-ir-retro.svg"] = PFX + "fondos-donde-ir.webp"
 # The source is a shared general 'Cómo llegar' illustration, not a local icon.
 replacements["/configuracion/imagenes/como-llegar-universal-vcc.webp"] = PFX + "fondos-como-llegar.webp"
+# Repair pre-existing wrong location of the shared continents SVG.
+replacements[PFX + "hero-map-approved-inline.svg"] = "/configuracion/imagenes/continentes/hero-map-approved-inline.svg"
 # Note: only URLs are matched, never bare filenames or Python source constants.
 expr = re.compile("|".join(re.escape(s) + r"(?=[?#\\\"'<> )]|$)" for s in sorted(replacements, key=len, reverse=True)))
 changed = []
