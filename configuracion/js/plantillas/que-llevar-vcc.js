@@ -50,7 +50,7 @@ function render(){
  el("ql-intro").textContent=s.intro;
  el("ql-visual-title").textContent="La maleta VCC · "+s.name.toUpperCase();
  el("ql-note").textContent=s.note;
- el("ql-dates").textContent=s.months;
+
  const cats=el("ql-categories");cats.replaceChildren();
  let total=0,completed=0;
  s.items.forEach(c=>{
