@@ -215,10 +215,10 @@
 @media (min-width:801px) {
   html body.vcc-desktop-gallery-open #lightbox.lightbox .lb-stage {
     width:min(1450px,calc(100vw - 60px))!important;
-    height:min(92dvh,900px)!important;
+    height:min(90dvh,850px)!important;
     display:grid!important;
     grid-template-columns:minmax(0,1fr) minmax(245px,290px)!important;
-    grid-template-rows:75px minmax(0,1fr)!important;
+    grid-template-rows:75px minmax(0,1fr) 32px 116px!important;
     gap:0!important;
     border-radius:17px!important;
   }
@@ -259,14 +259,54 @@
     background-size:contain!important;
     background-position:center!important;
   }
-  html body.vcc-desktop-gallery-open #lightbox.lightbox .lb-counter,
+  /* Franja inferior tipus Booking: comptador dinàmic i miniatures navegables. */
+  html body.vcc-desktop-gallery-open #lightbox.lightbox .lb-counter {
+    grid-column:1!important;
+    grid-row:3!important;
+    display:flex!important;
+    align-items:center!important;
+    justify-content:center!important;
+    min-width:0!important;
+    height:32px!important;
+    padding:0 12px!important;
+    margin:0!important;
+    color:#37332f!important;
+    background:#fff!important;
+    font:500 14px/1 'DM Sans',sans-serif!important;
+    font-variant-numeric:tabular-nums!important;
+  }
   html body.vcc-desktop-gallery-open #lightbox.lightbox .lb-thumbs {
-    display:none!important;
+    grid-column:1!important;
+    grid-row:4!important;
+    display:flex!important;
+    align-items:center!important;
+    justify-content:flex-start!important;
+    gap:10px!important;
+    min-height:0!important;
+    height:116px!important;
+    padding:13px 28px 29px!important;
+    margin:0!important;
+    border-top:1px solid #eee7e1!important;
+    overflow-x:auto!important;
+    overflow-y:hidden!important;
+    scrollbar-width:thin!important;
+    scroll-padding-inline:28px;
+    background:#fff!important;
+    box-sizing:border-box!important;
+  }
+  html body.vcc-desktop-gallery-open #lightbox.lightbox .lb-thumbs button {
+    flex:0 0 88px!important;
+    width:88px!important;
+    height:63px!important;
+    border-radius:6px!important;
+    background-size:cover!important;
+    background-position:center!important;
+    cursor:pointer!important;
   }
   html body.vcc-desktop-gallery-open #lightbox.lightbox .lb-place-info {
     position:relative!important;
     grid-column:2!important;
-    grid-row:2!important;
+    grid-row:2 / 5!important;
     display:block!important;
     min-width:0!important;
     max-height:100%!important;
@@ -319,7 +359,7 @@
   html body #vcc-desktop-gallery .vcc-dg-tile {
     cursor:pointer!important;
   }
-  html body.vcc-desktop-gallery-open #lightbox.vcc-dg-single .lb-photo {
+  html body.vcc-desktop-gallery-open #lightbox.lightbox .lb-stage > .lb-photo {
     cursor:pointer!important;
   }
 }
