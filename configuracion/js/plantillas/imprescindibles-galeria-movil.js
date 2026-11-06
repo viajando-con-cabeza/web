@@ -96,6 +96,22 @@
     if (photos.length < 2) return;
     [1, -1, 2].forEach(offset => warmPreview(selected + offset));
   }
+  // El retall suau s'aplica només a fotografies horitzontals.
+  // Tant la foto activa com la que entra pel costat utilitzen el mateix marc.
+  function framePhoto(element, index) {
+    const img = warmPreview(index);
+    element.classList.remove('is-landscape');
+    if (!img) return;
+    const update = () => {
+      if (!img.naturalWidth || !img.naturalHeight || photoView.hidden) return;
+      if (element === large && selected !== index) return;
+      if (element === incoming &&
+          (incoming.hidden || !slideDirection || neighborIndex(slideDirection) !== index)) return;
+      element.classList.toggle('is-landscape', img.naturalWidth > img.naturalHeight);
+    };
+    if (img.complete && img.naturalWidth) update();
+    else img.addEventListener('load', update, {once:true});
+  }
   function scheduleOriginal(delay = 900) {
     clearTimeout(highResTimer);
     const request = ++highResToken;
@@ -149,8 +165,10 @@
   function clampPan() {
     const width = stage.clientWidth || 1, height = stage.clientHeight || 1;
     const fit = naturalWidth && naturalHeight ? Math.min(width/naturalWidth,height/naturalHeight) : 1;
-    const imageWidth = naturalWidth ? naturalWidth*fit : width;
-    const imageHeight = naturalHeight ? naturalHeight*fit : height;
+    // L'enquadrament horitzontal és un 18% més gran fins i tot abans del zoom.
+    const crop = large.classList.contains('is-landscape') ? 1.18 : 1;
+    const imageWidth = naturalWidth ? naturalWidth*fit*crop : width;
+    const imageHeight = naturalHeight ? naturalHeight*fit*crop : height;
     panX = bound(panX,-Math.max(0,(imageWidth*zoom-width)/2),Math.max(0,(imageWidth*zoom-width)/2));
     panY = bound(panY,-Math.max(0,(imageHeight*zoom-height)/2),Math.max(0,(imageHeight*zoom-height)/2));
   }
@@ -194,6 +212,7 @@
     incoming.style.transition = 'none';
     incoming.style.transform = '';
     incoming.style.removeProperty('background-image');
+    incoming.classList.remove('is-landscape');
     large.style.transition = 'none';
     large.style.transform = 'translate3d('+panX+'px,'+panY+'px,0) scale('+zoom+')';
   }
@@ -203,8 +222,10 @@
     const width = stageWidth || stage.clientWidth || 1;
     if (slideDirection !== direction) {
       slideDirection = direction;
-      incoming.style.backgroundImage = 'url("'+preview(photos[neighborIndex(direction)],'visor')+'")';
+      const nextIndex = neighborIndex(direction);
+      incoming.style.backgroundImage = 'url("'+preview(photos[nextIndex],'visor')+'")';
       incoming.hidden = false;
+      framePhoto(incoming, nextIndex);
     }
     const offset = bound(dx,-width,width);
     large.style.transition = 'none';
@@ -296,6 +317,7 @@
     naturalWidth=0;naturalHeight=0;
     photoView.hidden = false;
     gridView.hidden = true;
+    framePhoto(large, selected);
     const url = preview(photos[selected], 'visor');
     large.style.backgroundImage = 'url("' + url + '")';
     // Calculem els límits de desplaçament segons l'aspecte real del WebP.
