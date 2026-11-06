@@ -4,11 +4,8 @@
 (() => {
   'use strict';
   const mobile = window.matchMedia('(max-width: 800px)');
-  const base = '/destinos/suecia/goteborg/imagenes/optimizadas/';
-  const preview = (url, size) => {
-    const match = String(url).match(/(DSC[0-9]+[.]webp)(?:[?#].*)?$/i);
-    return url; // Mateix WebP original R2 per a mosaic, visor i zoom.
-  };
+  // Mateixa URL WebP de Cloudflare R2 en mosaic, visor i zoom.
+  const preview = url => url;
   const root = document.createElement('div');
   root.id = 'vcc-mobile-gallery';
   root.hidden = true;
