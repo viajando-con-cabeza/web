@@ -7,7 +7,7 @@
   const base = '/destinos/suecia/goteborg/imagenes/optimizadas/';
   const preview = (url, size) => {
     const match = String(url).match(/(DSC[0-9]+[.]webp)(?:[?#].*)?$/i);
-    return match ? base + (size === 'visor' ? 'visor-alta' : size) + '/' + match[1] : url;
+    return match ? base + size + '/' + match[1] : url;
   };
   const root = document.createElement('div');
   root.id = 'vcc-mobile-gallery';
@@ -58,14 +58,13 @@
   let naturalHeight = 0;
   let loadedOriginal = false;
   let originalRequestId = 0;
-  let activeHighQuality = false;
   let gesture = null;
   let lastTap = null;
   let slideDirection = 0;
   let slideTimer = null;
   let slideAnimating = false;
   let slideFinish = null;
-  const slideDuration = window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : 125;
+  const slideDuration = window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : 86;
   let highResTimer = null;
   let highResToken = 0;
   const MAX_ZOOM = 4;
@@ -74,16 +73,17 @@
   const distance = (a,b) => Math.hypot(a.x-b.x,a.y-b.y);
   const midpoint = (a,b) => ({x:(a.x+b.x)/2,y:(a.y+b.y)/2});
 
-  /* El WebP de màxima resolució de R2 només es demana quan l'usuari
-     amplia la foto; no alentim la navegació normal entre les imatges. */
+  /* Foto oberta = fitxer WebP original de R2, sense segona compressió.
+     Només s'inicia quan el dit s'atura; el fotograma en moviment usa
+     previsualitzacions ràpides. El zoom força la petició immediatament. */
   function loadOriginalForZoom() {
-    if (loadedOriginal || zoom<1.45 || !photos[selected]) return;
+    if (loadedOriginal || !photos[selected] || photoView.hidden) return;
     loadedOriginal=true;
     const id=++originalRequestId, index=selected;
     const originalUrl=photos[index];
     const image=new Image();
     image.onload=()=>{
-      if (id!==originalRequestId || index!==selected || photoView.hidden || zoom<=1) return;
+      if (id!==originalRequestId || index!==selected || photoView.hidden) return;
       large.style.backgroundImage='url("'+originalUrl+'")';
       naturalWidth=image.naturalWidth;
       naturalHeight=image.naturalHeight;
@@ -98,7 +98,7 @@
     ++originalRequestId;
     loadedOriginal=false;
     if (!photoView.hidden && photos[selected]) {
-      large.style.backgroundImage='url("'+preview(photos[selected],activeHighQuality?'visor-alta':'visor')+'")';
+      large.style.backgroundImage='url("'+preview(photos[selected],'visor')+'")';
     }
   }
   function clampPan() {
@@ -114,7 +114,7 @@
     large.style.transition = animate ? 'transform 180ms ease-out' : 'none';
     large.style.transform = 'translate3d('+panX+'px,'+panY+'px,0) scale('+zoom+')';
     stage.classList.toggle('is-zoomed',zoom>1.01);
-    if(zoom>=1.45)loadOriginalForZoom();
+    if(zoom>=1.45) { clearTimeout(highResTimer); loadOriginalForZoom(); }
   }
   function resetZoom() {
     zoom=1;panX=0;panY=0;gesture=null;lastTap=null;
@@ -131,7 +131,7 @@
       panX=at.x-cx-factor*(at.x-cx-panX);
       panY=at.y-cy-factor*(at.y-cy-panY);
     }
-    if (zoom<=1.01) {zoom=1;panX=0;panY=0;restorePreview();}
+    if (zoom<=1.01) {zoom=1;panX=0;panY=0;}
     renderZoom(animate);
   }
 
@@ -172,15 +172,19 @@
     const direction = slideDirection;
     const width = stage.clientWidth || 1;
     const next = neighborIndex(direction);
-    const complete = Math.abs(dx) >= Math.max(54,width*0.18);
+    // Un flick curt i ràpid també canvia de foto; manté la possibilitat
+    // de tornar al centre si el desplaçament és realment petit.
+    const velocity = Math.abs(dx)/Math.max(1,elapsed);
+    const complete = Math.abs(dx)>=Math.max(34,width*0.105) ||
+      (Math.abs(dx)>23 && velocity>0.52);
     // Un gest llarg i ràpid avança dues fotos, en dos moviments seguits
     // perquè també es pugui veure la fotografia intermèdia.
-    const fast = Math.abs(dx)/Math.max(1,elapsed);
+    const fast = velocity;
     const doubleStep = !forcedSingle && photos.length>2 && complete &&
       Math.abs(dx)>=width*0.58 && fast>=1.2;
     const endpoint = complete ? -direction*width : 0;
     slideAnimating = true;
-    const duration = doubleStep ? Math.min(slideDuration,85) : slideDuration;
+    const duration = doubleStep ? Math.min(slideDuration,64) : slideDuration;
     let finished = false;
     const done = (interrupted=false) => {
       if (finished) return;
@@ -240,7 +244,6 @@
     selected = (index + photos.length) % photos.length;
     ++originalRequestId;
     loadedOriginal=false;
-    activeHighQuality=false;
     resetZoom();
     naturalWidth=0;naturalHeight=0;
     photoView.hidden = false;
@@ -259,39 +262,17 @@
     probe.src=url;
     large.setAttribute('aria-label', placeTitle + ', fotografía ' + (selected + 1) + ' de ' + photos.length);
     photoCount.textContent = 'Foto ' + (selected + 1) + ' de ' + photos.length;
-    // El carrusel conserva els WebP de 1680 px per passar ràpid entre fotos.
-    // Quan una imatge està quieta, millora a un WebP 2200 px d'alta qualitat
-    // creat a partir de l'original, sense descarregar tots els originals.
-    // Quan hi ha zoom, loadOriginalForZoom demana el WebP complet de R2.
-    const highQualityUrl=preview(photos[selected],'visor-alta');
+    // Passat un instant sense nous gestos, substituïm la previsualització
+    // pel WebP original de R2. En sis swipes ràpids només s'obre l'últim.
     highResTimer=setTimeout(()=>{
-      if(hiResRequest!==highResToken || photoView.hidden)return;
-      const higher=new Image();
-      higher.onload=()=>{
-        if(hiResRequest!==highResToken || photoView.hidden)return;
-        activeHighQuality=true;
-        const apply=()=>{
-          if(hiResRequest!==highResToken || photoView.hidden)return;
-          if(slideAnimating || gesture?.kind==='swipe'){
-            highResTimer=setTimeout(apply,65);
-            return;
-          }
-          // No substituir un original que ja s'està carregant amb zoom.
-          if(zoom>=1.45 || loadedOriginal)return;
-          large.style.backgroundImage='url("'+highQualityUrl+'")';
-          naturalWidth=higher.naturalWidth;
-          naturalHeight=higher.naturalHeight;
-          renderZoom();
-        };
-        apply();
-      };
-      higher.onerror=()=>{}; // el 1680px és el recurs de reserva
-      higher.src=highQualityUrl;
-    },180);
+      if (hiResRequest!==highResToken || photoView.hidden) return;
+      if (slideAnimating || gesture?.kind==='swipe') return;
+      loadOriginalForZoom();
+    },140);
     photoView.querySelector('.vcc-mobile-nav').focus({preventScroll: true});
-    // Precargamos las dos fotos vecinas para evitar vacíos durante el arrastre.
+    // Precarga las próximas 3 fotos y la anterior, usando WebP ligeros.
     if (photos.length > 1) {
-      [-1,1].forEach(direction => {
+      [-1,1,2,3].forEach(direction => {
         const img = new Image();
         img.src = preview(photos[neighborIndex(direction)], 'visor');
       });
@@ -418,7 +399,7 @@
       const r=stage.getBoundingClientRect(),cx=r.left+r.width/2,cy=r.top+r.height/2;
       panX=middle.x-cx-factor*(gesture.middle.x-cx-gesture.panX);
       panY=middle.y-cy-factor*(gesture.middle.y-cy-gesture.panY);
-      if (zoom<=1.01) {zoom=1;panX=0;panY=0;restorePreview();}
+      if (zoom<=1.01) {zoom=1;panX=0;panY=0;}
       renderZoom();
     } else if (event.touches.length===1 && gesture?.kind==='pan') {
       const pt=touchPoint(event.touches[0]);
