@@ -4,8 +4,9 @@
 (() => {
   'use strict';
   const desktop = window.matchMedia('(min-width: 801px)');
-  // Miniatures per a qualsevol carpeta AVIF/WebP de R2; es conserva el fallback original.
-  const miniUrl = source => String(source).replace(/(https:\/\/img\.viajandoconcabeza\.com\/destinos\/[^?#]+\/)([^/]+\.(?:webp|avif))$/i,'$1_preview/mini/$2');
+  // La variant petita es crea i es desa automàticament a R2 via Worker.
+  const miniUrl = source => String(source).replace(/^https:\/\/img\.viajandoconcabeza\.com\/(destinos\/.+\.(?:avif|webp))$/i,
+    'https://img.viajandoconcabeza.com/__vcc_preview/mini/$1');
 
   const layer = document.createElement('div');
   layer.id = 'vcc-desktop-gallery';
