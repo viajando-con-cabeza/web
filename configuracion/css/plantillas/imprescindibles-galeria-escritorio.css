@@ -470,3 +470,13 @@
     z-index:2;
   }
 }
+
+/* Separació elegant sota la línia del títol, només en la foto
+   individual d'escriptori. No afectem el mosaic, les miniatures ni el mòbil. */
+@media (min-width:801px) {
+  html body.vcc-desktop-gallery-open #lightbox.lightbox .lb-stage > .lb-photo {
+    height:calc(100% - 12px)!important;
+    max-height:calc(100% - 12px)!important;
+    margin:12px 0 0!important;
+  }
+}
