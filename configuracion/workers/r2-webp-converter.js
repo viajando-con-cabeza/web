@@ -300,7 +300,7 @@ function updateButtons(){
  q('convertBtn').disabled=busy||!currentPrefix||!files.length;
  q('convertStopBtn').disabled=!(busy&&activeMode==='convert')||stopped;
  q('aiBtn').disabled=busy||!currentPrefix||!scanFiles.length;
- q('aiStopBtn').disabled=!(busy&&activeMode==='ai')||stopped;
+ q('aiStopBtn').disabled=!(busy&&(activeMode==='ai'||activeMode==='ai-delete'))||stopped;
  q('aiDeleteBtn').disabled=busy||!aiRows.length||!q('confirmAiDelete').checked;
  q('selectAllBtn').disabled=busy||!scanReady||!groups.length;
  q('selectNoneBtn').disabled=busy||!scanReady||!groups.length;
@@ -311,7 +311,7 @@ function lock(on,mode=''){
  updateButtons();
 }
 function stopProcess(mode){
- if(!busy||activeMode!==mode)return;
+ if(!busy||(activeMode!==mode&&!(mode==='ai'&&activeMode==='ai-delete')))return;
  stopped=true;
  log(mode==='ai-delete'?'Deteniendo borrado después de la fotografía actual.':mode==='ai'?'Deteniendo análisis después de la imagen actual.':mode==='scan'?'Deteniendo detección después de la fotografía actual.':'Deteniendo conversión después del archivo actual.');
  updateButtons();
@@ -404,7 +404,7 @@ async function runAiSelection(){
  if(!photos.length)return;
  const context=q('aiContext').value.trim().slice(0,180),force=q('aiForce').checked;
  if(!confirm('La IA analizará '+photos.length+' imágenes. Puede generar consumo de Workers AI. No eliminará ninguna fotografía. ¿Continuar?'))return;
- stopped=false;aiRows=[];aiEdited.clear();lock(true,'ai');q('aiResults').innerHTML='';
+ stopped=false;aiRows=[];aiEdited.clear();q('confirmAiDelete').checked=false;q('aiDeleteStatus').textContent='';lock(true,'ai');q('aiResults').innerHTML='';
  const errors=[];let cached=0;
  try{
   for(let i=0;i<photos.length;i++){
