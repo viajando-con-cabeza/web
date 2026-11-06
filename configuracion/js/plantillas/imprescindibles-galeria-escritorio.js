@@ -30,11 +30,8 @@
         '</div>',
         '<aside class="vcc-dg-sidebar">',
           '<div class="vcc-dg-sidebar-content">',
-            '<p class="vcc-dg-kicker">VIAJANDO CON CABEZA · GUÍA VISUAL</p>',
             '<h3 class="vcc-dg-place"></h3>',
             '<p class="vcc-dg-description"></p>',
-            '<div class="vcc-dg-advice" hidden><span class="vcc-dg-advice-label">CONSEJO VCC</span><p></p></div>',
-            '<p class="vcc-dg-note">Selecciona una fotografía para verla en grande.</p>',
           '</div>',
         '</aside>',
       '</div>',
@@ -47,7 +44,6 @@
   const quantity = layer.querySelector('.vcc-dg-heading span');
   const asideTitle = layer.querySelector('.vcc-dg-place');
   const asideDescription = layer.querySelector('.vcc-dg-description');
-  const asideAdvice = layer.querySelector('.vcc-dg-advice');
   const closeButton = layer.querySelector('.vcc-dg-close');
   const existingLightbox = document.getElementById('lightbox');
   const existingStage = existingLightbox?.querySelector('.lb-stage');
@@ -99,13 +95,11 @@
     focusedBefore = document.activeElement;
     const name = section.querySelector('.place-heading h2')?.textContent?.trim() || 'Galería';
     const copy = section.querySelector('.place-copy > p')?.textContent?.trim() || '';
-    const tip = section.querySelector('.advice p')?.textContent?.trim() || '';
+    const subtitle = section.querySelector('.place-copy .place-kicker')?.textContent?.trim() || name;
     heading.textContent = name;
     quantity.textContent = sources.length === 1 ? '1 fotografía' : sources.length + ' fotografías';
-    asideTitle.textContent = name;
+    asideTitle.textContent = subtitle;
     asideDescription.textContent = copy;
-    asideAdvice.hidden = !tip;
-    asideAdvice.querySelector('p').textContent = tip;
 
     const fragment = document.createDocumentFragment();
     sources.forEach((url,index) => {
