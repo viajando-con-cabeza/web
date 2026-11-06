@@ -69,6 +69,7 @@
     layer.hidden = true;
     layer.setAttribute('aria-hidden', 'true');
     document.body.classList.remove('vcc-desktop-gallery-open');
+    window.VCCGalleryScrollLock?.release('desktop');
     activeGallery = null;
     clickedGridImage = null;
     grid.replaceChildren();
@@ -128,6 +129,7 @@
     layer.hidden=false;
     layer.setAttribute('aria-hidden','false');
     document.body.classList.add('vcc-desktop-gallery-open');
+    window.VCCGalleryScrollLock?.acquire('desktop');
     closeButton.focus({preventScroll:true});
   };
 
