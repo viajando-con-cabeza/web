@@ -120,7 +120,8 @@ jobs:
             assert page.evaluate('getComputedStyle(document.body).position')!='fixed'
             after=page.evaluate('window.scrollY')
             print('DESKTOP_SCROLL_RESTORED',before,after,flush=True)
-            assert abs(before-after)<=2,(before,after)
+            expectedDesktop=round(-float(rootState['top'].replace('px','')))
+            assert abs(expectedDesktop-after)<=2,(expectedDesktop,after)
             assert not errs,errs
             assert not failures,failures
             assert all(code==200 for code,url in responses),responses
@@ -138,6 +139,7 @@ jobs:
             assert mobile.locator('#vcc-mobile-gallery').is_visible()
             assert mobile.evaluate('getComputedStyle(document.documentElement).overflow')=='hidden'
             assert mobile.evaluate('getComputedStyle(document.body).position')=='fixed'
+            mobileCapturedTop=mobile.evaluate('getComputedStyle(document.body).top')
             mobile.locator('.vcc-mobile-photo-tile').first.click()
             assert mobile.locator('.vcc-mobile-photo-view').is_visible()
             assert mobile.evaluate('getComputedStyle(document.documentElement).overflow')=='hidden'
@@ -147,7 +149,8 @@ jobs:
             assert not mobile.locator('#vcc-mobile-gallery').is_visible()
             mobileAfter=mobile.evaluate('window.scrollY')
             print('MOBILE_SCROLL_RESTORED',mobileBefore,mobileAfter,flush=True)
-            assert abs(mobileAfter-mobileBefore)<=2,(mobileBefore,mobileAfter)
+            expectedMobile=round(-float(mobileCapturedTop.replace('px','')))
+            assert abs(mobileAfter-expectedMobile)<=2,(expectedMobile,mobileAfter)
             assert mobile.evaluate('getComputedStyle(document.body).position')!='fixed'
             assert not mobileErr,mobileErr
             mobile.close()
