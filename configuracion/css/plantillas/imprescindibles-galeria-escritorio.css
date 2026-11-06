@@ -515,3 +515,18 @@
     backface-visibility:hidden;
   }
 }
+
+/* Zoom conjunt del visor: una única composició per a imatge, text i miniatures.
+   Evitem el cursor de desplaçament permanent i el zoom de l'img per separat. */
+@media (min-width:801px) {
+  html body.vcc-desktop-gallery-open #lightbox.lightbox .lb-stage {
+    will-change:transform;
+    backface-visibility:hidden;
+  }
+  html body.vcc-desktop-gallery-open #lightbox.lightbox .lb-stage > .lb-photo {
+    cursor:pointer!important;
+  }
+  html body.vcc-desktop-gallery-open #lightbox.lightbox.vcc-dg-whole-zoom .lb-stage > .lb-photo {
+    cursor:grab!important;
+  }
+}
