@@ -118,6 +118,7 @@
       button.setAttribute('aria-label','Ampliar fotografía '+(index+1)+' de '+sources.length);
       const img=document.createElement('img');
       img.src=miniUrl(url);
+      img.onerror=()=>{ if(img.src!==url) img.src=url; };
       img.alt=name+' · fotografía '+(index+1);
       img.loading='lazy';
       img.decoding='async';
