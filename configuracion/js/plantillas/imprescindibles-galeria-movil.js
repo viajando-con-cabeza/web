@@ -7,7 +7,7 @@
   const base = '/destinos/suecia/goteborg/imagenes/optimizadas/';
   const preview = (url, size) => {
     const match = String(url).match(/(DSC[0-9]+[.]webp)(?:[?#].*)?$/i);
-    return match ? base + size + '/' + match[1] : url;
+    return url; // Mateix WebP original R2 per a mosaic, visor i zoom.
   };
   const root = document.createElement('div');
   root.id = 'vcc-mobile-gallery';
