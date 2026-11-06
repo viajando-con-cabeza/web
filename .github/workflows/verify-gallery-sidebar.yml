@@ -1,0 +1,62 @@
+name: Verify desktop gallery sidebar
+on:
+  push:
+    branches: [quality]
+    paths: ['.github/workflows/verify-gallery-sidebar.yml']
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Chrome checks sidebar text and cursor, mobile regression
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m pip install --quiet playwright
+          python - <<'PY'
+          from playwright.sync_api import sync_playwright
+          base='https://www.quality.viajandoconcabeza.com/destinos/suecia/estocolmo/imprescindibles.html'
+          with sync_playwright() as p:
+            browser=p.chromium.launch(headless=True, executable_path='/usr/bin/google-chrome',args=['--no-sandbox'])
+            desk=browser.new_page(viewport={'width':1440,'height':900})
+            errors=[]
+            desk.on('pageerror',lambda exc: errors.append(str(exc)))
+            desk.goto(base+'?sidebar-check-04e7868a',wait_until='domcontentloaded',timeout=40000)
+            desk.wait_for_timeout(2200)
+            src=desk.locator('script[src*="galeria-escritorio.js"]').get_attribute('src')
+            css=desk.locator('link[href*="galeria-escritorio.css"]').get_attribute('href')
+            print('FILES',src,css,flush=True)
+            assert 'subtitulo-mano-v2' in src and 'subtitulo-mano-v2' in css
+            sixth=desk.locator('.imp-page .gallery').nth(5)
+            sixth.locator('.gallery-tile').first.click()
+            sidebar=desk.locator('#vcc-desktop-gallery .vcc-dg-sidebar')
+            assert sidebar.is_visible()
+            title=sidebar.locator('.vcc-dg-place').inner_text().strip()
+            description=sidebar.locator('.vcc-dg-description').inner_text().strip()
+            style=sidebar.locator('.vcc-dg-place').evaluate('(e)=>({font:getComputedStyle(e).fontFamily,size:getComputedStyle(e).fontSize,color:getComputedStyle(e).color})')
+            pointer=desk.locator('#vcc-desktop-gallery .vcc-dg-tile').first.evaluate('(e)=>getComputedStyle(e).cursor')
+            print('TITLE',title,'TEXT',description[:120],'STYLE',style,'CURSOR',pointer,flush=True)
+            assert title=='Estocolmo desde las alturas',title
+            assert 'Este paseo peatonal' in description,description
+            assert 'Caveat' in style['font'],style
+            assert pointer=='pointer',pointer
+            assert sidebar.locator('.vcc-dg-advice,.vcc-dg-kicker,.vcc-dg-note').count()==0
+            assert 'GUÍA VISUAL' not in sidebar.inner_text()
+            assert 'CONSEJO VCC' not in sidebar.inner_text()
+            desk.locator('#vcc-desktop-gallery .vcc-dg-tile').nth(1).click()
+            assert desk.locator('#lightbox.open').count()==1
+            assert desk.locator('.lb-place-info').is_visible()
+            desk.locator('#lightbox .vcc-dg-photo-back').click()
+            assert desk.locator('#vcc-desktop-gallery').is_visible()
+            assert not errors,errors
+            desk.close()
+            mob=browser.new_page(viewport={'width':390,'height':844},is_mobile=True,has_touch=True)
+            mob.goto(base+'?mobile-check-04e7868a',wait_until='domcontentloaded',timeout=40000)
+            mob.wait_for_timeout(1500)
+            mob.locator('.gallery').nth(5).locator('.gallery-tile').first.click()
+            assert mob.locator('#vcc-mobile-gallery').is_visible()
+            mob.locator('.vcc-mobile-photo-tile').first.click()
+            assert mob.locator('.vcc-mobile-photo-view').is_visible()
+            mob.close()
+            browser.close()
+            print('PASS updated desktop sidebar and pointer; mobile unchanged',flush=True)
+          PY
