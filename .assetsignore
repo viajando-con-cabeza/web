@@ -1,7 +1,22 @@
-# Do not publish Git metadata as Cloudflare Worker static assets.
+# Exclude Git metadata from Cloudflare Workers static assets.
+# Cover root and nested Git directories, including generated pack files.
+.git
+.git/
 **/.git
+**/.git/
 **/.git/**
+*.pack
+*.idx
+*.rev
+*.bitmap
 
-# Repository automation is not part of the public website.
-**/.github
+# Exclude repository and local development metadata.
+.github
+.github/
 **/.github/**
+node_modules
+node_modules/
+**/node_modules/**
+.wrangler
+.wrangler/
+**/.wrangler/**
