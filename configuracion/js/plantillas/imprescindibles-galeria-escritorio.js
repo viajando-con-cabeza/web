@@ -233,15 +233,18 @@
     return Number.isInteger(position) ? activeSources[position-1] : null;
   }
 
-  // Únic motor de moviment per als dos visors: mosaic i foto individual.
-  // El zoom real continua sent del navegador. Només desplacem el panell
-  // quan el navegador ha reduït l'espai visible, sense clicar ni arrossegar.
+  // Zoom natiu del navegador. Quan el mosaic o la foto són més grans
+  // que la finestra, es poden recórrer movent el cursor sense prémer res.
+  // Moviment RELATIU 1:1: una petita variació del ratolí provoca una
+  // petita variació del panell. No perseguim mai un extrem absolut.
   let panBaseline=null;
   let panMode=null;
   let panFrame=0;
-  let panPointer={x:.5,y:.5};
+  let panLastMouse=null;
   let panX=0,panY=0;
-  const clamp01=value=>Math.max(0,Math.min(1,value));
+  let panTargetX=0,panTargetY=0;
+  const PAN_GAIN=1.15;
+  const limit=(v,lo,hi)=>Math.max(lo,Math.min(hi,v));
   const stopPan=()=>{
     if(panFrame){cancelAnimationFrame(panFrame);panFrame=0;}
   };
@@ -254,12 +257,10 @@
       if(panel)panel.style.transform='';
     }
     panMode=null;
-    panX=0;panY=0;
+    panLastMouse=null;
+    panX=panY=panTargetX=panTargetY=0;
   };
-  const resetViewerPan=()=>{
-    clearPanelPan();
-    panPointer={x:.5,y:.5};
-  };
+  const resetViewerPan=()=>clearPanelPan();
   const zoomRatio=()=>{
     if(!panBaseline)return 1;
     return Math.max(
@@ -288,23 +289,20 @@
     const vh=Math.max(1,Math.min(rect.height,window.visualViewport?.height||rect.height));
     return {x:Math.max(0,view.width-vw),y:Math.max(0,view.height-vh)};
   };
-  const followPointer=()=>{
+  const paintPan=()=>{
     panFrame=0;
     const view=activePanel();
-    if(!view || !panMode || panMode!==view.kind ||
+    if(!view || panMode!==view.kind ||
        !view.modal.classList.contains('vcc-native-pan-enabled'))return;
-    const bounds=boundsFor(view);
-    const targetX=-bounds.x*panPointer.x;
-    const targetY=-bounds.y*panPointer.y;
-    // Moviment reversible i progressiu, sense saltar als extrems.
-    panX+=(targetX-panX)*.3;
-    panY+=(targetY-panY)*.3;
-    if(Math.abs(targetX-panX)<.3)panX=targetX;
-    if(Math.abs(targetY-panY)<.3)panY=targetY;
+    // Un únic repintat per moviment. Sense animació que continuï quan
+    // s'atura el cursor, ni CSS transition que generi inèrcia.
+    panX=panTargetX;
+    panY=panTargetY;
     view.panel.style.transform='translate3d('+panX.toFixed(2)+'px,'+
       panY.toFixed(2)+'px,0)';
-    if(panX!==targetX || panY!==targetY)
-      panFrame=requestAnimationFrame(followPointer);
+  };
+  const schedulePan=()=>{
+    if(!panFrame)panFrame=requestAnimationFrame(paintPan);
   };
   const syncViewerPan=()=>{
     const view=activePanel();
@@ -319,11 +317,18 @@
       view.modal.style.setProperty('--vcc-pan-height',view.height+'px');
       view.modal.classList.add('vcc-native-pan-enabled');
       const bounds=boundsFor(view);
-      panX=-bounds.x/2;panY=-bounds.y/2;
+      // Comencem centrats; el primer pointermove només fixa una referència.
+      panX=panTargetX=-bounds.x/2;
+      panY=panTargetY=-bounds.y/2;
       view.panel.style.transform='translate3d('+panX.toFixed(2)+'px,'+
         panY.toFixed(2)+'px,0)';
+      return;
     }
-    if(!panFrame)panFrame=requestAnimationFrame(followPointer);
+    // Si es continua ampliant o reduint, ajustem els límits sense salts.
+    const bounds=boundsFor(view);
+    panTargetX=limit(panTargetX,-bounds.x,0);
+    panTargetY=limit(panTargetY,-bounds.y,0);
+    schedulePan();
   };
   const startPanBaseline=()=>{
     resetViewerPan();
@@ -335,19 +340,17 @@
       visualScale:window.visualViewport?.scale||1,
       mosaicWidth:mosaicPanel.offsetWidth,
       mosaicHeight:mosaicPanel.offsetHeight,
-      // El visor individual té 18 px de marge a cada costat a 100%.
-      // Guardem les dimensions d'abans del zoom, fins i tot si s'obre després.
       photoWidth:Math.max(1,window.innerWidth-36),
       photoHeight:Math.max(1,window.innerHeight-36)
     };
   };
   const queuePanSync=()=>{
-    if(!panBaseline)return;
-    requestAnimationFrame(syncViewerPan);
+    if(panBaseline)requestAnimationFrame(syncViewerPan);
   };
   window.addEventListener('resize',queuePanSync,{passive:true});
   window.visualViewport?.addEventListener('resize',queuePanSync,{passive:true});
   window.addEventListener('wheel',event=>{
+    // Mai interceptem el Ctrl+rodeta del navegador.
     if(panBaseline && (event.ctrlKey||event.metaKey))
       requestAnimationFrame(()=>requestAnimationFrame(syncViewerPan));
   },{capture:true,passive:true});
@@ -355,13 +358,21 @@
     if(!panBaseline || event.pointerType!=='mouse' || event.buttons!==0)return;
     const view=activePanel();
     if(!view)return;
-    const rect=view.modal.getBoundingClientRect();
-    if(rect.width<1||rect.height<1)return;
-    panPointer={
-      x:clamp01((event.clientX-rect.left)/rect.width),
-      y:clamp01((event.clientY-rect.top)/rect.height)
-    };
     syncViewerPan();
+    if(panMode!==view.kind || !view.modal.classList.contains('vcc-native-pan-enabled'))return;
+    const now={x:event.clientX,y:event.clientY,kind:view.kind};
+    const prev=panLastMouse;
+    panLastMouse=now;
+    if(!prev || prev.kind!==now.kind)return;
+    // Mousemove és la font de moviment, no la posició absoluta del cursor.
+    // Limitem saltets de dispositiu i moviments entre finestres.
+    const dx=limit(now.x-prev.x,-90,90);
+    const dy=limit(now.y-prev.y,-90,90);
+    if(dx===0 && dy===0)return;
+    const bounds=boundsFor(view);
+    panTargetX=limit(panTargetX-dx*PAN_GAIN,-bounds.x,0);
+    panTargetY=limit(panTargetY-dy*PAN_GAIN,-bounds.y,0);
+    schedulePan();
   },{capture:true,passive:true});
 
   // El zoom de tota la pàgina és responsabilitat del navegador.
