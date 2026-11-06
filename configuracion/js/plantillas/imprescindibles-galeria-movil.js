@@ -30,8 +30,6 @@
       '</header>',
       '<div class="vcc-mobile-photo-stage">',
         '<div class="vcc-mobile-photo-full" role="img" aria-label="Fotografía ampliada"></div>',
-        '<button type="button" class="vcc-mobile-photo-arrow vcc-arrow-prev" data-vcc-action="prev" aria-label="Fotografía anterior">‹</button>',
-        '<button type="button" class="vcc-mobile-photo-arrow vcc-arrow-next" data-vcc-action="next" aria-label="Fotografía siguiente">›</button>',
       '</div>',
       '<div class="vcc-mobile-photo-hint">Desliza para cambiar de fotografía</div>',
     '</section>'
@@ -44,8 +42,6 @@
   const photoGrid = root.querySelector('.vcc-mobile-photo-grid');
   const large = root.querySelector('.vcc-mobile-photo-full');
   const photoCount = root.querySelector('.vcc-photo-count');
-  const previous = root.querySelector('.vcc-arrow-prev');
-  const next = root.querySelector('.vcc-arrow-next');
 
   let photos = [];
   let placeTitle = '';
@@ -79,8 +75,6 @@
     large.style.backgroundImage = 'url("' + url + '")';
     large.setAttribute('aria-label', placeTitle + ', fotografía ' + (selected + 1) + ' de ' + photos.length);
     photoCount.textContent = 'Foto ' + (selected + 1) + ' de ' + photos.length;
-    previous.disabled = photos.length < 2;
-    next.disabled = photos.length < 2;
     photoView.querySelector('.vcc-mobile-nav').focus({preventScroll: true});
     // Precarga solo la siguiente imagen de tamaño visor, no todas las originales.
     if (photos.length > 1) {
@@ -159,8 +153,6 @@
     const action = event.target.closest('[data-vcc-action]')?.dataset.vccAction;
     if (action === 'exit') returnToGuide();
     if (action === 'grid') showGrid();
-    if (action === 'prev') showPhoto(selected - 1);
-    if (action === 'next') showPhoto(selected + 1);
   });
   document.addEventListener('keydown', event => {
     if (root.hidden) return;
