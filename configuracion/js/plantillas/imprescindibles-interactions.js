@@ -95,7 +95,7 @@
     if (!album.length || !image) return;
     current = (i + album.length) % album.length;
     const label = `${placeHeading?.textContent || 'Estocolmo'} · fotografía ${current + 1} de ${album.length}`;
-    useR2Background(image, optimizedPhoto(album[current], 'visor'));
+    useR2Background(image, optimizedPhoto(album[current], 'visor-alta'));
     image.setAttribute('aria-label', label);
     if (counter) counter.textContent = `${current + 1} / ${album.length}`;
     [...thumbnails.children].forEach((button,j) => {
