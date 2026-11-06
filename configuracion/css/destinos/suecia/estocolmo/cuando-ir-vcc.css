@@ -387,3 +387,31 @@ html body.ci-page :is(#consejo,#mes-a-mes,#estaciones){
   color:#59514b!important;
  }
 }
+
+/* VCC — iconos SVG negros y reutilizables, vinculados al selector de objetivos */
+html body.ci-page .ci-objective-icon{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  line-height:1;
+}
+html body.ci-page .ci-objective-icon img{
+  display:block;
+  width:26px;
+  height:26px;
+  max-width:100%;
+  object-fit:contain;
+}
+html body.ci-page .ci-recommendation-symbol img{
+  display:block;
+  width:44px;
+  height:44px;
+  margin-inline:auto;
+  object-fit:contain;
+}
+@media(max-width:900px){
+  html body.ci-page .ci-objective-icon img{width:24px;height:24px}
+}
+@media(max-width:600px){
+  html body.ci-page .ci-objective-icon img{width:22px;height:22px}
+}
