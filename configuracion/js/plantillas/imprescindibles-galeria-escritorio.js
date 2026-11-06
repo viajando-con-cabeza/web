@@ -4,11 +4,8 @@
 (() => {
   'use strict';
   const desktop = window.matchMedia('(min-width: 801px)');
-  const imageRoot = '/destinos/suecia/goteborg/imagenes/optimizadas/mini/';
-  const miniUrl = source => {
-    const name = String(source).match(/(DSC[0-9]+[.]webp)(?:[?#].*)?$/i);
-    return source; // Mosaic amb WebP original R2, sense miniatures recomprimides.
-  };
+  // Mostra exactament el WebP de Cloudflare R2 també al mosaic.
+  const miniUrl = source => source;
 
   const layer = document.createElement('div');
   layer.id = 'vcc-desktop-gallery';
