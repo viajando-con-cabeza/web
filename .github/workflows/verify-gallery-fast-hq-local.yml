@@ -1,0 +1,91 @@
+name: Verify gallery fast HQ locally
+on:
+  push:
+    branches: [quality]
+    paths: ['.github/workflows/verify-gallery-fast-hq-local.yml']
+jobs:
+  chrome:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: quality
+      - name: Test current quality source with real Chrome and a local server
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m pip install --quiet playwright
+          python -m http.server 8765 --bind 127.0.0.1 >/tmp/vcc-http.log 2>&1 &
+          python - <<'PY'
+          import time,re
+          from playwright.sync_api import sync_playwright
+          url='http://127.0.0.1:8765/destinos/suecia/estocolmo/imprescindibles.html'
+          with sync_playwright() as p:
+            browser=p.chromium.launch(headless=True,executable_path='/usr/bin/google-chrome',args=['--no-sandbox'])
+            page=browser.new_page(viewport={'width':390,'height':844},device_scale_factor=2,is_mobile=True,has_touch=True)
+            errors=[]
+            photos=[]
+            page.on('pageerror',lambda e:errors.append(str(e)))
+            page.on('response',lambda r:photos.append((r.status,r.url)) if '/visor-alta/' in r.url else None)
+            response=page.goto(url,wait_until='domcontentloaded',timeout=45000)
+            page.wait_for_timeout(1800)
+            print('LOCAL_STATUS',response.status,'GALLERY_COUNT',page.locator('.gallery').count(),flush=True)
+            assert page.locator('.gallery').count()==15
+            page.locator('.gallery').nth(5).locator('.gallery-tile').first.click()
+            page.locator('.vcc-mobile-photo-tile').nth(1).click()
+            counter=page.locator('.vcc-photo-count')
+            assert counter.inner_text()=='Foto 2 de 6'
+            stage=page.locator('.vcc-mobile-photo-stage')
+            photo=stage.locator('.vcc-mobile-photo-full')
+            peek=stage.locator('.vcc-mobile-photo-peek')
+            assert '/visor-alta/DSC06554.webp' in photo.evaluate('(e)=>e.style.backgroundImage')
+            rect=stage.bounding_box();x=int(rect['x']+rect['width']/2);y=int(rect['y']+rect['height']/2)
+            cdp=page.context.new_cdp_session(page)
+            def tap(kind,points):
+              cdp.send('Input.dispatchTouchEvent',{'type':kind,'touchPoints':[{'x':round(px),'y':round(py)} for px,py in points]})
+            # Ordinary deliberate short swipe -> one next photo.
+            tap('touchStart',[(x+140,y)])
+            for px in [x+130,x+115,x+105,x+75,x+45]:
+              tap('touchMove',[(px,y)])
+              page.wait_for_timeout(50)
+            assert peek.is_visible()
+            tap('touchEnd',[])
+            page.wait_for_timeout(340)
+            assert counter.inner_text()=='Foto 3 de 6',counter.inner_text()
+            # 300px flick <100ms: two photos in sequence.
+            tap('touchStart',[(x+165,y)])
+            for px in [x+90,x+5,x-80,x-155]:
+              tap('touchMove',[(px,y)])
+              page.wait_for_timeout(12)
+            print('FAST_SWIPE_DURING',peek.evaluate('(e)=>({image:e.style.backgroundImage,transform:e.style.transform})'),flush=True)
+            assert peek.is_visible()
+            tap('touchEnd',[])
+            page.wait_for_timeout(420)
+            print('FAST_SWIPE_AFTER',counter.inner_text(),flush=True)
+            assert counter.inner_text()=='Foto 5 de 6',counter.inner_text()
+            assert '/visor-alta/DSC06560.webp' in photo.evaluate('(e)=>e.style.backgroundImage')
+            assert any(code==200 and '/visor-alta/DSC06560.webp' in uri for code,uri in photos),photos[-20:]
+            # Mobile pinch shows real original at full resolution, if R2 reachable.
+            tap('touchStart',[(x-50,y),(x+50,y)])
+            for gap in (80,110,140):
+              tap('touchMove',[(x-gap,y),(x+gap,y)])
+              page.wait_for_timeout(45)
+            tap('touchEnd',[])
+            page.wait_for_timeout(250)
+            scale=photo.evaluate('(e)=>e.style.transform')
+            print('ZOOM',scale,flush=True)
+            assert 'scale(2.' in scale or 'scale(3.' in scale
+            assert not errors,errors
+            page.close()
+            desktop=browser.new_page(viewport={'width':1440,'height':900})
+            desktop.goto(url,wait_until='domcontentloaded',timeout=45000)
+            desktop.wait_for_timeout(1300)
+            desktop.locator('.gallery').nth(5).locator('.gallery-tile').first.click()
+            assert desktop.locator('#vcc-desktop-gallery').is_visible()
+            desktop.locator('#vcc-desktop-gallery .vcc-dg-tile').nth(2).click()
+            assert desktop.locator('#lightbox.open').count()==1
+            print('DESKTOP_SOURCE',desktop.locator('#lightbox .lb-photo').evaluate('(e)=>e.style.backgroundImage'),flush=True)
+            assert '/visor-alta/DSC06555.webp' in desktop.locator('#lightbox .lb-photo').evaluate('(e)=>e.style.backgroundImage')
+            desktop.close();browser.close()
+            print('PASS: quality HEAD fast double flick, HQ WebP 2200, pinch zoom and desktop',flush=True)
+          PY
