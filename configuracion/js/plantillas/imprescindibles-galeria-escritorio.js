@@ -152,9 +152,9 @@
     else if(event.target===layer) closeGallery();
   });
 
-  /* Zoom d'escriptori en la foto individual.
-     Clic: 1× / 2.4×. Roda: 1–4×. Arrossegar: explorar detalls.
-     Les fletxes i miniatures continuen canviant de fotografia. */
+  /* Visor individual: conserva la foto nítida i permet el zoom NATIU
+     del navegador de tota la pantalla (Ctrl + roda / Ctrl + + / trackpad).
+     Sense zoom JS sobre la imatge, que causava lentitud i bloquejava el zoom general. */
   const enlargedPhoto = existingStage?.querySelector('.lb-photo');
   // La imatge era un fons CSS: per arrodonir les cantonades visibles,
   // superposem el mateix fitxer WebP amb un element <img> real.
@@ -188,9 +188,7 @@
     if (!previewUrl || previewUrl==='none') return;
     roundedImage.onload=()=>{
       if (sequence!==photoSequence || !photoVisible()) return;
-      photoDimensions={width:roundedImage.naturalWidth,height:roundedImage.naturalHeight};
       enlargedPhoto.classList.add('vcc-dg-rounded-ready');
-      drawZoom();
       if (!originalUrl || previewUrl===originalUrl) return;
       upgradeTimer=setTimeout(()=>{
         if (sequence!==photoSequence || !photoVisible()) return;
@@ -201,12 +199,8 @@
         full.onload=async()=>{
           try {if (full.decode) await full.decode();} catch (_) {}
           if (sequence!==photoSequence || !photoVisible()) return;
-          full.style.transition='none';
-          full.style.transform=roundedImage.style.transform;
           roundedImage.replaceWith(full);
           roundedImage=full;
-          photoDimensions={width:full.naturalWidth,height:full.naturalHeight};
-          drawZoom();
         };
         full.onerror=()=>{}; // La previsualització segueix visible.
         full.src=originalUrl;
@@ -222,146 +216,24 @@
     if (roundedImage.getAttribute('src')!==previewUrl) roundedImage.src=previewUrl;
     else if (roundedImage.complete && roundedImage.naturalWidth) roundedImage.onload();
   }
-  let zoomLayer = null;
-  let zoomLevel = 1;
-  let zoomX = 0;
-  let zoomY = 0;
-  let photoDimensions = null;
-  let dragging = null;
-  let ignoredClick = false;
-  let highResolutionToken = 0;
-  const clamp = (value,min,max) => Math.max(min,Math.min(max,value));
   const photoVisible = () => desktop.matches && !layer.hidden &&
     existingLightbox?.classList.contains('open') && !!enlargedPhoto;
 
-  if (enlargedPhoto) {
-    zoomLayer=document.createElement('div');
-    zoomLayer.className='vcc-dg-zoom-layer';
-    zoomLayer.setAttribute('aria-hidden','true');
-    enlargedPhoto.append(zoomLayer);
-    enlargedPhoto.setAttribute('title','Clica per ampliar · roda del ratolí per fer zoom');
-  }
-
-  function constrainZoom() {
-    if (!enlargedPhoto || !photoDimensions) return;
-    const {width,height}=enlargedPhoto.getBoundingClientRect();
-    const {width:originalWidth,height:originalHeight}=photoDimensions;
-    if (!originalWidth || !originalHeight || !width || !height) return;
-    const fit=Math.min(width/originalWidth,height/originalHeight);
-    const maxX=Math.max(0,(originalWidth*fit*zoomLevel-width)/2);
-    const maxY=Math.max(0,(originalHeight*fit*zoomLevel-height)/2);
-    zoomX=clamp(zoomX,-maxX,maxX);
-    zoomY=clamp(zoomY,-maxY,maxY);
-  }
-  function drawZoom(animate=false) {
-    if (!roundedImage || !enlargedPhoto) return;
-    constrainZoom();
-    const active=zoomLevel>1.01;
-    enlargedPhoto.classList.toggle('vcc-dg-is-zoomed',active);
-    enlargedPhoto.classList.toggle('vcc-dg-is-dragging',Boolean(dragging?.moved));
-    // GPU: escalem el mateix <img> ja descodificat, sense capa ni petició nova.
-    roundedImage.style.transition=animate?'transform 110ms ease-out':'none';
-    roundedImage.style.transform='translate3d('+zoomX+'px,'+zoomY+'px,0) scale('+zoomLevel+')';
-    enlargedPhoto.setAttribute('title',active?'Arrossega per moure · clic per reduir · roda per ajustar':'Clica per ampliar · roda del ratolí per fer zoom');
-  }
-  function resetDesktopZoom() {
-    ++highResolutionToken;
-    zoomLevel=1;
-    zoomX=0;
-    zoomY=0;
-    dragging=null;
-    ignoredClick=false;
-    photoDimensions=null;
-    if (roundedImage) {roundedImage.style.transition='none';roundedImage.style.transform='none';}
-    drawZoom();
-  }
   function photoSource() {
     const count=existingStage?.querySelector('.lb-counter')?.textContent||'';
     const position=Number.parseInt(count.split('/')[0].trim(),10);
     return Number.isInteger(position) ? activeSources[position-1] : null;
   }
-  // La imatge completa de R2 ja està carregada en roundedImage.
-  // No fem una segona petició al servidor quan s'activa el zoom.
-  function setDesktopZoom(target,clientX,clientY,animate=false) {
-    if (!photoVisible())return;
-    const old=zoomLevel;
-    zoomLevel=clamp(target,1,4);
-    if (zoomLevel<=1.01){zoomLevel=1;zoomX=0;zoomY=0;}
-    else {
-      const r=enlargedPhoto.getBoundingClientRect();
-      const offsetX=clientX-(r.left+r.width/2);
-      const offsetY=clientY-(r.top+r.height/2);
-      const ratio=zoomLevel/old;
-      zoomX=offsetX-(offsetX-zoomX)*ratio;
-      zoomY=offsetY-(offsetY-zoomY)*ratio;
-      if(old===1) {
-        // Zoom immediat sobre el WebP existent, sense espera ni segona capa.
-      }
-    }
-    drawZoom(animate);
-  }
-  enlargedPhoto?.addEventListener('pointerdown',event=>{
-    if (!photoVisible() || event.button!==0 || zoomLevel<=1)return;
-    dragging={x:event.clientX,y:event.clientY,panX:zoomX,panY:zoomY,moved:false};
-    enlargedPhoto.setPointerCapture(event.pointerId);
-  });
-  enlargedPhoto?.addEventListener('pointermove',event=>{
-    if (!dragging || !photoVisible())return;
-    const dx=event.clientX-dragging.x,dy=event.clientY-dragging.y;
-    if(Math.hypot(dx,dy)>5)dragging.moved=true;
-    if(!dragging.moved)return;
-    zoomX=dragging.panX+dx;
-    zoomY=dragging.panY+dy;
-    drawZoom();
-    event.preventDefault();
-  });
-  const finishDrag=()=>{
-    if(!dragging)return;
-    ignoredClick=dragging.moved;
-    dragging=null;
-    drawZoom();
-  };
-  enlargedPhoto?.addEventListener('pointerup',finishDrag);
-  enlargedPhoto?.addEventListener('pointercancel',finishDrag);
-  enlargedPhoto?.addEventListener('click',event=>{
-    if(!photoVisible())return;
-    if(ignoredClick){ignoredClick=false;return;}
-    setDesktopZoom(zoomLevel>1?1:2.4,event.clientX,event.clientY,true);
-  });
-  enlargedPhoto?.addEventListener('wheel',event=>{
-    if(!photoVisible())return;
-    event.preventDefault();
-    const delta=event.deltaY*(event.deltaMode===1?16:event.deltaMode===2?300:1);
-    const factor=Math.exp(-delta*0.002);
-    setDesktopZoom(zoomLevel*factor,event.clientX,event.clientY);
-  },{passive:false});
+
   if (enlargedPhoto) {
-    new MutationObserver(() => {resetDesktopZoom();syncRoundedPhoto();}).observe(enlargedPhoto,{attributes:true,attributeFilter:['aria-label']});
+    enlargedPhoto.setAttribute('title','Per ampliar tota la pantalla: Ctrl + roda del ratolí o Ctrl + +');
+    new MutationObserver(() => syncRoundedPhoto())
+      .observe(enlargedPhoto,{attributes:true,attributeFilter:['aria-label']});
   }
-  window.addEventListener('resize',()=>{
-    if(photoVisible() && zoomLevel>1)drawZoom();
-  });
-  document.addEventListener('keydown',event=>{
-    if(!photoVisible())return;
-    if(event.key==='0' || event.key==='Escape'){
-      if(zoomLevel>1){event.preventDefault();resetDesktopZoom();}
-    }
-    if(event.key==='+' || event.key==='='){
-      event.preventDefault();
-      const r=enlargedPhoto.getBoundingClientRect();
-      setDesktopZoom(zoomLevel*1.35,r.left+r.width/2,r.top+r.height/2,true);
-    }
-    if(event.key==='-'){
-      event.preventDefault();
-      const r=enlargedPhoto.getBoundingClientRect();
-      setDesktopZoom(zoomLevel/1.35,r.left+r.width/2,r.top+r.height/2,true);
-    }
-  });
 
   existingLightbox?.addEventListener('vcc:lightbox-closed',()=>{
     ++photoSequence;
     clearTimeout(upgradeTimer);
-    resetDesktopZoom();
     enlargedPhoto?.classList.remove('vcc-dg-rounded-ready');
     if(layer.hidden || !activeGallery) return;
     layer.setAttribute('aria-hidden','false');
