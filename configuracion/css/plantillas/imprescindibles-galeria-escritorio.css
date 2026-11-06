@@ -517,19 +517,25 @@
 }
 
 
-/* Pan de tota la galeria quan l'usuari amplia la PÀGINA amb el navegador.
-   No es modifica ni l'escala ni la qualitat de les fotografies R2. */
+/* Pan automàtic del VISOR COMPLET quan hi ha zoom real del navegador.
+   El JS mou un sol contenidor, sense escalar/recarregar les fotografies.
+   Els elements de la galeria mantenen la seva disposició de desktop
+   fins i tot si el zoom fa passar per sota del breakpoint de 801px. */
 @media screen {
   html body.vcc-desktop-gallery-open #lightbox.lightbox.vcc-native-pan-enabled {
     display:block!important;
     position:fixed!important;
     inset:0!important;
     padding:0!important;
-    overflow:auto!important;
+    margin:0!important;
+    overflow:hidden!important;
     overscroll-behavior:contain;
-    scrollbar-width:thin;
   }
   html body.vcc-desktop-gallery-open #lightbox.lightbox.vcc-native-pan-enabled .lb-stage {
+    position:absolute!important;
+    inset:auto!important;
+    top:0!important;
+    left:0!important;
     display:grid!important;
     grid-template-columns:minmax(0,1fr) minmax(245px,290px)!important;
     grid-template-rows:54px minmax(0,1fr) 30px 80px!important;
@@ -540,6 +546,9 @@
     min-height:var(--vcc-pan-height)!important;
     max-height:none!important;
     margin:0!important;
+    will-change:transform;
+    transform-origin:top left!important;
+    transition:none!important;
   }
   html body.vcc-desktop-gallery-open #lightbox.lightbox.vcc-native-pan-enabled .lb-stage > .lb-photo {
     cursor:pointer!important;
