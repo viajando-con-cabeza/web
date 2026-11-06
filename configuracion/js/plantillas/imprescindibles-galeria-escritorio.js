@@ -284,7 +284,9 @@
     existingLightbox.addEventListener('pointermove',event=>{
       if (event.pointerType!=='mouse' || event.buttons!==0 || !photoVisible() ||
           !existingLightbox.classList.contains('vcc-native-pan-enabled')) return;
-      if (event.target.closest('button, a, input, textarea, select, .lb-thumbs, .lb-place-info')) return;
+      // El cursor pot recórrer tota la galeria, també el text i les miniatures.
+      // Preservem només els controls clicables perquè sigui fàcil navegar.
+      if (event.target.closest('button, a, input, textarea, select')) return;
       const rect=existingLightbox.getBoundingClientRect();
       if(!rect.width || !rect.height)return;
       panPointer={
