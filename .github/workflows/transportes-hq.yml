@@ -1,0 +1,50 @@
+name: VCC Transportes original 4x HQ
+
+on:
+  push:
+    branches:
+      - quality
+    paths:
+      - '.github/workflows/transportes-hq.yml'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: vcc-transportes-hq-once
+  cancel-in-progress: false
+
+jobs:
+  optimize:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout quality
+        uses: actions/checkout@v4
+        with:
+          ref: quality
+          fetch-depth: 0
+      - name: Install image tools
+        run: python -m pip install --quiet Pillow
+      - name: Generate 4x high-density versions and replace SVG wrappers
+        run: python configuracion/scripts/mejorar-transportes-hq.py
+      - name: Validate references and syntax
+        shell: bash
+        run: |
+          set -euo pipefail
+          node configuracion/scripts/comprobar-rutas.mjs
+          find configuracion/js -type f -name '*.js' -print0 | xargs -0 -n1 node --check
+      - name: Commit changes only in quality
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A configuracion/imagenes/ilustraciones/transportes
+          git add destinos/suecia/estocolmo/como-llegar.html configuracion/css/plantillas/como-llegar-vcc.css
+          if git diff --cached --quiet; then
+            echo "Nothing to publish."
+          else
+            git commit -m "Mejorar calidad de transportes originales a 4x"
+            git pull --rebase origin quality
+            git push origin HEAD:quality
+          fi
