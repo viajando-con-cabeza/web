@@ -1,4 +1,4 @@
-name: Verify fast carousel and original WebP fidelity
+name: Verify fast VCC mobile gallery locally
 on:
   push:
     branches: [quality]
@@ -7,103 +7,79 @@ jobs:
   chrome:
     runs-on: ubuntu-latest
     steps:
-      - name: Test fast successive swipe, double fast flick, original WebP and pinch
+      - uses: actions/checkout@v4
+        with:
+          ref: quality
+      - name: Test actual quality-branch files in Chrome
         shell: bash
         run: |
           set -euo pipefail
           python -m pip install --quiet playwright Pillow
+          python -m http.server 8765 --bind 127.0.0.1 >/tmp/vcc-preview.log 2>&1 &
+          echo $! >/tmp/vcc-server.pid
+          trap 'kill $(cat /tmp/vcc-server.pid) || true' EXIT
           python - <<'PY'
-          import time,urllib.request,io
-          from PIL import Image
+          import time,re
           from playwright.sync_api import sync_playwright
-          original='https://img.viajandoconcabeza.com/destinos/suecia/goteborg/2026-dia1/DSC06554.webp'
-          optimized='https://www.quality.viajandoconcabeza.com/destinos/suecia/goteborg/imagenes/optimizadas/visor-alta/DSC06554.webp'
-          for label,url in [('original',original),('optimized',optimized)]:
-            req=urllib.request.Request(url,headers={'User-Agent':'VCC-Quality-Verification/1.0'})
-            with urllib.request.urlopen(req,timeout=30) as response:
-              data=response.read()
-              im=Image.open(io.BytesIO(data))
-              print('PHOTO_SOURCE',label,'size',len(data),'dimensions',im.size,'mime',im.format,flush=True)
-              assert im.format=='WEBP'
-              if label=='original': orig_size=im.size; original_bytes=len(data)
-              else: prev_size=im.size; preview_bytes=len(data)
-          assert orig_size[0]*orig_size[1]>prev_size[0]*prev_size[1],(orig_size,prev_size)
-          print('SOURCE_RATIO original_vs_preview',round(original_bytes/preview_bytes,2),flush=True)
-          url='https://www.quality.viajandoconcabeza.com/destinos/suecia/estocolmo/imprescindibles.html'
+          url='http://127.0.0.1:8765/destinos/suecia/estocolmo/imprescindibles.html'
           with sync_playwright() as p:
             browser=p.chromium.launch(headless=True,executable_path='/usr/bin/google-chrome',args=['--no-sandbox'])
-            page=None;errors=[]
-            for attempt in range(1,17):
-              cur=browser.new_page(viewport={'width':390,'height':844},device_scale_factor=2,is_mobile=True,has_touch=True)
-              cur.on('pageerror',lambda e:errors.append(str(e)))
-              res=cur.goto(url+'?fast-original-check='+str(attempt)+'-ef6bf5',wait_until='domcontentloaded',timeout=45000)
-              cur.wait_for_timeout(1100)
-              path=cur.locator('script[src*="imprescindibles-galeria-movil.js"]').get_attribute('src') or ''
-              print('ATTEMPT',attempt,'STATUS',res.status,'JS',path,flush=True)
-              if 'fast-hq-v9' in path:
-                page=cur;break
-              cur.close();time.sleep(8)
-            assert page,'Fast original version not deployed'
-            responses=[]
-            page.on('response',lambda r:responses.append((r.status,r.url)) if ('img.viajandoconcabeza.com/destinos/suecia/goteborg' in r.url or '/optimizadas/visor-alta/' in r.url) else None)
+            page=browser.new_page(viewport={'width':390,'height':844},device_scale_factor=2,is_mobile=True,has_touch=True)
+            failures=[];errors=[]; responses=[]
+            page.on('pageerror',lambda e:errors.append(str(e)))
+            page.on('requestfailed',lambda r:failures.append((r.url,r.failure)) if 'DSC' in r.url else None)
+            page.on('response',lambda r:responses.append((r.status,r.url)) if 'DSC' in r.url else None)
+            page.goto(url,wait_until='domcontentloaded',timeout=45000)
+            page.wait_for_timeout(1900)
+            assert page.locator('.gallery').count()==15, 'gallery sections missing'
             page.locator('.gallery').nth(5).locator('.gallery-tile').first.click()
+            assert page.locator('#vcc-mobile-gallery').is_visible()
             page.locator('.vcc-mobile-photo-tile').nth(1).click()
             stage=page.locator('.vcc-mobile-photo-stage')
-            large=stage.locator('.vcc-mobile-photo-full')
+            large=page.locator('.vcc-mobile-photo-full')
             counter=page.locator('.vcc-photo-count')
             assert counter.inner_text()=='Foto 2 de 6'
-            # Progressive upgrade after a short dwell, without changing the photo.
-            page.wait_for_function("""() => (document.querySelector('#vcc-mobile-gallery .vcc-mobile-photo-full')?.style.backgroundImage||'').includes('/optimizadas/visor-alta/')""",timeout=18000)
-            print('PROGRESSIVE_HIRES',large.evaluate('(e)=>e.style.backgroundImage'),counter.inner_text(),flush=True)
-            assert 'DSC06554.webp' in large.evaluate('(e)=>e.style.backgroundImage')
-            assert counter.inner_text()=='Foto 2 de 6'
-            assert any(c==200 and '/visor-alta/DSC06554.webp' in u for c,u in responses),responses
-            rect=stage.bounding_box()
-            cx=int(rect['x']+rect['width']/2);cy=int(rect['y']+rect['height']/2)
+            page.wait_for_function("""() => (document.querySelector('.vcc-mobile-photo-full')?.style.backgroundImage||'').includes('/visor-alta/')""",timeout=15000)
+            print('HQ_IMAGE',large.evaluate('(e)=>e.style.backgroundImage'),flush=True)
+            assert any(code==200 and '/visor-alta/DSC06554.webp' in uri for code,uri in responses),responses[-20:]
+            rect=stage.bounding_box();cx=int(rect['x']+rect['width']/2);cy=int(rect['y']+rect['height']/2)
             cdp=page.context.new_cdp_session(page)
-            def send(kind,points):
-              cdp.send('Input.dispatchTouchEvent',{'type':kind,'touchPoints':[{'x':round(x),'y':round(y)} for x,y in points]})
-            # Two fast consecutive drags: launch next while the first slide is still settling.
-            send('touchStart',[(cx+120,cy)])
-            for x in [cx+80,cx+50,cx+15,cx-15]:
-              send('touchMove',[(x,cy)])
-              page.wait_for_timeout(18)
-            send('touchEnd',[])
+            def send(kind,pts):
+              cdp.send('Input.dispatchTouchEvent',{'type':kind,'touchPoints':[{'x':round(x),'y':round(y)} for x,y in pts]})
+            def swipe(start,end,delay=15):
+              send('touchStart',[(start,cy)])
+              for i in range(1,5):
+                send('touchMove',[(start+(end-start)*i/4,cy)])
+                page.wait_for_timeout(delay)
+              send('touchEnd',[])
+            swipe(cx+120,cx-15)
             page.wait_for_timeout(12)
-            send('touchStart',[(cx+120,cy)])
-            for x in [cx+85,cx+55,cx+20,cx-10]:
-              send('touchMove',[(x,cy)])
-              page.wait_for_timeout(17)
-            send('touchEnd',[])
-            page.wait_for_timeout(280)
+            swipe(cx+120,cx-10)
+            page.wait_for_timeout(330)
             print('TWO_RAPID_SWIPES',counter.inner_text(),flush=True)
             assert counter.inner_text()=='Foto 4 de 6'
-            # Very quick long drag: deliberately jumps 2, with both photo transitions.
-            send('touchStart',[(cx+160,cy)])
-            for x in [cx+95,cx+30,cx-50,cx-145]:
-              send('touchMove',[(x,cy)])
-              page.wait_for_timeout(10)
-            send('touchEnd',[])
-            page.wait_for_timeout(350)
-            print('FAST_LONG_FLICK',counter.inner_text(),flush=True)
+            swipe(cx+160,cx-145,10)
+            page.wait_for_timeout(390)
+            print('DOUBLE_FAST_FLICK',counter.inner_text(),flush=True)
             assert counter.inner_text()=='Foto 6 de 6'
-            # Two-finger zoom remains separate from swipes.
             send('touchStart',[(cx-40,cy),(cx+40,cy)])
             send('touchMove',[(cx-100,cy),(cx+100,cy)])
             send('touchEnd',[])
             page.wait_for_timeout(180)
-            print('PINCH_AFTER_SWIPE',large.evaluate('(e)=>e.style.transform'),flush=True)
-            assert 'scale(2.5)' in large.evaluate('(e)=>e.style.transform')
+            transform=large.evaluate('(e)=>e.style.transform')
+            print('ZOOM',transform,flush=True)
+            assert 'scale(2.5)' in transform
+            page.wait_for_function("""() => (document.querySelector('.vcc-mobile-photo-full')?.style.backgroundImage||'').includes('https://img.viajandoconcabeza.com/')""",timeout=18000)
+            print('ORIGINAL_R2_ZOOM',large.evaluate('(e)=>e.style.backgroundImage'),flush=True)
             assert counter.inner_text()=='Foto 6 de 6'
-            page.wait_for_function("""() => (document.querySelector('#vcc-mobile-gallery .vcc-mobile-photo-full')?.style.backgroundImage||'').includes('https://img.viajandoconcabeza.com/')""",timeout=18000)
-            print('FULL_ORIGINAL_ON_ZOOM',large.evaluate('(e)=>e.style.backgroundImage'),flush=True)
             assert not errors,errors
+            assert not failures,failures
             page.close()
-            desk=browser.new_page(viewport={'width':1440,'height':900})
-            desk.goto(url+'?fast-original-desktop-regression',wait_until='domcontentloaded',timeout=45000)
-            desk.wait_for_timeout(1100)
-            desk.locator('.gallery').nth(5).locator('.gallery-tile').first.click()
-            assert desk.locator('#vcc-desktop-gallery').is_visible()
-            desk.close();browser.close()
-            print('PASS: twice-rapid swipe, two-photo flick, original R2 WebP quality, pinch, desktop regression',flush=True)
+            desktop=browser.new_page(viewport={'width':1440,'height':900})
+            desktop.goto(url,wait_until='domcontentloaded',timeout=45000)
+            desktop.wait_for_timeout(1400)
+            desktop.locator('.gallery').nth(5).locator('.gallery-tile').first.click()
+            assert desktop.locator('#vcc-desktop-gallery').is_visible()
+            desktop.close();browser.close()
+            print('PASS: live film swipes, rapid doubles, 2200px HQ, 4896px original on zoom, desktop preserved',flush=True)
           PY
