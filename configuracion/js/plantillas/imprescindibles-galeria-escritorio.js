@@ -245,7 +245,13 @@
     }
     layer.classList.remove('vcc-native-document-gallery');
     existingLightbox?.classList.remove('vcc-native-document-gallery');
-    document.documentElement.classList.remove('vcc-gallery-native-scroll');
+    const root=document.documentElement;
+    root.classList.remove('vcc-gallery-native-scroll');
+    for(const key of [
+      '--vcc-gallery-document-top','--vcc-gallery-document-left',
+      '--vcc-gallery-document-width','--vcc-gallery-document-height',
+      '--vcc-gallery-panel-width','--vcc-gallery-panel-height'
+    ])root.style.removeProperty(key);
     nativeViewport=null;
   };
   const startPanBaseline=()=>{
@@ -266,9 +272,14 @@
       el.style.setProperty('height',vh+'px');
       el.classList.add('vcc-native-document-gallery');
     }
-    document.documentElement.style.setProperty('--vcc-gallery-panel-width',panelWidth+'px');
-    document.documentElement.style.setProperty('--vcc-gallery-panel-height',panelHeight+'px');
-    document.documentElement.classList.add('vcc-gallery-native-scroll');
+    const root=document.documentElement;
+    root.style.setProperty('--vcc-gallery-document-top',py+'px');
+    root.style.setProperty('--vcc-gallery-document-left',px+'px');
+    root.style.setProperty('--vcc-gallery-document-width',vw+'px');
+    root.style.setProperty('--vcc-gallery-document-height',vh+'px');
+    root.style.setProperty('--vcc-gallery-panel-width',panelWidth+'px');
+    root.style.setProperty('--vcc-gallery-panel-height',panelHeight+'px');
+    root.classList.add('vcc-gallery-native-scroll');
   };
 
   // El zoom de tota la pàgina és responsabilitat del navegador.
