@@ -398,38 +398,15 @@
 }
 
 
-/* Zoom de fotografia individual a l'ordinador: viewport retallat a la
-   mateixa caixa de la foto, sense tapar el text lateral ni les miniatures. */
+/* Visor individual: el zoom és el natiu del navegador, com al mosaic.
+   No s'intercepta el gest de pinça ni s'aplica cap transformació a la foto. */
 @media (min-width:801px) {
   html body.vcc-desktop-gallery-open #lightbox.lightbox .lb-stage > .lb-photo {
     position:relative!important;
     overflow:hidden!important;
-    cursor:pointer!important;
-    touch-action:none;
-    user-select:none;
-  }
-  html body.vcc-desktop-gallery-open #lightbox.lightbox .lb-stage > .lb-photo.vcc-dg-is-zoomed {
     cursor:grab!important;
-  }
-  html body.vcc-desktop-gallery-open #lightbox.lightbox .lb-stage > .lb-photo.vcc-dg-is-dragging {
-    cursor:grabbing!important;
-  }
-  html body.vcc-desktop-gallery-open #lightbox.lightbox .lb-photo > .vcc-dg-zoom-layer {
-    position:absolute;
-    inset:0;
-    display:block;
-    visibility:hidden;
-    z-index:1;
-    width:100%;
-    height:100%;
-    pointer-events:none;
-    background-color:#fff;
-    background-size:contain;
-    background-repeat:no-repeat;
-    background-position:center center;
-    transform-origin:center center;
-    will-change:transform;
-    backface-visibility:hidden;
+    touch-action:auto!important;
+    user-select:none;
   }
 }
 
@@ -521,9 +498,8 @@
     border-radius:13px;
   }
   html body.vcc-desktop-gallery-open #lightbox.lightbox .lb-photo > .vcc-dg-rounded-matte > img {
-    will-change:transform;
-    backface-visibility:hidden;
-    transform-origin:center center;
+    will-change:auto;
+    backface-visibility:visible;
     image-rendering:auto;
   }
 }
