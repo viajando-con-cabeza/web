@@ -67,11 +67,10 @@
       window.VCCImprescindiblesLightbox?.dismiss();
     }
     resetViewerPan();
-    panBaseline=null;
     layer.hidden = true;
     layer.setAttribute('aria-hidden', 'true');
     document.body.classList.remove('vcc-desktop-gallery-open');
-    window.VCCGalleryScrollLock?.release('desktop');
+    clearNativeGalleryLayout();
     activeGallery = null;
     clickedGridImage = null;
     activeSources = [];
@@ -136,7 +135,6 @@
     layer.hidden=false;
     layer.setAttribute('aria-hidden','false');
     document.body.classList.add('vcc-desktop-gallery-open');
-    window.VCCGalleryScrollLock?.acquire('desktop');
     startPanBaseline();
     closeButton.focus({preventScroll:true});
   };
@@ -233,186 +231,45 @@
     return Number.isInteger(position) ? activeSources[position-1] : null;
   }
 
-  // Browser zoom remains native. Retain the exact image/content point
-  // under the cursor across Ctrl+wheel, instead of jumping to panel centre.
-  // Mouse movement afterwards pans relatively, only while zoomed.
-  let panBaseline=null;
-  let panMode=null;
-  let panFrame=0;
-  let panLastMouse=null;
-  let lastPointer=null;
-  let pendingZoomAnchor=null;
-  let panX=0,panY=0;
-  let panTargetX=0,panTargetY=0;
-  const PAN_GAIN=1;
-  const limit=(v,lo,hi)=>Math.max(lo,Math.min(hi,v));
-  const stopPan=()=>{
-    if(panFrame){cancelAnimationFrame(panFrame);panFrame=0;}
-  };
-  const clearPanelPan=()=>{
-    stopPan();
-    for(const [modal,panel] of [[layer,mosaicPanel],[existingLightbox,existingStage]]){
-      modal?.classList.remove('vcc-native-pan-enabled');
-      modal?.style.removeProperty('--vcc-pan-width');
-      modal?.style.removeProperty('--vcc-pan-height');
-      if(panel)panel.style.transform='';
+  // La galeria es tracta com a contingut normal del document:
+  // el zoom, la posició focal i el desplaçament els controla el navegador.
+  // Evitem transformacions per cursor, que duplicaven el moviment natiu.
+  let nativeViewport=null;
+  const resetViewerPan=()=>{}; // De la foto individual tornem al mosaic sense canviar zoom.
+  const syncViewerPan=()=>{};  // Mantingut per compatibilitat amb el visor.
+  const clearNativeGalleryLayout=()=>{
+    for(const el of [layer,existingLightbox]){
+      if(!el)continue;
+      for(const name of ['top','left','right','bottom','width','height'])
+        el.style.removeProperty(name);
     }
-    panMode=null;
-    panLastMouse=null;
-    panX=panY=panTargetX=panTargetY=0;
-  };
-  const resetViewerPan=()=>{
-    clearPanelPan();
-    lastPointer=null;
-    pendingZoomAnchor=null;
-  };
-  const zoomRatio=()=>{
-    if(!panBaseline)return 1;
-    return Math.max(
-      panBaseline.viewportWidth/Math.max(1,window.innerWidth),
-      panBaseline.viewportHeight/Math.max(1,window.innerHeight),
-      (window.devicePixelRatio||1)/Math.max(.01,panBaseline.pixelRatio),
-      (window.visualViewport?.scale||1)/Math.max(.01,panBaseline.visualScale)
-    );
-  };
-  const activePanel=()=>{
-    if(!panBaseline || layer.hidden ||
-      !document.body.classList.contains('vcc-desktop-gallery-open'))return null;
-    if(photoVisible() && existingLightbox && existingStage){
-      return {kind:'photo',modal:existingLightbox,panel:existingStage,
-        width:panBaseline.photoWidth,height:panBaseline.photoHeight};
-    }
-    if(!existingLightbox?.classList.contains('open')){
-      return {kind:'mosaic',modal:layer,panel:mosaicPanel,
-        width:panBaseline.mosaicWidth,height:panBaseline.mosaicHeight};
-    }
-    return null;
-  };
-  const boundsFor=view=>{
-    const rect=view.modal.getBoundingClientRect();
-    const vw=Math.max(1,Math.min(rect.width,window.visualViewport?.width||rect.width));
-    const vh=Math.max(1,Math.min(rect.height,window.visualViewport?.height||rect.height));
-    return {x:Math.max(0,view.width-vw),y:Math.max(0,view.height-vh)};
-  };
-  const paintPan=()=>{
-    panFrame=0;
-    const view=activePanel();
-    if(!view || panMode!==view.kind ||
-      !view.modal.classList.contains('vcc-native-pan-enabled'))return;
-    panX=panTargetX;panY=panTargetY;
-    view.panel.style.transform='translate3d('+panX.toFixed(2)+'px,'+
-      panY.toFixed(2)+'px,0)';
-  };
-  const schedulePan=()=>{
-    if(!panFrame)panFrame=requestAnimationFrame(paintPan);
-  };
-  // Before browser zoom changes the layout, record the content location
-  // beneath the cursor, in panel-local CSS pixels.
-  const rememberZoomAnchor=event=>{
-    const view=activePanel();
-    if(!view || !event.ctrlKey && !event.metaKey)return;
-    const rect=view.panel.getBoundingClientRect();
-    pendingZoomAnchor={
-      mode:view.kind,
-      contentX:event.clientX-rect.left,
-      contentY:event.clientY-rect.top,
-      pointerX:event.clientX,
-      pointerY:event.clientY,
-      viewportWidth:window.innerWidth,
-      viewportHeight:window.innerHeight
-    };
-    panLastMouse=null; // Zoom-induced pointer co-ordinate changes are not movement.
-  };
-  const applyZoomAnchor=view=>{
-    const anchor=pendingZoomAnchor;
-    if(!anchor || anchor.mode!==view.kind)return false;
-    const bounds=boundsFor(view);
-    // Browser zoom changes CSS viewport size, not the physical mouse
-    // position. Project its coordinate into the new CSS viewport.
-    const x=anchor.pointerX*(window.innerWidth/Math.max(1,anchor.viewportWidth));
-    const y=anchor.pointerY*(window.innerHeight/Math.max(1,anchor.viewportHeight));
-    panTargetX=limit(x-anchor.contentX,-bounds.x,0);
-    panTargetY=limit(y-anchor.contentY,-bounds.y,0);
-    pendingZoomAnchor=null;
-    panLastMouse=null;
-    return true;
-  };
-  const syncViewerPan=()=>{
-    const view=activePanel();
-    if(!view || zoomRatio()<=1.035){
-      if(panMode)clearPanelPan();
-      if(zoomRatio()<=1.035)pendingZoomAnchor=null;
-      return;
-    }
-    if(panMode!==view.kind){
-      clearPanelPan();
-      panMode=view.kind;
-      view.modal.style.setProperty('--vcc-pan-width',view.width+'px');
-      view.modal.style.setProperty('--vcc-pan-height',view.height+'px');
-      view.modal.classList.add('vcc-native-pan-enabled');
-      // Never jump to the centre. Preserve the cursor's zoom focus.
-      if(!applyZoomAnchor(view)){
-        const bounds=boundsFor(view);
-        // If opened directly while zoomed, align to the last cursor
-        // position, or keep the default top-left of the panel.
-        panTargetX=limit(0,-bounds.x,0);
-        panTargetY=limit(0,-bounds.y,0);
-      }
-      schedulePan();
-      return;
-    }
-    if(!applyZoomAnchor(view)){
-      const bounds=boundsFor(view);
-      panTargetX=limit(panTargetX,-bounds.x,0);
-      panTargetY=limit(panTargetY,-bounds.y,0);
-    }
-    schedulePan();
+    layer.classList.remove('vcc-native-document-gallery');
+    existingLightbox?.classList.remove('vcc-native-document-gallery');
+    document.documentElement.classList.remove('vcc-gallery-native-scroll');
+    nativeViewport=null;
   };
   const startPanBaseline=()=>{
-    resetViewerPan();
-    if(!mosaicPanel)return;
-    panBaseline={
-      viewportWidth:window.innerWidth,
-      viewportHeight:window.innerHeight,
-      pixelRatio:window.devicePixelRatio||1,
-      visualScale:window.visualViewport?.scale||1,
-      mosaicWidth:mosaicPanel.offsetWidth,
-      mosaicHeight:mosaicPanel.offsetHeight,
-      photoWidth:Math.max(1,window.innerWidth-36),
-      photoHeight:Math.max(1,window.innerHeight-36)
-    };
-  };
-  const queuePanSync=()=>{
-    if(panBaseline)requestAnimationFrame(syncViewerPan);
-  };
-  window.addEventListener('resize',queuePanSync,{passive:true});
-  window.visualViewport?.addEventListener('resize',queuePanSync,{passive:true});
-  window.addEventListener('wheel',event=>{
-    // Do not prevent browser zoom: only capture the point to preserve.
-    if(panBaseline && (event.ctrlKey||event.metaKey)){
-      rememberZoomAnchor(event);
-      requestAnimationFrame(()=>requestAnimationFrame(syncViewerPan));
+    const vw=window.innerWidth;
+    const vh=window.innerHeight;
+    const px=window.scrollX;
+    const py=window.scrollY;
+    const panelWidth=Math.max(1,mosaicPanel.offsetWidth);
+    const panelHeight=Math.max(1,mosaicPanel.offsetHeight);
+    nativeViewport={x:px,y:py,w:vw,h:vh};
+    // Posicionament ABSOLUT al document, no fix al viewport: quan Edge
+    // amplia la pàgina es pot recórrer com a Inici o Destins.
+    for(const el of [layer,existingLightbox]){
+      if(!el)continue;
+      el.style.setProperty('top',py+'px');
+      el.style.setProperty('left',px+'px');
+      el.style.setProperty('width',vw+'px');
+      el.style.setProperty('height',vh+'px');
+      el.classList.add('vcc-native-document-gallery');
     }
-  },{capture:true,passive:true});
-  document.addEventListener('pointermove',event=>{
-    if(!panBaseline || event.pointerType!=='mouse' || event.buttons!==0)return;
-    const view=activePanel();
-    if(!view)return;
-    lastPointer={x:event.clientX,y:event.clientY,kind:view.kind};
-    syncViewerPan();
-    if(panMode!==view.kind || !view.modal.classList.contains('vcc-native-pan-enabled'))return;
-    const now={x:event.clientX,y:event.clientY,kind:view.kind};
-    const prev=panLastMouse;
-    panLastMouse=now;
-    if(!prev || prev.kind!==now.kind)return;
-    const dx=limit(now.x-prev.x,-90,90);
-    const dy=limit(now.y-prev.y,-90,90);
-    if(dx===0 && dy===0)return;
-    const bounds=boundsFor(view);
-    panTargetX=limit(panTargetX-dx*PAN_GAIN,-bounds.x,0);
-    panTargetY=limit(panTargetY-dy*PAN_GAIN,-bounds.y,0);
-    schedulePan();
-  },{capture:true,passive:true});
+    document.documentElement.style.setProperty('--vcc-gallery-panel-width',panelWidth+'px');
+    document.documentElement.style.setProperty('--vcc-gallery-panel-height',panelHeight+'px');
+    document.documentElement.classList.add('vcc-gallery-native-scroll');
+  };
 
   // El zoom de tota la pàgina és responsabilitat del navegador.
   // No interceptem wheel, Ctrl+wheel o els gestos del trackpad.
