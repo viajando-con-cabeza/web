@@ -1,0 +1,57 @@
+name: Verify no mobile photo hint and image sources
+on:
+  push:
+    branches: [quality]
+    paths: ['.github/workflows/verify-no-mobile-photo-hint.yml']
+jobs:
+  chrome:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: quality
+      - name: Check mobile gallery without footer and original R2 zoom
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m pip install --quiet playwright
+          python -m http.server 8765 --bind 127.0.0.1 >/tmp/vcc-photo-server.log 2>&1 &
+          SERVER_PID=$!
+          trap 'kill "$SERVER_PID" || true' EXIT
+          python - <<'PY'
+          import time
+          from playwright.sync_api import sync_playwright
+          url='http://127.0.0.1:8765/destinos/suecia/estocolmo/imprescindibles.html'
+          with sync_playwright() as p:
+            browser=p.chromium.launch(headless=True,executable_path='/usr/bin/google-chrome',args=['--no-sandbox'])
+            page=browser.new_page(viewport={'width':390,'height':844},device_scale_factor=2,is_mobile=True,has_touch=True)
+            errors=[]
+            page.on('pageerror',lambda e:errors.append(str(e)))
+            page.goto(url,wait_until='domcontentloaded',timeout=45000)
+            page.wait_for_timeout(1200)
+            page.locator('.gallery').nth(5).locator('.gallery-tile').first.click()
+            page.locator('.vcc-mobile-photo-tile').nth(1).click()
+            assert page.locator('.vcc-mobile-photo-view').is_visible()
+            assert page.locator('.vcc-mobile-photo-hint').count()==0
+            assert page.locator('.vcc-photo-count').inner_text()=='Foto 2 de 6'
+            photo=page.locator('.vcc-mobile-photo-full')
+            page.wait_for_function("""() => (document.querySelector('.vcc-mobile-photo-full')?.style.backgroundImage||'').includes('/visor-alta/')""",timeout=14000)
+            print('DISPLAY_HQ',photo.evaluate('(e)=>e.style.backgroundImage'),flush=True)
+            stage=page.locator('.vcc-mobile-photo-stage')
+            rect=stage.bounding_box()
+            cx=round(rect['x']+rect['width']/2);cy=round(rect['y']+rect['height']/2)
+            cdp=page.context.new_cdp_session(page)
+            def send(t,pts):
+              cdp.send('Input.dispatchTouchEvent',{'type':t,'touchPoints':[{'x':x,'y':y} for x,y in pts]})
+            send('touchStart',[(cx-45,cy),(cx+45,cy)])
+            send('touchMove',[(cx-120,cy),(cx+120,cy)])
+            send('touchEnd',[])
+            page.wait_for_timeout(400)
+            assert 'scale(' in photo.evaluate('(e)=>e.style.transform')
+            page.wait_for_function("""() => (document.querySelector('.vcc-mobile-photo-full')?.style.backgroundImage||'').includes('https://img.viajandoconcabeza.com/')""",timeout=17000)
+            print('DIRECT_R2_IN_ZOOM',photo.evaluate('(e)=>e.style.backgroundImage'),flush=True)
+            assert page.locator('.vcc-mobile-photo-hint').count()==0
+            assert not errors,errors
+            browser.close()
+            print('PASS: no swipe hint, HQ normal image, direct R2 original on zoom',flush=True)
+          PY
