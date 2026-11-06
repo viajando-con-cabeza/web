@@ -88,7 +88,7 @@
       node.style.setProperty('background-position', 'center', 'important');
       node.style.setProperty('background-repeat', 'no-repeat', 'important');
     };
-    const fallback = String(src).replace(/\/_preview\/(?:mini|visor)\//, '/');
+    const fallback = String(src).replace(/\/(?:__vcc_preview|_preview)\/(?:mini|visor)\//, '/');
     if (fallback === src) {paint(src);return;}
     const stored = previewStates.get(src);
     if (stored === true) {paint(src);return;}
@@ -98,11 +98,11 @@
     probe.onerror = () => {previewStates.set(src,false);paint(fallback);};
     probe.src = src;
   };
-  /* Resol tant els derivats WebP com els AVIF de qualsevol carpeta R2. */
-  const optimizedPhoto = (original, size='mini') => {
-    const match=String(original).match(/^(https:\/\/img\.viajandoconcabeza\.com\/destinos\/[^?#]+\/)([^/]+\.(?:webp|avif))$/i);
-    return match ? match[1]+'_preview/'+size+'/'+match[2] : original;
-  };
+  /* Worker automàtic: variants AVIF/WebP de 480px i 1800px.
+     Les originals només es carreguen al visor, després de la previsualització. */
+  const optimizedPhoto = (original, size='mini') =>
+    String(original).replace(/^https:\/\/img\.viajandoconcabeza\.com\/(destinos\/.+\.(?:avif|webp))$/i,
+      'https://img.viajandoconcabeza.com/__vcc_preview/'+size+'/$1');
   // Els mosaics fan càrrega diferida: la URL sempre és el WebP original de R2.
   const lazyImages = 'IntersectionObserver' in window ? new IntersectionObserver(entries => {
     entries.forEach(entry => {
