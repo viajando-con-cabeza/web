@@ -230,11 +230,11 @@
     return Number.isInteger(position) ? activeSources[position-1] : null;
   }
 
-  // Desplaçament per arrossegament quan el zoom NATIU del navegador
-  // redueix el viewport CSS. El zoom continua sent de tota la pàgina.
-  // L'element desplaçable és el visor complet, no només la fotografia.
+  // El zoom és el natiu del navegador. Quan el visor és més gran
+  // que la finestra, seguim el cursor sense cap clic ni arrossegament.
   let panBaseline=null;
-  let panGesture=null;
+  let panFrame=0;
+  let panPointer=null;
   const resetViewerPan=()=>{
     if (!existingLightbox) return;
     existingLightbox.classList.remove('vcc-native-pan-enabled');
@@ -242,7 +242,8 @@
     existingLightbox.style.removeProperty('--vcc-pan-height');
     existingLightbox.scrollLeft=0;
     existingLightbox.scrollTop=0;
-    panGesture=null;
+    panPointer=null;
+    if (panFrame) {cancelAnimationFrame(panFrame);panFrame=0;}
   };
   const syncViewerPan=()=>{
     if (!existingLightbox || !existingStage || !photoVisible() || !panBaseline)return;
@@ -270,25 +271,30 @@
     resetViewerPan();
   };
   window.addEventListener('resize',syncViewerPan,{passive:true});
-  if (existingLightbox && enlargedPhoto) {
-    enlargedPhoto.addEventListener('pointerdown',e=>{
-      if(e.button!==0 || !photoVisible() ||
-        !existingLightbox.classList.contains('vcc-native-pan-enabled'))return;
-      panGesture={id:e.pointerId,x:e.clientX,y:e.clientY,
-        left:existingLightbox.scrollLeft,top:existingLightbox.scrollTop};
-      enlargedPhoto.setPointerCapture(e.pointerId);
-    });
-    enlargedPhoto.addEventListener('pointermove',e=>{
-      if(!panGesture || panGesture.id!==e.pointerId)return;
-      existingLightbox.scrollLeft=panGesture.left-(e.clientX-panGesture.x);
-      existingLightbox.scrollTop=panGesture.top-(e.clientY-panGesture.y);
-      e.preventDefault();
-    });
-    const finishPan=e=>{
-      if(panGesture?.id===e.pointerId)panGesture=null;
-    };
-    enlargedPhoto.addEventListener('pointerup',finishPan);
-    enlargedPhoto.addEventListener('pointercancel',finishPan);
+  if (existingLightbox) {
+    // Mousemove sense botons: mou el visor sencer, mai només la fotografia.
+    // Vinculat al visor i no a la foto perquè funcioni també als marges.
+    existingLightbox.addEventListener('pointermove',event=>{
+      if (event.pointerType!=='mouse' || event.buttons!==0 || !photoVisible() ||
+          !existingLightbox.classList.contains('vcc-native-pan-enabled')) return;
+      if (event.target.closest('button, a, input, textarea, select, .lb-thumbs, .lb-place-info')) return;
+      const rect=existingLightbox.getBoundingClientRect();
+      if(!rect.width || !rect.height)return;
+      panPointer={
+        x:Math.max(0,Math.min(1,(event.clientX-rect.left)/rect.width)),
+        y:Math.max(0,Math.min(1,(event.clientY-rect.top)/rect.height))
+      };
+      if(panFrame)return;
+      panFrame=requestAnimationFrame(()=>{
+        panFrame=0;
+        if(!panPointer || !photoVisible() ||
+          !existingLightbox.classList.contains('vcc-native-pan-enabled'))return;
+        const maxX=Math.max(0,existingLightbox.scrollWidth-existingLightbox.clientWidth);
+        const maxY=Math.max(0,existingLightbox.scrollHeight-existingLightbox.clientHeight);
+        if(maxX>0)existingLightbox.scrollLeft=Math.round(maxX*panPointer.x);
+        if(maxY>0)existingLightbox.scrollTop=Math.round(maxY*panPointer.y);
+      });
+    },{passive:true});
   }
 
   // El zoom de tota la pàgina és responsabilitat del navegador.
