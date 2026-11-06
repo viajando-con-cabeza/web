@@ -219,7 +219,7 @@
     max-height:calc(100dvh - 60px)!important;
     display:grid!important;
     grid-template-columns:minmax(0,1fr) minmax(245px,290px)!important;
-    grid-template-rows:54px minmax(0,1fr) 28px 94px!important;
+    grid-template-rows:54px minmax(0,1fr) 30px 80px!important;
     gap:0!important;
     border-radius:17px!important;
   }
@@ -254,10 +254,10 @@
     grid-column:1!important;
     grid-row:2!important;
     width:100%!important;
-    height:calc(100% - 8px)!important;
+    height:100%!important;
     min-height:0!important;
-    max-height:calc(100% - 8px)!important;
-    margin:8px 0 0!important;
+    max-height:100%!important;
+    margin:0!important;
     background-size:contain!important;
     background-position:center!important;
   }
@@ -269,12 +269,12 @@
     align-items:center!important;
     justify-content:center!important;
     min-width:0!important;
-    height:28px!important;
-    padding:0 12px!important;
+    height:30px!important;
+    padding:6px 12px 0!important;
     margin:0!important;
-    color:#37332f!important;
+    color:#55514e!important;
     background:#fff!important;
-    font:400 14px/1 'DM Sans',sans-serif!important;
+    font:400 12px/1 'DM Sans',sans-serif!important;
     transform:none!important;
     font-variant-numeric:tabular-nums!important;
   }
@@ -286,8 +286,8 @@
     justify-content:flex-start!important;
     gap:10px!important;
     min-height:0!important;
-    height:94px!important;
-    padding:18px 28px 13px!important;
+    height:80px!important;
+    padding:10px 28px 7px!important;
     margin:0!important;
     border-top:0!important;
     overflow-x:auto!important;
@@ -430,5 +430,43 @@
     transform-origin:center center;
     will-change:transform;
     backface-visibility:hidden;
+  }
+}
+
+/* Foto individual en escriptori: acabat arrodonit a la imatge real,
+   sense retallar l'enquadrament i sense afectar el visor mòbil. */
+@media (min-width:801px) {
+  html body.vcc-desktop-gallery-open #lightbox.lightbox .lb-stage > .lb-photo > .vcc-dg-rounded-matte {
+    position:absolute;
+    inset:0;
+    z-index:1;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    overflow:hidden;
+    background:#fff;
+    visibility:hidden;
+    pointer-events:none;
+  }
+  html body.vcc-desktop-gallery-open #lightbox.lightbox .lb-stage > .lb-photo.vcc-dg-rounded-ready > .vcc-dg-rounded-matte {
+    visibility:visible;
+  }
+  html body.vcc-desktop-gallery-open #lightbox.lightbox .lb-photo > .vcc-dg-rounded-matte > img {
+    display:block;
+    flex:0 0 auto;
+    width:auto;
+    height:auto;
+    max-width:100%;
+    max-height:100%;
+    border-radius:13px;
+    object-fit:contain;
+    user-select:none;
+    pointer-events:none;
+  }
+  html body.vcc-desktop-gallery-open #lightbox.lightbox .lb-photo.vcc-dg-is-zoomed > .vcc-dg-rounded-matte {
+    visibility:hidden!important;
+  }
+  html body.vcc-desktop-gallery-open #lightbox.lightbox .lb-photo > .vcc-dg-zoom-layer {
+    z-index:2;
   }
 }
