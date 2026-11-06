@@ -1,0 +1,66 @@
+name: Verify mobile gallery no instructions and R2 original
+on:
+  push:
+    branches: [quality]
+    paths: ['.github/workflows/verify-no-photo-footer.yml']
+jobs:
+  chrome:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: quality
+      - name: Check gallery without footer, swipes, zoom source
+        run: |
+          set -euo pipefail
+          python -m pip install -q playwright
+          python -m http.server 8999 --bind 127.0.0.1 >/tmp/site.log 2>&1 &
+          echo $! > /tmp/server.pid
+          trap 'kill $(cat /tmp/server.pid) || true' EXIT
+          python - <<'PY'
+          from playwright.sync_api import sync_playwright
+          with sync_playwright() as p:
+            browser=p.chromium.launch(headless=True,executable_path='/usr/bin/google-chrome',args=['--no-sandbox'])
+            page=browser.new_page(viewport={'width':390,'height':844},device_scale_factor=2,is_mobile=True,has_touch=True)
+            errors=[]
+            page.on('pageerror',lambda e: errors.append(str(e)))
+            page.goto('http://127.0.0.1:8999/destinos/suecia/estocolmo/imprescindibles.html',wait_until='domcontentloaded',timeout=45000)
+            page.wait_for_timeout(1400)
+            page.locator('.gallery').nth(5).locator('.gallery-tile').first.click()
+            page.locator('.vcc-mobile-photo-tile').nth(1).click()
+            assert page.locator('.vcc-mobile-photo-view').is_visible()
+            assert page.locator('#vcc-mobile-gallery .vcc-mobile-photo-hint').count()==0
+            assert page.locator('.vcc-mobile-photo-arrow').count()==0
+            assert page.locator('.vcc-photo-count').inner_text()=='Foto 2 de 6'
+            stage=page.locator('.vcc-mobile-photo-stage')
+            r=stage.bounding_box()
+            cx=int(r['x']+r['width']/2);cy=int(r['y']+r['height']/2)
+            cd=page.context.new_cdp_session(page)
+            def touch(type,pts):
+              cd.send('Input.dispatchTouchEvent',{'type':type,'touchPoints':[{'x':round(x),'y':round(y)} for x,y in pts]})
+            touch('touchStart',[(cx+110,cy)])
+            for x in (cx+90,cx+65,cx+25,cx-60):
+              touch('touchMove',[(x,cy)])
+              page.wait_for_timeout(20)
+            touch('touchEnd',[])
+            page.wait_for_timeout(290)
+            assert page.locator('.vcc-photo-count').inner_text()=='Foto 3 de 6'
+            touch('touchStart',[(cx-50,cy),(cx+50,cy)])
+            touch('touchMove',[(cx-130,cy),(cx+130,cy)])
+            touch('touchEnd',[])
+            page.wait_for_timeout(190)
+            assert 'scale(2.6)' in page.locator('.vcc-mobile-photo-full').evaluate('(e)=>e.style.transform')
+            page.wait_for_function("""()=>(document.querySelector('.vcc-mobile-photo-full')?.style.backgroundImage||'').includes('https://img.viajandoconcabeza.com/')""",timeout=12000)
+            photo=page.locator('.vcc-mobile-photo-full').evaluate('(e)=>e.style.backgroundImage')
+            print('ORIGINAL_R2_ZOOM',photo,flush=True)
+            assert '2026-dia1/DSC06555.webp' in photo
+            assert not errors,errors
+            page.close()
+            desktop=browser.new_page(viewport={'width':1440,'height':900})
+            desktop.goto('http://127.0.0.1:8999/destinos/suecia/estocolmo/imprescindibles.html',wait_until='domcontentloaded',timeout=45000)
+            desktop.wait_for_timeout(850)
+            desktop.locator('.gallery').nth(5).locator('.gallery-tile').first.click()
+            assert desktop.locator('#vcc-desktop-gallery').is_visible()
+            browser.close()
+            print('PASS: mobile hint removed; carousel, zoom original R2, desktop preserved',flush=True)
+          PY
