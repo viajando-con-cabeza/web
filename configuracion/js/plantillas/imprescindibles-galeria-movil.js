@@ -65,7 +65,10 @@
   let slideDirection = 0;
   let slideTimer = null;
   let slideAnimating = false;
-  const slideDuration = window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : 145;
+  let slideFinish = null;
+  const slideDuration = window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : 125;
+  let highResTimer = null;
+  let highResToken = 0;
   const MAX_ZOOM = 4;
   const bound = (v,low,high) => Math.max(low,Math.min(high,v));
   const touchPoint = t => ({x:t.clientX,y:t.clientY});
@@ -141,6 +144,7 @@
   function clearSlide() {
     if (slideTimer !== null) clearTimeout(slideTimer);
     slideTimer = null;
+    slideFinish = null;
     slideAnimating = false;
     slideDirection = 0;
     incoming.hidden = true;
@@ -178,12 +182,17 @@
       Math.abs(dx)>=width*0.58 && fast>=1.2;
     const endpoint = complete ? -direction*width : 0;
     slideAnimating = true;
-    const duration = doubleStep ? Math.min(slideDuration,105) : slideDuration;
-    const done = () => {
+    const duration = doubleStep ? Math.min(slideDuration,85) : slideDuration;
+    let finished = false;
+    const done = (interrupted=false) => {
+      if (finished) return;
+      finished=true;
+      if (slideTimer!==null)clearTimeout(slideTimer);
       slideTimer = null;
+      slideFinish = null;
       if (!complete) {clearSlide();return;}
       showPhoto(next);
-      if (doubleStep && !photoView.hidden) {
+      if (doubleStep && !interrupted && !photoView.hidden) {
         // Arrenca automàticament el segon fotograma del mateix gest.
         moveSlide(-direction*6);
         requestAnimationFrame(() => {
@@ -193,6 +202,7 @@
         });
       }
     };
+    slideFinish = () => done(true);
     large.style.transition = 'transform '+duration+'ms cubic-bezier(.22,.67,.25,1)';
     incoming.style.transition = 'transform '+duration+'ms cubic-bezier(.22,.67,.25,1)';
     large.style.transform = 'translate3d('+endpoint+'px,0,0) scale(1)';
@@ -200,6 +210,8 @@
     slideTimer = setTimeout(done,duration+18);
   }
   function returnToGuide() {
+    clearTimeout(highResTimer);
+    ++highResToken;
     clearSlide();
     resetZoom();
     root.hidden = true;
@@ -212,6 +224,8 @@
     focusBefore = null;
   }
   function showGrid() {
+    clearTimeout(highResTimer);
+    ++highResToken;
     clearSlide();
     resetZoom();
     photoView.hidden = true;
@@ -222,6 +236,8 @@
   }
   function showPhoto(index) {
     if (!photos.length) return;
+    clearTimeout(highResTimer);
+    const hiResRequest=++highResToken;
     clearSlide();
     selected = (index + photos.length) % photos.length;
     resetZoom();
@@ -242,6 +258,33 @@
     probe.src=url;
     large.setAttribute('aria-label', placeTitle + ', fotografía ' + (selected + 1) + ' de ' + photos.length);
     photoCount.textContent = 'Foto ' + (selected + 1) + ' de ' + photos.length;
+    // Galeria fluida: miniatures i fotogrames entrants en WebP reduït.
+    // Un cop el viatger es queda en una foto, carreguem el WebP ORIGINAL
+    // de Cloudflare R2, sense reescalar-lo ni recomprimir-lo de nou.
+    // Només una petició en alta resolució per foto activa.
+    const originalUrl=photos[selected];
+    highResTimer=setTimeout(()=>{
+      if(hiResRequest!==highResToken || photoView.hidden ||
+        !/^https:\/\/img[.]viajandoconcabeza[.]com\//.test(originalUrl))return;
+      const original=new Image();
+      original.onload=()=>{
+        if(hiResRequest!==highResToken || photoView.hidden)return;
+        const apply=()=>{
+          if(hiResRequest!==highResToken || photoView.hidden)return;
+          if(slideAnimating || gesture?.kind==='swipe'){
+            highResTimer=setTimeout(apply,70);
+            return;
+          }
+          large.style.backgroundImage='url("'+originalUrl+'")';
+          naturalWidth=original.naturalWidth;
+          naturalHeight=original.naturalHeight;
+          renderZoom();
+        };
+        apply();
+      };
+      original.onerror=()=>{}; // si falla R2 es manté el WebP optimitzat
+      original.src=originalUrl;
+    },220);
     photoView.querySelector('.vcc-mobile-nav').focus({preventScroll: true});
     // Precargamos las dos fotos vecinas para evitar vacíos durante el arrastre.
     if (photos.length > 1) {
@@ -347,7 +390,9 @@
   /* Gestos de la fotografia: lliscar sense zoom, pessigar per ampliar,
      arrossegar mentre està ampliada i doble toc per ampliar/reduir. */
   stage.addEventListener('touchstart', event => {
-    if (photoView.hidden || slideAnimating) return;
+    if (photoView.hidden) return;
+    // Permet fer dos o més gestos seguits sense esperar que acabi la transició.
+    if(slideAnimating)slideFinish?.();
     if (event.touches.length===2) {
       clearSlide();
       const a=touchPoint(event.touches[0]),b=touchPoint(event.touches[1]);
