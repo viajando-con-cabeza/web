@@ -11,6 +11,7 @@
 /* Mobile: same compact overlapping photographic hero as Itinerarios.
    The personal travel-month chip stays on desktop only. */
 html body.ci-page section.ci-hero > img.ci-hero-photo{display:none}
+html body.ci-page .ci-visit-mobile-note{display:none}
 @media(max-width:600px){
  html body.ci-page section.ci-hero{
   position:relative!important;isolation:isolate!important;
@@ -65,8 +66,14 @@ html body.ci-page section.ci-hero > img.ci-hero-photo{display:none}
  html body.ci-page section.ci-hero .ci-hero-copy p{
   max-width:410px!important;font-size:14px!important;line-height:1.65!important;
  }
- html body.ci-page section.ci-hero .ci-visit-chip{
-  display:none!important;
+ html body.ci-page section.ci-hero .ci-visit-chip{display:none!important}
+ html body.ci-page .ci-visit-mobile-note{
+  display:block!important;
+  margin:0 auto 18px!important;
+  text-align:center!important;
+  color:#95563d!important;
+  font:700 11px/1.5 'DM Sans',sans-serif!important;
+  letter-spacing:.04em!important;
  }
 }
 </style></head><body class="ci-page"><header class="page-header"></header>
@@ -81,6 +88,7 @@ html body.ci-page section.ci-hero > img.ci-hero-photo{display:none}
 <div class="ci-heading"><span class="ci-script" id="ci-objectives-title">¿Qué tipo de viaje buscas?</span><h2>LA MEJOR ÉPOCA SEGÚN TU OBJETIVO</h2></div>
 <div class="ci-objective-grid" id="objectiveChoices" role="group" aria-label="Elige la prioridad de tu viaje"></div>
 <p class="ci-intro">Estocolmo cambia con cada estación. <strong>El mejor mes depende de lo que quieras vivir.</strong> Elige tu prioridad y encuentra tu momento ideal.</p>
+<p class="ci-visit-mobile-note">✈ <strong>Nosotros viajamos en agosto</strong></p>
 <div class="ci-recommendation" aria-live="polite"><div class="ci-recommendation-symbol" id="recommendationIcon" aria-hidden="true">☀</div><div class="ci-recommendation-copy"><span>NUESTRA RECOMENDACIÓN VCC</span><h3 id="recommendationMonths">JUNIO – AGOSTO</h3><p id="recommendationWhy">Días largos, temperaturas suaves y vida en las calles.</p></div><ul id="recommendationReasons"></ul></div>
 </section>
 <section id="mes-a-mes" class="ci-calendar-section" aria-labelledby="ci-cal-title">
