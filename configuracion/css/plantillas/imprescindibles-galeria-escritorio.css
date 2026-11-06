@@ -464,9 +464,10 @@
     pointer-events:none;
   }
   html body.vcc-desktop-gallery-open #lightbox.lightbox .lb-photo.vcc-dg-is-zoomed > .vcc-dg-rounded-matte {
-    visibility:hidden!important;
+    visibility:visible!important;
   }
   html body.vcc-desktop-gallery-open #lightbox.lightbox .lb-photo > .vcc-dg-zoom-layer {
+    display:none!important;
     z-index:2;
   }
 }
@@ -507,5 +508,22 @@
     max-height:none!important;
     margin:0!important;
     box-sizing:border-box!important;
+  }
+}
+
+/* R2 native: un sol WebP descodificat per a visor i zoom, sense fons duplicat. */
+@media (min-width:801px) {
+  html body.vcc-desktop-gallery-open #lightbox.lightbox .lb-photo.vcc-dg-rounded-ready {
+    background-image:none!important;
+  }
+  html body.vcc-desktop-gallery-open #lightbox.lightbox .lb-photo > .vcc-dg-rounded-matte {
+    z-index:2!important;
+    border-radius:13px;
+  }
+  html body.vcc-desktop-gallery-open #lightbox.lightbox .lb-photo > .vcc-dg-rounded-matte > img {
+    will-change:transform;
+    backface-visibility:hidden;
+    transform-origin:center center;
+    image-rendering:auto;
   }
 }
