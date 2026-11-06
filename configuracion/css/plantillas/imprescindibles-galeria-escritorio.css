@@ -208,3 +208,118 @@
 @media (prefers-reduced-motion:reduce) {
   #vcc-desktop-gallery .vcc-dg-tile img {transition:none!important}
 }
+
+/* vcc-dg-unified-photo: el visor individual té exactament la mateixa
+   capçalera i el mateix lateral editorial que la galeria de tres columnes.
+   S'aplica exclusivament a escriptori amb galeria Booking oberta. */
+@media (min-width:801px) {
+  html body.vcc-desktop-gallery-open #lightbox.lightbox .lb-stage {
+    width:min(1450px,calc(100vw - 60px))!important;
+    height:min(92dvh,900px)!important;
+    display:grid!important;
+    grid-template-columns:minmax(0,1fr) minmax(245px,290px)!important;
+    grid-template-rows:75px minmax(0,1fr)!important;
+    gap:0!important;
+    border-radius:17px!important;
+  }
+  html body.vcc-desktop-gallery-open #lightbox.lightbox .lb-caption {
+    display:flex!important;
+    grid-column:1 / -1!important;
+    grid-row:1!important;
+    align-items:center!important;
+    justify-content:center!important;
+    align-self:stretch!important;
+    justify-self:stretch!important;
+    width:100%!important;
+    height:75px!important;
+    min-height:75px!important;
+    margin:0!important;
+    padding:10px 82px!important;
+    border-bottom:1px solid #eee7e1!important;
+    background:#fff!important;
+    color:#242424!important;
+    text-align:center!important;
+    font:500 22px/1.15 'Oswald',sans-serif!important;
+    text-transform:uppercase!important;
+    letter-spacing:0!important;
+    box-sizing:border-box!important;
+  }
+  html body.vcc-desktop-gallery-open #lightbox.lightbox .lb-caption::before,
+  html body.vcc-desktop-gallery-open #lightbox.lightbox .lb-caption::after {
+    display:none!important;
+    content:none!important;
+  }
+  html body.vcc-desktop-gallery-open #lightbox.lightbox .lb-stage > .lb-photo {
+    grid-column:1!important;
+    grid-row:2!important;
+    width:100%!important;
+    height:100%!important;
+    min-height:0!important;
+    max-height:100%!important;
+    background-size:contain!important;
+    background-position:center!important;
+  }
+  html body.vcc-desktop-gallery-open #lightbox.lightbox .lb-counter,
+  html body.vcc-desktop-gallery-open #lightbox.lightbox .lb-thumbs {
+    display:none!important;
+  }
+  html body.vcc-desktop-gallery-open #lightbox.lightbox .lb-place-info {
+    position:relative!important;
+    grid-column:2!important;
+    grid-row:2!important;
+    display:block!important;
+    min-width:0!important;
+    max-height:100%!important;
+    overflow-y:auto!important;
+    padding:25px 21px 28px!important;
+    margin:0!important;
+    border-left:1px solid #eee8e1!important;
+    background:#fff!important;
+    align-self:stretch!important;
+    justify-self:stretch!important;
+  }
+  html body.vcc-desktop-gallery-open #lightbox.lightbox .lb-place-info::before {
+    display:none!important;
+    content:none!important;
+  }
+  html body.vcc-desktop-gallery-open #lightbox.lightbox .lb-place-info h3 {
+    margin:0 0 12px!important;
+    color:#c56851!important;
+    font:600 29px/1.12 'Caveat',cursive!important;
+    text-transform:none!important;
+    letter-spacing:0!important;
+  }
+  html body.vcc-desktop-gallery-open #lightbox.lightbox .lb-place-info p {
+    margin:0!important;
+    color:#47413c!important;
+    font:400 13px/1.75 'DM Sans',sans-serif!important;
+  }
+  html body.vcc-desktop-gallery-open #lightbox.lightbox .lb-stage > .vcc-dg-photo-back {
+    top:20px!important;
+    left:24px!important;
+    height:35px!important;
+  }
+  html body.vcc-desktop-gallery-open #lightbox.lightbox .lb-close {
+    top:17px!important;
+    right:24px!important;
+    border:0!important;
+    border-radius:50%!important;
+    background:transparent!important;
+    box-shadow:none!important;
+    width:42px!important;
+    height:42px!important;
+  }
+  html body.vcc-desktop-gallery-open #lightbox.lightbox .lb-prev,
+  html body.vcc-desktop-gallery-open #lightbox.lightbox .lb-next {
+    top:calc(50% + 37px)!important;
+  }
+  /* El cursor sempre és una mà en les miniatures, fins i tot en una
+     galeria amb només una fotografia. En ampliació, clic = tornar. */
+  html body .imp-page .gallery-mosaic.count-1 .gallery-tile,
+  html body #vcc-desktop-gallery .vcc-dg-tile {
+    cursor:pointer!important;
+  }
+  html body.vcc-desktop-gallery-open #lightbox.vcc-dg-single .lb-photo {
+    cursor:pointer!important;
+  }
+}
