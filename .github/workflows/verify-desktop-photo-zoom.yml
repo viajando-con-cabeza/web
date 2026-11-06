@@ -118,5 +118,19 @@ jobs:
             assert mobile.locator('.vcc-mobile-photo-view').is_visible()
             assert mobile.locator('.vcc-mobile-photo-hint').count()==0
             mobile.close();browser.close()
+            # Comprovar si el domini quality ja serveix aquest commit o encara és antic.
+            import urllib.request,urllib.error
+            public='https://www.quality.viajandoconcabeza.com/destinos/suecia/estocolmo/imprescindibles.html?verify='+str(time.time_ns())
+            try:
+              req=urllib.request.Request(public,headers={'Cache-Control':'no-cache','User-Agent':'VCC-Quality-Public-Verification'})
+              with urllib.request.urlopen(req,timeout=20) as remote:
+                content=remote.read().decode('utf-8','replace')
+                js=re.search(r'imprescindibles-galeria-escritorio[.]js[?]v=[^"]+',content)
+                css=re.search(r'imprescindibles-galeria-escritorio[.]css[?]v=[^"]+',content)
+                print('PUBLIC_SITE_JS_VERSION',js.group(0) if js else 'NOT_FOUND',flush=True)
+                print('PUBLIC_SITE_CSS_VERSION',css.group(0) if css else 'NOT_FOUND',flush=True)
+                print('PUBLIC_SITE_STATUS',remote.status,flush=True)
+            except Exception as exc:
+              print('PUBLIC_SITE_ACCESS_ERROR',type(exc).__name__,str(exc)[:100],flush=True)
             print('PASS_DESKTOP_ZOOM: click, wheel, pan, original R2, navigation, reset, mobile intact',flush=True)
           PY
