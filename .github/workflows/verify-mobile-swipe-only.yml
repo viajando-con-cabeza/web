@@ -1,0 +1,74 @@
+name: Verify mobile swipe-only gallery
+on:
+  push:
+    branches: [quality]
+    paths: ['.github/workflows/verify-mobile-swipe-only.yml']
+jobs:
+  chrome:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Test arrows absent, touch swipe works, desktop unchanged
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m pip install --quiet playwright
+          python - <<'PY'
+          import time
+          from playwright.sync_api import sync_playwright
+          url='https://www.quality.viajandoconcabeza.com/destinos/suecia/estocolmo/imprescindibles.html'
+          with sync_playwright() as p:
+            browser=p.chromium.launch(headless=True,executable_path='/usr/bin/google-chrome',args=['--no-sandbox'])
+            page=None
+            errors=[]
+            for attempt in range(1,8):
+              candidate=browser.new_page(viewport={'width':390,'height':844},device_scale_factor=2,is_mobile=True,has_touch=True)
+              candidate.on('pageerror',lambda e: errors.append(str(e)))
+              response=candidate.goto(url+'?swipe-only-check='+str(attempt)+'-0f9ac5',wait_until='domcontentloaded',timeout=45000)
+              candidate.wait_for_timeout(1400)
+              src=candidate.locator('script[src*="imprescindibles-galeria-movil.js"]').get_attribute('src') or ''
+              css=candidate.locator('link[href*="imprescindibles-galeria-movil.css"]').get_attribute('href') or ''
+              print('ATTEMPT',attempt,'HTML',response.status,'JS',src,'CSS',css,flush=True)
+              if 'swipe-only-v3' in src and 'swipe-only-v3' in css:
+                page=candidate
+                break
+              candidate.close()
+              time.sleep(6)
+            assert page,'New swipe-only version not deployed'
+            page.locator('.gallery').nth(5).locator('.gallery-tile').first.click()
+            assert page.locator('#vcc-mobile-gallery').is_visible()
+            assert page.locator('.vcc-mobile-photo-tile').count()==6
+            page.locator('.vcc-mobile-photo-tile').nth(2).click()
+            viewer=page.locator('.vcc-mobile-photo-view')
+            assert viewer.is_visible()
+            assert viewer.locator('.vcc-photo-count').inner_text()=='Foto 3 de 6'
+            assert page.locator('#vcc-mobile-gallery .vcc-mobile-photo-arrow').count()==0
+            # Real touch swipe to next image.
+            stage=viewer.locator('.vcc-mobile-photo-stage')
+            rect=stage.bounding_box()
+            y=round(rect['y']+rect['height']/2)
+            start=round(rect['x']+rect['width']*0.8)
+            end=round(rect['x']+rect['width']*0.25)
+            cdp=page.context.new_cdp_session(page)
+            cdp.send('Input.dispatchTouchEvent',{'type':'touchStart','touchPoints':[{'x':start,'y':y}]})
+            for x in range(start-40,end,-40):
+              cdp.send('Input.dispatchTouchEvent',{'type':'touchMove','touchPoints':[{'x':x,'y':y}]})
+              page.wait_for_timeout(25)
+            cdp.send('Input.dispatchTouchEvent',{'type':'touchEnd','touchPoints':[]})
+            page.wait_for_timeout(500)
+            count=viewer.locator('.vcc-photo-count').inner_text()
+            print('AFTER_SWIPE',count,flush=True)
+            assert count=='Foto 4 de 6',count
+            assert not errors,errors
+            page.close()
+            desktop=browser.new_page(viewport={'width':1440,'height':900})
+            desktop.goto(url+'?swipe-only-desktop-regression',wait_until='domcontentloaded',timeout=45000)
+            desktop.wait_for_timeout(1700)
+            desktop.locator('.gallery').nth(5).locator('.gallery-tile').first.click()
+            assert desktop.locator('#vcc-desktop-gallery').is_visible()
+            desktop.locator('#vcc-desktop-gallery .vcc-dg-tile').first.click()
+            assert desktop.locator('#lightbox.open .lb-prev').count()==1
+            assert desktop.locator('#lightbox.open .lb-next').count()==1
+            desktop.close()
+            browser.close()
+            print('PASS: mobile only swipe, arrows removed; desktop unchanged',flush=True)
+          PY
