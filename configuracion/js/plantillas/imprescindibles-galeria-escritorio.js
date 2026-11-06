@@ -176,7 +176,6 @@
   function syncRoundedPhoto() {
     if (!enlargedPhoto || !roundedImage) return;
     const sequence=++photoSequence;
-    resetPhotoZoom();
     clearTimeout(upgradeTimer);
     enlargedPhoto.classList.remove('vcc-dg-rounded-ready');
     if (!photoVisible()) return;
@@ -227,19 +226,21 @@
     return Number.isInteger(position) ? activeSources[position-1] : null;
   }
 
+  // Zoom de TOT el visor: títol, imatge, text, miniatures i controls.
+  // No transformem només la fotografia i no tornem a descodificar cap WebP.
   let zoomLevel=1;
   let zoomPanX=0, zoomPanY=0;
   let zoomOriginX=50, zoomOriginY=50;
   let zoomDrag=null;
-  const MIN_ZOOM=1, MAX_ZOOM=4;
+  const MIN_ZOOM=1, MAX_ZOOM=2.5;
   const applyPhotoZoom=()=>{
-    if (!roundedImage) return;
-    roundedImage.style.transition='none';
-    roundedImage.style.transformOrigin=zoomOriginX+'% '+zoomOriginY+'%';
-    roundedImage.style.transform=zoomLevel>1.001
+    if (!existingStage) return;
+    existingStage.style.transition='none';
+    existingStage.style.transformOrigin=zoomOriginX+'% '+zoomOriginY+'%';
+    existingStage.style.transform=zoomLevel>1.001
       ? 'translate3d('+zoomPanX+'px,'+zoomPanY+'px,0) scale('+zoomLevel+')'
       : 'none';
-    enlargedPhoto.classList.toggle('vcc-dg-is-zoomed',zoomLevel>1.001);
+    existingLightbox?.classList.toggle('vcc-dg-whole-zoom',zoomLevel>1.001);
   };
   const resetPhotoZoom=()=>{
     zoomLevel=1;zoomPanX=0;zoomPanY=0;
@@ -247,17 +248,17 @@
     zoomDrag=null;
     applyPhotoZoom();
   };
-  if (enlargedPhoto) {
-    enlargedPhoto.setAttribute('title','Roda del ratolí amunt per ampliar i avall per reduir');
-    enlargedPhoto.addEventListener('wheel',event=>{
+  if (existingLightbox && existingStage) {
+    existingLightbox.addEventListener('wheel',event=>{
       if (!photoVisible() || event.ctrlKey || event.metaKey) return;
+      // El desplaçament de les miniatures i el text segueix sent normal.
+      if (event.target.closest('.lb-thumbs, .lb-place-info'))return;
       event.preventDefault();
-      if (!roundedImage?.complete || !roundedImage.naturalWidth) return;
       const delta=event.deltaY*(event.deltaMode===1?16:event.deltaMode===2?200:1);
       const next=Math.min(MAX_ZOOM,Math.max(MIN_ZOOM,zoomLevel*Math.exp(-delta*0.0018)));
       if (Math.abs(next-zoomLevel)<0.0001)return;
       if (zoomLevel===1 && next>1) {
-        const rect=roundedImage.getBoundingClientRect();
+        const rect=existingStage.getBoundingClientRect();
         zoomOriginX=Math.max(0,Math.min(100,(event.clientX-rect.left)/rect.width*100));
         zoomOriginY=Math.max(0,Math.min(100,(event.clientY-rect.top)/rect.height*100));
       }
@@ -277,15 +278,13 @@
       if(!zoomDrag.moved)return;
       zoomPanX=zoomDrag.panX+dx;
       zoomPanY=zoomDrag.panY+dy;
-      applyPhotoZoom(false);
+      applyPhotoZoom();
     });
-    const finishPhotoPan=()=>{
-      if (!zoomDrag)return;
-      zoomDrag=null;
-    };
-    enlargedPhoto.addEventListener('pointerup',finishPhotoPan);
-    enlargedPhoto.addEventListener('pointercancel',finishPhotoPan);
-
+    enlargedPhoto.addEventListener('pointerup',()=>{zoomDrag=null;});
+    enlargedPhoto.addEventListener('pointercancel',()=>{zoomDrag=null;});
+  }
+  if (enlargedPhoto) {
+    enlargedPhoto.setAttribute('title','Rodeta amunt/avall per ampliar o reduir tot el visor');
     new MutationObserver(() => syncRoundedPhoto())
       .observe(enlargedPhoto,{attributes:true,attributeFilter:['aria-label']});
   }
