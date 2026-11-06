@@ -152,6 +152,23 @@ html:has(body.vcc-desktop-gallery-open) {
     -webkit-user-select:none;
     -webkit-touch-callout:none;
   }
+  /* Imatge veïna visible durant TOT el gest: carrusel continu tipus pel·lícula. */
+  #vcc-mobile-gallery .vcc-mobile-photo-peek {
+    position:absolute;
+    inset:0;
+    display:block;
+    width:100%;
+    height:100%;
+    background:#fff center center / contain no-repeat;
+    pointer-events:none;
+    transform:translate3d(100%,0,0);
+    will-change:transform;
+    user-select:none;
+    -webkit-user-select:none;
+  }
+  #vcc-mobile-gallery .vcc-mobile-photo-peek[hidden] {
+    display:none!important;
+  }
   #vcc-mobile-gallery .vcc-mobile-photo-stage.is-zoomed {
     cursor:grab;
   }
