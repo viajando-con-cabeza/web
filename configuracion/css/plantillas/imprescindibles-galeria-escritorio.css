@@ -516,3 +516,29 @@
   }
 }
 
+
+/* Pan de tota la galeria quan l'usuari amplia la PÀGINA amb el navegador.
+   No es modifica ni l'escala ni la qualitat de les fotografies R2. */
+@media (min-width:801px) {
+  html body.vcc-desktop-gallery-open #lightbox.lightbox.vcc-native-pan-enabled {
+    display:block!important;
+    overflow:auto!important;
+    overscroll-behavior:contain;
+    scrollbar-width:thin;
+  }
+  html body.vcc-desktop-gallery-open #lightbox.lightbox.vcc-native-pan-enabled .lb-stage {
+    width:var(--vcc-pan-width)!important;
+    min-width:var(--vcc-pan-width)!important;
+    max-width:none!important;
+    height:var(--vcc-pan-height)!important;
+    min-height:var(--vcc-pan-height)!important;
+    max-height:none!important;
+    margin:0!important;
+  }
+  html body.vcc-desktop-gallery-open #lightbox.lightbox.vcc-native-pan-enabled .lb-stage > .lb-photo {
+    cursor:grab!important;
+  }
+  html body.vcc-desktop-gallery-open #lightbox.lightbox.vcc-native-pan-enabled .lb-stage > .lb-photo:active {
+    cursor:grabbing!important;
+  }
+}
