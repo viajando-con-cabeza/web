@@ -58,6 +58,8 @@
   let panY = 0;
   let naturalWidth = 0;
   let naturalHeight = 0;
+  let loadedOriginal = false;
+  let originalRequestId = 0;
   let gesture = null;
   let lastTap = null;
   let slideDirection = 0;
@@ -70,6 +72,33 @@
   const distance = (a,b) => Math.hypot(a.x-b.x,a.y-b.y);
   const midpoint = (a,b) => ({x:(a.x+b.x)/2,y:(a.y+b.y)/2});
 
+  /* El WebP de màxima resolució de R2 només es demana quan l'usuari
+     amplia la foto; no alentim la navegació normal entre les imatges. */
+  function loadOriginalForZoom() {
+    if (loadedOriginal || zoom<1.45 || !photos[selected]) return;
+    loadedOriginal=true;
+    const id=++originalRequestId, index=selected;
+    const originalUrl=photos[index];
+    const image=new Image();
+    image.onload=()=>{
+      if (id!==originalRequestId || index!==selected || photoView.hidden || zoom<=1) return;
+      large.style.backgroundImage='url("'+originalUrl+'")';
+      naturalWidth=image.naturalWidth;
+      naturalHeight=image.naturalHeight;
+      renderZoom();
+    };
+    image.onerror=()=>{
+      if (id===originalRequestId) loadedOriginal=false;
+    };
+    image.src=originalUrl;
+  }
+  function restorePreview() {
+    ++originalRequestId;
+    loadedOriginal=false;
+    if (!photoView.hidden && photos[selected]) {
+      large.style.backgroundImage='url("'+preview(photos[selected],'visor')+'")';
+    }
+  }
   function clampPan() {
     const width = stage.clientWidth || 1, height = stage.clientHeight || 1;
     const fit = naturalWidth && naturalHeight ? Math.min(width/naturalWidth,height/naturalHeight) : 1;
@@ -84,9 +113,11 @@
     large.style.transform = 'translate3d('+panX+'px,'+panY+'px,0) scale('+zoom+')';
     stage.classList.toggle('is-zoomed',zoom>1.01);
     photoHint.textContent = zoom>1.01 ? 'Arrastra para explorar · Doble toque para reducir' : 'Desliza para cambiar · Pellizca para ampliar';
+    if(zoom>=1.45)loadOriginalForZoom();
   }
   function resetZoom() {
     zoom=1;panX=0;panY=0;gesture=null;lastTap=null;
+    restorePreview();
     renderZoom();
   }
   function setZoom(next,at,animate=false) {
@@ -99,7 +130,7 @@
       panX=at.x-cx-factor*(at.x-cx-panX);
       panY=at.y-cy-factor*(at.y-cy-panY);
     }
-    if (zoom<=1.01) {zoom=1;panX=0;panY=0;}
+    if (zoom<=1.01) {zoom=1;panX=0;panY=0;restorePreview();}
     renderZoom(animate);
   }
 
@@ -339,7 +370,7 @@
       const r=stage.getBoundingClientRect(),cx=r.left+r.width/2,cy=r.top+r.height/2;
       panX=middle.x-cx-factor*(gesture.middle.x-cx-gesture.panX);
       panY=middle.y-cy-factor*(gesture.middle.y-cy-gesture.panY);
-      if (zoom<=1.01) {zoom=1;panX=0;panY=0;}
+      if (zoom<=1.01) {zoom=1;panX=0;panY=0;restorePreview();}
       renderZoom();
     } else if (event.touches.length===1 && gesture?.kind==='pan') {
       const pt=touchPoint(event.touches[0]);
