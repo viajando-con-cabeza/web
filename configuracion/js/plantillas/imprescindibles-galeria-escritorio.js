@@ -65,6 +65,8 @@
     if (existingLightbox?.classList.contains('open')) {
       window.VCCImprescindiblesLightbox?.dismiss();
     }
+    resetViewerPan();
+    panBaseline=null;
     layer.hidden = true;
     layer.setAttribute('aria-hidden', 'true');
     document.body.classList.remove('vcc-desktop-gallery-open');
@@ -82,6 +84,7 @@
     clickedGridImage = tile;
     layer.setAttribute('aria-hidden', 'true');
     window.VCCImprescindiblesLightbox.open(activeGallery, index);
+    startPanBaseline();
     /* El visor ampliat comparteix títol i informació amb el mosaic previ. */
     const name = heading.textContent;
     const caption = existingStage?.querySelector('.lb-caption');
@@ -227,6 +230,67 @@
     return Number.isInteger(position) ? activeSources[position-1] : null;
   }
 
+  // Desplaçament per arrossegament quan el zoom NATIU del navegador
+  // redueix el viewport CSS. El zoom continua sent de tota la pàgina.
+  // L'element desplaçable és el visor complet, no només la fotografia.
+  let panBaseline=null;
+  let panGesture=null;
+  const resetViewerPan=()=>{
+    if (!existingLightbox) return;
+    existingLightbox.classList.remove('vcc-native-pan-enabled');
+    existingLightbox.style.removeProperty('--vcc-pan-width');
+    existingLightbox.style.removeProperty('--vcc-pan-height');
+    existingLightbox.scrollLeft=0;
+    existingLightbox.scrollTop=0;
+    panGesture=null;
+  };
+  const syncViewerPan=()=>{
+    if (!existingLightbox || !existingStage || !photoVisible() || !panBaseline)return;
+    const smaller=window.innerWidth < panBaseline.viewportWidth*0.94 ||
+                  window.innerHeight < panBaseline.viewportHeight*0.94;
+    existingLightbox.classList.toggle('vcc-native-pan-enabled',smaller);
+    if(smaller){
+      existingLightbox.style.setProperty('--vcc-pan-width',panBaseline.stageWidth+'px');
+      existingLightbox.style.setProperty('--vcc-pan-height',panBaseline.stageHeight+'px');
+    } else {
+      existingLightbox.style.removeProperty('--vcc-pan-width');
+      existingLightbox.style.removeProperty('--vcc-pan-height');
+      existingLightbox.scrollLeft=0;
+      existingLightbox.scrollTop=0;
+    }
+  };
+  const startPanBaseline=()=>{
+    if (!existingStage)return;
+    panBaseline={
+      viewportWidth:window.innerWidth,
+      viewportHeight:window.innerHeight,
+      stageWidth:existingStage.offsetWidth,
+      stageHeight:existingStage.offsetHeight
+    };
+    resetViewerPan();
+  };
+  window.addEventListener('resize',syncViewerPan,{passive:true});
+  if (existingLightbox && enlargedPhoto) {
+    enlargedPhoto.addEventListener('pointerdown',e=>{
+      if(e.button!==0 || !photoVisible() ||
+        !existingLightbox.classList.contains('vcc-native-pan-enabled'))return;
+      panGesture={id:e.pointerId,x:e.clientX,y:e.clientY,
+        left:existingLightbox.scrollLeft,top:existingLightbox.scrollTop};
+      enlargedPhoto.setPointerCapture(e.pointerId);
+    });
+    enlargedPhoto.addEventListener('pointermove',e=>{
+      if(!panGesture || panGesture.id!==e.pointerId)return;
+      existingLightbox.scrollLeft=panGesture.left-(e.clientX-panGesture.x);
+      existingLightbox.scrollTop=panGesture.top-(e.clientY-panGesture.y);
+      e.preventDefault();
+    });
+    const finishPan=e=>{
+      if(panGesture?.id===e.pointerId)panGesture=null;
+    };
+    enlargedPhoto.addEventListener('pointerup',finishPan);
+    enlargedPhoto.addEventListener('pointercancel',finishPan);
+  }
+
   // El zoom de tota la pàgina és responsabilitat del navegador.
   // No interceptem wheel, Ctrl+wheel o els gestos del trackpad.
   // Així funciona exactament igual al mosaic i a la fotografia individual.
@@ -239,6 +303,7 @@
   existingLightbox?.addEventListener('vcc:lightbox-closed',()=>{
     ++photoSequence;
     clearTimeout(upgradeTimer);
+    resetViewerPan();
     enlargedPhoto?.classList.remove('vcc-dg-rounded-ready');
     if(layer.hidden || !activeGallery) return;
     layer.setAttribute('aria-hidden','false');
