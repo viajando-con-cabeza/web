@@ -231,77 +231,102 @@
     return Number.isInteger(position) ? activeSources[position-1] : null;
   }
 
-  // El zoom és el natiu del navegador. Quan el visor és més gran
-  // que la finestra, seguim el cursor sense cap clic ni arrossegament.
+  // Zoom NATIU del navegador: sense escala JS de la foto o de la pàgina.
+  // Quan el viewport es redueix, desplacem el VISOR COMPLET seguint el
+  // ratolí sense clicar. Funciona també quan Ctrl+rodeta no emet 'resize'.
   let panBaseline=null;
   let panFrame=0;
   let panPointer=null;
+  const cancelPanFrame=()=>{
+    if(panFrame){cancelAnimationFrame(panFrame);panFrame=0;}
+  };
   const resetViewerPan=()=>{
-    if (!existingLightbox) return;
+    if(!existingLightbox || !existingStage)return;
+    cancelPanFrame();
+    panPointer=null;
     existingLightbox.classList.remove('vcc-native-pan-enabled');
     existingLightbox.style.removeProperty('--vcc-pan-width');
     existingLightbox.style.removeProperty('--vcc-pan-height');
-    existingLightbox.scrollLeft=0;
-    existingLightbox.scrollTop=0;
-    panPointer=null;
-    if (panFrame) {cancelAnimationFrame(panFrame);panFrame=0;}
+    existingStage.style.transform='';
+  };
+  const zoomRatio=()=>{
+    if(!panBaseline)return 1;
+    const vv=window.visualViewport;
+    return Math.max(
+      panBaseline.viewportWidth/Math.max(1,window.innerWidth),
+      panBaseline.viewportHeight/Math.max(1,window.innerHeight),
+      (window.devicePixelRatio||1)/Math.max(0.01,panBaseline.pixelRatio),
+      (vv?.scale||1)/Math.max(0.01,panBaseline.visualScale)
+    );
   };
   const syncViewerPan=()=>{
-    if (!existingLightbox || !existingStage || !photoVisible() || !panBaseline)return;
-    // DPR canvia amb Ctrl+rodeta a Edge/Chrome; una finestra simplement
-    // redimensionada no ha d'activar aquest comportament.
-    const newRatio=window.devicePixelRatio || 1;
-    const smaller = newRatio > panBaseline.pixelRatio * 1.025 ||
-      (!Number.isFinite(newRatio) &&
-       (window.innerWidth < panBaseline.viewportWidth*0.95 ||
-        window.innerHeight < panBaseline.viewportHeight*0.95));
-    existingLightbox.classList.toggle('vcc-native-pan-enabled',smaller);
-    if(smaller){
-      existingLightbox.style.setProperty('--vcc-pan-width',panBaseline.stageWidth+'px');
-      existingLightbox.style.setProperty('--vcc-pan-height',panBaseline.stageHeight+'px');
-    } else {
+    if(!photoVisible() || !panBaseline || !existingStage || !existingLightbox)return;
+    const active=zoomRatio()>1.035;
+    existingLightbox.classList.toggle('vcc-native-pan-enabled',active);
+    if(!active){
       existingLightbox.style.removeProperty('--vcc-pan-width');
       existingLightbox.style.removeProperty('--vcc-pan-height');
-      existingLightbox.scrollLeft=0;
-      existingLightbox.scrollTop=0;
+      existingStage.style.transform='';
+      panPointer=null;
+      return;
     }
+    existingLightbox.style.setProperty('--vcc-pan-width',panBaseline.stageWidth+'px');
+    existingLightbox.style.setProperty('--vcc-pan-height',panBaseline.stageHeight+'px');
+    if(panPointer)positionPan();
+  };
+  const positionPan=()=>{
+    if(!panPointer || !photoVisible() ||
+      !existingLightbox.classList.contains('vcc-native-pan-enabled'))return;
+    const availableX=Math.max(0,panBaseline.stageWidth-existingLightbox.clientWidth);
+    const availableY=Math.max(0,panBaseline.stageHeight-existingLightbox.clientHeight);
+    const dx=-availableX*panPointer.x,dy=-availableY*panPointer.y;
+    existingStage.style.transform='translate3d('+dx.toFixed(1)+'px,'+dy.toFixed(1)+'px,0)';
   };
   const startPanBaseline=()=>{
-    if (!existingStage)return;
+    if(!existingStage || !existingLightbox)return;
+    resetViewerPan();
     panBaseline={
       viewportWidth:window.innerWidth,
       viewportHeight:window.innerHeight,
-      pixelRatio:window.devicePixelRatio || 1,
+      pixelRatio:window.devicePixelRatio||1,
+      visualScale:window.visualViewport?.scale||1,
       stageWidth:existingStage.offsetWidth,
       stageHeight:existingStage.offsetHeight
     };
-    resetViewerPan();
   };
-  window.addEventListener('resize',syncViewerPan,{passive:true});
-  if (existingLightbox) {
-    // Mousemove sense botons: mou el visor sencer, mai només la fotografia.
-    // Vinculat al visor i no a la foto perquè funcioni també als marges.
+  const queuePanSync=()=>{
+    if(!panBaseline || !photoVisible())return;
+    if(panFrame)return;
+    panFrame=requestAnimationFrame(()=>{
+      panFrame=0;
+      syncViewerPan();
+      if(panPointer)positionPan();
+    });
+  };
+  window.addEventListener('resize',queuePanSync,{passive:true});
+  window.visualViewport?.addEventListener('resize',queuePanSync,{passive:true});
+  // L'esdeveniment Ctrl+wheel arriba abans que el navegador actualitzi
+  // el zoom. Revalidem a la següent repintada sense impedir l'acció nativa.
+  window.addEventListener('wheel',event=>{
+    if(photoVisible() && (event.ctrlKey || event.metaKey)){
+      requestAnimationFrame(()=>requestAnimationFrame(queuePanSync));
+    }
+  },{capture:true,passive:true});
+  if(existingLightbox){
     existingLightbox.addEventListener('pointermove',event=>{
-      if (event.pointerType!=='mouse' || event.buttons!==0 || !photoVisible() ||
-          !existingLightbox.classList.contains('vcc-native-pan-enabled')) return;
-      // El cursor pot recórrer tota la galeria, també el text i les miniatures.
-      // Preservem només els controls clicables perquè sigui fàcil navegar.
-      if (event.target.closest('button, a, input, textarea, select')) return;
-      const rect=existingLightbox.getBoundingClientRect();
-      if(!rect.width || !rect.height)return;
-      panPointer={
-        x:Math.max(0,Math.min(1,(event.clientX-rect.left)/rect.width)),
-        y:Math.max(0,Math.min(1,(event.clientY-rect.top)/rect.height))
-      };
+      if(event.pointerType!=='mouse' || event.buttons!==0 || !photoVisible())return;
+      if(event.target.closest('button, a, input, textarea, select'))return;
+      // El pointermove mateix força la detecció: no depenem de 'resize'.
+      syncViewerPan();
+      if(!existingLightbox.classList.contains('vcc-native-pan-enabled'))return;
+      const vv=window.visualViewport;
+      const x=(event.clientX-(vv?.offsetLeft||0))/Math.max(1,vv?.width||existingLightbox.clientWidth);
+      const y=(event.clientY-(vv?.offsetTop||0))/Math.max(1,vv?.height||existingLightbox.clientHeight);
+      panPointer={x:Math.max(0,Math.min(1,x)),y:Math.max(0,Math.min(1,y))};
       if(panFrame)return;
       panFrame=requestAnimationFrame(()=>{
         panFrame=0;
-        if(!panPointer || !photoVisible() ||
-          !existingLightbox.classList.contains('vcc-native-pan-enabled'))return;
-        const maxX=Math.max(0,existingLightbox.scrollWidth-existingLightbox.clientWidth);
-        const maxY=Math.max(0,existingLightbox.scrollHeight-existingLightbox.clientHeight);
-        if(maxX>0)existingLightbox.scrollLeft=Math.round(maxX*panPointer.x);
-        if(maxY>0)existingLightbox.scrollTop=Math.round(maxY*panPointer.y);
+        positionPan();
       });
     },{passive:true});
   }
