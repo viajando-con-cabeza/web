@@ -1,0 +1,53 @@
+name: Verify VCC mobile hint removal and R2 image resolution
+on:
+  push:
+    branches: [quality]
+    paths: ['.github/workflows/verify-mobile-r2-image-source.yml']
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: quality
+      - name: Verify gallery source, no hint, original R2 bytes and preview format
+        shell: bash
+        run: |
+          python -m pip install --quiet Pillow
+          python - <<'PY'
+          from pathlib import Path
+          from PIL import Image
+          import urllib.request,urllib.error,io,re
+          html=Path('destinos/suecia/estocolmo/imprescindibles.html').read_text()
+          js=Path('configuracion/js/plantillas/imprescindibles-galeria-movil.js').read_text()
+          css=Path('configuracion/css/plantillas/imprescindibles-galeria-movil.css').read_text()
+          assert 'vcc-mobile-photo-hint' not in js and 'photoHint' not in js
+          assert 'vcc-mobile-photo-hint' not in css
+          assert 'no-hint-v10' in html
+          assert "const R2_GOTEBORG='https://img.viajandoconcabeza.com/" in html
+          assert "image.src=originalUrl" in js
+          assert "large.style.backgroundImage='url(\"'+originalUrl+'\")';" in js
+          assert "const base = '/destinos/suecia/goteborg/imagenes/optimizadas/';" in js
+          print('NO_HINT_CONFIRMED, R2 ORIGINAL LINK CONFIRMED, OPTIMIZED PREVIEW LINK CONFIRMED')
+          original='https://img.viajandoconcabeza.com/destinos/suecia/goteborg/2026-dia1/DSC06554.webp'
+          req=urllib.request.Request(original,headers={'User-Agent':'Mozilla/5.0'})
+          with urllib.request.urlopen(req,timeout=25) as r:
+            data=r.read(); hdr=dict(r.headers)
+          im=Image.open(io.BytesIO(data))
+          print('R2_ORIGINAL',len(data),'bytes',im.size,'format',im.format,'type',hdr.get('Content-Type'),'code',200)
+          assert im.format=='WEBP' and im.width>=3000
+          preview_path=Path('destinos/suecia/goteborg/imagenes/optimizadas/visor-alta/DSC06554.webp')
+          assert preview_path.exists(),preview_path
+          preview=Image.open(preview_path)
+          print('GITHUB_OPTIMIZED_VIEWER',preview_path.stat().st_size,'bytes',preview.size,preview.format)
+          assert preview.width<im.width and preview.format=='WEBP'
+          url='https://www.quality.viajandoconcabeza.com/destinos/suecia/estocolmo/imprescindibles.html?hint-check-v10'
+          req=urllib.request.Request(url,headers={'User-Agent':'Mozilla/5.0','Cache-Control':'no-cache'})
+          try:
+            with urllib.request.urlopen(req,timeout=20) as response:
+              published=response.read().decode('utf-8','replace')
+              print('PUBLISHED_PAGE',response.status,re.search(r'imprescindibles-galeria-movil.js\?v=[^\"]+',published).group(0))
+          except Exception as exc:
+            print('PUBLISHED_PAGE_ERROR',str(exc))
+          print('PASS_SOURCE')
+          PY
