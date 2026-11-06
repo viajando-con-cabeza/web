@@ -4,8 +4,8 @@
 (() => {
   'use strict';
   const desktop = window.matchMedia('(min-width: 801px)');
-  // Mostra exactament el WebP de Cloudflare R2 també al mosaic.
-  const miniUrl = source => String(source).replace(/(\/2026-dia1\/)(DSC\d+\.webp)$/i,'$1_preview/mini/$2');
+  // Miniatures per a qualsevol carpeta AVIF/WebP de R2; es conserva el fallback original.
+  const miniUrl = source => String(source).replace(/(https:\/\/img\.viajandoconcabeza\.com\/destinos\/[^?#]+\/)([^/]+\.(?:webp|avif))$/i,'$1_preview/mini/$2');
 
   const layer = document.createElement('div');
   layer.id = 'vcc-desktop-gallery';
