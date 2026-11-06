@@ -31,7 +31,7 @@ if(d.itinerary.days.length>30)throw Error('Máximo 30 días por itinerario.');
 const ids=new Set();for(const p of d.places){if(!slug.test(p.id||'')||ids.has(p.id)||!p.photos?.length)throw Error('Cada lugar necesita un id único y al menos una foto.');ids.add(p.id);}
 for(const day of d.itinerary.days)if(!day.title||!day.photos?.length||!day.stops?.length)throw Error('Cada día necesita título, fotografías y paradas.');
 for(const profile of ['lujo','medio','vcc','mochilero'])for(const key of ['alojamiento','comida','transporte','actividades','extras'])if(!Number.isFinite(d.budget.prices[profile]?.[key])||d.budget.prices[profile][key]<0)throw Error('Precio no válido: '+profile+'.'+key);
-const image=d.hero||'/configuracion/imagenes/fondos/background_itinerarios_vcc.webp';
+const image=d.hero||'/configuracion/imagenes/fondos/fondos-itinerario.webp';
 url(image);
 const img=(v)=>v||image;
 const common={COUNTRY:esc(d.country),CITY:esc(d.city),CITY_UPPER:esc(d.city.toUpperCase()),EYEBROW:esc(`${d.country} · ${d.city}`.toUpperCase()),COUNTRY_URL:`/destinos/${country}/`};
