@@ -1,0 +1,112 @@
+name: Verify fast gallery HQ originals
+on:
+  push:
+    branches: [quality]
+    paths: ['.github/workflows/verify-vcc-fast-hq-v8.yml']
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Verify mobile flick 2 photos, normal swipe, 2200px WebP, zoom original and desktop
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m pip install --quiet playwright
+          python - <<'PY'
+          import time,re
+          from playwright.sync_api import sync_playwright
+          url='https://www.quality.viajandoconcabeza.com/destinos/suecia/estocolmo/imprescindibles.html'
+          with sync_playwright() as p:
+            browser=p.chromium.launch(headless=True,executable_path='/usr/bin/google-chrome',args=['--no-sandbox'])
+            mobile=None
+            errors=[]
+            responses=[]
+            for attempt in range(1,8):
+              page=browser.new_page(viewport={'width':390,'height':844},device_scale_factor=2,is_mobile=True,has_touch=True)
+              page.on('pageerror',lambda err:errors.append(str(err)))
+              page.on('response',lambda r:responses.append((r.status,r.url)) if '/optimizadas/' in r.url or 'img.viajandoconcabeza.com' in r.url else None)
+              response=page.goto(url+'?fast-hq-v8-check='+str(attempt)+'-707a3b',wait_until='domcontentloaded',timeout=45000)
+              page.wait_for_timeout(1200)
+              script=page.locator('script[src*="galeria-movil.js"]').get_attribute('src') or ''
+              desk=page.locator('script[src*="imprescindibles-interactions.js"]').get_attribute('src') or ''
+              print('ATTEMPT',attempt,'STATUS',response.status,script,desk,flush=True)
+              if 'fast-hq-v8' in script and 'hq-2200-v2' in desk:
+                mobile=page
+                break
+              page.close()
+              time.sleep(8)
+            assert mobile,'HQ/faster gallery deployment missing'
+            page=mobile
+            page.locator('.gallery').nth(5).locator('.gallery-tile').first.click()
+            page.locator('.vcc-mobile-photo-tile').nth(1).click()
+            count=page.locator('.vcc-photo-count')
+            assert count.inner_text()=='Foto 2 de 6'
+            stage=page.locator('.vcc-mobile-photo-stage')
+            main=stage.locator('.vcc-mobile-photo-full')
+            neighbor=stage.locator('.vcc-mobile-photo-peek')
+            hq=main.evaluate('(e)=>e.style.backgroundImage')
+            print('NORMAL_HQ',hq,flush=True)
+            assert '/visor-alta/DSC06554.webp' in hq,hq
+            r=stage.bounding_box()
+            x=int(r['x']+r['width']/2);y=int(r['y']+r['height']/2)
+            session=page.context.new_cdp_session(page)
+            def touch(action,pts):
+              session.send('Input.dispatchTouchEvent',{'type':action,'touchPoints':[{'x':round(px),'y':round(py)} for px,py in pts]})
+            # Ordinary swipe 95px with deliberate duration -> exactly 1 photo.
+            touch('touchStart',[(x+140,y)])
+            for px in [x+130,x+115,x+105,x+75,x+45]:
+              touch('touchMove',[(px,y)])
+              page.wait_for_timeout(48)
+            assert neighbor.is_visible()
+            assert count.inner_text()=='Foto 2 de 6'
+            touch('touchEnd',[])
+            page.wait_for_timeout(330)
+            assert count.inner_text()=='Foto 3 de 6',count.inner_text()
+            # Fast LONG swipe >58% width and >1.2 px/ms -> advances 2 photos.
+            touch('touchStart',[(x+165,y)])
+            for px in [x+90,x+5,x-80,x-155]:
+              touch('touchMove',[(px,y)])
+              page.wait_for_timeout(13)
+            during=neighbor.evaluate('(e)=>({url:e.style.backgroundImage,show:getComputedStyle(e).display,x:e.style.transform})')
+            print('DURING_FAST_FLICK',during,flush=True)
+            assert during['show']!='none'
+            assert count.inner_text()=='Foto 3 de 6'
+            touch('touchEnd',[])
+            page.wait_for_timeout(370)
+            print('AFTER_DOUBLE',count.inner_text(),flush=True)
+            assert count.inner_text()=='Foto 5 de 6',count.inner_text()
+            # The 2200px preview must be loaded rather than the older 1680px output.
+            assert '/visor-alta/DSC06560.webp' in main.evaluate('(e)=>e.style.backgroundImage')
+            page.wait_for_timeout(250)
+            assert not errors,errors
+            assert any(c==200 and '/visor-alta/DSC06560.webp' in u for c,u in responses),responses[-20:]
+            # Pinch to ~2.5x and check full 4896px original from R2 is fetched on demand.
+            touch('touchStart',[(x-50,y),(x+50,y)])
+            for gap in (80,110,140):
+              touch('touchMove',[(x-gap,y),(x+gap,y)])
+              page.wait_for_timeout(40)
+            touch('touchEnd',[])
+            page.wait_for_timeout(400)
+            tr=main.evaluate('(e)=>e.style.transform')
+            print('PINCH_TRANSFORM',tr,flush=True)
+            assert 'scale(2.' in tr or 'scale(3.' in tr,tr
+            page.wait_for_function("() => {const e=document.querySelector('.vcc-mobile-photo-full');return e && e.style.backgroundImage.includes('img.viajandoconcabeza.com')}",timeout=18000)
+            orig=main.evaluate('(e)=>e.style.backgroundImage')
+            print('ORIGINAL_ON_ZOOM',orig,flush=True)
+            assert 'DSC06560.webp' in orig
+            assert any(c==200 and 'img.viajandoconcabeza.com' in u and 'DSC06560.webp' in u for c,u in responses),responses[-20:]
+            assert not errors,errors
+            page.close()
+            desk=browser.new_page(viewport={'width':1440,'height':900})
+            desk.goto(url+'?hq-desktop-check=707a3b',wait_until='domcontentloaded',timeout=45000)
+            desk.wait_for_timeout(1700)
+            desk.locator('.gallery').nth(5).locator('.gallery-tile').first.click()
+            assert desk.locator('#vcc-desktop-gallery').is_visible()
+            desk.locator('#vcc-desktop-gallery .vcc-dg-tile').nth(2).click()
+            assert desk.locator('#lightbox.open').count()==1
+            desktopImage=desk.locator('#lightbox .lb-photo').evaluate('(e)=>e.style.backgroundImage')
+            print('DESKTOP_HQ',desktopImage,flush=True)
+            assert '/visor-alta/DSC06555.webp' in desktopImage
+            desk.close();browser.close()
+            print('PASS fast double flick, normal swipe, high-res viewer, original R2 zoom and desktop HQ',flush=True)
+          PY
