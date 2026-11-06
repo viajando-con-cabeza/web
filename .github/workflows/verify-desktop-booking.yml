@@ -1,0 +1,97 @@
+name: Verify Desktop Gallery Booking
+on:
+  push:
+    branches: [quality]
+    paths: ['.github/workflows/verify-desktop-booking.yml']
+jobs:
+  chrome:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Test full desktop photo flow and unchanged mobile gallery
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m pip install --quiet playwright
+          python - <<'PY'
+          import time
+          from playwright.sync_api import sync_playwright
+          url='https://www.quality.viajandoconcabeza.com/destinos/suecia/estocolmo/imprescindibles.html'
+          with sync_playwright() as p:
+              browser=p.chromium.launch(headless=True,executable_path='/usr/bin/google-chrome',args=['--no-sandbox'])
+              desk=None
+              for attempt in range(1,7):
+                  page=browser.new_page(viewport={'width':1440,'height':900})
+                  errors=[]
+                  failures=[]
+                  responses=[]
+                  page.on('pageerror',lambda err:errors.append(str(err)))
+                  page.on('requestfailed',lambda req:failures.append((req.url,req.failure)) if '/optimizadas/' in req.url else None)
+                  page.on('response',lambda res:responses.append((res.status,res.url)) if '/optimizadas/' in res.url else None)
+                  response=page.goto(url+'?desktop-gallery-check='+str(attempt)+'-81c2a574',wait_until='domcontentloaded',timeout=45000)
+                  page.wait_for_timeout(2000)
+                  script=page.locator('script[src*="imprescindibles-galeria-escritorio.js"]').count()
+                  mosaics=page.locator('.imp-page .gallery-mosaic').count()
+                  print('ATTEMPT',attempt,'PAGE',response.status,'SCRIPT',script,'MOSAICS',mosaics,'ERRORS',errors,flush=True)
+                  if script and mosaics==15 and page.evaluate('typeof window.VCCImprescindiblesLightbox?.open')=='function':
+                      desk=(page,errors,failures,responses)
+                      break
+                  page.close()
+                  time.sleep(7)
+              assert desk,'Desktop gallery not available after deployment'
+              page,errors,failures,responses=desk
+              assert not errors,errors
+              gallery=page.locator('.imp-page .gallery').nth(14)
+              assert gallery.get_attribute('data-count')=='10'
+              gallery.locator('.gallery-tile').first.click()
+              root=page.locator('#vcc-desktop-gallery')
+              assert root.is_visible(),'Grid overlay not visible'
+              assert not page.locator('#lightbox.open').count(),'Lightbox opened too early'
+              photos=root.locator('.vcc-dg-grid .vcc-dg-tile')
+              assert photos.count()==10,photos.count()
+              bounds=[photos.nth(i).bounding_box() for i in range(7)]
+              print('DESKTOP_RECTS',bounds,flush=True)
+              assert abs(bounds[0]['y']-bounds[1]['y'])<4 and abs(bounds[1]['y']-bounds[2]['y'])<4
+              assert bounds[3]['y']>bounds[0]['y'] and abs(bounds[3]['y']-bounds[4]['y'])<4 and abs(bounds[4]['y']-bounds[5]['y'])<4
+              assert abs(bounds[3]['x']-bounds[0]['x'])<4
+              assert root.locator('.vcc-dg-sidebar .vcc-dg-place').inner_text().strip()!=''
+              assert root.locator('.vcc-dg-sidebar .vcc-dg-description').inner_text().strip()!=''
+              # Test photograph beyond the six visible original tiles.
+              photos.nth(8).click()
+              modal=page.locator('#lightbox.open')
+              assert modal.count()==1,'Full photo viewer did not open'
+              assert page.locator('.lb-place-info h3').is_visible(),'Right-side text missing'
+              info=page.locator('.lb-stage > .lb-photo').evaluate('(e)=>({bg:getComputedStyle(e).backgroundImage,box:e.getBoundingClientRect().toJSON()})')
+              print('FULL_PHOTO',info,flush=True)
+              assert '/optimizadas/visor/DSC06585.webp' in info['bg']
+              page.locator('#lightbox .vcc-dg-photo-back').click()
+              assert not page.locator('#lightbox.open').count()
+              assert root.is_visible()
+              assert root.get_attribute('aria-hidden')=='false'
+              assert photos.count()==10
+              photos.nth(0).click()
+              assert page.locator('#lightbox.open').count()==1
+              page.locator('#lightbox .lb-close').click()
+              assert root.is_visible() and page.locator('#lightbox.open').count()==0
+              root.locator('.vcc-dg-close').click()
+              assert not root.is_visible()
+              assert 'vcc-desktop-gallery-open' not in (page.locator('body').get_attribute('class') or '')
+              print('DESKTOP_RESPONSES',responses[-18:],flush=True)
+              print('DESKTOP_FAILED',failures,flush=True)
+              assert not errors and not failures,(errors,failures)
+              assert all(code==200 for code,path in responses),responses
+              page.close()
+              mob=browser.new_page(viewport={'width':390,'height':844},device_scale_factor=2,is_mobile=True,has_touch=True)
+              mob.goto(url+'?mobile-regression=81c2a574',wait_until='domcontentloaded',timeout=45000)
+              mob.wait_for_timeout(2000)
+              assert mob.locator('.gallery-mosaic').count()==15
+              mob.locator('.gallery').nth(5).locator('.gallery-tile').first.click()
+              assert mob.locator('#vcc-mobile-gallery').is_visible()
+              assert not mob.locator('#vcc-desktop-gallery').is_visible()
+              mob.locator('.vcc-mobile-photo-tile').first.click()
+              assert mob.locator('.vcc-mobile-photo-view').is_visible()
+              mob.locator('.vcc-mobile-photo-view [data-vcc-action="grid"]').click()
+              assert mob.locator('.vcc-mobile-grid-view').is_visible()
+              mob.close()
+              browser.close()
+              print('PASS desktop three-per-row gallery -> full photo with right text -> grid; mobile unchanged',flush=True)
+          PY
