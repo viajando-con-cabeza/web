@@ -221,8 +221,9 @@
     if (roundedImage.getAttribute('src')!==previewUrl) roundedImage.src=previewUrl;
     else if (roundedImage.complete && roundedImage.naturalWidth) roundedImage.onload();
   }
-  const photoVisible = () => desktop.matches && !layer.hidden &&
-    existingLightbox?.classList.contains('open') && !!enlargedPhoto;
+  // No depenem de min-width:801px: Ctrl+rodeta pot travessar aquest breakpoint.
+  const photoVisible = () => document.body.classList.contains('vcc-desktop-gallery-open') &&
+    !layer.hidden && existingLightbox?.classList.contains('open') && !!enlargedPhoto;
 
   function photoSource() {
     const count=existingStage?.querySelector('.lb-counter')?.textContent||'';
@@ -247,8 +248,13 @@
   };
   const syncViewerPan=()=>{
     if (!existingLightbox || !existingStage || !photoVisible() || !panBaseline)return;
-    const smaller=window.innerWidth < panBaseline.viewportWidth*0.94 ||
-                  window.innerHeight < panBaseline.viewportHeight*0.94;
+    // DPR canvia amb Ctrl+rodeta a Edge/Chrome; una finestra simplement
+    // redimensionada no ha d'activar aquest comportament.
+    const newRatio=window.devicePixelRatio || 1;
+    const smaller = newRatio > panBaseline.pixelRatio * 1.025 ||
+      (!Number.isFinite(newRatio) &&
+       (window.innerWidth < panBaseline.viewportWidth*0.95 ||
+        window.innerHeight < panBaseline.viewportHeight*0.95));
     existingLightbox.classList.toggle('vcc-native-pan-enabled',smaller);
     if(smaller){
       existingLightbox.style.setProperty('--vcc-pan-width',panBaseline.stageWidth+'px');
@@ -265,6 +271,7 @@
     panBaseline={
       viewportWidth:window.innerWidth,
       viewportHeight:window.innerHeight,
+      pixelRatio:window.devicePixelRatio || 1,
       stageWidth:existingStage.offsetWidth,
       stageHeight:existingStage.offsetHeight
     };
@@ -330,6 +337,10 @@
   });
 
   desktop.addEventListener('change',() => {
-    if (!desktop.matches && !layer.hidden) closeGallery();
+    // Durant el zoom natiu canvia el breakpoint virtual, però no és un mòbil.
+    // Mantenim el visor d'escriptori mentre la fotografia és oberta.
+    if (!desktop.matches && !layer.hidden &&
+        !existingLightbox?.classList.contains('open') &&
+        window.matchMedia('(pointer:coarse)').matches) closeGallery();
   });
 })();
