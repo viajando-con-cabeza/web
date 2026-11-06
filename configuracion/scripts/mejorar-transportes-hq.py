@@ -41,12 +41,14 @@ for name in NAMES:
 html_path = ROOT / 'destinos/suecia/estocolmo/como-llegar.html'
 css_path = ROOT / 'configuracion/css/plantillas/como-llegar-vcc.css'
 for file in (html_path, css_path):
-    html=file.read_text(encoding='utf-8')
-    # Normalize malformed prior version query that accidentally retained the old cache suffix.
+    content=file.read_text(encoding='utf-8')
+    # Normalize any previous cache-buster suffix (including accidentally duplicated tokens).
+    suffix=r'''(?:\?[^"'<> )]*)?'''
     for name in NAMES:
-        regex=r'(/configuracion/imagenes/ilustraciones/transportes/transporte-'+name+r'\\.svg)(?:\\?[^"\\\'<> )]*)?'
-        html=re.sub(regex,lambda m:m.group(1)+'?v='+VERSION,html)
+        url=f'/configuracion/imagenes/ilustraciones/transportes/transporte-{name}.svg'
+        content=re.sub(re.escape(url)+suffix,lambda m:url+'?v='+VERSION,content)
     if file==html_path:
-        html=re.sub(r'(/configuracion/css/plantillas/como-llegar-vcc\\.css)(?:\\?[^"\\\'<> ]*)?',lambda m:m.group(1)+'?v='+VERSION,html)
-    file.write_text(html,encoding='utf-8')
+        css_url='/configuracion/css/plantillas/como-llegar-vcc.css'
+        content=re.sub(re.escape(css_url)+suffix,lambda m:css_url+'?v='+VERSION,content)
+    file.write_text(content, encoding='utf-8')
     print('Updated',file.relative_to(ROOT))
