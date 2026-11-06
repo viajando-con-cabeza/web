@@ -178,6 +178,24 @@ async function aiReviewOne(env,key,prefix,etag,context,force){
  return {...data,cached:false};
 }
 
+
+async function removeAiRejectedOne(env,key,prefix,etag,confirmed){
+ if(confirmed!==true)throw Error('La eliminación requiere confirmación explícita.');
+ assertImageKey(key,prefix);
+ if(key.split('/').includes('_preview'))throw Error('No se permite eliminar miniaturas.');
+ if(typeof etag!=='string'||!etag)throw Error('ETag inválido');
+ const reviewed=await env.BUCKET.get('__vcc_ai_reviews__/'+key+'.json');
+ if(!reviewed||reviewed.size>160000)throw Error('La fotografía no tiene una revisión IA válida.');
+ let previous;
+ try{previous=await reviewed.json()}catch{throw Error('La revisión IA no es válida.')}
+ if(previous.version!==AI_VERSION||previous.etag!==etag||previous.key!==key)
+   throw Error('La revisión IA ya no coincide con esta fotografía.');
+ const current=await env.BUCKET.head(key);
+ if(!current||current.etag!==etag)throw Error('La foto ha cambiado o ya se eliminó. Vuelve a analizar.');
+ await env.BUCKET.delete(key);
+ return {deleted:key};
+}
+
 async function listPhotos(env,prefix,cursor){
   const options={prefix,limit:PAGE_SIZE};if(cursor)options.cursor=cursor;
   const page=await env.BUCKET.list(options);
@@ -231,6 +249,9 @@ pre{background:#f6f1eb;border:1px solid var(--line);padding:13px;overflow-wrap:a
 <input id="aiTarget" type="number" min="1" max="1000" value="50" onchange="renderAiResults()">
 <label class="small"><input id="aiForce" type="checkbox"> Volver a analizar las fotos evaluadas (más uso de IA)</label>
 <div><button id="aiBtn" disabled onclick="runAiSelection()">Analizar fotos con IA</button><button class="secondary" id="aiStopBtn" disabled onclick="stopProcess('ai')">Parar análisis</button><button class="secondary" id="aiCsvBtn" disabled onclick="downloadAiCsv()">Exportar selección CSV</button></div>
+<label class="small"><input type="checkbox" id="confirmAiDelete" onchange="updateButtons()"> He revisado los descartes. Entiendo que borrar fotos utilizadas en la web puede romper sus enlaces.</label>
+<button id="aiDeleteBtn" class="danger" disabled onclick="deleteAiRejected()">Eliminar descartadas (irreversible)</button>
+<p id="aiDeleteStatus" class="muted small"></p>
 <p id="aiSummary" class="muted" role="status" aria-live="polite">Selecciona una carpeta. Ninguna fotografía se elimina automáticamente.</p>
 <div id="aiResults" class="tableWrap"></div>
 <p class="warning small">Revisa especialmente las ubicaciones de confianza media o baja. No se borra nada de R2 ni se modifica la web.</p>
@@ -280,6 +301,7 @@ function updateButtons(){
  q('convertStopBtn').disabled=!(busy&&activeMode==='convert')||stopped;
  q('aiBtn').disabled=busy||!currentPrefix||!scanFiles.length;
  q('aiStopBtn').disabled=!(busy&&activeMode==='ai')||stopped;
+ q('aiDeleteBtn').disabled=busy||!aiRows.length||!q('confirmAiDelete').checked;
  q('selectAllBtn').disabled=busy||!scanReady||!groups.length;
  q('selectNoneBtn').disabled=busy||!scanReady||!groups.length;
 }
@@ -291,7 +313,7 @@ function lock(on,mode=''){
 function stopProcess(mode){
  if(!busy||activeMode!==mode)return;
  stopped=true;
- log(mode==='ai'?'Deteniendo análisis después de la imagen actual.':mode==='scan'?'Deteniendo detección después de la fotografía actual.':'Deteniendo conversión después del archivo actual.');
+ log(mode==='ai-delete'?'Deteniendo borrado después de la fotografía actual.':mode==='ai'?'Deteniendo análisis después de la imagen actual.':mode==='scan'?'Deteniendo detección después de la fotografía actual.':'Deteniendo conversión después del archivo actual.');
  updateButtons();
 }
 async function browse(){if(busy)return;stopped=false;lock(true);
@@ -320,7 +342,7 @@ async function browse(){if(busy)return;stopped=false;lock(true);
 async function loadFolder(){if(busy||!q('folder').value)return;stopped=false;lock(true);let ok=false;
  try{
   currentPrefix=q('folder').value;files=[];scanFiles=[];scans=[];groups=[];removed.clear();scanReady=false;
-   aiRows=[];aiEdited.clear();q('aiResults').innerHTML='';q('aiSummary').textContent='Carpeta cargada. Puedes iniciar la selección inteligente.';
+   aiRows=[];aiEdited.clear();q('confirmAiDelete').checked=false;q('aiDeleteStatus').textContent='';q('aiResults').innerHTML='';q('aiSummary').textContent='Carpeta cargada. Puedes iniciar la selección inteligente.';
   q('confirmDup').checked=false;q('duplicates').innerHTML='';q('scanSummary').textContent='';
   for(const url of previewUrls.values())URL.revokeObjectURL(url);previewUrls.clear();
   let cursor=null,pages=0;
@@ -412,6 +434,39 @@ function downloadAiCsv(){
  const url=URL.createObjectURL(blob),link=document.createElement('a');link.href=url;
  link.download='seleccion-vcc-'+currentPrefix.replace(/[^a-z0-9-]/gi,'-')+'.csv';
  document.body.appendChild(link);link.click();link.remove();setTimeout(()=>URL.revokeObjectURL(url),1500);
+}
+
+
+async function deleteAiRejected(){
+ if(busy||!aiRows.length||!q('confirmAiDelete').checked)return;
+ const order=aiOrdered();
+ const chosen=new Set(order.selected.map(x=>x.key));
+ const candidates=order.all.filter(x=>!chosen.has(x.key));
+ if(!candidates.length){q('aiDeleteStatus').textContent='No hay fotografías descartadas.';return}
+ if(!confirm('Vas a eliminar definitivamente '+candidates.length+' imágenes de Cloudflare R2. Es posible que alguna esté enlazada desde tu web. NO hay copia de seguridad. ¿Deseas continuar?'))return;
+ const typed=prompt('Escribe ELIMINAR para confirmar el borrado irreversible de '+candidates.length+' fotografías:');
+ if(typed!=='ELIMINAR'){q('aiDeleteStatus').textContent='Eliminación cancelada.';return}
+ stopped=false;lock(true,'ai-delete');q('confirmAiDelete').checked=false;
+ let ok=0;const errors=[];
+ try{
+  for(let i=0;i<candidates.length;i++){
+   if(stopped)break;
+   const x=candidates[i];
+   q('aiDeleteStatus').textContent='Eliminando '+(i+1)+'/'+candidates.length+': '+x.key.split('/').pop();
+   try{
+    const result=await api({mode:'ai-remove-rejected',prefix:currentPrefix,key:x.key,etag:x.etag,confirm:true});
+    if(result.deleted!==x.key)throw Error('No se ha confirmado el borrado');
+    ok++;
+    aiRows=aiRows.filter(row=>row.key!==x.key);
+    scanFiles=scanFiles.filter(f=>f.key!==x.key);
+    files=files.filter(f=>f.key!==x.key);
+    aiEdited.delete(x.key);
+   }catch(e){errors.push({key:x.key,error:e.message});log('ERROR borrando '+x.key+': '+e.message)}
+  }
+  renderAiResults();
+  q('aiDeleteStatus').textContent='Eliminadas '+ok+' fotografías; '+errors.length+' errores. '+(stopped?'Proceso detenido.':'')+' Las versiones preview no se eliminan.';
+  log(q('aiDeleteStatus').textContent);
+ }finally{lock(false)}
 }
 
 const dec=s=>{const t=atob(s),a=new Uint8Array(t.length);for(let i=0;i<t.length;i++)a[i]=t.charCodeAt(i);return a};
@@ -933,6 +988,7 @@ export default {
       }
       if(mode==='convert-delete')return json(await convertAndDeleteOne(env,input.key,prefix));
        if(mode==='ai-review')return json(await aiReviewOne(env,input.key,prefix,input.etag,input.context,input.force===true));
+       if(mode==='ai-remove-rejected')return json(await removeAiRejectedOne(env,input.key,prefix,input.etag,input.confirm));
 
       return json({error:'Operación inválida'},400);
     }catch(error){console.error('VCC processing error',error);return json({error:String(error?.message||error)},400)}
