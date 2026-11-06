@@ -58,6 +58,10 @@ ALIASES = {
 ALIASES["donde-dormir"].remove("vcc-donde-alojarse-editorial.svg")
 all_assets = sorted(p for p in BASE.iterdir() if p.is_file() and p.suffix.lower() in {".svg", ".webp", ".jpg", ".jpeg", ".png"})
 names = {p.name for p in all_assets}
+# A second run must never archive the canonical WebP files.
+if all(('fondos-' + section + '.webp') in names for section in SOURCE):
+    print('Backgrounds already normalized; no changes required.')
+    sys.exit(0)
 for key, source in SOURCE.items():
     src = (BASE / source).resolve()
     if not src.is_file():
