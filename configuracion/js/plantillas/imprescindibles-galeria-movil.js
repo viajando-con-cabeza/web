@@ -5,7 +5,13 @@
   'use strict';
   const mobile = window.matchMedia('(max-width: 800px)');
   // Derivats AVIF/WebP segons mida, amb l'original intacte per al zoom.
-  const preview = (url, size='visor') => String(url).replace(/(https:\/\/img\.viajandoconcabeza\.com\/destinos\/[^?#]+\/)([^/]+\.(?:webp|avif))$/i,'$1_preview/'+(size==='mini'?'mini':'visor')+'/$2');
+  const preview = (url, size='visor') => {
+    /* Els AVIF encara no tenen objectes _preview a R2: evitar 404 i fotos en blanc.
+       Quan existeixin, aquesta excepció es podrà eliminar. */
+    if (/\.avif$/i.test(String(url))) return String(url);
+    return String(url).replace(/(https:\/\/img\.viajandoconcabeza\.com\/destinos\/[^?#]+\/)([^/]+\.webp)$/i,
+      '$1_preview/'+(size==='mini'?'mini':'visor')+'/$2');
+  };
   const root = document.createElement('div');
   root.id = 'vcc-mobile-gallery';
   root.hidden = true;
