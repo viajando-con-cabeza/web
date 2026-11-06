@@ -226,65 +226,11 @@
     return Number.isInteger(position) ? activeSources[position-1] : null;
   }
 
-  // Zoom de TOT el visor: títol, imatge, text, miniatures i controls.
-  // No transformem només la fotografia i no tornem a descodificar cap WebP.
-  let zoomLevel=1;
-  let zoomPanX=0, zoomPanY=0;
-  let zoomOriginX=50, zoomOriginY=50;
-  let zoomDrag=null;
-  const MIN_ZOOM=1, MAX_ZOOM=2.5;
-  const applyPhotoZoom=()=>{
-    if (!existingStage) return;
-    existingStage.style.transition='none';
-    existingStage.style.transformOrigin=zoomOriginX+'% '+zoomOriginY+'%';
-    existingStage.style.transform=zoomLevel>1.001
-      ? 'translate3d('+zoomPanX+'px,'+zoomPanY+'px,0) scale('+zoomLevel+')'
-      : 'none';
-    existingLightbox?.classList.toggle('vcc-dg-whole-zoom',zoomLevel>1.001);
-  };
-  const resetPhotoZoom=()=>{
-    zoomLevel=1;zoomPanX=0;zoomPanY=0;
-    zoomOriginX=50;zoomOriginY=50;
-    zoomDrag=null;
-    applyPhotoZoom();
-  };
-  if (existingLightbox && existingStage) {
-    existingLightbox.addEventListener('wheel',event=>{
-      if (!photoVisible() || event.ctrlKey || event.metaKey) return;
-      // El desplaçament de les miniatures i el text segueix sent normal.
-      if (event.target.closest('.lb-thumbs, .lb-place-info'))return;
-      event.preventDefault();
-      const delta=event.deltaY*(event.deltaMode===1?16:event.deltaMode===2?200:1);
-      const next=Math.min(MAX_ZOOM,Math.max(MIN_ZOOM,zoomLevel*Math.exp(-delta*0.0018)));
-      if (Math.abs(next-zoomLevel)<0.0001)return;
-      if (zoomLevel===1 && next>1) {
-        const rect=existingStage.getBoundingClientRect();
-        zoomOriginX=Math.max(0,Math.min(100,(event.clientX-rect.left)/rect.width*100));
-        zoomOriginY=Math.max(0,Math.min(100,(event.clientY-rect.top)/rect.height*100));
-      }
-      zoomLevel=next;
-      if (zoomLevel<=1.001){zoomLevel=1;zoomPanX=0;zoomPanY=0;}
-      applyPhotoZoom();
-    },{passive:false});
-    enlargedPhoto.addEventListener('pointerdown',event=>{
-      if (zoomLevel<=1.001 || event.button!==0 || !photoVisible())return;
-      zoomDrag={id:event.pointerId,x:event.clientX,y:event.clientY,panX:zoomPanX,panY:zoomPanY,moved:false};
-      enlargedPhoto.setPointerCapture(event.pointerId);
-    });
-    enlargedPhoto.addEventListener('pointermove',event=>{
-      if (!zoomDrag || event.pointerId!==zoomDrag.id)return;
-      const dx=event.clientX-zoomDrag.x,dy=event.clientY-zoomDrag.y;
-      if(Math.hypot(dx,dy)>5)zoomDrag.moved=true;
-      if(!zoomDrag.moved)return;
-      zoomPanX=zoomDrag.panX+dx;
-      zoomPanY=zoomDrag.panY+dy;
-      applyPhotoZoom();
-    });
-    enlargedPhoto.addEventListener('pointerup',()=>{zoomDrag=null;});
-    enlargedPhoto.addEventListener('pointercancel',()=>{zoomDrag=null;});
-  }
+  // El zoom de tota la pàgina és responsabilitat del navegador.
+  // No interceptem wheel, Ctrl+wheel o els gestos del trackpad.
+  // Així funciona exactament igual al mosaic i a la fotografia individual.
   if (enlargedPhoto) {
-    enlargedPhoto.setAttribute('title','Rodeta amunt/avall per ampliar o reduir tot el visor');
+    enlargedPhoto.removeAttribute('title');
     new MutationObserver(() => syncRoundedPhoto())
       .observe(enlargedPhoto,{attributes:true,attributeFilter:['aria-label']});
   }
@@ -292,7 +238,6 @@
   existingLightbox?.addEventListener('vcc:lightbox-closed',()=>{
     ++photoSequence;
     clearTimeout(upgradeTimer);
-    resetPhotoZoom();
     enlargedPhoto?.classList.remove('vcc-dg-rounded-ready');
     if(layer.hidden || !activeGallery) return;
     layer.setAttribute('aria-hidden','false');
