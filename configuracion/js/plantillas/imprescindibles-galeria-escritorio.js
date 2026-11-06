@@ -21,7 +21,7 @@
     '<div class="vcc-dg-panel">',
       '<div class="vcc-dg-top">',
         '<button class="vcc-dg-back" type="button" data-vcc-dg="close" aria-label="Volver a la guía">← <span>Volver a la guía</span></button>',
-        '<div class="vcc-dg-heading"><strong></strong><span></span></div>',
+        '<div class="vcc-dg-heading"><strong></strong></div>',
         '<button class="vcc-dg-close" type="button" data-vcc-dg="close" aria-label="Cerrar galería">×</button>',
       '</div>',
       '<div class="vcc-dg-main">',
@@ -41,7 +41,6 @@
   const grid = layer.querySelector('.vcc-dg-grid');
   const scroll = layer.querySelector('.vcc-dg-scroll');
   const heading = layer.querySelector('.vcc-dg-heading strong');
-  const quantity = layer.querySelector('.vcc-dg-heading span');
   const asideTitle = layer.querySelector('.vcc-dg-place');
   const asideDescription = layer.querySelector('.vcc-dg-description');
   const closeButton = layer.querySelector('.vcc-dg-close');
@@ -82,6 +81,15 @@
     clickedGridImage = tile;
     layer.setAttribute('aria-hidden', 'true');
     window.VCCImprescindiblesLightbox.open(activeGallery, index);
+    /* El visor ampliat comparteix títol i informació amb el mosaic previ. */
+    const name = heading.textContent;
+    const caption = existingStage?.querySelector('.lb-caption');
+    const infoTitle = existingStage?.querySelector('.lb-place-info h3');
+    const infoText = existingStage?.querySelector('.lb-place-info p');
+    if (caption) caption.textContent = name;
+    if (infoTitle) infoTitle.textContent = asideTitle.textContent;
+    if (infoText) infoText.textContent = asideDescription.textContent;
+    existingLightbox?.classList.toggle('vcc-dg-single', Number(activeGallery.dataset.count) === 1);
   };
 
   const openGallery = gallery => {
@@ -97,7 +105,6 @@
     const copy = section.querySelector('.place-copy > p')?.textContent?.trim() || '';
     const subtitle = section.querySelector('.place-copy .place-kicker')?.textContent?.trim() || name;
     heading.textContent = name;
-    quantity.textContent = sources.length === 1 ? '1 fotografía' : sources.length + ' fotografías';
     asideTitle.textContent = subtitle;
     asideDescription.textContent = copy;
 
@@ -139,6 +146,13 @@
   layer.addEventListener('click',event => {
     if (event.target.closest('[data-vcc-dg="close"]')) closeGallery();
     else if(event.target===layer) closeGallery();
+  });
+
+  /* Una única fotografia: la mà indica que es pot tornar al mosaic fent clic. */
+  existingStage?.querySelector('.lb-photo')?.addEventListener('click', () => {
+    if (existingLightbox?.classList.contains('open') && existingLightbox.classList.contains('vcc-dg-single')) {
+      window.VCCImprescindiblesLightbox?.dismiss();
+    }
   });
 
   existingLightbox?.addEventListener('vcc:lightbox-closed',()=>{
