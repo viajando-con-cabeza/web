@@ -277,8 +277,14 @@
   const positionPan=()=>{
     if(!panPointer || !photoVisible() ||
       !existingLightbox.classList.contains('vcc-native-pan-enabled'))return;
-    const availableX=Math.max(0,panBaseline.stageWidth-existingLightbox.clientWidth);
-    const availableY=Math.max(0,panBaseline.stageHeight-existingLightbox.clientHeight);
+    // En un zoom de pàgina normal es redueix el viewport CSS; en un zoom
+    // de tipus pinça es redueix visualViewport. Cobrim els dos casos.
+    const visibleWidth=Math.min(existingLightbox.clientWidth,
+      window.visualViewport?.width||existingLightbox.clientWidth);
+    const visibleHeight=Math.min(existingLightbox.clientHeight,
+      window.visualViewport?.height||existingLightbox.clientHeight);
+    const availableX=Math.max(0,panBaseline.stageWidth-visibleWidth);
+    const availableY=Math.max(0,panBaseline.stageHeight-visibleHeight);
     const dx=-availableX*panPointer.x,dy=-availableY*panPointer.y;
     existingStage.style.transform='translate3d('+dx.toFixed(1)+'px,'+dy.toFixed(1)+'px,0)';
   };
