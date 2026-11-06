@@ -85,6 +85,21 @@
   };
   /* Sense cap transformació: les URL del dataset apunten al WebP original de R2. */
   const optimizedPhoto = original => original;
+  // Els mosaics fan càrrega diferida: la URL sempre és el WebP original de R2.
+  const lazyImages = 'IntersectionObserver' in window ? new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      const node = entry.target;
+      useR2Background(node, node.dataset.r2Image);
+      delete node.dataset.r2Image;
+      lazyImages.unobserve(node);
+    });
+  }, {rootMargin:'250px 0px'}) : null;
+  const lazyR2Background = (node, url) => {
+    if (!lazyImages) { useR2Background(node,url); return; }
+    node.dataset.r2Image=url;
+    lazyImages.observe(node);
+  };
   const show = i => {
     if (!album.length || !image) return;
     current = (i + album.length) % album.length;
@@ -124,7 +139,7 @@
       const button = document.createElement('button');
       button.type = 'button';
       button.setAttribute('aria-label',`Ver fotografía ${j+1} de ${album.length}`);
-      useR2Background(button, optimizedPhoto(src, 'mini'));
+      lazyR2Background(button, optimizedPhoto(src, 'mini'));
       button.style.setProperty('background-size', 'cover', 'important');
       button.addEventListener('click',() => show(j));
       thumbnails.append(button);
@@ -158,7 +173,7 @@
       const tile = document.createElement('button');
       tile.type='button'; tile.className='gallery-tile'; tile.dataset.i=String(index);
       tile.setAttribute('aria-label',`Ampliar fotografía ${index+1} de ${photos.length}`);
-      useR2Background(tile, optimizedPhoto(src, 'mini'));
+      lazyR2Background(tile, optimizedPhoto(src, 'mini'));
       tile.style.setProperty('background-size', 'cover', 'important');
       if (index === 5 && photos.length > 6) {
         const more=document.createElement('span'); more.className='gallery-more';
