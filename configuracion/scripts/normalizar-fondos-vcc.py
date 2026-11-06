@@ -93,6 +93,7 @@ text_files = [p for p in ROOT.rglob("*") if p.is_file() and ".git" not in p.part
               and p.suffix.lower() in {".html", ".css", ".js", ".json", ".mjs", ".jsonc", ".md"}]
 # Avoid rewriting the migration source or workflows.
 text_files = [p for p in text_files if "normalizar-fondos" not in p.name]
+text_files.append(ROOT / "_redirects")
 contents = {p: p.read_text(encoding="utf-8") for p in text_files}
 for f in all_assets:
     if f.name in alias_to_section:
