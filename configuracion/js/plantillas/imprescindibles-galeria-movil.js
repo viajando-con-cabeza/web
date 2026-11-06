@@ -4,8 +4,8 @@
 (() => {
   'use strict';
   const mobile = window.matchMedia('(max-width: 800px)');
-  // Mateixa URL WebP de Cloudflare R2 en mosaic, visor i zoom.
-  const preview = (url, size='visor') => String(url).replace(/(\/2026-dia1\/)(DSC\d+\.webp)$/i,'$1_preview/'+(size==='mini'?'mini':'visor')+'/$2');
+  // Derivats AVIF/WebP segons mida, amb l'original intacte per al zoom.
+  const preview = (url, size='visor') => String(url).replace(/(https:\/\/img\.viajandoconcabeza\.com\/destinos\/[^?#]+\/)([^/]+\.(?:webp|avif))$/i,'$1_preview/'+(size==='mini'?'mini':'visor')+'/$2');
   const root = document.createElement('div');
   root.id = 'vcc-mobile-gallery';
   root.hidden = true;
