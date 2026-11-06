@@ -160,8 +160,8 @@ const previewUrls=new Map(),q=id=>document.getElementById(id);
 function log(s){q('status').textContent=s+'\n'+q('status').textContent.slice(0,8500)}
 async function api(payload){
  const token=q('token').value.trim();if(!token)throw Error('Introduce ADMIN_TOKEN.');
- const retryableModes=new Set(['list','folders']);
- const maxAttempts=retryableModes.has(payload.mode)?4:1;
+ const retryableModes=new Set(['list','folders','convert-delete']);
+ const maxAttempts=payload.mode==='convert-delete'?3:(retryableModes.has(payload.mode)?4:1);
  for(let attempt=1;attempt<=maxAttempts;attempt++){
   let response=null,body='',data=null,error=null,retry=false;
   try{
@@ -181,7 +181,8 @@ async function api(payload){
   }
   if(!retry||attempt===maxAttempts||stopped)throw Error(error+' (intentos '+attempt+'/'+maxAttempts+')');
   log('Servicio temporalmente no disponible para '+(payload.key||payload.mode)+'. Reintento '+attempt+'/'+(maxAttempts-1)+'…');
-  await new Promise(resolve=>setTimeout(resolve,[900,2100,4300][attempt-1]));
+  const delays=payload.mode==='convert-delete'?[1800,5500]:[900,2100,4300];
+  await new Promise(resolve=>setTimeout(resolve,delays[attempt-1]));
  }
  throw Error('No se pudo completar la petición');
 }
@@ -633,7 +634,8 @@ async function convertAll(){
  stopped=false;lock(true,'convert');
  const pending=[...files].filter(f=>!removed.has(f.key));
  const total=pending.length;
- const maxParallel=pending.some(f=>f.size>8*1024*1024)?2:3;
+ // Els JPG de 5–8 MB saturaven el Worker si es convertien 2–3 simultàniament.
+ const maxParallel=1;
  let next=0,processed=0,deleted=0,reused=0,allowedWorkers=maxParallel;
  const convertedKeys=new Set(),errors=[],resourceRetry=[];
  const resourceError=e=>/HTTP\s*(?:429|502|503|504|520|522|524)\b|resource limits|exceeded memory|1102/i.test(String(e?.message||e));
@@ -683,7 +685,8 @@ async function convertAll(){
    await convertFile(f,true);
    processed++;
    show();
-   if(processed%12===0)await new Promise(resolve=>setTimeout(resolve,0));
+   // Petita pausa perquè Cloudflare alliberi memòria abans del següent JPG.
+    if(processed%3===0&&next<total)await new Promise(resolve=>setTimeout(resolve,350));
   }
  }
  try{
