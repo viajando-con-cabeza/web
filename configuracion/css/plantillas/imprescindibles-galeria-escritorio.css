@@ -32,9 +32,9 @@
     grid-template-columns:minmax(190px,1fr) 2fr minmax(68px,1fr);
     align-items:center;
     gap:14px;
-    height:75px;
-    min-height:75px;
-    padding:10px 24px;
+    height:64px;
+    min-height:64px;
+    padding:8px 24px;
     border-bottom:1px solid #eee7e1;
     background:#fff;
   }
@@ -215,10 +215,11 @@
 @media (min-width:801px) {
   html body.vcc-desktop-gallery-open #lightbox.lightbox .lb-stage {
     width:min(1450px,calc(100vw - 60px))!important;
-    height:min(90dvh,850px)!important;
+    height:min(94dvh,920px)!important;
+    max-height:calc(100dvh - 26px)!important;
     display:grid!important;
     grid-template-columns:minmax(0,1fr) minmax(245px,290px)!important;
-    grid-template-rows:75px minmax(0,1fr) 32px 116px!important;
+    grid-template-rows:64px minmax(0,1fr) 30px 126px!important;
     gap:0!important;
     border-radius:17px!important;
   }
@@ -231,8 +232,8 @@
     align-self:stretch!important;
     justify-self:stretch!important;
     width:100%!important;
-    height:75px!important;
-    min-height:75px!important;
+    height:64px!important;
+    min-height:64px!important;
     margin:0!important;
     padding:10px 82px!important;
     border-bottom:1px solid #eee7e1!important;
@@ -253,9 +254,10 @@
     grid-column:1!important;
     grid-row:2!important;
     width:100%!important;
-    height:100%!important;
+    height:calc(100% - 12px)!important;
     min-height:0!important;
-    max-height:100%!important;
+    max-height:calc(100% - 12px)!important;
+    margin:12px 0 0!important;
     background-size:contain!important;
     background-position:center!important;
   }
@@ -267,7 +269,7 @@
     align-items:center!important;
     justify-content:center!important;
     min-width:0!important;
-    height:32px!important;
+    height:30px!important;
     padding:0 12px!important;
     margin:0!important;
     color:#37332f!important;
@@ -283,10 +285,10 @@
     justify-content:flex-start!important;
     gap:10px!important;
     min-height:0!important;
-    height:116px!important;
-    padding:13px 28px 29px!important;
+    height:126px!important;
+    padding:21px 28px 35px!important;
     margin:0!important;
-    border-top:1px solid #eee7e1!important;
+    border-top:0!important;
     overflow-x:auto!important;
     overflow-y:hidden!important;
     scrollbar-width:thin!important;
@@ -335,12 +337,12 @@
     font:400 13px/1.75 'DM Sans',sans-serif!important;
   }
   html body.vcc-desktop-gallery-open #lightbox.lightbox .lb-stage > .vcc-dg-photo-back {
-    top:20px!important;
+    top:14px!important;
     left:24px!important;
     height:35px!important;
   }
   html body.vcc-desktop-gallery-open #lightbox.lightbox .lb-close {
-    top:17px!important;
+    top:11px!important;
     right:24px!important;
     border:0!important;
     border-radius:50%!important;
@@ -349,9 +351,27 @@
     width:42px!important;
     height:42px!important;
   }
+  /* Fletxes netes, centrades a la zona visible de la fotografia. */
   html body.vcc-desktop-gallery-open #lightbox.lightbox .lb-prev,
   html body.vcc-desktop-gallery-open #lightbox.lightbox .lb-next {
-    top:calc(50% + 37px)!important;
+    top:calc(50% - 46px)!important;
+    width:42px!important;
+    height:48px!important;
+    padding:0!important;
+    border:0!important;
+    border-radius:0!important;
+    background:transparent!important;
+    box-shadow:none!important;
+    color:#272727!important;
+    font-size:37px!important;
+    font-weight:400!important;
+    cursor:pointer!important;
+  }
+  html body.vcc-desktop-gallery-open #lightbox.lightbox .lb-prev:hover,
+  html body.vcc-desktop-gallery-open #lightbox.lightbox .lb-next:hover {
+    color:#a65340!important;
+    background:transparent!important;
+    box-shadow:none!important;
   }
   /* El cursor sempre és una mà en les miniatures, fins i tot en una
      galeria amb només una fotografia. En ampliació, clic = tornar. */
