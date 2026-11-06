@@ -32,7 +32,6 @@
         '<div class="vcc-mobile-photo-full" role="img" aria-label="Fotografía ampliada"></div>',
         '<div class="vcc-mobile-photo-peek" aria-hidden="true" hidden></div>',
       '</div>',
-      '<div class="vcc-mobile-photo-hint">Desliza para cambiar de fotografía</div>',
     '</section>'
   ].join('');
   document.body.append(root);
@@ -43,7 +42,6 @@
   const photoGrid = root.querySelector('.vcc-mobile-photo-grid');
   const large = root.querySelector('.vcc-mobile-photo-full');
   const photoCount = root.querySelector('.vcc-photo-count');
-  const photoHint = root.querySelector('.vcc-mobile-photo-hint');
   const stage = root.querySelector('.vcc-mobile-photo-stage');
   const incoming = root.querySelector('.vcc-mobile-photo-peek');
 
@@ -116,7 +114,6 @@
     large.style.transition = animate ? 'transform 180ms ease-out' : 'none';
     large.style.transform = 'translate3d('+panX+'px,'+panY+'px,0) scale('+zoom+')';
     stage.classList.toggle('is-zoomed',zoom>1.01);
-    photoHint.textContent = zoom>1.01 ? 'Arrastra para explorar · Doble toque para reducir' : 'Desliza para cambiar · Pellizca para ampliar';
     if(zoom>=1.45)loadOriginalForZoom();
   }
   function resetZoom() {
