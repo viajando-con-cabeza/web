@@ -1,0 +1,98 @@
+name: Verify six rapid mobile swipes and original R2 source
+on:
+  push:
+    branches: [quality]
+    paths: ['.github/workflows/verify-six-rapid-swipes.yml']
+jobs:
+  chrome:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: quality
+      - name: Test current quality files and published site
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m pip install --quiet playwright Pillow
+          python -m http.server 9876 --bind 127.0.0.1 >/tmp/gallery-http.log 2>&1 &
+          server_pid=$!
+          trap 'kill "$server_pid" || true' EXIT
+          python - <<'PY'
+          import urllib.request, urllib.error, re, time
+          from playwright.sync_api import sync_playwright
+          base='http://127.0.0.1:9876/destinos/suecia/estocolmo/imprescindibles.html'
+          with sync_playwright() as p:
+            browser=p.chromium.launch(headless=True,executable_path='/usr/bin/google-chrome',args=['--no-sandbox'])
+            page=browser.new_page(viewport={'width':390,'height':844},is_mobile=True,has_touch=True,device_scale_factor=2)
+            errors=[]; responses=[]
+            page.on('pageerror',lambda e:errors.append(str(e)))
+            page.on('response',lambda r:responses.append((r.status,r.url)) if ('/optimizadas/' in r.url or 'img.viajandoconcabeza.com' in r.url) else None)
+            page.goto(base,wait_until='domcontentloaded',timeout=45000)
+            page.wait_for_timeout(1400)
+            assert page.locator('#vcc-mobile-gallery').count()==1
+            assert page.locator('.gallery').count()==15
+            assert page.locator('.vcc-mobile-photo-hint').count()==0
+            page.locator('.gallery').nth(5).locator('.gallery-tile').first.click()
+            page.locator('#vcc-mobile-gallery .vcc-mobile-photo-tile').nth(0).click()
+            assert page.locator('.vcc-photo-count').inner_text()=='Foto 1 de 6'
+            stage=page.locator('.vcc-mobile-photo-stage')
+            main=stage.locator('.vcc-mobile-photo-full')
+            neighbor=stage.locator('.vcc-mobile-photo-peek')
+            r=stage.bounding_box()
+            midx=int(r['x']+r['width']/2);midy=int(r['y']+r['height']/2)
+            cdp=page.context.new_cdp_session(page)
+            def send(kind,points):
+              cdp.send('Input.dispatchTouchEvent',{'type':kind,'touchPoints':[{'x':round(x),'y':round(y)} for x,y in points]})
+            # Six rapid flicks, including an interruption BEFORE the preceding snap completes.
+            for i in range(6):
+              x0=midx+135
+              send('touchStart',[(x0,midy)])
+              for x in [x0-15,x0-40,x0-65]:
+                send('touchMove',[(x,midy)])
+                page.wait_for_timeout(7)
+              if i==0:
+                url=neighbor.evaluate('(e)=>e.style.backgroundImage')
+                print('DURING_DRAG_NEIGHBOR',url,flush=True)
+                assert '/visor/' in url and 'DSC06554.webp' in url,url
+              send('touchEnd',[])
+              page.wait_for_timeout(9)
+            page.wait_for_timeout(330)
+            count=page.locator('.vcc-photo-count').inner_text()
+            print('AFTER_SIX_RAPID_GESTURES',count,flush=True)
+            assert count=='Foto 1 de 6',count
+            assert page.locator('.vcc-mobile-photo-hint').count()==0
+            # Stay on a new active photo until full, unmodified R2 WebP appears.
+            page.locator('.vcc-mobile-photo-view [data-vcc-action="grid"]').click()
+            page.locator('.vcc-mobile-photo-tile').nth(1).click()
+            page.wait_for_function("""() => document.querySelector('.vcc-mobile-photo-full')?.style.backgroundImage.includes('https://img.viajandoconcabeza.com/destinos/suecia/goteborg/2026-dia1/DSC06554.webp')""",timeout=18000)
+            source=main.evaluate('(e)=>e.style.backgroundImage')
+            print('DIRECT_FULL_IMAGE',source,flush=True)
+            assert 'DSC06554.webp' in source and '/optimizadas/' not in source
+            assert any(status==200 and '/2026-dia1/DSC06554.webp' in uri for status,uri in responses),responses[-20:]
+            # Zoom is intact after full-quality active image.
+            send('touchStart',[(midx-42,midy),(midx+42,midy)])
+            send('touchMove',[(midx-100,midy),(midx+100,midy)])
+            send('touchEnd',[])
+            page.wait_for_timeout(190)
+            print('PINCH_TRANSFORM',main.evaluate('(e)=>e.style.transform'),flush=True)
+            assert 'scale(2.' in main.evaluate('(e)=>e.style.transform'),main.evaluate('(e)=>e.style.transform')
+            assert not errors,errors
+            page.close()
+            desk=browser.new_page(viewport={'width':1440,'height':900})
+            desk.goto(base,wait_until='domcontentloaded',timeout=45000)
+            desk.wait_for_timeout(1300)
+            desk.locator('.gallery').nth(5).locator('.gallery-tile').first.click()
+            assert desk.locator('#vcc-desktop-gallery').is_visible()
+            desk.close();browser.close()
+          url='https://www.quality.viajandoconcabeza.com/destinos/suecia/estocolmo/imprescindibles.html?probe='+str(time.time_ns())
+          req=urllib.request.Request(url,headers={'Cache-Control':'no-cache','User-Agent':'Mozilla/5.0'})
+          try:
+            with urllib.request.urlopen(req,timeout=30) as page:
+              body=page.read().decode('utf-8','replace')
+              js=re.search(r'imprescindibles-galeria-movil\.js\?v=[^"]+',body)
+              print('PUBLIC_QUALITY_VERSION',js.group(0) if js else 'missing',flush=True)
+              print('PUBLIC_QUALITY_STATUS',page.status,flush=True)
+          except Exception as e: print('PUBLIC_QUALITY_CHECK_ERROR',str(e),flush=True)
+          print('PASS_CURRENT_GITHUB_QUALITY: six continuous swipes, R2 original and pinch',flush=True)
+          PY
