@@ -5,7 +5,7 @@
   'use strict';
   const mobile = window.matchMedia('(max-width: 800px)');
   // Mateixa URL WebP de Cloudflare R2 en mosaic, visor i zoom.
-  const preview = url => url;
+  const preview = (url, size='visor') => String(url).replace(/(\/2026-dia1\/)(DSC\d+\.webp)$/i,'$1_preview/'+(size==='mini'?'mini':'visor')+'/$2');
   const root = document.createElement('div');
   root.id = 'vcc-mobile-gallery';
   root.hidden = true;
@@ -66,7 +66,7 @@
   let highResToken = 0;
   let stageWidth = 0;
   const previewCache = new Map();
-  const PREVIEW_CACHE_LIMIT = 7;
+  const PREVIEW_CACHE_LIMIT = 3;
   const MAX_ZOOM = 4;
 
   // Mantenim un conjunt petit de WebP del visor a la memòria.
@@ -110,7 +110,7 @@
     if (img.complete && img.naturalWidth) update();
     else img.addEventListener('load', update, {once:true});
   }
-  function scheduleOriginal(delay = 900) {
+  function scheduleOriginal(delay = 220) {
     clearTimeout(highResTimer);
     const request = ++highResToken;
     highResTimer = setTimeout(() => {
@@ -359,6 +359,7 @@
       button.setAttribute('aria-label', 'Ampliar fotografía ' + (index + 1) + ' de ' + photos.length);
       const img = document.createElement('img');
       img.src = preview(url, 'mini');
+      img.onerror = () => { if (img.src !== url) img.src=url; };
       img.alt = placeTitle + ', foto ' + (index + 1);
       img.loading = 'lazy';
       img.decoding = 'async';
