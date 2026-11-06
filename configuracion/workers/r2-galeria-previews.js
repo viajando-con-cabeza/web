@@ -18,7 +18,7 @@ export default {
     const suffix = path.slice(PREFIX.length);
     const match = suffix.match(/^(mini|visor)\/(destinos\/[a-z0-9_/-]+\/[a-z0-9_-]+\.(webp|avif))$/i);
     if (!match || suffix.includes('//')) return new Response('Invalid image path', {status:400});
-    const [,variant,sourceKey,,extension] = match;
+    const [,variant,sourceKey,extension] = match;
     const i=sourceKey.lastIndexOf('/');
     const previewKey=sourceKey.slice(0,i+1)+'_preview/'+variant+'/'+sourceKey.slice(i+1);
     const type=extension.toLowerCase()==='avif'?'image/avif':'image/webp';
