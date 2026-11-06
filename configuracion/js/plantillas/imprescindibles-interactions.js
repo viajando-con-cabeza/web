@@ -89,7 +89,7 @@
   const optimizedPhoto = (original, size) => {
     const filename = String(original).split('/').pop();
     if (!/^DSC[0-9]+[.]webp$/i.test(filename)) return original;
-    return '/destinos/suecia/goteborg/imagenes/optimizadas/' + size + '/' + filename;
+    return original; // Prioritzar el WebP original de R2 en totes les vistes.
   };
   const show = i => {
     if (!album.length || !image) return;
