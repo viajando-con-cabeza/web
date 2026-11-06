@@ -1,4 +1,4 @@
-name: Verify published transport SVGs
+name: Verify published transport SVGs and HTML freshness
 
 on:
   push:
@@ -42,4 +42,13 @@ jobs:
                       b=f.read()
                       print('SVG',n,'status',f.status,'mime',f.headers.get('Content-Type'),'len',len(b),'png-embedded',b'data:image/png;base64' in b,'sha256',hashlib.sha256(b).hexdigest()[:20])
               except Exception as exc: print('SVG_ERROR',n,type(exc).__name__,str(exc)[:300])
+
+          for p in pages[:1]:
+              try:
+                  with urllib.request.urlopen(urllib.request.Request(base+p,headers={'Cache-Control':'no-cache','User-Agent':'Mozilla/5.0'}), timeout=20) as f:
+                      h=f.read().decode('utf-8','replace')
+                      print('LIVE_HEADERS', {k:v for k,v in f.headers.items() if k.lower() in ('cache-control','cf-cache-status','etag','age','last-modified','server')})
+                      print('LIVE_TRANSPORT_SRCS',re.findall(r'<img[^>]*src="([^"]+)"',h)[:12])
+                      print('LIVE_STYLESHEETS',re.findall(r'href="([^"]+\\.css[^\"]*)"',h)[:12])
+              except Exception as e: print('EXTRA_INSPECTION_ERROR',str(e))
           PY
