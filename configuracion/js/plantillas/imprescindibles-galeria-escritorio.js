@@ -233,17 +233,18 @@
     return Number.isInteger(position) ? activeSources[position-1] : null;
   }
 
-  // Zoom natiu del navegador. Quan el mosaic o la foto són més grans
-  // que la finestra, es poden recórrer movent el cursor sense prémer res.
-  // Moviment RELATIU 1:1: una petita variació del ratolí provoca una
-  // petita variació del panell. No perseguim mai un extrem absolut.
+  // Browser zoom remains native. Retain the exact image/content point
+  // under the cursor across Ctrl+wheel, instead of jumping to panel centre.
+  // Mouse movement afterwards pans relatively, only while zoomed.
   let panBaseline=null;
   let panMode=null;
   let panFrame=0;
   let panLastMouse=null;
+  let lastPointer=null;
+  let pendingZoomAnchor=null;
   let panX=0,panY=0;
   let panTargetX=0,panTargetY=0;
-  const PAN_GAIN=1.15;
+  const PAN_GAIN=1;
   const limit=(v,lo,hi)=>Math.max(lo,Math.min(hi,v));
   const stopPan=()=>{
     if(panFrame){cancelAnimationFrame(panFrame);panFrame=0;}
@@ -260,7 +261,11 @@
     panLastMouse=null;
     panX=panY=panTargetX=panTargetY=0;
   };
-  const resetViewerPan=()=>clearPanelPan();
+  const resetViewerPan=()=>{
+    clearPanelPan();
+    lastPointer=null;
+    pendingZoomAnchor=null;
+  };
   const zoomRatio=()=>{
     if(!panBaseline)return 1;
     return Math.max(
@@ -272,7 +277,7 @@
   };
   const activePanel=()=>{
     if(!panBaseline || layer.hidden ||
-       !document.body.classList.contains('vcc-desktop-gallery-open'))return null;
+      !document.body.classList.contains('vcc-desktop-gallery-open'))return null;
     if(photoVisible() && existingLightbox && existingStage){
       return {kind:'photo',modal:existingLightbox,panel:existingStage,
         width:panBaseline.photoWidth,height:panBaseline.photoHeight};
@@ -293,21 +298,50 @@
     panFrame=0;
     const view=activePanel();
     if(!view || panMode!==view.kind ||
-       !view.modal.classList.contains('vcc-native-pan-enabled'))return;
-    // Un únic repintat per moviment. Sense animació que continuï quan
-    // s'atura el cursor, ni CSS transition que generi inèrcia.
-    panX=panTargetX;
-    panY=panTargetY;
+      !view.modal.classList.contains('vcc-native-pan-enabled'))return;
+    panX=panTargetX;panY=panTargetY;
     view.panel.style.transform='translate3d('+panX.toFixed(2)+'px,'+
       panY.toFixed(2)+'px,0)';
   };
   const schedulePan=()=>{
     if(!panFrame)panFrame=requestAnimationFrame(paintPan);
   };
+  // Before browser zoom changes the layout, record the content location
+  // beneath the cursor, in panel-local CSS pixels.
+  const rememberZoomAnchor=event=>{
+    const view=activePanel();
+    if(!view || !event.ctrlKey && !event.metaKey)return;
+    const rect=view.panel.getBoundingClientRect();
+    pendingZoomAnchor={
+      mode:view.kind,
+      contentX:event.clientX-rect.left,
+      contentY:event.clientY-rect.top,
+      pointerX:event.clientX,
+      pointerY:event.clientY,
+      viewportWidth:window.innerWidth,
+      viewportHeight:window.innerHeight
+    };
+    panLastMouse=null; // Zoom-induced pointer co-ordinate changes are not movement.
+  };
+  const applyZoomAnchor=view=>{
+    const anchor=pendingZoomAnchor;
+    if(!anchor || anchor.mode!==view.kind)return false;
+    const bounds=boundsFor(view);
+    // Browser zoom changes CSS viewport size, not the physical mouse
+    // position. Project its coordinate into the new CSS viewport.
+    const x=anchor.pointerX*(window.innerWidth/Math.max(1,anchor.viewportWidth));
+    const y=anchor.pointerY*(window.innerHeight/Math.max(1,anchor.viewportHeight));
+    panTargetX=limit(x-anchor.contentX,-bounds.x,0);
+    panTargetY=limit(y-anchor.contentY,-bounds.y,0);
+    pendingZoomAnchor=null;
+    panLastMouse=null;
+    return true;
+  };
   const syncViewerPan=()=>{
     const view=activePanel();
     if(!view || zoomRatio()<=1.035){
       if(panMode)clearPanelPan();
+      if(zoomRatio()<=1.035)pendingZoomAnchor=null;
       return;
     }
     if(panMode!==view.kind){
@@ -316,18 +350,22 @@
       view.modal.style.setProperty('--vcc-pan-width',view.width+'px');
       view.modal.style.setProperty('--vcc-pan-height',view.height+'px');
       view.modal.classList.add('vcc-native-pan-enabled');
-      const bounds=boundsFor(view);
-      // Comencem centrats; el primer pointermove només fixa una referència.
-      panX=panTargetX=-bounds.x/2;
-      panY=panTargetY=-bounds.y/2;
-      view.panel.style.transform='translate3d('+panX.toFixed(2)+'px,'+
-        panY.toFixed(2)+'px,0)';
+      // Never jump to the centre. Preserve the cursor's zoom focus.
+      if(!applyZoomAnchor(view)){
+        const bounds=boundsFor(view);
+        // If opened directly while zoomed, align to the last cursor
+        // position, or keep the default top-left of the panel.
+        panTargetX=limit(0,-bounds.x,0);
+        panTargetY=limit(0,-bounds.y,0);
+      }
+      schedulePan();
       return;
     }
-    // Si es continua ampliant o reduint, ajustem els límits sense salts.
-    const bounds=boundsFor(view);
-    panTargetX=limit(panTargetX,-bounds.x,0);
-    panTargetY=limit(panTargetY,-bounds.y,0);
+    if(!applyZoomAnchor(view)){
+      const bounds=boundsFor(view);
+      panTargetX=limit(panTargetX,-bounds.x,0);
+      panTargetY=limit(panTargetY,-bounds.y,0);
+    }
     schedulePan();
   };
   const startPanBaseline=()=>{
@@ -350,22 +388,23 @@
   window.addEventListener('resize',queuePanSync,{passive:true});
   window.visualViewport?.addEventListener('resize',queuePanSync,{passive:true});
   window.addEventListener('wheel',event=>{
-    // Mai interceptem el Ctrl+rodeta del navegador.
-    if(panBaseline && (event.ctrlKey||event.metaKey))
+    // Do not prevent browser zoom: only capture the point to preserve.
+    if(panBaseline && (event.ctrlKey||event.metaKey)){
+      rememberZoomAnchor(event);
       requestAnimationFrame(()=>requestAnimationFrame(syncViewerPan));
+    }
   },{capture:true,passive:true});
   document.addEventListener('pointermove',event=>{
     if(!panBaseline || event.pointerType!=='mouse' || event.buttons!==0)return;
     const view=activePanel();
     if(!view)return;
+    lastPointer={x:event.clientX,y:event.clientY,kind:view.kind};
     syncViewerPan();
     if(panMode!==view.kind || !view.modal.classList.contains('vcc-native-pan-enabled'))return;
     const now={x:event.clientX,y:event.clientY,kind:view.kind};
     const prev=panLastMouse;
     panLastMouse=now;
     if(!prev || prev.kind!==now.kind)return;
-    // Mousemove és la font de moviment, no la posició absoluta del cursor.
-    // Limitem saltets de dispositiu i moviments entre finestres.
     const dx=limit(now.x-prev.x,-90,90);
     const dy=limit(now.y-prev.y,-90,90);
     if(dx===0 && dy===0)return;
