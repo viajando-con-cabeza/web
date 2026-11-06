@@ -211,6 +211,8 @@
   };
   let pointerDrag = null;
   stage.addEventListener('pointerdown', e => {
+    // Quan s'amplia la foto a l'ordinador, el drag mou la imatge; no canvia de diapositiva.
+    if (image.classList.contains('vcc-dg-is-zoomed')) { pointerDrag=null;return; }
     if (e.pointerType !== 'mouse' || e.button !== 0 || !overlay.classList.contains('open') || album.length < 2 || !overPhoto(e.clientX, e.clientY)) return;
     pointerDrag = {id:e.pointerId, x:e.clientX, y:e.clientY};
     image.style.cursor = 'grabbing';
