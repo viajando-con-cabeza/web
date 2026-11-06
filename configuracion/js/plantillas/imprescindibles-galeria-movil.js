@@ -7,7 +7,7 @@
   const base = '/destinos/suecia/goteborg/imagenes/optimizadas/';
   const preview = (url, size) => {
     const match = String(url).match(/(DSC[0-9]+[.]webp)(?:[?#].*)?$/i);
-    return match ? base + size + '/' + match[1] : url;
+    return match ? base + (size === 'visor' ? 'visor-alta' : size) + '/' + match[1] : url;
   };
   const root = document.createElement('div');
   root.id = 'vcc-mobile-gallery';
