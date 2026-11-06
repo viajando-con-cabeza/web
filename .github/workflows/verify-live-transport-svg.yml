@@ -51,4 +51,16 @@ jobs:
                       print('LIVE_TRANSPORT_SRCS',re.findall(r'<img[^>]*src="([^"]+)"',h)[:12])
                       print('LIVE_STYLESHEETS',re.findall(r'href="([^"]+\\.css[^\"]*)"',h)[:12])
               except Exception as e: print('EXTRA_INSPECTION_ERROR',str(e))
+
+          from datetime import datetime, timezone
+          nonce=datetime.now(timezone.utc).strftime('%Y%m%d%H%M%S%f')
+          for p in [
+            '/destinos/suecia/estocolmo/como-llegar?verify_version='+nonce,
+            '/configuracion/imagenes/ilustraciones/transportes/transporte-avion.svg?verify_version='+nonce,
+          ]:
+              try:
+                  with urllib.request.urlopen(urllib.request.Request(base+p, headers={'Cache-Control':'no-cache','Pragma':'no-cache','User-Agent':'Mozilla/5.0'}), timeout=20) as f:
+                      content=f.read()
+                      print('CACHE_BYPASS',p.split('?')[0], 'bytes',len(content),'cf-cache',f.headers.get('CF-Cache-Status'),'new_svg',b'20261106-premium3' in content,'embedded_png',b'data:image/png;base64' in content)
+              except Exception as exc: print('CACHE_BYPASS_ERROR',str(exc))
           PY
