@@ -155,8 +155,9 @@ async function aiReviewOne(env,key,prefix,etag,context,force){
  'Valora de 0 a 100: calidad técnica, belleza visual, utilidad para explicar un viaje, aptitud como portada.',
  'Describe sujeto y escena. Identifica lugar exacto o monumento SOLO si hay pistas visuales suficientes. Si no, escribe "No identificable" con confianza baja. No inventes nombres de sitios.',
  'Confianza del lugar: "alta", "media" o "baja". No confundas una pista del directorio con una prueba visual.',
+ 'Escoge scene entre: calle, arquitectura, panoramica, interior, transporte, comida, naturaleza, detalle y otro.',
  'Responde SOLO un objeto JSON válido, sin Markdown, con estas claves:',
- '{"technical":75,"visual":78,"editorial":82,"cover":70,"place":"Lugar o monumento probable","confidence":"alta","scene":"calle|arquitectura|panoramica|interior|transporte|comida|naturaleza|detalle|otro","subject":"Qué se ve en diez palabras","reason":"Por qué interesa al lector (máximo 16 palabras)","alt":"Descripción visual objetiva para alt (máximo 18 palabras)"}'
+ '{"technical":75,"visual":78,"editorial":82,"cover":70,"place":"Lugar o monumento probable","confidence":"alta","scene":"calle","subject":"Qué se ve en diez palabras","reason":"Por qué interesa al lector (máximo 16 palabras)","alt":"Descripción visual objetiva para alt (máximo 18 palabras)"}'
  ].join('\n');
  const response=await env.AI.run(AI_MODEL,{
     messages:[{role:'system',content:'Responde solo JSON válido en español, sin inventar ubicaciones.'},
@@ -166,9 +167,11 @@ async function aiReviewOne(env,key,prefix,etag,context,force){
  const payload=parseAiJSON(response?.response||response?.choices?.[0]?.message?.content||'');
  const tech=clampScore(payload.technical),visual=clampScore(payload.visual),editorial=clampScore(payload.editorial),cover=clampScore(payload.cover);
  const confidence=['alta','media','baja'].includes(String(payload.confidence).toLowerCase())?String(payload.confidence).toLowerCase():'baja';
+ const rawScene=safeAiText(payload.scene,36).toLowerCase();
+ const scene=['calle','arquitectura','panoramica','interior','transporte','comida','naturaleza','detalle','otro'].includes(rawScene)?rawScene:'otro';
  const data={version:AI_VERSION,key,etag,context:hint,technical:tech,visual,editorial,cover,
    score:Math.round(.3*tech+.3*visual+.4*editorial),place:safeAiText(payload.place,120)||'No identificable',confidence,
-   scene:safeAiText(payload.scene,36)||'otro',subject:safeAiText(payload.subject,140)||'Imagen de viaje',
+   scene,subject:safeAiText(payload.subject,140)||'Imagen de viaje',
    reason:safeAiText(payload.reason,250),alt:safeAiText(payload.alt,180),
    thumbnail,model:AI_MODEL,reviewedAt:new Date().toISOString()};
  await env.BUCKET.put(cacheKey,JSON.stringify(data),{httpMetadata:{contentType:'application/json; charset=utf-8'}});
@@ -341,12 +344,12 @@ function aiOrdered(){
  while(remaining.length){
   let best=0,bestRank=-Infinity;
   for(let i=0;i<remaining.length;i++){
-   const row=remaining[i],scene=(row.scene+'|'+row.subject.slice(0,38)).toLowerCase();
-   const rank=row.score-Math.min(21,(seen.get(scene)||0)*11);
+   const row=remaining[i],scene=(row.scene+'|'+row.place).toLowerCase();
+   const rank=row.score-Math.min(26,(seen.get(scene)||0)*9);
    if(rank>bestRank){bestRank=rank;best=i}
   }
   const row=remaining.splice(best,1)[0];
-  const scene=(row.scene+'|'+row.subject.slice(0,38)).toLowerCase();
+  const scene=(row.scene+'|'+row.place).toLowerCase();
   seen.set(scene,(seen.get(scene)||0)+1);picked.push(row);
  }
  return {all:picked,target,selected:picked.filter((row,i)=>aiEdited.has(row.key)?aiEdited.get(row.key):i<target)};
