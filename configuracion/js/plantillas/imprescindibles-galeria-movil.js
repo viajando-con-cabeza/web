@@ -63,7 +63,7 @@
   let slideDirection = 0;
   let slideTimer = null;
   let slideAnimating = false;
-  const slideDuration = window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : 230;
+  const slideDuration = window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : 145;
   const MAX_ZOOM = 4;
   const bound = (v,low,high) => Math.max(low,Math.min(high,v));
   const touchPoint = t => ({x:t.clientX,y:t.clientY});
@@ -134,26 +134,39 @@
     large.style.transform = 'translate3d('+offset+'px,0,0) scale(1)';
     incoming.style.transform = 'translate3d('+(offset+direction*width)+'px,0,0)';
   }
-  function finishSlide(dx) {
+  function finishSlide(dx,elapsed=400,forcedSingle=false) {
     if (!slideDirection || zoom !== 1 || photos.length < 2) {clearSlide();return;}
     const direction = slideDirection;
     const width = stage.clientWidth || 1;
     const next = neighborIndex(direction);
     const complete = Math.abs(dx) >= Math.max(54,width*0.18);
+    // Un gest llarg i ràpid avança dues fotos, en dos moviments seguits
+    // perquè també es pugui veure la fotografia intermèdia.
+    const fast = Math.abs(dx)/Math.max(1,elapsed);
+    const doubleStep = !forcedSingle && photos.length>2 && complete &&
+      Math.abs(dx)>=width*0.58 && fast>=1.2;
     const endpoint = complete ? -direction*width : 0;
     slideAnimating = true;
+    const duration = doubleStep ? Math.min(slideDuration,105) : slideDuration;
     const done = () => {
       slideTimer = null;
-      if (complete) showPhoto(next);
-      else clearSlide();
+      if (!complete) {clearSlide();return;}
+      showPhoto(next);
+      if (doubleStep && !photoView.hidden) {
+        // Arrenca automàticament el segon fotograma del mateix gest.
+        moveSlide(-direction*6);
+        requestAnimationFrame(() => {
+          if (slideDirection===direction && !photoView.hidden) {
+            finishSlide(-direction*width,400,true);
+          }
+        });
+      }
     };
-    const duration = slideDuration;
-    // El navegador aplica el moviment a les dues imatges al mateix fotograma.
     large.style.transition = 'transform '+duration+'ms cubic-bezier(.22,.67,.25,1)';
     incoming.style.transition = 'transform '+duration+'ms cubic-bezier(.22,.67,.25,1)';
     large.style.transform = 'translate3d('+endpoint+'px,0,0) scale(1)';
     incoming.style.transform = 'translate3d('+(endpoint+direction*width)+'px,0,0)';
-    slideTimer = setTimeout(done,duration+28);
+    slideTimer = setTimeout(done,duration+18);
   }
   function returnToGuide() {
     clearSlide();
@@ -312,7 +325,7 @@
       lastTap=null;
     } else if (event.touches.length===1 && (!gesture || gesture.kind!=='pinch')) {
       const pos=touchPoint(event.touches[0]);
-      gesture={kind:zoom>1?'pan':'swipe',start:pos,panX,panY,moved:false};
+      gesture={kind:zoom>1?'pan':'swipe',start:pos,panX,panY,moved:false,started:Date.now()};
     }
   },{passive:true});
   stage.addEventListener('touchmove', event => {
@@ -354,7 +367,7 @@
     if (g.kind==='swipe' && zoom===1) {
       if (slideDirection || (Math.abs(dx)>14 && Math.abs(dx)>Math.abs(dy)*1.15)) {
         if (!slideDirection && photos.length>1) moveSlide(dx);
-        finishSlide(dx);
+        finishSlide(dx,Date.now()-g.started);
         lastTap=null;
         return;
       }
