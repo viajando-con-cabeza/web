@@ -60,6 +60,7 @@
   let naturalHeight = 0;
   let loadedOriginal = false;
   let originalRequestId = 0;
+  let activeHighQuality = false;
   let gesture = null;
   let lastTap = null;
   let slideDirection = 0;
@@ -99,7 +100,7 @@
     ++originalRequestId;
     loadedOriginal=false;
     if (!photoView.hidden && photos[selected]) {
-      large.style.backgroundImage='url("'+preview(photos[selected],'visor')+'")';
+      large.style.backgroundImage='url("'+preview(photos[selected],activeHighQuality?'visor-alta':'visor')+'")';
     }
   }
   function clampPan() {
@@ -240,6 +241,9 @@
     const hiResRequest=++highResToken;
     clearSlide();
     selected = (index + photos.length) % photos.length;
+    ++originalRequestId;
+    loadedOriginal=false;
+    activeHighQuality=false;
     resetZoom();
     naturalWidth=0;naturalHeight=0;
     photoView.hidden = false;
@@ -258,33 +262,35 @@
     probe.src=url;
     large.setAttribute('aria-label', placeTitle + ', fotografía ' + (selected + 1) + ' de ' + photos.length);
     photoCount.textContent = 'Foto ' + (selected + 1) + ' de ' + photos.length;
-    // Galeria fluida: miniatures i fotogrames entrants en WebP reduït.
-    // Un cop el viatger es queda en una foto, carreguem el WebP ORIGINAL
-    // de Cloudflare R2, sense reescalar-lo ni recomprimir-lo de nou.
-    // Només una petició en alta resolució per foto activa.
-    const originalUrl=photos[selected];
+    // El carrusel conserva els WebP de 1680 px per passar ràpid entre fotos.
+    // Quan una imatge està quieta, millora a un WebP 2200 px d'alta qualitat
+    // creat a partir de l'original, sense descarregar tots els originals.
+    // Quan hi ha zoom, loadOriginalForZoom demana el WebP complet de R2.
+    const highQualityUrl=preview(photos[selected],'visor-alta');
     highResTimer=setTimeout(()=>{
-      if(hiResRequest!==highResToken || photoView.hidden ||
-        !/^https:\/\/img[.]viajandoconcabeza[.]com\//.test(originalUrl))return;
-      const original=new Image();
-      original.onload=()=>{
+      if(hiResRequest!==highResToken || photoView.hidden)return;
+      const higher=new Image();
+      higher.onload=()=>{
         if(hiResRequest!==highResToken || photoView.hidden)return;
+        activeHighQuality=true;
         const apply=()=>{
           if(hiResRequest!==highResToken || photoView.hidden)return;
           if(slideAnimating || gesture?.kind==='swipe'){
-            highResTimer=setTimeout(apply,70);
+            highResTimer=setTimeout(apply,65);
             return;
           }
-          large.style.backgroundImage='url("'+originalUrl+'")';
-          naturalWidth=original.naturalWidth;
-          naturalHeight=original.naturalHeight;
+          // No substituir un original que ja s'està carregant amb zoom.
+          if(zoom>=1.45 || loadedOriginal)return;
+          large.style.backgroundImage='url("'+highQualityUrl+'")';
+          naturalWidth=higher.naturalWidth;
+          naturalHeight=higher.naturalHeight;
           renderZoom();
         };
         apply();
       };
-      original.onerror=()=>{}; // si falla R2 es manté el WebP optimitzat
-      original.src=originalUrl;
-    },220);
+      higher.onerror=()=>{}; // el 1680px és el recurs de reserva
+      higher.src=highQualityUrl;
+    },180);
     photoView.querySelector('.vcc-mobile-nav').focus({preventScroll: true});
     // Precargamos las dos fotos vecinas para evitar vacíos durante el arrastre.
     if (photos.length > 1) {
