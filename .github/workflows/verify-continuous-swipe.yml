@@ -1,0 +1,118 @@
+name: Verify continuous mobile photo swipe
+on:
+  push:
+    branches: [quality]
+    paths: ['.github/workflows/verify-continuous-swipe.yml']
+jobs:
+  chrome:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Test adjacent photo appears during touch drag, snaps on release, pinch remains
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m pip install --quiet playwright
+          python - <<'PY'
+          import time,re
+          from playwright.sync_api import sync_playwright
+          url='https://www.quality.viajandoconcabeza.com/destinos/suecia/estocolmo/imprescindibles.html'
+          with sync_playwright() as p:
+            browser=p.chromium.launch(headless=True,executable_path='/usr/bin/google-chrome',args=['--no-sandbox'])
+            page=None; errs=[]
+            for attempt in range(1,11):
+              candidate=browser.new_page(viewport={'width':390,'height':844},device_scale_factor=2,is_mobile=True,has_touch=True)
+              candidate.on('pageerror',lambda x:errs.append(str(x)))
+              res=candidate.goto(url+'?swipe-film-test='+str(attempt)+'-db1049',wait_until='domcontentloaded',timeout=45000)
+              candidate.wait_for_timeout(1400)
+              script=candidate.locator('script[src*="galeria-movil.js"]').get_attribute('src') or ''
+              css=candidate.locator('link[href*="galeria-movil.css"]').get_attribute('href') or ''
+              print('ATTEMPT',attempt,'STATUS',res.status,script,css,flush=True)
+              if 'swipe-film-v5' in script and 'swipe-film-v5' in css:
+                page=candidate;break
+              candidate.close();time.sleep(6)
+            assert page,'swipe-film-v5 not deployed'
+            page.locator('.gallery').nth(5).locator('.gallery-tile').first.click()
+            page.locator('#vcc-mobile-gallery .vcc-mobile-photo-tile').nth(1).click()
+            viewer=page.locator('.vcc-mobile-photo-view')
+            assert viewer.is_visible()
+            assert viewer.locator('.vcc-photo-count').inner_text()=='Foto 2 de 6'
+            stage=viewer.locator('.vcc-mobile-photo-stage')
+            current=stage.locator('.vcc-mobile-photo-full')
+            neighbor=stage.locator('.vcc-mobile-photo-peek')
+            rect=stage.bounding_box()
+            cx=int(rect['x']+rect['width']/2);cy=int(rect['y']+rect['height']/2)
+            cdp=page.context.new_cdp_session(page)
+            def send(kind,points):
+              cdp.send('Input.dispatchTouchEvent',{'type':kind,'touchPoints':[{'x':round(x),'y':round(y)} for x,y in points]})
+            # Drag slowly from right toward left: inspect while finger STILL down.
+            send('touchStart',[(cx+120,cy)])
+            for x in [cx+95,cx+70,cx+40,cx+10]:
+              send('touchMove',[(x,cy)])
+              page.wait_for_timeout(30)
+            state=stage.evaluate("""e => {
+              const main=e.querySelector('.vcc-mobile-photo-full');
+              const near=e.querySelector('.vcc-mobile-photo-peek');
+              return {
+                mainTransform:main.style.transform,
+                incomingTransform:near.style.transform,
+                incomingURL:near.style.backgroundImage,
+                incomingVisible:getComputedStyle(near).display,
+                count:document.querySelector('#vcc-mobile-gallery .vcc-photo-count').textContent
+              };
+            }""")
+            print('MID_DRAG',state,flush=True)
+            assert 'translate3d(-' in state['mainTransform'],state
+            assert 'translate3d(' in state['incomingTransform'],state
+            assert 'DSC06555.webp' in state['incomingURL'],state
+            assert state['incomingVisible']!='none',state
+            assert state['count']=='Foto 2 de 6',state
+            # Release. The next photo should settle in, not jump during drag.
+            send('touchEnd',[])
+            page.wait_for_timeout(470)
+            final=stage.evaluate("""e=>({
+              current:e.querySelector('.vcc-mobile-photo-full').style.transform,
+              neighborHidden:e.querySelector('.vcc-mobile-photo-peek').hidden
+            })""")
+            print('AFTER_COMPLETE',final,viewer.locator('.vcc-photo-count').inner_text(),flush=True)
+            assert viewer.locator('.vcc-photo-count').inner_text()=='Foto 3 de 6'
+            assert final['neighborHidden']
+            # A short drag should snap back to photo 3 and not switch.
+            send('touchStart',[(cx+45,cy)])
+            send('touchMove',[(cx+25,cy)])
+            short=stage.locator('.vcc-mobile-photo-full').evaluate('(e)=>e.style.transform')
+            send('touchEnd',[])
+            page.wait_for_timeout(450)
+            assert viewer.locator('.vcc-photo-count').inner_text()=='Foto 3 de 6'
+            assert neighbor.is_hidden()
+            print('SHORT_SWIPE_SNAPPED_BACK',short,flush=True)
+            # Reverse swipe: previous image should enter FROM LEFT.
+            send('touchStart',[(cx-100,cy)])
+            for x in [cx-65,cx-20,cx+30]:
+              send('touchMove',[(x,cy)])
+              page.wait_for_timeout(25)
+            prev=neighbor.evaluate('(e)=>({url:e.style.backgroundImage,transform:e.style.transform})')
+            print('REVERSE_MID_DRAG',prev,flush=True)
+            assert 'DSC06554.webp' in prev['url'],prev
+            send('touchEnd',[])
+            page.wait_for_timeout(410)
+            assert viewer.locator('.vcc-photo-count').inner_text()=='Foto 2 de 6'
+            # Zoom with pinch still works; it must not switch photographs.
+            send('touchStart',[(cx-40,cy),(cx+40,cy)])
+            send('touchMove',[(cx-110,cy),(cx+110,cy)])
+            send('touchEnd',[])
+            page.wait_for_timeout(160)
+            zoom=current.evaluate('(e)=>e.style.transform')
+            print('ZOOM',zoom,flush=True)
+            assert 'scale(2.75)' in zoom or 'scale(2.' in zoom or 'scale(3' in zoom,zoom
+            assert viewer.locator('.vcc-photo-count').inner_text()=='Foto 2 de 6'
+            assert not errs,errs
+            page.close()
+            desk=browser.new_page(viewport={'width':1440,'height':900})
+            desk.goto(url+'?desktop-continue-regression',wait_until='domcontentloaded',timeout=45000)
+            desk.wait_for_timeout(1200)
+            desk.locator('.gallery').nth(5).locator('.gallery-tile').first.click()
+            assert desk.locator('#vcc-desktop-gallery').is_visible()
+            desk.close()
+            browser.close()
+            print('PASS: photos follow the finger, neighbor visible before release, snap back, reverse direction, pinch and desktop',flush=True)
+          PY
