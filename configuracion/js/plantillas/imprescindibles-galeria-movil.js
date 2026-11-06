@@ -30,6 +30,7 @@
       '</header>',
       '<div class="vcc-mobile-photo-stage">',
         '<div class="vcc-mobile-photo-full" role="img" aria-label="Fotografía ampliada"></div>',
+        '<div class="vcc-mobile-photo-peek" aria-hidden="true" hidden></div>',
       '</div>',
       '<div class="vcc-mobile-photo-hint">Desliza para cambiar de fotografía</div>',
     '</section>'
@@ -44,6 +45,7 @@
   const photoCount = root.querySelector('.vcc-photo-count');
   const photoHint = root.querySelector('.vcc-mobile-photo-hint');
   const stage = root.querySelector('.vcc-mobile-photo-stage');
+  const incoming = root.querySelector('.vcc-mobile-photo-peek');
 
   let photos = [];
   let placeTitle = '';
@@ -58,6 +60,10 @@
   let naturalHeight = 0;
   let gesture = null;
   let lastTap = null;
+  let slideDirection = 0;
+  let slideTimer = null;
+  let slideAnimating = false;
+  const slideDuration = window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : 230;
   const MAX_ZOOM = 4;
   const bound = (v,low,high) => Math.max(low,Math.min(high,v));
   const touchPoint = t => ({x:t.clientX,y:t.clientY});
@@ -97,7 +103,60 @@
     renderZoom(animate);
   }
 
+
+  /* Carrusel físic: mentre el dit es mou es veuen dues fotografies alhora.
+     La foto veïna segueix el desplaçament de la principal i no salta al final. */
+  const neighborIndex = direction => (selected + direction + photos.length) % photos.length;
+  function clearSlide() {
+    if (slideTimer !== null) clearTimeout(slideTimer);
+    slideTimer = null;
+    slideAnimating = false;
+    slideDirection = 0;
+    incoming.hidden = true;
+    incoming.style.transition = 'none';
+    incoming.style.transform = '';
+    incoming.style.removeProperty('background-image');
+    large.style.transition = 'none';
+    large.style.transform = 'translate3d('+panX+'px,'+panY+'px,0) scale('+zoom+')';
+  }
+  function moveSlide(dx) {
+    if (zoom !== 1 || photos.length < 2 || slideAnimating) return;
+    const direction = dx < 0 ? 1 : -1;
+    const width = stage.clientWidth || 1;
+    if (slideDirection !== direction) {
+      slideDirection = direction;
+      incoming.style.backgroundImage = 'url("'+preview(photos[neighborIndex(direction)],'visor')+'")';
+      incoming.hidden = false;
+    }
+    const offset = bound(dx,-width,width);
+    large.style.transition = 'none';
+    incoming.style.transition = 'none';
+    large.style.transform = 'translate3d('+offset+'px,0,0) scale(1)';
+    incoming.style.transform = 'translate3d('+(offset+direction*width)+'px,0,0)';
+  }
+  function finishSlide(dx) {
+    if (!slideDirection || zoom !== 1 || photos.length < 2) {clearSlide();return;}
+    const direction = slideDirection;
+    const width = stage.clientWidth || 1;
+    const next = neighborIndex(direction);
+    const complete = Math.abs(dx) >= Math.max(54,width*0.18);
+    const endpoint = complete ? -direction*width : 0;
+    slideAnimating = true;
+    const done = () => {
+      slideTimer = null;
+      if (complete) showPhoto(next);
+      else clearSlide();
+    };
+    const duration = slideDuration;
+    // El navegador aplica el moviment a les dues imatges al mateix fotograma.
+    large.style.transition = 'transform '+duration+'ms cubic-bezier(.22,.67,.25,1)';
+    incoming.style.transition = 'transform '+duration+'ms cubic-bezier(.22,.67,.25,1)';
+    large.style.transform = 'translate3d('+endpoint+'px,0,0) scale(1)';
+    incoming.style.transform = 'translate3d('+(endpoint+direction*width)+'px,0,0)';
+    slideTimer = setTimeout(done,duration+28);
+  }
   function returnToGuide() {
+    clearSlide();
     resetZoom();
     root.hidden = true;
     root.setAttribute('aria-hidden', 'true');
@@ -109,6 +168,7 @@
     focusBefore = null;
   }
   function showGrid() {
+    clearSlide();
     resetZoom();
     photoView.hidden = true;
     gridView.hidden = false;
@@ -118,6 +178,7 @@
   }
   function showPhoto(index) {
     if (!photos.length) return;
+    clearSlide();
     selected = (index + photos.length) % photos.length;
     resetZoom();
     naturalWidth=0;naturalHeight=0;
@@ -131,17 +192,19 @@
     probe.onload = () => {
       if (selected === currentPhoto && !photoView.hidden) {
         naturalWidth=probe.naturalWidth;naturalHeight=probe.naturalHeight;
-        renderZoom();
+        if (!slideAnimating && gesture?.kind !== 'swipe') renderZoom();
       }
     };
     probe.src=url;
     large.setAttribute('aria-label', placeTitle + ', fotografía ' + (selected + 1) + ' de ' + photos.length);
     photoCount.textContent = 'Foto ' + (selected + 1) + ' de ' + photos.length;
     photoView.querySelector('.vcc-mobile-nav').focus({preventScroll: true});
-    // Precarga solo la siguiente imagen de tamaño visor, no todas las originales.
+    // Precargamos las dos fotos vecinas para evitar vacíos durante el arrastre.
     if (photos.length > 1) {
-      const img = new Image();
-      img.src = preview(photos[(selected + 1) % photos.length], 'visor');
+      [-1,1].forEach(direction => {
+        const img = new Image();
+        img.src = preview(photos[neighborIndex(direction)], 'visor');
+      });
     }
   }
   function openGallery(gallery) {
@@ -240,8 +303,9 @@
   /* Gestos de la fotografia: lliscar sense zoom, pessigar per ampliar,
      arrossegar mentre està ampliada i doble toc per ampliar/reduir. */
   stage.addEventListener('touchstart', event => {
-    if (photoView.hidden) return;
+    if (photoView.hidden || slideAnimating) return;
     if (event.touches.length===2) {
+      clearSlide();
       const a=touchPoint(event.touches[0]),b=touchPoint(event.touches[1]);
       gesture={kind:'pinch',distance:Math.max(1,distance(a,b)),
         middle:midpoint(a,b),zoom,panX,panY};
@@ -272,7 +336,9 @@
       renderZoom();
     } else if (event.touches.length===1 && gesture?.kind==='swipe') {
       const pt=touchPoint(event.touches[0]);
-      gesture.moved ||= Math.hypot(pt.x-gesture.start.x,pt.y-gesture.start.y)>8;
+      const dx=pt.x-gesture.start.x,dy=pt.y-gesture.start.y;
+      gesture.moved ||= Math.hypot(dx,dy)>8;
+      if (Math.abs(dx)>6 && Math.abs(dx)>Math.abs(dy)*1.15) moveSlide(dx);
     }
   },{passive:false});
   stage.addEventListener('touchend', event => {
@@ -285,9 +351,14 @@
     const pt=touchPoint(event.changedTouches[0]),g=gesture;
     gesture=null;
     const dx=pt.x-g.start.x,dy=pt.y-g.start.y;
-    if (g.kind==='swipe' && zoom===1 && Math.abs(dx)>45 && Math.abs(dx)>Math.abs(dy)*1.2) {
-      showPhoto(selected+(dx<0?1:-1));
-      return;
+    if (g.kind==='swipe' && zoom===1) {
+      if (slideDirection || (Math.abs(dx)>14 && Math.abs(dx)>Math.abs(dy)*1.15)) {
+        if (!slideDirection && photos.length>1) moveSlide(dx);
+        finishSlide(dx);
+        lastTap=null;
+        return;
+      }
+      clearSlide();
     }
     if (Math.hypot(dx,dy)>14) {lastTap=null;return;}
     const now=Date.now();
@@ -296,7 +367,7 @@
       lastTap=null;
     } else lastTap={pos:pt,time:now};
   },{passive:true});
-  stage.addEventListener('touchcancel',() => {gesture=null;lastTap=null;},{passive:true});
-  window.addEventListener('resize',() => {if (!photoView.hidden)renderZoom();});
+  stage.addEventListener('touchcancel',() => {gesture=null;lastTap=null;clearSlide();},{passive:true});
+  window.addEventListener('resize',() => {if (!photoView.hidden) {clearSlide();renderZoom();}});
   mobile.addEventListener('change', () => {if (!mobile.matches && !root.hidden) returnToGuide();});
 })();
