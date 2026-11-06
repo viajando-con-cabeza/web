@@ -78,25 +78,12 @@
   /* La portada de la pàgina carrega R2 amb background-image.
      Fem exactament el mateix per al mosaic, miniatures i visor, sense <img src>.
      No s'injecta cap imatge alternativa ni es repeteixen fotografies. */
-  /* Comprova els derivats abans de pintar CSS: si encara no hi ha miniatura
-     al bucket, es mostra l'original i mai no queda un mosaic en blanc. */
-  const previewStates = new Map();
+  /* Pintat immediat, sense esperes: la foto individual ha d'exposar la
+     previsualització al visor en el mateix tick per activar la càrrega progressiva. */
   const useR2Background = (node, src) => {
-    const paint = url => {
-      if (!node.isConnected) return;
-      node.style.setProperty('background-image', 'url("' + url + '")', 'important');
-      node.style.setProperty('background-position', 'center', 'important');
-      node.style.setProperty('background-repeat', 'no-repeat', 'important');
-    };
-    const fallback = String(src).replace(/\/(?:__vcc_preview|_preview)\/(?:mini|visor)\//, '/');
-    if (fallback === src) {paint(src);return;}
-    const stored = previewStates.get(src);
-    if (stored === true) {paint(src);return;}
-    if (stored === false) {paint(fallback);return;}
-    const probe = new Image();
-    probe.onload = () => {previewStates.set(src,true);paint(src);};
-    probe.onerror = () => {previewStates.set(src,false);paint(fallback);};
-    probe.src = src;
+    node.style.setProperty('background-image', 'url("' + src + '")', 'important');
+    node.style.setProperty('background-position', 'center', 'important');
+    node.style.setProperty('background-repeat', 'no-repeat', 'important');
   };
   /* Worker automàtic: variants AVIF/WebP de 480px i 1800px.
      Les originals només es carreguen al visor, després de la previsualització. */
