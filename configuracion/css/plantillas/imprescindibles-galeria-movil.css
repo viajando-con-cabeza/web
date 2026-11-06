@@ -1,3 +1,10 @@
+/* Galeria oberta: el document i la barra de desplaçament de fons
+   desapareixen tant a mòbil com a ordinador. L'scroll intern es manté. */
+html:has(body.vcc-mobile-gallery-open),
+html:has(body.vcc-desktop-gallery-open) {
+  overflow:hidden!important;
+  overscroll-behavior:none!important;
+}
 /* VCC · Galeria mòbil tipus Booking · exclusivament per imprescindibles.
    Es manté intacte el visor original en ordinador. */
 #vcc-mobile-gallery[hidden],
