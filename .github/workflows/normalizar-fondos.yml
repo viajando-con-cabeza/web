@@ -10,7 +10,7 @@ permissions:
   contents: write
 
 concurrency:
-  group: quality
+  group: vcc-fondos-migration
   cancel-in-progress: false
 
 jobs:
@@ -44,5 +44,6 @@ jobs:
             echo "No changes to publish."
           else
             git commit -m "Normalizar backgrounds WebP y archivar versiones antiguas"
+            git pull --rebase origin quality
             git push origin HEAD:quality
           fi
