@@ -84,7 +84,10 @@
     node.style.setProperty('background-repeat', 'no-repeat', 'important');
   };
   /* Sense cap transformació: les URL del dataset apunten al WebP original de R2. */
-  const optimizedPhoto = original => original;
+  const optimizedPhoto = (original, size='mini') => {
+    const match=String(original).match(/^(https:\/\/img\.viajandoconcabeza\.com\/destinos\/suecia\/goteborg\/2026-dia1\/)(DSC\d+\.webp)$/i);
+    return match ? match[1]+'_preview/'+size+'/'+match[2] : original;
+  };
   // Els mosaics fan càrrega diferida: la URL sempre és el WebP original de R2.
   const lazyImages = 'IntersectionObserver' in window ? new IntersectionObserver(entries => {
     entries.forEach(entry => {
@@ -104,7 +107,7 @@
     if (!album.length || !image) return;
     current = (i + album.length) % album.length;
     const label = `${placeHeading?.textContent || 'Estocolmo'} · fotografía ${current + 1} de ${album.length}`;
-    useR2Background(image, optimizedPhoto(album[current], 'visor-alta'));
+    useR2Background(image, optimizedPhoto(album[current], 'visor'));
     image.setAttribute('aria-label', label);
     if (counter) counter.textContent = `${current + 1} / ${album.length}`;
     [...thumbnails.children].forEach((button,j) => {
