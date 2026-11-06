@@ -181,11 +181,14 @@
     roundedImage.onload = () => {
       if (roundedImage.getAttribute('src') === src &&
           photoVisible() && roundedImage.naturalWidth) {
+        photoDimensions={width:roundedImage.naturalWidth,height:roundedImage.naturalHeight};
         enlargedPhoto.classList.add('vcc-dg-rounded-ready');
+        drawZoom();
       }
     };
     roundedImage.onerror = () => enlargedPhoto.classList.remove('vcc-dg-rounded-ready');
-    roundedImage.src = src;
+    // No reasignem src si ja coincideix: evita descodificacions repetides.
+    if (roundedImage.getAttribute('src') !== src) roundedImage.src = src;
     if (roundedImage.complete && roundedImage.naturalWidth) roundedImage.onload();
   }
   let zoomLayer = null;
@@ -220,14 +223,14 @@
     zoomY=clamp(zoomY,-maxY,maxY);
   }
   function drawZoom(animate=false) {
-    if (!zoomLayer || !enlargedPhoto) return;
+    if (!roundedImage || !enlargedPhoto) return;
     constrainZoom();
     const active=zoomLevel>1.01;
     enlargedPhoto.classList.toggle('vcc-dg-is-zoomed',active);
     enlargedPhoto.classList.toggle('vcc-dg-is-dragging',Boolean(dragging?.moved));
-    zoomLayer.style.visibility=active?'visible':'hidden';
-    zoomLayer.style.transition=animate?'transform 150ms ease-out':'none';
-    zoomLayer.style.transform='translate3d('+zoomX+'px,'+zoomY+'px,0) scale('+zoomLevel+')';
+    // GPU: escalem el mateix <img> ja descodificat, sense capa ni petició nova.
+    roundedImage.style.transition=animate?'transform 110ms ease-out':'none';
+    roundedImage.style.transform='translate3d('+zoomX+'px,'+zoomY+'px,0) scale('+zoomLevel+')';
     enlargedPhoto.setAttribute('title',active?'Arrossega per moure · clic per reduir · roda per ajustar':'Clica per ampliar · roda del ratolí per fer zoom');
   }
   function resetDesktopZoom() {
@@ -238,7 +241,7 @@
     dragging=null;
     ignoredClick=false;
     photoDimensions=null;
-    if (zoomLayer)zoomLayer.style.backgroundImage='none';
+    if (roundedImage) {roundedImage.style.transition='none';roundedImage.style.transform='none';}
     drawZoom();
   }
   function photoSource() {
@@ -246,20 +249,8 @@
     const position=Number.parseInt(count.split('/')[0].trim(),10);
     return Number.isInteger(position) ? activeSources[position-1] : null;
   }
-  function originalQuality() {
-    const url=photoSource();
-    if (!url || !zoomLayer || !enlargedPhoto)return;
-    const request=++highResolutionToken;
-    const original=new Image();
-    original.onload=()=>{
-      if(request!==highResolutionToken || !photoVisible())return;
-      photoDimensions={width:original.naturalWidth,height:original.naturalHeight};
-      zoomLayer.style.backgroundImage='url("'+url+'")';
-      drawZoom();
-    };
-    original.onerror=()=>{}; // Si R2 no respon, es conserva el WebP actual.
-    original.src=url;
-  }
+  // La imatge completa de R2 ja està carregada en roundedImage.
+  // No fem una segona petició al servidor quan s'activa el zoom.
   function setDesktopZoom(target,clientX,clientY,animate=false) {
     if (!photoVisible())return;
     const old=zoomLevel;
@@ -273,10 +264,7 @@
       zoomX=offsetX-(offsetX-zoomX)*ratio;
       zoomY=offsetY-(offsetY-zoomY)*ratio;
       if(old===1) {
-        // El visor normal conserva el WebP de 2200 px; el zoom
-        // carrega els píxels originals del mateix objecte Cloudflare R2.
-        zoomLayer.style.backgroundImage=enlargedPhoto.style.backgroundImage;
-        originalQuality();
+        // Zoom immediat sobre el WebP existent, sense espera ni segona capa.
       }
     }
     drawZoom(animate);
