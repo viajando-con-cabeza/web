@@ -1,0 +1,95 @@
+name: Verify desktop gallery photo enlargement
+on:
+  push:
+    branches: [quality]
+    paths: ['.github/workflows/verify-photo-space-v6.yml']
+jobs:
+  browser:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Test desktop image geometry and mobile regression in Chrome
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m pip install --quiet playwright
+          python - <<'PY'
+          import time
+          from playwright.sync_api import sync_playwright
+          base='https://www.quality.viajandoconcabeza.com/destinos/suecia/estocolmo/imprescindibles.html'
+          with sync_playwright() as p:
+            browser=p.chromium.launch(headless=True,executable_path='/usr/bin/google-chrome',args=['--no-sandbox'])
+            desktop=None
+            errors=[]
+            for attempt in range(1,7):
+              page=browser.new_page(viewport={'width':1440,'height':900})
+              page.on('pageerror',lambda e:errors.append(str(e)))
+              page.goto(base+'?photo-space-v6-check='+str(attempt)+'-85faee7',wait_until='domcontentloaded',timeout=45000)
+              page.wait_for_timeout(1500)
+              css=page.locator('link[href*="galeria-escritorio.css"]').get_attribute('href') or ''
+              print('ATTEMPT',attempt,css,flush=True)
+              if 'photo-space-v6' in css:
+                desktop=page
+                break
+              page.close()
+              time.sleep(6)
+            assert desktop,'New CSS not deployed'
+            page=desktop
+            page.locator('.gallery').nth(6).locator('.gallery-tile').first.click()
+            gallery=page.locator('#vcc-desktop-gallery')
+            assert gallery.is_visible()
+            gallery.locator('.vcc-dg-tile').nth(3).click()
+            modal=page.locator('#lightbox.open')
+            assert modal.count()==1
+            geometry=page.evaluate("""() => {
+              const s=document.querySelector('#lightbox .lb-stage');
+              const photo=s.querySelector('.lb-photo');
+              const head=s.querySelector('.lb-caption');
+              const thumbs=s.querySelector('.lb-thumbs');
+              const counter=s.querySelector('.lb-counter');
+              const box=e=>e.getBoundingClientRect();
+              const style=e=>getComputedStyle(e);
+              const b=(e)=>({top:box(e).top,bottom:box(e).bottom,height:box(e).height});
+              return {
+                rows:style(s).gridTemplateRows,
+                stage:b(s),
+                header:b(head),
+                photo:b(photo),
+                count:b(counter),
+                strip:b(thumbs),
+                firstThumb:b(thumbs.querySelector('button')),
+                photoToHeader:box(photo).top-box(head).bottom,
+                photoToCount:box(counter).top-box(photo).bottom,
+                stripBorder:style(thumbs).borderTopWidth,
+                mainWidth:box(photo).width,
+                cursor:style(photo).cursor
+              };
+            }""")
+            print('DESKTOP_GEOMETRY',geometry,flush=True)
+            assert geometry['rows'].split(' ')[0]=='54px',geometry
+            assert geometry['rows'].split(' ')[-1]=='98px',geometry
+            assert abs(geometry['header']['height']-54)<2,geometry
+            assert geometry['photo']['height']>=645,geometry
+            assert 10<=geometry['photoToHeader']<=14,geometry
+            assert geometry['photoToCount']==0 or abs(geometry['photoToCount'])<1,geometry
+            assert abs(geometry['strip']['height']-98)<2,geometry
+            assert geometry['stripBorder']=='0px',geometry
+            assert geometry['cursor']=='pointer'
+            assert modal.locator('.lb-counter').inner_text()=='4 / 7'
+            assert modal.locator('.lb-thumbs button').count()==7
+            modal.locator('.vcc-dg-photo-back').click()
+            assert gallery.is_visible()
+            gallery.locator('.vcc-dg-close').click()
+            assert not gallery.is_visible()
+            assert not errors,errors
+            page.close()
+            mobile=browser.new_page(viewport={'width':390,'height':844},is_mobile=True,has_touch=True)
+            mobile.goto(base+'?mobile-check-photo-space-v6',wait_until='domcontentloaded',timeout=45000)
+            mobile.wait_for_timeout(1500)
+            mobile.locator('.gallery').nth(5).locator('.gallery-tile').first.click()
+            assert mobile.locator('#vcc-mobile-gallery').is_visible()
+            mobile.locator('.vcc-mobile-photo-tile').first.click()
+            assert mobile.locator('.vcc-mobile-photo-view').is_visible()
+            mobile.close()
+            browser.close()
+            print('PASS: main image larger up/down, thumbnail row lower, mobile unchanged',flush=True)
+          PY
