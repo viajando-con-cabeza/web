@@ -47,6 +47,9 @@
      llegue a la página de fondo ni al backdrop del modal. */
   document.addEventListener('wheel',event => {
     if (!owners.size) return;
+    // Ctrl + rodeta (Windows/Edge) i gest de pinça del trackpad:
+    // mai interceptem el zoom natiu del navegador, tampoc sobre la foto.
+    if (event.ctrlKey || event.metaKey) return;
     const scrollable = event.target instanceof Element && event.target.closest(
       '#vcc-desktop-gallery .vcc-dg-scroll,'+
       '#vcc-desktop-gallery .vcc-dg-sidebar,'+
