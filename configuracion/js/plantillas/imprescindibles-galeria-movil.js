@@ -64,10 +64,48 @@
   let slideTimer = null;
   let slideAnimating = false;
   let slideFinish = null;
-  const slideDuration = window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : 86;
+  const slideDuration = window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : 62;
   let highResTimer = null;
   let highResToken = 0;
+  let stageWidth = 0;
+  const previewCache = new Map();
+  const PREVIEW_CACHE_LIMIT = 7;
   const MAX_ZOOM = 4;
+
+  // Mantenim un conjunt petit de WebP del visor a la memòria.
+  // Evita tornar a crear quatre descàrregues en cada swipe consecutiu.
+  function warmPreview(index) {
+    if (!photos.length) return null;
+    const key = preview(photos[(index + photos.length) % photos.length], 'visor');
+    const existing = previewCache.get(key);
+    if (existing) {
+      previewCache.delete(key);
+      previewCache.set(key, existing);
+      return existing;
+    }
+    const img = new Image();
+    img.decoding = 'async';
+    img.src = key;
+    previewCache.set(key, img);
+    if (previewCache.size > PREVIEW_CACHE_LIMIT) {
+      previewCache.delete(previewCache.keys().next().value);
+    }
+    return img;
+  }
+  function warmNeighbors() {
+    if (photos.length < 2) return;
+    [1, -1, 2].forEach(offset => warmPreview(selected + offset));
+  }
+  function scheduleOriginal(delay = 900) {
+    clearTimeout(highResTimer);
+    const request = ++highResToken;
+    highResTimer = setTimeout(() => {
+      highResTimer = null;
+      if (request !== highResToken || photoView.hidden ||
+          slideAnimating || gesture?.kind === 'swipe' || gesture?.kind === 'pan') return;
+      loadOriginalForZoom();
+    }, delay);
+  }
   const bound = (v,low,high) => Math.max(low,Math.min(high,v));
   const touchPoint = t => ({x:t.clientX,y:t.clientY});
   const distance = (a,b) => Math.hypot(a.x-b.x,a.y-b.y);
@@ -78,21 +116,28 @@
      previsualitzacions ràpides. El zoom força la petició immediatament. */
   function loadOriginalForZoom() {
     if (loadedOriginal || !photos[selected] || photoView.hidden) return;
-    loadedOriginal=true;
-    const id=++originalRequestId, index=selected;
-    const originalUrl=photos[index];
-    const image=new Image();
-    image.onload=()=>{
-      if (id!==originalRequestId || index!==selected || photoView.hidden) return;
-      large.style.backgroundImage='url("'+originalUrl+'")';
-      naturalWidth=image.naturalWidth;
-      naturalHeight=image.naturalHeight;
+    loadedOriginal = true;
+    const id = ++originalRequestId, index = selected;
+    const originalUrl = photos[index];
+    const image = new Image();
+    image.decoding = 'async';
+    const apply = () => {
+      if (id !== originalRequestId || index !== selected || photoView.hidden ||
+          slideAnimating || gesture?.kind === 'swipe') return;
+      large.style.backgroundImage = 'url("' + originalUrl + '")';
+      naturalWidth = image.naturalWidth;
+      naturalHeight = image.naturalHeight;
       renderZoom();
     };
-    image.onerror=()=>{
-      if (id===originalRequestId) loadedOriginal=false;
+    image.onload = () => {
+      // La descodificació asíncrona evita bloquejar el fil principal al mig d'un gest.
+      if (typeof image.decode === 'function') image.decode().then(apply, apply);
+      else apply();
     };
-    image.src=originalUrl;
+    image.onerror = () => {
+      if (id === originalRequestId) loadedOriginal = false;
+    };
+    image.src = originalUrl;
   }
   function restorePreview() {
     ++originalRequestId;
@@ -155,7 +200,7 @@
   function moveSlide(dx) {
     if (zoom !== 1 || photos.length < 2 || slideAnimating) return;
     const direction = dx < 0 ? 1 : -1;
-    const width = stage.clientWidth || 1;
+    const width = stageWidth || stage.clientWidth || 1;
     if (slideDirection !== direction) {
       slideDirection = direction;
       incoming.style.backgroundImage = 'url("'+preview(photos[neighborIndex(direction)],'visor')+'")';
@@ -170,7 +215,7 @@
   function finishSlide(dx,elapsed=400,forcedSingle=false) {
     if (!slideDirection || zoom !== 1 || photos.length < 2) {clearSlide();return;}
     const direction = slideDirection;
-    const width = stage.clientWidth || 1;
+    const width = stageWidth || stage.clientWidth || 1;
     const next = neighborIndex(direction);
     // Un flick curt i ràpid també canvia de foto; manté la possibilitat
     // de tornar al centre si el desplaçament és realment petit.
@@ -184,7 +229,7 @@
       Math.abs(dx)>=width*0.58 && fast>=1.2;
     const endpoint = complete ? -direction*width : 0;
     slideAnimating = true;
-    const duration = doubleStep ? Math.min(slideDuration,64) : slideDuration;
+    const duration = doubleStep ? Math.min(slideDuration,48) : slideDuration;
     let finished = false;
     const done = (interrupted=false) => {
       if (finished) return;
@@ -214,6 +259,9 @@
   function returnToGuide() {
     clearTimeout(highResTimer);
     ++highResToken;
+    ++originalRequestId;
+    previewCache.clear();
+    stageWidth = 0;
     clearSlide();
     resetZoom();
     root.hidden = true;
@@ -239,7 +287,7 @@
   function showPhoto(index) {
     if (!photos.length) return;
     clearTimeout(highResTimer);
-    const hiResRequest=++highResToken;
+    ++highResToken;
     clearSlide();
     selected = (index + photos.length) % photos.length;
     ++originalRequestId;
@@ -252,36 +300,31 @@
     large.style.backgroundImage = 'url("' + url + '")';
     // Calculem els límits de desplaçament segons l'aspecte real del WebP.
     const currentPhoto = selected;
-    const probe = new Image();
-    probe.onload = () => {
-      if (selected === currentPhoto && !photoView.hidden) {
-        naturalWidth=probe.naturalWidth;naturalHeight=probe.naturalHeight;
+    const probe = warmPreview(selected);
+    const sizeReady = () => {
+      if (selected === currentPhoto && !photoView.hidden && probe?.naturalWidth) {
+        naturalWidth = probe.naturalWidth;
+        naturalHeight = probe.naturalHeight;
         if (!slideAnimating && gesture?.kind !== 'swipe') renderZoom();
       }
     };
-    probe.src=url;
+    if (probe?.complete && probe.naturalWidth) sizeReady();
+    else probe?.addEventListener('load', sizeReady, {once:true});
     large.setAttribute('aria-label', placeTitle + ', fotografía ' + (selected + 1) + ' de ' + photos.length);
     photoCount.textContent = 'Foto ' + (selected + 1) + ' de ' + photos.length;
-    // Passat un instant sense nous gestos, substituïm la previsualització
-    // pel WebP original de R2. En sis swipes ràpids només s'obre l'últim.
-    highResTimer=setTimeout(()=>{
-      if (hiResRequest!==highResToken || photoView.hidden) return;
-      if (slideAnimating || gesture?.kind==='swipe') return;
-      loadOriginalForZoom();
-    },140);
-    photoView.querySelector('.vcc-mobile-nav').focus({preventScroll: true});
-    // Precarga las próximas 3 fotos y la anterior, usando WebP ligeros.
-    if (photos.length > 1) {
-      [-1,1,2,3].forEach(direction => {
-        const img = new Image();
-        img.src = preview(photos[neighborIndex(direction)], 'visor');
-      });
+    // La foto original de R2 arriba quan la navegació ja s'ha estabilitzat.
+    // Abans mantenim els WebP de visor, lleugers i amb menys latència.
+    scheduleOriginal();
+    if (!photoView.contains(document.activeElement)) {
+      photoView.querySelector('.vcc-mobile-nav').focus({preventScroll: true});
     }
+    warmNeighbors();
   }
   function openGallery(gallery) {
     if (!gallery) return;
     try { photos = JSON.parse(gallery.dataset.images || '[]'); } catch { photos = []; }
     if (!Array.isArray(photos) || !photos.length) return;
+    previewCache.clear();
     placeTitle = gallery.closest('.place')?.querySelector('h2')?.textContent?.trim() || 'FOTOGRAFÍAS';
     focusBefore = document.activeElement;
     previousTile = null;
@@ -376,7 +419,13 @@
   stage.addEventListener('touchstart', event => {
     if (photoView.hidden) return;
     // Permet fer dos o més gestos seguits sense esperar que acabi la transició.
-    if(slideAnimating)slideFinish?.();
+    if (slideAnimating) slideFinish?.();
+    // Cap descàrrega/descodificació d'alta resolució mentre hi ha moviment.
+    clearTimeout(highResTimer);
+    ++highResToken;
+    ++originalRequestId;
+    loadedOriginal = false;
+    stageWidth = stage.clientWidth || 1;
     if (event.touches.length===2) {
       clearSlide();
       const a=touchPoint(event.touches[0]),b=touchPoint(event.touches[1]);
@@ -417,7 +466,7 @@
   stage.addEventListener('touchend', event => {
     if (photoView.hidden || !gesture) return;
     if (gesture.kind==='pinch') {
-      if (event.touches.length===0) {gesture=null;if (zoom<1.08)setZoom(1,null,true);}
+      if (event.touches.length===0) {gesture=null;if (zoom<1.08)setZoom(1,null,true);scheduleOriginal();}
       return;
     }
     if (event.touches.length || !event.changedTouches.length) return;
@@ -433,14 +482,15 @@
       }
       clearSlide();
     }
-    if (Math.hypot(dx,dy)>14) {lastTap=null;return;}
+    if (Math.hypot(dx,dy)>14) {lastTap=null;scheduleOriginal();return;}
     const now=Date.now();
     if (lastTap && now-lastTap.time<320 && distance(pt,lastTap.pos)<55) {
       setZoom(zoom>1.01?1:2.5,pt,true);
       lastTap=null;
     } else lastTap={pos:pt,time:now};
+    if (zoom===1) scheduleOriginal();
   },{passive:true});
-  stage.addEventListener('touchcancel',() => {gesture=null;lastTap=null;clearSlide();},{passive:true});
-  window.addEventListener('resize',() => {if (!photoView.hidden) {clearSlide();renderZoom();}});
+  stage.addEventListener('touchcancel',() => {gesture=null;lastTap=null;clearSlide();scheduleOriginal();},{passive:true});
+  window.addEventListener('resize',() => {stageWidth=0;if (!photoView.hidden) {clearSlide();renderZoom();}});
   mobile.addEventListener('change', () => {if (!mobile.matches && !root.hidden) returnToGuide();});
 })();
