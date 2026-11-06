@@ -114,6 +114,7 @@ const AI_MODEL='@cf/meta/llama-4-scout-17b-16e-instruct';
 const clampScore=v=>Math.max(0,Math.min(100,Math.round(Number(v)||0)));
 const safeAiText=(v,n=220)=>String(v==null?'':v).replace(/[\u0000-\u001f]/g,' ').trim().slice(0,n);
 function parseAiJSON(raw){
+ if(raw&&typeof raw==='object'&&!Array.isArray(raw))return raw;
  const txt=String(raw||'').replace(/<think>[\s\S]*?<\/think>/g,'').trim();
  const a=txt.indexOf('{'),b=txt.lastIndexOf('}');
  if(a<0||b<=a)throw Error('La IA no ha entregado datos estructurados. Puedes reintentarlo.');
@@ -301,7 +302,7 @@ async function browse(){if(busy)return;stopped=false;lock(true);
    do{
     const d=await api({mode:'folders',prefix,cursor});
     for(const p of d.folders){
-     if(p.startsWith('__vcc_dedup_backup__/')||p.toLowerCase().includes('preview'))continue;
+     if(p.startsWith('__vcc_dedup_backup__/')||p.startsWith('__vcc_ai_reviews__/')||p.toLowerCase().includes('preview'))continue;
      folders.add(p);if(!visited.has(p))pending.push(p);
     }
     cursor=d.nextCursor;
@@ -906,7 +907,7 @@ export default {
         if(input.cursor!=null&&typeof input.cursor!=='string')throw Error('Cursor inválido');
         const options={prefix,delimiter:'/',limit:1000};if(input.cursor)options.cursor=input.cursor;
         const page=await env.BUCKET.list(options);
-        return json({folders:(page.delimitedPrefixes||[]).filter(p=>!p.startsWith(BACKUP_PREFIX)&&!p.toLowerCase().includes('preview')),nextCursor:page.truncated?page.cursor:null});
+        return json({folders:(page.delimitedPrefixes||[]).filter(p=>!p.startsWith(BACKUP_PREFIX)&&!p.startsWith('__vcc_ai_reviews__/')&&!p.toLowerCase().includes('preview')),nextCursor:page.truncated?page.cursor:null});
       }
       const prefix=normalizePrefix(input.prefix);
       if(mode==='list'){
