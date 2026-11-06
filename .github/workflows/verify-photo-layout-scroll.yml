@@ -1,0 +1,156 @@
+name: Verify photo layout and background scroll lock
+on:
+  push:
+    branches: [quality]
+    paths: ['.github/workflows/verify-photo-layout-scroll.yml']
+jobs:
+  browser:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Test desktop lightbox geometry, arrows, overlays and scroll lock on mobile
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m pip install --quiet playwright
+          python - <<'PY'
+          import time
+          from playwright.sync_api import sync_playwright
+          base='https://www.quality.viajandoconcabeza.com/destinos/suecia/estocolmo/imprescindibles.html'
+          with sync_playwright() as p:
+            browser=p.chromium.launch(headless=True,executable_path='/usr/bin/google-chrome',args=['--no-sandbox'])
+            page=None; errs=[]; responses=[]; failures=[]
+            for attempt in range(1,7):
+              v=browser.new_page(viewport={'width':1440,'height':900})
+              v.on('pageerror',lambda e:errs.append(str(e)))
+              v.on('response',lambda r:responses.append((r.status,r.url)) if '/optimizadas/' in r.url else None)
+              v.on('requestfailed',lambda r:failures.append((r.url,r.failure)) if '/optimizadas/' in r.url else None)
+              response=v.goto(base+'?lock-geometry-check='+str(attempt)+'-1696c8',wait_until='domcontentloaded',timeout=45000)
+              v.wait_for_timeout(1500)
+              js=v.locator('script[src*="galeria-escritorio.js"]').get_attribute('src') or ''
+              css=v.locator('link[href*="galeria-escritorio.css"]').get_attribute('href') or ''
+              lock=v.evaluate('typeof window.VCCGalleryScrollLock?.acquire')
+              print('ATTEMPT',attempt,'STATUS',response.status,'JS',js,'CSS',css,'LOCK',lock,flush=True)
+              if 'layout-lock-v5' in css and 'lock-v5' in js and lock=='function':
+                page=v; break
+              v.close(); time.sleep(6)
+            assert page,'New CSS/JS or background lock not deployed'
+            page.evaluate('window.scrollTo(0,2000)')
+            page.wait_for_timeout(250)
+            before=page.evaluate('window.scrollY')
+            page.locator('.gallery').nth(5).locator('.gallery-tile').first.click()
+            assert page.locator('#vcc-desktop-gallery').is_visible()
+            rootState=page.evaluate("""() => ({
+              html:getComputedStyle(document.documentElement).overflow,
+              body:getComputedStyle(document.body).position,
+              top:getComputedStyle(document.body).top,
+              before:window.scrollY,
+              overlay:document.querySelector('#vcc-desktop-gallery').getAttribute('aria-hidden')
+            })""")
+            print('DESKTOP_GRID_LOCK',before,rootState,flush=True)
+            assert rootState['html']=='hidden'
+            assert rootState['body']=='fixed'
+            # Wheel outside modal must not scroll the background; inside grid should scroll.
+            page.mouse.move(8,400)
+            page.mouse.wheel(0,700)
+            page.wait_for_timeout(200)
+            assert page.evaluate('window.scrollY')==rootState['before']
+            grid=page.locator('#vcc-desktop-gallery')
+            grid.locator('.vcc-dg-tile').nth(1).click()
+            modal=page.locator('#lightbox.open')
+            assert modal.count()==1
+            geom=page.evaluate("""() => {
+              const s=document.querySelector('#lightbox .lb-stage');
+              const header=s.querySelector('.lb-caption');
+              const photo=s.querySelector('.lb-photo');
+              const count=s.querySelector('.lb-counter');
+              const thumb=s.querySelector('.lb-thumbs');
+              const left=s.querySelector('.lb-prev');
+              const right=s.querySelector('.lb-next');
+              const css=e=>getComputedStyle(e);
+              const box=e=>e.getBoundingClientRect();
+              return {
+                stageHeight:box(s).height,
+                headerHeight:box(header).height,
+                rows:css(s).gridTemplateRows,
+                gapAbove:box(photo).top-box(header).bottom,
+                photoHeight:box(photo).height,
+                countText:count.textContent,
+                countHeight:box(count).height,
+                countTop:box(count).top,
+                countBottom:box(count).bottom,
+                stripTop:box(thumb).top,
+                stripBorder:css(thumb).borderTopWidth,
+                stripPaddingTop:css(thumb).paddingTop,
+                stripHeight:box(thumb).height,
+                arrowBackground:css(left).backgroundColor,
+                arrowBorder:css(left).borderTopWidth,
+                arrowShadow:css(left).boxShadow,
+                arrowRadius:css(left).borderRadius,
+                arrowCenter:box(left).top+box(left).height/2,
+                photoCenter:box(photo).top+box(photo).height/2,
+                imgCursor:css(photo).cursor,
+                rootOverflow:css(document.documentElement).overflow,
+                bodyPosition:css(document.body).position
+              };
+            }""")
+            print('DESKTOP_PHOTO_GEOMETRY',geom,flush=True)
+            assert geom['headerHeight']==64
+            assert 10<=geom['gapAbove']<=14,geom
+            assert geom['photoHeight']>=500,geom
+            assert geom['countText']=='2 / 6'
+            assert geom['countHeight']==30
+            assert geom['stripBorder']=='0px'
+            assert geom['stripHeight']==126
+            assert float(geom['stripPaddingTop'].replace('px',''))>=20
+            assert geom['arrowBackground']=='rgba(0, 0, 0, 0)',geom
+            assert geom['arrowBorder']=='0px',geom
+            assert geom['arrowShadow']=='none',geom
+            assert geom['imgCursor']=='pointer'
+            assert abs(geom['arrowCenter']-geom['photoCenter'])<35,geom
+            assert geom['rootOverflow']=='hidden' and geom['bodyPosition']=='fixed',geom
+            page.mouse.move(9,500)
+            page.mouse.wheel(0,760)
+            page.wait_for_timeout(150)
+            assert page.evaluate('window.scrollY')==rootState['before']
+            modal.locator('.vcc-dg-photo-back').click()
+            assert grid.is_visible()
+            assert page.evaluate('getComputedStyle(document.documentElement).overflow')=='hidden'
+            grid.locator('.vcc-dg-close').click()
+            assert not grid.is_visible()
+            assert page.evaluate('getComputedStyle(document.body).position')!='fixed'
+            after=page.evaluate('window.scrollY')
+            print('DESKTOP_SCROLL_RESTORED',before,after,flush=True)
+            assert abs(before-after)<=2,(before,after)
+            assert not errs,errs
+            assert not failures,failures
+            assert all(code==200 for code,url in responses),responses
+            page.close()
+
+            mobile=browser.new_page(viewport={'width':390,'height':844},device_scale_factor=2,is_mobile=True,has_touch=True)
+            mobileErr=[]
+            mobile.on('pageerror',lambda e:mobileErr.append(str(e)))
+            mobile.goto(base+'?lock-mobile-check-1696c8',wait_until='domcontentloaded',timeout=45000)
+            mobile.wait_for_timeout(1700)
+            mobile.evaluate('window.scrollTo(0,1000)')
+            mobile.wait_for_timeout(200)
+            mobileBefore=mobile.evaluate('window.scrollY')
+            mobile.locator('.gallery').nth(5).locator('.gallery-tile').first.click()
+            assert mobile.locator('#vcc-mobile-gallery').is_visible()
+            assert mobile.evaluate('getComputedStyle(document.documentElement).overflow')=='hidden'
+            assert mobile.evaluate('getComputedStyle(document.body).position')=='fixed'
+            mobile.locator('.vcc-mobile-photo-tile').first.click()
+            assert mobile.locator('.vcc-mobile-photo-view').is_visible()
+            assert mobile.evaluate('getComputedStyle(document.documentElement).overflow')=='hidden'
+            mobile.locator('.vcc-mobile-photo-view [data-vcc-action="grid"]').click()
+            assert mobile.locator('.vcc-mobile-grid-view').is_visible()
+            mobile.locator('.vcc-mobile-grid-view [data-vcc-action="exit"]').first.click()
+            assert not mobile.locator('#vcc-mobile-gallery').is_visible()
+            mobileAfter=mobile.evaluate('window.scrollY')
+            print('MOBILE_SCROLL_RESTORED',mobileBefore,mobileAfter,flush=True)
+            assert abs(mobileAfter-mobileBefore)<=2,(mobileBefore,mobileAfter)
+            assert mobile.evaluate('getComputedStyle(document.body).position')!='fixed'
+            assert not mobileErr,mobileErr
+            mobile.close()
+            browser.close()
+            print('PASS: desktop photo geometry + borderless arrows and strip, background scroll locked in both modes, scroll restored',flush=True)
+          PY
