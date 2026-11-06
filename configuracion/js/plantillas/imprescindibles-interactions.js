@@ -83,9 +83,9 @@
     node.style.setProperty('background-position', 'center', 'important');
     node.style.setProperty('background-repeat', 'no-repeat', 'important');
   };
-  /* Sense cap transformació: les URL del dataset apunten al WebP original de R2. */
+  /* Resol tant els derivats WebP com els AVIF de qualsevol carpeta R2. */
   const optimizedPhoto = (original, size='mini') => {
-    const match=String(original).match(/^(https:\/\/img\.viajandoconcabeza\.com\/destinos\/suecia\/goteborg\/2026-dia1\/)(DSC\d+\.webp)$/i);
+    const match=String(original).match(/^(https:\/\/img\.viajandoconcabeza\.com\/destinos\/[^?#]+\/)([^/]+\.(?:webp|avif))$/i);
     return match ? match[1]+'_preview/'+size+'/'+match[2] : original;
   };
   // Els mosaics fan càrrega diferida: la URL sempre és el WebP original de R2.
