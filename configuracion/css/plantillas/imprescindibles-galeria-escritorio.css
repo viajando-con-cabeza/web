@@ -517,76 +517,66 @@
 }
 
 
-/* Pan automàtic del VISOR COMPLET quan hi ha zoom real del navegador.
-   El JS mou un sol contenidor, sense escalar/recarregar les fotografies.
-   Els elements de la galeria mantenen la seva disposició de desktop
-   fins i tot si el zoom fa passar per sota del breakpoint de 801px. */
+/* Zoom natiu de la pàgina dins dels visors d'escriptori.
+   Les galeries són elements ABSOLUTS del document: com la resta del blog.
+   Ni transform, ni scroll lock, ni pan JS duplicat. No afecta el mòbil. */
 @media screen {
-  html body.vcc-desktop-gallery-open #lightbox.lightbox.vcc-native-pan-enabled {
-    display:block!important;
-    position:fixed!important;
-    inset:0!important;
-    padding:0!important;
-    margin:0!important;
-    overflow:hidden!important;
-    overscroll-behavior:contain;
+  html.vcc-gallery-native-scroll {
+    overflow-x:auto!important;
+    overflow-y:auto!important;
+    scroll-behavior:auto!important;
+    overscroll-behavior:auto!important;
   }
-  html body.vcc-desktop-gallery-open #lightbox.lightbox.vcc-native-pan-enabled .lb-stage {
+  html.vcc-gallery-native-scroll body.vcc-desktop-gallery-open {
+    position:relative!important;
+    overflow:visible!important;
+    overscroll-behavior:auto!important;
+  }
+  html.vcc-gallery-native-scroll body.vcc-desktop-gallery-open
+  #vcc-desktop-gallery.vcc-native-document-gallery:not([hidden]),
+  html.vcc-gallery-native-scroll body.vcc-desktop-gallery-open
+  #lightbox.lightbox.vcc-native-document-gallery.open {
     position:absolute!important;
     inset:auto!important;
-    top:0!important;
-    left:0!important;
+    top:var(--vcc-gallery-document-top)!important;
+    left:var(--vcc-gallery-document-left)!important;
+    right:auto!important;
+    bottom:auto!important;
+    width:var(--vcc-gallery-document-width)!important;
+    height:var(--vcc-gallery-document-height)!important;
+    display:grid!important;
+    place-items:center!important;
+    margin:0!important;
+    overflow:visible!important;
+    box-sizing:border-box!important;
+    transform:none!important;
+  }
+  html.vcc-gallery-native-scroll body.vcc-desktop-gallery-open
+  #vcc-desktop-gallery.vcc-native-document-gallery:not([hidden]) .vcc-dg-panel,
+  html.vcc-gallery-native-scroll body.vcc-desktop-gallery-open
+  #lightbox.lightbox.vcc-native-document-gallery.open .lb-stage {
+    position:relative!important;
+    inset:auto!important;
+    width:var(--vcc-gallery-panel-width)!important;
+    min-width:var(--vcc-gallery-panel-width)!important;
+    max-width:none!important;
+    height:var(--vcc-gallery-panel-height)!important;
+    min-height:var(--vcc-gallery-panel-height)!important;
+    max-height:none!important;
+    margin:0!important;
+    transform:none!important;
+    transition:none!important;
+    box-sizing:border-box!important;
+  }
+  html.vcc-gallery-native-scroll body.vcc-desktop-gallery-open
+  #vcc-desktop-gallery.vcc-native-document-gallery:not([hidden]) .vcc-dg-panel {
+    display:flex!important;
+    flex-direction:column!important;
+  }
+  html.vcc-gallery-native-scroll body.vcc-desktop-gallery-open
+  #lightbox.lightbox.vcc-native-document-gallery.open .lb-stage {
     display:grid!important;
     grid-template-columns:minmax(0,1fr) minmax(245px,290px)!important;
     grid-template-rows:54px minmax(0,1fr) 30px 80px!important;
-    width:var(--vcc-pan-width)!important;
-    min-width:var(--vcc-pan-width)!important;
-    max-width:none!important;
-    height:var(--vcc-pan-height)!important;
-    min-height:var(--vcc-pan-height)!important;
-    max-height:none!important;
-    margin:0!important;
-    will-change:transform;
-    transform-origin:top left!important;
-    transition:none!important;
-  }
-  html body.vcc-desktop-gallery-open #lightbox.lightbox.vcc-native-pan-enabled .lb-stage > .lb-photo {
-    cursor:pointer!important;
-  }
-}
-
-/* El visor d'escriptori segueix visible després de Ctrl+rodeta, fins i
-   tot si el viewport virtual baixa dels 801px del breakpoint mòbil. */
-@media screen {
-  html body.vcc-desktop-gallery-open #vcc-desktop-gallery:not([hidden]) {
-    display:grid!important;
-  }
-  html body.vcc-desktop-gallery-open #vcc-desktop-gallery.vcc-native-pan-enabled:not([hidden]) {
-    display:block!important;
-    position:fixed!important;
-    inset:0!important;
-    padding:0!important;
-    margin:0!important;
-    overflow:hidden!important;
-  }
-  html body.vcc-desktop-gallery-open #vcc-desktop-gallery.vcc-native-pan-enabled .vcc-dg-panel {
-    position:absolute!important;
-    top:0!important;
-    left:0!important;
-    width:var(--vcc-pan-width)!important;
-    min-width:var(--vcc-pan-width)!important;
-    max-width:none!important;
-    height:var(--vcc-pan-height)!important;
-    min-height:var(--vcc-pan-height)!important;
-    max-height:none!important;
-    margin:0!important;
-    display:flex!important;
-    flex-direction:column!important;
-    will-change:transform;
-    transform-origin:top left!important;
-    transition:none!important;
-  }
-  html body.vcc-desktop-gallery-open #vcc-desktop-gallery.vcc-native-pan-enabled .vcc-dg-main {
-    grid-template-columns:minmax(0,1fr) minmax(245px,290px)!important;
   }
 }
