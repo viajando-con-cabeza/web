@@ -201,9 +201,9 @@ nav.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{nav.querySe
 const prev=document.getElementById('navPrev'),next=document.getElementById('navNext');const update=()=>{prev.disabled=nav.scrollLeft<5;next.disabled=nav.scrollLeft+nav.clientWidth>=nav.scrollWidth-5};prev.onclick=()=>nav.scrollBy({left:-Math.max(nav.clientWidth*.7,280),behavior:'smooth'});next.onclick=()=>nav.scrollBy({left:Math.max(nav.clientWidth*.7,280),behavior:'smooth'});nav.addEventListener('scroll',update,{passive:true});window.addEventListener('resize',update);update();
 /* Galeries construïdes pel JS com a mosaics CSS; cap etiqueta img remota inicial. */
 </script>
-<script src="/configuracion/js/plantillas/imprescindibles-interactions.js?v=20261106-desktop-api-v1" defer></script>
+<script src="/configuracion/js/plantillas/imprescindibles-interactions.js?v=20261106-hq-2200-v2" defer></script>
 <script src="/configuracion/js/plantillas/imprescindibles-bloqueo-scroll.js?v=20261106-scroll-lock-v1" defer></script>
-<script src="/configuracion/js/plantillas/imprescindibles-galeria-movil.js?v=20261106-fast-original-v7" defer></script>
+<script src="/configuracion/js/plantillas/imprescindibles-galeria-movil.js?v=20261106-fast-hq-v8" defer></script>
 <script src="/configuracion/js/plantillas/imprescindibles-galeria-escritorio.js?v=20261106-lock-v5" defer></script>
 <script src="/configuracion/js/site-footer.js?v=20261102"></script><script id="vcc-single-active-subnav">
 (function(){
