@@ -231,19 +231,31 @@
     return Number.isInteger(position) ? activeSources[position-1] : null;
   }
 
-  // Zoom NATIU del navegador: sense escala JS de la foto o de la pàgina.
-  // Quan el viewport es redueix, desplacem el VISOR COMPLET seguint el
-  // ratolí sense clicar. Funciona també quan Ctrl+rodeta no emet 'resize'.
+  // Zoom natiu intacte. El pan del visor es calcula únicament amb
+  // coordenades CSS del mateix contenidor (sense barrejar visualViewport
+  // amb clientX/clientY). El cursor dirigeix la vista sense prémer res.
   let panBaseline=null;
-  let panFrame=0;
   let panPointer=null;
+  let panFrame=0;
+  let panSyncFrame=0;
+  let panX=0,panY=0;
+  const clamp01=value=>Math.min(1,Math.max(0,value));
+  const panBounds=()=>{
+    const rect=existingLightbox.getBoundingClientRect();
+    return {
+      x:Math.max(0,panBaseline.stageWidth-Math.max(1,rect.width)),
+      y:Math.max(0,panBaseline.stageHeight-Math.max(1,rect.height))
+    };
+  };
   const cancelPanFrame=()=>{
     if(panFrame){cancelAnimationFrame(panFrame);panFrame=0;}
+    if(panSyncFrame){cancelAnimationFrame(panSyncFrame);panSyncFrame=0;}
   };
   const resetViewerPan=()=>{
     if(!existingLightbox || !existingStage)return;
     cancelPanFrame();
     panPointer=null;
+    panX=0;panY=0;
     existingLightbox.classList.remove('vcc-native-pan-enabled');
     existingLightbox.style.removeProperty('--vcc-pan-width');
     existingLightbox.style.removeProperty('--vcc-pan-height');
@@ -251,42 +263,54 @@
   };
   const zoomRatio=()=>{
     if(!panBaseline)return 1;
-    const vv=window.visualViewport;
     return Math.max(
       panBaseline.viewportWidth/Math.max(1,window.innerWidth),
       panBaseline.viewportHeight/Math.max(1,window.innerHeight),
       (window.devicePixelRatio||1)/Math.max(0.01,panBaseline.pixelRatio),
-      (vv?.scale||1)/Math.max(0.01,panBaseline.visualScale)
+      (window.visualViewport?.scale||1)/Math.max(0.01,panBaseline.visualScale)
     );
   };
+  function positionPan(){
+    panFrame=0;
+    if(!panPointer || !photoVisible() ||
+        !existingLightbox.classList.contains('vcc-native-pan-enabled'))return;
+    const max=panBounds();
+    const targetX=-max.x*panPointer.x;
+    const targetY=-max.y*panPointer.y;
+    // Interpolació ràpida però gradual: res de salts a les cantonades.
+    panX+=(targetX-panX)*0.24;
+    panY+=(targetY-panY)*0.24;
+    if(Math.abs(targetX-panX)<0.25)panX=targetX;
+    if(Math.abs(targetY-panY)<0.25)panY=targetY;
+    existingStage.style.transform='translate3d('+panX.toFixed(2)+'px,'+panY.toFixed(2)+'px,0)';
+    if(panX!==targetX || panY!==targetY)
+      panFrame=requestAnimationFrame(positionPan);
+  }
   const syncViewerPan=()=>{
     if(!photoVisible() || !panBaseline || !existingStage || !existingLightbox)return;
     const active=zoomRatio()>1.035;
-    existingLightbox.classList.toggle('vcc-native-pan-enabled',active);
+    const wasActive=existingLightbox.classList.contains('vcc-native-pan-enabled');
     if(!active){
-      existingLightbox.style.removeProperty('--vcc-pan-width');
-      existingLightbox.style.removeProperty('--vcc-pan-height');
-      existingStage.style.transform='';
-      panPointer=null;
+      if(wasActive){
+        cancelPanFrame();
+        existingLightbox.classList.remove('vcc-native-pan-enabled');
+        existingLightbox.style.removeProperty('--vcc-pan-width');
+        existingLightbox.style.removeProperty('--vcc-pan-height');
+        existingStage.style.transform='';
+        panX=0;panY=0;
+      }
       return;
     }
-    existingLightbox.style.setProperty('--vcc-pan-width',panBaseline.stageWidth+'px');
-    existingLightbox.style.setProperty('--vcc-pan-height',panBaseline.stageHeight+'px');
-    if(panPointer)positionPan();
-  };
-  const positionPan=()=>{
-    if(!panPointer || !photoVisible() ||
-      !existingLightbox.classList.contains('vcc-native-pan-enabled'))return;
-    // En un zoom de pàgina normal es redueix el viewport CSS; en un zoom
-    // de tipus pinça es redueix visualViewport. Cobrim els dos casos.
-    const visibleWidth=Math.min(existingLightbox.clientWidth,
-      window.visualViewport?.width||existingLightbox.clientWidth);
-    const visibleHeight=Math.min(existingLightbox.clientHeight,
-      window.visualViewport?.height||existingLightbox.clientHeight);
-    const availableX=Math.max(0,panBaseline.stageWidth-visibleWidth);
-    const availableY=Math.max(0,panBaseline.stageHeight-visibleHeight);
-    const dx=-availableX*panPointer.x,dy=-availableY*panPointer.y;
-    existingStage.style.transform='translate3d('+dx.toFixed(1)+'px,'+dy.toFixed(1)+'px,0)';
+    if(!wasActive){
+      existingLightbox.style.setProperty('--vcc-pan-width',panBaseline.stageWidth+'px');
+      existingLightbox.style.setProperty('--vcc-pan-height',panBaseline.stageHeight+'px');
+      existingLightbox.classList.add('vcc-native-pan-enabled');
+      // Posició inicial central: es pot navegar en totes dues direccions.
+      const max=panBounds();
+      panX=-max.x/2;panY=-max.y/2;
+      existingStage.style.transform='translate3d('+panX.toFixed(2)+'px,'+panY.toFixed(2)+'px,0)';
+    }
+    if(panPointer && !panFrame)panFrame=requestAnimationFrame(positionPan);
   };
   const startPanBaseline=()=>{
     if(!existingStage || !existingLightbox)return;
@@ -301,39 +325,33 @@
     };
   };
   const queuePanSync=()=>{
-    if(!panBaseline || !photoVisible())return;
-    if(panFrame)return;
-    panFrame=requestAnimationFrame(()=>{
-      panFrame=0;
+    if(!panBaseline || !photoVisible() || panSyncFrame)return;
+    panSyncFrame=requestAnimationFrame(()=>{
+      panSyncFrame=0;
       syncViewerPan();
-      if(panPointer)positionPan();
     });
   };
   window.addEventListener('resize',queuePanSync,{passive:true});
   window.visualViewport?.addEventListener('resize',queuePanSync,{passive:true});
-  // L'esdeveniment Ctrl+wheel arriba abans que el navegador actualitzi
-  // el zoom. Revalidem a la següent repintada sense impedir l'acció nativa.
+  // El zoom Ctrl+rodeta continua sent 100% del navegador.
   window.addEventListener('wheel',event=>{
-    if(photoVisible() && (event.ctrlKey || event.metaKey)){
+    if(photoVisible() && (event.ctrlKey || event.metaKey))
       requestAnimationFrame(()=>requestAnimationFrame(queuePanSync));
-    }
   },{capture:true,passive:true});
   if(existingLightbox){
     existingLightbox.addEventListener('pointermove',event=>{
       if(event.pointerType!=='mouse' || event.buttons!==0 || !photoVisible())return;
       if(event.target.closest('button, a, input, textarea, select'))return;
-      // El pointermove mateix força la detecció: no depenem de 'resize'.
+      // clientX i getBoundingClientRect utilitzen la MATEIXA escala.
+      const rect=existingLightbox.getBoundingClientRect();
+      if(rect.width<1 || rect.height<1)return;
+      panPointer={
+        x:clamp01((event.clientX-rect.left)/rect.width),
+        y:clamp01((event.clientY-rect.top)/rect.height)
+      };
       syncViewerPan();
-      if(!existingLightbox.classList.contains('vcc-native-pan-enabled'))return;
-      const vv=window.visualViewport;
-      const x=(event.clientX-(vv?.offsetLeft||0))/Math.max(1,vv?.width||existingLightbox.clientWidth);
-      const y=(event.clientY-(vv?.offsetTop||0))/Math.max(1,vv?.height||existingLightbox.clientHeight);
-      panPointer={x:Math.max(0,Math.min(1,x)),y:Math.max(0,Math.min(1,y))};
-      if(panFrame)return;
-      panFrame=requestAnimationFrame(()=>{
-        panFrame=0;
-        positionPan();
-      });
+      if(existingLightbox.classList.contains('vcc-native-pan-enabled') && !panFrame)
+        panFrame=requestAnimationFrame(positionPan);
     },{passive:true});
   }
 
