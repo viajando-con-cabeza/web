@@ -1,0 +1,234 @@
+/* VCC · Galeria ampliada tipus Booking en ordinador (només quality).
+   Mosaic de la pàgina → tres columnes → visor actual amb descripció lateral. */
+#vcc-desktop-gallery[hidden] { display:none!important }
+#lightbox .vcc-dg-photo-back {display:none!important}
+@media (min-width:801px) {
+  body.vcc-desktop-gallery-open {overflow:hidden!important}
+  #vcc-desktop-gallery {
+    position:fixed;
+    inset:0;
+    z-index:3500;
+    display:grid;
+    place-items:center;
+    padding:clamp(12px,2.5vw,30px);
+    background:rgba(27,25,24,.63);
+    font-family:'DM Sans',sans-serif;
+    box-sizing:border-box;
+  }
+  #vcc-desktop-gallery * {box-sizing:border-box}
+  #vcc-desktop-gallery .vcc-dg-panel {
+    display:flex;
+    flex-direction:column;
+    width:min(1450px,100%);
+    height:min(92dvh,900px);
+    min-height:0;
+    overflow:hidden;
+    border-radius:17px;
+    background:#fff;
+    box-shadow:0 22px 65px rgba(20,20,20,.20);
+  }
+  #vcc-desktop-gallery .vcc-dg-top {
+    display:grid;
+    grid-template-columns:minmax(190px,1fr) 2fr minmax(68px,1fr);
+    align-items:center;
+    gap:14px;
+    height:75px;
+    min-height:75px;
+    padding:10px 24px;
+    border-bottom:1px solid #eee7e1;
+    background:#fff;
+  }
+  #vcc-desktop-gallery .vcc-dg-back,
+  #vcc-desktop-gallery .vcc-dg-close {
+    border:0;
+    background:transparent;
+    color:#262626;
+    cursor:pointer;
+    font-family:'DM Sans',sans-serif;
+  }
+  #vcc-desktop-gallery .vcc-dg-back {
+    justify-self:start;
+    display:inline-flex;
+    gap:10px;
+    align-items:center;
+    padding:8px 0;
+    font-size:24px;
+  }
+  #vcc-desktop-gallery .vcc-dg-back span {
+    font-size:13px;
+    font-weight:700;
+  }
+  #vcc-desktop-gallery .vcc-dg-heading {
+    display:flex;
+    justify-self:center;
+    flex-direction:column;
+    align-items:center;
+    gap:4px;
+    min-width:0;
+    text-align:center;
+  }
+  #vcc-desktop-gallery .vcc-dg-heading strong {
+    max-width:100%;
+    overflow:hidden;
+    white-space:nowrap;
+    text-overflow:ellipsis;
+    font:500 22px/1.15 'Oswald',sans-serif;
+    text-transform:uppercase;
+    color:#242424;
+  }
+  #vcc-desktop-gallery .vcc-dg-heading span {
+    font-size:12px;
+    font-weight:600;
+    color:#a65340;
+  }
+  #vcc-desktop-gallery .vcc-dg-close {
+    justify-self:end;
+    width:42px;
+    height:42px;
+    border-radius:50%;
+    font-size:31px;
+    line-height:1;
+  }
+  #vcc-desktop-gallery .vcc-dg-back:hover,
+  #vcc-desktop-gallery .vcc-dg-close:hover {color:#a65340}
+  #vcc-desktop-gallery button:focus-visible {
+    outline:3px solid #b75c43;
+    outline-offset:3px;
+  }
+  #vcc-desktop-gallery .vcc-dg-main {
+    display:grid;
+    grid-template-columns:minmax(0,1fr) minmax(245px,290px);
+    min-height:0;
+    flex:1;
+  }
+  #vcc-desktop-gallery .vcc-dg-scroll {
+    min-width:0;
+    min-height:0;
+    overflow:auto;
+    overscroll-behavior:contain;
+    scrollbar-width:thin;
+    padding:20px 22px 32px;
+    background:#fff;
+  }
+  #vcc-desktop-gallery .vcc-dg-grid {
+    display:grid;
+    grid-template-columns:repeat(3,minmax(0,1fr));
+    gap:13px;
+    align-content:start;
+  }
+  #vcc-desktop-gallery .vcc-dg-tile {
+    display:block;
+    width:100%;
+    min-width:0;
+    padding:0;
+    border:0;
+    border-radius:8px;
+    overflow:hidden;
+    aspect-ratio:1.31;
+    background:#f0eae4;
+    cursor:zoom-in;
+  }
+  #vcc-desktop-gallery .vcc-dg-tile img {
+    display:block;
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    transition:transform 180ms ease,filter 180ms ease;
+  }
+  #vcc-desktop-gallery .vcc-dg-tile:hover img {
+    transform:scale(1.035);
+    filter:brightness(.95);
+  }
+  #vcc-desktop-gallery .vcc-dg-sidebar {
+    border-left:1px solid #eee8e1;
+    background:#fff;
+    overflow-y:auto;
+    scrollbar-width:thin;
+    padding:25px 21px 28px;
+    min-width:0;
+  }
+  #vcc-desktop-gallery .vcc-dg-sidebar-content {
+    position:sticky;
+    top:0;
+  }
+  #vcc-desktop-gallery .vcc-dg-kicker {
+    margin:0 0 13px;
+    color:#a65340;
+    font:700 10px/1.4 'DM Sans',sans-serif;
+    letter-spacing:.075em;
+  }
+  #vcc-desktop-gallery .vcc-dg-place {
+    margin:0 0 17px;
+    color:#252525;
+    font:500 26px/1.2 'Oswald',sans-serif;
+    text-transform:uppercase;
+  }
+  #vcc-desktop-gallery .vcc-dg-description {
+    margin:0;
+    color:#47413c;
+    font:400 13px/1.75 'DM Sans',sans-serif;
+  }
+  #vcc-desktop-gallery .vcc-dg-advice {
+    margin-top:25px;
+    border-top:1px solid #ece4dc;
+    padding-top:18px;
+  }
+  #vcc-desktop-gallery .vcc-dg-advice[hidden] {display:none!important}
+  #vcc-desktop-gallery .vcc-dg-advice-label {
+    color:#a65340;
+    font:700 12px/1.3 'DM Sans',sans-serif;
+  }
+  #vcc-desktop-gallery .vcc-dg-advice p {
+    margin:9px 0 0;
+    font:400 12px/1.6 'DM Sans',sans-serif;
+    color:#514942;
+  }
+  #vcc-desktop-gallery .vcc-dg-note {
+    margin:25px 0 0;
+    font:500 11px/1.55 'DM Sans',sans-serif;
+    color:#877b70;
+  }
+
+  /* Darrer pas: reutilitzem el visor original i el text que ja apareix a la dreta. */
+  html body.vcc-desktop-gallery-open #lightbox.lightbox .lb-stage {
+    width:min(1430px,calc(100vw - 74px))!important;
+    height:min(91dvh,880px)!important;
+  }
+  html body.vcc-desktop-gallery-open #lightbox.lightbox .lb-stage > .lb-photo {
+    width:100%!important;
+    max-width:100%!important;
+    background-size:contain!important;
+  }
+  html body.vcc-desktop-gallery-open #lightbox.lightbox .lb-stage > .vcc-dg-photo-back {
+    position:absolute!important;
+    z-index:7!important;
+    left:20px!important;
+    top:6px!important;
+    display:inline-flex!important;
+    align-items:center;
+    justify-content:center;
+    height:32px;
+    padding:0 6px;
+    border:0!important;
+    border-radius:4px;
+    background:transparent!important;
+    color:#282828!important;
+    font:700 13px/1 'DM Sans',sans-serif!important;
+    cursor:pointer;
+  }
+  html body.vcc-desktop-gallery-open #lightbox.lightbox .lb-stage > .vcc-dg-photo-back:hover {color:#a65340!important}
+  @media(max-width:1040px) {
+    #vcc-desktop-gallery .vcc-dg-main {
+      grid-template-columns:minmax(0,1fr) minmax(220px,245px);
+    }
+    #vcc-desktop-gallery .vcc-dg-scroll {padding:15px}
+    #vcc-desktop-gallery .vcc-dg-grid {gap:9px}
+    #vcc-desktop-gallery .vcc-dg-sidebar {padding:20px 15px}
+  }
+}
+@media (max-width:800px) {
+  #vcc-desktop-gallery {display:none!important}
+}
+@media (prefers-reduced-motion:reduce) {
+  #vcc-desktop-gallery .vcc-dg-tile img {transition:none!important}
+}
