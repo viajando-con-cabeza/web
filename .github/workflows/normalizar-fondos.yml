@@ -1,0 +1,48 @@
+name: Normalitzar fondos VCC (una vegada)
+
+on:
+  push:
+    branches: [quality]
+    paths:
+      - '.github/workflows/normalizar-fondos.yml'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: quality
+  cancel-in-progress: false
+
+jobs:
+  migrate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout latest quality
+        uses: actions/checkout@v4
+        with:
+          ref: quality
+          fetch-depth: 0
+      - name: Install image converters
+        run: python -m pip install --quiet Pillow cairosvg
+      - name: Migrate backgrounds and update references
+        run: python configuracion/scripts/normalizar-fondos-vcc.py
+      - name: Validate JS and known links
+        shell: bash
+        run: |
+          set -euo pipefail
+          find configuracion/js -type f -name '*.js' -print0 | xargs -0 -n1 node --check
+          node configuracion/scripts/comprobar-rutas.mjs
+      - name: Publish to quality only
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A configuracion/imagenes/fondos configuracion/imagenes/backgrounds configuracion/imagenes/como-llegar-universal-vcc.webp
+          git add -u
+          if git diff --cached --quiet; then
+            echo "No changes to publish."
+          else
+            git commit -m "Normalizar backgrounds WebP y archivar versiones antiguas"
+            git push origin HEAD:quality
+          fi
