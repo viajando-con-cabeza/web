@@ -119,3 +119,25 @@ body>.shared-header .shared-menu,body>.shared-header .shared-menu a{font-family:
 }
 #planifica .vcc-prep-image.vcc-prep-svg-background>span{z-index:2!important}
 @media(max-width:600px){#planifica .vcc-prep-image.vcc-prep-svg-background{height:118px!important;flex-basis:118px!important}}
+
+/* 2026-11-06 · Iconos de Planifica: el circulo debe cruzar la union entre
+   la fotografia y el cuerpo blanco sin quedar recortado en movil. */
+#planifica .vcc-prep-image{
+  overflow:visible!important;
+  z-index:1!important;
+}
+#planifica .vcc-prep-image>span{
+  position:absolute!important;
+  left:50%!important;
+  bottom:-15px!important;
+  transform:translateX(-50%)!important;
+  z-index:5!important;
+  display:grid!important;
+  place-items:center!important;
+  width:31px!important;
+  height:31px!important;
+  border-radius:50%!important;
+  background:#fbf8f4!important;
+  border:1px solid #e4d9cf!important;
+  box-sizing:border-box!important;
+}
