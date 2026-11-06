@@ -521,7 +521,11 @@
    Les galeries són elements ABSOLUTS del document: com la resta del blog.
    Ni transform, ni scroll lock, ni pan JS duplicat. No afecta el mòbil. */
 @media screen {
-  html.vcc-gallery-native-scroll {
+  /* Override específic del bloqueig mòbil html:has(...) i del
+     overflow-x:clip global, sense desactivar el mode mòbil real. */
+  html.vcc-gallery-native-scroll:has(body.vcc-desktop-gallery-open) {
+    max-width:none!important;
+    overflow:visible!important;
     overflow-x:auto!important;
     overflow-y:auto!important;
     scroll-behavior:auto!important;
