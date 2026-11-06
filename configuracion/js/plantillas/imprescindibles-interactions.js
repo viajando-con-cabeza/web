@@ -125,7 +125,7 @@
     overlay.setAttribute('aria-hidden','true');
     image.style.removeProperty('background-image');
     if (counter) counter.textContent = '';
-    focusBefore?.focus?.();
+    focusBefore?.focus?.({preventScroll:true});
     overlay.dispatchEvent(new CustomEvent('vcc:lightbox-closed'));
   };
   const open = (gallery, index) => {
@@ -152,7 +152,7 @@
      overlay.classList.add('open');
     overlay.setAttribute('aria-hidden','false');
     show(index);
-    close.focus();
+    close.focus({preventScroll:true});
   };
   /* Exposa el visor existent a la segona fase de galeria d'escriptori.
      Manté el text lateral, el comptador, les fletxes i els WebP actuals. */
