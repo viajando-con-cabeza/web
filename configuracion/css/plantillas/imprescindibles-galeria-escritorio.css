@@ -404,7 +404,7 @@
   html body.vcc-desktop-gallery-open #lightbox.lightbox .lb-stage > .lb-photo {
     position:relative!important;
     overflow:hidden!important;
-    cursor:grab!important;
+    cursor:pointer!important;
     touch-action:auto!important;
     user-select:none;
   }
@@ -501,5 +501,17 @@
     will-change:auto;
     backface-visibility:visible;
     image-rendering:auto;
+  }
+}
+
+/* Foto individual: mà amb índex per activar el zoom amb un clic. */
+@media (min-width:801px) {
+  html body.vcc-desktop-gallery-open #lightbox.lightbox .lb-stage > .lb-photo,
+  html body.vcc-desktop-gallery-open #lightbox.lightbox .lb-stage > .lb-photo.vcc-dg-is-zoomed {
+    cursor:pointer!important;
+  }
+  html body.vcc-desktop-gallery-open #lightbox.lightbox .lb-photo > .vcc-dg-rounded-matte > img {
+    transform-origin:center center;
+    backface-visibility:hidden;
   }
 }
