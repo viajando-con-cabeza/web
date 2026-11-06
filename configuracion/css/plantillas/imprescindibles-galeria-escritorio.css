@@ -56,7 +56,7 @@
   }
   #vcc-desktop-gallery .vcc-dg-back span {
     font-size:13px;
-    font-weight:700;
+    font-weight:400;
   }
   #vcc-desktop-gallery .vcc-dg-heading {
     display:flex;
@@ -189,7 +189,7 @@
     border-radius:4px;
     background:transparent!important;
     color:#282828!important;
-    font:700 13px/1 'DM Sans',sans-serif!important;
+    font:400 13px/1 'DM Sans',sans-serif!important;
     cursor:pointer;
   }
   html body.vcc-desktop-gallery-open #lightbox.lightbox .lb-stage > .vcc-dg-photo-back:hover {color:#a65340!important}
@@ -215,11 +215,11 @@
 @media (min-width:801px) {
   html body.vcc-desktop-gallery-open #lightbox.lightbox .lb-stage {
     width:min(1450px,calc(100vw - 60px))!important;
-    height:min(94dvh,920px)!important;
-    max-height:calc(100dvh - 26px)!important;
+    height:min(92dvh,900px)!important;
+    max-height:calc(100dvh - 60px)!important;
     display:grid!important;
     grid-template-columns:minmax(0,1fr) minmax(245px,290px)!important;
-    grid-template-rows:54px minmax(0,1fr) 30px 98px!important;
+    grid-template-rows:64px minmax(0,1fr) 30px 98px!important;
     gap:0!important;
     border-radius:17px!important;
   }
@@ -232,8 +232,8 @@
     align-self:stretch!important;
     justify-self:stretch!important;
     width:100%!important;
-    height:54px!important;
-    min-height:54px!important;
+    height:64px!important;
+    min-height:64px!important;
     margin:0!important;
     padding:10px 82px!important;
     border-bottom:1px solid #eee7e1!important;
@@ -254,10 +254,10 @@
     grid-column:1!important;
     grid-row:2!important;
     width:100%!important;
-    height:calc(100% - 12px)!important;
+    height:calc(100% - 20px)!important;
     min-height:0!important;
-    max-height:calc(100% - 12px)!important;
-    margin:12px 0 0!important;
+    max-height:calc(100% - 20px)!important;
+    margin:20px 0 0!important;
     background-size:contain!important;
     background-position:center!important;
   }
@@ -274,7 +274,8 @@
     margin:0!important;
     color:#37332f!important;
     background:#fff!important;
-    font:500 14px/1 'DM Sans',sans-serif!important;
+    font:400 14px/1 'DM Sans',sans-serif!important;
+    transform:translateY(5px)!important;
     font-variant-numeric:tabular-nums!important;
   }
   html body.vcc-desktop-gallery-open #lightbox.lightbox .lb-thumbs {
@@ -337,12 +338,12 @@
     font:400 13px/1.75 'DM Sans',sans-serif!important;
   }
   html body.vcc-desktop-gallery-open #lightbox.lightbox .lb-stage > .vcc-dg-photo-back {
-    top:9px!important;
+    top:14px!important;
     left:24px!important;
     height:35px!important;
   }
   html body.vcc-desktop-gallery-open #lightbox.lightbox .lb-close {
-    top:6px!important;
+    top:11px!important;
     right:24px!important;
     border:0!important;
     border-radius:50%!important;
@@ -363,9 +364,25 @@
     background:transparent!important;
     box-shadow:none!important;
     color:#272727!important;
-    font-size:37px!important;
-    font-weight:400!important;
+    font:400 0px/1 'DM Sans',sans-serif!important;
     cursor:pointer!important;
+  }
+  /* Chevron prim, sense el traç gruixut de la font del sistema. */
+  html body.vcc-desktop-gallery-open #lightbox.lightbox .lb-prev::before,
+  html body.vcc-desktop-gallery-open #lightbox.lightbox .lb-next::before {
+    content:""!important;
+    width:12px!important;
+    height:12px!important;
+    display:block!important;
+    border:solid currentColor!important;
+    border-width:0 1.6px 1.6px 0!important;
+    pointer-events:none!important;
+  }
+  html body.vcc-desktop-gallery-open #lightbox.lightbox .lb-prev::before {
+    transform:rotate(135deg)!important;
+  }
+  html body.vcc-desktop-gallery-open #lightbox.lightbox .lb-next::before {
+    transform:rotate(-45deg)!important;
   }
   html body.vcc-desktop-gallery-open #lightbox.lightbox .lb-prev:hover,
   html body.vcc-desktop-gallery-open #lightbox.lightbox .lb-next:hover {
