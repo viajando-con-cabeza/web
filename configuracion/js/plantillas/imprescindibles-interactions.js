@@ -83,14 +83,8 @@
     node.style.setProperty('background-position', 'center', 'important');
     node.style.setProperty('background-repeat', 'no-repeat', 'important');
   };
-  /* WebP redimensionats a partir dels originals R2, generats i cachejats a
-     quality. El dataset conserva les URL originals; el visor demana només
-     la fotografia actual en resolució de pantalla. */
-  const optimizedPhoto = (original, size) => {
-    const filename = String(original).split('/').pop();
-    if (!/^DSC[0-9]+[.]webp$/i.test(filename)) return original;
-    return original; // Prioritzar el WebP original de R2 en totes les vistes.
-  };
+  /* Sense cap transformació: les URL del dataset apunten al WebP original de R2. */
+  const optimizedPhoto = original => original;
   const show = i => {
     if (!album.length || !image) return;
     current = (i + album.length) % album.length;
