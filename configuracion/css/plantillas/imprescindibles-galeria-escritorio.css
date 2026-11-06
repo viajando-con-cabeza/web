@@ -480,3 +480,32 @@
     margin:12px 0 0!important;
   }
 }
+
+/* VCC · marc unificat del visor: el mosaic i la foto individual ocupen
+   exactament el mateix rectangle amb 18 px als quatre costats.
+   Desactiva els antics límits 1450px / 92dvh només a escriptori. */
+@media (min-width:801px) {
+  #vcc-desktop-gallery {
+    padding:18px!important;
+  }
+  #vcc-desktop-gallery .vcc-dg-panel {
+    width:100%!important;
+    max-width:none!important;
+    height:100%!important;
+    max-height:none!important;
+    margin:0!important;
+    box-sizing:border-box!important;
+  }
+  html body.vcc-desktop-gallery-open #lightbox.lightbox {
+    padding:18px!important;
+    box-sizing:border-box!important;
+  }
+  html body.vcc-desktop-gallery-open #lightbox.lightbox .lb-stage {
+    width:100%!important;
+    max-width:none!important;
+    height:100%!important;
+    max-height:none!important;
+    margin:0!important;
+    box-sizing:border-box!important;
+  }
+}
