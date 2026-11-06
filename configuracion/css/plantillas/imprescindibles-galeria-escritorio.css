@@ -212,7 +212,7 @@
 /* vcc-dg-unified-photo: el visor individual té exactament la mateixa
    capçalera i el mateix lateral editorial que la galeria de tres columnes.
    S'aplica exclusivament a escriptori amb galeria Booking oberta. */
-@media (min-width:801px) {
+@media screen {
   html body.vcc-desktop-gallery-open #lightbox.lightbox .lb-stage {
     width:min(1450px,calc(100vw - 60px))!important;
     height:min(92dvh,900px)!important;
@@ -400,7 +400,7 @@
 
 /* Visor individual: el zoom és el natiu del navegador, com al mosaic.
    No s'intercepta el gest de pinça ni s'aplica cap transformació a la foto. */
-@media (min-width:801px) {
+@media screen {
   html body.vcc-desktop-gallery-open #lightbox.lightbox .lb-stage > .lb-photo {
     position:relative!important;
     overflow:hidden!important;
@@ -412,7 +412,7 @@
 
 /* Foto individual en escriptori: acabat arrodonit a la imatge real,
    sense retallar l'enquadrament i sense afectar el visor mòbil. */
-@media (min-width:801px) {
+@media screen {
   html body.vcc-desktop-gallery-open #lightbox.lightbox .lb-stage > .lb-photo > .vcc-dg-rounded-matte {
     position:absolute;
     inset:0;
@@ -451,7 +451,7 @@
 
 /* Separació elegant sota la línia del títol, només en la foto
    individual d'escriptori. No afectem el mosaic, les miniatures ni el mòbil. */
-@media (min-width:801px) {
+@media screen {
   html body.vcc-desktop-gallery-open #lightbox.lightbox .lb-stage > .lb-photo {
     height:calc(100% - 12px)!important;
     max-height:calc(100% - 12px)!important;
@@ -462,7 +462,7 @@
 /* VCC · marc unificat del visor: el mosaic i la foto individual ocupen
    exactament el mateix rectangle amb 18 px als quatre costats.
    Desactiva els antics límits 1450px / 92dvh només a escriptori. */
-@media (min-width:801px) {
+@media screen {
   #vcc-desktop-gallery {
     padding:18px!important;
   }
@@ -489,7 +489,7 @@
 }
 
 /* R2 native: un sol WebP descodificat per a visor i zoom, sense fons duplicat. */
-@media (min-width:801px) {
+@media screen {
   html body.vcc-desktop-gallery-open #lightbox.lightbox .lb-photo.vcc-dg-rounded-ready {
     background-image:none!important;
   }
@@ -505,7 +505,7 @@
 }
 
 /* Cursor coherent amb el mosaic; el zoom general el gestiona el navegador. */
-@media (min-width:801px) {
+@media screen {
   html body.vcc-desktop-gallery-open #lightbox.lightbox .lb-stage > .lb-photo,
   html body.vcc-desktop-gallery-open #lightbox.lightbox .lb-stage > .lb-photo.vcc-dg-is-zoomed {
     cursor:pointer!important;
@@ -519,14 +519,20 @@
 
 /* Pan de tota la galeria quan l'usuari amplia la PÀGINA amb el navegador.
    No es modifica ni l'escala ni la qualitat de les fotografies R2. */
-@media (min-width:801px) {
+@media screen {
   html body.vcc-desktop-gallery-open #lightbox.lightbox.vcc-native-pan-enabled {
     display:block!important;
+    position:fixed!important;
+    inset:0!important;
+    padding:0!important;
     overflow:auto!important;
     overscroll-behavior:contain;
     scrollbar-width:thin;
   }
   html body.vcc-desktop-gallery-open #lightbox.lightbox.vcc-native-pan-enabled .lb-stage {
+    display:grid!important;
+    grid-template-columns:minmax(0,1fr) minmax(245px,290px)!important;
+    grid-template-rows:54px minmax(0,1fr) 30px 80px!important;
     width:var(--vcc-pan-width)!important;
     min-width:var(--vcc-pan-width)!important;
     max-width:none!important;
