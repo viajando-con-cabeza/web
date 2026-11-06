@@ -148,10 +148,28 @@
     else if(event.target===layer) closeGallery();
   });
 
-  /* Una única fotografia: la mà indica que es pot tornar al mosaic fent clic. */
-  existingStage?.querySelector('.lb-photo')?.addEventListener('click', () => {
-    if (existingLightbox?.classList.contains('open') && existingLightbox.classList.contains('vcc-dg-single')) {
+  /* Cursor de mà també a la fotografia ampliada:
+     clic per avançar; si només n'hi ha una, tornar al mosaic.
+     No dupliquem els gestos d'arrossegar que ja té el visor. */
+  const enlargedPhoto = existingStage?.querySelector('.lb-photo');
+  let photoPointerStart = null;
+  let photoWasDragged = false;
+  enlargedPhoto?.addEventListener('pointerdown', event => {
+    photoPointerStart = {x:event.clientX,y:event.clientY};
+    photoWasDragged = false;
+  });
+  enlargedPhoto?.addEventListener('pointerup', event => {
+    if (!photoPointerStart) return;
+    photoWasDragged = Math.hypot(event.clientX-photoPointerStart.x,event.clientY-photoPointerStart.y)>9;
+    photoPointerStart = null;
+  });
+  enlargedPhoto?.addEventListener('click', () => {
+    if (!existingLightbox?.classList.contains('open') || layer.hidden) return;
+    if (photoWasDragged) {photoWasDragged=false;return;}
+    if (existingLightbox.classList.contains('vcc-dg-single')) {
       window.VCCImprescindiblesLightbox?.dismiss();
+    } else {
+      existingStage?.querySelector('.lb-next')?.click();
     }
   });
 
