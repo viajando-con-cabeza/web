@@ -112,6 +112,7 @@
     image.style.removeProperty('background-image');
     if (counter) counter.textContent = '';
     focusBefore?.focus?.();
+    overlay.dispatchEvent(new CustomEvent('vcc:lightbox-closed'));
   };
   const open = (gallery, index) => {
     if (!overlay || !image || !thumbnails || !close) return;
@@ -139,6 +140,9 @@
     show(index);
     close.focus();
   };
+  /* Exposa el visor existent a la segona fase de galeria d'escriptori.
+     Manté el text lateral, el comptador, les fletxes i els WebP actuals. */
+  window.VCCImprescindiblesLightbox = {open, dismiss};
   document.querySelectorAll('.imp-main .gallery').forEach((gallery, placeIndex) => {
     const original = gallery.querySelector('.gallery-main');
     let own = [];
