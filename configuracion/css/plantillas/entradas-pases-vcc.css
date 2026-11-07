@@ -29,3 +29,103 @@
 @media(max-width:760px){.ep-wrap{width:calc(100% - 32px)}.ep-hero{min-height:350px;background-position:62% center}.ep-hero:before{background:linear-gradient(90deg,rgba(250,247,242,.98) 0%,rgba(250,247,242,.91) 57%,rgba(250,247,242,.42) 100%)}.ep-hero-inner{padding-top:15px;padding-bottom:48px}.ep-hero-copy{padding-top:56px;max-width:430px}.ep-hero h1{font-size:clamp(40px,9vw,58px)}.ep-hero-lede{font-size:15px;max-width:365px}.ep-page .ep-main{padding-top:45px}.ep-section{margin-bottom:44px}.ep-choice-grid,.ep-calculator,.ep-pass-grid{grid-template-columns:1fr}.ep-book-grid{grid-template-columns:1fr}.ep-tip-grid{grid-template-columns:1fr}.ep-faq-grid{grid-template-columns:1fr}.ep-section-heading h2{font-size:clamp(29px,5.8vw,36px)}.ep-subnav{margin-bottom:33px}}
 @media(max-width:490px){.ep-wrap{width:calc(100% - 26px)}.ep-hero{min-height:390px;background-position:69% center}.ep-hero::before{background:linear-gradient(90deg,rgba(250,247,242,.96) 0%,rgba(250,247,242,.9) 45%,rgba(250,247,242,.45))}.ep-hero h1{font-size:42px}.ep-hero-copy{padding-top:62px}.ep-hero-seal{height:53px;width:53px;bottom:-23px}.ep-choice{grid-template-columns:64px 1fr;padding:16px;gap:12px}.ep-choice-icon{width:61px;height:61px}.ep-choice-icon svg{width:38px;height:38px}.ep-choice h3{font-size:22px}.ep-attraction-list{grid-template-columns:1fr}.ep-calc-panel,.ep-calc-results{padding:19px}.ep-feature-grid{grid-template-columns:1fr}.ep-feature{display:grid;grid-template-columns:110px 1fr}.ep-feature-visual{height:auto;min-height:170px}.ep-feature-visual svg{width:58px;height:58px}.ep-feature-body{padding:14px}.ep-feature h3{font-size:20px}.ep-field-top{align-items:flex-start}.ep-season-select{max-width:130px}.ep-book-item{padding:16px;gap:11px}.ep-book-badge{width:41px;height:41px}.ep-pass-card{padding:19px}}
 @media(prefers-reduced-motion:reduce){.ep-page *{scroll-behavior:auto!important;transition:none!important}}
+
+
+/* VCC 2026-11-07 · El subheader de Entradas y pases comparte geometría
+   con las guías de Estocolmo: barra blanca a ancho total justo bajo el hero. */
+html body .ep-page .ep-hero{
+  min-height:560px;
+  background-color:#eee6da;
+  background-image:url('/configuracion/imagenes/fondos/fondos-entradas-y-pases-editorial.webp');
+  background-position:center center;
+  background-repeat:no-repeat;
+  background-size:cover;
+}
+html body .ep-page .ep-hero .ep-hero-inner{
+  min-height:560px;
+  padding-top:23px;
+  padding-bottom:54px;
+}
+html body .ep-page .ep-hero .ep-hero-copy{
+  padding-top:91px;
+}
+html body .ep-page .ep-hero .ep-kicker{font-size:27px;letter-spacing:0}
+html body .ep-page .ep-hero .ep-hero-seal{z-index:80}
+html body .ep-page .ep-subnav{
+  position:sticky;
+  top:var(--ep-header-height,50px);
+  z-index:75;
+  width:100%;
+  max-width:none;
+  height:43px;
+  min-height:43px;
+  max-height:43px;
+  display:flex;
+  flex-wrap:nowrap;
+  justify-content:flex-start;
+  align-items:center;
+  gap:34px;
+  margin:0;
+  padding:0 max(24px,calc((100vw - 1180px)/2));
+  background:#fff;
+  border:0;
+  border-top:1px solid #e8e8e8;
+  border-bottom:1px solid #e8e8e8;
+  overflow-x:auto;
+  overflow-y:hidden;
+  white-space:nowrap;
+  scrollbar-width:none;
+  box-sizing:border-box;
+}
+html body .ep-page .ep-subnav::-webkit-scrollbar{display:none}
+html body .ep-page .ep-subnav a{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  flex:0 0 auto;
+  height:43px;
+  min-height:43px;
+  margin:0;
+  padding:0;
+  border:0;
+  border-radius:0;
+  border-bottom:3px solid transparent;
+  background:transparent;
+  font:800 11px/1 'DM Sans',sans-serif;
+  color:#171717;
+  letter-spacing:0;
+  text-decoration:none;
+  white-space:nowrap;
+  transition:color .15s,border-color .15s;
+}
+html body .ep-page .ep-subnav a:hover,
+html body .ep-page .ep-subnav a[aria-current="location"]{
+  color:#a65340;
+  border-bottom-color:#cf705c;
+  background:transparent;
+}
+html body .ep-page .ep-main{padding-top:40px}
+html body .ep-page :is(#comparar,#calculadora,#atracciones,#antelacion,#tipos,#ahorrar){
+  scroll-margin-top:calc(var(--ep-header-height,50px) + 59px);
+}
+@media(max-width:1050px){
+  html body .ep-page .ep-hero,
+  html body .ep-page .ep-hero .ep-hero-inner{min-height:505px}
+  html body .ep-page .ep-hero .ep-hero-copy{padding-top:76px}
+}
+@media(max-width:720px){
+  html body .ep-page .ep-hero,
+  html body .ep-page .ep-hero .ep-hero-inner{min-height:465px}
+  html body .ep-page .ep-hero{background-position:58% center}
+  html body .ep-page .ep-hero .ep-hero-copy{padding-top:63px}
+  html body .ep-page .ep-hero .ep-kicker{font-size:24px}
+  html body .ep-page .ep-subnav{padding:0 14px;gap:25px}
+  html body .ep-page .ep-subnav a{font-size:11px}
+}
+@media(max-width:490px){
+  html body .ep-page .ep-hero,
+  html body .ep-page .ep-hero .ep-hero-inner{min-height:465px}
+  html body .ep-page .ep-hero{background-position:62% center}
+  html body .ep-page .ep-hero .ep-hero-copy{padding-top:67px}
+  html body .ep-page .ep-subnav{gap:21px}
+}
