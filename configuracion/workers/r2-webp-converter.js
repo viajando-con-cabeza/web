@@ -175,7 +175,7 @@ async function convertAndDeleteOne(env,key,prefix){
   return {deleted:key,avif:target,converted:!alreadyVerified,reusedVerifiedAvif:alreadyVerified};
 }
 
-const AI_VERSION='vcc-ai-locations-v2';
+const AI_VERSION='vcc-ai-locations-v3';
 const AI_MODEL='@cf/meta/llama-4-scout-17b-16e-instruct';
 const clampScore=v=>Math.max(0,Math.min(100,Math.round(Number(v)||0)));
 const safeAiText=(v,n=220)=>String(v==null?'':v).replace(/[\u0000-\u001f]/g,' ').trim().slice(0,n);
@@ -203,8 +203,8 @@ async function aiReviewOne(env,key,prefix,etag,context,force){
  const cacheKey='__vcc_ai_reviews__/'+key+'.json';
  if(!force){
    const cache=await env.BUCKET.get(cacheKey);
-   if(cache&&cache.size<160000){
-     try{const data=await cache.json();if(data.version===AI_VERSION&&data.etag===etag&&data.context===hint&&data.thumbnail&&data.category&&data.kind)return {...data,cached:true}}catch{}
+   if(cache&&cache.size<=3200000){
+     try{const data=await cache.json();if(data.version===AI_VERSION&&data.key===key&&data.etag===etag&&data.context===hint&&data.thumbnail&&data.category&&data.kind&&data.thumbnail.length<3100000)return {...data,cached:true}}catch{}
    }
  }
  const original=await env.BUCKET.get(key);
@@ -215,46 +215,89 @@ async function aiReviewOne(env,key,prefix,etag,context,force){
  if(!bytes.byteLength||bytes.byteLength>2200000)throw Error('Miniatura demasiado grande.');
  const thumbnail='data:image/jpeg;base64,'+base64Bytes(bytes);
  const prompt=[
-  'Clasifica esta fotografía de viaje por LUGAR, respondiendo SOLO en español.',
-  'Contexto de la carpeta (es una pista, NUNCA prueba de ubicación): '+(hint||'sin contexto')+'.',
-  'Reconoce el museo, monumento, plaza, barrio o calle EXACTO solo si la fotografía aporta evidencia distintiva y tienes confianza ALTA.',
-  'No inventes nombres de calles, edificios ni lugares. Gamla Stan, Skansen, Sagrada Familia, etc., solo si se reconocen visualmente.',
-  'Si no puedes reconocer el sitio concreto con certeza, elige kind="generic", place="No identificable", confidence="baja".',
-  'Categorías genéricas válidas: Calles, Paisajes, Mar, Miradores, Bosques, Montañas, Playas, Parques, Comida, Transporte, Interiores, Arquitectura, Otros.',
-  'Ejemplos: mar sin un lugar distintivo = Mar; bosque = Bosques; calle comercial = Calles.',
-  'kind es specific o generic. confidence es alta, media o baja. category siempre debe ser una categoría permitida.',
-  'Responde con un único objeto JSON sin Markdown, con estas claves:',
-  '{"kind":"specific","place":"Museo Skansen","confidence":"alta","category":"Arquitectura","subject":"Fachada del museo","reason":"Edificio identificable","alt":"Museo Skansen exterior"}'
+  'Eres especialista en identificar visualmente lugares en fotografías para un blog de viajes. Responde SOLO en español y un JSON.',
+  'Contexto indicado: '+(hint||'no facilitado')+'. Es una PISTA, nunca demuestra el lugar.',
+  'Decide primero si hay evidencia visual específica e inequívoca de museo, monumento, plaza, barrio, calle o lugar. No confundas edificios similares.',
+  'Para un sitio exacto exige un rasgo distintivo visible (letrero legible, fachada singular, monumento reconocido). Sin esa prueba NO afirmes nombre exacto.',
+  'Nunca inventes nombre de sitio. Si hay duda, kind=generic, confidence=baja y place=No identificable.',
+  'Si NO identificas sitio, clasifica lo visible en la categoría española más útil: Calles, Paisajes, Mar, Miradores, Bosques, Montañas, Playas, Parques, Comida, Transporte, Interiores, Arquitectura u Otros.',
+  'Si ni siquiera puedes reconocer la categoría, usa category=Otros. Un bosque indistinto = Bosques; mar abierto = Mar; calle comercial = Calles.',
+  'Para kind=specific exige confidence=alta, place_confidence >= 85 y visual_evidence explicando qué detalle visible prueba esa ubicación.',
+  'NO uses el nombre de la ciudad del contexto como prueba; no te limites a adivinar sitios famosos.',
+  'Un solo JSON con exactamente las claves kind (specific/generic), place, place_confidence (0-100), confidence (alta/media/baja), category, visual_evidence, subject, alt.',
+  '{"kind":"generic","place":"No identificable","place_confidence":0,"confidence":"baja","category":"Mar","visual_evidence":"","subject":"Mar abierto","alt":"Vista de mar abierto"}'
  ].join('\n');
  const response=await env.AI.run(AI_MODEL,{
     messages:[{role:'system',content:'Responde solo JSON válido en español, sin inventar ubicaciones.'},
       {role:'user',content:[{type:'text',text:prompt},{type:'image_url',image_url:{url:thumbnail}}]}],
-    temperature:0.05,max_tokens:300
+    temperature:0.05,max_tokens:290
  });
- const payload=parseAiJSON(response?.response||response?.choices?.[0]?.message?.content||'');
- const confidence=['alta','media','baja'].includes(String(payload.confidence).toLowerCase())?String(payload.confidence).toLowerCase():'baja';
- const categories=['Calles','Paisajes','Mar','Miradores','Bosques','Montañas','Playas','Parques','Comida','Transporte','Interiores','Arquitectura','Otros'];
- const raw=safeAiText(payload.category,40).normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
- const category=categories.find(x=>x.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase()===raw)||'Otros';
- const name=safeAiText(payload.place,90);
- const isSpecific=String(payload.kind).toLowerCase()==='specific'&&confidence==='alta'&&!!name&&
-  !['no identificable','desconocido','no se sabe'].includes(name.toLowerCase());
- const data={version:AI_VERSION,key,etag,context:hint,kind:isSpecific?'specific':'generic',
-  place:isSpecific?name:'No identificable',suggestion:name||'',confidence,category,
-  subject:safeAiText(payload.subject,140)||'Fotografía de viaje',
-  reason:safeAiText(payload.reason,200),alt:safeAiText(payload.alt,180),
+ const raw=response?.choices?.[0]?.message?.content??response?.response??response;
+ const parsed=aiParseClassification(raw);
+ const details=aiClassifyPayload(parsed);
+ const data={version:AI_VERSION,key,etag,context:hint,
+  ...details,reason:details.needsReview?'Revisar clasificación':'Lugar identificado visualmente',
   thumbnail,model:AI_MODEL,reviewedAt:new Date().toISOString()};
- await env.BUCKET.put(cacheKey,JSON.stringify(data),{httpMetadata:{contentType:'application/json; charset=utf-8'}});
+ try{await env.BUCKET.put(cacheKey,JSON.stringify(data),{httpMetadata:{contentType:'application/json; charset=utf-8'}})}
+ catch(e){console.warn('Caché de IA no guardada',String(e?.message||e).slice(0,150))}
  return {...data,cached:false};
 }
 
 function aiPlaceFolder(input){
- const name=String(input??'').normalize('NFC').trim().replace(/\s+/g,' ');
- if(name.length<2||name.length>72||name.includes('..')||
-   !/^[\p{L}\p{N}][\p{L}\p{N} _().'-]*$/u.test(name))
+ const text=String(input??'').trim();
+ if(!text||text.length>180||/[\/\\\u0000-\u001f\u007f]/.test(text)||text.includes('..'))
   throw Error('Nombre de carpeta inválido.');
+ const name=text.normalize('NFKD').replace(/[\u0300-\u036f]/g,'').toLowerCase()
+  .replace(/[^a-z0-9]+/g,'_').replace(/_+/g,'_').replace(/^_+|_+$/g,'')
+  .slice(0,72).replace(/_+$/,'');
+ if(name.length<2||name==='__proto__')throw Error('Nombre de carpeta inválido.');
  return name;
 }
+const AI_CATEGORIES=Object.freeze(['Calles','Paisajes','Mar','Miradores','Bosques','Montañas','Playas','Parques','Comida','Transporte','Interiores','Arquitectura','Otros']);
+function aiCategory(value){
+ const normalized=String(value??'').normalize('NFKD').replace(/[\u0300-\u036f]/g,'').trim().toLowerCase();
+ const match=AI_CATEGORIES.find(x=>x.normalize('NFKD').replace(/[\u0300-\u036f]/g,'').toLowerCase()===normalized);
+ if(match)return match;
+ const synonyms={calle:'Calles',callejon:'Calles',pueblo:'Calles',ciudad:'Calles',urbano:'Calles',
+  paisaje:'Paisajes',naturaleza:'Paisajes',campo:'Paisajes',verde:'Paisajes',vegetacion:'Paisajes',
+  oceano:'Mar',costa:'Mar',agua:'Mar',vista_mar:'Mar',mirador:'Miradores',panoramica:'Miradores',
+  bosque:'Bosques',arboles:'Bosques',selva:'Bosques',montana:'Montañas',montes:'Montañas',
+  playa:'Playas',arena:'Playas',parque:'Parques',jardin:'Parques',
+  restaurante:'Comida',gastronomia:'Comida',alimentos:'Comida',
+  autobus:'Transporte',barco:'Transporte',tren:'Transporte',avion:'Transporte',
+  interior:'Interiores',habitacion:'Interiores',edificio:'Arquitectura',monumento:'Arquitectura',
+  desconocido:'Otros',no_identificable:'Otros',otro:'Otros'};
+ const key=normalized.replace(/[^a-z0-9]+/g,'_');
+ return synonyms[key]||'Otros';
+}
+function aiParseClassification(raw){
+ try{return parseAiJSON(raw)}catch{return null}
+}
+function aiClassifyPayload(payload){
+ if(!payload||typeof payload!=='object'||Array.isArray(payload))
+  return {kind:'generic',place:'No identificable',category:'Otros',confidence:'baja',
+   evidence:'',subject:'Imagen sin clasificación automática',needsReview:true};
+ const category=aiCategory(payload.category),conf=String(payload.confidence||'').toLowerCase();
+ const confidence=['alta','media','baja'].includes(conf)?conf:'baja';
+ const place=safeAiText(payload.place,96),evidence=safeAiText(payload.visual_evidence,150);
+ const value=Number(payload.place_confidence);
+ const percent=Number.isFinite(value)?value:0;
+ const genericNames=new Set(['no identificable','desconocido','no se sabe','sin determinar','lugar desconocido',
+  'ciudad','calle','bosque','mar','paisaje','arquitectura','pueblo','parque','otros']);
+ let candidate=String(payload.kind||'').toLowerCase()==='specific'&&confidence==='alta'&&
+  percent>=85&&evidence.length>=12&&place.length>=3&&!genericNames.has(place.toLowerCase());
+ let label='';
+ if(candidate){try{label=aiPlaceFolder(place)}catch{candidate=false}}
+ // A generic category or name cannot masquerade as an exact landmark.
+ if(label&&AI_CATEGORIES.some(cat=>{try{return aiPlaceFolder(cat)===label}catch{return false}}))
+  candidate=false;
+ return {kind:candidate?'specific':'generic',place:candidate?place:'No identificable',
+  category,confidence:candidate?'alta':confidence,
+  evidence:candidate?evidence:'',subject:safeAiText(payload.subject,140)||'Imagen de viaje',
+  needsReview:!candidate||percent<94,placeConfidence:Math.min(100,Math.max(0,Math.round(percent))),
+  alt:safeAiText(payload.alt,180)};
+}
+
 async function movePhotoToPlace(env,prefix,key,etag,folder,confirmed){
  if(confirmed!==true)throw Error('Confirma la organización de fotografías.');
  assertImageKey(key,prefix);
