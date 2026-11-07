@@ -40,6 +40,33 @@
     window.addEventListener('resize',requestSync,{passive:true});
     requestAnimationFrame(sync);
   }
+
+  // Resaltar la sección visible del subheader, con los mismos enlaces de ancla.
+  const navLinks=[...root.querySelectorAll('.dv-subnav a[href^="#"]')];
+  const sections=navLinks.map(a=>document.getElementById(a.getAttribute('href').slice(1)));
+  if(navLinks.length&&sections.every(Boolean)){
+    let pendingNav=false;
+    const syncNav=()=>{
+      pendingNav=false;
+      const bar=root.querySelector('.dv-subnav');
+      const threshold=(bar?.getBoundingClientRect().bottom||90)+35;
+      let activeIndex=0;
+      sections.forEach((section,i)=>{if(section.getBoundingClientRect().top<=threshold)activeIndex=i});
+      navLinks.forEach((link,i)=>{
+        if(i===activeIndex)link.setAttribute('aria-current','location');
+        else link.removeAttribute('aria-current');
+      });
+    };
+    const requestNav=()=>{if(!pendingNav){pendingNav=true;requestAnimationFrame(syncNav)}};
+    window.addEventListener('scroll',requestNav,{passive:true});
+    window.addEventListener('resize',requestNav,{passive:true});
+    navLinks.forEach(a=>a.addEventListener('click',()=>{
+      navLinks.forEach(n=>n.removeAttribute('aria-current'));
+      a.setAttribute('aria-current','location');
+    }));
+    requestAnimationFrame(syncNav);
+  }
+
   const map=root.querySelector('[data-dv-map]');
   const mapLink=root.querySelector('[data-dv-map-link]');
   if(map){
