@@ -10,7 +10,9 @@
     if (!sections.length) return;
     function updateHeaderHeight() {
       const header = document.querySelector(".shared-header") || document.querySelector(".page-header");
-      const height = header ? Math.round(header.getBoundingClientRect().height) : 0;
+      const headerPosition = header ? window.getComputedStyle(header).position : "static";
+      const height = header && (headerPosition === "sticky" || headerPosition === "fixed")
+        ? Math.round(header.getBoundingClientRect().height) : 0;
       document.documentElement.style.setProperty("--mv-header-height", height + "px");
       return height;
     }
