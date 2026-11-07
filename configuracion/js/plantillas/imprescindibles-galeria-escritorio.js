@@ -381,7 +381,8 @@
     const active=activeViewport();
     const currentZoom=zoomRatio();
     const zoomed=currentZoom>1.025;
-    const firstZoom=zoomed&&!zoomWasActive;
+    const wasZoomed=zoomWasActive;
+    const firstZoom=zoomed&&!wasZoomed;
     previousZoomRatio=currentZoom;
     zoomWasActive=zoomed;
     layer.classList.toggle('vcc-mosaic-native-zoom',zoomed);
@@ -390,10 +391,19 @@
       modal.classList.toggle('vcc-zoom-pan-enabled',zoomed);
     }
     if(!zoomed){
-      // La notificació de wheel pot arribar abans del canvi de zoom
-      // natiu a Edge. No perdem l'ancoratge prematurament.
-      if(pendingZoomAnchor)return;
+      // Edge pot enviar Ctrl+wheel ABANS que el navegador ampliï el
+      // viewport. En aquest únic cas conservem breument l'ancoratge.
+      // Però si ja estàvem ampliats i tornem al zoom original, el pan
+      // s'ha de reiniciar SENSE esperar: l'antic "if(anchor)return"
+      // deixava el mosaic/hero descentrat després de reduir el zoom.
+      if(pendingZoomAnchor && !wasZoomed)return;
       resetPan();
+      // El restabliment inclou els dos modal, no només el que és visible.
+      // El layout posterior a la roda també ha de conservar l'origen.
+      if(wasZoomed)requestAnimationFrame(()=>{
+        if(layer.hidden || zoomRatio()>1.025)return;
+        resetPan();
+      });
       return;
     }
     for(const modal of [layer,existingLightbox]){
