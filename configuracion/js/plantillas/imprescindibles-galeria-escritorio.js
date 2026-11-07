@@ -262,6 +262,14 @@
   // Suport a Edge quan el zoom amplia visualment el contingut però el
   // scrollWidth del visor no creix. Només es trasllada el panell, MAI s'escala.
   const fallbackOffsets={mosaic:{x:0,y:0},photo:{x:0,y:0}};
+  // Abans començàvem sempre a (0,0): només podíem avançar a dreta/avall.
+  // Iniciem el recorregut sobre el punt ampliat, amb marge en els dos sentits.
+  const panInitialized={mosaic:false,photo:false};
+  let zoomPointer={x:.5,y:.5};
+  const resetPanInitialization=()=>{
+    panInitialized.mosaic=false;
+    panInitialized.photo=false;
+  };
   const clamp=(value,min,max)=>Math.max(min,Math.min(max,value));
   const resetHoverPan=()=>{
     lastHoverPan=null;
@@ -295,7 +303,11 @@
     // sempre és 100vw × 100dvh: no es redimensiona artificialment.
     const zoomed=zoomRatio()>1.025;
     layer.classList.toggle('vcc-mosaic-native-zoom',zoomed);
-    if(!zoomed)clearFallbackPan();
+    if(!zoomed){
+      clearFallbackPan();
+      resetPanInitialization();
+      resetHoverPan();
+    }
   };
   const queueMosaicZoomSync=()=>{
     if(zoomSyncPending)return;
@@ -352,6 +364,34 @@
       (-state.y).toFixed(2)+'px,0)','important');
     return true;
   };
+  const initializeCenteredPan=modal=>{
+    if(!modal || zoomRatio()<=1.025)return;
+    const kind=modal===layer?'mosaic':'photo';
+    if(panInitialized[kind])return;
+    panInitialized[kind]=true;
+    const overX=Math.max(0,modal.scrollWidth-modal.clientWidth);
+    const overY=Math.max(0,modal.scrollHeight-modal.clientHeight);
+    const backup=fallbackPanInfo(modal);
+    // Restringim el punt focal a la zona central del recorregut:
+    // permet anar també cap a l'esquerra i amunt després de fer zoom.
+    const originX=clamp(zoomPointer.x,.3,.7);
+    const originY=clamp(zoomPointer.y,.3,.7);
+    modal.scrollLeft=overX*originX;
+    modal.scrollTop=overY*originY;
+    if(backup){
+      const state=fallbackOffsets[kind];
+      state.x=overX<=2 ? backup.rangeX*originX : 0;
+      state.y=overY<=2 ? backup.rangeY*originY : 0;
+      if(state.x || state.y){
+        backup.panel.style.setProperty('transform',
+          'translate3d('+(-state.x).toFixed(2)+'px,'+
+          (-state.y).toFixed(2)+'px,0)','important');
+      }
+    }
+    // El primer moviment després del zoom només estableix referència;
+    // no provoca un segon salt per diferències d'escala.
+    resetHoverPan();
+  };
   // A l'Edge no suposem que innerWidth, DPR o visualViewport reflecteixen
   // immediatament el zoom del navegador. La condició real és que el visor
   // contingui parts fora de la pantalla: scrollWidth > clientWidth.
@@ -378,6 +418,8 @@
     if(typeof event.buttons==='number' && event.buttons!==0)return;
     const modal=currentGalleryViewport();
     if(!modal)return;
+    if(zoomRatio()>1.025 && !panInitialized[modal===layer?'mosaic':'photo'])
+      initializeCenteredPan(modal);
     const overX=Math.max(0,modal.scrollWidth-modal.clientWidth);
     const overY=Math.max(0,modal.scrollHeight-modal.clientHeight);
     // Amb zoom normal usem scroll. Quan Edge fa zoom només de DPR
@@ -422,6 +464,14 @@
     if(layer.hidden || !(event.ctrlKey||event.metaKey))return;
     const delta=clamp(event.deltaY,-120,120);
     zoomWheelFallback=clamp(zoomWheelFallback-delta*.001,1,4);
+    // Cursor dins del viewport al moment de fer zoom: punt focal.
+    // No el resetejem quan augmentem el zoom consecutivament.
+    if(!panInitialized.mosaic && !panInitialized.photo){
+      zoomPointer={
+        x:clamp(event.clientX/Math.max(1,window.innerWidth),0,1),
+        y:clamp(event.clientY/Math.max(1,window.innerHeight),0,1)
+      };
+    }
     resetHoverPan();
     requestAnimationFrame(()=>requestAnimationFrame(queueMosaicZoomSync));
   },{capture:true,passive:true});
@@ -434,6 +484,7 @@
   const clearNativeGalleryLayout=()=>{
     resetHoverPan();
     clearFallbackPan();
+    resetPanInitialization();
     layer.classList.remove('vcc-mosaic-native-zoom','vcc-gallery-viewport');
     existingLightbox?.classList.remove('vcc-gallery-viewport');
     const root=document.documentElement;
@@ -449,6 +500,8 @@
   const startPanBaseline=()=>{
     resetHoverPan();
     clearFallbackPan();
+    resetPanInitialization();
+    zoomPointer={x:.5,y:.5};
     zoomWheelFallback=1;
     const root=document.documentElement;
     viewportBaseline={
