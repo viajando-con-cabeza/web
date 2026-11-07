@@ -90,8 +90,8 @@
     if(existingLightbox){
       const source=panState.mosaic,dest=panState.photo;
       const lim=panLimits(existingLightbox);
-      dest.x=clamp(source.x,0,lim.x);
-      dest.y=clamp(source.y,0,lim.y);
+      dest.x=clamp(source.x,lim.minX,lim.x);
+      dest.y=clamp(source.y,lim.minY,lim.y);
       paintPan(existingLightbox);
     }
     syncViewerPan();
@@ -307,19 +307,23 @@
       viewportBaseline?.h/zoom||rect.height));
     // Sense límits dividits per dos: no podem empènyer el contingut
     // més enllà de les seves vores i deixar espais buits.
-    return {
-      x:Math.max(0,panel.offsetWidth+36-visibleW),
-      y:Math.max(0,panel.offsetHeight+36-visibleH)
-    };
+    const x=Math.max(0,panel.offsetWidth+36-visibleW);
+    const y=Math.max(0,panel.offsetHeight+36-visibleH);
+    // L'ancoratge fidel al cursor pot deixar-nos exactament a l'origen
+    // (0,0). En aquest punt, un rang [0,max] bloqueja amunt/esquerra.
+    // Afegim un petit recorregut elàstic NEGATIU que NO modifica la
+    // posició inicial del zoom. Només s'utilitza si el ratolí es mou.
+    const leftReach=Math.min(x*.25,Math.min(120,visibleW*.13));
+    const topReach=Math.min(y*.25,Math.min(100,visibleH*.13));
+    return {x,y,minX:-leftReach,minY:-topReach};
   };
-  // El zoom s'ancora exactament al punt del cursor. No recentrem
-  // ni reservem 140/110px artificialment, perquè desviava el punt.
-  const PAN_SENSITIVITY=1.4;
+  // El zoom continua ancorat al punt exacte. Moviment una mica més viu.
+  const PAN_SENSITIVITY=1.45;
   const paintPan=modal=>{
     const panel=panelOf(modal);
     if(!panel)return;
     const state=panState[modeOf(modal)];
-    if(state.x<.05 && state.y<.05){
+    if(Math.abs(state.x)<.05 && Math.abs(state.y)<.05){
       panel.style.removeProperty('transform');
     } else {
       panel.style.setProperty('transform',
@@ -367,8 +371,8 @@
     const x=anchor.pointerX*window.innerWidth/anchor.viewportW;
     const y=anchor.pointerY*window.innerHeight/anchor.viewportH;
     const state=panState[modeOf(modal)];
-    state.x=clamp(18+anchor.pointX-x,0,bounds.x);
-    state.y=clamp(18+anchor.pointY-y,0,bounds.y);
+    state.x=clamp(18+anchor.pointX-x,bounds.minX,bounds.x);
+    state.y=clamp(18+anchor.pointY-y,bounds.minY,bounds.y);
     pendingZoomAnchor=null;
     lastMouse=null;
     return true;
@@ -407,12 +411,12 @@
         const beforeY=latestPointer?.kind===modeOf(modal)
           ?latestPointer.y:viewportBaseline.h/2;
         const fraction=1-1/Math.max(1,currentZoom);
-        state.x=clamp(beforeX*fraction,0,bounds.x);
-        state.y=clamp(beforeY*fraction,0,bounds.y);
+        state.x=clamp(beforeX*fraction,bounds.minX,bounds.x);
+        state.y=clamp(beforeY*fraction,bounds.minY,bounds.y);
         resetHoverPan();
       }else{
-        state.x=clamp(state.x,0,bounds.x);
-        state.y=clamp(state.y,0,bounds.y);
+        state.x=clamp(state.x,bounds.minX,bounds.x);
+        state.y=clamp(state.y,bounds.minY,bounds.y);
       }
       paintPan(modal);
     }
@@ -432,8 +436,8 @@
     pendingDx=pendingDy=0;
     if(!modal||zoomRatio()<=1.025)return;
     const state=panState[modeOf(modal)],lim=panLimits(modal);
-    state.x=clamp(state.x+dx,0,lim.x);
-    state.y=clamp(state.y+dy,0,lim.y);
+    state.x=clamp(state.x+dx,lim.minX,lim.x);
+    state.y=clamp(state.y+dy,lim.minY,lim.y);
     paintPan(modal);
   };
   const onGalleryMouseMove=event=>{
@@ -547,8 +551,8 @@
     if(existingLightbox){
       const source=panState.photo,dest=panState.mosaic;
       const lim=panLimits(layer);
-      dest.x=clamp(source.x,0,lim.x);
-      dest.y=clamp(source.y,0,lim.y);
+      dest.x=clamp(source.x,lim.minX,lim.x);
+      dest.y=clamp(source.y,lim.minY,lim.y);
       paintPan(layer);
     }
     layer.setAttribute('aria-hidden','false');
