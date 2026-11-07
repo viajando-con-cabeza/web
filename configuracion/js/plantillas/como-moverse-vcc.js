@@ -5,7 +5,7 @@ const modes=[
 {id:"walk",name:"A pie",icon:"apie",price:"Gratis"},
 {id:"metro",name:"Metro",icon:"metro",price:"43 SEK · 75 min"},
 {id:"bike",name:"Bicicleta",icon:"bicicleta",price:"Alquiler variable"},
-{id:"bus",name:"Autobús",icon:"autobus",price:"43 SEK · SL"},
+{id:"bus",name:"Bus / tranvía",icon:"autobus",price:"43 SEK · SL"},
 {id:"ferry",name:"Ferry",icon:"ferry",price:"SL u otra tarifa"},
 {id:"car",name:"Coche",icon:"coche",price:"Parking + gasolina"}];
 const areas={
@@ -25,7 +25,7 @@ function show(id,moveFocus=false){const a=areas[id]||areas.gamla;
  byId("cm-zone-name").textContent=a.title;byId("cm-zone-summary").textContent=a.summary;byId("cm-zone-reach").textContent=a.reach;byId("cm-zone-visit").textContent=a.visit;byId("cm-tip-title").textContent=a.tipTitle;byId("cm-tip-text").textContent=a.tip;
  photo.src=asset+"zonas/"+(id==="gamla"?"detalle-gamla-stan":a.picture)+".webp";photo.alt="Zona de "+a.title+" en Estocolmo";
  recs.innerHTML=a.pick.map(([id,name,desc])=>'<div class="cm-reco"><img src="'+icon(id)+'" width="30" height="30" alt=""><strong>'+enc(name)+'</strong><small>'+enc(desc)+'</small></div>').join("");
- grid.innerHTML=modes.map(m=>{const r=a.ratings[m.id],yes=r[0]===1,best=a.pick.some(p=>p[0]===m.id);return '<article class="cm-mode'+(best?' is-recommended':'')+'"><div class="cm-mode-head"><img src="'+icon(m.id)+'" width="31" height="31" alt=""><div><strong>'+enc(m.name)+'</strong><div class="cm-mode-cost">'+enc(m.price)+'</div></div></div><div class="cm-mode-benefit"><span class="cm-mode-symbol'+(!yes?' is-neutral':'')+'" aria-label="'+(yes?'Ventaja':'Inconveniente')+'">'+(yes?'✓':'−')+'</span><span>'+enc(r[1])+'</span>'+(best?'<span class="cm-mode-value">VCC</span>':'')+'</div></article>'}).join("");
+ grid.innerHTML=modes.map(m=>{const r=a.ratings[m.id],yes=r[0]===1,best=a.pick.some(p=>p[0]===m.id||(p[0]==="tranvia"&&m.id==="bus"));return '<article class="cm-mode'+(best?' is-recommended':'')+'"><div class="cm-mode-head"><img src="'+icon(m.id)+'" width="31" height="31" alt=""><div><strong>'+enc(m.name)+'</strong><div class="cm-mode-cost">'+enc(m.price)+'</div></div></div><div class="cm-mode-benefit"><span class="cm-mode-symbol'+(!yes?' is-neutral':'')+'" aria-label="'+(yes?'Ventaja':'Inconveniente')+'">'+(yes?'✓':'−')+'</span><span>'+enc(r[1])+'</span>'+(best?'<span class="cm-mode-value">VCC</span>':'')+'</div></article>'}).join("");
  try{const u=new URL(window.location.href);u.searchParams.set("zona",id);window.history.replaceState(null,"",u.pathname+u.search+u.hash)}catch(e){}
 }
 root.addEventListener("click",e=>{const b=e.target.closest("[data-zone]");if(b)show(b.dataset.zone)});
