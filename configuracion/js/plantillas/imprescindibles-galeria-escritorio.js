@@ -262,7 +262,7 @@
   // només el mosaic o la foto, sense clics, fins als seus límits reals.
   let viewportBaseline=null;
   let zoomSyncQueued=false;
-  let lastMouse=null;
+  let panGestureBase=null;
   let latestPointer=null;
   let panFrame=0;
   let pendingDx=0,pendingDy=0;
@@ -332,7 +332,7 @@
     }
   };
   const resetHoverPan=()=>{
-    lastMouse=null;
+    panGestureBase=null;
     pendingDx=pendingDy=0;
     if(panFrame){cancelAnimationFrame(panFrame);panFrame=0;}
   };
@@ -374,7 +374,7 @@
     state.x=clamp(18+anchor.pointX-x,bounds.minX,bounds.x);
     state.y=clamp(18+anchor.pointY-y,bounds.minY,bounds.y);
     pendingZoomAnchor=null;
-    lastMouse=null;
+    resetHoverPan();
     return true;
   };
   const syncZoom=()=>{
@@ -432,42 +432,39 @@
   const flushPan=()=>{
     panFrame=0;
     const modal=activeViewport();
-    const dx=pendingDx,dy=pendingDy;
-    pendingDx=pendingDy=0;
     if(!modal||zoomRatio()<=1.025)return;
     const state=panState[modeOf(modal)],lim=panLimits(modal);
-    state.x=clamp(state.x+dx,lim.minX,lim.x);
-    state.y=clamp(state.y+dy,lim.minY,lim.y);
+    // Sempre ens posicionem respecte del MATEIX origen de ratolí.
+    // Quan el cursor torna al punt inicial, el pan torna exactament,
+    // fins i tot si abans havia arribat al límit elàstic negatiu.
+    state.x=clamp(pendingDx,lim.minX,lim.x);
+    state.y=clamp(pendingDy,lim.minY,lim.y);
     paintPan(modal);
   };
   const onGalleryMouseMove=event=>{
-    if(event.type==='pointermove' && event.pointerType && event.pointerType!=='mouse')return;
-    if(typeof event.buttons==='number' && event.buttons!==0)return;
+    if(event.type==='pointermove'&&event.pointerType&&event.pointerType!=='mouse')return;
+    if(typeof event.buttons==='number'&&event.buttons!==0)return;
     const modal=activeViewport();
     if(!modal)return;
     const now={kind:modeOf(modal),x:event.clientX,y:event.clientY,
       sx:event.screenX,sy:event.screenY};
     latestPointer=now;
     if(zoomRatio()<=1.025){resetHoverPan();return;}
-    const prev=lastMouse;
-    lastMouse=now;
-    if(!prev||prev.kind!==now.kind)return;
-    // Preferim coordenades CSS del mateix viewport. La posició de
-    // screenX/Y serveix de reserva quan Edge no actualitza clientX/Y.
-    let dx=now.x-prev.x,dy=now.y-prev.y;
-    if(Math.abs(dx)<.1 && Number.isFinite(now.sx) && Number.isFinite(prev.sx))
-      dx=(now.sx-prev.sx)/Math.max(1,zoomRatio());
-    if(Math.abs(dy)<.1 && Number.isFinite(now.sy) && Number.isFinite(prev.sy))
-      dy=(now.sy-prev.sy)/Math.max(1,zoomRatio());
+    if(!panGestureBase||panGestureBase.kind!==now.kind){
+      const state=panState[now.kind];
+      panGestureBase={...now,panX:state.x,panY:state.y};
+      return;
+    }
+    // Distància absoluta respecte al primer moviment, sense acumular
+    // errors ni perdre el recorregut contrari en tocar un límit.
+    let dx=now.x-panGestureBase.x,dy=now.y-panGestureBase.y;
+    if(Math.abs(dx)<.1&&Number.isFinite(now.sx)&&Number.isFinite(panGestureBase.sx))
+      dx=(now.sx-panGestureBase.sx)/Math.max(1,zoomRatio());
+    if(Math.abs(dy)<.1&&Number.isFinite(now.sy)&&Number.isFinite(panGestureBase.sy))
+      dy=(now.sy-panGestureBase.sy)/Math.max(1,zoomRatio());
     if(!Number.isFinite(dx)||!Number.isFinite(dy))return;
-    // Abans ignoràvem TOT el moviment si el ratolí avançava més de 140px
-    // en un event. A Edge passa sovint després de Ctrl+rodeta i sembla
-    // que la galeria no es pugui moure. Ara el limitem, no l'anul·lem.
-    dx=clamp(dx,-140,140);
-    dy=clamp(dy,-140,140);
-    if(Math.abs(dx)<.1&&Math.abs(dy)<.1)return;
-    pendingDx+=dx*PAN_SENSITIVITY;
-    pendingDy+=dy*PAN_SENSITIVITY;
+    pendingDx=panGestureBase.panX+dx*PAN_SENSITIVITY;
+    pendingDy=panGestureBase.panY+dy*PAN_SENSITIVITY;
     if(!panFrame)panFrame=requestAnimationFrame(flushPan);
   };
   window.addEventListener('resize',()=>{resetHoverPan();queueMosaicZoomSync();},{passive:true});
