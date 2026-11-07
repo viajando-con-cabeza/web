@@ -300,6 +300,7 @@ td.path{overflow-wrap:anywhere;max-width:280px}
 <button id="removeBtn" class="danger" disabled onclick="removeDuplicates()">Eliminar seleccionadas</button></section>
 <section class="card"><h2>4. Conversión AVIF</h2>
 <p>Calidad <b>85</b> · Resolución original.</p>
+<p class="muted small">Ajustes de color automáticos: brillo <b>+12%</b> · contraste <b>−1,6%</b> · saturación <b>+0,8%</b>.</p>
 <p class="muted small">El JPG solo se borra tras verificar el AVIF.</p>
 <button id="convertBtn" disabled onclick="convertAll()">Convertir JPG → AVIF</button><button id="convertStopBtn" class="secondary" disabled onclick="stopProcess('convert')">Detener</button>
 <p id="convertSummary" class="muted" role="status" aria-live="polite"></p></section>
