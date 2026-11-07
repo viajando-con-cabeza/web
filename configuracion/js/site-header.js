@@ -4,7 +4,7 @@
   const url = (path) => new URL(path, siteRoot).href;
   // Un único estilo para la ruta de navegación (Inicio > Destinos > país > ciudad > guía).
   // Cada página conserva sus enlaces, mientras se unifican tamaños y espacios.
-  if (!document.querySelector('link[data-vcc-shared-breadcrumb]')) {
+  if (!document.querySelector('link[data-vcc-shared-breadcrumb],link[href*="breadcrumb-vcc-global.css"]')) {
     const breadcrumbStyle=document.createElement('link');
     breadcrumbStyle.rel='stylesheet';
     breadcrumbStyle.dataset.vccSharedBreadcrumb='true';
