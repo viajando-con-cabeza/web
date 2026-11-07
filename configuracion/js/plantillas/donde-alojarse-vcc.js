@@ -4,6 +4,18 @@
   'use strict';
   const root=document.querySelector('[data-dv-root]');
   if(!root) return;
+  // Si GitHub Raw falla temporalmente, usar el mismo WebP del despliegue local.
+  const heroImage=root.querySelector('.dv-hero-photo[data-local-fallback]');
+  if(heroImage){
+    const fallback=()=>{
+      const local=heroImage.dataset.localFallback;
+      if(local&&heroImage.getAttribute('src')!==local){
+        heroImage.setAttribute('src',local);
+      }
+    };
+    heroImage.addEventListener('error',fallback,{once:true});
+    if(heroImage.complete&&!heroImage.naturalWidth)fallback();
+  }
   const scroller=root.querySelector('[data-dv-scroller]');
   const cards=Array.from(root.querySelectorAll('[data-dv-card]'));
   const prev=root.querySelector('[data-dv-prev]');
