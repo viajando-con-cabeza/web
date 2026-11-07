@@ -705,6 +705,35 @@ function renderAiResults(){
  q('aiMoreBtn').style.display=rows.length>visible.length?'inline-flex':'none';
  updateButtons();
 }
+// AI transient failures are retried slowly with a smaller image, not three
+// immediate calls to a Worker isolate that may be short on resources.
+function aiTemporaryFailure(error){
+ const reason=String(error?.message||error);
+ return /HTTP\s*(?:429|500|502|503|504|520|522|524|1102)\b|resource limits|worker exceeded|too many requests|timed? out|red|network|fetch failed|failed to fetch|no se pudo conectar|temporalmente|overload/i.test(reason);
+}
+async function aiWait(ms){
+ for(let elapsed=0;elapsed<ms&&!stopped;elapsed+=400)
+  await new Promise(resolve=>setTimeout(resolve,Math.min(400,ms-elapsed)));
+}
+async function aiAnalyzeWithRecovery(f,context,force,index,total){
+ let last;
+ for(let attempt=0;attempt<4&&!stopped;attempt++){
+  try{
+   return await api({mode:'ai-review',prefix:currentPrefix,key:f.key,etag:f.etag,
+    context,force,compact:attempt>0});
+  }catch(error){
+   last=error;
+   if(!aiTemporaryFailure(error)||attempt===3)throw error;
+   const ms=[4000,11000,22000][attempt];
+   const seconds=Math.round(ms/1000);
+   q('aiSummary').textContent='Cloudflare ocupado · pausa '+seconds+
+    ' s · foto '+index+'/'+total+' · intento '+(attempt+2)+'/4 (modo ligero)';
+   log('Cloudflare ha limitado la IA. Reintento controlado '+(attempt+2)+'/4: '+f.key.split('/').pop()+'.');
+   await aiWait(ms);
+  }
+ }
+ throw last||Error('Identificación detenida.');
+}
 async function runAiSelection(){
  if(busy||!currentPrefix||!scanFiles.length)return;
  const photos=aiFilesForReview();
@@ -737,19 +766,20 @@ async function runAiSelection(){
    q('aiSummary').textContent='Identificando '+processed+'/'+pending.length+' · '+f.key.split('/').pop()+
     (errors.length?' · Errores '+errors.length:'');
    try{
-    const out=await api({mode:'ai-review',prefix:currentPrefix,key:f.key,etag:f.etag,context,force});
+    const out=await aiAnalyzeWithRecovery(f,context,force,processed,pending.length);
     if(out.key!==f.key||out.etag!==f.etag||!out.kind||!out.category)
      throw Error('Respuesta incompleta de identificación.');
     if(out.cached)fromCache++;
     await aiCompactThumbnail(out);
     aiRows.push(out);consecutiveErrors=0;
+    if(!out.cached&&processed<pending.length)await aiWait(650);
     if(aiRows.length%12===0||processed===pending.length)renderAiResults();
    }catch(e){
     consecutiveErrors++;
     errors.push({key:f.key,error:e.message||String(e)});
     log('IA: '+f.key+' · '+(e.message||String(e)));
     if(consecutiveErrors>=3){
-     log('IA detenida por errores consecutivos. Fotos originales intactas. Puedes continuar después.');
+     log('IA pausada por errores repetidos de Cloudflare. Resultados ya guardados y fotos intactas. Vuelve a pulsar Identificar lugares.');
      break;
     }
    }
