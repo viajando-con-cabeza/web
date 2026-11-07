@@ -91,12 +91,14 @@
       existingLightbox.scrollTop=layer.scrollTop;
     }
     syncViewerPan();
-    // En obrir una foto amb zoom ja actiu, el pan comença amb marge a
-    // les quatre direccions sense esperar al primer moviment del cursor.
-    requestAnimationFrame(()=>{
-      if(existingLightbox?.classList.contains('open'))
-        initializeCenteredPan(existingLightbox);
-    });
+    // Mateix punt del mosaic: mai recentrem la fotografia en obrir-la.
+    if(existingLightbox){
+      const src=panOffset.mosaic,dst=panOffset.photo;
+      const lim=modalBounds(existingLightbox);
+      dst.x=clamp(src.x,0,lim?.altX||0);
+      dst.y=clamp(src.y,0,lim?.altY||0);
+      paintFallback(existingLightbox);
+    }
     /* El visor ampliat comparteix títol i informació amb el mosaic previ. */
     const name = heading.textContent;
     const caption = existingStage?.querySelector('.lb-caption');
@@ -258,34 +260,30 @@
   // El fons queda fixat amb VCCGalleryScrollLock; únicament les dues
   // galeries tenen un viewport desplaçable propi. D'aquesta manera Ctrl+rodeta
   // amplia la pàgina de forma nativa sense desplaçar el contingut del blog.
+  // Navegació del zoom del navegador. Un únic sistema per mosaic i foto:
+  // 1) el navegador controla l'escala;
+  // 2) conservem el punt del cursor durant Ctrl+rodeta;
+  // 3) amb el zoom actiu, el ratolí mou el scroll intern del visor;
+  // 4) quan Edge no crea scroll intern, traslladem el mateix panell sense escalar-lo.
+  // IMPORTANT: no recentrem mai el visor a la força en iniciar el zoom.
   let viewportBaseline=null;
-  let zoomSyncPending=false;
   let zoomWheelFallback=1;
-  let lastHoverPan=null;
-  let hoverPanRaf=0;
-  let hoverPanDeltaX=0;
-  let hoverPanDeltaY=0;
-  // Suport a Edge quan el zoom amplia visualment el contingut però el
-  // scrollWidth del visor no creix. Només es trasllada el panell, MAI s'escala.
-  const fallbackOffsets={mosaic:{x:0,y:0},photo:{x:0,y:0}};
-  // Abans començàvem sempre a (0,0): només podíem avançar a dreta/avall.
-  // Iniciem el recorregut sobre el punt ampliat, amb marge en els dos sentits.
-  const panInitialized={mosaic:false,photo:false};
-  let zoomPointer={x:.5,y:.5};
-  const resetPanInitialization=()=>{
-    panInitialized.mosaic=false;
-    panInitialized.photo=false;
+  let lastZoomRatio=1;
+  let zoomAnchor=null;
+  let lastMouse=null;
+  let pointerFrame=0;
+  let panDeltaX=0,panDeltaY=0;
+  const panOffset={mosaic:{x:0,y:0},photo:{x:0,y:0}};
+  const clamp=(v,min,max)=>Math.max(min,Math.min(max,v));
+  const currentGalleryViewport=()=>{
+    if(layer.hidden || !viewportBaseline)return null;
+    return existingLightbox?.classList.contains('open')?existingLightbox:layer;
   };
-  const clamp=(value,min,max)=>Math.max(min,Math.min(max,value));
-  const resetHoverPan=()=>{
-    lastHoverPan=null;
-    hoverPanDeltaX=hoverPanDeltaY=0;
-    if(hoverPanRaf){cancelAnimationFrame(hoverPanRaf);hoverPanRaf=0;}
-  };
+  const modalKind=modal=>modal===layer?'mosaic':'photo';
+  const modalPanel=modal=>modal===layer?mosaicPanel:existingStage;
   const zoomRatio=()=>{
     if(!viewportBaseline)return 1;
-    const vv=window.visualViewport;
-    const cssZoom=parseFloat(getComputedStyle(document.documentElement).zoom)||1;
+    const vv=window.visualViewport,root=document.documentElement;
     const observed=Math.max(
       viewportBaseline.w/Math.max(1,window.innerWidth),
       viewportBaseline.h/Math.max(1,window.innerHeight),
@@ -293,208 +291,178 @@
       (vv?.scale||1)/Math.max(.01,viewportBaseline.visualScale),
       viewportBaseline.vvWidth/Math.max(1,vv?.width||window.innerWidth),
       viewportBaseline.vvHeight/Math.max(1,vv?.height||window.innerHeight),
-      cssZoom/Math.max(.01,viewportBaseline.cssZoom)
+      (parseFloat(getComputedStyle(root).zoom)||1)/Math.max(.01,viewportBaseline.cssZoom)
     );
-    // Some Edge configurations report zoom in the wheel event before their
-    // viewport measurements change. Keep a bounded fallback in that case.
-    return observed>1.025 ? observed : zoomWheelFallback;
+    return observed>1.025?observed:zoomWheelFallback;
   };
-  const currentGalleryViewport=()=>{
-    if(layer.hidden || !viewportBaseline)return null;
-    return existingLightbox?.classList.contains('open') ? existingLightbox : layer;
+  const modalBounds=modal=>{
+    const panel=modalPanel(modal);
+    if(!panel||!viewportBaseline)return null;
+    const ratio=zoomRatio();
+    const nativeX=Math.max(0,modal.scrollWidth-modal.clientWidth);
+    const nativeY=Math.max(0,modal.scrollHeight-modal.clientHeight);
+    // Només cal el pan alternatiu quan Edge no ha creat scroll intern.
+    const visibleW=Math.min(modal.clientWidth,viewportBaseline.w/Math.max(1,ratio));
+    const visibleH=Math.min(modal.clientHeight,viewportBaseline.h/Math.max(1,ratio));
+    return {panel,nativeX,nativeY,
+      altX:ratio>1.025?Math.max(0,panel.offsetWidth+36-visibleW):0,
+      altY:ratio>1.025?Math.max(0,panel.offsetHeight+36-visibleH):0};
   };
-  const updateMosaicZoomMode=()=>{
-    if(layer.hidden || !viewportBaseline)return;
-    // Només canviem el scroll interior del mosaic. El marc exterior
-    // sempre és 100vw × 100dvh: no es redimensiona artificialment.
-    const zoomed=zoomRatio()>1.025;
-    layer.classList.toggle('vcc-mosaic-native-zoom',zoomed);
-    if(!zoomed){
-      clearFallbackPan();
-      resetPanInitialization();
-      resetHoverPan();
-    } else {
-      // Fixem el punt focal MENTRE el navegador aplica el zoom.
-      // Així el primer moviment del ratolí no provoca un salt sobtat.
-      initializeCenteredPan(currentGalleryViewport());
+  const paintFallback=modal=>{
+    const panel=modalPanel(modal),state=panOffset[modalKind(modal)];
+    if(!panel)return;
+    if(Math.abs(state.x)<.1 && Math.abs(state.y)<.1)
+      panel.style.removeProperty('transform');
+    else panel.style.setProperty('transform',
+      'translate3d('+(-state.x).toFixed(2)+'px,'+(-state.y).toFixed(2)+'px,0)','important');
+  };
+  const resetHoverPan=()=>{
+    lastMouse=null;
+    panDeltaX=panDeltaY=0;
+    if(pointerFrame){cancelAnimationFrame(pointerFrame);pointerFrame=0;}
+  };
+  const resetOffsets=()=>{
+    for(const modal of [layer,existingLightbox]){
+      if(!modal)continue;
+      const state=panOffset[modalKind(modal)];
+      state.x=state.y=0;
+      modal.scrollLeft=modal.scrollTop=0;
+      modalPanel(modal)?.style.removeProperty('transform');
     }
   };
+  const updateMosaicZoomMode=()=>{
+    if(layer.hidden||!viewportBaseline)return;
+    const ratio=zoomRatio();
+    const zoomed=ratio>1.025;
+    layer.classList.toggle('vcc-mosaic-native-zoom',zoomed);
+    if(!zoomed){
+      resetOffsets();
+      resetHoverPan();
+      zoomAnchor=null;
+    } else if(zoomAnchor && Math.abs(ratio-zoomAnchor.ratio)>.025){
+      const anchor=zoomAnchor;
+      zoomAnchor=null;
+      const modal=anchor.modal;
+      if(modal && (modal===layer||modal===existingLightbox)){
+        const limits=modalBounds(modal);
+        if(limits){
+          const factor=anchor.ratio/ratio;
+          // El cursor físic queda al mateix lloc: en unitats CSS es mou
+          // de pointerX a pointerX*factor. Conservem exactament el punt de
+          // la fotografia que hi havia sota el cursor, sense recentrar.
+          const desiredX=anchor.offsetX+anchor.pointerX*(1-factor);
+          const desiredY=anchor.offsetY+anchor.pointerY*(1-factor);
+          const state=panOffset[modalKind(modal)];
+          if(limits.nativeX>2){
+            // Si el mateix navegador ja ha ajustat el scroll, el respectem:
+            // no hi afegim un segon desplaçament.
+            if(Math.abs(modal.scrollLeft-anchor.nativeX)<2)
+              modal.scrollLeft=clamp(desiredX,0,limits.nativeX);
+            state.x=0;
+          }else{
+            state.x=clamp(desiredX,0,limits.altX);
+          }
+          if(limits.nativeY>2){
+            if(Math.abs(modal.scrollTop-anchor.nativeY)<2)
+              modal.scrollTop=clamp(desiredY,0,limits.nativeY);
+            state.y=0;
+          }else{
+            state.y=clamp(desiredY,0,limits.altY);
+          }
+          paintFallback(modal);
+          resetHoverPan();
+        }
+      }
+    }
+    lastZoomRatio=ratio;
+  };
+  let zoomSyncQueued=false;
   const queueMosaicZoomSync=()=>{
-    if(zoomSyncPending)return;
-    zoomSyncPending=true;
+    if(zoomSyncQueued)return;
+    zoomSyncQueued=true;
     requestAnimationFrame(()=>{
-      zoomSyncPending=false;
+      zoomSyncQueued=false;
       updateMosaicZoomMode();
     });
   };
-  const fallbackPanInfo=modal=>{
-    if(!modal || !viewportBaseline)return null;
-    const ratio=zoomRatio();
-    if(ratio<=1.025)return null;
-    const panel=modal===layer ? mosaicPanel : existingStage;
-    if(!panel)return null;
-    const rect=panel.getBoundingClientRect();
-    // No fem servir rect.width perquè CSS zoom també l'amplia visualment.
-    // offsetWidth conserva les mides del disseny inicial que hem congelat.
-    const viewW=Math.min(modal.clientWidth,viewportBaseline.w/ratio);
-    const viewH=Math.min(modal.clientHeight,viewportBaseline.h/ratio);
-    return {
-      panel,
-      rangeX:Math.max(0,panel.offsetWidth+36-viewW),
-      rangeY:Math.max(0,panel.offsetHeight+36-viewH),
-      ratio
-    };
-  };
-  const clearFallbackPan=()=>{
-    fallbackOffsets.mosaic.x=fallbackOffsets.mosaic.y=0;
-    fallbackOffsets.photo.x=fallbackOffsets.photo.y=0;
-    mosaicPanel?.style.removeProperty('transform');
-    existingStage?.style.removeProperty('transform');
-  };
-  const panFallback= (modal,dx,dy,nativeX,nativeY)=>{
-    const f=fallbackPanInfo(modal);
-    if(!f)return false;
-    const useX=nativeX<=2 && f.rangeX>2;
-    const useY=nativeY<=2 && f.rangeY>2;
-    const state=modal===layer?fallbackOffsets.mosaic:fallbackOffsets.photo;
-    if(!useX&&!useY){
-      // Si el navegador comença a informar scroll natiu, mantenim la
-      // posició en el scrollport i retirem el pan alternatiu.
-      if(state.x && nativeX>2)modal.scrollLeft=clamp(state.x,0,nativeX);
-      if(state.y && nativeY>2)modal.scrollTop=clamp(state.y,0,nativeY);
-      state.x=state.y=0;
-      f.panel.style.removeProperty('transform');
-      return false;
-    }
-    // 1 píxel de moviment = 1 píxel local de pan. Sense inèrcia.
-    if(useX && dx)state.x=clamp(state.x+dx,0,f.rangeX);
-    if(useY && dy)state.y=clamp(state.y+dy,0,f.rangeY);
-    f.panel.style.setProperty('transform',
-      'translate3d('+(-state.x).toFixed(2)+'px,'+
-      (-state.y).toFixed(2)+'px,0)','important');
-    return true;
-  };
-  const initializeCenteredPan=modal=>{
-    if(!modal || zoomRatio()<=1.025)return;
-    const kind=modal===layer?'mosaic':'photo';
-    if(panInitialized[kind])return;
-    panInitialized[kind]=true;
-    const overX=Math.max(0,modal.scrollWidth-modal.clientWidth);
-    const overY=Math.max(0,modal.scrollHeight-modal.clientHeight);
-    const backup=fallbackPanInfo(modal);
-    // Restringim el punt focal a la zona central del recorregut:
-    // permet anar també cap a l'esquerra i amunt després de fer zoom.
-    const originX=clamp(zoomPointer.x,.3,.7);
-    const originY=clamp(zoomPointer.y,.3,.7);
-    modal.scrollLeft=overX*originX;
-    modal.scrollTop=overY*originY;
-    if(backup){
-      const state=fallbackOffsets[kind];
-      state.x=overX<=2 ? backup.rangeX*originX : 0;
-      state.y=overY<=2 ? backup.rangeY*originY : 0;
-      if(state.x || state.y){
-        backup.panel.style.setProperty('transform',
-          'translate3d('+(-state.x).toFixed(2)+'px,'+
-          (-state.y).toFixed(2)+'px,0)','important');
-      }
-    }
-    // El primer moviment després del zoom només estableix referència;
-    // no provoca un segon salt per diferències d'escala.
-    resetHoverPan();
-  };
-  // A l'Edge no suposem que innerWidth, DPR o visualViewport reflecteixen
-  // immediatament el zoom del navegador. La condició real és que el visor
-  // contingui parts fora de la pantalla: scrollWidth > clientWidth.
-  // Aquesta àrea queda bloquejada a 100% i és navegable quan s'amplia.
   const flushHoverPan=()=>{
-    hoverPanRaf=0;
+    pointerFrame=0;
     const modal=currentGalleryViewport();
-    const dx=hoverPanDeltaX,dy=hoverPanDeltaY;
-    hoverPanDeltaX=hoverPanDeltaY=0;
-    if(!modal)return;
-    const overX=Math.max(0,modal.scrollWidth-modal.clientWidth);
-    const overY=Math.max(0,modal.scrollHeight-modal.clientHeight);
-    const usesFallback=panFallback(modal,dx,dy,overX,overY);
-    if(overX<2 && overY<2 && !usesFallback)return;
-    // La velocitat és proporcional al recorregut visible, no a l'escala
-    // total de la foto. Sense inèrcia ni transformacions del panell.
-    const gainX=Math.min(3.5,Math.max(1,overX/Math.max(1,modal.clientWidth*.72)));
-    const gainY=Math.min(3.5,Math.max(1,overY/Math.max(1,modal.clientHeight*.72)));
-    if(overX>2 && dx)modal.scrollLeft+=dx*gainX;
-    if(overY>2 && dy)modal.scrollTop+=dy*gainY;
+    const dx=panDeltaX,dy=panDeltaY;
+    panDeltaX=panDeltaY=0;
+    if(!modal||zoomRatio()<=1.025)return;
+    const limits=modalBounds(modal);
+    if(!limits)return;
+    const state=panOffset[modalKind(modal)];
+    // Relatiu, sense inèrcia. La direcció inversa resta exactament
+    // el mateix desplaçament que s'ha avançat amb el cursor.
+    if(limits.nativeX>2){
+      if(state.x){
+        modal.scrollLeft=clamp(modal.scrollLeft+state.x,0,limits.nativeX);
+        state.x=0;
+      }
+      modal.scrollLeft+=dx;
+    }else if(limits.altX>2)state.x=clamp(state.x+dx,0,limits.altX);
+    if(limits.nativeY>2){
+      if(state.y){
+        modal.scrollTop=clamp(modal.scrollTop+state.y,0,limits.nativeY);
+        state.y=0;
+      }
+      modal.scrollTop+=dy;
+    }else if(limits.altY>2)state.y=clamp(state.y+dy,0,limits.altY);
+    paintFallback(modal);
   };
   const onGalleryMouseMove=event=>{
     if(event.type==='pointermove' && event.pointerType && event.pointerType!=='mouse')return;
     if(typeof event.buttons==='number' && event.buttons!==0)return;
     const modal=currentGalleryViewport();
-    if(!modal)return;
-    if(zoomRatio()>1.025 && !panInitialized[modal===layer?'mosaic':'photo'])
-      initializeCenteredPan(modal);
-    const overX=Math.max(0,modal.scrollWidth-modal.clientWidth);
-    const overY=Math.max(0,modal.scrollHeight-modal.clientHeight);
-    // Amb zoom normal usem scroll. Quan Edge fa zoom només de DPR
-    // i no crea scrollWidth, el panell congelat té un desplaçament auxiliar.
-    const fallback=fallbackPanInfo(modal);
-    const canFallback=!!fallback && (
-      (overX<2 && fallback.rangeX>2) ||
-      (overY<2 && fallback.rangeY>2)
-    );
-    if(overX<2 && overY<2 && !canFallback){
-      resetHoverPan();
-      return;
-    }
-    const mode=modal===layer?'mosaic':'photo';
-    const now={
-      mode,
-      x:event.clientX,y:event.clientY,
-      screenX:event.screenX,screenY:event.screenY
-    };
-    const prev=lastHoverPan;
-    lastHoverPan=now;
-    if(!prev || prev.mode!==mode)return;
+    if(!modal||zoomRatio()<=1.025){resetHoverPan();return;}
+    const limits=modalBounds(modal);
+    if(!limits|| (limits.nativeX<=2&&limits.altX<=2 &&
+      limits.nativeY<=2&&limits.altY<=2)){resetHoverPan();return;}
+    const now={kind:modalKind(modal),x:event.clientX,y:event.clientY,
+      sx:event.screenX,sy:event.screenY};
+    const prev=lastMouse;
+    lastMouse=now;
+    if(!prev||prev.kind!==now.kind)return;
     let dx=now.x-prev.x,dy=now.y-prev.y;
-    // Hi ha configuracions Windows amb zoom que no actualitzen clientX/Y.
-    // Només aleshores fem servir la diferència física del cursor com a suport.
-    const factor=Math.max(1,Math.min(4,zoomRatio()));
-    if(Math.abs(dx)<.1 && Number.isFinite(now.screenX) && Number.isFinite(prev.screenX))
-      dx=(now.screenX-prev.screenX)/factor;
-    if(Math.abs(dy)<.1 && Number.isFinite(now.screenY) && Number.isFinite(prev.screenY))
-      dy=(now.screenY-prev.screenY)/factor;
-    if(!Number.isFinite(dx)||!Number.isFinite(dy))return;
-    // Canvis sobtats de coordenades en canviar el zoom no són moviment.
-    if(Math.abs(dx)>150 || Math.abs(dy)>150)return;
-    if(Math.abs(dx)<.1 && Math.abs(dy)<.1)return;
-    hoverPanDeltaX+=dx;
-    hoverPanDeltaY+=dy;
-    if(!hoverPanRaf)hoverPanRaf=requestAnimationFrame(flushHoverPan);
+    if(Math.abs(dx)<.1 && Number.isFinite(now.sx)&&Number.isFinite(prev.sx))
+      dx=(now.sx-prev.sx)/Math.max(1,zoomRatio());
+    if(Math.abs(dy)<.1 && Number.isFinite(now.sy)&&Number.isFinite(prev.sy))
+      dy=(now.sy-prev.sy)/Math.max(1,zoomRatio());
+    if(!Number.isFinite(dx)||!Number.isFinite(dy)||
+       Math.abs(dx)>140||Math.abs(dy)>140)return;
+    if(Math.abs(dx)<.1&&Math.abs(dy)<.1)return;
+    panDeltaX+=dx;panDeltaY+=dy;
+    if(!pointerFrame)pointerFrame=requestAnimationFrame(flushHoverPan);
   };
   window.addEventListener('resize',queueMosaicZoomSync,{passive:true});
   window.visualViewport?.addEventListener('resize',queueMosaicZoomSync,{passive:true});
   window.addEventListener('wheel',event=>{
-    if(layer.hidden || !(event.ctrlKey||event.metaKey))return;
+    if(layer.hidden||!(event.ctrlKey||event.metaKey))return;
+    const modal=currentGalleryViewport();
+    if(!modal)return;
+    const rect=modal.getBoundingClientRect();
+    const kind=modalKind(modal),state=panOffset[kind];
+    zoomAnchor={
+      modal,ratio:zoomRatio(),
+      pointerX:clamp(event.clientX-rect.left,0,modal.clientWidth),
+      pointerY:clamp(event.clientY-rect.top,0,modal.clientHeight),
+      nativeX:modal.scrollLeft,nativeY:modal.scrollTop,
+      offsetX:modal.scrollLeft+state.x,offsetY:modal.scrollTop+state.y
+    };
     const delta=clamp(event.deltaY,-120,120);
     zoomWheelFallback=clamp(zoomWheelFallback-delta*.001,1,4);
-    // Cursor dins del viewport al moment de fer zoom: punt focal.
-    // No el resetejem quan augmentem el zoom consecutivament.
-    if(!panInitialized.mosaic && !panInitialized.photo){
-      zoomPointer={
-        x:clamp(event.clientX/Math.max(1,window.innerWidth),0,1),
-        y:clamp(event.clientY/Math.max(1,window.innerHeight),0,1)
-      };
-    }
     resetHoverPan();
     requestAnimationFrame(()=>requestAnimationFrame(queueMosaicZoomSync));
   },{capture:true,passive:true});
-  // Listen at window capture: Edge may emit mousemove without a matching
-  // pointermove over modal descendants. Duplicate events have zero delta.
   window.addEventListener('pointermove',onGalleryMouseMove,{capture:true,passive:true});
   window.addEventListener('mousemove',onGalleryMouseMove,{capture:true,passive:true});
-  const resetViewerPan=()=>{}; // Manté el zoom natiu entre mosaic i fotografia.
+  const resetViewerPan=()=>{};
   const syncViewerPan=()=>{};
   const clearNativeGalleryLayout=()=>{
     resetHoverPan();
-    clearFallbackPan();
-    resetPanInitialization();
+    resetOffsets();
     layer.classList.remove('vcc-mosaic-native-zoom','vcc-gallery-viewport');
     existingLightbox?.classList.remove('vcc-gallery-viewport');
     const root=document.documentElement;
@@ -505,26 +473,25 @@
       '--vcc-gallery-grid-gap','--vcc-gallery-sidebar-padding'
     ])root.style.removeProperty(name);
     viewportBaseline=null;
+    zoomAnchor=null;
+    lastZoomRatio=1;
     zoomWheelFallback=1;
   };
   const startPanBaseline=()=>{
     resetHoverPan();
-    clearFallbackPan();
-    resetPanInitialization();
-    zoomPointer={x:.5,y:.5};
+    resetOffsets();
+    zoomAnchor=null;
     zoomWheelFallback=1;
     const root=document.documentElement;
     viewportBaseline={
-      w:window.innerWidth,
-      h:window.innerHeight,
+      w:window.innerWidth,h:window.innerHeight,
       dpr:window.devicePixelRatio||1,
       visualScale:window.visualViewport?.scale||1,
       vvWidth:window.visualViewport?.width||window.innerWidth,
       vvHeight:window.visualViewport?.height||window.innerHeight,
       cssZoom:parseFloat(getComputedStyle(root).zoom)||1
     };
-    // Guardem les mides i l'espaiat reals del mosaic ABANS del zoom.
-    // No es permet que els breakpoints del navegador remaquetin la galeria.
+    lastZoomRatio=1;
     const main=layer.querySelector('.vcc-dg-main');
     const mosaicScroll=layer.querySelector('.vcc-dg-scroll');
     const mosaicGrid=layer.querySelector('.vcc-dg-grid');
