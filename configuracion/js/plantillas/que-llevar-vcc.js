@@ -33,6 +33,19 @@ note:"No olvides vestirte por capas.",items:[
 ["EXTRAS","✚",[["Batería externa","fixed",1],["Crema de manos y bálsamo","fixed",1],["Documentación válida","fixed",1]]]
 ],visual:[["🧥","Abrigo impermeable"],["🧶","Jersey de lana"],["🧢","Gorro"],["🧤","Guantes"],["🥾","Botas"],["🎒","Mochila"]]}
 };
+/* Listado completo de la maleta: piezas comunes por estación y cantidades. */
+const additions={
+ primavera:{ROPA:[["Ropa interior","underwear",1],["Pijama","fixed",1],["Camiseta de manga larga","fixed",1]],CALZADO:[["Calzado de repuesto (opcional)","fixed",1]],ACCESORIOS:[["Mochila pequeña de día","fixed",1]],EXTRAS:[["Artículos de aseo personal","fixed",1],["Cargador del móvil","fixed",1],["Botella reutilizable","fixed",1],["Medicamentos personales (si los necesitas)","fixed",1],["Seguro y reservas del viaje","fixed",1]]},
+ verano:{ROPA:[["Ropa interior","underwear",1],["Pijama ligero","fixed",1],["Ropa de baño si vas a las islas","fixed",1]],CALZADO:[["Sandalias (opcionales)","fixed",1]],ACCESORIOS:[["Mochila pequeña de día","fixed",1],["Paraguas compacto","fixed",1]],EXTRAS:[["Artículos de aseo personal","fixed",1],["Cargador del móvil","fixed",1],["Botella reutilizable","fixed",1],["Medicamentos personales (si los necesitas)","fixed",1],["Seguro y reservas del viaje","fixed",1]]},
+ otono:{ROPA:[["Ropa interior","underwear",1],["Pijama","fixed",1],["Capa térmica fina","fixed",1]],CALZADO:[["Calzado de repuesto (opcional)","fixed",1]],ACCESORIOS:[["Mochila pequeña de día","fixed",1],["Gafas de sol","fixed",1]],EXTRAS:[["Artículos de aseo personal","fixed",1],["Cargador del móvil","fixed",1],["Botella reutilizable","fixed",1],["Medicamentos personales (si los necesitas)","fixed",1],["Seguro y reservas del viaje","fixed",1]]},
+ invierno:{ROPA:[["Ropa interior","underwear",1],["Pijama cálido","fixed",1],["Capa térmica adicional","fixed",1]],CALZADO:[["Calzado de recambio (opcional)","fixed",1]],ACCESORIOS:[["Mochila pequeña de día","fixed",1],["Gafas de sol","fixed",1]],EXTRAS:[["Artículos de aseo personal","fixed",1],["Cargador del móvil","fixed",1],["Botella reutilizable","fixed",1],["Medicamentos personales (si los necesitas)","fixed",1],["Seguro y reservas del viaje","fixed",1]]}
+};
+for(const [season,groups] of Object.entries(additions)){
+ for(const category of seasons[season].items){
+  const existing=new Set(category[2].map(x=>x[0]));
+  (groups[category[0]]||[]).forEach(item=>{if(!existing.has(item[0]))category[2].push(item)});
+ }
+}
 const el=id=>document.getElementById(id);
 const state={season:"invierno",days:3,luggage:"cabina",done:new Set()};
 function amount(kind,mult){
@@ -40,6 +53,7 @@ function amount(kind,mult){
  if(kind==="tops")return Math.max(2,Math.min(state.days,10));
  if(kind==="trousers")return state.days<=4?1:state.days<=7?2:3;
  if(kind==="socks")return state.days;
+ if(kind==="underwear")return state.days+1;
  return mult;
 }
 function key(category,title){return state.season+"|"+state.days+"|"+state.luggage+"|"+category+"|"+title}
@@ -48,7 +62,9 @@ function render(){
  document.querySelectorAll(".ql-season").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.season===state.season)));
  el("ql-season-title").textContent="Tu lista para el "+s.name;
  el("ql-intro").textContent=s.intro;
- el("ql-visual-title").textContent="TU MALETA DE "+s.name.toUpperCase();
+ el("ql-suitcase-art").dataset.season=state.season;
+ el("ql-days").value=String(state.days);
+ document.querySelectorAll(".ql-days-pills button").forEach(b=>b.setAttribute("aria-pressed",String(Number(b.dataset.days)===state.days)));
  el("ql-note").textContent=s.note;
 
  const cats=el("ql-categories");cats.replaceChildren();
@@ -61,14 +77,20 @@ function render(){
    const li=document.createElement("li"),label=document.createElement("label"),input=document.createElement("input"),span=document.createElement("span");
    input.type="checkbox";const id=key(c[0],item[0]);input.checked=state.done.has(id);input.dataset.item=id;
    const n=amount(item[1],item[2]);span.textContent=item[0];
-   if(n>1){const quantity=document.createElement("small");quantity.className="ql-amount";quantity.textContent=" · "+n+" uds.";span.append(quantity)}
+   const quantity=document.createElement("small");quantity.className="ql-amount";quantity.textContent=" · "+n+(n===1?" ud.":" uds.");span.append(quantity);
    label.append(input,span);li.append(label);ul.append(li);total++;if(input.checked)completed++;
   });
   article.append(ul);cats.append(article);
  });
  el("ql-progress").textContent=completed+" de "+total+" preparados";
- const flatlay=el("ql-flatlay");flatlay.replaceChildren();
- s.visual.forEach((p,i)=>{const obj=document.createElement("li");obj.className="ql-object";const num=document.createElement("span"),name=document.createElement("span");num.className="ql-object-number";num.setAttribute("aria-hidden","true");num.textContent=String(i+1).padStart(2,"0");name.className="ql-object-name";name.textContent=p[1];obj.append(num,name);flatlay.append(obj)});
+ const byCategory={ROPA:0,CALZADO:0,ACCESORIOS:0,EXTRAS:0};
+ s.items.forEach(c=>c[2].forEach(item=>{
+  if(state.done.has(key(c[0],item[0])))byCategory[c[0]]=(byCategory[c[0]]||0)+1;
+ }));
+ const filled=[byCategory.ROPA>=1,byCategory.ROPA>=2,byCategory.ROPA>=3,byCategory.CALZADO>=1,byCategory.ACCESORIOS>=1,byCategory.EXTRAS>=1];
+ document.querySelectorAll("[data-ql-slot]").forEach(node=>node.classList.toggle("is-packed",!!filled[Number(node.getAttribute("data-ql-slot"))]));
+ el("ql-suitcase-count").textContent=completed+" de "+total+" preparados";
+ el("ql-progress-bar").style.width=(total?(completed/total*100):0).toFixed(1)+"%";
  el("ql-tip-luggage").textContent=state.luggage==="cabina"?"Prioriza prendas versátiles si viajas solo con equipaje de mano.":"Aprovecha el espacio extra sin cargar ropa innecesaria.";
 }
 function currentList(){
@@ -83,14 +105,23 @@ function persist(){try{localStorage.setItem("vcc-packing-stockholm-v1",JSON.stri
 restore();
 el("ql-days").value=state.days;el("ql-luggage").value=state.luggage;render();
 document.querySelectorAll(".ql-season").forEach(b=>b.addEventListener("click",()=>{state.season=b.dataset.season;persist();render()}));
+document.querySelectorAll(".ql-days-pills button").forEach(b=>b.addEventListener("click",()=>{state.days=Number(b.dataset.days);persist();render()}));
 el("ql-days").addEventListener("change",e=>{state.days=Number(e.target.value);persist();render()});
 el("ql-luggage").addEventListener("change",e=>{state.luggage=e.target.value;persist();render()});
 el("ql-categories").addEventListener("change",e=>{const input=e.target;if(input.matches('input[type="checkbox"][data-item]')){input.checked?state.done.add(input.dataset.item):state.done.delete(input.dataset.item);persist();render()}});
 el("ql-reset").addEventListener("click",()=>{const prefix=state.season+"|"+state.days+"|"+state.luggage+"|";state.done.forEach(x=>{if(x.startsWith(prefix))state.done.delete(x)});persist();render()});
 el("ql-copy").addEventListener("click",async()=>{
- try{await navigator.clipboard.writeText(currentList());el("ql-copy").textContent="✓ LISTA COPIADA";setTimeout(()=>el("ql-copy").textContent="COPIAR LISTA",1700)}
- catch(e){const textarea=document.createElement("textarea");textarea.value=currentList();document.body.append(textarea);textarea.select();try{document.execCommand("copy");el("ql-copy").textContent="✓ LISTA COPIADA"}catch(_) {el("ql-copy").textContent="NO SE PUDO COPIAR"}textarea.remove();setTimeout(()=>el("ql-copy").textContent="COPIAR LISTA",1700)}
+ try{await navigator.clipboard.writeText(currentList());el("ql-copy").textContent="✓ LISTA COPIADA";setTimeout(()=>el("ql-copy").textContent="COPIAR LISTA COMPLETA",1700)}
+ catch(e){const textarea=document.createElement("textarea");textarea.value=currentList();document.body.append(textarea);textarea.select();try{document.execCommand("copy");el("ql-copy").textContent="✓ LISTA COPIADA"}catch(_) {el("ql-copy").textContent="NO SE PUDO COPIAR"}textarea.remove();setTimeout(()=>el("ql-copy").textContent="COPIAR LISTA COMPLETA",1700)}
 });
+
+const adviceTrack=el("ql-advice-track"),advicePrev=el("ql-advice-prev"),adviceNext=el("ql-advice-next");
+if(adviceTrack&&advicePrev&&adviceNext){
+ const update=()=>{advicePrev.disabled=adviceTrack.scrollLeft<5;adviceNext.disabled=adviceTrack.scrollLeft+adviceTrack.clientWidth>=adviceTrack.scrollWidth-5};
+ const slide=direction=>{const card=adviceTrack.querySelector(".ql-advice-card");const gap=parseFloat(getComputedStyle(adviceTrack).gap)||16;adviceTrack.scrollBy({left:direction*((card?.getBoundingClientRect().width||300)+gap),behavior:"smooth"})};
+ advicePrev.addEventListener("click",()=>slide(-1));adviceNext.addEventListener("click",()=>slide(1));
+ adviceTrack.addEventListener("scroll",update,{passive:true});window.addEventListener("resize",update,{passive:true});update();
+}
 const subnav=document.querySelector(".ql-subnav");
 if(subnav){
  const links=[...subnav.querySelectorAll('a[href^="#"]')];
