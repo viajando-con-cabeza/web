@@ -113,3 +113,13 @@ html body main.cl-page.cl-landing .cl-landing-hero nav.cl-crumb.vcc-crumb strong
     font-size:12px!important;
   }
 }
+
+/* En móvil, tarjetas con altura real de contenido. Las antiguas min-height
+   de 500-530px creaban huecos blancos enormes debajo de los enlaces. */
+@media(max-width:650px){
+ html body main.cl-page.cl-landing .cl-landing-cards .cl-transport-group{
+   min-height:0!important;
+   height:auto!important;
+   align-self:stretch!important;
+ }
+}
