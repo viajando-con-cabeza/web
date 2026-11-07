@@ -192,24 +192,25 @@ html body .imp-page .imp-main .place.place--no-media .facts > span {
   white-space:normal!important;
 }
 html body .imp-page .imp-main .place.place--no-media .advice {
-  /* Gamla Stan: ancho proporcionado, igual que el consejo de las fichas con foto. */
-  width:min(100%,560px)!important;
-  max-width:560px!important;
-  margin:12px auto 0!important;
-  padding:17px 24px!important;
-  flex-direction:column!important;
-  justify-content:center!important;
+  /* Gamla Stan: mateix format horitzontal dels altres consells VCC. */
+  width:min(100%,500px)!important;
+  max-width:500px!important;
+  margin:7px auto 0!important;
+  padding:10px 15px!important;
+  flex-direction:row!important;
+  justify-content:flex-start!important;
   align-items:center!important;
-  gap:7px!important;
-  text-align:center!important;
+  gap:12px!important;
+  text-align:left!important;
 }
 html body .imp-page .imp-main .place.place--no-media .advice > div:last-child {
-  flex:0 1 auto!important;
-  width:100%!important;
-  text-align:center!important;
+  flex:1 1 auto!important;
+  min-width:0!important;
+  width:auto!important;
+  text-align:left!important;
 }
 html body .imp-page .imp-main .place.place--no-media .advice p {
-  text-align:center!important;
+  text-align:left!important;
 }
 @media(max-width:650px){
   html body .imp-page .imp-main .place.place--no-media {row-gap:10px!important}
@@ -219,7 +220,7 @@ html body .imp-page .imp-main .place.place--no-media .advice p {
     column-gap:16px!important;
     row-gap:12px!important;
   }
-  html body .imp-page .imp-main .place.place--no-media .advice {padding:14px 16px!important}
+  html body .imp-page .imp-main .place.place--no-media .advice {padding:10px 12px!important;gap:10px!important}
 }
 
 </style>
