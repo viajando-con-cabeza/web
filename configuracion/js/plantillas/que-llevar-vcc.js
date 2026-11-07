@@ -167,6 +167,26 @@ el("ql-copy").addEventListener("click",async()=>{
  catch(e){const textarea=document.createElement("textarea");textarea.value=currentList();document.body.append(textarea);textarea.select();try{document.execCommand("copy");el("ql-copy").textContent="✓ LISTA COPIADA"}catch(_) {el("ql-copy").textContent="NO SE PUDO COPIAR"}textarea.remove();setTimeout(()=>el("ql-copy").textContent="COPIAR LISTA COMPLETA",1700)}
 });
 
+/* Consejos VCC: carrusel como en Presupuesto, flechas arriba a la derecha. */
+const tipTrack=el("ql-advice-track"),tipPrev=el("ql-advice-prev"),tipNext=el("ql-advice-next");
+if(tipTrack&&tipPrev&&tipNext){
+ const updateTips=()=>{
+  const max=tipTrack.scrollWidth-tipTrack.clientWidth;
+  tipPrev.disabled=tipTrack.scrollLeft<4;
+  tipNext.disabled=tipTrack.scrollLeft>=max-4;
+ };
+ const moveTips=direction=>{
+  const card=tipTrack.querySelector(".ql-advice-card");
+  const gap=parseFloat(getComputedStyle(tipTrack).columnGap)||14;
+  const distance=card?card.getBoundingClientRect().width+gap:tipTrack.clientWidth;
+  tipTrack.scrollBy({left:distance*direction,behavior:"smooth"});
+ };
+ tipPrev.addEventListener("click",()=>moveTips(-1));
+ tipNext.addEventListener("click",()=>moveTips(1));
+ tipTrack.addEventListener("scroll",updateTips,{passive:true});
+ window.addEventListener("resize",updateTips,{passive:true});
+ updateTips();
+}
 const subnav=document.querySelector(".ql-subnav");
 if(subnav){
  const links=[...subnav.querySelectorAll('a[href^="#"]')];
