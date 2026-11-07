@@ -21,7 +21,7 @@ body.cm-body{margin:0;background:var(--cm-paper);font-family:"DM Sans",Arial,san
 .cm-titlebar h2{margin:0;display:flex;align-items:center;gap:12px;font:600 clamp(25px,2.45vw,34px)/1.15 "Oswald",sans-serif;white-space:nowrap;color:#182f3d}
 .cm-pin{display:inline-grid;place-items:center;color:var(--cm-coral);width:31px;font:600 41px/1 "DM Sans",sans-serif}
 .cm-titlebar p{margin:0;padding:4px 0 4px 20px;border-left:1px solid #d9a28d;font:600 12px/1.5 "DM Sans",sans-serif;color:#233c4f;max-width:640px}
-.cm-zone-tabs{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:13px;margin:0 0 18px}
+.cm-pin svg{width:33px;height:33px;display:block}.cm-bottom-guides a img{width:24px;height:24px;object-fit:contain;flex:0 0 auto}.cm-zone-tabs{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:13px;margin:0 0 18px}
 .cm-zone{position:relative;display:block;min-width:0;min-height:155px;padding:8px 8px 12px;background:#fffefa;border:1px solid #e4ded7;border-radius:13px;box-shadow:0 3px 9px #35201512;text-align:left;cursor:pointer;transition:transform .18s,border-color .18s}
 .cm-zone:hover{transform:translateY(-3px);border-color:#d58870}.cm-zone.is-active{border:2px solid var(--cm-coral);padding:7px 7px 11px}
 .cm-zone.is-active:after{content:"";position:absolute;left:calc(50% - 10px);bottom:-11px;height:19px;width:19px;transform:rotate(45deg);background:#fffefa;border-right:2px solid var(--cm-coral);border-bottom:2px solid var(--cm-coral)}
