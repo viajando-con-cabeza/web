@@ -204,65 +204,122 @@ async function listPhotos(env,prefix,cursor){
 const escapeHtml=x=>String(x).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const PANEL=String.raw`<!doctype html>
 <html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>VCC · Fotos R2</title><style>
-:root{--ink:#292420;--accent:#bd6345;--paper:#faf6f1;--line:#e7dcd2}*{box-sizing:border-box}
-body{margin:0;background:var(--paper);color:var(--ink);font:14px/1.55 system-ui,Arial,sans-serif}
-main{width:min(940px,calc(100% - 28px));margin:26px auto 70px}h1{font-size:28px;margin:0 0 6px}h2{font-size:18px;margin:0 0 8px}
-p{margin:6px 0 14px}.muted{color:#675c54}.card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:22px;margin:16px 0}
-label{display:block;font-weight:650;margin:9px 0 4px}select,input[type=password],textarea,input[type=number]{width:100%;padding:12px;border-radius:8px;border:1px solid #cfc4ba;font:inherit;background:#fff}
-button{border:0;border-radius:8px;padding:11px 15px;background:var(--accent);color:white;font:600 13px system-ui;cursor:pointer;margin:3px}
-button.secondary{background:#4e4b48}button.danger{background:#a43f3b}button:disabled{opacity:.45;cursor:not-allowed}
-.warning{border-left:3px solid var(--accent);padding-left:12px;color:#6b4a34}.small{font-size:12px}
-pre{background:#f6f1eb;border:1px solid var(--line);padding:13px;overflow-wrap:anywhere;white-space:pre-wrap;max-height:300px;overflow:auto}
-.tableWrap{overflow:auto;max-height:460px}table{border-collapse:collapse;width:100%;font-size:12px}th,td{padding:10px 8px;border-bottom:1px solid #eee5de;text-align:left;vertical-align:top}th{position:sticky;top:0;background:white}td.path{overflow-wrap:anywhere;max-width:270px}
-.photoThumb{display:block;width:126px;height:76px;object-fit:contain;border:1px solid var(--line);border-radius:7px;background:#faf6f1;margin:5px 0}
-.tag{background:#edf4eb;color:#2c6935;border-radius:8px;padding:2px 7px}
+<title>VCC · Fototeca</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600&family=DM+Sans:wght@400;500;600;700;800&family=Oswald:wght@400;500;600&display=swap" rel="stylesheet"><style>
+:root{--ink:#111315;--muted:#676b70;--coral:#ef7168;--coral-dark:#c95e55;--paper:#fcfbf8;--line:#e8e4de;--soft:#f5f3f0;--mint:#dcebe4;--shadow:0 5px 22px rgba(29,31,33,.038);--display:"Oswald",Arial,sans-serif;--body:"DM Sans",Arial,sans-serif;--script:"Caveat",cursive}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font:14px/1.45 var(--body);-webkit-font-smoothing:antialiased}
+main{width:min(1060px,calc(100% - 38px));margin:0 auto 68px}
+.appHeader{display:flex;align-items:center;gap:24px;padding:29px 2px 25px;border-bottom:1px solid var(--line);margin-bottom:24px}
+.brandLogo{display:flex;align-items:center;flex:none;width:166px;min-width:166px;padding-right:22px;border-right:1px solid var(--line)}
+.brandLogo svg{display:block;width:100%;height:auto}
+.headerTitle{flex:1;min-width:0}
+.eyebrow{display:block;color:var(--coral-dark);font-size:10px;font-weight:800;letter-spacing:.17em;text-transform:uppercase;margin-bottom:3px}
+h1{font:500 30px/1.14 var(--display);letter-spacing:.015em;margin:0}
+.headerSub{font-size:12px;color:var(--muted);margin:5px 0 0}
+.headerMark{flex:none;border:1px solid var(--line);border-radius:999px;padding:8px 12px;color:var(--muted);font:700 10px/1 var(--body);letter-spacing:.065em;background:#fff}
+.workspace{display:grid;grid-template-columns:1fr 1fr;gap:16px;align-items:start}
+.card{background:#fff;border:1px solid var(--line);border-radius:15px;padding:20px 23px 21px;margin:0;box-shadow:var(--shadow);min-width:0}
+.card-wide{grid-column:1/-1}
+.card h2{font:500 19px/1.3 var(--display);letter-spacing:.018em;margin:0 0 9px;display:flex;align-items:center;gap:9px}
+.card h2::before{content:"";width:4px;height:17px;background:var(--coral);border-radius:8px;flex:none}
+.card p{margin:6px 0 11px}.muted{color:var(--muted)}
+.small{font-size:11.5px;line-height:1.45}
+label{display:block;font-size:11px;font-weight:800;letter-spacing:.025em;color:#343a3d;margin:12px 0 6px}
+label:has(input[type=checkbox]){font-weight:500;font-size:12px;letter-spacing:0;display:flex;align-items:flex-start;gap:8px;line-height:1.45;color:#4b5054}
+input[type=checkbox]{accent-color:var(--coral-dark);width:15px;height:15px;flex:none;margin:1px 0 0}
+select,input[type=password],textarea,input[type=number]{display:block;width:100%;min-height:42px;padding:10px 12px;border:1px solid #dddfe0;border-radius:9px;background:#fff;font:500 13px/1.4 var(--body);color:var(--ink);outline:none;transition:border-color .15s,box-shadow .15s}
+textarea{resize:vertical;min-height:64px}
+select:focus-visible,input:focus-visible,textarea:focus-visible{border-color:var(--coral);box-shadow:0 0 0 3px rgba(239,113,104,.13)}
+select:disabled,input:disabled{background:#f8f8f7;color:#8d9498}
+button{display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:38px;background:var(--coral);border:1px solid transparent;border-radius:9px;padding:9px 13px;color:#fff;font:750 12px/1.35 var(--body);cursor:pointer;margin:7px 6px 4px 0;transition:background .16s,transform .16s,border-color .16s}
+button:hover:not(:disabled){background:var(--coral-dark);transform:translateY(-1px)}
+button.secondary{background:#fff;color:#32393c;border-color:#dadee0}
+button.secondary:hover:not(:disabled){background:#f3f4f4}
+button.danger{background:#a94f48;color:#fff}
+button.danger:hover:not(:disabled){background:#893c37}
+button:disabled{opacity:.46;cursor:not-allowed;transform:none}
+button:focus-visible{outline:3px solid rgba(239,113,104,.25);outline-offset:2px}
+.warning{padding:9px 12px;background:#faf5f3;border-left:3px solid var(--coral);border-radius:0 7px 7px 0;color:#70514d;margin-top:13px!important}
+pre{background:#f7f7f6;border:1px solid var(--line);border-radius:9px;padding:12px;font:11.5px/1.6 ui-monospace,SFMono-Regular,Consolas,monospace;overflow-wrap:anywhere;white-space:pre-wrap;max-height:190px;overflow:auto;margin:8px 0 0}
+.tableWrap{overflow:auto;max-height:480px;border:1px solid var(--line);border-radius:11px;margin-top:10px}
+.tableWrap:empty{display:none}
+table{border-collapse:collapse;width:100%;font-size:11.7px}
+th,td{padding:11px 10px;border-bottom:1px solid #eeece9;text-align:left;vertical-align:top}
+tr:last-child td{border-bottom:0}
+th{position:sticky;top:0;background:#f8f7f5;z-index:1;font-size:10px;color:#5e6568;font-weight:800;text-transform:uppercase;letter-spacing:.035em}
+td.path{overflow-wrap:anywhere;max-width:280px}
+.photoThumb{display:block;width:136px;height:89px;object-fit:contain;border:1px solid var(--line);border-radius:9px;background:#fbfaf9;margin:3px 0 8px}
+.tag{display:inline-flex;background:#e9f1ed;color:#32654b;border-radius:6px;padding:3px 7px;font-size:10.5px;font-weight:700;margin-top:3px}
+.row{display:flex;align-items:center;gap:4px;flex-wrap:wrap}
+#selectionSummary{margin-left:8px}
+#folderSummary,#scanSummary,#convertSummary,#aiSummary,#deleteProgress,#aiDeleteStatus{font-size:12px;line-height:1.45}
+#folderSummary:not(:empty),#scanSummary:not(:empty),#convertSummary:not(:empty),#aiSummary:not(:empty){background:#f9f8f6;padding:9px 11px;border-radius:8px;margin:10px 0 0}
+.workspace section.card:last-child{grid-column:1/-1}
+::selection{background:#f6d4d0}
+@media(max-width:760px){
+ main{width:calc(100% - 24px)}
+ .appHeader{gap:14px;flex-wrap:wrap;padding:20px 0 17px;margin-bottom:16px}
+ .brandLogo{width:118px;min-width:118px;padding-right:12px}
+ .headerTitle h1{font-size:25px}
+ .headerMark{display:none}
+ .workspace{grid-template-columns:1fr;gap:12px}
+ .card,.card-wide,.workspace section.card:last-child{grid-column:1;padding:17px}
+ .tableWrap{max-height:440px}
+ button{margin:6px 4px 2px 0}
+}
+@media(prefers-reduced-motion:reduce){button,select,input,textarea{transition:none}}
+
 </style></head><body><main>
-<h1>Viajando con Cabeza · Fotos R2</h1>
-<p class="muted">Procesa una carpeta completa o un día: detectar duplicados → aceptar → convertir a AVIF → eliminar JPG verificados.</p>
-<section class="card"><h2>1. Introducir contraseña</h2>
-<label for="token">ADMIN_TOKEN</label><input type="password" id="token" autocomplete="off" placeholder="Contraseña de administración">
-<button id="browseBtn" onclick="browse()">Cargar todas las rutas disponibles</button></section>
-<section class="card"><h2>2. Seleccionar carpeta</h2>
-<label for="folder">Ruta del bucket R2</label><select id="folder" disabled onchange="loadFolder()"><option value="">Primero introduce la contraseña</option></select>
-<p class="muted small">Si eliges suecia/dalarna, se incluyen todos los días interiores. Si eliges suecia/dalarna/dia-10, solo se incluyen los JPG de ese día. Las comparaciones de duplicados no se cruzan entre días o subcarpetas.</p>
+<header class="appHeader"><div class="brandLogo"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 620 216" role="img" aria-label="Viajando con Cabeza"><path d="M434 185L435 186L444 186L445 184L444 183L439 183ZM418 183L418 185L420 186L428 186L429 185L426 183ZM402 180L402 182L404 183L407 183L408 184L412 184L413 183L411 181ZM460 179L458 178L451 181L450 183L451 184L459 181ZM472 170L470 170L466 173L464 176L466 177L472 172ZM481 160L479 160L475 166L476 168L481 163L482 161ZM464 152L465 154L474 153L474 151L465 151ZM487 147L482 148L479 150L480 152L482 151L484 152L483 153L483 156L485 156L488 149ZM453 145L453 149L458 153L459 150L456 148L455 145ZM500 143L498 142L493 144L491 146L492 147L495 147L499 145ZM74 176L78 181L81 181L82 182L92 177L103 167L104 168L104 173L106 176L110 178L114 178L118 176L124 170L130 160L134 160L135 161L132 172L133 174L136 175L139 173L145 163L156 151L158 152L158 156L157 157L157 166L158 169L161 172L167 173L171 171L178 164L180 161L180 159L169 168L164 169L162 165L163 157L164 156L164 149L162 146L156 145L145 155L144 153L147 146L146 144L143 143L140 147L138 154L136 156L131 157L130 156L130 149L127 145L123 144L120 145L117 148L114 148L110 152L106 160L96 169L86 176L81 177L79 175L79 168L80 167L80 164L86 153L93 147L95 148L94 154L97 154L99 151L99 145L97 143L92 142L88 144L80 153L75 163ZM116 155L119 159L124 161L120 168L113 174L111 174L109 172L109 168L112 160ZM124 148L126 149L126 156L125 157L120 154L121 150ZM512 136L510 135L504 139L504 142L510 139ZM482 135L480 137L484 142L487 142L486 139ZM463 136L460 135L458 136L455 140L456 141ZM467 134L468 136L470 135L475 136L476 135L476 133L468 133ZM526 128L523 127L516 132L518 134ZM201 176L202 178L206 181L212 181L220 176L227 169L228 170L228 174L230 176L234 177L241 173L247 166L249 165L250 166L250 169L254 173L260 173L269 167L270 168L269 175L271 177L273 177L280 163L284 158L292 151L295 151L297 153L297 156L295 159L295 161L292 164L284 168L278 174L278 177L279 178L286 177L289 175L298 165L300 165L303 163L306 164L307 172L310 175L314 177L318 177L328 172L342 158L343 153L348 148L357 143L358 144L357 149L343 166L345 169L347 169L350 167L356 167L358 169L358 171L343 183L337 189L327 202L324 211L327 215L331 215L341 209L349 200L358 187L361 181L363 173L371 167L373 173L375 175L379 176L385 173L395 162L399 168L401 169L406 169L419 162L424 157L424 155L421 155L409 163L403 165L401 163L401 161L404 153L404 147L403 146L400 146L399 147L397 145L392 144L386 147L379 154L377 158L373 162L363 168L358 163L354 161L360 154L364 146L364 143L362 140L356 139L347 144L347 145L341 150L339 154L340 157L324 170L318 173L314 173L312 171L312 166L321 162L329 153L331 146L330 143L327 141L321 141L319 142L313 148L309 156L306 159L301 161L300 160L301 152L298 148L293 147L287 150L280 157L279 156L281 148L287 142L297 124L299 118L299 113L298 111L294 111L291 114L284 126L278 144L276 147L276 151L273 159L264 167L257 170L254 167L255 160L259 150L256 148L254 149L253 152L243 164L234 171L233 170L233 168L239 157L245 151L247 150L250 152L251 151L251 148L249 146L246 146L242 148L235 155L233 159L220 171L210 177L207 177L205 173L206 167L212 154L220 147L221 148L221 154L224 154L226 151L226 146L225 144L219 142L215 144L207 153L202 163ZM354 179L355 181L351 189L344 199L334 209L331 211L329 211L328 210L329 207L335 197ZM283 173L284 172L285 173L284 174ZM284 172L285 171L287 172L286 173ZM286 171L287 170L288 171L287 172ZM305 163L306 162L307 163L306 164ZM278 157L279 156L280 157L279 158ZM392 150L393 151L393 156L387 163L380 169L379 168L380 164L384 158ZM324 146L325 147L322 153L316 158L315 156L319 150ZM285 136L286 135L287 136L286 137ZM294 118L295 121L290 132L287 136L286 135L286 132L290 125L290 123ZM619 59L613 58L605 61L602 61L519 88L518 91L523 93L537 102L537 106L534 113L532 122L535 123L543 120L550 119L553 123L553 125L559 136L559 138L560 138L606 79L613 68L619 61ZM589 78L553 104L546 108L538 116L537 115L540 104L542 101L587 77ZM588 77L589 76L591 77L590 78ZM590 76L591 75L592 76L591 77ZM607 71L590 93L588 97L561 131L559 129L551 113L549 113L549 115L543 118L540 117L562 100L602 73L605 70ZM606 70L607 69L608 70L607 71ZM603 66L575 80L573 82L562 87L560 89L541 99L538 99L528 93L525 90L528 88L540 84L543 84L546 82L552 81L593 67L596 67L600 65ZM602 65L603 64L605 65L604 66ZM75 13L71 15L69 20L67 46L66 47L66 58L65 59L66 69L65 70L64 86L63 87L63 107L68 110L74 110L76 108L76 91L78 84L79 62L80 61L80 53L81 52L83 27L84 26L83 16L81 16ZM114 10L111 13L110 16L111 17L111 21L106 31L106 34L102 44L102 47L100 50L94 73L89 77L89 81L91 85L85 101L85 107L90 110L95 110L97 108L97 106L99 103L99 100L103 90L103 87L105 85L114 81L124 79L125 80L125 88L126 89L126 96L127 97L128 105L132 110L134 111L139 111L141 110L142 105L141 104L140 96L139 95L139 90L138 89L138 76L143 72L144 67L141 65L137 65L136 64L135 50L134 49L134 39L133 38L133 26L132 25L133 23L132 22L132 17L131 14L125 10ZM120 43L122 50L123 65L120 67L111 69L110 66L114 58L118 45ZM434 9L430 9L425 11L423 13L421 13L419 16L409 25L402 39L403 43L399 56L398 68L397 69L397 87L402 102L407 107L413 110L424 110L434 104L439 98L448 81L452 67L452 63L453 62L453 51L454 50L454 47L457 44L457 39L454 35L454 31L453 30L453 26L455 25L453 19L448 14ZM439 25L441 27L441 31L442 32L442 47L441 48L441 56L440 57L440 62L439 63L438 70L435 79L430 89L422 98L419 99L415 96L412 87L412 69L413 68L414 58L419 47L419 45L425 35L432 28L437 25ZM371 10L362 9L361 8L355 8L354 9L349 9L348 10L338 12L336 15L337 21L340 23L342 23L344 25L342 32L342 41L341 42L341 50L340 51L340 65L339 66L338 75L337 76L336 94L335 97L330 100L330 104L333 108L338 109L341 111L346 110L349 106L360 100L378 84L386 72L386 70L389 65L392 56L393 48L394 47L394 37L393 36L392 29L389 23L381 15ZM370 21L374 23L379 30L379 33L380 34L379 48L376 57L369 70L362 79L351 89L350 88L351 72L352 71L352 65L354 59L355 49L357 44L360 22L362 20ZM230 8L227 10L226 13L227 17L222 27L216 45L215 52L212 59L209 72L204 76L205 86L199 102L199 106L204 110L209 110L211 109L218 86L222 83L238 78L240 80L240 88L241 89L241 96L242 97L243 105L247 110L249 111L254 111L257 108L254 96L253 75L258 71L259 66L251 63L250 50L249 49L249 36L248 35L248 18L245 11L240 8ZM224 68L225 67L226 68L225 69ZM235 42L236 43L236 51L237 52L237 61L238 64L236 66L226 68L225 65L227 59L231 51L233 43ZM52 5L48 7L46 11L37 37L34 51L30 61L30 64L25 79L23 77L23 71L22 70L22 65L20 58L20 50L19 49L19 43L18 42L16 21L13 17L9 15L6 15L4 13L1 15L0 24L2 29L2 35L3 36L4 46L5 47L8 74L10 80L10 85L11 86L13 101L15 107L17 109L24 111L27 111L31 109L32 101L45 63L45 60L57 24L62 15L62 10L61 8ZM328 4L324 3L322 4L319 8L319 11L316 20L316 24L315 25L315 29L314 30L312 45L311 46L311 52L309 57L308 71L306 74L304 69L303 59L301 56L301 53L297 42L297 38L295 32L295 22L293 17L289 14L285 14L283 12L279 12L277 14L277 16L274 18L273 20L273 26L272 27L272 34L271 35L271 43L270 44L269 56L268 57L268 65L267 66L266 90L265 91L265 106L266 108L269 108L271 110L274 110L276 109L277 107L278 90L279 89L279 83L280 82L280 77L282 72L283 59L284 58L286 59L286 63L289 70L290 77L301 108L305 110L310 110L311 109L313 110L317 107L318 98L319 97L319 90L321 83L321 75L322 74L324 52L325 51L326 40L328 33L329 18L331 12L331 7ZM196 1L193 1L192 0L187 1L184 7L185 19L184 20L183 36L182 37L182 50L183 51L182 73L181 74L180 86L176 97L171 101L169 101L165 97L162 87L162 82L164 79L159 76L155 77L149 84L149 96L151 99L151 101L158 108L164 110L172 111L182 108L189 101L193 92L194 82L195 81L195 72L196 71L196 58L197 57L197 44L198 43L199 23L200 22L200 15L201 14L200 4Z" fill="#000" fill-rule="evenodd"/></svg></div><div class="headerTitle"><span class="eyebrow">GESTOR D'IMATGES</span><h1>Fototeca VCC</h1><p class="headerSub">Cloudflare R2 · Gestió privada</p></div><span class="headerMark">VCC · ADMIN</span></header>
+<div class="workspace">
+<section class="card"><h2>1. Acceso</h2>
+<label for="token">Clave de acceso</label><input type="password" id="token" autocomplete="off" placeholder="Clave de acceso">
+<button id="browseBtn" onclick="browse()">Cargar carpetas</button></section>
+<section class="card"><h2>2. Carpeta</h2>
+<label for="folder">Ruta de R2</label><select id="folder" disabled onchange="loadFolder()"><option value="">Introduce la clave</option></select>
+<p class="muted small">Incluye subcarpetas. La comparación de duplicados se limita a cada carpeta.</p>
 <p id="folderSummary" class="muted"></p></section>
-<section class="card"><h2>3. Detección de duplicados (opcional)</h2>
-<p>Compara las ±6 fotos cercanas. Ignora cambios de brillo y color, verifica composición y zoom y propone conservar la mejor calidad técnica.</p>
-<label for="duplicateSensitivity">Sensibilidad de detección</label>
+<section class="card card-wide"><h2>3. Duplicados</h2>
+<p>±6 fotos · misma escena y encuadre · mejor calidad.</p>
+<label for="duplicateSensitivity">Sensibilidad</label>
 <select id="duplicateSensitivity" onchange="onDuplicateSensitivityChange()">
-<option value="conservador">Conservador — encuadres prácticamente idénticos</option>
-<option value="equilibrado" selected>Equilibrado — recomendado para VCC</option>
-<option value="agresivo">Agresivo — más candidatos; revisar con cuidado</option>
-</select><p class="small muted">Analiza formas y detalles con dos resoluciones. Las fotografías solo se eliminan tras confirmarlo.</p>
-<button id="scanBtn" disabled onclick="scanDuplicates()">Iniciar detección</button><button id="scanStopBtn" class="secondary" disabled onclick="stopProcess('scan')">Parar detección</button>
+<option value="conservador">Conservador · solo coincidencias claras</option>
+<option value="equilibrado" selected>Equilibrado · recomendado</option>
+<option value="agresivo">Agresivo · más candidatos</option>
+</select><p class="small muted">Brillo y color no condicionan la coincidencia.</p>
+<button id="scanBtn" disabled onclick="scanDuplicates()">Analizar duplicados</button><button id="scanStopBtn" class="secondary" disabled onclick="stopProcess('scan')">Detener</button>
 <p id="scanSummary" class="muted"></p>
-<div class="row"><button type="button" class="secondary" id="selectAllBtn" disabled onclick="selectAllDuplicates(true)">Seleccionar todo</button><button type="button" class="secondary" id="selectNoneBtn" disabled onclick="selectAllDuplicates(false)">Deseleccionar todo</button><span id="selectionSummary" class="small muted">0 seleccionados</span></div>
+<div class="row"><button type="button" class="secondary" id="selectAllBtn" disabled onclick="selectAllDuplicates(true)">Marcar todas</button><button type="button" class="secondary" id="selectNoneBtn" disabled onclick="selectAllDuplicates(false)">Desmarcar todas</button><span id="selectionSummary" class="small muted">0 seleccionados</span></div>
 <div id="duplicates" class="tableWrap"></div><p id="deleteProgress" class="muted" role="status" aria-live="polite"></p>
-<p class="warning small">La detección compara JPG, WebP y AVIF, también versiones de una foto en distintos formatos. Revisa las fotos: si eliminas un WebP o AVIF enlazado desde la web, el enlace dejará de funcionar. El borrado es irreversible y NO crea copia de seguridad.</p>
-<label><input type="checkbox" id="confirmDup" onchange="updateButtons()"> Confirmo que he revisado los JPG que deseo eliminar.</label>
-<button id="removeBtn" class="danger" disabled onclick="removeDuplicates()">Eliminar duplicados seleccionados</button></section>
-<section class="card"><h2>4. Convertir JPG a AVIF (independiente del paso 3)</h2>
-<p>Calidad <b>85</b> · Brillo <b>1.12</b> · Contraste <b>0.984</b> · Saturación <b>1.008</b>. Resolución original.</p>
-<p class="muted small">Puedes iniciar esta conversión directamente después de seleccionar la carpeta, sin analizar duplicados. El JPG se elimina solo tras verificar el AVIF correspondiente. Si paras, los restantes no se procesan hasta volver a iniciar.</p>
-<button id="convertBtn" disabled onclick="convertAll()">Iniciar conversión a AVIF</button><button id="convertStopBtn" class="secondary" disabled onclick="stopProcess('convert')">Parar conversión</button>
+<p class="warning small">Revisa antes de borrar. La eliminación es irreversible y puede romper enlaces de la web.</p>
+<label><input type="checkbox" id="confirmDup" onchange="updateButtons()"> He revisado las fotografías seleccionadas.</label>
+<button id="removeBtn" class="danger" disabled onclick="removeDuplicates()">Eliminar seleccionadas</button></section>
+<section class="card"><h2>4. Conversión AVIF</h2>
+<p>Calidad <b>85</b> · Resolución original.</p>
+<p class="muted small">El JPG solo se borra tras verificar el AVIF.</p>
+<button id="convertBtn" disabled onclick="convertAll()">Convertir JPG → AVIF</button><button id="convertStopBtn" class="secondary" disabled onclick="stopProcess('convert')">Detener</button>
 <p id="convertSummary" class="muted" role="status" aria-live="polite"></p></section>
-<section class="card"><h2>5. Selección inteligente VCC con IA</h2>
-<p>La IA analiza calidad, atractivo, utilidad para contar el viaje y <b>dónde podría estar tomada cada foto</b>. Las ubicaciones son estimaciones, no geolocalización verificada.</p>
-<label for="aiContext">Contexto del viaje o lugar (opcional, recomendado)</label>
-<textarea id="aiContext" maxlength="180" rows="2" placeholder="Por ejemplo: Estocolmo, Gamla Stan, viaje por el casco antiguo."></textarea>
-<label for="aiTarget">¿Cuántas fotografías quieres conservar?</label>
+<section class="card card-wide"><h2>5. Selección con IA</h2>
+<p>Calidad visual · interés editorial · ubicación probable.</p>
+<label for="aiContext">Contexto del viaje</label>
+<textarea id="aiContext" maxlength="180" rows="2" placeholder="Ej. Estocolmo · Gamla Stan"></textarea>
+<label for="aiTarget">Fotos a conservar</label>
 <input id="aiTarget" type="number" min="1" max="1000" value="50" onchange="renderAiResults()">
-<label class="small"><input id="aiForce" type="checkbox"> Volver a analizar las fotos evaluadas (más uso de IA)</label>
-<div><button id="aiBtn" disabled onclick="runAiSelection()">Analizar fotos con IA</button><button class="secondary" id="aiStopBtn" disabled onclick="stopProcess('ai')">Parar análisis</button><button class="secondary" id="aiCsvBtn" disabled onclick="downloadAiCsv()">Exportar selección CSV</button></div>
-<label class="small"><input type="checkbox" id="confirmAiDelete" onchange="updateButtons()"> He revisado los descartes. Entiendo que borrar fotos utilizadas en la web puede romper sus enlaces.</label>
-<button id="aiDeleteBtn" class="danger" disabled onclick="deleteAiRejected()">Eliminar descartadas (irreversible)</button>
+<label class="small"><input id="aiForce" type="checkbox"> Reanalizar (consume IA)</label>
+<div><button id="aiBtn" disabled onclick="runAiSelection()">Analizar con IA</button><button class="secondary" id="aiStopBtn" disabled onclick="stopProcess('ai')">Detener</button><button class="secondary" id="aiCsvBtn" disabled onclick="downloadAiCsv()">Exportar CSV</button></div>
+<label class="small"><input type="checkbox" id="confirmAiDelete" onchange="updateButtons()"> He revisado las descartadas y sus posibles enlaces web.</label>
+<button id="aiDeleteBtn" class="danger" disabled onclick="deleteAiRejected()">Eliminar descartadas</button>
 <p id="aiDeleteStatus" class="muted small"></p>
-<p id="aiSummary" class="muted" role="status" aria-live="polite">Selecciona una carpeta. Ninguna fotografía se elimina automáticamente.</p>
+<p id="aiSummary" class="muted" role="status" aria-live="polite">Selecciona una carpeta.</p>
 <div id="aiResults" class="tableWrap"></div>
-<p class="warning small">Revisa especialmente las ubicaciones de confianza media o baja. No se borra nada de R2 ni se modifica la web.</p>
+<p class="warning small">Ubicaciones estimadas. Ninguna foto se elimina automáticamente.</p>
 </section>
-<section class="card"><h2>Estado y errores</h2><pre id="status">Introduce la contraseña para comenzar.</pre></section>
+<section class="card"><h2>Actividad</h2><pre id="status">Introduce la clave.</pre></section>
+</div>
 </main><script>
 let currentPrefix='',files=[],scanFiles=[],scans=[],groups=[],removed=new Set(),scanReady=false,busy=false,stopped=false,activeMode='';
 const previewUrls=new Map(),q=id=>document.getElementById(id);
@@ -962,7 +1019,7 @@ async function convertAll(){
 export default {
   async fetch(request,env){
     const url=new URL(request.url);
-    if(request.method==='GET'&&url.pathname==='/')return new Response(PANEL,{headers:{'Content-Type':'text/html; charset=utf-8','Cache-Control':'no-store','X-Frame-Options':'DENY','Content-Security-Policy':"default-src 'self'; img-src 'self' data: blob:; style-src 'unsafe-inline'; script-src 'unsafe-inline'; frame-ancestors 'none'"}});
+    if(request.method==='GET'&&url.pathname==='/')return new Response(PANEL,{headers:{'Content-Type':'text/html; charset=utf-8','Cache-Control':'no-store','X-Frame-Options':'DENY','Content-Security-Policy':"default-src 'self'; img-src 'self' data: blob:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; script-src 'unsafe-inline'; frame-ancestors 'none'"}});
     if(request.method!=='POST'||url.pathname!=='/api/process')return json({error:'Ruta no encontrada'},404);
     if(!validateAuth(request,env))return json({error:'No autorizado'},401);
     try{
