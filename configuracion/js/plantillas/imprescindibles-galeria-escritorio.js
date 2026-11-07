@@ -289,12 +289,21 @@
     const panel=panelOf(modal);
     if(!panel)return {x:0,y:0};
     const rect=modal.getBoundingClientRect();
-    // El panell està ancorat a 18px del cantó superior i esquerre.
-    // No dividim per dos: el recorregut vàlid és 0..amplada que sobra.
-    // Així no es creen marges buits quan el cursor torna enrere.
+    const zoom=Math.max(1,zoomRatio());
+    // En alguns modes d'Edge el viewport visual és més petit, però el
+    // rectangle CSS del modal conserva l'amplada anterior. Fem servir
+    // l'àrea REALMENT visible, i no només modal.getBoundingClientRect().
+    const visibleW=Math.max(1,Math.min(rect.width,
+      window.visualViewport?.width||rect.width,
+      viewportBaseline?.w/zoom||rect.width));
+    const visibleH=Math.max(1,Math.min(rect.height,
+      window.visualViewport?.height||rect.height,
+      viewportBaseline?.h/zoom||rect.height));
+    // Sense límits dividits per dos: no podem empènyer el contingut
+    // més enllà de les seves vores i deixar espais buits.
     return {
-      x:Math.max(0,panel.offsetWidth+36-Math.max(1,rect.width)),
-      y:Math.max(0,panel.offsetHeight+36-Math.max(1,rect.height))
+      x:Math.max(0,panel.offsetWidth+36-visibleW),
+      y:Math.max(0,panel.offsetHeight+36-visibleH)
     };
   };
   const paintPan=modal=>{
