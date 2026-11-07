@@ -263,6 +263,7 @@
   let panFrame=0;
   let pendingDx=0,pendingDy=0;
   let pendingZoomAnchor=null;
+  let zoomWasActive=false;
   const panState={mosaic:{x:0,y:0},photo:{x:0,y:0}};
   const clamp=(x,min,max)=>Math.min(max,Math.max(min,x));
   const activeViewport=()=>{
@@ -367,6 +368,8 @@
   const syncZoom=()=>{
     const active=activeViewport();
     const zoomed=zoomRatio()>1.025;
+    const firstZoom=zoomed&&!zoomWasActive;
+    zoomWasActive=zoomed;
     layer.classList.toggle('vcc-mosaic-native-zoom',zoomed);
     for(const modal of [layer,existingLightbox]){
       if(!modal)continue;
@@ -381,7 +384,22 @@
       const state=panState[modeOf(modal)];
       const bounds=panLimits(modal);
       if(modal===active && applyZoomAnchor(modal)) {
-        // L'ancoratge passa abans de processar nous moviments del cursor.
+        // El punt exacte del cursor s'ha pogut llegir de Ctrl+rodeta.
+      } else if(modal===active && firstZoom) {
+        // Edge pot no exposar l'esdeveniment Ctrl+wheel quan fa zoom.
+        // Abans quedàvem a (0,0): impossible moure esquerra o amunt.
+        // Reservem recorregut a AMBDÓS costats, centrant el zoom al
+        // cursor conegut o al centre si el navegador no el comunica.
+        const beforeX=latestPointer?.kind===modeOf(modal)
+          ?latestPointer.x:viewportBaseline.w/2;
+        const beforeY=latestPointer?.kind===modeOf(modal)
+          ?latestPointer.y:viewportBaseline.h/2;
+        const fraction=1-1/Math.max(1,zoomRatio());
+        state.x=clamp(beforeX*fraction,0,bounds.x);
+        state.y=clamp(beforeY*fraction,0,bounds.y);
+        // El primer mousemove després del zoom només fixa la referència:
+        // no ha de crear un altre salt.
+        resetHoverPan();
       } else {
         state.x=clamp(state.x,0,bounds.x);
         state.y=clamp(state.y,0,bounds.y);
@@ -463,9 +481,13 @@
       '--vcc-gallery-grid-gap','--vcc-gallery-sidebar-padding'
     ])root.style.removeProperty(name);
     viewportBaseline=null;
+    zoomWasActive=false;
+    latestPointer=null;
   };
   const startPanBaseline=()=>{
     resetPan();
+    zoomWasActive=false;
+    latestPointer=null;
     const root=document.documentElement,vv=window.visualViewport;
     viewportBaseline={
       w:window.innerWidth,h:window.innerHeight,
