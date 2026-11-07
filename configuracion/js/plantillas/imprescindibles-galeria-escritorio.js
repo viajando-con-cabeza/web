@@ -156,6 +156,17 @@
     else if(event.target===layer) closeGallery();
   });
 
+  // Al visor individual, la X tanca TOTA la galeria.
+  // La fletxa «← Galería» continua tornant només al mosaic.
+  // Capturem el clic abans del dismiss genèric del lightbox.
+  existingLightbox?.addEventListener('click',event=>{
+    if(layer.hidden || !existingLightbox.classList.contains('open'))return;
+    if(!event.target.closest('.lb-close'))return;
+    event.preventDefault();
+    event.stopImmediatePropagation();
+    closeGallery();
+  },true);
+
   /* Visor individual: zoom amb rodeta amunt/avall, sense clic. */
   const enlargedPhoto = existingStage?.querySelector('.lb-photo');
   // La imatge era un fons CSS: per arrodonir les cantonades visibles,
@@ -235,6 +246,38 @@
   // el zoom, la posició focal i el desplaçament els controla el navegador.
   // Evitem transformacions per cursor, que duplicaven el moviment natiu.
   let nativeViewport=null;
+  const originalPixelRatio=window.devicePixelRatio||1;
+  let zoomSyncPending=false;
+  const updateMosaicZoomMode=()=>{
+    if(layer.hidden || !nativeViewport)return;
+    const scale=Math.max(
+      nativeViewport.w/Math.max(1,window.innerWidth),
+      nativeViewport.h/Math.max(1,window.innerHeight),
+      (window.devicePixelRatio||1)/Math.max(.01,nativeViewport.dpr),
+      (window.visualViewport?.scale||1)/Math.max(.01,nativeViewport.visualScale)
+    );
+    // A escala normal, el mosaic conserva el scroll intern original.
+    // Quan es fa zoom, no ha d'interceptar la navegació nativa de pàgina.
+    layer.classList.toggle('vcc-mosaic-native-zoom',scale>1.035);
+  };
+  const queueMosaicZoomSync=()=>{
+    if(zoomSyncPending)return;
+    zoomSyncPending=true;
+    requestAnimationFrame(()=>{
+      zoomSyncPending=false;
+      updateMosaicZoomMode();
+    });
+  };
+  window.addEventListener('resize',queueMosaicZoomSync,{passive:true});
+  window.visualViewport?.addEventListener('resize',queueMosaicZoomSync,{passive:true});
+  window.addEventListener('wheel',event=>{
+    if(layer.hidden || !(event.ctrlKey||event.metaKey))return;
+    requestAnimationFrame(()=>requestAnimationFrame(queueMosaicZoomSync));
+  },{capture:true,passive:true});
+  // Alguns navegadors actualitzen el zoom després de moure el cursor.
+  document.addEventListener('pointermove',event=>{
+    if(event.pointerType==='mouse' && !layer.hidden)queueMosaicZoomSync();
+  },{passive:true});
   const resetViewerPan=()=>{}; // De la foto individual tornem al mosaic sense canviar zoom.
   const syncViewerPan=()=>{};  // Mantingut per compatibilitat amb el visor.
   const clearNativeGalleryLayout=()=>{
@@ -243,6 +286,7 @@
       for(const name of ['top','left','right','bottom','width','height'])
         el.style.removeProperty(name);
     }
+    layer.classList.remove('vcc-mosaic-native-zoom');
     layer.classList.remove('vcc-native-document-gallery');
     existingLightbox?.classList.remove('vcc-native-document-gallery');
     const root=document.documentElement;
@@ -261,7 +305,9 @@
     const py=window.scrollY;
     const panelWidth=Math.max(1,mosaicPanel.offsetWidth);
     const panelHeight=Math.max(1,mosaicPanel.offsetHeight);
-    nativeViewport={x:px,y:py,w:vw,h:vh};
+    nativeViewport={x:px,y:py,w:vw,h:vh,
+      dpr:window.devicePixelRatio||1,visualScale:window.visualViewport?.scale||1};
+    updateMosaicZoomMode();
     // Posicionament ABSOLUT al document, no fix al viewport: quan Edge
     // amplia la pàgina es pot recórrer com a Inici o Destins.
     for(const el of [layer,existingLightbox]){
