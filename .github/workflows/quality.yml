@@ -74,6 +74,40 @@ jobs:
             git push origin HEAD:quality
           fi
 
+      - name: Cache licensed open suitcase photo as local WebP
+        shell: bash
+        run: |
+          set -euo pipefail
+          TARGET="configuracion/imagenes/ilustraciones/maleta-vcc-pexels.webp"
+          if [[ -s "$TARGET" ]]; then
+            echo "Licensed packing image already cached in GitHub."
+            exit 0
+          fi
+          python -m pip install --quiet Pillow
+          curl -fLsS --retry 3 --retry-delay 2 --connect-timeout 12 --max-time 90 \
+            -A "ViajandoConCabeza/1.0 (travel-blog)" \
+            'https://images.pexels.com/photos/8276910/pexels-photo-8276910.jpeg?auto=compress&cs=tinysrgb&w=1600' \
+            -o /tmp/vcc-open-suitcase-source.jpg
+          python - <<'PY'
+          from PIL import Image, ImageOps
+          from pathlib import Path
+          path=Path("configuracion/imagenes/ilustraciones/maleta-vcc-pexels.webp")
+          path.parent.mkdir(parents=True,exist_ok=True)
+          with Image.open("/tmp/vcc-open-suitcase-source.jpg") as im:
+              im=ImageOps.exif_transpose(im).convert("RGB")
+              im.thumbnail((1400,1100),Image.Resampling.LANCZOS)
+              if min(im.size) < 450:
+                  raise ValueError("Source photo resolution is too low")
+              im.save(path,"WEBP",quality=88,method=6)
+              print("Saved",path,im.size,path.stat().st_size,"bytes")
+          PY
+          git add "$TARGET"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "Cache Pexels packing photo locally for Qué llevar"
+          git pull --rebase origin quality
+          git push origin HEAD:quality
+
       - name: Check local links and resources
         run: node configuracion/scripts/comprobar-rutas.mjs
 
