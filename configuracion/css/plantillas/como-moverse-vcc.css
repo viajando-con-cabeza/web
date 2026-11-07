@@ -461,3 +461,17 @@ html body.mv-body .mv-sl-fares{margin-top:20px}
  html body.mv-body .mv-saving-card{min-height:148px}
 }
 @media(prefers-reduced-motion:reduce){html body.mv-body .mv-saving-track{scroll-behavior:auto}}
+
+/* Prefer a natively sharp editorial vector at every zoom / screen size.
+   Retain the previous editorial WebP as the fallback background layer. */
+html body.mv-body .mv-hero{
+  background-image:
+    url('/configuracion/imagenes/fondos/fondos-como-moverse-editorial-hd.svg'),
+    url('/configuracion/imagenes/fondos/fondos-como-moverse-editorial.webp');
+  background-repeat:no-repeat,no-repeat;
+  background-size:cover,cover;
+  background-position:center center,center center;
+}
+@media(max-width:720px){
+  html body.mv-body .mv-hero{background-position:66% center,66% center}
+}
