@@ -8,7 +8,6 @@
   const cards=Array.from(root.querySelectorAll('[data-dv-card]'));
   const prev=root.querySelector('[data-dv-prev]');
   const next=root.querySelector('[data-dv-next]');
-  const counter=root.querySelector('[data-dv-counter]');
   if(scroller&&cards.length){
     const visibleCount=()=>{
       const w=scroller.clientWidth,cardWidth=cards[0].getBoundingClientRect().width;
@@ -23,7 +22,8 @@
       },{i:0,d:Infinity}).i;
       const n=visibleCount();
       const first=Math.max(0,Math.min(current,cards.length-n));
-      if(counter) counter.textContent=(first+1)+'–'+Math.min(cards.length,first+n)+' de '+cards.length;
+
+
       if(prev) prev.disabled=scroller.scrollLeft<5;
       if(next) next.disabled=scroller.scrollLeft+scroller.clientWidth>=scroller.scrollWidth-5;
     };
