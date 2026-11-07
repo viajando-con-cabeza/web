@@ -605,27 +605,34 @@
     grid-template-columns:minmax(0,1fr) minmax(245px,290px)!important;
     grid-template-rows:54px minmax(0,1fr) 30px 80px!important;
   }
-  /* Amb zoom, el mosaic es desplaça sencer i no queda limitat al
-     seu petit contenidor de scroll interior. */
+  /* Congela EXACTAMENT la composició del mosaic al moment d'obrir:
+     mateix rectangle, mateixes 3 columnes, mateix espaiat i scroll intern.
+     Amb zoom es mou el visor exterior, no es remaqueta el mosaic. */
   html.vcc-gallery-modal-locked body.vcc-desktop-gallery-open
-  #vcc-desktop-gallery.vcc-gallery-viewport.vcc-mosaic-native-zoom:not([hidden]) .vcc-dg-panel {
-    overflow:visible!important;
-    height:auto!important;
-    min-height:var(--vcc-gallery-panel-height)!important;
-    border-radius:17px!important;
-  }
-  html.vcc-gallery-modal-locked body.vcc-desktop-gallery-open
-  #vcc-desktop-gallery.vcc-gallery-viewport.vcc-mosaic-native-zoom:not([hidden]) .vcc-dg-main {
-    flex:0 0 auto!important;
-    overflow:visible!important;
+  #vcc-desktop-gallery.vcc-gallery-viewport:not([hidden]) .vcc-dg-main {
+    grid-template-columns:var(--vcc-gallery-grid-columns,minmax(0,1fr) 290px)!important;
+    flex:1 1 auto!important;
     min-height:0!important;
+    overflow:hidden!important;
   }
   html.vcc-gallery-modal-locked body.vcc-desktop-gallery-open
-  #vcc-desktop-gallery.vcc-gallery-viewport.vcc-mosaic-native-zoom:not([hidden]) .vcc-dg-scroll,
+  #vcc-desktop-gallery.vcc-gallery-viewport:not([hidden]) .vcc-dg-panel {
+    overflow:hidden!important;
+    height:var(--vcc-gallery-panel-height)!important;
+    min-height:var(--vcc-gallery-panel-height)!important;
+  }
   html.vcc-gallery-modal-locked body.vcc-desktop-gallery-open
-  #vcc-desktop-gallery.vcc-gallery-viewport.vcc-mosaic-native-zoom:not([hidden]) .vcc-dg-sidebar {
-    overflow:visible!important;
-    height:auto!important;
-    max-height:none!important;
+  #vcc-desktop-gallery.vcc-gallery-viewport:not([hidden]) .vcc-dg-scroll {
+    overflow:auto!important;
+    padding:var(--vcc-gallery-grid-padding,20px 22px 32px)!important;
+  }
+  html.vcc-gallery-modal-locked body.vcc-desktop-gallery-open
+  #vcc-desktop-gallery.vcc-gallery-viewport:not([hidden]) .vcc-dg-grid {
+    gap:var(--vcc-gallery-grid-gap,13px)!important;
+  }
+  html.vcc-gallery-modal-locked body.vcc-desktop-gallery-open
+  #vcc-desktop-gallery.vcc-gallery-viewport:not([hidden]) .vcc-dg-sidebar {
+    overflow-y:auto!important;
+    padding:var(--vcc-gallery-sidebar-padding,25px 21px 28px)!important;
   }
 }
