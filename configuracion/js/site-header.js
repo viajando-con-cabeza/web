@@ -2,6 +2,15 @@
   const script = document.currentScript;
   const siteRoot = script ? new URL('../../', script.src) : new URL('./', window.location.href);
   const url = (path) => new URL(path, siteRoot).href;
+  // Un único estilo para la ruta de navegación (Inicio > Destinos > país > ciudad > guía).
+  // Cada página conserva sus enlaces, mientras se unifican tamaños y espacios.
+  if (!document.querySelector('link[data-vcc-shared-breadcrumb]')) {
+    const breadcrumbStyle=document.createElement('link');
+    breadcrumbStyle.rel='stylesheet';
+    breadcrumbStyle.dataset.vccSharedBreadcrumb='true';
+    breadcrumbStyle.href=url('configuracion/css/componentes/breadcrumb-vcc-global.css?v=20261107');
+    document.head.appendChild(breadcrumbStyle);
+  }
   const currentPath = window.location.pathname.replace(/\/index\.html$/, '/');
   function getSection() {
     if (/\/destinos\//.test(currentPath)) return 'destinos';
