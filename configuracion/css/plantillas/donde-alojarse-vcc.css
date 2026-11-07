@@ -291,3 +291,53 @@ body.dv-page{margin:0;background:var(--dv-paper);color:var(--dv-ink);font-family
  .dv-page .dv-card-kicker{font-size:21px}
  .dv-page .dv-rating{flex-basis:51px;width:51px;min-width:51px}
 }
+
+
+/* Hero unificat amb la capçalera d'Estocolm: alçada corporativa 505px,
+   centre vertical real, sense marges acumulats ni capes opaques que difuminen
+   el WebP editorial. No afecta la resta de seccions. */
+.dv-page .dv-hero{
+  height:505px!important;
+  min-height:505px!important;
+  display:flex!important;
+  align-items:center!important;
+  overflow:hidden!important;
+}
+.dv-page .dv-hero .dv-shell{
+  height:100%!important;min-height:0!important;
+  width:min(1180px,calc(100% - 48px))!important;
+  position:relative!important;
+  display:flex!important;align-items:center!important;
+}
+.dv-page .dv-hero .dv-hero-content{
+  width:100%;max-width:760px;
+  margin:0!important;padding:0!important;
+  transform:translateY(-17px);
+}
+.dv-page .dv-hero .dv-hero-photo{
+  position:absolute;inset:0;width:100%;height:100%;
+  object-fit:cover;object-position:center;
+  filter:none!important;opacity:1!important;
+}
+.dv-page .dv-hero::after{
+  background:linear-gradient(90deg,
+    rgba(248,244,238,.91) 0%,
+    rgba(248,244,238,.70) 31%,
+    rgba(248,244,238,.24) 61%,
+    rgba(248,244,238,0) 88%)!important;
+}
+@media(max-width:830px){
+ .dv-page .dv-hero{height:500px!important;min-height:500px!important}
+ .dv-page .dv-hero .dv-shell{width:calc(100% - 38px)!important}
+ .dv-page .dv-hero .dv-hero-content{transform:translateY(-12px)}
+}
+@media(max-width:600px){
+ .dv-page .dv-hero{height:auto!important;min-height:500px!important}
+ .dv-page .dv-hero .dv-shell{min-height:500px!important;height:auto!important;width:calc(100% - 30px)!important}
+ .dv-page .dv-hero .dv-hero-content{padding:0!important;transform:translateY(-9px)}
+ .dv-page .dv-hero .dv-hero-photo{object-position:64% center}
+ .dv-page .dv-hero::after{
+   background:linear-gradient(90deg,
+      rgba(248,244,238,.94),rgba(248,244,238,.72) 62%,rgba(248,244,238,.40))!important;
+ }
+}
