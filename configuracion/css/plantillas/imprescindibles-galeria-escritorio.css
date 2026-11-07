@@ -636,3 +636,25 @@
     padding:var(--vcc-gallery-sidebar-padding,25px 21px 28px)!important;
   }
 }
+
+/* Pan de ratolí en escriptori després de Ctrl+rodeta.
+   Aïllem el viewport dels scrolls dobles del navegador; l'element
+   interior es desplaça dins [0, mida-contingut - mida-visible]. */
+@media screen {
+  html.vcc-gallery-modal-locked body.vcc-desktop-gallery-open
+  #vcc-desktop-gallery.vcc-gallery-viewport.vcc-zoom-pan-enabled:not([hidden]),
+  html.vcc-gallery-modal-locked body.vcc-desktop-gallery-open
+  #lightbox.lightbox.vcc-gallery-viewport.vcc-zoom-pan-enabled.open {
+    overflow:hidden!important;
+    overscroll-behavior:contain!important;
+    scrollbar-width:none!important;
+  }
+  html.vcc-gallery-modal-locked body.vcc-desktop-gallery-open
+  #vcc-desktop-gallery.vcc-zoom-pan-enabled .vcc-dg-panel,
+  html.vcc-gallery-modal-locked body.vcc-desktop-gallery-open
+  #lightbox.lightbox.vcc-zoom-pan-enabled .lb-stage {
+    transition:none!important;
+    transform-origin:top left!important;
+    will-change:transform;
+  }
+}
