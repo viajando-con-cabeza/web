@@ -175,7 +175,7 @@ async function convertAndDeleteOne(env,key,prefix){
   return {deleted:key,avif:target,converted:!alreadyVerified,reusedVerifiedAvif:alreadyVerified};
 }
 
-const AI_VERSION='vcc-ai-curation-v1';
+const AI_VERSION='vcc-ai-locations-v2';
 const AI_MODEL='@cf/meta/llama-4-scout-17b-16e-instruct';
 const clampScore=v=>Math.max(0,Math.min(100,Math.round(Number(v)||0)));
 const safeAiText=(v,n=220)=>String(v==null?'':v).replace(/[\u0000-\u001f]/g,' ').trim().slice(0,n);
@@ -204,7 +204,7 @@ async function aiReviewOne(env,key,prefix,etag,context,force){
  if(!force){
    const cache=await env.BUCKET.get(cacheKey);
    if(cache&&cache.size<160000){
-     try{const data=await cache.json();if(data.version===AI_VERSION&&data.etag===etag&&data.context===hint&&data.thumbnail&&data.score)return {...data,cached:true}}catch{}
+     try{const data=await cache.json();if(data.version===AI_VERSION&&data.etag===etag&&data.context===hint&&data.thumbnail&&data.category&&data.kind)return {...data,cached:true}}catch{}
    }
  }
  const original=await env.BUCKET.get(key);
@@ -215,35 +215,38 @@ async function aiReviewOne(env,key,prefix,etag,context,force){
  if(!bytes.byteLength||bytes.byteLength>2200000)throw Error('Miniatura demasiado grande.');
  const thumbnail='data:image/jpeg;base64,'+base64Bytes(bytes);
  const prompt=[
- 'Eres editor fotográfico de un blog de viajes llamado Viajando con Cabeza.',
- 'Analiza ESTA imagen visualmente. El contexto de la carpeta es solo una pista, nunca una prueba de ubicación.',
- 'Contexto del usuario: '+(hint||'no indicado')+'.',
- 'Valora de 0 a 100: calidad técnica, belleza visual, utilidad para explicar un viaje, aptitud como portada.',
- 'Describe sujeto y escena. Identifica lugar exacto o monumento SOLO si hay pistas visuales suficientes. Si no, escribe "No identificable" con confianza baja. No inventes nombres de sitios.',
- 'Confianza del lugar: "alta", "media" o "baja". No confundas una pista del directorio con una prueba visual.',
- 'Escoge scene entre: calle, arquitectura, panoramica, interior, transporte, comida, naturaleza, detalle y otro.',
- 'Responde SOLO un objeto JSON válido, sin Markdown, con estas claves:',
- '{"technical":75,"visual":78,"editorial":82,"cover":70,"place":"Lugar o monumento probable","confidence":"alta","scene":"calle","subject":"Qué se ve en diez palabras","reason":"Por qué interesa al lector (máximo 16 palabras)","alt":"Descripción visual objetiva para alt (máximo 18 palabras)"}'
+  'Clasifica esta fotografía de viaje por LUGAR, respondiendo SOLO en español.',
+  'Contexto de la carpeta (es una pista, NUNCA prueba de ubicación): '+(hint||'sin contexto')+'.',
+  'Reconoce el museo, monumento, plaza, barrio o calle EXACTO solo si la fotografía aporta evidencia distintiva y tienes confianza ALTA.',
+  'No inventes nombres de calles, edificios ni lugares. Gamla Stan, Skansen, Sagrada Familia, etc., solo si se reconocen visualmente.',
+  'Si no puedes reconocer el sitio concreto con certeza, elige kind="generic", place="No identificable", confidence="baja".',
+  'Categorías genéricas válidas: Calles, Paisajes, Mar, Miradores, Bosques, Montañas, Playas, Parques, Comida, Transporte, Interiores, Arquitectura, Otros.',
+  'Ejemplos: mar sin un lugar distintivo = Mar; bosque = Bosques; calle comercial = Calles.',
+  'kind es specific o generic. confidence es alta, media o baja. category siempre debe ser una categoría permitida.',
+  'Responde con un único objeto JSON sin Markdown, con estas claves:',
+  '{"kind":"specific","place":"Museo Skansen","confidence":"alta","category":"Arquitectura","subject":"Fachada del museo","reason":"Edificio identificable","alt":"Museo Skansen exterior"}'
  ].join('\n');
  const response=await env.AI.run(AI_MODEL,{
     messages:[{role:'system',content:'Responde solo JSON válido en español, sin inventar ubicaciones.'},
       {role:'user',content:[{type:'text',text:prompt},{type:'image_url',image_url:{url:thumbnail}}]}],
-    temperature:0.1,max_tokens:490
+    temperature:0.05,max_tokens:300
  });
  const payload=parseAiJSON(response?.response||response?.choices?.[0]?.message?.content||'');
- const tech=clampScore(payload.technical),visual=clampScore(payload.visual),editorial=clampScore(payload.editorial),cover=clampScore(payload.cover);
  const confidence=['alta','media','baja'].includes(String(payload.confidence).toLowerCase())?String(payload.confidence).toLowerCase():'baja';
- const rawScene=safeAiText(payload.scene,36).toLowerCase();
- const scene=['calle','arquitectura','panoramica','interior','transporte','comida','naturaleza','detalle','otro'].includes(rawScene)?rawScene:'otro';
- const data={version:AI_VERSION,key,etag,context:hint,technical:tech,visual,editorial,cover,
-   score:Math.round(.3*tech+.3*visual+.4*editorial),place:safeAiText(payload.place,120)||'No identificable',confidence,
-   scene,subject:safeAiText(payload.subject,140)||'Imagen de viaje',
-   reason:safeAiText(payload.reason,250),alt:safeAiText(payload.alt,180),
-   thumbnail,model:AI_MODEL,reviewedAt:new Date().toISOString()};
+ const categories=['Calles','Paisajes','Mar','Miradores','Bosques','Montañas','Playas','Parques','Comida','Transporte','Interiores','Arquitectura','Otros'];
+ const raw=safeAiText(payload.category,40).normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
+ const category=categories.find(x=>x.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase()===raw)||'Otros';
+ const name=safeAiText(payload.place,90);
+ const isSpecific=String(payload.kind).toLowerCase()==='specific'&&confidence==='alta'&&!!name&&
+  !['no identificable','desconocido','no se sabe'].includes(name.toLowerCase());
+ const data={version:AI_VERSION,key,etag,context:hint,kind:isSpecific?'specific':'generic',
+  place:isSpecific?name:'No identificable',suggestion:name||'',confidence,category,
+  subject:safeAiText(payload.subject,140)||'Fotografía de viaje',
+  reason:safeAiText(payload.reason,200),alt:safeAiText(payload.alt,180),
+  thumbnail,model:AI_MODEL,reviewedAt:new Date().toISOString()};
  await env.BUCKET.put(cacheKey,JSON.stringify(data),{httpMetadata:{contentType:'application/json; charset=utf-8'}});
  return {...data,cached:false};
 }
-
 
 async function removeAiRejectedOne(env,key,prefix,etag,confirmed){
  if(confirmed!==true)throw Error('La eliminación requiere confirmación explícita.');
@@ -260,6 +263,48 @@ async function removeAiRejectedOne(env,key,prefix,etag,confirmed){
  if(!current||current.etag!==etag)throw Error('La foto ha cambiado o ya se eliminó. Vuelve a analizar.');
  await env.BUCKET.delete(key);
  return {deleted:key};
+}
+
+function aiPlaceFolder(input){
+ const name=String(input??'').normalize('NFC').trim().replace(/\s+/g,' ');
+ if(name.length<2||name.length>72||name.includes('..')||
+   !/^[\p{L}\p{N}][\p{L}\p{N} _().'-]*$/u.test(name))
+  throw Error('Nombre de carpeta inválido.');
+ return name;
+}
+async function movePhotoToPlace(env,prefix,key,etag,folder,confirmed){
+ if(confirmed!==true)throw Error('Confirma la organización de fotografías.');
+ assertImageKey(key,prefix);
+ const filename=key.slice(prefix.length);
+ if(!filename||filename.includes('/'))throw Error('Solo se organizan las fotos de la carpeta seleccionada, sin incluir subcarpetas.');
+ if(typeof etag!=='string'||!etag)throw Error('ETag inválido.');
+ const label=aiPlaceFolder(folder),target=prefix+label+'/'+filename;
+ const source=await env.BUCKET.head(key);
+ if(!source||source.etag!==etag)throw Error('La foto ha cambiado; vuelve a cargarla.');
+ const matches=dest=>!!(dest&&dest.size===source.size&&
+  dest.customMetadata?.vccMoveSource===key&&dest.customMetadata?.vccMoveEtag===etag);
+ let targetHead=await env.BUCKET.head(target),copied=false;
+ if(targetHead&&!matches(targetHead))throw Error('Ya existe otro archivo con ese nombre en el destino. No se sobrescribe.');
+ if(!targetHead){
+  const original=await env.BUCKET.get(key);
+  if(!original?.body||original.etag!==etag)throw Error('El original ha cambiado.');
+  const settings={httpMetadata:original.httpMetadata||{contentType:contentTypeForKey(key)},
+   customMetadata:{...(original.customMetadata||{}),vccMoveSource:key,vccMoveEtag:etag}};
+  let written;
+  try{written=await env.BUCKET.put(target,original.body,settings)}
+  catch(e){
+   if(!/known length|content.length|readable stream must/i.test(String(e?.message)))throw e;
+   const original2=await env.BUCKET.get(key);
+   if(!original2||original2.etag!==etag||original2.size>MAX_IMAGE_SIZE)throw Error('No se pudo releer el original.');
+   written=await env.BUCKET.put(target,await original2.arrayBuffer(),settings);
+  }
+  if(!written?.size)throw Error('Copia fallida. Original conservado.');
+  copied=true;targetHead=await env.BUCKET.head(target);
+ }
+ const current=await env.BUCKET.head(key);
+ if(!current||current.etag!==etag||!matches(targetHead))throw Error('Copia sin verificar. Original conservado.');
+ await env.BUCKET.delete(key);
+ return {moved:true,source:key,target,folder:label,copied,verified:true};
 }
 
 async function listPhotos(env,prefix,cursor){
@@ -393,8 +438,8 @@ const previewUrls=new Map(),q=id=>document.getElementById(id);
 function log(s){q('status').textContent=s+'\n'+q('status').textContent.slice(0,8500)}
 async function api(payload){
  const token=q('token').value.trim();if(!token)throw Error('Introduce ADMIN_TOKEN.');
- const retryableModes=new Set(['list','folders','convert-delete','ai-review']);
- const maxAttempts=(payload.mode==='convert-delete'||payload.mode==='ai-review')?3:(retryableModes.has(payload.mode)?4:1);
+ const retryableModes=new Set(['list','folders','convert-delete','ai-review','ai-move-place']);
+ const maxAttempts=(payload.mode==='convert-delete'||payload.mode==='ai-review'||payload.mode==='ai-move-place')?3:(retryableModes.has(payload.mode)?4:1);
  for(let attempt=1;attempt<=maxAttempts;attempt++){
   let response=null,body='',data=null,error=null,retry=false;
   try{
@@ -1146,7 +1191,8 @@ export default {
       if(mode==='convert-complete')return await finalizeAvif(env,input.key,prefix,input.etag,request,false);
       if(mode==='convert-delete')return json(await convertAndDeleteOne(env,input.key,prefix));
        if(mode==='ai-review')return json(await aiReviewOne(env,input.key,prefix,input.etag,input.context,input.force===true));
-       if(mode==='ai-remove-rejected')return json(await removeAiRejectedOne(env,input.key,prefix,input.etag,input.confirm));
+       if(mode==='ai-move-place')return json(await movePhotoToPlace(env,prefix,input.key,input.etag,input.folder,input.confirm));
+       // Clasificación IA: no elimina fotografías.
 
       return json({error:'Operación inválida'},400);
     }catch(error){console.error('VCC processing error',error);return json({error:String(error?.message||error)},400)}
