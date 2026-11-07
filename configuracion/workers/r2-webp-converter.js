@@ -191,7 +191,7 @@ function base64Bytes(buffer){
  for(let i=0;i<bytes.length;i+=16384)binary+=String.fromCharCode(...bytes.subarray(i,i+16384));
  return btoa(binary);
 }
-async function aiReviewOne(env,key,prefix,etag,context,force){
+async function aiReviewOne(env,key,prefix,etag,context,force,compact=false){
  if(!env.AI)throw Error('La conexión Workers AI no está configurada.');
  assertImageKey(key,prefix);
  if(key.split('/').some(p=>p==='_preview'||p==='__vcc_dedup_backup__'))throw Error('No se analizan miniaturas internas.');
@@ -209,10 +209,12 @@ async function aiReviewOne(env,key,prefix,etag,context,force){
  }
  const original=await env.BUCKET.get(key);
  if(!original?.body||original.etag!==etag)throw Error('La fotografía cambió al leerla.');
- const thumb=(await env.IMAGES.input(original.body).transform({width:768}).output({format:'image/jpeg',quality:78})).response();
+ const thumb=(await env.IMAGES.input(original.body)
+  .transform({width:compact?384:512,height:compact?384:512,fit:'scale-down'})
+  .output({format:'image/jpeg',quality:compact?58:69})).response();
  if(!thumb.ok||!thumb.body)throw Error('No se pudo generar la imagen reducida: HTTP '+thumb.status);
  const bytes=await thumb.arrayBuffer();
- if(!bytes.byteLength||bytes.byteLength>2200000)throw Error('Miniatura demasiado grande.');
+ if(!bytes.byteLength||bytes.byteLength>850000)throw Error('Miniatura demasiado grande; se recomienda el modo compacto.');
  const thumbnail='data:image/jpeg;base64,'+base64Bytes(bytes);
  const prompt=[
   'Eres especialista en identificar visualmente lugares en fotografías para un blog de viajes. Responde SOLO en español y un JSON.',
@@ -481,6 +483,7 @@ td.path{overflow-wrap:anywhere;max-width:280px}
 <p id="convertSummary" class="muted" role="status" aria-live="polite"></p></section>
 <section class="card card-wide"><h2>5. Clasificación de lugares con IA</h2>
 <p>Conserva todas las fotos · identifica lugares · organiza en subcarpetas.</p>
+<p class="muted small">Miniaturas ligeras · reintentos con pausa · retoma las fotos pendientes sin volver a analizar las anteriores.</p>
 <label for="aiContext">Contexto del viaje</label>
 <textarea id="aiContext" maxlength="180" rows="2" placeholder="Ej. Gotemburgo, día 1; Haga, Skansen Kronan..."></textarea>
 <label class="small"><input id="aiForce" type="checkbox"> Reanalizar (consume IA)</label>
@@ -506,7 +509,7 @@ function log(s){q('status').textContent=s+'\n'+q('status').textContent.slice(0,8
 async function api(payload){
  const token=q('token').value.trim();if(!token)throw Error('Introduce ADMIN_TOKEN.');
  const retryableModes=new Set(['list','folders','convert-delete','ai-review','ai-move-place']);
- const maxAttempts=(payload.mode==='convert-delete'||payload.mode==='ai-review'||payload.mode==='ai-move-place')?3:(retryableModes.has(payload.mode)?4:1);
+ const maxAttempts=payload.mode==='ai-review'?1:(payload.mode==='convert-delete'||payload.mode==='ai-move-place'?3:(retryableModes.has(payload.mode)?4:1));
  for(let attempt=1;attempt<=maxAttempts;attempt++){
   let response=null,body='',data=null,error=null,retry=false;
   try{
@@ -1353,11 +1356,14 @@ export default {
       if(mode==='convert-prepare')return await prepareAvifStream(env,input.key,prefix,input.etag);
       if(mode==='convert-complete')return await finalizeAvif(env,input.key,prefix,input.etag,request,false);
       if(mode==='convert-delete')return json(await convertAndDeleteOne(env,input.key,prefix));
-       if(mode==='ai-review')return json(await aiReviewOne(env,input.key,prefix,input.etag,input.context,input.force===true));
+       if(mode==='ai-review')return json(await aiReviewOne(env,input.key,prefix,input.etag,input.context,input.force===true,input.compact===true));
        if(mode==='ai-move-place')return json(await movePhotoToPlace(env,prefix,input.key,input.etag,input.folder,input.confirm));
        // Clasificación IA: no elimina fotografías.
 
       return json({error:'Operación inválida'},400);
-    }catch(error){console.error('VCC processing error',error);return json({error:String(error?.message||error)},400)}
+    }catch(error){console.error('VCC processing error',error);
+      const message=String(error?.message||error);
+      const temporary=/\b(?:429|500|502|503|504|520|522|524|1102)\b|resource limits|rate.?limit|too many requests|overloaded|timed? out|temporarily unavailable|temporarily exceeded/i.test(message);
+      return json({error:message},temporary?503:400)}
   }
 };
