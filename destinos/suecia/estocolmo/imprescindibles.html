@@ -175,8 +175,9 @@ html body .imp-page .imp-main .place.place--no-media .facts {
   position:static!important;
   align-self:center!important;
   transform:none!important;
-  width:min(1080px,calc(100vw - 48px))!important;
-  max-width:none!important;
+  /* Centrar el conjunto real de las cinco informaciones, no un bloque vacío de 1080px. */
+  width:max-content!important;
+  max-width:calc(100vw - 48px)!important;
   margin:16px auto 15px!important;
   column-gap:clamp(12px,1.55vw,26px)!important;
   row-gap:0!important;
