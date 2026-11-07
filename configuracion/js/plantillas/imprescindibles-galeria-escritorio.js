@@ -367,8 +367,11 @@
     existingLightbox?.classList.remove('vcc-gallery-viewport');
     const root=document.documentElement;
     root.classList.remove('vcc-gallery-modal-locked');
-    root.style.removeProperty('--vcc-gallery-panel-width');
-    root.style.removeProperty('--vcc-gallery-panel-height');
+    for(const name of [
+      '--vcc-gallery-panel-width','--vcc-gallery-panel-height',
+      '--vcc-gallery-grid-columns','--vcc-gallery-grid-padding',
+      '--vcc-gallery-grid-gap','--vcc-gallery-sidebar-padding'
+    ])root.style.removeProperty(name);
     viewportBaseline=null;
     zoomWheelFallback=1;
   };
@@ -385,6 +388,19 @@
       vvHeight:window.visualViewport?.height||window.innerHeight,
       cssZoom:parseFloat(getComputedStyle(root).zoom)||1
     };
+    // Guardem les mides i l'espaiat reals del mosaic ABANS del zoom.
+    // No es permet que els breakpoints del navegador remaquetin la galeria.
+    const main=layer.querySelector('.vcc-dg-main');
+    const mosaicScroll=layer.querySelector('.vcc-dg-scroll');
+    const mosaicGrid=layer.querySelector('.vcc-dg-grid');
+    const mosaicSidebar=layer.querySelector('.vcc-dg-sidebar');
+    const snapshot=[
+      ['--vcc-gallery-grid-columns',getComputedStyle(main).gridTemplateColumns],
+      ['--vcc-gallery-grid-padding',getComputedStyle(mosaicScroll).padding],
+      ['--vcc-gallery-grid-gap',getComputedStyle(mosaicGrid).gap],
+      ['--vcc-gallery-sidebar-padding',getComputedStyle(mosaicSidebar).padding]
+    ];
+    snapshot.forEach(([name,value])=>root.style.setProperty(name,value));
     root.style.setProperty('--vcc-gallery-panel-width',Math.max(1,mosaicPanel.offsetWidth)+'px');
     root.style.setProperty('--vcc-gallery-panel-height',Math.max(1,mosaicPanel.offsetHeight)+'px');
     layer.classList.add('vcc-gallery-viewport');
