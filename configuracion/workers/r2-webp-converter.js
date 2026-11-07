@@ -279,11 +279,13 @@ async function movePhotoToPlace(env,prefix,key,etag,folder,confirmed){
  if(!filename||filename.includes('/'))throw Error('Solo se organizan las fotos de la carpeta seleccionada, sin incluir subcarpetas.');
  if(typeof etag!=='string'||!etag)throw Error('ETag inválido.');
  const label=aiPlaceFolder(folder),target=prefix+label+'/'+filename;
- const source=await env.BUCKET.head(key);
+ const [source,existing]=await Promise.all([env.BUCKET.head(key),env.BUCKET.head(target)]);
+ const owned=dest=>!!(dest&&dest.customMetadata?.vccMoveSource===key&&dest.customMetadata?.vccMoveEtag===etag);
+ // Si R2 ja ha mogut la foto però el navegador ha perdut la resposta, no fallar el reintent.
+ if(!source&&owned(existing))return {moved:true,source:key,target,folder:label,copied:false,verified:true,resumed:true};
  if(!source||source.etag!==etag)throw Error('La foto ha cambiado; vuelve a cargarla.');
- const matches=dest=>!!(dest&&dest.size===source.size&&
-  dest.customMetadata?.vccMoveSource===key&&dest.customMetadata?.vccMoveEtag===etag);
- let targetHead=await env.BUCKET.head(target),copied=false;
+ const matches=dest=>!!(owned(dest)&&dest.size===source.size);
+ let targetHead=existing,copied=false;
  if(targetHead&&!matches(targetHead))throw Error('Ya existe otro archivo con ese nombre en el destino. No se sobrescribe.');
  if(!targetHead){
   const original=await env.BUCKET.get(key);
@@ -481,6 +483,7 @@ function updateButtons(){
  q('convertBtn').disabled=busy||!currentPrefix||!files.length;
  q('convertStopBtn').disabled=!(busy&&activeMode==='convert')||stopped;
  q('aiBtn').disabled=busy||!currentPrefix||!scanFiles.length;
+  q('aiCsvBtn').disabled=busy||!aiRows.length;
  q('aiStopBtn').disabled=!(busy&&(activeMode==='ai'||activeMode==='ai-move'))||stopped;
  q('aiOrganizeBtn').disabled=busy||!aiAnalysisComplete||!aiRows.length||!q('confirmAiOrganize').checked;
  q('selectAllBtn').disabled=busy||!scanReady||!groups.length;
