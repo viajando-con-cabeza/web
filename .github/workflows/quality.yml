@@ -74,24 +74,24 @@ jobs:
             git push origin HEAD:quality
           fi
 
-      - name: Cache licensed open suitcase photo as local WebP
+      - name: Cache CC0 retro open suitcase photo as local WebP
         shell: bash
         run: |
           set -euo pipefail
-          TARGET="configuracion/imagenes/ilustraciones/maleta-vcc-alfombra-pexels.webp"
+          TARGET="configuracion/imagenes/ilustraciones/maleta-vcc-vintage-cc0.webp"
           if [[ -s "$TARGET" ]]; then
-            echo "Licensed packing image already cached in GitHub."
+            echo "CC0 vintage suitcase image already cached in GitHub."
             exit 0
           fi
           python -m pip install --quiet Pillow
           curl -fLsS --retry 3 --retry-delay 2 --connect-timeout 12 --max-time 90 \
             -A "ViajandoConCabeza/1.0 (travel-blog)" \
-            'https://images.pexels.com/photos/8933565/pexels-photo-8933565.jpeg?auto=compress&cs=tinysrgb&w=1600' \
+            'https://c.pxhere.com/photos/80/e2/travel_traveler_pack_open_book_object_retro_holiday-1349582.jpg!d' \
             -o /tmp/vcc-open-suitcase-source.jpg
           python - <<'PY'
           from PIL import Image, ImageOps
           from pathlib import Path
-          path=Path("configuracion/imagenes/ilustraciones/maleta-vcc-alfombra-pexels.webp")
+          path=Path("configuracion/imagenes/ilustraciones/maleta-vcc-vintage-cc0.webp")
           path.parent.mkdir(parents=True,exist_ok=True)
           with Image.open("/tmp/vcc-open-suitcase-source.jpg") as im:
               im=ImageOps.exif_transpose(im).convert("RGB")
@@ -104,7 +104,7 @@ jobs:
           git add "$TARGET"
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git commit -m "Cache Pexels packing photo locally for Qué llevar"
+          git commit -m "Cache CC0 vintage suitcase locally for Qué llevar"
           git pull --rebase origin quality
           git push origin HEAD:quality
 
