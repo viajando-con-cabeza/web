@@ -688,30 +688,63 @@ function renderAiResults(){
 async function runAiSelection(){
  if(busy||!currentPrefix||!scanFiles.length)return;
  const photos=aiFilesForReview();
- if(photos.length>1000){log('Elige una carpeta de hasta 1000 fotos.');return}
- if(!photos.length){q('aiSummary').textContent='No hay fotos nuevas en la raíz de esta carpeta.';return}
+ if(photos.length>1000){log('Selecciona una carpeta con un máximo de 1000 fotografías.');return}
+ if(!photos.length){q('aiSummary').textContent='No hay fotos nuevas en esta carpeta. Las subcarpetas ya organizadas no se analizan otra vez.';return}
  const context=q('aiContext').value.trim().slice(0,180),force=q('aiForce').checked;
- if(!confirm('Analizar '+photos.length+' fotos. Consume Workers AI. No se moverá ninguna todavía. ¿Continuar?'))return;
- stopped=false;aiRows=[];aiEdited.clear();aiAnalysisComplete=false;
- q('confirmAiOrganize').checked=false;q('aiMoveStatus').textContent='';
- lock(true,'ai');q('aiResults').innerHTML='';q('aiGroups').innerHTML='';
- const errors=[];let cached=0;
+ const sameRun=aiRunFolder===currentPrefix&&aiRunContext===context&&!force;
+ const valid=new Map(photos.map(x=>[x.key,x.etag]));
+ if(!sameRun){
+  aiRows=[];aiEdited.clear();aiVisibleLimit=60;q('aiFilter').value='';
+ }
+ aiRows=aiRows.filter(row=>valid.get(row.key)===row.etag);
+ const already=new Set(aiRows.map(row=>row.key));
+ const pending=photos.filter(f=>!already.has(f.key));
+ if(!pending.length){
+  aiAnalysisComplete=aiRows.length===photos.length;
+  renderAiResults();
+  q('aiSummary').textContent=aiRows.length+' fotos revisadas · '+aiPlaceGroups().length+' carpetas propuestas · sin consumo adicional de IA.';
+  updateButtons();return;
+ }
+ if(!confirm('Identificar '+pending.length+' de '+photos.length+' fotos con Workers AI. Se conservarán todas. ¿Continuar?'))return;
+ aiRunFolder=currentPrefix;aiRunContext=context;aiAnalysisComplete=false;
+ stopped=false;q('confirmAiOrganize').checked=false;q('aiMoveStatus').textContent='';
+ lock(true,'ai');renderAiResults();
+ const errors=[];let fromCache=0,consecutiveErrors=0,processed=0;
  try{
-  for(let i=0;i<photos.length;i++){
+  for(const f of pending){
    if(stopped)break;
-   const f=photos[i];q('aiSummary').textContent='Analizando '+(i+1)+'/'+photos.length+' · '+f.key.split('/').pop()+' · Errores '+errors.length;
+   processed++;
+   q('aiSummary').textContent='Identificando '+processed+'/'+pending.length+' · '+f.key.split('/').pop()+
+    (errors.length?' · Errores '+errors.length:'');
    try{
     const out=await api({mode:'ai-review',prefix:currentPrefix,key:f.key,etag:f.etag,context,force});
-    if(out.key!==f.key||out.etag!==f.etag)throw Error('Resultado de otra foto.');
-    if(out.cached)cached++;aiRows.push(out);
-    if(aiRows.length%6===0||i===photos.length-1)renderAiResults();
-   }catch(e){errors.push({key:f.key,error:e.message});log('IA: '+f.key+' · '+e.message)}
+    if(out.key!==f.key||out.etag!==f.etag||!out.kind||!out.category)
+     throw Error('Respuesta incompleta de identificación.');
+    if(out.cached)fromCache++;
+    await aiCompactThumbnail(out);
+    aiRows.push(out);consecutiveErrors=0;
+    if(aiRows.length%12===0||processed===pending.length)renderAiResults();
+   }catch(e){
+    consecutiveErrors++;
+    errors.push({key:f.key,error:e.message||String(e)});
+    log('IA: '+f.key+' · '+(e.message||String(e)));
+    if(consecutiveErrors>=3){
+     log('IA detenida por errores consecutivos. Fotos originales intactas. Puedes continuar después.');
+     break;
+    }
+   }
   }
-  aiAnalysisComplete=!stopped&&!errors.length&&aiRows.length===photos.length;
+  const successful=new Set(aiRows.map(row=>row.key));
+  aiAnalysisComplete=!stopped&&successful.size===photos.length&&photos.every(f=>successful.has(f.key));
   renderAiResults();
+  const other=aiRows.filter(x=>aiFolderFor(x)==='otros').length;
   q('aiSummary').textContent=aiRows.length+'/'+photos.length+' fotos · '+aiPlaceGroups().length+
-   ' lugares o categorías · '+cached+' en caché · '+errors.length+' errores. '+
-   (aiAnalysisComplete?'Revisa los nombres antes de organizar.':'Análisis incompleto. Reintenta.');
+   ' carpetas · '+other+' en otros · '+fromCache+' reutilizadas · '+errors.length+' errores.'+
+   (aiAnalysisComplete?' Revisa antes de organizar.':' Pulsa Identificar lugares para continuar.');
+  log('Clasificación: '+q('aiSummary').textContent);
+ }catch(e){
+  log('Error en la clasificación: '+(e.message||String(e)));
+  q('aiSummary').textContent='Análisis interrumpido. Fotos intactas. Puedes reanudarlo.';
  }finally{lock(false)}
 }
 function downloadAiCsv(){
@@ -734,6 +767,8 @@ async function organizeAiPhotos(){
  if(!confirm('Mover '+rows.length+' fotos a '+aiPlaceGroups().length+
   ' carpetas. Cambiar las rutas puede romper las imágenes enlazadas desde el blog. ¿Continuar?'))return;
  if(prompt('Escribe ORGANIZAR para confirmar el cambio de rutas:')!=='ORGANIZAR')return;
+ // Guardar el mapa de rutas antiguo -> nuevo ANTES de cambiar los objetos R2.
+ downloadAiCsv();
  stopped=false;lock(true,'ai-move');q('confirmAiOrganize').checked=false;
  let moved=0;const errors=[];
  try{
