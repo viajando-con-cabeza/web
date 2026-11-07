@@ -33,3 +33,10 @@ html body .cl-page.cl-landing .cl-landing-hero nav.cl-crumb.vcc-crumb strong{fon
   html body .cl-page.cl-landing .cl-landing-hero nav.cl-crumb.vcc-crumb a,
   html body .cl-page.cl-landing .cl-landing-hero nav.cl-crumb.vcc-crumb strong{font-size:10px!important}
 }
+
+/* Evita que los overrides antiguos aumenten las migas en móviles. */
+@media(max-width:720px){
+ html body:has(.st-shell) .st-shell .st-crumb,
+ html body.country-page .country-hero .country-breadcrumb,
+ html body:has(.imp-page) .imp-page .imp-crumb{font-size:10px!important;column-gap:0!important;row-gap:2px!important}
+}
