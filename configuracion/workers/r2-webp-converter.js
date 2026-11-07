@@ -8,8 +8,8 @@
 const PAGE_SIZE = 1000;
 const MAX_IMAGE_SIZE = 20 * 1024 * 1024;
 const AVIF_QUALITY = 85;
-const COLOR = Object.freeze({ brightness: 1.12, contrast: 0.984, saturation: 1.008 });
-const COLOR_VERSION = "vcc-color-v1";
+const COLOR = Object.freeze({ brightness: 1.012, contrast: 0.984, saturation: 1.008 });
+const COLOR_VERSION = "vcc-color-v2";
 const BACKUP_PREFIX = "__vcc_dedup_backup__/";
 const JPG_RE = /\.jpe?g$/i;
 const IMAGE_RE = /\.(?:jpe?g|webp|avif)$/i;
@@ -366,7 +366,7 @@ td.path{overflow-wrap:anywhere;max-width:280px}
 <button id="removeBtn" class="danger" disabled onclick="removeDuplicates()">Eliminar seleccionadas</button></section>
 <section class="card"><h2>4. Conversión AVIF</h2>
 <p>Calidad <b>85</b> · Resolución original.</p>
-<p class="muted small">Ajustes de color automáticos: brillo <b>+12%</b> · contraste <b>−1,6%</b> · saturación <b>+0,8%</b>.</p>
+<p class="muted small">Ajustes de color automáticos: brillo <b>+1,2%</b> · contraste <b>−1,6%</b> · saturación <b>+0,8%</b>.</p>
 <p class="muted small">2 fases · 1 foto a la vez · reintentos automáticos. El JPG solo se borra tras verificar el AVIF.</p>
 <button id="convertBtn" disabled onclick="convertAll()">Convertir JPG → AVIF</button><button id="convertStopBtn" class="secondary" disabled onclick="stopProcess('convert')">Detener</button>
 <p id="convertSummary" class="muted" role="status" aria-live="polite"></p></section>
