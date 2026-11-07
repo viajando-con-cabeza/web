@@ -90,12 +90,13 @@ function render(){
  const filled=[byCategory.ROPA>=1,byCategory.ROPA>=2,byCategory.ROPA>=3,byCategory.CALZADO>=1,byCategory.ACCESORIOS>=1,byCategory.EXTRAS>=1];
  document.querySelectorAll("[data-ql-slot]").forEach(node=>node.classList.toggle("is-packed",!!filled[Number(node.getAttribute("data-ql-slot"))]));
  el("ql-suitcase-count").textContent=completed+" de "+total+" preparados";
+ el("ql-suitcase-helper").textContent=completed?"La maleta se va llenando con tus elecciones":"Marca tu lista para ir llenando la maleta";
  el("ql-progress-bar").style.width=(total?(completed/total*100):0).toFixed(1)+"%";
  // La recomendación editorial cambia con la estación; el tipo de equipaje queda disponible en la lista copiada.
 }
 function currentList(){
  const s=seasons[state.season];const lines=["QUÉ LLEVAR A ESTOCOLMO","Estación: "+s.name+" · "+state.days+" días · "+(state.luggage==="cabina"?"equipaje de mano":"equipaje facturado"),""];
- s.items.forEach(c=>{lines.push(c[0]+":");c[2].forEach(item=>lines.push((state.done.has(key(c[0],item[0]))?"[x] ":"[ ] ")+item[0]+(amount(item[1],item[2])>1?" ("+amount(item[1],item[2])+" unidades)":"")));lines.push("")});
+ s.items.forEach(c=>{lines.push(c[0]+":");c[2].forEach(item=>lines.push((state.done.has(key(c[0],item[0]))?"[x] ":"[ ] ")+item[0]+(" ("+amount(item[1],item[2])+(amount(item[1],item[2])===1?" unidad)":" unidades)"))));lines.push("")});
  return lines.join("\n");
 }
 function restore(){
