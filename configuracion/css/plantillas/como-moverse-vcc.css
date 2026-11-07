@@ -139,3 +139,52 @@ body.mv-body{background:var(--mv-paper)!important;margin:0;color:var(--mv-ink);f
  .mv-card .mv-card-heading{min-height:41px;gap:6px}
 }
 @media(max-width:410px){.mv-card .mv-icon{width:35px;height:35px}.mv-card .mv-icon img{width:30px;height:30px}.mv-card .mv-card-heading{gap:5px}}
+
+/* VCC section bar · same visual system as Cuándo ir */
+html body.mv-body .mv-subnav{
+  position:sticky;
+  top:var(--mv-header-height,66px);
+  z-index:75;
+  height:43px;
+  min-height:43px;
+  display:flex;
+  align-items:center;
+  justify-content:flex-start;
+  gap:34px;
+  padding:0 max(24px,calc((100vw - 1180px)/2));
+  margin:0;
+  background:#fff;
+  border-top:1px solid #e8e8e8;
+  border-bottom:1px solid #e8e8e8;
+  overflow-x:auto;
+  overflow-y:hidden;
+  scrollbar-width:none;
+  white-space:nowrap;
+}
+html body.mv-body .mv-subnav::-webkit-scrollbar{display:none}
+html body.mv-body .mv-subnav a{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  flex:0 0 auto;
+  height:43px;
+  padding:0;
+  border-bottom:3px solid transparent;
+  font:800 11px/1 'DM Sans',sans-serif;
+  color:#171717;
+  text-decoration:none;
+  white-space:nowrap;
+  transition:color .15s,border-color .15s;
+}
+html body.mv-body .mv-subnav a.is-active,
+html body.mv-body .mv-subnav a:hover{
+  color:#a65340;
+  border-bottom-color:#cf705c;
+}
+html body.mv-body :is(#transportes,#recomendacion,#billetes,#guias-relacionadas){
+  scroll-margin-top:calc(var(--mv-header-height,66px) + 59px);
+}
+@media(max-width:720px){
+  html body.mv-body .mv-subnav{padding:0 14px;gap:25px}
+  html body.mv-body .mv-subnav a{font-size:11px}
+}
