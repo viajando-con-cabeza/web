@@ -315,7 +315,7 @@
     // posició inicial del zoom. Només s'utilitza si el ratolí es mou.
     const leftReach=Math.min(x*.25,Math.min(120,visibleW*.13));
     const topReach=Math.min(y*.25,Math.min(100,visibleH*.13));
-    return {x,y,minX:-leftReach,minY:-topReach};
+    return {x,y,minX:-leftReach,minY:-topReach,width:visibleW,height:visibleH};
   };
   // El zoom continua ancorat al punt exacte. Moviment una mica més viu.
   const PAN_SENSITIVITY=1.45;
@@ -455,16 +455,33 @@
       panGestureBase={...now,panX:state.x,panY:state.y};
       return;
     }
-    // Distància absoluta respecte al primer moviment, sense acumular
-    // errors ni perdre el recorregut contrari en tocar un límit.
+    // Mapa de recorregut COMPLET: des del punt actual, arribar a una
+    // vora de la finestra arriba també a la vora del panell. Amb zoom
+    // gran el moviment és més potent, però continua sent reversible.
     let dx=now.x-panGestureBase.x,dy=now.y-panGestureBase.y;
     if(Math.abs(dx)<.1&&Number.isFinite(now.sx)&&Number.isFinite(panGestureBase.sx))
       dx=(now.sx-panGestureBase.sx)/Math.max(1,zoomRatio());
     if(Math.abs(dy)<.1&&Number.isFinite(now.sy)&&Number.isFinite(panGestureBase.sy))
       dy=(now.sy-panGestureBase.sy)/Math.max(1,zoomRatio());
     if(!Number.isFinite(dx)||!Number.isFinite(dy))return;
-    pendingDx=panGestureBase.panX+dx*PAN_SENSITIVITY;
-    pendingDy=panGestureBase.panY+dy*PAN_SENSITIVITY;
+    const limits=panLimits(modal),rect=modal.getBoundingClientRect();
+    const fromX=clamp(panGestureBase.x-rect.left,0,limits.width);
+    const fromY=clamp(panGestureBase.y-rect.top,0,limits.height);
+    const travelAxis=(delta,initial,min,max,from,visible)=>{
+      if(Math.abs(delta)<.1)return initial;
+      // La distància física disponible cap a la vora pot ser molt
+      // inferior al recorregut interior, sobretot amb zoom del 200%.
+      const available=Math.max(28,delta>0?visible-from:from);
+      const remaining=delta>0?max-initial:initial-min;
+      const proportional=remaining/available;
+      // Manté una resposta mínima; no depèn d'arrossegar el cursor.
+      const strength=Math.max(PAN_SENSITIVITY,proportional*1.05);
+      return clamp(initial+delta*strength,min,max);
+    };
+    pendingDx=travelAxis(dx,panGestureBase.panX,limits.minX,
+      limits.x,fromX,limits.width);
+    pendingDy=travelAxis(dy,panGestureBase.panY,limits.minY,
+      limits.y,fromY,limits.height);
     if(!panFrame)panFrame=requestAnimationFrame(flushPan);
   };
   window.addEventListener('resize',()=>{resetHoverPan();queueMosaicZoomSync();},{passive:true});
