@@ -254,74 +254,64 @@
   // amplia la pàgina de forma nativa sense desplaçar el contingut del blog.
   let viewportBaseline=null;
   let zoomSyncPending=false;
-  const updateMosaicZoomMode=()=>{
-    if(layer.hidden || !viewportBaseline)return;
-    const scale=Math.max(
-      viewportBaseline.w/Math.max(1,window.innerWidth),
-      viewportBaseline.h/Math.max(1,window.innerHeight),
-      (window.devicePixelRatio||1)/Math.max(.01,viewportBaseline.dpr),
-      (window.visualViewport?.scale||1)/Math.max(.01,viewportBaseline.visualScale)
-    );
-    // En mode normal, el mosaic conserva el seu scroll vertical intern.
-    // Amb zoom, és el contenidor complet de galeria qui es desplaça.
-    layer.classList.toggle('vcc-mosaic-native-zoom',scale>1.035);
-  };
-  // Pan natiu sense prémer botons: movem el scroll del MODAL, mai el body
-  // ni fem transform al panell. A diferència del seguiment per posició absoluta,
-  // els petits moviments del cursor no llancen la vista cap a una cantonada.
+  let zoomWheelFallback=1;
   let lastHoverPan=null;
   let hoverPanRaf=0;
   let hoverPanDeltaX=0;
   let hoverPanDeltaY=0;
+  const clamp=(value,min,max)=>Math.max(min,Math.min(max,value));
   const resetHoverPan=()=>{
     lastHoverPan=null;
-    hoverPanDeltaX=0;
-    hoverPanDeltaY=0;
+    hoverPanDeltaX=hoverPanDeltaY=0;
     if(hoverPanRaf){cancelAnimationFrame(hoverPanRaf);hoverPanRaf=0;}
   };
-  const zoomRatio=()=>viewportBaseline ? Math.max(
-    viewportBaseline.w/Math.max(1,window.innerWidth),
-    viewportBaseline.h/Math.max(1,window.innerHeight),
-    (window.devicePixelRatio||1)/Math.max(.01,viewportBaseline.dpr),
-    (window.visualViewport?.scale||1)/Math.max(.01,viewportBaseline.visualScale)
-  ) : 1;
-  const hoverPanViewport=()=>{
+  const zoomRatio=()=>{
+    if(!viewportBaseline)return 1;
+    const vv=window.visualViewport;
+    const cssZoom=parseFloat(getComputedStyle(document.documentElement).zoom)||1;
+    const observed=Math.max(
+      viewportBaseline.w/Math.max(1,window.innerWidth),
+      viewportBaseline.h/Math.max(1,window.innerHeight),
+      (window.devicePixelRatio||1)/Math.max(.01,viewportBaseline.dpr),
+      (vv?.scale||1)/Math.max(.01,viewportBaseline.visualScale),
+      viewportBaseline.vvWidth/Math.max(1,vv?.width||window.innerWidth),
+      viewportBaseline.vvHeight/Math.max(1,vv?.height||window.innerHeight),
+      cssZoom/Math.max(.01,viewportBaseline.cssZoom)
+    );
+    // Some Edge configurations report zoom in the wheel event before their
+    // viewport measurements change. Keep a bounded fallback in that case.
+    return observed>1.025 ? observed : zoomWheelFallback;
+  };
+  const currentGalleryViewport=()=>{
     if(layer.hidden || !viewportBaseline)return null;
     return existingLightbox?.classList.contains('open') ? existingLightbox : layer;
   };
-  const flushHoverPan=()=>{
-    hoverPanRaf=0;
-    const modal=hoverPanViewport();
-    if(!modal || zoomRatio()<=1.035){
-      hoverPanDeltaX=hoverPanDeltaY=0;
+  const updateMosaicZoomMode=()=>{
+    if(layer.hidden || !viewportBaseline)return;
+    const ratio=zoomRatio();
+    const active=ratio>1.025;
+    layer.classList.toggle('vcc-mosaic-native-zoom',active);
+    const root=document.documentElement;
+    if(!active){
+      root.style.removeProperty('--vcc-gallery-viewport-width');
+      root.style.removeProperty('--vcc-gallery-viewport-height');
       return;
     }
-    // El visor comença amb scroll (0,0). Cursor cap a la dreta/avall
-    // ha de mostrar les parts dreta/inferior, no intentar scroll negatiu.
-    if(hoverPanDeltaX)modal.scrollLeft+=hoverPanDeltaX;
-    if(hoverPanDeltaY)modal.scrollTop+=hoverPanDeltaY;
-    hoverPanDeltaX=hoverPanDeltaY=0;
-  };
-  const onHoverPan=event=>{
-    if(event.pointerType!=='mouse' || event.buttons!==0)return;
-    const modal=hoverPanViewport();
-    if(!modal || zoomRatio()<=1.035){
-      resetHoverPan();
-      return;
-    }
-    const kind=modal===layer ? 'mosaic':'photo';
-    const point={kind,x:event.clientX,y:event.clientY};
-    const prev=lastHoverPan;
-    lastHoverPan=point;
-    // Primer moviment després del zoom o del canvi de visor: només referència.
-    if(!prev || prev.kind!==kind)return;
-    // Salt de coordenades en canviar el zoom, la finestra o el monitor.
-    const dx=point.x-prev.x,dy=point.y-prev.y;
-    if(Math.abs(dx)>95 || Math.abs(dy)>95)return;
-    if(Math.abs(dx)<.1 && Math.abs(dy)<.1)return;
-    hoverPanDeltaX+=dx;
-    hoverPanDeltaY+=dy;
-    if(!hoverPanRaf)hoverPanRaf=requestAnimationFrame(flushHoverPan);
+    // Page zoom is different from a CSS transform. Keep an independent
+    // scrollable viewport even when the browser changes only DPR/visualViewport.
+    const vv=window.visualViewport;
+    const width=Math.max(1,Math.min(
+      window.innerWidth,
+      vv?.width||window.innerWidth,
+      viewportBaseline.w/ratio
+    ));
+    const height=Math.max(1,Math.min(
+      window.innerHeight,
+      vv?.height||window.innerHeight,
+      viewportBaseline.h/ratio
+    ));
+    root.style.setProperty('--vcc-gallery-viewport-width',width.toFixed(2)+'px');
+    root.style.setProperty('--vcc-gallery-viewport-height',height.toFixed(2)+'px');
   };
   const queueMosaicZoomSync=()=>{
     if(zoomSyncPending)return;
@@ -331,19 +321,65 @@
       updateMosaicZoomMode();
     });
   };
-  window.addEventListener('resize',()=>{resetHoverPan();queueMosaicZoomSync();},{passive:true});
-  window.visualViewport?.addEventListener('resize',()=>{resetHoverPan();queueMosaicZoomSync();},{passive:true});
+  const flushHoverPan=()=>{
+    hoverPanRaf=0;
+    const modal=currentGalleryViewport();
+    const dx=hoverPanDeltaX,dy=hoverPanDeltaY;
+    hoverPanDeltaX=hoverPanDeltaY=0;
+    if(!modal)return;
+    const availableX=Math.max(0,modal.scrollWidth-modal.clientWidth);
+    const availableY=Math.max(0,modal.scrollHeight-modal.clientHeight);
+    if(availableX<2 && availableY<2)return;
+    // One full cursor sweep can cover an oversized panel, without sudden
+    // automatic recentering or animation after the mouse stops.
+    const gainX=Math.max(1,Math.min(4,availableX/Math.max(1,modal.clientWidth*.8)));
+    const gainY=Math.max(1,Math.min(4,availableY/Math.max(1,modal.clientHeight*.8)));
+    if(dx && availableX>0)modal.scrollLeft+=dx*gainX;
+    if(dy && availableY>0)modal.scrollTop+=dy*gainY;
+  };
+  const onGalleryMouseMove=event=>{
+    if(event.type==='pointermove' && event.pointerType && event.pointerType!=='mouse')return;
+    if(event.buttons!==0)return;
+    const modal=currentGalleryViewport();
+    if(!modal)return;
+    // A real scrollable area is more reliable than zoom percentage alone.
+    // This also covers Edge's visual viewport zoom with unchanged innerWidth.
+    const availableX=modal.scrollWidth-modal.clientWidth;
+    const availableY=modal.scrollHeight-modal.clientHeight;
+    const isZoomed=zoomRatio()>1.025;
+    if(!isZoomed){
+      resetHoverPan();
+      return;
+    }
+    if(availableX<2 && availableY<2){
+      queueMosaicZoomSync();
+      return;
+    }
+    const mode=modal===layer ? 'mosaic':'photo';
+    const now={mode,x:event.clientX,y:event.clientY};
+    const prev=lastHoverPan;
+    lastHoverPan=now;
+    if(!prev || prev.mode!==mode)return;
+    const dx=now.x-prev.x,dy=now.y-prev.y;
+    if(Math.abs(dx)>140 || Math.abs(dy)>140)return;
+    if(Math.abs(dx)<.1 && Math.abs(dy)<.1)return;
+    hoverPanDeltaX+=dx;
+    hoverPanDeltaY+=dy;
+    if(!hoverPanRaf)hoverPanRaf=requestAnimationFrame(flushHoverPan);
+  };
+  window.addEventListener('resize',queueMosaicZoomSync,{passive:true});
+  window.visualViewport?.addEventListener('resize',queueMosaicZoomSync,{passive:true});
   window.addEventListener('wheel',event=>{
     if(layer.hidden || !(event.ctrlKey||event.metaKey))return;
+    const delta=clamp(event.deltaY,-120,120);
+    zoomWheelFallback=clamp(zoomWheelFallback-delta*.001,1,4);
     resetHoverPan();
     requestAnimationFrame(()=>requestAnimationFrame(queueMosaicZoomSync));
   },{capture:true,passive:true});
-  document.addEventListener('pointermove',event=>{
-    if(event.pointerType==='mouse' && !layer.hidden){
-      queueMosaicZoomSync();
-      onHoverPan(event);
-    }
-  },{capture:true,passive:true});
+  // Listen at window capture: Edge may emit mousemove without a matching
+  // pointermove over modal descendants. Duplicate events have zero delta.
+  window.addEventListener('pointermove',onGalleryMouseMove,{capture:true,passive:true});
+  window.addEventListener('mousemove',onGalleryMouseMove,{capture:true,passive:true});
   const resetViewerPan=()=>{}; // Manté el zoom natiu entre mosaic i fotografia.
   const syncViewerPan=()=>{};
   const clearNativeGalleryLayout=()=>{
@@ -354,16 +390,23 @@
     root.classList.remove('vcc-gallery-modal-locked');
     root.style.removeProperty('--vcc-gallery-panel-width');
     root.style.removeProperty('--vcc-gallery-panel-height');
+    root.style.removeProperty('--vcc-gallery-viewport-width');
+    root.style.removeProperty('--vcc-gallery-viewport-height');
     viewportBaseline=null;
+    zoomWheelFallback=1;
   };
   const startPanBaseline=()=>{
     resetHoverPan();
+    zoomWheelFallback=1;
     const root=document.documentElement;
     viewportBaseline={
       w:window.innerWidth,
       h:window.innerHeight,
       dpr:window.devicePixelRatio||1,
-      visualScale:window.visualViewport?.scale||1
+      visualScale:window.visualViewport?.scale||1,
+      vvWidth:window.visualViewport?.width||window.innerWidth,
+      vvHeight:window.visualViewport?.height||window.innerHeight,
+      cssZoom:parseFloat(getComputedStyle(root).zoom)||1
     };
     root.style.setProperty('--vcc-gallery-panel-width',Math.max(1,mosaicPanel.offsetWidth)+'px');
     root.style.setProperty('--vcc-gallery-panel-height',Math.max(1,mosaicPanel.offsetHeight)+'px');
