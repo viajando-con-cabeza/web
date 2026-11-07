@@ -91,7 +91,7 @@ function render(){
  document.querySelectorAll("[data-ql-slot]").forEach(node=>node.classList.toggle("is-packed",!!filled[Number(node.getAttribute("data-ql-slot"))]));
  el("ql-suitcase-count").textContent=completed+" de "+total+" preparados";
  el("ql-progress-bar").style.width=(total?(completed/total*100):0).toFixed(1)+"%";
- el("ql-tip-luggage").textContent=state.luggage==="cabina"?"Prioriza prendas versátiles si viajas solo con equipaje de mano.":"Aprovecha el espacio extra sin cargar ropa innecesaria.";
+ // La recomendación editorial cambia con la estación; el tipo de equipaje queda disponible en la lista copiada.
 }
 function currentList(){
  const s=seasons[state.season];const lines=["QUÉ LLEVAR A ESTOCOLMO","Estación: "+s.name+" · "+state.days+" días · "+(state.luggage==="cabina"?"equipaje de mano":"equipaje facturado"),""];
