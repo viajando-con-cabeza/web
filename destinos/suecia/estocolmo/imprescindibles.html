@@ -172,12 +172,12 @@ html body .imp-page .imp-main .place.place--no-media .facts {
   flex-wrap:nowrap!important;
   justify-content:center!important;
   align-items:center!important;
-  position:relative!important;
-  left:50%!important;
-  transform:translateX(-50%)!important;
+  position:static!important;
+  align-self:center!important;
+  transform:none!important;
   width:min(1080px,calc(100vw - 48px))!important;
   max-width:none!important;
-  margin:16px 0 15px!important;
+  margin:16px auto 15px!important;
   column-gap:clamp(12px,1.55vw,26px)!important;
   row-gap:0!important;
 }
@@ -199,7 +199,7 @@ html body .imp-page .imp-main .place.place--no-media .facts > span {
     flex-wrap:wrap!important;
     width:100%!important;
     max-width:680px!important;
-    left:auto!important;
+    align-self:center!important;
     transform:none!important;
     margin:16px auto 15px!important;
     row-gap:10px!important;
