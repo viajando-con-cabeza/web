@@ -431,11 +431,8 @@
     }
   });
 
-  desktop.addEventListener('change',() => {
-    // Durant el zoom natiu canvia el breakpoint virtual, però no és un mòbil.
-    // Mantenim el visor d'escriptori mentre la fotografia és oberta.
-    if (!desktop.matches && !layer.hidden &&
-        !existingLightbox?.classList.contains('open') &&
-        window.matchMedia('(pointer:coarse)').matches) closeGallery();
-  });
+  // No tanquem el visor quan el zoom del navegador travessa els 801px.
+  // En equips Windows tàctils (pointer:coarse), el codi antic tancava el
+  // mosaic i revelava la guia del darrere a mig zoom. Només la X tanca.
+
 })();
