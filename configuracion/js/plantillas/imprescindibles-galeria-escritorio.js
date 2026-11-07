@@ -418,8 +418,12 @@
       dx=(now.sx-prev.sx)/Math.max(1,zoomRatio());
     if(Math.abs(dy)<.1 && Number.isFinite(now.sy) && Number.isFinite(prev.sy))
       dy=(now.sy-prev.sy)/Math.max(1,zoomRatio());
-    if(!Number.isFinite(dx)||!Number.isFinite(dy)||
-       Math.abs(dx)>140||Math.abs(dy)>140)return;
+    if(!Number.isFinite(dx)||!Number.isFinite(dy))return;
+    // Abans ignoràvem TOT el moviment si el ratolí avançava més de 140px
+    // en un event. A Edge passa sovint després de Ctrl+rodeta i sembla
+    // que la galeria no es pugui moure. Ara el limitem, no l'anul·lem.
+    dx=clamp(dx,-140,140);
+    dy=clamp(dy,-140,140);
     if(Math.abs(dx)<.1&&Math.abs(dy)<.1)return;
     pendingDx+=dx;pendingDy+=dy;
     if(!panFrame)panFrame=requestAnimationFrame(flushPan);
