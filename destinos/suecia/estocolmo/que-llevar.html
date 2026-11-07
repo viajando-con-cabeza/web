@@ -13,7 +13,7 @@
 <link rel="preload" as="image" href="/configuracion/imagenes/fondos/fondos-que-llevar-editorial.webp?v=20261107-github-original" type="image/webp">
 <link rel="stylesheet" href="/configuracion/css/componentes/breadcrumb-vcc-global.css?v=20261107">
 <link rel="stylesheet" href="/configuracion/css/componentes/estocolmo-guias-final-vcc.css?v=20261107-v1">
-<link rel="stylesheet" href="/configuracion/css/plantillas/que-llevar-vcc-v3.css?v=20261107a">
+<link rel="stylesheet" href="/configuracion/css/plantillas/que-llevar-vcc-v3.css?v=20261107-v4-fiel">
 </head>
 <body><header class="page-header"></header>
 <div class="ql-page">
@@ -31,94 +31,35 @@
 </div></nav>
  <main class="ql-wrap ql-main">
  <section class="ql-packing" id="haz-tu-maleta" aria-labelledby="ql-pack-title">
-  <header class="ql-section-heading ql-section-heading-left"><p class="ql-section-script">Organiza tu equipaje paso a paso</p><h2 id="ql-pack-title">HAZ TU MALETA</h2><p class="ql-section-desc">Elige cuándo viajas y cuántos días estarás en Estocolmo. Te preparamos una lista completa con las cantidades recomendadas.</p></header>
-  <div class="ql-builder">
-   <div class="ql-builder-options">
-    <h3 class="ql-question">¿EN QUÉ ÉPOCA VIAJAS?</h3>
-    <div class="ql-seasons" role="group" aria-label="Selecciona la época del viaje">
-      <button class="ql-season" type="button" data-season="primavera" aria-pressed="false"><img src="/configuracion/imagenes/iconos/iconos-estacion-primavera-color.svg" alt="" width="42" height="42"><span><b>PRIMAVERA</b><small>mar – may</small></span></button>
-      <button class="ql-season" type="button" data-season="verano" aria-pressed="false"><img src="/configuracion/imagenes/iconos/iconos-estacion-verano-color.svg" alt="" width="42" height="42"><span><b>VERANO</b><small>jun – ago</small></span></button>
-      <button class="ql-season" type="button" data-season="otono" aria-pressed="false"><img src="/configuracion/imagenes/iconos/iconos-estacion-otono-color.svg" alt="" width="42" height="42"><span><b>OTOÑO</b><small>sep – nov</small></span></button>
-      <button class="ql-season" type="button" data-season="invierno" aria-pressed="true"><img src="/configuracion/imagenes/iconos/iconos-estacion-invierno-color.svg" alt="" width="42" height="42"><span><b>INVIERNO</b><small>dic – feb</small></span></button>
+  <header class="ql-section-heading ql-section-heading-left"><p class="ql-section-script">Organiza tu equipaje paso a paso</p><h2 id="ql-pack-title">HAZ TU MALETA</h2><p class="ql-section-desc">Elige cuándo viajas y cuántos días estarás en Estocolmo. Una maleta práctica y sin excesos, con tu lista y las cantidades recomendadas.</p></header>
+
+  <div class="ql-builder ql-builder-compact">
+    <div class="ql-builder-options">
+      <h3 class="ql-question"><span class="ql-calendar-symbol" aria-hidden="true">▦</span> ¿EN QUÉ ÉPOCA VIAJAS?</h3>
+      <div class="ql-seasons" role="group" aria-label="Selecciona la época del viaje">
+        <button class="ql-season" type="button" data-season="primavera" aria-pressed="true"><img src="/configuracion/imagenes/iconos/iconos-estacion-primavera-color.svg" alt="" width="42" height="42"><span><b>PRIMAVERA</b><small>mar – may</small></span></button>
+        <button class="ql-season" type="button" data-season="verano" aria-pressed="false"><img src="/configuracion/imagenes/iconos/iconos-estacion-verano-color.svg" alt="" width="42" height="42"><span><b>VERANO</b><small>jun – ago</small></span></button>
+        <button class="ql-season" type="button" data-season="otono" aria-pressed="false"><img src="/configuracion/imagenes/iconos/iconos-estacion-otono-color.svg" alt="" width="42" height="42"><span><b>OTOÑO</b><small>sep – nov</small></span></button>
+        <button class="ql-season" type="button" data-season="invierno" aria-pressed="false"><img src="/configuracion/imagenes/iconos/iconos-estacion-invierno-color.svg" alt="" width="42" height="42"><span><b>INVIERNO</b><small>dic – feb</small></span></button>
+      </div>
+      <div class="ql-duration"><h3 class="ql-question">¿CUÁNTOS DÍAS VIAJAS?</h3>
+        <div class="ql-days-pills" role="group" aria-label="Duración del viaje">
+         <button type="button" data-days="3">3 días</button><button type="button" data-days="5">5 días</button><button type="button" data-days="7" aria-pressed="true">7 días</button><button type="button" data-days="10">10 días</button>
+        </div>
+        <select id="ql-days" class="ql-sr-only" aria-label="Duración del viaje"><option value="3">3 días</option><option value="5">5 días</option><option value="7" selected>7 días</option><option value="10">10 días</option></select>
+      </div>
+      <p class="ql-builder-tip" id="ql-note">Una chaqueta impermeable te ahorrará mucho espacio.</p>
     </div>
-    <div class="ql-duration"><h3 class="ql-question">¿CUÁNTOS DÍAS VIAJAS?</h3><div class="ql-days-pills" role="group" aria-label="Duración del viaje"><button type="button" data-days="3">3 días</button><button type="button" data-days="5">5 días</button><button type="button" data-days="7">7 días</button><button type="button" data-days="10">10 días</button></div><select id="ql-days" class="ql-sr-only" aria-label="Duración del viaje"><option value="3">3 días</option><option value="5">5 días</option><option value="7">7 días</option><option value="10">10 días</option></select></div>
-    <div class="ql-bag-type"><label for="ql-luggage">TIPO DE EQUIPAJE</label><select id="ql-luggage"><option value="cabina">Equipaje de mano</option><option value="facturado">Maleta facturada</option></select></div>
-    <p class="ql-builder-tip" id="ql-note">No olvides vestirte por capas.</p>
-   </div>
-   <div class="ql-suitcase-box">
- <p class="ql-suitcase-script">Tu maleta VCC</p>
- <svg class="ql-suitcase-illustration" id="ql-suitcase-art" viewBox="0 0 670 455" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Maleta VCC abierta. Los básicos aparecen al marcar tu lista.">
-  <defs>
-   <linearGradient id="ql-leather" x1="0" y1="0" x2=".95" y2="1"><stop stop-color="#e5a15d"/><stop offset=".44" stop-color="#b96632"/><stop offset="1" stop-color="#8f4325"/></linearGradient>
-   <linearGradient id="ql-suit-inside" x1="0" y1="0" x2=".9" y2="1"><stop stop-color="#e7c6a1"/><stop offset="1" stop-color="#aa805a"/></linearGradient>
-   <linearGradient id="ql-fabric" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#ebe0cc"/><stop offset="1" stop-color="#bca88f"/></linearGradient>
-   <linearGradient id="ql-olive" x1="0" y1="0" x2=".6" y2="1"><stop stop-color="#85916d"/><stop offset="1" stop-color="#465440"/></linearGradient>
-   <linearGradient id="ql-tan" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#c1804b"/><stop offset="1" stop-color="#744327"/></linearGradient>
-   <filter id="ql-shadow" x="-20%" y="-25%" width="140%" height="160%"><feGaussianBlur stdDeviation="9"/></filter>
-   <pattern id="ql-stitch" width="16" height="16" patternUnits="userSpaceOnUse"><path d="M0 7h6" stroke="#d2b08c" stroke-width="1.1" opacity=".6"/></pattern>
-   <pattern id="ql-knit" width="15" height="15" patternUnits="userSpaceOnUse"><path d="m4 0 5 7-5 8M11 0 6 7l5 8" fill="none" stroke="#bca78b" stroke-width="1.1" opacity=".6"/></pattern>
-  </defs>
-  <ellipse cx="337" cy="412" rx="269" ry="20" fill="#6b4c37" opacity=".22" filter="url(#ql-shadow)"/>
-  <path d="M86 73Q85 37 132 35h414q49 0 52 44l4 215H76Z" fill="url(#ql-leather)" stroke="#673a24" stroke-width="5"/>
-  <path d="M102 80q1-28 35-29h403q38 0 39 29l2 194H95Z" fill="url(#ql-suit-inside)" stroke="#e7bc86" stroke-width="7"/>
-  <rect x="125" y="85" width="425" height="164" rx="23" fill="#e5c7a4" stroke="#a77f5c" stroke-width="2"/>
-  <path d="M140 160H535M340 86V248" stroke="#b69170" stroke-width="2" opacity=".6"/>
-  <rect x="141" y="104" width="393" height="123" rx="13" fill="url(#ql-stitch)" opacity=".75"/>
-  <path d="M123 108V240M548 108v132" stroke="#f8deb4" stroke-width="3" stroke-dasharray="7 7" opacity=".75"/>
-  <path d="M85 260q0-27 32-28h446q33 0 34 29l-12 116q-3 23-35 23H125q-32 0-34-25Z" fill="url(#ql-leather)" stroke="#673a24" stroke-width="6"/>
-  <path d="M112 261q0-14 18-14h416q19 0 19 15l-10 92q-2 15-19 15H139q-18 0-19-16Z" fill="#937251" stroke="#d5a36f" stroke-width="7"/>
-  <path d="M128 266h424v90H128Z" fill="#80664d" opacity=".7"/>
-  <g class="ql-suitcase-clothes">
-   <g data-ql-slot="0" class="ql-pack-piece" transform="translate(138 270)">
-    <rect width="154" height="89" rx="16" fill="url(#ql-fabric)" stroke="#bda78a" stroke-width="3"/>
-    <rect width="154" height="89" rx="16" fill="url(#ql-knit)" opacity=".9"/>
-    <path d="M31 0Q52 30 77 25Q100 29 121 0M77 24v64" fill="none" stroke="#d4c2a9" stroke-width="4"/>
-    <path d="M13 22V77M141 22v55" fill="none" stroke="#e2d5c4" stroke-width="4" opacity=".8"/>
-   </g>
-   <g data-ql-slot="1" class="ql-pack-piece" transform="translate(294 263)">
-    <rect x="0" y="0" width="117" height="100" rx="23" fill="url(#ql-olive)" stroke="#404b39" stroke-width="3"/>
-    <path d="M3 28H115M3 52H115M3 76H115" stroke="#acb697" stroke-width="5" opacity=".4"/>
-    <path d="M59 6V98" stroke="#c2bd92" stroke-width="4"/>
-    <path d="M40 7Q59 26 79 7" fill="none" stroke="#d0d3b4" stroke-width="7"/>
-   </g>
-   <g data-ql-slot="2" class="ql-pack-piece" transform="translate(414 310)">
-    <rect x="0" y="3" width="138" height="50" rx="16" fill="#a8a8a2" stroke="#72736b" stroke-width="3"/>
-    <path d="M7 23H132M17 11q24 17 38 0m10 0q25 17 44 0" fill="none" stroke="#c8c7b9" stroke-width="4"/>
-   </g>
-   <g data-ql-slot="3" class="ql-pack-piece" transform="translate(157 339)">
-    <path d="M0 0h41v19q9 6 33 9l3 18H0Z" fill="url(#ql-tan)" stroke="#6d432b" stroke-width="3"/>
-    <path d="M84 0h40v18q10 7 26 11l4 17H82Z" fill="url(#ql-tan)" stroke="#6d432b" stroke-width="3"/>
-    <path d="M0 39h78M82 39h73" stroke="#553926" stroke-width="7"/>
-    <path d="M17 8h20M98 8h20" stroke="#e5c19a" stroke-width="2" stroke-dasharray="4 4"/>
-   </g>
-   <g data-ql-slot="4" class="ql-pack-piece" transform="translate(460 244)">
-    <path d="M20 69Q-1 45 14 19Q29-3 58 0q35 3 47 35l-3 34Z" fill="#d3813f" stroke="#9b542a" stroke-width="4"/>
-    <path d="M10 54h99v22H10Z" fill="#b96a35" stroke="#884726" stroke-width="3"/>
-    <path d="M26 12q10 20 3 45M52 4v52M77 13q-9 18-5 43" fill="none" stroke="#f2ac6d" stroke-width="3"/>
-    <circle cx="59" cy="-4" r="10" fill="#c8793a" stroke="#9b542a" stroke-width="3"/>
-   </g>
-   <g data-ql-slot="5" class="ql-pack-piece" transform="translate(408 286)">
-    <rect x="0" y="6" width="50" height="75" rx="14" fill="#c6aa7d" stroke="#73583c" stroke-width="3"/>
-    <rect x="12" y="2" width="26" height="19" rx="10" fill="none" stroke="#795e45" stroke-width="5"/>
-    <path d="M11 32h29M17 51h19" stroke="#e7d2a7" stroke-width="3"/>
-   </g>
-  </g>
-  <path d="M100 365h478q-8 34-35 34H128q-19 0-28-34Z" fill="url(#ql-leather)" stroke="#764024" stroke-width="4"/>
-  <path d="M271 398q5 27 33 28h65q25 0 29-28" fill="none" stroke="#6a3924" stroke-width="15" stroke-linecap="round"/>
-  <path d="M271 398q5 27 33 28h65q25 0 29-28" fill="none" stroke="#cf9158" stroke-width="8" stroke-linecap="round"/>
-  <rect x="150" y="373" width="43" height="21" rx="4" fill="#d9b77a" stroke="#795531" stroke-width="3"/>
-  <rect x="478" y="373" width="43" height="21" rx="4" fill="#d9b77a" stroke="#795531" stroke-width="3"/>
-  <path d="M163 382h18M490 382h18" stroke="#83613d" stroke-width="3"/>
-  <path d="M295 34V21q0-15 16-15h53q16 0 16 15v13" fill="none" stroke="#6c4025" stroke-width="15" stroke-linecap="round"/>
-  <path d="M298 29V21q0-12 13-12h53q13 0 13 12v8" fill="none" stroke="#cf925d" stroke-width="7" stroke-linecap="round"/>
-  <g transform="translate(153 44) rotate(-8)">
-   <path d="M0 0h103v71l-51 13L0 71Z" fill="#f9e6c5" stroke="#9b7144" stroke-width="3"/>
-   <circle cx="51" cy="9" r="4" fill="#b56d3d"/><path d="M51 9V-25" stroke="#956344" stroke-width="4" fill="none"/>
-   <text x="50" y="52" text-anchor="middle" font-size="26" font-weight="800" font-family="Oswald, sans-serif" fill="#9a4b2b">VCC</text>
-  </g>
- </svg>
- <div class="ql-suitcase-caption"><span class="ql-suitcase-count" id="ql-suitcase-count" aria-live="polite">0 básicos preparados</span><span class="ql-suitcase-helper" id="ql-suitcase-helper">Marca tu lista para ir llenando la maleta</span></div>
-</div>
+    <div class="ql-suitcase-box">
+       <p class="ql-suitcase-script">Maleta VCC</p>
+       <img class="ql-suitcase-illustration" id="ql-suitcase-art" src="/configuracion/imagenes/ilustraciones/maleta-vcc-arte.svg?v=20261107" alt="Maleta VCC abierta con ropa, jersey, abrigo, botas, gorro y accesorios" width="960" height="610" decoding="async">
+       <div class="ql-suitcase-caption"><span id="ql-suitcase-count" class="ql-suitcase-count">0 preparados</span><span id="ql-suitcase-helper" class="ql-suitcase-helper">Marca tu lista para preparar la maleta</span></div>
+    </div>
+    <aside class="ql-top-preview" aria-label="La selección VCC según la estación">
+      <h3 class="ql-preview-title" id="ql-preview-title">Tu maleta en primavera</h3>
+      <p class="ql-preview-note">Lo primero que prepararíamos para esta época:</p>
+      <ul class="ql-preview-items" id="ql-preview-items"></ul>
+    </aside>
   </div>
   <div class="ql-full-list">
    <div class="ql-list-top"><div><p class="ql-section-script">Tu lista personalizada</p><h3 id="ql-season-title">Tu lista para el invierno</h3><p id="ql-intro">Capas térmicas, abrigo impermeable y calzado con buen agarre.</p></div><div class="ql-progress-wrap"><strong class="ql-progress" id="ql-progress" aria-live="polite">0 preparados</strong><div class="ql-progress-track" aria-hidden="true"><span id="ql-progress-bar"></span></div></div></div>
@@ -126,19 +67,46 @@
    <div class="ql-check-actions"><button class="ql-action" type="button" id="ql-copy">COPIAR LISTA COMPLETA</button><button class="ql-action ql-secondary" type="button" id="ql-reset">DESMARCAR TODO</button></div>
   </div>
  </section>
- <section class="ql-essentials-section" id="imprescindibles" aria-labelledby="ql-essential-title"><div class="ql-section-heading ql-section-heading-left"><div><p class="ql-section-script">Lo que no puede faltar en tu maleta</p><h2 id="ql-essential-title">IMPRESCINDIBLES</h2></div><p class="ql-section-desc">Cinco básicos que recomendamos en cualquier época del año.</p></div><div class="ql-essentials-grid"><article class="ql-essential-card"><span class="ql-essential-art"><svg viewBox="0 0 24 24" role="img" aria-label="Chaqueta impermeable" fill="none" stroke="currentColor" stroke-width="1.55" stroke-linejoin="round" stroke-linecap="round"><path d="M9 3h6l4 3 2 7-3 1-1-4v11H7V10l-1 4-3-1 2-7 4-3ZM9 3l3 4 3-4M12 7v14"/></svg></span><h3>Chaqueta impermeable</h3><p>Por si llueve o cambia el tiempo.</p></article>
-<article class="ql-essential-card"><span class="ql-essential-art"><svg viewBox="0 0 24 24" role="img" aria-label="Calzado cómodo" fill="none" stroke="currentColor" stroke-width="1.55" stroke-linejoin="round" stroke-linecap="round"><path d="M4 15c2.5.2 3-2 4-6l3.5 3.5c1 .8 2.7 1.5 5.5 1.5 2 0 3 1.5 3 3.2V20H4v-5Z M7 16h12 M12 13l2-2"/></svg></span><h3>Calzado cómodo</h3><p>Para recorrer la ciudad y sus islas.</p></article>
-<article class="ql-essential-card"><span class="ql-essential-art"><svg viewBox="0 0 24 24" role="img" aria-label="Botella reutilizable" fill="none" stroke="currentColor" stroke-width="1.55" stroke-linejoin="round" stroke-linecap="round"><path d="M9 3h6v3l2 2v12H7V8l2-2V3Z M9 7h6M7 12h10"/></svg></span><h3>Botella reutilizable</h3><p>En Estocolmo el agua del grifo es potable.</p></article>
-<article class="ql-essential-card"><span class="ql-essential-art"><svg viewBox="0 0 24 24" role="img" aria-label="Batería externa" fill="none" stroke="currentColor" stroke-width="1.55" stroke-linejoin="round" stroke-linecap="round"><rect x="7" y="4" width="10" height="17" rx="2"/><path d="M10 4V2h4v2m-3 5-2 4h3l-1 4 4-6h-3l1-2"/></svg></span><h3>Batería externa</h3><p>Para jornadas largas y mapas.</p></article>
-<article class="ql-essential-card"><span class="ql-essential-art"><svg viewBox="0 0 24 24" role="img" aria-label="Documentación" fill="none" stroke="currentColor" stroke-width="1.55" stroke-linejoin="round" stroke-linecap="round"><rect x="5" y="3" width="14" height="18" rx="2"/><circle cx="12" cy="11" r="3"/><path d="M9 11h6 M12 8v6M8 17h8"/></svg></span><h3>Documentación</h3><p>Identificación, reservas y seguro.</p></article></div></section>
- <section class="ql-advice-section" id="consejos" aria-labelledby="ql-tips-title"><div class="ql-section-heading ql-section-heading-left"><div><p class="ql-section-script">Viaja ligero y bien preparado</p><h2 id="ql-tips-title">CONSEJOS PARA AHORRAR ESPACIO</h2></div><p class="ql-section-desc">Pequeños cambios, más espacio para disfrutar.</p></div>
- <div class="ql-advice-carousel"><button class="ql-carousel-arrow" type="button" id="ql-advice-prev" aria-label="Consejo anterior">‹</button><div class="ql-advice-track" id="ql-advice-track">
-  <article class="ql-advice-card"><span class="ql-advice-number">1</span><div><h3>Organiza por bolsas</h3><p>Utiliza organizadores de equipaje para separar ropa, accesorios y calzado.</p></div></article>
-  <article class="ql-advice-card"><span class="ql-advice-number">2</span><div><h3>Combina tus prendas</h3><p>Elige colores y ropa versátil para crear varios conjuntos con menos piezas.</p></div></article>
-  <article class="ql-advice-card"><span class="ql-advice-number">3</span><div><h3>Enrolla la ropa</h3><p>Las prendas ligeras enrolladas ayudan a aprovechar mejor los huecos.</p></div></article>
-  <article class="ql-advice-card"><span class="ql-advice-number">4</span><div><h3>Viste las capas gruesas</h3><p>Lleva puesto el abrigo y el calzado más voluminoso durante el trayecto.</p></div></article>
-  <article class="ql-advice-card"><span class="ql-advice-number">5</span><div><h3>Deja margen</h3><p>Evita llenar la maleta al límite, sobre todo si quieres traer recuerdos.</p></div></article>
- </div><button class="ql-carousel-arrow" type="button" id="ql-advice-next" aria-label="Consejo siguiente">›</button></div></section>
+ <section class="ql-essentials-section" id="imprescindibles" aria-labelledby="ql-essential-title">
+ <div class="ql-section-heading ql-section-heading-left"><div><p class="ql-section-script">Lo que no puede faltar en tu maleta</p><h2 id="ql-essential-title">IMPRESCINDIBLES</h2></div><p class="ql-section-desc">Básicos que te recomendamos llevar siempre, independientemente de la época del año.</p></div>
+ <div class="ql-essentials-grid"><article class="ql-essential-card"><span class="ql-essential-art"><svg class="ql-item-icon" viewBox="0 0 64 64" aria-hidden="true"><use href="/configuracion/imagenes/iconos/equipaje-vcc-sprite.svg#coat"></use></svg></span><h3>Chaqueta impermeable</h3><p>El clima cambia rápido y puede llover en cualquier momento.</p></article>
+<article class="ql-essential-card"><span class="ql-essential-art"><svg class="ql-item-icon" viewBox="0 0 64 64" aria-hidden="true"><use href="/configuracion/imagenes/iconos/equipaje-vcc-sprite.svg#shoe"></use></svg></span><h3>Calzado cómodo</h3><p>Para recorrer la ciudad y sus islas sin preocupaciones.</p></article>
+<article class="ql-essential-card"><span class="ql-essential-art"><svg class="ql-item-icon" viewBox="0 0 64 64" aria-hidden="true"><use href="/configuracion/imagenes/iconos/equipaje-vcc-sprite.svg#sweater"></use></svg></span><h3>Ropa por capas</h3><p>La clave para adaptarte a la temperatura durante el día.</p></article>
+<article class="ql-essential-card"><span class="ql-essential-art"><svg class="ql-item-icon" viewBox="0 0 64 64" aria-hidden="true"><use href="/configuracion/imagenes/iconos/equipaje-vcc-sprite.svg#hat"></use></svg></span><h3>Gorro y bufanda</h3><p>Especialmente útiles en otoño e invierno por el frío y el viento.</p></article>
+<article class="ql-essential-card"><span class="ql-essential-art"><svg class="ql-item-icon" viewBox="0 0 64 64" aria-hidden="true"><use href="/configuracion/imagenes/iconos/equipaje-vcc-sprite.svg#glasses"></use></svg></span><h3>Gafas de sol</h3><p>También en invierno, los días despejados pueden ser muy luminosos.</p></article></div>
+ </section>
+ <section class="ql-advice-section" id="consejos" aria-labelledby="ql-tips-title">
+ <div class="ql-section-heading ql-section-heading-left"><p class="ql-section-script">Viaja ligero y bien preparado</p><h2 id="ql-tips-title">CONSEJOS PARA AHORRAR ESPACIO</h2></div>
+ <div class="ql-advice-panel">
+  <div class="ql-packing-cubes" aria-hidden="true">
+   <svg viewBox="0 0 280 172" xmlns="http://www.w3.org/2000/svg" width="280" height="172">
+    <defs><linearGradient id="ql-pcube" x2="1" y2="1"><stop stop-color="#99a489"/><stop offset="1" stop-color="#5c7264"/></linearGradient></defs>
+    <ellipse cx="139" cy="152" rx="109" ry="13" fill="#b6a999" opacity=".22"/>
+    <g stroke="#3f574f" stroke-width="3">
+     <path d="M94 24q2-13 17-13h71q13 0 16 13" fill="none"/>
+     <rect x="67" y="21" width="149" height="105" rx="18" fill="url(#ql-pcube)"/>
+     <rect x="79" y="33" width="125" height="79" rx="13" fill="#e8e8d9" stroke="#89958c"/>
+     <path d="M82 53q57-26 113 2m-110 8q60-26 116 0M85 80q53-24 114 1" stroke="#c7c7b5" stroke-width="5" fill="none"/>
+     <path d="M92 22h101M67 52v53" stroke="#c6d1b8" stroke-width="4" fill="none"/>
+     <rect x="24" y="76" width="139" height="75" rx="16" fill="url(#ql-pcube)"/>
+     <rect x="35" y="86" width="118" height="52" rx="10" fill="#f1eee1" stroke="#8e9e8d"/>
+     <path d="M43 104q50-19 102 2m-99 14q45-16 93 0" stroke="#dad8c7" stroke-width="5" fill="none"/>
+     <path d="M36 143h115m-97-67V65q0-6 8-6h65q8 0 8 6v11" stroke="#4d675c" stroke-width="4" fill="none"/>
+     <path d="M25 142q70 14 138 0" fill="none" stroke="#395448" stroke-width="4"/>
+    </g>
+    <path d="M22 55 8 47m28-10-6-14m190 15 12-13" stroke="#dd7a4d" stroke-linecap="round" stroke-width="5"/>
+    <text x="107" y="112" fill="#597263" font-size="10" font-weight="900" font-family="Arial">VCC</text>
+   </svg>
+  </div>
+  <ul class="ql-advice-bullets">
+   <li><strong>Usa organizadores de equipaje:</strong> te ayudan a ganar espacio y mantener todo ordenado.</li>
+   <li><strong>Elige ropa versátil:</strong> prendas que puedas combinar fácilmente entre sí.</li>
+   <li><strong>Lleva formatos mini:</strong> en neceser, para higiene personal y cosmética.</li>
+   <li><strong>Aprovecha las capas:</strong> ocupan poco y te permiten adaptarte a cualquier temperatura.</li>
+   <li><strong>Deja margen libre:</strong> siempre viene bien espacio para algún recuerdo o compra.</li>
+  </ul>
+ </div>
+ </section>
  <p class="ql-foot-note">Lista orientativa. Ajusta las cantidades según la meteorología, la posibilidad de lavar ropa y tus necesidades personales.</p>
 </main>
  <section class="vcc-discover-section related-section" aria-labelledby="ql-related-title">
@@ -156,6 +124,6 @@
 <footer class="vcc-global-footer"></footer>
 <script src="/configuracion/js/site-header.js?v=20261103-social-icons"></script>
 <script src="/configuracion/js/site-footer.js?v=20261102"></script>
-<script src="/configuracion/js/plantillas/que-llevar-vcc.js?v=20261107-v3"></script>
+<script src="/configuracion/js/plantillas/que-llevar-vcc.js?v=20261107-v4-fiel"></script>
 </body>
 </html>
