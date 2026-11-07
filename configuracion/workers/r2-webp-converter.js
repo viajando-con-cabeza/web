@@ -364,6 +364,79 @@ async function movePhotoToPlace(env,prefix,key,etag,folder,confirmed){
  return {moved:true,source:key,target,folder:label,copied,verified:true};
 }
 
+// Rename a virtual R2 folder by copying each object to the new prefix.
+// The original is removed only after verifying the new object; no overwrite.
+function renameDestination(prefix,newName){
+ const base=normalizePrefix(prefix);
+ const name=String(newName??'').trim();
+ if(!/^[a-z0-9]+(?:[-_][a-z0-9]+)*$/.test(name)||name.length>72)
+  throw Error('El nombre debe estar en minúsculas y solo usar letras, números, - o _.');
+ const parts=base.slice(0,-1).split('/');
+ const old=parts.pop();
+ if(!old||old.startsWith('__vcc_')||old.startsWith('_preview'))throw Error('Esta carpeta no puede renombrarse.');
+ if(name===old)throw Error('El nombre es igual al actual.');
+ return (parts.length?parts.join('/')+'/':'')+name+'/';
+}
+async function listForFolderRename(env,prefix,newName,cursor){
+ const destination=renameDestination(prefix,newName);
+ if(cursor!=null&&typeof cursor!=='string')throw Error('Cursor inválido.');
+ const opts={prefix,limit:500};
+ if(cursor)opts.cursor=cursor;
+ const page=await env.BUCKET.list(opts);
+ return {destination,files:page.objects.filter(x=>x.key.startsWith(prefix)).map(x=>({
+  key:x.key,etag:x.etag,size:x.size
+ })),nextCursor:page.truncated?page.cursor:null};
+}
+async function renameFolderObject(env,prefix,newName,key,etag,confirmed){
+ if(confirmed!==true)throw Error('Se requiere confirmación expresa del cambio de carpeta.');
+ const destination=renameDestination(prefix,newName);
+ if(typeof key!=='string'||!key.startsWith(prefix)||typeof etag!=='string'||!etag)
+  throw Error('Archivo o ETag inválido.');
+ const relative=key.slice(prefix.length);
+ // A marker object at the virtual folder prefix must be moved as well.
+ if(relative.includes('..')||relative.includes('\\')||relative.includes('\0'))
+  throw Error('Nombre de objeto inválido.');
+ const target=destination+relative;
+ if(target===key)throw Error('Destino idéntico.');
+ const [original,other]=await Promise.all([env.BUCKET.head(key),env.BUCKET.head(target)]);
+ const belongs=x=>!!(x&&x.customMetadata?.vccRenamedFrom===key&&
+  x.customMetadata?.vccRenameEtag===etag);
+ if(!original){
+  if(belongs(other))return {moved:true,source:key,target,verified:true,resumed:true};
+  throw Error('El archivo original ya no está; no se ha confirmado el destino.');
+ }
+ if(original.etag!==etag)throw Error('El archivo original ha cambiado. Se conserva.');
+ const copiedOK=x=>!!(belongs(x)&&x.size===original.size);
+ if(other&&!copiedOK(other))throw Error('Ya existe un archivo diferente en la carpeta de destino. No se sobrescribe.');
+ if(!other){
+  const source=await env.BUCKET.get(key);
+  if(!source||source.etag!==etag||!source.body)
+   throw Error('No se pudo leer el original sin cambios.');
+  const opts={httpMetadata:source.httpMetadata||{},
+   customMetadata:{...(source.customMetadata||{}),vccRenamedFrom:key,vccRenameEtag:etag}};
+  let written;
+  try{written=await env.BUCKET.put(target,source.body,opts)}
+  catch(error){
+   if(!/known length|content.length|readable stream must/i.test(String(error?.message)))throw error;
+   const possible=await env.BUCKET.head(target);
+   if(copiedOK(possible))written=possible;
+   else{
+    if(possible)throw Error('Copia no verificada. Se conserva el original.');
+    if(original.size>MAX_IMAGE_SIZE)throw Error('Archivo grande no compatible con copia alternativa; original intacto.');
+    const source2=await env.BUCKET.get(key);
+    if(!source2||source2.etag!==etag||!source2.body)throw Error('El archivo ha cambiado.');
+    written=await env.BUCKET.put(target,await source2.arrayBuffer(),opts);
+   }
+  }
+  if(!written)throw Error('No se pudo copiar el objeto; original intacto.');
+ }
+ const [current,verified]=await Promise.all([env.BUCKET.head(key),env.BUCKET.head(target)]);
+ if(!current||current.etag!==etag||!copiedOK(verified))
+  throw Error('La copia no se ha verificado. Se conserva el original.');
+ await env.BUCKET.delete(key);
+ if(await env.BUCKET.head(key))throw Error('El original todavía existe. El destino ya está copiado.');
+ return {moved:true,source:key,target,verified:true};
+}
 async function listPhotos(env,prefix,cursor){
   const options={prefix,limit:PAGE_SIZE};if(cursor)options.cursor=cursor;
   const page=await env.BUCKET.list(options);
@@ -1365,6 +1438,8 @@ export default {
         return json({folders:(page.delimitedPrefixes||[]).filter(p=>!p.startsWith(BACKUP_PREFIX)&&!p.startsWith('__vcc_ai_reviews__/')&&!p.toLowerCase().includes('preview')),nextCursor:page.truncated?page.cursor:null});
       }
       const prefix=normalizePrefix(input.prefix);
+      if(mode==='folder-rename-list')return json(await listForFolderRename(env,prefix,input.newName,input.cursor));
+      if(mode==='folder-rename-one')return json(await renameFolderObject(env,prefix,input.newName,input.key,input.etag,input.confirm));
       if(mode==='list'){
         if(input.cursor!=null&&typeof input.cursor!=='string')throw Error('Cursor inválido');
         return json(await listPhotos(env,prefix,input.cursor||undefined));
