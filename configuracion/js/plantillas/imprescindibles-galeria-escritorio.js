@@ -91,15 +91,6 @@
       existingLightbox.scrollTop=layer.scrollTop;
     }
     syncViewerPan();
-    // Mateix punt del mosaic: mai recentrem la fotografia en obrir-la.
-    // Conservem la mateixa zona visual en passar de mosaic a foto.
-    if(existingLightbox){
-      const srcState=panState.mosaic,dst=panState.photo;
-      const lim=limitsOf(existingLightbox);
-      dst.x=clamp(srcState.x,-lim.x,lim.x);
-      dst.y=clamp(srcState.y,-lim.y,lim.y);
-      paintPan(existingLightbox);
-    }
     /* El visor ampliat comparteix títol i informació amb el mosaic previ. */
     const name = heading.textContent;
     const caption = existingStage?.querySelector('.lb-caption');
@@ -258,24 +249,19 @@
     return Number.isInteger(position) ? activeSources[position-1] : null;
   }
 
-  // Un únic sistema de navegació per al mosaic i la foto.
-  // El navegador gestiona el zoom; el fons queda bloquejat. No fem
-  // scroll al document ni recentrem automàticament el panell en ampliar.
-  // El ratolí pot moure la vista AMUNT/ESQUERRA des del primer moment:
-  // el recorregut és simètric [-marge, +marge], no [0, +marge].
+  // Moviment natiu de la galeria: el navegador fixa els límits reals
+  // del contingut a scrollLeft/scrollTop. No es mou el panell amb transform.
+  // Això evita els marges buits i permet arribar a totes les cantonades.
   let viewportBaseline=null;
   let zoomSyncQueued=false;
   let lastMouse=null;
   let panFrame=0;
   let pendingDx=0,pendingDy=0;
-  const panState={mosaic:{x:0,y:0},photo:{x:0,y:0}};
-  const clamp=(value,min,max)=>Math.min(max,Math.max(min,value));
+  let pendingZoomAnchor=null;
   const activeViewport=()=>{
     if(!viewportBaseline||layer.hidden)return null;
     return existingLightbox?.classList.contains('open')?existingLightbox:layer;
   };
-  const panelOf=modal=>modal===layer?mosaicPanel:existingStage;
-  const keyOf=modal=>modal===layer?'mosaic':'photo';
   const zoomRatio=()=>{
     if(!viewportBaseline)return 1;
     const vv=window.visualViewport;
@@ -290,30 +276,6 @@
       css/Math.max(.01,viewportBaseline.css)
     );
   };
-  const limitsOf=modal=>{
-    const panel=panelOf(modal),ratio=zoomRatio();
-    if(!panel||ratio<=1.025)return {x:0,y:0};
-    // Desplaçament disponible en cada sentit des del fotograma inicial.
-    // El panell manté les seves mides originals; només varia l'àrea visible.
-    const visibleW=Math.min(modal.clientWidth,viewportBaseline.w/ratio);
-    const visibleH=Math.min(modal.clientHeight,viewportBaseline.h/ratio);
-    return {
-      x:Math.max(0,(panel.offsetWidth+36-visibleW)/2),
-      y:Math.max(0,(panel.offsetHeight+36-visibleH)/2)
-    };
-  };
-  const paintPan=modal=>{
-    const panel=panelOf(modal);
-    if(!panel)return;
-    const state=panState[keyOf(modal)];
-    if(Math.abs(state.x)<.05&&Math.abs(state.y)<.05){
-      panel.style.removeProperty('transform');
-    }else{
-      panel.style.setProperty('transform',
-        'translate3d('+(-state.x).toFixed(2)+'px,'+
-        (-state.y).toFixed(2)+'px,0)','important');
-    }
-  };
   const resetHoverPan=()=>{
     lastMouse=null;
     pendingDx=pendingDy=0;
@@ -321,28 +283,44 @@
   };
   const resetPan=()=>{
     resetHoverPan();
+    pendingZoomAnchor=null;
     for(const modal of [layer,existingLightbox]){
       if(!modal)continue;
-      const state=panState[keyOf(modal)];
-      state.x=state.y=0;
-      panelOf(modal)?.style.removeProperty('transform');
+      modal.scrollLeft=0;
+      modal.scrollTop=0;
+      const panel=modal===layer?mosaicPanel:existingStage;
+      panel?.style.removeProperty('transform');
     }
   };
+  // Conservar el punt sota el cursor quan el zoom natiu redueix el
+  // viewport CSS. No interceptem Ctrl+rodeta; només recordem l'ancoratge.
+  const rememberZoomAnchor=event=>{
+    const modal=activeViewport();
+    if(!modal)return;
+    const rect=modal.getBoundingClientRect();
+    const px=event.clientX-rect.left,py=event.clientY-rect.top;
+    pendingZoomAnchor={
+      modal,contentX:modal.scrollLeft+px,contentY:modal.scrollTop+py,
+      px,py,width:Math.max(1,modal.clientWidth),
+      height:Math.max(1,modal.clientHeight)
+    };
+  };
   const syncZoom=()=>{
-    const ratio=zoomRatio(),zoomed=ratio>1.025;
+    const zoomed=zoomRatio()>1.025;
     layer.classList.toggle('vcc-mosaic-native-zoom',zoomed);
     if(!zoomed){
       resetPan();
       return;
     }
-    // Només ajustem els límits en reduir el zoom. Mai no imposem
-    // cap posició quan s'amplia: l'ancoratge del zoom el decideix Edge.
-    for(const modal of [layer,existingLightbox]){
-      if(!modal)continue;
-      const lim=limitsOf(modal),state=panState[keyOf(modal)];
-      state.x=clamp(state.x,-lim.x,lim.x);
-      state.y=clamp(state.y,-lim.y,lim.y);
-      paintPan(modal);
+    if(pendingZoomAnchor){
+      const a=pendingZoomAnchor;
+      pendingZoomAnchor=null;
+      if(a.modal===activeViewport()){
+        const currentW=Math.max(1,a.modal.clientWidth);
+        const currentH=Math.max(1,a.modal.clientHeight);
+        a.modal.scrollLeft=a.contentX-a.px*currentW/a.width;
+        a.modal.scrollTop=a.contentY-a.py*currentH/a.height;
+      }
     }
   };
   const queueMosaicZoomSync=()=>{
@@ -358,19 +336,17 @@
     const modal=activeViewport(),dx=pendingDx,dy=pendingDy;
     pendingDx=pendingDy=0;
     if(!modal||zoomRatio()<=1.025)return;
-    const lim=limitsOf(modal),state=panState[keyOf(modal)];
-    // Cap recentrat, cap inèrcia, cap scroll del document.
-    state.x=clamp(state.x+dx,-lim.x,lim.x);
-    state.y=clamp(state.y+dy,-lim.y,lim.y);
-    paintPan(modal);
+    // Native scroll clamps [0, scrollWidth-clientWidth], never blanks.
+    if(dx)modal.scrollLeft+=dx;
+    if(dy)modal.scrollTop+=dy;
   };
   const onGalleryMouseMove=event=>{
     if(event.type==='pointermove'&&event.pointerType&&event.pointerType!=='mouse')return;
     if(typeof event.buttons==='number'&&event.buttons!==0)return;
     const modal=activeViewport();
     if(!modal||zoomRatio()<=1.025){resetHoverPan();return;}
-    const now={kind:keyOf(modal),x:event.clientX,y:event.clientY,
-      sx:event.screenX,sy:event.screenY};
+    const now={kind:modal===layer?'mosaic':'photo',
+      x:event.clientX,y:event.clientY,sx:event.screenX,sy:event.screenY};
     const prev=lastMouse;
     lastMouse=now;
     if(!prev||prev.kind!==now.kind)return;
@@ -391,6 +367,7 @@
   },{passive:true});
   window.addEventListener('wheel',event=>{
     if(layer.hidden||!(event.ctrlKey||event.metaKey))return;
+    rememberZoomAnchor(event);
     resetHoverPan();
     requestAnimationFrame(()=>requestAnimationFrame(queueMosaicZoomSync));
   },{capture:true,passive:true});
