@@ -4,11 +4,17 @@
   const url = (path) => new URL(path, siteRoot).href;
   // Un único estilo para la ruta de navegación (Inicio > Destinos > país > ciudad > guía).
   // Cada página conserva sus enlaces, mientras se unifican tamaños y espacios.
-  if (!document.querySelector('link[data-vcc-shared-breadcrumb],link[href*="breadcrumb-vcc-global.css"]')) {
+  const breadcrumbSharedHref=url('configuracion/css/componentes/breadcrumb-vcc-global.css?v=20261107-unificado-v2');
+  const breadcrumbSharedLink=document.querySelector('link[data-vcc-shared-breadcrumb],link[href*="breadcrumb-vcc-global.css"]');
+  if(breadcrumbSharedLink){
+    // También actualiza las guías que ya cargaban una versión antigua explícita.
+    if(breadcrumbSharedLink.href!==breadcrumbSharedHref)breadcrumbSharedLink.href=breadcrumbSharedHref;
+    breadcrumbSharedLink.dataset.vccSharedBreadcrumb='true';
+  }else{
     const breadcrumbStyle=document.createElement('link');
     breadcrumbStyle.rel='stylesheet';
     breadcrumbStyle.dataset.vccSharedBreadcrumb='true';
-    breadcrumbStyle.href=url('configuracion/css/componentes/breadcrumb-vcc-global.css?v=20261107-unificado-v2');
+    breadcrumbStyle.href=breadcrumbSharedHref;
     document.head.appendChild(breadcrumbStyle);
   }
   const currentPath = window.location.pathname.replace(/\/index\.html$/, '/');
