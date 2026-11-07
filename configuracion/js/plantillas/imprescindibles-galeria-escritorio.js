@@ -300,47 +300,59 @@
       updateMosaicZoomMode();
     });
   };
+  // A l'Edge no suposem que innerWidth, DPR o visualViewport reflecteixen
+  // immediatament el zoom del navegador. La condició real és que el visor
+  // contingui parts fora de la pantalla: scrollWidth > clientWidth.
+  // Aquesta àrea queda bloquejada a 100% i és navegable quan s'amplia.
   const flushHoverPan=()=>{
     hoverPanRaf=0;
     const modal=currentGalleryViewport();
     const dx=hoverPanDeltaX,dy=hoverPanDeltaY;
     hoverPanDeltaX=hoverPanDeltaY=0;
     if(!modal)return;
-    const availableX=Math.max(0,modal.scrollWidth-modal.clientWidth);
-    const availableY=Math.max(0,modal.scrollHeight-modal.clientHeight);
-    if(availableX<2 && availableY<2)return;
-    // One full cursor sweep can cover an oversized panel, without sudden
-    // automatic recentering or animation after the mouse stops.
-    const gainX=Math.max(1,Math.min(4,availableX/Math.max(1,modal.clientWidth*.8)));
-    const gainY=Math.max(1,Math.min(4,availableY/Math.max(1,modal.clientHeight*.8)));
-    if(dx && availableX>0)modal.scrollLeft+=dx*gainX;
-    if(dy && availableY>0)modal.scrollTop+=dy*gainY;
+    const overX=Math.max(0,modal.scrollWidth-modal.clientWidth);
+    const overY=Math.max(0,modal.scrollHeight-modal.clientHeight);
+    if(overX<2 && overY<2)return;
+    // La velocitat és proporcional al recorregut visible, no a l'escala
+    // total de la foto. Sense inèrcia ni transformacions del panell.
+    const gainX=Math.min(3.5,Math.max(1,overX/Math.max(1,modal.clientWidth*.72)));
+    const gainY=Math.min(3.5,Math.max(1,overY/Math.max(1,modal.clientHeight*.72)));
+    if(overX>2 && dx)modal.scrollLeft+=dx*gainX;
+    if(overY>2 && dy)modal.scrollTop+=dy*gainY;
   };
   const onGalleryMouseMove=event=>{
     if(event.type==='pointermove' && event.pointerType && event.pointerType!=='mouse')return;
-    if(event.buttons!==0)return;
+    if(typeof event.buttons==='number' && event.buttons!==0)return;
     const modal=currentGalleryViewport();
     if(!modal)return;
-    // A real scrollable area is more reliable than zoom percentage alone.
-    // This also covers Edge's visual viewport zoom with unchanged innerWidth.
-    const availableX=modal.scrollWidth-modal.clientWidth;
-    const availableY=modal.scrollHeight-modal.clientHeight;
-    const isZoomed=zoomRatio()>1.025;
-    if(!isZoomed){
+    const overX=Math.max(0,modal.scrollWidth-modal.clientWidth);
+    const overY=Math.max(0,modal.scrollHeight-modal.clientHeight);
+    // Mai movem un visor que cap sencer a la pantalla. Això conserva
+    // exactament la imatge inicial fins que l'usuari fa zoom.
+    if(overX<2 && overY<2){
       resetHoverPan();
       return;
     }
-    if(availableX<2 && availableY<2){
-      queueMosaicZoomSync();
-      return;
-    }
-    const mode=modal===layer ? 'mosaic':'photo';
-    const now={mode,x:event.clientX,y:event.clientY};
+    const mode=modal===layer?'mosaic':'photo';
+    const now={
+      mode,
+      x:event.clientX,y:event.clientY,
+      screenX:event.screenX,screenY:event.screenY
+    };
     const prev=lastHoverPan;
     lastHoverPan=now;
     if(!prev || prev.mode!==mode)return;
-    const dx=now.x-prev.x,dy=now.y-prev.y;
-    if(Math.abs(dx)>140 || Math.abs(dy)>140)return;
+    let dx=now.x-prev.x,dy=now.y-prev.y;
+    // Hi ha configuracions Windows amb zoom que no actualitzen clientX/Y.
+    // Només aleshores fem servir la diferència física del cursor com a suport.
+    const factor=Math.max(1,Math.min(4,zoomRatio()));
+    if(Math.abs(dx)<.1 && Number.isFinite(now.screenX) && Number.isFinite(prev.screenX))
+      dx=(now.screenX-prev.screenX)/factor;
+    if(Math.abs(dy)<.1 && Number.isFinite(now.screenY) && Number.isFinite(prev.screenY))
+      dy=(now.screenY-prev.screenY)/factor;
+    if(!Number.isFinite(dx)||!Number.isFinite(dy))return;
+    // Canvis sobtats de coordenades en canviar el zoom no són moviment.
+    if(Math.abs(dx)>150 || Math.abs(dy)>150)return;
     if(Math.abs(dx)<.1 && Math.abs(dy)<.1)return;
     hoverPanDeltaX+=dx;
     hoverPanDeltaY+=dy;
