@@ -192,7 +192,11 @@
   });
   /* Recomanació al final de la guia: mateix llenguatge visual, sense pressupost. */
   const main = document.querySelector('.imp-page .imp-main');
-  if (main && !document.querySelector('.imp-page .related-section') && !document.getElementById('vcc-itinerary-feature')) {
+  // Aquesta targeta antiga és exclusiva d'Estocolmo; en altres ciutats
+  // no s'han de mostrar ni fotos ni textos d'un altre destí.
+  if (main && /^\/destinos\/suecia\/estocolmo\//.test(location.pathname) &&
+      !document.querySelector('.imp-page .related-section') &&
+      !document.getElementById('vcc-itinerary-feature')) {
     const feature = document.createElement('section');
     feature.id = 'vcc-itinerary-feature';
     feature.className = 'vcc-itinerary-feature';
