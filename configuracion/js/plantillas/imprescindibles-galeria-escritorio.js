@@ -267,7 +267,6 @@
   // 4) quan Edge no crea scroll intern, traslladem el mateix panell sense escalar-lo.
   // IMPORTANT: no recentrem mai el visor a la força en iniciar el zoom.
   let viewportBaseline=null;
-  let zoomWheelFallback=1;
   let lastZoomRatio=1;
   let zoomAnchor=null;
   let lastMouse=null;
@@ -293,7 +292,7 @@
       viewportBaseline.vvHeight/Math.max(1,vv?.height||window.innerHeight),
       (parseFloat(getComputedStyle(root).zoom)||1)/Math.max(.01,viewportBaseline.cssZoom)
     );
-    return observed>1.025?observed:zoomWheelFallback;
+    return observed;
   };
   const modalBounds=modal=>{
     const panel=modalPanel(modal);
@@ -451,8 +450,6 @@
       nativeX:modal.scrollLeft,nativeY:modal.scrollTop,
       offsetX:modal.scrollLeft+state.x,offsetY:modal.scrollTop+state.y
     };
-    const delta=clamp(event.deltaY,-120,120);
-    zoomWheelFallback=clamp(zoomWheelFallback-delta*.001,1,4);
     resetHoverPan();
     requestAnimationFrame(()=>requestAnimationFrame(queueMosaicZoomSync));
   },{capture:true,passive:true});
@@ -475,13 +472,11 @@
     viewportBaseline=null;
     zoomAnchor=null;
     lastZoomRatio=1;
-    zoomWheelFallback=1;
   };
   const startPanBaseline=()=>{
     resetHoverPan();
     resetOffsets();
     zoomAnchor=null;
-    zoomWheelFallback=1;
     const root=document.documentElement;
     viewportBaseline={
       w:window.innerWidth,h:window.innerHeight,
