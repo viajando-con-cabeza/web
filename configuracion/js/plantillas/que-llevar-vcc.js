@@ -47,7 +47,7 @@ for(const [season,groups] of Object.entries(additions)){
  }
 }
 const el=id=>document.getElementById(id);
-const state={season:"invierno",days:3,luggage:"cabina",done:new Set()};
+const state={season:"primavera",days:7,done:new Set()};
 function amount(kind,mult){
  if(kind==="fixed")return mult;
  if(kind==="tops")return Math.max(2,Math.min(state.days,10));
@@ -56,7 +56,48 @@ function amount(kind,mult){
  if(kind==="underwear")return state.days+1;
  return mult;
 }
-function key(category,title){return state.season+"|"+state.days+"|"+state.luggage+"|"+category+"|"+title}
+function key(category,title){return state.season+"|"+state.days+"|"+category+"|"+title}
+
+const iconURL="/configuracion/imagenes/iconos/equipaje-vcc-sprite.svg";
+function iconFor(title) {
+ const t=title.toLocaleLowerCase("es").normalize("NFD").replace(/[\u0300-\u036f]/g,"");
+ if(/gafas/.test(t))return "glasses";
+ if(/gorro|gorra/.test(t))return "hat";
+ if(/bufanda|panuelo/.test(t))return "scarf";
+ if(/guantes/.test(t))return "gloves";
+ if(/botas|botines/.test(t))return "shoe";
+ if(/zapatillas|calzado|sandalias/.test(t))return "sneaker";
+ if(/impermeable|abrigo|chaqueta|chubasquero/.test(t))return "coat";
+ if(/jersey|sudadera|capa termica/.test(t))return "sweater";
+ if(/camiseta/.test(t))return "shirt";
+ if(/pantalon|falda/.test(t))return "pants";
+ if(/interior/.test(t))return "underwear";
+ if(/calcetin/.test(t))return "socks";
+ if(/pijama/.test(t))return "layer";
+ if(/mochila/.test(t))return "bag";
+ if(/banador|bano/.test(t))return "swimsuit";
+ if(/paraguas/.test(t))return "umbrella";
+ if(/crema solar|protector solar/.test(t))return "suncream";
+ if(/balsamo|crema de manos|aseo personal|neceser/.test(t))return "toiletry";
+ if(/cargador/.test(t))return "charger";
+ if(/bateria/.test(t))return "battery";
+ if(/botella/.test(t))return "bottle";
+ if(/medicamento/.test(t))return "meds";
+ if(/seguro|reservas|documentacion/.test(t))return "passport";
+ return "travel";
+}
+function svgItem(name){
+ const svg=document.createElementNS("http://www.w3.org/2000/svg","svg");
+ svg.setAttribute("class","ql-item-icon");svg.setAttribute("viewBox","0 0 64 64");svg.setAttribute("aria-hidden","true");
+ const use=document.createElementNS("http://www.w3.org/2000/svg","use");
+ use.setAttribute("href",iconURL+"#"+name);svg.appendChild(use);return svg;
+}
+const recommendations={
+ primavera:["Chaqueta impermeable ligera","Jersey o sudadera","Camisetas de manga larga","Pantalón cómodo","Calzado resistente al agua","Pañuelo y mochila de día"],
+ verano:["Camisetas transpirables","Zapatillas para caminar","Gafas de sol","Gorra y protector solar","Chubasquero ligero","Una capa para la tarde"],
+ otono:["Abrigo impermeable","Jersey cálido","Calzado resistente al agua","Pantalones largos","Bufanda y gorro fino","Paraguas compacto"],
+ invierno:["Abrigo cálido e impermeable","Jersey de lana","Camisetas térmicas","Botas impermeables","Gorro, guantes y bufanda","Calcetines térmicos"]
+};
 function render(){
  const s=seasons[state.season];
  document.querySelectorAll(".ql-season").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.season===state.season)));
@@ -67,62 +108,65 @@ function render(){
  document.querySelectorAll(".ql-days-pills button").forEach(b=>b.setAttribute("aria-pressed",String(Number(b.dataset.days)===state.days)));
  el("ql-note").textContent=s.note;
 
+ const preview=el("ql-preview-items");preview.replaceChildren();
+ el("ql-preview-title").textContent="Tu maleta en "+s.name;
+ recommendations[state.season].forEach(name=>{
+  const li=document.createElement("li"),check=document.createElement("span");
+  check.className="ql-preview-check";check.setAttribute("aria-hidden","true");check.textContent="✓";
+  li.append(check,document.createTextNode(name));preview.appendChild(li);
+ });
  const cats=el("ql-categories");cats.replaceChildren();
  let total=0,completed=0;
  s.items.forEach(c=>{
   const article=document.createElement("article");article.className="ql-category";
-  const h=document.createElement("h3"),ic=document.createElement("span");ic.textContent=c[1];ic.setAttribute("aria-hidden","true");h.append(ic,document.createTextNode(c[0]));article.append(h);
+  const h=document.createElement("h3");h.textContent=c[0];article.append(h);
   const ul=document.createElement("ul");
   c[2].forEach(item=>{
-   const li=document.createElement("li"),label=document.createElement("label"),input=document.createElement("input"),span=document.createElement("span");
-   input.type="checkbox";const id=key(c[0],item[0]);input.checked=state.done.has(id);input.dataset.item=id;
-   const n=amount(item[1],item[2]);span.textContent=item[0];
-   const quantity=document.createElement("small");quantity.className="ql-amount";quantity.textContent=" · "+n+(n===1?" ud.":" uds.");span.append(quantity);
-   label.append(input,span);li.append(label);ul.append(li);total++;if(input.checked)completed++;
+   const li=document.createElement("li"),label=document.createElement("label"),
+     input=document.createElement("input"),copy=document.createElement("span");
+   const id=key(c[0],item[0]);
+   input.type="checkbox";input.dataset.item=id;input.checked=state.done.has(id);
+   copy.className="ql-item-text";
+   const name=document.createElement("span");name.textContent=item[0];name.className="ql-item-name";
+   const quantity=document.createElement("small");
+   quantity.className="ql-amount";const n=amount(item[1],item[2]);
+   quantity.textContent=n+(n===1?" ud.":" uds.");
+   copy.append(name,quantity);
+   label.append(input,svgItem(iconFor(item[0])),copy);
+   li.append(label);ul.append(li);
+   total++;if(input.checked)completed++;
   });
   article.append(ul);cats.append(article);
  });
  el("ql-progress").textContent=completed+" de "+total+" preparados";
- const byCategory={ROPA:0,CALZADO:0,ACCESORIOS:0,EXTRAS:0};
- s.items.forEach(c=>c[2].forEach(item=>{
-  if(state.done.has(key(c[0],item[0])))byCategory[c[0]]=(byCategory[c[0]]||0)+1;
- }));
- const filled=[byCategory.ROPA>=1,byCategory.ROPA>=2,byCategory.ROPA>=3,byCategory.CALZADO>=1,byCategory.ACCESORIOS>=1,byCategory.EXTRAS>=1];
- document.querySelectorAll("[data-ql-slot]").forEach(node=>node.classList.toggle("is-packed",!!filled[Number(node.getAttribute("data-ql-slot"))]));
  el("ql-suitcase-count").textContent=completed+" de "+total+" preparados";
- el("ql-suitcase-helper").textContent=completed?"La maleta se va llenando con tus elecciones":"Marca tu lista para ir llenando la maleta";
+ el("ql-suitcase-helper").textContent=completed?"Tu lista se va completando":"La selección de la estación "+s.name;
+ el("ql-suitcase-art").style.filter=completed?"saturate(1.08)":"none";
  el("ql-progress-bar").style.width=(total?(completed/total*100):0).toFixed(1)+"%";
  // La recomendación editorial cambia con la estación; el tipo de equipaje queda disponible en la lista copiada.
 }
 function currentList(){
- const s=seasons[state.season];const lines=["QUÉ LLEVAR A ESTOCOLMO","Estación: "+s.name+" · "+state.days+" días · "+(state.luggage==="cabina"?"equipaje de mano":"equipaje facturado"),""];
+ const s=seasons[state.season];const lines=["QUÉ LLEVAR A ESTOCOLMO","Estación: "+s.name+" · "+state.days+" días",""];
  s.items.forEach(c=>{lines.push(c[0]+":");c[2].forEach(item=>lines.push((state.done.has(key(c[0],item[0]))?"[x] ":"[ ] ")+item[0]+(" ("+amount(item[1],item[2])+(amount(item[1],item[2])===1?" unidad)":" unidades)"))));lines.push("")});
  return lines.join("\n");
 }
 function restore(){
- try{const o=JSON.parse(localStorage.getItem("vcc-packing-stockholm-v1")||"{}");if(seasons[o.season])state.season=o.season;if([3,5,7,10].includes(o.days))state.days=o.days;if(["cabina","facturado"].includes(o.luggage))state.luggage=o.luggage;if(Array.isArray(o.done))state.done=new Set(o.done.filter(x=>typeof x==="string").slice(0,120))}catch(e){}
+ try{const o=JSON.parse(localStorage.getItem("vcc-packing-stockholm-v2")||"{}");if(seasons[o.season])state.season=o.season;if([3,5,7,10].includes(o.days))state.days=o.days;if(Array.isArray(o.done))state.done=new Set(o.done.filter(x=>typeof x==="string").slice(0,120))}catch(e){}
 }
-function persist(){try{localStorage.setItem("vcc-packing-stockholm-v1",JSON.stringify({season:state.season,days:state.days,luggage:state.luggage,done:[...state.done]}))}catch(e){}}
+function persist(){try{localStorage.setItem("vcc-packing-stockholm-v2",JSON.stringify({season:state.season,days:state.days,done:[...state.done]}))}catch(e){}}
 restore();
-el("ql-days").value=state.days;el("ql-luggage").value=state.luggage;render();
+el("ql-days").value=state.days;render();
 document.querySelectorAll(".ql-season").forEach(b=>b.addEventListener("click",()=>{state.season=b.dataset.season;persist();render()}));
 document.querySelectorAll(".ql-days-pills button").forEach(b=>b.addEventListener("click",()=>{state.days=Number(b.dataset.days);persist();render()}));
 el("ql-days").addEventListener("change",e=>{state.days=Number(e.target.value);persist();render()});
-el("ql-luggage").addEventListener("change",e=>{state.luggage=e.target.value;persist();render()});
+
 el("ql-categories").addEventListener("change",e=>{const input=e.target;if(input.matches('input[type="checkbox"][data-item]')){input.checked?state.done.add(input.dataset.item):state.done.delete(input.dataset.item);persist();render()}});
-el("ql-reset").addEventListener("click",()=>{const prefix=state.season+"|"+state.days+"|"+state.luggage+"|";state.done.forEach(x=>{if(x.startsWith(prefix))state.done.delete(x)});persist();render()});
+el("ql-reset").addEventListener("click",()=>{const prefix=state.season+"|"+state.days+"|";state.done.forEach(x=>{if(x.startsWith(prefix))state.done.delete(x)});persist();render()});
 el("ql-copy").addEventListener("click",async()=>{
  try{await navigator.clipboard.writeText(currentList());el("ql-copy").textContent="✓ LISTA COPIADA";setTimeout(()=>el("ql-copy").textContent="COPIAR LISTA COMPLETA",1700)}
  catch(e){const textarea=document.createElement("textarea");textarea.value=currentList();document.body.append(textarea);textarea.select();try{document.execCommand("copy");el("ql-copy").textContent="✓ LISTA COPIADA"}catch(_) {el("ql-copy").textContent="NO SE PUDO COPIAR"}textarea.remove();setTimeout(()=>el("ql-copy").textContent="COPIAR LISTA COMPLETA",1700)}
 });
 
-const adviceTrack=el("ql-advice-track"),advicePrev=el("ql-advice-prev"),adviceNext=el("ql-advice-next");
-if(adviceTrack&&advicePrev&&adviceNext){
- const update=()=>{advicePrev.disabled=adviceTrack.scrollLeft<5;adviceNext.disabled=adviceTrack.scrollLeft+adviceTrack.clientWidth>=adviceTrack.scrollWidth-5};
- const slide=direction=>{const card=adviceTrack.querySelector(".ql-advice-card");const gap=parseFloat(getComputedStyle(adviceTrack).gap)||16;adviceTrack.scrollBy({left:direction*((card?.getBoundingClientRect().width||300)+gap),behavior:"smooth"})};
- advicePrev.addEventListener("click",()=>slide(-1));adviceNext.addEventListener("click",()=>slide(1));
- adviceTrack.addEventListener("scroll",update,{passive:true});window.addEventListener("resize",update,{passive:true});update();
-}
 const subnav=document.querySelector(".ql-subnav");
 if(subnav){
  const links=[...subnav.querySelectorAll('a[href^="#"]')];
