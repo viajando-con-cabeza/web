@@ -17,7 +17,7 @@
      Las plantillas antiguas conservan su miga invisible como espacio de
      reserva para evitar desplazar el hero; no existen dos rutas accesibles. */
   (function initGlobalBreadcrumb() {
-    if (!/^\\/destinos\\//i.test(currentPath)) return;
+    if (!/^\/destinos\//i.test(currentPath)) return;
     const labels = {
       suecia:'Suecia',italia:'Italia',francia:'Francia',espana:'España',
       alemania:'Alemania',austria:'Austria',andorra:'Andorra',suiza:'Suiza',
@@ -72,7 +72,7 @@
       slug.replace(/-/g,' ').replace(/^./,c=>c.toLocaleUpperCase('es'));
     function render() {
       if (document.getElementById('vcc-global-breadcrumb')) return true;
-      const path=decodeURIComponent(location.pathname).replace(/\\/index\\.html$/i,'/');
+      const path=decodeURIComponent(location.pathname).replace(/\/index\.html$/i,'/');
       const parts=path.split('/').filter(Boolean);
       if(parts[0]!=='destinos'||parts.length<2)return false;
       let original=null,hero=null;
@@ -97,8 +97,8 @@
       nav.setAttribute('aria-label','Ruta de navegación');
       const crumbs=[{label:'Inicio',href:'/'},{label:'Destinos',href:'/destinos/'}];
       route.forEach((segment,i)=>{
-        const isHtml=/\\.html$/i.test(segment);
-        const slug=segment.replace(/\\.html$/i,'');
+        const isHtml=/\.html$/i.test(segment);
+        const slug=segment.replace(/\.html$/i,'');
         const terminal=i===route.length-1;
         let href='/destinos/'+route.slice(0,i+1).join('/');
         if(!isHtml){
