@@ -292,7 +292,7 @@ function aiClassifyPayload(payload){
  if(label&&AI_CATEGORIES.some(cat=>{try{return aiPlaceFolder(cat)===label}catch{return false}}))
   candidate=false;
  return {kind:candidate?'specific':'generic',place:candidate?place:'No identificable',
-  category,confidence:candidate?'alta':confidence,
+  category,confidence:candidate?'alta':'baja',
   evidence:candidate?evidence:'',subject:safeAiText(payload.subject,140)||'Imagen de viaje',
   needsReview:!candidate||percent<94,placeConfidence:Math.min(100,Math.max(0,Math.round(percent))),
   alt:safeAiText(payload.alt,180)};
@@ -310,7 +310,10 @@ async function movePhotoToPlace(env,prefix,key,etag,folder,confirmed){
  // Si R2 ja ha mogut la foto però el navegador ha perdut la resposta, no fallar el reintent.
  if(!source&&owned(existing))return {moved:true,source:key,target,folder:label,copied:false,verified:true,resumed:true};
  if(!source||source.etag!==etag)throw Error('La foto ha cambiado; vuelve a cargarla.');
- const matches=dest=>!!(owned(dest)&&dest.size===source.size);
+ if(source.size>MAX_IMAGE_SIZE)throw Error('Foto de más de 20 MB: no se moverá automáticamente.');
+ const matches=dest=>!!(owned(dest)&&dest.size===source.size&&
+   (!source.checksums?.sha256||!dest.checksums?.sha256||
+     String(source.checksums.sha256)===String(dest.checksums.sha256)));
  let targetHead=existing,copied=false;
  if(targetHead&&!matches(targetHead))throw Error('Ya existe otro archivo con ese nombre en el destino. No se sobrescribe.');
  if(!targetHead){
@@ -322,9 +325,14 @@ async function movePhotoToPlace(env,prefix,key,etag,folder,confirmed){
   try{written=await env.BUCKET.put(target,original.body,settings)}
   catch(e){
    if(!/known length|content.length|readable stream must/i.test(String(e?.message)))throw e;
-   const original2=await env.BUCKET.get(key);
-   if(!original2||original2.etag!==etag||original2.size>MAX_IMAGE_SIZE)throw Error('No se pudo releer el original.');
-   written=await env.BUCKET.put(target,await original2.arrayBuffer(),settings);
+   const maybe=await env.BUCKET.head(target);
+   if(matches(maybe))written=maybe;
+   else{
+    if(maybe)throw Error('Copia previa incompleta. Original conservado.');
+    const original2=await env.BUCKET.get(key);
+    if(!original2||original2.etag!==etag||original2.size>MAX_IMAGE_SIZE)throw Error('No se pudo releer el original.');
+    written=await env.BUCKET.put(target,await original2.arrayBuffer(),settings);
+   }
   }
   if(!written?.size)throw Error('Copia fallida. Original conservado.');
   copied=true;targetHead=await env.BUCKET.head(target);
@@ -332,6 +340,8 @@ async function movePhotoToPlace(env,prefix,key,etag,folder,confirmed){
  const current=await env.BUCKET.head(key);
  if(!current||current.etag!==etag||!matches(targetHead))throw Error('Copia sin verificar. Original conservado.');
  await env.BUCKET.delete(key);
+ const sourceAfter=await env.BUCKET.head(key);
+ if(sourceAfter)throw Error('La copia existe, pero el original sigue presente; movimiento pendiente de verificar.');
  return {moved:true,source:key,target,folder:label,copied,verified:true};
 }
 
