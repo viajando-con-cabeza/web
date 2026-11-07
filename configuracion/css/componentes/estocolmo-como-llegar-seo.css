@@ -123,3 +123,75 @@ html body main.cl-page.cl-landing .cl-landing-hero nav.cl-crumb.vcc-crumb strong
    align-self:stretch!important;
  }
 }
+
+/* VCC · Ajuste final de migas e ilustraciones, 2026-11-07
+   Comparamos la cabecera con /destinos/suecia/estocolmo/:
+   la miga queda más próxima al borde y las fichas comienzan antes.
+   Solo afecta a la portada de Cómo llegar, no a artículos ni otras guías. */
+html body main.cl-page.cl-landing .cl-landing-hero nav.cl-crumb.vcc-crumb{
+  top:8px!important;
+  left:34px!important;
+  width:calc(100% - 68px)!important;
+  column-gap:0!important;
+  row-gap:2px!important;
+  font-size:11px!important;
+  line-height:1.4!important;
+}
+html body main.cl-page.cl-landing .cl-landing-hero nav.cl-crumb.vcc-crumb a,
+html body main.cl-page.cl-landing .cl-landing-hero nav.cl-crumb.vcc-crumb span,
+html body main.cl-page.cl-landing .cl-landing-hero nav.cl-crumb.vcc-crumb strong{
+  font-size:11px!important;
+  line-height:1.4!important;
+  letter-spacing:0!important;
+}
+html body main.cl-page.cl-landing .cl-landing-hero nav.cl-crumb.vcc-crumb span{
+  padding:0!important;
+  margin:0 3px!important;
+}
+/* Imagen y título visualmente juntos; los enlaces no deben empezar abajo. */
+html body main.cl-page.cl-landing .cl-landing-cards .cl-transport-group{
+  min-height:438px!important;
+  padding-top:7px!important;
+  gap:3px!important;
+}
+html body main.cl-page.cl-landing .cl-landing-cards .cl-transport-group .cl-illustration.cl-artwork{
+  height:104px!important;
+  min-height:104px!important;
+  padding:0!important;
+  margin:0!important;
+  align-items:flex-start!important;
+}
+html body main.cl-page.cl-landing .cl-landing-cards .cl-transport-group h3{
+  margin:0 0 2px!important;
+}
+html body main.cl-page.cl-landing .cl-landing-cards .cl-transport-group>p{
+  min-height:43px!important;
+  margin:0 0 2px!important;
+}
+html body main.cl-page.cl-landing .cl-landing-cards .cl-transport-group .cl-quicklinks{
+  margin-top:0!important;
+}
+@media(max-width:1370px){
+ html body main.cl-page.cl-landing .cl-landing-cards .cl-transport-group{
+   min-height:445px!important;
+ }
+}
+@media(max-width:650px){
+ html body main.cl-page.cl-landing .cl-landing-hero nav.cl-crumb.vcc-crumb{
+   top:9px!important;
+   left:15px!important;
+   width:calc(100% - 30px)!important;
+ }
+ html body main.cl-page.cl-landing .cl-landing-cards .cl-transport-group{
+   min-height:0!important;
+   height:auto!important;
+   padding-top:6px!important;
+ }
+ html body main.cl-page.cl-landing .cl-landing-cards .cl-transport-group .cl-illustration.cl-artwork{
+   height:88px!important;
+   min-height:88px!important;
+ }
+ html body main.cl-page.cl-landing .cl-landing-cards .cl-transport-group>p{
+   min-height:40px!important;
+ }
+}
