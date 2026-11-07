@@ -460,3 +460,140 @@ html body.ci-page .ci-weather img {
     height: 30px;
   }
 }
+
+
+/* 2026-11-07: consejo VCC oficial y resumen superior, sin recuadros duplicados. */
+html body.ci-page .ci-summary-brief {
+  display:grid;
+  grid-template-columns:108px minmax(0,1fr);
+  align-items:start;
+  gap:18px;
+  max-width:920px;
+  margin:23px auto 19px;
+  padding:0 4px;
+  background:transparent;
+}
+html body.ci-page .ci-summary-brief > span {
+  padding-top:3px;
+  color:#b96040;
+  font:700 10px/1.5 'DM Sans',sans-serif;
+  letter-spacing:.11em;
+}
+html body.ci-page .ci-summary-brief p {
+  max-width:780px;
+  margin:0;
+  color:#645a51;
+  font:400 12px/1.8 'DM Sans',sans-serif;
+}
+html body.ci-page .ci-summary-brief p strong {font-weight:700;color:#3f332b}
+html body.ci-page .ci-recommendation {
+  display:grid!important;
+  width:min(1120px,100%)!important;
+  grid-template-columns:135px minmax(0,1.05fr) minmax(260px,.95fr)!important;
+  align-items:center!important;
+  gap:22px!important;
+  margin:0 auto 34px!important;
+  padding:19px 24px!important;
+  min-height:130px!important;
+  background:#fff!important;
+  border:1.5px solid var(--ci-orange)!important;
+  border-radius:17px!important;
+  box-shadow:0 3px 13px rgba(75,48,29,.035);
+}
+html body.ci-page .ci-recommendation-brand {
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:7px;
+  align-self:stretch;
+  text-align:center;
+}
+html body.ci-page .ci-recommendation-brand img {
+  display:block;
+  width:53px;
+  height:53px;
+  max-width:none;
+  object-fit:contain;
+}
+html body.ci-page .ci-recommendation-brand strong {
+  color:#ad593b;
+  font:800 10px/1.3 'DM Sans',sans-serif;
+  letter-spacing:.09em;
+  white-space:nowrap;
+}
+html body.ci-page .ci-recommendation-copy {min-width:0}
+html body.ci-page .ci-recommendation h3 {
+  margin:0 0 6px!important;
+  font:500 clamp(22px,2.25vw,30px)/1.18 'Oswald',sans-serif!important;
+  overflow-wrap:break-word;
+}
+html body.ci-page .ci-recommendation p {
+  margin:0!important;
+  color:#685b51;
+  font:400 11.5px/1.6 'DM Sans',sans-serif!important;
+}
+html body.ci-page .ci-recommendation ul {
+  min-width:0;
+  margin:0!important;
+  padding:2px 0 2px 23px!important;
+  border-left:1px solid #e6d5c9!important;
+  border-top:0!important;
+  list-style:none;
+}
+html body.ci-page .ci-recommendation li {
+  font:400 11.5px/1.55 'DM Sans',sans-serif!important;
+  margin:5px 0!important;
+  padding-left:18px;
+  color:#544a42;
+}
+html body.ci-page .ci-recommendation li:before {left:0;color:var(--ci-orange)}
+@media (min-width:601px) and (max-width:900px) {
+  html body.ci-page .ci-recommendation {
+    grid-template-columns:110px minmax(0,1fr)!important;
+    gap:13px 20px!important;
+    padding:17px 20px!important;
+  }
+  html body.ci-page .ci-recommendation ul {
+    grid-column:2!important;
+    border-left:0!important;
+    border-top:1px solid #e6d5c9!important;
+    padding:11px 0 0!important;
+  }
+}
+@media (max-width:600px) {
+  html body.ci-page .ci-summary-brief {
+    display:block;
+    max-width:none;
+    margin:18px auto 15px;
+    padding:0 2px;
+  }
+  html body.ci-page .ci-summary-brief > span {display:block;margin-bottom:4px;font-size:9px}
+  html body.ci-page .ci-summary-brief p {font-size:11.5px;line-height:1.7}
+  html body.ci-page .ci-recommendation {
+    grid-template-columns:1fr!important;
+    gap:11px!important;
+    padding:16px!important;
+    min-height:0!important;
+    margin:0 auto 26px!important;
+    border-radius:13px!important;
+  }
+  html body.ci-page .ci-recommendation-brand {
+    flex-direction:row;
+    justify-content:flex-start;
+    align-self:auto;
+    gap:10px;
+    text-align:left;
+  }
+  html body.ci-page .ci-recommendation-brand img {width:42px;height:42px}
+  html body.ci-page .ci-recommendation-brand strong {font-size:10px}
+  html body.ci-page .ci-recommendation h3 {font-size:25px!important}
+  html body.ci-page .ci-recommendation p {font-size:11.5px!important}
+  html body.ci-page .ci-recommendation ul {
+    grid-column:1!important;
+    border-left:0!important;
+    border-top:1px solid #e6d5c9!important;
+    padding:9px 0 0!important;
+  }
+  html body.ci-page .ci-recommendation li {font-size:11px!important;margin:4px 0!important}
+}
