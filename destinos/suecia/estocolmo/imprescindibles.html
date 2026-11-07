@@ -135,29 +135,90 @@ html body .imp-page .advice .vcc-advice-logo{display:block!important;position:st
 html body .imp-page .advice>div:last-child{min-width:0;flex:1}
 
 
-/* Gamla Stan: cartell corporatiu sense fotografia; imatge estàtica sense galeria. */
-html body .imp-page #gamla-stan .vcc-no-photo {
-  display:block!important;
-  width:100%!important;
-  min-width:0!important;
-  aspect-ratio:4/3!important;
-  overflow:hidden!important;
-  border-radius:9px!important;
-  background:transparent!important;
-  cursor:default!important;
+/* Fitxa sense fotografia: composició centrada, sense marc ni buit de galeria.
+   Aquest patró es pot reutilitzar afegint la classe place--no-media. */
+html body .imp-page .imp-main .place.place--no-media {
+  grid-template-columns:minmax(0,1fr)!important;
+  justify-items:center!important;
+  align-items:start!important;
+  row-gap:12px!important;
+  column-gap:0!important;
 }
-html body .imp-page #gamla-stan .vcc-no-photo img {
-  display:block!important;
+html body .imp-page .imp-main .place.place--no-media .place-heading {
+  grid-column:1!important;
+  text-align:center!important;
+}
+html body .imp-page .imp-main .place.place--no-media .place-copy {
+  grid-column:1!important;
+  width:min(100%,820px)!important;
+  max-width:820px!important;
+  margin:0 auto!important;
+  padding:0!important;
+  align-self:center!important;
+  align-items:center!important;
+  text-align:center!important;
+}
+html body .imp-page .imp-main .place.place--no-media .place-kicker {
   width:100%!important;
-  height:100%!important;
-  max-width:none!important;
-  max-height:none!important;
-  object-fit:contain!important;
-  object-position:center!important;
-  background:transparent!important;
-  pointer-events:none!important;
-  user-select:none!important;
-  -webkit-user-drag:none!important;
+  text-align:center!important;
+}
+html body .imp-page .imp-main .place.place--no-media .place-copy > p {
+  max-width:760px!important;
+  margin:6px auto 10px!important;
+  text-align:center!important;
+}
+html body .imp-page .imp-main .place.place--no-media .facts {
+  display:flex!important;
+  flex-wrap:wrap!important;
+  justify-content:center!important;
+  align-items:center!important;
+  width:100%!important;
+  max-width:620px!important;
+  margin:16px auto 15px!important;
+  column-gap:26px!important;
+  row-gap:14px!important;
+}
+html body .imp-page .imp-main .place.place--no-media .facts > span {
+  display:inline-flex!important;
+  flex:0 1 auto!important;
+  width:auto!important;
+  max-width:100%!important;
+  grid-column:auto!important;
+  grid-row:auto!important;
+  margin:0!important;
+  padding:0!important;
+  text-align:left!important;
+  justify-content:center!important;
+  white-space:normal!important;
+}
+html body .imp-page .imp-main .place.place--no-media .advice {
+  width:min(100%,700px)!important;
+  max-width:700px!important;
+  margin:12px auto 0!important;
+  padding:17px 24px!important;
+  flex-direction:column!important;
+  justify-content:center!important;
+  align-items:center!important;
+  gap:7px!important;
+  text-align:center!important;
+}
+html body .imp-page .imp-main .place.place--no-media .advice > div:last-child {
+  flex:0 1 auto!important;
+  width:100%!important;
+  text-align:center!important;
+}
+html body .imp-page .imp-main .place.place--no-media .advice p {
+  text-align:center!important;
+}
+@media(max-width:650px){
+  html body .imp-page .imp-main .place.place--no-media {row-gap:10px!important}
+  html body .imp-page .imp-main .place.place--no-media .place-copy {width:100%!important}
+  html body .imp-page .imp-main .place.place--no-media .facts {
+    max-width:360px!important;
+    column-gap:16px!important;
+    row-gap:12px!important;
+  }
+  html body .imp-page .imp-main .place.place--no-media .advice {padding:14px 16px!important}
 }
 
 </style>
@@ -229,7 +290,7 @@ const nav=document.getElementById('placeNav');
 nav.innerHTML=data.map((p,i)=>`<a href="#${p[0]}" class="${i===0?'active':''}">${esc(p[1])}</a>`).join('');
 const main=document.getElementById('places');
 
-main.innerHTML=data.map((p,i)=>{const imgs=p[0]==='ferry'?FERRY_PHOTOS:R2_PHOTOS.slice(0,Math.min(i+1,R2_PHOTOS.length));const maps=`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(p[1]+' Stockholm')}`;return `<section class="place" id="${p[0]}"><header class="place-heading"><div class="place-heading-line"><div class="place-heading-label"><span class="place-number">${String(i+1).padStart(2,"0")} ·</span><h2>${esc(p[1]).toUpperCase()}</h2></div></div></header>${p[0]==='gamla-stan' ? '<div class="vcc-no-photo" role="img" aria-label="Sin fotografía disponible de este lugar"><img src="/configuracion/imagenes/ilustraciones/sin-fotografia-vcc-transparent.avif" alt="" loading="lazy" draggable="false"></div>' : `<div class="gallery" data-count="${imgs.length}"><div class="gallery-main" data-images='${JSON.stringify(imgs)}'></div></div>`}<div class="place-copy"><div class="place-kicker">${esc(p[3])}</div><p>${esc(p[4])}</p><div class="facts"><span><b class="ico">◆</b>${esc(p[2])}</span><span><b class="ico">●</b>${esc(p[5])}</span><span><b class="ico">◷</b>${esc(p[6])}</span><span>${rating(p[7])}</span><span class="fact-map"><b class="ico">⌖</b><a target="_blank" rel="noopener noreferrer" href="${maps}" aria-label="Abrir ${esc(p[1])} en Google Maps">Google Maps</a></span></div><div class="advice"><img class="vcc-advice-logo" src="/configuracion/imagenes/marca/logo-vcc.svg" width="46" height="46" alt="Logo oficial VCC" loading="lazy"><div><b>CONSEJO VCC</b><p>${esc(p[9])}</p></div></div></div></section>`}).join('');
+main.innerHTML=data.map((p,i)=>{const imgs=p[0]==='ferry'?FERRY_PHOTOS:R2_PHOTOS.slice(0,Math.min(i+1,R2_PHOTOS.length));const maps=`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(p[1]+' Stockholm')}`;return `<section class="place${p[0]==='gamla-stan'?' place--no-media':''}" id="${p[0]}"><header class="place-heading"><div class="place-heading-line"><div class="place-heading-label"><span class="place-number">${String(i+1).padStart(2,"0")} ·</span><h2>${esc(p[1]).toUpperCase()}</h2></div></div></header>${p[0]==='gamla-stan' ? '' : `<div class="gallery" data-count="${imgs.length}"><div class="gallery-main" data-images='${JSON.stringify(imgs)}'></div></div>`}<div class="place-copy"><div class="place-kicker">${esc(p[3])}</div><p>${esc(p[4])}</p><div class="facts"><span><b class="ico">◆</b>${esc(p[2])}</span><span><b class="ico">●</b>${esc(p[5])}</span><span><b class="ico">◷</b>${esc(p[6])}</span><span>${rating(p[7])}</span><span class="fact-map"><b class="ico">⌖</b><a target="_blank" rel="noopener noreferrer" href="${maps}" aria-label="Abrir ${esc(p[1])} en Google Maps">Google Maps</a></span></div><div class="advice"><img class="vcc-advice-logo" src="/configuracion/imagenes/marca/logo-vcc.svg" width="46" height="46" alt="Logo oficial VCC" loading="lazy"><div><b>CONSEJO VCC</b><p>${esc(p[9])}</p></div></div></div></section>`}).join('');
 nav.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{nav.querySelectorAll('a').forEach(x=>x.classList.remove('active'));a.classList.add('active')}));
 const prev=document.getElementById('navPrev'),next=document.getElementById('navNext');const update=()=>{prev.disabled=nav.scrollLeft<5;next.disabled=nav.scrollLeft+nav.clientWidth>=nav.scrollWidth-5};prev.onclick=()=>nav.scrollBy({left:-Math.max(nav.clientWidth*.7,280),behavior:'smooth'});next.onclick=()=>nav.scrollBy({left:Math.max(nav.clientWidth*.7,280),behavior:'smooth'});nav.addEventListener('scroll',update,{passive:true});window.addEventListener('resize',update);update();
 /* Galeries construïdes pel JS com a mosaics CSS; cap etiqueta img remota inicial. */
