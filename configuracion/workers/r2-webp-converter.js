@@ -369,6 +369,11 @@ td.path{overflow-wrap:anywhere;max-width:280px}
 #selectionSummary{margin-left:8px}
 #folderSummary,#scanSummary,#convertSummary,#aiSummary,#deleteProgress,#aiDeleteStatus{font-size:12px;line-height:1.45}
 #folderSummary:not(:empty),#scanSummary:not(:empty),#convertSummary:not(:empty),#aiSummary:not(:empty){background:#f9f8f6;padding:9px 11px;border-radius:8px;margin:10px 0 0}
+.aiGroupPills{display:flex;gap:7px;flex-wrap:wrap;margin:11px 0}
+.aiGroupPills:empty{display:none}
+.aiGroupPills .placeGroup{background:#f6f5f3;border:1px solid var(--line);border-radius:8px;padding:6px 10px;font-size:11px;font-weight:700;color:#41474a}
+.aiFolderInput{width:190px!important;min-height:34px!important;padding:5px 7px!important;font-size:11.5px!important}
+.aiHint{font-size:10.5px;color:#767d80}
 .workspace section.card:last-child{grid-column:1/-1}
 ::selection{background:#f6d4d0}
 @media(max-width:760px){
@@ -415,20 +420,20 @@ td.path{overflow-wrap:anywhere;max-width:280px}
 <p class="muted small">2 fases · 1 foto a la vez · reintentos automáticos. El JPG solo se borra tras verificar el AVIF.</p>
 <button id="convertBtn" disabled onclick="convertAll()">Convertir JPG → AVIF</button><button id="convertStopBtn" class="secondary" disabled onclick="stopProcess('convert')">Detener</button>
 <p id="convertSummary" class="muted" role="status" aria-live="polite"></p></section>
-<section class="card card-wide"><h2>5. Selección con IA</h2>
-<p>Calidad visual · interés editorial · ubicación probable.</p>
+<section class="card card-wide"><h2>5. Clasificación de lugares con IA</h2>
+<p>Conserva todas las fotos · identifica lugares · organiza en subcarpetas.</p>
 <label for="aiContext">Contexto del viaje</label>
-<textarea id="aiContext" maxlength="180" rows="2" placeholder="Ej. Estocolmo · Gamla Stan"></textarea>
-<label for="aiTarget">Fotos a conservar</label>
-<input id="aiTarget" type="number" min="1" max="1000" value="50" onchange="renderAiResults()">
+<textarea id="aiContext" maxlength="180" rows="2" placeholder="Ej. Gotemburgo, día 1; Haga, Skansen Kronan..."></textarea>
 <label class="small"><input id="aiForce" type="checkbox"> Reanalizar (consume IA)</label>
-<div><button id="aiBtn" disabled onclick="runAiSelection()">Analizar con IA</button><button class="secondary" id="aiStopBtn" disabled onclick="stopProcess('ai')">Detener</button><button class="secondary" id="aiCsvBtn" disabled onclick="downloadAiCsv()">Exportar CSV</button></div>
-<label class="small"><input type="checkbox" id="confirmAiDelete" onchange="updateButtons()"> He revisado las descartadas y sus posibles enlaces web.</label>
-<button id="aiDeleteBtn" class="danger" disabled onclick="deleteAiRejected()">Eliminar descartadas</button>
-<p id="aiDeleteStatus" class="muted small"></p>
+<div><button id="aiBtn" disabled onclick="runAiSelection()">Identificar lugares</button><button class="secondary" id="aiStopBtn" disabled onclick="stopProcess('ai')">Detener</button><button class="secondary" id="aiCsvBtn" disabled onclick="downloadAiCsv()">Exportar CSV</button></div>
 <p id="aiSummary" class="muted" role="status" aria-live="polite">Selecciona una carpeta.</p>
+<div id="aiGroups" class="aiGroupPills"></div>
+<datalist id="aiFolderList"></datalist>
 <div id="aiResults" class="tableWrap"></div>
-<p class="warning small">Ubicaciones estimadas. Ninguna foto se elimina automáticamente.</p>
+<label class="small"><input type="checkbox" id="confirmAiOrganize" onchange="updateButtons()"> He revisado las carpetas. Mover fotos puede romper enlaces del blog.</label>
+<button id="aiOrganizeBtn" disabled onclick="organizeAiPhotos()">Organizar en subcarpetas</button>
+<p id="aiMoveStatus" class="muted small" role="status" aria-live="polite"></p>
+<p class="warning small">Ubicaciones estimadas, no verificadas. Corrige las carpetas antes de mover.</p>
 </section>
 <section class="card"><h2>Actividad</h2><pre id="status">Introduce la clave.</pre></section>
 </div>
@@ -476,8 +481,8 @@ function updateButtons(){
  q('convertBtn').disabled=busy||!currentPrefix||!files.length;
  q('convertStopBtn').disabled=!(busy&&activeMode==='convert')||stopped;
  q('aiBtn').disabled=busy||!currentPrefix||!scanFiles.length;
- q('aiStopBtn').disabled=!(busy&&(activeMode==='ai'||activeMode==='ai-delete'))||stopped;
- q('aiDeleteBtn').disabled=busy||!aiRows.length||!q('confirmAiDelete').checked;
+ q('aiStopBtn').disabled=!(busy&&(activeMode==='ai'||activeMode==='ai-move'))||stopped;
+ q('aiOrganizeBtn').disabled=busy||!aiAnalysisComplete||!aiRows.length||!q('confirmAiOrganize').checked;
  q('selectAllBtn').disabled=busy||!scanReady||!groups.length;
  q('selectNoneBtn').disabled=busy||!scanReady||!groups.length;
 }
@@ -487,9 +492,9 @@ function lock(on,mode=''){
  updateButtons();
 }
 function stopProcess(mode){
- if(!busy||(activeMode!==mode&&!(mode==='ai'&&activeMode==='ai-delete')))return;
+ if(!busy||(activeMode!==mode&&!(mode==='ai'&&activeMode==='ai-move')))return;
  stopped=true;
- log(mode==='ai-delete'?'Deteniendo borrado después de la fotografía actual.':mode==='ai'?'Deteniendo análisis después de la imagen actual.':mode==='scan'?'Deteniendo detección después de la fotografía actual.':'Deteniendo conversión después del archivo actual.');
+ log(mode==='ai-move'?'Deteniendo organización después de la foto actual.':mode==='ai'?'Deteniendo análisis después de la foto actual.':mode==='scan'?'Deteniendo detección después de la foto actual.':'Deteniendo conversión después del archivo actual.');
  updateButtons();
 }
 async function browse(){if(busy)return;stopped=false;lock(true);
@@ -518,7 +523,7 @@ async function browse(){if(busy)return;stopped=false;lock(true);
 async function loadFolder(){if(busy||!q('folder').value)return;stopped=false;lock(true);let ok=false;
  try{
   currentPrefix=q('folder').value;files=[];scanFiles=[];scans=[];groups=[];removed.clear();scanReady=false;
-   aiRows=[];aiEdited.clear();q('confirmAiDelete').checked=false;q('aiDeleteStatus').textContent='';q('aiResults').innerHTML='';q('aiSummary').textContent='Carpeta cargada. Puedes iniciar la selección inteligente.';
+   aiRows=[];aiEdited.clear();aiAnalysisComplete=false;q('confirmAiOrganize').checked=false;q('aiMoveStatus').textContent='';q('aiResults').innerHTML='';q('aiGroups').innerHTML='';q('aiSummary').textContent='Carpeta lista para identificar lugares.';
   q('confirmDup').checked=false;q('duplicates').innerHTML='';q('scanSummary').textContent='';
   for(const url of previewUrls.values())URL.revokeObjectURL(url);previewUrls.clear();
   let cursor=null,pages=0;
@@ -531,56 +536,65 @@ async function loadFolder(){if(busy||!q('folder').value)return;stopped=false;loc
  if(ok){q('scanSummary').textContent='Carpeta lista. Pulsa Iniciar detección para analizar los duplicados.';q('convertSummary').textContent='Carpeta lista. Puedes iniciar la conversión directamente sin analizar duplicados.';updateButtons()}
 }
 
-// Selección de fotografías con IA, diversidad y ubicación probable.
-let aiRows=[],aiEdited=new Map();
+// Identificación de lugares, sin descartar fotografías.
+let aiRows=[],aiEdited=new Map(),aiAnalysisComplete=false;
+const AI_CATEGORIES=['Calles','Paisajes','Mar','Miradores','Bosques','Montañas','Playas','Parques','Comida','Transporte','Interiores','Arquitectura','Otros'];
 function aiFilesForReview(){
- return scanFiles.filter(f=>!f.key.split('/').some(p=>p==='_preview'||p==='__vcc_dedup_backup__'));
+ const folder=currentPrefix+'/';
+ return scanFiles.filter(f=>f.key.startsWith(folder)&&!f.key.slice(folder.length).includes('/')&&!f.key.toLowerCase().includes('preview'));
 }
-function aiOrdered(){
- const remaining=[...aiRows],picked=[],seen=new Map();
- const target=Math.min(Math.max(1,Number(q('aiTarget').value)||50),remaining.length);
- while(remaining.length){
-  let best=0,bestRank=-Infinity;
-  for(let i=0;i<remaining.length;i++){
-   const row=remaining[i],scene=(row.scene+'|'+row.place).toLowerCase();
-   const rank=row.score-Math.min(26,(seen.get(scene)||0)*9);
-   if(rank>bestRank){bestRank=rank;best=i}
-  }
-  const row=remaining.splice(best,1)[0];
-  const scene=(row.scene+'|'+row.place).toLowerCase();
-  seen.set(scene,(seen.get(scene)||0)+1);picked.push(row);
+function aiFolderFor(row){
+ const proposal=row.kind==='specific'&&row.confidence==='alta'?row.place:
+   AI_CATEGORIES.includes(row.category)?row.category:'Otros';
+ return (aiEdited.get(row.key)||proposal||'Otros').trim();
+}
+function aiValidateFolder(name){
+ return name.length>=2&&name.length<=72&&!name.includes('..')&&
+   /^[\p{L}\p{N}][\p{L}\p{N} _().'-]*$/u.test(name);
+}
+function aiPlaceGroups(){
+ const map=new Map();
+ for(const row of aiRows){
+  const label=aiFolderFor(row),key=label.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
+  let group=map.get(key);if(!group){group={label,rows:[]};map.set(key,group)}
+  group.rows.push(row);
  }
- return {all:picked,target,selected:picked.filter((row,i)=>aiEdited.has(row.key)?aiEdited.get(row.key):i<target)};
+ return [...map.values()].sort((a,b)=>b.rows.length-a.rows.length||a.label.localeCompare(b.label,'es'));
 }
 function renderAiResults(){
- const container=q('aiResults'),data=aiOrdered();
- if(!aiRows.length){container.innerHTML='';q('aiCsvBtn').disabled=true;return}
- q('aiCsvBtn').disabled=false;
- const chosen=new Set(data.selected.map(x=>x.key));
- const cover=[...data.selected].sort((a,b)=>(b.cover*.55+b.score*.45)-(a.cover*.55+a.score*.45))[0];
- q('aiSummary').textContent=aiRows.length+' analizadas · '+chosen.size+' seleccionadas · '+(aiRows.length-chosen.size)+' no seleccionadas. Ningún archivo eliminado.';
- let html='<table><thead><tr><th>Conservar</th><th>Fotografía</th><th>Puntuación</th><th>Ubicación probable</th><th>Valor para el lector</th></tr></thead><tbody>';
- for(const item of data.all){
-   const keep=chosen.has(item.key);
-   html+='<tr><td><input type="checkbox" class="aiKeep" data-key="'+esc(item.key)+'" '+(keep?'checked':'')+'></td>'+
-   '<td class="path"><img class="photoThumb" alt="" loading="lazy" src="'+item.thumbnail+'"><b>'+esc(item.key.split('/').pop())+'</b>'+
-   (cover?.key===item.key?'<br><span class="tag">Portada sugerida</span>':'')+
-   '<br><span class="small muted">'+esc(item.subject)+'</span></td>'+
-   '<td><b>'+item.score+'/100</b><br><span class="small muted">Técnica '+item.technical+' · Belleza '+item.visual+' · Interés '+item.editorial+'</span></td>'+
-   '<td><b>'+esc(item.place)+'</b><br><span class="small muted">Confianza '+esc(item.confidence)+' · Estimación IA</span></td>'+
-   '<td>'+esc(item.reason)+'<br><span class="small muted">Alt: '+esc(item.alt)+'</span></td></tr>';
+ const box=q('aiResults'),groups=aiPlaceGroups();
+ q('aiCsvBtn').disabled=busy||!aiRows.length;
+ if(!aiRows.length){box.innerHTML='';q('aiGroups').innerHTML='';q('aiFolderList').innerHTML='';updateButtons();return}
+ q('aiGroups').innerHTML=groups.map(g=>'<span class="placeGroup">'+esc(g.label)+' · '+g.rows.length+'</span>').join('');
+ q('aiFolderList').innerHTML=groups.map(g=>'<option value="'+esc(g.label)+'"></option>').join('');
+ let html='<table><thead><tr><th>Fotografía</th><th>Lugar sugerido</th><th>Carpeta de destino</th></tr></thead><tbody>';
+ for(const g of groups)for(const row of g.rows){
+  const folder=aiFolderFor(row),suggestion=row.place==='No identificable'?row.category:row.place;
+  html+='<tr><td class="path"><img class="photoThumb" alt="" loading="lazy" src="'+row.thumbnail+'">'+
+   '<b>'+esc(row.key.split('/').pop())+'</b></td>'+
+   '<td><b>'+esc(suggestion)+'</b><br><span class="aiHint">Confianza '+esc(row.confidence)+
+   ' · '+esc(row.subject)+'</span></td>'+
+   '<td><input class="aiFolderInput" aria-label="Carpeta para esta foto" list="aiFolderList" data-key="'+esc(row.key)+'" value="'+esc(folder)+'">'+
+   '<p class="aiHint">'+(row.kind==='specific'?'Lugar identificado':'Categoría genérica')+'</p></td></tr>';
  }
- container.innerHTML=html+'</tbody></table>';
- for(const box of container.querySelectorAll('.aiKeep'))box.onchange=()=>{aiEdited.set(box.dataset.key,box.checked);renderAiResults()};
+ box.innerHTML=html+'</tbody></table>';
+ for(const input of box.querySelectorAll('.aiFolderInput'))input.onchange=()=>{
+  const name=input.value.trim().replace(/\s+/g,' ');
+  if(!aiValidateFolder(name)){alert('Carpeta inválida: usa letras, números o espacios (máximo 72 caracteres).');input.value=aiFolderFor(aiRows.find(r=>r.key===input.dataset.key));return}
+  aiEdited.set(input.dataset.key,name);q('confirmAiOrganize').checked=false;renderAiResults();
+ };
+ updateButtons();
 }
 async function runAiSelection(){
  if(busy||!currentPrefix||!scanFiles.length)return;
  const photos=aiFilesForReview();
- if(photos.length>1000){log('Elige una subcarpeta de hasta 1000 imágenes.');return}
- if(!photos.length)return;
+ if(photos.length>1000){log('Elige una carpeta de hasta 1000 fotos.');return}
+ if(!photos.length){q('aiSummary').textContent='No hay fotos nuevas en la raíz de esta carpeta.';return}
  const context=q('aiContext').value.trim().slice(0,180),force=q('aiForce').checked;
- if(!confirm('La IA analizará '+photos.length+' imágenes. Puede generar consumo de Workers AI. No eliminará ninguna fotografía. ¿Continuar?'))return;
- stopped=false;aiRows=[];aiEdited.clear();q('confirmAiDelete').checked=false;q('aiDeleteStatus').textContent='';lock(true,'ai');q('aiResults').innerHTML='';
+ if(!confirm('Analizar '+photos.length+' fotos. Consume Workers AI. No se moverá ninguna todavía. ¿Continuar?'))return;
+ stopped=false;aiRows=[];aiEdited.clear();aiAnalysisComplete=false;
+ q('confirmAiOrganize').checked=false;q('aiMoveStatus').textContent='';
+ lock(true,'ai');q('aiResults').innerHTML='';q('aiGroups').innerHTML='';
  const errors=[];let cached=0;
  try{
   for(let i=0;i<photos.length;i++){
@@ -588,60 +602,57 @@ async function runAiSelection(){
    const f=photos[i];q('aiSummary').textContent='Analizando '+(i+1)+'/'+photos.length+' · '+f.key.split('/').pop()+' · Errores '+errors.length;
    try{
     const out=await api({mode:'ai-review',prefix:currentPrefix,key:f.key,etag:f.etag,context,force});
-    if(out.key!==f.key||out.etag!==f.etag)throw Error('Resultado no correspondiente a la foto');
+    if(out.key!==f.key||out.etag!==f.etag)throw Error('Resultado de otra foto.');
     if(out.cached)cached++;aiRows.push(out);
-    if(aiRows.length%5===0||i===photos.length-1)renderAiResults();
-   }catch(e){errors.push({key:f.key,error:e.message});log('IA: error '+f.key+': '+e.message)}
+    if(aiRows.length%6===0||i===photos.length-1)renderAiResults();
+   }catch(e){errors.push({key:f.key,error:e.message});log('IA: '+f.key+' · '+e.message)}
   }
+  aiAnalysisComplete=!stopped&&!errors.length&&aiRows.length===photos.length;
   renderAiResults();
-  const result=(stopped?'Análisis detenido. ':'Análisis completado. ')+aiRows.length+'/'+photos.length+' imágenes; '+cached+' reutilizadas; '+errors.length+' errores.';
-  q('aiSummary').textContent=result+' Puedes revisar la selección. Ningún archivo eliminado.';
-  log(result);
+  q('aiSummary').textContent=aiRows.length+'/'+photos.length+' fotos · '+aiPlaceGroups().length+
+   ' lugares o categorías · '+cached+' en caché · '+errors.length+' errores. '+
+   (aiAnalysisComplete?'Revisa los nombres antes de organizar.':'Análisis incompleto. Reintenta.');
  }finally{lock(false)}
 }
 function downloadAiCsv(){
  if(!aiRows.length)return;
- const selected=new Set(aiOrdered().selected.map(x=>x.key));
- const heads=['archivo','seleccionada','puntuacion','tecnica','atractivo','interes','portada','lugar_probable','confianza','escena','asunto','motivo','texto_alt'];
- const rows=aiRows.map(x=>[x.key,selected.has(x.key)?'si':'no',x.score,x.technical,x.visual,x.editorial,x.cover,x.place,x.confidence,x.scene,x.subject,x.reason,x.alt]);
+ const columns=['archivo','carpeta','lugar_probable','tipo','categoria','confianza','asunto','texto_alt','ruta_destino'];
+ const rows=aiRows.map(x=>[x.key,aiFolderFor(x),x.place,x.kind,x.category,x.confidence,x.subject,x.alt,
+  currentPrefix+'/'+aiFolderFor(x)+'/'+x.key.split('/').pop()]);
  const cell=x=>'"'+String(x==null?'':x).replace(/"/g,'""')+'"';
- const csv='\uFEFF'+[heads,...rows].map(row=>row.map(cell).join(';')).join('\r\n');
- const blob=new Blob([csv],{type:'text/csv;charset=utf-8'});
- const url=URL.createObjectURL(blob),link=document.createElement('a');link.href=url;
- link.download='seleccion-vcc-'+currentPrefix.replace(/[^a-z0-9-]/gi,'-')+'.csv';
- document.body.appendChild(link);link.click();link.remove();setTimeout(()=>URL.revokeObjectURL(url),1500);
+ const csv='\uFEFF'+[columns,...rows].map(r=>r.map(cell).join(';')).join('\r\n');
+ const url=URL.createObjectURL(new Blob([csv],{type:'text/csv;charset=utf-8'})),a=document.createElement('a');
+ a.href=url;a.download='lugares-vcc-'+currentPrefix.replace(/[^a-z0-9-]/gi,'-')+'.csv';
+ document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1500);
 }
-
-
-async function deleteAiRejected(){
- if(busy||!aiRows.length||!q('confirmAiDelete').checked)return;
- const order=aiOrdered();
- const chosen=new Set(order.selected.map(x=>x.key));
- const candidates=order.all.filter(x=>!chosen.has(x.key));
- if(!candidates.length){q('aiDeleteStatus').textContent='No hay fotografías descartadas.';return}
- if(!confirm('Vas a eliminar definitivamente '+candidates.length+' imágenes de Cloudflare R2. Es posible que alguna esté enlazada desde tu web. NO hay copia de seguridad. ¿Deseas continuar?'))return;
- const typed=prompt('Escribe ELIMINAR para confirmar el borrado irreversible de '+candidates.length+' fotografías:');
- if(typed!=='ELIMINAR'){q('aiDeleteStatus').textContent='Eliminación cancelada.';return}
- stopped=false;lock(true,'ai-delete');q('confirmAiDelete').checked=false;
- let ok=0;const errors=[];
+async function organizeAiPhotos(){
+ if(busy||!aiAnalysisComplete||!aiRows.length||!q('confirmAiOrganize').checked)return;
+ const rows=[...aiRows];
+ for(const row of rows)if(!aiValidateFolder(aiFolderFor(row))){
+  alert('Revisa los nombres de las carpetas.');return;
+ }
+ if(!confirm('Mover '+rows.length+' fotos a '+aiPlaceGroups().length+
+  ' carpetas. Cambiar las rutas puede romper las imágenes enlazadas desde el blog. ¿Continuar?'))return;
+ if(prompt('Escribe ORGANIZAR para confirmar el cambio de rutas:')!=='ORGANIZAR')return;
+ stopped=false;lock(true,'ai-move');q('confirmAiOrganize').checked=false;
+ let moved=0;const errors=[];
  try{
-  for(let i=0;i<candidates.length;i++){
-   if(stopped)break;
-   const x=candidates[i];
-   q('aiDeleteStatus').textContent='Eliminando '+(i+1)+'/'+candidates.length+': '+x.key.split('/').pop();
+  for(let i=0;i<rows.length&&!stopped;i++){
+   const row=rows[i],folder=aiFolderFor(row);
+   q('aiMoveStatus').textContent='Moviendo '+(i+1)+'/'+rows.length+' · '+row.key.split('/').pop();
    try{
-    const result=await api({mode:'ai-remove-rejected',prefix:currentPrefix,key:x.key,etag:x.etag,confirm:true});
-    if(result.deleted!==x.key)throw Error('No se ha confirmado el borrado');
-    ok++;
-    aiRows=aiRows.filter(row=>row.key!==x.key);
-    scanFiles=scanFiles.filter(f=>f.key!==x.key);
-    files=files.filter(f=>f.key!==x.key);
-    aiEdited.delete(x.key);
-   }catch(e){errors.push({key:x.key,error:e.message});log('ERROR borrando '+x.key+': '+e.message)}
+    const out=await api({mode:'ai-move-place',prefix:currentPrefix,key:row.key,etag:row.etag,folder,confirm:true});
+    if(out.moved!==true||out.source!==row.key||out.folder!==folder)throw Error('Movimiento no verificado.');
+    moved++;row.movedTo=out.target;
+    scanFiles=scanFiles.filter(f=>f.key!==row.key);
+    files=files.filter(f=>f.key!==row.key);
+   }catch(e){errors.push({key:row.key,message:e.message});log('No movida: '+row.key+' · '+e.message)}
   }
-  renderAiResults();
-  q('aiDeleteStatus').textContent='Eliminadas '+ok+' fotografías; '+errors.length+' errores. '+(stopped?'Proceso detenido.':'')+' Las versiones preview no se eliminan.';
-  log(q('aiDeleteStatus').textContent);
+  q('aiMoveStatus').textContent=moved+' fotos organizadas · '+errors.length+' sin mover'+(stopped?' · detenido':'')+'.';
+  log(q('aiMoveStatus').textContent);
+  if(moved){scans=[];groups=[];scanReady=false;q('duplicates').innerHTML='';q('confirmDup').checked=false;}
+  aiRows=aiRows.filter(r=>!r.movedTo);aiAnalysisComplete=false;renderAiResults();
+  q('aiSummary').textContent=moved+' fotos organizadas. '+errors.length+' errores. Recarga la carpeta si quieres continuar.';
  }finally{lock(false)}
 }
 
