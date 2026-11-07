@@ -71,6 +71,7 @@
     layer.setAttribute('aria-hidden', 'true');
     document.body.classList.remove('vcc-desktop-gallery-open');
     clearNativeGalleryLayout();
+    window.VCCGalleryScrollLock?.release('desktop');
     activeGallery = null;
     clickedGridImage = null;
     activeSources = [];
@@ -84,6 +85,10 @@
     clickedGridImage = tile;
     layer.setAttribute('aria-hidden', 'true');
     window.VCCImprescindiblesLightbox.open(activeGallery, index);
+    if(existingLightbox){
+      existingLightbox.scrollLeft=layer.scrollLeft;
+      existingLightbox.scrollTop=layer.scrollTop;
+    }
     syncViewerPan();
     /* El visor ampliat comparteix títol i informació amb el mosaic previ. */
     const name = heading.textContent;
@@ -135,6 +140,7 @@
     layer.hidden=false;
     layer.setAttribute('aria-hidden','false');
     document.body.classList.add('vcc-desktop-gallery-open');
+    window.VCCGalleryScrollLock?.acquire('desktop');
     startPanBaseline();
     closeButton.focus({preventScroll:true});
   };
@@ -242,22 +248,21 @@
     return Number.isInteger(position) ? activeSources[position-1] : null;
   }
 
-  // La galeria es tracta com a contingut normal del document:
-  // el zoom, la posició focal i el desplaçament els controla el navegador.
-  // Evitem transformacions per cursor, que duplicaven el moviment natiu.
-  let nativeViewport=null;
-  const originalPixelRatio=window.devicePixelRatio||1;
+  // El fons queda fixat amb VCCGalleryScrollLock; únicament les dues
+  // galeries tenen un viewport desplaçable propi. D'aquesta manera Ctrl+rodeta
+  // amplia la pàgina de forma nativa sense desplaçar el contingut del blog.
+  let viewportBaseline=null;
   let zoomSyncPending=false;
   const updateMosaicZoomMode=()=>{
-    if(layer.hidden || !nativeViewport)return;
+    if(layer.hidden || !viewportBaseline)return;
     const scale=Math.max(
-      nativeViewport.w/Math.max(1,window.innerWidth),
-      nativeViewport.h/Math.max(1,window.innerHeight),
-      (window.devicePixelRatio||1)/Math.max(.01,nativeViewport.dpr),
-      (window.visualViewport?.scale||1)/Math.max(.01,nativeViewport.visualScale)
+      viewportBaseline.w/Math.max(1,window.innerWidth),
+      viewportBaseline.h/Math.max(1,window.innerHeight),
+      (window.devicePixelRatio||1)/Math.max(.01,viewportBaseline.dpr),
+      (window.visualViewport?.scale||1)/Math.max(.01,viewportBaseline.visualScale)
     );
-    // A escala normal, el mosaic conserva el scroll intern original.
-    // Quan es fa zoom, no ha d'interceptar la navegació nativa de pàgina.
+    // En mode normal, el mosaic conserva el seu scroll vertical intern.
+    // Amb zoom, és el contenidor complet de galeria qui es desplaça.
     layer.classList.toggle('vcc-mosaic-native-zoom',scale>1.035);
   };
   const queueMosaicZoomSync=()=>{
@@ -274,58 +279,34 @@
     if(layer.hidden || !(event.ctrlKey||event.metaKey))return;
     requestAnimationFrame(()=>requestAnimationFrame(queueMosaicZoomSync));
   },{capture:true,passive:true});
-  // Alguns navegadors actualitzen el zoom després de moure el cursor.
   document.addEventListener('pointermove',event=>{
     if(event.pointerType==='mouse' && !layer.hidden)queueMosaicZoomSync();
   },{passive:true});
-  const resetViewerPan=()=>{}; // De la foto individual tornem al mosaic sense canviar zoom.
-  const syncViewerPan=()=>{};  // Mantingut per compatibilitat amb el visor.
+  const resetViewerPan=()=>{}; // Manté el zoom natiu entre mosaic i fotografia.
+  const syncViewerPan=()=>{};
   const clearNativeGalleryLayout=()=>{
-    for(const el of [layer,existingLightbox]){
-      if(!el)continue;
-      for(const name of ['top','left','right','bottom','width','height'])
-        el.style.removeProperty(name);
-    }
-    layer.classList.remove('vcc-mosaic-native-zoom');
-    layer.classList.remove('vcc-native-document-gallery');
-    existingLightbox?.classList.remove('vcc-native-document-gallery');
+    layer.classList.remove('vcc-mosaic-native-zoom','vcc-gallery-viewport');
+    existingLightbox?.classList.remove('vcc-gallery-viewport');
     const root=document.documentElement;
-    root.classList.remove('vcc-gallery-native-scroll');
-    for(const key of [
-      '--vcc-gallery-document-top','--vcc-gallery-document-left',
-      '--vcc-gallery-document-width','--vcc-gallery-document-height',
-      '--vcc-gallery-panel-width','--vcc-gallery-panel-height'
-    ])root.style.removeProperty(key);
-    nativeViewport=null;
+    root.classList.remove('vcc-gallery-modal-locked');
+    root.style.removeProperty('--vcc-gallery-panel-width');
+    root.style.removeProperty('--vcc-gallery-panel-height');
+    viewportBaseline=null;
   };
   const startPanBaseline=()=>{
-    const vw=window.innerWidth;
-    const vh=window.innerHeight;
-    const px=window.scrollX;
-    const py=window.scrollY;
-    const panelWidth=Math.max(1,mosaicPanel.offsetWidth);
-    const panelHeight=Math.max(1,mosaicPanel.offsetHeight);
-    nativeViewport={x:px,y:py,w:vw,h:vh,
-      dpr:window.devicePixelRatio||1,visualScale:window.visualViewport?.scale||1};
-    updateMosaicZoomMode();
-    // Posicionament ABSOLUT al document, no fix al viewport: quan Edge
-    // amplia la pàgina es pot recórrer com a Inici o Destins.
-    for(const el of [layer,existingLightbox]){
-      if(!el)continue;
-      el.style.setProperty('top',py+'px');
-      el.style.setProperty('left',px+'px');
-      el.style.setProperty('width',vw+'px');
-      el.style.setProperty('height',vh+'px');
-      el.classList.add('vcc-native-document-gallery');
-    }
     const root=document.documentElement;
-    root.style.setProperty('--vcc-gallery-document-top',py+'px');
-    root.style.setProperty('--vcc-gallery-document-left',px+'px');
-    root.style.setProperty('--vcc-gallery-document-width',vw+'px');
-    root.style.setProperty('--vcc-gallery-document-height',vh+'px');
-    root.style.setProperty('--vcc-gallery-panel-width',panelWidth+'px');
-    root.style.setProperty('--vcc-gallery-panel-height',panelHeight+'px');
-    root.classList.add('vcc-gallery-native-scroll');
+    viewportBaseline={
+      w:window.innerWidth,
+      h:window.innerHeight,
+      dpr:window.devicePixelRatio||1,
+      visualScale:window.visualViewport?.scale||1
+    };
+    root.style.setProperty('--vcc-gallery-panel-width',Math.max(1,mosaicPanel.offsetWidth)+'px');
+    root.style.setProperty('--vcc-gallery-panel-height',Math.max(1,mosaicPanel.offsetHeight)+'px');
+    layer.classList.add('vcc-gallery-viewport');
+    existingLightbox?.classList.add('vcc-gallery-viewport');
+    root.classList.add('vcc-gallery-modal-locked');
+    updateMosaicZoomMode();
   };
 
   // El zoom de tota la pàgina és responsabilitat del navegador.
@@ -343,6 +324,10 @@
     resetViewerPan();
     enlargedPhoto?.classList.remove('vcc-dg-rounded-ready');
     if(layer.hidden || !activeGallery) return;
+    if(existingLightbox){
+      layer.scrollLeft=existingLightbox.scrollLeft;
+      layer.scrollTop=existingLightbox.scrollTop;
+    }
     layer.setAttribute('aria-hidden','false');
     syncViewerPan();
     if(clickedGridImage?.isConnected) clickedGridImage.focus({preventScroll:true});
