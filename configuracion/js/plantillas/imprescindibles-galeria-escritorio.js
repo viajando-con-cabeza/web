@@ -160,6 +160,10 @@
     event.stopPropagation();
     event.stopImmediatePropagation();
     openGallery(tile.closest('.gallery'));
+    // A Edge, Ctrl+rodeta pot no emetre wheel. El clic d'obertura
+    // ens proporciona l'últim punt conegut sota el cursor.
+    latestPointer={kind:'mosaic',x:event.clientX,y:event.clientY,
+      sx:event.screenX,sy:event.screenY};
   },true);
 
   layer.addEventListener('click',event => {
@@ -308,25 +312,9 @@
       y:Math.max(0,panel.offsetHeight+36-visibleH)
     };
   };
-  // En un zoom real, la vista no pot començar en el límit 0:
-  // des d'allà és físicament impossible recórrer cap a dalt/esquerra.
-  // Reservem marge als quatre cantons, fins i tot si Edge comunica
-  // Ctrl+wheel amb coordenades incorrectes o amb cursor a una vora.
-  const reserveFourWayPan=(modal,state,bounds)=>{
-    const rect=modal.getBoundingClientRect();
-    const zoom=Math.max(1,zoomRatio());
-    const width=Math.max(1,Math.min(rect.width,
-      window.visualViewport?.width||rect.width,
-      viewportBaseline?.w/zoom||rect.width));
-    const height=Math.max(1,Math.min(rect.height,
-      window.visualViewport?.height||rect.height,
-      viewportBaseline?.h/zoom||rect.height));
-    // Un mínim de recorregut usable, sense recentrar agressivament.
-    const reserveX=Math.min(bounds.x/2,Math.min(140,Math.max(32,width*.16)));
-    const reserveY=Math.min(bounds.y/2,Math.min(110,Math.max(28,height*.16)));
-    state.x=clamp(state.x,reserveX,Math.max(reserveX,bounds.x-reserveX));
-    state.y=clamp(state.y,reserveY,Math.max(reserveY,bounds.y-reserveY));
-  };
+  // El zoom s'ancora exactament al punt del cursor. No recentrem
+  // ni reservem 140/110px artificialment, perquè desviava el punt.
+  const PAN_SENSITIVITY=1.4;
   const paintPan=modal=>{
     const panel=panelOf(modal);
     if(!panel)return;
@@ -390,7 +378,6 @@
     const currentZoom=zoomRatio();
     const zoomed=currentZoom>1.025;
     const firstZoom=zoomed&&!zoomWasActive;
-    const zoomIncreased=currentZoom>previousZoomRatio+0.018;
     previousZoomRatio=currentZoom;
     zoomWasActive=zoomed;
     layer.classList.toggle('vcc-mosaic-native-zoom',zoomed);
@@ -399,6 +386,9 @@
       modal.classList.toggle('vcc-zoom-pan-enabled',zoomed);
     }
     if(!zoomed){
+      // La notificació de wheel pot arribar abans del canvi de zoom
+      // natiu a Edge. No perdem l'ancoratge prematurament.
+      if(pendingZoomAnchor)return;
       resetPan();
       return;
     }
@@ -406,33 +396,23 @@
       if(!modal)continue;
       const state=panState[modeOf(modal)];
       const bounds=panLimits(modal);
-      if(modal===active && applyZoomAnchor(modal)) {
-        // El punt exacte del cursor s'ha pogut llegir de Ctrl+rodeta.
-      } else if(modal===active && firstZoom) {
-        // Edge pot no exposar l'esdeveniment Ctrl+wheel quan fa zoom.
-        // Abans quedàvem a (0,0): impossible moure esquerra o amunt.
-        // Reservem recorregut a AMBDÓS costats, centrant el zoom al
-        // cursor conegut o al centre si el navegador no el comunica.
+      if(modal===active && applyZoomAnchor(modal)){
+        // La vista apunta al MATEIX píxel del panell sota el cursor.
+        // Mai s'afegeix un desplaçament artificial posterior.
+      }else if(modal===active && firstZoom){
+        // Reserva només si Edge no ha enviat Ctrl+wheel; usem el cursor
+        // conegut, no el centre arbitrari ni una posició forçada.
         const beforeX=latestPointer?.kind===modeOf(modal)
           ?latestPointer.x:viewportBaseline.w/2;
         const beforeY=latestPointer?.kind===modeOf(modal)
           ?latestPointer.y:viewportBaseline.h/2;
-        const fraction=1-1/Math.max(1,zoomRatio());
+        const fraction=1-1/Math.max(1,currentZoom);
         state.x=clamp(beforeX*fraction,0,bounds.x);
         state.y=clamp(beforeY*fraction,0,bounds.y);
-        // El primer mousemove després del zoom només fixa la referència:
-        // no ha de crear un altre salt.
         resetHoverPan();
-      } else {
+      }else{
         state.x=clamp(state.x,0,bounds.x);
         state.y=clamp(state.y,0,bounds.y);
-      }
-      // Fem-ho DESPRÉS d'interpretar el punt del zoom: el Ctrl+wheel
-      // d'Edge podia tornar state.x/state.y a 0. Assegurem que inicialment
-      // hi hagi recorregut a esquerra, dreta, amunt i avall.
-      if(modal===active && (firstZoom||zoomIncreased)){
-        reserveFourWayPan(modal,state,bounds);
-        resetHoverPan();
       }
       paintPan(modal);
     }
@@ -482,7 +462,8 @@
     dx=clamp(dx,-140,140);
     dy=clamp(dy,-140,140);
     if(Math.abs(dx)<.1&&Math.abs(dy)<.1)return;
-    pendingDx+=dx;pendingDy+=dy;
+    pendingDx+=dx*PAN_SENSITIVITY;
+    pendingDy+=dy*PAN_SENSITIVITY;
     if(!panFrame)panFrame=requestAnimationFrame(flushPan);
   };
   window.addEventListener('resize',()=>{resetHoverPan();queueMosaicZoomSync();},{passive:true});
