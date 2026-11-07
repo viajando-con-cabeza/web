@@ -542,10 +542,11 @@
     right:0!important;
     bottom:0!important;
     display:block!important;
-    /* Serveix tant per zoom de pàgina (Edge) com visualViewport/pinça:
-       el contingut queda més gran que aquest scrollport quan s'amplia. */
-    width:min(100vw,var(--vcc-gallery-viewport-width,100vw))!important;
-    height:min(100dvh,var(--vcc-gallery-viewport-height,100dvh))!important;
+    /* Una sola escala: el zoom natiu del navegador.
+       El visor sempre cobreix TOTA la pantalla; mai no el reduïm una
+       segona vegada segons DPR/visualViewport (deixava veure el blog). */
+    width:100vw!important;
+    height:100dvh!important;
     max-width:none!important;
     max-height:none!important;
     padding:18px!important;
@@ -586,6 +587,18 @@
     display:flex!important;
     flex-direction:column!important;
   }
+  /* El canvi de breakpoint per Ctrl+rodeta NO remaqueta el mosaic. */
+  html.vcc-gallery-modal-locked body.vcc-desktop-gallery-open
+  #vcc-desktop-gallery.vcc-gallery-viewport:not([hidden]) .vcc-dg-main {
+    display:grid!important;
+    grid-template-columns:minmax(0,1fr) minmax(245px,290px)!important;
+  }
+  html.vcc-gallery-modal-locked body.vcc-desktop-gallery-open
+  #vcc-desktop-gallery.vcc-gallery-viewport:not([hidden]) .vcc-dg-top {
+    height:64px!important;
+    min-height:64px!important;
+  }
+
   html.vcc-gallery-modal-locked body.vcc-desktop-gallery-open
   #lightbox.lightbox.vcc-gallery-viewport.open .lb-stage {
     display:grid!important;
