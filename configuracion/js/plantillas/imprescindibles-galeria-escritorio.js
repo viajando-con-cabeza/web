@@ -296,8 +296,10 @@
       hoverPanDeltaX=hoverPanDeltaY=0;
       return;
     }
-    if(hoverPanDeltaX)modal.scrollLeft-=hoverPanDeltaX;
-    if(hoverPanDeltaY)modal.scrollTop-=hoverPanDeltaY;
+    // El visor comença amb scroll (0,0). Cursor cap a la dreta/avall
+    // ha de mostrar les parts dreta/inferior, no intentar scroll negatiu.
+    if(hoverPanDeltaX)modal.scrollLeft+=hoverPanDeltaX;
+    if(hoverPanDeltaY)modal.scrollTop+=hoverPanDeltaY;
     hoverPanDeltaX=hoverPanDeltaY=0;
   };
   const onHoverPan=event=>{
