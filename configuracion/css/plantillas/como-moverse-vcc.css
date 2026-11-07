@@ -3,8 +3,8 @@
 body.mv-body{background:var(--mv-paper)!important;margin:0;color:var(--mv-ink);font-family:"DM Sans",sans-serif}
 .mv-page,.mv-page *{box-sizing:border-box}.mv-page a{color:inherit}
 .mv-container{width:min(1510px,calc(100% - 80px));margin:0 auto}
-.mv-hero{position:relative;isolation:isolate;overflow:hidden;min-height:355px;background:#ede9e3 url('/configuracion/imagenes/fondos/fondos-como-moverse.webp') center center / cover no-repeat}
-.mv-hero:before{content:"";position:absolute;z-index:-1;inset:0;background:linear-gradient(90deg,rgba(250,247,242,.98) 0%,rgba(250,247,242,.96) 24%,rgba(250,247,242,.78) 43%,rgba(250,247,242,.22) 68%,rgba(250,247,242,0) 100%)}
+.mv-hero{position:relative;isolation:isolate;overflow:hidden;min-height:355px;background:#ede9e3 url('/configuracion/imagenes/fondos/fondos-como-moverse-editorial.webp') center center / cover no-repeat}
+.mv-hero:before{content:"";position:absolute;z-index:-1;inset:0;background:linear-gradient(90deg,rgba(250,247,242,.96) 0%,rgba(250,247,242,.90) 25%,rgba(250,247,242,.52) 43%,rgba(250,247,242,0) 71%)}
 .mv-hero .mv-container{padding:23px 0 37px}
 .mv-crumb{display:flex;gap:0;align-items:center;flex-wrap:wrap;margin:0 0 31px;font:600 12px/1.5 "DM Sans",sans-serif;color:#48413d}
 .mv-crumb a{text-decoration:none;transition:color .2s}.mv-crumb a:hover{color:var(--mv-clay)}
@@ -73,3 +73,69 @@ body.mv-body{background:var(--mv-paper)!important;margin:0;color:var(--mv-ink);f
 
 @media(max-width:720px){.mv-card-image.mv-sprite{min-height:214px}}
 @media(max-width:410px){.mv-card-image.mv-sprite{min-height:222px;margin:8px 0 8px 8px}}
+
+/* VCC · coherencia de secciones: subtítulo naranja Caveat + título negro Oswald */
+.mv-page .mv-section-head{display:flex;align-items:end;justify-content:space-between;gap:26px;margin-bottom:18px;padding-bottom:4px}
+.mv-page .mv-section-head .mv-overline{display:block;font:600 clamp(24px,2.5vw,30px)/1.1 "Caveat",cursive;color:#c36843;margin:0 0 7px}
+.mv-page .mv-section-head h2{font:600 clamp(26px,2.55vw,38px)/1.12 "Oswald",sans-serif;color:#252a27;margin:0}
+.mv-page .mv-section-head>p{max-width:385px;margin:0 0 2px;font:400 12.5px/1.6 "DM Sans",sans-serif;color:#605c56}
+.mv-recommend-section{margin:36px 0 30px}
+.mv-choice-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.mv-choice{position:relative;display:flex;flex-direction:column;align-items:center;min-width:0;padding:18px 20px 17px;background:#fffdfb;border:1px solid #e8d8cb;border-radius:17px;text-align:center;box-shadow:0 5px 16px #4f342012}
+.mv-choice-primary{border:2px solid #cb7458;background:linear-gradient(180deg,#fff8f3,#fffdfb)}
+.mv-choice-rank{display:flex;align-items:center;gap:10px;align-self:stretch;text-align:left}
+.mv-choice-rank span{flex:0 0 44px;display:grid;place-items:center;width:44px;height:44px;border-radius:50%;background:#f9e4d8;border:1px solid #ecc6b2;font:700 22px/1 "Oswald",sans-serif;color:#b96549}
+.mv-choice-primary .mv-choice-rank span{background:#cd7456;color:white;border-color:#cd7456}
+.mv-choice-rank strong{font:700 11px/1.3 "DM Sans",sans-serif;letter-spacing:.075em;color:#aa624c}
+.mv-choice-icons{min-height:67px;margin:7px auto 5px;display:flex;align-items:center;justify-content:center;gap:8px}
+.mv-choice-icons img{display:block;width:54px;height:54px;object-fit:contain}
+.mv-choice-plus{font:700 23px/1 "DM Sans",sans-serif;color:#c66e50}
+.mv-choice h3{font:600 26px/1.12 "Oswald",sans-serif;color:#28312e;margin:3px 0 9px}
+.mv-choice p{margin:0 0 13px;max-width:310px;font:400 12.5px/1.55 "DM Sans",sans-serif;color:#5c554e;flex:1}
+.mv-choice-chip{display:inline-block;font:700 11px/1.2 "DM Sans",sans-serif;color:#a95a40;background:#fbe5d8;border-radius:20px;padding:7px 13px}
+.mv-seo{margin:0 0 33px;padding:27px 29px}
+.mv-seo .mv-section-head{margin-bottom:20px}
+.mv-savings-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.mv-savings-grid article{position:relative;padding:18px;background:#fdf9f5;border:1px solid #eee3da;border-radius:12px}
+.mv-saving-num{position:absolute;right:14px;top:12px;font:600 28px/1 "Oswald",sans-serif;color:#edd4c4}
+.mv-savings-grid h3{font:600 20px/1.15 "Oswald",sans-serif;color:#2b3936;margin:0 30px 9px 0}
+.mv-savings-grid p{font:400 12.5px/1.6 "DM Sans",sans-serif;color:#5d574f;margin:0}
+.mv-sl-fares{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-top:17px;padding:13px 15px;background:#f6e7dc;border-radius:10px}
+.mv-sl-fares>strong{font:600 15px/1.2 "Oswald",sans-serif;color:#833f2d}
+.mv-sl-fares>span{font:500 12px/1.4 "DM Sans",sans-serif;color:#5d4539;white-space:nowrap}
+.mv-sl-fares>span b{font-weight:800;color:#843c2a}
+.mv-sl-fares a{font:800 12px/1.2 "DM Sans",sans-serif;text-decoration:none;color:#9f4e37!important}
+.mv-sl-fares a:hover{text-decoration:underline}
+.mv-savings-note{font:400 10.5px/1.55 "DM Sans",sans-serif;color:#80756d;margin:12px 0 0}
+.mv-guides .mv-guides-intro.mv-section-head{margin:0 0 17px}
+.mv-guides .mv-guides-intro .mv-overline{font:600 clamp(24px,2.5vw,30px)/1.1 "Caveat",cursive}
+.mv-guides .mv-guides-intro h2{font:600 clamp(26px,2.55vw,38px)/1.12 "Oswald",sans-serif}
+.mv-card .mv-icon{width:48px;height:48px;flex:none;display:grid;place-items:center;background:#fff0e6;border-radius:50%;border:1px solid #f4d5c3}
+.mv-card .mv-icon img{width:38px;height:38px;object-fit:contain;display:block}
+.mv-card .mv-card-heading{min-height:49px;gap:10px}
+.mv-card .mv-card-heading h3{font-size:clamp(18px,1.6vw,23px)}
+.mv-card .mv-facts li span{line-height:1}
+.mv-hero{background-position:center center}
+@media(max-width:1060px){.mv-choice{padding:16px 14px}.mv-choice h3{font-size:23px}.mv-sl-fares{justify-content:flex-start;column-gap:17px}.mv-page .mv-section-head>p{max-width:295px}}
+@media(max-width:720px){
+ .mv-page .mv-section-head{display:block;margin-bottom:14px}
+ .mv-page .mv-section-head>p{max-width:100%;margin-top:8px}
+ .mv-choice-grid{grid-template-columns:1fr;gap:12px}
+ .mv-choice{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;text-align:left;gap:4px 12px;padding:14px 16px}
+ .mv-choice-rank{grid-column:1;grid-row:1}
+ .mv-choice-icons{grid-column:2;grid-row:1 / 3;min-height:unset;margin:0}
+ .mv-choice-icons img{width:38px;height:38px}
+ .mv-choice h3{grid-column:1;grid-row:2;margin:0;font-size:22px}
+ .mv-choice p{grid-column:1 / -1;max-width:none;margin:6px 0;font-size:12px}
+ .mv-choice-chip{grid-column:1 / -1;justify-self:start}
+ .mv-savings-grid{grid-template-columns:1fr;gap:9px}
+ .mv-savings-grid article{padding:14px}
+ .mv-sl-fares{gap:10px}
+ .mv-seo{padding:18px}
+ .mv-hero{background-position:62% center}
+ .mv-hero:before{background:linear-gradient(90deg,rgba(250,247,242,.98),rgba(250,247,242,.9) 63%,rgba(250,247,242,.3))}
+ .mv-card .mv-icon{width:39px;height:39px}
+ .mv-card .mv-icon img{width:33px;height:33px}
+ .mv-card .mv-card-heading{min-height:41px;gap:6px}
+}
+@media(max-width:410px){.mv-card .mv-icon{width:35px;height:35px}.mv-card .mv-icon img{width:30px;height:30px}.mv-card .mv-card-heading{gap:5px}}
