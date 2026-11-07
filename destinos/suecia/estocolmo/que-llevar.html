@@ -10,7 +10,9 @@
 <link rel="stylesheet" href="/configuracion/css/paginas.css">
 <link rel="stylesheet" href="/configuracion/css/overrides.css?v=20261103-unified-nav">
 <link rel="stylesheet" href="/configuracion/css/componentes/guias-relacionadas-vcc.css?v=20261105-compact2">
-<link rel="stylesheet" href="/configuracion/css/plantillas/que-llevar-vcc.css?v=20261106">
+<link rel="preload" as="image" href="/configuracion/imagenes/fondos/fondos-que-llevar-editorial.webp" type="image/webp">
+<link rel="stylesheet" href="/configuracion/css/componentes/breadcrumb-vcc-global.css?v=20261107">
+<link rel="stylesheet" href="/configuracion/css/plantillas/que-llevar-vcc.css?v=20261107-definicion-tipografia">
 </head>
 <body><header class="page-header"></header>
 <div class="ql-page">
@@ -22,15 +24,17 @@
   <div class="ql-suitcase-seal" aria-hidden="true">♧</div>
  </section>
  <main class="ql-wrap ql-main">
-  <section aria-labelledby="ql-when"><h2 class="ql-season-heading" id="ql-when">¿En qué época viajas?</h2>
+  <section aria-labelledby="ql-when"><header class="ql-section-heading"><p class="ql-section-script">Elige tu estación</p><h2 class="ql-season-heading" id="ql-when">¿EN QUÉ ÉPOCA VIAJAS?</h2></header>
    <div class="ql-seasons" role="group" aria-label="Selecciona la estación">
-    <button type="button" class="ql-season" data-season="primavera" aria-pressed="false"><span class="ql-season-icon" aria-hidden="true">🌷</span><span><b>PRIMAVERA</b><small>mar – may</small></span></button>
-    <button type="button" class="ql-season" data-season="verano" aria-pressed="false"><span class="ql-season-icon" aria-hidden="true">☀️</span><span><b>VERANO</b><small>jun – ago</small></span></button>
-    <button type="button" class="ql-season" data-season="otono" aria-pressed="false"><span class="ql-season-icon" aria-hidden="true">🍂</span><span><b>OTOÑO</b><small>sep – nov</small></span></button>
-    <button type="button" class="ql-season" data-season="invierno" aria-pressed="true"><span class="ql-season-icon" aria-hidden="true">❄️</span><span><b>INVIERNO</b><small>dic – feb</small></span></button>
+    <button type="button" class="ql-season" data-season="primavera" aria-pressed="false"><span class="ql-season-icon" aria-hidden="true"><img src="/configuracion/imagenes/iconos/iconos-estacion-primavera-color.svg" width="42" height="42" alt="" decoding="async"></span><span><b>PRIMAVERA</b><small>mar – may</small></span></button>
+    <button type="button" class="ql-season" data-season="verano" aria-pressed="false"><span class="ql-season-icon" aria-hidden="true"><img src="/configuracion/imagenes/iconos/iconos-estacion-verano-color.svg" width="42" height="42" alt="" decoding="async"></span><span><b>VERANO</b><small>jun – ago</small></span></button>
+    <button type="button" class="ql-season" data-season="otono" aria-pressed="false"><span class="ql-season-icon" aria-hidden="true"><img src="/configuracion/imagenes/iconos/iconos-estacion-otono-color.svg" width="42" height="42" alt="" decoding="async"></span><span><b>OTOÑO</b><small>sep – nov</small></span></button>
+    <button type="button" class="ql-season" data-season="invierno" aria-pressed="true"><span class="ql-season-icon" aria-hidden="true"><img src="/configuracion/imagenes/iconos/iconos-estacion-invierno-color.svg" width="42" height="42" alt="" decoding="async"></span><span><b>INVIERNO</b><small>dic – feb</small></span></button>
    </div>
   </section>
-  <section class="ql-workspace" aria-label="Lista de equipaje personalizada">
+  <section class="ql-packing" aria-labelledby="ql-pack-title">
+   <header class="ql-section-heading ql-section-heading-left"><p class="ql-section-script">Prepara solo lo que necesitas</p><h2 id="ql-pack-title">HAZ TU MALETA</h2></header>
+   <div class="ql-workspace" aria-label="Lista de equipaje personalizada">
    <div class="ql-check-panel">
     <div class="ql-check-head"><h2 id="ql-season-title">Tu lista para el invierno</h2><p id="ql-intro">Capas térmicas, abrigo impermeable y calzado con buen agarre.</p></div>
     <div class="ql-controls">
@@ -47,6 +51,7 @@
     <div class="ql-sticky-note" id="ql-note">No olvides vestirte por capas.</div>
     <div class="ql-stamp" aria-label="VCC recomienda">VCC<br>recomienda</div>
    </aside>
+   </div>
   </section>
   <section class="ql-year-round" aria-labelledby="ql-essential-title"><h2 id="ql-essential-title">IMPRESCINDIBLES<br>TODO EL AÑO</h2>
    <div class="ql-essential"><span aria-hidden="true">☂️</span><div><strong>Impermeable</strong><small>La lluvia puede sorprenderte.</small></div></div>
