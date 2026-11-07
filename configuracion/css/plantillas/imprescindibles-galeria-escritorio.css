@@ -542,8 +542,10 @@
     right:0!important;
     bottom:0!important;
     display:block!important;
-    width:100vw!important;
-    height:100dvh!important;
+    /* Serveix tant per zoom de pàgina (Edge) com visualViewport/pinça:
+       el contingut queda més gran que aquest scrollport quan s'amplia. */
+    width:min(100vw,var(--vcc-gallery-viewport-width,100vw))!important;
+    height:min(100dvh,var(--vcc-gallery-viewport-height,100dvh))!important;
     max-width:none!important;
     max-height:none!important;
     padding:18px!important;
