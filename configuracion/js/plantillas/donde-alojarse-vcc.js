@@ -9,7 +9,6 @@
   const prev=root.querySelector('[data-dv-prev]');
   const next=root.querySelector('[data-dv-next]');
   const counter=root.querySelector('[data-dv-counter]');
-  const filters=Array.from(root.querySelectorAll('[data-dv-filter]'));
   if(scroller&&cards.length){
     const visibleCount=()=>{
       const w=scroller.clientWidth,cardWidth=cards[0].getBoundingClientRect().width;
@@ -39,16 +38,6 @@
     next?.addEventListener('click',()=>jump(1));
     scroller.addEventListener('scroll',requestSync,{passive:true});
     window.addEventListener('resize',requestSync,{passive:true});
-    filters.forEach(button=>button.addEventListener('click',()=>{
-      const key=button.dataset.dvFilter;
-      const match=cards.find(c=>c.dataset.dvCard===key);
-      if(!match)return;
-      filters.forEach(b=>b.setAttribute('aria-pressed',String(b===button)));
-      scroller.scrollTo({left:match.offsetLeft-scroller.offsetLeft,behavior:'smooth'});
-      match.setAttribute('tabindex','-1');
-      match.focus({preventScroll:true});
-      setTimeout(sync,420);
-    }));
     requestAnimationFrame(sync);
   }
   const map=root.querySelector('[data-dv-map]');
