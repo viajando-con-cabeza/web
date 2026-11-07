@@ -367,7 +367,7 @@ td.path{overflow-wrap:anywhere;max-width:280px}
 <section class="card"><h2>4. Conversión AVIF</h2>
 <p>Calidad <b>85</b> · Resolución original.</p>
 <p class="muted small">Ajustes de color automáticos: brillo <b>+12%</b> · contraste <b>−1,6%</b> · saturación <b>+0,8%</b>.</p>
-<p class="muted small">El JPG solo se borra tras verificar el AVIF.</p>
+<p class="muted small">2 fases · 1 foto a la vez · reintentos automáticos. El JPG solo se borra tras verificar el AVIF.</p>
 <button id="convertBtn" disabled onclick="convertAll()">Convertir JPG → AVIF</button><button id="convertStopBtn" class="secondary" disabled onclick="stopProcess('convert')">Detener</button>
 <p id="convertSummary" class="muted" role="status" aria-live="polite"></p></section>
 <section class="card card-wide"><h2>5. Selección con IA</h2>
@@ -986,7 +986,7 @@ async function removeDuplicates(){
 // El navegador fa de pont per a l'AVIF: zero buffers grans dins del Worker
 // que transforma la foto. Una sola conversió activa i reintents esglaonats.
 function conversionTransient(message){
- return /HTTP\s*(?:429|500|502|503|504|520|522|524)\b|resource limits|exceeded|1102|network|conexión|connection|fetch failed|timeout|temporalmente|saturad/i.test(String(message));
+ return /HTTP\s*(?:429|500|502|503|504|520|522|524)\b|resource limits|exceeded|1102|network|conexión|connection|fetch failed|failed to fetch|aborted|body stream|timeout|temporalmente|saturad/i.test(String(message));
 }
 async function convertPrepared(f){
  const token=q('token').value.trim();
