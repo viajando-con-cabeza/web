@@ -78,7 +78,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          TARGET="configuracion/imagenes/ilustraciones/maleta-vcc-madera-pexels.webp"
+          TARGET="configuracion/imagenes/ilustraciones/maleta-vcc-alfombra-pexels.webp"
           if [[ -s "$TARGET" ]]; then
             echo "Licensed packing image already cached in GitHub."
             exit 0
@@ -86,12 +86,12 @@ jobs:
           python -m pip install --quiet Pillow
           curl -fLsS --retry 3 --retry-delay 2 --connect-timeout 12 --max-time 90 \
             -A "ViajandoConCabeza/1.0 (travel-blog)" \
-            'https://images.pexels.com/photos/9185883/pexels-photo-9185883.jpeg?auto=compress&cs=tinysrgb&w=1600' \
+            'https://images.pexels.com/photos/8933565/pexels-photo-8933565.jpeg?auto=compress&cs=tinysrgb&w=1600' \
             -o /tmp/vcc-open-suitcase-source.jpg
           python - <<'PY'
           from PIL import Image, ImageOps
           from pathlib import Path
-          path=Path("configuracion/imagenes/ilustraciones/maleta-vcc-madera-pexels.webp")
+          path=Path("configuracion/imagenes/ilustraciones/maleta-vcc-alfombra-pexels.webp")
           path.parent.mkdir(parents=True,exist_ok=True)
           with Image.open("/tmp/vcc-open-suitcase-source.jpg") as im:
               im=ImageOps.exif_transpose(im).convert("RGB")
