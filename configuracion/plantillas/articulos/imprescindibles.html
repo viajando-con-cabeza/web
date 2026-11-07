@@ -16,6 +16,9 @@
 <link rel="stylesheet" href="/configuracion/css/destinos/suecia/estocolmo/estocolmo.css">
 <link rel="stylesheet" href="/configuracion/css/destinos/suecia/estocolmo/estocolmo-quality-fixes.css">
 <link rel="stylesheet" href="/configuracion/css/plantillas/imprescindibles.css">
+<!-- Galeria VCC reutilizable: zoom y movimiento aprobados en Estocolmo. -->
+<link rel="stylesheet" href="/configuracion/css/plantillas/imprescindibles-galeria-movil.css">
+<link rel="stylesheet" href="/configuracion/css/plantillas/imprescindibles-galeria-escritorio.css">
 <style>
 html{scroll-behavior:auto}body{background:#faf7f2}
 .imp-page .imp-hero{height:670px!important;min-height:670px!important}
@@ -76,7 +79,7 @@ html body .imp-page .imp-main .place.vcc-divider-10:not(:first-child)::before{ba
 <meta name="robots" content="noindex,nofollow"></head>
 <body>
 <header class="page-header"></header>
-<div class="imp-page">
+<div class="imp-page" data-gallery-source="r2">
 <section class="imp-hero">
 <div class="imp-hero-inner">
 <nav class="imp-crumb" aria-label="Ruta de navegación"><a href="/">Inicio</a><span>›</span><a href="/destinos/">Destinos</a><span>›</span><a href="{{COUNTRY_URL}}">{{COUNTRY}}</a><span>›</span><a href="index.html">{{CITY}}</a><span>›</span><strong>Qué ver</strong></nav>
@@ -86,7 +89,7 @@ html body .imp-page .imp-main .place.vcc-divider-10:not(:first-child)::before{ba
 <nav class="place-nav-wrap" aria-label="Índice de lugares"><div class="place-nav-shell"><button id="navPrev" class="place-nav-arrow" aria-label="Desplazar a la izquierda">‹</button><div class="place-nav" id="placeNav"></div><button id="navNext" class="place-nav-arrow" aria-label="Desplazar a la derecha">›</button></div></nav>
 <main class="imp-main" id="places"></main>
 </div>
-<div class="lightbox" id="lightbox"><div class="lb-stage"><button class="lb-close" type="button" aria-label="Cerrar galería">×</button><button class="lb-prev" type="button" aria-label="Foto anterior">‹</button><img alt=""><button class="lb-next" type="button" aria-label="Foto siguiente">›</button><div class="lb-caption"></div><div class="lb-thumbs"></div></div></div>
+<div class="lightbox" id="lightbox"><div class="lb-stage"><button class="lb-close" type="button" aria-label="Cerrar galería">×</button><button class="lb-prev" type="button" aria-label="Foto anterior">‹</button><div class="lb-photo" role="img" aria-label="Fotografía seleccionada"></div><button class="lb-next" type="button" aria-label="Foto siguiente">›</button><div class="lb-caption"></div><div class="lb-thumbs"></div></div></div>
 <script src="/configuracion/js/site-header.js"></script>
 <script>
 const IMG={{IMAGES_JSON}};
@@ -104,6 +107,11 @@ nav.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{nav.querySe
 const prev=document.getElementById('navPrev'),next=document.getElementById('navNext');const update=()=>{prev.disabled=nav.scrollLeft<5;next.disabled=nav.scrollLeft+nav.clientWidth>=nav.scrollWidth-5};prev.onclick=()=>nav.scrollBy({left:-Math.max(nav.clientWidth*.7,280),behavior:'smooth'});next.onclick=()=>nav.scrollBy({left:Math.max(nav.clientWidth*.7,280),behavior:'smooth'});nav.addEventListener('scroll',update,{passive:true});window.addEventListener('resize',update);update();
 document.querySelectorAll('.gallery').forEach(g=>{const main=g.querySelector('.gallery-main'),hero=main.querySelector('img'),count=main.querySelector('.photo-count'),btns=[...g.querySelectorAll('.thumbs button')],imgs=JSON.parse(main.dataset.images);btns.forEach(b=>b.onclick=()=>{const i=+b.dataset.i;hero.src=imgs[i];if(count)count.textContent=`${i+1} / ${imgs.length}`;btns.forEach(x=>x.classList.toggle('is-active',x===b))})});
 </script>
-<script src="/configuracion/js/plantillas/galeria-lugares.js" defer></script>
+<!-- Comportamiento común de mosaico, foto individual, zoom/pan y móvil.
+     Mantener este bloque en los futuros destinos: no copiar el JS por ciudad. -->
+<script src="/configuracion/js/plantillas/imprescindibles-interactions.js" defer></script>
+<script src="/configuracion/js/plantillas/imprescindibles-bloqueo-scroll.js" defer></script>
+<script src="/configuracion/js/plantillas/imprescindibles-galeria-movil.js" defer></script>
+<script src="/configuracion/js/plantillas/imprescindibles-galeria-escritorio.js?v=20261107-balanced-fourway-pan-v65" defer></script>
 <script src="/configuracion/js/site-footer.js?v=20261102"></script></body>
 </html>
