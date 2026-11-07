@@ -12,19 +12,23 @@
 <link rel="stylesheet" href="/configuracion/css/componentes/guias-relacionadas-vcc.css?v=20261105-compact2">
 <link rel="preload" as="image" href="/configuracion/imagenes/fondos/fondos-que-llevar-editorial.webp" type="image/webp">
 <link rel="stylesheet" href="/configuracion/css/componentes/breadcrumb-vcc-global.css?v=20261107">
-<link rel="stylesheet" href="/configuracion/css/plantillas/que-llevar-vcc.css?v=20261107-definicion-tipografia">
+<link rel="stylesheet" href="/configuracion/css/componentes/estocolmo-guias-final-vcc.css?v=20261107-v1">
+<link rel="stylesheet" href="/configuracion/css/plantillas/que-llevar-vcc.css?v=20261107-maleta-v2">
 </head>
 <body><header class="page-header"></header>
 <div class="ql-page">
  <section class="ql-hero">
+  <img class="ql-hero-photo" src="/configuracion/imagenes/fondos/fondos-que-llevar-editorial.webp" alt="" aria-hidden="true" fetchpriority="high" decoding="async">
   <div class="ql-wrap">
    <nav class="ql-crumb vcc-crumb" aria-label="Ruta de navegación"><a href="/">Inicio</a><span>›</span><a href="/destinos/">Destinos</a><span>›</span><a href="/destinos/suecia/">Suecia</a><span>›</span><a href="/destinos/suecia/estocolmo/">Estocolmo</a><span>›</span><strong>Qué llevar</strong></nav>
    <div class="ql-hero-copy"><span class="ql-eyebrow">Prepara tu maleta sin complicaciones</span><h1>QUÉ LLEVAR A<br>ESTOCOLMO</h1><span class="ql-brush" aria-hidden="true"></span><p>La maleta perfecta para cada estación del año.</p></div>
   </div>
-  <div class="ql-suitcase-seal" aria-hidden="true">♧</div>
  </section>
+ <nav class="ql-subnav st-tabs" aria-label="Secciones de Qué llevar"><div class="ql-subnav-inner">
+  <a href="#estaciones" class="is-active" aria-current="location">ESTACIONES</a><a href="#haz-tu-maleta">HAZ TU MALETA</a><a href="#imprescindibles">IMPRESCINDIBLES</a><a href="#consejos">CONSEJOS</a>
+ </div></nav>
  <main class="ql-wrap ql-main">
-  <section aria-labelledby="ql-when"><header class="ql-section-heading"><p class="ql-section-script">Elige tu estación</p><h2 class="ql-season-heading" id="ql-when">¿EN QUÉ ÉPOCA VIAJAS?</h2></header>
+  <section id="estaciones" aria-labelledby="ql-when"><header class="ql-section-heading ql-section-heading-left"><p class="ql-section-script">Elige tu estación</p><h2 class="ql-season-heading" id="ql-when">¿EN QUÉ ÉPOCA VIAJAS?</h2></header>
    <div class="ql-seasons" role="group" aria-label="Selecciona la estación">
     <button type="button" class="ql-season" data-season="primavera" aria-pressed="false"><span class="ql-season-icon" aria-hidden="true"><img src="/configuracion/imagenes/iconos/iconos-estacion-primavera-color.svg" width="42" height="42" alt="" decoding="async"></span><span><b>PRIMAVERA</b><small>mar – may</small></span></button>
     <button type="button" class="ql-season" data-season="verano" aria-pressed="false"><span class="ql-season-icon" aria-hidden="true"><img src="/configuracion/imagenes/iconos/iconos-estacion-verano-color.svg" width="42" height="42" alt="" decoding="async"></span><span><b>VERANO</b><small>jun – ago</small></span></button>
@@ -32,7 +36,7 @@
     <button type="button" class="ql-season" data-season="invierno" aria-pressed="true"><span class="ql-season-icon" aria-hidden="true"><img src="/configuracion/imagenes/iconos/iconos-estacion-invierno-color.svg" width="42" height="42" alt="" decoding="async"></span><span><b>INVIERNO</b><small>dic – feb</small></span></button>
    </div>
   </section>
-  <section class="ql-packing" aria-labelledby="ql-pack-title">
+  <section class="ql-packing" id="haz-tu-maleta" aria-labelledby="ql-pack-title">
    <header class="ql-section-heading ql-section-heading-left"><p class="ql-section-script">Prepara solo lo que necesitas</p><h2 id="ql-pack-title">HAZ TU MALETA</h2></header>
    <div class="ql-workspace" aria-label="Lista de equipaje personalizada">
    <div class="ql-check-panel">
@@ -45,37 +49,39 @@
     <div class="ql-categories" id="ql-categories"></div>
     <div class="ql-check-actions"><button class="ql-action" type="button" id="ql-copy">COPIAR LISTA</button><button class="ql-action ql-secondary" type="button" id="ql-reset">DESMARCAR</button></div>
    </div>
-   <aside class="ql-visual" aria-label="Inspiración visual para la maleta">
-    <h2 class="ql-visual-title" id="ql-visual-title">La maleta VCC · INVIERNO</h2>
-    <div class="ql-flatlay" id="ql-flatlay"></div>
-    <div class="ql-sticky-note" id="ql-note">No olvides vestirte por capas.</div>
-    <div class="ql-stamp" aria-label="VCC recomienda">VCC<br>recomienda</div>
+   <aside class="ql-visual" aria-label="Selección VCC de equipaje para tu estación">
+    <div class="ql-visual-top"><span class="ql-visual-kicker">LA SELECCIÓN VCC</span><h3 class="ql-visual-title" id="ql-visual-title">TU MALETA DE INVIERNO</h3><p>Seis básicos que recomendamos priorizar. Adáptalos a tu viaje y comprueba tu lista de la izquierda.</p></div>
+    <ol class="ql-flatlay" id="ql-flatlay" aria-label="Seis básicos para tu maleta"></ol>
+    <div class="ql-visual-note"><span class="ql-note-label">UN CONSEJO VCC</span><p id="ql-note">No olvides vestirte por capas.</p></div>
    </aside>
    </div>
   </section>
-  <section class="ql-year-round" aria-labelledby="ql-essential-title"><h2 id="ql-essential-title">IMPRESCINDIBLES<br>TODO EL AÑO</h2>
+  <section class="ql-year-round" id="imprescindibles" aria-labelledby="ql-essential-title"><h2 id="ql-essential-title">IMPRESCINDIBLES<br>TODO EL AÑO</h2>
    <div class="ql-essential"><span aria-hidden="true">☂️</span><div><strong>Impermeable</strong><small>La lluvia puede sorprenderte.</small></div></div>
    <div class="ql-essential"><span aria-hidden="true">👟</span><div><strong>Calzado cómodo</strong><small>Para caminar por la ciudad.</small></div></div>
    <div class="ql-essential"><span aria-hidden="true">🔋</span><div><strong>Batería externa</strong><small>Para jornadas largas.</small></div></div>
    <div class="ql-essential"><span aria-hidden="true">🚰</span><div><strong>Botella reutilizable</strong><small>Agua del grifo potable.</small></div></div>
   </section>
-  <section class="ql-lower">
-   <div class="ql-tips"><h2>Consejos para ahorrar espacio</h2><ul><li>Usa la técnica de las capas: prendas versátiles y combinables.</li><li>Lleva tejidos que se sequen rápido, sobre todo si llueve o nieva.</li><li>Enrolla la ropa o usa organizadores para aprovechar la maleta.</li><li id="ql-tip-luggage">Prioriza prendas versátiles si viajas solo con equipaje de mano.</li></ul></div>
-   <div class="ql-related"><h2>Guías relacionadas</h2>
-    <nav class="related-grid vcc-related-cards" aria-label="Más guías de Estocolmo">
-     <a href="itinerario.html?dias=3" class="related-text-link vcc-related-link"><span class="vcc-related-icon" aria-hidden="true">▤</span><span class="vcc-related-copy"><strong>ITINERARIO 3 DÍAS</strong><em>Ruta día a día</em></span><b class="vcc-related-arrow" aria-hidden="true">→</b></a>
-     <a href="cuando-ir.html" class="related-text-link vcc-related-link"><span class="vcc-related-icon" aria-hidden="true">☼</span><span class="vcc-related-copy"><strong>CUÁNDO IR</strong><em>Elige el mejor mes</em></span><b class="vcc-related-arrow" aria-hidden="true">→</b></a>
-     <a href="presupuesto.html" class="related-text-link vcc-related-link"><span class="vcc-related-icon" aria-hidden="true">€</span><span class="vcc-related-copy"><strong>PRESUPUESTO</strong><em>Calcula cuánto gastar</em></span><b class="vcc-related-arrow" aria-hidden="true">→</b></a>
-     <a href="como-moverse.html" class="related-text-link vcc-related-link"><span class="vcc-related-icon" aria-hidden="true">⇄</span><span class="vcc-related-copy"><strong>CÓMO MOVERSE</strong><em>Metro, bus y ferry</em></span><b class="vcc-related-arrow" aria-hidden="true">→</b></a>
-    </nav>
-   </div>
+  <section class="ql-lower" id="consejos" aria-labelledby="ql-tips-title">
+   <div class="ql-tips"><h2 id="ql-tips-title">Consejos para ahorrar espacio</h2><ul><li>Usa la técnica de las capas: prendas versátiles y combinables.</li><li>Lleva tejidos que se sequen rápido, sobre todo si llueve o nieva.</li><li>Enrolla la ropa o usa organizadores para aprovechar la maleta.</li><li id="ql-tip-luggage">Prioriza prendas versátiles si viajas solo con equipaje de mano.</li></ul></div>
   </section>
   <p class="ql-foot-note">Las recomendaciones son orientativas. Consulta la previsión meteorológica antes de salir y comprueba los requisitos de documentación aplicables a tu viaje.</p>
  </main>
+ <section class="vcc-discover-section related-section" aria-labelledby="ql-related-title">
+  <div class="related-inner">
+   <div class="related-head"><p>Continúa planificando</p><h2 id="ql-related-title">SIGUE DESCUBRIENDO ESTOCOLMO</h2><span>Todo lo que necesitas para seguir preparando tu viaje</span></div>
+   <nav class="related-grid vcc-related-cards" aria-label="Más guías de Estocolmo">
+    <a href="itinerario.html?dias=3" class="related-text-link vcc-related-link"><svg class="vcc-related-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 5 9 3l6 2 6-2v16l-6 2-6-2-6 2V5Zm6-2v16m6-14v16"/><path d="M6 14c3-3 7 2 11-4" stroke-dasharray="2 2"/></svg><span class="vcc-related-copy"><strong>ITINERARIO 3 DÍAS</strong><em>Ruta día a día</em></span><b class="vcc-related-arrow" aria-hidden="true">→</b></a>
+    <a href="cuando-ir.html" class="related-text-link vcc-related-link"><svg class="vcc-related-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v3m0 14v3M2 12h3m14 0h3M4.9 4.9 7 7m10 10 2.1 2.1m0-14.2L17 7M7 17l-2.1 2.1"/></svg><span class="vcc-related-copy"><strong>CUÁNDO IR</strong><em>Elige el mejor mes</em></span><b class="vcc-related-arrow" aria-hidden="true">→</b></a>
+    <a href="presupuesto.html" class="related-text-link vcc-related-link"><svg class="vcc-related-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="15" rx="2"/><path d="M3 10h18M7 15h5"/></svg><span class="vcc-related-copy"><strong>PRESUPUESTO</strong><em>Calcula cuánto gastar</em></span><b class="vcc-related-arrow" aria-hidden="true">→</b></a>
+    <a href="como-moverse.html" class="related-text-link vcc-related-link"><svg class="vcc-related-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="3" width="14" height="16" rx="3"/><path d="M5 11h14M8 22l2-3m6 0 2 3M9 7h6"/><circle cx="9" cy="15" r="1"/><circle cx="15" cy="15" r="1"/></svg><span class="vcc-related-copy"><strong>CÓMO MOVERSE</strong><em>Metro, bus y ferry</em></span><b class="vcc-related-arrow" aria-hidden="true">→</b></a>
+   </nav>
+  </div>
+ </section>
 </div>
 <footer class="vcc-global-footer"></footer>
 <script src="/configuracion/js/site-header.js?v=20261103-social-icons"></script>
 <script src="/configuracion/js/site-footer.js?v=20261102"></script>
-<script src="/configuracion/js/plantillas/que-llevar-vcc.js?v=20261106"></script>
+<script src="/configuracion/js/plantillas/que-llevar-vcc.js?v=20261107-maleta-v2"></script>
 </body>
 </html>
