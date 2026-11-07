@@ -60,6 +60,16 @@ node configuracion/scripts/generate-planifica-hubs.mjs
 
 El workflow Quality ejecuta las comprobaciones al publicar. Trabaja en `quality`; producción sigue usando `main`.
 
+## Galerías fotográficas y zoom del blog (plantilla común)
+
+El comportamiento de referencia aprobado está en `configuracion/js/plantillas/imprescindibles-galeria-escritorio.js` y sus estilos en `configuracion/css/plantillas/imprescindibles-galeria-escritorio.css`. La página de Estocolmo (`destinos/suecia/estocolmo/imprescindibles.html`) es la referencia visual, pero no debe copiarse su JS para cada ciudad.
+
+La plantilla `configuracion/plantillas/articulos/imprescindibles.html` ya carga el **mismo visor reutilizable** para nuevos destinos generados con `configuracion/scripts/destinos.mjs`. El mosaico se crea a partir de las fotos declaradas por el destino y admite una sola foto o varios álbumes, con móvil y escritorio separados. No se añaden fotos de ejemplo a nuevas ciudades.
+
+Comportamiento de escritorio aprobado: abrir mosaico → foto individual → `Ctrl + rueda` (zoom nativo de navegador) → pan del ratón por los cuatro sentidos, con recorrido amplio y equilibrado. El punto del zoom permanece fijo bajo el cursor, el regreso al zoom del 100 % restaura el encuadre original, y el cierre restituye el scroll de la página. No modificar estos comportamientos al cambiar un destino.
+
+**Ámbito:** visores de fotografías de las páginas «Qué ver / Imprescindibles». Las cabeceras decorativas SVG/WebP (`hero`, `vcc-hero`, etc.) no son visores interactivos; no se les añade pan ni se interviene en su fondo automáticamente. Si otra sección incorpora un visor fotográfico, integrar el componente común respetando su estructura antes de activarlo.
+
 ## Compatibilidad
 
 `_redirects` conserva las antiguas direcciones de recursos trasladados. `configuracion/rutas-recursos.json` documenta su nueva ubicación. Solo se han unificado imágenes con bytes idénticos; las variantes distintas se conservan.
