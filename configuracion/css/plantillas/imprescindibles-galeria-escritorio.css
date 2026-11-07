@@ -587,3 +587,35 @@
     grid-template-rows:54px minmax(0,1fr) 30px 80px!important;
   }
 }
+
+/* Zoom natiu del mosaic: la caixa interior no pot capturar ni limitar el
+   desplaçament del navegador. La foto individual manté el seu comportament. */
+@media screen {
+  html.vcc-gallery-native-scroll body.vcc-desktop-gallery-open
+  #vcc-desktop-gallery.vcc-mosaic-native-zoom:not([hidden]) .vcc-dg-panel {
+    overflow:visible!important;
+    height:auto!important;
+    min-height:var(--vcc-gallery-panel-height)!important;
+    border-radius:17px!important;
+  }
+  html.vcc-gallery-native-scroll body.vcc-desktop-gallery-open
+  #vcc-desktop-gallery.vcc-mosaic-native-zoom:not([hidden]) .vcc-dg-main {
+    flex:0 0 auto!important;
+    overflow:visible!important;
+    min-height:0!important;
+  }
+  html.vcc-gallery-native-scroll body.vcc-desktop-gallery-open
+  #vcc-desktop-gallery.vcc-mosaic-native-zoom:not([hidden]) .vcc-dg-scroll,
+  html.vcc-gallery-native-scroll body.vcc-desktop-gallery-open
+  #vcc-desktop-gallery.vcc-mosaic-native-zoom:not([hidden]) .vcc-dg-sidebar {
+    overflow:visible!important;
+    height:auto!important;
+    max-height:none!important;
+  }
+  html.vcc-gallery-native-scroll body.vcc-desktop-gallery-open
+  #vcc-desktop-gallery.vcc-mosaic-native-zoom:not([hidden]) {
+    height:auto!important;
+    min-height:var(--vcc-gallery-document-height)!important;
+    padding-bottom:18px!important;
+  }
+}
