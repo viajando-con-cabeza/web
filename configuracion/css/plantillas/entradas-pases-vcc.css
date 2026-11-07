@@ -129,3 +129,52 @@ html body .ep-page :is(#comparar,#calculadora,#atracciones,#antelacion,#tipos,#a
   html body .ep-page .ep-hero .ep-hero-copy{padding-top:67px}
   html body .ep-page .ep-subnav{gap:21px}
 }
+
+
+/* VCC 2026-11-07 · portada panorámica nítida y compacta, sin zoom excesivo.
+   La fuente usada es el WebP horizontal (2000×778), no el editorial borroso. */
+html body .ep-page .ep-hero{
+  min-height:405px;
+  background-color:#f0eee8;
+  background-image:url('/configuracion/imagenes/fondos/fondos-entradas-y-pases.webp');
+  background-position:center center;
+  background-size:cover;
+}
+html body .ep-page .ep-hero::before{
+  background:linear-gradient(90deg,rgba(250,247,242,.92) 0%,rgba(250,247,242,.83) 27%,rgba(250,247,242,.26) 51%,rgba(250,247,242,.03) 75%);
+}
+html body .ep-page .ep-hero .ep-hero-inner{
+  min-height:405px;
+  padding-top:22px;
+  padding-bottom:28px;
+}
+html body .ep-page .ep-hero .ep-hero-copy{padding-top:34px}
+html body .ep-page .ep-hero .ep-kicker{font-size:25px;line-height:1}
+html body .ep-page .ep-hero h1{font-size:clamp(43px,4.9vw,64px);line-height:1.02}
+html body .ep-page .ep-hero .ep-stroke{margin:12px 0 13px}
+html body .ep-page .ep-hero .ep-hero-lede{max-width:490px;font-size:16px;line-height:1.48}
+html body .ep-page .ep-hero .ep-hero-seal{bottom:-24px}
+html body .ep-page .ep-main{padding-top:39px}
+@media(max-width:1050px){
+ html body .ep-page .ep-hero,
+ html body .ep-page .ep-hero .ep-hero-inner{min-height:395px}
+ html body .ep-page .ep-hero .ep-hero-copy{padding-top:41px}
+}
+@media(max-width:720px){
+ html body .ep-page .ep-hero,
+ html body .ep-page .ep-hero .ep-hero-inner{min-height:365px}
+ html body .ep-page .ep-hero{background-position:58% center}
+ html body .ep-page .ep-hero .ep-hero-copy{padding-top:49px;max-width:375px}
+ html body .ep-page .ep-hero h1{font-size:clamp(37px,7.4vw,51px)}
+ html body .ep-page .ep-hero .ep-kicker{font-size:23px}
+ html body .ep-page .ep-hero .ep-hero-lede{font-size:14px}
+ html body .ep-page .ep-hero::before{background:linear-gradient(90deg,rgba(250,247,242,.97),rgba(250,247,242,.84) 55%,rgba(250,247,242,.25))}
+}
+@media(max-width:490px){
+ html body .ep-page .ep-hero,
+ html body .ep-page .ep-hero .ep-hero-inner{min-height:360px}
+ html body .ep-page .ep-hero{background-position:59% center}
+ html body .ep-page .ep-hero .ep-hero-copy{padding-top:52px;max-width:345px}
+ html body .ep-page .ep-hero h1{font-size:39px}
+ html body .ep-page .ep-hero .ep-hero-lede{font-size:13px;max-width:320px}
+}
