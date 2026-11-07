@@ -559,8 +559,15 @@
   #vcc-desktop-gallery.vcc-gallery-viewport:not([hidden]) .vcc-dg-panel,
   html.vcc-gallery-modal-locked body.vcc-desktop-gallery-open
   #lightbox.lightbox.vcc-gallery-viewport.open .lb-stage {
-    position:relative!important;
+    /* No centrar un panell més ample que el visor: retallava l'esquerra. */
+    position:absolute!important;
     inset:auto!important;
+    top:18px!important;
+    left:18px!important;
+    right:auto!important;
+    bottom:auto!important;
+    justify-self:start!important;
+    align-self:start!important;
     width:var(--vcc-gallery-panel-width)!important;
     min-width:var(--vcc-gallery-panel-width)!important;
     max-width:none!important;
