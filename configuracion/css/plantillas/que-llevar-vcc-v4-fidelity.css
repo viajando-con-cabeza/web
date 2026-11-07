@@ -1,8 +1,8 @@
 /* Qué llevar · versión editorial VCC aprobada · nov 2026.
    Solo ajustes sobre la plantilla v3. Sin estilos globales del blog. */
-html body .ql-page .ql-hero{height:670px!important;min-height:670px!important}
+html body .ql-page .ql-hero{height:465px!important;min-height:465px!important;max-height:465px!important}
 html body .ql-page .ql-hero>.ql-wrap{height:100%;padding-top:19px!important}
-html body .ql-page .ql-hero-copy{padding-top:148px}
+html body .ql-page .ql-hero-copy{padding-top:45px}
 html body .ql-page .ql-hero h1{font-size:clamp(54px,5.2vw,77px)}
 html body .ql-page .ql-main{padding-top:32px}
 html body .ql-page .ql-section-heading h2{font:500 clamp(33px,3.2vw,41px)/1.1 "Oswald",sans-serif;letter-spacing:-.012em}
@@ -133,8 +133,8 @@ html body .ql-page .ql-advice-bullets strong{font-weight:800;color:#28211e}
  html body .ql-page .ql-season img{width:30px!important;height:30px!important;flex-basis:30px!important}
 }
 @media(max-width:1060px){
- html body .ql-page .ql-hero{height:550px!important;min-height:550px!important}
- html body .ql-page .ql-hero-copy{padding-top:112px}
+ html body .ql-page .ql-hero{height:450px!important;min-height:450px!important;max-height:450px!important}
+ html body .ql-page .ql-hero-copy{padding-top:40px}
  html body .ql-page .ql-builder.ql-builder-compact{grid-template-columns:minmax(0,.92fr) minmax(0,1.08fr)!important}
  html body .ql-page .ql-top-preview{grid-column:1/-1;min-height:0!important;padding:12px 15px}
  html body .ql-page .ql-preview-items{grid-template-columns:repeat(3,minmax(0,1fr));gap:8px 18px}
@@ -144,8 +144,8 @@ html body .ql-page .ql-advice-bullets strong{font-weight:800;color:#28211e}
  html body .ql-page .ql-essentials-grid{grid-template-columns:repeat(3,minmax(0,1fr))!important}
 }
 @media(max-width:650px){
- html body .ql-page .ql-hero{height:480px!important;min-height:480px!important}
- html body .ql-page .ql-hero-copy{padding-top:86px}
+ html body .ql-page .ql-hero{height:440px!important;min-height:440px!important;max-height:440px!important}
+ html body .ql-page .ql-hero-copy{padding-top:29px}
  html body .ql-page .ql-hero h1{font-size:clamp(43px,10vw,58px)}
  html body .ql-page .ql-main{padding-top:25px}
  html body .ql-page .ql-builder.ql-builder-compact{grid-template-columns:1fr!important;gap:10px!important}
@@ -172,4 +172,30 @@ html body .ql-page .ql-advice-bullets strong{font-weight:800;color:#28211e}
  html body .ql-page .ql-season{min-height:64px!important;gap:5px!important}
  html body .ql-page .ql-season b{font-size:16px!important}
  html body .ql-page .ql-days-pills button{min-width:52px!important}
+}
+
+/* Hero height is taken from the final rendered "Qué ver" template, not the stale inline rule. */
+html body .ql-page .ql-inner-heading{text-align:left;margin:0 0 9px}
+html body .ql-page .ql-inner-heading .ql-section-script{font-size:22px!important;line-height:1!important;margin:0 0 5px!important}
+html body .ql-page .ql-inner-heading .ql-question{font:500 22px/1.13 'Oswald',sans-serif!important;margin:0!important}
+html body .ql-page .ql-advice-heading-row{display:flex;justify-content:space-between;align-items:flex-end;gap:15px;margin-bottom:17px}
+html body .ql-page .ql-advice-heading-row .ql-section-heading{margin:0!important}
+html body .ql-page .ql-advice-controls{display:flex;align-items:center;gap:7px;flex:0 0 auto;padding-bottom:3px}
+html body .ql-page .ql-advice-controls .ql-carousel-arrow{width:36px;height:36px;flex:0 0 36px;border-color:#d9c7b6;font-size:21px}
+html body .ql-page .ql-advice-track{display:flex;gap:14px;padding:0 0 10px;scroll-snap-type:x mandatory;scroll-behavior:smooth}
+html body .ql-page .ql-advice-card{flex:0 0 calc((100% - 28px)/3);min-height:169px;padding:19px 16px 19px;gap:16px;align-items:flex-start;scroll-snap-align:start}
+html body .ql-page .ql-advice-card .ql-advice-number{width:54px;height:54px;flex:0 0 54px;font-size:28px}
+html body .ql-page .ql-advice-card h3{font:500 23px/1.15 'Oswald',sans-serif;margin:1px 0 8px}
+html body .ql-page .ql-advice-card p{font:400 12.5px/1.6 'DM Sans',sans-serif;color:#6e655e;margin:0}
+@media(max-width:900px){
+ html body .ql-page .ql-advice-card{flex-basis:calc((100% - 14px)/2)}
+}
+@media(max-width:650px){
+ html body .ql-page .ql-advice-heading-row{align-items:flex-end;gap:8px}
+ html body .ql-page .ql-advice-heading-row .ql-section-heading h2{font-size:29px!important}
+ html body .ql-page .ql-advice-heading-row .ql-section-script{font-size:23px!important}
+ html body .ql-page .ql-advice-controls .ql-carousel-arrow{width:30px;height:30px;flex-basis:30px}
+ html body .ql-page .ql-advice-card{flex-basis:100%;min-height:148px;padding:16px;gap:12px}
+ html body .ql-page .ql-advice-card .ql-advice-number{width:48px;height:48px;flex-basis:48px;font-size:25px}
+ html body .ql-page .ql-advice-card h3{font-size:20px}
 }
