@@ -91,6 +91,12 @@
       existingLightbox.scrollTop=layer.scrollTop;
     }
     syncViewerPan();
+    // En obrir una foto amb zoom ja actiu, el pan comença amb marge a
+    // les quatre direccions sense esperar al primer moviment del cursor.
+    requestAnimationFrame(()=>{
+      if(existingLightbox?.classList.contains('open'))
+        initializeCenteredPan(existingLightbox);
+    });
     /* El visor ampliat comparteix títol i informació amb el mosaic previ. */
     const name = heading.textContent;
     const caption = existingStage?.querySelector('.lb-caption');
@@ -307,6 +313,10 @@
       clearFallbackPan();
       resetPanInitialization();
       resetHoverPan();
+    } else {
+      // Fixem el punt focal MENTRE el navegador aplica el zoom.
+      // Així el primer moviment del ratolí no provoca un salt sobtat.
+      initializeCenteredPan(currentGalleryViewport());
     }
   };
   const queueMosaicZoomSync=()=>{
