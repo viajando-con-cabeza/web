@@ -1,0 +1,35 @@
+/* VCC · Breadcrumbs universales. Fuente única: todas las guías usan esta escala.
+   No modifica la posición de los héroes, para no romper sus composiciones. */
+html body :is(nav[aria-label="Ruta de navegación"],nav.vcc-crumb,.st-crumb,.dv-breadcrumb,.country-breadcrumb,.imp-crumb){
+  font-family:'DM Sans',Arial,sans-serif!important;
+  font-size:11px!important;font-weight:500!important;line-height:1.4!important;
+  letter-spacing:0!important;text-transform:none!important;
+  color:#514b45!important;text-shadow:none!important;
+  column-gap:0!important;row-gap:3px!important;
+}
+html body :is(nav[aria-label="Ruta de navegación"],nav.vcc-crumb,.st-crumb,.dv-breadcrumb,.country-breadcrumb,.imp-crumb) a{
+  color:inherit!important;font:inherit!important;text-decoration:none!important;
+}
+html body :is(nav[aria-label="Ruta de navegación"],nav.vcc-crumb,.st-crumb,.dv-breadcrumb,.country-breadcrumb,.imp-crumb) a:hover{
+  color:#b65d42!important;text-decoration:underline!important;text-underline-offset:3px;
+}
+html body :is(nav[aria-label="Ruta de navegación"],nav.vcc-crumb,.st-crumb,.dv-breadcrumb,.country-breadcrumb,.imp-crumb) span{
+  margin:0 5px!important;padding:0!important;color:#95887f!important;letter-spacing:0!important;
+}
+html body :is(nav[aria-label="Ruta de navegación"],nav.vcc-crumb,.st-crumb,.dv-breadcrumb,.country-breadcrumb,.imp-crumb) strong{
+  font-size:inherit!important;font-family:inherit!important;line-height:inherit!important;
+  font-weight:800!important;letter-spacing:0!important;color:#48423e!important;
+}
+@media(max-width:720px){
+  html body :is(nav[aria-label="Ruta de navegación"],nav.vcc-crumb,.st-crumb,.dv-breadcrumb,.country-breadcrumb,.imp-crumb){font-size:10px!important;row-gap:2px!important}
+  html body :is(nav[aria-label="Ruta de navegación"],nav.vcc-crumb,.st-crumb,.dv-breadcrumb,.country-breadcrumb,.imp-crumb) span{margin-left:4px!important;margin-right:4px!important}
+}
+/* Las guías de llegada tenían una regla local más específica: esta la iguala. */
+html body .cl-page.cl-landing .cl-landing-hero nav.cl-crumb.vcc-crumb,
+html body .cl-page.cl-landing .cl-landing-hero nav.cl-crumb.vcc-crumb a,
+html body .cl-page.cl-landing .cl-landing-hero nav.cl-crumb.vcc-crumb strong{font-size:11px!important;letter-spacing:0!important}
+@media(max-width:720px){
+  html body .cl-page.cl-landing .cl-landing-hero nav.cl-crumb.vcc-crumb,
+  html body .cl-page.cl-landing .cl-landing-hero nav.cl-crumb.vcc-crumb a,
+  html body .cl-page.cl-landing .cl-landing-hero nav.cl-crumb.vcc-crumb strong{font-size:10px!important}
+}
