@@ -83,6 +83,7 @@
   const openPhoto = (index, tile) => {
     if (!activeGallery || typeof window.VCCImprescindiblesLightbox?.open !== 'function') return;
     clickedGridImage = tile;
+    resetHoverPan();
     layer.setAttribute('aria-hidden', 'true');
     window.VCCImprescindiblesLightbox.open(activeGallery, index);
     if(existingLightbox){
@@ -265,6 +266,61 @@
     // Amb zoom, és el contenidor complet de galeria qui es desplaça.
     layer.classList.toggle('vcc-mosaic-native-zoom',scale>1.035);
   };
+  // Pan natiu sense prémer botons: movem el scroll del MODAL, mai el body
+  // ni fem transform al panell. A diferència del seguiment per posició absoluta,
+  // els petits moviments del cursor no llancen la vista cap a una cantonada.
+  let lastHoverPan=null;
+  let hoverPanRaf=0;
+  let hoverPanDeltaX=0;
+  let hoverPanDeltaY=0;
+  const resetHoverPan=()=>{
+    lastHoverPan=null;
+    hoverPanDeltaX=0;
+    hoverPanDeltaY=0;
+    if(hoverPanRaf){cancelAnimationFrame(hoverPanRaf);hoverPanRaf=0;}
+  };
+  const zoomRatio=()=>viewportBaseline ? Math.max(
+    viewportBaseline.w/Math.max(1,window.innerWidth),
+    viewportBaseline.h/Math.max(1,window.innerHeight),
+    (window.devicePixelRatio||1)/Math.max(.01,viewportBaseline.dpr),
+    (window.visualViewport?.scale||1)/Math.max(.01,viewportBaseline.visualScale)
+  ) : 1;
+  const hoverPanViewport=()=>{
+    if(layer.hidden || !viewportBaseline)return null;
+    return existingLightbox?.classList.contains('open') ? existingLightbox : layer;
+  };
+  const flushHoverPan=()=>{
+    hoverPanRaf=0;
+    const modal=hoverPanViewport();
+    if(!modal || zoomRatio()<=1.035){
+      hoverPanDeltaX=hoverPanDeltaY=0;
+      return;
+    }
+    if(hoverPanDeltaX)modal.scrollLeft-=hoverPanDeltaX;
+    if(hoverPanDeltaY)modal.scrollTop-=hoverPanDeltaY;
+    hoverPanDeltaX=hoverPanDeltaY=0;
+  };
+  const onHoverPan=event=>{
+    if(event.pointerType!=='mouse' || event.buttons!==0)return;
+    const modal=hoverPanViewport();
+    if(!modal || zoomRatio()<=1.035){
+      resetHoverPan();
+      return;
+    }
+    const kind=modal===layer ? 'mosaic':'photo';
+    const point={kind,x:event.clientX,y:event.clientY};
+    const prev=lastHoverPan;
+    lastHoverPan=point;
+    // Primer moviment després del zoom o del canvi de visor: només referència.
+    if(!prev || prev.kind!==kind)return;
+    // Salt de coordenades en canviar el zoom, la finestra o el monitor.
+    const dx=point.x-prev.x,dy=point.y-prev.y;
+    if(Math.abs(dx)>95 || Math.abs(dy)>95)return;
+    if(Math.abs(dx)<.1 && Math.abs(dy)<.1)return;
+    hoverPanDeltaX+=dx;
+    hoverPanDeltaY+=dy;
+    if(!hoverPanRaf)hoverPanRaf=requestAnimationFrame(flushHoverPan);
+  };
   const queueMosaicZoomSync=()=>{
     if(zoomSyncPending)return;
     zoomSyncPending=true;
@@ -273,18 +329,23 @@
       updateMosaicZoomMode();
     });
   };
-  window.addEventListener('resize',queueMosaicZoomSync,{passive:true});
-  window.visualViewport?.addEventListener('resize',queueMosaicZoomSync,{passive:true});
+  window.addEventListener('resize',()=>{resetHoverPan();queueMosaicZoomSync();},{passive:true});
+  window.visualViewport?.addEventListener('resize',()=>{resetHoverPan();queueMosaicZoomSync();},{passive:true});
   window.addEventListener('wheel',event=>{
     if(layer.hidden || !(event.ctrlKey||event.metaKey))return;
+    resetHoverPan();
     requestAnimationFrame(()=>requestAnimationFrame(queueMosaicZoomSync));
   },{capture:true,passive:true});
   document.addEventListener('pointermove',event=>{
-    if(event.pointerType==='mouse' && !layer.hidden)queueMosaicZoomSync();
-  },{passive:true});
+    if(event.pointerType==='mouse' && !layer.hidden){
+      queueMosaicZoomSync();
+      onHoverPan(event);
+    }
+  },{capture:true,passive:true});
   const resetViewerPan=()=>{}; // Manté el zoom natiu entre mosaic i fotografia.
   const syncViewerPan=()=>{};
   const clearNativeGalleryLayout=()=>{
+    resetHoverPan();
     layer.classList.remove('vcc-mosaic-native-zoom','vcc-gallery-viewport');
     existingLightbox?.classList.remove('vcc-gallery-viewport');
     const root=document.documentElement;
@@ -294,6 +355,7 @@
     viewportBaseline=null;
   };
   const startPanBaseline=()=>{
+    resetHoverPan();
     const root=document.documentElement;
     viewportBaseline={
       w:window.innerWidth,
@@ -324,6 +386,7 @@
     resetViewerPan();
     enlargedPhoto?.classList.remove('vcc-dg-rounded-ready');
     if(layer.hidden || !activeGallery) return;
+    resetHoverPan();
     if(existingLightbox){
       layer.scrollLeft=existingLightbox.scrollLeft;
       layer.scrollTop=existingLightbox.scrollTop;
