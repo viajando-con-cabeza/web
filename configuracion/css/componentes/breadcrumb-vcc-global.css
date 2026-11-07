@@ -1,42 +1,102 @@
-/* VCC · Breadcrumbs universales. Fuente única: todas las guías usan esta escala.
-   No modifica la posición de los héroes, para no romper sus composiciones. */
-html body :is(nav[aria-label="Ruta de navegación"],nav.vcc-crumb,.st-crumb,.dv-breadcrumb,.country-breadcrumb,.imp-crumb){
-  font-family:'DM Sans',Arial,sans-serif!important;
-  font-size:11px!important;font-weight:500!important;line-height:1.4!important;
-  letter-spacing:0!important;text-transform:none!important;
-  color:#514b45!important;text-shadow:none!important;
-  column-gap:0!important;row-gap:3px!important;
+/* VCC · Breadcrumb global único — 2026-11-07.
+   Fuente de verdad para país, ciudad y guías de /destinos/.
+   El componente lo construye configuracion/js/site-header.js, siempre en
+   la raíz del hero, independientemente del CSS de cada plantilla.
+   Importante: NO añadir reglas locales de breadcrumb en nuevas páginas. */
+html body .vcc-has-global-breadcrumb{
+  position:relative!important;
 }
-html body :is(nav[aria-label="Ruta de navegación"],nav.vcc-crumb,.st-crumb,.dv-breadcrumb,.country-breadcrumb,.imp-crumb) a{
-  color:inherit!important;font:inherit!important;text-decoration:none!important;
+html body #vcc-global-breadcrumb{
+  position:absolute!important;
+  z-index:100!important;
+  top:12px!important;
+  left:54px!important;
+  right:auto!important;
+  bottom:auto!important;
+  display:flex!important;
+  align-items:center!important;
+  flex-wrap:wrap!important;
+  justify-content:flex-start!important;
+  gap:0!important;
+  width:auto!important;
+  height:auto!important;
+  max-width:calc(100% - 108px)!important;
+  min-height:0!important;
+  margin:0!important;
+  padding:0!important;
+  border:0!important;
+  border-radius:0!important;
+  transform:none!important;
+  background:none!important;
+  box-shadow:none!important;
+  font:500 11px/1.45 'DM Sans',Arial,sans-serif!important;
+  letter-spacing:0!important;
+  text-align:left!important;
+  text-transform:none!important;
+  text-shadow:none!important;
+  color:#48413d!important;
 }
-html body :is(nav[aria-label="Ruta de navegación"],nav.vcc-crumb,.st-crumb,.dv-breadcrumb,.country-breadcrumb,.imp-crumb) a:hover{
-  color:#b65d42!important;text-decoration:underline!important;text-underline-offset:3px;
+html body #vcc-global-breadcrumb a,
+html body #vcc-global-breadcrumb strong,
+html body #vcc-global-breadcrumb .vcc-bc-sep{
+  display:inline!important;
+  position:static!important;
+  float:none!important;
+  width:auto!important;
+  height:auto!important;
+  margin:0!important;
+  padding:0!important;
+  transform:none!important;
+  text-shadow:none!important;
+  font-family:inherit!important;
+  font-size:inherit!important;
+  line-height:inherit!important;
+  letter-spacing:0!important;
+  text-transform:none!important;
+  white-space:normal!important;
+  border:0!important;
+  background:none!important;
 }
-html body :is(nav[aria-label="Ruta de navegación"],nav.vcc-crumb,.st-crumb,.dv-breadcrumb,.country-breadcrumb,.imp-crumb) span{
-  margin:0 5px!important;padding:0!important;color:#95887f!important;letter-spacing:0!important;
+html body #vcc-global-breadcrumb a{
+  color:#48413d!important;
+  font-weight:400!important;
+  text-decoration:none!important;
 }
-html body :is(nav[aria-label="Ruta de navegación"],nav.vcc-crumb,.st-crumb,.dv-breadcrumb,.country-breadcrumb,.imp-crumb) strong{
-  font-size:inherit!important;font-family:inherit!important;line-height:inherit!important;
-  font-weight:800!important;letter-spacing:0!important;color:#48423e!important;
+html body #vcc-global-breadcrumb a:hover,
+html body #vcc-global-breadcrumb a:focus-visible{
+  color:#b45e47!important;
+  text-decoration:underline!important;
+  text-underline-offset:3px!important;
+}
+html body #vcc-global-breadcrumb a:focus-visible{
+  outline:2px solid #b45e47!important;
+  outline-offset:2px!important;
+}
+html body #vcc-global-breadcrumb .vcc-bc-sep{
+  flex:none!important;
+  margin:0 4px!important;
+  color:#92887e!important;
+  font-weight:400!important;
+  opacity:1!important;
+}
+html body #vcc-global-breadcrumb strong{
+  color:#3d3833!important;
+  font-weight:700!important;
+}
+html body .vcc-original-breadcrumb{
+  visibility:hidden!important;
+  pointer-events:none!important;
 }
 @media(max-width:720px){
-  html body :is(nav[aria-label="Ruta de navegación"],nav.vcc-crumb,.st-crumb,.dv-breadcrumb,.country-breadcrumb,.imp-crumb){font-size:10px!important;row-gap:2px!important}
-  html body :is(nav[aria-label="Ruta de navegación"],nav.vcc-crumb,.st-crumb,.dv-breadcrumb,.country-breadcrumb,.imp-crumb) span{margin-left:4px!important;margin-right:4px!important}
-}
-/* Las guías de llegada tenían una regla local más específica: esta la iguala. */
-html body .cl-page.cl-landing .cl-landing-hero nav.cl-crumb.vcc-crumb,
-html body .cl-page.cl-landing .cl-landing-hero nav.cl-crumb.vcc-crumb a,
-html body .cl-page.cl-landing .cl-landing-hero nav.cl-crumb.vcc-crumb strong{font-size:11px!important;letter-spacing:0!important}
-@media(max-width:720px){
-  html body .cl-page.cl-landing .cl-landing-hero nav.cl-crumb.vcc-crumb,
-  html body .cl-page.cl-landing .cl-landing-hero nav.cl-crumb.vcc-crumb a,
-  html body .cl-page.cl-landing .cl-landing-hero nav.cl-crumb.vcc-crumb strong{font-size:10px!important}
-}
-
-/* Evita que los overrides antiguos aumenten las migas en móviles. */
-@media(max-width:720px){
- html body:has(.st-shell) .st-shell .st-crumb,
- html body.country-page .country-hero .country-breadcrumb,
- html body:has(.imp-page) .imp-page .imp-crumb{font-size:10px!important;column-gap:0!important;row-gap:2px!important}
+  html body #vcc-global-breadcrumb{
+    top:11px!important;
+    left:15px!important;
+    max-width:calc(100% - 30px)!important;
+    font-size:10px!important;
+    line-height:1.4!important;
+    row-gap:2px!important;
+  }
+  html body #vcc-global-breadcrumb .vcc-bc-sep{
+    margin:0 3px!important;
+  }
 }
