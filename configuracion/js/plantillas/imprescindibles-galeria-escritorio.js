@@ -92,12 +92,13 @@
     }
     syncViewerPan();
     // Mateix punt del mosaic: mai recentrem la fotografia en obrir-la.
+    // Conservem la mateixa zona visual en passar de mosaic a foto.
     if(existingLightbox){
-      const src=panOffset.mosaic,dst=panOffset.photo;
-      const lim=modalBounds(existingLightbox);
-      dst.x=clamp(src.x,0,lim?.altX||0);
-      dst.y=clamp(src.y,0,lim?.altY||0);
-      paintFallback(existingLightbox);
+      const srcState=panState.mosaic,dst=panState.photo;
+      const lim=limitsOf(existingLightbox);
+      dst.x=clamp(srcState.x,-lim.x,lim.x);
+      dst.y=clamp(srcState.y,-lim.y,lim.y);
+      paintPan(existingLightbox);
     }
     /* El visor ampliat comparteix títol i informació amb el mosaic previ. */
     const name = heading.textContent;
@@ -257,199 +258,139 @@
     return Number.isInteger(position) ? activeSources[position-1] : null;
   }
 
-  // El fons queda fixat amb VCCGalleryScrollLock; únicament les dues
-  // galeries tenen un viewport desplaçable propi. D'aquesta manera Ctrl+rodeta
-  // amplia la pàgina de forma nativa sense desplaçar el contingut del blog.
-  // Navegació del zoom del navegador. Un únic sistema per mosaic i foto:
-  // 1) el navegador controla l'escala;
-  // 2) conservem el punt del cursor durant Ctrl+rodeta;
-  // 3) amb el zoom actiu, el ratolí mou el scroll intern del visor;
-  // 4) quan Edge no crea scroll intern, traslladem el mateix panell sense escalar-lo.
-  // IMPORTANT: no recentrem mai el visor a la força en iniciar el zoom.
+  // Un únic sistema de navegació per al mosaic i la foto.
+  // El navegador gestiona el zoom; el fons queda bloquejat. No fem
+  // scroll al document ni recentrem automàticament el panell en ampliar.
+  // El ratolí pot moure la vista AMUNT/ESQUERRA des del primer moment:
+  // el recorregut és simètric [-marge, +marge], no [0, +marge].
   let viewportBaseline=null;
-  let lastZoomRatio=1;
-  let zoomAnchor=null;
+  let zoomSyncQueued=false;
   let lastMouse=null;
-  let pointerFrame=0;
-  let panDeltaX=0,panDeltaY=0;
-  const panOffset={mosaic:{x:0,y:0},photo:{x:0,y:0}};
-  const clamp=(v,min,max)=>Math.max(min,Math.min(max,v));
-  const currentGalleryViewport=()=>{
-    if(layer.hidden || !viewportBaseline)return null;
+  let panFrame=0;
+  let pendingDx=0,pendingDy=0;
+  const panState={mosaic:{x:0,y:0},photo:{x:0,y:0}};
+  const clamp=(value,min,max)=>Math.min(max,Math.max(min,value));
+  const activeViewport=()=>{
+    if(!viewportBaseline||layer.hidden)return null;
     return existingLightbox?.classList.contains('open')?existingLightbox:layer;
   };
-  const modalKind=modal=>modal===layer?'mosaic':'photo';
-  const modalPanel=modal=>modal===layer?mosaicPanel:existingStage;
+  const panelOf=modal=>modal===layer?mosaicPanel:existingStage;
+  const keyOf=modal=>modal===layer?'mosaic':'photo';
   const zoomRatio=()=>{
     if(!viewportBaseline)return 1;
-    const vv=window.visualViewport,root=document.documentElement;
-    const observed=Math.max(
+    const vv=window.visualViewport;
+    const css=parseFloat(getComputedStyle(document.documentElement).zoom)||1;
+    return Math.max(
       viewportBaseline.w/Math.max(1,window.innerWidth),
       viewportBaseline.h/Math.max(1,window.innerHeight),
       (window.devicePixelRatio||1)/Math.max(.01,viewportBaseline.dpr),
-      (vv?.scale||1)/Math.max(.01,viewportBaseline.visualScale),
-      viewportBaseline.vvWidth/Math.max(1,vv?.width||window.innerWidth),
-      viewportBaseline.vvHeight/Math.max(1,vv?.height||window.innerHeight),
-      (parseFloat(getComputedStyle(root).zoom)||1)/Math.max(.01,viewportBaseline.cssZoom)
+      (vv?.scale||1)/Math.max(.01,viewportBaseline.scale),
+      viewportBaseline.visualWidth/Math.max(1,vv?.width||window.innerWidth),
+      viewportBaseline.visualHeight/Math.max(1,vv?.height||window.innerHeight),
+      css/Math.max(.01,viewportBaseline.css)
     );
-    return observed;
   };
-  const modalBounds=modal=>{
-    const panel=modalPanel(modal);
-    if(!panel||!viewportBaseline)return null;
-    const ratio=zoomRatio();
-    const nativeX=Math.max(0,modal.scrollWidth-modal.clientWidth);
-    const nativeY=Math.max(0,modal.scrollHeight-modal.clientHeight);
-    // Només cal el pan alternatiu quan Edge no ha creat scroll intern.
-    const visibleW=Math.min(modal.clientWidth,viewportBaseline.w/Math.max(1,ratio));
-    const visibleH=Math.min(modal.clientHeight,viewportBaseline.h/Math.max(1,ratio));
-    return {panel,nativeX,nativeY,
-      altX:ratio>1.025?Math.max(0,panel.offsetWidth+36-visibleW):0,
-      altY:ratio>1.025?Math.max(0,panel.offsetHeight+36-visibleH):0};
+  const limitsOf=modal=>{
+    const panel=panelOf(modal),ratio=zoomRatio();
+    if(!panel||ratio<=1.025)return {x:0,y:0};
+    // Desplaçament disponible en cada sentit des del fotograma inicial.
+    // El panell manté les seves mides originals; només varia l'àrea visible.
+    const visibleW=Math.min(modal.clientWidth,viewportBaseline.w/ratio);
+    const visibleH=Math.min(modal.clientHeight,viewportBaseline.h/ratio);
+    return {
+      x:Math.max(0,(panel.offsetWidth+36-visibleW)/2),
+      y:Math.max(0,(panel.offsetHeight+36-visibleH)/2)
+    };
   };
-  const paintFallback=modal=>{
-    const panel=modalPanel(modal),state=panOffset[modalKind(modal)];
+  const paintPan=modal=>{
+    const panel=panelOf(modal);
     if(!panel)return;
-    if(Math.abs(state.x)<.1 && Math.abs(state.y)<.1)
+    const state=panState[keyOf(modal)];
+    if(Math.abs(state.x)<.05&&Math.abs(state.y)<.05){
       panel.style.removeProperty('transform');
-    else panel.style.setProperty('transform',
-      'translate3d('+(-state.x).toFixed(2)+'px,'+(-state.y).toFixed(2)+'px,0)','important');
+    }else{
+      panel.style.setProperty('transform',
+        'translate3d('+(-state.x).toFixed(2)+'px,'+
+        (-state.y).toFixed(2)+'px,0)','important');
+    }
   };
   const resetHoverPan=()=>{
     lastMouse=null;
-    panDeltaX=panDeltaY=0;
-    if(pointerFrame){cancelAnimationFrame(pointerFrame);pointerFrame=0;}
+    pendingDx=pendingDy=0;
+    if(panFrame){cancelAnimationFrame(panFrame);panFrame=0;}
   };
-  const resetOffsets=()=>{
+  const resetPan=()=>{
+    resetHoverPan();
     for(const modal of [layer,existingLightbox]){
       if(!modal)continue;
-      const state=panOffset[modalKind(modal)];
+      const state=panState[keyOf(modal)];
       state.x=state.y=0;
-      modal.scrollLeft=modal.scrollTop=0;
-      modalPanel(modal)?.style.removeProperty('transform');
+      panelOf(modal)?.style.removeProperty('transform');
     }
   };
-  const updateMosaicZoomMode=()=>{
-    if(layer.hidden||!viewportBaseline)return;
-    const ratio=zoomRatio();
-    const zoomed=ratio>1.025;
+  const syncZoom=()=>{
+    const ratio=zoomRatio(),zoomed=ratio>1.025;
     layer.classList.toggle('vcc-mosaic-native-zoom',zoomed);
     if(!zoomed){
-      resetOffsets();
-      resetHoverPan();
-      zoomAnchor=null;
-    } else if(zoomAnchor && Math.abs(ratio-zoomAnchor.ratio)>.025){
-      const anchor=zoomAnchor;
-      zoomAnchor=null;
-      const modal=anchor.modal;
-      if(modal && (modal===layer||modal===existingLightbox)){
-        const limits=modalBounds(modal);
-        if(limits){
-          const factor=anchor.ratio/ratio;
-          // El cursor físic queda al mateix lloc: en unitats CSS es mou
-          // de pointerX a pointerX*factor. Conservem exactament el punt de
-          // la fotografia que hi havia sota el cursor, sense recentrar.
-          const desiredX=anchor.offsetX+anchor.pointerX*(1-factor);
-          const desiredY=anchor.offsetY+anchor.pointerY*(1-factor);
-          const state=panOffset[modalKind(modal)];
-          if(limits.nativeX>2){
-            // Si el mateix navegador ja ha ajustat el scroll, el respectem:
-            // no hi afegim un segon desplaçament.
-            if(Math.abs(modal.scrollLeft-anchor.nativeX)<2)
-              modal.scrollLeft=clamp(desiredX,0,limits.nativeX);
-            state.x=0;
-          }else{
-            state.x=clamp(desiredX,0,limits.altX);
-          }
-          if(limits.nativeY>2){
-            if(Math.abs(modal.scrollTop-anchor.nativeY)<2)
-              modal.scrollTop=clamp(desiredY,0,limits.nativeY);
-            state.y=0;
-          }else{
-            state.y=clamp(desiredY,0,limits.altY);
-          }
-          paintFallback(modal);
-          resetHoverPan();
-        }
-      }
+      resetPan();
+      return;
     }
-    lastZoomRatio=ratio;
+    // Només ajustem els límits en reduir el zoom. Mai no imposem
+    // cap posició quan s'amplia: l'ancoratge del zoom el decideix Edge.
+    for(const modal of [layer,existingLightbox]){
+      if(!modal)continue;
+      const lim=limitsOf(modal),state=panState[keyOf(modal)];
+      state.x=clamp(state.x,-lim.x,lim.x);
+      state.y=clamp(state.y,-lim.y,lim.y);
+      paintPan(modal);
+    }
   };
-  let zoomSyncQueued=false;
   const queueMosaicZoomSync=()=>{
-    if(zoomSyncQueued)return;
+    if(zoomSyncQueued||!viewportBaseline||layer.hidden)return;
     zoomSyncQueued=true;
     requestAnimationFrame(()=>{
       zoomSyncQueued=false;
-      updateMosaicZoomMode();
+      syncZoom();
     });
   };
-  const flushHoverPan=()=>{
-    pointerFrame=0;
-    const modal=currentGalleryViewport();
-    const dx=panDeltaX,dy=panDeltaY;
-    panDeltaX=panDeltaY=0;
+  const flushPan=()=>{
+    panFrame=0;
+    const modal=activeViewport(),dx=pendingDx,dy=pendingDy;
+    pendingDx=pendingDy=0;
     if(!modal||zoomRatio()<=1.025)return;
-    const limits=modalBounds(modal);
-    if(!limits)return;
-    const state=panOffset[modalKind(modal)];
-    // Relatiu, sense inèrcia. La direcció inversa resta exactament
-    // el mateix desplaçament que s'ha avançat amb el cursor.
-    if(limits.nativeX>2){
-      if(state.x){
-        modal.scrollLeft=clamp(modal.scrollLeft+state.x,0,limits.nativeX);
-        state.x=0;
-      }
-      modal.scrollLeft+=dx;
-    }else if(limits.altX>2)state.x=clamp(state.x+dx,0,limits.altX);
-    if(limits.nativeY>2){
-      if(state.y){
-        modal.scrollTop=clamp(modal.scrollTop+state.y,0,limits.nativeY);
-        state.y=0;
-      }
-      modal.scrollTop+=dy;
-    }else if(limits.altY>2)state.y=clamp(state.y+dy,0,limits.altY);
-    paintFallback(modal);
+    const lim=limitsOf(modal),state=panState[keyOf(modal)];
+    // Cap recentrat, cap inèrcia, cap scroll del document.
+    state.x=clamp(state.x+dx,-lim.x,lim.x);
+    state.y=clamp(state.y+dy,-lim.y,lim.y);
+    paintPan(modal);
   };
   const onGalleryMouseMove=event=>{
-    if(event.type==='pointermove' && event.pointerType && event.pointerType!=='mouse')return;
-    if(typeof event.buttons==='number' && event.buttons!==0)return;
-    const modal=currentGalleryViewport();
+    if(event.type==='pointermove'&&event.pointerType&&event.pointerType!=='mouse')return;
+    if(typeof event.buttons==='number'&&event.buttons!==0)return;
+    const modal=activeViewport();
     if(!modal||zoomRatio()<=1.025){resetHoverPan();return;}
-    const limits=modalBounds(modal);
-    if(!limits|| (limits.nativeX<=2&&limits.altX<=2 &&
-      limits.nativeY<=2&&limits.altY<=2)){resetHoverPan();return;}
-    const now={kind:modalKind(modal),x:event.clientX,y:event.clientY,
+    const now={kind:keyOf(modal),x:event.clientX,y:event.clientY,
       sx:event.screenX,sy:event.screenY};
     const prev=lastMouse;
     lastMouse=now;
     if(!prev||prev.kind!==now.kind)return;
     let dx=now.x-prev.x,dy=now.y-prev.y;
-    if(Math.abs(dx)<.1 && Number.isFinite(now.sx)&&Number.isFinite(prev.sx))
-      dx=(now.sx-prev.sx)/Math.max(1,zoomRatio());
-    if(Math.abs(dy)<.1 && Number.isFinite(now.sy)&&Number.isFinite(prev.sy))
-      dy=(now.sy-prev.sy)/Math.max(1,zoomRatio());
+    if(Math.abs(dx)<.1&&Number.isFinite(now.sx)&&Number.isFinite(prev.sx))
+      dx=(now.sx-prev.sx)/zoomRatio();
+    if(Math.abs(dy)<.1&&Number.isFinite(now.sy)&&Number.isFinite(prev.sy))
+      dy=(now.sy-prev.sy)/zoomRatio();
     if(!Number.isFinite(dx)||!Number.isFinite(dy)||
        Math.abs(dx)>140||Math.abs(dy)>140)return;
     if(Math.abs(dx)<.1&&Math.abs(dy)<.1)return;
-    panDeltaX+=dx;panDeltaY+=dy;
-    if(!pointerFrame)pointerFrame=requestAnimationFrame(flushHoverPan);
+    pendingDx+=dx;pendingDy+=dy;
+    if(!panFrame)panFrame=requestAnimationFrame(flushPan);
   };
-  window.addEventListener('resize',queueMosaicZoomSync,{passive:true});
-  window.visualViewport?.addEventListener('resize',queueMosaicZoomSync,{passive:true});
+  window.addEventListener('resize',()=>{resetHoverPan();queueMosaicZoomSync();},{passive:true});
+  window.visualViewport?.addEventListener('resize',()=>{
+    resetHoverPan();queueMosaicZoomSync();
+  },{passive:true});
   window.addEventListener('wheel',event=>{
     if(layer.hidden||!(event.ctrlKey||event.metaKey))return;
-    const modal=currentGalleryViewport();
-    if(!modal)return;
-    const rect=modal.getBoundingClientRect();
-    const kind=modalKind(modal),state=panOffset[kind];
-    zoomAnchor={
-      modal,ratio:zoomRatio(),
-      pointerX:clamp(event.clientX-rect.left,0,modal.clientWidth),
-      pointerY:clamp(event.clientY-rect.top,0,modal.clientHeight),
-      nativeX:modal.scrollLeft,nativeY:modal.scrollTop,
-      offsetX:modal.scrollLeft+state.x,offsetY:modal.scrollTop+state.y
-    };
     resetHoverPan();
     requestAnimationFrame(()=>requestAnimationFrame(queueMosaicZoomSync));
   },{capture:true,passive:true});
@@ -458,8 +399,7 @@
   const resetViewerPan=()=>{};
   const syncViewerPan=()=>{};
   const clearNativeGalleryLayout=()=>{
-    resetHoverPan();
-    resetOffsets();
+    resetPan();
     layer.classList.remove('vcc-mosaic-native-zoom','vcc-gallery-viewport');
     existingLightbox?.classList.remove('vcc-gallery-viewport');
     const root=document.documentElement;
@@ -470,23 +410,17 @@
       '--vcc-gallery-grid-gap','--vcc-gallery-sidebar-padding'
     ])root.style.removeProperty(name);
     viewportBaseline=null;
-    zoomAnchor=null;
-    lastZoomRatio=1;
   };
   const startPanBaseline=()=>{
-    resetHoverPan();
-    resetOffsets();
-    zoomAnchor=null;
-    const root=document.documentElement;
+    resetPan();
+    const root=document.documentElement,vv=window.visualViewport;
     viewportBaseline={
       w:window.innerWidth,h:window.innerHeight,
-      dpr:window.devicePixelRatio||1,
-      visualScale:window.visualViewport?.scale||1,
-      vvWidth:window.visualViewport?.width||window.innerWidth,
-      vvHeight:window.visualViewport?.height||window.innerHeight,
-      cssZoom:parseFloat(getComputedStyle(root).zoom)||1
+      dpr:window.devicePixelRatio||1,scale:vv?.scale||1,
+      visualWidth:vv?.width||window.innerWidth,
+      visualHeight:vv?.height||window.innerHeight,
+      css:parseFloat(getComputedStyle(root).zoom)||1
     };
-    lastZoomRatio=1;
     const main=layer.querySelector('.vcc-dg-main');
     const mosaicScroll=layer.querySelector('.vcc-dg-scroll');
     const mosaicGrid=layer.querySelector('.vcc-dg-grid');
@@ -503,7 +437,7 @@
     layer.classList.add('vcc-gallery-viewport');
     existingLightbox?.classList.add('vcc-gallery-viewport');
     root.classList.add('vcc-gallery-modal-locked');
-    updateMosaicZoomMode();
+    syncZoom();
   };
 
   // El zoom de tota la pàgina és responsabilitat del navegador.
