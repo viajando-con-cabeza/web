@@ -55,7 +55,9 @@
       '#vcc-desktop-gallery .vcc-dg-sidebar,'+
       '#vcc-mobile-gallery .vcc-mobile-gallery-scroll,'+
       '#lightbox .lb-place-info,'+
-      '#lightbox .lb-thumbs'
+      '#lightbox .lb-thumbs,'+
+      '#vcc-desktop-gallery.vcc-gallery-viewport,'+
+      '#lightbox.vcc-gallery-viewport'
     );
     if (!scrollable) event.preventDefault();
   }, {capture:true,passive:false});
