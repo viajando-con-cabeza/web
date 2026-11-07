@@ -113,8 +113,8 @@
 .ep-day-selected .ep-day-head h3{color:#aa522d}
 .ep-day-head h3 small{display:block;font:800 9px/1.1 "DM Sans",sans-serif;color:#ae522e}
 .ep-day-card ul{display:grid;gap:9px;list-style:none;padding:13px 15px 11px}
-.ep-day-card li{display:flex;align-items:flex-start;gap:8px;font:500 11.5px/1.43 "DM Sans",sans-serif}
-.ep-day-card li::before{content:"✓";flex:none;color:#4b8a52;font:800 15px/1.05 "DM Sans",sans-serif}
+.ep-day-card li{display:block;position:relative;padding-left:17px;font:500 11.5px/1.43 "DM Sans",sans-serif}
+.ep-day-card li::before{content:"✓";position:absolute;top:0;left:0;color:#4b8a52;font:800 15px/1.05 "DM Sans",sans-serif}
 .ep-day-card li em{font-weight:700;color:#6e8b50;font-style:normal}
 .ep-day-card>p{margin:auto 15px 13px;font:600 10.5px/1.45 "DM Sans",sans-serif;color:#73665c}
 .ep-day-card>a{align-self:flex-start;margin:auto 13px 13px;color:#a95936;text-decoration:underline;text-underline-offset:3px;font:800 10px/1.3 "DM Sans",sans-serif}
@@ -171,6 +171,10 @@
  .ep-feature{display:grid;grid-template-columns:116px minmax(0,1fr);min-height:164px}
  .ep-feature-visual{height:100%;min-height:164px}
  .ep-feature-visual svg{width:100%;height:100%;object-fit:cover}
+ .ep-visual-abba{position:relative;background:radial-gradient(circle at 55% 42%,#3f285b,#1b1730 76%);}
+ .ep-visual-abba svg{display:none}
+ .ep-visual-abba::before{content:"ABBA";position:absolute;top:50%;left:50%;transform:translate(-50%,-72%);color:#f2d8ff;font:800 26px/1 Arial,sans-serif;letter-spacing:-1px;text-shadow:0 0 10px #b780d5}
+ .ep-visual-abba::after{content:"THE MUSEUM";position:absolute;top:54%;left:50%;transform:translateX(-50%);color:#eacff5;font:700 9px/1 Arial,sans-serif;letter-spacing:.5px;white-space:nowrap}
  .ep-feature-body{gap:7px;padding:12px}
  .ep-feature h3{font-size:21px;min-height:0}
  .ep-feature-facts{gap:4px;font-size:10.5px}
