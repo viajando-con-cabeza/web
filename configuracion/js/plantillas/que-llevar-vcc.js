@@ -48,7 +48,7 @@ function render(){
  document.querySelectorAll(".ql-season").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.season===state.season)));
  el("ql-season-title").textContent="Tu lista para el "+s.name;
  el("ql-intro").textContent=s.intro;
- el("ql-visual-title").textContent="La maleta VCC · "+s.name.toUpperCase();
+ el("ql-visual-title").textContent="TU MALETA DE "+s.name.toUpperCase();
  el("ql-note").textContent=s.note;
 
  const cats=el("ql-categories");cats.replaceChildren();
@@ -68,7 +68,7 @@ function render(){
  });
  el("ql-progress").textContent=completed+" de "+total+" preparados";
  const flatlay=el("ql-flatlay");flatlay.replaceChildren();
- s.visual.forEach(p=>{const obj=document.createElement("div");obj.className="ql-object";const icon=document.createElement("span"),name=document.createElement("span");icon.className="ql-object-icon";icon.setAttribute("aria-hidden","true");icon.textContent=p[0];name.className="ql-object-name";name.textContent=p[1];obj.append(icon,name);flatlay.append(obj)});
+ s.visual.forEach((p,i)=>{const obj=document.createElement("li");obj.className="ql-object";const num=document.createElement("span"),name=document.createElement("span");num.className="ql-object-number";num.setAttribute("aria-hidden","true");num.textContent=String(i+1).padStart(2,"0");name.className="ql-object-name";name.textContent=p[1];obj.append(num,name);flatlay.append(obj)});
  el("ql-tip-luggage").textContent=state.luggage==="cabina"?"Prioriza prendas versátiles si viajas solo con equipaje de mano.":"Aprovecha el espacio extra sin cargar ropa innecesaria.";
 }
 function currentList(){
@@ -91,4 +91,23 @@ el("ql-copy").addEventListener("click",async()=>{
  try{await navigator.clipboard.writeText(currentList());el("ql-copy").textContent="✓ LISTA COPIADA";setTimeout(()=>el("ql-copy").textContent="COPIAR LISTA",1700)}
  catch(e){const textarea=document.createElement("textarea");textarea.value=currentList();document.body.append(textarea);textarea.select();try{document.execCommand("copy");el("ql-copy").textContent="✓ LISTA COPIADA"}catch(_) {el("ql-copy").textContent="NO SE PUDO COPIAR"}textarea.remove();setTimeout(()=>el("ql-copy").textContent="COPIAR LISTA",1700)}
 });
+const subnav=document.querySelector(".ql-subnav");
+if(subnav){
+ const links=[...subnav.querySelectorAll('a[href^="#"]')];
+ const updateStickyOffset=()=>{
+   const header=document.querySelector(".shared-header");
+   root.style.setProperty("--ql-sticky-header-height",(header?Math.max(0,Math.round(header.getBoundingClientRect().height)):50)+"px");
+ };
+ updateStickyOffset();
+ window.addEventListener("resize",updateStickyOffset,{passive:true});
+ const sections=links.map(a=>({a,section:document.getElementById(a.getAttribute("href").slice(1))})).filter(x=>x.section);
+ const updateActive=()=>{
+   const line=(parseFloat(getComputedStyle(root).getPropertyValue("--ql-sticky-header-height"))||50)+92;
+   let current=sections[0];
+   sections.forEach(entry=>{if(entry.section.getBoundingClientRect().top<=line)current=entry});
+   if(current){sections.forEach(({a})=>{const active=a===current.a;a.classList.toggle("is-active",active);if(active)a.setAttribute("aria-current","location");else a.removeAttribute("aria-current")})}
+ };
+ window.addEventListener("scroll",updateActive,{passive:true});
+ updateActive();
+}
 })();
