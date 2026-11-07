@@ -199,7 +199,7 @@ async function removeAiRejectedOne(env,key,prefix,etag,confirmed){
 async function listPhotos(env,prefix,cursor){
   const options={prefix,limit:PAGE_SIZE};if(cursor)options.cursor=cursor;
   const page=await env.BUCKET.list(options);
-  return {files:page.objects.filter(f=>IMAGE_RE.test(f.key)&&sameFolder(f.key,prefix)).map(f=>({key:f.key,size:f.size,etag:f.etag})),nextCursor:page.truncated?page.cursor:null};
+  return {files:page.objects.filter(f=>IMAGE_RE.test(f.key)&&sameFolder(f.key,prefix)&&!f.key.split('/').some(p=>p.toLowerCase().includes('preview'))).map(f=>({key:f.key,size:f.size,etag:f.etag})),nextCursor:page.truncated?page.cursor:null};
 }
 const escapeHtml=x=>String(x).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const PANEL=String.raw`<!doctype html>
@@ -228,7 +228,13 @@ pre{background:#f6f1eb;border:1px solid var(--line);padding:13px;overflow-wrap:a
 <p class="muted small">Si eliges suecia/dalarna, se incluyen todos los días interiores. Si eliges suecia/dalarna/dia-10, solo se incluyen los JPG de ese día. Las comparaciones de duplicados no se cruzan entre días o subcarpetas.</p>
 <p id="folderSummary" class="muted"></p></section>
 <section class="card"><h2>3. Detección de duplicados (opcional)</h2>
-<p>Solo se inicia cuando pulses el botón. Compara JPG, WebP y AVIF con las 6 fotos anteriores y posteriores de la misma carpeta. Puedes detenerlo y retomarlo.</p>
+<p>Compara las ±6 fotos cercanas. Ignora cambios de brillo y color, verifica composición y zoom y propone conservar la mejor calidad técnica.</p>
+<label for="duplicateSensitivity">Sensibilidad de detección</label>
+<select id="duplicateSensitivity" onchange="onDuplicateSensitivityChange()">
+<option value="conservador">Conservador — encuadres prácticamente idénticos</option>
+<option value="equilibrado" selected>Equilibrado — recomendado para VCC</option>
+<option value="agresivo">Agresivo — más candidatos; revisar con cuidado</option>
+</select><p class="small muted">Analiza formas y detalles con dos resoluciones. Las fotografías solo se eliminan tras confirmarlo.</p>
 <button id="scanBtn" disabled onclick="scanDuplicates()">Iniciar detección</button><button id="scanStopBtn" class="secondary" disabled onclick="stopProcess('scan')">Parar detección</button>
 <p id="scanSummary" class="muted"></p>
 <div class="row"><button type="button" class="secondary" id="selectAllBtn" disabled onclick="selectAllDuplicates(true)">Seleccionar todo</button><button type="button" class="secondary" id="selectNoneBtn" disabled onclick="selectAllDuplicates(false)">Deseleccionar todo</button><span id="selectionSummary" class="small muted">0 seleccionados</span></div>
@@ -296,6 +302,7 @@ function updateButtons(){
  q('folder').disabled=busy||q('folder').options.length<2;
  q('scanBtn').disabled=busy||!ready;
  q('scanStopBtn').disabled=!(busy&&activeMode==='scan')||stopped;
+ q('duplicateSensitivity').disabled=busy;
  q('removeBtn').disabled=busy||!ready||!scanReady||!groups.length||!q('confirmDup').checked||groups.every(g=>g.resolved);
  q('convertBtn').disabled=busy||!currentPrefix||!files.length;
  q('convertStopBtn').disabled=!(busy&&activeMode==='convert')||stopped;
@@ -470,100 +477,99 @@ async function deleteAiRejected(){
 }
 
 const dec=s=>{const t=atob(s),a=new Uint8Array(t.length);for(let i=0;i<t.length;i++)a[i]=t.charCodeAt(i);return a};
-const MATCH_RADIUS=6;
-// Memoria de 32x32 píxeles; sin descargar ni transformar fotos adicionales.
-const visualCache=new WeakMap();
-function visualData(photo){
- let data=visualCache.get(photo);
- if(data)return data;
- const rgb=dec(photo.rgb);
- if(rgb.length!==3072)throw Error('Huella visual incompleta');
- const lum=new Float32Array(1024);
- for(let i=0;i<1024;i++){
-  const p=i*3;
-  lum[i]=.2126*rgb[p]+.7152*rgb[p+1]+.0722*rgb[p+2];
- }
- data={rgb,lum};visualCache.set(photo,data);return data;
+function onDuplicateSensitivityChange(){
+ if(busy)return;
+ q('confirmDup').checked=false;
+ if(scanReady&&scans.length){groupDuplicates();log('Comparación recalculada con sensibilidad '+duplicateMode()+'. Revisa los grupos.')}
+ else log('Sensibilidad '+duplicateMode()+'. Pulsa Iniciar detección.');
+ updateButtons();
 }
-// Reutilitzar resultats de comparacions durant l'agrupació de triplicats i sèries.
-const pairMatchCache=new WeakMap();
+const MATCH_RADIUS=6,FINGERPRINT_VERSION=2;
+const DUPLICATE_MODES=Object.freeze({
+ conservador:{pre:.82,corr:.945,edge:.62,mad:.52},
+ equilibrado:{pre:.73,corr:.87,edge:.42,mad:.72},
+ agresivo:{pre:.67,corr:.82,edge:.29,mad:.84}
+});
+function duplicateMode(){return q('duplicateSensitivity')?.value||'equilibrado'}
+const visualCache=new WeakMap(),pairMatchCache=new WeakMap();
+function visualData(p){
+ const cached=visualCache.get(p);if(cached)return cached;
+ const rgb=dec(p.rgb),g=dec(p.gray64||'');
+ if(rgb.length!==3072||g.length!==4096)throw Error('Huella anterior. Reanaliza la carpeta.');
+ const l=new Float32Array(1024),gx=new Int16Array(4096),gy=new Int16Array(4096);
+ for(let i=0;i<1024;i++){let j=i*3;l[i]=.2126*rgb[j]+.7152*rgb[j+1]+.0722*rgb[j+2]}
+ for(let y=1;y<63;y++)for(let x=1;x<63;x++){let i=y*64+x;gx[i]=g[i+1]-g[i-1];gy[i]=g[i+64]-g[i-64]}
+ const result={l,g,gx,gy};visualCache.set(p,result);return result;
+}
 function compare(a,b){
- const cachedA=pairMatchCache.get(a);
- if(cachedA?.has(b))return cachedA.get(b);
- const cachedB=pairMatchCache.get(b);
- if(cachedB?.has(a))return cachedB.get(a);
+ const mode=duplicateMode(),prior=pairMatchCache.get(a)?.get(b)||pairMatchCache.get(b)?.get(a);
+ if(prior?.mode===mode)return prior.result;
  const result=compareCore(a,b);
- const cache=cachedA||new WeakMap();
- if(!cachedA)pairMatchCache.set(a,cache);
- cache.set(b,result);
- return result;
+ let map=pairMatchCache.get(a);if(!map){map=new WeakMap();pairMatchCache.set(a,map)}
+ map.set(b,{mode,result});return result;
 }
 function compareCore(a,b){
  if(a.sha256===b.sha256&&a.size===b.size)return {ok:true,confidence:100,exact:true};
- const ratioA=a.width/a.height,ratioB=b.width/b.height;
- // Evita asociar fotografías con orientación o recorte muy diferentes.
- if(Math.abs(ratioA/ratioB-1)>.035)return {ok:false,confidence:0};
- const A=visualData(a),B=visualData(b);
- let best=null;
- // Compensar movimientos mínimos de la cámara (hasta 2 píxeles de 32).
+ const ar=a.width/a.height,br=b.width/b.height;
+ if(!Number.isFinite(ar)||!Number.isFinite(br)||Math.abs(ar/br-1)>.045)return {ok:false,confidence:0};
+ const opts=DUPLICATE_MODES[duplicateMode()]||DUPLICATE_MODES.equilibrado,A=visualData(a),B=visualData(b);
+ // Primera fase: correlació d'intensitats normalitzades. Resistent als canvis de brillantor.
+ let first={corr:-1,dx:0,dy:0};
  for(let dy=-2;dy<=2;dy++)for(let dx=-2;dx<=2;dx++){
-  const xmin=Math.max(0,-dx),xmax=Math.min(32,32-dx);
-  const ymin=Math.max(0,-dy),ymax=Math.min(32,32-dy);
-  // Precomprovació lleugera: 1 de cada 16 píxels.
-  // Només rebutja enquadraments clarament diferents, sense endurir
-  // els paràmetres visuals del comparador complet.
-  let qa=0,qb=0,qaa=0,qbb=0,qab=0,qn=0;
-  for(let y=ymin;y<ymax;y+=4)for(let x=xmin;x<xmax;x+=4){
-   const i=y*32+x,j=(y+dy)*32+x+dx;
-   const va=A.lum[i],vb=B.lum[j];
-   qa+=va;qb+=vb;qaa+=va*va;qbb+=vb*vb;qab+=va*vb;qn++;
-  }
-  if(qn>=36){
-   const avga=qa/qn,avgb=qb/qn;
-   const va=qaa-qn*avga*avga,vb=qbb-qn*avgb*avgb;
-   if(va>5000&&vb>5000){
-    const corrFast=(qab-qn*avga*avgb)/Math.sqrt(va*vb);
-    if(corrFast<.12)continue;
-   }
-  }
-  let sumA=0,sumB=0,aa=0,bb=0,ab=0,n=0;
+  const xmin=Math.max(0,-dx),xmax=Math.min(32,32-dx),ymin=Math.max(0,-dy),ymax=Math.min(32,32-dy);
+  let sa=0,sb=0,aa=0,bb=0,ab=0,n=0;
   for(let y=ymin;y<ymax;y++)for(let x=xmin;x<xmax;x++){
-   const i=y*32+x,j=(y+dy)*32+x+dx;
-   const va=A.lum[i],vb=B.lum[j];
-   sumA+=va;sumB+=vb;aa+=va*va;bb+=vb*vb;ab+=va*vb;n++;
+   const i=y*32+x,j=(y+dy)*32+x+dx,va=A.l[i],vb=B.l[j];
+   sa+=va;sb+=vb;aa+=va*va;bb+=vb*vb;ab+=va*vb;n++;
   }
-  const meanA=sumA/n,meanB=sumB/n,va=aa-n*meanA*meanA,vb=bb-n*meanB*meanB;
-  const corr=(ab-n*meanA*meanB)/(Math.sqrt(va*vb)||1);
-  if(corr<.84)continue;
-  const shift=meanA-meanB;
-  let diff=0,color=0,high=0,edge=0,edges=0;
-  for(let y=ymin;y<ymax;y++)for(let x=xmin;x<xmax;x++){
-   const i=y*32+x,j=(y+dy)*32+x+dx;
-   const d=Math.abs(A.lum[i]-B.lum[j]-shift);
-   diff+=d;if(d>30)high++;
-   let p=3*i,q=3*j;
-   color+=(Math.abs(A.rgb[p]-B.rgb[q])+Math.abs(A.rgb[p+1]-B.rgb[q+1])+Math.abs(A.rgb[p+2]-B.rgb[q+2]))/3;
-   if(x+1<xmax){edge+=Math.abs((A.lum[i+1]-A.lum[i])-(B.lum[j+1]-B.lum[j]));edges++}
-   if(y+1<ymax){edge+=Math.abs((A.lum[i+32]-A.lum[i])-(B.lum[j+32]-B.lum[j]));edges++}
-  }
-  const mae=diff/n,rgbMae=color/n,edgeMae=edge/(edges||1),highPct=high/n;
-  // Más permisivo con diferencias de exposición y pequeños movimientos,
-  // pero exige que también coincidan los detalles y la distribución de color.
-  const plausible=corr>=.865&&mae<=33&&rgbMae<=62&&edgeMae<=37&&highPct<=.52&&Math.abs(shift)<=75;
-  if(!plausible)continue;
-  const strong=corr>=.965&&mae<=17&&rgbMae<=36&&edgeMae<=19&&highPct<=.22&&Math.abs(shift)<=46;
-  const score=strong
-   ? Math.min(99,Math.round(94+Math.max(0,corr-.965)*115+Math.max(0,17-mae)*.2))
-   : Math.min(93,Math.max(80,Math.round(80+Math.max(0,corr-.865)*70+Math.max(0,33-mae)*.12)));
-  const candidate={ok:true,confidence:score,exact:false,review:!strong,metrics:{corr:Number(corr.toFixed(4)),mae:Number(mae.toFixed(1)),offset:dx+','+dy}};
-  if(!best||candidate.confidence>best.confidence||(candidate.confidence===best.confidence&&corr>best.metrics.corr))best=candidate;
-  // Coincidència claríssima: evita revisar els altres desplaçaments.
-  if(strong&&corr>=.985&&mae<=10&&edgeMae<=12)return candidate;
+  const denom=Math.sqrt(Math.max(0,(aa-sa*sa/n)*(bb-sb*sb/n)));
+  const corr=denom>1e-5?(ab-sa*sb/n)/denom:0;
+  if(corr>first.corr)first={corr,dx,dy};
  }
- return best||{ok:false,confidence:0};
+ if(first.corr<opts.pre)return {ok:false,confidence:0};
+ // Segona fase: estructura 64px i gradients signats, per evitar falsos positius
+ // entre boscos, mars i altres paisatges amb colors o textures semblants.
+ let best=null;
+ for(let oy=-2;oy<=2;oy++)for(let ox=-2;ox<=2;ox++){
+  const dx=first.dx*2+ox,dy=first.dy*2+oy;
+  const xmin=Math.max(2,2-dx),xmax=Math.min(62,62-dx),ymin=Math.max(2,2-dy),ymax=Math.min(62,62-dy);
+  let sa=0,sb=0,aa=0,bb=0,ab=0,ga=0,gb=0,gab=0,n=0;
+  for(let y=ymin;y<ymax;y++)for(let x=xmin;x<xmax;x++){
+   const i=y*64+x,j=(y+dy)*64+x+dx,va=A.g[i],vb=B.g[j];
+   sa+=va;sb+=vb;aa+=va*va;bb+=vb*vb;ab+=va*vb;
+   const ax=A.gx[i],ay=A.gy[i],bx=B.gx[j],by=B.gy[j];
+   ga+=ax*ax+ay*ay;gb+=bx*bx+by*by;gab+=ax*bx+ay*by;n++;
+  }
+  if(!n)continue;
+  const va=Math.max(0,aa-sa*sa/n),vb=Math.max(0,bb-sb*sb/n);
+  const corr=va>1e-3&&vb>1e-3?(ab-sa*sb/n)/Math.sqrt(va*vb):0;
+  const edge=ga>1e-3&&gb>1e-3?gab/Math.sqrt(ga*gb):0;
+  if(Math.min(Math.sqrt(ga/n),Math.sqrt(gb/n))<6)continue;
+  const rank=corr*.72+edge*.28;
+  if(!best||rank>best.rank)best={corr,edge,rank,dx,dy,meanA:sa/n,meanB:sb/n,stdA:Math.sqrt(va/n),stdB:Math.sqrt(vb/n)};
+ }
+ if(!best||best.corr<opts.corr||best.edge<opts.edge)return {ok:false,confidence:0};
+ let diff=0,n=0;
+ const xmin=Math.max(2,2-best.dx),xmax=Math.min(62,62-best.dx),ymin=Math.max(2,2-best.dy),ymax=Math.min(62,62-best.dy);
+ for(let y=ymin;y<ymax;y++)for(let x=xmin;x<xmax;x++){
+  const i=y*64+x,j=(y+best.dy)*64+x+best.dx;
+  diff+=Math.abs((A.g[i]-best.meanA)/(best.stdA||1)-(B.g[j]-best.meanB)/(best.stdB||1));n++;
+ }
+ const mad=diff/(n||1);
+ if(mad>opts.mad)return {ok:false,confidence:0};
+ const confidence=Math.min(99,Math.max(80,Math.round(79+(best.corr-.8)*65+Math.max(0,best.edge-.25)*12)));
+ return {ok:true,confidence,exact:false,review:confidence<94||duplicateMode()==='agresivo',
+  metrics:{structure:+best.corr.toFixed(3),edges:+best.edge.toFixed(3),difference:+mad.toFixed(2),offset:best.dx+','+best.dy}};
 }
-
-const better=(a,b)=>{const rank=x=>/\.avif$/i.test(x.key)?3:/\.webp$/i.test(x.key)?2:1;const ra=rank(a),rb=rank(b);if(ra!==rb)return ra>rb?a:b;const pa=a.width*a.height,pb=b.width*b.height;if(pa!==pb)return pa>pb?a:b;if(Math.abs(a.sharpness-b.sharpness)>.4)return a.sharpness>b.sharpness?a:b;if(a.size!==b.size)return a.size>b.size?a:b;return a.key.localeCompare(b.key)<=0?a:b};
+// La qualitat prima sobre el format; AVIF només desempata fotografies comparables.
+function better(a,b){
+ const qa=Number(a.qualityScore)||0,qb=Number(b.qualityScore)||0;
+ if(Math.abs(qa-qb)>=2)return qa>qb?a:b;
+ const fmt=x=>/\.avif$/i.test(x.key)?3:/\.webp$/i.test(x.key)?2:1;
+ if(fmt(a)!==fmt(b))return fmt(a)>fmt(b)?a:b;
+ if(Math.abs((a.sharpness||0)-(b.sharpness||0))>.7)return a.sharpness>b.sharpness?a:b;
+ return a.key.localeCompare(b.key)<=0?a:b;
+}
 function groupDuplicates(){
  const photos=[...scans].sort((a,b)=>{
   const fa=a.key.slice(0,a.key.lastIndexOf('/')+1);
@@ -633,7 +639,7 @@ function groupDuplicates(){
  }
  groups=output;
  renderDuplicates();
- log('Comparadas hasta ±6 fotos por imagen. '+edges.length+
+ log('Comparadas hasta ±6 fotos por imagen ('+duplicateMode()+'). '+edges.length+
      ' pares similares; '+groups.length+' grupos con duplicados.');
 }
 function updateSelectionSummary(){
@@ -652,8 +658,8 @@ function renderDuplicates(){
  for(let gi=0;gi<groups.length;gi++)for(let pi=0;pi<groups[gi].pairs.length;pi++){
   const g=groups[gi],p=g.pairs[pi];
   h+='<tr><td><input type="checkbox" data-g="'+gi+'" data-p="'+pi+'" '+(p.checked?'checked':'')+' '+(p.deleted?'disabled':'')+'></td>'+
-   '<td class="path"><img class="photoThumb" data-thumb-key="'+esc(g.keep.key)+'" alt="Se conserva">'+esc(g.keep.key)+' ('+g.keep.width+'×'+g.keep.height+')</td>'+
-   '<td class="path"><img class="photoThumb" data-thumb-key="'+esc(p.remove.key)+'" alt="Duplicada">'+esc(p.remove.key)+' ('+p.remove.width+'×'+p.remove.height+')</td>'+
+   '<td class="path"><img class="photoThumb" data-thumb-key="'+esc(g.keep.key)+'" alt="Se conserva">'+esc(g.keep.key)+' ('+g.keep.width+'×'+g.keep.height+')<br><span class="tag">Calidad '+(g.keep.qualityScore??'—')+'/100</span></td>'+
+   '<td class="path"><img class="photoThumb" data-thumb-key="'+esc(p.remove.key)+'" alt="Duplicada">'+esc(p.remove.key)+' ('+p.remove.width+'×'+p.remove.height+')<br><span class="small muted">Calidad '+(p.remove.qualityScore??'—')+'/100</span></td>'+
    '<td><span class="tag">'+p.confidence+'% similitud</span>'+(p.review?' · Revisar manualmente':'')+(p.viaChain?' · Coincidencia por cadena':'')+(p.deleted?' · Eliminada':'')+'</td></tr>';
  }
  q('duplicates').innerHTML=h+'</tbody></table>';
@@ -692,59 +698,62 @@ function jpegDimensions(blobBytes) {
   throw Error('No se pudieron leer las dimensiones del JPG');
 }
 async function fingerprintInBrowser(f){
-  // Solo R2 entrega el JPG como stream: no se hace transformación con IMAGES.
-  const token=q('token').value.trim();
-  const response=await fetch('/api/process',{
-    method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+token},
-    body:JSON.stringify({mode:'photo-stream',prefix:currentPrefix,key:f.key,etag:f.etag}),
-    cache:'no-store'
-  });
-  if(!response.ok){
-    const message=(await response.text()).replace(/<[^>]+>/g,' ').slice(0,200);
-    throw Error('HTTP '+response.status+': '+message);
+ const token=q('token').value.trim();
+ const response=await fetch('/api/process',{
+  method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+token},
+  body:JSON.stringify({mode:'photo-stream',prefix:currentPrefix,key:f.key,etag:f.etag}),cache:'no-store'
+ });
+ if(!response.ok)throw Error('HTTP '+response.status+': '+(await response.text()).replace(/<[^>]+>/g,' ').slice(0,180));
+ const blob=await response.blob();
+ const dims=/\.jpe?g$/i.test(f.key)?jpegDimensions(await blob.slice(0,Math.min(blob.size,524288)).arrayBuffer()):null;
+ let bitmap;
+ try{
+  bitmap=await createImageBitmap(blob,{resizeWidth:160,resizeQuality:'high'});
+  const canvas=document.createElement('canvas');canvas.width=32;canvas.height=32;
+  const ctx=canvas.getContext('2d',{willReadFrequently:true});ctx.drawImage(bitmap,0,0,32,32);
+  const rgba=ctx.getImageData(0,0,32,32).data,rgb=new Uint8Array(3072);
+  for(let i=0;i<1024;i++){rgb[i*3]=rgba[i*4];rgb[i*3+1]=rgba[i*4+1];rgb[i*3+2]=rgba[i*4+2]}
+  const lum=i=>.2126*rgb[i]+.7152*rgb[i+1]+.0722*rgb[i+2];
+  let sharpness=0,pairs=0;
+  for(let y=0;y<32;y++)for(let x=0;x<32;x++){
+   let i=(y*32+x)*3;
+   if(x<31){sharpness+=Math.abs(lum(i)-lum(i+3));pairs++}
+   if(y<31){sharpness+=Math.abs(lum(i)-lum(i+96));pairs++}
   }
-  const blob=await response.blob();
-  const dimensions=/\.jpe?g$/i.test(f.key)?jpegDimensions(await blob.slice(0,Math.min(blob.size,524288)).arrayBuffer()):null;
-  let bitmap;
-  try{
-    bitmap=await createImageBitmap(blob,{resizeWidth:160,resizeQuality:'high'});
-    const canvas=document.createElement('canvas');canvas.width=32;canvas.height=32;
-    const ctx=canvas.getContext('2d',{willReadFrequently:true});
-    if(!ctx)throw Error('El navegador no permite analizar imágenes');
-    ctx.fillStyle='#fff';ctx.fillRect(0,0,32,32);
-    ctx.drawImage(bitmap,0,0,32,32);
-    const rgba=ctx.getImageData(0,0,32,32).data;
-    const rgb=new Uint8Array(32*32*3);
-    for(let p=0;p<1024;p++){
-      rgb[p*3]=rgba[p*4];rgb[p*3+1]=rgba[p*4+1];rgb[p*3+2]=rgba[p*4+2];
-    }
-    let sharpness=0,pairs=0;
-    const lum=i=>.2126*rgb[i]+.7152*rgb[i+1]+.0722*rgb[i+2];
-    for(let y=0;y<32;y++)for(let x=0;x<32;x++){
-      const i=(y*32+x)*3;
-      if(x<31){sharpness+=Math.abs(lum(i)-lum(i+3));pairs++}
-      if(y<31){sharpness+=Math.abs(lum(i)-lum(i+96));pairs++}
-    }
-    // Miniaturas pequeñas y locales para revisar los duplicados sin pedir
-    // nuevas transformaciones pesadas al Worker.
-    const preview=document.createElement('canvas');
-    preview.width=144;preview.height=96;
-    const pc=preview.getContext('2d');
-    pc.fillStyle='#fff';pc.fillRect(0,0,144,96);
-    const w0=dimensions?.width||bitmap.width,h0=dimensions?.height||bitmap.height;
-    const ratio=Math.min(144/w0,96/h0);
-    const w=w0*ratio,h=h0*ratio;
-    // Miniatura nítida desde la misma decodificación, sin segunda carga de R2.
-    pc.drawImage(bitmap,(144-w)/2,(96-h)/2,w,h);
-    previewUrls.set(f.key,preview.toDataURL('image/jpeg',.72));
-    let binary='';
-    for(let i=0;i<rgb.length;i++)binary+=String.fromCharCode(rgb[i]);
-    return {key:f.key,etag:f.etag,size:f.size,width:dimensions?.width||bitmap.width,
-      height:dimensions?.height||bitmap.height,sharpness:Number((sharpness/pairs).toFixed(3)),
-      sha256:'etag:'+f.etag+':'+f.size,rgb:btoa(binary)};
-  }finally{
-    bitmap?.close();
+  // Una única descodificació; empremta addicional més precisa a 64px.
+  const detail=document.createElement('canvas');detail.width=128;detail.height=128;
+  const dc=detail.getContext('2d',{willReadFrequently:true});
+  dc.drawImage(bitmap,0,0,128,128);
+  const px=dc.getImageData(0,0,128,128).data,g128=new Uint8Array(16384);
+  let sum=0,sumSq=0,clipped=0;
+  for(let i=0;i<16384;i++){
+   let p=i*4,g=Math.round(.2126*px[p]+.7152*px[p+1]+.0722*px[p+2]);
+   g128[i]=g;sum+=g;sumSq+=g*g;if(g<=7||g>=249)clipped++;
   }
+  const gray64=new Uint8Array(4096);
+  for(let y=0;y<64;y++)for(let x=0;x<64;x++){
+   let p=(y*2)*128+x*2;
+   gray64[y*64+x]=Math.round((g128[p]+g128[p+1]+g128[p+128]+g128[p+129])/4);
+  }
+  let lap=0,nLap=0;
+  for(let y=2;y<126;y++)for(let x=2;x<126;x++){
+   const i=y*128+x;lap+=Math.abs(4*g128[i]-g128[i-1]-g128[i+1]-g128[i-128]-g128[i+128]);nLap++;
+  }
+  const mean=sum/16384,contrast=Math.sqrt(Math.max(0,sumSq/16384-mean*mean)),detailStrength=lap/(nLap||1);
+  const qualityScore=Math.max(0,Math.min(100,Math.round(
+   43+Math.min(35,detailStrength*1.65)+Math.min(14,contrast*.14)-Math.min(32,(clipped/16384)*135)
+   -Math.max(0,33-mean)*.31-Math.max(0,mean-222)*.31
+  )));
+  const preview=document.createElement('canvas');preview.width=144;preview.height=96;
+  const pc=preview.getContext('2d');pc.fillStyle='#fff';pc.fillRect(0,0,144,96);
+  const w0=dims?.width||bitmap.width,h0=dims?.height||bitmap.height,scale=Math.min(144/w0,96/h0);
+  pc.drawImage(bitmap,(144-w0*scale)/2,(96-h0*scale)/2,w0*scale,h0*scale);
+  previewUrls.set(f.key,preview.toDataURL('image/jpeg',.72));
+  const b64=arr=>{let text='';for(let i=0;i<arr.length;i++)text+=String.fromCharCode(arr[i]);return btoa(text)};
+  return {key:f.key,etag:f.etag,size:f.size,width:dims?.width||bitmap.width,height:dims?.height||bitmap.height,
+   sharpness:+(sharpness/pairs).toFixed(3),qualityScore,detailStrength:+detailStrength.toFixed(2),
+   fingerprintVersion:FINGERPRINT_VERSION,sha256:'etag:'+f.etag+':'+f.size,rgb:b64(rgb),gray64:b64(gray64)};
+ }finally{bitmap?.close()}
 }
 
 async function scanDuplicates(){
@@ -759,7 +768,7 @@ async function scanDuplicates(){
   const pending=[];
   for(const f of scanFiles){
    const old=previous.get(f.key);
-   if(old&&old.etag===f.etag)done.set(f.key,old);
+   if(old&&old.etag===f.etag&&old.fingerprintVersion===FINGERPRINT_VERSION&&old.gray64)done.set(f.key,old);
    else pending.push(f);
   }
   let next=0,errors=[],finished=0;
