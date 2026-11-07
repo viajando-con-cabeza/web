@@ -409,7 +409,11 @@ td.path{overflow-wrap:anywhere;max-width:280px}
 #folderSummary:not(:empty),#scanSummary:not(:empty),#convertSummary:not(:empty),#aiSummary:not(:empty){background:#f9f8f6;padding:9px 11px;border-radius:8px;margin:10px 0 0}
 .aiGroupPills{display:flex;gap:7px;flex-wrap:wrap;margin:11px 0}
 .aiGroupPills:empty{display:none}
-.aiGroupPills .placeGroup{background:#f6f5f3;border:1px solid var(--line);border-radius:8px;padding:6px 10px;font-size:11px;font-weight:700;color:#41474a}
+.aiGroupPills .placeGroup{background:#f6f5f3;border:1px solid var(--line);border-radius:8px;padding:6px 10px;font:700 11px/1.3 var(--body);color:#41474a;margin:0;min-height:28px}
+.aiGroupPills .placeGroup:hover:not(:disabled){background:#ecebe8;color:#111}
+.aiTools{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:10px}
+.aiTools select{width:auto;min-width:220px;max-width:100%}
+.aiTools button{margin:0}
 .aiFolderInput{width:190px!important;min-height:34px!important;padding:5px 7px!important;font-size:11.5px!important}
 .aiHint{font-size:10.5px;color:#767d80}
 .workspace section.card:last-child{grid-column:1/-1}
@@ -466,6 +470,9 @@ td.path{overflow-wrap:anywhere;max-width:280px}
 <div><button id="aiBtn" disabled onclick="runAiSelection()">Identificar lugares</button><button class="secondary" id="aiStopBtn" disabled onclick="stopProcess('ai')">Detener</button><button class="secondary" id="aiCsvBtn" disabled onclick="downloadAiCsv()">Exportar CSV</button></div>
 <p id="aiSummary" class="muted" role="status" aria-live="polite">Selecciona una carpeta.</p>
 <div id="aiGroups" class="aiGroupPills"></div>
+<div class="aiTools"><select id="aiFilter" aria-label="Filtrar por lugar" onchange="aiVisibleLimit=60;renderAiResults()"><option value="">Todos los lugares</option></select>
+<span id="aiShown" class="small muted"></span>
+<button type="button" id="aiMoreBtn" class="secondary" style="display:none" onclick="aiVisibleLimit+=60;renderAiResults()">Mostrar 60 más</button></div>
 <datalist id="aiFolderList"></datalist>
 <div id="aiResults" class="tableWrap"></div>
 <label class="small"><input type="checkbox" id="confirmAiOrganize" onchange="updateButtons()"> He revisado las carpetas. Mover fotos puede romper enlaces del blog.</label>
@@ -562,7 +569,7 @@ async function browse(){if(busy)return;stopped=false;lock(true);
 async function loadFolder(){if(busy||!q('folder').value)return;stopped=false;lock(true);let ok=false;
  try{
   currentPrefix=q('folder').value;files=[];scanFiles=[];scans=[];groups=[];removed.clear();scanReady=false;
-   aiRows=[];aiEdited.clear();aiAnalysisComplete=false;q('confirmAiOrganize').checked=false;q('aiMoveStatus').textContent='';q('aiResults').innerHTML='';q('aiGroups').innerHTML='';q('aiSummary').textContent='Carpeta lista para identificar lugares.';
+   aiRows=[];aiEdited.clear();aiAnalysisComplete=false;aiRunFolder='';aiRunContext='';aiVisibleLimit=60;q('aiFilter').value='';q('confirmAiOrganize').checked=false;q('aiMoveStatus').textContent='';q('aiResults').innerHTML='';q('aiGroups').innerHTML='';q('aiSummary').textContent='Carpeta lista para identificar lugares.';
   q('confirmDup').checked=false;q('duplicates').innerHTML='';q('scanSummary').textContent='';
   for(const url of previewUrls.values())URL.revokeObjectURL(url);previewUrls.clear();
   let cursor=null,pages=0;
@@ -575,53 +582,107 @@ async function loadFolder(){if(busy||!q('folder').value)return;stopped=false;loc
  if(ok){q('scanSummary').textContent='Carpeta lista. Pulsa Iniciar detección para analizar los duplicados.';q('convertSummary').textContent='Carpeta lista. Puedes iniciar la conversión directamente sin analizar duplicados.';updateButtons()}
 }
 
-// Identificación de lugares, sin descartar fotografías.
-let aiRows=[],aiEdited=new Map(),aiAnalysisComplete=false;
+// Fotos agrupadas por lugar: no se elimina ni descarta ninguna.
+let aiRows=[],aiEdited=new Map(),aiAnalysisComplete=false,aiRunFolder='',aiRunContext='',aiVisibleLimit=60;
 const AI_CATEGORIES=['Calles','Paisajes','Mar','Miradores','Bosques','Montañas','Playas','Parques','Comida','Transporte','Interiores','Arquitectura','Otros'];
 function aiFilesForReview(){
- const folder=currentPrefix+'/';
- return scanFiles.filter(f=>f.key.startsWith(folder)&&!f.key.slice(folder.length).includes('/')&&!f.key.toLowerCase().includes('preview'));
+ const base=currentPrefix+'/';
+ return scanFiles.filter(f=>f.key.startsWith(base)&&!f.key.slice(base.length).includes('/')&&!f.key.toLowerCase().includes('preview'));
+}
+// Exactamente el mismo formato que valida el servidor R2.
+function aiSlugFolder(input){
+ const text=String(input??'').trim();
+ if(!text||text.length>180||/[\/\\\u0000-\u001f\u007f]/.test(text)||text.includes('..'))throw Error('Nombre de carpeta no válido');
+ const name=text.normalize('NFKD').replace(/[\u0300-\u036f]/g,'').toLowerCase()
+  .replace(/[^a-z0-9]+/g,'_').replace(/_+/g,'_').replace(/^_+|_+$/g,'')
+  .slice(0,72).replace(/_+$/,'');
+ if(name.length<2||name==='__proto__')throw Error('Nombre de carpeta no válido');
+ return name;
 }
 function aiFolderFor(row){
- const proposal=row.kind==='specific'&&row.confidence==='alta'?row.place:
-   AI_CATEGORIES.includes(row.category)?row.category:'Otros';
- return (aiEdited.get(row.key)||proposal||'Otros').trim();
+ const proposed=row.kind==='specific'&&row.confidence==='alta'?row.place:
+  AI_CATEGORIES.includes(row.category)?row.category:'Otros';
+ try{return aiSlugFolder(aiEdited.get(row.key)??proposed)}catch{return 'otros'}
 }
-function aiValidateFolder(name){
- return name.length>=2&&name.length<=72&&!name.includes('..')&&
-   /^[\p{L}\p{N}][\p{L}\p{N} _().'-]*$/u.test(name);
+function aiValidateFolder(folder){
+ try{return folder===aiSlugFolder(folder)}catch{return false}
 }
 function aiPlaceGroups(){
  const map=new Map();
  for(const row of aiRows){
-  const label=aiFolderFor(row),key=label.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
-  let group=map.get(key);if(!group){group={label,rows:[]};map.set(key,group)}
+  const label=aiFolderFor(row);
+  let group=map.get(label);if(!group){group={label,rows:[]};map.set(label,group)}
   group.rows.push(row);
  }
  return [...map.values()].sort((a,b)=>b.rows.length-a.rows.length||a.label.localeCompare(b.label,'es'));
 }
+async function aiCompactThumbnail(row){
+ // Descarta los grandes data URI después de recibirlos para evitar consumo de RAM en lotes.
+ try{
+  if(!row.thumbnail||row.thumbnail.length<17000)return row;
+  const img=new Image();img.src=row.thumbnail;await img.decode();
+  const factor=Math.min(1,200/img.naturalWidth,130/img.naturalHeight);
+  const canvas=document.createElement('canvas');
+  canvas.width=Math.max(1,Math.round(img.naturalWidth*factor));
+  canvas.height=Math.max(1,Math.round(img.naturalHeight*factor));
+  canvas.getContext('2d').drawImage(img,0,0,canvas.width,canvas.height);
+  const small=canvas.toDataURL('image/jpeg',.66);
+  if(small.length<row.thumbnail.length)row.thumbnail=small;
+ }catch{}
+ return row;
+}
+function aiRenameGroup(folder){
+ if(busy)return;
+ const proposal=prompt('Carpeta para todas las fotos de este grupo:',folder);
+ if(proposal===null)return;
+ let slug;
+ try{slug=aiSlugFolder(proposal)}catch{alert('Nombre no válido. Usa letras, números y espacios.');return}
+ for(const row of aiRows)if(aiFolderFor(row)===folder)aiEdited.set(row.key,slug);
+ q('confirmAiOrganize').checked=false;
+ aiVisibleLimit=60;renderAiResults();
+}
 function renderAiResults(){
  const box=q('aiResults'),groups=aiPlaceGroups();
- q('aiCsvBtn').disabled=busy||!aiRows.length;
- if(!aiRows.length){box.innerHTML='';q('aiGroups').innerHTML='';q('aiFolderList').innerHTML='';updateButtons();return}
- q('aiGroups').innerHTML=groups.map(g=>'<span class="placeGroup">'+esc(g.label)+' · '+g.rows.length+'</span>').join('');
- q('aiFolderList').innerHTML=groups.map(g=>'<option value="'+esc(g.label)+'"></option>').join('');
- let html='<table><thead><tr><th>Fotografía</th><th>Lugar sugerido</th><th>Carpeta de destino</th></tr></thead><tbody>';
- for(const g of groups)for(const row of g.rows){
-  const folder=aiFolderFor(row),suggestion=row.place==='No identificable'?row.category:row.place;
-  html+='<tr><td class="path"><img class="photoThumb" alt="" loading="lazy" src="'+row.thumbnail+'">'+
-   '<b>'+esc(row.key.split('/').pop())+'</b></td>'+
-   '<td><b>'+esc(suggestion)+'</b><br><span class="aiHint">Confianza '+esc(row.confidence)+
-   ' · '+esc(row.subject)+'</span></td>'+
-   '<td><input class="aiFolderInput" aria-label="Carpeta para esta foto" list="aiFolderList" data-key="'+esc(row.key)+'" value="'+esc(folder)+'">'+
-   '<p class="aiHint">'+(row.kind==='specific'?'Lugar identificado':'Categoría genérica')+'</p></td></tr>';
+ if(!aiRows.length){
+  box.innerHTML='';q('aiGroups').innerHTML='';q('aiFilter').innerHTML='<option value="">Todos los lugares</option>';
+  q('aiShown').textContent='';q('aiMoreBtn').style.display='none';updateButtons();return;
  }
+ q('aiGroups').innerHTML=groups.slice(0,80).map(g=>'<button type="button" class="placeGroup" data-folder="'+esc(g.label)+'" title="Renombrar grupo">'+esc(g.label)+' · '+g.rows.length+' ✎</button>').join('')+
+  (groups.length>80?'<span class="aiHint">+'+(groups.length-80)+' grupos</span>':'');
+ for(const el of q('aiGroups').querySelectorAll('button[data-folder]'))el.onclick=()=>aiRenameGroup(el.dataset.folder);
+ const sel=q('aiFilter'),previous=sel.value;
+ sel.innerHTML='<option value="">Todos los lugares</option>'+groups.map(g=>'<option value="'+esc(g.label)+'">'+esc(g.label)+' ('+g.rows.length+')</option>').join('');
+ sel.value=groups.some(g=>g.label===previous)?previous:'';
+ q('aiFolderList').innerHTML=groups.map(g=>'<option value="'+esc(g.label)+'"></option>').join('');
+ const selected=sel.value;
+ const rows=groups.filter(g=>!selected||g.label===selected).flatMap(g=>g.rows);
+ const visible=rows.slice(0,aiVisibleLimit);
+ let html='<table><thead><tr><th>Fotografía</th><th>Lugar sugerido</th><th>Carpeta</th></tr></thead><tbody>';
+ for(const row of visible){
+  const folder=aiFolderFor(row),named=row.kind==='specific'&&row.confidence==='alta';
+  const suggestion=named?row.place:row.category||'Otros';
+  html+='<tr><td class="path"><img class="photoThumb" alt="" loading="lazy" src="'+esc(row.thumbnail||'')+'">'+
+   '<b>'+esc(row.key.split('/').pop())+'</b></td>'+
+   '<td><b>'+esc(suggestion)+'</b><br><span class="aiHint">'+
+   (named?'Lugar probable':'Categoría general')+' · '+esc(row.subject||'Imagen de viaje')+
+   (row.needsReview?' · Revisar':'')+'</span></td>'+
+   '<td><input class="aiFolderInput" aria-label="Nombre de carpeta" list="aiFolderList" data-key="'+esc(row.key)+'" value="'+esc(folder)+'">'+
+   '<p class="aiHint">'+(row.needsReview?'Revisión aconsejada':'Subcarpeta sugerida')+'</p></td></tr>';
+ }
+ const scroll=box.scrollTop;
  box.innerHTML=html+'</tbody></table>';
+ box.scrollTop=scroll;
  for(const input of box.querySelectorAll('.aiFolderInput'))input.onchange=()=>{
-  const name=input.value.trim().replace(/\s+/g,' ');
-  if(!aiValidateFolder(name)){alert('Carpeta inválida: usa letras, números o espacios (máximo 72 caracteres).');input.value=aiFolderFor(aiRows.find(r=>r.key===input.dataset.key));return}
-  aiEdited.set(input.dataset.key,name);q('confirmAiOrganize').checked=false;renderAiResults();
+  let slug;
+  try{slug=aiSlugFolder(input.value)}catch{
+   alert('Carpeta no válida. No uses barras ni rutas.');
+   input.value=aiFolderFor(aiRows.find(r=>r.key===input.dataset.key));return;
+  }
+  aiEdited.set(input.dataset.key,slug);
+  q('confirmAiOrganize').checked=false;renderAiResults();
  };
+ q('aiShown').textContent='Mostrando '+visible.length+' de '+rows.length+' fotos';
+ q('aiMoreBtn').style.display=rows.length>visible.length?'inline-flex':'none';
  updateButtons();
 }
 async function runAiSelection(){
