@@ -293,7 +293,9 @@
     if(layer.hidden || !viewportBaseline)return;
     // Només canviem el scroll interior del mosaic. El marc exterior
     // sempre és 100vw × 100dvh: no es redimensiona artificialment.
-    layer.classList.toggle('vcc-mosaic-native-zoom',zoomRatio()>1.025);
+    const zoomed=zoomRatio()>1.025;
+    layer.classList.toggle('vcc-mosaic-native-zoom',zoomed);
+    if(!zoomed)clearFallbackPan();
   };
   const queueMosaicZoomSync=()=>{
     if(zoomSyncPending)return;
@@ -332,8 +334,16 @@
     if(!f)return false;
     const useX=nativeX<=2 && f.rangeX>2;
     const useY=nativeY<=2 && f.rangeY>2;
-    if(!useX&&!useY)return false;
     const state=modal===layer?fallbackOffsets.mosaic:fallbackOffsets.photo;
+    if(!useX&&!useY){
+      // Si el navegador comença a informar scroll natiu, mantenim la
+      // posició en el scrollport i retirem el pan alternatiu.
+      if(state.x && nativeX>2)modal.scrollLeft=clamp(state.x,0,nativeX);
+      if(state.y && nativeY>2)modal.scrollTop=clamp(state.y,0,nativeY);
+      state.x=state.y=0;
+      f.panel.style.removeProperty('transform');
+      return false;
+    }
     // 1 píxel de moviment = 1 píxel local de pan. Sense inèrcia.
     if(useX && dx)state.x=clamp(state.x+dx,0,f.rangeX);
     if(useY && dy)state.y=clamp(state.y+dy,0,f.rangeY);
