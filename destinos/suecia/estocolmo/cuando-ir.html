@@ -6,7 +6,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=DM+Sans:wght@400;500;600;700;800&family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/configuracion/css/paginas.css"><link rel="stylesheet" href="/configuracion/css/overrides.css">
-<link rel="stylesheet" href="/configuracion/css/destinos/suecia/estocolmo/cuando-ir-vcc.css?v=20261107-consejo-vcc">
+<link rel="stylesheet" href="/configuracion/css/destinos/suecia/estocolmo/cuando-ir-vcc.css?v=20261107-icons-compact-vcc">
 <style id="ci-mobile-hero-definitive">
 /* Mobile: same compact overlapping photographic hero as Itinerarios.
    The personal travel-month chip stays on desktop only. */
@@ -132,12 +132,12 @@ html body.ci-page .ci-visit-mobile-note{display:none}
   // Para reutilizar esta plantilla solo se editan estos objetivos y el array "months".
   // Los meses se indexan de 0 (enero) a 11 (diciembre).
   const objectives=[
-    {id:'clima',icon:'/configuracion/imagenes/iconos/iconos-mejor-clima.svg',label:'Mejor clima',months:[5,6,7],title:'JUNIO – AGOSTO',description:'Días largos, temperaturas agradables y mucha vida en la ciudad.',reasons:['Hasta unas 18 horas de luz','Paseos y actividades al aire libre','Más ambiente, pero también más visitantes']},
-    {id:'calma',icon:'/configuracion/imagenes/iconos/iconos-menos-turistas.svg',label:'Menos turistas',months:[2,3,9,10],title:'MARZO – ABRIL · OCTUBRE – NOVIEMBRE',description:'Una experiencia más tranquila, aceptando un tiempo más frío y variable.',reasons:['Menos aglomeraciones habituales','Más calma en calles y museos','Días más cortos que en verano']},
-    {id:'ahorro',icon:'/configuracion/imagenes/iconos/iconos-ahorrar.svg',label:'Ahorrar',months:[0,1,10],title:'ENERO – FEBRERO · NOVIEMBRE',description:'Meses que suelen ofrecer oportunidades para reducir gastos en alojamiento y transporte.',reasons:['Demanda generalmente menor','Compara tarifas antes de reservar','Más frío y menos horas de luz']},
-    {id:'navidad',icon:'/configuracion/imagenes/iconos/iconos-mercados-navidad.svg',label:'Mercados de Navidad',months:[11],title:'DICIEMBRE',description:'La mejor opción si tu objetivo es disfrutar del ambiente y los mercados navideños.',reasons:['Mercadillos y decoración navideña','Atardeceres tempranos y luces','Consulta las fechas concretas de apertura']},
-    {id:'nieve',icon:'/configuracion/imagenes/iconos/iconos-nieve-paisajes.svg',label:'Nieve y paisajes',months:[0,1],title:'ENERO – FEBRERO',description:'Los meses más fríos son los más adecuados para buscar paisajes de invierno.',reasons:['Más posibilidades de frío y nieve','Ambiente nórdico invernal','La nieve nunca está garantizada']},
-    {id:'primavera',icon:'/configuracion/imagenes/iconos/iconos-primavera.svg',label:'Primavera con encanto',months:[4],title:'MAYO',description:'Una gran alternativa si quieres parques florecidos, luz y temperaturas suaves.',reasons:['Naturaleza y jardines en primavera','Días cada vez más largos','Menos afluencia que en pleno verano']}
+    {id:'clima',icon:'/configuracion/imagenes/iconos/tabler/mejor-clima.svg',label:'Mejor clima',months:[5,6,7],title:'JUNIO – AGOSTO',description:'Días largos, temperaturas agradables y mucha vida en la ciudad.',reasons:['Hasta unas 18 horas de luz','Paseos y actividades al aire libre','Más ambiente, pero también más visitantes']},
+    {id:'calma',icon:'/configuracion/imagenes/iconos/tabler/menos-turistas.svg',label:'Menos turistas',months:[2,3,9,10],title:'MARZO – ABRIL · OCTUBRE – NOVIEMBRE',description:'Una experiencia más tranquila, aceptando un tiempo más frío y variable.',reasons:['Menos aglomeraciones habituales','Más calma en calles y museos','Días más cortos que en verano']},
+    {id:'ahorro',icon:'/configuracion/imagenes/iconos/tabler/ahorrar.svg',label:'Ahorrar',months:[0,1,10],title:'ENERO – FEBRERO · NOVIEMBRE',description:'Meses que suelen ofrecer oportunidades para reducir gastos en alojamiento y transporte.',reasons:['Demanda generalmente menor','Compara tarifas antes de reservar','Más frío y menos horas de luz']},
+    {id:'navidad',icon:'/configuracion/imagenes/iconos/tabler/mercados-navidad.svg',label:'Mercados de Navidad',months:[11],title:'DICIEMBRE',description:'La mejor opción si tu objetivo es disfrutar del ambiente y los mercados navideños.',reasons:['Mercadillos y decoración navideña','Atardeceres tempranos y luces','Consulta las fechas concretas de apertura']},
+    {id:'nieve',icon:'/configuracion/imagenes/iconos/tabler/nieve-paisajes.svg',label:'Nieve y paisajes',months:[0,1],title:'ENERO – FEBRERO',description:'Los meses más fríos son los más adecuados para buscar paisajes de invierno.',reasons:['Más posibilidades de frío y nieve','Ambiente nórdico invernal','La nieve nunca está garantizada']},
+    {id:'primavera',icon:'/configuracion/imagenes/iconos/tabler/primavera.svg',label:'Primavera con encanto',months:[4],title:'MAYO',description:'Una gran alternativa si quieres parques florecidos, luz y temperaturas suaves.',reasons:['Naturaleza y jardines en primavera','Días cada vez más largos','Menos afluencia que en pleno verano']}
   ];
   const weatherIcons=['nieve','nieve','intervalos','intervalos','sol','sol','sol','sol','intervalos','nubes','nubes','nieve'].map(n=>'/configuracion/imagenes/iconos/iconos-tiempo-'+n+'-color.svg');
   const cost=m=>m.price<=1.25?'Bajo':m.price<=1.7?'Medio':'Alto';

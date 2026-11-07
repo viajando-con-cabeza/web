@@ -488,13 +488,13 @@ html body.ci-page .ci-summary-brief p {
 html body.ci-page .ci-summary-brief p strong {font-weight:700;color:#3f332b}
 html body.ci-page .ci-recommendation {
   display:grid!important;
-  width:min(1120px,100%)!important;
-  grid-template-columns:135px minmax(0,1.05fr) minmax(260px,.95fr)!important;
+  width:min(990px,100%)!important;
+  grid-template-columns:105px minmax(0,1.04fr) minmax(0,1fr)!important;
   align-items:center!important;
-  gap:22px!important;
+  gap:15px!important;
   margin:0 auto 34px!important;
-  padding:19px 24px!important;
-  min-height:130px!important;
+  padding:12px 17px!important;
+  min-height:103px!important;
   background:#fff!important;
   border:1.5px solid var(--ci-orange)!important;
   border-radius:17px!important;
@@ -505,14 +505,14 @@ html body.ci-page .ci-recommendation-brand {
   flex-direction:column;
   align-items:center;
   justify-content:center;
-  gap:7px;
+  gap:4px;
   align-self:stretch;
   text-align:center;
 }
 html body.ci-page .ci-recommendation-brand img {
   display:block;
-  width:53px;
-  height:53px;
+  width:44px;
+  height:44px;
   max-width:none;
   object-fit:contain;
 }
@@ -524,8 +524,8 @@ html body.ci-page .ci-recommendation-brand strong {
 }
 html body.ci-page .ci-recommendation-copy {min-width:0}
 html body.ci-page .ci-recommendation h3 {
-  margin:0 0 6px!important;
-  font:500 clamp(22px,2.25vw,30px)/1.18 'Oswald',sans-serif!important;
+  margin:0 0 4px!important;
+  font:500 clamp(21px,2.1vw,27px)/1.18 'Oswald',sans-serif!important;
   overflow-wrap:break-word;
 }
 html body.ci-page .ci-recommendation p {
@@ -542,8 +542,8 @@ html body.ci-page .ci-recommendation ul {
   list-style:none;
 }
 html body.ci-page .ci-recommendation li {
-  font:400 11.5px/1.55 'DM Sans',sans-serif!important;
-  margin:5px 0!important;
+  font:400 11px/1.5 'DM Sans',sans-serif!important;
+  margin:3px 0!important;
   padding-left:18px;
   color:#544a42;
 }
@@ -551,8 +551,8 @@ html body.ci-page .ci-recommendation li:before {left:0;color:var(--ci-orange)}
 @media (min-width:601px) and (max-width:900px) {
   html body.ci-page .ci-recommendation {
     grid-template-columns:110px minmax(0,1fr)!important;
-    gap:13px 20px!important;
-    padding:17px 20px!important;
+    gap:12px 17px!important;
+    padding:14px 17px!important;
   }
   html body.ci-page .ci-recommendation ul {
     grid-column:2!important;
@@ -596,4 +596,35 @@ html body.ci-page .ci-recommendation li:before {left:0;color:var(--ci-orange)}
     padding:9px 0 0!important;
   }
   html body.ci-page .ci-recommendation li {font-size:11px!important;margin:4px 0!important}
+}
+
+/* 2026-11-07 — Tabler Icons, conjunto uniforme y guardado en GitHub. */
+html body.ci-page .ci-objective-icon{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  width:36px;
+  height:34px;
+  flex:0 0 34px;
+  border-radius:11px;
+  background:#f8f2ed;
+}
+html body.ci-page .ci-objective-icon img{
+  display:block;
+  width:28px;
+  height:28px;
+  max-width:none;
+  object-fit:contain;
+}
+html body.ci-page .ci-objective[aria-pressed="true"] .ci-objective-icon{
+  background:#fff7f1;
+}
+@media (max-width:900px){
+  html body.ci-page .ci-objective-icon{width:34px;height:33px;flex-basis:33px}
+  html body.ci-page .ci-objective-icon img{width:27px;height:27px}
+}
+@media (max-width:600px){
+  html body.ci-page .ci-objective-icon{width:32px;height:31px;flex-basis:31px;border-radius:9px}
+  html body.ci-page .ci-objective-icon img{width:25px;height:25px}
+  html body.ci-page .ci-recommendation{padding:13px!important;gap:9px!important}
 }
