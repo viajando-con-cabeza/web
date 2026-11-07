@@ -8,10 +8,149 @@
     const breadcrumbStyle=document.createElement('link');
     breadcrumbStyle.rel='stylesheet';
     breadcrumbStyle.dataset.vccSharedBreadcrumb='true';
-    breadcrumbStyle.href=url('configuracion/css/componentes/breadcrumb-vcc-global.css?v=20261107');
+    breadcrumbStyle.href=url('configuracion/css/componentes/breadcrumb-vcc-global.css?v=20261107-unificado-v2');
     document.head.appendChild(breadcrumbStyle);
   }
   const currentPath = window.location.pathname.replace(/\/index\.html$/, '/');
+
+  /* VCC · Breadcrumb universal de destinos. Un único DOM + un único CSS.
+     Las plantillas antiguas conservan su miga invisible como espacio de
+     reserva para evitar desplazar el hero; no existen dos rutas accesibles. */
+  (function initGlobalBreadcrumb() {
+    if (!/^\\/destinos\\//i.test(currentPath)) return;
+    const labels = {
+      suecia:'Suecia',italia:'Italia',francia:'Francia',espana:'España',
+      alemania:'Alemania',austria:'Austria',andorra:'Andorra',suiza:'Suiza',
+      estonia:'Estonia',letonia:'Letonia',lituania:'Lituania',
+      indonesia:'Indonesia',malasia:'Malasia',singapur:'Singapur',
+      mexico:'México',turquia:'Turquía',hungria:'Hungría',
+      'reino-unido':'Reino Unido',eeuu:'Estados Unidos',
+      'emiratos-arabes-unidos':'Emiratos Árabes Unidos',
+      andalucia:'Andalucía',canarias:'Islas Canarias',navarra:'Navarra',
+      'pais-vasco':'País Vasco','pais-vasco-frances':'País Vasco francés',
+      estocolmo:'Estocolmo',roma:'Roma',paris:'París',madrid:'Madrid',
+      almeria:'Almería',cadiz:'Cádiz',cordoba:'Córdoba',sevilla:'Sevilla',
+      fuerteventura:'Fuerteventura','st-wolfgang':'St. Wolfgang',
+      berchtesgaden:'Berchtesgaden',konigssee:'Königssee',
+      hallstatt:'Hallstatt',innsbruck:'Innsbruck',salzburg:'Salzburgo',
+      zurich:'Zúrich','que-ver':'Qué ver',imprescindibles:'Qué ver',
+      itinerario:'Itinerario',presupuesto:'Presupuesto',
+      'cuando-ir':'Cuándo ir','como-llegar':'Cómo llegar',
+      'como-moverse':'Cómo moverse','que-llevar':'Qué llevar',
+      'donde-dormir':'Dónde alojarse','donde-comer':'Dónde comer',
+      consejos:'Consejos','barrios-miradores':'Barrios y miradores',
+      'islas-ferris':'Islas y ferris','museos':'Museos',
+      'parques-naturaleza':'Parques y naturaleza',
+      'arlanda-centro':'Arlanda (ARN)','bromma-centro':'Bromma (BMA)',
+      'skavsta-centro':'Skavsta (NYO)',
+      'stockholm-central-centro':'Stockholm Central',
+      'trenes-a-estocolmo':'Trenes a Estocolmo',
+      'terminales-ferry-centro':'Terminales de ferry',
+      'ferry-baltico-estocolmo':'Ferry desde el Báltico',
+      'cityterminalen-centro':'Cityterminalen',
+      'autobuses-a-estocolmo':'Autobuses a Estocolmo',
+      'aparcar-barato-estocolmo':'Dónde aparcar',
+      'parking-disuasorio-estocolmo':'Parkings disuasorios',
+      'alquilar-coche-estocolmo':'Alquilar coche',
+      avion:'Avión',tren:'Tren',ferry:'Ferry',autobus:'Autobús',coche:'Coche',
+      'ruta-andalucia-madrid':'Andalucía y Madrid',
+      'dia-1':'Día 1','dia-2':'Día 2','dia-3':'Día 3'
+    };
+    const heroSelector = [
+      '.st-hero','.imp-hero','.vcc-hero','.budget-hero','.ci-hero',
+      '.cl-landing-hero','.cl-hero','.mv-hero','.dv-hero','.ql-hero',
+      '.country-hero','.content-hero','.rich-hero','.cm-hero',
+      '.page-hero','[data-vcc-hero]'
+    ].join(',');
+    const originalSelector = [
+      '.st-crumb','.imp-crumb','.vcc-crumb','.budget-crumb','.ci-crumb',
+      '.cl-crumb','.mv-crumb','.dv-breadcrumb','.ql-crumb',
+      '.country-breadcrumb','.rich-crumb','.cm-crumb','.crumb',
+      'nav[aria-label="Ruta de navegación"]'
+    ].join(',');
+    const displayName = (slug) => labels[slug] ||
+      slug.replace(/-/g,' ').replace(/^./,c=>c.toLocaleUpperCase('es'));
+    function render() {
+      if (document.getElementById('vcc-global-breadcrumb')) return true;
+      const path=decodeURIComponent(location.pathname).replace(/\\/index\\.html$/i,'/');
+      const parts=path.split('/').filter(Boolean);
+      if(parts[0]!=='destinos'||parts.length<2)return false;
+      let original=null,hero=null;
+      for(const candidate of document.querySelectorAll(originalSelector)){
+        if(candidate.id==='vcc-global-breadcrumb')continue;
+        const root=candidate.closest(heroSelector);
+        if(root){original=candidate;hero=root;break}
+      }
+      if(!hero) {
+        // Países (country-page.js) crean su hero después de la cabecera.
+        hero=document.querySelector(heroSelector);
+      }
+      if(!hero) return false;
+      // Los enlaces se deducen de la URL, no de las distintas plantillas.
+      const route=parts.slice(1);
+      if(route[route.length-1]==='index.html')route.pop();
+      if(!route.length)return false;
+      const finalStrong=original?.querySelector('strong')?.textContent?.trim()||'';
+      const nav=document.createElement('nav');
+      nav.id='vcc-global-breadcrumb';
+      nav.className='vcc-breadcrumb-unified';
+      nav.setAttribute('aria-label','Ruta de navegación');
+      const crumbs=[{label:'Inicio',href:'/'},{label:'Destinos',href:'/destinos/'}];
+      route.forEach((segment,i)=>{
+        const isHtml=/\\.html$/i.test(segment);
+        const slug=segment.replace(/\\.html$/i,'');
+        const terminal=i===route.length-1;
+        let href='/destinos/'+route.slice(0,i+1).join('/');
+        if(!isHtml){
+          // La portada "Cómo llegar" es un .html; no existe /como-llegar/.
+          if(!terminal&&slug==='como-llegar'&&route[i-1]==='estocolmo'){
+            href+='.html';
+          }else{
+            href+='/';
+          }
+        }
+        crumbs.push({label:terminal&&finalStrong||displayName(slug),href});
+      });
+      crumbs.forEach((crumb,i)=>{
+        if(i){
+          const sep=document.createElement('span');
+          sep.className='vcc-bc-sep';
+          sep.setAttribute('aria-hidden','true');
+          sep.textContent='›';
+          nav.appendChild(sep);
+        }
+        const isLast=i===crumbs.length-1;
+        const el=document.createElement(isLast?'strong':'a');
+        if(!isLast)el.setAttribute('href',crumb.href);
+        el.textContent=crumb.label;
+        if(isLast)el.setAttribute('aria-current','page');
+        nav.appendChild(el);
+      });
+      if(original){
+        original.classList.add('vcc-original-breadcrumb');
+        original.setAttribute('aria-hidden','true');
+        original.setAttribute('inert','');
+        original.style.setProperty('visibility','hidden','important');
+      }
+      hero.classList.add('vcc-has-global-breadcrumb');
+      hero.insertBefore(nav,hero.firstChild);
+      return true;
+    }
+    function init(){
+      if(render())return;
+      // Algunos países generan el hero de manera síncrona o diferida.
+      const container=document.getElementById('country-content');
+      if(!container)return;
+      const observer=new MutationObserver(()=>{
+        if(render())observer.disconnect();
+      });
+      observer.observe(container,{childList:true,subtree:true});
+    }
+    if(document.readyState==='loading'){
+      document.addEventListener('DOMContentLoaded',init,{once:true});
+    }else{init();}
+  })();
+
   function getSection() {
     if (/\/destinos\//.test(currentPath)) return 'destinos';
     if (/\/itinerarios\//.test(currentPath)) return 'itinerarios';
