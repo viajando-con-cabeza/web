@@ -472,7 +472,7 @@ h1{font:500 30px/1.14 var(--display);letter-spacing:.015em;margin:0}
 label{display:block;font-size:11px;font-weight:800;letter-spacing:.025em;color:#343a3d;margin:12px 0 6px}
 label:has(input[type=checkbox]){font-weight:500;font-size:12px;letter-spacing:0;display:flex;align-items:flex-start;gap:8px;line-height:1.45;color:#4b5054}
 input[type=checkbox]{accent-color:var(--coral-dark);width:15px;height:15px;flex:none;margin:1px 0 0}
-select,input[type=password],textarea,input[type=number]{display:block;width:100%;min-height:42px;padding:10px 12px;border:1px solid #dddfe0;border-radius:9px;background:#fff;font:500 13px/1.4 var(--body);color:var(--ink);outline:none;transition:border-color .15s,box-shadow .15s}
+select,input[type=password],input[type=text],textarea,input[type=number]{display:block;width:100%;min-height:42px;padding:10px 12px;border:1px solid #dddfe0;border-radius:9px;background:#fff;font:500 13px/1.4 var(--body);color:var(--ink);outline:none;transition:border-color .15s,box-shadow .15s}
 textarea{resize:vertical;min-height:64px}
 select:focus-visible,input:focus-visible,textarea:focus-visible{border-color:var(--coral);box-shadow:0 0 0 3px rgba(239,113,104,.13)}
 select:disabled,input:disabled{background:#f8f8f7;color:#8d9498}
@@ -497,8 +497,11 @@ td.path{overflow-wrap:anywhere;max-width:280px}
 .tag{display:inline-flex;background:#e9f1ed;color:#32654b;border-radius:6px;padding:3px 7px;font-size:10.5px;font-weight:700;margin-top:3px}
 .row{display:flex;align-items:center;gap:4px;flex-wrap:wrap}
 #selectionSummary{margin-left:8px}
-#folderSummary,#scanSummary,#convertSummary,#aiSummary,#deleteProgress,#aiDeleteStatus{font-size:12px;line-height:1.45}
+#folderSummary,#scanSummary,#convertSummary,#aiSummary,#renameSummary,#deleteProgress,#aiDeleteStatus{font-size:12px;line-height:1.45}
 #folderSummary:not(:empty),#scanSummary:not(:empty),#convertSummary:not(:empty),#aiSummary:not(:empty){background:#f9f8f6;padding:9px 11px;border-radius:8px;margin:10px 0 0}
+.renamePanel{margin-top:18px;padding-top:13px;border-top:1px solid var(--line)}
+.renamePanel h3{font:500 17px/1.35 var(--display);margin:0 0 10px}
+.renamePanel .warning{margin-top:6px!important}
 .aiGroupPills{display:flex;gap:7px;flex-wrap:wrap;margin:11px 0}
 .aiGroupPills:empty{display:none}
 .aiGroupPills .placeGroup{background:#f6f5f3;border:1px solid var(--line);border-radius:8px;padding:6px 10px;font:700 11px/1.3 var(--body);color:#41474a;margin:0;min-height:28px}
@@ -532,7 +535,17 @@ td.path{overflow-wrap:anywhere;max-width:280px}
 <section class="card"><h2>2. Carpeta</h2>
 <label for="folder">Ruta de R2</label><select id="folder" disabled onchange="loadFolder()"><option value="">Introduce la clave</option></select>
 <p class="muted small">Incluye subcarpetas. La comparación de duplicados se limita a cada carpeta.</p>
-<p id="folderSummary" class="muted"></p></section>
+<p id="folderSummary" class="muted"></p>
+<div class="renamePanel">
+<h3>Renombrar carpeta de R2</h3>
+<label for="renameName">Nuevo nombre</label>
+<input type="text" id="renameName" maxlength="72" placeholder="estocolmo-archipelago" oninput="resetRenamePreview()" autocomplete="off">
+<div class="row"><button class="secondary" id="renamePreviewBtn" disabled onclick="previewFolderRename()">Comprobar cambio</button>
+<button id="renameBtn" disabled onclick="executeFolderRename()">Renombrar carpeta</button>
+<button class="secondary" id="renameStopBtn" disabled onclick="stopProcess('rename')">Detener</button></div>
+<p id="renameSummary" class="muted small" role="status" aria-live="polite">Selecciona una carpeta para cambiar su nombre.</p>
+<p class="warning small">Se moverán todos los objetos, incluidas las subcarpetas. Las URL antiguas pueden dejar de funcionar.</p>
+</div></section>
 <section class="card card-wide"><h2>3. Duplicados</h2>
 <p>±6 fotos · misma escena y encuadre · mejor calidad.</p>
 <label for="duplicateSensitivity">Sensibilidad</label>
@@ -581,8 +594,8 @@ const previewUrls=new Map(),q=id=>document.getElementById(id);
 function log(s){q('status').textContent=s+'\n'+q('status').textContent.slice(0,8500)}
 async function api(payload){
  const token=q('token').value.trim();if(!token)throw Error('Introduce ADMIN_TOKEN.');
- const retryableModes=new Set(['list','folders','convert-delete','ai-review','ai-move-place']);
- const maxAttempts=payload.mode==='ai-review'?1:(payload.mode==='convert-delete'||payload.mode==='ai-move-place'?3:(retryableModes.has(payload.mode)?4:1));
+ const retryableModes=new Set(['list','folders','convert-delete','ai-review','ai-move-place','folder-rename-list','folder-rename-one']);
+ const maxAttempts=payload.mode==='ai-review'?1:(payload.mode==='convert-delete'||payload.mode==='ai-move-place'||payload.mode==='folder-rename-one'?3:(retryableModes.has(payload.mode)?4:1));
  for(let attempt=1;attempt<=maxAttempts;attempt++){
   let response=null,body='',data=null,error=null,retry=false;
   try{
@@ -612,6 +625,10 @@ function updateButtons(){
  const ready=!!currentPrefix&&scanFiles.length>0;
  q('browseBtn').disabled=busy;
  q('folder').disabled=busy||q('folder').options.length<2;
+ q('renameName').disabled=busy||!currentPrefix;
+ q('renamePreviewBtn').disabled=busy||!currentPrefix;
+ q('renameBtn').disabled=busy||!renamePlan||!currentPrefix||renamePlan.source!==currentPrefix;
+ q('renameStopBtn').disabled=!(busy&&activeMode==='rename')||stopped;
  q('scanBtn').disabled=busy||!ready;
  q('scanStopBtn').disabled=!(busy&&activeMode==='scan')||stopped;
  q('duplicateSensitivity').disabled=busy;
@@ -633,8 +650,100 @@ function lock(on,mode=''){
 function stopProcess(mode){
  if(!busy||(activeMode!==mode&&!(mode==='ai'&&activeMode==='ai-move')))return;
  stopped=true;
- log(mode==='ai-move'?'Deteniendo organización después de la foto actual.':mode==='ai'?'Deteniendo análisis después de la foto actual.':mode==='scan'?'Deteniendo detección después de la foto actual.':'Deteniendo conversión después del archivo actual.');
+ log(mode==='rename'?'Deteniendo el cambio de nombre después del archivo actual.':mode==='ai-move'?'Deteniendo organización después de la foto actual.':mode==='ai'?'Deteniendo análisis después de la foto actual.':mode==='scan'?'Deteniendo detección después de la foto actual.':'Deteniendo conversión después del archivo actual.');
  updateButtons();
+}
+// Rename arbitrary R2 folder prefixes including nested folders and non-photo files.
+// A preview + explicit confirmation are required before any object is moved.
+let renamePlan=null;
+function resetRenamePreview(){
+ renamePlan=null;
+ if(q('renameSummary'))q('renameSummary').textContent=currentPrefix?
+  'Nombre modificado. Pulsa Comprobar cambio antes de renombrar.':'Selecciona una carpeta.';
+ updateButtons();
+}
+function renameValidName(){
+ const name=q('renameName').value.trim();
+ if(!/^[a-z0-9]+(?:[-_][a-z0-9]+)*$/.test(name)||name.length>72)
+  throw Error('Usa minúsculas, números, guiones (-) o guiones bajos (_), sin espacios.');
+ if(name===currentPrefix.split('/').pop())throw Error('Escribe un nombre diferente del actual.');
+ return name;
+}
+async function previewFolderRename(){
+ if(busy||!currentPrefix)return;
+ let name;
+ try{name=renameValidName()}catch(e){q('renameSummary').textContent=e.message;return}
+ const source=currentPrefix;renamePlan=null;stopped=false;lock(true,'rename-preview');
+ const rows=[];let dest='',cursor=null,pages=0,valid=false;
+ try{
+  do{
+   const page=await api({mode:'folder-rename-list',prefix:source,newName:name,cursor});
+   if(!dest)dest=page.destination;
+   if(dest!==page.destination)throw Error('El destino ha cambiado durante la lectura.');
+   rows.push(...page.files);
+   if(rows.length>15000||++pages>100)throw Error('Carpeta demasiado grande: reduce el lote antes de renombrar.');
+   cursor=page.nextCursor;
+   q('renameSummary').textContent='Comprobando '+rows.length+' archivos, incluidas subcarpetas…';
+  }while(cursor);
+  if(!rows.length)throw Error('No hay objetos dentro de esta carpeta.');
+  const unique=new Set(rows.map(r=>r.key));
+  if(unique.size!==rows.length)throw Error('La lista incluye duplicados: vuelve a comprobar.');
+  renamePlan={source,name,dest,rows};
+  valid=true;
+  q('renameSummary').textContent='De '+source+'/ a '+dest+' · '+rows.length+
+   ' objetos, incluidas subcarpetas. Revisa el nuevo nombre antes de confirmar.';
+ }catch(e){
+  renamePlan=null;
+  q('renameSummary').textContent='No se puede preparar el cambio: '+e.message;
+  log('Renombrar carpeta: '+e.message);
+ }finally{lock(false)}
+}
+function downloadFolderRenameCSV(plan){
+ const columns=['ruta_original','ruta_nueva','bytes'];
+ const rows=plan.rows.map(r=>[r.key,plan.dest+r.key.slice(plan.source.length+1),r.size]);
+ const cell=v=>'"'+String(v??'').replace(/"/g,'""')+'"';
+ const csv='\uFEFF'+[columns,...rows].map(x=>x.map(cell).join(';')).join('\r\n');
+ const blob=new Blob([csv],{type:'text/csv;charset=utf-8'});
+ const url=URL.createObjectURL(blob),a=document.createElement('a');
+ a.href=url;a.download='cambio-carpeta-'+plan.name+'.csv';
+ document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1500);
+}
+async function executeFolderRename(){
+ if(busy||!renamePlan||renamePlan.source!==currentPrefix)return;
+ const plan=renamePlan;
+ if(renameValidName()!==plan.name)return;
+ if(!confirm('Se cambiarán '+plan.rows.length+' objetos de '+plan.source+
+  '/ a '+plan.dest+'. Incluye todos los archivos de las subcarpetas y puede romper enlaces existentes en la web. ¿Continuar?'))return;
+ if(prompt('Escribe RENOMBRAR para confirmar el cambio en R2:')!=='RENOMBRAR')return;
+ downloadFolderRenameCSV(plan);
+ stopped=false;lock(true,'rename');
+ let moved=0,failed=0,consecutive=0;const errors=[];
+ try{
+  for(let i=0;i<plan.rows.length&&!stopped;i++){
+   const entry=plan.rows[i];
+   q('renameSummary').textContent='Renombrando '+(i+1)+'/'+plan.rows.length+
+     ' · completados '+moved+' · errores '+failed;
+   try{
+    const data=await api({mode:'folder-rename-one',prefix:plan.source,
+     newName:plan.name,key:entry.key,etag:entry.etag,confirm:true});
+    if(!data.moved||data.source!==entry.key||data.target!==plan.dest+entry.key.slice(plan.source.length+1))
+     throw Error('Movimiento sin confirmación.');
+    moved++;consecutive=0;
+   }catch(e){
+    failed++;consecutive++;
+    errors.push({key:entry.key,error:e.message});
+    log('Cambio de carpeta pendiente: '+entry.key+' · '+e.message);
+    if(consecutive>=3){log('Renombrado pausado por errores repetidos. Fotos originales protegidas.');break}
+   }
+   if(i%6===5&&!stopped)await new Promise(resolve=>setTimeout(resolve,600));
+  }
+  q('renameSummary').textContent=(stopped?'Proceso detenido':failed?'Cambio parcial':'Proceso finalizado')+
+   ': '+moved+' objetos movidos · '+failed+' errores. '+
+   (moved===plan.rows.length?'Selecciona la nueva carpeta tras recargar las rutas.':'Puedes volver a comprobar esta carpeta y reanudar.');
+  log(q('renameSummary').textContent);
+  if(errors.length)log('Pendientes: '+errors.map(x=>x.key+' ('+x.error+')').join(' | '));
+  renamePlan=null;
+ }finally{lock(false)}
 }
 async function browse(){if(busy)return;stopped=false;lock(true);
  try{
@@ -661,7 +770,7 @@ async function browse(){if(busy)return;stopped=false;lock(true);
 }
 async function loadFolder(){if(busy||!q('folder').value)return;stopped=false;lock(true);let ok=false;
  try{
-  currentPrefix=q('folder').value;files=[];scanFiles=[];scans=[];groups=[];removed.clear();scanReady=false;
+  currentPrefix=q('folder').value;resetRenamePreview();q('renameName').value=currentPrefix.split('/').pop();q('renameSummary').textContent='Escribe un nuevo nombre y comprueba el cambio.';files=[];scanFiles=[];scans=[];groups=[];removed.clear();scanReady=false;
    aiRows=[];aiEdited.clear();aiAnalysisComplete=false;aiRunFolder='';aiRunContext='';aiVisibleLimit=60;q('aiFilter').value='';q('confirmAiOrganize').checked=false;q('aiMoveStatus').textContent='';q('aiResults').innerHTML='';q('aiGroups').innerHTML='';q('aiSummary').textContent='Carpeta lista para identificar lugares.';
   q('confirmDup').checked=false;q('duplicates').innerHTML='';q('scanSummary').textContent='';
   for(const url of previewUrls.values())URL.revokeObjectURL(url);previewUrls.clear();
