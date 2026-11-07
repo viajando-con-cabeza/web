@@ -222,6 +222,7 @@ async function aiReviewOne(env,key,prefix,etag,context,force){
   'Nunca inventes nombre de sitio. Si hay duda, kind=generic, confidence=baja y place=No identificable.',
   'Si NO identificas sitio, clasifica lo visible en la categoría española más útil: Calles, Paisajes, Mar, Miradores, Bosques, Montañas, Playas, Parques, Comida, Transporte, Interiores, Arquitectura u Otros.',
   'Si ni siquiera puedes reconocer la categoría, usa category=Otros. Un bosque indistinto = Bosques; mar abierto = Mar; calle comercial = Calles.',
+  'Si realmente ves una fachada inconfundible (como las torres únicas de la Sagrada Familia), puedes usar kind=specific con el nombre exacto y una prueba visual concreta. Sin pruebas, usa generic.',
   'Para kind=specific exige confidence=alta, place_confidence >= 85 y visual_evidence explicando qué detalle visible prueba esa ubicación.',
   'NO uses el nombre de la ciudad del contexto como prueba; no te limites a adivinar sitios famosos.',
   'Un solo JSON con exactamente las claves kind (specific/generic), place, place_confidence (0-100), confidence (alta/media/baja), category, visual_evidence, subject, alt.',
@@ -268,10 +269,26 @@ function aiCategory(value){
   interior:'Interiores',habitacion:'Interiores',edificio:'Arquitectura',monumento:'Arquitectura',
   desconocido:'Otros',no_identificable:'Otros',otro:'Otros'};
  const key=normalized.replace(/[^a-z0-9]+/g,'_');
- return synonyms[key]||'Otros';
+ if(synonyms[key])return synonyms[key];
+ if(/^(paisaje|naturaleza|vista_verde|vegetacion)/.test(key))return 'Paisajes';
+ if(/^(calle|barrio|zona_urbana|centro_urbano)/.test(key))return 'Calles';
+ if(/^(mar_|oceano|costa_|mar_abierto)/.test(key))return 'Mar';
+ if(/^(bosque|arboleda|selva_)/.test(key))return 'Bosques';
+ if(/^(mirador|vista_panoramica)/.test(key))return 'Miradores';
+ return 'Otros';
 }
 function aiParseClassification(raw){
- try{return parseAiJSON(raw)}catch{return null}
+ try{
+  let value=raw;
+  for(let n=0;n<3;n++){
+   if(Array.isArray(value)){value=value.map(x=>typeof x==='string'?x:(x?.text||x?.content||'')).join(' ');continue}
+   if(value&&typeof value==='object'&&!Array.isArray(value)){
+    if('kind' in value||'category' in value||'place' in value)break;
+    value=value.response??value.content??value.choices?.[0]?.message?.content??value;
+   }else break;
+  }
+  return parseAiJSON(value);
+ }catch{return null}
 }
 function aiClassifyPayload(payload){
  if(!payload||typeof payload!=='object'||Array.isArray(payload))
