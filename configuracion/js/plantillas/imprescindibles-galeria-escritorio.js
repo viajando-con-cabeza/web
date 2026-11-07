@@ -309,12 +309,14 @@
     // més enllà de les seves vores i deixar espais buits.
     const x=Math.max(0,panel.offsetWidth+36-visibleW);
     const y=Math.max(0,panel.offsetHeight+36-visibleH);
-    // L'ancoratge fidel al cursor pot deixar-nos exactament a l'origen
-    // (0,0). En aquest punt, un rang [0,max] bloqueja amunt/esquerra.
-    // Afegim un petit recorregut elàstic NEGATIU que NO modifica la
-    // posició inicial del zoom. Només s'utilitza si el ratolí es mou.
-    const leftReach=Math.min(x*.25,Math.min(120,visibleW*.13));
-    const topReach=Math.min(y*.25,Math.min(100,visibleH*.13));
+    // Recorregut ampli en els QUATRE sentits. Abans el límit a
+    // esquerra/dalt era només 120px/100px, mentre que a la dreta/baix
+    // es podien recórrer centenars de píxels. Equiparem el màxim
+    // desplaçament i deixem una franja mínima visible del panell.
+    // NO desplacem el zoom inicial: aquests extrems només s'assoleixen
+    // en moure el cursor cap a les vores del visor.
+    const leftReach=Math.min(x,Math.max(0,visibleW-36));
+    const topReach=Math.min(y,Math.max(0,visibleH-36));
     return {x,y,minX:-leftReach,minY:-topReach,width:visibleW,height:visibleH};
   };
   // El zoom continua ancorat al punt exacte. Moviment una mica més viu.
