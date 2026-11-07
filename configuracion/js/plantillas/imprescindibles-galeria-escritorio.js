@@ -288,30 +288,9 @@
   };
   const updateMosaicZoomMode=()=>{
     if(layer.hidden || !viewportBaseline)return;
-    const ratio=zoomRatio();
-    const active=ratio>1.025;
-    layer.classList.toggle('vcc-mosaic-native-zoom',active);
-    const root=document.documentElement;
-    if(!active){
-      root.style.removeProperty('--vcc-gallery-viewport-width');
-      root.style.removeProperty('--vcc-gallery-viewport-height');
-      return;
-    }
-    // Page zoom is different from a CSS transform. Keep an independent
-    // scrollable viewport even when the browser changes only DPR/visualViewport.
-    const vv=window.visualViewport;
-    const width=Math.max(1,Math.min(
-      window.innerWidth,
-      vv?.width||window.innerWidth,
-      viewportBaseline.w/ratio
-    ));
-    const height=Math.max(1,Math.min(
-      window.innerHeight,
-      vv?.height||window.innerHeight,
-      viewportBaseline.h/ratio
-    ));
-    root.style.setProperty('--vcc-gallery-viewport-width',width.toFixed(2)+'px');
-    root.style.setProperty('--vcc-gallery-viewport-height',height.toFixed(2)+'px');
+    // Només canviem el scroll interior del mosaic. El marc exterior
+    // sempre és 100vw × 100dvh: no es redimensiona artificialment.
+    layer.classList.toggle('vcc-mosaic-native-zoom',zoomRatio()>1.025);
   };
   const queueMosaicZoomSync=()=>{
     if(zoomSyncPending)return;
@@ -390,8 +369,6 @@
     root.classList.remove('vcc-gallery-modal-locked');
     root.style.removeProperty('--vcc-gallery-panel-width');
     root.style.removeProperty('--vcc-gallery-panel-height');
-    root.style.removeProperty('--vcc-gallery-viewport-width');
-    root.style.removeProperty('--vcc-gallery-viewport-height');
     viewportBaseline=null;
     zoomWheelFallback=1;
   };
