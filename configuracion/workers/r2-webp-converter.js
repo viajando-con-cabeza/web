@@ -56,6 +56,72 @@ async function removeDuplicateOne(env,prefix,key,keepKey,etag,keepEtag,confidenc
   return {removed:key,kept:keepKey,confidence,noBackup:true};
 }
 
+
+// Conversion en dues fases: (1) Images -> resposta en streaming al navegador,
+// (2) AVIF rebut -> R2 i verificació, sense mantenir el JPG i l'AVIF al Worker.
+// No elimina mai el JPG si no s'ha verificat el nou AVIF.
+const verifiedAvifFor=(jpg,obj)=>!!(jpg&&obj&&obj.size>0&&
+ obj.httpMetadata?.contentType==='image/avif'&&
+ obj.customMetadata?.sourceEtag===jpg.etag&&
+ obj.customMetadata?.colorVersion===COLOR_VERSION);
+async function prepareAvifStream(env,key,prefix,etag){
+ assertPhotoKey(key,prefix);
+ if(typeof etag!=='string'||!etag)throw Error('ETag JPG obligatorio.');
+ const target=avifName(key);
+ const [jpg,avif]=await Promise.all([env.BUCKET.head(key),env.BUCKET.head(target)]);
+ if(!jpg)return json({skipped:key,reason:'JPG ausente'});
+ if(jpg.etag!==etag)throw Error('El JPG ha cambiado. Recarga la carpeta.');
+ if(jpg.size>MAX_IMAGE_SIZE)throw Error('JPG superior a 20 MB.');
+ if(verifiedAvifFor(jpg,avif))return json({reusedVerifiedAvif:true,key,avif:target});
+ if(avif)throw Error('Ya existe un AVIF distinto de este JPG. Revisa el destino antes de reemplazarlo.');
+ const original=await env.BUCKET.get(key);
+ if(!original?.body||original.etag!==etag)throw Error('JPG modificado. Se conserva el original.');
+ const result=(await env.IMAGES.input(original.body)
+   .transform({brightness:COLOR.brightness,contrast:COLOR.contrast,saturation:COLOR.saturation})
+   .output({format:'image/avif',quality:AVIF_QUALITY})).response();
+ if(!result.ok||!result.body)throw Error('Cloudflare Images: HTTP '+result.status);
+ // Aquest response s'envia directament com a stream; evitem arrayBuffer() aquí.
+ return new Response(result.body,{status:200,headers:{
+   'Content-Type':'image/avif','Cache-Control':'no-store','X-VCC-Source-Etag':etag,
+   'X-Content-Type-Options':'nosniff'
+ }});
+}
+async function finalizeAvif(env,key,prefix,etag,request,upload){
+ assertPhotoKey(key,prefix);
+ if(typeof etag!=='string'||!etag)throw Error('ETag JPG obligatorio.');
+ const target=avifName(key);
+ const [jpg,existing]=await Promise.all([env.BUCKET.head(key),env.BUCKET.head(target)]);
+ if(!jpg)return json({skipped:key,reason:'JPG ausente'});
+ if(jpg.etag!==etag)throw Error('El JPG ha cambiado. No se ha eliminado.');
+ let reused=verifiedAvifFor(jpg,existing),saved=false;
+ if(!reused){
+   if(!upload)throw Error('AVIF no verificado. No se ha eliminado el JPG.');
+   if(existing)throw Error('AVIF distinto ya existente. Se conserva el JPG.');
+   const declared=Number(request.headers.get('Content-Length'));
+   if(Number.isFinite(declared)&&declared>25*1024*1024)throw Error('AVIF excesivamente grande.');
+   if(request.headers.get('Content-Type')?.split(';')[0]?.trim()!=='image/avif')
+     throw Error('Se esperaba un archivo AVIF.');
+   // AVIF sol ser molt menor que el JPG. Aquest buffer existeix solament
+   // a la petició d'escriptura; el Worker de conversió ja ha acabat.
+   const bytes=await request.arrayBuffer();
+   if(!bytes.byteLength||bytes.byteLength>25*1024*1024)throw Error('AVIF vacío o superior a 25 MB.');
+   const header=new Uint8Array(bytes,0,Math.min(bytes.byteLength,48));
+   const ascii=(a,b)=>String.fromCharCode(...header.subarray(a,b));
+   if(header.length<16||ascii(4,8)!=='ftyp'||
+     !['avif','avis'].some(brand=>ascii(8,12)===brand||ascii(16,20)===brand))
+     throw Error('El archivo recibido no es un AVIF válido.');
+   const written=await env.BUCKET.put(target,bytes,{httpMetadata:{contentType:'image/avif'},
+     customMetadata:{sourceEtag:etag,colorVersion:COLOR_VERSION}});
+   if(!written?.size)throw Error('No se ha podido guardar el AVIF en R2.');
+   saved=true;
+ }
+ const [current,verified]=await Promise.all([env.BUCKET.head(key),env.BUCKET.head(target)]);
+ if(!current||current.etag!==etag||!verifiedAvifFor(current,verified))
+   throw Error('No se ha verificado el AVIF. El JPG se conserva.');
+ await env.BUCKET.delete(key);
+ return json({deleted:key,avif:target,converted:saved,reusedVerifiedAvif:reused});
+}
+
 async function convertAndDeleteOne(env,key,prefix){
   assertPhotoKey(key,prefix);
   const target=avifName(key);
@@ -917,100 +983,117 @@ async function removeDuplicates(){
   log('Eliminación finalizada: '+deleted+'/'+total+' borrados, '+failed+' errores'+(stopped?' · proceso detenido':'')+'.');
  }finally{renderDuplicates();lock(false)}
 }
+// El navegador fa de pont per a l'AVIF: zero buffers grans dins del Worker
+// que transforma la foto. Una sola conversió activa i reintents esglaonats.
+function conversionTransient(message){
+ return /HTTP\s*(?:429|500|502|503|504|520|522|524)\b|resource limits|exceeded|1102|network|conexión|connection|fetch failed|timeout|temporalmente|saturad/i.test(String(message));
+}
+async function convertPrepared(f){
+ const token=q('token').value.trim();
+ const headers={'Content-Type':'application/json','Authorization':'Bearer '+token};
+ const prep=await fetch('/api/process',{method:'POST',headers,
+   body:JSON.stringify({mode:'convert-prepare',prefix:currentPrefix,key:f.key,etag:f.etag}),cache:'no-store'});
+ if(!prep.ok){
+  const raw=await prep.text(),parsed=(()=>{try{return JSON.parse(raw)}catch{return null}})();
+  throw Error('HTTP '+prep.status+' · '+(parsed?.error||raw.replace(/<[^>]*>/g,' ').slice(0,170)));
+ }
+ const contentType=prep.headers.get('Content-Type')||'';
+ if(contentType.includes('application/json')){
+  const res=await prep.json();
+  if(res.reusedVerifiedAvif){
+   const complete=await api({mode:'convert-complete',prefix:currentPrefix,key:f.key,etag:f.etag});
+   return complete;
+  }
+  if(res.skipped)return res;
+  throw Error('Respuesta de conversión inesperada.');
+ }
+ if(!contentType.toLowerCase().includes('image/avif'))throw Error('Cloudflare no ha enviado un AVIF.');
+ if(prep.headers.get('X-VCC-Source-Etag')!==f.etag)throw Error('ETag de conversión distinto. No se guarda.');
+ const blob=await prep.blob();
+ if(!blob.size||blob.size>25*1024*1024)throw Error('AVIF vacío o demasiado grande.');
+ const prefixPath='/api/process?'+new URLSearchParams({
+   mode:'convert-save',prefix:currentPrefix,key:f.key,etag:f.etag
+ }).toString();
+ const saved=await fetch(prefixPath,{method:'POST',headers:{
+   Authorization:'Bearer '+token,'Content-Type':'image/avif'
+ },body:blob,cache:'no-store'});
+ const text=await saved.text();let data;
+ try{data=JSON.parse(text)}catch{data=null}
+ if(!saved.ok)throw Error('HTTP '+saved.status+' · '+(data?.error||text.replace(/<[^>]*>/g,' ').slice(0,170)));
+ if(!data)throw Error('No hay confirmación de R2. Vuelve a iniciar.');
+ return data;
+}
 async function convertAll(){
  if(busy||!currentPrefix||!files.length)return;
- if(!confirm('Se convertirán los JPG de la carpeta seleccionada a AVIF (calidad 85). Cada JPG se eliminará SOLO después de verificar el AVIF guardado. ¿Continuar?'))return;
+ if(!confirm('Convertir JPG a AVIF (calidad 85, ajustes de color). Solo se elimina cada JPG después de verificar su AVIF. ¿Continuar?'))return;
  stopped=false;lock(true,'convert');
  const pending=[...files].filter(f=>!removed.has(f.key));
- const total=pending.length;
- // Els JPG de 5–8 MB saturaven el Worker si es convertien 2–3 simultàniament.
- const maxParallel=1;
- let next=0,processed=0,deleted=0,reused=0,allowedWorkers=maxParallel;
- const convertedKeys=new Set(),errors=[],resourceRetry=[];
- const resourceError=e=>/HTTP\s*(?:429|502|503|504|520|522|524)\b|resource limits|exceeded memory|1102/i.test(String(e?.message||e));
- const show=(name='')=>{
-  q('convertSummary').textContent=
-    'Procesados '+processed+'/'+total+
-    ' · JPG eliminados tras verificar AVIF '+deleted+
-    ' · Errores '+errors.length+
-    ' · Conversiones en paralelo '+allowedWorkers+
-    (resourceRetry.length?' · Pendientes de reintento '+resourceRetry.length:'')+
-    (name?' · '+name:'');
+ const total=pending.length,MAX_ATTEMPTS=3;
+ let processed=0,deleted=0,reused=0,retries=0,consecutiveErrors=0;
+ const completed=new Set(),errors=[];
+ const wait=async(ms)=>{
+  for(let n=0;n<ms&&!stopped;n+=500)await new Promise(done=>setTimeout(done,Math.min(500,ms-n)));
  };
- show('Iniciando...');
- async function convertFile(f,allowRetry){
-  try{
-   const result=await api({mode:'convert-delete',prefix:currentPrefix,key:f.key});
-   if(result.deleted){
-    deleted++;convertedKeys.add(f.key);
-    if(result.reusedVerifiedAvif)reused++;
-    return;
-   }
-   if(result.skipped&&result.reason==='JPG ausente'){
-    convertedKeys.add(f.key);
-    return;
-   }
-   errors.push({key:f.key,message:result.reason||'Respuesta sin confirmación de borrado'});
-  }catch(e){
-   if(allowRetry&&resourceError(e)){
-    // Error de recursos: disminuir la carga y volver a intentar una sola vez.
-    allowedWorkers=1;
-    resourceRetry.push(f);
-    log('Cloudflare ha limitado la conversión de '+f.key+
-        '. Reduciendo a 1 tarea simultánea; se reintentará cuando terminen las actuales.');
-   }else{
-    errors.push({key:f.key,message:e.message});
-    log('ERROR '+f.key+': '+e.message+'. JPG conservado salvo AVIF verificado.');
-   }
-  }
- }
- async function queue(workerId){
-  while(!stopped){
-   if(workerId>=allowedWorkers)return;
-   const index=next++;
-   if(index>=total)return;
-   const f=pending[index];
-   show('Convirtiendo '+f.key);
-   await convertFile(f,true);
-   processed++;
-   show();
-   // Petita pausa perquè Cloudflare alliberi memòria abans del següent JPG.
-    if(processed%3===0&&next<total)await new Promise(resolve=>setTimeout(resolve,350));
-  }
- }
+ const show=(note='')=>{
+  q('convertSummary').textContent='Procesados '+processed+'/'+total+
+   ' · AVIF verificados '+deleted+' · Errores '+errors.length+
+   (retries?' · Reintentos '+retries:'')+(note?' · '+note:'');
+ };
+ show();
  try{
-  await Promise.all(Array.from(
-    {length:Math.min(maxParallel,total)},(_,i)=>queue(i)));
-  if(resourceRetry.length&&!stopped){
-   const retry=[...resourceRetry];resourceRetry.length=0;
-   allowedWorkers=1;
-   log('Reintentando '+retry.length+' conversión(es) limitadas por Cloudflare, de una en una.');
-   for(let i=0;i<retry.length;i++){
-    if(stopped)break;
-    const f=retry[i];
-    show('Reintentando '+(i+1)+'/'+retry.length+': '+f.key);
-    await convertFile(f,false);
+  for(let i=0;i<pending.length&&!stopped;i++){
+   const f=pending[i];
+   let ok=false,lastError='';
+   for(let attempt=1;attempt<=MAX_ATTEMPTS&&!stopped;attempt++){
+    show('Convirtiendo '+(i+1)+'/'+total+' · '+f.key.split('/').pop());
+    try{
+     const out=await convertPrepared(f);
+     if(out.deleted===f.key||out.skipped===f.key&&out.reason==='JPG ausente'){
+      completed.add(f.key);ok=true;
+      if(out.deleted){deleted++;if(out.reusedVerifiedAvif)reused++}
+      consecutiveErrors=0;
+      break;
+     }
+     throw Error('Conversión sin confirmación de AVIF.');
+    }catch(e){
+     lastError=e.message||String(e);
+     if(attempt===MAX_ATTEMPTS||!conversionTransient(lastError))break;
+     retries++;
+     const pause=[4000,15000][attempt-1]||15000;
+     show('Cloudflare ocupado · pausa '+Math.round(pause/1000)+' s · '+f.key.split('/').pop());
+     await wait(pause);
+    }
    }
+   if(!ok&&!stopped){
+    errors.push({key:f.key,message:lastError});
+    consecutiveErrors++;
+    log('Conversión pendiente: '+f.key+' · '+lastError+'. JPG conservado.');
+   }
+   processed++;show();
+   // En una saturació persistent no recorrer 50 fitxers repetint HTTP 503.
+   if(consecutiveErrors>=3){
+    log('Conversión pausada: Cloudflare no procesa estas fotos. JPG originales intactos. Vuelve a iniciar más tarde.');
+    break;
+   }
+   if(i<pending.length-1&&!stopped)await wait(800);
   }
-  const remaining=total-deleted;
-  const result=(stopped?'Conversión detenida':'Conversión terminada')+
-   ': '+deleted+' JPG eliminados tras comprobar AVIF de '+total+
-   ' iniciales; '+reused+' AVIF existentes reutilizados; '+
-   errors.length+' errores; '+Math.max(0,total-processed)+' pendientes de iniciar.';
-  q('convertSummary').textContent=result;
-  log(result);
-  if(errors.length)log('JPG con errores: '+errors.map(e=>e.key+' ('+e.message+')').join(' | '));
+  const left=total-completed.size;
+  const summary=(stopped?'Conversión detenida':consecutiveErrors>=3?'Conversión pausada':'Conversión finalizada')+
+   ': '+deleted+' JPG eliminados tras verificar AVIF · '+reused+' AVIF previos reutilizados · '+
+   errors.length+' errores · '+left+' pendientes.';
+  q('convertSummary').textContent=summary;
+  log(summary);
+  if(errors.length)log('JPG pendientes: '+errors.map(e=>e.key+' ('+e.message+')').join(' | '));
  }finally{
-  // Guardar los JPG restantes en la selección actual para permitir reanudar.
-  if(convertedKeys.size){
-   files=files.filter(f=>!convertedKeys.has(f.key));
-   scanFiles=scanFiles.filter(f=>!convertedKeys.has(f.key));
+  if(completed.size){
+   files=files.filter(f=>!completed.has(f.key));
+   scanFiles=scanFiles.filter(f=>!completed.has(f.key));
    scans=[];groups=[];scanReady=false;
    q('duplicates').innerHTML='';
    q('confirmDup').checked=false;
    q('selectionSummary').textContent='0 seleccionados';
-   q('scanSummary').textContent='La carpeta ha cambiado. Vuelve a iniciar la detección si quieres comparar las fotos restantes.';
-   q('folderSummary').textContent=files.length+' JPG pendientes. Vuelve a seleccionar la carpeta para incluir los AVIF recién creados.';
+   q('scanSummary').textContent='Carpeta modificada: vuelve a analizar los duplicados si es necesario.';
+   q('folderSummary').textContent=files.length+' JPG pendientes. Vuelve a seleccionar la carpeta para ver los AVIF nuevos.';
   }
   lock(false);
  }
@@ -1024,6 +1107,12 @@ export default {
     if(request.method!=='POST'||url.pathname!=='/api/process')return json({error:'Ruta no encontrada'},404);
     if(!validateAuth(request,env))return json({error:'No autorizado'},401);
     try{
+      // Esmena: subida de AVIF des del navegador. Token i JPG originals verificats.
+      if(url.searchParams.get('mode')==='convert-save'){
+        const prefix=normalizePrefix(url.searchParams.get('prefix')||'');
+        return await finalizeAvif(env,url.searchParams.get('key'),prefix,
+          url.searchParams.get('etag'),request,true);
+      }
       let input;try{input=await request.json()}catch{throw Error('JSON inválido')}
       if(!input||typeof input!=='object')throw Error('Petición inválida');
       const mode=input.mode;
@@ -1053,6 +1142,8 @@ export default {
         if(typeof input.etag!=='string'||typeof input.keepEtag!=='string')throw Error('ETag inválido');
         return json(await removeDuplicateOne(env,prefix,input.key,input.keepKey,input.etag,input.keepEtag,input.confidence));
       }
+      if(mode==='convert-prepare')return await prepareAvifStream(env,input.key,prefix,input.etag);
+      if(mode==='convert-complete')return await finalizeAvif(env,input.key,prefix,input.etag,request,false);
       if(mode==='convert-delete')return json(await convertAndDeleteOne(env,input.key,prefix));
        if(mode==='ai-review')return json(await aiReviewOne(env,input.key,prefix,input.etag,input.context,input.force===true));
        if(mode==='ai-remove-rejected')return json(await removeAiRejectedOne(env,input.key,prefix,input.etag,input.confirm));
