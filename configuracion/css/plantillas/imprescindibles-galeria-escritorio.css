@@ -517,51 +517,48 @@
 }
 
 
-/* Zoom natiu de la pàgina dins dels visors d'escriptori.
-   Les galeries són elements ABSOLUTS del document: com la resta del blog.
-   Ni transform, ni scroll lock, ni pan JS duplicat. No afecta el mòbil. */
+/* Visor independent com Booking: el document de fons no es desplaça.
+   Al 100% el panell omple el visor sense scroll extern; amb Ctrl+rodeta
+   el navegador redueix el viewport CSS i NOMÉS els visors fan scroll. */
 @media screen {
-  /* Override específic del bloqueig mòbil html:has(...) i del
-     overflow-x:clip global, sense desactivar el mode mòbil real. */
-  html.vcc-gallery-native-scroll:has(body.vcc-desktop-gallery-open) {
+  html.vcc-gallery-modal-locked:has(body.vcc-desktop-gallery-open) {
+    overflow:hidden!important;
+    overflow-x:hidden!important;
+    overflow-y:hidden!important;
+    overscroll-behavior:none!important;
+  }
+  html.vcc-gallery-modal-locked body.vcc-desktop-gallery-open {
+    overflow:hidden!important;
+    overscroll-behavior:none!important;
+  }
+  html.vcc-gallery-modal-locked body.vcc-desktop-gallery-open
+  #vcc-desktop-gallery.vcc-gallery-viewport:not([hidden]),
+  html.vcc-gallery-modal-locked body.vcc-desktop-gallery-open
+  #lightbox.lightbox.vcc-gallery-viewport.open {
+    position:fixed!important;
+    inset:0!important;
+    top:0!important;
+    left:0!important;
+    right:0!important;
+    bottom:0!important;
+    display:block!important;
+    width:100vw!important;
+    height:100dvh!important;
     max-width:none!important;
-    overflow:visible!important;
+    max-height:none!important;
+    padding:18px!important;
+    margin:0!important;
     overflow-x:auto!important;
     overflow-y:auto!important;
+    overscroll-behavior:contain!important;
     scroll-behavior:auto!important;
-    overscroll-behavior:auto!important;
-  }
-  html.vcc-gallery-native-scroll body.vcc-desktop-gallery-open {
-    position:relative!important;
-    width:var(--vcc-gallery-document-width)!important;
-    min-width:var(--vcc-gallery-document-width)!important;
-    max-width:none!important;
-    overflow:visible!important;
-    overscroll-behavior:auto!important;
-  }
-  html.vcc-gallery-native-scroll body.vcc-desktop-gallery-open
-  #vcc-desktop-gallery.vcc-native-document-gallery:not([hidden]),
-  html.vcc-gallery-native-scroll body.vcc-desktop-gallery-open
-  #lightbox.lightbox.vcc-native-document-gallery.open {
-    position:absolute!important;
-    inset:auto!important;
-    top:var(--vcc-gallery-document-top)!important;
-    left:var(--vcc-gallery-document-left)!important;
-    right:auto!important;
-    bottom:auto!important;
-    width:var(--vcc-gallery-document-width)!important;
-    height:var(--vcc-gallery-document-height)!important;
-    display:grid!important;
-    place-items:center!important;
-    margin:0!important;
-    overflow:visible!important;
     box-sizing:border-box!important;
     transform:none!important;
   }
-  html.vcc-gallery-native-scroll body.vcc-desktop-gallery-open
-  #vcc-desktop-gallery.vcc-native-document-gallery:not([hidden]) .vcc-dg-panel,
-  html.vcc-gallery-native-scroll body.vcc-desktop-gallery-open
-  #lightbox.lightbox.vcc-native-document-gallery.open .lb-stage {
+  html.vcc-gallery-modal-locked body.vcc-desktop-gallery-open
+  #vcc-desktop-gallery.vcc-gallery-viewport:not([hidden]) .vcc-dg-panel,
+  html.vcc-gallery-modal-locked body.vcc-desktop-gallery-open
+  #lightbox.lightbox.vcc-gallery-viewport.open .lb-stage {
     position:relative!important;
     inset:auto!important;
     width:var(--vcc-gallery-panel-width)!important;
@@ -575,47 +572,38 @@
     transition:none!important;
     box-sizing:border-box!important;
   }
-  html.vcc-gallery-native-scroll body.vcc-desktop-gallery-open
-  #vcc-desktop-gallery.vcc-native-document-gallery:not([hidden]) .vcc-dg-panel {
+  html.vcc-gallery-modal-locked body.vcc-desktop-gallery-open
+  #vcc-desktop-gallery.vcc-gallery-viewport:not([hidden]) .vcc-dg-panel {
     display:flex!important;
     flex-direction:column!important;
   }
-  html.vcc-gallery-native-scroll body.vcc-desktop-gallery-open
-  #lightbox.lightbox.vcc-native-document-gallery.open .lb-stage {
+  html.vcc-gallery-modal-locked body.vcc-desktop-gallery-open
+  #lightbox.lightbox.vcc-gallery-viewport.open .lb-stage {
     display:grid!important;
     grid-template-columns:minmax(0,1fr) minmax(245px,290px)!important;
     grid-template-rows:54px minmax(0,1fr) 30px 80px!important;
   }
-}
-
-/* Zoom natiu del mosaic: la caixa interior no pot capturar ni limitar el
-   desplaçament del navegador. La foto individual manté el seu comportament. */
-@media screen {
-  html.vcc-gallery-native-scroll body.vcc-desktop-gallery-open
-  #vcc-desktop-gallery.vcc-mosaic-native-zoom:not([hidden]) .vcc-dg-panel {
+  /* Amb zoom, el mosaic es desplaça sencer i no queda limitat al
+     seu petit contenidor de scroll interior. */
+  html.vcc-gallery-modal-locked body.vcc-desktop-gallery-open
+  #vcc-desktop-gallery.vcc-gallery-viewport.vcc-mosaic-native-zoom:not([hidden]) .vcc-dg-panel {
     overflow:visible!important;
     height:auto!important;
     min-height:var(--vcc-gallery-panel-height)!important;
     border-radius:17px!important;
   }
-  html.vcc-gallery-native-scroll body.vcc-desktop-gallery-open
-  #vcc-desktop-gallery.vcc-mosaic-native-zoom:not([hidden]) .vcc-dg-main {
+  html.vcc-gallery-modal-locked body.vcc-desktop-gallery-open
+  #vcc-desktop-gallery.vcc-gallery-viewport.vcc-mosaic-native-zoom:not([hidden]) .vcc-dg-main {
     flex:0 0 auto!important;
     overflow:visible!important;
     min-height:0!important;
   }
-  html.vcc-gallery-native-scroll body.vcc-desktop-gallery-open
-  #vcc-desktop-gallery.vcc-mosaic-native-zoom:not([hidden]) .vcc-dg-scroll,
-  html.vcc-gallery-native-scroll body.vcc-desktop-gallery-open
-  #vcc-desktop-gallery.vcc-mosaic-native-zoom:not([hidden]) .vcc-dg-sidebar {
+  html.vcc-gallery-modal-locked body.vcc-desktop-gallery-open
+  #vcc-desktop-gallery.vcc-gallery-viewport.vcc-mosaic-native-zoom:not([hidden]) .vcc-dg-scroll,
+  html.vcc-gallery-modal-locked body.vcc-desktop-gallery-open
+  #vcc-desktop-gallery.vcc-gallery-viewport.vcc-mosaic-native-zoom:not([hidden]) .vcc-dg-sidebar {
     overflow:visible!important;
     height:auto!important;
     max-height:none!important;
-  }
-  html.vcc-gallery-native-scroll body.vcc-desktop-gallery-open
-  #vcc-desktop-gallery.vcc-mosaic-native-zoom:not([hidden]) {
-    height:auto!important;
-    min-height:var(--vcc-gallery-document-height)!important;
-    padding-bottom:18px!important;
   }
 }
