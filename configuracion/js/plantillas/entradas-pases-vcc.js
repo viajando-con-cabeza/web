@@ -136,3 +136,49 @@
   if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",init,{once:true});
   else init();
 })();
+
+/* VCC · Caruseles accesibles de Entradas, Según tus días y Consejo VCC.
+   Mantiene el desplazamiento táctil nativo; las flechas muestran su estado real. */
+(function(){
+  "use strict";
+  function init(){
+    const root=document.querySelector(".ep-page");
+    if(!root)return;
+    const tracks=[...root.querySelectorAll(".ep-scroll-track")];
+    tracks.forEach(track=>{
+      const controls=[...root.querySelectorAll('[data-ep-slide-target="'+track.id+'"]')];
+      if(!controls.length)return;
+      let queued=false;
+      function sync(){
+        const max=track.scrollWidth-track.clientWidth;
+        const overflow=max>3;
+        controls.forEach(btn=>{
+          const back=btn.dataset.epSlideDir==="-1";
+          btn.disabled=!overflow||(back?track.scrollLeft<=2:track.scrollLeft>=max-2);
+          btn.setAttribute("aria-disabled",String(btn.disabled));
+        });
+        queued=false;
+      }
+      function queue(){
+        if(queued)return;
+        queued=true;
+        window.requestAnimationFrame(sync);
+      }
+      controls.forEach(btn=>btn.addEventListener("click",()=>{
+        const first=track.firstElementChild;
+        if(!first||btn.disabled)return;
+        const gap=parseFloat(window.getComputedStyle(track).gap)||0;
+        const step=first.getBoundingClientRect().width+gap;
+        const reduced=window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        track.scrollBy({left:Number(btn.dataset.epSlideDir)*step,behavior:reduced?"instant":"smooth"});
+        queue();
+      }));
+      track.addEventListener("scroll",queue,{passive:true});
+      window.addEventListener("resize",queue,{passive:true});
+      window.addEventListener("load",queue,{once:true});
+      window.requestAnimationFrame(sync);
+    });
+  }
+  if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",init,{once:true});
+  else init();
+})();
