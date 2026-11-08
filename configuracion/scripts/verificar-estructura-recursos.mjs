@@ -16,9 +16,11 @@ function walk(dir=''){
 const images=walk().filter(p=>EXTS.test(p));
 const loose=images.filter(p=>/^configuracion\/imagenes\/[^/]+\.[^.]+$/.test(p));
 const outside=images.filter(p=>!p.startsWith('configuracion/')&&!/^destinos\/[^/]+\/[^/]+\/imagenes\//.test(p));
-const stale=images.filter(p=>p.startsWith('configuracion/imagenes/como-moverse/'));
+const stale=images.filter(p=>p.startsWith('configuracion/imagenes/como-moverse/')||p.startsWith('configuracion/iconos/'));
+const misplacedGlobals=images.filter(p=>p.startsWith('configuracion/')&&!p.startsWith('configuracion/imagenes/'));
 for(const p of loose)console.error('Imatge fora de categoria:',p);
 for(const p of outside)console.error('Imatge corporativa fora de configuracio:',p);
 for(const p of stale)console.error('Carpeta obsoleta:',p);
+for(const p of misplacedGlobals)console.error('Recurs fora de configuracion/imagenes:',p);
 console.log('VCC assets: '+images.length+' imatges · '+loose.length+' soltes · '+outside.length+' mal ubicades · '+stale.length+' antigues');
-if(loose.length+outside.length+stale.length)process.exitCode=1;
+if(loose.length+outside.length+stale.length+misplacedGlobals.length)process.exitCode=1;
