@@ -33,37 +33,48 @@ body.mv-body{margin:0;background:var(--mv-cream);color:var(--mv-ink);font-family
 .mv-section-head h2{margin:0;color:#242a28;font:600 clamp(28px,2.8vw,39px)/1.12 "Oswald",sans-serif}
 .mv-section-head>p{margin:0 0 3px;max-width:420px;color:#685e57;font:400 12.5px/1.55 "DM Sans",sans-serif}
 .mv-transport-section .mv-section-head .mv-overline{font-size:23px}.mv-transport-section .mv-section-head h2{font-size:clamp(25px,2.3vw,33px)}
-.mv-pay-guide{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:18px;align-items:center;margin:0 0 14px;padding:15px 19px;border:1px solid #ead9cc;border-radius:14px;background:#fff;box-shadow:0 3px 12px rgba(54,40,28,.035)}
-.mv-pay-guide-main,.mv-pay-guide-side{min-width:0}
-.mv-pay-kicker{display:block;margin:0 0 4px;color:#ad6249;letter-spacing:.07em;font:800 9.5px/1.2 "DM Sans",sans-serif}
-.mv-pay-guide-main>strong{display:block;margin:0 0 6px;font:600 19px/1.17 "Oswald",sans-serif;color:#2b302e}
-.mv-pay-guide p{margin:0;color:#645f59;font:400 11.3px/1.55 "DM Sans",sans-serif}
+/* Acceso rápido al pago: respuesta inmediata, sin ocupar media pantalla. */
+.mv-pay-guide{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:15px;align-items:center;margin:0 0 11px;padding:11px 15px;border:1px solid #e9dacd;border-radius:12px;background:#fff;box-shadow:0 3px 10px rgba(54,40,28,.035)}
+.mv-pay-guide-main{display:flex;align-items:center;gap:12px;min-width:0}
+.mv-pay-icon{flex:0 0 46px;display:grid;place-items:center;width:46px;height:35px;background:#fff6ee;color:#a6553e;border:1px solid #efd3be;border-radius:8px;font:800 12px/1 "DM Sans",sans-serif;letter-spacing:-.05em}
+.mv-pay-copy,.mv-pay-guide-side{min-width:0}
+.mv-pay-copy>strong{display:block;margin:0 0 4px;color:#2b302e;font:600 17px/1.2 "Oswald",sans-serif}
+.mv-pay-guide p{margin:0;color:#655e57;font:400 10.6px/1.45 "DM Sans",sans-serif}
 .mv-pay-guide p b{color:#474440}
-.mv-pay-guide a{color:#a8533e;text-underline-offset:2px}
-.mv-pay-guide-side{border-left:1px solid #ecdfd5;padding-left:19px}
-.mv-pay-values{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px}
-.mv-pay-values>span{display:inline-flex;align-items:center;padding:6px 8px;background:#faf5ef;border:1px solid #eee0d5;border-radius:7px;font:600 10.2px/1.3 "DM Sans",sans-serif;color:#5d554e}
-.mv-pay-values b{color:#a9533d;margin-right:3px}
+.mv-pay-guide a{color:#aa543c;text-underline-offset:2px}
+.mv-pay-guide-side{border-left:1px solid #ecdfd5;padding-left:14px}
+.mv-pay-values{display:flex;align-items:center;gap:6px;margin-bottom:6px}
+.mv-pay-values>span{display:flex;align-items:center;gap:5px;flex:0 0 auto;padding:5px 8px;border-radius:6px;background:#f8f3ed;color:#5d554e;font:600 10px/1.2 "DM Sans",sans-serif}
+.mv-pay-values b{color:#a9533d;font-weight:800}
+.mv-pay-values small{font-size:9.5px;color:#70655b}
 .mv-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
-.mv-card{min-width:0;background:#fff;border:1px solid #e7ddd3;border-radius:14px;box-shadow:0 4px 14px rgba(54,40,28,.045)}
-.mv-card-body{min-width:0;min-height:335px;padding:13px 15px 12px;display:flex;flex-direction:column;gap:9px}
-.mv-card-heading{min-width:0;display:flex;align-items:center;gap:9px;min-height:36px}
+.mv-card{min-width:0;background:#fff;border:1px solid #e7ddd3;border-radius:13px;box-shadow:0 3px 12px rgba(54,40,28,.035)}
+.mv-card-body{min-width:0;min-height:284px;padding:12px 13px 11px;display:flex;flex-direction:column;gap:7px}
+.mv-card-heading{min-width:0;display:flex;align-items:center;gap:9px;min-height:38px}
 .mv-icon{display:grid;place-items:center;flex:0 0 36px;width:36px;height:36px;border-radius:50%;background:#fff3ec;border:1px solid #f0cebc}
 .mv-icon img{display:block;width:25px;height:25px;object-fit:contain}
+.mv-card-title{min-width:0}
 .mv-card h3{margin:0;font:600 clamp(17px,1.35vw,20px)/1.1 "Oswald",sans-serif;color:#282d2a}
-/* Pros i contres: files amb la mateixa alçada mínima, separació homogènia
-   entre columnes i símbols centrats també quan el text ocupa dues línies. */
-.mv-facts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));grid-template-rows:repeat(3,minmax(30px,auto));grid-auto-flow:column;align-content:start;gap:6px 13px;min-width:0;list-style:none;padding:0;margin:0}
-.mv-facts li{display:flex;gap:6px;align-items:center;min-height:30px;min-width:0;color:#4a4b47;font:500 10.4px/1.3 "DM Sans",sans-serif}
-.mv-facts li>span{display:grid;place-items:center;flex:0 0 14px;width:14px;height:18px;font:800 14px/1 "DM Sans",sans-serif;margin:0}
-.mv-facts .mv-yes>span{color:var(--mv-green)}
-.mv-facts .mv-no>span{color:var(--mv-red)}
-/* Dos dades pràctiques per cada mètode: pagament i criteri de la ruta VCC. */
-.mv-card-insight{display:grid;align-content:start;gap:7px;min-width:0;margin:1px 0 0;padding-top:9px;border-top:1px solid #eee8e1}
-.mv-insight-row{display:grid;grid-template-columns:82px minmax(0,1fr);gap:7px;align-items:start;min-width:0;margin:0;color:#625d57;font:400 10.4px/1.48 "DM Sans",sans-serif}
-.mv-insight-label{color:#9c674d;font:800 9px/1.4 "DM Sans",sans-serif;letter-spacing:.025em}
-.mv-insight-vcc .mv-insight-label{color:#b65d43}
-.mv-insight-row>span{min-width:0}
+.mv-card-title>span{display:block;margin-top:3px;color:#9f7666;font:700 9.1px/1.22 "DM Sans",sans-serif;letter-spacing:.025em}
+.mv-facts-wrap{min-width:0}
+.mv-facts-labels{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px;margin-bottom:3px;color:#aa8b77;font:800 8px/1.2 "DM Sans",sans-serif;letter-spacing:.08em}
+.mv-facts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));grid-template-rows:repeat(3,minmax(24px,auto));grid-auto-flow:column;align-content:start;gap:4px 11px;min-width:0;list-style:none;padding:0;margin:0}
+.mv-facts li{display:flex;align-items:center;gap:5px;min-height:24px;min-width:0;color:#464943;font:500 10.3px/1.3 "DM Sans",sans-serif}
+.mv-facts li>span:first-child{display:grid;place-items:center;flex:0 0 13px;width:13px;height:16px;font:800 13.5px/1 "DM Sans",sans-serif}
+.mv-facts li>span:last-child{min-width:0;flex:1}
+.mv-facts .mv-yes>span:first-child{color:var(--mv-green)}
+.mv-facts .mv-no>span:first-child{color:var(--mv-red)}
+/* Dues franges editorials, útils per decidir sense un paràgraf llarg. */
+.mv-card-insight{display:grid;gap:5px;min-width:0}
+.mv-insight-row{display:grid;grid-template-columns:22px minmax(0,1fr);align-items:start;gap:7px;min-width:0;margin:0;padding:6px 8px;border:1px solid #f0e7de;border-radius:8px;background:#faf8f5}
+.mv-insight-row p{min-width:0;margin:0;color:#5d5b56;font:400 10px/1.36 "DM Sans",sans-serif}
+.mv-insight-row p strong{display:block;margin-bottom:2px;color:#8e6555;font:800 8.4px/1.2 "DM Sans",sans-serif;letter-spacing:.065em}
+.mv-insight-row p span{display:block;min-width:0}
+.mv-mini-symbol{display:grid;place-items:center;width:22px;height:22px;flex:none;border-radius:6px;font:800 13px/1 "DM Sans",sans-serif}
+.mv-mini-pay{background:#eee7e1;color:#8b6656}
+.mv-insight-vcc{border-color:#f1dacf;background:#fff7f1}
+.mv-insight-vcc p strong{color:#b45c42}
+.mv-mini-route{background:#ffeadf;color:#b45c42}
 /* Price at the bottom: clear cost indicator, without underline or pill treatment. */
 .mv-price{margin-top:auto;display:flex;align-items:center;gap:6px;min-width:0;padding:3px 0 0;border:0;background:transparent;color:#93533e;line-height:1.25;text-align:left;text-decoration:none}
 .mv-price img{display:block;width:16px;height:16px;flex:0 0 16px}
@@ -110,32 +121,33 @@ body.mv-body{margin:0;background:var(--mv-cream);color:var(--mv-ink);font-family
 /* Footer de guies: es renderitza mitjançant estocolmo-guias-final-vcc.css */
 @media(max-width:1250px){
  .mv-container{width:calc(100% - 52px)}
- .mv-card-body{padding:12px 11px;min-height:362px}
+ .mv-card-body{padding:11px 10px;min-height:310px}
  .mv-card h3{font-size:17px}
- .mv-facts{gap:6px 9px}
- .mv-facts li{font-size:10px}
+ .mv-facts{gap:4px 8px}
+ .mv-facts li{font-size:9.9px}
  .mv-price strong{font-size:10px}
  .mv-profile{padding:14px 12px}
  .mv-profile-vcc{padding:13px 11px}
 }
 @media(max-width:1000px){
  .mv-pay-guide{gap:12px}
- .mv-insight-row{font-size:10.7px}
+ .mv-insight-row p{font-size:10.7px}
  .mv-hero,.mv-hero>.mv-container{min-height:435px}
  .mv-crumb{margin-bottom:28px}
  .mv-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
  .mv-card h3{font-size:18px}
- .mv-card-body{min-height:340px}
+ .mv-card-body{min-height:300px}
  .mv-facts li{font-size:10.7px}
  .mv-profile-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
  .mv-saving-card{flex-basis:calc((100% - 13px)/2)}
 }
 @media(max-width:690px){
- .mv-pay-guide{grid-template-columns:1fr;gap:11px;padding:14px}
- .mv-pay-guide-side{border-left:0;border-top:1px solid #ecdfd5;padding:11px 0 0}
- .mv-pay-values{gap:5px}
+ .mv-pay-guide{grid-template-columns:1fr;gap:9px;padding:11px 12px}
+ .mv-pay-guide-side{border-left:0;border-top:1px solid #ecdfd5;padding:9px 0 0}
+ .mv-pay-values{gap:5px;flex-wrap:wrap}
  .mv-pay-values>span{font-size:9.7px}
- .mv-insight-row{grid-template-columns:88px minmax(0,1fr);font-size:10.7px}
+ .mv-insight-row{grid-template-columns:22px minmax(0,1fr)}
+ .mv-insight-row p{font-size:10.5px}
  .mv-profile-bottom>strong{font-size:14px;white-space:normal}
  .mv-container{width:calc(100% - 28px)}
  .mv-hero,.mv-hero>.mv-container{min-height:390px}
@@ -157,7 +169,7 @@ body.mv-body{margin:0;background:var(--mv-cream);color:var(--mv-ink);font-family
  .mv-grid{grid-template-columns:1fr;gap:9px}
  .mv-card-body{min-height:0;padding:12px 14px}
  .mv-card h3{font-size:18px}
- .mv-facts li{font-size:11px}
+ .mv-facts li{font-size:10.8px}
  .mv-price strong{font-size:10.5px}
  .mv-recommend-section{margin:26px 0}
  .mv-profile-grid{gap:9px}
@@ -182,5 +194,6 @@ body.mv-body{margin:0;background:var(--mv-cream);color:var(--mv-ink);font-family
  .mv-profile-grid{grid-template-columns:1fr}
  .mv-profile{min-height:0}
  .mv-facts{grid-template-columns:1fr;grid-template-rows:none;grid-auto-flow:row;gap:5px}
+ .mv-facts-labels{display:none}
 }
 @media(prefers-reduced-motion:reduce){.mv-saving-track{scroll-behavior:auto}}
