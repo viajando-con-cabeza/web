@@ -120,13 +120,8 @@
 .ep-day-card li em{font-weight:700;color:#6e8b50;font-style:normal}
 .ep-day-card>p{margin:auto 15px 13px;font:600 10.5px/1.45 "DM Sans",sans-serif;color:#73665c}
 .ep-day-card>a{align-self:flex-start;margin:auto 13px 13px;color:#a95936;text-decoration:underline;text-underline-offset:3px;font:800 10px/1.3 "DM Sans",sans-serif}
-.ep-consejo{margin-bottom:21px!important}
 
 
-.ep-tip-icon{flex:0 0 28px;color:var(--ep-orange)}
-.ep-tip-icon svg{width:27px;height:27px;fill:none;stroke:currentColor;stroke-width:1.65;stroke-linecap:round;stroke-linejoin:round}
-.ep-consejo-point p{font:400 11px/1.5 "DM Sans",sans-serif}
-.ep-consejo-point strong{display:block;font:800 11px/1.4 "DM Sans",sans-serif;color:#2d2b29;margin-bottom:3px}
 .ep-footer-note{border-top:1px solid #dfd5cb;padding-top:13px;color:#80766c;font:400 10px/1.6 "DM Sans",sans-serif}
 @media(max-width:1090px){
 
@@ -213,7 +208,6 @@
 .ep-slider-rail{overflow:hidden;min-width:0}
 .ep-scroll-track{display:flex;gap:15px;overflow-x:auto;overscroll-behavior-inline:contain;scroll-snap-type:x mandatory;scrollbar-width:none;scroll-padding-inline:2px;padding:2px 2px 12px;min-width:0;-webkit-overflow-scrolling:touch}
 .ep-scroll-track::-webkit-scrollbar{display:none}
-.ep-scroll-track>:is(.ep-feature,.ep-day-card,.ep-consejo-point){scroll-snap-align:start;scroll-snap-stop:normal}
 .ep-feature-grid,.ep-days-grid{display:flex;grid-template-columns:none;gap:15px}
 .ep-feature-grid>.ep-feature{flex:0 0 calc((100% - 34px)/3.15);min-width:0}
 .ep-days-grid>.ep-day-card{flex:0 0 calc((100% - 34px)/3.15);min-width:0;min-height:195px}
@@ -223,31 +217,14 @@
 .ep-feature-grid>.ep-feature.ep-visual-abba svg{display:block}
 .ep-feature-grid .ep-feature-body{flex:1}
 .ep-feature-grid .ep-feature-body>a{margin-top:auto}
-.ep-page .ep-consejo-panel{display:grid;grid-template-columns:89px minmax(0,1fr);align-items:stretch;gap:13px;padding:15px 16px;border:1px solid #e5d7cc;border-radius:16px;background:#fff;box-shadow:0 5px 17px rgba(57,38,22,.045)}
-.ep-page .ep-consejo-logo{display:flex;align-items:center;justify-content:center;min-width:0;padding-right:10px;border-right:1px solid #e8dbce}
-.ep-page .ep-consejo-logo img{width:65px;height:65px;object-fit:contain;padding:5px;border:2px solid #cb7352;border-radius:50%;background:#fff}
-.ep-consejo-content{min-width:0}
-.ep-consejo-top{position:relative;display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:34px;padding:0 0 7px 7px;margin-bottom:8px;border-bottom:1px solid #efe6de}
-.ep-consejo-top>strong{font:800 11px/1.3 "DM Sans",sans-serif;letter-spacing:.06em;color:#ac5841}
-.ep-consejo-top .ep-slider-controls{position:static;flex:none}
-.ep-consejo-top .ep-slider-arrow{width:28px;height:28px;font-size:17px}
-.ep-consejo-track{gap:0;padding:2px 0 3px}
-.ep-page .ep-consejo-track>.ep-consejo-point{flex:0 0 calc(100%/2.25);min-width:0;display:flex;align-items:flex-start;gap:9px;padding:5px 18px 5px 13px;border-left:1px solid #e4d6c9}
-.ep-page .ep-consejo-track>.ep-consejo-point:first-child{border-left:0}
-.ep-page .ep-consejo-track>.ep-consejo-point p{max-width:275px}
 .ep-page .ep-best{background:#fff;border-color:#e3d8cf}
 @media(max-width:1090px){
  .ep-feature-grid>.ep-feature,.ep-days-grid>.ep-day-card{flex-basis:calc((100% - 28px)/2.25)}
- .ep-page .ep-consejo-track>.ep-consejo-point{flex-basis:calc(100%/1.7)}
 }
 @media(max-width:760px){
  .ep-page #atracciones .ep-section-heading,.ep-page #dias .ep-section-heading{padding-right:0}
  .ep-page #atracciones>.ep-slider-controls,.ep-page #dias>.ep-slider-controls{position:relative;top:auto;right:auto;justify-content:flex-end;width:100%;margin:-4px 0 8px}
  .ep-feature-grid>.ep-feature,.ep-days-grid>.ep-day-card{flex-basis:calc((100% - 20px)/1.5)}
- .ep-page .ep-consejo-panel{grid-template-columns:72px minmax(0,1fr);padding:13px 11px}
- .ep-page .ep-consejo-logo{display:flex;grid-row:auto;padding-right:8px;align-items:center}
- .ep-page .ep-consejo-logo img{width:55px;height:55px}
- .ep-page .ep-consejo-track>.ep-consejo-point{flex-basis:88%}
 }
 @media(max-width:520px){
  .ep-feature-grid,.ep-days-grid{grid-template-columns:none;gap:10px}
@@ -262,11 +239,40 @@
  .ep-days-grid>.ep-day-card{min-height:200px}
  .ep-day-card ul{padding:13px 15px}
  .ep-day-card li{font-size:12px}
- .ep-page .ep-consejo-panel{grid-template-columns:1fr;gap:8px;background:#fff}
- .ep-page .ep-consejo-logo{grid-row:auto;align-items:center;justify-content:flex-start;border-right:none;padding:0}
- .ep-page .ep-consejo-logo img{width:54px;height:54px}
- .ep-consejo-top{margin-top:-48px;margin-left:62px;min-height:47px}
- .ep-page .ep-consejo-track>.ep-consejo-point{flex-basis:92%;padding:10px 15px 10px 0;border-left:0}
- .ep-page .ep-consejo-track>.ep-consejo-point p{font-size:12px}
 }
 @media(prefers-reduced-motion:reduce){.ep-scroll-track{scroll-behavior:auto}}
+
+
+/* VCC · consejo fijo y compacto, igual que las recomendaciones de Cómo llegar.
+   Sin carrusel, sin flechas y con todo el texto visible en desktop y móvil. */
+.ep-page .ep-vcc-advice{
+ display:flex;align-items:center;gap:15px;
+ min-height:0;margin:0;padding:12px 17px;
+ background:#fff;border:1px solid #e7dcd3;border-radius:15px;
+ box-shadow:0 4px 14px rgba(57,38,22,.035);
+}
+.ep-page .ep-vcc-advice-logo{
+ display:block;flex:0 0 54px;width:54px;height:54px;
+ object-fit:contain;background:#fff;
+ border:2px solid #ca7251;border-radius:50%;padding:5px;
+}
+.ep-page .ep-vcc-advice-copy{min-width:0}
+.ep-page .ep-vcc-advice-copy strong{
+ display:block;margin:0 0 4px;
+ font:800 12px/1.2 "DM Sans",sans-serif;letter-spacing:.015em;color:#a95139;
+}
+.ep-page .ep-vcc-advice-copy p{
+ max-width:990px;margin:0;
+ font:400 12.5px/1.48 "DM Sans",sans-serif;color:#46403b;
+}
+@media(max-width:760px){
+ .ep-page .ep-vcc-advice{padding:11px 13px;gap:12px;border-radius:14px}
+ .ep-page .ep-vcc-advice-logo{flex-basis:48px;width:48px;height:48px;padding:4px}
+ .ep-page .ep-vcc-advice-copy strong{font-size:11.5px;margin-bottom:3px}
+ .ep-page .ep-vcc-advice-copy p{font-size:11.5px;line-height:1.48}
+}
+@media(max-width:520px){
+ .ep-page .ep-vcc-advice{align-items:center;padding:10px 12px;gap:10px}
+ .ep-page .ep-vcc-advice-logo{flex-basis:44px;width:44px;height:44px;padding:4px}
+ .ep-page .ep-vcc-advice-copy p{font-size:11px;line-height:1.42}
+}
