@@ -8,6 +8,14 @@ function init() {
   if (!root) return;
   /* Ranking VCC por perfil: paneles HTML legibles, sin dependencia de APIs.
      Click, flechas, Inicio y Fin funcionan también con teclado. */
+  const profileTip=root.querySelector("#ep-ranking-advice-copy");
+  const profileAdvice={
+    pareja:"En pareja elegiríamos un paseo en barco o el Museo Vasa; ABBA solo si nos entusiasma su música. Con dos o tres días, preferimos una o dos entradas y tiempo para disfrutar de los barrios.",
+    amigos:"Con amigos priorizaríamos una experiencia compartida: ABBA si sois fans o Gröna Lund si os gustan las atracciones y el parque está abierto. No compraríamos entradas que no interesen a todo el grupo.",
+    familia:"En familia escogeríamos Skansen como primera opción. Con adolescentes curiosos añadiríamos Vasa, pero sin llenar cada día de actividades de pago. Lo importante es adaptar el viaje a todos.",
+    ninos:"Con niños pequeños priorizaríamos Skansen y muchos descansos. Mejor una visita que puedan disfrutar con calma que tres entradas seguidas. Comprobad edades, horarios y restricciones de cada actividad.",
+    jubilados:"Si disfrutáis del patrimonio, Palacio Real y Vasa son dos opciones estupendas; si preferís algo más relajado, valorad el barco según el recorrido y la accesibilidad. Elegid por intereses, no por edad."
+  };
   const rankingTabs=[...root.querySelectorAll(".ep-ranking-tab[role='tab']")];
   if(rankingTabs.length){
     function selectProfile(next,focusTab){
@@ -18,6 +26,10 @@ function init() {
         tab.setAttribute("aria-selected",String(active));
         tab.tabIndex=active?0:-1;
         if(panel)panel.hidden=!active;
+        if(active&&profileTip){
+          const key=tab.id.replace("ep-ranking-tab-","");
+          if(profileAdvice[key])profileTip.textContent=profileAdvice[key];
+        }
       });
       if(focusTab)next.focus();
     }
