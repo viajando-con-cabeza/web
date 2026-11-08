@@ -317,3 +317,44 @@ html body .ql-page .ql-builder-unified>.ql-list-right>.ql-categories-scroll{
     overflow:visible!important;
   }
 }
+
+/* 2026-11-08 · Ahorra espacio: alinear título y número un poco más abajo. */
+html body .ql-page .ql-advice-carousel-sides .ql-advice-card{
+  box-sizing:border-box!important;
+  padding-top:20px!important;
+  padding-bottom:8px!important;
+  align-items:flex-start!important;
+}
+html body .ql-page .ql-advice-carousel-sides .ql-advice-card .ql-advice-number{
+  margin-top:2px!important;
+}
+html body .ql-page .ql-advice-carousel-sides .ql-advice-card h3{
+  margin-top:2px!important;
+}
+/* Solo un sobretítulo dinámico; mantener el progreso a la derecha. */
+html body .ql-page .ql-list-right .ql-list-top-compact{
+  display:flex!important;
+  flex-direction:row!important;
+  align-items:center!important;
+  justify-content:space-between!important;
+  gap:12px!important;
+  padding-top:4px!important;
+  padding-bottom:14px!important;
+}
+html body .ql-page .ql-list-right .ql-season-eyebrow{
+  display:block!important;
+  margin:0!important;
+  color:#cb7657!important;
+  font:600 clamp(24px,2.4vw,29px)/1.13 "Caveat",cursive!important;
+}
+@media(max-width:650px){
+ html body .ql-page .ql-advice-carousel-sides .ql-advice-card{
+   padding-top:17px!important;
+   padding-bottom:7px!important;
+ }
+ html body .ql-page .ql-list-right .ql-list-top-compact{
+   display:flex!important;
+   align-items:flex-start!important;
+ }
+ html body .ql-page .ql-list-right .ql-season-eyebrow{font-size:23px!important}
+}
