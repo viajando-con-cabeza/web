@@ -137,7 +137,7 @@
   else init();
 })();
 
-/* VCC · Caruseles accesibles de Entradas, Según tus días y Consejo VCC.
+/* VCC · Carruseles accesibles de Entradas y Según tus días. El consejo VCC es estático.
    Mantiene el desplazamiento táctil nativo; las flechas muestran su estado real. */
 (function(){
   "use strict";
