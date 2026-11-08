@@ -249,10 +249,25 @@ body.dv-page{
 }
 .dv-page .dv-map-open:hover{background:#b6513b}
 /* Editorial advice vignettes: number, concise heading and copy (no repeat icons). */
-.dv-page .dv-tip-grid{
- display:grid;grid-template-columns:repeat(4,minmax(0,1fr));
- gap:13px;margin-top:9px;
+.dv-page .dv-tip-carousel-wrap{
+ position:relative;margin-top:9px;
 }
+.dv-page .dv-tip-grid{
+ display:flex;gap:13px;margin-top:0;padding:2px 1px 10px;
+ overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;
+ scrollbar-width:none;overscroll-behavior-inline:contain;
+}
+.dv-page .dv-tip-grid::-webkit-scrollbar{display:none}
+.dv-page .dv-tip{
+ flex:0 0 calc((100% - 26px)/3);
+ min-width:0;scroll-snap-align:start;
+}
+.dv-page .dv-tip-carousel-wrap .dv-arrow{
+ width:36px;height:36px;font-size:22px!important;
+}
+.dv-page .dv-tip-prev{left:-44px}
+.dv-page .dv-tip-next{right:-44px}
+
 .dv-page .dv-tip{
  display:flex;align-items:flex-start;gap:10px;
  min-height:102px;padding:17px 15px;
@@ -277,7 +292,9 @@ body.dv-page{
  .dv-page .dv-arrow-left{left:-24px}
  .dv-page .dv-arrow-right{right:-24px}
  .dv-page .dv-arrow{width:38px;height:38px}
- .dv-page .dv-tip-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .dv-page .dv-tip{flex-basis:calc((100% - 13px)/2)}
+ .dv-page .dv-tip-prev{left:-22px}
+ .dv-page .dv-tip-next{right:-22px}
 }
 @media(max-width:850px){
  .dv-page .dv-hero{height:450px!important;min-height:450px!important;max-height:450px!important}
@@ -318,6 +335,9 @@ body.dv-page{
  .dv-page .dv-map-frame{width:100%}
  .dv-page .dv-map-frame iframe{height:340px}
  .dv-page .dv-tip-grid{gap:9px}
+ .dv-page .dv-tip{flex-basis:88%}
+ .dv-page .dv-tip-prev{left:-12px}
+ .dv-page .dv-tip-next{right:-12px}
  .dv-page .dv-tip{min-height:117px;padding:13px 10px;gap:7px}
  .dv-page .dv-tip h3{font-size:14px}
  .dv-page .dv-tip p{font-size:10px}
@@ -330,7 +350,7 @@ body.dv-page{
 }
 @media(max-width:360px){
  .dv-page .dv-card{flex-basis:94%}
- .dv-page .dv-tip-grid{grid-template-columns:1fr}
+ .dv-page .dv-tip{flex-basis:93%}
 }
 @media(prefers-reduced-motion:reduce){
  .dv-page .dv-carousel{scroll-behavior:auto}
