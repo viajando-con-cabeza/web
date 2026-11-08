@@ -1,4 +1,4 @@
-/* VCC · Entradas y pases · Ranking editorial fijo.
+/* VCC · Entradas y pases · Ranking editorial por perfil.
    Sólo navegación sticky y carouseles de entradas/consejos.
    No hay filtros ni calculadoras: la recomendación editorial es legible sin JS. */
 (function() {
@@ -6,6 +6,36 @@
 function init() {
   const root=document.querySelector(".ep-page");
   if (!root) return;
+  /* Ranking VCC por perfil: paneles HTML legibles, sin dependencia de APIs.
+     Click, flechas, Inicio y Fin funcionan también con teclado. */
+  const rankingTabs=[...root.querySelectorAll(".ep-ranking-tab[role='tab']")];
+  if(rankingTabs.length){
+    function selectProfile(next,focusTab){
+      if(!next)return;
+      rankingTabs.forEach(tab=>{
+        const active=tab===next;
+        const panel=document.getElementById(tab.getAttribute("aria-controls"));
+        tab.setAttribute("aria-selected",String(active));
+        tab.tabIndex=active?0:-1;
+        if(panel)panel.hidden=!active;
+      });
+      if(focusTab)next.focus();
+    }
+    rankingTabs.forEach((tab,index)=>{
+      tab.addEventListener("click",()=>selectProfile(tab,false));
+      tab.addEventListener("keydown",event=>{
+        let idx;
+        if(event.key==="ArrowRight")idx=(index+1)%rankingTabs.length;
+        else if(event.key==="ArrowLeft")idx=(index+rankingTabs.length-1)%rankingTabs.length;
+        else if(event.key==="Home")idx=0;
+        else if(event.key==="End")idx=rankingTabs.length-1;
+        else return;
+        event.preventDefault();
+        selectProfile(rankingTabs[idx],true);
+      });
+    });
+    selectProfile(rankingTabs.find(tab=>tab.getAttribute("aria-selected")==="true")||rankingTabs[0],false);
+  }
   const nav=root.querySelector(".ep-subnav");
   if(nav){
     const links=[...nav.querySelectorAll('a[href^="#"]')];
