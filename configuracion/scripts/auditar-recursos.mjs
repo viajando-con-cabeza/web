@@ -28,5 +28,5 @@ const report={files:code.length,images:assets.length,used:usage.size,missing:[..
 if(!process.argv.includes('--no-write')){fs.mkdirSync('configuracion/datos',{recursive:true});fs.writeFileSync('configuracion/datos/auditoria-recursos.json',JSON.stringify(report,null,2)+'\n')}
 console.log('Auditoria VCC: '+code.length+' fitxers, '+assets.length+' imatges, '+missing.size+' referencies absents, '+external.size+' externes, '+duplicates.length+' duplicats');
 for(const p of [...missing].slice(0,40))console.error('RUTA INEXISTENT',p);
-if(process.argv.includes('--strict-external'))for(const p of [...external].slice(0,40))console.error('FOTO EXTERNA',p);
+if(process.argv.includes('--strict-external'))for(const p of [...external].slice(0,100))console.error('FOTO EXTERNA',p);
 if(missing.size||(process.argv.includes('--strict-external')&&external.size))process.exitCode=1;
