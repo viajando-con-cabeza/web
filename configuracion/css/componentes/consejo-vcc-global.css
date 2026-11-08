@@ -442,3 +442,94 @@ html body .imp-page .imp-main .place.place--no-media .advice.vcc-consejo-unifica
     font-size:8px!important;
   }
 }
+
+
+/* Consejo VCC sizing audit · responsive context-specific scales v4
+   Wide editorial recommendations 40 / 10, standard 35 / 9.5,
+   narrow sidebars and transport articles 30 / 8.5,
+   Qué ver keeps the approved 28 / 8 scale.
+   Every logo stays above the caption; never force fixed card heights. */
+
+/* Cuándo ir is intentionally more prominent, but less dominant than before. */
+html body.ci-page .ci-recommendation.vcc-consejo-unificado .ci-recommendation-brand{
+  flex-direction:column!important;
+  align-items:center!important;
+  text-align:center!important;
+  gap:3px!important;
+}
+html body.ci-page .ci-recommendation.vcc-consejo-unificado .ci-recommendation-brand img{
+  width:40px!important;
+  height:40px!important;
+  max-width:40px!important;
+}
+html body.ci-page .ci-recommendation.vcc-consejo-unificado .ci-recommendation-brand strong{
+  font-size:10px!important;
+  letter-spacing:.055em!important;
+  white-space:nowrap!important;
+}
+
+/* Narrow columns: packing checklists and individual transport articles.
+   These keep the same VCC identity without crowding the actual advice. */
+html body .right .box.tip.vcc-consejo-unificado .vcc-consejo-marca{
+  gap:2px!important;
+}
+html body .right .box.tip.vcc-consejo-unificado .vcc-consejo-marca img,
+html body .cl-panel.cl-tip.vcc-consejo-unificado .vcc-consejo-marca img{
+  width:30px!important;
+  height:30px!important;
+  max-width:30px!important;
+  max-height:30px!important;
+  flex:0 0 30px!important;
+}
+html body .right .box.tip.vcc-consejo-unificado .vcc-consejo-marca > strong,
+html body .cl-panel.cl-tip.vcc-consejo-unificado .vcc-consejo-marca > strong{
+  font-size:8.5px!important;
+  letter-spacing:.025em!important;
+  line-height:1.25!important;
+}
+html body .cl-panel.cl-tip.vcc-consejo-unificado{
+  grid-template-columns:78px minmax(0,1fr)!important;
+  gap:10px!important;
+  min-height:66px!important;
+  height:auto!important;
+  padding:10px 13px!important;
+}
+/* The sidebar already uses a vertical layout, respecting its 235px width. */
+html body .right .box.tip.vcc-consejo-unificado{
+  gap:7px!important;
+  padding:13px!important;
+}
+@media(max-width:700px){
+  html body.ci-page .ci-recommendation.vcc-consejo-unificado .ci-recommendation-brand img{
+    width:36px!important;
+    height:36px!important;
+    max-width:36px!important;
+  }
+  html body.ci-page .ci-recommendation.vcc-consejo-unificado .ci-recommendation-brand strong{
+    font-size:9px!important;
+  }
+  html body .right .box.tip.vcc-consejo-unificado .vcc-consejo-marca img,
+  html body .cl-panel.cl-tip.vcc-consejo-unificado .vcc-consejo-marca img{
+    width:28px!important;height:28px!important;max-width:28px!important;max-height:28px!important;flex-basis:28px!important;
+  }
+  html body .cl-panel.cl-tip.vcc-consejo-unificado{
+    grid-template-columns:72px minmax(0,1fr)!important;
+    gap:9px!important;
+    padding:9px 11px!important;
+  }
+}
+/* Never let a global logo rule override the approved ultra-compact Qué ver tips. */
+html body .imp-page .place-copy .advice.vcc-consejo-unificado .vcc-consejo-marca img,
+html body .imp-page .imp-main .place.place--no-media .advice.vcc-consejo-unificado .vcc-consejo-marca img{
+  width:28px!important;height:28px!important;max-width:28px!important;max-height:28px!important;flex:0 0 28px!important;
+}
+html body .imp-page .place-copy .advice.vcc-consejo-unificado .vcc-consejo-marca > strong,
+html body .imp-page .imp-main .place.place--no-media .advice.vcc-consejo-unificado .vcc-consejo-marca > strong{
+  font-size:8px!important;
+}
+@media(max-width:700px){
+  html body .imp-page .place-copy .advice.vcc-consejo-unificado .vcc-consejo-marca img,
+  html body .imp-page .imp-main .place.place--no-media .advice.vcc-consejo-unificado .vcc-consejo-marca img{
+    width:27px!important;height:27px!important;max-width:27px!important;max-height:27px!important;flex-basis:27px!important;
+  }
+}
