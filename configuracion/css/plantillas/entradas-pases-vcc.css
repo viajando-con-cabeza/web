@@ -34,7 +34,8 @@
 .ep-section-heading .ep-script{font:600 clamp(26px,3vw,31px)/1 "Caveat",cursive;color:var(--ep-orange);margin-bottom:5px;text-transform:none}
 .ep-section-heading h2{font:500 clamp(28px,3.1vw,39px)/1.12 "Oswald",sans-serif;color:#232625;letter-spacing:-.012em;text-transform:uppercase;margin-bottom:5px}
 .ep-section-heading>p:not(.ep-script){font:400 13px/1.55 "DM Sans",sans-serif;color:var(--ep-muted);max-width:890px}
-.ep-feature-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:15px}
+
+
 .ep-feature{display:flex;flex-direction:column;min-width:0;overflow:hidden;border:1px solid #e4d9d0;border-radius:15px;background:#fffdf9;box-shadow:0 4px 12px rgba(70,52,34,.045)}
 .ep-feature-visual{height:117px;overflow:hidden;background:#d9d3c5}
 .ep-feature-visual svg{width:100%;height:100%;display:block}
@@ -102,7 +103,8 @@
 .ep-best strong{font:800 11px/1.4 "DM Sans",sans-serif;color:#4a754a;display:block;margin-top:5px}
 .ep-calc-links{display:flex;justify-content:flex-end;flex-wrap:wrap;gap:12px;font:700 10px/1.3 "DM Sans",sans-serif}
 .ep-calc-links a{color:#a4583d;text-decoration:underline;text-underline-offset:2px}
-.ep-days-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:15px}
+
+
 .ep-day-card{display:flex;flex-direction:column;overflow:hidden;min-width:0;border-radius:13px;border:1px solid #e0e6e2;background:#fffdf9}
 .ep-day-card.ep-day-selected{border:2px solid #df9a64;background:#fffbf5}
 .ep-day-head{display:flex;align-items:center;gap:9px;background:#e4f0ec;padding:10px 13px;min-height:46px}
@@ -119,17 +121,16 @@
 .ep-day-card>p{margin:auto 15px 13px;font:600 10.5px/1.45 "DM Sans",sans-serif;color:#73665c}
 .ep-day-card>a{align-self:flex-start;margin:auto 13px 13px;color:#a95936;text-decoration:underline;text-underline-offset:3px;font:800 10px/1.3 "DM Sans",sans-serif}
 .ep-consejo{margin-bottom:21px!important}
-.ep-consejo-panel{display:grid;grid-template-columns:92px repeat(3,minmax(0,1fr));gap:0;align-items:center;padding:20px 14px;border:1px solid #edddce;border-radius:19px;background:linear-gradient(120deg,#fff6eb,#fffaf5,#f9f0e7)}
-.ep-consejo-logo{display:grid;place-items:center;padding-right:11px}
-.ep-consejo-logo img{width:74px;height:74px;object-fit:contain;background:white;border:3px solid var(--ep-orange);border-radius:50%;padding:6px}
-.ep-consejo-point{min-width:0;display:flex;align-items:flex-start;gap:9px;padding:0 15px;border-left:1px solid #dec8b8}
+
+
 .ep-tip-icon{flex:0 0 28px;color:var(--ep-orange)}
 .ep-tip-icon svg{width:27px;height:27px;fill:none;stroke:currentColor;stroke-width:1.65;stroke-linecap:round;stroke-linejoin:round}
 .ep-consejo-point p{font:400 11px/1.5 "DM Sans",sans-serif}
 .ep-consejo-point strong{display:block;font:800 11px/1.4 "DM Sans",sans-serif;color:#2d2b29;margin-bottom:3px}
 .ep-footer-note{border-top:1px solid #dfd5cb;padding-top:13px;color:#80766c;font:400 10px/1.6 "DM Sans",sans-serif}
 @media(max-width:1090px){
- .ep-feature-grid,.ep-days-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+
+
  .ep-feature h3{font-size:25px}
  .ep-calc-shell{grid-template-columns:1fr}
  .ep-book-grid{gap:10px}
@@ -150,10 +151,8 @@
  .ep-book-grid{grid-template-columns:1fr}
  .ep-book-card{min-height:0;padding:16px}
  .ep-book-card p{flex:auto}
- .ep-consejo-panel{grid-template-columns:75px minmax(0,1fr);row-gap:17px}
- .ep-consejo-logo{grid-row:1/4}
- .ep-consejo-logo img{width:66px;height:66px}
- .ep-consejo-point{border-left:1px solid #dec8b8;padding:0 11px}
+
+
 }
 @media(max-width:520px){
  .ep-wrap{width:calc(100% - 26px)}
@@ -167,7 +166,8 @@
  .ep-section-heading .ep-script{font-size:27px}
  .ep-section-heading h2{font-size:28px}
  .ep-section-heading>p:not(.ep-script){font-size:12px}
- .ep-feature-grid{grid-template-columns:1fr;gap:11px}
+
+
  .ep-feature{display:grid;grid-template-columns:116px minmax(0,1fr);min-height:164px}
  .ep-feature-visual{height:100%;min-height:164px}
  .ep-feature-visual svg{width:100%;height:100%;object-fit:cover}
@@ -190,14 +190,83 @@
  .ep-best{grid-template-columns:64px 1fr;padding:11px;gap:10px}
  .ep-best-brand img{width:50px;height:50px}
  .ep-best-brand span{font-size:8px}
- .ep-days-grid{grid-template-columns:1fr 1fr;gap:9px}
+
+
  .ep-day-head{padding:8px 10px}
  .ep-day-head h3{font-size:21px}
  .ep-day-card ul{padding:11px}
  .ep-day-card li{font-size:10.5px}
  .ep-day-card>p,.ep-day-card>a{margin-left:11px;margin-right:11px}
- .ep-consejo-panel{grid-template-columns:1fr;gap:13px;padding:15px}
- .ep-consejo-logo{grid-row:auto;justify-content:flex-start;border-bottom:1px solid #e5d4c5;padding-bottom:12px}
- .ep-consejo-point{border-left:0;padding:0}
+
+
 }
 @media(prefers-reduced-motion:reduce){.ep-page *{scroll-behavior:auto!important;transition:none!important}}
+
+/* VCC 08·11 · Carruseles con flechas compactas en la esquina superior derecha,
+   desplazamiento táctil y ajuste por tarjeta; base editorial compartida. */
+.ep-page .ep-section:has(.ep-slider-controls){position:relative}
+.ep-page #atracciones .ep-section-heading,.ep-page #dias .ep-section-heading{padding-right:104px}
+.ep-slider-controls{position:absolute;top:13px;right:0;z-index:2;display:inline-flex;align-items:center;gap:8px;margin:0}
+.ep-slider-arrow{width:34px;height:34px;display:grid;place-items:center;padding:0;border:1px solid #d9c6b8;border-radius:50%;background:#fff;color:#a95e43;box-shadow:0 2px 7px rgba(55,35,26,.06);font:700 20px/1 "DM Sans",sans-serif;transition:background .16s,border-color .16s,color .16s}
+.ep-slider-arrow:hover:not(:disabled){background:#c76a4e;color:#fff;border-color:#c76a4e}
+.ep-slider-arrow:disabled{opacity:.34;cursor:default;box-shadow:none}
+.ep-slider-rail{overflow:hidden;min-width:0}
+.ep-scroll-track{display:flex;gap:15px;overflow-x:auto;overscroll-behavior-inline:contain;scroll-snap-type:x mandatory;scrollbar-width:none;scroll-padding-inline:2px;padding:2px 2px 12px;min-width:0;-webkit-overflow-scrolling:touch}
+.ep-scroll-track::-webkit-scrollbar{display:none}
+.ep-scroll-track>:is(.ep-feature,.ep-day-card,.ep-consejo-point){scroll-snap-align:start;scroll-snap-stop:normal}
+.ep-feature-grid,.ep-days-grid{display:flex;grid-template-columns:none;gap:15px}
+.ep-feature-grid>.ep-feature{flex:0 0 calc((100% - 34px)/3.15);min-width:0}
+.ep-days-grid>.ep-day-card{flex:0 0 calc((100% - 34px)/3.15);min-width:0;min-height:195px}
+.ep-feature-grid>.ep-feature{display:flex;flex-direction:column;grid-template-columns:none;min-height:280px}
+.ep-feature-grid>.ep-feature>.ep-feature-visual{height:125px;min-height:125px;flex:0 0 125px}
+.ep-feature-grid>.ep-feature>.ep-feature-visual svg{display:block;width:100%;height:100%}
+.ep-feature-grid>.ep-feature.ep-visual-abba svg{display:block}
+.ep-feature-grid .ep-feature-body{flex:1}
+.ep-feature-grid .ep-feature-body>a{margin-top:auto}
+.ep-page .ep-consejo-panel{display:grid;grid-template-columns:89px minmax(0,1fr);align-items:stretch;gap:13px;padding:15px 16px;border:1px solid #e5d7cc;border-radius:16px;background:#fff;box-shadow:0 5px 17px rgba(57,38,22,.045)}
+.ep-page .ep-consejo-logo{display:flex;align-items:center;justify-content:center;min-width:0;padding-right:10px;border-right:1px solid #e8dbce}
+.ep-page .ep-consejo-logo img{width:65px;height:65px;object-fit:contain;padding:5px;border:2px solid #cb7352;border-radius:50%;background:#fff}
+.ep-consejo-content{min-width:0}
+.ep-consejo-top{position:relative;display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:34px;padding:0 0 7px 7px;margin-bottom:8px;border-bottom:1px solid #efe6de}
+.ep-consejo-top>strong{font:800 11px/1.3 "DM Sans",sans-serif;letter-spacing:.06em;color:#ac5841}
+.ep-consejo-top .ep-slider-controls{position:static;flex:none}
+.ep-consejo-top .ep-slider-arrow{width:28px;height:28px;font-size:17px}
+.ep-consejo-track{gap:0;padding:2px 0 3px}
+.ep-page .ep-consejo-track>.ep-consejo-point{flex:0 0 calc(100%/2.25);min-width:0;display:flex;align-items:flex-start;gap:9px;padding:5px 18px 5px 13px;border-left:1px solid #e4d6c9}
+.ep-page .ep-consejo-track>.ep-consejo-point:first-child{border-left:0}
+.ep-page .ep-consejo-track>.ep-consejo-point p{max-width:275px}
+.ep-page .ep-best{background:#fff;border-color:#e3d8cf}
+@media(max-width:1090px){
+ .ep-feature-grid>.ep-feature,.ep-days-grid>.ep-day-card{flex-basis:calc((100% - 28px)/2.25)}
+ .ep-page .ep-consejo-track>.ep-consejo-point{flex-basis:calc(100%/1.7)}
+}
+@media(max-width:760px){
+ .ep-page #atracciones .ep-section-heading,.ep-page #dias .ep-section-heading{padding-right:0}
+ .ep-page #atracciones>.ep-slider-controls,.ep-page #dias>.ep-slider-controls{position:relative;top:auto;right:auto;justify-content:flex-end;width:100%;margin:-4px 0 8px}
+ .ep-feature-grid>.ep-feature,.ep-days-grid>.ep-day-card{flex-basis:calc((100% - 20px)/1.5)}
+ .ep-page .ep-consejo-panel{grid-template-columns:72px minmax(0,1fr);padding:13px 11px}
+ .ep-page .ep-consejo-logo{display:flex;grid-row:auto;padding-right:8px;align-items:center}
+ .ep-page .ep-consejo-logo img{width:55px;height:55px}
+ .ep-page .ep-consejo-track>.ep-consejo-point{flex-basis:88%}
+}
+@media(max-width:520px){
+ .ep-feature-grid,.ep-days-grid{grid-template-columns:none;gap:10px}
+ .ep-feature-grid>.ep-feature,.ep-days-grid>.ep-day-card{flex:0 0 84%;min-height:0}
+ .ep-feature-grid>.ep-feature{display:flex;flex-direction:column;grid-template-columns:none;min-height:268px}
+ .ep-feature-grid>.ep-feature>.ep-feature-visual{height:118px;min-height:118px;flex-basis:118px}
+ .ep-feature-grid>.ep-feature .ep-feature-body{padding:13px;gap:7px}
+ .ep-feature-grid>.ep-feature h3{font-size:23px}
+ .ep-feature-grid>.ep-feature .ep-feature-facts{font-size:11px}
+ .ep-feature-grid>.ep-feature .ep-feature-status{padding:7px;min-height:28px}
+ .ep-feature-grid>.ep-feature .ep-feature-body>a{min-height:34px}
+ .ep-days-grid>.ep-day-card{min-height:200px}
+ .ep-day-card ul{padding:13px 15px}
+ .ep-day-card li{font-size:12px}
+ .ep-page .ep-consejo-panel{grid-template-columns:1fr;gap:8px;background:#fff}
+ .ep-page .ep-consejo-logo{grid-row:auto;align-items:center;justify-content:flex-start;border-right:none;padding:0}
+ .ep-page .ep-consejo-logo img{width:54px;height:54px}
+ .ep-consejo-top{margin-top:-48px;margin-left:62px;min-height:47px}
+ .ep-page .ep-consejo-track>.ep-consejo-point{flex-basis:92%;padding:10px 15px 10px 0;border-left:0}
+ .ep-page .ep-consejo-track>.ep-consejo-point p{font-size:12px}
+}
+@media(prefers-reduced-motion:reduce){.ep-scroll-track{scroll-behavior:auto}}
