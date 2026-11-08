@@ -319,9 +319,9 @@
     const topReach=Math.min(y,Math.max(0,visibleH-36));
     return {x,y,minX:-leftReach,minY:-topReach,width:visibleW,height:visibleH};
   };
-  // Moviment suau amb zoom: resposta progressiva al ratolí,
-  // però mantenint tot el recorregut fins a les quatre vores.
-  const PAN_EASE=1.55;
+  // Velocitat constant i moderada: sense acceleració als extrems.
+  // El zoom del navegador no canvia la velocitat de navegació.
+  const PAN_SPEED=0.65;
   const paintPan=modal=>{
     const panel=panelOf(modal);
     if(!panel)return;
@@ -468,33 +468,17 @@
       panGestureBase={...now,panX:state.x,panY:state.y};
       return;
     }
-    // El mapa de recorregut continua arribant a cada vora del panell,
-    // però amb un inici progressiu molt menys sensible i reversible.
+    // El moviment segueix el cursor amb una velocitat reduïda i uniforme.
+    // Sense multiplicadors segons el zoom o la proximitat a les vores.
     let dx=now.x-panGestureBase.x,dy=now.y-panGestureBase.y;
     if(Math.abs(dx)<.1&&Number.isFinite(now.sx)&&Number.isFinite(panGestureBase.sx))
       dx=(now.sx-panGestureBase.sx)/Math.max(1,zoomRatio());
     if(Math.abs(dy)<.1&&Number.isFinite(now.sy)&&Number.isFinite(panGestureBase.sy))
       dy=(now.sy-panGestureBase.sy)/Math.max(1,zoomRatio());
     if(!Number.isFinite(dx)||!Number.isFinite(dy))return;
-    const limits=panLimits(modal),rect=modal.getBoundingClientRect();
-    const fromX=clamp(panGestureBase.x-rect.left,0,limits.width);
-    const fromY=clamp(panGestureBase.y-rect.top,0,limits.height);
-    const travelAxis=(delta,initial,min,max,from,visible)=>{
-      if(Math.abs(delta)<.1)return initial;
-      // La distància física disponible cap a la vora pot ser molt
-      // inferior al recorregut interior, sobretot amb zoom del 200%.
-      const available=Math.max(28,delta>0?visible-from:from);
-      const remaining=delta>0?max-initial:initial-min;
-      // Els moviments curts desplacen molt menys que abans.
-      // A les vores, la progressió arriba igualment al límit complet.
-      const fraction=clamp(Math.abs(delta)/available,0,1);
-      const movement=remaining*Math.pow(fraction,PAN_EASE);
-      return clamp(initial+Math.sign(delta)*movement,min,max);
-    };
-    pendingDx=travelAxis(dx,panGestureBase.panX,limits.minX,
-      limits.x,fromX,limits.width);
-    pendingDy=travelAxis(dy,panGestureBase.panY,limits.minY,
-      limits.y,fromY,limits.height);
+    const limits=panLimits(modal);
+    pendingDx=clamp(panGestureBase.panX+dx*PAN_SPEED,limits.minX,limits.x);
+    pendingDy=clamp(panGestureBase.panY+dy*PAN_SPEED,limits.minY,limits.y);
     if(!panFrame)panFrame=requestAnimationFrame(flushPan);
   };
   window.addEventListener('resize',()=>{resetHoverPan();queueMosaicZoomSync();},{passive:true});
