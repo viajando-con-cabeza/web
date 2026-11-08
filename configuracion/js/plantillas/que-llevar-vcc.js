@@ -50,8 +50,8 @@ const el=id=>document.getElementById(id);
 const state={season:"primavera",days:7,done:new Set()};
 function amount(kind,mult){
  if(kind==="fixed")return mult;
- if(kind==="tops")return Math.max(2,Math.min(state.days,10));
- if(kind==="trousers")return state.days<=4?1:state.days<=7?2:3;
+ if(kind==="tops")return state.days;
+ if(kind==="trousers")return Math.max(1,Math.ceil(state.days/3));
  if(kind==="socks")return state.days;
  if(kind==="underwear")return state.days+1;
  return mult;
@@ -99,13 +99,14 @@ function render(){
  el("ql-intro").textContent=s.intro;
  el("ql-suitcase-art").dataset.season=state.season;
  el("ql-days").value=String(state.days);
- document.querySelectorAll(".ql-days-pills button").forEach(b=>b.setAttribute("aria-pressed",String(Number(b.dataset.days)===state.days)));
  el("ql-note").textContent=s.note;
 
  const cats=el("ql-categories");cats.replaceChildren();
+ const columns=[document.createElement("div"),document.createElement("div")];
+ columns.forEach((col,i)=>{col.className="ql-category-column";col.dataset.column=i===0?"left":"right";cats.append(col)});
  let total=0,completed=0;
- s.items.forEach(c=>{
-  const article=document.createElement("article");article.className="ql-category";
+ s.items.forEach((c,index)=>{
+  const article=document.createElement("article");article.className="ql-category";article.dataset.qlOrder=String(index);
   const h=document.createElement("h3");h.textContent=c[0];article.append(h);
   const ul=document.createElement("ul");
   c[2].forEach(item=>{
@@ -123,7 +124,7 @@ function render(){
    li.append(label);ul.append(li);
    total++;if(input.checked)completed++;
   });
-  article.append(ul);cats.append(article);
+  article.append(ul);columns[index%2].append(article);
  });
  el("ql-progress").textContent=completed+" de "+total+" preparados";
  el("ql-progress-bar").style.width=(total?(completed/total*100):0).toFixed(1)+"%";
@@ -135,14 +136,13 @@ function currentList(){
  return lines.join("\n");
 }
 function restore(){
- try{const o=JSON.parse(localStorage.getItem("vcc-packing-stockholm-v2")||"{}");if(seasons[o.season])state.season=o.season;if([3,5,7,10].includes(o.days))state.days=o.days;if(Array.isArray(o.done))state.done=new Set(o.done.filter(x=>typeof x==="string").slice(0,120))}catch(e){}
+ try{const o=JSON.parse(localStorage.getItem("vcc-packing-stockholm-v2")||"{}");if(seasons[o.season])state.season=o.season;if(Number.isInteger(o.days)&&o.days>=1&&o.days<=30)state.days=o.days;if(Array.isArray(o.done))state.done=new Set(o.done.filter(x=>typeof x==="string").slice(0,120))}catch(e){}
 }
 function persist(){try{localStorage.setItem("vcc-packing-stockholm-v2",JSON.stringify({season:state.season,days:state.days,done:[...state.done]}))}catch(e){}}
 restore();
 el("ql-days").value=state.days;render();
 document.querySelectorAll(".ql-season").forEach(b=>b.addEventListener("click",()=>{state.season=b.dataset.season;persist();render()}));
-document.querySelectorAll(".ql-days-pills button").forEach(b=>b.addEventListener("click",()=>{state.days=Number(b.dataset.days);persist();render()}));
-el("ql-days").addEventListener("change",e=>{state.days=Number(e.target.value);persist();render()});
+el("ql-days").addEventListener("change",e=>{const days=Number(e.target.value);if(!Number.isInteger(days)||days<1||days>30)return;state.days=days;persist();render()});
 
 el("ql-categories").addEventListener("change",e=>{const input=e.target;if(input.matches('input[type="checkbox"][data-item]')){input.checked?state.done.add(input.dataset.item):state.done.delete(input.dataset.item);persist();render()}});
 el("ql-reset").addEventListener("click",()=>{const prefix=state.season+"|"+state.days+"|";state.done.forEach(x=>{if(x.startsWith(prefix))state.done.delete(x)});persist();render()});
