@@ -630,3 +630,55 @@ html body .vcc-hero{
       url('/configuracion/imagenes/fondos/fondos-itinerario.webp?v=20261101b') 60% center/cover no-repeat!important;
   }
 }
+
+
+/* Quality 2026-11-08 · Consejo VCC a tres columnas y acceso discreto al mapa */
+html body .day-section{row-gap:20px}
+html body .day-section > .day-tip{
+  grid-column:1/-1;
+  width:100%!important;
+  max-width:none!important;
+  margin:0!important;
+  min-height:0!important;
+  padding:16px 21px!important;
+  display:flex!important;
+  align-items:center!important;
+  gap:15px!important;
+  background:#fff!important;
+  border:1px solid #e8ded3!important;
+  border-left:3px solid #c86f5d!important;
+  border-radius:10px!important;
+}
+html body .day-section > .day-tip img{width:45px!important;height:45px!important;flex:0 0 45px!important;object-fit:contain}
+html body .day-section > .day-tip div{font:400 13px/1.55 'DM Sans',sans-serif!important;color:#5d5650!important}
+html body .day-section > .day-tip strong{display:block!important;margin:0 0 4px!important;font:800 11px/1.3 'DM Sans',sans-serif!important;color:#aa543e!important}
+html body .day-schedule-top{
+  display:flex;align-items:center;justify-content:space-between;
+  flex-wrap:wrap;column-gap:12px;row-gap:7px;
+  margin:0 0 20px;
+}
+html body .day-schedule-top h3{margin:0!important;flex:0 1 auto}
+html body .day-schedule-top .map-button{
+  display:inline-flex!important;align-items:center!important;gap:5px!important;
+  flex:0 0 auto;margin:0!important;padding:3px 0!important;
+  border:0!important;border-bottom:1px solid transparent!important;border-radius:0!important;
+  box-shadow:none!important;background:transparent!important;
+  color:#b45b46!important;text-decoration:none!important;
+  font:800 10.5px/1.3 'DM Sans',sans-serif!important;letter-spacing:.01em!important;
+  transition:color .18s,border-color .18s;
+}
+html body .day-schedule-top .map-button svg{
+  width:17px;height:17px;flex:none;fill:none;stroke:currentColor;
+  stroke-width:1.65;stroke-linecap:round;stroke-linejoin:round;
+}
+html body .day-schedule-top .map-button .map-link-arrow{font-size:12px;line-height:1}
+html body .day-schedule-top .map-button:hover{
+  color:#8e4031!important;border-bottom-color:currentColor!important;background:transparent!important;
+}
+html body .day-schedule-top .map-button:focus-visible{outline:2px solid #b45b46;outline-offset:4px}
+@media(max-width:650px){
+  html body .day-section > .day-tip{padding:13px 14px!important;gap:11px!important;align-items:flex-start!important}
+  html body .day-section > .day-tip img{width:38px!important;height:38px!important;flex-basis:38px!important}
+  html body .day-section > .day-tip div{font-size:12px!important}
+  html body .day-schedule-top{margin-bottom:17px}
+}
