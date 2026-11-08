@@ -69,7 +69,7 @@ const budgetCards = budgetFiles.map(file=>{
   const amount=plain((featured.match(/<strong[^>]*>([\s\S]*?)<\/strong>/i)||[])[1]||"") || "Ver guía";
   const href="/"+rel(file);
   const firstImg=(html.match(/<img[^>]+src=["']([^"']+)["']/i)||[])[1]||"";
-  const bg = /^https?:\/\//.test(firstImg) ? firstImg : "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1000&q=84";
+  const bg = /^https?:\/\//.test(firstImg) ? firstImg : "/configuracion/imagenes/externas/unsplash/photo-1500530855697-b586d89ba3ee.webp";
   return `<article class="card destination" data-continent="${esc(continent)}"><div class="card-media" style="background-image:linear-gradient(180deg,transparent,rgba(0,0,0,.48)),url('${esc(bg)}')"><div><small>${esc(country)} · ${esc(destination.toUpperCase())}</small><h3>${esc(destination)}</h3></div></div><div class="card-body"><div class="metrics"><div class="metric"><small>PRESUPUESTO VCC</small><strong>${esc(amount)}</strong><small>persona / día</small></div><div class="metric"><small>TIPO DE VIAJE</small><strong>VCC</strong><small>calidad + criterio</small></div></div><div class="mini"><span>🛏 Alojamiento</span><span>🍴 Comida</span><span>🚇 Transporte</span><span>🎟 Actividades</span></div><div class="highlight"><b>En la guía completa:</b> presupuesto, consejos y gastos del destino.</div><a class="cta" href="${href}">VER PRESUPUESTO COMPLETO →</a></div></article>`;
 }).sort((a,b)=>a.localeCompare(b,"es"));
 
