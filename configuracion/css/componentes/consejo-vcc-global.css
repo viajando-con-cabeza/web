@@ -366,3 +366,79 @@ html body .imp-page .imp-main .place.place--no-media .advice.vcc-consejo-unifica
     font-size:8.5px!important;
   }
 }
+
+
+/* 2026-11-08 · Consejo VCC logo + caption refined scale v3
+   Logo and caption are intentionally quieter than the editorial tip.
+   The label remains centered BELOW the logo, never beside it. */
+html body .vcc-consejo-unificado:not(.ci-recommendation) .vcc-consejo-marca{
+  gap:2px!important;
+}
+html body .vcc-consejo-unificado:not(.ci-recommendation) .vcc-consejo-marca img{
+  width:35px!important;
+  height:35px!important;
+  max-width:35px!important;
+  max-height:35px!important;
+  flex:0 0 35px!important;
+}
+html body .vcc-consejo-unificado:not(.ci-recommendation) .vcc-consejo-marca > strong{
+  font-size:9.5px!important;
+  letter-spacing:.03em!important;
+}
+html body.ci-page .ci-recommendation.vcc-consejo-unificado .ci-recommendation-brand img{
+  width:43px!important;
+  height:43px!important;
+  max-width:43px!important;
+}
+html body.ci-page .ci-recommendation.vcc-consejo-unificado .ci-recommendation-brand strong{
+  font-size:10.5px!important;
+}
+html body .imp-page .place-copy .advice.vcc-consejo-unificado,
+html body .imp-page .imp-main .place.place--no-media .advice.vcc-consejo-unificado{
+  grid-template-columns:70px minmax(0,1fr)!important;
+  min-height:62px!important;
+  padding:7px 11px!important;
+  gap:8px!important;
+}
+html body .imp-page .place-copy .advice.vcc-consejo-unificado .vcc-consejo-marca img,
+html body .imp-page .imp-main .place.place--no-media .advice.vcc-consejo-unificado .vcc-consejo-marca img{
+  width:28px!important;
+  height:28px!important;
+  max-width:28px!important;
+  max-height:28px!important;
+  flex:0 0 28px!important;
+}
+html body .imp-page .place-copy .advice.vcc-consejo-unificado .vcc-consejo-marca > strong,
+html body .imp-page .imp-main .place.place--no-media .advice.vcc-consejo-unificado .vcc-consejo-marca > strong{
+  font-size:8px!important;
+  letter-spacing:.015em!important;
+}
+@media(max-width:700px){
+  html body .vcc-consejo-unificado:not(.ci-recommendation) .vcc-consejo-marca img{
+    width:31px!important;height:31px!important;max-width:31px!important;max-height:31px!important;flex-basis:31px!important;
+  }
+  html body .vcc-consejo-unificado:not(.ci-recommendation) .vcc-consejo-marca > strong{
+    font-size:9px!important;
+  }
+  html body.ci-page .ci-recommendation.vcc-consejo-unificado .ci-recommendation-brand img{
+    width:37px!important;height:37px!important;max-width:37px!important;
+  }
+  html body.ci-page .ci-recommendation.vcc-consejo-unificado .ci-recommendation-brand strong{
+    font-size:9px!important;
+  }
+  html body .imp-page .place-copy .advice.vcc-consejo-unificado,
+  html body .imp-page .imp-main .place.place--no-media .advice.vcc-consejo-unificado {
+    grid-template-columns:66px minmax(0,1fr)!important;
+    min-height:60px!important;
+    gap:7px!important;
+    padding:7px 9px!important;
+  }
+  html body .imp-page .place-copy .advice.vcc-consejo-unificado .vcc-consejo-marca img,
+  html body .imp-page .imp-main .place.place--no-media .advice.vcc-consejo-unificado .vcc-consejo-marca img{
+    width:27px!important;height:27px!important;max-width:27px!important;max-height:27px!important;flex-basis:27px!important;
+  }
+  html body .imp-page .place-copy .advice.vcc-consejo-unificado .vcc-consejo-marca > strong,
+  html body .imp-page .imp-main .place.place--no-media .advice.vcc-consejo-unificado .vcc-consejo-marca > strong{
+    font-size:8px!important;
+  }
+}
