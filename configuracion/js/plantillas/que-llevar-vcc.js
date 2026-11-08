@@ -92,29 +92,16 @@ function svgItem(name){
  const use=document.createElementNS("http://www.w3.org/2000/svg","use");
  use.setAttribute("href",iconURL+"#"+name);svg.appendChild(use);return svg;
 }
-const recommendations={
- primavera:["Chaqueta impermeable ligera","Jersey o sudadera","Camisetas de manga larga","Pantalón cómodo","Calzado resistente al agua","Pañuelo y mochila de día"],
- verano:["Camisetas transpirables","Zapatillas para caminar","Gafas de sol","Gorra y protector solar","Chubasquero ligero","Una capa para la tarde"],
- otono:["Abrigo impermeable","Jersey cálido","Calzado resistente al agua","Pantalones largos","Bufanda y gorro fino","Paraguas compacto"],
- invierno:["Abrigo cálido e impermeable","Jersey de lana","Camisetas térmicas","Botas impermeables","Gorro, guantes y bufanda","Calcetines térmicos"]
-};
 function render(){
  const s=seasons[state.season];
  document.querySelectorAll(".ql-season").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.season===state.season)));
- el("ql-season-title").textContent="Tu lista para el "+s.name;
+ el("ql-season-title").textContent="LISTA COMPLETA · "+s.name.toUpperCase();
  el("ql-intro").textContent=s.intro;
  el("ql-suitcase-art").dataset.season=state.season;
  el("ql-days").value=String(state.days);
  document.querySelectorAll(".ql-days-pills button").forEach(b=>b.setAttribute("aria-pressed",String(Number(b.dataset.days)===state.days)));
  el("ql-note").textContent=s.note;
 
- const preview=el("ql-preview-items");preview.replaceChildren();
- el("ql-preview-title").textContent="Tu maleta en "+s.name;
- recommendations[state.season].forEach(name=>{
-  const li=document.createElement("li"),check=document.createElement("span");
-  check.className="ql-preview-check";check.setAttribute("aria-hidden","true");check.textContent="✓";
-  li.append(check,document.createTextNode(name));preview.appendChild(li);
- });
  const cats=el("ql-categories");cats.replaceChildren();
  let total=0,completed=0;
  s.items.forEach(c=>{
@@ -139,9 +126,6 @@ function render(){
   article.append(ul);cats.append(article);
  });
  el("ql-progress").textContent=completed+" de "+total+" preparados";
- el("ql-suitcase-count").textContent=completed+" de "+total+" preparados";
- el("ql-suitcase-helper").textContent=completed?"Tu lista se va completando":"La selección de la estación "+s.name;
- el("ql-suitcase-art").style.filter=completed?"saturate(1.08)":"none";
  el("ql-progress-bar").style.width=(total?(completed/total*100):0).toFixed(1)+"%";
  // La recomendación editorial cambia con la estación; el tipo de equipaje queda disponible en la lista copiada.
 }
@@ -167,7 +151,7 @@ el("ql-copy").addEventListener("click",async()=>{
  catch(e){const textarea=document.createElement("textarea");textarea.value=currentList();document.body.append(textarea);textarea.select();try{document.execCommand("copy");el("ql-copy").textContent="✓ LISTA COPIADA"}catch(_) {el("ql-copy").textContent="NO SE PUDO COPIAR"}textarea.remove();setTimeout(()=>el("ql-copy").textContent="COPIAR LISTA COMPLETA",1700)}
 });
 
-/* Consejos VCC: carrusel como en Presupuesto, flechas arriba a la derecha. */
+/* Consejos VCC: flechas independientes a izquierda y derecha del carrusel. */
 const tipTrack=el("ql-advice-track"),tipPrev=el("ql-advice-prev"),tipNext=el("ql-advice-next");
 if(tipTrack&&tipPrev&&tipNext){
  const updateTips=()=>{
