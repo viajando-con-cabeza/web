@@ -321,7 +321,7 @@
   };
   // Velocitat constant i moderada: sense acceleració als extrems.
   // El zoom del navegador no canvia la velocitat de navegació.
-  const PAN_SPEED=0.65;
+  const PAN_SPEED=0.80;
   const paintPan=modal=>{
     const panel=panelOf(modal);
     if(!panel)return;
