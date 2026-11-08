@@ -1,137 +1,142 @@
-/* VCC | Guía de entradas atemporal: sin tarifas, nombres comerciales ni
-   cálculos de ahorro. Orientación basada en intención, ritmo e inclusiones. */
+/* VCC · Entradas y pases / Estocolmo · 2026-11-08
+   Recomendaciones editoriales según días y perfil, sin cálculos de precios.
+   Subheader corporativo y carruseles de entradas / ahorro. */
 (function(){
-  "use strict";
-  function init(){
-    const root=document.querySelector(".ep-page");
-    if(!root)return;
-    const selections={visits:"few",pace:"relaxed",coverage:"unknown"};
-    const choices=[...root.querySelectorAll("[data-ep-quiz]")];
-    const title=root.querySelector("#ep-quiz-title");
-    const message=root.querySelector("#ep-quiz-message");
-    const next=root.querySelector("#ep-quiz-next");
-    function advice(){
-      let headline,description,step;
-      if(selections.visits==="few"){
-        headline="PROBABLEMENTE NO TE COMPENSA";
-        description="Con una o dos visitas de pago suele ser más práctico comprar entradas individuales y dedicar el resto del tiempo a explorar la ciudad.";
-        step="Consulta la entrada oficial de cada visita que hayas elegido.";
-      }else if(selections.coverage==="no"){
-        headline="MEJOR VALORAR ENTRADAS SUELTAS";
-        description="Si el pase deja fuera la mayoría de las visitas que te interesan, podrías pagar dos veces: por el pase y por entradas adicionales.";
-        step="Comprueba qué está incluido antes de comprar nada.";
-      }else if(selections.coverage==="unknown"){
-        headline="PRIMERO, REVISA LO QUE INCLUYE";
-        description="Un pase solo es útil si cubre varias atracciones que realmente quieres visitar. La lista y las condiciones pueden cambiar.";
-        step="Consulta las inclusiones actuales del pase y vuelve a elegir una respuesta.";
-      }else if(selections.pace==="packed" && selections.visits==="many"){
-        headline="PUEDE MERECER LA PENA";
-        description="Tienes muchas visitas de pago previstas, la mayoría están incluidas y quieres concentrarlas en pocos días. Es el escenario más favorable para comparar un pase.";
-        step="Suma los precios oficiales de tus visitas y compáralos con el pase vigente.";
-      }else if(selections.pace==="packed"){
-        headline="COMPARA: PODRÍA COMPENSAR";
-        description="Si vas a hacer varias visitas de pago incluidas en pocos días, un pase podría salirte a cuenta. Pero no siempre: depende de la tarifa vigente.";
-        step="Revisa la duración del pase, las reservas y los precios oficiales.";
-      }else{
-        headline="DEPENDE DE TU RITMO";
-        description="Aunque muchas visitas estén incluidas, ir sin prisas puede hacer más prácticas las entradas sueltas. No te fuerces a visitar lugares solo para amortizar un pase.";
-        step="Compara las entradas por separado con el pase que exista cuando viajes.";
+"use strict";
+function init(){
+  const root=document.querySelector(".ep-page");
+  if(!root)return;
+  const state={days:3,profile:"vcc"};
+  const daysButtons=[...root.querySelectorAll("[data-ep-day]")];
+  const profileButtons=[...root.querySelectorAll("[data-ep-profile]")];
+  const title=root.querySelector("#ep-choose-title");
+  const list=root.querySelector("#ep-reco-buy");
+  const free=root.querySelector("#ep-reco-free");
+  const note=root.querySelector("#ep-reco-note");
+  const profiles={
+    vcc:{
+      label:"A TU RITMO",
+      plans:{
+        1:{buy:["Una sola entrada: Museo Vasa si te gusta la historia."],free:"Recorre Gamla Stan y uno de los miradores sin pagar más visitas.",note:"No intentaríamos encajar tres museos en un día."},
+        2:{buy:["Museo Vasa como visita principal.","Palacio Real solo si realmente te apetece entrar."],free:"Deja tiempo para Gamla Stan, Djurgården y paseos junto al agua.",note:"Una o dos entradas son suficientes para nuestro ritmo de viaje."},
+        3:{buy:["Museo Vasa como visita principal.","Palacio Real si te interesa: es opcional."],free:"Reservaríamos el resto para Gamla Stan, Södermalm, miradores y paseos sin entrada.",note:"Esta selección encaja con nuestro itinerario de tres días."},
+        4:{buy:["Museo Vasa y una segunda visita a tu gusto.","Fotografiska o un paseo en barco solo si te interesan especialmente."],free:"Aprovecha el tiempo extra para explorar barrios, parques e islas.",note:"Tener más días no significa tener que comprar más entradas."}
       }
-      title.textContent=headline;
-      message.textContent=description;
-      next.textContent=step;
+    },
+    couple:{
+      label:"EN PAREJA",
+      plans:{
+        1:{buy:["ABBA The Museum solo si os gusta mucho su música."],free:"Pasaríamos el resto del día entre Gamla Stan y el paseo junto al agua.",note:"Como alternativa, elegid Vasa si os atrae más la historia."},
+        2:{buy:["ABBA The Museum si sois fans.","Museo Vasa como segunda opción, no como obligación."],free:"Fika, miradores y paseo por Södermalm sin más entradas.",note:"Priorizaríamos dos experiencias distintas, no una carrera de museos."},
+        3:{buy:["Museo Vasa si os interesa la historia.","ABBA The Museum como plan diferente si sois fans."],free:"Gamla Stan, Djurgården, Södermalm y tiempo para un atardecer.",note:"No compraríamos ABBA por costumbre: solo si os ilusiona."},
+        4:{buy:["Museo Vasa o ABBA según gustos.","Crucero por los canales como alternativa para un día relajado."],free:"Más barrios y paseos junto al agua, sin añadir museos por añadir.",note:"Comprobad que el crucero opere en la época en que viajáis."}
+      }
+    },
+    family:{
+      label:"CON NIÑOS",
+      plans:{
+        1:{buy:["Skansen: animales, tradiciones y actividades para pequeños."],free:"Disfrutad de Djurgården sin encadenar otros museos.",note:"Para un solo día priorizaríamos una visita adaptable a los niños."},
+        2:{buy:["Skansen como entrada principal.","Museo Vasa solo si la edad y el interés acompañan."],free:"Juegos, parques y paseos fáciles entre actividades.",note:"No reservaríamos demasiadas horas seguidas en museos."},
+        3:{buy:["Skansen, que suele encajar muy bien con familias.","Gröna Lund como alternativa si está abierto y os gustan las atracciones."],free:"Incluid Gamla Stan y un día flexible sin tickets.",note:"Skansen y Gröna Lund son alternativas; no hace falta comprar ambas."},
+        4:{buy:["Skansen como experiencia principal.","Gröna Lund si viajáis en temporada y encaja con sus edades."],free:"Parques, muelles, paseos cortos y descansos entre visitas.",note:"Antes de reservar Gröna Lund, comprobad apertura y restricciones de altura."}
+      }
+    },
+    culture:{
+      label:"CULTURAL",
+      plans:{
+        1:{buy:["Museo Vasa si quieres conocer una pieza única de historia sueca."],free:"Gamla Stan y sus calles históricas se disfrutan gratis.",note:"Si prefieres arquitectura, cambia Vasa por el Palacio Real."},
+        2:{buy:["Museo Vasa.","Palacio Real como segunda visita, si te apasiona la historia."],free:"Paseos históricos por Gamla Stan y Djurgården.",note:"Mejor dos visitas con tiempo que cuatro a toda velocidad."},
+        3:{buy:["Museo Vasa y Palacio Real.","Museo Nobel o Fotografiska como alternativa a uno de ellos."],free:"Noches y tardes para barrios, miradores y cultura callejera.",note:"Elige solo los dos museos que más encajen con tus intereses."},
+        4:{buy:["Vasa y Palacio Real como base histórica.","Fotografiska o Museo Nobel si te apetece un tercer museo."],free:"Explora librerías, arquitectura y paseos junto al agua.",note:"Con más días puedes repartir las visitas sin necesitar un pase."}
+      }
     }
-    choices.forEach(btn=>btn.addEventListener("click",()=>{
-      const kind=btn.dataset.epQuiz;
-      selections[kind]=btn.dataset.value;
-      choices.filter(other=>other.dataset.epQuiz===kind).forEach(other=>{
-        other.setAttribute("aria-pressed",String(other===btn));
-      });
-      advice();
-    }));
-    advice();
+  };
+  function syncRecommendation(){
+    const profile=profiles[state.profile]||profiles.vcc;
+    const p=profile.plans[state.days]||profile.plans[3];
+    const dayText=state.days===4?"4 O MÁS DÍAS":state.days+" DÍA"+(state.days===1?"":"S");
+    title.textContent="CON "+dayText+" · "+profile.label;
+    list.replaceChildren();
+    p.buy.forEach(item=>{const li=document.createElement("li");li.textContent=item;list.appendChild(li)});
+    free.textContent=p.free;
+    note.textContent=p.note;
+    daysButtons.forEach(b=>b.setAttribute("aria-pressed",String(Number(b.dataset.epDay)===state.days)));
+    profileButtons.forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.epProfile===state.profile)));
+  }
+  daysButtons.forEach(btn=>btn.addEventListener("click",()=>{
+    const days=Number(btn.dataset.epDay);
+    if(days>=1&&days<=4){state.days=days;syncRecommendation()}
+  }));
+  profileButtons.forEach(btn=>btn.addEventListener("click",()=>{
+    if(profiles[btn.dataset.epProfile]){state.profile=btn.dataset.epProfile;syncRecommendation()}
+  }));
+  if(title&&list&&free&&note)syncRecommendation();
 
-    /* Subheader corporativo: sección activa y offset real del header. */
-    const nav=root.querySelector(".ep-subnav");
-    if(!nav)return;
+  const nav=root.querySelector(".ep-subnav");
+  if(nav){
     const links=[...nav.querySelectorAll('a[href^="#"]')];
     const sections=links.map(a=>document.getElementById(a.hash.slice(1))).filter(Boolean);
-    if(!sections.length)return;
-    let ticking=false;
-    function sync(){
+    let pending=false;
+    function syncNav(){
       const header=document.querySelector(".shared-header")||document.querySelector(".page-header");
-      const position=header?window.getComputedStyle(header).position:"static";
-      const height=header&&(position==="fixed"||position==="sticky")?
-        Math.round(header.getBoundingClientRect().height):0;
+      const style=header?window.getComputedStyle(header).position:"static";
+      const height=header&&(style==="sticky"||style==="fixed")?Math.round(header.getBoundingClientRect().height):0;
       document.documentElement.style.setProperty("--ep-header-height",height+"px");
-      const offset=height+nav.offsetHeight+28;
+      const trigger=height+nav.offsetHeight+24;
       let active=sections[0];
-      for(const section of sections)if(section.getBoundingClientRect().top<=offset)active=section;
+      sections.forEach(section=>{if(section.getBoundingClientRect().top<=trigger)active=section});
       links.forEach(link=>{
-        if(link.hash==="#"+active.id)link.setAttribute("aria-current","location");
+        if(active&&link.hash==="#"+active.id)link.setAttribute("aria-current","location");
         else link.removeAttribute("aria-current");
       });
-      ticking=false;
+      pending=false;
     }
     links.forEach(link=>link.addEventListener("click",()=>{
       links.forEach(other=>other.removeAttribute("aria-current"));
       link.setAttribute("aria-current","location");
     }));
     window.addEventListener("scroll",()=>{
-      if(ticking)return;
-      ticking=true;
-      window.requestAnimationFrame(sync);
+      if(pending)return;
+      pending=true;
+      window.requestAnimationFrame(syncNav);
     },{passive:true});
-    window.addEventListener("resize",sync,{passive:true});
-    window.addEventListener("load",sync,{once:true});
-    sync();
+    window.addEventListener("resize",syncNav,{passive:true});
+    window.addEventListener("load",syncNav,{once:true});
+    syncNav();
   }
-  if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",init,{once:true});
-  else init();
-})();
-
-/* VCC · Carruseles accesibles de Entradas y Según tus días. El consejo VCC es estático.
-   Mantiene el desplazamiento táctil nativo; las flechas muestran su estado real. */
-(function(){
-  "use strict";
-  function init(){
-    const root=document.querySelector(".ep-page");
-    if(!root)return;
-    const tracks=[...root.querySelectorAll(".ep-scroll-track")];
-    tracks.forEach(track=>{
-      const controls=[...root.querySelectorAll('[data-ep-slide-target="'+track.id+'"]')];
-      if(!controls.length)return;
-      let queued=false;
-      function sync(){
-        const max=track.scrollWidth-track.clientWidth;
-        const overflow=max>3;
-        controls.forEach(btn=>{
-          const back=btn.dataset.epSlideDir==="-1";
-          btn.disabled=!overflow||(back?track.scrollLeft<=2:track.scrollLeft>=max-2);
-          btn.setAttribute("aria-disabled",String(btn.disabled));
-        });
-        queued=false;
-      }
-      function queue(){
-        if(queued)return;
-        queued=true;
-        window.requestAnimationFrame(sync);
-      }
-      controls.forEach(btn=>btn.addEventListener("click",()=>{
-        const first=track.firstElementChild;
-        if(!first||btn.disabled)return;
-        const gap=parseFloat(window.getComputedStyle(track).gap)||0;
-        const step=first.getBoundingClientRect().width+gap;
-        const reduced=window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-        track.scrollBy({left:Number(btn.dataset.epSlideDir)*step,behavior:reduced?"instant":"smooth"});
-        queue();
-      }));
-      track.addEventListener("scroll",queue,{passive:true});
-      window.addEventListener("resize",queue,{passive:true});
-      window.addEventListener("load",queue,{once:true});
+  root.querySelectorAll(".ep-scroll-track").forEach(track=>{
+    const buttons=[...root.querySelectorAll('[data-ep-slide-target="'+track.id+'"]')];
+    if(!buttons.length)return;
+    let queued=false;
+    function sync(){
+      const max=Math.max(0,track.scrollWidth-track.clientWidth);
+      buttons.forEach(btn=>{
+        const back=btn.dataset.epSlideDir==="-1";
+        btn.disabled=max<3||(back?track.scrollLeft<=2:track.scrollLeft>=max-2);
+        btn.setAttribute("aria-disabled",String(btn.disabled));
+      });
+      queued=false;
+    }
+    function requestSync(){
+      if(queued)return;
+      queued=true;
       window.requestAnimationFrame(sync);
-    });
-  }
-  if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",init,{once:true});
-  else init();
+    }
+    buttons.forEach(btn=>btn.addEventListener("click",()=>{
+      if(btn.disabled)return;
+      const first=track.firstElementChild;
+      if(!first)return;
+      const gap=parseFloat(window.getComputedStyle(track).gap)||0;
+      const step=first.getBoundingClientRect().width+gap;
+      const reduce=window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      track.scrollBy({left:Number(btn.dataset.epSlideDir)*step,behavior:reduce?"instant":"smooth"});
+      requestSync();
+    }));
+    track.addEventListener("scroll",requestSync,{passive:true});
+    window.addEventListener("resize",requestSync,{passive:true});
+    window.addEventListener("load",requestSync,{once:true});
+    window.requestAnimationFrame(sync);
+  });
+}
+if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",init,{once:true});else init();
 })();
