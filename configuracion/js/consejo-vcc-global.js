@@ -64,7 +64,7 @@
     // Conservamos título, descripción y motivos en sus columnas originales.
     if (root.classList.contains('ci-recommendation')) return;
 
-    const oldPlane = root.querySelector(':scope > .cl-vcc-icon');
+    const oldPlane = root.querySelector(':scope > .cl-vcc-icon, :scope > .paper-plane');
     if (oldPlane) oldPlane.remove();
 
     // El resto de tarjetas usa dos columnas: marca y contenido flexible.
