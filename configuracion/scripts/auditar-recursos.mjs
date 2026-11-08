@@ -8,7 +8,7 @@ function walk(dir=''){let out=[];for(const e of fs.readdirSync(path.join(root,di
 const all=walk(),exists=new Set(all),code=all.filter(p=>/\.(html|css|js|mjs|json)$/i.test(p)),assets=all.filter(p=>image.test(p));
 let missing=new Set(),external=new Set(),usage=new Set();
 for(const file of code){
-if(file==='configuracion/rutas-recursos.json'||file.endsWith('auditar-recursos.mjs'))continue;
+if(file==='configuracion/rutas-recursos.json'||file==='configuracion/datos/recursos-externs-pendents.json'||file==='configuracion/datos/imagenes-externas-migrades.json'||file.endsWith('auditar-recursos.mjs'))continue;
 const src=fs.readFileSync(path.join(root,file),'utf8');
 const re=/(?:https?:\/\/[^\s"'<>)]*|\/?(?:configuracion|destinos|inicio)\/imagenes\/[a-zA-Z0-9_./-]+\.(?:svg|png|jpe?g|webp|avif|gif|ico))(?:\?[^\s"'<>)]*)?/gi;
 for(const m of src.matchAll(re)){
