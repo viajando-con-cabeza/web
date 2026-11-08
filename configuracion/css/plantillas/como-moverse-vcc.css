@@ -33,9 +33,20 @@ body.mv-body{margin:0;background:var(--mv-cream);color:var(--mv-ink);font-family
 .mv-section-head h2{margin:0;color:#242a28;font:600 clamp(28px,2.8vw,39px)/1.12 "Oswald",sans-serif}
 .mv-section-head>p{margin:0 0 3px;max-width:420px;color:#685e57;font:400 12.5px/1.55 "DM Sans",sans-serif}
 .mv-transport-section .mv-section-head .mv-overline{font-size:23px}.mv-transport-section .mv-section-head h2{font-size:clamp(25px,2.3vw,33px)}
+.mv-pay-guide{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:18px;align-items:center;margin:0 0 14px;padding:15px 19px;border:1px solid #ead9cc;border-radius:14px;background:#fff;box-shadow:0 3px 12px rgba(54,40,28,.035)}
+.mv-pay-guide-main,.mv-pay-guide-side{min-width:0}
+.mv-pay-kicker{display:block;margin:0 0 4px;color:#ad6249;letter-spacing:.07em;font:800 9.5px/1.2 "DM Sans",sans-serif}
+.mv-pay-guide-main>strong{display:block;margin:0 0 6px;font:600 19px/1.17 "Oswald",sans-serif;color:#2b302e}
+.mv-pay-guide p{margin:0;color:#645f59;font:400 11.3px/1.55 "DM Sans",sans-serif}
+.mv-pay-guide p b{color:#474440}
+.mv-pay-guide a{color:#a8533e;text-underline-offset:2px}
+.mv-pay-guide-side{border-left:1px solid #ecdfd5;padding-left:19px}
+.mv-pay-values{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px}
+.mv-pay-values>span{display:inline-flex;align-items:center;padding:6px 8px;background:#faf5ef;border:1px solid #eee0d5;border-radius:7px;font:600 10.2px/1.3 "DM Sans",sans-serif;color:#5d554e}
+.mv-pay-values b{color:#a9533d;margin-right:3px}
 .mv-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
 .mv-card{min-width:0;background:#fff;border:1px solid #e7ddd3;border-radius:14px;box-shadow:0 4px 14px rgba(54,40,28,.045)}
-.mv-card-body{min-width:0;min-height:204px;padding:13px 15px 12px;display:flex;flex-direction:column;gap:9px}
+.mv-card-body{min-width:0;min-height:335px;padding:13px 15px 12px;display:flex;flex-direction:column;gap:9px}
 .mv-card-heading{min-width:0;display:flex;align-items:center;gap:9px;min-height:36px}
 .mv-icon{display:grid;place-items:center;flex:0 0 36px;width:36px;height:36px;border-radius:50%;background:#fff3ec;border:1px solid #f0cebc}
 .mv-icon img{display:block;width:25px;height:25px;object-fit:contain}
@@ -47,6 +58,12 @@ body.mv-body{margin:0;background:var(--mv-cream);color:var(--mv-ink);font-family
 .mv-facts li>span{display:grid;place-items:center;flex:0 0 14px;width:14px;height:18px;font:800 14px/1 "DM Sans",sans-serif;margin:0}
 .mv-facts .mv-yes>span{color:var(--mv-green)}
 .mv-facts .mv-no>span{color:var(--mv-red)}
+/* Dos dades pràctiques per cada mètode: pagament i criteri de la ruta VCC. */
+.mv-card-insight{display:grid;align-content:start;gap:7px;min-width:0;margin:1px 0 0;padding-top:9px;border-top:1px solid #eee8e1}
+.mv-insight-row{display:grid;grid-template-columns:82px minmax(0,1fr);gap:7px;align-items:start;min-width:0;margin:0;color:#625d57;font:400 10.4px/1.48 "DM Sans",sans-serif}
+.mv-insight-label{color:#9c674d;font:800 9px/1.4 "DM Sans",sans-serif;letter-spacing:.025em}
+.mv-insight-vcc .mv-insight-label{color:#b65d43}
+.mv-insight-row>span{min-width:0}
 /* Price at the bottom: clear cost indicator, without underline or pill treatment. */
 .mv-price{margin-top:auto;display:flex;align-items:center;gap:6px;min-width:0;padding:3px 0 0;border:0;background:transparent;color:#93533e;line-height:1.25;text-align:left;text-decoration:none}
 .mv-price img{display:block;width:16px;height:16px;flex:0 0 16px}
@@ -57,7 +74,7 @@ body.mv-body{margin:0;background:var(--mv-cream);color:var(--mv-ink);font-family
 /* Profiles: Lujo → Medio → VCC → Mochilero */
 .mv-recommend-section{margin:31px 0 33px}
 .mv-profile-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:13px}
-.mv-profile{min-width:0;position:relative;display:flex;flex-direction:column;min-height:206px;padding:16px 16px 14px;background:#fff;border:1px solid #e6dcd0;border-radius:14px;box-shadow:0 4px 14px rgba(58,42,30,.04)}
+.mv-profile{min-width:0;position:relative;display:flex;flex-direction:column;min-height:230px;padding:16px 16px 14px;background:#fff;border:1px solid #e6dcd0;border-radius:14px;box-shadow:0 4px 14px rgba(58,42,30,.04)}
 .mv-profile-vcc{border:2px solid #c96b4e;padding:15px 15px 13px;background:linear-gradient(140deg,#fff7f1,#fff)}
 .mv-profile-top{display:flex;align-items:center;gap:10px;margin:0 0 8px;min-height:48px}
 .mv-profile-top img{display:block;width:48px;height:48px;flex:0 0 48px;object-fit:contain}
@@ -66,7 +83,11 @@ body.mv-body{margin:0;background:var(--mv-cream);color:var(--mv-ink);font-family
 .mv-profile-ident h3{margin:0;font:600 26px/1.05 "Oswald",sans-serif}
 .mv-profile-ribbon{position:absolute;top:-11px;right:15px;left:auto;padding:5px 10px;background:#c96b4e;color:#fff;border-radius:6px;font:800 9px/1.1 "DM Sans",sans-serif;white-space:nowrap}
 .mv-profile-method{margin:0 0 7px;font:600 17px/1.15 "Oswald",sans-serif}
-.mv-profile>p{flex:1;margin:0;min-height:6em;color:#625b54;font:400 11.5px/1.5 "DM Sans",sans-serif}
+.mv-profile>p{flex:1;margin:0 0 11px;min-height:6em;color:#625b54;font:400 11.5px/1.5 "DM Sans",sans-serif}
+.mv-profile-bottom{display:flex;flex-direction:column;align-items:flex-start;gap:3px;margin-top:auto;padding-top:9px;border-top:1px solid #eee2d8;color:#9f6f59}
+.mv-profile-bottom>span{font:800 9px/1.2 "DM Sans",sans-serif;letter-spacing:.055em}
+.mv-profile-bottom>strong{color:#a34f3a;font:800 16px/1.25 "DM Sans",sans-serif;white-space:nowrap}
+.mv-profile-bottom small{color:#7b7068;font:600 10px/1.3 "DM Sans",sans-serif}
 .mv-profile-pricing-note{margin:12px 1px 0;padding:10px 0 0;border-top:1px solid #e7d9cd;color:#786a61;font:400 11px/1.65 "DM Sans",sans-serif}
 .mv-profile-pricing-note strong{color:#524b45;font-weight:700}
 .mv-profile-pricing-note b{color:#aa553e;font-weight:800;white-space:nowrap}
@@ -89,7 +110,7 @@ body.mv-body{margin:0;background:var(--mv-cream);color:var(--mv-ink);font-family
 /* Footer de guies: es renderitza mitjançant estocolmo-guias-final-vcc.css */
 @media(max-width:1250px){
  .mv-container{width:calc(100% - 52px)}
- .mv-card-body{padding:12px 11px;min-height:215px}
+ .mv-card-body{padding:12px 11px;min-height:362px}
  .mv-card h3{font-size:17px}
  .mv-facts{gap:6px 9px}
  .mv-facts li{font-size:10px}
@@ -98,16 +119,24 @@ body.mv-body{margin:0;background:var(--mv-cream);color:var(--mv-ink);font-family
  .mv-profile-vcc{padding:13px 11px}
 }
 @media(max-width:1000px){
+ .mv-pay-guide{gap:12px}
+ .mv-insight-row{font-size:10.7px}
  .mv-hero,.mv-hero>.mv-container{min-height:435px}
  .mv-crumb{margin-bottom:28px}
  .mv-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
  .mv-card h3{font-size:18px}
- .mv-card-body{min-height:207px}
+ .mv-card-body{min-height:340px}
  .mv-facts li{font-size:10.7px}
  .mv-profile-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
  .mv-saving-card{flex-basis:calc((100% - 13px)/2)}
 }
 @media(max-width:690px){
+ .mv-pay-guide{grid-template-columns:1fr;gap:11px;padding:14px}
+ .mv-pay-guide-side{border-left:0;border-top:1px solid #ecdfd5;padding:11px 0 0}
+ .mv-pay-values{gap:5px}
+ .mv-pay-values>span{font-size:9.7px}
+ .mv-insight-row{grid-template-columns:88px minmax(0,1fr);font-size:10.7px}
+ .mv-profile-bottom>strong{font-size:14px;white-space:normal}
  .mv-container{width:calc(100% - 28px)}
  .mv-hero,.mv-hero>.mv-container{min-height:390px}
  .mv-hero{background-position:64% 43%}
