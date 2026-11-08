@@ -57,8 +57,15 @@
     nav.classList.add('vcc-unified-subheader');
     if(nav.querySelector('.vcc-nav-inner,.ql-subnav-inner,.country-nav-inner'))
       nav.classList.add('vcc-subnav-inner-layout');
-    const before=nav.previousElementSibling;
-    if(before&&before.matches(HEROS))before.classList.add('vcc-subheader-hero');
+    // Algunas plantillas insertan un espaciador de la barra fija entre hero y subheader.
+    // Saltar únicamente esos espaciadores, sin asociar barras con contenidos ajenos.
+    let before=nav.previousElementSibling;
+    for(let i=0;i<3&&before&&before.matches('.country-nav-spacer,.ci-subnav-placeholder,.it-nav-placeholder');i++){
+      before=before.previousElementSibling;
+    }
+    if(before&&before.matches(HEROS)){
+      before.classList.add('vcc-subheader-hero','vcc-standardized-hero-height');
+    }
     for(const item of itemsOf(nav))item.target.setAttribute('data-vcc-subheader-target','');
     if(!nav.classList.contains('place-nav-wrap')){
       nav.addEventListener('click',(event)=>{

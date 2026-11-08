@@ -118,3 +118,47 @@ html body [data-vcc-subheader-target]{scroll-margin-top:calc(var(--vcc-subheader
  html body nav.vcc-unified-subheader.place-nav-wrap .place-nav-shell{gap:5px!important}
  html body nav.vcc-unified-subheader.place-nav-wrap .place-nav{gap:24px!important}
 }
+
+
+/* HERO VCC · referencia REAL medida en Quality:
+   escritorio: cabecera 50px + foto 475px => barra en y=525px;
+   móvil 390px: cabecera 79px + foto 730px => barra en y=809px.
+   La misma altura por breakpoint en TODAS las páginas con subheader.
+   Doble clase intencional: superar las antiguas reglas locales (!important)
+   sin cambiar fondos, imágenes, recortes, textos ni páginas sin subheader. */
+:root{
+  --vcc-standard-hero-desktop:475px;
+  --vcc-standard-hero-mobile:730px;
+}
+@media(min-width:721px){
+  html body :is(.st-hero,.country-hero,.imp-hero,.vcc-hero,.mv-hero,.dv-hero,.ep-hero,.ql-hero,.ci-hero,.budget-hero,.content-hero,.rich-hero).vcc-subheader-hero.vcc-subheader-hero.vcc-standardized-hero-height{
+    box-sizing:border-box!important;
+    height:var(--vcc-standard-hero-desktop)!important;
+    min-height:var(--vcc-standard-hero-desktop)!important;
+    max-height:var(--vcc-standard-hero-desktop)!important;
+    margin-top:0!important;margin-bottom:0!important;
+  }
+  html body .mv-hero.vcc-standardized-hero-height > .mv-container,
+  html body.ci-page .ci-hero.vcc-standardized-hero-height .ci-hero-inner{
+    box-sizing:border-box!important;
+    height:var(--vcc-standard-hero-desktop)!important;
+    min-height:var(--vcc-standard-hero-desktop)!important;
+    max-height:var(--vcc-standard-hero-desktop)!important;
+  }
+}
+@media(max-width:720px){
+  html body :is(.st-hero,.country-hero,.imp-hero,.vcc-hero,.mv-hero,.dv-hero,.ep-hero,.ql-hero,.ci-hero,.budget-hero,.content-hero,.rich-hero).vcc-subheader-hero.vcc-subheader-hero.vcc-standardized-hero-height{
+    box-sizing:border-box!important;
+    height:var(--vcc-standard-hero-mobile)!important;
+    min-height:var(--vcc-standard-hero-mobile)!important;
+    max-height:var(--vcc-standard-hero-mobile)!important;
+    margin-top:0!important;margin-bottom:0!important;
+  }
+  html body .mv-hero.vcc-standardized-hero-height > .mv-container,
+  html body.ci-page .ci-hero.vcc-standardized-hero-height .ci-hero-inner{
+    box-sizing:border-box!important;
+    height:var(--vcc-standard-hero-mobile)!important;
+    min-height:var(--vcc-standard-hero-mobile)!important;
+    max-height:var(--vcc-standard-hero-mobile)!important;
+  }
+}
