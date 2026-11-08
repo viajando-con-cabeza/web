@@ -637,3 +637,22 @@
   normalizePending(document.body);
   new MutationObserver(records=>records.forEach(r=>r.addedNodes.forEach(n=>normalizePending(n)))).observe(document.body,{childList:true,subtree:true});
 })();
+
+/* VCC shared Consejo component loader 2026-11-08 */
+(function () {
+  const current = document.currentScript;
+  const base = current && current.src ? new URL('../../', current.src) : new URL('/', window.location.href);
+  if (!document.getElementById('vcc-consejo-global-css')) {
+    const css = document.createElement('link');
+    css.id = 'vcc-consejo-global-css';
+    css.rel = 'stylesheet';
+    css.href = new URL('configuracion/css/componentes/consejo-vcc-global.css?v=20261108-unificado', base).href;
+    document.head.appendChild(css);
+  }
+  if (!document.getElementById('vcc-consejo-global-js')) {
+    const js = document.createElement('script');
+    js.id = 'vcc-consejo-global-js';
+    js.src = new URL('configuracion/js/consejo-vcc-global.js?v=20261108-unificado', base).href;
+    document.head.appendChild(js);
+  }
+})();
