@@ -1,0 +1,120 @@
+/* VCC · 2026-11-08 · Navegación secundaria única.
+   Referencia: subheader de /destinos/suecia/estocolmo/ (39px, DM Sans, línea coral).
+   Se aplica únicamente a las barras detectadas; no al menú principal. */
+:root{
+  --vcc-subnav-height:39px;
+  --vcc-subnav-gap:38px;
+  --vcc-subnav-side:max(24px,4vw);
+  --vcc-subnav-ink:#171717;
+  --vcc-subnav-coral:#c86f5d;
+  --vcc-subnav-line:#e9e2db;
+}
+html body nav.vcc-unified-subheader{
+  box-sizing:border-box!important;
+  position:sticky!important;top:var(--vcc-subheader-top,50px)!important;z-index:950!important;
+  width:100%!important;height:var(--vcc-subnav-height)!important;
+  min-height:var(--vcc-subnav-height)!important;max-height:var(--vcc-subnav-height)!important;
+  margin:0!important;padding:0 var(--vcc-subnav-side)!important;
+  display:flex!important;align-items:center!important;justify-content:flex-start!important;
+  flex-wrap:nowrap!important;gap:var(--vcc-subnav-gap)!important;
+  overflow-x:auto!important;overflow-y:hidden!important;
+  white-space:nowrap!important;scrollbar-width:none!important;
+  overscroll-behavior-x:contain!important;-webkit-overflow-scrolling:touch;
+  background:#fff!important;backdrop-filter:none!important;
+  border:0!important;border-top:1px solid var(--vcc-subnav-line)!important;
+  border-bottom:1px solid var(--vcc-subnav-line)!important;
+  box-shadow:none!important;
+}
+html body nav.vcc-unified-subheader::-webkit-scrollbar,
+html body nav.vcc-unified-subheader .vcc-nav-inner::-webkit-scrollbar,
+html body nav.vcc-unified-subheader .ql-subnav-inner::-webkit-scrollbar,
+html body nav.vcc-unified-subheader .country-nav-inner::-webkit-scrollbar,
+html body nav.vcc-unified-subheader .place-nav::-webkit-scrollbar{display:none!important}
+html body nav.vcc-unified-subheader.vcc-subnav-inner-layout{
+  padding:0!important;gap:0!important;overflow:hidden!important;
+}
+html body nav.vcc-unified-subheader :is(.vcc-nav-inner,.ql-subnav-inner,.country-nav-inner){
+  box-sizing:border-box!important;
+  width:100%!important;max-width:none!important;
+  height:var(--vcc-subnav-height)!important;min-height:var(--vcc-subnav-height)!important;
+  max-height:var(--vcc-subnav-height)!important;
+  margin:0!important;padding:0 var(--vcc-subnav-side)!important;
+  display:flex!important;align-items:center!important;justify-content:flex-start!important;
+  flex-wrap:nowrap!important;gap:var(--vcc-subnav-gap)!important;
+  overflow-x:auto!important;overflow-y:hidden!important;scrollbar-width:none!important;
+  white-space:nowrap!important;-webkit-overflow-scrolling:touch;
+}
+html body nav.vcc-unified-subheader a,
+html body nav.vcc-unified-subheader .place-nav a{
+  box-sizing:border-box!important;
+  position:relative!important;flex:0 0 auto!important;
+  display:inline-flex!important;align-items:center!important;justify-content:center!important;
+  height:var(--vcc-subnav-height)!important;min-height:var(--vcc-subnav-height)!important;
+  max-height:var(--vcc-subnav-height)!important;
+  margin:0!important;padding:0!important;
+  background:transparent!important;border:0!important;
+  border-bottom:2px solid transparent!important;border-radius:0!important;
+  font-family:'DM Sans',Arial,sans-serif!important;
+  font-size:11.5px!important;font-weight:800!important;line-height:1.15!important;
+  letter-spacing:0!important;text-transform:uppercase!important;
+  white-space:nowrap!important;color:var(--vcc-subnav-ink)!important;
+  text-decoration:none!important;box-shadow:none!important;
+  transition:color .16s ease,border-color .16s ease!important;
+}
+html body nav.vcc-unified-subheader a::before,
+html body nav.vcc-unified-subheader a::after{
+  content:none!important;display:none!important;
+}
+html body nav.vcc-unified-subheader a.vcc-subheader-current,
+html body nav.vcc-unified-subheader a:hover,
+html body nav.vcc-unified-subheader a:focus-visible,
+html body nav.vcc-unified-subheader.place-nav-wrap .place-nav a:is(.active,.is-active,[aria-current="location"]){
+  color:var(--vcc-subnav-coral)!important;
+  border-bottom-color:var(--vcc-subnav-coral)!important;
+}
+html body nav.vcc-unified-subheader a:focus-visible{outline:2px solid var(--vcc-subnav-coral)!important;outline-offset:-3px!important}
+/* El índice con flechas mantiene sus botones, pero comparte altura y escala. */
+html body nav.vcc-unified-subheader.place-nav-wrap{
+  padding:0!important;gap:0!important;overflow:hidden!important;
+}
+html body nav.vcc-unified-subheader.place-nav-wrap .place-nav-shell{
+  box-sizing:border-box!important;width:100%!important;max-width:none!important;
+  height:var(--vcc-subnav-height)!important;min-height:var(--vcc-subnav-height)!important;
+  max-height:var(--vcc-subnav-height)!important;
+  padding:0 var(--vcc-subnav-side)!important;margin:0!important;
+  display:flex!important;align-items:center!important;gap:8px!important;
+}
+html body nav.vcc-unified-subheader.place-nav-wrap .place-nav{
+  height:var(--vcc-subnav-height)!important;min-height:var(--vcc-subnav-height)!important;
+  max-height:var(--vcc-subnav-height)!important;
+  display:flex!important;align-items:center!important;gap:var(--vcc-subnav-gap)!important;
+  flex:1 1 auto!important;min-width:0!important;
+  overflow-x:auto!important;overflow-y:hidden!important;
+  scrollbar-width:none!important;
+}
+html body nav.vcc-unified-subheader.place-nav-wrap .place-nav-arrow{flex:0 0 auto!important}
+/* Las variantes fijadas por scripts propios preservan su funcionamiento. */
+html body nav.vcc-unified-subheader:is(.country-nav.is-fixed,.ci-subnav.ci-subnav-pinned,.vcc-nav.it-nav-pinned){
+  position:fixed!important;top:var(--vcc-subheader-top,0px)!important;left:0!important;right:0!important;
+}
+/* Mismo comienzo de barra en escritorio: 475px de hero + el encabezado principal.
+   No se fuerzan alturas de portada en móvil, donde el texto puede ocupar más líneas. */
+@media(min-width:721px){
+ html body :is(.st-hero,.country-hero,.imp-hero,.vcc-hero,.mv-hero,.dv-hero,.ep-hero,.ql-hero,.ci-hero,.budget-hero).vcc-subheader-hero{
+  box-sizing:border-box!important;height:475px!important;min-height:475px!important;max-height:475px!important;
+ }
+ html body .mv-hero.vcc-subheader-hero > .mv-container{
+  min-height:475px!important;height:475px!important;max-height:475px!important;
+ }
+ html body .ci-hero.vcc-subheader-hero .ci-hero-inner{
+  min-height:475px!important;height:475px!important;max-height:475px!important;
+ }
+}
+html body [data-vcc-subheader-target]{scroll-margin-top:calc(var(--vcc-subheader-top,50px) + var(--vcc-subnav-height) + 24px)!important}
+@media(max-width:720px){
+ :root{--vcc-subnav-height:39px;--vcc-subnav-gap:24px;--vcc-subnav-side:14px}
+ html body nav.vcc-unified-subheader a,
+ html body nav.vcc-unified-subheader .place-nav a{font-size:11px!important}
+ html body nav.vcc-unified-subheader.place-nav-wrap .place-nav-shell{gap:5px!important}
+ html body nav.vcc-unified-subheader.place-nav-wrap .place-nav{gap:24px!important}
+}
