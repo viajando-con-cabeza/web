@@ -97,9 +97,7 @@ function render(){
  document.querySelectorAll(".ql-season").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.season===state.season)));
  el("ql-season-title").textContent="LISTA COMPLETA · "+s.name.toUpperCase();
  el("ql-intro").textContent=s.intro;
- el("ql-suitcase-art").dataset.season=state.season;
  el("ql-days").value=String(state.days);
- el("ql-note").textContent=s.note;
 
  const cats=el("ql-categories");cats.replaceChildren();
  const columns=[document.createElement("div"),document.createElement("div")];
