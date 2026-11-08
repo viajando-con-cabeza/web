@@ -319,8 +319,9 @@
     const topReach=Math.min(y,Math.max(0,visibleH-36));
     return {x,y,minX:-leftReach,minY:-topReach,width:visibleW,height:visibleH};
   };
-  // El zoom continua ancorat al punt exacte. Moviment una mica més viu.
-  const PAN_SENSITIVITY=1.45;
+  // Moviment suau amb zoom: resposta progressiva al ratolí,
+  // però mantenint tot el recorregut fins a les quatre vores.
+  const PAN_EASE=1.55;
   const paintPan=modal=>{
     const panel=panelOf(modal);
     if(!panel)return;
@@ -467,9 +468,8 @@
       panGestureBase={...now,panX:state.x,panY:state.y};
       return;
     }
-    // Mapa de recorregut COMPLET: des del punt actual, arribar a una
-    // vora de la finestra arriba també a la vora del panell. Amb zoom
-    // gran el moviment és més potent, però continua sent reversible.
+    // El mapa de recorregut continua arribant a cada vora del panell,
+    // però amb un inici progressiu molt menys sensible i reversible.
     let dx=now.x-panGestureBase.x,dy=now.y-panGestureBase.y;
     if(Math.abs(dx)<.1&&Number.isFinite(now.sx)&&Number.isFinite(panGestureBase.sx))
       dx=(now.sx-panGestureBase.sx)/Math.max(1,zoomRatio());
@@ -485,10 +485,11 @@
       // inferior al recorregut interior, sobretot amb zoom del 200%.
       const available=Math.max(28,delta>0?visible-from:from);
       const remaining=delta>0?max-initial:initial-min;
-      const proportional=remaining/available;
-      // Manté una resposta mínima; no depèn d'arrossegar el cursor.
-      const strength=Math.max(PAN_SENSITIVITY,proportional*1.05);
-      return clamp(initial+delta*strength,min,max);
+      // Els moviments curts desplacen molt menys que abans.
+      // A les vores, la progressió arriba igualment al límit complet.
+      const fraction=clamp(Math.abs(delta)/available,0,1);
+      const movement=remaining*Math.pow(fraction,PAN_EASE);
+      return clamp(initial+Math.sign(delta)*movement,min,max);
     };
     pendingDx=travelAxis(dx,panGestureBase.panX,limits.minX,
       limits.x,fromX,limits.width);
