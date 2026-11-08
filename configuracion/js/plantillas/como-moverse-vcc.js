@@ -1,6 +1,7 @@
 /* VCC · Cómo moverse: guía visual por zona, sin llamadas externas. */
 (()=>{"use strict";
-const asset="/configuracion/imagenes/como-moverse/";
+const iconBase="/configuracion/imagenes/iconos/como-moverse/transportes/";
+const zonaBase="/configuracion/imagenes/ilustraciones/como-moverse/zonas/";
 const modes=[
 {id:"walk",name:"A pie",icon:"apie",price:"Gratis"},
 {id:"metro",name:"Metro",icon:"metro",price:"43 SEK · 75 min"},
@@ -19,11 +20,11 @@ const root=document.getElementById("cm-app");if(!root)return;
 const byId=(id)=>document.getElementById(id),tabs=[...root.querySelectorAll("[data-zone]")],photo=byId("cm-zone-photo"),grid=byId("cm-transport-grid"),recs=byId("cm-recommendations");
 function enc(text){return String(text).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));}
 const icons={walk:"apie",metro:"metro",bike:"bicicleta",bus:"autobus",ferry:"ferry",car:"coche",tranvia:"tranvia"};
-function icon(id){return asset+"transportes/"+icons[id]+".svg";}
+function icon(id){return iconBase+icons[id]+".svg";}
 function show(id,moveFocus=false){const a=areas[id]||areas.gamla;
  tabs.forEach(b=>{let selected=b.dataset.zone===id;b.classList.toggle("is-active",selected);b.setAttribute("aria-selected",String(selected));b.tabIndex=selected?0:-1;if(selected)byId("cm-zone-panel").setAttribute("aria-labelledby",b.id)});
  byId("cm-zone-name").textContent=a.title;byId("cm-zone-summary").textContent=a.summary;byId("cm-zone-reach").textContent=a.reach;byId("cm-zone-visit").textContent=a.visit;byId("cm-tip-title").textContent=a.tipTitle;byId("cm-tip-text").textContent=a.tip;
- photo.src=asset+"zonas/"+(id==="gamla"?"detalle-gamla-stan":a.picture)+".webp";photo.alt="Zona de "+a.title+" en Estocolmo";
+ photo.src=zonaBase+(id==="gamla"?"detalle-gamla-stan":a.picture)+".webp";photo.alt="Zona de "+a.title+" en Estocolmo";
  recs.innerHTML=a.pick.map(([id,name,desc])=>'<div class="cm-reco"><img src="'+icon(id)+'" width="30" height="30" alt=""><strong>'+enc(name)+'</strong><small>'+enc(desc)+'</small></div>').join("");
  grid.innerHTML=modes.map(m=>{const r=a.ratings[m.id],yes=r[0]===1,best=a.pick.some(p=>p[0]===m.id||(p[0]==="tranvia"&&m.id==="bus"));return '<article class="cm-mode'+(best?' is-recommended':'')+'"><div class="cm-mode-head"><img src="'+icon(m.id)+'" width="31" height="31" alt=""><div><strong>'+enc(m.name)+'</strong><div class="cm-mode-cost">'+enc(m.price)+'</div></div></div><div class="cm-mode-benefit"><span class="cm-mode-symbol'+(!yes?' is-neutral':'')+'" aria-label="'+(yes?'Ventaja':'Inconveniente')+'">'+(yes?'✓':'−')+'</span><span>'+enc(r[1])+'</span>'+(best?'<span class="cm-mode-value">VCC</span>':'')+'</div></article>'}).join("");
  try{const u=new URL(window.location.href);u.searchParams.set("zona",id);window.history.replaceState(null,"",u.pathname+u.search+u.hash)}catch(e){}
