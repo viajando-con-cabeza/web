@@ -10,7 +10,9 @@ function init(){
   const daysButtons=[...root.querySelectorAll("[data-ep-day]")];
   const profileButtons=[...root.querySelectorAll("[data-ep-profile]")];
   const title=root.querySelector("#ep-choose-title");
-  const list=root.querySelector("#ep-reco-buy");
+  const buy=root.querySelector("#ep-reco-buy");
+  const optional=root.querySelector("#ep-reco-optional");
+  const skip=root.querySelector("#ep-reco-skip");
   const free=root.querySelector("#ep-reco-free");
   const note=root.querySelector("#ep-reco-note");
   const profiles={
@@ -51,13 +53,26 @@ function init(){
       }
     }
   };
+  const alternative={
+    vcc:"Palacio Real si te interesa la historia, o Skansen si viajas con niños.",
+    couple:"Museo Vasa si os interesa la historia; no hace falta comprar ambas entradas.",
+    family:"Gröna Lund si está abierto y encaja con la edad y la altura de los niños.",
+    culture:"Palacio Real si te apetece conocer sus interiores."
+  };
+  const deprioritize={
+    vcc:"Acumular entradas para amortizar un pase turístico. Preferimos explorar barrios y miradores.",
+    couple:"Comprar entradas por rutina, especialmente ABBA si no os gusta su música.",
+    family:"Tres museos seguidos o visitas demasiado largas que cansen a los pequeños.",
+    culture:"Pagar por todos los museos sin tiempo para disfrutar de cada uno."
+  };
   function syncRecommendation(){
     const profile=profiles[state.profile]||profiles.vcc;
     const p=profile.plans[state.days]||profile.plans[3];
     const dayText=state.days===4?"4 O MÁS DÍAS":state.days+" DÍA"+(state.days===1?"":"S");
     title.textContent="CON "+dayText+" · "+profile.label;
-    list.replaceChildren();
-    p.buy.forEach(item=>{const li=document.createElement("li");li.textContent=item;list.appendChild(li)});
+    buy.textContent=p.buy[0]||"Una entrada elegida según tus intereses.";
+    optional.textContent=p.buy[1]||alternative[state.profile]||alternative.vcc;
+    skip.textContent=deprioritize[state.profile]||deprioritize.vcc;
     free.textContent=p.free;
     note.textContent=p.note;
     daysButtons.forEach(b=>b.setAttribute("aria-pressed",String(Number(b.dataset.epDay)===state.days)));
@@ -70,7 +85,7 @@ function init(){
   profileButtons.forEach(btn=>btn.addEventListener("click",()=>{
     if(profiles[btn.dataset.epProfile]){state.profile=btn.dataset.epProfile;syncRecommendation()}
   }));
-  if(title&&list&&free&&note)syncRecommendation();
+  if(title&&buy&&optional&&skip&&free&&note)syncRecommendation();
 
   const nav=root.querySelector(".ep-subnav");
   if(nav){
