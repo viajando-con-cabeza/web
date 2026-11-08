@@ -44,7 +44,7 @@ for p in paths:
  changed=REGEX.sub(lambda m:done.get(m.group(1),m.group(0)),src)
  if changed!=src:p.write_text(changed,encoding='utf-8')
 # Banderes: elements grafics de paisos, desats amb la mateixa mida que el recurs original.
-FLAGS_RE=re.compile(r'https://flagcdn\\.com/w80/([a-z]{2})\\.png')
+FLAGS_RE=re.compile(r'https://flagcdn\.com/w80/([a-z]{2})\.png')
 flags={}
 flag_dir=ROOT/'configuracion/imagenes/banderas/flags'
 flag_dir.mkdir(parents=True,exist_ok=True)
@@ -56,7 +56,7 @@ for code in sorted(flags):
  if not out.is_file() or out.stat().st_size<50:
   try:
    with urlopen(Request('https://flagcdn.com/w80/'+code+'.png',headers={'User-Agent':'Mozilla/5.0 (VCC flags cache)'}),timeout=25) as resp:blob=resp.read(150000)
-   if not blob.startswith(b'\\x89PNG\\r\\n\\x1a\\n'):raise ValueError('La bandera no es PNG')
+   if not blob.startswith(b'\x89PNG\r\n\x1a\n'):raise ValueError('La bandera no es PNG')
    out.write_bytes(blob)
   except (HTTPError,URLError,TimeoutError,ValueError,OSError) as error:
    errors['flag:'+code]=str(error)
