@@ -256,9 +256,9 @@ html body .ql-page .ql-builder.ql-builder-compact.ql-builder-unified{
 html body .ql-page .ql-builder-unified>.ql-builder-left,
 html body .ql-page .ql-builder-unified>.ql-list-right{
   box-sizing:border-box!important;
-  height:500px!important;
+  height:415px!important;
   min-height:0!important;
-  max-height:500px!important;
+  max-height:415px!important;
   align-self:stretch!important;
 }
 /* La fotografía llena TODO el panel, sin una miniatura o marca de agua en una esquina. */
@@ -266,13 +266,23 @@ html body .ql-page .ql-builder-unified>.ql-builder-left{
   position:relative!important;
   isolation:isolate!important;
   overflow:hidden!important;
-  background:
-    linear-gradient(180deg,rgba(255,253,249,.84),rgba(255,253,249,.79)),
-    url("/configuracion/imagenes/ilustraciones/maleta-vcc-neutra-pexels.webp?v=20261108-full-card")
-    center 55% / cover no-repeat!important;
+  background:#f8f8f7!important;
 }
+/* Image covers the entire left card, truly grayscale with low opacity. */
 html body .ql-page .ql-builder-unified>.ql-builder-left::before{
-  content:none!important;display:none!important;
+  content:""!important;display:block!important;
+  position:absolute!important;inset:0!important;
+  width:100%!important;height:100%!important;
+  bottom:auto!important;right:auto!important;
+  background:url("/configuracion/imagenes/ilustraciones/maleta-vcc-neutra-pexels.webp?v=20261108-grayfull") center 55% / cover no-repeat!important;
+  opacity:.24!important;
+  filter:grayscale(1) saturate(0) contrast(.9) brightness(1.16)!important;
+  pointer-events:none!important;z-index:0!important;
+}
+html body .ql-page .ql-builder-unified>.ql-builder-left::after{
+  content:"";position:absolute;inset:0;
+  background:linear-gradient(180deg,rgba(255,255,255,.11),rgba(250,250,250,.24));
+  pointer-events:none;z-index:0;
 }
 html body .ql-page .ql-builder-unified>.ql-builder-left>.ql-builder-options{
   position:relative!important;z-index:1!important;
@@ -304,10 +314,7 @@ html body .ql-page .ql-builder-unified>.ql-list-right>.ql-categories-scroll{
     max-height:none!important;
   }
   html body .ql-page .ql-builder-unified>.ql-builder-left{
-    background:
-      linear-gradient(180deg,rgba(255,253,249,.86),rgba(255,253,249,.81)),
-      url("/configuracion/imagenes/ilustraciones/maleta-vcc-neutra-pexels.webp?v=20261108-full-card")
-      center 55% / cover no-repeat!important;
+    background:#f8f8f7!important;
   }
   html body .ql-page .ql-builder-unified>.ql-list-right{overflow:visible!important}
   html body .ql-page .ql-builder-unified>.ql-list-right>.ql-categories-scroll{
