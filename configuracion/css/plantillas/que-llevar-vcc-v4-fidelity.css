@@ -232,3 +232,58 @@ html body .ql-page .ql-suitcase-box .ql-suitcase-caption{
  html body .ql-page .ql-suitcase-box .ql-suitcase-illustration{height:239px!important;max-height:239px!important}
  html body .ql-page .ql-suitcase-box .ql-suitcase-script{font-size:25px!important}
 }
+
+/* 2026-11-08 · Un solo listado y foto revisada. */
+html body .ql-page .ql-builder.ql-builder-compact{
+  grid-template-columns:minmax(295px,.86fr) minmax(0,1.36fr)!important;
+  gap:22px!important;
+}
+html body .ql-page .ql-suitcase-box{
+  height:292px!important;min-height:0!important;
+  background:linear-gradient(140deg,#eee4d8,#f9f3ec)!important;
+}
+html body .ql-page .ql-suitcase-box .ql-suitcase-illustration{
+  display:block!important;width:100%!important;height:274px!important;max-height:274px!important;
+  object-fit:cover!important;object-position:center 61%!important;
+  filter:brightness(1.20) saturate(.95) contrast(1.02)!important;
+}
+html body .ql-page .ql-suitcase-box .ql-suitcase-script{
+  top:16px!important;left:16px!important;font:700 27px/1 "Caveat",cursive!important;
+  padding:5px 13px 4px!important;border-radius:7px!important;letter-spacing:0!important;
+}
+html body .ql-page .ql-suitcase-box .ql-suitcase-script:after{display:none!important}
+html body .ql-page .ql-advice-heading-row{margin-bottom:15px!important}
+html body .ql-page .ql-advice-carousel.ql-advice-carousel-sides{
+  display:grid!important;grid-template-columns:40px minmax(0,1fr) 40px;
+  align-items:center;gap:12px!important;min-width:0!important;
+}
+html body .ql-page .ql-advice-carousel-sides .ql-advice-track{
+  display:flex!important;min-width:0!important;width:100%!important;overflow-x:auto;
+  margin:0!important;padding:4px 1px 12px!important;scrollbar-width:none;
+}
+html body .ql-page .ql-advice-carousel-sides .ql-carousel-arrow{
+  position:static!important;display:grid!important;place-items:center!important;
+  border-radius:50%!important;min-width:40px!important;width:40px!important;height:40px!important;
+  padding:0!important;font:500 23px/1 "DM Sans",sans-serif!important;
+  background:#fff!important;color:#c36c4d!important;border:1px solid #ddcbbd!important;
+  box-shadow:none!important;cursor:pointer!important;
+}
+html body .ql-page .ql-advice-carousel-sides .ql-carousel-arrow:disabled{
+  opacity:.32!important;cursor:default!important;
+}
+@media(max-width:1060px){
+  html body .ql-page .ql-builder.ql-builder-compact{
+    grid-template-columns:minmax(270px,.95fr) minmax(0,1.05fr)!important;gap:15px!important;
+  }
+}
+@media(max-width:650px){
+  html body .ql-page .ql-builder.ql-builder-compact{grid-template-columns:1fr!important;gap:14px!important}
+  html body .ql-page .ql-suitcase-box{height:245px!important}
+  html body .ql-page .ql-suitcase-box .ql-suitcase-illustration{height:229px!important;max-height:229px!important;object-position:center 59%!important}
+  html body .ql-page .ql-advice-carousel.ql-advice-carousel-sides{
+    grid-template-columns:30px minmax(0,1fr) 30px;gap:5px!important;
+  }
+  html body .ql-page .ql-advice-carousel-sides .ql-carousel-arrow{
+    min-width:30px!important;width:30px!important;height:30px!important;font-size:20px!important;
+  }
+}
