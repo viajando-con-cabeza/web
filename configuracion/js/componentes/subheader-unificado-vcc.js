@@ -2,8 +2,9 @@
 (() => {
   'use strict';
   const NAVS='nav.st-tabs,nav.vcc-nav,nav.place-nav-wrap,nav.country-nav,nav.mv-subnav,nav.dv-subnav,nav.ep-subnav,nav.ql-subnav,nav.ci-subnav,nav.content-nav,nav.cl-subnav';
-  const HEROS='.st-hero,.country-hero,.imp-hero,.vcc-hero,.mv-hero,.dv-hero,.ep-hero,.ql-hero,.ci-hero,.budget-hero';
+  const HEROS='.st-hero,.country-hero,.imp-hero,.vcc-hero,.mv-hero,.dv-hero,.ep-hero,.ql-hero,.ci-hero,.budget-hero,.content-hero';
   const managed=new Set();
+  const pending=new WeakMap();
   const headerTop=()=>{
     const h=document.querySelector('body > .shared-header, body > .page-header, .shared-header, .page-header');
     if(!h)return 0;
@@ -18,7 +19,7 @@
     catch(e){return null}
   };
   const itemsOf=(nav)=>Array.from(nav.querySelectorAll('a[href^="#"]'))
-    .map(a=>({a,target:linkTarget(a)})).filter(x=>x.target);
+    .map(a=>({a,target:linkTarget(a)})).filter(x=>x.target&&getComputedStyle(x.a).display!=='none');
   let raf=0;
   const paint=(nav,chosen)=>{
     if(!chosen)return;
@@ -40,6 +41,12 @@
       for(const item of items){
         if(item.target.getBoundingClientRect().top<=line)chosen=item;
       }
+      const click=pending.get(nav);
+      if(click){
+        const settled=Math.abs(click.target.getBoundingClientRect().top-line)<40;
+        if(performance.now()<click.until&&!settled)chosen={a:click.a,target:click.target};
+        else pending.delete(nav);
+      }
       paint(nav,chosen);
     }
   };
@@ -58,7 +65,10 @@
         const a=event.target.closest('a[href^="#"]');
         if(!a||!nav.contains(a))return;
         const target=linkTarget(a);
-        if(target)paint(nav,{a,target});
+        if(target){
+          pending.set(nav,{a,target,until:performance.now()+1200});
+          paint(nav,{a,target});
+        }
         schedule();
       });
     }
