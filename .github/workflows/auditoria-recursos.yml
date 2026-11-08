@@ -16,6 +16,6 @@ jobs:
         with:
           node-version: '22'
       - name: Validar rutes locals i manifest
-        run: node configuracion/scripts/auditar-recursos.mjs --no-write
+        run: node configuracion/scripts/auditar-recursos.mjs --no-write --enforce-external-baseline
       - name: Registrar fonts visuals externes pendents (sense bloquejar)
         run: node configuracion/scripts/auditar-recursos.mjs --no-write --strict-external || true

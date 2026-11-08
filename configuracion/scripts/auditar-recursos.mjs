@@ -29,4 +29,12 @@ if(!process.argv.includes('--no-write')){fs.mkdirSync('configuracion/datos',{rec
 console.log('Auditoria VCC: '+code.length+' fitxers, '+assets.length+' imatges, '+missing.size+' referencies absents, '+external.size+' externes, '+duplicates.length+' duplicats');
 for(const p of [...missing].slice(0,40))console.error('RUTA INEXISTENT',p);
 if(process.argv.includes('--strict-external'))for(const p of [...external].slice(0,100))console.error('FOTO EXTERNA',p);
-if(missing.size||(process.argv.includes('--strict-external')&&external.size))process.exitCode=1;
+const baselinePath='configuracion/datos/recursos-externs-pendents.json';
+let newcomers=[];
+if(process.argv.includes('--enforce-external-baseline')){
+ const baseline=JSON.parse(fs.readFileSync(baselinePath,'utf8'));
+ const allowed=new Set(baseline.remaining||[]);
+ newcomers=[...external].filter(x=>!allowed.has(x));
+ for(const x of newcomers)console.error('NOU RECURS EXTERN:',x);
+}
+if(missing.size||newcomers.length||(process.argv.includes('--strict-external')&&external.size))process.exitCode=1;
