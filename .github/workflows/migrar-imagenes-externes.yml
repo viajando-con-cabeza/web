@@ -30,7 +30,7 @@ jobs:
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add configuracion/imagenes/externas/unsplash configuracion/datos/imagenes-externas-migrades.json
+          git add configuracion/imagenes/externas/unsplash configuracion/imagenes/banderas/flags configuracion/datos/imagenes-externas-migrades.json
           git add -u '*.html' '*.css' '*.js' '*.mjs'
           if git diff --cached --quiet; then
             echo 'Sense canvis'; exit 0
