@@ -221,3 +221,29 @@ html body.ci-page .ci-recommendation.vcc-consejo-unificado .ci-recommendation-br
   }
   html body .vcc-consejo-unificado .vcc-consejo-marca > strong{font-size:9px!important}
 }
+
+
+/* En las listas de equipaje la barra lateral solo mide unos 235 px:
+   la marca queda arriba y el texto conserva toda la anchura legible. */
+html body .right .box.tip.vcc-consejo-unificado{
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:stretch!important;
+  gap:9px!important;
+  min-height:0!important;
+  height:auto!important;
+  padding:15px!important;
+}
+html body .right .box.tip.vcc-consejo-unificado .vcc-consejo-marca{
+  align-self:center!important;
+  width:100%!important;
+  max-width:160px!important;
+}
+html body .right .box.tip.vcc-consejo-unificado .vcc-consejo-texto{
+  grid-column:auto!important;
+  align-self:auto!important;
+  width:100%!important;
+}
+html body .vcc-consejo-unificado .paper-plane{
+  display:none!important;
+}
