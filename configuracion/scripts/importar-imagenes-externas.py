@@ -50,6 +50,11 @@ flag_dir=ROOT/'configuracion/imagenes/banderas/flags'
 flag_dir.mkdir(parents=True,exist_ok=True)
 for p in paths:
  for match in FLAGS_RE.finditer(p.read_text(encoding='utf-8')):flags[match.group(1)]=True
+# Incloure les banderes ja referenciades en la migracio anterior,
+# encara que el codi ja no contingui l'URL externa original.
+flags_manifest=ROOT/'configuracion/datos/imagenes-externas-migrades.json'
+if flags_manifest.is_file():
+ flags.update({code:True for code in json.loads(flags_manifest.read_text(encoding='utf-8')).get('flags',{})})
 flags_done={}
 for code in sorted(flags):
  out=flag_dir/(code+'.png')
