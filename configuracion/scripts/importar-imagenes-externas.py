@@ -43,7 +43,10 @@ for p in paths:
  src=p.read_text(encoding='utf-8')
  changed=REGEX.sub(lambda m:done.get(m.group(1),m.group(0)),src)
  if changed!=src:p.write_text(changed,encoding='utf-8')
-manifest={'source':'Unsplash','license':'https://unsplash.com/license','files':done,'unresolved':errors}
+manifest_path=ROOT/'configuracion/datos/imagenes-externas-migrades.json'
+previous=json.loads(manifest_path.read_text(encoding='utf-8')) if manifest_path.is_file() else {}
+files_all={**previous.get('files',{}),**done}
+manifest={'source':'Unsplash','license':'https://unsplash.com/license','files':files_all,'unresolved':errors}
 (ROOT/'configuracion/datos/imagenes-externas-migrades.json').write_text(json.dumps(manifest,indent=2,ensure_ascii=False)+'\n',encoding='utf-8')
 print('Migrades',len(done),'fotos. Pendents',len(errors))
 for name,reason in errors.items():print('PENDENT',name,reason,file=sys.stderr)
