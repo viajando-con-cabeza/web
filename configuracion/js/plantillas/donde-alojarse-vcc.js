@@ -53,6 +53,29 @@
     requestAnimationFrame(sync);
   }
 
+  // Carrusel reutilizable de vinyetes editorials, amb fletxes i lliscament tàctil.
+  const tipsScroller=root.querySelector('[data-dv-tip-scroller]');
+  const tipsPrev=root.querySelector('[data-dv-tip-prev]');
+  const tipsNext=root.querySelector('[data-dv-tip-next]');
+  if(tipsScroller){
+    const tips=Array.from(tipsScroller.querySelectorAll('.dv-tip'));
+    const syncTips=()=>{
+      if(tipsPrev)tipsPrev.disabled=tipsScroller.scrollLeft<=3;
+      if(tipsNext)tipsNext.disabled=tipsScroller.scrollLeft+tipsScroller.clientWidth>=tipsScroller.scrollWidth-3;
+    };
+    const moveTip=(direction)=>{
+      if(!tips.length)return;
+      const gap=parseFloat(getComputedStyle(tipsScroller).columnGap)||13;
+      const cardWidth=tips[0].getBoundingClientRect().width;
+      tipsScroller.scrollBy({left:direction*(cardWidth+gap),behavior:'smooth'});
+    };
+    tipsPrev?.addEventListener('click',()=>moveTip(-1));
+    tipsNext?.addEventListener('click',()=>moveTip(1));
+    tipsScroller.addEventListener('scroll',syncTips,{passive:true});
+    window.addEventListener('resize',syncTips,{passive:true});
+    syncTips();
+  }
+
   // Resaltar la sección visible del subheader, con los mismos enlaces de ancla.
   const navLinks=[...root.querySelectorAll('.dv-subnav a[href^="#"]')];
   const sections=navLinks.map(a=>document.getElementById(a.getAttribute('href').slice(1)));
@@ -80,16 +103,13 @@
   }
 
   const map=root.querySelector('[data-dv-map]');
-  const mapLink=root.querySelector('[data-dv-map-link]');
   if(map){
     const mid=(map.dataset.mymapsId||'').trim();
     /* Only use an exact Google My Maps ID, never an itinerary map by mistake. */
     if(/^[A-Za-z0-9_-]{10,}$/.test(mid)){
       map.src='https://www.google.com/maps/d/embed?mid='+encodeURIComponent(mid);
-      if(mapLink)mapLink.href='https://www.google.com/maps/d/viewer?mid='+encodeURIComponent(mid);
     }else{
       map.src='https://www.google.com/maps?q=Stockholm%2C%20Sweden&output=embed';
-      if(mapLink)mapLink.href='https://www.google.com/maps/search/?api=1&query=Stockholm%2C%20Sweden';
     }
   }
 })();
