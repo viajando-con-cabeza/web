@@ -1,8 +1,8 @@
 /* VCC · Control común de subheaders, sin afectar al menú principal. */
 (() => {
   'use strict';
-  const NAVS='nav.st-tabs,nav.vcc-nav,nav.place-nav-wrap,nav.country-nav,nav.mv-subnav,nav.dv-subnav,nav.ep-subnav,nav.ql-subnav,nav.ci-subnav,nav.content-nav,nav.cl-subnav';
-  const HEROS='.st-hero,.country-hero,.imp-hero,.vcc-hero,.mv-hero,.dv-hero,.ep-hero,.ql-hero,.ci-hero,.budget-hero,.content-hero';
+  const NAVS='nav.st-tabs,nav.vcc-nav,nav.place-nav-wrap,nav.country-nav,nav.mv-subnav,nav.dv-subnav,nav.ep-subnav,nav.ql-subnav,nav.ci-subnav,nav.content-nav,nav.rich-tabs,nav.cl-subnav';
+  const HEROS='.st-hero,.country-hero,.imp-hero,.vcc-hero,.mv-hero,.dv-hero,.ep-hero,.ql-hero,.ci-hero,.budget-hero,.content-hero,.rich-hero';
   const managed=new Set();
   const pending=new WeakMap();
   const headerTop=()=>{
