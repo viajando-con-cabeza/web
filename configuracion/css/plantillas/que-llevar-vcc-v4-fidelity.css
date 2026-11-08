@@ -395,3 +395,17 @@ html body .ql-page .ql-advice-card p{
  }
  html body .ql-page .ql-advice-card h3{font-size:20px!important}
 }
+
+/* Ajuste de altura final tras inspección visual: 4 líneas sin espacio sobrante. */
+html body .ql-page .ql-advice-card{
+ height:128px!important;min-height:128px!important;max-height:128px!important;
+ padding:11px 12px!important;
+}
+html body .ql-page .ql-advice-card h3{margin-bottom:4px!important}
+html body .ql-page .ql-advice-card p{line-height:1.35!important;-webkit-line-clamp:4!important}
+@media(max-width:650px){
+ html body .ql-page .ql-advice-card{
+  height:126px!important;min-height:126px!important;max-height:126px!important;
+  padding:11px!important;
+ }
+}
