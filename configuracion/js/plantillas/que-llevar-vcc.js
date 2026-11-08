@@ -95,8 +95,7 @@ function svgItem(name){
 function render(){
  const s=seasons[state.season];
  document.querySelectorAll(".ql-season").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.season===state.season)));
- el("ql-season-title").textContent="LISTA COMPLETA · "+s.name.toUpperCase();
- el("ql-intro").textContent=s.intro;
+ el("ql-season-title").textContent="Lista completa · "+s.name.charAt(0).toUpperCase()+s.name.slice(1);
  el("ql-days").value=String(state.days);
 
  const cats=el("ql-categories");cats.replaceChildren();
