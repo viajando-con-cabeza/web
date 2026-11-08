@@ -657,7 +657,7 @@
     const css = document.createElement('link');
     css.id = 'vcc-consejo-global-css';
     css.rel = 'stylesheet';
-    css.href = new URL('configuracion/css/componentes/consejo-vcc-global.css?v=20261108-compact-v3', base).href;
+    css.href = new URL('configuracion/css/componentes/consejo-vcc-global.css?v=20261108-sizing-v4', base).href;
     document.head.appendChild(css);
   }
   if (!document.getElementById('vcc-consejo-global-js')) {
