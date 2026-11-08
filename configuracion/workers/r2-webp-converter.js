@@ -64,6 +64,31 @@ const verifiedAvifFor=(jpg,obj)=>!!(jpg&&obj&&obj.size>0&&
  obj.httpMetadata?.contentType==='image/avif'&&
  obj.customMetadata?.sourceEtag===jpg.etag&&
  obj.customMetadata?.colorVersion===COLOR_VERSION);
+// Validar els bytes reals: Cloudflare pot retornar WebP encara que es demani AVIF.
+// Una extensio .avif o un Content-Type no demostren que les dades siguin AVIF.
+function hasAvifMagic(bytes){
+  const b=bytes instanceof Uint8Array?bytes:new Uint8Array(bytes||0);
+  if(b.length<20)return false;
+  const str=(a,c)=>String.fromCharCode(...b.subarray(a,c));
+  return str(4,8)==='ftyp'&&
+    ['avif','avis'].some(name=>str(8,12)===name||str(16,20)===name);
+}
+async function r2HasRealAvif(env,key){
+  const photo=await env.BUCKET.get(key);
+  if(!photo?.body)return false;
+  const reader=photo.body.getReader(),header=new Uint8Array(48);
+  let length=0;
+  try{
+    while(length<20){
+      const {done,value}=await reader.read();
+      if(done)break;
+      const segment=value.subarray(0,Math.min(value.length,48-length));
+      header.set(segment,length);
+      length+=segment.length;
+    }
+  }finally{await reader.cancel().catch(()=>{});}
+  return hasAvifMagic(header.subarray(0,length));
+}
 async function prepareAvifStream(env,key,prefix,etag){
  assertPhotoKey(key,prefix);
  if(typeof etag!=='string'||!etag)throw Error('ETag JPG obligatorio.');
@@ -72,7 +97,7 @@ async function prepareAvifStream(env,key,prefix,etag){
  if(!jpg)return json({skipped:key,reason:'JPG ausente'});
  if(jpg.etag!==etag)throw Error('El JPG ha cambiado. Recarga la carpeta.');
  if(jpg.size>MAX_IMAGE_SIZE)throw Error('JPG superior a 20 MB.');
- if(verifiedAvifFor(jpg,avif))return json({reusedVerifiedAvif:true,key,avif:target});
+ if(verifiedAvifFor(jpg,avif)&&await r2HasRealAvif(env,target))return json({reusedVerifiedAvif:true,key,avif:target});
  if(avif)throw Error('Ya existe un AVIF distinto de este JPG. Revisa el destino antes de reemplazarlo.');
  const original=await env.BUCKET.get(key);
  if(!original?.body||original.etag!==etag)throw Error('JPG modificado. Se conserva el original.');
@@ -94,6 +119,7 @@ async function finalizeAvif(env,key,prefix,etag,request,upload){
  if(!jpg)return json({skipped:key,reason:'JPG ausente'});
  if(jpg.etag!==etag)throw Error('El JPG ha cambiado. No se ha eliminado.');
  let reused=verifiedAvifFor(jpg,existing),saved=false;
+ if(reused&&!await r2HasRealAvif(env,target))throw Error('El AVIF guardado contiene otro formato. JPG conservado.');
  if(!reused){
    if(!upload)throw Error('AVIF no verificado. No se ha eliminado el JPG.');
    if(existing)throw Error('AVIF distinto ya existente. Se conserva el JPG.');
@@ -116,7 +142,7 @@ async function finalizeAvif(env,key,prefix,etag,request,upload){
    saved=true;
  }
  const [current,verified]=await Promise.all([env.BUCKET.head(key),env.BUCKET.head(target)]);
- if(!current||current.etag!==etag||!verifiedAvifFor(current,verified))
+ if(!current||current.etag!==etag||!verifiedAvifFor(current,verified)||!await r2HasRealAvif(env,target))
    throw Error('No se ha verificado el AVIF. El JPG se conserva.');
  await env.BUCKET.delete(key);
  return json({deleted:key,avif:target,converted:saved,reusedVerifiedAvif:reused});
@@ -136,6 +162,8 @@ async function convertAndDeleteOne(env,key,prefix){
     obj.customMetadata?.sourceEtag===jpg.etag&&
     obj.customMetadata?.colorVersion===COLOR_VERSION);
   const alreadyVerified=matches(previousAvif);
+  if(previousAvif&&(!alreadyVerified||!await r2HasRealAvif(env,target)))
+    throw new Error('Existe un archivo .avif anterior sin validacion real. JPG conservado; revisar antes de reemplazar.');
   if(!alreadyVerified){
     const original=await env.BUCKET.get(key);
     if(!original||!original.body||original.etag!==jpg.etag)
@@ -145,17 +173,10 @@ async function convertAndDeleteOne(env,key,prefix){
       .output({format:'image/avif',quality:AVIF_QUALITY})).response();
     if(!transformed.ok||!transformed.body)
       throw new Error('Error de transformación AVIF HTTP '+transformed.status);
-    // Los streams con longitud conocida se suben sin crear un ArrayBuffer
-    // adicional. Cuando Images no expone Content-Length, usar el buffer.
-    const lengthHeader=transformed.headers.get('Content-Length');
-    const outputLength=lengthHeader===null?NaN:Number(lengthHeader);
-    let output;
-    if(Number.isSafeInteger(outputLength)&&outputLength>0){
-      output=transformed.body;
-    }else{
-      output=await transformed.arrayBuffer();
-      if(output.byteLength===0)throw new Error('AVIF generado vacío');
-    }
+    // Solo guardar AVIF autenticos; nunca borrar el JPG si Cloudflare devuelve WebP.
+    const output=await transformed.arrayBuffer();
+    if(output.byteLength===0||output.byteLength>25*1024*1024||!hasAvifMagic(new Uint8Array(output,0,Math.min(48,output.byteLength))))
+      throw new Error('Cloudflare no ha generado un AVIF valido. Se conserva el JPG original.');
     const written=await env.BUCKET.put(target,output,{
       httpMetadata:{contentType:'image/avif'},
       customMetadata:{sourceEtag:jpg.etag,colorVersion:COLOR_VERSION}
@@ -169,7 +190,7 @@ async function convertAndDeleteOne(env,key,prefix){
   ]);
   if(!currentJpg||currentJpg.etag!==jpg.etag)
     throw new Error('El JPG se ha modificado; no se ha eliminado.');
-  if(!matches(finalAvif))
+  if(!matches(finalAvif)||!await r2HasRealAvif(env,target))
     throw new Error('AVIF no verificado; se conserva el JPG.');
   await env.BUCKET.delete(key);
   return {deleted:key,avif:target,converted:!alreadyVerified,reusedVerifiedAvif:alreadyVerified};
