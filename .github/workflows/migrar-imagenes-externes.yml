@@ -36,4 +36,5 @@ jobs:
             echo 'Sense canvis'; exit 0
           fi
           git commit -m 'assets: copiar fotografies externes a GitHub'
+          git pull --rebase origin quality
           git push origin HEAD:quality
