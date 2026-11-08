@@ -192,3 +192,59 @@ html body .ql-page .ql-advice-section .ql-advice-heading-row{margin-bottom:20px!
 @media(prefers-reduced-motion:reduce){
  html body .ql-page .ql-list-right .ql-categories-scroll{scroll-behavior:auto!important}
 }
+
+/* 2026-11-08 · Maleta integrada como marca de agua, selector de días y margen editorial. */
+html body .ql-page .ql-builder-left{
+  position:relative!important;
+  isolation:isolate!important;
+  overflow:hidden!important;
+  background:#fffdf9!important;
+  padding-bottom:24px!important;
+}
+html body .ql-page .ql-builder-left::before{
+  content:"";position:absolute;bottom:-16px;right:-12px;
+  width:min(69%,285px);height:185px;
+  background:url("/configuracion/imagenes/ilustraciones/maleta-vcc-neutra-pexels.webp?v=20261108-watermark") center / contain no-repeat;
+  opacity:.18;filter:grayscale(.93) sepia(.22) saturate(.38) brightness(1.13);
+  pointer-events:none;z-index:0;
+}
+html body .ql-page .ql-builder-left>.ql-builder-options{
+  position:relative!important;z-index:1!important;
+}
+html body .ql-page .ql-builder-left .ql-duration{
+  margin:27px 0 2px!important;
+}
+html body .ql-page .ql-builder-left .ql-duration>.ql-section-script{
+  display:block!important;
+  font:600 23px/1.08 "Caveat",cursive!important;
+  color:#cb7657!important;margin:0 0 5px!important;
+}
+html body .ql-page .ql-builder-left .ql-duration>.ql-question{
+  margin:0 0 11px!important;
+}
+html body .ql-page #consejos.ql-advice-section{
+  margin-top:88px!important;
+  padding-top:46px!important;
+  scroll-margin-top:calc(var(--ql-sticky-header-height,50px) + 104px)!important;
+}
+@media(max-width:850px){
+  html body .ql-page .ql-builder-left{padding-bottom:23px!important}
+  html body .ql-page .ql-builder-left::before{
+    width:min(67%,245px);height:164px;bottom:-16px;right:-7px;
+    opacity:.15;
+  }
+  html body .ql-page .ql-builder-left .ql-duration{margin-top:25px!important}
+  html body .ql-page #consejos.ql-advice-section{
+    margin-top:68px!important;padding-top:38px!important;
+    scroll-margin-top:calc(var(--ql-sticky-header-height,50px) + 98px)!important;
+  }
+}
+@media(max-width:650px){
+  html body .ql-page .ql-builder-left::before{
+    right:-10px;bottom:-21px;width:min(65%,235px);height:145px;opacity:.14;
+  }
+  html body .ql-page .ql-builder-left .ql-duration>.ql-section-script{font-size:22px!important}
+  html body .ql-page #consejos.ql-advice-section{
+    margin-top:59px!important;padding-top:34px!important;
+  }
+}
