@@ -150,6 +150,17 @@ html body .imp-page #imp-all-map {
   background:#eae5dd;
 }
 html body .imp-page #imp-all-map iframe {border:0;width:100%;height:100%}
+/* Cartografía de calles mas legible, sin capa de relieve ni efecto lavado.
+   Se aplica solo al raster; los números VCC y controles mantienen sus colores. */
+html body .imp-page #imp-all-map .leaflet-tile-pane,
+html body .imp-page .imp-pdf-map-host .leaflet-tile-pane {
+  filter:contrast(1.20) saturate(1.16) brightness(.985)!important;
+  opacity:1!important;
+}
+html body .imp-page #imp-all-map .leaflet-tile-pane img,
+html body .imp-page .imp-pdf-map-host .leaflet-tile-pane img {
+  opacity:1!important;
+}
 html body .imp-page .imp-map-index {
   box-sizing:border-box;height:385px;overflow-y:auto;
   border:1px solid #e9dfd5;border-radius:13px;background:#fff;
