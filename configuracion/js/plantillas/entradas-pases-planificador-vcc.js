@@ -48,7 +48,7 @@
    });
    controls.ess.value=String(safeInt(o.e,1,10000,649));
    controls.all.value=String(safeInt(o.al,1,10000,passes[Number(controls.days.value)]));
-   doneItems=new Set(Array.isArray(o.done)?o.done.filter(x=>names.includes(x)):[]);
+   doneItems=new Set(Array.isArray(o.done)?o.done.filter(x=>names.includes(x)||x==="pass_ess"||x==="pass_all"):[]);
    return true;
  }
  function resetPrices(){
@@ -91,23 +91,40 @@
    }
    const hint=ids.length&&hours>days*6.25?"Atención: has seleccionado unas "+Math.ceil(hours)+" horas de visitas incluidas para "+days+" día(s) de pase. No compararemos All-Inclusive hasta que el plan sea más realista o amplíes días.":"Los tiempos de visita son orientativos; añade desplazamientos, pausas y horarios reales.";
    setHtml("ep-pl-feasibility",hint+(Number(controls.children.value)>0?" · Atención: el comparador calcula únicamente los adultos; las tarifas de menores, sus pases y gratuidades deben comprobarse por edad.":""));
-   renderTasks(ids);
+   renderTasks(ids,best,covered);
    const serialized=state();
    safeStore(serialized);
    setHtml("ep-pl-saved",lastSave?"Guardado en este navegador":"Copia tu plan para conservarlo");
    return {ids,adults,days,total,best,essentials,all,p,serialized};
  }
- function renderTasks(ids){
+ function renderTasks(ids,best,covered){
    const tasks=ids.map(id=>({id,...master[id]})).sort((a,b)=>({before:0,online:1,check:2,flex:3}[a.priority]-{before:0,online:1,check:2,flex:3}[b.priority]));
+   const type=best?.id||"single";
+   if(type==="ess"){
+     tasks.unshift({id:"pass_ess",name:"Go City Essentials",kind:"pass",priority:"before",link:"https://gocity.com/en/stockholm/passes/essentials",advice:"Comprar un pase por adulto. En tu selección se usaría para: "+covered.map(id=>master[id].name).join(", ")+". Revisa la lista elegible y si exige reservas."});
+   }else if(type==="all"){
+     tasks.unshift({id:"pass_all",name:"Go City All-Inclusive",kind:"pass",priority:"before",link:"https://gocity.com/en/stockholm/passes/all-inclusive",advice:"Comprar un pase por adulto para "+controls.days.value+" día(s). Comprueba horario, reservas y disponibilidad de cada actividad incluida."});
+   }
    controls.tasklist.textContent="";
-   if(!tasks.length){const li=document.createElement("li");li.textContent="Selecciona alguna visita para crear tu lista de reservas.";controls.tasklist.append(li);return}
+   if(!tasks.length){const li=document.createElement("li");li.textContent="Selecciona alguna visita para crear tu lista de reservas.";controls.tasklist.append(li);return;}
    tasks.forEach(task=>{
      const li=document.createElement("li");
-     const check=document.createElement("input");
-     check.type="checkbox";check.dataset.epComplete=task.id;check.checked=doneItems.has(task.id);check.setAttribute("aria-label","Marcar como revisado: "+task.name);
+     const check=document.createElement("input");check.type="checkbox";check.dataset.epComplete=task.id;check.checked=doneItems.has(task.id);
+     check.setAttribute("aria-label","Marcar como revisado: "+task.name);
      const desc=document.createElement("span");desc.className="ep-task-body";
-     const b=document.createElement("strong");b.textContent=task.name+": ";desc.append(b,document.createTextNode(task.advice));
-     const a=document.createElement("a");a.href=task.link;a.target="_blank";a.rel="noopener noreferrer";a.textContent="Web oficial ↗";a.setAttribute("aria-label","Web oficial de "+task.name);
+     const b=document.createElement("strong");b.textContent=task.name+": ";desc.append(b);
+     let advice=task.advice;
+     if(task.kind!=="pass"&&type==="ess"){
+       advice=(covered.includes(task.id)?"Incluida en Essentials. ":"ENTRADA INDIVIDUAL ADICIONAL. ")+task.advice;
+     }else if(task.kind!=="pass"&&type==="all"){
+       advice=(task.kind==="outside"?"NO INCLUIDA EN GO CITY. Compra aparte. ":"Incluida en All-Inclusive (verifica condiciones). ")+task.advice;
+     }else if(task.kind!=="pass"){
+       advice="ENTRADA INDIVIDUAL. "+task.advice;
+     }
+     desc.append(document.createTextNode(advice));
+     const a=document.createElement("a");a.href=task.link;a.target="_blank";a.rel="noopener noreferrer";
+     a.textContent=task.kind==="pass"?"Ver pase ↗":"Web oficial ↗";
+     a.setAttribute("aria-label","Consultar "+task.name+" en su web oficial");
      li.append(check,desc,a);if(check.checked)li.classList.add("is-done");controls.tasklist.append(li);
    });
  }
@@ -116,7 +133,11 @@
    const lines=["MI PLAN DE ENTRADAS · ESTOCOLMO · VCC","Adultos: "+o.adults+" | Menores (sin calcular): "+controls.children.value+" | Días de pase: "+o.days+" | Fecha: "+(controls.date.value||"por decidir")+" | Tarifa base: "+(controls.season.value==="high"?"mayo–septiembre":"octubre–abril"),""];
    o.ids.forEach(id=>lines.push((doneItems.has(id)?"[x] ":"[ ] ")+master[id].name+": "+(o.p[id]===null?"precio por confirmar":money(o.p[id]))+" por adulto · "+master[id].link));
    lines.push("",o.total===null?"Revisa los importes":("Entradas individuales estimadas: "+money(o.total*o.adults)));
-   if(o.best)lines.push("Opción más económica en la simulación: "+o.best.name+" (no es un presupuesto garantizado).");
+   if(o.best){
+     lines.push("Opción más económica en la simulación: "+o.best.name+" (no es un presupuesto garantizado).");
+     if(o.best.id==="ess")lines.push("Para Essentials: una principal + dos actividades elegibles. Comprueba inclusiones reales en https://gocity.com/en/stockholm/passes/essentials");
+     else if(o.best.id==="all")lines.push("Para All-Inclusive: confirma actividades, duración consecutiva y reservas en https://gocity.com/en/stockholm/passes/all-inclusive");
+   }
    lines.push("Verifica fechas, precios, inclusión y reservas en las webs oficiales.","Guía VCC: https://www.viajandoconcabeza.com/destinos/suecia/estocolmo/entradas-y-pases.html");
    return lines.join("\n");
  }
