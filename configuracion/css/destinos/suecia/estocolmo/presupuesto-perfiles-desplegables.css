@@ -105,3 +105,58 @@ html body.budget-vcc .vcc-budget-excel-action svg{width:17px;height:17px;stroke:
 @media(prefers-reduced-motion:reduce){
  html body.budget-vcc #filosofia .vcc-budget-mode-card{transition:none}
 }
+
+/* VCC quality 2026-11-09 · titulos compactos, icono chevron minimalista, costes por día */
+html body.budget-vcc #filosofia .philosophy-poster-head{
+  display:block!important;margin:0 0 16px!important;padding:0!important;
+}
+html body.budget-vcc #filosofia .philosophy-poster-title{margin-bottom:9px!important}
+html body.budget-vcc #filosofia .philosophy-poster-copy{
+  margin:0!important;padding:0!important;max-width:none!important;width:100%!important;
+}
+html body.budget-vcc #filosofia .philosophy-poster-copy p{
+  margin:0!important;max-width:100%!important;
+  font:400 12px/1.45 'DM Sans',sans-serif!important;color:#665d55!important;
+}
+html body.budget-vcc #filosofia .vcc-budget-mode-footer{
+  padding-top:9px!important;font:700 9px/1.2 'DM Sans',sans-serif!important;
+  letter-spacing:.01em!important;color:#ac5a45!important;
+}
+html body.budget-vcc #filosofia .vcc-budget-mode-caret{
+  width:18px!important;height:18px!important;flex:0 0 18px!important;
+  border:0!important;border-radius:0!important;background:transparent!important;
+  display:inline-flex!important;align-items:center!important;justify-content:center!important;
+  transform:none!important;
+}
+html body.budget-vcc #filosofia .vcc-budget-mode-caret svg{
+  width:14px;height:14px;fill:none;stroke:currentColor;
+  stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;
+  transition:transform .18s ease;
+}
+html body.budget-vcc #filosofia .vcc-budget-mode-card[aria-expanded="true"] .vcc-budget-mode-caret svg{transform:rotate(180deg)}
+html body.budget-vcc #filosofia .vcc-budget-day{margin-bottom:12px;padding-bottom:8px}
+html body.budget-vcc #filosofia .vcc-budget-day-head{font-size:10.5px;align-items:baseline}
+html body.budget-vcc #filosofia .vcc-budget-day-expenses{
+  list-style:none!important;padding:5px 0 0!important;margin:0!important;
+  display:grid!important;gap:0!important;
+}
+html body.budget-vcc #filosofia .vcc-budget-day-expenses li{
+  display:grid;grid-template-columns:minmax(65px,.72fr) minmax(0,1.3fr) auto;
+  gap:6px;align-items:baseline;margin:0;padding:5px 0;
+  border-bottom:1px solid #f3e9e1;
+  font:400 10px/1.4 'DM Sans',sans-serif!important;color:#655c55!important;
+}
+html body.budget-vcc #filosofia .vcc-budget-day-expenses li:last-child{border-bottom:0}
+html body.budget-vcc #filosofia .vcc-day-expense-category{font-weight:700;color:#302b27}
+html body.budget-vcc #filosofia .vcc-day-expense-info{font-size:9.5px;color:#776b62}
+html body.budget-vcc #filosofia .vcc-budget-day-expenses li strong{
+  font:700 10px/1.4 'DM Sans',sans-serif;color:#a5503b;white-space:nowrap
+}
+@media(max-width:750px){
+ html body.budget-vcc #filosofia .philosophy-poster-copy p{font-size:11px!important}
+ html body.budget-vcc #filosofia .vcc-budget-day-expenses li{
+  grid-template-columns:minmax(65px,.8fr) minmax(0,1.2fr) auto;
+  gap:5px
+ }
+ html body.budget-vcc #filosofia .vcc-day-expense-info{font-size:9px}
+}
