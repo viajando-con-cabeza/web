@@ -64,18 +64,27 @@ html body .imp-page .place-copy .facts > span.vcc-rating-fact.is-open .vcc-ratin
 html body .imp-page .imp-main .place.place--no-media .place-copy .facts > span.vcc-rating-fact {
   position:relative!important;
 }
+/* Una moneda vectorial de la biblioteca VCC, alineada con los demás iconos
+   de la ficha. El importe o Gratis son el único texto visible: no duplicar Coste. */
 html body .imp-page .place-copy .facts > span.fact-cost {
   display:inline-flex!important;align-items:center!important;justify-content:flex-start!important;
-  gap:7px!important;min-width:0!important;
-  color:#665f58!important;font:600 11px/1.4 'DM Sans',sans-serif!important;
+  gap:8px!important;min-width:0!important;
+  color:#665f58!important;font:600 12px/1.4 'DM Sans',sans-serif!important;
+}
+html body .imp-page .place-copy .facts .fact-cost .fact-cost-icon {
+  display:inline-block!important;flex:0 0 38px!important;
+  width:38px!important;height:22px!important;
+  background-color:#a65340!important;
+  -webkit-mask:url('/configuracion/imagenes/iconos/entradas-y-pases/coins.svg') left center / 19px 19px no-repeat!important;
+  mask:url('/configuracion/imagenes/iconos/entradas-y-pases/coins.svg') left center / 19px 19px no-repeat!important;
 }
 html body .imp-page .place-copy .facts .fact-cost .fact-cost-value {
   display:inline-block!important;flex:0 0 auto!important;
   color:#bb5e32!important;font:700 12px/1.2 'DM Sans',sans-serif!important;
-  letter-spacing:.02em!important;white-space:nowrap!important;
+  letter-spacing:.015em!important;white-space:nowrap!important;
 }
 html body .imp-page .place-copy .facts .fact-cost .fact-cost-value.is-free {
-  color:#398066!important;font-size:10px!important;letter-spacing:.03em!important;
+  color:#398066!important;font-size:11.5px!important;letter-spacing:.01em!important;
 }
 @media (min-width:651px) {
   html body .imp-page .place-copy .facts > span.fact-cost:nth-child(6) {
