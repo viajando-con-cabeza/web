@@ -871,3 +871,95 @@ html body.ci-page .ci-calendar-month .ci-price-label .ci-dot{
   flex:0 0 7px;
   border-radius:50%;
 }
+
+/* 2026-11-09 — consejos del mes con idéntica anchura y altura, sin recortes de contenido. */
+html body.ci-page .ci-month-right>.ci-month-vcc,
+html body.ci-page .ci-month-right>.ci-month-procon+.ci-month-vcc{
+  box-sizing:border-box;
+  display:grid!important;
+  grid-template-columns:80px minmax(0,1fr)!important;
+  width:100%!important;
+  max-width:100%!important;
+  min-width:0!important;
+  height:112px!important;
+  min-height:112px!important;
+  max-height:112px!important;
+  flex:0 0 112px!important;
+  align-self:stretch!important;
+  margin:16px 0 0!important;
+  padding:9px 13px!important;
+  overflow-y:auto;
+  overflow-x:hidden;
+  align-items:center;
+  scrollbar-width:thin;
+}
+html body.ci-page .ci-month-right>.ci-month-vcc>p{
+  min-width:0;
+  overflow-wrap:break-word;
+  font-size:10.5px;
+  line-height:1.5;
+  text-align:justify;
+  text-align-last:left;
+}
+html body.ci-page .ci-august-weather-options{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:12px;
+  margin:4px 0 17px;
+}
+html body.ci-page .ci-august-plan{
+  display:flex;
+  align-items:flex-start;
+  gap:10px;
+  background:#fff;
+  border:1px solid #e8d8ca;
+  border-radius:10px;
+  padding:15px 13px;
+  min-width:0;
+}
+html body.ci-page .ci-august-plan-icon{
+  display:flex;align-items:center;justify-content:center;
+  flex:0 0 28px;width:28px;height:28px;border-radius:50%;
+  border:1px solid #edc9b6;
+  color:#bc5e3c;
+  background:#fff7f1;
+  font:700 18px/1 'DM Sans',sans-serif;
+}
+html body.ci-page .ci-august-plan h4{
+  color:#332922;
+  font:600 17px/1.22 'Oswald',sans-serif;
+  margin:2px 0 7px;
+}
+html body.ci-page .ci-august-plan p{
+  color:#62544c;
+  font:400 11px/1.6 'DM Sans',sans-serif;
+  margin:0;
+}
+html body.ci-page .ci-august-intro h3{margin-bottom:11px}
+html body.ci-page .ci-august-intro p{font-size:12px;line-height:1.72}
+html body.ci-page .ci-august-vcc{margin-top:4px}
+@media(max-width:1080px){
+  html body.ci-page .ci-month-right>.ci-month-vcc,
+  html body.ci-page .ci-month-right>.ci-month-procon+.ci-month-vcc{
+    height:112px!important;min-height:112px!important;max-height:112px!important;flex-basis:112px!important;
+    margin-top:16px!important;
+  }
+}
+@media(max-width:750px){
+  html body.ci-page .ci-august-weather-options{grid-template-columns:1fr;gap:10px}
+  html body.ci-page .ci-august-plan{padding:12px 13px}
+}
+@media(max-width:600px){
+  html body.ci-page .ci-month-right>.ci-month-vcc,
+  html body.ci-page .ci-month-right>.ci-month-procon+.ci-month-vcc{
+    grid-template-columns:76px minmax(0,1fr)!important;
+    height:168px!important;min-height:168px!important;max-height:168px!important;flex-basis:168px!important;
+    padding:9px!important;
+  }
+}
+@media(max-width:380px){
+  html body.ci-page .ci-month-right>.ci-month-vcc,
+  html body.ci-page .ci-month-right>.ci-month-procon+.ci-month-vcc{
+    height:192px!important;min-height:192px!important;max-height:192px!important;flex-basis:192px!important;
+  }
+}
