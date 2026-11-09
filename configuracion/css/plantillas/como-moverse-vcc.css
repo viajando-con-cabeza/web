@@ -2,7 +2,9 @@
    Hoja limpia y específica: reutiliza tipografías y el footer compartido. */
 :root{--mv-ink:#242c2a;--mv-clay:#c76c50;--mv-cream:#faf6f1;--mv-line:#e8ded3;--mv-green:#248447;--mv-red:#c9433b}
 html{scroll-behavior:smooth}
-body.mv-body{margin:0;background:#fff;color:var(--mv-ink);font-family:"DM Sans",Arial,sans-serif}
+body.mv-body{margin:0;background:var(--mv-cream);color:var(--mv-ink);font-family:"DM Sans",Arial,sans-serif}
+.mv-page{background:var(--mv-cream)}
+body.mv-body .vcc-discover-section{background:var(--mv-cream)}
 .mv-page,.mv-page *{box-sizing:border-box}
 .mv-page a{color:inherit}
 .mv-page :is(a,button):focus-visible{outline:2px solid var(--mv-clay);outline-offset:3px}
@@ -29,7 +31,7 @@ body.mv-body{margin:0;background:#fff;color:var(--mv-ink);font-family:"DM Sans",
 /* VCC · Maqueta de transport aprovada: 3 x 2, blanc i taronja, sense blocs de fons */
 /* Flux de lectura: resposta de pagament, recomanació VCC, opcions i estalvi. */
 /* Ritme editorial: cada secció té aire sense allargar les targetes */
-.mv-transport-section{padding:0;margin:0 0 45px;background:#fff}
+.mv-transport-section{padding:0;margin:0 0 45px;background:transparent}
 .mv-section-head{display:flex;align-items:end;justify-content:space-between;gap:24px;margin:0 0 16px}
 .mv-section-head .mv-overline{display:block;margin:0 0 4px;color:#e6631e;font:600 29px/1 "Caveat",cursive;text-transform:none;letter-spacing:0}
 .mv-section-head h2{margin:0;color:#202624;font:600 clamp(27px,2.5vw,38px)/1.1 "Oswald",sans-serif}
@@ -125,15 +127,16 @@ body.mv-body{margin:0;background:#fff;color:var(--mv-ink);font-family:"DM Sans",
 .mv-route-alternative a{color:#a7532b!important;font-weight:700;text-decoration:underline;text-underline-offset:2px}
 
 /* Carrusel de transport: sis targetes sempre al DOM, amb scroll natiu i snap */
+/* Controles a ambos lados del carrusel, centrados respecto a las tarjetas */
 .mv-transport-toolbar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:-3px 0 11px}
 .mv-transport-hint{color:#84776d;font:500 10.4px/1.4 "DM Sans",sans-serif}
-.mv-transport-controls{display:flex;align-items:center;gap:8px}
 .mv-transport-counter{display:inline-block;min-width:35px;color:#866b5b;font:700 10px/1 "DM Sans",sans-serif;text-align:center;white-space:nowrap}
-.mv-transport-controls button{display:grid;place-items:center;width:33px;height:33px;padding:0;border:1px solid #e8c8b2;border-radius:50%;background:#fff;color:#d36228;cursor:pointer;transition:background .15s,border-color .15s,color .15s}
-.mv-transport-controls button:hover:not(:disabled){background:#fff1e9;border-color:#dc925d}
-.mv-transport-controls button:disabled{opacity:.4;cursor:default}
-.mv-transport-controls button svg{width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
-.mv-grid{display:flex;align-items:stretch;gap:12px;overflow-x:auto;overscroll-behavior-inline:contain;scroll-snap-type:x mandatory;scroll-behavior:smooth;scrollbar-width:none;-webkit-overflow-scrolling:touch;padding:0 0 2px}
+.mv-transport-shell{display:grid;grid-template-columns:40px minmax(0,1fr) 40px;gap:10px;align-items:center;min-width:0}
+.mv-transport-arrow{display:grid;place-items:center;justify-self:center;width:40px;height:40px;padding:0;border:1px solid #ddbca5;border-radius:50%;background:#fff;color:#d36228;cursor:pointer;box-shadow:0 2px 8px rgba(60,40,24,.07);transition:background .15s,border-color .15s,color .15s}
+.mv-transport-arrow:hover:not(:disabled){background:#fff0e6;border-color:#d98a58}
+.mv-transport-arrow:disabled{opacity:.35;cursor:default;box-shadow:none}
+.mv-transport-arrow svg{width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.mv-grid{display:flex;align-items:stretch;min-width:0;width:100%;gap:12px;overflow-x:auto;overscroll-behavior-inline:contain;scroll-snap-type:x mandatory;scroll-behavior:smooth;scrollbar-width:none;-webkit-overflow-scrolling:touch;padding:0 0 2px}
 .mv-grid::-webkit-scrollbar{display:none}
 .mv-grid>.mv-card{flex:0 0 calc((100% - 24px)/3);scroll-snap-align:start}
 .mv-card{min-width:0;background:#fff;border:1px solid #d5d5d5;border-radius:16px;box-shadow:none}
@@ -164,7 +167,7 @@ body.mv-body{margin:0;background:#fff;color:var(--mv-ink);font-family:"DM Sans",
 .mv-pricing-note{margin:10px 1px 0;color:#81766e;font:400 10.3px/1.55 "DM Sans",sans-serif}
 .mv-pricing-note a{color:#b45a2f;text-underline-offset:2px}
 /* Quatre targetes de recomanació originals: Lujo / Medio / VCC / Mochilero */
-.mv-recommend-section{margin:37px 0 46px;padding:0;background:#fff}
+.mv-recommend-section{margin:37px 0 46px;padding:0;background:transparent}
 .mv-profile-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:13px}
 .mv-profile{min-width:0;position:relative;display:flex;flex-direction:column;min-height:230px;padding:16px 16px 14px;background:#fff;border:1px solid #e6dcd0;border-radius:14px;box-shadow:0 4px 14px rgba(58,42,30,.04)}
 .mv-profile-vcc{border:2px solid #c96b4e;padding:15px 15px 13px;background:linear-gradient(140deg,#fff7f1,#fff)}
@@ -286,9 +289,14 @@ body.mv-body{margin:0;background:#fff;color:var(--mv-ink);font-family:"DM Sans",
  .mv-day-summary-vcc .mv-summary-label{font-size:10px}
  .mv-day-summary-vcc .mv-day-summary-copy>strong{font-size:23px}
  .mv-archipelago-note{padding:12px 11px}
+ .mv-transport-shell{grid-template-columns:30px minmax(0,1fr) 30px;gap:5px}
+ .mv-transport-arrow{width:30px;height:30px}
+ .mv-transport-arrow svg{width:16px;height:16px}
  .mv-grid{gap:10px}
  .mv-grid>.mv-card{flex-basis:100%}
  .mv-transport-hint{font-size:9.5px}
+ .mv-card-details{grid-template-columns:1fr;gap:11px}
+ .mv-card-advice{border-left:0;border-top:1px solid #ec6e28;padding:11px 0 0;gap:10px}
  .mv-card-body{min-height:0;padding:14px 15px 16px}
  .mv-card h3{font-size:22px}
  .mv-card-title>span{font-size:10.5px}
