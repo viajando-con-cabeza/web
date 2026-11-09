@@ -31,8 +31,9 @@
   else init();
 })();
 
-/* VCC · Carrusel de seis transportes · 3 escritorio, 2 tableta, 1 móvil.
-   Todos los artículos siguen en el DOM para lectores, teclado y buscadores. */
+/* VCC · Carrusel de sis transportes: 3/6, 4/6, 5/6, 6/6 a escriptori.
+   El comptador mostra la darrera targeta visible, no el número de pàgina.
+   Les fletxes avancen una targeta; les sis romanen al DOM per a SEO. */
 (function () {
   "use strict";
   function initTransport() {
@@ -47,55 +48,55 @@
     if (!prev || !next || !label || !cards.length) return;
 
     const visibleCount = () =>
-      window.matchMedia("(max-width: 690px)").matches ? 1
-      : window.matchMedia("(max-width: 1050px)").matches ? 2 : 3;
-    const totalPages = () => Math.ceil(cards.length / visibleCount());
-    const pageStep = () => {
-      const index = Math.min(visibleCount(), cards.length - 1);
-      return cards[index].offsetLeft - cards[0].offsetLeft || track.clientWidth;
-    };
-    const currentPage = () =>
-      Math.max(0, Math.min(totalPages() - 1, Math.floor((track.scrollLeft + 4) / pageStep())));
+      window.matchMedia("(max-width: 690px)").matches ? 1 :
+      window.matchMedia("(max-width: 1050px)").matches ? 2 : 3;
     const reduceMotion = () =>
       window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    function update() {
-      const page = currentPage(), total = totalPages();
-      label.textContent = (page + 1) + " / " + total;
-      prev.disabled = track.scrollLeft <= 3;
-      next.disabled = track.scrollLeft + track.clientWidth >= track.scrollWidth - 3;
+    const maxStart = () => Math.max(0, cards.length - visibleCount());
+    const cardStep = () =>
+      cards.length > 1 ? (cards[1].offsetLeft - cards[0].offsetLeft) : track.clientWidth;
+    function currentStart() {
+      const pitch = cardStep();
+      if (!pitch || pitch <= 0) return 0;
+      return Math.max(0, Math.min(maxStart(), Math.round(track.scrollLeft / pitch)));
     }
-    function go(page, smooth) {
-      const bounded = Math.max(0, Math.min(totalPages() - 1, page));
-      const item = cards[Math.min(cards.length - 1, bounded * visibleCount())];
-      const target = Math.max(0, item.offsetLeft - cards[0].offsetLeft);
-      track.scrollTo({ left: target, behavior: smooth && !reduceMotion() ? "smooth" : "auto" });
+    function update() {
+      const first = currentStart();
+      const last = Math.min(cards.length, first + visibleCount());
+      label.textContent = last + "/" + cards.length;
+      prev.disabled = track.scrollLeft <= 2;
+      next.disabled = track.scrollLeft + track.clientWidth >= track.scrollWidth - 2;
+    }
+    function go(firstIndex, smooth) {
+      const index = Math.max(0, Math.min(maxStart(), firstIndex));
+      const target = Math.max(0, cards[index].offsetLeft - cards[0].offsetLeft);
+      track.scrollTo({left: target, behavior: smooth && !reduceMotion() ? "smooth" : "auto"});
       if (!smooth || reduceMotion()) update();
     }
-    prev.addEventListener("click", () => go(currentPage() - 1, true));
-    next.addEventListener("click", () => go(currentPage() + 1, true));
+    prev.addEventListener("click", () => go(currentStart() - 1, true));
+    next.addEventListener("click", () => go(currentStart() + 1, true));
     track.addEventListener("keydown", event => {
-      if (event.key === "ArrowRight" || event.key === "ArrowLeft") {
-        event.preventDefault();
-        go(currentPage() + (event.key === "ArrowRight" ? 1 : -1), true);
-      }
+      if (event.key !== "ArrowRight" && event.key !== "ArrowLeft") return;
+      event.preventDefault();
+      go(currentStart() + (event.key === "ArrowRight" ? 1 : -1), true);
     });
     let pending = false;
     track.addEventListener("scroll", () => {
       if (pending) return;
       pending = true;
-      window.requestAnimationFrame(() => { pending = false; update(); });
-    }, { passive: true });
-    let oldVisible = visibleCount();
+      window.requestAnimationFrame(() => {pending = false; update();});
+    }, {passive: true});
+    let previousVisible = visibleCount();
     window.addEventListener("resize", () => {
-      const newVisible = visibleCount();
-      if (oldVisible !== newVisible) {
-        oldVisible = newVisible;
+      const now = visibleCount();
+      if (now !== previousVisible) {
+        previousVisible = now;
         go(0, false);
       } else update();
-    }, { passive: true });
+    }, {passive: true});
     update();
   }
-  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", initTransport, { once: true });
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", initTransport, {once: true});
   else initTransport();
 })();
 
