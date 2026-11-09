@@ -185,17 +185,24 @@
     const photos = (onlyOwn ? own.filter(Boolean) : [...new Set([...own.filter(Boolean), ...source])].slice(0,requested)).map(correctR2Url);
     gallery.dataset.images = JSON.stringify(photos);
     gallery.dataset.count = String(photos.length);
+    // Permite que una galería concreta muestre menos miniaturas, sin limitar su visor.
+    // El resto de galerías de Qué ver mantienen exactamente su configuración.
+    const configured = Number(gallery.dataset.mosaicVisible);
+    const visible = Number.isInteger(configured) && configured >= 1
+      ? Math.min(6, photos.length, configured)
+      : Math.min(6, photos.length);
     const mosaic = document.createElement('div');
-    mosaic.className = `gallery-mosaic count-${Math.min(photos.length,6)}`;
-    photos.slice(0,6).forEach((src,index) => {
+    mosaic.className = `gallery-mosaic count-${visible}`;
+    photos.slice(0,visible).forEach((src,index) => {
       const tile = document.createElement('button');
       tile.type='button'; tile.className='gallery-tile'; tile.dataset.i=String(index);
       tile.setAttribute('aria-label',`Ampliar fotografía ${index+1} de ${photos.length}`);
       lazyR2Background(tile, optimizedPhoto(src, 'mini'));
       tile.style.setProperty('background-size', 'cover', 'important');
-      if (index === 5 && photos.length > 6) {
-        const more=document.createElement('span'); more.className='gallery-more';
-        more.textContent=`+${photos.length-6} fotos más`;
+      const extras = photos.length - visible;
+      if (index === visible - 1 && extras > 0) {
+        const more=document.createElement('span');more.className='gallery-more';
+        more.textContent=`+${extras} ${extras===1?'foto':'fotos'}`;
         tile.append(more);
       }
       tile.addEventListener('click',() => open(gallery,index));
