@@ -485,7 +485,6 @@ html body.ci-page .ci-summary-brief p {
   color:#645a51;
   font:400 12px/1.8 'DM Sans',sans-serif;
 }
-html body.ci-page .ci-summary-brief p strong {font-weight:700;color:#3f332b}
 html body.ci-page .ci-recommendation {
   display:grid!important;
   width:min(990px,100%)!important;
@@ -568,8 +567,6 @@ html body.ci-page .ci-recommendation li:before {left:0;color:var(--ci-orange)}
     margin:18px auto 15px;
     padding:0 2px;
   }
-  html body.ci-page .ci-summary-brief > span {display:block;margin-bottom:4px;font-size:9px}
-  html body.ci-page .ci-summary-brief p {font-size:11.5px;line-height:1.7}
   html body.ci-page .ci-recommendation {
     grid-template-columns:1fr!important;
     gap:11px!important;
@@ -664,14 +661,6 @@ html body.ci-page .ci-rain-source a{color:#a9583a;text-decoration:underline;text
 }
 html body.ci-page .ci-august-experience{padding-top:31px}
 html body.ci-page .ci-august-box{display:grid;grid-template-columns:185px minmax(0,1fr);gap:24px;align-items:start;padding:20px 24px;background:#fff;border:1px solid var(--ci-line);border-radius:12px}
-html body.ci-page .ci-august-date{display:flex;flex-direction:column;align-items:flex-start;gap:5px;border-right:1px solid #eaddd0;padding-right:15px;color:#a75535}
-html body.ci-page .ci-august-date>span{font-size:23px}
-html body.ci-page .ci-august-date strong{font:800 11px/1.35 'DM Sans',sans-serif;letter-spacing:.04em}
-html body.ci-page .ci-august-date small{font:400 10px/1.5 'DM Sans',sans-serif;color:#796b61}
-html body.ci-page .ci-august-story p{font:400 11.5px/1.7 'DM Sans',sans-serif;color:#62564e;margin:0 0 10px}
-html body.ci-page .ci-august-story strong{color:#3b3028}
-html body.ci-page .ci-august-story a{display:inline-flex;align-items:center;gap:8px;margin-top:2px;color:#a95738;font:800 11px/1.4 'DM Sans',sans-serif}
-html body.ci-page .ci-august-story a:hover{text-decoration:underline}
 html body.ci-page .ci-tips-section{padding-top:43px}
 html body.ci-page .ci-tips-shell{display:grid;grid-template-columns:30px minmax(0,1fr) 30px;gap:10px;align-items:center}
 html body.ci-page .ci-tips-track{display:flex;gap:14px;min-width:0;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;scroll-behavior:smooth;scrollbar-width:none;overscroll-behavior-x:contain;align-items:stretch;padding:2px 0}
@@ -692,7 +681,6 @@ html body.ci-page .ci-tips-arrow:disabled{opacity:.35;cursor:default}
   html body.ci-page .ci-month-procon{grid-template-columns:1fr;gap:9px}
   html body.ci-page .ci-month-points{padding:12px}
   html body.ci-page .ci-august-box{grid-template-columns:1fr;gap:12px;padding:16px}
-  html body.ci-page .ci-august-date{border-right:0;border-bottom:1px solid #eaddd0;padding:0 0 12px;gap:3px}
   html body.ci-page .ci-tips-shell{grid-template-columns:26px minmax(0,1fr) 26px;gap:6px}
   html body.ci-page .ci-tips-track{gap:10px}
   html body.ci-page .ci-tip-card{flex-basis:100%;padding:13px;min-height:126px}
@@ -725,7 +713,6 @@ html body.ci-page .ci-score-name{font:500 9.5px/1.25 'DM Sans',sans-serif;color:
 html body.ci-page .ci-score-track{display:block;height:7px;background:#e9e7e5;border-radius:99px;overflow:hidden}
 html body.ci-page .ci-score-fill{display:block;height:100%;border-radius:99px;background:#cb714c}
 html body.ci-page .ci-score-value{font:700 10px/1.2 'DM Sans',sans-serif;text-align:right}
-html body.ci-page .ci-rating-note{font:400 8.5px/1.45 'DM Sans',sans-serif;color:#8b7c71;margin:9px 0 0;max-width:none}
 html body.ci-page .ci-month-right .ci-month-procon{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
 html body.ci-page .ci-month-right .ci-month-points{min-width:0;background:transparent!important;border:0!important;padding:0!important}
 html body.ci-page .ci-month-right .ci-month-points h4{font:600 18px/1.25 'Oswald',sans-serif;display:flex;align-items:center;gap:8px;margin:0 0 12px}
@@ -807,15 +794,6 @@ html body.ci-page .ci-august-intro{max-width:920px}
 html body.ci-page .ci-august-visit{display:inline-block;margin-bottom:8px;color:#ae603e;font:800 10px/1.4 'DM Sans',sans-serif;letter-spacing:.06em}
 html body.ci-page .ci-august-intro h3{font:600 clamp(20px,2.2vw,25px)/1.2 'Oswald',sans-serif;margin:0 0 8px}
 html body.ci-page .ci-august-intro p{font:400 11.8px/1.7 'DM Sans',sans-serif;color:#61544c;margin:0 0 17px}
-html body.ci-page .ci-august-weather{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border:1px solid #e9d9cd;border-radius:10px;background:#fffaf6;overflow:hidden;margin-bottom:17px}
-html body.ci-page .ci-august-weather-item{display:grid;grid-template-columns:22px minmax(0,1fr);align-content:center;column-gap:8px;padding:11px 15px;border-right:1px solid #e9d9cd;min-height:74px}
-html body.ci-page .ci-august-weather-item:last-child{border-right:0}
-html body.ci-page .ci-august-weather-item>span{grid-row:span 2;color:#bc6545;font-size:20px;align-self:center}
-html body.ci-page .ci-august-weather-item strong{font:600 19px/1.2 'Oswald',sans-serif;color:#302820}
-html body.ci-page .ci-august-weather-item small{font:400 9.7px/1.4 'DM Sans',sans-serif;color:#786a5f}
-html body.ci-page .ci-august-points{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px;margin-bottom:16px}
-html body.ci-page .ci-august-points h4{font:600 17px/1.3 'Oswald',sans-serif;margin:0 0 6px}
-html body.ci-page .ci-august-points p{font:400 11px/1.6 'DM Sans',sans-serif;color:#66584d;margin:0}
 html body.ci-page .ci-august-vcc{display:grid;grid-template-columns:91px minmax(0,1fr);align-items:center;gap:12px;background:#fff;border:1.5px solid var(--ci-orange);border-radius:11px;padding:9px 14px;margin-bottom:14px}
 html body.ci-page .ci-august-vcc-brand{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;border-right:1px solid #eaddd1;padding-right:11px;text-align:center}
 html body.ci-page .ci-august-vcc-brand img{width:37px;height:37px;object-fit:contain}
@@ -828,10 +806,6 @@ html body.ci-page .ci-august-bottom a:hover{color:#763e2b}
 @media(max-width:900px){html body.ci-page .ci-august-box{padding:18px!important}}
 @media(max-width:600px){
 html body.ci-page .ci-august-box{padding:15px!important}
-html body.ci-page .ci-august-weather{grid-template-columns:1fr}
-html body.ci-page .ci-august-weather-item{min-height:53px;border-right:0;border-bottom:1px solid #e9d9cd;padding:9px 12px}
-html body.ci-page .ci-august-weather-item:last-child{border-bottom:0}
-html body.ci-page .ci-august-points{grid-template-columns:1fr;gap:14px}
 html body.ci-page .ci-august-vcc{grid-template-columns:76px minmax(0,1fr);gap:10px;padding:9px}
 html body.ci-page .ci-august-vcc-brand img{width:33px;height:33px}
 html body.ci-page .ci-august-bottom{display:block}
@@ -946,7 +920,6 @@ html body.ci-page .ci-august-vcc{margin-top:4px}
   }
 }
 @media(max-width:750px){
-  html body.ci-page .ci-august-weather-options{grid-template-columns:1fr;gap:10px}
   html body.ci-page .ci-august-plan{padding:12px 13px}
 }
 @media(max-width:600px){
@@ -1052,4 +1025,65 @@ html body.ci-page .ci-month-right .ci-month-bad h4 svg{
   html body.ci-page .ci-month-layout>.ci-month-right{
     padding-top:18px;
   }
+}
+/* VCC 2026-11-09: galería fotográfica real, lectura móvil y consejos sin scroll interno. */
+html body.ci-page .ci-august-experience-layout{
+  display:grid;grid-template-columns:minmax(0,.96fr) minmax(0,1.04fr);
+  align-items:start;gap:23px;margin-bottom:18px;
+}
+html body.ci-page .ci-august-firsthand{min-width:0}
+html body.ci-page .ci-august-firsthand h3{
+  font:600 clamp(21px,2vw,26px)/1.25 'Oswald',sans-serif;
+  color:#302820;margin:0 0 11px;
+}
+html body.ci-page .ci-august-firsthand p{
+  margin:0 0 12px;font:400 12px/1.7 'DM Sans',sans-serif;color:#5b4f47
+}
+html body.ci-page .ci-august-firsthand p strong{color:#332821}
+html body.ci-page .ci-august-firsthand .ci-august-visit{display:block;margin-bottom:8px}
+html body.ci-page .ci-month-right>.ci-month-vcc,
+html body.ci-page .ci-month-right>.ci-month-procon+.ci-month-vcc{
+  overflow:visible!important;overflow-y:visible!important;overflow-x:visible!important;
+  align-content:center;
+  grid-template-columns:69px minmax(0,1fr)!important;
+  gap:7px!important;
+  padding:6px 9px!important;
+}
+html body.ci-page .ci-month-right>.ci-month-vcc>p{
+  text-align:left!important;text-align-last:left!important;
+  font-size:10.4px!important;line-height:1.38!important;
+}
+html body.ci-page .ci-month-vcc-brand{min-width:0;padding-right:7px!important}
+html body.ci-page .ci-month-vcc-brand img{width:30px!important;height:30px!important}
+html body.ci-page .ci-month-vcc-brand strong{font-size:8.2px!important}
+html body.ci-page .ci-calendar-scroll{
+  overflow-x:auto;-webkit-overflow-scrolling:touch;
+  scroll-snap-type:x proximity;
+  overscroll-behavior-x:contain
+}
+html body.ci-page .ci-calendar-month{scroll-snap-align:center}
+html body.ci-page .ci-calendar-month:focus-visible,
+html body.ci-page .ci-objective:focus-visible{
+  outline:2px solid var(--ci-orange)!important;outline-offset:2px
+}
+@media(max-width:1080px){
+  html body.ci-page .ci-august-experience-layout{grid-template-columns:1fr;gap:17px}
+}
+@media(max-width:750px){
+  html body.ci-page .ci-calendar{grid-template-columns:repeat(12,minmax(112px,1fr));min-width:1344px!important}
+  html body.ci-page .ci-calendar-month{min-height:236px}
+  html body.ci-page .ci-calendar-month b{font-size:18px}
+  html body.ci-page .ci-august-experience-layout{gap:15px}
+  html body.ci-page .ci-august-firsthand p{font-size:12px}
+}
+@media(max-width:600px){
+  html body.ci-page .ci-month-right>.ci-month-vcc,
+  html body.ci-page .ci-month-right>.ci-month-procon+.ci-month-vcc{
+    grid-template-columns:66px minmax(0,1fr)!important;
+    gap:7px!important;padding:8px!important;
+  }
+  html body.ci-page .ci-month-right>.ci-month-vcc>p{font-size:10.4px!important}
+}
+@media(prefers-reduced-motion:reduce){
+  html body.ci-page .ci-calendar{scroll-behavior:auto!important}
 }
