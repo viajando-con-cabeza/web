@@ -99,3 +99,62 @@ html body .ql-page .ql-v7-section-pack .ql-v6-scroll-shell{margin-top:3px!import
  }
  html body .ql-page .ql-v9-weather-stat{background:#fff!important;border-color:#ddd!important}
 }
+
+/* VCC 2026-11-09 — clima sin tarjetas ni fondo; consejo de equipaje justo antes de la lista. */
+html body .ql-page .ql-v9-weather-stat{
+ background:transparent!important;
+ border:0!important;
+ border-radius:0!important;
+ padding:4px 5px!important;
+ box-shadow:none!important;
+}
+html body .ql-page .ql-v9-weather-stat+.ql-v9-weather-stat{
+ border-left:1px solid #e8ddd4!important;
+ padding-left:10px!important;
+}
+html body .ql-page .ql-v9-weather-stat strong{color:#3b3530!important}
+html body .ql-page .ql-v10-packing-consejo{
+ display:grid;grid-template-columns:90px minmax(0,1fr);
+ gap:14px;align-items:center;min-width:0;
+ margin:5px 0 14px;padding:11px 16px;
+ background:transparent;border:1px solid #e9d9cb;
+ border-left:3px solid #c67656;border-radius:10px;
+}
+html body .ql-page .ql-v10-consejo-brand{
+ display:flex;flex-direction:column;align-items:center;justify-content:center;
+ gap:5px;padding-right:12px;border-right:1px solid #eee2d7;
+ text-align:center;
+}
+html body .ql-page .ql-v10-consejo-brand img{
+ width:40px;height:40px;display:block;object-fit:contain;
+}
+html body .ql-page .ql-v10-consejo-brand strong{
+ font:800 9px/1.15 "DM Sans",sans-serif;color:#bc6c4d;
+ letter-spacing:.015em;white-space:nowrap;
+}
+html body .ql-page .ql-v10-consejo-text{
+ margin:0!important;color:#554a42;
+ font:400 12px/1.6 "DM Sans",sans-serif;
+}
+@media(max-width:650px){
+ html body .ql-page .ql-v9-weather-stat{padding:4px 2px!important}
+ html body .ql-page .ql-v9-weather-stat+.ql-v9-weather-stat{padding-left:7px!important}
+ html body .ql-page .ql-v10-packing-consejo{
+  grid-template-columns:70px minmax(0,1fr);gap:9px;
+  padding:11px 9px;margin:4px 0 12px;
+ }
+ html body .ql-page .ql-v10-consejo-brand{padding-right:9px}
+ html body .ql-page .ql-v10-consejo-brand img{width:35px;height:35px}
+ html body .ql-page .ql-v10-consejo-brand strong{font-size:8px}
+ html body .ql-page .ql-v10-consejo-text{font-size:11px;line-height:1.52}
+}
+@media(max-width:390px){
+ html body .ql-page .ql-v9-weather-stat:nth-child(3){
+  border-top:1px solid #eee5dc!important;border-left:0!important;
+  padding-top:8px!important;
+ }
+}
+@media print{
+ html body .ql-page .ql-v9-weather-stat{background:transparent!important;border:0!important}
+ html body .ql-page .ql-v10-packing-consejo{break-inside:avoid;page-break-inside:avoid}
+}
