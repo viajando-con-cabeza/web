@@ -20,6 +20,8 @@ const monthData=[
  {name:"noviembre",season:"otono",lo:1.9,hi:5.4,focus:"Ya conviene preparar una maleta casi invernal: abrigo cálido, guantes finos y capas para interiores calefactados.",skip:"No necesitas llevar un jersey distinto para cada día: el abrigo y la capa base importan más."},
  {name:"diciembre",season:"invierno",lo:-1.2,hi:2.5,focus:"Pocas horas de luz y frío húmedo. Lleva abrigo, gorro, guantes y calzado que agarre bien si hay hielo.",skip:"Evita ropa demasiado voluminosa para interiores: poder quitarte capas es clave."}
 ];
+// WMO / SMHI, Stockholm, 1991–2020; >= 0.1 mm/day, rain or snow.
+const monthlyPrecipitationDays=[15.9,14,12.9,10.7,10.8,12.9,12.4,13.2,12,15,17,18.2];
 const seasonNames={invierno:"invierno",primavera:"primavera",verano:"verano",otono:"otoño"};
 const byId=id=>monthData[Number(id)]||monthData[1];
 let state={month:1,days:5,laundry:false,done:new Set()};
@@ -132,6 +134,9 @@ function render(resetListScroll=false){
  $("ql-v6-days").value=String(state.days);
  $("ql-v6-laundry").checked=state.laundry;
  $("ql-v6-month-label").textContent=m.name.charAt(0).toUpperCase()+m.name.slice(1);
+ const wetDays=Math.round(monthlyPrecipitationDays[state.month]);
+ $("ql-v7-rain-days").textContent="☔ "+m.name.charAt(0).toUpperCase()+m.name.slice(1)+": ≈"+wetDays+" días con lluvia o nieve/mes";
+
  $("ql-v6-month-season").textContent="Estación: "+seasonNames[m.season];
  $("ql-v6-temperature").textContent=m.lo.toLocaleString("es-ES")+"° / "+m.hi.toLocaleString("es-ES")+"°";
  $("ql-v6-focus").textContent=m.focus;
