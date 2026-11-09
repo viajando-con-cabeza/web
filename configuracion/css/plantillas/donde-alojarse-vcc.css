@@ -1180,3 +1180,43 @@ body.dv-page{
  .dv-page .dv-trust-global-grid strong{margin-bottom:3px;font-size:10px}
  .dv-page .dv-trust-global-grid p{font-size:10px;line-height:1.48}
 }
+
+
+/* VCC: naranja translúcido uniforme para Solna y estancia integrada */
+/* Elección VCC: todo el fondo de la tarjeta con naranja ligero, sin saturar el texto. */
+.dv-page .dv-card.is-vcc{
+ background:rgba(200,111,93,.085);
+ border-color:#ca735b;
+}
+.dv-page #barrios .dv-card.is-vcc[aria-expanded="true"]{
+ background:rgba(200,111,93,.105);
+}
+/* Una estancia propia se distingue dentro de la misma ficha, con fondo aún más claro. */
+.dv-page .dv-zone-hotel.is-vcc-option.is-real-stay{
+ background:rgba(200,111,93,.038);
+ border:1.5px solid #db9c84;
+ box-shadow:0 2px 7px rgba(156,84,56,.045);
+ row-gap:7px;
+}
+.dv-page .dv-zone-hotel.is-real-stay .dv-zone-hotel-our-experience{
+ grid-column:2 / -1;
+ display:block;
+ margin:0!important;
+ padding:8px 0 0;
+ border-top:1px solid #ecd8cd;
+ color:#56504a;
+ font:400 10.5px/1.55 'DM Sans',sans-serif;
+}
+.dv-page .dv-zone-hotel.is-real-stay .dv-zone-hotel-our-experience strong{
+ font:700 10.5px/1.45 'DM Sans',sans-serif;
+ color:#b35b43;
+}
+@media(max-width:600px){
+ .dv-page .dv-card.is-vcc{background:rgba(200,111,93,.085)}
+ .dv-page .dv-zone-hotel.is-real-stay .dv-zone-hotel-our-experience{
+  font-size:10px;line-height:1.5;padding-top:7px;
+ }
+ .dv-page .dv-zone-hotel.is-real-stay .dv-zone-hotel-our-experience strong{
+  font-size:10px;
+ }
+}
