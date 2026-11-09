@@ -171,7 +171,7 @@ html body .imp-page .imp-map-index-item.is-selected {
   background:#fff1e9;color:#a94e2a;
 }
 html body .imp-page .imp-map-index-item:focus-visible,
-html body .imp-page .imp-map-cta a:focus-visible {
+html body .imp-page .imp-map-cta button:focus-visible {
   outline:2px solid #e66a36;outline-offset:2px;
 }
 html body .imp-page .imp-map-footer {
@@ -181,12 +181,26 @@ html body .imp-page .imp-map-footer {
 html body .imp-page .imp-map-footer p {
   margin:0;color:#7b746d;font:400 11px/1.5 'DM Sans',sans-serif;
 }
-html body .imp-page .imp-map-cta a {
-  display:inline-flex;align-items:center;gap:6px;
-  color:#a54d2b;font:700 11px/1.35 'DM Sans',sans-serif;
-  text-decoration:none;border-bottom:1px solid #d9a68e;padding-bottom:3px;
+html body .imp-page .imp-map-cta {
+  display:flex;align-items:center;justify-content:flex-end;flex-wrap:wrap;gap:10px;
 }
-html body .imp-page .imp-map-cta a:hover {color:#e06531}
+html body .imp-page .imp-map-cta button {
+  display:inline-flex;align-items:center;justify-content:center;gap:6px;
+  margin:0;padding:0 0 4px;border:0;border-bottom:1px solid #d9a68e;
+  background:transparent;box-shadow:none;border-radius:0;
+  color:#a54d2b;font:700 11px/1.35 'DM Sans',sans-serif;
+  letter-spacing:.01em;white-space:nowrap;cursor:pointer;
+}
+html body .imp-page .imp-map-cta button:hover {color:#e06531}
+html body .imp-page .imp-map-cta button:disabled {opacity:.55;cursor:progress}
+html body .imp-page .imp-export-status {
+  color:#746d66;font:400 10px/1.4 'DM Sans',sans-serif;
+}
+html body .imp-page .imp-map-unavailable {
+  box-sizing:border-box;display:grid;place-items:center;
+  height:100%;margin:0;padding:18px;text-align:center;
+  color:#726e69;font:400 13px/1.5 'DM Sans',sans-serif;
+}
 html body .imp-page .leaflet-container {font-family:'DM Sans',sans-serif}
 html body .imp-page .leaflet-popup-content {font:500 12px/1.45 'DM Sans',sans-serif}
 html body .imp-page .leaflet-popup-content a {color:#b9542d;font-weight:700}
