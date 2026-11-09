@@ -117,7 +117,7 @@
       const dayAmount = day.querySelector(".vcc-budget-day-head > span.vcc-day-price, .vcc-budget-day-head > span");
       const totalGroup = originalEuros(dayAmount);
       if (dayAmount && Number.isFinite(totalGroup)) {
-        dayAmount.textContent = euroFormatter.format(totalGroup / travelers) + " € / persona";
+        dayAmount.textContent = euroFormatter.format(totalGroup / travelers) + " € / pax";
         dayAmount.setAttribute("aria-label", euroFormatter.format(totalGroup / travelers) + " euros por persona");
       }
       day.querySelectorAll(".vcc-budget-day-expenses li").forEach(function (li) {
