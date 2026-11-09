@@ -55,14 +55,14 @@
       return cards[index].offsetLeft - cards[0].offsetLeft || track.clientWidth;
     };
     const currentPage = () =>
-      Math.max(0, Math.min(totalPages() - 1, Math.round(track.scrollLeft / pageStep())));
+      Math.max(0, Math.min(totalPages() - 1, Math.floor((track.scrollLeft + 4) / pageStep())));
     const reduceMotion = () =>
       window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     function update() {
       const page = currentPage(), total = totalPages();
       label.textContent = (page + 1) + " / " + total;
-      prev.disabled = page <= 0;
-      next.disabled = page >= total - 1;
+      prev.disabled = track.scrollLeft <= 3;
+      next.disabled = track.scrollLeft + track.clientWidth >= track.scrollWidth - 3;
     }
     function go(page, smooth) {
       const bounded = Math.max(0, Math.min(totalPages() - 1, page));
