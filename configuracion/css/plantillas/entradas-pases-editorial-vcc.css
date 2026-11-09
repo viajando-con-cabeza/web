@@ -186,3 +186,12 @@
 .ep-page .ep4-pass{scroll-margin-top:calc(var(--ep-header-height,50px) + 64px)}
 .ep-page .ep4-answer strong{font-weight:800}
 @media(max-width:760px){.ep-page .ep-subnav a svg{width:15px;height:15px;flex-basis:15px}.ep-page .ep-subnav a{gap:5px}}
+
+/* Accessible mobile table actions and carousel reading position. */
+.ep-page .ep4-mobile-link-cell{display:none}
+.ep-page .ep4-carousel-progress{margin:3px 48px 0;text-align:center;font:800 10px/1.5 "DM Sans",sans-serif;color:#9e633f}
+@media(max-width:760px){
+ .ep-page .ep4-mobile-link-cell{display:block;grid-column:1 / -1;grid-row:4;justify-self:end}
+ .ep-page .ep4-row-mobile-link{display:inline-block}
+ .ep-page .ep4-carousel-progress{margin:4px 38px 0}
+}
