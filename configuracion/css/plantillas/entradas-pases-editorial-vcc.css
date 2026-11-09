@@ -212,34 +212,33 @@
 .ep-page .ep4-draft-note{font-size:11.5px}
 @media(max-width:760px){.ep-page .ep4-table-cell{font-size:12px}.ep-page .ep4-day-card p{font-size:12px}}
 
-/* 2026-11-09: entrada ranking and VCC advice share one aligned table row. */
-.ep-page .ep4-decision-heading{margin-bottom:14px;scroll-margin-top:calc(var(--ep-header-height,50px) + 64px)}
-.ep-page .ep4-decision-heading .ep4-heading{margin-bottom:0}
-.ep-page .ep4-decision-layout{align-items:stretch}
-.ep-page .ep4-decision-layout .ep4-decision-left{display:flex;flex-direction:column;min-height:100%}
-.ep-page .ep4-pass{height:100%;min-height:0;background:#fff;border:1px solid #e6dfd8;border-radius:15px;box-shadow:0 5px 14px #48301f0b}
-.ep-page .ep4-pass-brand{display:flex;flex-direction:column;align-items:flex-start;gap:3px;margin-bottom:15px}
-.ep-page .ep4-pass-seal{width:43px;height:43px;display:grid;place-items:center;flex-shrink:0}
-.ep-page .ep4-pass-seal img{display:block;width:40px;height:40px;object-fit:contain}
-.ep-page .ep4-pass-brand-label{font:600 15px/1.1 "Caveat",cursive;color:#cf642d}
-@media(max-width:900px){.ep-page .ep4-decision-layout .ep4-decision-left{min-height:0}.ep-page .ep4-pass{height:auto}}
 
-/* VCC: compact editorial ticket carousel, consistent typography and ranked medals. */
-.ep-page .ep4-our{margin-bottom:29px}
-.ep-page .ep4-our .ep4-heading,.ep-page .ep4-decision-heading .ep4-heading{margin:0 0 12px}
-.ep-page .ep4-our .ep4-script,.ep-page .ep4-decision-heading .ep4-script{font:600 clamp(25px,2.15vw,29px)/1.08 "Caveat",cursive;margin-bottom:5px}
-.ep-page .ep4-our .ep4-heading h2,.ep-page .ep4-decision-heading .ep4-heading h2{font:600 clamp(27px,3.1vw,40px)/1.09 "Oswald",sans-serif;letter-spacing:.002em}
-.ep-page .ep4-our .ep4-subline,.ep-page .ep4-decision-heading .ep4-subline{margin-top:6px;font-size:12px;line-height:1.5}
-.ep-page .ep4-our-carousel{width:100%;min-width:0}
-.ep-page .ep4-our-controls{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:0 0 9px}
-.ep-page .ep4-our-hint{font:500 10.5px/1.3 "DM Sans",sans-serif;color:#80746c}
-.ep-page .ep4-our-arrows{display:flex;gap:7px;margin-left:auto}
-.ep-page .ep4-our-arrow{display:grid;place-items:center;width:31px;height:31px;border:1px solid #e6d8cb;border-radius:50%;background:#fff;color:#ad552a;font:500 26px/1 Arial,sans-serif;cursor:pointer;transition:background .2s,color .2s}
-.ep-page .ep4-our-arrow:hover:not(:disabled){background:#df6d28;color:#fff;border-color:#df6d28}
-.ep-page .ep4-our-arrow:disabled{opacity:.36;cursor:default}
-.ep-page .ep4-our-list{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding:2px;overscroll-behavior-inline:contain;scrollbar-width:none;padding:2px 2px 10px;margin:-2px -2px -10px}
-.ep-page .ep4-our-list::-webkit-scrollbar{display:none}
-.ep-page .ep4-our-list .ep4-day-card{flex:0 0 calc((100% - 24px)/3);width:calc((100% - 24px)/3);min-height:0;scroll-snap-align:start}
+/* Entradas y pases · diseño consolidado. Evitar reglas contradictorias. */
+.ep-page .ep4-our{margin-bottom:28px}
+.ep-page .ep4-our .ep4-heading,.ep-page .ep4-decision-heading .ep4-heading{margin:0 0 13px}
+.ep-page .ep4-our .ep4-script,.ep-page .ep4-decision-heading .ep4-script{
+  display:block;margin:0 0 5px;font:600 clamp(25px,2.2vw,29px)/1.08 "Caveat",cursive
+}
+.ep-page .ep4-our .ep4-heading h2,.ep-page .ep4-decision-heading .ep4-heading h2{
+  margin:0;font:600 clamp(28px,3.1vw,40px)/1.09 "Oswald",sans-serif;letter-spacing:.002em
+}
+.ep-page .ep4-our .ep4-subline,.ep-page .ep4-decision-heading .ep4-subline{
+  margin-top:7px;max-width:none;font-size:12px;line-height:1.5
+}
+.ep-page .ep4-our-carousel{display:block;width:100%;min-width:0}
+.ep-page .ep4-our-hint{display:block;margin:0 0 8px;font:500 10.5px/1.3 "DM Sans",sans-serif;color:#80746c}
+.ep-page .ep4-our-stage{
+  display:grid;grid-template-columns:34px minmax(0,1fr) 34px;column-gap:7px;align-items:center;width:100%;min-width:0
+}
+.ep-page .ep4-our-stage>.ep4-our-list{
+  grid-column:2;grid-row:1;display:flex;min-width:0;width:100%;gap:12px;overflow-x:auto;
+  scroll-snap-type:x mandatory;scroll-padding:2px;scrollbar-width:none;
+  overscroll-behavior-inline:contain;padding:2px 2px 9px;margin:0;box-sizing:border-box
+}
+.ep-page .ep4-our-stage>.ep4-our-list::-webkit-scrollbar{display:none}
+.ep-page .ep4-our-list .ep4-day-card{
+  flex:0 0 calc((100% - 24px)/3);width:calc((100% - 24px)/3);min-width:0;min-height:0;scroll-snap-align:start
+}
 .ep-page .ep4-our-list .ep4-day-head{padding:9px 12px 7px}
 .ep-page .ep4-our-list .ep4-day-label{font-size:24px}
 .ep-page .ep4-our-list .ep4-day-body{padding:10px 12px 11px;gap:5px}
@@ -247,67 +246,58 @@
 .ep-page .ep4-our-list .ep4-day-card h3{font-size:18px}
 .ep-page .ep4-our-list .ep4-day-card p{font-size:11px;line-height:1.42;margin:0}
 .ep-page .ep4-our-list .ep4-day-link{font-size:9.4px;margin-top:7px}
-.ep-page .ep4-medal.gold,.ep-page .ep4-medal.silver,.ep-page .ep4-medal.bronze{position:relative;border:2px solid #fff;font-weight:700;color:#292b2b}
-.ep-page .ep4-medal.gold{background:radial-gradient(circle at 28% 18%,#fff6bc 0%,#e3b34d 52%,#aa711f 100%)}
-.ep-page .ep4-medal.silver{background:radial-gradient(circle at 28% 18%,#fff 0%,#bac4ce 53%,#7c8793 100%)}
-.ep-page .ep4-medal.bronze{background:radial-gradient(circle at 28% 18%,#ffdfb5 0%,#cf8955 53%,#97552d 100%)}
-@media(max-width:900px){.ep-page .ep4-our-list .ep4-day-card{flex-basis:calc((100% - 12px)/2);width:calc((100% - 12px)/2)}}
-@media(max-width:600px){.ep-page .ep4-our-list .ep4-day-card{flex-basis:88%;width:88%}.ep-page .ep4-our-controls{margin-top:7px}.ep-page .ep4-our .ep4-heading h2,.ep-page .ep4-decision-heading .ep4-heading h2{font-size:28px}}
-
-/* VCC 2026-11-09: align Consejo VCC precisely with table, note sits below table only. */
-.ep-page .ep4-decision-layout{display:grid;grid-template-columns:minmax(0,1.68fr) minmax(272px,.78fr);grid-template-rows:auto auto;column-gap:19px;row-gap:9px;align-items:start}
-.ep-page .ep4-decision-layout .ep4-decision-left{grid-column:1;grid-row:1;min-height:0;display:block}
-.ep-page .ep4-decision-layout .ep4-pass{grid-column:2;grid-row:1;height:100%;min-height:0;box-sizing:border-box;align-self:stretch;padding:16px 18px 13px}
-.ep-page .ep4-decision-layout>.ep4-price-note{grid-column:1;grid-row:2;margin:0;align-self:start}
-.ep-page .ep4-pass-brand{margin-bottom:9px}
+.ep-page .ep4-our-stage>.ep4-our-arrow{
+  position:static;transform:none;top:auto;left:auto;right:auto;z-index:auto;display:grid;
+  place-items:center;grid-row:1;justify-self:center;align-self:center;width:32px;height:32px;
+  padding:0;margin:0;border:1px solid #e6d8cb;border-radius:50%;background:#fff;
+  box-shadow:0 2px 8px #31201116;color:#ab542a;font:500 25px/1 Arial,sans-serif;
+  cursor:pointer
+}
+.ep-page .ep4-our-stage>.ep4-our-arrow-prev{grid-column:1}
+.ep-page .ep4-our-stage>.ep4-our-arrow-next{grid-column:3}
+.ep-page .ep4-our-stage>.ep4-our-arrow:hover:not(:disabled){background:#df6d28;color:#fff}
+.ep-page .ep4-our-stage>.ep4-our-arrow:disabled{
+  visibility:visible;opacity:.35;pointer-events:none;cursor:default
+}
+.ep-page .ep4-medal.gold,.ep-page .ep4-medal.silver,.ep-page .ep4-medal.bronze{border:2px solid #fff;font-weight:700;color:#292b2b}
+.ep-page .ep4-medal.gold{background:radial-gradient(circle at 28% 18%,#fff6bc,#e3b34d 52%,#aa711f)}
+.ep-page .ep4-medal.silver{background:radial-gradient(circle at 28% 18%,#fff,#bac4ce 53%,#7c8793)}
+.ep-page .ep4-medal.bronze{background:radial-gradient(circle at 28% 18%,#ffdfb5,#cf8955 53%,#97552d)}
+/* Comparación: alineación real entre la primera fila de la tabla y Consejo VCC. */
+.ep-page .ep4-decision-heading{margin-bottom:13px;scroll-margin-top:calc(var(--ep-header-height,50px) + 64px)}
+.ep-page .ep4-decision-layout{
+  display:grid;grid-template-columns:minmax(0,1.68fr) minmax(272px,.78fr);
+  grid-template-rows:auto auto;column-gap:19px;row-gap:9px;align-items:start
+}
+.ep-page .ep4-decision-layout .ep4-decision-left{grid-column:1;grid-row:1;min-width:0;min-height:0;display:block;margin:0}
+.ep-page .ep4-decision-layout .ep4-pass{
+  grid-column:2;grid-row:1;align-self:stretch;height:100%;min-height:0;box-sizing:border-box;
+  display:flex;flex-direction:column;padding:16px 18px 13px;
+  background:#fff;border:1px solid #e6dfd8;border-radius:15px;box-shadow:0 5px 14px #48301f0b
+}
+.ep-page .ep4-decision-layout>.ep4-price-note{grid-column:1;grid-row:2;margin:0}
+.ep-page .ep4-pass-brand{display:flex;flex-direction:column;align-items:flex-start;gap:3px;margin-bottom:9px}
+.ep-page .ep4-pass-seal{display:grid;place-items:center;width:43px;height:43px}
+.ep-page .ep4-pass-seal img{display:block;width:40px;height:40px;object-fit:contain}
+.ep-page .ep4-pass-brand-label{font:600 15px/1.1 "Caveat",cursive;color:#cf642d}
 .ep-page .ep4-pass h2{margin:3px 0 7px;font-size:clamp(24px,2.1vw,30px)}
 .ep-page .ep4-pass-highlight{margin:9px 0 10px;padding-top:10px;padding-bottom:10px}
 .ep-page .ep4-pass-highlight::before{top:10px}
 .ep-page .ep4-pass-link{padding:10px 12px;min-height:38px}
 .ep-page .ep4-pass-extra{margin-top:6px!important}
-/* Place carousel navigation on opposite edges of the card strip. */
-.ep-page .ep4-our-carousel{position:relative;padding:0 13px}
-.ep-page .ep4-our-hint{display:block;margin:0 0 8px}
-.ep-page .ep4-our-arrow{position:absolute;top:calc(50% + 10px);z-index:3;width:34px;height:34px;transform:translateY(-50%);background:#fff;box-shadow:0 3px 12px #31201120;border-color:#e8d5c5}
-.ep-page .ep4-our-arrow-prev{left:-5px}
-.ep-page .ep4-our-arrow-next{right:-5px}
-.ep-page .ep4-our-arrow:disabled{opacity:.52}
-@media(max-width:1130px) and (min-width:901px){.ep-page .ep4-decision-layout{grid-template-columns:minmax(0,1.5fr) minmax(250px,.85fr);column-gap:14px}}
-@media(max-width:900px){.ep-page .ep4-decision-layout{grid-template-columns:minmax(0,1fr);grid-template-rows:auto;gap:14px}.ep-page .ep4-decision-layout .ep4-decision-left{grid-column:1;grid-row:1}.ep-page .ep4-decision-layout>.ep4-price-note{grid-column:1;grid-row:2}.ep-page .ep4-decision-layout .ep4-pass{grid-column:1;grid-row:3;height:auto}}
-
-/* VCC 2026-11-09 · Reliable side controls: arrows occupy dedicated columns,
-   not absolute positions tied to the height of an editorial heading. */
-.ep-page .ep4-our-carousel{
- display:grid;grid-template-columns:36px minmax(0,1fr) 36px;
- column-gap:8px;row-gap:5px;align-items:center;padding:0;
+@media(max-width:1130px) and (min-width:901px){
+  .ep-page .ep4-decision-layout{grid-template-columns:minmax(0,1.5fr) minmax(250px,.85fr);column-gap:14px}
 }
-.ep-page .ep4-our-carousel>.ep4-our-hint{grid-column:1/-1;grid-row:1;margin:0 0 2px}
-.ep-page .ep4-our-carousel>.ep4-our-list{
- grid-column:2;grid-row:2;min-width:0;width:100%;margin:0;
+@media(max-width:900px){
+  .ep-page .ep4-decision-layout{grid-template-columns:minmax(0,1fr);grid-template-rows:auto;gap:14px}
+  .ep-page .ep4-decision-layout .ep4-decision-left{grid-column:1;grid-row:1}
+  .ep-page .ep4-decision-layout>.ep4-price-note{grid-column:1;grid-row:2}
+  .ep-page .ep4-decision-layout .ep4-pass{grid-column:1;grid-row:3;height:auto}
+  .ep-page .ep4-our-list .ep4-day-card{flex-basis:calc((100% - 12px)/2);width:calc((100% - 12px)/2)}
 }
-.ep-page .ep4-our-carousel>.ep4-our-arrow{
- position:static;top:auto;left:auto;right:auto;transform:none;
- grid-row:2;justify-self:center;align-self:center;
- width:34px;height:34px;margin:0;
-}
-.ep-page .ep4-our-carousel>.ep4-our-arrow-prev{grid-column:1}
-.ep-page .ep4-our-carousel>.ep4-our-arrow-next{grid-column:3}
 @media(max-width:600px){
- .ep-page .ep4-our-carousel{grid-template-columns:30px minmax(0,1fr) 30px;column-gap:5px}
- .ep-page .ep4-our-carousel>.ep4-our-arrow{width:30px;height:30px}
-}
-
-/* VCC 2026-11-09: restore full-width three-card strip; controls overlay at outside edges. */
-.ep-page .ep4-our-carousel{display:block;position:static;padding:0;width:100%}
-.ep-page .ep4-our-stage{position:relative;display:block;min-width:0;width:100%}
-.ep-page .ep4-our-carousel>.ep4-our-hint{display:block;margin:0 0 8px}
-.ep-page .ep4-our-stage>.ep4-our-list{display:flex;width:100%;min-width:0;margin:0;padding:2px 2px 10px;box-sizing:border-box}
-.ep-page .ep4-our-stage>.ep4-our-arrow{position:absolute;z-index:4;top:50%;transform:translateY(-50%);display:grid;place-items:center;width:34px;height:34px;margin:0;box-shadow:0 3px 12px #31201120;background:#fff}
-.ep-page .ep4-our-stage>.ep4-our-arrow-prev{left:-15px;right:auto}
-.ep-page .ep4-our-stage>.ep4-our-arrow-next{right:-15px;left:auto}
-.ep-page .ep4-our-stage>.ep4-our-arrow:disabled{visibility:hidden;pointer-events:none}
-@media(max-width:600px){
- .ep-page .ep4-our-stage>.ep4-our-arrow{width:30px;height:30px}
- .ep-page .ep4-our-stage>.ep4-our-arrow-prev{left:-9px}
- .ep-page .ep4-our-stage>.ep4-our-arrow-next{right:-9px}
+  .ep-page .ep4-our-stage{grid-template-columns:28px minmax(0,1fr) 28px;column-gap:3px}
+  .ep-page .ep4-our-stage>.ep4-our-arrow{width:27px;height:27px;font-size:22px}
+  .ep-page .ep4-our-list .ep4-day-card{flex-basis:90%;width:90%}
+  .ep-page .ep4-our .ep4-heading h2,.ep-page .ep4-decision-heading .ep4-heading h2{font-size:28px}
 }
