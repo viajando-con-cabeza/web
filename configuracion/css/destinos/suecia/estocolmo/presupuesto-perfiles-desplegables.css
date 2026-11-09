@@ -1,0 +1,107 @@
+/* VCC Estocolmo · detalle de tipos de presupuesto · 2026-11-09
+   Se limita a la sección #filosofia y al enlace de exportación externo a la calculadora. */
+html body.budget-vcc #filosofia .vcc-budget-mode-carousel{position:relative;margin:24px 0 17px}
+html body.budget-vcc #filosofia .vcc-budget-mode-track{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:13px}
+html body.budget-vcc #filosofia .vcc-budget-mode-card{
+  -webkit-appearance:none;appearance:none;display:flex;flex-direction:column;min-width:0;
+  min-height:163px;width:100%;padding:17px 15px 14px;text-align:left;cursor:pointer;
+  color:#222;background:#fff;border:1px solid #e6ddd5;border-radius:13px;
+  font:inherit;box-shadow:0 3px 15px rgba(54,39,27,.045);transition:border-color .2s,box-shadow .2s,transform .2s;
+}
+html body.budget-vcc #filosofia .vcc-budget-mode-card:hover{transform:translateY(-2px);border-color:#d88b71;box-shadow:0 8px 23px rgba(87,48,25,.10)}
+html body.budget-vcc #filosofia .vcc-budget-mode-card[aria-expanded="true"]{border:2px solid #d46c50;padding:16px 14px 13px;box-shadow:0 5px 20px rgba(196,94,62,.10)}
+html body.budget-vcc #filosofia .vcc-budget-mode-card:focus-visible,
+html body.budget-vcc #filosofia .vcc-budget-panel-close:focus-visible,
+html body.budget-vcc .vcc-budget-excel-action:focus-visible{outline:3px solid #cf705c;outline-offset:3px}
+html body.budget-vcc #filosofia .vcc-budget-mode-top{display:flex;align-items:center;gap:8px;width:100%;min-width:0}
+html body.budget-vcc #filosofia .vcc-budget-mode-icon{width:39px;height:39px;flex:0 0 39px;display:flex;align-items:center;justify-content:center;border-radius:9px;background:#faf1e9}
+html body.budget-vcc #filosofia .vcc-budget-mode-icon img{width:30px;height:30px;object-fit:contain}
+html body.budget-vcc #filosofia .vcc-budget-mode-title{display:flex;flex-direction:column;gap:3px;min-width:0}
+html body.budget-vcc #filosofia .vcc-budget-mode-title strong{font:500 21px/1.1 'Oswald',sans-serif;color:#191919}
+html body.budget-vcc #filosofia .vcc-budget-mode-title small{font:800 8px/1.2 'DM Sans',sans-serif;color:#b35b45;letter-spacing:.01em}
+html body.budget-vcc #filosofia .vcc-budget-mode-price{margin-left:auto;padding:8px 7px;border-radius:8px;text-align:right;background:#fbf5ef;white-space:nowrap}
+html body.budget-vcc #filosofia .vcc-budget-mode-price strong{display:block;font:600 19px/1.1 'Oswald',sans-serif;color:#1d1d1d}
+html body.budget-vcc #filosofia .vcc-budget-mode-price small{display:block;font:400 9px/1.25 'DM Sans',sans-serif;color:#685e55}
+html body.budget-vcc #filosofia .vcc-budget-mode-copy{font:400 11.5px/1.5 'DM Sans',sans-serif;color:#5b524b;margin:12px 0 0}
+html body.budget-vcc #filosofia .vcc-budget-mode-footer{margin-top:auto;padding-top:12px;display:flex;justify-content:space-between;align-items:center;width:100%;gap:9px;font:800 10px/1.3 'DM Sans',sans-serif;color:#a5513d}
+html body.budget-vcc #filosofia .vcc-budget-mode-caret{width:24px;height:24px;flex:0 0 24px;border:1px solid #edd6c9;border-radius:50%;display:grid;place-items:center;font-size:17px;line-height:1;background:#fff}
+html body.budget-vcc #filosofia .vcc-budget-mode-card[aria-expanded="true"] .vcc-budget-mode-caret{transform:rotate(180deg);border-color:#d46c50}
+html body.budget-vcc #filosofia .vcc-budget-mode-arrow{display:none;position:absolute;top:42%;transform:translateY(-50%);width:30px;height:30px;border-radius:50%;border:1px solid #e6ddd5;background:#fff;color:#a5513d;font-size:24px;cursor:pointer;z-index:2}
+html body.budget-vcc #filosofia .vcc-budget-mode-arrow.previous{left:-12px}
+html body.budget-vcc #filosofia .vcc-budget-mode-arrow.next{right:-12px}
+html body.budget-vcc #filosofia .vcc-budget-detail{margin-top:18px}
+html body.budget-vcc #filosofia .vcc-budget-panel[hidden]{display:none!important}
+html body.budget-vcc #filosofia .vcc-budget-panel{
+  background:#fff;border:1px solid #e8d9ce;border-radius:14px;
+  padding:20px 20px 17px;box-shadow:0 6px 24px rgba(47,33,27,.045);
+}
+html body.budget-vcc #filosofia .vcc-budget-panel[data-budget-panel="vcc"]{border-color:#d7a08e}
+html body.budget-vcc #filosofia .vcc-budget-panel-head{display:flex;align-items:center;gap:12px;padding-bottom:15px;border-bottom:1px solid #eee4da}
+html body.budget-vcc #filosofia .vcc-budget-panel-mark{width:55px;height:55px;flex:0 0 55px;border:1px solid #dc947a;background:#fff;border-radius:50%;display:grid;place-items:center}
+html body.budget-vcc #filosofia .vcc-budget-panel-mark img{width:41px;height:41px;object-fit:contain}
+html body.budget-vcc #filosofia .vcc-budget-panel-heading{min-width:0;flex:1}
+html body.budget-vcc #filosofia .vcc-budget-panel-heading h3{font:600 28px/1.15 'Caveat',cursive!important;color:#b95b40!important;margin:0 0 4px!important}
+html body.budget-vcc #filosofia .vcc-budget-panel-heading p{font:400 11px/1.55 'DM Sans',sans-serif;color:#6c625b;margin:0}
+html body.budget-vcc #filosofia .vcc-budget-panel-close{align-self:flex-start;flex:0 0 27px;width:27px;height:27px;border:1px solid #e8d5c9;border-radius:50%;background:#fff;color:#b85b40;cursor:pointer;font-size:21px;line-height:22px}
+html body.budget-vcc #filosofia .vcc-budget-panel-grid{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.35fr) minmax(0,1.05fr);gap:20px;padding-top:16px}
+html body.budget-vcc #filosofia .vcc-budget-panel-column{min-width:0}
+html body.budget-vcc #filosofia .vcc-budget-panel-column+.vcc-budget-panel-column{border-left:1px solid #eee3d8;padding-left:20px}
+html body.budget-vcc #filosofia .vcc-budget-label{font:800 10px/1.4 'DM Sans',sans-serif;letter-spacing:.04em;color:#a9533e}
+html body.budget-vcc #filosofia .vcc-budget-total{background:#fff2e6;border-radius:10px;padding:13px 15px;margin-bottom:11px}
+html body.budget-vcc #filosofia .vcc-budget-total strong{display:block;font:500 37px/1.15 'Oswald',sans-serif;color:#c2552f;margin:4px 0}
+html body.budget-vcc #filosofia .vcc-budget-total small{font:400 10px/1.4 'DM Sans',sans-serif;color:#6c625b}
+html body.budget-vcc #filosofia .vcc-budget-side-title{font:600 23px/1.1 'Caveat',cursive;color:#b65a42;margin:15px 0 6px}
+html body.budget-vcc #filosofia .vcc-budget-side-copy{font:400 11px/1.65 'DM Sans',sans-serif;color:#58514c;margin:0 0 10px}
+html body.budget-vcc #filosofia .vcc-budget-pros{list-style:none;padding:0;margin:0;display:grid;gap:5px;font:400 11px/1.45 'DM Sans',sans-serif;color:#4d4945}
+html body.budget-vcc #filosofia .vcc-budget-pros li:before{content:"✓";color:#2d9a63;font-weight:800;margin-right:7px}
+html body.budget-vcc #filosofia .vcc-budget-pending{margin-top:12px;padding:10px 11px;background:#f8f5f1;border:1px dashed #d4c4b5;border-radius:8px;font:400 10.5px/1.55 'DM Sans',sans-serif;color:#695e56}
+html body.budget-vcc #filosofia .vcc-budget-pending strong{display:block;color:#8f513d;font-size:10px;margin-bottom:3px}
+html body.budget-vcc #filosofia .vcc-budget-panel-column h4{margin:0 0 11px;font:500 21px/1.2 'Oswald',sans-serif;color:#171717}
+html body.budget-vcc #filosofia .vcc-budget-breakdown{display:grid;gap:8px}
+html body.budget-vcc #filosofia .vcc-budget-breakdown-row{border-bottom:1px solid #efe7e0;padding:0 0 8px}
+html body.budget-vcc #filosofia .vcc-budget-row-heading{display:grid;grid-template-columns:23px minmax(0,1fr) auto;gap:7px;align-items:center}
+html body.budget-vcc #filosofia .vcc-budget-row-icon{color:#bf6749;font-size:18px;text-align:center}
+html body.budget-vcc #filosofia .vcc-budget-row-heading strong{font:700 12px/1.3 'DM Sans',sans-serif;color:#202020}
+html body.budget-vcc #filosofia .vcc-budget-row-heading b{font:500 19px/1.2 'Oswald',sans-serif;white-space:nowrap}
+html body.budget-vcc #filosofia .vcc-budget-breakdown-row p{margin:3px 0 0 30px;font:400 10.5px/1.5 'DM Sans',sans-serif;color:#6f655d}
+html body.budget-vcc #filosofia .vcc-budget-breakdown-row ul{list-style:disc;margin:5px 0 0 43px;padding:0;display:grid;gap:3px;color:#645d57;font:400 10px/1.4 'DM Sans',sans-serif}
+html body.budget-vcc #filosofia .vcc-budget-breakdown-total{display:flex;justify-content:space-between;align-items:center;background:#fff0e2;border-radius:8px;padding:7px 10px;color:#c2552f;font:800 12px/1.4 'DM Sans',sans-serif}
+html body.budget-vcc #filosofia .vcc-budget-breakdown-total strong{font:500 24px/1.2 'Oswald',sans-serif}
+html body.budget-vcc #filosofia .vcc-budget-day{position:relative;border-left:2px solid #d77c5d;padding:0 0 14px 15px;margin-left:4px}
+html body.budget-vcc #filosofia .vcc-budget-day:last-child{padding-bottom:0}
+html body.budget-vcc #filosofia .vcc-budget-day:before{content:"";position:absolute;left:-5px;top:3px;width:7px;height:7px;border-radius:50%;background:#c96c50}
+html body.budget-vcc #filosofia .vcc-budget-day-head{display:flex;align-items:center;justify-content:space-between;gap:7px;background:#fff1e7;border-radius:5px;padding:5px 8px;font:700 11px/1.35 'DM Sans',sans-serif}
+html body.budget-vcc #filosofia .vcc-budget-day-head span{color:#8d543f;white-space:nowrap;font-size:10px}
+html body.budget-vcc #filosofia .vcc-budget-day ul{list-style:disc;padding:0;margin:6px 0 0 15px;display:grid;gap:4px;font:400 10px/1.48 'DM Sans',sans-serif;color:#665c54}
+html body.budget-vcc #filosofia .vcc-budget-panel-foot{margin:15px 0 0;padding:10px 12px;border-radius:8px;background:#faf5ef;color:#655d56;font:400 10px/1.5 'DM Sans',sans-serif}
+html body.budget-vcc #filosofia .vcc-budget-panel-foot strong{color:#9c4a36}
+html body.budget-vcc .vcc-budget-excel-row{display:flex;align-items:center;justify-content:flex-end;gap:14px;flex-wrap:wrap;margin:-23px 0 35px;padding:0}
+html body.budget-vcc .vcc-budget-excel-row p{margin:0;font:400 11px/1.45 'DM Sans',sans-serif;color:#6f655d}
+html body.budget-vcc .vcc-budget-excel-action{display:inline-flex;align-items:center;gap:8px;white-space:nowrap;padding:10px 16px;border:1px solid #ca6b4b;border-radius:8px;background:#fff;color:#ad5137;font:800 11px/1.3 'DM Sans',sans-serif;cursor:pointer}
+html body.budget-vcc .vcc-budget-excel-action:hover{background:#fff2e9}
+html body.budget-vcc .vcc-budget-excel-action svg{width:17px;height:17px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+@media(max-width:1100px){
+ html body.budget-vcc #filosofia .vcc-budget-mode-card{padding:12px 10px;min-height:165px}
+ html body.budget-vcc #filosofia .vcc-budget-mode-card[aria-expanded="true"]{padding:11px 9px}
+ html body.budget-vcc #filosofia .vcc-budget-mode-price strong{font-size:17px}
+ html body.budget-vcc #filosofia .vcc-budget-mode-title strong{font-size:18px}
+ html body.budget-vcc #filosofia .vcc-budget-panel-grid{grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:16px}
+ html body.budget-vcc #filosofia .vcc-budget-panel-column:last-child{grid-column:1/-1;border-left:0;border-top:1px solid #eee3d8;padding:15px 0 0}
+}
+@media(max-width:750px){
+ html body.budget-vcc #filosofia .vcc-budget-mode-track{display:flex;gap:10px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;padding:3px 1px 10px}
+ html body.budget-vcc #filosofia .vcc-budget-mode-track::-webkit-scrollbar{display:none}
+ html body.budget-vcc #filosofia .vcc-budget-mode-card{flex:0 0 min(78vw,270px);scroll-snap-align:start;min-height:154px}
+ html body.budget-vcc #filosofia .vcc-budget-mode-arrow{display:block}
+ html body.budget-vcc #filosofia .vcc-budget-panel{padding:15px 12px}
+ html body.budget-vcc #filosofia .vcc-budget-panel-heading h3{font-size:24px!important}
+ html body.budget-vcc #filosofia .vcc-budget-panel-grid{grid-template-columns:1fr}
+ html body.budget-vcc #filosofia .vcc-budget-panel-column+.vcc-budget-panel-column{grid-column:auto;border-left:0;border-top:1px solid #eee3d8;padding:15px 0 0}
+ html body.budget-vcc #filosofia .vcc-budget-panel-mark{width:44px;height:44px;flex-basis:44px}
+ html body.budget-vcc #filosofia .vcc-budget-panel-mark img{width:35px;height:35px}
+ html body.budget-vcc #filosofia .vcc-budget-total strong{font-size:31px}
+ html body.budget-vcc .vcc-budget-excel-row{margin:-16px 0 30px;justify-content:flex-start}
+}
+@media(prefers-reduced-motion:reduce){
+ html body.budget-vcc #filosofia .vcc-budget-mode-card{transition:none}
+}
