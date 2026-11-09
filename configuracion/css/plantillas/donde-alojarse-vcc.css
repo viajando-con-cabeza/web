@@ -1204,3 +1204,18 @@ body.dv-page{
  .dv-page .dv-zone-procon{margin-top:10px;padding-top:9px}
  .dv-page .dv-zone-feel ul{gap:6px}
 }
+
+
+/* VCC · Tancament d'accessibilitat: focus i moviment reduït */
+.dv-page .dv-card:focus-visible,
+.dv-page .dv-carousel:focus-visible,
+.dv-page .dv-tip-grid:focus-visible{
+ outline:2px solid #99452f;
+ outline-offset:3px;
+}
+@media(prefers-reduced-motion:reduce){
+ .dv-page .dv-tip-grid{scroll-behavior:auto}
+ .dv-page .dv-card,
+ .dv-page .dv-tip,
+ .dv-page .dv-arrow{transition:none}
+}
