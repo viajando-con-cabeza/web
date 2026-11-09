@@ -214,10 +214,11 @@ function render(resetListScroll=false){
  const categories=$("ql-v6-categories");
  const previousScroll=resetListScroll?0:categories.scrollTop;
  categories.replaceChildren();
- const cols=[document.createElement("div"),document.createElement("div"),document.createElement("div")];
- cols.forEach(col=>{col.className="ql-v6-column";categories.append(col)});
+ // Orden visual equilibrado en dos filas: las dos categorías largas juntas
+ // y las dos cortas juntas, sin huecos irregulares al final de la checklist.
  let completed=0,total=0;
- groups.forEach((group,index)=>{
+ [0,3,1,2].forEach(index=>{
+  const group=groups[index];
   const card=document.createElement("section");card.className="ql-v6-category";
   const h=document.createElement("h4");
   const categoryIcon=icon(["shirt","shoe","umbrella","bag"][index]);
@@ -234,7 +235,7 @@ function render(resetListScroll=false){
    content.append(name,qty);label.append(input,icon(x.icon),content);li.append(label);ul.append(li);
    total++;if(input.checked)completed++;
   });
-  card.append(ul);cols[index===3?1:index].append(card);
+  card.append(ul);categories.append(card);
  });
  $("ql-v6-progress").textContent=completed+" de "+total+" preparados";
  $("ql-v6-progress-bar").style.width=(total?100*completed/total:0).toFixed(1)+"%";
