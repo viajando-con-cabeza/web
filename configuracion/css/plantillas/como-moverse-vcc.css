@@ -67,27 +67,27 @@ body.mv-body{margin:0;background:#fff;color:var(--mv-ink);font-family:"DM Sans",
 .mv-day-cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
 .mv-day-card{display:flex;flex-direction:column;min-width:0;padding:15px 16px 13px;border:1px solid #dfd6cc;border-radius:13px;background:#fff}
 .mv-day-card-top{display:flex;align-items:center;justify-content:space-between;gap:10px}
-.mv-day-card-top>span{color:#bd6538;font:800 10px/1.2 "DM Sans",sans-serif;letter-spacing:.06em}
+.mv-day-card-top>span{color:#e6631e;font:600 27px/1 "Caveat",cursive;letter-spacing:0;text-transform:none}
 .mv-day-card-top>strong{padding:5px 11px;border-radius:100px;border:1px solid #edd1be;color:#a75c35;background:#fff;font:800 10.5px/1.25 "DM Sans",sans-serif;white-space:nowrap}
 .mv-day-card h4{margin:10px 0 10px;color:#252d28;font:600 18px/1.2 "Oswald",sans-serif}
-/* Només els trajectes fets en la ruta, sense numeració ni elements decoratius */
-.mv-day-trips{display:grid;align-content:start;gap:10px;margin:0 0 15px;padding:0;list-style:none}
-.mv-day-trips li{position:relative;min-width:0;padding-left:15px;color:#484d49;font:500 11.1px/1.45 "DM Sans",sans-serif}
-.mv-day-trips li::before{content:"";position:absolute;left:1px;top:.57em;width:5px;height:5px;border-radius:50%;background:#d67b48}
+/* Recorreguts fixos VCC numerats discretament */
+.mv-day-trips{display:grid;align-content:start;gap:9px;margin:0 0 15px;padding:0;list-style:none;counter-reset:mv-trip}
+.mv-day-trips li{display:grid;grid-template-columns:19px minmax(0,1fr);align-items:start;gap:8px;min-width:0;color:#484d49;font:500 11.1px/1.45 "DM Sans",sans-serif;counter-increment:mv-trip}
+.mv-day-trips li::before{content:counter(mv-trip);display:grid;place-items:center;width:18px;height:18px;border:1px solid #edd5c6;border-radius:50%;color:#bd693e;background:#fff;font:700 10px/1 "DM Sans",sans-serif}
 .mv-day-card-footer{display:flex;justify-content:space-between;gap:9px;align-items:center;margin-top:auto;padding-top:11px;border-top:1px solid #e8e1d9}
 .mv-day-card-footer>span{color:#75665b;font:600 10.5px/1.2 "DM Sans",sans-serif}
 .mv-day-card-footer>strong{color:#d46027;font:600 20px/1.1 "Oswald",sans-serif;white-space:nowrap}
-.mv-day-calculation{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr) minmax(190px,.9fr);align-items:center;gap:16px;margin:13px 0 0;padding:12px 15px;border:1px solid #ebd4c0;border-radius:12px;background:#fff}
-.mv-day-calculation-fixed .mv-day-result{min-width:0;padding:11px 13px;border:1px solid #f1cbb5;border-radius:10px;background:#fff1e8}
+.mv-day-calculation{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr) minmax(190px,.9fr);align-items:center;gap:15px;margin:13px 0 0;padding:8px 13px;border:1px solid rgba(218,132,82,.22);border-radius:11px;background:rgba(235,105,31,.055)}
+.mv-day-calculation-fixed .mv-day-result{min-width:0;padding:3px 0 3px 11px;border:0;border-left:1px solid rgba(207,107,56,.4);border-radius:0;background:transparent}
 .mv-day-total{display:flex;align-items:center;justify-content:space-between;gap:10px;min-width:0}
-.mv-day-total>span{color:#58544e;font:600 11px/1.3 "DM Sans",sans-serif}
+.mv-day-total>span{color:#58544e;font:600 10.7px/1.3 "DM Sans",sans-serif}
 .mv-day-total small{color:#91877d;font:500 9px/1.3 "DM Sans",sans-serif}
-.mv-day-total>strong{color:#252d28;font:700 17px/1.2 "Oswald",sans-serif;white-space:nowrap}
+.mv-day-total>strong{color:#252d28;font:700 16px/1.2 "Oswald",sans-serif;white-space:nowrap}
 .mv-day-versus{display:none}
-.mv-day-result{display:flex;flex-direction:column;gap:3px;align-items:flex-start;min-width:200px;padding-left:18px;border-left:2px solid #e66b2c}
+.mv-day-result{display:flex;flex-direction:column;gap:2px;align-items:flex-start;min-width:190px}
 .mv-day-result>span{color:#a5633f;font:800 8.8px/1.2 "DM Sans",sans-serif;letter-spacing:.05em}
-.mv-day-result>strong{color:#2c332c;font:600 16px/1.18 "Oswald",sans-serif}
-.mv-day-result>small{color:#19884b;font:700 10.5px/1.3 "DM Sans",sans-serif}
+.mv-day-result>strong{color:#2c332c;font:600 15px/1.18 "Oswald",sans-serif}
+.mv-day-result>small{color:#19884b;font:700 10px/1.3 "DM Sans",sans-serif}
 .mv-archipelago-note{display:grid;grid-template-columns:26px minmax(0,1fr);gap:11px;margin-top:14px;padding:11px 13px 12px;border-left:3px solid #df783d;background:#fcfaf7;border-radius:0 10px 10px 0}
 .mv-archipelago-note>svg{display:block;width:26px;height:26px;fill:none;stroke:#ce713b;stroke-width:1.65;stroke-linecap:round;stroke-linejoin:round}
 .mv-archipelago-note strong{display:block;margin:0 0 4px;color:#2f322e;font:600 16px/1.2 "Oswald",sans-serif}
@@ -177,7 +177,7 @@ body.mv-body{margin:0;background:#fff;color:var(--mv-ink);font-family:"DM Sans",
  .mv-day-card:last-child{grid-column:1/-1}
  .mv-day-calculation{grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
  .mv-day-result{grid-column:1/-1;border-left:0;border-top:2px solid #e6b997;padding:10px 0 0}
- .mv-day-calculation-fixed .mv-day-result{padding:11px 13px;border:1px solid #f1cbb5}
+ .mv-day-calculation-fixed .mv-day-result{padding:7px 0 0;border:0;border-top:1px solid rgba(207,107,56,.3);background:transparent}
  .mv-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
  .mv-card-body{min-height:260px;padding:14px 15px}
  .mv-experience-list li{font-size:10.7px}
