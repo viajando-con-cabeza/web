@@ -61,11 +61,11 @@
    const main=ids.filter(id=>master[id].kind==="main").sort((a,b)=>p[b]-p[a]);
    const extra=ids.filter(id=>master[id].kind==="extra").sort((a,b)=>p[b]-p[a]);
    const covered=main.length&&extra.length>=2?[main[0],...extra.slice(0,2)]:[];
-   const essentials=ok&&covered.length===3?Number(controls.ess.value)+ids.filter(id=>!covered.includes(id)).reduce((n,id)=>n+p[id],0):null;
+   const essentials=ids.length>0&&ok&&covered.length===3&&safeInt(controls.ess.value,1,10000,null)!==null?Number(controls.ess.value)+ids.filter(id=>!covered.includes(id)).reduce((n,id)=>n+p[id],0):null;
    const inPass=ids.filter(id=>master[id].kind!=="outside");
    const hours=inPass.reduce((n,id)=>n+master[id].hours,0);
    const feasible=hours<=days*6.25;
-   const all=ok&&feasible?Number(controls.all.value)+ids.filter(id=>master[id].kind==="outside").reduce((n,id)=>n+p[id],0):null;
+   const all=ids.length>0&&ok&&feasible&&safeInt(controls.all.value,1,10000,null)!==null?Number(controls.all.value)+ids.filter(id=>master[id].kind==="outside").reduce((n,id)=>n+p[id],0):null;
    const options=[{id:"single",name:"ENTRADAS SUELTAS",cost:total},{id:"ess",name:"GO CITY ESSENTIALS + EXTRAS",cost:essentials},{id:"all",name:"GO CITY ALL-INCLUSIVE + EXTRAS",cost:all}];
    const available=options.filter(x=>x.cost!==null&&Number.isFinite(x.cost));
    const best=available.sort((a,b)=>a.cost-b.cost)[0]||null;
