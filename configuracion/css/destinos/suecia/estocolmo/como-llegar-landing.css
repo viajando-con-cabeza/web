@@ -115,13 +115,13 @@ main.cl-page.cl-landing {
 }
 .cl-page.cl-landing .cl-illustration.cl-artwork {
   display:flex;justify-content:center;align-items:center;
-  width:100%;height:68px;min-height:68px;
+  width:100%;height:60px;min-height:60px;
   padding:0;margin:0;overflow:visible;
   background:transparent;border:0;box-shadow:none;
 }
 .cl-page.cl-landing .cl-transport-photo {
-  display:block;width:56px;height:56px;max-width:56px;max-height:56px;
-  object-fit:contain;object-position:center;
+  display:block;width:49px;height:49px;max-width:49px;max-height:49px;
+  flex:0 0 auto;stroke:#c36b44;fill:none;
   opacity:1;filter:none;
 }
 .cl-page.cl-landing .cl-transport-group h3 {
@@ -282,8 +282,8 @@ main.cl-page.cl-landing {
   .cl-page.cl-landing .cl-landing-intro h1 {font-size:clamp(38px,9vw,51px)}
   .cl-page.cl-landing .cl-landing-kicker {font-size:26px}
   .cl-page.cl-landing .cl-transport-group {padding:9px 9px 12px}
-  .cl-page.cl-landing .cl-illustration.cl-artwork {height:60px;min-height:60px}
-  .cl-page.cl-landing .cl-transport-photo {width:50px;height:50px}
+  .cl-page.cl-landing .cl-illustration.cl-artwork {height:55px;min-height:55px}
+  .cl-page.cl-landing .cl-transport-photo {width:46px;height:46px}
   .cl-page.cl-landing .cl-guide-title {font-size:12px}
   .cl-page.cl-landing .cl-landing-recommendation {gap:12px;padding:14px}
   .cl-page.cl-landing .cl-advice-brand {flex-basis:73px}
@@ -301,7 +301,7 @@ main.cl-page.cl-landing {
     grid-column:1;grid-row:1 / span 2;
     width:76px;height:62px;min-height:62px;
   }
-  .cl-page.cl-landing .cl-transport-photo {width:48px;height:48px}
+  .cl-page.cl-landing .cl-transport-photo {width:43px;height:43px}
   .cl-page.cl-landing .cl-transport-group h3 {grid-column:2;font-size:23px}
   .cl-page.cl-landing .cl-transport-group > p {grid-column:2;font-size:12.5px}
   .cl-page.cl-landing .cl-quicklinks {grid-column:1 / -1;margin-top:6px}
@@ -319,4 +319,56 @@ main.cl-page.cl-landing {
 }
 @media(prefers-reduced-motion:reduce) {
   .cl-page.cl-landing * {scroll-behavior:auto;animation-duration:.01ms;transition-duration:.01ms}
+}
+
+
+/* Navegación secundaria VCC: portada con secciones reales bajo el hero. */
+.cl-page.cl-landing .vcc-como-llegar-subnav {
+  position:sticky;
+  top:50px;
+  z-index:120;
+  width:100%;
+  margin:0;
+  background:#fff;
+  border-top:1px solid #e7ded6;
+  border-bottom:1px solid #e7ded6;
+}
+.cl-page.cl-landing .vcc-como-llegar-subnav .vcc-nav-inner {
+  display:flex;align-items:center;gap:30px;
+  width:min(1180px,calc(100% - 48px));
+  height:43px;min-height:43px;
+  margin:0 auto;
+  overflow-x:auto;
+  scrollbar-width:none;
+}
+.cl-page.cl-landing .vcc-como-llegar-subnav .vcc-nav-inner::-webkit-scrollbar {display:none}
+.cl-page.cl-landing .vcc-como-llegar-subnav a {
+  box-sizing:border-box;
+  display:inline-flex;align-items:center;justify-content:center;
+  flex:0 0 auto;
+  height:43px;
+  padding:1px 0 0;
+  border-bottom:3px solid transparent;
+  color:#292927;
+  font:700 11px/1.2 "DM Sans",sans-serif;
+  letter-spacing:0;
+  text-decoration:none;
+  white-space:nowrap;
+}
+.cl-page.cl-landing .vcc-como-llegar-subnav a:hover,
+.cl-page.cl-landing .vcc-como-llegar-subnav a.is-active,
+.cl-page.cl-landing .vcc-como-llegar-subnav a[aria-current="location"] {
+  color:#b85f3e;
+  border-bottom-color:#cf7051;
+}
+#comparar-aeropuertos, #recomendacion-transporte, #seguir-planificando {
+  scroll-margin-top:102px;
+}
+@media(max-width:720px) {
+  .cl-page.cl-landing .vcc-como-llegar-subnav {top:0}
+  .cl-page.cl-landing .vcc-como-llegar-subnav .vcc-nav-inner {
+    width:calc(100% - 30px);gap:22px;height:39px;min-height:39px;
+  }
+  .cl-page.cl-landing .vcc-como-llegar-subnav a {height:39px;font-size:10.5px}
+  #comparar-aeropuertos, #recomendacion-transporte, #seguir-planificando {scroll-margin-top:54px}
 }
