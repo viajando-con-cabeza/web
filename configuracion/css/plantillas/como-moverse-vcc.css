@@ -70,15 +70,15 @@ body.mv-body{margin:0;background:#fff;color:var(--mv-ink);font-family:"DM Sans",
 .mv-day-card-top>span{color:#bd6538;font:800 10px/1.2 "DM Sans",sans-serif;letter-spacing:.06em}
 .mv-day-card-top>strong{padding:5px 11px;border-radius:100px;border:1px solid #edd1be;color:#a75c35;background:#fff;font:800 10.5px/1.25 "DM Sans",sans-serif;white-space:nowrap}
 .mv-day-card h4{margin:10px 0 10px;color:#252d28;font:600 18px/1.2 "Oswald",sans-serif}
-.mv-day-card ol{display:grid;align-content:start;gap:9px;margin:0 0 15px;padding:0;list-style:none}
-.mv-day-card li{display:grid;grid-template-columns:20px minmax(0,1fr);align-items:center;gap:8px;color:#56534d;font:500 11px/1.38 "DM Sans",sans-serif}
-.mv-day-card li>span:first-child{display:grid;place-items:center;align-self:start;width:20px;height:20px;border:1px solid #eee0d2;border-radius:50%;color:#c36c3e;font:800 10px/1 "DM Sans",sans-serif}
-.mv-day-card li .mv-day-walk{color:#2d8a57;border-color:#cfe9d8}
+/* Només els trajectes fets en la ruta, sense numeració ni elements decoratius */
+.mv-day-trips{display:grid;align-content:start;gap:10px;margin:0 0 15px;padding:0;list-style:none}
+.mv-day-trips li{position:relative;min-width:0;padding-left:15px;color:#484d49;font:500 11.1px/1.45 "DM Sans",sans-serif}
+.mv-day-trips li::before{content:"";position:absolute;left:1px;top:.57em;width:5px;height:5px;border-radius:50%;background:#d67b48}
 .mv-day-card-footer{display:flex;justify-content:space-between;gap:9px;align-items:center;margin-top:auto;padding-top:11px;border-top:1px solid #e8e1d9}
 .mv-day-card-footer>span{color:#75665b;font:600 10.5px/1.2 "DM Sans",sans-serif}
 .mv-day-card-footer>strong{color:#d46027;font:600 20px/1.1 "Oswald",sans-serif;white-space:nowrap}
 .mv-day-calculation{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr) minmax(190px,.9fr);align-items:center;gap:16px;margin:13px 0 0;padding:12px 15px;border:1px solid #ebd4c0;border-radius:12px;background:#fff}
-.mv-day-calculation-fixed .mv-day-result{min-width:0}
+.mv-day-calculation-fixed .mv-day-result{min-width:0;padding:11px 13px;border:1px solid #f1cbb5;border-radius:10px;background:#fff1e8}
 .mv-day-total{display:flex;align-items:center;justify-content:space-between;gap:10px;min-width:0}
 .mv-day-total>span{color:#58544e;font:600 11px/1.3 "DM Sans",sans-serif}
 .mv-day-total small{color:#91877d;font:500 9px/1.3 "DM Sans",sans-serif}
@@ -177,6 +177,7 @@ body.mv-body{margin:0;background:#fff;color:var(--mv-ink);font-family:"DM Sans",
  .mv-day-card:last-child{grid-column:1/-1}
  .mv-day-calculation{grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
  .mv-day-result{grid-column:1/-1;border-left:0;border-top:2px solid #e6b997;padding:10px 0 0}
+ .mv-day-calculation-fixed .mv-day-result{padding:11px 13px;border:1px solid #f1cbb5}
  .mv-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
  .mv-card-body{min-height:260px;padding:14px 15px}
  .mv-experience-list li{font-size:10.7px}
