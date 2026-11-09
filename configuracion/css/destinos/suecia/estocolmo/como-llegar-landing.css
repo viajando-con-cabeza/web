@@ -24,7 +24,7 @@ main.cl-page.cl-landing {
   max-width:none;
   min-height:0;
   margin:0;
-  padding:59px max(22px,calc((100vw - 1600px)/2 + 32px)) 28px;
+  padding:53px max(22px,calc((100vw - 1600px)/2 + 32px)) 14px;
   border:0;
   border-radius:0;
   background:linear-gradient(90deg,rgba(250,247,242,.97),rgba(250,247,242,.91) 26%,rgba(250,247,242,.72) 53%,rgba(250,247,242,.26)),url("/configuracion/imagenes/fondos/fondos-como-llegar.webp") center/cover no-repeat;
@@ -161,8 +161,12 @@ main.cl-page.cl-landing {
 .cl-page.cl-landing .cl-landing-recommendation {
   display:flex;align-items:center;justify-content:flex-start;
   gap:18px;width:min(780px,100%);
-  min-height:100px;margin:26px auto 8px;padding:15px 22px;
+  min-height:100px;margin:0 auto;padding:15px 22px;
   background:#fff;border:1px solid #e8dacf;border-radius:18px;
+}
+.cl-page.cl-landing .cl-post-hero-advice {
+  padding:18px 20px 4px;
+  background:#faf7f2;
 }
 .cl-page.cl-landing .cl-advice-brand {
   display:flex;flex-direction:column;align-items:center;justify-content:center;
@@ -281,6 +285,7 @@ main.cl-page.cl-landing {
   }
   .cl-page.cl-landing .cl-landing-intro h1 {font-size:clamp(38px,9vw,51px)}
   .cl-page.cl-landing .cl-landing-kicker {font-size:26px}
+  .cl-page.cl-landing .cl-post-hero-advice {padding:14px 15px 2px}
   .cl-page.cl-landing .cl-transport-group {padding:9px 9px 12px}
   .cl-page.cl-landing .cl-illustration.cl-artwork {height:55px;min-height:55px}
   .cl-page.cl-landing .cl-transport-photo {width:46px;height:46px}
@@ -361,7 +366,7 @@ main.cl-page.cl-landing {
   color:#b85f3e;
   border-bottom-color:#cf7051;
 }
-#comparar-aeropuertos, #recomendacion-transporte, #seguir-planificando {
+#comparar-aeropuertos, #recomendacion-transporte {
   scroll-margin-top:102px;
 }
 @media(max-width:720px) {
@@ -370,5 +375,5 @@ main.cl-page.cl-landing {
     width:calc(100% - 30px);gap:22px;height:39px;min-height:39px;
   }
   .cl-page.cl-landing .vcc-como-llegar-subnav a {height:39px;font-size:10.5px}
-  #comparar-aeropuertos, #recomendacion-transporte, #seguir-planificando {scroll-margin-top:54px}
+  #comparar-aeropuertos, #recomendacion-transporte {scroll-margin-top:54px}
 }
