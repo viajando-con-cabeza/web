@@ -95,7 +95,7 @@ function labelKey(id){return String(state.month)+":"+id;}
 
 /* Recomendación orientativa de equipaje, sin asumir que las franquicias son iguales. */
 const bagOptions={
- personal:{title:"Bolso o mochila personal",location:"Debajo del asiento"},
+ personal:{title:"Bolso o mochila de mano",location:"Debajo del asiento"},
  cabin:{title:"Maleta de cabina",location:"Compartimento superior"},
  checked:{title:"Maleta facturada",location:"Bodega del avión"}
 };
