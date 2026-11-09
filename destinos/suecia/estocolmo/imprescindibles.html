@@ -279,6 +279,27 @@ html body .imp-page .imp-main .place.place--no-media .advice p {
 </div>
 </section>
 <nav class="place-nav-wrap" aria-label="Índice de lugares"><div class="place-nav-shell"><button id="navPrev" class="place-nav-arrow" aria-label="Desplazar a la izquierda">‹</button><div class="place-nav" id="placeNav"></div><button id="navNext" class="place-nav-arrow" aria-label="Desplazar a la derecha">›</button></div></nav>
+<section class="imp-map-section" id="mapa-imprescindibles" aria-labelledby="imp-map-title">
+  <header class="imp-map-heading">
+    <span class="imp-map-kicker">Todo de un vistazo</span>
+    <h2 id="imp-map-title">LOS 15 IMPRESCINDIBLES EN EL MAPA</h2>
+    <p>Visualiza las zonas, localiza cada lugar y pulsa su nombre para orientarte. Desde cada punto puedes abrir la ficha con nuestros consejos.</p>
+  </header>
+  <div class="imp-map-layout">
+    <div id="imp-all-map" role="region" aria-label="Mapa de los 15 imprescindibles de Estocolmo" tabindex="0">
+      <p class="imp-map-unavailable">Cargando mapa interactivo…</p>
+    </div>
+    <nav class="imp-map-index" id="imp-map-index" aria-label="Selecciona uno de los 15 lugares en el mapa"></nav>
+  </div>
+  <div class="imp-map-footer">
+    <p>Para barrios, metro y ferris usamos puntos de referencia orientativos.</p>
+    <div class="imp-map-cta">
+      <button type="button" id="imp-export-pdf">EXPORTAR A PDF ↓</button>
+      <span class="imp-export-status" id="imp-export-status" role="status" aria-live="polite"></span>
+    </div>
+  </div>
+</section>
+
 <div class="imp-price-key">Coste orientativo por adulto: Gratis o €–€€€ (de menor a mayor). Las entradas pueden cambiar según la temporada; no son importes exactos.</div>
 <div class="imp-places-intro" aria-label="Guía de los 15 lugares">
   <div><span>LA SELECCIÓN VCC</span><strong>LOS 15 LUGARES, UNO A UNO</strong></div>
@@ -301,26 +322,6 @@ html body .imp-page .imp-main .place.place--no-media .advice p {
 <section class="place place--no-media" id="kungstradgarden" data-ssr-place="1"><header class="place-heading"><div class="place-heading-line"><div class="place-heading-label"><span class="place-number">14</span><h2>KUNGSTRÄDGÅRDEN</h2></div></div></header><div class="place-copy"><p class="place-kicker">Una pausa en pleno centro</p><p>Este parque céntrico es un lugar para descansar entre visitas, pasear y observar el ambiente de Estocolmo.</p><p class="imp-static-summary">Parque urbano · Norrmalm · 30–60 min · Valoración VCC 3/5</p><div class="advice"><img class="vcc-advice-logo" src="/configuracion/imagenes/marca/logo-vcc.svg" width="46" height="46" alt="" loading="lazy"><div><b>CONSEJO VCC</b><p>Aprovéchalo como pausa entre visitas por Norrmalm, no como un desplazamiento exclusivo. Su ambiente cambia con las estaciones, así que encájalo según el tiempo que haga.</p></div></div><a class="imp-static-map-link" href="https://www.google.com/maps/search/?api=1&amp;query=Kungstr%C3%A4dg%C3%A5rden%20Stockholm" target="_blank" rel="noopener noreferrer">Ver en Google Maps</a></div></section>
 <section class="place place--no-media" id="stromkajen" data-ssr-place="1"><header class="place-heading"><div class="place-heading-line"><div class="place-heading-label"><span class="place-number">15</span><h2>STRÖMKAJEN</h2></div></div></header><div class="place-copy"><p class="place-kicker">La ciudad empieza en sus muelles</p><p>El paseo junto a los muelles de Strömkajen permite observar el centro desde el agua y enlazar distintos puntos de interés caminando.</p><p class="imp-static-summary">Paseo junto al agua · Centro · 30–60 min · Valoración VCC 3/5</p><div class="advice"><img class="vcc-advice-logo" src="/configuracion/imagenes/marca/logo-vcc.svg" width="46" height="46" alt="" loading="lazy"><div><b>CONSEJO VCC</b><p>Es un buen tramo para caminar junto al agua y ver la actividad de los muelles. Si quieres subir a un barco, comprueba antes qué línea sale de cada embarcadero.</p></div></div><a class="imp-static-map-link" href="https://www.google.com/maps/search/?api=1&amp;query=Str%C3%B6mkajen%20Stockholm" target="_blank" rel="noopener noreferrer">Ver en Google Maps</a></div></section>
 </main>
-<section class="imp-map-section" id="mapa-imprescindibles" aria-labelledby="imp-map-title">
-  <header class="imp-map-heading">
-    <span class="imp-map-kicker">Todo de un vistazo</span>
-    <h2 id="imp-map-title">LOS 15 IMPRESCINDIBLES EN EL MAPA</h2>
-    <p>Visualiza las zonas, localiza cada lugar y pulsa su nombre para orientarte. Desde cada punto puedes abrir la ficha con nuestros consejos.</p>
-  </header>
-  <div class="imp-map-layout">
-    <div id="imp-all-map" role="region" aria-label="Mapa de los 15 imprescindibles de Estocolmo" tabindex="0">
-      <p class="imp-map-unavailable">Cargando mapa interactivo…</p>
-    </div>
-    <nav class="imp-map-index" id="imp-map-index" aria-label="Selecciona uno de los 15 lugares en el mapa"></nav>
-  </div>
-  <div class="imp-map-footer">
-    <p>Para barrios, metro y ferris usamos puntos de referencia orientativos.</p>
-    <div class="imp-map-cta">
-      <button type="button" id="imp-export-pdf">EXPORTAR A PDF ↓</button>
-      <span class="imp-export-status" id="imp-export-status" role="status" aria-live="polite"></span>
-    </div>
-  </div>
-</section>
 <section class="related-section" aria-labelledby="imp-related-title">
   <div class="related-inner">
     <div class="related-head"><p>Continúa planificando</p><h2 id="imp-related-title">SIGUE DESCUBRIENDO ESTOCOLMO</h2><span>Todo lo que necesitas para seguir preparando tu viaje</span></div>
@@ -398,7 +399,7 @@ const renderRating=p=>{
   return `<span class="vcc-rating-fact"><button type="button" class="vcc-rating-trigger" aria-label="Puntuación VCC: ${p[7]} de 5. Ver si merece la pena" aria-describedby="${tipId}" aria-expanded="false">${rating(p[7])}<span class="vcc-rating-label">Puntuación VCC</span></button><span id="${tipId}" class="vcc-rating-tooltip" role="tooltip"><strong>¿Merece la pena?</strong>${esc(comment)}</span></span>`;
 };
 const nav=document.getElementById('placeNav');
-nav.innerHTML=data.map((p,i)=>`<a href="#${p[0]}" class="${i===0?'active':''}">${esc(p[1])}</a>`).join('')+'<a href="#mapa-imprescindibles">Mapa</a>';
+nav.innerHTML='<a href="#mapa-imprescindibles" class="active">Mapa</a>'+data.map(p=>`<a href="#${p[0]}">${esc(p[1])}</a>`).join('');
 const main=document.getElementById('places');
 
 main.innerHTML=data.map((p,i)=>{const imgs=p[0]==='ferry'?FERRY_PHOTOS:R2_PHOTOS.slice(0,Math.min(i+1,R2_PHOTOS.length));const maps=`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(p[1]+' Stockholm')}`;return `<section class="place${p[0]==='gamla-stan'?' place--no-media':''}" id="${p[0]}"><header class="place-heading"><div class="place-heading-line"><div class="place-heading-label"><span class="place-number">${String(i+1).padStart(2,"0")}</span><h2>${esc(p[1]).toUpperCase()}</h2></div></div></header>${p[0]==='gamla-stan' ? '' : `<div class="gallery" data-count="${imgs.length}"><div class="gallery-main" data-images='${JSON.stringify(imgs)}'></div></div>`}<div class="place-copy"><div class="place-kicker">${esc(p[3])}</div><p>${esc(p[4])}</p><div class="facts"><span><b class="ico">◆</b>${esc(p[2])}</span><span><b class="ico">●</b>${esc(p[5])}</span><span><b class="ico">◷</b>${esc(p[6])}</span>${renderRating(p)}<span class="fact-map"><b class="ico">⌖</b><a target="_blank" rel="noopener noreferrer" href="${maps}" aria-label="Abrir ${esc(p[1])} en Google Maps">Google Maps</a></span>${renderCost(p)}</div><div class="advice"><img class="vcc-advice-logo" src="/configuracion/imagenes/marca/logo-vcc.svg" width="46" height="46" alt="Logo oficial VCC" loading="lazy"><div><b>CONSEJO VCC</b><p>${esc(p[9])}</p></div></div></div></section>`}).join('');
