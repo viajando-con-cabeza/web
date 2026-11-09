@@ -6,6 +6,11 @@
    const status=document.getElementById("ep-v2-download-status");
    if(!btn)return;
    btn.addEventListener("click",()=>{
+     if(window.VCCEntradasPlanner&&typeof window.VCCEntradasPlanner.download==="function"){
+       const ok=window.VCCEntradasPlanner.download();
+       if(status)status.textContent=ok?"Checklist personalizada descargada con tus entradas seleccionadas.":"Prueba el botón «COPIAR MI LISTA» del planificador.";
+       return;
+     }
      const lines=[
        "VIAJANDO CON CABEZA · ESTOCOLMO",
        "CHECKLIST DE ENTRADAS Y RESERVAS",
