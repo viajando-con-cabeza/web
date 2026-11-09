@@ -365,3 +365,12 @@ html body .ep-page section.ep-hero[data-vcc-hero].vcc-subheader-hero.vcc-standar
 @media(prefers-reduced-motion:reduce){
  .ep-page .ep3-our-grid{scroll-behavior:auto}
 }
+
+/* VCC · criteri editorial sobre passes: visible, curt i sense preus caducables */
+.ep-page .ep3-pass-note{grid-template-columns:38px minmax(0,1fr) auto;gap:12px;align-items:center;padding:15px 17px;border-color:#e5d6c9;background:#fffdf9}
+.ep-page .ep3-pass-verdict{display:block;margin:0 0 4px;color:#a95639;font:800 10px/1.3 "DM Sans",sans-serif;letter-spacing:.035em}
+.ep-page .ep3-pass-note h3{font-size:20px;margin:0 0 6px}
+.ep-page .ep3-pass-note p{max-width:840px;font-size:11.7px;line-height:1.55}
+.ep-page .ep3-pass-note p strong{font-weight:800;color:#312a25}
+@media(max-width:760px){.ep-page .ep3-pass-note{grid-template-columns:30px minmax(0,1fr);gap:9px;padding:13px}.ep-page .ep3-pass-note>a{grid-column:2;justify-self:start}.ep-page .ep3-pass-note h3{font-size:18px}}
+@media(max-width:520px){.ep-page .ep3-pass-note>.ep-icon{width:24px;height:24px}.ep-page .ep3-pass-note p{font-size:11px}.ep-page .ep3-pass-verdict{font-size:9px}}
