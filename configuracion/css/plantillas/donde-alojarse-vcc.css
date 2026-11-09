@@ -1255,3 +1255,25 @@ body.dv-page{
  }
  .dv-page .dv-trust-global-grid .dv-trust-point-heading strong{font-size:10px}
 }
+
+
+/* VCC: títulos iguales y alineados en las dos columnas del análisis */
+.dv-page .dv-zone-review-head{
+ align-items:flex-start;
+}
+.dv-page .dv-zone-review-head h4,
+.dv-page .dv-zone-hotels > h4{
+ margin:0;
+ padding:0;
+ font:600 19px/1.15 'Oswald',sans-serif;
+ text-transform:uppercase;
+ letter-spacing:0;
+ color:#202020;
+}
+@media(max-width:600px){
+ .dv-page .dv-zone-review-head h4,
+ .dv-page .dv-zone-hotels > h4{
+  font-size:18px;
+  line-height:1.15;
+ }
+}
