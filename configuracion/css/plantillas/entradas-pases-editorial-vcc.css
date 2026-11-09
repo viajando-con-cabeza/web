@@ -253,3 +253,24 @@
 .ep-page .ep4-medal.bronze{background:radial-gradient(circle at 28% 18%,#ffdfb5 0%,#cf8955 53%,#97552d 100%)}
 @media(max-width:900px){.ep-page .ep4-our-list .ep4-day-card{flex-basis:calc((100% - 12px)/2);width:calc((100% - 12px)/2)}}
 @media(max-width:600px){.ep-page .ep4-our-list .ep4-day-card{flex-basis:88%;width:88%}.ep-page .ep4-our-controls{margin-top:7px}.ep-page .ep4-our .ep4-heading h2,.ep-page .ep4-decision-heading .ep4-heading h2{font-size:28px}}
+
+/* VCC 2026-11-09: align Consejo VCC precisely with table, note sits below table only. */
+.ep-page .ep4-decision-layout{display:grid;grid-template-columns:minmax(0,1.68fr) minmax(272px,.78fr);grid-template-rows:auto auto;column-gap:19px;row-gap:9px;align-items:start}
+.ep-page .ep4-decision-layout .ep4-decision-left{grid-column:1;grid-row:1;min-height:0;display:block}
+.ep-page .ep4-decision-layout .ep4-pass{grid-column:2;grid-row:1;height:100%;min-height:0;box-sizing:border-box;align-self:stretch;padding:16px 18px 13px}
+.ep-page .ep4-decision-layout>.ep4-price-note{grid-column:1;grid-row:2;margin:0;align-self:start}
+.ep-page .ep4-pass-brand{margin-bottom:9px}
+.ep-page .ep4-pass h2{margin:3px 0 7px;font-size:clamp(24px,2.1vw,30px)}
+.ep-page .ep4-pass-highlight{margin:9px 0 10px;padding-top:10px;padding-bottom:10px}
+.ep-page .ep4-pass-highlight::before{top:10px}
+.ep-page .ep4-pass-link{padding:10px 12px;min-height:38px}
+.ep-page .ep4-pass-extra{margin-top:6px!important}
+/* Place carousel navigation on opposite edges of the card strip. */
+.ep-page .ep4-our-carousel{position:relative;padding:0 13px}
+.ep-page .ep4-our-hint{display:block;margin:0 0 8px}
+.ep-page .ep4-our-arrow{position:absolute;top:calc(50% + 10px);z-index:3;width:34px;height:34px;transform:translateY(-50%);background:#fff;box-shadow:0 3px 12px #31201120;border-color:#e8d5c5}
+.ep-page .ep4-our-arrow-prev{left:-5px}
+.ep-page .ep4-our-arrow-next{right:-5px}
+.ep-page .ep4-our-arrow:disabled{opacity:.52}
+@media(max-width:1130px) and (min-width:901px){.ep-page .ep4-decision-layout{grid-template-columns:minmax(0,1.5fr) minmax(250px,.85fr);column-gap:14px}}
+@media(max-width:900px){.ep-page .ep4-decision-layout{grid-template-columns:minmax(0,1fr);grid-template-rows:auto;gap:14px}.ep-page .ep4-decision-layout .ep4-decision-left{grid-column:1;grid-row:1}.ep-page .ep4-decision-layout>.ep4-price-note{grid-column:1;grid-row:2}.ep-page .ep4-decision-layout .ep4-pass{grid-column:1;grid-row:3;height:auto}}
