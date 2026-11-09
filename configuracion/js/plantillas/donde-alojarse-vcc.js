@@ -53,6 +53,69 @@
     requestAnimationFrame(sync);
   }
 
+
+  // Al pulsar un barrio, mostrar exclusivamente su ficha ampliada bajo el carrusel.
+  // Los siete paneles son HTML estático para que los buscadores puedan leer su contenido.
+  const zoneDetails=root.querySelector('[data-dv-zone-details]');
+  const zonePanels=Array.from(root.querySelectorAll('[data-dv-zone-panel]'));
+  if(zoneDetails&&zonePanels.length===cards.length){
+    let activeZone=null;
+    const reduceMotion=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const showZone=(id)=>{
+      const nextId=activeZone===id?null:id;
+      activeZone=nextId;
+      zoneDetails.hidden=!nextId;
+      zonePanels.forEach(panel=>{
+        panel.hidden=panel.dataset.dvZonePanel!==nextId;
+      });
+      cards.forEach(card=>{
+        card.setAttribute('aria-expanded',String(card.dataset.dvCard===nextId));
+      });
+      if(nextId){
+        requestAnimationFrame(()=>{
+          const rect=zoneDetails.getBoundingClientRect();
+          if(rect.top>window.innerHeight-110){
+            zoneDetails.scrollIntoView({behavior:reduceMotion?'auto':'smooth',block:'nearest'});
+          }
+        });
+      }
+    };
+    cards.forEach(card=>{
+      const id=card.dataset.dvCard;
+      const panel=zonePanels.find(el=>el.dataset.dvZonePanel===id);
+      if(!panel)return;
+      card.setAttribute('role','button');
+      card.setAttribute('tabindex','0');
+      card.setAttribute('aria-controls',panel.id);
+      card.setAttribute('aria-expanded','false');
+      let pointerStart=null;
+      card.addEventListener('pointerdown',e=>{pointerStart={x:e.clientX,y:e.clientY};});
+      card.addEventListener('pointercancel',()=>{pointerStart=null;});
+      card.addEventListener('click',e=>{
+        if(pointerStart){
+          const moved=Math.hypot(e.clientX-pointerStart.x,e.clientY-pointerStart.y)>10;
+          pointerStart=null;
+          if(moved)return; // No abrir tras arrastrar el carrusel.
+        }
+        showZone(id);
+      });
+      card.addEventListener('keydown',e=>{
+        if(e.key==='Enter'||e.key===' '){
+          e.preventDefault();
+          showZone(id);
+        }
+      });
+    });
+    zoneDetails.querySelectorAll('[data-dv-zone-close]').forEach(button=>{
+      button.addEventListener('click',()=>{
+        const id=activeZone;
+        showZone(id);
+        const matching=cards.find(card=>card.dataset.dvCard===id);
+        matching?.focus({preventScroll:true});
+      });
+    });
+  }
+
   // Carrusel reutilizable de vinyetes editorials, amb fletxes i lliscament tàctil.
   const tipsScroller=root.querySelector('[data-dv-tip-scroller]');
   const tipsPrev=root.querySelector('[data-dv-tip-prev]');
