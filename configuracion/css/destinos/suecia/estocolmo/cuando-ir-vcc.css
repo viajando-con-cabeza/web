@@ -838,3 +838,14 @@ html body.ci-page .ci-august-bottom{display:block}
 html body.ci-page .ci-august-bottom a{display:inline-block;margin-top:9px}
 }
 @media(prefers-reduced-motion:reduce){html body.ci-page .ci-tips-track{scroll-behavior:auto!important}}
+
+/* Indicador discreto de desplazamiento horizontal solo en móvil */
+html body.ci-page .ci-calendar-hint{display:none}
+@media(max-width:700px){
+  html body.ci-page .ci-calendar-hint{
+    display:flex;align-items:center;justify-content:center;gap:9px;
+    font:700 10px/1.5 'DM Sans',sans-serif;color:#a65b3a;
+    margin:6px auto 0;
+  }
+  html body.ci-page .ci-calendar-hint>span:last-child{font-size:18px;line-height:1}
+}
