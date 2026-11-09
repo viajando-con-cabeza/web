@@ -95,10 +95,10 @@ body.mv-body .vcc-discover-section{background:var(--mv-cream)}
 .mv-day-example{margin-top:18px}
 .mv-day-example-head{display:flex;align-items:end;justify-content:space-between;gap:14px;margin-bottom:10px}
 .mv-day-example-head h3{font-size:24px}
-.mv-day-showcase{display:grid;grid-template-columns:minmax(0,3.15fr) minmax(250px,1.18fr);align-items:start;gap:11px}
-.mv-day-route{min-width:0;position:relative;display:flex;flex-direction:column;align-self:start}
-.mv-day-cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;align-items:stretch;flex:none;min-width:0}
-.mv-day-card{padding:10px 11px 9px;min-height:173px;border-color:#e4d7cb}
+.mv-day-showcase{display:grid;grid-template-columns:minmax(0,3.15fr) minmax(250px,1.18fr);align-items:stretch;gap:11px}
+.mv-day-route{min-width:0;position:relative;display:flex;flex-direction:column;align-self:stretch}
+.mv-day-cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;align-items:stretch;flex:1;min-width:0}
+.mv-day-card{padding:13px 11px 11px;min-height:217px;border-color:#e4d7cb}
 .mv-day-card-heading{grid-template-columns:27px minmax(0,1fr);gap:6px;margin-bottom:6px}
 .mv-day-card-icon{width:27px;height:34px}
 .mv-day-card-icon svg{width:26px;height:26px}
@@ -121,8 +121,8 @@ body.mv-body .vcc-discover-section{background:var(--mv-cream)}
 .mv-day-route.is-carousel .mv-day-cards::-webkit-scrollbar{display:none}
 .mv-day-route.is-carousel .mv-day-card{flex:0 0 calc((100% - 20px)/3);scroll-snap-align:start}
 /* Consejo VCC corporatiu: blanc, logo encerclat i etiqueta sota el logo */
-.mv-day-advice{display:block;min-width:0;align-self:start;min-height:0;overflow:hidden;border:1px solid #e4a57b;border-radius:13px;background:#fff}
-.mv-day-advice-content{display:flex;flex-direction:column;gap:10px;padding:11px 12px}
+.mv-day-advice{display:flex;flex-direction:column;min-width:0;align-self:stretch;min-height:0;overflow:hidden;border:1px solid #e4a57b;border-radius:13px;background:#fff}
+.mv-day-advice-content{display:flex;flex:1;flex-direction:column;gap:10px;padding:11px 12px}
 .mv-day-advice-intro{display:grid;grid-template-columns:70px minmax(0,1fr);gap:12px;align-items:center}
 .mv-day-advice-brand{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;min-width:0}
 .mv-day-advice-seal{display:grid;place-items:center;flex:0 0 auto;width:48px;height:48px;padding:3px;border:1.5px solid #e97a39;border-radius:50%;background:#fff}
@@ -137,7 +137,7 @@ body.mv-body .vcc-discover-section{background:var(--mv-cream)}
 .mv-advice-comparison>div>strong{color:#29332e;font:600 22px/1.1 "Oswald",sans-serif;white-space:nowrap}
 .mv-advice-comparison>div:last-child{align-items:flex-end;text-align:right}
 .mv-advice-vs{color:#a78775;font:800 9px/1 "DM Sans",sans-serif}
-.mv-advice-saving{display:flex;align-items:baseline;justify-content:center;gap:6px;flex-wrap:wrap;padding:8px 9px;border:1px solid #d9e9d4;border-radius:9px;background:#f5fbf3;color:#19813a}
+.mv-advice-saving{display:flex;align-items:baseline;justify-content:center;gap:6px;flex-wrap:wrap;margin-top:auto;padding:8px 9px;border:1px solid #d9e9d4;border-radius:9px;background:#f5fbf3;color:#19813a}
 .mv-advice-saving>span{font:700 10px/1 "DM Sans",sans-serif}
 .mv-advice-saving>strong{font:600 25px/1 "Oswald",sans-serif}
 .mv-advice-saving>small{font:500 9.6px/1 "DM Sans",sans-serif}
@@ -209,7 +209,10 @@ body.mv-body .vcc-discover-section{background:var(--mv-cream)}
 .mv-profile-bottom>span{font:800 9px/1.2 "DM Sans",sans-serif;letter-spacing:.055em}
 .mv-profile-bottom>strong{color:#a34f3a;font:800 16px/1.25 "DM Sans",sans-serif;white-space:nowrap}
 .mv-profile-bottom small{color:#7b7068;font:600 10px/1.3 "DM Sans",sans-serif}
-.mv-profile-pricing-note{margin:12px 1px 0;padding:10px 0 0;border-top:1px solid #e7d9cd;color:#786a61;font:400 11px/1.65 "DM Sans",sans-serif}
+.mv-profile-pricing-note{display:flex;align-items:flex-start;gap:16px;margin:13px 1px 0;padding:11px 0 0;border-top:1px solid #e7d9cd;color:#786a61;font:400 11px/1.6 "DM Sans",sans-serif}
+.mv-profile-pricing-note>strong{flex:0 0 auto;color:#a25d3b;font:600 15px/1.3 "Oswald",sans-serif;white-space:nowrap}
+.mv-profile-pricing-note>span{min-width:0;flex:1}
+.mv-profile-pricing-note b{color:#514941;font-weight:700}
 .mv-profile-pricing-note a{color:#a65b43;text-decoration:underline;text-underline-offset:2px}
 /* Consells horitzontals: 3 visibles, sense punts de llista */
 .mv-seo{margin:0 0 38px}
@@ -243,6 +246,13 @@ body.mv-body .vcc-discover-section{background:var(--mv-cream)}
  .mv-profile-vcc{padding:13px 11px}
 }
 @media(max-width:1050px){
+ .mv-profile-pricing-note{gap:10px;flex-wrap:wrap}
+ .mv-profile-pricing-note>strong{white-space:normal}
+ .mv-day-showcase{align-items:start}
+ .mv-day-route{align-self:start}
+ .mv-day-cards{flex:none}
+ .mv-day-card{min-height:0}
+ .mv-day-advice{align-self:start}
  .mv-hero,.mv-hero>.mv-container{min-height:435px}
  .mv-crumb{margin-bottom:28px}
  .mv-pay-guide{grid-template-columns:minmax(155px,.62fr) minmax(0,1.38fr);gap:13px}
@@ -262,6 +272,10 @@ body.mv-body .vcc-discover-section{background:var(--mv-cream)}
  .mv-saving-card{flex-basis:calc((100% - 13px)/2)}
 }
 @media(max-width:690px){
+ .mv-profile-pricing-note{display:block;line-height:1.55}
+ .mv-profile-pricing-note>strong{display:block;margin-bottom:5px}
+ .mv-day-showcase{align-items:stretch}
+ .mv-day-advice{align-self:stretch}
  .mv-container{width:calc(100% - 28px)}
  .mv-hero,.mv-hero>.mv-container{min-height:390px}
  .mv-hero{background-position:64% 43%}
