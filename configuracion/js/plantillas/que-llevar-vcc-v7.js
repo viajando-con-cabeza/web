@@ -152,6 +152,39 @@ function updateBagAdvice(){
   if(badge)badge.hidden=!selected;
  });
 }
+/* Consejo VCC: útiles decisiones de equipaje según temperaturas y precipitación del mes.
+   Son medias climatológicas, no recomendaciones basadas en una previsión puntual. */
+const packingAdviceByMonth=[
+ "Con mínimas bajo cero, priorizaríamos camiseta térmica, abrigo cortavientos y botas con buena suela.",
+ "Para los días fríos elegiríamos ropa térmica, guantes, gorro y calzado resistente al agua, sin llenar la maleta de jerséis gruesos.",
+ "Aunque se acerque la primavera, aún llevaríamos abrigo, una capa térmica fina y zapatos que resistan la humedad.",
+ "Para mañanas frescas y tardes variables, combinaríamos camiseta, jersey y chaqueta impermeable que puedas quitarte fácilmente.",
+ "Con temperaturas suaves y mañanas frescas, llevaríamos capas ligeras y un cortavientos, especialmente si visitas el archipiélago.",
+ "En los días más templados usaríamos ropa transpirable y zapatillas cómodas, pero guardaríamos una capa fina para la noche y el ferry.",
+ "Priorizaríamos ropa ligera, calzado cómodo y una sudadera fina para la tarde: no hace falta cargar abrigos gruesos.",
+ "Llevaríamos camisetas ligeras y calzado cómodo, pero también un cortavientos para los cambios de tiempo.",
+ "Para el contraste entre el día y la noche, combinaríamos prendas ligeras, jersey y una chaqueta exterior.",
+ "Con el ambiente fresco, optaríamos por pantalón largo, jersey, una chaqueta impermeable y calzado resistente al agua.",
+ "Prepararíamos ya capas casi invernales: jersey, abrigo cálido y accesorios finos, fáciles de quitar en interiores.",
+ "Con frío y posibles heladas, priorizaríamos abrigo, gorro, guantes y calzado impermeable con buen agarre."
+];
+function updatePackingAdvice(month){
+ const wetDays=monthlyPrecipitationDays[state.month];
+ const coldRisk=month.lo<=0||month.hi<=5;
+ const rainGuidance=coldRisk
+  ?"Si hay nieve, lluvia o hielo, una suela con agarre y una capa exterior impermeable serán tus mejores aliados."
+  :wetDays>=15
+   ?"Como puede haber bastantes días de lluvia, llevaríamos una capa exterior impermeable que ocupe poco."
+   :wetDays>=12
+    ?"Aunque sea una época agradable, guardaríamos un impermeable plegable por si llueve."
+    :"No olvidaría una chaqueta ligera resistente al agua, aunque los días de lluvia sean menos frecuentes.";
+ const extra=state.days>7&&!state.laundry
+  ?" Si viajas tantos días, planifica lavar ropa en vez de multiplicar las mudas."
+  :state.days>5&&state.laundry
+   ?" Como podrás lavar ropa, bastan menos cambios y puedes repetir las capas exteriores."
+   :"";
+ $("ql-v10-packing-tip").textContent=packingAdviceByMonth[state.month]+" "+rainGuidance+extra;
+}
 function render(resetListScroll=false){
  const m=byId(state.month);const groups=buildItems();
  updateBagAdvice();
@@ -166,6 +199,7 @@ function render(resetListScroll=false){
  $("ql-v8-temp-low").textContent=low+" °C";
  $("ql-v8-temp-high").textContent=high+" °C";
  $("ql-v8-rain-days").textContent="≈"+Math.round(monthlyPrecipitationDays[state.month])+" días/mes";
+ updatePackingAdvice(m);
  $("ql-v6-summary-title").textContent="Tu lista para "+m.name+" · "+state.days+(state.days===1?" día":" días");
  $("ql-v6-caveat").textContent=state.days>10&&!state.laundry?
   "Para viajes de más de 10 días, esta lista limita las mudas a 10 días: te recomendamos planificar una colada para evitar llevar "+state.days+" cambios.":
