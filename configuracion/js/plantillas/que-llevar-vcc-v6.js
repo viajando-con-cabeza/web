@@ -153,8 +153,8 @@ function notify(text){
 function syncPanelHeights(){
  const left=root.querySelector(".ql-v6-controls");
  if(!left)return;
- const height=Math.ceil(left.getBoundingClientRect().height);
- if(height>0)root.style.setProperty("--ql-v6-equal-height",height+"px");
+ const height=left.getBoundingClientRect().height;
+ if(height>0)root.style.setProperty("--ql-v6-equal-height",height.toFixed(2)+"px");
  updateScrollArrows();
 }
 function updateScrollArrows(){
