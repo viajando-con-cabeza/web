@@ -212,25 +212,7 @@ body.dv-page{
  width:16px;height:16px;flex:0 0 16px;fill:none;stroke:#305158;
  stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round;
 }
-.dv-page .dv-meta-price strong{white-space:nowrap} /* hereta exactament font, mida i color del temps fins al centre */
-.dv-page .dv-note{font-size:10px;line-height:1.5;color:#82786e;margin-top:3px}
-/* White VCC recommendation between carousel and map. */
-.dv-page .dv-advice{
- display:flex;align-items:center;gap:19px;
- background:#fff!important;border:1px solid var(--dv-line);
- border-radius:12px;padding:15px 19px;box-shadow:0 3px 13px #4435280a;
-}
-.dv-page .dv-advice-between{margin:9px 0 31px}
-.dv-page .dv-advice-head{
- display:flex;align-items:center;gap:11px;flex:0 0 auto;
- padding-right:20px;border-right:1px solid #e3dbd4;
-}
-.dv-page .dv-advice-head img{width:40px;height:40px;object-fit:contain}
-.dv-page .dv-advice-head strong{
- font:700 24px/1 'Caveat',cursive;color:#b45136;white-space:nowrap;
-}
-.dv-page .dv-advice p{font:400 12px/1.55 'DM Sans',sans-serif}
-.dv-page .dv-advice p b{color:#b45136}
+.dv-page .dv-meta-price strong{white-space:nowrap}/* hereta exactament font, mida i color del temps fins al centre *//* White VCC recommendation between carousel and map. */
 /* Map: compact and centered as requested. */
 .dv-page .dv-map-header{margin:16px 0 14px}
 .dv-page .dv-map-frame{
@@ -240,14 +222,6 @@ body.dv-page{
  box-shadow:0 4px 14px #392e230b;
 }
 .dv-page .dv-map-frame iframe{display:block;border:0;width:100%;height:425px}
-.dv-page .dv-map-actions{display:flex;justify-content:center;margin-top:13px}
-.dv-page .dv-map-open{
- display:inline-flex;justify-content:center;align-items:center;
- min-height:38px;padding:10px 22px;border-radius:10px;
- background:#2f575b;color:#fff!important;
- font:800 12px/1.2 'DM Sans',sans-serif;
-}
-.dv-page .dv-map-open:hover{background:#b6513b}
 /* Dónde alojarse: mismo carrusel editorial que Cómo ahorrar de Presupuesto. */
 .dv-page #como-ahorrar .dv-savings-heading{
  display:flex;align-items:flex-end;justify-content:space-between;gap:28px;
@@ -379,11 +353,6 @@ body.dv-page{
  .dv-page .dv-tip h3{font-size:18px;margin-bottom:6px}
  .dv-page .dv-tip p{font-size:11px;line-height:1.48}
  .dv-page .dv-tip-number{flex-basis:39px;width:39px;height:39px;font-size:19px}
- .dv-page .dv-advice{display:block;padding:15px}
- .dv-page .dv-advice-head{
-  border-right:0;border-bottom:1px solid #e3dbd4;
-  padding:0 0 11px;margin-bottom:11px;
- }
 }
 @media(max-width:360px){
  .dv-page .dv-card{flex-basis:94%}
@@ -439,68 +408,6 @@ body.dv-page{
  font:600 21px/1.15 'Oswald',sans-serif;text-transform:uppercase;
  color:#202020;margin:0 0 10px;
 }
-.dv-page .dv-zone-intro,.dv-page .dv-zone-hotels-intro{
- font:400 12px/1.55 'DM Sans',sans-serif;
- color:#655e58;margin:0 0 14px;
-}
-.dv-page .dv-zone-assessment-row{
- display:grid;grid-template-columns:142px minmax(0,1fr);gap:19px;
- align-items:stretch;margin-bottom:16px;
-}
-.dv-page .dv-zone-score{
- padding:18px 9px 12px;border-radius:11px;
- background:#fdf3ed;display:flex;align-items:center;
- justify-content:center;flex-direction:column;text-align:center;
-}
-.dv-page .dv-zone-score>span:first-child{
- font:600 15px/1.15 'Oswald',sans-serif;color:#242321;
-}
-.dv-page .dv-zone-score>strong{
- display:block;font:600 36px/1.15 'Oswald',sans-serif;
- color:#c35e43;margin:9px 0 5px;white-space:nowrap;
-}
-.dv-page .dv-zone-score strong small{
- font:500 17px/1 'Oswald',sans-serif;
-}
-.dv-page .dv-zone-score .dv-zone-score-caption{
- font:400 9px/1.35 'DM Sans',sans-serif;color:#7e6d61;
- max-width:115px;
-}
-.dv-page .dv-zone-criteria{display:grid;gap:10px;align-content:center}
-.dv-page .dv-zone-criterion{
- display:grid;grid-template-columns:minmax(128px,1fr) minmax(80px,1fr);
- align-items:center;gap:9px;
-}
-.dv-page .dv-zone-criterion>span{
- font:500 11px/1.3 'DM Sans',sans-serif;
- color:#31302e;
-}
-.dv-page .dv-zone-meter{
- height:6px;background:#e8e8e8;overflow:hidden;border-radius:999px;
-}
-.dv-page .dv-zone-meter i{
- display:block;height:100%;border-radius:inherit;
- background:#cf704e;
-}
-.dv-page .dv-zone-vcc{
- display:flex;align-items:flex-start;gap:12px;
- padding:13px 15px;border-radius:11px;
- border:1px solid #ead9cf;background:#fffaf6;
-}
-.dv-page .dv-zone-vcc img{width:40px;height:40px;object-fit:contain;flex:0 0 40px}
-.dv-page .dv-zone-opinion-icon{
- display:grid;place-items:center;flex:0 0 40px;
- height:40px;border:1px solid #d7aa95;border-radius:50%;
- font:600 16px/1 'Oswald',sans-serif;color:#bd6650;
-}
-.dv-page .dv-zone-vcc>div{min-width:0}
-.dv-page .dv-zone-vcc strong{
- display:block;font:600 14px/1.2 'Oswald',sans-serif;
- color:#26211e;margin:0 0 4px;
-}
-.dv-page .dv-zone-vcc p{
- font:400 11.5px/1.55 'DM Sans',sans-serif;color:#615952;
-}
 .dv-page .dv-zone-hotels-list{display:grid;gap:8px}
 .dv-page .dv-zone-hotel{
  display:flex;gap:10px;align-items:center;min-width:0;
@@ -528,9 +435,6 @@ body.dv-page{
 .dv-page .dv-zone-hotel-loc{
  font:400 10.5px/1.35 'DM Sans',sans-serif;color:#615b55;margin:0 0 3px;
 }
-.dv-page .dv-zone-hotel-desc{
- font:400 10px/1.4 'DM Sans',sans-serif;color:#71685f;margin:0 0 3px;
-}
 .dv-page .dv-zone-hotel-copy small{
  font:400 10px/1.4 'DM Sans',sans-serif;color:#423e3b;
 }
@@ -546,7 +450,6 @@ body.dv-page{
   border-left:0;border-top:1px solid #eaded5;
   padding-left:0;padding-top:20px;
  }
- .dv-page .dv-zone-assessment-row{grid-template-columns:160px minmax(0,1fr)}
  .dv-page .dv-zone-hotel-top strong{font-size:16px}
 }
 @media(max-width:600px){
@@ -556,17 +459,6 @@ body.dv-page{
  .dv-page .dv-zone-heading-title>span{font-size:21px}
  .dv-page .dv-zone-body{padding:16px 13px}
  .dv-page .dv-zone-body h4{font-size:19px}
- .dv-page .dv-zone-intro{font-size:12px}
- .dv-page .dv-zone-assessment-row{grid-template-columns:1fr;gap:12px}
- .dv-page .dv-zone-score{
-  padding:10px;flex-direction:row;gap:11px;justify-content:space-between;
- }
- .dv-page .dv-zone-score>strong{font-size:30px;margin:0}
- .dv-page .dv-zone-score .dv-zone-score-caption{font-size:9px}
- .dv-page .dv-zone-criteria{gap:10px}
- .dv-page .dv-zone-criterion{grid-template-columns:minmax(0,1fr) 100px}
- .dv-page .dv-zone-vcc{padding:11px;gap:10px}
- .dv-page .dv-zone-vcc p{font-size:11px}
  .dv-page .dv-zone-hotel{padding:10px}
  .dv-page .dv-zone-hotel-icon{flex-basis:38px;width:38px;height:48px}
  .dv-page .dv-zone-hotel-top{align-items:flex-start}
@@ -576,45 +468,7 @@ body.dv-page{
 }
 @media(prefers-reduced-motion:reduce){
  .dv-page .dv-zone-details{scroll-behavior:auto}
-}
-
-
-/* Refinamiento VCC: cuatro estilos de hoteles, notas visibles y valoración neutra. */
-.dv-page .dv-zone-score{
- background:#7d7f7f;color:#fff;border:0;
-}
-.dv-page .dv-zone-score>span:first-child{color:#fff}
-.dv-page .dv-zone-score>strong{color:#fff}
-.dv-page .dv-zone-score .dv-zone-score-caption{color:#f5f5f5}
-.dv-page .dv-zone-assessment-row{grid-template-columns:142px minmax(0,1fr);gap:17px;margin-bottom:10px}
-.dv-page .dv-zone-criteria{gap:9px}
-.dv-page .dv-zone-criterion{
- grid-template-columns:minmax(117px,1fr) minmax(65px,1fr) 32px;
- gap:9px;
-}
-.dv-page .dv-zone-criterion>span{font-size:10.5px}
-.dv-page .dv-zone-criterion-score{
- text-align:right;white-space:nowrap;
- font:700 11px/1 'DM Sans',sans-serif;color:#484a4a;
- font-variant-numeric:tabular-nums;
-}
-.dv-page .dv-zone-rating-note{
- font:400 9.5px/1.5 'DM Sans',sans-serif;
- color:#7a736e;margin:3px 0 15px;
-}
-.dv-page .dv-zone-vcc-text{
- display:block;padding:13px 0 0;margin:0;
- border:0;border-top:1px solid #eae3dc;
- border-radius:0;background:transparent;box-shadow:none;
-}
-.dv-page .dv-zone-vcc-text h5{
- margin:0 0 6px;font:600 16px/1.2 'Oswald',sans-serif;
- text-transform:uppercase;color:#272727;
-}
-.dv-page .dv-zone-vcc-text p{
- font:400 12px/1.6 'DM Sans',sans-serif;
- color:#5e5750;margin:0;
-}
+}/* Refinamiento VCC: cuatro estilos de hoteles, notas visibles y valoración neutra. */
 .dv-page .dv-zone-hotel{
  align-items:center;min-height:96px;padding:12px 11px;
 }
@@ -625,19 +479,7 @@ body.dv-page{
  align-items:center;gap:10px;margin-bottom:4px;
 }
 .dv-page .dv-zone-hotel-top strong{font-size:15px}
-.dv-page .dv-zone-hotel-top .dv-hotel-type{
- flex:0 0 auto;padding:4px 7px;
- font:700 9px/1 'DM Sans',sans-serif;
- color:#4c4844;background:#f1efed;border-radius:6px;
-}
-.dv-page .dv-zone-hotel.is-vcc-option .dv-hotel-type{
- color:#ba5942;background:#f9ece6;
-}
 .dv-page .dv-zone-hotel-loc{margin-bottom:9px}
-.dv-page .dv-zone-hotel-bottom{
- display:flex;align-items:center;justify-content:space-between;
- flex-wrap:wrap;gap:7px 12px;
-}
 .dv-page .dv-zone-price{
  color:#333;font:700 12px/1.2 'DM Sans',sans-serif;
  font-variant-numeric:tabular-nums;white-space:nowrap;
@@ -659,23 +501,11 @@ body.dv-page{
 }
 .dv-page .dv-zone-hotels-note strong{color:#4d4642;font-weight:700}
 @media(max-width:1090px){
- .dv-page .dv-zone-assessment-row{grid-template-columns:160px minmax(0,1fr)}
- .dv-page .dv-zone-criterion{grid-template-columns:minmax(0,1fr) minmax(110px,1fr) 33px}
 }
 @media(max-width:600px){
- .dv-page .dv-zone-assessment-row{grid-template-columns:1fr;gap:12px}
- .dv-page .dv-zone-score{padding:10px 12px}
- .dv-page .dv-zone-criterion{grid-template-columns:minmax(0,1fr) 92px 30px;gap:7px}
- .dv-page .dv-zone-criterion>span{font-size:10px}
- .dv-page .dv-zone-criterion-score{font-size:10px}
- .dv-page .dv-zone-rating-note{font-size:9px;margin-bottom:14px}
- .dv-page .dv-zone-vcc-text h5{font-size:15px}
- .dv-page .dv-zone-vcc-text p{font-size:11.5px}
  .dv-page .dv-zone-hotel{padding:10px 9px;gap:9px}
  .dv-page .dv-zone-hotel-top{align-items:flex-start;gap:6px}
  .dv-page .dv-zone-hotel-top strong{font-size:14px}
- .dv-page .dv-zone-hotel-top .dv-hotel-type{font-size:8px}
- .dv-page .dv-zone-hotel-bottom{gap:6px}
  .dv-page .dv-zone-price{font-size:11px}
  .dv-page .dv-zone-price small{display:block;margin:4px 0 0;font-size:9px}
  .dv-page .dv-zone-booking-link{font-size:10px}
@@ -733,10 +563,6 @@ body.dv-page{
  display:block;height:100%;border-radius:99px;
  background:#7f8587;
 }
-.dv-page .dv-zone-review .dv-zone-rating-note{
- margin:13px 0 0;font:400 9.5px/1.45 'DM Sans',sans-serif;
- color:#817b77;
-}
 .dv-page .dv-zone-procon{
  border-top:1px solid #ebe4de;margin-top:17px;padding-top:15px;
 }
@@ -777,14 +603,6 @@ body.dv-page{
  width:4px;height:4px;border-radius:50%;
  background:#a2a09e;
 }
-.dv-page .dv-zone-procon-advice{
- margin:0 0 15px!important;padding:0;
- font:400 11.5px/1.58 'DM Sans',sans-serif;
- color:#57504c;
-}
-.dv-page .dv-zone-procon-advice strong{
- font-weight:700;color:#393331;
-}
 .dv-page .dv-zone-hotel-icon{
  flex:0 0 50px;width:50px;height:50px;
  background:transparent;border:0;box-shadow:none;
@@ -815,7 +633,6 @@ body.dv-page{
  .dv-page .dv-zone-review-grid{gap:13px 14px;margin-top:15px}
  .dv-page .dv-zone-review-label{font-size:9.5px;gap:4px}
  .dv-page .dv-zone-review-label strong{font-size:10px}
- .dv-page .dv-zone-review .dv-zone-rating-note{font-size:9px}
  .dv-page .dv-zone-procon{margin-top:14px;padding-top:13px}
  .dv-page .dv-zone-procon h4{font-size:18px}
  .dv-page .dv-zone-procon-intro{font-size:11px;margin-bottom:13px!important}
@@ -823,7 +640,6 @@ body.dv-page{
  .dv-page .dv-zone-feel h5{font-size:11px;gap:5px}
  .dv-page .dv-zone-feel h5 svg{width:19px;height:19px;flex-basis:19px}
  .dv-page .dv-zone-feel li{font-size:10px;padding-left:10px}
- .dv-page .dv-zone-procon-advice{font-size:11px;margin-bottom:13px!important}
  .dv-page .dv-zone-hotel-icon{flex-basis:42px;width:42px;height:43px;padding:1px}
  .dv-page .dv-zone-hotel-icon img{width:40px;height:40px}
  .dv-page .dv-zone-hotel-icon.is-vcc-logo{padding:4px}
@@ -956,7 +772,6 @@ body.dv-page{
 .dv-page .dv-zone-assessment{padding-right:19px}
 .dv-page .dv-zone-hotels{padding-left:19px}
 .dv-page .dv-zone-body h4{font-size:19px;margin-bottom:8px}
-.dv-page .dv-zone-hotels-intro{margin-bottom:10px;font-size:11.5px}
 .dv-page .dv-zone-hotels-list{gap:6px}
 .dv-page .dv-zone-hotel{
  grid-template-columns:43px minmax(0,1fr) minmax(112px,max-content);
@@ -973,11 +788,9 @@ body.dv-page{
 .dv-page .dv-zone-review-head{padding-bottom:9px}
 .dv-page .dv-zone-review-grid{gap:9px 14px;margin-top:11px}
 .dv-page .dv-zone-review-label{margin-bottom:4px}
-.dv-page .dv-zone-review .dv-zone-rating-note{margin-top:9px;line-height:1.4}
 .dv-page .dv-zone-procon{margin-top:12px;padding-top:11px}
 .dv-page .dv-zone-procon h4{font-size:18px;margin-bottom:5px}
 .dv-page .dv-zone-procon-intro{margin-bottom:10px!important}
-.dv-page .dv-zone-procon-advice{margin-bottom:11px!important}
 .dv-page .dv-zone-procon-grid{gap:12px}
 .dv-page .dv-zone-feel h5{margin-bottom:6px}
 .dv-page .dv-zone-feel ul{gap:6px}
@@ -998,7 +811,6 @@ body.dv-page{
  .dv-page .dv-zone-review-grid{gap:10px 12px;margin-top:11px}
  .dv-page .dv-zone-procon{margin-top:12px;padding-top:11px}
  .dv-page .dv-zone-procon-intro{margin-bottom:10px!important}
- .dv-page .dv-zone-procon-advice{margin-bottom:10px!important}
  .dv-page .dv-zone-hotels-list{gap:6px}
  .dv-page .dv-zone-hotel{
   grid-template-columns:40px minmax(0,1fr) 90px;
@@ -1023,35 +835,7 @@ body.dv-page{
 @media(max-width:600px){
  .dv-page .dv-zone-procon-intro{font-size:10px}
  .dv-page .dv-zone-hotels-note{text-align:right;font-size:9px}
-}
-
-
-/* VCC 2026: experiencia real solo en Solna y transparencia hotelera compartida */
-.dv-page .dv-real-experience{
- margin-top:14px;padding:12px 14px;
- border:1px solid #ead2c2;border-left:3px solid #ca785b;
- border-radius:10px;background:#fff7f1;
-}
-.dv-page .dv-real-experience-top{
- display:flex;align-items:center;gap:9px;min-width:0;margin-bottom:7px;
-}
-.dv-page .dv-real-experience-top img{
- flex:0 0 35px;width:35px;height:35px;object-fit:contain;
-}
-.dv-page .dv-real-experience-top>div{min-width:0}
-.dv-page .dv-real-experience-top strong{
- display:block;margin:0 0 3px;
- font:600 14px/1.15 'Oswald',sans-serif;
- letter-spacing:.02em;color:#b35942;
-}
-.dv-page .dv-real-experience-top span{
- font:600 11.5px/1.32 'DM Sans',sans-serif;color:#252321;
-}
-.dv-page .dv-real-experience p{
- margin:0!important;
- font:400 10.5px/1.48 'DM Sans',sans-serif;color:#595049;
-}
-.dv-page .dv-real-experience p strong{font-weight:700;color:#403a35}
+}/* VCC 2026: experiencia real solo en Solna y transparencia hotelera compartida */
 .dv-page .dv-zone-hotel.is-real-stay{
  border:1.5px solid #d88f70;background:#fff9f4;
  box-shadow:0 2px 7px rgba(156,84,56,.055);
@@ -1065,55 +849,10 @@ body.dv-page{
  border-radius:4px;background:#f6e5da;color:#a94f36;
  font:700 8.5px/1.2 'DM Sans',sans-serif;white-space:nowrap;
 }
-.dv-page .dv-zone-trust{
- margin-top:9px;padding:10px 12px 11px;
- border:1px solid #e8d9cd;border-radius:10px;
- background:#fdfaf7;
-}
-.dv-page .dv-zone-trust-title{
- display:flex;align-items:center;gap:7px;
- margin-bottom:8px;color:#ae654e;
-}
-.dv-page .dv-zone-trust-title svg{flex:0 0 19px;width:19px;height:19px}
-.dv-page .dv-zone-trust-title strong{
- font:600 14px/1.18 'Oswald',sans-serif;
- color:#292522;
-}
-.dv-page .dv-zone-trust-grid{
- display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;
-}
-.dv-page .dv-zone-trust-grid>div{
- min-width:0;display:flex;flex-direction:column;gap:4px;
- padding-left:9px;border-left:1px solid #ead6c7;
-}
-.dv-page .dv-zone-trust-grid>div:first-child{border-left:0;padding-left:0}
-.dv-page .dv-zone-trust-grid b{
- font:700 10px/1.22 'DM Sans',sans-serif;color:#3d3530;
-}
-.dv-page .dv-zone-trust-grid span{
- font:400 9px/1.38 'DM Sans',sans-serif;color:#746a61;
-}
 @media(max-width:1090px){
- .dv-page .dv-real-experience{margin-top:12px}
- .dv-page .dv-zone-trust-grid{gap:14px}
 }
 @media(max-width:600px){
- .dv-page .dv-real-experience{padding:10px 11px;margin-top:12px}
- .dv-page .dv-real-experience-top strong{font-size:13px}
- .dv-page .dv-real-experience-top span{font-size:10.5px}
- .dv-page .dv-real-experience p{font-size:10px}
  .dv-page .dv-real-hotel-badge{font-size:7.7px;padding:2px 4px}
- .dv-page .dv-zone-trust{padding:10px 11px}
- .dv-page .dv-zone-trust-title strong{font-size:13px}
- .dv-page .dv-zone-trust-grid{
-  grid-template-columns:1fr;gap:6px;
- }
- .dv-page .dv-zone-trust-grid>div,
- .dv-page .dv-zone-trust-grid>div:first-child{
-  display:block;padding:0 0 0 9px;border-left:2px solid #e6c3ae;
- }
- .dv-page .dv-zone-trust-grid b{display:inline;font-size:9.5px;margin-right:5px}
- .dv-page .dv-zone-trust-grid span{display:inline;font-size:9.2px}
 }
 
 
