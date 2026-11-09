@@ -87,9 +87,18 @@
   };
   /* Worker automàtic: variants AVIF/WebP de 480px i 1800px.
      Les originals només es carreguen al visor, després de la previsualització. */
-  const optimizedPhoto = (original, size='mini') =>
-    String(original).replace(/^https:\/\/img\.viajandoconcabeza\.com\/(destinos\/.+\.(?:avif|webp))$/i,
+  const optimizedPhoto = (original, size='mini') => {
+    // Arxipèlag: l'R2 ja guarda les previews a l'arrel de _preview,
+    // mentre els AVIF originals són dins paisajes/, bosques/ i mar/.
+    // No demanar al Worker una ruta _preview que no existeix.
+    const arch = String(original).match(/^https:\/\/img\.viajandoconcabeza\.com\/(destinos\/suecia\/estocolmo-archipelago\/2026-dia8)\/(?:paisajes|bosques|mar)\/(DSC\d+\.avif)$/i);
+    if (arch) {
+      const existing = new Set(['DSC08334.avif','DSC08335.avif','DSC08336.avif','DSC08337.avif','DSC08338.avif','DSC08342.avif','DSC08344.avif','DSC08345.avif']);
+      return existing.has(arch[2]) ? 'https://img.viajandoconcabeza.com/'+arch[1]+'/_preview/'+size+'/'+arch[2] : original;
+    }
+    return String(original).replace(/^https:\/\/img\.viajandoconcabeza\.com\/(destinos\/.+\.(?:avif|webp))$/i,
       'https://img.viajandoconcabeza.com/__vcc_preview/'+size+'/$1');
+  };
   // Els mosaics fan càrrega diferida: la URL sempre és el WebP original de R2.
   const lazyImages = 'IntersectionObserver' in window ? new IntersectionObserver(entries => {
     entries.forEach(entry => {
