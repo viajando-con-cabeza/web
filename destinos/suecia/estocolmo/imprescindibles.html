@@ -40,24 +40,28 @@ html body .imp-page .imp-main .place-heading{grid-column:1/-1;min-width:0;width:
 html body .imp-page .imp-main .place-heading-line{display:flex;align-items:center;justify-content:center;gap:0;min-width:0}
 html body .imp-page .imp-main .place-heading-line::before,
 html body .imp-page .imp-main .place-heading-line::after{content:none!important;display:none!important}
+/* Capçalera editorial VCC: únicament número emmarcat i nom del lloc. */
 html body .imp-page .imp-main .place-heading-label{
- display:inline-flex;gap:11px;align-items:baseline;justify-content:center;
- flex:0 1 auto;min-width:0;position:relative;isolation:isolate;
- padding:9px 19px;background:transparent!important;border:0!important;
+ display:inline-flex;gap:19px;align-items:center;justify-content:center;
+ flex:0 1 auto;min-width:0;max-width:100%;position:relative;
+ padding:0;background:none!important;border:0!important;
  border-radius:0;transform:none;
 }
-/* Esprai transparent, sense punts ni contorn: el color es fon al fons progressivament. */
-html body .imp-page .imp-main .place-heading-label::before{
- content:"";display:block;position:absolute;z-index:-1;pointer-events:none;
- inset:-17px -39px;
- background:
-   radial-gradient(ellipse 65% 55% at 48% 51%,rgba(224,114,62,.15) 0%,rgba(235,146,95,.085) 47%,transparent 90%);
- filter:blur(10px);
- opacity:.72;
+html body .imp-page .imp-main .place-heading-label::before,
+html body .imp-page .imp-main .place-heading-label::after{
+ content:none!important;display:none!important;background:none!important;
 }
-html body .imp-page .imp-main .place-heading-label::after{content:none!important;display:none!important;background:none!important}
-html body .imp-page .imp-main .place-number{color:#bc673f;font:500 19px/1 'Oswald',sans-serif;white-space:nowrap}
-html body .imp-page .imp-main .place-heading h2{margin:0;color:#222;font:500 clamp(24px,2.25vw,34px)/1.12 'Oswald',sans-serif;letter-spacing:-.3px;white-space:normal}
+html body .imp-page .imp-main .place-number{
+ display:grid;place-items:center;box-sizing:border-box;
+ flex:0 0 58px;width:58px;height:58px;
+ border:3px solid #f26116!important;border-radius:11px;
+ background:transparent!important;color:#f26116!important;
+ font:600 38px/1 'Oswald',sans-serif!important;white-space:nowrap;
+}
+html body .imp-page .imp-main .place-heading h2{
+ margin:0;color:#1b1b1b;font:500 clamp(24px,2.25vw,34px)/1.12 'Oswald',sans-serif;
+ letter-spacing:-.3px;white-space:normal;overflow-wrap:anywhere;text-align:left;
+}
 @media(min-width:851px){
  /* Mosaic lleugerament més compacte: 90% de l'amplada original.
     L'alçada es redueix proporcionalment, sense retallar ni alterar les fotos. */
@@ -72,9 +76,12 @@ html body .imp-page .imp-main .place-copy>h2{display:none!important}
  html body .imp-page .imp-main .place{padding:28px 0 24px!important;scroll-margin-top:100px!important}
  html body .imp-page .imp-main .place:not(:first-child){padding-top:28px!important}
  html body .imp-page .imp-main .place-heading-line{gap:7px}
- html body .imp-page .imp-main .place-heading-label{gap:7px;padding:7px 11px}
- html body .imp-page .imp-main .place-number{font-size:17px}
- html body .imp-page .imp-main .place-heading h2{font-size:23px}
+ html body .imp-page .imp-main .place-heading-label{gap:11px;padding:0}
+ html body .imp-page .imp-main .place-number{
+   flex-basis:46px;width:46px;height:46px;border-width:2.5px!important;border-radius:9px;
+   font-size:29px!important;
+ }
+ html body .imp-page .imp-main .place-heading h2{font-size:clamp(19px,5.5vw,23px)}
  html body .imp-page .imp-main .place-copy .place-kicker{font-size:22px!important}
 }
 .imp-page .gallery-main{border-radius:8px!important}
@@ -110,7 +117,7 @@ html body .imp-page main.imp-main .place-heading-line::after{content:none!import
 @media(max-width:650px){
  html body .imp-page main.imp-main section.place,
  html body .imp-page main.imp-main section.place:nth-of-type(2n+1):not(:first-child){padding-top:28px!important}
- html body .imp-page main.imp-main .place-heading-label::before{inset:-14px -28px;filter:blur(9px)}
+ /* Sense halo ni fons al títol, també en mòbil. */
 }
 /* Guías relacionadas: reutiliza el fondo, tipografías y tarjetas de presupuesto. */
 html body .imp-page .related-section{background:linear-gradient(90deg,rgba(18,28,30,.72),rgba(18,28,30,.24)),url("/configuracion/imagenes/fondos/fondos-que-ver.webp") center 52%/cover no-repeat!important;color:#fffaf5!important;border:0!important;padding:36px 0 40px!important}
@@ -324,7 +331,7 @@ const nav=document.getElementById('placeNav');
 nav.innerHTML=data.map((p,i)=>`<a href="#${p[0]}" class="${i===0?'active':''}">${esc(p[1])}</a>`).join('');
 const main=document.getElementById('places');
 
-main.innerHTML=data.map((p,i)=>{const imgs=p[0]==='ferry'?FERRY_PHOTOS:R2_PHOTOS.slice(0,Math.min(i+1,R2_PHOTOS.length));const maps=`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(p[1]+' Stockholm')}`;return `<section class="place${p[0]==='gamla-stan'?' place--no-media':''}" id="${p[0]}"><header class="place-heading"><div class="place-heading-line"><div class="place-heading-label"><span class="place-number">${String(i+1).padStart(2,"0")} ·</span><h2>${esc(p[1]).toUpperCase()}</h2></div></div></header>${p[0]==='gamla-stan' ? '' : `<div class="gallery" data-count="${imgs.length}"><div class="gallery-main" data-images='${JSON.stringify(imgs)}'></div></div>`}<div class="place-copy"><div class="place-kicker">${esc(p[3])}</div><p>${esc(p[4])}</p><div class="facts"><span><b class="ico">◆</b>${esc(p[2])}</span><span><b class="ico">●</b>${esc(p[5])}</span><span><b class="ico">◷</b>${esc(p[6])}</span><span>${rating(p[7])}</span><span class="fact-map"><b class="ico">⌖</b><a target="_blank" rel="noopener noreferrer" href="${maps}" aria-label="Abrir ${esc(p[1])} en Google Maps">Google Maps</a></span></div><div class="advice"><img class="vcc-advice-logo" src="/configuracion/imagenes/marca/logo-vcc.svg" width="46" height="46" alt="Logo oficial VCC" loading="lazy"><div><b>CONSEJO VCC</b><p>${esc(p[9])}</p></div></div></div></section>`}).join('');
+main.innerHTML=data.map((p,i)=>{const imgs=p[0]==='ferry'?FERRY_PHOTOS:R2_PHOTOS.slice(0,Math.min(i+1,R2_PHOTOS.length));const maps=`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(p[1]+' Stockholm')}`;return `<section class="place${p[0]==='gamla-stan'?' place--no-media':''}" id="${p[0]}"><header class="place-heading"><div class="place-heading-line"><div class="place-heading-label"><span class="place-number">${String(i+1).padStart(2,"0")}</span><h2>${esc(p[1]).toUpperCase()}</h2></div></div></header>${p[0]==='gamla-stan' ? '' : `<div class="gallery" data-count="${imgs.length}"><div class="gallery-main" data-images='${JSON.stringify(imgs)}'></div></div>`}<div class="place-copy"><div class="place-kicker">${esc(p[3])}</div><p>${esc(p[4])}</p><div class="facts"><span><b class="ico">◆</b>${esc(p[2])}</span><span><b class="ico">●</b>${esc(p[5])}</span><span><b class="ico">◷</b>${esc(p[6])}</span><span>${rating(p[7])}</span><span class="fact-map"><b class="ico">⌖</b><a target="_blank" rel="noopener noreferrer" href="${maps}" aria-label="Abrir ${esc(p[1])} en Google Maps">Google Maps</a></span></div><div class="advice"><img class="vcc-advice-logo" src="/configuracion/imagenes/marca/logo-vcc.svg" width="46" height="46" alt="Logo oficial VCC" loading="lazy"><div><b>CONSEJO VCC</b><p>${esc(p[9])}</p></div></div></div></section>`}).join('');
 nav.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{nav.querySelectorAll('a').forEach(x=>x.classList.remove('active'));a.classList.add('active')}));
 const prev=document.getElementById('navPrev'),next=document.getElementById('navNext');const update=()=>{prev.disabled=nav.scrollLeft<5;next.disabled=nav.scrollLeft+nav.clientWidth>=nav.scrollWidth-5};prev.onclick=()=>nav.scrollBy({left:-Math.max(nav.clientWidth*.7,280),behavior:'smooth'});next.onclick=()=>nav.scrollBy({left:Math.max(nav.clientWidth*.7,280),behavior:'smooth'});nav.addEventListener('scroll',update,{passive:true});window.addEventListener('resize',update);update();
 /* Galeries construïdes pel JS com a mosaics CSS; cap etiqueta img remota inicial. */
