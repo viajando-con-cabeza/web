@@ -24,18 +24,18 @@ const monthData=[
 const monthlyPrecipitationDays=[15.9,14,12.9,10.7,10.8,12.9,12.4,13.2,12,15,17,18.2];
 // Pictogramas ya utilizados en el ecosistema VCC; representan un clima orientativo, no un pronóstico.
 const weatherModes=[
- {icon:"nieve",label:"Frío · nieve posible"},
- {icon:"nieve",label:"Frío · nieve posible"},
- {icon:"nubes",label:"Frío y nubes"},
+ {icon:"nieve",label:"Nieve posible"},
+ {icon:"nieve",label:"Nieve posible"},
+ {icon:"nubes",label:"Nubes"},
  {icon:"intervalos",label:"Sol y nubes"},
  {icon:"intervalos",label:"Sol y nubes"},
- {icon:"sol",label:"Días soleados"},
- {icon:"sol",label:"Verano y sol"},
+ {icon:"sol",label:"Sol"},
+ {icon:"sol",label:"Sol"},
  {icon:"intervalos",label:"Sol y nubes"},
- {icon:"intervalos",label:"Nubes y claros"},
- {icon:"nubes",label:"Ambiente nuboso"},
- {icon:"nubes",label:"Nubes y frío"},
- {icon:"nieve",label:"Frío · nieve posible"}
+ {icon:"intervalos",label:"Sol y nubes"},
+ {icon:"nubes",label:"Nubes"},
+ {icon:"nubes",label:"Nubes"},
+ {icon:"nieve",label:"Nieve posible"}
 ];
 const seasonNames={invierno:"invierno",primavera:"primavera",verano:"verano",otono:"otoño"};
 const byId=id=>monthData[Number(id)]||monthData[1];
