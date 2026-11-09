@@ -74,13 +74,13 @@ html body .imp-page .place-copy .facts > span.fact-cost {
 html body .imp-page .place-copy .facts .fact-cost .fact-cost-icon {
   display:inline-block!important;flex:0 0 38px!important;
   width:38px!important;height:22px!important;
-  background-color:#302e2b!important;
+  background-color:#a65340!important;
   -webkit-mask:url('/configuracion/imagenes/iconos/entradas-y-pases/coins.svg') left center / 19px 19px no-repeat!important;
   mask:url('/configuracion/imagenes/iconos/entradas-y-pases/coins.svg') left center / 19px 19px no-repeat!important;
 }
 html body .imp-page .place-copy .facts .fact-cost .fact-cost-value {
   display:inline-block!important;flex:0 0 auto!important;
-  color:#302e2b!important;font:700 12px/1.2 'DM Sans',sans-serif!important;
+  color:#302e2b!important;font:400 12px/1.2 'DM Sans',sans-serif!important;
   letter-spacing:.015em!important;white-space:nowrap!important;
 }
 html body .imp-page .place-copy .facts .fact-cost .fact-cost-value.is-free {
@@ -104,6 +104,23 @@ html body .imp-page .imp-price-key {
   width:min(1180px,calc(100% - 48px));margin:8px auto 0;
   color:#85766e;font:400 11px/1.55 'DM Sans',sans-serif;
   text-align:right;
+}
+/* Marcadores numerados del mapa: orden 1-15 de las fichas. */
+html body .imp-page .imp-map-number-marker {
+  background:transparent!important;border:0!important;
+}
+html body .imp-page .imp-map-number-marker .imp-map-pin-number {
+  display:grid!important;place-items:center!important;
+  width:28px!important;height:28px!important;box-sizing:border-box!important;
+  border:2px solid #fff!important;border-radius:50%!important;
+  background:#dc642f!important;color:#fff!important;
+  box-shadow:0 2px 8px rgba(49,30,16,.27)!important;
+  font:700 11px/1 'DM Sans',sans-serif!important;white-space:nowrap!important;
+}
+html body .imp-page .imp-map-number-marker:hover .imp-map-pin-number,
+html body .imp-page .imp-map-number-marker:focus-visible .imp-map-pin-number {
+  background:#ae4925!important;
+  box-shadow:0 0 0 3px rgba(220,100,47,.25),0 3px 9px rgba(49,30,16,.3)!important;
 }
 html body .imp-page .imp-map-section {
   box-sizing:border-box;width:min(1180px,calc(100% - 48px));
