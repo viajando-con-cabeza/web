@@ -1,15 +1,15 @@
 <!doctype html>
 <html lang="es"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Cómo moverse por Estocolmo: metro, bus, Visa y SL | VCC</title>
-<meta name="description" content="Cómo moverse por Estocolmo: metro, bus, tranvía 7, ferry y tarifas SL. Pagar con Visa, qué transporte usar en cada barrio y consejos de VCC.">
+<title>Cómo moverse por Estocolmo: billetes SL y Vaxholm | VCC</title>
+<meta name="description" content="Cómo moverse por Estocolmo y Vaxholm: metro, ferris SL, pago con Visa, billetes y abonos. Compara precios para 3 días y elige tu transporte.">
 <meta name="robots" content="index,follow,max-image-preview:large">
 <link rel="canonical" href="https://viajandoconcabeza.com/destinos/suecia/estocolmo/como-moverse.html">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=DM+Sans:wght@400;500;600;700;800&family=Caveat:wght@500;600;700&display=swap" rel="stylesheet">
 <link rel="preload" href="/configuracion/imagenes/fondos/fondos-como-moverse-editorial.webp" as="image" type="image/webp" fetchpriority="high">
 <link rel="stylesheet" href="/configuracion/css/paginas.css"><link rel="stylesheet" href="/configuracion/css/overrides.css">
-<link rel="stylesheet" href="/configuracion/css/plantillas/como-moverse-vcc.css?v=20261109-dias7">
+<link rel="stylesheet" href="/configuracion/css/plantillas/como-moverse-vcc.css?v=20261109-vaxholm8">
 <link rel="stylesheet" href="/configuracion/css/componentes/estocolmo-guias-final-vcc.css?v=20261107-v1">
 <meta property="og:type" content="article"><meta property="og:locale" content="es_ES">
 <meta property="og:title" content="Cómo moverse por Estocolmo: metro, bus, Visa y SL | VCC">
@@ -34,8 +34,8 @@
 </header>
 <nav class="mv-subnav" aria-label="Secciones de Cómo moverse por Estocolmo">
   <a href="#recomendacion" class="is-active" aria-current="location">NUESTRA RECOMENDACIÓN</a>
-  <a href="#transportes">ELIGE EL TRANSPORTE</a>
-  <a href="#comparar-billetes">¿QUÉ BILLETE?</a>
+  <a href="#transportes">ELIGE TU TRANSPORTE</a>
+  <a href="#comparar-billetes">ELIGE TU BILLETE</a>
   <a href="#billetes">CÓMO AHORRAR</a>
 </nav>
 <main class="mv-container">
@@ -124,45 +124,43 @@
 <div class="mv-ticket-option" role="listitem"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><div><strong>Abono 24 horas</strong><span>Viajes ilimitados durante 24 h</span></div><b>180 SEK</b><small>Compensa desde 5 billetes</small></div>
 <div class="mv-ticket-option" role="listitem"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M8 3v4M16 3v4M3 10h18M8 15h3"/></svg><div><strong>Abono 72 horas</strong><span>Viajes ilimitados durante 72 h</span></div><b>360 SEK</b><small>Compensa desde 9 billetes</small></div>
 </div>
-<div class="mv-day-example" aria-label="Ejemplo de billetes para un itinerario de tres días">
+<div class="mv-day-example" id="ejemplo-itinerario" aria-label="Comparador ajustable de billetes para tres días por Estocolmo y Vaxholm">
 <div class="mv-day-example-head">
-<div><span class="mv-day-eyebrow">Ejemplo práctico para 3 días</span><h3>¿Cuántos billetes compraríamos cada día?</h3></div>
-<p>Supongamos que te alojas fuera del centro. Estos desplazamientos son orientativos: con un hotel céntrico o transbordos dentro de 75 minutos puedes necesitar menos.</p>
+<div><span class="mv-day-eyebrow">Nuestro recorrido de 3 días</span><h3>¿Cuántos billetes necesitamos para esta ruta?</h3></div>
+<p>Centro histórico, barrios alternativos y Vaxholm. Partimos de un alojamiento fuera del centro: <b>ajusta los viajes</b> si tu hotel está más cerca o necesitas transbordos fuera de los 75 minutos.</p>
 </div>
 <div class="mv-day-cards">
-<article class="mv-day-card">
-<div class="mv-day-card-top"><span>DÍA 1</span><strong>3 billetes</strong></div>
-<h4>Gamla Stan y centro histórico</h4>
-<ol><li><span>1</span>Hotel → Gamla Stan</li><li><span>2</span>Un traslado urbano adicional, si lo necesitas</li><li><span>3</span>Centro → hotel</li></ol>
-<div class="mv-day-card-footer"><span>3 × 43 SEK</span><strong>129 SEK</strong></div>
+<article class="mv-day-card" data-day-card="0">
+<div class="mv-day-card-top"><span>DÍA 1</span><div class="mv-day-counter" role="group" aria-label="Billetes del día 1"><button type="button" data-day="0" data-delta="-1" aria-label="Quitar un billete del día 1">−</button><output id="mv-day-count-0" aria-live="polite" aria-label="Billetes del día 1">2</output><button type="button" data-day="0" data-delta="1" aria-label="Añadir un billete al día 1">+</button></div></div>
+<h4>Centro histórico y Gamla Stan</h4>
+<ol><li><span>1</span>Hotel → centro histórico</li><li><span>2</span>Centro → hotel</li><li><span class="mv-day-walk" aria-hidden="true">✓</span>Palacio Real, Stortorget y calles históricas: a pie</li></ol>
+<div class="mv-day-card-footer"><span data-day-breakdown="0">2 × 43 SEK</span><strong data-day-cost="0">86 SEK</strong></div>
 </article>
-<article class="mv-day-card">
-<div class="mv-day-card-top"><span>DÍA 2</span><strong>3 billetes</strong></div>
-<h4>Museo Vasa y Djurgården</h4>
-<ol><li><span>1</span>Hotel → Djurgården (tranvía 7)</li><li><span>2</span>Ferry 82 → Slussen (incluido en SL)</li><li><span>3</span>Regreso al hotel, si necesitas otro billete</li></ol>
-<div class="mv-day-card-footer"><span>3 × 43 SEK</span><strong>129 SEK</strong></div>
+<article class="mv-day-card" data-day-card="1">
+<div class="mv-day-card-top"><span>DÍA 2</span><div class="mv-day-counter" role="group" aria-label="Billetes del día 2"><button type="button" data-day="1" data-delta="-1" aria-label="Quitar un billete del día 2">−</button><output id="mv-day-count-1" aria-live="polite" aria-label="Billetes del día 2">3</output><button type="button" data-day="1" data-delta="1" aria-label="Añadir un billete al día 2">+</button></div></div>
+<h4>Centro y barrios alternativos</h4>
+<ol><li><span>1</span>Hotel → centro</li><li><span>2</span>Centro → otro barrio (por ejemplo, Södermalm)</li><li><span>3</span>Barrios alternativos → hotel</li></ol>
+<div class="mv-day-card-footer"><span data-day-breakdown="1">3 × 43 SEK</span><strong data-day-cost="1">129 SEK</strong></div>
 </article>
-<article class="mv-day-card">
-<div class="mv-day-card-top"><span>DÍA 3</span><strong>2 billetes</strong></div>
-<h4>Södermalm y sus miradores</h4>
-<ol><li><span>1</span>Hotel → Södermalm</li><li><span>2</span>Södermalm → hotel</li><li><span class="mv-day-walk" aria-hidden="true">✓</span>Miradores y calles: a pie</li></ol>
-<div class="mv-day-card-footer"><span>2 × 43 SEK</span><strong>86 SEK</strong></div>
+<article class="mv-day-card" data-day-card="2">
+<div class="mv-day-card-top"><span>DÍA 3</span><div class="mv-day-counter" role="group" aria-label="Billetes del día 3"><button type="button" data-day="2" data-delta="-1" aria-label="Quitar un billete del día 3">−</button><output id="mv-day-count-2" aria-live="polite" aria-label="Billetes del día 3">2</output><button type="button" data-day="2" data-delta="1" aria-label="Añadir un billete al día 3">+</button></div></div>
+<h4>Vaxholm y el archipiélago</h4>
+<ol><li><span>1</span>Strömkajen → Vaxholm en ferry regular</li><li><span>2</span>Vaxholm → Strömkajen en ferry regular</li><li><span class="mv-day-walk" aria-hidden="true">+</span>Si necesitas hotel ↔ embarcadero, suma esos viajes</li></ol>
+<div class="mv-day-card-footer"><span data-day-breakdown="2">2 × 43 SEK</span><strong data-day-cost="2">86 SEK</strong></div>
 </article>
 </div>
-<div class="mv-day-calculation">
-<div class="mv-day-total"><span>8 billetes sueltos</span><strong>344 SEK</strong></div>
-<span class="mv-day-versus" aria-hidden="true">vs.</span>
+<div class="mv-day-calculation" aria-label="Comparación de precios calculados">
+<div class="mv-day-total"><span>Billetes sueltos <small data-total-count>(7 en total)</small></span><strong data-singles-total>301 SEK</strong></div>
+<div class="mv-day-total"><span>Billetes + abonos de 24 h</span><strong data-mixed-total>301 SEK</strong></div>
 <div class="mv-day-total"><span>Abono SL de 72 h</span><strong>360 SEK</strong></div>
-<div class="mv-day-result"><span>PARA ESTE EJEMPLO</span><strong>Mejor, billetes sueltos</strong><small>Ahorras 16 SEK por persona</small></div>
+<div class="mv-day-result" role="status" aria-live="polite" aria-atomic="true"><span>PARA ESTOS TRAYECTOS</span><strong data-best-ticket>Billetes sueltos</strong><small data-best-saving>Ahorras 59 SEK frente al abono de 72 h</small></div>
 </div>
 <div class="mv-archipelago-note">
-<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 17l3 3 6-3 6 3 3-3M4 14l2-8h12l2 8M8 6V3h8v3M3 17h18"/></svg>
-<div><strong>¿Y si cambias el día 3 por el archipiélago?</strong>
-<p>No todos los ferris se pagan aparte. <b>Hasta Vaxholm y otras paradas de la zona SL</b> hay servicios de Waxholmsbolaget que aceptan billetes SL. Para destinos como <b>Grinda</b>, fuera de esa zona, necesitas un billete adicional de Waxholmsbolaget para el tramo no cubierto. Su precio depende del recorrido; no lo sumamos a este ejemplo urbano. <a href="https://sl.se/en/news/sl-tickets-on-waxholmsbolaget-services" target="_blank" rel="noopener noreferrer">Comprueba la zona y el billete antes de salir</a>.</p>
+<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 17l3 3 6-3 6 3-3-3M4 14l2-8h12l2 8M8 6V3h8v3M3 17h18"/></svg>
+<div><strong>Vaxholm: el ferry regular también entra en SL</strong><p>En las rutas de <b>Waxholmsbolaget entre Strömkajen y Vaxholm</b> puedes usar un billete SL válido. <b>No se paga un suplemento por estar en el archipiélago</b> dentro de esta zona; sí puede haber otra tarifa con barcos turísticos u otros destinos como Grinda. El trayecto de ida y el de vuelta suelen necesitar billetes distintos si pasan más de 75 minutos. <a href="https://sl.se/en/news/sl-tickets-on-waxholmsbolaget-services" target="_blank" rel="noopener noreferrer">Ver condiciones oficiales de SL</a>.</p></div>
 </div>
 </div>
-</div>
-<p class="mv-ticket-note">Cálculos ilustrativos por adulto con las <a href="https://sl.se/en/fares-and-tickets/visitor-tickets/single-journey-tickets" target="_blank" rel="noopener noreferrer">tarifas SL</a> y los <a href="https://sl.se/en/fares-and-tickets/visitor-tickets/travelcards" target="_blank" rel="noopener noreferrer">abonos de 24 y 72 horas</a> (noviembre de 2026). Cada billete permite cambios durante 75 minutos; un transbordo dentro de su validez no requiere comprar otro. Los umbrales de 5 y 9 billetes comparan solo con billetes sueltos, no con otras combinaciones de abonos. El ejemplo depende del alojamiento y no representa el número exacto de viajes que hicimos nosotros.</p>
+<p class="mv-ticket-note">Simulación editable con tarifas de adulto de <a href="https://sl.se/en/fares-and-tickets/visitor-tickets/single-journey-tickets" target="_blank" rel="noopener noreferrer">SL (43 SEK por 75 min)</a> y <a href="https://sl.se/en/fares-and-tickets/visitor-tickets/travelcards" target="_blank" rel="noopener noreferrer">abonos de 24 h (180 SEK) y 72 h (360 SEK)</a>, consultadas en noviembre de 2026. Cuenta solo billetes nuevos: los transbordos dentro de la validez no suman. El cálculo de abonos de 24 h supone jornadas independientes; la validez real empieza al activarlos. Los viajes iniciales son una estimación de esta ruta, no un registro de vuestros trayectos efectivamente realizados.</p>
 </section>
 <section class="mv-seo" id="billetes" aria-labelledby="mv-seo-title">
 <div class="mv-section-head"><div><span class="mv-overline">Pequeños cambios, gran diferencia</span><h2 id="mv-seo-title">CONSEJOS PARA AHORRAR</h2></div><p>Pequeños consejos prácticos para disfrutar de Estocolmo sin gastar de más en transporte.</p></div>
@@ -227,6 +225,62 @@
 </section>
 <footer class="vcc-global-footer"></footer>
 <script src="/configuracion/js/site-header.js?v=20261107"></script><script src="/configuracion/js/site-footer.js?v=20261102"></script>
+<script>
+/* VCC · Comparador de bitllets SL: valors inicials il·lustratius i recomputació local. */
+(function () {
+  "use strict";
+  const root = document.querySelector(".mv-day-example");
+  if (!root) return;
+  const counts = [2, 3, 2];
+  const single = 43, daily = 180, threeDay = 360;
+  const maxTrips = 12;
+  const money = number => number + " SEK";
+  const set = (selector, value) => {
+    const el = root.querySelector(selector);
+    if (el) el.textContent = value;
+  };
+  function render() {
+    counts.forEach((count, day) => {
+      set("#mv-day-count-" + day, String(count));
+      set('[data-day-breakdown="' + day + '"]', count + " × " + single + " SEK");
+      set('[data-day-cost="' + day + '"]', money(count * single));
+      root.querySelectorAll('[data-day="' + day + '"]').forEach(btn => {
+        const delta = Number(btn.dataset.delta);
+        btn.disabled = delta < 0 ? count === 0 : count === maxTrips;
+      });
+    });
+    const total = counts.reduce((a, b) => a + b, 0);
+    const singles = total * single;
+    const mixed = counts.reduce((sum, count) => sum + Math.min(count * single, daily), 0);
+    const options = [
+      {label:"Billetes sueltos",value:singles},
+      {label:"Billetes sueltos + abonos de 24 h",value:mixed},
+      {label:"Abono SL de 72 h",value:threeDay}
+    ];
+    options.sort((a,b) => a.value - b.value);
+    const best = options[0];
+    set("[data-total-count]", "(" + total + " en total)");
+    set("[data-singles-total]", money(singles));
+    set("[data-mixed-total]", money(mixed));
+    set("[data-best-ticket]", best.label);
+    const other = best.value === threeDay ? singles : threeDay;
+    const difference = Math.abs(other-best.value);
+    const result = difference > 0 && best.value < other
+      ? "Ahorras " + money(difference) + " frente a " + (best.value === threeDay ? "billetes sueltos" : "abono de 72 h")
+      : best.value === threeDay ? "Precio del abono de 72 h" : "Compara también los abonos de 24 h según tus horarios";
+    set("[data-best-saving]", result);
+  }
+  root.addEventListener("click", ev => {
+    const button = ev.target.closest("button[data-day][data-delta]");
+    if (!button || !root.contains(button)) return;
+    const day = Number(button.dataset.day), delta = Number(button.dataset.delta);
+    if (!Number.isInteger(day) || day < 0 || day >= counts.length || ![-1,1].includes(delta)) return;
+    counts[day] = Math.max(0,Math.min(maxTrips,counts[day]+delta));
+    render();
+  });
+  render();
+})();
+</script>
 <script src="/configuracion/js/plantillas/como-moverse-subnav.js?v=20261107-compact8" defer></script>
 <script src="/configuracion/js/plantillas/como-moverse-carrusel.js?v=20261107-refresh7" defer></script>
 </body></html>
