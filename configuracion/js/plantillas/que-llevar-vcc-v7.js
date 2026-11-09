@@ -191,6 +191,7 @@ function render(resetListScroll=false){
  $("ql-v6-month").value=String(state.month);
  $("ql-v6-days").value=String(state.days);
  $("ql-v6-laundry").checked=state.laundry;
+ document.querySelectorAll(".ql-v11-laundry-buttons button").forEach(b=>b.setAttribute("aria-pressed",String((b.dataset.laundry==="yes")===state.laundry)));
  const weather=weatherModes[state.month];
  const low=m.lo.toLocaleString("es-ES",{minimumFractionDigits:1,maximumFractionDigits:1});
  const high=m.hi.toLocaleString("es-ES",{minimumFractionDigits:1,maximumFractionDigits:1});
@@ -207,12 +208,16 @@ function render(resetListScroll=false){
  const categories=$("ql-v6-categories");
  const previousScroll=resetListScroll?0:categories.scrollTop;
  categories.replaceChildren();
- const cols=[document.createElement("div"),document.createElement("div")];
+ const cols=[document.createElement("div"),document.createElement("div"),document.createElement("div")];
  cols.forEach(col=>{col.className="ql-v6-column";categories.append(col)});
  let completed=0,total=0;
  groups.forEach((group,index)=>{
   const card=document.createElement("section");card.className="ql-v6-category";
-  const h=document.createElement("h4");h.textContent=group.label;card.append(h);
+  const h=document.createElement("h4");
+  const categoryIcon=icon(["shirt","shoe","umbrella","bag"][index]);
+  categoryIcon.classList.add("ql-v11-category-icon");
+  h.append(categoryIcon,document.createTextNode(group.label));
+  card.append(h);
   const ul=document.createElement("ul");
   group.items.forEach(x=>{
    const li=document.createElement("li");const label=document.createElement("label");
@@ -223,7 +228,7 @@ function render(resetListScroll=false){
    content.append(name,qty);label.append(input,icon(x.icon),content);li.append(label);ul.append(li);
    total++;if(input.checked)completed++;
   });
-  card.append(ul);cols[index%2].append(card);
+  card.append(ul);cols[index===3?1:index].append(card);
  });
  $("ql-v6-progress").textContent=completed+" de "+total+" preparados";
  $("ql-v6-progress-bar").style.width=(total?100*completed/total:0).toFixed(1)+"%";
@@ -246,8 +251,7 @@ function notify(text){
  const status=$("ql-v6-action-status");status.textContent=text;
 }
 
-/* Igualar la altura real de ambas tarjetas sin ocultar ningún elemento
-   de Personaliza tu lista. El panel de la derecha usa scroll interior. */
+/* Checklist visible sin scroll interno: altura gestionada por el documento. */
 function syncPanelHeights(){
  updateScrollArrows();
 }
@@ -279,6 +283,18 @@ if(typeof ResizeObserver!=="undefined"){
 window.addEventListener("resize",requestPanelLayout,{passive:true});
 window.addEventListener("load",requestPanelLayout,{once:true});
 requestPanelLayout();
+document.querySelectorAll(".ql-v11-laundry-buttons button").forEach(button=>{
+ button.addEventListener("click",()=>{
+  state.laundry=button.dataset.laundry==="yes";save();render();
+ });
+});
+document.querySelectorAll(".ql-v11-season-card").forEach(button=>{
+ button.addEventListener("click",()=>{
+  const selected=Number(button.dataset.seasonMonth);
+  if(Number.isInteger(selected)&&selected>=0&&selected<12){state.month=selected;save();render(true);}
+  document.getElementById("que-maleta")?.scrollIntoView({behavior:"smooth",block:"start"});
+ });
+});
 $("ql-v6-month").addEventListener("change",e=>{state.month=Number(e.target.value);save();render(true)});
 $("ql-v6-days").addEventListener("change",e=>{state.days=Number(e.target.value);save();render()});
 $("ql-v6-laundry").addEventListener("change",e=>{state.laundry=!!e.target.checked;save();render()});
