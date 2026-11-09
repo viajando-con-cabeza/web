@@ -105,3 +105,22 @@
  .ep-plan-actions,.ep-plan-presets,.ep-subnav,.ep-slider-controls{display:none!important}
  .ep-plan-result{position:static}
 }
+
+
+/* VCC · Fecha, menores y controles del planificador, versión integrada. */
+.ep-plan-controls{grid-template-columns:repeat(5,minmax(0,1fr))}
+.ep-plan-field input[type="date"]{width:100%;min-width:0;max-width:100%;min-height:37px;padding:8px 5px;border:1px solid #ddcec3;border-radius:8px;background:#fffdf9;color:#342b26;font:700 10px 'DM Sans',sans-serif}
+.ep-plan-field input[type="date"]::-webkit-calendar-picker-indicator{margin:0}
+.ep-plan-field label{display:block;white-space:normal}
+.ep-plan-intro p{font:400 12px/1.55 'DM Sans',sans-serif;color:#554b43}
+.ep-plan-intro p strong{font-weight:800;color:#2c2825}
+.ep-plan-checklist .ep-plan-task-list li{font-size:11px}
+.ep-plan-status:empty{min-height:0}
+.ep-plan-status:not(:empty){padding:4px 0}
+#ep-pl-copied-text:not([hidden]){display:block;width:100%;min-height:95px;margin-top:8px;padding:9px;border:1px solid #e0bca2;border-radius:9px;font-size:11px}
+.ep-plan-comp-line[aria-current="true"]{box-shadow:0 2px 7px #c4723c12}
+.ep-plan-reco h4{overflow-wrap:anywhere}
+@media(max-width:1180px){.ep-plan-controls{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:1040px){.ep-plan-controls{grid-template-columns:repeat(5,minmax(0,1fr))}}
+@media(max-width:650px){.ep-plan-controls{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.ep-plan-presets{row-gap:7px}.ep-plan-task-list li{grid-template-columns:16px minmax(0,1fr) auto;gap:5px}.ep-plan-task-list li a{font-size:9px}}
+@media(max-width:380px){.ep-plan-controls{grid-template-columns:repeat(2,minmax(0,1fr))}.ep-plan-comp-line strong{font-size:17px}}
