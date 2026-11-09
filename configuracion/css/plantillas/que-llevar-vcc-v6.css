@@ -106,3 +106,73 @@ html body .ql-page .ql-v6-faq details p{margin:9px 0 0;font:400 12px/1.65 "DM Sa
  html body .ql-page .ql-v6-category{break-inside:avoid}
  html body .ql-page .ql-v6-categories{grid-template-columns:repeat(2,minmax(0,1fr))}
 }
+
+/* 2026-11-09 · Dos tarjetas exactamente iguales, lista desplazable con flechas.
+   La altura de la tarjeta de lista toma la de Personaliza tu lista (JS + ResizeObserver). */
+html body .ql-page .ql-v6-workspace{align-items:start!important}
+html body .ql-page .ql-v6-workspace>.ql-v6-controls{
+  align-self:start!important;height:auto!important;max-height:none!important;
+}
+html body .ql-page .ql-v6-workspace>.ql-v6-list{
+  align-self:start!important;display:flex!important;flex-direction:column!important;
+  height:var(--ql-v6-equal-height,auto)!important;
+  min-height:0!important;max-height:none!important;overflow:hidden!important;
+}
+html body .ql-page .ql-v6-list-head,
+html body .ql-page .ql-v6-list>.ql-v6-caveat,
+html body .ql-page .ql-v6-list>.ql-v6-actions,
+html body .ql-page .ql-v6-list>.ql-v6-action-status{
+  flex:0 0 auto!important;
+}
+html body .ql-page .ql-v6-scroll-shell{
+  display:grid!important;grid-template-columns:minmax(0,1fr) 31px;
+  flex:1 1 auto!important;min-height:0!important;gap:9px;overflow:hidden;
+}
+html body .ql-page .ql-v6-scroll-shell>.ql-v6-categories{
+  display:grid!important;align-content:start!important;
+  min-height:0!important;max-height:none!important;height:100%!important;
+  overflow-x:hidden!important;overflow-y:auto!important;
+  overscroll-behavior:contain;scrollbar-width:thin;
+  scrollbar-color:#cdb5a3 #f7f1eb;
+  padding:0 4px 3px 0;scroll-behavior:smooth;
+}
+html body .ql-page .ql-v6-scroll-shell>.ql-v6-categories::-webkit-scrollbar{width:5px}
+html body .ql-page .ql-v6-scroll-shell>.ql-v6-categories::-webkit-scrollbar-track{background:#f7f1eb;border-radius:99px}
+html body .ql-page .ql-v6-scroll-shell>.ql-v6-categories::-webkit-scrollbar-thumb{background:#cdb5a3;border-radius:99px}
+html body .ql-page .ql-v6-scroll-shell>.ql-v6-categories:focus-visible{outline:2px solid #bb7959;outline-offset:-2px}
+html body .ql-page .ql-v6-scroll-arrows{
+  display:flex;flex-direction:column;align-items:center;justify-content:space-between;
+  padding:2px 0;gap:8px;
+}
+html body .ql-page .ql-v6-scroll-arrows button{
+  display:grid;place-items:center;width:30px;height:35px;
+  padding:0;background:#fff9f4;border:1px solid #e1cab8;border-radius:9px;
+  color:#ae664b;cursor:pointer;transition:background .15s,border-color .15s;
+}
+html body .ql-page .ql-v6-scroll-arrows button:hover:not(:disabled){
+  background:#f9e8df;border-color:#cc9b82;
+}
+html body .ql-page .ql-v6-scroll-arrows button:disabled{
+  opacity:.3;cursor:default;background:#faf7f4;
+}
+html body .ql-page .ql-v6-scroll-arrows svg{
+  display:block;width:19px;height:19px;fill:none;
+  stroke:currentColor;stroke-width:2.15;stroke-linecap:round;stroke-linejoin:round;
+}
+@media(max-width:600px){
+  html body .ql-page .ql-v6-scroll-shell{grid-template-columns:minmax(0,1fr) 29px;gap:6px}
+  html body .ql-page .ql-v6-scroll-arrows button{width:28px;height:36px}
+}
+@media(prefers-reduced-motion:reduce){
+  html body .ql-page .ql-v6-scroll-shell>.ql-v6-categories{scroll-behavior:auto!important}
+}
+@media print{
+  html body .ql-page .ql-v6-workspace>.ql-v6-list{
+    display:block!important;height:auto!important;max-height:none!important;overflow:visible!important;
+  }
+  html body .ql-page .ql-v6-scroll-shell{display:block!important;height:auto!important;overflow:visible!important}
+  html body .ql-page .ql-v6-scroll-shell>.ql-v6-categories{
+    display:grid!important;height:auto!important;max-height:none!important;overflow:visible!important;
+  }
+  html body .ql-page .ql-v6-scroll-arrows{display:none!important}
+}
