@@ -92,7 +92,7 @@ function icon(name){
  svg.append(use);return svg;
 }
 function labelKey(id){return String(state.month)+":"+id;}
-function render(){
+function render(resetListScroll=false){
  const m=byId(state.month);const groups=buildItems();
  $("ql-v6-month").value=String(state.month);
  $("ql-v6-days").value=String(state.days);
@@ -106,7 +106,9 @@ function render(){
  $("ql-v6-caveat").textContent=state.days>10&&!state.laundry?
   "Para viajes de más de 10 días, esta lista limita las mudas a 10 días: te recomendamos planificar una colada para evitar llevar "+state.days+" cambios.":
   state.laundry&&state.days>5?"Calculamos ropa para hasta cinco días, contando con que podrás lavar durante el viaje.":"Cantidades orientativas; adapta tu lista a la previsión y a tu forma de viajar.";
- const categories=$("ql-v6-categories");categories.replaceChildren();
+ const categories=$("ql-v6-categories");
+ const previousScroll=resetListScroll?0:categories.scrollTop;
+ categories.replaceChildren();
  const cols=[document.createElement("div"),document.createElement("div")];
  cols.forEach(col=>{col.className="ql-v6-column";categories.append(col)});
  let completed=0,total=0;
@@ -128,6 +130,8 @@ function render(){
  $("ql-v6-progress").textContent=completed+" de "+total+" preparados";
  $("ql-v6-progress-bar").style.width=(total?100*completed/total:0).toFixed(1)+"%";
  $("ql-v6-print-meta").textContent="Estocolmo · "+m.name+" · "+state.days+" días"+(state.laundry?" · con lavado":"");
+ categories.scrollTop=previousScroll;
+ requestPanelLayout();
 }
 function copiedText(){
  const m=byId(state.month);
@@ -143,8 +147,45 @@ function copiedText(){
 function notify(text){
  const status=$("ql-v6-action-status");status.textContent=text;
 }
+
+/* Igualar la altura real de ambas tarjetas sin ocultar ningún elemento
+   de Personaliza tu lista. El panel de la derecha usa scroll interior. */
+function syncPanelHeights(){
+ const left=root.querySelector(".ql-v6-controls");
+ if(!left)return;
+ const height=Math.ceil(left.getBoundingClientRect().height);
+ if(height>0)root.style.setProperty("--ql-v6-equal-height",height+"px");
+ updateScrollArrows();
+}
+function updateScrollArrows(){
+ const list=$("ql-v6-categories"),up=$("ql-v6-scroll-up"),down=$("ql-v6-scroll-down");
+ if(!list||!up||!down)return;
+ const remaining=Math.max(0,list.scrollHeight-list.clientHeight);
+ up.disabled=list.scrollTop<=2;
+ down.disabled=remaining<=2||list.scrollTop>=remaining-2;
+}
+function requestPanelLayout(){
+ requestAnimationFrame(()=>{syncPanelHeights();updateScrollArrows()});
+}
 load();render();
-$("ql-v6-month").addEventListener("change",e=>{state.month=Number(e.target.value);save();render()});
+const scrollList=$("ql-v6-categories");
+scrollList.addEventListener("scroll",updateScrollArrows,{passive:true});
+$("ql-v6-scroll-up").addEventListener("click",()=>{
+ const amount=Math.max(115,Math.round(scrollList.clientHeight*.7));
+ scrollList.scrollBy({top:-amount,behavior:"smooth"});
+});
+$("ql-v6-scroll-down").addEventListener("click",()=>{
+ const amount=Math.max(115,Math.round(scrollList.clientHeight*.7));
+ scrollList.scrollBy({top:amount,behavior:"smooth"});
+});
+if(typeof ResizeObserver!=="undefined"){
+ const ro=new ResizeObserver(()=>requestPanelLayout());
+ ro.observe(root.querySelector(".ql-v6-controls"));
+}
+window.addEventListener("resize",requestPanelLayout,{passive:true});
+window.addEventListener("load",requestPanelLayout,{once:true});
+requestPanelLayout();
+$("ql-v6-month").addEventListener("change",e=>{state.month=Number(e.target.value);save();render(true)});
 $("ql-v6-days").addEventListener("change",e=>{state.days=Number(e.target.value);save();render()});
 $("ql-v6-laundry").addEventListener("change",e=>{state.laundry=!!e.target.checked;save();render()});
 $("ql-v6-categories").addEventListener("change",e=>{
