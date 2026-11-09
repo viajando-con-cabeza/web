@@ -849,3 +849,25 @@ html body.ci-page .ci-calendar-hint{display:none}
   }
   html body.ci-page .ci-calendar-hint>span:last-child{font-size:18px;line-height:1}
 }
+/* 2026-11-09: puntos de turistas y precios alineados junto a Bajo / Medio / Alto. */
+html body.ci-page .ci-calendar-month .ci-tourist-label,
+html body.ci-page .ci-calendar-month .ci-price-label{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  flex-direction:row;
+  gap:4px;
+  font-size:9.5px;
+  line-height:1.25;
+  font-weight:700;
+  color:#3f3730;
+  white-space:nowrap;
+}
+html body.ci-page .ci-calendar-month .ci-tourist-label .ci-dot,
+html body.ci-page .ci-calendar-month .ci-price-label .ci-dot{
+  display:inline-block;
+  width:7px;
+  height:7px;
+  flex:0 0 7px;
+  border-radius:50%;
+}
