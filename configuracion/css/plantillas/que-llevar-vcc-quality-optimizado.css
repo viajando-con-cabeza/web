@@ -2568,3 +2568,161 @@ html body .ql-page .ql-v7-section-pack .ql-v10-packing-consejo{
     background:#F5F1EC!important;
   }
 }
+
+/* VCC v15 · checklist equilibrada y Consejo VCC antes de la tabla */
+/* Consejo VCC independiente: fondo melocotón corporativo, antes del panel blanco */
+html body .ql-page .ql-v7-section-pack > .ql-v10-packing-consejo{
+ display:grid!important;grid-template-columns:81px minmax(0,1fr)!important;
+ align-items:center!important;gap:12px!important;
+ margin:0 0 14px!important;padding:11px 15px!important;
+ border:1px solid #E8C8B2!important;border-radius:12px!important;
+ background:#FFF3E8!important;background-image:none!important;
+ box-shadow:none!important;
+}
+html body .ql-page .ql-v7-section-pack > .ql-v10-packing-consejo .ql-v10-consejo-brand{
+ align-items:center!important;justify-content:center!important;
+ border-right:1px solid #E8C8B2!important;
+ padding-right:12px!important;gap:3px!important;
+}
+html body .ql-page .ql-v7-section-pack > .ql-v10-packing-consejo .ql-v10-consejo-brand img{
+ width:37px!important;height:37px!important;
+}
+html body .ql-page .ql-v7-section-pack > .ql-v10-packing-consejo .ql-v10-consejo-text{
+ font-size:12px!important;line-height:1.5!important;
+ margin:0!important;color:#514136!important;
+}
+/* Cuatro indicadores superiores con la misma altura y separación */
+html body .ql-page .ql-v7-section-pack .ql-v6-list-head.ql-v9-list-head.ql-v13-climate-progress{
+ display:grid!important;
+ grid-template-columns:repeat(4,minmax(0,1fr))!important;
+ align-items:stretch!important;gap:0!important;
+ padding:0 0 10px!important;margin:0 0 8px!important;
+ border-bottom:1px solid #E8DED4!important;
+}
+html body .ql-page .ql-v7-section-pack .ql-v13-climate-progress > .ql-v9-weather-summary{
+ display:contents!important;
+}
+html body .ql-page .ql-v7-section-pack .ql-v13-climate-progress .ql-v9-weather-stat,
+html body .ql-page .ql-v7-section-pack .ql-v13-climate-progress > .ql-v6-progress{
+ grid-column:auto!important;grid-row:auto!important;
+ align-self:stretch!important;align-items:center!important;
+ justify-content:center!important;min-width:0!important;
+ min-height:55px!important;padding:7px 12px!important;
+ margin:0!important;
+ border:0!important;border-right:1px solid #E8DED4!important;
+ background:transparent!important;
+ border-radius:0!important;
+}
+html body .ql-page .ql-v7-section-pack .ql-v13-climate-progress .ql-v9-weather-stat:nth-child(3){
+ border-right:1px solid #E8DED4!important;
+ border-top:0!important;
+ padding-top:7px!important;
+}
+html body .ql-page .ql-v7-section-pack .ql-v13-climate-progress > .ql-v6-progress{
+ border-right:0!important;display:flex!important;flex-direction:column!important;
+ justify-content:center!important;align-items:stretch!important;gap:8px!important;
+ width:100%!important;max-width:none!important;
+}
+html body .ql-page .ql-v7-section-pack .ql-v13-climate-progress > .ql-v6-progress strong{
+ text-align:center!important;
+}
+html body .ql-page .ql-v7-section-pack .ql-v13-climate-progress .ql-v6-track{
+ width:100%!important;max-width:none!important;
+}
+/* 2 x 2 con las categorías grandes juntas y las pequeñas debajo:
+   Ropa / Extras, Calzado / Accesorios. Evita huecos en la parte derecha. */
+html body .ql-page .ql-v7-section-pack .ql-v6-scroll-shell > .ql-v6-categories{
+ display:grid!important;
+ grid-template-columns:repeat(2,minmax(0,1fr))!important;
+ grid-template-rows:auto auto!important;
+ align-items:stretch!important;align-content:start!important;
+ column-gap:13px!important;row-gap:13px!important;
+ height:auto!important;min-height:0!important;max-height:none!important;
+ overflow:visible!important;
+ padding:2px 0 4px!important;
+}
+html body .ql-page .ql-v7-section-pack .ql-v6-scroll-shell > .ql-v6-categories > .ql-v6-category{
+ display:flex!important;flex-direction:column!important;
+ min-width:0!important;width:100%!important;height:100%!important;
+ background:#F7EFE6!important;border:1px solid #E5D4C2!important;
+ border-radius:12px!important;overflow:hidden!important;
+}
+html body .ql-page .ql-v7-section-pack .ql-v6-scroll-shell > .ql-v6-categories > .ql-v6-category h4{
+ flex:0 0 auto!important;
+ margin:0!important;
+ background:#EFE1D2!important;color:#3D3028!important;
+}
+html body .ql-page .ql-v7-section-pack .ql-v6-scroll-shell > .ql-v6-categories > .ql-v6-category ul{
+ flex:1 1 auto!important;
+}
+/* El interior principal sigue blanco y el ritmo vertical queda uniforme */
+html body .ql-page .ql-v7-section-pack > .ql-v6-list{
+ background:#FFFFFF!important;background-image:none!important;
+ border-color:#E7DACD!important;
+}
+html body .ql-page .ql-v7-section-pack .ql-v9-climate-source{
+ margin:3px 0 12px!important;
+}
+html body .ql-page .ql-v7-section-pack .ql-v6-caveat{
+ margin:11px 0 8px!important;
+}
+html body .ql-page .ql-v7-section-pack .ql-v6-actions{
+ margin-top:9px!important;
+}
+@media(max-width:900px){
+ html body .ql-page .ql-v7-section-pack .ql-v6-list-head.ql-v9-list-head.ql-v13-climate-progress{
+  grid-template-columns:repeat(2,minmax(0,1fr))!important;
+ }
+ html body .ql-page .ql-v7-section-pack .ql-v13-climate-progress .ql-v9-weather-stat,
+ html body .ql-page .ql-v7-section-pack .ql-v13-climate-progress > .ql-v6-progress{
+  min-height:54px!important;
+  padding:8px 11px!important;
+ }
+ html body .ql-page .ql-v7-section-pack .ql-v13-climate-progress .ql-v9-weather-stat:nth-child(2){
+  border-right:0!important;
+ }
+ html body .ql-page .ql-v7-section-pack .ql-v13-climate-progress .ql-v9-weather-stat:nth-child(3),
+ html body .ql-page .ql-v7-section-pack .ql-v13-climate-progress > .ql-v6-progress{
+  border-top:1px solid #E8DED4!important;
+ }
+}
+@media(max-width:650px){
+ html body .ql-page .ql-v7-section-pack > .ql-v10-packing-consejo{
+  grid-template-columns:66px minmax(0,1fr)!important;
+  margin-bottom:11px!important;padding:9px!important;gap:8px!important;
+ }
+ html body .ql-page .ql-v7-section-pack > .ql-v10-packing-consejo .ql-v10-consejo-brand{
+  padding-right:7px!important;
+ }
+ html body .ql-page .ql-v7-section-pack > .ql-v10-packing-consejo .ql-v10-consejo-brand img{
+  width:33px!important;height:33px!important;
+ }
+ html body .ql-page .ql-v7-section-pack > .ql-v10-packing-consejo .ql-v10-consejo-text{
+  font-size:11px!important;line-height:1.5!important;
+ }
+ html body .ql-page .ql-v7-section-pack .ql-v6-list-head.ql-v9-list-head.ql-v13-climate-progress{
+  display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  gap:0!important;
+ }
+ html body .ql-page .ql-v7-section-pack .ql-v13-climate-progress .ql-v9-weather-stat,
+ html body .ql-page .ql-v7-section-pack .ql-v13-climate-progress > .ql-v6-progress{
+  min-height:61px!important;
+ }
+ html body .ql-page .ql-v7-section-pack .ql-v6-scroll-shell > .ql-v6-categories{
+  grid-template-columns:1fr!important;grid-template-rows:none!important;
+  gap:10px!important;
+ }
+}
+@media print{
+ html body .ql-page .ql-v7-section-pack > .ql-v10-packing-consejo{
+  background:#FFF8F2!important;border:1px solid #D7C2B0!important;
+  break-inside:avoid!important;
+ }
+ html body .ql-page .ql-v7-section-pack .ql-v6-scroll-shell > .ql-v6-categories{
+  grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:10px!important;
+ }
+ html body .ql-page .ql-v7-section-pack .ql-v6-scroll-shell > .ql-v6-categories > .ql-v6-category{
+  height:auto!important;break-inside:avoid!important;page-break-inside:avoid!important;
+  background:#FFFFFF!important;
+ }
+}
