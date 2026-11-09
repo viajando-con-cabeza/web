@@ -303,6 +303,10 @@ $("ql-v6-categories").addEventListener("change",e=>{
  input.checked?state.done.add(labelKey(input.dataset.packId)):state.done.delete(labelKey(input.dataset.packId));
  save();render();
 });
+$("ql-v6-select-all").addEventListener("click",()=>{
+ for(const x of buildItems().flatMap(g=>g.items))state.done.add(labelKey(x.id));
+ save();render();notify("Todos los elementos de esta lista seleccionados");
+});
 $("ql-v6-clear").addEventListener("click",()=>{
  for(const x of buildItems().flatMap(g=>g.items))state.done.delete(labelKey(x.id));
  save();render();notify("Elementos desmarcados");
