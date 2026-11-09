@@ -25,7 +25,7 @@
 <link rel="stylesheet" href="/configuracion/css/componentes/guias-relacionadas-vcc.css?v=20261105-compact2">
 <link rel="stylesheet" href="/configuracion/css/componentes/estocolmo-guias-final-vcc.css?v=20261107-v1">
 <link rel="stylesheet" href="/configuracion/css/plantillas/entradas-pases-vcc.css?v=20261109-ranking-mobile-v12">
-<link rel="stylesheet" href="/configuracion/css/plantillas/entradas-pases-visual-vcc.css?v=20261109-pases-consejo-v16">
+<link rel="stylesheet" href="/configuracion/css/plantillas/entradas-pases-visual-vcc.css?v=20261109-clean-ranking-v17">
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Inicio","item":"https://viajandoconcabeza.com/"},{"@type":"ListItem","position":2,"name":"Destinos","item":"https://viajandoconcabeza.com/destinos/"},{"@type":"ListItem","position":3,"name":"Suecia","item":"https://viajandoconcabeza.com/destinos/suecia/"},{"@type":"ListItem","position":4,"name":"Estocolmo","item":"https://viajandoconcabeza.com/destinos/suecia/estocolmo/"},{"@type":"ListItem","position":5,"name":"Entradas y pases","item":"https://viajandoconcabeza.com/destinos/suecia/estocolmo/entradas-y-pases.html"}]}
 </script>
@@ -63,239 +63,179 @@
  <a href="#ranking" aria-current="location">QUÉ ENTRADAS MERECEN LA PENA</a>
  <a href="#reservar">QUÉ RESERVAR ANTES</a>
  <a href="#nuestras-entradas">NUESTRAS ENTRADAS</a>
- <a href="#lista">TU LISTA DE ENTRADAS</a>
  <a href="#consejo">CONSEJO VCC</a>
 </nav>
 
 <main class="ep-wrap ep-main ep3-main">
 <section class="ep-section ep3-section ep-ranking-section" id="ranking" aria-labelledby="ep3-ranking-title">
  <header class="ep-section-heading"><div class="ep-heading-main"><p class="ep-script">Qué entradas merecen la pena</p><h2 id="ep3-ranking-title">LAS MEJORES VISITAS SEGÚN TU VIAJE</h2></div><p class="ep-heading-aside">Nuestro criterio VCC para elegir bien, sin llenar el itinerario de entradas de pago.</p></header>
- <div class="ep3-rank-picker"><div class="ep-ranking-tabs" role="tablist" aria-label="Selecciona tu tipo de viaje"><button type="button" class="ep-ranking-tab" id="ep-ranking-tab-pareja" role="tab" aria-controls="ep-ranking-panel-pareja" aria-selected="true" tabindex="0"><span class="ep-icon ep-icon-users-round" aria-hidden="true"></span>En pareja</button>
-<button type="button" class="ep-ranking-tab" id="ep-ranking-tab-familia" role="tab" aria-controls="ep-ranking-panel-familia" aria-selected="false" tabindex="-1"><span class="ep-icon ep-icon-users-round" aria-hidden="true"></span>En familia</button>
-<button type="button" class="ep-ranking-tab" id="ep-ranking-tab-amigos" role="tab" aria-controls="ep-ranking-panel-amigos" aria-selected="false" tabindex="-1"><span class="ep-icon ep-icon-users-round" aria-hidden="true"></span>Con amigos</button>
-<button type="button" class="ep-ranking-tab" id="ep-ranking-tab-ninos" role="tab" aria-controls="ep-ranking-panel-ninos" aria-selected="false" tabindex="-1"><span class="ep-icon ep-icon-users-round" aria-hidden="true"></span>Con niños</button>
-<button type="button" class="ep-ranking-tab" id="ep-ranking-tab-jubilados" role="tab" aria-controls="ep-ranking-panel-jubilados" aria-selected="false" tabindex="-1"><span class="ep-icon ep-icon-leaf" aria-hidden="true"></span>Tranquilo</button></div></div>
+ <div class="ep3-rank-picker"><div class="ep-ranking-tabs" role="tablist" aria-label="Selecciona tu tipo de viaje"><button type="button" class="ep-ranking-tab" id="ep-ranking-tab-pareja" role="tab" aria-controls="ep-ranking-panel-pareja" aria-selected="true" tabindex="0"><svg class="ep3-profile-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.8 4.6a5.4 5.4 0 0 0-7.6 0L12 5.8l-1.2-1.2a5.4 5.4 0 0 0-7.6 7.6L12 21l8.8-8.8a5.4 5.4 0 0 0 0-7.6Z"/></svg>En pareja</button>
+<button type="button" class="ep-ranking-tab" id="ep-ranking-tab-familia" role="tab" aria-controls="ep-ranking-panel-familia" aria-selected="false" tabindex="-1"><svg class="ep3-profile-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="8" cy="7" r="2.4"/><circle cx="17.4" cy="8" r="2.1"/><circle cx="13.1" cy="15" r="1.8"/><path d="M2.5 19v-3c0-3 2.3-5.1 5.5-5.1s5.6 2.1 5.6 5.1M16.1 12c3.4-.2 5.4 1.9 5.4 4.8V19M10 21v-2.1c0-1.6 1.2-2.5 3.1-2.5s3.2.9 3.2 2.5V21"/></svg>En familia</button>
+<button type="button" class="ep-ranking-tab" id="ep-ranking-tab-amigos" role="tab" aria-controls="ep-ranking-panel-amigos" aria-selected="false" tabindex="-1"><svg class="ep3-profile-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="6" r="2.3"/><circle cx="4.6" cy="9" r="1.8"/><circle cx="19.4" cy="9" r="1.8"/><path d="M7 20v-4a5 5 0 0 1 10 0v4H7ZM2 20v-4c0-2.3 1.4-3.7 3.4-3.9M22 20v-4c0-2.3-1.4-3.7-3.4-3.9"/></svg>Con amigos</button>
+<button type="button" class="ep-ranking-tab" id="ep-ranking-tab-ninos" role="tab" aria-controls="ep-ranking-panel-ninos" aria-selected="false" tabindex="-1"><svg class="ep3-profile-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12.4" r="8.5"/><path d="M12 4V2.5a2 2 0 0 1 2-2M8.8 10h.1m6.2 0h.1M9 15c1.2 1.8 4.8 1.8 6 0M3.8 9.7l-2-1.1M20.2 9.7l2-1.1"/></svg>Con niños</button>
+<button type="button" class="ep-ranking-tab" id="ep-ranking-tab-jubilados" role="tab" aria-controls="ep-ranking-panel-jubilados" aria-selected="false" tabindex="-1"><svg class="ep3-profile-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 15V6a3 3 0 0 1 3-3h5a3 3 0 0 1 3 3v9M4 12v7h16v-7M7 19v3m10-3v3M4 15h16"/></svg>Jubilados</button></div></div>
  <div class="ep-ranking-panel ep3-rank-panel" id="ep-ranking-panel-pareja" role="tabpanel" aria-labelledby="ep-ranking-tab-pareja"><div class="ep3-rank-grid"><article class="ep3-rank-card">
- <div class="ep-v2-cover ep-v2-cover-barco ep3-rank-visual" aria-hidden="true">
-  <span class="ep3-rank-num">1</span>
-  <span class="ep-v2-art"><span class="ep-icon ep-icon-route" aria-hidden="true"></span></span>
- </div>
  <div class="ep3-rank-body">
+ <span class="ep3-rank-num" aria-label="Posición 1">1</span>
   <span class="ep3-rank-tag">Una experiencia compartida</span>
   <h3>PASEO EN BARCO</h3>
   <p>Contemplar Estocolmo desde el agua, si el recorrido y los horarios encajan con vuestro viaje.</p>
   <div class="ep3-rank-actions">
-   <button type="button" class="ep3-add" data-ep3-add="barco" aria-pressed="false">+ AÑADIR A MI LISTA</button>
    <a class="ep3-official" href="https://www.stromma.com/en-se/stockholm/sightseeing/sightseeing-by-boat/" target="_blank" rel="noopener noreferrer" aria-label="Web oficial de PASEO EN BARCO">Web oficial ↗</a>
   </div>
  </div>
 </article>
 <article class="ep3-rank-card">
- <div class="ep-v2-cover ep-v2-cover-vasa ep3-rank-visual" aria-hidden="true">
-  <span class="ep3-rank-num">2</span>
-  <span class="ep-v2-art"><span class="ep-icon ep-icon-ticket" aria-hidden="true"></span></span>
- </div>
  <div class="ep3-rank-body">
+ <span class="ep3-rank-num" aria-label="Posición 2">2</span>
   <span class="ep3-rank-tag">Una historia que sorprende</span>
   <h3>MUSEO VASA</h3>
   <p>Un barco del siglo XVII extraordinario: una buena elección si queréis visitar un museo.</p>
   <div class="ep3-rank-actions">
-   <button type="button" class="ep3-add" data-ep3-add="vasa" aria-pressed="false">+ AÑADIR A MI LISTA</button>
    <a class="ep3-official" href="https://www.vasamuseet.se/en/visit/hours--admission" target="_blank" rel="noopener noreferrer" aria-label="Web oficial de MUSEO VASA">Web oficial ↗</a>
   </div>
  </div>
 </article>
 <article class="ep3-rank-card">
- <div class="ep-v2-cover ep-v2-cover-abba ep3-rank-visual" aria-hidden="true">
-  <span class="ep3-rank-num">3</span>
-  <span class="ep-v2-art"><b>ABBA</b></span>
- </div>
  <div class="ep3-rank-body">
+ <span class="ep3-rank-num" aria-label="Posición 3">3</span>
   <span class="ep3-rank-tag">Para fans de la música</span>
   <h3>ABBA THE MUSEUM</h3>
   <p>Una experiencia interactiva que priorizaríamos solo si os gusta especialmente ABBA.</p>
   <div class="ep3-rank-actions">
-   <button type="button" class="ep3-add" data-ep3-add="abba" aria-pressed="false">+ AÑADIR A MI LISTA</button>
    <a class="ep3-official" href="https://abbathemuseum.com/en/prices-opening-hours" target="_blank" rel="noopener noreferrer" aria-label="Web oficial de ABBA THE MUSEUM">Web oficial ↗</a>
   </div>
  </div>
 </article></div></div>
 <div class="ep-ranking-panel ep3-rank-panel" id="ep-ranking-panel-familia" role="tabpanel" aria-labelledby="ep-ranking-tab-familia" hidden><div class="ep3-rank-grid"><article class="ep3-rank-card">
- <div class="ep-v2-cover ep-v2-cover-skansen ep3-rank-visual" aria-hidden="true">
-  <span class="ep3-rank-num">1</span>
-  <span class="ep-v2-art"><span class="ep-icon ep-icon-users-round" aria-hidden="true"></span></span>
- </div>
  <div class="ep3-rank-body">
+ <span class="ep3-rank-num" aria-label="Posición 1">1</span>
   <span class="ep3-rank-tag">Historia y aire libre</span>
   <h3>SKANSEN</h3>
   <p>Edificios tradicionales y zonas abiertas para alternar actividades sin ir con tanta prisa.</p>
   <div class="ep3-rank-actions">
-   <button type="button" class="ep3-add" data-ep3-add="skansen" aria-pressed="false">+ AÑADIR A MI LISTA</button>
    <a class="ep3-official" href="https://www.skansen.se/en/plan-your-visit/opening-hours-and-prices/" target="_blank" rel="noopener noreferrer" aria-label="Web oficial de SKANSEN">Web oficial ↗</a>
   </div>
  </div>
 </article>
 <article class="ep3-rank-card">
- <div class="ep-v2-cover ep-v2-cover-vasa ep3-rank-visual" aria-hidden="true">
-  <span class="ep3-rank-num">2</span>
-  <span class="ep-v2-art"><span class="ep-icon ep-icon-ticket" aria-hidden="true"></span></span>
- </div>
  <div class="ep3-rank-body">
+ <span class="ep3-rank-num" aria-label="Posición 2">2</span>
   <span class="ep3-rank-tag">Un barco espectacular</span>
   <h3>MUSEO VASA</h3>
   <p>Una visita visual y diferente para quienes disfrutan descubriendo la historia.</p>
   <div class="ep3-rank-actions">
-   <button type="button" class="ep3-add" data-ep3-add="vasa" aria-pressed="false">+ AÑADIR A MI LISTA</button>
    <a class="ep3-official" href="https://www.vasamuseet.se/en/visit/hours--admission" target="_blank" rel="noopener noreferrer" aria-label="Web oficial de MUSEO VASA">Web oficial ↗</a>
   </div>
  </div>
 </article>
 <article class="ep3-rank-card">
- <div class="ep-v2-cover ep-v2-cover-barco ep3-rank-visual" aria-hidden="true">
-  <span class="ep3-rank-num">3</span>
-  <span class="ep-v2-art"><span class="ep-icon ep-icon-route" aria-hidden="true"></span></span>
- </div>
  <div class="ep3-rank-body">
+ <span class="ep3-rank-num" aria-label="Posición 3">3</span>
   <span class="ep3-rank-tag">La ciudad desde el agua</span>
   <h3>PASEO EN BARCO</h3>
   <p>Una alternativa para descansar entre visitas, comprobando antes su duración.</p>
   <div class="ep3-rank-actions">
-   <button type="button" class="ep3-add" data-ep3-add="barco" aria-pressed="false">+ AÑADIR A MI LISTA</button>
    <a class="ep3-official" href="https://www.stromma.com/en-se/stockholm/sightseeing/sightseeing-by-boat/" target="_blank" rel="noopener noreferrer" aria-label="Web oficial de PASEO EN BARCO">Web oficial ↗</a>
   </div>
  </div>
 </article></div></div>
 <div class="ep-ranking-panel ep3-rank-panel" id="ep-ranking-panel-amigos" role="tabpanel" aria-labelledby="ep-ranking-tab-amigos" hidden><div class="ep3-rank-grid"><article class="ep3-rank-card">
- <div class="ep-v2-cover ep-v2-cover-abba ep3-rank-visual" aria-hidden="true">
-  <span class="ep3-rank-num">1</span>
-  <span class="ep-v2-art"><b>ABBA</b></span>
- </div>
  <div class="ep3-rank-body">
+ <span class="ep3-rank-num" aria-label="Posición 1">1</span>
   <span class="ep3-rank-tag">Para disfrutar juntos</span>
   <h3>ABBA THE MUSEUM</h3>
   <p>Una buena opción si compartís el gusto por la música y las actividades interactivas.</p>
   <div class="ep3-rank-actions">
-   <button type="button" class="ep3-add" data-ep3-add="abba" aria-pressed="false">+ AÑADIR A MI LISTA</button>
    <a class="ep3-official" href="https://abbathemuseum.com/en/prices-opening-hours" target="_blank" rel="noopener noreferrer" aria-label="Web oficial de ABBA THE MUSEUM">Web oficial ↗</a>
   </div>
  </div>
 </article>
 <article class="ep3-rank-card">
- <div class="ep-v2-cover ep-v2-cover-barco ep3-rank-visual" aria-hidden="true">
-  <span class="ep3-rank-num">2</span>
-  <span class="ep-v2-art"><span class="ep-icon ep-icon-route" aria-hidden="true"></span></span>
- </div>
  <div class="ep3-rank-body">
+ <span class="ep3-rank-num" aria-label="Posición 2">2</span>
   <span class="ep3-rank-tag">Plan de grupo</span>
   <h3>PASEO EN BARCO</h3>
   <p>Una actividad compartida con vistas, ideal si el tiempo acompaña.</p>
   <div class="ep3-rank-actions">
-   <button type="button" class="ep3-add" data-ep3-add="barco" aria-pressed="false">+ AÑADIR A MI LISTA</button>
    <a class="ep3-official" href="https://www.stromma.com/en-se/stockholm/sightseeing/sightseeing-by-boat/" target="_blank" rel="noopener noreferrer" aria-label="Web oficial de PASEO EN BARCO">Web oficial ↗</a>
   </div>
  </div>
 </article>
 <article class="ep3-rank-card">
- <div class="ep-v2-cover ep-v2-cover-vasa ep3-rank-visual" aria-hidden="true">
-  <span class="ep3-rank-num">3</span>
-  <span class="ep-v2-art"><span class="ep-icon ep-icon-ticket" aria-hidden="true"></span></span>
- </div>
  <div class="ep3-rank-body">
+ <span class="ep3-rank-num" aria-label="Posición 3">3</span>
   <span class="ep3-rank-tag">Una visita diferente</span>
   <h3>MUSEO VASA</h3>
   <p>Historia y arquitectura naval en Djurgården, sin necesidad de dedicar todo el día.</p>
   <div class="ep3-rank-actions">
-   <button type="button" class="ep3-add" data-ep3-add="vasa" aria-pressed="false">+ AÑADIR A MI LISTA</button>
    <a class="ep3-official" href="https://www.vasamuseet.se/en/visit/hours--admission" target="_blank" rel="noopener noreferrer" aria-label="Web oficial de MUSEO VASA">Web oficial ↗</a>
   </div>
  </div>
 </article></div></div>
 <div class="ep-ranking-panel ep3-rank-panel" id="ep-ranking-panel-ninos" role="tabpanel" aria-labelledby="ep-ranking-tab-ninos" hidden><div class="ep3-rank-grid"><article class="ep3-rank-card">
- <div class="ep-v2-cover ep-v2-cover-skansen ep3-rank-visual" aria-hidden="true">
-  <span class="ep3-rank-num">1</span>
-  <span class="ep-v2-art"><span class="ep-icon ep-icon-users-round" aria-hidden="true"></span></span>
- </div>
  <div class="ep3-rank-body">
+ <span class="ep3-rank-num" aria-label="Posición 1">1</span>
   <span class="ep3-rank-tag">A vuestro ritmo</span>
   <h3>SKANSEN</h3>
   <p>Espacios exteriores y actividades variadas para un día con pausas.</p>
   <div class="ep3-rank-actions">
-   <button type="button" class="ep3-add" data-ep3-add="skansen" aria-pressed="false">+ AÑADIR A MI LISTA</button>
    <a class="ep3-official" href="https://www.skansen.se/en/plan-your-visit/opening-hours-and-prices/" target="_blank" rel="noopener noreferrer" aria-label="Web oficial de SKANSEN">Web oficial ↗</a>
   </div>
  </div>
 </article>
 <article class="ep3-rank-card">
- <div class="ep-v2-cover ep-v2-cover-vasa ep3-rank-visual" aria-hidden="true">
-  <span class="ep3-rank-num">2</span>
-  <span class="ep-v2-art"><span class="ep-icon ep-icon-ticket" aria-hidden="true"></span></span>
- </div>
  <div class="ep3-rank-body">
+ <span class="ep3-rank-num" aria-label="Posición 2">2</span>
   <span class="ep3-rank-tag">Si les interesan los barcos</span>
   <h3>MUSEO VASA</h3>
   <p>Valorad su edad y atención antes de planificar una visita larga.</p>
   <div class="ep3-rank-actions">
-   <button type="button" class="ep3-add" data-ep3-add="vasa" aria-pressed="false">+ AÑADIR A MI LISTA</button>
    <a class="ep3-official" href="https://www.vasamuseet.se/en/visit/hours--admission" target="_blank" rel="noopener noreferrer" aria-label="Web oficial de MUSEO VASA">Web oficial ↗</a>
   </div>
  </div>
 </article>
 <article class="ep3-rank-card">
- <div class="ep-v2-cover ep-v2-cover-skansen ep3-rank-visual" aria-hidden="true">
-  <span class="ep3-rank-num">3</span>
-  <span class="ep-v2-art"><span class="ep-icon ep-icon-route" aria-hidden="true"></span></span>
- </div>
  <div class="ep3-rank-body">
+ <span class="ep3-rank-num" aria-label="Posición 3">3</span>
   <span class="ep3-rank-tag">Sin reservar entradas</span>
   <h3>PARQUES Y PASEOS</h3>
   <p>Dejad tiempo para explorar y descansar sin encadenar museos de pago.</p>
   <div class="ep3-rank-actions">
-   <span class="ep3-rank-tag">PLAN GRATUITO</span>
+   
    <a class="ep3-official" href="imprescindibles.html">QUÉ VER ↗</a>
   </div>
  </div>
 </article></div></div>
 <div class="ep-ranking-panel ep3-rank-panel" id="ep-ranking-panel-jubilados" role="tabpanel" aria-labelledby="ep-ranking-tab-jubilados" hidden><div class="ep3-rank-grid"><article class="ep3-rank-card">
- <div class="ep-v2-cover ep-v2-cover-vasa ep3-rank-visual" aria-hidden="true">
-  <span class="ep3-rank-num">1</span>
-  <span class="ep-v2-art"><span class="ep-icon ep-icon-ticket" aria-hidden="true"></span></span>
- </div>
  <div class="ep3-rank-body">
+ <span class="ep3-rank-num" aria-label="Posición 1">1</span>
   <span class="ep3-rank-tag">Patrimonio excepcional</span>
   <h3>MUSEO VASA</h3>
   <p>Una visita con mucha historia que se puede disfrutar a un ritmo pausado.</p>
   <div class="ep3-rank-actions">
-   <button type="button" class="ep3-add" data-ep3-add="vasa" aria-pressed="false">+ AÑADIR A MI LISTA</button>
    <a class="ep3-official" href="https://www.vasamuseet.se/en/visit/hours--admission" target="_blank" rel="noopener noreferrer" aria-label="Web oficial de MUSEO VASA">Web oficial ↗</a>
   </div>
  </div>
 </article>
 <article class="ep3-rank-card">
- <div class="ep-v2-cover ep-v2-cover-palacio ep3-rank-visual" aria-hidden="true">
-  <span class="ep3-rank-num">2</span>
-  <span class="ep-v2-art"><span class="ep-icon ep-icon-landmark" aria-hidden="true"></span></span>
- </div>
  <div class="ep3-rank-body">
+ <span class="ep3-rank-num" aria-label="Posición 2">2</span>
   <span class="ep3-rank-tag">Historia de Suecia</span>
   <h3>PALACIO REAL</h3>
   <p>Combínalo con un paseo por Gamla Stan y revisa antes la apertura.</p>
   <div class="ep3-rank-actions">
-   <button type="button" class="ep3-add" data-ep3-add="palacio" aria-pressed="false">+ AÑADIR A MI LISTA</button>
    <a class="ep3-official" href="https://www.kungligaslotten.se/english/royal-palaces-and-sites/admission-charges.html" target="_blank" rel="noopener noreferrer" aria-label="Web oficial de PALACIO REAL">Web oficial ↗</a>
   </div>
  </div>
 </article>
 <article class="ep3-rank-card">
- <div class="ep-v2-cover ep-v2-cover-barco ep3-rank-visual" aria-hidden="true">
-  <span class="ep3-rank-num">3</span>
-  <span class="ep-v2-art"><span class="ep-icon ep-icon-route" aria-hidden="true"></span></span>
- </div>
  <div class="ep3-rank-body">
+ <span class="ep3-rank-num" aria-label="Posición 3">3</span>
   <span class="ep3-rank-tag">Otra perspectiva</span>
   <h3>PASEO EN BARCO</h3>
   <p>Comprobad la duración del recorrido y la accesibilidad del embarque.</p>
   <div class="ep3-rank-actions">
-   <button type="button" class="ep3-add" data-ep3-add="barco" aria-pressed="false">+ AÑADIR A MI LISTA</button>
    <a class="ep3-official" href="https://www.stromma.com/en-se/stockholm/sightseeing/sightseeing-by-boat/" target="_blank" rel="noopener noreferrer" aria-label="Web oficial de PASEO EN BARCO">Web oficial ↗</a>
   </div>
  </div>
@@ -328,7 +268,7 @@
     <span class="ep3-our-kicker"><span class="ep-icon ep-icon-ticket" aria-hidden="true"></span> Entrada de ejemplo</span>
     <h3>PALACIO REAL</h3>
     <p>Una visita al interior por la mañana, antes de recorrer Stortorget y el casco antiguo a pie.</p>
-    <div class="ep3-our-bottom"><button type="button" class="ep3-add" data-ep3-add="palacio" aria-pressed="false">+ AÑADIR A MI LISTA</button><a href="itinerario.html#dia1">VER DÍA 1 ↗</a></div>
+    <div class="ep3-our-bottom"><a href="itinerario.html#dia1">VER DÍA 1 ↗</a></div>
    </div>
   </article>
   <article class="ep3-our-day">
@@ -337,7 +277,7 @@
     <span class="ep3-our-kicker"><span class="ep-icon ep-icon-ticket" aria-hidden="true"></span> Entrada de ejemplo</span>
     <h3>MUSEO VASA</h3>
     <p>El museo como visita principal del día. Después, tiempo para pasear por Djurgården sin sumar otra entrada.</p>
-    <div class="ep3-our-bottom"><button type="button" class="ep3-add" data-ep3-add="vasa" aria-pressed="false">+ AÑADIR A MI LISTA</button><a href="itinerario.html#dia2">VER DÍA 2 ↗</a></div>
+    <div class="ep3-our-bottom"><a href="itinerario.html#dia2">VER DÍA 2 ↗</a></div>
    </div>
   </article>
   <article class="ep3-our-day">
@@ -346,31 +286,13 @@
     <span class="ep3-our-kicker"><span class="ep-icon ep-icon-ticket" aria-hidden="true"></span> Entrada de ejemplo</span>
     <h3>FOTOGRAFISKA</h3>
     <p>Una parada cultural opcional después de los miradores y los paseos gratuitos por Södermalm.</p>
-    <div class="ep3-our-bottom"><button type="button" class="ep3-add" data-ep3-add="foto" aria-pressed="false">+ AÑADIR A MI LISTA</button><a href="itinerario.html#dia3">VER DÍA 3 ↗</a></div>
+    <div class="ep3-our-bottom"><a href="itinerario.html#dia3">VER DÍA 3 ↗</a></div>
    </div>
   </article>
  </div>
  <p class="ep3-our-draft"><strong>Borrador pendiente de revisar:</strong> las tres compras son ejemplos ficticios para preparar el diseño, no entradas que VCC haya confirmado comprar. Sustituiremos los ejemplos por nuestras entradas reales antes de publicar esta sección.</p>
 </section>
-<section class="ep-section ep3-section" id="lista" aria-labelledby="ep3-list-title">
- <header class="ep-section-heading"><div class="ep-heading-main"><p class="ep-script">Prepara tu lista de entradas</p><h2 id="ep3-list-title">ORGANIZA TUS VISITAS</h2></div><p class="ep-heading-aside">Marca solo las atracciones que quieres visitar, conserva la lista o cópiala con sus enlaces oficiales.</p></header>
- <div class="ep3-check-shell">
-  <div class="ep3-check-intro"><p>Una lista práctica para decidir las compras y no perder los enlaces de cada museo.</p><span class="ep3-check-count" id="ep3-count">Ninguna visita seleccionada</span></div>
-  <div class="ep3-check-list" role="group" aria-label="Selecciona tus entradas"><div class="ep3-check-line"><label for="ep3-check-vasa"><input type="checkbox" id="ep3-check-vasa" data-ep3-ticket="vasa" data-ep3-name="Museo Vasa" data-ep3-url="https://www.vasamuseet.se/en/visit/hours--admission" data-ep3-note="Puedes comprar al llegar; reservar antes no da prioridad en cola."><span>Museo Vasa</span></label><a href="https://www.vasamuseet.se/en/visit/hours--admission" target="_blank" rel="noopener noreferrer" aria-label="Comprar o consultar entrada de Museo Vasa en la web oficial">Web oficial ↗</a></div>
-<div class="ep3-check-line"><label for="ep3-check-abba"><input type="checkbox" id="ep3-check-abba" data-ep3-ticket="abba" data-ep3-name="ABBA The Museum" data-ep3-url="https://abbathemuseum.com/en/prices-opening-hours" data-ep3-note="Elige una franja horaria si quieres visitarlo."><span>ABBA The Museum</span></label><a href="https://abbathemuseum.com/en/prices-opening-hours" target="_blank" rel="noopener noreferrer" aria-label="Comprar o consultar entrada de ABBA The Museum en la web oficial">Web oficial ↗</a></div>
-<div class="ep3-check-line"><label for="ep3-check-skansen"><input type="checkbox" id="ep3-check-skansen" data-ep3-ticket="skansen" data-ep3-name="Skansen" data-ep3-url="https://www.skansen.se/en/plan-your-visit/opening-hours-and-prices/" data-ep3-note="El precio es más bajo online; confirma la fecha."><span>Skansen</span></label><a href="https://www.skansen.se/en/plan-your-visit/opening-hours-and-prices/" target="_blank" rel="noopener noreferrer" aria-label="Comprar o consultar entrada de Skansen en la web oficial">Web oficial ↗</a></div>
-<div class="ep3-check-line"><label for="ep3-check-palacio"><input type="checkbox" id="ep3-check-palacio" data-ep3-ticket="palacio" data-ep3-name="Palacio Real" data-ep3-url="https://www.kungligaslotten.se/english/royal-palaces-and-sites/admission-charges.html" data-ep3-note="Revisa el calendario de apertura."><span>Palacio Real</span></label><a href="https://www.kungligaslotten.se/english/royal-palaces-and-sites/admission-charges.html" target="_blank" rel="noopener noreferrer" aria-label="Comprar o consultar entrada de Palacio Real en la web oficial">Web oficial ↗</a></div>
-<div class="ep3-check-line"><label for="ep3-check-foto"><input type="checkbox" id="ep3-check-foto" data-ep3-ticket="foto" data-ep3-name="Fotografiska" data-ep3-url="https://stockholm.fotografiska.com/en/" data-ep3-note="Consulta exposiciones y horarios."><span>Fotografiska</span></label><a href="https://stockholm.fotografiska.com/en/" target="_blank" rel="noopener noreferrer" aria-label="Comprar o consultar entrada de Fotografiska en la web oficial">Web oficial ↗</a></div>
-<div class="ep3-check-line"><label for="ep3-check-barco"><input type="checkbox" id="ep3-check-barco" data-ep3-ticket="barco" data-ep3-name="Paseo en barco" data-ep3-url="https://www.stromma.com/en-se/stockholm/sightseeing/sightseeing-by-boat/" data-ep3-note="Confirma rutas, fechas, salida y si necesita reserva."><span>Paseo en barco</span></label><a href="https://www.stromma.com/en-se/stockholm/sightseeing/sightseeing-by-boat/" target="_blank" rel="noopener noreferrer" aria-label="Comprar o consultar entrada de Paseo en barco en la web oficial">Web oficial ↗</a></div>
-<div class="ep3-check-line"><label for="ep3-check-nobel"><input type="checkbox" id="ep3-check-nobel" data-ep3-ticket="nobel" data-ep3-name="Museo Nobel" data-ep3-url="https://nobelprizemuseum.se/en/" data-ep3-note="Consulta las exposiciones y horarios."><span>Museo Nobel</span></label><a href="https://nobelprizemuseum.se/en/" target="_blank" rel="noopener noreferrer" aria-label="Comprar o consultar entrada de Museo Nobel en la web oficial">Web oficial ↗</a></div></div>
-  <div class="ep3-check-actions">
-   <button type="button" id="ep3-save"><span class="ep-icon ep-icon-check-check" aria-hidden="true"></span>GUARDAR LISTA</button>
-   <button type="button" id="ep3-copy"><span class="ep-icon ep-icon-ticket" aria-hidden="true"></span>COPIAR LISTA</button>
-   <textarea id="ep3-copy-fallback" hidden readonly aria-label="Lista preparada para copiar"></textarea>
-  </div>
- </div>
- <p class="ep3-status" id="ep3-status" role="status" aria-live="polite"></p>
-</section>
+
 <section class="ep-section ep3-section" id="consejo" aria-labelledby="ep3-advice-title">
  <header class="ep-section-heading"><div class="ep-heading-main"><p class="ep-script">Nuestra recomendación</p><h2 id="ep3-advice-title">EL CONSEJO VCC</h2></div></header>
  <aside class="ep3-advice"><div class="ep3-advice-brand"><img src="/configuracion/imagenes/marca/logo-vcc.svg" width="50" height="50" loading="eager" decoding="async" alt="Viajando con Cabeza"><strong>CONSEJO VCC</strong></div><p>No intentes verlo todo. Elige dos o tres visitas de pago que realmente te apetezcan, reserva lo que tenga horario y agrupa las actividades por zonas como Gamla Stan o Djurgården. Así tendrás más tiempo para disfrutar de Estocolmo.</p></aside>
@@ -398,6 +320,5 @@
 <script defer src="/configuracion/js/site-header.js?v=20261107"></script>
 <script defer src="/configuracion/js/site-footer.js?v=20261102"></script>
 <script defer src="/configuracion/js/plantillas/entradas-pases-vcc.js?v=20261108-pass-v10"></script>
-<script defer src="/configuracion/js/plantillas/entradas-pases-visual-vcc.js?v=20261109-checklist-v5"></script>
 </body>
 </html>
