@@ -207,7 +207,7 @@
   const main = document.querySelector('.imp-page .imp-main');
   // Aquesta targeta antiga és exclusiva d'Estocolmo; en altres ciutats
   // no s'han de mostrar ni fotos ni textos d'un altre destí.
-  if (main && /^\/destinos\/suecia\/estocolmo\//.test(location.pathname) &&
+  if (main && !main.hasAttribute('data-no-itinerary-feature') && /^\/destinos\/suecia\/estocolmo\//.test(location.pathname) &&
       !document.querySelector('.imp-page .related-section') &&
       !document.getElementById('vcc-itinerary-feature')) {
     const feature = document.createElement('section');
