@@ -166,3 +166,22 @@ html body .ql-page .ql-advice-section{margin-top:33px!important}
 /* Acceso rápido a los parámetros sin duplicar formularios. */
 html body .ql-page .ql-v7-edit-link{display:inline-block;margin-left:5px;font-weight:800;color:#b66549;text-decoration:underline;text-underline-offset:3px;white-space:nowrap}
 html body .ql-page .ql-v7-edit-link:hover{color:#8f4b35}
+
+/* Climatología de precipitaciones integrada sin abrir otra sección. */
+html body .ql-page .ql-v7-planner-controls .ql-v7-rain-days{
+ display:flex;gap:4px;align-items:center;
+ margin-top:6px!important;color:#56737b;
+ font:700 10px/1.35 "DM Sans",sans-serif;
+ letter-spacing:0;white-space:normal;
+}
+html body .ql-page .ql-v7-rain-source{
+ margin:10px 2px 0!important;
+ color:#81756a;font:400 10px/1.45 "DM Sans",sans-serif;
+}
+html body .ql-page .ql-v7-rain-source a{
+ color:#a25d45;text-decoration:underline;text-underline-offset:2px;
+}
+@media(max-width:600px){
+ html body .ql-page .ql-v7-planner-controls .ql-v7-rain-days{font-size:10px}
+ html body .ql-page .ql-v7-rain-source{font-size:9.5px}
+}
