@@ -6,8 +6,16 @@
   const mobile = window.matchMedia('(max-width: 800px)');
   // Derivats AVIF/WebP segons mida, amb l'original intacte per al zoom.
   // Mini i visor per a tots els formats, creats automàticament i guardats a R2.
-  const preview = (url, size='visor') => String(url).replace(/^https:\/\/img\.viajandoconcabeza\.com\/(destinos\/.+\.(?:avif|webp))$/i,
-    'https://img.viajandoconcabeza.com/__vcc_preview/'+(size==='mini'?'mini':'visor')+'/$1');
+  const preview = (url, size='visor') => {
+    const variant=size==='mini'?'mini':'visor';
+    const arch=String(url).match(/^https:\/\/img\.viajandoconcabeza\.com\/(destinos\/suecia\/estocolmo-archipelago\/2026-dia8)\/(?:paisajes|bosques|mar)\/(DSC\d+\.avif)$/i);
+    if (arch) {
+      const cached=new Set(['DSC08334.avif','DSC08335.avif','DSC08336.avif','DSC08337.avif','DSC08338.avif','DSC08342.avif','DSC08344.avif','DSC08345.avif']);
+      return cached.has(arch[2])?'https://img.viajandoconcabeza.com/'+arch[1]+'/_preview/'+variant+'/'+arch[2]:url;
+    }
+    return String(url).replace(/^https:\/\/img\.viajandoconcabeza\.com\/(destinos\/.+\.(?:avif|webp))$/i,
+      'https://img.viajandoconcabeza.com/__vcc_preview/'+variant+'/$1');
+  };
   const root = document.createElement('div');
   root.id = 'vcc-mobile-gallery';
   root.hidden = true;
