@@ -314,17 +314,24 @@
       viewportBaseline?.h/zoom||rect.height));
     // Sense límits dividits per dos: no podem empènyer el contingut
     // més enllà de les seves vores i deixar espais buits.
-    const x=Math.max(0,panel.offsetWidth+36-visibleW);
-    const y=Math.max(0,panel.offsetHeight+36-visibleH);
-    // Recorregut ampli en els QUATRE sentits. Abans el límit a
-    // esquerra/dalt era només 120px/100px, mentre que a la dreta/baix
-    // es podien recórrer centenars de píxels. Equiparem el màxim
-    // desplaçament i deixem una franja mínima visible del panell.
-    // NO desplacem el zoom inicial: aquests extrems només s'assoleixen
-    // en moure el cursor cap a les vores del visor.
-    const leftReach=Math.min(x,Math.max(0,visibleW-36));
-    const topReach=Math.min(y,Math.max(0,visibleH-36));
-    return {x,y,minX:-leftReach,minY:-topReach,width:visibleW,height:visibleH};
+    // Safari/Chrome a macOS poden mantenir la mida del viewport de layout
+    // mentre desplacen el viewport VISUAL amb el gest de pinça.
+    // Sense offsetLeft/Top, la part de dalt/esquerra queda fora de l'abast:
+    // amb un zoom gran, "visibleW-36" no arriba per tornar a l'origen.
+    const vv=window.visualViewport;
+    const offsetX=Math.max(0,Number(vv?.offsetLeft)||0);
+    const offsetY=Math.max(0,Number(vv?.offsetTop)||0);
+    const width=Math.max(1,panel.offsetWidth);
+    const height=Math.max(1,panel.offsetHeight);
+    const leftPad=18,topPad=18;
+    // Pantalla visible [offset, offset+size] en coordenades de layout.
+    // L'extrem negatiu recupera la vora superior/esquerra; el positiu,
+    // la dreta/inferior. No deixem que el pan mostri espais buits.
+    const minX=Math.min(0,leftPad-offsetX);
+    const minY=Math.min(0,topPad-offsetY);
+    const x=Math.max(minX,leftPad+width-visibleW-offsetX);
+    const y=Math.max(minY,topPad+height-visibleH-offsetY);
+    return {x,y,minX,minY,width:visibleW,height:visibleH};
   };
   // Velocitat constant i moderada: sense acceleració als extrems.
   // El zoom del navegador no canvia la velocitat de navegació.
@@ -492,12 +499,38 @@
   window.visualViewport?.addEventListener('resize',()=>{
     resetHoverPan();queueMosaicZoomSync();
   },{passive:true});
+  // La roda Ctrl/Meta continua controlant el zoom NATIU del navegador.
+  // El trackpad Mac (2 dits) també ha de poder desplaçar en 2 dimensions,
+  // fins i tot quan NO emet pointermove/mousemove com un ratolí Windows.
+  const trackpadPan=(modal,dx,dy)=>{
+    const unit=Math.max(0.05,PAN_SPEED);
+    const state=panState[modeOf(modal)],lim=panLimits(modal);
+    state.x=clamp(state.x+dx*unit,lim.minX,lim.x);
+    state.y=clamp(state.y+dy*unit,lim.minY,lim.y);
+    resetHoverPan(); // El moviment del cursor posterior parteix del lloc actual.
+    paintPan(modal);
+  };
   window.addEventListener('wheel',event=>{
-    if(layer.hidden||!(event.ctrlKey||event.metaKey))return;
-    rememberZoomAnchor(event);
-    resetHoverPan();
-    requestAnimationFrame(()=>requestAnimationFrame(queueMosaicZoomSync));
-  },{capture:true,passive:true});
+    if(layer.hidden)return;
+    if(event.ctrlKey||event.metaKey){
+      rememberZoomAnchor(event);
+      resetHoverPan();
+      requestAnimationFrame(()=>requestAnimationFrame(queueMosaicZoomSync));
+      return; // No bloquegem el zoom de Windows, Chrome ni Safari.
+    }
+    const modal=activeViewport();
+    if(!modal||zoomRatio()<=1.025||!event.cancelable)return;
+    const factor=event.deltaMode===1?16:event.deltaMode===2?Math.max(1,window.innerHeight):1;
+    const dx=event.deltaX*factor,dy=event.deltaY*factor;
+    if(!Number.isFinite(dx)||!Number.isFinite(dy)||(!dx&&!dy))return;
+    event.preventDefault();
+    trackpadPan(modal,dx,dy);
+  },{capture:true,passive:false});
+  // Safari Mac envia gesturechange i canvis d'offset del viewport visual.
+  // No interceptem la pinça: únicament sincronitzem els límits del pan.
+  window.visualViewport?.addEventListener('scroll',queueMosaicZoomSync,{passive:true});
+  window.addEventListener('gesturechange',queueMosaicZoomSync,{passive:true});
+  window.addEventListener('gestureend',queueMosaicZoomSync,{passive:true});
   window.addEventListener('pointermove',onGalleryMouseMove,{capture:true,passive:true});
   window.addEventListener('mousemove',onGalleryMouseMove,{capture:true,passive:true});
   const resetViewerPan=()=>{};
