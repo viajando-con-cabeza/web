@@ -9,7 +9,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=DM+Sans:wght@400;500;600;700;800&family=Caveat:wght@500;600;700&display=swap" rel="stylesheet">
 <link rel="preload" href="/configuracion/imagenes/fondos/fondos-como-moverse-editorial.webp" as="image" type="image/webp" fetchpriority="high">
 <link rel="stylesheet" href="/configuracion/css/paginas.css"><link rel="stylesheet" href="/configuracion/css/overrides.css">
-<link rel="stylesheet" href="/configuracion/css/plantillas/como-moverse-vcc.css?v=20261109-carrusel15">
+<link rel="stylesheet" href="/configuracion/css/plantillas/como-moverse-vcc.css?v=20261109-beige16">
 <link rel="stylesheet" href="/configuracion/css/componentes/estocolmo-guias-final-vcc.css?v=20261107-v1">
 <meta property="og:type" content="article"><meta property="og:locale" content="es_ES">
 <meta property="og:title" content="Cómo moverse por Estocolmo: metro, ferris y billetes | VCC">
@@ -76,7 +76,9 @@
 <section class="mv-transport-section" id="transportes" aria-labelledby="mv-options-title">
 <div class="mv-head mv-section-head"><div><span class="mv-overline">Cómo moverse por Estocolmo</span><h2 id="mv-options-title">ELIGE TU TRANSPORTE</h2></div><p>Metro, autobús, tranvía, ferry o a pie: qué conviene para nuestro itinerario y cómo se paga cada opción.</p></div>
 
-<div class="mv-transport-toolbar"><span class="mv-transport-hint">6 opciones · Desliza o usa las flechas</span><div class="mv-transport-controls" role="group" aria-label="Navegar entre los transportes"><span class="mv-transport-counter" id="mv-transport-counter" aria-live="polite">1 / 2</span><button type="button" class="mv-transport-prev" aria-label="Transportes anteriores" aria-controls="mv-transport-track" disabled><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m14 5-7 7 7 7"/></svg></button><button type="button" class="mv-transport-next" aria-label="Transportes siguientes" aria-controls="mv-transport-track"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m10 5 7 7-7 7"/></svg></button></div></div>
+<div class="mv-transport-toolbar"><span class="mv-transport-hint">6 opciones · Desliza o usa las flechas</span><span class="mv-transport-counter" id="mv-transport-counter" aria-live="polite">1 / 2</span></div>
+<div class="mv-transport-shell" role="group" aria-label="Carrusel de transportes">
+<button type="button" class="mv-transport-prev mv-transport-arrow" aria-label="Transportes anteriores" aria-controls="mv-transport-track" disabled><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m14 5-7 7 7 7"/></svg></button>
 <div class="mv-grid" id="mv-transport-track" role="region" aria-roledescription="carrusel" aria-label="Seis medios de transporte para Estocolmo" tabindex="0"><article class="mv-card" id="transporte-apie">
 <div class="mv-card-body">
 <div class="mv-card-heading"><span class="mv-icon" aria-hidden="true"><img src="/configuracion/imagenes/iconos/como-moverse/iconos-lucide/apie.svg" alt="" width="30" height="30" loading="lazy"></span><div class="mv-card-title"><h3>A PIE</h3><span>Gamla Stan y Södermalm</span></div></div>
@@ -113,6 +115,8 @@
 <div class="mv-card-details"><div class="mv-card-experience"><div class="mv-experience-title"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 10v12M15 5.88 14 10h5.83a2 2 0 0 1 1.92 2.56l-2.33 8A2 2 0 0 1 17.5 22H5a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2h2.76a2 2 0 0 0 1.79-1.11L12.64 2A3.13 3.13 0 0 1 15 5.88Z"/></svg><strong>Nuestra experiencia</strong></div><ul class="mv-experience-list"><li class="mv-yes"><span class="mv-mark" aria-hidden="true">✓</span><span>Libertad fuera de Estocolmo</span></li><li class="mv-yes"><span class="mv-mark" aria-hidden="true">✓</span><span>Cómodo para excursiones</span></li><li class="mv-no"><span class="mv-mark" aria-hidden="true">✕</span><span>Parking céntrico caro y limitado</span></li><li class="mv-no"><span class="mv-mark" aria-hidden="true">✕</span><span>Tráfico en horas punta</span></li></ul></div>
 <div class="mv-card-advice"><div class="mv-card-advice-item"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2.8" y="5" width="18.4" height="14" rx="2"/><path d="M3 10h18M7 15h3"/></svg><div><strong>Cómo pagar</strong><p>Parking en la calle: aprox. 20–55 SEK/h según zona; app o parquímetro.</p></div></div><div class="mv-card-advice-item"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="2.5"/></svg><div><strong>Cuándo usarlo</strong><p>Solo si salimos de Estocolmo. No lo elegiríamos para nuestros tres días.</p></div></div></div></div>
 </div></article></div>
+<button type="button" class="mv-transport-next mv-transport-arrow" aria-label="Transportes siguientes" aria-controls="mv-transport-track"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m10 5 7 7-7 7"/></svg></button>
+</div>
 <p class="mv-pricing-note" id="transporte-bicicleta">Precios de referencia consultados en noviembre de 2026. Los billetes SL permiten transbordos durante su validez; en el ferry 82 se acepta el billete SL. <a href="https://sl.se/en/fares-and-tickets" target="_blank" rel="noopener noreferrer">Consulta las tarifas oficiales SL</a> y comprueba cada itinerario en la app SL o Google Maps. ¿Prefieres bicicleta? Puedes encontrar alquileres desde unos 220 SEK/día, especialmente interesantes con buen tiempo. El coste de parking cambia según zona y horario.</p>
 </section>
 <section class="mv-ticket-compare" id="comparar-billetes" aria-labelledby="mv-ticket-title">
