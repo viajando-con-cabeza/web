@@ -76,7 +76,8 @@ body.mv-body .vcc-discover-section{background:var(--mv-cream)}
 .mv-day-example-head{display:flex;justify-content:space-between;align-items:end;gap:20px;margin-bottom:12px}
 .mv-day-eyebrow{display:block;margin:0 0 5px;color:#b95e32;font:700 10px/1.2 "DM Sans",sans-serif;letter-spacing:.06em;text-transform:uppercase}
 .mv-day-example-head h3{margin:0;color:#252c28;font:600 22px/1.17 "Oswald",sans-serif}
-.mv-day-example-head>p{margin:0;max-width:475px;color:#676059;font:400 11px/1.48 "DM Sans",sans-serif}
+.mv-day-example-head>p{margin:0;max-width:480px;color:#5a554e;font:400 11.5px/1.5 "DM Sans",sans-serif}
+.mv-day-example-head>p b{color:#a35c36;font-weight:700}
 .mv-day-cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
 .mv-day-card{display:flex;flex-direction:column;min-width:0;padding:15px 16px 13px;border:1px solid #e9c9b2;border-radius:15px;background:#fff}
 .mv-day-card-heading{display:grid;grid-template-columns:34px minmax(0,1fr);align-items:start;column-gap:10px;margin-bottom:10px}
@@ -99,7 +100,14 @@ body.mv-body .vcc-discover-section{background:var(--mv-cream)}
 .mv-day-example{margin-top:24px}
 .mv-day-example-head{display:flex;align-items:end;justify-content:space-between;gap:14px;margin-bottom:10px}
 .mv-day-example-head h3{font-size:24px}
+/* Lectura guiada: primer trajectes reals, després comparació del seu cost. */
 .mv-day-showcase{display:grid;grid-template-columns:minmax(0,3.15fr) minmax(250px,1.18fr);align-items:stretch;gap:11px}
+.mv-day-flow-label{display:flex;align-items:center;gap:7px;min-height:22px;margin:0 0 7px;color:#795a48;font:700 10.2px/1.2 "DM Sans",sans-serif;letter-spacing:.025em;text-transform:uppercase}
+.mv-day-flow-label span{display:grid;place-items:center;flex:0 0 22px;width:22px;height:22px;border:1px solid #e8b58f;border-radius:50%;background:#fff;color:#d5692b;font:800 10px/1 "DM Sans",sans-serif}
+.mv-day-flow-label strong{font-weight:700}
+.mv-day-advice-column{display:flex;flex-direction:column;min-width:0;align-self:stretch}
+.mv-day-advice-column>.mv-day-advice{flex:1}
+
 .mv-day-route{min-width:0;position:relative;display:flex;flex-direction:column;align-self:stretch}
 .mv-day-cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;align-items:stretch;flex:1;min-width:0}
 .mv-day-card{padding:13px 11px 11px;min-height:236px;border-color:#e4d7cb}
@@ -137,7 +145,7 @@ body.mv-body .vcc-discover-section{background:var(--mv-cream)}
 .mv-day-advice-text>p{margin:0;color:#525a55;font:500 11.5px/1.46 "DM Sans",sans-serif}
 .mv-advice-comparison{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);gap:8px;align-items:center;padding-top:9px;border-top:1px solid #eee1d6}
 .mv-advice-comparison>div{display:flex;flex-direction:column;gap:3px;min-width:0}
-.mv-advice-comparison>div>span{color:#786960;font:500 10.5px/1.35 "DM Sans",sans-serif}
+.mv-advice-comparison>div>span{color:#75675c;font:600 10.7px/1.35 "DM Sans",sans-serif}
 .mv-advice-comparison>div>strong{color:#29332e;font:600 22px/1.1 "Oswald",sans-serif;white-space:nowrap}
 .mv-advice-comparison>div:last-child{align-items:flex-end;text-align:right}
 .mv-advice-vs{color:#a78775;font:800 9px/1 "DM Sans",sans-serif}
@@ -255,6 +263,7 @@ body.mv-body .mv-day-advice,body.mv-body .mv-day-advice .mv-advice-saving{backgr
  .mv-crumb{margin-bottom:28px}
  .mv-pay-guide{grid-template-columns:minmax(155px,.62fr) minmax(0,1.38fr);gap:13px}
  .mv-day-showcase{grid-template-columns:minmax(0,1fr) minmax(225px,.53fr)}
+ .mv-day-advice-column{align-self:start}
  .mv-day-cards{grid-template-columns:1fr}
  .mv-day-route.is-carousel .mv-day-card{flex-basis:100%}
  .mv-ticket-option{grid-template-columns:24px minmax(94px,.62fr) minmax(0,1fr);gap:6px;padding:10px 8px}
@@ -310,6 +319,8 @@ body.mv-body .mv-day-advice,body.mv-body .mv-day-advice .mv-advice-saving{backgr
  .mv-day-example-head h3{font-size:20px}
  .mv-day-example-head>p{max-width:none;margin-top:7px}
  .mv-day-showcase{grid-template-columns:1fr;gap:11px}
+ .mv-day-advice-column{align-self:stretch}
+ .mv-day-flow-label{margin-bottom:7px}
  .mv-day-cards{grid-template-columns:1fr}
  .mv-day-route.is-carousel .mv-day-card{flex-basis:100%}
  .mv-day-card{min-height:0;padding:11px 12px}
