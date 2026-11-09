@@ -4,6 +4,7 @@
   'use strict';
   const root=document.querySelector('[data-dv-root]');
   if(!root) return;
+  const reducedMotion=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   // Si GitHub Raw falla temporalmente, usar el mismo WebP del despliegue local.
   const heroImage=root.querySelector('.dv-hero-photo[data-local-fallback]');
   if(heroImage){
@@ -21,21 +22,9 @@
   const prev=root.querySelector('[data-dv-prev]');
   const next=root.querySelector('[data-dv-next]');
   if(scroller&&cards.length){
-    const visibleCount=()=>{
-      const w=scroller.clientWidth,cardWidth=cards[0].getBoundingClientRect().width;
-      return Math.max(1,Math.min(cards.length,Math.floor((w+8)/(cardWidth+8))));
-    };
     let pending=false;
     const sync=()=>{
       pending=false;
-      const current=cards.reduce((best,card,index)=>{
-        const d=Math.abs(card.offsetLeft - scroller.offsetLeft - scroller.scrollLeft);
-        return d<best.d?{i:index,d}:best;
-      },{i:0,d:Infinity}).i;
-      const n=visibleCount();
-      const first=Math.max(0,Math.min(current,cards.length-n));
-
-
       if(prev) prev.disabled=scroller.scrollLeft<5;
       if(next) next.disabled=scroller.scrollLeft+scroller.clientWidth>=scroller.scrollWidth-5;
     };
@@ -43,7 +32,7 @@
     const jump=(delta)=>{
       const width=cards[0].getBoundingClientRect().width;
       const gap=parseFloat(getComputedStyle(scroller).columnGap)||14;
-      scroller.scrollBy({left:delta*(width+gap),behavior:'smooth'});
+      scroller.scrollBy({left:delta*(width+gap),behavior:reducedMotion?'auto':'smooth'});
       setTimeout(sync,420);
     };
     prev?.addEventListener('click',()=>jump(-1));
@@ -60,7 +49,6 @@
   const zonePanels=Array.from(root.querySelectorAll('[data-dv-zone-panel]'));
   if(zoneDetails&&zonePanels.length===cards.length){
     let activeZone=null;
-    const reduceMotion=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const showZone=(id)=>{
       const nextId=activeZone===id?null:id;
       activeZone=nextId;
@@ -75,7 +63,7 @@
         requestAnimationFrame(()=>{
           const rect=zoneDetails.getBoundingClientRect();
           if(rect.top>window.innerHeight-110){
-            zoneDetails.scrollIntoView({behavior:reduceMotion?'auto':'smooth',block:'nearest'});
+            zoneDetails.scrollIntoView({behavior:reducedMotion?'auto':'smooth',block:'nearest'});
           }
         });
       }
@@ -130,7 +118,7 @@
       if(!tips.length)return;
       const gap=parseFloat(getComputedStyle(tipsScroller).columnGap)||13;
       const cardWidth=tips[0].getBoundingClientRect().width;
-      tipsScroller.scrollBy({left:direction*(cardWidth+gap),behavior:'smooth'});
+      tipsScroller.scrollBy({left:direction*(cardWidth+gap),behavior:reducedMotion?'auto':'smooth'});
     };
     tipsPrev?.addEventListener('click',()=>moveTip(-1));
     tipsNext?.addEventListener('click',()=>moveTip(1));
@@ -169,10 +157,10 @@
   if(map){
     const mid=(map.dataset.mymapsId||'').trim();
     /* Only use an exact Google My Maps ID, never an itinerary map by mistake. */
-    if(/^[A-Za-z0-9_-]{10,}$/.test(mid)){
-      map.src='https://www.google.com/maps/d/embed?mid='+encodeURIComponent(mid);
-    }else{
-      map.src='https://www.google.com/maps?q=Stockholm%2C%20Sweden&output=embed';
-    }
+    const destination=/^[A-Za-z0-9_-]{10,}$/.test(mid)
+      ? 'https://www.google.com/maps/d/embed?mid='+encodeURIComponent(mid)
+      : 'https://www.google.com/maps?q=Stockholm%2C%20Sweden&output=embed';
+    // No volver a cargar el iframe si ya contiene el My Maps correcto.
+    if(map.getAttribute('src')!==destination) map.src=destination;
   }
 })();
