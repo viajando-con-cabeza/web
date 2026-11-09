@@ -698,3 +698,61 @@ html body.ci-page .ci-tips-arrow:disabled{opacity:.35;cursor:default}
   html body.ci-page .ci-tip-card{flex-basis:100%;padding:13px;min-height:126px}
   html body.ci-page .ci-tips-arrow{width:26px;height:26px;font-size:21px}
 }
+
+/* VCC 2026-11-09: detalle mes a mes en dos columnas, sin fondos de color en pros/contras. */
+html body.ci-page .ci-calendar-rain{display:flex;align-items:center;justify-content:center;gap:3px;font:700 10px/1.3 'DM Sans',sans-serif;color:#4e4844;white-space:nowrap}
+html body.ci-page .ci-calendar-rain>span{font-size:15px;color:#c46a4c}
+html body.ci-page .ci-metric .ci-euros{font-size:12px;letter-spacing:0.03em;color:#a95436}
+html body.ci-page .ci-month-detail{display:block;padding:20px 23px 13px;background:#fff;border:1px solid var(--ci-line);border-radius:13px}
+html body.ci-page .ci-month-layout{display:grid;grid-template-columns:minmax(0,1.06fr) minmax(0,1fr);gap:23px;align-items:start}
+html body.ci-page .ci-month-left{min-width:0}
+html body.ci-page .ci-month-right{min-width:0;border-left:1px solid #e8dbce;padding-left:23px}
+html body.ci-page .ci-month-heading h3{font:600 33px/1.1 'Oswald',sans-serif;margin:0 0 7px;color:#302820}
+html body.ci-page .ci-month-heading p{max-width:none;font:400 11.5px/1.65 'DM Sans',sans-serif;color:#675950;margin:0 0 16px;min-height:39px}
+html body.ci-page .ci-month-left-columns{display:grid;grid-template-columns:minmax(0,.93fr) minmax(0,1.07fr);align-items:start;gap:16px}
+html body.ci-page .ci-month-facts{border:1px solid #eee2d7;border-radius:10px;padding:7px 11px;background:#fffdfa;min-width:0}
+html body.ci-page .ci-month-fact{display:grid;grid-template-columns:21px minmax(0,1fr) auto;align-items:center;gap:6px;min-height:34px;border-bottom:1px solid #efe9e2;font:500 10px/1.25 'DM Sans',sans-serif}
+html body.ci-page .ci-month-fact:last-child{border-bottom:0}
+html body.ci-page .ci-month-fact .ci-fact-icon{font:800 16px/1 'DM Sans',sans-serif;text-align:center;color:#ce653b}
+html body.ci-page .ci-month-fact strong{font:700 10.5px/1.3 'DM Sans',sans-serif;white-space:nowrap;color:#3a312b}
+html body.ci-page .ci-month-fact strong.ci-fact-euros{color:#c26b48;letter-spacing:.05em;font-size:13px}
+html body.ci-page .ci-month-suitability{min-width:0}
+html body.ci-page .ci-month-suitability h4{font:600 13px/1.3 'Oswald',sans-serif;margin:0 0 11px;color:#2d2824}
+html body.ci-page .ci-score-rows{display:grid;gap:7px}
+html body.ci-page .ci-score-row{display:grid;grid-template-columns:15px minmax(92px,1.3fr) minmax(40px,.92fr) 18px;align-items:center;gap:5px;min-width:0}
+html body.ci-page .ci-score-icon{font:800 14px/1 'DM Sans',sans-serif;text-align:center;color:#c56a45}
+html body.ci-page .ci-score-name{font:500 9.5px/1.25 'DM Sans',sans-serif;color:#544940}
+html body.ci-page .ci-score-track{display:block;height:7px;background:#e9e7e5;border-radius:99px;overflow:hidden}
+html body.ci-page .ci-score-fill{display:block;height:100%;border-radius:99px;background:#cb714c}
+html body.ci-page .ci-score-value{font:700 10px/1.2 'DM Sans',sans-serif;text-align:right}
+html body.ci-page .ci-rating-note{font:400 8.5px/1.45 'DM Sans',sans-serif;color:#8b7c71;margin:9px 0 0;max-width:none}
+html body.ci-page .ci-month-right .ci-month-procon{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+html body.ci-page .ci-month-right .ci-month-points{min-width:0;background:transparent!important;border:0!important;padding:0!important}
+html body.ci-page .ci-month-right .ci-month-points h4{font:600 18px/1.25 'Oswald',sans-serif;display:flex;align-items:center;gap:8px;margin:0 0 12px}
+html body.ci-page .ci-month-right .ci-month-points ul{display:grid;gap:9px;list-style:none;margin:0;padding:0}
+html body.ci-page .ci-month-right .ci-month-points li{font:400 10.5px/1.5 'DM Sans',sans-serif;padding-left:13px;color:#564b42}
+html body.ci-page .ci-month-right .ci-month-points li:before{left:0;color:#a59a90;content:'•'}
+html body.ci-page .ci-month-vcc{display:grid;grid-template-columns:90px minmax(0,1fr);align-items:center;gap:12px;margin-top:20px;background:#fff;border:1.5px solid var(--ci-orange);border-radius:13px;padding:10px 14px}
+html body.ci-page .ci-month-vcc-brand{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;text-align:center;border-right:1px solid #e8d7ca;padding-right:11px;min-height:66px}
+html body.ci-page .ci-month-vcc-brand img{width:37px;height:37px;display:block;object-fit:contain}
+html body.ci-page .ci-month-vcc-brand strong{font:800 9px/1.25 'DM Sans',sans-serif;letter-spacing:.045em;color:#a8573a;white-space:nowrap}
+html body.ci-page .ci-month-vcc>p{font:400 10.8px/1.6 'DM Sans',sans-serif;color:#574b43;margin:0;max-width:none}
+html body.ci-page .ci-month-visited{font:600 10px/1.4 'DM Sans',sans-serif;margin-top:11px}
+html body.ci-page .ci-month-sources{border-top:1px solid #ede2d8;margin:16px 0 0;padding-top:9px;max-width:none;color:#84766d;font:400 9px/1.55 'DM Sans',sans-serif}
+html body.ci-page .ci-month-sources a{color:#a95638;text-decoration:underline;text-underline-offset:2px}
+@media(max-width:1080px){
+ html body.ci-page .ci-month-layout{grid-template-columns:1fr}
+ html body.ci-page .ci-month-right{border-left:0;border-top:1px solid #e9dcd0;padding:17px 0 0}
+ html body.ci-page .ci-month-left-columns{grid-template-columns:minmax(0,1fr) minmax(0,1.1fr)}
+ html body.ci-page .ci-month-heading p{min-height:0}
+}
+@media(max-width:600px){
+ html body.ci-page .ci-month-detail{padding:15px}
+ html body.ci-page .ci-month-left-columns{grid-template-columns:1fr;gap:15px}
+ html body.ci-page .ci-month-right .ci-month-procon{grid-template-columns:1fr;gap:15px}
+ html body.ci-page .ci-month-heading h3{font-size:29px}
+ html body.ci-page .ci-score-row{grid-template-columns:19px minmax(115px,1.4fr) minmax(40px,1fr) 23px}
+ html body.ci-page .ci-month-vcc{grid-template-columns:76px minmax(0,1fr);gap:8px;padding:10px}
+ html body.ci-page .ci-month-vcc-brand{padding-right:8px}
+ html body.ci-page .ci-month-vcc-brand img{width:34px;height:34px}
+}
