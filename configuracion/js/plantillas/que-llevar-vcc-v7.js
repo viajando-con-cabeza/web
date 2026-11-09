@@ -288,13 +288,6 @@ document.querySelectorAll(".ql-v11-laundry-buttons button").forEach(button=>{
   state.laundry=button.dataset.laundry==="yes";save();render();
  });
 });
-document.querySelectorAll(".ql-v11-season-card").forEach(button=>{
- button.addEventListener("click",()=>{
-  const selected=Number(button.dataset.seasonMonth);
-  if(Number.isInteger(selected)&&selected>=0&&selected<12){state.month=selected;save();render(true);}
-  document.getElementById("que-maleta")?.scrollIntoView({behavior:"smooth",block:"start"});
- });
-});
 $("ql-v6-month").addEventListener("change",e=>{state.month=Number(e.target.value);save();render(true)});
 $("ql-v6-days").addEventListener("change",e=>{state.days=Number(e.target.value);save();render()});
 $("ql-v6-laundry").addEventListener("change",e=>{state.laundry=!!e.target.checked;save();render()});
