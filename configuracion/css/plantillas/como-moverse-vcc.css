@@ -25,7 +25,7 @@ body.mv-body{margin:0;background:#fff;color:var(--mv-ink);font-family:"DM Sans",
 .mv-subnav::-webkit-scrollbar{display:none}
 .mv-subnav a{flex:0 0 auto;display:inline-flex;align-items:center;min-height:44px;padding:0 1px;text-decoration:none;font:800 11px/1 "DM Sans",sans-serif;color:#232524;border-bottom:3px solid transparent;transition:color .16s,border-color .16s}
 .mv-subnav a:hover,.mv-subnav a.is-active{color:#ad553f;border-bottom-color:#cf7358}
-.mv-page :is(#transportes,#recomendacion,#billetes,#transporte-bicicleta){scroll-margin-top:calc(var(--mv-header-height,50px) + 64px)}
+.mv-page :is(#transportes,#recomendacion,#comparar-billetes,#ejemplo-itinerario,#billetes,#transporte-bicicleta){scroll-margin-top:calc(var(--mv-header-height,50px) + 64px)}
 /* VCC · Maqueta de transport aprovada: 3 x 2, blanc i taronja, sense blocs de fons */
 /* Flux de lectura: resposta de pagament, recomanació VCC, opcions i estalvi. */
 /* Ritme editorial: cada secció té aire sense allargar les targetes */
@@ -111,6 +111,9 @@ body.mv-body{margin:0;background:#fff;color:var(--mv-ink);font-family:"DM Sans",
 .mv-archipelago-note a{color:#b2592c;text-underline-offset:2px}
 .mv-ticket-note{margin:8px 1px 0;color:#83776f;font:400 10px/1.5 "DM Sans",sans-serif}
 .mv-ticket-note a{color:#a75a36;text-underline-offset:2px}
+.mv-route-alternative{margin:12px 1px 0;padding:8px 0 0;border-top:1px solid #e8ded4;color:#645f58;font:500 10.8px/1.55 "DM Sans",sans-serif}
+.mv-route-alternative a{color:#a7532b!important;font-weight:700;text-decoration:underline;text-underline-offset:2px}
+
 .mv-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
 .mv-card{min-width:0;background:#fff;border:1px solid #d5d5d5;border-radius:16px;box-shadow:none}
 .mv-card-body{display:flex;flex-direction:column;gap:11px;min-width:0;height:100%;min-height:268px;padding:15px 16px 17px}
