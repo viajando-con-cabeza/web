@@ -1028,3 +1028,29 @@ html body.budget-vcc #filosofia .vcc-day-price{
     font-size:29px!important;
   }
 }
+
+/* VCC · 2026-11-09 · Título diario único, sin sobretítulo y con tamaño compacto. */
+html body.budget-vcc #filosofia .vcc-daily-track .vcc-budget-day-head{
+  align-items:center!important;
+  gap:9px!important;
+}
+html body.budget-vcc #filosofia .vcc-daily-track .vcc-day-place{
+  display:block;
+  min-width:0;
+  margin:0!important;
+  font:500 15px/1.24 'Oswald',sans-serif!important;
+  color:#35302c!important;
+  overflow-wrap:break-word;
+}
+html body.budget-vcc #filosofia .vcc-daily-track .vcc-day-price{
+  flex:0 0 auto;
+  font-size:15px!important;
+}
+@media(max-width:750px){
+ html body.budget-vcc #filosofia .vcc-daily-track .vcc-day-place{
+   font-size:14px!important;
+ }
+ html body.budget-vcc #filosofia .vcc-daily-track .vcc-day-price{
+   font-size:14px!important;
+ }
+}
