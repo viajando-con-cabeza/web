@@ -238,3 +238,51 @@ html body .imp-page .leaflet-popup-content a {color:#b9542d;font-weight:700}
   }
   html body .imp-page .imp-map-footer {align-items:flex-start}
 }
+
+/* Secciones diferenciadas: lectura de fichas vs. plano de consulta.
+   Un encabezado editorial compacto antes de las 15 fichas; el mapa es
+   un módulo independiente sin invadir la galería ni los consejos VCC. */
+html body .imp-page .imp-places-intro {
+  display:flex;align-items:flex-end;justify-content:space-between;gap:16px 28px;
+  width:min(1180px,calc(100% - 48px));
+  margin:22px auto 0;padding:0 0 14px;
+  border-bottom:1px solid #e7dcd3;
+}
+html body .imp-page .imp-places-intro div {display:flex;flex-direction:column;gap:3px;min-width:0}
+html body .imp-page .imp-places-intro span {
+  color:#b85d37;font:700 9px/1.4 'DM Sans',sans-serif;
+  letter-spacing:.075em;text-transform:uppercase;
+}
+html body .imp-page .imp-places-intro strong {
+  color:#27211f;font:500 clamp(18px,2.1vw,23px)/1.15 'Oswald',sans-serif;
+}
+html body .imp-page .imp-places-intro p {
+  margin:0 0 1px;color:#746a64;font:400 11px/1.5 'DM Sans',sans-serif;
+  text-align:right;max-width:390px;
+}
+html body .imp-page .imp-map-section {
+  margin:29px auto 52px!important;padding:29px 28px 24px!important;
+  background:#fffdfb!important;border:1px solid #eadfd5!important;
+  border-radius:17px!important;box-shadow:0 8px 28px rgba(40,30,24,.035)!important;
+}
+html body .imp-page .imp-static-summary {
+  color:#746a64;font:400 11px/1.5 'DM Sans',sans-serif;
+}
+html body .imp-page .imp-static-map-link {
+  color:#a45235;font:600 11px/1.5 'DM Sans',sans-serif;
+  text-decoration:underline;text-underline-offset:2px;
+}
+@media(max-width:650px) {
+  html body .imp-page .imp-places-intro {
+    display:block;width:calc(100% - 30px);margin:15px auto 0;padding:0 0 11px;
+  }
+  html body .imp-page .imp-places-intro strong {font-size:20px}
+  html body .imp-page .imp-places-intro p {
+    text-align:left;max-width:none;font-size:11px;margin:8px 0 0;
+  }
+  html body .imp-page .imp-map-section {
+    width:calc(100% - 28px)!important;
+    padding:20px 12px 17px!important;
+    margin:24px auto 39px!important;border-radius:14px!important;
+  }
+}
