@@ -130,15 +130,32 @@
  }
  function summary(){
    const o=calculate();
-   const lines=["MI PLAN DE ENTRADAS · ESTOCOLMO · VCC","Adultos: "+o.adults+" | Menores (sin calcular): "+controls.children.value+" | Días de pase: "+o.days+" | Fecha: "+(controls.date.value||"por decidir")+" | Tarifa base: "+(controls.season.value==="high"?"mayo–septiembre":"octubre–abril"),""];
-   o.ids.forEach(id=>lines.push((doneItems.has(id)?"[x] ":"[ ] ")+master[id].name+": "+(o.p[id]===null?"precio por confirmar":money(o.p[id]))+" por adulto · "+master[id].link));
-   lines.push("",o.total===null?"Revisa los importes":("Entradas individuales estimadas: "+money(o.total*o.adults)));
-   if(o.best){
-     lines.push("Opción más económica en la simulación: "+o.best.name+" (no es un presupuesto garantizado).");
-     if(o.best.id==="ess")lines.push("Para Essentials: una principal + dos actividades elegibles. Comprueba inclusiones reales en https://gocity.com/en/stockholm/passes/essentials");
-     else if(o.best.id==="all")lines.push("Para All-Inclusive: confirma actividades, duración consecutiva y reservas en https://gocity.com/en/stockholm/passes/all-inclusive");
+   const lines=[
+     "MI PLAN DE ENTRADAS · ESTOCOLMO · VCC",
+     "Adultos: "+o.adults+" | Menores (sin calcular): "+controls.children.value+" | Días de All-Inclusive: "+o.days+" | Fecha: "+(controls.date.value||"por decidir")+" | Tarifa de referencia: "+(controls.season.value==="high"?"mayo–septiembre":"octubre–abril"),
+     ""
+   ];
+   const mains=o.ids.filter(id=>master[id].kind==="main").sort((a,b)=>o.p[b]-o.p[a]);
+   const extras=o.ids.filter(id=>master[id].kind==="extra").sort((a,b)=>o.p[b]-o.p[a]);
+   const coverEss=mains.length&&extras.length>=2?[mains[0],...extras.slice(0,2)]:[];
+   if(o.best?.id==="ess"){
+     lines.push((doneItems.has("pass_ess")?"[x] ":"[ ] ")+"COMPRAR GO CITY ESSENTIALS · "+money(Number(controls.ess.value)*o.adults)+" para "+o.adults+" adultos · https://gocity.com/en/stockholm/passes/essentials");
+     lines.push("Asegúrate de que las tres visitas elegidas están en la selección oficial del pase.","");
+   }else if(o.best?.id==="all"){
+     lines.push((doneItems.has("pass_all")?"[x] ":"[ ] ")+"COMPRAR GO CITY ALL-INCLUSIVE · "+money(Number(controls.all.value)*o.adults)+" para "+o.adults+" adultos · https://gocity.com/en/stockholm/passes/all-inclusive");
+     lines.push("Confirma días consecutivos, horarios, reservas y atracciones incluidas.","");
    }
-   lines.push("Verifica fechas, precios, inclusión y reservas en las webs oficiales.","Guía VCC: https://www.viajandoconcabeza.com/destinos/suecia/estocolmo/entradas-y-pases.html");
+   o.ids.forEach(id=>{
+     const isCovered=o.best?.id==="ess"?coverEss.includes(id):o.best?.id==="all"&&master[id].kind!=="outside";
+     const action=isCovered?"INCLUIDA EN EL PASE":"COMPRAR O RESERVAR POR SEPARADO";
+     lines.push((doneItems.has(id)?"[x] ":"[ ] ")+master[id].name+" · "+action+" · "+(o.p[id]===null?"precio por confirmar":money(o.p[id]))+" / adulto · "+master[id].link);
+     lines.push("    "+master[id].advice);
+   });
+   lines.push("",o.total===null?"Revisa los importes":("Entradas individuales estimadas: "+money(o.total*o.adults)));
+   if(o.best)lines.push("Opción estimada más económica: "+o.best.name+" (no es una tarifa garantizada).");
+   lines.push("Las tarifas y pases de menores NO están incluidos en este presupuesto.");
+   lines.push("Verifica disponibilidad, condiciones, horarios, fechas y precios en las webs oficiales.");
+   lines.push("Guía VCC: https://www.viajandoconcabeza.com/destinos/suecia/estocolmo/entradas-y-pases.html");
    return lines.join("\n");
  }
  async function copy(text,success){
