@@ -434,3 +434,65 @@ html body .ep-page section.ep-hero[data-vcc-hero].vcc-subheader-hero.vcc-standar
  .ep-page .ep3-our-number{font-size:27px}
  .ep-page .ep3-our-area{font-size:17px}
 }
+
+
+/* VCC 2026-11-09 · Medallas metalizadas (oro/plata/bronce), no fotografías.
+   Círculo grabado, borde brillante y dos cintas discretas para cada posición. */
+.ep-page .ep3-rank-card{overflow:visible}
+.ep-page .ep3-rank-body{padding-left:90px;min-height:192px}
+.ep-page .ep3-rank-num{
+  --medal-main:#e9b75a;--medal-light:#fff4cc;--medal-dark:#94601e;
+  position:absolute;left:18px;top:19px;isolation:isolate;
+  display:grid;place-items:center;width:53px;height:53px;
+  background:radial-gradient(circle at 29% 22%,var(--medal-light) 0%,var(--medal-main) 42%,var(--medal-dark) 100%);
+  color:#493216;border:3px solid #fef7e9;border-radius:50%;
+  outline:1px solid var(--medal-dark);
+  box-shadow:inset 0 0 0 2px rgba(255,255,255,.64),inset 0 -4px 7px rgba(57,34,18,.18),0 5px 9px rgba(72,48,26,.17);
+  font:600 25px/1 "Oswald",sans-serif;text-shadow:0 1px 1px rgba(255,255,255,.58);
+}
+.ep-page .ep3-rank-num::before,
+.ep-page .ep3-rank-num::after{
+  content:"";position:absolute;top:37px;width:18px;height:28px;z-index:-1;
+  background:linear-gradient(100deg,var(--medal-dark),var(--medal-main) 62%,var(--medal-light));
+  box-shadow:0 2px 3px rgba(45,28,16,.14);
+  clip-path:polygon(0 0,100% 0,100% 100%,50% 74%,0 100%);
+}
+.ep-page .ep3-rank-num::before{left:4px;transform:rotate(15deg)}
+.ep-page .ep3-rank-num::after{right:4px;transform:rotate(-15deg)}
+.ep-page .ep3-rank-card:nth-child(1) .ep3-rank-num{
+ --medal-main:#e7b54b;--medal-light:#fff3ba;--medal-dark:#ac7027;color:#5a380d;
+}
+.ep-page .ep3-rank-card:nth-child(2) .ep3-rank-num{
+ --medal-main:#b8bec7;--medal-light:#fff;--medal-dark:#757e89;color:#38414c;
+}
+.ep-page .ep3-rank-card:nth-child(3) .ep3-rank-num{
+ --medal-main:#cc8a59;--medal-light:#f6d2ae;--medal-dark:#905533;color:#5a311a;
+}
+.ep-page .ep3-rank-card:nth-child(1),
+.ep-page .ep3-rank-card:nth-child(2),
+.ep-page .ep3-rank-card:nth-child(3){border-color:#e8ddd1}
+.ep-page .ep3-rank-actions{margin-top:auto}
+
+/* Pase turístico: misma jerarquía editorial que el resto de secciones VCC. */
+.ep-page .ep3-tourist-pass .ep-section-heading{margin-bottom:15px}
+.ep-page .ep3-tourist-pass .ep3-pass-note{
+  margin-top:0;background:#fff;border:1px solid #e7dbd0;
+  padding:19px 21px;box-shadow:0 3px 13px rgba(47,30,19,.035);
+}
+.ep-page .ep3-tourist-pass .ep3-pass-verdict{margin-bottom:6px}
+.ep-page .ep3-tourist-pass .ep3-pass-note p{line-height:1.62;font-size:12px}
+@media(max-width:1050px){
+  .ep-page .ep3-rank-body{padding-left:82px}
+  .ep-page .ep3-rank-num{left:13px}
+}
+@media(max-width:760px){
+  .ep-page .ep3-rank-body{min-height:180px;padding:15px 14px 15px 83px}
+  .ep-page .ep3-rank-num{top:15px;left:14px;width:49px;height:49px;font-size:23px}
+  .ep-page .ep3-rank-num::before,.ep-page .ep3-rank-num::after{top:34px;height:25px;width:17px}
+}
+@media(max-width:520px){
+  .ep-page .ep3-rank-body{min-height:177px;padding:15px 13px 14px 81px}
+  .ep-page .ep3-rank-num{top:16px;left:15px;width:48px;height:48px;font-size:22px}
+  .ep-page .ep3-tourist-pass .ep3-pass-note{padding:15px}
+  .ep-page .ep3-tourist-pass .ep3-pass-note p{font-size:11.5px}
+}
