@@ -175,3 +175,14 @@
  .ep-page .ep4-pass h2{font-size:27px}
 }
 @media(prefers-reduced-motion:reduce){.ep-page .ep4-our-list{scroll-behavior:auto}}
+
+
+/* Internal anchors, subheader icons and decision grid harmonised with VCC nav. */
+.ep-page .ep-subnav a{display:inline-flex;align-items:center;gap:7px;white-space:nowrap}
+.ep-page .ep-subnav a svg{flex:0 0 16px;width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round}
+.ep-page .ep4-anchor-alias{display:block;position:relative;scroll-margin-top:calc(var(--ep-header-height,50px) + 64px);height:0}
+.ep-page .ep4-decision-layout{margin-bottom:45px}
+.ep-page .ep4-decision-layout .ep4-decision-left{margin:0}
+.ep-page .ep4-pass{scroll-margin-top:calc(var(--ep-header-height,50px) + 64px)}
+.ep-page .ep4-answer strong{font-weight:800}
+@media(max-width:760px){.ep-page .ep-subnav a svg{width:15px;height:15px;flex-basis:15px}.ep-page .ep-subnav a{gap:5px}}
