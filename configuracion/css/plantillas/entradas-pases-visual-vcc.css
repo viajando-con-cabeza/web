@@ -327,3 +327,41 @@ html body .ep-page section.ep-hero[data-vcc-hero].vcc-subheader-hero.vcc-standar
 /* Final quality pass: links legibles a les fitxes de reserva */
 .ep-page .ep3-book li a{display:block;width:max-content;max-width:100%;margin-top:5px;line-height:1.4}
 .ep-page .ep3-check-actions button:focus-visible,.ep-page .ep3-add:focus-visible{outline:3px solid #b96242;outline-offset:3px}
+
+
+/* VCC · Compras día a día (ejemplos provisionales para revisión editorial). */
+.ep-page .ep3-our-tickets{margin-top:2px}
+.ep-page .ep3-our-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:13px}
+.ep-page .ep3-our-day{display:flex;flex-direction:column;min-width:0;overflow:hidden;background:#fff;border:1px solid #e7d9d0;border-radius:14px;box-shadow:0 3px 12px rgba(55,41,30,.035)}
+.ep-page .ep3-our-top{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:11px 15px;background:#f4e9dc;border-bottom:1px solid #e9d8ca}
+.ep-page .ep3-our-day:nth-child(2) .ep3-our-top{background:#e9f0eb;border-color:#dce5dc}
+.ep-page .ep3-our-day:nth-child(3) .ep3-our-top{background:#f0e9ed;border-color:#e8dee7}
+.ep-page .ep3-our-number{font:600 22px/1.05 "Oswald",sans-serif;color:#a95a3f;letter-spacing:.015em}
+.ep-page .ep3-our-area{font:800 10px/1.2 "DM Sans",sans-serif;letter-spacing:.04em;color:#766558}
+.ep-page .ep3-our-body{display:flex;flex-direction:column;gap:7px;padding:16px 15px 13px;flex:1}
+.ep-page .ep3-our-kicker{display:inline-flex;align-items:center;gap:6px;font:800 10px/1.3 "DM Sans",sans-serif;color:#a8593e}
+.ep-page .ep3-our-kicker .ep-icon{display:inline-block;width:17px;height:17px;flex:none;color:#b66042}
+.ep-page .ep3-our-body h3{font:600 24px/1.1 "Oswald",sans-serif;color:#262827;margin:0}
+.ep-page .ep3-our-body>p{font:400 12px/1.5 "DM Sans",sans-serif;color:#5d534b;margin:0;flex:1}
+.ep-page .ep3-our-bottom{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:9px;padding-top:10px;margin-top:5px;border-top:1px solid #f0e5dd}
+.ep-page .ep3-our-bottom a{font:800 10px/1.3 "DM Sans",sans-serif;color:#9d5138!important;text-decoration:underline;text-underline-offset:3px;white-space:nowrap}
+.ep-page .ep3-our-draft{margin:11px 0 0;padding:9px 13px;border:1px dashed #dec3ae;border-radius:9px;background:#fffaf5;font:400 10.8px/1.5 "DM Sans",sans-serif;color:#786252}
+.ep-page .ep3-our-draft strong{font-weight:800;color:#99553c}
+@media(max-width:880px){
+  .ep-page .ep3-our-grid{gap:9px}
+  .ep-page .ep3-our-top{padding:10px}
+  .ep-page .ep3-our-body{padding:13px 11px}
+  .ep-page .ep3-our-body h3{font-size:21px}
+  .ep-page .ep3-our-bottom .ep3-add{font-size:9px;padding:8px}
+}
+@media(max-width:690px){
+  .ep-page .ep3-our-grid{display:flex;gap:11px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;overscroll-behavior-x:contain;padding:2px 2px 12px}
+  .ep-page .ep3-our-grid::-webkit-scrollbar{display:none}
+  .ep-page .ep3-our-day{flex:0 0 min(82%,315px);scroll-snap-align:start}
+  .ep-page .ep3-our-body{padding:14px}
+  .ep-page .ep3-our-body h3{font-size:23px}
+  .ep-page .ep3-our-draft{font-size:10.5px}
+}
+@media(prefers-reduced-motion:reduce){
+ .ep-page .ep3-our-grid{scroll-behavior:auto}
+}
