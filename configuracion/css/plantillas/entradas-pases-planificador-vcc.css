@@ -1,0 +1,107 @@
+/* VCC · Stockholm tickets planner / reader-first editorial · 2026-11-09
+   Built alongside the existing Stockholm CSS: same Oswald / Caveat / DM Sans and warm palette. */
+.ep-page .ep-plan-section,.ep-page .ep-experience-section,.ep-page .ep-faq-section{scroll-margin-top:calc(var(--ep-header-height,50px) + 56px)}
+.ep-plan-intro{margin:0 0 15px;display:flex;align-items:center;justify-content:space-between;gap:14px}
+.ep-plan-intro .ep-plan-highlight{display:inline-flex;align-items:center;gap:7px;font:700 10px/1.45 'DM Sans',sans-serif;color:#a15b41;background:#fff4e9;border:1px solid #efd5c3;border-radius:999px;padding:8px 12px;white-space:nowrap}
+.ep-planner{display:grid;grid-template-columns:minmax(0,1.08fr) minmax(0,.92fr);gap:16px;align-items:start}
+.ep-plan-form,.ep-plan-result{background:#fff;border:1px solid #e5d9cf;border-radius:17px;padding:21px;box-shadow:0 5px 24px #3d32240a;min-width:0}
+.ep-plan-controls{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;margin-bottom:17px}
+.ep-plan-field{display:grid;gap:6px;min-width:0}
+.ep-plan-field label,.ep-plan-inline-label{font:800 10px/1.4 'DM Sans',sans-serif;color:#6b5c51}
+.ep-plan-field select,.ep-plan-price,.ep-plan-pass-input{width:100%;min-width:0;background:#fffdf9;color:#312c28;border:1px solid #ddcec3;border-radius:8px;padding:9px 10px;font:700 12px/1.3 'DM Sans',sans-serif}
+.ep-plan-field select:focus-visible,.ep-plan-price:focus-visible,.ep-plan-pass-input:focus-visible{outline:2px solid #be7657;outline-offset:2px}
+.ep-plan-presets{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:0 0 15px}
+.ep-plan-presets>span{font:800 10px 'DM Sans',sans-serif;color:#75675e;margin-right:3px}
+.ep-plan-preset{background:#fbf4ed;border:1px solid #e9d9cc;color:#905238;border-radius:99px;padding:7px 10px;font:800 10px 'DM Sans',sans-serif}
+.ep-plan-preset:hover,.ep-plan-preset:focus-visible{background:#f5e0d1}
+.ep-plan-list{display:grid;gap:7px}
+.ep-plan-ticket{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px;align-items:center;padding:9px 11px;border:1px solid #e7ddd4;border-radius:10px;background:#fffdfb;transition:background .15s}
+.ep-plan-ticket:has(input[type=checkbox]:checked){background:#fff7ee;border-color:#dfb8a0}
+.ep-plan-ticket-name{display:flex;align-items:flex-start;gap:9px;cursor:pointer;min-width:0}
+.ep-plan-ticket-name input{flex:0 0 17px;margin:2px 0 0;width:17px;height:17px;accent-color:#c76d4f}
+.ep-plan-ticket-name span{font:700 12px/1.35 'DM Sans',sans-serif;color:#35302c}
+.ep-plan-ticket-name small{display:block;font:400 10px/1.3 'DM Sans',sans-serif;color:#8c7162;margin-top:2px}
+.ep-plan-ticket-right{display:flex;align-items:center;gap:6px}
+.ep-plan-price{width:71px;min-width:71px;padding:7px 6px;text-align:center;font-size:11px}
+.ep-plan-currency{font:700 10px 'DM Sans',sans-serif;color:#886f5f}
+.ep-plan-official{text-decoration:underline;text-underline-offset:3px;color:#a34f36;font:700 10px 'DM Sans',sans-serif}
+.ep-plan-price-note{display:block;font:400 10px/1.5 'DM Sans',sans-serif;color:#75685d;margin:10px 0 0}
+.ep-plan-result{position:sticky;top:calc(var(--ep-header-height,50px) + 52px);background:linear-gradient(145deg,#fff,#fffaf5)}
+.ep-plan-result-heading{display:flex;align-items:center;justify-content:space-between;gap:8px;border-bottom:1px solid #e8d9cd;padding:0 0 11px;margin-bottom:12px}
+.ep-plan-result-heading h3{font:500 24px/1.1 'Oswald',sans-serif;color:#282927;margin:0}
+.ep-plan-saved{font:700 10px/1.3 'DM Sans',sans-serif;color:#71865e}
+.ep-plan-summary{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-bottom:11px}
+.ep-plan-stat{border-radius:10px;background:#f5ede3;padding:10px 11px}
+.ep-plan-stat small{display:block;color:#6c5d54;font:600 10px 'DM Sans',sans-serif;margin-bottom:4px}
+.ep-plan-stat strong{color:#332c28;font:500 23px 'Oswald',sans-serif}
+.ep-plan-comp{display:grid;gap:6px;margin:0 0 12px}
+.ep-plan-comp-line{display:flex;align-items:center;justify-content:space-between;gap:12px;font:600 12px/1.45 'DM Sans',sans-serif;background:#fff;border:1px solid #eddfd3;border-radius:8px;padding:9px 11px}
+.ep-plan-comp-line strong{white-space:nowrap;font:500 19px/1.2 'Oswald',sans-serif}
+.ep-plan-comp-line[aria-current=true]{border:1px solid #bc6b4f;background:#fff1e5}
+.ep-plan-reco{padding:12px 14px;margin-bottom:11px;border-radius:12px;background:#fff;border:1px solid #e8d6c9}
+.ep-plan-reco>span{display:block;color:#ad6345;font:800 10px/1.2 'DM Sans',sans-serif;letter-spacing:.04em}
+.ep-plan-reco h4{font:500 24px/1.15 'Oswald',sans-serif;margin:5px 0;color:#2d2b29}
+.ep-plan-reco p{color:#584d43;font:400 11.5px/1.55 'DM Sans',sans-serif}
+.ep-plan-pass-prices{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin:0 0 12px;padding:11px;background:#f6f0ea;border-radius:10px}
+.ep-plan-pass-prices label{font:700 10px/1.35 'DM Sans',sans-serif;color:#62564f}
+.ep-plan-pass-input{margin-top:5px;padding:8px 9px}
+.ep-plan-checklist{border-top:1px solid #e9dcd1;padding-top:12px}
+.ep-plan-checklist h4{font:500 21px 'Oswald',sans-serif;margin:0 0 5px}
+.ep-plan-checklist>p{font:400 10.5px/1.5 'DM Sans',sans-serif;color:#756960;margin:0 0 8px}
+.ep-plan-task-list{list-style:none;margin:0;padding:0;display:grid;gap:7px}
+.ep-plan-task-list li{display:grid;grid-template-columns:16px minmax(0,1fr) auto;gap:8px;align-items:start;font:400 11px/1.48 'DM Sans',sans-serif;color:#514740}
+.ep-plan-task-list input{accent-color:#b66a49;width:15px;height:15px;margin:2px 0 0}
+.ep-plan-task-list a{color:#a35139;text-decoration:underline;text-underline-offset:2px;font:800 10px 'DM Sans',sans-serif;white-space:nowrap}
+.ep-plan-task-list li.is-done .ep-task-body{text-decoration:line-through;color:#9a938d}
+.ep-plan-actions{display:flex;flex-wrap:wrap;gap:7px;margin-top:15px}
+.ep-plan-actions button{border-radius:8px;padding:9px 13px;border:1px solid #c36a49;background:#c36a49;color:white;font:800 10px/1.25 'DM Sans',sans-serif}
+.ep-plan-actions button:hover{background:#a35135}
+.ep-plan-actions .ep-plan-secondary{background:#fff;color:#a75437;border-color:#dbb7a3}
+.ep-plan-actions .ep-plan-secondary:hover{background:#fff2e8}
+.ep-plan-status{font:600 10px/1.4 'DM Sans',sans-serif;color:#677d59;margin-top:7px;min-height:12px}
+.ep-plan-disclaimer{margin:12px 0 0;font:400 10.5px/1.55 'DM Sans',sans-serif;color:#6d645e}
+.ep-plan-disclaimer a{color:#aa593d;text-decoration:underline;text-underline-offset:3px}
+.ep-experience-card{display:grid;grid-template-columns:205px minmax(0,1fr);gap:19px;background:#fff;border:1px solid #e3d8cf;border-radius:16px;padding:20px 21px}
+.ep-experience-intro{border-right:1px solid #eee0d4;padding-right:17px}
+.ep-experience-intro img{width:58px;height:58px;object-fit:contain;border:2px solid #c97756;padding:5px;border-radius:50%;background:#fff}
+.ep-experience-intro strong{display:block;font:800 12px/1.3 'DM Sans',sans-serif;color:#a55b42;margin:9px 0 5px}
+.ep-experience-intro p{font:400 11px/1.5 'DM Sans',sans-serif;color:#695d52}
+.ep-experience-steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.ep-experience-day{min-width:0}
+.ep-experience-day span{font:700 10px 'DM Sans',sans-serif;color:#a66047}
+.ep-experience-day h3{font:500 20px/1.2 'Oswald',sans-serif;margin:5px 0 5px}
+.ep-experience-day p{font:400 11px/1.55 'DM Sans',sans-serif;color:#62564b}
+.ep-experience-bottom{display:flex;justify-content:flex-end;margin-top:10px}
+.ep-experience-bottom a{color:#a35439;font:800 11px 'DM Sans',sans-serif;text-decoration:underline;text-underline-offset:3px}
+.ep-faq-items{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+.ep-faq-items details{background:#fff;border:1px solid #e5d9cd;border-radius:11px;padding:12px 15px}
+.ep-faq-items summary{cursor:pointer;font:800 12px/1.4 'DM Sans',sans-serif;color:#3c312b}
+.ep-faq-items p{font:400 11.5px/1.58 'DM Sans',sans-serif;color:#65574b;margin:8px 0 0}
+.ep-faq-items a{color:#a65b41;text-decoration:underline}
+@media(max-width:1040px){
+ .ep-planner{grid-template-columns:1fr}
+ .ep-plan-result{position:static}
+ .ep-experience-card{grid-template-columns:150px 1fr}
+}
+@media(max-width:680px){
+ .ep-plan-intro{display:block}
+ .ep-plan-intro .ep-plan-highlight{margin-top:9px}
+ .ep-plan-form,.ep-plan-result{padding:14px}
+ .ep-plan-controls{gap:6px}
+ .ep-plan-field label{font-size:9px}
+ .ep-plan-field select{font-size:11px;padding:8px 6px}
+ .ep-plan-ticket{padding:9px 8px}
+ .ep-plan-ticket-name span{font-size:11px}
+ .ep-plan-price{width:59px;min-width:59px}
+ .ep-experience-card{grid-template-columns:1fr;gap:12px;padding:14px}
+ .ep-experience-intro{border-right:0;border-bottom:1px solid #eee0d4;padding:0 0 11px}
+ .ep-experience-intro img{width:48px;height:48px}
+ .ep-experience-steps{grid-template-columns:1fr;gap:10px}
+ .ep-experience-day{padding:0 0 10px;border-bottom:1px solid #f0e6dc}
+ .ep-experience-day:last-child{border-bottom:none;padding-bottom:0}
+ .ep-faq-items{grid-template-columns:1fr}
+}
+@media print{
+ .ep-plan-actions,.ep-plan-presets,.ep-subnav,.ep-slider-controls{display:none!important}
+ .ep-plan-result{position:static}
+}
