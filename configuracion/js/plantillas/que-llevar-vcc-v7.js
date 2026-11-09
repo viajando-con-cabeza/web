@@ -119,32 +119,38 @@ const bagOptions={
 function recommendedBag(){
  const m=byId(state.month);
  const cold=["enero","febrero","marzo","noviembre","diciembre"].includes(m.name);
- const cabinMax=(cold?5:8)+(state.laundry?(cold?4:6):0);
  const personalMax=cold?1:2;
- const type=state.days<=personalMax?"personal":state.days<=cabinMax?"cabin":"checked";
+ // Con lavado, la checklist ya limita las mudas a cinco días.
+ // No recomendamos facturar solo por la duración, si el volumen real puede caber en cabina.
+ let type;
+ if(state.days<=personalMax)type="personal";
+ else if(state.laundry&&!cold)type="cabin";
+ else if(state.laundry&&cold&&state.days<=18)type="cabin";
+ else if(state.days<=(cold?5:8))type="cabin";
+ else type="checked";
  const name=bagOptions[type].title;
- const why=type==="personal"?
-   "Para una escapada muy corta, podrías viajar solo con un bolso o mochila bajo el asiento, si repites prendas y llevas puesta la ropa más voluminosa.":
-  type==="cabin"?
-   "Para "+state.days+" días, la maleta de cabina suele ofrecer el mejor equilibrio entre comodidad, espacio y evitar facturar"+(cold?". Las capas de abrigo ocupan más.":"."):
-   "Con "+state.days+" días"+(cold?" y ropa de abrigo":"")+" es probable que necesites más espacio. Considera facturar, sobre todo si llevas zapatos extra o no quieres repetir prendas.";
- return {type,name,why,cold};
+ let reason;
+ if(type==="personal"){
+  reason="puedes llevar lo esencial y viajar ligero si repites prendas y llevas puesta la ropa más voluminosa.";
+ }else if(type==="cabin"&&state.laundry&&state.days>8){
+  reason="podrás lavar ropa durante el viaje y preparar cambios para unos cinco días, en lugar de multiplicar las mudas. Comprueba el peso y las medidas de tu aerolínea.";
+ }else if(type==="cabin"){
+  reason=cold
+   ?"las capas exteriores y la ropa térmica caben mejor si organizas bien el equipaje y llevas puesto el abrigo."
+   :"te permite llevar ropa versátil y algún extra sin tener que facturar, si respetas las medidas de la tarifa.";
+ }else if(cold){
+  reason="el abrigo, la ropa térmica y los cambios de un viaje largo pueden necesitar más espacio, especialmente si no podrás lavar ropa.";
+ }else{
+  reason="sin lavar ropa necesitarás más mudas durante un viaje largo; puede compensarte facturar si no quieres depender de una colada.";
+ }
+ return {type,name,reason,cold};
 }
 function updateBagAdvice(){
  const choice=recommendedBag();
  const month=byId(state.month).name;
  const duration=state.days+" "+(state.days===1?"día":"días");
  const luggage=choice.name.toLocaleLowerCase("es");
- let why="";
- if(choice.type==="personal"){
-  why="porque puedes viajar ligero, evitar facturar y llevar lo imprescindible sin pagar por más espacio.";
- }else if(choice.type==="cabin"){
-  why="porque te permite organizar la ropa por capas y llevar algún extra sin necesidad de facturar.";
- }else{
-  why="porque la ropa de abrigo o los cambios necesarios para un viaje largo pueden ocupar bastante espacio.";
- }
- const laundry=state.laundry&&state.days>3?" Como podrás lavar ropa, no necesitarás tantas mudas.":"";
- $("ql-v7-bag-result-reason").textContent="Para "+duration+" en "+month+", nosotros elegiríamos "+luggage+" "+why+laundry;
+ $("ql-v7-bag-result-reason").textContent="Para "+duration+" en "+month+", nosotros elegiríamos "+luggage+" porque "+choice.reason;
  document.querySelectorAll(".ql-v7-bag-card").forEach(card=>{
   const selected=card.dataset.bag===choice.type;
   card.classList.toggle("is-recommended",selected);
