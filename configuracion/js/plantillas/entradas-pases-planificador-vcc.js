@@ -10,7 +10,7 @@
  const master={
    vasa:{name:"Museo Vasa",low:195,high:240,kind:"main",hours:1.75,priority:"flex",link:"https://www.vasamuseet.se/en/visit/hours--admission",advice:"No necesitas reservar: la compra anticipada no da prioridad en la cola."},
    skansen:{name:"Skansen",low:240,high:240,kind:"main",hours:3,priority:"online",link:"https://www.skansen.se/en/plan-your-visit/opening-hours-and-prices/",advice:"Compra online para mejor precio; confirma la tarifa del día. Si vas con niños, revisa el billete gratuito."},
-   palacio:{name:"Palacio Real",low:220,high:240,kind:"main",hours:1.5,priority:"check",link:"https://www.royalpalaces.se/english/royal-palaces-and-sites/admission-charges.html",advice:"Comprueba cierres y horarios antes de organizar Gamla Stan."},
+   palacio:{name:"Palacio Real",low:220,high:240,kind:"main",hours:1.5,priority:"check",link:"https://www.kungligaslotten.se/english/royal-palaces-and-sites/admission-charges.html",advice:"Comprueba cierres y horarios antes de organizar Gamla Stan."},
    abba:{name:"ABBA The Museum",low:269,high:349,kind:"outside",hours:1.75,priority:"before",link:"https://abbathemuseum.com/en/prices-opening-hours",advice:"Compra online con franja horaria; la tarifa depende de la fecha."},
    foto:{name:"Fotografiska",low:230,high:230,kind:"extra",hours:1.5,priority:"check",link:"https://stockholm.fotografiska.com/en/",advice:"Comprueba exposiciones, horario y tarifa de tu fecha."},
    barco:{name:"Crucero Highlights (2 h 15)",low:385,high:385,kind:"extra",hours:2.25,priority:"before",link:"https://gocity.com/en/stockholm/attractions",advice:"Consulta la temporada, salidas y condiciones de reserva del barco concreto."},
@@ -150,6 +150,8 @@
  mount.querySelectorAll("[data-ep-plan-preset]").forEach(btn=>btn.addEventListener("click",()=>{
    const sets={vcc:["vasa","palacio"],calma:["vasa"],intenso:["vasa","skansen","foto","barco","nobel"],familia:["skansen","vasa"]};
    const target=sets[btn.dataset.epPlanPreset]||[];
+   const presetDays={vcc:3,calma:1,intenso:2,familia:2}[btn.dataset.epPlanPreset];
+   if(presetDays){controls.days.value=String(presetDays);controls.all.value=String(passes[presetDays]);}
    controls.rows.forEach(r=>{r.checked=target.includes(r.dataset.epChoice)});
    doneItems.clear();calculate();
    status("Propuesta cargada. Edita la selección según lo que te apetezca visitar.");
@@ -181,6 +183,7 @@
      return true;
    }catch(e){status("No se ha podido descargar en este navegador. Usa «COPIAR MI LISTA».");return false;}
  }
+ $("ep-pl-download").addEventListener("click",downloadPlan);
  window.VCCEntradasPlanner={download:downloadPlan,summary};
 
  const restored=apply(readLink())||apply(readStore());
