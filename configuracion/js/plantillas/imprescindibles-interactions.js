@@ -93,7 +93,7 @@
     // Arxipèlag: l'R2 ja guarda les previews a l'arrel de _preview,
     // mentre els AVIF originals són dins paisajes/, bosques/ i mar/.
     // No demanar al Worker una ruta _preview que no existeix.
-    const arch = String(original).match(/^https:\/\/img\.viajandoconcabeza\.com\/(destinos\/suecia\/estocolmo-archipelago\/2026-dia8)\/(?:paisajes|bosques|mar)\/(DSC\d+\.avif)$/i);
+    const arch = String(original).match(/^https:\/\/img\.viajandoconcabeza\.com\/(destinos\/suecia\/estocolmo-archipelago\/[0-9]{4}-dia8)\/(?:paisajes|bosques|mar)\/(DSC\d+\.avif)$/i);
     if (arch) {
       const existing = new Set(['DSC08334.avif','DSC08335.avif','DSC08336.avif','DSC08337.avif','DSC08338.avif','DSC08342.avif','DSC08344.avif','DSC08345.avif']);
       return existing.has(arch[2]) ? 'https://img.viajandoconcabeza.com/'+arch[1]+'/_preview/'+size+'/'+arch[2] : original;
@@ -179,7 +179,9 @@
     /* Protecció addicional: una transformació del HTML desplegat estava
        convertint /2026-dia1/ en /-dia1/ i provocant 404. Normalitzem
        totes les URL abans de carregar les fotos. */
-    const correctR2Url = value => String(value).replace('/goteborg/-dia1/', '/goteborg/' + '20' + '26-dia1/');
+    const correctR2Url = value => String(value)
+      .replace('/goteborg/-dia1/', '/goteborg/' + '20' + '26-dia1/')
+      .replace('/estocolmo-archipelago/-dia8/', '/estocolmo-archipelago/' + '20' + '26-dia8/');
     const photos = (onlyOwn ? own.filter(Boolean) : [...new Set([...own.filter(Boolean), ...source])].slice(0,requested)).map(correctR2Url);
     gallery.dataset.images = JSON.stringify(photos);
     gallery.dataset.count = String(photos.length);
