@@ -756,3 +756,34 @@ html body.ci-page .ci-month-sources a{color:#a95638;text-decoration:underline;te
  html body.ci-page .ci-month-vcc-brand{padding-right:8px}
  html body.ci-page .ci-month-vcc-brand img{width:34px;height:34px}
 }
+
+/* 2026-11-09 — ajuste final solicitado: sin doble punto de color, euros negros, consejo VCC compacto. */
+html body.ci-page .ci-metric .ci-euros{color:#302820!important;font-weight:700!important}
+html body.ci-page .ci-month-fact strong.ci-fact-euros{color:#302820!important;font-weight:700!important}
+html body.ci-page .ci-fact-sunset{color:var(--ci-orange)!important;display:flex;justify-content:center;align-items:center}
+html body.ci-page .ci-fact-sunset svg{stroke:var(--ci-orange)!important;display:block}
+html body.ci-page .ci-month-right{display:flex;flex-direction:column;align-self:stretch;min-height:0}
+html body.ci-page .ci-month-right .ci-month-procon{flex:0 0 auto}
+html body.ci-page .ci-month-vcc{
+  width:fit-content;
+  max-width:100%;
+  min-width:min(100%,330px);
+  grid-template-columns:80px minmax(0,1fr);
+  gap:11px;
+  margin:20px 0 0 auto;
+  align-self:flex-end;
+  padding:9px 13px;
+  border-radius:12px;
+}
+html body.ci-page .ci-month-vcc-brand{min-height:0;padding-right:9px}
+html body.ci-page .ci-month-vcc-brand img{width:35px;height:35px}
+html body.ci-page .ci-month-vcc>p{text-align:justify;text-align-last:left;font-size:10.5px;line-height:1.5}
+html body.ci-page .ci-month-right .ci-month-vcc{margin-top:auto}
+html body.ci-page .ci-month-right .ci-month-procon + .ci-month-vcc{margin-top:auto;padding-top:9px}
+@media(max-width:1080px){
+  html body.ci-page .ci-month-right .ci-month-vcc{margin-top:16px}
+}
+@media(max-width:600px){
+  html body.ci-page .ci-month-vcc{max-width:100%;min-width:0;width:100%;grid-template-columns:78px minmax(0,1fr)}
+  html body.ci-page .ci-month-vcc>p{font-size:10.5px}
+}
