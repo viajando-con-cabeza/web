@@ -57,6 +57,7 @@ function init(){
         button.disabled=max<3||(backward?track.scrollLeft<=2:track.scrollLeft>=max-2);
         button.setAttribute("aria-disabled",String(button.disabled));
       });
+      if(track.id==="ep4-our-track") { const stage=track.closest(".ep4-our-stage"); if(stage) stage.classList.toggle("ep4-our-no-overflow",max<3); }
       if(indicator){
         const first=track.firstElementChild;
         const total=track.children.length;
