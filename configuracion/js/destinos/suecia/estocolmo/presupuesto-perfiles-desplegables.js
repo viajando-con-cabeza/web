@@ -131,22 +131,17 @@
     function decorateDay(day) {
       showPerPerson(day);
       const head = day.querySelector(".vcc-budget-day-head");
-      if (head && !head.querySelector(".vcc-day-eyebrow")) {
+      if (head) {
         const label = head.querySelector("strong");
         const price = head.querySelector("span");
-        const source = label ? label.textContent.trim() : "";
-        const match = source.match(/^D[IÍ]A\s+(\d+)\s*[·-]\s*(.+)$/i);
-        if (match && label) {
-          const eyebrow = document.createElement("span");
-          eyebrow.className = "vcc-day-eyebrow";
-          eyebrow.textContent = "DÍA " + match[1];
+        if (label && !head.querySelector(".vcc-day-place")) {
+          const source = label.textContent.trim();
+          const match = source.match(/^D[IÍ]A\s+(\d+)\s*[·:-]\s*(.+)$/i);
+          // Un único título compacto: sin el antiguo sobretítulo manuscrito.
           const title = document.createElement("strong");
           title.className = "vcc-day-place";
-          title.textContent = match[2];
-          const copy = document.createElement("div");
-          copy.className = "vcc-day-head-copy";
-          copy.append(eyebrow, title);
-          head.insertBefore(copy, label);
+          title.textContent = match ? "Día " + match[1] + " · " + match[2] : source;
+          head.insertBefore(title, label);
           label.remove();
         }
         if (price) price.classList.add("vcc-day-price");
