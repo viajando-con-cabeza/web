@@ -356,15 +356,51 @@ const renderCost=p=>{
   const [cost,detail]=VCC_COSTS[p[0]]||['Consultar','Comprueba el coste antes de viajar'];
   return `<span class="fact-cost" title="${esc(detail)}" aria-label="Coste: ${esc(cost)}. ${esc(detail)}"><b class="fact-cost-value${cost==='Gratis'?' is-free':''}">${esc(cost)}</b><span>Coste</span></span>`;
 };
-const renderVerdict=p=>{
-  const message=p[7]>=5?'Imprescindible':p[7]>=4?'Muy recomendable':'Si tienes tiempo';
-  return `<div class="vcc-worth" aria-label="Nuestra valoración: ${message}"><span>¿Merece la pena?</span><strong class="${p[7]<4?'is-optional':''}">${message}</strong></div>`;
+/* Opinión editorial ligada a la puntuación existente: no sustituye la experiencia del Consejo VCC. */
+const VCC_RATING_COMMENTS={"gamla-stan":"Sí, imprescindible en una primera visita: sus calles merecen tiempo incluso sin entrar en ningún monumento.","vasa":"Sí, sobre todo si vas a elegir un único museo. Conviene reservarle dos horas y valorar el coste de la entrada.","djurgarden":"Sí, especialmente si visitas el Vasa o Skansen. Lo mejor es combinar museos con un paseo por la isla.","ayuntamiento":"Sí: incluso si no haces la visita interior, el edificio y las vistas junto al agua compensan la parada.","sodermalm":"Sí, para pasear sin prisas y descubrir otro ambiente. Combínalo con un mirador en lugar de recorrer todo el barrio.","montelius":"Sí, si el tiempo acompaña: es una parada breve y con buenas vistas que encaja en el paseo por Södermalm.","stortorget":"Sí, pero como parte de Gamla Stan. Es una parada corta: no hace falta reservarle una visita independiente.","riddarholmen":"Merece la pena si ya estás en Gamla Stan y quieres tranquilidad y vistas; con muy poco tiempo, es opcional.","metro":"Interesante si ya vas a utilizar el transporte público. No priorizaríamos una ruta larga de estaciones frente a los lugares principales.","ferry":"Sí, especialmente si lo integras como desplazamiento: ver Estocolmo desde el agua aporta una perspectiva diferente.","palacio":"El exterior merece la parada al recorrer Gamla Stan. La visita interior compensa más si te interesa la historia real.","skansen":"Sí, si te interesan las tradiciones suecas o viajas en familia. Ten en cuenta que requiere varias horas y entrada.","fotografiska":"Recomendable si te gusta la fotografía y te interesa la exposición del momento; con poco tiempo, sería opcional.","kungstradgarden":"Agradable para descansar si pasas por el centro, pero no haríamos un desvío solo para visitar este parque.","stromkajen":"Merece la pena como paseo de paso o antes de tomar un barco. No lo priorizaríamos como visita independiente."};
+const renderRating=p=>{
+  const comment=VCC_RATING_COMMENTS[p[0]]||'Depende del tiempo que tengas y de tus intereses.';
+  const tipId='vcc-rating-tip-'+p[0];
+  return `<span class="vcc-rating-fact"><button type="button" class="vcc-rating-trigger" aria-label="Puntuación VCC: ${p[7]} de 5. Ver si merece la pena" aria-describedby="${tipId}" aria-expanded="false">${rating(p[7])}<span class="vcc-rating-label">Puntuación VCC</span></button><span id="${tipId}" class="vcc-rating-tooltip" role="tooltip"><strong>¿Merece la pena?</strong>${esc(comment)}</span></span>`;
 };
 const nav=document.getElementById('placeNav');
 nav.innerHTML=data.map((p,i)=>`<a href="#${p[0]}" class="${i===0?'active':''}">${esc(p[1])}</a>`).join('');
 const main=document.getElementById('places');
 
-main.innerHTML=data.map((p,i)=>{const imgs=p[0]==='ferry'?FERRY_PHOTOS:R2_PHOTOS.slice(0,Math.min(i+1,R2_PHOTOS.length));const maps=`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(p[1]+' Stockholm')}`;return `<section class="place${p[0]==='gamla-stan'?' place--no-media':''}" id="${p[0]}"><header class="place-heading"><div class="place-heading-line"><div class="place-heading-label"><span class="place-number">${String(i+1).padStart(2,"0")}</span><h2>${esc(p[1]).toUpperCase()}</h2></div></div></header>${p[0]==='gamla-stan' ? '' : `<div class="gallery" data-count="${imgs.length}"><div class="gallery-main" data-images='${JSON.stringify(imgs)}'></div></div>`}<div class="place-copy"><div class="place-kicker">${esc(p[3])}</div><p>${esc(p[4])}</p><div class="facts"><span><b class="ico">◆</b>${esc(p[2])}</span><span><b class="ico">●</b>${esc(p[5])}</span><span><b class="ico">◷</b>${esc(p[6])}</span><span>${rating(p[7])}</span><span class="fact-map"><b class="ico">⌖</b><a target="_blank" rel="noopener noreferrer" href="${maps}" aria-label="Abrir ${esc(p[1])} en Google Maps">Google Maps</a></span>${renderCost(p)}</div>${renderVerdict(p)}<div class="advice"><img class="vcc-advice-logo" src="/configuracion/imagenes/marca/logo-vcc.svg" width="46" height="46" alt="Logo oficial VCC" loading="lazy"><div><b>CONSEJO VCC</b><p>${esc(p[9])}</p></div></div></div></section>`}).join('');
+main.innerHTML=data.map((p,i)=>{const imgs=p[0]==='ferry'?FERRY_PHOTOS:R2_PHOTOS.slice(0,Math.min(i+1,R2_PHOTOS.length));const maps=`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(p[1]+' Stockholm')}`;return `<section class="place${p[0]==='gamla-stan'?' place--no-media':''}" id="${p[0]}"><header class="place-heading"><div class="place-heading-line"><div class="place-heading-label"><span class="place-number">${String(i+1).padStart(2,"0")}</span><h2>${esc(p[1]).toUpperCase()}</h2></div></div></header>${p[0]==='gamla-stan' ? '' : `<div class="gallery" data-count="${imgs.length}"><div class="gallery-main" data-images='${JSON.stringify(imgs)}'></div></div>`}<div class="place-copy"><div class="place-kicker">${esc(p[3])}</div><p>${esc(p[4])}</p><div class="facts"><span><b class="ico">◆</b>${esc(p[2])}</span><span><b class="ico">●</b>${esc(p[5])}</span><span><b class="ico">◷</b>${esc(p[6])}</span>${renderRating(p)}<span class="fact-map"><b class="ico">⌖</b><a target="_blank" rel="noopener noreferrer" href="${maps}" aria-label="Abrir ${esc(p[1])} en Google Maps">Google Maps</a></span>${renderCost(p)}</div><div class="advice"><img class="vcc-advice-logo" src="/configuracion/imagenes/marca/logo-vcc.svg" width="46" height="46" alt="Logo oficial VCC" loading="lazy"><div><b>CONSEJO VCC</b><p>${esc(p[9])}</p></div></div></div></section>`}).join('');
+/* El tooltip no ocupa espacio en las fichas. Hover en escritorio, clic en móvil,
+   foco con teclado, Escape para cerrar y clic fuera para descartar. */
+const ratingFacts=[...main.querySelectorAll('.vcc-rating-fact')];
+const closeRatingTips=()=>{
+  ratingFacts.forEach(fact=>{
+    fact.classList.remove('is-open');
+    fact.querySelector('.vcc-rating-trigger')?.setAttribute('aria-expanded','false');
+  });
+};
+ratingFacts.forEach(fact=>{
+  const button=fact.querySelector('.vcc-rating-trigger');
+  if(!button)return;
+  button.addEventListener('click',()=>{
+    const wasOpen=fact.classList.contains('is-open');
+    closeRatingTips();
+    if(!wasOpen){
+      fact.classList.add('is-open');
+      button.setAttribute('aria-expanded','true');
+    }else{
+      button.blur();
+    }
+  });
+});
+document.addEventListener('pointerdown',e=>{
+  if(!e.target.closest('.vcc-rating-fact'))closeRatingTips();
+});
+document.addEventListener('keydown',e=>{
+  if(e.key==='Escape'){
+    const active=document.activeElement;
+    closeRatingTips();
+    if(active?.classList?.contains('vcc-rating-trigger')) active.blur();
+  }
+});
 nav.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{nav.querySelectorAll('a').forEach(x=>x.classList.remove('active'));a.classList.add('active')}));
 const prev=document.getElementById('navPrev'),next=document.getElementById('navNext');const update=()=>{prev.disabled=nav.scrollLeft<5;next.disabled=nav.scrollLeft+nav.clientWidth>=nav.scrollWidth-5};prev.onclick=()=>nav.scrollBy({left:-Math.max(nav.clientWidth*.7,280),behavior:'smooth'});next.onclick=()=>nav.scrollBy({left:Math.max(nav.clientWidth*.7,280),behavior:'smooth'});nav.addEventListener('scroll',update,{passive:true});window.addEventListener('resize',update);update();
 /* Galeries construïdes pel JS com a mosaics CSS; cap etiqueta img remota inicial. */
