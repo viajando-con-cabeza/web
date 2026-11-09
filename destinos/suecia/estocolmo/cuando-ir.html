@@ -15,7 +15,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=DM+Sans:wght@400;500;600;700;800&family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/configuracion/css/paginas.css"><link rel="stylesheet" href="/configuracion/css/overrides.css">
-<link rel="stylesheet" href="/configuracion/css/destinos/suecia/estocolmo/cuando-ir-vcc.css?v=20261109-experiencia-final">
+<link rel="stylesheet" href="/configuracion/css/destinos/suecia/estocolmo/cuando-ir-vcc.css?v=20261109-experiencia-final2">
 <style id="ci-mobile-hero-definitive">
 /* Mobile: same compact overlapping photographic hero as Itinerarios.
    The personal travel-month chip stays on desktop only. */
@@ -116,6 +116,7 @@ html body.ci-page .ci-visit-mobile-note{display:none}
 <button type="button" class="ci-calendar-month" id="ci-month-tab-10" data-month="10" aria-label="Noviembre: 8 días con lluvia, precios bajo" aria-controls="ci-month-panel-10" aria-pressed="false"><b>NOV</b><span class="ci-weather" aria-hidden="true"><img src="/configuracion/imagenes/iconos/iconos-tiempo-nubes-color.svg" alt="" width="32" height="32" loading="lazy" decoding="async"></span><span class="ci-temperature">2 / 6°C</span><span class="ci-calendar-rain"><span aria-hidden="true">☂</span> 8 días</span><span class="ci-metric"><i class="ci-dot low"></i>Turistas <strong>Bajo</strong></span><span class="ci-metric">Precios <strong class="ci-price-label"><i class="ci-dot low" aria-hidden="true"></i>Bajo</strong></span></button>
 <button type="button" class="ci-calendar-month" id="ci-month-tab-11" data-month="11" aria-label="Diciembre: 7 días con lluvia, precios alto" aria-controls="ci-month-panel-11" aria-pressed="false"><b>DIC</b><span class="ci-weather" aria-hidden="true"><img src="/configuracion/imagenes/iconos/iconos-tiempo-nieve-color.svg" alt="" width="32" height="32" loading="lazy" decoding="async"></span><span class="ci-temperature">-2 / 2°C</span><span class="ci-calendar-rain"><span aria-hidden="true">☂</span> 7 días</span><span class="ci-metric"><i class="ci-dot medium"></i>Turistas <strong>Medio</strong></span><span class="ci-metric">Precios <strong class="ci-price-label"><i class="ci-dot high" aria-hidden="true"></i>Alto</strong></span></button>
 </div></div>
+<p class="ci-calendar-hint" aria-hidden="true"><span>Desliza para ver todos los meses</span><span>→</span></p>
 <div class="ci-legend" aria-label="Leyenda de turistas y precios"><span><i class="ci-dot low"></i>Bajo</span><span><i class="ci-dot medium"></i>Medio</span><span><i class="ci-dot high"></i>Alto</span><small>La afluencia y los precios varían según fechas.</small></div>
 
 
@@ -666,6 +667,16 @@ html body.ci-page .ci-visit-mobile-note{display:none}
   const select=(id)=>{selected=id;const o=objectives.find(x=>x.id===id);choices.querySelectorAll('button').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.id===id)));document.getElementById('recommendationMonths').textContent=o.title;document.getElementById('recommendationWhy').textContent=o.description;document.getElementById('recommendationReasons').innerHTML=o.reasons.map(r=>'<li>'+r+'</li>').join('');calendar.querySelectorAll('button').forEach((b,i)=>b.classList.toggle('recommended',o.months.includes(i)));detail(o.months[0])};
   choices.addEventListener('click',e=>{const b=e.target.closest('button[data-id]');if(b)select(b.dataset.id)});
   calendar.addEventListener('click',e=>{const b=e.target.closest('button[data-month]');if(b)detail(Number(b.dataset.month))});
+  // El calendario también se puede recorrer con las flechas del teclado.
+  calendar.addEventListener('keydown',e=>{
+    if(e.key!=='ArrowLeft'&&e.key!=='ArrowRight')return;
+    const currentButton=e.target.closest('button[data-month]');
+    if(!currentButton)return;
+    e.preventDefault();
+    const next=Math.min(11,Math.max(0,Number(currentButton.dataset.month)+(e.key==='ArrowRight'?1:-1)));
+    detail(next);
+    calendar.querySelector('button[data-month="'+next+'"]')?.focus();
+  });
   select('clima');
   const tipsTrack=document.getElementById('ciTipsTrack');
   const tipsPrev=document.getElementById('ciTipsPrev');
