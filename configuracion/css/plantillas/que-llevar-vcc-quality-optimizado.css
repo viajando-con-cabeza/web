@@ -2523,3 +2523,48 @@ html body .ql-page .ql-advice-section .ql-advice-heading-row{
   grid-column:1/-1!important;
  }
 }
+
+/* VCC · prueba de contraste blanco / marrón claro para calculadora y checklist */
+/* Las dos tablas grandes quedan blancas, sin modificar su tamaño ni posición. */
+html body .ql-page .ql-v7-section-bag > .ql-v8-bag-planner,
+html body .ql-page .ql-v7-section-pack > .ql-v6-list{
+  background:#FFFFFF!important;
+  background-image:none!important;
+  border-color:#E7DACD!important;
+}
+/* Las tres opciones de equipaje tienen un tono marrón suave y distinguible. */
+html body .ql-page .ql-v7-section-bag .ql-v8-planner-results .ql-v7-bag-card{
+  background:#F5ECE2!important;
+  background-image:none!important;
+  border-color:#E4CEB9!important;
+}
+html body .ql-page .ql-v7-section-bag .ql-v8-planner-results .ql-v7-bag-card.is-recommended{
+  background:#F6E6D6!important;
+  border-color:#CD855F!important;
+}
+/* Cada categoría con icono en la checklist se diferencia del panel blanco. */
+html body .ql-page .ql-v7-section-pack .ql-v6-category{
+  background:#F7EFE6!important;
+  background-image:none!important;
+  border-color:#E5D4C2!important;
+}
+html body .ql-page .ql-v7-section-pack .ql-v6-category h4{
+  background:#EFE1D2!important;
+  color:#3D3028!important;
+}
+/* Los dos Consejos VCC siguen en blanco, como se acordó. */
+html body .ql-page .ql-v7-section-bag .ql-v8-planner-results > .ql-v8-consejo-vcc,
+html body .ql-page .ql-v7-section-pack .ql-v10-packing-consejo{
+  background:#FFFFFF!important;
+  background-image:none!important;
+}
+/* Imprimiendo: mantener fondo blanco y texto legible. */
+@media print{
+  html body .ql-page .ql-v7-section-pack > .ql-v6-list,
+  html body .ql-page .ql-v7-section-pack .ql-v6-category{
+    background:#FFFFFF!important;
+  }
+  html body .ql-page .ql-v7-section-pack .ql-v6-category h4{
+    background:#F5F1EC!important;
+  }
+}
