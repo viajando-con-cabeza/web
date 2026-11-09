@@ -22,6 +22,21 @@ const monthData=[
 ];
 // WMO / SMHI, Stockholm, 1991–2020; >= 0.1 mm/day, rain or snow.
 const monthlyPrecipitationDays=[15.9,14,12.9,10.7,10.8,12.9,12.4,13.2,12,15,17,18.2];
+// Pictogramas ya utilizados en el ecosistema VCC; representan un clima orientativo, no un pronóstico.
+const weatherModes=[
+ {icon:"nieve",label:"Frío · nieve posible"},
+ {icon:"nieve",label:"Frío · nieve posible"},
+ {icon:"nubes",label:"Frío y nubes"},
+ {icon:"intervalos",label:"Sol y nubes"},
+ {icon:"intervalos",label:"Sol y nubes"},
+ {icon:"sol",label:"Días soleados"},
+ {icon:"sol",label:"Verano y sol"},
+ {icon:"intervalos",label:"Sol y nubes"},
+ {icon:"intervalos",label:"Nubes y claros"},
+ {icon:"nubes",label:"Ambiente nuboso"},
+ {icon:"nubes",label:"Nubes y frío"},
+ {icon:"nieve",label:"Frío · nieve posible"}
+];
 const seasonNames={invierno:"invierno",primavera:"primavera",verano:"verano",otono:"otoño"};
 const byId=id=>monthData[Number(id)]||monthData[1];
 let state={month:1,days:5,laundry:false,done:new Set()};
@@ -117,14 +132,24 @@ function recommendedBag(){
 }
 function updateBagAdvice(){
  const choice=recommendedBag();
- $("ql-v7-bag-result-name").textContent=choice.name;
- $("ql-v7-bag-result-reason").textContent=choice.why;
- $("ql-v7-bag-result-context").textContent=state.days+" "+(state.days===1?"día":"días")+" · "+byId(state.month).name+(state.laundry?" · con lavado":"");
+ const month=byId(state.month).name;
+ const duration=state.days+" "+(state.days===1?"día":"días");
+ const luggage=choice.name.toLocaleLowerCase("es");
+ let why="";
+ if(choice.type==="personal"){
+  why="porque puedes viajar ligero, evitar facturar y llevar lo imprescindible sin pagar por más espacio.";
+ }else if(choice.type==="cabin"){
+  why="porque te permite organizar la ropa por capas y llevar algún extra sin necesidad de facturar.";
+ }else{
+  why="porque la ropa de abrigo o los cambios necesarios para un viaje largo pueden ocupar bastante espacio.";
+ }
+ const laundry=state.laundry&&state.days>3?" Como podrás lavar ropa, no necesitarás tantas mudas.":"";
+ $("ql-v7-bag-result-reason").textContent="Para "+duration+" en "+month+", nosotros elegiríamos "+luggage+" "+why+laundry;
  document.querySelectorAll(".ql-v7-bag-card").forEach(card=>{
-   const selected=card.dataset.bag===choice.type;
-   card.classList.toggle("is-recommended",selected);
-   const badge=card.querySelector(".ql-v7-bag-badge");
-   if(badge)badge.hidden=!selected;
+  const selected=card.dataset.bag===choice.type;
+  card.classList.toggle("is-recommended",selected);
+  const badge=card.querySelector(".ql-v7-bag-badge");
+  if(badge)badge.hidden=!selected;
  });
 }
 function render(resetListScroll=false){
@@ -133,14 +158,15 @@ function render(resetListScroll=false){
  $("ql-v6-month").value=String(state.month);
  $("ql-v6-days").value=String(state.days);
  $("ql-v6-laundry").checked=state.laundry;
+ const weather=weatherModes[state.month];
+ const low=m.lo.toLocaleString("es-ES",{minimumFractionDigits:1,maximumFractionDigits:1});
+ const high=m.hi.toLocaleString("es-ES",{minimumFractionDigits:1,maximumFractionDigits:1});
  $("ql-v6-month-label").textContent=m.name.charAt(0).toUpperCase()+m.name.slice(1);
- const wetDays=Math.round(monthlyPrecipitationDays[state.month]);
- $("ql-v7-rain-days").textContent="☔ "+m.name.charAt(0).toUpperCase()+m.name.slice(1)+": ≈"+wetDays+" días con lluvia o nieve/mes";
-
- $("ql-v6-month-season").textContent="Estación: "+seasonNames[m.season];
- $("ql-v6-temperature").textContent=m.lo.toLocaleString("es-ES")+"° / "+m.hi.toLocaleString("es-ES")+"°";
- $("ql-v6-focus").textContent=m.focus;
- $("ql-v6-avoid").textContent=m.skip;
+ $("ql-v8-weather-icon").src="/configuracion/imagenes/iconos/iconos-tiempo-"+weather.icon+"-color.svg";
+ $("ql-v8-weather-title").textContent=weather.label;
+ $("ql-v8-temp-low").textContent=low+" °C";
+ $("ql-v8-temp-high").textContent=high+" °C";
+ $("ql-v8-rain-days").textContent="≈"+Math.round(monthlyPrecipitationDays[state.month])+" días/mes";
  $("ql-v6-summary-title").textContent="Tu lista para "+m.name+" · "+state.days+(state.days===1?" día":" días");
  $("ql-v6-caveat").textContent=state.days>10&&!state.laundry?
   "Para viajes de más de 10 días, esta lista limita las mudas a 10 días: te recomendamos planificar una colada para evitar llevar "+state.days+" cambios.":
