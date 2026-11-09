@@ -106,9 +106,9 @@
       if (element.dataset.totalGroupEuros !== undefined) {
         return Number(element.dataset.totalGroupEuros);
       }
-      const amount = (element.textContent || "").match(/([\\d.,]+)\\s*€/);
+      const amount = (element.textContent || "").match(/([\d.,]+)\s*€/);
       if (!amount) return NaN;
-      const number = Number(amount[1].replace(/\\./g, "").replace(",", "."));
+      const number = Number(amount[1].replace(/\./g, "").replace(",", "."));
       if (!Number.isFinite(number)) return NaN;
       element.dataset.totalGroupEuros = String(number);
       return number;
