@@ -309,7 +309,7 @@ html body.ci-page .ci-subnav a:hover{
  color:#a65340!important;
  border-bottom-color:#cf705c!important;
 }
-html body.ci-page :is(#consejo,#mes-a-mes,#estaciones){
+html body.ci-page :is(#consejo,#mes-a-mes,#experiencia,#consejos){
  scroll-margin-top:calc(var(--vcc-header-h,54px) + 58px);
 }
 @media(max-width:720px){
@@ -319,7 +319,7 @@ html body.ci-page :is(#consejo,#mes-a-mes,#estaciones){
   gap:25px!important;
  }
  html body.ci-page .ci-subnav a{font-size:11px!important}
- html body.ci-page :is(#consejo,#mes-a-mes,#estaciones){
+ html body.ci-page :is(#consejo,#mes-a-mes,#experiencia,#consejos){
   scroll-margin-top:calc(var(--vcc-header-h,87px) + 58px);
  }
 }
@@ -348,7 +348,7 @@ html body.ci-page .ci-subnav-placeholder{
  width:100%;
  pointer-events:none;
 }
-html body.ci-page :is(#consejo,#mes-a-mes,#estaciones){
+html body.ci-page :is(#consejo,#mes-a-mes,#experiencia,#consejos){
  scroll-margin-top:var(--ci-sticky-offset,115px)!important;
 }
 
@@ -629,25 +629,39 @@ html body.ci-page .ci-objective[aria-pressed="true"] .ci-objective-icon{
   html body.ci-page .ci-recommendation{padding:13px!important;gap:9px!important}
 }
 
-/* 2026-11-09: mejoras puntuales al detalle mensual y consejos, sin modificar hero, menú ni secciones existentes. */
-html body.ci-page .ci-month-detail{display:block}
-html body.ci-page .ci-month-top{display:flex;justify-content:space-between;align-items:center;gap:20px}
+/* 2026-11-09 — Mes seleccionado con presentación editorial VCC: estilo Nuestra opinión. */
+html body.ci-page .ci-month-detail{display:block;padding:21px 24px}
+html body.ci-page .ci-month-top{display:flex;justify-content:space-between;align-items:center;gap:24px}
 html body.ci-page .ci-month-summary{min-width:0}
-html body.ci-page .ci-month-extra{margin-top:15px;padding-top:15px;border-top:1px solid #eee2d8}
-html body.ci-page .ci-month-procon{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-html body.ci-page .ci-month-points{min-width:0;padding:14px 16px;border-radius:10px;border:1px solid #ebe0d6;background:#fdfbf8}
-html body.ci-page .ci-month-good{background:#f6faf5;border-color:#dfe9dc}
-html body.ci-page .ci-month-bad{background:#fff8f5;border-color:#f1ded6}
-html body.ci-page .ci-month-points h4{display:flex;align-items:center;gap:8px;margin:0 0 9px;font:700 13px/1.3 'DM Sans',sans-serif;color:#3e362f}
-html body.ci-page .ci-month-points h4 span{font-size:19px;line-height:1}
-html body.ci-page .ci-month-points ul{margin:0;padding:0;list-style:none;display:grid;gap:6px}
-html body.ci-page .ci-month-points li{position:relative;padding-left:17px;font:400 11px/1.5 'DM Sans',sans-serif;color:#504941}
-html body.ci-page .ci-month-points li:before{content:'•';position:absolute;left:2px;top:0;color:#67965e;font-weight:900}
-html body.ci-page .ci-month-bad li:before{color:#bd684d}
-html body.ci-page .ci-month-advice{display:flex;align-items:baseline;flex-wrap:wrap;gap:8px;max-width:none;margin:12px 0 0;font:400 11.5px/1.6 'DM Sans',sans-serif;color:#51453e}
-html body.ci-page .ci-month-advice strong{flex-shrink:0;color:#b65c3c;letter-spacing:.05em;font-size:10px}
-html body.ci-page .ci-month-visited{max-width:none;margin:9px 0 0;font:600 10.5px/1.5 'DM Sans',sans-serif;color:#9e5738}
+html body.ci-page .ci-month-summary p{max-width:650px}
+html body.ci-page .ci-detail-metrics{display:flex;gap:8px;align-items:center;justify-content:flex-end;flex-wrap:wrap;max-width:52%}
+html body.ci-page .ci-detail-metrics span{padding:9px 10px}
+html body.ci-page .ci-month-extra{margin-top:16px;padding-top:16px;border-top:1px solid #eee2d8}
+html body.ci-page .ci-month-opinion{margin-bottom:17px}
+html body.ci-page .ci-month-opinion h4{font:600 21px/1.2 'Oswald',sans-serif;margin:0 0 7px;color:#302820}
+html body.ci-page .ci-month-opinion p{font:400 12px/1.7 'DM Sans',sans-serif;max-width:920px;color:#5c5047;margin:0}
+html body.ci-page .ci-month-procon{display:grid;grid-template-columns:1fr 1fr;gap:25px}
+html body.ci-page .ci-month-points{min-width:0;background:transparent!important;border:0!important;border-radius:0;padding:0!important}
+html body.ci-page .ci-month-points h4{display:flex;align-items:center;gap:10px;font:600 18px/1.25 'Oswald',sans-serif;margin:0 0 11px;color:#302820}
+html body.ci-page .ci-month-points h4 svg{display:block;flex-shrink:0}
+html body.ci-page .ci-month-good h4 svg{color:#238c60}
+html body.ci-page .ci-month-bad h4 svg{color:#c4664e}
+html body.ci-page .ci-month-points ul{list-style:none;display:grid;gap:8px;margin:0;padding:0}
+html body.ci-page .ci-month-points li{position:relative;padding-left:17px;color:#5d5149;font:400 11.5px/1.55 'DM Sans',sans-serif}
+html body.ci-page .ci-month-points li:before{content:'•';position:absolute;left:2px;top:0;color:#a59a90;font-weight:900}
+html body.ci-page .ci-month-visited{max-width:none;margin:15px 0 0;font:600 10.5px/1.5 'DM Sans',sans-serif;color:#9e5738}
 html body.ci-page .ci-month-visited[hidden]{display:none}
+html body.ci-page .ci-rain-source{max-width:none;margin:15px 0 0;border-top:1px solid #eee2d8;padding-top:10px;font:400 9.5px/1.55 'DM Sans',sans-serif;color:#817267}
+html body.ci-page .ci-rain-source a{color:#a9583a;text-decoration:underline;text-underline-offset:2px}
+@media(max-width:900px){
+  html body.ci-page .ci-month-top{display:block}
+  html body.ci-page .ci-detail-metrics{max-width:none;justify-content:flex-start;margin-top:13px}
+}
+@media(max-width:600px){
+  html body.ci-page .ci-month-detail{padding:16px}
+  html body.ci-page .ci-month-procon{grid-template-columns:1fr;gap:17px}
+  html body.ci-page .ci-month-points h4{font-size:18px}
+}
 html body.ci-page .ci-august-experience{padding-top:31px}
 html body.ci-page .ci-august-box{display:grid;grid-template-columns:185px minmax(0,1fr);gap:24px;align-items:start;padding:20px 24px;background:#fff;border:1px solid var(--ci-line);border-radius:12px}
 html body.ci-page .ci-august-date{display:flex;flex-direction:column;align-items:flex-start;gap:5px;border-right:1px solid #eaddd0;padding-right:15px;color:#a75535}
