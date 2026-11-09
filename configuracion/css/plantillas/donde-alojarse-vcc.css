@@ -872,3 +872,62 @@ body.dv-page{
 @media(prefers-reduced-motion:reduce){
  .dv-page .dv-card-discover-arrow{transition:none}
 }
+
+/* VCC hoteles compactos: precio a la derecha y barrio junto al nombre */
+.dv-page .dv-zone-hotel{
+ display:grid;grid-template-columns:50px minmax(0,1fr) minmax(112px,max-content);
+ align-items:center;column-gap:10px;row-gap:0;
+ min-height:74px;height:auto;padding:9px 12px;
+}
+.dv-page .dv-zone-hotel-copy{display:block;min-width:0}
+.dv-page .dv-zone-hotel-top{
+ display:block;margin:0 0 5px;line-height:1.22;
+}
+.dv-page .dv-zone-hotel-top strong{
+ display:inline;font:600 15px/1.24 'Oswald',sans-serif;
+ color:#1d1d1d;vertical-align:baseline;
+}
+.dv-page .dv-zone-hotel .dv-zone-hotel-loc{
+ display:inline;white-space:normal;
+ font:400 10.5px/1.3 'DM Sans',sans-serif;
+ color:#69615b;margin:0;
+}
+.dv-page .dv-zone-hotel .dv-zone-hotel-why{
+ font:400 10.5px/1.4 'DM Sans',sans-serif;
+ margin:0!important;color:#5c554f;
+}
+.dv-page .dv-zone-hotel-pricecol{
+ display:flex;flex-direction:column;align-items:flex-end;
+ justify-content:center;gap:10px;text-align:right;
+ min-width:0;
+}
+.dv-page .dv-zone-hotel-pricecol .dv-zone-price{
+ font:700 12px/1.2 'DM Sans',sans-serif;
+ color:#363331;white-space:nowrap;
+}
+.dv-page .dv-zone-hotel-pricecol .dv-zone-price small{
+ display:block;margin:3px 0 0;
+ font:400 9px/1.2 'DM Sans',sans-serif;
+ color:#756e68;white-space:nowrap;
+}
+.dv-page .dv-zone-hotel-pricecol .dv-zone-booking-link{
+ font-size:10.5px;white-space:nowrap;
+}
+@media(max-width:600px){
+ .dv-page .dv-zone-hotel{
+  grid-template-columns:42px minmax(0,1fr) 91px;
+  gap:7px;min-height:76px;padding:9px 8px;
+ }
+ .dv-page .dv-zone-hotel-top strong{font-size:13.5px}
+ .dv-page .dv-zone-hotel .dv-zone-hotel-loc{font-size:9.5px}
+ .dv-page .dv-zone-hotel .dv-zone-hotel-why{font-size:9.7px;line-height:1.4}
+ .dv-page .dv-zone-hotel-pricecol{gap:9px}
+ .dv-page .dv-zone-hotel-pricecol .dv-zone-price{font-size:10px}
+ .dv-page .dv-zone-hotel-pricecol .dv-zone-price small{font-size:8px}
+ .dv-page .dv-zone-hotel-pricecol .dv-zone-booking-link{font-size:9px}
+}
+@media(max-width:360px){
+ .dv-page .dv-zone-hotel{grid-template-columns:37px minmax(0,1fr) 85px;gap:6px}
+ .dv-page .dv-zone-hotel-pricecol .dv-zone-price{font-size:9.5px}
+ .dv-page .dv-zone-hotel-pricecol .dv-zone-price small{font-size:7.5px}
+}
