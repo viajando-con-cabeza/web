@@ -86,7 +86,57 @@
     slider.setAttribute("aria-label", "Gastos diarios: desliza a los lados para cambiar de día");
     slider.tabIndex = 0;
     column.insertBefore(slider, days[0]);
+    const icons = {
+      "Alojamiento": '<rect x="3" y="10" width="18" height="9" rx="2"/><path d="M3 13V7a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v6M7 10V8h4v2m2 0V8h4v2M3 19v2m18-2v2"/>',
+      "Comida": '<path d="M4 2v8a3 3 0 0 0 6 0V2M7 2v20M17 22V2c-3 2-4 6-4 10h4"/>',
+      "Transporte": '<rect x="5" y="2" width="14" height="17" rx="3"/><path d="M5 10h14M9 19l-2 3m8-3 2 3M9 15h.01M15 15h.01"/>',
+      "Actividades": '<path d="M2 9a2 2 0 0 0 2-2h16a2 2 0 0 0 2 2v6a2 2 0 0 0-2 2H4a2 2 0 0 0-2-2V9ZM12 7v10"/><path d="M12 10h.01M12 14h.01"/>',
+      "Extras": '<path d="m12 3 1.9 5.8L20 11l-6.1 2.2L12 19l-1.9-5.8L4 11l6.1-2.2L12 3Z"/>'
+    };
+    function decorateDay(day) {
+      const head = day.querySelector(".vcc-budget-day-head");
+      if (head && !head.querySelector(".vcc-day-eyebrow")) {
+        const label = head.querySelector("strong");
+        const price = head.querySelector("span");
+        const source = label ? label.textContent.trim() : "";
+        const match = source.match(/^D[IÍ]A\s+(\d+)\s*[·-]\s*(.+)$/i);
+        if (match && label) {
+          const eyebrow = document.createElement("span");
+          eyebrow.className = "vcc-day-eyebrow";
+          eyebrow.textContent = "DÍA " + match[1];
+          const title = document.createElement("strong");
+          title.className = "vcc-day-place";
+          title.textContent = match[2];
+          const copy = document.createElement("div");
+          copy.className = "vcc-day-head-copy";
+          copy.append(eyebrow, title);
+          head.insertBefore(copy, label);
+          label.remove();
+        }
+        if (price) price.classList.add("vcc-day-price");
+      }
+      day.querySelectorAll(".vcc-budget-day-expenses li").forEach(function (li) {
+        if (li.querySelector(".vcc-day-tile-icon")) return;
+        const category = li.querySelector(".vcc-day-expense-category");
+        if (!category) return;
+        const icon = document.createElement("span");
+        icon.className = "vcc-day-tile-icon";
+        icon.setAttribute("aria-hidden", "true");
+        const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+        svg.setAttribute("viewBox", "0 0 24 24");
+        svg.setAttribute("fill", "none");
+        svg.setAttribute("stroke", "currentColor");
+        svg.setAttribute("stroke-width", "1.7");
+        svg.setAttribute("stroke-linecap", "round");
+        svg.setAttribute("stroke-linejoin", "round");
+        svg.innerHTML = icons[category.textContent.trim()] || icons.Extras;
+        icon.appendChild(svg);
+        li.insertBefore(icon, category);
+        li.classList.add("vcc-day-expense-tile");
+      });
+    }
     days.forEach(function (day, i) {
+      decorateDay(day);
       day.classList.add("vcc-daily-slide");
       day.setAttribute("role", "group");
       day.setAttribute("aria-roledescription", "diapositiva");
