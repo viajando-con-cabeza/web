@@ -496,3 +496,46 @@ html body .ep-page section.ep-hero[data-vcc-hero].vcc-subheader-hero.vcc-standar
   .ep-page .ep3-tourist-pass .ep3-pass-note{padding:15px}
   .ep-page .ep3-tourist-pass .ep3-pass-note p{font-size:11.5px}
 }
+
+
+/* VCC 2026-11-09 · Metadatos útiles del ranking: tipología, duración, precio adulto 2026. */
+.ep-page .ep3-rank-facts{
+ display:flex;align-items:center;flex-wrap:wrap;gap:6px;
+ min-width:0;margin:4px 0 3px;
+}
+.ep-page .ep3-rank-fact{
+ display:inline-flex;align-items:center;gap:5px;max-width:100%;
+ padding:5px 7px;border-radius:7px;border:1px solid #e8e1d9;
+ background:#fbfaf8;color:#61564d;white-space:nowrap;
+ font:700 10px/1.3 "DM Sans",sans-serif;
+}
+.ep-page .ep3-rank-fact-icon{
+ display:block;flex:0 0 14px;width:14px;height:14px;
+ fill:none;stroke:currentColor;stroke-width:1.65;
+ stroke-linecap:round;stroke-linejoin:round;
+}
+.ep-page .ep3-rank-fact-kind{color:#615c54;background:#f6f5f2;border-color:#e5e0d8}
+.ep-page .ep3-rank-fact-time{color:#565e65;background:#f8fafb;border-color:#e5eaed}
+.ep-page .ep3-rank-fact-price{
+ color:#a45838;background:#fff4e8;border-color:#f0ddc8;
+ font-weight:800;
+}
+.ep-page .ep3-rank-fact-price.is-free{background:#f0f7f0;border-color:#d9e6d9;color:#49794b}
+.ep-page .ep3-rank-card{min-height:238px}
+.ep-page .ep3-rank-body{min-height:238px;gap:6px}
+.ep-page .ep3-ranked-note{line-height:1.55}
+.ep-page .ep3-ranked-note strong{color:#60554b;font-weight:800}
+@media(max-width:1050px){
+ .ep-page .ep3-rank-fact{font-size:9.5px;padding:5px 6px}
+ .ep-page .ep3-rank-facts{gap:5px}
+}
+@media(max-width:760px){
+ .ep-page .ep3-rank-card,.ep-page .ep3-rank-body{min-height:234px}
+ .ep-page .ep3-rank-fact{font-size:10px}
+}
+@media(max-width:520px){
+ .ep-page .ep3-rank-card,.ep-page .ep3-rank-body{min-height:230px}
+ .ep-page .ep3-rank-facts{gap:5px;margin:3px 0 2px}
+ .ep-page .ep3-rank-fact{font-size:9.5px}
+ .ep-page .ep3-rank-fact-icon{width:13px;height:13px;flex-basis:13px}
+}
