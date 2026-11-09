@@ -1138,3 +1138,69 @@ body.dv-page{
  .dv-page .dv-trust-global-grid p{font-size:10.75px}
  .dv-page .dv-trust-global-grid .dv-trust-point-heading strong{font-size:10.5px}
 }
+
+/* VCC · Valoración y fichas ligeramente más compactas · 2026-11-09 */
+/* Se conservan las mismas puntuaciones, textos y jerarquía de títulos. */
+.dv-page .dv-zone-body{padding-top:14px;padding-bottom:14px}
+.dv-page .dv-zone-review-head{padding-bottom:7px}
+.dv-page .dv-zone-score-compact{gap:9px}
+.dv-page .dv-zone-score-compact>strong{
+ width:44px;height:44px;flex-basis:44px;font-size:22.5px;
+}
+.dv-page .dv-zone-score-compact b{font-size:14px}
+.dv-page .dv-zone-review-grid{
+ margin-top:9px;row-gap:7px;column-gap:12px;
+}
+.dv-page .dv-zone-review-label,
+.dv-page .dv-zone-review-label strong{
+ font-size:11px;line-height:1.25;
+}
+.dv-page .dv-zone-review-label{margin-bottom:3px}
+.dv-page .dv-zone-review-track{height:5px}
+.dv-page .dv-zone-procon{margin-top:10px;padding-top:9px}
+.dv-page .dv-zone-procon h4{margin-bottom:4px}
+.dv-page .dv-zone-procon-intro{margin-bottom:8px!important}
+.dv-page .dv-zone-feel h5{margin-bottom:4px}
+.dv-page .dv-zone-feel ul{gap:5px}
+/* El lado de hoteles es el que suele fijar la altura total del panel. */
+.dv-page .dv-zone-hotels-list{gap:5px}
+.dv-page .dv-zone-hotel{
+ min-height:62px;padding:6px 9px;
+}
+.dv-page .dv-zone-hotel-icon{
+ width:41px;height:41px;flex-basis:41px;
+}
+.dv-page .dv-zone-hotel-icon img{width:39px;height:39px}
+.dv-page .dv-zone-hotel-icon.is-vcc-logo img{width:32px;height:32px}
+.dv-page .dv-zone-hotel.is-real-stay .dv-zone-hotel-our-experience{
+ padding-top:6px;line-height:1.46;
+}
+.dv-page .dv-zone-hotels-note{margin-top:6px}
+@media(max-width:1090px){
+ .dv-page .dv-zone-body{padding:14px 16px}
+ .dv-page .dv-zone-assessment{padding-bottom:13px}
+ .dv-page .dv-zone-hotels{padding-top:13px}
+}
+@media(max-width:600px){
+ .dv-page .dv-zone-body{padding:12px}
+ .dv-page .dv-zone-score-compact>strong{
+  width:41px;height:42px;flex-basis:41px;font-size:21px;
+ }
+ .dv-page .dv-zone-score-compact b{font-size:12.5px}
+ .dv-page .dv-zone-review-grid{
+  margin-top:9px;row-gap:8px;column-gap:10px;
+ }
+ .dv-page .dv-zone-review-label,
+ .dv-page .dv-zone-review-label strong{font-size:10.5px}
+ .dv-page .dv-zone-hotels-list{gap:5px}
+ .dv-page .dv-zone-hotel{
+  min-height:70px;padding:7px;
+ }
+ .dv-page .dv-zone-hotel-icon{
+  width:39px;height:39px;flex-basis:39px;
+ }
+ .dv-page .dv-zone-hotel-icon img{width:37px;height:37px}
+ .dv-page .dv-zone-hotel-icon.is-vcc-logo img{width:30px;height:30px}
+ .dv-page .dv-zone-procon{margin-top:10px;padding-top:9px}
+ .dv-page .dv-zone-feel ul{gap:6px}
+}
