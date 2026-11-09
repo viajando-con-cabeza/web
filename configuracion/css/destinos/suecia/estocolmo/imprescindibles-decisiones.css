@@ -1,0 +1,142 @@
+/* Estocolmo / Imprescindibles: decisiones, coste relativo y mapa conjunto.
+   Aislado de los estilos compartidos de las galerias y del Consejo VCC. */
+html body .imp-page .place-copy .vcc-worth {
+  display:flex;justify-content:flex-end;align-items:center;flex-wrap:wrap;
+  gap:7px;margin:7px 0 0;padding:0;min-width:0;
+  color:#73675f;font:600 10.5px/1.35 'DM Sans',sans-serif;
+}
+html body .imp-page .place-copy .vcc-worth strong {
+  display:inline-block;border:1px solid #e6c6b6;border-radius:100px;
+  background:#fff7f1;padding:4px 9px;color:#a24e27;
+  font:700 10px/1.2 'DM Sans',sans-serif;letter-spacing:.01em;
+}
+html body .imp-page .place-copy .vcc-worth strong.is-optional {
+  border-color:#e0d9d1;background:#f6f3ef;color:#71685e;
+}
+html body .imp-page .place-copy .facts > span.fact-cost {
+  display:inline-flex!important;align-items:center!important;justify-content:flex-start!important;
+  gap:7px!important;min-width:0!important;
+  color:#665f58!important;font:600 11px/1.4 'DM Sans',sans-serif!important;
+}
+html body .imp-page .place-copy .facts .fact-cost .fact-cost-value {
+  display:inline-block!important;flex:0 0 auto!important;
+  color:#bb5e32!important;font:700 12px/1.2 'DM Sans',sans-serif!important;
+  letter-spacing:.02em!important;white-space:nowrap!important;
+}
+html body .imp-page .place-copy .facts .fact-cost .fact-cost-value.is-free {
+  color:#398066!important;font-size:10px!important;letter-spacing:.03em!important;
+}
+@media (min-width:651px) {
+  html body .imp-page .place-copy .facts > span.fact-cost:nth-child(6) {
+    grid-column:3!important;grid-row:2!important;
+  }
+}
+@media(max-width:650px) {
+  html body .imp-page .place-copy .vcc-worth {justify-content:flex-start;font-size:10px}
+  html body .imp-page .place-copy .facts > span.fact-cost:nth-child(6) {
+    grid-column:auto!important;grid-row:auto!important;
+  }
+  html body .imp-page .place-copy .facts > span.fact-cost {padding-left:4px!important}
+}
+html body .imp-page .place.place--no-media .place-copy .vcc-worth {
+  justify-content:center;margin-top:10px;
+}
+html body .imp-page .place.place--no-media .facts > span.fact-cost:nth-child(6) {
+  flex:0 1 auto!important;width:auto!important;
+}
+html body .imp-page .imp-price-key {
+  width:min(1180px,calc(100% - 48px));margin:8px auto 0;
+  color:#85766e;font:400 11px/1.55 'DM Sans',sans-serif;
+  text-align:right;
+}
+html body .imp-page .imp-map-section {
+  box-sizing:border-box;width:min(1180px,calc(100% - 48px));
+  margin:12px auto 52px;scroll-margin-top:110px;
+}
+html body .imp-page .imp-main {margin-bottom:18px!important}
+html body .imp-page .imp-map-heading {margin-bottom:20px}
+html body .imp-page .imp-map-heading .imp-map-kicker {
+  display:block;margin:0 0 9px;color:#d45e2f;
+  font:600 25px/1 'Caveat',cursive;
+}
+html body .imp-page .imp-map-heading h2 {
+  margin:0 0 8px;color:#1b1b1b;
+  font:500 clamp(26px,3.5vw,37px)/1.15 'Oswald',sans-serif;
+}
+html body .imp-page .imp-map-heading p {
+  max-width:750px;margin:0;color:#69625d;
+  font:400 13px/1.65 'DM Sans',sans-serif;
+}
+html body .imp-page .imp-map-layout {
+  display:grid;grid-template-columns:minmax(0,1fr) 245px;
+  align-items:stretch;gap:14px;
+}
+html body .imp-page #imp-all-map {
+  position:relative;min-height:385px;height:385px;z-index:0;
+  overflow:hidden;border:1px solid #e8dfd6;border-radius:13px;
+  background:#eae5dd;
+}
+html body .imp-page #imp-all-map iframe {border:0;width:100%;height:100%}
+html body .imp-page .imp-map-index {
+  box-sizing:border-box;height:385px;overflow-y:auto;
+  border:1px solid #e9dfd5;border-radius:13px;background:#fff;
+  padding:8px;scrollbar-width:thin;
+}
+html body .imp-page .imp-map-index-item {
+  display:flex;align-items:center;width:100%;gap:12px;
+  border:0;border-bottom:1px solid #f1ebe6;border-radius:6px;
+  background:transparent;padding:10px 8px;text-align:left;
+  cursor:pointer;color:#2c2825;font:600 12px/1.4 'DM Sans',sans-serif;
+}
+html body .imp-page .imp-map-index-item:last-child {border-bottom:0}
+html body .imp-page .imp-map-index-item small {
+  flex:0 0 25px;color:#c7623d;
+  font:600 16px/1 'Oswald',sans-serif;
+}
+html body .imp-page .imp-map-index-item:hover,
+html body .imp-page .imp-map-index-item.is-selected {
+  background:#fff1e9;color:#a94e2a;
+}
+html body .imp-page .imp-map-index-item:focus-visible,
+html body .imp-page .imp-map-cta a:focus-visible {
+  outline:2px solid #e66a36;outline-offset:2px;
+}
+html body .imp-page .imp-map-footer {
+  display:flex;align-items:center;justify-content:space-between;
+  flex-wrap:wrap;gap:10px;margin:12px 0 0;
+}
+html body .imp-page .imp-map-footer p {
+  margin:0;color:#7b746d;font:400 11px/1.5 'DM Sans',sans-serif;
+}
+html body .imp-page .imp-map-cta a {
+  display:inline-flex;align-items:center;gap:6px;
+  color:#a54d2b;font:700 11px/1.35 'DM Sans',sans-serif;
+  text-decoration:none;border-bottom:1px solid #d9a68e;padding-bottom:3px;
+}
+html body .imp-page .imp-map-cta a:hover {color:#e06531}
+html body .imp-page .leaflet-container {font-family:'DM Sans',sans-serif}
+html body .imp-page .leaflet-popup-content {font:500 12px/1.45 'DM Sans',sans-serif}
+html body .imp-page .leaflet-popup-content a {color:#b9542d;font-weight:700}
+@media(max-width:850px) {
+ html body .imp-page .imp-map-layout {grid-template-columns:minmax(0,1fr) 210px}
+}
+@media(max-width:650px) {
+  html body .imp-page .imp-price-key {width:calc(100% - 30px);text-align:left}
+  html body .imp-page .imp-map-section {width:calc(100% - 28px);margin:24px auto 39px;scroll-margin-top:103px}
+  html body .imp-page .imp-map-heading .imp-map-kicker {font-size:23px}
+  html body .imp-page .imp-map-heading h2 {font-size:27px}
+  html body .imp-page .imp-map-heading p {font-size:12px}
+  html body .imp-page .imp-map-layout {grid-template-columns:minmax(0,1fr);gap:9px}
+  html body .imp-page #imp-all-map {height:310px;min-height:310px}
+  html body .imp-page .imp-map-index {
+    height:130px;display:grid;grid-auto-flow:column;grid-auto-columns:minmax(155px,190px);
+    gap:4px;overflow-x:auto;overflow-y:hidden;align-items:stretch;
+    padding:7px;scroll-snap-type:x proximity;
+  }
+  html body .imp-page .imp-map-index-item {
+    flex-direction:column;justify-content:center;align-items:flex-start;
+    gap:7px;border:1px solid #f0e6df;border-radius:8px;
+    padding:10px;font-size:11px;scroll-snap-align:start;
+  }
+  html body .imp-page .imp-map-footer {align-items:flex-start}
+}
