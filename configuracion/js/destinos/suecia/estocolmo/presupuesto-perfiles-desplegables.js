@@ -93,7 +93,43 @@
       "Actividades": '<path d="M2 9a2 2 0 0 0 2-2h16a2 2 0 0 0 2 2v6a2 2 0 0 0-2 2H4a2 2 0 0 0-2-2V9ZM12 7v10"/><path d="M12 10h.01M12 14h.01"/>',
       "Extras": '<path d="m12 3 1.9 5.8L20 11l-6.1 2.2L12 19l-1.9-5.8L4 11l6.1-2.2L12 3Z"/>'
     };
+    /* Valores fuente = gasto del grupo completo (2 viajeros).
+       Los importes visibles del carrusel se calculan SIEMPRE por persona.
+       Guardamos el original en un atributo para evitar divisiones repetidas. */
+    const euroFormatter = new Intl.NumberFormat("es-ES", {
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 2
+    });
+    const travelers = Math.max(1, Number(panel.dataset.budgetTravelers) || 2);
+    function originalEuros(element) {
+      if (!element) return NaN;
+      if (element.dataset.totalGroupEuros !== undefined) {
+        return Number(element.dataset.totalGroupEuros);
+      }
+      const amount = (element.textContent || "").match(/([\\d.,]+)\\s*€/);
+      if (!amount) return NaN;
+      const number = Number(amount[1].replace(/\\./g, "").replace(",", "."));
+      if (!Number.isFinite(number)) return NaN;
+      element.dataset.totalGroupEuros = String(number);
+      return number;
+    }
+    function showPerPerson(day) {
+      const dayAmount = day.querySelector(".vcc-budget-day-head > span.vcc-day-price, .vcc-budget-day-head > span");
+      const totalGroup = originalEuros(dayAmount);
+      if (dayAmount && Number.isFinite(totalGroup)) {
+        dayAmount.textContent = euroFormatter.format(totalGroup / travelers) + " € / persona";
+        dayAmount.setAttribute("aria-label", euroFormatter.format(totalGroup / travelers) + " euros por persona");
+      }
+      day.querySelectorAll(".vcc-budget-day-expenses li").forEach(function (li) {
+        const value = li.querySelector(":scope > strong");
+        const groupValue = originalEuros(value);
+        if (value && Number.isFinite(groupValue)) {
+          value.textContent = euroFormatter.format(groupValue / travelers) + " €";
+        }
+      });
+    }
     function decorateDay(day) {
+      showPerPerson(day);
       const head = day.querySelector(".vcc-budget-day-head");
       if (head && !head.querySelector(".vcc-day-eyebrow")) {
         const label = head.querySelector("strong");
