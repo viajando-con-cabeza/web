@@ -161,6 +161,65 @@
     script.onerror=()=>reject(new Error('No se pudo cargar la biblioteca del PDF.'));
     document.head.append(script);
   });
+  // Iconos VCC ya presentes en /configuracion/imagenes/iconos, sin nuevos archivos.
+  const pdfIconType={
+    'gamla-stan':'historia','vasa':'museo','djurgarden':'naturaleza',
+    'ayuntamiento':'historia','sodermalm':'paseo','montelius':'mirador',
+    'stortorget':'historia','riddarholmen':'historia','metro':'metro',
+    'ferry':'ferry','palacio':'historia','skansen':'museo',
+    'fotografiska':'museo','kungstradgarden':'naturaleza','stromkajen':'ferry'
+  };
+  const pdfIconFiles={
+    historia:'/configuracion/imagenes/iconos/entradas-y-pases/landmark.svg',
+    museo:'/configuracion/imagenes/iconos/entradas-y-pases/ticket.svg',
+    naturaleza:'/configuracion/imagenes/iconos/iconos-naturaleza.svg',
+    paseo:'/configuracion/imagenes/iconos/como-moverse/iconos-lucide/apie.svg',
+    mirador:'/configuracion/imagenes/iconos/inicio-mapa-vcc.svg',
+    metro:'/configuracion/imagenes/iconos/como-moverse/iconos-lucide/metro.svg',
+    ferry:'/configuracion/imagenes/iconos/como-moverse/iconos-lucide/ferry.svg'
+  };
+  const pdfLogoPath='/configuracion/imagenes/marca/logo-vcc.svg';
+  // SVG de GitHub/R2 convertido a PNG exclusivamente en el navegador cuando
+  // el usuario pulsa Exportar. No envia fotos ni datos personales a terceros.
+  async function svgToPdfImage(path,{color=null,size=220}={}) {
+    const response=await fetch(path,{credentials:'same-origin'});
+    if(!response.ok) throw new Error('Icono no disponible: '+path);
+    let svg=await response.text();
+    if(color){
+      svg=svg.replace(/stroke="(?:currentColor|#[a-f0-9]{3,8})"/gi,'stroke="'+color+'"');
+    }
+    const blob=new Blob([svg],{type:'image/svg+xml;charset=utf-8'});
+    const source=URL.createObjectURL(blob);
+    try {
+      const img=new Image();
+      await new Promise((resolve,reject)=>{
+        img.onload=resolve;
+        img.onerror=()=>reject(new Error('No se pudo decodificar '+path));
+        img.src=source;
+      });
+      const canvas=document.createElement('canvas');
+      canvas.width=canvas.height=size;
+      const ctx=canvas.getContext('2d');
+      if(!ctx)throw new Error('Canvas no disponible');
+      ctx.clearRect(0,0,size,size);
+      ctx.drawImage(img,0,0,size,size);
+      return canvas.toDataURL('image/png');
+    } finally {
+      URL.revokeObjectURL(source);
+    }
+  }
+  async function loadPdfBranding(){
+    const keys=Object.keys(pdfIconFiles);
+    const images=await Promise.all(keys.map(async key=>{
+      try {return [key,await svgToPdfImage(pdfIconFiles[key],{color:'#b65b35'})];}
+      catch(error){console.warn('Icono VCC no disponible para PDF:',key,error);return [key,null];}
+    }));
+    let logo=null;
+    try {logo=await svgToPdfImage(pdfLogoPath,{size:320});}
+    catch(error){console.warn('Logo VCC no disponible para PDF:',error);}
+    return {icons:new Map(images),logo};
+  }
+
   async function exportMapPDF() {
     if (!exportButton || exportButton.disabled || !window.L || !spots.length || !map) return;
     exportButton.disabled=true;
@@ -213,6 +272,14 @@
         scale:1.65,logging:false,scrollX:0,scrollY:0
       });
       if(!canvas.width || !canvas.height) throw new Error('No se ha podido capturar el mapa.');
+      const {icons,logo}=await loadPdfBranding();
+      // Contraste extra ligero en el PDF para que no quede deslavado al imprimir.
+      const vivid=document.createElement('canvas');
+      vivid.width=canvas.width;vivid.height=canvas.height;
+      const vividContext=vivid.getContext('2d');
+      if(!vividContext)throw new Error('Canvas del PDF no disponible');
+      vividContext.filter='contrast(1.06) saturate(1.07)';
+      vividContext.drawImage(canvas,0,0);
       const PDF=window.jspdf.jsPDF;
       const pdf=new PDF({orientation:'landscape',unit:'mm',format:'a4',compress:true});
       const ink=[40,39,37],orange=[200,91,48];
@@ -220,25 +287,29 @@
       pdf.text('ESTOCOLMO · 15 IMPRESCINDIBLES',12,18);
       pdf.setFont('helvetica','normal');pdf.setFontSize(9);pdf.setTextColor(110,104,99);
       pdf.text('Mapa numerado para planificar tu visita',12,25);
-      pdf.setFont('helvetica','bold');pdf.setFontSize(9);
+      // Logo circular oficial de Viajando con Cabeza.
+      if(logo)pdf.addImage(logo,'PNG',268,5,18,18);
+      pdf.setFont('helvetica','bold');pdf.setFontSize(7.8);
       pdf.setTextColor(...orange);
-      pdf.text('VIAJANDO CON CABEZA',285,18,{align:'right'});
-      pdf.setDrawColor(224,213,204);pdf.setLineWidth(.4);pdf.line(12,29,285,29);
-      pdf.addImage(canvas.toDataURL('image/jpeg',.88),'JPEG',12,34,273,115.5);
+      pdf.text('VIAJANDO CON CABEZA',285,28,{align:'right'});
+      pdf.setDrawColor(224,213,204);pdf.setLineWidth(.4);pdf.line(12,31,285,31);
+      pdf.addImage(vivid.toDataURL('image/jpeg',.91),'JPEG',12,34,273,113.5);
       pdf.setFont('helvetica','bold');pdf.setFontSize(10);
       pdf.setTextColor(...ink);pdf.text('LOS 15 LUGARES',12,157);
+      // Número en el mapa + icono oficial VCC de cada categoría en la leyenda.
       spots.forEach((spot,i)=>{
-        const col=Math.floor(i/5);
-        const row=i%5;
+        const col=Math.floor(i/5),row=i%5;
         const x=12+col*92;
         const y=166+row*7.4;
         pdf.setFillColor(...orange);pdf.circle(x+3,y-1.6,3.1,'F');
         pdf.setFont('helvetica','bold');pdf.setFontSize(8);
         pdf.setTextColor(255,255,255);
         pdf.text(String(i+1),x+3,y-.7,{align:'center'});
+        const icon=icons.get(pdfIconType[spot.id]);
+        if(icon)pdf.addImage(icon,'PNG',x+8.9,y-4.8,5.1,5.1);
         pdf.setFont('helvetica','normal');pdf.setFontSize(9);
         pdf.setTextColor(...ink);
-        pdf.text(spot.title,x+10,y,{maxWidth:78});
+        pdf.text(spot.title,x+16,y,{maxWidth:75});
       });
       pdf.setFont('helvetica','normal');pdf.setFontSize(7.5);
       pdf.setTextColor(111,106,102);
