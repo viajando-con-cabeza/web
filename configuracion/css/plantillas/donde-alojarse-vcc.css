@@ -1024,3 +1024,94 @@ body.dv-page{
  .dv-page .dv-zone-procon-intro{font-size:10px}
  .dv-page .dv-zone-hotels-note{text-align:right;font-size:9px}
 }
+
+
+/* VCC 2026: experiencia real solo en Solna y transparencia hotelera compartida */
+.dv-page .dv-real-experience{
+ margin-top:14px;padding:12px 14px;
+ border:1px solid #ead2c2;border-left:3px solid #ca785b;
+ border-radius:10px;background:#fff7f1;
+}
+.dv-page .dv-real-experience-top{
+ display:flex;align-items:center;gap:9px;min-width:0;margin-bottom:7px;
+}
+.dv-page .dv-real-experience-top img{
+ flex:0 0 35px;width:35px;height:35px;object-fit:contain;
+}
+.dv-page .dv-real-experience-top>div{min-width:0}
+.dv-page .dv-real-experience-top strong{
+ display:block;margin:0 0 3px;
+ font:600 14px/1.15 'Oswald',sans-serif;
+ letter-spacing:.02em;color:#b35942;
+}
+.dv-page .dv-real-experience-top span{
+ font:600 11.5px/1.32 'DM Sans',sans-serif;color:#252321;
+}
+.dv-page .dv-real-experience p{
+ margin:0!important;
+ font:400 10.5px/1.48 'DM Sans',sans-serif;color:#595049;
+}
+.dv-page .dv-real-experience p strong{font-weight:700;color:#403a35}
+.dv-page .dv-zone-hotel.is-real-stay{
+ border:1.5px solid #d88f70;background:#fff9f4;
+ box-shadow:0 2px 7px rgba(156,84,56,.055);
+}
+.dv-page .dv-zone-hotel.is-real-stay .dv-zone-hotel-top strong{
+ color:#1f1d1b;
+}
+.dv-page .dv-real-hotel-badge{
+ display:inline-block;vertical-align:baseline;
+ padding:2px 5px;margin:0 4px;
+ border-radius:4px;background:#f6e5da;color:#a94f36;
+ font:700 8.5px/1.2 'DM Sans',sans-serif;white-space:nowrap;
+}
+.dv-page .dv-zone-trust{
+ margin-top:9px;padding:10px 12px 11px;
+ border:1px solid #e8d9cd;border-radius:10px;
+ background:#fdfaf7;
+}
+.dv-page .dv-zone-trust-title{
+ display:flex;align-items:center;gap:7px;
+ margin-bottom:8px;color:#ae654e;
+}
+.dv-page .dv-zone-trust-title svg{flex:0 0 19px;width:19px;height:19px}
+.dv-page .dv-zone-trust-title strong{
+ font:600 14px/1.18 'Oswald',sans-serif;
+ color:#292522;
+}
+.dv-page .dv-zone-trust-grid{
+ display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;
+}
+.dv-page .dv-zone-trust-grid>div{
+ min-width:0;display:flex;flex-direction:column;gap:4px;
+ padding-left:9px;border-left:1px solid #ead6c7;
+}
+.dv-page .dv-zone-trust-grid>div:first-child{border-left:0;padding-left:0}
+.dv-page .dv-zone-trust-grid b{
+ font:700 10px/1.22 'DM Sans',sans-serif;color:#3d3530;
+}
+.dv-page .dv-zone-trust-grid span{
+ font:400 9px/1.38 'DM Sans',sans-serif;color:#746a61;
+}
+@media(max-width:1090px){
+ .dv-page .dv-real-experience{margin-top:12px}
+ .dv-page .dv-zone-trust-grid{gap:14px}
+}
+@media(max-width:600px){
+ .dv-page .dv-real-experience{padding:10px 11px;margin-top:12px}
+ .dv-page .dv-real-experience-top strong{font-size:13px}
+ .dv-page .dv-real-experience-top span{font-size:10.5px}
+ .dv-page .dv-real-experience p{font-size:10px}
+ .dv-page .dv-real-hotel-badge{font-size:7.7px;padding:2px 4px}
+ .dv-page .dv-zone-trust{padding:10px 11px}
+ .dv-page .dv-zone-trust-title strong{font-size:13px}
+ .dv-page .dv-zone-trust-grid{
+  grid-template-columns:1fr;gap:6px;
+ }
+ .dv-page .dv-zone-trust-grid>div,
+ .dv-page .dv-zone-trust-grid>div:first-child{
+  display:block;padding:0 0 0 9px;border-left:2px solid #e6c3ae;
+ }
+ .dv-page .dv-zone-trust-grid b{display:inline;font-size:9.5px;margin-right:5px}
+ .dv-page .dv-zone-trust-grid span{display:inline;font-size:9.2px}
+}
