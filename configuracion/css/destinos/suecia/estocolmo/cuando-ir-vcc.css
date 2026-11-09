@@ -1001,3 +1001,55 @@ html body.ci-page .ci-tip-card h3{overflow-wrap:break-word}
   flex-basis:128px!important;
  }
 }
+
+/* 2026-11-09: título de Mejor época apilado a la izquierda; sin resumen redundante. */
+html body.ci-page .ci-objectives>.ci-heading{
+  display:flex!important;
+  flex-direction:column!important;
+  justify-content:flex-start!important;
+  align-items:flex-start!important;
+  gap:2px!important;
+  text-align:left!important;
+  margin-bottom:17px!important;
+}
+html body.ci-page .ci-objectives>.ci-heading .ci-script{
+  display:block;
+  width:auto;
+  text-align:left;
+}
+html body.ci-page .ci-objectives>.ci-heading h2{
+  display:block;
+  width:auto;
+  max-width:100%;
+  text-align:left;
+  margin:0!important;
+}
+html body.ci-page .ci-objectives>.ci-objective-grid{margin-top:0}
+html body.ci-page .ci-objectives>.ci-recommendation{margin-top:24px!important}
+
+/* Mes a mes: más aire antes de Lo mejor / A tener en cuenta, caras VCC naranja. */
+html body.ci-page .ci-month-layout>.ci-month-right{
+  padding-top:22px;
+}
+html body.ci-page .ci-month-right .ci-month-good h4 svg,
+html body.ci-page .ci-month-right .ci-month-bad h4 svg{
+  color:var(--ci-orange)!important;
+  stroke:currentColor!important;
+}
+@media(max-width:1080px){
+  html body.ci-page .ci-month-layout>.ci-month-right{
+    padding-top:22px;
+  }
+}
+@media(max-width:600px){
+  html body.ci-page .ci-objectives>.ci-heading{
+    gap:5px!important;
+    margin-bottom:15px!important;
+  }
+  html body.ci-page .ci-objectives>.ci-heading h2{
+    line-height:1.17;
+  }
+  html body.ci-page .ci-month-layout>.ci-month-right{
+    padding-top:18px;
+  }
+}
