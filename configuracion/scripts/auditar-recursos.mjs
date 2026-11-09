@@ -14,6 +14,8 @@ const re=/(?:https?:\/\/[^\s"'<>)]*|\/?(?:configuracion|destinos|inicio)\/imagen
 for(const m of src.matchAll(re)){
 const ref=m[0].split('?')[0];
 if(/^https?:\/\//i.test(ref)){
+ // Los mosaicos de mapas son cartografía servida bajo demanda, no fotos que migrar a R2.
+ if(/^https:\/\/(?:\{s\}\.)?tile\.openstreetmap\.org\//.test(ref))continue;
  if(/^https:\/\/img\.viajandoconcabeza\.com\//.test(ref)||/^https:\/\/(?:www\.)?viajandoconcabeza\.com\//.test(ref)||/^https:\/\/raw\.githubusercontent\.com\/viajando-con-cabeza\/web\//.test(ref))continue;
  if(image.test(ref)||/images\.unsplash\.com\/photo-/.test(ref))external.add(file+' => '+ref);
 }else{
