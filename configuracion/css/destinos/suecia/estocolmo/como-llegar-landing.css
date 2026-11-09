@@ -241,6 +241,7 @@ main.cl-page.cl-landing {
 .cl-page.cl-landing .vcc-transfer-grid .vcc-transfer-detail {
   display:inline-block;margin-top:2px;font-weight:700;font-size:12.5px;
 }
+.cl-page.cl-landing .vcc-transfer-source a {color:#a9553d;text-underline-offset:2px}
 .cl-page.cl-landing .vcc-transfer-source {
   margin:14px 0 0;color:#716960;
   font:400 11.5px/1.65 "DM Sans",sans-serif;
@@ -305,13 +306,14 @@ main.cl-page.cl-landing {
   .cl-page.cl-landing .cl-guide-link {min-height:44px}
   .cl-page.cl-landing .cl-guide-title {font-size:13px}
   .cl-page.cl-landing .cl-landing-recommendation {
-    flex-direction:column;align-items:flex-start;gap:8px;
+    flex-direction:row;align-items:center;gap:12px;
   }
   .cl-page.cl-landing .cl-advice-brand {
-    flex:0 0 auto;flex-direction:row;align-items:center;gap:8px;
+    flex:0 0 65px;flex-direction:column;align-items:center;gap:5px;
   }
-  .cl-page.cl-landing .cl-advice-logo {width:38px;height:38px}
-  .cl-page.cl-landing .cl-landing-recommendation > p {font-size:13px}
+  .cl-page.cl-landing .cl-advice-logo {width:40px;height:40px}
+  .cl-page.cl-landing .cl-advice-heading {font-size:9px}
+  .cl-page.cl-landing .cl-landing-recommendation > p {font-size:12.5px}
 }
 @media(prefers-reduced-motion:reduce) {
   .cl-page.cl-landing * {scroll-behavior:auto;animation-duration:.01ms;transition-duration:.01ms}
