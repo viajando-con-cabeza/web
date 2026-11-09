@@ -6,7 +6,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=DM+Sans:wght@400;500;600;700;800&family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/configuracion/css/paginas.css"><link rel="stylesheet" href="/configuracion/css/overrides.css">
-<link rel="stylesheet" href="/configuracion/css/destinos/suecia/estocolmo/cuando-ir-vcc.css?v=20261109-dos-columnas-vcc">
+<link rel="stylesheet" href="/configuracion/css/destinos/suecia/estocolmo/cuando-ir-vcc.css?v=20261109-pulido-final">
 <style id="ci-mobile-hero-definitive">
 /* Mobile: same compact overlapping photographic hero as Itinerarios.
    The personal travel-month chip stays on desktop only. */
@@ -94,7 +94,7 @@ html body.ci-page .ci-visit-mobile-note{display:none}
 <section id="mes-a-mes" class="ci-calendar-section" aria-labelledby="ci-cal-title">
 <div class="ci-heading ci-left"><div><span class="ci-script">Compara de un vistazo</span><h2 id="ci-cal-title">ESTOCOLMO, MES A MES</h2></div><p>Clima, turistas y nivel de precios durante todo el año. Los meses recomendados según tu elección aparecen destacados.</p></div>
 <div class="ci-calendar-scroll"><div class="ci-calendar" id="yearCalendar" aria-label="Comparativa mensual de Estocolmo"></div></div>
-<div class="ci-legend"><span><i class="ci-dot low"></i>Bajo</span><span><i class="ci-dot medium"></i>Medio</span><span><i class="ci-dot high"></i>Alto</span><small>Datos aproximados; €–€€€ indica precio relativo, no un importe. La afluencia varía según fechas.</small></div>
+<div class="ci-legend"><span><i class="ci-dot low"></i>Bajo</span><span><i class="ci-dot medium"></i>Medio</span><span><i class="ci-dot high"></i>Alto</span></div>
 
 
 <div class="ci-month-detail" id="monthDetail" aria-live="polite">
@@ -105,14 +105,13 @@ html body.ci-page .ci-visit-mobile-note{display:none}
         <div class="ci-month-facts" aria-label="Datos prácticos del mes seleccionado">
           <div class="ci-month-fact"><span class="ci-fact-icon" aria-hidden="true">🌡</span><span>Temperatura</span><strong id="detailTemp"></strong></div>
           <div class="ci-month-fact"><span class="ci-fact-icon" aria-hidden="true">☀</span><span>Salida del sol</span><strong id="detailSunrise"></strong></div>
-          <div class="ci-month-fact"><span class="ci-fact-icon" aria-hidden="true">🌇</span><span>Puesta del sol</span><strong id="detailSunset"></strong></div>
+          <div class="ci-month-fact"><span class="ci-fact-icon ci-fact-sunset" aria-hidden="true"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 19h18M6 22h12M7 15a5 5 0 0 1 10 0M12 2v3M4.2 8.3l2.1 2.1M19.8 8.3l-2.1 2.1M12 15v-6m-3 3 3 3 3-3"/></svg></span><span>Puesta del sol</span><strong id="detailSunset"></strong></div>
           <div class="ci-month-fact"><span class="ci-fact-icon" aria-hidden="true">☂</span><span>Días con lluvia</span><strong id="detailRain"></strong></div>
           <div class="ci-month-fact"><span class="ci-fact-icon" aria-hidden="true">€</span><span>Precios</span><strong class="ci-fact-euros" id="detailCost"></strong></div>
         </div>
         <div class="ci-month-suitability">
           <h4>¿PARA QUÉ TIPO DE VIAJE ES BUEN MES?</h4>
           <div id="detailScores" class="ci-score-rows" aria-label="Valoraciones editoriales según el tipo de viaje"></div>
-          <p class="ci-rating-note">Valoraciones orientativas VCC (0–10), según el clima y la época; no son medias estadísticas.</p>
         </div>
       </div>
       <p class="ci-month-visited" id="detailVisited" hidden>✈ Nosotros viajamos en agosto. Conoce nuestra experiencia debajo.</p>
@@ -128,7 +127,7 @@ html body.ci-page .ci-visit-mobile-note{display:none}
       </aside>
     </div>
   </div>
-  <p class="ci-month-sources">☂ Días con lluvia aproximados (incluye lluvia mezclada con nieve; no incluye solo nieve): <a href="https://es.weatherspark.com/y/84156/Clima-promedio-en-Estocolmo-Suecia-durante-todo-el-a%C3%B1o" target="_blank" rel="noopener noreferrer">WeatherSpark</a>. ☀ Salida y puesta del sol: día 15 de cada mes de 2026, hora local de Estocolmo (<a href="https://getworldclock.com/time/stockholm/sunrise/" target="_blank" rel="noopener noreferrer">fuente</a>). € = precios relativos orientativos, no tarifas en euros.</p>
+  <p class="ci-month-sources">Datos climáticos orientativos basados en <a href="https://es.weatherspark.com/y/84156/Clima-promedio-en-Estocolmo-Suecia-durante-todo-el-a%C3%B1o" target="_blank" rel="noopener noreferrer">WeatherSpark</a>.</p>
 </div>
 </section>
 
@@ -208,7 +207,7 @@ html body.ci-page .ci-visit-mobile-note{display:none}
   const calendar=document.getElementById('yearCalendar'),choices=document.getElementById('objectiveChoices');
   let selected='clima',selectedMonth=5;
   choices.innerHTML=objectives.map(o=>'<button type="button" class="ci-objective" data-id="'+o.id+'" aria-pressed="false"><span class="ci-objective-icon" aria-hidden="true"><img src="'+o.icon+'" alt="" width="26" height="26" decoding="async"></span><strong>'+o.label+'</strong></button>').join('');
-  calendar.innerHTML=months.map((m,i)=>'<button type="button" class="ci-calendar-month" data-month="'+i+'" aria-label="'+m.name+': '+m.rain+' días con lluvia, precios relativos '+euroLevel(m)+' de 4" aria-pressed="false"><b>'+m.short.toUpperCase()+'</b>'+'<span class="ci-weather" aria-hidden="true"><img src="'+weatherIcons[i]+'" alt="" width="32" height="32" loading="lazy" decoding="async"></span><span class="ci-temperature">'+m.min+' / '+m.max+'°C</span><span class="ci-calendar-rain"><span aria-hidden="true">☂</span> '+m.rain+' días</span><span class="ci-metric"><i class="ci-dot '+cls(crowd(m))+'"></i>Turistas <strong>'+crowd(m)+'</strong></span><span class="ci-metric"><i class="ci-dot '+cls(cost(m))+'"></i>Precios <strong class="ci-euros">'+euroText(m)+'</strong></span></button>').join('');
+  calendar.innerHTML=months.map((m,i)=>'<button type="button" class="ci-calendar-month" data-month="'+i+'" aria-label="'+m.name+': '+m.rain+' días con lluvia, precios relativos '+euroLevel(m)+' de 4" aria-pressed="false"><b>'+m.short.toUpperCase()+'</b>'+'<span class="ci-weather" aria-hidden="true"><img src="'+weatherIcons[i]+'" alt="" width="32" height="32" loading="lazy" decoding="async"></span><span class="ci-temperature">'+m.min+' / '+m.max+'°C</span><span class="ci-calendar-rain"><span aria-hidden="true">☂</span> '+m.rain+' días</span><span class="ci-metric"><i class="ci-dot '+cls(crowd(m))+'"></i>Turistas <strong>'+crowd(m)+'</strong></span><span class="ci-metric">Precios <strong class="ci-euros">'+euroText(m)+'</strong></span></button>').join('');
   const scoreLabels=['Turismo cultural','Sol y playa','Nieve y paisajes','Naturaleza y parques','Eventos y ambiente','Viaje económico'];
   const scoreIcons=['▣','☼','❄','♧','✧','€'];
   const detail=(i)=>{
