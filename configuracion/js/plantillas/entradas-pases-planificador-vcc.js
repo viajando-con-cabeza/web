@@ -18,7 +18,7 @@
  };
  const passes={1:949,2:1349,3:1699,4:1949,5:1999};
  const $=id=>mount.querySelector("#"+id);
- const controls={adults:$("ep-pl-adults"),season:$("ep-pl-season"),days:$("ep-pl-days"),ess:$("ep-pl-ess"),all:$("ep-pl-all"),rows:[...mount.querySelectorAll("[data-ep-choice]")],prices:[...mount.querySelectorAll("[data-ep-price]")],tasklist:$("ep-pl-tasklist"),status:$("ep-pl-status")};
+ const controls={adults:$("ep-pl-adults"),children:$("ep-pl-children"),date:$("ep-pl-date"),season:$("ep-pl-season"),days:$("ep-pl-days"),ess:$("ep-pl-ess"),all:$("ep-pl-all"),rows:[...mount.querySelectorAll("[data-ep-choice]")],prices:[...mount.querySelectorAll("[data-ep-price]")],tasklist:$("ep-pl-tasklist"),status:$("ep-pl-status")};
  const names=Object.keys(master);
  const safeInt=(v,min,max,otherwise)=>{const n=Number(v);return Number.isFinite(n)&&n>=min&&n<=max?Math.round(n):otherwise};
  const money=n=>new Intl.NumberFormat("es-ES",{maximumFractionDigits:0}).format(n)+" SEK";
@@ -26,7 +26,7 @@
  const getPrice=id=>safeInt(mount.querySelector('[data-ep-price="'+id+'"]').value,1,10000,null);
  const setHtml=(id,text)=>{const e=$(id);if(e)e.textContent=text};
  const defaultPrice=(id,season)=>master[id][season];
- const state=()=>({a:controls.adults.value,s:controls.season.value,d:controls.days.value,i:selected(),p:Object.fromEntries(names.map(id=>[id,mount.querySelector('[data-ep-price="'+id+'"]').value])),e:controls.ess.value,al:controls.all.value,done:[...controls.tasklist.querySelectorAll("input[data-ep-complete]:checked")].map(x=>x.dataset.epComplete)});
+ const state=()=>({a:controls.adults.value,c:controls.children.value,date:controls.date.value,s:controls.season.value,d:controls.days.value,i:selected(),p:Object.fromEntries(names.map(id=>[id,mount.querySelector('[data-ep-price="'+id+'"]').value])),e:controls.ess.value,al:controls.all.value,done:[...controls.tasklist.querySelectorAll("input[data-ep-complete]:checked")].map(x=>x.dataset.epComplete)});
  let doneItems=new Set();
  let lastSave=false;
  const safeStore=obj=>{try{window.localStorage.setItem(key,JSON.stringify(obj));lastSave=true;}catch(e){lastSave=false;}};
@@ -36,6 +36,8 @@
  function apply(o){
    if(!validState(o))return false;
    controls.adults.value=String(safeInt(o.a,1,6,2));
+   controls.children.value=String(safeInt(o.c,0,6,0));
+   controls.date.value=/^\d{4}-\d{2}-\d{2}$/.test(String(o.date||""))?String(o.date):"";
    controls.season.value=o.s==="high"?"high":"low";
    controls.days.value=String(safeInt(o.d,1,5,2));
    controls.rows.forEach(x=>{x.checked=o.i.includes(x.dataset.epChoice)});
@@ -63,7 +65,7 @@
    const covered=main.length&&extra.length>=2?[main[0],...extra.slice(0,2)]:[];
    const essentials=ids.length>0&&ok&&covered.length===3&&safeInt(controls.ess.value,1,10000,null)!==null?Number(controls.ess.value)+ids.filter(id=>!covered.includes(id)).reduce((n,id)=>n+p[id],0):null;
    const inPass=ids.filter(id=>master[id].kind!=="outside");
-   const hours=inPass.reduce((n,id)=>n+master[id].hours,0);
+   const hours=ids.reduce((n,id)=>n+master[id].hours,0)+Math.max(0,ids.length-1)*0.45;
    const feasible=hours<=days*6.25;
    const all=ids.length>0&&ok&&feasible&&safeInt(controls.all.value,1,10000,null)!==null?Number(controls.all.value)+ids.filter(id=>master[id].kind==="outside").reduce((n,id)=>n+p[id],0):null;
    const options=[{id:"single",name:"ENTRADAS SUELTAS",cost:total},{id:"ess",name:"GO CITY ESSENTIALS + EXTRAS",cost:essentials},{id:"all",name:"GO CITY ALL-INCLUSIVE + EXTRAS",cost:all}];
@@ -88,7 +90,7 @@
      setHtml("ep-pl-reco-copy",text+(savings>0?" Ahorro simulado frente a entradas sueltas: "+money(savings*adults)+" para "+adults+" adulto"+(adults===1?"":"s")+".":""));
    }
    const hint=ids.length&&hours>days*6.25?"Atención: has seleccionado unas "+Math.ceil(hours)+" horas de visitas incluidas para "+days+" día(s) de pase. No compararemos All-Inclusive hasta que el plan sea más realista o amplíes días.":"Los tiempos de visita son orientativos; añade desplazamientos, pausas y horarios reales.";
-   setHtml("ep-pl-feasibility",hint);
+   setHtml("ep-pl-feasibility",hint+(Number(controls.children.value)>0?" · Atención: el comparador calcula únicamente los adultos; las tarifas de menores, sus pases y gratuidades deben comprobarse por edad.":""));
    renderTasks(ids);
    const serialized=state();
    safeStore(serialized);
@@ -111,7 +113,7 @@
  }
  function summary(){
    const o=calculate();
-   const lines=["MI PLAN DE ENTRADAS · ESTOCOLMO · VCC","Adultos: "+o.adults+" | Pase: "+o.days+" día(s) | "+(controls.season.value==="high"?"Mayo–septiembre":"Octubre–abril"),""];
+   const lines=["MI PLAN DE ENTRADAS · ESTOCOLMO · VCC","Adultos: "+o.adults+" | Menores (sin calcular): "+controls.children.value+" | Días de pase: "+o.days+" | Fecha: "+(controls.date.value||"por decidir")+" | Tarifa base: "+(controls.season.value==="high"?"mayo–septiembre":"octubre–abril"),""];
    o.ids.forEach(id=>lines.push((doneItems.has(id)?"[x] ":"[ ] ")+master[id].name+": "+(o.p[id]===null?"precio por confirmar":money(o.p[id]))+" por adulto · "+master[id].link));
    lines.push("",o.total===null?"Revisa los importes":("Entradas individuales estimadas: "+money(o.total*o.adults)));
    if(o.best)lines.push("Opción más económica en la simulación: "+o.best.name+" (no es un presupuesto garantizado).");
@@ -124,6 +126,17 @@
  controls.rows.forEach(x=>x.addEventListener("change",()=>{if(!x.checked)doneItems.delete(x.dataset.epChoice);calculate()}));
  controls.prices.forEach(x=>x.addEventListener("change",calculate));
  controls.adults.addEventListener("change",calculate);
+ controls.children.addEventListener("change",calculate);
+ controls.date.addEventListener("change",()=>{
+   const str=controls.date.value;
+   if(/^\d{4}-\d{2}-\d{2}$/.test(str)){
+     const month=Number(str.slice(5,7));
+     controls.season.value=month>=5&&month<=9?"high":"low";
+     resetPrices();
+     status("Fecha aplicada: referencias de temporada recalculadas. Comprueba siempre tu día y las posibles promociones.");
+   }
+   calculate();
+ });
  controls.season.addEventListener("change",()=>{resetPrices();calculate();status("Precios de referencia ajustados; comprueba los de tu fecha.")});
  controls.days.addEventListener("change",()=>{controls.all.value=String(passes[Number(controls.days.value)]);calculate()});
  controls.ess.addEventListener("change",calculate);
@@ -148,12 +161,28 @@
    copy(url.toString(),"Enlace copiado. Al abrirlo, se recuperará este plan.");
  });
  $("ep-pl-reset").addEventListener("click",()=>{
-   controls.adults.value="2";controls.season.value="low";controls.days.value="2";controls.ess.value="649";controls.all.value="1349";
+   controls.adults.value="2";controls.children.value="0";controls.date.value="";controls.season.value="low";controls.days.value="2";controls.ess.value="649";controls.all.value="1349";
    controls.rows.forEach(x=>{x.checked=["vasa","palacio"].includes(x.dataset.epChoice)});
    doneItems.clear();resetPrices();
    try{window.localStorage.removeItem(key)}catch(e){}
    calculate();status("Plan restablecido. Los precios son orientativos.");
  });
+
+ function downloadPlan(){
+   const lines=summary();
+   try{
+     const blob=new Blob([lines],{type:"text/plain;charset=utf-8"});
+     const link=URL.createObjectURL(blob);
+     const a=document.createElement("a");
+     a.href=link;a.download="vcc-estocolmo-mi-plan-de-entradas.txt";
+     document.body.appendChild(a);a.click();a.remove();
+     window.setTimeout(()=>URL.revokeObjectURL(link),1500);
+     status("Lista personalizada descargada. Comprueba los precios oficiales.");
+     return true;
+   }catch(e){status("No se ha podido descargar en este navegador. Usa «COPIAR MI LISTA».");return false;}
+ }
+ window.VCCEntradasPlanner={download:downloadPlan,summary};
+
  const restored=apply(readLink())||apply(readStore());
  if(!restored)resetPrices();
  calculate();
