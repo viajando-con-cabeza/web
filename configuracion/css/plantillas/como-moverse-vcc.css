@@ -37,7 +37,7 @@ body.mv-body{margin:0;background:#fff;color:var(--mv-ink);font-family:"DM Sans",
 .mv-section-head .mv-overline{display:block;margin:0 0 4px;color:#e6631e;font:600 29px/1 "Caveat",cursive;text-transform:none;letter-spacing:0}
 .mv-section-head h2{margin:0;color:#202624;font:600 clamp(27px,2.5vw,38px)/1.1 "Oswald",sans-serif}
 .mv-section-head>p{margin:0 0 3px;max-width:420px;color:#6b655e;font:400 12px/1.5 "DM Sans",sans-serif}
-.mv-pay-guide{display:grid;grid-template-columns:minmax(165px,.78fr) minmax(280px,1.35fr) minmax(400px,1.42fr);gap:17px;align-items:center;padding:13px 1px 15px;margin:0 0 17px;border-bottom:1px solid #e4e1de;background:transparent}
+.mv-pay-guide{display:grid;grid-template-columns:minmax(175px,.55fr) minmax(0,1.45fr);gap:20px;align-items:center;padding:10px 1px 13px;margin:0;border-bottom:1px solid #e4e1de;background:transparent}
 .mv-pay-guide-title{display:flex;align-items:center;gap:10px;min-width:0}
 .mv-pay-guide-title svg{flex:0 0 37px;width:37px;height:37px;stroke:#e86625;stroke-width:1.8;fill:none;stroke-linecap:round;stroke-linejoin:round}
 .mv-pay-guide-title strong{color:#292c2b;font:600 20px/1.1 "Oswald",sans-serif}
@@ -45,11 +45,34 @@ body.mv-body{margin:0;background:#fff;color:var(--mv-ink);font-family:"DM Sans",
 .mv-pay-guide-facts li{display:flex;align-items:start;gap:8px;color:#3c3b39;font:500 11px/1.4 "DM Sans",sans-serif}
 .mv-pay-guide-facts li .mv-tick{flex:none;color:#178a34;font:800 16px/1 "DM Sans",sans-serif}
 .mv-pay-guide-facts a{color:#bc5b29;text-underline-offset:2px}
-.mv-pay-guide-prices{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;min-width:0;padding-left:16px;border-left:1px solid #e8c4b0}
-.mv-fare{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;min-height:57px;padding:8px 6px;text-align:center;border:1px solid #edbb98;border-radius:12px;background:#fff}
-.mv-fare span{color:#30302d;font:700 10px/1.22 "DM Sans",sans-serif}
-.mv-fare strong{color:#e35f1d;font:700 20px/1.15 "Oswald",sans-serif}
-.mv-fare small{color:#756d67;font:500 9px/1.22 "DM Sans",sans-serif}
+/* Comparativa compacta de tarifes SL (orientada a la decisió, sense duplicar preus). */
+.mv-ticket-compare{margin:0 0 5px;padding:16px 0 0}
+.mv-ticket-heading{display:flex;align-items:end;justify-content:space-between;gap:25px;margin:0 0 12px}
+.mv-ticket-heading .mv-overline{display:block;margin:0 0 5px;color:#e6631e;font:600 25px/1 "Caveat",cursive}
+.mv-ticket-heading h2{margin:0;color:#222827;font:600 clamp(25px,2.3vw,32px)/1.15 "Oswald",sans-serif}
+.mv-ticket-heading>p{max-width:450px;margin:0 0 2px;color:#655f59;font:400 11.3px/1.5 "DM Sans",sans-serif}
+.mv-ticket-options{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.mv-ticket-option{min-width:0;display:grid;grid-template-columns:27px minmax(0,1fr) auto;align-items:center;gap:7px 8px;padding:10px 13px 9px;border:1px solid #e3d8cf;border-radius:12px;background:#fff}
+.mv-ticket-option svg{width:25px;height:25px;fill:none;stroke:#e2692c;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.mv-ticket-option>div{min-width:0}
+.mv-ticket-option>div strong{display:block;color:#262d29;font:600 16px/1.15 "Oswald",sans-serif}
+.mv-ticket-option>div span{display:block;margin:3px 0 0;color:#716962;font:400 10px/1.3 "DM Sans",sans-serif}
+.mv-ticket-option>b{color:#dd682e;font:600 22px/1.1 "Oswald",sans-serif;white-space:nowrap}
+.mv-ticket-option>small{grid-column:2 / -1;color:#8d6a54;font:700 9.7px/1.3 "DM Sans",sans-serif}
+.mv-ticket-example{display:grid;grid-template-columns:minmax(0,1.28fr) minmax(200px,.8fr) minmax(215px,.72fr);align-items:center;gap:16px;margin-top:11px;padding:11px 0;border-top:1px solid #e8e2dc;border-bottom:1px solid #e8e2dc}
+.mv-ticket-example-intro{display:flex;align-items:flex-start;gap:10px;min-width:0}
+.mv-ticket-example-icon{display:grid;place-items:center;width:31px;height:31px;flex:0 0 31px;color:#dd682e;border:1px solid #edc9b1;border-radius:50%;font-size:16px}
+.mv-ticket-example-intro strong{display:block;margin:0 0 4px;color:#2d332e;font:600 15px/1.23 "Oswald",sans-serif}
+.mv-ticket-example-intro p{margin:0;color:#665e57;font:400 10.8px/1.48 "DM Sans",sans-serif}
+.mv-ticket-example-costs{display:grid;gap:6px}
+.mv-ticket-example-costs>div{display:flex;justify-content:space-between;align-items:center;gap:10px;font:500 10.8px/1.3 "DM Sans",sans-serif;color:#605c58}
+.mv-ticket-example-costs strong{font:700 14px/1.2 "DM Sans",sans-serif;color:#323430;white-space:nowrap}
+.mv-ticket-example-verdict{padding:4px 0 4px 14px;border-left:2px solid #e46c2d}
+.mv-ticket-example-verdict span{display:block;margin-bottom:4px;color:#a65c37;font:800 9px/1.2 "DM Sans",sans-serif;letter-spacing:.035em}
+.mv-ticket-example-verdict strong{display:block;color:#272d29;font:600 18px/1.1 "Oswald",sans-serif}
+.mv-ticket-example-verdict small{display:block;margin-top:4px;color:#16834a;font:700 10px/1.3 "DM Sans",sans-serif}
+.mv-ticket-note{margin:8px 1px 0;color:#83776f;font:400 10px/1.5 "DM Sans",sans-serif}
+.mv-ticket-note a{color:#a75a36;text-underline-offset:2px}
 .mv-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
 .mv-card{min-width:0;background:#fff;border:1px solid #d5d5d5;border-radius:16px;box-shadow:none}
 .mv-card-body{display:flex;flex-direction:column;gap:11px;min-width:0;height:100%;min-height:268px;padding:15px 16px 17px}
@@ -127,8 +150,9 @@ body.mv-body{margin:0;background:#fff;color:var(--mv-ink);font-family:"DM Sans",
 @media(max-width:1050px){
  .mv-hero,.mv-hero>.mv-container{min-height:435px}
  .mv-crumb{margin-bottom:28px}
- .mv-pay-guide{grid-template-columns:minmax(0,1fr) minmax(0,1.4fr);gap:13px}
- .mv-pay-guide-prices{grid-column:1/-1;border-left:0;border-top:1px solid #f0dfd6;padding:10px 0 0}
+ .mv-pay-guide{grid-template-columns:minmax(155px,.62fr) minmax(0,1.38fr);gap:13px}
+ .mv-ticket-example{grid-template-columns:minmax(0,1fr) minmax(180px,.75fr)}
+ .mv-ticket-example-verdict{grid-column:1/-1;border-left:0;border-top:2px solid #edc19f;padding:8px 0 0}
  .mv-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
  .mv-card-body{min-height:260px;padding:14px 15px}
  .mv-experience-list li{font-size:10.7px}
@@ -156,8 +180,16 @@ body.mv-body{margin:0;background:#fff;color:var(--mv-ink);font-family:"DM Sans",
  .mv-section-head .mv-overline{font-size:27px}
  .mv-transport-section{padding-top:22px}
  .mv-pay-guide{grid-template-columns:1fr;gap:12px;padding:10px 0 13px}
- .mv-pay-guide-prices{grid-column:auto;padding-top:10px}
  .mv-pay-guide-facts{padding-right:0}
+ .mv-ticket-compare{padding-top:13px}
+ .mv-ticket-heading{display:block;margin-bottom:10px}
+ .mv-ticket-heading h2{font-size:27px}
+ .mv-ticket-heading>p{margin-top:7px;max-width:none}
+ .mv-ticket-options{grid-template-columns:1fr;gap:7px}
+ .mv-ticket-option{padding:9px 12px}
+ .mv-ticket-example{grid-template-columns:1fr;gap:10px;padding:12px 0}
+ .mv-ticket-example-verdict{grid-column:auto}
+ .mv-ticket-example-costs{max-width:320px}
  .mv-grid{grid-template-columns:1fr;gap:10px}
  .mv-card-body{min-height:0;padding:14px 15px 16px}
  .mv-card h3{font-size:22px}
@@ -189,6 +221,6 @@ body.mv-body{margin:0;background:#fff;color:var(--mv-ink);font-family:"DM Sans",
  .mv-experience-list li{align-items:start}
  .mv-profile-grid{grid-template-columns:1fr}
  .mv-profile{min-height:0}
- .mv-fare strong{font-size:17px}
+ .mv-ticket-option>b{font-size:20px}
 }
 @media(prefers-reduced-motion:reduce){.mv-saving-track{scroll-behavior:auto}}
