@@ -3017,3 +3017,10 @@ html body .ql-page .ql-v7-section-pack > .ql-v17-climate-card .ql-v9-climate-sou
   text-align:left!important;font-size:8px!important;margin:4px 0 0!important;
  }
 }
+
+/* Ajuste móvil: mantener cuatro indicadores en dos filas equilibradas */
+@media(max-width:390px){
+ html body .ql-page .ql-v7-section-pack > .ql-v17-climate-card .ql-v13-climate-progress .ql-v9-weather-stat:nth-child(3){
+  grid-column:auto!important;grid-row:auto!important;
+ }
+}
