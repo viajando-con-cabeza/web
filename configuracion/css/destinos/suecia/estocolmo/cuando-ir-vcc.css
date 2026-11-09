@@ -1087,3 +1087,62 @@ html body.ci-page .ci-objective:focus-visible{
 @media(prefers-reduced-motion:reduce){
   html body.ci-page .ci-calendar{scroll-behavior:auto!important}
 }
+
+/* VCC 2026-11-09: galería de Qué ver reutilizada en Cuándo ir.
+   Se aísla la estructura de su plantilla para evitar alterar las otras secciones. */
+html body.ci-page .ci-august-gallery-embed{
+  min-width:0;
+  margin:0;
+  overflow:visible;
+}
+html body.ci-page .ci-august-imp-gallery{
+  width:100%!important;max-width:100%!important;
+  overflow:visible!important;
+}
+html body.ci-page .ci-august-imp-gallery .imp-main{
+  width:100%!important;max-width:100%!important;
+  margin:0!important;padding:0!important;
+}
+html body.ci-page .ci-august-imp-gallery .place.ci-august-gallery-place{
+  display:block!important;
+  width:100%!important;max-width:100%!important;
+  min-height:0!important;height:auto!important;
+  margin:0!important;padding:0!important;
+  border:0!important;box-shadow:none!important;
+  background:transparent!important;
+  grid-template-columns:none!important;
+}
+html body.ci-page .ci-august-imp-gallery .place-heading,
+html body.ci-page .ci-august-imp-gallery .place-copy{
+  display:none!important;
+}
+html body.ci-page .ci-august-imp-gallery .gallery{
+  display:block!important;
+  width:100%!important;max-width:100%!important;
+  margin:0!important;padding:0!important;
+}
+html body.ci-page .ci-august-imp-gallery .gallery-mosaic{
+  width:100%!important;
+  aspect-ratio:1.42!important;
+  border-radius:12px!important;
+  box-shadow:none!important;
+}
+html body.ci-page .ci-august-gallery-caption{
+  display:block;margin-top:7px;
+  color:#817268;
+  font:400 10px/1.5 'DM Sans',sans-serif;
+}
+html body.ci-page .ci-august-imp-gallery .ci-august-gallery-loading{
+  display:block;text-align:center;padding:32px;color:#84766b;
+  font:500 12px/1.5 'DM Sans',sans-serif;
+}
+@media(max-width:800px){
+  html body.ci-page .ci-august-imp-gallery .gallery-mosaic{
+    aspect-ratio:1.48!important;
+  }
+}
+@media(max-width:650px){
+  html body.ci-page .ci-august-imp-gallery .gallery-mosaic{
+    aspect-ratio:1.3!important;
+  }
+}
