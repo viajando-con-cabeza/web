@@ -160,3 +160,136 @@ html body.budget-vcc #filosofia .vcc-budget-day-expenses li strong{
  }
  html body.budget-vcc #filosofia .vcc-day-expense-info{font-size:9px}
 }
+
+
+/* VCC 2026-11-09 · Respuesta SEO visible, distinción de datos reales y lectura móvil. */
+html body.budget-vcc #filosofia .vcc-budget-quick-answer{
+  margin:4px 0 20px;padding:12px 17px;
+  background:#fff;border:1px solid #e7ded5;border-left:3px solid #cb7459;
+  border-radius:0 9px 9px 0;
+}
+html body.budget-vcc #filosofia .vcc-budget-quick-answer p{
+  margin:0;font:400 12.5px/1.65 'DM Sans',sans-serif;
+  color:#554c45;
+}
+html body.budget-vcc #filosofia .vcc-budget-quick-answer strong{color:#24201d;font-weight:700}
+html body.budget-vcc #filosofia .vcc-budget-quick-answer span{color:#736960}
+html body.budget-vcc #filosofia .vcc-budget-pending.vcc-budget-real{
+  background:#fffaf6;border:1px solid #eacdbf;border-left:3px solid #c66b52;
+  color:#56483d;font-size:11.5px;line-height:1.6;
+}
+html body.budget-vcc #filosofia .vcc-budget-pending.vcc-budget-real strong{
+  color:#a84e37;font-size:10.5px;letter-spacing:.02em;
+}
+/* Evitar que la nota metodológica desaparezca a tamaño móvil. */
+html body.budget-vcc .st-shell .calculator-card .budget-assumptions{
+  font-size:11.5px!important;line-height:1.65!important;
+}
+@media(max-width:750px){
+  html body.budget-vcc #filosofia .vcc-budget-quick-answer{
+    margin:8px 0 16px;padding:12px 13px;
+  }
+  html body.budget-vcc #filosofia .vcc-budget-quick-answer p{
+    font-size:12.5px;line-height:1.65;
+  }
+  html body.budget-vcc #filosofia .philosophy-poster-copy p{
+    font-size:12.5px!important;line-height:1.65!important;
+  }
+  html body.budget-vcc #filosofia .vcc-budget-mode-copy{font-size:12px;line-height:1.5}
+  html body.budget-vcc #filosofia .vcc-budget-mode-price small,
+  html body.budget-vcc #filosofia .vcc-budget-mode-title small,
+  html body.budget-vcc #filosofia .vcc-budget-mode-footer{
+    font-size:10px!important;
+  }
+  html body.budget-vcc #filosofia .vcc-budget-panel-heading p,
+  html body.budget-vcc #filosofia .vcc-budget-side-copy,
+  html body.budget-vcc #filosofia .vcc-budget-pros,
+  html body.budget-vcc #filosofia .vcc-budget-breakdown-row p,
+  html body.budget-vcc #filosofia .vcc-budget-breakdown-row ul,
+  html body.budget-vcc #filosofia .vcc-budget-panel-foot{
+    font-size:12px;line-height:1.6;
+  }
+  html body.budget-vcc #filosofia .vcc-budget-day-expenses li{
+    grid-template-columns:minmax(0,1fr) auto;
+    gap:2px 8px;padding:8px 0;
+    font-size:12px!important;
+  }
+  html body.budget-vcc #filosofia .vcc-day-expense-category{
+    grid-column:1;grid-row:1;
+  }
+  html body.budget-vcc #filosofia .vcc-budget-day-expenses li strong{
+    grid-column:2;grid-row:1;
+    font-size:12px;white-space:nowrap;
+  }
+  html body.budget-vcc #filosofia .vcc-day-expense-info{
+    grid-column:1/-1;grid-row:2;
+    font-size:11.5px!important;line-height:1.45;
+  }
+  html body.budget-vcc #filosofia .vcc-budget-day-head{
+    font-size:12px;align-items:center;
+  }
+  html body.budget-vcc #filosofia .vcc-budget-day-head span{font-size:11px}
+  html body.budget-vcc #filosofia .vcc-budget-pending{
+    font-size:12px;line-height:1.6;
+  }
+  html body.budget-vcc .st-shell .calculator-card .stepper button{
+    width:36px!important;height:36px!important;
+    font-size:19px!important;min-width:36px;
+  }
+  html body.budget-vcc .st-shell .calculator-card .stepper{gap:5px}
+  html body.budget-vcc .st-shell .calculator-card .calc-control{
+    min-height:94px!important;
+  }
+  html body.budget-vcc .st-shell .calculator-card .calc-control>span{
+    font-size:11px!important;
+  }
+  html body.budget-vcc .st-shell .calculator-card .category-row select{
+    font-size:12px!important;min-height:42px!important;
+  }
+  html body.budget-vcc .st-shell .calculator-card .vcc-category-name{
+    font-size:11.5px!important;
+  }
+  html body.budget-vcc .st-shell .calculator-card .vcc-budget-price{
+    font-size:12px!important;
+  }
+  html body.budget-vcc .st-shell .calculator-card .vcc-price-block small{
+    font-size:10px!important;
+  }
+  html body.budget-vcc .st-shell .calculator-card .budget-assumptions{
+    font-size:11.5px!important;
+  }
+  html body.budget-vcc .vcc-budget-excel-row p,
+  html body.budget-vcc .vcc-budget-excel-action{
+    font-size:12px;
+  }
+}
+@media(max-width:440px){
+  html body.budget-vcc .st-shell .calculator-card .category-row{
+    grid-template-columns:minmax(0,1fr) auto!important;
+    column-gap:8px!important;row-gap:3px!important;
+    padding:9px 0!important;
+  }
+  html body.budget-vcc .st-shell .calculator-card .category-row select{
+    grid-column:1/-1;grid-row:2;width:100%!important;
+  }
+  html body.budget-vcc .st-shell .calculator-card .category-row .vcc-price-block{
+    grid-column:2;grid-row:1;
+  }
+  html body.budget-vcc .st-shell .calculator-card .calc-top{
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    gap:8px!important;
+  }
+  html body.budget-vcc .st-shell .calculator-card .calc-control:last-child{
+    grid-column:1/-1;
+  }
+  html body.budget-vcc .st-shell .calculator-card .calc-control{
+    min-height:87px!important;
+  }
+  html body.budget-vcc #filosofia .vcc-budget-panel-head{gap:9px}
+  html body.budget-vcc #filosofia .vcc-budget-panel-mark{
+    width:38px;height:38px;flex-basis:38px;
+  }
+  html body.budget-vcc #filosofia .vcc-budget-panel-mark img{
+    width:30px;height:30px;
+  }
+}
