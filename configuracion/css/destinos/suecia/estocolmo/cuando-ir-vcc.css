@@ -787,3 +787,6 @@ html body.ci-page .ci-month-right .ci-month-procon + .ci-month-vcc{margin-top:au
   html body.ci-page .ci-month-vcc{max-width:100%;min-width:0;width:100%;grid-template-columns:78px minmax(0,1fr)}
   html body.ci-page .ci-month-vcc>p{font-size:10.5px}
 }
+
+/* Meses prerenderizados: solo se muestra el seleccionado. */
+html body.ci-page .ci-month-detail[data-month-panel][hidden]{display:none!important}
