@@ -51,19 +51,19 @@ body.mv-body .vcc-discover-section{background:var(--mv-cream)}
 .mv-ticket-heading h2{margin:0;color:#222827;font:600 clamp(27px,2.5vw,38px)/1.15 "Oswald",sans-serif}
 .mv-ticket-heading>p{max-width:450px;margin:0 0 2px;color:#655f59;font:400 11.3px/1.5 "DM Sans",sans-serif}
 /* Tarifes SL compactes: preu i beneficis llegibles en una sola passada */
-.mv-ticket-options{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
-.mv-ticket-option{position:relative;display:grid;grid-template-columns:30px minmax(95px,.82fr) minmax(0,1fr);align-items:center;column-gap:11px;min-width:0;min-height:111px;padding:15px 14px;border:1px solid #e5d7cc;border-radius:14px;background:#fff}
+.mv-ticket-options{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px}
+.mv-ticket-option{position:relative;display:grid;grid-template-columns:25px minmax(89px,.8fr) minmax(0,1fr);align-items:center;column-gap:8px;min-width:0;min-height:78px;padding:10px 11px;border:1px solid #e5d7cc;border-radius:12px;background:#fff}
 .mv-ticket-option-vcc{border-color:#e87231;background:#fffaf6;box-shadow:inset 0 2px 0 #ee722a}
 .mv-ticket-option-icon{display:grid;place-items:center;color:#e66820}
-.mv-ticket-option-icon svg{width:27px;height:27px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
-.mv-ticket-option-info{display:flex;flex-direction:column;align-items:flex-start;gap:5px;min-width:0}
-.mv-ticket-option-info>strong{font:600 17px/1.15 "Oswald",sans-serif;color:#212a26}
-.mv-ticket-price{display:block;color:#e6631e;font:600 25px/1 "Oswald",sans-serif;white-space:nowrap}
+.mv-ticket-option-icon svg{width:23px;height:23px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.mv-ticket-option-info{display:flex;flex-direction:column;align-items:flex-start;gap:3px;min-width:0}
+.mv-ticket-option-info>strong{font:600 16px/1.12 "Oswald",sans-serif;color:#212a26}
+.mv-ticket-price{display:block;color:#e6631e;font:600 23px/1 "Oswald",sans-serif;white-space:nowrap}
 .mv-ticket-price small{font:600 12px/1 "Oswald",sans-serif}
-.mv-ticket-features{display:grid;gap:8px;list-style:none;padding:0 0 0 12px;margin:0;border-left:1px solid #eddfd5;min-width:0}
-.mv-ticket-features li{position:relative;padding-left:13px;color:#3e4540;font:500 10.7px/1.35 "DM Sans",sans-serif}
+.mv-ticket-features{display:grid;gap:4px;list-style:none;padding:0 0 0 10px;margin:0;border-left:1px solid #eddfd5;min-width:0}
+.mv-ticket-features li{position:relative;padding-left:12px;color:#3e4540;font:500 10px/1.3 "DM Sans",sans-serif}
 .mv-ticket-features li::before{content:"✓";position:absolute;left:0;top:-1px;color:#0d983e;font:800 12px/1 "DM Sans",sans-serif}
-.mv-ticket-choice{position:absolute;right:10px;top:-11px;padding:4px 8px;border:1px solid #e67732;border-radius:99px;color:#fff;background:#e86a23;font:800 8.2px/1 "DM Sans",sans-serif;white-space:nowrap}
+.mv-ticket-choice{position:absolute;right:9px;top:-9px;padding:3px 7px;border:1px solid #e67732;border-radius:99px;color:#fff;background:#e86a23;font:800 8px/1 "DM Sans",sans-serif;white-space:nowrap}
 
 /* Exemple útil, dia per dia: hipòtesis explícites i comparació visual. */
 .mv-ticket-payment{margin:14px 0 0}
@@ -92,24 +92,24 @@ body.mv-body .vcc-discover-section{background:var(--mv-cream)}
 .mv-day-card-footer>strong{color:#d46027;font:600 20px/1.1 "Oswald",sans-serif;white-space:nowrap}
 /* Disseny combinat: ruta a l'esquerra; Consejo VCC fix a la dreta,
    fins i tot quan hi ha mes de tres dies i activem el carrusel. */
-.mv-day-example{margin-top:27px}
-.mv-day-example-head{display:flex;align-items:end;justify-content:space-between;gap:18px;margin-bottom:13px}
+.mv-day-example{margin-top:18px}
+.mv-day-example-head{display:flex;align-items:end;justify-content:space-between;gap:14px;margin-bottom:10px}
 .mv-day-example-head h3{font-size:24px}
-.mv-day-showcase{display:grid;grid-template-columns:minmax(0,3.15fr) minmax(250px,1.18fr);align-items:stretch;gap:12px}
-.mv-day-route{min-width:0;position:relative;display:flex;flex-direction:column}
-.mv-day-cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;align-items:stretch;flex:1;min-width:0}
-.mv-day-card{padding:13px 12px 11px;border-color:#e4d7cb}
-.mv-day-card-heading{grid-template-columns:29px minmax(0,1fr);gap:7px}
-.mv-day-card-icon{width:29px;height:38px}
-.mv-day-card-icon svg{width:28px;height:28px}
+.mv-day-showcase{display:grid;grid-template-columns:minmax(0,3.15fr) minmax(250px,1.18fr);align-items:start;gap:11px}
+.mv-day-route{min-width:0;position:relative;display:flex;flex-direction:column;align-self:start}
+.mv-day-cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;align-items:stretch;flex:none;min-width:0}
+.mv-day-card{padding:10px 11px 9px;min-height:173px;border-color:#e4d7cb}
+.mv-day-card-heading{grid-template-columns:27px minmax(0,1fr);gap:6px;margin-bottom:6px}
+.mv-day-card-icon{width:27px;height:34px}
+.mv-day-card-icon svg{width:26px;height:26px}
 .mv-day-card-top{gap:5px}
-.mv-day-card-top>span{font-size:25px}
+.mv-day-card-top>span{font-size:24px}
 .mv-day-card-top>strong{font-size:9px;padding:4px 7px}
-.mv-day-card h4{font-size:16.5px}
-.mv-day-trips{gap:8px}
+.mv-day-card h4{font-size:16px}
+.mv-day-trips{gap:6px;margin-bottom:8px}
 .mv-day-trips li{gap:5px;grid-template-columns:17px minmax(0,1fr);font-size:10px;line-height:1.32}
 .mv-day-trips li::before{width:16px;height:16px}
-.mv-day-card-footer{margin-top:auto;padding-top:10px}
+.mv-day-card-footer{margin-top:auto;padding-top:7px}
 .mv-day-card-footer>strong{font-size:19px}
 .mv-day-controls[hidden]{display:none}
 .mv-day-controls{display:flex;justify-content:flex-end;align-items:center;gap:7px;margin:0 0 8px}
@@ -120,24 +120,27 @@ body.mv-body .vcc-discover-section{background:var(--mv-cream)}
 .mv-day-route.is-carousel .mv-day-cards{display:flex;align-items:stretch;gap:10px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;overscroll-behavior-inline:contain;scrollbar-width:none}
 .mv-day-route.is-carousel .mv-day-cards::-webkit-scrollbar{display:none}
 .mv-day-route.is-carousel .mv-day-card{flex:0 0 calc((100% - 20px)/3);scroll-snap-align:start}
-.mv-day-advice{display:flex;flex-direction:column;min-width:0;min-height:100%;overflow:hidden;border:1px solid #e97230;border-radius:14px;background:#fff}
-.mv-day-advice-header{display:flex;align-items:center;gap:10px;padding:12px 13px;background:linear-gradient(115deg,#f99234,#ed5f10);color:#fff}
-.mv-day-advice-header img{width:43px;height:43px;flex:0 0 43px;object-fit:contain;background:#fff;border-radius:50%;padding:4px}
-.mv-day-advice-header>div{display:flex;flex-direction:column;gap:4px}
-.mv-day-advice-header span{font:800 10px/1.1 "DM Sans",sans-serif;letter-spacing:.03em}
-.mv-day-advice-header strong{font:600 22px/1.12 "Oswald",sans-serif}
-.mv-day-advice-content{display:flex;flex-direction:column;gap:12px;flex:1;padding:13px 13px 12px}
-.mv-day-advice-content>p{margin:0;color:#313c36;font:500 11.3px/1.47 "DM Sans",sans-serif}
-.mv-advice-comparison{display:flex;justify-content:space-between;align-items:center;gap:8px;padding-top:12px;margin-top:auto;border-top:1px solid #ebdfd6}
-.mv-advice-comparison>div{min-width:0;display:flex;flex-direction:column;gap:3px}
-.mv-advice-comparison>div>span{color:#786960;font:500 9.4px/1.3 "DM Sans",sans-serif}
-.mv-advice-comparison>div>strong{color:#29332e;font:600 22px/1.12 "Oswald",sans-serif;white-space:nowrap}
+/* Consejo VCC corporatiu: blanc, logo encerclat i etiqueta sota el logo */
+.mv-day-advice{display:block;min-width:0;align-self:start;min-height:0;overflow:hidden;border:1px solid #e4a57b;border-radius:13px;background:#fff}
+.mv-day-advice-content{display:flex;flex-direction:column;gap:10px;padding:11px 12px}
+.mv-day-advice-intro{display:grid;grid-template-columns:70px minmax(0,1fr);gap:12px;align-items:center}
+.mv-day-advice-brand{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;min-width:0}
+.mv-day-advice-seal{display:grid;place-items:center;flex:0 0 auto;width:48px;height:48px;padding:3px;border:1.5px solid #e97a39;border-radius:50%;background:#fff}
+.mv-day-advice-seal img{display:block;width:40px;height:40px;object-fit:contain;border-radius:50%}
+.mv-day-advice-brand>span:last-child{color:#a85b33;font:700 10px/1.1 "Oswald",sans-serif;white-space:nowrap;text-align:center}
+.mv-day-advice-text{min-width:0}
+.mv-day-advice-text>strong{display:block;margin:0 0 4px;color:#28302d;font:600 20px/1.15 "Oswald",sans-serif}
+.mv-day-advice-text>p{margin:0;color:#525a55;font:500 10.5px/1.42 "DM Sans",sans-serif}
+.mv-advice-comparison{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);gap:8px;align-items:center;padding-top:9px;border-top:1px solid #eee1d6}
+.mv-advice-comparison>div{display:flex;flex-direction:column;gap:3px;min-width:0}
+.mv-advice-comparison>div>span{color:#786960;font:500 9.3px/1.25 "DM Sans",sans-serif}
+.mv-advice-comparison>div>strong{color:#29332e;font:600 22px/1.1 "Oswald",sans-serif;white-space:nowrap}
+.mv-advice-comparison>div:last-child{align-items:flex-end;text-align:right}
 .mv-advice-vs{color:#a78775;font:800 9px/1 "DM Sans",sans-serif}
-.mv-advice-saving{display:flex;align-items:baseline;gap:6px 10px;flex-wrap:wrap;padding:11px 12px;border-radius:10px;background:#eaf8e6;color:#138a2e}
+.mv-advice-saving{display:flex;align-items:baseline;justify-content:center;gap:6px;flex-wrap:wrap;padding:8px 9px;border:1px solid #d9e9d4;border-radius:9px;background:#f5fbf3;color:#19813a}
 .mv-advice-saving>span{font:700 10px/1 "DM Sans",sans-serif}
-.mv-advice-saving>strong{font:600 27px/1 "Oswald",sans-serif}
+.mv-advice-saving>strong{font:600 25px/1 "Oswald",sans-serif}
 .mv-advice-saving>small{font:500 9.6px/1 "DM Sans",sans-serif}
-
 .mv-archipelago-note{display:grid;grid-template-columns:26px minmax(0,1fr);gap:11px;margin-top:14px;padding:11px 13px 12px;border-left:3px solid #df783d;background:#fcfaf7;border-radius:0 10px 10px 0}
 .mv-archipelago-note>svg{display:block;width:26px;height:26px;fill:none;stroke:#ce713b;stroke-width:1.65;stroke-linecap:round;stroke-linejoin:round}
 .mv-archipelago-note strong{display:block;margin:0 0 4px;color:#2f322e;font:600 16px/1.2 "Oswald",sans-serif}
@@ -246,10 +249,10 @@ body.mv-body .vcc-discover-section{background:var(--mv-cream)}
  .mv-day-showcase{grid-template-columns:minmax(0,1fr) minmax(225px,.53fr)}
  .mv-day-cards{grid-template-columns:1fr}
  .mv-day-route.is-carousel .mv-day-card{flex-basis:100%}
- .mv-ticket-option{grid-template-columns:25px minmax(0,.8fr) minmax(0,1fr);gap:7px;padding:13px 10px}
+ .mv-ticket-option{grid-template-columns:24px minmax(0,.8fr) minmax(0,1fr);gap:6px;padding:10px 8px}
  .mv-ticket-option-info>strong{font-size:15px}
  .mv-ticket-features{padding-left:8px}
- .mv-ticket-features li{font-size:9.5px}
+ .mv-ticket-features li{font-size:9.3px}
  .mv-day-card:last-child{grid-column:auto}
  .mv-grid>.mv-card{flex-basis:calc((100% - 12px)/2)}
  .mv-card-body{min-height:260px;padding:14px 15px}
@@ -286,9 +289,9 @@ body.mv-body .vcc-discover-section{background:var(--mv-cream)}
  .mv-ticket-heading .mv-overline{font-size:27px}
  .mv-ticket-heading>p{margin-top:7px;max-width:none}
  .mv-ticket-options{grid-template-columns:1fr;gap:8px}
- .mv-ticket-option{min-height:85px;grid-template-columns:30px minmax(100px,.8fr) minmax(0,1fr);padding:12px 11px}
+ .mv-ticket-option{min-height:76px;grid-template-columns:24px minmax(100px,.8fr) minmax(0,1fr);padding:9px 10px}
  .mv-ticket-option-info>strong{font-size:17px}
- .mv-ticket-price{font-size:25px}
+ .mv-ticket-price{font-size:23px}
  .mv-ticket-features li{font-size:10.5px}
  .mv-ticket-payment .mv-pay-guide{padding:10px 0}
  .mv-day-example{margin-top:19px}
@@ -298,12 +301,13 @@ body.mv-body .vcc-discover-section{background:var(--mv-cream)}
  .mv-day-showcase{grid-template-columns:1fr;gap:11px}
  .mv-day-cards{grid-template-columns:1fr}
  .mv-day-route.is-carousel .mv-day-card{flex-basis:100%}
- .mv-day-card{padding:13px 14px}
+ .mv-day-card{min-height:0;padding:11px 12px}
  .mv-day-card h4{font-size:18px}
  .mv-day-trips li{font-size:11px}
  .mv-day-advice{min-height:0}
  .mv-day-advice-content{gap:10px}
- .mv-advice-comparison>div>strong{font-size:24px}
+ .mv-day-advice-intro{grid-template-columns:70px minmax(0,1fr)}
+ .mv-advice-comparison>div>strong{font-size:22px}
  .mv-archipelago-note{padding:12px 11px}
  .mv-transport-arrow{width:27px;height:27px}
  .mv-transport-prev{left:-13px}
