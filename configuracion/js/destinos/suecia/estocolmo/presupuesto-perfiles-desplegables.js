@@ -47,6 +47,92 @@
   });
   activate("vcc", false);
 
+  /* Carrusel diario: un día visible a la vez, independientemente de si hay 3 o 15. */
+  panels.forEach(function (panel) {
+    const column = panel.querySelector(".vcc-budget-daily-column");
+    if (!column || column.querySelector(".vcc-daily-track")) return;
+    const heading = column.querySelector("h4");
+    const days = Array.from(column.querySelectorAll(":scope > .vcc-budget-day"));
+    if (!heading || !days.length) return;
+
+    const top = document.createElement("div");
+    top.className = "vcc-budget-daily-top";
+    heading.parentNode.insertBefore(top, heading);
+    top.appendChild(heading);
+
+    const controls = document.createElement("div");
+    controls.className = "vcc-daily-controls";
+    const previous = document.createElement("button");
+    previous.type = "button";
+    previous.className = "vcc-daily-arrow";
+    previous.setAttribute("aria-label", "Ver gastos del día anterior");
+    previous.textContent = "‹";
+    const count = document.createElement("output");
+    count.className = "vcc-daily-count";
+    count.setAttribute("aria-live", "polite");
+    count.setAttribute("aria-label", "Día visible del total");
+    const next = document.createElement("button");
+    next.type = "button";
+    next.className = "vcc-daily-arrow";
+    next.setAttribute("aria-label", "Ver gastos del día siguiente");
+    next.textContent = "›";
+    controls.append(previous, count, next);
+    top.appendChild(controls);
+
+    const slider = document.createElement("div");
+    slider.className = "vcc-daily-track";
+    slider.setAttribute("role", "region");
+    slider.setAttribute("aria-roledescription", "carrusel");
+    slider.setAttribute("aria-label", "Gastos diarios: desliza a los lados para cambiar de día");
+    slider.tabIndex = 0;
+    column.insertBefore(slider, days[0]);
+    days.forEach(function (day, i) {
+      day.classList.add("vcc-daily-slide");
+      day.setAttribute("role", "group");
+      day.setAttribute("aria-roledescription", "diapositiva");
+      day.setAttribute("aria-label", "Día " + (i + 1) + " de " + days.length);
+      slider.appendChild(day);
+    });
+
+    let current = 0;
+    function setCurrent(index) {
+      current = Math.max(0, Math.min(days.length - 1, index));
+      count.textContent = (current + 1) + " / " + days.length;
+      previous.disabled = current === 0;
+      next.disabled = current === days.length - 1;
+    }
+    function goTo(index) {
+      const target = Math.max(0, Math.min(days.length - 1, index));
+      const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      slider.scrollTo({
+        left: days[target].offsetLeft - days[0].offsetLeft,
+        behavior: reduced ? "instant" : "smooth"
+      });
+      setCurrent(target);
+    }
+    previous.addEventListener("click", function () { goTo(current - 1); });
+    next.addEventListener("click", function () { goTo(current + 1); });
+    slider.addEventListener("keydown", function (event) {
+      if (event.key === "ArrowLeft" || event.key === "ArrowRight") {
+        event.preventDefault();
+        goTo(current + (event.key === "ArrowRight" ? 1 : -1));
+      }
+    });
+    let framePending = false;
+    slider.addEventListener("scroll", function () {
+      if (framePending) return;
+      framePending = true;
+      requestAnimationFrame(function () {
+        framePending = false;
+        if (slider.clientWidth) {
+          setCurrent(Math.round(slider.scrollLeft / slider.clientWidth));
+        }
+      });
+    }, {passive: true});
+    window.addEventListener("resize", function () { goTo(current); });
+    setCurrent(0);
+  });
+
   /* El libro Excel se construye con ZIP/OOXML sin bibliotecas de terceros. */
   const exporter = document.querySelector("[data-vcc-download-excel]");
   if (!exporter) return;
