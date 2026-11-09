@@ -19,6 +19,7 @@
 <link rel="stylesheet" href="/configuracion/css/plantillas/que-llevar-vcc-v6.css?v=20261109-panel-scroll">
 <link rel="stylesheet" href="/configuracion/css/plantillas/que-llevar-vcc-v7.css?v=20261109-lluvia-v1">
 <link rel="stylesheet" href="/configuracion/css/plantillas/que-llevar-vcc-v8.css?v=20261109-minimal-v1">
+<link rel="stylesheet" href="/configuracion/css/plantillas/que-llevar-vcc-v9-clima-inline.css?v=20261109-v1">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Inicio","item":"https://viajandoconcabeza.com/"},{"@type":"ListItem","position":2,"name":"Destinos","item":"https://viajandoconcabeza.com/destinos/"},{"@type":"ListItem","position":3,"name":"Suecia","item":"https://viajandoconcabeza.com/destinos/suecia/"},{"@type":"ListItem","position":4,"name":"Estocolmo","item":"https://viajandoconcabeza.com/destinos/suecia/estocolmo/"},{"@type":"ListItem","position":5,"name":"Qué llevar","item":"https://viajandoconcabeza.com/destinos/suecia/estocolmo/que-llevar.html"}]}</script>
 </head>
 <body><header class="page-header"></header>
@@ -83,20 +84,28 @@
  <section class="ql-v7-section ql-v7-section-pack" id="haz-tu-maleta" aria-labelledby="ql-v6-summary-title">
   <section class="ql-v6-list" id="ql-v6-list-panel" aria-labelledby="ql-v6-summary-title">
   <div class="ql-v6-print-meta" id="ql-v6-print-meta">Estocolmo · febrero · 5 días</div>
-  <header class="ql-v6-list-head">
-   <div><p class="ql-section-script">Tu equipaje, sin excesos</p><h3 id="ql-v6-summary-title">Tu lista para febrero · 5 días</h3></div>
+  <header class="ql-v6-list-head ql-v9-list-head">
+   <div class="ql-v9-list-heading">
+     <p class="ql-section-script">Tu equipaje, sin excesos</p>
+     <h3 id="ql-v6-summary-title">Tu lista para febrero · 5 días</h3>
+   </div>
+   <div class="ql-v9-weather-summary" aria-label="Clima habitual del mes seleccionado">
+     <div class="ql-v9-weather-stat">
+       <img id="ql-v8-weather-icon" src="/configuracion/imagenes/iconos/iconos-tiempo-nieve-color.svg" alt="" width="34" height="34" decoding="async">
+       <span><small>Tiempo</small><strong id="ql-v8-weather-title">Nieve posible</strong></span>
+     </div>
+     <div class="ql-v9-weather-stat">
+       <img src="/configuracion/imagenes/iconos/iconos-tiempo-termometro-color.svg" alt="" width="34" height="34" loading="lazy" decoding="async">
+       <span><small>Temperatura</small><strong><span id="ql-v8-temp-low">−3,2 °C</span> – <span id="ql-v8-temp-high">1,2 °C</span></strong></span>
+     </div>
+     <div class="ql-v9-weather-stat">
+       <img src="/configuracion/imagenes/iconos/iconos-tiempo-lluvia-color.svg" alt="" width="34" height="34" loading="lazy" decoding="async">
+       <span><small>Lluvia o nieve</small><strong id="ql-v8-rain-days">≈14 días/mes</strong></span>
+     </div>
+   </div>
    <div class="ql-v6-progress"><strong id="ql-v6-progress" aria-live="polite">0 preparados</strong><span class="ql-v6-track" aria-hidden="true"><span id="ql-v6-progress-bar"></span></span></div>
   </header>
-   <div class="ql-v8-climate" aria-label="Clima habitual del mes seleccionado">
-     <div class="ql-v8-climate-condition">
-       <img id="ql-v8-weather-icon" src="/configuracion/imagenes/iconos/iconos-tiempo-nieve-color.svg" alt="" width="40" height="40" decoding="async">
-       <span class="ql-v8-condition-text"><small>Clima habitual · <span id="ql-v6-month-label">Febrero</span></small><strong id="ql-v8-weather-title">Frío, nieve posible</strong></span>
-     </div>
-     <div class="ql-v8-climate-metric"><small>Temp. mínima</small><strong id="ql-v8-temp-low">−3,2 °C</strong></div>
-     <div class="ql-v8-climate-metric"><small>Temp. máxima</small><strong id="ql-v8-temp-high">1,2 °C</strong></div>
-     <div class="ql-v8-climate-metric"><small>Días con lluvia o nieve</small><strong id="ql-v8-rain-days">≈14 días/mes</strong></div>
-   </div>
-   <p class="ql-v8-climate-source">Valores medios mensuales y tiempo ilustrativo, no una previsión. <a href="https://worldweather.wmo.int/en/city.html?cityId=187" target="_blank" rel="noopener noreferrer">WMO / SMHI</a>.</p>
+   <p class="ql-v8-climate-source ql-v9-climate-source">Valores medios mensuales y tiempo ilustrativo, no una previsión. <a href="https://worldweather.wmo.int/en/city.html?cityId=187" target="_blank" rel="noopener noreferrer">WMO / SMHI</a>.</p>
 
   <div class="ql-v6-scroll-shell">
    <div class="ql-v6-categories" id="ql-v6-categories" role="region" tabindex="0" aria-label="Lista de equipaje. Desplázate con la rueda, el dedo o las flechas">
@@ -160,6 +169,6 @@
 <footer class="vcc-global-footer"></footer>
 <script src="/configuracion/js/site-header.js?v=20261103-social-icons"></script>
 <script src="/configuracion/js/site-footer.js?v=20261102"></script>
-<script src="/configuracion/js/plantillas/que-llevar-vcc-v7.js?v=20261109-minimal-v1"></script>
+<script src="/configuracion/js/plantillas/que-llevar-vcc-v7.js?v=20261109-weatherinline-v1"></script>
 </body>
 </html>
