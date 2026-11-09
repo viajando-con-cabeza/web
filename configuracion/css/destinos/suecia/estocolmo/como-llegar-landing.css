@@ -24,7 +24,7 @@ main.cl-page.cl-landing {
   max-width:none;
   min-height:0;
   margin:0;
-  padding:53px max(22px,calc((100vw - 1600px)/2 + 32px)) 14px;
+  padding:48px max(22px,calc((100vw - 1600px)/2 + 32px)) 12px;
   border:0;
   border-radius:0;
   background:linear-gradient(90deg,rgba(250,247,242,.97),rgba(250,247,242,.91) 26%,rgba(250,247,242,.72) 53%,rgba(250,247,242,.26)),url("/configuracion/imagenes/fondos/fondos-como-llegar.webp") center/cover no-repeat;
@@ -58,30 +58,30 @@ main.cl-page.cl-landing {
   gap:16px;
   width:100%;
 }
-.cl-page.cl-landing .cl-landing-intro {min-width:0;padding:15px 8px 0 0;text-align:left}
+.cl-page.cl-landing .cl-landing-intro {min-width:0;padding:9px 8px 0 0;text-align:left}
 .cl-page.cl-landing .cl-landing-kicker {
   margin:0 0 12px;
   color:#ba633e;
-  font:600 29px/1.1 "Caveat",cursive;
+  font:600 27px/1.08 "Caveat",cursive;
 }
 .cl-page.cl-landing .cl-landing-intro h1 {
   margin:0;
   color:#181b18;
-  font:600 clamp(39px,3.5vw,58px)/1.07 "Oswald",sans-serif;
+  font:600 clamp(39px,3.3vw,54px)/1.06 "Oswald",sans-serif;
   letter-spacing:-.01em;
 }
 .cl-page.cl-landing .cl-landing-underline {
-  width:86px;height:4px;margin:17px 0 19px;
+  width:86px;height:4px;margin:13px 0 15px;
   border-radius:20px;background:#d36e34;transform:rotate(-1.5deg);
 }
 .cl-page.cl-landing .cl-landing-description {
   max-width:300px;margin:0;
-  color:#383933;font:400 13.5px/1.7 "DM Sans",sans-serif;
+  color:#383933;font:400 13.5px/1.6 "DM Sans",sans-serif;
 }
-.cl-page.cl-landing .cl-direction-sign {
-  position:relative;width:150px;height:192px;margin:23px auto 0 12px;
-  transform:rotate(-3deg);
-}
+/* La señal decorativa añadía más de 200px de altura al hero y empujaba
+   el subheader fuera de la primera pantalla. Las tarjetas ya identifican
+   visualmente los transportes; ocultarla armoniza el alto con otras guías. */
+.cl-page.cl-landing .cl-direction-sign {display:none}
 .cl-page.cl-landing .cl-sign-post {
   position:absolute;top:7px;bottom:0;left:69px;width:13px;
   border-radius:6px;background:linear-gradient(90deg,#ab7142,#e6b77c,#91613c);
@@ -278,7 +278,7 @@ main.cl-page.cl-landing {
 }
 @media(max-width:660px) {
   .cl-page.cl-landing .cl-landing-cards {grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
-  .cl-page.cl-landing .cl-landing-hero {padding:51px 15px 25px}
+  .cl-page.cl-landing .cl-landing-hero {padding:48px 15px 16px}
   .cl-page.cl-landing .cl-landing-hero .cl-crumb.vcc-crumb {
     top:9px;left:15px;right:15px;max-width:calc(100% - 30px);
     font-size:11px;
