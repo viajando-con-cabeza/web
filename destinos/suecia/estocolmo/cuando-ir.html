@@ -6,7 +6,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=DM+Sans:wght@400;500;600;700;800&family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/configuracion/css/paginas.css"><link rel="stylesheet" href="/configuracion/css/overrides.css">
-<link rel="stylesheet" href="/configuracion/css/destinos/suecia/estocolmo/cuando-ir-vcc.css?v=20261108-icons-transparent">
+<link rel="stylesheet" href="/configuracion/css/destinos/suecia/estocolmo/cuando-ir-vcc.css?v=20261109-mes-consejos">
 <style id="ci-mobile-hero-definitive">
 /* Mobile: same compact overlapping photographic hero as Itinerarios.
    The personal travel-month chip stays on desktop only. */
@@ -95,11 +95,53 @@ html body.ci-page .ci-visit-mobile-note{display:none}
 <div class="ci-heading ci-left"><div><span class="ci-script">Compara de un vistazo</span><h2 id="ci-cal-title">ESTOCOLMO, MES A MES</h2></div><p>Clima, turistas y nivel de precios durante todo el año. Los meses recomendados según tu elección aparecen destacados.</p></div>
 <div class="ci-calendar-scroll"><div class="ci-calendar" id="yearCalendar" aria-label="Comparativa mensual de Estocolmo"></div></div>
 <div class="ci-legend"><span><i class="ci-dot low"></i>Bajo</span><span><i class="ci-dot medium"></i>Medio</span><span><i class="ci-dot high"></i>Alto</span><small>Datos aproximados; los precios y la afluencia varían según fechas.</small></div>
-<div class="ci-month-detail" id="monthDetail" aria-live="polite"><div><span class="ci-detail-eyebrow">MES SELECCIONADO</span><h3 id="detailName">JUNIO</h3><p id="detailText"></p></div><div class="ci-detail-metrics"><span id="detailTemp"></span><span id="detailLight"></span><span id="detailCost"></span></div></div>
+
+<div class="ci-month-detail" id="monthDetail" aria-live="polite">
+  <div class="ci-month-top">
+    <div class="ci-month-summary"><span class="ci-detail-eyebrow">MES SELECCIONADO</span><h3 id="detailName">JUNIO</h3><p id="detailText"></p></div>
+    <div class="ci-detail-metrics"><span id="detailTemp"></span><span id="detailLight"></span><span id="detailCost"></span></div>
+  </div>
+  <div class="ci-month-extra">
+    <div class="ci-month-procon">
+      <div class="ci-month-points ci-month-good"><h4><span aria-hidden="true">😊</span> Lo mejor de este mes</h4><ul id="detailPros"></ul></div>
+      <div class="ci-month-points ci-month-bad"><h4><span aria-hidden="true">😕</span> Lo menos bueno</h4><ul id="detailCons"></ul></div>
+    </div>
+    <p class="ci-month-advice"><strong>CONSEJO PARA ESTE MES</strong><span id="detailAdvice"></span></p>
+    <p class="ci-month-visited" id="detailVisited" hidden>✈ Nosotros viajamos en agosto. Es el mes que conocemos de primera mano; puedes leer nuestra experiencia justo debajo.</p>
+  </div>
+</div>
+</section>
+
+<section class="ci-august-experience" aria-labelledby="ci-august-title">
+  <div class="ci-heading ci-left"><div><span class="ci-script">Un mes que conocemos de primera mano</span><h2 id="ci-august-title">NUESTRA EXPERIENCIA EN ESTOCOLMO EN AGOSTO</h2></div></div>
+  <div class="ci-august-box">
+    <div class="ci-august-date"><span aria-hidden="true">✈</span><strong>VIAJAMOS EN AGOSTO</strong><small>Nuestra visita real a Estocolmo</small></div>
+    <div class="ci-august-story">
+      <p>Nosotros visitamos Estocolmo en <strong>agosto</strong>. Por eso, es el mes del que podemos hablar desde una visita propia, y no solo con información orientativa sobre el clima o la temporada.</p>
+      <p>Para organizar un viaje en estas fechas, aprovecharíamos las horas de luz para combinar barrios, miradores y planes junto al agua, sin dar por hecho que hará calor todos los días. Conviene reservar alojamiento con margen, llevar una capa para la lluvia y revisar horarios de barcos y actividades.</p>
+      <a href="itinerario.html?dias=3">Ver el itinerario de 3 días por Estocolmo <span aria-hidden="true">→</span></a>
+    </div>
+  </div>
 </section>
 <section id="estaciones" class="ci-alternatives" aria-labelledby="ci-alt-title"><div class="ci-heading ci-left"><div><span class="ci-script">No hay una única respuesta</span><h2 id="ci-alt-title">¿Y SI VIAJAS EN OTRA ÉPOCA?</h2></div></div>
 <div class="ci-season-grid"><article><span class="ci-season-icon" aria-hidden="true"><img src="/configuracion/imagenes/iconos/iconos-estacion-primavera-color.svg" width="44" height="44" alt="" loading="lazy" decoding="async"></span><h3>PRIMAVERA</h3><small>MARZO – MAYO</small><p>La ciudad despierta, las temperaturas suben y puedes encontrar un ambiente más tranquilo.</p></article><article><span class="ci-season-icon" aria-hidden="true"><img src="/configuracion/imagenes/iconos/iconos-estacion-verano-color.svg" width="44" height="44" alt="" loading="lazy" decoding="async"></span><h3>VERANO</h3><small>JUNIO – AGOSTO</small><p>Muchísimas horas de luz y vida al aire libre, aunque también más visitantes y demanda.</p></article><article><span class="ci-season-icon" aria-hidden="true"><img src="/configuracion/imagenes/iconos/iconos-estacion-otono-color.svg" width="44" height="44" alt="" loading="lazy" decoding="async"></span><h3>OTOÑO</h3><small>SEPTIEMBRE – NOVIEMBRE</small><p>Una opción interesante para combinar paseos, calma y oportunidades de ahorro.</p></article><article><span class="ci-season-icon" aria-hidden="true"><img src="/configuracion/imagenes/iconos/iconos-estacion-invierno-color.svg" width="44" height="44" alt="" loading="lazy" decoding="async"></span><h3>INVIERNO</h3><small>DICIEMBRE – FEBRERO</small><p>Frío, días cortos y encanto nórdico. Diciembre destaca si buscas mercados navideños.</p></article></div></section>
 
+<section class="ci-tips-section" aria-labelledby="ci-tips-title">
+  <div class="ci-heading ci-left"><div><span class="ci-script">Pequeños detalles que cambian el viaje</span><h2 id="ci-tips-title">CONSEJOS PARA ELEGIR CUÁNDO VIAJAR</h2></div><p>Siete consejos prácticos para acertar con las fechas, el tiempo y las actividades.</p></div>
+  <div class="ci-tips-shell">
+    <button type="button" class="ci-tips-arrow ci-tips-prev" id="ciTipsPrev" aria-label="Ver consejos anteriores">‹</button>
+    <div class="ci-tips-track" id="ciTipsTrack" aria-label="Consejos para viajar a Estocolmo">
+      <article class="ci-tip-card"><span class="ci-tip-number">1</span><div><h3>Reserva según la temporada</h3><p>Compara hoteles con antelación si viajas en verano o en fechas navideñas: no todas las semanas cuestan lo mismo.</p></div></article>
+      <article class="ci-tip-card"><span class="ci-tip-number">2</span><div><h3>Mira las horas de luz</h3><p>En invierno, concentra los paseos y miradores en las horas centrales y deja los museos para la tarde.</p></div></article>
+      <article class="ci-tip-card"><span class="ci-tip-number">3</span><div><h3>No cuentes con la nieve</h3><p>Que haga frío no garantiza nieve en Estocolmo. Si es tu prioridad, consulta el pronóstico cerca del viaje.</p></div></article>
+      <article class="ci-tip-card"><span class="ci-tip-number">4</span><div><h3>Comprueba Midsommar</h3><p>A finales de junio algunos horarios cambian por las celebraciones. Revisa aperturas antes de cerrar tu ruta.</p></div></article>
+      <article class="ci-tip-card"><span class="ci-tip-number">5</span><div><h3>Revisa barcos y ferris</h3><p>Las excursiones y frecuencias al archipiélago varían según la época. Confirma las rutas para tus fechas.</p></div></article>
+      <article class="ci-tip-card"><span class="ci-tip-number">6</span><div><h3>Vístete por capas</h3><p>Incluso en verano puede refrescar o llover. Una chaqueta ligera e impermeable facilita mucho los paseos.</p></div></article>
+      <article class="ci-tip-card"><span class="ci-tip-number">7</span><div><h3>Sé flexible con las fechas</h3><p>Antes de reservar, compara días próximos y fines de semana: el precio puede cambiar sin variar demasiado el viaje.</p></div></article>
+    </div>
+    <button type="button" class="ci-tips-arrow ci-tips-next" id="ciTipsNext" aria-label="Ver consejos siguientes">›</button>
+  </div>
+</section>
 </main>
 <section class="vcc-discover-section related-section" aria-labelledby="vcc-more-cuando-ir">
   <div class="related-inner">
@@ -147,11 +189,44 @@ html body.ci-page .ci-visit-mobile-note{display:none}
   let selected='clima',selectedMonth=5;
   choices.innerHTML=objectives.map(o=>'<button type="button" class="ci-objective" data-id="'+o.id+'" aria-pressed="false"><span class="ci-objective-icon" aria-hidden="true"><img src="'+o.icon+'" alt="" width="26" height="26" decoding="async"></span><strong>'+o.label+'</strong></button>').join('');
   calendar.innerHTML=months.map((m,i)=>'<button type="button" class="ci-calendar-month" data-month="'+i+'" aria-label="'+m.name+'" aria-pressed="false"><b>'+m.short.toUpperCase()+'</b>'+'<span class="ci-weather" aria-hidden="true"><img src="'+weatherIcons[i]+'" alt="" width="32" height="32" loading="lazy" decoding="async"></span><span class="ci-temperature">'+m.min+' / '+m.max+'°C</span><span class="ci-metric"><i class="ci-dot '+cls(crowd(m))+'"></i>Turistas <strong>'+crowd(m)+'</strong></span><span class="ci-metric"><i class="ci-dot '+cls(cost(m))+'"></i>Precios <strong>'+cost(m)+'</strong></span></button>').join('');
-  const detail=(i)=>{selectedMonth=i;const m=months[i];document.getElementById('detailName').textContent=m.name.toUpperCase();document.getElementById('detailText').textContent=m.text;document.getElementById('detailTemp').textContent='🌡 '+m.min+' a '+m.max+' °C';document.getElementById('detailLight').textContent='☀ '+m.light+' h de luz aprox.';document.getElementById('detailCost').textContent='€ Precios: '+cost(m).toLowerCase();calendar.querySelectorAll('button').forEach((b,j)=>b.setAttribute('aria-pressed',String(j===i)))};
+  const detail=(i)=>{
+    selectedMonth=i;
+    const m=months[i];
+    document.getElementById('detailName').textContent=m.name.toUpperCase();
+    document.getElementById('detailText').textContent=m.text;
+    document.getElementById('detailTemp').textContent='🌡 '+m.min+' a '+m.max+' °C';
+    document.getElementById('detailLight').textContent='☀ '+m.light+' h de luz aprox.';
+    document.getElementById('detailCost').textContent='€ Precios: '+cost(m).toLowerCase();
+    document.getElementById('detailPros').replaceChildren(...m.do.slice(0,i===7?4:3).map(t=>{const li=document.createElement('li');li.textContent=t;return li}));
+    document.getElementById('detailCons').replaceChildren(...m.dont.slice(0,i===7?3:2).map(t=>{const li=document.createElement('li');li.textContent=t;return li}));
+    document.getElementById('detailAdvice').textContent=m.advice;
+    document.getElementById('detailVisited').hidden=i!==7;
+    calendar.querySelectorAll('button').forEach((b,j)=>b.setAttribute('aria-pressed',String(j===i)));
+  };
   const select=(id)=>{selected=id;const o=objectives.find(x=>x.id===id);choices.querySelectorAll('button').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.id===id)));document.getElementById('recommendationMonths').textContent=o.title;document.getElementById('recommendationWhy').textContent=o.description;document.getElementById('recommendationReasons').innerHTML=o.reasons.map(r=>'<li>'+r+'</li>').join('');calendar.querySelectorAll('button').forEach((b,i)=>b.classList.toggle('recommended',o.months.includes(i)));detail(o.months[0])};
   choices.addEventListener('click',e=>{const b=e.target.closest('button[data-id]');if(b)select(b.dataset.id)});
   calendar.addEventListener('click',e=>{const b=e.target.closest('button[data-month]');if(b)detail(Number(b.dataset.month))});
   select('clima');
+  const tipsTrack=document.getElementById('ciTipsTrack');
+  const tipsPrev=document.getElementById('ciTipsPrev');
+  const tipsNext=document.getElementById('ciTipsNext');
+  const syncTips=()=>{
+    const end=Math.max(0,tipsTrack.scrollWidth-tipsTrack.clientWidth);
+    tipsPrev.disabled=tipsTrack.scrollLeft<=2;
+    tipsNext.disabled=tipsTrack.scrollLeft>=end-2;
+  };
+  const moveTips=direction=>{
+    const item=tipsTrack.querySelector('.ci-tip-card');
+    if(!item)return;
+    const gap=parseFloat(getComputedStyle(tipsTrack).gap)||14;
+    tipsTrack.scrollBy({left:direction*(item.getBoundingClientRect().width+gap),behavior:'smooth'});
+  };
+  tipsPrev.addEventListener('click',()=>moveTips(-1));
+  tipsNext.addEventListener('click',()=>moveTips(1));
+  tipsTrack.addEventListener('scroll',syncTips,{passive:true});
+  window.addEventListener('resize',syncTips);
+  syncTips();
+
 })();
 </script><script src="/configuracion/js/site-footer.js?v=20261102"></script><script>
 /* Mantener el subheader visible bajo la cabecera incluso al desplazarse. */
