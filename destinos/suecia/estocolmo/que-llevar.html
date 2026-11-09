@@ -18,6 +18,7 @@
 <link rel="stylesheet" href="/configuracion/css/plantillas/que-llevar-vcc-v5-unified.css?v=20261108-short-gray">
 <link rel="stylesheet" href="/configuracion/css/plantillas/que-llevar-vcc-v6.css?v=20261109-panel-scroll">
 <link rel="stylesheet" href="/configuracion/css/plantillas/que-llevar-vcc-v7.css?v=20261109-lluvia-v1">
+<link rel="stylesheet" href="/configuracion/css/plantillas/que-llevar-vcc-v8.css?v=20261109-minimal-v1">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Inicio","item":"https://viajandoconcabeza.com/"},{"@type":"ListItem","position":2,"name":"Destinos","item":"https://viajandoconcabeza.com/destinos/"},{"@type":"ListItem","position":3,"name":"Suecia","item":"https://viajandoconcabeza.com/destinos/suecia/"},{"@type":"ListItem","position":4,"name":"Estocolmo","item":"https://viajandoconcabeza.com/destinos/suecia/estocolmo/"},{"@type":"ListItem","position":5,"name":"Qué llevar","item":"https://viajandoconcabeza.com/destinos/suecia/estocolmo/que-llevar.html"}]}</script>
 </head>
 <body><header class="page-header"></header>
@@ -33,30 +34,38 @@
  <a href="#que-maleta" class="is-active" aria-current="location">QUÉ MALETA</a>
  <a href="#haz-tu-maleta">PREPARA TU MALETA</a>
  <a href="#imprescindibles">IMPRESCINDIBLES</a>
- <a href="#consejos">CÓMO AHORRAR</a>
+ <a href="#consejos">AHORRAR ESPACIO</a>
 </div></nav>
  <main class="ql-wrap ql-main">
  <section class="ql-v7-section ql-v7-section-bag" id="que-maleta" aria-labelledby="ql-v7-bag-title">
    <header class="ql-section-heading ql-section-heading-left"><p class="ql-section-script">Elige bien antes de hacer la maleta</p><h2 id="ql-v7-bag-title">¿QUÉ MALETA LLEVAR?</h2><p class="ql-section-desc">¿Mochila, maleta de cabina o facturada? El mes, los días de viaje y la posibilidad de lavar ropa influyen mucho más de lo que parece.</p></header>
-   <div class="ql-v7-bag-planner" id="ql-v7-planner">
-    <div class="ql-v7-planner-controls">
-      <label class="ql-v6-field"><span>¿En qué mes viajas?</span><select id="ql-v6-month" aria-label="Mes del viaje a Estocolmo"><option value="0">Enero</option><option value="1" selected>Febrero</option><option value="2">Marzo</option><option value="3">Abril</option><option value="4">Mayo</option><option value="5">Junio</option><option value="6">Julio</option><option value="7">Agosto</option><option value="8">Septiembre</option><option value="9">Octubre</option><option value="10">Noviembre</option><option value="11">Diciembre</option></select><small class="ql-v7-rain-days" id="ql-v7-rain-days" aria-live="polite">☔ Febrero: ≈14 días con lluvia o nieve/mes</small></label>
+   <div class="ql-v7-bag-planner ql-v8-bag-planner" id="ql-v7-planner">
+    <div class="ql-v8-planner-layout">
+      <div class="ql-v7-planner-controls ql-v8-planner-controls">
+      <label class="ql-v6-field"><span>¿En qué mes viajas?</span><select id="ql-v6-month" aria-label="Mes del viaje a Estocolmo"><option value="0">Enero</option><option value="1" selected>Febrero</option><option value="2">Marzo</option><option value="3">Abril</option><option value="4">Mayo</option><option value="5">Junio</option><option value="6">Julio</option><option value="7">Agosto</option><option value="8">Septiembre</option><option value="9">Octubre</option><option value="10">Noviembre</option><option value="11">Diciembre</option></select></label>
    <label class="ql-v6-field"><span>¿Cuántos días?</span><select id="ql-v6-days" aria-label="Duración del viaje"><option value="1">1 día</option><option value="2">2 días</option><option value="3">3 días</option><option value="4">4 días</option><option value="5" selected>5 días</option><option value="6">6 días</option><option value="7">7 días</option><option value="8">8 días</option><option value="9">9 días</option><option value="10">10 días</option><option value="11">11 días</option><option value="12">12 días</option><option value="13">13 días</option><option value="14">14 días</option><option value="15">15 días</option><option value="16">16 días</option><option value="17">17 días</option><option value="18">18 días</option><option value="19">19 días</option><option value="20">20 días</option><option value="21">21 días</option><option value="22">22 días</option><option value="23">23 días</option><option value="24">24 días</option><option value="25">25 días</option><option value="26">26 días</option><option value="27">27 días</option><option value="28">28 días</option><option value="29">29 días</option><option value="30">30 días</option></select></label>
       <label class="ql-v6-laundry" for="ql-v6-laundry">
    <input id="ql-v6-laundry" type="checkbox">
    <span><strong>Podré lavar ropa durante el viaje</strong><small>Calcularemos menos mudas. Muy útil para viajes largos.</small></span>
 </label>
     </div>
-    <div class="ql-v7-bag-grid" aria-label="Tres tipos de equipaje para viajar a Estocolmo">
+    
+      <div class="ql-v8-planner-results">
+        <div class="ql-v7-bag-grid" aria-label="Tres tipos de equipaje para viajar a Estocolmo">
       <article class="ql-v7-bag-card" data-bag="personal"><span class="ql-v7-bag-badge" hidden>RECOMENDADA</span><span class="ql-v7-bag-icon"><svg viewBox="0 0 80 94" aria-hidden="true"><path d="M27 26V19c0-8 6-14 13-14s13 6 13 14v7M19 44V30c0-11 8-18 21-18s21 7 21 18v42c0 8-5 13-13 13H32c-8 0-13-5-13-13V44Z"/><rect x="25" y="46" width="30" height="26" rx="6"/><path d="M19 34c-10-1-12 8-12 16v18M61 34c10-1 12 8 12 16v18M31 26h18M30 55h20"/></svg></span><div><h3>Bolso o mochila de mano</h3><p>Viaja ligero en escapadas muy breves.</p><small>Debajo del asiento</small></div></article>
       <article class="ql-v7-bag-card" data-bag="cabin"><span class="ql-v7-bag-badge" hidden>RECOMENDADA</span><span class="ql-v7-bag-icon"><svg viewBox="0 0 80 94" aria-hidden="true"><path d="M32 19V8c0-3 2-5 5-5h6c3 0 5 2 5 5v11"/><rect x="19" y="20" width="42" height="63" rx="9"/><path d="M26 27v47m27-47v47M32 30h16M28 84v5m24-5v5"/><circle cx="30" cy="88" r="3"/><circle cx="50" cy="88" r="3"/></svg></span><div><h3>Maleta de cabina</h3><p>Compacta y práctica para varios días.</p><small>Compartimento superior</small></div></article>
       <article class="ql-v7-bag-card" data-bag="checked"><span class="ql-v7-bag-badge" hidden>RECOMENDADA</span><span class="ql-v7-bag-icon"><svg viewBox="0 0 80 94" aria-hidden="true"><path d="M29 19V9c0-5 3-7 11-7s11 2 11 7v10"/><rect x="10" y="19" width="60" height="64" rx="10"/><path d="M21 27v47M59 27v47M32 32h16M15 84v5m50-5v5"/><circle cx="21" cy="88" r="4"/><circle cx="59" cy="88" r="4"/><path d="M34 44h12m-6-6v12"/></svg></span><div><h3>Maleta facturada</h3><p>Más espacio para ropa de abrigo o viajes largos.</p><small>Bodega del avión</small></div></article>
     </div>
-    <div class="ql-v7-bag-result" role="status" aria-live="polite">
-      <div><p class="ql-v7-reco-label">Nuestra recomendación VCC</p><h3 id="ql-v7-bag-result-name">Maleta de cabina</h3><span class="ql-v7-bag-context" id="ql-v7-bag-result-context">5 días · febrero</span></div>
-      <p class="ql-v7-bag-reason" id="ql-v7-bag-result-reason">Tu recomendación se ajustará automáticamente al mes y los días del viaje.</p>
+    
+        <aside class="ql-v8-consejo-vcc" aria-label="Consejo VCC sobre el equipaje" role="status" aria-live="polite">
+          <div class="ql-v8-consejo-brand">
+            <img src="/configuracion/imagenes/marca/logo-vcc.svg" alt="VCC" width="47" height="47" loading="lazy" decoding="async">
+            <strong>CONSEJO VCC</strong>
+          </div>
+          <p class="ql-v8-consejo-text" id="ql-v7-bag-result-reason">Según el mes y los días elegidos, te explicamos por qué recomendamos la opción marcada.</p>
+        </aside>
+      </div>
     </div>
-    <p class="ql-v7-rain-source">☁️ Días de precipitación: media mensual 1991–2020 (≥0,1 mm), incluye lluvia y nieve. No es una previsión. <a href="https://worldweather.wmo.int/en/city.html?cityId=187" target="_blank" rel="noopener noreferrer">Fuente: WMO / SMHI</a>.</p>
     <p class="ql-v7-airline-note">Orientación práctica, no una franquicia garantizada: comprueba siempre las medidas, el peso y el equipaje incluido en tu tarifa. Consulta las condiciones de <a href="https://help.vueling.com/hc/es/articles/19798835176081-Equipaje-de-mano-Maletas-de-mano" target="_blank" rel="noopener noreferrer">Vueling</a> o <a href="https://help.ryanair.com/hc/en-us/articles/12888036565521-Ryanair-s-Bag-Policy" target="_blank" rel="noopener noreferrer">Ryanair</a>, según con quién vueles.</p>
     <details class="ql-v7-season-details"><summary>Qué cambia al hacer la maleta según la estación</summary><div class="ql-v6-seasonal" aria-labelledby="ql-v6-seasonal-title">
  <p class="ql-section-script">No todos los meses son iguales</p>
@@ -72,21 +81,23 @@
    </div>
  </section>
  <section class="ql-v7-section ql-v7-section-pack" id="haz-tu-maleta" aria-labelledby="ql-pack-title">
-  <header class="ql-section-heading ql-section-heading-left"><p class="ql-section-script">Solo lo que realmente necesitas</p><h2 id="ql-pack-title">PREPARA TU MALETA</h2><p class="ql-section-desc">Tu lista se adapta automáticamente a las opciones de arriba. Marca lo que ya has preparado, comprueba las cantidades y guarda la lista para el viaje. <a class="ql-v7-edit-link" href="#que-maleta">Cambiar mes o días</a></p></header>
-  <aside class="ql-v7-month-advice" aria-label="Clima y recomendación para el mes elegido">
- <span class="ql-v7-month-advice-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2v3m0 14v3M2 12h3m14 0h3M4.9 4.9 7 7m10 10 2.1 2.1m0-14.2L17 7M7 17l-2.1 2.1"/><circle cx="12" cy="12" r="4"/></svg></span>
- <div class="ql-v7-month-advice-content">
-  <div class="ql-v7-month-advice-top"><strong id="ql-v6-month-label">Febrero</strong><span id="ql-v6-temperature">−3,2° / 1,2°</span><span id="ql-v6-month-season">Estación: invierno</span></div>
-  <p id="ql-v6-focus">Prioriza abrigo cálido, guantes, gorro y calzado impermeable.</p>
-  <p class="ql-v7-avoid-small"><strong>Lo que evitaríamos:</strong> <span id="ql-v6-avoid">Llevar prendas que apenas vas a utilizar.</span></p>
- </div>
-</aside>
   <section class="ql-v6-list" id="ql-v6-list-panel" aria-labelledby="ql-v6-summary-title">
   <div class="ql-v6-print-meta" id="ql-v6-print-meta">Estocolmo · febrero · 5 días</div>
   <header class="ql-v6-list-head">
    <div><p class="ql-section-script">Tu equipaje, sin excesos</p><h3 id="ql-v6-summary-title">Tu lista para febrero · 5 días</h3></div>
    <div class="ql-v6-progress"><strong id="ql-v6-progress" aria-live="polite">0 preparados</strong><span class="ql-v6-track" aria-hidden="true"><span id="ql-v6-progress-bar"></span></span></div>
   </header>
+   <div class="ql-v8-climate" aria-label="Clima habitual del mes seleccionado">
+     <div class="ql-v8-climate-condition">
+       <img id="ql-v8-weather-icon" src="/configuracion/imagenes/iconos/iconos-tiempo-nieve-color.svg" alt="" width="40" height="40" decoding="async">
+       <span class="ql-v8-condition-text"><small>Clima habitual · <span id="ql-v6-month-label">Febrero</span></small><strong id="ql-v8-weather-title">Frío, nieve posible</strong></span>
+     </div>
+     <div class="ql-v8-climate-metric"><small>Temp. mínima</small><strong id="ql-v8-temp-low">−3,2 °C</strong></div>
+     <div class="ql-v8-climate-metric"><small>Temp. máxima</small><strong id="ql-v8-temp-high">1,2 °C</strong></div>
+     <div class="ql-v8-climate-metric"><small>Días con lluvia o nieve</small><strong id="ql-v8-rain-days">≈14 días/mes</strong></div>
+   </div>
+   <p class="ql-v8-climate-source">Valores medios mensuales y tiempo ilustrativo, no una previsión. <a href="https://worldweather.wmo.int/en/city.html?cityId=187" target="_blank" rel="noopener noreferrer">WMO / SMHI</a>.</p>
+
   <div class="ql-v6-scroll-shell">
    <div class="ql-v6-categories" id="ql-v6-categories" role="region" tabindex="0" aria-label="Lista de equipaje. Desplázate con la rueda, el dedo o las flechas">
     <p>Selecciona el mes y los días para ver tu lista personalizada.</p>
@@ -149,6 +160,6 @@
 <footer class="vcc-global-footer"></footer>
 <script src="/configuracion/js/site-header.js?v=20261103-social-icons"></script>
 <script src="/configuracion/js/site-footer.js?v=20261102"></script>
-<script src="/configuracion/js/plantillas/que-llevar-vcc-v7.js?v=20261109-lluvia-v1"></script>
+<script src="/configuracion/js/plantillas/que-llevar-vcc-v7.js?v=20261109-minimal-v1"></script>
 </body>
 </html>
