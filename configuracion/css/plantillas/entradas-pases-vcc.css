@@ -360,3 +360,14 @@
  .ep-pass-bottom{align-items:flex-start;flex-direction:column}
  .ep-pass-reference{white-space:normal}
 }
+
+
+/* VCC 2026-11-09 · Ranking recuperado: min-content fix iOS/mobile */
+.ep-page .ep-ranking-section{width:100%;max-width:100%;min-width:0}
+.ep-page .ep-ranking-section :is(.ep-ranking-selector,.ep-ranking-panel,.ep-ranking-list,.ep-ranking-item){box-sizing:border-box;max-width:100%;min-width:0}
+.ep-page .ep-ranking-section :is(.ep-ranking-ident,.ep-ranking-why,.ep-ranking-why p){min-width:0;overflow-wrap:break-word}
+@media(max-width:760px){
+  .ep-page .ep-ranking-section{overflow:hidden}
+  .ep-page .ep-ranking-tabs{display:flex;grid-template-columns:none;align-items:stretch;gap:7px;width:100%;max-width:100%;min-width:0;overflow-x:auto;overscroll-behavior-x:contain}
+  .ep-page .ep-ranking-tab{flex:0 0 auto}
+}
