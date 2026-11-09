@@ -309,7 +309,7 @@ html body.ci-page .ci-subnav a:hover{
  color:#a65340!important;
  border-bottom-color:#cf705c!important;
 }
-html body.ci-page :is(#consejo,#mes-a-mes,#experiencia,#consejos){
+html body.ci-page :is(#consejo,#mes-a-mes,#experiencia,#errores){
  scroll-margin-top:calc(var(--vcc-header-h,54px) + 58px);
 }
 @media(max-width:720px){
@@ -319,7 +319,7 @@ html body.ci-page :is(#consejo,#mes-a-mes,#experiencia,#consejos){
   gap:25px!important;
  }
  html body.ci-page .ci-subnav a{font-size:11px!important}
- html body.ci-page :is(#consejo,#mes-a-mes,#experiencia,#consejos){
+ html body.ci-page :is(#consejo,#mes-a-mes,#experiencia,#errores){
   scroll-margin-top:calc(var(--vcc-header-h,87px) + 58px);
  }
 }
@@ -348,7 +348,7 @@ html body.ci-page .ci-subnav-placeholder{
  width:100%;
  pointer-events:none;
 }
-html body.ci-page :is(#consejo,#mes-a-mes,#experiencia,#consejos){
+html body.ci-page :is(#consejo,#mes-a-mes,#experiencia,#errores){
  scroll-margin-top:var(--ci-sticky-offset,115px)!important;
 }
 
@@ -969,3 +969,35 @@ html body.ci-page .ci-august-vcc{margin-top:4px}
 html body.ci-page .ci-month-right{row-gap:12px}
 html body.ci-page .ci-month-right>.ci-month-vcc,
 html body.ci-page .ci-month-right>.ci-month-procon+.ci-month-vcc{justify-self:center!important}
+/* VCC 2026-11-09: consejo mensual aún más bajo, igual de ancho y centrado al pie. */
+html body.ci-page .ci-month-right>.ci-month-vcc,
+html body.ci-page .ci-month-right>.ci-month-procon+.ci-month-vcc{
+  height:76px!important;min-height:76px!important;max-height:76px!important;
+  flex:0 0 76px!important;
+  margin:auto auto 0!important;
+  padding:6px 10px!important;
+}
+html body.ci-page .ci-tips-source{
+  margin:10px 0 0;
+  font:400 10px/1.5 'DM Sans',sans-serif;
+  color:#83756b;text-align:right;
+}
+html body.ci-page .ci-tips-source a{
+  color:#a85a3d;font-weight:700;text-decoration:underline;text-underline-offset:2px;
+}
+html body.ci-page .ci-tip-card h3{overflow-wrap:break-word}
+@media(max-width:600px){
+ html body.ci-page .ci-month-right>.ci-month-vcc,
+ html body.ci-page .ci-month-right>.ci-month-procon+.ci-month-vcc{
+  height:108px!important;min-height:108px!important;max-height:108px!important;
+  flex-basis:108px!important;padding:7px!important;
+ }
+ html body.ci-page .ci-tips-source{text-align:left}
+}
+@media(max-width:380px){
+ html body.ci-page .ci-month-right>.ci-month-vcc,
+ html body.ci-page .ci-month-right>.ci-month-procon+.ci-month-vcc{
+  height:128px!important;min-height:128px!important;max-height:128px!important;
+  flex-basis:128px!important;
+ }
+}
