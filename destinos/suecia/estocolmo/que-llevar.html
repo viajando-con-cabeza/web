@@ -16,7 +16,7 @@
 <link rel="stylesheet" href="/configuracion/css/plantillas/que-llevar-vcc-v3.css?v=20261107-v4-fiel">
 <link rel="stylesheet" href="/configuracion/css/plantillas/que-llevar-vcc-v4-fidelity.css?v=20261108-stable">
 <link rel="stylesheet" href="/configuracion/css/plantillas/que-llevar-vcc-v5-unified.css?v=20261108-short-gray">
-<link rel="stylesheet" href="/configuracion/css/plantillas/que-llevar-vcc-v6.css?v=20261109-months">
+<link rel="stylesheet" href="/configuracion/css/plantillas/que-llevar-vcc-v6.css?v=20261109-panel-scroll">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Inicio","item":"https://viajandoconcabeza.com/"},{"@type":"ListItem","position":2,"name":"Destinos","item":"https://viajandoconcabeza.com/destinos/"},{"@type":"ListItem","position":3,"name":"Suecia","item":"https://viajandoconcabeza.com/destinos/suecia/"},{"@type":"ListItem","position":4,"name":"Estocolmo","item":"https://viajandoconcabeza.com/destinos/suecia/estocolmo/"},{"@type":"ListItem","position":5,"name":"Qué llevar","item":"https://viajandoconcabeza.com/destinos/suecia/estocolmo/que-llevar.html"}]}</script>
 </head>
 <body><header class="page-header"></header>
@@ -61,14 +61,20 @@
    <p class="ql-v6-avoid"><strong>Lo que evitaríamos:</strong> <span id="ql-v6-avoid">Llenar la maleta de prendas que solo usarás una vez.</span></p>
   </div>
  </section>
- <section class="ql-v6-list" aria-labelledby="ql-v6-summary-title">
+ <section class="ql-v6-list" id="ql-v6-list-panel" aria-labelledby="ql-v6-summary-title">
   <div class="ql-v6-print-meta" id="ql-v6-print-meta">Estocolmo · febrero · 5 días</div>
   <header class="ql-v6-list-head">
    <div><p class="ql-section-script">Tu equipaje, sin excesos</p><h3 id="ql-v6-summary-title">Tu lista para febrero · 5 días</h3></div>
    <div class="ql-v6-progress"><strong id="ql-v6-progress" aria-live="polite">0 preparados</strong><span class="ql-v6-track" aria-hidden="true"><span id="ql-v6-progress-bar"></span></span></div>
   </header>
-  <div class="ql-v6-categories" id="ql-v6-categories" aria-label="Lista de equipaje con cantidades y casillas para marcar">
-   <p>Selecciona el mes y los días para ver tu lista personalizada.</p>
+  <div class="ql-v6-scroll-shell">
+   <div class="ql-v6-categories" id="ql-v6-categories" role="region" tabindex="0" aria-label="Lista de equipaje. Desplázate con la rueda, el dedo o las flechas">
+    <p>Selecciona el mes y los días para ver tu lista personalizada.</p>
+   </div>
+   <div class="ql-v6-scroll-arrows" aria-label="Desplazar la lista">
+    <button id="ql-v6-scroll-up" type="button" aria-label="Subir en la lista" disabled><svg aria-hidden="true" viewBox="0 0 24 24"><path d="m5 15 7-7 7 7"/></svg></button>
+    <button id="ql-v6-scroll-down" type="button" aria-label="Bajar en la lista"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="m5 9 7 7 7-7"/></svg></button>
+   </div>
   </div>
   <p class="ql-v6-caveat" id="ql-v6-caveat">Comprueba siempre la previsión meteorológica antes de viajar.</p>
   <div class="ql-v6-actions">
@@ -140,6 +146,6 @@
 <footer class="vcc-global-footer"></footer>
 <script src="/configuracion/js/site-header.js?v=20261103-social-icons"></script>
 <script src="/configuracion/js/site-footer.js?v=20261102"></script>
-<script src="/configuracion/js/plantillas/que-llevar-vcc-v6.js?v=20261109-months"></script>
+<script src="/configuracion/js/plantillas/que-llevar-vcc-v6.js?v=20261109-panel-scroll"></script>
 </body>
 </html>
