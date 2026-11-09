@@ -2,6 +2,7 @@
 (() => {
   const nav = document.getElementById('placeNav');
   const sections = [...document.querySelectorAll('.imp-main .place[id]')];
+  const mapSection = document.getElementById('mapa-imprescindibles');
   const links = [...(nav?.querySelectorAll('a[href^="#"]') || [])];
   if (nav && sections.length && links.length) {
     let active = '', queued = false;
@@ -26,6 +27,7 @@
         if (section.getBoundingClientRect().top <= limit) id = section.id;
         else break;
       }
+      if (mapSection && mapSection.getBoundingClientRect().top <= limit) id = mapSection.id;
       highlight(id);
     };
     const queue = () => {if (!queued) {queued = true; requestAnimationFrame(sync);}};
