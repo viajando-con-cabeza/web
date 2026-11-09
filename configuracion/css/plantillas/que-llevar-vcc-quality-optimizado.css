@@ -2726,3 +2726,56 @@ html body .ql-page .ql-v7-section-pack .ql-v6-actions{
   background:#FFFFFF!important;
  }
 }
+
+/* VCC v16 · fondos ligeros y SVG originales sin desaturación */
+/* Selectores sin bloque de color propio: pertenecen al panel blanco. */
+html body .ql-page .ql-v7-section-bag .ql-v8-planner-layout > .ql-v8-planner-controls{
+ background:transparent!important;background-image:none!important;
+ border:0!important;box-shadow:none!important;
+ border-radius:0!important;
+}
+/* Solo las tarjetas de equipaje llevan un velo de color; la opción VCC destaca más. */
+html body .ql-page .ql-v7-section-bag .ql-v8-planner-results .ql-v7-bag-card{
+ background:rgba(178,128,82,.075)!important;background-image:none!important;
+ border:1px solid rgba(167,114,69,.20)!important;
+}
+html body .ql-page .ql-v7-section-bag .ql-v8-planner-results .ql-v7-bag-card.is-recommended{
+ background:rgba(201,116,67,.21)!important;background-image:none!important;
+ border:2px solid #C87652!important;
+}
+/* La checklist mantiene los colores de sus pictogramas originales. 
+   Solo hacemos más translúcidas las superficies, nunca el contenido. */
+html body .ql-page .ql-v7-section-pack .ql-v6-scroll-shell > .ql-v6-categories > .ql-v6-category{
+ background:rgba(189,142,102,.065)!important;
+ background-image:none!important;
+ border-color:rgba(164,119,82,.20)!important;
+}
+html body .ql-page .ql-v7-section-pack .ql-v6-scroll-shell > .ql-v6-categories > .ql-v6-category h4{
+ background:rgba(176,128,87,.13)!important;
+ background-image:none!important;
+ color:#382C25!important;
+}
+html body .ql-page .ql-v7-section-pack .ql-v6-category .ql-v6-item-icon,
+html body .ql-page .ql-v7-section-pack .ql-v6-category .ql-v11-category-icon{
+ opacity:1!important;
+ filter:none!important;
+ visibility:visible!important;
+}
+/* Consejos blancos, tanto bajo las maletas como fuera de la checklist. */
+html body .ql-page .ql-v7-section-bag .ql-v8-planner-results > .ql-v8-consejo-vcc,
+html body .ql-page .ql-v7-section-pack > .ql-v10-packing-consejo{
+ background:#FFFFFF!important;background-image:none!important;
+ border-color:#E7D8C9!important;box-shadow:none!important;
+}
+html body .ql-page .ql-v7-section-pack > .ql-v10-packing-consejo .ql-v10-consejo-brand{
+ border-right-color:#E7D8C9!important;
+}
+/* Mantener la impresión clara y sin tintes cargados. */
+@media print{
+ html body .ql-page .ql-v7-section-pack .ql-v6-scroll-shell > .ql-v6-categories > .ql-v6-category{
+  background:#FFFFFF!important;
+ }
+ html body .ql-page .ql-v7-section-pack .ql-v6-scroll-shell > .ql-v6-categories > .ql-v6-category h4{
+  background:#F7F2ED!important;
+ }
+}
