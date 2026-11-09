@@ -92,8 +92,20 @@
     }).addTo(map);
     const bounds=[];
     for(const [i,spot] of spots.entries()){
-      const marker=leaflet.circleMarker(spot.latlng,{
-        radius:8,weight:2,color:'#fff',fillColor:'#ed632b',fillOpacity:.96
+      // Puntos numerados en el mismo orden que las fichas.
+      // Separacion visual minima en Gamla Stan/Stortorget (coordenadas vecinas).
+      const offset=spot.id==='gamla-stan'?16:spot.id==='stortorget'?-16:0;
+      const marker=leaflet.marker(spot.latlng,{
+        icon:leaflet.divIcon({
+          className:'imp-map-number-marker',
+          html:'<span class="imp-map-pin-number">'+(i+1)+'</span>',
+          iconSize:[28,28],
+          iconAnchor:[14+offset,14],
+          popupAnchor:[0,-13]
+        }),
+        keyboard:true,
+        riseOnHover:true,
+        title:(i+1)+' · '+spot.title
       }).addTo(map);
       const popup=document.createElement('div');
       const title=document.createElement('strong');
