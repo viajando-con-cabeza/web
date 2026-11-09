@@ -195,8 +195,22 @@
       const tile = document.createElement('button');
       tile.type='button'; tile.className='gallery-tile'; tile.dataset.i=String(index);
       tile.setAttribute('aria-label',`Ampliar fotografía ${index+1} de ${photos.length}`);
-      lazyR2Background(tile, optimizedPhoto(src, 'mini'));
-      tile.style.setProperty('background-size', 'cover', 'important');
+      if (gallery.dataset.seoImages === 'true') {
+        // Solo en las galerías marcadas: <img> real, con alt, sin CSS background duplicado.
+        // Conservamos el botón, el mosaico y el visor de Qué ver sin cambios.
+        const img=document.createElement('img');
+        img.src=optimizedPhoto(src, 'mini');
+        const type=/\/bosques\//.test(src)?'Bosque del archipiélago':
+          /\/mar\//.test(src)?'Costa y mar del archipiélago':'Paisaje del archipiélago';
+        img.alt=type+' de Estocolmo en agosto · fotografía propia '+(index+1);
+        img.width=450;img.height=300;
+        img.loading='lazy';img.decoding='async';
+        img.onerror=()=>{ if (img.src!==src) img.src=src; };
+        tile.append(img);
+      } else {
+        lazyR2Background(tile, optimizedPhoto(src, 'mini'));
+        tile.style.setProperty('background-size', 'cover', 'important');
+      }
       const extras = photos.length - visible;
       if (index === visible - 1 && extras > 0) {
         const more=document.createElement('span');more.className='gallery-more';
