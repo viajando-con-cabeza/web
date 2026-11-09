@@ -5,8 +5,15 @@
   'use strict';
   const desktop = window.matchMedia('(min-width: 801px)');
   // La variant petita es crea i es desa automàticament a R2 via Worker.
-  const miniUrl = source => String(source).replace(/^https:\/\/img\.viajandoconcabeza\.com\/(destinos\/.+\.(?:avif|webp))$/i,
-    'https://img.viajandoconcabeza.com/__vcc_preview/mini/$1');
+  const miniUrl = source => {
+    const arch=String(source).match(/^https:\/\/img\.viajandoconcabeza\.com\/(destinos\/suecia\/estocolmo-archipelago\/2026-dia8)\/(?:paisajes|bosques|mar)\/(DSC\d+\.avif)$/i);
+    if (arch) {
+      const cached=new Set(['DSC08334.avif','DSC08335.avif','DSC08336.avif','DSC08337.avif','DSC08338.avif','DSC08342.avif','DSC08344.avif','DSC08345.avif']);
+      return cached.has(arch[2])?'https://img.viajandoconcabeza.com/'+arch[1]+'/_preview/mini/'+arch[2]:source;
+    }
+    return String(source).replace(/^https:\/\/img\.viajandoconcabeza\.com\/(destinos\/.+\.(?:avif|webp))$/i,
+      'https://img.viajandoconcabeza.com/__vcc_preview/mini/$1');
+  };
 
   const layer = document.createElement('div');
   layer.id = 'vcc-desktop-gallery';
