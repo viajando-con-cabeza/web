@@ -161,7 +161,6 @@ function render(resetListScroll=false){
  const weather=weatherModes[state.month];
  const low=m.lo.toLocaleString("es-ES",{minimumFractionDigits:1,maximumFractionDigits:1});
  const high=m.hi.toLocaleString("es-ES",{minimumFractionDigits:1,maximumFractionDigits:1});
- $("ql-v6-month-label").textContent=m.name.charAt(0).toUpperCase()+m.name.slice(1);
  $("ql-v8-weather-icon").src="/configuracion/imagenes/iconos/iconos-tiempo-"+weather.icon+"-color.svg";
  $("ql-v8-weather-title").textContent=weather.label;
  $("ql-v8-temp-low").textContent=low+" °C";
