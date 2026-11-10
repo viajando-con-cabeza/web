@@ -1119,11 +1119,6 @@ html body.ci-page .ci-august-imp-gallery .gallery-mosaic{
   border-radius:12px!important;
   box-shadow:none!important;
 }
-html body.ci-page .ci-august-gallery-caption{
-  display:block;margin-top:7px;
-  color:#817268;
-  font:400 10px/1.5 'DM Sans',sans-serif;
-}
 html body.ci-page .ci-august-imp-gallery .ci-august-gallery-loading{
   display:block;text-align:center;padding:32px;color:#84766b;
   font:500 12px/1.5 'DM Sans',sans-serif;
@@ -1226,7 +1221,9 @@ html body.ci-page .ci-month-result .ci-month-right>.ci-month-procon+.ci-month-vc
   height:auto!important;
   max-height:none!important;
   flex:0 0 auto!important;
-  margin:12px auto 0!important;
+  /* Alineación constante al pie: el margen libre se absorbe por arriba.
+     El padding inferior de la tarjeta sigue siendo el mismo en todos los meses. */
+  margin:auto auto 0!important;
 }
 html body.ci-page .ci-month-result>.ci-month-sources{
   border:0!important;
@@ -1264,7 +1261,7 @@ html body.ci-page .ci-month-result>.ci-month-sources a{
     height:auto!important;
     max-height:none!important;
     flex:0 0 auto!important;
-    margin:13px auto 0!important;
+    margin:auto auto 0!important;
   }
   html body.ci-page .ci-month-result>.ci-month-sources{
     margin:8px 2px 0!important;
