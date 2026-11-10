@@ -183,75 +183,167 @@ main.cl-page.cl-landing {
   margin:0;color:#46403b;
   font:400 13px/1.65 "DM Sans",sans-serif;
 }
-.cl-page.cl-landing .cl-landing-note {
-  max-width:1160px;margin:15px auto 0;padding:0 24px;
-  color:#69645e;text-align:center;
-  font:400 12px/1.65 "DM Sans",sans-serif;
-}
 .cl-page.cl-landing .vcc-sr-only {
   position:absolute;width:1px;height:1px;padding:0;margin:-1px;
   overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;
 }
-/* Comparativa editorial: respuesta antes de abrir las guías detalladas. */
+/* Llegada a Estocolmo · comparación editorial clara, ligera y sin bloques duplicados. */
 .cl-page.cl-landing .vcc-transfer-overview {
-  padding:36px max(20px,calc((100vw - 1180px)/2)) 38px;
+  padding:36px max(22px,calc((100vw - 1160px)/2)) 38px;
   background:#fff;
+}
+.cl-page.cl-landing .vcc-arrival-section-head {
+  max-width:840px;
+  margin:0 0 21px;
 }
 .cl-page.cl-landing .vcc-transfer-eyebrow,
 .cl-page.cl-landing .vcc-arrival-eyebrow {
-  margin:0 0 8px;color:#b9613b;
-  font:600 25px/1.2 "Caveat",cursive;
+  margin:0 0 8px;
+  color:#bd6747;
+  font:600 25px/1.15 "Caveat",cursive;
 }
 .cl-page.cl-landing .vcc-transfer-overview h2,
 .cl-page.cl-landing .vcc-arrival-brief h2 {
-  margin:0 0 12px;
-  color:#213e39;
-  font:500 clamp(26px,3vw,34px)/1.2 "Oswald",sans-serif;
+  margin:0 0 10px;
+  color:#253932;
+  font:500 clamp(27px,2.8vw,35px)/1.18 "Oswald",sans-serif;
 }
 .cl-page.cl-landing .vcc-transfer-intro,
 .cl-page.cl-landing .vcc-arrival-summary {
-  max-width:850px;margin:0 0 21px;
-  color:#505752;font:400 13px/1.75 "DM Sans",sans-serif;
+  max-width:740px;
+  margin:0;
+  color:#59615c;
+  font:400 13.5px/1.65 "DM Sans",sans-serif;
 }
-.cl-page.cl-landing .vcc-transfer-grid,
-.cl-page.cl-landing .vcc-arrival-grid {
-  display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;
+.cl-page.cl-landing .vcc-transfer-grid {
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:13px;
+  align-items:stretch;
 }
-.cl-page.cl-landing .vcc-transfer-grid article,
-.cl-page.cl-landing .vcc-arrival-grid article {
-  min-width:0;padding:19px 19px 17px;
-  background:#fffdf9;border:1px solid #e8ded3;border-radius:13px;
+.cl-page.cl-landing .vcc-airport-card {
+  display:flex;
+  flex-direction:column;
+  min-width:0;
+  min-height:0;
+  padding:20px 21px 15px;
+  border:1px solid #e8e4df;
+  border-top:2px solid #ce8a6a;
+  border-radius:13px;
+  background:#fefdfb;
+  box-shadow:0 4px 15px rgba(42,45,40,.035);
 }
-.cl-page.cl-landing .vcc-transfer-grid h3,
-.cl-page.cl-landing .vcc-arrival-grid h3 {
-  margin:0 0 9px;
-  color:#294940;font:500 21px/1.2 "Oswald",sans-serif;
+.cl-page.cl-landing .vcc-airport-kind {
+  display:block;
+  margin:0 0 5px;
+  color:#a8674d;
+  font:700 10px/1.3 "DM Sans",sans-serif;
+  letter-spacing:.02em;
 }
-.cl-page.cl-landing .vcc-transfer-grid .vcc-transfer-tag {
-  display:inline-block;margin:0 0 11px;padding:5px 9px;
-  border-radius:7px;background:#f7e8dc;color:#9b4a2d;
-  font:700 11px/1.3 "DM Sans",sans-serif;
+.cl-page.cl-landing .vcc-airport-card h3 {
+  display:flex;
+  align-items:baseline;
+  gap:9px;
+  margin:0;
+  color:#263a34;
+  font:500 25px/1.15 "Oswald",sans-serif;
 }
-.cl-page.cl-landing .vcc-transfer-grid p,
-.cl-page.cl-landing .vcc-arrival-grid p {
-  margin:0 0 12px;color:#505752;
-  font:400 12.5px/1.65 "DM Sans",sans-serif;
+.cl-page.cl-landing .vcc-airport-card h3 small {
+  color:#86827d;
+  font:600 11px/1.2 "DM Sans",sans-serif;
+  letter-spacing:.04em;
 }
-.cl-page.cl-landing .vcc-arrival-grid p {margin:0}
-.cl-page.cl-landing .vcc-transfer-grid a,
-.cl-page.cl-landing .vcc-arrival-grid a {
-  color:#a9553d;text-decoration:underline;
-  text-underline-offset:3px;text-decoration-thickness:1px;
+.cl-page.cl-landing .vcc-airport-stat {
+  display:flex;
+  align-items:baseline;
+  gap:12px;
+  min-height:57px;
+  margin:13px 0 12px;
+  padding:12px 0 9px;
+  border-top:1px solid #ece6df;
+  border-bottom:1px solid #ece6df;
 }
-.cl-page.cl-landing .vcc-transfer-grid .vcc-transfer-detail {
-  display:inline-block;margin-top:2px;font-weight:700;font-size:12.5px;
+.cl-page.cl-landing .vcc-airport-stat strong {
+  flex:0 0 auto;
+  color:#2b5649;
+  font:500 29px/1 "Oswald",sans-serif;
+  white-space:nowrap;
 }
-.cl-page.cl-landing .vcc-transfer-source a {color:#a9553d;text-underline-offset:2px}
+.cl-page.cl-landing .vcc-airport-stat span {
+  min-width:0;
+  color:#696661;
+  font:400 11.5px/1.4 "DM Sans",sans-serif;
+}
+.cl-page.cl-landing .vcc-airport-copy {
+  flex:1 1 auto;
+  margin:0 0 16px;
+  color:#4e5550;
+  font:400 12.5px/1.6 "DM Sans",sans-serif;
+}
+.cl-page.cl-landing .vcc-transfer-detail {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:8px;
+  min-height:37px;
+  margin-top:auto;
+  padding-top:11px;
+  border-top:1px solid #ede7df;
+  color:#a55235;
+  font:700 11.8px/1.35 "DM Sans",sans-serif;
+  text-decoration:none;
+}
+.cl-page.cl-landing .vcc-transfer-detail span {
+  flex:none;
+  font:500 16px/1 "DM Sans",sans-serif;
+}
+.cl-page.cl-landing .vcc-transfer-detail:hover {color:#7f3c27;text-decoration:underline;text-underline-offset:3px}
 .cl-page.cl-landing .vcc-transfer-source {
-  margin:14px 0 0;color:#716960;
+  margin:16px 0 0;
+  color:#77726d;
   font:400 11.5px/1.65 "DM Sans",sans-serif;
 }
-.cl-page.cl-landing .vcc-arrival-brief {padding:35px max(20px,calc((100vw - 1180px)/2)) 43px;background:#faf7f2}
+.cl-page.cl-landing .vcc-transfer-source a {
+  color:#97563f;
+  text-decoration:underline;
+  text-underline-offset:2px;
+}
+.cl-page.cl-landing .vcc-arrival-brief {
+  padding:36px max(22px,calc((100vw - 1160px)/2)) 40px;
+  border-top:1px solid #ede5df;
+  background:#faf8f5;
+}
+.cl-page.cl-landing .vcc-arrival-grid {
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:30px;
+}
+.cl-page.cl-landing .vcc-arrival-grid article {
+  min-width:0;
+  padding:0 0 0 16px;
+  border-left:2px solid #dfb59f;
+}
+.cl-page.cl-landing .vcc-tip-index {
+  display:block;
+  margin:0 0 6px;
+  color:#b46e51;
+  font:700 10px/1.4 "DM Sans",sans-serif;
+}
+.cl-page.cl-landing .vcc-arrival-grid h3 {
+  margin:0 0 7px;
+  color:#2a4239;
+  font:500 20px/1.28 "Oswald",sans-serif;
+}
+.cl-page.cl-landing .vcc-arrival-grid p {
+  margin:0;
+  color:#535b55;
+  font:400 12.5px/1.7 "DM Sans",sans-serif;
+}
+.cl-page.cl-landing .vcc-arrival-grid a {
+  color:#9b5238;
+  text-decoration:underline;
+  text-underline-offset:2px;
+}
 .cl-page.cl-landing :is(a):focus-visible {
   outline:3px solid #be653d;outline-offset:3px;border-radius:3px;
 }
@@ -273,9 +365,14 @@ main.cl-page.cl-landing {
 }
 @media(max-width:760px) {
   .cl-page.cl-landing .vcc-transfer-grid,
-  .cl-page.cl-landing .vcc-arrival-grid {grid-template-columns:1fr;gap:10px}
+  .cl-page.cl-landing .vcc-arrival-grid {grid-template-columns:1fr;gap:11px}
   .cl-page.cl-landing .vcc-transfer-overview,
-  .cl-page.cl-landing .vcc-arrival-brief {padding-inline:18px}
+  .cl-page.cl-landing .vcc-arrival-brief {padding:28px 18px 32px}
+  .cl-page.cl-landing .vcc-airport-card {padding:17px 18px 13px}
+  .cl-page.cl-landing .vcc-airport-stat {min-height:0;margin:10px 0;padding:10px 0}
+  .cl-page.cl-landing .vcc-airport-copy {margin-bottom:10px}
+  .cl-page.cl-landing .vcc-arrival-grid {gap:20px}
+  .cl-page.cl-landing .vcc-arrival-grid article {padding-left:14px}
 }
 @media(max-width:660px) {
   .cl-page.cl-landing .cl-landing-cards {grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
