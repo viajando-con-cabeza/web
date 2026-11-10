@@ -19,6 +19,7 @@ const hero = read('configuracion/css/componentes/vcc-hero-editorial-vcc.css');
 const galleryJS = read('configuracion/js/componentes/vcc-gallery-booking.js');
 const scrollspy = read('configuracion/js/destinos/suecia/estocolmo/vcc-section-scrollspy.js');
 const galleryUI = read('configuracion/js/componentes/vcc-gallery-ui.js');
+const lazyBgJS = read('configuracion/js/componentes/vcc-lazy-background.js');
 
 const count = (text, pattern) => [...text.matchAll(pattern)].length;
 const gallery = [...html.matchAll(/<div class="day-mosaic count-8"[\s\S]*?<\/div>/g)];
@@ -74,6 +75,11 @@ assert.match(hero, /var\(--vcc-hero-image\)/);
 assert.doesNotMatch(core, /fondos-itinerario\.webp/, 'No tornar a descarregar l’antic fons');
 assert.doesNotMatch(core + polish, /\.day-mosaic\.count-4/, 'No reintroduir l’antic mosaic de 4');
 
+assert.match(html, /data-vcc-lazy-background/, 'El fons final ha de ser diferit');
+assert.match(html, /vcc-lazy-background\.js/, 'Falta carregador del fons de les guies');
+assert.match(core, /\.vcc-discover-section\[data-vcc-lazy-background\]:not\(\.vcc-bg-ready\)/, 'El CSS ha de desactivar el fons fora de pantalla');
+assert.match(lazyBgJS, /IntersectionObserver/, 'Cal mantenir lazy background per al bloc final');
+assert.equal(count(html, /<style id=/g), 0, 'Els estils editorials han de viure a configuracion');
 assert.match(html, /data-vcc-sticky-mobile/);
 assert.match(scrollspy, /stickyMobile=nav\.hasAttribute\('data-vcc-sticky-mobile'\)/);
 assert.match(html, /vcc-gallery-booking\.js/);
@@ -88,6 +94,7 @@ assert.match(galleryUI, /backToGallery:'← Galería'/);
 for (const file of [
   'configuracion/js/componentes/vcc-gallery-booking.js',
   'configuracion/js/componentes/vcc-gallery-ui.js',
+  'configuracion/js/componentes/vcc-lazy-background.js',
   'configuracion/js/destinos/suecia/estocolmo/vcc-section-scrollspy.js'
 ]) {
   assert.doesNotThrow(() => new Script(read(file), { filename: file }), 'JS invàlid: ' + file);
