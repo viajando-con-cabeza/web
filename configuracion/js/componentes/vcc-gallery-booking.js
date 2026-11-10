@@ -17,7 +17,7 @@ function mount(modal,options={}){
  if(!modal)return null;
  if(instances.has(modal))return instances.get(modal);
  ensureGalleryMarkup(modal);
-window.VCCGalleryUI?.decorate(modal);
+// L'estructura del retorn ja es genera directament aquí.
 const gallerySelector=options.gallerySelector||modal.dataset.vccGallerySelector||'.vcc-booking-gallery .day-mosaic';
 const overviewSelector=options.overviewSelector||modal.dataset.vccOverviewSelector||'.overview-card img';
 const galleries=[...document.querySelectorAll(gallerySelector)];
@@ -174,17 +174,43 @@ function move(delta){
  showPhoto(currentIndex+delta);
 }
 let activeTitle='',activeSubtitle='',activeDescription='';
-function openGallery(gallery,button){
- const buttons=[...gallery.querySelectorAll('button[data-photo]')];
- currentImages=buttons.map((b,i)=>({
+/* Única font de fotos per als dos patrons de contingut:
+   - itinerari: botons data-photo dins de .day-mosaic
+   - imprescindibles: data-images JSON normalitzat del mosaic editorial. */
+const existingMiniPreviews=new Set(['DSC08334.avif','DSC08335.avif','DSC08336.avif','DSC08337.avif','DSC08338.avif','DSC08342.avif','DSC08344.avif','DSC08345.avif']);
+const previewFor=source=>{
+ const url=String(source||'');
+ const arch=url.match(/^https:\/\/img\.viajandoconcabeza\.com\/(destinos\/suecia\/estocolmo-archipelago\/[0-9]{4}-dia8)\/(?:paisajes|bosques|mar)\/(DSC\d+\.avif)$/i);
+ if(arch&&existingMiniPreviews.has(arch[2]))
+  return 'https://img.viajandoconcabeza.com/'+arch[1]+'/_preview/mini/'+arch[2];
+ return url.replace(/^https:\/\/img\.viajandoconcabeza\.com\/(destinos\/.+\.(?:avif|webp))$/i,
+  'https://img.viajandoconcabeza.com/__vcc_preview/mini/$1');
+};
+function imagesFor(gallery){
+ if(gallery.dataset.images){
+  let sources=[];
+  try{sources=JSON.parse(gallery.dataset.images)}catch(_){return []}
+  if(!Array.isArray(sources))return [];
+  return sources.filter(url=>typeof url==='string'&&url.length>0).map((src,i)=>({
+   src,preview:previewFor(src),alt:'Fotografía '+(i+1)+' de '+sources.length
+  }));
+ }
+ return [...gallery.querySelectorAll('button[data-photo]')].map((b,i)=>({
   src:b.dataset.photo,
-  preview:b.querySelector('img')?.src||b.dataset.photo,
-  alt:b.querySelector('img')?.alt||'Fotografía '+(i+1)+' del itinerario'
+  preview:b.querySelector('img')?.src||previewFor(b.dataset.photo),
+  alt:b.querySelector('img')?.alt||'Fotografía '+(i+1)
  }));
+}
+function openGallery(gallery,button){
+ currentImages=imagesFor(gallery);
  if(!currentImages.length)return;
- activeTitle=gallery.dataset.title||'Galería de fotografías';
- activeSubtitle=gallery.closest('.day-section')?.querySelector('.day-intro .hand')?.textContent?.trim()||activeTitle;
- activeDescription=gallery.dataset.description||'';
+ const place=gallery.closest('.place');
+ activeTitle=gallery.dataset.title||place?.querySelector('.place-heading h2, h2')?.textContent?.trim()||'Galería de fotografías';
+ activeSubtitle=gallery.dataset.subtitle
+  ||gallery.closest('.day-section')?.querySelector('.day-intro .hand')?.textContent?.trim()
+  ||place?.querySelector('.place-kicker')?.textContent?.trim()||activeTitle;
+ activeDescription=gallery.dataset.description
+  ||place?.querySelector('.place-info-card > p, .place-copy > p')?.textContent?.trim()||'';
  gridHead.textContent=activeTitle;gridCount.textContent=currentImages.length+' fotografías';
  gridTitle.textContent=activeSubtitle;gridDescription.textContent=activeDescription;
  lastFocus=button;
@@ -216,7 +242,7 @@ function closeGallery(){
  lastFocus=null;
 }
 galleries.forEach(gallery=>{
- gallery.querySelectorAll('button[data-photo]').forEach(button=>{
+ gallery.querySelectorAll('button[data-photo], .gallery-mosaic .gallery-tile').forEach(button=>{
   button.addEventListener('click',()=>openGallery(gallery,button));
  });
 });
