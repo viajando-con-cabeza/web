@@ -380,3 +380,18 @@ body.vcc-it-gallery-open{overflow:hidden!important;overscroll-behavior:none!impo
 @media(prefers-reduced-motion:reduce){
  .day-gallery .day-mosaic.count-8>button>img{transition:none!important}
 }
+
+/* Congela la distribució original en fer zoom sense remaquetar el mosaic
+   ni el lateral quan canvien els breakpoints del navegador. */
+#dayLightbox.vcc-it-gallery-desktop.vcc-gallery-viewport .day-lightbox-grid-main{
+ grid-template-columns:var(--it-gallery-grid-columns,minmax(0,1fr) 290px)!important;
+}
+#dayLightbox.vcc-it-gallery-desktop.vcc-gallery-viewport .day-lightbox-photo-view:not([hidden]){
+ grid-template-columns:var(--it-gallery-photo-columns,minmax(0,1fr) 290px)!important;
+}
+#dayLightbox.vcc-it-gallery-desktop.vcc-gallery-viewport .day-lightbox-grid{
+ gap:var(--it-gallery-grid-gap,13px)!important;
+}
+#dayLightbox.vcc-it-gallery-desktop.vcc-gallery-viewport .day-lightbox-grid-scroll{
+ padding:var(--it-gallery-grid-padding,20px 22px 32px)!important;
+}
