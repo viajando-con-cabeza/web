@@ -72,7 +72,7 @@ for (const hostname of [
   assert(index !== -1 && /^\s+X-Robots-Tag:\s*noindex\b/im.test(headers.slice(index + declaration.length).split(/\n(?=\S)/)[0]),
     '_headers: no hostname-specific noindex for ' + hostname);
 }
-assert(!/\/\*\s*\n\s*X-Robots-Tag:\s*noindex/i.test(headers),
+assert(!/^\/\*\s*\r?\n\s*X-Robots-Tag:\s*noindex/im.test(headers),
   '_headers: wildcard noindex could affect production');
 
 if (errors.length) {
