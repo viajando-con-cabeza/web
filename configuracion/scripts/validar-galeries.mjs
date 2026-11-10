@@ -30,8 +30,16 @@ for(const url of urls){
  ++withGallery;
  const check=(valid,msg)=>{if(!valid)errors.push(filePath+': '+msg);};
  check(!legacy,'visor antic detectat');
- check(html.includes(sharedCSS),'falta el CSS de la galeria compartida');
- check(html.includes(sharedJS),'falta el controlador JS de la galeria compartida');
+ // Cuándo ir difiere CSS/JS hasta acercarse el mosaico; comprobar el cargador
+ // en lugar de exigir enlaces bloqueantes en el HTML inicial.
+ const lazyPath='configuracion/js/componentes/vcc-gallery-lazy-loader.js';
+ const lazy=html.includes('/'+lazyPath)&&html.includes('data-vcc-lazy-gallery');
+ const lazySource=lazy&&existsSync(join(root,lazyPath))
+   ?readFileSync(join(root,lazyPath),'utf8'):'';
+ check(lazy ? lazySource.includes(sharedCSS) : html.includes(sharedCSS),
+   'falta el CSS de la galeria compartida');
+ check(lazy ? lazySource.includes(sharedJS) : html.includes(sharedJS),
+   'falta el controlador JS de la galeria compartida');
  check((html.match(/data-vcc-booking-gallery\b/g)||[]).length===1,
   'ha de tenir un únic modal [data-vcc-booking-gallery]');
  check(/data-vcc-gallery-selector=["'][^"']+["']/.test(html),
