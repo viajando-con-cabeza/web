@@ -11,6 +11,7 @@
   const reducedMotion = () => window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   const maxScroll = () => Math.max(0, track.scrollWidth - track.clientWidth);
   const offsets = () => cards.map(card => card.offsetLeft - cards[0].offsetLeft);
+  const pageCount = () => Math.min(cards.length, Math.ceil(Math.max(0, maxScroll() - 2) / (offsets()[1] || 1)) + 1);
   const currentIndex = () => {
     const positions = offsets();
     let nearest = 0;
@@ -25,15 +26,21 @@
     const x = track.scrollLeft;
     prev.disabled = x < 3;
     next.disabled = x >= maxScroll() - 3;
-    const active = currentIndex();
+    const total = pageCount();
+    const active = Math.min(currentIndex(), total - 1);
     dots.forEach((dot, i) => {
+      dot.hidden = i >= total;
+      dot.setAttribute("aria-label", "Ir a la posición " + (i + 1) + " de " + total);
       dot.setAttribute("aria-current", i === active ? "true" : "false");
     });
   };
-  const toIndex = (i) => track.scrollTo({
-    left: Math.min(offsets()[Math.max(0, Math.min(i, cards.length - 1))], maxScroll()),
-    behavior: reducedMotion() ? "auto" : "smooth"
-  });
+  const toIndex = (i) => {
+    const target = Math.max(0, Math.min(i, pageCount() - 1));
+    track.scrollTo({
+      left: target === pageCount() - 1 ? maxScroll() : offsets()[target],
+      behavior: reducedMotion() ? "auto" : "smooth"
+    });
+  };
   prev.addEventListener("click", () => toIndex(currentIndex() - 1));
   next.addEventListener("click", () => toIndex(currentIndex() + 1));
   dots.forEach((dot, i) => dot.addEventListener("click", () => toIndex(i)));
