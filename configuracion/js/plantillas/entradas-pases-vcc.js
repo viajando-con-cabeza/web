@@ -48,7 +48,6 @@ function init(){
   root.querySelectorAll(".ep-scroll-track").forEach(track=>{
     const buttons=[...root.querySelectorAll('[data-ep-slide-target="'+track.id+'"]')];
     if(!buttons.length)return;
-    const indicator=track.id==="ep3-saving-track"?root.querySelector("#ep4-saving-count"):null;
     let waiting=false;
     function sync(){
       const max=Math.max(0,track.scrollWidth-track.clientWidth);
@@ -58,18 +57,6 @@ function init(){
         button.setAttribute("aria-disabled",String(button.disabled));
       });
       if(track.id==="ep4-our-track") { const stage=track.closest(".ep4-our-stage"); if(stage) stage.classList.toggle("ep4-our-no-overflow",max<3); }
-      if(indicator){
-        const first=track.firstElementChild;
-        const total=track.children.length;
-        if(first&&total){
-          const gap=parseFloat(window.getComputedStyle(track).gap)||0;
-          const step=Math.max(1,first.getBoundingClientRect().width+gap);
-          const visible=Math.max(1,Math.min(total,Math.floor((track.clientWidth+gap+2)/step)));
-          const firstIndex=Math.max(0,Math.min(total-visible,Math.round(track.scrollLeft/step)));
-          const start=firstIndex+1,end=Math.min(total,firstIndex+visible);
-          indicator.textContent=start===end?"Consejo "+start+" de "+total:"Consejos "+start+"–"+end+" de "+total;
-        }
-      }
       waiting=false;
     }
     function schedule(){if(waiting)return;waiting=true;window.requestAnimationFrame(sync);}
@@ -79,7 +66,7 @@ function init(){
       const gap=parseFloat(window.getComputedStyle(track).gap)||0;
       const step=first.getBoundingClientRect().width+gap;
       const reduced=window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-      track.scrollBy({left:Number(button.dataset.epSlideDir)*step,behavior:reduced?"instant":"smooth"});
+      track.scrollBy({left:Number(button.dataset.epSlideDir)*step,behavior:reduced?"auto":"smooth"});
       schedule();
     }));
     track.addEventListener("scroll",schedule,{passive:true});
