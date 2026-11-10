@@ -48,7 +48,7 @@ const prefersReducedMotion=window.matchMedia('(prefers-reduced-motion: reduce)')
 const nativeMobile=()=>window.matchMedia('(max-width: 800px)').matches;
 const isMobile=()=>modal.classList.contains('vcc-gallery-mobile');
 let currentImages=[],currentIndex=0,lastFocus=null,gridButtons=[];
-let originalScrollY=0,photoSequence=0;
+let photoSequence=0;
 const visible=()=>!modal.hidden;
 const gridOpen=()=>visible()&&!gridView.hidden;
 const photoOpen=()=>visible()&&!photoView.hidden;
@@ -102,18 +102,29 @@ function createGrid(){
   grid.append(b);gridButtons.push(b);
  });
 }
+// Conserva els mateixos nodes de miniatura en avançar de foto:
+ // cap reconstrucció d'imatges ni listeners amb cada clic a les fletxes.
+let thumbButtons=[];
 function createThumbs(){
- thumbs.replaceChildren();
- currentImages.forEach((item,index)=>{
-  const b=document.createElement('button');b.type='button';
-  b.className=index===currentIndex?'active':'';
-  b.setAttribute('aria-label','Ver foto '+(index+1)+' de '+currentImages.length);
-  b.append(createThumb(item.preview,item.src,''));
-  b.addEventListener('click',()=>showPhoto(index));
-  thumbs.append(b);
-  if(index===currentIndex)requestAnimationFrame(()=>b.scrollIntoView({
-   block:'nearest',inline:'nearest'
-  }));
+ if(thumbButtons.length!==currentImages.length){
+  const fragment=document.createDocumentFragment();
+  thumbButtons=currentImages.map((item,index)=>{
+   const button=document.createElement('button');
+   button.type='button';
+   button.setAttribute('aria-label','Ver foto '+(index+1)+' de '+currentImages.length);
+   button.append(createThumb(item.preview,item.src,''));
+   button.addEventListener('click',()=>showPhoto(index));
+   fragment.append(button);
+   return button;
+  });
+  thumbs.replaceChildren(fragment);
+ }
+ thumbButtons.forEach((button,index)=>button.classList.toggle('active',index===currentIndex));
+ const active=thumbButtons[currentIndex];
+ if(active)requestAnimationFrame(()=>{
+  if(photoOpen()&&thumbButtons[currentIndex]===active){
+   active.scrollIntoView({block:'nearest',inline:'nearest'});
+  }
  });
 }
 function showGrid(returnFocus=false){
@@ -177,7 +188,8 @@ function openGallery(gallery,button){
  gridHead.textContent=activeTitle;gridCount.textContent=currentImages.length+' fotografías';
  gridTitle.textContent=activeSubtitle;gridDescription.textContent=activeDescription;
  lastFocus=button;
- originalScrollY=window.scrollY;
+ // Si s'obre una nova galeria, no conservem miniatures d'una altra jornada.
+ thumbButtons=[];thumbs.replaceChildren();
  createGrid();
  modal.classList.toggle('vcc-gallery-mobile',nativeMobile());
  modal.classList.toggle('vcc-gallery-desktop',!nativeMobile());
@@ -199,7 +211,7 @@ function closeGallery(){
  document.body.classList.remove('vcc-booking-gallery-open');
  photoImage.removeAttribute('src');
  grid.replaceChildren();thumbs.replaceChildren();
- currentImages=[];gridButtons=[];resetTouchZoom();
+ currentImages=[];gridButtons=[];thumbButtons=[];resetTouchZoom();
  if(lastFocus?.isConnected)lastFocus.focus({preventScroll:true});
  lastFocus=null;
 }
