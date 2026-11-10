@@ -109,15 +109,21 @@
 .vl-result-row.is-cheapest{border-color:#b8d9c4;background:#edf8f0}
 .vl-result-row.is-cheapest strong{color:#217347}
 .vl-compare-result{font-size:11px;line-height:1.5;margin:9px 0 0;color:#4f5954;font-weight:700}
-/* Eight short editorial tips, three displayed at once and arrows on the sides. */
-.vl-tips-carousel{display:grid;grid-template-columns:38px minmax(0,1fr) 38px;gap:9px;align-items:center}
-.vl-tip-arrow{width:36px;height:36px;flex:none}
-.vl-tip-track{display:grid;grid-auto-flow:column;grid-auto-columns:calc((100% - 24px)/3);gap:12px;overflow-x:auto;overscroll-behavior-inline:contain;scroll-snap-type:x mandatory;scrollbar-width:none;padding:3px 0 10px;min-width:0}
+/* Carrusel de ahorro · mismo patrón visual aprobado en Cómo moverse / Cómo llegar.
+   Tres tarjetas visibles, número en círculo discontinuo, texto a su derecha
+   y flechas a ambos extremos dentro del mismo marco. */
+.vl-tips-carousel{position:relative;min-width:0;padding:0 45px}
+.vl-tip-track{display:flex;align-items:stretch;min-width:0;gap:13px;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;scroll-behavior:smooth;scrollbar-width:none;overscroll-behavior-inline:contain;-webkit-overflow-scrolling:touch;padding:1px 1px 5px}
 .vl-tip-track::-webkit-scrollbar{display:none}
-.vl-tip{min-width:0;scroll-snap-align:start;min-height:126px;background:#fff;border:1px solid var(--vl-line);border-radius:11px;padding:16px 17px}
-.vl-tip-num{display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:50%;background:#fff0e8;color:var(--vl-coral);font:600 15px/1 Oswald,sans-serif}
-.vl-tip h3{font-size:13px;font-weight:800;margin:8px 0 5px}
-.vl-tip p{font-size:11.5px;color:var(--vl-muted);line-height:1.5;margin:0}
+.vl-tip{flex:0 0 calc((100% - 26px)/3);display:flex;align-items:flex-start;gap:12px;min-width:0;min-height:128px;padding:15px 16px;scroll-snap-align:start;background:#fff;border:1px solid #e6dbd0;border-radius:13px;box-shadow:0 3px 11px rgba(54,38,26,.04)}
+.vl-tip-num{flex:0 0 39px;width:39px;height:39px;display:grid;place-items:center;border:1px dashed #d68f74;border-radius:50%;background:#fbeee6;color:#b85b43;font:600 20px/1 "Oswald",sans-serif}
+.vl-tip-content{min-width:0;flex:1}
+.vl-tip h3{margin:0 0 7px;font:600 19px/1.1 "Oswald",sans-serif;color:#272d2a}
+.vl-tip p{margin:0;color:#635d56;font:400 11.6px/1.45 "DM Sans",sans-serif}
+.vl-tip-arrow{position:absolute;top:50%;transform:translateY(-50%);width:34px;height:34px;border:1px solid #dcc7b8;border-radius:50%;background:#fff;color:#b75d43;display:grid;place-items:center;font:400 24px/1 "DM Sans",sans-serif;cursor:pointer;padding:0 0 2px}
+.vl-tip-prev{left:0}.vl-tip-next{right:0}
+.vl-tip-arrow:hover:not(:disabled){background:#fff0e6}
+.vl-tip-arrow:disabled{opacity:.36;cursor:default}
 .vl-advice{margin-top:15px}
 .vl-advice .vcc-consejo-unificado{max-width:100%}
 /* Same dark closing panel used across Planifica. */
@@ -133,7 +139,7 @@
  .vl-air-track{grid-auto-columns:calc((100% - 20px)/2.5)}
  .vl-flight{grid-template-columns:minmax(0,1.4fr) minmax(190px,.6fr)}
  .vl-fields{grid-template-columns:repeat(3,minmax(0,1fr))}
- .vl-tip-track{grid-auto-columns:calc((100% - 12px)/2)}
+ .vl-tip{flex-basis:calc((100% - 13px)/2)}
 }
 @media(max-width:720px){
  .vl-wrap{width:calc(100% - 28px)}
@@ -151,9 +157,11 @@
  .vl-flight-result strong{font-size:33px}
  .vl-breakdown{grid-template-columns:repeat(2,minmax(0,1fr));gap:3px 12px}
  .vl-fields{grid-template-columns:repeat(2,minmax(0,1fr))}
- .vl-tip-track{grid-auto-columns:86%}
- .vl-tips-carousel{grid-template-columns:29px minmax(0,1fr) 29px;gap:5px}
- .vl-tip-arrow{width:29px;height:29px;font-size:20px}
+ .vl-tip{flex-basis:100%;min-height:122px;padding:14px 12px}
+ .vl-tip-num{flex-basis:34px;width:34px;height:34px;font-size:19px}
+ .vl-tip h3{font-size:18px}
+ .vl-tip p{font-size:12px;line-height:1.5}
+ .vl-tip-arrow{width:39px;height:39px}
  .vl-next-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
 }
 @media(max-width:460px){
@@ -172,8 +180,10 @@
  .vl-flight-side{padding:10px}
  .vl-compare-head{display:block}
  .vl-compare-bar .vl-button{flex:0 0 auto}
- .vl-tip{padding:13px;min-height:138px}
- .vl-tip-track{grid-auto-columns:100%}
+ .vl-tips-carousel{padding-inline:39px}
+ .vl-tip{padding:13px 12px;gap:10px;min-height:130px}
+ .vl-tip-num{flex-basis:32px;width:32px;height:32px;font-size:18px}
+ .vl-tip h3{font-size:17px}
  .vl-next-grid a{padding:10px}
 }
 @media(prefers-reduced-motion:reduce){.vl-page *{scroll-behavior:auto!important;transition:none!important}}
