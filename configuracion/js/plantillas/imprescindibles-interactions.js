@@ -66,6 +66,8 @@
   const overlay = document.getElementById('lightbox');
   const stage = overlay?.querySelector('.lb-stage');
   const r2Demo = document.querySelector('.imp-page[data-gallery-source="r2"]') !== null;
+  // Cache fijo: no recrear este Set al pintar cada mosaico o miniatura.
+  const archivedPreviews = new Set(['DSC08334.avif','DSC08335.avif','DSC08336.avif','DSC08337.avif','DSC08338.avif','DSC08342.avif','DSC08344.avif','DSC08345.avif']);
   const image = stage?.querySelector(':scope > .lb-photo');
   const thumbnails = stage?.querySelector('.lb-thumbs');
   const caption = stage?.querySelector('.lb-caption');
@@ -112,10 +114,9 @@
     // No demanar al Worker una ruta _preview que no existeix.
     const arch = String(original).match(/^https:\/\/img\.viajandoconcabeza\.com\/(destinos\/suecia\/estocolmo-archipelago\/[0-9]{4}-dia8)\/(?:paisajes|bosques|mar)\/(DSC\d+\.avif)$/i);
     if (arch) {
-      const existing = new Set(['DSC08334.avif','DSC08335.avif','DSC08336.avif','DSC08337.avif','DSC08338.avif','DSC08342.avif','DSC08344.avif','DSC08345.avif']);
       // Las fotos aún sin derivado se optimizan bajo demanda en el Worker
       // /__vcc_preview/. No descargamos su AVIF original de varios MB.
-      return existing.has(arch[2])
+      return archivedPreviews.has(arch[2])
         ? 'https://img.viajandoconcabeza.com/'+arch[1]+'/_preview/'+size+'/'+arch[2]
         : 'https://img.viajandoconcabeza.com/__vcc_preview/'+size+'/'
           +String(original).slice('https://img.viajandoconcabeza.com/'.length);
@@ -190,20 +191,23 @@
   /* Exposa el visor existent a la segona fase de galeria d'escriptori.
      Manté el text lateral, el comptador, les fletxes i els WebP actuals. */
   window.VCCImprescindiblesLightbox = {open, dismiss};
+  // Normalización R2 compartida: un solo closure para las 14 galerías.
+  // Conserva ambas correcciones legacy que evitan los 404 de días de 2026.
+  const correctR2Url = value => String(value)
+    .replace('/goteborg/-dia1/', '/goteborg/' + '20' + '26-dia1/')
+    .replace('/estocolmo-archipelago/-dia8/', '/estocolmo-archipelago/' + '20' + '26-dia8/');
   document.querySelectorAll('.imp-main .gallery').forEach((gallery, placeIndex) => {
     const original = gallery.querySelector('.gallery-main');
     let own = [];
     try {own = JSON.parse(original?.dataset.images || '[]');} catch {own = [];}
     const requested = placeIndex + 1;
-    const source = placeIndex === 1 ? [...vasa, ...city] : [...city.slice(placeIndex % city.length), ...city.slice(0,placeIndex % city.length)];
-    /* Les guies marcades com a prova R2 han d'utilitzar exclusivament les fotos declarades a la pàgina. */
-    const onlyOwn = document.querySelector('.imp-page[data-gallery-source="r2"]') !== null;
-    /* Protecció addicional: una transformació del HTML desplegat estava
-       convertint /2026-dia1/ en /-dia1/ i provocant 404. Normalitzem
-       totes les URL abans de carregar les fotos. */
-    const correctR2Url = value => String(value)
-      .replace('/goteborg/-dia1/', '/goteborg/' + '20' + '26-dia1/')
-      .replace('/estocolmo-archipelago/-dia8/', '/estocolmo-archipelago/' + '20' + '26-dia8/');
+    /* Esta guía usa exclusivamente sus fotos R2; no crear ni ordenar imágenes
+       Unsplash fallback que luego serán descartadas. Otras guías conservan
+       el comportamiento original de sus galerías. */
+    const onlyOwn = r2Demo;
+    const source = onlyOwn ? [] : placeIndex === 1
+      ? [...vasa, ...city]
+      : [...city.slice(placeIndex % city.length), ...city.slice(0,placeIndex % city.length)];
     const photos = (onlyOwn ? own.filter(Boolean) : [...new Set([...own.filter(Boolean), ...source])].slice(0,requested)).map(correctR2Url);
     gallery.dataset.images = JSON.stringify(photos);
     gallery.dataset.count = String(photos.length);
