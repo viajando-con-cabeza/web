@@ -34,7 +34,8 @@
      Las plantillas antiguas conservan su miga invisible como espacio de
      reserva para evitar desplazar el hero; no existen dos rutas accesibles. */
   (function initGlobalBreadcrumb() {
-    if (!/^\/destinos\//i.test(currentPath)) return;
+    const isTravelCardsPage = /^\/planifica\/tarjetas-de-viaje\/?$/i.test(currentPath);
+    if (!/^\/destinos\//i.test(currentPath) && !isTravelCardsPage) return;
     const labels = {
       suecia:'Suecia',italia:'Italia',francia:'Francia',espana:'España',
       alemania:'Alemania',austria:'Austria',andorra:'Andorra',suiza:'Suiza',
@@ -71,13 +72,14 @@
       'alquilar-coche-estocolmo':'Alquilar coche',
       avion:'Avión',tren:'Tren',ferry:'Ferry',autobus:'Autobús',coche:'Coche',
       'ruta-andalucia-madrid':'Andalucía y Madrid',
-      'dia-1':'Día 1','dia-2':'Día 2','dia-3':'Día 3'
+      'dia-1':'Día 1','dia-2':'Día 2','dia-3':'Día 3',
+      'tarjetas-de-viaje':'Tarjetas de viaje'
     };
     const heroSelector = [
       '.st-hero','.imp-hero','.vcc-hero','.budget-hero','.ci-hero',
       '.cl-landing-hero','.cl-hero','.mv-hero','.dv-hero','.ql-hero',
       '.country-hero','.content-hero','.rich-hero','.cm-hero',
-      '.page-hero','[data-vcc-hero]'
+      '.page-hero','.tv-hero','[data-vcc-hero]'
     ].join(',');
     const originalSelector = [
       '.st-crumb','.imp-crumb','.vcc-crumb','.budget-crumb','.ci-crumb',
@@ -91,7 +93,7 @@
       if (document.getElementById('vcc-global-breadcrumb')) return true;
       const path=decodeURIComponent(location.pathname).replace(/\/index\.html$/i,'/');
       const parts=path.split('/').filter(Boolean);
-      if(parts[0]!=='destinos'||parts.length<2)return false;
+      if((parts[0]!=='destinos' && parts[0]!=='planifica')||parts.length<2)return false;
       let original=null,hero=null;
       for(const candidate of document.querySelectorAll(originalSelector)){
         if(candidate.id==='vcc-global-breadcrumb')continue;
@@ -112,12 +114,13 @@
       nav.id='vcc-global-breadcrumb';
       nav.className='vcc-breadcrumb-unified';
       nav.setAttribute('aria-label','Ruta de navegación');
-      const crumbs=[{label:'Inicio',href:'/'},{label:'Destinos',href:'/destinos/'}];
+      const sectionRoot=parts[0];
+      const crumbs=[{label:'Inicio',href:'/'},{label:sectionRoot==='planifica'?'Planifica':'Destinos',href:'/'+sectionRoot+'/'}];
       route.forEach((segment,i)=>{
         const isHtml=/\.html$/i.test(segment);
         const slug=segment.replace(/\.html$/i,'');
         const terminal=i===route.length-1;
-        let href='/destinos/'+route.slice(0,i+1).join('/');
+        let href='/'+sectionRoot+'/'+route.slice(0,i+1).join('/');
         if(!isHtml){
           // La portada "Cómo llegar" es un .html; no existe /como-llegar/.
           if(!terminal&&slug==='como-llegar'&&route[i-1]==='estocolmo'){
@@ -150,6 +153,7 @@
         original.style.setProperty('visibility','hidden','important');
       }
       hero.classList.add('vcc-has-global-breadcrumb');
+      if(sectionRoot==='planifica')hero.classList.add('vcc-breadcrumb-on-dark');
       hero.insertBefore(nav,hero.firstChild);
       return true;
     }
