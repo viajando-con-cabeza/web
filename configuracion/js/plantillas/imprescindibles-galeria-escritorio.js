@@ -5,10 +5,12 @@
   'use strict';
   const desktop = window.matchMedia('(min-width: 801px)');
   // La variant petita es crea i es desa automàticament a R2 via Worker.
+  // Set únic per sessió: no tornar-lo a crear en cada petició de preview.
+  const cached=new Set(['DSC08334.avif','DSC08335.avif','DSC08336.avif','DSC08337.avif','DSC08338.avif','DSC08342.avif','DSC08344.avif','DSC08345.avif']);
   const miniUrl = source => {
     const arch=String(source).match(/^https:\/\/img\.viajandoconcabeza\.com\/(destinos\/suecia\/estocolmo-archipelago\/[0-9]{4}-dia8)\/(?:paisajes|bosques|mar)\/(DSC\d+\.avif)$/i);
     if (arch) {
-      const cached=new Set(['DSC08334.avif','DSC08335.avif','DSC08336.avif','DSC08337.avif','DSC08338.avif','DSC08342.avif','DSC08344.avif','DSC08345.avif']);
+
       return cached.has(arch[2])
         ? 'https://img.viajandoconcabeza.com/'+arch[1]+'/_preview/mini/'+arch[2]
         : 'https://img.viajandoconcabeza.com/__vcc_preview/mini/'
