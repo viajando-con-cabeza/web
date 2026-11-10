@@ -26,6 +26,17 @@ El component genera tot el visor. **No cal copiar el HTML intern del modal** ni 
 
 El component s'inicialitza automàticament. Si la guia té un DOM especial, també es pot cridar `window.VCCBookingGallery.mount(modal, {gallerySelector, overviewSelector})`; les instàncies es protegeixen contra inicialitzacions duplicades.
 
+## Estils UI compartits amb Qué ver
+
+La presentació de **Qué ver · Imprescindibles** i **Estocolmo en 3 días** es centralitza en:
+
+- `/configuracion/css/componentes/vcc-gallery-ui.css`: capçaleres, títols, botons de retorn, X, fletxes, comptadors, miniatures, laterals, mosaics i colors
+- `/configuracion/js/componentes/vcc-gallery-ui.js`: etiqueta única `← Galería` i decoració del botó corresponent
+
+**Totes dues pàgines carreguen aquests mateixos dos fitxers.** Els seus CSS originals només aporten l'estructura i els comportaments especials de cadascuna: en particular, «Qué ver» manté el controlador original per les galeries diferents dels 15 llocs, i l'itinerari utilitza `vcc-gallery-booking.js` per generar el modal reutilitzable.
+
+Per ajustar el botó `← Galería`, colors, tipografies i acabats comuns **no s'ha de modificar el CSS de cap de les dues pàgines**; el canvi es fa a `vcc-gallery-ui.css` (o a `vcc-gallery-ui.js` per al text), abans de validar els dos visors.
+
 ## Comportaments conservats
 
 - Cinc miniatures visibles i comptador discret; en clicar, mosaic complet (3 columnes en escriptori, mosaic vertical en mòbil).
