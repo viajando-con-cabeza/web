@@ -13,7 +13,7 @@
       const gap=Number.parseFloat(getComputedStyle(track).columnGap)||0;
       const step=first ? first.getBoundingClientRect().width+gap : track.clientWidth;
       const end=Math.max(0,track.scrollWidth-track.clientWidth);
-      const total=Math.max(1,Math.ceil(Math.max(0,end-3)/Math.max(1,step))+1);
+      const total=Math.max(1,Math.round(end/Math.max(1,step))+1);
       return {step,end,total,index:Math.min(total-1,Math.round(track.scrollLeft/Math.max(1,step)))};
     };
     const goTo=(index)=>{
@@ -75,8 +75,11 @@
     const update=()=>{
       const purchases=amount('purchases');
       const cash=amount('cash');
-      const bank=purchases*(1+(percentage('bank')+percentage('markup'))/100)+cash*(1+percentage('atmBank')/100);
-      const traveler=purchases*(1+percentage('travel')/100)+cash*(1+percentage('atmTravel')/100);
+      const foreignSpending=purchases+cash;
+      // El tipo de cambio/comisión de divisa también afecta al efectivo.
+      // La comisión específica del cajero solo se aplica a la retirada.
+      const bank=foreignSpending*(1+(percentage('bank')+percentage('markup'))/100)+cash*percentage('atmBank')/100;
+      const traveler=foreignSpending*(1+percentage('travel')/100)+cash*percentage('atmTravel')/100;
       const diff=bank-traveler;
       bankTotal.textContent=euro.format(bank);
       travelTotal.textContent=euro.format(traveler);
