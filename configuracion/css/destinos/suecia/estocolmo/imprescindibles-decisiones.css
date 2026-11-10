@@ -292,19 +292,35 @@ html body .imp-page .imp-static-map-link {
 }
 
 
-/* Fitxes VCC definitives: mateixa composició del 02 Museo Vasa als 15 llocs.
-   Sobretítol Caveat i Consejo VCC FORA de la vinyeta de descripció i dades.
-   Manté mosaics, tipus de lletra i distribució originals. */
+/* SISTEMA VCC PER ALS 15 LLOCS
+   Una sola configuració per a les vinyetes i números, amb els mateixos
+   valors visuals que el disseny aprovat del Museu Vasa.
+   Per modificar totes les fitxes, canvia les variables següents;
+   no cal editar les 15 seccions de l'HTML. */
+html body .imp-page .imp-main {
+  --vcc-place-number-size:44px;
+  --vcc-place-number-font:27px;
+  --vcc-place-number-stroke:2.3px;
+  --vcc-place-number-radius:8px;
+  --vcc-place-number-color:#f26116;
+  --vcc-place-number-bg:#fff;
+  --vcc-place-card-bg:#fff;
+  --vcc-place-card-border:1px solid rgba(44,35,29,.085);
+  --vcc-place-card-radius:18px;
+  --vcc-place-card-padding:20px 22px;
+  --vcc-place-card-shadow:0 2px 10px rgba(44,35,29,.025);
+  --vcc-place-description-gap:19px;
+}
 html body .imp-page .imp-main .place .place-number {
-  flex:0 0 44px!important;
-  width:44px!important;
-  height:44px!important;
+  flex:0 0 var(--vcc-place-number-size)!important;
+  width:var(--vcc-place-number-size)!important;
+  height:var(--vcc-place-number-size)!important;
   box-sizing:border-box!important;
-  border:2.3px solid #f26116!important;
-  border-radius:8px!important;
-  background:#fff!important;
-  color:#f26116!important;
-  font-size:27px!important;
+  border:var(--vcc-place-number-stroke) solid var(--vcc-place-number-color)!important;
+  border-radius:var(--vcc-place-number-radius)!important;
+  background:var(--vcc-place-number-bg)!important;
+  color:var(--vcc-place-number-color)!important;
+  font-size:var(--vcc-place-number-font)!important;
   box-shadow:none!important;
 }
 html body .imp-page .imp-main .place .place-copy > .place-info-card {
@@ -312,14 +328,14 @@ html body .imp-page .imp-main .place .place-copy > .place-info-card {
   box-sizing:border-box;
   width:100%;
   min-width:0;
-  background:#fff;
-  border:1px solid rgba(44,35,29,.085);
-  border-radius:18px;
-  padding:20px 22px;
-  box-shadow:0 2px 10px rgba(44,35,29,.025);
+  background:var(--vcc-place-card-bg);
+  border:var(--vcc-place-card-border);
+  border-radius:var(--vcc-place-card-radius);
+  padding:var(--vcc-place-card-padding);
+  box-shadow:var(--vcc-place-card-shadow);
 }
 html body .imp-page .imp-main .place .place-info-card > p {
-  margin:0 0 19px!important;
+  margin:0 0 var(--vcc-place-description-gap)!important;
   padding:0!important;
   color:#302e2b;
   font:400 12px/1.65 'DM Sans',sans-serif!important;
@@ -331,35 +347,9 @@ html body .imp-page .imp-main .place .place-info-card > .facts {
   padding:0!important;
   border:0!important;
 }
-/* Primera fitxa sense fotografies: que les dades es distribueixin dins
-   la vinyeta en comptes de sobresortir-ne en pantalles estretes. */
-html body .imp-page .imp-main #gamla-stan .place-info-card > .facts {
-  width:100%!important;
-  max-width:100%!important;
-  margin:0 auto!important;
-  flex-wrap:wrap!important;
-}
-@media(max-width:650px){
-  html body .imp-page .imp-main .place .place-number {
-    flex-basis:37px!important;
-    width:37px!important;
-    height:37px!important;
-    border-width:2px!important;
-    border-radius:7px!important;
-    font-size:22px!important;
-  }
-  html body .imp-page .imp-main .place .place-copy > .place-info-card {
-    padding:17px 16px;
-    border-radius:15px;
-  }
-  html body .imp-page .imp-main .place .place-info-card > p {
-    margin-bottom:16px!important;
-  }
-}
 
-/* Fitxes sense fotografia (Gamla Stan): mateixa amplada de Consejo VCC
-   i vinyeta, i sis dades en una sola línia a escriptori.
-   En pantalles estretes la línia és lliscable, no se'n tallen les dades. */
+/* Mateixa amplada de Consejo VCC i fitxa, també si no hi ha fotografia.
+   A escriptori les sis dades van en una fila. */
 html body .imp-page .imp-main .place.place--no-media .place-copy > .advice {
   box-sizing:border-box!important;
   width:100%!important;
@@ -380,9 +370,6 @@ html body .imp-page .imp-main .place.place--no-media .place-info-card > .facts {
   margin:0!important;
   gap:10px!important;
   overflow:visible!important;
-  scrollbar-width:thin;
-  scrollbar-color:#e0b5a2 transparent;
-  -webkit-overflow-scrolling:touch;
 }
 html body .imp-page .imp-main .place.place--no-media .place-info-card > .facts > span {
   flex:0 0 auto!important;
@@ -393,22 +380,45 @@ html body .imp-page .imp-main .place.place--no-media .place-info-card > .facts >
   margin:0!important;
   padding:0!important;
 }
-@media(max-width:900px){
+
+/* No ocultem dades en un carrusel horitzontal a mòbil. Presentem totes les
+   sis dades visibles amb columnes regulars: 3 a tauleta i 2 al mòbil.
+   El tooltip de Puntuación VCC pot sortir de la graella sense retallar-se. */
+@media(max-width:900px) {
   html body .imp-page .imp-main .place.place--no-media .place-info-card > .facts {
-    justify-content:flex-start!important;
-    column-gap:17px!important;
-    overflow-x:auto!important;
-    overflow-y:hidden!important;
-    padding-bottom:5px!important;
-  }
-  /* En obrir la puntuació VCC, permetre que la nota flotant surti
-     per sobre de la fila, sense quedar retallada pel scroll horitzontal. */
-  html body .imp-page .imp-main .place.place--no-media .place-info-card > .facts:has(.vcc-rating-fact.is-open),
-  html body .imp-page .imp-main .place.place--no-media .place-info-card > .facts:has(.vcc-rating-fact:focus-within) {
+    display:grid!important;
+    grid-template-columns:repeat(3,minmax(0,1fr))!important;
+    justify-content:stretch!important;
+    align-items:center!important;
+    gap:13px 17px!important;
     overflow:visible!important;
+    padding:0!important;
+  }
+  html body .imp-page .imp-main .place.place--no-media .place-info-card > .facts > span {
+    display:inline-flex!important;
+    min-width:0!important;
+    width:auto!important;
+    max-width:100%!important;
+    white-space:normal!important;
+    justify-content:flex-start!important;
+    align-items:center!important;
+    text-align:left!important;
   }
 }
-@media(max-width:650px){
+@media(max-width:650px) {
+  html body .imp-page .imp-main {
+    --vcc-place-number-size:37px;
+    --vcc-place-number-font:22px;
+    --vcc-place-number-stroke:2px;
+    --vcc-place-number-radius:7px;
+    --vcc-place-card-radius:15px;
+    --vcc-place-card-padding:17px 16px;
+    --vcc-place-description-gap:16px;
+  }
+  html body .imp-page .imp-main .place.place--no-media .place-info-card > .facts {
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    gap:13px 10px!important;
+  }
   html body .imp-page .imp-main .place.place--no-media .place-copy > .advice {
     margin-top:10px!important;
   }
