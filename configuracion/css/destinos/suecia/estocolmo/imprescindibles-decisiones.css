@@ -127,18 +127,32 @@ html body .imp-page .imp-map-section {
   margin:12px auto 52px;scroll-margin-top:110px;
 }
 html body .imp-page .imp-main {margin-bottom:18px!important}
-html body .imp-page .imp-map-heading {margin-bottom:20px}
-html body .imp-page .imp-map-heading .imp-map-kicker {
-  display:block;margin:0 0 9px;color:#d45e2f;
-  font:600 25px/1 'Caveat',cursive;
+/* El mapa comparteix EXACTAMENT l'escala editorial de «Los 15 lugares».
+   Sobretítol DM Sans taronja, títol Oswald i descripció lateral discreta. */
+html body .imp-page .imp-map-heading {
+  display:flex;align-items:flex-end;justify-content:space-between;
+  gap:16px 28px;margin-bottom:20px;padding-bottom:14px;
+  border-bottom:1px solid #e7dcd3;
 }
-html body .imp-page .imp-map-heading h2 {
-  margin:0 0 8px;color:#1b1b1b;
-  font:500 clamp(26px,3.5vw,37px)/1.15 'Oswald',sans-serif;
+html body .imp-page .imp-map-heading-title {
+  display:flex;flex-direction:column;gap:3px;min-width:0;
 }
-html body .imp-page .imp-map-heading p {
-  max-width:750px;margin:0;color:#69625d;
-  font:400 13px/1.65 'DM Sans',sans-serif;
+html body .imp-page .imp-map-heading .imp-map-kicker,
+html body .imp-page .imp-places-intro span {
+  display:block;margin:0;color:#b85d37;
+  font:700 9px/1.4 'DM Sans',sans-serif;
+  letter-spacing:.075em;text-transform:uppercase;
+}
+html body .imp-page .imp-map-heading h2,
+html body .imp-page .imp-places-intro strong {
+  display:block;margin:0;color:#27211f;
+  font:500 clamp(18px,2.1vw,23px)/1.15 'Oswald',sans-serif;
+}
+html body .imp-page .imp-map-heading p,
+html body .imp-page .imp-places-intro p {
+  margin:0 0 1px;color:#746a64;
+  font:400 11px/1.5 'DM Sans',sans-serif;
+  text-align:right;max-width:390px;
 }
 html body .imp-page .imp-map-layout {
   display:grid;grid-template-columns:minmax(0,1fr) 245px;
@@ -221,9 +235,11 @@ html body .imp-page .leaflet-popup-content a {color:#b9542d;font-weight:700}
 @media(max-width:650px) {
   html body .imp-page .imp-price-key {width:calc(100% - 30px);text-align:left}
   html body .imp-page .imp-map-section {width:calc(100% - 28px);margin:24px auto 39px;scroll-margin-top:103px}
-  html body .imp-page .imp-map-heading .imp-map-kicker {font-size:23px}
-  html body .imp-page .imp-map-heading h2 {font-size:27px}
-  html body .imp-page .imp-map-heading p {font-size:12px}
+  html body .imp-page .imp-map-heading {display:block}
+  html body .imp-page .imp-map-heading h2 {font-size:20px}
+  html body .imp-page .imp-map-heading p {
+    text-align:left;max-width:none;font-size:11px;margin:8px 0 0;
+  }
   html body .imp-page .imp-map-layout {grid-template-columns:minmax(0,1fr);gap:9px}
   html body .imp-page #imp-all-map {height:310px;min-height:310px}
   html body .imp-page .imp-map-index {
@@ -249,17 +265,7 @@ html body .imp-page .imp-places-intro {
   border-bottom:1px solid #e7dcd3;
 }
 html body .imp-page .imp-places-intro div {display:flex;flex-direction:column;gap:3px;min-width:0}
-html body .imp-page .imp-places-intro span {
-  color:#b85d37;font:700 9px/1.4 'DM Sans',sans-serif;
-  letter-spacing:.075em;text-transform:uppercase;
-}
-html body .imp-page .imp-places-intro strong {
-  color:#27211f;font:500 clamp(18px,2.1vw,23px)/1.15 'Oswald',sans-serif;
-}
-html body .imp-page .imp-places-intro p {
-  margin:0 0 1px;color:#746a64;font:400 11px/1.5 'DM Sans',sans-serif;
-  text-align:right;max-width:390px;
-}
+
 html body .imp-page .imp-map-section {
   margin:18px auto 17px!important;padding:27px 28px 24px!important;
   background:#fffdfb!important;border:1px solid #eadfd5!important;
