@@ -422,6 +422,9 @@ data.forEach((p,i)=>{
       section.insertBefore(gallery,copy);
     }
     gallery.dataset.count=String(imgs.length);
+    // Los mosaicos usan etiquetas img reales (alt y lazy-loading), no
+    // fondos CSS. El diseño, las fotos R2 y los visores permanecen iguales.
+    gallery.dataset.seoImages='true';
     let imageSource=gallery.querySelector('.gallery-main');
     if(!imageSource){
       imageSource=document.createElement('div');
