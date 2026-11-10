@@ -18,7 +18,6 @@ const polish = read('configuracion/css/plantillas/itinerario-polish-vcc.css');
 const hero = read('configuracion/css/componentes/vcc-hero-editorial-vcc.css');
 const galleryJS = read('configuracion/js/componentes/vcc-gallery-booking.js');
 const scrollspy = read('configuracion/js/destinos/suecia/estocolmo/vcc-section-scrollspy.js');
-const galleryUI = read('configuracion/js/componentes/vcc-gallery-ui.js');
 const lazyBgJS = read('configuracion/js/componentes/vcc-lazy-background.js');
 
 const count = (text, pattern) => [...text.matchAll(pattern)].length;
@@ -83,17 +82,17 @@ assert.equal(count(html, /<style id=/g), 0, 'Els estils editorials han de viure 
 assert.match(html, /data-vcc-sticky-mobile/);
 assert.match(scrollspy, /stickyMobile=nav\.hasAttribute\('data-vcc-sticky-mobile'\)/);
 assert.match(html, /vcc-gallery-booking\.js/);
-assert.match(html, /vcc-gallery-ui\.css/);
+assert.match(html, /vcc-gallery-booking\.css/, 'El CSS universal de galeria ha d’estar carregat');
 assert.match(html, /vcc-hero-editorial-vcc\.css/);
 assert.doesNotMatch(html, /itinerario-vcc-gallery\.js/);
 assert.doesNotMatch(html, /itinerary-mobile-sticky-controller/);
 assert.match(galleryJS, /thumbButtons\.forEach/);
 assert.match(galleryJS, /deactivateGlobalGestures\(\)/);
-assert.match(galleryUI, /backToGallery:'← Galería'/);
+assert.match(galleryJS, /day-lightbox-to-grid vcc-gallery-ui-back/, 'Cal mantenir el botó de Galería compartit');
+assert.match(galleryJS, /<span>Galería<\/span>/, 'Cal mantenir el text del botó compartit');
 
 for (const file of [
   'configuracion/js/componentes/vcc-gallery-booking.js',
-  'configuracion/js/componentes/vcc-gallery-ui.js',
   'configuracion/js/componentes/vcc-lazy-background.js',
   'configuracion/js/destinos/suecia/estocolmo/vcc-section-scrollspy.js'
 ]) {
