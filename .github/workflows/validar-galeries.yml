@@ -3,7 +3,7 @@ on:
   push:
     branches: [quality]
     paths:
-      - "destinos/**/*.html"
+      - "**/*.html"
       - "sitemap.xml"
       - "configuracion/scripts/validar-galeries.mjs"
       - "configuracion/js/componentes/vcc-gallery-booking.js"
@@ -11,7 +11,7 @@ on:
       - ".github/workflows/validar-galeries.yml"
   pull_request:
     paths:
-      - "destinos/**/*.html"
+      - "**/*.html"
       - "sitemap.xml"
       - "configuracion/scripts/validar-galeries.mjs"
       - ".github/workflows/validar-galeries.yml"
