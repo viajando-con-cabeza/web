@@ -60,21 +60,49 @@ function replaceAuto(file,start,end,body){
 
 const all = walk(path.join(ROOT,"destinos")).filter(f => !f.endsWith(".html") || !/<meta[^>]+name=["\']robots["\'][^>]+content=["\'][^"\']*noindex/i.test(fs.readFileSync(f,"utf8")));
 
-const budgetFiles = all.filter(f=>/\/presupuesto\.html$/i.test(f));
-const budgetCards = budgetFiles.map(file=>{
-  const html=fs.readFileSync(file,"utf8");
-  const {country,continent}=metaFor(file);
-  const destination=destinationFrom(html,file,"budget");
-  const featured=(html.match(/<article[^>]*class=["'][^"']*mode-card[^"']*featured[^"']*["'][^>]*>([\s\S]*?)<\/article>/i)||[])[1]||"";
-  const amount=plain((featured.match(/<strong[^>]*>([\s\S]*?)<\/strong>/i)||[])[1]||"") || "Ver guía";
-  const href="/"+rel(file);
-  const firstImg=(html.match(/<img[^>]+src=["']([^"']+)["']/i)||[])[1]||"";
-  const bg = /^https?:\/\//.test(firstImg) ? firstImg : "/configuracion/imagenes/externas/unsplash/photo-1500530855697-b586d89ba3ee.webp";
-  return `<article class="card destination" data-continent="${esc(continent)}"><div class="card-media" style="background-image:linear-gradient(180deg,transparent,rgba(0,0,0,.48)),url('${esc(bg)}')"><div><small>${esc(country)} · ${esc(destination.toUpperCase())}</small><h3>${esc(destination)}</h3></div></div><div class="card-body"><div class="metrics"><div class="metric"><small>PRESUPUESTO VCC</small><strong>${esc(amount)}</strong><small>persona / día</small></div><div class="metric"><small>TIPO DE VIAJE</small><strong>VCC</strong><small>calidad + criterio</small></div></div><div class="mini"><span>🛏 Alojamiento</span><span>🍴 Comida</span><span>🚇 Transporte</span><span>🎟 Actividades</span></div><div class="highlight"><b>En la guía completa:</b> presupuesto, consejos y gastos del destino.</div><a class="cta" href="${href}">VER PRESUPUESTO COMPLETO →</a></div></article>`;
-}).sort((a,b)=>a.localeCompare(b,"es"));
+// Metadata editorial. Los importes se leen siempre del presupuesto publicado
+// (perfil VCC), para no duplicar cifras ni confundir estimaciones con gastos reales.
+const budgetEditorial = {
+  "destinos/suecia/estocolmo/presupuesto.html": {
+    type: "ciudades", typeLabel: "Ciudades", days: 3,
+    image: "/configuracion/imagenes/externas/unsplash/photo-1509356843151-3e7d96241e11.webp",
+    description: "Nuestro gasto real en una escapada urbana de 3 días: alojamiento, comida, transporte y actividades. Sin vuelos ni traslados de ida y vuelta."
+  }
+};
 
-const budgetPlaceholder = `<article class="placeholder"><span>PRÓXIMAMENTE</span><h3>Más presupuestos VCC</h3><p>Cada nuevo presupuesto publicado dentro de un destino aparecerá automáticamente aquí.</p></article>`;
-replaceAuto("planifica/presupuesto/index.html","<!-- AUTO_BUDGETS_START -->","<!-- AUTO_BUDGETS_END -->",[...budgetCards,budgetPlaceholder].join("\n"));
+function budgetDailyAmount(html) {
+  const declared = html.match(/<meta[^>]+name=["']vcc-budget-daily["'][^>]+content=["']([\d.,]+)["']/i);
+  const vccButton = html.match(/<button[^>]*data-budget-mode=["']vcc["'][\s\S]*?<\/button>/i);
+  const actual = vccButton?.[0].match(/class=["']vcc-budget-mode-price["'][\s\S]*?<strong[^>]*>\s*(?:≈\s*)?([\d.,]+)\s*€\s*<\/strong>/i);
+  const rawAmount = declared?.[1] || actual?.[1];
+  if (!rawAmount) return null;
+  const normalized = Number(rawAmount.replace(/\./g, "").replace(",", "."));
+  return Number.isFinite(normalized) && normalized > 0 ? normalized : null;
+}
+
+const budgetFiles = all.filter(f=>/\/presupuesto\.html$/i.test(f));
+const budgetCards = budgetFiles.map(file => {
+  const html = fs.readFileSync(file, "utf8");
+  const filePath = rel(file);
+  const {country,continent} = metaFor(file);
+  const destination = destinationFrom(html, file, "budget");
+  const info = budgetEditorial[filePath] || {};
+  const daily = budgetDailyAmount(html);
+  const type = info.type || "otros";
+  const typeLabel = info.typeLabel || "Otros viajes";
+  const daysLabel = Number.isInteger(info.days) && info.days > 0 ? "<span>◷ " + info.days + " días</span>" : "";
+  const photo = info.image || "/configuracion/imagenes/externas/unsplash/photo-1500530855697-b586d89ba3ee.webp";
+  const description = info.description || "Consulta nuestro presupuesto completo, las categorías de gasto y los consejos para este destino.";
+  const priceLabel = daily === null ? "Ver presupuesto" : new Intl.NumberFormat("es-ES", {maximumFractionDigits:1}).format(daily) + " €/persona/día";
+  return [
+    '<article class="it-card budget-card" data-continent="' + esc(continent) + '" data-type="' + esc(type) + '" data-daily="' + (daily ?? "") + '">',
+    '<img src="' + esc(photo) + '" alt="Viaje a ' + esc(destination) + ', ' + esc(country) + '" loading="lazy" decoding="async">',
+    '<div class="it-card-copy"><h2>' + esc(destination.toUpperCase()) + '</h2><p>' + esc(description) + '</p>',
+    '<div class="it-meta"><span class="budget-price">€ ' + esc(priceLabel) + '</span><span>⌖ ' + esc(typeLabel) + '</span>' + daysLabel + '</div>',
+    '<a href="/' + esc(filePath) + '" class="it-cta">VER PRESUPUESTO COMPLETO →</a></div></article>'
+  ].join("");
+}).sort((a,b)=>a.localeCompare(b,"es"));
+replaceAuto("planifica/presupuesto/index.html", "<!-- AUTO_BUDGETS_START -->", "<!-- AUTO_BUDGETS_END -->", budgetCards.join("\n"));
 
 const mapFiles = all.filter(f=>/\/itinerario\.html$/i.test(f));
 const mapCards = mapFiles.map(file=>{
