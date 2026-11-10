@@ -108,6 +108,24 @@ jobs:
           git pull --rebase origin quality
           git push origin HEAD:quality
 
+      - name: Optimize mountain background once (shared footer)
+        shell: bash
+        run: |
+          set -euo pipefail
+          TARGET="configuracion/imagenes/externas/unsplash/photo-1464822759023-fed622ff2c3b-vcc-optimizado.webp"
+          if [[ -s "$TARGET" ]]; then
+            echo "Optimized VCC mountains already committed."
+          else
+            python -m pip install --quiet Pillow
+            python configuracion/scripts/optimizar-fondo-montanas.py
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add "$TARGET"
+            git commit -m "Optimize mountain footer WebP without changing its design"
+            git pull --rebase origin quality
+            git push origin HEAD:quality
+          fi
+
       - name: Check local links and resources
         run: node configuracion/scripts/comprobar-rutas.mjs
 
