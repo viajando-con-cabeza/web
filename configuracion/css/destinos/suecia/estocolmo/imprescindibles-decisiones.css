@@ -379,8 +379,7 @@ html body .imp-page .imp-main .place.place--no-media .place-info-card > .facts {
   max-width:100%!important;
   margin:0!important;
   gap:10px!important;
-  overflow-x:auto;
-  overflow-y:visible;
+  overflow:visible!important;
   scrollbar-width:thin;
   scrollbar-color:#e0b5a2 transparent;
   -webkit-overflow-scrolling:touch;
@@ -398,7 +397,15 @@ html body .imp-page .imp-main .place.place--no-media .place-info-card > .facts >
   html body .imp-page .imp-main .place.place--no-media .place-info-card > .facts {
     justify-content:flex-start!important;
     column-gap:17px!important;
+    overflow-x:auto!important;
+    overflow-y:hidden!important;
     padding-bottom:5px!important;
+  }
+  /* En obrir la puntuació VCC, permetre que la nota flotant surti
+     per sobre de la fila, sense quedar retallada pel scroll horitzontal. */
+  html body .imp-page .imp-main .place.place--no-media .place-info-card > .facts:has(.vcc-rating-fact.is-open),
+  html body .imp-page .imp-main .place.place--no-media .place-info-card > .facts:has(.vcc-rating-fact:focus-within) {
+    overflow:visible!important;
   }
 }
 @media(max-width:650px){
