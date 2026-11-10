@@ -2,7 +2,7 @@
 (() => {
   'use strict';
   const NAVS='nav.st-tabs,nav.vcc-nav,nav.place-nav-wrap,nav.country-nav,nav.mv-subnav,nav.dv-subnav,nav.ep-subnav,nav.ql-subnav,nav.ci-subnav,nav.content-nav,nav.rich-tabs,nav.cl-subnav,nav.tv-tabs';
-  const HEROS='.st-hero,.country-hero,.imp-hero,.vcc-hero,.mv-hero,.dv-hero,.ep-hero,.ql-hero,.ci-hero,.budget-hero,.content-hero,.rich-hero,.tv-hero';
+  const HEROS='.st-hero,.country-hero,.imp-hero,.vcc-hero,.mv-hero,.dv-hero,.ep-hero,.ql-hero,.ci-hero,.budget-hero,.content-hero,.rich-hero,.tv-hero,.al-hero,.cl-landing-hero';
   const managed=new Set();
   const pending=new WeakMap();
   const headerTop=()=>{
@@ -11,7 +11,14 @@
     const p=getComputedStyle(h).position;
     return p==='fixed'||p==='sticky'?Math.round(h.getBoundingClientRect().height):0;
   };
-  const setTop=()=>document.documentElement.style.setProperty('--vcc-subheader-top',headerTop()+'px');
+  const setTop=()=>{
+    const h=document.querySelector('body > .shared-header, body > .page-header, .shared-header, .page-header');
+    // La cabecera ocupa espacio incluso si no es sticky. Su medida real evita
+    // cortar la barra de secciones en teléfonos con dos filas de menú.
+    const height=h?Math.ceil(h.getBoundingClientRect().height):0;
+    document.documentElement.style.setProperty('--vcc-page-header-height',height+'px');
+    document.documentElement.style.setProperty('--vcc-subheader-top',headerTop()+'px');
+  };
   const linkTarget=(a)=>{
     const href=a.getAttribute('href')||'';
     if(!href.startsWith('#')||href.length<2)return null;
@@ -51,6 +58,27 @@
     }
   };
   const schedule=()=>{if(!raf)raf=requestAnimationFrame(sync)};
+  // Cómo llegar incluye cinco tarjetas de transporte dentro de la portada.
+  // En móvil pasan justo después de la barra para que ambas sean accesibles;
+  // al volver al escritorio recuperan su posición original, sin duplicados.
+  const relocateTransportCards=(nav,hero)=>{
+    if(!nav.classList.contains('vcc-como-llegar-subnav')||!hero?.classList.contains('cl-landing-hero'))return;
+    const stage=hero.querySelector('.cl-landing-stage');
+    const cards=stage?.querySelector('.cl-landing-cards');
+    if(!stage||!cards)return;
+    const mq=window.matchMedia('(max-width:720px)');
+    const place=()=>{
+      if(mq.matches){
+        if(cards.previousElementSibling!==nav)nav.insertAdjacentElement('afterend',cards);
+        cards.classList.add('vcc-cl-mobile-cards');
+      }else{
+        if(cards.parentElement!==stage)stage.appendChild(cards);
+        cards.classList.remove('vcc-cl-mobile-cards');
+      }
+    };
+    place();
+    mq.addEventListener?.('change',place);
+  };
   const setup=(nav)=>{
     if(managed.has(nav))return;
     managed.add(nav);
@@ -65,6 +93,7 @@
     }
     if(before&&before.matches(HEROS)){
       before.classList.add('vcc-subheader-hero','vcc-standardized-hero-height');
+      relocateTransportCards(nav,before);
     }
     for(const item of itemsOf(nav))item.target.setAttribute('data-vcc-subheader-target','');
     if(!nav.classList.contains('place-nav-wrap')){
