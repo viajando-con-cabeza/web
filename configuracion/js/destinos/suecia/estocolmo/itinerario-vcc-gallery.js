@@ -116,7 +116,7 @@ function createThumbs(){
   b.addEventListener('click',()=>showPhoto(index));
   thumbs.append(b);
   if(index===currentIndex)requestAnimationFrame(()=>b.scrollIntoView({
-   block:'nearest',inline:'nearest',behavior:'instant'
+   block:'nearest',inline:'nearest'
   }));
  });
 }
@@ -292,6 +292,10 @@ function clearZoomBaseline(){
  modal.classList.remove('vcc-gallery-viewport','vcc-zoom-pan-enabled');
  modal.style.removeProperty('--it-gallery-panel-width');
  modal.style.removeProperty('--it-gallery-panel-height');
+ modal.style.removeProperty('--it-gallery-grid-columns');
+ modal.style.removeProperty('--it-gallery-photo-columns');
+ modal.style.removeProperty('--it-gallery-grid-gap');
+ modal.style.removeProperty('--it-gallery-grid-padding');
 }
 function startPanBaseline(){
  resetPan();
@@ -306,6 +310,12 @@ function startPanBaseline(){
  const width=panel.offsetWidth,height=panel.offsetHeight;
  modal.style.setProperty('--it-gallery-panel-width',Math.max(1,width)+'px');
  modal.style.setProperty('--it-gallery-panel-height',Math.max(1,height)+'px');
+ // Congelar columnes i espais reals en travessar breakpoints amb zoom de Mac/Windows.
+ const main=modal.querySelector('.day-lightbox-grid-main');
+ modal.style.setProperty('--it-gallery-grid-columns',getComputedStyle(main).gridTemplateColumns);
+ modal.style.setProperty('--it-gallery-photo-columns',getComputedStyle(main).gridTemplateColumns);
+ modal.style.setProperty('--it-gallery-grid-gap',getComputedStyle(grid).gap);
+ modal.style.setProperty('--it-gallery-grid-padding',getComputedStyle(gridScroll).padding);
  modal.classList.add('vcc-gallery-viewport');
  syncNativeZoom();
 }
