@@ -272,9 +272,6 @@ html body.ci-page .ci-subnav a:hover{
  color:#a65340!important;
  border-bottom-color:#cf705c!important;
 }
-html body.ci-page :is(#consejo,#mes-a-mes,#experiencia,#errores){
- scroll-margin-top:calc(var(--vcc-header-h,54px) + 58px);
-}
 @media(max-width:720px){
  html body.ci-page .ci-subnav{
   top:var(--vcc-header-h,87px)!important;
@@ -282,9 +279,6 @@ html body.ci-page :is(#consejo,#mes-a-mes,#experiencia,#errores){
   gap:25px!important;
  }
  html body.ci-page .ci-subnav a{font-size:11px!important}
- html body.ci-page :is(#consejo,#mes-a-mes,#experiencia,#errores){
-  scroll-margin-top:calc(var(--vcc-header-h,87px) + 58px);
- }
 }
 
 /* 2026-11-05: robust fixed subheader while scrolling, keeping its original space */
@@ -311,8 +305,17 @@ html body.ci-page .ci-subnav-placeholder{
  width:100%;
  pointer-events:none;
 }
-html body.ci-page :is(#consejo,#mes-a-mes,#experiencia,#errores){
+/* El índice alinea los títulos bajo la cabecera+subheader, no a media pantalla.
+   Estas dos secciones tienen padding superior propio (32/43 px). Compensarlo
+   permite que el sobretítulo llegue arriba sin quedar tapado por la barra. */
+html body.ci-page :is(#consejo,#mes-a-mes){
  scroll-margin-top:var(--ci-sticky-offset,115px)!important;
+}
+html body.ci-page #experiencia{
+ scroll-margin-top:max(0px,calc(var(--ci-sticky-offset,115px) - 34px))!important;
+}
+html body.ci-page #errores{
+ scroll-margin-top:max(0px,calc(var(--ci-sticky-offset,115px) - 45px))!important;
 }
 
 /* Igualar la altura del hero al Presupuesto de Estocolmo: 452px escritorio.
