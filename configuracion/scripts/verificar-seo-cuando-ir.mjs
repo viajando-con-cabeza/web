@@ -66,4 +66,40 @@ assert.equal(webpage?.url, canonical, 'Schema WebPage URL incorrecta');
 assert.equal(webpage?.['@id'], canonical + '#webpage', 'Schema WebPage ID incorrecto');
 assert.equal(bread?.itemListElement?.at(-1)?.item, canonical, 'Schema Breadcrumb incorrecto');
 
+
+/* Regresiones funcionales: la extracción a módulos no debe perder enlaces,
+   controles, selección mensual ni navegación accesible. */
+const interaccionesPath = 'configuracion/js/destinos/suecia/estocolmo/cuando-ir-interacciones.js';
+const subheaderPath = 'configuracion/js/destinos/suecia/estocolmo/cuando-ir-subheader.js';
+for (const file of [interaccionesPath, subheaderPath]) {
+  assert.ok(existsSync(file), `Falta el módulo de Cuándo ir: ${file}`);
+  assert.ok(html.includes('/' + file), `El HTML no carga el módulo: ${file}`);
+}
+const interacciones = read(interaccionesPath);
+const subheader = read(subheaderPath);
+const monthButtons = matches(html, /<button\b[^>]*\bdata-month="(\d+)"[^>]*>/g);
+assert.equal(monthButtons.length, 12, 'El calendario debe tener 12 botones');
+const monthIndices = monthButtons.map(m => Number(m[1])).sort((a,b) => a-b);
+assert.deepEqual(monthIndices, Array.from({length: 12}, (_,i) => i),
+  'Los botones mensuales deben cubrir de enero a diciembre sin duplicados');
+for (const [i, button] of monthButtons.entries()) {
+  assert.ok(button[0].includes('aria-controls="ci-month-panel-' + button[1] + '"'),
+    `El botón del mes ${button[1]} no apunta a su panel`);
+}
+assert.ok(interacciones.includes("calendar.addEventListener('keydown'"),
+  'Falta la navegación mensual con teclado');
+assert.ok(interacciones.includes("choices.addEventListener('click'"),
+  'La selección de tipo de viaje debe seguir operativa');
+assert.ok(interacciones.includes('monthPanels.forEach('),
+  'La selección mensual debe alternar la visibilidad de los paneles');
+assert.ok(subheader.includes('ci-subnav-placeholder') && subheader.includes('scheduleSync'),
+  'Falta el comportamiento de fijación del subheader sin saltos');
+for (const anchor of matches(html, /<nav class="st-tabs ci-subnav"[^>]*>([\s\S]*?)<\/nav>/g)
+    .flatMap(m => matches(m[1], /href="#([^"]+)"/g).map(x => x[1]))) {
+  assert.ok(ids.includes(anchor), `El subheader enlaza a una sección inexistente: #${anchor}`);
+}
+assert.ok(/@media\s*\(max-width:\s*800px\)/.test(css) &&
+  css.includes('fondos-cuando-ir-mobile.webp'),
+  'La portada optimizada para móvil debe mantenerse');
+
 console.log('SEO Cuándo ir: canonical, sitemap, schema, Quality noindex y galería validados.');
