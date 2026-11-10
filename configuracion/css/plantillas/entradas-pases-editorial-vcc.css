@@ -475,3 +475,26 @@
 @media (min-width:900px) and (max-width:1199px){
  .ep-page .ep4-our-list .ep4-day-story .ep4-day-reason{font-size:11.2px!important;line-height:1.54!important}
 }
+
+/* Entradas por día: etiquetas de compra dominantes, texto editorial discreto y divisor desplazado ~11px. */
+@media(min-width:900px){
+ .ep-page .ep4-our-list .ep4-day-split{grid-template-columns:minmax(0,1.02fr) minmax(0,.98fr)!important}
+ .ep-page .ep4-our-list .ep4-day-summary .ep4-day-group-label{
+  font:700 12px/1.34 "DM Sans",sans-serif!important;letter-spacing:-.012em!important
+ }
+ .ep-page .ep4-our-list .ep4-day-summary .ep4-day-group-icon{
+  width:14px!important;height:14px!important;flex-basis:14px!important
+ }
+ .ep-page .ep4-our-list .ep4-day-story .ep4-day-reason{
+  font-size:10.8px!important;line-height:1.56!important
+ }
+}
+@media(min-width:601px) and (max-width:899px){
+ .ep-page .ep4-our-list .ep4-day-split{grid-template-columns:minmax(0,1.02fr) minmax(0,.98fr)!important}
+ .ep-page .ep4-our-list .ep4-day-summary .ep4-day-group-label{font-size:12px!important;line-height:1.35!important}
+ .ep-page .ep4-our-list .ep4-day-story .ep4-day-reason{font-size:11.3px!important;line-height:1.55!important}
+}
+@media(max-width:600px){
+ .ep-page .ep4-our-list .ep4-day-summary .ep4-day-group-label{font-size:12.5px!important;font-weight:700!important}
+ .ep-page .ep4-our-list .ep4-day-story .ep4-day-reason{font-size:13px!important}
+}
