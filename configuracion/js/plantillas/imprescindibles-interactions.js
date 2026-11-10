@@ -170,7 +170,7 @@
     const placeName = place?.querySelector('h2')?.textContent?.trim() || 'Estocolmo';
     if (caption) caption.textContent = '';
     if (placeHeading) placeHeading.textContent = placeName;
-    if (placeDescription) placeDescription.textContent = place?.querySelector('.place-copy > p')?.textContent?.trim() || '';
+    if (placeDescription) placeDescription.textContent = place?.querySelector('.place-copy > .place-info-card > p, .place-copy > p')?.textContent?.trim() || '';
     if (placeInfo) placeInfo.scrollTop = 0;
     thumbnails.replaceChildren();
     album.forEach((src,j) => {
