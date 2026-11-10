@@ -246,7 +246,8 @@
         more.textContent=`+${extras} ${extras===1?'foto':'fotos'}`;
         tile.append(more);
       }
-      tile.addEventListener('click',() => open(gallery,index));
+      // El visor VCC compartit gestiona el clic quan hi ha un modal universal.
+      if (!document.querySelector('[data-vcc-booking-gallery]')) tile.addEventListener('click',() => open(gallery,index));
       mosaic.append(tile);
     });
     gallery.replaceChildren(mosaic);
