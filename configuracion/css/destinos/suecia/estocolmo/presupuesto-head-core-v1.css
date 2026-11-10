@@ -1,0 +1,526 @@
+/* vcc-budget-page-background */
+
+/* Color de base corporativo; no colorear tarjetas ni widgets */
+html:has(body.budget-vcc){background-color:#faf6f1!important}
+html body.budget-vcc{background:#faf6f1!important}
+html body.budget-vcc > .st-shell{background:#faf6f1!important}
+html body.budget-vcc .st-shell > main.budget-main{background:transparent!important}
+
+
+/* vcc-budget-final-polish */
+
+/* El papel beige es el fondo: módulos blancos, controles blancos, bordes grises */
+html body.budget-vcc .vcc-method-hero,
+html body.budget-vcc .vcc-method-flow,
+html body.budget-vcc .vcc-principles article,
+html body.budget-vcc .mode-card,
+html body.budget-vcc .philosophy-profile,
+html body.budget-vcc .philosophy-profile.medium,
+html body.budget-vcc .philosophy-profile.backpacker,
+html body.budget-vcc .philosophy-profile.vcc-choice,
+html body.budget-vcc .breakdown-card,
+html body.budget-vcc .calculator-card,
+html body.budget-vcc .saving-tip,
+html body.budget-vcc .decision-panel,
+html body.budget-vcc .spend-panel.worth,
+html body.budget-vcc .spend-panel.skip,
+html body.budget-vcc .surprise-grid.tips-track article,
+html body.budget-vcc .stockholm-apply{background:#fff!important;border-color:#e2ddd6!important}
+html body.budget-vcc .philosophy-profile.vcc-choice{border-color:#c86f5d!important}
+html body.budget-vcc .calc-control,
+html body.budget-vcc .category-row select,
+html body.budget-vcc .stepper button,
+html body.budget-vcc .donut-inner,
+html body.budget-vcc .profile-icon,
+html body.budget-vcc .decision-carousel .carousel-arrow,
+html body.budget-vcc .carousel-shell .carousel-arrow,
+html body.budget-vcc .no-spend-track .line-icon{background:#fff!important;border:1px solid #d8d8d8!important;color:#292724!important;box-shadow:none!important}
+html body.budget-vcc .category-row select{appearance:auto;cursor:pointer}
+html body.budget-vcc .calc-total{background:#fff!important;border:1px solid #e2ddd6!important}
+html body.budget-vcc .calc-total span,html body.budget-vcc .calc-total small{color:#655c54!important}
+/* Pequeño bloque editorial de cierre sin fotografías */
+html body.budget-vcc .related-section{background:linear-gradient(90deg,rgba(18,28,30,.72),rgba(18,28,30,.24)),url("/configuracion/imagenes/externas/unsplash/photo-1464822759023-fed622ff2c3b.webp") center 52%/cover no-repeat!important;color:#fffaf5!important;border:0!important;padding:49px 0 55px!important}
+html body.budget-vcc .related-inner{width:min(1180px,calc(100% - 48px));margin:auto}
+html body.budget-vcc .related-head{margin:0 0 24px!important;display:block}
+html body.budget-vcc .related-head p{color:#de9a83!important;font:600 28px/1 "Caveat",cursive!important;margin:0 0 10px!important}
+html body.budget-vcc .related-head h2{color:#fffaf5!important;font:500 clamp(27px,3.2vw,40px)/1.1 "Oswald",sans-serif!important;margin:0 0 9px!important}
+html body.budget-vcc .related-head span{color:#c8c8c7!important;font:400 13px/1.5 "DM Sans",sans-serif!important}
+html body.budget-vcc .related-grid{display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:12px!important}
+html body.budget-vcc .related-grid .related-text-link{min-height:117px;display:flex!important;align-items:center;justify-content:space-between;gap:8px;padding:17px!important;border:1px solid #586067!important;border-radius:7px;background:#202b30!important;text-decoration:none!important;transition:background .2s,border-color .2s}
+html body.budget-vcc .related-grid .related-text-link:hover{background:#293940!important;border-color:#df9c80!important}
+html body.budget-vcc .related-text-link>span{display:flex;flex-direction:column;gap:6px;min-width:0}
+html body.budget-vcc .related-grid .related-text-link small{font:800 9px/1.2 "DM Sans",sans-serif;color:#e5a18d;letter-spacing:.08em}
+html body.budget-vcc .related-grid .related-text-link strong{font:500 19px/1.2 "Oswald",sans-serif;color:#fffaf5}
+html body.budget-vcc .related-grid .related-text-link em{font:400 11px/1.35 "DM Sans",sans-serif;color:#d1d1cd;font-style:normal}
+html body.budget-vcc .related-grid .related-text-link b{display:inline-flex;flex:0 0 auto;position:static!important;width:26px;height:26px;align-items:center;justify-content:center;background:transparent!important;color:#e5a18d!important;font-size:20px;font-weight:400}
+@media(max-width:800px){html body.budget-vcc .related-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}}
+@media(max-width:520px){html body.budget-vcc .related-inner{width:calc(100% - 30px)}html body.budget-vcc .related-grid{grid-template-columns:1fr!important}html body.budget-vcc .related-grid .related-text-link{min-height:90px;padding:14px!important}}
+
+
+/* vcc-budget-planner-visual-20261104 */
+
+/* Calculadora VCC: maqueta aprobada, con los resultados y selectores actuales */
+html body.budget-vcc .calculator-section{position:relative}
+html body.budget-vcc .calculator-section .section-heading{align-items:end;gap:25px;margin-bottom:22px}
+html body.budget-vcc .calculator-section .section-heading>span{max-width:410px}
+html body.budget-vcc .calculator-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:18px;align-items:stretch}
+html body.budget-vcc .breakdown-card,html body.budget-vcc .calculator-card{min-width:0;min-height:0;padding:22px!important;border-radius:18px!important;background:#fff!important;border:1px solid #e7ddd3!important;box-shadow:0 7px 24px rgba(72,48,27,.07)!important}
+html body.budget-vcc .breakdown-head{display:flex;align-items:start;gap:10px;justify-content:space-between;margin-bottom:22px}
+html body.budget-vcc .breakdown-head h3{font:500 clamp(19px,1.9vw,27px)/1.15 'Oswald',sans-serif!important;margin:5px 0 0}
+html body.budget-vcc .vcc-budget-mini{font:800 10px/1.4 'DM Sans',sans-serif;letter-spacing:.08em;color:#b45b43}
+html body.budget-vcc .daily-label{font:400 10px/1.4 'DM Sans',sans-serif;color:#81756c}
+html body.budget-vcc .breakdown-card .chart-layout{display:grid;grid-template-columns:minmax(190px, .95fr) minmax(0,1fr);align-items:center;gap:24px;min-width:0}
+html body.budget-vcc .breakdown-card .donut{display:grid!important;place-items:center!important;width:min(100%,280px)!important;height:auto!important;aspect-ratio:1!important;margin:0 auto!important;border-radius:50%!important;padding:0!important;position:relative;overflow:hidden}
+html body.budget-vcc .breakdown-card .donut-inner{width:65%!important;height:65%!important;min-width:0!important;aspect-ratio:1!important;border-radius:50%!important;background:#fff!important;border:0!important;display:flex!important;flex-direction:column!important;align-items:center!important;justify-content:center!important;gap:2px!important;text-align:center!important;padding:9px 5px!important;box-sizing:border-box!important;overflow:hidden}
+html body.budget-vcc .vcc-donut-symbol{font:600 22px/1 'Caveat',cursive;color:#ba6049}
+html body.budget-vcc .donut-inner #donut-daily{display:block!important;width:100%!important;max-width:100%!important;margin:0!important;color:#a9533d!important;font:700 clamp(19px,2.1vw,32px)/1.1 'Oswald',sans-serif!important;letter-spacing:-.035em!important;white-space:nowrap!important;text-align:center!important;overflow:hidden!important;text-overflow:clip!important;font-variant-numeric:tabular-nums}
+html body.budget-vcc .donut-inner small{font:500 10px/1.25 'DM Sans',sans-serif!important;max-width:100px;color:#51453e!important;text-align:center}
+html body.budget-vcc .breakdown-card .legend{display:grid;gap:0;min-width:0}
+html body.budget-vcc .legend-row{display:grid!important;grid-template-columns:12px minmax(0,1fr) auto!important;align-items:center!important;gap:7px!important;min-height:43px!important;padding:8px 0!important;border-bottom:1px solid #eee5dd;font:500 11px/1.3 'DM Sans',sans-serif!important}
+html body.budget-vcc .legend-row:last-child{border-bottom:0}
+html body.budget-vcc .legend-row i{height:10px;width:10px}
+html body.budget-vcc .legend-row strong{font-size:12px!important;white-space:nowrap;font-variant-numeric:tabular-nums}
+html body.budget-vcc .calc-ticket-head{margin:0 0 18px;padding:0 0 12px;border-bottom:1px dashed #e8c6b5}
+html body.budget-vcc .calc-ticket-head>span{color:#b55c44!important;letter-spacing:.08em!important;font-weight:800}
+html body.budget-vcc .calc-ticket-head h3{font:600 26px/1.15 'Caveat',cursive!important;color:#a9533d!important;margin:4px 0!important}
+html body.budget-vcc .calc-ticket-head p{margin:3px 0 0!important;font:400 11px/1.4 'DM Sans',sans-serif;color:#71685f}
+html body.budget-vcc .calculator-card .calc-top{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:0 0 16px!important}
+html body.budget-vcc .calculator-card .calc-control{min-width:0;min-height:84px;padding:10px 5px!important;background:#fff!important;border:1px solid #d8d8d8!important;border-radius:11px!important;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px}
+html body.budget-vcc .calculator-card .calc-control>span{display:flex;align-items:center;justify-content:center;gap:6px;white-space:nowrap;font:800 10px/1.2 'DM Sans',sans-serif!important;margin:0!important}
+html body.budget-vcc .vcc-ctrl-icon{font:700 19px/1 'DM Sans',sans-serif;color:#c6634b}
+html body.budget-vcc .calculator-card .stepper{display:flex;align-items:center;justify-content:center;gap:11px}
+html body.budget-vcc .calculator-card .stepper button{width:27px!important;height:27px!important;border-radius:50%!important;background:#fff!important;border:1px solid #d8d8d8!important;color:#292724!important;font:500 17px/1 'DM Sans',sans-serif!important;cursor:pointer}
+html body.budget-vcc .calculator-card .stepper output{min-width:15px;text-align:center;font:800 15px/1.2 'DM Sans',sans-serif!important}
+html body.budget-vcc .calculator-card .category-row{display:grid!important;grid-template-columns:minmax(90px,1fr) minmax(115px,1.35fr) auto!important;gap:10px!important;align-items:center!important;margin:0!important;padding:6px 0!important;min-width:0!important;border-bottom:1px solid #f0ebe6}
+html body.budget-vcc .vcc-category-name{display:flex;align-items:center;gap:7px;min-width:0;font:700 11px/1.2 'DM Sans',sans-serif}
+html body.budget-vcc .vcc-category-icon{display:grid;place-items:center;flex:none;width:26px;height:26px;border:1px solid #efddd2;border-radius:7px;background:#fff7f1;color:#bd6049;font-size:15px}
+html body.budget-vcc .category-row select{min-width:0!important;width:100%!important;min-height:34px!important;background:#fff!important;border:1px solid #d5d5d5!important;border-radius:8px!important;color:#292724!important;font:500 11px/1.2 'DM Sans',sans-serif!important;padding:5px 8px!important}
+html body.budget-vcc .vcc-budget-price{white-space:nowrap;min-width:42px;text-align:right;font:800 11px/1.2 'DM Sans',sans-serif!important}
+html body.budget-vcc .calculator-card .calc-total{display:flex!important;align-items:center!important;gap:11px!important;justify-content:space-between!important;margin:16px 0 0!important;padding:15px!important;border:1px solid #eedacc!important;background:#fff2e5!important;border-radius:12px!important;min-width:0!important}
+html body.budget-vcc .vcc-total-icon{flex:none;color:#b75b45;font-size:29px}
+html body.budget-vcc .vcc-total-description{display:flex;flex:1;min-width:0;flex-direction:column;gap:5px}
+html body.budget-vcc .calc-total .vcc-total-description span{font:800 11px/1.25 'DM Sans',sans-serif;color:#a34e39!important}
+html body.budget-vcc .calc-total .vcc-total-description small{font:500 10px/1.2 'DM Sans',sans-serif;color:#5d5147!important}
+html body.budget-vcc .calc-total #grand-total{flex:none;white-space:nowrap;font:600 clamp(25px,3vw,34px)/1 'Oswald',sans-serif!important;color:#fff!important;background:#c66b52!important;border-radius:8px;padding:11px 14px}
+html body.budget-vcc .budget-assumptions{color:#786d63!important}
+@media(max-width:1150px){html body.budget-vcc .breakdown-card .chart-layout{grid-template-columns:1fr;gap:14px}html body.budget-vcc .breakdown-card .donut{width:min(100%,235px)!important}html body.budget-vcc .legend{grid-template-columns:1fr 1fr;gap:0 10px}}
+@media(max-width:820px){html body.budget-vcc .calculator-grid{grid-template-columns:1fr}html body.budget-vcc .breakdown-card .chart-layout{grid-template-columns:minmax(165px,.9fr) 1fr}html body.budget-vcc .breakdown-card .legend{grid-template-columns:1fr}}
+@media(max-width:560px){html body.budget-vcc .calculator-section .section-heading{display:block}html body.budget-vcc .calculator-section .section-heading>span{display:block;margin-top:10px}html body.budget-vcc .breakdown-card,html body.budget-vcc .calculator-card{padding:16px!important}html body.budget-vcc .breakdown-card .chart-layout{grid-template-columns:1fr}html body.budget-vcc .breakdown-card .legend{grid-template-columns:1fr}html body.budget-vcc .calculator-card .calc-top{gap:6px}html body.budget-vcc .calculator-card .calc-control{min-height:75px;padding:7px 3px!important}html body.budget-vcc .calculator-card .calc-control>span{font-size:9px!important}html body.budget-vcc .calculator-card .stepper{gap:6px}html body.budget-vcc .calculator-card .stepper button{width:24px!important;height:24px!important}html body.budget-vcc .calculator-card .category-row{grid-template-columns:minmax(84px,1fr) minmax(100px,1.35fr) auto!important;gap:6px!important}html body.budget-vcc .vcc-category-icon{width:23px;height:23px;font-size:12px}html body.budget-vcc .vcc-category-name{font-size:10px}html body.budget-vcc .calc-total #grand-total{font-size:24px!important;padding:9px!important}html body.budget-vcc .vcc-total-icon{display:none}html body.budget-vcc .calc-total .vcc-total-description span{font-size:10px}}
+
+
+/* vcc-budget-ticks-compact-links */
+
+/* Consejos: símbolos claros en lugar de fotografías */
+html body.budget-vcc .decision-panel>header .decision-label{display:none!important}
+html body.budget-vcc .decision-panel .decision-row{display:grid!important;grid-template-columns:42px minmax(0,1fr)!important;gap:12px!important;align-items:center!important;min-height:0!important;padding:11px 0!important}
+html body.budget-vcc .decision-panel .vcc-decision-symbol{display:grid;place-items:center;width:38px;height:38px;border-radius:50%;font:800 25px/1 "DM Sans",sans-serif;flex:none}
+html body.budget-vcc .decision-panel .vcc-decision-symbol.vcc-yes{background:#e4f0e6;color:#427e4f;border:1px solid #c9dfce}
+html body.budget-vcc .decision-panel .vcc-decision-symbol.vcc-no{background:#fde7e3;color:#bd4e40;border:1px solid #f0c8c1}
+html body.budget-vcc .decision-panel .decision-row h4{margin:2px 0 4px!important}
+html body.budget-vcc .decision-panel .decision-row p{margin:0}
+html body.budget-vcc .decision-panel .decision-row:last-child{border-bottom:0}
+html body.budget-vcc .related-grid .related-text-link{min-height:78px!important;padding:12px 15px!important;gap:8px!important}
+html body.budget-vcc .related-grid .related-text-link>span{gap:3px!important}
+html body.budget-vcc .related-grid .related-text-link strong{font-size:17px!important}
+html body.budget-vcc .related-grid .related-text-link em{font-size:10px!important}
+html body.budget-vcc .related-section{padding:36px 0 40px!important}
+html body.budget-vcc .related-head{margin-bottom:17px!important}
+@media(max-width:520px){html body.budget-vcc .decision-panel .decision-row{grid-template-columns:36px minmax(0,1fr)!important;gap:10px!important}html body.budget-vcc .decision-panel .vcc-decision-symbol{width:33px;height:33px;font-size:22px}html body.budget-vcc .related-grid .related-text-link{min-height:72px!important}}
+
+
+/* vcc-budget-planner-desktop-compact-20261105 */
+
+/* Compactación exclusivamente en escritorio, sin afectar tablet ni móvil */
+@media(min-width:1160px){
+ html body.budget-vcc .calculator-section .section-heading{margin-bottom:14px!important;gap:18px!important}
+ html body.budget-vcc .calculator-grid{gap:14px!important;align-items:start!important}
+ html body.budget-vcc .calculator-grid .breakdown-card,
+ html body.budget-vcc .calculator-grid .calculator-card{padding:15px 17px!important;border-radius:13px!important}
+ html body.budget-vcc .breakdown-head{margin-bottom:10px!important;gap:7px!important}
+ html body.budget-vcc .breakdown-head h3{font-size:22px!important;margin:2px 0 0!important}
+ html body.budget-vcc .breakdown-card .chart-layout{grid-template-columns:minmax(0,0.9fr) minmax(0,1fr)!important;gap:14px!important}
+ html body.budget-vcc .breakdown-card .donut{width:min(100%,218px)!important}
+ html body.budget-vcc .donut-inner #donut-daily{font-size:clamp(19px,1.9vw,26px)!important}
+ html body.budget-vcc .breakdown-card .legend-row{min-height:35px!important;padding:5px 0!important}
+ html body.budget-vcc .calc-ticket-head{margin-bottom:9px!important;padding-bottom:8px!important}
+ html body.budget-vcc .calc-ticket-head h3{font-size:23px!important}
+ html body.budget-vcc .calculator-card .calc-top{gap:7px!important;margin-bottom:9px!important}
+ html body.budget-vcc .calculator-card .calc-control{min-height:65px!important;gap:5px!important;padding:6px 4px!important}
+ html body.budget-vcc .calculator-card .stepper{gap:8px!important}
+ html body.budget-vcc .calculator-card .stepper button{width:25px!important;height:25px!important}
+ html body.budget-vcc .calculator-card .category-row{padding:3px 0!important;gap:8px!important}
+ html body.budget-vcc .category-row select{min-height:29px!important;padding:4px 7px!important}
+ html body.budget-vcc .vcc-category-icon{width:23px!important;height:23px!important}
+ html body.budget-vcc .calculator-card .calc-total{margin-top:10px!important;padding:10px 12px!important;gap:8px!important}
+ html body.budget-vcc .calc-total #grand-total{font-size:29px!important;padding:9px 12px!important}
+ html body.budget-vcc .budget-assumptions{margin-top:6px!important;margin-bottom:0!important}
+}
+
+
+/* vcc-budget-carousels-responsive-20261105 */
+
+/* Cómo ahorrar y gastos sorpresa: 3 visibles en escritorio, 2 en tablets y 1 en móviles estrechos */
+html body.budget-vcc .savings-section .carousel-shell,
+html body.budget-vcc .surprise-section .carousel-shell{display:grid!important;grid-template-columns:30px minmax(0,1fr) 30px!important;align-items:center!important;gap:10px!important;min-width:0}
+html body.budget-vcc .savings-section .tips-track,
+html body.budget-vcc .surprise-section .tips-track{display:flex!important;gap:14px!important;min-width:0!important;width:100%!important;overflow-x:auto!important;overflow-y:hidden!important;scroll-snap-type:x mandatory!important;scroll-behavior:smooth!important;scrollbar-width:none!important;overscroll-behavior-x:contain!important;align-items:stretch!important}
+html body.budget-vcc .savings-section .tips-track::-webkit-scrollbar,
+html body.budget-vcc .surprise-section .tips-track::-webkit-scrollbar{display:none}
+html body.budget-vcc .savings-section .saving-tip,
+html body.budget-vcc .surprise-section .surprise-grid.tips-track article{box-sizing:border-box!important;flex:0 0 calc((100% - 28px)/3)!important;min-width:0!important;scroll-snap-align:start!important;background:#fff!important;border:1px solid #e2ddd6!important;border-radius:10px!important}
+html body.budget-vcc .savings-section .saving-tip{padding:18px!important}
+html body.budget-vcc .surprise-section .surprise-grid.tips-track article{padding:18px!important}
+html body.budget-vcc .savings-section .carousel-arrow,
+html body.budget-vcc .surprise-section .carousel-arrow{position:static!important;transform:none!important;width:30px!important;height:30px!important;border:1px solid #dccfc5!important;border-radius:50%!important;background:#fff!important;color:#b15a43!important;cursor:pointer}
+@media(max-width:900px){
+ html body.budget-vcc .savings-section .saving-tip,
+ html body.budget-vcc .surprise-section .surprise-grid.tips-track article{flex-basis:calc((100% - 14px)/2)!important}
+}
+@media(max-width:560px){
+ html body.budget-vcc .savings-section .carousel-shell,
+ html body.budget-vcc .surprise-section .carousel-shell{grid-template-columns:26px minmax(0,1fr) 26px!important;gap:6px!important}
+ html body.budget-vcc .savings-section .tips-track,
+ html body.budget-vcc .surprise-section .tips-track{gap:10px!important}
+ html body.budget-vcc .savings-section .saving-tip,
+ html body.budget-vcc .surprise-section .surprise-grid.tips-track article{flex-basis:100%!important;padding:15px!important}
+ html body.budget-vcc .savings-section .carousel-arrow,
+ html body.budget-vcc .surprise-section .carousel-arrow{width:26px!important;height:26px!important}
+}
+
+
+/* vcc-budget-layout-polish-20261105 */
+
+/* Legibilidad: leyenda sin importes superpuestos y mejor aprovechamiento del espacio */
+html body.budget-vcc .breakdown-card .legend{display:grid!important;grid-template-columns:minmax(0,1fr)!important;gap:0!important;min-width:0!important;width:100%!important}
+html body.budget-vcc .breakdown-card .legend-row{display:grid!important;grid-template-columns:11px minmax(0,1fr) max-content!important;column-gap:9px!important;align-items:center!important;min-width:0!important;width:100%!important;padding:7px 0!important}
+html body.budget-vcc .breakdown-card .legend-row>span{min-width:0!important;overflow-wrap:break-word!important;line-height:1.3!important}
+html body.budget-vcc .breakdown-card .legend-row>strong{display:block!important;text-align:right!important;white-space:nowrap!important;font-variant-numeric:tabular-nums!important;font-size:11px!important}
+html body.budget-vcc .calculator-grid>*{min-width:0!important}
+html body.budget-vcc .breakdown-card .chart-layout{min-width:0!important}
+html body.budget-vcc .breakdown-card .donut{flex-shrink:0!important}
+@media(min-width:821px) and (max-width:1159px){
+ html body.budget-vcc .breakdown-card .chart-layout{grid-template-columns:1fr!important;gap:13px!important}
+ html body.budget-vcc .breakdown-card .donut{width:min(100%,205px)!important}
+ html body.budget-vcc .breakdown-card .legend-row{min-height:31px!important;padding:4px 0!important}
+ html body.budget-vcc .calculator-grid{gap:14px!important}
+ html body.budget-vcc .calculator-grid .breakdown-card,
+ html body.budget-vcc .calculator-grid .calculator-card{padding:16px!important}
+}
+@media(max-width:820px){
+ html body.budget-vcc .calculator-grid{grid-template-columns:minmax(0,1fr)!important}
+ html body.budget-vcc .breakdown-card .chart-layout{grid-template-columns:minmax(0,1fr)!important;gap:15px!important}
+ html body.budget-vcc .breakdown-card .donut{width:min(100%,235px)!important}
+ html body.budget-vcc .breakdown-card .legend-row{min-height:35px!important}
+}
+
+
+/* vcc-budget-balanced-calculator-20261105 */
+
+/* Tarjetas gemelas: compactar el planner y centrar verticalmente el gráfico.
+   En móvil las tarjetas conservan su altura natural y se apilan. */
+@media(min-width:1160px){
+ html body.budget-vcc .calculator-grid{align-items:stretch!important}
+ html body.budget-vcc .calculator-grid>.breakdown-card{display:flex!important;flex-direction:column!important}
+ html body.budget-vcc .breakdown-card .chart-layout{flex:1 1 auto!important;align-content:center!important;align-items:center!important}
+ html body.budget-vcc .breakdown-card .donut{margin-inline:auto!important}
+ html body.budget-vcc .calculator-card .calc-top{margin-bottom:7px!important}
+ html body.budget-vcc .calculator-card .calc-control{min-height:60px!important;gap:4px!important}
+ html body.budget-vcc .calculator-card .category-row{padding:2px 0!important}
+ html body.budget-vcc .calculator-card .calc-total{margin-top:8px!important;padding:9px 12px!important}
+ html body.budget-vcc .calc-ticket-head{margin-bottom:8px!important;padding-bottom:7px!important}
+}
+@media(min-width:821px) and (max-width:1159px){
+ html body.budget-vcc .calculator-grid{align-items:stretch!important}
+ html body.budget-vcc .calculator-grid>.breakdown-card{display:flex!important;flex-direction:column!important}
+ html body.budget-vcc .breakdown-card .chart-layout{flex:1 1 auto!important;align-content:center!important}
+}
+
+
+/* vcc-budget-profile-svg-icons-20261105 */
+
+/* Iconos SVG corporativos independientes; la tarjeta VCC usa el logo de marca original */
+html body.budget-vcc .philosophy-profile .profile-icon{
+ width:48px!important;height:48px!important;min-width:48px!important;min-height:48px!important;
+ display:grid!important;place-items:center!important;padding:0!important;margin:0!important;
+ overflow:visible!important;border:0!important;box-shadow:none!important;
+ background:transparent!important;border-radius:50%!important;flex:none!important;
+}
+html body.budget-vcc .philosophy-profile .profile-icon .vcc-profile-svg{
+ display:block!important;width:100%!important;height:100%!important;
+ max-width:100%!important;max-height:100%!important;object-fit:contain!important;
+ border:0!important;background:transparent!important;box-shadow:none!important;
+}
+@media(max-width:650px){
+ html body.budget-vcc .philosophy-profile .profile-icon{
+ width:43px!important;height:43px!important;min-width:43px!important;min-height:43px!important;
+ }
+}
+
+
+/* vcc-budget-cards-icons-only-20261105 */
+
+/* Solo los cuatro iconos SVG: sin ilustraciones de fondo */
+html body.budget-vcc .philosophy-profile-grid{display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:18px!important;align-items:stretch!important;margin:14px 0 0!important}
+html body.budget-vcc .philosophy-profile-grid .philosophy-profile{display:flex!important;flex-direction:column!important;min-width:0!important;height:auto!important;min-height:0!important;overflow:visible!important;padding:17px 16px 16px!important;border-radius:13px!important;border:1px solid #e5dcd3!important;background:#fff!important;box-shadow:0 3px 12px rgba(63,43,25,.045)!important}
+html body.budget-vcc .philosophy-profile-grid .philosophy-profile.vcc-choice{border:2px solid #cf705c!important;padding:16px 15px 15px!important}
+html body.budget-vcc .philosophy-profile-grid .profile-top{display:grid!important;grid-template-columns:54px minmax(0,1fr)!important;gap:9px 12px!important;align-items:center!important;min-width:0!important}
+html body.budget-vcc .philosophy-profile-grid .profile-icon{grid-column:1!important;grid-row:1!important;width:52px!important;height:52px!important;min-width:52px!important;min-height:52px!important}
+html body.budget-vcc .philosophy-profile-grid .profile-name{grid-column:2!important;min-width:0!important}
+html body.budget-vcc .philosophy-profile-grid .profile-name h3{font-size:21px!important;line-height:1.1!important;margin:0 0 4px!important}
+html body.budget-vcc .philosophy-profile-grid .profile-name p{font-size:10.5px!important;line-height:1.38!important;margin:0!important}
+html body.budget-vcc .philosophy-profile-grid .profile-price{grid-column:1/-1!important;display:flex!important;align-items:baseline!important;gap:9px!important;text-align:left!important;margin-top:7px!important;padding:0!important}
+html body.budget-vcc .philosophy-profile-grid .profile-price strong{font-size:30px!important;line-height:1!important}
+html body.budget-vcc .philosophy-profile-grid .profile-price small{font-size:10px!important;line-height:1.3!important}
+html body.budget-vcc .philosophy-profile-grid .profile-art{display:none!important}
+html body.budget-vcc .philosophy-profile-grid .profile-ribbon{top:-12px!important;background:#cf705c!important;border-radius:5px!important;padding:6px 13px!important}
+@media(max-width:950px){html body.budget-vcc .philosophy-profile-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:20px 15px!important}}
+@media(max-width:560px){html body.budget-vcc .philosophy-profile-grid{grid-template-columns:minmax(0,1fr)!important;gap:19px!important}html body.budget-vcc .philosophy-profile-grid .philosophy-profile{padding:15px!important}html body.budget-vcc .philosophy-profile-grid .philosophy-profile.vcc-choice{padding:14px!important}}
+
+
+/* vcc-budget-planner-refinement-20261105 */
+
+/* Ajuste final: importes con unidad explícita y total limpio sin cajas llamativas */
+html body.budget-vcc .calculator-card .calc-ticket-head{display:flex!important;flex-direction:column!important;align-items:flex-start!important;justify-content:center!important;gap:3px!important;padding:0 0 11px!important;margin:0 0 13px!important}
+html body.budget-vcc .calculator-card .calc-ticket-head h3{font:600 clamp(25px,2vw,30px)/1.15 'Caveat',cursive!important;margin:0!important;color:#ad563e!important}
+html body.budget-vcc .calculator-card .calc-ticket-head p{margin:0!important;font:400 11px/1.35 'DM Sans',sans-serif!important;color:#75685c!important}
+html body.budget-vcc .calculator-card .category-row{grid-template-columns:minmax(104px,1fr) minmax(125px,1.15fr) minmax(113px,auto)!important;gap:8px!important;padding:5px 0!important}
+html body.budget-vcc .calculator-card .category-row select{width:100%!important;max-width:none!important;min-height:31px!important;padding:4px 7px!important}
+html body.budget-vcc .calculator-card .vcc-price-block{display:flex!important;flex-direction:column!important;align-items:flex-end!important;justify-content:center!important;gap:2px!important;min-width:0!important;text-align:right!important}
+html body.budget-vcc .calculator-card .vcc-price-block strong{display:block!important;font:800 12px/1.2 'DM Sans',sans-serif!important;color:#28231e!important;white-space:nowrap!important}
+html body.budget-vcc .calculator-card .vcc-price-block small{font:500 8px/1.15 'DM Sans',sans-serif!important;color:#85776a!important;white-space:nowrap!important}
+html body.budget-vcc .calculator-card .calc-total{display:flex!important;align-items:center!important;justify-content:space-between!important;gap:12px!important;background:transparent!important;border:0!important;border-top:1px solid #e9ded5!important;border-radius:0!important;box-shadow:none!important;margin:12px 0 0!important;padding:12px 0 2px!important}
+html body.budget-vcc .calculator-card .calc-total .vcc-total-description{display:flex!important;flex-direction:column!important;gap:5px!important}
+html body.budget-vcc .calculator-card .calc-total .vcc-total-description span{font:800 11px/1.3 'DM Sans',sans-serif!important;color:#ac5943!important;letter-spacing:.035em!important}
+html body.budget-vcc .calculator-card .calc-total .vcc-total-description small{font:500 10px/1.35 'DM Sans',sans-serif!important;color:#73675e!important}
+html body.budget-vcc .calculator-card .calc-total #grand-total{background:transparent!important;box-shadow:none!important;border:none!important;padding:0!important;border-radius:0!important;font:600 clamp(24px,2.4vw,31px)/1 'Oswald',sans-serif!important;color:#bd624a!important}
+html body.budget-vcc .calculator-card .budget-assumptions{margin-top:8px!important}
+@media(min-width:1160px){
+ html body.budget-vcc .calculator-card .category-row{grid-template-columns:minmax(105px,1fr) minmax(132px,1.1fr) minmax(113px,auto)!important;padding:4px 0!important}
+ html body.budget-vcc .calculator-card .calc-total{margin-top:9px!important;padding-top:10px!important}
+}
+@media(max-width:650px){
+ html body.budget-vcc .calculator-card .category-row{grid-template-columns:minmax(88px,1fr) minmax(95px,1.1fr) minmax(98px,auto)!important;gap:5px!important}
+ html body.budget-vcc .calculator-card .vcc-price-block small{font-size:7.5px!important}
+ html body.budget-vcc .calculator-card .vcc-price-block strong{font-size:11px!important}
+ html body.budget-vcc .calculator-card .calc-total #grand-total{font-size:26px!important}
+}
+@media(max-width:380px){
+ html body.budget-vcc .calculator-card .category-row{grid-template-columns:minmax(80px,1fr) minmax(82px,1fr) minmax(89px,auto)!important}
+ html body.budget-vcc .calculator-card .vcc-price-block small{font-size:7px!important}
+}
+
+
+/* vcc-budget-total-singleline-20261105 */
+
+/* Resumen en una única fila en escritorio y calculadora ligeramente más baja */
+@media(min-width:1160px){
+ html body.budget-vcc .calculator-grid{align-items:stretch!important}
+ html body.budget-vcc .calculator-grid .breakdown-card,
+ html body.budget-vcc .calculator-grid .calculator-card{padding:13px 17px!important}
+ html body.budget-vcc .breakdown-head{margin-bottom:6px!important}
+ html body.budget-vcc .breakdown-card .donut{width:min(100%,235px)!important}
+ html body.budget-vcc .breakdown-card .legend-row{min-height:34px!important;padding:4px 0!important}
+ html body.budget-vcc .calculator-card .calc-ticket-head{padding-bottom:8px!important;margin-bottom:9px!important}
+ html body.budget-vcc .calculator-card .calc-top{margin-bottom:7px!important}
+ html body.budget-vcc .calculator-card .calc-control{min-height:61px!important;gap:4px!important}
+ html body.budget-vcc .calculator-card .category-row{padding:3px 0!important}
+ html body.budget-vcc .calculator-card .calc-total{margin-top:8px!important;padding:9px 0 1px!important}
+ html body.budget-vcc .calculator-card .budget-assumptions{margin-top:5px!important}
+}
+html body.budget-vcc .calculator-card .calc-total .vcc-total-description{
+ display:flex!important;flex-direction:row!important;flex-wrap:wrap!important;
+ align-items:baseline!important;justify-content:flex-start!important;gap:6px 13px!important;
+ min-width:0!important;flex:1 1 auto!important;
+}
+html body.budget-vcc .calculator-card .calc-total .vcc-total-description span{
+ white-space:nowrap!important;flex:none!important;
+}
+html body.budget-vcc .calculator-card .calc-total .vcc-total-description small{
+ white-space:nowrap!important;flex:none!important;font-size:10px!important;
+}
+html body.budget-vcc .calculator-card .calc-total #grand-total{
+ margin-left:auto!important;flex:none!important;text-align:right!important;
+}
+@media(max-width:620px){
+ html body.budget-vcc .calculator-card .calc-total .vcc-total-description{
+  flex-direction:column!important;gap:3px!important;
+ }
+ html body.budget-vcc .calculator-card .calc-total .vcc-total-description span{
+  white-space:normal!important;
+ }
+}
+
+
+/* vcc-budget-total-three-columns-20261105 */
+
+/* Una única fila real: título · personas/días/noches · importe */
+html body.budget-vcc .calculator-card .calc-total{
+ display:grid!important;grid-template-columns:max-content minmax(0,1fr) max-content!important;
+ align-items:center!important;column-gap:12px!important;row-gap:0!important;
+ min-width:0!important;width:100%!important;min-height:0!important;
+ padding:9px 0 2px!important;margin:9px 0 0!important;
+ background:transparent!important;border:0!important;border-top:1px solid #e9ded5!important;
+ border-radius:0!important;box-shadow:none!important;
+}
+html body.budget-vcc .calculator-card .calc-total .vcc-total-title{
+ grid-column:1!important;grid-row:1!important;min-width:0!important;
+ font:800 10px/1.2 'DM Sans',sans-serif!important;
+ letter-spacing:0!important;color:#ac5943!important;white-space:nowrap!important;
+}
+html body.budget-vcc .calculator-card .calc-total .vcc-total-meta{
+ grid-column:2!important;grid-row:1!important;min-width:0!important;
+ font:500 9px/1.2 'DM Sans',sans-serif!important;
+ color:#73675e!important;white-space:nowrap!important;
+}
+html body.budget-vcc .calculator-card .calc-total #grand-total{
+ grid-column:3!important;grid-row:1!important;display:block!important;
+ margin:0!important;padding:0!important;align-self:center!important;
+ font:600 27px/1 'Oswald',sans-serif!important;
+ color:#bd624a!important;background:none!important;
+ border:0!important;border-radius:0!important;box-shadow:none!important;
+ white-space:nowrap!important;text-align:right!important;
+}
+@media(max-width:780px){
+ html body.budget-vcc .calculator-card .calc-total{
+  grid-template-columns:minmax(0,1fr) max-content!important;row-gap:4px!important;
+ }
+ html body.budget-vcc .calculator-card .calc-total .vcc-total-title{grid-column:1!important;grid-row:1!important;white-space:normal!important}
+ html body.budget-vcc .calculator-card .calc-total .vcc-total-meta{grid-column:1!important;grid-row:2!important}
+ html body.budget-vcc .calculator-card .calc-total #grand-total{grid-column:2!important;grid-row:1 / 3!important}
+}
+
+
+/* vcc-budget-hero-unified-20261105 */
+
+/* La navegación secundaria debe verse en el primer pantallazo en escritorio */
+html body.budget-vcc .st-shell > section.budget-hero{
+ display:block!important;box-sizing:border-box!important;
+ height:455px!important;min-height:455px!important;max-height:455px!important;
+ margin:0!important;padding:0!important;overflow:hidden!important;
+ background-position:center 49%!important;
+}
+html body.budget-vcc .budget-hero .budget-hero-inner{
+ box-sizing:border-box!important;width:min(1180px,calc(100% - 48px))!important;
+ height:100%!important;min-height:0!important;padding:0!important;margin:0 auto!important;
+}
+html body.budget-vcc .budget-hero .budget-crumb{
+ position:absolute!important;top:16px!important;left:0!important;
+ width:100%!important;font:400 11px/1.5 'DM Sans',sans-serif!important;
+ margin:0!important;padding:0!important;transform:none!important;
+}
+html body.budget-vcc .budget-hero .budget-crumb strong{font-weight:700!important}
+html body.budget-vcc .budget-hero .budget-hero-card{
+ position:absolute!important;top:78px!important;left:0!important;
+ width:min(700px,78vw)!important;margin:0!important;padding:0!important;
+}
+html body.budget-vcc .budget-hero .hero-eyebrow{font-size:11px!important;margin:0 0 10px!important}
+html body.budget-vcc .budget-hero .budget-hero-card h1{
+ font:500 clamp(38px,3.65vw,54px)/1.06 'Oswald',sans-serif!important;
+ letter-spacing:-.018em!important;max-width:700px!important;margin:0!important;
+}
+html body.budget-vcc .budget-hero .hero-intro{
+ font-size:27px!important;line-height:1.1!important;margin:12px 0 9px!important;
+}
+html body.budget-vcc .budget-hero .hero-lead{
+ font-size:13px!important;line-height:1.5!important;max-width:560px!important;margin:0!important;
+}
+@media(max-width:850px){
+ html body.budget-vcc .st-shell > section.budget-hero{height:430px!important;min-height:430px!important;max-height:430px!important}
+ html body.budget-vcc .budget-hero .budget-hero-card{top:85px!important;width:min(100%,640px)!important}
+ html body.budget-vcc .budget-hero .budget-hero-card h1{font-size:clamp(35px,5.4vw,47px)!important}
+}
+@media(max-width:600px){
+ html body.budget-vcc .st-shell > section.budget-hero{
+  height:auto!important;min-height:370px!important;max-height:none!important;overflow:visible!important;
+ }
+ html body.budget-vcc .budget-hero .budget-hero-inner{
+  width:calc(100% - 30px)!important;height:auto!important;min-height:370px!important;padding:0 0 26px!important;
+ }
+ html body.budget-vcc .budget-hero .budget-hero-card{
+  position:relative!important;top:auto!important;left:auto!important;margin:72px 0 0!important;width:100%!important;
+ }
+ html body.budget-vcc .budget-hero .budget-hero-card h1{font-size:clamp(31px,8vw,42px)!important}
+ html body.budget-vcc .budget-hero .hero-intro{font-size:25px!important;margin:10px 0 8px!important}
+ html body.budget-vcc .budget-hero .hero-lead{font-size:12px!important}
+}
+
+
+/* vcc-budget-single-active */
+
+/* Únicament la pestanya activa es destaca. El primer enllaç ja no queda marcat permanentment. */
+html body.budget-vcc .st-tabs a,
+html body.budget-vcc .st-tabs a:first-child,
+html body.budget-vcc .st-tabs a:hover {border-bottom:2px solid transparent!important;color:#171717!important;background:transparent!important}
+html body.budget-vcc .st-tabs a.is-active,
+html body.budget-vcc .st-tabs a.is-active:first-child {color:#c86f5d!important;border-bottom-color:#c86f5d!important}
+html body.budget-vcc .st-tabs a:hover:not(.is-active){color:#c86f5d!important}
+
+
+/* vcc-saving-horizontal-card-layout */
+
+/* Ahorro: mismo lenguaje visual que los avisos de gastos sorpresa.
+   Número a la izquierda, título máximo dos líneas y texto con espacio real. */
+html body.budget-vcc .savings-section .saving-tip{
+ display:flex!important;
+ flex-direction:row!important;
+ align-items:flex-start!important;
+ justify-content:flex-start!important;
+ gap:16px!important;
+ text-align:left!important;
+ min-height:175px!important;
+ padding:20px 21px!important;
+}
+html body.budget-vcc .savings-section .saving-number{
+ flex:0 0 54px!important;
+ width:54px!important;
+ height:54px!important;
+ margin:5px 0 0 3px!important;
+ align-self:flex-start!important;
+}
+html body.budget-vcc .savings-section .saving-tip-copy{
+ flex:1 1 auto;
+ min-width:0;
+ display:flex;
+ flex-direction:column;
+ justify-content:flex-start;
+}
+html body.budget-vcc .savings-section .saving-tip h3{
+ font:500 clamp(19px,1.55vw,24px)/1.18 'Oswald',sans-serif!important;
+ margin:2px 0 12px!important;
+ display:-webkit-box!important;
+ -webkit-box-orient:vertical;
+ -webkit-line-clamp:2;
+ line-clamp:2;
+ overflow:hidden;
+}
+html body.budget-vcc .savings-section .saving-tip p{
+ font:400 13px/1.65 'DM Sans',sans-serif!important;
+ color:#68615b!important;
+ margin:0!important;
+}
+@media(max-width:900px){
+ html body.budget-vcc .savings-section .saving-tip{gap:12px!important;padding:17px!important;min-height:170px!important}
+ html body.budget-vcc .savings-section .saving-number{flex-basis:46px!important;width:46px!important;height:46px!important;font-size:22px!important}
+ html body.budget-vcc .savings-section .saving-tip h3{font-size:21px!important}
+}
+@media(max-width:550px){
+ html body.budget-vcc .savings-section .saving-tip{gap:12px!important;padding:17px 15px!important}
+ html body.budget-vcc .savings-section .saving-tip h3{font-size:21px!important;margin:2px 0 9px!important}
+ html body.budget-vcc .savings-section .saving-tip p{font-size:12px!important;line-height:1.55!important}
+}
+
+
+/* vcc-decision-editorial-rows */
+
+/* Consejo editorial: subtítulo manuscrito y más espacio para explicaciones. */
+html body.budget-vcc .spend-section .decision-panel .decision-row{display:grid!important;grid-template-columns:42px minmax(0,1fr)!important;gap:14px!important;align-items:start!important;padding:13px 0!important;min-height:0!important}
+html body.budget-vcc .spend-section .decision-panel .vcc-decision-symbol{margin-top:8px!important}
+html body.budget-vcc .spend-section .decision-panel .decision-copy{min-width:0!important}
+html body.budget-vcc .spend-section .decision-panel .decision-script{display:block!important;color:#c46e56!important;font:600 clamp(23px,1.75vw,29px)/1.08 'Caveat',cursive!important;letter-spacing:0!important;text-transform:none!important;margin:0 0 6px!important}
+html body.budget-vcc .spend-section .decision-panel .decision-row p{font:400 12px/1.55 'DM Sans',sans-serif!important;color:#665f58!important;margin:0!important;max-width:100%!important}
+@media(max-width:650px){
+html body.budget-vcc .spend-section .decision-panel .decision-row{grid-template-columns:34px minmax(0,1fr)!important;gap:10px!important;padding:11px 0!important}
+html body.budget-vcc .spend-section .decision-panel .vcc-decision-symbol{margin-top:6px!important}
+html body.budget-vcc .spend-section .decision-panel .decision-script{font-size:24px!important}
+html body.budget-vcc .spend-section .decision-panel .decision-row p{font-size:11px!important;line-height:1.5!important}
+}
