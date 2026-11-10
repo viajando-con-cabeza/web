@@ -20,9 +20,10 @@
 <link rel="stylesheet" href="/configuracion/css/paginas.css"><link rel="stylesheet" href="/configuracion/css/overrides.css">
 <link rel="stylesheet" href="/configuracion/css/destinos/suecia/estocolmo/cuando-ir-vcc.css?v=20261110-hero-compartido-v6">
 <link rel="stylesheet" href="/configuracion/css/componentes/vcc-hero-editorial-vcc.css?v=20261110-clean1">
-<link rel="stylesheet" href="/configuracion/css/componentes/galeria-vcc-cuando-ir.css?v=20261110-v1">
-<link rel="stylesheet" href="/configuracion/css/plantillas/imprescindibles-galeria-movil.css?v=20261106-higher-crop-v11">
-<link rel="stylesheet" href="/configuracion/css/plantillas/imprescindibles-galeria-escritorio.css?v=20261107-hover-bounded-v55">
+<link rel="stylesheet" href="/configuracion/css/componentes/galeria-vcc-cuando-ir.css?v=20261110-universal1">
+<link rel="stylesheet" href="/configuracion/css/componentes/vcc-gallery-booking.css?v=20261110-universal1">
+
+
 <link rel="stylesheet" href="/configuracion/css/componentes/guias-relacionadas-vcc.css?v=20261105-compact2"><link rel="stylesheet" href="/configuracion/css/componentes/estocolmo-guias-final-vcc.css?v=20261107-v1"></head><body class="ci-page"><header class="page-header"></header>
 <section class="vcc-hero" style="--vcc-hero-image:url('/configuracion/imagenes/fondos/fondos-cuando-ir.webp')" aria-labelledby="ci-hero-title">
   <div class="vcc-hero-inner">
@@ -733,10 +734,11 @@
   }
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});else init();
 })();
-</script><script src="/configuracion/js/destinos/suecia/estocolmo/vcc-section-scrollspy.js?v=20261104"></script><script src="/configuracion/js/plantillas/imprescindibles-interactions.js?v=20261110-avif-dinamico" defer></script>
-<script src="/configuracion/js/plantillas/imprescindibles-bloqueo-scroll.js?v=20261107-isolated-gallery-scroll-v38" defer></script>
-<script src="/configuracion/js/plantillas/imprescindibles-galeria-movil.js?v=20261110-avif-dinamico" defer></script>
-<script src="/configuracion/js/plantillas/imprescindibles-galeria-escritorio.js?v=20261110-avif-dinamico-mac" defer></script><script id="ci-august-gallery-data">
+</script><script src="/configuracion/js/destinos/suecia/estocolmo/vcc-section-scrollspy.js?v=20261104"></script><script src="/configuracion/js/plantillas/imprescindibles-interactions.js?v=20261110-universal1" defer></script>
+<script src="/configuracion/js/componentes/vcc-gallery-booking.js?v=20261110-universal1" defer></script>
+
+
+<script id="ci-august-gallery-data">
 (() => {
   const el=document.getElementById('ci-august-gallery-src');
   if(!el)return;
@@ -745,13 +747,5 @@
   el.dataset.images=JSON.stringify(paths.map(path=>base+path));
 })();
 </script>
-<div class="lightbox" id="lightbox" aria-hidden="true">
-  <div class="lb-stage">
-    <button class="lb-close" type="button" aria-label="Cerrar galería">×</button>
-    <button class="lb-prev" type="button" aria-label="Foto anterior">‹</button>
-    <div class="lb-photo" role="img" aria-label="Fotografía seleccionada"></div>
-    <button class="lb-next" type="button" aria-label="Foto siguiente">›</button>
-    <div class="lb-caption"></div><div class="lb-thumbs"></div>
-  </div>
-</div>
+<div class="day-lightbox vcc-booking-gallery-modal" id="vccSharedGallery" data-vcc-booking-gallery data-vcc-gallery-selector=".ci-august-imp-gallery .gallery" hidden role="dialog" aria-modal="true" aria-label="Galería de nuestra experiencia en Estocolmo"></div>
 </body></html>
