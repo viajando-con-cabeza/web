@@ -102,4 +102,12 @@ assert.ok(/@media\s*\(max-width:\s*800px\)/.test(css) &&
   css.includes('fondos-cuando-ir-mobile.webp'),
   'La portada optimizada para móvil debe mantenerse');
 
+// Tres iconos SVG compartidos por las doce fichas: sin duplicar sus trazados.
+for (const id of ['ci-icon-sunset','ci-icon-good','ci-icon-bad']) {
+  assert.equal(html.split('<symbol id="' + id + '"').length - 1, 1,
+    `Debe existir un solo símbolo: ${id}`);
+  assert.equal(html.split('href="#' + id + '"').length - 1, 12,
+    `Las doce fichas deben reutilizar el símbolo: ${id}`);
+}
+
 console.log('SEO Cuándo ir: canonical, sitemap, schema, Quality noindex y galería validados.');
