@@ -296,13 +296,3 @@ html body nav.vcc-unified-subheader.vcc-unified-subheader.place-nav-wrap .place-
 html body nav.vcc-unified-subheader.vcc-unified-subheader.ci-subnav.ci-subnav-pinned{
  box-shadow:none!important;
 }
-
-/* En móviles compactos, conservar la barra visible incluso cuando la altura
-   disponible es menor que la de las portadas históricas. */
-@media(max-width:720px){
-  html body :is(.st-hero,.country-hero,.imp-hero,.vcc-hero,.mv-hero,.dv-hero,.ep-hero,.ql-hero,.ci-hero,.budget-hero,.content-hero,.rich-hero,.tv-hero,.al-hero).vcc-subheader-hero.vcc-subheader-hero.vcc-standardized-hero-height{
-    height:var(--vcc-standard-hero-mobile)!important;
-    min-height:var(--vcc-standard-hero-mobile)!important;
-    max-height:var(--vcc-standard-hero-mobile)!important;
-  }
-}
