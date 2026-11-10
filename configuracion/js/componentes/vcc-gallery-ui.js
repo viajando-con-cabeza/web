@@ -10,7 +10,7 @@ function decorate(root=document){
   el.classList.add('vcc-gallery-ui-back');
   if(el.matches('.day-lightbox-to-grid')){
    const label=document.createElement('span');
-   label.textContent=labels.backToGallery.replace(/^←\\s*/, '');
+   label.textContent=labels.backToGallery.slice(2);
    el.replaceChildren(document.createTextNode('← '),label);
   }else{
    el.textContent=labels.backToGallery;
