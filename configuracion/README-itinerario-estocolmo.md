@@ -50,6 +50,15 @@ Les imatges dels mosaics són miniatures `loading="lazy" decoding="async"`. El M
 
 Aquestes comprovacions **no substitueixen** la comparació en navegador ni Lighthouse: el CSS manté regles històriques necessàries perquè no variïn hero, subheader, mosaics i responsive.
 
+## Tancament tècnic · rendiment i manteniment (10/11/2026)
+
+- Tots tres blocs CSS que abans vivien dins de l'HTML (sticky, alineació i fallback de capçalera) estan ara **dins** `configuracion/css/plantillas/itinerario-core-vcc.css`, sense cap petició addicional. Si cal revisar l'estil de capçalera o subheader, modificar-lo allà (en lloc de tornar a crear `<style>` a la pàgina).
+- El fons final `photo-1464822759023-fed622ff2c3b.webp` continua sent el mateix. El navegador només el demana quan el bloc `data-vcc-lazy-background` s'apropa al viewport, mitjançant `configuracion/js/componentes/vcc-lazy-background.js`. El CSS del fons queda exactament com era quan l'element té la classe `vcc-bg-ready`.
+- El test d'integritat comprova ara també que no tornin a aparèixer CSS inline i que no es perdi la càrrega diferida.
+- Mesura inicial de navegador a 390×844 sense CPU/xarxa limitades: **FCP 468 ms; LCP 884 ms; CLS 0; TTFB 142 ms** (una mostra de laboratori, no dades de visitants). La quantitat de feina en tasques llargues mesurada és **281 ms** per sobre dels llindars de 50 ms (aproximació, no TBT Lighthouse). Cal contrastar-ho després del desplegament de la càrrega diferida i fer Lighthouse amb limitacions reals abans d'atribuir cap nota de PageSpeed.
+- L'aplicació no ofereix ara `/cdn-cgi/image/` per optimitzar al vol el fons (404 en la comprovació), per això s'ha prioritzat ajornar la descàrrega, no substituir la fotografia.
+- Els overrides històrics s'han conservat intencionadament quan canviar-los comportava risc. **Un nombre alt de `!important` no demostra per si mateix una puntuació baixa de Core Web Vitals**; qualsevol eliminació futura necessita comparació visual abans i després.
+
 ## Checklist abans de publicar
 
 - Comparar hero, subheader, resum, targetes, tres dies, Consejo VCC i footer en 390px i 1280px.
