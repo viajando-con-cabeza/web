@@ -65,11 +65,12 @@
   if (existingStage) {
     backFromPhoto = document.createElement('button');
     backFromPhoto.type = 'button';
-    backFromPhoto.className = 'vcc-dg-photo-back';
-    backFromPhoto.textContent = '← Galería';
+    backFromPhoto.className = 'vcc-dg-photo-back vcc-gallery-ui-back';
+    backFromPhoto.textContent = window.VCCGalleryUI?.labels.backToGallery || '← Galería';
     backFromPhoto.setAttribute('aria-label', 'Volver a las tres fotos por fila');
     backFromPhoto.addEventListener('click', () => window.VCCImprescindiblesLightbox?.dismiss());
     existingStage.append(backFromPhoto);
+    window.VCCGalleryUI?.decorate(existingStage);
   }
 
   const closeGallery = () => {
