@@ -1271,3 +1271,21 @@ html body.ci-page .ci-month-result>.ci-month-sources a{
     font-size:9.5px!important;
   }
 }
+
+/* Los pies de sección y las fuentes quedan fuera del marco blanco.
+   Convención visual VCC: el contenido útil dentro; las notas, debajo. */
+html body.ci-page .ci-august-experience>.ci-august-bottom{
+  border:0!important;
+  margin:10px 3px 0!important;
+  padding:0!important;
+  background:transparent!important;
+}
+html body.ci-page .ci-august-experience>.ci-august-bottom>p{
+  font-size:10px;
+  line-height:1.5;
+}
+@media(max-width:600px){
+  html body.ci-page .ci-august-experience>.ci-august-bottom{
+    margin-top:9px!important;
+  }
+}
