@@ -8,6 +8,7 @@
   const track=root.querySelector('[data-air-track]');
   const cards=Array.from(root.querySelectorAll('[data-airline-card]'));
   const filterButtons=Array.from(root.querySelectorAll('[data-continent-filter]'));
+  const resetButton=root.querySelector('.vl-reset-filter');
   const count=root.querySelector('[data-visible-count]');
   const title=root.querySelector('[data-region-title]');
   const description=root.querySelector('[data-region-description]');
@@ -41,10 +42,11 @@
       const parts=card.dataset.continents.split(' ');
       card.hidden=key!=='all'&&!parts.includes(key);
     });
+    if(resetButton)resetButton.hidden=key==='all';
     const shown=visibleCards().length;
     if(count)count.textContent=shown;
     if(title)title.textContent=key==='all'?'Nuestra experiencia con las aerolíneas':'Nuestra experiencia en '+regionLabels[key];
-    if(description)description.textContent=key==='all'?'Las 16 aerolíneas diferentes con las que hemos volado, sin puntuaciones ni rankings.':'Compañías que hemos utilizado en viajes relacionados con '+regionLabels[key]+'. Algunas aparecen en más de un continente.';
+    if(description)description.textContent=key==='all'?'16 aerolíneas con pros y puntos a revisar. Selecciona un continente arriba.':shown+' aerolínea'+(shown===1?'':'s')+' de nuestros viajes por '+regionLabels[key]+'.';
     if(track)track.scrollLeft=0;
     requestAnimationFrame(updateArrows);
     if(scrollToReviews)root.querySelector('#aerolineas')?.scrollIntoView({behavior:reduced?'instant':'smooth',block:'start'});
