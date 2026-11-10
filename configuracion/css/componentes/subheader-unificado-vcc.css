@@ -100,7 +100,7 @@ html body nav.vcc-unified-subheader:is(.country-nav.is-fixed,.ci-subnav.ci-subna
 /* Mismo comienzo de barra en escritorio: 475px de hero + el encabezado principal.
    No se fuerzan alturas de portada en móvil, donde el texto puede ocupar más líneas. */
 @media(min-width:721px){
- html body :is(.st-hero,.country-hero,.imp-hero,.vcc-hero,.mv-hero,.dv-hero,.ep-hero,.ql-hero,.ci-hero,.budget-hero,.content-hero,.rich-hero,.tv-hero).vcc-subheader-hero{
+ html body :is(.st-hero,.country-hero,.imp-hero,.vcc-hero,.mv-hero,.dv-hero,.ep-hero,.ql-hero,.ci-hero,.budget-hero,.content-hero,.rich-hero,.tv-hero,.al-hero).vcc-subheader-hero{
   box-sizing:border-box!important;height:475px!important;min-height:475px!important;max-height:475px!important;
  }
  html body .mv-hero.vcc-subheader-hero > .mv-container{
@@ -120,18 +120,16 @@ html body [data-vcc-subheader-target]{scroll-margin-top:calc(var(--vcc-subheader
 }
 
 
-/* HERO VCC · referencia REAL medida en Quality:
-   escritorio: cabecera 50px + foto 475px => barra en y=525px;
-   móvil 390px: cabecera 79px + foto 730px => barra en y=809px.
-   La misma altura por breakpoint en TODAS las páginas con subheader.
-   Doble clase intencional: superar las antiguas reglas locales (!important)
-   sin cambiar fondos, imágenes, recortes, textos ni páginas sin subheader. */
+/* Portadas VCC: escritorio conserva 475px. En móvil, el subheader debe
+   entrar en la primera pantalla útil (100svh considera las barras del navegador).
+   640px es el máximo para no ocultar la navegación en móviles altos.
+   El alto real de la cabecera se mide en el controlador compartido. */
 :root{
   --vcc-standard-hero-desktop:475px;
-  --vcc-standard-hero-mobile:730px;
+  --vcc-standard-hero-mobile:min(640px, calc(100svh - var(--vcc-page-header-height, 79px) - var(--vcc-subnav-height, 39px) - 20px));
 }
 @media(min-width:721px){
-  html body :is(.st-hero,.country-hero,.imp-hero,.vcc-hero,.mv-hero,.dv-hero,.ep-hero,.ql-hero,.ci-hero,.budget-hero,.content-hero,.rich-hero,.tv-hero).vcc-subheader-hero.vcc-subheader-hero.vcc-standardized-hero-height{
+  html body :is(.st-hero,.country-hero,.imp-hero,.vcc-hero,.mv-hero,.dv-hero,.ep-hero,.ql-hero,.ci-hero,.budget-hero,.content-hero,.rich-hero,.tv-hero,.al-hero).vcc-subheader-hero.vcc-subheader-hero.vcc-standardized-hero-height{
     box-sizing:border-box!important;
     height:var(--vcc-standard-hero-desktop)!important;
     min-height:var(--vcc-standard-hero-desktop)!important;
@@ -147,7 +145,7 @@ html body [data-vcc-subheader-target]{scroll-margin-top:calc(var(--vcc-subheader
   }
 }
 @media(max-width:720px){
-  html body :is(.st-hero,.country-hero,.imp-hero,.vcc-hero,.mv-hero,.dv-hero,.ep-hero,.ql-hero,.ci-hero,.budget-hero,.content-hero,.rich-hero,.tv-hero).vcc-subheader-hero.vcc-subheader-hero.vcc-standardized-hero-height{
+  html body :is(.st-hero,.country-hero,.imp-hero,.vcc-hero,.mv-hero,.dv-hero,.ep-hero,.ql-hero,.ci-hero,.budget-hero,.content-hero,.rich-hero,.tv-hero,.al-hero).vcc-subheader-hero.vcc-subheader-hero.vcc-standardized-hero-height{
     box-sizing:border-box!important;
     height:var(--vcc-standard-hero-mobile)!important;
     min-height:var(--vcc-standard-hero-mobile)!important;
@@ -297,4 +295,14 @@ html body nav.vcc-unified-subheader.vcc-unified-subheader.place-nav-wrap .place-
 /* Cuándo ir conserva su script de fijación, pero nunca la sombra local. */
 html body nav.vcc-unified-subheader.vcc-unified-subheader.ci-subnav.ci-subnav-pinned{
  box-shadow:none!important;
+}
+
+/* En móviles compactos, conservar la barra visible incluso cuando la altura
+   disponible es menor que la de las portadas históricas. */
+@media(max-width:720px){
+  html body :is(.st-hero,.country-hero,.imp-hero,.vcc-hero,.mv-hero,.dv-hero,.ep-hero,.ql-hero,.ci-hero,.budget-hero,.content-hero,.rich-hero,.tv-hero,.al-hero).vcc-subheader-hero.vcc-subheader-hero.vcc-standardized-hero-height{
+    height:var(--vcc-standard-hero-mobile)!important;
+    min-height:var(--vcc-standard-hero-mobile)!important;
+    max-height:var(--vcc-standard-hero-mobile)!important;
+  }
 }
