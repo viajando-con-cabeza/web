@@ -1,0 +1,26 @@
+name: Galeries VCC compartides
+on:
+  push:
+    branches: [quality]
+    paths:
+      - "destinos/**/*.html"
+      - "sitemap.xml"
+      - "configuracion/scripts/validar-galeries.mjs"
+      - "configuracion/js/componentes/vcc-gallery-booking.js"
+      - "configuracion/css/componentes/vcc-gallery-booking.css"
+      - ".github/workflows/validar-galeries.yml"
+  pull_request:
+    paths:
+      - "destinos/**/*.html"
+      - "sitemap.xml"
+      - "configuracion/scripts/validar-galeries.mjs"
+      - ".github/workflows/validar-galeries.yml"
+permissions:
+  contents: read
+jobs:
+  comprovacio:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verificar el component únic de les galeries
+        run: node configuracion/scripts/validar-galeries.mjs
