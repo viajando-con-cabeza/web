@@ -69,8 +69,9 @@ main.cl-page.cl-landing {
 .cl-page.cl-landing .cl-landing-intro h1 {
   margin:0;
   color:#181b18;
-  font:600 clamp(39px,3.3vw,54px)/1.06 "Oswald",sans-serif;
+  font:600 clamp(39px,3vw,47px)/1.06 "Oswald",sans-serif;
   letter-spacing:-.01em;
+  white-space:nowrap;
 }
 .cl-page.cl-landing .cl-landing-underline {
   width:86px;height:4px;margin:13px 0 15px;
@@ -454,6 +455,7 @@ main.cl-page.cl-landing {
 @media(max-width:1190px) {
   .cl-page.cl-landing .cl-landing-stage {display:block}
   .cl-page.cl-landing .cl-landing-intro {padding:0 0 22px;max-width:680px}
+  .cl-page.cl-landing .cl-landing-intro h1 {font-size:clamp(45px,4.5vw,54px)}
   .cl-page.cl-landing .cl-direction-sign {display:none}
   .cl-page.cl-landing .cl-landing-description {max-width:640px}
   .cl-page.cl-landing .cl-landing-cards {gap:12px}
