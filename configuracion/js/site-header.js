@@ -601,7 +601,13 @@
   const cleanPublicText=()=>{
     const rePlaces=/Olost|Prats de Lluçanès|Prats del Lluçanès/gi;
     const reYears=/\b(?:19|20)\d{2}\b/g;
-    const clean=s=>s.replace(rePlaces,'').replace(reYears,'').replace(/ {2,}/g,' ');
+    // Els anys de preus i reserves són dades útils, no informació personal.
+    // Manté-los en aquesta guia; continua ocultant els noms de poblacions privades.
+    const preserveYearsOnTickets=/^\/destinos\/suecia\/estocolmo\/entradas-y-pases(?:\.html)?\/?$/i.test(location.pathname);
+    const clean=s=>{
+      const withoutPlaces=s.replace(rePlaces,'');
+      return (preserveYearsOnTickets ? withoutPlaces : withoutPlaces.replace(reYears,'')).replace(/ {2,}/g,' ');
+    };
     const walker=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT);
     const nodes=[];let n;while(n=walker.nextNode())nodes.push(n);
     nodes.forEach(x=>{const v=clean(x.nodeValue);if(v!==x.nodeValue)x.nodeValue=v});
