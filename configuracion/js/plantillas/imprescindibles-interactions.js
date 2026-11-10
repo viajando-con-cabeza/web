@@ -224,9 +224,10 @@
         // Conservamos el botón, el mosaico y el visor de Qué ver sin cambios.
         const img=document.createElement('img');
         img.src=optimizedPhoto(src, 'mini');
-        const type=/\/bosques\//.test(src)?'Bosque del archipiélago':
-          /\/mar\//.test(src)?'Costa y mar del archipiélago':'Paisaje del archipiélago';
-        img.alt=type+' de Estocolmo en agosto · fotografía propia '+(index+1);
+        const placeName=gallery.closest('.place')?.querySelector('.place-heading h2')?.textContent?.trim()||'Estocolmo';
+        const subject=/\/bosques\//.test(src)?' · paisaje forestal':
+          /\/mar\//.test(src)?' · costa y mar':'';
+        img.alt=placeName+subject+' · imagen '+(index+1)+' de '+photos.length;
         img.width=450;img.height=300;
         img.loading='lazy';img.decoding='async';
         img.onerror=()=>{ if (img.src!==src) img.src=src; };
