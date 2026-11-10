@@ -455,3 +455,32 @@
  .ep-page .ep4-our-list .ep4-day-group-free,.ep-page .ep4-our-list .ep4-day-group-skip{border:0;padding:0}
  .ep-page .ep4-our-list .ep4-day-reason,.ep-page .ep4-our-list .ep4-day-link{grid-column:1}
 }
+
+/* Carrusel VCC: dos días visibles en escritorio; tres categorías en cada tarjeta. */
+@media(min-width:900px){
+ .ep-page .ep4-our-stage>.ep4-our-list{gap:13px!important}
+ .ep-page .ep4-our-list>.ep4-day-card{flex:0 0 calc((100% - 13px)/2)!important;width:calc((100% - 13px)/2)!important;max-width:calc((100% - 13px)/2)!important}
+}
+.ep-page .ep4-our-list>.ep4-day-card{box-shadow:0 3px 13px #392a1a10}
+.ep-page .ep4-our-list .ep4-day-head{padding:12px 14px 6px!important}
+.ep-page .ep4-our-list .ep4-day-title{font-size:17px}
+.ep-page .ep4-our-list .ep4-day-body{column-gap:6px!important;row-gap:11px!important;padding:8px 12px 13px!important;grid-template-columns:repeat(3,minmax(0,1fr))!important}
+.ep-page .ep4-our-list .ep4-day-group{padding:8px 7px 9px!important;border:1px solid transparent!important;border-radius:9px;gap:7px!important;min-width:0;background:#fafafa}
+.ep-page .ep4-our-list .ep4-day-group-paid{background:#eff8f1;border-color:#e2f1e5!important}
+.ep-page .ep4-our-list .ep4-day-group-free{background:#f3f7f9;border-color:#e7eff3!important}
+.ep-page .ep4-our-list .ep4-day-group-skip{background:#fdf7ee;border-color:#f4eadd!important}
+.ep-page .ep4-our-list .ep4-day-group-label{font:700 10px/1.25 "DM Sans",sans-serif;gap:5px!important;color:#323a38}
+.ep-page .ep4-our-list .ep4-day-group-icon{width:13px;height:13px;flex:0 0 13px}
+.ep-page .ep4-our-list .ep4-day-activities{margin:0!important}
+.ep-page .ep4-our-list .ep4-day-activities li{font:400 10px/1.42 "DM Sans",sans-serif;overflow-wrap:anywhere}
+.ep-page .ep4-our-list .ep4-day-none,.ep-page .ep4-our-list .ep4-day-not-bought{margin:0!important;font:400 10px/1.42 "DM Sans",sans-serif;overflow-wrap:anywhere}
+.ep-page .ep4-our-list .ep4-day-reason{grid-column:1/-1;font:400 11px/1.58 "DM Sans",sans-serif;color:#5d5853;margin:3px 0 0}
+.ep-page .ep4-our-list .ep4-day-link{font-size:9px!important}
+@media(max-width:899px){
+ .ep-page .ep4-our-list>.ep4-day-card{flex:0 0 100%!important;width:100%!important;max-width:100%!important}
+}
+@media(max-width:700px){
+ .ep-page .ep4-our-list .ep4-day-body{grid-template-columns:minmax(0,1fr)!important}
+ .ep-page .ep4-our-list .ep4-day-group{padding:8px 10px!important}
+ .ep-page .ep4-our-list .ep4-day-activities li,.ep-page .ep4-our-list .ep4-day-not-bought,.ep-page .ep4-our-list .ep4-day-none{font-size:11px}
+}
