@@ -18,7 +18,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=DM+Sans:wght@400;500;600;700;800&family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/configuracion/css/paginas.css"><link rel="stylesheet" href="/configuracion/css/overrides.css">
-<link rel="stylesheet" href="/configuracion/css/destinos/suecia/estocolmo/cuando-ir-vcc.css?v=20261110-mantenimiento-final-v4">
+<link rel="stylesheet" href="/configuracion/css/destinos/suecia/estocolmo/cuando-ir-vcc.css?v=20261110-anclas-tecnicas-v5">
 <link rel="stylesheet" href="/configuracion/css/componentes/galeria-vcc-cuando-ir.css?v=20261110-v1">
 <link rel="stylesheet" href="/configuracion/css/plantillas/imprescindibles-galeria-movil.css?v=20261106-higher-crop-v11">
 <link rel="stylesheet" href="/configuracion/css/plantillas/imprescindibles-galeria-escritorio.css?v=20261107-hover-bounded-v55">
@@ -755,6 +755,22 @@ html body.ci-page .ci-visit-mobile-note{display:none}
       anchor.style.height=shouldPin?nav.offsetHeight+'px':'0px';
       document.documentElement.style.setProperty('--ci-sticky-offset',(headerBottom+nav.offsetHeight+14)+'px');
     }
+    // Anclajes precisos: el sobretítulo de estas dos secciones debe quedar
+    // justo debajo del header y la barra blanca, no a mitad de pantalla.
+    // No cambiamos los demás enlaces ni el scrollspy compartido.
+    nav.addEventListener('click',event=>{
+      const link=event.target.closest('a[href="#experiencia"],a[href="#errores"]');
+      if(!link||!nav.contains(link))return;
+      const section=document.getElementById(link.hash.slice(1));
+      const heading=section?.querySelector(':scope > .ci-heading');
+      if(!heading)return;
+      event.preventDefault();
+      const headerBottom=header?Math.max(0,header.getBoundingClientRect().bottom):0;
+      const clearTop=headerBottom+nav.getBoundingClientRect().height+12;
+      const y=Math.max(0,window.scrollY+heading.getBoundingClientRect().top-clearTop);
+      window.scrollTo({top:y,behavior:window.matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});
+      history.replaceState(null,'',link.hash);
+    });
     window.addEventListener('scroll',sync,{passive:true});
     window.addEventListener('resize',refreshBase,{passive:true});
     window.addEventListener('load',refreshBase,{once:true});
