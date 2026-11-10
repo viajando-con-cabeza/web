@@ -1,0 +1,234 @@
+/* VCC · UI de galeries comuna (v1).
+ * Font de veritat per als estils compartits de:
+ *  - Qué ver / Imprescindibles: #vcc-desktop-gallery, #lightbox, #vcc-mobile-gallery
+ *  - Itinerarios i pàgines futures: #dayLightbox.vcc-booking-gallery-modal
+ * Manté els layouts particulars (monuments, dies, mapes) als seus components.
+ */
+:root{
+  --vcc-gallery-ui-ink:#242424;
+  --vcc-gallery-ui-text:#47413c;
+  --vcc-gallery-ui-muted:#55514e;
+  --vcc-gallery-ui-accent:#a65340;
+  --vcc-gallery-ui-divider:#eee7e1;
+  --vcc-gallery-ui-tile:#f0eae4;
+  --vcc-gallery-ui-radius:17px;
+  --vcc-gallery-ui-photo-radius:13px;
+  --vcc-gallery-ui-gap:13px;
+  --vcc-gallery-ui-font:'DM Sans',sans-serif;
+  --vcc-gallery-ui-title:'Oswald',sans-serif;
+  --vcc-gallery-ui-script:'Caveat',cursive;
+}
+/* Els dos visors desktop comparteixen acabats i amplada visual. */
+html body :is(
+  #vcc-desktop-gallery .vcc-dg-panel,
+  #dayLightbox.vcc-gallery-desktop .day-lightbox-panel,
+  #lightbox.lightbox .lb-stage
+){
+  background:#fff!important;
+  border-radius:var(--vcc-gallery-ui-radius)!important;
+  box-shadow:0 22px 65px rgba(20,20,20,.20)!important;
+}
+/* Capçalera del mosaic. */
+html body :is(
+  #vcc-desktop-gallery .vcc-dg-top,
+  #dayLightbox.vcc-gallery-desktop .day-lightbox-grid-head
+){
+  height:64px!important;
+  min-height:64px!important;
+  border-bottom:1px solid var(--vcc-gallery-ui-divider)!important;
+  background:#fff!important;
+}
+/* Titular del mosaic: mateixa tipografia, pes, mida i majúscules. */
+html body :is(
+  #vcc-desktop-gallery .vcc-dg-heading strong,
+  #dayLightbox.vcc-gallery-desktop .day-lightbox-grid-heading strong
+){
+  font:500 22px/1.15 var(--vcc-gallery-ui-title)!important;
+  text-transform:uppercase!important;
+  color:var(--vcc-gallery-ui-ink)!important;
+  letter-spacing:0!important;
+}
+/* Capçalera de la foto individual. */
+html body :is(
+  #lightbox.lightbox .lb-caption,
+  #dayLightbox.vcc-gallery-desktop .day-lightbox-photo-title
+){
+  font:500 22px/1.15 var(--vcc-gallery-ui-title)!important;
+  color:var(--vcc-gallery-ui-ink)!important;
+  text-transform:uppercase!important;
+  letter-spacing:0!important;
+}
+/* ← Galería: ÚNIC estil compartit d'aquest botó.
+ * El component compartit JS també en centralitza el text.
+ * En escriptori no utilitzem text-transform, ni negreta, ni majúscules.
+ */
+html body :is(
+  #lightbox.lightbox .lb-stage > .vcc-dg-photo-back,
+  #dayLightbox.vcc-gallery-desktop .day-lightbox-to-grid
+){
+  position:absolute!important;
+  z-index:7!important;
+  left:20px!important;
+  top:6px!important;
+  right:auto!important;
+  bottom:auto!important;
+  display:inline-flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  min-width:0!important;
+  width:auto!important;
+  height:32px!important;
+  padding:0 6px!important;
+  margin:0!important;
+  border:0!important;
+  border-radius:4px!important;
+  background:transparent!important;
+  box-shadow:none!important;
+  color:#282828!important;
+  font:400 13px/1 var(--vcc-gallery-ui-font)!important;
+  letter-spacing:0!important;
+  text-transform:none!important;
+  white-space:nowrap!important;
+  cursor:pointer!important;
+  transform:none!important;
+}
+html body :is(
+  #lightbox.lightbox .lb-stage > .vcc-dg-photo-back,
+  #dayLightbox.vcc-gallery-desktop .day-lightbox-to-grid
+):hover{color:var(--vcc-gallery-ui-accent)!important}
+/* La foto de l'itinerari té una capçalera DOM pròpia: el botó
+ * absolut no ha d'alterar les columnes del títol i de la X. */
+html body #dayLightbox.vcc-gallery-desktop .day-lightbox-photo-view{
+ position:relative!important;
+}
+html body #dayLightbox.vcc-gallery-desktop .day-lightbox-photo-title{
+ grid-column:2!important;
+}
+html body #dayLightbox.vcc-gallery-desktop .day-lightbox-photo-head > .day-lightbox-close{
+ grid-column:3!important;
+}
+/* Comptador de la foto individual · 1 / N */
+html body :is(
+  #lightbox.lightbox .lb-counter,
+  #dayLightbox .day-lightbox-counter
+){
+  color:var(--vcc-gallery-ui-muted)!important;
+  font:400 12px/1 var(--vcc-gallery-ui-font)!important;
+  background:#fff!important;
+  font-variant-numeric:tabular-nums!important;
+  letter-spacing:0!important;
+}
+/* Mosaic gran, miniatures i textos del lateral. */
+html body :is(
+  #vcc-desktop-gallery .vcc-dg-grid,
+  #dayLightbox.vcc-gallery-desktop .day-lightbox-grid
+){
+  gap:var(--vcc-gallery-ui-gap)!important;
+}
+html body :is(
+  #vcc-desktop-gallery .vcc-dg-tile,
+  #dayLightbox.vcc-gallery-desktop .day-lightbox-grid > button
+){
+  border-radius:8px!important;
+  background:var(--vcc-gallery-ui-tile)!important;
+  cursor:pointer!important;
+}
+html body :is(
+  #vcc-desktop-gallery .vcc-dg-place,
+  #dayLightbox.vcc-gallery-desktop .day-lightbox-grid-info h3,
+  #dayLightbox.vcc-gallery-desktop .day-lightbox-info h3
+){
+  color:#c56851!important;
+  font:600 29px/1.12 var(--vcc-gallery-ui-script)!important;
+  letter-spacing:0!important;
+  text-transform:none!important;
+}
+html body :is(
+  #vcc-desktop-gallery .vcc-dg-description,
+  #dayLightbox.vcc-gallery-desktop .day-lightbox-grid-info p,
+  #dayLightbox.vcc-gallery-desktop .day-lightbox-info p
+){
+  color:var(--vcc-gallery-ui-text)!important;
+  font:400 13px/1.75 var(--vcc-gallery-ui-font)!important;
+}
+html body :is(
+  #lightbox.lightbox .lb-thumbs button,
+  #dayLightbox.vcc-gallery-desktop .day-lightbox-thumbs button
+){
+  width:88px!important;
+  height:63px!important;
+  border-radius:6px!important;
+}
+html body :is(
+  #lightbox.lightbox .lb-thumbs button.active,
+  #dayLightbox.vcc-gallery-desktop .day-lightbox-thumbs button.active
+){
+  border-color:#cf705c!important;
+}
+/* Més fotos: idèntic overlay discret en tots els mosaics de 5 visibles. */
+html body :is(
+  .imp-page .gallery-mosaic .gallery-more,
+  .vcc-booking-gallery .day-mosaic .more
+){
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  padding:5px!important;
+  background:rgba(0,0,0,.54)!important;
+  color:#fff!important;
+  font:700 12px/1.2 var(--vcc-gallery-ui-font)!important;
+  letter-spacing:0!important;
+  text-align:center!important;
+  pointer-events:none!important;
+}
+html body :is(
+  #vcc-desktop-gallery button,
+  #dayLightbox button
+):focus-visible{
+  outline:3px solid #b75c43!important;
+  outline-offset:-3px!important;
+}
+/* Dit índex sobre la foto ampliada i interaccions de la galeria. */
+html body :is(
+  #lightbox.lightbox .lb-stage > .lb-photo,
+  #dayLightbox .day-lightbox-photo-frame,
+  #dayLightbox .day-lightbox-photo-frame > img
+){
+  cursor:pointer!important;
+}
+/* Mòbil: el visor natiu de "Qué ver" i el component genèric comparteixen
+ * fonts, mida dels comptadors i el +N discret, sense canviar gestos ni layouts. */
+@media(max-width:800px){
+ html body :is(
+   #vcc-mobile-gallery .vcc-mobile-gallery-header,
+   #dayLightbox.vcc-gallery-mobile .day-lightbox-grid-head,
+   #dayLightbox.vcc-gallery-mobile .day-lightbox-photo-head
+ ){
+   height:72px!important;
+   min-height:72px!important;
+   background:#fff!important;
+   border-bottom:1px solid #ece5df!important;
+ }
+ html body :is(
+   #vcc-mobile-gallery .vcc-mobile-heading strong,
+   #dayLightbox.vcc-gallery-mobile .day-lightbox-grid-heading strong,
+   #dayLightbox.vcc-gallery-mobile .day-lightbox-photo-title
+ ){
+   font:500 19px/1.18 var(--vcc-gallery-ui-title)!important;
+   color:#292929!important;
+   text-transform:uppercase!important;
+ }
+ html body :is(
+   #vcc-mobile-gallery .vcc-photo-count,
+   #dayLightbox.vcc-gallery-mobile .day-lightbox-counter
+ ){
+   font:400 12px/1.25 var(--vcc-gallery-ui-font)!important;
+   letter-spacing:0!important;
+ }
+ html body :is(
+   .imp-page .gallery-mosaic .gallery-more,
+   .vcc-booking-gallery .day-mosaic .more
+ ){
+   font-size:10px!important;
+ }
+}
