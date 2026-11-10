@@ -21,7 +21,7 @@
       const gap = parseFloat(getComputedStyle(track).columnGap) || 0;
       track.scrollBy({
         left: direction * (card.getBoundingClientRect().width + gap),
-        behavior: reduceMotion.matches ? 'instant' : 'smooth'
+        behavior: reduceMotion.matches ? 'auto' : 'smooth'
       });
     };
     previous.addEventListener('click', () => move(-1));
