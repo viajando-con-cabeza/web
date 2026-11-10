@@ -26,9 +26,9 @@
 #plataformas,#elegir,#consejo-vcc,#sigue-planificando{scroll-margin-top:calc(var(--vcc-subheader-top,50px) + 39px + 24px)}
 
 .al-catalog{padding:54px 0 22px}
-.al-heading{text-align:center;max-width:840px;margin:0 auto 27px}
-.al-heading p{font-size:13px;color:var(--al-muted);line-height:1.65;margin:0 auto;max-width:770px}
-.al-accent{display:block;width:54px;height:3px;background:var(--al-orange);margin:11px auto 15px;border-radius:2px}
+.al-heading{text-align:left;max-width:none;margin:0 0 27px}
+.al-heading p{font-size:13px;color:var(--al-muted);line-height:1.65;margin:0;max-width:810px}
+.al-accent{display:block;width:54px;height:3px;background:var(--al-orange);margin:11px 0 15px;border-radius:2px}
 .al-carousel{position:relative}
 .al-track{display:grid;grid-auto-flow:column;grid-auto-columns:calc((100% - 32px)/3.08);gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding-inline:2px;padding:3px 2px 12px;-webkit-overflow-scrolling:touch;overscroll-behavior-inline:contain;scrollbar-width:none}
 .al-track::-webkit-scrollbar{display:none}
@@ -62,9 +62,8 @@
 .al-page :is(button,a,[tabindex]):focus-visible{outline:3px solid var(--al-orange);outline-offset:3px}
 .al-photo-note{font-size:11px;color:#818487;text-align:center;margin:13px 0 0}
 .al-guide{padding:28px 0 45px}
-.al-guide-panel{display:grid;grid-template-columns:240px 1fr;background:#fff;border:1px solid var(--al-line);border-radius:18px;box-shadow:0 4px 18px #10101009;padding:25px 26px;gap:22px;align-items:center}
-.al-guide-heading h2{font:600 clamp(27px,3vw,36px)/1.12 "Oswald",sans-serif;margin:0}
-.al-guide-heading .al-accent{margin:12px 0 0}
+.al-guide-panel{background:#fff;border:1px solid var(--al-line);border-radius:18px;box-shadow:0 4px 18px #10101009;padding:25px 26px}
+.al-guide-heading{margin-bottom:22px}
 .al-guide-options{display:grid;grid-template-columns:repeat(4,minmax(0,1fr))}
 .al-guide-options article{padding:0 13px;min-width:0;border-left:1px solid #dedfe1}
 .al-guide-options svg{width:31px;height:31px;color:var(--al-orange);stroke-width:1.8}
@@ -81,7 +80,7 @@
 .al-next-links a:hover{border-color:#fa995a}
 .al-next-links strong{font:700 16px "Oswald",sans-serif}
 .al-next-links span{font-size:11px;color:#e7e7e7}
-@media(max-width:1050px){.al-track{grid-auto-columns:calc((100% - 16px)/2.12)}.al-guide-panel{grid-template-columns:1fr}.al-guide-options article:first-child{border-left:0;padding-left:0}}
+@media(max-width:1050px){.al-track{grid-auto-columns:calc((100% - 16px)/2.12)}.al-guide-options article:first-child{border-left:0;padding-left:0}}
 @media(max-width:740px){.al-hero{height:var(--vcc-standard-hero-mobile,730px);min-height:var(--vcc-standard-hero-mobile,730px)}.al-hero-inner{padding:76px 0 45px}.al-subnav .vcc-nav-inner{gap:24px;padding-inline:14px}.al-subnav a{font-size:11px}.al-catalog{padding-top:38px}.al-track{grid-auto-columns:calc((100% - 16px)/1.12)}.al-card img{height:168px}.al-intro{min-height:0}.al-guide-panel{padding:23px 19px}.al-guide-options{grid-template-columns:repeat(2,minmax(0,1fr));row-gap:24px}.al-guide-options article:nth-child(odd){border-left:0;padding-left:0}.al-next-links{grid-template-columns:repeat(2,minmax(0,1fr))}.al-carousel-arrow{top:31%}}
 @media(max-width:520px){.al-wrap{width:calc(100% - 28px)}.al-hero h1{font-size:43px}.al-hero-facts{gap:10px 15px}.al-hero p:not(.al-eyebrow){font-size:13px}.al-catalog{padding-top:31px}.al-heading{margin-bottom:19px}.al-heading p{font-size:12px}.al-card-body{padding:16px}.al-card img{height:143px}.al-lists{gap:9px}.al-lists section+section{padding-left:9px}.al-lists h4{font-size:11px}.al-lists li{font-size:10.5px}.al-carousel-arrow{top:30%;width:36px;height:36px}.al-carousel-prev{left:-8px}.al-carousel-next{right:-8px}.al-guide{padding-top:20px}.al-next{padding:32px 0 40px}}
 @media(prefers-reduced-motion:reduce){.al-track{scroll-behavior:auto}.al-carousel-arrow,.al-carousel-dots button{transition:none}}
