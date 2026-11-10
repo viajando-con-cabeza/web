@@ -1199,3 +1199,15 @@ html.vcc-lazy-bg-js body.ci-page .vcc-discover-section[data-vcc-lazy-background]
     --vcc-hero-image:url('/configuracion/imagenes/fondos/fondos-cuando-ir-mobile.webp')!important;
   }
 }
+
+/* La galería carga fuera del primer viewport. Reservar su geometría
+   mientras llegan CSS y JS evita que el texto posterior salte (CLS).
+   Una vez inicializada, el mosaico universal determina su propia altura. */
+html body.ci-page .ci-august-gallery-embed[data-vcc-lazy-gallery]:not([data-vcc-gallery-loaded]) .gallery{
+  aspect-ratio:1.42;
+}
+@media(max-width:650px){
+  html body.ci-page .ci-august-gallery-embed[data-vcc-lazy-gallery]:not([data-vcc-gallery-loaded]) .gallery{
+    aspect-ratio:1.3;
+  }
+}
