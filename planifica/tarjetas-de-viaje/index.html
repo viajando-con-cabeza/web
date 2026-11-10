@@ -12,7 +12,7 @@
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/configuracion/css/paginas.css">
 <link rel="stylesheet" href="/configuracion/css/overrides.css">
-<link rel="stylesheet" href="/configuracion/css/tarjetas-de-viaje.css?v=20261110-v3">
+<link rel="stylesheet" href="/configuracion/css/tarjetas-de-viaje.css?v=20261110-v4">
 <link rel="preload" as="image" href="/configuracion/imagenes/fondos/fondos-planifica.webp">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Tarjetas para viajar: comisiones, comparativa y ahorro | VCC">
@@ -50,23 +50,22 @@
   </nav>
 
   <section class="tv-intro" id="tarjetas" aria-labelledby="tv-cards-title">
-    <div class="tv-wrap tv-intro-layout">
-      <div><span class="tv-eyebrow">OPINIÓN VCC · SIN PUNTUACIONES</span><h2 id="tv-cards-title" class="tv-heading">LAS TARJETAS QUE ESTAMOS COMPARANDO</h2><p class="tv-copy">Ponemos sobre la mesa algunas de las tarjetas más conocidas para viajar. Queremos contar lo que nos gusta, lo que no nos convence y los detalles que revisamos antes de utilizarlas.</p></div>
-      <aside class="tv-note"><b>Una opinión independiente, sin rankings.</b> Las experiencias personales se irán completando solo después de contrastarlas con nuestros propios viajes. Que una marca aparezca aquí no significa que la hayamos probado ni que nos patrocine.</aside>
+    <div class="tv-wrap">
+      <span class="tv-eyebrow">NUESTRA EXPERIENCIA</span>
+      <h2 id="tv-cards-title" class="tv-heading">LAS TARJETAS QUE COMPARAMOS</h2>
+      <p class="tv-copy">Analizamos las principales tarjetas para viajar: sus ventajas, límites y comisiones. Publicaremos nuestras experiencias cuando las hayamos probado.</p>
     </div>
   </section>
 
   <section class="tv-catalog" aria-label="Carrusel de tarjetas para viajar">
     <div class="tv-wrap">
-      <div class="tv-carousel-head">
-        <p><strong>Nuestra experiencia</strong> · Desliza para conocer todas las alternativas, sin notas ni estrellas.</p>
-        <div class="tv-controls"><span class="tv-carousel-count" data-tv-count aria-live="polite">1 / 2</span><button type="button" data-tv-prev aria-label="Ver tarjetas anteriores">←</button><button type="button" data-tv-next aria-label="Ver tarjetas siguientes">→</button></div>
-      </div>
+      <div class="tv-carousel-shell">
+        <button class="tv-carousel-arrow" type="button" data-tv-prev aria-label="Ver tarjeta anterior">←</button>
       <div class="tv-carousel" data-tv-carousel tabindex="0" role="region" aria-label="Tarjetas de viaje: desliza horizontalmente">
         <article class="tv-card">
-          <div class="tv-card-logo revolut"><b>Revolut</b><div class="tv-mini-card rv" aria-hidden="true"></div></div>
+          <div class="tv-card-logo revolut"><div class="tv-card-brand"><h3>Revolut</h3><small>DÉBITO</small></div><div class="tv-mini-card rv" aria-hidden="true"></div></div>
           <div class="tv-card-body">
-            <div class="tv-card-head"><h3>Revolut</h3><span class="tv-pill">DÉBITO</span></div>
+            
             <p class="tv-card-intro">Cuenta y tarjeta digital con funcionalidades para gestionar pagos y dinero desde el móvil.</p>
             <div class="tv-point"><b><span class="tv-symbol" aria-hidden="true">✓</span> PUNTOS A FAVOR</b><p>Permite consultar los gastos y gestionar la tarjeta desde una app.</p></div>
             <div class="tv-point review"><b><span class="tv-symbol" aria-hidden="true">!</span> LO QUE CONVIENE REVISAR</b><p>Los límites del plan, las retiradas y los posibles recargos por cambio de moneda.</p></div>
@@ -75,9 +74,9 @@
           </div>
         </article>
         <article class="tv-card">
-          <div class="tv-card-logo n26"><b>N26</b><div class="tv-mini-card n" aria-hidden="true"></div></div>
+          <div class="tv-card-logo n26"><div class="tv-card-brand"><h3>N26</h3><small>DÉBITO</small></div><div class="tv-mini-card n" aria-hidden="true"></div></div>
           <div class="tv-card-body">
-            <div class="tv-card-head"><h3>N26</h3><span class="tv-pill">DÉBITO</span></div>
+            
             <p class="tv-card-intro">Cuenta móvil con tarjetas bancarias y seguimiento digital de los movimientos.</p>
             <div class="tv-point"><b><span class="tv-symbol" aria-hidden="true">✓</span> PUNTOS A FAVOR</b><p>Facilita el seguimiento de pagos y movimientos desde el móvil.</p></div>
             <div class="tv-point review"><b><span class="tv-symbol" aria-hidden="true">!</span> LO QUE CONVIENE REVISAR</b><p>Las condiciones de retiradas en cajeros y las diferencias entre planes.</p></div>
@@ -86,9 +85,9 @@
           </div>
         </article>
         <article class="tv-card">
-          <div class="tv-card-logo wise"><b>Wise</b><div class="tv-mini-card w" aria-hidden="true"></div></div>
+          <div class="tv-card-logo wise"><div class="tv-card-brand"><h3>Wise</h3><small>MULTIDIVISA</small></div><div class="tv-mini-card w" aria-hidden="true"></div></div>
           <div class="tv-card-body">
-            <div class="tv-card-head"><h3>Wise</h3><span class="tv-pill">MULTIDIVISA</span></div>
+            
             <p class="tv-card-intro">Servicio multidivisa para gestionar, convertir y utilizar dinero en distintas monedas.</p>
             <div class="tv-point"><b><span class="tv-symbol" aria-hidden="true">✓</span> PUNTOS A FAVOR</b><p>Permite consultar el coste de la conversión antes de realizarla.</p></div>
             <div class="tv-point review"><b><span class="tv-symbol" aria-hidden="true">!</span> LO QUE CONVIENE REVISAR</b><p>Las tarifas por conversión y los límites o costes de las retiradas.</p></div>
@@ -97,9 +96,9 @@
           </div>
         </article>
         <article class="tv-card">
-          <div class="tv-card-logo bunq"><b>bunq</b><div class="tv-mini-card b" aria-hidden="true"></div></div>
+          <div class="tv-card-logo bunq"><div class="tv-card-brand"><h3>bunq</h3><small>DÉBITO</small></div><div class="tv-mini-card b" aria-hidden="true"></div></div>
           <div class="tv-card-body">
-            <div class="tv-card-head"><h3>bunq</h3><span class="tv-pill">DÉBITO</span></div>
+            
             <p class="tv-card-intro">Banca digital con herramientas para organizar cuentas, pagos y presupuesto.</p>
             <div class="tv-point"><b><span class="tv-symbol" aria-hidden="true">✓</span> PUNTOS A FAVOR</b><p>Ofrece funciones para organizar el saldo y separar dinero por objetivos.</p></div>
             <div class="tv-point review"><b><span class="tv-symbol" aria-hidden="true">!</span> LO QUE CONVIENE REVISAR</b><p>La cuota y las funcionalidades incluidas en cada plan y sus posibles límites.</p></div>
@@ -108,27 +107,28 @@
           </div>
         </article>
       </div>
-      <div class="tv-carousel-dots" data-tv-dots role="group" aria-label="Posición del carrusel de tarjetas"></div>
+        <button class="tv-carousel-arrow" type="button" data-tv-next aria-label="Ver tarjeta siguiente">→</button>
+      </div>
       <p class="tv-catalog-footnote">La información comercial y las tarifas pueden cambiar. Revisa siempre las condiciones oficiales vigentes para tu país, plan, moneda y tipo de operación antes de contratar.</p>
     </div>
   </section>
 
   <section class="tv-guide" id="comparar" aria-labelledby="tv-compare-title">
     <div class="tv-wrap">
-      <div class="tv-guide-head"><span class="tv-eyebrow">ANTES DE ELEGIR</span><h2 id="tv-compare-title" class="tv-heading">¿EN QUÉ NOS FIJAMOS ANTES DE ELEGIR?</h2><p class="tv-copy">Una tarjeta puede ser muy útil para pagar, pero menos conveniente para sacar efectivo. Estos son los detalles que miramos antes de decidir.</p></div>
+      <div class="tv-guide-head"><span class="tv-eyebrow">ANTES DE ELEGIR</span><h2 id="tv-compare-title" class="tv-heading">QUÉ COMPARAR ANTES DE ELEGIR</h2><p class="tv-copy">El tipo de cambio, las comisiones y los límites marcan la diferencia. Fíjate en estos cuatro puntos.</p></div>
       <div class="tv-guide-grid">
         <article class="tv-guide-item"><span class="tv-guide-icon" aria-hidden="true">↔</span><h3>TIPO DE CAMBIO</h3><p>Comparamos el cambio aplicado con una referencia de mercado y comprobamos si hay sobrecostes.</p></article>
         <article class="tv-guide-item"><span class="tv-guide-icon" aria-hidden="true">€</span><h3>COMISIONES AL PAGAR</h3><p>Revisamos si existen porcentajes añadidos, cuotas de mantenimiento o límites mensuales.</p></article>
         <article class="tv-guide-item"><span class="tv-guide-icon" aria-hidden="true">▣</span><h3>RETIRADAS EN CAJEROS</h3><p>Nos fijamos en el coste de retirar efectivo, los límites y las comisiones del propio cajero.</p></article>
         <article class="tv-guide-item"><span class="tv-guide-icon" aria-hidden="true">30</span><h3>LÍMITES Y FINES DE SEMANA</h3><p>Algunas condiciones cambian según el día, el plan, la divisa o el importe utilizado.</p></article>
       </div>
-      <div class="tv-takeaway"><span aria-hidden="true">✈</span><p>No siempre hay una tarjeta mejor para todo: compara las condiciones según el viaje y elige la que menos te cueste.</p></div>
+      <div class="tv-takeaway"><span aria-hidden="true">✈</span><p>Consejo VCC: al pagar fuera, normalmente conviene elegir la moneda local y evitar la conversión del comercio.</p></div>
     </div>
   </section>
 
   <section class="tv-help" id="tipos" aria-labelledby="tv-types-title">
     <div class="tv-wrap tv-help-layout">
-      <div><span class="tv-eyebrow">UNA DIFERENCIA IMPORTANTE</span><h2 id="tv-types-title" class="tv-heading">¿TARJETA DE DÉBITO O DE CRÉDITO?</h2><p class="tv-copy">No hace falta elegir solo una. La tarjeta adecuada depende de cómo vas a pagar, si sacarás dinero y de lo que te exijan ciertos proveedores durante el viaje.</p></div>
+      <div><span class="tv-eyebrow">ELIGE CON CABEZA</span><h2 id="tv-types-title" class="tv-heading">¿DÉBITO O CRÉDITO?</h2><p class="tv-copy">Para pagar, sacar efectivo o dejar una fianza: cada tarjeta cumple una función distinta.</p></div>
       <div class="tv-help-rows">
         <article class="tv-help-row"><b>Tarjeta de débito para el día a día</b><p>Suele cargar las compras sobre el saldo disponible. Compara cambio, comisiones y límites antes de viajar.</p></article>
         <article class="tv-help-row"><b>Tarjeta de crédito para algunos depósitos</b><p>Alquileres de coche y ciertos hoteles pueden pedir una tarjeta de crédito para la fianza. Comprueba qué tipo aceptan y el nombre del titular.</p></article>
@@ -137,39 +137,34 @@
     </div>
   </section>
 
-  <section class="tv-faq" aria-labelledby="tv-faq-title">
-    <div class="tv-wrap">
-      <span class="tv-eyebrow">DUDAS HABITUALES</span><h2 id="tv-faq-title" class="tv-heading">PREGUNTAS FRECUENTES</h2>
-      <div class="tv-faq-items">
-        <details><summary>¿Es mejor pagar en la moneda local o en euros?</summary><p>Si el terminal ofrece convertir el importe a euros, normalmente conviene revisar la opción de pagar en la moneda local para evitar el tipo de cambio del comercio o cajero (conversión dinámica de divisas). Comprueba también las condiciones de tu tarjeta.</p></details>
-        <details><summary>¿Todas las tarjetas de viaje aplican el cambio interbancario?</summary><p>No. Cada entidad puede usar un tipo de referencia distinto y añadir tarifas, diferencias de cambio o recargos. «Sin comisiones» no siempre equivale a coste cero.</p></details>
-        <details><summary>¿Puedo sacar dinero gratis con estas tarjetas?</summary><p>Depende del plan, importe, país, moneda y cajero. El operador del cajero puede aplicar una comisión propia aunque tu entidad no cobre por la retirada.</p></details>
-        <details><summary>¿Necesito una tarjeta de crédito para alquilar un coche?</summary><p>Algunas empresas de alquiler la exigen para el depósito y otras aceptan débito bajo condiciones concretas. Verifica siempre los requisitos antes de reservar.</p></details>
-      </div>
-    </div>
-  </section>
-
   <section class="tv-calc" id="calculadora" aria-labelledby="tv-calculator-title">
-    <div class="tv-wrap tv-calc-layout">
-      <div><span class="tv-eyebrow">HERRAMIENTA VCC</span><h2 id="tv-calculator-title" class="tv-heading">CALCULA CUÁNTO PUEDES AHORRAR</h2><p class="tv-copy">Compara un banco habitual con una tarjeta de viaje. Introduce lo que gastarás en otra divisa y las comisiones de cada alternativa: el cálculo se actualiza al instante.</p></div>
+    <div class="tv-wrap">
+      <div class="tv-calc-top">
+        <div><span class="tv-eyebrow">HERRAMIENTA VCC</span><h2 id="tv-calculator-title" class="tv-heading">CALCULA TU AHORRO</h2></div>
+        <p class="tv-copy">Introduce tus gastos y comisiones. Compara en segundos el coste real de ambas tarjetas.</p>
+      </div>
       <div class="tv-calc-card">
-        <div class="tv-fields">
-          <label>Compras en otra divisa (€ equivalentes)<input data-tv-cost="purchases" type="number" min="0" max="100000000" step="10" inputmode="decimal" value="1500"></label>
-          <label>Comisión de tu banco (%)<input data-tv-cost="bank" type="number" min="0" max="100" step="0.1" inputmode="decimal" value="3"></label>
-          <label>Sobrecoste por tipo de cambio (%)<input data-tv-cost="markup" type="number" min="0" max="100" step="0.1" inputmode="decimal" value="0"></label>
-          <label>Comisión tarjeta de viaje (%)<input data-tv-cost="travel" type="number" min="0" max="100" step="0.1" inputmode="decimal" value="0.5"></label>
+        <div class="tv-calc-inputs">
+          <div class="tv-fields">
+            <label>Gasto en otra divisa (€)<input data-tv-cost="purchases" type="number" min="0" max="100000000" step="any" inputmode="decimal" value="1500"></label>
+            <label>Comisión de tu banco (%)<input data-tv-cost="bank" type="number" min="0" max="100" step="any" inputmode="decimal" value="3"></label>
+            <label>Recargo de cambio (%)<input data-tv-cost="markup" type="number" min="0" max="100" step="any" inputmode="decimal" value="0"></label>
+            <label>Comisión tarjeta de viaje (%)<input data-tv-cost="travel" type="number" min="0" max="100" step="any" inputmode="decimal" value="0.5"></label>
+          </div>
+          <details class="tv-advanced"><summary>Añadir retiradas de efectivo (opcional)</summary><div class="tv-fields">
+            <label>Efectivo retirado (€)<input data-tv-cost="cash" type="number" min="0" max="100000000" step="any" inputmode="decimal" value="0"></label>
+            <label>Comisión retirada banco (%)<input data-tv-cost="atmBank" type="number" min="0" max="100" step="any" inputmode="decimal" value="4"></label>
+            <label>Comisión retirada viaje (%)<input data-tv-cost="atmTravel" type="number" min="0" max="100" step="any" inputmode="decimal" value="0"></label>
+          </div></details>
         </div>
-        <details class="tv-advanced"><summary>+ Añadir retiradas de efectivo (opcional)</summary><div class="tv-fields">
-          <label>Efectivo retirado (€ equivalentes)<input data-tv-cost="cash" type="number" min="0" max="100000000" step="10" inputmode="decimal" value="0"></label>
-          <label>Comisión por retirada · banco (%)<input data-tv-cost="atmBank" type="number" min="0" max="100" step="0.1" inputmode="decimal" value="4"></label>
-          <label>Comisión por retirada · viaje (%)<input data-tv-cost="atmTravel" type="number" min="0" max="100" step="0.1" inputmode="decimal" value="0"></label>
-        </div></details>
-        <div class="tv-results">
-          <div class="tv-result"><span>Banco habitual · total estimado</span><strong id="tv-bank-total" aria-live="polite">1.545,00 €</strong></div>
-          <div class="tv-result tv-travel"><span>Tarjeta de viaje · total estimado</span><strong id="tv-travel-total" aria-live="polite">1.507,50 €</strong></div>
+        <div class="tv-calc-summary">
+          <div class="tv-results">
+            <div class="tv-result"><span>Tu banco</span><strong id="tv-bank-total" aria-live="polite">1.545,00 €</strong></div>
+            <div class="tv-result tv-travel"><span>Tarjeta de viaje</span><strong id="tv-travel-total" aria-live="polite">1.507,50 €</strong></div>
+          </div>
+          <div class="tv-saving" id="tv-saving-box"><span id="tv-saving-label">Ahorro estimado</span><strong id="tv-saving" aria-live="polite">37,50 €</strong></div>
         </div>
-        <div class="tv-saving" id="tv-saving-box"><span id="tv-saving-label">Ahorro estimado</span><strong id="tv-saving" aria-live="polite">37,50 €</strong></div>
-        <p class="tv-disclaimer">Simulación orientativa: introduce los importes equivalentes en euros usando el mismo tipo de cambio de referencia. Las comisiones de divisa se aplican a compras y retiradas; los porcentajes por retirada se suman solo al efectivo. No incluye cuotas, cargos mínimos o fijos, recargos del operador del cajero ni diferencias no introducidas. Consulta las tarifas reales de cada entidad; no utilizamos cotizaciones en tiempo real.</p>
+        <p class="tv-disclaimer">Cálculo orientativo en euros equivalentes, sin cotizaciones en tiempo real. No incluye cuotas ni cargos fijos o del cajero. Comprueba las condiciones de cada entidad.</p>
       </div>
     </div>
   </section>
@@ -179,6 +174,6 @@
 <footer class="vcc-global-footer"></footer>
 <script src="/configuracion/js/site-header.js?v=20261110-breadcrumb-v2"></script>
 <script src="/configuracion/js/site-footer.js?v=20261102"></script>
-<script src="/configuracion/js/tarjetas-de-viaje.js?v=20261110-v3" defer></script>
+<script src="/configuracion/js/tarjetas-de-viaje.js?v=20261110-v4" defer></script>
 </body>
 </html>
