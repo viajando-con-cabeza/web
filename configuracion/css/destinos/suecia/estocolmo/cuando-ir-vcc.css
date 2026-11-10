@@ -1190,3 +1190,12 @@ html body.ci-page .ci-visit-mobile-note{display:none}
 html.vcc-lazy-bg-js body.ci-page .vcc-discover-section[data-vcc-lazy-background]:not(.vcc-bg-ready){
   background-image:linear-gradient(90deg,rgba(18,28,30,.72),rgba(18,28,30,.24))!important;
 }
+
+/* El hero universal mantiene el mismo encuadre y degradado.
+   Solo cambia el WebP comprimido en pantallas <=800 px; la imagen original
+   de 2172px permanece en escritorio y en la configuración central. */
+@media(max-width:800px){
+  html body.ci-page .vcc-hero{
+    --vcc-hero-image:url('/configuracion/imagenes/fondos/fondos-cuando-ir-mobile.webp')!important;
+  }
+}
