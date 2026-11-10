@@ -14,15 +14,22 @@
 .tv-page button,.tv-page input {font:inherit}
 .tv-page button {cursor:pointer}
 .tv-page .tv-wrap {width:min(1160px,calc(100% - 44px));margin-inline:auto}
+/* El mismo patrón editorial de Suecia: Caveat sobre Oswald. */
 .tv-page .tv-eyebrow {
-  display:block;color:var(--tv-accent);font-size:11px;font-weight:800;
-  letter-spacing:.12em;text-transform:uppercase;
+  display:block;margin:0 0 3px;color:#cf7660;
+  font:600 clamp(23px,2.45vw,27px)/1.05 "Caveat",cursive;
+  letter-spacing:0;text-transform:none;
 }
 .tv-page .tv-heading {
-  font:600 clamp(29px,3.4vw,38px)/1.13 Oswald,"Arial Narrow",sans-serif;
-  margin:7px 0 10px;letter-spacing:.005em;
+  font:500 clamp(33px,3.5vw,40px)/1.08 "Oswald","Arial Narrow",sans-serif;
+  margin:2px 0 10px;letter-spacing:0;
 }
-.tv-page .tv-copy {max-width:720px;font-size:13px;line-height:1.58;color:var(--tv-muted);margin:0}
+.tv-page .tv-copy {max-width:760px;font-size:13px;line-height:1.56;color:var(--tv-muted);margin:0}
+.tv-page .tv-hero .tv-eyebrow {
+  margin-bottom:9px;color:#ff946d;
+  font:800 11px/1.2 "DM Sans",Arial,sans-serif;
+  letter-spacing:.12em;text-transform:uppercase;
+}
 .tv-page a:focus-visible,.tv-page button:focus-visible,
 .tv-page input:focus-visible,.tv-page summary:focus-visible {
   outline:2px solid var(--tv-accent);outline-offset:3px;
@@ -82,7 +89,7 @@
 .tv-page [id] {scroll-margin-top:100px}
 
 /* Introducción concisa, sin caja lateral que añada altura */
-.tv-page .tv-intro {padding:35px 0 18px}
+.tv-page .tv-intro {padding:32px 0 17px}
 .tv-page .tv-intro .tv-copy {max-width:750px}
 
 /* Carrusel VCC: controles opuestos, tres tarjetas en escritorio */
@@ -169,7 +176,7 @@
 }
 
 /* Cuatro puntos clave, sin tarjetas sobredimensionadas */
-.tv-page .tv-guide {padding:33px 0 32px;background:#fff}
+.tv-page .tv-guide {padding:31px 0 31px;background:#fff}
 .tv-page .tv-guide-head {margin-bottom:17px}
 .tv-page .tv-guide-grid {display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
 .tv-page .tv-guide-item {
@@ -187,7 +194,7 @@
 .tv-page .tv-takeaway p {font-size:11.5px;line-height:1.4;font-weight:700;margin:0}
 
 /* Débito, crédito y respaldo en una fila */
-.tv-page .tv-help {padding:32px 0 36px}
+.tv-page .tv-help {padding:30px 0 34px}
 .tv-page .tv-help-layout {display:block}
 .tv-page .tv-help-layout > div:first-child .tv-copy {max-width:750px}
 .tv-page .tv-help-rows {display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:16px}
@@ -197,9 +204,9 @@
 
 /* Calculadora condensada: campos a la izquierda, resultado a la derecha */
 .tv-page .tv-calc {background:#232628;padding:33px 0 36px;color:#fff}
-.tv-page .tv-calc-top {display:flex;justify-content:space-between;align-items:end;gap:22px;margin-bottom:15px}
-.tv-page .tv-calc-top .tv-heading {font-size:clamp(29px,3.4vw,38px);color:#fff;margin-bottom:0}
-.tv-page .tv-calc-top .tv-copy {max-width:400px;color:#d1d4d4;font-size:12px}
+.tv-page .tv-calc-top {display:block;margin-bottom:14px}
+.tv-page .tv-calc-top .tv-heading {color:#fff;margin-bottom:6px}
+.tv-page .tv-calc-top .tv-copy {max-width:730px;color:#d1d4d4;font-size:12px}
 .tv-page .tv-calc-card {
   display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);
   gap:12px 20px;padding:16px 18px;color:var(--tv-ink);background:#fff;border-radius:12px;
