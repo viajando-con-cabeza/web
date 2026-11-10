@@ -11,13 +11,20 @@
     const p=getComputedStyle(h).position;
     return p==='fixed'||p==='sticky'?Math.round(h.getBoundingClientRect().height):0;
   };
+  let lastHeaderHeight=-1,lastStickyTop=-1;
   const setTop=()=>{
     const h=document.querySelector('body > .shared-header, body > .page-header, .shared-header, .page-header');
-    // La cabecera ocupa espacio incluso si no es sticky. Su medida real evita
-    // cortar la barra de secciones en teléfonos con dos filas de menú.
+    // El encabezado ocupa espacio en el flujo aunque no sea sticky.
     const height=h?Math.ceil(h.getBoundingClientRect().height):0;
-    document.documentElement.style.setProperty('--vcc-page-header-height',height+'px');
-    document.documentElement.style.setProperty('--vcc-subheader-top',headerTop()+'px');
+    if(height!==lastHeaderHeight){
+      document.documentElement.style.setProperty('--vcc-page-header-height',height+'px');
+      lastHeaderHeight=height;
+    }
+    const top=headerTop();
+    if(top!==lastStickyTop){
+      document.documentElement.style.setProperty('--vcc-subheader-top',top+'px');
+      lastStickyTop=top;
+    }
   };
   const linkTarget=(a)=>{
     const href=a.getAttribute('href')||'';
