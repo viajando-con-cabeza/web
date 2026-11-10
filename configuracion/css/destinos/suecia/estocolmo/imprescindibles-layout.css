@@ -1,0 +1,240 @@
+/* CSS específico del diseño de los 15 imprescindibles de Estocolmo.
+   Antes era un <style> inline. Se mantiene el orden de cascada intacto:
+   no alterar su posición de carga sin verificar comparativas visuales.
+   Todas las fichas usan clases compartidas .place, .place-copy y .facts.
+   Los tokens y acabados finales de las tarjetas viven en imprescindibles-decisiones.css.
+*/
+html{scroll-behavior:auto}body{background:#faf7f2}
+.imp-page .imp-hero{height:670px!important;min-height:670px!important}
+.imp-page .imp-main{width:min(1180px,calc(100% - 48px))!important;margin:0 auto 60px!important}
+.imp-page .place{scroll-margin-top:115px!important;padding:42px 0!important;border-bottom:0!important}
+/* Quality: capçalera numerada en lloc dels separadors SVG repetits. */
+html body .imp-page .imp-main .place{padding:35px 0 30px!important;row-gap:20px!important;column-gap:48px!important;scroll-margin-top:104px!important}
+html body .imp-page .imp-main .place:not(:first-child){padding-top:35px!important}
+html body .imp-page .imp-main .place::before,html body .imp-page .imp-main .place::after{content:none!important;display:none!important;background:none!important}
+html body .imp-page .imp-main .place:nth-of-type(2n+1):not(:first-child)::before,
+html body .imp-page .imp-main .place:nth-of-type(2n+1):not(:first-child)::after,
+html body .imp-page .imp-main .place:nth-of-type(3n+1)::before,
+html body .imp-page .imp-main .place:nth-of-type(3n+2)::after{
+ content:none!important;display:none!important;width:0!important;height:0!important;
+ background:none!important;background-image:none!important;
+}
+html body .imp-page .imp-main .place:nth-of-type(2n+1):not(:first-child){padding-top:35px!important}
+html body .imp-page .imp-main .place-heading{grid-column:1/-1;min-width:0;width:100%;margin:0 0 3px}
+html body .imp-page .imp-main .place-heading-line{display:flex;align-items:center;justify-content:center;gap:0;min-width:0}
+html body .imp-page .imp-main .place-heading-line::before,
+html body .imp-page .imp-main .place-heading-line::after{content:none!important;display:none!important}
+/* Capçalera editorial VCC: únicament número emmarcat i nom del lloc. */
+html body .imp-page .imp-main .place-heading-label{
+ display:inline-flex;gap:19px;align-items:center;justify-content:center;
+ flex:0 1 auto;min-width:0;max-width:100%;position:relative;
+ padding:0;background:none!important;border:0!important;
+ border-radius:0;transform:none;
+}
+html body .imp-page .imp-main .place-heading-label::before,
+html body .imp-page .imp-main .place-heading-label::after{
+ content:none!important;display:none!important;background:none!important;
+}
+html body .imp-page .imp-main .place-number{
+ display:grid;place-items:center;box-sizing:border-box;
+ flex:0 0 50px;width:50px;height:50px;
+ border:2.5px solid #f26116!important;border-radius:9px;
+ background:transparent!important;color:#f26116!important;
+ font:600 31px/1 'Oswald',sans-serif!important;white-space:nowrap;
+}
+html body .imp-page .imp-main .place-heading h2{
+ margin:0;color:#1b1b1b;font:500 clamp(24px,2.25vw,34px)/1.12 'Oswald',sans-serif;
+ letter-spacing:-.3px;white-space:normal;overflow-wrap:anywhere;text-align:left;
+}
+@media(min-width:851px){
+ /* Mosaic lleugerament més compacte: 90% de l'amplada original.
+    L'alçada es redueix proporcionalment, sense retallar ni alterar les fotos. */
+ html body .imp-page .imp-main .place:not(.place--no-media) .gallery{
+   width:90%!important;max-width:90%!important;justify-self:start!important;
+ }
+}
+html body .imp-page .imp-main .place-copy .place-kicker{display:block!important;order:0!important;margin:0 0 6px!important;text-align:left!important;color:#c56851;font:600 26px/1.1 'Caveat',cursive!important}
+html body .imp-page .imp-main .place-copy>h2{display:none!important}
+@media(max-width:850px){html body .imp-page .imp-main .place{column-gap:16px!important;row-gap:18px!important}}
+@media(max-width:650px){
+ html body .imp-page .imp-main .place{padding:28px 0 24px!important;scroll-margin-top:100px!important}
+ html body .imp-page .imp-main .place:not(:first-child){padding-top:28px!important}
+ html body .imp-page .imp-main .place-heading-line{gap:7px}
+ html body .imp-page .imp-main .place-heading-label{gap:11px;padding:0}
+ html body .imp-page .imp-main .place-number{
+   flex-basis:42px;width:42px;height:42px;border-width:2px!important;border-radius:8px;
+   font-size:25px!important;
+ }
+ html body .imp-page .imp-main .place-heading h2{font-size:clamp(19px,5.5vw,23px)}
+ html body .imp-page .imp-main .place-copy .place-kicker{font-size:22px!important}
+}
+.imp-page .gallery-main{border-radius:8px!important}
+.imp-page .place-kicker{font-family:'Caveat',cursive!important;font-size:22px!important;color:#cf705c!important}
+.imp-page .place-copy h2{font-family:'Oswald',sans-serif!important;font-size:34px!important;font-weight:500!important}
+.imp-page .place-copy>p{font-family:'DM Sans',sans-serif!important;font-size:12px!important;line-height:1.65!important}
+.imp-page .facts{font-family:'DM Sans',sans-serif!important;font-size:10px!important}
+.imp-page .advice b{font-size:10px!important}.imp-page .advice p{font-size:10.5px!important;line-height:1.5!important}
+.imp-page .gallery[data-count="1"] .thumbs,.imp-page .gallery[data-count="1"] .photo-count{display:none!important}
+@media(max-width:850px){.imp-page .imp-hero{height:550px!important;min-height:550px!important}.imp-page .place{grid-template-columns:1fr!important;gap:16px!important}.imp-page .imp-main{width:calc(100% - 28px)!important}}
+@media(max-width:650px){
+  .imp-page .imp-hero{height:480px!important;min-height:480px!important}
+  html body .imp-page .imp-main .place:not(:first-child),html body .imp-page .imp-main .place:nth-of-type(2n+1):not(:first-child){padding-top:28px!important}
+
+}
+/* Eliminar definitivament tots els separadors antics, inclosos els :nth-of-type de la plantilla. */
+html body .imp-page main.imp-main section.place::before,
+html body .imp-page main.imp-main section.place::after,
+html body .imp-page main.imp-main section.place:nth-of-type(2n+1):not(:first-child)::before,
+html body .imp-page main.imp-main section.place:nth-of-type(2n+1):not(:first-child)::after,
+html body .imp-page main.imp-main section.place:nth-of-type(3n+1)::before,
+html body .imp-page main.imp-main section.place:nth-of-type(3n+2)::after{
+ content:none!important;display:none!important;visibility:hidden!important;
+ background:none!important;background-image:none!important;
+ height:0!important;width:0!important;opacity:0!important;
+}
+html body .imp-page main.imp-main section.place,
+html body .imp-page main.imp-main section.place:nth-of-type(2n+1):not(:first-child){
+ padding-top:35px!important;
+}
+html body .imp-page main.imp-main .place-heading-line::before,
+html body .imp-page main.imp-main .place-heading-line::after{content:none!important;display:none!important}
+@media(max-width:650px){
+ html body .imp-page main.imp-main section.place,
+ html body .imp-page main.imp-main section.place:nth-of-type(2n+1):not(:first-child){padding-top:28px!important}
+ /* Sense halo ni fons al títol, també en mòbil. */
+}
+/* Guías relacionadas: reutiliza el fondo, tipografías y tarjetas de presupuesto. */
+html body .imp-page .related-section{background:linear-gradient(90deg,rgba(18,28,30,.72),rgba(18,28,30,.24)),url("/configuracion/imagenes/fondos/fondos-que-ver.webp") center 52%/cover no-repeat!important;color:#fffaf5!important;border:0!important;padding:36px 0 40px!important}
+html body .imp-page .related-inner{width:min(1180px,calc(100% - 48px));margin:auto}
+html body .imp-page .related-head{margin:0 0 17px!important;display:block}
+html body .imp-page .related-head p{color:#de9a83!important;font:600 28px/1 'Caveat',cursive!important;margin:0 0 10px!important}
+html body .imp-page .related-head h2{color:#fffaf5!important;font:500 clamp(27px,3.2vw,40px)/1.1 'Oswald',sans-serif!important;margin:0 0 9px!important}
+html body .imp-page .related-head span{color:#c8c8c7!important;font:400 13px/1.5 'DM Sans',sans-serif!important}
+html body .imp-page .related-grid{display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:14px!important}
+html body .imp-page .related-grid .related-text-link{min-height:88px!important;display:flex!important;align-items:center!important;justify-content:flex-start!important;gap:11px!important;padding:13px 14px!important;border:1px solid rgba(211,225,223,.48)!important;border-radius:13px!important;background:rgba(28,42,47,.94)!important;text-decoration:none!important;box-shadow:0 8px 20px rgba(0,0,0,.12)!important}
+html body .imp-page .related-grid .related-text-link:hover{background:rgba(43,61,66,.97)!important;border-color:#e4a18d!important}
+html body .imp-page .related-grid .related-text-link .vcc-related-copy{display:flex!important;flex:1 1 auto;flex-direction:column;gap:4px!important;min-width:0}
+html body .imp-page .related-grid .related-text-link strong{font:500 21px/1.1 'Oswald',sans-serif!important;color:#fff!important;margin:0!important}
+html body .imp-page .related-grid .related-text-link em{font:400 11px/1.35 'DM Sans',sans-serif!important;color:#e1dfdb!important;font-style:normal!important}
+html body .imp-page .related-grid .related-text-link .vcc-related-icon{flex:0 0 34px!important;width:34px!important;height:34px!important;color:#e79b72!important}
+html body .imp-page .related-grid .related-text-link .vcc-related-arrow{margin-left:auto!important;color:#e79b72!important;background:none!important;font-size:21px!important}
+@media(max-width:1030px){html body .imp-page .related-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:11px!important}}
+@media(max-width:580px){html body .imp-page .related-inner{width:calc(100% - 30px)}html body .imp-page .related-grid{grid-template-columns:1fr!important;gap:9px!important}html body .imp-page .related-grid .related-text-link{min-height:70px!important;padding:10px 13px!important}}
+/* Fotografia de prova R2: degradat blanc per mantenir els textos llegibles. */
+html body .imp-page .imp-hero{
+  background:linear-gradient(90deg,rgba(250,247,242,.93) 0%,rgba(250,247,242,.79) 29%,rgba(250,247,242,.39) 53%,rgba(250,247,242,.08) 78%),url("https://img.viajandoconcabeza.com/destinos/suecia/goteborg/2026-dia1/DSC06555.webp") center center / cover no-repeat!important;
+}
+@media(max-width:650px){html body .imp-page .imp-hero{background:linear-gradient(90deg,rgba(250,247,242,.91),rgba(250,247,242,.54) 77%,rgba(250,247,242,.28)),url("https://img.viajandoconcabeza.com/destinos/suecia/goteborg/2026-dia1/DSC06555.webp") 57% center / cover no-repeat!important}}
+/* R2: galeries originals d'imatges WebP. Sense fons CSS ni zoom artificial. */
+/* Logo VCC oficial en el consejo, sense icona antiga ni superposicions. */
+html body .imp-page .advice{display:flex!important;align-items:center!important;gap:12px!important}
+html body .imp-page .advice .vcc-advice-logo{display:block!important;position:static!important;flex:0 0 46px!important;width:46px!important;height:46px!important;max-width:46px!important;max-height:46px!important;object-fit:contain!important;margin:0!important;padding:0!important;background:transparent!important}
+html body .imp-page .advice>div:last-child{min-width:0;flex:1}
+
+
+/* Fitxa sense fotografia: composició centrada, sense marc ni buit de galeria.
+   Aquest patró es pot reutilitzar afegint la classe place--no-media. */
+html body .imp-page .imp-main .place.place--no-media {
+  grid-template-columns:minmax(0,1fr)!important;
+  justify-items:center!important;
+  align-items:start!important;
+  row-gap:12px!important;
+  column-gap:0!important;
+}
+html body .imp-page .imp-main .place.place--no-media .place-heading {
+  grid-column:1!important;
+  text-align:center!important;
+}
+html body .imp-page .imp-main .place.place--no-media .place-copy {
+  grid-column:1!important;
+  width:min(100%,820px)!important;
+  max-width:820px!important;
+  margin:0 auto!important;
+  padding:0!important;
+  align-self:center!important;
+  align-items:center!important;
+  text-align:center!important;
+}
+html body .imp-page .imp-main .place.place--no-media .place-kicker {
+  width:100%!important;
+  text-align:center!important;
+}
+html body .imp-page .imp-main .place.place--no-media .place-copy > p {
+  max-width:760px!important;
+  margin:6px auto 10px!important;
+  text-align:center!important;
+}
+html body .imp-page .imp-main .place.place--no-media .facts {
+  display:flex!important;
+  flex-wrap:nowrap!important;
+  justify-content:center!important;
+  align-items:center!important;
+  position:static!important;
+  align-self:center!important;
+  transform:none!important;
+  /* Centrar el conjunto real de las cinco informaciones, no un bloque vacío de 1080px. */
+  width:max-content!important;
+  max-width:calc(100vw - 48px)!important;
+  margin:16px auto 15px!important;
+  column-gap:clamp(12px,1.55vw,26px)!important;
+  row-gap:0!important;
+}
+html body .imp-page .imp-main .place.place--no-media .facts > span {
+  display:inline-flex!important;
+  flex:0 1 auto!important;
+  width:auto!important;
+  max-width:100%!important;
+  grid-column:auto!important;
+  grid-row:auto!important;
+  margin:0!important;
+  padding:0!important;
+  text-align:left!important;
+  justify-content:center!important;
+  white-space:nowrap!important;
+}
+@media(max-width:1100px){
+  html body .imp-page .imp-main .place.place--no-media .facts {
+    flex-wrap:wrap!important;
+    width:100%!important;
+    max-width:680px!important;
+    align-self:center!important;
+    transform:none!important;
+    margin:16px auto 15px!important;
+    row-gap:10px!important;
+  }
+  html body .imp-page .imp-main .place.place--no-media .facts > span {
+    white-space:normal!important;
+  }
+}
+html body .imp-page .imp-main .place.place--no-media .advice {
+  /* Gamla Stan: mateix format horitzontal dels altres consells VCC. */
+  width:min(100%,500px)!important;
+  max-width:500px!important;
+  margin:7px auto 0!important;
+  padding:10px 15px!important;
+  flex-direction:row!important;
+  justify-content:flex-start!important;
+  align-items:center!important;
+  gap:12px!important;
+  text-align:left!important;
+}
+html body .imp-page .imp-main .place.place--no-media .advice > div:last-child {
+  flex:1 1 auto!important;
+  min-width:0!important;
+  width:auto!important;
+  text-align:left!important;
+}
+html body .imp-page .imp-main .place.place--no-media .advice p {
+  text-align:left!important;
+}
+@media(max-width:650px){
+  html body .imp-page .imp-main .place.place--no-media {row-gap:10px!important}
+  html body .imp-page .imp-main .place.place--no-media .place-copy {width:100%!important}
+  html body .imp-page .imp-main .place.place--no-media .facts {
+    max-width:360px!important;
+    column-gap:16px!important;
+    row-gap:12px!important;
+  }
+  html body .imp-page .imp-main .place.place--no-media .advice {padding:10px 12px!important;gap:10px!important}
+}
+
