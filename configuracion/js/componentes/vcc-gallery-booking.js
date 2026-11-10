@@ -183,11 +183,13 @@ function openGallery(gallery,button){
  modal.classList.toggle('vcc-gallery-desktop',!nativeMobile());
  modal.hidden=false;
  document.body.classList.add('vcc-booking-gallery-open');
+ activateGlobalGestures();
  gridScroll.scrollTop=0;
  showGrid();
  if(!isMobile())startPanBaseline();
 }
 function closeGallery(){
+ deactivateGlobalGestures();
  ++photoSequence;
  resetPan();
  clearZoomBaseline();
@@ -383,8 +385,15 @@ function onMouseMove(event){
   zoomPan.x=pendingX;zoomPan.y=pendingY;paintPan();
  });
 }
-window.addEventListener('mousemove',onMouseMove,{capture:true,passive:true});
-window.addEventListener('pointermove',onMouseMove,{capture:true,passive:true});
+/* Els gestos globals només existeixen amb el visor obert.
+   Evita escoltar mousemove, pointermove i wheel mentre l'usuari llegeix. */
+let globalGestures=null;
+function activateGlobalGestures(){
+ if(globalGestures)return;
+ globalGestures=new AbortController();
+ const {signal}=globalGestures;
+window.addEventListener('mousemove',onMouseMove,{capture:true,passive:true,signal});
+window.addEventListener('pointermove',onMouseMove,{capture:true,passive:true,signal});
 window.addEventListener('wheel',event=>{
  if(!activeDesktop())return;
  if(event.ctrlKey||event.metaKey){
@@ -401,12 +410,19 @@ window.addEventListener('wheel',event=>{
  zoomPan.x=clamp(zoomPan.x+dx*.8,lim.minX,lim.x);
  zoomPan.y=clamp(zoomPan.y+dy*.8,lim.minY,lim.y);
  resetHoverPan();paintPan();
-},{capture:true,passive:false});
-window.addEventListener('resize',()=>{resetHoverPan();queueZoomSync()},{passive:true});
-window.visualViewport?.addEventListener('resize',()=>{resetHoverPan();queueZoomSync()},{passive:true});
-window.visualViewport?.addEventListener('scroll',queueZoomSync,{passive:true});
-window.addEventListener('gesturechange',queueZoomSync,{passive:true});
-window.addEventListener('gestureend',queueZoomSync,{passive:true});
+},{capture:true,passive:false,signal});
+window.addEventListener('resize',()=>{resetHoverPan();queueZoomSync()},{passive:true,signal});
+window.visualViewport?.addEventListener('resize',()=>{resetHoverPan();queueZoomSync()},{passive:true,signal});
+window.visualViewport?.addEventListener('scroll',queueZoomSync,{passive:true,signal});
+window.addEventListener('gesturechange',queueZoomSync,{passive:true,signal});
+window.addEventListener('gestureend',queueZoomSync,{passive:true,signal});
+}
+function deactivateGlobalGestures(){
+ globalGestures?.abort();
+ globalGestures=null;
+ if(zoomFrame){cancelAnimationFrame(zoomFrame);zoomFrame=0}
+ resetHoverPan();
+}
 /* Mòbil: swipe horitzontal; pinça i drag lliure de la foto ampliada. */
 const distance=(a,b)=>Math.hypot(a.clientX-b.clientX,a.clientY-b.clientY);
 stage.addEventListener('touchstart',event=>{
