@@ -162,3 +162,134 @@ html body [data-vcc-subheader-target]{scroll-margin-top:calc(var(--vcc-subheader
     max-height:var(--vcc-standard-hero-mobile)!important;
   }
 }
+
+
+/* VCC · auditoria de subheaders 2026-11-10: una única tipografia, alçada, focus i transició.
+ * Especificitat deliberadament superior a les plantilles antigues,
+ * inclosa ci-subnav. No es toquen els controladors sticky de cada guia. */
+html body nav.vcc-unified-subheader.vcc-unified-subheader{
+ box-sizing:border-box!important;
+ height:var(--vcc-subnav-height)!important;
+ min-height:var(--vcc-subnav-height)!important;
+ max-height:var(--vcc-subnav-height)!important;
+ background:#fff!important;
+ border-top:1px solid var(--vcc-subnav-line)!important;
+ border-bottom:1px solid var(--vcc-subnav-line)!important;
+ box-shadow:none!important;
+}
+html body nav.vcc-unified-subheader.vcc-unified-subheader:not(.vcc-subnav-inner-layout):not(.place-nav-wrap){
+ gap:var(--vcc-subnav-gap)!important;
+ padding:0 var(--vcc-subnav-side)!important;
+ justify-content:flex-start!important;
+ align-items:center!important;
+ overflow-x:auto!important;
+ overflow-y:hidden!important;
+}
+html body nav.vcc-unified-subheader.vcc-unified-subheader :is(.vcc-nav-inner,.ql-subnav-inner,.country-nav-inner){
+ height:var(--vcc-subnav-height)!important;
+ min-height:var(--vcc-subnav-height)!important;
+ max-height:var(--vcc-subnav-height)!important;
+ gap:var(--vcc-subnav-gap)!important;
+ padding:0 var(--vcc-subnav-side)!important;
+ justify-content:flex-start!important;
+ align-items:center!important;
+ overflow-x:auto!important;
+ overflow-y:hidden!important;
+}
+html body nav.vcc-unified-subheader.vcc-unified-subheader.place-nav-wrap :is(.place-nav-shell,.place-nav){
+ height:var(--vcc-subnav-height)!important;
+ min-height:var(--vcc-subnav-height)!important;
+ max-height:var(--vcc-subnav-height)!important;
+}
+html body nav.vcc-unified-subheader.vcc-unified-subheader.place-nav-wrap .place-nav{
+ gap:var(--vcc-subnav-gap)!important;
+}
+html body nav.vcc-unified-subheader.vcc-unified-subheader a,
+html body nav.vcc-unified-subheader.vcc-unified-subheader .place-nav a{
+ box-sizing:border-box!important;
+ height:var(--vcc-subnav-height)!important;
+ min-height:var(--vcc-subnav-height)!important;
+ max-height:var(--vcc-subnav-height)!important;
+ padding:0!important;
+ margin:0!important;
+ display:inline-flex!important;
+ align-items:center!important;
+ justify-content:center!important;
+ flex:0 0 auto!important;
+ background:transparent!important;
+ border:0!important;
+ border-bottom:2px solid transparent!important;
+ border-radius:0!important;
+ color:var(--vcc-subnav-ink)!important;
+ font:800 11.5px/1.15 'DM Sans',Arial,sans-serif!important;
+ letter-spacing:0!important;
+ text-transform:uppercase!important;
+ white-space:nowrap!important;
+ text-decoration:none!important;
+ transition:color .16s ease,border-color .16s ease!important;
+}
+/* Evitar etiquetes interiors més petites a Entradas y pases i altres guies. */
+html body nav.vcc-unified-subheader.vcc-unified-subheader a > span{
+ color:inherit!important;
+ font:inherit!important;
+ letter-spacing:inherit!important;
+ text-transform:inherit!important;
+}
+/* Un sol indicador actiu: les classes locals antigues no pinten un segon. */
+html body nav.vcc-unified-subheader.vcc-unified-subheader:not(.place-nav-wrap) a:not(.vcc-subheader-current):not(:hover):not(:focus-visible){
+ color:var(--vcc-subnav-ink)!important;
+ border-bottom-color:transparent!important;
+}
+html body nav.vcc-unified-subheader.vcc-unified-subheader a:is(.vcc-subheader-current,:hover,:focus-visible),
+html body nav.vcc-unified-subheader.vcc-unified-subheader.place-nav-wrap .place-nav a:is(.active,.is-active,[aria-current="location"],:hover,:focus-visible){
+ color:var(--vcc-subnav-coral)!important;
+ border-bottom-color:var(--vcc-subnav-coral)!important;
+}
+html body nav.vcc-unified-subheader.vcc-unified-subheader a:focus-visible{
+ outline:2px solid var(--vcc-subnav-coral)!important;
+ outline-offset:-3px!important;
+}
+/* Flechas del índice largo: mismo estilo de interacción; posicionamiento
+ * lateral y desplazamiento horizontal existentes no se modifican. */
+html body nav.vcc-unified-subheader.vcc-unified-subheader.place-nav-wrap .place-nav-arrow{
+ box-sizing:border-box!important;
+ display:grid!important;
+ place-items:center!important;
+ width:28px!important;
+ height:28px!important;
+ min-width:28px!important;
+ min-height:28px!important;
+ padding:0!important;
+ margin:0!important;
+ border:0!important;
+ border-radius:4px!important;
+ background:transparent!important;
+ box-shadow:none!important;
+ color:var(--vcc-subnav-ink)!important;
+ font:400 23px/1 'DM Sans',Arial,sans-serif!important;
+ transition:color .16s ease,opacity .16s ease!important;
+ cursor:pointer!important;
+}
+html body nav.vcc-unified-subheader.vcc-unified-subheader.place-nav-wrap .place-nav-arrow:not(:disabled):hover{
+ color:var(--vcc-subnav-coral)!important;
+}
+html body nav.vcc-unified-subheader.vcc-unified-subheader.place-nav-wrap .place-nav-arrow:disabled{
+ opacity:.25!important;
+ cursor:default!important;
+}
+html body nav.vcc-unified-subheader.vcc-unified-subheader.place-nav-wrap .place-nav-arrow:focus-visible{
+ outline:2px solid var(--vcc-subnav-coral)!important;
+ outline-offset:2px!important;
+}
+@media(max-width:720px){
+ html body nav.vcc-unified-subheader.vcc-unified-subheader a,
+ html body nav.vcc-unified-subheader.vcc-unified-subheader .place-nav a{
+  font-size:11px!important;
+ }
+}
+@media(prefers-reduced-motion:reduce){
+ html body nav.vcc-unified-subheader.vcc-unified-subheader a,
+ html body nav.vcc-unified-subheader.vcc-unified-subheader .place-nav-arrow{
+  transition:none!important;
+ }
+}
