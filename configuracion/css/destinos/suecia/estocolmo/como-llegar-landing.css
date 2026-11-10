@@ -466,6 +466,11 @@ main.cl-page.cl-landing {
   scroll-margin-top:102px;
 }
 @media(max-width:720px) {
+  /* Referencia compartida de hero móvil, sin imponer max-height: las 5
+     tarjetas siguen siendo accesibles si requieren más espacio. */
+  .cl-page.cl-landing .cl-landing-hero {
+    min-height:var(--vcc-standard-hero-mobile,730px);
+  }
   .cl-page.cl-landing .vcc-como-llegar-subnav {top:0}
   .cl-page.cl-landing .vcc-como-llegar-subnav .vcc-nav-inner {
     width:calc(100% - 30px);gap:22px;height:39px;min-height:39px;
