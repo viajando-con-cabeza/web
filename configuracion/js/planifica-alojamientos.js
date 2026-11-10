@@ -6,7 +6,6 @@
   const cards = Array.from(track.querySelectorAll(".al-card"));
   const prev = document.querySelector("[data-al-prev]");
   const next = document.querySelector("[data-al-next]");
-  const dots = Array.from(document.querySelectorAll("[data-al-dot]"));
   if (!cards.length || !prev || !next) return;
   const reducedMotion = () => window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   const maxScroll = () => Math.max(0, track.scrollWidth - track.clientWidth);
@@ -26,13 +25,6 @@
     const x = track.scrollLeft;
     prev.disabled = x < 3;
     next.disabled = x >= maxScroll() - 3;
-    const total = pageCount();
-    const active = Math.min(currentIndex(), total - 1);
-    dots.forEach((dot, i) => {
-      dot.hidden = i >= total;
-      dot.setAttribute("aria-label", "Ir a la posición " + (i + 1) + " de " + total);
-      dot.setAttribute("aria-current", i === active ? "true" : "false");
-    });
   };
   const toIndex = (i) => {
     const target = Math.max(0, Math.min(i, pageCount() - 1));
@@ -43,7 +35,6 @@
   };
   prev.addEventListener("click", () => toIndex(currentIndex() - 1));
   next.addEventListener("click", () => toIndex(currentIndex() + 1));
-  dots.forEach((dot, i) => dot.addEventListener("click", () => toIndex(i)));
   track.addEventListener("keydown", (event) => {
     if (event.key !== "ArrowRight" && event.key !== "ArrowLeft") return;
     event.preventDefault();
