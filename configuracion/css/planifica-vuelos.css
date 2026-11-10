@@ -1,145 +1,179 @@
-/* VCC · Planifica / Vuelos · Quality 2026-11-10
-   Componentes: cabecera, breadcrumb, subheader y consejo VCC globales. */
-.vl-page{--vl-coral:#ed6945;--vl-dark:#191b1d;--vl-gray:#676c70;--vl-bg:#f5f5f3;--vl-line:#e3e5e3;background:var(--vl-bg);color:var(--vl-dark);font-family:"DM Sans",Arial,sans-serif}
+/* VCC · Vuelos · tres secciones y componentes compartidos, 2026-11-10.
+   Header, breadcrumb, subheader y Consejo VCC los gestiona configuración global. */
+.vl-page{--vl-coral:#ed6945;--vl-ink:#191b1d;--vl-muted:#666c70;--vl-bg:#f5f5f3;--vl-line:#e3e5e3;background:var(--vl-bg);color:var(--vl-ink);font-family:"DM Sans",Arial,sans-serif}
 .vl-page *{box-sizing:border-box}
 .vl-page a{color:inherit;text-decoration:none}
 .vl-page button,.vl-page input,.vl-page select{font:inherit}
 .vl-page button{cursor:pointer}
-.vl-page button:disabled{cursor:not-allowed;opacity:.4}
+.vl-page button:disabled{opacity:.35;cursor:default}
 .vl-page [hidden]{display:none!important}
-.vl-page :is(button,a,input,select,summary):focus-visible{outline:3px solid var(--vl-coral);outline-offset:3px}
+.vl-page :is(a,button,input,select):focus-visible{outline:2px solid var(--vl-coral);outline-offset:3px}
 .vl-wrap{width:min(1160px,calc(100% - 44px));margin-inline:auto}
-.vl-kicker{display:block;color:var(--vl-coral);font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase}
-/* Misma escala de títulos que las secciones editoriales de Planifica. */
-.vl-heading{font:600 clamp(31px,4vw,43px)/1.14 Oswald,"Arial Narrow",sans-serif;letter-spacing:.005em;text-transform:uppercase;margin:8px 0 12px}
+.vl-kicker{display:block;color:var(--vl-coral);font:800 11px/1.35 "DM Sans",Arial,sans-serif;letter-spacing:.12em;text-transform:uppercase}
+.vl-heading{font:600 clamp(31px,4vw,43px)/1.14 Oswald,"Arial Narrow",sans-serif;letter-spacing:.005em;text-transform:uppercase;margin:7px 0 9px}
 .vl-heading em{font-style:normal;color:var(--vl-coral)}
-.vl-copy{margin:0;color:var(--vl-gray);font-size:12.5px;line-height:1.55}
-.vl-button{border:1px solid var(--vl-coral);border-radius:7px;background:var(--vl-coral);color:white!important;padding:12px 19px;min-height:44px;display:inline-flex;align-items:center;justify-content:center;gap:8px;font-size:12px;font-weight:800;text-align:center;transition:background .15s,transform .15s}
-.vl-button:hover{background:#d95636;transform:translateY(-1px)}
-.vl-button.secondary{background:transparent;border-color:#d5d6d5;color:var(--vl-dark)!important}
-.vl-button.secondary:hover{background:#f9e9e3}
-.vl-hero.tv-hero{position:relative;isolation:isolate;display:flex;align-items:center;height:var(--vcc-standard-hero-desktop,475px);min-height:475px;overflow:hidden;background:#283039}
-.vl-hero.tv-hero:before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,rgba(11,19,28,.89) 0%,rgba(11,19,28,.65) 46%,rgba(11,19,28,.1) 100%),url('/configuracion/imagenes/externas/unsplash/photo-1436491865332-7a61a109cc05.webp') center 52%/cover}
-.vl-hero-content{padding:64px 0 38px;color:#fff}
-.vl-hero .vl-kicker{color:#ff9a73}
-.vl-hero h1{font:600 clamp(44px,5.7vw,69px)/1.04 Oswald,"Arial Narrow",sans-serif;letter-spacing:.008em;margin:8px 0 17px}
+.vl-subtitle{font:600 clamp(20px,2.4vw,27px)/1.1 Oswald,sans-serif;margin:6px 0 4px;text-transform:uppercase}
+.vl-copy{color:var(--vl-muted);font:400 12.5px/1.55 "DM Sans",sans-serif;margin:0;max-width:800px}
+.vl-button{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:10px 17px;min-height:43px;border:1px solid var(--vl-coral);border-radius:7px;background:var(--vl-coral);color:#fff!important;font-size:11px;font-weight:800;text-align:center;transition:background .15s ease}
+.vl-button:hover{background:#d95435}
+.vl-button.secondary{background:transparent;border-color:#ccd0cc;color:var(--vl-ink)!important}
+.vl-button.secondary:hover{background:#fff0e8}
+.vl-hero.tv-hero{position:relative;isolation:isolate;display:flex;align-items:center;height:var(--vcc-standard-hero-desktop,475px);min-height:475px;background:#26313a;overflow:hidden}
+.vl-hero.tv-hero:before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,#0b131ce6 0%,#0b131cb8 48%,#0b131c21 100%),url('/configuracion/imagenes/externas/unsplash/photo-1436491865332-7a61a109cc05.webp') center 52%/cover}
+.vl-hero-content{padding:65px 0 38px;color:#fff}
+.vl-hero .vl-kicker{color:#ff9674}
+.vl-hero h1{font:600 clamp(44px,5.7vw,69px)/1.04 Oswald,"Arial Narrow",sans-serif;letter-spacing:.008em;margin:8px 0 15px}
 .vl-hero h1 em{color:#ff9a73;font-style:normal}
-.vl-hero p{max-width:605px;font-size:15px;line-height:1.67;color:#f0f0f0;margin:0 0 23px}
+.vl-hero p{color:#f2f2f2;font-size:15px;line-height:1.6;max-width:600px;margin:0 0 19px}
 .vl-hero-actions{display:flex;gap:10px;flex-wrap:wrap}
-.vl-hero .vl-button.secondary{border-color:#ffffffaa;color:white!important;background:#ffffff12}
-.vl-hero .vl-button.secondary:hover{background:#ffffff27}
-/* El subheader NO duplica estilos: lo gobiernan los componentes globales
-   subheader-unificado-vcc.css y subheader-unificado-vcc.js.
-   El navegador ve una barra básica mientras se carga el componente común. */
-.vl-tabs.tv-tabs{display:flex;background:#fff;border-block:1px solid #e9e2db}
-.vl-tabs .vl-tabs-inner{display:flex;align-items:center;gap:38px;min-height:39px;padding-inline:max(24px,4vw);width:100%;white-space:nowrap;overflow-x:auto;scrollbar-width:none}
+.vl-hero .vl-button.secondary{color:#fff!important;border-color:#ffffff91;background:#ffffff12}
+.vl-hero .vl-button.secondary:hover{background:#ffffff28}
+/* Minimal fallback until the shared VCC subheader stylesheet and controller load. */
+.vl-tabs.tv-tabs{display:flex;background:white;border-block:1px solid #e9e2db}
+.vl-tabs .vl-tabs-inner{display:flex;align-items:center;gap:38px;min-height:39px;width:100%;padding:0 max(24px,4vw);overflow-x:auto;scrollbar-width:none;white-space:nowrap}
 .vl-tabs .vl-tabs-inner::-webkit-scrollbar{display:none}
-.vl-tabs a{display:inline-flex;align-items:center;flex:none;padding:10px 0;font:800 11.5px/1.15 "DM Sans",Arial,sans-serif;text-transform:uppercase;white-space:nowrap}
-.vl-stats{padding:13px 0 3px}
-.vl-stats-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));background:#fff;border:1px solid var(--vl-line);border-radius:12px;padding:5px 0;box-shadow:0 4px 16px #00000006}
-.vl-stat{display:flex;gap:9px;align-items:center;padding:7px 15px;border-right:1px solid var(--vl-line)}
-.vl-stat:last-child{border:0}
-.vl-stat .ico{width:35px;height:35px;border-radius:50%;background:#fff0e8;color:var(--vl-coral);display:grid;place-items:center;font-size:21px;flex:0 0 auto}
-.vl-stat strong{display:block;font-size:14px;font-weight:800;line-height:1.18}
-.vl-stat span:not(.ico){font-size:11px;color:var(--vl-gray);line-height:1.4}
-.vl-section{padding:27px 0}
+.vl-tabs a{display:inline-flex;align-items:center;flex:none;padding:10px 0;font:800 11.5px/1.15 "DM Sans",sans-serif;text-transform:uppercase;white-space:nowrap}
+.vl-section{padding:34px 0}
 .vl-section.vl-white{background:#fff}
-.vl-section-head{margin-bottom:13px}
-.vl-section-head.split{display:flex;justify-content:space-between;align-items:end;gap:22px}
-.vl-section-head .vl-copy{max-width:670px}
-.vl-calc-head{display:flex;align-items:end;justify-content:space-between;gap:25px}
-.vl-calc-head .vl-copy{max-width:365px;font-size:12px}
-.vl-calc-head .vl-heading{margin-bottom:0}
-.vl-calc-instruction{margin:0 0 10px;color:#6d7275;font-size:11px;line-height:1.4}
-
-
-
-
-.vl-calc-box{background:#fff;border:1px solid var(--vl-line);border-radius:14px;padding:13px;box-shadow:0 5px 20px #17171709}
-.vl-flight{display:grid;grid-template-columns:minmax(0,1.65fr) minmax(210px,.63fr);gap:12px;align-items:stretch;background:#fff;border:1px solid var(--vl-line);padding:11px;border-radius:11px}
-.vl-flight-form{min-width:0}
-.vl-flight-side{display:flex;flex-direction:column;justify-content:center;min-width:0;background:#fff4eb;border-radius:9px;padding:11px 14px}
-.vl-flight+.vl-flight{margin-top:9px}
-.vl-flight-title{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:9px}
-.vl-flight-title h3{font:600 20px/1.15 Oswald,sans-serif;margin:0}
-.vl-flight-title button{background:none;color:var(--vl-coral);border:0;font-size:12px;font-weight:800}
-.vl-fields{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px 10px}
-.vl-field{min-width:0;display:flex;flex-direction:column;gap:4px}
-.vl-field span{font-size:10px;color:#4e555a;font-weight:800}
-.vl-field .vl-field-name{display:flex;align-items:center;gap:5px;white-space:normal;line-height:1.2;min-height:17px;min-width:0}
-.vl-field .vl-field-icon{display:inline-flex;align-items:center;justify-content:center;width:17px;height:17px;min-width:17px;background:#fff0e8;color:var(--vl-coral);border-radius:4px;font-size:12px;font-weight:800}
-.vl-field input,.vl-field select{display:block;width:100%;min-width:0;min-height:36px;padding:8px 10px;border:1px solid #dcdedc;border-radius:7px;font-size:12px;background:#fff;color:#25282a}
-.vl-field input::placeholder{color:#929799}
-.vl-field small{font-size:10px;color:var(--vl-gray);line-height:1.45}
-.vl-flight-result{display:flex;flex-direction:column;gap:5px;align-items:flex-start;border-radius:0;padding:0 0 10px;margin:0 0 8px;border-bottom:1px solid #ebd8cb}
-.vl-flight-result b{font-size:10px;color:#95604e;letter-spacing:.09em;text-transform:uppercase}
-.vl-flight-result strong{font:600 43px/1 Oswald,sans-serif;color:var(--vl-coral);white-space:nowrap}
-.vl-breakdown{margin:0;display:grid;grid-template-columns:1fr;gap:2px}
-.vl-breakdown span{display:flex;align-items:center;justify-content:space-between;gap:8px;border:0;padding:0;color:#656465;font-size:10px;line-height:1.6}
-.vl-breakdown b{display:block;color:var(--vl-dark);font-size:10px;white-space:nowrap}
-.vl-compare-bar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:9px}
-.vl-compare-bar .vl-button{font-size:11px;min-height:34px;padding:7px 14px}
-.vl-compare-result{display:flex;align-items:center;justify-content:space-between;gap:15px;background:#eaf4ed;border-radius:9px;padding:10px 12px;margin-top:8px;font-size:12px}
-.vl-compare-result b{font-size:13px}
-.vl-compare-result span{font-size:11px;line-height:1.5}
-.vl-footnote{font-size:10px;line-height:1.45;color:#71777a;margin:8px 0 0}
+.vl-section-head{margin-bottom:15px}
+.vl-continent-filter-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:19px 0 9px}
+.vl-continent-filter-head span{font-size:10px;font-weight:800;letter-spacing:.075em;color:#525b5f}
+.vl-reset-filter{border:0;padding:3px 0;color:var(--vl-coral);background:none;font-size:11px;font-weight:800;text-decoration:underline;text-underline-offset:3px}
 .vl-continent-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
-.vl-continent{position:relative;display:flex;flex-direction:column;gap:5px;text-align:left;padding:12px 14px;min-width:0;min-height:123px;border:1px solid var(--vl-line);border-radius:11px;background:#fff;transition:border .15s,box-shadow .15s}
-.vl-continent:hover,.vl-continent[aria-pressed=true]{border-color:var(--vl-coral);box-shadow:0 6px 22px #ef633f1c}
-.vl-continent-top{display:flex;align-items:center;justify-content:space-between;gap:12px}
-.vl-continent-map{width:47px;height:39px;object-fit:contain;object-position:left center}
-.vl-continent-arrow{font-size:19px;color:var(--vl-coral)}
-.vl-continent h3{font:600 21px/1.05 Oswald,sans-serif;margin:0}
-.vl-continent .count{font-size:11px;color:var(--vl-gray)}
-.vl-continent .detail{font-size:10px;line-height:1.3;color:#525759}
-.vl-selected-description{font-size:10.5px;color:var(--vl-gray);margin:9px 0 0}
-.vl-reset-filter{margin:2px 0 8px;padding:0;border:0;background:none;color:var(--vl-coral);font:800 11px/1.3 "DM Sans",sans-serif;text-decoration:underline;text-underline-offset:3px}
-.vl-review-head{display:flex;justify-content:space-between;gap:14px;align-items:flex-end;margin-bottom:11px}
-.vl-review-head p{font-size:12px;color:var(--vl-gray);line-height:1.6;margin:0}
+.vl-continent{display:flex;flex-direction:column;gap:5px;text-align:left;min-width:0;min-height:116px;border:1px solid var(--vl-line);border-radius:12px;padding:10px 14px;background:#fff;transition:border-color .16s,box-shadow .16s}
+.vl-continent:hover,.vl-continent[aria-pressed=true]{border-color:var(--vl-coral);box-shadow:0 4px 20px #ed694519}
+.vl-continent-top{display:flex;align-items:center;justify-content:space-between;gap:9px}
+.vl-continent-map{width:46px;height:38px;object-fit:contain;object-position:left center}
+.vl-continent-arrow{color:var(--vl-coral);font-size:20px;line-height:1}
+.vl-continent h3{font:600 22px/1.07 Oswald,sans-serif;margin:0}
+.vl-continent .count{font-size:10.5px;color:var(--vl-muted)}
+.vl-continent .detail{font-size:10px;color:#575e60;line-height:1.35}
+.vl-review-head{display:flex;align-items:end;justify-content:space-between;gap:18px;margin:27px 0 10px;scroll-margin-top:120px}
+.vl-review-description{font-size:11px;color:var(--vl-muted);line-height:1.5;margin:0}
 .vl-controls{display:flex;align-items:center;gap:8px}
-.vl-controls button{width:34px;height:34px;border:1px solid var(--vl-line);border-radius:50%;background:#fff;color:var(--vl-dark);font-size:22px;display:grid;place-items:center;line-height:1}
-.vl-controls button:hover{border-color:var(--vl-coral);color:var(--vl-coral)}
-.vl-controls output{font-size:11px;white-space:nowrap;color:var(--vl-gray);min-width:44px;text-align:center}
-.vl-air-track{display:grid;grid-auto-flow:column;grid-auto-columns:calc((100% - 30px)/4);gap:10px;overflow-x:auto;overscroll-behavior-inline:contain;scroll-snap-type:x mandatory;scroll-padding:0 1px;scrollbar-width:none;padding:2px 1px 9px;-webkit-overflow-scrolling:touch}
+.vl-controls button,.vl-tip-arrow{width:35px;height:35px;border:1px solid var(--vl-line);border-radius:50%;background:#fff;display:grid;place-items:center;color:var(--vl-ink);font-size:23px;line-height:1}
+.vl-controls button:hover:not(:disabled),.vl-tip-arrow:hover:not(:disabled){color:var(--vl-coral);border-color:var(--vl-coral)}
+.vl-controls output{min-width:38px;text-align:center;white-space:nowrap;font-size:11px;color:var(--vl-muted)}
+.vl-air-track{display:grid;grid-auto-flow:column;grid-auto-columns:calc((100% - 30px)/4);gap:10px;overflow-x:auto;overscroll-behavior-inline:contain;scroll-snap-type:x mandatory;scrollbar-width:none;padding:2px 1px 9px}
 .vl-air-track::-webkit-scrollbar{display:none}
-.vl-air{scroll-snap-align:start;min-width:0;background:#fff;border:1px solid var(--vl-line);border-radius:13px;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 4px 18px #0000000a}
-.vl-air-brand{min-height:53px;padding:9px 12px;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#f4f5f3,#fff);border-bottom:1px solid var(--vl-line);text-align:center}
-.vl-air-brand b{font-size:clamp(15px,1.55vw,20px);font-weight:900;letter-spacing:-.045em;line-height:1.12}
+.vl-air{display:flex;flex-direction:column;min-width:0;background:#fff;border:1px solid var(--vl-line);border-radius:12px;overflow:hidden;scroll-snap-align:start}
+.vl-air-brand{min-height:57px;padding:10px;display:flex;align-items:center;justify-content:center;text-align:center;border-bottom:1px solid var(--vl-line);background:linear-gradient(135deg,#f4f5f3,#fff)}
+.vl-air-brand b{font-size:clamp(15px,1.55vw,20px);font-weight:900;letter-spacing:-.045em}
 .vl-air-brand.ryanair{color:#174089}.vl-air-brand.vueling{color:#323232}.vl-air-brand.turkish{color:#bd1727}.vl-air-brand.swiss{color:#c8102e}.vl-air-brand.wizz{color:#b92784}.vl-air-brand.easyjet{color:#f56a00}.vl-air-brand.brussels{color:#20314e}.vl-air-brand.lufthansa{color:#06205b}.vl-air-brand.american{color:#243c64}.vl-air-brand.etihad{color:#967a52}.vl-air-brand.emirates{color:#c51c2b}.vl-air-brand.lion{color:#be192b}.vl-air-brand.scoot{color:#827400}.vl-air-brand.batik{color:#85263e}.vl-air-brand.virgin{color:#c82d51}.vl-air-brand.jetstar{color:#eb731f}
-.vl-air-content{padding:10px 12px 11px;display:flex;flex-direction:column;flex:1}
-.vl-air-content h3{font-size:15px;font-weight:800;margin:0 0 6px}
-.vl-route-label{color:var(--vl-coral);font-size:9.5px;font-weight:800;text-transform:uppercase;letter-spacing:.035em;margin:0 0 7px}
+.vl-air-content{display:flex;flex-direction:column;flex:1;padding:11px 12px}
+.vl-route-label{font-size:9.5px;font-weight:800;text-transform:uppercase;letter-spacing:.035em;color:var(--vl-coral);margin:0 0 7px}
 .vl-pros{margin:0 0 8px}
-.vl-pros h4{font-size:10.5px;margin:0 0 4px;font-weight:800}
+.vl-pros h4{font-size:10.5px;font-weight:800;margin:0 0 4px}
 .vl-pros.positive h4{color:#268150}.vl-pros.caution h4{color:#bc6248}
 .vl-pros ul{list-style:none;margin:0;padding:0}
-.vl-pros li{position:relative;padding:0 0 3px 15px;color:#444a4d;font-size:10.5px;line-height:1.35}
+.vl-pros li{font-size:10.5px;line-height:1.36;color:#45494d;position:relative;padding:0 0 3px 15px}
 .vl-pros li:before{content:"✓";position:absolute;left:0;color:#238552;font-weight:900}
 .vl-pros.caution li:before{content:"!";color:#c55b44}
-.vl-air-action{width:100%;padding:8px 0 0;margin-top:auto;border:0;border-top:1px solid var(--vl-line);background:#fff;color:var(--vl-coral);font-size:10.5px;font-weight:800;text-align:left}
+.vl-air-action{margin-top:auto;padding:9px 0 0;width:100%;border:0;border-top:1px solid var(--vl-line);background:#fff;color:var(--vl-coral);text-align:left;font-size:10.5px;font-weight:800}
 .vl-air-action:hover{text-decoration:underline}
-.vl-advice{padding:3px 0 5px}
+.vl-footnote{font-size:10px;line-height:1.55;color:#71777a;margin:9px 0 0}
+/* Calculator: one condensed flight row, up to five only when added. */
+.vl-calc-head{display:flex;justify-content:space-between;align-items:end;gap:28px}
+.vl-calc-head .vl-copy{max-width:385px}
+.vl-calc-box{background:#fff;border:1px solid var(--vl-line);border-radius:14px;padding:12px;box-shadow:0 5px 20px #17171709}
+.vl-flight-stack{display:grid;gap:9px}
+.vl-flight{display:grid;grid-template-columns:minmax(0,1.7fr) minmax(200px,.52fr);gap:11px;border:1px solid var(--vl-line);background:#fff;border-radius:10px;padding:10px;min-width:0}
+.vl-flight-form{min-width:0}
+.vl-flight-title{display:flex;align-items:center;justify-content:space-between;gap:9px;margin-bottom:7px}
+.vl-flight-title h3{font:600 19px/1.2 Oswald,sans-serif;margin:0}
+.vl-flight-title button{border:0;background:none;color:var(--vl-coral);font-size:11px;font-weight:800}
+.vl-fields{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+.vl-field{display:flex;flex-direction:column;gap:4px;min-width:0}
+.vl-field-name{display:flex;align-items:center;gap:5px;min-width:0;min-height:19px;font-size:10px;font-weight:800;line-height:1.2;color:#4e555a}
+.vl-field-icon{display:inline-flex;align-items:center;justify-content:center;width:17px;height:17px;min-width:17px;border-radius:4px;background:#fff0e8;color:var(--vl-coral);font-size:11px;font-weight:800}
+.vl-field input,.vl-field select{display:block;min-width:0;width:100%;min-height:35px;padding:7px 9px;border:1px solid #dcdedc;border-radius:6px;color:#25282a;background:#fff;font-size:12px}
+.vl-field input::placeholder{color:#93989a}
+.vl-flight-side{min-width:0;display:flex;flex-direction:column;justify-content:center;background:#fff3eb;border-radius:8px;padding:10px 12px}
+.vl-flight-result{display:flex;flex-direction:column;align-items:flex-start;gap:4px;border-bottom:1px solid #e6d8d0;padding-bottom:8px;margin-bottom:7px}
+.vl-flight-result b{font-size:10px;color:#92604e;letter-spacing:.075em;font-weight:800}
+.vl-flight-result strong{font:600 clamp(29px,3vw,38px)/1.05 Oswald,sans-serif;color:var(--vl-coral);white-space:nowrap}
+.vl-breakdown{display:grid;grid-template-columns:1fr;gap:2px}
+.vl-breakdown span{display:flex;justify-content:space-between;gap:6px;color:#686769;font-size:10px;line-height:1.5}
+.vl-breakdown b{font-size:10px;color:#25282a;font-weight:800;white-space:nowrap}
+.vl-compare-bar{display:flex;align-items:center;justify-content:space-between;gap:11px;margin-top:10px}
+.vl-compare-bar .vl-button{min-height:36px;padding:8px 12px;font-size:11px}
+.vl-compare-bar span{font-size:11px;color:var(--vl-muted)}
+.vl-compare-summary{margin-top:11px;background:#f5f6f5;border:1px solid #e7e9e7;border-radius:10px;padding:11px 14px}
+.vl-compare-head{display:flex;justify-content:space-between;gap:10px;align-items:center;margin-bottom:8px}
+.vl-compare-head b{font-size:12px}
+.vl-compare-head small{font-size:10px;color:var(--vl-muted)}
+.vl-compare-list{display:grid;gap:5px}
+.vl-result-row{display:flex;justify-content:space-between;gap:10px;align-items:center;padding:8px 10px;background:#fff;border:1px solid #e4e7e4;border-radius:7px}
+.vl-result-row span{font-size:11px;color:#53595c}
+.vl-result-row strong{font-size:13px;white-space:nowrap}
+.vl-result-row.is-cheapest{border-color:#b8d9c4;background:#edf8f0}
+.vl-result-row.is-cheapest strong{color:#217347}
+.vl-compare-result{font-size:11px;line-height:1.5;margin:9px 0 0;color:#4f5954;font-weight:700}
+/* Eight short editorial tips, three displayed at once and arrows on the sides. */
+.vl-tips-carousel{display:grid;grid-template-columns:38px minmax(0,1fr) 38px;gap:9px;align-items:center}
+.vl-tip-arrow{width:36px;height:36px;flex:none}
+.vl-tip-track{display:grid;grid-auto-flow:column;grid-auto-columns:calc((100% - 24px)/3);gap:12px;overflow-x:auto;overscroll-behavior-inline:contain;scroll-snap-type:x mandatory;scrollbar-width:none;padding:3px 0 10px;min-width:0}
+.vl-tip-track::-webkit-scrollbar{display:none}
+.vl-tip{min-width:0;scroll-snap-align:start;min-height:126px;background:#fff;border:1px solid var(--vl-line);border-radius:11px;padding:16px 17px}
+.vl-tip-num{display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:50%;background:#fff0e8;color:var(--vl-coral);font:600 15px/1 Oswald,sans-serif}
+.vl-tip h3{font-size:13px;font-weight:800;margin:8px 0 5px}
+.vl-tip p{font-size:11.5px;color:var(--vl-muted);line-height:1.5;margin:0}
+.vl-advice{margin-top:15px}
 .vl-advice .vcc-consejo-unificado{max-width:100%}
-.vl-tips-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px}
-.vl-tip{border:1px solid var(--vl-line);background:#fff;padding:13px;border-radius:10px;min-width:0}
-.vl-tip-icon{color:var(--vl-coral);font-size:22px}
-.vl-tip h3{font-size:12.5px;font-weight:800;margin:5px 0 4px}
-.vl-tip p{font-size:11px;line-height:1.45;color:var(--vl-gray);margin:0}
-.vl-saving{display:grid;grid-template-columns:.9fr 1.1fr;gap:18px;align-items:center;background:#fff;border:1px solid var(--vl-line);border-radius:11px;padding:16px 20px}
-.vl-saving .vl-copy{max-width:520px}
-.vl-saving-list{list-style:none;display:grid;gap:5px;padding:0;margin:0}
-.vl-saving-list li{font-size:11px;line-height:1.4;color:#4d5559;padding-left:18px;position:relative}
-.vl-saving-list li:before{content:"✓";color:#278456;position:absolute;left:0;font-weight:900}
+/* Same dark closing panel used across Planifica. */
 .vl-next{position:relative;isolation:isolate;padding:27px 0;overflow:hidden;background:#293035;color:#fff}
 .vl-next:before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,#141b20d9,#18202599),url('/configuracion/imagenes/externas/unsplash/photo-1500530855697-b586d89ba3ee.webp') center/cover}
-.vl-next .vl-heading{color:white}
-.vl-next .vl-copy{color:#e3e5e6}
+.vl-next .vl-heading{color:#fff}.vl-next .vl-copy{color:#e3e5e6}
 .vl-next-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px;margin-top:13px}
 .vl-next-grid a{background:#131719d9;border:1px solid #ffffff40;border-radius:9px;padding:12px;min-height:69px;display:flex;flex-direction:column;justify-content:space-between;gap:5px}
 .vl-next-grid a:hover{border-color:#ff9772;background:#161718}
 .vl-next-grid b{font-size:13px;font-weight:800}.vl-next-grid small{font-size:11px;color:#d5d8d9}
-@media(max-width:1050px){.vl-stats-grid{grid-template-columns:repeat(2,1fr)}.vl-stat:nth-child(2){border-right:0}.vl-stat:nth-child(-n+2){border-bottom:1px solid var(--vl-line)}.vl-continent-grid,.vl-tips-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.vl-air-track{grid-auto-columns:calc((100% - 20px)/2.5)}.vl-flight{grid-template-columns:minmax(0,1.35fr) minmax(200px,.65fr)}}
-@media(max-width:720px){.vl-wrap{width:calc(100% - 28px)}.vl-hero.tv-hero{height:var(--vcc-standard-hero-mobile,730px);min-height:730px}.vl-hero.tv-hero:before{background:linear-gradient(90deg,#0b131ce3,#0b131c99),url('/configuracion/imagenes/externas/unsplash/photo-1436491865332-7a61a109cc05.webp') center/cover}.vl-hero-content{padding:75px 0 32px}.vl-hero h1{font-size:56px}.vl-hero p{font-size:14px}.vl-tabs .vcc-nav-inner{gap:24px;padding-inline:14px}.vl-section{padding:25px 0}.vl-calc-head{display:block}.vl-calc-head .vl-copy{max-width:none;margin-top:6px}.vl-flight{grid-template-columns:1fr}.vl-flight-side{display:block}.vl-section-head.split{display:block}.vl-calc-box{padding:10px}.vl-flight{padding:10px}.vl-breakdown{grid-template-columns:repeat(2,1fr);gap:2px 12px}.vl-flight-result{flex-direction:row;align-items:center;justify-content:space-between}.vl-flight-result strong{font-size:33px}.vl-review-head{align-items:center}.vl-air-track{grid-auto-columns:calc((100% - 14px)/1.4)}.vl-next-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media(max-width:520px){.vl-hero h1{font-size:49px}.vl-stats{padding-top:9px}.vl-stats-grid{padding:0}.vl-stat{padding:8px;gap:7px}.vl-stat .ico{width:35px;height:35px;font-size:21px}.vl-stat strong{font-size:13px}.vl-stat span:not(.ico){font-size:10px}.vl-heading{font-size:31px}.vl-fields{grid-template-columns:1fr 1fr;gap:8px}.vl-field input,.vl-field select{padding:8px 8px;min-height:36px}.vl-field span{font-size:10px}.vl-field .vl-field-icon{font-size:11px}.vl-continent-grid{gap:9px}.vl-continent{padding:10px;min-height:111px}.vl-continent-map{width:41px;height:34px}.vl-continent h3{font-size:20px}.vl-continent .detail{font-size:9.5px}.vl-air-track{grid-auto-columns:87%}.vl-review-head{align-items:flex-start}.vl-tips-grid{grid-template-columns:1fr 1fr;gap:9px}.vl-tip{padding:12px}.vl-tip p{font-size:11px}.vl-saving{grid-template-columns:1fr;padding:15px}.vl-next-grid{grid-template-columns:1fr 1fr}.vl-next-grid a{padding:10px}.vl-next-grid b{font-size:12px}}
-@media(max-width:365px){.vl-stats-grid,.vl-tips-grid,.vl-next-grid{grid-template-columns:1fr}.vl-fields{grid-template-columns:repeat(2,minmax(0,1fr))}.vl-stat{border-right:0;border-bottom:1px solid var(--vl-line)}.vl-air-track{grid-auto-columns:95%}.vl-continent-grid{grid-template-columns:1fr 1fr}}
-@media(prefers-reduced-motion:reduce){.vl-page .vl-button{transition:none}}
+@media(max-width:1020px){
+ .vl-continent-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .vl-air-track{grid-auto-columns:calc((100% - 20px)/2.5)}
+ .vl-flight{grid-template-columns:minmax(0,1.4fr) minmax(190px,.6fr)}
+ .vl-fields{grid-template-columns:repeat(3,minmax(0,1fr))}
+ .vl-tip-track{grid-auto-columns:calc((100% - 12px)/2)}
+}
+@media(max-width:720px){
+ .vl-wrap{width:calc(100% - 28px)}
+ .vl-hero.tv-hero{height:var(--vcc-standard-hero-mobile,730px);min-height:730px}
+ .vl-hero.tv-hero:before{background:linear-gradient(90deg,#0b131ce7,#0b131c9e),url('/configuracion/imagenes/externas/unsplash/photo-1436491865332-7a61a109cc05.webp') center/cover}
+ .vl-hero-content{padding:75px 0 32px}.vl-hero h1{font-size:54px}.vl-hero p{font-size:14px}
+ .vl-section{padding:26px 0}
+ .vl-tabs .vcc-nav-inner{gap:24px;padding-inline:14px}
+ .vl-air-track{grid-auto-columns:calc((100% - 10px)/1.35)}
+ .vl-review-head{align-items:start}
+ .vl-calc-head{display:block}.vl-calc-head .vl-copy{margin-top:7px;max-width:none}
+ .vl-flight{grid-template-columns:1fr}
+ .vl-flight-side{display:block}
+ .vl-flight-result{flex-direction:row;align-items:center;justify-content:space-between}
+ .vl-flight-result strong{font-size:33px}
+ .vl-breakdown{grid-template-columns:repeat(2,minmax(0,1fr));gap:3px 12px}
+ .vl-fields{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .vl-tip-track{grid-auto-columns:86%}
+ .vl-tips-carousel{grid-template-columns:29px minmax(0,1fr) 29px;gap:5px}
+ .vl-tip-arrow{width:29px;height:29px;font-size:20px}
+ .vl-next-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(max-width:460px){
+ .vl-heading{font-size:31px}
+ .vl-hero h1{font-size:49px}
+ .vl-continent-grid{gap:8px}
+ .vl-continent{padding:10px;min-height:112px}
+ .vl-continent-map{width:40px;height:34px}
+ .vl-continent h3{font-size:20px}
+ .vl-continent .detail{font-size:9.5px}
+ .vl-air-track{grid-auto-columns:90%}
+ .vl-controls{gap:4px}
+ .vl-controls button{width:30px;height:30px}
+ .vl-fields{gap:8px}
+ .vl-field-name{font-size:9.5px}
+ .vl-flight-side{padding:10px}
+ .vl-compare-head{display:block}
+ .vl-compare-bar .vl-button{flex:0 0 auto}
+ .vl-tip{padding:13px;min-height:138px}
+ .vl-tip-track{grid-auto-columns:100%}
+ .vl-next-grid a{padding:10px}
+}
+@media(prefers-reduced-motion:reduce){.vl-page *{scroll-behavior:auto!important;transition:none!important}}
