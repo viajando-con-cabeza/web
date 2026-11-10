@@ -405,3 +405,95 @@ html body .vcc-booking-gallery-modal:not([hidden]) .day-lightbox-photo-view:not(
 html body .vcc-booking-gallery-modal:not([hidden]) .day-lightbox-photo-view:not([hidden]) .day-lightbox-photo-frame>img{
  cursor:pointer!important;
 }
+
+/* ==============================================================
+   Galeria VCC universal · ÚNICA font visual per al visor.
+   Aplicable a totes les pàgines amb [data-vcc-booking-gallery].
+   El contingut de cada guia canvia; capçalera, controls, zoom,
+   mosaic ampliat i foto individual no es tornen a implementar.
+   ============================================================== */
+:root{
+ --vcc-gallery-ui-font:'DM Sans',sans-serif;
+ --vcc-gallery-ui-title:'Oswald',sans-serif;
+ --vcc-gallery-ui-divider:#eee7e1;
+}
+/* Els dos estats comparteixen el mateix rectangle i una única línia. */
+@media(min-width:801px){
+ html body .vcc-booking-gallery-modal.vcc-gallery-desktop .day-lightbox-photo-view:not([hidden]){
+  grid-template-rows:58px minmax(0,1fr) 30px 80px!important;
+ }
+ html body .vcc-booking-gallery-modal.vcc-gallery-desktop .day-lightbox-grid-view:not([hidden]) .day-lightbox-grid-head{
+  flex:0 0 58px!important;
+ }
+ html body .vcc-booking-gallery-modal.vcc-gallery-desktop :is(.day-lightbox-grid-head,.day-lightbox-photo-head){
+  height:58px!important;min-height:58px!important;max-height:58px!important;
+  grid-template-columns:minmax(190px,1fr) 2fr minmax(68px,1fr)!important;
+  padding:5px 24px!important;border-bottom:1px solid var(--vcc-gallery-ui-divider)!important;
+ }
+ html body .vcc-booking-gallery-modal.vcc-gallery-desktop :is(.day-lightbox-grid-back,.day-lightbox-to-grid){
+  position:static!important;grid-column:1!important;
+  display:inline-flex!important;align-items:center!important;
+  justify-self:start!important;justify-content:flex-start!important;
+  width:auto!important;height:38px!important;min-height:38px!important;
+  padding:0!important;margin:0!important;gap:10px!important;
+  border:0!important;background:transparent!important;box-shadow:none!important;
+  color:#262626!important;font:400 24px/1 var(--vcc-gallery-ui-font)!important;
+  text-transform:none!important;transform:none!important;
+ }
+ html body .vcc-booking-gallery-modal.vcc-gallery-desktop :is(.day-lightbox-grid-back,.day-lightbox-to-grid) span{
+  font:400 13px/1.3 var(--vcc-gallery-ui-font)!important;
+  text-transform:none!important;
+ }
+ html body .vcc-booking-gallery-modal.vcc-gallery-desktop :is(.day-lightbox-grid-heading strong,.day-lightbox-photo-title){
+  font:500 22px/1.15 var(--vcc-gallery-ui-title)!important;
+  text-transform:uppercase!important;letter-spacing:0!important;color:#242424!important;
+ }
+}
+html body .vcc-booking-gallery-modal.vcc-gallery-mobile .day-lightbox-to-grid span{display:none!important}
+
+/* Mosaic insertat al cos de la guia, mateixa geometria que l'itinerari.
+   Els llocs amb menys de cinc fotos poden seguir mostrant menys peces. */
+html body .imp-page .gallery-mosaic.count-5{
+ display:grid!important;grid-template-columns:2fr 1fr 1fr!important;
+ grid-template-rows:repeat(2,minmax(0,1fr))!important;
+ gap:5px!important;aspect-ratio:1.32!important;
+ width:100%!important;height:auto!important;
+ border-radius:9px!important;overflow:hidden!important;
+}
+html body .imp-page .gallery-mosaic.count-5 > .gallery-tile{
+ display:block!important;position:relative!important;
+ grid-column:auto;grid-row:auto;min-width:0;min-height:0;
+ width:100%;height:100%;padding:0!important;margin:0!important;
+ border:0!important;border-radius:3px!important;
+ overflow:hidden!important;background:#eeebe7!important;
+ cursor:pointer!important;background-size:cover!important;background-position:center!important;
+}
+html body .imp-page .gallery-mosaic.count-5 > .gallery-tile:nth-child(1){grid-column:1!important;grid-row:1/3!important}
+html body .imp-page .gallery-mosaic.count-5 > .gallery-tile:nth-child(2){grid-column:2!important;grid-row:1!important}
+html body .imp-page .gallery-mosaic.count-5 > .gallery-tile:nth-child(3){grid-column:3!important;grid-row:1!important}
+html body .imp-page .gallery-mosaic.count-5 > .gallery-tile:nth-child(4){grid-column:2!important;grid-row:2!important}
+html body .imp-page .gallery-mosaic.count-5 > .gallery-tile:nth-child(5){grid-column:3!important;grid-row:2!important}
+html body .imp-page .gallery-mosaic.count-5 > .gallery-tile > img{
+ display:block!important;width:100%!important;height:100%!important;object-fit:cover!important;
+}
+html body .imp-page .gallery-mosaic.count-5 .gallery-more{
+ position:absolute;inset:0;z-index:2;display:flex!important;
+ align-items:center;justify-content:center;padding:5px;
+ background:rgba(0,0,0,.54);color:#fff;
+ font:700 12px/1.2 'DM Sans',sans-serif;text-align:center;pointer-events:none;
+}
+@media(max-width:800px){
+ html body .imp-page .gallery-mosaic.count-5{
+  grid-template-columns:repeat(6,minmax(0,1fr))!important;
+  grid-template-rows:1fr .92fr!important;aspect-ratio:1.35!important;
+ }
+ html body .imp-page .gallery-mosaic.count-5 > .gallery-tile:nth-child(1),
+ html body .imp-page .gallery-mosaic.count-5 > .gallery-tile:nth-child(2){
+  grid-column:span 3!important;grid-row:1!important;
+ }
+ html body .imp-page .gallery-mosaic.count-5 > .gallery-tile:nth-child(n+3){
+  grid-column:span 2!important;grid-row:2!important;
+ }
+}
+/* També els mosaics amb una sola fotografia són interactius. */
+html body .imp-page .gallery-mosaic.count-1 .gallery-tile{cursor:pointer!important}
