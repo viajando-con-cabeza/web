@@ -214,9 +214,11 @@
     // Permite que una galería concreta muestre menos miniaturas, sin limitar su visor.
     // El resto de galerías de Qué ver mantienen exactamente su configuración.
     const configured = Number(gallery.dataset.mosaicVisible);
-    const visible = Number.isInteger(configured) && configured >= 1
-      ? Math.min(6, photos.length, configured)
-      : Math.min(6, photos.length);
+    const visible = document.querySelector('[data-vcc-booking-gallery]')
+      ? Math.min(5,photos.length) // mosaic VCC universal
+      : Number.isInteger(configured) && configured >= 1
+        ? Math.min(6, photos.length, configured)
+        : Math.min(6, photos.length);
     const mosaic = document.createElement('div');
     mosaic.className = `gallery-mosaic count-${visible}`;
     photos.slice(0,visible).forEach((src,index) => {
