@@ -301,7 +301,17 @@ main.cl-page.cl-landing {
   margin:0 0 16px;
 }
 .cl-page.cl-landing .vcc-saving-title-group {min-width:0}
-.cl-page.cl-landing .vcc-saving-head h2 {margin:0}
+.cl-page.cl-landing .vcc-saving-head .vcc-arrival-eyebrow {
+  display:block;
+  margin:0 0 4px;
+  color:#e6631e;
+  font:600 29px/1 "Caveat",cursive;
+}
+.cl-page.cl-landing .vcc-saving-head h2 {
+  margin:0;
+  color:#202624;
+  font:600 clamp(27px,2.5vw,38px)/1.1 "Oswald",sans-serif;
+}
 .cl-page.cl-landing .vcc-saving-head .vcc-arrival-summary {
   flex:0 1 380px;
   max-width:380px;
@@ -410,6 +420,7 @@ main.cl-page.cl-landing {
 }
 @media(max-width:760px) {
   .cl-page.cl-landing .vcc-saving-head {display:block}
+  .cl-page.cl-landing .vcc-saving-head .vcc-arrival-eyebrow {font-size:27px}
   .cl-page.cl-landing .vcc-saving-head .vcc-arrival-summary {
     max-width:none;
     margin:9px 0 0;
