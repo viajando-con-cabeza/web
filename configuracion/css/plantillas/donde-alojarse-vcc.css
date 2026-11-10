@@ -1219,3 +1219,67 @@ body.dv-page{
  .dv-page .dv-tip,
  .dv-page .dv-arrow{transition:none}
 }
+
+
+/* VCC · Mobile usability pass 2026-11-10: only narrow viewports.
+   Preserve desktop visuals; avoid tiny text, cramped hotel columns and touch targets. */
+@media (max-width:700px){
+ .dv-page [data-dv-root]{min-width:0}
+ .dv-page .dv-shell{max-width:100%}
+ .dv-page .dv-carousel,.dv-page #como-ahorrar .dv-tip-grid{
+  -webkit-overflow-scrolling:touch;touch-action:pan-x pan-y;
+  scroll-padding-inline:2px;
+ }
+ .dv-page .dv-arrow{
+  width:44px;height:44px;min-width:44px;min-height:44px;
+  touch-action:manipulation;
+ }
+ .dv-page .dv-arrow-left{left:-12px}
+ .dv-page .dv-arrow-right{right:-12px}
+ .dv-page .dv-tip-prev{left:-12px}
+ .dv-page .dv-tip-next{right:-12px}
+ .dv-page .dv-subnav a{min-height:39px;touch-action:manipulation}
+ .dv-page .dv-card{max-width:calc(100% - 14px)}
+ .dv-page .dv-zone-details,.dv-page .dv-zone-body,
+ .dv-page .dv-zone-hotels,.dv-page .dv-zone-hotel-copy{
+  min-width:0;max-width:100%;
+ }
+ .dv-page .dv-zone-hotel{
+  grid-template-columns:40px minmax(0,1fr);
+  gap:6px 10px;align-items:start;
+  padding:12px;min-height:0;
+ }
+ .dv-page .dv-zone-hotel-icon{grid-column:1;grid-row:1 / span 2}
+ .dv-page .dv-zone-hotel-copy{grid-column:2;grid-row:1;overflow-wrap:anywhere}
+ .dv-page .dv-zone-hotel-pricecol{
+  grid-column:2;grid-row:2;display:flex;flex-flow:row wrap;
+  align-items:center;justify-content:space-between;
+  gap:6px 12px;text-align:left;
+ }
+ .dv-page .dv-zone-hotel-top strong{font-size:15px;line-height:1.3}
+ .dv-page .dv-zone-hotel .dv-zone-hotel-top .dv-zone-hotel-loc{font-size:11px;line-height:1.45}
+ .dv-page .dv-zone-hotel .dv-zone-hotel-why{font-size:12px;line-height:1.5}
+ .dv-page .dv-zone-hotel-pricecol .dv-zone-price{font-size:12px;white-space:normal}
+ .dv-page .dv-zone-hotel-pricecol .dv-zone-price small{
+  font-size:10.5px;white-space:normal;
+ }
+ .dv-page .dv-zone-hotel-pricecol .dv-zone-booking-link{
+  font-size:12px;line-height:1.5;white-space:normal;
+  min-height:44px;display:inline-flex;align-items:center;
+ }
+ .dv-page .dv-zone-review-label,
+ .dv-page .dv-zone-review-label strong{font-size:11.5px}
+ .dv-page .dv-zone-feel li,.dv-page .dv-zone-procon-intro{font-size:12px;line-height:1.5}
+ .dv-page .dv-zone-hotels-note{font-size:11px;line-height:1.55}
+ .dv-page .dv-zone-hotel.is-real-stay .dv-zone-hotel-our-experience{
+  font-size:12px;line-height:1.5;
+ }
+ .dv-page #como-ahorrar .dv-tip p{font-size:12px;line-height:1.55}
+ .dv-page .dv-map-frame{min-width:0;overflow:hidden}
+ .dv-page .dv-map-frame iframe{height:clamp(340px,65svh,480px)}
+}
+@media (max-width:360px){
+ .dv-page .dv-zone-hotel{grid-template-columns:36px minmax(0,1fr);gap:6px 8px;padding:10px}
+ .dv-page .dv-zone-hotel-top strong{font-size:14px}
+ .dv-page .dv-zone-hotel-pricecol{justify-content:flex-start}
+}
