@@ -356,3 +356,53 @@ html body .imp-page .imp-main #gamla-stan .place-info-card > .facts {
     margin-bottom:16px!important;
   }
 }
+
+/* Fitxes sense fotografia (Gamla Stan): mateixa amplada de Consejo VCC
+   i vinyeta, i sis dades en una sola línia a escriptori.
+   En pantalles estretes la línia és lliscable, no se'n tallen les dades. */
+html body .imp-page .imp-main .place.place--no-media .place-copy > .advice {
+  box-sizing:border-box!important;
+  width:100%!important;
+  max-width:none!important;
+  min-width:0!important;
+  margin:12px 0 0!important;
+}
+html body .imp-page .imp-main .place.place--no-media .place-info-card > .facts {
+  display:flex!important;
+  box-sizing:border-box!important;
+  flex-wrap:nowrap!important;
+  justify-content:space-between!important;
+  align-items:center!important;
+  align-self:stretch!important;
+  width:100%!important;
+  min-width:0!important;
+  max-width:100%!important;
+  margin:0!important;
+  gap:10px!important;
+  overflow-x:auto;
+  overflow-y:visible;
+  scrollbar-width:thin;
+  scrollbar-color:#e0b5a2 transparent;
+  -webkit-overflow-scrolling:touch;
+}
+html body .imp-page .imp-main .place.place--no-media .place-info-card > .facts > span {
+  flex:0 0 auto!important;
+  min-width:max-content!important;
+  width:auto!important;
+  max-width:none!important;
+  white-space:nowrap!important;
+  margin:0!important;
+  padding:0!important;
+}
+@media(max-width:900px){
+  html body .imp-page .imp-main .place.place--no-media .place-info-card > .facts {
+    justify-content:flex-start!important;
+    column-gap:17px!important;
+    padding-bottom:5px!important;
+  }
+}
+@media(max-width:650px){
+  html body .imp-page .imp-main .place.place--no-media .place-copy > .advice {
+    margin-top:10px!important;
+  }
+}
