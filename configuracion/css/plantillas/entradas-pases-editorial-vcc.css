@@ -371,3 +371,16 @@
 .ep-page .ep4-reserve-cell .ep4-reservation::before{display:block!important;width:8px!important;height:8px!important;flex:0 0 8px!important;align-self:center!important}
 .ep-page .ep4-savings .ep4-carousel-progress,.ep-page .ep4-savings .ep4-saving-note{display:none!important}
 @media(max-width:760px){.ep-page .ep4-day-title{font-size:15px}.ep-page .ep4-medal-award{flex-basis:30px!important;width:30px!important;height:38px!important}.ep-page .ep4-medal-award svg{width:30px!important;height:38px!important}}
+
+/* Entradas por día: lista ligera de actividades y decisión de compra. */
+.ep-page .ep4-our-list .ep4-day-body{gap:7px}
+.ep-page .ep4-our-list .ep4-day-ticket{font:500 11px/1.35 "DM Sans",sans-serif;color:#a25738;margin:0}
+.ep-page .ep4-our-list .ep4-day-activities{padding:0;margin:2px 0 3px;list-style:none;display:grid;gap:5px}
+.ep-page .ep4-our-list .ep4-day-activities li{display:flex;align-items:baseline;gap:8px;margin:0;color:#454d4b;font:400 11.7px/1.4 "DM Sans",sans-serif}
+.ep-page .ep4-our-list .ep4-day-activities li::before{content:"";width:5px;height:5px;flex:0 0 5px;border-radius:50%;background:#b5b9b6;align-self:center}
+.ep-page .ep4-our-list .ep4-day-activities li.ep4-day-paid::before{content:"✓";width:13px;height:13px;flex-basis:13px;display:grid;place-items:center;background:#e8f4ea;color:#2b7d48;font:700 10px/1 "DM Sans",sans-serif}
+.ep-page .ep4-our-list .ep4-day-reason{font:400 11.3px/1.53 "DM Sans",sans-serif;color:#615b55;margin:5px 0 0;flex:1}
+.ep-page .ep4-our-list .ep4-day-link{font:700 9px/1.2 "DM Sans",sans-serif!important;min-height:20px;padding:3px 0!important;margin-top:6px}
+.ep-page .ep4-reserve-cell{display:flex;align-items:center;justify-content:flex-start;min-width:0;text-align:left!important}
+.ep-page .ep4-reserve-cell .ep4-reservation{display:grid!important;grid-template-columns:8px minmax(0,1fr);column-gap:8px;align-items:center!important;justify-items:start!important;text-align:left!important;line-height:1.3!important;width:100%}
+.ep-page .ep4-reserve-cell .ep4-reservation::before{grid-column:1;grid-row:1;align-self:center!important;justify-self:start}
