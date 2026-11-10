@@ -94,7 +94,12 @@
     const arch = String(original).match(/^https:\/\/img\.viajandoconcabeza\.com\/(destinos\/suecia\/estocolmo-archipelago\/[0-9]{4}-dia8)\/(?:paisajes|bosques|mar)\/(DSC\d+\.avif)$/i);
     if (arch) {
       const existing = new Set(['DSC08334.avif','DSC08335.avif','DSC08336.avif','DSC08337.avif','DSC08338.avif','DSC08342.avif','DSC08344.avif','DSC08345.avif']);
-      return existing.has(arch[2]) ? 'https://img.viajandoconcabeza.com/'+arch[1]+'/_preview/'+size+'/'+arch[2] : original;
+      // Las fotos aún sin derivado se optimizan bajo demanda en el Worker
+      // /__vcc_preview/. No descargamos su AVIF original de varios MB.
+      return existing.has(arch[2])
+        ? 'https://img.viajandoconcabeza.com/'+arch[1]+'/_preview/'+size+'/'+arch[2]
+        : 'https://img.viajandoconcabeza.com/__vcc_preview/'+size+'/'
+          +String(original).slice('https://img.viajandoconcabeza.com/'.length);
     }
     return String(original).replace(/^https:\/\/img\.viajandoconcabeza\.com\/(destinos\/.+\.(?:avif|webp))$/i,
       'https://img.viajandoconcabeza.com/__vcc_preview/'+size+'/$1');
