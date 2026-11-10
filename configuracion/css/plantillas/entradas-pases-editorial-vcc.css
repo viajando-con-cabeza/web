@@ -498,3 +498,29 @@
  .ep-page .ep4-our-list .ep4-day-summary .ep4-day-group-label{font-size:12.5px!important;font-weight:700!important}
  .ep-page .ep4-our-list .ep4-day-story .ep4-day-reason{font-size:13px!important}
 }
+
+/* Els tres enllaços «VER ITINERARIO» comparteixen el mateix eix inferior.
+   Les fitxes s'estiren fins a l'alçada de la més alta (ordinador/tauleta/mòbil). */
+.ep-page .ep4-our-stage>.ep4-our-list{align-items:stretch!important}
+.ep-page .ep4-our-list>.ep4-day-card{
+ display:flex!important;flex-direction:column!important;align-self:stretch!important;
+ box-sizing:border-box!important;height:auto!important;
+}
+.ep-page .ep4-our-list .ep4-day-body{
+ display:flex!important;flex-direction:column!important;
+ flex:1 1 auto!important;min-height:0!important;
+}
+.ep-page .ep4-our-list .ep4-day-split{
+ flex:1 1 auto!important;min-height:0!important;
+ align-items:stretch!important;
+}
+.ep-page .ep4-our-list .ep4-day-story{
+ display:flex!important;flex-direction:column!important;
+ flex:1 1 auto!important;min-height:0!important;
+}
+.ep-page .ep4-our-list .ep4-day-story>.ep4-day-link{
+ display:inline-flex!important;align-items:center!important;
+ align-self:flex-end!important;justify-self:end!important;
+ margin-top:auto!important;margin-left:auto!important;
+ text-align:right!important;white-space:nowrap!important;
+}
