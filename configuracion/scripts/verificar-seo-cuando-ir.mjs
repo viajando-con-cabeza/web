@@ -26,7 +26,7 @@ assert.equal(headings.length, 1, 'Debe haber un solo H1');
 assert.equal(ids.length, new Set(ids).size, 'Hay ids duplicados');
 assert.equal(matches(html, /data-month-panel="\d+"/g).length, 12, 'Falta un mes');
 assert.equal(matches(html, /class="ci-month-vcc"/g).length, 12, 'Falta un consejo mensual');
-assert.equal(matches(html, /class="ci-month-result" id="ci-month-panel-\\d+"/g).length, 12,
+assert.equal(matches(html, /class="ci-month-result" id="ci-month-panel-\d+"/g).length, 12,
   'Las fichas mensuales deben conservar sus 12 contenedores con anclaje');
 assert.equal(matches(html, /class="ci-month-sources"/g).length, 1,
   'La nota de WeatherSpark debe aparecer una sola vez debajo del calendario');
