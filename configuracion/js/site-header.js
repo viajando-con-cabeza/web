@@ -6,11 +6,11 @@
   // Subheader editorial único en todas las páginas que lo incluyen (sin alterar el menú principal).
   const subheaderCss=document.createElement('link');
   subheaderCss.rel='stylesheet';
-  subheaderCss.href=url('configuracion/css/componentes/subheader-unificado-vcc.css?v=20261110-tarjetas-v2');
+  subheaderCss.href=url('configuracion/css/componentes/subheader-unificado-vcc.css?v=20261110-mobile-firstscreen-v1');
   subheaderCss.dataset.vccSharedSubheader='true';
   document.head.appendChild(subheaderCss);
   const subheaderJs=document.createElement('script');
-  subheaderJs.src=url('configuracion/js/componentes/subheader-unificado-vcc.js?v=20261110-tarjetas-v2');
+  subheaderJs.src=url('configuracion/js/componentes/subheader-unificado-vcc.js?v=20261110-mobile-firstscreen-v1');
   subheaderJs.async=true;
   document.head.appendChild(subheaderJs);
   // Un único estilo para la ruta de navegación (Inicio > Destinos > país > ciudad > guía).
