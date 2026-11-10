@@ -1168,3 +1168,18 @@ html body.ci-page .ci-august-experience>.ci-august-bottom>p{
     margin-top:9px!important;
   }
 }
+
+/* 2026-11-10 · El hero procede del componente compartido en configuracion.
+   Conservar el pequeño distintivo de nuestro viaje sin duplicar el hero. */
+html body.ci-page .ci-visit-mobile-note{display:none}
+@media(max-width:600px){
+  html body.ci-page .vcc-hero .ci-visit-chip{display:none!important}
+  html body.ci-page .ci-visit-mobile-note{
+    display:block!important;
+    margin:0 auto 18px!important;
+    text-align:center!important;
+    color:#95563d!important;
+    font:700 11px/1.5 'DM Sans',sans-serif!important;
+    letter-spacing:.04em!important;
+  }
+}
