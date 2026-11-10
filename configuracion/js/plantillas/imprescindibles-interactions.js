@@ -1,38 +1,57 @@
 /* Quality: barra sincronitzada, mosaic Booking i visor accessible amb comptador. */
 (() => {
-  const nav = document.getElementById('placeNav');
-  const sections = [...document.querySelectorAll('#mapa-imprescindibles, .imp-main .place[id]')];
-  const links = [...(nav?.querySelectorAll('a[href^="#"]') || [])];
-  if (nav && sections.length && links.length) {
-    let active = '', queued = false;
-    const highlight = id => {
-      if (active === id) return;
-      active = id;
-      const chosen = links.find(a => a.getAttribute('href') === '#' + id);
-      links.forEach(a => {
-        a.classList.toggle('active', a === chosen);
-        if (a === chosen) a.setAttribute('aria-current', 'location');
+  // Un único controlador del subheader (antes había dos scripts compitiendo).
+  // Orden DOM: mapa primero, después las 15 fichas.
+  const nav=document.getElementById('placeNav');
+  const sections=[...document.querySelectorAll('#mapa-imprescindibles, .imp-main .place[id]')];
+  const links=[...(nav?.querySelectorAll('a[href^="#"]')||[])];
+  if(nav && sections.length && links.length){
+    let active='',queued=false,suppressUntil=0;
+    const highlight=id=>{
+      if(id===active)return;
+      active=id;
+      const chosen=links.find(a=>a.hash==='#'+id);
+      links.forEach(a=>{
+        const selected=a===chosen;
+        a.classList.toggle('active',selected);
+        a.classList.toggle('is-active',selected);
+        if(selected)a.setAttribute('aria-current','location');
         else a.removeAttribute('aria-current');
       });
-      if (chosen) nav.scrollTo({left: Math.max(0, chosen.offsetLeft - nav.offsetLeft - (nav.clientWidth - chosen.offsetWidth) / 2), behavior:'smooth'});
+      if(chosen){
+        const left=Math.max(0,chosen.offsetLeft-nav.offsetLeft-(nav.clientWidth-chosen.offsetWidth)/2);
+        nav.scrollTo({left,behavior:'smooth'});
+      }
     };
-    const sync = () => {
-      queued = false;
-      const header = document.querySelector('.shared-header');
-      const bar = document.querySelector('.place-nav-wrap');
-      const limit = (header?.offsetHeight || 50) + (bar?.offsetHeight || 43) + 45;
-      let id = sections[0].id;
-      for (const section of sections) {
-        if (section.getBoundingClientRect().top <= limit) id = section.id;
+    const sync=()=>{
+      queued=false;
+      if(performance.now()<suppressUntil)return;
+      const header=document.querySelector('.shared-header, .page-header');
+      const bar=document.querySelector('.place-nav-wrap');
+      const limit=(header?.getBoundingClientRect().height||50)+(bar?.getBoundingClientRect().height||43)+26;
+      let id=sections[0].id;
+      for(const section of sections){
+        if(section.getBoundingClientRect().top<=limit) id=section.id;
         else break;
       }
       highlight(id);
     };
-    const queue = () => {if (!queued) {queued = true; requestAnimationFrame(sync);}};
-    links.forEach(a => a.addEventListener('click', () => highlight(a.hash.slice(1))));
-    window.addEventListener('scroll', queue, {passive:true});
-    window.addEventListener('resize', queue);
-    window.addEventListener('hashchange', queue);
+    const queue=()=>{if(!queued){queued=true;requestAnimationFrame(sync);}};
+    links.forEach(a=>a.addEventListener('click',()=>{
+      highlight(decodeURIComponent(a.hash.slice(1)));
+      suppressUntil=performance.now()+850;
+      setTimeout(queue,900);
+    }));
+    window.addEventListener('scroll',queue,{passive:true});
+    window.addEventListener('resize',queue,{passive:true});
+    window.addEventListener('hashchange',()=>{
+      const hash=decodeURIComponent(location.hash.slice(1));
+      if(sections.some(section=>section.id===hash))highlight(hash);
+      suppressUntil=performance.now()+500;
+      setTimeout(queue,550);
+    });
+    const firstHash=decodeURIComponent(location.hash.slice(1));
+    highlight(sections.some(section=>section.id===firstHash)?firstHash:sections[0].id);
     queue();
   }
 
