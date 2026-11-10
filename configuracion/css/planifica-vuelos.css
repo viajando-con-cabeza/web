@@ -10,7 +10,8 @@
 .vl-page :is(button,a,input,select,summary):focus-visible{outline:3px solid var(--vl-coral);outline-offset:3px}
 .vl-wrap{width:min(1160px,calc(100% - 44px));margin-inline:auto}
 .vl-kicker{display:block;color:var(--vl-coral);font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase}
-.vl-heading{font:600 clamp(31px,4vw,43px)/1.14 Oswald,"Arial Narrow",sans-serif;letter-spacing:.005em;margin:8px 0 12px}
+/* Misma escala de títulos que las secciones editoriales de Planifica. */
+.vl-heading{font:600 clamp(31px,4vw,43px)/1.14 Oswald,"Arial Narrow",sans-serif;letter-spacing:.005em;text-transform:uppercase;margin:8px 0 12px}
 .vl-heading em{font-style:normal;color:var(--vl-coral)}
 .vl-copy{margin:0;color:var(--vl-gray);font-size:13px;line-height:1.75}
 .vl-button{border:1px solid var(--vl-coral);border-radius:7px;background:var(--vl-coral);color:white!important;padding:12px 19px;min-height:44px;display:inline-flex;align-items:center;justify-content:center;gap:8px;font-size:12px;font-weight:800;text-align:center;transition:background .15s,transform .15s}
@@ -21,17 +22,19 @@
 .vl-hero.tv-hero:before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,rgba(11,19,28,.89) 0%,rgba(11,19,28,.65) 46%,rgba(11,19,28,.1) 100%),url('/configuracion/imagenes/externas/unsplash/photo-1436491865332-7a61a109cc05.webp') center 52%/cover}
 .vl-hero-content{padding:64px 0 38px;color:#fff}
 .vl-hero .vl-kicker{color:#ff9a73}
-.vl-hero h1{font:600 clamp(50px,6vw,73px)/1.04 Oswald,"Arial Narrow",sans-serif;letter-spacing:.005em;margin:10px 0 16px}
+.vl-hero h1{font:600 clamp(44px,5.7vw,69px)/1.04 Oswald,"Arial Narrow",sans-serif;letter-spacing:.008em;margin:8px 0 17px}
 .vl-hero h1 em{color:#ff9a73;font-style:normal}
 .vl-hero p{max-width:605px;font-size:15px;line-height:1.67;color:#f0f0f0;margin:0 0 23px}
 .vl-hero-actions{display:flex;gap:10px;flex-wrap:wrap}
 .vl-hero .vl-button.secondary{border-color:#ffffffaa;color:white!important;background:#ffffff12}
 .vl-hero .vl-button.secondary:hover{background:#ffffff27}
-.vl-tabs.tv-tabs{position:sticky;top:50px;z-index:950;height:39px;background:#fff;border-block:1px solid #e9e2db}
-.vl-tabs .vcc-nav-inner{display:flex;align-items:center;gap:38px;width:100%;height:39px;padding:0 max(24px,4vw);overflow:auto;scrollbar-width:none;white-space:nowrap}
-.vl-tabs .vcc-nav-inner::-webkit-scrollbar{display:none}
-.vl-tabs a{display:flex;align-items:center;align-self:stretch;font-size:11.5px;font-weight:800;white-space:nowrap;text-transform:uppercase;border-bottom:2px solid transparent}
-.vl-tabs a:hover,.vl-tabs a:first-child{color:#c86f5d;border-bottom-color:#c86f5d}
+/* El subheader NO duplica estilos: lo gobiernan los componentes globales
+   subheader-unificado-vcc.css y subheader-unificado-vcc.js.
+   El navegador ve una barra básica mientras se carga el componente común. */
+.vl-tabs.tv-tabs{display:flex;background:#fff;border-block:1px solid #e9e2db}
+.vl-tabs .vl-tabs-inner{display:flex;align-items:center;gap:38px;min-height:39px;padding-inline:max(24px,4vw);width:100%;white-space:nowrap;overflow-x:auto;scrollbar-width:none}
+.vl-tabs .vl-tabs-inner::-webkit-scrollbar{display:none}
+.vl-tabs a{display:inline-flex;align-items:center;flex:none;padding:10px 0;font:800 11.5px/1.15 "DM Sans",Arial,sans-serif;text-transform:uppercase;white-space:nowrap}
 .vl-stats{padding:28px 0 16px}
 .vl-stats-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));background:#fff;border:1px solid var(--vl-line);border-radius:14px;padding:13px 0;box-shadow:0 4px 22px #00000006}
 .vl-stat{display:flex;gap:13px;align-items:center;padding:12px 23px;border-right:1px solid var(--vl-line)}
