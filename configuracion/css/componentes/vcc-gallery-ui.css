@@ -313,3 +313,13 @@ html body :is(
 ){
   text-transform:none!important;
 }
+
+/* La guia "Qué ver" posa el botó dins d'un panell amb 4px/3px de
+   desplaçament intern; l'itinerari no. Compensem aquesta diferència
+   estructural per situar "← Galería" exactament al mateix píxel. */
+@media(min-width:801px){
+ html body #dayLightbox.vcc-gallery-desktop .day-lightbox-to-grid{
+  left:24px!important;
+  top:9px!important;
+ }
+}
