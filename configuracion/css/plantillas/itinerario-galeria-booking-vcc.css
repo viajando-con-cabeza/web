@@ -1,0 +1,142 @@
+/* VCC · Galeries de l'itinerari, model visual de Qué ver / Imprescindibles.
+   5 imatges visibles i 8 al visor. Només afecta l'itinerari d'Estocolm. */
+.day-gallery .day-mosaic.count-8{
+  display:grid!important;
+  grid-template-columns:2fr 1fr 1fr!important;
+  grid-template-rows:repeat(2,minmax(0,1fr))!important;
+  gap:5px!important;
+  aspect-ratio:1.32!important;
+  width:100%;height:auto;
+  border-radius:9px;overflow:hidden;
+}
+.day-gallery .day-mosaic.count-8>button{
+  display:block!important;
+  position:relative;min-width:0;min-height:0;
+  grid-column:auto;grid-row:auto;
+  padding:0;border:0;border-radius:3px;overflow:hidden;
+  cursor:pointer;background:#eeebe7;
+}
+.day-gallery .day-mosaic.count-8>button:nth-child(1){grid-column:1;grid-row:1/3}
+.day-gallery .day-mosaic.count-8>button:nth-child(2){grid-column:2;grid-row:1}
+.day-gallery .day-mosaic.count-8>button:nth-child(3){grid-column:3;grid-row:1}
+.day-gallery .day-mosaic.count-8>button:nth-child(4){grid-column:2;grid-row:2}
+.day-gallery .day-mosaic.count-8>button:nth-child(5){grid-column:3;grid-row:2}
+.day-gallery .day-mosaic.count-8>button:nth-child(n+6){display:none!important}
+.day-gallery .day-mosaic.count-8>button>img{
+  display:block;width:100%;height:100%;object-fit:cover;
+  transition:transform .25s ease;
+}
+@media(hover:hover) and (prefers-reduced-motion:no-preference){
+  .day-gallery .day-mosaic.count-8>button:hover>img{transform:scale(1.035)}
+}
+.day-gallery .day-mosaic.count-8 .more{
+  position:absolute;inset:0;z-index:2;
+  display:flex;align-items:center;justify-content:center;
+  padding:8px;background:rgba(20,20,20,.58);
+  color:#fff;font:700 clamp(13px,1.4vw,19px)/1.2 'DM Sans',sans-serif;
+  text-align:center;pointer-events:none;
+}
+.day-gallery .day-mosaic.count-8>button:focus-visible,
+.day-lightbox-grid button:focus-visible,
+.day-lightbox-to-grid:focus-visible{
+  outline:3px solid #c86f5d!important;outline-offset:-3px;
+}
+@media(max-width:800px){
+  .day-gallery .day-mosaic.count-8{
+    grid-template-columns:repeat(6,minmax(0,1fr))!important;
+    grid-template-rows:1fr .92fr!important;
+    aspect-ratio:1.35!important;gap:5px!important;
+  }
+  .day-gallery .day-mosaic.count-8>button:nth-child(1),
+  .day-gallery .day-mosaic.count-8>button:nth-child(2){
+    grid-column:span 3!important;grid-row:1!important;
+  }
+  .day-gallery .day-mosaic.count-8>button:nth-child(3),
+  .day-gallery .day-mosaic.count-8>button:nth-child(4),
+  .day-gallery .day-mosaic.count-8>button:nth-child(5){
+    grid-column:span 2!important;grid-row:2!important;
+  }
+  .day-gallery .day-mosaic.count-8 .more{
+    font-size:clamp(14px,4vw,21px);
+  }
+}
+/* Primer clic: galeria ampliada. Segon clic: fotografia individual. */
+#dayLightbox .day-lightbox-grid-view[hidden]{display:none!important}
+#dayLightbox.is-grid .day-lightbox-panel{
+  display:block!important;min-height:0;
+}
+#dayLightbox.is-grid .day-lightbox-stage,
+#dayLightbox.is-grid .day-lightbox-info{display:none!important}
+#dayLightbox:not(.is-grid) .day-lightbox-grid-view{display:none!important}
+#dayLightbox .day-lightbox-grid-view{
+  height:100%;min-height:0;box-sizing:border-box;
+  display:flex;flex-direction:column;
+  padding:24px 27px 26px;background:#fff;
+}
+#dayLightbox .day-lightbox-grid-head{
+  display:flex;align-items:center;gap:14px;flex:0 0 auto;
+  padding:0 45px 16px 0;min-height:36px;
+}
+#dayLightbox .day-lightbox-grid-back,
+#dayLightbox .day-lightbox-to-grid{
+  padding:8px 10px;background:transparent;border:0;
+  font:700 12px/1.2 'DM Sans',sans-serif;
+  color:#a65340;cursor:pointer;
+}
+#dayLightbox .day-lightbox-grid-heading{
+  font:600 clamp(19px,2vw,25px)/1.2 'Oswald',sans-serif;
+  color:#242424;margin:0;
+}
+#dayLightbox .day-lightbox-grid-count{
+  color:#6d6a68;font:500 12px 'DM Sans',sans-serif;
+  white-space:nowrap;
+}
+#dayLightbox .day-lightbox-grid{
+  display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
+  grid-auto-rows:minmax(0,1fr);gap:9px;
+  min-height:0;flex:1 1 auto;overflow:auto;
+}
+#dayLightbox .day-lightbox-grid>button{
+  position:relative;overflow:hidden;border:0;
+  padding:0;border-radius:8px;background:#efefef;
+  cursor:pointer;min-height:0;
+}
+#dayLightbox .day-lightbox-grid>button>img{
+  display:block;width:100%;height:100%;
+  min-height:0;object-fit:cover;
+}
+#dayLightbox .day-lightbox-grid>button>span{
+  position:absolute;bottom:9px;left:10px;padding:5px 8px;
+  background:rgba(0,0,0,.57);border-radius:4px;
+  color:#fff;font:600 11px 'DM Sans',sans-serif;
+}
+#dayLightbox .day-lightbox-to-grid{
+  position:absolute;top:16px;left:15px;z-index:3;
+}
+#dayLightbox .day-lightbox-grid-back{margin-left:-8px}
+@media(max-width:800px){
+  #dayLightbox .day-lightbox-grid-view{
+    padding:17px 13px 16px;
+  }
+  #dayLightbox .day-lightbox-grid-head{
+    gap:7px;padding:0 34px 12px 0;
+    align-items:center;flex-wrap:wrap;
+  }
+  #dayLightbox .day-lightbox-grid-heading{font-size:19px}
+  #dayLightbox .day-lightbox-grid-count{font-size:11px}
+  #dayLightbox .day-lightbox-grid{
+    display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
+    grid-auto-rows:minmax(145px,25vw);
+    gap:6px;overflow-y:auto;align-content:start;
+  }
+  #dayLightbox .day-lightbox-grid>button:first-child{
+    grid-column:1/-1;grid-row:auto;
+    min-height:205px;
+  }
+  #dayLightbox .day-lightbox-to-grid{
+    top:8px;left:8px;font-size:11px;
+  }
+}
+@media(prefers-reduced-motion:reduce){
+  .day-gallery .day-mosaic.count-8>button>img{transition:none}
+}
