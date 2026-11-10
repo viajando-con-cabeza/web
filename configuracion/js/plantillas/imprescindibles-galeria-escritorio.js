@@ -128,7 +128,7 @@
     activeSources = sources;
     focusedBefore = document.activeElement;
     const name = section.querySelector('.place-heading h2')?.textContent?.trim() || 'Galería';
-    const copy = section.querySelector('.place-copy > p')?.textContent?.trim() || '';
+    const copy = section.querySelector('.place-copy > .place-info-card > p, .place-copy > p')?.textContent?.trim() || '';
     const subtitle = section.querySelector('.place-copy .place-kicker')?.textContent?.trim() || name;
     heading.textContent = name;
     asideTitle.textContent = subtitle;
