@@ -1,6 +1,7 @@
 /* VCC · Cómo llegar a Estocolmo · hoja exclusiva de portada.
    La plantilla compartida como-llegar-vcc.css continúa en las 12 guías.
    Evita sobrescrituras históricas de la landing y facilita el mantenimiento. */
+html { scroll-behavior: smooth; }
 main.cl-page.cl-landing {
   --cl-ink:#26352e;
   --cl-orange:#c6683b;
@@ -323,6 +324,7 @@ main.cl-page.cl-landing {
   .cl-page.cl-landing .cl-landing-recommendation > p {font-size:12.5px}
 }
 @media(prefers-reduced-motion:reduce) {
+  html { scroll-behavior: auto; }
   .cl-page.cl-landing * {scroll-behavior:auto;animation-duration:.01ms;transition-duration:.01ms}
 }
 
