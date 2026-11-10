@@ -51,7 +51,9 @@
     }
     if (center && map && markers.has(id)) {
       const marker = markers.get(id);
-      map.flyTo(marker.getLatLng(),Math.max(map.getZoom(),14),{duration:.5});
+      const reduceMotion=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if(reduceMotion)map.setView(marker.getLatLng(),Math.max(map.getZoom(),14),{animate:false});
+      else map.flyTo(marker.getLatLng(),Math.max(map.getZoom(),14),{duration:.5});
       marker.openPopup();
     }
   }
