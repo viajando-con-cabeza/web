@@ -569,3 +569,22 @@ main.cl-page.cl-landing {
   .cl-page.cl-landing .vcc-como-llegar-subnav a {height:39px;font-size:10.5px}
   #comparar-aeropuertos, #ahorrar {scroll-margin-top:54px}
 }
+
+/* Móvil: las cinco opciones de transporte se muestran después del subheader.
+   La introducción sigue en la portada y la barra entra en el primer viewport. */
+@media(max-width:720px){
+  html body .cl-page.cl-landing .cl-landing-hero.vcc-subheader-hero.vcc-standardized-hero-height{
+    box-sizing:border-box!important;
+    height:var(--vcc-standard-hero-mobile)!important;
+    min-height:var(--vcc-standard-hero-mobile)!important;
+    max-height:var(--vcc-standard-hero-mobile)!important;
+  }
+  .cl-page.cl-landing > .cl-landing-cards.vcc-cl-mobile-cards{
+    width:100%;
+    margin:0;
+    padding:18px 15px 25px;
+    background:var(--cl-section-bg);
+  }
+  .cl-page.cl-landing .cl-landing-stage{display:block}
+  .cl-page.cl-landing .cl-landing-intro{padding-bottom:0}
+}
