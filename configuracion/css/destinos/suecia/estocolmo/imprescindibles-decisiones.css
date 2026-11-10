@@ -291,16 +291,23 @@ html body .imp-page .imp-static-map-link {
   }
 }
 
-/* VCC: PROVA REVERSIBLE MUSEO VASA · 2026-11-10
-   Número blanc i vinyeta només per al text i les dades.
-   El sobretítol Caveat i el Consejo VCC queden fora. */
-html body .imp-page .imp-main #vasa .place-number {
+
+/* Fitxes VCC definitives: mateixa composició del 02 Museo Vasa als 15 llocs.
+   Sobretítol Caveat i Consejo VCC FORA de la vinyeta de descripció i dades.
+   Manté mosaics, tipus de lletra i distribució originals. */
+html body .imp-page .imp-main .place .place-number {
+  flex:0 0 44px!important;
+  width:44px!important;
+  height:44px!important;
+  box-sizing:border-box!important;
+  border:2.3px solid #f26116!important;
+  border-radius:8px!important;
   background:#fff!important;
   color:#f26116!important;
-  border-color:#f26116!important;
+  font-size:27px!important;
   box-shadow:none!important;
 }
-html body .imp-page .imp-main #vasa .place-copy > .place-info-card {
+html body .imp-page .imp-main .place .place-copy > .place-info-card {
   display:block;
   box-sizing:border-box;
   width:100%;
@@ -311,104 +318,41 @@ html body .imp-page .imp-main #vasa .place-copy > .place-info-card {
   padding:20px 22px;
   box-shadow:0 2px 10px rgba(44,35,29,.025);
 }
-html body .imp-page .imp-main #vasa .place-info-card > p {
+html body .imp-page .imp-main .place .place-info-card > p {
   margin:0 0 19px!important;
   padding:0!important;
   color:#302e2b;
   font:400 12px/1.65 'DM Sans',sans-serif!important;
 }
-html body .imp-page .imp-main #vasa .place-info-card > .facts {
+html body .imp-page .imp-main .place .place-info-card > .facts {
   width:100%;
+  min-width:0;
   margin:0!important;
   padding:0!important;
   border:0!important;
 }
+/* Primera fitxa sense fotografies: que les dades es distribueixin dins
+   la vinyeta en comptes de sobresortir-ne en pantalles estretes. */
+html body .imp-page .imp-main #gamla-stan .place-info-card > .facts {
+  width:100%!important;
+  max-width:100%!important;
+  margin:0 auto!important;
+  flex-wrap:wrap!important;
+}
 @media(max-width:650px){
-  html body .imp-page .imp-main #vasa .place-copy > .place-info-card {
+  html body .imp-page .imp-main .place .place-number {
+    flex-basis:37px!important;
+    width:37px!important;
+    height:37px!important;
+    border-width:2px!important;
+    border-radius:7px!important;
+    font-size:22px!important;
+  }
+  html body .imp-page .imp-main .place .place-copy > .place-info-card {
     padding:17px 16px;
     border-radius:15px;
   }
-  html body .imp-page .imp-main #vasa .place-info-card > p {
+  html body .imp-page .imp-main .place .place-info-card > p {
     margin-bottom:16px!important;
-  }
-}
-
-/* VCC: PROVA INVERSA 03 DJURGÅRDEN · comparativa amb el Vasa 02.
-   Només aquest lloc: un marc blanc que abraça fotografia + informació.
-   Sobretítol manuscrit fora de la fitxa taronja; Consejo VCC a part. */
-html body .imp-page .imp-main #djurgarden > .place-presentation-card {
-  grid-column:1 / -1;
-  display:grid;
-  grid-template-columns:minmax(0,1.03fr) minmax(0,.97fr);
-  align-items:center;
-  gap:36px;
-  box-sizing:border-box;
-  width:100%;
-  min-width:0;
-  padding:24px 25px;
-  background:#fff;
-  border:1px solid rgba(44,35,29,.07);
-  border-radius:21px;
-  box-shadow:0 3px 16px rgba(44,35,29,.025);
-}
-html body .imp-page .imp-main #djurgarden .place-presentation-card > .gallery {
-  min-width:0!important;
-}
-html body .imp-page .imp-main #djurgarden .place-presentation-card > .place-copy {
-  min-width:0!important;
-  width:100%;
-  max-width:100%;
-}
-/* La descripció i els indicadors són una caixa taronja molt pàl·lida. */
-html body .imp-page .imp-main #djurgarden .place-copy > .place-info-card {
-  display:block;
-  box-sizing:border-box;
-  width:100%;
-  min-width:0;
-  padding:19px 20px;
-  background:rgba(242,97,22,.075);
-  border:1px solid rgba(242,97,22,.19);
-  border-radius:17px;
-}
-html body .imp-page .imp-main #djurgarden .place-info-card > p {
-  margin:0 0 18px!important;
-  padding:0!important;
-  color:#302e2b;
-  font:400 12px/1.65 'DM Sans',sans-serif!important;
-}
-html body .imp-page .imp-main #djurgarden .place-info-card > .facts {
-  width:100%;
-  margin:0!important;
-  padding:0!important;
-  border:0!important;
-}
-/* Consejo VCC independent, però ara amb una tonalitat taronja lleugera. */
-html body .imp-page .imp-main #djurgarden .place-copy > .advice {
-  background:rgba(242,97,22,.105)!important;
-  border-color:rgba(242,97,22,.33)!important;
-}
-@media(max-width:850px){
-  html body .imp-page .imp-main #djurgarden > .place-presentation-card {
-    grid-template-columns:1fr;
-    gap:16px;
-    padding:19px 18px;
-  }
-  html body .imp-page .imp-main #djurgarden .place-presentation-card > .gallery {
-    width:100%!important;
-    max-width:none!important;
-  }
-}
-@media(max-width:650px){
-  html body .imp-page .imp-main #djurgarden > .place-presentation-card {
-    gap:16px;
-    padding:16px 13px;
-    border-radius:17px;
-  }
-  html body .imp-page .imp-main #djurgarden .place-copy > .place-info-card {
-    padding:16px 15px;
-    border-radius:14px;
-  }
-  html body .imp-page .imp-main #djurgarden .place-info-card > p {
-    margin-bottom:15px!important;
   }
 }
