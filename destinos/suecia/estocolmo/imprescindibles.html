@@ -476,7 +476,7 @@ document.addEventListener('keydown',e=>{
 const prev=document.getElementById('navPrev'),next=document.getElementById('navNext');const update=()=>{prev.disabled=nav.scrollLeft<5;next.disabled=nav.scrollLeft+nav.clientWidth>=nav.scrollWidth-5};prev.onclick=()=>nav.scrollBy({left:-Math.max(nav.clientWidth*.7,280),behavior:'smooth'});next.onclick=()=>nav.scrollBy({left:Math.max(nav.clientWidth*.7,280),behavior:'smooth'});nav.addEventListener('scroll',update,{passive:true});window.addEventListener('resize',update);update();
 /* Galeries construïdes pel JS com a mosaics CSS; cap etiqueta img remota inicial. */
 </script>
-<script src="/configuracion/js/plantillas/imprescindibles-interactions.js?v=20261110-scrollspy-unified" defer></script>
+<script src="/configuracion/js/plantillas/imprescindibles-interactions.js?v=20261110-seo-images-and-scrollspy" defer></script>
 <script src="/configuracion/js/plantillas/imprescindibles-bloqueo-scroll.js?v=20261107-isolated-gallery-scroll-v38" defer></script>
 <script src="/configuracion/js/plantillas/imprescindibles-galeria-movil.js?v=20261109-ferry-year-repair" defer></script>
 <script src="/configuracion/js/plantillas/imprescindibles-galeria-escritorio.js?v=20261109-mac-trackpad-fourway" defer></script>
