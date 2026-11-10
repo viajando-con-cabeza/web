@@ -19,83 +19,23 @@
 <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=DM+Sans:wght@400;500;600;700;800&family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/configuracion/css/paginas.css"><link rel="stylesheet" href="/configuracion/css/overrides.css">
 <link rel="stylesheet" href="/configuracion/css/destinos/suecia/estocolmo/cuando-ir-vcc.css?v=20261110-anclas-tecnicas-v5">
+<link rel="stylesheet" href="/configuracion/css/componentes/vcc-hero-editorial-vcc.css?v=20261110-clean1">
 <link rel="stylesheet" href="/configuracion/css/componentes/galeria-vcc-cuando-ir.css?v=20261110-v1">
 <link rel="stylesheet" href="/configuracion/css/plantillas/imprescindibles-galeria-movil.css?v=20261106-higher-crop-v11">
 <link rel="stylesheet" href="/configuracion/css/plantillas/imprescindibles-galeria-escritorio.css?v=20261107-hover-bounded-v55">
-<style id="ci-mobile-hero-definitive">
-/* Mobile: same compact overlapping photographic hero as Itinerarios.
-   The personal travel-month chip stays on desktop only. */
-html body.ci-page section.ci-hero > img.ci-hero-photo{display:none}
-html body.ci-page .ci-visit-mobile-note{display:none}
-@media(max-width:600px){
- html body.ci-page section.ci-hero{
-  position:relative!important;isolation:isolate!important;
-  display:flex!important;align-items:flex-start!important;
-  height:auto!important;min-height:420px!important;
-  overflow:hidden!important;background:#e9dfd4!important;
- }
- html body.ci-page section.ci-hero::before,
- html body.ci-page section.ci-hero::after{
-  content:none!important;display:none!important;
- }
- html body.ci-page section.ci-hero > img.ci-hero-photo{
-  display:block!important;position:absolute!important;inset:0!important;
-  width:100%!important;height:100%!important;
-  object-fit:cover!important;object-position:65% center!important;
-  z-index:0!important;opacity:1!important;
- }
- html body.ci-page section.ci-hero > .ci-hero-shade{
-  display:block!important;position:absolute!important;inset:0!important;
-  z-index:1!important;pointer-events:none!important;
-  background:linear-gradient(90deg,
-   rgba(250,246,241,.96) 0%,
-   rgba(250,246,241,.90) 48%,
-   rgba(250,246,241,.60) 100%)!important;
- }
- html body.ci-page section.ci-hero > .ci-hero-inner{
-  position:relative!important;z-index:2!important;
-  display:block!important;width:calc(100% - 30px)!important;
-  max-width:1180px!important;height:auto!important;min-height:420px!important;
-  margin:0 auto!important;padding:0 0 32px!important;
-  background:transparent!important;
- }
- html body.ci-page section.ci-hero .ci-hero-copy{
-  position:relative!important;width:100%!important;max-width:100%!important;
-  padding:51px 0 0!important;margin:0!important;
-  background:transparent!important;
- }
- html body.ci-page section.ci-hero nav.ci-crumb{
-  position:absolute!important;top:13px!important;left:0!important;
-  z-index:3!important;width:100%!important;
- }
- html body.ci-page section.ci-hero .ci-kicker{
-  font-size:24px!important;line-height:1.1!important;
- }
- html body.ci-page section.ci-hero h1{
-  font-size:clamp(35px,9vw,44px)!important;
-  line-height:1.08!important;margin:13px 0!important;
- }
- html body.ci-page section.ci-hero .ci-hero-line{
-  margin:14px 0 18px!important;
- }
- html body.ci-page section.ci-hero .ci-hero-copy p{
-  max-width:410px!important;font-size:14px!important;line-height:1.65!important;
- }
- html body.ci-page section.ci-hero .ci-visit-chip{display:none!important}
- html body.ci-page .ci-visit-mobile-note{
-  display:block!important;
-  margin:0 auto 18px!important;
-  text-align:center!important;
-  color:#95563d!important;
-  font:700 11px/1.5 'DM Sans',sans-serif!important;
-  letter-spacing:.04em!important;
- }
-}
-</style><link rel="stylesheet" href="/configuracion/css/componentes/guias-relacionadas-vcc.css?v=20261105-compact2"><link rel="stylesheet" href="/configuracion/css/componentes/estocolmo-guias-final-vcc.css?v=20261107-v1"></head><body class="ci-page"><header class="page-header"></header>
-<section class="ci-hero"><img class="ci-hero-photo" src="/configuracion/imagenes/fondos/fondos-cuando-ir.webp" alt="" aria-hidden="true" fetchpriority="high" decoding="async"><div class="ci-hero-shade"></div><div class="ci-wrap ci-hero-inner">
-<nav class="ci-crumb vcc-crumb" aria-label="Ruta de navegación"><a href="/">Inicio</a><span>›</span><a href="/destinos/">Destinos</a><span>›</span><a href="/destinos/suecia/">Suecia</a><span>›</span><a href="/destinos/suecia/estocolmo/">Estocolmo</a><span>›</span><strong>Cuándo ir</strong></nav>
-<div class="ci-hero-copy"><span class="ci-kicker">El momento perfecto para tu viaje</span><h1>CUÁNDO IR A<br>ESTOCOLMO</h1><div class="ci-hero-line"></div><p>Elige la mejor época para descubrir Estocolmo según el clima, tu presupuesto y las experiencias que quieres vivir.</p><div class="ci-visit-chip"><span aria-hidden="true">✈</span> NOSOTROS VIAJAMOS EN <strong>AGOSTO</strong></div></div>
-</div></section>
+<link rel="stylesheet" href="/configuracion/css/componentes/guias-relacionadas-vcc.css?v=20261105-compact2"><link rel="stylesheet" href="/configuracion/css/componentes/estocolmo-guias-final-vcc.css?v=20261107-v1"></head><body class="ci-page"><header class="page-header"></header>
+<section class="vcc-hero" style="--vcc-hero-image:url('/configuracion/imagenes/fondos/fondos-cuando-ir.webp')" aria-labelledby="ci-hero-title">
+  <div class="vcc-hero-inner">
+    <nav class="vcc-crumb" aria-label="Ruta de navegación"><a href="/">Inicio</a><span>›</span><a href="/destinos/">Destinos</a><span>›</span><a href="/destinos/suecia/">Suecia</a><span>›</span><a href="/destinos/suecia/estocolmo/">Estocolmo</a><span>›</span><strong>Cuándo ir</strong></nav>
+    <div class="vcc-hero-card">
+      <div class="vcc-eyebrow">SUECIA · ESTOCOLMO</div>
+      <h1 id="ci-hero-title">CUÁNDO IR A<br>ESTOCOLMO</h1>
+      <p class="script">El momento perfecto para tu viaje</p>
+      <p>Elige la mejor época para descubrir Estocolmo según el clima, tu presupuesto y las experiencias que quieres vivir.</p>
+      <div class="ci-visit-chip"><span aria-hidden="true">✈</span> NOSOTROS VIAJAMOS EN <strong>AGOSTO</strong></div>
+    </div>
+  </div>
+</section>
 <nav class="st-tabs ci-subnav" aria-label="Secciones de Cuándo ir"><a href="#consejo" class="is-active" aria-current="location">MEJOR ÉPOCA</a><a href="#mes-a-mes">MES A MES</a><a href="#experiencia">NUESTRA EXPERIENCIA</a><a href="#errores">ERRORES A EVITAR</a></nav>
 <main class="ci-wrap ci-main">
 
