@@ -1,5 +1,16 @@
 (() => {
 'use strict';
+// Els derivats R2 són miniatures; l'original sempre és el recanvi segur.
+const fallbackPreview=(img,full)=>{
+ if(!img||!full)return;
+ img.addEventListener('error',()=>{if(img.dataset.fullFallback)return;img.dataset.fullFallback='1';img.src=full;},{once:true});
+};
+document.querySelectorAll('.day-mosaic button[data-photo]').forEach(button=>{
+ fallbackPreview(button.querySelector('img'),button.dataset.photo);
+});
+document.querySelectorAll('.overview-card img').forEach(img=>{
+ fallbackPreview(img,img.src.replace('/__vcc_preview/mini/','/'));
+});
 const overview=document.querySelector('.overview-list');
 if(overview && overview.querySelectorAll('.overview-card').length > 3){
  const cards=[...overview.querySelectorAll('.overview-card')];
@@ -45,7 +56,7 @@ const renderPhoto=()=>{
   button.className=index===currentIndex?'active':'';
   button.setAttribute('aria-label','Ver foto '+(index+1)+' de '+currentImages.length);
   const thumb=document.createElement('img');
-  thumb.src=photo.src;thumb.alt='';
+  thumb.src=photo.preview||photo.src;thumb.alt='';fallbackPreview(thumb,photo.src);
   thumb.loading='lazy';thumb.decoding='async';
   button.append(thumb);
   button.addEventListener('click',()=>{currentIndex=index;renderPhoto()});
@@ -61,7 +72,7 @@ const renderGrid=()=>{
   button.type='button';
   button.setAttribute('aria-label','Abrir foto '+(index+1)+' de '+currentImages.length);
   const picture=document.createElement('img');
-  picture.src=photo.src;picture.alt=photo.alt;
+  picture.src=photo.preview||photo.src;picture.alt=photo.alt;fallbackPreview(picture,photo.src);
   picture.loading='lazy';picture.decoding='async';
   const count=document.createElement('span');
   count.textContent=(index+1)+' / '+currentImages.length;
@@ -92,6 +103,7 @@ const openGallery=(gallery,button)=>{
  const images=[...gallery.querySelectorAll('button[data-photo]')];
  currentImages=images.map((b,index)=>({
   src:b.dataset.photo,
+  preview:b.querySelector('img')?.src||b.dataset.photo,
   alt:b.querySelector('img')?.alt||b.dataset.alt||gallery.dataset.title||('Foto '+(index+1))
  }));
  if(!currentImages.length)return;
