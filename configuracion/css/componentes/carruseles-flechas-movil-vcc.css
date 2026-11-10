@@ -1,0 +1,129 @@
+/* VCC · Controls de carrusels en mòbil
+ * Un sol criteri reutilitzable: dues fletxes a l'extrem superior dret,
+ * carrusel a amplada completa i una targeta visible.
+ * No altera els estils d'escriptori. */
+@media (max-width:760px) {
+  /* Pressupost Estocolm · Cómo ahorrar + Gastos sorpresa.
+     Els !important anul·len regles heretades de l'antiga plantilla. */
+  html body.budget-vcc .savings-section .carousel-shell,
+  html body.budget-vcc .surprise-section .carousel-shell {
+    display:block!important;position:relative!important;
+    grid-template-columns:none!important;
+    width:100%;min-width:0;padding:46px 0 0!important;
+    gap:0!important;
+  }
+  html body.budget-vcc .savings-section .carousel-shell > .tips-track,
+  html body.budget-vcc .surprise-section .carousel-shell > .tips-track {
+    display:flex!important;width:100%!important;min-width:0!important;
+    grid-column:auto!important;
+  }
+  html body.budget-vcc .savings-section .saving-tip,
+  html body.budget-vcc .surprise-section .surprise-grid.tips-track article {
+    flex:0 0 100%!important;min-width:0!important;
+    box-sizing:border-box!important;
+  }
+  html body.budget-vcc .savings-section .carousel-shell > .carousel-arrow,
+  html body.budget-vcc .surprise-section .carousel-shell > .carousel-arrow {
+    display:grid!important;place-items:center!important;
+    position:absolute!important;top:0!important;
+    bottom:auto!important;left:auto!important;
+    transform:none!important;margin:0!important;
+    width:35px!important;height:35px!important;
+    z-index:2!important;
+  }
+  html body.budget-vcc .savings-section .carousel-shell > .carousel-arrow.prev,
+  html body.budget-vcc .surprise-section .carousel-shell > .carousel-arrow.prev {right:43px!important}
+  html body.budget-vcc .savings-section .carousel-shell > .carousel-arrow.next,
+  html body.budget-vcc .surprise-section .carousel-shell > .carousel-arrow.next {right:0!important}
+
+  /* Pressupost · selector de perfils (el carrusel de dies ja té controls propis). */
+  html body.budget-vcc #filosofia .vcc-budget-mode-carousel {
+    position:relative!important;padding-top:44px!important;
+  }
+  html body.budget-vcc #filosofia .vcc-budget-mode-arrow {
+    top:0!important;bottom:auto!important;left:auto!important;
+    transform:none!important;width:35px!important;height:35px!important;
+  }
+  html body.budget-vcc #filosofia .vcc-budget-mode-arrow.previous{right:43px!important}
+  html body.budget-vcc #filosofia .vcc-budget-mode-arrow.next{right:0!important}
+  html body.budget-vcc #filosofia .vcc-budget-mode-card{flex:0 0 100%!important}
+
+  /* Cómo moverse · transportes y tarjetas de consejos. */
+  body.mv-body .mv-transport-shell,
+  body.mv-body .mv-carousel-shell {
+    position:relative;padding:46px 0 0;min-width:0;width:100%;
+  }
+  body.mv-body .mv-transport-arrow,
+  body.mv-body .mv-carousel-arrow {
+    top:0;bottom:auto;left:auto;transform:none;
+    right:0;width:35px;height:35px;
+  }
+  body.mv-body .mv-transport-prev,
+  body.mv-body .mv-prev {right:43px;left:auto}
+  body.mv-body .mv-transport-next,
+  body.mv-body .mv-next {right:0;left:auto}
+  body.mv-body .mv-grid > .mv-card,
+  body.mv-body .mv-saving-card{flex-basis:100%}
+
+  /* Entradas y pases · consejos y tarjetas de los días. */
+  .ep-page .ep3-saving-stage {
+    display:block;position:relative;grid-template-columns:none;
+    padding:46px 0 0;min-width:0;
+  }
+  .ep-page .ep3-saving-stage > .ep3-saving-track {
+    display:flex;width:100%;min-width:0;grid-column:auto;grid-row:auto;
+  }
+  .ep-page .ep3-saving-stage > .ep3-saving-arrow {
+    position:absolute;top:0;bottom:auto;left:auto;right:0;
+    width:35px;height:35px;grid-column:auto;grid-row:auto;
+  }
+  .ep-page .ep3-saving-stage > .ep3-saving-prev {right:43px;left:auto}
+  .ep-page .ep3-saving-stage > .ep3-saving-next {right:0;left:auto}
+  .ep-page .ep3-saving-track > .ep3-saving-card{flex:0 0 100%;min-width:0}
+
+  .ep-page .ep4-our-stage:not(.ep4-our-no-overflow){padding:46px 0 0!important}
+  .ep-page .ep4-our-stage:not(.ep4-our-no-overflow) > .ep4-our-arrow {
+    position:absolute!important;top:0!important;bottom:auto!important;
+    transform:none!important;width:35px!important;height:35px!important;
+    left:auto!important;
+  }
+  .ep-page .ep4-our-stage:not(.ep4-our-no-overflow) > .ep4-our-arrow-prev {
+    left:auto!important;right:43px!important;
+  }
+  .ep-page .ep4-our-stage:not(.ep4-our-no-overflow) > .ep4-our-arrow-next {
+    left:auto!important;right:0!important;
+  }
+
+  /* Planifica · tarjetas de viaje. */
+  .tv-page .tv-carousel-shell {
+    display:block;position:relative;grid-template-columns:none;
+    width:100%;min-width:0;padding-top:46px;
+  }
+  .tv-page .tv-carousel-shell > .tv-carousel-arrow {
+    position:absolute;top:0;bottom:auto;
+    width:35px;height:35px;
+  }
+  .tv-page .tv-carousel-shell > [data-tv-prev]{right:43px;left:auto}
+  .tv-page .tv-carousel-shell > [data-tv-next]{right:0;left:auto}
+  .tv-page .tv-carousel {width:100%;grid-auto-columns:100%}
+
+  /* Planifica · plataformas de alojamiento. */
+  .al-page .al-carousel{position:relative;padding-top:46px}
+  .al-page .al-carousel > .al-carousel-arrow{
+    position:absolute;top:0;bottom:auto;left:auto;
+    transform:none;width:35px;height:35px;
+  }
+  .al-page .al-carousel > .al-carousel-prev{right:43px;left:auto}
+  .al-page .al-carousel > .al-carousel-next{right:0;left:auto}
+  .al-page .al-carousel .al-track{width:100%;grid-auto-columns:100%}
+
+  /* Planifica · vuelos: conserva el patrón aprobado en el carrusel de ahorro. */
+  .vl-page .vl-tips-carousel{padding:46px 0 0}
+  .vl-page .vl-tips-carousel > .vl-tip-arrow{
+    position:absolute;top:0;bottom:auto;left:auto;
+    transform:none;width:35px;height:35px;
+  }
+  .vl-page .vl-tips-carousel > .vl-tip-prev{right:43px;left:auto}
+  .vl-page .vl-tips-carousel > .vl-tip-next{right:0;left:auto}
+  .vl-page .vl-tip-track > .vl-tip{flex-basis:100%}
+}
