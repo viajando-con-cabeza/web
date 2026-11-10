@@ -8,7 +8,13 @@ const labels=Object.freeze({
 function decorate(root=document){
  for(const el of root.querySelectorAll('.vcc-dg-photo-back, .day-lightbox-to-grid')){
   el.classList.add('vcc-gallery-ui-back');
-  el.textContent=labels.backToGallery;
+  if(el.matches('.day-lightbox-to-grid')){
+   const label=document.createElement('span');
+   label.textContent=labels.backToGallery.replace(/^←\\s*/, '');
+   el.replaceChildren(document.createTextNode('← '),label);
+  }else{
+   el.textContent=labels.backToGallery;
+  }
  }
 }
 window.VCCGalleryUI=Object.freeze({labels,decorate});
