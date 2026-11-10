@@ -40,6 +40,16 @@ El subheader activa la fixació amb `data-vcc-sticky-mobile`. La seva lògica ja
 
 Les imatges dels mosaics són miniatures `loading="lazy" decoding="async"`. El My Maps també porta `loading="lazy"`. La portada és la única imatge explícitament precoç amb `fetchpriority="high"`.
 
+## Última passada de manteniment i estabilitat
+
+- Les **27 miniatures de R2** tenen les dimensions exactes del fitxer servit pel Worker (`width` i `height`), mesurades al navegador. Les 31 imatges estàtiques de l'HTML declaren dimensions; això ajuda a reservar l'espai i a reduir possibles salts en càrrega.
+- Les fotografies miniatura es mantenen amb `loading="lazy"` i `decoding="async"`; les mides provenen de la versió **mini**, no necessàriament de la fotografia original. En canviar una fotografia, tornar a mesurar les dimensions reals del derivat.
+- El visor compartit reutilitza els **mateixos elements de miniatura** en passar entre fotografies. Només reconstrueix la llista en canviar de galeria; en tancar-la, n'allibera els nodes.
+- Prova local sense dependències: `node configuracion/tests/itinerario-integridad.cjs`. Verifica els 3 dies, 16 parades, 24 fotografies, 3 Consejo VCC, canonical, sitemap, JSON-LD, mapes, dimensions de les imatges i enllaços als components.
+- Workflow de la branca `quality`: `.github/workflows/vcc-itinerario-quality.yml`. Executa les mateixes proves automàticament quan canvien els fitxers relacionats.
+
+Aquestes comprovacions **no substitueixen** la comparació en navegador ni Lighthouse: el CSS manté regles històriques necessàries perquè no variïn hero, subheader, mosaics i responsive.
+
 ## Checklist abans de publicar
 
 - Comparar hero, subheader, resum, targetes, tres dies, Consejo VCC i footer en 390px i 1280px.
