@@ -96,3 +96,43 @@
   margin-right:0;
 }
 .al-page .al-guide .al-guide-panel{margin-top:0}
+
+
+/* Encabezados editoriales de secciones: misma jerarquía que Guías de viaje (Suecia).
+   Sobretítulo manuscrito Caveat, título Oswald; mantienen descripción debajo. */
+.al-page :is(.al-catalog,.al-guide) .al-heading .al-eyebrow{
+  display:block;
+  width:max-content;
+  max-width:100%;
+  font-family:"Caveat",cursive;
+  font-size:25px;
+  font-weight:600;
+  line-height:1;
+  letter-spacing:0;
+  text-transform:none;
+  color:#c86f5d;
+  margin:0;
+}
+.al-page :is(.al-catalog,.al-guide) .al-heading .al-title{
+  font-family:"Oswald","Arial Narrow",sans-serif;
+  font-size:40px;
+  font-weight:500;
+  line-height:1;
+  letter-spacing:0;
+  text-transform:uppercase;
+  color:var(--al-ink);
+  margin:3px 0 12px;
+}
+.al-page :is(.al-catalog,.al-guide) .al-heading p{
+  font-family:"DM Sans",sans-serif;
+  font-size:13px;
+  line-height:1.5;
+  font-weight:400;
+  margin:0;
+  max-width:810px;
+}
+@media(max-width:720px){
+  .al-page :is(.al-catalog,.al-guide) .al-heading .al-eyebrow{font-size:22px}
+  .al-page :is(.al-catalog,.al-guide) .al-heading .al-title{font-size:32px}
+  .al-page :is(.al-catalog,.al-guide) .al-heading p{font-size:12px}
+}
