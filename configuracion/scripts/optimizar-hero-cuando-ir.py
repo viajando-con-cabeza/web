@@ -16,7 +16,7 @@ with Image.open(SOURCE) as original:
     picture = ImageOps.exif_transpose(original).convert("RGB")
     size = picture.size
     options = []
-    for max_width in (1400, 1200, 1000):
+    for max_width in (2000, 1800, 1600):
         scale = min(1, max_width / picture.width)
         resized = picture.resize(
             (round(picture.width * scale), round(picture.height * scale)),
@@ -26,12 +26,12 @@ with Image.open(SOURCE) as original:
             out = BytesIO()
             resized.save(out, "WEBP", quality=quality, method=6)
             options.append((len(out.getvalue()), resized.size, quality, out.getvalue()))
-            if out.tell() <= 130_000:
+            if out.tell() <= 185_000:
                 break
-        if options[-1][0] <= 130_000:
+        if options[-1][0] <= 185_000:
             break
 
-    candidates = [x for x in options if x[0] <= 130_000]
+    candidates = [x for x in options if x[0] <= 185_000]
     best = candidates[0] if candidates else min(options, key=lambda x: x[0])
     TARGET.write_bytes(best[3])
     print(f"Mobile hero created: {TARGET.relative_to(ROOT)}")
