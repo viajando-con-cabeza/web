@@ -324,36 +324,39 @@ html body :is(
  }
 }
 
-/* Paritat de capçaleres mosaic / foto: alçada i línia horitzontal fixes.
-   El títol, retorn i tancament no desplacen la barra en canviar de vista. */
+/* Una sola capçalera per als dos estats del visor d'itineraris.
+   Línia a 58px, controls alineats en X/Y, cap text duplicat. */
 @media(min-width:801px){
  html body #dayLightbox.vcc-gallery-desktop .day-lightbox-photo-view:not([hidden]){
-  grid-template-rows:64px minmax(0,1fr) 30px 80px!important;
+  grid-template-rows:58px minmax(0,1fr) 30px 80px!important;
+ }
+ html body #dayLightbox.vcc-gallery-desktop .day-lightbox-grid-view:not([hidden]) .day-lightbox-grid-head{
+  flex:0 0 58px!important;
  }
  html body #dayLightbox.vcc-gallery-desktop :is(.day-lightbox-grid-head,.day-lightbox-photo-head){
-  height:64px!important;
-  min-height:64px!important;
-  max-height:64px!important;
-  padding:8px 24px!important;
+  height:58px!important;min-height:58px!important;max-height:58px!important;
+  padding:5px 24px!important;
   border-bottom:1px solid var(--vcc-gallery-ui-divider)!important;
  }
- /* La mateixa fletxa i separació del text que al botó del mosaic. */
- html body #dayLightbox.vcc-gallery-desktop .day-lightbox-to-grid{
-  top:16px!important;
-  left:24px!important;
-  height:32px!important;
-  display:inline-flex!important;
-  align-items:center!important;
+ html body #dayLightbox.vcc-gallery-desktop .day-lightbox-grid-back{
+  justify-self:start!important;
   justify-content:flex-start!important;
-  gap:10px!important;
-  font-size:0!important;
+  padding:0!important;
+  height:38px!important;
+  line-height:1!important;
  }
- html body #dayLightbox.vcc-gallery-desktop .day-lightbox-to-grid::before{
-  content:'←';
-  font:400 24px/1 var(--vcc-gallery-ui-font);
+ html body #dayLightbox.vcc-gallery-desktop .day-lightbox-to-grid{
+  left:24px!important;top:10px!important;
+  height:38px!important;
+  padding:0!important;
+  display:inline-flex!important;align-items:center!important;
+  justify-content:flex-start!important;
+  font:400 13px/1.3 var(--vcc-gallery-ui-font)!important;
+  text-transform:none!important;
  }
+ /* Retorn original escrit una sola vegada al DOM (← Galería). */
+ html body #dayLightbox.vcc-gallery-desktop .day-lightbox-to-grid::before,
  html body #dayLightbox.vcc-gallery-desktop .day-lightbox-to-grid::after{
-  content:'Galería';
-  font:400 13px/1.3 var(--vcc-gallery-ui-font);
+  content:none!important;
  }
 }
