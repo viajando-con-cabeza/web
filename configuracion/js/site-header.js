@@ -6,7 +6,7 @@
   // Subheader editorial único en todas las páginas que lo incluyen (sin alterar el menú principal).
   const subheaderCss=document.createElement('link');
   subheaderCss.rel='stylesheet';
-  subheaderCss.href=url('configuracion/css/componentes/subheader-unificado-vcc.css?v=20261108-hero-v2');
+  subheaderCss.href=url('configuracion/css/componentes/subheader-unificado-vcc.css?v=20261110-audit3');
   subheaderCss.dataset.vccSharedSubheader='true';
   document.head.appendChild(subheaderCss);
   const subheaderJs=document.createElement('script');
