@@ -94,7 +94,6 @@ html body.budget-vcc .vcc-budget-excel-action svg{width:15px;height:15px;stroke:
  html body.budget-vcc #filosofia .vcc-budget-mode-card{flex:0 0 min(78vw,270px);scroll-snap-align:start;min-height:154px}
  html body.budget-vcc #filosofia .vcc-budget-mode-arrow{display:block}
  html body.budget-vcc #filosofia .vcc-budget-panel{padding:15px 12px}
- html body.budget-vcc #filosofia .vcc-budget-panel-heading h3{font-size:24px!important}
  html body.budget-vcc #filosofia .vcc-budget-panel-grid{grid-template-columns:1fr}
  html body.budget-vcc #filosofia .vcc-budget-panel-column+.vcc-budget-panel-column{grid-column:auto;border-left:0;border-top:1px solid #eee3d8;padding:15px 0 0}
  html body.budget-vcc #filosofia .vcc-budget-panel-mark{width:44px;height:44px;flex-basis:44px}
@@ -153,7 +152,6 @@ html body.budget-vcc #filosofia .vcc-budget-day-expenses li strong{
   font:700 10px/1.4 'DM Sans',sans-serif;color:#a5503b;white-space:nowrap
 }
 @media(max-width:750px){
- html body.budget-vcc #filosofia .philosophy-poster-copy p{font-size:11px!important}
  html body.budget-vcc #filosofia .vcc-budget-day-expenses li{
   grid-template-columns:minmax(65px,.8fr) minmax(0,1.2fr) auto;
   gap:5px
@@ -180,10 +178,6 @@ html body.budget-vcc #filosofia .vcc-budget-pending.vcc-budget-real{
 }
 html body.budget-vcc #filosofia .vcc-budget-pending.vcc-budget-real strong{
   color:#a84e37;font-size:10.5px;letter-spacing:.02em;
-}
-/* Evitar que la nota metodológica desaparezca a tamaño móvil. */
-html body.budget-vcc .st-shell .calculator-card .budget-assumptions{
-  font-size:11.5px!important;line-height:1.65!important;
 }
 @media(max-width:750px){
   html body.budget-vcc #filosofia .vcc-budget-quick-answer{
@@ -254,9 +248,6 @@ html body.budget-vcc .st-shell .calculator-card .budget-assumptions{
   }
   html body.budget-vcc .st-shell .calculator-card .vcc-price-block small{
     font-size:10px!important;
-  }
-  html body.budget-vcc .st-shell .calculator-card .budget-assumptions{
-    font-size:11.5px!important;
   }
   html body.budget-vcc .vcc-budget-excel-row p,
   html body.budget-vcc .vcc-budget-excel-action{
@@ -371,9 +362,6 @@ html body.budget-vcc #filosofia .vcc-daily-track .vcc-budget-day-head{
 html body.budget-vcc #filosofia .vcc-daily-track .vcc-budget-day-expenses{
  padding-top:9px!important;
 }
-html body.budget-vcc #filosofia .vcc-budget-daily-column>.vcc-budget-side-copy{
- margin:13px 0 0!important;
-}
 @media(max-width:1100px) and (min-width:751px){
  html body.budget-vcc #filosofia .vcc-budget-panel-grid{max-height:670px}
 }
@@ -461,13 +449,6 @@ html body.budget-vcc #filosofia .vcc-daily-track .vcc-budget-day-head{
   display:flex;align-items:center;justify-content:space-between;
   background:transparent;padding:3px 3px 10px;
   border-bottom:1px solid #f1e0d4;border-radius:0;
-}
-html body.budget-vcc #filosofia .vcc-day-head-copy{
-  display:flex;flex-direction:column;gap:2px;min-width:0;
-}
-html body.budget-vcc #filosofia .vcc-day-eyebrow{
-  font:700 19px/1.1 'Caveat',cursive;
-  color:#bb6146;letter-spacing:.01em;
 }
 html body.budget-vcc #filosofia .vcc-day-place{
   font:500 16px/1.2 'Oswald',sans-serif;
@@ -557,8 +538,6 @@ html body.budget-vcc #filosofia .vcc-budget-daily-column>.vcc-budget-side-copy{
    font-size:12px;line-height:1.5;
  }
  html body.budget-vcc #filosofia .vcc-day-place{font-size:17px}
- html body.budget-vcc #filosofia .vcc-day-eyebrow{font-size:20px}
- html body.budget-vcc #filosofia .vcc-day-price{font-size:18px!important}
  html body.budget-vcc #filosofia .vcc-budget-daily-column>.vcc-budget-side-copy{
    font-size:12px!important;
  }
@@ -679,29 +658,7 @@ html body.budget-vcc #filosofia .vcc-budget-trust-grid p{
    font-size:11px;
  }
 }
-
-/* Fuente compacta de tarifas 2026: bajo el bloque de confianza, sin nueva tarjeta. */
-html body.budget-vcc #filosofia .vcc-budget-price-note{
-  margin:9px 2px 0;
-  padding:0;
-  color:#766960;
-  font:400 10.5px/1.55 'DM Sans',sans-serif;
-}
-html body.budget-vcc #filosofia .vcc-budget-price-note strong{
-  font-weight:700;color:#675a51;
-}
-html body.budget-vcc #filosofia .vcc-budget-price-note span{
-  display:block;margin-top:3px;
-}
-html body.budget-vcc #filosofia .vcc-budget-price-note a{
-  color:#a9533e;text-decoration:underline;text-underline-offset:2px;
-}
-html body.budget-vcc #filosofia .vcc-budget-price-note a:hover{color:#743f2e}
 @media(max-width:750px){
-  html body.budget-vcc #filosofia .vcc-budget-price-note{
-    font-size:11px;line-height:1.6;
-    margin:11px 2px 0;
-  }
 }
 
 /* VCC · 2026-11-09 · Presupuestos sin desplazamiento vertical interno.
@@ -776,9 +733,6 @@ html body.budget-vcc #filosofia .vcc-budget-side-copy{
   line-height:1.53;
 }
 @media(max-width:750px){
-  html body.budget-vcc #filosofia .vcc-budget-total .vcc-budget-total-person{
-    font-size:36px!important;
-  }
   html body.budget-vcc #filosofia .vcc-budget-breakdown-row p{
     font-size:12px!important;
     line-height:1.5!important;
@@ -787,25 +741,10 @@ html body.budget-vcc #filosofia .vcc-budget-side-copy{
     font-size:20px!important;
   }
 }
-
-/* VCC Quality · 2026-11-09 · Totales más discretos y diarios gris perla. */
-/* Resumen por persona: menos alto, tono más neutro, cifra principal algo más oscura. */
-html body.budget-vcc #filosofia .vcc-budget-total{
-  background:rgba(235,232,228,.26)!important;
-  border:1px solid rgba(204,195,189,.52)!important;
-  padding:9px 12px!important;
-  margin-bottom:9px!important;
-  border-radius:9px!important;
-}
 html body.budget-vcc #filosofia .vcc-budget-total .vcc-budget-label{
   font-size:9px!important;
   letter-spacing:.035em!important;
   color:#946956!important;
-}
-html body.budget-vcc #filosofia .vcc-budget-total .vcc-budget-total-person{
-  font:600 31px/1 'Oswald',sans-serif!important;
-  color:#a1503d!important;
-  margin:2px 0 7px!important;
 }
 html body.budget-vcc #filosofia .vcc-budget-total-meta{
   padding-top:6px!important;
@@ -817,44 +756,13 @@ html body.budget-vcc #filosofia .vcc-budget-total-meta b{
   font-size:18px!important;
   color:#413831!important;
 }
-html body.budget-vcc #filosofia .vcc-budget-total small{
-  font-size:10px!important;
-  line-height:1.3!important;
-}
-/* Diarios: gris ligeramente translúcido, manteniendo legibilidad y separación. */
-html body.budget-vcc #filosofia .vcc-daily-track{
-  background:rgba(234,232,230,.46)!important;
-  border-color:rgba(199,192,185,.53)!important;
-}
 html body.budget-vcc #filosofia .vcc-daily-track .vcc-budget-day{
   background:transparent!important;
-}
-html body.budget-vcc #filosofia .vcc-daily-track .vcc-budget-day-expenses li{
-  background:rgba(255,255,255,.74)!important;
-  border-color:rgba(207,199,192,.55)!important;
 }
 html body.budget-vcc #filosofia .vcc-daily-track .vcc-budget-day-head{
   border-color:rgba(194,183,174,.43)!important;
 }
-/* Sobretítulo DÍA 1, DÍA 2… de tamaño visual comparable al nombre de la ruta. */
-html body.budget-vcc #filosofia .vcc-day-eyebrow{
-  font:700 26px/1 'Caveat',cursive!important;
-  color:#aa5944!important;
-  letter-spacing:.005em!important;
-}
-html body.budget-vcc #filosofia .vcc-day-head-copy{
-  gap:2px!important;
-}
 @media(max-width:750px){
-  html body.budget-vcc #filosofia .vcc-budget-total{
-    padding:10px 12px!important;
-  }
-  html body.budget-vcc #filosofia .vcc-budget-total .vcc-budget-total-person{
-    font-size:32px!important;
-  }
-  html body.budget-vcc #filosofia .vcc-day-eyebrow{
-    font-size:27px!important;
-  }
 }
 
 /* VCC · 2026-11-09 · Final: diario por persona y cabeceras ligeras. */
@@ -891,38 +799,9 @@ html body.budget-vcc #filosofia .vcc-budget-panel-grid{
   max-height:none!important;
   overflow:visible!important;
 }
-/* Total izquierdo: naranja VCC ligero, sin negrita en los euros. */
-html body.budget-vcc #filosofia .vcc-budget-total{
-  background:rgba(239,136,81,.12)!important;
-  border:1px solid rgba(212,144,111,.33)!important;
-  padding:9px 12px!important;
-  border-radius:9px!important;
-}
-html body.budget-vcc #filosofia .vcc-budget-total .vcc-budget-total-person{
-  font:400 30px/1.02 'Oswald',sans-serif!important;
-  color:#a9573d!important;
-  margin:3px 0 7px!important;
-}
 html body.budget-vcc #filosofia .vcc-budget-total-meta b{
   font:400 18px/1.12 'Oswald',sans-serif!important;
   color:#4a3d35!important;
-}
-html body.budget-vcc #filosofia .vcc-budget-total-meta{
-  border-top:1px solid rgba(191,143,117,.23)!important;
-}
-/* Gris translúcido del carrusel, también en las fichas interiores. */
-html body.budget-vcc #filosofia .vcc-daily-track{
-  background:rgba(230,229,228,.19)!important;
-  border-color:rgba(197,192,188,.34)!important;
-}
-html body.budget-vcc #filosofia .vcc-daily-track .vcc-budget-day-expenses li{
-  background:rgba(255,255,255,.55)!important;
-  border-color:rgba(207,201,195,.36)!important;
-}
-/* DÍA 1/2/3 como sobretítulo discreto, nombre del lugar sigue legible. */
-html body.budget-vcc #filosofia .vcc-day-eyebrow{
-  font:700 20px/1.04 'Caveat',cursive!important;
-  color:#b16049!important;
 }
 html body.budget-vcc #filosofia .vcc-day-price{
   font:400 16px/1.1 'Oswald',sans-serif!important;
@@ -945,12 +824,6 @@ html body.budget-vcc #filosofia .vcc-daily-track .vcc-budget-day-expenses li>str
   }
   html body.budget-vcc #filosofia .vcc-budget-panel-heading h3{
     font-size:23px!important;
-  }
-  html body.budget-vcc #filosofia .vcc-budget-total .vcc-budget-total-person{
-    font-size:30px!important;
-  }
-  html body.budget-vcc #filosofia .vcc-day-eyebrow{
-    font-size:21px!important;
   }
   html body.budget-vcc #filosofia .vcc-day-price{
     font-size:15px!important;
@@ -1012,10 +885,6 @@ html body.budget-vcc #filosofia .vcc-budget-total small{
 html body.budget-vcc #filosofia .vcc-daily-track{
   background:rgba(225,224,222,.31)!important;
   border-color:rgba(196,190,184,.37)!important;
-}
-html body.budget-vcc #filosofia .vcc-daily-track .vcc-budget-day-expenses li{
-  background:rgba(255,255,255,.31)!important;
-  border-color:rgba(197,189,181,.42)!important;
 }
 html body.budget-vcc #filosofia .vcc-day-price{
   font-weight:500!important;
