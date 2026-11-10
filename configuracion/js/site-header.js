@@ -34,8 +34,9 @@
      Las plantillas antiguas conservan su miga invisible como espacio de
      reserva para evitar desplazar el hero; no existen dos rutas accesibles. */
   (function initGlobalBreadcrumb() {
-    const isTravelCardsPage = /^\/planifica\/tarjetas-de-viaje\/?$/i.test(currentPath);
-    if (!/^\/destinos\//i.test(currentPath) && !isTravelCardsPage) return;
+    // Mantener el breadcrumb único también en Vuelos, sin alterar otras páginas de Planifica.
+    const isSharedPlanificaPage = /^\/planifica\/(?:tarjetas-de-viaje|vuelos)\/?$/i.test(currentPath);
+    if (!/^\/destinos\//i.test(currentPath) && !isSharedPlanificaPage) return;
     const labels = {
       suecia:'Suecia',italia:'Italia',francia:'Francia',espana:'España',
       alemania:'Alemania',austria:'Austria',andorra:'Andorra',suiza:'Suiza',
@@ -73,7 +74,7 @@
       avion:'Avión',tren:'Tren',ferry:'Ferry',autobus:'Autobús',coche:'Coche',
       'ruta-andalucia-madrid':'Andalucía y Madrid',
       'dia-1':'Día 1','dia-2':'Día 2','dia-3':'Día 3',
-      'tarjetas-de-viaje':'Tarjetas de viaje'
+      'tarjetas-de-viaje':'Tarjetas de viaje',vuelos:'Vuelos'
     };
     const heroSelector = [
       '.st-hero','.imp-hero','.vcc-hero','.budget-hero','.ci-hero',
