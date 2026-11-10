@@ -39,7 +39,19 @@ assert.ok(html.includes('data-seo-images="true"'), 'Mosaico sin imágenes SEO');
 assert.ok(!html.includes('ci-august-vcc'), 'Consejo de agosto redundante');
 assert.ok(!html.includes('href="/configuracion/css/plantillas/imprescindibles.css'), 'CSS de galería pesada otra vez');
 assert.ok(existsSync(folder), 'Falta el CSS compartido reducido');
-assert.ok(html.includes('/configuracion/css/componentes/galeria-vcc-cuando-ir.css'), 'Galería sin CSS');
+const lazyGallery = 'configuracion/js/componentes/vcc-gallery-lazy-loader.js';
+assert.ok(html.includes('/'+lazyGallery) && html.includes('data-vcc-lazy-gallery'),
+  'La galería de agosto debe cargar de forma diferida para mejorar el móvil');
+assert.ok(existsSync(lazyGallery), 'No existe el cargador diferido de la galería');
+const galleryLoader=read(lazyGallery);
+assert.ok(galleryLoader.includes('/configuracion/css/componentes/galeria-vcc-cuando-ir.css')
+  && galleryLoader.includes('/configuracion/css/componentes/vcc-gallery-booking.css'),
+  'El cargador debe mantener los estilos originales de la galería');
+assert.ok(galleryLoader.includes('/configuracion/js/componentes/vcc-gallery-booking.js')
+  && galleryLoader.includes('/configuracion/js/plantillas/imprescindibles-interactions.js'),
+  'El cargador debe mantener los controladores compartidos originales');
+assert.ok(html.includes('data-vcc-lazy-background') && html.includes('vcc-lazy-background.js'),
+  'La imagen de montañas no debe bloquear la carga inicial');
 assert.ok(headers.includes('https://web-quality.albertini1199.workers.dev/*') && headers.includes('X-Robots-Tag: noindex'),
   'Debe excluirse el entorno de pruebas');
 assert.ok(!/^(?:\/\*|https:\/\/viajandoconcabeza\.com\/\*)\s*\n\s*X-Robots-Tag:\s*noindex/m.test(headers),
