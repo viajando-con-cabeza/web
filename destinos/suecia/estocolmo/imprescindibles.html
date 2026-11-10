@@ -12,7 +12,9 @@
 <meta property="og:title" content="15 imprescindibles de Estocolmo: mapa y consejos">
 <meta property="og:description" content="15 imprescindibles de Estocolmo con tiempos, costes, puntuaciones VCC y consejos para elegir qué ver. Incluye mapa interactivo y PDF descargable.">
 <meta property="og:url" content="https://viajandoconcabeza.com/destinos/suecia/estocolmo/imprescindibles.html">
-<meta name="twitter:card" content="summary">
+<meta property="og:image" content="https://viajandoconcabeza.com/configuracion/imagenes/fondos/fondos-que-ver.webp">
+<meta property="og:image:alt" content="Guía visual Viajando con Cabeza de Estocolmo y sus imprescindibles">
+<meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="15 imprescindibles de Estocolmo · VCC">
 <meta name="twitter:description" content="15 imprescindibles de Estocolmo con tiempos, costes, puntuaciones VCC y consejos para elegir qué ver. Incluye mapa interactivo y PDF descargable.">
 
@@ -402,7 +404,38 @@ const nav=document.getElementById('placeNav');
 nav.innerHTML='<a href="#mapa-imprescindibles" class="active">Mapa</a>'+data.map(p=>`<a href="#${p[0]}">${esc(p[1])}</a>`).join('');
 const main=document.getElementById('places');
 
-main.innerHTML=data.map((p,i)=>{const imgs=p[0]==='ferry'?FERRY_PHOTOS:R2_PHOTOS.slice(0,Math.min(i+1,R2_PHOTOS.length));const maps=`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(p[1]+' Stockholm')}`;return `<section class="place${p[0]==='gamla-stan'?' place--no-media':''}" id="${p[0]}"><header class="place-heading"><div class="place-heading-line"><div class="place-heading-label"><span class="place-number">${String(i+1).padStart(2,"0")}</span><h2>${esc(p[1]).toUpperCase()}</h2></div></div></header>${p[0]==='gamla-stan' ? '' : `<div class="gallery" data-count="${imgs.length}"><div class="gallery-main" data-images='${JSON.stringify(imgs)}'></div></div>`}<div class="place-copy"><div class="place-kicker">${esc(p[3])}</div><p>${esc(p[4])}</p><div class="facts"><span><b class="ico">◆</b>${esc(p[2])}</span><span><b class="ico">●</b>${esc(p[5])}</span><span><b class="ico">◷</b>${esc(p[6])}</span>${renderRating(p)}<span class="fact-map"><b class="ico">⌖</b><a target="_blank" rel="noopener noreferrer" href="${maps}" aria-label="Abrir ${esc(p[1])} en Google Maps">Google Maps</a></span>${renderCost(p)}</div><div class="advice"><img class="vcc-advice-logo" src="/configuracion/imagenes/marca/logo-vcc.svg" width="46" height="46" alt="Logo oficial VCC" loading="lazy"><div><b>CONSEJO VCC</b><p>${esc(p[9])}</p></div></div></div></section>`}).join('');
+/* Mejora progresiva: las 15 fichas ya existen en HTML y son legibles
+   sin JS. Se conservan sus nodos y solo se añaden las interacciones.
+   Las fotos siguen procediendo EXACTAMENTE de los arrays R2 existentes. */
+data.forEach((p,i)=>{
+  const section=document.getElementById(p[0]);
+  if(!section || !main.contains(section))return;
+  const imgs=p[0]==='ferry'?FERRY_PHOTOS:R2_PHOTOS.slice(0,Math.min(i+1,R2_PHOTOS.length));
+  const copy=section.querySelector('.place-copy');
+  if(!copy)return;
+  if(p[0]!=='gamla-stan'){
+    section.classList.remove('place--no-media');
+    let gallery=section.querySelector(':scope > .gallery');
+    if(!gallery){
+      gallery=document.createElement('div');
+      gallery.className='gallery';
+      section.insertBefore(gallery,copy);
+    }
+    gallery.dataset.count=String(imgs.length);
+    let imageSource=gallery.querySelector('.gallery-main');
+    if(!imageSource){
+      imageSource=document.createElement('div');
+      imageSource.className='gallery-main';
+      gallery.append(imageSource);
+    }
+    imageSource.dataset.images=JSON.stringify(imgs);
+  }
+  const maps=`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(p[1]+' Stockholm')}`;
+  // Preserva el header, id y sección originales; actualiza solo la zona
+  // de datos que requiere botones, tooltip y controles VCC.
+  copy.innerHTML=`<div class="place-kicker">${esc(p[3])}</div><p>${esc(p[4])}</p><div class="facts"><span><b class="ico">◆</b>${esc(p[2])}</span><span><b class="ico">●</b>${esc(p[5])}</span><span><b class="ico">◷</b>${esc(p[6])}</span>${renderRating(p)}<span class="fact-map"><b class="ico">⌖</b><a target="_blank" rel="noopener noreferrer" href="${maps}" aria-label="Abrir ${esc(p[1])} en Google Maps">Google Maps</a></span>${renderCost(p)}</div><div class="advice"><img class="vcc-advice-logo" src="/configuracion/imagenes/marca/logo-vcc.svg" width="46" height="46" alt="Logo oficial VCC" loading="lazy"><div><b>CONSEJO VCC</b><p>${esc(p[9])}</p></div></div>`;
+  section.removeAttribute('data-ssr-place');
+});
 /* El tooltip no ocupa espacio en las fichas. Hover en escritorio, clic en móvil,
    foco con teclado, Escape para cerrar y clic fuera para descartar. */
 const ratingFacts=[...main.querySelectorAll('.vcc-rating-fact')];
@@ -436,60 +469,13 @@ document.addEventListener('keydown',e=>{
     if(active?.classList?.contains('vcc-rating-trigger')) active.blur();
   }
 });
-nav.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{nav.querySelectorAll('a').forEach(x=>x.classList.remove('active'));a.classList.add('active')}));
+/* El scrollspy común se encarga del estado de las pestañas. */
 const prev=document.getElementById('navPrev'),next=document.getElementById('navNext');const update=()=>{prev.disabled=nav.scrollLeft<5;next.disabled=nav.scrollLeft+nav.clientWidth>=nav.scrollWidth-5};prev.onclick=()=>nav.scrollBy({left:-Math.max(nav.clientWidth*.7,280),behavior:'smooth'});next.onclick=()=>nav.scrollBy({left:Math.max(nav.clientWidth*.7,280),behavior:'smooth'});nav.addEventListener('scroll',update,{passive:true});window.addEventListener('resize',update);update();
 /* Galeries construïdes pel JS com a mosaics CSS; cap etiqueta img remota inicial. */
 </script>
-<script src="/configuracion/js/plantillas/imprescindibles-interactions.js?v=20261109-map-first" defer></script>
+<script src="/configuracion/js/plantillas/imprescindibles-interactions.js?v=20261110-scrollspy-unified" defer></script>
 <script src="/configuracion/js/plantillas/imprescindibles-bloqueo-scroll.js?v=20261107-isolated-gallery-scroll-v38" defer></script>
 <script src="/configuracion/js/plantillas/imprescindibles-galeria-movil.js?v=20261109-ferry-year-repair" defer></script>
 <script src="/configuracion/js/plantillas/imprescindibles-galeria-escritorio.js?v=20261109-mac-trackpad-fourway" defer></script>
-<script src="/configuracion/js/site-footer.js?v=20261102"></script><script id="vcc-single-active-subnav">
-(function(){
-  const nav=document.querySelector('.st-tabs, .place-nav');
-  if(!nav)return;
-  const entries=Array.from(nav.querySelectorAll('a[href^="#"]')).map(a=>({a,section:document.getElementById(decodeURIComponent(a.hash.slice(1)))})).filter(item=>item.section);
-  if(!entries.length)return;
-  let suppressUntil=0, frame=0, current=null;
-  function select(entry){
-    if(!entry || entry===current)return;
-    current=entry;
-    for(const item of entries){
-      const chosen=item===entry;
-      item.a.classList.toggle('is-active',chosen);
-      item.a.classList.toggle('active',chosen);
-      if(chosen)item.a.setAttribute('aria-current','location');else item.a.removeAttribute('aria-current');
-    }
-  }
-  function update(){
-    frame=0;
-    if(performance.now()<suppressUntil)return;
-    const topNav=nav.closest('.st-tabs, .place-nav-wrap');
-    const header=document.querySelector('.shared-header, .page-header');
-    const cutoff=(header?header.getBoundingClientRect().height:0)+(topNav?topNav.getBoundingClientRect().height:43)+26;
-    let selected=entries[0];
-    for(const entry of entries){if(entry.section.getBoundingClientRect().top<=cutoff)selected=entry;}
-    select(selected);
-  }
-  function queue(){if(!frame)frame=requestAnimationFrame(update);}
-  for(const entry of entries){
-    entry.a.addEventListener('click',()=>{
-      select(entry);
-      suppressUntil=performance.now()+850;
-      setTimeout(queue,900);
-    });
-  }
-  window.addEventListener('scroll',queue,{passive:true});
-  window.addEventListener('resize',queue,{passive:true});
-  window.addEventListener('hashchange',()=>{
-    const match=entries.find(x=>x.a.hash===location.hash);
-    if(match)select(match);
-    suppressUntil=performance.now()+500;
-    setTimeout(queue,550);
-  });
-  const hashEntry=entries.find(x=>x.a.hash===location.hash);
-  select(hashEntry||entries[0]);
-  queue();
-})();
-</script></body>
+<script src="/configuracion/js/site-footer.js?v=20261102"></script></body>
 </html>
