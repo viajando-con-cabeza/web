@@ -582,3 +582,53 @@
 .ep-page .ep4-our-list .ep4-day-two-columns .ep4-day-group-icon{width:15px!important;height:15px!important;flex:0 0 15px!important}
 .ep-page .ep4-our-list .ep4-day-icon-free{color:#db6b25!important}
 .ep-page .ep4-our-list .ep4-day-icon-skip{color:#d72f31!important}
+
+/* 10-11 · Dos paneles REALES por ficha: resumen izquierda | experiencia derecha. */
+.ep-page .ep4-our-list .ep4-day-body{display:block!important;padding:9px 13px 14px!important}
+.ep-page .ep4-our-list .ep4-day-split{
+ display:grid!important;grid-template-columns:minmax(0,.95fr) minmax(0,1.05fr)!important;
+ align-items:stretch!important;column-gap:0!important;min-width:0;width:100%
+}
+.ep-page .ep4-our-list .ep4-day-summary{min-width:0;padding:3px 12px 4px 0}
+.ep-page .ep4-our-list .ep4-day-story{
+ min-width:0;display:flex!important;flex-direction:column!important;gap:9px!important;
+ border-left:1px solid #e8a073!important;padding:3px 0 4px 13px
+}
+.ep-page .ep4-our-list .ep4-day-summary .ep4-day-two-columns{
+ display:flex!important;flex-direction:column!important;align-items:stretch!important;
+ gap:15px!important;padding:0!important;width:100%
+}
+.ep-page .ep4-our-list .ep4-day-summary .ep4-day-two-columns::before{display:none!important}
+.ep-page .ep4-our-list .ep4-day-summary .ep4-day-group{
+ display:flex!important;flex-direction:column!important;align-items:stretch!important;
+ justify-content:flex-start!important;gap:3px!important;min-height:0!important;
+ background:transparent!important;border:0!important;padding:0!important;margin:0!important
+}
+.ep-page .ep4-our-list .ep4-day-summary .ep4-day-group-label{
+ display:flex!important;align-items:center!important;gap:6px!important;
+ min-height:0!important;font:700 10px/1.35 "DM Sans",sans-serif!important;
+ color:#303939!important
+}
+.ep-page .ep4-our-list .ep4-day-summary .ep4-day-group-icon{width:13px!important;height:13px!important;flex:0 0 13px!important}
+.ep-page .ep4-our-list .ep4-day-summary .ep4-day-activities,
+.ep-page .ep4-our-list .ep4-day-summary .ep4-day-not-bought,
+.ep-page .ep4-our-list .ep4-day-summary .ep4-day-none{
+ display:block!important;align-self:auto!important;margin:0 0 0 19px!important;padding:0!important;
+ color:#5c5a56;font:400 10px/1.48 "DM Sans",sans-serif!important
+}
+.ep-page .ep4-our-list .ep4-day-summary .ep4-day-activities li{font:400 10px/1.48 "DM Sans",sans-serif!important;margin:0 0 3px!important}
+.ep-page .ep4-our-list .ep4-day-story .ep4-day-reason{
+ display:block!important;flex:1 1 auto!important;grid-column:auto!important;
+ border:0!important;margin:0!important;padding:0!important;
+ font:400 10.5px/1.58 "DM Sans",sans-serif!important;color:#55514d
+}
+.ep-page .ep4-our-list .ep4-day-story .ep4-day-link{
+ align-self:flex-end!important;grid-column:auto!important;
+ margin-top:auto!important;padding-top:9px!important;
+ font:700 9px/1.2 "DM Sans",sans-serif!important
+}
+@media(max-width:759px){
+ .ep-page .ep4-our-list .ep4-day-split{grid-template-columns:minmax(0,.88fr) minmax(0,1.12fr)!important}
+ .ep-page .ep4-our-list .ep4-day-summary{padding-right:9px}
+ .ep-page .ep4-our-list .ep4-day-story{padding-left:10px}
+}
