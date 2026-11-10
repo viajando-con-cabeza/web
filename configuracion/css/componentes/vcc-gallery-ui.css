@@ -63,8 +63,7 @@ html body :is(
  * En escriptori no utilitzem text-transform, ni negreta, ni majúscules.
  */
 html body :is(
-  body.vcc-desktop-gallery-open #lightbox.lightbox.open .lb-stage > .vcc-dg-photo-back,
-  #dayLightbox.vcc-gallery-desktop .day-lightbox-to-grid
+  body.vcc-desktop-gallery-open #lightbox.lightbox.open .lb-stage > .vcc-dg-photo-back
 ){
   position:absolute!important;
   z-index:7!important;
@@ -237,7 +236,8 @@ html body :is(
    el botó de retorn i les fletxes en totes dues implementacions. */
 html body :is(
   #vcc-desktop-gallery .vcc-dg-back,
-  #dayLightbox.vcc-gallery-desktop .day-lightbox-grid-back
+  #dayLightbox.vcc-gallery-desktop .day-lightbox-grid-back,
+  #dayLightbox.vcc-gallery-desktop .day-lightbox-to-grid
 ){
   display:inline-flex!important;
   align-items:center!important;
@@ -255,7 +255,8 @@ html body :is(
 }
 html body :is(
   #vcc-desktop-gallery .vcc-dg-back span,
-  #dayLightbox.vcc-gallery-desktop .day-lightbox-grid-back span
+  #dayLightbox.vcc-gallery-desktop .day-lightbox-grid-back span,
+  #dayLightbox.vcc-gallery-desktop .day-lightbox-to-grid span
 ){
   font:400 13px/1.3 var(--vcc-gallery-ui-font)!important;
   text-transform:none!important;
@@ -314,18 +315,9 @@ html body :is(
   text-transform:none!important;
 }
 
-/* La guia "Qué ver" posa el botó dins d'un panell amb 4px/3px de
-   desplaçament intern; l'itinerari no. Compensem aquesta diferència
-   estructural per situar "← Galería" exactament al mateix píxel. */
-@media(min-width:801px){
- html body #dayLightbox.vcc-gallery-desktop .day-lightbox-to-grid{
-  left:24px!important;
-  top:9px!important;
- }
-}
-
-/* Una sola capçalera per als dos estats del visor d'itineraris.
-   Línia a 58px, controls alineats en X/Y, cap text duplicat. */
+/* Mosaic i foto de l'itinerari: capçalera i botons de retorn idèntics.
+ * La fletxa és text directe i l'etiqueta un span en ambdós botons.
+ * La posició prové del grid, mai de coordenades absolutes. */
 @media(min-width:801px){
  html body #dayLightbox.vcc-gallery-desktop .day-lightbox-photo-view:not([hidden]){
   grid-template-rows:58px minmax(0,1fr) 30px 80px!important;
@@ -335,28 +327,23 @@ html body :is(
  }
  html body #dayLightbox.vcc-gallery-desktop :is(.day-lightbox-grid-head,.day-lightbox-photo-head){
   height:58px!important;min-height:58px!important;max-height:58px!important;
+  grid-template-columns:minmax(190px,1fr) 2fr minmax(68px,1fr)!important;
   padding:5px 24px!important;
   border-bottom:1px solid var(--vcc-gallery-ui-divider)!important;
  }
- html body #dayLightbox.vcc-gallery-desktop .day-lightbox-grid-back{
-  justify-self:start!important;
-  justify-content:flex-start!important;
-  padding:0!important;
-  height:38px!important;
-  line-height:1!important;
- }
- html body #dayLightbox.vcc-gallery-desktop .day-lightbox-to-grid{
-  left:24px!important;top:10px!important;
-  height:38px!important;
-  padding:0!important;
+ html body #dayLightbox.vcc-gallery-desktop :is(.day-lightbox-grid-back,.day-lightbox-to-grid){
+  position:static!important;grid-column:1!important;
+  justify-self:start!important;justify-content:flex-start!important;
   display:inline-flex!important;align-items:center!important;
-  justify-content:flex-start!important;
+  width:auto!important;height:38px!important;min-height:38px!important;
+  padding:0!important;margin:0!important;gap:10px!important;
+  font:400 24px/1 var(--vcc-gallery-ui-font)!important;
+  text-transform:none!important;transform:none!important;
+ }
+ html body #dayLightbox.vcc-gallery-desktop :is(.day-lightbox-grid-back,.day-lightbox-to-grid) span{
   font:400 13px/1.3 var(--vcc-gallery-ui-font)!important;
   text-transform:none!important;
  }
- /* Retorn original escrit una sola vegada al DOM (← Galería). */
- html body #dayLightbox.vcc-gallery-desktop .day-lightbox-to-grid::before,
- html body #dayLightbox.vcc-gallery-desktop .day-lightbox-to-grid::after{
-  content:none!important;
- }
 }
+/* En mòbil el retorn és només la fletxa: l'etiqueta queda oculta. */
+html body #dayLightbox.vcc-gallery-mobile .day-lightbox-to-grid span{display:none!important}
