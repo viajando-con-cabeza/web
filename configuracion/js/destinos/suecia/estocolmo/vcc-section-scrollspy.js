@@ -4,6 +4,25 @@
 function init(){
  const nav=document.querySelector('.st-tabs, .vcc-nav, .content-nav');
  if(!nav)return;
+ // El subheader compartit només activa la fixació mòbil on s'indica.
+ const stickyMobile=nav.hasAttribute('data-vcc-sticky-mobile');
+ const stickyHeader=stickyMobile?document.querySelector('.shared-header'):null;
+ let stickyPlaceholder=null;
+ if(stickyMobile){
+  stickyPlaceholder=document.createElement('div');
+  stickyPlaceholder.className='it-nav-placeholder';
+  stickyPlaceholder.setAttribute('aria-hidden','true');
+  nav.before(stickyPlaceholder);
+ }
+ function measureSticky(){
+  if(!stickyPlaceholder)return;
+  const mobile=window.matchMedia('(max-width:720px)').matches;
+  const headerBottom=stickyHeader?Math.max(0,Math.round(stickyHeader.getBoundingClientRect().bottom)):0;
+  document.documentElement.style.setProperty('--it-mobile-header-height',headerBottom+'px');
+  const pinned=mobile&&stickyPlaceholder.getBoundingClientRect().top<=headerBottom;
+  nav.classList.toggle('it-nav-pinned',pinned);
+  stickyPlaceholder.style.height=pinned?'43px':'0px';
+ }
  const links=Array.from(nav.querySelectorAll('a[href^="#"]'));
  const items=links.map(a=>({a,target:document.getElementById(decodeURIComponent(a.hash.slice(1)))})).filter(x=>x.target);
  if(!items.length)return;
@@ -37,6 +56,7 @@ function init(){
  }
  function sync(){
   frame=0;
+  measureSticky();
   const list=visible();
   if(!list.length)return;
   const threshold=topOffset();
@@ -58,6 +78,22 @@ function init(){
    setActive(item);
    request();
   });
+ }
+ if(stickyMobile){
+  // Desplaçament amb el mateix offset que tenia el controlador integrat a l'HTML.
+  nav.addEventListener('click',event=>{
+   const a=event.target.closest('a[href^="#"]');
+   if(!a)return;
+   const target=document.getElementById(decodeURIComponent(a.hash.slice(1)));
+   if(!target)return;
+   event.preventDefault();
+   const bottom=stickyHeader?Math.max(0,stickyHeader.getBoundingClientRect().bottom):0;
+   const position=window.scrollY+target.getBoundingClientRect().top-bottom-nav.getBoundingClientRect().height+4;
+   window.scrollTo({top:Math.max(0,position),behavior:'smooth'});
+   history.replaceState(null,'',a.hash);
+   request();
+  });
+  if(window.ResizeObserver&&stickyHeader)new ResizeObserver(request).observe(stickyHeader);
  }
  window.addEventListener('scroll',request,{passive:true});
  window.addEventListener('resize',request,{passive:true});
