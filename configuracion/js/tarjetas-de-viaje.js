@@ -4,22 +4,58 @@
   if(track){
     const previous=document.querySelector('[data-tv-prev]');
     const next=document.querySelector('[data-tv-next]');
+    const count=document.querySelector('[data-tv-count]');
+    const dots=document.querySelector('[data-tv-dots]');
     const motion=window.matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth';
-    const refresh=()=>{
-      const end=Math.max(0,track.scrollWidth-track.clientWidth);
-      previous.disabled=track.scrollLeft<4;
-      next.disabled=track.scrollLeft>=end-4;
-    };
-    const advance=(direction)=>{
+    let pageCount=0;
+    const metrics=()=>{
       const first=track.querySelector('.tv-card');
-      if(!first)return;
-      const gap=Number.parseFloat(getComputedStyle(track).gap)||0;
-      track.scrollBy({left:direction*(first.getBoundingClientRect().width+gap),behavior:motion});
+      const gap=Number.parseFloat(getComputedStyle(track).columnGap)||0;
+      const step=first ? first.getBoundingClientRect().width+gap : track.clientWidth;
+      const end=Math.max(0,track.scrollWidth-track.clientWidth);
+      const total=Math.max(1,Math.ceil(Math.max(0,end-3)/Math.max(1,step))+1);
+      return {step,end,total,index:Math.min(total-1,Math.round(track.scrollLeft/Math.max(1,step)))};
+    };
+    const goTo=(index)=>{
+      const {step,end}=metrics();
+      track.scrollTo({left:Math.min(end,Math.max(0,index*step)),behavior:motion});
+    };
+    const advance=(direction)=>goTo(metrics().index+direction);
+    const refresh=()=>{
+      const {end,total,index}=metrics();
+      previous.disabled=track.scrollLeft<=3;
+      next.disabled=track.scrollLeft>=end-3;
+      if(count)count.textContent=(index+1)+' / '+total;
+      if(dots){
+        if(pageCount!==total){
+          pageCount=total;
+          dots.replaceChildren();
+          for(let i=0;i<total;i++){
+            const button=document.createElement('button');
+            button.type='button';
+            button.setAttribute('aria-label','Ver posición '+(i+1)+' de '+total);
+            button.addEventListener('click',()=>goTo(i));
+            dots.appendChild(button);
+          }
+        }
+        dots.hidden=total<=1;
+        [...dots.children].forEach((button,i)=>{
+          button.setAttribute('aria-current',String(i===index));
+          button.setAttribute('aria-pressed',String(i===index));
+        });
+      }
     };
     previous.addEventListener('click',()=>advance(-1));
     next.addEventListener('click',()=>advance(1));
+    track.addEventListener('keydown',event=>{
+      if(event.key==='ArrowRight'||event.key==='ArrowLeft'){
+        event.preventDefault();
+        advance(event.key==='ArrowRight'?1:-1);
+      }
+    });
     track.addEventListener('scroll',refresh,{passive:true});
     window.addEventListener('resize',refresh,{passive:true});
+    if('ResizeObserver' in window)new ResizeObserver(refresh).observe(track);
     refresh();
   }
 
@@ -52,8 +88,5 @@
     update();
   }
 
-  const links=[...document.querySelectorAll('.tv-tabs a[href^="#"]')];
-  links.forEach(link=>link.addEventListener('click',()=>{
-    links.forEach(item=>{const active=item===link;item.classList.toggle('active',active);if(active)item.setAttribute('aria-current','location');else item.removeAttribute('aria-current')});
-  }));
+  // El subheader se gestiona desde la configuración global de VCC.
 })();
