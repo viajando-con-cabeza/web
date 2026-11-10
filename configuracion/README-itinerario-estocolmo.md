@@ -8,10 +8,10 @@
 | `configuracion/css/plantillas/itinerario-core-vcc.css` | Estructura original de l'itinerari, contingut i alineació |
 | `configuracion/css/plantillas/itinerario-polish-vcc.css` | Ajustos visuals de l'itinerari, sense galeries ni el fons antic |
 | `configuracion/css/componentes/vcc-hero-editorial-vcc.css` | Hero reutilitzable: degradat, tipografia, dimensions i punts de tall |
-| `configuracion/css/componentes/vcc-gallery-booking.css` | Mosaics i modal compartits; no duplicar-los a la pàgina |
-| `configuracion/css/componentes/vcc-gallery-ui.css` | Estils compartits entre «Qué ver» i «Itinerario» |
-| `configuracion/js/componentes/vcc-gallery-booking.js` | Visor reutilitzable amb 8 fotos, zoom, controls i gestos |
-| `configuracion/js/componentes/vcc-gallery-ui.js` | Text únic «← Galería» |
+| `configuracion/css/componentes/vcc-gallery-booking.css` | CSS universal de galeries de «Qué ver» i «Itinerario» (mosaic, retorn, fletxes, títols i comptadors) |
+
+| `configuracion/js/componentes/vcc-gallery-booking.js` | Controlador universal compartit, zoom, miniatures, gestos, controls i text «← Galería» |
+
 | `configuracion/js/destinos/suecia/estocolmo/vcc-section-scrollspy.js` | Subheader, tab activa i fixació mòbil opcional |
 
 ## Canvi de la fotografia del hero
