@@ -740,8 +740,10 @@ html body.ci-page .ci-visit-mobile-note{display:none}
     anchor.setAttribute('aria-hidden','true');
     nav.parentNode.insertBefore(anchor,nav);
     const header=document.querySelector('.shared-header, .page-header');
-    let base=0;
+    let base=0,scrollFrame=0;
+    const root=document.documentElement;
     function refreshBase(){
+      if(scrollFrame){cancelAnimationFrame(scrollFrame);scrollFrame=0;}
       nav.classList.remove('ci-subnav-pinned');
       anchor.style.height='0px';
       base=nav.getBoundingClientRect().top+window.scrollY;
@@ -750,10 +752,23 @@ html body.ci-page .ci-visit-mobile-note{display:none}
     function sync(){
       const headerBottom=header?Math.max(0,header.getBoundingClientRect().bottom):0;
       const shouldPin=window.scrollY+headerBottom>=base;
-      nav.style.setProperty('--ci-nav-top',headerBottom+'px');
-      nav.classList.toggle('ci-subnav-pinned',shouldPin);
-      anchor.style.height=shouldPin?nav.offsetHeight+'px':'0px';
-      document.documentElement.style.setProperty('--ci-sticky-offset',(headerBottom+nav.offsetHeight+14)+'px');
+      const top=headerBottom+'px';
+      if(nav.style.getPropertyValue('--ci-nav-top')!==top)
+        nav.style.setProperty('--ci-nav-top',top);
+      if(nav.classList.contains('ci-subnav-pinned')!==shouldPin)
+        nav.classList.toggle('ci-subnav-pinned',shouldPin);
+      const navHeight=nav.offsetHeight;
+      const placeholderHeight=shouldPin?navHeight+'px':'0px';
+      if(anchor.style.height!==placeholderHeight)anchor.style.height=placeholderHeight;
+      const stickyOffset=(headerBottom+navHeight+14)+'px';
+      if(root.style.getPropertyValue('--ci-sticky-offset')!==stickyOffset)
+        root.style.setProperty('--ci-sticky-offset',stickyOffset);
+    }
+    // Evitar lecturas de layout y escrituras repetidas por cada evento de rueda,
+    // gesto de trackpad o desplazamiento: un cálculo máximo por frame.
+    function scheduleSync(){
+      if(scrollFrame)return;
+      scrollFrame=requestAnimationFrame(()=>{scrollFrame=0;sync();});
     }
     // Anclajes precisos: el sobretítulo de estas dos secciones debe quedar
     // justo debajo del header y la barra blanca, no a mitad de pantalla.
@@ -771,7 +786,7 @@ html body.ci-page .ci-visit-mobile-note{display:none}
       window.scrollTo({top:y,behavior:window.matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});
       history.replaceState(null,'',link.hash);
     });
-    window.addEventListener('scroll',sync,{passive:true});
+    window.addEventListener('scroll',scheduleSync,{passive:true});
     window.addEventListener('resize',refreshBase,{passive:true});
     window.addEventListener('load',refreshBase,{once:true});
     requestAnimationFrame(refreshBase);
