@@ -114,9 +114,8 @@
 .vl-result-row.is-cheapest{border-color:#b8d9c4;background:#edf8f0}
 .vl-result-row.is-cheapest strong{color:#217347}
 .vl-compare-result{font-size:11px;line-height:1.5;margin:9px 0 0;color:#4f5954;font-weight:700}
-/* Carrusel de ahorro · mismo patrón visual aprobado en Cómo moverse / Cómo llegar.
-   Tres tarjetas visibles, número en círculo discontinuo, texto a su derecha
-   y flechas a ambos extremos dentro del mismo marco. */
+/* Carrusel de ahorro · tres tarjetas en escritorio; en móvil una tarjeta
+   a ancho completo y las dos flechas agrupadas encima a la derecha. */
 .vl-tips-carousel{position:relative;min-width:0;padding:0 45px}
 .vl-tip-track{display:flex;align-items:stretch;min-width:0;gap:13px;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;scroll-behavior:smooth;scrollbar-width:none;overscroll-behavior-inline:contain;-webkit-overflow-scrolling:touch;padding:1px 1px 5px}
 .vl-tip-track::-webkit-scrollbar{display:none}
@@ -155,8 +154,10 @@
  .vl-section-head > .vl-kicker,.vl-section-head > div > .vl-kicker{font-size:27px}
  .vl-section-head .vl-heading{font-size:28px}
  .vl-tabs .vcc-nav-inner{gap:24px;padding-inline:14px}
- .vl-air-track{grid-auto-columns:calc((100% - 10px)/1.35)}
- .vl-review-head{align-items:start}
+ .vl-air-track{grid-auto-columns:100%}
+ .vl-review-head{flex-direction:column;align-items:stretch;gap:8px}
+ .vl-review-head>div:first-child{min-width:0;width:100%}
+ .vl-review-head .vl-controls{align-self:flex-end}
  .vl-calc-head{display:block}.vl-calc-head .vl-copy{margin-top:7px;max-width:none}
  .vl-flight{grid-template-columns:1fr}
  .vl-flight-side{display:block}
@@ -168,7 +169,10 @@
  .vl-tip-num{flex-basis:34px;width:34px;height:34px;font-size:19px}
  .vl-tip h3{font-size:18px}
  .vl-tip p{font-size:12px;line-height:1.5}
- .vl-tip-arrow{width:39px;height:39px}
+ /* No restar espacio lateral a las tarjetas: controles encima, alineados a la derecha. */
+ .vl-tips-carousel{padding:44px 0 0}
+ .vl-tip-arrow{top:0;left:auto;right:0;transform:none;width:36px;height:36px}
+ .vl-tip-prev{right:44px}
  .vl-next-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
 }
 @media(max-width:460px){
@@ -179,7 +183,7 @@
  .vl-continent-map{width:40px;height:34px}
  .vl-continent h3{font-size:20px}
  .vl-continent .detail{font-size:9.5px}
- .vl-air-track{grid-auto-columns:90%}
+ .vl-air-track{grid-auto-columns:100%}
  .vl-controls{gap:4px}
  .vl-controls button{width:30px;height:30px}
  .vl-fields{gap:8px}
@@ -187,7 +191,7 @@
  .vl-flight-side{padding:10px}
  .vl-compare-head{display:block}
  .vl-compare-bar .vl-button{flex:0 0 auto}
- .vl-tips-carousel{padding-inline:39px}
+ .vl-tips-carousel{padding-inline:0}
  .vl-tip{padding:13px 12px;gap:10px;min-height:130px}
  .vl-tip-num{flex-basis:32px;width:32px;height:32px;font-size:18px}
  .vl-tip h3{font-size:17px}
