@@ -12,7 +12,7 @@
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/configuracion/css/paginas.css">
 <link rel="stylesheet" href="/configuracion/css/overrides.css">
-<link rel="stylesheet" href="/configuracion/css/tarjetas-de-viaje.css?v=20261110">
+<link rel="stylesheet" href="/configuracion/css/tarjetas-de-viaje.css?v=20261110-v2">
 <link rel="preload" as="image" href="/configuracion/imagenes/fondos/fondos-planifica.webp">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Tarjetas para viajar: comisiones, comparativa y ahorro | VCC">
@@ -25,7 +25,7 @@
   <section class="tv-hero" aria-labelledby="tv-title">
     <div class="tv-wrap tv-hero-inner">
       <div>
-        <nav class="tv-breadcrumb" aria-label="Ruta de navegación"><a href="/">Inicio</a><span aria-hidden="true">›</span><a href="/planifica/">Planifica</a><span aria-hidden="true">›</span><span aria-current="page">Tarjetas de viaje</span></nav>
+        
         <span class="tv-eyebrow">PLANIFICA TU VIAJE</span>
         <h1 id="tv-title">TARJETAS PARA VIAJAR<br><em>SIN COMISIONES INNECESARIAS</em></h1>
         <p>No todas las tarjetas cuestan lo mismo al pagar fuera. Compara lo que ofrecen, descubre qué condiciones conviene revisar y calcula cuánto podrías ahorrar en tu próximo viaje.</p>
@@ -41,7 +41,7 @@
   </section>
 
   <nav class="tv-tabs" aria-label="Apartados de tarjetas de viaje">
-    <div class="tv-wrap tv-tabs-inner">
+    <div class="tv-wrap tv-tabs-inner vcc-nav-inner">
       <a href="#tarjetas" class="active" aria-current="location">Nuestra experiencia</a>
       <a href="#comparar">Qué comparar</a>
       <a href="#tipos">Débito o crédito</a>
@@ -59,8 +59,8 @@
   <section class="tv-catalog" aria-label="Carrusel de tarjetas para viajar">
     <div class="tv-wrap">
       <div class="tv-carousel-head">
-        <p>Desliza para conocer todas las alternativas. Sin notas ni estrellas.</p>
-        <div class="tv-controls"><button type="button" data-tv-prev aria-label="Ver tarjetas anteriores">←</button><button type="button" data-tv-next aria-label="Ver tarjetas siguientes">→</button></div>
+        <p><strong>Nuestra experiencia</strong> · Desliza para conocer todas las alternativas, sin notas ni estrellas.</p>
+        <div class="tv-controls"><span class="tv-carousel-count" data-tv-count aria-live="polite">1 / 2</span><button type="button" data-tv-prev aria-label="Ver tarjetas anteriores">←</button><button type="button" data-tv-next aria-label="Ver tarjetas siguientes">→</button></div>
       </div>
       <div class="tv-carousel" data-tv-carousel tabindex="0" role="region" aria-label="Tarjetas de viaje: desliza horizontalmente">
         <article class="tv-card">
@@ -108,6 +108,7 @@
           </div>
         </article>
       </div>
+      <div class="tv-carousel-dots" data-tv-dots role="group" aria-label="Posición del carrusel de tarjetas"></div>
       <p class="tv-catalog-footnote">La información comercial y las tarifas pueden cambiar. Revisa siempre las condiciones oficiales vigentes para tu país, plan, moneda y tipo de operación antes de contratar.</p>
     </div>
   </section>
@@ -176,8 +177,8 @@
   <section class="tv-next" aria-labelledby="tv-next-title"><div class="tv-wrap"><span class="tv-eyebrow">SIGUE PLANIFICANDO</span><h2 class="tv-heading" id="tv-next-title">TU PRÓXIMO VIAJE EMPIEZA AQUÍ</h2><div class="tv-next-grid"><a href="/planifica/vuelos/">VUELOS <span aria-hidden="true">→</span></a><a href="/planifica/alojamientos/">ALOJAMIENTOS <span aria-hidden="true">→</span></a><a href="/planifica/presupuesto/">PRESUPUESTO <span aria-hidden="true">→</span></a><a href="/planifica/que-llevar/">QUÉ LLEVAR <span aria-hidden="true">→</span></a></div></div></section>
 </main>
 <footer class="vcc-global-footer"></footer>
-<script src="/configuracion/js/site-header.js?v=20261110"></script>
+<script src="/configuracion/js/site-header.js?v=20261110-breadcrumb-v2"></script>
 <script src="/configuracion/js/site-footer.js?v=20261102"></script>
-<script src="/configuracion/js/tarjetas-de-viaje.js?v=20261110" defer></script>
+<script src="/configuracion/js/tarjetas-de-viaje.js?v=20261110-v2" defer></script>
 </body>
 </html>
