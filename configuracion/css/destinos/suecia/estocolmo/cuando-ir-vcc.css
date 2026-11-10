@@ -776,7 +776,7 @@ html body.ci-page .ci-month-right .ci-month-procon + .ci-month-vcc{margin-top:au
 }
 
 /* Meses prerenderizados: solo se muestra el seleccionado. */
-html body.ci-page .ci-month-detail[data-month-panel][hidden]{display:none!important}
+html body.ci-page .ci-month-result[data-month-panel][hidden]{display:none!important}
 
 /* VCC 2026-11-09 — experiencia agosto, precios y contraste: se conserva el layout aprobado. */
 html body.ci-page .ci-calendar-scroll{background:#fff!important;border-color:#e4d4c7!important;box-shadow:0 4px 20px rgba(64,43,31,.035)}
@@ -1177,5 +1177,97 @@ html body.ci-page .ci-objectives>.ci-quick-answer strong{
     font-size:12px;
     line-height:1.7;
     margin-bottom:15px;
+  }
+}
+
+/* 2026-11-10 · Mes a mes: tarjetas más bajas y fuentes siempre fuera del marco blanco.
+   Solo afecta a las doce fichas mensuales, no a las demás tarjetas del sitio. */
+html body.ci-page .ci-month-result{
+  display:block;
+  margin-top:13px;
+  min-width:0;
+}
+html body.ci-page .ci-month-result[hidden]{display:none!important}
+html body.ci-page .ci-month-result>.ci-month-detail{
+  padding:15px 19px 17px!important;
+  margin:0!important;
+  gap:0!important;
+}
+html body.ci-page .ci-month-result .ci-month-layout{
+  gap:18px;
+}
+html body.ci-page .ci-month-result .ci-month-heading h3{
+  font-size:30px;
+  line-height:1.08;
+  margin:0 0 6px;
+}
+html body.ci-page .ci-month-result .ci-month-heading p{
+  min-height:0;
+  margin:0 0 11px;
+  line-height:1.55;
+}
+html body.ci-page .ci-month-result .ci-month-left-columns{gap:13px}
+html body.ci-page .ci-month-result .ci-month-facts{padding:5px 10px}
+html body.ci-page .ci-month-result .ci-month-fact{min-height:31px}
+html body.ci-page .ci-month-result .ci-month-suitability h4{margin-bottom:8px}
+html body.ci-page .ci-month-result .ci-score-rows{gap:5px}
+html body.ci-page .ci-month-result .ci-month-layout>.ci-month-right{
+  padding-top:7px!important;
+  padding-left:19px;
+}
+html body.ci-page .ci-month-result .ci-month-right .ci-month-points h4{
+  margin-bottom:9px;
+  gap:7px;
+}
+html body.ci-page .ci-month-result .ci-month-right .ci-month-points ul{gap:7px}
+html body.ci-page .ci-month-result .ci-month-right>.ci-month-vcc,
+html body.ci-page .ci-month-result .ci-month-right>.ci-month-procon+.ci-month-vcc{
+  min-height:76px!important;
+  height:auto!important;
+  max-height:none!important;
+  flex:0 0 auto!important;
+  margin:12px auto 0!important;
+}
+html body.ci-page .ci-month-result>.ci-month-sources{
+  border:0!important;
+  background:transparent!important;
+  margin:9px 3px 0!important;
+  padding:0!important;
+  max-width:none!important;
+  font:400 10px/1.5 'DM Sans',sans-serif!important;
+  color:#84766d;
+}
+html body.ci-page .ci-month-result>.ci-month-sources a{
+  color:#a85a3d;
+  text-decoration:underline;
+  text-underline-offset:2px;
+}
+@media(max-width:1080px){
+  html body.ci-page .ci-month-result .ci-month-layout>.ci-month-right{
+    padding:12px 0 0!important;
+  }
+}
+@media(max-width:600px){
+  html body.ci-page .ci-month-result>.ci-month-detail{
+    padding:14px 14px 16px!important;
+  }
+  html body.ci-page .ci-month-result .ci-month-layout{gap:13px}
+  html body.ci-page .ci-month-result .ci-month-heading h3{font-size:28px}
+  html body.ci-page .ci-month-result .ci-month-heading p{margin-bottom:11px}
+  html body.ci-page .ci-month-result .ci-month-left-columns{gap:13px}
+  html body.ci-page .ci-month-result .ci-month-right .ci-month-procon{
+    gap:13px;
+  }
+  html body.ci-page .ci-month-result .ci-month-right>.ci-month-vcc,
+  html body.ci-page .ci-month-result .ci-month-right>.ci-month-procon+.ci-month-vcc{
+    min-height:83px!important;
+    height:auto!important;
+    max-height:none!important;
+    flex:0 0 auto!important;
+    margin:13px auto 0!important;
+  }
+  html body.ci-page .ci-month-result>.ci-month-sources{
+    margin:8px 2px 0!important;
+    font-size:9.5px!important;
   }
 }
