@@ -11,7 +11,10 @@
     const arch=String(url).match(/^https:\/\/img\.viajandoconcabeza\.com\/(destinos\/suecia\/estocolmo-archipelago\/[0-9]{4}-dia8)\/(?:paisajes|bosques|mar)\/(DSC\d+\.avif)$/i);
     if (arch) {
       const cached=new Set(['DSC08334.avif','DSC08335.avif','DSC08336.avif','DSC08337.avif','DSC08338.avif','DSC08342.avif','DSC08344.avif','DSC08345.avif']);
-      return cached.has(arch[2])?'https://img.viajandoconcabeza.com/'+arch[1]+'/_preview/'+variant+'/'+arch[2]:url;
+      return cached.has(arch[2])
+        ? 'https://img.viajandoconcabeza.com/'+arch[1]+'/_preview/'+variant+'/'+arch[2]
+        : 'https://img.viajandoconcabeza.com/__vcc_preview/'+variant+'/'
+          +String(url).slice('https://img.viajandoconcabeza.com/'.length);
     }
     return String(url).replace(/^https:\/\/img\.viajandoconcabeza\.com\/(destinos\/.+\.(?:avif|webp))$/i,
       'https://img.viajandoconcabeza.com/__vcc_preview/'+variant+'/$1');
@@ -92,6 +95,9 @@
     }
     const img = new Image();
     img.decoding = 'async';
+    // Si Images no puede crear el derivado, conservar la foto original.
+    const original = photos[(index + photos.length) % photos.length];
+    img.onerror = () => { if (img.src !== original) img.src = original; };
     img.src = key;
     previewCache.set(key, img);
     if (previewCache.size > PREVIEW_CACHE_LIMIT) {
