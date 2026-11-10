@@ -580,7 +580,7 @@
     font-size:13px!important;line-height:1.64!important;
   }
   .ep-page .ep4-our-list .ep4-day-story>.ep4-day-link{
-    min-height:38px!important;align-items:flex-end!important;
+    min-height:44px!important;align-items:flex-end!important;
   }
   .ep-page .ep4-savings .ep3-saving-card .ep3-saving-copy h3{
     font-size:20px!important;line-height:1.18!important;
@@ -598,6 +598,9 @@
   }
 }
 @media (max-width:360px){
+  /* Titulars adaptats a 320 px sense deformar el hero corporatiu. */
+  .ep-page .ep-hero h1{font-size:clamp(35px,11vw,39px)!important}
+  .ep-page .ep4-heading h2{font-size:26px!important}
   /* Evita descripcions de 2 o 3 paraules per línia en telèfons estrets. */
   .ep-page .ep4-our-list .ep4-day-summary .ep4-day-group{
     display:flex!important;flex-direction:column!important;
