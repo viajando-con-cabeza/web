@@ -5,6 +5,7 @@ import { readFileSync, existsSync } from 'node:fs';
 
 const read = path => readFileSync(path, 'utf8');
 const html = read('destinos/suecia/estocolmo/cuando-ir.html');
+const css = read('configuracion/css/destinos/suecia/estocolmo/cuando-ir-vcc.css');
 const sitemap = read('sitemap.xml');
 const headers = read('_headers');
 const wrangler = JSON.parse(read('wrangler.jsonc'));
@@ -25,6 +26,13 @@ assert.equal(headings.length, 1, 'Debe haber un solo H1');
 assert.equal(ids.length, new Set(ids).size, 'Hay ids duplicados');
 assert.equal(matches(html, /data-month-panel="\d+"/g).length, 12, 'Falta un mes');
 assert.equal(matches(html, /class="ci-month-vcc"/g).length, 12, 'Falta un consejo mensual');
+assert.equal(matches(html, /class="ci-month-result" id="ci-month-panel-\\d+"/g).length, 12,
+  'Las fichas mensuales deben conservar sus 12 contenedores con anclaje');
+assert.equal(matches(html, /class="ci-month-sources"/g).length, 1,
+  'La nota de WeatherSpark debe aparecer una sola vez debajo del calendario');
+assert.ok(css.includes('.ci-calendar-section>.ci-month-sources'),
+  'La fuente compartida debe aparecer fuera de la tarjeta mensual');
+assert.ok(!html.includes('ci-legend'), 'No se debe repetir la leyenda de precios del calendario');
 assert.ok(html.includes('class="ci-quick-answer"'), 'Falta la respuesta rápida');
 assert.ok(html.includes('data-count="8" data-mosaic-visible="4"'), 'Galería incompleta');
 assert.ok(html.includes('data-seo-images="true"'), 'Mosaico sin imágenes SEO');
