@@ -22,6 +22,7 @@ const map=read('configuracion/js/destinos/suecia/estocolmo/imprescindibles-mapa.
 const interaction=read('configuracion/js/plantillas/imprescindibles-interactions.js');
 const css=read('configuracion/css/destinos/suecia/estocolmo/imprescindibles-decisiones.css');
 const galleryCss=read('configuracion/css/plantillas/imprescindibles.css');
+const layoutCss=read('configuracion/css/destinos/suecia/estocolmo/imprescindibles-layout.css');
 const config=JSON.parse(read('wrangler.jsonc'));
 verify(config.assets?.html_handling==='auto-trailing-slash',
   'Cloudflare: la ruta canónica necesita html_handling=auto-trailing-slash');
@@ -41,11 +42,31 @@ if(image?.startsWith('https://viajandoconcabeza.com/')){
   verify(exists(image.split('https://viajandoconcabeza.com/')[1]),
     'SEO: no existe el archivo usado en og:image');
 }
-const hero='/configuracion/imagenes/fondos/fondos-que-ver.webp';
-verify(exists(hero.slice(1)) && galleryCss.includes(hero),
-  'Rendimiento: la imagen del hero no coincide con la plantilla');
+// Evitar precargar una imagen diferente de la realmente usada por el hero:
+ // esa descarga extra penalizaba la red sin mejorar el LCP.
+const hero='https://img.viajandoconcabeza.com/destinos/suecia/goteborg/2026-dia1/DSC06555.webp';
+verify(layoutCss.includes('url("'+hero+'")'),
+  'Rendimiento: el recurso del hero ha cambiado; actualizar el preload');
 verify(html.includes('<link rel="preload" as="image" href="'+hero+'" fetchpriority="high">'),
-  'Rendimiento: falta preload prioritario del hero real');
+  'Rendimiento: falta preload de la imagen realmente visible en el hero');
+
+// El CSS del layout es un recurso cacheable, con su posición de cascada
+// original. No volver a añadir miles de bytes inline al documento HTML.
+verify(html.includes('/configuracion/css/destinos/suecia/estocolmo/imprescindibles-layout.css'),
+  'Mantenimiento: falta stylesheet exterior de layout VCC');
+verify(!/<style(?:\\s[^>]*)?>/.test(html),
+  'Mantenimiento: no volver a incrustar el layout en HTML');
+verify(layoutCss.includes('place.place--no-media'),
+  'Mantenimiento: falta layout sin fotografías');
+verify(!layoutCss.includes('html body .imp-page .imp-main .place.place--no-media .facts {'),
+  'Mantenimiento: hay reglas antiguas de .facts duplicadas y en conflicto');
+verify(css.includes('--vcc-place-number-size') &&
+  css.includes('--vcc-place-card-radius') &&
+  css.includes('--vcc-place-card-padding'),
+  'Mantenimiento: no se pueden modificar todas las tarjetas con variables VCC');
+verify(css.includes('grid-template-columns:repeat(2,minmax(0,1fr))') &&
+  css.includes('grid-template-columns:repeat(3,minmax(0,1fr))'),
+  'Móvil: faltan rejillas regulares para datos de lugares sin foto');
 
 const ids=[...html.matchAll(/<section class="place place--no-media" id="([^"]+)" data-ssr-place="1"/g)]
   .map(match=>match[1]);
