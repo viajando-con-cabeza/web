@@ -26,16 +26,16 @@ El component genera tot el visor. **No cal copiar el HTML intern del modal** ni 
 
 El component s'inicialitza automàticament. Si la guia té un DOM especial, també es pot cridar `window.VCCBookingGallery.mount(modal, {gallerySelector, overviewSelector})`; les instàncies es protegeixen contra inicialitzacions duplicades.
 
-## Estils UI compartits amb Qué ver
+## Component universal de galeria (novembre 2026)
 
-La presentació de **Qué ver · Imprescindibles** i **Estocolmo en 3 días** es centralitza en:
+Les dues pàgines, **«Qué ver · Imprescindibles»** i **«Estocolmo en 3 días»**, carreguen exactament els mateixos recursos principals:
 
-- `/configuracion/css/componentes/vcc-gallery-ui.css`: capçaleres, títols, botons de retorn, X, fletxes, comptadors, miniatures, laterals, mosaics i colors
-- `/configuracion/js/componentes/vcc-gallery-ui.js`: etiqueta única `← Galería` i decoració del botó corresponent
+- `/configuracion/css/componentes/vcc-gallery-booking.css`: **únic CSS de galeria**, incloent estructura, títols, fletxes, botó «← Galería», miniatures, laterals, responsive i colors
+- `/configuracion/js/componentes/vcc-gallery-booking.js`: **únic controlador universal**, incloent el text del retorn, mosaic, ampliació, comptador, zoom i gestos
 
-**Totes dues pàgines carreguen aquests mateixos dos fitxers.** Els seus CSS originals només aporten l'estructura i els comportaments especials de cadascuna: en particular, «Qué ver» manté el controlador original per les galeries diferents dels 15 llocs, i l'itinerari utilitza `vcc-gallery-booking.js` per generar el modal reutilitzable.
+No cal carregar els antics fitxers `vcc-gallery-ui.css` ni `vcc-gallery-ui.js` a les dues guies: el seu contingut ha quedat integrat al component universal. No tornar a duplicar regles a les plantilles d'Itinerario o Imprescindibles.
 
-Per ajustar el botó `← Galería`, colors, tipografies i acabats comuns **no s'ha de modificar el CSS de cap de les dues pàgines**; el canvi es fa a `vcc-gallery-ui.css` (o a `vcc-gallery-ui.js` per al text), abans de validar els dos visors.
+El codi editorial i els fragments que no són galeries continuen essent específics de cada pàgina.
 
 ## Comportaments conservats
 
