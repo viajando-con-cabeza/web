@@ -67,3 +67,20 @@ El visor mostra la llegenda amb `textContent` sense HTML, i limita el text a
 200 caràcters. Quan s'entra a la foto individual, el focus programàtic recau sobre el contenidor
 amb `tabindex="-1"` i no sobre el botó «Galería». El botó rep el seu
 contorn de focus només quan el lector hi navega amb Tab.
+
+## Rendiment i focus — galeria de moltes fotos
+
+El botó «Galería» del visor individual no mostra cap requadre de focus
+(per petició editorial); la resta de botons mantenen `:focus-visible`.
+
+Les galeries amb originals R2 de diversos MB poden declarar `data-fast-preview`
+al mosaic `.day-mosaic`: aleshores la fotografia apareix immediatament amb
+la miniatura disponible i l'original es carrega de manera diferida, només
+si el lector continua en aquella fotografia. Si existeix un visor optimitzat
+per una foto, el botó pot declarar `data-visor="URL"`; es mostrarà en
+lloc de la miniatura mentre es carrega l'original.
+
+El component compartit només precarrega dues miniatures adjacents en mòbil
+i cancel·la les càrregues grans pendents quan es canvia de fotografia.
+No precarregueu els originals ni genereu un visor per cada foto al canvi
+de diapositiva. El compte de fotografies i el visor amb swipe no canvien.
