@@ -178,9 +178,13 @@
    totalLabel.appendChild(label);totals.appendChild(totalLabel);
    flights.forEach((flight,i)=>{
      const td=document.createElement('td');
+     const pill=document.createElement('span');
+     pill.className='vl-total-pill';
      const strong=document.createElement('strong');
      strong.dataset.flightTotal=String(i);
-     td.appendChild(strong);totals.appendChild(td);
+     pill.appendChild(strong);
+     td.appendChild(pill);
+     totals.appendChild(td);
    });
    rows.push(totals);
    tableBody.replaceChildren(...rows);
