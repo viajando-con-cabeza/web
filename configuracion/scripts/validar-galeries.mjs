@@ -22,7 +22,12 @@ for(const url of urls){
  ++checked;
  const html=readFileSync(local,'utf8');
  // Modal declarat o galeria visible al document (incloses les generades per JS).
- const gallery=/data-vcc-booking-gallery\b|\bclass=["'][^"']*\b(?:gallery|day-gallery|gallery-mosaic|vcc-booking-gallery)\b[^"']*["']/i.test(html);
+ // Un carrusel inline (p. ej. vcc-it-gallery) no es el modal de galeria.
+ // Comprobar el nombre COMPLETO de clase para evitar falsos positivos.
+ const gallery=/data-vcc-booking-gallery\b/.test(html) ||
+   [...html.matchAll(/\bclass=["']([^"']+)["']/gi)].some(m =>
+     m[1].split(/\s+/).some(name =>
+       ["gallery","day-gallery","gallery-mosaic","vcc-booking-gallery"].includes(name)));
  const legacy=/<script\b[^>]+src=["'][^"']*imprescindibles-galeria-(?:movil|escritorio)\.js/i.test(html)
   ||/<link\b[^>]+href=["'][^"']*imprescindibles-galeria-(?:movil|escritorio)\.css/i.test(html)
   ||/\bid=["']lightbox["']/i.test(html);
