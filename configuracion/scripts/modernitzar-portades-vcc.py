@@ -10,7 +10,7 @@ import cv2
 import numpy as np
 
 ROOT = Path("configuracion/imagenes/fondos")
-OUT = ROOT / "previews-neutres"
+OUT = Path("configuracion/imagenes/previews-neutres")
 OUT.mkdir(parents=True, exist_ok=True)
 NAMES = ["inicio", "destinos", "itinerarios", "planifica", "contacto", "nosotros"]
 

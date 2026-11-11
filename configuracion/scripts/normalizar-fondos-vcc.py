@@ -7,7 +7,7 @@ import cairosvg
 
 ROOT = Path(__file__).resolve().parents[2]
 BASE = ROOT / "configuracion/imagenes/fondos"
-OLD = BASE / "old"
+OLD = ROOT / "configuracion/imagenes/archivo-fondos"
 OLD.mkdir(exist_ok=True)
 PFX = "/configuracion/imagenes/fondos/"
 SOURCE = {
