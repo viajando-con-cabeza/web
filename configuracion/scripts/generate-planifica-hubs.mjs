@@ -124,4 +124,147 @@ const mapCards = mapFiles.map(file=>{
 const mapPlaceholder=`<article class="placeholder"><span>PRÓXIMAMENTE</span><h3>Más mapas VCC</h3><p>Cada nuevo itinerario con mapa o rutas de Google Maps aparecerá automáticamente aquí.</p></article>`;
 replaceAuto("planifica/mapas/index.html","<!-- AUTO_MAPS_START -->","<!-- AUTO_MAPS_END -->",[...mapCards,mapPlaceholder].join("\n"));
 
+
+/* Qué llevar: añadir automáticamente todas las guías de equipaje existentes,
+   tanto las guías de Planifica como las de Destinos. Solo se publican archivos reales. */
+const packingEditorial = {
+  "destinos/suecia/estocolmo/que-llevar.html": {
+    "name": "Estocolmo",
+    "country": "Suecia",
+    "continent": "europa",
+    "type": [
+      "ciudades"
+    ],
+    "typeLabel": "Ciudades",
+    "image": "/configuracion/imagenes/externas/unsplash/photo-1509356843151-3e7d96241e11.webp",
+    "description": "Checklist personalizada según el mes y los días de viaje: ropa, equipaje y consejos prácticos.",
+    "priority": 1
+  },
+  "planifica/que-llevar/suecia/index.html": {
+    "name": "Suecia",
+    "country": "Suecia",
+    "continent": "europa",
+    "type": [
+      "ciudades",
+      "naturaleza",
+      "montanas"
+    ],
+    "typeLabel": "Ciudades · Naturaleza",
+    "image": "/configuracion/imagenes/externas/unsplash/photo-1531366936337-7c912a4589a7.webp",
+    "description": "Ropa por capas, prendas de abrigo y calzado adecuado para cada época del año.",
+    "priority": 2
+  },
+  "planifica/que-llevar/bali/index.html": {
+    "name": "Bali",
+    "country": "Indonesia",
+    "continent": "asia",
+    "type": [
+      "playas",
+      "naturaleza",
+      "combinados"
+    ],
+    "typeLabel": "Playas · Naturaleza",
+    "image": "/configuracion/imagenes/externas/unsplash/photo-1537996194471-e657df975ab4.webp",
+    "description": "Lo esencial para playas, excursiones, humedad y temporada de lluvias.",
+    "priority": 3
+  },
+  "planifica/que-llevar/fuerteventura/index.html": {
+    "name": "Fuerteventura",
+    "country": "España",
+    "continent": "europa",
+    "type": [
+      "playas",
+      "naturaleza",
+      "coche"
+    ],
+    "typeLabel": "Playas · Naturaleza",
+    "image": "/configuracion/imagenes/externas/unsplash/photo-1507525428034-b723cf961d3e.webp",
+    "description": "Bañador, protección solar, cortavientos y básicos para recorrer la isla.",
+    "priority": 4
+  },
+  "planifica/que-llevar/estados-unidos/index.html": {
+    "name": "Estados Unidos",
+    "country": "Estados Unidos",
+    "continent": "america",
+    "type": [
+      "coche",
+      "naturaleza",
+      "ciudades",
+      "combinados"
+    ],
+    "typeLabel": "Ruta en coche · Naturaleza",
+    "image": "/configuracion/imagenes/externas/unsplash/photo-1500530855697-b586d89ba3ee.webp",
+    "description": "Equipaje versátil para una ruta que combina carretera, ciudades y parques naturales.",
+    "priority": 5
+  },
+  "planifica/que-llevar/dubai/index.html": {
+    "name": "Dubái",
+    "country": "Emiratos Árabes Unidos",
+    "continent": "asia",
+    "type": [
+      "ciudades",
+      "combinados"
+    ],
+    "typeLabel": "Ciudades",
+    "image": "/configuracion/imagenes/externas/unsplash/photo-1518005020951-eccb494ad742.webp",
+    "description": "Ropa fresca, calzado cómodo y prendas adecuadas para las visitas y el calor.",
+    "priority": 6
+  },
+  "planifica/que-llevar/roma/index.html": {
+    "name": "Roma",
+    "country": "Italia",
+    "continent": "europa",
+    "type": [
+      "ciudades"
+    ],
+    "typeLabel": "Ciudades",
+    "image": "/configuracion/imagenes/externas/unsplash/photo-1552832230-c0197dd311b5.webp",
+    "description": "Calzado para caminar, ropa de temporada y accesorios para una escapada urbana.",
+    "priority": 7
+  },
+  "planifica/que-llevar/paris/index.html": {
+    "name": "París",
+    "country": "Francia",
+    "continent": "europa",
+    "type": [
+      "ciudades"
+    ],
+    "typeLabel": "Ciudades",
+    "image": "/configuracion/imagenes/externas/unsplash/photo-1502602898657-3e91760cbb34.webp",
+    "description": "Capas, prendas para la lluvia y una checklist práctica para descubrir la ciudad.",
+    "priority": 8
+  }
+};
+const packingContinents = {europa:"Europa",asia:"Asia",america:"América",africa:"África",oceania:"Oceanía"};
+const packingSources = [
+  ...walk(path.join(ROOT,"planifica","que-llevar")).filter(file=>/^planifica\/que-llevar\/[^/]+\/index\.html$/i.test(rel(file))),
+  ...all.filter(file=>/^destinos\/.+\/que-llevar\.html$/i.test(rel(file)))
+].filter(file=>!/<meta[^>]+name=["']robots["'][^>]+content=["'][^"']*noindex/i.test(fs.readFileSync(file,"utf8")));
+const packingCards = packingSources.map(file=>{
+  const filePath=rel(file);
+  const info=packingEditorial[filePath]||{};
+  const html=fs.readFileSync(file,"utf8");
+  const title=plain((html.match(/<title>([\s\S]*?)<\/title>/i)||[])[1]||"");
+  const slug=filePath.endsWith("/index.html")?filePath.split("/").at(-2):filePath.split("/").at(-2);
+  const name=info.name||(title.match(/Qu[eé] llevar a\s+([^|:]+)/i)||[])[1]?.trim()||titleCaseSlug(slug);
+  const fromDestinos=filePath.startsWith("destinos/");
+  const countrySlug=fromDestinos?filePath.split("/")[1]:slug;
+  const continent=info.continent||countryMeta[countrySlug]?.[1]||"all";
+  const type=Array.isArray(info.type)?info.type:["otros"];
+  const typeLabel=info.typeLabel||"Otros viajes";
+  const description=info.description||"Consulta la checklist de equipaje, la ropa recomendada y los consejos para este destino.";
+  const image=info.image||"/configuracion/imagenes/fondos/fondos-que-llevar-editorial.webp";
+  const continentLabel=packingContinents[continent]||"Más destinos";
+  const href="/"+filePath.replace(/\/index\.html$/i,"/");
+  const markup=[
+    '<article class="it-card packing-card" data-continent="'+esc(continent)+'" data-type="'+esc(type.join(" "))+'">',
+    '<img src="'+esc(image)+'" alt="'+esc(name+': paisaje ilustrativo del destino')+'" width="640" height="360" loading="lazy" decoding="async">',
+    '<div class="it-card-copy"><h2>'+esc(name.toUpperCase())+'</h2><p>'+esc(description)+'</p>',
+    '<div class="it-meta"><span>⌖ '+esc(typeLabel)+'</span><span>◎ '+esc(continentLabel)+'</span><span>✓ Checklist</span></div>',
+    '<a href="'+esc(href)+'" class="it-cta">VER QUÉ LLEVAR →</a></div></article>'
+  ].join("");
+  return {markup,priority:info.priority??999,name};
+}).sort((a,b)=>a.priority-b.priority||a.name.localeCompare(b.name,"es"));
+replaceAuto("planifica/que-llevar/index.html","<!-- AUTO_PACKING_START -->","<!-- AUTO_PACKING_END -->",packingCards.map(card=>card.markup).join("\n"));
+
 console.log(`Hubs actualizados: ${budgetCards.length} presupuestos, ${mapCards.length} mapas.`);

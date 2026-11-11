@@ -1,0 +1,33 @@
+/* Qué llevar · hereda el diseño de /planifica/presupuesto/ e Itinerarios. */
+.que-llevar-hub .itinerarios-hero .about-hero-photo{
+  background-image:url("/configuracion/imagenes/fondos/fondos-que-llevar-editorial.webp");
+  background-position:center 56%;
+}
+.que-llevar-hub .filter-controls{
+  grid-template-columns:repeat(2,minmax(0,1fr)) auto;
+}
+.que-llevar-hub .it-card img{background:#e6e3de}
+.que-llevar-hub .vcc-packing-disclaimer{
+  margin:17px 0 0;
+  color:#716a64;
+  font:400 11px/1.6 "DM Sans",sans-serif;
+}
+.que-llevar-hub .it-card .it-cta:focus-visible,
+.que-llevar-hub .filter-submit:focus-visible,
+.que-llevar-hub .filter-reset:focus-visible{
+  outline:3px solid #b94f34;
+  outline-offset:4px;
+}
+.que-llevar-hub .filter-field:focus-within{
+  outline:2px solid #d96847;
+  outline-offset:2px;
+}
+@media(max-width:900px){
+  .que-llevar-hub .filter-controls{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .que-llevar-hub .filter-submit{grid-column:1/-1}
+}
+@media(max-width:650px){
+  .que-llevar-hub .filter-controls{grid-template-columns:1fr}
+  .que-llevar-hub .filter-submit{grid-column:1}
+  .que-llevar-hub .itinerarios-hero .about-hero-photo{background-position:63% center}
+}
