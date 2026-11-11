@@ -137,6 +137,7 @@ jobs:
         run: |
           set -euo pipefail
           find configuracion/js -type f -name '*.js' -print0 | xargs -0 -n1 node --check
+          node --check configuracion/scripts/actualizar-instagram.mjs
 
       - name: Validate Cuándo ir technical SEO
         run: node configuracion/scripts/verificar-seo-cuando-ir.mjs
