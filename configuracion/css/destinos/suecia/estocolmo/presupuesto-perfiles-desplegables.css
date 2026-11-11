@@ -1124,12 +1124,33 @@ html body.budget-vcc .calculator-card .calc-total{
 }
 @media(max-width:750px){
   html body.budget-vcc #filosofia .vcc-budget-mode-carousel{margin:11px 0 8px}
-  /* Un poco más de altura y aire para los cuatro perfiles solo en móvil. */
+  /* Tarjetas de presupuesto más grandes y legibles exclusivamente en móvil. */
   html body.budget-vcc #filosofia .vcc-budget-mode-card,
   html body.budget-vcc #filosofia .vcc-budget-mode-card[aria-expanded="true"]{
-    min-height:184px;
-    padding-top:18px;
-    padding-bottom:17px;
+    flex:0 0 min(86vw,310px);
+    min-height:228px;
+    padding:20px 17px 18px;
+  }
+  html body.budget-vcc #filosofia .vcc-budget-mode-icon{
+    width:44px;height:44px;flex-basis:44px;
+  }
+  html body.budget-vcc #filosofia .vcc-budget-mode-icon img{
+    width:35px;height:35px;
+  }
+  html body.budget-vcc #filosofia .vcc-budget-mode-title strong{
+    font-size:22px;
+  }
+  html body.budget-vcc #filosofia .vcc-budget-mode-price strong{
+    font-size:21px;
+  }
+  html body.budget-vcc #filosofia .vcc-budget-mode-copy{
+    font-size:13px;line-height:1.48!important;margin-top:13px;
+  }
+  html body.budget-vcc #filosofia .vcc-budget-mode-footer{
+    font-size:11px!important;padding-top:13px!important;
+  }
+  html body.budget-vcc #filosofia .vcc-budget-mode-caret svg{
+    width:16px;height:16px;
   }
   html body.budget-vcc .calculator-grid > .breakdown-card,
   html body.budget-vcc .calculator-grid > .calculator-card{
