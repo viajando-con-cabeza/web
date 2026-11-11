@@ -167,11 +167,10 @@ body.mv-body .mv-day-advice .mv-advice-saving{background-color:#fff}
 .mv-transport-toolbar{display:flex;align-items:center;justify-content:flex-end;gap:12px;margin:-3px 0 11px}
 .mv-transport-counter{display:inline-block;min-width:43px;color:#8a5c42;font:800 11px/1 var(--vcc-font-body, "DM Sans", Arial, sans-serif);text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}
 .mv-transport-shell{position:relative;display:block;min-width:0;width:100%}
-.mv-transport-arrow{position:absolute;z-index:3;top:50%;transform:translateY(-50%);display:grid;place-items:center;width:38px;height:38px;padding:0;border:1px solid #ddbca5;border-radius:50%;background:#fff;color:#d36228;cursor:pointer;box-shadow:0 2px 8px rgba(60,40,24,.07);transition:background .15s,border-color .15s}
+.mv-transport-arrow{position:absolute;z-index:3;top:50%;transform:translateY(-50%);display:grid;place-items:center;padding:0;cursor:pointer;}
 .mv-transport-prev{left:-43px}
 .mv-transport-next{right:-43px}
-.mv-transport-arrow:hover:not(:disabled){background:#fff0e6;border-color:#d98a58}
-.mv-transport-arrow:disabled{opacity:.35;cursor:default;box-shadow:none}
+.mv-transport-arrow:disabled{cursor:default;}
 .mv-transport-arrow svg{width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 .mv-grid{display:flex;align-items:stretch;min-width:0;width:100%;gap:12px;overflow-x:auto;overscroll-behavior-inline:contain;scroll-snap-type:x mandatory;scroll-behavior:smooth;scrollbar-width:none;-webkit-overflow-scrolling:touch;padding:0 0 2px}
 .mv-grid::-webkit-scrollbar{display:none}
@@ -232,15 +231,13 @@ body.mv-body .mv-day-advice .mv-advice-saving{background-color:#fff}
 .mv-saving-content{min-width:0;flex:1}
 .mv-saving-card h3{margin:0 0 7px;font:600 19px/1.1 var(--vcc-font-heading, "Oswald", sans-serif);color:#272d2a}
 .mv-saving-card p{margin:0;color:#635d56;font:400 11.6px/1.43 var(--vcc-font-body, "DM Sans", Arial, sans-serif);display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:4;line-clamp:4;overflow:hidden}
-.mv-carousel-arrow{position:absolute;top:50%;transform:translateY(-50%);width:34px;height:34px;border-radius:50%;border:1px solid #dcc7b8;background:#fff;color:#b75d43;display:grid;place-items:center;font:400 24px/1 var(--vcc-font-body, "DM Sans", Arial, sans-serif);cursor:pointer}
-.mv-carousel-arrow:hover:not(:disabled){background:#fff0e6}
-.mv-carousel-arrow:disabled{opacity:.36;cursor:default}
+.mv-carousel-arrow{position:absolute;top:50%;transform:translateY(-50%);display:grid;place-items:center;cursor:pointer;}
+.mv-carousel-arrow:disabled{cursor:default;}
 .mv-prev{left:0}.mv-next{right:0}
 
 /* Footer de guies: reutilitza estocolmo-guias-final-vcc.css */
 @media(max-width:1270px){
  .mv-container{width:calc(100% - 52px)}
- .mv-transport-arrow{width:30px;height:30px}
  .mv-transport-prev{left:-27px}
  .mv-transport-next{right:-27px}
  .mv-pay-guide{grid-template-columns:minmax(165px,.72fr) minmax(240px,1.25fr) minmax(335px,1.4fr);gap:12px}
@@ -344,9 +341,8 @@ body.mv-body .mv-day-advice .mv-advice-saving{background-color:#fff}
  .mv-advice-comparison>div>strong{font-size:22px}
  .mv-archipelago-note{padding:0 1px;font-size:12px;line-height:1.55}
  /* Botons amb zona tàctil de 44px; cercle visual de 30px, sense tapar les targetes. */
- .mv-transport-arrow{width:44px;height:44px;border:0;background:transparent;box-shadow:none;isolation:isolate}
+ .mv-transport-arrow{isolation:isolate;}
  .mv-transport-arrow::before{content:"";position:absolute;inset:7px;z-index:-1;border:1px solid #ddbca5;border-radius:50%;background:#fff;box-shadow:0 2px 8px rgba(60,40,24,.07)}
- .mv-transport-arrow:hover:not(:disabled){background:transparent}
  .mv-transport-arrow:hover:not(:disabled)::before{background:#fff0e6;border-color:#d98a58}
  .mv-transport-prev{left:-12px}
  .mv-transport-next{right:-12px}
@@ -377,7 +373,6 @@ body.mv-body .mv-day-advice .mv-advice-saving{background-color:#fff}
  .mv-saving-number{width:34px;height:34px;flex-basis:34px;font-size:19px}
  .mv-saving-card h3{font-size:calc(18px + var(--vcc-heading-size-adjust,0px))}
  .mv-saving-card p{display:block;overflow:visible;font-size:12.5px;line-height:1.5;-webkit-line-clamp:unset;line-clamp:unset}
- .mv-carousel-arrow{width:44px;height:44px}
 }
 @media(max-width:420px){
  /* Menys de 420px: targetes de pressupost llegibles sense columnes estretes. */
@@ -396,4 +391,4 @@ body.mv-body .mv-day-advice .mv-advice-saving{background-color:#fff}
  .mv-profile{min-height:0}
  .mv-ticket-option>b{font-size:20px}
 }
-@media(prefers-reduced-motion:reduce){.mv-saving-track,.mv-grid,.mv-day-route.is-carousel .mv-day-cards{scroll-behavior:auto}.mv-transport-arrow{transition:none}}
+@media(prefers-reduced-motion:reduce){.mv-saving-track,.mv-grid,.mv-day-route.is-carousel .mv-day-cards{scroll-behavior:auto}}
