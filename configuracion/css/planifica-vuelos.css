@@ -80,6 +80,16 @@
 .vl-air-carousel-arrow:disabled{opacity:.35;cursor:default;box-shadow:none}
 .vl-air-carousel-prev{left:-19px}.vl-air-carousel-next{right:-19px}
 .vl-air-note{text-align:center}
+/* Un únic sobretítol i títol en Nuestra experiencia, idèntics a Alojamientos. */
+.vl-experience-heading>.vl-kicker{display:block;font-family:"Caveat",cursive;font-size:25px;font-weight:600;line-height:1;letter-spacing:0;text-transform:none;color:#c86f5d;margin:0}
+.vl-experience-heading>.vl-heading{font-family:"Oswald","Arial Narrow",sans-serif;font-size:40px;font-weight:500;line-height:1;letter-spacing:0;text-transform:uppercase;color:var(--vl-ink);margin:3px 0 12px}
+.vl-experience-heading>.vl-copy{font-family:"DM Sans",sans-serif;font-size:13px;line-height:1.5;font-weight:400;margin:0;max-width:810px}
+@media(max-width:720px){
+ .vl-experience-heading>.vl-kicker{font-size:22px}
+ .vl-experience-heading>.vl-heading{font-size:32px}
+ .vl-experience-heading>.vl-copy{font-size:12px}
+}
+
 .vl-footnote{font-size:10px;line-height:1.55;color:#71777a;margin:9px 0 0}
 /* Calculator: one condensed flight row, up to five only when added. */
 .vl-calc-head{display:flex;justify-content:space-between;align-items:end;gap:28px}
@@ -161,9 +171,6 @@
  .vl-air-track{grid-auto-columns:calc((100% - 16px)/1.12)}
  .vl-air-image{height:135px;min-height:135px}
  .vl-air-carousel-arrow{top:31%}
- .vl-review-head{flex-direction:column;align-items:stretch;gap:8px}
- .vl-review-head>div:first-child{min-width:0;width:100%}
- .vl-review-head .vl-controls{align-self:flex-end}
  .vl-calc-head{display:block}.vl-calc-head .vl-copy{margin-top:7px;max-width:none}
  .vl-flight{grid-template-columns:1fr}
  .vl-flight-side{display:block}
@@ -197,8 +204,6 @@
  .vl-air-image{height:115px;min-height:115px}
  .vl-air-card-body{padding:12px 13px 13px}
  .vl-air-lists li{font-size:10.5px;line-height:1.35;margin-bottom:4px}
- .vl-controls{gap:4px}
- .vl-controls button{width:30px;height:30px}
  .vl-fields{gap:8px}
  .vl-field-name{font-size:9.5px}
  .vl-flight-side{padding:10px}
