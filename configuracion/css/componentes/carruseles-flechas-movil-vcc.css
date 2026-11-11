@@ -363,7 +363,8 @@
   /* Altres carrusels actius: Destinos (rutes) i portada Estocolmo.
      Només colors i interacció, no es canvien posicions ni la mida. */
   html body .vcc-route-carousel > .vcc-route-arrow,
-  html body .st-carousel-wrap > .carousel-arrow {
+  html body .st-carousel-wrap > .carousel-arrow,
+  html body.country-page .sweden-carousel-wrap > .carousel-arrow {
     background:#fff!important;
     border:1px solid #dcc6b7!important;
     border-radius:50%!important;
@@ -372,7 +373,8 @@
     transition:background-color .15s ease,border-color .15s ease,color .15s ease;
   }
   html body .vcc-route-carousel > .vcc-route-arrow:is(:hover,:active,:focus-visible):not(:disabled):not([aria-disabled="true"]),
-  html body .st-carousel-wrap > .carousel-arrow:is(:hover,:active,:focus-visible):not(:disabled):not([aria-disabled="true"]) {
+  html body .st-carousel-wrap > .carousel-arrow:is(:hover,:active,:focus-visible):not(:disabled):not([aria-disabled="true"]),
+  html body.country-page .sweden-carousel-wrap > .carousel-arrow:is(:hover,:active,:focus-visible):not(:disabled):not([aria-disabled="true"]) {
     background:#fff1e8!important;
     border-color:#c36c4f!important;
     color:#ab553b!important;
