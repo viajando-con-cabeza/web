@@ -51,9 +51,8 @@
 .al-lists li::before{content:"•";position:absolute;left:1px;color:#464b4d}
 .al-external{display:inline-flex;align-items:center;justify-content:space-between;gap:8px;margin-top:auto;padding:10px 0 0;font-size:11.5px;font-weight:800;color:#d5551a!important}
 .al-external:hover{text-decoration:underline}
-.al-carousel-arrow{position:absolute;top:38%;z-index:2;display:grid;place-items:center;width:42px;height:42px;border:1px solid #e8e8e8;border-radius:50%;background:#fff;color:var(--al-orange);box-shadow:0 3px 9px #0002;transition:background .2s,opacity .2s}
-.al-carousel-arrow:hover:not(:disabled){background:#fff2ea}
-.al-carousel-arrow:disabled{opacity:.35;cursor:default;box-shadow:none}
+.al-carousel-arrow{position:absolute;top:38%;z-index:2;display:grid;place-items:center;}
+.al-carousel-arrow:disabled{cursor:default;}
 .al-carousel-prev{left:-19px}.al-carousel-next{right:-19px}
 .al-page :is(button,a,[tabindex]):focus-visible{outline:3px solid var(--al-orange);outline-offset:3px}
 .al-photo-note{font-size:10.5px;color:#818487;text-align:center;margin:6px 0 0}
@@ -78,8 +77,8 @@
 .al-next-links span{font-size:11px;color:#e7e7e7}
 @media(max-width:1050px){.al-track{grid-auto-columns:calc((100% - 16px)/2.12)}.al-guide-options article:first-child{border-left:0;padding-left:0}}
 @media(max-width:740px){.al-hero{height:var(--vcc-standard-hero-mobile,730px);min-height:var(--vcc-standard-hero-mobile,730px)}.al-hero-inner{padding:76px 0 45px}.al-subnav .vcc-nav-inner{gap:24px;padding-inline:14px}.al-subnav a{font-size:11px}.al-catalog{padding-top:38px}.al-track{grid-auto-columns:calc((100% - 16px)/1.12)}.al-card img{height:135px}.al-intro{min-height:0}.al-guide-panel{padding:23px 19px}.al-guide-options{grid-template-columns:repeat(2,minmax(0,1fr));row-gap:24px}.al-guide-options article:nth-child(odd){border-left:0;padding-left:0}.al-next-links{grid-template-columns:repeat(2,minmax(0,1fr))}.al-carousel-arrow{top:31%}}
-@media(max-width:520px){.al-wrap{width:calc(100% - 28px)}.al-hero h1{font-size:43px}.al-hero-facts{gap:10px 15px}.al-hero p:not(.al-eyebrow){font-size:13px}.al-catalog{padding-top:31px}.al-heading{margin-bottom:19px}.al-heading p{font-size:12px}.al-card-body{padding:12px 13px 13px}.al-card img{height:115px}.al-lists{gap:9px}.al-lists section+section{padding-left:9px}.al-lists h4{font-size:11px}.al-lists li{font-size:10.5px;line-height:1.35;margin-bottom:4px}.al-carousel-arrow{top:30%;width:36px;height:36px}.al-carousel-prev{left:-8px}.al-carousel-next{right:-8px}.al-guide{padding-top:20px}.al-next{padding:32px 0 40px}}
-@media(prefers-reduced-motion:reduce){.al-track{scroll-behavior:auto}.al-carousel-arrow{transition:none}}
+@media(max-width:520px){.al-wrap{width:calc(100% - 28px)}.al-hero h1{font-size:43px}.al-hero-facts{gap:10px 15px}.al-hero p:not(.al-eyebrow){font-size:13px}.al-catalog{padding-top:31px}.al-heading{margin-bottom:19px}.al-heading p{font-size:12px}.al-card-body{padding:12px 13px 13px}.al-card img{height:115px}.al-lists{gap:9px}.al-lists section+section{padding-left:9px}.al-lists h4{font-size:11px}.al-lists li{font-size:10.5px;line-height:1.35;margin-bottom:4px}.al-carousel-arrow{top:30%;}.al-carousel-prev{left:-8px}.al-carousel-next{right:-8px}.al-guide{padding-top:20px}.al-next{padding:32px 0 40px}}
+@media(prefers-reduced-motion:reduce){.al-track{scroll-behavior:auto}}
 /* Titulares de sección: alineación editorial VCC, sin depender de caché heredada. */
 .al-page .al-catalog .al-heading,
 .al-page .al-guide .al-guide-heading{
@@ -198,7 +197,7 @@
 .al-page .al-card .al-intro{font-size:11.5px;line-height:1.42;margin-bottom:12px}
 .al-page .al-card .al-lists{padding-top:10px;gap:11px}
 .al-page .al-card .al-lists li{font-size:10.7px;line-height:1.38}
-.al-page .al-carousel-arrow{top:50%;transform:translateY(-50%);width:35px;height:35px}
+.al-page .al-carousel-arrow{top:50%;transform:translateY(-50%);}
 .al-page .al-carousel-prev{left:-15px}
 .al-page .al-carousel-next{right:-15px}
 /* Cómo ahorrar: números SVG compartits, targetes compactes i carrusel. */
@@ -225,19 +224,14 @@
 .al-page .al-tip p{font:400 11.5px/1.48 var(--vcc-font-body,"DM Sans",Arial,sans-serif);margin:0;color:#625d58}
 .al-page .al-tips-carousel > .al-tips-arrow{
  position:absolute;top:50%;bottom:auto;transform:translateY(-50%);
- z-index:3;display:grid;place-items:center;
- width:36px;height:36px;padding:0;border-radius:50%;
- background:rgba(255,255,255,.045);border:1px solid #c7aa97;
- color:#ab553b;box-shadow:none;
- transition:background-color .15s,border-color .15s,color .15s
-}
+ z-index:3;display:grid;place-items:center;padding:0;}
 .al-page .al-tips-carousel > .al-tips-prev{left:-12px;right:auto}
 .al-page .al-tips-carousel > .al-tips-next{right:-12px;left:auto}
 .al-page .al-tips-arrow svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 .al-page .al-tips-arrow:is(:hover,:active,:focus-visible):not(:disabled){
  background:#fff1e8;border-color:#c36c4f;color:#ab553b
 }
-.al-page .al-tips-arrow:disabled{opacity:.30;cursor:default}
+.al-page .al-tips-arrow:disabled{cursor:default;}
 @media(max-width:1000px){
  .al-page .al-tips-track{grid-auto-columns:calc((100% - 12px)/2)}
 }
@@ -257,10 +251,9 @@
  .al-page .al-tips-track{grid-auto-columns:calc(100% - 18px)}
  .al-page .al-tip{gap:9px}
  .al-page .al-tip p{font-size:11px}
- .al-page .al-tips-carousel > .al-tips-arrow{width:30px;height:30px}
  .al-page .al-hero .al-hero-eyebrow{font-size:24px}
 }
-@media(prefers-reduced-motion:reduce){.al-page .al-tips-arrow{transition:none}}
+@media(prefers-reduced-motion:reduce){}
 
 /* VCC · Carrusel de consejos: compacto, altura mínima estable y fletchas laterales.
    Los números e iconos continúan centralizados en configuración. */
