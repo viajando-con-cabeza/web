@@ -36,7 +36,7 @@
   position:absolute;inset:0;z-index:2;
   display:flex;align-items:center;justify-content:center;
   padding:5px;background:rgba(0,0,0,.54);
-  color:#fff;font:700 12px/1.2 'DM Sans',sans-serif;letter-spacing:0;
+  color:#fff;font:700 12px/1.2 var(--vcc-font-body, "DM Sans", Arial, sans-serif);letter-spacing:0;
   text-align:center;pointer-events:none;
 }
 .vcc-booking-gallery .day-mosaic.count-8>button:focus-visible,
@@ -78,7 +78,7 @@ body.vcc-booking-gallery-open{overflow:hidden!important;overscroll-behavior:none
  padding:18px!important;margin:0!important;
  background:rgba(27,25,24,.63)!important;
  box-sizing:border-box!important;overflow:hidden!important;
- font-family:'DM Sans',sans-serif!important;
+ font-family:var(--vcc-font-body, "DM Sans", Arial, sans-serif)!important;
 }
 .vcc-booking-gallery-modal *{box-sizing:border-box}
 .vcc-booking-gallery-modal .day-lightbox-panel{
@@ -104,7 +104,7 @@ body.vcc-booking-gallery-open{overflow:hidden!important;overscroll-behavior:none
 .vcc-booking-gallery-modal .day-lightbox-close,
 .vcc-booking-gallery-modal .day-lightbox-to-grid{
  background:transparent!important;border:0!important;box-shadow:none!important;
- cursor:pointer;color:#262626;font-family:'DM Sans',sans-serif!important;
+ cursor:pointer;color:#262626;font-family:var(--vcc-font-body, "DM Sans", Arial, sans-serif)!important;
 }
 .vcc-booking-gallery-modal .day-lightbox-grid-back{
  justify-self:start;display:inline-flex;gap:10px;align-items:center;
@@ -117,16 +117,16 @@ body.vcc-booking-gallery-open{overflow:hidden!important;overscroll-behavior:none
 }
 .vcc-booking-gallery-modal .day-lightbox-grid-heading strong{
  max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
- font:500 22px/1.15 'Oswald',sans-serif;text-transform:uppercase;
+ font:500 22px/1.15 var(--vcc-font-heading, "Oswald", sans-serif);text-transform:uppercase;
 }
-.vcc-booking-gallery-modal .day-lightbox-grid-count{font:600 12px/1.2 'DM Sans',sans-serif;color:#a65340}
+.vcc-booking-gallery-modal .day-lightbox-grid-count{font:600 12px/1.2 var(--vcc-font-body, "DM Sans", Arial, sans-serif);color:#a65340}
 .vcc-booking-gallery-modal .day-lightbox-grid-close,
 .vcc-booking-gallery-modal .day-lightbox-close{
  position:relative!important;inset:auto!important;
  justify-self:end;display:grid;place-items:center;
  width:42px;height:42px;padding:0!important;margin:0!important;
  color:#262626!important;border-radius:0!important;
- font:400 31px/1 'DM Sans',sans-serif!important;
+ font:400 31px/1 var(--vcc-font-body, "DM Sans", Arial, sans-serif)!important;
 }
 .vcc-booking-gallery-modal .day-lightbox-grid-back:hover,
 .vcc-booking-gallery-modal .day-lightbox-grid-close:hover,
@@ -166,12 +166,12 @@ body.vcc-booking-gallery-open{overflow:hidden!important;overscroll-behavior:none
 .vcc-booking-gallery-modal .day-lightbox-grid-info h3,
 .vcc-booking-gallery-modal .day-lightbox-info h3{
  margin:0 0 12px;color:#c56851;
- font:600 29px/1.12 'Caveat',cursive;
+ font:600 29px/1.12 var(--vcc-font-script, "Caveat", cursive);
  text-transform:none;letter-spacing:0;
 }
 .vcc-booking-gallery-modal .day-lightbox-grid-info p,
 .vcc-booking-gallery-modal .day-lightbox-info p{
- margin:0;color:#47413c;font:400 13px/1.75 'DM Sans',sans-serif;
+ margin:0;color:#47413c;font:400 13px/1.75 var(--vcc-font-body, "DM Sans", Arial, sans-serif);
 }
 /* Fotografia individual: mateixes proporcions, capçalera, lateral i miniatures. */
 .vcc-booking-gallery-modal .day-lightbox-photo-view:not([hidden]){
@@ -190,11 +190,11 @@ body.vcc-booking-gallery-open{overflow:hidden!important;overscroll-behavior:none
 .vcc-booking-gallery-modal .day-lightbox-to-grid{
  position:static!important;justify-self:start;z-index:2;
  padding:10px 0!important;
- color:#333!important;font:400 13px/1.2 'DM Sans',sans-serif!important;
+ color:#333!important;font:400 13px/1.2 var(--vcc-font-body, "DM Sans", Arial, sans-serif)!important;
 }
 .vcc-booking-gallery-modal .day-lightbox-photo-title{
  margin:0;min-width:0;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;
- text-align:center;font:500 22px/1.15 'Oswald',sans-serif!important;
+ text-align:center;font:500 22px/1.15 var(--vcc-font-heading, "Oswald", sans-serif)!important;
  text-transform:uppercase;color:#242424;
 }
 .vcc-booking-gallery-modal .day-lightbox-stage{
@@ -216,7 +216,7 @@ body.vcc-booking-gallery-open{overflow:hidden!important;overscroll-behavior:none
 .vcc-booking-gallery-modal .day-lightbox-counter{
  grid-column:1;grid-row:3;display:flex;justify-content:center;align-items:center;
  height:30px;min-height:30px;margin:0!important;padding:6px 12px 0!important;
- font:400 12px/1 'DM Sans',sans-serif!important;
+ font:400 12px/1 var(--vcc-font-body, "DM Sans", Arial, sans-serif)!important;
  color:#55514e;background:#fff;font-variant-numeric:tabular-nums;
 }
 .vcc-booking-gallery-modal .day-lightbox-thumbs{
@@ -318,11 +318,11 @@ body.vcc-booking-gallery-open{overflow:hidden!important;overscroll-behavior:none
 }
 .vcc-booking-gallery-modal.vcc-gallery-mobile .day-lightbox-grid-heading strong,
 .vcc-booking-gallery-modal.vcc-gallery-mobile .day-lightbox-photo-title{
- font:500 19px/1.18 'Oswald',sans-serif!important;
+ font:500 19px/1.18 var(--vcc-font-heading, "Oswald", sans-serif)!important;
  overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
 }
 .vcc-booking-gallery-modal.vcc-gallery-mobile .day-lightbox-grid-count{
- font:600 12px/1.2 'DM Sans',sans-serif;color:#aa5944;
+ font:600 12px/1.2 var(--vcc-font-body, "DM Sans", Arial, sans-serif);color:#aa5944;
 }
 .vcc-booking-gallery-modal.vcc-gallery-mobile .day-lightbox-grid-main{
  display:flex;flex-direction:column;flex:1;min-height:0;
@@ -356,7 +356,7 @@ body.vcc-booking-gallery-open{overflow:hidden!important;overscroll-behavior:none
  padding:0!important;font-size:0!important;
 }
 .vcc-booking-gallery-modal.vcc-gallery-mobile .day-lightbox-to-grid::before{
- content:'←';font:400 32px/1 'DM Sans',sans-serif;
+ content:'←';font:400 32px/1 var(--vcc-font-body, "DM Sans", Arial, sans-serif);
 }
 .vcc-booking-gallery-modal.vcc-gallery-mobile .day-lightbox-photo-title{text-align:left}
 .vcc-booking-gallery-modal.vcc-gallery-mobile .day-lightbox-stage{
@@ -413,8 +413,8 @@ html body .vcc-booking-gallery-modal:not([hidden]) .day-lightbox-photo-view:not(
    mosaic ampliat i foto individual no es tornen a implementar.
    ============================================================== */
 :root{
- --vcc-gallery-ui-font:'DM Sans',sans-serif;
- --vcc-gallery-ui-title:'Oswald',sans-serif;
+ --vcc-gallery-ui-font:var(--vcc-font-body, "DM Sans", Arial, sans-serif);
+ --vcc-gallery-ui-title:var(--vcc-font-heading, "Oswald", sans-serif);
  --vcc-gallery-ui-divider:#eee7e1;
 }
 /* Els dos estats comparteixen el mateix rectangle i una única línia. */
@@ -480,7 +480,7 @@ html body .imp-page .gallery-mosaic.count-5 .gallery-more{
  position:absolute;inset:0;z-index:2;display:flex!important;
  align-items:center;justify-content:center;padding:5px;
  background:rgba(0,0,0,.54);color:#fff;
- font:700 12px/1.2 'DM Sans',sans-serif;text-align:center;pointer-events:none;
+ font:700 12px/1.2 var(--vcc-font-body, "DM Sans", Arial, sans-serif);text-align:center;pointer-events:none;
 }
 @media(max-width:800px){
  html body .imp-page .gallery-mosaic.count-5{

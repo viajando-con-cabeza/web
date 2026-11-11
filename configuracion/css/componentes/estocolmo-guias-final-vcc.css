@@ -12,15 +12,15 @@ html body .vcc-discover-section,html body .vcc-discover-section *{box-sizing:bor
 html body .vcc-discover-section .related-inner{width:min(1510px,calc(100% - 108px));margin:0 auto!important}
 html body .vcc-discover-section .related-head{display:block!important;margin:0 0 20px!important;text-align:left!important}
 html body .vcc-discover-section .related-head p{
-  color:#de9a83!important;font:600 28px/1 'Caveat',cursive!important;
+  color:#de9a83!important;font:600 28px/1 var(--vcc-font-script, "Caveat", cursive)!important;
   text-transform:none!important;letter-spacing:0!important;margin:0 0 10px!important
 }
 html body .vcc-discover-section .related-head h2{
-  color:#fffaf5!important;font:500 clamp(27px,3.2vw,40px)/1.1 'Oswald',sans-serif!important;
+  color:#fffaf5!important;font:500 clamp(27px,3.2vw,40px)/1.1 var(--vcc-font-heading, "Oswald", sans-serif)!important;
   margin:0 0 9px!important;text-transform:uppercase!important;letter-spacing:0!important
 }
 html body .vcc-discover-section .related-head span{
-  display:block!important;color:#e5e0db!important;font:400 13px/1.5 'DM Sans',sans-serif!important
+  display:block!important;color:#e5e0db!important;font:400 13px/1.5 var(--vcc-font-body, "DM Sans", Arial, sans-serif)!important
 }
 html body .vcc-discover-section .related-grid.vcc-related-cards{
   display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr))!important;
@@ -50,17 +50,17 @@ html body .vcc-discover-section .related-grid .vcc-related-copy{
   flex-direction:column!important;gap:4px!important;align-items:flex-start!important
 }
 html body .vcc-discover-section .related-grid .vcc-related-copy strong{
-  display:block!important;font:500 clamp(17px,1.5vw,21px)/1.16 'Oswald',sans-serif!important;
+  display:block!important;font:500 clamp(17px,1.5vw,21px)/1.16 var(--vcc-font-heading, "Oswald", sans-serif)!important;
   color:#fff!important;margin:0!important;text-transform:uppercase!important
 }
 html body .vcc-discover-section .related-grid .vcc-related-copy em{
-  display:block!important;font:400 11px/1.35 'DM Sans',sans-serif!important;
+  display:block!important;font:400 11px/1.35 var(--vcc-font-body, "DM Sans", Arial, sans-serif)!important;
   color:#e1dfdb!important;font-style:normal!important;margin:0!important
 }
 html body .vcc-discover-section .related-grid .vcc-related-arrow{
   flex:0 0 24px!important;display:flex!important;margin-left:auto!important;align-items:center!important;
   justify-content:center!important;color:#e79b72!important;background:none!important;
-  font:400 23px/1 'DM Sans',sans-serif!important
+  font:400 23px/1 var(--vcc-font-body, "DM Sans", Arial, sans-serif)!important
 }
 @media(max-width:1030px){
   html body .vcc-discover-section .related-inner{width:calc(100% - 48px)}

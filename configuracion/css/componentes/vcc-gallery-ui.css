@@ -8,15 +8,15 @@
   --vcc-gallery-ui-ink:#242424;
   --vcc-gallery-ui-text:#47413c;
   --vcc-gallery-ui-muted:#55514e;
-  --vcc-gallery-ui-accent:#a65340;
+  --vcc-gallery-ui-accent:var(--vcc-accent-override, #a65340);
   --vcc-gallery-ui-divider:#eee7e1;
   --vcc-gallery-ui-tile:#f0eae4;
   --vcc-gallery-ui-radius:17px;
   --vcc-gallery-ui-photo-radius:13px;
   --vcc-gallery-ui-gap:13px;
-  --vcc-gallery-ui-font:'DM Sans',sans-serif;
-  --vcc-gallery-ui-title:'Oswald',sans-serif;
-  --vcc-gallery-ui-script:'Caveat',cursive;
+  --vcc-gallery-ui-font:var(--vcc-font-body, "DM Sans", Arial, sans-serif);
+  --vcc-gallery-ui-title:var(--vcc-font-heading, "Oswald", sans-serif);
+  --vcc-gallery-ui-script:var(--vcc-font-script, "Caveat", cursive);
 }
 /* Els dos visors desktop comparteixen acabats i amplada visual. */
 html body :is(

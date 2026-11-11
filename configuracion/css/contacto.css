@@ -1,7 +1,7 @@
-:root{--contact-ink:#211d19;--contact-orange:#e85b08;--contact-cream:#fbf0df;--contact-paper:#f8e7d0;--contact-border:#e7c9a8}
+:root{--contact-ink:#211d19;--contact-orange:var(--vcc-accent-override, #e85b08);--contact-cream:#fbf0df;--contact-paper:#f8e7d0;--contact-border:#e7c9a8}
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
-body{margin:0;background:var(--contact-cream);color:var(--contact-ink);font-family:"DM Sans",Arial,sans-serif}
+body{margin:0;background:var(--contact-cream);color:var(--contact-ink);font-family:var(--vcc-font-body, "DM Sans", Arial, sans-serif)}
 a{color:inherit}
 .contact-page{overflow:hidden}
 .contact-hero{min-height:345px;display:flex;align-items:center;position:relative;background:linear-gradient(90deg,rgba(250,239,220,.96) 0%,rgba(250,239,220,.82) 34%,rgba(250,239,220,.10) 72%),url("/configuracion/imagenes/fondos/fondos-contacto.webp?v=20261104") center 48%/cover no-repeat}
@@ -35,7 +35,7 @@ a{color:inherit}
 .contact-form-wrap h2{font:600 clamp(23px,2.2vw,29px)/1.12 Oswald,Impact,sans-serif;margin:0 0 11px;max-width:520px;padding-right:78px}
 .form-intro{font-size:15px;margin:0 0 18px;line-height:1.5}
 #contactForm{display:grid;gap:12px}
-#contactForm input[type=text],#contactForm input[type=email],#contactForm select,#contactForm textarea{width:100%;border:1px solid #d6bfa5;border-radius:4px;background:#fff9f0;color:#211d19;padding:12px 13px;font:15px "DM Sans",sans-serif;min-height:43px}
+#contactForm input[type=text],#contactForm input[type=email],#contactForm select,#contactForm textarea{width:100%;border:1px solid #d6bfa5;border-radius:4px;background:#fff9f0;color:#211d19;padding:12px 13px;font:15px var(--vcc-font-body, "DM Sans", Arial, sans-serif);min-height:43px}
 #contactForm textarea{resize:vertical;min-height:112px}
 #contactForm input:focus,#contactForm select:focus,#contactForm textarea:focus{outline:2px solid #e85b0880;outline-offset:1px}
 .privacy-check{display:flex;gap:9px;align-items:center;font-size:13px;margin:1px 0 3px}

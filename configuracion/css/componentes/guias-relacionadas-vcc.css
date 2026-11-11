@@ -17,8 +17,8 @@
 .vcc-related-cards .vcc-related-link:focus-visible{outline:2px solid #edb092;outline-offset:3px}
 .vcc-related-cards .vcc-related-icon{display:block;flex:0 0 34px;width:34px;height:34px;color:#e79b72;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
 .vcc-related-cards .vcc-related-copy{display:flex;flex:1 1 auto;min-width:0;flex-direction:column;justify-content:center;gap:4px}
-.vcc-related-cards .vcc-related-copy strong{display:block;font:500 21px/1.1 'Oswald',sans-serif;color:#fff;letter-spacing:.005em;margin:0}
-.vcc-related-cards .vcc-related-copy em{display:block;font:400 11px/1.35 'DM Sans',sans-serif;color:#e1dfdb;font-style:normal;margin:0}
+.vcc-related-cards .vcc-related-copy strong{display:block;font:500 21px/1.1 var(--vcc-font-heading, "Oswald", sans-serif);color:#fff;letter-spacing:.005em;margin:0}
+.vcc-related-cards .vcc-related-copy em{display:block;font:400 11px/1.35 var(--vcc-font-body, "DM Sans", Arial, sans-serif);color:#e1dfdb;font-style:normal;margin:0}
 .vcc-related-cards .vcc-related-arrow{display:flex;flex:0 0 24px;align-items:center;justify-content:center;color:#e79b72;font-size:21px;font-weight:400;background:none}
 @media(max-width:1030px){
  .vcc-related-cards.related-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}
@@ -43,8 +43,8 @@ html body.budget-vcc .related-grid.vcc-related-cards .related-text-link.vcc-rela
  background:rgba(43,61,66,.97)!important;border-color:#e4a18d!important
 }
 html body.budget-vcc .related-grid.vcc-related-cards .related-text-link .vcc-related-copy{display:flex!important;flex-direction:column!important;gap:4px!important;margin:0!important}
-html body.budget-vcc .related-grid.vcc-related-cards .related-text-link .vcc-related-copy strong{font:500 21px/1.1 'Oswald',sans-serif!important;color:#fff!important}
-html body.budget-vcc .related-grid.vcc-related-cards .related-text-link .vcc-related-copy em{font:400 11px/1.35 'DM Sans',sans-serif!important;color:#e1dfdb!important}
+html body.budget-vcc .related-grid.vcc-related-cards .related-text-link .vcc-related-copy strong{font:500 21px/1.1 var(--vcc-font-heading, "Oswald", sans-serif)!important;color:#fff!important}
+html body.budget-vcc .related-grid.vcc-related-cards .related-text-link .vcc-related-copy em{font:400 11px/1.35 var(--vcc-font-body, "DM Sans", Arial, sans-serif)!important;color:#e1dfdb!important}
 html body.budget-vcc .related-grid.vcc-related-cards .related-text-link .vcc-related-icon{flex:0 0 34px!important;width:34px!important;height:34px!important;color:#e79b72!important}
 html body.budget-vcc .related-grid.vcc-related-cards .related-text-link .vcc-related-arrow{margin-left:auto!important;color:#e79b72!important}
 @media(max-width:1030px){
