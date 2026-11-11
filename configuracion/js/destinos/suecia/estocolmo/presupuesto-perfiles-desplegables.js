@@ -6,7 +6,7 @@
   if (!root) return;
   const cards = Array.from(root.querySelectorAll("[data-budget-mode]"));
   const panels = Array.from(root.querySelectorAll("[data-budget-panel]"));
-  let active = "vcc";
+  let active = "";
 
   function activate(id, scroll) {
     active = id;
@@ -45,7 +45,7 @@
       track.scrollBy({left: Number(arrow.dataset.budgetScroll) * width,behavior:"smooth"});
     });
   });
-  activate("vcc", false);
+  activate("", false);
 
   /* Carrusel diario: un día visible a la vez, independientemente de si hay 3 o 15. */
   panels.forEach(function (panel) {
