@@ -48,6 +48,27 @@ for (const [file, route] of [["en/index.html","/en/"], ["planifica/apps/index.ht
   if (urls.has(ORIGIN + route)) fail(file + ": un borrador no debe estar en sitemap");
 }
 
+// El sitio sigue creciendo: cada HTML nuevo debe quedar noindex hasta aprobarse.
+const {readdirSync,readFileSync}=fs;
+const ignored=new Set([".git",".github","node_modules","configuracion",".wrangler","preview-dist",".openai"]);
+function scan(dir=""){
+  return readdirSync(dir||".",{withFileTypes:true}).flatMap(entry=>{
+    const p=dir?dir+"/"+entry.name:entry.name;
+    return entry.isDirectory()?(ignored.has(entry.name)?[]:scan(p)):(p.endsWith(".html")?[p]:[]);
+  });
+}
+const approvedFiles=new Set(publishable.map(([file])=>file));
+for(const file of scan()){
+  if(approvedFiles.has(file))continue;
+  const head=headOf(readFileSync(file,"utf8"));
+  if(!/<meta\b(?=[^>]*\bname=["']robots["'])(?=[^>]*\bcontent=["']noindex,follow["'])[^>]*>/i.test(head))
+    fail(file+": borrador sin noindex,follow (publicacion no autorizada)");
+}
+if(!readSiteFile("wrangler.jsonc").includes('"html_handling": "auto-trailing-slash"'))
+  fail("Cloudflare: falta html_handling auto-trailing-slash");
+for(const loc of listed)if(/\.html(?:[?#]|$)/i.test(loc))
+  fail("Sitemap: URL .html no canónica "+loc);
+
 const headers = readSiteFile("_headers");
 if (!headers.includes("https://quality.viajandoconcabeza.com/*") ||
     !headers.includes("X-Robots-Tag: noindex"))

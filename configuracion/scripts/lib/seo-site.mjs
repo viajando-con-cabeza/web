@@ -5,35 +5,11 @@ import path from "node:path";
 
 export const ORIGIN = "https://viajandoconcabeza.com";
 export const ROOT = process.cwd();
-export const publishable = [
-  ["index.html", "/"],
-  ["destinos/index.html", "/destinos/"],
-  ["itinerarios/index.html", "/itinerarios/"],
-  ["planifica/index.html", "/planifica/"],
-  ["planifica/vuelos/index.html", "/planifica/vuelos/"],
-  ["planifica/alojamientos/index.html", "/planifica/alojamientos/"],
-  ["planifica/presupuesto/index.html", "/planifica/presupuesto/"],
-  ["planifica/que-llevar/index.html", "/planifica/que-llevar/"],
-  ["planifica/donde-ir/index.html", "/planifica/donde-ir/"],
-  ["planifica/mapas/index.html", "/planifica/mapas/"],
-  ["planifica/calcula-tu-viaje/index.html", "/planifica/calcula-tu-viaje/"],
-  ["planifica/tarjetas-de-viaje/index.html", "/planifica/tarjetas-de-viaje/"],
-  ["nosotros/index.html", "/nosotros/"],
-  ["contacto/index.html", "/contacto/"],
-  ["destinos/suecia/estocolmo/index.html", "/destinos/suecia/estocolmo/"],
-  ["destinos/suecia/estocolmo/itinerario.html", "/destinos/suecia/estocolmo/itinerario"],
-  ["destinos/suecia/estocolmo/imprescindibles.html", "/destinos/suecia/estocolmo/imprescindibles"],
-  ["destinos/suecia/estocolmo/presupuesto.html", "/destinos/suecia/estocolmo/presupuesto"],
-  ["destinos/suecia/estocolmo/cuando-ir.html", "/destinos/suecia/estocolmo/cuando-ir"],
-  ["destinos/suecia/estocolmo/como-moverse.html", "/destinos/suecia/estocolmo/como-moverse"],
-  ["destinos/suecia/estocolmo/como-llegar.html", "/destinos/suecia/estocolmo/como-llegar"],
-  ["destinos/suecia/estocolmo/que-ver.html", "/destinos/suecia/estocolmo/que-ver.html"],
-  ["destinos/suecia/estocolmo/que-llevar.html", "/destinos/suecia/estocolmo/que-llevar.html"],
-  ["destinos/suecia/estocolmo/donde-dormir.html", "/destinos/suecia/estocolmo/donde-dormir.html"],
-  ["destinos/suecia/estocolmo/entradas-y-pases.html", "/destinos/suecia/estocolmo/entradas-y-pases.html"],
-  ["destinos/italia/roma/index.html", "/destinos/italia/roma/"],
-  ["destinos/italia/roma/que-ver.html", "/destinos/italia/roma/que-ver.html"]
-];
+const registry=JSON.parse(fs.readFileSync(path.join(ROOT,"configuracion/datos/publicacion-vcc.json"),"utf8"));
+export const publishable=registry.approved.map(file=>[
+  file,
+  file==="index.html"?"/":file.endsWith("/index.html")?"/"+file.slice(0,-10):"/"+file.replace(/\.html$/,"")
+]);
 
 export function readSiteFile(relative) {
   return fs.readFileSync(path.join(ROOT, relative), "utf8");

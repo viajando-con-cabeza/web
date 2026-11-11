@@ -126,6 +126,21 @@ jobs:
             git push origin HEAD:quality
           fi
 
+      - name: Sincronitzar SEO editorial, canòniques i pàgines noindex
+        shell: bash
+        run: |
+          set -euo pipefail
+          node configuracion/scripts/preparar-publicacion.mjs --write
+          if ! git diff --quiet -- .; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add -u
+            git commit -m "Auto-sync SEO editorial: canonicals, noindex and sitemap"
+            git pull --rebase origin quality
+            git push origin HEAD:quality
+          fi
+          node configuracion/scripts/preparar-publicacion.mjs --check
+
       - name: Check local links and resources
         run: node configuracion/scripts/comprobar-rutas.mjs
 

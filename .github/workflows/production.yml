@@ -22,6 +22,19 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Prevent draft indexing and ensure canonical release
+        run: |
+          node configuracion/scripts/preparar-publicacion.mjs --check
+          node configuracion/scripts/verificar-seo-global.mjs
+          node configuracion/scripts/comprobar-rutas.mjs
+
+      - name: Check privacy policy is legally complete
+        run: |
+          if grep -q "Antes de publicar esta página de forma definitiva" politica-de-privacidad/index.html; then
+            echo "BLOQUEADO: falta identificar al titular y completar la política legal antes de lanzar producción."
+            exit 1
+          fi
+
       - name: Validate static site
         shell: bash
         run: |
