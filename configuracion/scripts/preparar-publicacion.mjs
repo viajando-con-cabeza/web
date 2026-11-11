@@ -38,9 +38,13 @@ function decorate(html,file,isReady){
     if(!metaTag('og:title'))newTags+='<meta property="og:title" content="'+enc(title)+'">\n';
     if(!metaTag('og:description'))newTags+='<meta property="og:description" content="'+enc(desc)+'">\n';
     if(!metaTag('og:image')) {
-      const image=config.socialImages?.[file]||'/configuracion/imagenes/fondos/fondos-inicio.webp';
-      if(!fs.existsSync(path.join(ROOT,image.slice(1))))issues.push(file+': foto OG inexistente '+image);
-      newTags+='<meta property="og:image" content="'+ORIGIN+image+'">\n';
+      const image=config.socialImages?.[file];
+      if(!image)issues.push(file+': imagen social no configurada en publicacion-vcc.json');
+      if(image){
+        if(!image.startsWith('/'))issues.push(file+': socialImages requiere ruta absoluta del sitio');
+        else if(!fs.existsSync(path.join(ROOT,image.slice(1))))issues.push(file+': foto OG inexistente '+image);
+        newTags+='<meta property="og:image" content="'+ORIGIN+image+'">\n';
+      }
     }
     if(!metaTag('twitter:card'))newTags+='<meta name="twitter:card" content="summary_large_image">\n';
     if(file==='index.html' && !html.includes('data-vcc-schema-website')) {
