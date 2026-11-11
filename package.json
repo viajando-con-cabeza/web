@@ -7,7 +7,8 @@
   "scripts": {
     "seo:sync": "node configuracion/scripts/preparar-publicacion.mjs --write",
     "seo:check": "node configuracion/scripts/preparar-publicacion.mjs --check && node configuracion/scripts/verificar-seo-global.mjs",
-    "test": "node configuracion/scripts/comprobar-rutas.mjs && node configuracion/scripts/verificar-seo-global.mjs && node configuracion/scripts/verificar-seo-como-llegar.mjs && node configuracion/scripts/verificar-presupuestos-vcc.mjs && node configuracion/scripts/verificar-contacto-vcc.mjs"
+    "test": "node configuracion/scripts/comprobar-rutas.mjs && node configuracion/scripts/verificar-seo-global.mjs && node configuracion/scripts/verificar-seo-como-llegar.mjs && node configuracion/scripts/verificar-presupuestos-vcc.mjs && node configuracion/scripts/verificar-contacto-vcc.mjs && node configuracion/scripts/verificar-css-vcc.mjs",
+    "css:check": "node configuracion/scripts/verificar-css-vcc.mjs"
   },
   "engines": {
     "node": ">=20"

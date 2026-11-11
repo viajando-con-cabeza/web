@@ -155,6 +155,9 @@ jobs:
           node configuracion/scripts/verificar-presupuestos-vcc.mjs
           node configuracion/scripts/verificar-contacto-vcc.mjs
 
+      - name: Check reusable CSS and absence of exact duplicates
+        run: node configuracion/scripts/verificar-css-vcc.mjs
+
       - name: Validate JavaScript syntax
         shell: bash
         run: |

@@ -33,6 +33,9 @@ jobs:
           node configuracion/scripts/verificar-presupuestos-vcc.mjs
           node configuracion/scripts/verificar-contacto-vcc.mjs
 
+      - name: Check reusable CSS and absence of exact duplicates
+        run: node configuracion/scripts/verificar-css-vcc.mjs
+
       - name: Check privacy policy is legally complete
         run: |
           if grep -q "Antes de publicar esta página de forma definitiva" politica-de-privacidad/index.html; then
