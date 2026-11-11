@@ -96,6 +96,10 @@
  }
  function updateCalculator(){
    const panels=flights();
+   if(stack){
+     stack.dataset.columns=String(panels.length);
+     stack.style.setProperty('--flight-count',String(panels.length));
+   }
    if(add){
      add.disabled=panels.length>=5;
      add.textContent=panels.length>=5?'Máximo de 5 vuelos':'+ Añadir otro vuelo';
@@ -117,7 +121,7 @@
      const select=panel.querySelector('[data-airline-select]');
      const airline=select?.selectedOptions[0]?.textContent?.trim()||'';
      if(price!==''&&price!=null){
-       completed.push({total,index,code:letter[index],airline:select?.value?airline:'Aerolínea sin elegir'});
+       completed.push({total,index,code:letter[index],airline:select?.value?airline:'Aerolínea sin elegir',base:amounts[0],transfer:amounts[3]});
      }
    });
    if(!summary||!list||!result)return;
@@ -135,12 +139,24 @@
      const row=document.createElement('div');
      row.className='vl-result-row';
      const best=Math.abs(item.total-min)<0.005&&completed.length>1;
-     if(best)row.classList.add('is-cheapest');
+     if(best){
+       row.classList.add('is-cheapest');
+       const badge=document.createElement('small');
+       badge.className='vl-best-tag';
+       badge.textContent='Mejor precio real';
+       row.appendChild(badge);
+     }
      const label=document.createElement('span');
      label.textContent='Vuelo '+item.code+' · '+item.airline;
      const price=document.createElement('strong');
      price.textContent=money.format(item.total);
      row.append(label,price);
+     if(!best&&completed.length>1&&item.total-min>0.005){
+       const difference=document.createElement('small');
+       difference.className='vl-result-difference';
+       difference.textContent='+'+money.format(item.total-min)+' respecto al más barato';
+       row.appendChild(difference);
+     }
      list.appendChild(row);
    });
    result.hidden=false;
@@ -152,7 +168,11 @@
      if(Math.abs(max-min)<0.005){
        result.textContent='Los vuelos comparados tienen el mismo precio final.';
      }else{
-       result.textContent='Mejor precio: '+cheaper.map(x=>'vuelo '+x.code).join(' y ')+' · hasta '+money.format(max-min)+' menos que la opción más cara.';
+       const cheapestTicket=completed.reduce((a,b)=>b.base<a.base?b:a);
+       const ticketWarning=cheapestTicket.total>min+0.005
+         ? ' El billete más barato (vuelo '+cheapestTicket.code+') no es la opción más económica cuando sumas los extras y el traslado.'
+         : '';
+       result.textContent='Mejor precio real: '+cheaper.map(x=>'vuelo '+x.code).join(' y ')+' · hasta '+money.format(max-min)+' menos que la opción más cara.'+ticketWarning;
      }
    }
  }
