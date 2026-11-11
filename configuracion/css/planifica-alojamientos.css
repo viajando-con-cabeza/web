@@ -172,20 +172,20 @@
  .al-page .al-hero-facts{gap:8px 14px}
 }
 /* Jerarquia tipogràfica única Caveat / Oswald per a títols i sobretítols. */
-.al-page :is(.al-catalog,.al-savings,.al-guide) .al-heading{text-align:left;max-width:none;margin:0 0 16px}
-.al-page :is(.al-catalog,.al-savings,.al-guide) .al-heading .al-eyebrow{
+.al-page :is(.al-catalog,.al-savings) .al-heading{text-align:left;max-width:none;margin:0 0 16px}
+.al-page :is(.al-catalog,.al-savings) .al-heading .al-eyebrow{
  font:600 26px/1.04 var(--vcc-font-script,"Caveat",cursive);
  color:#c0674b;margin:0 0 4px;letter-spacing:0;text-transform:none
 }
-.al-page :is(.al-catalog,.al-savings,.al-guide) .al-heading .al-title{
+.al-page :is(.al-catalog,.al-savings) .al-heading .al-title{
  font:500 clamp(30px,3vw,39px)/1.1 var(--vcc-font-heading,"Oswald",sans-serif);
  color:#24211f;letter-spacing:0;text-transform:uppercase;margin:0 0 8px
 }
-.al-page :is(.al-catalog,.al-savings,.al-guide) .al-heading p{
+.al-page :is(.al-catalog,.al-savings) .al-heading p{
  color:#655f59;font:400 12.5px/1.5 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
  margin:0;max-width:820px
 }
-.al-page :is(#plataformas,#como-ahorrar,#elegir){scroll-margin-top:calc(var(--vcc-subheader-top,50px) + 39px + 18px)}
+.al-page :is(#plataformas,#como-ahorrar){scroll-margin-top:calc(var(--vcc-subheader-top,50px) + 39px + 18px)}
 .al-page .al-catalog{padding:36px 0 21px}
 .al-page .al-card{border-radius:12px}
 .al-page .al-card-body{padding:16px 15px 13px}
@@ -230,36 +230,16 @@
 .al-page .al-tips-arrow:hover:not(:disabled),.al-page .al-tips-arrow:active{background:#e57147;color:#fff;border-color:#e57147}
 .al-page .al-tips-arrow:disabled{opacity:.30;cursor:default}
 .al-page .al-savings .al-heading{padding-right:78px}
-/* El selector no recomana una marca arbitrària: compara dos imports totals. */
-.al-page .al-guide{padding:31px 0 32px}
-.al-page .al-compare{
- display:grid;grid-template-columns:minmax(0,1.18fr) minmax(0,1fr);
- gap:16px;align-items:stretch;background:#fff;border:1px solid #e6dfd7;
- border-radius:13px;padding:15px
-}
-.al-page .al-compare-inputs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
-.al-page .al-compare-field{display:flex;flex-direction:column;gap:6px;font:800 10px/1.3 var(--vcc-font-body,"DM Sans",Arial,sans-serif);color:#61584f;letter-spacing:.05em}
-.al-page .al-compare-input{display:flex;align-items:center;gap:6px;min-height:44px;background:#faf9f6;border:1px solid #e2d8d0;border-radius:7px;padding:0 11px}
-.al-page .al-compare-input:focus-within{outline:2px solid #c56c4c;outline-offset:2px}
-.al-page .al-compare-input input{width:100%;min-width:0;background:none;border:0;outline:none;font:600 15px/1.2 var(--vcc-font-body,"DM Sans",Arial,sans-serif);color:#2a2623}
-.al-page .al-compare-input input::placeholder{font-size:11px;font-weight:400;color:#938781}
-.al-page .al-compare-input b{color:#b45c3d;font:700 14px var(--vcc-font-body,"DM Sans",Arial,sans-serif)}
-.al-page .al-compare-result{display:flex;flex-direction:column;justify-content:center;gap:4px;padding:9px 14px;background:#faf7f3;border:1px solid #eee4db;border-radius:8px}
-.al-page .al-compare-result strong{font:600 18px/1.2 var(--vcc-font-heading,"Oswald",sans-serif);color:#2b2520}
-.al-page .al-compare-result p{font:400 11.5px/1.45 var(--vcc-font-body,"DM Sans",Arial,sans-serif);color:#625c55;margin:0}
-.al-page .al-compare-note{color:#77716c;font:400 11px/1.52 var(--vcc-font-body,"DM Sans",Arial,sans-serif);margin:10px 0 0}
 @media(max-width:1000px){
  .al-page .al-tips-track{grid-auto-columns:calc((100% - 12px)/2)}
- .al-page .al-compare{grid-template-columns:1fr}
 }
 @media(max-width:740px){
  .al-page .al-tips-track{grid-auto-columns:calc((100% - 30px)/1.25)}
  .al-page .al-tip{padding:12px}
  .al-page .al-tip h3{font-size:17px}
  .al-page .al-savings{padding:26px 0 26px}
- .al-page .al-guide{padding:23px 0 27px}
- .al-page :is(.al-catalog,.al-savings,.al-guide) .al-heading .al-eyebrow{font-size:23px}
- .al-page :is(.al-catalog,.al-savings,.al-guide) .al-heading .al-title{font-size:31px}
+ .al-page :is(.al-catalog,.al-savings) .al-heading .al-eyebrow{font-size:23px}
+ .al-page :is(.al-catalog,.al-savings) .al-heading .al-title{font-size:31px}
 }
 @media(max-width:520px){
  .al-page .al-catalog{padding-top:28px}
@@ -271,8 +251,24 @@
  .al-page .al-tip p{font-size:11px}
  .al-page .al-tips-controls{top:-44px}
  .al-page .al-tips-arrow{width:30px;height:30px}
- .al-page .al-compare{padding:12px;gap:12px}
- .al-page .al-compare-inputs{grid-template-columns:1fr;gap:8px}
  .al-page .al-hero .al-eyebrow{font-size:24px}
 }
 @media(prefers-reduced-motion:reduce){.al-page .al-tips-arrow{transition:none}}
+
+/* VCC · Consejos de ahorro: vinyetes més altes i amb respiració vertical. */
+.al-page .al-tips-track{align-items:stretch}
+.al-page .al-tip{
+  min-height:204px;
+  padding:23px 19px;
+  align-items:flex-start;
+  gap:14px;
+}
+.al-page .al-tip h3{margin:4px 0 12px}
+.al-page .al-tip p{line-height:1.6}
+@media(max-width:740px){
+  .al-page .al-tip{min-height:192px;padding:20px 16px}
+  .al-page .al-tip h3{margin:3px 0 10px}
+}
+@media(max-width:520px){
+  .al-page .al-tip{min-height:184px;padding:19px 15px}
+}
