@@ -32,9 +32,8 @@
 .ep-section-heading h2{font:500 40px/1 var(--vcc-font-heading, "Oswald", sans-serif);letter-spacing:0;text-transform:uppercase;color:#242423;margin:0}
 .ep-section-heading .ep-heading-aside{flex:0 1 405px;max-width:410px;text-align:right;color:#6c625c;font:400 12px/1.55 var(--vcc-font-body, "DM Sans", Arial, sans-serif);margin:0 0 2px}
 .ep-page .ep-slider-controls{position:absolute;right:0;top:0;z-index:2;display:flex;gap:7px;align-items:center}
-.ep-slider-arrow{width:31px;height:31px;display:grid;place-items:center;border:1px solid #dac9bc;border-radius:50%;background:#fff;color:#a7583e;font:600 19px/1 var(--vcc-font-body, "DM Sans", Arial, sans-serif);padding:0}
-.ep-slider-arrow:hover:not(:disabled),.ep-rail-arrow:hover:not(:disabled){background:#c96b50;color:#fff;border-color:#c96b50}
-.ep-slider-arrow:disabled,.ep-rail-arrow:disabled{opacity:.33;cursor:default}
+.ep-slider-arrow{display:grid;place-items:center;padding:0;}
+.ep-slider-arrow:disabled,.ep-rail-arrow:disabled{cursor:default;}
 .ep-entries-section>.ep-slider-controls{top:5px}
 .ep-entries-section .ep-section-heading{padding-right:90px}
 .ep-slider-rail,.ep-saving-rail{overflow:hidden;min-width:0}
@@ -158,7 +157,7 @@
 
 
 .ep-saving-carousel{display:grid;grid-template-columns:36px minmax(0,1fr) 36px;align-items:center;gap:11px}
-.ep-rail-arrow{width:33px;height:33px;padding:0;border:1px solid #ddcfc5;border-radius:50%;background:#fff;color:#a45238;display:grid;place-items:center;font:400 21px/1 var(--vcc-font-body, "DM Sans", Arial, sans-serif)}
+.ep-rail-arrow{padding:0;display:grid;place-items:center;}
 .ep-savings-grid{gap:14px;padding:2px 2px 9px}
 .ep-saving-card{flex:0 0 calc((100% - 28px)/3);min-height:152px;display:grid;grid-template-columns:54px minmax(0,1fr);gap:14px;align-content:start;padding:21px 18px;border:1px solid #e4d7cb;border-radius:13px;background:#fff}
 .ep-saving-number{position:relative;display:grid;place-items:center;width:48px;height:48px;flex:0 0 48px;border-radius:50%;border:1px solid #d9a499;background:#fff7f3;color:#b9634f;font:600 23px/1 var(--vcc-font-heading, "Oswald", sans-serif)}
@@ -234,7 +233,6 @@
 
 
  .ep-saving-carousel{grid-template-columns:27px minmax(0,1fr) 27px;gap:5px}
- .ep-rail-arrow{height:27px;width:27px}
  .ep-saving-card{flex-basis:96%;min-height:151px;padding:14px;gap:12px;grid-template-columns:44px 1fr}
  .ep-saving-number{width:40px;height:40px;flex-basis:40px;font-size:20px}
  .ep-saving-card h3{font-size:21px}
