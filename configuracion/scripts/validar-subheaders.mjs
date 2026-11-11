@@ -23,7 +23,9 @@ for(const [match,url] of [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map(m=>[m
  const html=read(local);
  const navs=[...html.matchAll(/<nav\b[^>]*class=["']([^"']+)["'][^>]*>/gi)];
  let detected=false;
- for(const [,cls] of navs){
+ for(const [tag,cls] of navs){
+  // Las pestañas/filtros internos no son barras de anclas al contenido.
+  if (/\bdata-vcc-filter-nav\b/.test(tag)) continue;
   const classes=cls.split(/\s+/);
   const eligible=classes.filter(x=>/subnav|(?:^|-)tabs$|^vcc-nav$|^country-nav$|^place-nav-wrap$|^content-nav$/.test(x));
   if(!eligible.length)continue;
