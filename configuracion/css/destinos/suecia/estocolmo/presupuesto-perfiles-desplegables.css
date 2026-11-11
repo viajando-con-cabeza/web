@@ -1285,3 +1285,52 @@ html body.budget-vcc .calculator-card .calc-total{
     padding-bottom:11px;
   }
 }
+
+
+/* VCC · 2026-11-11 · Calculadora: tarjetas de igual altura en escritorio */
+@media (min-width:821px) {
+  /* Eliminar el align-items:start anterior para igualar ambas tarjetas. */
+  html body.budget-vcc .calculator-grid {
+    align-items:stretch!important;
+  }
+  html body.budget-vcc .calculator-grid > .breakdown-card,
+  html body.budget-vcc .calculator-grid > .calculator-card {
+    height:auto!important;
+    min-height:0!important;
+    box-sizing:border-box;
+    align-self:stretch;
+  }
+  /* Centrar visualmente el gráfico sin forzar una altura fija. */
+  html body.budget-vcc .calculator-grid > .breakdown-card {
+    display:flex!important;
+    flex-direction:column!important;
+  }
+  html body.budget-vcc .calculator-grid > .breakdown-card .chart-layout {
+    flex:1 1 auto;
+    align-content:center!important;
+    align-items:center!important;
+  }
+}
+/* Compactación suave únicamente en escritorio; móvil no cambia. */
+@media (min-width:1160px) {
+  html body.budget-vcc .calculator-grid > .breakdown-card,
+  html body.budget-vcc .calculator-grid > .calculator-card {
+    padding:11px 13px!important;
+  }
+  html body.budget-vcc .calculator-card .calc-ticket-head {
+    margin-bottom:6px!important;
+  }
+  html body.budget-vcc .calculator-card .calc-top {
+    margin-bottom:6px!important;
+  }
+  html body.budget-vcc .calculator-card .calc-control {
+    min-height:56px!important;
+  }
+  html body.budget-vcc .calculator-card .category-row {
+    padding:2px 0!important;
+  }
+  html body.budget-vcc .calculator-card .calc-total {
+    margin-top:6px!important;
+    padding-top:6px!important;
+  }
+}
