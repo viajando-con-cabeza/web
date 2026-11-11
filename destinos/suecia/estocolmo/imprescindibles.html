@@ -19,7 +19,6 @@
 <meta name="twitter:title" content="Imprescindibles de Estocolmo · VCC">
 <meta name="twitter:description" content="15 lugares imprescindibles de Estocolmo con tiempos, costes, puntuaciones VCC y consejos para elegir qué ver. Incluye mapa interactivo y PDF descargable.">
 
-<link rel="preload" as="image" href="https://img.viajandoconcabeza.com/destinos/suecia/goteborg/2026-dia1/DSC06555.webp" fetchpriority="high">
 <link rel="preconnect" href="https://unpkg.com" crossorigin>
 <link rel="preconnect" href="https://img.viajandoconcabeza.com" crossorigin>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -115,33 +114,11 @@
 <script src="/configuracion/js/site-header.js"></script>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" defer></script>
 <script src="/configuracion/js/destinos/suecia/estocolmo/imprescindibles-mapa.js?v=20261110-reduced-motion" defer></script>
+<script src="/configuracion/js/destinos/suecia/estocolmo/imprescindibles-fotos.js?v=20261111-stockholm-r2"></script>
 <script>
-/* Prova temporal: fotos de Göteborg a les galeries d'Estocolm. Canviar per les definitives. */
-/* Separar el nom de carpeta per evitar la transformació que eliminava
-   l'any 2026 del literal JavaScript servit a quality. */
-const R2_GOTEBORG='https://img.viajandoconcabeza.com/destinos/suecia/goteborg/' + '20' + '26-dia1/';
-/* Fotografies WebP visibles al bucket R2, ordenades pel nom del fitxer.
-   La captura mostra 10 objectes: no inventar els noms dels cinc següents. */
-const R2_PHOTOS=[
-  'DSC06553.webp','DSC06554.webp','DSC06555.webp','DSC06558.webp',
-  'DSC06560.webp','DSC06564.webp','DSC06576.webp','DSC06578.webp',
-  'DSC06585.webp','DSC06588.webp'
-].map(filename=>R2_GOTEBORG+filename);
-/* Galeria específica del passeig en ferry: imatges AVIF directes de Cloudflare R2. */
-/* Fotografies existents al bucket R2 despres de reorganitzar l'arxipelag. 
-   Referencies verificades a les subcarpetes del 2026-dia8. */
-const FERRY_BASE='https://img.viajandoconcabeza.com/destinos/suecia/estocolmo-archipelago/'+'20'+'26-dia8/';
-const FERRY_PHOTOS=[
-  'paisajes/DSC08335.avif',
-  'bosques/DSC08336.avif',
-  'bosques/DSC08337.avif',
-  'mar/DSC08342.avif',
-  'mar/DSC08344.avif',
-  'mar/DSC08345.avif',
-  'mar/DSC08359.avif',
-  'paisajes/DSC08332.avif',
-  'paisajes/DSC08333.avif'
-].map(key=>FERRY_BASE+key);
+/* Fotografies originals VCC verificades a R2.
+   Les fitxes sense imatges pròpies no mostren fotografies d'altres llocs. */
+const PLACE_PHOTOS=window.VCC_STOCKHOLM_PHOTOS || {};
 const data=[
   ["gamla-stan","Gamla Stan","Barrio histórico","Perderse también es viajar","Gamla Stan es el lugar donde mejor se entiende el origen de Estocolmo. Sus calles estrechas y empedradas atraviesan un casco antiguo lleno de fachadas ocres, plazas pequeñas e iglesias. Merece la pena alejarse de las calles principales y descubrir pasajes más tranquilos.","Estocolmo","2–3 horas",5,"Calles con historia","Recorre Stortorget y luego aléjate por las callejuelas secundarias; enlaza el paseo con Riddarholmen si buscas vistas y un poco más de calma.","old"],
   ["vasa","Museo Vasa","Museo","Un barco que lo cambia todo","El Vasa conserva prácticamente completo un barco de guerra del siglo XVII hundido en su viaje inaugural. Recorrer sus plantas permite verlo desde distintas alturas y comprender su historia.","Djurgården","2–3 horas",4,"Una historia que impresiona","Si solo vas a elegir un museo, considera priorizar el Vasa. Calcula unas dos horas dentro y combínalo con un paseo por Djurgården; revisa horarios y entrada antes de salir.","city","old"],
@@ -185,10 +162,10 @@ const main=document.getElementById('places');
 data.forEach((p,i)=>{
   const section=document.getElementById(p[0]);
   if(!section || !main.contains(section))return;
-  const imgs=p[0]==='ferry'?FERRY_PHOTOS:R2_PHOTOS.slice(0,Math.min(i+1,R2_PHOTOS.length));
+  const imgs=PLACE_PHOTOS[p[0]] || [];
   const copy=section.querySelector('.place-copy');
   if(!copy)return;
-  if(p[0]!=='gamla-stan'){
+  if(imgs.length){
     section.classList.remove('place--no-media');
     let gallery=section.querySelector(':scope > .gallery');
     if(!gallery){
@@ -200,7 +177,7 @@ data.forEach((p,i)=>{
     // Los mosaicos usan etiquetas img reales (alt y lazy-loading), no
     // fondos CSS. El diseño, las fotos R2 y los visores permanecen iguales.
     // El ferry AVIF conserva temporalmente el flujo ya verificado de R2.
-    gallery.dataset.seoImages=p[0]==='ferry'?'false':'true';
+    gallery.dataset.seoImages='true';
     let imageSource=gallery.querySelector('.gallery-main');
     if(!imageSource){
       imageSource=document.createElement('div');
