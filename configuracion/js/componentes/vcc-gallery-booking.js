@@ -53,7 +53,35 @@ let currentImages=[],currentIndex=0,lastFocus=null,gridButtons=[];
 let photoSequence=0;
 let slideOverlay=null,slideTimeout=0;
 let dragSlide=null,dragSlideTimer=0;
-const preloadedVisors=new Map();
+const preloadedThumbs=new Map();
+let fullPhotoTimer=0,fullPhotoRequest=null;
+function cancelFullPhoto(){
+ if(fullPhotoTimer){clearTimeout(fullPhotoTimer);fullPhotoTimer=0}
+ if(fullPhotoRequest){
+  fullPhotoRequest.onload=null;
+  fullPhotoRequest.onerror=null;
+  fullPhotoRequest.removeAttribute('src');
+  fullPhotoRequest=null;
+ }
+}
+function scheduleFullPhoto(item,id){
+ // L'original gran només comença a carregar quan s'atura la navegació.
+ const delay=item.fastPreview?(isMobile()?650:420):(isMobile()?420:220);
+ fullPhotoTimer=window.setTimeout(()=>{
+  fullPhotoTimer=0;
+  if(id!==photoSequence||!photoOpen())return;
+  const full=new Image();full.decoding='async';
+  fullPhotoRequest=full;
+  full.onload=async()=>{
+   try{if(full.decode)await full.decode()}catch(_){}
+   if(fullPhotoRequest===full)fullPhotoRequest=null;
+   if(id!==photoSequence||!photoOpen())return;
+   photoImage.src=item.src;
+  };
+  full.onerror=()=>{if(fullPhotoRequest===full)fullPhotoRequest=null};
+  full.src=item.src;
+ },delay);
+}
 const visible=()=>!modal.hidden;
 const gridOpen=()=>visible()&&!gridView.hidden;
 const photoOpen=()=>visible()&&!photoView.hidden;
@@ -163,12 +191,18 @@ const visorFor=item=>item.preview.includes('/__vcc_preview/mini/')
  :item.preview.replace('/_preview/mini/','/_preview/visor/');
 function preloadAdjacentPhotos(){
  if(!isMobile()||currentImages.length<2)return;
- for(const delta of [-1,1]){
-  const url=visorFor(currentImages[(currentIndex+delta+currentImages.length)%currentImages.length]);
-  if(preloadedVisors.has(url))continue;
-  const image=new Image();
-  image.decoding='async';image.src=url;
-  preloadedVisors.set(url,image);
+ // Només dues miniatures petites: no precarreguem visors ni originals de MB.
+ const urls=new Set([-1,1].map(delta=>
+  currentImages[(currentIndex+delta+currentImages.length)%currentImages.length].preview));
+ for(const [url,image] of preloadedThumbs){
+  if(urls.has(url))continue;
+  image.removeAttribute('src');
+  preloadedThumbs.delete(url);
+ }
+ for(const url of urls){
+  if(preloadedThumbs.has(url))continue;
+  const image=new Image();image.decoding='async';image.src=url;
+  preloadedThumbs.set(url,image);
  }
 }
 
@@ -195,8 +229,12 @@ function beginDragSlide(direction){
  incoming.classList.add('vcc-gallery-drag-incoming');
  incoming.setAttribute('aria-hidden','true');
  const img=incoming.querySelector('img');
- img.src=visorFor(item);
+ img.src=item.visor||(item.fastPreview?item.preview:visorFor(item));
  img.alt=item.alt;
+ const captionNode=incoming.querySelector('.day-lightbox-caption');
+ const caption=typeof item.caption==='string'?item.caption.trim().slice(0,200):'';
+ if(captionNode){captionNode.textContent=caption;captionNode.hidden=!caption}
+ incoming.classList.toggle('vcc-has-caption',Boolean(caption));
  img.onerror=()=>{if(img.src!==item.src)img.src=item.src};
  stage.append(incoming);
  stage.classList.add('vcc-gallery-dragging');
@@ -239,6 +277,7 @@ function settleDragSlide(complete){
 }
 
 function showGrid(returnFocus=false){
+ cancelFullPhoto();
  clearPhotoSlide();
  ++photoSequence;
  photoImage.removeAttribute('src');
@@ -252,6 +291,7 @@ function showGrid(returnFocus=false){
 }
 function showPhoto(index,slideDirection=0){
  if(!currentImages.length)return;
+ cancelFullPhoto();
  const nextIndex=(index+currentImages.length)%currentImages.length;
  const enteringPhoto=!photoOpen();
  const isChanging=!enteringPhoto&&nextIndex!==currentIndex;
@@ -268,22 +308,20 @@ function showPhoto(index,slideDirection=0){
  counter.textContent=isMobile()?'Foto '+(currentIndex+1)+' de '+currentImages.length:
   (currentIndex+1)+' / '+currentImages.length;
  resetTouchZoom();
- // Miniatura immediata; original descodificat sense bloquejar la navegació.
- const visor=visorFor(item);
+ // Vista immediata lleugera, amb l'original diferit i sense descàrregues en ràfega.
+ const visor=item.visor||(item.fastPreview?item.preview:visorFor(item));
  photoImage.src=visor;
  photoImage.alt=item.alt;
  const caption=typeof item.caption==='string'?item.caption.trim().slice(0,200):'';
  photoCaption.textContent=caption;
  photoCaption.hidden=!caption;
  photoFrame.classList.toggle('vcc-has-caption',Boolean(caption));
- photoImage.onerror=()=>{if(id===photoSequence&&photoImage.src!==item.src)photoImage.src=item.src};
- const full=new Image();full.decoding='async';
- full.onload=async()=>{
-  try{if(full.decode)await full.decode()}catch(_){}
-  if(id!==photoSequence||!photoOpen())return;
+ photoImage.onerror=()=>{
+  if(id!==photoSequence||photoImage.src===item.src)return;
+  cancelFullPhoto();
   photoImage.src=item.src;
  };
- full.src=item.src;
+ scheduleFullPhoto(item,id);
  createThumbs();
  preloadAdjacentPhotos();
  // Quan entrem al visor individual, fem focus al contenidor (no a «Galería»).
@@ -328,6 +366,8 @@ function imagesFor(gallery){
  return [...gallery.querySelectorAll('button[data-photo]')].map((b,i)=>({
   src:b.dataset.photo,
   preview:b.querySelector('img')?.src||previewFor(b.dataset.photo),
+  visor:b.dataset.visor||'',
+  fastPreview:gallery.hasAttribute('data-fast-preview'),
   alt:b.querySelector('img')?.alt||'Fotografía '+(i+1),
   caption:b.dataset.caption||''
  }));
@@ -358,8 +398,10 @@ function openGallery(gallery,button){
  if(!isMobile())startPanBaseline();
 }
 function closeGallery(){
+ cancelFullPhoto();
  clearPhotoSlide();
- preloadedVisors.clear();
+ for(const image of preloadedThumbs.values())image.removeAttribute('src');
+ preloadedThumbs.clear();
  deactivateGlobalGestures();
  ++photoSequence;
  resetPan();
