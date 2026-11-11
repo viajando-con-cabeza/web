@@ -99,8 +99,8 @@ for (const anchor of matches(html, /<nav class="st-tabs ci-subnav"[^>]*>([\s\S]*
   assert.ok(ids.includes(anchor), `El subheader enlaza a una sección inexistente: #${anchor}`);
 }
 assert.ok(/@media\s*\(max-width:\s*800px\)/.test(css) &&
-  css.includes('fondos-cuando-ir-mobile.webp'),
-  'La portada optimizada para móvil debe mantenerse');
+  css.includes('fondos-cuando-ir.webp') && html.includes('fondos-cuando-ir.webp'),
+  'La portada de fondo única debe mantenerse también en móvil');
 
 // Tres iconos SVG compartidos externamente; la geometría nunca se declara en el HTML.
 const symbolPath='configuracion/imagenes/iconos/paginas/estocolmo-cuando-ir-simbolos.svg';
