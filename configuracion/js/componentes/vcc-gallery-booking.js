@@ -7,7 +7,7 @@
 (() => {
 'use strict';
 // Component complet: les futures guies només necessiten el contenidor modal buit.
-const galleryTemplate="\n <div class=\"day-lightbox-panel\">\n  <section class=\"day-lightbox-grid-view\" aria-label=\"Mosaico completo de fotografías\" hidden>\n   <header class=\"day-lightbox-grid-head\">\n    <button class=\"day-lightbox-grid-back\" type=\"button\" aria-label=\"Volver a la guía\">← <span>Volver a la guía</span></button>\n    <div class=\"day-lightbox-grid-heading\"><strong></strong><span class=\"day-lightbox-grid-count\"></span></div>\n    <button class=\"day-lightbox-grid-close\" type=\"button\" aria-label=\"Cerrar galería\">×</button>\n   </header>\n   <div class=\"day-lightbox-grid-main\">\n    <div class=\"day-lightbox-grid-scroll\" tabindex=\"0\" aria-label=\"Todas las fotografías del día\">\n     <div class=\"day-lightbox-grid\"></div>\n    </div>\n    <aside class=\"day-lightbox-grid-info\"><div class=\"day-lightbox-grid-info-inner\"><h3></h3><p></p></div></aside>\n   </div>\n  </section>\n  <section class=\"day-lightbox-photo-view\" aria-label=\"Fotografía ampliada\" hidden>\n   <header class=\"day-lightbox-photo-head\">\n    <button class=\"day-lightbox-to-grid vcc-gallery-ui-back\" type=\"button\" aria-label=\"Volver al mosaico completo\">← <span>Galería</span></button>\n    <h3 class=\"day-lightbox-photo-title\"></h3>\n    <button class=\"day-lightbox-close\" type=\"button\" aria-label=\"Cerrar galería\">×</button>\n   </header>\n   <div class=\"day-lightbox-stage\">\n    <div class=\"day-lightbox-photo-frame\"><img alt=\"\" draggable=\"false\" decoding=\"async\"></div>\n    <button class=\"day-lightbox-prev\" type=\"button\" aria-label=\"Foto anterior\">‹</button>\n    <button class=\"day-lightbox-next\" type=\"button\" aria-label=\"Foto siguiente\">›</button>\n   </div>\n   <div class=\"day-lightbox-counter\" aria-live=\"polite\"></div>\n   <div class=\"day-lightbox-thumbs\" aria-label=\"Miniaturas de la galería\"></div>\n   <aside class=\"day-lightbox-info\"><h3></h3><p></p></aside>\n  </section>\n </div>\n";
+const galleryTemplate="\n <div class=\"day-lightbox-panel\">\n  <section class=\"day-lightbox-grid-view\" aria-label=\"Mosaico completo de fotografías\" hidden>\n   <header class=\"day-lightbox-grid-head\">\n    <button class=\"day-lightbox-grid-back\" type=\"button\" aria-label=\"Volver a la guía\">← <span>Volver a la guía</span></button>\n    <div class=\"day-lightbox-grid-heading\"><strong></strong><span class=\"day-lightbox-grid-count\"></span></div>\n    <button class=\"day-lightbox-grid-close\" type=\"button\" aria-label=\"Cerrar galería\">×</button>\n   </header>\n   <div class=\"day-lightbox-grid-main\">\n    <div class=\"day-lightbox-grid-scroll\" tabindex=\"0\" aria-label=\"Todas las fotografías del día\">\n     <div class=\"day-lightbox-grid\"></div>\n    </div>\n    <aside class=\"day-lightbox-grid-info\"><div class=\"day-lightbox-grid-info-inner\"><h3></h3><p></p></div></aside>\n   </div>\n  </section>\n  <section class=\"day-lightbox-photo-view\" aria-label=\"Fotografía ampliada\" hidden>\n   <header class=\"day-lightbox-photo-head\">\n    <button class=\"day-lightbox-to-grid vcc-gallery-ui-back\" type=\"button\" aria-label=\"Volver al mosaico completo\">← <span>Galería</span></button>\n    <h3 class=\"day-lightbox-photo-title\"></h3>\n    <button class=\"day-lightbox-close\" type=\"button\" aria-label=\"Cerrar galería\">×</button>\n   </header>\n   <div class=\"day-lightbox-stage\">\n    <div class=\"day-lightbox-photo-frame\"><img alt=\"\" draggable=\"false\" decoding=\"async\"><p class=\"day-lightbox-caption\" hidden></p></div>\n    <button class=\"day-lightbox-prev\" type=\"button\" aria-label=\"Foto anterior\">‹</button>\n    <button class=\"day-lightbox-next\" type=\"button\" aria-label=\"Foto siguiente\">›</button>\n   </div>\n   <div class=\"day-lightbox-counter\" aria-live=\"polite\"></div>\n   <div class=\"day-lightbox-thumbs\" aria-label=\"Miniaturas de la galería\"></div>\n   <aside class=\"day-lightbox-info\"><h3></h3><p></p></aside>\n  </section>\n </div>\n";
 const ensureGalleryMarkup=modal=>{
  if(modal.querySelector('.day-lightbox-panel'))return;
  modal.insertAdjacentHTML('beforeend',galleryTemplate);
@@ -36,6 +36,7 @@ const gridScroll=modal.querySelector('.day-lightbox-grid-scroll');
 const photoTitle=modal.querySelector('.day-lightbox-photo-title');
 const photoImage=modal.querySelector('.day-lightbox-photo-frame>img');
 const photoFrame=photoImage.parentElement;
+const photoCaption=photoFrame.querySelector('.day-lightbox-caption');
 const stage=modal.querySelector('.day-lightbox-stage');
 const counter=modal.querySelector('.day-lightbox-counter');
 const thumbs=modal.querySelector('.day-lightbox-thumbs');
@@ -252,7 +253,8 @@ function showGrid(returnFocus=false){
 function showPhoto(index,slideDirection=0){
  if(!currentImages.length)return;
  const nextIndex=(index+currentImages.length)%currentImages.length;
- const isChanging=photoOpen()&&nextIndex!==currentIndex;
+ const enteringPhoto=!photoOpen();
+ const isChanging=!enteringPhoto&&nextIndex!==currentIndex;
  clearPhotoSlide();
  if(isChanging&&slideDirection)beginPhotoSlide(slideDirection);
  currentIndex=nextIndex;
@@ -270,6 +272,10 @@ function showPhoto(index,slideDirection=0){
  const visor=visorFor(item);
  photoImage.src=visor;
  photoImage.alt=item.alt;
+ const caption=typeof item.caption==='string'?item.caption.trim().slice(0,200):'';
+ photoCaption.textContent=caption;
+ photoCaption.hidden=!caption;
+ photoFrame.classList.toggle('vcc-has-caption',Boolean(caption));
  photoImage.onerror=()=>{if(id===photoSequence&&photoImage.src!==item.src)photoImage.src=item.src};
  const full=new Image();full.decoding='async';
  full.onload=async()=>{
@@ -280,7 +286,9 @@ function showPhoto(index,slideDirection=0){
  full.src=item.src;
  createThumbs();
  preloadAdjacentPhotos();
- photoBack.focus({preventScroll:true});
+ // No traslladem el focus al botó «Galería» en cada canvi de foto.
+ // El focus segueix visible amb Tab, però les fletxes no el ressalten.
+ if(enteringPhoto)photoBack.focus({preventScroll:true});
  syncNativeZoom();
 }
 function move(delta){
@@ -302,17 +310,25 @@ const previewFor=source=>{
 };
 function imagesFor(gallery){
  if(gallery.dataset.images){
-  let sources=[];
+  let sources=[],captions=[];
   try{sources=JSON.parse(gallery.dataset.images)}catch(_){return []}
   if(!Array.isArray(sources))return [];
+  if(gallery.dataset.captions){
+   try{
+    const parsed=JSON.parse(gallery.dataset.captions);
+    if(Array.isArray(parsed))captions=parsed;
+   }catch(_){}
+  }
   return sources.filter(url=>typeof url==='string'&&url.length>0).map((src,i)=>({
-   src,preview:previewFor(src),alt:'Fotografía '+(i+1)+' de '+sources.length
+   src,preview:previewFor(src),alt:'Fotografía '+(i+1)+' de '+sources.length,
+   caption:typeof captions[i]==='string'?captions[i]:''
   }));
  }
  return [...gallery.querySelectorAll('button[data-photo]')].map((b,i)=>({
   src:b.dataset.photo,
   preview:b.querySelector('img')?.src||previewFor(b.dataset.photo),
-  alt:b.querySelector('img')?.alt||'Fotografía '+(i+1)
+  alt:b.querySelector('img')?.alt||'Fotografía '+(i+1),
+  caption:b.dataset.caption||''
  }));
 }
 function openGallery(gallery,button){
