@@ -125,6 +125,9 @@ jobs:
           fi
           npm run site:check
 
+      - name: Prevent quality deployment to production Worker
+        run: node configuracion/scripts/verificar-config-despliegue.mjs --quality
+
       - name: Check local links and resources
         run: node configuracion/scripts/comprobar-rutas.mjs
 

@@ -22,6 +22,9 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Block release to wrong Cloudflare Worker
+        run: node configuracion/scripts/verificar-config-despliegue.mjs --main
+
       - name: Prevent draft indexing and ensure canonical release
         run: |
           npm run site:check

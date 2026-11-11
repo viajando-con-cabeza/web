@@ -35,3 +35,11 @@ Les pàgines noves es poden editar sense perdre l'estat d'esborrany. No promocio
 - `npm run audit:site`: inspecciona tots els HTML, CSS i JS, duplicacions d'assets i enllaços a esborranys.
 
 **Publicació:** només cal aprovar les noves rutes a `configuracion/datos/publicacion-vcc.json` i configurar la imatge social corresponent. Els catàlegs i les rutes s'actualitzaran amb `site:sync`. No modificar els fitxers de `main` des de l'entorn de proves.
+
+## Separació real de Workers (punt de seguretat)
+
+- `quality/wrangler.jsonc` ha de conservar el Worker `web-quality` mentre es prova la branca de desenvolupament.
+- A la branca `main`, el fitxer arrel `wrangler.jsonc` ha d'apuntar a `web-main` i incloure `html_handling: auto-trailing-slash`.
+- `wrangler.production.jsonc` és la referència explícita per al deploy final. Una fusió completa de `quality` podria sobreescriure la configuració arrel de `main`; cal preservar-la o regenerar-la amb els valors de producció abans del desplegament.
+- `npm run deploy:check-quality` comprova l'entorn de proves. A `main`, executar `npm run deploy:check-production` abans de desplegar. El workflow Production el bloqueja si detecta `web-quality` o un mode d'URL incorrecte.
+- No fusionar o desplegar automàticament sense haver comprovat el domini real i les capçaleres `noindex`.
