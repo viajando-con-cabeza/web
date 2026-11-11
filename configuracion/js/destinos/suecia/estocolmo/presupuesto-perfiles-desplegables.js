@@ -135,7 +135,7 @@
         const label = head.querySelector("strong");
         const price = head.querySelector(".vcc-day-price");
         const source = label ? label.textContent.trim() : "";
-        const match = source.match(/^D[IÍ]A\\s+(\\d+)\\s*[·:-]\\s*(.+)$/i);
+        const match = source.match(/^D[IÍ]A\s+(\d+)\s*[·:-]\s*(.+)$/i);
         // Un título único encima del carrusel: cambia con el día seleccionado.
         day.dataset.dailyHeading = match
           ? "GASTOS DÍA " + match[1] + " · " + match[2]
