@@ -64,5 +64,6 @@ i les fotos sense llegenda no deixen cap buit.
 - Guies amb `data-images`: afegir `data-captions='["Vista del port", "", "Un carrer del centre"]'` al mateix mosaic (array paral·lel; text buit si no n'hi ha).
 
 El visor mostra la llegenda amb `textContent` sense HTML, i limita el text a
-200 caràcters. El botó «Galería» només rep focus automàtic en entrar a la
-foto individual, no en cada canvi amb les fletxes.
+200 caràcters. Quan s'entra a la foto individual, el focus programàtic recau sobre el contenidor
+amb `tabindex="-1"` i no sobre el botó «Galería». El botó rep el seu
+contorn de focus només quan el lector hi navega amb Tab.
