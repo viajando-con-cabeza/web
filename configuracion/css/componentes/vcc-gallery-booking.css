@@ -580,3 +580,8 @@ html body .imp-page .gallery-mosaic.count-1 .gallery-tile{cursor:pointer!importa
   font-size:9.5px;
  }
 }
+/* El contenidor és una diana de focus programàtic, no un control visual.
+   Els botons mantenen el seu contorn :focus-visible quan s'hi arriba amb Tab. */
+.vcc-booking-gallery-modal .day-lightbox-photo-view:focus{
+ outline:none!important;
+}
