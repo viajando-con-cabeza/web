@@ -1,0 +1,14 @@
+/* Planifica tu viaje · suavizado blanco de las seis fotografías.
+   Mantiene intactos los archivos WebP y deja los iconos por encima de la capa. */
+#planifica {
+  --vcc-planifica-overlay-blanco: 0.38;
+}
+#planifica .vcc-prep-image::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: #fff;
+  opacity: var(--vcc-planifica-overlay-blanco);
+}
