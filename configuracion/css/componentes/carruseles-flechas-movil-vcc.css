@@ -199,7 +199,7 @@
     flex:0 0 100%!important;max-width:100%!important;
   }
 
-  /* Controls laterals comuns · cercles blancs 95% transparents més als extrems. */
+  /* Controls laterals comuns · estil unificat com «Gastos por día». */
   html body.budget-vcc .savings-section .carousel-shell > .carousel-arrow,
   html body.budget-vcc .surprise-section .carousel-shell > .carousel-arrow,
   html body.budget-vcc #filosofia .vcc-budget-mode-arrow,
@@ -223,10 +223,10 @@
     min-width:36px!important;
     min-height:36px!important;
     place-items:center!important;
-    border:1px solid rgba(165,145,130,.38)!important;
+    border:1px solid #dcc6b7!important;
     border-radius:50%!important;
-    background:rgba(255,255,255,.05)!important;
-    color:#805e52!important;
+    background:#fff!important;
+    color:#ab553b!important;
     box-shadow:none!important;
     -webkit-backdrop-filter:none!important;
     backdrop-filter:none!important;
@@ -234,42 +234,93 @@
     font-size:20px!important;
     line-height:1!important;
     touch-action:manipulation;
+    transition:background-color .15s ease,border-color .15s ease,color .15s ease;
   }
 
-  /* En prémer una fletxa, s'il·lumina en taronja; amb teclat també és visible. */
-  html body.budget-vcc .savings-section .carousel-shell > .carousel-arrow:active,
-  html body.budget-vcc .savings-section .carousel-shell > .carousel-arrow:focus-visible,
-  html body.budget-vcc .surprise-section .carousel-shell > .carousel-arrow:active,
-  html body.budget-vcc .surprise-section .carousel-shell > .carousel-arrow:focus-visible,
-  html body.budget-vcc #filosofia .vcc-budget-mode-arrow:active,
-  html body.budget-vcc #filosofia .vcc-budget-mode-arrow:focus-visible,
-  body.mv-body .mv-transport-arrow:active,
-  body.mv-body .mv-transport-arrow:focus-visible,
-  body.mv-body .mv-carousel-arrow:active,
-  body.mv-body .mv-carousel-arrow:focus-visible,
-  .ep-page .ep3-saving-stage > .ep3-saving-arrow:active,
-  .ep-page .ep3-saving-stage > .ep3-saving-arrow:focus-visible,
-  .ep-page .ep4-our-stage:not(.ep4-our-no-overflow) > .ep4-our-arrow:active,
-  .ep-page .ep4-our-stage:not(.ep4-our-no-overflow) > .ep4-our-arrow:focus-visible,
-  .tv-page .tv-carousel-shell > .tv-carousel-arrow:active,
-  .tv-page .tv-carousel-shell > .tv-carousel-arrow:focus-visible,
-  .al-page .al-carousel > .al-carousel-arrow:active,
-  .al-page .al-carousel > .al-carousel-arrow:focus-visible,
-  .vl-page .vl-tips-carousel > .vl-tip-arrow:active,
-  .vl-page .vl-tips-carousel > .vl-tip-arrow:focus-visible,
-  .cl-page.cl-landing .vcc-saving-carousel > .vcc-saving-arrow:active,
-  .cl-page.cl-landing .vcc-saving-carousel > .vcc-saving-arrow:focus-visible,
-  .dv-page .dv-carousel-wrap > .dv-arrow:active,
-  .dv-page .dv-carousel-wrap > .dv-arrow:focus-visible,
-  .dv-page .dv-tip-carousel-wrap > .dv-arrow:active,
-  .dv-page .dv-tip-carousel-wrap > .dv-arrow:focus-visible,
-  html body.ci-page .ci-tips-shell > .ci-tips-arrow:active,
-  html body.ci-page .ci-tips-shell > .ci-tips-arrow:focus-visible,
-  html body .ql-page .ql-advice-carousel-sides > .ql-carousel-arrow:active,
-  html body .ql-page .ql-advice-carousel-sides > .ql-carousel-arrow:focus-visible {
-    background:rgba(201,105,69,.95)!important;
-    border-color:#c96945!important;
-    color:#fff!important;
+  /* Mateix efecte del carrusel «Gastos por día»: taronja clar en clicar. */
+  html body.budget-vcc .savings-section .carousel-shell > .carousel-arrow:hover:not(:disabled):not([aria-disabled="true"]),
+  html body.budget-vcc .savings-section .carousel-shell > .carousel-arrow:active:not(:disabled):not([aria-disabled="true"]),
+  html body.budget-vcc .savings-section .carousel-shell > .carousel-arrow:focus-visible:not(:disabled):not([aria-disabled="true"]),
+  html body.budget-vcc .surprise-section .carousel-shell > .carousel-arrow:hover:not(:disabled):not([aria-disabled="true"]),
+  html body.budget-vcc .surprise-section .carousel-shell > .carousel-arrow:active:not(:disabled):not([aria-disabled="true"]),
+  html body.budget-vcc .surprise-section .carousel-shell > .carousel-arrow:focus-visible:not(:disabled):not([aria-disabled="true"]),
+  html body.budget-vcc #filosofia .vcc-budget-mode-arrow:hover:not(:disabled):not([aria-disabled="true"]),
+  html body.budget-vcc #filosofia .vcc-budget-mode-arrow:active:not(:disabled):not([aria-disabled="true"]),
+  html body.budget-vcc #filosofia .vcc-budget-mode-arrow:focus-visible:not(:disabled):not([aria-disabled="true"]),
+  body.mv-body .mv-transport-arrow:hover:not(:disabled):not([aria-disabled="true"]),
+  body.mv-body .mv-transport-arrow:active:not(:disabled):not([aria-disabled="true"]),
+  body.mv-body .mv-transport-arrow:focus-visible:not(:disabled):not([aria-disabled="true"]),
+  body.mv-body .mv-carousel-arrow:hover:not(:disabled):not([aria-disabled="true"]),
+  body.mv-body .mv-carousel-arrow:active:not(:disabled):not([aria-disabled="true"]),
+  body.mv-body .mv-carousel-arrow:focus-visible:not(:disabled):not([aria-disabled="true"]),
+  .ep-page .ep3-saving-stage > .ep3-saving-arrow:hover:not(:disabled):not([aria-disabled="true"]),
+  .ep-page .ep3-saving-stage > .ep3-saving-arrow:active:not(:disabled):not([aria-disabled="true"]),
+  .ep-page .ep3-saving-stage > .ep3-saving-arrow:focus-visible:not(:disabled):not([aria-disabled="true"]),
+  .ep-page .ep4-our-stage:not(.ep4-our-no-overflow) > .ep4-our-arrow:hover:not(:disabled):not([aria-disabled="true"]),
+  .ep-page .ep4-our-stage:not(.ep4-our-no-overflow) > .ep4-our-arrow:active:not(:disabled):not([aria-disabled="true"]),
+  .ep-page .ep4-our-stage:not(.ep4-our-no-overflow) > .ep4-our-arrow:focus-visible:not(:disabled):not([aria-disabled="true"]),
+  .tv-page .tv-carousel-shell > .tv-carousel-arrow:hover:not(:disabled):not([aria-disabled="true"]),
+  .tv-page .tv-carousel-shell > .tv-carousel-arrow:active:not(:disabled):not([aria-disabled="true"]),
+  .tv-page .tv-carousel-shell > .tv-carousel-arrow:focus-visible:not(:disabled):not([aria-disabled="true"]),
+  .al-page .al-carousel > .al-carousel-arrow:hover:not(:disabled):not([aria-disabled="true"]),
+  .al-page .al-carousel > .al-carousel-arrow:active:not(:disabled):not([aria-disabled="true"]),
+  .al-page .al-carousel > .al-carousel-arrow:focus-visible:not(:disabled):not([aria-disabled="true"]),
+  .vl-page .vl-tips-carousel > .vl-tip-arrow:hover:not(:disabled):not([aria-disabled="true"]),
+  .vl-page .vl-tips-carousel > .vl-tip-arrow:active:not(:disabled):not([aria-disabled="true"]),
+  .vl-page .vl-tips-carousel > .vl-tip-arrow:focus-visible:not(:disabled):not([aria-disabled="true"]),
+  .cl-page.cl-landing .vcc-saving-carousel > .vcc-saving-arrow:hover:not(:disabled):not([aria-disabled="true"]),
+  .cl-page.cl-landing .vcc-saving-carousel > .vcc-saving-arrow:active:not(:disabled):not([aria-disabled="true"]),
+  .cl-page.cl-landing .vcc-saving-carousel > .vcc-saving-arrow:focus-visible:not(:disabled):not([aria-disabled="true"]),
+  .dv-page .dv-carousel-wrap > .dv-arrow:hover:not(:disabled):not([aria-disabled="true"]),
+  .dv-page .dv-carousel-wrap > .dv-arrow:active:not(:disabled):not([aria-disabled="true"]),
+  .dv-page .dv-carousel-wrap > .dv-arrow:focus-visible:not(:disabled):not([aria-disabled="true"]),
+  .dv-page .dv-tip-carousel-wrap > .dv-arrow:hover:not(:disabled):not([aria-disabled="true"]),
+  .dv-page .dv-tip-carousel-wrap > .dv-arrow:active:not(:disabled):not([aria-disabled="true"]),
+  .dv-page .dv-tip-carousel-wrap > .dv-arrow:focus-visible:not(:disabled):not([aria-disabled="true"]),
+  html body.ci-page .ci-tips-shell > .ci-tips-arrow:hover:not(:disabled):not([aria-disabled="true"]),
+  html body.ci-page .ci-tips-shell > .ci-tips-arrow:active:not(:disabled):not([aria-disabled="true"]),
+  html body.ci-page .ci-tips-shell > .ci-tips-arrow:focus-visible:not(:disabled):not([aria-disabled="true"]),
+  html body .ql-page .ql-advice-carousel-sides > .ql-carousel-arrow:hover:not(:disabled):not([aria-disabled="true"]),
+  html body .ql-page .ql-advice-carousel-sides > .ql-carousel-arrow:active:not(:disabled):not([aria-disabled="true"]),
+  html body .ql-page .ql-advice-carousel-sides > .ql-carousel-arrow:focus-visible:not(:disabled):not([aria-disabled="true"]) {
+    background:#fff1e8!important;
+    border-color:#c36c4f!important;
+    color:#ab553b!important;
+  }
+
+  /* Si no es pot avançar, el control no es ressalta. */
+  html body.budget-vcc .savings-section .carousel-shell > .carousel-arrow:disabled,
+  html body.budget-vcc .savings-section .carousel-shell > .carousel-arrow[aria-disabled="true"],
+  html body.budget-vcc .surprise-section .carousel-shell > .carousel-arrow:disabled,
+  html body.budget-vcc .surprise-section .carousel-shell > .carousel-arrow[aria-disabled="true"],
+  html body.budget-vcc #filosofia .vcc-budget-mode-arrow:disabled,
+  html body.budget-vcc #filosofia .vcc-budget-mode-arrow[aria-disabled="true"],
+  body.mv-body .mv-transport-arrow:disabled,
+  body.mv-body .mv-transport-arrow[aria-disabled="true"],
+  body.mv-body .mv-carousel-arrow:disabled,
+  body.mv-body .mv-carousel-arrow[aria-disabled="true"],
+  .ep-page .ep3-saving-stage > .ep3-saving-arrow:disabled,
+  .ep-page .ep3-saving-stage > .ep3-saving-arrow[aria-disabled="true"],
+  .ep-page .ep4-our-stage:not(.ep4-our-no-overflow) > .ep4-our-arrow:disabled,
+  .ep-page .ep4-our-stage:not(.ep4-our-no-overflow) > .ep4-our-arrow[aria-disabled="true"],
+  .tv-page .tv-carousel-shell > .tv-carousel-arrow:disabled,
+  .tv-page .tv-carousel-shell > .tv-carousel-arrow[aria-disabled="true"],
+  .al-page .al-carousel > .al-carousel-arrow:disabled,
+  .al-page .al-carousel > .al-carousel-arrow[aria-disabled="true"],
+  .vl-page .vl-tips-carousel > .vl-tip-arrow:disabled,
+  .vl-page .vl-tips-carousel > .vl-tip-arrow[aria-disabled="true"],
+  .cl-page.cl-landing .vcc-saving-carousel > .vcc-saving-arrow:disabled,
+  .cl-page.cl-landing .vcc-saving-carousel > .vcc-saving-arrow[aria-disabled="true"],
+  .dv-page .dv-carousel-wrap > .dv-arrow:disabled,
+  .dv-page .dv-carousel-wrap > .dv-arrow[aria-disabled="true"],
+  .dv-page .dv-tip-carousel-wrap > .dv-arrow:disabled,
+  .dv-page .dv-tip-carousel-wrap > .dv-arrow[aria-disabled="true"],
+  html body.ci-page .ci-tips-shell > .ci-tips-arrow:disabled,
+  html body.ci-page .ci-tips-shell > .ci-tips-arrow[aria-disabled="true"],
+  html body .ql-page .ql-advice-carousel-sides > .ql-carousel-arrow:disabled,
+  html body .ql-page .ql-advice-carousel-sides > .ql-carousel-arrow[aria-disabled="true"] {
+    opacity:.5;
+    cursor:default!important;
   }
 
   /* Una mica més enfora: rodona superposada a la vora de cada targeta. */
