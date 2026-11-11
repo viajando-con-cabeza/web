@@ -3,8 +3,9 @@
   'use strict';
   // A quality, els esborranys segueixen accessibles per revisar-los.
   // A producció no tenen href fins que s'aproven al registre editorial.
-  const isQualityPreview=/(^|\\.)quality\\./i.test(location.hostname)||
-    /\\.workers\\.dev$/i.test(location.hostname);
+  const hostname=location.hostname.toLowerCase();
+  const isQualityPreview=hostname.includes('quality.viajandoconcabeza.com')||
+    hostname.endsWith('.workers.dev');
   if(isQualityPreview){
     document.querySelectorAll('.di-mini-card[data-vcc-publication="draft"]').forEach(card=>{
       if(!card.dataset.vccOriginalHref)return;
