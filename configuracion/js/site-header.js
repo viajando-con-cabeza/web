@@ -74,7 +74,7 @@
       itinerario:'Itinerario',presupuesto:'Presupuesto',
       'cuando-ir':'Cuándo ir','como-llegar':'Cómo llegar',
       'como-moverse':'Cómo moverse','que-llevar':'Qué llevar',
-      'donde-dormir':'Dónde alojarse','donde-comer':'Dónde comer',
+      'donde-dormir':'Dónde dormir','donde-comer':'Dónde comer',
       consejos:'Consejos','barrios-miradores':'Barrios y miradores',
       'islas-ferris':'Islas y ferris','museos':'Museos',
       'parques-naturaleza':'Parques y naturaleza',
