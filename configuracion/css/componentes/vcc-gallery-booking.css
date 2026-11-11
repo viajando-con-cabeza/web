@@ -497,3 +497,32 @@ html body .imp-page .gallery-mosaic.count-5 .gallery-more{
 }
 /* També els mosaics amb una sola fotografia són interactius. */
 html body .imp-page .gallery-mosaic.count-1 .gallery-tile{cursor:pointer!important}
+
+/* Transició horitzontal de la foto individual en mòbil.
+   El marc anterior surt completament i el següent entra pel costat oposat.
+   No altera el mosaic, les fletxes d'escriptori ni el zoom tàctil. */
+@media(max-width:800px){
+ .vcc-booking-gallery-modal.vcc-gallery-mobile .day-lightbox-stage.vcc-gallery-sliding
+ > .day-lightbox-photo-frame:not(.vcc-gallery-slide-outgoing){
+  animation:vcc-gallery-photo-enter .36s cubic-bezier(.22,.61,.36,1) both;
+  will-change:transform;
+ }
+ .vcc-booking-gallery-modal.vcc-gallery-mobile .day-lightbox-stage.vcc-gallery-sliding
+ > .day-lightbox-photo-frame.vcc-gallery-slide-outgoing{
+  z-index:1;pointer-events:none;
+  animation:vcc-gallery-photo-leave .36s cubic-bezier(.22,.61,.36,1) both;
+  will-change:transform;
+ }
+}
+@keyframes vcc-gallery-photo-enter{
+ from{transform:translate3d(calc(var(--vcc-gallery-slide-direction,1) * 100%),0,0)}
+ to{transform:translate3d(0,0,0)}
+}
+@keyframes vcc-gallery-photo-leave{
+ from{transform:translate3d(0,0,0)}
+ to{transform:translate3d(calc(var(--vcc-gallery-slide-direction,1) * -100%),0,0)}
+}
+@media(prefers-reduced-motion:reduce){
+ .vcc-booking-gallery-modal .day-lightbox-stage.vcc-gallery-sliding
+ > .day-lightbox-photo-frame{animation:none!important}
+}
