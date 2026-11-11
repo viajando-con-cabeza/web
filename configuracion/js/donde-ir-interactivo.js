@@ -38,6 +38,40 @@
     });
   });
 
+  // Catàlegs reals de pàgines: cerca immediata, independent per pestanya.
+  // Les miniatures i els enllaços són HTML estàtic perquè siguin accessibles i indexables.
+  const clean=(value)=>String(value||'')
+    .normalize('NFD').replace(/[\\u0300-\\u036f]/g,'')
+    .toLocaleLowerCase('es').trim();
+  const plurals={
+    itinerarios:['itinerario','itinerarios'],
+    guias:['guía','guías'],
+    consejos:['consejo','consejos']
+  };
+  validModes.forEach(mode=>{
+    const input=document.querySelector('[data-di-search-input="'+mode+'"]');
+    const root=document.querySelector('[data-di-list="'+mode+'"]');
+    const count=document.querySelector('[data-di-count="'+mode+'"]');
+    const empty=document.querySelector('[data-di-empty="'+mode+'"]');
+    if(!input||!root||!count||!empty)return;
+    const cards=[...root.querySelectorAll('[data-di-item]')];
+    const update=()=>{
+      const query=clean(input.value);
+      let matches=0;
+      cards.forEach(card=>{
+        const found=!query||clean(card.dataset.diSearch).includes(query);
+        card.hidden=!found;
+        if(found)matches++;
+      });
+      const unit=plurals[mode][matches===1?0:1];
+      count.textContent=matches+' '+unit;
+      empty.hidden=matches!==0;
+    };
+    input.addEventListener('input',update);
+    input.addEventListener('search',update);
+    update();
+  });
+
   // Propostes orientatives de destí, sense atribuir experiències no verificades.
   // Cada opció apunta a una guia publicada o a una pàgina de país disponible.
   const ideas={
