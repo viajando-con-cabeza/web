@@ -1,0 +1,100 @@
+/* VCC · Nueva maqueta de Vuelos. Conserva la lógica original de hasta cinco vuelos.
+   Usa los tokens y la iconografía corporativos de configuración. */
+.vl-page .vl-continent-filter-head{display:flex;justify-content:flex-start;align-items:center;gap:12px;margin:14px 0 8px}
+.vl-page .vl-reset-filter{order:1;display:inline-flex!important;min-height:33px;padding:6px 16px;border:1px solid #f07536;border-radius:999px;text-decoration:none;background:#e96723;color:#fff;font:700 11px/1 var(--vcc-font-body, "DM Sans",Arial,sans-serif)}
+.vl-page .vl-reset-filter[aria-pressed="false"]{background:#fff;border-color:#e9d4c4;color:#42362d}
+.vl-page .vl-reset-filter[hidden]{display:inline-flex!important}
+.vl-page .vl-continent-grid{display:flex!important;flex-wrap:wrap;align-items:center;gap:8px;margin:0 0 8px}
+.vl-page .vl-continent{display:inline-flex!important;flex-direction:row;align-items:center;justify-content:center;gap:7px;flex:0 0 auto;min-height:33px!important;min-width:90px;max-width:140px;padding:6px 12px!important;border-radius:999px;background:#fff;box-shadow:none}
+.vl-page .vl-continent-top{display:inline-flex;gap:0}
+.vl-page .vl-continent-map{width:21px!important;height:20px!important}
+.vl-page .vl-continent-arrow,.vl-page .vl-continent .count,.vl-page .vl-continent .detail{display:none!important}
+.vl-page .vl-continent h3{margin:0;font:600 13px/1.1 var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important}
+.vl-page .vl-continent[aria-pressed=true]{background:#fff2e9;border-color:#ed702b;color:#b94e1c}
+
+#calculadora .vl-calc-box{display:grid!important;grid-template-columns:minmax(0,1fr) 254px!important;align-items:start;gap:15px;max-width:100%}
+#calculadora .vl-matrix-main{min-width:0;background:#fff;border:1px solid #e7dcd2;border-radius:14px;padding:14px 12px 12px;box-shadow:0 6px 18px rgba(40,30,20,.05)}
+#calculadora .vl-matrix-head,#calculadora .vl-flight{
+  display:grid!important;
+  grid-template-columns:minmax(165px,1.75fr) repeat(5,minmax(78px,1fr)) minmax(93px,.9fr)!important;
+  column-gap:6px;
+  min-width:0;
+}
+#calculadora .vl-matrix-head{align-items:center;padding:10px 8px;background:#f7eee6;border-radius:9px 9px 0 0;border:1px solid #ecded2}
+#calculadora .vl-matrix-head>span{display:block;text-align:center;font:700 10.4px/1.2 var(--vcc-font-body,"DM Sans",Arial,sans-serif);color:#352d28}
+#calculadora .vl-matrix-head>span:first-child{text-align:left}
+#calculadora .vl-matrix-head small{display:block;color:#9b8374;font-size:9px;font-weight:500}
+#calculadora .vl-matrix-head>span:last-child{color:#bf5123}
+#calculadora .vl-flight-stack,#calculadora .vl-flight-stack[data-columns]{display:flex!important;flex-direction:column!important;gap:0!important;min-width:0!important;--flight-count:1}
+#calculadora .vl-flight-stack .vl-flight,
+#calculadora .vl-flight-stack[data-columns] .vl-flight{position:relative!important;grid-template-rows:1fr!important;min-height:67px;border:1px solid #ede4da;border-top:0!important;border-radius:0!important;box-shadow:none!important;background:#fff;overflow:visible!important}
+#calculadora .vl-flight-stack .vl-flight:last-child{border-radius:0 0 9px 9px!important}
+#calculadora .vl-flight-stack .vl-flight.is-cheapest{border-color:#e86d25!important;box-shadow:inset 0 0 0 1px #e86d25!important;background:#fff8f2!important;z-index:1}
+#calculadora .vl-flight-form,#calculadora .vl-fields{display:contents!important}
+#calculadora .vl-flight-title{grid-column:1!important;grid-row:1!important;align-self:start;display:flex!important;justify-content:space-between;min-height:0!important;border:0!important;background:transparent!important;padding:5px 8px 0!important;position:relative;z-index:2}
+#calculadora .vl-flight-title h3,#calculadora .vl-flight-stack[data-columns] .vl-flight-title h3{margin:0;font:600 11px/1.1 var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;color:#a05235}
+#calculadora .vl-flight-title h3::before{content:"";display:none}
+#calculadora .vl-flight-title button{font-size:10px;padding:0 3px;min-height:16px}
+#calculadora .vl-field{min-width:0!important;display:flex!important;flex-direction:column;justify-content:center;align-self:stretch;grid-row:1!important;padding:24px 3px 5px 3px!important}
+#calculadora .vl-field .vl-field-name{display:none!important}
+#calculadora .vl-field:nth-child(1){grid-column:1!important;padding:23px 7px 5px!important}
+#calculadora .vl-field:nth-child(2){display:none!important}
+#calculadora .vl-field:nth-child(3){grid-column:2!important;padding-top:7px!important}
+#calculadora .vl-field:nth-child(4){grid-column:3!important;padding-top:7px!important}
+#calculadora .vl-field:nth-child(5){grid-column:4!important;padding-top:7px!important}
+#calculadora .vl-field:nth-child(6){grid-column:6!important;padding-top:7px!important}
+#calculadora .vl-field:nth-child(7){grid-column:5!important;padding-top:7px!important}
+#calculadora .vl-field input,#calculadora .vl-field select{width:100%;min-width:0;min-height:32px!important;padding:5px 6px!important;border:1px solid #ded9d3;border-radius:6px;text-align:center;font:500 11px/1.2 var(--vcc-font-body,"DM Sans",Arial,sans-serif)}
+#calculadora .vl-field select{text-align:left;padding-right:16px!important;font-size:10.5px!important}
+#calculadora .vl-flight-side,#calculadora .vl-flight-stack[data-columns] .vl-flight-side{grid-column:7!important;grid-row:1!important;align-self:center!important;margin:0!important;padding:0 7px!important;border:0!important;background:transparent!important;min-width:0!important}
+#calculadora .vl-flight-result,#calculadora .vl-flight-stack[data-columns] .vl-flight-result{display:flex!important;align-items:center!important;justify-content:center!important;min-height:38px!important;padding:5px 4px!important;border:0!important;border-radius:7px!important;background:#fff0e0!important;text-align:center!important}
+#calculadora .vl-flight.is-cheapest .vl-flight-result{background:#e9651b!important}
+#calculadora .vl-flight-result b{display:none!important}
+#calculadora .vl-flight-result strong,#calculadora .vl-flight-stack[data-columns] .vl-flight-result strong{font:600 18px/1 var(--vcc-font-heading,"Oswald",sans-serif)!important;white-space:nowrap!important;color:#a64b1e!important}
+#calculadora .vl-flight.is-cheapest .vl-flight-result strong{color:#fff!important}
+#calculadora .vl-compare-bar{padding:10px 4px 0;margin:0}
+#calculadora .vl-compare-bar .vl-button{font-weight:800;color:#d75c22!important;border-color:#efc4a9}
+#calculadora .vl-compare-summary{display:none!important}
+#calculadora .vl-matrix-main>.vl-footnote{padding:10px 4px 0;font-size:10px;line-height:1.5}
+
+#calculadora .vl-best-card{padding:16px;border:1px solid #eddbcf;border-radius:14px;background:linear-gradient(165deg,#fffaf7 0%,#fff0e3 100%);box-shadow:0 5px 16px rgba(55,34,25,.05)}
+#calculadora .vl-best-brand{display:flex;align-items:center;gap:10px;margin-bottom:13px}
+#calculadora .vl-best-seal{flex:0 0 68px;width:68px;height:68px;padding:3px;border:2px solid #e46c24;border-radius:50%;background:#fff;display:grid;place-items:center}
+#calculadora .vl-best-seal img{display:block;object-fit:contain;width:60px;height:60px}
+#calculadora .vl-best-kicker{display:block;color:#b75a30;font:800 8px/1.2 var(--vcc-font-body,"DM Sans",Arial,sans-serif);letter-spacing:.06em}
+#calculadora .vl-best-brand h3{font:600 22px/1.03 var(--vcc-font-heading,"Oswald",sans-serif);color:#252322;margin:4px 0 0}
+#calculadora .vl-best-brand h3 em{font-style:normal;color:#e26520}
+#calculadora .vl-best-empty{font:500 12px/1.55 var(--vcc-font-body,"DM Sans",Arial,sans-serif);color:#655b54;margin:6px 0}
+#calculadora .vl-best-selection[hidden],#calculadora .vl-best-empty[hidden]{display:none!important}
+#calculadora .vl-best-winner{display:block;font:700 16px/1.3 var(--vcc-font-body,"DM Sans",Arial,sans-serif);color:#2a2724;text-align:center}
+#calculadora .vl-best-price{display:block;font:600 37px/1.05 var(--vcc-font-heading,"Oswald",sans-serif);color:#de641d;text-align:center;margin-top:7px}
+#calculadora .vl-best-selection>small{display:block;text-align:center;font-size:10px;color:#76685f}
+#calculadora .vl-best-divider{height:1px;background:#ecd6c6;margin:14px 0 12px}
+#calculadora .vl-best-selection h4{font:800 10px/1.2 var(--vcc-font-body,"DM Sans",Arial,sans-serif);letter-spacing:.06em;color:#b85320;margin:0 0 9px}
+#calculadora .vl-best-savings{padding:0;margin:0;list-style:none}
+#calculadora .vl-best-savings li{position:relative;margin:0 0 9px;padding-left:16px;font:500 11px/1.45 var(--vcc-font-body,"DM Sans",Arial,sans-serif);color:#59483e}
+#calculadora .vl-best-savings li:before{content:"✓";position:absolute;left:0;top:0;color:#e56d24;font-weight:800}
+#calculadora .vl-best-savings strong{color:#c1541f}
+#calculadora .vl-best-note{color:#887368;font-size:10px;line-height:1.5;margin:13px 0 0}
+@media(max-width:1180px){
+ #calculadora .vl-calc-box{grid-template-columns:minmax(0,1fr)!important}
+ #calculadora .vl-best-card{max-width:100%;display:grid;grid-template-columns:1fr 1fr;gap:8px 18px}
+ #calculadora .vl-best-brand{grid-column:1}
+ #calculadora .vl-best-empty,#calculadora .vl-best-selection{grid-column:2;grid-row:1}
+}
+@media(max-width:850px){
+ #calculadora .vl-matrix-main{overflow-x:auto}
+ #calculadora .vl-matrix-head,#calculadora .vl-flight{min-width:780px}
+ #calculadora .vl-best-card{display:block}
+ #calculadora .vl-best-brand{margin-bottom:8px}
+ #calculadora .vl-continent-grid{gap:6px}
+}
+@media(max-width:700px){
+ .vl-page .vl-continent-filter-head{margin:13px 0 7px}
+ .vl-page .vl-continent-grid{gap:6px}
+ .vl-page .vl-continent{min-height:30px!important;min-width:0;max-width:none;padding:6px 10px!important}
+ .vl-page .vl-continent-map{width:16px!important;height:16px!important}
+ .vl-page .vl-continent h3{font-size:11px!important}
+ #calculadora .vl-best-seal{width:58px;height:58px;flex-basis:58px}
+ #calculadora .vl-best-seal img{width:50px;height:50px}
+}
