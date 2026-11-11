@@ -68,7 +68,7 @@ body.budget-vcc{margin:0;background:#fbf8f4;color:#202020;font-family:var(--vcc-
 .category-row{display:grid;grid-template-columns:100px 1fr 34px;gap:6px;align-items:center;margin:4px 0;font-size:8.2px;font-weight:700}.category-row select{width:100%;padding:5px 7px;border:1px solid #ddd2ca;border-radius:5px;background:#fff;font:600 8.2px var(--vcc-font-body, "DM Sans", Arial, sans-serif)}.category-row strong{text-align:right}.calc-total{display:flex;justify-content:space-between;align-items:end;border-top:1px solid #d9ccc3;margin-top:7px;padding-top:7px}.calc-total span{font-size:8.3px;font-weight:800}.calc-total strong{font:700 30px 'Cormorant Garamond',serif;color:#ef6f61}.calc-foot{font-size:7px;color:#746b65;margin:3px 0 0}
 
 /* AHORRO: limpio, horizontal y con flechas */
-.savings-section{padding-top:12px;border-top:1px solid #ede2d9}.savings-section .section-heading{margin-bottom:10px}.carousel-shell{display:grid;grid-template-columns:24px minmax(0,1fr) 24px;gap:5px;align-items:center}.carousel-arrow{width:24px;height:24px;border:1px solid #d4c8be;background:#fff;border-radius:50%;font:400 16px/1 var(--vcc-font-body, "DM Sans", Arial, sans-serif);cursor:pointer}
+.savings-section{padding-top:12px;border-top:1px solid #ede2d9}.savings-section .section-heading{margin-bottom:10px}.carousel-shell{display:grid;grid-template-columns:24px minmax(0,1fr) 24px;gap:5px;align-items:center}.carousel-arrow{cursor:pointer;}
 .tips-track{display:flex;gap:10px;overflow-x:auto;scrollbar-width:none;scroll-behavior:smooth;scroll-snap-type:x proximity;padding:1px}.tips-track::-webkit-scrollbar{display:none}.saving-tip{flex:0 0 145px;text-align:center;scroll-snap-align:start}.line-icon{width:55px;height:55px;margin:0 auto 6px;border:1px solid #202020;border-radius:50%;display:grid;place-items:center;background:#fff;font-size:18px}.saving-tip h3,.spend-panel h4{font:800 8px/1.2 var(--vcc-font-body, "DM Sans", Arial, sans-serif);margin:0 0 4px}.saving-tip p,.spend-panel article p{font-size:7.1px;line-height:1.35;color:#5c5651;margin:0}
 
 /* GASTAR / NO GASTAR */
@@ -396,7 +396,6 @@ html body.budget-vcc{background:#fbf8f4;color:#171717}
 .budget-vcc .saving-number{display:inline-flex;align-items:center;font:600 12px/1 var(--vcc-font-heading, "Oswald", sans-serif);letter-spacing:.1em;color:#a65340;border-bottom:2px solid #cf705c;padding:0 0 8px;margin:0 0 13px}
 .budget-vcc .saving-tip h3{font-size:calc(22px + var(--vcc-heading-size-adjust,0px));margin:0 0 9px}
 .budget-vcc .saving-tip p{font-size:12px;line-height:1.65}
-.budget-vcc .carousel-arrow{width:30px;height:30px;border-color:#ddcdbf;color:#a65340;box-shadow:none}
 .budget-vcc .spend-grid{gap:22px}
 .budget-vcc .spend-panel{padding:23px;border:1px solid #deded1;border-radius:10px}
 .budget-vcc .spend-panel.worth{background:#f0f2e9}
@@ -527,7 +526,6 @@ html body.budget-vcc{background:#fbf8f4;color:#171717}
 .budget-vcc .decision-row h4{font-size:18px;margin-bottom:4px}
 .budget-vcc .decision-row p{font-size:10.5px;line-height:1.5}
 .budget-vcc .decision-row>div>span{font-size:7.5px}
-.budget-vcc .decision-carousel .carousel-arrow{width:25px;height:30px;background:#fffaf3}
 .budget-vcc .surprise-carousel{grid-template-columns:30px minmax(0,1fr) 30px;gap:12px}
 .budget-vcc .surprise-grid.tips-track{display:flex;gap:16px;scroll-snap-type:x mandatory}
 .budget-vcc .surprise-grid.tips-track article{flex:0 0 calc((100% - 32px)/3);scroll-snap-align:start;display:flex;gap:13px;padding:18px;background:#fffaf2;border-color:#e4d7c4;min-height:115px}
