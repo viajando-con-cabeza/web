@@ -1,0 +1,21 @@
+/* VCC · Velo blanco compartido para las fotografías de Planifica tu viaje.
+   Se aplica al elemento visual, no a la fotografía original ni a los textos/iconos.
+   Intensidad única para Suecia y Estocolmo. */
+#planifica .vcc-prep-image {
+  position: relative !important;
+  isolation: isolate !important;
+}
+#planifica .vcc-prep-image::after {
+  content: "" !important;
+  position: absolute !important;
+  inset: 0 !important;
+  z-index: 3 !important;
+  display: block !important;
+  pointer-events: none !important;
+  background-color: rgba(255, 255, 255, .55) !important;
+  opacity: 1 !important;
+  border-radius: 9px 9px 0 0;
+}
+#planifica .vcc-prep-image > span {
+  z-index: 5 !important;
+}
