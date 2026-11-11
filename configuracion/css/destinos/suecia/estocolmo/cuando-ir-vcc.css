@@ -1127,3 +1127,76 @@ html body.ci-page .ci-august-gallery-embed[data-vcc-lazy-gallery]:not([data-vcc-
     aspect-ratio:1.3;
   }
 }
+
+/* 2026-11-11 · Carrusel móvil de Nuestra experiencia.
+   Escritorio conserva las tres tarjetas originales; en móvil se muestra
+   una tarjeta completa y legible con navegación táctil y flechas arriba. */
+html body.ci-page .ci-august-weather-head{display:none}
+@media(max-width:800px){
+  html body.ci-page .ci-august-weather-head{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:12px;
+    margin:5px 0 9px;
+  }
+  html body.ci-page .ci-august-weather-head>span{
+    color:#6e5c50;
+    font:700 10px/1.4 'DM Sans',sans-serif;
+    letter-spacing:.07em;
+  }
+  html body.ci-page .ci-august-weather-controls{display:flex;gap:7px;flex:none}
+  html body.ci-page .ci-august-weather-controls button{
+    display:grid;place-items:center;
+    width:33px;height:33px;
+    padding:0;
+    border:1px solid #dfcfc2;
+    border-radius:50%;
+    background:#fff;color:#a65b3f;
+    font:600 20px/1 'DM Sans',sans-serif;
+    cursor:pointer;
+  }
+  html body.ci-page .ci-august-weather-controls button:disabled{
+    opacity:.35;cursor:default;
+  }
+  html body.ci-page .ci-august-weather-controls button:focus-visible,
+  html body.ci-page .ci-august-weather-options:focus-visible{
+    outline:2px solid var(--ci-orange);outline-offset:2px;
+  }
+  html body.ci-page .ci-august-weather-options{
+    display:flex;
+    grid-template-columns:none;
+    gap:10px;
+    min-width:0;
+    width:100%;
+    overflow-x:auto;
+    overflow-y:hidden;
+    scroll-snap-type:x mandatory;
+    overscroll-behavior-x:contain;
+    -webkit-overflow-scrolling:touch;
+    scrollbar-width:none;
+    margin:0 0 14px;
+    padding:1px 0 5px;
+  }
+  html body.ci-page .ci-august-weather-options::-webkit-scrollbar{display:none}
+  html body.ci-page .ci-august-weather-options>.ci-august-plan{
+    flex:0 0 100%;
+    width:100%;
+    min-width:0;
+    min-height:0;
+    box-sizing:border-box;
+    scroll-snap-align:start;
+    scroll-snap-stop:always;
+    padding:15px 14px;
+    gap:11px;
+  }
+  html body.ci-page .ci-august-plan>div{flex:1;min-width:0}
+  html body.ci-page .ci-august-plan h4{font-size:20px;line-height:1.2;margin:0 0 7px}
+  html body.ci-page .ci-august-plan p{
+    font-size:12px;line-height:1.6;
+    overflow-wrap:break-word;
+  }
+}
+@media(prefers-reduced-motion:reduce){
+  html body.ci-page .ci-august-weather-options{scroll-behavior:auto}
+}
