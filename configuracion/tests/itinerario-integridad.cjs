@@ -95,7 +95,9 @@ assert.match(html, /vcc-gallery-booking\.css/, 'El CSS universal de galeria ha d
 assert.match(html, /vcc-hero-editorial-vcc\.css/);
 assert.doesNotMatch(html, /itinerario-vcc-gallery\.js/);
 assert.doesNotMatch(html, /itinerary-mobile-sticky-controller/);
-assert.match(galleryJS, /thumbButtons\.forEach/);
+assert.match(galleryJS, /lastActiveThumb/, 'Les miniatures actives no es recalculen totes amb cada foto');
+assert.match(galleryJS, /warmSharp\(/, 'La galeria ha de precalentar les fotos nítides');
+assert.match(galleryJS, /vcc-gallery-sharp-loading/, 'El visor no ha d'estirar miniatures borroses');
 assert.match(galleryJS, /deactivateGlobalGestures\(\)/);
 assert.match(galleryJS, /day-lightbox-to-grid vcc-gallery-ui-back/, 'Cal mantenir el botó de Galería compartit');
 assert.match(galleryJS, /<span>Galería<\/span>/, 'Cal mantenir el text del botó compartit');
