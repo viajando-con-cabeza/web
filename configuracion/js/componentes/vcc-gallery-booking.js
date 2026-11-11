@@ -35,6 +35,7 @@ const gridClose=modal.querySelector('.day-lightbox-grid-close');
 const gridScroll=modal.querySelector('.day-lightbox-grid-scroll');
 const photoTitle=modal.querySelector('.day-lightbox-photo-title');
 const photoImage=modal.querySelector('.day-lightbox-photo-frame>img');
+const photoFrame=photoImage.parentElement;
 const stage=modal.querySelector('.day-lightbox-stage');
 const counter=modal.querySelector('.day-lightbox-counter');
 const thumbs=modal.querySelector('.day-lightbox-thumbs');
@@ -49,6 +50,8 @@ const nativeMobile=()=>window.matchMedia('(max-width: 800px)').matches;
 const isMobile=()=>modal.classList.contains('vcc-gallery-mobile');
 let currentImages=[],currentIndex=0,lastFocus=null,gridButtons=[];
 let photoSequence=0;
+let slideOverlay=null,slideTimeout=0;
+const preloadedVisors=new Map();
 const visible=()=>!modal.hidden;
 const gridOpen=()=>visible()&&!gridView.hidden;
 const photoOpen=()=>visible()&&!photoView.hidden;
@@ -127,7 +130,44 @@ function createThumbs(){
   }
  });
 }
+/* La foto sortint continua visible mentre la següent entra des del costat.
+   El mateix efecte s'aplica a totes les guies des d'aquest component. */
+function clearPhotoSlide(){
+ if(slideTimeout){window.clearTimeout(slideTimeout);slideTimeout=0}
+ slideOverlay?.remove();
+ slideOverlay=null;
+ stage.classList.remove('vcc-gallery-sliding');
+ stage.style.removeProperty('--vcc-gallery-slide-direction');
+}
+function beginPhotoSlide(direction){
+ if(!isMobile()||prefersReducedMotion.matches||touchZoom>1.01)return;
+ const departing=photoFrame.cloneNode(true);
+ departing.classList.add('vcc-gallery-slide-outgoing');
+ departing.setAttribute('aria-hidden','true');
+ slideOverlay=departing;
+ stage.style.setProperty('--vcc-gallery-slide-direction',String(Math.sign(direction)));
+ stage.append(departing);
+ stage.classList.add('vcc-gallery-sliding');
+ const finish=()=>{if(slideOverlay===departing)clearPhotoSlide()};
+ departing.addEventListener('animationend',finish,{once:true});
+ // Fallback per a navegadors que cancel·len animationend en canviar de pestanya.
+ slideTimeout=window.setTimeout(finish,480);
+}
+const visorFor=item=>item.preview.includes('/__vcc_preview/mini/')
+ ?item.preview.replace('/__vcc_preview/mini/','/__vcc_preview/visor/')
+ :item.preview.replace('/_preview/mini/','/_preview/visor/');
+function preloadAdjacentPhotos(){
+ if(!isMobile()||currentImages.length<2)return;
+ for(const delta of [-1,1]){
+  const url=visorFor(currentImages[(currentIndex+delta+currentImages.length)%currentImages.length]);
+  if(preloadedVisors.has(url))continue;
+  const image=new Image();
+  image.decoding='async';image.src=url;
+  preloadedVisors.set(url,image);
+ }
+}
 function showGrid(returnFocus=false){
+ clearPhotoSlide();
  ++photoSequence;
  photoImage.removeAttribute('src');
  resetTouchZoom();
@@ -138,9 +178,13 @@ function showGrid(returnFocus=false){
  else gridClose.focus({preventScroll:true});
  syncNativeZoom();
 }
-function showPhoto(index){
+function showPhoto(index,slideDirection=0){
  if(!currentImages.length)return;
- currentIndex=(index+currentImages.length)%currentImages.length;
+ const nextIndex=(index+currentImages.length)%currentImages.length;
+ const isChanging=photoOpen()&&nextIndex!==currentIndex;
+ clearPhotoSlide();
+ if(isChanging&&slideDirection)beginPhotoSlide(slideDirection);
+ currentIndex=nextIndex;
  const item=currentImages[currentIndex],id=++photoSequence;
  gridView.hidden=true;photoView.hidden=false;
  gridView.setAttribute('aria-hidden','true');
@@ -152,9 +196,7 @@ function showPhoto(index){
   (currentIndex+1)+' / '+currentImages.length;
  resetTouchZoom();
  // Miniatura immediata; original descodificat sense bloquejar la navegació.
- const visor=item.preview.includes('/__vcc_preview/mini/')
-  ?item.preview.replace('/__vcc_preview/mini/','/__vcc_preview/visor/')
-  :item.preview.replace('/_preview/mini/','/_preview/visor/');
+ const visor=visorFor(item);
  photoImage.src=visor;
  photoImage.alt=item.alt;
  photoImage.onerror=()=>{if(id===photoSequence&&photoImage.src!==item.src)photoImage.src=item.src};
@@ -166,12 +208,13 @@ function showPhoto(index){
  };
  full.src=item.src;
  createThumbs();
+ preloadAdjacentPhotos();
  photoBack.focus({preventScroll:true});
  syncNativeZoom();
 }
 function move(delta){
- if(!photoOpen()||!currentImages.length)return;
- showPhoto(currentIndex+delta);
+ if(!photoOpen()||currentImages.length<2)return;
+ showPhoto(currentIndex+delta,Math.sign(delta));
 }
 let activeTitle='',activeSubtitle='',activeDescription='';
 /* Única font de fotos per als dos patrons de contingut:
@@ -227,6 +270,8 @@ function openGallery(gallery,button){
  if(!isMobile())startPanBaseline();
 }
 function closeGallery(){
+ clearPhotoSlide();
+ preloadedVisors.clear();
  deactivateGlobalGestures();
  ++photoSequence;
  resetPan();
