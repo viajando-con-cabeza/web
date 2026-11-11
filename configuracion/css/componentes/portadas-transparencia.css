@@ -1,0 +1,75 @@
+/* VCC · Portades principals: foto natural, transparència progressiva.
+   Només afecta Inicio, Destinos, Itinerarios, Planifica, Nosotros i Contacto.
+   L'esquerra queda més transparent i la dreta conserva la foto completa.
+   No aplica saturació, sepia, contrast ni filtres de color. */
+
+:root {
+  --vcc-portada-fade: linear-gradient(90deg,
+    rgba(0,0,0,.12) 0%,
+    rgba(0,0,0,.38) 36%,
+    rgba(0,0,0,.78) 72%,
+    rgba(0,0,0,1) 100%);
+  --vcc-portada-base: #f2f2f1;
+}
+
+/* Un mateix fons neutre a sota de la foto semitransparent. */
+body.inicio-vcc .home-hero,
+body.destinos-vcc .destinos-about-hero,
+body.itinerarios-vcc .itinerarios-hero,
+body.planifica-vcc .planifica-about-hero,
+body.about-vcc .about-hero,
+body:has(.contact-page) .contact-page .contact-hero {
+  background-color: var(--vcc-portada-base) !important;
+}
+
+/* La transparència es fa sobre la imatge, no sobre el text. */
+body.inicio-vcc .home-hero::before,
+body.destinos-vcc .destinos-about-hero > .about-hero-photo,
+body.itinerarios-vcc .itinerarios-hero > .about-hero-photo,
+body.planifica-vcc .planifica-about-hero > .about-hero-photo,
+body.about-vcc .about-hero > .about-hero-photo {
+  filter: none !important;
+  opacity: 1 !important;
+  -webkit-mask-image: var(--vcc-portada-fade) !important;
+  mask-image: var(--vcc-portada-fade) !important;
+}
+
+/* Sense vels de color al damunt, que alterarien l'aspecte de la foto. */
+body.inicio-vcc .home-hero-wash,
+body.destinos-vcc .destinos-about-hero > .about-hero-shade,
+body.itinerarios-vcc .itinerarios-hero > .about-hero-shade,
+body.planifica-vcc .planifica-about-hero > .about-hero-shade,
+body.about-vcc .about-hero > .about-hero-shade {
+  background: none !important;
+  background-image: none !important;
+}
+
+/* Contacto: la foto estava aplicada al mateix hero;
+   la passem a una capa independent per poder-li donar transparència. */
+body:has(.contact-page) .contact-page .contact-hero {
+  background-image: none !important;
+}
+
+body:has(.contact-page) .contact-page .contact-hero::before {
+  content: "" !important;
+  position: absolute !important;
+  inset: 0 !important;
+  z-index: 0 !important;
+  pointer-events: none !important;
+  background: url("/configuracion/imagenes/fondos/fondos-contacto-modern.avif") center center / cover no-repeat !important;
+  opacity: 1 !important;
+  filter: none !important;
+  -webkit-mask-image: var(--vcc-portada-fade) !important;
+  mask-image: var(--vcc-portada-fade) !important;
+}
+
+body:has(.contact-page) .contact-page .contact-hero::after {
+  background: none !important;
+  background-image: none !important;
+}
+
+@media (max-width: 650px) {
+  body:has(.contact-page) .contact-page .contact-hero::before {
+    background-position: 65% center !important;
+  }
+}
