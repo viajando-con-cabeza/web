@@ -70,4 +70,43 @@
   window.addEventListener('resize',syncTips);
   syncTips();
 
+  // Nuestra experiencia: un consejo completo por pantalla pequeña.
+  // Las flechas acompañan al desplazamiento táctil y no alteran el escritorio.
+  const weatherTrack=document.querySelector('.ci-august-weather-options');
+  const weatherPrev=document.querySelector('.ci-august-weather-prev');
+  const weatherNext=document.querySelector('.ci-august-weather-next');
+  if(weatherTrack&&weatherPrev&&weatherNext){
+    const cards=[...weatherTrack.querySelectorAll('.ci-august-plan')];
+    const currentWeatherIndex=()=>{
+      if(cards.length<2)return 0;
+      const step=cards[1].offsetLeft-cards[0].offsetLeft;
+      return step>0?Math.min(cards.length-1,Math.max(0,Math.round(weatherTrack.scrollLeft/step))):0;
+    };
+    const syncWeather=()=>{
+      const index=currentWeatherIndex();
+      weatherPrev.disabled=index===0;
+      weatherNext.disabled=index===cards.length-1;
+    };
+    const moveWeather=direction=>{
+      const index=Math.min(cards.length-1,Math.max(0,currentWeatherIndex()+direction));
+      if(!cards[index])return;
+      const left=cards[index].offsetLeft-cards[0].offsetLeft;
+      weatherTrack.scrollTo({
+        left,
+        behavior:window.matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'
+      });
+    };
+    weatherPrev.addEventListener('click',()=>moveWeather(-1));
+    weatherNext.addEventListener('click',()=>moveWeather(1));
+    weatherTrack.addEventListener('scroll',syncWeather,{passive:true});
+    weatherTrack.addEventListener('keydown',e=>{
+      if(e.target!==weatherTrack)return;
+      if(e.key==='ArrowRight'||e.key==='ArrowLeft'){
+        e.preventDefault();moveWeather(e.key==='ArrowRight'?1:-1);
+      }
+    });
+    window.addEventListener('resize',syncWeather,{passive:true});
+    syncWeather();
+  }
+
 })();
