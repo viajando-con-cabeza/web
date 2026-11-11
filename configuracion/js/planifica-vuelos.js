@@ -97,6 +97,19 @@
  const bestName=root.querySelector('[data-best-name]');
  const bestPrice=root.querySelector('[data-best-price]');
  const bestSavings=root.querySelector('[data-best-savings]');
+ const saveButton=root.querySelector('[data-save-comparison]');
+ const shareButton=root.querySelector('[data-share-comparison]');
+ const clearButton=root.querySelector('[data-clear-comparison]');
+ const calcStatus=root.querySelector('[data-calc-status]');
+ const shareFallback=root.querySelector('[data-share-fallback]');
+ const shareLinkInput=root.querySelector('[data-share-link]');
+ const storageKey='vcc-planifica-vuelos-comparacion-v1';
+ const sharedParam='comparacion';
+ const setStatus=message=>{if(calcStatus)calcStatus.textContent=message;};
+ const markUnsaved=()=>{
+   if(calcStatus&&/guardada|cargada/i.test(calcStatus.textContent))
+     setStatus('Cambios sin guardar. Pulsa Guardar comparación para conservarlos.');
+ };
  const emptyFlight=()=>({airline:'',route:'',base:'',baggage:'',seat:'',food:'',transfer:''});
  const flights=[emptyFlight(),emptyFlight(),emptyFlight()];
  const number=value=>{const parsed=Number(value);return Number.isFinite(parsed)&&parsed>0?parsed:0;};
@@ -154,7 +167,7 @@
          control=document.createElement('input');
          control.type=concept.type;
          if(concept.type==='number'){
-           control.min='0';control.step='0.01';control.inputMode='decimal';
+           control.min='0';control.max='10000000';control.step='0.01';control.inputMode='decimal';
            control.placeholder='0,00';
          }else{
            control.maxLength=85;
@@ -245,10 +258,99 @@
    }
  }
  function flightHasPrice(flight){return String(flight.base).trim()!=='';}
+
+ // Dades locals o dins l'enllaç: només companyia, ruta i 5 imports. No hi ha servidor.
+ const serializeFlights=()=>JSON.stringify(flights.map(f=>[f.airline,f.route,...costKeys.map(key=>f[key])]));
+ function parseSnapshot(raw){
+   if(typeof raw!=='string'||raw.length>4500)return null;
+   try{
+     const data=JSON.parse(raw);
+     if(!Array.isArray(data)||data.length<1||data.length>5)return null;
+     const normalized=data.map(row=>{
+       if(!Array.isArray(row)||row.length!==7)return null;
+       const flight=emptyFlight();
+       flight.airline=typeof row[0]==='string'&&airlines.some(a=>a[0]===row[0])?row[0]:'';
+       flight.route=typeof row[1]==='string'?row[1].trim().slice(0,85):'';
+       costKeys.forEach((key,i)=>{
+         const val=row[i+2];
+         if(val===''||val===null||val===undefined)return;
+         const parsed=Number(val);
+         if(Number.isFinite(parsed)&&parsed>=0&&parsed<=10000000)
+           flight[key]=String(Math.round(parsed*100)/100);
+       });
+       return flight;
+     });
+     return normalized.every(Boolean)?normalized:null;
+   }catch{return null;}
+ }
+ function restoreComparison(){
+   try{
+     const url=new URL(window.location.href);
+     if(url.searchParams.has(sharedParam)){
+       const fromLink=parseSnapshot(url.searchParams.get(sharedParam));
+       if(!fromLink)return 'Este enlace no contiene una comparación válida.';
+       flights.splice(0,flights.length,...fromLink);
+       return 'Comparación cargada desde el enlace. Puedes editarla y guardarla.';
+     }
+     const saved=window.localStorage.getItem(storageKey);
+     if(saved){
+       const fromStorage=parseSnapshot(saved);
+       if(fromStorage){
+         flights.splice(0,flights.length,...fromStorage);
+         return 'Comparación guardada recuperada en este navegador.';
+       }
+     }
+   }catch{/* Navegadores que bloquean almacenamiento o enlaces mal formados. */}
+   return '';
+ }
+ function showShareFallback(link){
+   if(!shareFallback||!shareLinkInput)return;
+   shareLinkInput.value=link;
+   shareFallback.hidden=false;
+   shareLinkInput.focus();
+   shareLinkInput.select();
+   setStatus('Selecciona y copia el enlace para compartir la comparación.');
+ }
+ saveButton?.addEventListener('click',()=>{
+   try{
+     window.localStorage.setItem(storageKey,serializeFlights());
+     setStatus('Comparación guardada en este navegador.');
+   }catch{setStatus('Este navegador no permite guardar la comparación. Puedes compartir el enlace.');}
+ });
+ shareButton?.addEventListener('click',async()=>{
+   const link=new URL(window.location.pathname,window.location.origin);
+   link.searchParams.set(sharedParam,serializeFlights());
+   link.hash='calculadora';
+   const text=link.toString();
+   if(navigator.clipboard?.writeText){
+     try{
+       await navigator.clipboard.writeText(text);
+       if(shareFallback)shareFallback.hidden=true;
+       setStatus('Enlace copiado. Incluye las opciones y los importes que has escrito.');
+       return;
+     }catch{/* Copia manual quan el navegador denega permisos. */}
+   }
+   showShareFallback(text);
+ });
+ clearButton?.addEventListener('click',()=>{
+   if(flights.some(f=>costKeys.some(key=>f[key]!==''))&&
+      !window.confirm('¿Borrar los vuelos introducidos y la comparación guardada?'))return;
+   flights.splice(0,flights.length,emptyFlight(),emptyFlight(),emptyFlight());
+   try{window.localStorage.removeItem(storageKey);}catch{}
+   try{
+     const url=new URL(window.location.href);
+     url.searchParams.delete(sharedParam);
+     window.history.replaceState(window.history.state,'',url.pathname+url.search+url.hash);
+   }catch{}
+   if(shareFallback)shareFallback.hidden=true;
+   renderCalculator();
+   setStatus('Comparación vacía. Puedes empezar de nuevo.');
+ });
  function addOption(){
    if(flights.length>=5)return null;
    flights.push(emptyFlight());
    renderCalculator();
+   markUnsaved();
    return flights.length-1;
  }
  flightScroll?.addEventListener('input',event=>{
@@ -259,6 +361,7 @@
    if(!flights[i]||!Object.prototype.hasOwnProperty.call(flights[i],key))return;
    flights[i][key]=control.value;
    updateCalculator();
+   markUnsaved();
  });
  flightScroll?.addEventListener('change',event=>{
    const control=event.target.closest('[data-flight-index][data-field]');
@@ -266,11 +369,14 @@
    const i=Number(control.dataset.flightIndex);
    const key=control.dataset.field;
    if(!flights[i]||!Object.prototype.hasOwnProperty.call(flights[i],key))return;
-   if(costKeys.includes(key)&&control.value!==''&&(!Number.isFinite(Number(control.value))||Number(control.value)<0)){
-     control.value='0';
+   if(costKeys.includes(key)&&control.value!==''){
+     const amount=Number(control.value);
+     if(!Number.isFinite(amount)||amount<0)control.value='0';
+     else if(amount>10000000)control.value='10000000';
    }
    flights[i][key]=control.value;
    updateCalculator();
+   markUnsaved();
  });
  flightScroll?.addEventListener('click',event=>{
    const button=event.target.closest('[data-remove-flight]');
@@ -279,6 +385,7 @@
    if(!Number.isInteger(i)||i<0||i>=flights.length)return;
    flights.splice(i,1);
    renderCalculator();
+   markUnsaved();
  });
  addFlight?.addEventListener('click',()=>{
    const i=addOption();
@@ -293,8 +400,11 @@
    if(i===null||i<0)return;
    flights[i].airline=name;
    renderCalculator();
+   markUnsaved();
    root.querySelector('#calculadora')?.scrollIntoView({behavior:motion,block:'start'});
    flightScroll?.querySelector('[data-flight-index="'+i+'"][data-field="airline"]')?.focus({preventScroll:true});
  }));
+ const restoredMessage=restoreComparison();
  renderCalculator();
+ if(restoredMessage)setStatus(restoredMessage);
 })();
