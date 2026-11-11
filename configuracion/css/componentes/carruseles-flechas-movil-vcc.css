@@ -9,7 +9,7 @@
   html body.budget-vcc .surprise-section .carousel-shell {
     display:block!important;position:relative!important;
     grid-template-columns:none!important;
-    width:100%;min-width:0;padding:46px 0 0!important;
+    width:100%;min-width:0;padding:var(--vcc-carousel-mobile-padding-top,46px) 0 0!important;
     gap:0!important;
   }
   html body.budget-vcc .savings-section .carousel-shell > .tips-track,
@@ -25,14 +25,14 @@
   html body.budget-vcc .savings-section .carousel-shell > .carousel-arrow,
   html body.budget-vcc .surprise-section .carousel-shell > .carousel-arrow {
     display:grid!important;place-items:center!important;
-    position:absolute!important;top:0!important;
+    position:absolute!important;top:var(--vcc-carousel-mobile-controls-top,0px)!important;
     bottom:auto!important;left:auto!important;
     transform:none!important;margin:0!important;
-    width:35px!important;height:35px!important;
+    width:var(--vcc-carousel-arrow-size,35px)!important;height:var(--vcc-carousel-arrow-size,35px)!important;
     z-index:2!important;
   }
   html body.budget-vcc .savings-section .carousel-shell > .carousel-arrow.prev,
-  html body.budget-vcc .surprise-section .carousel-shell > .carousel-arrow.prev {right:43px!important}
+  html body.budget-vcc .surprise-section .carousel-shell > .carousel-arrow.prev {right:var(--vcc-carousel-arrow-previous-offset,43px)!important}
   html body.budget-vcc .savings-section .carousel-shell > .carousel-arrow.next,
   html body.budget-vcc .surprise-section .carousel-shell > .carousel-arrow.next {right:0!important}
 
@@ -41,25 +41,25 @@
     position:relative!important;padding-top:44px!important;
   }
   html body.budget-vcc #filosofia .vcc-budget-mode-arrow {
-    top:0!important;bottom:auto!important;left:auto!important;
-    transform:none!important;width:35px!important;height:35px!important;
+    top:var(--vcc-carousel-mobile-controls-top,0px)!important;bottom:auto!important;left:auto!important;
+    transform:none!important;width:var(--vcc-carousel-arrow-size,35px)!important;height:var(--vcc-carousel-arrow-size,35px)!important;
   }
-  html body.budget-vcc #filosofia .vcc-budget-mode-arrow.previous{right:43px!important}
+  html body.budget-vcc #filosofia .vcc-budget-mode-arrow.previous{right:var(--vcc-carousel-arrow-previous-offset,43px)!important}
   html body.budget-vcc #filosofia .vcc-budget-mode-arrow.next{right:0!important}
   html body.budget-vcc #filosofia .vcc-budget-mode-card{flex:0 0 100%!important}
 
   /* Cómo moverse · transportes y tarjetas de consejos. */
   body.mv-body .mv-transport-shell,
   body.mv-body .mv-carousel-shell {
-    position:relative;padding:46px 0 0;min-width:0;width:100%;
+    position:relative;padding:var(--vcc-carousel-mobile-padding-top,46px) 0 0;min-width:0;width:100%;
   }
   body.mv-body .mv-transport-arrow,
   body.mv-body .mv-carousel-arrow {
-    top:0;bottom:auto;left:auto;transform:none;
-    right:0;width:35px;height:35px;
+    top:var(--vcc-carousel-mobile-controls-top,0px);bottom:auto;left:auto;transform:none;
+    right:0;width:var(--vcc-carousel-arrow-size,35px);height:var(--vcc-carousel-arrow-size,35px);
   }
   body.mv-body .mv-transport-prev,
-  body.mv-body .mv-prev {right:43px;left:auto}
+  body.mv-body .mv-prev {right:var(--vcc-carousel-arrow-previous-offset,43px);left:auto}
   body.mv-body .mv-transport-next,
   body.mv-body .mv-next {right:0;left:auto}
   body.mv-body .mv-grid > .mv-card,
@@ -68,27 +68,27 @@
   /* Entradas y pases · consejos y tarjetas de los días. */
   .ep-page .ep3-saving-stage {
     display:block;position:relative;grid-template-columns:none;
-    padding:46px 0 0;min-width:0;
+    padding:var(--vcc-carousel-mobile-padding-top,46px) 0 0;min-width:0;
   }
   .ep-page .ep3-saving-stage > .ep3-saving-track {
     display:flex;width:100%;min-width:0;grid-column:auto;grid-row:auto;
   }
   .ep-page .ep3-saving-stage > .ep3-saving-arrow {
-    position:absolute;top:0;bottom:auto;left:auto;right:0;
-    width:35px;height:35px;grid-column:auto;grid-row:auto;
+    position:absolute;top:var(--vcc-carousel-mobile-controls-top,0px);bottom:auto;left:auto;right:0;
+    width:var(--vcc-carousel-arrow-size,35px);height:var(--vcc-carousel-arrow-size,35px);grid-column:auto;grid-row:auto;
   }
-  .ep-page .ep3-saving-stage > .ep3-saving-prev {right:43px;left:auto}
+  .ep-page .ep3-saving-stage > .ep3-saving-prev {right:var(--vcc-carousel-arrow-previous-offset,43px);left:auto}
   .ep-page .ep3-saving-stage > .ep3-saving-next {right:0;left:auto}
   .ep-page .ep3-saving-track > .ep3-saving-card{flex:0 0 100%;min-width:0}
 
-  .ep-page .ep4-our-stage:not(.ep4-our-no-overflow){padding:46px 0 0!important}
+  .ep-page .ep4-our-stage:not(.ep4-our-no-overflow){padding:var(--vcc-carousel-mobile-padding-top,46px) 0 0!important}
   .ep-page .ep4-our-stage:not(.ep4-our-no-overflow) > .ep4-our-arrow {
-    position:absolute!important;top:0!important;bottom:auto!important;
-    transform:none!important;width:35px!important;height:35px!important;
+    position:absolute!important;top:var(--vcc-carousel-mobile-controls-top,0px)!important;bottom:auto!important;
+    transform:none!important;width:var(--vcc-carousel-arrow-size,35px)!important;height:var(--vcc-carousel-arrow-size,35px)!important;
     left:auto!important;
   }
   .ep-page .ep4-our-stage:not(.ep4-our-no-overflow) > .ep4-our-arrow-prev {
-    left:auto!important;right:43px!important;
+    left:auto!important;right:var(--vcc-carousel-arrow-previous-offset,43px)!important;
   }
   .ep-page .ep4-our-stage:not(.ep4-our-no-overflow) > .ep4-our-arrow-next {
     left:auto!important;right:0!important;
@@ -97,45 +97,45 @@
   /* Planifica · tarjetas de viaje. */
   .tv-page .tv-carousel-shell {
     display:block;position:relative;grid-template-columns:none;
-    width:100%;min-width:0;padding-top:46px;
+    width:100%;min-width:0;padding-top:var(--vcc-carousel-mobile-padding-top,46px);
   }
   .tv-page .tv-carousel-shell > .tv-carousel-arrow {
-    position:absolute;top:0;bottom:auto;
-    width:35px;height:35px;
+    position:absolute;top:var(--vcc-carousel-mobile-controls-top,0px);bottom:auto;
+    width:var(--vcc-carousel-arrow-size,35px);height:var(--vcc-carousel-arrow-size,35px);
   }
-  .tv-page .tv-carousel-shell > [data-tv-prev]{right:43px;left:auto}
+  .tv-page .tv-carousel-shell > [data-tv-prev]{right:var(--vcc-carousel-arrow-previous-offset,43px);left:auto}
   .tv-page .tv-carousel-shell > [data-tv-next]{right:0;left:auto}
   .tv-page .tv-carousel {width:100%;grid-auto-columns:100%}
 
   /* Planifica · plataformas de alojamiento. */
-  .al-page .al-carousel{position:relative;padding-top:46px}
+  .al-page .al-carousel{position:relative;padding-top:var(--vcc-carousel-mobile-padding-top,46px)}
   .al-page .al-carousel > .al-carousel-arrow{
-    position:absolute;top:0;bottom:auto;left:auto;
-    transform:none;width:35px;height:35px;
+    position:absolute;top:var(--vcc-carousel-mobile-controls-top,0px);bottom:auto;left:auto;
+    transform:none;width:var(--vcc-carousel-arrow-size,35px);height:var(--vcc-carousel-arrow-size,35px);
   }
-  .al-page .al-carousel > .al-carousel-prev{right:43px;left:auto}
+  .al-page .al-carousel > .al-carousel-prev{right:var(--vcc-carousel-arrow-previous-offset,43px);left:auto}
   .al-page .al-carousel > .al-carousel-next{right:0;left:auto}
   .al-page .al-carousel .al-track{width:100%;grid-auto-columns:100%}
 
   /* Planifica · vuelos: conserva el patrón aprobado en el carrusel de ahorro. */
-  .vl-page .vl-tips-carousel{padding:46px 0 0}
+  .vl-page .vl-tips-carousel{padding:var(--vcc-carousel-mobile-padding-top,46px) 0 0}
   .vl-page .vl-tips-carousel > .vl-tip-arrow{
-    position:absolute;top:0;bottom:auto;left:auto;
-    transform:none;width:35px;height:35px;
+    position:absolute;top:var(--vcc-carousel-mobile-controls-top,0px);bottom:auto;left:auto;
+    transform:none;width:var(--vcc-carousel-arrow-size,35px);height:var(--vcc-carousel-arrow-size,35px);
   }
-  .vl-page .vl-tips-carousel > .vl-tip-prev{right:43px;left:auto}
+  .vl-page .vl-tips-carousel > .vl-tip-prev{right:var(--vcc-carousel-arrow-previous-offset,43px);left:auto}
   .vl-page .vl-tips-carousel > .vl-tip-next{right:0;left:auto}
   .vl-page .vl-tip-track > .vl-tip{flex-basis:100%} 
   /* Cómo llegar · siete consejos de ahorro. */
   .cl-page.cl-landing .vcc-saving-carousel{
-    position:relative;padding:46px 0 0;
+    position:relative;padding:var(--vcc-carousel-mobile-padding-top,46px) 0 0;
     width:100%;min-width:0;
   }
   .cl-page.cl-landing .vcc-saving-carousel > .vcc-saving-arrow{
-    position:absolute;top:0;bottom:auto;left:auto;
-    width:35px;height:35px;transform:none;
+    position:absolute;top:var(--vcc-carousel-mobile-controls-top,0px);bottom:auto;left:auto;
+    width:var(--vcc-carousel-arrow-size,35px);height:var(--vcc-carousel-arrow-size,35px);transform:none;
   }
-  .cl-page.cl-landing .vcc-saving-prev{right:43px;left:auto}
+  .cl-page.cl-landing .vcc-saving-prev{right:var(--vcc-carousel-arrow-previous-offset,43px);left:auto}
   .cl-page.cl-landing .vcc-saving-next{right:0;left:auto}
   .cl-page.cl-landing .vcc-saving-track > .vcc-saving-card{flex:0 0 100%}
   .cl-page.cl-landing .vcc-saving-source{margin:11px 0 0}
@@ -143,16 +143,16 @@
   /* Dónde alojarse · barrios y consejos de ahorro. */
   .dv-page .dv-carousel-wrap,
   .dv-page .dv-tip-carousel-wrap{
-    position:relative;padding-top:46px;min-width:0;
+    position:relative;padding-top:var(--vcc-carousel-mobile-padding-top,46px);min-width:0;
   }
   .dv-page .dv-carousel-wrap > .dv-arrow,
   .dv-page .dv-tip-carousel-wrap > .dv-arrow{
-    position:absolute;top:0;bottom:auto;left:auto;
-    width:35px;height:35px;min-width:35px;min-height:35px;
+    position:absolute;top:var(--vcc-carousel-mobile-controls-top,0px);bottom:auto;left:auto;
+    width:var(--vcc-carousel-arrow-size,35px);height:var(--vcc-carousel-arrow-size,35px);min-width:var(--vcc-carousel-arrow-size,35px);min-height:var(--vcc-carousel-arrow-size,35px);
     transform:none;
   }
   .dv-page .dv-carousel-wrap > .dv-arrow-left,
-  .dv-page .dv-tip-carousel-wrap > .dv-tip-prev{right:43px;left:auto}
+  .dv-page .dv-tip-carousel-wrap > .dv-tip-prev{right:var(--vcc-carousel-arrow-previous-offset,43px);left:auto}
   .dv-page .dv-carousel-wrap > .dv-arrow-right,
   .dv-page .dv-tip-carousel-wrap > .dv-tip-next{right:0;left:auto}
   .dv-page .dv-carousel > .dv-card{
@@ -165,13 +165,13 @@
   /* Cuándo ir · errores a evitar. */
   html body.ci-page .ci-tips-shell{
     display:block;position:relative;grid-template-columns:none;
-    padding-top:46px;min-width:0;
+    padding-top:var(--vcc-carousel-mobile-padding-top,46px);min-width:0;
   }
   html body.ci-page .ci-tips-shell > .ci-tips-arrow{
-    position:absolute;top:0;bottom:auto;left:auto;
-    width:35px;height:35px;
+    position:absolute;top:var(--vcc-carousel-mobile-controls-top,0px);bottom:auto;left:auto;
+    width:var(--vcc-carousel-arrow-size,35px);height:var(--vcc-carousel-arrow-size,35px);
   }
-  html body.ci-page .ci-tips-shell > .ci-tips-prev{right:43px}
+  html body.ci-page .ci-tips-shell > .ci-tips-prev{right:var(--vcc-carousel-arrow-previous-offset,43px)}
   html body.ci-page .ci-tips-shell > .ci-tips-next{right:0}
   html body.ci-page .ci-tips-track > .ci-tip-card{flex:0 0 100%}
 
@@ -179,15 +179,15 @@
   html body .ql-page .ql-advice-carousel.ql-advice-carousel-sides{
     display:block!important;position:relative!important;
     grid-template-columns:none!important;gap:0!important;
-    padding:46px 0 0!important;min-width:0!important;
+    padding:var(--vcc-carousel-mobile-padding-top,46px) 0 0!important;min-width:0!important;
   }
   html body .ql-page .ql-advice-carousel-sides > .ql-carousel-arrow{
-    position:absolute!important;top:0!important;bottom:auto!important;
+    position:absolute!important;top:var(--vcc-carousel-mobile-controls-top,0px)!important;bottom:auto!important;
     left:auto!important;right:0!important;transform:none!important;
-    min-width:35px!important;width:35px!important;height:35px!important;
+    min-width:var(--vcc-carousel-arrow-size,35px)!important;width:var(--vcc-carousel-arrow-size,35px)!important;height:var(--vcc-carousel-arrow-size,35px)!important;
   }
   html body .ql-page .ql-advice-carousel-sides > #ql-advice-prev{
-    left:auto!important;right:43px!important;
+    left:auto!important;right:var(--vcc-carousel-arrow-previous-offset,43px)!important;
   }
   html body .ql-page .ql-advice-carousel-sides > #ql-advice-next{
     left:auto!important;right:0!important;

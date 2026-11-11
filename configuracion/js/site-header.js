@@ -12,6 +12,15 @@
     document.head.appendChild(designTokens);
   }
 
+  // Variants de carrusel centralitzades sense alterar els layouts existents.
+  if(!document.querySelector('link[data-vcc-carousel-tokens]')){
+    const carouselTokens=document.createElement('link');
+    carouselTokens.rel='stylesheet';
+    carouselTokens.href=url('configuracion/css/componentes/carruseles-vcc.css?v=20261111-v1');
+    carouselTokens.dataset.vccCarouselTokens='true';
+    document.head.appendChild(carouselTokens);
+  }
+
   // Subheader editorial único en todas las páginas que lo incluyen (sin alterar el menú principal).
   const subheaderCss=document.createElement('link');
   subheaderCss.rel='stylesheet';

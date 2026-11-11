@@ -1,0 +1,13 @@
+/* VCC · Tres variants de carrusel. No se substitueixen els layouts editorials
+   aprovats: aquestes variables governen la configuració i els controls comuns. */
+[data-vcc-carousel] {
+ --vcc-carousel-gap: var(--vcc-carousel-card-gap,16px);
+ --vcc-carousel-controls-size: var(--vcc-carousel-arrow-size,35px);
+ --vcc-carousel-card-visible-mobile: var(--vcc-carousel-mobile-visible,1);
+}
+[data-vcc-carousel="editorial"] { --vcc-carousel-visible-desktop: var(--vcc-carousel-desktop-editorial-visible,3); }
+[data-vcc-carousel="compacto"] { --vcc-carousel-visible-desktop: var(--vcc-carousel-desktop-compact-visible,5); }
+[data-vcc-carousel="detalle"] { --vcc-carousel-visible-desktop: var(--vcc-carousel-desktop-detail-visible,3); }
+@media(max-width:760px){
+ [data-vcc-carousel] { --vcc-carousel-visible: var(--vcc-carousel-card-visible-mobile,1); }
+}
