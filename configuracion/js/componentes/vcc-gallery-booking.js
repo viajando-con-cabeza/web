@@ -54,6 +54,43 @@ let photoSequence=0;
 let slideOverlay=null,slideTimeout=0;
 let dragSlide=null,dragSlideTimer=0;
 const preloadedThumbs=new Map();
+// Cache LRU limitada: la foto activa i les adjacents, mai les 89 d'un cop.
+const sharpPhotos=new Map(),SHARP_CACHE_LIMIT=5;
+const sharpFor=item=>item.visor||(item.fastPreview?visorFor(item):item.src);
+function warmSharp(url,priority='low'){
+ if(!url)return Promise.resolve(false);
+ const cached=sharpPhotos.get(url);
+ if(cached){
+  if(priority==='high')cached.image.fetchPriority='high';
+  sharpPhotos.delete(url);sharpPhotos.set(url,cached);
+  return cached.promise;
+ }
+ const image=new Image();image.decoding='async';image.fetchPriority=priority;
+ const entry={image,ready:false,promise:null};
+ entry.promise=(async()=>{
+  try{
+   image.src=url;
+   if(image.decode)await image.decode();
+   else await new Promise((resolve,reject)=>{image.onload=resolve;image.onerror=reject});
+   entry.ready=image.naturalWidth>0;
+   return entry.ready;
+  }catch(_){
+   if(sharpPhotos.get(url)===entry)sharpPhotos.delete(url);
+   return false;
+  }
+ })();
+ sharpPhotos.set(url,entry);
+ while(sharpPhotos.size>SHARP_CACHE_LIMIT){
+  const oldest=sharpPhotos.keys().next().value;
+  const unused=sharpPhotos.get(oldest);sharpPhotos.delete(oldest);
+  unused?.image?.removeAttribute('src');
+ }
+ return entry.promise;
+}
+function clearSharpPhotos(){
+ for(const entry of sharpPhotos.values())entry.image.removeAttribute('src');
+ sharpPhotos.clear();
+}
 let fullPhotoTimer=0,fullPhotoRequest=null;
 function cancelFullPhoto(){
  if(fullPhotoTimer){clearTimeout(fullPhotoTimer);fullPhotoTimer=0}
@@ -65,6 +102,7 @@ function cancelFullPhoto(){
  }
 }
 function scheduleFullPhoto(item,id){
+ if(item.fastPreview)return; // Sense retard artificial ni miniatura borrosa al visor d'itineraris.
  // Galeries llargues: resoldre una versió de visor de 1800 px, no l'original de diversos MB.
  // L'original només es descarrega quan es fa zoom.
  const requestedSrc=item.fastPreview?visorFor(item):item.src;
@@ -130,17 +168,19 @@ const limitTouchPan=()=>{
 };
 function createGrid(){
  grid.replaceChildren();gridButtons=[];
+ const fragment=document.createDocumentFragment();
  currentImages.forEach((item,index)=>{
   const b=document.createElement('button');b.type='button';
   b.setAttribute('aria-label','Abrir fotografía '+(index+1)+' de '+currentImages.length);
   b.append(createThumb(item.preview,item.src,'Fotografía '+(index+1)+' de '+currentImages.length));
   b.addEventListener('click',()=>showPhoto(index));
-  grid.append(b);gridButtons.push(b);
+  fragment.append(b);gridButtons.push(b);
  });
+ grid.append(fragment);
 }
 // Conserva els mateixos nodes de miniatura en avançar de foto:
  // cap reconstrucció d'imatges ni listeners amb cada clic a les fletxes.
-let thumbButtons=[];
+let thumbButtons=[],lastActiveThumb=-1;
 function createThumbs(){
  if(thumbButtons.length!==currentImages.length){
   const fragment=document.createDocumentFragment();
@@ -154,9 +194,14 @@ function createThumbs(){
    return button;
   });
   thumbs.replaceChildren(fragment);
+  lastActiveThumb=-1;
  }
- thumbButtons.forEach((button,index)=>button.classList.toggle('active',index===currentIndex));
  const active=thumbButtons[currentIndex];
+ if(lastActiveThumb!==currentIndex){
+  thumbButtons[lastActiveThumb]?.classList.remove('active');
+  active?.classList.add('active');
+  lastActiveThumb=currentIndex;
+ }
  if(active)requestAnimationFrame(()=>{
   if(photoOpen()&&thumbButtons[currentIndex]===active){
    active.scrollIntoView({block:'nearest',inline:'nearest'});
@@ -210,8 +255,20 @@ function requestOriginalForZoom(){
 }
 
 function preloadAdjacentPhotos(){
- if(!isMobile()||currentImages.length<2)return;
- // Només dues miniatures petites: no precarreguem visors ni originals de MB.
+ if(currentImages.length<2)return;
+ if(currentImages[currentIndex]?.fastPreview){
+  // Precàrrega nítida de només dues veïnes. Adaptar-se a l'estalvi de dades i les xarxes lentes.
+  const connection=navigator.connection;
+  if(connection?.saveData||/^(?:slow-2g|2g)$/.test(connection?.effectiveType||''))return;
+  const deltas=connection?.effectiveType==='3g'?[1]:[-1,1];
+  for(const delta of deltas){
+   const item=currentImages[(currentIndex+delta+currentImages.length)%currentImages.length];
+   warmSharp(sharpFor(item),'low');
+  }
+  return;
+ }
+ if(!isMobile())return;
+ // Altres galeries: precàrrega anterior de miniatures.
  const urls=new Set([-1,1].map(delta=>
   currentImages[(currentIndex+delta+currentImages.length)%currentImages.length].preview));
  for(const [url,image] of preloadedThumbs){
@@ -249,7 +306,7 @@ function beginDragSlide(direction){
  incoming.classList.add('vcc-gallery-drag-incoming');
  incoming.setAttribute('aria-hidden','true');
  const img=incoming.querySelector('img');
- img.src=item.visor||(item.fastPreview?item.preview:visorFor(item));
+ img.src=item.fastPreview?sharpFor(item):(item.visor||visorFor(item));
  img.alt=item.alt;
  const captionNode=incoming.querySelector('.day-lightbox-caption');
  const caption=typeof item.caption==='string'?item.caption.trim().slice(0,200):'';
@@ -328,8 +385,11 @@ function showPhoto(index,slideDirection=0){
  counter.textContent=isMobile()?'Foto '+(currentIndex+1)+' de '+currentImages.length:
   (currentIndex+1)+' / '+currentImages.length;
  resetTouchZoom();
- // Vista immediata lleugera, amb l'original diferit i sense descàrregues en ràfega.
- const visor=item.visor||(item.fastPreview?item.preview:visorFor(item));
+ // Mostra directament la imatge nítida de visor (1800px), mai mini de 480px.
+ const visor=item.fastPreview?sharpFor(item):(item.visor||visorFor(item));
+ const cachedSharp=item.fastPreview&&sharpPhotos.get(visor)?.ready;
+ photoFrame.classList.toggle('vcc-gallery-sharp-loading',item.fastPreview&&!cachedSharp);
+ photoImage.onload=()=>{if(id===photoSequence)photoFrame.classList.remove('vcc-gallery-sharp-loading')};
  photoImage.src=visor;
  photoImage.alt=item.alt;
  const caption=typeof item.caption==='string'?item.caption.trim().slice(0,200):'';
@@ -339,9 +399,15 @@ function showPhoto(index,slideDirection=0){
  photoImage.onerror=()=>{
   if(id!==photoSequence||photoImage.src===item.src)return;
   cancelFullPhoto();
+  photoFrame.classList.remove('vcc-gallery-sharp-loading');
   photoImage.src=item.src;
  };
- scheduleFullPhoto(item,id);
+ if(item.fastPreview){
+  warmSharp(visor,'high').then(ok=>{
+   if(id!==photoSequence||!photoOpen())return;
+   if(!ok&&photoImage.src!==item.src)photoImage.src=item.src;
+  });
+ }else scheduleFullPhoto(item,id);
  createThumbs();
  preloadAdjacentPhotos();
  // Quan entrem al visor individual, fem focus al contenidor (no a «Galería»).
@@ -406,8 +472,9 @@ function openGallery(gallery,button){
  gridTitle.textContent=activeSubtitle;gridDescription.textContent=activeDescription;
  lastFocus=button;
  // Si s'obre una nova galeria, no conservem miniatures d'una altra jornada.
- thumbButtons=[];thumbs.replaceChildren();
+ thumbButtons=[];lastActiveThumb=-1;thumbs.replaceChildren();
  createGrid();
+ if(currentImages[0]?.fastPreview)warmSharp(sharpFor(currentImages[0]),'low');
  modal.classList.toggle('vcc-gallery-mobile',nativeMobile());
  modal.classList.toggle('vcc-gallery-desktop',!nativeMobile());
  modal.hidden=false;
@@ -422,6 +489,7 @@ function closeGallery(){
  clearPhotoSlide();
  for(const image of preloadedThumbs.values())image.removeAttribute('src');
  preloadedThumbs.clear();
+ clearSharpPhotos();
  deactivateGlobalGestures();
  ++photoSequence;
  resetPan();
@@ -432,7 +500,7 @@ function closeGallery(){
  document.body.classList.remove('vcc-booking-gallery-open');
  photoImage.removeAttribute('src');
  grid.replaceChildren();thumbs.replaceChildren();
- currentImages=[];gridButtons=[];thumbButtons=[];resetTouchZoom();
+ currentImages=[];gridButtons=[];thumbButtons=[];lastActiveThumb=-1;resetTouchZoom();
  if(lastFocus?.isConnected)lastFocus.focus({preventScroll:true});
  lastFocus=null;
 }
@@ -441,6 +509,15 @@ galleries.forEach(gallery=>{
   button.addEventListener('click',()=>openGallery(gallery,button));
  });
 });
+// Primer contacte amb una miniatura: prioritzar la seva versió nítida.
+function warmGridTarget(event){
+ const button=event.target.closest('button');
+ if(!button||!currentImages.length)return;
+ const index=gridButtons.indexOf(button);
+ if(index>=0&&currentImages[index]?.fastPreview)warmSharp(sharpFor(currentImages[index]),'high');
+}
+grid.addEventListener('pointerdown',warmGridTarget,{passive:true});
+grid.addEventListener('focusin',warmGridTarget);
 gridBack.addEventListener('click',closeGallery);
 gridClose.addEventListener('click',closeGallery);
 photoClose.addEventListener('click',closeGallery);
