@@ -1276,13 +1276,20 @@ html body.budget-vcc .calculator-card .calc-total{
   }
 }
 
-/* VCC · 2026-11-11 · Perfiles algo más altos también en escritorio/tablet. */
-@media (min-width:751px) {
+/* VCC · 2026-11-11 · Perfiles claramente más altos en ordenador.
+   Mismo alto para Lujo, Medio, VCC y Mochilero; móvil intacto. */
+@media (min-width:751px) and (max-width:1100px) {
   html body.budget-vcc #filosofia .vcc-budget-mode-card,
   html body.budget-vcc #filosofia .vcc-budget-mode-card[aria-expanded="true"] {
-    min-height:142px;
-    padding-top:12px;
-    padding-bottom:11px;
+    min-height:205px;
+    padding:15px 12px 14px;
+  }
+}
+@media (min-width:1101px) {
+  html body.budget-vcc #filosofia .vcc-budget-mode-card,
+  html body.budget-vcc #filosofia .vcc-budget-mode-card[aria-expanded="true"] {
+    min-height:230px;
+    padding:18px 16px 16px;
   }
 }
 
