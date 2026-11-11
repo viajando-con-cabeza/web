@@ -515,12 +515,12 @@ html body .imp-page .gallery-mosaic.count-1 .gallery-tile{cursor:pointer!importa
  }
 }
 @keyframes vcc-gallery-photo-enter{
- from{transform:translate3d(calc(var(--vcc-gallery-slide-direction,1) * 100%),0,0)}
+ from{transform:translate3d(var(--vcc-gallery-slide-enter,100%),0,0)}
  to{transform:translate3d(0,0,0)}
 }
 @keyframes vcc-gallery-photo-leave{
  from{transform:translate3d(0,0,0)}
- to{transform:translate3d(calc(var(--vcc-gallery-slide-direction,1) * -100%),0,0)}
+ to{transform:translate3d(var(--vcc-gallery-slide-leave,-100%),0,0)}
 }
 @media(prefers-reduced-motion:reduce){
  .vcc-booking-gallery-modal .day-lightbox-stage.vcc-gallery-sliding
