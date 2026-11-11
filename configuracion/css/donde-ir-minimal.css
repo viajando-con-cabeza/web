@@ -120,3 +120,18 @@ body.planifica-vcc{margin:0;background:var(--di-paper);color:var(--di-ink);font-
  .di-section-head h2{font-size:29px}
 }
 @media(prefers-reduced-motion:reduce){.di-choice{transition:none}}
+
+/* Breadcrumb global llegible sobre la fotografia clara de Dónde ir.
+   No altera la configuració dels altres heros de VCC. */
+html body .di-hero.vcc-breadcrumb-on-dark #vcc-global-breadcrumb,
+html body .di-hero.vcc-breadcrumb-on-dark #vcc-global-breadcrumb a,
+html body .di-hero.vcc-breadcrumb-on-dark #vcc-global-breadcrumb strong,
+html body .di-hero.vcc-breadcrumb-on-dark #vcc-global-breadcrumb .vcc-bc-sep{
+  color:#42372f!important;
+  text-shadow:none!important;
+}
+html body .di-hero.vcc-breadcrumb-on-dark #vcc-global-breadcrumb a:hover{
+  color:#ae512d!important;
+}
+.di-content{scroll-margin-top:calc(var(--vcc-subheader-top,88px) + 60px)}
+.di-panel{scroll-margin-top:calc(var(--vcc-subheader-top,88px) + 60px)}
