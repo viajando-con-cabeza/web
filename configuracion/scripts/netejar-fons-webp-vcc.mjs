@@ -100,11 +100,15 @@ async function walk(dir=".") {
 const sourceFiles=await walk();
 for(const file of sourceFiles) {
   const input=await fs.readFile(file,"utf8");
+  let output=input;
+  // Rutes heretades que assenyalaven backups a old: ara apunten al fons vigent.
+  for(const [legacy, replacement] of Object.entries(legacyPaths)) {
+    output=output.split(BASE+"/old/"+legacy).join(BASE+"/"+replacement);
+  }
   if(activeExtensions.test(file)) {
-    const actualOld=input.match(/(?:\/?configuracion\/imagenes\/fondos\/|\/fondos\/)(?:old|previews-moderns|previews-neutres)\/[A-Za-z0-9_.-]+\.(?:webp|avif|svg|png|jpe?g)/g)||[];
+    const actualOld=output.match(/(?:\/?configuracion\/imagenes\/fondos\/|\/fondos\/)(?:old|previews-moderns|previews-neutres)\/[A-Za-z0-9_.-]+\.(?:webp|avif|svg|png|jpe?g)/g)||[];
     if(actualOld.length) throw new Error("Hi ha referències a subcarpetes a "+file+": "+actualOld.slice(0,5));
   }
-  let output=input;
   // Primer reemplaçar referències completes a SVG moguts.
   for(const [oldName,newName] of rewrite) {
     if(!oldName.endsWith(".svg"))continue;
