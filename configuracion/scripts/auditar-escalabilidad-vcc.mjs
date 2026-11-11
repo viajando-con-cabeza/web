@@ -28,7 +28,7 @@ for(const file of pages){
   const css=sheets.map(x=>attr(x,"href").split("?")[0]).filter(Boolean);
   const js=[...html.matchAll(/<script\b[^>]*\bsrc=["']([^"']+)/gi)].map(x=>x[1].split("?")[0]);
   const repeatCss=css.filter((v,i)=>css.indexOf(v)!==i),repeatJs=js.filter((v,i)=>js.indexOf(v)!==i);
-  const localLinks=[...html.matchAll(/<a\b[^>]*\bhref=["']([^"']+)/gi)].map(x=>normalizePublicPath(x[1])).filter(Boolean);
+  const localLinks=[...html.matchAll(/<a\b[^>]*\bhref=["']([^"']+)/gi)].map(x=>normalizePublicPath(x[1],publicRoute(file))).filter(Boolean);
   const drafts=[...new Set(localLinks.filter(x=>x.startsWith("/destinos/")&&!published.has(x)))];
   const imgs=[...html.matchAll(/<img\b[^>]*>/gi)].map(x=>x[0]);
   const missingAlt=imgs.filter(x=>!/\balt=/.test(x)).length;

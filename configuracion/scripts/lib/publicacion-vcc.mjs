@@ -23,9 +23,9 @@ export function publicRoute(file) {
 export const publicUrl = file => ORIGIN+publicRoute(file);
 export const isPublished = file => PUBLISHED_FILES.has(String(file).replace(/\\/g,"/"));
 export const relativeSiteFile = fullPath => path.relative(ROOT,fullPath).split(path.sep).join("/");
-export function normalizePublicPath(href) {
+export function normalizePublicPath(href, baseRoute="/") {
   try {
-    const uri = new URL(href, ORIGIN);
+    const uri = new URL(href, new URL(baseRoute,ORIGIN));
     if(uri.origin!==ORIGIN)return null;
     const decoded=decodeURIComponent(uri.pathname);
     if(decoded.includes("..")||decoded.includes("\\")||decoded.startsWith("//"))return null;
