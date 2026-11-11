@@ -152,11 +152,16 @@
 .al-page .al-hero.vcc-portada-transparente .al-hero-inner{
  position:relative;z-index:2;color:#24211f;padding:65px 0 42px
 }
-.al-page .al-hero .al-eyebrow{
- color:#be6044;font:600 28px/1 var(--vcc-font-script,"Caveat",cursive);
+.al-page .al-hero .al-hero-eyebrow{
+ display:block;width:max-content;max-width:100%;margin:0;
+ color:#be6044;font:600 28px/1.05 var(--vcc-font-script,"Caveat",cursive);
  text-transform:none;letter-spacing:0
 }
-.al-page .al-hero h1{color:#24211f;font:600 clamp(46px,5vw,66px)/1.04 var(--vcc-font-heading,"Oswald",sans-serif);margin:8px 0 12px;max-width:780px}
+.al-page .al-hero h1.al-hero-title{
+ display:block;max-width:780px;margin:8px 0 12px;
+ color:#24211f;font:600 clamp(46px,5vw,66px)/1.04 var(--vcc-font-heading,"Oswald",sans-serif);
+ letter-spacing:0;text-transform:uppercase
+}
 .al-page .al-hero p:not(.al-eyebrow){color:#49433f;max-width:550px;font-size:14px;line-height:1.56}
 .al-page .al-hero-facts{color:#55473e;font-size:11px;margin-top:17px;gap:12px 18px}
 .al-page .al-hero-facts svg{color:#b65e3e}
@@ -168,7 +173,7 @@
 @media(max-width:740px){
  .al-page .al-hero.vcc-portada-transparente{--vcc-portada-posicio:65% center}
  .al-page .al-hero.vcc-portada-transparente .al-hero-inner{padding:70px 0 42px}
- .al-page .al-hero h1{font-size:clamp(42px,10vw,54px)}
+ .al-page .al-hero h1.al-hero-title{font-size:clamp(42px,10vw,54px)}
  .al-page .al-hero-facts{gap:8px 14px}
 }
 /* Jerarquia tipogràfica única Caveat / Oswald per a títols i sobretítols. */
@@ -218,18 +223,21 @@
  margin:2px 0 6px;color:#28221f
 }
 .al-page .al-tip p{font:400 11.5px/1.48 var(--vcc-font-body,"DM Sans",Arial,sans-serif);margin:0;color:#625d58}
-.al-page .al-tips-controls{
- position:absolute;right:0;top:-49px;display:flex;align-items:center;gap:7px;z-index:2
+.al-page .al-tips-carousel > .al-tips-arrow{
+ position:absolute;top:50%;bottom:auto;transform:translateY(-50%);
+ z-index:3;display:grid;place-items:center;
+ width:36px;height:36px;padding:0;border-radius:50%;
+ background:rgba(255,255,255,.045);border:1px solid #c7aa97;
+ color:#ab553b;box-shadow:none;
+ transition:background-color .15s,border-color .15s,color .15s
 }
-.al-page .al-tips-arrow{
- width:31px;height:31px;display:grid;place-items:center;border-radius:50%;
- background:rgba(255,255,255,.12);border:1px solid #d9cfc5;color:#9e5639;
- transition:background .16s,border-color .16s
-}
+.al-page .al-tips-carousel > .al-tips-prev{left:-12px;right:auto}
+.al-page .al-tips-carousel > .al-tips-next{right:-12px;left:auto}
 .al-page .al-tips-arrow svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
-.al-page .al-tips-arrow:hover:not(:disabled),.al-page .al-tips-arrow:active{background:#e57147;color:#fff;border-color:#e57147}
+.al-page .al-tips-arrow:is(:hover,:active,:focus-visible):not(:disabled){
+ background:#fff1e8;border-color:#c36c4f;color:#ab553b
+}
 .al-page .al-tips-arrow:disabled{opacity:.30;cursor:default}
-.al-page .al-savings .al-heading{padding-right:78px}
 @media(max-width:1000px){
  .al-page .al-tips-track{grid-auto-columns:calc((100% - 12px)/2)}
 }
@@ -249,22 +257,24 @@
  .al-page .al-tips-track{grid-auto-columns:calc(100% - 18px)}
  .al-page .al-tip{gap:9px}
  .al-page .al-tip p{font-size:11px}
- .al-page .al-tips-controls{top:-44px}
- .al-page .al-tips-arrow{width:30px;height:30px}
- .al-page .al-hero .al-eyebrow{font-size:24px}
+ .al-page .al-tips-carousel > .al-tips-arrow{width:30px;height:30px}
+ .al-page .al-hero .al-hero-eyebrow{font-size:24px}
 }
 @media(prefers-reduced-motion:reduce){.al-page .al-tips-arrow{transition:none}}
 
-/* VCC · Como ahorrar: tarjetas más altas sin alterar su carrusel. */
+/* VCC · Carrusel de consejos: compacto, altura mínima estable y fletchas laterales.
+   Los números e iconos continúan centralizados en configuración. */
 .al-page .al-tips-track{align-items:stretch}
-.al-page .al-tip{min-height:262px;align-items:center;gap:18px;padding:26px 22px}
+.al-page .al-tip{
+ min-height:178px;align-items:flex-start;gap:11px;padding:17px 16px
+}
 .al-page .al-tip-copy{flex:1;min-width:0}
-.al-page .al-tip h3{margin:0 0 13px;line-height:1.2}
-.al-page .al-tip p{line-height:1.6}
+.al-page .al-tip h3{margin:2px 0 8px;line-height:1.16}
+.al-page .al-tip p{line-height:1.48}
 @media(max-width:740px){
- .al-page .al-tip{min-height:244px;padding:24px 19px;gap:15px}
- .al-page .al-tip h3{margin-bottom:12px}
+ .al-page .al-tip{min-height:166px;padding:15px 14px;gap:10px}
+ .al-page .al-tip h3{margin:2px 0 7px}
 }
 @media(max-width:520px){
- .al-page .al-tip{min-height:228px;padding:21px 18px;gap:14px}
+ .al-page .al-tip{min-height:158px;padding:14px 13px;gap:10px}
 }
