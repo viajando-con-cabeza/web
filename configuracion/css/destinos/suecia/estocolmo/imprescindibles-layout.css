@@ -193,3 +193,10 @@ html body .imp-page .imp-main .place.place--no-media .advice p {
   html body .imp-page .imp-main .place.place--no-media .advice {padding:10px 12px!important;gap:10px!important}
 }
 
+/* Anclatge mòbil: cada número i títol queda prop de la barra sticky,
+   sense alterar la posició, alçada ni el scrollspy del subheader comú. */
+@media (max-width:720px){
+  html body .imp-page .imp-main section.place[data-vcc-subheader-target]{
+    scroll-margin-top:calc(var(--vcc-subheader-top, 0px) + var(--vcc-subnav-height, 39px) - 8px)!important;
+  }
+}
