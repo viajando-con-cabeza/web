@@ -289,3 +289,42 @@ html body .vl-hero.vcc-portada-transparente.vcc-breadcrumb-on-dark #vcc-global-b
   #calculadora .vl-calc-head .vl-calc-head-side>.vl-copy{text-align:left}
   #calculadora .vl-calc-head .vl-compare-actions{justify-content:flex-start}
 }
+
+/* VCC · Accions discretes sota la comparativa, sense alterar les columnes. */
+#calculadora .vl-compare-utils{
+  display:flex;flex-wrap:wrap;align-items:center;gap:5px 17px;
+  margin:11px 0 0;padding:10px 0 0;border-top:1px solid #e9ded4;
+}
+#calculadora .vl-compare-utils button{
+  appearance:none;border:0;background:transparent;padding:6px 0;
+  font:700 11px/1.4 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
+  color:#a65329;cursor:pointer;text-decoration:underline;text-decoration-color:transparent;
+  text-underline-offset:4px;
+}
+#calculadora .vl-compare-utils button:hover{color:#d95c1b;text-decoration-color:currentColor}
+#calculadora .vl-compare-utils button:focus-visible{outline:2px solid #cc642e;outline-offset:3px;border-radius:2px}
+#calculadora .vl-compare-utils button:last-child{color:#6f6660}
+#calculadora .vl-calc-feedback{
+  min-height:1.15em;margin:3px 0 0;color:#746a61;
+  font:500 10.5px/1.5 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
+}
+#calculadora .vl-share-fallback[hidden]{display:none!important}
+#calculadora .vl-share-fallback{display:flex;align-items:center;gap:8px;max-width:100%;margin-top:7px}
+#calculadora .vl-share-fallback label{color:#665b51;font-size:10px;font-weight:700;white-space:nowrap}
+#calculadora .vl-share-fallback input{width:min(500px,100%);min-width:0;padding:8px;border:1px solid #ded4ca;border-radius:6px;background:#fff;font:500 11px/1.4 var(--vcc-font-body,"DM Sans",Arial,sans-serif)}
+/* FAQ editorials amb HTML accessible i contingut llegible. */
+.vl-page .vl-faq-section{padding:39px 0 47px;background:#fff}
+.vl-page .vl-faq-section .vl-section-head{margin-bottom:18px}
+.vl-page .vl-faq-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px 13px;align-items:start}
+.vl-page .vl-faq-list details{min-width:0;padding:13px 15px;border:1px solid #e8ded4;border-radius:10px;background:#faf7f3}
+.vl-page .vl-faq-list summary{color:#262320;font:700 12px/1.45 var(--vcc-font-body,"DM Sans",Arial,sans-serif);cursor:pointer}
+.vl-page .vl-faq-list summary:focus-visible{outline:2px solid #d65d20;outline-offset:4px}
+.vl-page .vl-faq-list details[open]{background:#fff}
+.vl-page .vl-faq-list details p{margin:9px 0 0;color:#5e5751;font:400 11.5px/1.65 var(--vcc-font-body,"DM Sans",Arial,sans-serif)}
+@media(max-width:720px){
+  #calculadora .vl-compare-utils{gap:3px 14px}
+  #calculadora .vl-share-fallback{flex-direction:column;align-items:flex-start}
+  #calculadora .vl-share-fallback input{width:100%}
+  .vl-page .vl-faq-section{padding:30px 0 38px}
+  .vl-page .vl-faq-list{grid-template-columns:minmax(0,1fr);gap:8px}
+}
