@@ -7,9 +7,10 @@
   "scripts": {
     "seo:sync": "node configuracion/scripts/preparar-publicacion.mjs --write",
     "seo:check": "node configuracion/scripts/preparar-publicacion.mjs --check && node configuracion/scripts/verificar-seo-global.mjs",
-    "test": "node configuracion/scripts/comprobar-rutas.mjs && node configuracion/scripts/verificar-seo-global.mjs && node configuracion/scripts/verificar-seo-como-llegar.mjs && node configuracion/scripts/verificar-presupuestos-vcc.mjs && node configuracion/scripts/verificar-contacto-vcc.mjs && node configuracion/scripts/verificar-css-vcc.mjs && node configuracion/scripts/auditar-escalabilidad-vcc.mjs --strict-hubs",
+    "test": "node configuracion/scripts/comprobar-rutas.mjs && node configuracion/scripts/verificar-seo-global.mjs && node configuracion/scripts/verificar-seo-como-llegar.mjs && node configuracion/scripts/verificar-presupuestos-vcc.mjs && node configuracion/scripts/verificar-contacto-vcc.mjs && node configuracion/scripts/verificar-css-vcc.mjs && node configuracion/scripts/auditar-escalabilidad-vcc.mjs --strict-hubs && node configuracion/scripts/sincronizar-catalogo-vcc.mjs --check",
     "css:check": "node configuracion/scripts/verificar-css-vcc.mjs",
-    "audit:site": "node configuracion/scripts/auditar-escalabilidad-vcc.mjs"
+    "audit:site": "node configuracion/scripts/auditar-escalabilidad-vcc.mjs",
+    "catalog:sync": "node configuracion/scripts/sincronizar-catalogo-vcc.mjs --write"
   },
   "engines": {
     "node": ">=20"

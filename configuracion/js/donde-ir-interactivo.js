@@ -1,6 +1,19 @@
 /* Dónde ir · VCC · Selector de inspiració, sense dependències. */
 (() => {
   'use strict';
+  // A quality, els esborranys segueixen accessibles per revisar-los.
+  // A producció no tenen href fins que s'aproven al registre editorial.
+  const isQualityPreview=/(^|\\.)quality\\./i.test(location.hostname)||
+    /\\.workers\\.dev$/i.test(location.hostname);
+  if(isQualityPreview){
+    document.querySelectorAll('.di-mini-card[data-vcc-publication="draft"]').forEach(card=>{
+      if(!card.dataset.vccOriginalHref)return;
+      card.setAttribute('href',card.dataset.vccOriginalHref);
+      card.removeAttribute('aria-disabled');
+      card.title='Borrador · vista de pruebas';
+    });
+  }
+
   const validModes=['itinerarios','guias','consejos'];
   const choiceButtons=[...document.querySelectorAll('[data-di-mode]')];
   const tabs=[...document.querySelectorAll('[data-di-tab]')];

@@ -25,6 +25,7 @@ jobs:
       - name: Prevent draft indexing and ensure canonical release
         run: |
           node configuracion/scripts/preparar-publicacion.mjs --check
+          node configuracion/scripts/sincronizar-catalogo-vcc.mjs --check
           node configuracion/scripts/verificar-seo-global.mjs
           node configuracion/scripts/comprobar-rutas.mjs
 

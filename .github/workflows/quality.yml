@@ -115,6 +115,7 @@ jobs:
         run: |
           set -euo pipefail
           node configuracion/scripts/generate-planifica-hubs.mjs
+          node configuracion/scripts/sincronizar-catalogo-vcc.mjs --write
           node configuracion/scripts/preparar-publicacion.mjs --write
           if ! git diff --quiet -- .; then
             git config user.name "github-actions[bot]"
@@ -125,6 +126,7 @@ jobs:
             git push origin HEAD:quality
           fi
           node configuracion/scripts/preparar-publicacion.mjs --check
+          node configuracion/scripts/sincronizar-catalogo-vcc.mjs --check
 
       - name: Check local links and resources
         run: node configuracion/scripts/comprobar-rutas.mjs

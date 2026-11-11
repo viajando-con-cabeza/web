@@ -1,0 +1,21 @@
+/* VCC · Estat editorial de targetes reutilitzable a noves destinacions. */
+.di-mini-card[data-vcc-publication="draft"]{
+  cursor:default;opacity:.76;
+}
+.di-mini-card[data-vcc-publication="draft"]:is(:hover,:focus-visible){
+  transform:none;box-shadow:none;
+}
+.di-mini-card[data-vcc-publication="draft"] .di-mini-photo img{
+  transform:none!important;
+}
+.di-mini-card[data-vcc-publication="draft"] .di-mini-body > b{
+  font-size:0!important;
+}
+.di-mini-card[data-vcc-publication="draft"] .di-mini-body > b > span{
+  display:none!important;
+}
+.di-mini-card[data-vcc-publication="draft"] .di-mini-body > b::after{
+  content:"PRÓXIMAMENTE";
+  font-size:11px;letter-spacing:.04em;
+  color:var(--vcc-color-muted,#716a64);
+}
