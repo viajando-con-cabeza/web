@@ -402,3 +402,118 @@
   }
 
 }
+
+/* 2026-11-11: estils centrals NO ESTRUCTURALS.
+   No tocar position/top/left/right/display/grid/transform dels carrusels. */
+:root{--vcc-arrow-bg-pc:rgba(255,255,255,.78);--vcc-arrow-bg-mob:rgba(255,255,255,.06);
+--vcc-arrow-contorn:#c7aa97;--vcc-arrow-taronja:#ab553b}
+:is(body.budget-vcc .carousel-shell > .carousel-arrow,
+body.budget-vcc .vcc-budget-mode-arrow,
+body.mv-body .mv-transport-arrow,
+body.mv-body .mv-carousel-arrow,
+.ep-page .ep3-saving-arrow,
+.ep-page .ep4-our-arrow,
+.tv-page .tv-carousel-arrow,
+.al-page .al-carousel-arrow,
+.al-page .al-tips-arrow,
+.vl-page .vl-tip-arrow,
+.vl-page .vl-air-carousel-arrow,
+.cl-page .vcc-saving-arrow,
+.dv-page .dv-arrow,
+.ci-page .ci-tips-arrow,
+.ql-page .ql-carousel-arrow,
+.vcc-route-carousel > .vcc-route-arrow,
+body.country-page .carousel-arrow,
+.st-carousel-wrap > .carousel-arrow,
+.vcc-it-photo > .vcc-it-gallery-button){
+ width:36px!important;height:36px!important;border:1px solid var(--vcc-arrow-contorn)!important;
+ border-radius:50%!important;background:var(--vcc-arrow-bg-pc)!important;
+ color:var(--vcc-arrow-taronja)!important;box-shadow:0 2px 8px rgba(29,22,18,.10)!important;
+ transition:background-color .15s,border-color .15s,color .15s!important
+}
+:is(body.budget-vcc .carousel-shell > .carousel-arrow,
+body.budget-vcc .vcc-budget-mode-arrow,
+body.mv-body .mv-transport-arrow,
+body.mv-body .mv-carousel-arrow,
+.ep-page .ep3-saving-arrow,
+.ep-page .ep4-our-arrow,
+.tv-page .tv-carousel-arrow,
+.al-page .al-carousel-arrow,
+.al-page .al-tips-arrow,
+.vl-page .vl-tip-arrow,
+.vl-page .vl-air-carousel-arrow,
+.cl-page .vcc-saving-arrow,
+.dv-page .dv-arrow,
+.ci-page .ci-tips-arrow,
+.ql-page .ql-carousel-arrow,
+.vcc-route-carousel > .vcc-route-arrow,
+body.country-page .carousel-arrow,
+.st-carousel-wrap > .carousel-arrow,
+.vcc-it-photo > .vcc-it-gallery-button):hover:not(:disabled):not([aria-disabled=true]){
+ background:#fff1e8!important;border-color:#c36c4f!important;color:#ab553b!important
+}
+:is(body.budget-vcc .carousel-shell > .carousel-arrow,
+body.budget-vcc .vcc-budget-mode-arrow,
+body.mv-body .mv-transport-arrow,
+body.mv-body .mv-carousel-arrow,
+.ep-page .ep3-saving-arrow,
+.ep-page .ep4-our-arrow,
+.tv-page .tv-carousel-arrow,
+.al-page .al-carousel-arrow,
+.al-page .al-tips-arrow,
+.vl-page .vl-tip-arrow,
+.vl-page .vl-air-carousel-arrow,
+.cl-page .vcc-saving-arrow,
+.dv-page .dv-arrow,
+.ci-page .ci-tips-arrow,
+.ql-page .ql-carousel-arrow,
+.vcc-route-carousel > .vcc-route-arrow,
+body.country-page .carousel-arrow,
+.st-carousel-wrap > .carousel-arrow,
+.vcc-it-photo > .vcc-it-gallery-button):active:not(:disabled):not([aria-disabled=true]){
+ background:#e57147!important;border-color:#e57147!important;color:#fff!important
+}
+:is(body.budget-vcc .carousel-shell > .carousel-arrow,
+body.budget-vcc .vcc-budget-mode-arrow,
+body.mv-body .mv-transport-arrow,
+body.mv-body .mv-carousel-arrow,
+.ep-page .ep3-saving-arrow,
+.ep-page .ep4-our-arrow,
+.tv-page .tv-carousel-arrow,
+.al-page .al-carousel-arrow,
+.al-page .al-tips-arrow,
+.vl-page .vl-tip-arrow,
+.vl-page .vl-air-carousel-arrow,
+.cl-page .vcc-saving-arrow,
+.dv-page .dv-arrow,
+.ci-page .ci-tips-arrow,
+.ql-page .ql-carousel-arrow,
+.vcc-route-carousel > .vcc-route-arrow,
+body.country-page .carousel-arrow,
+.st-carousel-wrap > .carousel-arrow,
+.vcc-it-photo > .vcc-it-gallery-button):disabled{opacity:.32!important}
+@media(max-width:760px){
+ :is(body.budget-vcc .carousel-shell > .carousel-arrow,
+body.budget-vcc .vcc-budget-mode-arrow,
+body.mv-body .mv-transport-arrow,
+body.mv-body .mv-carousel-arrow,
+.ep-page .ep3-saving-arrow,
+.ep-page .ep4-our-arrow,
+.tv-page .tv-carousel-arrow,
+.al-page .al-carousel-arrow,
+.al-page .al-tips-arrow,
+.vl-page .vl-tip-arrow,
+.vl-page .vl-air-carousel-arrow,
+.cl-page .vcc-saving-arrow,
+.dv-page .dv-arrow,
+.ci-page .ci-tips-arrow,
+.ql-page .ql-carousel-arrow,
+.vcc-route-carousel > .vcc-route-arrow,
+body.country-page .carousel-arrow,
+.st-carousel-wrap > .carousel-arrow,
+.vcc-it-photo > .vcc-it-gallery-button){
+  width:32px!important;height:32px!important;
+  background:var(--vcc-arrow-bg-mob)!important;box-shadow:none!important
+ }
+}
+:is(.vcc-it-photo > .vcc-it-gallery-button){width:28px!important;height:28px!important}
