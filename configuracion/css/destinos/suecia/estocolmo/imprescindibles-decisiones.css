@@ -244,15 +244,25 @@ html body .imp-page .leaflet-popup-content a {color:#b9542d;font-weight:700}
   }
   html body .imp-page .imp-map-layout {grid-template-columns:minmax(0,1fr);gap:9px}
   html body .imp-page #imp-all-map {height:310px;min-height:310px}
+  /* Llegenda compacta: dues targetes a la vista i un sol rengle per lloc.
+     Mantenim el carrusel horitzontal i els botons accessibles. */
   html body .imp-page .imp-map-index {
-    height:130px;display:grid;grid-auto-flow:column;grid-auto-columns:minmax(155px,190px);
-    gap:4px;overflow-x:auto;overflow-y:hidden;align-items:stretch;
-    padding:7px;scroll-snap-type:x proximity;
+    height:66px;display:grid;grid-auto-flow:column;
+    grid-auto-columns:minmax(140px,calc((100% - 5px)/2));
+    gap:5px;overflow-x:auto;overflow-y:hidden;align-items:stretch;
+    padding:5px;scroll-snap-type:x proximity;
   }
   html body .imp-page .imp-map-index-item {
-    flex-direction:column;justify-content:center;align-items:flex-start;
-    gap:7px;border:1px solid #f0e6df;border-radius:8px;
-    padding:10px;font-size:11px;scroll-snap-align:start;
+    min-width:0;min-height:52px;box-sizing:border-box;
+    flex-direction:row;justify-content:flex-start;align-items:center;
+    gap:8px;border:1px solid #f0e6df;border-radius:8px;
+    padding:7px 9px;font-size:11px;line-height:1.25;scroll-snap-align:start;
+  }
+  html body .imp-page .imp-map-index-item small {
+    flex:0 0 22px;font-size:16px;line-height:1;
+  }
+  html body .imp-page .imp-map-index-item span {
+    min-width:0;overflow-wrap:anywhere;
   }
   html body .imp-page .imp-map-footer {align-items:flex-start}
 }
