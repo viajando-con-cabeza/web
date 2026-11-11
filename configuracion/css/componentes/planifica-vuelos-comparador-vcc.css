@@ -18,27 +18,27 @@
 
 /* Comparador: conceptos en filas, vuelos en columnas; desplazamiento horizontal
    únicamente dentro de la tabla, sin romper el ancho del documento. */
-#calculadora .vl-calc-layout{display:grid;grid-template-columns:minmax(0,1fr) 265px;align-items:start;gap:14px;max-width:100%}
+#calculadora .vl-calc-layout{display:grid;grid-template-columns:minmax(0,1fr) 265px;align-items:stretch;gap:14px;max-width:100%}
 #calculadora .vl-calc-shell{min-width:0;background:#fff;border:1px solid #e7ddd3;border-radius:12px;box-shadow:0 4px 15px rgba(47,36,30,.04);overflow:hidden}
 #calculadora .vl-calc-scroll{min-width:0;max-width:100%;overflow:auto;-webkit-overflow-scrolling:touch;scrollbar-width:thin;scrollbar-color:#dcc8b8 transparent}
 #calculadora .vl-calc-table{--vl-label-width:183px;width:100%;min-width:max(100%,calc(var(--vl-label-width) + var(--vl-flight-count,3)*139px));table-layout:fixed;border-collapse:separate;border-spacing:0;font-family:var(--vcc-font-body,"DM Sans",Arial,sans-serif)}
 #calculadora .vl-calc-table tr>*:first-child{width:var(--vl-label-width);left:0;position:sticky;z-index:2;text-align:left}
-#calculadora .vl-calc-table thead th{height:49px;padding:8px 10px;background:#faf0e7;border-bottom:1px solid #ebdcd0;font-size:12px;color:#48352c;white-space:nowrap}
+#calculadora .vl-calc-table thead th{height:38px;padding:5px 8px;background:#faf0e7;border-bottom:1px solid #ebdcd0;font-size:11px;color:#48352c;white-space:nowrap}
 #calculadora .vl-calc-table thead th:first-child{z-index:4;background:#faf0e7}
 #calculadora .vl-calc-table thead th:not(:first-child){position:relative;text-align:center}
 #calculadora .vl-option-heading{display:inline-block;font:600 16px/1.1 var(--vcc-font-heading,"Oswald",sans-serif);padding-right:10px}
 #calculadora .vl-remove-option{position:absolute;right:3px;top:4px;display:grid;place-items:center;width:23px;height:23px;padding:4px;border:0;border-radius:50%;background:transparent;color:#b07558}
 #calculadora .vl-remove-option svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round}
 #calculadora .vl-remove-option:hover{background:#f9dbcb;color:#b4461c}
-#calculadora .vl-calc-table tbody tr>*{height:55px;border-bottom:1px solid #efe7df;background:#fff}
+#calculadora .vl-calc-table tbody tr>*{height:43px;border-bottom:1px solid #efe7df;background:#fff}
 #calculadora .vl-calc-table tbody tr:last-child>*{border-bottom:0}
-#calculadora .vl-calc-table tbody th{padding:10px 10px 10px 13px;display:table-cell;color:#463d37;font:700 11px/1.2 var(--vcc-font-body,"DM Sans",Arial,sans-serif)}
+#calculadora .vl-calc-table tbody th{padding:6px 8px 6px 11px;display:table-cell;color:#463d37;font:700 10.5px/1.2 var(--vcc-font-body,"DM Sans",Arial,sans-serif)}
 #calculadora .vl-calc-table tbody th .vl-compare-icon{display:inline-block;vertical-align:middle;width:20px;height:20px;margin-right:7px;color:#d56627;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
 #calculadora .vl-calc-table tbody th>span{display:inline;vertical-align:middle}
-#calculadora .vl-calc-table tbody td{padding:7px 6px;text-align:center;transition:background .12s}
+#calculadora .vl-calc-table tbody td{padding:4px 6px;text-align:center;transition:background .12s}
 #calculadora .vl-calc-table tbody td[data-best-option="true"]{background:#fff8f2}
 #calculadora .vl-calc-table thead th[data-best-option="true"]{background:#fbe1cb;color:#bf4c18}
-#calculadora .vl-calc-table :is(input,select){width:100%;min-width:0;min-height:34px;padding:6px 8px;border:1px solid #ddd6d0;border-radius:7px;background:#fff;color:#2f2b28;font:500 11px/1.25 var(--vcc-font-body,"DM Sans",Arial,sans-serif);box-sizing:border-box}
+#calculadora .vl-calc-table :is(input,select){width:100%;min-width:0;min-height:30px;padding:4px 7px;border:1px solid #ddd6d0;border-radius:6px;background:#fff;color:#2f2b28;font:500 11px/1.25 var(--vcc-font-body,"DM Sans",Arial,sans-serif);box-sizing:border-box}
 #calculadora .vl-calc-table select{text-align:left;text-overflow:ellipsis;white-space:nowrap;padding-right:17px}
 #calculadora .vl-calc-table input[type="number"]{text-align:right;font-variant-numeric:tabular-nums}
 #calculadora .vl-calc-table input[type="text"]{text-align:left}
@@ -49,16 +49,16 @@
 #calculadora .vl-row-total td strong{display:block;color:#a95524;font:600 22px/1 var(--vcc-font-heading,"Oswald",sans-serif);font-variant-numeric:tabular-nums;white-space:nowrap}
 #calculadora .vl-row-total td[data-best-option="true"]{background:#e7641d!important}
 #calculadora .vl-row-total td[data-best-option="true"] strong{color:#fff}
-#calculadora .vl-compare-actions{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px 14px}
-#calculadora .vl-add-option{display:inline-flex;align-items:center;gap:7px;min-height:34px;padding:7px 12px;border:1px solid #e9b99b;border-radius:7px;background:#fff6ef;color:#b75523;font-size:10.5px;font-weight:800}
+#calculadora .vl-compare-actions{display:flex;align-items:center;justify-content:flex-end;gap:12px;min-height:41px;padding:5px 12px;background:#fff;border-bottom:1px solid #eee6de}
+#calculadora .vl-add-option{display:inline-flex;align-items:center;gap:6px;min-height:29px;padding:5px 10px;border:1px solid #e9b99b;border-radius:7px;background:#fff6ef;color:#b75523;font-size:10.5px;font-weight:800}
 #calculadora .vl-add-option svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round}
 #calculadora .vl-add-option:disabled{opacity:.35!important;cursor:default!important}
 #calculadora .vl-compare-actions>span{color:#8d8279;font-size:10px}
-#calculadora .vl-calc-shell>.vl-footnote{margin:0;padding:4px 14px 15px;font-size:10px;line-height:1.5;color:#776b62}
+#calculadora .vl-calc-shell>.vl-footnote{margin:0;padding:7px 12px 10px;font-size:9.5px;line-height:1.4;color:#776b62}
 #calculadora .vl-calc-layout [hidden]{display:none!important}
 
 /* Consell VCC: mateix llenguatge visual que la comparativa de Cómo moverse. */
-#calculadora .vl-best-card{min-width:0;padding:17px 16px 16px;border:1px solid #e8c4ad;border-radius:12px;background:#fff;box-shadow:0 3px 14px rgba(47,36,30,.03)}
+#calculadora .vl-best-card{min-width:0;min-height:100%;padding:14px 15px;border:1px solid #e8c4ad;border-radius:12px;background:#fff;box-shadow:0 3px 14px rgba(47,36,30,.03)}
 #calculadora .vl-best-heading{margin:0 0 13px;text-align:left}
 #calculadora .vl-best-script{display:block;margin:0 0 3px;color:#d45f20;font:600 24px/1 var(--vcc-font-script,"Caveat",cursive)}
 #calculadora .vl-best-heading h3{margin:0;color:#282321;font:600 25px/1.12 var(--vcc-font-heading,"Oswald",sans-serif)}
@@ -123,4 +123,67 @@ html body .vl-hero.vcc-portada-transparente.vcc-breadcrumb-on-dark #vcc-global-b
   #calculadora .vl-best-feature{gap:9px}
   #calculadora .vl-best-seal{width:67px;flex-basis:67px}
   #calculadora .vl-best-seal img{width:57px;height:57px}
+}
+
+/* VCC · Vuelos: el resumen lateral comparte exactamente la altura de la tabla
+   en escritorio. Los importes finales quedan encasillados por opción. */
+#calculadora .vl-row-total th,
+#calculadora .vl-row-total td{
+  background:#fff !important;
+  border-top:1px solid #ebd8c8;
+  padding:5px 6px !important;
+  height:54px !important;
+}
+#calculadora .vl-row-total th{
+  background:#fff5ea !important;
+}
+#calculadora .vl-row-total td .vl-total-pill{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  min-height:34px;
+  width:100%;
+  padding:5px 3px;
+  border-radius:7px;
+  border:1px solid #f1d7c3;
+  background:#fff0df;
+}
+#calculadora .vl-row-total td .vl-total-pill strong{
+  font-size:21px;
+}
+#calculadora .vl-row-total td[data-best-option="true"]{
+  background:#fff !important;
+}
+#calculadora .vl-row-total td[data-best-option="true"] .vl-total-pill{
+  background:#e7641d;
+  border-color:#e7641d;
+}
+#calculadora .vl-row-total td[data-best-option="true"] .vl-total-pill strong{
+  color:#fff !important;
+}
+#calculadora .vl-best-card{
+  display:flex;
+  flex-direction:column;
+  justify-content:flex-start;
+  align-self:stretch;
+}
+#calculadora .vl-best-note{
+  margin-top:auto;
+  padding-top:10px;
+}
+#calculadora .vl-best-savings li{
+  padding:7px 9px;
+  margin-bottom:6px;
+}
+#calculadora .vl-best-comparison{
+  margin-top:11px;
+  padding-top:11px;
+}
+#calculadora .vl-best-heading{
+  margin-bottom:9px;
+}
+#calculadora .vl-compare-actions>span{order:0}
+#calculadora .vl-compare-actions>.vl-add-option{order:1}
+@media(max-width:1120px){
+ #calculadora .vl-best-card{min-height:0}
 }
