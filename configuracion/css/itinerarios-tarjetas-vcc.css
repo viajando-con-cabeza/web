@@ -1,0 +1,62 @@
+/* Itinerarios · catàleg compartit amb Planifica > Dónde ir.
+   Les targetes base viuen a donde-ir-minimal.css; aquí només personalitzem la pàgina. */
+.itinerarios-vcc{background:#f7f5f2}
+.itinerarios-vcc .itinerarios-page{padding-bottom:56px}
+.itinerarios-vcc .itinerarios-hero{margin-bottom:23px}
+.vcc-it-catalog{margin:0 auto}
+.vcc-it-heading{margin:0 0 18px}
+.itinerarios-vcc .vcc-it-heading .section-kicker{
+  display:block!important;width:max-content!important;margin:0 0 5px!important;padding:0!important;
+  background:transparent!important;color:#c06448!important;
+  font:600 26px/1.06 var(--vcc-font-script,"Caveat",cursive)!important;
+  letter-spacing:0!important;text-transform:none!important
+}
+.vcc-it-heading h2{font:500 clamp(28px,3.1vw,40px)/1.12 var(--vcc-font-heading,"Oswald",sans-serif);margin:0 0 8px;color:#23201e}
+.vcc-it-heading p{max-width:800px;margin:0;color:#625e5a;font:400 13px/1.58 var(--vcc-font-body,"DM Sans",Arial,sans-serif)}
+.vcc-it-catalog .di-mini-grid{grid-template-columns:repeat(5,minmax(0,1fr));gap:12px}
+.vcc-it-catalog .di-mini-card{cursor:default;border-radius:11px;background:#fff;overflow:hidden}
+.vcc-it-catalog a.di-mini-card{cursor:pointer}
+.vcc-it-catalog .di-mini-card:not(a):hover{border-color:#e7e0d9;box-shadow:none;transform:none}
+.vcc-it-catalog .di-mini-card:not(a):hover .di-mini-photo img{transform:none}
+.vcc-it-catalog .di-mini-photo{aspect-ratio:1.88}
+.vcc-it-catalog .di-mini-tag{
+  top:8px;bottom:auto;left:8px;right:auto;display:inline-flex;align-items:center;gap:5px;
+  border-radius:8px;padding:6px 8px;background:rgba(255,249,243,.96);
+  color:#604737;box-shadow:0 2px 7px #18120d15;font-weight:800;font-size:9px;
+  line-height:1.2;max-width:calc(100% - 16px);
+}
+.vcc-it-catalog .di-mini-tag svg{width:14px;height:14px;flex:none;color:#d36a42}
+.vcc-it-catalog .di-mini-body{padding:13px 12px 12px}
+.vcc-it-catalog .di-mini-body>strong{min-height:2.35em;display:block;margin-bottom:8px}
+.vcc-it-catalog .di-route-stats{margin:0 0 8px;display:flex;align-items:center;gap:6px;color:#bb5939}
+.vcc-it-catalog .di-route-stats svg{width:13px;height:13px;flex:none}
+.vcc-it-catalog .di-budget-row{margin-bottom:9px;gap:4px 7px}
+.vcc-it-catalog .di-price{color:#b34f32;font-size:11px}
+.vcc-it-catalog .di-price-pending{color:#99908a;font-size:10px}
+.vcc-it-catalog .di-country-line{display:inline-flex;align-items:center;gap:7px;margin-bottom:9px}
+.vcc-it-catalog .di-country-line .di-flag{font-size:18px}
+.vcc-it-catalog .di-mini-desc{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;line-clamp:2;overflow:hidden;min-height:2.9em;margin-bottom:12px}
+.vcc-it-catalog .di-mini-body b{margin-top:auto;font-size:10px}
+.vcc-it-catalog .vcc-it-upcoming{
+  margin-top:auto;color:#aba19b;font:800 10px/1.3 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
+  letter-spacing:.02em;padding-top:3px
+}
+.vcc-it-catalog .di-no-results{margin-top:12px}
+.vcc-it-catalog .di-catalog-toolbar{margin-bottom:17px}
+@media(max-width:1120px){.vcc-it-catalog .di-mini-grid{grid-template-columns:repeat(4,minmax(0,1fr))}}
+@media(max-width:850px){.vcc-it-catalog .di-mini-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}}
+@media(max-width:620px){
+  .vcc-it-catalog .di-mini-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+  .vcc-it-catalog .di-mini-body{padding:11px 10px 12px}
+  .vcc-it-catalog .di-mini-body>strong{min-height:0;font-size:17px}
+  .vcc-it-catalog .di-mini-desc{font-size:10px}
+  .vcc-it-catalog .di-mini-tag{top:6px;left:6px;padding:5px 6px;font-size:8px}
+  .vcc-it-catalog .di-mini-tag svg{width:12px;height:12px}
+  .vcc-it-catalog .di-price{font-size:10px}
+  .vcc-it-catalog .di-country-line .di-flag{font-size:16px}
+  .vcc-it-heading h2{font-size:30px}
+  .vcc-it-heading p{font-size:12px}
+  .itinerarios-vcc .vcc-it-heading .section-kicker{font-size:23px!important}
+}
+@media(max-width:340px){.vcc-it-catalog .di-mini-grid{grid-template-columns:1fr}}
+@media(prefers-reduced-motion:reduce){.vcc-it-catalog .di-mini-card{transition:none}}
