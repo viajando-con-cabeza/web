@@ -70,7 +70,7 @@
 .ql-suitcase-helper{font:500 11px/1.3 var(--vcc-font-body, "DM Sans", Arial, sans-serif);color:#7d6456;text-align:right}
 .ql-full-list{margin-top:30px;padding:24px 25px 25px;background:#fff;border:1px solid #e8d9cb;border-radius:16px}
 .ql-list-top{display:flex;justify-content:space-between;align-items:end;gap:20px;padding-bottom:15px;margin-bottom:16px;border-bottom:1px solid #ece1d7}
-.ql-list-top .ql-section-script{font-size:25px;margin-bottom:4px!important}
+.ql-list-top .ql-section-script{font-size:calc(25px + var(--vcc-overline-size-adjust,0px));margin-bottom:4px!important}
 .ql-list-top h3{font:500 clamp(25px,3vw,36px)/1.15 var(--vcc-font-heading, "Oswald", sans-serif);text-transform:uppercase;margin:0}
 .ql-list-top p:not(.ql-section-script){margin:7px 0 0;font:400 12px/1.5 var(--vcc-font-body, "DM Sans", Arial, sans-serif);color:#73675b}
 .ql-progress-wrap{display:flex;flex-direction:column;align-items:flex-end;gap:7px;min-width:156px}
@@ -109,8 +109,8 @@
 .ql-carousel-arrow:disabled{opacity:.35;cursor:default}
 .ql-foot-note{margin:24px 0 0!important;font:400 11px/1.55 var(--vcc-font-body, "DM Sans", Arial, sans-serif);color:#7c7066}
 @media(max-width:1120px){.ql-builder{grid-template-columns:1fr 1fr}.ql-season{padding:11px 9px;gap:8px}.ql-season img{width:35px;height:35px;flex-basis:35px}.ql-essentials-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.ql-advice-card{flex-basis:calc((100% - 16px)/2)}}
-@media(max-width:850px){.ql-builder{grid-template-columns:1fr}.ql-suitcase-box{max-width:none}.ql-suitcase-illustration{max-width:560px}.ql-category h3{font-size:20px}.ql-section-heading{align-items:start}.ql-essentials-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
-@media(max-width:650px){.ql-wrap,.ql-subnav-inner{width:calc(100% - 28px)}.ql-hero{min-height:365px}.ql-hero-photo{object-position:60% 50%}.ql-hero:before{background:linear-gradient(90deg,rgba(250,246,240,.96),rgba(250,246,240,.86) 58%,rgba(250,246,240,.30))}.ql-hero>.ql-wrap{padding-top:14px}.ql-hero-copy{padding-top:48px}.ql-hero h1{font-size:clamp(41px,9vw,57px)}.ql-hero-copy>p{font-size:14px}.ql-page .ql-crumb{font-size:10px;left:2px}.ql-subnav-inner{gap:18px}.ql-page .ql-subnav a{font-size:10px}.ql-main{padding-top:29px}.ql-section-heading{display:block}.ql-section-heading h2{font-size:34px}.ql-section-script{font-size:27px}.ql-builder-options{padding:19px 15px}.ql-season{min-height:73px;padding:9px}.ql-season b{font-size:18px}.ql-season img{width:33px;height:33px;flex-basis:33px}.ql-suitcase-box{padding:16px 6px 11px}.ql-suitcase-script{top:12px;left:16px;font-size:31px}.ql-suitcase-illustration{margin-top:23px}.ql-suitcase-caption{flex-direction:column;align-items:center;gap:2px}.ql-suitcase-helper{text-align:center}.ql-full-list{padding:18px 13px}.ql-list-top{display:block}.ql-list-top h3{font-size:28px}.ql-progress-wrap{align-items:start;margin-top:12px}.ql-categories{grid-template-columns:1fr;gap:12px}.ql-essentials-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.ql-essential-card{padding:16px 9px}.ql-essential-art{height:45px;margin-bottom:9px}.ql-essential-art svg{width:39px;height:39px}.ql-essential-card h3{font-size:16px}.ql-advice-carousel{gap:6px}.ql-carousel-arrow{width:30px;height:30px;flex-basis:30px;font-size:19px}.ql-advice-card{flex-basis:100%;min-height:168px;padding:17px 15px}.ql-advice-number{width:50px;height:50px;flex-basis:50px;font-size:27px}.ql-advice-card h3{font-size:22px}}
+@media(max-width:850px){.ql-builder{grid-template-columns:1fr}.ql-suitcase-box{max-width:none}.ql-suitcase-illustration{max-width:560px}.ql-category h3{font-size:calc(20px + var(--vcc-heading-size-adjust,0px))}.ql-section-heading{align-items:start}.ql-essentials-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:650px){.ql-wrap,.ql-subnav-inner{width:calc(100% - 28px)}.ql-hero{min-height:365px}.ql-hero-photo{object-position:60% 50%}.ql-hero:before{background:linear-gradient(90deg,rgba(250,246,240,.96),rgba(250,246,240,.86) 58%,rgba(250,246,240,.30))}.ql-hero>.ql-wrap{padding-top:14px}.ql-hero-copy{padding-top:48px}.ql-hero h1{font-size:calc(clamp(41px,9vw,57px) + var(--vcc-heading-size-adjust,0px))}.ql-hero-copy>p{font-size:14px}.ql-page .ql-crumb{font-size:10px;left:2px}.ql-subnav-inner{gap:18px}.ql-page .ql-subnav a{font-size:10px}.ql-main{padding-top:29px}.ql-section-heading{display:block}.ql-section-heading h2{font-size:calc(34px + var(--vcc-heading-size-adjust,0px))}.ql-section-script{font-size:calc(27px + var(--vcc-overline-size-adjust,0px))}.ql-builder-options{padding:19px 15px}.ql-season{min-height:73px;padding:9px}.ql-season b{font-size:18px}.ql-season img{width:33px;height:33px;flex-basis:33px}.ql-suitcase-box{padding:16px 6px 11px}.ql-suitcase-script{top:12px;left:16px;font-size:calc(31px + var(--vcc-overline-size-adjust,0px))}.ql-suitcase-illustration{margin-top:23px}.ql-suitcase-caption{flex-direction:column;align-items:center;gap:2px}.ql-suitcase-helper{text-align:center}.ql-full-list{padding:18px 13px}.ql-list-top{display:block}.ql-list-top h3{font-size:calc(28px + var(--vcc-heading-size-adjust,0px))}.ql-progress-wrap{align-items:start;margin-top:12px}.ql-categories{grid-template-columns:1fr;gap:12px}.ql-essentials-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.ql-essential-card{padding:16px 9px}.ql-essential-art{height:45px;margin-bottom:9px}.ql-essential-art svg{width:39px;height:39px}.ql-essential-card h3{font-size:calc(16px + var(--vcc-heading-size-adjust,0px))}.ql-advice-carousel{gap:6px}.ql-carousel-arrow{width:30px;height:30px;flex-basis:30px;font-size:19px}.ql-advice-card{flex-basis:100%;min-height:168px;padding:17px 15px}.ql-advice-number{width:50px;height:50px;flex-basis:50px;font-size:27px}.ql-advice-card h3{font-size:calc(22px + var(--vcc-heading-size-adjust,0px))}}
 @media(max-width:380px){.ql-seasons{gap:7px}.ql-season{flex-direction:column;align-items:center;text-align:center;min-height:88px}.ql-days-pills button{min-width:61px;padding-inline:9px}.ql-bag-type{align-items:start;flex-direction:column;gap:6px}.ql-essential-card{padding-inline:5px}.ql-advice-card{gap:9px}}
 @media(prefers-reduced-motion:reduce){.ql-page *{scroll-behavior:auto!important;transition:none!important}}
 
@@ -121,12 +121,12 @@
 html body .ql-page .ql-hero{height:465px!important;min-height:465px!important;max-height:465px!important}
 html body .ql-page .ql-hero>.ql-wrap{height:100%;padding-top:19px!important}
 html body .ql-page .ql-hero-copy{padding-top:45px}
-html body .ql-page .ql-hero h1{font-size:clamp(54px,5.2vw,77px)}
+html body .ql-page .ql-hero h1{font-size:calc(clamp(54px,5.2vw,77px) + var(--vcc-heading-size-adjust,0px))}
 html body .ql-page .ql-main{padding-top:32px}
 html body .ql-page .ql-section-heading h2{font:500 clamp(33px,3.2vw,41px)/1.1 var(--vcc-font-heading, "Oswald", sans-serif);letter-spacing:-.012em}
 html body .ql-page .ql-section-script{font:600 clamp(25px,2.35vw,29px)/1.1 var(--vcc-font-script, "Caveat", cursive);color:#cb7657;margin-bottom:4px!important}
 html body .ql-page .ql-packing>.ql-section-heading{margin:0 0 10px!important}
-html body .ql-page .ql-packing>.ql-section-heading .ql-section-desc{margin:5px 0 0;max-width:720px;font-size:12px}
+html body .ql-page .ql-packing>.ql-section-heading .ql-section-desc{margin:5px 0 0;max-width:720px;font-size:calc(12px + var(--vcc-heading-size-adjust,0px))}
 html body .ql-page .ql-builder.ql-builder-compact{
  display:grid!important;grid-template-columns:minmax(280px,.98fr) minmax(370px,1.19fr) minmax(240px,.91fr)!important;
  align-items:center!important;gap:14px!important;margin:0!important;min-height:0!important;
@@ -199,7 +199,7 @@ html body .ql-page .ql-preview-check{
 html body .ql-page .ql-full-list{margin-top:15px!important;padding:19px 19px 20px!important;background:#fffdfb!important;border:1px solid #e7d7c6!important;box-shadow:none!important}
 html body .ql-page .ql-list-top{padding-bottom:11px!important;margin-bottom:12px!important}
 html body .ql-page .ql-list-top h3{font:500 29px/1.12 var(--vcc-font-heading, "Oswald", sans-serif)!important}
-html body .ql-page .ql-list-top .ql-section-script{font-size:24px!important}
+html body .ql-page .ql-list-top .ql-section-script{font-size:calc(24px + var(--vcc-overline-size-adjust,0px))!important}
 html body .ql-page .ql-categories{grid-template-columns:repeat(2,minmax(0,1fr))!important;align-items:start!important;gap:11px!important}
 html body .ql-page .ql-category{align-self:start!important;border-radius:11px!important;background:#fff!important;border:1px solid #e9ddd0!important}
 html body .ql-page .ql-category h3{font:500 21px/1.1 var(--vcc-font-heading, "Oswald", sans-serif)!important;color:#251f1c!important;background:#f7f0e7!important;padding:9px 12px!important}
@@ -264,14 +264,14 @@ html body .ql-page .ql-advice-bullets strong{font-weight:800;color:#28211e}
 @media(max-width:650px){
  html body .ql-page .ql-hero{height:440px!important;min-height:440px!important;max-height:440px!important}
  html body .ql-page .ql-hero-copy{padding-top:29px}
- html body .ql-page .ql-hero h1{font-size:clamp(43px,10vw,58px)}
+ html body .ql-page .ql-hero h1{font-size:calc(clamp(43px,10vw,58px) + var(--vcc-heading-size-adjust,0px))}
  html body .ql-page .ql-main{padding-top:25px}
  html body .ql-page .ql-builder.ql-builder-compact{grid-template-columns:1fr!important;gap:10px!important}
  html body .ql-page .ql-builder-options{padding:0!important}
  html body .ql-page .ql-season{min-height:65px!important}
  html body .ql-page .ql-suitcase-box{height:240px!important}
  html body .ql-page .ql-suitcase-illustration{height:222px!important;max-height:222px!important}
- html body .ql-page .ql-suitcase-script{font-size:29px!important}
+ html body .ql-page .ql-suitcase-script{font-size:calc(29px + var(--vcc-overline-size-adjust,0px))!important}
  html body .ql-page .ql-top-preview{grid-column:auto}
  html body .ql-page .ql-preview-items{grid-template-columns:repeat(2,minmax(0,1fr))}
  html body .ql-page .ql-categories{grid-template-columns:1fr!important;gap:9px!important}
@@ -294,7 +294,7 @@ html body .ql-page .ql-advice-bullets strong{font-weight:800;color:#28211e}
 
 /* Hero height is taken from the final rendered "Qué ver" template, not the stale inline rule. */
 html body .ql-page .ql-inner-heading{text-align:left;margin:0 0 9px}
-html body .ql-page .ql-inner-heading .ql-section-script{font-size:22px!important;line-height:1!important;margin:0 0 5px!important}
+html body .ql-page .ql-inner-heading .ql-section-script{font-size:calc(22px + var(--vcc-overline-size-adjust,0px))!important;line-height:1!important;margin:0 0 5px!important}
 html body .ql-page .ql-inner-heading .ql-question{font:500 22px/1.13 var(--vcc-font-heading, "Oswald", sans-serif)!important;margin:0!important}
 html body .ql-page .ql-advice-heading-row{display:flex;justify-content:space-between;align-items:flex-end;gap:15px;margin-bottom:17px}
 html body .ql-page .ql-advice-heading-row .ql-section-heading{margin:0!important}
@@ -310,12 +310,12 @@ html body .ql-page .ql-advice-card p{font:400 12.5px/1.6 var(--vcc-font-body, "D
 }
 @media(max-width:650px){
  html body .ql-page .ql-advice-heading-row{align-items:flex-end;gap:8px}
- html body .ql-page .ql-advice-heading-row .ql-section-heading h2{font-size:29px!important}
- html body .ql-page .ql-advice-heading-row .ql-section-script{font-size:23px!important}
+ html body .ql-page .ql-advice-heading-row .ql-section-heading h2{font-size:calc(29px + var(--vcc-heading-size-adjust,0px))!important}
+ html body .ql-page .ql-advice-heading-row .ql-section-script{font-size:calc(23px + var(--vcc-overline-size-adjust,0px))!important}
  html body .ql-page .ql-advice-controls .ql-carousel-arrow{width:30px;height:30px;flex-basis:30px}
  html body .ql-page .ql-advice-card{flex-basis:100%;min-height:148px;padding:16px;gap:12px}
  html body .ql-page .ql-advice-card .ql-advice-number{width:48px;height:48px;flex-basis:48px;font-size:25px}
- html body .ql-page .ql-advice-card h3{font-size:20px}
+ html body .ql-page .ql-advice-card h3{font-size:calc(20px + var(--vcc-heading-size-adjust,0px))}
 }
 
 /* Foto real de maleta de Pexels, descargada como WebP en el repositorio quality. */
@@ -334,7 +334,7 @@ html body .ql-page .ql-suitcase-box .ql-suitcase-script{
  padding:5px 12px 6px;background:rgba(255,250,242,.93)!important;
  border:1px solid rgba(217,187,157,.8);border-radius:8px;
  text-shadow:0 1px 1px #fff7;
- font-size:29px!important;box-shadow:0 4px 10px #2f201224;
+ font-size:calc(29px + var(--vcc-overline-size-adjust,0px))!important;box-shadow:0 4px 10px #2f201224;
 }
 html body .ql-page .ql-suitcase-box .ql-suitcase-caption{
  bottom:16px!important;left:15px!important;right:15px!important;max-width:none!important;
@@ -348,7 +348,7 @@ html body .ql-page .ql-suitcase-box .ql-suitcase-caption{
 @media(max-width:650px){
  html body .ql-page .ql-suitcase-box{height:255px!important;padding:7px!important}
  html body .ql-page .ql-suitcase-box .ql-suitcase-illustration{height:239px!important;max-height:239px!important}
- html body .ql-page .ql-suitcase-box .ql-suitcase-script{font-size:25px!important}
+ html body .ql-page .ql-suitcase-box .ql-suitcase-script{font-size:calc(25px + var(--vcc-overline-size-adjust,0px))!important}
 }
 
 /* 2026-11-08 · Un solo listado y foto revisada. */
@@ -511,7 +511,7 @@ html body .ql-page .ql-advice-card p{
   min-height:134px!important;max-height:134px!important;
   padding:12px 11px!important;gap:11px!important;
  }
- html body .ql-page .ql-advice-card h3{font-size:20px!important}
+ html body .ql-page .ql-advice-card h3{font-size:calc(20px + var(--vcc-heading-size-adjust,0px))!important}
 }
 
 /* Ajuste de altura final tras inspección visual: 4 líneas sin espacio sobrante. */
@@ -557,7 +557,7 @@ html body .ql-page .ql-builder-left .ql-builder-options{
 }
 html body .ql-page .ql-builder-left .ql-inner-heading{margin:0 0 9px!important}
 html body .ql-page .ql-builder-left .ql-inner-heading .ql-section-script{
-  font-size:23px!important;margin:0 0 3px!important;
+  font-size:calc(23px + var(--vcc-overline-size-adjust,0px))!important;margin:0 0 3px!important;
 }
 html body .ql-page .ql-builder-left .ql-inner-heading .ql-question{font-size:22px!important}
 html body .ql-page .ql-builder-left .ql-seasons{
@@ -621,7 +621,7 @@ html body .ql-page .ql-list-right .ql-list-top{
   padding-bottom:10px!important;
 }
 html body .ql-page .ql-list-right .ql-list-top .ql-section-script{
-  font-size:21px!important;margin:0 0 3px!important;
+  font-size:calc(21px + var(--vcc-overline-size-adjust,0px))!important;margin:0 0 3px!important;
 }
 html body .ql-page .ql-list-right .ql-list-top h3{
   font:500 clamp(23px,2.3vw,29px)/1.15 var(--vcc-font-heading, "Oswald", sans-serif)!important;
@@ -660,7 +660,7 @@ html body .ql-page .ql-list-right .ql-categories{
   gap:10px!important;
 }
 html body .ql-page .ql-list-right .ql-category h3{
-  font-size:18px!important;padding:7px 10px!important;
+  font-size:calc(18px + var(--vcc-heading-size-adjust,0px))!important;padding:7px 10px!important;
 }
 html body .ql-page .ql-list-right .ql-category ul{
   padding:4px 10px 7px!important;
@@ -775,7 +775,7 @@ html body .ql-page #consejos.ql-advice-section{
   html body .ql-page .ql-builder-left::before{
     right:-10px;bottom:-21px;width:min(65%,235px);height:145px;opacity:.14;
   }
-  html body .ql-page .ql-builder-left .ql-duration>.ql-section-script{font-size:22px!important}
+  html body .ql-page .ql-builder-left .ql-duration>.ql-section-script{font-size:calc(22px + var(--vcc-overline-size-adjust,0px))!important}
   html body .ql-page #consejos.ql-advice-section{
     margin-top:59px!important;padding-top:34px!important;
   }
@@ -895,7 +895,7 @@ html body .ql-page .ql-list-right .ql-season-eyebrow{
    display:flex!important;
    align-items:flex-start!important;
  }
- html body .ql-page .ql-list-right .ql-season-eyebrow{font-size:23px!important}
+ html body .ql-page .ql-list-right .ql-season-eyebrow{font-size:calc(23px + var(--vcc-overline-size-adjust,0px))!important}
 }
 
 
@@ -928,7 +928,7 @@ html body .ql-page .ql-v6-reco .ql-v6-avoid{font-size:11px;color:#796b60;border-
 html body .ql-page .ql-v6-reco .ql-v6-avoid strong{color:#a36550}
 html body .ql-page .ql-v6-list{padding:18px 18px 16px}
 html body .ql-page .ql-v6-list-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;padding-bottom:13px;border-bottom:1px solid #eadfd6;margin-bottom:13px}
-html body .ql-page .ql-v6-list-head .ql-section-script{margin:0 0 5px!important;font-size:24px!important}
+html body .ql-page .ql-v6-list-head .ql-section-script{margin:0 0 5px!important;font-size:calc(24px + var(--vcc-overline-size-adjust,0px))!important}
 html body .ql-page .ql-v6-list-head h2{font:500 clamp(23px,2.3vw,30px)/1.14 var(--vcc-font-heading, "Oswald", sans-serif);text-transform:uppercase;margin:0}
 html body .ql-page .ql-v6-progress{min-width:118px;text-align:right}
 html body .ql-page .ql-v6-progress strong{font:800 10px/1.3 var(--vcc-font-body, "DM Sans", Arial, sans-serif);color:#736155;white-space:nowrap}
@@ -1086,7 +1086,7 @@ html body .ql-page .ql-v6-scroll-arrows svg{
 html body .ql-page .ql-v7-section{min-width:0;scroll-margin-top:calc(var(--ql-sticky-header-height,50px) + 72px)}
 html body .ql-page .ql-v7-section>.ql-section-heading{display:block!important;margin:0 0 19px!important}
 html body .ql-page .ql-v7-section>.ql-section-heading h2{font:500 clamp(31px,3.4vw,42px)/1.1 var(--vcc-font-heading, "Oswald", sans-serif)!important;margin:0 0 5px!important}
-html body .ql-page .ql-v7-section>.ql-section-heading .ql-section-desc{max-width:760px!important;margin:8px 0 0!important;font-size:12.5px}
+html body .ql-page .ql-v7-section>.ql-section-heading .ql-section-desc{max-width:760px!important;margin:8px 0 0!important;font-size:calc(12.5px + var(--vcc-heading-size-adjust,0px))}
 html body .ql-page .ql-v7-bag-planner{
  background:#fffdf9;border:1px solid #e6d8ca;border-radius:17px;
  padding:20px 23px 21px;box-shadow:0 5px 24px #3d26100b;
@@ -1225,7 +1225,7 @@ html body .ql-page .ql-advice-section{margin-top:33px!important}
 @media(max-width:600px){
  html body .ql-page .ql-v7-bag-planner{padding:15px 13px 17px}
  html body .ql-page .ql-v7-planner-controls{gap:9px;margin-bottom:15px;padding-bottom:15px}
- html body .ql-page .ql-v7-bag-card h3{font-size:21px}
+ html body .ql-page .ql-v7-bag-card h3{font-size:calc(21px + var(--vcc-heading-size-adjust,0px))}
  html body .ql-page .ql-v7-bag-result{margin-top:15px;padding:13px}
  html body .ql-page .ql-v7-season-details .ql-v6-seasonal-grid{grid-template-columns:1fr}
  html body .ql-page .ql-v7-section-pack{padding-top:22px;margin-top:26px}
@@ -1422,7 +1422,7 @@ html body .ql-page .ql-v7-section-pack .ql-v6-scroll-shell{margin-top:4px}
  html body .ql-page .ql-v8-planner-results .ql-v7-bag-card.is-recommended{padding:10px 7px!important}
  html body .ql-page .ql-v8-planner-results .ql-v7-bag-icon{width:43px!important;height:52px!important;min-width:43px!important;flex:0 0 43px!important}
  html body .ql-page .ql-v8-planner-results .ql-v7-bag-icon svg{width:35px!important;height:43px!important}
- html body .ql-page .ql-v8-planner-results .ql-v7-bag-card h3{font-size:17px!important}
+ html body .ql-page .ql-v8-planner-results .ql-v7-bag-card h3{font-size:calc(17px + var(--vcc-heading-size-adjust,0px))!important}
 }
 @media(max-width:980px){
  html body .ql-page .ql-v8-planner-layout{grid-template-columns:1fr!important;gap:15px!important}
@@ -1450,7 +1450,7 @@ html body .ql-page .ql-v7-section-pack .ql-v6-scroll-shell{margin-top:4px}
  html body .ql-page .ql-v8-planner-results .ql-v7-bag-card.is-recommended{padding:9px 11px!important}
  html body .ql-page .ql-v8-planner-results .ql-v7-bag-icon{width:49px!important;height:55px!important;min-width:49px!important;flex-basis:49px!important}
  html body .ql-page .ql-v8-planner-results .ql-v7-bag-icon svg{width:38px!important;height:47px!important}
- html body .ql-page .ql-v8-planner-results .ql-v7-bag-card h3{font-size:20px!important}
+ html body .ql-page .ql-v8-planner-results .ql-v7-bag-card h3{font-size:calc(20px + var(--vcc-heading-size-adjust,0px))!important}
  html body .ql-page .ql-v8-consejo-vcc{grid-template-columns:67px minmax(0,1fr);gap:10px;padding:11px 10px}
  html body .ql-page .ql-v8-consejo-brand{padding-right:9px}
  html body .ql-page .ql-v8-consejo-brand img{width:38px;height:38px}
@@ -1482,7 +1482,7 @@ html body .ql-page .ql-v7-section-pack .ql-v6-list-head.ql-v9-list-head{
 }
 html body .ql-page .ql-v9-list-heading{min-width:0}
 html body .ql-page .ql-v9-list-heading .ql-section-script{
- margin:0 0 5px!important;font-size:23px!important;
+ margin:0 0 5px!important;font-size:calc(23px + var(--vcc-overline-size-adjust,0px))!important;
 }
 html body .ql-page .ql-v9-list-heading h2{
  font:500 clamp(24px,2.15vw,31px)/1.17 var(--vcc-font-heading, "Oswald", sans-serif)!important;
@@ -1535,7 +1535,7 @@ html body .ql-page .ql-v7-section-pack .ql-v6-scroll-shell{margin-top:3px!import
  html body .ql-page .ql-v9-weather-stat{padding:6px;gap:5px}
  html body .ql-page .ql-v9-weather-stat img{width:24px;height:24px;flex-basis:24px}
  html body .ql-page .ql-v9-weather-stat strong{font-size:14px}
- html body .ql-page .ql-v9-list-heading h2{font-size:clamp(22px,2.3vw,28px)!important}
+ html body .ql-page .ql-v9-list-heading h2{font-size:calc(clamp(22px,2.3vw,28px) + var(--vcc-heading-size-adjust,0px))!important}
 }
 @media(max-width:1020px){
  html body .ql-page .ql-v7-section-pack .ql-v6-list-head.ql-v9-list-head{
@@ -1549,8 +1549,8 @@ html body .ql-page .ql-v7-section-pack .ql-v6-scroll-shell{margin-top:3px!import
   grid-template-columns:minmax(0,1fr) auto!important;gap:10px 8px!important;
   padding-bottom:10px!important;
  }
- html body .ql-page .ql-v9-list-heading .ql-section-script{font-size:21px!important}
- html body .ql-page .ql-v9-list-heading h2{font-size:24px!important;line-height:1.15!important}
+ html body .ql-page .ql-v9-list-heading .ql-section-script{font-size:calc(21px + var(--vcc-overline-size-adjust,0px))!important}
+ html body .ql-page .ql-v9-list-heading h2{font-size:calc(24px + var(--vcc-heading-size-adjust,0px))!important;line-height:1.15!important}
  html body .ql-page .ql-v9-list-head .ql-v6-progress{min-width:92px;align-items:flex-end}
  html body .ql-page .ql-v9-list-head .ql-v6-track{width:92px}
  html body .ql-page .ql-v9-weather-summary{grid-column:1/-1;grid-template-columns:repeat(3,minmax(0,1fr));gap:5px}
@@ -1561,7 +1561,7 @@ html body .ql-page .ql-v7-section-pack .ql-v6-scroll-shell{margin-top:3px!import
  html body .ql-page .ql-v9-climate-source{text-align:left;font-size:8.5px!important}
 }
 @media(max-width:390px){
- html body .ql-page .ql-v9-list-heading h2{font-size:21px!important}
+ html body .ql-page .ql-v9-list-heading h2{font-size:calc(21px + var(--vcc-heading-size-adjust,0px))!important}
  html body .ql-page .ql-v9-weather-summary{grid-template-columns:repeat(2,minmax(0,1fr))}
  html body .ql-page .ql-v9-weather-stat:nth-child(3){grid-column:1/-1}
 }
@@ -1745,8 +1745,8 @@ html body .ql-page .ql-v7-section-pack .ql-v6-list-head.ql-v9-list-head{
  grid-template-columns:minmax(280px,1fr) minmax(400px,1.47fr) minmax(105px,.4fr)!important;
  gap:12px!important
 }
-html body .ql-page .ql-v9-list-heading .ql-section-script{font-size:25px!important}
-html body .ql-page .ql-v9-list-heading h2{font-size:clamp(25px,2.4vw,32px)!important}
+html body .ql-page .ql-v9-list-heading .ql-section-script{font-size:calc(25px + var(--vcc-overline-size-adjust,0px))!important}
+html body .ql-page .ql-v9-list-heading h2{font-size:calc(clamp(25px,2.4vw,32px) + var(--vcc-heading-size-adjust,0px))!important}
 html body .ql-page .ql-v9-weather-stat{background:transparent!important;border:0!important}
 html body .ql-page .ql-v10-packing-consejo{
  background:linear-gradient(105deg,#fff5e8,#fffefa)!important;
@@ -1813,7 +1813,7 @@ html body .ql-page .ql-v11-heading-symbol{
  font-size:25px;flex:0 0 34px
 }
 html body .ql-page .ql-v11-feature-heading>div{min-width:0}
-html body .ql-page .ql-v11-feature-heading .ql-section-script{font-size:23px!important;margin:0 0 2px!important}
+html body .ql-page .ql-v11-feature-heading .ql-section-script{font-size:calc(23px + var(--vcc-overline-size-adjust,0px))!important;margin:0 0 2px!important}
 html body .ql-page .ql-v11-feature-heading h2,html body .ql-page .ql-v11-faq-heading h2{
  font:500 28px/1.1 Oswald,sans-serif;margin:0
 }
@@ -1839,7 +1839,7 @@ html body .ql-page .ql-v11-experience-marker.repeat{background:#da8b35}
 html body .ql-page .ql-v11-experience-grid ul{list-style:disc;margin:0;padding-left:21px;color:#5c4e46}
 html body .ql-page .ql-v11-experience-grid li{font:400 11px/1.6 var(--vcc-font-body, "DM Sans", Arial, sans-serif);padding:0 0 3px}
 html body .ql-page .ql-v11-season-guide>.ql-section-heading{margin:0 0 14px!important}
-html body .ql-page .ql-v11-season-guide .ql-section-heading h2{font-size:30px!important}
+html body .ql-page .ql-v11-season-guide .ql-section-heading h2{font-size:calc(30px + var(--vcc-heading-size-adjust,0px))!important}
 html body .ql-page .ql-v11-season-grid{
  display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:11px
 }
@@ -1857,7 +1857,7 @@ html body .ql-page .ql-v11-season-card em{font:400 11px/1.5 var(--vcc-font-body,
 html body .ql-page .ql-v11-season-source{font:400 10px/1.45 var(--vcc-font-body, "DM Sans", Arial, sans-serif);color:#7b6c60;margin:12px 0 0}
 html body .ql-page .ql-v11-season-source a{color:#b56a4a;text-decoration:underline}
 html body .ql-page .ql-v11-faq{display:grid;grid-template-columns:265px minmax(0,1fr);gap:23px}
-html body .ql-page .ql-v11-faq-heading .ql-section-script{font-size:24px!important}
+html body .ql-page .ql-v11-faq-heading .ql-section-script{font-size:calc(24px + var(--vcc-overline-size-adjust,0px))!important}
 html body .ql-page .ql-v11-faq-items{display:grid;gap:7px}
 html body .ql-page .ql-v11-faq-items details{
  border:1px solid #e9dfd4;background:white;border-radius:9px;
@@ -1895,7 +1895,7 @@ html body .ql-page .ql-v11-faq-items details p{padding:0 13px 12px;margin:0;colo
  html body .ql-page .ql-v7-section-pack .ql-v6-scroll-shell>.ql-v6-categories{
   grid-template-columns:repeat(2,minmax(0,1fr))!important
  }
- html body .ql-page .ql-v11-experience-grid h3{font-size:18px}
+ html body .ql-page .ql-v11-experience-grid h3{font-size:calc(18px + var(--vcc-heading-size-adjust,0px))}
 }
 @media(max-width:650px){
  html body .ql-page .ql-v7-section-bag{padding:16px 12px!important;margin-bottom:18px!important}
@@ -1968,7 +1968,7 @@ html body .ql-page .ql-v11-experience .ql-v11-experience-grid{padding-top:0!impo
 html body .ql-page .ql-v11-experience .ql-v11-experience-grid article{padding:0 19px!important}
 html body .ql-page .ql-v11-experience .ql-v11-experience-grid article:first-child{padding-left:0!important}
 html body .ql-page .ql-v11-experience .ql-v11-experience-grid article:last-child{padding-right:0!important}
-html body .ql-page .ql-v11-experience .ql-v11-experience-grid h3{font-size:20px!important;margin-bottom:7px!important}
+html body .ql-page .ql-v11-experience .ql-v11-experience-grid h3{font-size:calc(20px + var(--vcc-heading-size-adjust,0px))!important;margin-bottom:7px!important}
 html body .ql-page .ql-v11-experience .ql-v11-experience-grid li{font-size:11px!important;line-height:1.6!important}
 
 /* Qué maleta: selectors y tarjetas menos altos */
@@ -1977,7 +1977,7 @@ html body .ql-page .ql-v7-section-bag{
  box-shadow:none!important;
 }
 html body .ql-page .ql-v7-section-bag>.ql-section-heading{margin:0 0 11px!important}
-html body .ql-page .ql-v7-section-bag .ql-section-heading h2{font-size:clamp(27px,2.9vw,35px)!important}
+html body .ql-page .ql-v7-section-bag .ql-section-heading h2{font-size:calc(clamp(27px,2.9vw,35px) + var(--vcc-heading-size-adjust,0px))!important}
 html body .ql-page .ql-v7-section-bag .ql-section-desc{font-size:11.5px!important;margin-top:4px!important}
 html body .ql-page .ql-v7-section-bag .ql-v8-planner-layout{gap:13px!important}
 html body .ql-page .ql-v7-section-bag .ql-v8-planner-controls{
@@ -2006,7 +2006,7 @@ html body .ql-page .ql-v7-section-bag .ql-v8-planner-results .ql-v7-bag-icon svg
  width:44px!important;height:51px!important;
 }
 html body .ql-page .ql-v7-section-bag .ql-v8-planner-results .ql-v7-bag-card h3{
- font-size:clamp(16px,1.48vw,19px)!important;margin:0 0 4px!important;
+ font-size:calc(clamp(16px,1.48vw,19px) + var(--vcc-heading-size-adjust,0px))!important;margin:0 0 4px!important;
 }
 html body .ql-page .ql-v7-section-bag .ql-v8-planner-results .ql-v7-bag-card p{
  font-size:10.2px!important;line-height:1.3!important;margin:0!important;
@@ -2045,9 +2045,9 @@ html body .ql-page .ql-v7-section-pack>.ql-v6-list{
 html body .ql-page .ql-v7-section-pack .ql-v6-list-head.ql-v9-list-head{
  padding-bottom:9px!important;gap:9px!important;
 }
-html body .ql-page .ql-v7-section-pack .ql-v9-list-heading .ql-section-script{font-size:23px!important}
+html body .ql-page .ql-v7-section-pack .ql-v9-list-heading .ql-section-script{font-size:calc(23px + var(--vcc-overline-size-adjust,0px))!important}
 html body .ql-page .ql-v7-section-pack .ql-v9-list-heading h2{
- font-size:clamp(23px,2.35vw,30px)!important;
+ font-size:calc(clamp(23px,2.35vw,30px) + var(--vcc-heading-size-adjust,0px))!important;
 }
 html body .ql-page .ql-v7-section-pack .ql-v9-weather-stat{padding:2px 4px!important}
 html body .ql-page .ql-v7-section-pack .ql-v9-climate-source{margin:3px 0 5px!important}
@@ -2077,9 +2077,9 @@ html body .ql-page .ql-v7-section-pack .ql-v6-actions{margin-top:10px!important;
   display:block!important;margin-bottom:12px!important;padding-bottom:12px!important;
  }
  html body .ql-page .ql-v11-experience .ql-v12-experience-heading .ql-section-script{
-  font-size:24px!important;margin-bottom:5px!important
+  font-size:calc(24px + var(--vcc-overline-size-adjust,0px))!important;margin-bottom:5px!important
  }
- html body .ql-page .ql-v11-experience .ql-v12-experience-heading h2{font-size:30px!important}
+ html body .ql-page .ql-v11-experience .ql-v12-experience-heading h2{font-size:calc(30px + var(--vcc-heading-size-adjust,0px))!important}
  html body .ql-page .ql-v11-experience .ql-v12-experience-heading .ql-section-desc{
   margin:8px 0 0!important;max-width:none!important
  }
@@ -2147,7 +2147,7 @@ html body .ql-page .ql-v11-experience .ql-v11-experience-grid article:last-child
  box-shadow:0 2px 12px rgba(61,41,27,.025)!important;
 }
 html body .ql-page .ql-v11-experience .ql-v11-experience-grid h3{
- font-size:19px!important;margin:0 0 8px!important;
+ font-size:calc(19px + var(--vcc-heading-size-adjust,0px))!important;margin:0 0 8px!important;
 }
 html body .ql-page .ql-v11-experience .ql-v11-experience-grid ul{margin:0!important;padding-left:19px!important}
 html body .ql-page .ql-v11-experience .ql-v11-experience-grid li{
@@ -2214,7 +2214,7 @@ html body .ql-page .ql-v7-section-bag .ql-v8-planner-results .ql-v7-bag-icon svg
  width:39px!important;height:44px!important;
 }
 html body .ql-page .ql-v7-section-bag .ql-v8-planner-results .ql-v7-bag-card h3{
- font-size:clamp(15px,1.34vw,18px)!important;
+ font-size:calc(clamp(15px,1.34vw,18px) + var(--vcc-heading-size-adjust,0px))!important;
  line-height:1.13!important;margin:0 0 3px!important;
 }
 html body .ql-page .ql-v7-section-bag .ql-v8-planner-results .ql-v7-bag-card p{
@@ -2266,10 +2266,10 @@ html body .ql-page .ql-v7-section-pack .ql-v6-list-head.ql-v9-list-head{
  padding-bottom:7px!important;gap:7px!important;
 }
 html body .ql-page .ql-v7-section-pack .ql-v9-list-heading .ql-section-script{
- margin-bottom:3px!important;font-size:22px!important;
+ margin-bottom:3px!important;font-size:calc(22px + var(--vcc-overline-size-adjust,0px))!important;
 }
 html body .ql-page .ql-v7-section-pack .ql-v9-list-heading h2{
- font-size:clamp(23px,2.25vw,29px)!important;
+ font-size:calc(clamp(23px,2.25vw,29px) + var(--vcc-heading-size-adjust,0px))!important;
 }
 html body .ql-page .ql-v7-section-pack .ql-v9-weather-stat{
  padding:1px 3px!important;
@@ -2332,7 +2332,7 @@ html body .ql-page .ql-v7-section-pack .ql-v6-actions{
   padding:11px 13px!important;border:1px solid #e5d8cc!important;
  }
  html body .ql-page .ql-v11-experience .ql-v11-experience-grid h3{
-  font-size:18px!important;margin-bottom:6px!important;
+  font-size:calc(18px + var(--vcc-heading-size-adjust,0px))!important;margin-bottom:6px!important;
  }
  html body .ql-page .ql-v7-section-bag{padding:12px 10px!important;margin-bottom:13px!important}
  html body .ql-page .ql-v7-section-bag .ql-v8-planner-controls{
@@ -2360,7 +2360,7 @@ html body .ql-page .ql-v7-section-pack .ql-v6-actions{
   width:39px!important;height:45px!important;
  }
  html body .ql-page .ql-v7-section-bag .ql-v8-planner-results .ql-v7-bag-card h3{
-  font-size:19px!important;
+  font-size:calc(19px + var(--vcc-heading-size-adjust,0px))!important;
  }
  html body .ql-page .ql-v7-section-bag .ql-v8-planner-results>.ql-v8-consejo-vcc{
   grid-template-columns:69px minmax(0,1fr)!important;
@@ -2484,10 +2484,10 @@ html body .ql-page .ql-advice-section .ql-advice-heading-row{
   display:block!important;margin-bottom:12px!important;
  }
  html body .ql-page .ql-main .ql-v13-outside-heading .ql-section-script{
-  font-size:24px!important;margin-bottom:5px!important;
+  font-size:calc(24px + var(--vcc-overline-size-adjust,0px))!important;margin-bottom:5px!important;
  }
  html body .ql-page .ql-main .ql-v13-outside-heading h2{
-  font-size:30px!important;
+  font-size:calc(30px + var(--vcc-heading-size-adjust,0px))!important;
  }
  html body .ql-page .ql-main .ql-v13-outside-heading .ql-section-desc{
   max-width:none!important;text-align:left!important;

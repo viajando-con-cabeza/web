@@ -99,7 +99,7 @@ body.mv-body .vcc-discover-section{background:var(--mv-cream)}
    fins i tot quan hi ha mes de tres dies i activem el carrusel. */
 .mv-day-example{margin-top:24px}
 .mv-day-example-head{display:flex;align-items:end;justify-content:space-between;gap:14px;margin-bottom:10px}
-.mv-day-example-head h3{font-size:24px}
+.mv-day-example-head h3{font-size:calc(24px + var(--vcc-heading-size-adjust,0px))}
 /* Lectura guiada: primer trajectes reals, després comparació del seu cost. */
 .mv-day-showcase{display:grid;grid-template-columns:minmax(0,3.15fr) minmax(250px,1.18fr);align-items:stretch;gap:11px}
 .mv-day-flow-label{display:flex;align-items:center;gap:7px;min-height:22px;margin:0 0 7px;color:#795a48;font:700 10.2px/1.2 var(--vcc-font-body, "DM Sans", Arial, sans-serif);letter-spacing:.025em;text-transform:uppercase}
@@ -290,24 +290,24 @@ body.mv-body .mv-day-advice .mv-advice-saving{background-color:#fff}
  .mv-hero>.mv-container{padding:14px 0 24px}
  .mv-crumb{font-size:10px;margin-bottom:24px}
  .mv-crumb span{margin:0 4px}
- .mv-kicker{font-size:26px}
- .mv-hero h1{font-size:clamp(38px,9.8vw,51px)}
- .mv-hero h1 em{font-size:clamp(52px,13vw,72px)}
+ .mv-kicker{font-size:calc(26px + var(--vcc-overline-size-adjust,0px))}
+ .mv-hero h1{font-size:calc(clamp(38px,9.8vw,51px) + var(--vcc-heading-size-adjust,0px))}
+ .mv-hero h1 em{font-size:calc(clamp(52px,13vw,72px) + var(--vcc-heading-size-adjust,0px))}
  .mv-hero-lead{font-size:14px;line-height:1.55}
  .mv-subnav{padding:0 14px;gap:25px}
  .mv-subnav a{font-size:10px}
  .mv-section-head{display:block}
- .mv-section-head>p{margin:8px 0 0;max-width:none;font-size:12.5px;line-height:1.55}
- .mv-section-head h2{font-size:28px}
- .mv-section-head .mv-overline{font-size:27px}
+ .mv-section-head>p{margin:8px 0 0;max-width:none;font-size:calc(12.5px + var(--vcc-heading-size-adjust,0px));line-height:1.55}
+ .mv-section-head h2{font-size:calc(28px + var(--vcc-heading-size-adjust,0px))}
+ .mv-section-head .mv-overline{font-size:calc(27px + var(--vcc-heading-size-adjust,0px))}
  .mv-pay-guide{grid-template-columns:1fr;gap:12px;padding:10px 0 13px}
  .mv-pay-guide-facts{padding-right:0}
  .mv-recommend-section{margin:26px 0 35px}
  .mv-transport-section{padding:0;margin-bottom:35px}
  .mv-ticket-compare{padding:0;margin-bottom:36px}
  .mv-ticket-heading{display:block;margin-bottom:11px}
- .mv-ticket-heading h2{font-size:28px}
- .mv-ticket-heading .mv-overline{font-size:27px}
+ .mv-ticket-heading h2{font-size:calc(28px + var(--vcc-heading-size-adjust,0px))}
+ .mv-ticket-heading .mv-overline{font-size:calc(27px + var(--vcc-overline-size-adjust,0px))}
  .mv-ticket-heading>p{margin-top:7px;max-width:none;font-size:12.5px;line-height:1.55}
  .mv-ticket-options{grid-template-columns:1fr;gap:8px}
  .mv-ticket-option{min-height:76px;grid-template-columns:24px minmax(102px,.62fr) minmax(0,1fr);padding:9px 10px}
@@ -317,7 +317,7 @@ body.mv-body .mv-day-advice .mv-advice-saving{background-color:#fff}
  .mv-ticket-payment .mv-pay-guide{padding:10px 0}
  .mv-day-example{margin-top:19px}
  .mv-day-example-head{display:block;margin-bottom:11px}
- .mv-day-example-head h3{font-size:20px}
+ .mv-day-example-head h3{font-size:calc(20px + var(--vcc-heading-size-adjust,0px))}
  .mv-day-example-head>p{max-width:none;margin-top:7px}
  .mv-day-showcase{grid-template-columns:1fr;gap:11px}
  .mv-day-advice-column{align-self:stretch}
@@ -359,7 +359,7 @@ body.mv-body .mv-day-advice .mv-advice-saving{background-color:#fff}
  .mv-card-details{grid-template-columns:1fr;gap:11px}
  .mv-card-advice{border-left:0;border-top:1px solid #ec6e28;padding:11px 0 0;gap:10px}
  .mv-card-body{min-height:0;padding:14px 15px 16px}
- .mv-card h3{font-size:22px}
+ .mv-card h3{font-size:calc(22px + var(--vcc-heading-size-adjust,0px))}
  .mv-card-title>span{font-size:12px}
  .mv-experience-list li{font-size:12.4px}
  .mv-card-advice-item p{font-size:12.4px}
@@ -368,7 +368,7 @@ body.mv-body .mv-day-advice .mv-advice-saving{background-color:#fff}
  .mv-profile-vcc{padding:12px 10px}
  .mv-profile-top{gap:7px}
  .mv-profile-top img{width:41px;height:41px;flex-basis:41px}
- .mv-profile-ident h3{font-size:23px}
+ .mv-profile-ident h3{font-size:calc(23px + var(--vcc-heading-size-adjust,0px))}
  .mv-profile-method{font-size:16px}
  .mv-profile>p{font-size:12.1px;line-height:1.5;min-height:0}
  .mv-profile-bottom>strong{font-size:14px;white-space:normal}
@@ -377,7 +377,7 @@ body.mv-body .mv-day-advice .mv-advice-saving{background-color:#fff}
  .mv-carousel-shell{padding:0 45px}
  .mv-saving-card{flex-basis:100%;min-height:120px;padding:14px 12px}
  .mv-saving-number{width:34px;height:34px;flex-basis:34px;font-size:19px}
- .mv-saving-card h3{font-size:18px}
+ .mv-saving-card h3{font-size:calc(18px + var(--vcc-heading-size-adjust,0px))}
  .mv-saving-card p{display:block;overflow:visible;font-size:12.5px;line-height:1.5;-webkit-line-clamp:unset;line-clamp:unset}
  .mv-carousel-arrow{width:44px;height:44px}
 }

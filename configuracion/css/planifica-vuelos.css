@@ -83,11 +83,11 @@
 .vl-air-carousel-prev{left:-19px}.vl-air-carousel-next{right:-19px}
 .vl-air-note{text-align:center}
 /* Un únic sobretítol i títol en Nuestra experiencia, idèntics a Alojamientos. */
-.vl-experience-heading>.vl-kicker{display:block;font-family:var(--vcc-font-script, "Caveat", cursive);font-size:25px;font-weight:600;line-height:1;letter-spacing:0;text-transform:none;color:#c86f5d;margin:0}
+.vl-experience-heading>.vl-kicker{display:block;font-family:var(--vcc-font-script, "Caveat", cursive);font-size:calc(25px + var(--vcc-overline-size-adjust,0px));font-weight:600;line-height:1;letter-spacing:0;text-transform:none;color:#c86f5d;margin:0}
 .vl-experience-heading>.vl-heading{font-family:"Oswald","Arial Narrow",sans-serif;font-size:40px;font-weight:500;line-height:1;letter-spacing:0;text-transform:uppercase;color:var(--vl-ink);margin:3px 0 12px}
 .vl-experience-heading>.vl-copy{font-family:var(--vcc-font-body, "DM Sans", Arial, sans-serif);font-size:13px;line-height:1.5;font-weight:400;margin:0;max-width:810px}
 @media(max-width:720px){
- .vl-experience-heading>.vl-kicker{font-size:22px}
+ .vl-experience-heading>.vl-kicker{font-size:calc(22px + var(--vcc-overline-size-adjust,0px))}
  .vl-experience-heading>.vl-heading{font-size:32px}
  .vl-experience-heading>.vl-copy{font-size:12px}
 }
@@ -124,7 +124,7 @@
 .vl-flight-stack[data-columns="1"] .vl-flight-result strong{font-size:34px}
 .vl-flight-stack[data-columns="1"] .vl-fields{grid-template-columns:repeat(3,minmax(0,1fr));gap:9px 12px}
 .vl-flight-stack[data-columns="2"] .vl-fields,.vl-flight-stack[data-columns="3"] .vl-fields{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
-.vl-flight-stack[data-columns="4"] .vl-flight-title h3,.vl-flight-stack[data-columns="5"] .vl-flight-title h3{font-size:18px}
+.vl-flight-stack[data-columns="4"] .vl-flight-title h3,.vl-flight-stack[data-columns="5"] .vl-flight-title h3{font-size:calc(18px + var(--vcc-heading-size-adjust,0px))}
 .vl-flight-stack[data-columns="4"] .vl-fields,.vl-flight-stack[data-columns="5"] .vl-fields{gap:7px;padding:12px 10px}
 .vl-flight-stack[data-columns="4"] .vl-field-name,.vl-flight-stack[data-columns="5"]
 .vl-flight-stack[data-columns="4"] .vl-flight-side,.vl-flight-stack[data-columns="5"] .vl-flight-side{padding:0 9px 10px}
@@ -166,7 +166,7 @@
  .vl-flight-stack .vl-fields,.vl-flight-stack[data-columns="1"] .vl-fields,.vl-flight-stack[data-columns="2"] .vl-fields,.vl-flight-stack[data-columns="3"] .vl-fields,.vl-flight-stack[data-columns="4"] .vl-fields,.vl-flight-stack[data-columns="5"] .vl-fields{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;padding:13px}
  .vl-flight-stack .vl-field-name,.vl-flight-stack[data-columns="4"] .vl-field-name,.vl-flight-stack[data-columns="5"] .vl-field-name{font-size:10.5px}
  .vl-flight-stack .vl-flight-side,.vl-flight-stack[data-columns="4"] .vl-flight-side,.vl-flight-stack[data-columns="5"] .vl-flight-side{padding:0 13px 13px}
- .vl-flight-stack .vl-flight-title h3,.vl-flight-stack[data-columns="4"] .vl-flight-title h3,.vl-flight-stack[data-columns="5"] .vl-flight-title h3{font-size:21px}
+ .vl-flight-stack .vl-flight-title h3,.vl-flight-stack[data-columns="4"] .vl-flight-title h3,.vl-flight-stack[data-columns="5"] .vl-flight-title h3{font-size:calc(21px + var(--vcc-heading-size-adjust,0px))}
  .vl-flight-stack .vl-flight-result,.vl-flight-stack[data-columns="4"] .vl-flight-result,.vl-flight-stack[data-columns="5"] .vl-flight-result{flex-wrap:nowrap}
 
  .vl-compare-head small{display:block;margin-top:3px}
@@ -211,10 +211,10 @@
  .vl-wrap{width:calc(100% - 28px)}
  .vl-hero.tv-hero{height:var(--vcc-standard-hero-mobile,730px);min-height:730px}
  .vl-hero.tv-hero:before{background:linear-gradient(90deg,#0b131ce7,#0b131c9e),url('/configuracion/imagenes/externas/unsplash/photo-1436491865332-7a61a109cc05.webp') center/cover}
- .vl-hero-content{padding:75px 0 32px}.vl-hero h1{font-size:54px}.vl-hero p{font-size:14px}
+ .vl-hero-content{padding:75px 0 32px}.vl-hero h1{font-size:calc(54px + var(--vcc-heading-size-adjust,0px))}.vl-hero p{font-size:14px}
  .vl-section{padding:26px 0}
- .vl-section-head > .vl-kicker,.vl-section-head > div > .vl-kicker{font-size:27px}
- .vl-section-head .vl-heading{font-size:28px}
+ .vl-section-head > .vl-kicker,.vl-section-head > div > .vl-kicker{font-size:calc(27px + var(--vcc-heading-size-adjust,0px))}
+ .vl-section-head .vl-heading{font-size:calc(28px + var(--vcc-heading-size-adjust,0px))}
  .vl-tabs .vcc-nav-inner{gap:24px;padding-inline:14px}
  .vl-air-track{grid-auto-columns:calc((100% - 16px)/1.12)}
  
@@ -228,7 +228,7 @@
  .vl-fields{grid-template-columns:repeat(2,minmax(0,1fr))}
  .vl-tip{flex-basis:100%;min-height:122px;padding:14px 12px}
  .vl-tip-num{flex-basis:34px;width:34px;height:34px;font-size:19px}
- .vl-tip h3{font-size:18px}
+ .vl-tip h3{font-size:calc(18px + var(--vcc-heading-size-adjust,0px))}
  .vl-tip p{font-size:12px;line-height:1.5}
  /* No restar espacio lateral a las tarjetas: controles encima, alineados a la derecha. */
  .vl-tips-carousel{padding:44px 0 0}
@@ -238,11 +238,11 @@
 }
 @media(max-width:460px){
  .vl-heading{font-size:31px}
- .vl-hero h1{font-size:49px}
+ .vl-hero h1{font-size:calc(49px + var(--vcc-heading-size-adjust,0px))}
  .vl-continent-grid{gap:8px}
  .vl-continent{padding:10px;min-height:112px}
  .vl-continent-map{width:40px;height:34px}
- .vl-continent h3{font-size:20px}
+ .vl-continent h3{font-size:calc(20px + var(--vcc-heading-size-adjust,0px))}
  .vl-continent .detail{font-size:9.5px}
  .vl-air-track{grid-auto-columns:100%;width:100%}
  .vl-air-carousel{padding-top:46px}
@@ -260,7 +260,7 @@
  .vl-tips-carousel{padding-inline:0}
  .vl-tip{padding:13px 12px;gap:10px;min-height:130px}
  .vl-tip-num{flex-basis:32px;width:32px;height:32px;font-size:18px}
- .vl-tip h3{font-size:17px}
+ .vl-tip h3{font-size:calc(17px + var(--vcc-heading-size-adjust,0px))}
  .vl-next-grid a{padding:10px}
 }
 @media(prefers-reduced-motion:reduce){.vl-page *{scroll-behavior:auto!important;transition:none!important}}

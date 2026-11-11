@@ -286,9 +286,9 @@
     padding:66px 0 22px;gap:0;
   }
   .tv-page .tv-hero-inner > div:first-child {width:100%;min-width:0}
-  .tv-page .tv-hero .tv-eyebrow {margin:0 0 8px;font-size:10px}
+  .tv-page .tv-hero .tv-eyebrow {margin:0 0 8px;font-size:calc(10px + var(--vcc-overline-size-adjust,0px))}
   .tv-page .tv-hero h1 {
-    font-size:clamp(31px,8.5vw,39px);
+    font-size:calc(clamp(31px,8.5vw,39px) + var(--vcc-heading-size-adjust,0px));
     line-height:1.07;letter-spacing:0;
     margin:0 0 13px;overflow-wrap:normal;
   }
@@ -315,7 +315,7 @@
   .tv-page .tv-catalog-footnote {margin:10px 0 0}
   .tv-page .tv-guide {padding:27px 0}
   .tv-page .tv-guide-item {padding:12px}
-  .tv-page .tv-guide-item h3 {font-size:15px}
+  .tv-page .tv-guide-item h3 {font-size:calc(15px + var(--vcc-heading-size-adjust,0px))}
   .tv-page .tv-help {padding:27px 0 30px}
   .tv-page .tv-help-rows {grid-template-columns:1fr;gap:8px;margin-top:13px}
   .tv-page .tv-help-row {padding:12px 14px}
@@ -328,7 +328,7 @@
   .tv-page [id] {scroll-margin-top:135px}
 }
 @media(max-width:420px) {
-  .tv-page .tv-hero h1 {font-size:clamp(30px,8.2vw,35px)}
+  .tv-page .tv-hero h1 {font-size:calc(clamp(30px,8.2vw,35px) + var(--vcc-heading-size-adjust,0px))}
   .tv-page .tv-hero p {font-size:12.5px;line-height:1.47}
   .tv-page .tv-button {font-size:10px}
   .tv-page .tv-carousel-shell {grid-template-columns:28px minmax(0,1fr) 28px;gap:4px}
@@ -340,12 +340,12 @@
 }
 @media(max-width:360px) {
   .tv-page .tv-hero .tv-hero-inner {width:calc(100% - 34px);padding-top:62px}
-  .tv-page .tv-hero h1 {font-size:30px}
+  .tv-page .tv-hero h1 {font-size:calc(30px + var(--vcc-heading-size-adjust,0px))}
   .tv-page .tv-button {font-size:9.5px;padding-inline:4px}
 }
 @media(max-height:670px) and (max-width:720px) {
   .tv-page .tv-hero .tv-hero-inner {padding-top:58px;padding-bottom:12px}
-  .tv-page .tv-hero h1 {font-size:clamp(29px,7.8vw,34px);margin-bottom:10px}
+  .tv-page .tv-hero h1 {font-size:calc(clamp(29px,7.8vw,34px) + var(--vcc-heading-size-adjust,0px));margin-bottom:10px}
   .tv-page .tv-hero p {font-size:12px;line-height:1.42;margin-bottom:12px}
 }
 @media(prefers-reduced-motion:reduce) {

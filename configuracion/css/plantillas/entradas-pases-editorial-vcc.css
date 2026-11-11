@@ -2,7 +2,7 @@
 .ep-page{--ep4-ink:#222c2d;--ep4-orange:var(--vcc-accent-override, #d56930);--ep4-orange-dark:var(--vcc-accent-override, #a94d26);--ep4-cream:#faf4ec;--ep4-line:#e8ded2;--ep4-muted:#625e5b}
 .ep-page .ep-hero,.ep-page .ep-hero .ep-hero-inner{height:405px;min-height:405px;max-height:405px}
 .ep-page .ep-hero-copy{margin-top:41px;max-width:670px}
-.ep-page .ep-hero-copy h1{font-size:clamp(41px,4.9vw,64px);max-width:630px;line-height:1.05}
+.ep-page .ep-hero-copy h1{font-size:calc(clamp(41px,4.9vw,64px) + var(--vcc-heading-size-adjust,0px));max-width:630px;line-height:1.05}
 .ep-page .ep-hero-copy h1 span{display:block}
 .ep-page .ep-hero-lede{max-width:550px}
 .ep-page .ep4-main{padding:34px 0 48px;display:block;min-width:0}
@@ -53,7 +53,7 @@
 .ep-page .ep4-price-note{margin:9px 2px 0;color:#756d65;font:400 10px/1.55 var(--vcc-font-body, "DM Sans", Arial, sans-serif)}
 .ep-page .ep4-price-note a{color:#a24f2b;text-decoration:underline;text-underline-offset:2px}
 .ep-page .ep4-pass{height:100%;display:flex;flex-direction:column;min-width:0;padding:19px 20px 17px;background:linear-gradient(150deg,#fff7ef,#fffdf9);border:1px solid #f0e1d1;border-radius:20px;box-shadow:0 6px 15px #543b290a}
-.ep-page .ep4-pass .ep4-script{font-size:26px}
+.ep-page .ep4-pass .ep4-script{font-size:calc(26px + var(--vcc-overline-size-adjust,0px))}
 .ep-page .ep4-pass h2{color:#243132;font:600 clamp(24px,2.4vw,31px)/1.12 var(--vcc-font-heading, "Oswald", sans-serif)}
 .ep-page .ep4-pass p{color:#58514b;font:400 11.5px/1.58 var(--vcc-font-body, "DM Sans", Arial, sans-serif)}
 .ep-page .ep4-pass strong{color:#242b2b}
@@ -66,7 +66,7 @@
 .ep-page .ep4-pass-extra{text-align:center;color:#82766a!important;font-size:9.5px!important}
 .ep-page .ep4-savings .ep4-heading{margin-bottom:14px}
 .ep-page .ep4-savings .ep3-saving-card{min-height:164px}
-.ep-page .ep4-savings .ep3-saving-card .ep3-saving-copy h3{font-size:19px}
+.ep-page .ep4-savings .ep3-saving-card .ep3-saving-copy h3{font-size:calc(19px + var(--vcc-heading-size-adjust,0px))}
 .ep-page .ep4-savings .ep3-saving-card .ep3-saving-copy p{font-size:11px}
 .ep-page .ep4-savings .ep3-saving-number{color:#d26a30;border-color:#f1dbcb;background:#fff4eb}
 .ep-page .ep4-savings .ep3-saving-track{padding-bottom:9px}
@@ -91,11 +91,11 @@
 @media(max-width:760px){
 .ep-page .ep-hero,.ep-page .ep-hero .ep-hero-inner{height:365px;min-height:365px;max-height:365px}
 .ep-page .ep-hero-copy{margin-top:50px}
-.ep-page .ep-hero-copy h1{font-size:45px}
+.ep-page .ep-hero-copy h1{font-size:calc(45px + var(--vcc-heading-size-adjust,0px))}
 .ep-page .ep4-main{padding:25px 0 35px}
 .ep-page .ep4-section{margin-bottom:34px}
-.ep-page .ep4-heading h2{font-size:30px}
-.ep-page .ep4-script{font-size:26px}
+.ep-page .ep4-heading h2{font-size:calc(30px + var(--vcc-heading-size-adjust,0px))}
+.ep-page .ep4-script{font-size:calc(26px + var(--vcc-overline-size-adjust,0px))}
 .ep-page .ep4-our-list{display:flex;gap:11px;overflow-x:auto;scroll-snap-type:x mandatory;padding:2px 2px 10px;scrollbar-width:none}
 .ep-page .ep4-our-list::-webkit-scrollbar{display:none}
 .ep-page .ep4-day-card{flex:0 0 min(80%,315px);scroll-snap-align:start;min-height:213px}
@@ -111,17 +111,17 @@
 .ep-page .ep4-price::before{content:"Precio adulto · ";font-weight:500;color:#84776d}
 .ep-page .ep4-table-row .ep4-reservation{font-size:9.5px}
 .ep-page .ep4-pass{padding:18px}
-.ep-page .ep4-pass h2{font-size:29px}
+.ep-page .ep4-pass h2{font-size:calc(29px + var(--vcc-heading-size-adjust,0px))}
 .ep-page .ep4-savings .ep3-saving-stage{gap:6px}
 }
 @media(max-width:520px){
 .ep-page .ep-hero,.ep-page .ep-hero .ep-hero-inner{height:355px;min-height:355px;max-height:355px}
 .ep-page .ep-hero-copy{margin-top:48px}
-.ep-page .ep-hero-copy h1{font-size:38px}
+.ep-page .ep-hero-copy h1{font-size:calc(38px + var(--vcc-heading-size-adjust,0px))}
 .ep-page .ep-hero-lede{font-size:12.5px}
-.ep-page .ep4-heading h2{font-size:28px}
+.ep-page .ep4-heading h2{font-size:calc(28px + var(--vcc-heading-size-adjust,0px))}
 .ep-page .ep4-day-card{flex-basis:90%}
-.ep-page .ep4-pass h2{font-size:27px}
+.ep-page .ep4-pass h2{font-size:calc(27px + var(--vcc-heading-size-adjust,0px))}
 }
 @media(prefers-reduced-motion:reduce){
 .ep-page .ep4-our-list{scroll-behavior:auto}
@@ -175,7 +175,7 @@
 .ep-page .ep4-pass-seal{display:grid;place-items:center;width:43px;height:43px}
 .ep-page .ep4-pass-seal img{display:block;width:40px;height:40px;object-fit:contain}
 .ep-page .ep4-pass-brand-label{font:600 15px/1.1 var(--vcc-font-script, "Caveat", cursive);color:#cf642d}
-.ep-page .ep4-pass h2{margin:3px 0 7px;font-size:clamp(24px,2.1vw,30px)}
+.ep-page .ep4-pass h2{margin:3px 0 7px;font-size:calc(clamp(24px,2.1vw,30px) + var(--vcc-heading-size-adjust,0px))}
 .ep-page .ep4-pass-highlight{margin:9px 0 10px;padding-top:10px;padding-bottom:10px}
 .ep-page .ep4-pass-highlight::before{top:10px}
 .ep-page .ep4-pass-link{padding:10px 12px;min-height:38px}
@@ -194,7 +194,7 @@
 .ep-page .ep4-our-stage{grid-template-columns:28px minmax(0,1fr) 28px;column-gap:3px}
 .ep-page .ep4-our-stage>.ep4-our-arrow{width:27px;height:27px;font-size:22px}
 .ep-page .ep4-our-list .ep4-day-card{flex-basis:90%;width:90%}
-.ep-page .ep4-our .ep4-heading h2,.ep-page .ep4-decision-heading .ep4-heading h2{font-size:28px}
+.ep-page .ep4-our .ep4-heading h2,.ep-page .ep4-decision-heading .ep4-heading h2{font-size:calc(28px + var(--vcc-heading-size-adjust,0px))}
 }
 .ep-page .ep4-our-no-overflow{display:block}
 .ep-page .ep4-our-no-overflow>.ep4-our-list{width:100%;max-width:100%}
@@ -207,7 +207,7 @@
 .ep-page .ep4-pass>p{margin:0 0 9px;font-size:11.3px;line-height:1.48}
 .ep-page .ep4-pass .ep4-pass-highlight{background:transparent;border:0;padding:6px 0 6px 28px;margin:5px 0 10px;border-radius:0}
 .ep-page .ep4-pass .ep4-pass-highlight::before{top:5px;left:0;width:20px;height:20px;background:transparent;color:#34864b;border:1.5px solid #34864b;border-radius:50%;font-size:13px}
-.ep-page .ep4-pass .ep4-pass-highlight h3{font-size:11.8px;margin-bottom:4px;color:#27372a}
+.ep-page .ep4-pass .ep4-pass-highlight h3{font-size:calc(11.8px + var(--vcc-heading-size-adjust,0px));margin-bottom:4px;color:#27372a}
 .ep-page .ep4-pass .ep4-pass-highlight p{font-size:11px;line-height:1.45;color:#535a50;margin:0}
 .ep-page .ep4-pass .ep4-pass-link{align-self:flex-start;width:auto;min-width:0;min-height:0;margin-top:auto;padding:5px 0;border:0;border-radius:0;background:transparent!important;color:#b75525!important;font-size:11px;text-decoration:underline!important;text-decoration-thickness:1px!important;text-underline-offset:3px}
 .ep-page .ep4-pass .ep4-pass-link:hover{color:#8e3d17!important;background:transparent!important}
@@ -223,7 +223,7 @@
 .ep-page .ep4-decision-layout>.ep4-price-note{margin-top:10px}
 @media(max-width:900px){
 .ep-page .ep4-decision-layout .ep4-pass{height:auto}
-.ep-page .ep4-pass-heading h2{font-size:25px}
+.ep-page .ep4-pass-heading h2{font-size:calc(25px + var(--vcc-heading-size-adjust,0px))}
 }
 .ep-page .ep4-medal-award{display:inline-grid;place-items:center;overflow:visible}
 .ep-page .ep4-medal-award :is(svg,img.ep4-medal-external){display:block;overflow:visible;filter:drop-shadow(0 2px 2px #28140d23)}
@@ -235,7 +235,7 @@
 }
 .ep-page .ep4-our-list .ep4-day-head{border-bottom:0!important}
 .ep-page .ep4-day-title{display:block;color:#222b2c;font:600 17px/1.22 var(--vcc-font-heading, "Oswald", sans-serif);letter-spacing:.025em;text-transform:uppercase}
-.ep-page .ep4-our-list .ep4-day-card h3{font-size:18px}
+.ep-page .ep4-our-list .ep4-day-card h3{font-size:calc(18px + var(--vcc-heading-size-adjust,0px))}
 .ep-page .ep4-reserve-cell .ep4-reservation{justify-content:flex-start!important;gap:8px!important;vertical-align:middle!important}
 .ep-page .ep4-reserve-cell .ep4-reservation::before{display:block!important;flex:0 0 8px!important}
 @media(max-width:760px){
@@ -583,7 +583,7 @@
     min-height:44px!important;align-items:flex-end!important;
   }
   .ep-page .ep4-savings .ep3-saving-card .ep3-saving-copy h3{
-    font-size:20px!important;line-height:1.18!important;
+    font-size:calc(20px + var(--vcc-heading-size-adjust,0px))!important;line-height:1.18!important;
   }
   .ep-page .ep4-savings .ep3-saving-card .ep3-saving-copy p{
     font-size:12.5px!important;line-height:1.58!important;
@@ -599,8 +599,8 @@
 }
 @media (max-width:360px){
   /* Titulars adaptats a 320 px sense deformar el hero corporatiu. */
-  .ep-page .ep-hero h1{font-size:clamp(35px,11vw,39px)!important}
-  .ep-page .ep4-heading h2{font-size:26px!important}
+  .ep-page .ep-hero h1{font-size:calc(clamp(35px,11vw,39px) + var(--vcc-heading-size-adjust,0px))!important}
+  .ep-page .ep4-heading h2{font-size:calc(26px + var(--vcc-heading-size-adjust,0px))!important}
   /* Evita descripcions de 2 o 3 paraules per línia en telèfons estrets. */
   .ep-page .ep4-our-list .ep4-day-summary .ep4-day-group{
     display:flex!important;flex-direction:column!important;

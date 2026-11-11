@@ -316,16 +316,16 @@ body.dv-page{
  .dv-page .dv-hero-content{top:85px!important}
  .dv-page .dv-hero-photo{object-position:64% center}
  .dv-page .dv-hero::after{background:linear-gradient(90deg,rgba(248,244,238,.94),rgba(248,244,238,.73) 62%,rgba(248,244,238,.39))}
- .dv-page .dv-script{font-size:27px}
- .dv-page .dv-hero h1{font-size:clamp(36px,9vw,44px)}
- .dv-page .dv-subtitle{font-size:12px;line-height:1.56}
+ .dv-page .dv-script{font-size:calc(27px + var(--vcc-overline-size-adjust,0px))}
+ .dv-page .dv-hero h1{font-size:calc(clamp(36px,9vw,44px) + var(--vcc-heading-size-adjust,0px))}
+ .dv-page .dv-subtitle{font-size:calc(12px + var(--vcc-overline-size-adjust,0px));line-height:1.56}
  .dv-page .dv-subnav{height:39px;min-height:39px;max-height:39px}
  .dv-page .dv-subnav a{font-size:11px}
  .dv-page .dv-shell{width:calc(100% - 30px)}
  .dv-page .dv-main{padding-top:24px}
  .dv-page .dv-section-title{align-items:flex-start}
- .dv-page .dv-section-title h2{font-size:25px}
- .dv-page .dv-section-title .dv-section-script{font-size:25px}
+ .dv-page .dv-section-title h2{font-size:calc(25px + var(--vcc-heading-size-adjust,0px))}
+ .dv-page .dv-section-title .dv-section-script{font-size:calc(25px + var(--vcc-heading-size-adjust,0px))}
  .dv-page .dv-card{flex-basis:88%;min-height:332px}
  .dv-page .dv-arrow-left{left:-12px}
  .dv-page .dv-arrow-right{right:-12px}
@@ -335,22 +335,21 @@ body.dv-page{
   width:43px;min-width:43px;flex-basis:43px;
  }
  .dv-page .dv-card .dv-card-icon img{width:43px}
- .dv-page .dv-card-kicker{font-size:23px}
- .dv-page .dv-card-head h3{font-size:22px}
+ .dv-page .dv-card-kicker{font-size:calc(23px + var(--vcc-overline-size-adjust,0px))}
+ .dv-page .dv-card-head h3{font-size:calc(22px + var(--vcc-heading-size-adjust,0px))}
  .dv-page .dv-map-frame{width:100%}
  .dv-page .dv-map-frame iframe{height:340px}
  .dv-page #como-ahorrar .dv-savings-heading{display:block;margin-bottom:17px}
- .dv-page #como-ahorrar .dv-savings-heading .dv-section-script{font-size:25px}
- .dv-page #como-ahorrar .dv-savings-heading h2{font-size:28px}
+ .dv-page #como-ahorrar .dv-savings-heading .dv-section-script{font-size:calc(25px + var(--vcc-overline-size-adjust,0px))}
+ .dv-page #como-ahorrar .dv-savings-heading h2{font-size:calc(28px + var(--vcc-heading-size-adjust,0px))}
  .dv-page #como-ahorrar .dv-savings-heading .dv-section-subtitle{
-   display:block;max-width:none;margin:10px 0 0!important;text-align:left;font-size:12px
- }
+   display:block;max-width:none;margin:10px 0 0!important;text-align:left;font-size:calc(12px + var(--vcc-overline-size-adjust,0px))}
  .dv-page .dv-tip-grid{gap:10px}
  .dv-page .dv-tip{flex-basis:100%}
  .dv-page .dv-tip-prev{left:-12px}
  .dv-page .dv-tip-next{right:-12px}
  .dv-page .dv-tip{min-height:128px;padding:13px 12px;gap:11px}
- .dv-page .dv-tip h3{font-size:18px;margin-bottom:6px}
+ .dv-page .dv-tip h3{font-size:calc(18px + var(--vcc-heading-size-adjust,0px));margin-bottom:6px}
  .dv-page .dv-tip p{font-size:11px;line-height:1.48}
  .dv-page .dv-tip-number{flex-basis:39px;width:39px;height:39px;font-size:19px}
 }
@@ -455,8 +454,8 @@ body.dv-page{
 @media(max-width:600px){
  .dv-page .dv-zone-details{margin-top:13px;border-radius:12px}
  .dv-page .dv-zone-heading{padding:13px 14px}
- .dv-page .dv-zone-heading-title h3{font-size:23px}
- .dv-page .dv-zone-heading-title>span{font-size:21px}
+ .dv-page .dv-zone-heading-title h3{font-size:calc(23px + var(--vcc-heading-size-adjust,0px))}
+ .dv-page .dv-zone-heading-title>span{font-size:calc(21px + var(--vcc-heading-size-adjust,0px))}
  .dv-page .dv-zone-body{padding:16px 13px}
  .dv-page .dv-zone-body h4{font-size:19px}
  .dv-page .dv-zone-hotel{padding:10px}
@@ -762,10 +761,10 @@ body.dv-page{
  padding:11px 20px 10px;
 }
 .dv-page .dv-zone-heading-title h3{
- font-size:24px;
+ font-size:calc(24px + var(--vcc-heading-size-adjust,0px));
 }
 .dv-page .dv-zone-heading-title>span{
- font-size:22px;
+ font-size:calc(22px + var(--vcc-heading-size-adjust,0px));
 }
 .dv-page .dv-zone-close{width:28px;height:28px;flex-basis:28px;font-size:21px}
 .dv-page .dv-zone-body{padding:16px 20px 18px}
@@ -804,8 +803,8 @@ body.dv-page{
 }
 @media(max-width:600px){
  .dv-page .dv-zone-heading{padding:11px 12px}
- .dv-page .dv-zone-heading-title h3{font-size:22px}
- .dv-page .dv-zone-heading-title>span{font-size:20px}
+ .dv-page .dv-zone-heading-title h3{font-size:calc(22px + var(--vcc-heading-size-adjust,0px))}
+ .dv-page .dv-zone-heading-title>span{font-size:calc(20px + var(--vcc-heading-size-adjust,0px))}
  .dv-page .dv-zone-body{padding:13px 12px}
  .dv-page .dv-zone-body h4{font-size:18px}
  .dv-page .dv-zone-review-grid{gap:10px 12px;margin-top:11px}
@@ -897,7 +896,7 @@ body.dv-page{
   grid-template-columns:1fr;row-gap:14px;padding:15px 17px;
  }
  .dv-page .dv-trust-global-heading{align-items:center}
- .dv-page .dv-trust-global-heading h3{font-size:18px}
+ .dv-page .dv-trust-global-heading h3{font-size:calc(18px + var(--vcc-heading-size-adjust,0px))}
  .dv-page .dv-trust-global-grid>div:first-child{padding-left:0;border-left:0}
 }
 @media(max-width:850px){
@@ -908,7 +907,7 @@ body.dv-page{
   padding:13px 12px;row-gap:12px;border-radius:10px;
  }
  .dv-page .dv-trust-global-heading svg{width:22px;height:22px;flex-basis:22px}
- .dv-page .dv-trust-global-heading h3{font-size:15px}
+ .dv-page .dv-trust-global-heading h3{font-size:calc(15px + var(--vcc-heading-size-adjust,0px))}
  .dv-page .dv-trust-global-grid{
   grid-template-columns:1fr;gap:10px;
  }
@@ -1075,17 +1074,17 @@ body.dv-page{
 }
 @media(max-width:700px){
  .dv-page #como-ahorrar .dv-savings-heading{display:block;margin-bottom:17px}
- .dv-page #como-ahorrar .dv-savings-heading .dv-section-script{font-size:25px}
- .dv-page #como-ahorrar .dv-savings-heading h2{font-size:28px}
+ .dv-page #como-ahorrar .dv-savings-heading .dv-section-script{font-size:calc(25px + var(--vcc-overline-size-adjust,0px))}
+ .dv-page #como-ahorrar .dv-savings-heading h2{font-size:calc(28px + var(--vcc-heading-size-adjust,0px))}
  .dv-page #como-ahorrar .dv-savings-heading .dv-section-subtitle{
-   display:block;max-width:none;margin:10px 0 0!important;text-align:left;font-size:12px;
+   display:block;max-width:none;margin:10px 0 0!important;text-align:left;font-size:calc(12px + var(--vcc-overline-size-adjust,0px));
  }
  .dv-page #como-ahorrar .dv-tip-grid{gap:10px}
  .dv-page #como-ahorrar .dv-tip{flex-basis:100%;min-height:128px;padding:13px 12px;gap:11px}
  .dv-page #como-ahorrar .dv-tip-number{
    flex-basis:39px;width:39px;height:39px;font-size:19px;
  }
- .dv-page #como-ahorrar .dv-tip h3{font-size:18px;margin-bottom:6px}
+ .dv-page #como-ahorrar .dv-tip h3{font-size:calc(18px + var(--vcc-heading-size-adjust,0px));margin-bottom:6px}
  .dv-page #como-ahorrar .dv-tip p{font-size:11px;line-height:1.48}
 }
 /* Acceso por teclado, visible solo al recibir foco. */
