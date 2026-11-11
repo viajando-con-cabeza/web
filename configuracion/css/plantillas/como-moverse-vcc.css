@@ -340,10 +340,7 @@ body.mv-body .mv-day-advice .mv-advice-saving{background-color:#fff}
  .mv-day-advice-intro{grid-template-columns:70px minmax(0,1fr)}
  .mv-advice-comparison>div>strong{font-size:22px}
  .mv-archipelago-note{padding:0 1px;font-size:12px;line-height:1.55}
- /* Botons amb zona tàctil de 44px; cercle visual de 30px, sense tapar les targetes. */
- .mv-transport-arrow{isolation:isolate;}
- .mv-transport-arrow::before{content:"";position:absolute;inset:7px;z-index:-1;border:1px solid #ddbca5;border-radius:50%;background:#fff;box-shadow:0 2px 8px rgba(60,40,24,.07)}
- .mv-transport-arrow:hover:not(:disabled)::before{background:#fff0e6;border-color:#d98a58}
+ /* El cercle visible és ara únicament el del CSS compartit de VCC. */
  .mv-transport-prev{left:-12px}
  .mv-transport-next{right:-12px}
  .mv-transport-arrow svg{width:16px;height:16px}
