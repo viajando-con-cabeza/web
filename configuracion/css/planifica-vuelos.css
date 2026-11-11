@@ -53,29 +53,33 @@
 .vl-continent h3{font:600 22px/1.07 Oswald,sans-serif;margin:0}
 .vl-continent .count{font-size:10.5px;color:var(--vl-muted)}
 .vl-continent .detail{font-size:10px;color:#575e60;line-height:1.35}
-.vl-review-head{display:flex;align-items:end;justify-content:space-between;gap:18px;margin:27px 0 10px;scroll-margin-top:120px}
-.vl-review-description{font-size:11px;color:var(--vl-muted);line-height:1.5;margin:0}
-.vl-controls{display:flex;align-items:center;gap:8px}
-.vl-controls button,.vl-tip-arrow{width:35px;height:35px;border:1px solid var(--vl-line);border-radius:50%;background:#fff;display:grid;place-items:center;color:var(--vl-ink);font-size:23px;line-height:1}
-.vl-controls button:hover:not(:disabled),.vl-tip-arrow:hover:not(:disabled){color:var(--vl-coral);border-color:var(--vl-coral)}
-.vl-controls output{min-width:38px;text-align:center;white-space:nowrap;font-size:11px;color:var(--vl-muted)}
-.vl-air-track{display:grid;grid-auto-flow:column;grid-auto-columns:calc((100% - 30px)/4);gap:10px;overflow-x:auto;overscroll-behavior-inline:contain;scroll-snap-type:x mandatory;scrollbar-width:none;padding:2px 1px 9px}
+/* Carrusel de aerolíneas: estructura y proporciones de Alojamientos. */
+.vl-sr-only{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;overflow:hidden!important;clip:rect(0,0,0,0)!important;white-space:nowrap!important;border:0!important}
+.vl-air-carousel{position:relative;margin-top:15px}
+.vl-air-track{display:grid;grid-auto-flow:column;grid-auto-columns:calc((100% - 32px)/3.08);gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding-inline:2px;padding:3px 2px 12px;-webkit-overflow-scrolling:touch;overscroll-behavior-inline:contain;scrollbar-width:none}
 .vl-air-track::-webkit-scrollbar{display:none}
-.vl-air{display:flex;flex-direction:column;min-width:0;background:#fff;border:1px solid var(--vl-line);border-radius:12px;overflow:hidden;scroll-snap-align:start}
-.vl-air-brand{min-height:57px;padding:10px;display:flex;align-items:center;justify-content:center;text-align:center;border-bottom:1px solid var(--vl-line);background:linear-gradient(135deg,#f4f5f3,#fff)}
-.vl-air-brand b{font-size:clamp(15px,1.55vw,20px);font-weight:900;letter-spacing:-.045em}
-.vl-air-brand.ryanair{color:#174089}.vl-air-brand.vueling{color:#323232}.vl-air-brand.turkish{color:#bd1727}.vl-air-brand.swiss{color:#c8102e}.vl-air-brand.wizz{color:#b92784}.vl-air-brand.easyjet{color:#f56a00}.vl-air-brand.brussels{color:#20314e}.vl-air-brand.lufthansa{color:#06205b}.vl-air-brand.american{color:#243c64}.vl-air-brand.etihad{color:#967a52}.vl-air-brand.emirates{color:#c51c2b}.vl-air-brand.lion{color:#be192b}.vl-air-brand.scoot{color:#827400}.vl-air-brand.batik{color:#85263e}.vl-air-brand.virgin{color:#c82d51}.vl-air-brand.jetstar{color:#eb731f}
-.vl-air-content{display:flex;flex-direction:column;flex:1;padding:11px 12px}
-.vl-route-label{font-size:9.5px;font-weight:800;text-transform:uppercase;letter-spacing:.035em;color:var(--vl-coral);margin:0 0 7px}
-.vl-pros{margin:0 0 8px}
-.vl-pros h4{font-size:10.5px;font-weight:800;margin:0 0 4px}
-.vl-pros.positive h4{color:#268150}.vl-pros.caution h4{color:#bc6248}
-.vl-pros ul{list-style:none;margin:0;padding:0}
-.vl-pros li{font-size:10.5px;line-height:1.36;color:#45494d;position:relative;padding:0 0 3px 15px}
-.vl-pros li:before{content:"✓";position:absolute;left:0;color:#238552;font-weight:900}
-.vl-pros.caution li:before{content:"!";color:#c55b44}
-.vl-air-action{margin-top:auto;padding:9px 0 0;width:100%;border:0;border-top:1px solid var(--vl-line);background:#fff;color:var(--vl-coral);text-align:left;font-size:10.5px;font-weight:800}
+.vl-air-card{min-width:0;display:flex;flex-direction:column;scroll-snap-align:start;background:#fff;border:1px solid var(--vl-line);border-radius:16px;overflow:hidden;box-shadow:0 4px 18px rgba(18,25,31,.07)}
+.vl-air-image{height:120px;min-height:120px;overflow:hidden;background:#ececea}
+.vl-air-image img{display:block;width:100%;height:100%;object-fit:cover}
+.vl-air-card-body{display:flex;flex-direction:column;flex:1;padding:13px 15px 14px}
+.vl-air-name{font:800 clamp(21px,2vw,26px)/1.05 "DM Sans",sans-serif;letter-spacing:-.05em;margin:0 0 5px}
+.vl-air-name.ryanair{color:#174089}.vl-air-name.vueling{color:#323232}.vl-air-name.turkish{color:#bd1727}.vl-air-name.swiss{color:#c8102e}.vl-air-name.wizz{color:#b92784}.vl-air-name.easyjet{color:#f56a00}.vl-air-name.brussels{color:#20314e}.vl-air-name.lufthansa{color:#06205b}.vl-air-name.american{color:#243c64}.vl-air-name.etihad{color:#967a52}.vl-air-name.emirates{color:#c51c2b}.vl-air-name.lion{color:#be192b}.vl-air-name.scoot{color:#827400}.vl-air-name.batik{color:#85263e}.vl-air-name.virgin{color:#c82d51}.vl-air-name.jetstar{color:#eb731f}
+.vl-air-intro{font-size:11.5px;line-height:1.4;color:#4c5258;margin:0 0 10px}
+.vl-air-lists{display:grid;grid-template-columns:1fr 1fr;gap:9px;border-top:1px solid #e7e9e8;padding-top:10px}
+.vl-air-lists section{min-width:0}
+.vl-air-lists section+section{border-left:1px solid #e5e7e6;padding-left:9px}
+.vl-air-lists h4{display:flex;align-items:center;gap:6px;font:800 11px/1.25 "DM Sans",sans-serif;margin:0 0 6px}
+.vl-air-lists .vl-face-icon{color:var(--vl-coral);flex:none;width:19px;height:19px}
+.vl-air-lists ul{list-style:none;margin:0;padding:0}
+.vl-air-lists li{position:relative;font-size:10.75px;line-height:1.38;color:#3e454b;padding-left:10px;margin:0 0 5px}
+.vl-air-lists li::before{content:"•";position:absolute;left:1px;color:#464b4d}
+.vl-air-action{display:inline-flex;align-items:center;justify-content:space-between;gap:8px;width:100%;margin-top:auto;padding:10px 0 0;border:0;background:transparent;text-align:left;font-size:11.5px;font-weight:800;color:#d5551a}
 .vl-air-action:hover{text-decoration:underline}
+.vl-air-carousel-arrow{position:absolute;top:38%;z-index:2;display:grid;place-items:center;width:42px;height:42px;border:1px solid #e8e8e8;border-radius:50%;background:#fff;color:var(--vl-coral);box-shadow:0 3px 9px #0002;transition:background .2s,opacity .2s}
+.vl-air-carousel-arrow:hover:not(:disabled){background:#fff2ea}
+.vl-air-carousel-arrow:disabled{opacity:.35;cursor:default;box-shadow:none}
+.vl-air-carousel-prev{left:-19px}.vl-air-carousel-next{right:-19px}
+.vl-air-note{text-align:center}
 .vl-footnote{font-size:10px;line-height:1.55;color:#71777a;margin:9px 0 0}
 /* Calculator: one condensed flight row, up to five only when added. */
 .vl-calc-head{display:flex;justify-content:space-between;align-items:end;gap:28px}
@@ -140,7 +144,7 @@
 .vl-next-grid b{font-size:13px;font-weight:800}.vl-next-grid small{font-size:11px;color:#d5d8d9}
 @media(max-width:1020px){
  .vl-continent-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
- .vl-air-track{grid-auto-columns:calc((100% - 20px)/2.5)}
+ .vl-air-track{grid-auto-columns:calc((100% - 16px)/2.12)}
  .vl-flight{grid-template-columns:minmax(0,1.4fr) minmax(190px,.6fr)}
  .vl-fields{grid-template-columns:repeat(3,minmax(0,1fr))}
  .vl-tip{flex-basis:calc((100% - 13px)/2)}
@@ -154,7 +158,9 @@
  .vl-section-head > .vl-kicker,.vl-section-head > div > .vl-kicker{font-size:27px}
  .vl-section-head .vl-heading{font-size:28px}
  .vl-tabs .vcc-nav-inner{gap:24px;padding-inline:14px}
- .vl-air-track{grid-auto-columns:100%}
+ .vl-air-track{grid-auto-columns:calc((100% - 16px)/1.12)}
+ .vl-air-image{height:135px;min-height:135px}
+ .vl-air-carousel-arrow{top:31%}
  .vl-review-head{flex-direction:column;align-items:stretch;gap:8px}
  .vl-review-head>div:first-child{min-width:0;width:100%}
  .vl-review-head .vl-controls{align-self:flex-end}
@@ -183,7 +189,14 @@
  .vl-continent-map{width:40px;height:34px}
  .vl-continent h3{font-size:20px}
  .vl-continent .detail{font-size:9.5px}
- .vl-air-track{grid-auto-columns:100%}
+ .vl-air-track{grid-auto-columns:100%;width:100%}
+ .vl-air-carousel{padding-top:46px}
+ .vl-air-carousel-arrow{top:0;bottom:auto;left:auto;right:0;width:35px;height:35px;transform:none}
+ .vl-air-carousel-prev{left:auto;right:43px}
+ .vl-air-carousel-next{left:auto;right:0}
+ .vl-air-image{height:115px;min-height:115px}
+ .vl-air-card-body{padding:12px 13px 13px}
+ .vl-air-lists li{font-size:10.5px;line-height:1.35;margin-bottom:4px}
  .vl-controls{gap:4px}
  .vl-controls button{width:30px;height:30px}
  .vl-fields{gap:8px}
@@ -198,3 +211,12 @@
  .vl-next-grid a{padding:10px}
 }
 @media(prefers-reduced-motion:reduce){.vl-page *{scroll-behavior:auto!important;transition:none!important}}
+
+/* Coincide con el comportamiento móvil compartido: flechas arriba a la derecha. */
+@media(min-width:461px) and (max-width:760px){
+ .vl-air-carousel{padding-top:46px}
+ .vl-air-carousel-arrow{top:0;bottom:auto;left:auto;right:0;width:35px;height:35px;transform:none}
+ .vl-air-carousel-prev{left:auto;right:43px}
+ .vl-air-carousel-next{left:auto;right:0}
+ .vl-air-track{grid-auto-columns:100%;width:100%}
+}
