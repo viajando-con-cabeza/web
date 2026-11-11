@@ -17,7 +17,6 @@ body.country-page #planifica .vcc-prep-image img{
   object-fit:cover!important;object-position:center!important;
   filter:none!important;opacity:0!important;visibility:visible!important;
 }
-body.country-page #planifica .vcc-prep-image::after{display:none!important}
 body.country-page #planifica .vcc-prep-image>span{z-index:2!important}
 /* Imagen real de Göteborg desde Cloudflare R2, no background CSS */
 body.country-page .vcc-inspiration{
@@ -37,6 +36,44 @@ body.country-page .vcc-inspiration::before{
 }
 body.country-page .vcc-inspiration>div{z-index:2!important}
 @media(max-width:560px){
-  body.country-page #planifica .vcc-prep-image{height:105px!important;min-height:105px!important}
+  body.country-page #planifica .vcc-prep-image{height:82px!important;min-height:82px!important}
 }
 
+
+/* Suecia · tarjetas de Planifica más compactas SOLO en móvil.
+   Mantiene dos columnas, textos completos y botones accesibles. */
+@media (max-width: 560px) {
+  body.country-page #planifica .country-heading {
+    margin-bottom: 13px !important;
+  }
+  body.country-page #planifica .vcc-prep-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 9px !important;
+  }
+  body.country-page #planifica .vcc-prep-card {
+    min-width: 0 !important;
+  }
+  body.country-page #planifica .vcc-prep-copy {
+    min-height: 0 !important;
+    padding: 18px 9px 9px !important;
+  }
+  body.country-page #planifica .vcc-prep-copy h3 {
+    font-size: 14px !important;
+    line-height: 1.18 !important;
+    margin: 0 0 4px !important;
+  }
+  body.country-page #planifica .vcc-prep-copy p {
+    font-size: 10px !important;
+    line-height: 1.38 !important;
+    margin: 0 !important;
+  }
+  body.country-page #planifica .vcc-prep-copy .vcc-card-action {
+    padding-top: 8px !important;
+    min-height: 20px !important;
+  }
+  body.country-page #planifica .vcc-prep-image > span {
+    width: 28px !important;
+    height: 28px !important;
+    bottom: -14px !important;
+  }
+}
