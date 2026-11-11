@@ -119,3 +119,36 @@ html body.budget-vcc #filosofia .vcc-daily-track .vcc-budget-day-expenses li.vcc
   align-items:flex-end!important;
   text-align:right!important;
 }
+
+/* Estocolmo · fichas de gastos diarios en móvil:
+   categoría en una sola línea, explicación debajo e importe al pie derecho.
+   No modifica el diseño de escritorio ni la celda de total. */
+@media (max-width:750px) {
+  html body.budget-vcc #filosofia .vcc-daily-track .vcc-budget-day-expenses li.vcc-day-expense-tile {
+    grid-template-columns:22px minmax(0,1fr)!important;
+    grid-template-rows:auto minmax(0,1fr) auto!important;
+    align-items:start!important;
+    column-gap:6px!important;
+    row-gap:6px!important;
+  }
+  html body.budget-vcc #filosofia .vcc-daily-track .vcc-budget-day-expenses li.vcc-day-expense-tile .vcc-day-expense-category {
+    grid-column:2!important;
+    grid-row:1!important;
+    white-space:nowrap!important;
+    overflow-wrap:normal!important;
+    word-break:normal!important;
+  }
+  html body.budget-vcc #filosofia .vcc-daily-track .vcc-budget-day-expenses li.vcc-day-expense-tile .vcc-day-expense-info {
+    grid-column:1/-1!important;
+    grid-row:2!important;
+    align-self:start!important;
+    min-width:0!important;
+  }
+  html body.budget-vcc #filosofia .vcc-daily-track .vcc-budget-day-expenses li.vcc-day-expense-tile > strong {
+    grid-column:1/-1!important;
+    grid-row:3!important;
+    justify-self:end!important;
+    align-self:end!important;
+    margin-top:3px!important;
+  }
+}
