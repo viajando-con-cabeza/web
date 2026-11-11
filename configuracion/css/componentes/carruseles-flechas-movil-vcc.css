@@ -207,397 +207,198 @@
     flex:0 0 100%!important;max-width:100%!important;
   }
 
-}
+  /* Controls laterals comuns · estil unificat com «Gastos por día». */
+  html body.budget-vcc .savings-section .carousel-shell > .carousel-arrow,
+  html body.budget-vcc .surprise-section .carousel-shell > .carousel-arrow,
+  html body.budget-vcc #filosofia .vcc-budget-mode-arrow,
+  body.mv-body .mv-transport-arrow,
+  body.mv-body .mv-carousel-arrow,
+  .ep-page .ep3-saving-stage > .ep3-saving-arrow,
+  .ep-page .ep4-our-stage:not(.ep4-our-no-overflow) > .ep4-our-arrow,
+  .tv-page .tv-carousel-shell > .tv-carousel-arrow,
+  .al-page .al-carousel > .al-carousel-arrow,
+  .al-page .al-tips-carousel > .al-tips-arrow,
+  .vl-page .vl-tips-carousel > .vl-tip-arrow,
+  .cl-page.cl-landing .vcc-saving-carousel > .vcc-saving-arrow,
+  .dv-page .dv-carousel-wrap > .dv-arrow,
+  .dv-page .dv-tip-carousel-wrap > .dv-arrow,
+  html body.ci-page .ci-tips-shell > .ci-tips-arrow,
+  html body .ql-page .ql-advice-carousel-sides > .ql-carousel-arrow {
+    top:50%!important;
+    bottom:auto!important;
+    transform:translateY(-50%)!important;
+    width:36px!important;
+    height:36px!important;
+    min-width:36px!important;
+    min-height:36px!important;
+    place-items:center!important;
+    border:1px solid #c7aa97!important;
+    border-radius:50%!important;
+    background:rgba(255,255,255,.045)!important;
+    color:#ab553b!important;
+    box-shadow:none!important;
+    -webkit-backdrop-filter:none!important;
+    backdrop-filter:none!important;
+    z-index:8!important;
+    font-size:20px!important;
+    line-height:1!important;
+    touch-action:manipulation;
+    transition:background-color .15s ease,border-color .15s ease,color .15s ease;
+  }
 
-/* ============================================================================
-   VCC | FLETXES DE CARRUSEL: UNA ÚNICA FONT DE VERITAT.
-   Valors d'escriptori / mòbil. Conserva la navegació JS de cada component.
-   Afegir noves fletxes = registrar els selectors en els grups de sota.
-   ============================================================================ */
-:root{
- --vcc-arrow-size:36px;
- --vcc-arrow-bg:rgba(255,255,255,.76);
- --vcc-arrow-border:#c7aa97;
- --vcc-arrow-ink:#ab553b;
- --vcc-arrow-hover:#fff1e8;
- --vcc-arrow-pressed:#e57147;
- --vcc-arrow-shadow:0 2px 7px rgba(21,19,16,.12);
- --vcc-arrow-offset:-10px;
-}
-/* Aparença comuna: no força display, perquè alguns carrusels oculten les fletxes. */
-:is(
- html body.budget-vcc .savings-section .carousel-shell > .carousel-arrow,
- html body.budget-vcc .surprise-section .carousel-shell > .carousel-arrow,
- html body.budget-vcc #filosofia .vcc-budget-mode-arrow,
- body.mv-body .mv-transport-shell > .mv-transport-arrow,
- body.mv-body .mv-carousel-shell > .mv-carousel-arrow,
- .ep-page .ep3-saving-stage > .ep3-saving-arrow,
- .ep-page .ep4-our-stage > .ep4-our-arrow,
- .tv-page .tv-carousel-shell > .tv-carousel-arrow,
- .al-page .al-carousel > .al-carousel-arrow,
- .al-page .al-tips-carousel > .al-tips-arrow,
- .vl-page .vl-tips-carousel > .vl-tip-arrow,
- .vl-page .vl-air-carousel > .vl-air-carousel-arrow,
- .cl-page.cl-landing .vcc-saving-carousel > .vcc-saving-arrow,
- .dv-page .dv-carousel-wrap > .dv-arrow,
- .dv-page .dv-tip-carousel-wrap > .dv-arrow,
- html body.ci-page .ci-tips-shell > .ci-tips-arrow,
- html body .ql-page .ql-advice-carousel-sides > .ql-carousel-arrow,
- html body .vcc-route-carousel > .vcc-route-arrow,
- html body .st-carousel-wrap > .carousel-arrow,
- html body.country-page .sweden-carousel-wrap > .carousel-arrow,
- html body .vcc-it-photo > .vcc-it-gallery-button,
- html body .place-nav-wrap .place-nav-arrow,
- body.mv-body .mv-day-controls > button,
- html body.ci-page .ci-august-weather-controls > button
-){
- box-sizing:border-box!important;
- width:var(--vcc-arrow-size)!important;height:var(--vcc-arrow-size)!important;
- min-width:var(--vcc-arrow-size)!important;min-height:var(--vcc-arrow-size)!important;
- padding:0!important;flex-shrink:0!important;
- border:1px solid var(--vcc-arrow-border)!important;
- border-radius:50%!important;
- background:var(--vcc-arrow-bg)!important;
- color:var(--vcc-arrow-ink)!important;
- box-shadow:var(--vcc-arrow-shadow)!important;
- font-size:20px!important;line-height:1!important;text-align:center!important;
- place-items:center!important;touch-action:manipulation;
- transition:background-color .16s ease,border-color .16s ease,color .16s ease!important;
-}
-:is(
- html body.budget-vcc .savings-section .carousel-shell > .carousel-arrow,
- html body.budget-vcc .surprise-section .carousel-shell > .carousel-arrow,
- html body.budget-vcc #filosofia .vcc-budget-mode-arrow,
- body.mv-body .mv-transport-shell > .mv-transport-arrow,
- body.mv-body .mv-carousel-shell > .mv-carousel-arrow,
- .ep-page .ep3-saving-stage > .ep3-saving-arrow,
- .ep-page .ep4-our-stage > .ep4-our-arrow,
- .tv-page .tv-carousel-shell > .tv-carousel-arrow,
- .al-page .al-carousel > .al-carousel-arrow,
- .al-page .al-tips-carousel > .al-tips-arrow,
- .vl-page .vl-tips-carousel > .vl-tip-arrow,
- .vl-page .vl-air-carousel > .vl-air-carousel-arrow,
- .cl-page.cl-landing .vcc-saving-carousel > .vcc-saving-arrow,
- .dv-page .dv-carousel-wrap > .dv-arrow,
- .dv-page .dv-tip-carousel-wrap > .dv-arrow,
- html body.ci-page .ci-tips-shell > .ci-tips-arrow,
- html body .ql-page .ql-advice-carousel-sides > .ql-carousel-arrow,
- html body .vcc-route-carousel > .vcc-route-arrow,
- html body .st-carousel-wrap > .carousel-arrow,
- html body.country-page .sweden-carousel-wrap > .carousel-arrow,
- html body .vcc-it-photo > .vcc-it-gallery-button,
- html body .place-nav-wrap .place-nav-arrow,
- body.mv-body .mv-day-controls > button,
- html body.ci-page .ci-august-weather-controls > button
-):hover:not(:disabled):not([aria-disabled="true"]){
- background:var(--vcc-arrow-hover)!important;
- border-color:#bd7457!important;color:var(--vcc-arrow-ink)!important;
-}
-:is(
- html body.budget-vcc .savings-section .carousel-shell > .carousel-arrow,
- html body.budget-vcc .surprise-section .carousel-shell > .carousel-arrow,
- html body.budget-vcc #filosofia .vcc-budget-mode-arrow,
- body.mv-body .mv-transport-shell > .mv-transport-arrow,
- body.mv-body .mv-carousel-shell > .mv-carousel-arrow,
- .ep-page .ep3-saving-stage > .ep3-saving-arrow,
- .ep-page .ep4-our-stage > .ep4-our-arrow,
- .tv-page .tv-carousel-shell > .tv-carousel-arrow,
- .al-page .al-carousel > .al-carousel-arrow,
- .al-page .al-tips-carousel > .al-tips-arrow,
- .vl-page .vl-tips-carousel > .vl-tip-arrow,
- .vl-page .vl-air-carousel > .vl-air-carousel-arrow,
- .cl-page.cl-landing .vcc-saving-carousel > .vcc-saving-arrow,
- .dv-page .dv-carousel-wrap > .dv-arrow,
- .dv-page .dv-tip-carousel-wrap > .dv-arrow,
- html body.ci-page .ci-tips-shell > .ci-tips-arrow,
- html body .ql-page .ql-advice-carousel-sides > .ql-carousel-arrow,
- html body .vcc-route-carousel > .vcc-route-arrow,
- html body .st-carousel-wrap > .carousel-arrow,
- html body.country-page .sweden-carousel-wrap > .carousel-arrow,
- html body .vcc-it-photo > .vcc-it-gallery-button,
- html body .place-nav-wrap .place-nav-arrow,
- body.mv-body .mv-day-controls > button,
- html body.ci-page .ci-august-weather-controls > button
-):active:not(:disabled):not([aria-disabled="true"]){
- background:var(--vcc-arrow-pressed)!important;
- border-color:var(--vcc-arrow-pressed)!important;color:#fff!important;
-}
-:is(
- html body.budget-vcc .savings-section .carousel-shell > .carousel-arrow,
- html body.budget-vcc .surprise-section .carousel-shell > .carousel-arrow,
- html body.budget-vcc #filosofia .vcc-budget-mode-arrow,
- body.mv-body .mv-transport-shell > .mv-transport-arrow,
- body.mv-body .mv-carousel-shell > .mv-carousel-arrow,
- .ep-page .ep3-saving-stage > .ep3-saving-arrow,
- .ep-page .ep4-our-stage > .ep4-our-arrow,
- .tv-page .tv-carousel-shell > .tv-carousel-arrow,
- .al-page .al-carousel > .al-carousel-arrow,
- .al-page .al-tips-carousel > .al-tips-arrow,
- .vl-page .vl-tips-carousel > .vl-tip-arrow,
- .vl-page .vl-air-carousel > .vl-air-carousel-arrow,
- .cl-page.cl-landing .vcc-saving-carousel > .vcc-saving-arrow,
- .dv-page .dv-carousel-wrap > .dv-arrow,
- .dv-page .dv-tip-carousel-wrap > .dv-arrow,
- html body.ci-page .ci-tips-shell > .ci-tips-arrow,
- html body .ql-page .ql-advice-carousel-sides > .ql-carousel-arrow,
- html body .vcc-route-carousel > .vcc-route-arrow,
- html body .st-carousel-wrap > .carousel-arrow,
- html body.country-page .sweden-carousel-wrap > .carousel-arrow,
- html body .vcc-it-photo > .vcc-it-gallery-button,
- html body .place-nav-wrap .place-nav-arrow,
- body.mv-body .mv-day-controls > button,
- html body.ci-page .ci-august-weather-controls > button
-):focus-visible{
- outline:2px solid var(--vcc-arrow-pressed)!important;
- outline-offset:2px!important;
-}
-:is(
- html body.budget-vcc .savings-section .carousel-shell > .carousel-arrow,
- html body.budget-vcc .surprise-section .carousel-shell > .carousel-arrow,
- html body.budget-vcc #filosofia .vcc-budget-mode-arrow,
- body.mv-body .mv-transport-shell > .mv-transport-arrow,
- body.mv-body .mv-carousel-shell > .mv-carousel-arrow,
- .ep-page .ep3-saving-stage > .ep3-saving-arrow,
- .ep-page .ep4-our-stage > .ep4-our-arrow,
- .tv-page .tv-carousel-shell > .tv-carousel-arrow,
- .al-page .al-carousel > .al-carousel-arrow,
- .al-page .al-tips-carousel > .al-tips-arrow,
- .vl-page .vl-tips-carousel > .vl-tip-arrow,
- .vl-page .vl-air-carousel > .vl-air-carousel-arrow,
- .cl-page.cl-landing .vcc-saving-carousel > .vcc-saving-arrow,
- .dv-page .dv-carousel-wrap > .dv-arrow,
- .dv-page .dv-tip-carousel-wrap > .dv-arrow,
- html body.ci-page .ci-tips-shell > .ci-tips-arrow,
- html body .ql-page .ql-advice-carousel-sides > .ql-carousel-arrow,
- html body .vcc-route-carousel > .vcc-route-arrow,
- html body .st-carousel-wrap > .carousel-arrow,
- html body.country-page .sweden-carousel-wrap > .carousel-arrow,
- html body .vcc-it-photo > .vcc-it-gallery-button,
- html body .place-nav-wrap .place-nav-arrow,
- body.mv-body .mv-day-controls > button,
- html body.ci-page .ci-august-weather-controls > button
-):disabled,
-:is(
- html body.budget-vcc .savings-section .carousel-shell > .carousel-arrow,
- html body.budget-vcc .surprise-section .carousel-shell > .carousel-arrow,
- html body.budget-vcc #filosofia .vcc-budget-mode-arrow,
- body.mv-body .mv-transport-shell > .mv-transport-arrow,
- body.mv-body .mv-carousel-shell > .mv-carousel-arrow,
- .ep-page .ep3-saving-stage > .ep3-saving-arrow,
- .ep-page .ep4-our-stage > .ep4-our-arrow,
- .tv-page .tv-carousel-shell > .tv-carousel-arrow,
- .al-page .al-carousel > .al-carousel-arrow,
- .al-page .al-tips-carousel > .al-tips-arrow,
- .vl-page .vl-tips-carousel > .vl-tip-arrow,
- .vl-page .vl-air-carousel > .vl-air-carousel-arrow,
- .cl-page.cl-landing .vcc-saving-carousel > .vcc-saving-arrow,
- .dv-page .dv-carousel-wrap > .dv-arrow,
- .dv-page .dv-tip-carousel-wrap > .dv-arrow,
- html body.ci-page .ci-tips-shell > .ci-tips-arrow,
- html body .ql-page .ql-advice-carousel-sides > .ql-carousel-arrow,
- html body .vcc-route-carousel > .vcc-route-arrow,
- html body .st-carousel-wrap > .carousel-arrow,
- html body.country-page .sweden-carousel-wrap > .carousel-arrow,
- html body .vcc-it-photo > .vcc-it-gallery-button,
- html body .place-nav-wrap .place-nav-arrow,
- body.mv-body .mv-day-controls > button,
- html body.ci-page .ci-august-weather-controls > button
-)[aria-disabled="true"]{
- opacity:.32!important;cursor:default!important;pointer-events:none;
-}
-/* Posició lateral comuna, en lloc de situar controls a dalt a la dreta. */
-:is(
- html body.budget-vcc .savings-section .carousel-shell > .carousel-arrow,
- html body.budget-vcc .surprise-section .carousel-shell > .carousel-arrow,
- html body.budget-vcc #filosofia .vcc-budget-mode-arrow,
- body.mv-body .mv-transport-shell > .mv-transport-arrow,
- body.mv-body .mv-carousel-shell > .mv-carousel-arrow,
- .ep-page .ep3-saving-stage > .ep3-saving-arrow,
- .ep-page .ep4-our-stage > .ep4-our-arrow,
- .tv-page .tv-carousel-shell > .tv-carousel-arrow,
- .al-page .al-carousel > .al-carousel-arrow,
- .al-page .al-tips-carousel > .al-tips-arrow,
- .vl-page .vl-tips-carousel > .vl-tip-arrow,
- .vl-page .vl-air-carousel > .vl-air-carousel-arrow,
- .cl-page.cl-landing .vcc-saving-carousel > .vcc-saving-arrow,
- .dv-page .dv-carousel-wrap > .dv-arrow,
- .dv-page .dv-tip-carousel-wrap > .dv-arrow,
- html body.ci-page .ci-tips-shell > .ci-tips-arrow,
- html body .ql-page .ql-advice-carousel-sides > .ql-carousel-arrow,
- html body .vcc-route-carousel > .vcc-route-arrow,
- html body .st-carousel-wrap > .carousel-arrow,
- html body.country-page .sweden-carousel-wrap > .carousel-arrow,
- html body .vcc-it-photo > .vcc-it-gallery-button
-){
- position:absolute!important;top:50%!important;bottom:auto!important;
- transform:translateY(-50%)!important;z-index:8!important;
-}
-:is(
- html body.budget-vcc .savings-section .carousel-shell > .carousel-arrow.prev,
- html body.budget-vcc .surprise-section .carousel-shell > .carousel-arrow.prev,
- html body.budget-vcc #filosofia .vcc-budget-mode-arrow.previous,
- body.mv-body .mv-transport-shell > .mv-transport-prev,
- body.mv-body .mv-carousel-shell > .mv-prev,
- .ep-page .ep3-saving-stage > .ep3-saving-prev,
- .ep-page .ep4-our-stage > .ep4-our-arrow-prev,
- .tv-page .tv-carousel-shell > [data-tv-prev],
- .al-page .al-carousel > .al-carousel-prev,
- .al-page .al-tips-carousel > .al-tips-prev,
- .vl-page .vl-tips-carousel > .vl-tip-prev,
- .vl-page .vl-air-carousel > .vl-air-carousel-prev,
- .cl-page.cl-landing .vcc-saving-carousel > .vcc-saving-prev,
- .dv-page .dv-carousel-wrap > .dv-arrow-left,
- .dv-page .dv-tip-carousel-wrap > .dv-tip-prev,
- html body.ci-page .ci-tips-shell > .ci-tips-prev,
- html body .ql-page .ql-advice-carousel-sides > #ql-advice-prev,
- html body .vcc-route-carousel > .vcc-route-prev,
- html body .st-carousel-wrap > .carousel-arrow.prev,
- html body.country-page .sweden-carousel-wrap > .carousel-arrow.prev,
- html body .vcc-it-photo > .vcc-it-gallery-button[data-vcc-it-dir='prev']
-){left:var(--vcc-arrow-offset)!important;right:auto!important}
-:is(
- html body.budget-vcc .savings-section .carousel-shell > .carousel-arrow.next,
- html body.budget-vcc .surprise-section .carousel-shell > .carousel-arrow.next,
- html body.budget-vcc #filosofia .vcc-budget-mode-arrow.next,
- body.mv-body .mv-transport-shell > .mv-transport-next,
- body.mv-body .mv-carousel-shell > .mv-next,
- .ep-page .ep3-saving-stage > .ep3-saving-next,
- .ep-page .ep4-our-stage > .ep4-our-arrow-next,
- .tv-page .tv-carousel-shell > [data-tv-next],
- .al-page .al-carousel > .al-carousel-next,
- .al-page .al-tips-carousel > .al-tips-next,
- .vl-page .vl-tips-carousel > .vl-tip-next,
- .vl-page .vl-air-carousel > .vl-air-carousel-next,
- .cl-page.cl-landing .vcc-saving-carousel > .vcc-saving-next,
- .dv-page .dv-carousel-wrap > .dv-arrow-right,
- .dv-page .dv-tip-carousel-wrap > .dv-tip-next,
- html body.ci-page .ci-tips-shell > .ci-tips-next,
- html body .ql-page .ql-advice-carousel-sides > #ql-advice-next,
- html body .vcc-route-carousel > .vcc-route-next,
- html body .st-carousel-wrap > .carousel-arrow.next,
- html body.country-page .sweden-carousel-wrap > .carousel-arrow.next,
- html body .vcc-it-photo > .vcc-it-gallery-button[data-vcc-it-dir='next']
-){right:var(--vcc-arrow-offset)!important;left:auto!important}
-/* Les fotos tenen overflow:hidden: les fletxes queden dins la imatge. */
-html body .vcc-it-photo > .vcc-it-gallery-button[data-vcc-it-dir='prev']{left:7px!important}
-html body .vcc-it-photo > .vcc-it-gallery-button[data-vcc-it-dir='next']{right:7px!important}
-:is(
- html body.budget-vcc .savings-section .carousel-shell > .carousel-arrow,
- html body.budget-vcc .surprise-section .carousel-shell > .carousel-arrow,
- html body.budget-vcc #filosofia .vcc-budget-mode-arrow,
- body.mv-body .mv-transport-shell > .mv-transport-arrow,
- body.mv-body .mv-carousel-shell > .mv-carousel-arrow,
- .ep-page .ep3-saving-stage > .ep3-saving-arrow,
- .ep-page .ep4-our-stage > .ep4-our-arrow,
- .tv-page .tv-carousel-shell > .tv-carousel-arrow,
- .al-page .al-carousel > .al-carousel-arrow,
- .al-page .al-tips-carousel > .al-tips-arrow,
- .vl-page .vl-tips-carousel > .vl-tip-arrow,
- .vl-page .vl-air-carousel > .vl-air-carousel-arrow,
- .cl-page.cl-landing .vcc-saving-carousel > .vcc-saving-arrow,
- .dv-page .dv-carousel-wrap > .dv-arrow,
- .dv-page .dv-tip-carousel-wrap > .dv-arrow,
- html body.ci-page .ci-tips-shell > .ci-tips-arrow,
- html body .ql-page .ql-advice-carousel-sides > .ql-carousel-arrow,
- html body .vcc-route-carousel > .vcc-route-arrow,
- html body .st-carousel-wrap > .carousel-arrow,
- html body.country-page .sweden-carousel-wrap > .carousel-arrow,
- html body .vcc-it-photo > .vcc-it-gallery-button,
- html body .place-nav-wrap .place-nav-arrow,
- body.mv-body .mv-day-controls > button,
- html body.ci-page .ci-august-weather-controls > button
-) svg{width:18px!important;height:18px!important;max-width:18px!important;max-height:18px!important;color:inherit!important}
-@media(max-width:760px){
- :root{
-  --vcc-arrow-size:32px;
-  --vcc-arrow-bg:rgba(255,255,255,.055);
-  --vcc-arrow-shadow:none;
-  --vcc-arrow-offset:-8px;
- }
- /* Es reaprofita tota l'amplada, les fletxes se superposen als extrems. */
- .vl-page .vl-air-carousel{padding-top:0!important}
- .vl-page .vl-tips-carousel{padding:0!important}
- .al-page .al-tips-carousel{padding:0!important}
- html body .vcc-it-photo > .vcc-it-gallery-button[data-vcc-it-dir='prev']{left:6px!important}
- html body .vcc-it-photo > .vcc-it-gallery-button[data-vcc-it-dir='next']{right:6px!important}
- :is(
- html body.budget-vcc .savings-section .carousel-shell > .carousel-arrow,
- html body.budget-vcc .surprise-section .carousel-shell > .carousel-arrow,
- html body.budget-vcc #filosofia .vcc-budget-mode-arrow,
- body.mv-body .mv-transport-shell > .mv-transport-arrow,
- body.mv-body .mv-carousel-shell > .mv-carousel-arrow,
- .ep-page .ep3-saving-stage > .ep3-saving-arrow,
- .ep-page .ep4-our-stage > .ep4-our-arrow,
- .tv-page .tv-carousel-shell > .tv-carousel-arrow,
- .al-page .al-carousel > .al-carousel-arrow,
- .al-page .al-tips-carousel > .al-tips-arrow,
- .vl-page .vl-tips-carousel > .vl-tip-arrow,
- .vl-page .vl-air-carousel > .vl-air-carousel-arrow,
- .cl-page.cl-landing .vcc-saving-carousel > .vcc-saving-arrow,
- .dv-page .dv-carousel-wrap > .dv-arrow,
- .dv-page .dv-tip-carousel-wrap > .dv-arrow,
- html body.ci-page .ci-tips-shell > .ci-tips-arrow,
- html body .ql-page .ql-advice-carousel-sides > .ql-carousel-arrow,
- html body .vcc-route-carousel > .vcc-route-arrow,
- html body .st-carousel-wrap > .carousel-arrow,
- html body.country-page .sweden-carousel-wrap > .carousel-arrow,
- html body .vcc-it-photo > .vcc-it-gallery-button,
- html body .place-nav-wrap .place-nav-arrow,
- body.mv-body .mv-day-controls > button,
- html body.ci-page .ci-august-weather-controls > button
-){font-size:18px!important}
- :is(
- html body.budget-vcc .savings-section .carousel-shell > .carousel-arrow,
- html body.budget-vcc .surprise-section .carousel-shell > .carousel-arrow,
- html body.budget-vcc #filosofia .vcc-budget-mode-arrow,
- body.mv-body .mv-transport-shell > .mv-transport-arrow,
- body.mv-body .mv-carousel-shell > .mv-carousel-arrow,
- .ep-page .ep3-saving-stage > .ep3-saving-arrow,
- .ep-page .ep4-our-stage > .ep4-our-arrow,
- .tv-page .tv-carousel-shell > .tv-carousel-arrow,
- .al-page .al-carousel > .al-carousel-arrow,
- .al-page .al-tips-carousel > .al-tips-arrow,
- .vl-page .vl-tips-carousel > .vl-tip-arrow,
- .vl-page .vl-air-carousel > .vl-air-carousel-arrow,
- .cl-page.cl-landing .vcc-saving-carousel > .vcc-saving-arrow,
- .dv-page .dv-carousel-wrap > .dv-arrow,
- .dv-page .dv-tip-carousel-wrap > .dv-arrow,
- html body.ci-page .ci-tips-shell > .ci-tips-arrow,
- html body .ql-page .ql-advice-carousel-sides > .ql-carousel-arrow,
- html body .vcc-route-carousel > .vcc-route-arrow,
- html body .st-carousel-wrap > .carousel-arrow,
- html body.country-page .sweden-carousel-wrap > .carousel-arrow,
- html body .vcc-it-photo > .vcc-it-gallery-button,
- html body .place-nav-wrap .place-nav-arrow,
- body.mv-body .mv-day-controls > button,
- html body.ci-page .ci-august-weather-controls > button
-) svg{width:16px!important;height:16px!important;max-width:16px!important;max-height:16px!important}
-}
-@media(prefers-reduced-motion:reduce){
- :is(
- html body.budget-vcc .savings-section .carousel-shell > .carousel-arrow,
- html body.budget-vcc .surprise-section .carousel-shell > .carousel-arrow,
- html body.budget-vcc #filosofia .vcc-budget-mode-arrow,
- body.mv-body .mv-transport-shell > .mv-transport-arrow,
- body.mv-body .mv-carousel-shell > .mv-carousel-arrow,
- .ep-page .ep3-saving-stage > .ep3-saving-arrow,
- .ep-page .ep4-our-stage > .ep4-our-arrow,
- .tv-page .tv-carousel-shell > .tv-carousel-arrow,
- .al-page .al-carousel > .al-carousel-arrow,
- .al-page .al-tips-carousel > .al-tips-arrow,
- .vl-page .vl-tips-carousel > .vl-tip-arrow,
- .vl-page .vl-air-carousel > .vl-air-carousel-arrow,
- .cl-page.cl-landing .vcc-saving-carousel > .vcc-saving-arrow,
- .dv-page .dv-carousel-wrap > .dv-arrow,
- .dv-page .dv-tip-carousel-wrap > .dv-arrow,
- html body.ci-page .ci-tips-shell > .ci-tips-arrow,
- html body .ql-page .ql-advice-carousel-sides > .ql-carousel-arrow,
- html body .vcc-route-carousel > .vcc-route-arrow,
- html body .st-carousel-wrap > .carousel-arrow,
- html body.country-page .sweden-carousel-wrap > .carousel-arrow,
- html body .vcc-it-photo > .vcc-it-gallery-button,
- html body .place-nav-wrap .place-nav-arrow,
- body.mv-body .mv-day-controls > button,
- html body.ci-page .ci-august-weather-controls > button
-){transition:none!important}
+  /* Mateix efecte del carrusel «Gastos por día»: taronja clar en clicar. */
+  html body.budget-vcc .savings-section .carousel-shell > .carousel-arrow:hover:not(:disabled):not([aria-disabled="true"]),
+  html body.budget-vcc .savings-section .carousel-shell > .carousel-arrow:active:not(:disabled):not([aria-disabled="true"]),
+  html body.budget-vcc .savings-section .carousel-shell > .carousel-arrow:focus-visible:not(:disabled):not([aria-disabled="true"]),
+  html body.budget-vcc .surprise-section .carousel-shell > .carousel-arrow:hover:not(:disabled):not([aria-disabled="true"]),
+  html body.budget-vcc .surprise-section .carousel-shell > .carousel-arrow:active:not(:disabled):not([aria-disabled="true"]),
+  html body.budget-vcc .surprise-section .carousel-shell > .carousel-arrow:focus-visible:not(:disabled):not([aria-disabled="true"]),
+  html body.budget-vcc #filosofia .vcc-budget-mode-arrow:hover:not(:disabled):not([aria-disabled="true"]),
+  html body.budget-vcc #filosofia .vcc-budget-mode-arrow:active:not(:disabled):not([aria-disabled="true"]),
+  html body.budget-vcc #filosofia .vcc-budget-mode-arrow:focus-visible:not(:disabled):not([aria-disabled="true"]),
+  body.mv-body .mv-transport-arrow:hover:not(:disabled):not([aria-disabled="true"]),
+  body.mv-body .mv-transport-arrow:active:not(:disabled):not([aria-disabled="true"]),
+  body.mv-body .mv-transport-arrow:focus-visible:not(:disabled):not([aria-disabled="true"]),
+  body.mv-body .mv-carousel-arrow:hover:not(:disabled):not([aria-disabled="true"]),
+  body.mv-body .mv-carousel-arrow:active:not(:disabled):not([aria-disabled="true"]),
+  body.mv-body .mv-carousel-arrow:focus-visible:not(:disabled):not([aria-disabled="true"]),
+  .ep-page .ep3-saving-stage > .ep3-saving-arrow:hover:not(:disabled):not([aria-disabled="true"]),
+  .ep-page .ep3-saving-stage > .ep3-saving-arrow:active:not(:disabled):not([aria-disabled="true"]),
+  .ep-page .ep3-saving-stage > .ep3-saving-arrow:focus-visible:not(:disabled):not([aria-disabled="true"]),
+  .ep-page .ep4-our-stage:not(.ep4-our-no-overflow) > .ep4-our-arrow:hover:not(:disabled):not([aria-disabled="true"]),
+  .ep-page .ep4-our-stage:not(.ep4-our-no-overflow) > .ep4-our-arrow:active:not(:disabled):not([aria-disabled="true"]),
+  .ep-page .ep4-our-stage:not(.ep4-our-no-overflow) > .ep4-our-arrow:focus-visible:not(:disabled):not([aria-disabled="true"]),
+  .tv-page .tv-carousel-shell > .tv-carousel-arrow:hover:not(:disabled):not([aria-disabled="true"]),
+  .tv-page .tv-carousel-shell > .tv-carousel-arrow:active:not(:disabled):not([aria-disabled="true"]),
+  .tv-page .tv-carousel-shell > .tv-carousel-arrow:focus-visible:not(:disabled):not([aria-disabled="true"]),
+  .al-page .al-carousel > .al-carousel-arrow:hover:not(:disabled):not([aria-disabled="true"]),
+  .al-page .al-tips-carousel > .al-tips-arrow:hover:not(:disabled):not([aria-disabled="true"]),
+  .al-page .al-carousel > .al-carousel-arrow:active:not(:disabled):not([aria-disabled="true"]),
+  .al-page .al-tips-carousel > .al-tips-arrow:active:not(:disabled):not([aria-disabled="true"]),
+  .al-page .al-carousel > .al-carousel-arrow:focus-visible:not(:disabled):not([aria-disabled="true"]),
+  .al-page .al-tips-carousel > .al-tips-arrow:focus-visible:not(:disabled):not([aria-disabled="true"]),
+  .vl-page .vl-tips-carousel > .vl-tip-arrow:hover:not(:disabled):not([aria-disabled="true"]),
+  .vl-page .vl-tips-carousel > .vl-tip-arrow:active:not(:disabled):not([aria-disabled="true"]),
+  .vl-page .vl-tips-carousel > .vl-tip-arrow:focus-visible:not(:disabled):not([aria-disabled="true"]),
+  .cl-page.cl-landing .vcc-saving-carousel > .vcc-saving-arrow:hover:not(:disabled):not([aria-disabled="true"]),
+  .cl-page.cl-landing .vcc-saving-carousel > .vcc-saving-arrow:active:not(:disabled):not([aria-disabled="true"]),
+  .cl-page.cl-landing .vcc-saving-carousel > .vcc-saving-arrow:focus-visible:not(:disabled):not([aria-disabled="true"]),
+  .dv-page .dv-carousel-wrap > .dv-arrow:hover:not(:disabled):not([aria-disabled="true"]),
+  .dv-page .dv-carousel-wrap > .dv-arrow:active:not(:disabled):not([aria-disabled="true"]),
+  .dv-page .dv-carousel-wrap > .dv-arrow:focus-visible:not(:disabled):not([aria-disabled="true"]),
+  .dv-page .dv-tip-carousel-wrap > .dv-arrow:hover:not(:disabled):not([aria-disabled="true"]),
+  .dv-page .dv-tip-carousel-wrap > .dv-arrow:active:not(:disabled):not([aria-disabled="true"]),
+  .dv-page .dv-tip-carousel-wrap > .dv-arrow:focus-visible:not(:disabled):not([aria-disabled="true"]),
+  html body.ci-page .ci-tips-shell > .ci-tips-arrow:hover:not(:disabled):not([aria-disabled="true"]),
+  html body.ci-page .ci-tips-shell > .ci-tips-arrow:active:not(:disabled):not([aria-disabled="true"]),
+  html body.ci-page .ci-tips-shell > .ci-tips-arrow:focus-visible:not(:disabled):not([aria-disabled="true"]),
+  html body .ql-page .ql-advice-carousel-sides > .ql-carousel-arrow:hover:not(:disabled):not([aria-disabled="true"]),
+  html body .ql-page .ql-advice-carousel-sides > .ql-carousel-arrow:active:not(:disabled):not([aria-disabled="true"]),
+  html body .ql-page .ql-advice-carousel-sides > .ql-carousel-arrow:focus-visible:not(:disabled):not([aria-disabled="true"]) {
+    background:#fff1e8!important;
+    border-color:#c36c4f!important;
+    color:#ab553b!important;
+  }
+
+  /* Si no es pot avançar, el control no es ressalta. */
+  html body.budget-vcc .savings-section .carousel-shell > .carousel-arrow:disabled,
+  html body.budget-vcc .savings-section .carousel-shell > .carousel-arrow[aria-disabled="true"],
+  html body.budget-vcc .surprise-section .carousel-shell > .carousel-arrow:disabled,
+  html body.budget-vcc .surprise-section .carousel-shell > .carousel-arrow[aria-disabled="true"],
+  html body.budget-vcc #filosofia .vcc-budget-mode-arrow:disabled,
+  html body.budget-vcc #filosofia .vcc-budget-mode-arrow[aria-disabled="true"],
+  body.mv-body .mv-transport-arrow:disabled,
+  body.mv-body .mv-transport-arrow[aria-disabled="true"],
+  body.mv-body .mv-carousel-arrow:disabled,
+  body.mv-body .mv-carousel-arrow[aria-disabled="true"],
+  .ep-page .ep3-saving-stage > .ep3-saving-arrow:disabled,
+  .ep-page .ep3-saving-stage > .ep3-saving-arrow[aria-disabled="true"],
+  .ep-page .ep4-our-stage:not(.ep4-our-no-overflow) > .ep4-our-arrow:disabled,
+  .ep-page .ep4-our-stage:not(.ep4-our-no-overflow) > .ep4-our-arrow[aria-disabled="true"],
+  .tv-page .tv-carousel-shell > .tv-carousel-arrow:disabled,
+  .tv-page .tv-carousel-shell > .tv-carousel-arrow[aria-disabled="true"],
+  .al-page .al-carousel > .al-carousel-arrow:disabled,
+  .al-page .al-tips-carousel > .al-tips-arrow:disabled,
+  .al-page .al-carousel > .al-carousel-arrow[aria-disabled="true"],
+  .al-page .al-tips-carousel > .al-tips-arrow[aria-disabled="true"],
+  .vl-page .vl-tips-carousel > .vl-tip-arrow:disabled,
+  .vl-page .vl-tips-carousel > .vl-tip-arrow[aria-disabled="true"],
+  .cl-page.cl-landing .vcc-saving-carousel > .vcc-saving-arrow:disabled,
+  .cl-page.cl-landing .vcc-saving-carousel > .vcc-saving-arrow[aria-disabled="true"],
+  .dv-page .dv-carousel-wrap > .dv-arrow:disabled,
+  .dv-page .dv-carousel-wrap > .dv-arrow[aria-disabled="true"],
+  .dv-page .dv-tip-carousel-wrap > .dv-arrow:disabled,
+  .dv-page .dv-tip-carousel-wrap > .dv-arrow[aria-disabled="true"],
+  html body.ci-page .ci-tips-shell > .ci-tips-arrow:disabled,
+  html body.ci-page .ci-tips-shell > .ci-tips-arrow[aria-disabled="true"],
+  html body .ql-page .ql-advice-carousel-sides > .ql-carousel-arrow:disabled,
+  html body .ql-page .ql-advice-carousel-sides > .ql-carousel-arrow[aria-disabled="true"] {
+    opacity:.5;
+    cursor:default!important;
+  }
+
+  /* Una mica més enfora: rodona superposada a la vora de cada targeta. */
+  html body.budget-vcc .savings-section .carousel-shell > .carousel-arrow.prev,
+  html body.budget-vcc .surprise-section .carousel-shell > .carousel-arrow.prev,
+  html body.budget-vcc #filosofia .vcc-budget-mode-arrow.previous,
+  body.mv-body .mv-transport-prev,
+  body.mv-body .mv-prev,
+  .ep-page .ep3-saving-stage > .ep3-saving-prev,
+  .ep-page .ep4-our-stage:not(.ep4-our-no-overflow) > .ep4-our-arrow-prev,
+  .tv-page .tv-carousel-shell > [data-tv-prev],
+  .al-page .al-carousel > .al-carousel-prev,
+  .al-page .al-tips-carousel > .al-tips-prev,
+  .vl-page .vl-tips-carousel > .vl-tip-prev,
+  .cl-page.cl-landing .vcc-saving-prev,
+  .dv-page .dv-carousel-wrap > .dv-arrow-left,
+  .dv-page .dv-tip-carousel-wrap > .dv-tip-prev,
+  html body.ci-page .ci-tips-shell > .ci-tips-prev,
+  html body .ql-page .ql-advice-carousel-sides > #ql-advice-prev {
+    left:-10px!important;
+    right:auto!important;
+  }
+  html body.budget-vcc .savings-section .carousel-shell > .carousel-arrow.next,
+  html body.budget-vcc .surprise-section .carousel-shell > .carousel-arrow.next,
+  html body.budget-vcc #filosofia .vcc-budget-mode-arrow.next,
+  body.mv-body .mv-transport-next,
+  body.mv-body .mv-next,
+  .ep-page .ep3-saving-stage > .ep3-saving-next,
+  .ep-page .ep4-our-stage:not(.ep4-our-no-overflow) > .ep4-our-arrow-next,
+  .tv-page .tv-carousel-shell > [data-tv-next],
+  .al-page .al-carousel > .al-carousel-next,
+  .al-page .al-tips-carousel > .al-tips-next,
+  .vl-page .vl-tips-carousel > .vl-tip-next,
+  .cl-page.cl-landing .vcc-saving-next,
+  .dv-page .dv-carousel-wrap > .dv-arrow-right,
+  .dv-page .dv-tip-carousel-wrap > .dv-tip-next,
+  html body.ci-page .ci-tips-shell > .ci-tips-next,
+  html body .ql-page .ql-advice-carousel-sides > #ql-advice-next {
+    right:-10px!important;
+    left:auto!important;
+  }
+  /* Altres carrusels actius: Destinos (rutes) i portada Estocolmo.
+     Només colors i interacció, no es canvien posicions ni la mida. */
+  html body .vcc-route-carousel > .vcc-route-arrow,
+  html body .st-carousel-wrap > .carousel-arrow,
+  html body.country-page .sweden-carousel-wrap > .carousel-arrow {
+    background:rgba(255,255,255,.045)!important;
+    border:1px solid #c7aa97!important;
+    border-radius:50%!important;
+    color:#ab553b!important;
+    box-shadow:none!important;
+    transition:background-color .15s ease,border-color .15s ease,color .15s ease;
+  }
+  html body .vcc-route-carousel > .vcc-route-arrow:is(:hover,:active,:focus-visible):not(:disabled):not([aria-disabled="true"]),
+  html body .st-carousel-wrap > .carousel-arrow:is(:hover,:active,:focus-visible):not(:disabled):not([aria-disabled="true"]),
+  html body.country-page .sweden-carousel-wrap > .carousel-arrow:is(:hover,:active,:focus-visible):not(:disabled):not([aria-disabled="true"]) {
+    background:#fff1e8!important;
+    border-color:#c36c4f!important;
+    color:#ab553b!important;
+  }
+  html body .vcc-route-carousel > .vcc-route-arrow:disabled,
+  html body .vcc-route-carousel > .vcc-route-arrow[aria-disabled="true"] {
+    opacity:.26!important;
+    pointer-events:none;
+  }
+
 }
