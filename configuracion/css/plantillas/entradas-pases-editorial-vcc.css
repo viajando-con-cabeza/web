@@ -161,7 +161,6 @@
 .ep-page .ep4-our-stage>.ep4-our-arrow{left:auto;right:auto;grid-row:1;justify-self:center;align-self:center;padding:0;margin:0}
 .ep-page .ep4-our-stage>.ep4-our-arrow-prev{grid-column:1}
 .ep-page .ep4-our-stage>.ep4-our-arrow-next{grid-column:3}
-.ep-page .ep4-our-stage>.ep4-our-arrow:hover:not(:disabled){background:#df6d28;color:#fff}
 .ep-page .ep4-our-stage>.ep4-our-arrow:disabled{cursor:default}
 .ep-page .ep4-medal.gold,.ep-page .ep4-medal.silver,.ep-page .ep4-medal.bronze{border:2px solid #fff;font-weight:700;color:#292b2b}
 .ep-page .ep4-medal.gold{background:radial-gradient(circle at 28% 18%,#fff6bc,#e3b34d 52%,#aa711f)}
@@ -192,7 +191,6 @@
 }
 @media(max-width:600px){
 .ep-page .ep4-our-stage{grid-template-columns:28px minmax(0,1fr) 28px;column-gap:3px}
-.ep-page .ep4-our-stage>.ep4-our-arrow{width:27px;height:27px;font-size:22px}
 .ep-page .ep4-our-list .ep4-day-card{flex-basis:90%;width:90%}
 .ep-page .ep4-our .ep4-heading h2,.ep-page .ep4-decision-heading .ep4-heading h2{font-size:calc(28px + var(--vcc-heading-size-adjust,0px))}
 }
@@ -285,10 +283,10 @@
 .ep-page .ep4-our-stage>.ep4-our-list{display:flex!important;grid-template-columns:none!important;flex-wrap:nowrap!important;overflow-x:auto!important;overflow-y:hidden!important;scroll-snap-type:x mandatory!important;scroll-padding:0!important;overscroll-behavior-x:contain;scrollbar-width:none;width:100%!important;max-width:100%!important;min-width:0;padding:2px 1px 8px!important;margin:0!important}
 .ep-page .ep4-our-stage>.ep4-our-list::-webkit-scrollbar{display:none}
 .ep-page .ep4-our-list>.ep4-day-card{display:block!important;min-width:0!important;scroll-snap-align:start!important;box-sizing:border-box}
-.ep-page .ep4-our-stage>.ep4-our-arrow{display:grid!important;place-items:center;position:absolute!important;top:50%!important;transform:translateY(-50%)!important;border-radius:50%;background:#fff!important;color:#ae592e!important;border:1px solid #e5dcd2!important;font:400 23px/1 Arial,sans-serif!important;z-index:2;cursor:pointer}
+.ep-page .ep4-our-stage>.ep4-our-arrow{display:grid!important;place-items:center;position:absolute!important;top:50%!important;transform:translateY(-50%)!important;z-index:2;cursor:pointer;}
 .ep-page .ep4-our-stage>.ep4-our-arrow-prev{right:auto!important}
 .ep-page .ep4-our-stage>.ep4-our-arrow-next{left:auto!important}
-.ep-page .ep4-our-stage>.ep4-our-arrow:disabled{opacity:.24!important;visibility:visible!important;pointer-events:none}
+.ep-page .ep4-our-stage>.ep4-our-arrow:disabled{visibility:visible!important;pointer-events:none;}
 .ep-page .ep4-day-group-icon{width:15px;height:15px;flex:0 0 15px;display:block}
 .ep-page .ep4-day-icon-paid{color:#31834e}
 .ep-page .ep4-day-icon-free{color:#7a8e9c}
@@ -298,7 +296,6 @@
 }
 @media(max-width:700px){
 .ep-page .ep4-our-stage,.ep-page .ep4-our-no-overflow{padding:0 29px}
-.ep-page .ep4-our-stage>.ep4-our-arrow{width:25px!important;height:25px!important;font-size:19px!important}
 .ep-page .ep4-our-stage>.ep4-our-arrow-prev{left:0!important}
 .ep-page .ep4-our-stage>.ep4-our-arrow-next{right:0!important}
 .ep-page .ep4-our-list .ep4-day-body{row-gap:10px}
@@ -329,7 +326,6 @@
 }
 .ep-page .ep4-our-stage,.ep-page .ep4-our-no-overflow{padding:0 28px!important}
 .ep-page .ep4-our-stage>.ep4-our-list{gap:12px!important}
-.ep-page .ep4-our-stage>.ep4-our-arrow{width:24px!important;height:24px!important;font-size:19px!important;box-shadow:none!important}
 .ep-page .ep4-our-stage>.ep4-our-arrow-prev{left:0!important}
 .ep-page .ep4-our-stage>.ep4-our-arrow-next{right:0!important}
 .ep-page .ep4-our-no-overflow>.ep4-our-arrow{display:none!important}
@@ -428,7 +424,6 @@
 /* Millora de llegibilitat i accessibilitat per a pantalles petites. */
 @media (max-width:600px){
  .ep-page .ep4-our-stage,.ep-page .ep4-our-no-overflow{padding:0 30px!important}
- .ep-page .ep4-our-stage>.ep4-our-arrow{width:32px!important;height:38px!important;font-size:22px!important}
  .ep-page .ep4-our-list .ep4-day-body{padding:10px 14px 14px!important}
  .ep-page .ep4-our-list .ep4-day-split{display:flex!important;flex-direction:column!important;gap:14px!important}
  .ep-page .ep4-our-list .ep4-day-summary{padding:0!important}
