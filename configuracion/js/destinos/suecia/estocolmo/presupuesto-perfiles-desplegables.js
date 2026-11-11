@@ -136,16 +136,19 @@
         const price = head.querySelector(".vcc-day-price");
         const source = label ? label.textContent.trim() : "";
         const match = source.match(/^D[IÍ]A\s+(\d+)\s*[·:-]\s*(.+)$/i);
-        // Un título único encima del carrusel: cambia con el día seleccionado.
-        day.dataset.dailyHeading = match
-          ? "GASTOS DÍA " + match[1] + " · " + match[2]
-          : "GASTOS · " + source;
-        // El coste por persona va al pie de la tarjeta, no en una cabecera repetida.
-        if (price) {
-          const footer = document.createElement("div");
-          footer.className = "vcc-daily-day-total";
-          footer.appendChild(price);
-          day.appendChild(footer);
+        // Datos del título en dos líneas para cada día, sin duplicarlo en la ficha.
+        day.dataset.dailyNumber = match ? match[1] : "";
+        day.dataset.dailyRoute = match ? match[2] : source;
+        const expenses = day.querySelector(".vcc-budget-day-expenses");
+        if (price && expenses) {
+          // Sexta celda: total diario alineado con Extras, sin borde ni fondo.
+          const totalTile = document.createElement("li");
+          totalTile.className = "vcc-day-total-tile";
+          const totalLabel = document.createElement("span");
+          totalLabel.className = "vcc-day-total-label";
+          totalLabel.textContent = "TOTAL / PAX";
+          totalTile.append(totalLabel, price);
+          expenses.appendChild(totalTile);
         }
         head.remove();
       }
@@ -183,8 +186,13 @@
     function setCurrent(index) {
       current = Math.max(0, Math.min(days.length - 1, index));
       count.textContent = (current + 1) + " / " + days.length;
-      heading.textContent = days[current].dataset.dailyHeading ||
-        "GASTOS DÍA " + (current + 1);
+      const main = document.createElement("span");
+      main.className = "vcc-daily-heading-main";
+      main.textContent = "GASTOS DÍA " + (days[current].dataset.dailyNumber || (current + 1));
+      const subtitle = document.createElement("small");
+      subtitle.className = "vcc-daily-heading-sub";
+      subtitle.textContent = days[current].dataset.dailyRoute || "";
+      heading.replaceChildren(main, subtitle);
       previous.disabled = current === 0;
       next.disabled = current === days.length - 1;
     }
