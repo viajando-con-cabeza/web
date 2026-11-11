@@ -1,4 +1,7 @@
 (function () {
+  // Component singleton: una segona inclusió no crea menús ni descarrega CSS duplicat.
+  if(window.__VCC_SHARED_HEADER_STARTED__)return;
+  window.__VCC_SHARED_HEADER_STARTED__=true;
   const script = document.currentScript;
   const siteRoot = script ? new URL('../../', script.src) : new URL('./', window.location.href);
   const url = (path) => new URL(path, siteRoot).href;
@@ -22,15 +25,21 @@
   }
 
   // Subheader editorial único en todas las páginas que lo incluyen (sin alterar el menú principal).
-  const subheaderCss=document.createElement('link');
-  subheaderCss.rel='stylesheet';
-  subheaderCss.href=url('configuracion/css/componentes/subheader-unificado-vcc.css?v=20261110-mobile-firstscreen-v1');
-  subheaderCss.dataset.vccSharedSubheader='true';
-  document.head.appendChild(subheaderCss);
-  const subheaderJs=document.createElement('script');
-  subheaderJs.src=url('configuracion/js/componentes/subheader-unificado-vcc.js?v=20261110-mobile-firstscreen-v1');
-  subheaderJs.async=true;
-  document.head.appendChild(subheaderJs);
+  const existingSubCss=document.querySelector('link[data-vcc-shared-subheader],link[href*="subheader-unificado-vcc.css"]');
+  if(!existingSubCss){
+    const subheaderCss=document.createElement('link');
+    subheaderCss.rel='stylesheet';
+    subheaderCss.href=url('configuracion/css/componentes/subheader-unificado-vcc.css?v=20261110-mobile-firstscreen-v1');
+    subheaderCss.dataset.vccSharedSubheader='true';
+    document.head.appendChild(subheaderCss);
+  }
+  const existingSubJs=document.querySelector('script[src*="subheader-unificado-vcc.js"]');
+  if(!existingSubJs){
+    const subheaderJs=document.createElement('script');
+    subheaderJs.src=url('configuracion/js/componentes/subheader-unificado-vcc.js?v=20261110-mobile-firstscreen-v1');
+    subheaderJs.async=true;
+    document.head.appendChild(subheaderJs);
+  }
   // Un único estilo para la ruta de navegación (Inicio > Destinos > país > ciudad > guía).
   // Cada página conserva sus enlaces, mientras se unifican tamaños y espacios.
   const breadcrumbSharedHref=url('configuracion/css/componentes/breadcrumb-vcc-global.css?v=20261110-tarjetas-v2');
