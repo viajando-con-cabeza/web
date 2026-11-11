@@ -199,3 +199,26 @@ html body .di-hero.vcc-breadcrumb-on-dark #vcc-global-breadcrumb a:hover{
 }
 .di-content{scroll-margin-top:calc(var(--vcc-subheader-top,88px) + 60px)}
 .di-panel{scroll-margin-top:calc(var(--vcc-subheader-top,88px) + 60px)}
+
+
+/* Consejos VCC: cards editorials, sense enllaç fins que l'article existeixi. */
+.di-editorial-grid{margin-top:2px}
+.di-upcoming{cursor:default}
+.di-upcoming:is(:hover,:focus-visible){transform:none;border-color:#e7e0d9;box-shadow:none}
+.di-upcoming .di-mini-photo img{filter:saturate(.88)}
+.di-upcoming:hover .di-mini-photo img{transform:none}
+.di-upcoming-status{
+  display:inline-flex;align-items:center;align-self:flex-start;
+  margin-top:auto;padding:6px 9px;border-radius:6px;
+  background:#f5f2ee;color:#75675e;
+  font:800 9px/1.2 "DM Sans",sans-serif;
+  letter-spacing:.05em;
+}
+.di-editorial-note{
+  margin:12px 0 0;color:#77706a;
+  font:400 11px/1.52 "DM Sans",sans-serif;
+}
+@media(max-width:620px){
+  .di-editorial-note{font-size:10.5px}
+  .di-upcoming-status{font-size:8.5px}
+}
