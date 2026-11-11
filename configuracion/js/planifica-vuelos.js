@@ -65,49 +65,6 @@
  carousel(tips,root.querySelector('[data-tip-prev]'),root.querySelector('[data-tip-next]'),()=>Array.from(tips?.children||[]));
 
 
- const bestPanel=root.querySelector('[data-best-panel]');
- const bestEmpty=root.querySelector('[data-best-empty]');
- const bestSelection=root.querySelector('[data-best-selection]');
- const bestName=root.querySelector('[data-best-name]');
- const bestPrice=root.querySelector('[data-best-price]');
- const bestSavings=root.querySelector('[data-best-savings]');
- function updateBest(completed, panels) {
-   const sorted=[...completed].sort((a,b)=>a.total-b.total||a.index-b.index);
-   panels.forEach(panel=>panel.classList.remove('is-cheapest'));
-   const show=sorted.length>=2;
-   if(bestEmpty)bestEmpty.hidden=show;
-   if(bestSelection)bestSelection.hidden=!show;
-   if(!show||!bestName||!bestPrice||!bestSavings)return;
-   const winner=sorted[0], min=winner.total;
-   const ties=sorted.filter(item=>Math.abs(item.total-min)<.005);
-   ties.forEach(item=>panels[item.index]?.classList.add('is-cheapest'));
-   bestName.textContent=ties.length>1
-      ?'Vuelo '+ties.map(item=>item.code).join(' y ')+(winner.airline!=='Aerolínea sin elegir'?' · '+winner.airline:'')
-      :'Vuelo '+winner.code+(winner.airline!=='Aerolínea sin elegir'?' · '+winner.airline:'');
-   bestPrice.textContent=money.format(min);
-   bestSavings.replaceChildren();
-   sorted.filter(item=>Math.abs(item.total-min)>=.005).forEach(item=>{
-     const li=document.createElement('li');
-     const amount=document.createElement('strong');
-     amount.textContent=money.format(item.total-min);
-     const span=document.createElement('span');
-     span.textContent=' frente al vuelo '+item.code+(item.airline!=='Aerolínea sin elegir'?' ('+item.airline+')':'');
-     li.append('Ahorras ',amount,span);
-     bestSavings.appendChild(li);
-   });
-   if(ties.length>1){
-     const li=document.createElement('li');
-     li.textContent='Empate de precio entre vuelos '+ties.map(item=>item.code).join(' y ')+'.';
-     bestSavings.appendChild(li);
-   }
-   if(!bestSavings.children.length){
-     const li=document.createElement('li');
-     li.textContent='Todas las opciones introducidas tienen el mismo coste total.';
-     bestSavings.appendChild(li);
-   }
- }
-
-
  // Comparador auténtico: las opciones son columnas y los conceptos, filas.
  const iconRoot='/configuracion/imagenes/iconos/paginas/planifica-vuelos-comparador-iconos.svg#';
  const letters=['A','B','C','D','E'];
