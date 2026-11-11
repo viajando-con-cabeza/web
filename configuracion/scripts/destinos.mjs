@@ -1,6 +1,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import {fileURLToPath} from 'node:url';
+import {isPublished,publicUrl} from './lib/publicacion-vcc.mjs';
 const ROOT=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'../..');
 const T=path.join(ROOT,'configuracion/plantillas/articulos');
 const [action,country,city]=process.argv.slice(2);
@@ -33,17 +34,30 @@ for(const day of d.itinerary.days)if(!day.title||!day.photos?.length||!day.stops
 for(const profile of ['lujo','medio','vcc','mochilero'])for(const key of ['alojamiento','comida','transporte','actividades','extras'])if(!Number.isFinite(d.budget.prices[profile]?.[key])||d.budget.prices[profile][key]<0)throw Error('Precio no válido: '+profile+'.'+key);
 const image=d.hero||'/configuracion/imagenes/fondos/fondos-itinerario.webp';
 url(image);
+// El disseny del hero només es defineix un cop. Cada ciutat guarda la seva foto com a variable.
+const heroCssPath=path.join(ROOT,'configuracion/css/destinos',country,city,'hero-params.css');
+fs.mkdirSync(path.dirname(heroCssPath),{recursive:true});
+const heroCss=':root{--vcc-destination-hero-image:url('+JSON.stringify(image)+');}\n';
+if(!fs.existsSync(heroCssPath)||fs.readFileSync(heroCssPath,'utf8')!==heroCss)
+ fs.writeFileSync(heroCssPath,heroCss);
 const img=(v)=>v||image;
 const common={COUNTRY:esc(d.country),CITY:esc(d.city),CITY_UPPER:esc(d.city.toUpperCase()),EYEBROW:esc(`${d.country} · ${d.city}`.toUpperCase()),COUNTRY_URL:`/destinos/${country}/`};
 function render(name,slots){
  let s=fs.readFileSync(path.join(T,name+'.html'),'utf8').replaceAll('<meta name="robots" content="noindex,nofollow">','');
  const values={...common,...slots};
  s=s.replace(/\{\{([A-Z_]+)\}\}/g,(_,k)=>{if(!(k in values))throw Error('Falta campo '+k);return values[k];});
- s=s.replace('</head>',`<style>html body .imp-page .imp-hero{background-image:linear-gradient(90deg,#f8f4eef5,#f8f4ee15),url(${JSON.stringify(image)})!important}</style>${d.ready?'':'<meta name="robots" content="noindex,nofollow">'}</head>`);
+ const destinationFile='destinos/'+country+'/'+city+'/'+name+'.html';
+ const published=d.ready===true && isPublished(destinationFile);
+ const dynamicCSS='/configuracion/css/destinos/'+country+'/'+city+'/hero-params.css';
+ const linkedCSS='<link rel="stylesheet" href="/configuracion/css/plantillas/destino-hero-compartido-vcc.css">'+
+   '<link rel="stylesheet" href="'+dynamicCSS+'">';
+ const robots=published?'':'<meta name="robots" content="noindex,follow">';
+ s=s.replace('</head>',linkedCSS+robots+'</head>');
  if(!d.ready)s=s.replace(/<body([^>]*)>/,'<body$1><div style="padding:10px;background:#f2e6d3;text-align:center;font:13px sans-serif">BORRADOR · Contenido de ejemplo pendiente de completar y revisar</div>');
- fs.writeFileSync(path.join(dir,name+'.html'),s);
+ const output=path.join(dir,name+'.html');
+ if(!fs.existsSync(output)||fs.readFileSync(output,'utf8')!==s)fs.writeFileSync(output,s);
 }
-const canonical=name=>'https://viajandoconcabeza.com'+base+name+'.html';
+const canonical=name=>publicUrl('destinos/'+country+'/'+city+'/'+name+'.html');
 const places=d.places.map(p=>[p.id,p.name,p.type,p.subtitle,p.description,p.area,p.duration,p.rating,p.subtitle,p.tip,...p.photos.map((_,i)=>p.id+'-'+i)]);
 const images=Object.fromEntries(d.places.flatMap(p=>p.photos.map((src,i)=>[p.id+'-'+i,src])));
 render('imprescindibles',{TITLE:esc(`Qué ver en ${d.city} | VCC`),DESCRIPTION:esc(d.intro),CANONICAL:canonical('imprescindibles'),HEADING:esc(`QUÉ VER EN ${d.city.toUpperCase()}`),SUBTITLE:esc('Nuestros imprescindibles'),INTRO:esc(d.intro),IMAGES_JSON:json(images),PLACES_JSON:json(places),MAP_QUERY_JSON:json(d.city+', '+d.country)});
