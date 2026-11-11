@@ -320,7 +320,7 @@
  shareButton?.addEventListener('click',async()=>{
    const link=new URL(window.location.pathname,window.location.origin);
    link.searchParams.set(sharedParam,serializeFlights());
-   link.hash='calculadora';
+   link.hash='#calculadora';
    const text=link.toString();
    if(navigator.clipboard?.writeText){
      try{
@@ -333,7 +333,7 @@
    showShareFallback(text);
  });
  clearButton?.addEventListener('click',()=>{
-   if(flights.some(f=>costKeys.some(key=>f[key]!==''))&&
+   if(flights.some(f=>Object.values(f).some(value=>value!==''))&&
       !window.confirm('¿Borrar los vuelos introducidos y la comparación guardada?'))return;
    flights.splice(0,flights.length,emptyFlight(),emptyFlight(),emptyFlight());
    try{window.localStorage.removeItem(storageKey);}catch{}
