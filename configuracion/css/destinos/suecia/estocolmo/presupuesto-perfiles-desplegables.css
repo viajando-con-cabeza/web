@@ -1079,7 +1079,7 @@ html body.budget-vcc .calculator-section .section-heading{
 }
 html body.budget-vcc .calculator-grid{
   gap:12px!important;
-  align-items:start!important;
+  align-items:stretch!important;
 }
 html body.budget-vcc .calculator-grid > .breakdown-card,
 html body.budget-vcc .calculator-grid > .calculator-card{
@@ -1298,7 +1298,8 @@ html body.budget-vcc .calculator-card .calc-total{
     height:auto!important;
     min-height:0!important;
     box-sizing:border-box;
-    align-self:stretch;
+    align-self:stretch!important;
+    height:100%!important;
   }
   /* Centrar visualmente el gráfico sin forzar una altura fija. */
   html body.budget-vcc .calculator-grid > .breakdown-card {
@@ -1332,5 +1333,26 @@ html body.budget-vcc .calculator-card .calc-total{
   html body.budget-vcc .calculator-card .calc-total {
     margin-top:6px!important;
     padding-top:6px!important;
+  }
+}
+
+/* Estocolmo presupuesto: una sola fila de igual altura en escritorio.
+   La tarjeta alta determina la altura de ambas, sin tocar móvil. */
+@media (min-width:821px){
+  html body.budget-vcc .calculator-section .calculator-grid{
+    display:grid!important;
+    grid-auto-rows:minmax(0,1fr)!important;
+    align-items:stretch!important;
+  }
+  html body.budget-vcc .calculator-section .calculator-grid > .breakdown-card,
+  html body.budget-vcc .calculator-section .calculator-grid > .calculator-card{
+    align-self:stretch!important;
+    height:100%!important;
+    box-sizing:border-box!important;
+    max-height:none!important;
+  }
+  html body.budget-vcc .calculator-section .calculator-grid > .breakdown-card .chart-layout{
+    flex-grow:1!important;
+    align-content:center!important;
   }
 }
