@@ -3,7 +3,7 @@
     --gris: #686868;
     --crema: #faf8f3;
     --blanco: #ffffff;
-    --coral: #e97861;
+    --coral: var(--vcc-color-accent-pages, #e97861);
     --coral-claro: #f9ddd5;
     --verde: #dfece5;
     --amarillo: #f7e8c5;
@@ -23,7 +23,7 @@ body {
     margin: 0;
     background: var(--crema);
     color: var(--negro);
-    font-family: "DM Sans", Arial, sans-serif;
+    font-family: var(--vcc-font-body, "DM Sans", Arial, sans-serif);
 }
 
 a {

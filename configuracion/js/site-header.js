@@ -3,6 +3,15 @@
   const siteRoot = script ? new URL('../../', script.src) : new URL('./', window.location.href);
   const url = (path) => new URL(path, siteRoot).href;
 
+  // Design tokens: una única paleta i font de tipografia per a tot el blog.
+  if(!document.querySelector('link[data-vcc-design-tokens]')){
+    const designTokens=document.createElement('link');
+    designTokens.rel='stylesheet';
+    designTokens.href=url('configuracion/css/base/tokens-vcc.css?v=20261111-sistema-v1');
+    designTokens.dataset.vccDesignTokens='true';
+    document.head.appendChild(designTokens);
+  }
+
   // Subheader editorial único en todas las páginas que lo incluyen (sin alterar el menú principal).
   const subheaderCss=document.createElement('link');
   subheaderCss.rel='stylesheet';

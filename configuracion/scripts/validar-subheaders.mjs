@@ -48,7 +48,7 @@ for(const [match,url] of [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map(m=>[m
   errors.push(local+': falta el carregador global site-header.js');
 }
 const requirements=[
- [style.includes('--vcc-subnav-height:39px'),'alçada estàndard 39 px'],
+ [style.includes('--vcc-component-subheader-height,39px'),'alçada estàndard 39 px'],
  [style.includes("font:800 11.5px/1.15 'DM Sans'"),'tipografia estàndard DM Sans 11.5 px'],
  [style.includes('font-size:11px!important'),'tipografia mòbil 11 px'],
  [style.includes('border-color .16s ease'),'animació coherent del subratllat'],

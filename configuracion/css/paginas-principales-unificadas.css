@@ -6,7 +6,7 @@
   --vcc-paper:#faf6f1;
   --vcc-cream:#f4e9df;
   --vcc-white:#fffdfb;
-  --vcc-orange:#d96847;
+  --vcc-orange:var(--vcc-color-accent-home, #d96847);
   --vcc-orange-dark:#b94f34;
   --vcc-line:#e7ddd4;
   --vcc-soft:#f2e4d8;
@@ -16,7 +16,7 @@
 html:has(body.planifica-page),html:has(body.about-vcc),html:has(body.contact-page){scroll-behavior:smooth}
 body:has(.planifica-page),body.about-vcc,body:has(.contact-page){
   background:var(--vcc-paper)!important;color:var(--vcc-ink)!important;
-  font-family:"DM Sans",sans-serif!important;font-size:14px;line-height:1.6;
+  font-family:var(--vcc-font-body, "DM Sans", Arial, sans-serif)!important;font-size:14px;line-height:1.6;
 }
 body.about-vcc main,body:has(.planifica-page) main,body:has(.contact-page) main{overflow:hidden}
 body:has(.planifica-page) .planifica-page,body.about-vcc .shell,body:has(.contact-page) .contact-inner,body:has(.contact-page) .contact-hero-content,body:has(.contact-page) .contact-cta-inner{
@@ -24,12 +24,12 @@ body:has(.planifica-page) .planifica-page,body.about-vcc .shell,body:has(.contac
 }
 body:has(.planifica-page) .planifica-page{padding-bottom:56px!important}
 body.about-vcc h1,body.about-vcc h2,body.about-vcc h3,body:has(.planifica-page) h1,body:has(.planifica-page) h2,body:has(.planifica-page) h3,body:has(.contact-page) h1,body:has(.contact-page) h2{
-  font-family:"Oswald",sans-serif!important;font-weight:500!important;letter-spacing:0!important;color:var(--vcc-ink);
+  font-family:var(--vcc-font-heading, "Oswald", sans-serif)!important;font-weight:500!important;letter-spacing:0!important;color:var(--vcc-ink);
 }
-body.about-vcc p,body:has(.planifica-page) p,body:has(.contact-page) p{font-family:"DM Sans",sans-serif}
+body.about-vcc p,body:has(.planifica-page) p,body:has(.contact-page) p{font-family:var(--vcc-font-body, "DM Sans", Arial, sans-serif)}
 body.about-vcc .eyebrow,body.about-vcc .section-kicker,body:has(.planifica-page) .planifica-kicker,body:has(.planifica-page) .planifica-section-label,body:has(.contact-page) .contact-eyebrow{
   display:inline-block!important;padding:4px 9px!important;background:var(--vcc-orange)!important;color:#fffaf6!important;
-  font:800 10px/1.4 "DM Sans",sans-serif!important;letter-spacing:.075em!important;text-transform:uppercase;
+  font:800 10px/1.4 var(--vcc-font-body, "DM Sans", Arial, sans-serif)!important;letter-spacing:.075em!important;text-transform:uppercase;
 }
 body.about-vcc .about-hero,body:has(.planifica-page) .planifica-hero,body:has(.contact-page) .contact-hero{
   min-height:360px!important;display:flex;align-items:center;position:relative;overflow:hidden;
@@ -55,16 +55,16 @@ body.about-vcc .about-hero h1,body:has(.planifica-page) .planifica-hero h1,body:
 body.about-vcc .about-hero h1 em{font-style:normal;color:var(--vcc-orange-dark)!important}
 body:has(.planifica-page) .planifica-hero h1{color:var(--vcc-ink)!important}
 body:has(.planifica-page) .planifica-script,body.about-vcc .hero-lead,body:has(.contact-page) .contact-hero p{
-  font:400 15px/1.65 "DM Sans",sans-serif!important;color:#4f4a45!important;max-width:590px;margin:0!important;
+  font:400 15px/1.65 var(--vcc-font-body, "DM Sans", Arial, sans-serif)!important;color:#4f4a45!important;max-width:590px;margin:0!important;
 }
 body:has(.planifica-page) .planifica-script{font-size:15px!important;line-height:1.65!important}
 body:has(.planifica-page) .planifica-flight,body:has(.contact-page) .contact-flight-line{margin-top:18px!important;color:var(--vcc-orange)!important}
 body:has(.planifica-page) .planifica-flight span,body:has(.contact-page) .contact-flight-line span{background:var(--vcc-orange)!important}
 body:has(.planifica-page) .planifica-flight b,body:has(.contact-page) .contact-flight-line b{color:var(--vcc-ink)!important}
-body.about-vcc .hero-signoff{margin-top:18px;border-top:1px solid #cbb9a8;padding-top:10px;max-width:590px;font:700 11px/1.5 "DM Sans",sans-serif;letter-spacing:.035em;color:#655b52}
+body.about-vcc .hero-signoff{margin-top:18px;border-top:1px solid #cbb9a8;padding-top:10px;max-width:590px;font:700 11px/1.5 var(--vcc-font-body, "DM Sans", Arial, sans-serif);letter-spacing:.035em;color:#655b52}
 body:has(.planifica-page) .planifica-section-intro{max-width:760px;margin:0 auto 30px!important;padding:38px 16px 0!important}
 body:has(.planifica-page) .planifica-section-intro h2{font-size:clamp(28px,2.8vw,38px)!important;line-height:1.12!important;margin:10px 0!important}
-body:has(.planifica-page) .planifica-section-intro h2 em{font-family:"Caveat",cursive!important;font-size:1.12em!important;color:var(--vcc-orange-dark)!important}
+body:has(.planifica-page) .planifica-section-intro h2 em{font-family:var(--vcc-font-script, "Caveat", cursive)!important;font-size:1.12em!important;color:var(--vcc-orange-dark)!important}
 body:has(.planifica-page) .planifica-section-intro p{font-size:14px!important;line-height:1.65!important;color:var(--vcc-muted)!important}
 body:has(.planifica-page) .planifica-grid{width:min(var(--vcc-content),calc(100% - var(--vcc-gutter)))!important;margin:0 auto!important;gap:16px!important}
 body:has(.planifica-page) .planifica-card{background:var(--vcc-white)!important;border:1px solid var(--vcc-line)!important;border-radius:7px!important;min-height:230px!important;padding:22px 18px 18px!important;box-shadow:0 3px 12px rgba(58,42,30,.025)!important}
@@ -75,7 +75,7 @@ body:has(.planifica-page) .planifica-card p{font-size:13px!important;line-height
 body:has(.planifica-page) .planifica-card-link{color:var(--vcc-orange-dark)!important;font-size:11px!important}
 body:has(.planifica-page) .planifica-bottom{width:min(var(--vcc-content),calc(100% - var(--vcc-gutter)))!important;margin:30px auto 0!important;background:#f2e4d8!important;border:1px solid #e6d5c8!important;border-radius:7px!important}
 body:has(.planifica-page) .planifica-bottom h2{font-size:clamp(28px,2.8vw,38px)!important;line-height:1.12!important}
-body:has(.planifica-page) .planifica-bottom h2 em{font-family:"Caveat",cursive!important;color:var(--vcc-orange-dark)!important}
+body:has(.planifica-page) .planifica-bottom h2 em{font-family:var(--vcc-font-script, "Caveat", cursive)!important;color:var(--vcc-orange-dark)!important}
 body:has(.planifica-page) .planifica-bottom p{font-size:13px!important;line-height:1.6!important;color:var(--vcc-muted)!important}
 body:has(.planifica-page) .planifica-bottom-button{background:var(--vcc-ink)!important;color:#fff!important;border-radius:4px!important}
 body:has(.planifica-page) .planifica-bottom-button span{color:#f1a080!important}
@@ -103,30 +103,30 @@ body.about-vcc .about-ending{min-height:240px!important}
 body.about-vcc .ending-photo{background-image:url("/configuracion/imagenes/externas/unsplash/photo-1464822759023-fed622ff2c3b.webp")!important}
 body.about-vcc .ending-copy h2{font-size:clamp(32px,3vw,42px)!important;line-height:1.12!important}
 body.about-vcc .ending-copy p{font-size:14px!important;line-height:1.6!important}
-body.about-vcc .ending-actions a{background:var(--vcc-orange)!important;color:#fff!important;border-radius:4px!important;font:800 10px/1.3 "DM Sans",sans-serif!important;padding:11px 14px!important}
+body.about-vcc .ending-actions a{background:var(--vcc-orange)!important;color:#fff!important;border-radius:4px!important;font:800 10px/1.3 var(--vcc-font-body, "DM Sans", Arial, sans-serif)!important;padding:11px 14px!important}
 body.about-vcc .ending-actions a:hover{background:var(--vcc-orange-dark)!important}
 body:has(.contact-page) .contact-main{padding:38px 0 48px!important;background:var(--vcc-paper)!important;background-image:none!important}
 body:has(.contact-page) .contact-inner{grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr)!important;gap:40px!important}
 body:has(.contact-page) .contact-info h2{font-size:clamp(23px,2.3vw,31px)!important;line-height:1.15!important;margin:0 0 20px!important}
 body:has(.contact-page) .contact-method{gap:15px!important;margin-bottom:16px!important}
 body:has(.contact-page) .contact-icon{background:#f3e2d8!important;box-shadow:none!important}
-body:has(.contact-page) .contact-method strong{font:600 20px/1.25 "Oswald",sans-serif!important;color:var(--vcc-ink)!important}
-body:has(.contact-page) .contact-method em{font:400 13px/1.5 "DM Sans",sans-serif!important;color:var(--vcc-orange-dark)!important}
+body:has(.contact-page) .contact-method strong{font:600 20px/1.25 var(--vcc-font-heading, "Oswald", sans-serif)!important;color:var(--vcc-ink)!important}
+body:has(.contact-page) .contact-method em{font:400 13px/1.5 var(--vcc-font-body, "DM Sans", Arial, sans-serif)!important;color:var(--vcc-orange-dark)!important}
 body:has(.contact-page) .contact-note{border-top:1px solid var(--vcc-line)!important}
-body:has(.contact-page) .contact-note p{font:600 26px/1.2 "Caveat",cursive!important;color:var(--vcc-ink)!important}
+body:has(.contact-page) .contact-note p{font:600 26px/1.2 var(--vcc-font-script, "Caveat", cursive)!important;color:var(--vcc-ink)!important}
 body:has(.contact-page) .contact-form-wrap{background:var(--vcc-white)!important;border:1px solid var(--vcc-line)!important;border-radius:7px!important;padding:28px!important;box-shadow:0 4px 16px rgba(58,42,30,.035)!important}
 body:has(.contact-page) .form-stamp{background:#f5e5dc!important;border-color:#d9c4b6!important}
 body:has(.contact-page) .contact-form-wrap h2{font-size:clamp(28px,2.8vw,38px)!important;line-height:1.12!important}
 body:has(.contact-page) .form-intro{font-size:14px!important;line-height:1.65!important;color:var(--vcc-muted)!important}
 body:has(.contact-page) #contactForm{gap:11px!important}
 body:has(.contact-page) #contactForm input[type=text],body:has(.contact-page) #contactForm input[type=email],body:has(.contact-page) #contactForm select,body:has(.contact-page) #contactForm textarea{
-  min-height:46px!important;padding:12px 14px!important;border:1px solid #e2d6cd!important;border-radius:4px!important;background:#fff!important;color:var(--vcc-ink)!important;font:400 14px/1.5 "DM Sans",sans-serif!important;
+  min-height:46px!important;padding:12px 14px!important;border:1px solid #e2d6cd!important;border-radius:4px!important;background:#fff!important;color:var(--vcc-ink)!important;font:400 14px/1.5 var(--vcc-font-body, "DM Sans", Arial, sans-serif)!important;
 }
 body:has(.contact-page) #contactForm textarea{min-height:130px!important}
 body:has(.contact-page) #contactForm input:focus,body:has(.contact-page) #contactForm select:focus,body:has(.contact-page) #contactForm textarea:focus{outline:2px solid #d9684780!important;outline-offset:2px!important}
 body:has(.contact-page) .privacy-check{font-size:12px!important;line-height:1.5!important}
 body:has(.contact-page) .privacy-check a{color:var(--vcc-orange-dark)!important}
-body:has(.contact-page) #contactForm button{background:var(--vcc-orange)!important;color:#fff!important;border-radius:4px!important;font:800 11px/1.3 "DM Sans",sans-serif!important;letter-spacing:.045em!important;padding:14px 20px!important}
+body:has(.contact-page) #contactForm button{background:var(--vcc-orange)!important;color:#fff!important;border-radius:4px!important;font:800 11px/1.3 var(--vcc-font-body, "DM Sans", Arial, sans-serif)!important;letter-spacing:.045em!important;padding:14px 20px!important}
 body:has(.contact-page) #contactForm button:hover{background:var(--vcc-orange-dark)!important}
 body:has(.contact-page) .form-feedback{font-size:11px!important;line-height:1.5!important;color:var(--vcc-muted)!important}
 body:has(.contact-page) .contact-cta{min-height:230px!important;background-image:linear-gradient(90deg,rgba(26,29,28,.75),rgba(26,29,28,.22)),url("/configuracion/imagenes/externas/unsplash/photo-1464822759023-fed622ff2c3b.webp")!important}
@@ -182,9 +182,9 @@ body:has(.contact-page) .contact-cta .contact-eyebrow{background:transparent!imp
 /* CONTACTO · refinamiento solicitado: hero editorial, redes completas y mapamundi */
 body:has(.contact-page) .contact-hero-content{padding:48px 0!important}
 body:has(.contact-page) .contact-hero .contact-eyebrow{display:none!important}
-body:has(.contact-page) .contact-hero h1{font-family:"Oswald",sans-serif!important;font-size:clamp(34px,3.6vw,48px)!important;font-weight:500!important;line-height:1.08!important;letter-spacing:0!important;margin:0 0 7px!important;text-transform:uppercase!important}
-body:has(.contact-page) .contact-hero-script{font-family:"Caveat",cursive!important;font-size:clamp(21px,2.2vw,28px)!important;line-height:1.2!important;color:var(--vcc-orange-dark)!important;margin:0 0 8px!important;max-width:none!important}
-body:has(.contact-page) .contact-hero p:not(.contact-hero-script){font-family:"DM Sans",sans-serif!important;font-size:15px!important;line-height:1.65!important;max-width:590px!important;margin:0!important}
+body:has(.contact-page) .contact-hero h1{font-family:var(--vcc-font-heading, "Oswald", sans-serif)!important;font-size:clamp(34px,3.6vw,48px)!important;font-weight:500!important;line-height:1.08!important;letter-spacing:0!important;margin:0 0 7px!important;text-transform:uppercase!important}
+body:has(.contact-page) .contact-hero-script{font-family:var(--vcc-font-script, "Caveat", cursive)!important;font-size:clamp(21px,2.2vw,28px)!important;line-height:1.2!important;color:var(--vcc-orange-dark)!important;margin:0 0 8px!important;max-width:none!important}
+body:has(.contact-page) .contact-hero p:not(.contact-hero-script){font-family:var(--vcc-font-body, "DM Sans", Arial, sans-serif)!important;font-size:15px!important;line-height:1.65!important;max-width:590px!important;margin:0!important}
 body:has(.contact-page) .contact-plane-logo{position:absolute!important;right:22px!important;top:18px!important;width:52px!important;height:52px!important;object-fit:contain!important;opacity:.9!important}
 body:has(.contact-page) .contact-form-wrap{position:relative!important;padding-top:82px!important}
 body:has(.contact-page) .contact-form-wrap .contact-eyebrow{display:none!important}
@@ -264,7 +264,7 @@ body:has(.contact-page) .contact-hero .contact-eyebrow{
   display:block!important;width:max-content!important;
   margin:0 0 9px!important;padding:0!important;
   background:transparent!important;color:var(--vcc-orange-dark)!important;
-  font:700 11px/1.4 "DM Sans",sans-serif!important;
+  font:700 11px/1.4 var(--vcc-font-body, "DM Sans", Arial, sans-serif)!important;
   letter-spacing:.12em!important;text-transform:uppercase!important;
 }
 body:has(.contact-page) .contact-postcard.world-map-image{
@@ -284,7 +284,7 @@ body:has(.contact-page) .world-map-image img{
 body:has(.contact-page) .contact-hero .contact-eyebrow{
   display:block!important;width:max-content!important;margin:0 0 9px!important;
   padding:0!important;background:transparent!important;
-  font-family:"Caveat",cursive!important;font-size:25px!important;font-weight:600!important;
+  font-family:var(--vcc-font-script, "Caveat", cursive)!important;font-size:25px!important;font-weight:600!important;
   line-height:1!important;letter-spacing:0!important;text-transform:none!important;
   color:#cf705c!important;
 }
@@ -307,7 +307,7 @@ body:has(.planifica-page) .planifica-kicker,
 body:has(.planifica-page) .planifica-section-label{
   display:block!important;width:max-content!important;margin:0 0 9px!important;
   padding:0!important;background:transparent!important;
-  color:#cf705c!important;font-family:"Caveat",cursive!important;
+  color:#cf705c!important;font-family:var(--vcc-font-script, "Caveat", cursive)!important;
   font-size:25px!important;font-weight:600!important;line-height:1!important;
   letter-spacing:0!important;text-transform:none!important;
 }
@@ -333,7 +333,7 @@ body:has(.planifica-page) .planifica-hero-copy{
   width:min(1120px,calc(100% - 48px))!important;padding:62px 0 56px!important;
 }
 body:has(.planifica-page) .planifica-kicker{
-  color:#f4b28d!important;font:600 25px/1 "Caveat",cursive!important;
+  color:#f4b28d!important;font:600 25px/1 var(--vcc-font-script, "Caveat", cursive)!important;
   letter-spacing:0!important;text-transform:none!important;margin:0 0 13px!important;
 }
 body:has(.planifica-page) .planifica-hero h1{
@@ -344,7 +344,7 @@ body:has(.planifica-page) .planifica-hero h1{
 }
 body:has(.planifica-page) .planifica-hero h1 span{color:#f08a48!important}
 body:has(.planifica-page) .planifica-script{
-  color:#fff!important;font:600 clamp(23px,2.4vw,31px)/1.15 "Caveat",cursive!important;
+  color:#fff!important;font:600 clamp(23px,2.4vw,31px)/1.15 var(--vcc-font-script, "Caveat", cursive)!important;
 }
 body:has(.planifica-page) .planifica-flight{color:#f08a48!important}
 body:has(.planifica-page) .planifica-flight span{background:#f08a48!important}
@@ -355,7 +355,7 @@ body:has(.planifica-page) .planifica-postcard img{
 body:has(.planifica-page) .planifica-cta .planifica-section-label{
   display:inline-block!important;background:transparent!important;color:#f4b28d!important;
   padding:0!important;margin:0 0 10px!important;
-  font:800 12px/1.4 "DM Sans",sans-serif!important;letter-spacing:.045em!important;
+  font:800 12px/1.4 var(--vcc-font-body, "DM Sans", Arial, sans-serif)!important;letter-spacing:.045em!important;
   text-transform:uppercase!important;
 }
 @media(max-width:650px){
@@ -385,7 +385,7 @@ body:has(.planifica-page) .planifica-hero-copy{
 body:has(.planifica-page) .planifica-kicker{
   display:block!important;width:max-content!important;margin:0 0 12px!important;
   padding:0!important;background:transparent!important;color:#cf705c!important;
-  font:600 25px/1 "Caveat",cursive!important;letter-spacing:0!important;text-transform:none!important;
+  font:600 25px/1 var(--vcc-font-script, "Caveat", cursive)!important;letter-spacing:0!important;text-transform:none!important;
 }
 body:has(.planifica-page) .planifica-hero h1{
   max-width:950px!important;color:#292724!important;
@@ -397,7 +397,7 @@ body:has(.planifica-page) .planifica-hero h1 em{
 }
 body:has(.planifica-page) .planifica-script{
   max-width:700px!important;color:#292724!important;
-  font:400 15px/1.65 "DM Sans",sans-serif!important;
+  font:400 15px/1.65 var(--vcc-font-body, "DM Sans", Arial, sans-serif)!important;
 }
 body:has(.planifica-page) .planifica-flight{color:#bd563b!important}
 body:has(.planifica-page) .planifica-flight span{background:#bd563b!important}
@@ -416,14 +416,14 @@ body:has(.planifica-page) .planifica-cta .planifica-cta-inner{
 body:has(.planifica-page) .planifica-cta .contact-eyebrow{
   display:inline-block!important;background:transparent!important;color:#f4b28d!important;
   padding:0!important;margin:0 0 10px!important;
-  font:800 12px/1.4 "DM Sans",sans-serif!important;letter-spacing:.045em!important;text-transform:uppercase!important;
+  font:800 12px/1.4 var(--vcc-font-body, "DM Sans", Arial, sans-serif)!important;letter-spacing:.045em!important;text-transform:uppercase!important;
 }
 body:has(.planifica-page) .planifica-cta h2{
   color:#fff!important;font:600 clamp(27px,2.8vw,36px)/1.12 "Oswald",Impact,sans-serif!important;
   margin:0 0 8px!important;text-shadow:none!important;
 }
 body:has(.planifica-page) .planifica-cta p{
-  color:#fff!important;margin:0!important;font:400 16px/1.5 "DM Sans",Arial,sans-serif!important;
+  color:#fff!important;margin:0!important;font:400 16px/1.5 var(--vcc-font-body, "DM Sans", Arial, sans-serif)!important;
   text-shadow:none!important;
 }
 @media(max-width:700px){
@@ -454,7 +454,7 @@ body:has(.planifica-page) .contact-cta.about-ending .contact-cta-inner{
 body:has(.planifica-page) .contact-cta.about-ending .contact-eyebrow{
   display:inline-block!important;background:transparent!important;color:#f4b28d!important;
   padding:0!important;margin:0 0 10px!important;
-  font:800 10px/1.4 "DM Sans",sans-serif!important;letter-spacing:.045em!important;
+  font:800 10px/1.4 var(--vcc-font-body, "DM Sans", Arial, sans-serif)!important;letter-spacing:.045em!important;
   text-transform:uppercase!important;
 }
 body:has(.planifica-page) .contact-cta.about-ending h2{
@@ -462,7 +462,7 @@ body:has(.planifica-page) .contact-cta.about-ending h2{
   margin:0 0 8px!important;text-shadow:none!important;
 }
 body:has(.planifica-page) .contact-cta.about-ending p{
-  font:400 14px/1.6 "DM Sans",Arial,sans-serif!important;color:#fff!important;
+  font:400 14px/1.6 var(--vcc-font-body, "DM Sans", Arial, sans-serif)!important;color:#fff!important;
   margin:0!important;text-shadow:none!important;
 }
 @media(max-width:600px){
@@ -497,12 +497,12 @@ body:has(.planifica-page) .planifica-hero-copy{
 body:has(.planifica-page) .planifica-kicker{
   display:inline-block!important;width:auto!important;margin:0 0 12px!important;
   background:#e8792b!important;color:#211e1a!important;padding:3px 8px!important;
-  font:800 10px/1.4 "DM Sans",sans-serif!important;letter-spacing:.025em!important;
+  font:800 10px/1.4 var(--vcc-font-body, "DM Sans", Arial, sans-serif)!important;letter-spacing:.025em!important;
   text-transform:none!important;
 }
 body:has(.planifica-page) .planifica-hero h1{
   max-width:760px!important;color:#292724!important;
-  font:600 clamp(34px,3.6vw,48px)/1.08 "Oswald",sans-serif!important;
+  font:600 clamp(34px,3.6vw,48px)/1.08 var(--vcc-font-heading, "Oswald", sans-serif)!important;
   letter-spacing:-.025em!important;margin:10px 0!important;text-shadow:none!important;
 }
 body:has(.planifica-page) .planifica-hero h1 em{
@@ -510,12 +510,12 @@ body:has(.planifica-page) .planifica-hero h1 em{
 }
 body:has(.planifica-page) .planifica-script{
   display:block!important;max-width:590px!important;margin:0 0 10px!important;
-  color:#4f4a45!important;font:400 15px/1.65 "DM Sans",sans-serif!important;
+  color:#4f4a45!important;font:400 15px/1.65 var(--vcc-font-body, "DM Sans", Arial, sans-serif)!important;
 }
 body:has(.planifica-page) .planifica-hero-signoff{
   max-width:590px!important;border-top:1px solid #cbb9a8!important;
   padding-top:10px!important;margin-top:18px!important;
-  color:#655b52!important;font:700 11px/1.5 "DM Sans",sans-serif!important;
+  color:#655b52!important;font:700 11px/1.5 var(--vcc-font-body, "DM Sans", Arial, sans-serif)!important;
   letter-spacing:.035em!important;
 }
 @media(max-width:900px){
@@ -536,9 +536,9 @@ body:has(.planifica-page) .planifica-hero-signoff{
 
 
 /* PLANIFICA · hero: misma estructura y reglas tipográficas de Nosotros */
-body.planifica-vcc{margin:0;background:#f8f0e3;color:#211e1a;font:400 14px/1.55 "DM Sans",sans-serif}
+body.planifica-vcc{margin:0;background:#f8f0e3;color:#211e1a;font:400 14px/1.55 var(--vcc-font-body, "DM Sans", Arial, sans-serif)}
 body.planifica-vcc main{overflow:hidden}
-body.planifica-vcc h1,body.planifica-vcc h2,body.planifica-vcc h3{font-family:"Oswald",sans-serif;font-weight:600;line-height:1.08;margin:0}
+body.planifica-vcc h1,body.planifica-vcc h2,body.planifica-vcc h3{font-family:var(--vcc-font-heading, "Oswald", sans-serif);font-weight:600;line-height:1.08;margin:0}
 body.planifica-vcc p{margin:0 0 10px}
 body.planifica-vcc .shell{width:min(1120px,calc(100% - 48px));margin-inline:auto}
 body.planifica-vcc .planifica-about-hero{position:relative;min-height:310px;display:flex;align-items:center;overflow:hidden;background:#d6c5ad;color:#211e1a}
@@ -553,7 +553,7 @@ body.planifica-vcc .planifica-about-hero .about-hero-shade{
 body.planifica-vcc .planifica-about-hero .about-hero-copy{position:relative;z-index:1;padding:28px 0 24px}
 body.planifica-vcc .planifica-about-hero .eyebrow{
  display:inline-block;background:#e8792b;color:#211e1a;padding:3px 8px;
- font:800 10px/1.4 "DM Sans",sans-serif;letter-spacing:.025em;
+ font:800 10px/1.4 var(--vcc-font-body, "DM Sans", Arial, sans-serif);letter-spacing:.025em;
 }
 body.planifica-vcc .planifica-about-hero h1{
  font-size:clamp(31px,3.25vw,43px);letter-spacing:-.025em;margin:10px 0;max-width:760px;
@@ -562,7 +562,7 @@ body.planifica-vcc .planifica-about-hero h1 em{font-style:normal;color:#c65c20}
 body.planifica-vcc .planifica-about-hero .hero-lead{font-size:13px;line-height:1.5;max-width:790px;margin:0 0 10px}
 body.planifica-vcc .planifica-about-hero .hero-signoff{
  border-top:1px solid #8e7156;padding-top:8px;max-width:790px;
- font:600 12px "Oswald",sans-serif;
+ font:600 12px var(--vcc-font-heading, "Oswald", sans-serif);
 }
 @media(max-width:900px){
  body.planifica-vcc .planifica-about-hero{min-height:300px}
@@ -600,22 +600,22 @@ body.planifica-vcc .planifica-about-hero .about-hero-copy{
 body.planifica-vcc .planifica-about-hero .eyebrow{
   display:block!important;width:max-content!important;margin:0 0 9px!important;
   padding:0!important;background:transparent!important;
-  font:600 25px/1 "Caveat",cursive!important;letter-spacing:0!important;
+  font:600 25px/1 var(--vcc-font-script, "Caveat", cursive)!important;letter-spacing:0!important;
   text-transform:none!important;color:#cf705c!important;
 }
 body.planifica-vcc .planifica-about-hero h1{
-  font:600 clamp(29px,2.9vw,38px)/1.12 "Oswald",sans-serif!important;
+  font:600 clamp(29px,2.9vw,38px)/1.12 var(--vcc-font-heading, "Oswald", sans-serif)!important;
   letter-spacing:0!important;margin:10px 0!important;max-width:790px!important;
   color:#292724!important;text-shadow:none!important;
 }
 body.planifica-vcc .planifica-about-hero h1 em{font-style:normal!important;color:#c65c20!important}
 body.planifica-vcc .planifica-about-hero .hero-lead{
-  font:400 13px/1.5 "DM Sans",sans-serif!important;max-width:790px!important;
+  font:400 13px/1.5 var(--vcc-font-body, "DM Sans", Arial, sans-serif)!important;max-width:790px!important;
   margin:0 0 10px!important;color:#292724!important;
 }
 body.planifica-vcc .planifica-about-hero .hero-signoff{
   border-top:1px solid #8e7156!important;padding-top:8px!important;max-width:790px!important;
-  font:600 12px "Oswald",sans-serif!important;margin-top:0!important;color:#292724!important;
+  font:600 12px var(--vcc-font-heading, "Oswald", sans-serif)!important;margin-top:0!important;color:#292724!important;
 }
 @media(max-width:900px){
  body.planifica-vcc .planifica-about-hero{min-height:430px!important}
@@ -636,7 +636,7 @@ body.planifica-vcc .planifica-about-hero .hero-signoff{
 /* PLANIFICA · ajuste de altura y firma final más discreta */
 body.planifica-vcc .planifica-about-hero{min-height:465px!important}
 body.planifica-vcc .planifica-about-hero .hero-signoff{
-  font:500 11px/1.5 "DM Sans",sans-serif!important;
+  font:500 11px/1.5 var(--vcc-font-body, "DM Sans", Arial, sans-serif)!important;
   font-weight:400!important;color:#655b52!important;
   letter-spacing:.025em!important;border-top-color:#cbb9a8!important;
   padding-top:10px!important;
@@ -672,7 +672,7 @@ body.planifica-vcc .planifica-about-hero .hero-signoff{
   margin-top:3px!important;
   padding-top:13px!important;
   padding-bottom:5px!important;
-  font:500 12px/1.55 "DM Sans",sans-serif!important;
+  font:500 12px/1.55 var(--vcc-font-body, "DM Sans", Arial, sans-serif)!important;
   font-weight:400!important;
   color:#655b52!important;
   letter-spacing:.025em!important;
@@ -710,11 +710,11 @@ body.planifica-vcc .planifica-about-hero .about-hero-copy{
 body.planifica-vcc .planifica-about-hero .eyebrow{
   display:block!important;width:max-content!important;margin:0 0 9px!important;
   padding:0!important;background:transparent!important;
-  font:600 25px/1 "Caveat",cursive!important;letter-spacing:0!important;
+  font:600 25px/1 var(--vcc-font-script, "Caveat", cursive)!important;letter-spacing:0!important;
   text-transform:none!important;color:#cf705c!important;
 }
 body.planifica-vcc .planifica-about-hero h1{
-  font:600 clamp(34px,3.6vw,48px)/1.08 "Oswald",sans-serif!important;
+  font:600 clamp(34px,3.6vw,48px)/1.08 var(--vcc-font-heading, "Oswald", sans-serif)!important;
   letter-spacing:-.025em!important;margin:12px 0!important;max-width:760px!important;
   color:var(--vcc-ink)!important;text-shadow:none!important;
 }
@@ -722,13 +722,13 @@ body.planifica-vcc .planifica-about-hero h1 em{
   font-style:normal!important;color:var(--vcc-orange-dark)!important;
 }
 body.planifica-vcc .planifica-about-hero .hero-lead{
-  font:400 15px/1.65 "DM Sans",sans-serif!important;color:#4f4a45!important;
+  font:400 15px/1.65 var(--vcc-font-body, "DM Sans", Arial, sans-serif)!important;color:#4f4a45!important;
   max-width:590px!important;margin:0 0 10px!important;
 }
 body.planifica-vcc .planifica-about-hero .hero-signoff{
   margin-top:18px!important;border-top:1px solid #cbb9a8!important;
   padding-top:10px!important;max-width:590px!important;
-  font:700 11px/1.5 "DM Sans",sans-serif!important;
+  font:700 11px/1.5 var(--vcc-font-body, "DM Sans", Arial, sans-serif)!important;
   letter-spacing:.035em!important;color:#655b52!important;
 }
 @media(max-width:900px){
@@ -773,11 +773,11 @@ body.planifica-vcc .about-hero-photo{
 body.planifica-vcc .about-hero .eyebrow{
   display:inline-block!important;padding:4px 9px!important;
   background:var(--vcc-orange)!important;color:#fffaf6!important;
-  font:800 10px/1.4 "DM Sans",sans-serif!important;letter-spacing:.075em!important;
+  font:800 10px/1.4 var(--vcc-font-body, "DM Sans", Arial, sans-serif)!important;letter-spacing:.075em!important;
   text-transform:uppercase!important;
 }
 body.planifica-vcc .about-hero h1{
-  font-family:"Oswald",sans-serif!important;font-weight:500!important;
+  font-family:var(--vcc-font-heading, "Oswald", sans-serif)!important;font-weight:500!important;
   font-size:clamp(34px,3.6vw,48px)!important;line-height:1.08!important;
   letter-spacing:-.025em!important;margin:12px 0!important;
   max-width:760px!important;color:var(--vcc-ink)!important;
@@ -786,13 +786,13 @@ body.planifica-vcc .about-hero h1 em{
   font-style:normal!important;color:var(--vcc-orange-dark)!important;
 }
 body.planifica-vcc .about-hero .hero-lead{
-  font:400 15px/1.65 "DM Sans",sans-serif!important;color:#4f4a45!important;
+  font:400 15px/1.65 var(--vcc-font-body, "DM Sans", Arial, sans-serif)!important;color:#4f4a45!important;
   max-width:590px!important;margin:0!important;
 }
 body.planifica-vcc .about-hero .hero-signoff{
   margin-top:18px!important;border-top:1px solid #cbb9a8!important;
   padding-top:10px!important;max-width:590px!important;
-  font:700 11px/1.5 "DM Sans",sans-serif!important;
+  font:700 11px/1.5 var(--vcc-font-body, "DM Sans", Arial, sans-serif)!important;
   letter-spacing:.035em!important;color:#655b52!important;
 }
 @media(max-width:900px){
@@ -824,7 +824,7 @@ body.planifica-vcc .about-hero h1{
 body.planifica-vcc .planifica-about-hero .eyebrow{
   display:block!important;width:max-content!important;margin:0 0 9px!important;
   padding:0!important;background:transparent!important;color:#cf705c!important;
-  font:600 25px/1 "Caveat",cursive!important;letter-spacing:0!important;
+  font:600 25px/1 var(--vcc-font-script, "Caveat", cursive)!important;letter-spacing:0!important;
   text-transform:none!important;
 }
 

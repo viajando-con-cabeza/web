@@ -1,0 +1,43 @@
+/* VCC Design System · Font única de variables globals.
+   Canviar la tipografia o l'escala aci no requereix editar guies.
+   Els tons antics es mantenen per defecte per evitar regressions. */
+:root {
+  /* Tipografies aprovades */
+  --vcc-font-body: "DM Sans", Arial, sans-serif;
+  --vcc-font-heading: "Oswald", sans-serif;
+  --vcc-font-script: "Caveat", cursive;
+
+  /* Ajustaments globals neutres per defecte: 0px = disseny actual */
+  --vcc-heading-size-adjust: 0px;
+  --vcc-overline-size-adjust: 0px;
+  --vcc-body-size-adjust: 0px;
+
+  /* Paleta semàntica i herència dels tons actuals. Per fer un canvi de marca
+     uniforme, declarar --vcc-accent-override: #nou-color; en aquest fitxer. */
+  --vcc-color-ink: #292724;
+  --vcc-color-muted: #716a64;
+  --vcc-color-paper: #faf6f1;
+  --vcc-color-surface: #fffdfb;
+  --vcc-color-border: #e7ddd4;
+  --vcc-color-accent: var(--vcc-accent-override, #c86f5d);
+  --vcc-color-accent-home: var(--vcc-accent-override, #d96847);
+  --vcc-color-accent-pages: var(--vcc-accent-override, #e97861);
+  --vcc-color-accent-legacy: var(--vcc-accent-override, #ef7168);
+  --vcc-color-accent-weather: var(--vcc-accent-override, #c46a4c);
+
+  /* Amplades i espaiat */
+  --vcc-content-max: 1180px;
+  --vcc-page-gutter: 48px;
+  --vcc-component-subheader-height: 39px;
+  --vcc-component-subheader-gap: 38px;
+  --vcc-component-subheader-desktop-font: 11.5px;
+  --vcc-component-subheader-mobile-font: 11px;
+  --vcc-component-hero-desktop-height: 475px;
+
+  /* Carrusels: motor comú futur; posició mòbil aprovada */
+  --vcc-carousel-arrow-size: 34px;
+  --vcc-carousel-mobile-controls-top: 0px;
+  --vcc-carousel-card-gap: 16px;
+  --vcc-carousel-desktop-editorial-visible: 3;
+  --vcc-carousel-desktop-compact-visible: 5;
+}
