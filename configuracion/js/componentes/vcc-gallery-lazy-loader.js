@@ -10,11 +10,11 @@
   let started=false;
   const styles=[
    '/configuracion/css/componentes/galeria-vcc-cuando-ir.css?v=20261110-universal1',
-   '/configuracion/css/componentes/vcc-gallery-booking.css?v=20261110-universal1'
+   '/configuracion/css/componentes/vcc-gallery-booking.css?v=20261111-fast-preview-v5'
   ];
   const scripts=[
    '/configuracion/js/plantillas/imprescindibles-interactions.js?v=20261110-universal1',
-   '/configuracion/js/componentes/vcc-gallery-booking.js?v=20261110-universal2'
+   '/configuracion/js/componentes/vcc-gallery-booking.js?v=20261111-fast-preview-v5'
   ];
   const addStyle=url=>new Promise(resolve=>{
    if(document.querySelector('link[rel="stylesheet"][href="'+url+'"]'))return resolve();
