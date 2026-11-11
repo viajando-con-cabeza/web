@@ -1201,3 +1201,74 @@ html body.budget-vcc .calculator-card .calc-total{
     width:28px!important;height:28px!important;min-width:28px!important;
   }
 }
+
+/* VCC · 2026-11-11 · Ajust fino exclusivamente móvil de la calculadora.
+   Columnas constantes: la leyenda de «noche» no desplaza el selector de alojamiento. */
+@media (max-width:750px) {
+  html body.budget-vcc .calculator-section .section-heading h2{
+    font-size:clamp(25px,7vw,30px)!important;
+    line-height:1.12!important;
+  }
+  html body.budget-vcc .st-shell .calculator-card .calc-ticket-head h3{
+    font-size:23px!important;
+    line-height:1.15!important;
+  }
+  html body.budget-vcc .st-shell .calculator-card .calc-top{
+    grid-template-columns:repeat(3,minmax(0,1fr))!important;
+    justify-items:stretch!important;
+  }
+  html body.budget-vcc .st-shell .calculator-card .calc-control{
+    width:100%!important;
+    min-width:0!important;
+    box-sizing:border-box!important;
+    align-items:center!important;
+    text-align:center!important;
+  }
+  html body.budget-vcc .st-shell .calculator-card .calc-control>span{
+    justify-content:center!important;
+    font-size:10px!important;
+  }
+  html body.budget-vcc .st-shell .calculator-card .stepper{
+    width:100%!important;
+    justify-content:center!important;
+  }
+  html body.budget-vcc .st-shell .calculator-card .category-row{
+    grid-template-columns:minmax(0,1.12fr) minmax(0,.98fr) 82px!important;
+    column-gap:6px!important;
+    align-items:center!important;
+  }
+  html body.budget-vcc .st-shell .calculator-card .category-row .vcc-category-name{
+    min-width:0!important;
+    white-space:nowrap!important;
+  }
+  html body.budget-vcc .st-shell .calculator-card .category-row select{
+    grid-column:2!important;
+    grid-row:1!important;
+    box-sizing:border-box!important;
+    justify-self:stretch!important;
+    width:100%!important;
+    margin:0!important;
+  }
+  html body.budget-vcc .st-shell .calculator-card .category-row .vcc-price-block{
+    grid-column:3!important;
+    grid-row:1!important;
+    width:82px!important;
+    min-width:0!important;
+    justify-self:end!important;
+    align-items:flex-end!important;
+    text-align:right!important;
+  }
+}
+@media (max-width:360px) {
+  html body.budget-vcc .st-shell .calculator-card .category-row{
+    grid-template-columns:minmax(0,1.14fr) minmax(0,.86fr) 76px!important;
+    column-gap:4px!important;
+  }
+  html body.budget-vcc .st-shell .calculator-card .category-row .vcc-price-block{
+    width:76px!important;
+  }
+  html body.budget-vcc .st-shell .calculator-card .vcc-category-name{
+    gap:4px!important;
+    font-size:10px!important;
+  }
+}
