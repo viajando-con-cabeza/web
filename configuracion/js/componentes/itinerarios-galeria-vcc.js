@@ -7,13 +7,14 @@
     const photos = Array.from(gallery.querySelectorAll('[data-vcc-it-slide]'));
     const counter = gallery.querySelector('[data-vcc-it-count]');
     if (photos.length < 2 || !counter) return;
-    let current = 0, active = null, direction = 0, busy = false, gesture = null, endTimer = null;
+    let current = 0, active = null, direction = 0, busy = false, gesture = null, endTimer = null, endListener = null;
     const images = photos.length;
     const position = i => (i + images) % images;
 
     function load(i) {
       const img = photos[position(i)];
       if (img.dataset.src) {
+        img.loading = "eager";
         img.src = img.dataset.src;
         delete img.dataset.src;
       }
@@ -40,6 +41,8 @@
 
     function cleanup(completed) {
       if (endTimer) { window.clearTimeout(endTimer); endTimer = null; }
+      if (endListener && active !== null) photos[active].removeEventListener('transitionend', endListener);
+      endListener = null;
       const oldIndex = current;
       gallery.classList.remove('is-sliding', 'is-dragging');
       photos[oldIndex].style.removeProperty('transform');
@@ -75,11 +78,11 @@
       gallery.classList.add('is-sliding');
       void incoming.offsetWidth;
       const done = () => cleanup(complete);
-      incoming.addEventListener('transitionend', function onEnd(event) {
+      endListener = event => {
         if (event.propertyName !== 'transform') return;
-        incoming.removeEventListener('transitionend', onEnd);
         if (active !== null) done();
-      });
+      };
+      incoming.addEventListener('transitionend', endListener);
       endTimer = window.setTimeout(() => { if (active !== null) done(); }, duration + 120);
       window.requestAnimationFrame(() => {
         old.style.transform = 'translate3d(' + (complete ? -direction * width : 0) + 'px,0,0)';
