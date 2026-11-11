@@ -1,0 +1,52 @@
+/* VCC · Numeracion editorial unificada.
+   Asset unico: /configuracion/imagenes/iconos/compartidos/numeros-consejos-vcc.svg
+   Afecta solamente a los elementos que llevan la clase .vcc-numero-unificado.
+   La numeracion y la accesibilidad se mantienen en el contenido editorial; el SVG es decorativo.
+*/
+html body .vcc-numero-unificado {
+  box-sizing: border-box !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  flex: 0 0 42px !important;
+  width: 42px !important;
+  height: 42px !important;
+  min-width: 42px !important;
+  min-height: 42px !important;
+  padding: 0 !important;
+  border: 0 !important;
+  outline: 0 !important;
+  background: transparent !important;
+  background-image: none !important;
+  box-shadow: none !important;
+  transform: none !important;
+  rotate: none !important;
+  font-size: 0 !important;
+  line-height: 0 !important;
+  letter-spacing: 0 !important;
+  text-decoration: none !important;
+}
+html body .vcc-numero-unificado::before,
+html body .vcc-numero-unificado::after { content: none !important; display: none !important; }
+html body .vcc-numero-unificado > .vcc-numero-svg {
+  display: block !important;
+  flex: none !important;
+  width: 100% !important;
+  height: 100% !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  opacity: 1 !important;
+  overflow: visible !important;
+  transform: none !important;
+}
+@media (max-width: 720px) {
+  html body .vcc-numero-unificado {
+    flex-basis: 38px !important;
+    width: 38px !important;
+    height: 38px !important;
+    min-width: 38px !important;
+    min-height: 38px !important;
+  }
+}
