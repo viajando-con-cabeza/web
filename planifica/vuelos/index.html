@@ -21,7 +21,7 @@
 <link rel="stylesheet" href="/configuracion/css/componentes/carruseles-flechas-movil-vcc.css?v=20261111-transparent-outline-v7">
   <link rel="stylesheet" href="/configuracion/css/componentes/numeros-consejos-vcc.css?v=20261111-v2">
 <link rel="stylesheet" href="/configuracion/css/componentes/portadas-transparencia.css?v=20261111-portada-compartida">
-<link rel="stylesheet" href="/configuracion/css/componentes/planifica-vuelos-comparador-vcc.css?v=20261111-tabla-v3">
+<link rel="stylesheet" href="/configuracion/css/componentes/planifica-vuelos-comparador-vcc.css?v=20261111-compacta-toolbar-v4">
 </head>
 <body>
 <header class="page-header"></header>
@@ -197,16 +197,16 @@
       <header class="vl-section-head vl-calc-head"><div><span class="vl-kicker">Compara antes de reservar</span><h2 class="vl-heading" id="vl-calc-title">COMPARA EL <em>PRECIO REAL</em></h2></div><p class="vl-copy">Cada columna es un vuelo y cada fila es un gasto. Introduce el precio total de cada concepto y descubre cuánto ahorras frente a las otras alternativas.</p></header>
       <div class="vl-calc-layout" aria-label="Comparador de hasta cinco vuelos">
         <div class="vl-calc-shell">
+          <div class="vl-compare-actions" role="group" aria-label="Gestión de las opciones de vuelo">
+            <span data-flight-count aria-live="polite">3 de 5 opciones</span>
+            <button class="vl-add-option" type="button" data-add-flight aria-label="Añadir otra opción de vuelo"><svg aria-hidden="true"><use href="/configuracion/imagenes/iconos/paginas/planifica-vuelos-comparador-iconos.svg#mas"></use></svg>Añadir otro vuelo</button>
+          </div>
           <div class="vl-calc-scroll" role="region" aria-label="Tabla comparativa de vuelos; desplázate horizontalmente para ver más opciones" tabindex="0" data-flight-scroll>
             <table class="vl-calc-table">
               <caption class="vl-sr-only">Compara aerolíneas y trayectos con sus precios totales, equipaje, asiento, comida y traslado.</caption>
               <thead data-flight-head></thead>
               <tbody data-flight-body></tbody>
             </table>
-          </div>
-          <div class="vl-compare-actions">
-            <button class="vl-add-option" type="button" data-add-flight aria-label="Añadir otra opción de vuelo"><svg aria-hidden="true"><use href="/configuracion/imagenes/iconos/paginas/planifica-vuelos-comparador-iconos.svg#mas"></use></svg>Añadir otro vuelo</button>
-            <span data-flight-count aria-live="polite">3 de 5 opciones</span>
           </div>
           <p class="vl-footnote">Introduce importes <strong>totales por opción</strong>, no por trayecto ni por maleta. Si comparas ida y vuelta, suma ambos vuelos y sus extras. Los precios los facilitas tú; esta herramienta no consulta tarifas de aerolíneas.</p>
         </div>
@@ -272,6 +272,6 @@
 <footer class="vcc-global-footer"></footer>
 <script src="/configuracion/js/site-header.js?v=20261110-breadcrumb-v2"></script>
 <script src="/configuracion/js/site-footer.js?v=20261102"></script>
-<script src="/configuracion/js/planifica-vuelos.js?v=20261111-tabla-v3" defer></script>
+<script src="/configuracion/js/planifica-vuelos.js?v=20261111-compacta-toolbar-v4" defer></script>
 </body>
 </html>
