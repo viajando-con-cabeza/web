@@ -81,3 +81,21 @@ body .day-demo{display:block!important;min-height:0!important;padding:42px 0 55p
 body .day-demo .day-intro{min-height:0!important;max-width:760px!important}
 @media(max-width:950px){.vcc-summary .overview-list{grid-column:1/-1!important}.overview-card{min-height:88px!important}}
 @media(max-width:720px){body .vcc-hero-inner{padding-bottom:12px!important}body .vcc-hero-card{padding:22px 22px 24px!important}}
+
+
+/* VCC · Ruta hora a hora: colors de les capes del My Maps, dies 1 a 7. */
+body #dia1{--vcc-mymaps-dia-color:rgb(165,39,20)}
+body #dia2{--vcc-mymaps-dia-color:rgb(249,168,37)}
+body #dia3{--vcc-mymaps-dia-color:rgb(129,119,23)}
+body #dia4{--vcc-mymaps-dia-color:rgb(9,113,56)}
+body #dia5{--vcc-mymaps-dia-color:rgb(1,87,155)}
+body #dia6{--vcc-mymaps-dia-color:rgb(103,58,183)}
+body #dia7{--vcc-mymaps-dia-color:rgb(78,52,46)}
+/* Línia i parades del mateix color que la capa diària del My Maps;
+   els horaris conserven el contrast i la llegibilitat originals. */
+body .day-section .day-schedule .timeline::before{
+  background:var(--vcc-mymaps-dia-color,var(--it-coral))!important;
+}
+body .day-section .day-schedule .timeline li::before{
+  background:var(--vcc-mymaps-dia-color,var(--it-coral))!important;
+}
