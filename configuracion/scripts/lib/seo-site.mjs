@@ -44,17 +44,17 @@ export function canonicalUrl(relativeUrl) {
 }
 
 export function headOf(html) {
-  return html.split(/<\\/head\\s*>/i)[0] || "";
+  return html.split(/<\/head\s*>/i)[0] || "";
 }
 
 export function linkCanonical(head) {
-  const link = [...head.matchAll(/<link\\b[^>]*>/gi)].map(x=>x[0])
-    .find(tag=>/\\brel=["']canonical["']/i.test(tag));
-  return link?.match(/\\bhref=["']([^"']+)["']/i)?.[1] || null;
+  const link = [...head.matchAll(/<link\b[^>]*>/gi)].map(x=>x[0])
+    .find(tag=>/\brel=["']canonical["']/i.test(tag));
+  return link?.match(/\bhref=["']([^"']+)["']/i)?.[1] || null;
 }
 
 export function sitemapLocs(xml) {
-  return [...xml.matchAll(/<loc>\\s*([^<]+?)\\s*<\\/loc>/gi)]
+  return [...xml.matchAll(/<loc>\s*([^<]+?)\s*<\/loc>/gi)]
     .map(match=>match[1].trim());
 }
 
@@ -63,7 +63,7 @@ export function fileForPublicUrl(uri) {
   if(url.origin!==ORIGIN) return null;
   const route = decodeURIComponent(url.pathname);
   if(route.includes("..")) return null;
-  const relative = route.replace(/^\\//, "");
+  const relative = route.replace(/^\//, "");
   if(!relative || route.endsWith("/")) return path.join(ROOT, relative, "index.html");
   return path.join(ROOT, relative.endsWith(".html") ? relative : relative + ".html");
 }
