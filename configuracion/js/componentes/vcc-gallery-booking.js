@@ -52,7 +52,7 @@ const isMobile=()=>modal.classList.contains('vcc-gallery-mobile');
 let currentImages=[],currentIndex=0,lastFocus=null,gridButtons=[];
 let photoSequence=0;
 let slideOverlay=null,slideTimeout=0;
-let dragSlide=null,dragSlideTimer=0;
+let dragSlide=null,dragSlideTimer=0,dragPaintFrame=0;
 const preloadedThumbs=new Map();
 // Cache LRU limitada: la foto activa i les adjacents, mai les 89 d'un cop.
 const sharpPhotos=new Map(),SHARP_CACHE_LIMIT=5;
@@ -287,6 +287,7 @@ function preloadAdjacentPhotos(){
    Mostrem la foto adjacent al costat des del primer píxel del drag,
    i deixem que l'usuari decideixi el progrés sense animació automàtica. */
 function clearDragSlide(){
+ if(dragPaintFrame){cancelAnimationFrame(dragPaintFrame);dragPaintFrame=0}
  if(dragSlideTimer){clearTimeout(dragSlideTimer);dragSlideTimer=0}
  if(dragSlide){
   dragSlide.incoming.remove();
@@ -318,17 +319,24 @@ function beginDragSlide(direction){
  dragSlide={incoming,index,direction,width,dx:0};
  paintDragSlide(0);
 }
+function flushDragSlide(){
+ if(dragPaintFrame){cancelAnimationFrame(dragPaintFrame);dragPaintFrame=0}
+ const slide=dragSlide;if(!slide)return;
+ const {direction,width,incoming,dx}=slide;
+ photoFrame.style.transform='translate3d('+dx+'px,0,0)';
+ incoming.style.transform='translate3d('+(dx+direction*width)+'px,0,0)';
+}
 function paintDragSlide(dx){
  if(!dragSlide)return;
- const {direction,width,incoming}=dragSlide;
- const offset=clamp(dx,-width,width);
- dragSlide.dx=offset;
- photoFrame.style.transform='translate3d('+offset+'px,0,0)';
- incoming.style.transform='translate3d('+(offset+direction*width)+'px,0,0)';
+ const slide=dragSlide;
+ slide.dx=clamp(dx,-slide.width,slide.width);
+ // Un sol repaint per frame. El gest continua seguint el dit, fins i tot en mòbils de gamma mitjana.
+ if(!dragPaintFrame)dragPaintFrame=requestAnimationFrame(flushDragSlide);
 }
 function settleDragSlide(complete){
  const slide=dragSlide;
  if(!slide)return;
+ flushDragSlide();
  const {incoming,width,direction,index}=slide;
  const destination=complete?-direction*width:0;
  const remaining=Math.abs(destination-slide.dx)/width;
