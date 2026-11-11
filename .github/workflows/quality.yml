@@ -26,23 +26,6 @@ jobs:
           ref: quality
           fetch-depth: 0
 
-      - name: Generate Planifica hubs
-        run: node configuracion/scripts/generate-planifica-hubs.mjs
-
-      - name: Commit generated hubs
-        shell: bash
-        run: |
-          set -euo pipefail
-          if git diff --quiet -- planifica/presupuesto/index.html planifica/mapas/index.html planifica/que-llevar/index.html; then
-            echo "Planifica hubs already up to date."
-          else
-            git config user.name "github-actions[bot]"
-            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-            git add planifica/presupuesto/index.html planifica/mapas/index.html planifica/que-llevar/index.html
-            git commit -m "Auto-update Planifica hubs"
-            git push origin HEAD:quality
-          fi
-
       - name: Cache Destinos hero as WebP
         if: ${{ hashFiles('configuracion/imagenes/fondos/fondos-destinos.webp') == '' }}
         shell: bash
@@ -126,16 +109,18 @@ jobs:
             git push origin HEAD:quality
           fi
 
-      - name: Sincronitzar SEO editorial, canòniques i pàgines noindex
+      # Una sola generació i un sol commit per evitar carreres entre hubs i sitemap.
+      - name: Sincronitzar catalegs, SEO, canoniques i esborranys
         shell: bash
         run: |
           set -euo pipefail
+          node configuracion/scripts/generate-planifica-hubs.mjs
           node configuracion/scripts/preparar-publicacion.mjs --write
           if ! git diff --quiet -- .; then
             git config user.name "github-actions[bot]"
             git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
             git add -u
-            git commit -m "Auto-sync SEO editorial: canonicals, noindex and sitemap"
+            git commit -m "Auto-sync VCC catalogs and SEO from shared editorial registry"
             git pull --rebase origin quality
             git push origin HEAD:quality
           fi
