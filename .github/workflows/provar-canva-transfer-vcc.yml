@@ -26,5 +26,5 @@ jobs:
           for key,url in methods.items():
             p=subprocess.run(['curl','-L','--silent','--show-error','--max-time','14','-w','HTTP:%{http_code} BYTES:%{size_download}\n','-o','/tmp/'+key,url],capture_output=True,text=True)
             f=subprocess.run(['file','-b','/tmp/'+key],capture_output=True,text=True)
-            print(key,p.stdout.strip(),p.stderr[:100],f.stdout.strip()[:140])
+            print(key,p.stdout.strip(),p.stderr[:100],f.stdout.strip()[:140],repr(open('/tmp/'+key,'rb').read()[:160]))
           PY
