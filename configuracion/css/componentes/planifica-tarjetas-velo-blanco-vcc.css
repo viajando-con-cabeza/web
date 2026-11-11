@@ -1,21 +1,68 @@
-/* VCC · Velo blanco compartido para las fotografías de Planifica tu viaje.
-   Se aplica al elemento visual, no a la fotografía original ni a los textos/iconos.
-   Intensidad única para Suecia y Estocolmo. */
-#planifica .vcc-prep-image {
-  position: relative !important;
-  isolation: isolate !important;
+/* VCC · Planifica tu viaje · configuración común Suecia + Estocolmo.
+   El mismo velo y la misma posición de iconos para las seis tarjetas.
+   No modificar las fotos originales. El diseño compacto de Suecia móvil
+   se conserva en su CSS propio. */
+#planifica .vcc-prep-card{
+  overflow:hidden !important;
 }
-#planifica .vcc-prep-image::after {
-  content: "" !important;
-  position: absolute !important;
-  inset: 0 !important;
-  z-index: 3 !important;
-  display: block !important;
-  pointer-events: none !important;
-  background-color: rgba(255, 255, 255, .55) !important;
-  opacity: 1 !important;
-  border-radius: 9px 9px 0 0;
+
+/* El contenedor visual ha de dejar sobresalir el icono sobre el cuerpo blanco.
+   Duplicamos el selector country-page por la especificidad del CSS de Suecia. */
+#planifica .vcc-prep-image,
+body.country-page #planifica .vcc-prep-image{
+  position:relative !important;
+  isolation:isolate !important;
+  overflow:visible !important;
+  z-index:2 !important;
 }
-#planifica .vcc-prep-image > span {
-  z-index: 5 !important;
+
+/* Velo blanco del 35 %, menos intenso que el anterior (55 %).
+   Funciona tanto con imágenes <img> como con fotos de fondo CSS. */
+#planifica .vcc-prep-image::after,
+body.country-page #planifica .vcc-prep-image::after{
+  content:"" !important;
+  display:block !important;
+  position:absolute !important;
+  inset:0 !important;
+  z-index:3 !important;
+  background:rgba(255,255,255,.35) !important;
+  opacity:1 !important;
+  border-radius:9px 9px 0 0 !important;
+  pointer-events:none !important;
+}
+
+/* El circulo queda centrado y se superpone 15 px a la zona blanca.
+   Incluimos el selector SVG más específico usado por Estocolmo. */
+#planifica .vcc-prep-image > span,
+#planifica .vcc-prep-image.vcc-prep-svg-background > span,
+body.country-page #planifica .vcc-prep-image > span{
+  position:absolute !important;
+  left:50% !important;
+  bottom:-15px !important;
+  transform:translateX(-50%) !important;
+  z-index:5 !important;
+  display:grid !important;
+  place-items:center !important;
+  width:31px !important;
+  height:31px !important;
+  border:1px solid #e4d9cf !important;
+  border-radius:50% !important;
+  box-sizing:border-box !important;
+  background:#fbf8f4 !important;
+}
+
+/* Evitar que el texto tape la mitad inferior de los iconos. */
+#planifica .vcc-prep-copy{
+  position:relative !important;
+  z-index:1 !important;
+}
+
+/* En Suecia la cabecera de foto es más baja para mantener el diseño
+   compacto, y el icono conserva el mismo solapamiento proporcional. */
+@media(max-width:560px){
+  body.country-page #planifica .vcc-prep-image > span{
+    bottom:-14px !important;
+    width:28px !important;
+    height:28px !important;
+  }
 }
