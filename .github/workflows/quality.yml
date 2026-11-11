@@ -158,6 +158,9 @@ jobs:
       - name: Check reusable CSS and absence of exact duplicates
         run: node configuracion/scripts/verificar-css-vcc.mjs
 
+      - name: Audit all pages, shared assets and editorial links
+        run: node configuracion/scripts/auditar-escalabilidad-vcc.mjs --strict-hubs
+
       - name: Validate JavaScript syntax
         shell: bash
         run: |
