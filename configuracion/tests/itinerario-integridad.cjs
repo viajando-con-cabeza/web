@@ -37,7 +37,7 @@ assert.deepEqual(ld.map(item => item['@type']).sort(), ['BlogPosting', 'Breadcru
 assert.equal(ld.find(item => item['@type'] === 'BlogPosting').mainEntityOfPage['@id'], canonical);
 
 assert.equal(count(html, /class="day-section day-/g), 3, 'Cal conservar els 3 dies');
-assert.equal(count(html, /class="stop-detail"/g), 16, 'Cal conservar les 16 parades');
+assert.equal(count(html, /class="stop-detail"/g), 17, 'Cal conservar les 17 parades dels tres dies');
 assert.equal(count(html, /<aside class="day-tip">/g), 3, 'Cal conservar els 3 Consejo VCC');
 assert.equal(gallery.length, 3, 'Cal conservar tres mosaics');
 gallery.forEach((block, day) => {
