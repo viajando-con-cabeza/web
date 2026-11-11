@@ -74,8 +74,8 @@
 #calculadora .vl-best-comparison{margin-top:17px;padding:15px 0 0;border-top:1px solid #e6dbd3}
 #calculadora .vl-best-kicker{display:block;margin:0 0 10px;color:#b9521f;font:800 10px/1.2 var(--vcc-font-body,"DM Sans",Arial,sans-serif);letter-spacing:.06em}
 #calculadora .vl-best-savings{margin:0;padding:0;list-style:none}
-#calculadora .vl-best-savings li{margin:0 0 11px;padding:10px;border:1px solid #eee5de;border-radius:8px;background:#fff;display:block;color:#675c54;font:500 11px/1.45 var(--vcc-font-body,"DM Sans",Arial,sans-serif);overflow-wrap:anywhere}
-#calculadora .vl-best-savings li strong{display:inline-block;margin:0 3px;color:#168049;font:700 21px/1.05 var(--vcc-font-heading,"Oswald",sans-serif);vertical-align:middle;white-space:nowrap}
+#calculadora .vl-best-savings li{margin:0;padding:4px 0;border:0;border-radius:0;background:transparent;display:block;color:#675c54;font:500 11px/1.5 var(--vcc-font-body,"DM Sans",Arial,sans-serif);overflow-wrap:anywhere}
+#calculadora .vl-best-savings li strong{display:inline-block;margin:0 3px;color:#168049;font:700 19px/1.1 var(--vcc-font-heading,"Oswald",sans-serif);vertical-align:baseline;white-space:nowrap}
 #calculadora .vl-best-note{margin:12px 0 0;color:#786e66;font:400 10px/1.5 var(--vcc-font-body,"DM Sans",Arial,sans-serif)}
 
 /* Portada compartida: el sistema de máscara alfa lo gestiona portadas-transparencia.css. */
@@ -97,8 +97,7 @@ html body .vl-hero.vcc-portada-transparente.vcc-breadcrumb-on-dark #vcc-global-b
   #calculadora .vl-calc-layout{grid-template-columns:minmax(0,1fr)}
   #calculadora .vl-best-feature{align-items:center}
   #calculadora .vl-best-main{flex:1}
-  #calculadora .vl-best-savings{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:9px}
-  #calculadora .vl-best-savings li{margin:0}
+  #calculadora .vl-best-savings{display:block}
 }
 @media(max-width:720px){
   .vl-page .vl-filter-compact{gap:9px}
@@ -172,8 +171,8 @@ html body .vl-hero.vcc-portada-transparente.vcc-breadcrumb-on-dark #vcc-global-b
   padding-top:10px;
 }
 #calculadora .vl-best-savings li{
-  padding:7px 9px;
-  margin-bottom:6px;
+  padding:4px 0;
+  margin-bottom:1px;
 }
 #calculadora .vl-best-comparison{
   margin-top:11px;
