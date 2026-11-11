@@ -586,10 +586,14 @@
     const reYears=/\b(?:19|20)\d{2}\b/g;
     // Els anys de preus i reserves són dades útils, no informació personal.
     // Manté-los en aquesta guia; continua ocultant els noms de poblacions privades.
-    const preserveYearsOnTickets=/^\/destinos\/suecia\/estocolmo\/entradas-y-pases(?:\.html)?\/?$/i.test(location.pathname);
+    // Dónde ir publica editorials anuals (Navidad 2026, playas 2027).
+    // Els anys formen part del títol, de la cerca i del SEO; preserva'ls només
+    // en aquesta pàgina i en Entradas y pases, sense exposar noms privats.
+    const preserveYearsHere=/^\/destinos\/suecia\/estocolmo\/entradas-y-pases(?:\.html)?\/?$/i.test(location.pathname)
+      || /^\/planifica\/donde-ir\/?(?:index\.html)?$/i.test(location.pathname);
     const clean=s=>{
       const withoutPlaces=s.replace(rePlaces,'');
-      return (preserveYearsOnTickets ? withoutPlaces : withoutPlaces.replace(reYears,'')).replace(/ {2,}/g,' ');
+      return (preserveYearsHere ? withoutPlaces : withoutPlaces.replace(reYears,'')).replace(/ {2,}/g,' ');
     };
     const walker=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT);
     const nodes=[];let n;while(n=walker.nextNode())nodes.push(n);
