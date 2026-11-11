@@ -1,0 +1,89 @@
+name: VCC — apply six modern hero AVIFs (one time)
+
+on:
+  push:
+    branches: [quality]
+    paths:
+      - '.github/workflows/vcc-apply-modern-heroes.yml'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: vcc-quality-heroes-one-off
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: quality
+          fetch-depth: 0
+      - name: Decode approved AVIF hero images and update references
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import base64, hashlib
+          from pathlib import Path
+          names = ('inicio','destinos','itinerarios','planifica','contacto','nosotros')
+          checksums = {
+              'inicio':'6e7111f0d439582c0d6deab97ffc9a5214d64e6dccfef18ea8909f39ae391b91',
+              'destinos':'162ff17a51f7de33cf9c0738068c246d491d876e9fd05029a13e9135d5301f3d',
+              'itinerarios':'751822d2001fca14594a5100f0f47221f93d2892fda6c983c0560681e6309f0b',
+              'planifica':'a9ecd78cb201cc89c0af041505db6188cb185ea8c40cf7e98a523fbbbd95b213',
+              'contacto':'0fbf256b7e94bb693a2a6c6bdb1d9db27295e8a1dcd5d2fbc8493a6da4f3880b',
+              'nosotros':'a268afa55fed846704a1d77f35571502d5f00e78549fdabd3efde78973fe0198',
+          }
+          staging=Path('.github/vcc-hero-transfer')
+          outputs=Path('configuracion/imagenes/fondos')
+          outputs.mkdir(parents=True,exist_ok=True)
+          for n in names:
+              source=staging/f'{n}.avif.b64'
+              if not source.is_file():raise RuntimeError(f'Missing staged image: {source}')
+              data=base64.b64decode(''.join(source.read_text().split()),validate=True)
+              sha=hashlib.sha256(data).hexdigest()
+              if sha!=checksums[n]:raise RuntimeError(f'Invalid checksum {n}: {sha}')
+              if b'ftypavif' not in data[:64]:raise RuntimeError(f'Not a valid AVIF: {n}')
+              destination=outputs/f'fondos-{n}-modern.avif'
+              destination.write_bytes(data)
+              print(f'{destination}: {len(data)} bytes SHA256 {sha}')
+          # Only update actual page/stylesheet references. Leave the WebP originals for rollback.
+          updated=[]
+          for suffix in ('*.html','*.css'):
+              for p in Path('.').rglob(suffix):
+                  if any(part.startswith('.') for part in p.parts):continue
+                  try: content=p.read_text(encoding='utf-8')
+                  except (UnicodeDecodeError,OSError):continue
+                  modified=content
+                  for n in names:
+                      modified=modified.replace(f'fondos-{n}.webp',f'fondos-{n}-modern.avif')
+                  if modified!=content:
+                      p.write_text(modified,encoding='utf-8')
+                      updated.append(str(p))
+          # Remove grayscale from the now color-corrected, sharp home hero image.
+          homecss=Path('configuracion/css/inicio-hero-vcc-webp.css')
+          s=homecss.read_text(encoding='utf-8')
+          s=s.replace('filter:grayscale(.22) saturate(.82) contrast(.99)!important;', 'filter:none!important;')
+          homecss.write_text(s,encoding='utf-8')
+          # Bust old CSS caches on the six page hubs.
+          hubs=(Path('index.html'),*(Path(n)/'index.html' for n in names if n!='inicio'))
+          for p in hubs:
+              s=p.read_text(encoding='utf-8')
+              s=s.replace('paginas-principales-unificadas.css?v=20261105-gris-neutre-v4', 'paginas-principales-unificadas.css?v=20261111-heroes-avif')
+              s=s.replace('inicio-hero-vcc-webp.css?v=20261105-gris-real-v3', 'inicio-hero-vcc-webp.css?v=20261111-heroes-avif')
+              p.write_text(s,encoding='utf-8')
+          for n in names:(staging/f'{n}.avif.b64').unlink()
+          staging.rmdir()
+          print('Updated source files:',len(updated))
+          print('\n'.join(updated[:100]))
+          PY
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -A
+          git diff --cached --quiet && exit 0
+          git commit -m 'feat(quality): sis portades modernes AVIF i referències actualitzades'
+          git pull --rebase origin quality
+          git push origin HEAD:quality
