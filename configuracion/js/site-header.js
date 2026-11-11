@@ -336,6 +336,9 @@
   const vccPendingStyle=document.createElement('style');
   vccPendingStyle.textContent='.vcc-pending,.home-feature-pending,body.inicio-vcc .home-feature-pending,.it-card .it-cta.vcc-pending,.vcc-route-link.vcc-pending{color:#b6aaa1!important;text-decoration:none!important;cursor:default!important;pointer-events:none!important}.vcc-country.vcc-pending-country{opacity:.58;cursor:default!important;pointer-events:none!important}.vcc-country.vcc-pending-country .vcc-country-arrow{display:none!important}.country-btn.vcc-pending,.vcc-card-action .vcc-pending,.it-cta.vcc-pending{background:transparent!important;border:0!important;box-shadow:none!important;padding:0!important;color:#aaa29c!important;pointer-events:none!important}';
   document.head.appendChild(vccPendingStyle);
+  /* VCC_PUBLIC_ROUTES_START */
+  const publicRoutes=new Set(["/","/contacto/","/destinos/","/destinos/suecia/estocolmo/","/destinos/suecia/estocolmo/como-llegar","/destinos/suecia/estocolmo/como-moverse","/destinos/suecia/estocolmo/cuando-ir","/destinos/suecia/estocolmo/donde-dormir","/destinos/suecia/estocolmo/entradas-y-pases","/destinos/suecia/estocolmo/imprescindibles","/destinos/suecia/estocolmo/itinerario","/destinos/suecia/estocolmo/presupuesto","/destinos/suecia/estocolmo/que-llevar","/destinos/suecia/estocolmo/que-ver","/itinerarios/","/nosotros/","/planifica/","/planifica/alojamientos/","/planifica/calcula-tu-viaje/","/planifica/donde-ir/","/planifica/mapas/","/planifica/presupuesto/","/planifica/que-llevar/","/planifica/tarjetas-de-viaje/","/planifica/vuelos/"]);
+  /* VCC_PUBLIC_ROUTES_END */
   const normalizePending=(root)=>{
     const candidates=[];
     if(root.nodeType===1&&root.matches('a'))candidates.push(root);
@@ -351,10 +354,10 @@
         try {
           const target=new URL(href,location.href);
           const route=target.pathname;
-          isUnpublishedGuide=target.origin===location.origin && (
-            (route.startsWith('/destinos/') && !route.startsWith('/destinos/suecia/')) ||
-            (route.startsWith('/itinerarios/') && route!=='/itinerarios/')
-          );
+          const canonicalRoute=route.replace(/\/index\.html$/i,'/').replace(/\.html$/i,'');
+          isUnpublishedGuide=target.origin===location.origin &&
+            (canonicalRoute.startsWith('/destinos/')||canonicalRoute.startsWith('/itinerarios/')) &&
+            !publicRoutes.has(canonicalRoute);
         } catch(e) { /* URL inválida: no cambiar enlace */ }
       }
       if(!isPending&&!isPendingDestination&&!isUnpublishedGuide)return;

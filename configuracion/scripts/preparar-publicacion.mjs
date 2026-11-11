@@ -78,6 +78,20 @@ if(new Set(canonicalList).size!==canonicalList.length)issues.push('Canonical dup
 set('sitemap.xml','<?xml version="1.0" encoding="UTF-8"?>\n'+
   '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'+
   canonicalList.map(u=>'  <url><loc>'+u+'</loc></url>').join('\n')+'\n</urlset>\n');
+// El menú compartit també consulta el registre, sense fetch ni llistes de països fixes.
+const headerPath="configuracion/js/site-header.js";
+const headerContent=fs.readFileSync(path.join(ROOT,headerPath),"utf8");
+const headStart="/* VCC_PUBLIC_ROUTES_START */";
+const headEnd="/* VCC_PUBLIC_ROUTES_END */";
+const indexStart=headerContent.indexOf(headStart);
+const indexEnd=headerContent.indexOf(headEnd);
+if(indexStart<0||indexEnd<indexStart)issues.push("site-header.js: marcadors de rutes absents");
+else {
+  const routes=[...approved].map(file=>url(file).slice(ORIGIN.length)).sort();
+  const data=headStart+"\n  const publicRoutes=new Set("+JSON.stringify(routes)+");\n  "+headEnd;
+  set(headerPath,headerContent.slice(0,indexStart)+data+headerContent.slice(indexEnd+headEnd.length));
+}
+
 if(issues.length||(!write&&changes.length)){
   issues.forEach(e=>console.error('ERROR:',e));
   if(!write)changes.slice(0,100).forEach(e=>console.error('DESACTUALIZADO:',e));
