@@ -21,7 +21,8 @@
 <link rel="stylesheet" href="/configuracion/css/componentes/carruseles-flechas-movil-vcc.css?v=20261111-transparent-outline-v7">
   <link rel="stylesheet" href="/configuracion/css/componentes/numeros-consejos-vcc.css?v=20261111-v2">
 <link rel="stylesheet" href="/configuracion/css/componentes/portadas-transparencia.css?v=20261111-portada-compartida">
-<link rel="stylesheet" href="/configuracion/css/componentes/planifica-vuelos-comparador-vcc.css?v=20261111-compacta-toolbar-v4">
+<link rel="stylesheet" href="/configuracion/css/componentes/planifica-vuelos-comparador-vcc.css?v=20261111-toolbar-exterior-related-v5">
+<link rel="stylesheet" href="/configuracion/css/componentes/estocolmo-guias-final-vcc.css?v=20261107-v1">
 </head>
 <body>
 <header class="page-header"></header>
@@ -195,12 +196,12 @@
   <section class="vl-section" id="calculadora" data-vcc-subheader-target aria-labelledby="vl-calc-title">
     <div class="vl-wrap">
       <header class="vl-section-head vl-calc-head"><div><span class="vl-kicker">Compara antes de reservar</span><h2 class="vl-heading" id="vl-calc-title">COMPARA EL <em>PRECIO REAL</em></h2></div><p class="vl-copy">Cada columna es un vuelo y cada fila es un gasto. Introduce el precio total de cada concepto y descubre cuánto ahorras frente a las otras alternativas.</p></header>
+      <div class="vl-compare-actions" role="group" aria-label="Gestión de las opciones de vuelo">
+        <span data-flight-count aria-live="polite">3 de 5 opciones</span>
+        <button class="vl-add-option" type="button" data-add-flight aria-label="Añadir otra opción de vuelo"><svg aria-hidden="true"><use href="/configuracion/imagenes/iconos/paginas/planifica-vuelos-comparador-iconos.svg#mas"></use></svg>Añadir otro vuelo</button>
+      </div>
       <div class="vl-calc-layout" aria-label="Comparador de hasta cinco vuelos">
         <div class="vl-calc-shell">
-          <div class="vl-compare-actions" role="group" aria-label="Gestión de las opciones de vuelo">
-            <span data-flight-count aria-live="polite">3 de 5 opciones</span>
-            <button class="vl-add-option" type="button" data-add-flight aria-label="Añadir otra opción de vuelo"><svg aria-hidden="true"><use href="/configuracion/imagenes/iconos/paginas/planifica-vuelos-comparador-iconos.svg#mas"></use></svg>Añadir otro vuelo</button>
-          </div>
           <div class="vl-calc-scroll" role="region" aria-label="Tabla comparativa de vuelos; desplázate horizontalmente para ver más opciones" tabindex="0" data-flight-scroll>
             <table class="vl-calc-table">
               <caption class="vl-sr-only">Compara aerolíneas y trayectos con sus precios totales, equipaje, asiento, comida y traslado.</caption>
@@ -208,7 +209,6 @@
               <tbody data-flight-body></tbody>
             </table>
           </div>
-          <p class="vl-footnote">Introduce importes <strong>totales por opción</strong>, no por trayecto ni por maleta. Si comparas ida y vuelta, suma ambos vuelos y sus extras. Los precios los facilitas tú; esta herramienta no consulta tarifas de aerolíneas.</p>
         </div>
         <aside class="vl-best-card" aria-label="Mejor opción VCC" data-best-panel aria-live="polite">
           <div class="vl-best-heading">
@@ -258,15 +258,17 @@
       </div>
     </div>
   </section>
-  <section class="vl-next" aria-labelledby="vl-next-title"><div class="vl-wrap">
-    <span class="vl-kicker">TU VIAJE, PASO A PASO</span><h2 class="vl-heading" id="vl-next-title">Sigue descubriendo con VCC</h2><p class="vl-copy">Ya tienes tu vuelo. Sigue preparando el resto del viaje con nuestras guías y herramientas.</p>
-    <div class="vl-next-grid">
-      <a href="/planifica/alojamientos/"><b>Alojamientos <span aria-hidden="true">↗</span></b><small>Dónde reservar y qué comparar</small></a>
-      <a href="/planifica/tarjetas-de-viaje/"><b>Tarjetas de viaje <span aria-hidden="true">↗</span></b><small>Comisiones, cambios y ahorro</small></a>
-      <a href="/itinerarios/"><b>Itinerarios <span aria-hidden="true">↗</span></b><small>Rutas y planes reales</small></a>
-      <a href="/destinos/"><b>Destinos <span aria-hidden="true">↗</span></b><small>Inspírate para tu próxima aventura</small></a>
-    </div>
-  </div></section>
+  <section class="vcc-discover-section related-section" aria-labelledby="vl-next-title">
+  <div class="related-inner">
+    <div class="related-head"><p>Continúa planificando</p><h2 id="vl-next-title">SIGUE DESCUBRIENDO CON VCC</h2><span>Tu vuelo es solo el principio: sigue preparando el resto del viaje</span></div>
+    <nav class="related-grid vcc-related-cards" aria-label="Más herramientas para planificar tu viaje">
+      <a href="/planifica/alojamientos/" class="related-text-link vcc-related-link"><svg class="vcc-related-icon" viewBox="0 0 24 24" aria-hidden="true"><use href="/configuracion/imagenes/iconos/paginas/planifica-vuelos-comparador-iconos.svg#equipaje"></use></svg><span class="vcc-related-copy"><strong>ALOJAMIENTOS</strong><em>Dónde reservar y qué comparar</em></span><b class="vcc-related-arrow" aria-hidden="true">→</b></a>
+      <a href="/planifica/tarjetas-de-viaje/" class="related-text-link vcc-related-link"><svg class="vcc-related-icon" viewBox="0 0 24 24" aria-hidden="true"><use href="/configuracion/imagenes/iconos/paginas/planifica-vuelos-comparador-iconos.svg#total"></use></svg><span class="vcc-related-copy"><strong>TARJETAS DE VIAJE</strong><em>Comisiones, cambio de divisa y ahorro</em></span><b class="vcc-related-arrow" aria-hidden="true">→</b></a>
+      <a href="/itinerarios/" class="related-text-link vcc-related-link"><svg class="vcc-related-icon" viewBox="0 0 24 24" aria-hidden="true"><use href="/configuracion/imagenes/iconos/paginas/planifica-vuelos-comparador-iconos.svg#ruta"></use></svg><span class="vcc-related-copy"><strong>ITINERARIOS</strong><em>Rutas y experiencias reales</em></span><b class="vcc-related-arrow" aria-hidden="true">→</b></a>
+      <a href="/destinos/" class="related-text-link vcc-related-link"><svg class="vcc-related-icon" viewBox="0 0 24 24" aria-hidden="true"><use href="/configuracion/imagenes/iconos/paginas/planifica-vuelos-comparador-iconos.svg#avion"></use></svg><span class="vcc-related-copy"><strong>DESTINOS</strong><em>Inspírate para tu próxima aventura</em></span><b class="vcc-related-arrow" aria-hidden="true">→</b></a>
+    </nav>
+  </div>
+</section>
 
 </main>
 <footer class="vcc-global-footer"></footer>
