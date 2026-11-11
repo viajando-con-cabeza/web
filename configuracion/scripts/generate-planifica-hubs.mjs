@@ -253,7 +253,7 @@ const packingCards = packingSources.map(file=>{
   const type=Array.isArray(info.type)?info.type:["otros"];
   const typeLabel=info.typeLabel||"Otros viajes";
   const description=info.description||"Consulta la checklist de equipaje, la ropa recomendada y los consejos para este destino.";
-  const image=info.image||"/configuracion/imagenes/fondos/fondos-que-llevar-editorial.webp";
+  const image=info.image||"/configuracion/imagenes/fondos/fondos-que-llevar.webp";
   const continentLabel=packingContinents[continent]||"Más destinos";
   const href="/"+filePath.replace(/\/index\.html$/i,"/");
   const markup=[
