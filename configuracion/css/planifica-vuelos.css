@@ -77,9 +77,8 @@
 .vl-page .vl-air-card .vl-air-action{display:inline-flex;align-items:center;justify-content:flex-end;gap:5px;align-self:flex-end;width:auto;max-width:100%;margin:auto 0 0 auto;padding:10px 0 0;border:0;border-radius:0;background:transparent;text-align:right;font:700 10.5px/1.3 var(--vcc-font-body, "DM Sans", Arial, sans-serif);color:#d5551a;white-space:nowrap}
 .vl-page .vl-air-card .vl-air-action span{font-size:12px;line-height:1}
 .vl-page .vl-air-card .vl-air-action:hover{text-decoration:underline;text-underline-offset:3px}
-.vl-air-carousel-arrow{position:absolute;top:38%;z-index:2;display:grid;place-items:center;width:42px;height:42px;border:1px solid #e8e8e8;border-radius:50%;background:#fff;color:var(--vl-coral);box-shadow:0 3px 9px #0002;transition:background .2s,opacity .2s}
-.vl-air-carousel-arrow:hover:not(:disabled){background:#fff2ea}
-.vl-air-carousel-arrow:disabled{opacity:.35;cursor:default;box-shadow:none}
+.vl-air-carousel-arrow{position:absolute;top:38%;z-index:2;display:grid;place-items:center;}
+.vl-air-carousel-arrow:disabled{cursor:default;}
 .vl-air-carousel-prev{left:-19px}.vl-air-carousel-next{right:-19px}
 .vl-air-note{text-align:center}
 /* Un únic sobretítol i títol en Nuestra experiencia, idèntics a Alojamientos. */
@@ -186,10 +185,9 @@
 .vl-tip-content{min-width:0;flex:1}
 .vl-tip h3{margin:0 0 7px;font:600 19px/1.1 var(--vcc-font-heading, "Oswald", sans-serif);color:#272d2a}
 .vl-tip p{margin:0;color:#635d56;font:400 11.6px/1.45 var(--vcc-font-body, "DM Sans", Arial, sans-serif)}
-.vl-tip-arrow{position:absolute;top:50%;transform:translateY(-50%);width:34px;height:34px;border:1px solid #dcc7b8;border-radius:50%;background:#fff;color:#b75d43;display:grid;place-items:center;font:400 24px/1 var(--vcc-font-body, "DM Sans", Arial, sans-serif);cursor:pointer;padding:0 0 2px}
+.vl-tip-arrow{position:absolute;top:50%;transform:translateY(-50%);display:grid;place-items:center;cursor:pointer;padding:0 0 2px;}
 .vl-tip-prev{left:0}.vl-tip-next{right:0}
-.vl-tip-arrow:hover:not(:disabled){background:#fff0e6}
-.vl-tip-arrow:disabled{opacity:.36;cursor:default}
+.vl-tip-arrow:disabled{cursor:default;}
 .vl-advice{margin-top:15px}
 .vl-advice .vcc-consejo-unificado{max-width:100%}
 /* Same dark closing panel used across Planifica. */
@@ -232,7 +230,7 @@
  .vl-tip p{font-size:12px;line-height:1.5}
  /* No restar espacio lateral a las tarjetas: controles encima, alineados a la derecha. */
  .vl-tips-carousel{padding:44px 0 0}
- .vl-tip-arrow{top:0;left:auto;right:0;transform:none;width:36px;height:36px}
+ .vl-tip-arrow{top:0;left:auto;right:0;transform:none;}
  .vl-tip-prev{right:44px}
  .vl-next-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
 }
@@ -246,7 +244,7 @@
  .vl-continent .detail{font-size:9.5px}
  .vl-air-track{grid-auto-columns:100%;width:100%}
  .vl-air-carousel{padding-top:46px}
- .vl-air-carousel-arrow{top:0;bottom:auto;left:auto;right:0;width:35px;height:35px;transform:none}
+ .vl-air-carousel-arrow{top:0;bottom:auto;left:auto;right:0;transform:none;}
  .vl-air-carousel-prev{left:auto;right:43px}
  .vl-air-carousel-next{left:auto;right:0}
  
@@ -268,7 +266,7 @@
 /* Coincide con el comportamiento móvil compartido: flechas arriba a la derecha. */
 @media(min-width:461px) and (max-width:760px){
  .vl-air-carousel{padding-top:46px}
- .vl-air-carousel-arrow{top:0;bottom:auto;left:auto;right:0;width:35px;height:35px;transform:none}
+ .vl-air-carousel-arrow{top:0;bottom:auto;left:auto;right:0;transform:none;}
  .vl-air-carousel-prev{left:auto;right:43px}
  .vl-air-carousel-next{left:auto;right:0}
  .vl-air-track{grid-auto-columns:100%;width:100%}
