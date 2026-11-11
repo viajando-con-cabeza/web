@@ -114,7 +114,7 @@
       return number;
     }
     function showPerPerson(day) {
-      const dayAmount = day.querySelector(".vcc-budget-day-head > span.vcc-day-price, .vcc-budget-day-head > span");
+      const dayAmount = day.querySelector(".vcc-day-price");
       const totalGroup = originalEuros(dayAmount);
       if (dayAmount && Number.isFinite(totalGroup)) {
         dayAmount.textContent = euroFormatter.format(totalGroup / travelers) + " € / pax";
@@ -133,18 +133,21 @@
       const head = day.querySelector(".vcc-budget-day-head");
       if (head) {
         const label = head.querySelector("strong");
-        const price = head.querySelector("span");
-        if (label && !head.querySelector(".vcc-day-place")) {
-          const source = label.textContent.trim();
-          const match = source.match(/^D[IÍ]A\s+(\d+)\s*[·:-]\s*(.+)$/i);
-          // Un único título compacto: sin el antiguo sobretítulo manuscrito.
-          const title = document.createElement("strong");
-          title.className = "vcc-day-place";
-          title.textContent = match ? "Día " + match[1] + " · " + match[2] : source;
-          head.insertBefore(title, label);
-          label.remove();
+        const price = head.querySelector(".vcc-day-price");
+        const source = label ? label.textContent.trim() : "";
+        const match = source.match(/^D[IÍ]A\\s+(\\d+)\\s*[·:-]\\s*(.+)$/i);
+        // Un título único encima del carrusel: cambia con el día seleccionado.
+        day.dataset.dailyHeading = match
+          ? "GASTOS DÍA " + match[1] + " · " + match[2]
+          : "GASTOS · " + source;
+        // El coste por persona va al pie de la tarjeta, no en una cabecera repetida.
+        if (price) {
+          const footer = document.createElement("div");
+          footer.className = "vcc-daily-day-total";
+          footer.appendChild(price);
+          day.appendChild(footer);
         }
-        if (price) price.classList.add("vcc-day-price");
+        head.remove();
       }
       day.querySelectorAll(".vcc-budget-day-expenses li").forEach(function (li) {
         if (li.querySelector(".vcc-day-tile-icon")) return;
@@ -180,6 +183,8 @@
     function setCurrent(index) {
       current = Math.max(0, Math.min(days.length - 1, index));
       count.textContent = (current + 1) + " / " + days.length;
+      heading.textContent = days[current].dataset.dailyHeading ||
+        "GASTOS DÍA " + (current + 1);
       previous.disabled = current === 0;
       next.disabled = current === days.length - 1;
     }
