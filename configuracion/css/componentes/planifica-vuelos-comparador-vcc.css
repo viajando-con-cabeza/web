@@ -98,3 +98,60 @@
  #calculadora .vl-best-seal{width:58px;height:58px;flex-basis:58px}
  #calculadora .vl-best-seal img{width:50px;height:50px}
 }
+
+
+/* Portada Vuelos · reutiliza el fundido alfa corporativo
+   definido por configuracion/css/componentes/portadas-transparencia.css.
+   Hasta publicar su fotografía WebP propia mantiene la foto WebP existente. */
+html body .vl-hero.tv-hero.vcc-portada-transparente{
+  --vcc-portada-imatge:url('/configuracion/imagenes/externas/unsplash/photo-1436491865332-7a61a109cc05.webp');
+  --vcc-portada-posicio:center 52%;
+  color:#1d1b1a!important;
+  height:var(--vcc-standard-hero-desktop,475px)!important;
+  min-height:var(--vcc-standard-hero-desktop,475px)!important;
+  background-color:#fff!important;
+}
+html body .vl-hero.vcc-portada-transparente::before{
+  background-image:var(--vcc-portada-imatge)!important;
+  background-position:var(--vcc-portada-posicio)!important;
+  background-size:cover!important;
+  z-index:0!important;
+}
+html body .vl-hero.vcc-portada-transparente .vl-hero-content{
+  position:relative!important;
+  z-index:1!important;
+  padding:76px 0 44px!important;
+  color:#1d1b1a!important;
+}
+html body .vl-hero.vcc-portada-transparente .vl-kicker{
+  font:600 30px/1.1 var(--vcc-font-script,"Caveat",cursive)!important;
+  color:#cf5d20!important;
+  text-transform:none!important;
+  letter-spacing:0!important;
+}
+html body .vl-hero.vcc-portada-transparente h1{
+  font:500 clamp(54px,6vw,77px)/.95 var(--vcc-font-heading,"Oswald",sans-serif)!important;
+  letter-spacing:-.015em!important;
+  color:#191918!important;
+  margin:10px 0 15px!important;
+}
+html body .vl-hero.vcc-portada-transparente p{
+  max-width:570px!important;
+  color:#403b37!important;
+  font:400 14px/1.6 var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;
+}
+html body .vl-hero.vcc-portada-transparente .vl-button.secondary{
+  border-color:#ba7c57!important;
+  color:#ad572b!important;
+  background:#fff9f3!important;
+}
+@media(max-width:720px){
+ html body .vl-hero.tv-hero.vcc-portada-transparente{
+   height:460px!important;min-height:460px!important;
+   --vcc-portada-posicio:60% center;
+ }
+ html body .vl-hero.vcc-portada-transparente .vl-hero-content{padding:74px 0 32px!important}
+ html body .vl-hero.vcc-portada-transparente h1{font-size:54px!important}
+ html body .vl-hero.vcc-portada-transparente .vl-kicker{font-size:27px!important}
+ html body .vl-hero.vcc-portada-transparente p{font-size:13px!important}
+}
