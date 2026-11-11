@@ -1,0 +1,46 @@
+name: Netejar fondos VCC · només WebP
+on:
+  push:
+    branches: [quality]
+    paths:
+      - .github/workflows/netejar-fons-webp-vcc.yml
+permissions:
+  contents: write
+concurrency:
+  group: vcc-net-fons-quality
+  cancel-in-progress: false
+jobs:
+  neteja:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout quality
+        uses: actions/checkout@v4
+        with:
+          ref: quality
+          fetch-depth: 0
+      - name: Node 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Instal·lar conversor WebP
+        run: npm install --no-save --no-package-lock sharp@0.34.4
+      - name: Eliminar subcarpetes, convertir AVIF i actualitzar referències
+        run: node configuracion/scripts/netejar-fons-webp-vcc.mjs
+      - name: Comprovar integritat dels recursos
+        run: |
+          set -e
+          node configuracion/scripts/auditar-recursos.mjs --no-write --enforce-external-baseline
+          node configuracion/scripts/verificar-estructura-recursos.mjs
+          test "$(find configuracion/imagenes/fondos -mindepth 1 -maxdepth 1 -type d | wc -l)" -eq 0
+          if find configuracion/imagenes/fondos -mindepth 1 -maxdepth 1 -type f ! -name '*.webp' | grep -q .; then exit 1; fi
+      - name: Commit únicament a quality
+        run: |
+          set -e
+          git config user.name "VCC Assets Maintenance"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git status --short
+          if ! git diff --cached --quiet; then
+            git commit -m "Deixar fondos pla, només WebP i enllaços actualitzats"
+            git push origin HEAD:quality
+          fi
