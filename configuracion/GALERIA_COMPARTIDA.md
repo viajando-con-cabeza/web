@@ -53,3 +53,16 @@ node configuracion/scripts/validar-galeries.mjs
 La branca `quality` executa aquest control amb GitHub Actions. Si una guia
 publicada incorpora un visor antic o no carrega els fitxers comuns, la
 comprovació falla. Les pàgines sense galeries no han de carregar el visor.
+
+## Llegenda opcional de cada fotografia
+
+El visor comú mostra una **mini descripció sota la fotografia individual**, però
+només si aquella fotografia té el text configurat. Als mosaics no apareix mai
+i les fotos sense llegenda no deixen cap buit.
+
+- Itineraris amb botons: `<button data-photo="URL" data-caption="Vista del port al capvespre">…</button>`.
+- Guies amb `data-images`: afegir `data-captions='["Vista del port", "", "Un carrer del centre"]'` al mateix mosaic (array paral·lel; text buit si no n'hi ha).
+
+El visor mostra la llegenda amb `textContent` sense HTML, i limita el text a
+200 caràcters. El botó «Galería» només rep focus automàtic en entrar a la
+foto individual, no en cada canvi amb les fletxes.
