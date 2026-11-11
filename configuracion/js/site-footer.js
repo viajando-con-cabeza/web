@@ -21,7 +21,7 @@
   const travelPolicy = isEnglish
     ? '<strong>OUR TRAVEL DATA ·</strong> Prices are indicative, based on trips and quoted rates—not annual averages. We review local inflation, prices, schedules, passes and availability each January 1. Check before booking.'
     : inStockholm
-      ? '<strong>ESTOCOLMO · 25–27 AGO 2026 ·</strong> Gastos reales y tarifas consultadas para esas fechas, no medias anuales. Cada 1 de enero revisamos IPC local, precios, horarios, pases y disponibilidad. Confirma antes de reservar.'
+      ? '<strong>ESTOCOLMO · Viajamos del 25 al 27 de agosto de 2026 ·</strong> Gastos reales y tarifas consultadas para esas fechas, no medias anuales. Cada 1 de enero revisamos IPC local, precios, horarios, pases y disponibilidad. Confirma antes de reservar.'
       : '<strong>CÓMO ACTUALIZAMOS VCC ·</strong> Precios orientativos según viajes reales y tarifas consultadas, no medias anuales salvo indicación. Cada 1 de enero revisamos IPC local, precios, horarios, pases y disponibilidad. Confirma antes de reservar.';
 
   function render(){
