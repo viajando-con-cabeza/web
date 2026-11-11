@@ -245,7 +245,7 @@ const packingCards = packingSources.map(file=>{
   const info=packingEditorial[filePath]||{};
   const html=fs.readFileSync(file,"utf8");
   const title=plain((html.match(/<title>([\s\S]*?)<\/title>/i)||[])[1]||"");
-  const slug=filePath.endsWith("/index.html")?filePath.split("/").at(-2):filePath.split("/").at(-2);
+  const slug=filePath.split("/").at(-2);
   const name=info.name||(title.match(/Qu[eé] llevar a\s+([^|:]+)/i)||[])[1]?.trim()||titleCaseSlug(slug);
   const fromDestinos=filePath.startsWith("destinos/");
   const countrySlug=fromDestinos?filePath.split("/")[1]:slug;
@@ -258,7 +258,7 @@ const packingCards = packingSources.map(file=>{
   const href="/"+filePath.replace(/\/index\.html$/i,"/");
   const markup=[
     '<article class="it-card packing-card" data-continent="'+esc(continent)+'" data-type="'+esc(type.join(" "))+'">',
-    '<img src="'+esc(image)+'" alt="'+esc(name+': paisaje ilustrativo del destino')+'" width="640" height="360" loading="lazy" decoding="async">',
+    '<img src="'+esc(image)+'" alt="'+esc('Imagen ilustrativa para la guía de equipaje de '+name)+'" width="640" height="360" loading="lazy" decoding="async">',
     '<div class="it-card-copy"><h2>'+esc(name.toUpperCase())+'</h2><p>'+esc(description)+'</p>',
     '<div class="it-meta"><span>⌖ '+esc(typeLabel)+'</span><span>◎ '+esc(continentLabel)+'</span><span>✓ Checklist</span></div>',
     '<a href="'+esc(href)+'" class="it-cta">VER QUÉ LLEVAR →</a></div></article>'
@@ -267,4 +267,4 @@ const packingCards = packingSources.map(file=>{
 }).sort((a,b)=>a.priority-b.priority||a.name.localeCompare(b.name,"es"));
 replaceAuto("planifica/que-llevar/index.html","<!-- AUTO_PACKING_START -->","<!-- AUTO_PACKING_END -->",packingCards.map(card=>card.markup).join("\n"));
 
-console.log(`Hubs actualizados: ${budgetCards.length} presupuestos, ${mapCards.length} mapas.`);
+console.log(`Hubs actualizados: ${budgetCards.length} presupuestos, ${mapCards.length} mapas, ${packingCards.length} guías de equipaje.`);
