@@ -33,7 +33,6 @@
           }, { once: true });
           incoming.src = incoming.dataset.src;
           delete incoming.dataset.src;
-          if (incoming.complete && incoming.naturalWidth) reveal();
         } else if (!incoming.classList.contains('vcc-it-load-error')) {
           reveal();
         }
