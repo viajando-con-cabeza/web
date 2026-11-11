@@ -51,7 +51,7 @@
      button.classList.toggle('active',active);
    });
    airlineCards.forEach(card=>card.hidden=key!=='all'&&!card.dataset.continents.split(' ').includes(key));
-   if(reset)reset.hidden=key==='all';
+   if(reset)reset.hidden=false;
    const visible=airlineCards.filter(card=>!card.hidden).length;
    if(regionCopy)regionCopy.textContent=key==='all'?'16 aerolíneas con pros y puntos a revisar. Selecciona un continente arriba.':visible+' aerolínea'+(visible===1?'':'s')+' de nuestros viajes por '+regionLabels[key]+'.';
    if(airlineTrack)airlineTrack.scrollLeft=0;
