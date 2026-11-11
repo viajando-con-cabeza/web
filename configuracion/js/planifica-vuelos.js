@@ -230,9 +230,7 @@
      const intro=document.createElement('span');intro.textContent='Te ahorras ';
      const amount=document.createElement('strong');amount.textContent=money.format(item.amount-min);
      const other=document.createElement('span');
-     other.textContent=' frente a la opción '+letters[item.i]+
-       (item.flight.airline?' ('+labelAirline(item.flight.airline)+')':'')+
-       (item.flight.route?' · '+item.flight.route:'');
+     other.textContent=' frente a la opción '+letters[item.i];
      li.append(intro,amount,other);bestSavings.appendChild(li);
    });
    if(winners.length>1){
