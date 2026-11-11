@@ -1,4 +1,4 @@
-/* VCC · Alojamientos. Carruseles nativos y comparador de precios finales.
+/* VCC · Alojamientos. Carruseles nativos de plataformas y consejos.
    Sin dependencias ni datos externos. */
 (() => {
   'use strict';
@@ -49,44 +49,9 @@
     update();
   }
 
-  function activatePriceComparison() {
-    const a = document.querySelector('[data-al-price-a]');
-    const b = document.querySelector('[data-al-price-b]');
-    const result = document.querySelector('[data-al-compare-result]');
-    if (!a || !b || !result) return;
-    const format = new Intl.NumberFormat('es-ES', { style: 'currency', currency: 'EUR' });
-    const show = (title, detail) => {
-      result.replaceChildren();
-      const headline = document.createElement('strong');
-      headline.textContent = title;
-      const line = document.createElement('p');
-      line.textContent = detail;
-      result.append(headline, line);
-    };
-    const update = () => {
-      const first = Number(a.value), second = Number(b.value);
-      if (!a.value.trim() || !b.value.trim() ||
-          !Number.isFinite(first) || !Number.isFinite(second) || first < 0 || second < 0) {
-        show('¿Qué oferta sale mejor?', 'Introduce los dos precios finales para compararlos.');
-        return;
-      }
-      const diff = Math.abs(first - second);
-      if (diff < 0.005) {
-        show('El mismo precio', 'Ambas opciones cuestan ' + format.format(first) + '. Compara cancelación y condiciones.');
-      } else {
-        const winner = first < second ? 'A' : 'B';
-        show('La opción ' + winner + ' es más barata', 'Ahorro total: ' + format.format(diff) + '. Comprueba que las condiciones sean equivalentes.');
-      }
-    };
-    a.addEventListener('input', update);
-    b.addEventListener('input', update);
-    update();
-  }
-
   const boot = () => {
     activateCarousel('[data-al-track]', '.al-card', '[data-al-prev]', '[data-al-next]');
     activateCarousel('[data-al-tips-track]', '.al-tip', '[data-al-tips-prev]', '[data-al-tips-next]');
-    activatePriceComparison();
   };
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot, { once: true });
   else boot();
