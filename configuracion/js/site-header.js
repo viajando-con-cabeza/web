@@ -35,7 +35,7 @@
      reserva para evitar desplazar el hero; no existen dos rutas accesibles. */
   (function initGlobalBreadcrumb() {
     // Mantener el breadcrumb único también en Vuelos, sin alterar otras páginas de Planifica.
-    const isSharedPlanificaPage = /^\/planifica\/(?:tarjetas-de-viaje|vuelos)\/?$/i.test(currentPath);
+    const isSharedPlanificaPage = /^\/planifica\/(?:tarjetas-de-viaje|vuelos|donde-ir)\/?$/i.test(currentPath);
     if (!/^\/destinos\//i.test(currentPath) && !isSharedPlanificaPage) return;
     const labels = {
       suecia:'Suecia',italia:'Italia',francia:'Francia',espana:'España',
@@ -74,13 +74,13 @@
       avion:'Avión',tren:'Tren',ferry:'Ferry',autobus:'Autobús',coche:'Coche',
       'ruta-andalucia-madrid':'Andalucía y Madrid',
       'dia-1':'Día 1','dia-2':'Día 2','dia-3':'Día 3',
-      'tarjetas-de-viaje':'Tarjetas de viaje',vuelos:'Vuelos'
+      'tarjetas-de-viaje':'Tarjetas de viaje',vuelos:'Vuelos','donde-ir':'Dónde ir'
     };
     const heroSelector = [
       '.st-hero','.imp-hero','.vcc-hero','.budget-hero','.ci-hero',
       '.cl-landing-hero','.cl-hero','.mv-hero','.dv-hero','.ql-hero',
       '.country-hero','.content-hero','.rich-hero','.cm-hero',
-      '.page-hero','.tv-hero','[data-vcc-hero]'
+      '.page-hero','.tv-hero','.di-hero','[data-vcc-hero]'
     ].join(',');
     const originalSelector = [
       '.st-crumb','.imp-crumb','.vcc-crumb','.budget-crumb','.ci-crumb',
