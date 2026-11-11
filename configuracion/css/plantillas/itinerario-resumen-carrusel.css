@@ -5,14 +5,14 @@
 .vcc-summary-map .map-note,.vcc-summary-map>a{display:none!important}
 .vcc-overview-controls{display:flex;align-items:center;justify-content:center;gap:13px;min-height:26px;margin-top:4px}
 .vcc-overview-controls[hidden]{display:none!important}
-.vcc-overview-controls button{display:grid;place-items:center;appearance:none;background:transparent;color:#a65340;border:0;padding:5px;cursor:pointer;font:700 18px/1 'DM Sans',sans-serif}
+.vcc-overview-controls button{display:grid;place-items:center;appearance:none;background:transparent;color:#a65340;border:0;padding:5px;cursor:pointer;font:700 18px/1 var(--vcc-font-body, "DM Sans", Arial, sans-serif)}
 .vcc-overview-controls button:disabled{opacity:.28;cursor:default}
 .vcc-overview-dots{display:flex;align-items:center;gap:10px}
 .vcc-overview-dots button{width:11px;height:11px;border:1.5px solid #a65340;border-radius:50%;background:#fff;padding:0;flex:0 0 11px}
 .vcc-overview-dots button[aria-current='true']{background:#a65340}
 .vcc-overview-dots button:focus-visible,.vcc-overview-controls>button:focus-visible{outline:2px solid #a65340;outline-offset:4px}
-.overview-card .vcc-overview-kicker{font-family:'Caveat',cursive!important;font-weight:600!important;font-size:17px!important;letter-spacing:0!important;color:#b96553!important;text-transform:none!important;line-height:1.15!important}
-.overview-card .vcc-overview-title{font-family:'Oswald',sans-serif!important;font-weight:500!important;font-size:19px!important;line-height:1.16!important;margin:4px 0!important}
+.overview-card .vcc-overview-kicker{font-family:var(--vcc-font-script, "Caveat", cursive)!important;font-weight:600!important;font-size:17px!important;letter-spacing:0!important;color:#b96553!important;text-transform:none!important;line-height:1.15!important}
+.overview-card .vcc-overview-title{font-family:var(--vcc-font-heading, "Oswald", sans-serif)!important;font-weight:500!important;font-size:19px!important;line-height:1.16!important;margin:4px 0!important}
 /* El alto del hero ya no desplaza la barra blanca fuera de la primera pantalla. */
 @media(min-width:721px){
  body .vcc-hero{min-height:0!important;height:auto!important}
