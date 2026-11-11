@@ -53,7 +53,7 @@ function render(name,slots){
    '<link rel="stylesheet" href="'+dynamicCSS+'">';
  const robots=published?'':'<meta name="robots" content="noindex,follow">';
  s=s.replace('</head>',linkedCSS+robots+'</head>');
- if(!d.ready)s=s.replace(/<body([^>]*)>/,'<body$1><div style="padding:10px;background:#f2e6d3;text-align:center;font:13px sans-serif">BORRADOR · Contenido de ejemplo pendiente de completar y revisar</div>');
+ if(!d.ready)s=s.replace(/<body([^>]*)>/,'<body$1><div class="vcc-draft-banner">BORRADOR · Contenido de ejemplo pendiente de completar y revisar</div>');
  const output=path.join(dir,name+'.html');
  if(!fs.existsSync(output)||fs.readFileSync(output,'utf8')!==s)fs.writeFileSync(output,s);
 }

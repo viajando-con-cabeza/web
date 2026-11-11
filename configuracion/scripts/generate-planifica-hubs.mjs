@@ -50,13 +50,18 @@ function destinationFrom(html,file,type){
   const parts=rel(file).split("/");
   return titleCaseSlug(parts[parts.length-2]||"Destino");
 }
+const CHECK=process.argv.includes("--check");
+const outdated=[];
 function replaceAuto(file,start,end,body){
   const full=path.join(ROOT,file);
-  let html=fs.readFileSync(full,"utf8");
-  const a=html.indexOf(start), b=html.indexOf(end);
+  const before=fs.readFileSync(full,"utf8");
+  const a=before.indexOf(start), b=before.indexOf(end);
   if(a<0||b<0||b<a) throw new Error(`Missing auto markers in ${file}`);
-  html=html.slice(0,a+start.length)+"\n"+body.trim()+"\n"+html.slice(b);
-  if(html!==fs.readFileSync(full,"utf8"))fs.writeFileSync(full,html);
+  const html=before.slice(0,a+start.length)+"\n"+body.trim()+"\n"+before.slice(b);
+  if(html!==before){
+    outdated.push(file);
+    if(!CHECK)fs.writeFileSync(full,html);
+  }
 }
 
 const all = walk(path.join(ROOT,"destinos")).filter(file=>file.endsWith(".html") && PUBLISHED_FILES.has(rel(file)));
@@ -269,3 +274,7 @@ const packingCards = packingSources.map(file=>{
 replaceAuto("planifica/que-llevar/index.html","<!-- AUTO_PACKING_START -->","<!-- AUTO_PACKING_END -->",packingCards.map(card=>card.markup).join("\n"));
 
 console.log(`Hubs actualizados: ${budgetCards.length} presupuestos, ${mapCards.length} mapas, ${packingCards.length} guías de equipaje.`);
+if(CHECK&&outdated.length){
+  console.error("VCC: catálogos automáticos desactualizados: "+outdated.join(", "));
+  process.exitCode=1;
+}
