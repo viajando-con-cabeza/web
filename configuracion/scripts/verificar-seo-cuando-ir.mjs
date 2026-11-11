@@ -110,4 +110,17 @@ for (const id of ['ci-icon-sunset','ci-icon-good','ci-icon-bad']) {
     `Las doce fichas deben reutilizar el símbolo: ${id}`);
 }
 
+// Carrusel móvil de Nuestra experiencia: preservar tres tarjetas legibles y sus flechas.
+assert.equal(matches(html, /<article class="ci-august-plan">/g).length, 3,
+  'Deben mantenerse los tres consejos meteorológicos');
+assert.ok(html.includes('class="ci-august-weather-prev"') &&
+  html.includes('class="ci-august-weather-next"'),
+  'Faltan las flechas superiores del carrusel de experiencia');
+assert.ok(css.includes('.ci-august-weather-options>.ci-august-plan') &&
+  css.includes('flex:0 0 100%') && css.includes('scroll-snap-type:x mandatory'),
+  'Las tarjetas deben ocupar todo el ancho disponible en móvil');
+assert.ok(interacciones.includes("weatherPrev.addEventListener('click'") &&
+  interacciones.includes("weatherTrack.addEventListener('scroll'"),
+  'Faltan los controles y el seguimiento de scroll del carrusel');
+
 console.log('SEO Cuándo ir: canonical, sitemap, schema, Quality noindex y galería validados.');
