@@ -492,10 +492,9 @@ html body.ci-page .ci-tip-card{flex:0 0 calc((100% - 28px)/3);min-width:0;box-si
 html body.ci-page .ci-tip-number{display:flex;align-items:center;justify-content:center;flex:0 0 29px;width:29px;height:29px;border:1px solid #dc9e73;border-radius:50%;background:#fff3e9;color:#b75b38;font:700 15px var(--vcc-font-heading, "Oswald", sans-serif)}
 html body.ci-page .ci-tip-card h3{font:500 19px/1.2 var(--vcc-font-heading, "Oswald", sans-serif);margin:2px 0 7px}
 html body.ci-page .ci-tip-card p{font:400 11px/1.55 var(--vcc-font-body, "DM Sans", Arial, sans-serif);color:#6a5e55;margin:0}
-html body.ci-page .ci-tips-arrow{width:30px;height:30px;display:flex;align-items:center;justify-content:center;border-radius:50%;border:1px solid #dccfc5;background:#fff;color:#b15a43;font:500 24px/1 var(--vcc-font-body, "DM Sans", Arial, sans-serif)}
-html body.ci-page .ci-tips-arrow:hover:not(:disabled){border-color:var(--ci-orange);background:#fff5ed}
+html body.ci-page .ci-tips-arrow{display:flex;align-items:center;justify-content:center;}
 html body.ci-page .ci-tips-arrow:focus-visible{outline:2px solid var(--ci-orange);outline-offset:2px}
-html body.ci-page .ci-tips-arrow:disabled{opacity:.35;cursor:default}
+html body.ci-page .ci-tips-arrow:disabled{cursor:default;}
 @media(max-width:900px){
   html body.ci-page .ci-tip-card{flex-basis:calc((100% - 14px)/2)}
 }
@@ -506,7 +505,6 @@ html body.ci-page .ci-tips-arrow:disabled{opacity:.35;cursor:default}
   html body.ci-page .ci-tips-shell{grid-template-columns:26px minmax(0,1fr) 26px;gap:6px}
   html body.ci-page .ci-tips-track{gap:10px}
   html body.ci-page .ci-tip-card{flex-basis:100%;padding:13px;min-height:126px}
-  html body.ci-page .ci-tips-arrow{width:26px;height:26px;font-size:21px}
 }
 
 /* VCC 2026-11-09: detalle mes a mes en dos columnas, sin fondos de color en pros/contras. */
