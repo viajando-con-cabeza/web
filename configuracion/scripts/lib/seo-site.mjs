@@ -3,13 +3,9 @@
 import fs from "node:fs";
 import path from "node:path";
 
-export const ORIGIN = "https://viajandoconcabeza.com";
-export const ROOT = process.cwd();
-const registry=JSON.parse(fs.readFileSync(path.join(ROOT,"configuracion/datos/publicacion-vcc.json"),"utf8"));
-export const publishable=registry.approved.map(file=>[
-  file,
-  file==="index.html"?"/":file.endsWith("/index.html")?"/"+file.slice(0,-10):"/"+file.replace(/\.html$/,"")
-]);
+import {ORIGIN, ROOT, approvedFiles, publicRoute} from "./publicacion-vcc.mjs";
+export {ORIGIN, ROOT};
+export const publishable=approvedFiles.map(file=>[file,publicRoute(file)]);
 
 export function readSiteFile(relative) {
   return fs.readFileSync(path.join(ROOT, relative), "utf8");

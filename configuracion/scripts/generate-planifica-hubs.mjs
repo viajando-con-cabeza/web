@@ -1,5 +1,6 @@
 import fs from "node:fs";
 import path from "node:path";
+import {PUBLISHED_FILES, publicRoute} from "./lib/publicacion-vcc.mjs";
 
 const ROOT = process.cwd();
 
@@ -55,10 +56,10 @@ function replaceAuto(file,start,end,body){
   const a=html.indexOf(start), b=html.indexOf(end);
   if(a<0||b<0||b<a) throw new Error(`Missing auto markers in ${file}`);
   html=html.slice(0,a+start.length)+"\n"+body.trim()+"\n"+html.slice(b);
-  fs.writeFileSync(full,html);
+  if(html!==fs.readFileSync(full,"utf8"))fs.writeFileSync(full,html);
 }
 
-const all = walk(path.join(ROOT,"destinos")).filter(f => !f.endsWith(".html") || !/<meta[^>]+name=["\']robots["\'][^>]+content=["\'][^"\']*noindex/i.test(fs.readFileSync(f,"utf8")));
+const all = walk(path.join(ROOT,"destinos")).filter(file=>file.endsWith(".html") && PUBLISHED_FILES.has(rel(file)));
 
 // Metadata editorial. Los importes se leen siempre del presupuesto publicado
 // (perfil VCC), para no duplicar cifras ni confundir estimaciones con gastos reales.
@@ -99,7 +100,7 @@ const budgetCards = budgetFiles.map(file => {
     '<img src="' + esc(photo) + '" alt="Viaje a ' + esc(destination) + ', ' + esc(country) + '" loading="lazy" decoding="async">',
     '<div class="it-card-copy"><h2>' + esc(destination.toUpperCase()) + '</h2><p>' + esc(description) + '</p>',
     '<div class="it-meta"><span class="budget-price">€ ' + esc(priceLabel) + '</span><span>⌖ ' + esc(typeLabel) + '</span>' + daysLabel + '</div>',
-    '<a href="/' + esc(filePath) + '" class="it-cta">VER PRESUPUESTO COMPLETO →</a></div></article>'
+    '<a href="' + esc(publicRoute(filePath)) + '" class="it-cta">VER PRESUPUESTO COMPLETO →</a></div></article>'
   ].join("");
 }).sort((a,b)=>a.localeCompare(b,"es"));
 replaceAuto("planifica/presupuesto/index.html", "<!-- AUTO_BUDGETS_START -->", "<!-- AUTO_BUDGETS_END -->", budgetCards.join("\n"));
@@ -117,7 +118,7 @@ const mapCards = mapFiles.map(file=>{
   const d=(h1.match(/(\d+)\s+D[IÍ]AS/i)||title.match(/en\s+(\d+)\s+d[ií]as/i)||[])[1];
   const dayCount=Number(d)||Math.max(1,(html.match(/VER RUTA EN GOOGLE MAPS/gi)||[]).length);
   const routes=Array.from({length:dayCount},(_,i)=>`<li><strong>Día ${i+1}</strong><span>Ruta del día ${i+1}</span></li>`).join("");
-  const href="/"+rel(file);
+  const href=publicRoute(rel(file));
   return `<article class="card destination" data-continent="${esc(continent)}"><div class="preview"><span class="badge">MAPA + ${dayCount} DÍA${dayCount===1?"":"S"}</span><i class="line"></i><i class="dot d1"></i><i class="dot d2"></i><i class="dot d3"></i><i class="dot d4"></i></div><div class="body"><div class="titleline"><div><h3>${esc(destination)}</h3><div class="country">${esc(country)}</div></div><div class="days">${dayCount} día${dayCount===1?"":"s"}</div></div><div class="general"><b>⌖ Mapa general</b><span>Mapa y rutas enlazados desde el itinerario</span></div><ul class="routes">${routes}</ul><div class="actions"><a class="primary" href="${href}#mapa">VER MAPA GENERAL ↗</a><a class="secondary" href="${href}">VER ITINERARIO →</a></div></div></article>`;
 }).filter(Boolean).sort((a,b)=>a.localeCompare(b,"es"));
 
@@ -239,7 +240,7 @@ const packingContinents = {europa:"Europa",asia:"Asia",america:"América",africa
 const packingSources = [
   ...walk(path.join(ROOT,"planifica","que-llevar")).filter(file=>/^planifica\/que-llevar\/[^/]+\/index\.html$/i.test(rel(file))),
   ...all.filter(file=>/^destinos\/.+\/que-llevar\.html$/i.test(rel(file)))
-].filter(file=>!/<meta[^>]+name=["']robots["'][^>]+content=["'][^"']*noindex/i.test(fs.readFileSync(file,"utf8")));
+].filter(file=>PUBLISHED_FILES.has(rel(file)));
 const packingCards = packingSources.map(file=>{
   const filePath=rel(file);
   const info=packingEditorial[filePath]||{};
@@ -255,7 +256,7 @@ const packingCards = packingSources.map(file=>{
   const description=info.description||"Consulta la checklist de equipaje, la ropa recomendada y los consejos para este destino.";
   const image=info.image||"/configuracion/imagenes/fondos/fondos-que-llevar.webp";
   const continentLabel=packingContinents[continent]||"Más destinos";
-  const href="/"+filePath.replace(/\/index\.html$/i,"/");
+  const href=publicRoute(filePath);
   const markup=[
     '<article class="it-card packing-card" data-continent="'+esc(continent)+'" data-type="'+esc(type.join(" "))+'">',
     '<img src="'+esc(image)+'" alt="'+esc('Imagen ilustrativa para la guía de equipaje de '+name)+'" width="640" height="360" loading="lazy" decoding="async">',

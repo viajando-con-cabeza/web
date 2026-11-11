@@ -7,28 +7,9 @@
 import fs from 'node:fs';
 import path from 'node:path';
 
-const ROOT=process.cwd();
-const config=JSON.parse(fs.readFileSync('configuracion/datos/publicacion-vcc.json','utf8'));
-const approved=new Set(config.approved);
-const ORIGIN=config.origin;
+import {ROOT, registry as config, PUBLISHED_FILES as approved, ORIGIN, publicUrl as url, listSiteHtml as scan} from "./lib/publicacion-vcc.mjs";
 const write=process.argv.includes('--write');
 const issues=[], changes=[];
-const ignore=new Set(['.git','.github','.wrangler','node_modules','preview-dist','configuracion','.openai']);
-function scan(folder=ROOT,relative=''){
-  return fs.readdirSync(folder,{withFileTypes:true}).flatMap(e=>{
-    if(e.isDirectory()){
-      return ignore.has(e.name)?[]:scan(path.join(folder,e.name),path.posix.join(relative,e.name));
-    }
-    const rel=path.posix.join(relative,e.name);
-    return rel.endsWith('.html')?[rel]:[];
-  });
-}
-function route(file){
-  if(file==='index.html')return '/';
-  if(file.endsWith('/index.html'))return '/'+file.slice(0,-10);
-  return '/'+file.replace(/\.html$/,'');
-}
-const url=file=>ORIGIN+route(file);
 function set(file,value){
   const p=path.join(ROOT,file),before=fs.existsSync(p)?fs.readFileSync(p,'utf8'):null;
   if(before===value)return;
