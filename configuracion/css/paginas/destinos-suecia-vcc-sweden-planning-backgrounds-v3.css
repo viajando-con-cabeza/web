@@ -1,0 +1,42 @@
+/* CSS extret de destinos/suecia/index.html. L'ordre de la cascada es conserva. */
+
+/* SVG originales de Quality: visibles completos en las seis tarjetas */
+body.country-page #planifica .vcc-prep-image{
+  position:relative!important;overflow:hidden!important;
+  background-color:#e8edeb!important;
+  background-image:var(--vcc-prep-photo)!important;
+  background-position:center center!important;
+  background-repeat:no-repeat!important;
+  background-size:cover!important;
+  isolation:isolate!important;
+  min-height:96px!important;height:96px!important;
+}
+body.country-page #planifica .vcc-prep-image img{
+  display:block!important;width:100%!important;height:100%!important;
+  min-height:0!important;max-height:none!important;
+  object-fit:cover!important;object-position:center!important;
+  filter:none!important;opacity:0!important;visibility:visible!important;
+}
+body.country-page #planifica .vcc-prep-image::after{display:none!important}
+body.country-page #planifica .vcc-prep-image>span{z-index:2!important}
+/* Imagen real de Göteborg desde Cloudflare R2, no background CSS */
+body.country-page .vcc-inspiration{
+  position:relative!important;overflow:hidden!important;
+  background:#a9bbbe!important;background-image:none!important;
+  isolation:isolate!important;
+}
+body.country-page .vcc-inspiration>.vcc-inspiration-photo{
+  position:absolute!important;inset:0!important;
+  display:block!important;width:100%!important;height:100%!important;
+  object-fit:cover!important;object-position:center 55%!important;
+  opacity:1!important;z-index:0!important;
+}
+body.country-page .vcc-inspiration::before{
+  z-index:1!important;pointer-events:none!important;
+  background:linear-gradient(90deg,rgba(15,27,31,.26),rgba(15,27,31,.03))!important;
+}
+body.country-page .vcc-inspiration>div{z-index:2!important}
+@media(max-width:560px){
+  body.country-page #planifica .vcc-prep-image{height:105px!important;min-height:105px!important}
+}
+

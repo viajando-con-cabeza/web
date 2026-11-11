@@ -1,0 +1,73 @@
+/* CSS extret de destinos/index.html. L'ordre de la cascada es conserva. */
+
+/* Destinos follows the exact hero typography, dimensions and alignment of Nosotros / Planifica. */
+body.destinos-vcc .destinos-about-hero{
+  min-height:360px!important;
+  display:flex!important;align-items:flex-start!important;position:relative!important;
+  width:100%!important;margin:0!important;padding:0!important;overflow:hidden!important;
+  border:0!important;background-color:#e9ded2!important;
+}
+body.destinos-vcc .destinos-about-hero .about-hero-photo,
+body.destinos-vcc .destinos-about-hero .about-hero-shade{
+  position:absolute!important;inset:0!important;
+}
+body.destinos-vcc .destinos-about-hero .about-hero-photo{
+  z-index:0!important;
+  background-image:url("/configuracion/imagenes/fondos/fondos-destinos-modern.avif")!important;
+  background-size:cover!important;background-position:center 52%!important;
+  background-repeat:no-repeat!important;
+}
+body.destinos-vcc .destinos-about-hero .about-hero-shade{
+  z-index:1!important;
+  background:linear-gradient(90deg,rgba(250,246,241,.97) 0%,rgba(250,246,241,.88) 40%,rgba(250,246,241,.18) 78%,rgba(250,246,241,.04))!important;
+}
+body.destinos-vcc .destinos-about-hero .about-hero-copy{
+  position:relative!important;z-index:2!important;
+  width:min(1180px,calc(100% - 48px))!important;
+  max-width:none!important;margin:0 auto!important;padding:48px 0!important;
+  text-align:left!important;
+}
+body.destinos-vcc .destinos-about-hero .eyebrow{
+  display:block!important;width:max-content!important;max-width:100%!important;
+  margin:0 0 9px!important;padding:0!important;background:none!important;
+  border:0!important;box-shadow:none!important;border-radius:0!important;
+  font:600 25px/1 var(--vcc-font-script, "Caveat", cursive)!important;
+  letter-spacing:0!important;text-transform:none!important;
+  color:#cf705c!important;
+}
+body.destinos-vcc .destinos-about-hero h1{
+  color:#292724!important;font:500 clamp(34px,3.6vw,48px)/1.08 var(--vcc-font-heading, "Oswald", sans-serif)!important;
+  letter-spacing:-.025em!important;margin:12px 0!important;
+  max-width:760px!important;text-align:left!important;text-shadow:none!important;
+}
+body.destinos-vcc .destinos-about-hero h1 em{
+  font-style:normal!important;color:#b94f34!important;
+}
+body.destinos-vcc .destinos-about-hero .hero-lead{
+  font:400 15px/1.65 var(--vcc-font-body, "DM Sans", Arial, sans-serif)!important;
+  color:#4f4a45!important;max-width:590px!important;margin:0!important;
+}
+body.destinos-vcc .destinos-about-hero .hero-signoff{
+  margin-top:18px!important;border-top:1px solid #cbb9a8!important;
+  padding-top:10px!important;max-width:590px!important;
+  font:700 11px/1.5 var(--vcc-font-body, "DM Sans", Arial, sans-serif)!important;
+  letter-spacing:.035em!important;color:#655b52!important;
+}
+@media(max-width:900px){
+ body.destinos-vcc .destinos-about-hero{min-height:390px!important}
+ body.destinos-vcc .destinos-about-hero .about-hero-copy{width:calc(100% - 30px)!important;padding:28px 0!important}
+ body.destinos-vcc .destinos-about-hero h1{font-size:clamp(29px,7.7vw,38px)!important;line-height:1.1!important}
+ body.destinos-vcc .destinos-about-hero .hero-lead{font-size:13px!important;line-height:1.6!important}
+ body.destinos-vcc .destinos-about-hero .hero-signoff{font-size:11px!important}
+}
+@media(max-width:650px){
+ body.destinos-vcc .destinos-about-hero{min-height:390px!important;align-items:flex-start!important}
+ body.destinos-vcc .destinos-about-hero .about-hero-copy{width:calc(100% - 30px)!important;padding:28px 0!important}
+ body.destinos-vcc .destinos-about-hero .about-hero-photo{background-position:60% center!important}
+ body.destinos-vcc .destinos-about-hero .about-hero-shade{
+  background:linear-gradient(90deg,rgba(250,246,241,.97),rgba(250,246,241,.78) 68%,rgba(250,246,241,.2))!important
+ }
+ body.destinos-vcc .destinos-about-hero h1{font-size:clamp(29px,7.7vw,38px)!important;line-height:1.1!important}
+ body.destinos-vcc .destinos-about-hero .hero-lead{font-size:13px!important;line-height:1.6!important}
+}
+
