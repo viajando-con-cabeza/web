@@ -116,3 +116,150 @@ body:has(.contact-page) .contact-page .contact-hero::after {
     background-position: 65% center !important;
   }
 }
+
+
+/* VCC · Portades internes unificades · 2026-11-11
+   Mateix sistema que Inicio: foto original sobre blanc, una màscara alfa
+   d'esquerra (menys visible) a dreta (més visible).
+   Sense color overlays, saturació, filtres, ni canvis als fitxers WebP.
+   S'aplica només als herois opt-in, mai als mosaics, galeries ni targetes. */
+
+/* Registre únic de fotografies: cada plantilla conserva el seu fons. */
+html body.budget-vcc .budget-hero.vcc-portada-transparente{
+  --vcc-portada-imatge:url('/configuracion/imagenes/fondos/fondos-presupuesto.webp?v=20261106-final');
+  --vcc-portada-posicio:center right;
+}
+html body .vcc-hero.vcc-portada-transparente{
+  --vcc-portada-imatge:var(--vcc-hero-image);
+  --vcc-portada-posicio:center center;
+}
+html body .cl-page.cl-landing .cl-landing-hero.vcc-portada-transparente{
+  --vcc-portada-imatge:url('/configuracion/imagenes/fondos/fondos-como-llegar.webp?v=20261111-qualitat-alta-v1');
+  --vcc-portada-posicio:center center;
+}
+html body .ep-page .ep-hero.vcc-portada-transparente{
+  --vcc-portada-imatge:url('/configuracion/imagenes/fondos/fondos-entradas-y-pases.webp?v=20261111-qualitat-alta-v1');
+}
+html body .imp-page .imp-hero.vcc-portada-transparente{
+  --vcc-portada-imatge:url('/configuracion/imagenes/fondos/fondos-que-ver.webp');
+}
+html body .di-hero.vcc-portada-transparente{
+  --vcc-portada-imatge:url('/configuracion/imagenes/fondos/fondos-como-llegar.webp?v=20261111-qualitat-alta-v1');
+}
+html body .tv-page .tv-hero.vcc-portada-transparente{
+  --vcc-portada-imatge:url('/configuracion/imagenes/fondos/fondos-planifica.webp?v=20261111-colors-restaurats');
+}
+
+/* El fons és sempre blanc. Cap degradat de color damunt de la imatge. */
+html body .vcc-portada-transparente,
+html body.budget-vcc .st-shell > section.budget-hero.vcc-portada-transparente,
+html body .imp-page .imp-hero.vcc-portada-transparente,
+html body .vcc-hero.vcc-portada-transparente,
+html body .cl-page.cl-landing .cl-landing-hero.vcc-portada-transparente{
+  isolation:isolate!important;
+  background-color:#fff!important;
+  background-image:none!important;
+}
+
+/* Única capa fotogràfica; es manté la imatge original a mida cover. */
+html body .vcc-portada-transparente::before,
+html body.budget-vcc .st-shell > section.budget-hero.vcc-portada-transparente::before{
+  content:""!important;
+  display:block!important;
+  position:absolute!important;
+  inset:0!important;
+  z-index:0!important;
+  pointer-events:none!important;
+  background-color:transparent!important;
+  background-image:var(--vcc-portada-imatge)!important;
+  background-size:cover!important;
+  background-position:var(--vcc-portada-posicio,center center)!important;
+  background-repeat:no-repeat!important;
+  filter:none!important;
+  opacity:1!important;
+  mix-blend-mode:normal!important;
+  -webkit-mask-image:var(--vcc-portada-fade)!important;
+  mask-image:var(--vcc-portada-fade)!important;
+  -webkit-mask-size:100% 100%!important;
+  mask-size:100% 100%!important;
+  -webkit-mask-repeat:no-repeat!important;
+  mask-repeat:no-repeat!important;
+}
+
+/* Evitem que les capes pseudo antigues tenyisquen la fotografia. */
+html body .vcc-portada-transparente::after{
+  background:none!important;
+  background-image:none!important;
+  pointer-events:none;
+}
+
+/* Les capes de contingut sempre per sobre del fons; sense alterar alçades. */
+html body .vcc-portada-transparente > :is(
+  .budget-hero-inner,.vcc-hero-inner,.ep-hero-inner,.imp-hero-inner,
+  .di-hero-inner,.tv-hero-inner,.cl-landing-stage
+){
+  position:relative;
+  z-index:1!important;
+}
+html body .cl-landing-hero.vcc-portada-transparente > .cl-crumb{z-index:2!important;}
+
+/* Plantilles amb una imatge <img> real: no dupliquem la foto al pseudo-element. */
+html body .vcc-portada-foto-img{
+  isolation:isolate!important;
+  background:#fff!important;
+}
+html body .vcc-portada-foto-img > :is(.dv-hero-photo,.ql-hero-photo){
+  z-index:0!important;
+  filter:none!important;
+  opacity:1!important;
+  mix-blend-mode:normal!important;
+  -webkit-mask-image:var(--vcc-portada-fade)!important;
+  mask-image:var(--vcc-portada-fade)!important;
+  -webkit-mask-size:100% 100%!important;
+  mask-size:100% 100%!important;
+  -webkit-mask-repeat:no-repeat!important;
+  mask-repeat:no-repeat!important;
+}
+html body .dv-page .dv-hero.vcc-portada-foto-img::after,
+html body .ql-page .ql-hero.vcc-portada-foto-img::before{
+  background:none!important;
+  background-image:none!important;
+  pointer-events:none!important;
+}
+html body .vcc-portada-foto-img > :is(.dv-shell,.ql-wrap){
+  position:relative!important;
+  z-index:1!important;
+}
+
+/* Les dues portades de Planifica hereten la mateixa transparència que Itinerarios,
+   però cadascuna manté el seu fitxer fotogràfic i no la foto d'Itinerarios. */
+body.que-llevar-hub .itinerarios-hero > .about-hero-photo{
+  background-image:url('/configuracion/imagenes/fondos/fondos-que-llevar.webp?v=20261111-qualitat-alta-v1')!important;
+}
+body.presupuestos-vcc .itinerarios-hero > .about-hero-photo{
+  background-image:url('/configuracion/imagenes/externas/unsplash/photo-1500530855697-b586d89ba3ee.webp')!important;
+}
+
+/* Aquesta pàgina abans era de fons fosc: tipografia llegible sobre blanc. */
+html body .tv-page .tv-hero.vcc-portada-transparente h1{color:#202524!important;}
+html body .tv-page .tv-hero.vcc-portada-transparente h1 em{color:#b65a3e!important;}
+html body .tv-page .tv-hero.vcc-portada-transparente p{color:#454b4c!important;}
+html body .tv-page .tv-hero.vcc-portada-transparente .tv-eyebrow{color:#b45a40!important;}
+html body .tv-page .tv-hero.vcc-portada-transparente .tv-button.ghost{
+  color:#95462f!important;
+  border-color:#bd775f!important;
+  background:rgba(255,255,255,.85)!important;
+}
+html body .tv-page .tv-hero.vcc-portada-transparente .tv-button.ghost:hover{background:#fff!important;}
+
+/* La màscara per a mòbil és la mateixa variable declarada a dalt:
+   cada guia només ajusta l'enquadrament, mai els colors. */
+@media(max-width:650px){
+  html body .vcc-hero.vcc-portada-transparente{--vcc-portada-posicio:57% center;}
+  html body .cl-page.cl-landing .cl-landing-hero.vcc-portada-transparente,
+  html body .ep-page .ep-hero.vcc-portada-transparente,
+  html body .imp-page .imp-hero.vcc-portada-transparente,
+  html body .di-hero.vcc-portada-transparente,
+  html body .tv-page .tv-hero.vcc-portada-transparente,
+  html body.budget-vcc .budget-hero.vcc-portada-transparente{--vcc-portada-posicio:62% center;}
+}
