@@ -526,3 +526,30 @@ html body .imp-page .gallery-mosaic.count-1 .gallery-tile{cursor:pointer!importa
  .vcc-booking-gallery-modal .day-lightbox-stage.vcc-gallery-sliding
  > .day-lightbox-photo-frame{animation:none!important}
 }
+
+/* Swipe interactiu VCC: dues fotos segueixen el dit 1:1.
+   En alliberar el dit, s'acaba la transició o torna a la inicial. */
+@media(max-width:800px){
+ .vcc-booking-gallery-modal.vcc-gallery-mobile .day-lightbox-stage.vcc-gallery-dragging
+ > .day-lightbox-photo-frame,
+ .vcc-booking-gallery-modal.vcc-gallery-mobile .day-lightbox-stage.vcc-gallery-drag-settling
+ > .day-lightbox-photo-frame{
+  will-change:transform;
+ }
+ .vcc-booking-gallery-modal.vcc-gallery-mobile .day-lightbox-stage.vcc-gallery-dragging
+ > .day-lightbox-photo-frame{
+  transition:none!important;
+ }
+ .vcc-booking-gallery-modal.vcc-gallery-mobile .day-lightbox-stage.vcc-gallery-drag-settling
+ > .day-lightbox-photo-frame{
+  transition:transform var(--vcc-gallery-drag-duration,220ms) cubic-bezier(.22,.61,.36,1)!important;
+ }
+ .vcc-booking-gallery-modal.vcc-gallery-mobile .day-lightbox-stage
+ > .day-lightbox-photo-frame.vcc-gallery-drag-incoming{
+  pointer-events:none;
+ }
+}
+@media(prefers-reduced-motion:reduce){
+ .vcc-booking-gallery-modal .day-lightbox-stage.vcc-gallery-drag-settling
+ > .day-lightbox-photo-frame{transition:none!important}
+}
