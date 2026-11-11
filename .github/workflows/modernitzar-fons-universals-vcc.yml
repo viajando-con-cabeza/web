@@ -1,0 +1,58 @@
+name: Modernitzar fons universals VCC
+on:
+  push:
+    branches: [quality]
+    paths:
+      - .github/workflows/modernitzar-fons-universals-vcc.yml
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: modernitzar-fons-universals-quality
+  cancel-in-progress: false
+jobs:
+  modernitzar:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Descarregar quality
+        uses: actions/checkout@v4
+        with:
+          ref: quality
+          fetch-depth: 0
+          persist-credentials: true
+      - name: Preparar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Instal·lar processador WebP
+        run: npm install --no-save --no-package-lock sharp@0.34.4
+      - name: Modernitzar i arxivar fons antics
+        run: node configuracion/scripts/modernitzar-fons-vcc.mjs
+      - name: Verificar referències i fitxers visuals
+        shell: bash
+        run: |
+          set -euo pipefail
+          for f in fondos-donde-dormir.webp fondos-que-llevar.webp fondos-entradas-y-pases.webp fondos-como-moverse.webp fondos-cuando-ir.webp fondos-como-llegar.webp fondos-cuando-ir-mobile.webp; do
+            test -s "configuracion/imagenes/fondos/$f"
+            test -s "configuracion/imagenes/fondos/old/$f"
+          done
+          if git grep -n -E 'fondos-(donde-dormir|que-llevar|entradas-y-pases|como-moverse)-editorial\.webp' -- '*.html' '*.css' '*.js' ':!configuracion/scripts/modernitzar-fons-vcc.mjs'; then
+            echo "Encara hi ha referències a fons -editorial antics"
+            exit 1
+          fi
+          node configuracion/scripts/auditar-recursos.mjs --no-write --enforce-external-baseline
+      - name: Desar els canvis només a quality
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "VCC Editorial Automation"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -u
+          git add -A configuracion/imagenes/fondos
+          git status --short
+          if git diff --cached --quiet; then
+            echo "No hi ha canvis pendents"
+          else
+            git commit -m "Modernitzar 6 fons globals WebP, arxivar originals i conservar enllaços"
+            git push origin HEAD:quality
+          fi
