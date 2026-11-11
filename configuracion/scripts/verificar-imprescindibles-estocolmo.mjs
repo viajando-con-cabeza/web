@@ -20,6 +20,7 @@ const html=read(page);
 const sitemap=read('sitemap.xml');
 const map=read('configuracion/js/destinos/suecia/estocolmo/imprescindibles-mapa.js');
 const interaction=read('configuracion/js/plantillas/imprescindibles-interactions.js');
+const photos=read('configuracion/js/destinos/suecia/estocolmo/imprescindibles-fotos.js');
 const css=read('configuracion/css/destinos/suecia/estocolmo/imprescindibles-decisiones.css');
 const galleryCss=read('configuracion/css/plantillas/imprescindibles.css');
 const layoutCss=read('configuracion/css/destinos/suecia/estocolmo/imprescindibles-layout.css');
@@ -107,16 +108,18 @@ verify(html.includes("card.className='place-info-card'") &&
 verify(css.includes('place.place--no-media .place-copy > .advice') &&
   css.includes('place.place--no-media .place-info-card > .facts'),
   'Estilos: no se debe perder la anchura y fila de iconos sin fotografía');
-verify(html.includes('gallery.dataset.seoImages=p[0]===\'ferry\'?\'false\':\'true\''),
-  'Galerías: conservar tratamiento de fotos AVIF del ferry');
+verify(html.includes("gallery.dataset.seoImages='true'") &&
+  html.includes('imprescindibles-fotos.js'),
+  'Galerías: deben conservar img reales y el catálogo VCC propio de R2');
 
-const ferry=html.match(/const FERRY_PHOTOS=\[([\s\S]*?)\]\.map\(key=>FERRY_BASE\+key\);/);
-const ferryFiles=[...(ferry?.[1]||'').matchAll(/(?:paisajes|bosques|mar)\/DSC\d+\.avif/g)]
-  .map(m=>m[0]);
-verify(ferryFiles.length===9 && new Set(ferryFiles).size===9,
-  'R2: las 9 fotografías originales del ferry deben mantenerse');
-verify(html.includes("'20'+'26-dia8/'"),
-  'R2: la ruta del ferry debe conservar el año 2026');
+const ferry=photos.match(/'ferry':\s*\[([^\]]+)\]/);
+const ferryCodes=[...(ferry?.[1]||'').matchAll(/(?:s7|a)\('(\d+)'\)/g)].map(m=>m[1]);
+verify(ferryCodes.length===18 && new Set(ferryCodes).size===18,
+  'R2: conservar las 18 fotos originales propias del ferry (9 ciudad y 9 archipiélago)');
+verify(photos.includes("estocolmo-archipelago/") &&
+  photos.includes("'20'+'26-dia8/'") &&
+  photos.includes("estocolmo/"),
+  'R2: conservar las rutas y el año de las fotos propias de Estocolmo');
 verify(interaction.includes('estocolmo-archipelago') &&
   interaction.includes('optimizedPhoto'),
   'R2: se ha cambiado el tratamiento de miniaturas AVIF');
