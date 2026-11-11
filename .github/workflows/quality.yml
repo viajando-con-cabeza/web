@@ -129,6 +129,9 @@ jobs:
       - name: Check local links and resources
         run: node configuracion/scripts/comprobar-rutas.mjs
 
+      - name: Validate shared SEO, canonical and sitemap
+        run: node configuracion/scripts/verificar-seo-global.mjs
+
       - name: Validate Stockholm arrival SEO and staging noindex rules
         run: node configuracion/scripts/verificar-seo-como-llegar.mjs
 
