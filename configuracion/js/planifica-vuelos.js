@@ -53,7 +53,7 @@
    airlineCards.forEach(card=>card.hidden=key!=='all'&&!card.dataset.continents.split(' ').includes(key));
    if(reset)reset.hidden=false;
    const visible=airlineCards.filter(card=>!card.hidden).length;
-   if(regionCopy)regionCopy.textContent=key==='all'?'16 aerolíneas con pros y puntos a revisar. Selecciona un continente arriba.':visible+' aerolínea'+(visible===1?'':'s')+' de nuestros viajes por '+regionLabels[key]+'.';
+   if(regionCopy)regionCopy.textContent=key==='all'?airlineCards.length+' aerolíneas con pros y puntos a revisar. Selecciona un continente arriba.':visible+' aerolínea'+(visible===1?'':'s')+' de nuestros viajes por '+regionLabels[key]+'.';
    if(airlineTrack)airlineTrack.scrollLeft=0;
    requestAnimationFrame(updateAir);
 
@@ -99,7 +99,7 @@
  const bestSavings=root.querySelector('[data-best-savings]');
  const emptyFlight=()=>({airline:'',route:'',base:'',baggage:'',seat:'',food:'',transfer:''});
  const flights=[emptyFlight(),emptyFlight(),emptyFlight()];
- const number=value=>Math.max(0,Number(value)||0);
+ const number=value=>{const parsed=Number(value);return Number.isFinite(parsed)&&parsed>0?parsed:0;};
  const total=flight=>Math.round(costKeys.reduce((sum,key)=>sum+number(flight[key]),0)*100)/100;
  const labelAirline=id=>(airlines.find(item=>item[0]===id)||[])[1]||'Aerolínea sin elegir';
  const icon=id=>'<svg class="vl-compare-icon" aria-hidden="true"><use href="'+iconRoot+id+'"></use></svg>';
@@ -264,7 +264,12 @@
    const control=event.target.closest('[data-flight-index][data-field]');
    if(!control)return;
    const i=Number(control.dataset.flightIndex);
-   if(flights[i])flights[i][control.dataset.field]=control.value;
+   const key=control.dataset.field;
+   if(!flights[i]||!Object.prototype.hasOwnProperty.call(flights[i],key))return;
+   if(costKeys.includes(key)&&control.value!==''&&(!Number.isFinite(Number(control.value))||Number(control.value)<0)){
+     control.value='0';
+   }
+   flights[i][key]=control.value;
    updateCalculator();
  });
  flightScroll?.addEventListener('click',event=>{
