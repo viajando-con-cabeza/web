@@ -11,7 +11,7 @@ const sitemap=read('sitemap.xml');
 const style=read('configuracion/css/componentes/subheader-unificado-vcc.css');
 const script=read('configuracion/js/componentes/subheader-unificado-vcc.js');
 const header=read('configuracion/js/site-header.js');
-const supported=new Set('st-tabs vcc-nav place-nav-wrap country-nav mv-subnav dv-subnav ep-subnav ql-subnav ci-subnav content-nav rich-tabs cl-subnav'.split(' '));
+const supported=new Set('st-tabs vcc-nav place-nav-wrap country-nav mv-subnav dv-subnav ep-subnav ql-subnav ci-subnav content-nav rich-tabs cl-subnav tv-tabs'.split(' '));
 const errors=[];
 let checked=0,withSubheader=0;
 for(const [match,url] of [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map(m=>[m,m[1]])){
@@ -49,7 +49,7 @@ for(const [match,url] of [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map(m=>[m
 }
 const requirements=[
  [style.includes('--vcc-component-subheader-height,39px'),'alçada estàndard 39 px'],
- [style.includes("font:800 11.5px/1.15 'DM Sans'"),'tipografia estàndard DM Sans 11.5 px'],
+ [style.includes('font:800 11.5px/1.15 var(--vcc-font-body'),'tipografia estàndard DM Sans 11.5 px'],
  [style.includes('font-size:11px!important'),'tipografia mòbil 11 px'],
  [style.includes('border-color .16s ease'),'animació coherent del subratllat'],
  [style.includes('.place-nav-arrow'),'fletxes integrades al CSS global'],

@@ -102,12 +102,17 @@ assert.ok(/@media\s*\(max-width:\s*800px\)/.test(css) &&
   css.includes('fondos-cuando-ir-mobile.webp'),
   'La portada optimizada para móvil debe mantenerse');
 
-// Tres iconos SVG compartidos por las doce fichas: sin duplicar sus trazados.
+// Tres iconos SVG compartidos externamente; la geometría nunca se declara en el HTML.
+const symbolPath='configuracion/imagenes/iconos/paginas/estocolmo-cuando-ir-simbolos.svg';
+assert.ok(existsSync(symbolPath),'Falta la biblioteca externa de iconos del calendario');
+const symbols=read(symbolPath);
 for (const id of ['ci-icon-sunset','ci-icon-good','ci-icon-bad']) {
-  assert.equal(html.split('<symbol id="' + id + '"').length - 1, 1,
-    `Debe existir un solo símbolo: ${id}`);
-  assert.equal(html.split('href="#' + id + '"').length - 1, 12,
-    `Las doce fichas deben reutilizar el símbolo: ${id}`);
+  assert.equal(symbols.split('<symbol id="' + id + '"').length - 1, 1,
+    `Debe existir un solo símbolo externo: ${id}`);
+  assert.equal(html.split('href="/' + symbolPath + '#' + id + '"').length - 1, 12,
+    `Las doce fichas deben reutilizar el símbolo SVG externo: ${id}`);
+  assert.equal(html.split('<symbol id="' + id + '"').length - 1, 0,
+    `El icono no debe declararse dentro del HTML: ${id}`);
 }
 
 // Carrusel móvil de Nuestra experiencia: preservar tres tarjetas legibles y sus flechas.
