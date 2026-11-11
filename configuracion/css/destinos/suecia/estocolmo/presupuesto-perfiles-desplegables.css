@@ -1417,7 +1417,10 @@ html body.budget-vcc #filosofia .vcc-daily-track .vcc-budget-day-expenses li.vcc
   display:flex!important;
   flex-direction:column!important;
   align-items:flex-end!important;
-  justify-content:center!important;
+  justify-content:flex-end!important;
+  align-self:end!important;
+  grid-row:3!important;
+  text-align:right!important;
   gap:3px!important;
   min-width:0!important;
   margin:0!important;
@@ -1456,4 +1459,26 @@ html body.budget-vcc #filosofia .vcc-day-total-tile .vcc-day-price{
   html body.budget-vcc #filosofia .vcc-day-total-tile .vcc-day-price{
     font-size:16px!important;
   }
+}
+
+/* Mantener TOTAL / PAX abajo a la derecha aunque las otras fichas tengan
+   distinta cantidad de texto y al pasar entre los días del carrusel. */
+html body.budget-vcc #filosofia .vcc-daily-track .vcc-budget-day.vcc-daily-slide{
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:stretch!important;
+}
+html body.budget-vcc #filosofia .vcc-daily-track .vcc-budget-day.vcc-daily-slide .vcc-budget-day-expenses{
+  flex:1 1 auto!important;
+  grid-template-rows:auto auto minmax(min-content,1fr)!important;
+}
+html body.budget-vcc #filosofia .vcc-daily-track .vcc-budget-day-expenses li:nth-last-child(2){
+  align-self:start!important;
+}
+html body.budget-vcc #filosofia .vcc-daily-track .vcc-budget-day-expenses li.vcc-day-total-tile:last-child{
+  margin-top:auto!important;
+  justify-self:stretch!important;
+  justify-content:flex-end!important;
+  align-items:flex-end!important;
+  text-align:right!important;
 }
