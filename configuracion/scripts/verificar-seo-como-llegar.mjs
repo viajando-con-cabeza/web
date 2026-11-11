@@ -19,6 +19,7 @@ assert(routes.assets?.html_handling === 'auto-trailing-slash', 'wrangler: expect
 
 const sitemap = read('sitemap.xml');
 const sitemapUrls = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map(m => m[1]);
+const approved = new Set(JSON.parse(read('configuracion/datos/publicacion-vcc.json')).approved);
 const files = [section + '.html', ...fs.readdirSync(path.join(root, section))
   .filter(name => name.endsWith('.html')).map(name => section + '/' + name)];
 const hub = read(section + '.html');
@@ -27,7 +28,12 @@ assert(active.length === 12, 'Expected 12 active transport guides linked in hub,
 const activeUrls = [base, ...active.map(slug => base + '/' + slug)];
 
 for (const url of activeUrls) {
-  assert(sitemapUrls.includes(url), 'Sitemap is missing canonical URL ' + url);
+  const file = url.slice('https://viajandoconcabeza.com/'.length) + '.html';
+  if (approved.has(file)) {
+    assert(sitemapUrls.includes(url), 'Sitemap is missing approved canonical URL ' + url);
+  } else {
+    assert(!sitemapUrls.includes(url), 'Draft URL wrongly indexed in sitemap ' + url);
+  }
 }
 assert(!sitemapUrls.some(url => url.startsWith(base) && url.endsWith('.html')),
   'Sitemap still lists .html URLs under Cómo llegar');
@@ -37,8 +43,15 @@ for (const file of files) {
   const own = 'https://viajandoconcabeza.com/' + file.replace(/\.html$/, '');
   const canonical = html.match(/<link rel="canonical" href="([^"]+)"/)?.[1];
   const ogUrl = html.match(/<meta property="og:url" content="([^"]+)"/)?.[1];
-  assert(canonical === own, file + ': incorrect canonical (' + canonical + ')');
-  if (ogUrl) assert(ogUrl === own, file + ': og:url differs from canonical');
+  const published = approved.has(file);
+  if (published) {
+    assert(canonical === own, file + ': incorrect canonical (' + canonical + ')');
+    if (ogUrl) assert(ogUrl === own, file + ': og:url differs from canonical');
+  } else {
+    assert(/<meta\b[^>]*name="robots"[^>]*content="noindex,follow"/i.test(html),
+      file + ': draft missing noindex');
+    assert(!sitemapUrls.includes(own),file+': draft unexpectedly in sitemap');
+  }
   assert(!/href="(?:\.{0,2}\/|\/)[^"]+\.html(?:\?[^"]*)?"/.test(html),
     file + ': a local HTML link still uses .html');
   for (const match of html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)) {
@@ -49,11 +62,11 @@ for (const file of files) {
     }
     const graph = Array.isArray(json['@graph']) ? json['@graph'] : [json];
     for (const node of graph) {
-      if (node['@type'] === 'WebPage') {
+      if (published && node['@type'] === 'WebPage') {
         assert(node.url === own, file + ': WebPage.url differs from canonical');
         assert(node['@id'] === own + '#webpage', file + ': WebPage @id differs from canonical');
       }
-      if (node['@type'] === 'BreadcrumbList' && Array.isArray(node.itemListElement)) {
+      if (published && node['@type'] === 'BreadcrumbList' && Array.isArray(node.itemListElement)) {
         const last = node.itemListElement.at(-1);
         assert(last?.item === own, file + ': last breadcrumb item differs from canonical');
       }
