@@ -62,6 +62,17 @@ function decorate(html,file,isReady){
       newTags+='<meta property="og:image" content="'+ORIGIN+image+'">\n';
     }
     if(!metaTag('twitter:card'))newTags+='<meta name="twitter:card" content="summary_large_image">\n';
+    if(file==='index.html' && !html.includes('data-vcc-schema-website')) {
+      const websiteSchema={
+        "@context":"https://schema.org",
+        "@type":"WebSite",
+        "name":"Viajando con Cabeza",
+        "url":ORIGIN+"/",
+        "inLanguage":"es",
+        "description":"Itinerarios reales, guías de viaje, presupuestos y consejos para viajar mejor."
+      };
+      newTags+='<script type="application/ld+json" data-vcc-schema-website>'+JSON.stringify(websiteSchema)+'</script>\n';
+    }
   }
   html=html.replace(/<head\b[^>]*>\s*/i,tag=>tag.trimEnd()+'\n'+newTags);
   if(isReady && !file.endsWith('/index.html') && file!=='index.html'){

@@ -105,7 +105,7 @@ sense migració addicional en aquesta fase.
 
 ## SEO i components compartits (2026-11-11)
 
-- `configuracion/scripts/lib/seo-site.mjs`: única llista de pàgines preparades per indexació amb la ruta HTML i la canonical pública. Ampliar aquesta llista quan una guia estigui acabada.
+- `configuracion/datos/publicacion-vcc.json`: registre únic de les pàgines aprovades per indexar (per defecte, totes les noves són `noindex`). `lib/seo-site.mjs` deriva la llista d'aquest registre. Per canviar l'estat editorial, modifiqueu només el JSON.
 - `configuracion/scripts/verificar-seo-global.mjs`: comprovació global de H1, títol, descripció, canonical, sitemap i exclusions `noindex`. Integrada a l'Action `Quality`.
 - `sitemap.xml`: ha de contenir només URL públiques reals; mai enllaços cap a `quality` ni pàgines marcades `noindex`.
 - `configuracion/css/componentes/presupuesto-gastos-dia-vcc.css`: component de dues columnes per a les despeses diàries. Es carrega DESPRÉS de `presupuesto-perfiles-desplegables.css`. No duplicar aquestes regles al CSS específic d'Estocolm.
