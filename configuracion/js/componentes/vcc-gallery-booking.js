@@ -137,7 +137,8 @@ function clearPhotoSlide(){
  slideOverlay?.remove();
  slideOverlay=null;
  stage.classList.remove('vcc-gallery-sliding');
- stage.style.removeProperty('--vcc-gallery-slide-direction');
+ stage.style.removeProperty('--vcc-gallery-slide-enter');
+ stage.style.removeProperty('--vcc-gallery-slide-leave');
 }
 function beginPhotoSlide(direction){
  if(!isMobile()||prefersReducedMotion.matches||touchZoom>1.01)return;
@@ -145,7 +146,8 @@ function beginPhotoSlide(direction){
  departing.classList.add('vcc-gallery-slide-outgoing');
  departing.setAttribute('aria-hidden','true');
  slideOverlay=departing;
- stage.style.setProperty('--vcc-gallery-slide-direction',String(Math.sign(direction)));
+ stage.style.setProperty('--vcc-gallery-slide-enter',direction>0?'100%':'-100%');
+ stage.style.setProperty('--vcc-gallery-slide-leave',direction>0?'-100%':'100%');
  stage.append(departing);
  stage.classList.add('vcc-gallery-sliding');
  const finish=()=>{if(slideOverlay===departing)clearPhotoSlide()};
