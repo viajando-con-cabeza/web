@@ -46,7 +46,7 @@ function decorate(html,file,isReady){
   const newTags=isReady
     ? '<link rel="canonical" href="'+urlValue+'">\n<meta property="og:url" content="'+urlValue+'">\n'
     : '<meta name="robots" content="noindex,follow">\n';
-  html=html.replace(/<head\b[^>]*>/i,tag=>tag+'\n'+newTags);
+  html=html.replace(/<head\b[^>]*>\s*/i,tag=>tag.trimEnd()+'\n'+newTags);
   if(isReady && !file.endsWith('/index.html') && file!=='index.html'){
     html=html.split(ORIGIN+'/'+file).join(urlValue);
   }
