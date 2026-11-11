@@ -20,6 +20,7 @@
 <link rel="stylesheet" href="/configuracion/css/planifica-vuelos.css?v=20261111-calculadora-comparativa-v1">
 <link rel="stylesheet" href="/configuracion/css/componentes/carruseles-flechas-movil-vcc.css?v=20261111-transparent-outline-v7">
   <link rel="stylesheet" href="/configuracion/css/componentes/numeros-consejos-vcc.css?v=20261111-v2">
+<link rel="stylesheet" href="/configuracion/css/componentes/planifica-vuelos-comparador-vcc.css?v=20261111-matrix-v1">
 </head>
 <body>
 <header class="page-header"></header>
@@ -49,7 +50,7 @@
       </header>
       <div class="vl-continent-filter-head">
         <span>FILTRA POR CONTINENTE</span>
-        <button type="button" class="vl-reset-filter" data-continent-filter="all" aria-pressed="true" hidden>↺ Ver todas</button>
+        <button type="button" class="vl-reset-filter" data-continent-filter="all" aria-pressed="true">Todos</button>
       </div>
       <div class="vl-continent-grid"><button type="button" class="vl-continent" data-continent-filter="europa" data-continent-card aria-pressed="false" aria-label="Mostrar las aerolíneas utilizadas en Europa"><span class="vl-continent-top"><img class="vl-continent-map" src="/configuracion/imagenes/continentes/europa-map-v3.svg" alt="" loading="lazy" width="68" height="64"><span class="vl-continent-arrow" aria-hidden="true">→</span></span><h3>Europa</h3><span class="count">8 aerolíneas en nuestros viajes</span><span class="detail">Rutas europeas, conexiones y distintos tipos de distancia.</span></button><button type="button" class="vl-continent" data-continent-filter="america" data-continent-card aria-pressed="false" aria-label="Mostrar las aerolíneas utilizadas en América"><span class="vl-continent-top"><img class="vl-continent-map" src="/configuracion/imagenes/continentes/america-map-v3.svg" alt="" loading="lazy" width="68" height="64"><span class="vl-continent-arrow" aria-hidden="true">→</span></span><h3>América</h3><span class="count">1 aerolínea en nuestros viajes</span><span class="detail">Vuelos internacionales y trayectos dentro del continente.</span></button><button type="button" class="vl-continent" data-continent-filter="asia" data-continent-card aria-pressed="false" aria-label="Mostrar las aerolíneas utilizadas en Asia"><span class="vl-continent-top"><img class="vl-continent-map" src="/configuracion/imagenes/continentes/asia-map-v3.svg" alt="" loading="lazy" width="68" height="64"><span class="vl-continent-arrow" aria-hidden="true">→</span></span><h3>Asia</h3><span class="count">6 aerolíneas en nuestros viajes</span><span class="detail">Vuelos regionales y conexiones internacionales.</span></button><button type="button" class="vl-continent" data-continent-filter="oceania" data-continent-card aria-pressed="false" aria-label="Mostrar las aerolíneas utilizadas en Oceanía"><span class="vl-continent-top"><img class="vl-continent-map" src="/configuracion/imagenes/continentes/oceania-map-v3.svg" alt="" loading="lazy" width="68" height="64"><span class="vl-continent-arrow" aria-hidden="true">→</span></span><h3>Oceanía</h3><span class="count">3 aerolíneas en nuestros viajes</span><span class="detail">Rutas por Australia y conexiones de largo recorrido.</span></button></div>
       <p class="vl-sr-only" data-region-description aria-live="polite">16 aerolíneas mostradas.</p>
@@ -192,8 +193,10 @@
   </section>
   <section class="vl-section" id="calculadora" data-vcc-subheader-target aria-labelledby="vl-calc-title">
     <div class="vl-wrap">
-      <header class="vl-section-head vl-calc-head"><div><span class="vl-kicker">Compara antes de reservar</span><h2 class="vl-heading" id="vl-calc-title">CALCULA EL <em>PRECIO REAL</em></h2></div><p class="vl-copy">Tú introduces el precio de cada billete, el equipaje, el asiento, la comida y el traslado. Nosotros calculamos qué vuelo sale realmente más económico.</p></header>
+      <header class="vl-section-head vl-calc-head"><div><span class="vl-kicker">Compara antes de reservar</span><h2 class="vl-heading" id="vl-calc-title">COMPARA EL <em>PRECIO REAL</em></h2></div><p class="vl-copy">Introduce el importe total de cada concepto para cada vuelo y compara hasta cinco opciones. Verás cuál es la más económica y cuánto ahorras respecto a las demás.</p></header>
       <div class="vl-calc-box" aria-label="Calculadora de hasta cinco vuelos">
+        <div class="vl-matrix-main">
+        <div class="vl-matrix-head" aria-hidden="true"><span>Opción / aerolínea</span><span>Billete <small>total</small></span><span>Equipaje <small>total</small></span><span>Asiento <small>total</small></span><span>Comida <small>total</small></span><span>Traslado <small>total</small></span><span>Total</span></div>
         <div class="vl-flight-stack" data-flight-stack>
           <section class="vl-flight" data-flight="a"  aria-label="Opción A"><div class="vl-flight-form"><div class="vl-flight-title"><h3>Vuelo A</h3><button type="button" data-remove-flight hidden aria-label="Quitar vuelo A">Quitar ×</button></div><div class="vl-fields"><label class="vl-field"><span class="vl-field-name"><span class="vl-field-icon" aria-hidden="true">✈</span>Aerolínea</span><select data-airline-select aria-label="Aerolínea vuelo A"><option value="">Selecciona una aerolínea</option><option value="ryanair">Ryanair</option><option value="vueling">Vueling</option><option value="turkish">Turkish Airlines</option><option value="swiss">SWISS</option><option value="wizz">Wizz Air</option><option value="easyjet">easyJet</option><option value="brussels">Brussels Airlines</option><option value="lufthansa">Lufthansa</option><option value="american">American Airlines</option><option value="etihad">Etihad Airways</option><option value="emirates">Emirates</option><option value="lion">Lion Air</option><option value="scoot">Scoot</option><option value="batik">Batik Air</option><option value="virgin">Virgin Australia</option><option value="jetstar">Jetstar</option></select></label><label class="vl-field"><span class="vl-field-name"><span class="vl-field-icon" aria-hidden="true">⌖</span>Aeropuerto o trayecto</span><input type="text" maxlength="70" placeholder="Ej. Barcelona / Girona" aria-label="Aeropuerto vuelo A"></label><label class="vl-field"><span class="vl-field-name"><span class="vl-field-icon" aria-hidden="true">€</span>Precio del billete (€)</span><input type="number" min="0" step="0.01" inputmode="decimal" data-cost="base" placeholder="0,00" aria-label="Precio del billete vuelo A"></label><label class="vl-field"><span class="vl-field-name"><span class="vl-field-icon" aria-hidden="true">▣</span>Maleta y equipaje (€)</span><input type="number" min="0" step="0.01" inputmode="decimal" data-cost="baggage" placeholder="0,00" aria-label="Maleta y equipaje vuelo A"></label><label class="vl-field"><span class="vl-field-name"><span class="vl-field-icon" aria-hidden="true">▤</span>Selección de asiento (€)</span><input type="number" min="0" step="0.01" inputmode="decimal" data-cost="seat" placeholder="0,00" aria-label="Selección de asiento vuelo A"></label><label class="vl-field"><span class="vl-field-name"><span class="vl-field-icon" aria-hidden="true">↔</span>Traslado aeropuerto–centro (€)</span><input type="number" min="0" step="0.01" inputmode="decimal" data-cost="transfer" placeholder="0,00" aria-label="Traslado aeropuerto–centro vuelo A"></label><label class="vl-field"><span class="vl-field-name"><span class="vl-field-icon" aria-hidden="true">☕</span>Comida y bebida (€)</span><input type="number" min="0" step="0.01" inputmode="decimal" data-cost="food" placeholder="0,00" aria-label="Comida y bebida vuelo A"></label></div></div><div class="vl-flight-side"><div class="vl-flight-result"><b>TOTAL / PERSONA</b><strong data-total aria-live="polite">0,00 €</strong></div><div class="vl-breakdown"><span>Precio del billete<b data-breakdown="base">0,00 €</b></span><span>Maleta y equipaje<b data-breakdown="baggage">0,00 €</b></span><span>Selección de asiento<b data-breakdown="seat">0,00 €</b></span><span>Traslado aeropuerto–centro<b data-breakdown="transfer">0,00 €</b></span><span>Comida y bebida<b data-breakdown="food">0,00 €</b></span></div></div></section>
         </div>
@@ -204,6 +207,23 @@
           <p data-compare-result class="vl-compare-result" hidden></p>
         </div>
         <p class="vl-footnote">Los precios los introduces tú: no buscamos vuelos ni calculamos tarifas de las aerolíneas. Si comparas ida y vuelta, suma los costes de ambos trayectos; puedes dejar los extras en 0 €.</p>
+        </div>
+        <aside class="vl-best-card" data-best-panel aria-live="polite" aria-label="Mejor opción VCC">
+          <div class="vl-best-brand">
+            <span class="vl-best-seal"><img src="/configuracion/imagenes/marca/logo-vcc.svg" alt="Logo circular oficial VCC" width="82" height="82" loading="lazy"></span>
+            <div><span class="vl-best-kicker">NUESTRA COMPARATIVA</span><h3>MEJOR OPCIÓN <em>VCC</em></h3></div>
+          </div>
+          <p class="vl-best-empty" data-best-empty>Introduce el precio de al menos dos vuelos para ver cuál sale mejor.</p>
+          <div class="vl-best-selection" data-best-selection hidden>
+            <span class="vl-best-winner" data-best-name>—</span>
+            <strong class="vl-best-price" data-best-price>—</strong>
+            <small>Precio total de la opción</small>
+            <div class="vl-best-divider"></div>
+            <h4>LO QUE TE AHORRAS</h4>
+            <ul class="vl-best-savings" data-best-savings></ul>
+            <p class="vl-best-note">Calculado con el billete y todos los extras indicados.</p>
+          </div>
+        </aside>
       </div>
     </div>
   </section>
@@ -244,6 +264,6 @@
 <footer class="vcc-global-footer"></footer>
 <script src="/configuracion/js/site-header.js?v=20261110-breadcrumb-v2"></script>
 <script src="/configuracion/js/site-footer.js?v=20261102"></script>
-<script src="/configuracion/js/planifica-vuelos.js?v=20261111-calculadora-comparativa-v1" defer></script>
+<script src="/configuracion/js/planifica-vuelos.js?v=20261111-matrix-v1" defer></script>
 </body>
 </html>
