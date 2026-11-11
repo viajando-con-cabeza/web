@@ -51,6 +51,7 @@ const isMobile=()=>modal.classList.contains('vcc-gallery-mobile');
 let currentImages=[],currentIndex=0,lastFocus=null,gridButtons=[];
 let photoSequence=0;
 let slideOverlay=null,slideTimeout=0;
+let dragSlide=null,dragSlideTimer=0;
 const preloadedVisors=new Map();
 const visible=()=>!modal.hidden;
 const gridOpen=()=>visible()&&!gridView.hidden;
@@ -139,6 +140,7 @@ function clearPhotoSlide(){
  stage.classList.remove('vcc-gallery-sliding');
  stage.style.removeProperty('--vcc-gallery-slide-enter');
  stage.style.removeProperty('--vcc-gallery-slide-leave');
+ clearDragSlide();
 }
 function beginPhotoSlide(direction){
  if(!isMobile()||prefersReducedMotion.matches||touchZoom>1.01)return;
@@ -168,6 +170,73 @@ function preloadAdjacentPhotos(){
   preloadedVisors.set(url,image);
  }
 }
+
+/* En mòbil, la imatge es desplaça en temps real amb el dit.
+   Mostrem la foto adjacent al costat des del primer píxel del drag,
+   i deixem que l'usuari decideixi el progrés sense animació automàtica. */
+function clearDragSlide(){
+ if(dragSlideTimer){clearTimeout(dragSlideTimer);dragSlideTimer=0}
+ if(dragSlide){
+  dragSlide.incoming.remove();
+  dragSlide=null;
+ }
+ photoFrame.style.removeProperty('transform');
+ stage.classList.remove('vcc-gallery-dragging','vcc-gallery-drag-settling');
+ stage.style.removeProperty('--vcc-gallery-drag-duration');
+}
+function beginDragSlide(direction){
+ if(!photoOpen()||!isMobile()||touchZoom>1.01||currentImages.length<2)return;
+ clearPhotoSlide();
+ const width=Math.max(1,stage.clientWidth);
+ const index=(currentIndex+direction+currentImages.length)%currentImages.length;
+ const item=currentImages[index];
+ const incoming=photoFrame.cloneNode(true);
+ incoming.classList.add('vcc-gallery-drag-incoming');
+ incoming.setAttribute('aria-hidden','true');
+ const img=incoming.querySelector('img');
+ img.src=visorFor(item);
+ img.alt=item.alt;
+ img.onerror=()=>{if(img.src!==item.src)img.src=item.src};
+ stage.append(incoming);
+ stage.classList.add('vcc-gallery-dragging');
+ dragSlide={incoming,index,direction,width,dx:0};
+ paintDragSlide(0);
+}
+function paintDragSlide(dx){
+ if(!dragSlide)return;
+ const {direction,width,incoming}=dragSlide;
+ const offset=clamp(dx,-width,width);
+ dragSlide.dx=offset;
+ photoFrame.style.transform='translate3d('+offset+'px,0,0)';
+ incoming.style.transform='translate3d('+(offset+direction*width)+'px,0,0)';
+}
+function settleDragSlide(complete){
+ const slide=dragSlide;
+ if(!slide)return;
+ const {incoming,width,direction,index}=slide;
+ const destination=complete?-direction*width:0;
+ const remaining=Math.abs(destination-slide.dx)/width;
+ const duration=prefersReducedMotion.matches?0:Math.round(clamp(remaining*290,130,290));
+ const finish=()=>{
+  if(dragSlide!==slide)return;
+  clearDragSlide();
+  if(complete&&photoOpen())showPhoto(index);
+ };
+ if(duration===0){finish();return}
+ stage.classList.remove('vcc-gallery-dragging');
+ stage.classList.add('vcc-gallery-drag-settling');
+ stage.style.setProperty('--vcc-gallery-drag-duration',duration+'ms');
+ // El punt inicial és el desplaçament exacte del dit; la CSS només
+ // anima la part restant quan es deixa anar, mai durant l'arrossegament.
+ void photoFrame.offsetWidth;
+ photoFrame.style.transform='translate3d('+destination+'px,0,0)';
+ incoming.style.transform='translate3d('+(destination+direction*width)+'px,0,0)';
+ incoming.addEventListener('transitionend',event=>{
+  if(event.propertyName==='transform')finish();
+ },{once:true});
+ dragSlideTimer=setTimeout(finish,duration+100);
+}
+
 function showGrid(returnFocus=false){
  clearPhotoSlide();
  ++photoSequence;
@@ -508,23 +577,26 @@ function deactivateGlobalGestures(){
  if(zoomFrame){cancelAnimationFrame(zoomFrame);zoomFrame=0}
  resetHoverPan();
 }
-/* Mòbil: swipe horitzontal; pinça i drag lliure de la foto ampliada. */
+/* Mòbil: swipe seguint el dit (com Booking), pinça i pan de zoom. */
 const distance=(a,b)=>Math.hypot(a.clientX-b.clientX,a.clientY-b.clientY);
 stage.addEventListener('touchstart',event=>{
  if(!isMobile()||!photoOpen())return;
  if(event.touches.length===2){
+  clearDragSlide();
   const dist=distance(event.touches[0],event.touches[1]);
   touchGesture={kind:'pinch',dist,zoom:touchZoom,panX:touchPanX,panY:touchPanY};
  }else if(event.touches.length===1){
   const t=event.touches[0];
-  touchGesture={kind:'drag',x:t.clientX,y:t.clientY,panX:touchPanX,panY:touchPanY};
+  if(dragSlide)clearDragSlide();
+  touchGesture={kind:'drag',x:t.clientX,y:t.clientY,panX:touchPanX,panY:touchPanY,start:performance.now()};
  }
 },{passive:true});
 stage.addEventListener('touchmove',event=>{
  if(!isMobile()||!photoOpen()||!touchGesture)return;
  if(event.touches.length===2){
   if(touchGesture.kind!=='pinch'){
-   touchGesture={kind:'pinch',dist:distance(event.touches[0],event.touches[1]),zoom:touchZoom};
+   clearDragSlide();
+   touchGesture={kind:'pinch',dist:distance(event.touches[0],event.touches[1]),zoom:touchZoom,panX:touchPanX,panY:touchPanY};
   }
   event.preventDefault();
   touchZoom=clamp(touchGesture.zoom*distance(event.touches[0],event.touches[1])/Math.max(1,touchGesture.dist),1,4);
@@ -532,25 +604,40 @@ stage.addEventListener('touchmove',event=>{
   limitTouchPan();paintTouchZoom();
  }else if(event.touches.length===1&&touchGesture.kind==='drag'){
   const t=event.touches[0];
+  const dx=t.clientX-touchGesture.x,dy=t.clientY-touchGesture.y;
   if(touchZoom>1.01){
    event.preventDefault();
-   touchPanX=touchGesture.panX+t.clientX-touchGesture.x;
-   touchPanY=touchGesture.panY+t.clientY-touchGesture.y;
+   touchPanX=touchGesture.panX+dx;touchPanY=touchGesture.panY+dy;
    limitTouchPan();paintTouchZoom();
+   return;
+  }
+  if(!dragSlide&&Math.abs(dx)>8&&Math.abs(dx)>Math.abs(dy)*1.05)
+   beginDragSlide(dx<0?1:-1);
+  if(dragSlide){
+   event.preventDefault();
+   const direction=dx<0?1:-1;
+   if(Math.abs(dx)>8&&direction!==dragSlide.direction){
+    clearDragSlide();
+    beginDragSlide(direction);
+   }
+   paintDragSlide(dx);
   }
  }
 },{passive:false});
 stage.addEventListener('touchend',event=>{
  if(!isMobile()||!photoOpen()||!touchGesture)return;
  if(event.touches.length)return;
- if(touchGesture.kind==='drag'&&touchZoom<=1.01){
+ if(touchGesture.kind==='drag'&&touchZoom<=1.01&&dragSlide){
   const t=event.changedTouches[0];
-  const dx=t.clientX-touchGesture.x,dy=t.clientY-touchGesture.y;
-  if(Math.abs(dx)>45&&Math.abs(dx)>Math.abs(dy)*1.2)move(dx<0?1:-1);
+  const dx=t.clientX-touchGesture.x;
+  paintDragSlide(dx);
+  const elapsed=Math.max(16,performance.now()-touchGesture.start);
+  const quickFlick=Math.abs(dx)>34&&Math.abs(dx)/elapsed>.28;
+  settleDragSlide(Math.abs(dx)>=dragSlide.width*.25||quickFlick);
  }
  touchGesture=null;
 },{passive:true});
-stage.addEventListener('touchcancel',()=>{touchGesture=null},{passive:true});
+stage.addEventListener('touchcancel',()=>{touchGesture=null;clearDragSlide()},{passive:true});
 stage.addEventListener('dblclick',event=>{
  if(!isMobile()||!photoOpen())return;
  event.preventDefault();touchZoom=touchZoom>1?1:2;
