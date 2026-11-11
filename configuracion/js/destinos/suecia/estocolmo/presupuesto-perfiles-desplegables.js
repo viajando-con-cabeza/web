@@ -87,11 +87,11 @@
     slider.tabIndex = 0;
     column.insertBefore(slider, days[0]);
     const icons = {
-      "Alojamiento": '<rect x="3" y="10" width="18" height="9" rx="2"/><path d="M3 13V7a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v6M7 10V8h4v2m2 0V8h4v2M3 19v2m18-2v2"/>',
-      "Comida": '<path d="M4 2v8a3 3 0 0 0 6 0V2M7 2v20M17 22V2c-3 2-4 6-4 10h4"/>',
-      "Transporte": '<rect x="5" y="2" width="14" height="17" rx="3"/><path d="M5 10h14M9 19l-2 3m8-3 2 3M9 15h.01M15 15h.01"/>',
-      "Actividades": '<path d="M2 9a2 2 0 0 0 2-2h16a2 2 0 0 0 2 2v6a2 2 0 0 0-2 2H4a2 2 0 0 0-2-2V9ZM12 7v10"/><path d="M12 10h.01M12 14h.01"/>',
-      "Extras": '<path d="m12 3 1.9 5.8L20 11l-6.1 2.2L12 19l-1.9-5.8L4 11l6.1-2.2L12 3Z"/>'
+      "Alojamiento": "alojamiento",
+      "Comida": "comida",
+      "Transporte": "transporte",
+      "Actividades": "actividades",
+      "Extras": "extras"
     };
     /* Valores fuente = gasto del grupo completo (2 viajeros).
        Los importes visibles del carrusel se calculan SIEMPRE por persona.
@@ -160,7 +160,8 @@
         svg.setAttribute("stroke-width", "1.7");
         svg.setAttribute("stroke-linecap", "round");
         svg.setAttribute("stroke-linejoin", "round");
-        svg.innerHTML = icons[category.textContent.trim()] || icons.Extras;
+        const iconName = icons[category.textContent.trim()] || icons.Extras;
+        svg.innerHTML = '<use href="/configuracion/imagenes/iconos/compartidos/presupuesto-gastos.svg#' + iconName + '"></use>';
         icon.appendChild(svg);
         li.insertBefore(icon, category);
         li.classList.add("vcc-day-expense-tile");

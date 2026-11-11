@@ -191,9 +191,9 @@
     instagram:'https://www.instagram.com/viajaconcabeza/',tiktok:'https://www.tiktok.com/@viajaconcabeza',youtube:'https://www.youtube.com/@viajaconcabeza'
   };
   const menu = isEnglish ? [['inicio','HOME'],['destinos','DESTINATIONS'],['itinerarios','ITINERARIES'],['planifica','PLAN'],['nosotros','ABOUT'],['contacto','CONTACT']] : [['inicio','INICIO'],['destinos','DESTINOS'],['itinerarios','ITINERARIOS'],['planifica','PLANIFICA'],['nosotros','NOSOTROS'],['contacto','CONTACTO']];
-  const instagramIcon='<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" class="shared-solid"/></svg>';
-  const tiktokIcon='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14.5 4v10.1a4.4 4.4 0 1 1-3.7-4.3v3a1.7 1.7 0 1 0 1 1.6V4h2.7c.3 2.3 1.7 3.8 4.2 4.2v2.7a7.6 7.6 0 0 1-4.2-1.6"/></svg>';
-  const youtubeIcon='<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="5.5" width="19" height="13" rx="4"/><path class="shared-solid" d="m10 9 5 3-5 3Z"/></svg>'
+  const instagramIcon='<svg viewBox="0 0 24 24" aria-hidden="true"><use href="/configuracion/imagenes/iconos/compartidos/redes-sociales.svg#cabecera-instagram"></use></svg>';
+  const tiktokIcon='<svg viewBox="0 0 24 24" aria-hidden="true"><use href="/configuracion/imagenes/iconos/compartidos/redes-sociales.svg#cabecera-tiktok"></use></svg>';
+  const youtubeIcon='<svg viewBox="0 0 24 24" aria-hidden="true"><use href="/configuracion/imagenes/iconos/compartidos/redes-sociales.svg#cabecera-youtube"></use></svg>'
   const languageTargets = { inicio:{es:'/',en:'/en/'}, nosotros:{es:'/nosotros/',en:'/en/about/'}, contacto:{es:'/contacto/',en:'/en/contact/'} };
   const isSoonPage = /^(\/proximamente(?:\.html|\/)?|\/en\/(?:not-available|coming-soon)\/?)$/.test(currentPath);
   const languageTarget = isSoonPage ? {es:'/proximamente/',en:'/en/coming-soon/'} : (languageTargets[section] || {es:currentPath,en:'/en/coming-soon/'});
