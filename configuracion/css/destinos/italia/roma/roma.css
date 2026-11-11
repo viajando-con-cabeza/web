@@ -8,8 +8,8 @@
   --roma-card: #fffdfa;
   --roma-text: #202124;
   --roma-muted: #6d6963;
-  --roma-coral: #d96f54;
-  --roma-coral-dark: #bd5840;
+  --roma-coral: var(--vcc-accent-override, #d96f54);
+  --roma-coral-dark: var(--vcc-accent-override, #bd5840);
   --roma-green: #7d8976;
   --roma-green-soft: #e9ede6;
   --roma-pink-soft: #f5e9e1;
@@ -36,7 +36,7 @@ body {
   margin: 0;
   background: var(--roma-bg);
   color: var(--roma-text);
-  font-family: "DM Sans", Arial, sans-serif;
+  font-family: var(--vcc-font-body, "DM Sans", Arial, sans-serif);
   line-height: 1.55;
 }
 

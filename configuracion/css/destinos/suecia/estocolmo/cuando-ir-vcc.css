@@ -1,5 +1,5 @@
-:root{--ci-paper:#faf7f2;--ci-orange:#c46a4c;--ci-ink:#302820;--ci-line:#e7d9cb}
-*{box-sizing:border-box}html{scroll-behavior:smooth}body.ci-page{margin:0;background:var(--ci-paper);color:var(--ci-ink);font-family:'DM Sans',sans-serif}body.ci-page button{font-family:inherit;cursor:pointer}body.ci-page a{text-decoration:none;color:inherit}.ci-wrap{width:min(1180px,calc(100% - 48px));margin-inline:auto}.ci-crumb{font-size:11px;color:#6e6159}.ci-crumb span{padding:0 8px;color:#a99482}.ci-kicker,.ci-script{font:600 28px 'Caveat',cursive;color:var(--ci-orange)}.ci-main{padding:30px 0 60px}.ci-heading{display:flex;justify-content:space-between;align-items:end;gap:24px;margin-bottom:18px}.ci-heading h2,.ci-more h2{font:500 clamp(25px,3vw,34px)/1.2 'Oswald',sans-serif;margin:3px 0 0}.ci-heading p{max-width:400px;font-size:11px;line-height:1.6;color:#73675f;margin:0}.ci-objective-grid{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:11px}.ci-objective{background:#fff;border:1px solid var(--ci-line);border-radius:12px;padding:18px 8px;min-height:114px;color:#342c26;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:11px;transition:transform .2s,border-color .2s}.ci-objective:hover{transform:translateY(-2px);border-color:#d58e70}.ci-objective[aria-pressed=true]{border:2px solid var(--ci-orange);background:#fff1e7}.ci-objective-icon{font-size:32px;color:#a95938;line-height:1}.ci-objective strong{font-size:11px;line-height:1.3;text-align:center;max-width:100px}.ci-recommendation{display:grid;grid-template-columns:76px minmax(0,1.2fr) minmax(230px,1fr);gap:20px;align-items:center;background:#f6e7da;border-radius:20px;padding:20px 28px;margin:24px 0 48px;border:1px solid #ecd1bb}.ci-recommendation-copy span,.ci-detail-eyebrow{font-size:10px;font-weight:800;letter-spacing:.08em;color:#b75c39}.ci-recommendation h3{font:500 clamp(25px,3vw,36px)/1.1 'Oswald',sans-serif;margin:4px 0 7px}.ci-recommendation p{font-size:11px;line-height:1.55;margin:0;color:#685b51}.ci-recommendation ul{margin:0;padding:4px 0 4px 25px;border-left:1px solid #cda68a;list-style:none}.ci-recommendation li{font-size:11px;line-height:1.5;margin:4px 0;position:relative;padding-left:16px}.ci-recommendation li:before{content:'✓';color:var(--ci-orange);font-weight:900;position:absolute;left:0}.ci-calendar-scroll{overflow-x:auto;border:1px solid var(--ci-line);background:#fffaf6;border-radius:14px}.ci-calendar{display:grid;grid-template-columns:repeat(12,minmax(82px,1fr));min-width:984px;padding:9px}.ci-calendar-month{background:transparent;border:0;border-right:1px solid #eee2d8;padding:7px 3px 10px;display:flex;align-items:center;flex-direction:column;color:#342b25;gap:7px}.ci-calendar-month:last-child{border-right:0}.ci-calendar-month b{font:500 17px 'Oswald',sans-serif;background:#f4ede5;width:100%;padding:7px 0;border-radius:7px}.ci-calendar-month.recommended{background:#fae7d9}.ci-calendar-month.recommended b{background:#efc5ae}.ci-calendar-month[aria-pressed=true]{outline:2px solid var(--ci-orange);outline-offset:-2px;border-radius:8px}.ci-weather{font-size:28px;line-height:1.2;color:#d69b34}.ci-temperature{font-size:11px;font-weight:700;white-space:nowrap}.ci-metric{font-size:9px;line-height:1.3;display:flex;align-items:center;flex-direction:column;gap:2px;color:#71645a}.ci-metric strong{font-weight:800;color:#3f3730}.ci-dot{width:9px;height:9px;border-radius:50%;display:inline-block}.ci-dot.low{background:#67965e}.ci-dot.medium{background:#dba018}.ci-dot.high{background:#bd5636}.ci-month-detail{display:flex;justify-content:space-between;gap:20px;align-items:center;border:1px solid var(--ci-line);border-radius:12px;background:#fff;padding:17px 23px;margin-top:8px}.ci-month-detail h3{font:500 24px 'Oswald',sans-serif;margin:3px 0}.ci-month-detail p{font-size:11px;color:#655b53;line-height:1.6;max-width:590px;margin:0}
+:root{--ci-paper:#faf7f2;--ci-orange:var(--vcc-accent-override, #c46a4c);--ci-ink:#302820;--ci-line:#e7d9cb}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body.ci-page{margin:0;background:var(--ci-paper);color:var(--ci-ink);font-family:var(--vcc-font-body, "DM Sans", Arial, sans-serif)}body.ci-page button{font-family:inherit;cursor:pointer}body.ci-page a{text-decoration:none;color:inherit}.ci-wrap{width:min(1180px,calc(100% - 48px));margin-inline:auto}.ci-crumb{font-size:11px;color:#6e6159}.ci-crumb span{padding:0 8px;color:#a99482}.ci-kicker,.ci-script{font:600 28px var(--vcc-font-script, "Caveat", cursive);color:var(--ci-orange)}.ci-main{padding:30px 0 60px}.ci-heading{display:flex;justify-content:space-between;align-items:end;gap:24px;margin-bottom:18px}.ci-heading h2,.ci-more h2{font:500 clamp(25px,3vw,34px)/1.2 var(--vcc-font-heading, "Oswald", sans-serif);margin:3px 0 0}.ci-heading p{max-width:400px;font-size:11px;line-height:1.6;color:#73675f;margin:0}.ci-objective-grid{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:11px}.ci-objective{background:#fff;border:1px solid var(--ci-line);border-radius:12px;padding:18px 8px;min-height:114px;color:#342c26;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:11px;transition:transform .2s,border-color .2s}.ci-objective:hover{transform:translateY(-2px);border-color:#d58e70}.ci-objective[aria-pressed=true]{border:2px solid var(--ci-orange);background:#fff1e7}.ci-objective-icon{font-size:32px;color:#a95938;line-height:1}.ci-objective strong{font-size:11px;line-height:1.3;text-align:center;max-width:100px}.ci-recommendation{display:grid;grid-template-columns:76px minmax(0,1.2fr) minmax(230px,1fr);gap:20px;align-items:center;background:#f6e7da;border-radius:20px;padding:20px 28px;margin:24px 0 48px;border:1px solid #ecd1bb}.ci-recommendation-copy span,.ci-detail-eyebrow{font-size:10px;font-weight:800;letter-spacing:.08em;color:#b75c39}.ci-recommendation h3{font:500 clamp(25px,3vw,36px)/1.1 var(--vcc-font-heading, "Oswald", sans-serif);margin:4px 0 7px}.ci-recommendation p{font-size:11px;line-height:1.55;margin:0;color:#685b51}.ci-recommendation ul{margin:0;padding:4px 0 4px 25px;border-left:1px solid #cda68a;list-style:none}.ci-recommendation li{font-size:11px;line-height:1.5;margin:4px 0;position:relative;padding-left:16px}.ci-recommendation li:before{content:'✓';color:var(--ci-orange);font-weight:900;position:absolute;left:0}.ci-calendar-scroll{overflow-x:auto;border:1px solid var(--ci-line);background:#fffaf6;border-radius:14px}.ci-calendar{display:grid;grid-template-columns:repeat(12,minmax(82px,1fr));min-width:984px;padding:9px}.ci-calendar-month{background:transparent;border:0;border-right:1px solid #eee2d8;padding:7px 3px 10px;display:flex;align-items:center;flex-direction:column;color:#342b25;gap:7px}.ci-calendar-month:last-child{border-right:0}.ci-calendar-month b{font:500 17px var(--vcc-font-heading, "Oswald", sans-serif);background:#f4ede5;width:100%;padding:7px 0;border-radius:7px}.ci-calendar-month.recommended{background:#fae7d9}.ci-calendar-month.recommended b{background:#efc5ae}.ci-calendar-month[aria-pressed=true]{outline:2px solid var(--ci-orange);outline-offset:-2px;border-radius:8px}.ci-weather{font-size:28px;line-height:1.2;color:#d69b34}.ci-temperature{font-size:11px;font-weight:700;white-space:nowrap}.ci-metric{font-size:9px;line-height:1.3;display:flex;align-items:center;flex-direction:column;gap:2px;color:#71645a}.ci-metric strong{font-weight:800;color:#3f3730}.ci-dot{width:9px;height:9px;border-radius:50%;display:inline-block}.ci-dot.low{background:#67965e}.ci-dot.medium{background:#dba018}.ci-dot.high{background:#bd5636}.ci-month-detail{display:flex;justify-content:space-between;gap:20px;align-items:center;border:1px solid var(--ci-line);border-radius:12px;background:#fff;padding:17px 23px;margin-top:8px}.ci-month-detail h3{font:500 24px var(--vcc-font-heading, "Oswald", sans-serif);margin:3px 0}.ci-month-detail p{font-size:11px;color:#655b53;line-height:1.6;max-width:590px;margin:0}
 @media(max-width:900px){.ci-objective-grid{grid-template-columns:repeat(3,1fr)}.ci-recommendation{grid-template-columns:60px 1fr}.ci-recommendation ul{grid-column:2;border-left:0;border-top:1px solid #cda68a;padding:12px 0 0}}
 @media(max-width:600px){
 .ci-wrap{width:calc(100% - 28px)}
@@ -31,7 +31,7 @@ html body.ci-page .ci-crumb span{color:#9b928a}
 
 /* 2026-11-05 Visual fix: sharp retro background, mobile visibility and trip month */
 html body.ci-page .ci-crumb{
- font:400 11px/1.4 'DM Sans',sans-serif!important;
+ font:400 11px/1.4 var(--vcc-font-body, "DM Sans", Arial, sans-serif)!important;
  left:0!important;top:12px!important;display:flex!important;
  align-items:center!important;flex-wrap:wrap!important;
  text-shadow:none!important;
@@ -42,7 +42,7 @@ html body.ci-page .ci-crumb span{margin:0 8px!important}
 .ci-visit-chip{
  display:inline-flex;gap:8px;align-items:center;padding:9px 13px;margin-top:18px;
  background:#fff9efed;border:1px solid #d7ad8c;border-radius:28px;
- color:#985434;font:700 10px/1.3 'DM Sans',sans-serif;
+ color:#985434;font:700 10px/1.3 var(--vcc-font-body, "DM Sans", Arial, sans-serif);
  letter-spacing:.04em;box-shadow:0 2px 10px #6e452019
 }
 .ci-visit-chip span{font-size:17px}.ci-visit-chip strong{font-weight:900;color:#8d3e25}
@@ -72,7 +72,7 @@ html body.ci-page nav.vcc-crumb.ci-crumb {
  align-items:center!important;
  flex-wrap:wrap!important;
  gap:0!important;
- font:400 11px/1.4 'DM Sans',sans-serif!important;
+ font:400 11px/1.4 var(--vcc-font-body, "DM Sans", Arial, sans-serif)!important;
  letter-spacing:0!important;
  text-transform:none!important;
  color:#665f58!important;
@@ -117,7 +117,7 @@ html body.ci-page .ci-hero {
 
 /* VCC compact layout 2026-11-05: Planifica-scale hero, smaller goals, intro between cards */
 html body.ci-page .ci-hero h1{
- font-family:'Oswald',sans-serif!important;
+ font-family:var(--vcc-font-heading, "Oswald", sans-serif)!important;
  font-size:clamp(34px,3.6vw,48px)!important;
  line-height:1.08!important;
  font-weight:600!important;
@@ -229,7 +229,7 @@ html body.ci-page .ci-subnav a{
  padding:0!important;
  border-bottom:3px solid transparent!important;
  color:#171717!important;
- font:800 11px/1 'DM Sans',sans-serif!important;
+ font:800 11px/1 var(--vcc-font-body, "DM Sans", Arial, sans-serif)!important;
  text-decoration:none!important;
  white-space:nowrap!important;
 }
@@ -362,20 +362,20 @@ html body.ci-page .ci-recommendation-brand img {
 }
 html body.ci-page .ci-recommendation-brand strong {
   color:#ad593b;
-  font:800 10px/1.3 'DM Sans',sans-serif;
+  font:800 10px/1.3 var(--vcc-font-body, "DM Sans", Arial, sans-serif);
   letter-spacing:.09em;
   white-space:nowrap;
 }
 html body.ci-page .ci-recommendation-copy {min-width:0}
 html body.ci-page .ci-recommendation h3 {
   margin:0 0 4px!important;
-  font:500 clamp(21px,2.1vw,27px)/1.18 'Oswald',sans-serif!important;
+  font:500 clamp(21px,2.1vw,27px)/1.18 var(--vcc-font-heading, "Oswald", sans-serif)!important;
   overflow-wrap:break-word;
 }
 html body.ci-page .ci-recommendation p {
   margin:0!important;
   color:#685b51;
-  font:400 11.5px/1.6 'DM Sans',sans-serif!important;
+  font:400 11.5px/1.6 var(--vcc-font-body, "DM Sans", Arial, sans-serif)!important;
 }
 html body.ci-page .ci-recommendation ul {
   min-width:0;
@@ -386,7 +386,7 @@ html body.ci-page .ci-recommendation ul {
   list-style:none;
 }
 html body.ci-page .ci-recommendation li {
-  font:400 11px/1.5 'DM Sans',sans-serif!important;
+  font:400 11px/1.5 var(--vcc-font-body, "DM Sans", Arial, sans-serif)!important;
   margin:3px 0!important;
   padding-left:18px;
   color:#544a42;
@@ -468,12 +468,12 @@ html body.ci-page .ci-objective[aria-pressed="true"] .ci-objective-icon{
 /* 2026-11-09 — Mes seleccionado con presentación editorial VCC: estilo Nuestra opinión. */
 html body.ci-page .ci-month-procon{display:grid;grid-template-columns:1fr 1fr;gap:25px}
 html body.ci-page .ci-month-points{min-width:0;background:transparent!important;border:0!important;border-radius:0;padding:0!important}
-html body.ci-page .ci-month-points h4{display:flex;align-items:center;gap:10px;font:600 18px/1.25 'Oswald',sans-serif;margin:0 0 11px;color:#302820}
+html body.ci-page .ci-month-points h4{display:flex;align-items:center;gap:10px;font:600 18px/1.25 var(--vcc-font-heading, "Oswald", sans-serif);margin:0 0 11px;color:#302820}
 html body.ci-page .ci-month-points h4 svg{display:block;flex-shrink:0}
 html body.ci-page .ci-month-good h4 svg{color:#238c60}
 html body.ci-page .ci-month-bad h4 svg{color:#c4664e}
 html body.ci-page .ci-month-points ul{list-style:none;display:grid;gap:8px;margin:0;padding:0}
-html body.ci-page .ci-month-points li{position:relative;padding-left:17px;color:#5d5149;font:400 11.5px/1.55 'DM Sans',sans-serif}
+html body.ci-page .ci-month-points li{position:relative;padding-left:17px;color:#5d5149;font:400 11.5px/1.55 var(--vcc-font-body, "DM Sans", Arial, sans-serif)}
 html body.ci-page .ci-month-points li:before{content:'•';position:absolute;left:2px;top:0;color:#a59a90;font-weight:900}
 html body.ci-page .ci-month-visited{max-width:none;margin:15px 0 0;color:#9e5738}
 html body.ci-page .ci-month-visited[hidden]{display:none}
@@ -489,10 +489,10 @@ html body.ci-page .ci-tips-shell{display:grid;grid-template-columns:30px minmax(
 html body.ci-page .ci-tips-track{display:flex;gap:14px;min-width:0;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;scroll-behavior:smooth;scrollbar-width:none;overscroll-behavior-x:contain;align-items:stretch;padding:2px 0}
 html body.ci-page .ci-tips-track::-webkit-scrollbar{display:none}
 html body.ci-page .ci-tip-card{flex:0 0 calc((100% - 28px)/3);min-width:0;box-sizing:border-box;scroll-snap-align:start;display:flex;align-items:flex-start;gap:12px;background:#fff;border:1px solid var(--ci-line);border-radius:10px;padding:15px;min-height:131px}
-html body.ci-page .ci-tip-number{display:flex;align-items:center;justify-content:center;flex:0 0 29px;width:29px;height:29px;border:1px solid #dc9e73;border-radius:50%;background:#fff3e9;color:#b75b38;font:700 15px 'Oswald',sans-serif}
-html body.ci-page .ci-tip-card h3{font:500 19px/1.2 'Oswald',sans-serif;margin:2px 0 7px}
-html body.ci-page .ci-tip-card p{font:400 11px/1.55 'DM Sans',sans-serif;color:#6a5e55;margin:0}
-html body.ci-page .ci-tips-arrow{width:30px;height:30px;display:flex;align-items:center;justify-content:center;border-radius:50%;border:1px solid #dccfc5;background:#fff;color:#b15a43;font:500 24px/1 'DM Sans',sans-serif}
+html body.ci-page .ci-tip-number{display:flex;align-items:center;justify-content:center;flex:0 0 29px;width:29px;height:29px;border:1px solid #dc9e73;border-radius:50%;background:#fff3e9;color:#b75b38;font:700 15px var(--vcc-font-heading, "Oswald", sans-serif)}
+html body.ci-page .ci-tip-card h3{font:500 19px/1.2 var(--vcc-font-heading, "Oswald", sans-serif);margin:2px 0 7px}
+html body.ci-page .ci-tip-card p{font:400 11px/1.55 var(--vcc-font-body, "DM Sans", Arial, sans-serif);color:#6a5e55;margin:0}
+html body.ci-page .ci-tips-arrow{width:30px;height:30px;display:flex;align-items:center;justify-content:center;border-radius:50%;border:1px solid #dccfc5;background:#fff;color:#b15a43;font:500 24px/1 var(--vcc-font-body, "DM Sans", Arial, sans-serif)}
 html body.ci-page .ci-tips-arrow:hover:not(:disabled){border-color:var(--ci-orange);background:#fff5ed}
 html body.ci-page .ci-tips-arrow:focus-visible{outline:2px solid var(--ci-orange);outline-offset:2px}
 html body.ci-page .ci-tips-arrow:disabled{opacity:.35;cursor:default}
@@ -510,43 +510,43 @@ html body.ci-page .ci-tips-arrow:disabled{opacity:.35;cursor:default}
 }
 
 /* VCC 2026-11-09: detalle mes a mes en dos columnas, sin fondos de color en pros/contras. */
-html body.ci-page .ci-calendar-rain{display:flex;align-items:center;justify-content:center;gap:3px;font:700 10px/1.3 'DM Sans',sans-serif;color:#4e4844;white-space:nowrap}
+html body.ci-page .ci-calendar-rain{display:flex;align-items:center;justify-content:center;gap:3px;font:700 10px/1.3 var(--vcc-font-body, "DM Sans", Arial, sans-serif);color:#4e4844;white-space:nowrap}
 html body.ci-page .ci-calendar-rain>span{font-size:15px;color:#c46a4c}
 html body.ci-page .ci-month-detail{display:block;padding:20px 23px 13px;background:#fff;border:1px solid var(--ci-line);border-radius:13px}
 html body.ci-page .ci-month-layout{display:grid;grid-template-columns:minmax(0,1.06fr) minmax(0,1fr);gap:23px;align-items:start}
 html body.ci-page .ci-month-left{min-width:0}
 html body.ci-page .ci-month-right{min-width:0;border-left:1px solid #e8dbce;padding-left:23px}
-html body.ci-page .ci-month-heading h3{font:600 33px/1.1 'Oswald',sans-serif;margin:0 0 7px;color:#302820}
-html body.ci-page .ci-month-heading p{max-width:none;font:400 11.5px/1.65 'DM Sans',sans-serif;color:#675950;margin:0 0 16px;min-height:39px}
+html body.ci-page .ci-month-heading h3{font:600 33px/1.1 var(--vcc-font-heading, "Oswald", sans-serif);margin:0 0 7px;color:#302820}
+html body.ci-page .ci-month-heading p{max-width:none;font:400 11.5px/1.65 var(--vcc-font-body, "DM Sans", Arial, sans-serif);color:#675950;margin:0 0 16px;min-height:39px}
 html body.ci-page .ci-month-left-columns{display:grid;grid-template-columns:minmax(0,.93fr) minmax(0,1.07fr);align-items:start;gap:16px}
 html body.ci-page .ci-month-facts{border:1px solid #eee2d7;border-radius:10px;padding:7px 11px;background:#fffdfa;min-width:0}
-html body.ci-page .ci-month-fact{display:grid;grid-template-columns:21px minmax(0,1fr) auto;align-items:center;gap:6px;min-height:34px;border-bottom:1px solid #efe9e2;font:500 10px/1.25 'DM Sans',sans-serif}
+html body.ci-page .ci-month-fact{display:grid;grid-template-columns:21px minmax(0,1fr) auto;align-items:center;gap:6px;min-height:34px;border-bottom:1px solid #efe9e2;font:500 10px/1.25 var(--vcc-font-body, "DM Sans", Arial, sans-serif)}
 html body.ci-page .ci-month-fact:last-child{border-bottom:0}
-html body.ci-page .ci-month-fact .ci-fact-icon{font:800 16px/1 'DM Sans',sans-serif;text-align:center;color:#ce653b}
-html body.ci-page .ci-month-fact strong{font:700 10.5px/1.3 'DM Sans',sans-serif;white-space:nowrap;color:#3a312b}
+html body.ci-page .ci-month-fact .ci-fact-icon{font:800 16px/1 var(--vcc-font-body, "DM Sans", Arial, sans-serif);text-align:center;color:#ce653b}
+html body.ci-page .ci-month-fact strong{font:700 10.5px/1.3 var(--vcc-font-body, "DM Sans", Arial, sans-serif);white-space:nowrap;color:#3a312b}
 html body.ci-page .ci-month-fact strong.ci-fact-euros{letter-spacing:.05em;font-size:13px}
 html body.ci-page .ci-month-suitability{min-width:0}
-html body.ci-page .ci-month-suitability h4{font:600 13px/1.3 'Oswald',sans-serif;margin:0 0 11px;color:#2d2824}
+html body.ci-page .ci-month-suitability h4{font:600 13px/1.3 var(--vcc-font-heading, "Oswald", sans-serif);margin:0 0 11px;color:#2d2824}
 html body.ci-page .ci-score-rows{display:grid;gap:7px}
 html body.ci-page .ci-score-row{display:grid;grid-template-columns:15px minmax(92px,1.3fr) minmax(40px,.92fr) 18px;align-items:center;gap:5px;min-width:0}
-html body.ci-page .ci-score-icon{font:800 14px/1 'DM Sans',sans-serif;text-align:center;color:#c56a45}
-html body.ci-page .ci-score-name{font:500 9.5px/1.25 'DM Sans',sans-serif;color:#544940}
+html body.ci-page .ci-score-icon{font:800 14px/1 var(--vcc-font-body, "DM Sans", Arial, sans-serif);text-align:center;color:#c56a45}
+html body.ci-page .ci-score-name{font:500 9.5px/1.25 var(--vcc-font-body, "DM Sans", Arial, sans-serif);color:#544940}
 html body.ci-page .ci-score-track{display:block;height:7px;background:#e9e7e5;border-radius:99px;overflow:hidden}
 html body.ci-page .ci-score-fill{display:block;height:100%;border-radius:99px;background:#cb714c}
-html body.ci-page .ci-score-value{font:700 10px/1.2 'DM Sans',sans-serif;text-align:right}
+html body.ci-page .ci-score-value{font:700 10px/1.2 var(--vcc-font-body, "DM Sans", Arial, sans-serif);text-align:right}
 html body.ci-page .ci-month-right .ci-month-procon{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
 html body.ci-page .ci-month-right .ci-month-points{min-width:0;background:transparent!important;border:0!important;padding:0!important}
-html body.ci-page .ci-month-right .ci-month-points h4{font:600 18px/1.25 'Oswald',sans-serif;display:flex;align-items:center;gap:8px;margin:0 0 12px}
+html body.ci-page .ci-month-right .ci-month-points h4{font:600 18px/1.25 var(--vcc-font-heading, "Oswald", sans-serif);display:flex;align-items:center;gap:8px;margin:0 0 12px}
 html body.ci-page .ci-month-right .ci-month-points ul{display:grid;gap:9px;list-style:none;margin:0;padding:0}
-html body.ci-page .ci-month-right .ci-month-points li{font:400 10.5px/1.5 'DM Sans',sans-serif;padding-left:13px;color:#564b42}
+html body.ci-page .ci-month-right .ci-month-points li{font:400 10.5px/1.5 var(--vcc-font-body, "DM Sans", Arial, sans-serif);padding-left:13px;color:#564b42}
 html body.ci-page .ci-month-right .ci-month-points li:before{left:0;color:#a59a90;content:'•'}
 html body.ci-page .ci-month-vcc{display:grid;align-items:center;margin-top:20px;background:#fff;border:1.5px solid var(--ci-orange);}
 html body.ci-page .ci-month-vcc-brand{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;text-align:center;border-right:1px solid #e8d7ca;}
 html body.ci-page .ci-month-vcc-brand img{display:block;object-fit:contain}
-html body.ci-page .ci-month-vcc-brand strong{font:800 9px/1.25 'DM Sans',sans-serif;letter-spacing:.045em;color:#a8573a;white-space:nowrap}
-html body.ci-page .ci-month-vcc>p{font:400 10.8px/1.6 'DM Sans',sans-serif;color:#574b43;margin:0;max-width:none}
-html body.ci-page .ci-month-visited{font:600 10px/1.4 'DM Sans',sans-serif;margin-top:11px}
-html body.ci-page .ci-month-sources{border-top:1px solid #ede2d8;margin:16px 0 0;padding-top:9px;max-width:none;color:#84766d;font:400 9px/1.55 'DM Sans',sans-serif}
+html body.ci-page .ci-month-vcc-brand strong{font:800 9px/1.25 var(--vcc-font-body, "DM Sans", Arial, sans-serif);letter-spacing:.045em;color:#a8573a;white-space:nowrap}
+html body.ci-page .ci-month-vcc>p{font:400 10.8px/1.6 var(--vcc-font-body, "DM Sans", Arial, sans-serif);color:#574b43;margin:0;max-width:none}
+html body.ci-page .ci-month-visited{font:600 10px/1.4 var(--vcc-font-body, "DM Sans", Arial, sans-serif);margin-top:11px}
+html body.ci-page .ci-month-sources{border-top:1px solid #ede2d8;margin:16px 0 0;padding-top:9px;max-width:none;color:#84766d;font:400 9px/1.55 var(--vcc-font-body, "DM Sans", Arial, sans-serif)}
 html body.ci-page .ci-month-sources a{color:#a95638;text-decoration:underline;text-underline-offset:2px}
 @media(max-width:1080px){
  html body.ci-page .ci-month-layout{grid-template-columns:1fr}
@@ -606,10 +606,10 @@ html body.ci-page .ci-price-label .ci-dot,html body.ci-page .ci-fact-price .ci-d
 html body.ci-page .ci-fact-price{white-space:nowrap;font-size:11px}
 html body.ci-page .ci-august-experience{padding-top:32px}
 html body.ci-page .ci-august-box{display:block!important;padding:22px 25px!important;border-radius:13px;background:#fff}
-html body.ci-page .ci-august-visit{display:inline-block;margin-bottom:8px;color:#ae603e;font:800 10px/1.4 'DM Sans',sans-serif;letter-spacing:.06em}
+html body.ci-page .ci-august-visit{display:inline-block;margin-bottom:8px;color:#ae603e;font:800 10px/1.4 var(--vcc-font-body, "DM Sans", Arial, sans-serif);letter-spacing:.06em}
 html body.ci-page .ci-august-bottom{display:flex;align-items:center;justify-content:space-between;gap:20px;border-top:1px solid #ece0d5;padding-top:11px}
-html body.ci-page .ci-august-bottom p{font:400 9.4px/1.5 'DM Sans',sans-serif;color:#87796c;margin:0;max-width:690px}
-html body.ci-page .ci-august-bottom a{font:700 10px/1.45 'DM Sans',sans-serif;text-decoration:underline;text-underline-offset:3px;color:#a85639;white-space:normal}
+html body.ci-page .ci-august-bottom p{font:400 9.4px/1.5 var(--vcc-font-body, "DM Sans", Arial, sans-serif);color:#87796c;margin:0;max-width:690px}
+html body.ci-page .ci-august-bottom a{font:700 10px/1.45 var(--vcc-font-body, "DM Sans", Arial, sans-serif);text-decoration:underline;text-underline-offset:3px;color:#a85639;white-space:normal}
 html body.ci-page .ci-august-bottom a:hover{color:#763e2b}
 @media(max-width:900px){html body.ci-page .ci-august-box{padding:18px!important}}
 @media(max-width:600px){
@@ -624,7 +624,7 @@ html body.ci-page .ci-calendar-hint{display:none}
 @media(max-width:700px){
   html body.ci-page .ci-calendar-hint{
     display:flex;align-items:center;justify-content:center;gap:9px;
-    font:700 10px/1.5 'DM Sans',sans-serif;color:#a65b3a;
+    font:700 10px/1.5 var(--vcc-font-body, "DM Sans", Arial, sans-serif);color:#a65b3a;
     margin:6px auto 0;
   }
   html body.ci-page .ci-calendar-hint>span:last-child{font-size:18px;line-height:1}
@@ -690,16 +690,16 @@ html body.ci-page .ci-august-plan-icon{
   border:1px solid #edc9b6;
   color:#bc5e3c;
   background:#fff7f1;
-  font:700 18px/1 'DM Sans',sans-serif;
+  font:700 18px/1 var(--vcc-font-body, "DM Sans", Arial, sans-serif);
 }
 html body.ci-page .ci-august-plan h4{
   color:#332922;
-  font:600 17px/1.22 'Oswald',sans-serif;
+  font:600 17px/1.22 var(--vcc-font-heading, "Oswald", sans-serif);
   margin:2px 0 7px;
 }
 html body.ci-page .ci-august-plan p{
   color:#62544c;
-  font:400 11px/1.6 'DM Sans',sans-serif;
+  font:400 11px/1.6 var(--vcc-font-body, "DM Sans", Arial, sans-serif);
   margin:0;
 }
 @media(max-width:1080px){
@@ -741,7 +741,7 @@ html body.ci-page .ci-month-right>.ci-month-procon+.ci-month-vcc{
 }
 html body.ci-page .ci-tips-source{
   margin:10px 0 0;
-  font:400 10px/1.5 'DM Sans',sans-serif;
+  font:400 10px/1.5 var(--vcc-font-body, "DM Sans", Arial, sans-serif);
   color:#83756b;text-align:right;
 }
 html body.ci-page .ci-tips-source a{
@@ -822,11 +822,11 @@ html body.ci-page .ci-august-experience-layout{
 }
 html body.ci-page .ci-august-firsthand{min-width:0}
 html body.ci-page .ci-august-firsthand h3{
-  font:600 clamp(21px,2vw,26px)/1.25 'Oswald',sans-serif;
+  font:600 clamp(21px,2vw,26px)/1.25 var(--vcc-font-heading, "Oswald", sans-serif);
   color:#302820;margin:0 0 11px;
 }
 html body.ci-page .ci-august-firsthand p{
-  margin:0 0 12px;font:400 12px/1.7 'DM Sans',sans-serif;color:#5b4f47
+  margin:0 0 12px;font:400 12px/1.7 var(--vcc-font-body, "DM Sans", Arial, sans-serif);color:#5b4f47
 }
 html body.ci-page .ci-august-firsthand p strong{color:#332821}
 html body.ci-page .ci-august-firsthand .ci-august-visit{display:block;margin-bottom:8px}
@@ -918,7 +918,7 @@ html body.ci-page .ci-august-imp-gallery .gallery-mosaic{
 }
 html body.ci-page .ci-august-imp-gallery .ci-august-gallery-loading{
   display:block;text-align:center;padding:32px;color:#84766b;
-  font:500 12px/1.5 'DM Sans',sans-serif;
+  font:500 12px/1.5 var(--vcc-font-body, "DM Sans", Arial, sans-serif);
 }
 @media(max-width:800px){
   html body.ci-page .ci-august-imp-gallery .gallery-mosaic{
@@ -957,7 +957,7 @@ html body.ci-page .ci-august-imp-gallery .gallery-mosaic.count-4 .gallery-more{
 html body.ci-page .ci-objectives>.ci-quick-answer{
   margin:0 0 16px;
   max-width:920px;
-  font:400 12px/1.65 'DM Sans',sans-serif;
+  font:400 12px/1.65 var(--vcc-font-body, "DM Sans", Arial, sans-serif);
   color:#645851;
 }
 html body.ci-page .ci-objectives>.ci-quick-answer strong{
@@ -1028,7 +1028,7 @@ html body.ci-page .ci-calendar-section>.ci-month-sources{
   margin:9px 3px 0!important;
   padding:0!important;
   max-width:none!important;
-  font:400 10px/1.5 'DM Sans',sans-serif!important;
+  font:400 10px/1.5 var(--vcc-font-body, "DM Sans", Arial, sans-serif)!important;
   color:#84766d;
 }
 html body.ci-page .ci-calendar-section>.ci-month-sources a{
@@ -1095,7 +1095,7 @@ html body.ci-page .ci-visit-mobile-note{display:none}
     margin:0 auto 18px!important;
     text-align:center!important;
     color:#95563d!important;
-    font:700 11px/1.5 'DM Sans',sans-serif!important;
+    font:700 11px/1.5 var(--vcc-font-body, "DM Sans", Arial, sans-serif)!important;
     letter-spacing:.04em!important;
   }
 }
@@ -1142,7 +1142,7 @@ html body.ci-page .ci-august-weather-head{display:none}
   }
   html body.ci-page .ci-august-weather-head>span{
     color:#6e5c50;
-    font:700 10px/1.4 'DM Sans',sans-serif;
+    font:700 10px/1.4 var(--vcc-font-body, "DM Sans", Arial, sans-serif);
     letter-spacing:.07em;
   }
   html body.ci-page .ci-august-weather-controls{display:flex;gap:7px;flex:none}
@@ -1153,7 +1153,7 @@ html body.ci-page .ci-august-weather-head{display:none}
     border:1px solid #dfcfc2;
     border-radius:50%;
     background:#fff;color:#a65b3f;
-    font:600 20px/1 'DM Sans',sans-serif;
+    font:600 20px/1 var(--vcc-font-body, "DM Sans", Arial, sans-serif);
     cursor:pointer;
   }
   html body.ci-page .ci-august-weather-controls button:disabled{
