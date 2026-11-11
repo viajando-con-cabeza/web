@@ -1,0 +1,28 @@
+name: VCC · Preparar visores R2 nítidos
+on:
+  push:
+    branches: [quality]
+    paths:
+      - "destinos/suecia/estocolmo/itinerario.html"
+      - "configuracion/scripts/preparar-visores-r2.mjs"
+      - ".github/workflows/preparar-visores-r2-quality.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: vcc-r2-previews-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  warm-previews:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Generar i comprovar les 89 versions de visor a R2
+        run: node configuracion/scripts/preparar-visores-r2.mjs
