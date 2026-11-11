@@ -13,7 +13,7 @@ html body .vcc-consejo-unificado:not(.ci-recommendation){
   max-height:none!important;
   padding:clamp(14px,1.6vw,22px)!important;
   background:#fff!important;
-  border:1.5px solid #d56a4c!important;
+  border:1.5px solid var(--vcc-consejo-border-color,#d56a4c)!important;
   border-radius:19px!important;
   box-shadow:none!important;
   overflow:visible!important;
@@ -61,7 +61,7 @@ html body .vcc-consejo-unificado .vcc-consejo-marca > strong{
   flex:none!important;
   margin:0!important;
   padding:0!important;
-  color:#b35235!important;
+  color:var(--vcc-consejo-title-color,#b35235)!important;
   font:800 12px/1.3 var(--vcc-font-body, "DM Sans", Arial, sans-serif)!important;
   letter-spacing:.09em!important;
   text-align:center!important;
@@ -82,7 +82,7 @@ html body .vcc-consejo-unificado .vcc-consejo-texto p{
   margin-top:0!important;
   margin-bottom:0!important;
   font:400 clamp(11.5px,1vw,13px)/1.6 var(--vcc-font-body, "DM Sans", Arial, sans-serif)!important;
-  color:#50473f!important;
+  color:var(--vcc-consejo-body-color,#50473f)!important;
 }
 html body .vcc-consejo-unificado .vcc-consejo-texto p + p{
   margin-top:7px!important;
@@ -118,7 +118,7 @@ html body .imp-page .advice.vcc-consejo-unificado{
   height:auto!important;
   min-height:105px!important;
   padding:clamp(14px,1.6vw,22px)!important;
-  border:1.5px solid #d56a4c!important;
+  border:1.5px solid var(--vcc-consejo-border-color,#d56a4c)!important;
   border-radius:19px!important;
 }
 html body .imp-page .advice.vcc-consejo-unificado{
@@ -161,7 +161,7 @@ html body.ci-page .ci-recommendation.vcc-consejo-unificado .ci-recommendation-br
 html body.ci-page .ci-recommendation.vcc-consejo-unificado .ci-recommendation-brand strong{
   font:800 12px/1.3 var(--vcc-font-body, "DM Sans", Arial, sans-serif)!important;
   letter-spacing:.09em!important;
-  color:#b35235!important;
+  color:var(--vcc-consejo-title-color,#b35235)!important;
   text-align:center!important;
 }
 html body.ci-page .ci-recommendation.vcc-consejo-unificado .ci-recommendation-brand img{
