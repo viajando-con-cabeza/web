@@ -49,8 +49,8 @@ for(const [match,url] of [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map(m=>[m
 }
 const requirements=[
  [style.includes('--vcc-component-subheader-height,39px'),'alçada estàndard 39 px'],
- [style.includes('font:800 11.5px/1.15 var(--vcc-font-body'),'tipografia estàndard DM Sans 11.5 px'],
- [style.includes('font-size:11px!important'),'tipografia mòbil 11 px'],
+ [style.includes('font:800 var(--vcc-component-subheader-desktop-font,11.5px)/1.15 var(--vcc-font-body'),'tipografia estàndard DM Sans 11.5 px'],
+ [style.includes('font-size:var(--vcc-component-subheader-mobile-font,11px)!important'),'tipografia mòbil 11 px'],
  [style.includes('border-color .16s ease'),'animació coherent del subratllat'],
  [style.includes('.place-nav-arrow'),'fletxes integrades al CSS global'],
  [style.includes('prefers-reduced-motion:reduce'),'accessibilitat: moviment reduït'],

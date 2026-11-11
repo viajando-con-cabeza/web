@@ -37,3 +37,68 @@ El Worker de conversio ara comprova bytes reals abans d'esborrar JPG. No convert
 - rutas-recursos.json i /_redirects: compatibilitat de rutes.
 
 Els recursos corporatius no poden estar solts a configuracion/imagenes/: s'han de posar dins una categoria. Les imatges de desti es mantenen a destinos/.../imagenes/ o R2.
+
+## Sistema de disseny global (quality, novembre 2026)
+
+**Font de veritat:** `configuracion/css/base/tokens-vcc.css`, carregat una sola vegada
+pel `configuracion/js/site-header.js`. No afegiu valors nous de font o accent
+directament als HTML. El sistema respecta, per defecte, l'estil visual existent.
+
+| Canvi global | Variable a modificar |
+| --- | --- |
+| Tipus de lletra de text | `--vcc-font-body` |
+| Tipus de lletra de títols | `--vcc-font-heading` |
+| Tipus de lletra manuscrita | `--vcc-font-script` |
+| Ajustar títols de les plantilles migrades | `--vcc-heading-size-adjust: 1px` |
+| Ajustar sobretítols de les plantilles migrades | `--vcc-overline-size-adjust: 1px` |
+| Color d'accent en components migrats | `--vcc-accent-override: #color` (opcional) |
+| Alçada del subheader | `--vcc-component-subheader-height` |
+| Lletra del subheader | `--vcc-component-subheader-desktop-font` / `--vcc-component-subheader-mobile-font` |
+| Alçada editorial del hero | `--vcc-component-hero-desktop-height` |
+| Mida i posició de fletxes mòbils | `--vcc-carousel-arrow-size`, `--vcc-carousel-arrow-previous-offset` |
+| Espai superior controls mòbils | `--vcc-carousel-mobile-padding-top` |
+
+Els ajustaments de títols actuen sobre les plantilles que ja s'han adaptat
+(no sobre qualsevol regla històrica no migrada). Els valors inicials de
+`0px` preserven exactament les mides aprovades.
+
+### Components reutilitzables
+
+- `configuracion/css/componentes/header-vcc-global.css`: capçalera compartida.
+- `configuracion/css/componentes/header-fallback-vcc.css`: estil de reserva del header.
+- `configuracion/css/componentes/subheader-unificado-vcc.css`: navegació secundària.
+- `configuracion/css/componentes/vcc-hero-editorial-vcc.css`: hero editorial compartit.
+- `configuracion/css/componentes/carruseles-vcc.css`: variants `editorial`,
+  `compacto`, `detalle` via `data-vcc-carousel`.
+- `configuracion/css/componentes/carruseles-flechas-movil-vcc.css`:
+  criteri comú mòbil, una targeta amb dues fletxes a dalt a la dreta.
+- `configuracion/css/componentes/vcc-gallery-booking.css` i
+  `configuracion/js/componentes/vcc-gallery-booking.js`: visor de fotografies.
+- `configuracion/css/componentes/consejo-vcc-global.css`: Consejo VCC.
+
+Les variants de carrusel utilitzen estils compartits, però alguns controladors
+JavaScript específics de pàgina continuen vigents: no els suprimiu fins
+que la seva equivalència funcional i visual estigui verificada.
+
+### Icones i fotografies
+
+No es pot dibuixar un SVG estàtic dins d'una pàgina. Les figures són a
+`configuracion/imagenes/iconos/`, dins de `paginas/`, `compartidos/` o
+les carpetes específiques. A l'HTML es pot mantenir un SVG buit amb
+`<use href="/configuracion/imagenes/iconos/...svg#nom-icono"></use>`
+per preservar les dimensions i el color CSS. El traçat està només al fitxer
+SVG extern. Les medalles complexes poden utilitzar `<img src="/configuracion/imagenes/iconos/...svg">`.
+
+La validació de CI `node configuracion/scripts/validar-iconos-vcc.mjs`
+revisa la geometria incrustada en HTML i JS, les dades SVG dins de CSS
+i l'existència dels sprites referenciats. No emmagatzemar icones
+SVG com a `data:image/svg+xml`. Les fotos de viatge continuen a R2,
+sense migració addicional en aquesta fase.
+
+### Revisió abans de publicar
+
+1. Treballar només a `quality` i conservar `main` sense canvis fins a l'aprovació.
+2. Comprovar GitHub Actions: **Quality**, **Components VCC compartits** i
+   **Auditar recursos visuals VCC**.
+3. Verificar canvis visibles amb les versions mòbil i escriptori de les guies
+   principals abans de fusionar a producció.
