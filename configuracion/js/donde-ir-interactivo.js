@@ -41,7 +41,7 @@
   // Catàlegs reals de pàgines: cerca immediata, independent per pestanya.
   // Les miniatures i els enllaços són HTML estàtic perquè siguin accessibles i indexables.
   const clean=(value)=>String(value||'')
-    .normalize('NFD').replace(/[\\u0300-\\u036f]/g,'')
+    .normalize('NFD').replace(/[\u0300-\u036f]/g,'')
     .toLocaleLowerCase('es').trim();
   const plurals={
     itinerarios:['itinerario','itinerarios'],
