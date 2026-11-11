@@ -65,8 +65,11 @@ function cancelFullPhoto(){
  }
 }
 function scheduleFullPhoto(item,id){
- // L'original gran només comença a carregar quan s'atura la navegació.
- const delay=item.fastPreview?(isMobile()?650:420):(isMobile()?420:220);
+ // Galeries llargues: resoldre una versió de visor de 1800 px, no l'original de diversos MB.
+ // L'original només es descarrega quan es fa zoom.
+ const requestedSrc=item.fastPreview?visorFor(item):item.src;
+ if(photoImage.src===requestedSrc)return;
+ const delay=item.fastPreview?(isMobile()?520:300):(isMobile()?420:220);
  fullPhotoTimer=window.setTimeout(()=>{
   fullPhotoTimer=0;
   if(id!==photoSequence||!photoOpen())return;
@@ -76,10 +79,10 @@ function scheduleFullPhoto(item,id){
    try{if(full.decode)await full.decode()}catch(_){}
    if(fullPhotoRequest===full)fullPhotoRequest=null;
    if(id!==photoSequence||!photoOpen())return;
-   photoImage.src=item.src;
+   photoImage.src=requestedSrc;
   };
   full.onerror=()=>{if(fullPhotoRequest===full)fullPhotoRequest=null};
-  full.src=item.src;
+  full.src=requestedSrc;
  },delay);
 }
 const visible=()=>!modal.hidden;
@@ -189,6 +192,23 @@ function beginPhotoSlide(direction){
 const visorFor=item=>item.preview.includes('/__vcc_preview/mini/')
  ?item.preview.replace('/__vcc_preview/mini/','/__vcc_preview/visor/')
  :item.preview.replace('/_preview/mini/','/_preview/visor/');
+// Només descarregar l'original quan el lector amplia de debò la fotografia.
+function requestOriginalForZoom(){
+ if(!photoOpen()||!currentImages.length)return;
+ const item=currentImages[currentIndex];
+ if(!item?.fastPreview||photoImage.src===item.src||fullPhotoRequest?.src===item.src)return;
+ cancelFullPhoto();
+ const id=photoSequence,original=new Image();
+ original.decoding='async';fullPhotoRequest=original;
+ original.onload=async()=>{
+  try{if(original.decode)await original.decode()}catch(_){}
+  if(fullPhotoRequest===original)fullPhotoRequest=null;
+  if(id===photoSequence&&photoOpen())photoImage.src=item.src;
+ };
+ original.onerror=()=>{if(fullPhotoRequest===original)fullPhotoRequest=null};
+ original.src=item.src;
+}
+
 function preloadAdjacentPhotos(){
  if(!isMobile()||currentImages.length<2)return;
  // Només dues miniatures petites: no precarreguem visors ni originals de MB.
@@ -365,7 +385,7 @@ function imagesFor(gallery){
  }
  return [...gallery.querySelectorAll('button[data-photo]')].map((b,i)=>({
   src:b.dataset.photo,
-  preview:b.querySelector('img')?.src||previewFor(b.dataset.photo),
+  preview:gallery.hasAttribute('data-fast-preview')?previewFor(b.dataset.photo):(b.querySelector('img')?.src||previewFor(b.dataset.photo)),
   visor:b.dataset.visor||'',
   fastPreview:gallery.hasAttribute('data-fast-preview'),
   alt:b.querySelector('img')?.alt||'Fotografía '+(i+1),
@@ -543,6 +563,7 @@ function syncNativeZoom(){
  if(!activeDesktop())return;
  const ratio=zoomRatio(),zoomed=ratio>1.025,wasZoomed=zoomWasActive;
  zoomWasActive=zoomed;
+ if(zoomed&&ratio>1.18&&photoOpen())requestOriginalForZoom();
  modal.classList.toggle('vcc-zoom-pan-enabled',zoomed);
  if(!zoomed){
   if(pendingAnchor&&!wasZoomed)return;
@@ -661,6 +682,7 @@ stage.addEventListener('touchmove',event=>{
   touchZoom=clamp(touchGesture.zoom*distance(event.touches[0],event.touches[1])/Math.max(1,touchGesture.dist),1,4);
   if(touchZoom===1)touchPanX=touchPanY=0;
   limitTouchPan();paintTouchZoom();
+  if(touchZoom>1.4)requestOriginalForZoom();
  }else if(event.touches.length===1&&touchGesture.kind==='drag'){
   const t=event.touches[0];
   const dx=t.clientX-touchGesture.x,dy=t.clientY-touchGesture.y;
@@ -702,6 +724,7 @@ stage.addEventListener('dblclick',event=>{
  event.preventDefault();touchZoom=touchZoom>1?1:2;
  if(touchZoom===1)touchPanX=touchPanY=0;
  limitTouchPan();paintTouchZoom();
+ if(touchZoom>1.4)requestOriginalForZoom();
 });
 
  const instance={modal,close:closeGallery};
