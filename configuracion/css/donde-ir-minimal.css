@@ -1,6 +1,6 @@
 /* Dónde ir · VCC · 3 caminos. Un solo stylesheet: sin CSS antiguo superpuesto. */
-:root{--di-ink:#211f1d;--di-muted:#625e5a;--di-coral:#c56d51;--di-paper:#f7f5f2;--di-line:#e6e1dc}
-body.planifica-vcc{margin:0;background:var(--di-paper);color:var(--di-ink);font-family:"DM Sans",Arial,sans-serif}
+:root{--di-ink:#211f1d;--di-muted:#625e5a;--di-coral:var(--vcc-accent-override, #c56d51);--di-paper:#f7f5f2;--di-line:#e6e1dc}
+body.planifica-vcc{margin:0;background:var(--di-paper);color:var(--di-ink);font-family:var(--vcc-font-body, "DM Sans", Arial, sans-serif)}
 .di-page,.di-page *{box-sizing:border-box}
 .di-page{background:var(--di-paper)}
 .di-page a{color:inherit;text-decoration:none}
@@ -8,34 +8,34 @@ body.planifica-vcc{margin:0;background:var(--di-paper);color:var(--di-ink);font-
 .di-page button{cursor:pointer}
 .di-page :is(a,button,select):focus-visible{outline:3px solid #bc5b38;outline-offset:3px}
 .di-wrap{width:min(1180px,calc(100% - 48px));margin-inline:auto}
-.di-overline{display:block;color:#c06448;font:600 27px/1.05 "Caveat",cursive}
+.di-overline{display:block;color:#c06448;font:600 27px/1.05 var(--vcc-font-script, "Caveat", cursive)}
 .di-hero{position:relative;isolation:isolate;overflow:hidden;min-height:388px;background:#f2e6d5}
 .di-hero::before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,rgba(253,248,239,.96),rgba(250,242,229,.83) 46%,rgba(247,235,217,.48)),url('/configuracion/imagenes/fondos/fondos-como-llegar.webp') center/cover}
 .di-hero-inner{display:grid;grid-template-columns:290px minmax(0,1fr);align-items:center;gap:22px;padding:68px 0 39px}
 .di-hero-copy{align-self:center}
-.di-hero-copy h1{font:600 clamp(43px,3.8vw,55px)/1.02 "Oswald",sans-serif;letter-spacing:-.01em;margin:9px 0 12px}
+.di-hero-copy h1{font:600 clamp(43px,3.8vw,55px)/1.02 var(--vcc-font-heading, "Oswald", sans-serif);letter-spacing:-.01em;margin:9px 0 12px}
 .di-hero-copy h1::after{content:"";display:block;width:88px;height:4px;background:#d96c41;border-radius:5px;margin:14px 0 0}
-.di-hero-copy p{font:400 13px/1.6 "DM Sans",sans-serif;color:#4f4945;margin:0;max-width:290px}
+.di-hero-copy p{font:400 13px/1.6 var(--vcc-font-body, "DM Sans", Arial, sans-serif);color:#4f4945;margin:0;max-width:290px}
 .di-choices{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;align-items:stretch}
 .di-choice{display:flex;flex-direction:column;align-items:center;justify-content:flex-start;min-width:0;min-height:232px;padding:22px 15px 16px;background:rgba(255,255,255,.90);border:1px solid rgba(255,255,255,.92);border-radius:18px;box-shadow:0 4px 16px #5b3e2510;text-align:center;color:#38312a;transition:background .15s,border-color .15s,transform .15s}
 .di-choice:hover{transform:translateY(-2px);border-color:#e3a586}
 .di-choice.is-active{background:rgba(255,253,249,.98);border-color:#c96b4a;box-shadow:inset 0 -3px #c76e4e,0 7px 20px #714b2718}
 .di-choice-icon{height:65px;display:flex;align-items:center;justify-content:center;color:#bd6b46}
 .di-choice-icon svg{width:54px;height:54px}
-.di-choice strong{font:600 clamp(19px,1.85vw,25px)/1.13 "Oswald",sans-serif;margin:9px 0 11px;color:#23453f}
-.di-choice>span:not(.di-choice-icon){font:400 12px/1.5 "DM Sans",sans-serif;color:#4f4a46;min-height:53px}
-.di-choice small{font:800 10px/1.2 "DM Sans",sans-serif;color:#ae5537;letter-spacing:.03em;margin-top:auto;padding-top:8px}
+.di-choice strong{font:600 clamp(19px,1.85vw,25px)/1.13 var(--vcc-font-heading, "Oswald", sans-serif);margin:9px 0 11px;color:#23453f}
+.di-choice>span:not(.di-choice-icon){font:400 12px/1.5 var(--vcc-font-body, "DM Sans", Arial, sans-serif);color:#4f4a46;min-height:53px}
+.di-choice small{font:800 10px/1.2 var(--vcc-font-body, "DM Sans", Arial, sans-serif);color:#ae5537;letter-spacing:.03em;margin-top:auto;padding-top:8px}
 .di-choice small span{margin-left:6px}
 .di-subnav{position:sticky;top:var(--vcc-subheader-top,54px);z-index:950;background:#fff;border-top:1px solid #eee7e0;border-bottom:1px solid #e9e2db}
 .di-subnav-inner{display:flex;align-items:center;gap:36px;min-height:40px;overflow-x:auto;white-space:nowrap;scrollbar-width:none}
 .di-subnav-inner::-webkit-scrollbar{display:none}
-.di-subnav button{height:40px;flex:0 0 auto;display:flex;align-items:center;justify-content:center;padding:0;border:0;border-bottom:2px solid transparent;background:transparent;color:#171717;font:800 11px/1.2 "DM Sans",sans-serif}
+.di-subnav button{height:40px;flex:0 0 auto;display:flex;align-items:center;justify-content:center;padding:0;border:0;border-bottom:2px solid transparent;background:transparent;color:#171717;font:800 11px/1.2 var(--vcc-font-body, "DM Sans", Arial, sans-serif)}
 .di-subnav button:hover,.di-subnav button[aria-selected="true"]{color:#bd624b;border-bottom-color:#c86f5d}
 .di-content{min-height:240px;padding:30px 0 39px}
 .di-panel[hidden]{display:none!important}
 .di-section-head{margin-bottom:18px}
-.di-section-head h2{font:500 clamp(29px,3vw,39px)/1.12 "Oswald",sans-serif;margin:4px 0 9px}
-.di-section-head p{margin:0;max-width:790px;color:var(--di-muted);font:400 13px/1.57 "DM Sans",sans-serif}
+.di-section-head h2{font:500 clamp(29px,3vw,39px)/1.12 var(--vcc-font-heading, "Oswald", sans-serif);margin:4px 0 9px}
+.di-section-head p{margin:0;max-width:790px;color:var(--di-muted);font:400 13px/1.57 var(--vcc-font-body, "DM Sans", Arial, sans-serif)}
 
 /* Catàleg editorial: fins a cinc vinyetes al costat, com Itinerarios. */
 .di-catalog-toolbar{
@@ -51,11 +51,11 @@ body.planifica-vcc{margin:0;background:var(--di-paper);color:var(--di-ink);font-
 .di-catalog-search input{
   display:block;flex:1;min-width:0;width:100%;height:100%;
   border:0;outline:0;background:transparent;
-  color:#2d2926;font:500 12px/1.3 "DM Sans",sans-serif;
+  color:#2d2926;font:500 12px/1.3 var(--vcc-font-body, "DM Sans", Arial, sans-serif);
 }
 .di-catalog-search:focus-within{outline:2px solid #c76949;outline-offset:2px}
 .di-catalog-search input::placeholder{color:#89817c}
-.di-catalog-count{font:700 11px/1.2 "DM Sans",sans-serif;color:#796b63;white-space:nowrap}
+.di-catalog-count{font:700 11px/1.2 var(--vcc-font-body, "DM Sans", Arial, sans-serif);color:#796b63;white-space:nowrap}
 .di-mini-grid{
   display:grid;grid-template-columns:repeat(5,minmax(0,1fr));
   gap:12px;align-items:stretch;
@@ -79,21 +79,21 @@ body.planifica-vcc{margin:0;background:var(--di-paper);color:var(--di-ink);font-
   position:absolute;bottom:7px;left:8px;right:8px;width:max-content;
   max-width:calc(100% - 16px);padding:5px 7px;border-radius:5px;
   color:#fff;background:#161d21d9;
-  font:800 9px/1.22 "DM Sans",sans-serif;
+  font:800 9px/1.22 var(--vcc-font-body, "DM Sans", Arial, sans-serif);
   text-transform:uppercase;white-space:normal;
 }
 .di-mini-body{min-width:0;display:flex;flex-direction:column;align-items:stretch;flex:1;padding:13px 12px 12px}
 .di-mini-body strong{
-  font:600 clamp(17px,1.45vw,21px)/1.16 "Oswald",sans-serif;
+  font:600 clamp(17px,1.45vw,21px)/1.16 var(--vcc-font-heading, "Oswald", sans-serif);
   color:#222;overflow-wrap:anywhere;margin:0 0 6px;
 }
 .di-mini-desc{
-  font:400 11px/1.48 "DM Sans",sans-serif;color:var(--di-muted);
+  font:400 11px/1.48 var(--vcc-font-body, "DM Sans", Arial, sans-serif);color:var(--di-muted);
   margin-bottom:9px;
 }
 .di-mini-body b{
   margin-top:auto;color:#b44f30;
-  font:800 9.5px/1.25 "DM Sans",sans-serif;padding-top:3px;
+  font:800 9.5px/1.25 var(--vcc-font-body, "DM Sans", Arial, sans-serif);padding-top:3px;
   letter-spacing:.005em;
 }
 .di-mini-body b span{margin-left:3px}
@@ -101,19 +101,19 @@ body.planifica-vcc{margin:0;background:var(--di-paper);color:var(--di-ink);font-
 .di-no-results{
   padding:18px;margin:0;border:1px dashed #dccfc5;border-radius:9px;
   color:#665a52;background:#fff;
-  font:500 12px/1.55 "DM Sans",sans-serif;
+  font:500 12px/1.55 var(--vcc-font-body, "DM Sans", Arial, sans-serif);
 }
 .di-advisor-heading{margin:30px 0 14px;padding-top:22px;border-top:1px solid #e5ded8}
-.di-advisor-heading h3{font:500 28px/1.16 "Oswald",sans-serif;margin:4px 0 7px}
-.di-advisor-heading p{color:var(--di-muted);font:400 12px/1.5 "DM Sans",sans-serif;margin:0}
+.di-advisor-heading h3{font:500 28px/1.16 var(--vcc-font-heading, "Oswald", sans-serif);margin:4px 0 7px}
+.di-advisor-heading p{color:var(--di-muted);font:400 12px/1.5 var(--vcc-font-body, "DM Sans", Arial, sans-serif);margin:0}
 .di-advisor{display:grid;grid-template-columns:.75fr 1.25fr;gap:13px;align-items:stretch}
 .di-advisor-form{display:grid;align-content:start;gap:13px;border:1px solid var(--di-line);border-radius:12px;background:#fff;padding:18px}
-.di-advisor-form label{display:grid;gap:8px;color:#534b46;font:800 10px/1.4 "DM Sans",sans-serif;letter-spacing:.04em}
-.di-advisor-form select{display:block;width:100%;min-height:43px;padding:9px 12px;background:#fbfaf8;border:1px solid #dcd5ce;border-radius:7px;color:#25221e;font:600 12px "DM Sans",sans-serif}
+.di-advisor-form label{display:grid;gap:8px;color:#534b46;font:800 10px/1.4 var(--vcc-font-body, "DM Sans", Arial, sans-serif);letter-spacing:.04em}
+.di-advisor-form select{display:block;width:100%;min-height:43px;padding:9px 12px;background:#fbfaf8;border:1px solid #dcd5ce;border-radius:7px;color:#25221e;font:600 12px var(--vcc-font-body, "DM Sans", Arial, sans-serif)}
 .di-advice-result{display:flex;flex-direction:column;align-items:start;justify-content:center;min-height:197px;border-radius:12px;border:1px solid #e8d2c4;background:#fff1e8;padding:19px 24px}
 .di-advice-result h3{color:#211e1b;margin-top:9px}
 .di-advice-result p{margin-bottom:10px}
-.di-smallprint{margin:13px 0 0;font:400 10.5px/1.5 "DM Sans",sans-serif;color:#7d7772}
+.di-smallprint{margin:13px 0 0;font:400 10.5px/1.5 var(--vcc-font-body, "DM Sans", Arial, sans-serif);color:#7d7772}
 .di-smallprint a{color:#a54d30;text-decoration:underline}
 @media(max-width:1080px){
  .di-hero-inner{grid-template-columns:235px minmax(0,1fr);gap:15px}
@@ -211,12 +211,12 @@ html body .di-hero.vcc-breadcrumb-on-dark #vcc-global-breadcrumb a:hover{
   display:inline-flex;align-items:center;align-self:flex-start;
   margin-top:auto;padding:6px 9px;border-radius:6px;
   background:#f5f2ee;color:#75675e;
-  font:800 9px/1.2 "DM Sans",sans-serif;
+  font:800 9px/1.2 var(--vcc-font-body, "DM Sans", Arial, sans-serif);
   letter-spacing:.05em;
 }
 .di-editorial-note{
   margin:12px 0 0;color:#77706a;
-  font:400 11px/1.52 "DM Sans",sans-serif;
+  font:400 11px/1.52 var(--vcc-font-body, "DM Sans", Arial, sans-serif);
 }
 @media(max-width:620px){
   .di-editorial-note{font-size:10.5px}
@@ -229,21 +229,21 @@ html body .di-hero.vcc-breadcrumb-on-dark #vcc-global-breadcrumb a:hover{
 .di-guide-card .di-mini-body{gap:0}
 .di-route-stats{
   display:flex;align-items:center;flex-wrap:wrap;gap:4px 9px;
-  color:#b7563a;font:800 10px/1.35 "DM Sans",sans-serif;
+  color:#b7563a;font:800 10px/1.35 var(--vcc-font-body, "DM Sans", Arial, sans-serif);
   margin:1px 0 7px;
 }
 .di-route-stats .di-type{color:#96654d}
 .di-budget-row{
   display:flex;align-items:baseline;flex-wrap:wrap;gap:5px 7px;
   margin-bottom:7px;color:#82756d;
-  font:800 9px/1.4 "DM Sans",sans-serif;
+  font:800 9px/1.4 var(--vcc-font-body, "DM Sans", Arial, sans-serif);
   letter-spacing:.03em;
 }
 .di-price{color:#ac5134;font-weight:800;letter-spacing:0;font-size:10.5px}
 .di-price-pending{color:#96908b;font-weight:600}
 .di-country-line{
   display:inline-flex;align-items:center;gap:6px;min-width:0;
-  color:#3f3c38;font:700 10.5px/1.4 "DM Sans",sans-serif;
+  color:#3f3c38;font:700 10.5px/1.4 var(--vcc-font-body, "DM Sans", Arial, sans-serif);
   margin-bottom:7px;
 }
 .di-flag{flex:none;white-space:nowrap;font-size:15px;line-height:1.2;letter-spacing:0}
@@ -256,7 +256,7 @@ html body .di-hero.vcc-breadcrumb-on-dark #vcc-global-breadcrumb a:hover{
   flex:none;display:inline-flex;align-items:center;gap:2px;
   padding:4px 6px;border-radius:6px;
   background:#fff0e5;color:#a64a2c;
-  font:800 11px/1.2 "DM Sans",sans-serif;
+  font:800 11px/1.2 var(--vcc-font-body, "DM Sans", Arial, sans-serif);
 }
 .di-guide-rating small{font-size:9px;font-weight:600}
 .di-rating-pending{
@@ -271,7 +271,7 @@ html body .di-hero.vcc-breadcrumb-on-dark #vcc-global-breadcrumb a:hover{
 .di-topic{
   display:inline-block;padding:4px 6px;
   border-radius:5px;background:#fff1e8;color:#a75437;
-  font:800 9px/1.15 "DM Sans",sans-serif;text-transform:uppercase;
+  font:800 9px/1.15 var(--vcc-font-body, "DM Sans", Arial, sans-serif);text-transform:uppercase;
 }
 @media(max-width:620px){
  .di-route-stats{font-size:9.5px;gap:3px 7px;margin-bottom:6px}

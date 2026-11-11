@@ -4,8 +4,8 @@
     --white: #ffffff;
     --text: #20201d;
     --muted: #6d6a63;
-    --coral: #d4664d;
-    --coral-dark: #b95039;
+    --coral: var(--vcc-accent-override, #d4664d);
+    --coral-dark: var(--vcc-accent-override, #b95039);
     --green: #69745f;
     --line: #ddd5c8;
     --max: 1180px;
@@ -23,7 +23,7 @@ body {
     margin: 0;
     background: var(--cream);
     color: var(--text);
-    font-family: "DM Sans", Arial, sans-serif;
+    font-family: var(--vcc-font-body, "DM Sans", Arial, sans-serif);
 }
 
 img {
@@ -64,7 +64,7 @@ a {
 
 .day-logo span {
     display: block;
-    font-family: "DM Sans", sans-serif;
+    font-family: var(--vcc-font-body, "DM Sans", Arial, sans-serif);
     font-size: 9px;
     letter-spacing: 2px;
     text-align: center;

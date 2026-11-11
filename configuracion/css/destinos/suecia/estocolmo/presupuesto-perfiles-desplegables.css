@@ -45,7 +45,7 @@ html body.budget-vcc .budget-hero,html body.budget-vcc .st-shell>section.budget-
    width:100%!important;height:auto!important;
    padding:15px 0 0!important;margin:0 0 25px!important;
    gap:0!important;z-index:2!important;
-   font:400 11px/1.5 'DM Sans',sans-serif!important;
+   font:400 11px/1.5 var(--vcc-font-body, "DM Sans", Arial, sans-serif)!important;
  }
  html body.budget-vcc .budget-hero .budget-crumb span{margin:0 5px!important}
  html body.budget-vcc .budget-hero .budget-hero-card{
@@ -78,7 +78,7 @@ html body.budget-vcc .spend-section .decision-panel .decision-carousel>.carousel
   width:32px!important;height:32px!important;margin:0!important;padding:0!important;
   border:1px solid #d9c7bc!important;border-radius:50%!important;
   background:#fff!important;color:#a65b45!important;
-  font:600 20px/1 'DM Sans',sans-serif!important;box-shadow:0 2px 8px rgba(75,48,34,.07)!important;
+  font:600 20px/1 var(--vcc-font-body, "DM Sans", Arial, sans-serif)!important;box-shadow:0 2px 8px rgba(75,48,34,.07)!important;
   transform:none!important;cursor:pointer;transition:background .2s,border-color .2s,color .2s,box-shadow .2s
 }
 html body.budget-vcc .spend-section .decision-panel .decision-carousel>.carousel-arrow.prev{right:59px!important}
@@ -96,7 +96,7 @@ html body.budget-vcc .savings-section .saving-tip{
 }
 html body.budget-vcc .savings-section .saving-number{
   flex:0 0 42px!important;width:42px!important;height:42px!important;
-  margin:4px 0 0 2px!important;font:500 20px/1 'Oswald',sans-serif!important
+  margin:4px 0 0 2px!important;font:500 20px/1 var(--vcc-font-heading, "Oswald", sans-serif)!important
 }
 html body.budget-vcc .savings-section .saving-tip h3{margin:2px 0 9px!important;font-size:22px!important}
 html body.budget-vcc .savings-section .saving-tip p{font-size:12px!important;line-height:1.55!important}
@@ -144,13 +144,13 @@ html body.budget-vcc #filosofia .vcc-budget-mode-top{display:flex;align-items:ce
 html body.budget-vcc #filosofia .vcc-budget-mode-icon{width:39px;height:39px;flex:0 0 39px;display:flex;align-items:center;justify-content:center;border-radius:9px;background:#faf1e9}
 html body.budget-vcc #filosofia .vcc-budget-mode-icon img{width:30px;height:30px;object-fit:contain}
 html body.budget-vcc #filosofia .vcc-budget-mode-title{display:flex;flex-direction:column;gap:3px;min-width:0}
-html body.budget-vcc #filosofia .vcc-budget-mode-title strong{font:500 21px/1.1 'Oswald',sans-serif;color:#191919}
-html body.budget-vcc #filosofia .vcc-budget-mode-title small{font:800 8px/1.2 'DM Sans',sans-serif;color:#b35b45;letter-spacing:.01em}
+html body.budget-vcc #filosofia .vcc-budget-mode-title strong{font:500 21px/1.1 var(--vcc-font-heading, "Oswald", sans-serif);color:#191919}
+html body.budget-vcc #filosofia .vcc-budget-mode-title small{font:800 8px/1.2 var(--vcc-font-body, "DM Sans", Arial, sans-serif);color:#b35b45;letter-spacing:.01em}
 html body.budget-vcc #filosofia .vcc-budget-mode-price{margin-left:auto;padding:8px 7px;border-radius:8px;text-align:right;background:#fbf5ef;white-space:nowrap}
-html body.budget-vcc #filosofia .vcc-budget-mode-price strong{display:block;font:600 19px/1.1 'Oswald',sans-serif;color:#1d1d1d}
-html body.budget-vcc #filosofia .vcc-budget-mode-price small{display:block;font:400 9px/1.25 'DM Sans',sans-serif;color:#685e55}
-html body.budget-vcc #filosofia .vcc-budget-mode-copy{font:400 11.5px/1.5 'DM Sans',sans-serif;color:#5b524b;margin:12px 0 0}
-html body.budget-vcc #filosofia .vcc-budget-mode-footer{margin-top:auto;padding-top:12px;display:flex;justify-content:space-between;align-items:center;width:100%;gap:9px;font:800 10px/1.3 'DM Sans',sans-serif;color:#a5513d}
+html body.budget-vcc #filosofia .vcc-budget-mode-price strong{display:block;font:600 19px/1.1 var(--vcc-font-heading, "Oswald", sans-serif);color:#1d1d1d}
+html body.budget-vcc #filosofia .vcc-budget-mode-price small{display:block;font:400 9px/1.25 var(--vcc-font-body, "DM Sans", Arial, sans-serif);color:#685e55}
+html body.budget-vcc #filosofia .vcc-budget-mode-copy{font:400 11.5px/1.5 var(--vcc-font-body, "DM Sans", Arial, sans-serif);color:#5b524b;margin:12px 0 0}
+html body.budget-vcc #filosofia .vcc-budget-mode-footer{margin-top:auto;padding-top:12px;display:flex;justify-content:space-between;align-items:center;width:100%;gap:9px;font:800 10px/1.3 var(--vcc-font-body, "DM Sans", Arial, sans-serif);color:#a5513d}
 html body.budget-vcc #filosofia .vcc-budget-mode-caret{width:24px;height:24px;flex:0 0 24px;border:1px solid #edd6c9;border-radius:50%;display:grid;place-items:center;font-size:17px;line-height:1;background:#fff}
 html body.budget-vcc #filosofia .vcc-budget-mode-card[aria-expanded="true"] .vcc-budget-mode-caret{transform:rotate(180deg);border-color:#d46c50}
 html body.budget-vcc #filosofia .vcc-budget-mode-arrow{display:none;position:absolute;top:42%;transform:translateY(-50%);width:30px;height:30px;border-radius:50%;border:1px solid #e6ddd5;background:#fff;color:#a5513d;font-size:24px;cursor:pointer;z-index:2}
@@ -167,44 +167,44 @@ html body.budget-vcc #filosofia .vcc-budget-panel-head{display:flex;align-items:
 html body.budget-vcc #filosofia .vcc-budget-panel-mark{width:55px;height:55px;flex:0 0 55px;border:1px solid #dc947a;background:#fff;border-radius:50%;display:grid;place-items:center}
 html body.budget-vcc #filosofia .vcc-budget-panel-mark img{width:41px;height:41px;object-fit:contain}
 html body.budget-vcc #filosofia .vcc-budget-panel-heading{min-width:0;flex:1}
-html body.budget-vcc #filosofia .vcc-budget-panel-heading h3{font:600 28px/1.15 'Caveat',cursive!important;color:#b95b40!important;margin:0 0 4px!important}
-html body.budget-vcc #filosofia .vcc-budget-panel-heading p{font:400 11px/1.55 'DM Sans',sans-serif;color:#6c625b;margin:0}
+html body.budget-vcc #filosofia .vcc-budget-panel-heading h3{font:600 28px/1.15 var(--vcc-font-script, "Caveat", cursive)!important;color:#b95b40!important;margin:0 0 4px!important}
+html body.budget-vcc #filosofia .vcc-budget-panel-heading p{font:400 11px/1.55 var(--vcc-font-body, "DM Sans", Arial, sans-serif);color:#6c625b;margin:0}
 html body.budget-vcc #filosofia .vcc-budget-panel-close{align-self:flex-start;flex:0 0 27px;width:27px;height:27px;border:1px solid #e8d5c9;border-radius:50%;background:#fff;color:#b85b40;cursor:pointer;font-size:21px;line-height:22px}
 html body.budget-vcc #filosofia .vcc-budget-panel-grid{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.35fr) minmax(0,1.05fr);gap:20px;padding-top:16px}
 html body.budget-vcc #filosofia .vcc-budget-panel-column{min-width:0}
 html body.budget-vcc #filosofia .vcc-budget-panel-column+.vcc-budget-panel-column{border-left:1px solid #eee3d8;padding-left:20px}
-html body.budget-vcc #filosofia .vcc-budget-label{font:800 10px/1.4 'DM Sans',sans-serif;letter-spacing:.04em;color:#a9533e}
+html body.budget-vcc #filosofia .vcc-budget-label{font:800 10px/1.4 var(--vcc-font-body, "DM Sans", Arial, sans-serif);letter-spacing:.04em;color:#a9533e}
 html body.budget-vcc #filosofia .vcc-budget-total{background:#fff2e6;border-radius:10px;padding:13px 15px;margin-bottom:11px}
-html body.budget-vcc #filosofia .vcc-budget-total strong{display:block;font:500 37px/1.15 'Oswald',sans-serif;color:#c2552f;margin:4px 0}
-html body.budget-vcc #filosofia .vcc-budget-total small{font:400 10px/1.4 'DM Sans',sans-serif;color:#6c625b}
-html body.budget-vcc #filosofia .vcc-budget-side-title{font:600 23px/1.1 'Caveat',cursive;color:#b65a42;margin:15px 0 6px}
-html body.budget-vcc #filosofia .vcc-budget-side-copy{font:400 11px/1.65 'DM Sans',sans-serif;color:#58514c;margin:0 0 10px}
-html body.budget-vcc #filosofia .vcc-budget-pros{list-style:none;padding:0;margin:0;display:grid;gap:5px;font:400 11px/1.45 'DM Sans',sans-serif;color:#4d4945}
+html body.budget-vcc #filosofia .vcc-budget-total strong{display:block;font:500 37px/1.15 var(--vcc-font-heading, "Oswald", sans-serif);color:#c2552f;margin:4px 0}
+html body.budget-vcc #filosofia .vcc-budget-total small{font:400 10px/1.4 var(--vcc-font-body, "DM Sans", Arial, sans-serif);color:#6c625b}
+html body.budget-vcc #filosofia .vcc-budget-side-title{font:600 23px/1.1 var(--vcc-font-script, "Caveat", cursive);color:#b65a42;margin:15px 0 6px}
+html body.budget-vcc #filosofia .vcc-budget-side-copy{font:400 11px/1.65 var(--vcc-font-body, "DM Sans", Arial, sans-serif);color:#58514c;margin:0 0 10px}
+html body.budget-vcc #filosofia .vcc-budget-pros{list-style:none;padding:0;margin:0;display:grid;gap:5px;font:400 11px/1.45 var(--vcc-font-body, "DM Sans", Arial, sans-serif);color:#4d4945}
 html body.budget-vcc #filosofia .vcc-budget-pros li:before{content:"✓";color:#2d9a63;font-weight:800;margin-right:7px}
-html body.budget-vcc #filosofia .vcc-budget-pending{margin-top:12px;padding:10px 11px;background:#f8f5f1;border:1px dashed #d4c4b5;border-radius:8px;font:400 10.5px/1.55 'DM Sans',sans-serif;color:#695e56}
+html body.budget-vcc #filosofia .vcc-budget-pending{margin-top:12px;padding:10px 11px;background:#f8f5f1;border:1px dashed #d4c4b5;border-radius:8px;font:400 10.5px/1.55 var(--vcc-font-body, "DM Sans", Arial, sans-serif);color:#695e56}
 html body.budget-vcc #filosofia .vcc-budget-pending strong{display:block;color:#8f513d;font-size:10px;margin-bottom:3px}
-html body.budget-vcc #filosofia .vcc-budget-panel-column h4{margin:0 0 11px;font:500 21px/1.2 'Oswald',sans-serif;color:#171717}
+html body.budget-vcc #filosofia .vcc-budget-panel-column h4{margin:0 0 11px;font:500 21px/1.2 var(--vcc-font-heading, "Oswald", sans-serif);color:#171717}
 html body.budget-vcc #filosofia .vcc-budget-breakdown{display:grid;gap:8px}
 html body.budget-vcc #filosofia .vcc-budget-breakdown-row{border-bottom:1px solid #efe7e0;padding:0 0 8px}
 html body.budget-vcc #filosofia .vcc-budget-row-heading{display:grid;grid-template-columns:23px minmax(0,1fr) auto;gap:7px;align-items:center}
 html body.budget-vcc #filosofia .vcc-budget-row-icon{color:#bf6749;font-size:18px;text-align:center}
-html body.budget-vcc #filosofia .vcc-budget-row-heading strong{font:700 12px/1.3 'DM Sans',sans-serif;color:#202020}
-html body.budget-vcc #filosofia .vcc-budget-row-heading b{font:500 19px/1.2 'Oswald',sans-serif;white-space:nowrap}
-html body.budget-vcc #filosofia .vcc-budget-breakdown-row p{margin:3px 0 0 30px;font:400 10.5px/1.5 'DM Sans',sans-serif;color:#6f655d}
-html body.budget-vcc #filosofia .vcc-budget-breakdown-row ul{list-style:disc;margin:5px 0 0 43px;padding:0;display:grid;gap:3px;color:#645d57;font:400 10px/1.4 'DM Sans',sans-serif}
-html body.budget-vcc #filosofia .vcc-budget-breakdown-total{display:flex;justify-content:space-between;align-items:center;background:#fff0e2;border-radius:8px;padding:7px 10px;color:#c2552f;font:800 12px/1.4 'DM Sans',sans-serif}
-html body.budget-vcc #filosofia .vcc-budget-breakdown-total strong{font:500 24px/1.2 'Oswald',sans-serif}
+html body.budget-vcc #filosofia .vcc-budget-row-heading strong{font:700 12px/1.3 var(--vcc-font-body, "DM Sans", Arial, sans-serif);color:#202020}
+html body.budget-vcc #filosofia .vcc-budget-row-heading b{font:500 19px/1.2 var(--vcc-font-heading, "Oswald", sans-serif);white-space:nowrap}
+html body.budget-vcc #filosofia .vcc-budget-breakdown-row p{margin:3px 0 0 30px;font:400 10.5px/1.5 var(--vcc-font-body, "DM Sans", Arial, sans-serif);color:#6f655d}
+html body.budget-vcc #filosofia .vcc-budget-breakdown-row ul{list-style:disc;margin:5px 0 0 43px;padding:0;display:grid;gap:3px;color:#645d57;font:400 10px/1.4 var(--vcc-font-body, "DM Sans", Arial, sans-serif)}
+html body.budget-vcc #filosofia .vcc-budget-breakdown-total{display:flex;justify-content:space-between;align-items:center;background:#fff0e2;border-radius:8px;padding:7px 10px;color:#c2552f;font:800 12px/1.4 var(--vcc-font-body, "DM Sans", Arial, sans-serif)}
+html body.budget-vcc #filosofia .vcc-budget-breakdown-total strong{font:500 24px/1.2 var(--vcc-font-heading, "Oswald", sans-serif)}
 html body.budget-vcc #filosofia .vcc-budget-day{position:relative;border-left:2px solid #d77c5d;padding:0 0 14px 15px;margin-left:4px}
 html body.budget-vcc #filosofia .vcc-budget-day:last-child{padding-bottom:0}
 html body.budget-vcc #filosofia .vcc-budget-day:before{content:"";position:absolute;left:-5px;top:3px;width:7px;height:7px;border-radius:50%;background:#c96c50}
-html body.budget-vcc #filosofia .vcc-budget-day-head{display:flex;align-items:center;justify-content:space-between;gap:7px;background:#fff1e7;border-radius:5px;padding:5px 8px;font:700 11px/1.35 'DM Sans',sans-serif}
+html body.budget-vcc #filosofia .vcc-budget-day-head{display:flex;align-items:center;justify-content:space-between;gap:7px;background:#fff1e7;border-radius:5px;padding:5px 8px;font:700 11px/1.35 var(--vcc-font-body, "DM Sans", Arial, sans-serif)}
 html body.budget-vcc #filosofia .vcc-budget-day-head span{color:#8d543f;white-space:nowrap;font-size:10px}
-html body.budget-vcc #filosofia .vcc-budget-day ul{list-style:disc;padding:0;margin:6px 0 0 15px;display:grid;gap:4px;font:400 10px/1.48 'DM Sans',sans-serif;color:#665c54}
-html body.budget-vcc #filosofia .vcc-budget-panel-foot{margin:15px 0 0;padding:10px 12px;border-radius:8px;background:#faf5ef;color:#655d56;font:400 10px/1.5 'DM Sans',sans-serif}
+html body.budget-vcc #filosofia .vcc-budget-day ul{list-style:disc;padding:0;margin:6px 0 0 15px;display:grid;gap:4px;font:400 10px/1.48 var(--vcc-font-body, "DM Sans", Arial, sans-serif);color:#665c54}
+html body.budget-vcc #filosofia .vcc-budget-panel-foot{margin:15px 0 0;padding:10px 12px;border-radius:8px;background:#faf5ef;color:#655d56;font:400 10px/1.5 var(--vcc-font-body, "DM Sans", Arial, sans-serif)}
 html body.budget-vcc #filosofia .vcc-budget-panel-foot strong{color:#9c4a36}
 html body.budget-vcc .vcc-budget-excel-row{display:flex;align-items:center;justify-content:flex-end;gap:14px;flex-wrap:wrap;margin:-23px 0 35px;padding:0}
-html body.budget-vcc .vcc-budget-excel-row p{margin:0;font:400 11px/1.45 'DM Sans',sans-serif;color:#6f655d}
-html body.budget-vcc .vcc-budget-excel-action{display:inline-flex;align-items:center;gap:7px;white-space:nowrap;padding:5px 2px;border:0;border-bottom:1px solid transparent;border-radius:0;background:transparent;color:#8a6658;font:600 11px/1.4 'DM Sans',sans-serif;cursor:pointer;transition:color .18s ease,border-color .18s ease}
+html body.budget-vcc .vcc-budget-excel-row p{margin:0;font:400 11px/1.45 var(--vcc-font-body, "DM Sans", Arial, sans-serif);color:#6f655d}
+html body.budget-vcc .vcc-budget-excel-action{display:inline-flex;align-items:center;gap:7px;white-space:nowrap;padding:5px 2px;border:0;border-bottom:1px solid transparent;border-radius:0;background:transparent;color:#8a6658;font:600 11px/1.4 var(--vcc-font-body, "DM Sans", Arial, sans-serif);cursor:pointer;transition:color .18s ease,border-color .18s ease}
 html body.budget-vcc .vcc-budget-excel-action:hover{background:transparent;color:#b55c41;border-bottom-color:rgba(181,92,65,.5)}
 html body.budget-vcc .vcc-budget-excel-action svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
 @media(max-width:1100px){
@@ -242,10 +242,10 @@ html body.budget-vcc #filosofia .philosophy-poster-copy{
 }
 html body.budget-vcc #filosofia .philosophy-poster-copy p{
   margin:0!important;max-width:100%!important;
-  font:400 12px/1.45 'DM Sans',sans-serif!important;color:#665d55!important;
+  font:400 12px/1.45 var(--vcc-font-body, "DM Sans", Arial, sans-serif)!important;color:#665d55!important;
 }
 html body.budget-vcc #filosofia .vcc-budget-mode-footer{
-  padding-top:9px!important;font:700 9px/1.2 'DM Sans',sans-serif!important;
+  padding-top:9px!important;font:700 9px/1.2 var(--vcc-font-body, "DM Sans", Arial, sans-serif)!important;
   letter-spacing:.01em!important;color:#ac5a45!important;
 }
 html body.budget-vcc #filosofia .vcc-budget-mode-caret{
@@ -270,13 +270,13 @@ html body.budget-vcc #filosofia .vcc-budget-day-expenses li{
   display:grid;grid-template-columns:minmax(65px,.72fr) minmax(0,1.3fr) auto;
   gap:6px;align-items:baseline;margin:0;padding:5px 0;
   border-bottom:1px solid #f3e9e1;
-  font:400 10px/1.4 'DM Sans',sans-serif!important;color:#655c55!important;
+  font:400 10px/1.4 var(--vcc-font-body, "DM Sans", Arial, sans-serif)!important;color:#655c55!important;
 }
 html body.budget-vcc #filosofia .vcc-budget-day-expenses li:last-child{border-bottom:0}
 html body.budget-vcc #filosofia .vcc-day-expense-category{font-weight:700;color:#302b27}
 html body.budget-vcc #filosofia .vcc-day-expense-info{font-size:9.5px;color:#776b62}
 html body.budget-vcc #filosofia .vcc-budget-day-expenses li strong{
-  font:700 10px/1.4 'DM Sans',sans-serif;color:#a5503b;white-space:nowrap
+  font:700 10px/1.4 var(--vcc-font-body, "DM Sans", Arial, sans-serif);color:#a5503b;white-space:nowrap
 }
 @media(max-width:750px){
  html body.budget-vcc #filosofia .vcc-budget-day-expenses li{
@@ -294,7 +294,7 @@ html body.budget-vcc #filosofia .vcc-budget-quick-answer{
   border-radius:0 9px 9px 0;
 }
 html body.budget-vcc #filosofia .vcc-budget-quick-answer p{
-  margin:0;font:400 12.5px/1.65 'DM Sans',sans-serif;
+  margin:0;font:400 12.5px/1.65 var(--vcc-font-body, "DM Sans", Arial, sans-serif);
   color:#554c45;
 }
 html body.budget-vcc #filosofia .vcc-budget-quick-answer strong{color:#24201d;font-weight:700}
@@ -439,7 +439,7 @@ html body.budget-vcc #filosofia .vcc-daily-controls{
 }
 html body.budget-vcc #filosofia .vcc-daily-count{
  display:inline-flex;justify-content:center;min-width:43px;
- font:700 11px/1.3 'DM Sans',sans-serif;
+ font:700 11px/1.3 var(--vcc-font-body, "DM Sans", Arial, sans-serif);
  color:#a9553c;font-variant-numeric:tabular-nums;
 }
 html body.budget-vcc #filosofia .vcc-daily-arrow{
@@ -447,7 +447,7 @@ html body.budget-vcc #filosofia .vcc-daily-arrow{
  width:29px;height:29px;padding:0;
  border:1px solid #dcc6b7;border-radius:50%;
  background:#fff;color:#ab553b;cursor:pointer;
- font:400 23px/1 'DM Sans',sans-serif;
+ font:400 23px/1 var(--vcc-font-body, "DM Sans", Arial, sans-serif);
  transition:border-color .15s,background .15s;
 }
 html body.budget-vcc #filosofia .vcc-daily-arrow:hover:not(:disabled){
@@ -563,7 +563,7 @@ html body.budget-vcc #filosofia .vcc-budget-hotel-link{
   display:inline-flex;align-items:center;gap:6px;
   margin:5px 0 0;
   color:#ad5036;text-decoration:none;
-  font:700 11px/1.45 'DM Sans',sans-serif;
+  font:700 11px/1.45 var(--vcc-font-body, "DM Sans", Arial, sans-serif);
 }
 html body.budget-vcc #filosofia .vcc-budget-hotel-link:hover{
   text-decoration:underline;text-underline-offset:3px;
@@ -578,13 +578,13 @@ html body.budget-vcc #filosofia .vcc-daily-track .vcc-budget-day-head{
   border-bottom:1px solid #f1e0d4;border-radius:0;
 }
 html body.budget-vcc #filosofia .vcc-day-place{
-  font:500 16px/1.2 'Oswald',sans-serif;
+  font:500 16px/1.2 var(--vcc-font-heading, "Oswald", sans-serif);
   color:#26211d;
 }
 html body.budget-vcc #filosofia .vcc-day-price{
   flex:0 0 auto;padding:4px 0 4px 6px;
   background:transparent;
-  font:600 19px/1 'Oswald',sans-serif!important;
+  font:600 19px/1 var(--vcc-font-heading, "Oswald", sans-serif)!important;
   color:#b65b40!important;
 }
 html body.budget-vcc #filosofia .vcc-daily-track .vcc-budget-day-expenses{
@@ -604,7 +604,7 @@ html body.budget-vcc #filosofia .vcc-daily-track .vcc-budget-day-expenses li{
   border:1px solid #eaded6!important;
   border-radius:8px!important;
   background:#fff!important;
-  font:500 11px/1.2 'DM Sans',sans-serif!important;
+  font:500 11px/1.2 var(--vcc-font-body, "DM Sans", Arial, sans-serif)!important;
   min-width:0;
 }
 html body.budget-vcc #filosofia .vcc-daily-track .vcc-budget-day-expenses li:last-child{
@@ -626,7 +626,7 @@ html body.budget-vcc #filosofia .vcc-daily-track .vcc-day-expense-category{
 }
 html body.budget-vcc #filosofia .vcc-daily-track .vcc-budget-day-expenses li>strong{
   grid-column:3!important;grid-row:1!important;
-  font:700 12px/1.2 'DM Sans',sans-serif!important;
+  font:700 12px/1.2 var(--vcc-font-body, "DM Sans", Arial, sans-serif)!important;
   color:#b85b42!important;
   white-space:nowrap;
 }
@@ -728,7 +728,7 @@ html body.budget-vcc #filosofia .vcc-budget-trust-heading>svg{
 }
 html body.budget-vcc #filosofia .vcc-budget-trust-heading h3{
   margin:0!important;
-  font:600 18px/1.2 'Oswald',sans-serif!important;
+  font:600 18px/1.2 var(--vcc-font-heading, "Oswald", sans-serif)!important;
   text-transform:uppercase;
   color:#292624;
 }
@@ -747,12 +747,12 @@ html body.budget-vcc #filosofia .vcc-budget-trust-point svg{
   flex:0 0 21px;width:21px;height:21px;stroke:#bd6650;
 }
 html body.budget-vcc #filosofia .vcc-budget-trust-point strong{
-  color:#b65d46;font:700 11px/1.3 'DM Sans',sans-serif;
+  color:#b65d46;font:700 11px/1.3 var(--vcc-font-body, "DM Sans", Arial, sans-serif);
 }
 html body.budget-vcc #filosofia .vcc-budget-trust-grid p{
   margin:0!important;
   color:#686059;
-  font:400 10.5px/1.5 'DM Sans',sans-serif;
+  font:400 10.5px/1.5 var(--vcc-font-body, "DM Sans", Arial, sans-serif);
 }
 @media(max-width:1100px){
  html body.budget-vcc #filosofia .vcc-budget-trust{
@@ -817,7 +817,7 @@ html body.budget-vcc #filosofia .vcc-budget-total .vcc-budget-label{
 html body.budget-vcc #filosofia .vcc-budget-total .vcc-budget-total-person{
   display:block;
   margin:4px 0 9px!important;
-  font:600 clamp(33px,3vw,39px)/1.06 'Oswald',sans-serif!important;
+  font:600 clamp(33px,3vw,39px)/1.06 var(--vcc-font-heading, "Oswald", sans-serif)!important;
   color:#bd6042!important;
 }
 html body.budget-vcc #filosofia .vcc-budget-total-meta{
@@ -831,16 +831,16 @@ html body.budget-vcc #filosofia .vcc-budget-total-meta{
   padding-top:8px;
   margin-bottom:4px;
   color:#655b53;
-  font:400 11px/1.4 'DM Sans',sans-serif;
+  font:400 11px/1.4 var(--vcc-font-body, "DM Sans", Arial, sans-serif);
 }
 html body.budget-vcc #filosofia .vcc-budget-total-meta b{
-  font:500 20px/1.2 'Oswald',sans-serif;
+  font:500 20px/1.2 var(--vcc-font-heading, "Oswald", sans-serif);
   color:#39312c;
   white-space:nowrap;
 }
 html body.budget-vcc #filosofia .vcc-budget-total small{
   display:block;
-  font:400 10.5px/1.4 'DM Sans',sans-serif;
+  font:400 10.5px/1.4 var(--vcc-font-body, "DM Sans", Arial, sans-serif);
   color:#776a61;
 }
 html body.budget-vcc #filosofia .vcc-budget-panel-grid{
@@ -850,7 +850,7 @@ html body.budget-vcc #filosofia .vcc-budget-breakdown{gap:3px}
 html body.budget-vcc #filosofia .vcc-budget-breakdown-row{padding-bottom:8px}
 html body.budget-vcc #filosofia .vcc-budget-breakdown-row p{
   margin:3px 0 0 30px!important;
-  font:400 11px/1.48 'DM Sans',sans-serif!important;
+  font:400 11px/1.48 var(--vcc-font-body, "DM Sans", Arial, sans-serif)!important;
   color:#625950;
 }
 html body.budget-vcc #filosofia .vcc-budget-row-heading b{
@@ -927,16 +927,16 @@ html body.budget-vcc #filosofia .vcc-budget-panel-grid{
   overflow:visible!important;
 }
 html body.budget-vcc #filosofia .vcc-budget-total-meta b{
-  font:400 18px/1.12 'Oswald',sans-serif!important;
+  font:400 18px/1.12 var(--vcc-font-heading, "Oswald", sans-serif)!important;
   color:#4a3d35!important;
 }
 html body.budget-vcc #filosofia .vcc-day-price{
-  font:400 16px/1.1 'Oswald',sans-serif!important;
+  font:400 16px/1.1 var(--vcc-font-heading, "Oswald", sans-serif)!important;
   color:#ac5a42!important;
   white-space:nowrap;
 }
 html body.budget-vcc #filosofia .vcc-daily-track .vcc-budget-day-expenses li>strong{
-  font:500 11.5px/1.2 'DM Sans',sans-serif!important;
+  font:500 11.5px/1.2 var(--vcc-font-body, "DM Sans", Arial, sans-serif)!important;
   color:#b46046!important;
 }
 @media(max-width:750px){
@@ -991,7 +991,7 @@ html body.budget-vcc #filosofia .vcc-budget-total .vcc-budget-label{
   color:#805f53!important;
 }
 html body.budget-vcc #filosofia .vcc-budget-total .vcc-budget-total-person{
-  font:550 29px/1.04 'Oswald',sans-serif!important;
+  font:550 29px/1.04 var(--vcc-font-heading, "Oswald", sans-serif)!important;
   color:#a8553b!important;
   margin:2px 0 5px!important;
 }
@@ -1002,7 +1002,7 @@ html body.budget-vcc #filosofia .vcc-budget-total-meta{
   line-height:1.22!important;
 }
 html body.budget-vcc #filosofia .vcc-budget-total-meta b{
-  font:400 17px/1.1 'Oswald',sans-serif!important;
+  font:400 17px/1.1 var(--vcc-font-heading, "Oswald", sans-serif)!important;
 }
 html body.budget-vcc #filosofia .vcc-budget-total small{
   font-size:10px!important;
@@ -1034,7 +1034,7 @@ html body.budget-vcc #filosofia .vcc-daily-track .vcc-day-place{
   display:block;
   min-width:0;
   margin:0!important;
-  font:500 15px/1.24 'Oswald',sans-serif!important;
+  font:500 15px/1.24 var(--vcc-font-heading, "Oswald", sans-serif)!important;
   color:#35302c!important;
   overflow-wrap:break-word;
 }

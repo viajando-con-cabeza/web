@@ -40,10 +40,10 @@ html body .imp-page .imp-main .place-number{
  flex:0 0 50px;width:50px;height:50px;
  border:2.5px solid #f26116!important;border-radius:9px;
  background:transparent!important;color:#f26116!important;
- font:600 31px/1 'Oswald',sans-serif!important;white-space:nowrap;
+ font:600 31px/1 var(--vcc-font-heading, "Oswald", sans-serif)!important;white-space:nowrap;
 }
 html body .imp-page .imp-main .place-heading h2{
- margin:0;color:#1b1b1b;font:500 clamp(24px,2.25vw,34px)/1.12 'Oswald',sans-serif;
+ margin:0;color:#1b1b1b;font:500 clamp(24px,2.25vw,34px)/1.12 var(--vcc-font-heading, "Oswald", sans-serif);
  letter-spacing:-.3px;white-space:normal;overflow-wrap:anywhere;text-align:left;
 }
 @media(min-width:851px){
@@ -53,7 +53,7 @@ html body .imp-page .imp-main .place-heading h2{
    width:90%!important;max-width:90%!important;justify-self:start!important;
  }
 }
-html body .imp-page .imp-main .place-copy .place-kicker{display:block!important;order:0!important;margin:0 0 6px!important;text-align:left!important;color:#c56851;font:600 26px/1.1 'Caveat',cursive!important}
+html body .imp-page .imp-main .place-copy .place-kicker{display:block!important;order:0!important;margin:0 0 6px!important;text-align:left!important;color:#c56851;font:600 26px/1.1 var(--vcc-font-script, "Caveat", cursive)!important}
 html body .imp-page .imp-main .place-copy>h2{display:none!important}
 @media(max-width:850px){html body .imp-page .imp-main .place{column-gap:16px!important;row-gap:18px!important}}
 @media(max-width:650px){
@@ -69,10 +69,10 @@ html body .imp-page .imp-main .place-copy>h2{display:none!important}
  html body .imp-page .imp-main .place-copy .place-kicker{font-size:22px!important}
 }
 .imp-page .gallery-main{border-radius:8px!important}
-.imp-page .place-kicker{font-family:'Caveat',cursive!important;font-size:22px!important;color:#cf705c!important}
-.imp-page .place-copy h2{font-family:'Oswald',sans-serif!important;font-size:34px!important;font-weight:500!important}
-.imp-page .place-copy>p{font-family:'DM Sans',sans-serif!important;font-size:12px!important;line-height:1.65!important}
-.imp-page .facts{font-family:'DM Sans',sans-serif!important;font-size:10px!important}
+.imp-page .place-kicker{font-family:var(--vcc-font-script, "Caveat", cursive)!important;font-size:22px!important;color:#cf705c!important}
+.imp-page .place-copy h2{font-family:var(--vcc-font-heading, "Oswald", sans-serif)!important;font-size:34px!important;font-weight:500!important}
+.imp-page .place-copy>p{font-family:var(--vcc-font-body, "DM Sans", Arial, sans-serif)!important;font-size:12px!important;line-height:1.65!important}
+.imp-page .facts{font-family:var(--vcc-font-body, "DM Sans", Arial, sans-serif)!important;font-size:10px!important}
 .imp-page .advice b{font-size:10px!important}.imp-page .advice p{font-size:10.5px!important;line-height:1.5!important}
 .imp-page .gallery[data-count="1"] .thumbs,.imp-page .gallery[data-count="1"] .photo-count{display:none!important}
 @media(max-width:850px){.imp-page .imp-hero{height:550px!important;min-height:550px!important}.imp-page .place{grid-template-columns:1fr!important;gap:16px!important}.imp-page .imp-main{width:calc(100% - 28px)!important}}
@@ -107,15 +107,15 @@ html body .imp-page main.imp-main .place-heading-line::after{content:none!import
 html body .imp-page .related-section{background:linear-gradient(90deg,rgba(18,28,30,.72),rgba(18,28,30,.24)),url("/configuracion/imagenes/fondos/fondos-que-ver.webp") center 52%/cover no-repeat!important;color:#fffaf5!important;border:0!important;padding:36px 0 40px!important}
 html body .imp-page .related-inner{width:min(1180px,calc(100% - 48px));margin:auto}
 html body .imp-page .related-head{margin:0 0 17px!important;display:block}
-html body .imp-page .related-head p{color:#de9a83!important;font:600 28px/1 'Caveat',cursive!important;margin:0 0 10px!important}
-html body .imp-page .related-head h2{color:#fffaf5!important;font:500 clamp(27px,3.2vw,40px)/1.1 'Oswald',sans-serif!important;margin:0 0 9px!important}
-html body .imp-page .related-head span{color:#c8c8c7!important;font:400 13px/1.5 'DM Sans',sans-serif!important}
+html body .imp-page .related-head p{color:#de9a83!important;font:600 28px/1 var(--vcc-font-script, "Caveat", cursive)!important;margin:0 0 10px!important}
+html body .imp-page .related-head h2{color:#fffaf5!important;font:500 clamp(27px,3.2vw,40px)/1.1 var(--vcc-font-heading, "Oswald", sans-serif)!important;margin:0 0 9px!important}
+html body .imp-page .related-head span{color:#c8c8c7!important;font:400 13px/1.5 var(--vcc-font-body, "DM Sans", Arial, sans-serif)!important}
 html body .imp-page .related-grid{display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:14px!important}
 html body .imp-page .related-grid .related-text-link{min-height:88px!important;display:flex!important;align-items:center!important;justify-content:flex-start!important;gap:11px!important;padding:13px 14px!important;border:1px solid rgba(211,225,223,.48)!important;border-radius:13px!important;background:rgba(28,42,47,.94)!important;text-decoration:none!important;box-shadow:0 8px 20px rgba(0,0,0,.12)!important}
 html body .imp-page .related-grid .related-text-link:hover{background:rgba(43,61,66,.97)!important;border-color:#e4a18d!important}
 html body .imp-page .related-grid .related-text-link .vcc-related-copy{display:flex!important;flex:1 1 auto;flex-direction:column;gap:4px!important;min-width:0}
-html body .imp-page .related-grid .related-text-link strong{font:500 21px/1.1 'Oswald',sans-serif!important;color:#fff!important;margin:0!important}
-html body .imp-page .related-grid .related-text-link em{font:400 11px/1.35 'DM Sans',sans-serif!important;color:#e1dfdb!important;font-style:normal!important}
+html body .imp-page .related-grid .related-text-link strong{font:500 21px/1.1 var(--vcc-font-heading, "Oswald", sans-serif)!important;color:#fff!important;margin:0!important}
+html body .imp-page .related-grid .related-text-link em{font:400 11px/1.35 var(--vcc-font-body, "DM Sans", Arial, sans-serif)!important;color:#e1dfdb!important;font-style:normal!important}
 html body .imp-page .related-grid .related-text-link .vcc-related-icon{flex:0 0 34px!important;width:34px!important;height:34px!important;color:#e79b72!important}
 html body .imp-page .related-grid .related-text-link .vcc-related-arrow{margin-left:auto!important;color:#e79b72!important;background:none!important;font-size:21px!important}
 @media(max-width:1030px){html body .imp-page .related-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:11px!important}}

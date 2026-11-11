@@ -5,14 +5,14 @@
   --rich-ink: #171717;
   --rich-muted: #6f675f;
   --rich-line: #e7ddd3;
-  --rich-coral: #c86f5d;
+  --rich-coral: var(--vcc-accent-override, #c86f5d);
   --rich-sage: #eef1eb;
 }
 body {
   margin: 0;
   background: var(--rich-paper);
   color: var(--rich-ink);
-  font-family: "DM Sans", sans-serif;
+  font-family: var(--vcc-font-body, "DM Sans", Arial, sans-serif);
 }
 .rich-shell {
   max-width: 1180px;
@@ -60,7 +60,7 @@ body {
 .route-hero-script {
   margin: 5px 0 12px !important;
   color: #f0b3a5;
-  font-family: "Caveat", cursive;
+  font-family: var(--vcc-font-script, "Caveat", cursive);
   font-size: 29px !important;
   line-height: 1 !important;
 }
@@ -78,7 +78,7 @@ body {
 .rich-hero h1 {
   max-width: 800px;
   margin: 0;
-  font-family: "Oswald", sans-serif;
+  font-family: var(--vcc-font-heading, "Oswald", sans-serif);
   font-size: 77px;
   line-height: 0.92;
   font-weight: 500;
@@ -133,13 +133,13 @@ body {
   margin: 42px 0 18px;
 }
 .rich-heading small {
-  font-family: "Caveat", cursive;
+  font-family: var(--vcc-font-script, "Caveat", cursive);
   font-size: 23px;
   color: var(--rich-coral);
   font-weight: 600;
 }
 .rich-heading h2 {
-  font-family: "Oswald", sans-serif;
+  font-family: var(--vcc-font-heading, "Oswald", sans-serif);
   font-size: 36px;
   font-weight: 500;
   line-height: 1;
@@ -202,12 +202,12 @@ body {
   display: block;
   margin-bottom: 3px;
   color: var(--rich-coral);
-  font-family: "Caveat", cursive;
+  font-family: var(--vcc-font-script, "Caveat", cursive);
   font-size: 18px;
 }
 .route-map-head b {
   display: block;
-  font-family: "Oswald", sans-serif;
+  font-family: var(--vcc-font-heading, "Oswald", sans-serif);
   font-size: 20px;
   font-weight: 500;
 }
@@ -231,8 +231,7 @@ body {
   color: var(--rich-ink);
   padding: 9px 6px;
   font:
-    800 7px "DM Sans",
-    sans-serif;
+    800 7px var(--vcc-font-body, "DM Sans", Arial, sans-serif);
   cursor: pointer;
 }
 .map-day-tabs button.active {
@@ -285,10 +284,10 @@ body {
 }
 .day-map-label span {
   color: var(--rich-coral);
-  font: 600 17px "Caveat", cursive;
+  font: 600 17px var(--vcc-font-script, "Caveat", cursive);
 }
 .day-map-label b {
-  font: 500 10px "Oswald", sans-serif;
+  font: 500 10px var(--vcc-font-heading, "Oswald", sans-serif);
   letter-spacing: 0.04em;
 }
 .day-map iframe {
@@ -360,7 +359,7 @@ body {
 }
 .day-copy h3,
 .place-copy h3 {
-  font-family: "Oswald", sans-serif;
+  font-family: var(--vcc-font-heading, "Oswald", sans-serif);
   font-size: 27px;
   font-weight: 500;
   line-height: 1.05;
@@ -543,11 +542,11 @@ body {
 }
 .route-next-guide span {
   color: #f0b3a5;
-  font: 600 25px "Caveat", cursive;
+  font: 600 25px var(--vcc-font-script, "Caveat", cursive);
 }
 .route-next-guide h2 {
   margin: 4px 0 10px;
-  font: 500 48px/1 "Oswald", sans-serif;
+  font: 500 48px/1 var(--vcc-font-heading, "Oswald", sans-serif);
 }
 .route-next-guide p {
   max-width: 510px;
