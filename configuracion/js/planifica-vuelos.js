@@ -112,7 +112,7 @@
  };
  const emptyFlight=()=>({airline:'',route:'',base:'',baggage:'',seat:'',food:'',transfer:''});
  const flights=[emptyFlight(),emptyFlight(),emptyFlight()];
- const number=value=>{const parsed=Number(value);return Number.isFinite(parsed)&&parsed>0?parsed:0;};
+ const number=value=>{const parsed=Number(value);return Number.isFinite(parsed)&&parsed>0?Math.min(parsed,10000000):0;};
  const total=flight=>Math.round(costKeys.reduce((sum,key)=>sum+number(flight[key]),0)*100)/100;
  const labelAirline=id=>(airlines.find(item=>item[0]===id)||[])[1]||'Aerolínea sin elegir';
  const icon=id=>'<svg class="vl-compare-icon" aria-hidden="true"><use href="'+iconRoot+id+'"></use></svg>';
@@ -257,7 +257,7 @@
      bestSavings.appendChild(li);
    }
  }
- function flightHasPrice(flight){return String(flight.base).trim()!=='';}
+ function flightHasPrice(flight){const raw=String(flight.base).trim();const price=Number(raw);return raw!==''&&Number.isFinite(price)&&price>=0&&price<=10000000;}
 
  // Dades locals o dins l'enllaç: només companyia, ruta i 5 imports. No hi ha servidor.
  const serializeFlights=()=>JSON.stringify(flights.map(f=>[f.airline,f.route,...costKeys.map(key=>f[key])]));
@@ -275,7 +275,7 @@
          const val=row[i+2];
          if(val===''||val===null||val===undefined)return;
          const parsed=Number(val);
-         if(Number.isFinite(parsed)&&parsed>=0&&parsed<=10000000)
+         if((typeof val==='string'||typeof val==='number')&&Number.isFinite(parsed)&&parsed>=0&&parsed<=10000000)
            flight[key]=String(Math.round(parsed*100)/100);
        });
        return flight;
