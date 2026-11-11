@@ -11,7 +11,6 @@
  const airlineCards=Array.from(root.querySelectorAll('[data-airline-card]'));
  const filters=Array.from(root.querySelectorAll('[data-continent-filter]'));
  const reset=root.querySelector('.vl-reset-filter');
- const regionTitle=root.querySelector('[data-region-title]');
  const regionCopy=root.querySelector('[data-region-description]');
 
  function carousel(track,prev,next,items){
@@ -31,23 +30,19 @@
    prev?.addEventListener('click',()=>advance(-1));
    next?.addEventListener('click',()=>advance(1));
    track.addEventListener('scroll',update,{passive:true});
+   track.addEventListener('keydown',event=>{
+     if(event.key==='ArrowLeft'||event.key==='ArrowRight'){
+       event.preventDefault();
+       advance(event.key==='ArrowRight'?1:-1);
+     }
+   });
    window.addEventListener('resize',update,{passive:true});
    requestAnimationFrame(update);
    return update;
  }
- const count=root.querySelector('[data-carousel-position]');
  const airPrev=root.querySelector('[data-carousel-prev]');
  const airNext=root.querySelector('[data-carousel-next]');
  const updateAir=carousel(airlineTrack,airPrev,airNext,()=>airlineCards);
- const paintAir=()=>{
-   updateAir();
-   const visible=airlineCards.filter(x=>!x.hidden);
-   if(count){
-     const idx=visible.findIndex(card=>card.getBoundingClientRect().right>airlineTrack.getBoundingClientRect().left+6);
-     count.textContent=visible.length?Math.max(1,idx+1)+' / '+visible.length:'0 / 0';
-   }
- };
- airlineTrack?.addEventListener('scroll',paintAir,{passive:true});
  function filterRegion(key,scroll){
    if(!Object.prototype.hasOwnProperty.call(regionLabels,key))key='all';
    filters.forEach(button=>{
@@ -58,13 +53,12 @@
    airlineCards.forEach(card=>card.hidden=key!=='all'&&!card.dataset.continents.split(' ').includes(key));
    if(reset)reset.hidden=key==='all';
    const visible=airlineCards.filter(card=>!card.hidden).length;
-   if(regionTitle)regionTitle.textContent=key==='all'?'Las aerolíneas que hemos probado':'Aerolíneas en '+regionLabels[key];
    if(regionCopy)regionCopy.textContent=key==='all'?'16 aerolíneas con pros y puntos a revisar. Selecciona un continente arriba.':visible+' aerolínea'+(visible===1?'':'s')+' de nuestros viajes por '+regionLabels[key]+'.';
    if(airlineTrack)airlineTrack.scrollLeft=0;
-   requestAnimationFrame(paintAir);
-   if(scroll)root.querySelector('.vl-review-head')?.scrollIntoView({behavior:motion,block:'start'});
+   requestAnimationFrame(updateAir);
+
  }
- filters.forEach(btn=>btn.addEventListener('click',()=>filterRegion(btn.dataset.continentFilter,btn.hasAttribute('data-continent-card'))));
+ filters.forEach(btn=>btn.addEventListener('click',()=>filterRegion(btn.dataset.continentFilter)));
  filterRegion('all',false);
 
  const tips=root.querySelector('[data-tip-track]');
@@ -192,7 +186,11 @@
  root.querySelectorAll('[data-use-airline]').forEach(button=>button.addEventListener('click',()=>{
    let panel=flights().find(p=>!p.querySelector('[data-airline-select]')?.value);
    if(!panel)panel=createFlight();
-   if(!panel)panel=flights()[flights().length-1];
+   if(!panel){
+     if(flightCount)flightCount.textContent='Máximo de 5 vuelos. Quita uno para añadir otra aerolínea.';
+     root.querySelector('#calculadora')?.scrollIntoView({behavior:motion,block:'start'});
+     return;
+   }
    const select=panel.querySelector('[data-airline-select]');
    select.value=button.dataset.useAirline;
    updateCalculator();
