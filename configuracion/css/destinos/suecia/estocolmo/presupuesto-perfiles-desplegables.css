@@ -1362,3 +1362,70 @@ html body.budget-vcc .calculator-card .calc-total{
     align-content:center!important;
   }
 }
+
+
+/* VCC 2026-11-11 · Gastos diarios: título dinámico sin cabecera duplicada,
+   total por persona en el pie y Extras en una fila compacta. */
+html body.budget-vcc #filosofia .vcc-budget-daily-top{
+  align-items:center!important;
+  gap:8px!important;
+  margin-bottom:8px!important;
+}
+html body.budget-vcc #filosofia .vcc-budget-daily-top h4{
+  flex:1 1 auto;
+  min-width:0;
+  font:500 clamp(16px,1.35vw,20px)/1.22 var(--vcc-font-heading,"Oswald",sans-serif)!important;
+  overflow-wrap:normal;
+  margin:0!important;
+}
+html body.budget-vcc #filosofia .vcc-daily-track .vcc-budget-day-expenses{
+  padding-top:2px!important;
+}
+html body.budget-vcc #filosofia .vcc-daily-track .vcc-budget-day-expenses li:last-child{
+  grid-column:1/-1!important;
+  grid-template-columns:22px max-content minmax(0,1fr) auto!important;
+  align-items:center!important;
+  column-gap:7px!important;
+  row-gap:0!important;
+  padding:6px 9px!important;
+}
+html body.budget-vcc #filosofia .vcc-daily-track .vcc-budget-day-expenses li:last-child .vcc-day-expense-info{
+  grid-column:3!important;
+  grid-row:1!important;
+  font-size:10.5px!important;
+  line-height:1.3!important;
+  margin:0!important;
+}
+html body.budget-vcc #filosofia .vcc-daily-track .vcc-budget-day-expenses li:last-child>strong{
+  grid-column:4!important;
+  grid-row:1!important;
+}
+html body.budget-vcc #filosofia .vcc-daily-day-total{
+  display:flex;
+  justify-content:flex-end;
+  align-items:center;
+  min-height:24px;
+  margin:7px 2px 0;
+  padding:6px 1px 0;
+  border-top:1px solid rgba(175,154,141,.3);
+}
+html body.budget-vcc #filosofia .vcc-daily-day-total .vcc-day-price{
+  padding:0!important;
+  margin:0!important;
+  font:500 17px/1.2 var(--vcc-font-heading,"Oswald",sans-serif)!important;
+  color:#b65b40!important;
+}
+@media (max-width:750px){
+  html body.budget-vcc #filosofia .vcc-budget-daily-top{
+    align-items:flex-start!important;
+    gap:6px!important;
+  }
+  html body.budget-vcc #filosofia .vcc-budget-daily-top h4{
+    font-size:16px!important;
+    line-height:1.25!important;
+  }
+  html body.budget-vcc #filosofia .vcc-daily-track .vcc-budget-day-expenses li:last-child{
+    grid-template-columns:22px max-content minmax(0,1fr) auto!important;
+    column-gap:5px!important;
+  }
+}
