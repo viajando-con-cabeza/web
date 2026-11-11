@@ -208,6 +208,17 @@ body.vcc-booking-gallery-open{overflow:hidden!important;overscroll-behavior:none
  position:absolute;inset:0;display:flex;justify-content:center;align-items:center;
  padding:12px 49px 8px;overflow:hidden;min-width:0;min-height:0;
 }
+/* Optimització del visor: cap miniatura estirada ni desenfocada mentre arriba l'AVIF nítid.
+   Els visors precalentats es mostren directament sense aquesta espera. */
+.vcc-booking-gallery-modal .day-lightbox-photo-frame.vcc-gallery-sharp-loading>img{visibility:hidden!important}
+.vcc-booking-gallery-modal .day-lightbox-photo-frame.vcc-gallery-sharp-loading::after{
+ content:"";position:absolute;top:50%;left:50%;width:25px;height:25px;
+ margin:-12px 0 0 -12px;border:2px solid #eae4de;border-top-color:#c56c58;
+ border-radius:50%;animation:vcc-sharp-spinner .75s linear infinite;pointer-events:none;
+}
+@keyframes vcc-sharp-spinner{to{transform:rotate(360deg)}}
+@media(prefers-reduced-motion:reduce){.vcc-booking-gallery-modal .day-lightbox-photo-frame.vcc-gallery-sharp-loading::after{animation:none}}
+
 .vcc-booking-gallery-modal .day-lightbox-photo-frame>img{
  display:block!important;flex:none;
  max-width:100%;max-height:100%;width:auto;height:auto;
