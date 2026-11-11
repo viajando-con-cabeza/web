@@ -21,7 +21,7 @@
 <link rel="stylesheet" href="/configuracion/css/componentes/carruseles-flechas-movil-vcc.css?v=20261111-transparent-outline-v7">
   <link rel="stylesheet" href="/configuracion/css/componentes/numeros-consejos-vcc.css?v=20261111-v2">
 <link rel="stylesheet" href="/configuracion/css/componentes/portadas-transparencia.css?v=20261111-portada-compartida">
-<link rel="stylesheet" href="/configuracion/css/componentes/planifica-vuelos-comparador-vcc.css?v=20261111-toolbar-exterior-related-v5">
+<link rel="stylesheet" href="/configuracion/css/componentes/planifica-vuelos-comparador-vcc.css?v=20261111-head-toolbar-align-v6">
 <link rel="stylesheet" href="/configuracion/css/componentes/estocolmo-guias-final-vcc.css?v=20261107-v1">
 </head>
 <body>
@@ -195,11 +195,16 @@
   </section>
   <section class="vl-section" id="calculadora" data-vcc-subheader-target aria-labelledby="vl-calc-title">
     <div class="vl-wrap">
-      <header class="vl-section-head vl-calc-head"><div><span class="vl-kicker">Compara antes de reservar</span><h2 class="vl-heading" id="vl-calc-title">COMPARA EL <em>PRECIO REAL</em></h2></div><p class="vl-copy">Cada columna es un vuelo y cada fila es un gasto. Introduce el precio total de cada concepto y descubre cuánto ahorras frente a las otras alternativas.</p></header>
-      <div class="vl-compare-actions" role="group" aria-label="Gestión de las opciones de vuelo">
-        <span data-flight-count aria-live="polite">3 de 5 opciones</span>
-        <button class="vl-add-option" type="button" data-add-flight aria-label="Añadir otra opción de vuelo"><svg aria-hidden="true"><use href="/configuracion/imagenes/iconos/paginas/planifica-vuelos-comparador-iconos.svg#mas"></use></svg>Añadir otro vuelo</button>
-      </div>
+      <header class="vl-section-head vl-calc-head">
+        <div><span class="vl-kicker">Compara antes de reservar</span><h2 class="vl-heading" id="vl-calc-title">COMPARA EL <em>PRECIO REAL</em></h2></div>
+        <div class="vl-calc-head-side">
+          <p class="vl-copy">Cada columna es un vuelo y cada fila es un gasto. Introduce el precio total de cada concepto y descubre cuánto ahorras frente a las otras alternativas.</p>
+          <div class="vl-compare-actions" role="group" aria-label="Gestión de las opciones de vuelo">
+            <span data-flight-count aria-live="polite">3 de 5 opciones</span>
+            <button class="vl-add-option" type="button" data-add-flight aria-label="Añadir otra opción de vuelo"><svg aria-hidden="true"><use href="/configuracion/imagenes/iconos/paginas/planifica-vuelos-comparador-iconos.svg#mas"></use></svg>Añadir otro vuelo</button>
+          </div>
+        </div>
+      </header>
       <div class="vl-calc-layout" aria-label="Comparador de hasta cinco vuelos">
         <div class="vl-calc-shell">
           <div class="vl-calc-scroll" role="region" aria-label="Tabla comparativa de vuelos; desplázate horizontalmente para ver más opciones" tabindex="0" data-flight-scroll>
