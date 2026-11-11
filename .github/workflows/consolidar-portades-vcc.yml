@@ -1,0 +1,97 @@
+name: VCC · consolidar portades moderns
+on:
+  push:
+    branches: [quality]
+    paths:
+      - .github/workflows/consolidar-portades-vcc.yml
+permissions:
+  contents: write
+concurrency:
+  group: consolidar-portades-vcc-quality
+  cancel-in-progress: false
+jobs:
+  substituir:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: quality
+          fetch-depth: 0
+      - name: Sobrescriure sis WebP canònics i actualitzar referències
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+          from hashlib import sha256
+          import re
+
+          folder=Path("configuracion/imagenes/fondos")
+          names=("inicio","destinos","itinerarios","planifica","nosotros","contacto")
+          new_versions={}
+
+          # Copiar el contingut exactament sobre el fitxer antic, no crear cap versió nova.
+          for name in names:
+              src=folder/f"fondos-{name}-modern.webp"
+              dst=folder/f"fondos-{name}.webp"
+              if not src.is_file() or not dst.is_file():
+                  raise SystemExit(f"Falta un dels dos arxius: {src}, {dst}")
+              modern=src.read_bytes()
+              if len(modern)<1024 or modern[:4]!=b'RIFF' or modern[8:12]!=b'WEBP':
+                  raise SystemExit(f"WEBP no vàlid: {src}")
+              dst.write_bytes(modern)
+              assert sha256(dst.read_bytes()).digest()==sha256(modern).digest()
+              src.unlink()
+              new_versions[name]=dst.name
+              print(f"Sobrescrit {dst}; eliminat {src}")
+
+          # Actualitzar només referències a les sis imatges, no altres recursos.
+          extensions={".html",".css",".js",".mjs",".json",".xml",".yml",".yaml",".py"}
+          skipped={".git","node_modules","dist","build",".wrangler"}
+          changed=[]
+          regex=re.compile(r'fondos-(inicio|destinos|itinerarios|planifica|nosotros|contacto)-modern\.(?:webp|avif)(?:\?[^"\\\'\s)<>]*)?')
+          for root,dirs,files in __import__("os").walk("."):
+              dirs[:]=[d for d in dirs if d not in skipped]
+              for name in files:
+                  p=Path(root)/name
+                  if p.suffix.lower() not in extensions or p.name=="consolidar-portades-vcc.yml":
+                      continue
+                  try: text=p.read_text(encoding="utf-8")
+                  except (UnicodeError, OSError): continue
+                  updated=regex.sub(lambda m: f"fondos-{m.group(1)}.webp?v=20261111-portades",text)
+                  if updated!=text:
+                      p.write_text(updated,encoding="utf-8")
+                      changed.append(str(p))
+          print(f"Referències actualitzades en {len(changed)} fitxers")
+          for f in changed: print(f"  {f}")
+
+          # Cap referència activa pot continuar apuntant als duplicats eliminats.
+          for root,dirs,files in __import__("os").walk("."):
+              dirs[:]=[d for d in dirs if d not in skipped]
+              for name in files:
+                  p=Path(root)/name
+                  if p.suffix.lower() not in extensions or p.name=="consolidar-portades-vcc.yml": continue
+                  try: text=p.read_text(encoding="utf-8")
+                  except (UnicodeError, OSError): continue
+                  if regex.search(text):
+                      raise SystemExit(f"Queda una referència -modern a {p}")
+          assert len(list(folder.glob("fondos-*-modern.webp")))==0
+          assert all((folder/f"fondos-{n}.webp").is_file() for n in names)
+          print("6 versions canòniques verificades; 0 duplicats -modern.")
+          PY
+      - name: Auditar referències
+        run: |
+          set -euo pipefail
+          node configuracion/scripts/auditar-recursos.mjs --no-write --enforce-external-baseline
+          node configuracion/scripts/verificar-estructura-recursos.mjs
+      - name: Desar a quality i eliminar aquest workflow temporal
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "VCC Assets Maintenance"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git rm -f .github/workflows/consolidar-portades-vcc.yml
+          git add -A
+          git diff --cached --stat
+          git commit -m "Sobrescriure 6 portades amb versions modernes i eliminar duplicats"
+          git push origin HEAD:quality
