@@ -38,6 +38,13 @@ for(const file of pages){
     repeatedCSS:repeatCss.length,repeatedJS:repeatJs.length,inlineStyle:(html.match(/<style\b/gi)||[]).length,
     inlineScript:(html.match(/<script\b(?![^>]*\bsrc=)(?![^>]*application\/ld\+json)[^>]*>/gi)||[]).length,
     images:imgs.length,missingAlt,noDimensions,linksToDrafts:drafts.length};
+  if(live){
+    if(repeatCss.length||repeatJs.length)critical.push(file+": recursos CSS/JS cargados repetidamente");
+    if(css.length>20)critical.push(file+": "+css.length+" hojas CSS (límite 20)");
+    if(result.cssRawBytes>350*1024)critical.push(file+": "+Math.round(result.cssRawBytes/1024)+" KB de CSS original (límite 350 KB)");
+    if(!html.includes("site-header.js")||!html.includes("site-footer.js"))
+      critical.push(file+": faltan componentes comunes header/footer");
+  }
   pageStats.push(result);
   if(repeatCss.length||repeatJs.length)findings.push({file,kind:"duplicate-assets",css:repeatCss,js:repeatJs});
   if(live&&drafts.length)findings.push({file,kind:"links-to-drafts",count:drafts.length,examples:drafts.slice(0,6)});
