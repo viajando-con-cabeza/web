@@ -80,18 +80,31 @@ function init(){
   });
  }
  if(stickyMobile){
-  // Desplaçament amb el mateix offset que tenia el controlador integrat a l'HTML.
-  nav.addEventListener('click',event=>{
-   const a=event.target.closest('a[href^="#"]');
-   if(!a)return;
+  // El subheader i les targetes-resum han de navegar amb el mateix offset.
+  // El salt natiu de les targetes deixava el dia desalineat sota la capçalera fixa.
+  function navigateToSection(a,event){
    const target=document.getElementById(decodeURIComponent(a.hash.slice(1)));
    if(!target)return;
    event.preventDefault();
+   const item=items.find(x=>x.a.hash===a.hash);
+   if(item){
+    clickTarget=item;
+    clickDeadline=performance.now()+1200;
+    setActive(item);
+   }
    const bottom=stickyHeader?Math.max(0,stickyHeader.getBoundingClientRect().bottom):0;
    const position=window.scrollY+target.getBoundingClientRect().top-bottom-nav.getBoundingClientRect().height+4;
    window.scrollTo({top:Math.max(0,position),behavior:'smooth'});
    history.replaceState(null,'',a.hash);
    request();
+  }
+  nav.addEventListener('click',event=>{
+   const a=event.target.closest('a[href^="#"]');
+   if(a&&nav.contains(a))navigateToSection(a,event);
+  });
+  // Les tres targetes del resum reutilitzen la mateixa navegació que el subheader.
+  document.querySelectorAll('.vcc-summary .overview-list a.overview-card[href^="#"]').forEach(a=>{
+   a.addEventListener('click',event=>navigateToSection(a,event));
   });
   if(window.ResizeObserver&&stickyHeader)new ResizeObserver(request).observe(stickyHeader);
  }
