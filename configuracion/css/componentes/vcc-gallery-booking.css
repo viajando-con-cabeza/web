@@ -2,8 +2,8 @@
    Reutilitzable a diferents guies amb la plantilla del modal VCC i
    un contenidor .vcc-booking-gallery per a les miniatures. */
 /* VCC · Galeries de l'itinerari, model visual de Qué ver / Imprescindibles.
-   5 imatges visibles i 8 al visor. Només afecta l'itinerari d'Estocolm. */
-.vcc-booking-gallery .day-mosaic.count-8{
+   5 imatges visibles i totes les fotos al visor, independentment del recompte. */
+.vcc-booking-gallery .day-mosaic[data-count]{
   display:grid!important;
   grid-template-columns:2fr 1fr 1fr!important;
   grid-template-rows:repeat(2,minmax(0,1fr))!important;
@@ -12,60 +12,60 @@
   width:100%;height:auto;
   border-radius:9px;overflow:hidden;
 }
-.vcc-booking-gallery .day-mosaic.count-8>button{
+.vcc-booking-gallery .day-mosaic[data-count]>button{
   display:block!important;
   position:relative;min-width:0;min-height:0;
   grid-column:auto;grid-row:auto;
   padding:0;border:0;border-radius:3px;overflow:hidden;
   cursor:pointer;background:#eeebe7;
 }
-.vcc-booking-gallery .day-mosaic.count-8>button:nth-child(1){grid-column:1;grid-row:1/3}
-.vcc-booking-gallery .day-mosaic.count-8>button:nth-child(2){grid-column:2;grid-row:1}
-.vcc-booking-gallery .day-mosaic.count-8>button:nth-child(3){grid-column:3;grid-row:1}
-.vcc-booking-gallery .day-mosaic.count-8>button:nth-child(4){grid-column:2;grid-row:2}
-.vcc-booking-gallery .day-mosaic.count-8>button:nth-child(5){grid-column:3;grid-row:2}
-.vcc-booking-gallery .day-mosaic.count-8>button:nth-child(n+6){display:none!important}
-.vcc-booking-gallery .day-mosaic.count-8>button>img{
+.vcc-booking-gallery .day-mosaic[data-count]>button:nth-child(1){grid-column:1;grid-row:1/3}
+.vcc-booking-gallery .day-mosaic[data-count]>button:nth-child(2){grid-column:2;grid-row:1}
+.vcc-booking-gallery .day-mosaic[data-count]>button:nth-child(3){grid-column:3;grid-row:1}
+.vcc-booking-gallery .day-mosaic[data-count]>button:nth-child(4){grid-column:2;grid-row:2}
+.vcc-booking-gallery .day-mosaic[data-count]>button:nth-child(5){grid-column:3;grid-row:2}
+.vcc-booking-gallery .day-mosaic[data-count]>button:nth-child(n+6){display:none!important}
+.vcc-booking-gallery .day-mosaic[data-count]>button>img{
   display:block;width:100%;height:100%;object-fit:cover;
   transition:transform .25s ease;
 }
 @media(hover:hover) and (prefers-reduced-motion:no-preference){
-  .vcc-booking-gallery .day-mosaic.count-8>button:hover>img{transform:scale(1.035)}
+  .vcc-booking-gallery .day-mosaic[data-count]>button:hover>img{transform:scale(1.035)}
 }
-.vcc-booking-gallery .day-mosaic.count-8 .more{
+.vcc-booking-gallery .day-mosaic[data-count] .more{
   position:absolute;inset:0;z-index:2;
   display:flex;align-items:center;justify-content:center;
   padding:5px;background:rgba(0,0,0,.54);
   color:#fff;font:700 12px/1.2 var(--vcc-font-body, "DM Sans", Arial, sans-serif);letter-spacing:0;
   text-align:center;pointer-events:none;
 }
-.vcc-booking-gallery .day-mosaic.count-8>button:focus-visible,
+.vcc-booking-gallery .day-mosaic[data-count]>button:focus-visible,
 .day-lightbox-grid button:focus-visible,
 .day-lightbox-to-grid:focus-visible{
   outline:3px solid #c86f5d!important;outline-offset:-3px;
 }
 @media(max-width:800px){
-  .vcc-booking-gallery .day-mosaic.count-8{
+  .vcc-booking-gallery .day-mosaic[data-count]{
     grid-template-columns:repeat(6,minmax(0,1fr))!important;
     grid-template-rows:1fr .92fr!important;
     aspect-ratio:1.35!important;gap:5px!important;
   }
-  .vcc-booking-gallery .day-mosaic.count-8>button:nth-child(1),
-  .vcc-booking-gallery .day-mosaic.count-8>button:nth-child(2){
+  .vcc-booking-gallery .day-mosaic[data-count]>button:nth-child(1),
+  .vcc-booking-gallery .day-mosaic[data-count]>button:nth-child(2){
     grid-column:span 3!important;grid-row:1!important;
   }
-  .vcc-booking-gallery .day-mosaic.count-8>button:nth-child(3),
-  .vcc-booking-gallery .day-mosaic.count-8>button:nth-child(4),
-  .vcc-booking-gallery .day-mosaic.count-8>button:nth-child(5){
+  .vcc-booking-gallery .day-mosaic[data-count]>button:nth-child(3),
+  .vcc-booking-gallery .day-mosaic[data-count]>button:nth-child(4),
+  .vcc-booking-gallery .day-mosaic[data-count]>button:nth-child(5){
     grid-column:span 2!important;grid-row:2!important;
   }
-  .vcc-booking-gallery .day-mosaic.count-8 .more{
+  .vcc-booking-gallery .day-mosaic[data-count] .more{
     font-size:clamp(13px,3.5vw,17px);
   }
 }
 
 /* ========= Visor equivalent a "Qué ver · Imprescindibles" =========
-   Escriptori: mosaic 3 columnes, sidebar i fotografia amb comptador 1 / 8.
+   Escriptori: mosaic 3 columnes, sidebar i fotografia amb comptador dinàmic.
    Mòbil: capçalera de 72px, mosaic vertical amb primera foto ampla,
    foto individual amb lliscament i ampliació tàctil.
    La composició d'escriptori es congela durant el zoom natiu. */
@@ -381,7 +381,7 @@ body.vcc-booking-gallery-open{overflow:hidden!important;overscroll-behavior:none
 .vcc-booking-gallery-modal.vcc-gallery-mobile .day-lightbox-thumbs,
 .vcc-booking-gallery-modal.vcc-gallery-mobile .day-lightbox-info{display:none!important}
 @media(prefers-reduced-motion:reduce){
- .vcc-booking-gallery .day-mosaic.count-8>button>img{transition:none!important}
+ .vcc-booking-gallery .day-mosaic[data-count]>button>img{transition:none!important}
 }
 
 /* Congela la distribució original en fer zoom sense remaquetar el mosaic
