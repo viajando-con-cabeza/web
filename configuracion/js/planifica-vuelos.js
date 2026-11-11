@@ -107,161 +107,230 @@
    }
  }
 
- const stack=root.querySelector('[data-flight-stack]');
- const firstFlight=stack?.querySelector('[data-flight]');
- const add=root.querySelector('[data-add-flight]');
- const flightCount=root.querySelector('[data-flight-count]');
- const summary=root.querySelector('[data-compare-summary]');
- const list=root.querySelector('[data-compare-list]');
- const result=root.querySelector('[data-compare-result]');
- const letter=['A','B','C','D','E'];
- const costs=['base','baggage','seat','transfer','food'];
- const positiveValue=value=>Math.max(0,Number(value)||0);
- const flights=()=>Array.from(stack?.querySelectorAll('[data-flight]')||[]);
- function createFlight(){
-   if(!firstFlight||flights().length>=5)return null;
-   const panel=firstFlight.cloneNode(true);
-   const index=flights().length;
-   const label=letter[index];
-   panel.dataset.flight=label.toLowerCase();
-   panel.setAttribute('aria-label','Opción '+label);
-   panel.querySelector('.vl-flight-title h3').textContent='Vuelo '+label;
-   const remove=panel.querySelector('[data-remove-flight]');
-   if(remove){remove.hidden=false;remove.setAttribute('aria-label','Quitar vuelo '+label)}
-   panel.querySelectorAll('input').forEach(input=>input.value='');
-   panel.querySelectorAll('select').forEach(select=>select.selectedIndex=0);
-   panel.querySelectorAll('[aria-label]').forEach(el=>{
-     if(el!==panel&&el!==remove)el.setAttribute('aria-label',el.getAttribute('aria-label').replace(/vuelo [A-E]/gi,'vuelo '+label));
+
+ // Comparador auténtico: las opciones son columnas y los conceptos, filas.
+ const iconRoot='/configuracion/imagenes/iconos/paginas/planifica-vuelos-comparador-iconos.svg#';
+ const letters=['A','B','C','D','E'];
+ const airlines=[
+  ['ryanair','Ryanair'],['vueling','Vueling'],['turkish','Turkish Airlines'],
+  ['swiss','SWISS'],['wizz','Wizz Air'],['easyjet','easyJet'],
+  ['brussels','Brussels Airlines'],['lufthansa','Lufthansa'],
+  ['american','American Airlines'],['etihad','Etihad Airways'],
+  ['emirates','Emirates'],['lion','Lion Air'],['scoot','Scoot'],
+  ['batik','Batik Air'],['virgin','Virgin Australia'],['jetstar','Jetstar']
+ ];
+ const concepts=[
+  {key:'airline',label:'Aerolínea',icon:'avion',type:'select'},
+  {key:'route',label:'Trayecto / aeropuerto',icon:'ruta',type:'text'},
+  {key:'base',label:'Billete',icon:'billete',type:'number'},
+  {key:'baggage',label:'Equipaje',icon:'equipaje',type:'number'},
+  {key:'seat',label:'Asiento',icon:'asiento',type:'number'},
+  {key:'food',label:'Comida y bebida',icon:'comida',type:'number'},
+  {key:'transfer',label:'Traslado aeropuerto',icon:'traslado',type:'number'}
+ ];
+ const costKeys=['base','baggage','seat','food','transfer'];
+ const flightScroll=root.querySelector('[data-flight-scroll]');
+ const tableHead=root.querySelector('[data-flight-head]');
+ const tableBody=root.querySelector('[data-flight-body]');
+ const addFlight=root.querySelector('[data-add-flight]');
+ const countFlight=root.querySelector('[data-flight-count]');
+ const bestEmpty=root.querySelector('[data-best-empty]');
+ const bestSelection=root.querySelector('[data-best-selection]');
+ const bestComparison=root.querySelector('[data-best-comparison]');
+ const bestName=root.querySelector('[data-best-name]');
+ const bestPrice=root.querySelector('[data-best-price]');
+ const bestSavings=root.querySelector('[data-best-savings]');
+ const emptyFlight=()=>({airline:'',route:'',base:'',baggage:'',seat:'',food:'',transfer:''});
+ const flights=[emptyFlight(),emptyFlight(),emptyFlight()];
+ const number=value=>Math.max(0,Number(value)||0);
+ const total=flight=>Math.round(costKeys.reduce((sum,key)=>sum+number(flight[key]),0)*100)/100;
+ const labelAirline=id=>(airlines.find(item=>item[0]===id)||[])[1]||'Aerolínea sin elegir';
+ const icon=id=>'<svg class="vl-compare-icon" aria-hidden="true"><use href="'+iconRoot+id+'"></use></svg>';
+ function renderCalculator(){
+   if(!tableHead||!tableBody)return;
+   flightScroll?.style.setProperty('--vl-flight-count',String(flights.length));
+   const top=document.createElement('tr');
+   const conceptHeader=document.createElement('th');
+   conceptHeader.scope='col';conceptHeader.textContent='Concepto';
+   top.appendChild(conceptHeader);
+   flights.forEach((flight,i)=>{
+     const th=document.createElement('th');
+     th.scope='col';
+     const title=document.createElement('span');
+     title.className='vl-option-heading';
+     title.textContent='Opción '+letters[i];
+     th.appendChild(title);
+     if(flights.length>1){
+       const button=document.createElement('button');
+       button.type='button';button.className='vl-remove-option';
+       button.dataset.removeFlight=String(i);
+       button.setAttribute('aria-label','Quitar opción '+letters[i]);
+       button.title='Quitar opción '+letters[i];
+       button.innerHTML=icon('cerrar');
+       th.appendChild(button);
+     }
+     top.appendChild(th);
    });
-   panel.querySelectorAll('[data-total],[data-breakdown]').forEach(el=>el.textContent='0,00 €');
-   stack.appendChild(panel);
-   return panel;
+   tableHead.replaceChildren(top);
+   const rows=[];
+   concepts.forEach(concept=>{
+     const tr=document.createElement('tr');
+     tr.className='vl-row-'+concept.key;
+     const th=document.createElement('th');th.scope='row';
+     th.innerHTML=icon(concept.icon);
+     const label=document.createElement('span');label.textContent=concept.label;
+     th.appendChild(label);tr.appendChild(th);
+     flights.forEach((flight,i)=>{
+       const td=document.createElement('td');
+       let control;
+       if(concept.type==='select'){
+         control=document.createElement('select');
+         const prompt=document.createElement('option');
+         prompt.value='';prompt.textContent='Elige aerolínea';
+         control.appendChild(prompt);
+         airlines.forEach(pair=>{
+           const option=document.createElement('option');
+           option.value=pair[0];option.textContent=pair[1];
+           control.appendChild(option);
+         });
+       }else{
+         control=document.createElement('input');
+         control.type=concept.type;
+         if(concept.type==='number'){
+           control.min='0';control.step='0.01';control.inputMode='decimal';
+           control.placeholder='0,00';
+         }else{
+           control.maxLength=85;
+           control.placeholder='Ej. BCN → ARN';
+           control.autocomplete='off';
+         }
+       }
+       control.value=flight[concept.key];
+       control.dataset.flightIndex=String(i);
+       control.dataset.field=concept.key;
+       control.setAttribute('aria-label',concept.label+' de la opción '+letters[i]);
+       td.appendChild(control);tr.appendChild(td);
+     });
+     rows.push(tr);
+   });
+   const totals=document.createElement('tr');
+   totals.className='vl-row-total';
+   const totalLabel=document.createElement('th');
+   totalLabel.scope='row';totalLabel.innerHTML=icon('total');
+   const label=document.createElement('span');label.textContent='TOTAL POR OPCIÓN';
+   totalLabel.appendChild(label);totals.appendChild(totalLabel);
+   flights.forEach((flight,i)=>{
+     const td=document.createElement('td');
+     const strong=document.createElement('strong');
+     strong.dataset.flightTotal=String(i);
+     td.appendChild(strong);totals.appendChild(td);
+   });
+   rows.push(totals);
+   tableBody.replaceChildren(...rows);
+   if(addFlight){
+     addFlight.disabled=flights.length>=5;
+     addFlight.setAttribute('aria-label',flights.length>=5?'Máximo de cinco opciones':'Añadir otra opción de vuelo');
+   }
+   if(countFlight)countFlight.textContent=flights.length+' de 5 opciones';
+   updateCalculator();
  }
  function updateCalculator(){
-   const panels=flights();
-   if(stack){
-     stack.dataset.columns=String(panels.length);
-     stack.style.setProperty('--flight-count',String(panels.length));
-   }
-   if(add){
-     add.disabled=panels.length>=5;
-     add.textContent=panels.length>=5?'Máximo de 5 vuelos':'+ Añadir otro vuelo';
-   }
-   if(flightCount)flightCount.textContent=panels.length+' de 5 vuelos';
-   const completed=[];
-   panels.forEach((panel,index)=>{
-     const amounts=costs.map(key=>{
-       const input=panel.querySelector('[data-cost="'+key+'"]');
-       const value=positiveValue(input?.value);
-       const output=panel.querySelector('[data-breakdown="'+key+'"]');
-       if(output)output.textContent=money.format(value);
-       return value;
-     });
-     const total=amounts.reduce((a,b)=>a+b,0);
-     const output=panel.querySelector('[data-total]');
-     if(output)output.textContent=money.format(total);
-     const price=panel.querySelector('[data-cost="base"]')?.value.trim();
-     const select=panel.querySelector('[data-airline-select]');
-     const airline=select?.selectedOptions[0]?.textContent?.trim()||'';
-     if(price!==''&&price!=null){
-       completed.push({total,index,code:letter[index],airline:select?.value?airline:'Aerolínea sin elegir',base:amounts[0],transfer:amounts[3]});
-     }
+   if(!tableBody)return;
+   const compared=flights.map((flight,i)=>({flight,i,amount:total(flight)}))
+     .filter(item=>flightHasPrice(item.flight));
+   const valid=compared.length>=2;
+   const min=valid?Math.min(...compared.map(item=>item.amount)):null;
+   const winners=valid?compared.filter(item=>Math.abs(item.amount-min)<.005):[];
+   tableHead.querySelectorAll('th[data-best-option]').forEach(th=>th.removeAttribute('data-best-option'));
+   tableBody.querySelectorAll('td[data-best-option]').forEach(td=>td.removeAttribute('data-best-option'));
+   tableBody.querySelectorAll('tr').forEach(row=>row.querySelectorAll('td').forEach((td,i)=>{
+     if(winners.some(item=>item.i===i))td.dataset.bestOption='true';
+   }));
+   tableHead.querySelectorAll('th').forEach((th,i)=>{
+     if(i>0&&winners.some(item=>item.i===i-1))th.dataset.bestOption='true';
    });
-   updateBest(completed,panels);
-   if(!summary||!list||!result)return;
-   summary.hidden=panels.length<2;
-   if(summary.hidden)return;
-   list.replaceChildren();
-   if(!completed.length){
-     result.hidden=false;
-     result.textContent='Introduce al menos dos precios de billete para comparar las opciones.';
-     return;
-   }
-   completed.sort((a,b)=>a.total-b.total);
-   const min=completed[0].total;
-   completed.forEach(item=>{
-     const row=document.createElement('div');
-     row.className='vl-result-row';
-     const best=Math.abs(item.total-min)<0.005&&completed.length>1;
-     if(best){
-       row.classList.add('is-cheapest');
-       const badge=document.createElement('small');
-       badge.className='vl-best-tag';
-       badge.textContent='Mejor precio real';
-       row.appendChild(badge);
-     }
-     const label=document.createElement('span');
-     label.textContent='Vuelo '+item.code+' · '+item.airline;
-     const price=document.createElement('strong');
-     price.textContent=money.format(item.total);
-     row.append(label,price);
-     if(!best&&completed.length>1&&item.total-min>0.005){
-       const difference=document.createElement('small');
-       difference.className='vl-result-difference';
-       difference.textContent='+'+money.format(item.total-min)+' respecto al más barato';
-       row.appendChild(difference);
-     }
-     list.appendChild(row);
+   flights.forEach((flight,i)=>{
+     const cell=tableBody.querySelector('[data-flight-total="'+i+'"]');
+     if(cell)cell.textContent=flightHasPrice(flight)?money.format(total(flight)):'—';
    });
-   result.hidden=false;
-   if(completed.length<2){
-     result.textContent='Añade el precio del billete de otro vuelo para ver cuál sale más económico.';
-   }else{
-     const max=completed[completed.length-1].total;
-     const cheaper=completed.filter(x=>Math.abs(x.total-min)<0.005);
-     if(Math.abs(max-min)<0.005){
-       result.textContent='Los vuelos comparados tienen el mismo precio final.';
-     }else{
-       const cheapestTicket=completed.reduce((a,b)=>b.base<a.base?b:a);
-       const ticketWarning=cheapestTicket.total>min+0.005
-         ? ' El billete más barato (vuelo '+cheapestTicket.code+') no es la opción más económica cuando sumas los extras y el traslado.'
-         : '';
-       result.textContent='Mejor precio real: '+cheaper.map(x=>'vuelo '+x.code).join(' y ')+' · hasta '+money.format(max-min)+' menos que la opción más cara.'+ticketWarning;
-     }
+   if(bestEmpty)bestEmpty.hidden=valid;
+   if(bestSelection)bestSelection.hidden=!valid;
+   if(bestComparison)bestComparison.hidden=!valid;
+   if(!valid||!bestName||!bestPrice||!bestSavings)return;
+   const winner=winners[0], winnerFlight=winner.flight;
+   const optionNames=winners.map(item=>letters[item.i]).join(' y ');
+   bestName.textContent=(winners.length>1?'Empate: opciones ':'Opción ')+optionNames+
+     (winnerFlight.airline?' · '+labelAirline(winnerFlight.airline):'')+
+     (winnerFlight.route?' · '+winnerFlight.route:'');
+   bestPrice.textContent=money.format(min);
+   bestSavings.replaceChildren();
+   compared.filter(item=>item.amount>min+.005).forEach(item=>{
+     const li=document.createElement('li');
+     const intro=document.createElement('span');intro.textContent='Te ahorras ';
+     const amount=document.createElement('strong');amount.textContent=money.format(item.amount-min);
+     const other=document.createElement('span');
+     other.textContent=' frente a la opción '+letters[item.i]+
+       (item.flight.airline?' ('+labelAirline(item.flight.airline)+')':'')+
+       (item.flight.route?' · '+item.flight.route:'');
+     li.append(intro,amount,other);bestSavings.appendChild(li);
+   });
+   if(winners.length>1){
+     const li=document.createElement('li');
+     li.textContent='Hay '+winners.length+' opciones empatadas al mismo precio total.';
+     bestSavings.appendChild(li);
+   }
+   if(!bestSavings.children.length){
+     const li=document.createElement('li');
+     li.textContent='Las opciones introducidas tienen el mismo precio total.';
+     bestSavings.appendChild(li);
    }
  }
- add?.addEventListener('click',()=>{
-   const panel=createFlight();
-   if(panel){
-     updateCalculator();
-     panel.querySelector('[data-airline-select]')?.focus({preventScroll:true});
-     panel.scrollIntoView({behavior:motion,block:'nearest'});
-   }
- });
- stack?.addEventListener('input',updateCalculator);
- stack?.addEventListener('change',updateCalculator);
- stack?.addEventListener('click',event=>{
-   const button=event.target.closest('[data-remove-flight]');
-   if(!button)return;
-   const panel=button.closest('[data-flight]');
-   if(panel===firstFlight)return;
-   panel?.remove();
-   flights().forEach((p,i)=>{
-     const value=letter[i];
-     p.dataset.flight=value.toLowerCase();
-     p.setAttribute('aria-label','Opción '+value);
-     p.querySelector('.vl-flight-title h3').textContent='Vuelo '+value;
-     p.querySelector('[data-remove-flight]')?.setAttribute('aria-label','Quitar vuelo '+value);
-     p.querySelectorAll('input[aria-label],select[aria-label]').forEach(input=>input.setAttribute('aria-label',input.getAttribute('aria-label').replace(/vuelo [A-E]/gi,'vuelo '+value)));
-   });
+ function flightHasPrice(flight){return String(flight.base).trim()!=='';}
+ function addOption(){
+   if(flights.length>=5)return null;
+   flights.push(emptyFlight());
+   renderCalculator();
+   return flights.length-1;
+ }
+ flightScroll?.addEventListener('input',event=>{
+   const control=event.target.closest('[data-flight-index][data-field]');
+   if(!control)return;
+   const i=Number(control.dataset.flightIndex);
+   const key=control.dataset.field;
+   if(!flights[i]||!Object.prototype.hasOwnProperty.call(flights[i],key))return;
+   flights[i][key]=control.value;
    updateCalculator();
-   add?.focus({preventScroll:true});
+ });
+ flightScroll?.addEventListener('change',event=>{
+   const control=event.target.closest('[data-flight-index][data-field]');
+   if(!control)return;
+   const i=Number(control.dataset.flightIndex);
+   if(flights[i])flights[i][control.dataset.field]=control.value;
+   updateCalculator();
+ });
+ flightScroll?.addEventListener('click',event=>{
+   const button=event.target.closest('[data-remove-flight]');
+   if(!button||flights.length<=1)return;
+   const i=Number(button.dataset.removeFlight);
+   if(!Number.isInteger(i)||i<0||i>=flights.length)return;
+   flights.splice(i,1);
+   renderCalculator();
+ });
+ addFlight?.addEventListener('click',()=>{
+   const i=addOption();
+   if(i!==null){
+     flightScroll?.querySelector('[data-flight-index="'+i+'"][data-field="airline"]')?.focus({preventScroll:true});
+   }
  });
  root.querySelectorAll('[data-use-airline]').forEach(button=>button.addEventListener('click',()=>{
-   let panel=flights().find(p=>!p.querySelector('[data-airline-select]')?.value);
-   if(!panel)panel=createFlight();
-   if(!panel){
-     if(flightCount)flightCount.textContent='Máximo de 5 vuelos. Quita uno para añadir otra aerolínea.';
-     root.querySelector('#calculadora')?.scrollIntoView({behavior:motion,block:'start'});
-     return;
-   }
-   const select=panel.querySelector('[data-airline-select]');
-   select.value=button.dataset.useAirline;
-   updateCalculator();
+   const name=button.dataset.useAirline;
+   let i=flights.findIndex(item=>!item.airline);
+   if(i<0)i=addOption();
+   if(i===null||i<0)return;
+   flights[i].airline=name;
+   renderCalculator();
    root.querySelector('#calculadora')?.scrollIntoView({behavior:motion,block:'start'});
-   select.focus({preventScroll:true});
+   flightScroll?.querySelector('[data-flight-index="'+i+'"][data-field="airline"]')?.focus({preventScroll:true});
  }));
- createFlight();
- createFlight();
- updateCalculator();
+ renderCalculator();
 })();
