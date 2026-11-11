@@ -43,9 +43,26 @@ function decorate(html,file,isReady){
   html=html.replace(/<link\b(?=[^>]*\brel=["']canonical["'])[^>]*>\s*/gi,'')
            .replace(/<meta\b(?=[^>]*\bname=["']robots["'])[^>]*>\s*/gi,'')
            .replace(/<meta\b(?=[^>]*\bproperty=["']og:url["'])[^>]*>\s*/gi,'');
-  const newTags=isReady
+  let newTags=isReady
     ? '<link rel="canonical" href="'+urlValue+'">\n<meta property="og:url" content="'+urlValue+'">\n'
     : '<meta name="robots" content="noindex,follow">\n';
+  if(isReady) {
+    const head=html.split(/<\/head\s*>/i)[0]||'';
+    const metaTag=name=>[...head.matchAll(/<meta\b[^>]*>/gi)].map(x=>x[0])
+      .find(tag=>new RegExp('\\b(?:name|property)=["\\u0027]'+name+'["\\u0027]','i').test(tag))||'';
+    const enc=value=>value.replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;');
+    const title=head.match(/<title[^>]*>([^<]*)<\/title>/i)?.[1]||'Viajando con Cabeza';
+    const desc=metaTag('description').match(/\bcontent=["']([^"']*)/i)?.[1]||
+      'Itinerarios y guías de viaje basados en experiencias reales.';
+    if(!metaTag('og:title'))newTags+='<meta property="og:title" content="'+enc(title)+'">\n';
+    if(!metaTag('og:description'))newTags+='<meta property="og:description" content="'+enc(desc)+'">\n';
+    if(!metaTag('og:image')) {
+      const image=config.socialImages?.[file]||'/configuracion/imagenes/fondos/fondos-inicio.webp';
+      if(!fs.existsSync(path.join(ROOT,image.slice(1))))issues.push(file+': foto OG inexistente '+image);
+      newTags+='<meta property="og:image" content="'+ORIGIN+image+'">\n';
+    }
+    if(!metaTag('twitter:card'))newTags+='<meta name="twitter:card" content="summary_large_image">\n';
+  }
   html=html.replace(/<head\b[^>]*>\s*/i,tag=>tag.trimEnd()+'\n'+newTags);
   if(isReady && !file.endsWith('/index.html') && file!=='index.html'){
     html=html.split(ORIGIN+'/'+file).join(urlValue);
