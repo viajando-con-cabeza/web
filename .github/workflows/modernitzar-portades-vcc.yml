@@ -1,0 +1,54 @@
+name: VCC - Previsualitzacions modernes de sis portades
+
+on:
+  push:
+    branches: [quality]
+    paths:
+      - '.github/workflows/modernitzar-portades-vcc.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: vcc-modernitzar-portades-quality
+  cancel-in-progress: false
+
+jobs:
+  modernize:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout quality
+        uses: actions/checkout@v4
+        with:
+          ref: quality
+          fetch-depth: 0
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install Pillow + numpy
+        run: python -m pip install --quiet --upgrade "Pillow>=12.0.0" "numpy>=2.0.0"
+      - name: Recolor original six backgrounds without editing source files
+        run: python configuracion/scripts/modernitzar-portades-vcc.py
+      - name: Export preview artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: VCC-6-fondos-originals-modernitzats-WebP-AVIF
+          path: configuracion/imagenes/fondos/previews-moderns/
+          if-no-files-found: error
+          retention-days: 14
+      - name: Publish preview copies on quality only
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add configuracion/imagenes/fondos/previews-moderns/
+          if git diff --cached --quiet; then
+            echo "No preview changes."
+          else
+            git commit -m "assets: sis portades originals modernitzades, WebP i AVIF (previsualitzacio)"
+            git pull --rebase origin quality
+            git push origin HEAD:quality
+          fi
