@@ -35,6 +35,18 @@ for (const [file, route] of publishable) {
     fail(file + ": falta meta description");
   if (/<meta\b[^>]*\bname=["']robots["'][^>]*\bcontent=["'][^"']*noindex/i.test(head))
     fail(file + ": pagina publicable marcada noindex");
+  // Metadata social completa per pàgina: impedeix futures publicacions incompletes.
+  const metaTags=[...head.matchAll(/<meta\b[^>]*>/gi)].map(x=>x[0]);
+  const socialKeys=['property="og:title"','property="og:description"','property="og:image"',
+    'property="og:url"','name="twitter:card"'];
+  for(const key of socialKeys){
+    const tags=metaTags.filter(tag=>tag.includes(key));
+    if(tags.length!==1)fail(file+': se requiere un '+key+' (encontrados '+tags.length+')');
+    else if(!/\bcontent=["'][^"']+["']/i.test(tags[0]))fail(file+': valor vacío para '+key);
+  }
+  const ogTag=metaTags.find(tag=>tag.includes('property="og:url"'));
+  const ogUrl=ogTag?.match(/\bcontent=["']([^"']+)/i)?.[1];
+  if(ogUrl!==expected)fail(file+': og:url diferente de canonical');
   const h1 = (html.match(/<h1\b/gi) || []).length;
   if (h1 !== 1) fail(file + ": requiere un H1 en el HTML inicial (tiene " + h1 + ")");
 }
