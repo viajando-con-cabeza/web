@@ -59,7 +59,13 @@ html body .imp-page .place-copy .facts > span.vcc-rating-fact.is-open .vcc-ratin
 }
 @media(max-width:650px) {
   html body .imp-page .place-copy .facts .vcc-rating-label{font-size:11px}
-  html body .imp-page .place-copy .facts .vcc-rating-tooltip{font-size:11.5px}
+  /* La puntuació es mostra a la columna dreta: tooltip dins la pantalla. */
+  html body .imp-page .place-copy .facts .vcc-rating-tooltip{
+    left:auto!important;right:0!important;
+    width:min(260px, calc(100vw - 44px))!important;
+    max-width:calc(100vw - 44px)!important;
+    font-size:11.5px;
+  }
 }
 html body .imp-page .imp-main .place.place--no-media .place-copy .facts > span.vcc-rating-fact {
   position:relative!important;
