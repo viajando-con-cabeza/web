@@ -187,3 +187,26 @@ html body .vl-hero.vcc-portada-transparente.vcc-breadcrumb-on-dark #vcc-global-b
 @media(max-width:1120px){
  #calculadora .vl-best-card{min-height:0}
 }
+
+/* Vuelos · ajustes finales: toolbar fuera de la tarjeta, consejo alineado con
+   la primera fila de aerolínea (bajo encabezados A/B/C) y footer compartido. */
+#calculadora .vl-compare-actions{
+  display:flex;
+  justify-content:flex-end;
+  align-items:center;
+  gap:12px;
+  min-height:0;
+  margin:0 0 9px;
+  padding:0;
+  background:transparent;
+  border:0;
+}
+#calculadora .vl-calc-shell{align-self:start}
+#calculadora .vl-best-card{
+  min-height:0;
+  margin-top:39px;
+  align-self:stretch;
+}
+@media(max-width:1120px){
+  #calculadora .vl-best-card{margin-top:0}
+}
