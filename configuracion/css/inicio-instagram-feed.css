@@ -1,0 +1,42 @@
+/* Portada VCC · navegación de publicaciones de Instagram.
+ * No cambia las tarjetas existentes ni reserva espacio si la cuenta aún no está conectada.
+ */
+body.inicio-vcc .home-insta-head-actions{
+  display:flex;align-items:center;justify-content:flex-end;
+  gap:7px;flex:none;min-width:0;margin-left:auto;
+}
+body.inicio-vcc .home-insta-navigation{
+  display:flex;align-items:center;gap:4px;flex:none;
+}
+body.inicio-vcc .home-insta-navigation[hidden],
+body.inicio-vcc .home-insta-position[hidden],
+body.inicio-vcc .home-insta-inspiration[hidden]{display:none!important}
+body.inicio-vcc .home-insta-navigation button{
+  appearance:none;display:grid;place-items:center;
+  width:23px;height:23px;padding:0;
+  border:1px solid #ead9ca;border-radius:50%;
+  background:#fff;color:#a85d47;cursor:pointer;
+  font:600 16px/1 "DM Sans",sans-serif;
+  transition:background .15s,border-color .15s;
+}
+body.inicio-vcc .home-insta-navigation button:hover{
+  background:#fff2e9;border-color:#d99980;
+}
+body.inicio-vcc .home-insta-navigation button:focus-visible{
+  outline:2px solid #be674c;outline-offset:2px;
+}
+body.inicio-vcc .home-insta-position{
+  position:absolute;z-index:1;top:7px;right:7px;
+  padding:4px 6px;border-radius:4px;
+  color:#fff;background:rgba(37,33,31,.72);
+  font:700 9px/1 "DM Sans",sans-serif;
+  pointer-events:none;
+}
+@media(max-width:530px){
+  body.inicio-vcc .home-insta-head-actions{gap:6px}
+  body.inicio-vcc .home-insta-navigation{gap:5px}
+  body.inicio-vcc .home-insta-navigation button{width:28px;height:28px;font-size:17px}
+}
+@media(prefers-reduced-motion:reduce){
+  body.inicio-vcc .home-insta-navigation button{transition:none}
+}
