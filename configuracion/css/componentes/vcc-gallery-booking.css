@@ -585,3 +585,18 @@ html body .imp-page .gallery-mosaic.count-1 .gallery-tile{cursor:pointer!importa
 .vcc-booking-gallery-modal .day-lightbox-photo-view:focus{
  outline:none!important;
 }
+
+/* VCC · «Galería» sense el marc taronja de focus, independentment
+   dels :focus-visible globals del blog. La resta de controls mantenen
+   l'indicador de focus per a navegació amb teclat. */
+html body .vcc-booking-gallery-modal button.day-lightbox-to-grid:focus,
+html body .vcc-booking-gallery-modal button.day-lightbox-to-grid:focus-visible,
+html body #dayLightbox.vcc-booking-gallery-modal button.day-lightbox-to-grid:focus,
+html body #dayLightbox.vcc-booking-gallery-modal button.day-lightbox-to-grid:focus-visible{
+ outline:none!important;
+ outline-width:0!important;
+ box-shadow:none!important;
+ border:0!important;
+ background:transparent!important;
+ -webkit-tap-highlight-color:transparent;
+}
