@@ -127,42 +127,62 @@
 }
 @media(prefers-reduced-motion:reduce){.vcc-it-catalog .vcc-it-photo img[data-vcc-it-slide]{transition:none}}
 
-/* Compactació com les vinyetes Ruta multipaís a Destinos. */
-.vcc-it-catalog .vcc-it-photo{aspect-ratio:1.90;touch-action:pan-y}
-.vcc-it-catalog .di-mini-body{padding:10px 12px 11px}
+/* Compactació VCC · mateix estil que Ruta multipaís de Destinos. */
+.vcc-it-catalog .vcc-it-photo{aspect-ratio:1.60;touch-action:pan-y}
+.vcc-it-catalog .di-mini-body{padding:9px 11px 10px}
 .vcc-it-catalog .di-mini-body>strong,
 .vcc-it-catalog .di-mini-body>a.vcc-it-title{
- font-size:19px;line-height:1.14;min-height:2.28em;margin-bottom:7px
+ font-size:19px;line-height:1.12;min-height:0;margin:0 0 5px
 }
+/* Durada · cost · país, els tres a la mateixa fila. */
 .vcc-it-catalog .vcc-it-facts{
- display:flex;align-items:center;justify-content:flex-start;flex-wrap:wrap;
- column-gap:14px;row-gap:3px;margin:0 0 6px
+ display:flex;align-items:center;justify-content:flex-start;flex-wrap:nowrap;
+ column-gap:13px;margin:0 0 5px;min-width:0
 }
 .vcc-it-catalog .vcc-it-facts .di-route-stats,
-.vcc-it-catalog .vcc-it-facts .di-budget-row{margin:0;gap:5px;white-space:nowrap}
-.vcc-it-catalog .vcc-it-facts .di-budget-row .vcc-it-coins{width:16px;height:16px}
+.vcc-it-catalog .vcc-it-facts .di-budget-row,
+.vcc-it-catalog .vcc-it-facts .di-country-line{
+ flex:none;display:inline-flex;align-items:center;gap:4px;margin:0;
+ line-height:1.2;white-space:nowrap
+}
+.vcc-it-catalog .vcc-it-facts .di-route-stats{font-size:10px}
 .vcc-it-catalog .vcc-it-facts .di-route-stats svg{width:12px;height:12px}
-.vcc-it-catalog .di-country-line{margin:0 0 6px;gap:6px}
-.vcc-it-catalog .vcc-it-country-flag{width:22px;height:14px;border-radius:2px}
-.vcc-it-catalog .di-mini-desc{min-height:0;margin:0 0 7px;line-height:1.4}
-.vcc-it-catalog .vcc-it-upcoming{font-size:9.5px;margin-top:auto;padding-top:2px}
-.vcc-it-catalog .di-mini-body>a.vcc-it-cta{font-size:9.5px;padding-top:2px}
+.vcc-it-catalog .vcc-it-facts .di-budget-row .vcc-it-coins{width:15px;height:15px}
+.vcc-it-catalog .vcc-it-facts .di-price{font-size:10px}
+.vcc-it-catalog .vcc-it-facts .di-country-line{font-size:10px;color:#4b4541}
+.vcc-it-catalog .vcc-it-facts .vcc-it-country-flag{width:20px;height:13px;border-radius:2px}
+.vcc-it-catalog .di-mini-desc{min-height:0;margin:0 0 5px;line-height:1.36;font-size:10.5px}
+.vcc-it-catalog .di-mini-body>a.vcc-it-cta{
+ display:inline-flex;align-self:flex-end;margin-top:auto;padding-top:3px;
+ font-size:9.5px;line-height:1.2;text-align:right
+}
+.vcc-it-catalog .vcc-it-upcoming{
+ align-self:flex-end;margin-top:auto;padding-top:3px;font-size:9.5px;text-align:right
+}
 .vcc-it-catalog .vcc-it-photo .di-mini-tag{padding:5px 7px;font-size:9px}
 .vcc-it-catalog .vcc-it-gallery-button{width:27px;height:27px}
 .vcc-it-catalog .vcc-it-gallery-button svg{width:16px;height:16px}
 @media(max-width:620px){
- .vcc-it-catalog .vcc-it-photo{aspect-ratio:1.82}
- .vcc-it-catalog .di-mini-body{padding:9px 9px 10px}
+ .vcc-it-catalog .vcc-it-photo{aspect-ratio:1.72}
+ .vcc-it-catalog .di-mini-body{padding:8px 9px 9px}
  .vcc-it-catalog .di-mini-body>strong,
- .vcc-it-catalog .di-mini-body>a.vcc-it-title{font-size:16.5px;line-height:1.15;min-height:0;margin-bottom:6px}
- .vcc-it-catalog .vcc-it-facts{column-gap:7px;row-gap:4px;margin-bottom:5px}
+ .vcc-it-catalog .di-mini-body>a.vcc-it-title{
+   font-size:16.5px;line-height:1.12;min-height:0;margin-bottom:5px
+ }
+ .vcc-it-catalog .vcc-it-facts{gap:7px;margin-bottom:4px}
  .vcc-it-catalog .vcc-it-facts .di-route-stats{font-size:9px}
  .vcc-it-catalog .vcc-it-facts .di-budget-row .vcc-it-coins{width:14px;height:14px}
  .vcc-it-catalog .vcc-it-facts .di-price{font-size:9px}
- .vcc-it-catalog .vcc-it-country-flag{width:20px;height:13px}
- .vcc-it-catalog .di-country-line{margin-bottom:5px}
- .vcc-it-catalog .di-mini-desc{font-size:10px;line-height:1.35;margin-bottom:6px}
+ .vcc-it-catalog .vcc-it-facts .di-country-line{font-size:9px}
+ .vcc-it-catalog .vcc-it-facts .vcc-it-country-flag{width:19px;height:12px}
+ .vcc-it-catalog .di-mini-desc{font-size:10px;line-height:1.32;margin-bottom:4px}
  .vcc-it-catalog .vcc-it-gallery-button{width:24px;height:24px}
+}
+/* A pantalles estretes, una targeta per fila evita que país, cost i dies es trenquin. */
+@media(max-width:520px){
+ .vcc-it-catalog .di-mini-grid{grid-template-columns:1fr}
+ .vcc-it-catalog .vcc-it-photo{aspect-ratio:2.05}
+ .vcc-it-catalog .vcc-it-facts{gap:12px}
 }
 @media(prefers-reduced-motion:reduce){
  .vcc-it-catalog .vcc-it-photo.is-sliding img[data-vcc-it-slide]{transition:none}
