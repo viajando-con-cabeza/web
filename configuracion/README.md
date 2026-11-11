@@ -102,3 +102,15 @@ sense migració addicional en aquesta fase.
    **Auditar recursos visuals VCC**.
 3. Verificar canvis visibles amb les versions mòbil i escriptori de les guies
    principals abans de fusionar a producció.
+
+## SEO i components compartits (2026-11-11)
+
+- `configuracion/scripts/lib/seo-site.mjs`: única llista de pàgines preparades per indexació amb la ruta HTML i la canonical pública. Ampliar aquesta llista quan una guia estigui acabada.
+- `configuracion/scripts/verificar-seo-global.mjs`: comprovació global de H1, títol, descripció, canonical, sitemap i exclusions `noindex`. Integrada a l'Action `Quality`.
+- `sitemap.xml`: ha de contenir només URL públiques reals; mai enllaços cap a `quality` ni pàgines marcades `noindex`.
+- `configuracion/css/componentes/presupuesto-gastos-dia-vcc.css`: component de dues columnes per a les despeses diàries. Es carrega DESPRÉS de `presupuesto-perfiles-desplegables.css`. No duplicar aquestes regles al CSS específic d'Estocolm.
+- Les mini galeries dels índexs (carrusels de targetes) no són el visor modal de `vcc-gallery-booking`. Els filtres tipus pestanya duen `data-vcc-filter-nav`, i no s'han de convertir en subheaders d'àncores.
+- La portada anglesa i el catàleg Apps tenen `noindex,follow` fins que estiguin complets.
+- Abans de passar a `main`: completar les dades reals del titular de la política de privacitat; revisar formats de fitxers R2 i la capçalera `X-Robots-Tag` efectiva del domini `quality`.
+
+Les fotografies aportades per VCC es conserven. Una URL externa o una extensió AVIF incorrecta es revisa com a incidència de ruta o format, sense presumir per això que les fotografies no siguin pròpies.
