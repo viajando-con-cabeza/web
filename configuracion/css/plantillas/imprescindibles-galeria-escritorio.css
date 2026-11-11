@@ -12,7 +12,7 @@
     place-items:center;
     padding:clamp(12px,2.5vw,30px);
     background:rgba(27,25,24,.63);
-    font-family:'DM Sans',sans-serif;
+    font-family:var(--vcc-font-body, "DM Sans", Arial, sans-serif);
     box-sizing:border-box;
   }
   #vcc-desktop-gallery * {box-sizing:border-box}
@@ -44,7 +44,7 @@
     background:transparent;
     color:#262626;
     cursor:pointer;
-    font-family:'DM Sans',sans-serif;
+    font-family:var(--vcc-font-body, "DM Sans", Arial, sans-serif);
   }
   #vcc-desktop-gallery .vcc-dg-back {
     justify-self:start;
@@ -72,7 +72,7 @@
     overflow:hidden;
     white-space:nowrap;
     text-overflow:ellipsis;
-    font:500 22px/1.15 'Oswald',sans-serif;
+    font:500 22px/1.15 var(--vcc-font-heading, "Oswald", sans-serif);
     text-transform:uppercase;
     color:#242424;
   }
@@ -155,14 +155,14 @@
   #vcc-desktop-gallery .vcc-dg-place {
     margin:0 0 12px;
     color:#c56851;
-    font:600 29px/1.12 'Caveat',cursive;
+    font:600 29px/1.12 var(--vcc-font-script, "Caveat", cursive);
     text-transform:none;
     letter-spacing:0;
   }
   #vcc-desktop-gallery .vcc-dg-description {
     margin:0;
     color:#47413c;
-    font:400 13px/1.75 'DM Sans',sans-serif;
+    font:400 13px/1.75 var(--vcc-font-body, "DM Sans", Arial, sans-serif);
   }
 
   /* Darrer pas: reutilitzem el visor original i el text que ja apareix a la dreta. */
@@ -189,7 +189,7 @@
     border-radius:4px;
     background:transparent!important;
     color:#282828!important;
-    font:400 13px/1 'DM Sans',sans-serif!important;
+    font:400 13px/1 var(--vcc-font-body, "DM Sans", Arial, sans-serif)!important;
     cursor:pointer;
   }
   html body.vcc-desktop-gallery-open #lightbox.lightbox .lb-stage > .vcc-dg-photo-back:hover {color:#a65340!important}
@@ -240,7 +240,7 @@
     background:#fff!important;
     color:#242424!important;
     text-align:center!important;
-    font:500 22px/1.15 'Oswald',sans-serif!important;
+    font:500 22px/1.15 var(--vcc-font-heading, "Oswald", sans-serif)!important;
     text-transform:uppercase!important;
     letter-spacing:0!important;
     box-sizing:border-box!important;
@@ -274,7 +274,7 @@
     margin:0!important;
     color:#55514e!important;
     background:#fff!important;
-    font:400 12px/1 'DM Sans',sans-serif!important;
+    font:400 12px/1 var(--vcc-font-body, "DM Sans", Arial, sans-serif)!important;
     transform:none!important;
     font-variant-numeric:tabular-nums!important;
   }
@@ -328,14 +328,14 @@
   html body.vcc-desktop-gallery-open #lightbox.lightbox .lb-place-info h3 {
     margin:0 0 12px!important;
     color:#c56851!important;
-    font:600 29px/1.12 'Caveat',cursive!important;
+    font:600 29px/1.12 var(--vcc-font-script, "Caveat", cursive)!important;
     text-transform:none!important;
     letter-spacing:0!important;
   }
   html body.vcc-desktop-gallery-open #lightbox.lightbox .lb-place-info p {
     margin:0!important;
     color:#47413c!important;
-    font:400 13px/1.75 'DM Sans',sans-serif!important;
+    font:400 13px/1.75 var(--vcc-font-body, "DM Sans", Arial, sans-serif)!important;
   }
   html body.vcc-desktop-gallery-open #lightbox.lightbox .lb-stage > .vcc-dg-photo-back {
     top:9px!important;
@@ -364,7 +364,7 @@
     background:transparent!important;
     box-shadow:none!important;
     color:#272727!important;
-    font:400 0px/1 'DM Sans',sans-serif!important;
+    font:400 0px/1 var(--vcc-font-body, "DM Sans", Arial, sans-serif)!important;
     cursor:pointer!important;
   }
   /* Icones SVG de traç fi; evitem glifs gruixuts i pseudo-elements de botons. */

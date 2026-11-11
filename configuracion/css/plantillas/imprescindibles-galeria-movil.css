@@ -23,7 +23,7 @@ html:has(body.vcc-desktop-gallery-open) {
     display:block;
     background:#fff;
     color:#262626;
-    font-family:'DM Sans',sans-serif;
+    font-family:var(--vcc-font-body, "DM Sans", Arial, sans-serif);
     overscroll-behavior:contain;
   }
   #vcc-mobile-gallery * {box-sizing:border-box}
@@ -56,7 +56,7 @@ html:has(body.vcc-desktop-gallery-open) {
     border:0;
     background:transparent;
     color:#292929;
-    font:400 32px/1 'DM Sans',sans-serif;
+    font:400 32px/1 var(--vcc-font-body, "DM Sans", Arial, sans-serif);
     border-radius:6px;
     cursor:pointer;
   }
@@ -72,13 +72,13 @@ html:has(body.vcc-desktop-gallery-open) {
     overflow:hidden;
     text-overflow:ellipsis;
     white-space:nowrap;
-    font:500 19px/1.18 'Oswald',sans-serif;
+    font:500 19px/1.18 var(--vcc-font-heading, "Oswald", sans-serif);
     text-transform:uppercase;
     letter-spacing:.01em;
     color:#292929;
   }
   #vcc-mobile-gallery .vcc-mobile-heading span {
-    font:600 12px/1.25 'DM Sans',sans-serif;
+    font:600 12px/1.25 var(--vcc-font-body, "DM Sans", Arial, sans-serif);
     color:#aa5944;
   }
   #vcc-mobile-gallery .vcc-mobile-gallery-scroll {
@@ -220,7 +220,7 @@ html:has(body.vcc-desktop-gallery-open) {
     padding:8px;
     background:rgba(20,20,20,.58);
     color:#fff;
-    font:700 clamp(16px,4.8vw,24px)/1.15 'DM Sans',sans-serif;
+    font:700 clamp(16px,4.8vw,24px)/1.15 var(--vcc-font-body, "DM Sans", Arial, sans-serif);
     text-align:center;
     pointer-events:none;
   }

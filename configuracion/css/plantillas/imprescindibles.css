@@ -34,7 +34,7 @@ html body .imp-page .imp-card { top: 90px !important; }
 
 /* Visor: títols Oswald com els llocs; comptador i controls en DM Sans. */
 html body #lightbox .lb-caption {
-  font-family: 'Oswald', sans-serif !important;
+  font-family: var(--vcc-font-heading, "Oswald", sans-serif) !important;
   font-size: 22px !important;
   font-weight: 500 !important;
   line-height: 1.25 !important;
@@ -42,7 +42,7 @@ html body #lightbox .lb-caption {
   text-transform: uppercase !important;
 }
 html body #lightbox .lb-counter {
-  font-family: 'DM Sans', sans-serif !important;
+  font-family: var(--vcc-font-body, "DM Sans", Arial, sans-serif) !important;
   font-size: 13px !important;
   font-weight: 600 !important;
   line-height: 1 !important;
@@ -84,7 +84,7 @@ html body #lightbox .lb-close {
   background: transparent !important;
   box-shadow: none !important;
   color: #1f1f1f !important;
-  font: 400 30px/1 'DM Sans', sans-serif !important;
+  font: 400 30px/1 var(--vcc-font-body, "DM Sans", Arial, sans-serif) !important;
 }
 html body #lightbox .lb-close:hover { opacity: .75 !important; }
 html body #lightbox .lb-close:focus-visible {
@@ -173,7 +173,7 @@ html body .imp-page .vcc-itinerary-feature-image span {
   border-radius: 4px !important;
   background: #1c1c1c !important;
   color: #fff !important;
-  font: 800 11px/1 'DM Sans', sans-serif !important;
+  font: 800 11px/1 var(--vcc-font-body, "DM Sans", Arial, sans-serif) !important;
   letter-spacing: .025em !important;
 }
 html body .imp-page .vcc-itinerary-feature-copy {
@@ -187,31 +187,31 @@ html body .imp-page .vcc-itinerary-feature-copy {
   width: 100% !important;
   margin: 0 !important;
   padding: 28px 34px !important;
-  font-family: 'DM Sans', sans-serif !important;
+  font-family: var(--vcc-font-body, "DM Sans", Arial, sans-serif) !important;
 }
 html body .imp-page .vcc-itinerary-feature-kicker {
   color: #cf705c !important;
-  font: 600 22px/1.12 'Caveat', cursive !important;
+  font: 600 22px/1.12 var(--vcc-font-script, "Caveat", cursive) !important;
   letter-spacing: 0 !important;
 }
 html body .imp-page .vcc-itinerary-feature-copy h2 {
   margin: 0 !important;
   color: #191919 !important;
-  font: 500 34px/1.12 'Oswald', sans-serif !important;
+  font: 500 34px/1.12 var(--vcc-font-heading, "Oswald", sans-serif) !important;
   letter-spacing: 0 !important;
 }
 html body .imp-page .vcc-itinerary-feature-copy p {
   margin: 0 !important;
   max-width: 100% !important;
   color: #49443f !important;
-  font: 400 13.5px/1.7 'DM Sans', sans-serif !important;
+  font: 400 13.5px/1.7 var(--vcc-font-body, "DM Sans", Arial, sans-serif) !important;
 }
 html body .imp-page .vcc-itinerary-feature-details {
   display: flex !important;
   flex-wrap: wrap !important;
   gap: 8px 18px !important;
   color: #665f58 !important;
-  font: 600 12px/1.5 'DM Sans', sans-serif !important;
+  font: 600 12px/1.5 var(--vcc-font-body, "DM Sans", Arial, sans-serif) !important;
 }
 html body .imp-page .vcc-itinerary-feature-cta {
   display: inline-flex !important;
@@ -223,7 +223,7 @@ html body .imp-page .vcc-itinerary-feature-cta {
   background: #cf705c !important;
   color: #fff !important;
   text-decoration: none !important;
-  font: 800 12px/1.25 'DM Sans', sans-serif !important;
+  font: 800 12px/1.25 var(--vcc-font-body, "DM Sans", Arial, sans-serif) !important;
   transition: background .2s ease;
 }
 html body .imp-page .vcc-itinerary-feature-cta:hover { background: #a65340 !important; }
@@ -267,7 +267,7 @@ html body .imp-page .place-nav-wrap .place-nav-shell .place-nav a {
   min-height:39px!important;
   max-height:39px!important;
   padding:0!important;
-  font-family:'DM Sans',sans-serif!important;
+  font-family:var(--vcc-font-body, "DM Sans", Arial, sans-serif)!important;
   font-size:12px!important;
   font-weight:800!important;
   line-height:1.15!important;
