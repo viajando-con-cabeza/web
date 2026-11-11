@@ -2,50 +2,50 @@
    No se modifica CSS global: todo está encapsulado en body.inicio-vcc. */
 body.inicio-vcc {
   --vcc-ink:#292724;--vcc-muted:#716a64;--vcc-paper:#faf6f1;
-  --vcc-white:#fffdfb;--vcc-orange:var(--vcc-color-accent-home, #d96847);--vcc-orange-dark:#b94f34;
+  --vcc-white:#fffdfb;--vcc-orange:var(--vcc-color-accent-home, #d96847);--vcc-orange-dark:var(--vcc-accent-override, #b94f34);
   --vcc-line:#e7ddd4;--vcc-soft:#f2e4d8;
-  background:var(--vcc-paper);color:var(--vcc-ink);font-family:var(--vcc-font-body, "DM Sans", Arial, sans-serif);
+  background:var(--vcc-paper);color:var(--vcc-ink);font-family:var(--vcc-font-body, var(--vcc-font-body, "DM Sans", Arial, sans-serif));
   font-size:14px;line-height:1.6;
 }
 body.inicio-vcc main{overflow:hidden}
 body.inicio-vcc .shell{width:min(1180px,calc(100% - 48px));margin-inline:auto}
-body.inicio-vcc h1,body.inicio-vcc h2,body.inicio-vcc h3{font-family:var(--vcc-font-heading, "Oswald", sans-serif);font-weight:500;letter-spacing:0}
+body.inicio-vcc h1,body.inicio-vcc h2,body.inicio-vcc h3{font-family:var(--vcc-font-heading, var(--vcc-font-heading, "Oswald", sans-serif));font-weight:500;letter-spacing:0}
 body.inicio-vcc a:focus-visible{outline:3px solid var(--vcc-orange);outline-offset:3px}
 body.inicio-vcc .home-hero{position:relative;isolation:isolate;min-height:360px;overflow:hidden;background:#f1e5d6 url("/configuracion/imagenes/fondos/fondos-inicio.webp") center center/cover no-repeat}
 body.inicio-vcc .home-hero-wash{position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,rgba(250,246,241,.61),rgba(250,246,241,.18) 48%,transparent 82%)}
 body.inicio-vcc .home-hero-layout{position:relative;display:flex;align-items:flex-start;min-height:360px;padding:48px 0 32px}
 body.inicio-vcc .home-hero-copy{position:relative;z-index:4;width:600px;max-width:58%;padding:0}
-body.inicio-vcc .home-script{display:block;width:max-content;color:#cf705c;font:600 25px/1 var(--vcc-font-script, "Caveat", cursive);margin:0 0 9px}
-body.inicio-vcc .home-hero h1{font:500 clamp(37px,4.7vw,64px)/1.04 var(--vcc-font-heading, "Oswald", sans-serif);letter-spacing:-.025em;margin:0 0 15px;color:var(--vcc-ink)}
+body.inicio-vcc .home-script{display:block;width:max-content;color:#cf705c;font:600 25px/1 var(--vcc-font-script, var(--vcc-font-script, "Caveat", cursive));margin:0 0 9px}
+body.inicio-vcc .home-hero h1{font:500 clamp(37px,4.7vw,64px)/1.04 var(--vcc-font-heading, var(--vcc-font-heading, "Oswald", sans-serif));letter-spacing:-.025em;margin:0 0 15px;color:var(--vcc-ink)}
 body.inicio-vcc .home-hero h1 em{font-style:normal;color:var(--vcc-orange-dark)}
-body.inicio-vcc .home-hero-copy>p{font:400 15px/1.65 var(--vcc-font-body, "DM Sans", Arial, sans-serif);max-width:520px;margin:0 0 17px;color:#4f4a45}
+body.inicio-vcc .home-hero-copy>p{font:400 15px/1.65 var(--vcc-font-body, var(--vcc-font-body, "DM Sans", Arial, sans-serif));max-width:520px;margin:0 0 17px;color:#4f4a45}
 body.inicio-vcc .home-actions{display:flex;gap:11px;flex-wrap:wrap}
-body.inicio-vcc .home-btn{display:inline-flex;align-items:center;justify-content:center;gap:14px;border:1px solid transparent;border-radius:4px;min-height:39px;padding:10px 16px;text-decoration:none;white-space:nowrap;font:800 11px/1.25 var(--vcc-font-body, "DM Sans", Arial, sans-serif);letter-spacing:.01em;transition:background-color .18s,transform .18s}
+body.inicio-vcc .home-btn{display:inline-flex;align-items:center;justify-content:center;gap:14px;border:1px solid transparent;border-radius:4px;min-height:39px;padding:10px 16px;text-decoration:none;white-space:nowrap;font:800 11px/1.25 var(--vcc-font-body, var(--vcc-font-body, "DM Sans", Arial, sans-serif));letter-spacing:.01em;transition:background-color .18s,transform .18s}
 body.inicio-vcc .home-btn span{font-size:17px;font-weight:500;line-height:0}
 body.inicio-vcc .home-btn:hover{transform:translateY(-2px)}
 body.inicio-vcc .home-btn-primary{background:var(--vcc-orange);color:#fff}
 body.inicio-vcc .home-btn-primary:hover{background:var(--vcc-orange-dark)}
 body.inicio-vcc .home-btn-outline{border-color:var(--vcc-orange);color:var(--vcc-orange-dark);background:#fffaf5}
 body.inicio-vcc .home-btn-outline:hover{background:#f7e3d7}
-body.inicio-vcc .home-signoff{display:block;margin-top:14px;color:var(--vcc-orange-dark);font:600 23px/1 var(--vcc-font-script, "Caveat", cursive)}
+body.inicio-vcc .home-signoff{display:block;margin-top:14px;color:var(--vcc-orange-dark);font:600 23px/1 var(--vcc-font-script, var(--vcc-font-script, "Caveat", cursive))}
 body.inicio-vcc .home-hero-polaroids{pointer-events:none;position:absolute;right:150px;top:52px;width:315px;height:265px;z-index:2}
 body.inicio-vcc .home-photo{position:absolute;background:#fff9ef;padding:7px 7px 22px;box-shadow:0 5px 16px rgba(80,52,28,.18);border:1px solid #e6dbca}
 body.inicio-vcc .home-photo img{display:block;width:100%;height:100%;object-fit:cover}
-body.inicio-vcc .home-photo span{position:absolute;bottom:2px;left:0;right:0;text-align:center;color:#3a322d;font:600 16px/1 var(--vcc-font-script, "Caveat", cursive)}
+body.inicio-vcc .home-photo span{position:absolute;bottom:2px;left:0;right:0;text-align:center;color:#3a322d;font:600 16px/1 var(--vcc-font-script, var(--vcc-font-script, "Caveat", cursive))}
 body.inicio-vcc .home-photo.one{width:195px;height:215px;left:15px;top:3px;transform:rotate(-8deg)}
 body.inicio-vcc .home-photo.two{width:150px;height:164px;left:154px;top:91px;transform:rotate(8deg)}
 body.inicio-vcc .home-benefits{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));position:relative;z-index:5;min-height:78px;margin-top:-21px!important;border:1px solid var(--vcc-line);border-radius:8px;background:#fffaf4;box-shadow:0 6px 17px rgba(68,40,27,.09);padding:10px 14px}
 body.inicio-vcc .home-benefit{display:flex;align-items:center;justify-content:center;gap:14px;min-width:0;padding:8px 12px;border-right:1px solid #d5c9bb}
 body.inicio-vcc .home-benefit:last-child{border-right:0}
 body.inicio-vcc .home-benefit svg{width:34px;height:34px;flex:none;fill:none;stroke:var(--vcc-orange);stroke-width:1.65;stroke-linecap:round;stroke-linejoin:round}
-body.inicio-vcc .home-benefit strong{display:block;font:500 19px/1.23 var(--vcc-font-heading, "Oswald", sans-serif)}
-body.inicio-vcc .home-benefit small{display:block;font:400 11px/1.45 var(--vcc-font-body, "DM Sans", Arial, sans-serif);color:var(--vcc-muted);margin-top:3px}
+body.inicio-vcc .home-benefit strong{display:block;font:500 19px/1.23 var(--vcc-font-heading, var(--vcc-font-heading, "Oswald", sans-serif))}
+body.inicio-vcc .home-benefit small{display:block;font:400 11px/1.45 var(--vcc-font-body, var(--vcc-font-body, "DM Sans", Arial, sans-serif));color:var(--vcc-muted);margin-top:3px}
 body.inicio-vcc .home-feature-grid{display:grid;grid-template-columns:1.17fr .83fr;gap:25px;align-items:stretch;margin-top:33px!important}
 body.inicio-vcc .home-section-heading{display:flex;justify-content:space-between;align-items:end;gap:12px;margin-bottom:17px}
-body.inicio-vcc .home-kicker{display:block;color:var(--vcc-orange-dark);font:600 19px/1 var(--vcc-font-script, "Caveat", cursive);margin:0 0 3px}
-body.inicio-vcc .home-section-heading h2,body.inicio-vcc .home-about h2{font:500 clamp(26px,2.55vw,35px)/1.12 var(--vcc-font-heading, "Oswald", sans-serif);color:var(--vcc-ink);margin:0}
+body.inicio-vcc .home-kicker{display:block;color:var(--vcc-orange-dark);font:600 19px/1 var(--vcc-font-script, var(--vcc-font-script, "Caveat", cursive));margin:0 0 3px}
+body.inicio-vcc .home-section-heading h2,body.inicio-vcc .home-about h2{font:500 clamp(26px,2.55vw,35px)/1.12 var(--vcc-font-heading, var(--vcc-font-heading, "Oswald", sans-serif));color:var(--vcc-ink);margin:0}
 body.inicio-vcc .home-section-heading h2:after{content:"";display:block;width:75px;height:3px;background:var(--vcc-orange);transform:rotate(-2deg);margin-top:5px}
-body.inicio-vcc .home-section-more{font:800 10px/1.3 var(--vcc-font-body, "DM Sans", Arial, sans-serif);white-space:nowrap;color:var(--vcc-orange-dark);padding-bottom:7px}
+body.inicio-vcc .home-section-more{font:800 10px/1.3 var(--vcc-font-body, var(--vcc-font-body, "DM Sans", Arial, sans-serif));white-space:nowrap;color:var(--vcc-orange-dark);padding-bottom:7px}
 body.inicio-vcc .home-section-more span{font-size:16px;margin-left:4px}
 body.inicio-vcc .home-section-more:hover,body.inicio-vcc .home-about-link:hover{color:var(--vcc-ink)}
 body.inicio-vcc .home-itinerary-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:13px}
@@ -53,15 +53,15 @@ body.inicio-vcc .home-itinerary{overflow:hidden;display:block;min-width:0;backgr
 body.inicio-vcc .home-itinerary:hover{transform:translateY(-3px);box-shadow:0 7px 18px #4a312020}
 body.inicio-vcc .home-itinerary-image{position:relative;height:178px;overflow:hidden}
 body.inicio-vcc .home-itinerary-image img{height:100%;width:100%;object-fit:cover}
-body.inicio-vcc .home-tape{position:absolute;bottom:5px;left:8%;max-width:90%;padding:1px 11px 5px;background:#fff0d5;transform:rotate(-3deg);color:#2f2924;white-space:nowrap;box-shadow:0 2px 5px #44342521;font:700 clamp(19px,2.05vw,26px)/1.04 var(--vcc-font-script, "Caveat", cursive)}
-body.inicio-vcc .home-itinerary-meta{display:flex;align-items:center;justify-content:center;gap:7px;min-height:36px;color:#3d332c;font:600 12px/1.35 var(--vcc-font-body, "DM Sans", Arial, sans-serif)}
+body.inicio-vcc .home-tape{position:absolute;bottom:5px;left:8%;max-width:90%;padding:1px 11px 5px;background:#fff0d5;transform:rotate(-3deg);color:#2f2924;white-space:nowrap;box-shadow:0 2px 5px #44342521;font:700 clamp(19px,2.05vw,26px)/1.04 var(--vcc-font-script, var(--vcc-font-script, "Caveat", cursive))}
+body.inicio-vcc .home-itinerary-meta{display:flex;align-items:center;justify-content:center;gap:7px;min-height:36px;color:#3d332c;font:600 12px/1.35 var(--vcc-font-body, var(--vcc-font-body, "DM Sans", Arial, sans-serif))}
 body.inicio-vcc .home-itinerary-meta svg{width:16px;height:16px;fill:none;stroke:var(--vcc-orange);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 body.inicio-vcc .home-planning{display:grid;grid-template-columns:38% 1fr;align-items:center;min-height:280px;padding:21px 17px;gap:7px;border-radius:9px;background:#f3e5d6 url("/configuracion/imagenes/fondos/fondos-inicio.webp") 30% 65%/auto 145% no-repeat;position:relative;overflow:hidden}
 body.inicio-vcc .home-planning:before{content:"";position:absolute;inset:0;background:rgba(250,246,241,.68)}
 body.inicio-vcc .home-planning-art{position:relative;z-index:1;width:100%;max-width:245px;object-fit:contain}
 body.inicio-vcc .home-planning-copy{position:relative;z-index:2}
-body.inicio-vcc .home-planning h2{font:500 clamp(26px,2.4vw,34px)/1.1 var(--vcc-font-heading, "Oswald", sans-serif);margin:2px 0 9px}
-body.inicio-vcc .home-planning p{font:400 12px/1.65 var(--vcc-font-body, "DM Sans", Arial, sans-serif);margin:0 0 13px;max-width:235px}
+body.inicio-vcc .home-planning h2{font:500 clamp(26px,2.4vw,34px)/1.1 var(--vcc-font-heading, var(--vcc-font-heading, "Oswald", sans-serif));margin:2px 0 9px}
+body.inicio-vcc .home-planning p{font:400 12px/1.65 var(--vcc-font-body, var(--vcc-font-body, "DM Sans", Arial, sans-serif));margin:0 0 13px;max-width:235px}
 body.inicio-vcc .home-stories-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:28px;margin-top:31px!important}
 body.inicio-vcc .home-guide-layout{display:grid;grid-template-columns:41% minmax(0,1fr);gap:18px;align-items:center}
 body.inicio-vcc .home-guide-image{position:relative;display:block;background:#fffdfb;border:7px solid #fffdfb;border-bottom-width:26px;box-shadow:0 4px 14px #4a312024;transform:rotate(-2deg);border-radius:4px;height:230px}
@@ -69,27 +69,27 @@ body.inicio-vcc .home-guide-image img{display:block;width:100%;height:100%;objec
 body.inicio-vcc .home-guide-image .home-tape{bottom:-22px;left:20%;font-size:28px}
 /* Valoración VCC: mismo diseño de la tarjeta de guía de Suecia, sobre la foto. */
 body.inicio-vcc .home-score{position:absolute;right:14px;bottom:30px;top:auto;left:auto;z-index:2;display:flex;flex-direction:column;align-items:flex-end;min-width:0;margin:0;padding:0;color:#fff;background:transparent;border:0;border-radius:0;box-shadow:none;text-align:right;transform:none}
-body.inicio-vcc .home-score strong{display:grid;place-items:center;width:48px;height:45px;border-radius:8px;background:#777;color:#fff;font:500 22px/1 var(--vcc-font-heading, "Oswald", sans-serif);box-shadow:0 4px 12px rgba(0,0,0,.2);padding-top:2px}
-body.inicio-vcc .home-score-label{display:flex;align-items:center;justify-content:flex-end;gap:4px;margin-top:4px;padding:0 1px;color:#fff;font:800 9px/1.1 var(--vcc-font-body, "DM Sans", Arial, sans-serif);white-space:nowrap;text-shadow:0 1px 4px rgba(0,0,0,.9),0 1px 9px rgba(0,0,0,.6)}
+body.inicio-vcc .home-score strong{display:grid;place-items:center;width:48px;height:45px;border-radius:8px;background:#777;color:#fff;font:500 22px/1 var(--vcc-font-heading, var(--vcc-font-heading, "Oswald", sans-serif));box-shadow:0 4px 12px rgba(0,0,0,.2);padding-top:2px}
+body.inicio-vcc .home-score-label{display:flex;align-items:center;justify-content:flex-end;gap:4px;margin-top:4px;padding:0 1px;color:#fff;font:800 9px/1.1 var(--vcc-font-body, var(--vcc-font-body, "DM Sans", Arial, sans-serif));white-space:nowrap;text-shadow:0 1px 4px rgba(0,0,0,.9),0 1px 9px rgba(0,0,0,.6)}
 body.inicio-vcc .home-score-label:after{content:"";display:block;width:11px;height:11px;flex:0 0 11px;background:url('/configuracion/imagenes/iconos/paper-plane-trail.svg') center/contain no-repeat;filter:brightness(0) invert(1) drop-shadow(0 1px 3px rgba(0,0,0,.65))}
-body.inicio-vcc .home-guide-copy h3{font:500 clamp(20px,2.0vw,27px)/1.18 var(--vcc-font-heading, "Oswald", sans-serif);margin:0 0 9px}
-body.inicio-vcc .home-guide-copy p{color:#554e47;font:400 12px/1.62 var(--vcc-font-body, "DM Sans", Arial, sans-serif);margin:0 0 10px}
+body.inicio-vcc .home-guide-copy h3{font:500 clamp(20px,2.0vw,27px)/1.18 var(--vcc-font-heading, var(--vcc-font-heading, "Oswald", sans-serif));margin:0 0 9px}
+body.inicio-vcc .home-guide-copy p{color:#554e47;font:400 12px/1.62 var(--vcc-font-body, var(--vcc-font-body, "DM Sans", Arial, sans-serif));margin:0 0 10px}
 body.inicio-vcc .home-guide-score{display:flex;align-items:center;gap:9px;margin-bottom:13px;flex-wrap:wrap}
 body.inicio-vcc .home-guide-score span{font-size:16px;letter-spacing:1px;color:var(--vcc-orange)}
-body.inicio-vcc .home-guide-score strong{font:700 10px/1.3 var(--vcc-font-body, "DM Sans", Arial, sans-serif);color:var(--vcc-orange-dark)}
+body.inicio-vcc .home-guide-score strong{font:700 10px/1.3 var(--vcc-font-body, var(--vcc-font-body, "DM Sans", Arial, sans-serif));color:var(--vcc-orange-dark)}
 body.inicio-vcc .home-instagram{border-left:1px solid var(--vcc-line);padding-left:26px;min-width:0}
 body.inicio-vcc .home-instagram-photos{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px}
 body.inicio-vcc .home-instagram-photos a{position:relative;display:block;min-width:0;aspect-ratio:1/1;background:#e7ddd4;border-radius:7px;overflow:hidden;border:1px solid var(--vcc-line)}
 body.inicio-vcc .home-instagram-photos img{width:100%;height:100%;object-fit:cover;transition:transform .25s}
 body.inicio-vcc .home-instagram-photos a:hover img{transform:scale(1.035)}
 body.inicio-vcc .home-instagram-photos svg{position:absolute;right:8px;top:8px;width:20px;height:20px;stroke:white;fill:none;stroke-width:1.8;filter:drop-shadow(0 1px 3px #333)}
-body.inicio-vcc .home-instagram-handle{display:flex;align-items:center;justify-content:center;gap:9px;color:var(--vcc-orange-dark);font:700 13px/1.4 var(--vcc-font-body, "DM Sans", Arial, sans-serif);margin-top:15px}
+body.inicio-vcc .home-instagram-handle{display:flex;align-items:center;justify-content:center;gap:9px;color:var(--vcc-orange-dark);font:700 13px/1.4 var(--vcc-font-body, var(--vcc-font-body, "DM Sans", Arial, sans-serif));margin-top:15px}
 body.inicio-vcc .home-instagram-handle svg{width:21px;height:21px;fill:none;stroke:var(--vcc-orange);stroke-width:1.8}
 body.inicio-vcc .home-about{display:grid;grid-template-columns:160px 1.0fr 1.4fr auto;align-items:center;gap:18px;margin-top:35px!important;padding:17px 24px;min-height:127px;background:#f2e4d8;border:1px solid #ead9c8;border-radius:8px}
 body.inicio-vcc .home-about-visual img{display:block;width:100%;max-height:109px;object-fit:contain}
 body.inicio-vcc .home-about-title{border-right:1px solid #d3c3b7;padding-right:14px}
-body.inicio-vcc .home-about p{max-width:460px;color:#4f4842;font:400 13px/1.65 var(--vcc-font-body, "DM Sans", Arial, sans-serif);margin:0}
-body.inicio-vcc .home-about-link{white-space:nowrap;align-self:center;color:var(--vcc-orange-dark);font:800 10px/1.3 var(--vcc-font-body, "DM Sans", Arial, sans-serif)}
+body.inicio-vcc .home-about p{max-width:460px;color:#4f4842;font:400 13px/1.65 var(--vcc-font-body, var(--vcc-font-body, "DM Sans", Arial, sans-serif));margin:0}
+body.inicio-vcc .home-about-link{white-space:nowrap;align-self:center;color:var(--vcc-orange-dark);font:800 10px/1.3 var(--vcc-font-body, var(--vcc-font-body, "DM Sans", Arial, sans-serif))}
 body.inicio-vcc .home-about-link span{font-size:16px;margin-left:4px}
 body.inicio-vcc .home-recent{margin-top:38px!important;margin-bottom:43px!important}
 body.inicio-vcc .home-recent-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:15px}
@@ -97,8 +97,8 @@ body.inicio-vcc .home-recent-grid a{position:relative;display:block;height:168px
 body.inicio-vcc .home-recent-grid a:hover{transform:translateY(-3px)}
 body.inicio-vcc .home-recent-grid a:after{content:"";position:absolute;inset:48% 0 0;background:linear-gradient(transparent,#201c1be3)}
 body.inicio-vcc .home-recent-grid img{width:100%;height:100%;object-fit:cover}
-body.inicio-vcc .home-recent-grid a>span{position:absolute;bottom:11px;left:12px;z-index:1;color:white;font:500 22px/1.08 var(--vcc-font-heading, "Oswald", sans-serif)}
-body.inicio-vcc .home-recent-grid small{display:block;font:500 11px/1.35 var(--vcc-font-body, "DM Sans", Arial, sans-serif);margin-top:4px}
+body.inicio-vcc .home-recent-grid a>span{position:absolute;bottom:11px;left:12px;z-index:1;color:white;font:500 22px/1.08 var(--vcc-font-heading, var(--vcc-font-heading, "Oswald", sans-serif))}
+body.inicio-vcc .home-recent-grid small{display:block;font:500 11px/1.35 var(--vcc-font-body, var(--vcc-font-body, "DM Sans", Arial, sans-serif));margin-top:4px}
 @media(max-width:1080px){
  body.inicio-vcc .home-hero-polaroids{right:112px;top:61px;transform:scale(.85);transform-origin:top right}
  body.inicio-vcc .home-benefit{gap:8px;padding:8px 7px}
@@ -318,11 +318,11 @@ body.inicio-vcc .home-hero-copy{
 }
 body.inicio-vcc .home-script{
   width:auto;margin:0 0 19px;
-  font:600 clamp(27px,3.2vw,42px)/1.1 var(--vcc-font-script, "Caveat", cursive);
+  font:600 clamp(27px,3.2vw,42px)/1.1 var(--vcc-font-script, var(--vcc-font-script, "Caveat", cursive));
   color:#cd725e;
 }
 body.inicio-vcc .home-hero h1{
-  font:500 clamp(38px,4.25vw,67px)/1.12 var(--vcc-font-heading, "Oswald", sans-serif);
+  font:500 clamp(38px,4.25vw,67px)/1.12 var(--vcc-font-heading, var(--vcc-font-heading, "Oswald", sans-serif));
   white-space:normal;letter-spacing:-.025em;
   margin:0 0 23px;color:#1c1c1b;
 }
@@ -335,12 +335,12 @@ body.inicio-vcc .home-hero h1 em{
 }
 body.inicio-vcc .home-hero-copy>p:not(.home-hero-manifesto){
   margin:0 0 25px;max-width:615px;
-  font:400 clamp(14px,1.4vw,18px)/1.6 var(--vcc-font-body, "DM Sans", Arial, sans-serif);color:#4d4743;
+  font:400 clamp(14px,1.4vw,18px)/1.6 var(--vcc-font-body, var(--vcc-font-body, "DM Sans", Arial, sans-serif));color:#4d4743;
 }
 body.inicio-vcc .home-hero-copy>.home-hero-manifesto{
   max-width:610px;margin:0;padding:19px 0 0;
   border-top:1px solid #bdb0a2;
-  font:800 clamp(12px,1.25vw,17px)/1.6 var(--vcc-font-body, "DM Sans", Arial, sans-serif);
+  font:800 clamp(12px,1.25vw,17px)/1.6 var(--vcc-font-body, var(--vcc-font-body, "DM Sans", Arial, sans-serif));
   letter-spacing:.015em;color:#625a54;
 }
 body.inicio-vcc .home-hero-polaroids{display:none!important}
@@ -685,7 +685,7 @@ body.inicio-vcc .home-feature-kind{
   position:absolute;top:6px;left:6px;display:inline-flex;align-items:center;gap:3px;
   max-width:calc(100% - 12px);min-width:0;
   border-radius:5px;background:rgba(255,252,247,.94);padding:3px 5px;
-  color:#6b4236;font:800 8px/1.15 var(--vcc-font-body, "DM Sans", Arial, sans-serif);
+  color:#6b4236;font:800 8px/1.15 var(--vcc-font-body, var(--vcc-font-body, "DM Sans", Arial, sans-serif));
   white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
   box-shadow:0 1px 5px #392a201f;
 }
@@ -698,11 +698,11 @@ body.inicio-vcc .home-feature-score{
   box-shadow:0 2px 7px #14141433;
 }
 body.inicio-vcc .home-feature-score strong{
-  font:500 18px/1 var(--vcc-font-heading, "Oswald", sans-serif);color:white;
+  font:500 18px/1 var(--vcc-font-heading, var(--vcc-font-heading, "Oswald", sans-serif));color:white;
   padding:0;margin:0;background:none;border:0;
 }
 body.inicio-vcc .home-feature-score small{
-  font:700 6px/1.3 var(--vcc-font-body, "DM Sans", Arial, sans-serif);
+  font:700 6px/1.3 var(--vcc-font-body, var(--vcc-font-body, "DM Sans", Arial, sans-serif));
   white-space:nowrap;color:white;margin-top:2px;
 }
 body.inicio-vcc .home-feature-details{
@@ -711,13 +711,13 @@ body.inicio-vcc .home-feature-details{
 }
 body.inicio-vcc .home-feature-details h3{
   width:100%;margin:0 0 4px;
-  font:500 14px/1.15 var(--vcc-font-heading, "Oswald", sans-serif);
+  font:500 14px/1.15 var(--vcc-font-heading, var(--vcc-font-heading, "Oswald", sans-serif));
   color:#24211e;letter-spacing:0;
   display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;
 }
 body.inicio-vcc .home-feature-facts{
   display:flex;flex-wrap:wrap;align-items:baseline;gap:2px 8px;
-  width:100%;font:600 9px/1.3 var(--vcc-font-body, "DM Sans", Arial, sans-serif);color:#514840;
+  width:100%;font:600 9px/1.3 var(--vcc-font-body, var(--vcc-font-body, "DM Sans", Arial, sans-serif));color:#514840;
 }
 body.inicio-vcc .home-feature-facts>span{white-space:normal}
 body.inicio-vcc .home-feature-facts strong{font-weight:800;color:#b65c49}
@@ -725,7 +725,7 @@ body.inicio-vcc .home-feature-facts small{font-size:8px;color:#756b63}
 body.inicio-vcc .home-feature-link,
 body.inicio-vcc .home-feature-pending{
   display:block;margin-top:auto;padding-top:6px;
-  color:#ac5140;font:800 8px/1.15 var(--vcc-font-body, "DM Sans", Arial, sans-serif);
+  color:#ac5140;font:800 8px/1.15 var(--vcc-font-body, var(--vcc-font-body, "DM Sans", Arial, sans-serif));
   text-decoration:none;letter-spacing:.02em;
 }
 body.inicio-vcc .home-feature-link:hover{text-decoration:underline;text-underline-offset:3px}
@@ -735,7 +735,7 @@ body.inicio-vcc .home-carousel-arrow{
   display:grid;place-items:center;width:32px;height:32px;padding:0;
   border-radius:50%;border:1px solid #dfd3c9;
   background:rgba(255,253,249,.97);
-  color:#2b2825;font:500 17px/1 var(--vcc-font-body, "DM Sans", Arial, sans-serif);
+  color:#2b2825;font:500 17px/1 var(--vcc-font-body, var(--vcc-font-body, "DM Sans", Arial, sans-serif));
   box-shadow:0 4px 12px #3b2d2026;
   cursor:pointer;transition:opacity .18s;
 }
@@ -837,27 +837,27 @@ body.inicio-vcc .home-planning-stamp{
   transform:rotate(-7deg);
   border:1px solid #d8ab8f;border-radius:4px;
   color:#a55744;background:#fcf5ee;
-  padding:1px 6px;font:700 15px/1.25 var(--vcc-font-script, "Caveat", cursive);
+  padding:1px 6px;font:700 15px/1.25 var(--vcc-font-script, var(--vcc-font-script, "Caveat", cursive));
 }
 body.inicio-vcc .home-planning-copy{min-width:0}
 body.inicio-vcc .home-planning-eyebrow{
   display:block;margin-bottom:1px;
-  font:600 17px/1 var(--vcc-font-script, "Caveat", cursive);color:#b65a45;
+  font:600 17px/1 var(--vcc-font-script, var(--vcc-font-script, "Caveat", cursive));color:#b65a45;
 }
 body.inicio-vcc .home-planning h2{
-  font:500 clamp(22px,2vw,29px)/1.04 var(--vcc-font-heading, "Oswald", sans-serif);
+  font:500 clamp(22px,2vw,29px)/1.04 var(--vcc-font-heading, var(--vcc-font-heading, "Oswald", sans-serif));
   margin:0 0 5px;letter-spacing:-.02em;
 }
 body.inicio-vcc .home-planning p{
   max-width:290px;margin:0 0 7px;
-  font:400 10.5px/1.42 var(--vcc-font-body, "DM Sans", Arial, sans-serif);color:#54483f;
+  font:400 10.5px/1.42 var(--vcc-font-body, var(--vcc-font-body, "DM Sans", Arial, sans-serif));color:#54483f;
 }
 body.inicio-vcc .home-planning-tags{
   display:flex;align-items:center;flex-wrap:wrap;gap:5px;
   margin-bottom:8px;
 }
 body.inicio-vcc .home-planning-tags span{
-  font:700 8px/1.1 var(--vcc-font-body, "DM Sans", Arial, sans-serif);color:#985542;
+  font:700 8px/1.1 var(--vcc-font-body, var(--vcc-font-body, "DM Sans", Arial, sans-serif));color:#985542;
   border:1px solid #dfc1aa;border-radius:20px;background:#fffaf3a8;
   padding:3px 6px;
 }
@@ -895,7 +895,7 @@ body.inicio-vcc .home-instagram-photos a.home-insta-post:hover{
 body.inicio-vcc .home-insta-top{
   display:flex;align-items:center;gap:5px;
   height:23px;min-height:23px;padding:4px 7px;
-  color:#51463f;font:800 9px/1 var(--vcc-font-body, "DM Sans", Arial, sans-serif);
+  color:#51463f;font:800 9px/1 var(--vcc-font-body, var(--vcc-font-body, "DM Sans", Arial, sans-serif));
 }
 body.inicio-vcc .home-insta-top svg{
   position:static;width:13px;height:13px;stroke:#c4634b;fill:none;
@@ -914,13 +914,13 @@ body.inicio-vcc .home-instagram-photos .home-insta-post:hover img{transform:scal
 body.inicio-vcc .home-insta-type{
   position:absolute;left:6px;bottom:6px;
   padding:3px 5px;border-radius:3px;background:#fffaf1e8;
-  color:#6d4e42;font:700 8px/1 var(--vcc-font-body, "DM Sans", Arial, sans-serif);
+  color:#6d4e42;font:700 8px/1 var(--vcc-font-body, var(--vcc-font-body, "DM Sans", Arial, sans-serif));
 }
 body.inicio-vcc .home-insta-caption{
   height:25px;min-height:25px;padding:5px 6px;
   display:flex;align-items:center;gap:5px;
   overflow:hidden;color:#5b4f48;
-  font:600 8px/1.15 var(--vcc-font-body, "DM Sans", Arial, sans-serif);
+  font:600 8px/1.15 var(--vcc-font-body, var(--vcc-font-body, "DM Sans", Arial, sans-serif));
 }
 body.inicio-vcc .home-insta-caption svg{
   position:static;width:12px;height:12px;flex:none;
@@ -931,7 +931,7 @@ body.inicio-vcc .home-insta-caption span{
 }
 body.inicio-vcc .home-instagram-note{
   color:#947463;
-  font:600 9px/1.4 var(--vcc-font-body, "DM Sans", Arial, sans-serif);
+  font:600 9px/1.4 var(--vcc-font-body, var(--vcc-font-body, "DM Sans", Arial, sans-serif));
   margin:6px 0 0;
   text-align:center;
 }
@@ -1016,16 +1016,16 @@ body.inicio-vcc .home-planning-copy{
 }
 body.inicio-vcc .home-planning-eyebrow{
   margin:0 0 5px;
-  font:600 clamp(16px,1.55vw,23px)/1 var(--vcc-font-script, "Caveat", cursive);
+  font:600 clamp(16px,1.55vw,23px)/1 var(--vcc-font-script, var(--vcc-font-script, "Caveat", cursive));
   color:#b7543e;
 }
 body.inicio-vcc .home-planning h2{
-  font:500 clamp(23px,2.05vw,34px)/1.04 var(--vcc-font-heading, "Oswald", sans-serif);
+  font:500 clamp(23px,2.05vw,34px)/1.04 var(--vcc-font-heading, var(--vcc-font-heading, "Oswald", sans-serif));
   letter-spacing:-.015em;margin:0 0 8px!important;
   color:#25211f;
 }
 body.inicio-vcc .home-planning p{
-  font:400 clamp(10px,.95vw,13px)/1.43 var(--vcc-font-body, "DM Sans", Arial, sans-serif);
+  font:400 clamp(10px,.95vw,13px)/1.43 var(--vcc-font-body, var(--vcc-font-body, "DM Sans", Arial, sans-serif));
   margin:0 0 10px!important;max-width:330px;color:#514640;
 }
 body.inicio-vcc .home-planning-tags{
@@ -1033,7 +1033,7 @@ body.inicio-vcc .home-planning-tags{
 }
 body.inicio-vcc .home-planning-tags span{
   display:inline-flex;align-items:center;
-  font:700 9px/1 var(--vcc-font-body, "DM Sans", Arial, sans-serif);
+  font:700 9px/1 var(--vcc-font-body, var(--vcc-font-body, "DM Sans", Arial, sans-serif));
   color:#9d563e;background:rgba(255,253,249,.88);
   border:1px solid #edc8ad;border-radius:20px;
   padding:6px 8px;white-space:nowrap;
@@ -1063,16 +1063,16 @@ body.inicio-vcc .home-social-contact .home-instagram{
   display:flex;flex-direction:column;
 }
 body.inicio-vcc .home-social-eyebrow{
-  color:#c45f47;font:600 clamp(16px,1.6vw,23px)/1 var(--vcc-font-script, "Caveat", cursive);
+  color:#c45f47;font:600 clamp(16px,1.6vw,23px)/1 var(--vcc-font-script, var(--vcc-font-script, "Caveat", cursive));
   margin:0 0 5px;
 }
-body.inicio-vcc .home-social-eyebrow span{font:700 14px var(--vcc-font-body, "DM Sans", Arial, sans-serif)}
+body.inicio-vcc .home-social-eyebrow span{font:700 14px var(--vcc-font-body, var(--vcc-font-body, "DM Sans", Arial, sans-serif))}
 body.inicio-vcc .home-social-heading{
   display:flex;align-items:center;justify-content:space-between;gap:7px;
   margin:0 0 9px;
 }
 body.inicio-vcc .home-social-heading h2{
-  color:#24211e;font:500 clamp(19px,1.62vw,26px)/1.06 var(--vcc-font-heading, "Oswald", sans-serif);
+  color:#24211e;font:500 clamp(19px,1.62vw,26px)/1.06 var(--vcc-font-heading, var(--vcc-font-heading, "Oswald", sans-serif));
   margin:0;min-width:0;
 }
 body.inicio-vcc .home-social-heading svg{
@@ -1089,14 +1089,14 @@ body.inicio-vcc .home-insta-largepost{
 body.inicio-vcc .home-insta-largepost:hover{border-color:#d88670}
 body.inicio-vcc .home-insta-topline{
   display:flex;align-items:center;gap:6px;padding:6px 8px;
-  min-height:35px;font:700 10px/1 var(--vcc-font-body, "DM Sans", Arial, sans-serif);
+  min-height:35px;font:700 10px/1 var(--vcc-font-body, var(--vcc-font-body, "DM Sans", Arial, sans-serif));
 }
 body.inicio-vcc .home-insta-topline>span:last-child{margin-left:auto;color:#7e6c63}
 body.inicio-vcc .home-insta-avatar{
   width:24px;height:24px;min-width:24px;
   border-radius:50%;display:grid;place-items:center;
   border:2px solid #ed784d;background:#fffaf5;
-  color:#bc5c3c;font:700 10px var(--vcc-font-script, "Caveat", cursive);
+  color:#bc5c3c;font:700 10px var(--vcc-font-script, var(--vcc-font-script, "Caveat", cursive));
 }
 body.inicio-vcc .home-insta-photo{
   width:100%;height:146px;position:relative;overflow:hidden;
@@ -1108,23 +1108,23 @@ body.inicio-vcc .home-insta-photo img{
 body.inicio-vcc .home-insta-inspiration{
   position:absolute;left:7px;bottom:6px;
   padding:4px 6px;background:#fff9f0eb;border-radius:3px;
-  font:800 8px/1.2 var(--vcc-font-body, "DM Sans", Arial, sans-serif);color:#9d5e47;
+  font:800 8px/1.2 var(--vcc-font-body, var(--vcc-font-body, "DM Sans", Arial, sans-serif));color:#9d5e47;
 }
 body.inicio-vcc .home-insta-footer{
   display:flex;justify-content:space-between;align-items:center;
   height:24px;padding:2px 9px;
-  font:700 18px/1 var(--vcc-font-body, "DM Sans", Arial, sans-serif);color:#cc6448;
+  font:700 18px/1 var(--vcc-font-body, var(--vcc-font-body, "DM Sans", Arial, sans-serif));color:#cc6448;
 }
 body.inicio-vcc .home-insta-save{font-size:16px;color:#322b26}
 body.inicio-vcc .home-insta-text{
   padding:3px 9px 8px;
-  color:#51463f;font:500 10px/1.35 var(--vcc-font-body, "DM Sans", Arial, sans-serif);
+  color:#51463f;font:500 10px/1.35 var(--vcc-font-body, var(--vcc-font-body, "DM Sans", Arial, sans-serif));
   display:-webkit-box;-webkit-box-orient:vertical;
   -webkit-line-clamp:2;overflow:hidden;
 }
 body.inicio-vcc .home-insta-profile-link{
   display:block;align-self:flex-start;margin-top:auto;padding-top:8px;
-  font:800 9px/1.2 var(--vcc-font-body, "DM Sans", Arial, sans-serif);color:#c35b43;
+  font:800 9px/1.2 var(--vcc-font-body, var(--vcc-font-body, "DM Sans", Arial, sans-serif));color:#c35b43;
   text-decoration:none;
 }
 body.inicio-vcc .home-insta-profile-link:hover{text-decoration:underline}
@@ -1137,16 +1137,16 @@ body.inicio-vcc .home-contact-symbol{
 }
 body.inicio-vcc .home-contact-symbol svg{display:block;width:100%;height:auto}
 body.inicio-vcc .home-contact h2{
-  font:500 clamp(23px,2.2vw,34px)/1.05 var(--vcc-font-heading, "Oswald", sans-serif);
+  font:500 clamp(23px,2.2vw,34px)/1.05 var(--vcc-font-heading, var(--vcc-font-heading, "Oswald", sans-serif));
   color:#27221f;margin:0 0 9px;
 }
 body.inicio-vcc .home-contact p{
-  color:#4f453f;font:400 clamp(10px,.98vw,13px)/1.48 var(--vcc-font-body, "DM Sans", Arial, sans-serif);
+  color:#4f453f;font:400 clamp(10px,.98vw,13px)/1.48 var(--vcc-font-body, var(--vcc-font-body, "DM Sans", Arial, sans-serif));
   margin:0 0 13px;max-width:230px;
 }
 body.inicio-vcc .home-contact .home-btn{
   margin-top:auto;display:inline-flex!important;
-  min-height:34px;font:800 9px/1.2 var(--vcc-font-body, "DM Sans", Arial, sans-serif);
+  min-height:34px;font:800 9px/1.2 var(--vcc-font-body, var(--vcc-font-body, "DM Sans", Arial, sans-serif));
   background:#d86b4d;border-radius:5px;
   padding:8px 11px;gap:7px;
 }
@@ -1361,7 +1361,7 @@ body.inicio-vcc .home-planning-visual img{
 }
 body.inicio-vcc .home-plan-photo-label{
   position:absolute;z-index:1;bottom:10px;left:11px;right:9px;
-  font:800 8px/1.35 var(--vcc-font-body, "DM Sans", Arial, sans-serif);letter-spacing:.045em;
+  font:800 8px/1.35 var(--vcc-font-body, var(--vcc-font-body, "DM Sans", Arial, sans-serif));letter-spacing:.045em;
   color:#fff;text-shadow:0 1px 6px #2b1b17a8;
 }
 body.inicio-vcc .home-planning-copy{
@@ -1371,28 +1371,28 @@ body.inicio-vcc .home-planning-copy{
   background:#fbf1e7!important;
 }
 body.inicio-vcc .home-planning-eyebrow{
-  font:600 clamp(16px,1.4vw,20px)/1.1 var(--vcc-font-script, "Caveat", cursive)!important;
+  font:600 clamp(16px,1.4vw,20px)/1.1 var(--vcc-font-script, var(--vcc-font-script, "Caveat", cursive))!important;
   color:#bd6751!important;margin:0 0 4px!important;
 }
 body.inicio-vcc .home-planning h2{
-  font:500 clamp(23px,2vw,29px)/1.05 var(--vcc-font-heading, "Oswald", sans-serif)!important;
+  font:500 clamp(23px,2vw,29px)/1.05 var(--vcc-font-heading, var(--vcc-font-heading, "Oswald", sans-serif))!important;
   margin:0 0 6px!important;
 }
 body.inicio-vcc .home-planning p{
   color:#514942!important;
-  font:400 clamp(10px,.87vw,12px)/1.43 var(--vcc-font-body, "DM Sans", Arial, sans-serif)!important;
+  font:400 clamp(10px,.87vw,12px)/1.43 var(--vcc-font-body, var(--vcc-font-body, "DM Sans", Arial, sans-serif))!important;
   margin:0 0 8px!important;
 }
 body.inicio-vcc .home-planning-tags{display:flex!important;flex-wrap:wrap;gap:5px!important;margin:0 0 9px!important}
 body.inicio-vcc .home-planning-tags span{
   background:#fffaf6!important;border:1px solid #dfc9bb!important;
   border-radius:14px!important;padding:4px 7px!important;
-  font:700 8px/1.1 var(--vcc-font-body, "DM Sans", Arial, sans-serif)!important;color:#995b4b!important;
+  font:700 8px/1.1 var(--vcc-font-body, var(--vcc-font-body, "DM Sans", Arial, sans-serif))!important;color:#995b4b!important;
 }
 body.inicio-vcc .home-planning .home-btn{
   margin:0!important;background:#cf6a50!important;
   min-height:30px!important;padding:7px 12px!important;
-  font:800 9px/1.2 var(--vcc-font-body, "DM Sans", Arial, sans-serif)!important;
+  font:800 9px/1.2 var(--vcc-font-body, var(--vcc-font-body, "DM Sans", Arial, sans-serif))!important;
   border-radius:5px!important;
 }
 body.inicio-vcc .home-social-contact{
@@ -1410,11 +1410,11 @@ body.inicio-vcc .home-social-contact .home-contact{
 }
 body.inicio-vcc .home-social-eyebrow{
   color:#bf654e!important;margin:0 0 3px!important;
-  font:600 17px/1.1 var(--vcc-font-script, "Caveat", cursive)!important;
+  font:600 17px/1.1 var(--vcc-font-script, var(--vcc-font-script, "Caveat", cursive))!important;
 }
 body.inicio-vcc .home-social-heading{margin:0 0 8px!important;gap:5px!important}
 body.inicio-vcc .home-social-heading h2{
-  font:500 clamp(17px,1.5vw,21px)/1.08 var(--vcc-font-heading, "Oswald", sans-serif)!important;
+  font:500 clamp(17px,1.5vw,21px)/1.08 var(--vcc-font-heading, var(--vcc-font-heading, "Oswald", sans-serif))!important;
 }
 body.inicio-vcc .home-social-heading svg{width:19px!important;height:19px!important;min-width:19px!important}
 body.inicio-vcc .home-insta-largepost{
@@ -1440,7 +1440,7 @@ body.inicio-vcc .home-insta-bottom{
 }
 body.inicio-vcc .home-insta-account{
   display:flex;align-items:center;gap:6px;
-  color:#3d332d;font:700 10px/1.2 var(--vcc-font-body, "DM Sans", Arial, sans-serif);
+  color:#3d332d;font:700 10px/1.2 var(--vcc-font-body, var(--vcc-font-body, "DM Sans", Arial, sans-serif));
 }
 body.inicio-vcc .home-insta-avatar{
   display:grid!important;place-items:center!important;
@@ -1450,11 +1450,11 @@ body.inicio-vcc .home-insta-avatar{
 body.inicio-vcc .home-insta-text{
   display:block!important;white-space:nowrap!important;
   text-overflow:ellipsis!important;overflow:hidden!important;
-  font:400 9px/1.3 var(--vcc-font-body, "DM Sans", Arial, sans-serif)!important;
+  font:400 9px/1.3 var(--vcc-font-body, var(--vcc-font-body, "DM Sans", Arial, sans-serif))!important;
   padding:0!important;margin:0!important;color:#71635a!important;
 }
 body.inicio-vcc .home-insta-profile-link{
-  font:800 9px/1.2 var(--vcc-font-body, "DM Sans", Arial, sans-serif)!important;
+  font:800 9px/1.2 var(--vcc-font-body, var(--vcc-font-body, "DM Sans", Arial, sans-serif))!important;
   margin:0!important;padding:7px 0 0!important;flex:none!important;color:#b55e47!important;
 }
 body.inicio-vcc .home-contact{align-items:flex-start!important;justify-content:center!important}
@@ -1465,11 +1465,11 @@ body.inicio-vcc .home-contact-symbol{
 }
 body.inicio-vcc .home-contact-symbol svg{width:60px!important;height:52px!important}
 body.inicio-vcc .home-contact h2{
-  font:500 clamp(22px,2vw,29px)/1.07 var(--vcc-font-heading, "Oswald", sans-serif)!important;
+  font:500 clamp(22px,2vw,29px)/1.07 var(--vcc-font-heading, var(--vcc-font-heading, "Oswald", sans-serif))!important;
   margin:0 0 8px!important;
 }
 body.inicio-vcc .home-contact p{
-  color:#554b45!important;font:400 clamp(10px,.96vw,12px)/1.45 var(--vcc-font-body, "DM Sans", Arial, sans-serif)!important;
+  color:#554b45!important;font:400 clamp(10px,.96vw,12px)/1.45 var(--vcc-font-body, var(--vcc-font-body, "DM Sans", Arial, sans-serif))!important;
   margin:0 0 12px!important;max-width:230px!important;
 }
 body.inicio-vcc .home-contact .home-btn{
@@ -1477,7 +1477,7 @@ body.inicio-vcc .home-contact .home-btn{
   width:auto!important;flex:none!important;align-self:flex-start!important;
   margin-top:auto!important;min-height:30px!important;
   padding:8px 12px!important;border-radius:5px!important;
-  font:800 9px/1.2 var(--vcc-font-body, "DM Sans", Arial, sans-serif)!important;
+  font:800 9px/1.2 var(--vcc-font-body, var(--vcc-font-body, "DM Sans", Arial, sans-serif))!important;
   background:#cf6a50!important;
 }
 @media(max-width:1150px) and (min-width:901px){
@@ -1597,7 +1597,7 @@ body.inicio-vcc .home-insta-text{
   white-space:normal!important;display:-webkit-box!important;
   -webkit-line-clamp:2!important;-webkit-box-orient:vertical!important;
   max-height:31px!important;overflow:hidden!important;
-  font:400 9px/1.3 var(--vcc-font-body, "DM Sans", Arial, sans-serif)!important;
+  font:400 9px/1.3 var(--vcc-font-body, var(--vcc-font-body, "DM Sans", Arial, sans-serif))!important;
   padding:4px 7px 6px!important;flex:none!important;
 }
 body.inicio-vcc .home-social-heading h2{font-size:clamp(17px,1.5vw,21px)!important}

@@ -39,13 +39,13 @@ body.inicio-vcc .home-about-title{
 }
 body.inicio-vcc .home-about-title .home-kicker{
   display:block!important;
-  font:600 clamp(19px,2.1vw,29px)/1.1 "Caveat",cursive!important;
+  font:600 clamp(19px,2.1vw,29px)/1.1 var(--vcc-font-script, "Caveat", cursive)!important;
   color:#c6664e!important;
   margin-bottom:5px!important;
 }
 body.inicio-vcc .home-about h2{
   white-space:nowrap!important;
-  font:500 clamp(25px,2.7vw,39px)/1.05 "Oswald",sans-serif!important;
+  font:500 clamp(25px,2.7vw,39px)/1.05 var(--vcc-font-heading, "Oswald", sans-serif)!important;
 }
 body.inicio-vcc .home-about h2:after{
   content:"";display:block;width:88px;height:3px;
@@ -55,7 +55,7 @@ body.inicio-vcc .home-about-summary{
   min-width:0!important;
 }
 body.inicio-vcc .home-about-summary p{
-  font:400 clamp(11px,1.05vw,14px)/1.52 "DM Sans",sans-serif!important;
+  font:400 clamp(11px,1.05vw,14px)/1.52 var(--vcc-font-body, "DM Sans", Arial, sans-serif)!important;
   color:#342f2b!important;
   max-width:560px!important;
   margin:0 0 9px!important;
@@ -64,7 +64,7 @@ body.inicio-vcc .home-about-link{
   display:inline-flex!important;
   gap:5px!important;
   margin-top:0!important;
-  font:800 11px/1.3 "DM Sans",sans-serif!important;
+  font:800 11px/1.3 var(--vcc-font-body, "DM Sans", Arial, sans-serif)!important;
   color:#b95439!important;
   white-space:nowrap!important;
 }
@@ -187,7 +187,7 @@ body.inicio-vcc .home-contact h2{
   margin:0 0 7px!important;flex:0 0 auto!important;
 }
 body.inicio-vcc .home-contact p{
-  font:400 11px/1.42 "DM Sans",sans-serif!important;
+  font:400 11px/1.42 var(--vcc-font-body, "DM Sans", Arial, sans-serif)!important;
   margin:0 0 7px!important;
   flex:0 1 auto!important;
   overflow:visible!important;
