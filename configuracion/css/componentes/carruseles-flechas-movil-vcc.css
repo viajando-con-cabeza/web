@@ -199,7 +199,7 @@
     flex:0 0 100%!important;max-width:100%!important;
   }
 
-  /* Controls laterals comuns · només fletxes, sense cercle visible. */
+  /* Controls laterals comuns · cercles blancs 95% transparents més als extrems. */
   html body.budget-vcc .savings-section .carousel-shell > .carousel-arrow,
   html body.budget-vcc .surprise-section .carousel-shell > .carousel-arrow,
   html body.budget-vcc #filosofia .vcc-budget-mode-arrow,
@@ -223,9 +223,9 @@
     min-width:36px!important;
     min-height:36px!important;
     place-items:center!important;
-    border:0!important;
-    border-radius:0!important;
-    background:transparent!important;
+    border:1px solid rgba(165,145,130,.38)!important;
+    border-radius:50%!important;
+    background:rgba(255,255,255,.05)!important;
     color:#805e52!important;
     box-shadow:none!important;
     -webkit-backdrop-filter:none!important;
@@ -234,5 +234,43 @@
     font-size:20px!important;
     line-height:1!important;
     touch-action:manipulation;
+  }
+
+  /* Una mica més enfora: rodona superposada a la vora de cada targeta. */
+  html body.budget-vcc .savings-section .carousel-shell > .carousel-arrow.prev,
+  html body.budget-vcc .surprise-section .carousel-shell > .carousel-arrow.prev,
+  html body.budget-vcc #filosofia .vcc-budget-mode-arrow.previous,
+  body.mv-body .mv-transport-prev,
+  body.mv-body .mv-prev,
+  .ep-page .ep3-saving-stage > .ep3-saving-prev,
+  .ep-page .ep4-our-stage:not(.ep4-our-no-overflow) > .ep4-our-arrow-prev,
+  .tv-page .tv-carousel-shell > [data-tv-prev],
+  .al-page .al-carousel > .al-carousel-prev,
+  .vl-page .vl-tips-carousel > .vl-tip-prev,
+  .cl-page.cl-landing .vcc-saving-prev,
+  .dv-page .dv-carousel-wrap > .dv-arrow-left,
+  .dv-page .dv-tip-carousel-wrap > .dv-tip-prev,
+  html body.ci-page .ci-tips-shell > .ci-tips-prev,
+  html body .ql-page .ql-advice-carousel-sides > #ql-advice-prev {
+    left:-10px!important;
+    right:auto!important;
+  }
+  html body.budget-vcc .savings-section .carousel-shell > .carousel-arrow.next,
+  html body.budget-vcc .surprise-section .carousel-shell > .carousel-arrow.next,
+  html body.budget-vcc #filosofia .vcc-budget-mode-arrow.next,
+  body.mv-body .mv-transport-next,
+  body.mv-body .mv-next,
+  .ep-page .ep3-saving-stage > .ep3-saving-next,
+  .ep-page .ep4-our-stage:not(.ep4-our-no-overflow) > .ep4-our-arrow-next,
+  .tv-page .tv-carousel-shell > [data-tv-next],
+  .al-page .al-carousel > .al-carousel-next,
+  .vl-page .vl-tips-carousel > .vl-tip-next,
+  .cl-page.cl-landing .vcc-saving-next,
+  .dv-page .dv-carousel-wrap > .dv-arrow-right,
+  .dv-page .dv-tip-carousel-wrap > .dv-tip-next,
+  html body.ci-page .ci-tips-shell > .ci-tips-next,
+  html body .ql-page .ql-advice-carousel-sides > #ql-advice-next {
+    right:-10px!important;
+    left:auto!important;
   }
 }
