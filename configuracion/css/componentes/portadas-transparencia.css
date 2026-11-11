@@ -1,14 +1,14 @@
 /* VCC · Portades principals: foto natural, transparència progressiva.
    Només afecta Inicio, Destinos, Itinerarios, Planifica, Nosotros i Contacto.
-   L'esquerra queda més transparent i la dreta conserva la foto completa.
+   L'esquerra queda molt atenuada i la dreta conserva la major part de la foto, amb una transparència suau.
    No aplica saturació, sepia, contrast ni filtres de color. */
 
 :root {
   --vcc-portada-fade: linear-gradient(90deg,
-    rgba(0,0,0,.05) 0%,
-    rgba(0,0,0,.26) 34%,
-    rgba(0,0,0,.72) 72%,
-    rgba(0,0,0,1) 100%);
+    rgba(0,0,0,.04) 0%,
+    rgba(0,0,0,.21) 34%,
+    rgba(0,0,0,.59) 72%,
+    rgba(0,0,0,.82) 100%);
   --vcc-portada-base: #ffffff;
 }
 
@@ -107,10 +107,10 @@ body:has(.contact-page) .contact-page .contact-hero::after {
      Degradat exclusivament de transparència sobre blanc, sense tintes. */
   :root {
     --vcc-portada-fade: linear-gradient(90deg,
-      rgba(0,0,0,.04) 0%,
-      rgba(0,0,0,.12) 32%,
-      rgba(0,0,0,.26) 70%,
-      rgba(0,0,0,.48) 100%);
+      rgba(0,0,0,.03) 0%,
+      rgba(0,0,0,.10) 32%,
+      rgba(0,0,0,.21) 70%,
+      rgba(0,0,0,.41) 100%);
   }
   body:has(.contact-page) .contact-page .contact-hero::before {
     background-position: 65% center !important;
