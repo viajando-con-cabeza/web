@@ -4,15 +4,15 @@
    Hoja única y sin overrides contradictorios. */
 body.dv-page{
  --dv-paper:#faf7f3;--dv-ink:#212020;--dv-muted:#635e59;
- --dv-orange:#c86f5d;--dv-line:#e7dfd7;--dv-green:#109849;--dv-red:#e34d3e;
+ --dv-orange:var(--vcc-accent-override, #c86f5d);--dv-line:#e7dfd7;--dv-green:#109849;--dv-red:#e34d3e;
  margin:0;background:var(--dv-paper);color:var(--dv-ink);
- font-family:'DM Sans',sans-serif;
+ font-family:var(--vcc-font-body, "DM Sans", Arial, sans-serif);
 }
 .dv-page *{box-sizing:border-box}
 .dv-page a{color:inherit;text-decoration:none}
 .dv-page button{font:inherit}
 .dv-page h1,.dv-page h2,.dv-page h3,.dv-page p{margin:0}
-.dv-page h1,.dv-page h2,.dv-page h3{font-family:'Oswald',sans-serif}
+.dv-page h1,.dv-page h2,.dv-page h3{font-family:var(--vcc-font-heading, "Oswald", sans-serif)}
 .dv-page .dv-shell{width:min(1490px,calc(100% - 106px));margin-inline:auto}
 /* HERO: mismas alturas que la portada de Qué ver de Estocolmo. */
 .dv-page .dv-hero{
@@ -50,11 +50,11 @@ body.dv-page{
  margin:0!important;padding:0!important;transform:none!important;
 }
 .dv-page .dv-script{
- font:600 30px/1 'Caveat',cursive;color:var(--dv-orange);
+ font:600 30px/1 var(--vcc-font-script, "Caveat", cursive);color:var(--dv-orange);
  margin:0 0 8px!important;
 }
 .dv-page .dv-hero h1{
- font:600 clamp(42px,4.4vw,64px)/1.08 'Oswald',sans-serif;
+ font:600 clamp(42px,4.4vw,64px)/1.08 var(--vcc-font-heading, "Oswald", sans-serif);
  letter-spacing:-.015em;text-transform:uppercase;
 }
 .dv-page .dv-hero h1 em{font-style:normal;color:var(--dv-orange)}
@@ -63,7 +63,7 @@ body.dv-page{
  background:var(--dv-orange);
 }
 .dv-page .dv-subtitle{
- font:400 15px/1.65 'DM Sans',sans-serif;
+ font:400 15px/1.65 var(--vcc-font-body, "DM Sans", Arial, sans-serif);
  max-width:600px;color:#4c413d;
 }
 /* La barra coincide con la altura del índice de Qué ver. */
@@ -79,7 +79,7 @@ body.dv-page{
 .dv-page .dv-subnav a{
  display:inline-flex;align-items:center;height:39px;padding:0;
  flex:0 0 auto;color:#181818;border-bottom:2px solid transparent;
- font:800 12px/1.15 'DM Sans',sans-serif;
+ font:800 12px/1.15 var(--vcc-font-body, "DM Sans", Arial, sans-serif);
 }
 .dv-page .dv-subnav a:hover,.dv-page .dv-subnav a[aria-current="location"]{
  color:#ab5947;border-bottom-color:#cf705c;
@@ -95,11 +95,11 @@ body.dv-page{
  margin-bottom:17px;
 }
 .dv-page .dv-section-title .dv-section-script{
- font:600 28px/1.1 'Caveat',cursive;color:var(--dv-orange);
+ font:600 28px/1.1 var(--vcc-font-script, "Caveat", cursive);color:var(--dv-orange);
  margin:0 0 6px;text-transform:none;
 }
 .dv-page .dv-section-title h2{
- font:500 clamp(26px,2.5vw,35px)/1.15 'Oswald',sans-serif;
+ font:500 clamp(26px,2.5vw,35px)/1.15 var(--vcc-font-heading, "Oswald", sans-serif);
  text-transform:uppercase;
 }
 .dv-page .dv-section-title h2::after{
@@ -107,7 +107,7 @@ body.dv-page{
  border-radius:50%;transform:rotate(-1deg);margin-top:8px;
 }
 .dv-page .dv-section-title .dv-section-subtitle{
- font:400 12px/1.5 'DM Sans',sans-serif;color:var(--dv-muted);margin:8px 0 0;
+ font:400 12px/1.5 var(--vcc-font-body, "DM Sans", Arial, sans-serif);color:var(--dv-muted);margin:8px 0 0;
 }
 /* Carousel remains accessible by buttons, touch and keyboard. */
 .dv-page .dv-carousel-wrap{position:relative}
@@ -122,7 +122,7 @@ body.dv-page{
  width:42px;height:42px;transform:translateY(-50%);
  border:1px solid #e4dbd4;border-radius:50%;background:#fff;
  box-shadow:0 4px 16px #231b151c;color:#293e41;
- font:400 24px/1 'DM Sans',sans-serif!important;cursor:pointer;
+ font:400 24px/1 var(--vcc-font-body, "DM Sans", Arial, sans-serif)!important;cursor:pointer;
 }
 .dv-page .dv-arrow-left{left:-49px}
 .dv-page .dv-arrow-right{right:-49px}
@@ -155,11 +155,11 @@ body.dv-page{
 .dv-page .dv-card-head{flex:1 1 auto;min-width:0;padding:2px 0 0}
 .dv-page .dv-card-kicker{
  display:block;color:var(--dv-orange);
- font:600 22px/1.08 'Caveat',cursive;
+ font:600 22px/1.08 var(--vcc-font-script, "Caveat", cursive);
  margin:0 0 8px;overflow-wrap:break-word;
 }
 .dv-page .dv-card-head h3{
- font:600 clamp(18px,1.5vw,22px)/1.12 'Oswald',sans-serif;
+ font:600 clamp(18px,1.5vw,22px)/1.12 var(--vcc-font-heading, "Oswald", sans-serif);
  color:#202221;text-transform:uppercase;overflow-wrap:normal;
 }
 /* Score like the Swedish guide carousel: box top right, descriptor underneath.
@@ -174,15 +174,15 @@ body.dv-page{
 .dv-page .dv-rating strong{
  display:grid;place-items:center;width:38px;height:36px;
  background:#7d7f7f;border-radius:7px;
- font:600 20px/1 'Oswald',sans-serif;color:#fff;
+ font:600 20px/1 var(--vcc-font-heading, "Oswald", sans-serif);color:#fff;
 }
 .dv-page .dv-rating small{
  display:block;margin:2px 0 0;color:#534d48;
  text-align:center;white-space:nowrap;
- font:800 7.5px/1.2 'DM Sans',sans-serif;
+ font:800 7.5px/1.2 var(--vcc-font-body, "DM Sans", Arial, sans-serif);
 }
 .dv-page .dv-card-description{
- font:400 11.5px/1.46 'DM Sans',sans-serif;color:#58534e;
+ font:400 11.5px/1.46 var(--vcc-font-body, "DM Sans", Arial, sans-serif);color:#58534e;
  margin:5px 0 10px!important;min-height:33px;
 }
 .dv-page .dv-pros{
@@ -192,11 +192,11 @@ body.dv-page{
 }
 .dv-page .dv-pros li{
  display:flex;gap:8px;align-items:flex-start;
- font:400 11.5px/1.35 'DM Sans',sans-serif;
+ font:400 11.5px/1.35 var(--vcc-font-body, "DM Sans", Arial, sans-serif);
 }
 .dv-page .dv-pros .dv-sign{flex:0 0 18px;text-align:center}
-.dv-page .dv-pros .good .dv-sign{font:800 14px/1.15 'DM Sans',sans-serif;color:var(--dv-green)}
-.dv-page .dv-pros .bad .dv-sign{font:800 18px/.95 'DM Sans',sans-serif;color:var(--dv-red)}
+.dv-page .dv-pros .good .dv-sign{font:800 14px/1.15 var(--vcc-font-body, "DM Sans", Arial, sans-serif);color:var(--dv-green)}
+.dv-page .dv-pros .bad .dv-sign{font:800 18px/.95 var(--vcc-font-body, "DM Sans", Arial, sans-serif);color:var(--dv-red)}
 .dv-page .dv-card-bottom{
  display:grid;grid-template-columns:.7fr 1.3fr;gap:8px;
  align-items:center;margin-top:auto;padding-top:10px;
@@ -204,7 +204,7 @@ body.dv-page{
 }
 .dv-page .dv-meta{
  display:flex;align-items:center;gap:6px;min-width:0;
- font:400 10px/1.3 'DM Sans',sans-serif;
+ font:400 10px/1.3 var(--vcc-font-body, "DM Sans", Arial, sans-serif);
 }
 .dv-page .dv-meta + .dv-meta{border-left:1px solid var(--dv-line);padding-left:10px}
 .dv-page .dv-meta strong{font-weight:800;color:#2b2b2b}
@@ -229,18 +229,18 @@ body.dv-page{
 }
 .dv-page #como-ahorrar .dv-savings-heading>div{flex:1 1 auto;min-width:0}
 .dv-page #como-ahorrar .dv-savings-heading .dv-section-script{
- font:600 29px/1.12 'Caveat',cursive;color:#c86f5d;
+ font:600 29px/1.12 var(--vcc-font-script, "Caveat", cursive);color:#c86f5d;
  letter-spacing:0;text-transform:none;margin:0 0 7px;
 }
 .dv-page #como-ahorrar .dv-savings-heading h2{
- font:600 clamp(30px,3.25vw,43px)/1.08 'Oswald',sans-serif;
+ font:600 clamp(30px,3.25vw,43px)/1.08 var(--vcc-font-heading, "Oswald", sans-serif);
  text-transform:uppercase;margin:0;letter-spacing:0;color:#171717;
 }
 .dv-page #como-ahorrar .dv-savings-heading h2::after{display:none}
 .dv-page #como-ahorrar .dv-savings-heading .dv-section-subtitle{
  flex:0 1 370px;max-width:370px;min-width:0;
  margin:0 0 3px!important;text-align:right;
- font:400 13px/1.6 'DM Sans',sans-serif;color:#655e58;
+ font:400 13px/1.6 var(--vcc-font-body, "DM Sans", Arial, sans-serif);color:#655e58;
 }
 /* Flexbox track: 3 tarjetas visibles escritorio, 2 tablet, 1 móvil. */
 .dv-page .dv-tip-carousel-wrap{position:relative;margin-top:0}
@@ -267,20 +267,20 @@ body.dv-page{
  border:1px solid #d9a094;outline:1px dashed #d9a094;outline-offset:3px;
  background:#fff4f0;box-shadow:inset 0 0 0 3px #fffaf3;
  transform:rotate(-8deg);color:#ba6757;
- font:500 20px/1 'Oswald',sans-serif;letter-spacing:0;
+ font:500 20px/1 var(--vcc-font-heading, "Oswald", sans-serif);letter-spacing:0;
  font-variant-numeric:tabular-nums;
 }
 .dv-page .dv-tip-copy{
  flex:1 1 auto;min-width:0;display:flex;flex-direction:column;justify-content:flex-start;
 }
 .dv-page .dv-tip h3{
- font:500 clamp(17px,1.35vw,20px)/1.16 'Oswald',sans-serif;
+ font:500 clamp(17px,1.35vw,20px)/1.16 var(--vcc-font-heading, "Oswald", sans-serif);
  color:#1d1b19;text-transform:none;
  margin:1px 0 7px;
  display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;line-clamp:2;overflow:hidden;
 }
 .dv-page .dv-tip p{
- font:400 11.5px/1.52 'DM Sans',sans-serif;
+ font:400 11.5px/1.52 var(--vcc-font-body, "DM Sans", Arial, sans-serif);
  color:#68615b;margin:0;
 }
 .dv-page .dv-tip-carousel-wrap .dv-arrow{
@@ -383,15 +383,15 @@ body.dv-page{
 }
 .dv-page .dv-zone-heading-title{display:flex;align-items:baseline;flex-wrap:wrap;gap:10px}
 .dv-page .dv-zone-heading-title h3{
- font:600 28px/1.1 'Oswald',sans-serif;color:#1e1c1b;
+ font:600 28px/1.1 var(--vcc-font-heading, "Oswald", sans-serif);color:#1e1c1b;
 }
 .dv-page .dv-zone-heading-title>span{
- font:600 24px/1 'Caveat',cursive;color:#bb604c;
+ font:600 24px/1 var(--vcc-font-script, "Caveat", cursive);color:#bb604c;
 }
 .dv-page .dv-zone-close{
  flex:0 0 31px;width:31px;height:31px;border:1px solid #e0cfc4;
  border-radius:50%;background:#fff;color:#b65c43;
- font:400 24px/1 'DM Sans',sans-serif;cursor:pointer;
+ font:400 24px/1 var(--vcc-font-body, "DM Sans", Arial, sans-serif);cursor:pointer;
  display:grid;place-items:center;
 }
 .dv-page .dv-zone-close:hover{background:#faeee8}
@@ -405,7 +405,7 @@ body.dv-page{
  min-width:0;padding-left:25px;border-left:1px solid #eaded5;
 }
 .dv-page .dv-zone-body h4{
- font:600 21px/1.15 'Oswald',sans-serif;text-transform:uppercase;
+ font:600 21px/1.15 var(--vcc-font-heading, "Oswald", sans-serif);text-transform:uppercase;
  color:#202020;margin:0 0 10px;
 }
 .dv-page .dv-zone-hotels-list{display:grid;gap:8px}
@@ -426,21 +426,21 @@ body.dv-page{
  gap:8px;margin-bottom:3px;
 }
 .dv-page .dv-zone-hotel-top strong{
- font:600 14px/1.3 'Oswald',sans-serif;color:#1d1d1d;
+ font:600 14px/1.3 var(--vcc-font-heading, "Oswald", sans-serif);color:#1d1d1d;
 }
 .dv-page .dv-zone-hotel-top>span{
  flex:0 0 auto;border-radius:6px;background:#f3eeea;
- padding:3px 6px;color:#514841;font:600 9px/1.2 'DM Sans',sans-serif;
+ padding:3px 6px;color:#514841;font:600 9px/1.2 var(--vcc-font-body, "DM Sans", Arial, sans-serif);
 }
 .dv-page .dv-zone-hotel-loc{
- font:400 10.5px/1.35 'DM Sans',sans-serif;color:#615b55;margin:0 0 3px;
+ font:400 10.5px/1.35 var(--vcc-font-body, "DM Sans", Arial, sans-serif);color:#615b55;margin:0 0 3px;
 }
 .dv-page .dv-zone-hotel-copy small{
- font:400 10px/1.4 'DM Sans',sans-serif;color:#423e3b;
+ font:400 10px/1.4 var(--vcc-font-body, "DM Sans", Arial, sans-serif);color:#423e3b;
 }
 .dv-page .dv-zone-hotel-copy small b{font-weight:700}
 .dv-page .dv-zone-hotels-note{
- margin:10px 0 0;font:400 10px/1.5 'DM Sans',sans-serif;
+ margin:10px 0 0;font:400 10px/1.5 var(--vcc-font-body, "DM Sans", Arial, sans-serif);
  color:#756b64;
 }
 @media(max-width:1090px){
@@ -481,16 +481,16 @@ body.dv-page{
 .dv-page .dv-zone-hotel-top strong{font-size:15px}
 .dv-page .dv-zone-hotel-loc{margin-bottom:9px}
 .dv-page .dv-zone-price{
- color:#333;font:700 12px/1.2 'DM Sans',sans-serif;
+ color:#333;font:700 12px/1.2 var(--vcc-font-body, "DM Sans", Arial, sans-serif);
  font-variant-numeric:tabular-nums;white-space:nowrap;
 }
 .dv-page .dv-zone-price small{
- font:400 9.5px/1.2 'DM Sans',sans-serif;
+ font:400 9.5px/1.2 var(--vcc-font-body, "DM Sans", Arial, sans-serif);
  color:#77716b;margin-left:5px;
 }
 .dv-page .dv-zone-booking-link{
  display:inline-flex;align-items:center;gap:5px;
- font:700 10.5px/1.3 'DM Sans',sans-serif;
+ font:700 10.5px/1.3 var(--vcc-font-body, "DM Sans", Arial, sans-serif);
  color:#af523f;text-decoration:underline;text-decoration-color:#d9b5a6;
  text-underline-offset:3px;
 }
@@ -519,7 +519,7 @@ body.dv-page{
  padding:0 0 12px;border-bottom:1px solid #eee7e1;
 }
 .dv-page .dv-zone-review-head h4{
- margin:0;font:600 18px/1.2 'Oswald',sans-serif;
+ margin:0;font:600 18px/1.2 var(--vcc-font-heading, "Oswald", sans-serif);
  color:#292929;text-align:right;
 }
 .dv-page .dv-zone-score-compact{
@@ -529,17 +529,17 @@ body.dv-page{
  display:grid;place-items:center;flex:0 0 47px;
  width:47px;height:48px;border-radius:7px 7px 7px 2px;
  background:#777b7d;color:#fff;
- font:600 24px/1 'Oswald',sans-serif;
+ font:600 24px/1 var(--vcc-font-heading, "Oswald", sans-serif);
  font-variant-numeric:tabular-nums;
 }
 .dv-page .dv-zone-score-compact>span{
  display:flex;flex-direction:column;gap:3px;min-width:0;
 }
 .dv-page .dv-zone-score-compact b{
- font:600 15px/1.15 'DM Sans',sans-serif;color:#292929;
+ font:600 15px/1.15 var(--vcc-font-body, "DM Sans", Arial, sans-serif);color:#292929;
 }
 .dv-page .dv-zone-score-compact small{
- font:400 10px/1.3 'DM Sans',sans-serif;color:#77716d;
+ font:400 10px/1.3 var(--vcc-font-body, "DM Sans", Arial, sans-serif);color:#77716d;
 }
 .dv-page .dv-zone-review-grid{
  display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
@@ -549,11 +549,11 @@ body.dv-page{
 .dv-page .dv-zone-review-label{
  display:flex;align-items:baseline;justify-content:space-between;
  gap:6px;margin-bottom:6px;
- font:500 10.5px/1.3 'DM Sans',sans-serif;color:#393838;
+ font:500 10.5px/1.3 var(--vcc-font-body, "DM Sans", Arial, sans-serif);color:#393838;
 }
 .dv-page .dv-zone-review-label span{min-width:0}
 .dv-page .dv-zone-review-label strong{
- flex:0 0 auto;font:700 10.5px/1.2 'DM Sans',sans-serif;
+ flex:0 0 auto;font:700 10.5px/1.2 var(--vcc-font-body, "DM Sans", Arial, sans-serif);
  color:#444;font-variant-numeric:tabular-nums;
 }
 .dv-page .dv-zone-review-track{
@@ -567,11 +567,11 @@ body.dv-page{
  border-top:1px solid #ebe4de;margin-top:17px;padding-top:15px;
 }
 .dv-page .dv-zone-procon h4{
- margin:0 0 7px;font:600 20px/1.2 'Oswald',sans-serif;
+ margin:0 0 7px;font:600 20px/1.2 var(--vcc-font-heading, "Oswald", sans-serif);
  color:#262526;
 }
 .dv-page .dv-zone-procon-intro{
- margin:0 0 15px!important;font:400 11.5px/1.5 'DM Sans',sans-serif;
+ margin:0 0 15px!important;font:400 11.5px/1.5 var(--vcc-font-body, "DM Sans", Arial, sans-serif);
  color:#615d58;
 }
 .dv-page .dv-zone-procon-grid{
@@ -581,7 +581,7 @@ body.dv-page{
 .dv-page .dv-zone-feel{min-width:0}
 .dv-page .dv-zone-feel h5{
  display:flex;align-items:center;gap:7px;margin:0 0 9px;
- font:600 13px/1.2 'Oswald',sans-serif;
+ font:600 13px/1.2 var(--vcc-font-heading, "Oswald", sans-serif);
  color:#292828;
 }
 .dv-page .dv-zone-feel h5 svg{
@@ -595,7 +595,7 @@ body.dv-page{
 }
 .dv-page .dv-zone-feel li{
  position:relative;padding-left:12px;
- font:400 11px/1.43 'DM Sans',sans-serif;
+ font:400 11px/1.43 var(--vcc-font-body, "DM Sans", Arial, sans-serif);
  color:#514c48;
 }
 .dv-page .dv-zone-feel li::before{
@@ -654,14 +654,14 @@ body.dv-page{
  display:flex;align-items:center;justify-content:space-between;gap:8px;
  flex:0 0 auto;margin-top:9px;padding-top:10px;
  border-top:1px solid var(--dv-line);
- color:#ad5945;font:700 10.5px/1.3 'DM Sans',sans-serif;
+ color:#ad5945;font:700 10.5px/1.3 var(--vcc-font-body, "DM Sans", Arial, sans-serif);
  letter-spacing:0;white-space:nowrap;
 }
 .dv-page .dv-card-discover-arrow{
  display:grid;place-items:center;flex:0 0 22px;
  width:22px;height:22px;border:1px solid #e2c3b7;
  border-radius:50%;background:#fcf5ef;color:#aa5844;
- font:600 18px/1 'DM Sans',sans-serif;
+ font:600 18px/1 var(--vcc-font-body, "DM Sans", Arial, sans-serif);
  transition:transform .18s ease,background .18s ease;
 }
 .dv-page .dv-card:hover .dv-card-discover,
@@ -678,7 +678,7 @@ body.dv-page{
 .dv-page .dv-zone-hotel-why{
  margin:0 0 8px!important;
  color:#59524d;
- font:400 10.5px/1.42 'DM Sans',sans-serif;
+ font:400 10.5px/1.42 var(--vcc-font-body, "DM Sans", Arial, sans-serif);
 }
 @media(max-width:600px){
  .dv-page .dv-card-discover{font-size:10px;padding-top:9px}
@@ -700,17 +700,17 @@ body.dv-page{
  display:block;margin:0 0 5px;line-height:1.22;
 }
 .dv-page .dv-zone-hotel-top strong{
- display:inline;font:600 15px/1.24 'Oswald',sans-serif;
+ display:inline;font:600 15px/1.24 var(--vcc-font-heading, "Oswald", sans-serif);
  color:#1d1d1d;vertical-align:baseline;
 }
 .dv-page .dv-zone-hotel .dv-zone-hotel-top .dv-zone-hotel-loc{
  display:inline;white-space:normal;flex:initial;
- font:400 10.5px/1.3 'DM Sans',sans-serif;
+ font:400 10.5px/1.3 var(--vcc-font-body, "DM Sans", Arial, sans-serif);
  color:#69615b;margin:0;padding:0;border:0;border-radius:0;
  background:transparent;box-shadow:none;
 }
 .dv-page .dv-zone-hotel .dv-zone-hotel-why{
- font:400 10.5px/1.4 'DM Sans',sans-serif;
+ font:400 10.5px/1.4 var(--vcc-font-body, "DM Sans", Arial, sans-serif);
  margin:0!important;color:#5c554f;
 }
 .dv-page .dv-zone-hotel-pricecol{
@@ -719,12 +719,12 @@ body.dv-page{
  min-width:0;
 }
 .dv-page .dv-zone-hotel-pricecol .dv-zone-price{
- font:700 12px/1.2 'DM Sans',sans-serif;
+ font:700 12px/1.2 var(--vcc-font-body, "DM Sans", Arial, sans-serif);
  color:#363331;white-space:nowrap;
 }
 .dv-page .dv-zone-hotel-pricecol .dv-zone-price small{
  display:block;margin:3px 0 0;
- font:400 9px/1.2 'DM Sans',sans-serif;
+ font:400 9px/1.2 var(--vcc-font-body, "DM Sans", Arial, sans-serif);
  color:#756e68;white-space:nowrap;
 }
 .dv-page .dv-zone-hotel-pricecol .dv-zone-booking-link{
@@ -847,7 +847,7 @@ body.dv-page{
  display:inline-block;vertical-align:baseline;
  padding:2px 5px;margin:0 4px;
  border-radius:4px;background:#f6e5da;color:#a94f36;
- font:700 8.5px/1.2 'DM Sans',sans-serif;white-space:nowrap;
+ font:700 8.5px/1.2 var(--vcc-font-body, "DM Sans", Arial, sans-serif);white-space:nowrap;
 }
 @media(max-width:1090px){
 }
@@ -875,7 +875,7 @@ body.dv-page{
  flex:0 0 26px;width:26px;height:26px;color:#c36a4d;margin-top:1px;
 }
 .dv-page .dv-trust-global-heading h3{
- font:600 18px/1.22 'Oswald',sans-serif;
+ font:600 18px/1.22 var(--vcc-font-heading, "Oswald", sans-serif);
  text-transform:uppercase;color:#292624;margin:0;
 }
 .dv-page .dv-trust-global-grid{
@@ -886,11 +886,11 @@ body.dv-page{
 }
 .dv-page .dv-trust-global-grid strong{
  display:block;margin-bottom:5px;color:#b65d46;
- font:700 11px/1.3 'DM Sans',sans-serif;
+ font:700 11px/1.3 var(--vcc-font-body, "DM Sans", Arial, sans-serif);
 }
 .dv-page .dv-trust-global-grid p{
  margin:0!important;color:#686059;
- font:400 10.5px/1.48 'DM Sans',sans-serif;
+ font:400 10.5px/1.48 var(--vcc-font-body, "DM Sans", Arial, sans-serif);
 }
 @media(max-width:1100px){
  .dv-page .dv-trust-global{
@@ -944,10 +944,10 @@ body.dv-page{
  padding:8px 0 0;
  border-top:1px solid #ecd8cd;
  color:#56504a;
- font:400 10.5px/1.55 'DM Sans',sans-serif;
+ font:400 10.5px/1.55 var(--vcc-font-body, "DM Sans", Arial, sans-serif);
 }
 .dv-page .dv-zone-hotel.is-real-stay .dv-zone-hotel-our-experience strong{
- font:700 10.5px/1.45 'DM Sans',sans-serif;
+ font:700 10.5px/1.45 var(--vcc-font-body, "DM Sans", Arial, sans-serif);
  color:#b35b43;
 }
 @media(max-width:600px){
@@ -968,7 +968,7 @@ body.dv-page{
  margin:4px 0 0;padding:3px 7px;
  border:1px solid #e6c5b5;border-radius:5px;
  background:#fff6f1;color:#a3533c;
- font:700 9px/1.25 'DM Sans',sans-serif;
+ font:700 9px/1.25 var(--vcc-font-body, "DM Sans", Arial, sans-serif);
  white-space:nowrap;
 }
 /* Iconos de trazo sencillo y sin fondo para los criterios de confianza. */
@@ -982,7 +982,7 @@ body.dv-page{
 }
 .dv-page .dv-trust-global-grid .dv-trust-point-heading strong{
  margin:0;color:#b65d46;
- font:700 11px/1.3 'DM Sans',sans-serif;
+ font:700 11px/1.3 var(--vcc-font-body, "DM Sans", Arial, sans-serif);
 }
 @media(max-width:600px){
  .dv-page .dv-zone-hotel.is-real-stay .dv-real-hotel-badge{
@@ -1004,7 +1004,7 @@ body.dv-page{
 .dv-page .dv-zone-hotels > h4{
  margin:0;
  padding:0;
- font:600 19px/1.15 'Oswald',sans-serif;
+ font:600 19px/1.15 var(--vcc-font-heading, "Oswald", sans-serif);
  text-transform:uppercase;
  letter-spacing:0;
  color:#202020;
@@ -1028,16 +1028,16 @@ body.dv-page{
 }
 .dv-page #como-ahorrar .dv-savings-heading>div{min-width:0;flex:1 1 auto}
 .dv-page #como-ahorrar .dv-savings-heading .dv-section-script{
- font:600 29px/1.12 'Caveat',cursive;color:#c86f5d;margin:0 0 7px;
+ font:600 29px/1.12 var(--vcc-font-script, "Caveat", cursive);color:#c86f5d;margin:0 0 7px;
 }
 .dv-page #como-ahorrar .dv-savings-heading h2{
- font:600 clamp(30px,3.25vw,43px)/1.08 'Oswald',sans-serif;
+ font:600 clamp(30px,3.25vw,43px)/1.08 var(--vcc-font-heading, "Oswald", sans-serif);
  color:#171717;text-transform:uppercase;margin:0;
 }
 .dv-page #como-ahorrar .dv-savings-heading h2::after{display:none!important;content:none!important}
 .dv-page #como-ahorrar .dv-savings-heading .dv-section-subtitle{
  flex:0 1 370px;max-width:370px;margin:0 0 3px!important;
- font:400 13px/1.6 'DM Sans',sans-serif;text-align:right;color:#655e58;
+ font:400 13px/1.6 var(--vcc-font-body, "DM Sans", Arial, sans-serif);text-align:right;color:#655e58;
 }
 .dv-page #como-ahorrar .dv-tip-grid{
  display:flex;gap:14px;align-items:stretch;overflow-x:auto;overflow-y:hidden;
@@ -1059,16 +1059,16 @@ body.dv-page{
  outline:1px dashed #d9a094;outline-offset:3px;
  background:#fff4f0;box-shadow:inset 0 0 0 3px #fffaf3;
  color:#ba6757;transform:rotate(-8deg);
- font:500 20px/1 'Oswald',sans-serif;letter-spacing:0;
+ font:500 20px/1 var(--vcc-font-heading, "Oswald", sans-serif);letter-spacing:0;
 }
 .dv-page #como-ahorrar .dv-tip-copy{flex:1 1 auto;min-width:0;display:flex;flex-direction:column}
 .dv-page #como-ahorrar .dv-tip h3{
- font:500 clamp(17px,1.35vw,20px)/1.16 'Oswald',sans-serif;
+ font:500 clamp(17px,1.35vw,20px)/1.16 var(--vcc-font-heading, "Oswald", sans-serif);
  text-transform:none;color:#1d1b19;margin:1px 0 7px;
  display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;
 }
 .dv-page #como-ahorrar .dv-tip p{
- font:400 11.5px/1.52 'DM Sans',sans-serif;color:#68615b;margin:0;
+ font:400 11.5px/1.52 var(--vcc-font-body, "DM Sans", Arial, sans-serif);color:#68615b;margin:0;
 }
 @media(max-width:1100px){
  .dv-page #como-ahorrar .dv-tip{flex-basis:calc((100% - 14px)/2)}
@@ -1093,7 +1093,7 @@ body.dv-page{
  position:fixed;z-index:1000;left:12px;top:12px;
  transform:translateY(-170%);padding:10px 15px;
  border-radius:6px;background:#242322;color:#fff;
- font:600 14px/1.4 'DM Sans',sans-serif;
+ font:600 14px/1.4 var(--vcc-font-body, "DM Sans", Arial, sans-serif);
  text-decoration:underline;box-shadow:0 3px 12px rgba(0,0,0,.15);
 }
 .dv-page .dv-skip-link:focus-visible{

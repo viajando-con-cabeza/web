@@ -14,7 +14,7 @@
 .ep-page .ep3-saving-arrow{
   display:grid;place-items:center;width:36px;height:36px;padding:0;
   border:1px solid #dbc9bd;border-radius:50%;background:#fff;color:#9d533c;
-  font:700 24px/1 "DM Sans",sans-serif;
+  font:700 24px/1 var(--vcc-font-body, "DM Sans", Arial, sans-serif);
   box-shadow:0 2px 7px rgba(62,42,25,.055);
   cursor:pointer;transition:background .16s,border-color .16s,color .16s;
 }
@@ -43,14 +43,14 @@
 .ep-page .ep3-saving-number{
  display:grid;place-items:center;flex:0 0 41px;width:41px;height:41px;
  margin:1px 0 0;border:1px solid #eccbb6;border-radius:50%;
- background:#fff3e9;color:#b76143;font:600 21px/1 "Oswald",sans-serif;
+ background:#fff3e9;color:#b76143;font:600 21px/1 var(--vcc-font-heading, "Oswald", sans-serif);
 }
 .ep-page .ep3-saving-copy{min-width:0}
 .ep-page .ep3-saving-copy h3{
- font:600 22px/1.14 "Oswald",sans-serif;color:#2c2926;margin:0 0 7px;
+ font:600 22px/1.14 var(--vcc-font-heading, "Oswald", sans-serif);color:#2c2926;margin:0 0 7px;
 }
 .ep-page .ep3-saving-copy p{
- font:400 12px/1.55 "DM Sans",sans-serif;color:#5d524a;margin:0;
+ font:400 12px/1.55 var(--vcc-font-body, "DM Sans", Arial, sans-serif);color:#5d524a;margin:0;
 }
 @media(max-width:1060px){
  .ep-page .ep3-saving-card{flex-basis:calc((100% - 14px)/2);padding:15px 14px}

@@ -1,33 +1,33 @@
 /* Estilos específicos de Planifica; hereda header, footer y tokens globales. */
-.planifica-page{--pl-ink:#18191b;--pl-orange:#e97820;--pl-paper:#faf3e8;--pl-line:#dfd2c0;width:min(1240px,calc(100% - 50px));padding-bottom:72px}
+.planifica-page{--pl-ink:#18191b;--pl-orange:var(--vcc-accent-override, #e97820);--pl-paper:#faf3e8;--pl-line:#dfd2c0;width:min(1240px,calc(100% - 50px));padding-bottom:72px}
 .planifica-hero{min-height:330px;margin:28px 0 34px;position:relative;overflow:hidden;background:#f6e8d3;border:1px solid #e9d7bf}
 .planifica-hero-copy{position:relative;z-index:2;padding:38px 20px 38px 42px;max-width:58%}
-.planifica-kicker,.planifica-section-label{font:700 11px/1.3 "DM Sans",sans-serif;letter-spacing:.12em;color:var(--pl-orange)}
+.planifica-kicker,.planifica-section-label{font:700 11px/1.3 var(--vcc-font-body, "DM Sans", Arial, sans-serif);letter-spacing:.12em;color:var(--pl-orange)}
 .planifica-hero h1{font:700 clamp(46px,5.5vw,76px)/.95 "Oswald",Impact,sans-serif;letter-spacing:-.035em;margin:14px 0 13px;color:var(--pl-ink)}
-.planifica-script{font:600 clamp(21px,2.3vw,30px)/1.12 "Caveat",cursive;margin:0;color:#252a2e}
+.planifica-script{font:600 clamp(21px,2.3vw,30px)/1.12 var(--vcc-font-script, "Caveat", cursive);margin:0;color:#252a2e}
 .planifica-flight{display:flex;align-items:center;gap:10px;width:170px;margin-top:20px;color:var(--pl-orange)}
 .planifica-flight span{height:2px;background:var(--pl-orange);flex:1}.planifica-flight b{font-size:24px;color:var(--pl-ink);font-weight:400}
 .planifica-hero-image{position:absolute;inset:0 0 0 35%;background-color:#e8d8c4;background-image:linear-gradient(90deg,#f6e8d3 0%,rgba(246,232,211,.82) 12%,rgba(246,232,211,.08) 48%),url("/configuracion/imagenes/externas/unsplash/photo-1472396961693-142e6e269027.webp");background-position:center;background-size:cover;background-repeat:no-repeat}
 .planifica-section-intro{text-align:center;max-width:720px;margin:0 auto 28px;padding:0 12px}
 .planifica-section-intro h2{font:600 clamp(28px,3.2vw,42px)/1.06 "Oswald",Impact,sans-serif;letter-spacing:-.02em;margin:9px 0 10px;color:var(--pl-ink)}
-.planifica-section-intro h2 em{font:600 .92em "Caveat",cursive;color:var(--pl-orange)}
-.planifica-section-intro p{font:400 15px/1.65 "DM Sans",sans-serif;color:#686868;margin:0 auto;max-width:620px}
+.planifica-section-intro h2 em{font:600 .92em var(--vcc-font-script, "Caveat", cursive);color:var(--pl-orange)}
+.planifica-section-intro p{font:400 15px/1.65 var(--vcc-font-body, "DM Sans", Arial, sans-serif);color:#686868;margin:0 auto;max-width:620px}
 .planifica-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
 .planifica-card{min-height:218px;padding:21px 18px 17px;display:flex;flex-direction:column;align-items:center;text-align:center;background:#fffdf9;border:1px solid var(--pl-line);color:var(--pl-ink);transition:transform .2s ease,border-color .2s ease,box-shadow .2s ease}
 .planifica-card:hover{transform:translateY(-4px);border-color:#e9a66f;box-shadow:0 9px 22px #18191b12}
-.planifica-card-icon{width:66px;height:62px;display:grid;place-items:center;margin:0 auto 10px;font:600 45px/1 "Oswald",sans-serif;color:#192b39;position:relative}
+.planifica-card-icon{width:66px;height:62px;display:grid;place-items:center;margin:0 auto 10px;font:600 45px/1 var(--vcc-font-heading, "Oswald", sans-serif);color:#192b39;position:relative}
 .planifica-card-icon:before{content:"";position:absolute;width:52px;height:52px;border-radius:50%;background:#f8e5cb;z-index:0}
 .planifica-card-icon{isolation:isolate}.planifica-card-icon svg{position:relative;z-index:1;width:39px;height:39px;display:block;overflow:visible}.planifica-card-icon:after{content:none}
 .planifica-card h3{font:600 19px/1.15 "Oswald",Impact,sans-serif;margin:0 0 7px;letter-spacing:.01em}
-.planifica-card p{font:400 13px/1.45 "DM Sans",sans-serif;color:#555;margin:0;max-width:235px}
-.planifica-card-link{margin-top:auto;padding-top:13px;color:var(--pl-orange);font:700 11px/1.2 "DM Sans",sans-serif;letter-spacing:.04em}.planifica-card-link b{font-size:17px;margin-left:5px}
+.planifica-card p{font:400 13px/1.45 var(--vcc-font-body, "DM Sans", Arial, sans-serif);color:#555;margin:0;max-width:235px}
+.planifica-card-link{margin-top:auto;padding-top:13px;color:var(--pl-orange);font:700 11px/1.2 var(--vcc-font-body, "DM Sans", Arial, sans-serif);letter-spacing:.04em}.planifica-card-link b{font-size:17px;margin-left:5px}
 .planifica-bottom{position:relative;margin-top:28px;padding:24px 30px;display:flex;align-items:center;justify-content:space-between;gap:24px;background:#f4e4cf;border:1px solid #e7d1b6;overflow:hidden}
 .planifica-bottom:after{content:"";position:absolute;right:0;top:0;bottom:0;width:24%;background:linear-gradient(110deg,transparent,#ead1b1);pointer-events:none}
-.planifica-bottom-stamp{width:70px;height:70px;flex:0 0 70px;border:1px dashed #6c6256;border-radius:50%;display:grid;place-content:center;text-align:center;font:700 11px/1.2 "Oswald",sans-serif;transform:rotate(-9deg);color:#25313a}
+.planifica-bottom-stamp{width:70px;height:70px;flex:0 0 70px;border:1px dashed #6c6256;border-radius:50%;display:grid;place-content:center;text-align:center;font:700 11px/1.2 var(--vcc-font-heading, "Oswald", sans-serif);transform:rotate(-9deg);color:#25313a}
 .planifica-bottom>div:nth-child(2){flex:1;position:relative;z-index:1}
-.planifica-bottom h2{font:600 31px/1.02 "Oswald",Impact,sans-serif;margin:6px 0;color:#18191b}.planifica-bottom h2 em{font:600 1.05em "Caveat",cursive;color:var(--pl-orange)}
-.planifica-bottom p{font:400 13px/1.5 "DM Sans",sans-serif;color:#555;margin:7px 0 0}
-.planifica-bottom-button{position:relative;z-index:1;display:inline-flex;align-items:center;gap:12px;padding:14px 18px;background:#18191b;color:#fff;font:700 11px "DM Sans",sans-serif;white-space:nowrap}.planifica-bottom-button span{font-size:17px;color:#f18b36}
+.planifica-bottom h2{font:600 31px/1.02 "Oswald",Impact,sans-serif;margin:6px 0;color:#18191b}.planifica-bottom h2 em{font:600 1.05em var(--vcc-font-script, "Caveat", cursive);color:var(--pl-orange)}
+.planifica-bottom p{font:400 13px/1.5 var(--vcc-font-body, "DM Sans", Arial, sans-serif);color:#555;margin:7px 0 0}
+.planifica-bottom-button{position:relative;z-index:1;display:inline-flex;align-items:center;gap:12px;padding:14px 18px;background:#18191b;color:#fff;font:700 11px var(--vcc-font-body, "DM Sans", Arial, sans-serif);white-space:nowrap}.planifica-bottom-button span{font-size:17px;color:#f18b36}
 @media(max-width:950px){.planifica-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.planifica-hero{min-height:300px}.planifica-hero-copy{padding-left:30px}.planifica-hero-image{left:35%}.planifica-bottom-stamp{display:none}}
 @media(max-width:600px){.planifica-page{width:calc(100% - 28px);padding-bottom:38px}.planifica-hero{min-height:300px;margin:14px 0 26px}.planifica-hero-copy{padding:28px 20px;max-width:88%}.planifica-hero h1{font-size:clamp(42px,12vw,60px)}.planifica-script{font-size:22px}.planifica-hero-image{left:0;opacity:.38;background-position:58% center}.planifica-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.planifica-card{min-height:205px;padding:17px 10px 14px}.planifica-card-icon{height:53px;width:55px;font-size:37px}.planifica-card h3{font-size:16px}.planifica-card p{font-size:12px}.planifica-card-link{font-size:10px}.planifica-section-intro h2{font-size:29px}.planifica-section-intro p{font-size:13px}.planifica-bottom{padding:22px 18px;display:block}.planifica-bottom h2{font-size:29px}.planifica-bottom-button{margin-top:17px}}
 @media(prefers-reduced-motion:reduce){.planifica-card{transition:none}.planifica-card:hover{transform:none}}
@@ -61,19 +61,19 @@
 .planifica-page{width:100%;max-width:none;padding:0 0 48px;background:#fbf0df;color:#211d19}
 .planifica-hero{width:100%;min-height:345px;margin:0;border:0;background:#f8e7d0}
 .planifica-hero-copy{width:min(1220px,calc(100% - 64px));max-width:none;margin:0 auto;padding:50px 0}
-.planifica-kicker{display:inline-block;background:#e85b08;color:#1d1711;padding:5px 12px 6px;font:800 11px/1.4 "DM Sans",sans-serif;letter-spacing:.055em}
+.planifica-kicker{display:inline-block;background:#e85b08;color:#1d1711;padding:5px 12px 6px;font:800 11px/1.4 var(--vcc-font-body, "DM Sans", Arial, sans-serif);letter-spacing:.055em}
 .planifica-hero h1{font-size:clamp(31px,3.25vw,43px);line-height:1.08;letter-spacing:-.025em;margin:12px 0 13px}
 .planifica-script{font-size:clamp(19px,2vw,25px);line-height:1.2}
 .planifica-hero-image{inset:0;background-image:linear-gradient(90deg,rgba(250,239,220,.96),rgba(250,239,220,.82) 34%,rgba(250,239,220,.1) 72%),url("/configuracion/imagenes/externas/unsplash/photo-1500530855697-b586d89ba3ee.webp");background-position:center 48%;background-size:cover}
 .planifica-section-intro{max-width:760px;margin:0 auto 28px;padding:36px 16px 0}
-.planifica-section-label{display:inline-block;background:#e85b08;color:#211d19;padding:3px 8px;font:800 10px/1.4 "DM Sans",sans-serif;letter-spacing:.025em}
+.planifica-section-label{display:inline-block;background:#e85b08;color:#211d19;padding:3px 8px;font:800 10px/1.4 var(--vcc-font-body, "DM Sans", Arial, sans-serif);letter-spacing:.025em}
 .planifica-section-intro h2{font-size:clamp(23px,2.2vw,29px);line-height:1.12;margin:10px 0}
 .planifica-section-intro h2 em{font-style:normal;color:#c65c20}
 .planifica-section-intro p{font-size:13px;line-height:1.55}
 .planifica-grid{width:min(1220px,calc(100% - 64px));margin:0 auto;gap:14px}
 .planifica-card{border-radius:4px;background:#fff6e8;border:1px solid #e5cdae;min-height:220px;padding:20px 18px 17px;text-decoration:none;transition:transform .2s}
 .planifica-card:hover{transform:translateY(-2px);border-color:#d99a61;box-shadow:0 5px 15px #5a3a201c}
-.planifica-card-icon{font:600 34px/1 "Oswald",sans-serif;color:#211d19}
+.planifica-card-icon{font:600 34px/1 var(--vcc-font-heading, "Oswald", sans-serif);color:#211d19}
 .planifica-card-icon:before{background:#f7d7ad}
 .planifica-card h3{font-size:18px}
 .planifica-card p{font-size:12px;line-height:1.5;color:#65584b}
@@ -86,13 +86,13 @@
 
 
 /* PLANIFICA · rediseño editorial alineado con Nosotros y Contacto */
-body:has(.planifica-page){margin:0;background:#faf4eb;color:#211e1a;font-family:"DM Sans",sans-serif}
+body:has(.planifica-page){margin:0;background:#faf4eb;color:#211e1a;font-family:var(--vcc-font-body, "DM Sans", Arial, sans-serif)}
 body:has(.planifica-page) .planifica-page{width:100%;max-width:none;padding:0 0 0;background:#faf4eb;color:#211e1a}
 body:has(.planifica-page) .planifica-hero{min-height:320px;margin:0;border:0;background:#e9d9c7;position:relative}
 body:has(.planifica-page) .planifica-hero-copy{width:min(1120px,calc(100% - 48px));max-width:none;margin:0 auto;padding:48px 0;z-index:2}
-body:has(.planifica-page) .planifica-kicker{display:inline-block;background:transparent;color:#c65c20;padding:0;font:700 11px/1.4 "DM Sans",sans-serif;letter-spacing:.12em}
-body:has(.planifica-page) .planifica-hero h1{font:600 clamp(34px,3.6vw,48px)/1.08 "Oswald",sans-serif;letter-spacing:0;margin:10px 0;color:#211e1a}
-body:has(.planifica-page) .planifica-script{font:600 clamp(23px,2.4vw,31px)/1.15 "Caveat",cursive;color:#c65c20}
+body:has(.planifica-page) .planifica-kicker{display:inline-block;background:transparent;color:#c65c20;padding:0;font:700 11px/1.4 var(--vcc-font-body, "DM Sans", Arial, sans-serif);letter-spacing:.12em}
+body:has(.planifica-page) .planifica-hero h1{font:600 clamp(34px,3.6vw,48px)/1.08 var(--vcc-font-heading, "Oswald", sans-serif);letter-spacing:0;margin:10px 0;color:#211e1a}
+body:has(.planifica-page) .planifica-script{font:600 clamp(23px,2.4vw,31px)/1.15 var(--vcc-font-script, "Caveat", cursive);color:#c65c20}
 body:has(.planifica-page) .planifica-hero-image{inset:0;background-image:linear-gradient(90deg,rgba(250,244,235,.97) 0%,rgba(250,244,235,.86) 36%,rgba(250,244,235,.1) 76%),url("/configuracion/imagenes/externas/unsplash/photo-1500530855697-b586d89ba3ee.webp");background-position:center 52%;background-size:cover}
 body:has(.planifica-page) .planifica-flight{margin-top:18px;color:#c65c20}
 body:has(.planifica-page) .planifica-flight span{background:#c65c20}
@@ -103,27 +103,27 @@ body:has(.planifica-page) .planifica-card:hover{transform:translateY(-3px);borde
 body:has(.planifica-page) .planifica-card-icon{width:66px;height:60px;flex:0 0 60px;margin:0 auto 9px;color:#211e1a}
 body:has(.planifica-page) .planifica-card-icon:before{display:none}
 body:has(.planifica-page) .planifica-card-icon svg{width:54px;height:54px}
-body:has(.planifica-page) .planifica-card h3{font:600 20px/1.15 "Oswald",sans-serif;min-height:0;margin:0 0 6px;text-align:center}
-body:has(.planifica-page) .planifica-card p{font:400 12px/1.5 "DM Sans",sans-serif;color:#655c54;max-width:260px;flex:1 0 auto;margin:0 auto;text-align:center}
-body:has(.planifica-page) .planifica-card-link{display:flex;align-items:center;justify-content:center;gap:6px;margin-top:10px;padding:0;color:#c65c20;font:800 10px/1.3 "DM Sans",sans-serif;letter-spacing:.04em}
+body:has(.planifica-page) .planifica-card h3{font:600 20px/1.15 var(--vcc-font-heading, "Oswald", sans-serif);min-height:0;margin:0 0 6px;text-align:center}
+body:has(.planifica-page) .planifica-card p{font:400 12px/1.5 var(--vcc-font-body, "DM Sans", Arial, sans-serif);color:#655c54;max-width:260px;flex:1 0 auto;margin:0 auto;text-align:center}
+body:has(.planifica-page) .planifica-card-link{display:flex;align-items:center;justify-content:center;gap:6px;margin-top:10px;padding:0;color:#c65c20;font:800 10px/1.3 var(--vcc-font-body, "DM Sans", Arial, sans-serif);letter-spacing:.04em}
 body:has(.planifica-page) .planifica-card-link b{font-size:16px;margin:0}
 body:has(.planifica-page) .planifica-editorial{width:min(1120px,calc(100% - 48px));margin:0 auto;padding:34px 0 38px;display:grid;grid-template-columns:.95fr 1.05fr;gap:48px;align-items:center}
 body:has(.planifica-page) .planifica-postcard{background:#fffdfb;padding:10px 10px 13px;transform:rotate(-2deg);box-shadow:0 5px 18px rgba(58,42,30,.1);border:1px solid #e7d9cb}
 body:has(.planifica-page) .planifica-postcard img{display:block;width:100%;height:225px;object-fit:cover;filter:saturate(.82) sepia(.1)}
-body:has(.planifica-page) .planifica-postcard span{display:block;text-align:center;padding:8px 0 0;font:600 29px/1 "Caveat",cursive;color:#211e1a}
-body:has(.planifica-page) .planifica-section-label{display:inline-block;background:transparent;color:#c65c20;padding:0;font:700 11px/1.4 "DM Sans",sans-serif;letter-spacing:.12em}
-body:has(.planifica-page) .planifica-advice h2{font:600 clamp(28px,2.8vw,38px)/1.12 "Oswald",sans-serif;margin:8px 0 12px;color:#211e1a}
-body:has(.planifica-page) .planifica-advice h2 em{font:600 1em/1 "Caveat",cursive;color:#c65c20}
-body:has(.planifica-page) .planifica-advice p,body:has(.planifica-page) .planifica-advice li{font:400 14px/1.65 "DM Sans",sans-serif;color:#5f5852}
+body:has(.planifica-page) .planifica-postcard span{display:block;text-align:center;padding:8px 0 0;font:600 29px/1 var(--vcc-font-script, "Caveat", cursive);color:#211e1a}
+body:has(.planifica-page) .planifica-section-label{display:inline-block;background:transparent;color:#c65c20;padding:0;font:700 11px/1.4 var(--vcc-font-body, "DM Sans", Arial, sans-serif);letter-spacing:.12em}
+body:has(.planifica-page) .planifica-advice h2{font:600 clamp(28px,2.8vw,38px)/1.12 var(--vcc-font-heading, "Oswald", sans-serif);margin:8px 0 12px;color:#211e1a}
+body:has(.planifica-page) .planifica-advice h2 em{font:600 1em/1 var(--vcc-font-script, "Caveat", cursive);color:#c65c20}
+body:has(.planifica-page) .planifica-advice p,body:has(.planifica-page) .planifica-advice li{font:400 14px/1.65 var(--vcc-font-body, "DM Sans", Arial, sans-serif);color:#5f5852}
 body:has(.planifica-page) .planifica-advice ul{list-style:none;padding:0;margin:14px 0 0}
 body:has(.planifica-page) .planifica-advice li{position:relative;padding-left:27px;margin:7px 0}
 body:has(.planifica-page) .planifica-advice li:before{content:"✓";position:absolute;left:0;top:0;color:#e8792b;font-size:19px;font-weight:800}
 body:has(.planifica-page) .planifica-cta{min-height:235px;display:flex;align-items:center;position:relative;overflow:hidden;background:linear-gradient(90deg,rgba(24,25,26,.78),rgba(24,25,26,.36)),url("/configuracion/imagenes/externas/unsplash/photo-1464822759023-fed622ff2c3b.webp") center 55%/cover;color:#fff}
 body:has(.planifica-page) .planifica-cta-inner{width:min(1120px,calc(100% - 48px));margin:0 auto;padding:30px 0}
 body:has(.planifica-page) .planifica-cta .planifica-section-label{color:#f3b28c}
-body:has(.planifica-page) .planifica-cta h2{font:600 clamp(30px,3.2vw,42px)/1.12 "Oswald",sans-serif;margin:8px 0;color:#fff}
-body:has(.planifica-page) .planifica-cta p{font:400 14px/1.6 "DM Sans",sans-serif;color:#fff;margin:0 0 15px}
-body:has(.planifica-page) .planifica-cta a{display:inline-flex;align-items:center;gap:14px;background:#e8792b;color:#fff;text-decoration:none;padding:12px 17px;border-radius:4px;font:800 10px/1.3 "DM Sans",sans-serif}
+body:has(.planifica-page) .planifica-cta h2{font:600 clamp(30px,3.2vw,42px)/1.12 var(--vcc-font-heading, "Oswald", sans-serif);margin:8px 0;color:#fff}
+body:has(.planifica-page) .planifica-cta p{font:400 14px/1.6 var(--vcc-font-body, "DM Sans", Arial, sans-serif);color:#fff;margin:0 0 15px}
+body:has(.planifica-page) .planifica-cta a{display:inline-flex;align-items:center;gap:14px;background:#e8792b;color:#fff;text-decoration:none;padding:12px 17px;border-radius:4px;font:800 10px/1.3 var(--vcc-font-body, "DM Sans", Arial, sans-serif)}
 body:has(.planifica-page) .planifica-cta a:hover{background:#c65c20}
 body:has(.planifica-page) .planifica-cta a b{font-size:17px}
 @media(max-width:900px){body:has(.planifica-page) .planifica-grid{grid-template-columns:repeat(2,minmax(0,1fr))}body:has(.planifica-page) .planifica-editorial{gap:30px}}

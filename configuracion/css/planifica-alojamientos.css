@@ -1,5 +1,5 @@
 /* VCC · Alojamientos: carrusel editorial; estilos aislados de otras páginas */
-.al-page{--al-orange:#ee6a28;--al-ink:#181a1d;--al-muted:#62676c;--al-bg:#f5f5f3;--al-line:#e5e7e6;background:var(--al-bg);color:var(--al-ink);font-family:"DM Sans",Arial,sans-serif}
+.al-page{--al-orange:var(--vcc-accent-override, #ee6a28);--al-ink:#181a1d;--al-muted:#62676c;--al-bg:#f5f5f3;--al-line:#e5e7e6;background:var(--al-bg);color:var(--al-ink);font-family:var(--vcc-font-body, "DM Sans", Arial, sans-serif)}
 .al-page *{box-sizing:border-box}
 .al-page a{color:inherit;text-decoration:none}
 .al-page button{font:inherit;cursor:pointer}
@@ -21,7 +21,7 @@
 .al-subnav{position:sticky;top:var(--vcc-subheader-top,50px);z-index:950;background:#fff;border-block:1px solid #e9e2db}
 .al-subnav .vcc-nav-inner{display:flex;align-items:center;gap:38px;min-height:39px;padding:0 max(24px,4vw);overflow-x:auto;white-space:nowrap;scrollbar-width:none}
 .al-subnav .vcc-nav-inner::-webkit-scrollbar{display:none}
-.al-subnav a{display:inline-flex;align-items:center;flex:none;min-height:39px;border-bottom:2px solid transparent;font:800 11.5px/1.15 "DM Sans",sans-serif;text-transform:uppercase;color:#171717}
+.al-subnav a{display:inline-flex;align-items:center;flex:none;min-height:39px;border-bottom:2px solid transparent;font:800 11.5px/1.15 var(--vcc-font-body, "DM Sans", Arial, sans-serif);text-transform:uppercase;color:#171717}
 .al-subnav a:hover,.al-subnav a:focus-visible,.al-subnav a.vcc-subheader-current{color:#c86f5d;border-bottom-color:#c86f5d}
 #plataformas,#elegir,#consejo-vcc,#sigue-planificando{scroll-margin-top:calc(var(--vcc-subheader-top,50px) + 39px + 24px)}
 
@@ -35,7 +35,7 @@
 .al-card{min-width:0;display:flex;flex-direction:column;scroll-snap-align:start;background:#fff;border:1px solid var(--al-line);border-radius:16px;overflow:hidden;box-shadow:0 4px 18px rgba(18,25,31,.07)}
 .al-card img{display:block;width:100%;height:120px;object-fit:cover;background:#ececea}
 .al-card-body{display:flex;flex-direction:column;flex:1;padding:13px 15px 14px}
-.al-card h3{font:800 clamp(21px,2vw,26px)/1.05 "DM Sans",sans-serif;letter-spacing:-.05em;margin:0 0 5px}
+.al-card h3{font:800 clamp(21px,2vw,26px)/1.05 var(--vcc-font-body, "DM Sans", Arial, sans-serif);letter-spacing:-.05em;margin:0 0 5px}
 .al-card .al-booking{color:#124d98}.al-card .al-booking span{color:#079fe3}
 .al-card .al-airbnb{color:#ff385c}.al-card .al-atrapalo{color:#ed285a}
 .al-card .al-central{color:#173766;font-size:22px;letter-spacing:-.035em}
@@ -44,7 +44,7 @@
 .al-lists{display:grid;grid-template-columns:1fr 1fr;gap:9px;border-top:1px solid #e7e9e8;padding-top:10px}
 .al-lists section{min-width:0}
 .al-lists section+section{border-left:1px solid #e5e7e6;padding-left:9px}
-.al-lists h4{display:flex;align-items:center;gap:6px;font:800 11px/1.25 "DM Sans",sans-serif;margin:0 0 6px}
+.al-lists h4{display:flex;align-items:center;gap:6px;font:800 11px/1.25 var(--vcc-font-body, "DM Sans", Arial, sans-serif);margin:0 0 6px}
 .al-lists .al-face-icon{color:var(--al-orange);flex:none;width:19px;height:19px}
 .al-lists ul{list-style:none;margin:0;padding:0}
 .al-lists li{position:relative;font-size:10.75px;line-height:1.38;color:#3e454b;padding-left:10px;margin:0 0 5px}
@@ -63,7 +63,7 @@
 .al-guide-options{display:grid;grid-template-columns:repeat(4,minmax(0,1fr))}
 .al-guide-options article{padding:0 13px;min-width:0;border-left:1px solid #dedfe1}
 .al-guide-options svg{width:31px;height:31px;color:var(--al-orange);stroke-width:1.8}
-.al-guide-options h3{font:700 13px/1.2 "Oswald",sans-serif;margin:6px 0 6px}
+.al-guide-options h3{font:700 13px/1.2 var(--vcc-font-heading, "Oswald", sans-serif);margin:6px 0 6px}
 .al-guide-options p{font-size:11.5px;line-height:1.5;color:#50565b;margin:0}
 .al-advice{padding:0 0 48px}
 .al-advice .vcc-consejo-unificado{margin:0}
@@ -74,7 +74,7 @@
 .al-next-links{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px}
 .al-next-links a{display:flex;flex-direction:column;gap:5px;min-height:90px;padding:16px;border-radius:10px;background:rgba(9,15,19,.88);border:1px solid rgba(255,255,255,.2)}
 .al-next-links a:hover{border-color:#fa995a}
-.al-next-links strong{font:700 16px "Oswald",sans-serif}
+.al-next-links strong{font:700 16px var(--vcc-font-heading, "Oswald", sans-serif)}
 .al-next-links span{font-size:11px;color:#e7e7e7}
 @media(max-width:1050px){.al-track{grid-auto-columns:calc((100% - 16px)/2.12)}.al-guide-options article:first-child{border-left:0;padding-left:0}}
 @media(max-width:740px){.al-hero{height:var(--vcc-standard-hero-mobile,730px);min-height:var(--vcc-standard-hero-mobile,730px)}.al-hero-inner{padding:76px 0 45px}.al-subnav .vcc-nav-inner{gap:24px;padding-inline:14px}.al-subnav a{font-size:11px}.al-catalog{padding-top:38px}.al-track{grid-auto-columns:calc((100% - 16px)/1.12)}.al-card img{height:135px}.al-intro{min-height:0}.al-guide-panel{padding:23px 19px}.al-guide-options{grid-template-columns:repeat(2,minmax(0,1fr));row-gap:24px}.al-guide-options article:nth-child(odd){border-left:0;padding-left:0}.al-next-links{grid-template-columns:repeat(2,minmax(0,1fr))}.al-carousel-arrow{top:31%}}
@@ -104,7 +104,7 @@
   display:block;
   width:max-content;
   max-width:100%;
-  font-family:"Caveat",cursive;
+  font-family:var(--vcc-font-script, "Caveat", cursive);
   font-size:25px;
   font-weight:600;
   line-height:1;
@@ -124,7 +124,7 @@
   margin:3px 0 12px;
 }
 .al-page :is(.al-catalog,.al-guide) .al-heading p{
-  font-family:"DM Sans",sans-serif;
+  font-family:var(--vcc-font-body, "DM Sans", Arial, sans-serif);
   font-size:13px;
   line-height:1.5;
   font-weight:400;
