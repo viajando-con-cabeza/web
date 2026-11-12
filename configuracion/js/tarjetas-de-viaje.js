@@ -43,6 +43,8 @@
   const saving=document.getElementById('tv-saving');
   const savingText=document.getElementById('tv-saving-label');
   const savingBox=document.getElementById('tv-saving-box');
+  const bankResult=bankTotal?.closest('.tv-result');
+  const travelResult=travelTotal?.closest('.tv-result');
   if(inputs.length && bankTotal && travelTotal && saving && savingText && savingBox){
     const euro=new Intl.NumberFormat('es-ES',{style:'currency',currency:'EUR',minimumFractionDigits:2,maximumFractionDigits:2});
     const amount=(name)=>{
@@ -61,9 +63,14 @@
       const diff=bank-traveler;
       bankTotal.textContent=euro.format(bank);
       travelTotal.textContent=euro.format(traveler);
-      savingText.textContent=diff>=0?'Ahorro estimado':'Coste adicional estimado';
-      saving.textContent=euro.format(Math.abs(diff));
-      savingBox.classList.toggle('negative',diff<0);
+      const positive=diff>0.005;
+      const negative=diff< -0.005;
+      savingText.textContent=positive?'Ahorras con la tarjeta de viaje':negative?'La tarjeta de viaje te cuesta más':'Mismo coste estimado';
+      saving.textContent=euro.format(positive||negative?Math.abs(diff):0);
+      savingBox.classList.toggle('negative',negative);
+      savingBox.classList.toggle('neutral',!positive&&!negative);
+      bankResult?.classList.toggle('is-best',negative);
+      travelResult?.classList.toggle('is-best',positive);
     };
     inputs.forEach(input=>input.addEventListener('input',update));
     update();
