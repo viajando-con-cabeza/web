@@ -33,6 +33,9 @@ for(const {page,image,selector,kind,source} of registry){
   for(const [i,media] of ['(max-width: 767px)','(min-width: 768px)'].entries())
     check(preloads.some(t=>t.includes('media="'+media+'"')&&t.includes('href="'+urls[i]+'"')&&t.includes('fetchpriority="high"')),
       page+': preload '+media+' no coincideix');
+  const viewport=head.search(/<meta\b(?=[^>]*\bname=["']viewport["'])[^>]*>/i);
+  check(viewport>=0&&viewport<head.indexOf(preloads[0]),
+    page+': el viewport ha de precedir els preloads per evitar la foto desktop en mòbil');
   const cssFirst=head.search(/<link\b[^>]*rel="stylesheet"/i);
   check(cssFirst<0||head.indexOf(preloads[0])<cssFirst,page+': preload LCP darrere CSS');
   check(html.includes('data-vcc-fast-heroes'),page+': manca CSS comú');
