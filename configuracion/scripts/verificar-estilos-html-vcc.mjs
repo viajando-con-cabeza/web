@@ -106,9 +106,19 @@ for(const file of published){
    coreHref.includes('/configuracion/css/plantillas/presupuesto-compilado-vcc.css') &&
    coreHref.includes('data-vcc-fast-heroes') &&
    coreHref.includes('data-vcc-budget-css');
+ // Un sol core CSS, també quan està integrat amb el fons final compartit.
+ const guideCore=coreHref.includes('data-vcc-guies-core') &&
+   coreHref.includes('/configuracion/css/componentes/vcc-guies-core-fons-compartit.css');
  if(coreTags.length!==1 ||
-   !(coreHref.includes('/configuracion/css/componentes/vcc-core-compartit.css')||isBudgetBundle))
+   !(coreHref.includes('/configuracion/css/componentes/vcc-core-compartit.css')||isBudgetBundle||guideCore))
    failures.push(file+': falta un únic enllaç estàtic al CSS global VCC');
+ if(guideCore){
+   const localUrls=localCSS;
+   const count=localUrls.filter(u=>u.includes('/configuracion/css/componentes/vcc-core-compartit.css')).length;
+   if(count)failures.push(file+': duplicat del CSS de core fora del paquet de guies');
+   const guideUi=localUrls.filter(u=>u.endsWith('/vcc-guies-ui-compartit.css'));
+   if(guideUi.length!==1)failures.push(file+': falta el paquet UI editorial reutilitzable');
+ }
 }
 
 if(failures.length){
