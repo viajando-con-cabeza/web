@@ -269,3 +269,35 @@
 @media(max-width:520px){
  .al-page .al-tip{min-height:158px;padding:14px 13px;gap:10px}
 }
+
+/* VCC · Portada Planifica: sobretítulo manuscrito + título único.
+   Accesos WEB discretos al pie derecho de cada tarjeta. */
+.al-page .al-hero .al-hero-eyebrow{
+  font:600 clamp(25px,2.6vw,32px)/1.1 var(--vcc-font-script,"Caveat",cursive);
+  color:#c0674b;letter-spacing:0;text-transform:none;
+  margin:0 0 7px;
+}
+.al-page .al-hero h1.al-hero-title{
+  font:600 clamp(46px,5vw,66px)/1.06 var(--vcc-font-heading,"Oswald",sans-serif);
+  color:#24211f;max-width:760px;letter-spacing:0;
+  margin:0 0 13px;
+}
+.al-page .al-hero .al-hero-inner{position:relative;z-index:1}
+.al-page .al-card-body>.al-external{
+  align-self:flex-end;
+  justify-content:flex-end;
+  width:max-content;
+  margin-top:auto;
+  padding:13px 0 1px;
+  color:#bf6546!important;
+  font:700 10.5px/1.2 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
+  letter-spacing:.07em;
+  text-transform:uppercase;
+  gap:5px;
+}
+.al-page .al-card-body>.al-external:hover,
+.al-page .al-card-body>.al-external:focus-visible{text-decoration:underline;text-underline-offset:3px}
+@media(max-width:740px){
+  .al-page .al-hero .al-hero-eyebrow{font-size:26px}
+  .al-page .al-hero h1.al-hero-title{font-size:clamp(43px,10vw,56px)}
+}
