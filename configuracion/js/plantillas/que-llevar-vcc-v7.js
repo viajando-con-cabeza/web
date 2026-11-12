@@ -243,17 +243,6 @@ function render(resetListScroll=false){
  categories.scrollTop=previousScroll;
  requestPanelLayout();
 }
-function copiedText(){
- const m=byId(state.month);
- const lines=["QUÉ LLEVAR A ESTOCOLMO","Mes: "+m.name+" | Días: "+state.days+" | Lavado: "+(state.laundry?"Sí":"No"),"Maleta recomendada: "+recommendedBag().name,""];
- buildItems().forEach(group=>{
-  lines.push(group.label);
-  group.items.forEach(x=>lines.push((state.done.has(labelKey(x.id))?"[x] ":"[ ] ")+x.title+" · "+x.qty+(x.qty===1?" unidad":" unidades")));
-  lines.push("");
- });
- lines.push("Consulta la previsión meteorológica antes de viajar. Guía orientativa VCC.");
- return lines.join("\n");
-}
 function notify(text){
  const status=$("ql-v6-action-status");status.textContent=text;
 }
@@ -310,17 +299,6 @@ $("ql-v6-select-all").addEventListener("click",()=>{
 $("ql-v6-clear").addEventListener("click",()=>{
  for(const x of buildItems().flatMap(g=>g.items))state.done.delete(labelKey(x.id));
  save();render();notify("Elementos desmarcados");
-});
-$("ql-v6-copy").addEventListener("click",async()=>{
- const contents=copiedText();
- try{
-  if(navigator.clipboard?.writeText)await navigator.clipboard.writeText(contents);
-  else{
-   const field=document.createElement("textarea");field.value=contents;document.body.append(field);field.select();
-   if(!document.execCommand("copy"))throw Error("Copy not supported");field.remove();
-  }
-  notify("Lista copiada");
- }catch(e){notify("No se pudo copiar. Puedes imprimir la lista.");}
 });
 $("ql-v6-print").addEventListener("click",()=>window.print());
 const nav=document.querySelector(".ql-subnav");
