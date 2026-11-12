@@ -1,96 +1,69 @@
-/* Tarjetas de viaje · VCC
-   Estilos propios de página. Header, breadcrumb y subheader se rigen por configuración global. */
-.tv-page {
-  --tv-accent:var(--vcc-accent-override, #ed6945);
-  --tv-ink:#191b1d;
-  --tv-muted:#62686b;
-  --tv-line:#e3e5e3;
-  color:var(--tv-ink);
-  background:#f5f5f3;
-  font-family:var(--vcc-font-body, "DM Sans", Arial, sans-serif);
+/* Planifica · Tarjetas de viaje
+   Una sola hoja de estilos por página. Breadcrumb, héroes, carruseles,
+   números y subheader se basan en los componentes compartidos VCC. */
+.tv-page{
+  --tv-accent:var(--vcc-accent-override,#cb6543);
+  --tv-ink:#24201c;--tv-muted:#665e56;
+  --tv-line:#e7d8ca;--tv-paper:#faf6f1;
+  background:var(--tv-paper);color:var(--tv-ink);
+  font-family:var(--vcc-font-body,"DM Sans",Arial,sans-serif);
 }
-.tv-page * {box-sizing:border-box}
-.tv-page a {color:inherit;text-decoration:none}
-.tv-page button,.tv-page input {font:inherit}
-.tv-page button {cursor:pointer}
-.tv-page .tv-wrap {width:min(1160px,calc(100% - 44px));margin-inline:auto}
-/* El mismo patrón editorial de Suecia: Caveat sobre Oswald. */
-.tv-page .tv-eyebrow {
-  display:block;margin:0 0 3px;color:#cf7660;
-  font:600 clamp(23px,2.45vw,27px)/1.05 var(--vcc-font-script, "Caveat", cursive);
-  letter-spacing:0;text-transform:none;
+.tv-page *{box-sizing:border-box}
+.tv-page a{color:inherit;text-decoration:none}
+.tv-page button,.tv-page input{font:inherit}
+.tv-page button{cursor:pointer}
+.tv-page .tv-wrap{width:min(1160px,calc(100% - 44px));margin-inline:auto}
+.tv-page .tv-eyebrow{
+ display:block;margin:0 0 5px;color:#c86f5d;
+ font:600 clamp(23px,2.45vw,28px)/1.05 var(--vcc-font-script,"Caveat",cursive);
+ letter-spacing:0;text-transform:none;
 }
-.tv-page .tv-heading {
-  font:500 clamp(33px,3.5vw,40px)/1.08 "Oswald","Arial Narrow",sans-serif;
-  margin:2px 0 10px;letter-spacing:0;
+.tv-page .tv-heading{
+ font:600 clamp(30px,3.2vw,40px)/1.1 var(--vcc-font-heading,"Oswald",sans-serif);
+ margin:2px 0 10px;letter-spacing:0;
 }
-.tv-page .tv-copy {max-width:760px;font-size:13px;line-height:1.56;color:var(--tv-muted);margin:0}
-.tv-page .tv-hero .tv-eyebrow {
-  margin-bottom:9px;color:#ff946d;
-  font:800 11px/1.2 var(--vcc-font-body, "DM Sans", Arial, sans-serif);
-  letter-spacing:.12em;text-transform:uppercase;
-}
-.tv-page a:focus-visible,.tv-page button:focus-visible,
-.tv-page input:focus-visible,.tv-page summary:focus-visible {
-  outline:2px solid var(--tv-accent);outline-offset:3px;
-}
+.tv-page .tv-copy{max-width:770px;font-size:13px;line-height:1.56;color:var(--tv-muted);margin:0}
+.tv-page :is(a,button,input,summary):focus-visible{outline:2px solid var(--tv-accent);outline-offset:3px}
 
-/* Hero con altura estandarizada por la navegación común */
-.tv-page .tv-hero {
-  position:relative;isolation:isolate;overflow:hidden;display:flex;align-items:center;
-  min-height:var(--vcc-standard-hero-desktop,475px);background:#252725;
+/* Portada editorial: misma máscara blanca, imagen optimizada y breadcrumb
+   global que Alojamientos y Vuelos. Sin tarjetas falsas ni botones. */
+.tv-page .tv-hero.vcc-portada-transparente{
+ position:relative;isolation:isolate;display:flex;align-items:center;
+ overflow:hidden;color:#211e1b;background-color:#fff;
 }
-.tv-page .tv-hero::before {
-  content:"";position:absolute;inset:0;z-index:-1;
-  background:linear-gradient(90deg,rgba(13,18,19,.94),rgba(17,21,23,.76) 43%,rgba(20,24,26,.35)),
-    url('/configuracion/imagenes/fondos/fondos-planifica.webp?v=20261111-portades') center/cover;
+.tv-page .tv-hero-inner{
+ display:flex;flex-direction:column;align-items:flex-start;justify-content:center;
+ position:relative;z-index:1;min-height:var(--vcc-standard-hero-desktop,475px);
+ padding:75px 0 33px;
 }
-.tv-page .tv-hero-inner {
-  display:grid;grid-template-columns:1.25fr .75fr;gap:30px;align-items:center;
-  position:relative;padding:54px 0 26px;
+.tv-page .tv-hero .tv-eyebrow{
+ margin:0 0 10px;color:#c86f5d;
+ font:600 27px/1.05 var(--vcc-font-script,"Caveat",cursive);
+ letter-spacing:0;text-transform:none;
 }
-.tv-page .tv-hero h1 {
-  color:#fff;font:600 clamp(44px,5.7vw,69px)/1.04 Oswald,"Arial Narrow",sans-serif;
-  letter-spacing:.008em;margin:8px 0 16px;max-width:800px;
+.tv-page .tv-hero h1{
+ margin:0 0 15px;max-width:730px;color:#22201d;
+ font:600 clamp(48px,5.6vw,68px)/1.04 var(--vcc-font-heading,"Oswald",sans-serif);
+ letter-spacing:-.02em;text-transform:uppercase;overflow-wrap:normal;
 }
-.tv-page .tv-hero h1 em {color:#ff946d;font-style:normal}
-.tv-page .tv-hero p {max-width:600px;color:#eee;font-size:14px;line-height:1.62;margin:0 0 20px}
-.tv-page .tv-actions {display:flex;flex-wrap:wrap;gap:10px}
-.tv-page .tv-button {
-  display:inline-flex;justify-content:center;align-items:center;gap:10px;min-height:44px;
-  padding:11px 20px;border:1px solid var(--tv-accent);border-radius:7px;
-  background:var(--tv-accent);color:#fff;font-size:12px;font-weight:800;
-  transition:background .15s ease;
+.tv-page .tv-hero-rule{display:block;width:64px;height:3px;margin:0 0 15px;border-radius:3px;background:#cd6a48}
+.tv-page .tv-hero p{
+ max-width:570px;margin:0;color:#4b453f;font-size:14px;line-height:1.6;
 }
-.tv-page .tv-button:hover {background:#d95331}
-.tv-page .tv-button.ghost {background:transparent;border-color:#fff9}
-.tv-page .tv-button.ghost:hover {background:#ffffff1b}
-.tv-page .tv-hero-art {height:264px;position:relative;transform:rotate(-7deg);margin-right:9px}
-.tv-page .tv-visual-card {
-  position:absolute;display:flex;flex-direction:column;justify-content:space-between;
-  width:224px;height:134px;padding:16px 18px;overflow:hidden;
-  color:#fff;border:1px solid #ffffff2b;border-radius:14px;box-shadow:0 17px 30px #0005;
-}
-.tv-page .tv-visual-card span {font-weight:900;font-size:22px;letter-spacing:-.055em}
-.tv-page .tv-visual-card small {font-size:9px;letter-spacing:.2em;color:#ffffffce}
-.tv-page .tv-visual-card::after {
-  content:"";position:absolute;right:-50px;bottom:-120px;
-  width:170px;height:170px;border:1px solid #ffffff42;border-radius:50%;
-}
-.tv-page .tv-visual-card.card-a {background:linear-gradient(115deg,#0a142a,#575b77);right:93px;top:0;transform:rotate(-11deg)}
-.tv-page .tv-visual-card.card-b {background:linear-gradient(115deg,#2d3035,#08090b);right:0;top:43px;transform:rotate(10deg)}
-.tv-page .tv-visual-card.card-c {background:linear-gradient(120deg,#7cc92b,#c6f078);color:#10200b;right:135px;top:112px;transform:rotate(5deg)}
-.tv-page .tv-visual-card.card-c small {color:#10200b}
-.tv-page .tv-visual-card.card-d {background:linear-gradient(110deg,#fa754f,#e44b21);right:6px;top:156px;transform:rotate(-4deg)}
+.tv-page .tv-hero #vcc-global-breadcrumb,
+.tv-page .tv-hero #vcc-global-breadcrumb a,
+.tv-page .tv-hero #vcc-global-breadcrumb strong,
+.tv-page .tv-hero #vcc-global-breadcrumb .vcc-bc-sep{color:inherit}
 
-/* La clase unificada gestiona top, altura, scroll y estado activo. */
-.tv-page nav.tv-tabs {background:#fff}
-.tv-page .tv-tabs-inner {display:flex;align-items:center}
-.tv-page [id] {scroll-margin-top:100px}
+/* El subheader y la navegación activa proceden del CSS global. */
+.tv-page nav.tv-tabs{background:#fff}
+.tv-page .tv-tabs-inner{display:flex;align-items:center}
+.tv-page [id]{scroll-margin-top:100px}
 
-/* Introducción concisa, sin caja lateral que añada altura */
-.tv-page .tv-intro {padding:32px 0 17px}
-.tv-page .tv-intro .tv-copy {max-width:750px}
+/* Nuestra experiencia: las mismas tarjetas compactas ya aprobadas. */
+.tv-page .tv-intro{padding:32px 0 17px;background:transparent}
+.tv-page .tv-intro .tv-copy{max-width:770px}
+.tv-page .tv-catalog{padding:0 0 33px;background:transparent}
 
 /* Carrusel VCC: controles opuestos, tres tarjetas en escritorio */
 .tv-page .tv-catalog {padding:0 0 38px}
@@ -115,7 +88,7 @@
 .tv-page .tv-card-logo {
   display:flex;align-items:center;justify-content:space-between;gap:10px;
   height:82px;min-height:82px;padding:10px 16px;
-  background:#f8f9f8;border-bottom:1px solid #eff0ee;
+  background:#fffaf6;border-bottom:1px solid #eee1d6;
 }
 .tv-page .tv-card-brand {min-width:0}
 .tv-page .tv-card-brand h3 {
@@ -146,7 +119,7 @@
 .tv-page .tv-card-body {display:flex;flex-direction:column;gap:9px;flex:1;padding:13px 15px 15px}
 .tv-page .tv-card-intro {font-size:11.5px;color:var(--tv-muted);line-height:1.48;margin:0}
 .tv-page .tv-point {border-top:1px solid #eceeec;padding-top:9px}
-.tv-page .tv-point b {display:flex;align-items:center;gap:7px;font-size:10.5px;margin:0 0 5px}
+.tv-page .tv-point b{display:flex;align-items:center;gap:7px;font-size:10.5px;margin:0 0 6px;color:#3d3530}
 .tv-page .tv-point b .tv-symbol {
   display:inline-flex;align-items:center;justify-content:center;
   width:18px;height:18px;flex:0 0 18px;border-radius:50%;
@@ -154,92 +127,91 @@
 }
 .tv-page .tv-point.review b .tv-symbol {background:#fff0e9;color:#e26942}
 .tv-page .tv-point p {color:#5c6267;font-size:11px;line-height:1.45;margin:0}
-.tv-page .tv-vcc-state {
-  display:flex;align-items:center;gap:8px;
-  background:#fff3eb;border-radius:7px;padding:7px 9px;
-  color:#a45336;font-size:9.5px;font-weight:800;margin-top:auto;
-}
-.tv-page .tv-vcc-state img {width:20px;height:20px;object-fit:contain}
 .tv-page .tv-card-link {
-  display:flex;justify-content:space-between;align-items:center;gap:9px;
-  color:var(--tv-accent)!important;font-size:10.5px;font-weight:800;padding-top:1px;
+  display:flex;align-items:center;justify-content:flex-end;gap:7px;
+  align-self:flex-end;margin-top:auto;padding-top:7px;
+  color:#bd5a35!important;font-size:11px;font-weight:800;
+  text-decoration:none;
 }
-.tv-page .tv-card-link:hover {text-decoration:underline}
+.tv-page .tv-card-link:hover{text-decoration:underline;text-underline-offset:3px}
 .tv-page .tv-catalog-footnote {
-  margin:12px 52px 0;font-size:10.5px;color:#74797c;line-height:1.45;
+  margin:11px 52px 0;font-size:10.5px;color:#77706a;line-height:1.5;
 }
 
-/* Cuatro puntos clave, sin tarjetas sobredimensionadas */
-.tv-page .tv-guide {padding:31px 0 31px;background:#fff}
-.tv-page .tv-guide-head {margin-bottom:17px}
-.tv-page .tv-guide-grid {display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
-.tv-page .tv-guide-item {
-  min-width:0;padding:15px;border:1px solid var(--tv-line);
-  border-radius:10px;background:#fbfbfa;
-}
-.tv-page .tv-guide-icon {font:600 24px/1 Oswald,sans-serif;color:var(--tv-accent)}
-.tv-page .tv-guide-item h3 {font:600 16px/1.16 Oswald,sans-serif;margin:8px 0 6px}
-.tv-page .tv-guide-item p {font-size:11px;line-height:1.48;color:#62686b;margin:0}
-.tv-page .tv-takeaway {
-  display:flex;align-items:center;gap:10px;margin-top:12px;
-  background:#fff2eb;border-radius:9px;padding:10px 16px;
-}
-.tv-page .tv-takeaway span {color:var(--tv-accent);font-size:24px}
-.tv-page .tv-takeaway p {font-size:11.5px;line-height:1.4;font-weight:700;margin:0}
 
-/* Débito, crédito y respaldo en una fila */
-.tv-page .tv-help {padding:30px 0 34px}
-.tv-page .tv-help-layout {display:block}
-.tv-page .tv-help-layout > div:first-child .tv-copy {max-width:750px}
-.tv-page .tv-help-rows {display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:16px}
-.tv-page .tv-help-row {padding:14px 16px;background:#fff;border:1px solid var(--tv-line);border-radius:10px}
-.tv-page .tv-help-row b {display:block;font-size:12.5px;margin-bottom:6px}
-.tv-page .tv-help-row p {font-size:11px;color:var(--tv-muted);line-height:1.5;margin:0}
 
-/* Calculadora condensada: campos a la izquierda, resultado a la derecha */
-.tv-page .tv-calc {background:#232628;padding:33px 0 36px;color:#fff}
-.tv-page .tv-calc-top {display:block;margin-bottom:14px}
-.tv-page .tv-calc-top .tv-heading {color:#fff;margin-bottom:6px}
-.tv-page .tv-calc-top .tv-copy {max-width:730px;color:#d1d4d4;font-size:12px}
-.tv-page .tv-calc-card {
-  display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);
-  gap:12px 20px;padding:16px 18px;color:var(--tv-ink);background:#fff;border-radius:12px;
+/* Calculadora compacta: misma paleta de la página,
+   resultado a la derecha como Billetes vs. Abono de Cómo moverse. */
+.tv-page .tv-calc{padding:30px 0 35px;color:var(--tv-ink);background:var(--tv-paper)}
+.tv-page .tv-calc-top{display:flex;align-items:end;justify-content:space-between;gap:25px;margin-bottom:14px}
+.tv-page .tv-calc-top .tv-heading{color:var(--tv-ink);margin-bottom:0}
+.tv-page .tv-calc-top .tv-copy{max-width:395px;color:var(--tv-muted);font-size:12px}
+.tv-page .tv-calc-card{
+ display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);
+ gap:12px 17px;padding:14px 15px;color:var(--tv-ink);
+ background:#fff;border:1px solid var(--tv-line);border-radius:13px;
 }
-.tv-page .tv-calc-inputs,.tv-page .tv-calc-summary {min-width:0}
-.tv-page .tv-fields {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px 12px}
-.tv-page .tv-fields label {
-  display:flex;flex-direction:column;gap:5px;min-width:0;color:#4a5053;
-  font-size:10.5px;font-weight:800;
+.tv-page .tv-calc-inputs,.tv-page .tv-calc-summary{min-width:0}
+.tv-page .tv-fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px 11px}
+.tv-page .tv-fields label{
+ display:flex;flex-direction:column;gap:4px;min-width:0;
+ color:#564c44;font-size:10.5px;font-weight:800;
 }
-.tv-page .tv-fields input {
-  width:100%;min-width:0;min-height:38px;padding:8px 10px;
-  border:1px solid #d9dcda;border-radius:7px;
-  background:#fff;color:var(--tv-ink);font-size:14px;font-weight:600;
+.tv-page .tv-fields input{
+ width:100%;min-width:0;min-height:36px;padding:7px 10px;
+ border:1px solid #dfd4cb;border-radius:7px;background:#fff;
+ color:var(--tv-ink);font-size:14px;font-weight:700;
 }
-.tv-page .tv-advanced {margin-top:9px;border-top:1px solid #eceeec;padding-top:8px}
-.tv-page .tv-advanced summary {cursor:pointer;color:#bd5738;font-size:11px;font-weight:800}
-.tv-page .tv-advanced[open] summary {margin-bottom:9px}
-.tv-page .tv-results {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
-.tv-page .tv-result {
-  display:flex;flex-direction:column;justify-content:center;
-  min-width:0;padding:14px 12px;background:#f5f5f2;border-radius:9px;
+.tv-page .tv-advanced{margin-top:8px;border-top:1px solid #eee2d9;padding-top:8px}
+.tv-page .tv-advanced summary{cursor:pointer;color:#bd5738;font-size:11px;font-weight:800}
+.tv-page .tv-advanced[open] summary{margin-bottom:9px}
+.tv-page .tv-calc-summary{
+ display:flex;flex-direction:column;justify-content:center;
+ background:#fffaf6;border:1px solid #eddbcc;border-radius:10px;padding:12px;
 }
-.tv-page .tv-result.tv-travel {background:#edf5ed}
-.tv-page .tv-result span {font-size:10.5px;color:#535a5d;margin-bottom:6px}
-.tv-page .tv-result strong {font:600 clamp(21px,2.4vw,28px)/1.15 Oswald,sans-serif;white-space:nowrap}
-.tv-page .tv-saving {
-  display:flex;align-items:center;justify-content:space-between;gap:12px;
-  margin-top:8px;padding:12px 15px;background:#fff0e8;border-radius:9px;
+.tv-page .tv-results{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+.tv-page .tv-result{
+ display:flex;flex-direction:column;justify-content:center;min-width:0;
+ padding:11px 10px;background:#fff;border:1px solid #e9ded4;border-radius:8px;
 }
-.tv-page .tv-saving span {font-size:11.5px;font-weight:800}
-.tv-page .tv-saving strong {font:600 32px/1 Oswald,sans-serif;color:var(--tv-accent);white-space:nowrap}
-.tv-page .tv-saving.negative {background:#f7e4e2}
-.tv-page .tv-saving.negative strong {color:#ae3836}
-.tv-page .tv-disclaimer {
-  grid-column:1/-1;margin:0;color:#6e7376;
-  font-size:10px;line-height:1.45;border-top:1px solid #eeeeec;padding-top:9px;
+.tv-page .tv-result span{font-size:10.5px;color:#61554c;margin-bottom:6px}
+.tv-page .tv-result strong{font:600 clamp(19px,2.25vw,27px)/1.1 var(--vcc-font-heading,"Oswald",sans-serif);white-space:nowrap}
+.tv-page .tv-result.is-best{border-color:#bed8bc;background:#f4faf1}
+.tv-page .tv-result.is-best strong{color:#287c31}
+.tv-page .tv-saving{
+ display:flex;align-items:center;justify-content:space-between;gap:10px;
+ margin-top:10px;padding:10px 12px;border:1px solid #cde5c8;
+ background:#f0f8ec;border-radius:9px;
+}
+.tv-page .tv-saving span{font-size:11px;font-weight:800;color:#395640}
+.tv-page .tv-saving strong{font:600 clamp(25px,3vw,34px)/1 var(--vcc-font-heading,"Oswald",sans-serif);color:#16843b;white-space:nowrap}
+.tv-page .tv-saving.negative{border-color:#edc4c1;background:#fff0ee}
+.tv-page .tv-saving.negative span{color:#954442}
+.tv-page .tv-saving.negative strong{color:#b13733}
+.tv-page .tv-saving.neutral{border-color:#e7dbce;background:#f6f2ee}
+.tv-page .tv-saving.neutral span{color:#746b62}
+.tv-page .tv-saving.neutral strong{color:#746b62}
+.tv-page .tv-disclaimer{
+ grid-column:1/-1;margin:0;color:#746a62;font-size:10px;
+ line-height:1.5;border-top:1px solid #eee2d8;padding-top:8px;
 }
 
+/* Últimos apartados unidos en un solo bloque de errores prácticos. */
+.tv-page .tv-errors{padding:30px 0 37px;background:var(--tv-paper)}
+.tv-page .tv-errors-head{margin-bottom:17px}
+.tv-page .tv-errors-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.tv-page .tv-error-card{
+ display:flex;align-items:flex-start;gap:11px;min-width:0;min-height:120px;
+ padding:15px 14px;border:1px solid var(--tv-line);border-radius:12px;
+ background:#fff;box-shadow:0 3px 10px rgba(66,37,20,.03);
+}
+.tv-page .tv-error-number{flex:0 0 42px;margin:0}
+.tv-page .tv-error-copy{min-width:0;flex:1}
+.tv-page .tv-error-copy h3{margin:0 0 7px;color:#26211c;font:600 19px/1.16 var(--vcc-font-heading,"Oswald",sans-serif)}
+.tv-page .tv-error-copy p{margin:0;color:#665d55;font:400 11.5px/1.5 var(--vcc-font-body,"DM Sans",sans-serif)}
+.tv-page .tv-errors-note{margin:13px 0 0;padding:9px 13px;border-left:2px solid #d88c63;color:#67584d;font-size:11px;line-height:1.5}
+
+/* Cierre estándar con enlaces relacionados, como Vuelos/Alojamientos. */
 /* Sigue planificando · cierre reutilizable VCC */
 .tv-page .tv-next {
   position:relative;isolation:isolate;overflow:hidden;
@@ -260,86 +232,52 @@
 .tv-page .tv-next-grid a:hover {border-color:var(--tv-accent);background:#141a1e}
 .tv-page .tv-next-grid a span {color:#ff926d}
 
-@media(max-width:1000px) {
-  .tv-page .tv-hero-inner {grid-template-columns:1fr .6fr}
-  .tv-page .tv-hero-art {transform:scale(.85) rotate(-7deg);transform-origin:center right}
-  .tv-page .tv-carousel {grid-auto-columns:calc((100% - 14px)/2)}
-  .tv-page .tv-guide-grid {grid-template-columns:repeat(2,minmax(0,1fr))}
+
+
+@media(max-width:1000px){
+ .tv-page .tv-carousel{grid-auto-columns:calc((100% - 14px)/2)}
+ .tv-page .tv-errors-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .tv-page .tv-calc-top{align-items:flex-start;flex-direction:column;gap:7px}
 }
-/* Móvil: la cabecera y el breadcrumb deben respirar sin invadir el hero.
-   Se conserva la altura común VCC y se ocultan solo las tarjetas decorativas:
-   el fondo fotográfico continúa visible. */
-@media(max-width:720px) {
-  .tv-page .tv-wrap {width:calc(100% - 30px)}
-  .tv-page .tv-hero {min-height:var(--vcc-standard-hero-mobile,640px)}
-  .tv-page .tv-hero .tv-hero-inner {
-    display:flex;flex-direction:column;align-items:stretch;
-    justify-content:safe center;
-    width:calc(100% - 40px);height:var(--vcc-standard-hero-mobile,640px);
-    min-height:var(--vcc-standard-hero-mobile,640px);
-    padding:66px 0 22px;gap:0;
-  }
-  .tv-page .tv-hero-inner > div:first-child {width:100%;min-width:0}
-  .tv-page .tv-hero .tv-eyebrow {margin:0 0 8px;font-size:calc(10px + var(--vcc-overline-size-adjust,0px))}
-  .tv-page .tv-hero h1 {
-    font-size:calc(clamp(31px,8.5vw,39px) + var(--vcc-heading-size-adjust,0px));
-    line-height:1.07;letter-spacing:0;
-    margin:0 0 13px;overflow-wrap:normal;
-  }
-  .tv-page .tv-hero p {
-    font-size:13px;line-height:1.49;
-    margin:0 0 16px;max-width:480px;
-  }
-  .tv-page .tv-actions {
-    display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
-    gap:8px;align-items:stretch;
-  }
-  .tv-page .tv-button {
-    display:flex;min-width:0;width:100%;min-height:44px;
-    padding:9px 7px;gap:5px;
-    font-size:10.5px;line-height:1.24;
-    text-align:center;white-space:normal;
-  }
-  .tv-page .tv-hero-art {display:none}
-  .tv-page .tv-intro {padding:27px 0 14px}
-  .tv-page .tv-catalog {padding-bottom:27px}
-  .tv-page .tv-carousel-shell {grid-template-columns:32px minmax(0,1fr) 32px;gap:6px}
-  .tv-page .tv-carousel {grid-auto-columns:100%;gap:10px}
-  .tv-page .tv-catalog-footnote {margin:10px 0 0}
-  .tv-page .tv-guide {padding:27px 0}
-  .tv-page .tv-guide-item {padding:12px}
-  .tv-page .tv-guide-item h3 {font-size:calc(15px + var(--vcc-heading-size-adjust,0px))}
-  .tv-page .tv-help {padding:27px 0 30px}
-  .tv-page .tv-help-rows {grid-template-columns:1fr;gap:8px;margin-top:13px}
-  .tv-page .tv-help-row {padding:12px 14px}
-  .tv-page .tv-calc {padding:29px 0}
-  .tv-page .tv-calc-top {display:block;margin-bottom:14px}
-  .tv-page .tv-calc-top .tv-copy {margin-top:9px}
-  .tv-page .tv-calc-card {grid-template-columns:1fr;padding:14px;gap:13px}
-  .tv-page .tv-result strong {font-size:26px}
-  .tv-page .tv-next-grid {grid-template-columns:repeat(2,minmax(0,1fr))}
-  .tv-page [id] {scroll-margin-top:135px}
+@media(max-width:720px){
+ .tv-page .tv-wrap{width:calc(100% - 28px)}
+ .tv-page .tv-hero-inner{
+  min-height:var(--vcc-standard-hero-mobile,640px);
+  width:calc(100% - 28px);padding:65px 0 29px;
+ }
+ .tv-page .tv-hero .tv-eyebrow{font-size:25px;margin-bottom:9px}
+ .tv-page .tv-hero h1{font-size:clamp(43px,10vw,56px);margin-bottom:12px}
+ .tv-page .tv-hero p{font-size:13px;line-height:1.55;max-width:440px}
+ .tv-page .tv-hero-rule{margin-bottom:11px}
+ .tv-page .tv-intro{padding:27px 0 14px}
+ .tv-page .tv-catalog{padding-bottom:26px}
+ .tv-page .tv-carousel-shell{position:relative;display:block;width:100%;min-width:0;padding:0}
+ .tv-page .tv-carousel{width:100%;grid-auto-columns:100%;gap:10px}
+ .tv-page .tv-carousel-shell>.tv-carousel-arrow{position:absolute;top:50%;transform:translateY(-50%);z-index:3}
+ .tv-page .tv-carousel-shell>[data-tv-prev]{left:2px;right:auto}
+ .tv-page .tv-carousel-shell>[data-tv-next]{right:2px;left:auto}
+ .tv-page .tv-catalog-footnote{margin:10px 0 0}
+ .tv-page .tv-calc{padding:26px 0 29px}
+ .tv-page .tv-calc-card{grid-template-columns:1fr;padding:12px;gap:10px}
+ .tv-page .tv-calc-summary{padding:11px}
+ .tv-page .tv-result strong{font-size:25px}
+ .tv-page .tv-errors{padding:24px 0 30px}
+ .tv-page .tv-errors-grid{grid-template-columns:1fr;gap:9px}
+ .tv-page .tv-error-card{min-height:0;padding:12px 13px;gap:10px}
+ .tv-page .tv-error-copy h3{font-size:18px}
+ .tv-page .tv-error-copy p{font-size:11.5px}
+ .tv-page .tv-next-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .tv-page [id]{scroll-margin-top:135px}
 }
-@media(max-width:420px) {
-  .tv-page .tv-hero h1 {font-size:calc(clamp(30px,8.2vw,35px) + var(--vcc-heading-size-adjust,0px))}
-  .tv-page .tv-hero p {font-size:12.5px;line-height:1.47}
-  .tv-page .tv-button {font-size:10px}
-  .tv-page .tv-carousel-shell {grid-template-columns:28px minmax(0,1fr) 28px;gap:4px}
-  .tv-page .tv-fields {gap:9px}
-  .tv-page .tv-fields label {font-size:10px}
-  .tv-page .tv-result strong {font-size:22px}
-  .tv-page .tv-saving strong {font-size:29px}
+@media(max-width:420px){
+ .tv-page .tv-hero h1{font-size:clamp(39px,9.8vw,46px)}
+ .tv-page .tv-fields{gap:8px}
+ .tv-page .tv-fields label{font-size:10px}
+ .tv-page .tv-fields input{min-height:36px;font-size:13px}
+ .tv-page .tv-result strong{font-size:21px}
+ .tv-page .tv-saving strong{font-size:29px}
+ .tv-page .tv-card-body{padding:12px 13px}
 }
-@media(max-width:360px) {
-  .tv-page .tv-hero .tv-hero-inner {width:calc(100% - 34px);padding-top:62px}
-  .tv-page .tv-hero h1 {font-size:calc(30px + var(--vcc-heading-size-adjust,0px))}
-  .tv-page .tv-button {font-size:9.5px;padding-inline:4px}
-}
-@media(max-height:670px) and (max-width:720px) {
-  .tv-page .tv-hero .tv-hero-inner {padding-top:58px;padding-bottom:12px}
-  .tv-page .tv-hero h1 {font-size:calc(clamp(29px,7.8vw,34px) + var(--vcc-heading-size-adjust,0px));margin-bottom:10px}
-  .tv-page .tv-hero p {font-size:12px;line-height:1.42;margin-bottom:12px}
-}
-@media(prefers-reduced-motion:reduce) {
-  .tv-page .tv-button,.tv-page .tv-carousel-arrow {transition:none}
+@media(prefers-reduced-motion:reduce){
+ .tv-page .tv-carousel{scroll-behavior:auto}
 }
