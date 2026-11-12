@@ -81,7 +81,7 @@ export async function exportarAhorroTarjetasPDF({inputs,bankText,travelText,diff
   ['Comisión retirada viaje','atmTravel','%']
  ];
  const tx=15,ty=73,tw=173,rh=12.9;
- drawRounded(pdf,tx,ty,tw,93.4,'white');
+ drawRounded(pdf,tx,ty,tw,103,'white');
  color(pdf,'header','fill');pdf.rect(tx+.3,ty+.3,tw-.6,11,'F');
  color(pdf,'ink');pdf.setFont('helvetica','bold');pdf.setFontSize(9.3);pdf.text('CONCEPTO',tx+6,ty+7.3);pdf.text('IMPORTE',tx+tw-6,ty+7.3,{align:'right'});
  let yy=ty+11;
