@@ -19,9 +19,20 @@ if(!fs.existsSync(file(manifestPath))) {
 }
 const manifest=JSON.parse(fs.readFileSync(file(manifestPath),"utf8"));
 const imgs=manifest.images;
-function variant(name,width){
-  const info=imgs[name],v=info?.variants?.[width];
-  if(!v||!fs.existsSync(file(v.path.slice(1))))throw Error("Versió "+width+" inexistent: "+name);
+// Única excepció editorial: la portada de Planifica > Presupuestos utilitza
+// una fotografia pròpia d'Unsplash, no la portada genèrica de Presupuesto.
+// Les dues resolucions han de derivar del MATEIX original.
+const externalManifestPath="configuracion/imagenes/externas/unsplash/optimizadas/manifest.json";
+const externalImgs=JSON.parse(fs.readFileSync(file(externalManifestPath),"utf8")).images;
+function imageInfo(name,source="fondos"){return source==="externas"?externalImgs[name]:imgs[name]}
+
+function variant(name,width,source="fondos"){
+  const info=imageInfo(name,source);
+  // El generador Unsplash crea 1600px, suficients per a aquesta fotografia
+  // vertical, mentre que les portades genèriques creen 1920px.
+  const effective=source==="externas"&&String(width)==="1920"?"1600":String(width);
+  const v=info?.variants?.[effective];
+  if(!v||!fs.existsSync(file(v.path.slice(1))))throw Error("Versió "+effective+" inexistent: "+name);
   return v.path+"?v="+info.fingerprint;
 }
 function sync(p,content){
@@ -41,6 +52,9 @@ const pages=[
   ["planifica/vuelos/index.html","fondos-vuelos","html body .vl-page .vl-hero.tv-hero.vcc-portada-transparente","var"],
   ["planifica/tarjetas-de-viaje/index.html","fondos-planifica","html body .tv-page .tv-hero.vcc-portada-transparente","var"],
   ["planifica/que-llevar/index.html","fondos-que-llevar","body.que-llevar-hub .itinerarios-hero > .about-hero-photo","bg"],
+  // Abans carregava la foto de Presupuesto al preload però en pintava una
+  // altra d'Unsplash: dos fitxers per una única portada. Ara és 1 fotografia.
+  ["planifica/presupuesto/index.html","photo-1500530855697-b586d89ba3ee.webp","body.presupuestos-vcc .itinerarios-hero > .about-hero-photo","bg","externas"],
   ["destinos/suecia/estocolmo/imprescindibles.html","fondos-que-ver","html body .imp-page .imp-hero.vcc-portada-transparente","var"],
   ["destinos/suecia/estocolmo/presupuesto.html","fondos-presupuesto","html body.budget-vcc .budget-hero.vcc-portada-transparente","var"],
   ["destinos/suecia/estocolmo/cuando-ir.html","fondos-cuando-ir","html body.ci-page .vcc-hero.vcc-portada-transparente","vcc"],
@@ -50,10 +64,17 @@ const pages=[
   ["destinos/suecia/estocolmo/donde-dormir.html","fondos-donde-dormir","dv-hero-photo","img"],
   ["destinos/suecia/estocolmo/que-llevar.html","fondos-que-llevar","ql-hero-photo","img"]
 ];
-for(const [p,name] of pages) {
+for(const [p,name,, ,source] of pages) {
   if(!approvedFiles.includes(p))issues.push("Pàgina optimitzada no aprovada "+p);
-  if(!imgs[name])issues.push("No hi ha imatge original "+name);
-  for(const w of ["480","960","1920"])try{variant(name,w)}catch(e){issues.push(e.message)}
+  if(!imageInfo(name,source))issues.push("No hi ha imatge original "+name);
+  for(const w of ["480","960","1920"])try{variant(name,w,source)}catch(e){issues.push(e.message)}
+  const info=imageInfo(name,source);
+  if(info){
+    const original=file(info.source.slice(1));
+    if(!fs.existsSync(original))issues.push("Falta original "+info.source);
+    else if(crypto.createHash("sha256").update(fs.readFileSync(original)).digest("hex").slice(0,12)!==info.fingerprint)
+      issues.push("Variants desactualitzades per "+info.source);
+  }
 }
 if(issues.length)throw Error(issues.join("\n"));
 const maps=pages.filter(x=>x[3]!=="img"), css=[];
@@ -61,8 +82,8 @@ css.push("/* VCC · Portades responsives: originals intactes, mateixes fotografi
 css.push("   El fade i les posicions segueixen regulats pels CSS de components. */");
 for(const [media,width] of [["(max-width: 767px)","960"],["(min-width: 768px)","1920"]]){
   css.push("@media "+media+" {");
-  for(const [,name,selector,kind] of maps){
-    const url="url('"+variant(name,width)+"')";
+  for(const [,name,selector,kind,source] of maps){
+    const url="url('"+variant(name,width,source)+"')";
     const declarations=kind==="bg"?"background-image:"+url+"!important;":
       "--vcc-portada-imatge:"+url+"!important;"+(kind==="vcc"?"--vcc-hero-image:"+url+"!important;":"");
     css.push("  "+selector+"{"+declarations+"}");
@@ -88,28 +109,40 @@ for(const p of approvedFiles){
   const cfg=named.get(p);
   // La fotografia OG no es toca. Els preloads només són de la portada real.
   if(cfg){
-    const [,name,selector,kind]=cfg;
+    const [,name,selector,kind,source]=cfg;
     if(kind==="img"){
       const imgRE=new RegExp('<img\\b(?=[^>]*\\bclass=["\\u0027][^"\\u0027]*\\b'+selector+'\\b)[^>]*>','i');
       if(!imgRE.test(html))issues.push(p+": no s'ha trobat l'img de la portada");
       else {
         html=html.replace(imgRE,tag=>{
           let result=tag.replace(/\s+srcset=["'][^"']*["']/gi,"").replace(/\s+sizes=["'][^"']*["']/gi,"");
-          result=result.replace(/\bsrc=["'][^"']*["']/i,'src="'+variant(name,"1920")+'"');
-          return result.replace(/>$/,' srcset="'+variant(name,"960")+' 960w, '+variant(name,"1920")+' 1920w" sizes="(max-width: 767px) 300px, 100vw">');
+          result=result.replace(/\bsrc=["'][^"']*["']/i,'src="'+variant(name,"1920",source)+'"');
+          // El navegador selecciona la mida correcta sense renderitzar una
+          // segona fotografia. Hero no lazy; dimensió per evitar CLS.
+          result=result.replace(/\s+loading=["']lazy["']/gi,"");
+          if(!/\bfetchpriority=/.test(result))result=result.replace(/>$/,' fetchpriority="high">');
+          const dim=imageInfo(name,source).variants["960"];
+          if(!/\bwidth=["']/.test(result))result=result.replace(/>$/,' width="'+dim.width+'">');
+          if(!/\bheight=["']/.test(result))result=result.replace(/>$/,' height="'+dim.height+'">');
+          return result.replace(/>$/,' srcset="'+variant(name,"960",source)+' 960w, '+variant(name,"1920",source)+' '+(source==="externas"?"1600":"1920")+'w" sizes="100vw">');
         });
       }
     }
-    const preloadMobile='<link rel="preload" as="image" type="image/webp" media="(max-width: 767px)" href="'+variant(name,"960")+'" fetchpriority="high">';
-    const preloadDesktop='<link rel="preload" as="image" type="image/webp" media="(min-width: 768px)" href="'+variant(name,"1920")+'" fetchpriority="high">';
+    const preloadMobile='<link rel="preload" as="image" type="image/webp" media="(max-width: 767px)" href="'+variant(name,"960",source)+'" fetchpriority="high">';
+    const preloadDesktop='<link rel="preload" as="image" type="image/webp" media="(min-width: 768px)" href="'+variant(name,"1920",source)+'" fetchpriority="high">';
     html=html.replace(/<link\b[^>]*\brel=["']preload["'][^>]*>\s*/gi,tag=>{
-      if(!/\bas=["']image["']/i.test(tag)||
-         !(tag.includes("/configuracion/imagenes/fondos/"+name+".webp")||
-           tag.includes("/configuracion/imagenes/fondos/optimizadas/"+name+"-")))return tag;
-      return "";
+      if(!/\bas=["']image["']/i.test(tag))return tag;
+      const href=tag.match(/\bhref=["']([^"']+)/i)?.[1]?.split("?")[0]||"";
+      const selected=imageInfo(name,source);
+      const priorSource=source==="externas"&&p==="planifica/presupuesto/index.html"&&
+        href.includes("/configuracion/imagenes/fondos/optimizadas/fondos-presupuesto-");
+      const samePhoto=href.includes(selected?.source||"__missing__")||
+        Object.values(selected?.variants||{}).some(v=>href===v.path);
+      return samePhoto||priorSource?"":tag;
     });
-    // El preload s'ha d'inserir durant el parseig inicial, no via JavaScript.
-    html=html.replace(/<\/head\s*>/i,preloadMobile+"\n"+preloadDesktop+"\n</head>");
+    // LCP: l'escàner del navegador descobreix el recurs ABANS dels CSS,
+    // evitant la descoberta tardana al final del <head>.
+    html=html.replace(/<head\b[^>]*>/i,tag=>tag+"\n"+preloadMobile+"\n"+preloadDesktop);
   }
   // El logotip té viewBox 620x216; reservar la proporció a l'HTML
   // evita reflows mentre arriben els estils globals, sense canviar-ne el CSS.
