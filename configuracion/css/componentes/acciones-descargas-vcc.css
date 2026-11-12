@@ -1,0 +1,88 @@
+/* VCC · Acciones de archivos. ÚNICO estilo para PDF, impresión y Excel.
+ * Añadir class="vcc-download-link" y un SVG .vcc-download-icon.
+ * Se importa al final del HEAD de cada página con exportación.
+ * Los handlers originales de cada calculadora/checklist no cambian. */
+html body button.vcc-download-link,
+html body .vcc-budget-excel-row button.vcc-download-link,
+html body .printbar button.vcc-download-link,
+html body #ql-v6-print.vcc-download-link,
+html body .ql-page .ql-v7-section-pack > .ql-v17-actions-strip > .ql-v6-actions #ql-v6-print.vcc-download-link{
+  display:inline-flex!important;
+  flex:0 0 auto!important;
+  align-items:center!important;
+  justify-content:center!important;
+  gap:6px!important;
+  width:auto!important;
+  min-width:0!important;
+  max-width:100%!important;
+  height:auto!important;
+  min-height:28px!important;
+  margin:0!important;
+  padding:4px 2px!important;
+  background:transparent!important;
+  background-image:none!important;
+  border:0!important;
+  border-radius:0!important;
+  box-shadow:none!important;
+  color:#926d58!important;
+  font:600 10.5px/1.35 var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;
+  letter-spacing:0!important;
+  text-transform:none!important;
+  text-align:center!important;
+  text-decoration:none!important;
+  text-shadow:none!important;
+  white-space:nowrap!important;
+  cursor:pointer!important;
+  filter:none!important;
+  transition:color .16s ease!important;
+}
+html body button.vcc-download-link .vcc-download-icon,
+html body #ql-v6-print.vcc-download-link .vcc-download-icon{
+  display:block!important;
+  flex:0 0 15px!important;
+  width:15px!important;
+  height:15px!important;
+  margin:0!important;
+  padding:0!important;
+  fill:none!important;
+  stroke:currentColor!important;
+  color:inherit!important;
+}
+html body button.vcc-download-link:hover,
+html body #ql-v6-print.vcc-download-link:hover,
+html body .ql-page .ql-v7-section-pack > .ql-v17-actions-strip > .ql-v6-actions #ql-v6-print.vcc-download-link:hover{
+  color:#c56239!important;
+  background:transparent!important;
+  border:0!important;
+  text-decoration:underline!important;
+  text-underline-offset:3px!important;
+  filter:none!important;
+}
+html body button.vcc-download-link:focus-visible,
+html body #ql-v6-print.vcc-download-link:focus-visible{
+  outline:2px solid #c9724c!important;
+  outline-offset:3px!important;
+  border-radius:2px!important;
+}
+html body button.vcc-download-link:disabled,
+html body #ql-v6-print.vcc-download-link:disabled{
+  opacity:.5!important;
+  cursor:progress!important;
+  text-decoration:none!important;
+}
+html body .vl-page .vl-compare-utils,
+html body .al-page .al-compare-utils{
+  align-items:center;
+  column-gap:15px;
+}
+@media(max-width:720px){
+  html body button.vcc-download-link,
+  html body #ql-v6-print.vcc-download-link{
+    min-height:36px!important;
+    font-size:10.5px!important;
+  }
+}
+@media print{
+  html body button.vcc-download-link,
+  html body #ql-v6-print.vcc-download-link{display:none!important}
+}
