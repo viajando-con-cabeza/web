@@ -79,15 +79,6 @@ if(!fs.existsSync(file(sharedCorePath)))throw Error("Falta el CSS compartit. Exe
 const coreHash=crypto.createHash("sha256").update(fs.readFileSync(file(sharedCorePath))).digest("hex").slice(0,12);
 const coreLink='<link rel="stylesheet" data-vcc-core-styles href="/'+sharedCorePath+'?v='+coreHash+'">';
 const named=new Map(pages.map(x=>[x[0],x]));
-// Optimització mòbil no destructiva: 480px per a pantalles 1x, 960px per a 2x/3x.
-// Les imatges són derivades del mateix original; les portades aprovades no es retallen.
-const responsive480Pages=new Set([
-  "destinos/suecia/estocolmo/presupuesto.html",
-  "destinos/suecia/estocolmo/que-llevar.html",
-  "destinos/suecia/estocolmo/donde-dormir.html",
-  "destinos/suecia/estocolmo/como-moverse.html",
-  "destinos/suecia/estocolmo/como-llegar.html",
-]);
 const originalRE=/\/configuracion\/imagenes\/fondos\/(fondos-[\w-]+)\.webp(?:\?[^"'\s<)]*)?/i;
 let pagesChanged=0;
 for(const p of approvedFiles){
@@ -95,7 +86,6 @@ for(const p of approvedFiles){
   const original=fs.readFileSync(file(p),"utf8");
   let html=original;
   const cfg=named.get(p);
-  const responsive480=responsive480Pages.has(p);
   // La fotografia OG no es toca. Els preloads només són de la portada real.
   if(cfg){
     const [,name,selector,kind,source]=cfg;
@@ -115,8 +105,7 @@ for(const p of approvedFiles){
           if(!/\bheight=["']/.test(result))result=result.replace(/>$/,' height="'+dim.height+'">');
           const imageVariants=imageInfo(name,source).variants;
           const desktopSize=source==="externas"?"1600":"1920";
-          const small=responsive480?variant(name,"480",source)+' '+imageVariants["480"].width+'w, ':'';
-          return result.replace(/>$/,' srcset="'+small+variant(name,"960",source)+' '+imageVariants["960"].width+'w, '+variant(name,"1920",source)+' '+imageVariants[desktopSize].width+'w" sizes="(max-width: 767px) 320px, 100vw">');
+          return result.replace(/>$/,' srcset="'+variant(name,"960",source)+' '+imageVariants["960"].width+'w, '+variant(name,"1920",source)+' '+imageVariants[desktopSize].width+'w" sizes="(max-width: 767px) 320px, 100vw">');
         });
       }
     }
@@ -127,13 +116,8 @@ for(const p of approvedFiles){
       const mobile=variant(name,"960",source),desktop=variant(name,"1920",source);
       const desktopWidth=source==="externas"?"1600":"1920";
       const dimensions=imageInfo(name,source).variants[String(desktopWidth)];
-      return block.replace(/<source\b[^>]*media=["']\(max-width: 767px\)["'][^>]*>/i,tag=>{
-        const sourceSet=responsive480
-          ?variant(name,"480",source)+' '+imageInfo(name,source).variants["480"].width+'w, '+mobile+' '+imageInfo(name,source).variants["960"].width+'w'
-          :mobile;
-        const updated=tag.replace(/\bsrcset=["'][^"']*["']/i,'srcset="'+sourceSet+'"');
-        return responsive480&&!/\bsizes=/.test(updated)?updated.replace(/>$/,' sizes="320px">'):updated;
-      })
+      return block.replace(/<source\b[^>]*media=["']\(max-width: 767px\)["'][^>]*>/i,tag=>
+        tag.replace(/\bsrcset=["'][^"']*["']/i,'srcset="'+mobile+'"'))
       .replace(/<img\b[^>]*>/i,tag=>{
         let imageTag=tag.replace(/\bsrc=["'][^"']*["']/i,'src="'+desktop+'"')
           .replace(/\s+srcset=["'][^"']*["']/gi,'')
@@ -145,13 +129,10 @@ for(const p of approvedFiles){
         if(!/\bfetchpriority=/.test(imageTag))
           imageTag=imageTag.replace(/>$/,' fetchpriority="high">');
         imageTag=imageTag.replace(/\s+loading=["']lazy["']/gi,'');
-        const small=responsive480?variant(name,"480",source)+' '+imageInfo(name,source).variants["480"].width+'w, ':'';
-        return imageTag.replace(/>$/,' srcset="'+small+mobile+' '+imageInfo(name,source).variants["960"].width+'w, '+desktop+' '+dimensions.width+'w" sizes="(max-width: 767px) 320px, 100vw">');
+        return imageTag.replace(/>$/,' srcset="'+mobile+' '+imageInfo(name,source).variants["960"].width+'w, '+desktop+' '+dimensions.width+'w" sizes="(max-width: 767px) 320px, 100vw">');
       });
     });
-    const preloadMobile=responsive480
-      ?'<link rel="preload" as="image" type="image/webp" media="(max-width: 767px)" href="'+variant(name,"960",source)+'" imagesrcset="'+variant(name,"480",source)+' '+imageInfo(name,source).variants["480"].width+'w, '+variant(name,"960",source)+' '+imageInfo(name,source).variants["960"].width+'w" imagesizes="320px" fetchpriority="high">'
-      :'<link rel="preload" as="image" type="image/webp" media="(max-width: 767px)" href="'+variant(name,"960",source)+'" fetchpriority="high">';
+    const preloadMobile='<link rel="preload" as="image" type="image/webp" media="(max-width: 767px)" href="'+variant(name,"960",source)+'" fetchpriority="high">';
     const preloadDesktop='<link rel="preload" as="image" type="image/webp" media="(min-width: 768px)" href="'+variant(name,"1920",source)+'" fetchpriority="high">';
     html=html.replace(/<link\b[^>]*\brel=["']preload["'][^>]*>\s*/gi,tag=>{
       if(!/\bas=["']image["']/i.test(tag))return tag;
