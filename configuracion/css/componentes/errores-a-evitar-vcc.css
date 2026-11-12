@@ -30,3 +30,36 @@ html body .sv-page .sv-error-card > .surprise-icon > svg {
   flex: none !important;
   transform: none !important;
 }
+
+
+/* Tarjeta de aviso editorial compartida: aspecto original de
+   'Errores a evitar' en Presupuesto de Estocolmo. */
+:is(.budget-vcc,.sv-page) .vcc-editorial-error-card{
+ display:flex!important;flex-direction:row!important;align-items:flex-start!important;
+ gap:13px!important;min-height:160px;padding:18px!important;
+ font-family:var(--vcc-font-body,"DM Sans",sans-serif)!important
+}
+:is(.budget-vcc,.sv-page) .vcc-editorial-error-card h3{
+ font:800 19px/1.2 var(--vcc-font-body,"DM Sans",sans-serif)!important;
+ margin:0 0 7px!important;color:#232120!important
+}
+:is(.budget-vcc,.sv-page) .vcc-editorial-error-card p{
+ font:400 11px/1.6 var(--vcc-font-body,"DM Sans",sans-serif)!important;
+ color:#625b56!important;margin:0!important
+}
+:is(.budget-vcc,.sv-page) .vcc-editorial-error-card > .vcc-editorial-error-icon{
+ display:grid!important;place-items:center!important;
+ flex:0 0 34px!important;width:34px!important;height:34px!important;
+ min-width:34px!important;min-height:34px!important;
+ margin:0!important;padding:0!important;
+ border:0!important;outline:none!important;border-radius:50%!important;
+ background:#eaf2f2!important;color:#527b80!important;
+ box-shadow:none!important;transform:none!important
+}
+:is(.budget-vcc,.sv-page) .vcc-editorial-error-card > .vcc-editorial-error-icon > svg{
+ width:22px!important;height:22px!important;display:block!important;flex:none!important;
+ transform:none!important
+}
+@media(max-width:760px){
+ :is(.budget-vcc,.sv-page) .vcc-editorial-error-card{padding:15px!important;min-height:145px!important}
+}
