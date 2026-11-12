@@ -29,27 +29,58 @@ body.que-llevar-hub .itinerarios-hero > .about-hero-photo{
  }
 }
 .vcc-it-catalog .di-mini-card[hidden]{display:none!important}
-.vcc-it-catalog .vcc-catalog-filters{display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin:-5px 0 17px}
-.vcc-it-catalog .vcc-catalog-filters label{display:flex;align-items:center;gap:7px;color:#625e5a;font:700 11px/1.3 var(--vcc-font-body,"DM Sans",Arial,sans-serif)}
-.vcc-it-catalog .vcc-catalog-filters select{
- min-width:115px;max-width:205px;padding:7px 28px 7px 10px;
- border:1px solid #e7ddd4;border-radius:7px;background:#fff;color:#3e3935;
- font:500 11px/1.3 var(--vcc-font-body,"DM Sans",Arial,sans-serif);cursor:pointer;
+/* Fila compartida: buscador > continente > tipo > importe (solo presupuestos). */
+.vcc-it-catalog .vcc-catalog-toolbar{
+ display:flex;align-items:flex-end;gap:10px;flex-wrap:nowrap;
+ width:100%;min-width:0;margin:0 0 18px;
 }
-.vcc-it-catalog .vcc-catalog-filters select:focus-visible,
-.vcc-it-catalog .di-catalog-search input:focus-visible{outline:2px solid #c06342;outline-offset:2px}
-.vcc-it-catalog .vcc-catalog-reset{border:0;background:transparent;padding:7px 4px;
- color:#b45032;font:700 11px var(--vcc-font-body,"DM Sans",Arial,sans-serif);cursor:pointer}
-.vcc-it-catalog .vcc-catalog-reset:hover{text-decoration:underline}
+.vcc-it-catalog .vcc-catalog-toolbar .vcc-catalog-search{
+ flex:1 1 225px;min-width:180px;width:auto;height:40px;margin:0;
+}
+.vcc-it-catalog .vcc-catalog-toolbar .vcc-catalog-field{
+ display:flex;flex:0 1 162px;flex-direction:column;gap:4px;min-width:126px;
+ color:#625e5a;font:700 10px/1.25 var(--vcc-font-body,"DM Sans",Arial,sans-serif)
+}
+.vcc-it-catalog .vcc-catalog-toolbar .vcc-catalog-field select{
+ box-sizing:border-box;display:block;width:100%;height:40px;min-width:0;max-width:none;
+ padding:0 9px;border:1px solid #e7ddd4;border-radius:8px;
+ background:#fff;color:#3e3935;
+ font:500 11px/1.3 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
+ cursor:pointer;
+}
+.vcc-it-catalog .vcc-catalog-toolbar select:focus-visible,
+.vcc-it-catalog .vcc-catalog-toolbar input:focus-visible,
+.vcc-it-catalog .vcc-catalog-toolbar button:focus-visible{outline:2px solid #c06342;outline-offset:2px}
+.vcc-it-catalog .vcc-catalog-toolbar .vcc-catalog-reset{
+ flex:0 0 auto;min-height:40px;white-space:nowrap;border:0;background:transparent;
+ padding:7px 0;color:#b45032;font:700 11px/1.3 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
+ cursor:pointer
+}
+.vcc-it-catalog .vcc-catalog-toolbar .vcc-catalog-reset:hover{text-decoration:underline}
+.vcc-it-catalog .vcc-catalog-toolbar .vcc-catalog-count{
+ flex:0 0 auto;align-self:flex-end;display:block;
+ min-height:40px;line-height:40px;margin-left:auto;white-space:nowrap;
+}
+@media(max-width:1020px){
+ .vcc-it-catalog .vcc-catalog-toolbar{flex-wrap:wrap;gap:9px 11px}
+ .vcc-it-catalog .vcc-catalog-toolbar .vcc-catalog-search{flex:1 1 100%;max-width:none;min-width:0}
+ .vcc-it-catalog .vcc-catalog-toolbar .vcc-catalog-field{flex:1 1 155px}
+}
+@media(max-width:620px){
+ .vcc-it-catalog .vcc-catalog-toolbar{gap:8px;margin-bottom:14px}
+ .vcc-it-catalog .vcc-catalog-toolbar .vcc-catalog-field{flex:1 1 calc(50% - 6px);min-width:0}
+ .vcc-it-catalog .vcc-catalog-toolbar .vcc-catalog-field select{font-size:11px}
+ .vcc-it-catalog .vcc-catalog-toolbar .vcc-catalog-reset{min-height:34px}
+ .vcc-it-catalog .vcc-catalog-toolbar .vcc-catalog-count{min-height:34px;line-height:34px}
+}
+@media(max-width:390px){
+ .vcc-it-catalog .vcc-catalog-toolbar .vcc-catalog-field{flex-basis:100%}
+}
 .vcc-it-catalog .vcc-catalog-note{margin:12px 0 0;color:#716a64;font:400 11px/1.6 var(--vcc-font-body,"DM Sans",Arial,sans-serif)}
 .vcc-it-catalog .vcc-it-facts .di-budget-row .di-price{white-space:nowrap}
 .vcc-it-catalog .vcc-it-facts .di-route-stats{white-space:nowrap}
 .vcc-it-catalog .vcc-it-card .di-mini-body{display:flex;flex-direction:column}
 @media(max-width:620px){
- .vcc-it-catalog .vcc-catalog-filters{gap:7px;margin:-4px 0 12px}
- .vcc-it-catalog .vcc-catalog-filters label{flex:1 1 145px;display:block;font-size:10px}
- .vcc-it-catalog .vcc-catalog-filters select{display:block;width:100%;max-width:none;margin-top:4px;font-size:11px}
- .vcc-it-catalog .vcc-catalog-reset{flex:0 0 auto}
  .vcc-it-catalog .vcc-it-facts{gap:9px}
  .vcc-it-catalog .vcc-it-facts .di-price{font-size:9px}
 }
