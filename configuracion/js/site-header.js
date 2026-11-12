@@ -207,8 +207,17 @@
   if (existing?.matches('.shared-header') && existing.querySelector('.shared-menu a')) {
     // Refresh the three icons without replacing the working shared header.
     const socialLinks=existing.querySelectorAll('.shared-social a');
+    const iconSources=[
+      '/configuracion/imagenes/iconos/compartidos/redes-sociales.svg#cabecera-instagram',
+      '/configuracion/imagenes/iconos/compartidos/redes-sociales.svg#cabecera-tiktok',
+      '/configuracion/imagenes/iconos/compartidos/redes-sociales.svg#cabecera-youtube'
+    ];
     [instagramIcon,tiktokIcon,youtubeIcon].forEach((svg,i)=>{
-      if(socialLinks[i]) socialLinks[i].innerHTML=svg;
+      // La capçalera ja arriba preparada en HTML a les guies optimitzades.
+      // Evitem reemplaçar SVG idèntics i invalidar el layout abans del LCP.
+      const anchor=socialLinks[i];
+      if(anchor && anchor.querySelector('use')?.getAttribute('href')!==iconSources[i])
+        anchor.innerHTML=svg;
     });
     // Static header stays visible and functional even if this script fails later.
   } else if (existing) {
@@ -224,16 +233,12 @@
     if (!menu) return;
     menu.scrollLeft=0;
   };
-  // pageshow also fires when the browser restores a page from cache.
-  window.addEventListener('pageshow',()=>{
-    resetHeaderMenu();
-    requestAnimationFrame(()=>requestAnimationFrame(resetHeaderMenu));
+  // En navegació nova el menú ja comença a l'esquerra per defecte.
+  // Escriure scrollLeft=0 durant el primer render forçava una consulta de
+  // layout costosa en mòbil; només cal normalitzar en restaurar la BFCache.
+  window.addEventListener('pageshow',(event)=>{
+    if(event.persisted) requestAnimationFrame(()=>requestAnimationFrame(resetHeaderMenu));
   });
-  if (document.readyState==='loading') {
-    document.addEventListener('DOMContentLoaded', resetHeaderMenu, {once:true});
-  } else {
-    resetHeaderMenu();
-  }
 
   // Final layout guard: the header is sized to the visual viewport, not
   // to overflowing country-page content. Only the second-row menu scrolls.
