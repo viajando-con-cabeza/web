@@ -11,8 +11,8 @@
 .av-wrap{width:min(1160px,calc(100% - 44px));margin-inline:auto}
 .av-hero{position:relative;isolation:isolate;display:flex;align-items:center;overflow:hidden;
  height:var(--vcc-standard-hero-desktop,475px);min-height:475px;color:#fff;background-color:#343839;
- background-image:linear-gradient(90deg,rgba(13,17,18,.83),rgba(13,17,18,.53) 54%,rgba(13,17,18,.12)),
- url('/configuracion/imagenes/fondos/optimizadas/fondos-tarjetas-de-viaje-1920.webp');
+ background-image:linear-gradient(90deg,rgba(44,33,27,.61) 0%,rgba(41,33,26,.24) 57%,rgba(31,34,29,.04)),
+ url('/configuracion/imagenes/fondos/optimizadas/fondos-apps-1920.webp');
  background-position:center;background-size:cover;background-repeat:no-repeat}
 .av-hero-inner{padding:60px 0 30px;position:relative}
 .av-hero-kicker{display:block;color:#ffb493;font:800 12px/1.3 var(--vcc-font-body,"DM Sans",sans-serif);
@@ -137,8 +137,8 @@
  .av-local{grid-template-columns:repeat(2,minmax(0,1fr))}
 }
 @media(max-width:767px){
- .av-hero{background-image:linear-gradient(90deg,rgba(13,17,18,.85),rgba(13,17,18,.25)),
- url('/configuracion/imagenes/fondos/optimizadas/fondos-tarjetas-de-viaje-960.webp')}
+ .av-hero{background-image:linear-gradient(90deg,rgba(39,30,25,.62),rgba(38,34,30,.17)),
+ url('/configuracion/imagenes/fondos/optimizadas/fondos-apps-960.webp')}
 }
 @media(max-width:600px){
  .av-wrap{width:calc(100% - 28px)}
@@ -169,3 +169,58 @@
 }
 @media(max-width:390px){.av-activities{grid-template-columns:1fr}.av-activity-picture{aspect-ratio:2.3}}
 @media(prefers-reduced-motion:reduce){.av-track{scroll-behavior:auto!important}.av-activity-picture img{transition:none!important}}
+
+/* Component de carrusel de Seguros/Cuando ir:
+   tres targetes en escriptori, controls als costats; en mòbil una i fletxes a dalt-dreta. */
+.av-page .av-carousel{position:relative;min-width:0}
+.av-page .av-carousel > .av-arrows{margin:0;min-height:0;pointer-events:none}
+.av-page .av-carousel > .av-arrows > .av-arrow{
+  position:absolute;z-index:5;top:50%;transform:translateY(-50%);
+  pointer-events:auto;margin:0;width:36px;height:36px;
+  display:grid;place-items:center;box-shadow:var(--vcc-carrusel-fletxa-ombra,0 2px 8px #211a1919);
+  background:var(--vcc-carrusel-fletxa-fons,rgba(255,255,255,.84));
+  color:var(--vcc-carrusel-fletxa-tinta,#ab553b);
+  border:1px solid var(--vcc-carrusel-fletxa-contorn,#c7aa97);border-radius:50%;
+}
+.av-page .av-carousel > .av-arrows > .av-arrow-prev{left:-18px;right:auto}
+.av-page .av-carousel > .av-arrows > .av-arrow-next{right:-18px;left:auto}
+.av-page .av-carousel > .av-arrows > .av-arrow:hover:not(:disabled){background:#fff1e8}
+.av-page .av-carousel > .av-arrows > .av-arrow:disabled{opacity:.25}
+.av-page .av-carousel .av-track{width:100%;scroll-snap-type:x mandatory;overscroll-behavior-inline:contain}
+.av-page .av-carousel .av-track > .av-card{scroll-snap-align:start}
+.av-page .av-carousel .av-activities.av-track{
+ display:grid;grid-template-columns:none;grid-auto-flow:column;
+ grid-auto-columns:calc((100% - 32px)/3.10);gap:14px;overflow-x:auto;
+ -webkit-overflow-scrolling:touch;scrollbar-width:none;padding:3px 2px 13px;
+}
+.av-page .av-carousel .av-activities::-webkit-scrollbar{display:none}
+.av-page .av-errors-track > .av-error-card{
+ display:flex;flex-direction:row;align-items:flex-start;min-width:0;
+ min-height:136px;padding:14px 15px;gap:12px; background:#fff;
+ border:1px solid var(--av-line);border-radius:13px;
+}
+.av-page .av-errors-track .av-error-alert{
+ width:34px;height:34px;flex:0 0 34px;display:grid;place-items:center;
+ color:#a67c48;background:#f1e5d1;border-radius:50%;
+}
+.av-page .av-errors-track .av-error-alert svg{width:22px;height:22px;display:block}
+.av-page .av-errors-track .av-error-card h3{
+ font:800 13px/1.35 var(--vcc-font-body,"DM Sans",Arial,sans-serif);margin:0 0 7px
+}
+.av-page .av-errors-track .av-error-card p{
+ font:400 11.4px/1.48 var(--vcc-font-body,"DM Sans",Arial,sans-serif);margin:0;color:#615a54
+}
+@media(max-width:900px){
+ .av-page .av-carousel .av-activities.av-track{grid-auto-columns:calc((100% - 15px)/2.16)}
+}
+@media(max-width:700px){
+ .av-page .av-carousel{padding-top:45px}
+ .av-page .av-carousel > .av-arrows > .av-arrow{
+   top:0;transform:none;left:auto;right:0;width:36px;height:36px;
+ }
+ .av-page .av-carousel > .av-arrows > .av-arrow-prev{right:44px;left:auto}
+ .av-page .av-carousel > .av-arrows > .av-arrow-next{right:0;left:auto}
+ .av-page .av-carousel .av-activities.av-track{grid-auto-columns:100%;gap:12px}
+ .av-page .av-carousel .av-track{grid-auto-columns:100%!important}
+ .av-page .av-errors-track > .av-error-card{min-height:124px;padding:13px}
+}
