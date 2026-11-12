@@ -179,3 +179,21 @@
 @media(prefers-reduced-motion:reduce){
  .vcc-it-catalog .vcc-it-photo.is-sliding img[data-vcc-it-slide]{transition:none}
 }
+
+
+/* VCC · Targetes de catàleg amb alçada automàtica, sense truncar descripcions.
+   Comparteixen aquestes regles Itinerarios, Presupuestos i Qué llevar. */
+.vcc-it-catalog .di-mini-grid{align-items:stretch}
+.vcc-it-catalog .vcc-it-card{height:auto;min-height:0}
+.vcc-it-catalog .vcc-it-card .di-mini-body{flex:1;min-height:0}
+.vcc-it-catalog .vcc-it-card .di-mini-desc{
+ display:block;
+ -webkit-box-orient:initial;
+ -webkit-line-clamp:unset;
+ line-clamp:unset;
+ overflow:visible;
+ max-height:none;
+ min-height:0;
+ white-space:normal;
+ overflow-wrap:break-word;
+}
