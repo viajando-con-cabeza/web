@@ -1,124 +1,114 @@
-/* VCC · Seguros de viaje. Los carruseles mantienen fondo blanco y la página papel cálido. */
-.sv-page{--sv-accent:var(--vcc-accent-override,#ed6945);--sv-ink:#22201e;--sv-muted:#665e58;--sv-paper:#f5ece3;--sv-border:#e6d8cc;background:var(--sv-paper);color:var(--sv-ink);font-family:var(--vcc-font-body,"DM Sans",Arial,sans-serif)}
-.sv-page *{box-sizing:border-box}.sv-page [hidden]{display:none!important}.sv-page a{color:inherit;text-decoration:none}
-.sv-page button{font:inherit;cursor:pointer}.sv-page button:disabled{opacity:.35;cursor:default}
-.sv-page :is(a,button):focus-visible{outline:2px solid var(--sv-accent);outline-offset:3px}
+
+/* VCC · Planifica / Seguros: editorial, contenido y carruseles aislados de otras páginas. */
+.sv-page{--sv-orange:#df612b;--sv-coral:#c46f58;--sv-ink:#242120;--sv-muted:#66605d;--sv-paper:#faf6f1;--sv-border:#e5ddd6;--sv-body:var(--vcc-font-body,"DM Sans",Arial,sans-serif);--sv-title:var(--vcc-font-heading,"Oswald","Arial Narrow",sans-serif);background:var(--sv-paper);color:var(--sv-ink);font-family:var(--sv-body)}
+.sv-page *{box-sizing:border-box}
+.sv-page [hidden]{display:none!important}
+.sv-page a{text-decoration:none}
+.sv-page button{font:inherit;cursor:pointer}
+.sv-page button:disabled{opacity:.32;cursor:default}
+.sv-page :is(a,button):focus-visible{outline:2px solid var(--sv-orange);outline-offset:3px}
 .sv-symbols{position:absolute;width:0;height:0;overflow:hidden}
-.sv-wrap{width:min(1160px,calc(100% - 44px));margin-inline:auto}
-.sv-hero{position:relative;isolation:isolate;display:flex;align-items:center;height:var(--vcc-standard-hero-desktop,475px);min-height:475px;overflow:hidden;color:white;background-color:#292522;background-image:linear-gradient(90deg,rgba(20,16,12,.85),rgba(20,16,12,.51) 51%,rgba(20,16,12,.09)),url('/configuracion/imagenes/fondos/optimizadas/fondos-seguros-1672.webp');background-repeat:no-repeat;background-position:center;background-size:cover}
-.sv-hero-inner{padding:62px 0 32px;position:relative;z-index:1}
-.sv-hero-over{font:700 12px/1.3 var(--vcc-font-body,"DM Sans",sans-serif);letter-spacing:.11em;text-transform:uppercase;color:#ffd6be}
-.sv-hero h1{font:600 clamp(47px,6.1vw,72px)/1.06 var(--vcc-font-heading,"Oswald",sans-serif);margin:9px 0 14px;letter-spacing:.005em}
-.sv-hero p{font:400 clamp(14px,1.5vw,16px)/1.65 var(--vcc-font-body,"DM Sans",sans-serif);margin:0;max-width:610px;color:#f4ede8}
-.sv-hero .vcc-breadcrumb-unified{z-index:2}
-.sv-tabs{background:#fff;border-top:1px solid #e9ded5;border-bottom:1px solid #e9ded5}
-.sv-tabs-inner{display:flex;align-items:center;justify-content:center;gap:32px;min-height:44px;max-width:1100px;margin:auto;padding:0 15px;overflow-x:auto;white-space:nowrap;scrollbar-width:none}
+.sv-wrap{width:min(1170px,calc(100% - 64px));margin-inline:auto}
+.sv-page .sv-hero{position:relative;isolation:isolate;display:flex;align-items:center;overflow:hidden;min-height:var(--vcc-standard-hero-desktop,475px);height:var(--vcc-standard-hero-desktop,475px);color:#151b20;background-color:#cbd7da;background-image:linear-gradient(90deg,rgba(250,248,244,.49) 0%,rgba(250,248,244,.22) 45%,rgba(250,248,244,0) 79%),url("/configuracion/imagenes/fondos/optimizadas/fondos-seguros-claro-1600.webp");background-position:center;background-size:cover;background-repeat:no-repeat}
+.sv-page .sv-hero-inner{position:relative;z-index:1;padding:62px 0 32px}
+.sv-hero-over{display:block;font:800 12px/1.3 var(--sv-body);letter-spacing:.11em;text-transform:uppercase;color:#a94720}
+.sv-page .sv-hero h1{font:600 clamp(46px,5.8vw,72px)/1.06 var(--sv-title);margin:8px 0 12px;letter-spacing:.005em;color:#171b1e}
+.sv-page .sv-hero p{font:500 clamp(13px,1.45vw,16px)/1.55 var(--sv-body);margin:0;max-width:545px;color:#22272b}
+.sv-page .sv-hero .vcc-breadcrumb-unified,.sv-page .sv-hero .vcc-breadcrumb-unified a,.sv-page .sv-hero .vcc-breadcrumb-unified strong{color:#27282a!important;text-shadow:none!important}
+.sv-tabs{background:#fff;border-block:1px solid #e9dfd8}
+.sv-tabs-inner{display:flex;align-items:center;justify-content:center;gap:38px;max-width:1180px;min-height:43px;margin:auto;padding-inline:16px;overflow-x:auto;white-space:nowrap;scrollbar-width:none}
 .sv-tabs-inner::-webkit-scrollbar{display:none}
-.sv-tabs a{display:inline-flex;align-items:center;font:800 11px/1.2 var(--vcc-font-body,"DM Sans",sans-serif);text-transform:uppercase;letter-spacing:.02em;padding:14px 0 11px;border-bottom:3px solid transparent;white-space:nowrap}
-.sv-tabs a:is(:hover,[aria-current="location"]){color:#da581f;border-color:var(--sv-accent)}
-.sv-section{padding:36px 0 22px;scroll-margin-top:92px}
-.sv-heading{display:flex;justify-content:space-between;align-items:end;gap:20px;margin-bottom:18px}
-.sv-over{display:block;color:#e6631e;font:600 28px/1 var(--vcc-font-script,"Caveat",cursive);text-transform:none;letter-spacing:0;margin-bottom:6px}
-.sv-h2{font:600 clamp(28px,3vw,38px)/1.12 var(--vcc-font-heading,"Oswald",sans-serif);text-transform:uppercase;margin:0}
-.sv-descr{font:400 13px/1.6 var(--vcc-font-body,"DM Sans",sans-serif);max-width:400px;margin:0;color:var(--sv-muted);text-align:right}
-.sv-controls{display:flex;justify-content:flex-end;gap:9px;margin:-4px 0 10px}
-.sv-arrow{display:grid;place-items:center;width:35px;height:35px;border:1.8px solid #e6631e;border-radius:50%;color:#db6029;background:#fff;line-height:1;font-size:29px;font-weight:400;padding:0 0 3px;transition:background .18s}
-.sv-arrow:hover:not(:disabled){background:#ffeadd}
-.sv-track{display:grid;grid-auto-flow:column;grid-auto-columns:calc((100% - 32px)/2.85);gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding-inline:2px;padding:3px 2px 15px;-webkit-overflow-scrolling:touch;overscroll-behavior-inline:contain;scrollbar-width:none}
+.sv-tabs a{display:inline-flex;align-items:center;flex:none;padding:13px 0 10px;border-bottom:3px solid transparent;font:800 11px/1.2 var(--sv-body);color:#33312e;text-transform:uppercase}
+.sv-tabs a:hover,.sv-tabs a[aria-current="location"]{color:var(--sv-orange);border-color:var(--sv-orange)}
+.sv-page .sv-section{background:transparent;padding:39px 0 8px;scroll-margin-top:94px}
+.sv-page .sv-heading{display:grid;grid-template-columns:minmax(0,1fr) minmax(230px,395px);align-items:end;gap:20px;margin:0 0 19px}
+.sv-page .sv-over{display:block;margin:0 0 6px;color:var(--sv-coral);font:600 31px/1.05 var(--vcc-font-script,"Caveat",cursive)!important;text-transform:none!important;letter-spacing:0!important}
+.sv-page .sv-h2{font:600 clamp(32px,3.5vw,45px)/1.1 var(--sv-title)!important;letter-spacing:0;text-transform:uppercase;margin:0;color:#1e1d1b}
+.sv-page .sv-descr{color:var(--sv-muted);font:400 14px/1.55 var(--sv-body);max-width:395px;margin:0;text-align:right}
+.sv-carousel-shell{position:relative}
+.sv-controls{position:absolute;inset:0;pointer-events:none;z-index:2}
+.sv-arrow{position:absolute;top:calc(50% - 8px);transform:translateY(-50%);display:grid;place-items:center;width:44px;height:44px;padding:0 0 4px;border:1px solid #d8b9a8;border-radius:50%;background:#fff;color:#ba592f;font-size:30px!important;line-height:1;box-shadow:0 4px 15px #30201814;pointer-events:auto}
+.sv-arrow:not(:disabled):hover{background:#fff2eb;border-color:#df784a}
+.sv-prev{left:-55px}.sv-next-arrow{right:-55px}
+.sv-track{display:grid;grid-auto-flow:column;grid-auto-columns:calc((100% - 34px)/3);gap:17px;overflow-x:auto;scroll-snap-type:x mandatory;overscroll-behavior-inline:contain;scroll-padding-inline:2px;padding:2px 2px 15px;-webkit-overflow-scrolling:touch;scrollbar-width:none}
 .sv-track::-webkit-scrollbar{display:none}
-.sv-card{scroll-snap-align:start;min-width:0;display:flex;background:#fff!important;background-image:none!important;border:1px solid var(--sv-border);border-radius:15px;box-shadow:0 4px 16px #382a1712;color:var(--sv-ink)}
-.sv-card h3,.sv-card h4,.sv-card p{margin:0}
-.sv-card h3{font:600 22px/1.14 var(--vcc-font-heading,"Oswald",sans-serif)}
-.sv-card p{font:400 12px/1.48 var(--vcc-font-body,"DM Sans",sans-serif);color:#49413b}
-.sv-icon{display:block;flex:0 0 auto;width:40px;height:40px;color:#e6631e;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
-.sv-insurer{padding:19px 18px 17px;min-height:263px;flex-direction:column}
-.sv-insurer-top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:9px}
-.sv-insurer-name{font:800 clamp(21px,2.2vw,28px)/1.1 var(--vcc-font-body,"DM Sans",sans-serif)!important;letter-spacing:-.055em}
+.sv-track[data-sv-track="insurers"]{grid-auto-columns:calc((100% - 34px)/2.78)}
+.sv-track[data-sv-track="cover"]{grid-auto-columns:calc((100% - 68px)/6)}
+.sv-card{display:flex;min-width:0;scroll-snap-align:start;border:1px solid var(--sv-border);border-radius:14px;background:#fff!important;background-image:none!important;box-shadow:0 4px 15px #47342a0d;color:var(--sv-ink)}
+.sv-card :is(h3,h4,p){margin:0}
+.sv-card h3{font:600 24px/1.18 var(--sv-title)}
+.sv-card p{font:400 13px/1.47 var(--sv-body);color:#615f5d}
+.sv-icon{width:36px;height:36px;flex:none;fill:none;stroke:var(--sv-orange);stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.sv-insurer{flex-direction:column;min-height:284px;padding:20px 21px 17px}
+.sv-insurer-head{border-bottom:1px solid #ebe4df;padding:0 0 13px}
+.sv-card .sv-insurer-name{font:800 clamp(22px,2.1vw,29px)/1.1 var(--sv-body);letter-spacing:-.065em}
 .sv-insurer-name.heymondo{color:#086b43}.sv-insurer-name.iati{color:#ea660e}.sv-insurer-name.intermundial{color:#163ca2}
-.sv-stamp .sv-icon{width:32px;height:32px}
-.sv-insurer>.sv-card-sub{font-size:11px;color:#625c55;min-height:32px}
-.sv-judgment{display:flex;gap:12px;border-top:1px solid #e9e2dd;padding-top:10px;margin-top:11px}
-.sv-face{font:600 31px/1 Oswald,sans-serif;color:#e6631e;min-width:29px;text-align:center}
-.sv-judgment h4{font:700 15px/1.2 var(--vcc-font-heading,"Oswald",sans-serif);margin:0 0 4px}
-.sv-judgment p{font-size:11.5px}
-.sv-mini{padding:19px 16px;min-height:176px;gap:12px;align-items:flex-start}
-.sv-mini .sv-icon{width:36px;height:36px}
-.sv-mini h3{font-size:20px;margin-bottom:5px}
-.sv-mini .sv-card-sub{color:#a44f25;font-weight:700;font-size:11px;margin-bottom:8px}
-.sv-footnote{margin:3px 0 0;color:#67584c;font-size:11.5px;line-height:1.6}
-#sv-track-cover{grid-auto-columns:calc((100% - 50px)/3.25)}
-.sv-cover{min-height:179px;align-items:center;flex-direction:column;text-align:center;gap:11px;padding:21px 16px}
-.sv-cover .sv-icon{width:44px;height:44px}
-.sv-cover h3{font-size:21px}
-.sv-cover p{font-size:11.5px}
-.sv-tip{padding:20px 17px;min-height:126px;gap:14px;align-items:flex-start}
-.sv-tip .sv-icon{width:35px;height:35px}
-.sv-tip h3{font-size:20px;margin:0 0 6px}
-.sv-next{margin-top:42px;background:#242d31 url('/configuracion/imagenes/fondos/fondos-planifica.webp') center 65%/cover;color:white;position:relative;isolation:isolate;padding:36px 0 42px}
-.sv-next:before{content:"";position:absolute;inset:0;background:#111a20d9;z-index:-1}
-.sv-next-title span{font:700 12px/1.4 var(--vcc-font-body,"DM Sans",sans-serif);color:#ff9c6c}
-.sv-next-title h2{font:600 32px/1.1 var(--vcc-font-heading,"Oswald",sans-serif);margin:5px 0}
-.sv-next-title p{font-size:13px;color:#f2e5da;margin:0 0 23px}
+.sv-card .sv-insurer-tag{margin:7px 0 0;font-size:12px;color:#666d70}
+.sv-insurer-points{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));padding-top:13px;gap:0;flex:1}
+.sv-point{min-width:0;padding-right:14px}
+.sv-point+.sv-point{border-left:1px solid #e6e5e3;padding:0 0 0 14px}
+.sv-point h4{display:flex;gap:7px;align-items:center;margin:0 0 8px;font:800 12px/1.3 var(--sv-body);color:#373330}
+.sv-face-svg{width:20px;height:20px;flex:0 0 20px;color:#ea6b46}
+.sv-point ul{margin:0;padding:0;list-style:none}
+.sv-point li{position:relative;margin:0 0 7px;padding-left:11px;color:#5c6063;font:400 11.6px/1.42 var(--sv-body)}
+.sv-point li:before{content:"•";position:absolute;left:0;color:#5d5651}
+.sv-page .sv-insurer-action{align-self:flex-end;margin-top:14px;color:#e25d20;font:800 11.5px/1.2 var(--sv-body);white-space:nowrap}
+.sv-page .sv-insurer-action:hover{text-decoration:underline;text-underline-offset:3px}
+.sv-number-card{min-height:192px;padding:23px 21px;align-items:flex-start;gap:17px}
+.sv-count{display:grid;place-items:center;flex:0 0 54px;width:54px;height:54px;border:2px solid #c96d4e;outline:2px dashed #e1a18b;outline-offset:3px;border-radius:50%;color:#b95d43;background:#fff9f4;font:600 32px/1 var(--sv-title)}
+.sv-number-card h3{margin:0 0 9px}
+.sv-card.sv-number-card p{font-size:13px}
+.sv-cover{min-height:185px;flex-direction:column;gap:9px;padding:18px 15px}
+.sv-cover .sv-icon{width:32px;height:32px;margin-bottom:3px}
+.sv-cover h3{font-size:20px}
+.sv-cover p{font-size:11.7px;line-height:1.42}
+.sv-error-card{min-height:160px;align-items:flex-start;gap:14px;padding:21px 17px}
+.sv-error-card h3{font-size:23px;margin:0 0 8px}
+.sv-error-card p{font-size:12.7px}
+.sv-warning-circle{display:grid;place-items:center;flex:0 0 45px;width:45px;height:45px;border-radius:50%;background:#f2efeb;color:#a26e5b}
+.sv-warning-symbol{width:27px;height:27px}
+.sv-footnote{margin:4px 0 0;color:#74716e;font:400 11.5px/1.6 var(--sv-body);text-align:center}
+.sv-next{position:relative;isolation:isolate;margin-top:48px;padding:34px 0 43px;color:white;background:#25303b url('/configuracion/imagenes/fondos/fondos-planifica.webp') center 63%/cover}
+.sv-next:before{content:"";position:absolute;inset:0;z-index:-1;background:#17252fba}
+.sv-next-title span{font:700 12px/1.4 var(--sv-body);color:#ffad82}
+.sv-next-title h2{font:600 32px/1.13 var(--sv-title);margin:5px 0}
+.sv-next-title p{font:400 13px/1.5 var(--sv-body);color:#e8e4df;margin:0 0 20px}
 .sv-next-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
-.sv-next-grid a{display:flex;align-items:center;flex-direction:column;gap:9px;justify-content:center;border:1px solid #ffffff47;border-radius:12px;min-height:131px;padding:15px 8px;text-align:center;background:#ffffff0a}
-.sv-next-grid a:hover{background:#ffffff1d}
-.sv-next-grid .sv-icon{color:#fa8951;width:30px;height:30px}
-.sv-next-grid strong{font:600 18px/1.15 var(--vcc-font-heading,"Oswald",sans-serif)}
-.sv-next-grid span{font-size:11px;color:#efe9e5}
-@media(max-width:850px){
- .sv-heading{display:block}.sv-descr{text-align:left;max-width:100%;margin-top:9px}
- .sv-track{grid-auto-columns:calc((100% - 14px)/2.04);gap:14px}
- #sv-track-cover{grid-auto-columns:calc((100% - 24px)/2.22)}
-}
+.sv-next-grid a{display:flex;align-items:center;flex-direction:column;gap:9px;justify-content:center;border:1px solid #ffffff47;border-radius:12px;min-height:116px;padding:14px 8px;text-align:center;background:#ffffff0d;color:#fff}
+.sv-next-grid a:hover{background:#ffffff20}
+.sv-next-grid .sv-icon{width:30px;height:30px;stroke:#fa8951}
+.sv-next-grid strong{font:600 19px/1.1 var(--sv-title)}
+.sv-next-grid span{font:400 11px/1.3 var(--sv-body);color:#efe9e5}
+@media(max-width:1280px){.sv-prev{left:-17px}.sv-next-arrow{right:-17px}}
+@media(max-width:850px){.sv-page .sv-heading{grid-template-columns:1fr;gap:8px}.sv-page .sv-descr{text-align:left;max-width:100%}.sv-track,.sv-track[data-sv-track="insurers"]{grid-auto-columns:calc((100% - 16px)/2)}.sv-track[data-sv-track="cover"]{grid-auto-columns:calc((100% - 48px)/4)}}
 @media(max-width:600px){
- .sv-wrap{width:calc(100% - 28px)}
- .sv-hero{min-height:360px;height:360px;background-position:61% center}
- .sv-hero-inner{padding:76px 0 38px}
- .sv-hero h1{font-size:44px}.sv-hero p{font-size:13px;line-height:1.5;max-width:300px}
- .sv-tabs-inner{justify-content:flex-start;gap:25px;padding-inline:14px}
- .sv-tabs a{font-size:10px;padding:13px 0 10px}
- .sv-section{padding:30px 0 13px;scroll-margin-top:70px}
- .sv-h2{font-size:27px}.sv-over{font-size:25px}
- .sv-controls{margin:0 0 10px;justify-content:flex-end}
- .sv-track,#sv-track-cover{grid-auto-columns:100%;gap:12px}
- .sv-card{border-radius:13px}.sv-insurer{min-height:250px}
- .sv-mini{min-height:140px}
- .sv-cover{min-height:177px}
- .sv-tip{min-height:112px}
- .sv-next{padding:31px 0}.sv-next-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
- .sv-next-grid a{min-height:115px}.sv-next-title h2{font-size:28px}
+ .sv-wrap{width:calc(100% - 30px)}
+ .sv-page .sv-hero{height:360px;min-height:360px;background-image:linear-gradient(90deg,rgba(250,248,244,.55),rgba(250,248,244,.12) 70%),url("/configuracion/imagenes/fondos/optimizadas/fondos-seguros-claro-mobile-704.webp");background-position:center 44%}
+ .sv-page .sv-hero-inner{padding:70px 0 26px}
+ .sv-page .sv-hero h1{font-size:44px}
+ .sv-page .sv-hero p{font-size:13px;max-width:295px}
+ .sv-tabs-inner{justify-content:flex-start;gap:24px;padding-inline:15px}
+ .sv-tabs a{font-size:10px;padding:12px 0 10px}
+ .sv-page .sv-section{padding:34px 0 6px;scroll-margin-top:75px}
+ .sv-page .sv-over{font-size:28px!important}
+ .sv-page .sv-h2{font-size:31px!important}
+ .sv-page .sv-descr{font-size:12.5px}
+ .sv-carousel-shell{padding-top:42px}
+ .sv-controls{height:32px;inset:0 0 auto auto;width:78px}
+ .sv-arrow{top:15px;transform:none;width:32px;height:32px;font-size:23px!important;padding-bottom:3px}
+ .sv-prev{left:0}.sv-next-arrow{right:0}
+ .sv-track,.sv-track[data-sv-track="insurers"],.sv-track[data-sv-track="cover"]{grid-auto-columns:100%;gap:13px;padding-bottom:13px}
+ .sv-insurer{min-height:280px;padding:18px 16px}
+ .sv-insurer-head{padding-bottom:11px}
+ .sv-point{padding-right:9px}.sv-point+.sv-point{padding-left:9px}
+ .sv-point li{font-size:11px}.sv-point h4{font-size:11px;gap:4px}
+ .sv-face-svg{width:18px;height:18px;flex-basis:18px}
+ .sv-number-card{min-height:170px;padding:20px 15px}.sv-number-card h3{font-size:22px}
+ .sv-count{width:48px;height:48px;flex-basis:48px;font-size:27px}
+ .sv-cover{min-height:155px}
+ .sv-error-card{min-height:145px}
+ .sv-next{margin-top:32px;padding:30px 0}
+ .sv-next-title h2{font-size:28px}
+ .sv-next-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
 }
 @media(prefers-reduced-motion:reduce){.sv-track{scroll-behavior:auto!important}}
-
-/* VCC · Seguros · cohesión visual con Vuelos y Alojamientos (2026-11-12) */
-.sv-page{background:#f5ece3!important}
-.sv-section{background:transparent!important}
-.sv-section :is(.sv-card,.sv-insurer,.sv-mini,.sv-cover,.sv-tip){background:#fff!important;background-image:none!important}
-.sv-insurer-top{background:#fff!important;background-image:none!important}
-.sv-judgment{background:transparent!important}
-.sv-insurer-name{background:none!important}
-.sv-track{background:transparent!important}
-@media(min-width:768px){.sv-hero{background-position:center center}}
-
-/* Portada Seguros 2026-11-12: fotografía sin texto; imagen adaptada al ancho. */
-.sv-page .sv-hero {
-  background-image:linear-gradient(90deg,rgba(20,16,12,.81) 0%,rgba(20,16,12,.55) 43%,rgba(20,16,12,.08) 82%),url('/configuracion/imagenes/fondos/optimizadas/fondos-seguros-1672.webp');
-  background-position:center center;
-}
-.sv-page .sv-insurer-action {
-  display:flex;justify-content:space-between;align-items:center;gap:10px;
-  margin-top:auto;padding-top:12px;border-top:1px solid #e9e2dd;
-  font:700 11px/1.35 var(--vcc-font-body,"DM Sans",sans-serif);
-  letter-spacing:.05em;color:#b64a1d;text-decoration:none;
-}
-.sv-page .sv-insurer-action span {font-size:17px;line-height:1}
-.sv-page .sv-insurer-action:hover {color:#e6631e}
-.sv-page .sv-insurer {min-height:291px;background:#fff!important}
-.sv-page .sv-track > .sv-card,
-.sv-page .sv-insurer-top {background:#fff!important;background-image:none!important}
-@media(max-width:767px) {
- .sv-page .sv-hero {
-   background-image:linear-gradient(90deg,rgba(20,16,12,.77),rgba(20,16,12,.38) 69%,rgba(20,16,12,.2)),url('/configuracion/imagenes/fondos/optimizadas/fondos-seguros-mobile-700.webp');
-   background-position:center 46%;
- }
-}
