@@ -1132,3 +1132,11 @@
     padding-top:4px!important;
   }
 }
+
+/* El component compartit de fletxes treia tot el padding del carrusel:
+   deixem un carril real de 34px fora de la targeta, sense tapar la lectura. */
+@media(max-width:600px){
+  html body .ep-page #nuestras-entradas .ep4-our-stage:not(.ep4-our-no-overflow){
+    padding:0 34px!important;
+  }
+}
