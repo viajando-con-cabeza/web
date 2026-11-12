@@ -111,6 +111,13 @@ for(const p of approvedFiles){
     // El preload s'ha d'inserir durant el parseig inicial, no via JavaScript.
     html=html.replace(/<\/head\s*>/i,preloadMobile+"\n"+preloadDesktop+"\n</head>");
   }
+  // El logotip té viewBox 620x216; reservar la proporció a l'HTML
+  // evita reflows mentre arriben els estils globals, sense canviar-ne el CSS.
+  html=html.replace(/<img\b(?=[^>]*\bsrc=["']\/configuracion\/imagenes\/marca\/logo-viajando-con-cabeza\.svg["'])[^>]*>/gi,tag=>{
+    if(!/\bwidth=["']/.test(tag))tag=tag.replace(/>$/,' width="620">');
+    if(!/\bheight=["']/.test(tag))tag=tag.replace(/>$/,' height="216">');
+    return tag;
+  });
   // Thumb: no descarregar 1 MB per cada targeta de 300 px.
   html=html.replace(/<img\b[^>]*>/gi,tag=>{
     if(/\bsrcset=/.test(tag))return tag;
