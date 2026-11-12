@@ -115,7 +115,8 @@ assert.match(html, /vcc-itinerary-gallery-on-demand\.js/, 'El visor només es ca
 assert.match(html, /data-vcc-lazy-gallery-modal/, 'Cal activar el visor diferit');
 assert.doesNotMatch(html, /<script[^>]*src="[^"]*vcc-gallery-booking\.js/, 'No carregar el controlador abans de fer scroll');
 assert.match(galleryLoader, /vcc-gallery-booking\.js/, 'El carregador diferit ha de muntar el visor comú');
-assert.match(html, /vcc-gallery-booking\.css/, 'El mosaic necessita CSS des del primer pintat');
+assert.match(bundle, /\.vcc-booking-gallery \.day-mosaic\[data-count\]/, 'El mosaic necessita CSS dins del bundle inicial');
+assert.doesNotMatch(html, /<link[^>]+href="[^"]*vcc-gallery-booking\.css/, 'No duplicar CSS bloquejant de galeria');
 assert.match(html, /itinerario-compilado-vcc\.css/, 'Un sol CSS compilat per a la guia');
 assert.match(bundle, /--vcc-hero-image:url\(/, 'El bundle ha de conservar el CSS de portada');
 assert.doesNotMatch(bundle, /@import\s+url/, 'No carregar @import bloquejants');
