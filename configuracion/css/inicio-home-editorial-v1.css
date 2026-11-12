@@ -305,7 +305,7 @@ body.inicio-vcc.home-editorial-refresh .home-planning-links{
   grid-template-columns:repeat(2,minmax(0,1fr))!important;
   width:min(100%,480px)!important;max-width:480px!important;
   justify-self:center!important;align-self:center!important;
-  transform:translateX(-26px)!important;
+  transform:translateX(-48px)!important;
   column-gap:36px!important;row-gap:21px!important;
 }
 body.inicio-vcc.home-editorial-refresh .home-planning-links a{
@@ -314,7 +314,7 @@ body.inicio-vcc.home-editorial-refresh .home-planning-links a{
   grid-template-rows:auto!important;align-items:center!important;
   min-width:0!important;min-height:88px!important;
   gap:9px!important;padding:10px 11px!important;
-  border:1px solid rgba(207,115,82,.26)!important;border-radius:10px!important;
+  border:1.5px solid rgba(207,115,82,.38)!important;border-radius:10px!important;
   background:rgba(250,250,249,.64)!important;color:#49372f!important;
   box-shadow:none!important;text-decoration:none!important;
   transition:background-color .16s,border-color .16s!important;
@@ -354,7 +354,7 @@ body.inicio-vcc.home-editorial-refresh .home-planning-links .home-plan-label{
   min-width:0!important;gap:3px!important;padding-right:5px!important;
 }
 body.inicio-vcc.home-editorial-refresh .home-planning-links .home-plan-label strong{
-  color:#514036!important;font-size:12px!important;
+  color:#514036!important;font-size:14px!important;
   font-weight:800!important;line-height:1.2!important;
 }
 body.inicio-vcc.home-editorial-refresh .home-planning-links .home-plan-label small{
@@ -390,6 +390,12 @@ body.inicio-vcc.home-editorial-refresh .home-about{
   }
   body.inicio-vcc.home-editorial-refresh .home-feature-grid,
   body.inicio-vcc.home-editorial-refresh .home-stories-grid{gap:28px!important;margin-top:24px!important;}
+}
+/* Protegeix l'espai de la columna de text en portàtils estrets. */
+@media(min-width:1001px) and (max-width:1200px){
+ body.inicio-vcc.home-editorial-refresh .home-planning-links{
+   transform:translateX(-22px)!important;
+ }
 }
 /* Instagram i Contacto: format horitzontal baix i blanc. */
 body.inicio-vcc.home-editorial-refresh .home-social-contact{
@@ -480,7 +486,7 @@ body.inicio-vcc.home-editorial-refresh .home-insta-editorial-copy .home-card-mor
   width:30px;height:30px;border-radius:8px;
  }
  body.inicio-vcc.home-editorial-refresh .home-planning-links .home-plan-icon svg{width:18px;height:18px;}
- body.inicio-vcc.home-editorial-refresh .home-planning-links .home-plan-label strong{font-size:11px!important;}
+ body.inicio-vcc.home-editorial-refresh .home-planning-links .home-plan-label strong{font-size:12px!important;}
  body.inicio-vcc.home-editorial-refresh .home-planning-links .home-plan-label small{font-size:9px!important;}
  body.inicio-vcc.home-editorial-refresh .home-planning-links .home-plan-arrow{display:none!important;}
  body.inicio-vcc.home-editorial-refresh .home-instagram .home-insta-largepost{min-height:180px!important;}
