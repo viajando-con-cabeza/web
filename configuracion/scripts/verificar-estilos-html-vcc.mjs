@@ -51,6 +51,22 @@ for(const [file,retired] of [
 ]){
   if(retired.test(read(file)))failures.push(file+': es carreguen CSS antics ja consolidats');
 }
+
+/* Contracte general per a totes les pàgines aprovades.
+ * Els esborranys poden conservar CSS antic mentre no estiguin publicats.
+ */
+const published=JSON.parse(read('configuracion/datos/publicacion-vcc.json')).approved;
+for(const file of published){
+ const html=read(file);
+ const localCSS=[...html.matchAll(/<link\b[^>]*>/gi)]
+   .map(m=>m[0]).filter(tag=>/\brel=["']stylesheet["']/i.test(tag))
+   .map(tag=>tag.match(/\bhref=["']([^"']+)/i)?.[1]?.split('?')[0]||'')
+   .filter(url=>url.startsWith('/configuracion/css/'));
+ if(localCSS.length>16)failures.push(file+': '+localCSS.length+' CSS locals (màxim 16, agrupa components)');
+ if(new Set(localCSS).size!==localCSS.length)failures.push(file+': fulls CSS duplicats');
+ if(/<style\b/i.test(html))failures.push(file+': no incloure blocs <style> a HTML publicat');
+}
+
 if(failures.length){
  for(const failure of failures)console.error('VCC CSS compartit:',failure);
  process.exitCode=1;

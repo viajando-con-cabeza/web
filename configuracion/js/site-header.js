@@ -209,32 +209,7 @@
   }
   // header-vcc-global.css és part del paquet vcc-core-compartit.css.
 
-  // Social icons: consistent 24px hit area and optically matched 19px drawings.
-  if (!document.getElementById('vcc-header-social-icons')) {
-    /* CSS vcc-header-social-icons: configuracion/css/componentes/header-vcc-global.css */
-  }
-  // Single source of truth for the main navigation across every page.
-  // Match the type scale used by the Sweden/Stockholm guides without changing secondary tabs.
-  if(!document.getElementById('vcc-global-navigation-unified')){
-    /* CSS vcc-global-navigation-unified: configuracion/css/componentes/header-vcc-global.css */
-  }
-  // Normalize the exact same full-width mobile header on every page.
-  // The menu alone scrolls; the white header and underline span the viewport.
-  if (!document.getElementById('vcc-mobile-header-edge-fix')) {
-    /* CSS vcc-mobile-header-edge-fix: configuracion/css/componentes/header-vcc-global.css */
-  }
-
-  // Desktop header: reserve explicit room for language controls on every page.
-  // Override page-specific legacy header grids without changing mobile layout.
-  if (!document.getElementById('vcc-header-desktop-language-fix')) {
-    /* CSS vcc-header-desktop-language-fix: configuracion/css/componentes/header-vcc-global.css */
-  }
-
-  // Stable navigation position across pages and browser back/forward cache.
-  // This must NOT run on scroll, only when the page is entered/restored.
-  if (!document.getElementById('vcc-menu-scroll-stability')) {
-    /* CSS vcc-menu-scroll-stability: configuracion/css/componentes/header-vcc-global.css */
-  }
+  // Els estils de la capçalera i del menú es mantenen a la font CSS global.
   const resetHeaderMenu=()=>{
     const menu=document.querySelector('body > .shared-header .shared-menu');
     if (!menu) return;
@@ -253,9 +228,6 @@
 
   // Final layout guard: the header is sized to the visual viewport, not
   // to overflowing country-page content. Only the second-row menu scrolls.
-  if (!document.getElementById('vcc-header-viewport-guard')) {
-    /* CSS vcc-header-viewport-guard: configuracion/css/componentes/header-vcc-global.css */
-  }
   if(section==='destinos'){
     const fix=document.createElement('style');
     fix.id='destinos-approved-hero-fix';

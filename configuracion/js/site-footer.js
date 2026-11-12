@@ -21,11 +21,11 @@
   const travelPolicy = isEnglish
     ? '<strong>OUR TRAVEL DATA ·</strong> Prices are indicative, based on trips and quoted rates—not annual averages. We review local inflation, prices, schedules, passes and availability each January 1. Check before booking.'
     : inStockholm
-      ? '<strong>ESTOCOLMO · Viajamos del 25 al 27 de agosto de 2026 ·</strong> Gastos reales y tarifas consultadas para esas fechas, no medias anuales. Cada 1 de enero revisamos IPC local, precios, horarios, pases y disponibilidad. Confirma antes de reservar.'
+      ? '<strong>ESTOCOLMO · Viajamos del 24 al 26 de agosto de 2026 ·</strong> Gastos reales y tarifas consultadas para esas fechas, no medias anuales. Cada 1 de enero revisamos IPC local, precios, horarios, pases y disponibilidad. Confirma antes de reservar.'
       : '<strong>CÓMO ACTUALIZAMOS VCC ·</strong> Precios orientativos según viajes reales y tarifas consultadas, no medias anuales salvo indicación. Cada 1 de enero revisamos IPC local, precios, horarios, pases y disponibilidad. Confirma antes de reservar.';
 
   function render(){
-    const footerWithPolicy=footer.replace('<div class="vcc-gf-copy">','<p class="vcc-gf-policy">'+travelPolicy+'</p><div class="vcc-gf-copy">');
+    const footerWithPolicy=footer.replace('© 2026','© '+new Date().getFullYear()).replace('<div class="vcc-gf-copy">','<p class="vcc-gf-policy">'+travelPolicy+'</p><div class="vcc-gf-copy">');
     const old=document.querySelector('footer');
     if(old)old.outerHTML=footerWithPolicy;else document.body.insertAdjacentHTML('beforeend',footerWithPolicy);
     if(!document.getElementById('vcc-global-footer-css')){const s=document.createElement('link');s.id='vcc-global-footer-css';s.rel='stylesheet';s.href=footerCSSPath;document.head.appendChild(s);}
