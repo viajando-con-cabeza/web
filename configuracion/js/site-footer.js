@@ -28,7 +28,19 @@
     const footerWithPolicy=footer.replace('© 2026','© '+new Date().getFullYear()).replace('<div class="vcc-gf-copy">','<p class="vcc-gf-policy">'+travelPolicy+'</p><div class="vcc-gf-copy">');
     const old=document.querySelector('footer');
     if(old)old.outerHTML=footerWithPolicy;else document.body.insertAdjacentHTML('beforeend',footerWithPolicy);
-    if(!document.getElementById('vcc-global-footer-css')){const s=document.createElement('link');s.id='vcc-global-footer-css';s.rel='stylesheet';s.href=footerCSSPath;document.head.appendChild(s);}
+    if(!document.getElementById('vcc-global-footer-css')){
+      const s=document.createElement('link');
+      s.id='vcc-global-footer-css';
+      s.rel='stylesheet';
+      s.href=footerCSSPath;
+      // En Presupuesto el footer està fora del primer viewport. Evitem que el
+      // CSS de peu de pàgina bloquegi l'LCP; en carregar-se recupera media=all.
+      if(document.body.classList.contains('budget-vcc')){
+        s.media='print';
+        s.addEventListener('load',()=>{s.media='all';},{once:true});
+      }
+      document.head.appendChild(s);
+    }
   }
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',render,{once:true});else render();
 })();
