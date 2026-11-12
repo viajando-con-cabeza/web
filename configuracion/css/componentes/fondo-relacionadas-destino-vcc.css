@@ -1,0 +1,28 @@
+/* VCC · Foto de destino para «Sigue descubriendo / Continúa planificando».
+   Un solo CSS para todos los destinos, sin estilos por pagina.
+   Mantenimiento: añadir una entrada [data-vcc-destino="slug"] con una foto R2 real;
+   usar el mismo atributo en el bloque .related-section de cada guia del destino.
+   El diseño de tarjetas, fuentes y margenes sigue en los CSS compartidos existentes. */
+
+html body section.related-section[data-vcc-destino="estocolmo"] {
+  --vcc-related-photo: url("https://img.viajandoconcabeza.com/__vcc_preview/visor/destinos/suecia/estocolmo/2026-dia7/DSC08177-VSCO.avif");
+}
+
+/* El degradado existente mantiene la legibilidad sobre cualquier fotografia. */
+html body section.related-section[data-vcc-destino] {
+  background-image: linear-gradient(90deg, rgba(18,28,30,.78) 0%, rgba(18,28,30,.56) 50%, rgba(18,28,30,.32) 100%), var(--vcc-related-photo, none) !important;
+  background-position: center, center 52% !important;
+  background-size: cover, cover !important;
+  background-repeat: no-repeat, no-repeat !important;
+  color: #fffaf5 !important;
+}
+
+html body section.related-section[data-vcc-destino] .related-head h2 {
+  color: #fffaf5 !important;
+}
+html body section.related-section[data-vcc-destino] .related-head p {
+  color: #de9a83 !important;
+}
+html body section.related-section[data-vcc-destino] .related-head span {
+  color: #e5e0db !important;
+}
