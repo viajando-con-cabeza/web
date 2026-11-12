@@ -71,17 +71,17 @@ const rows=[
  ['base','Dormir / reserva (€)','number','cama'],
  ['breakfast','Desayuno (€)','number','desayuno','breakfastIncluded'],
  ['meals','Otras comidas (€)','number','comida','mealsIncluded'],
- ['taxes','Impuestos y tasas (€)','number','impuestos'],
+ ['taxes','Impuestos y tasas (€)','number','impuestos','taxesIncluded'],
  ['transport','Transporte (€)','number','transporte'],
  ['parking','Parking (€)','number','parking','parkingIncluded'],
  ['other','Otros gastos (€)','number','otros']
 ];
 const monetary=['base','breakfast','meals','taxes','transport','parking','other'];
-const blank=()=>({name:'',base:'',breakfastIncluded:false,breakfast:'',mealsIncluded:false,meals:'',taxes:'',transport:'',parkingIncluded:false,parking:'',other:''});
+const blank=()=>({name:'',base:'',breakfastIncluded:false,breakfast:'',mealsIncluded:false,meals:'',taxes:'',transport:'',parkingIncluded:false,parking:'',taxesIncluded:false,other:''});
 let offers=[blank(),blank(),blank()];
 const fmt=v=>euro.format(v);
 const num=v=>{const n=Number(v);return Number.isFinite(n)&&n>0?Math.min(n,1e7):0};
-const total=o=>Math.round(monetary.reduce((s,k)=>s+((k==='breakfast'&&o.breakfastIncluded)||(k==='meals'&&o.mealsIncluded)||(k==='parking'&&o.parkingIncluded)?0:num(o[k])),0)*100)/100;
+const total=o=>Math.round(monetary.reduce((s,k)=>s+((k==='breakfast'&&o.breakfastIncluded)||(k==='meals'&&o.mealsIncluded)||(k==='parking'&&o.parkingIncluded)||(k==='taxes'&&o.taxesIncluded)?0:num(o[k])),0)*100)/100;
 const filled=o=>o.base!==''&&Number.isFinite(Number(o.base))&&Number(o.base)>=0;
 function el(tag,cls,txt){const e=document.createElement(tag);if(cls)e.className=cls;if(txt!=null)e.textContent=txt;return e}
 function draw(){
