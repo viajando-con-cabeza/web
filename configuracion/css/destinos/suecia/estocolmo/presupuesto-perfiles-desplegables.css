@@ -1440,3 +1440,34 @@ html body.budget-vcc #filosofia .vcc-real-trip-note-mobile{display:none}
     font-size:10.5px!important;line-height:1.35!important;
   }
 }
+
+/* Iconos de perfiles: sin pastillas ni fondos detrás de los SVG originales.
+   Recuperamos su presencia visual sin modificar los diseños SVG ni las tarjetas. */
+html body.budget-vcc #filosofia .vcc-budget-mode-icon{
+  width:46px;height:46px;flex:0 0 46px;
+  padding:0;background:transparent!important;border:0!important;border-radius:0;
+}
+html body.budget-vcc #filosofia .vcc-budget-mode-icon img{
+  display:block;width:45px;height:45px;max-width:100%;object-fit:contain;
+  background:transparent!important;
+}
+html body.budget-vcc #filosofia .vcc-budget-panel-mark{
+  width:54px!important;height:54px!important;flex:0 0 54px!important;
+  padding:0;background:transparent!important;border:0!important;border-radius:0;
+}
+html body.budget-vcc #filosofia .vcc-budget-panel-mark img{
+  display:block;width:52px!important;height:52px!important;object-fit:contain;
+  background:transparent!important;
+}
+@media(max-width:750px){
+  html body.budget-vcc #filosofia .vcc-budget-mode-icon{
+    width:49px;height:49px;flex-basis:49px;
+  }
+  html body.budget-vcc #filosofia .vcc-budget-mode-icon img{width:48px;height:48px}
+  html body.budget-vcc #filosofia .vcc-budget-panel-mark{
+    width:50px!important;height:50px!important;flex-basis:50px!important;
+  }
+  html body.budget-vcc #filosofia .vcc-budget-panel-mark img{
+    width:49px!important;height:49px!important;
+  }
+}
