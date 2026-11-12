@@ -1,0 +1,34 @@
+/* VCC · Etiquetas de tipología compartidas: Itinerarios y portada.
+   Cambiar tamaño, colores o posición aquí actualiza ambas vistas. */
+.vcc-tipologia-targeta {
+  position:absolute!important;
+  top:8px!important;left:8px!important;right:auto!important;bottom:auto!important;
+  z-index:5!important;
+  display:inline-flex!important;align-items:center!important;gap:5px!important;
+  width:max-content!important;max-width:calc(100% - 16px)!important;
+  padding:5px 7px!important;
+  border:0!important;border-radius:8px!important;
+  background:rgba(255,249,243,.96)!important;
+  box-shadow:0 2px 7px rgba(24,18,13,.08)!important;
+  color:#604737!important;
+  font:800 9px/1.2 var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;
+  text-transform:uppercase!important;
+  white-space:normal!important;
+  pointer-events:none!important;
+}
+.vcc-tipologia-targeta svg {
+  display:block!important;flex:0 0 14px!important;
+  width:14px!important;height:14px!important;
+  color:#d36a42!important;
+}
+@media(max-width:620px) {
+  .vcc-tipologia-targeta{
+    top:6px!important;left:6px!important;
+    padding:5px 6px!important;font-size:8px!important;
+    max-width:calc(100% - 12px)!important;
+  }
+  .vcc-tipologia-targeta svg{
+    width:12px!important;height:12px!important;
+    flex-basis:12px!important;
+  }
+}
