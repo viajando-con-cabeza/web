@@ -107,6 +107,29 @@ for(const p of approvedFiles){
         });
       }
     }
+    // Portades LCP natives: source mòbil i img desktop provenen del mateix
+    // manifest. Un srcset al fallback evita descarregar 400 KB en pantalles
+    // reduïdes si el navegador/auditor no té en compte el <source>.
+    html=html.replace(/<picture\b(?=[^>]*vcc-hero-lcp-picture)[^>]*>[\s\S]*?<\/picture>/gi,block=>{
+      const mobile=variant(name,"960",source),desktop=variant(name,"1920",source);
+      const desktopWidth=source==="externas"?"1600":"1920";
+      const dimensions=imageInfo(name,source).variants[String(desktopWidth)];
+      return block.replace(/<source\b[^>]*media=["']\(max-width: 767px\)["'][^>]*>/i,tag=>
+        tag.replace(/\bsrcset=["'][^"']*["']/i,'srcset="'+mobile+'"'))
+      .replace(/<img\b[^>]*>/i,tag=>{
+        let imageTag=tag.replace(/\bsrc=["'][^"']*["']/i,'src="'+desktop+'"')
+          .replace(/\s+srcset=["'][^"']*["']/gi,'')
+          .replace(/\s+sizes=["'][^"']*["']/gi,'');
+        if(!/\bwidth=["']/.test(imageTag))
+          imageTag=imageTag.replace(/>$/,' width="'+dimensions.width+'">');
+        if(!/\bheight=["']/.test(imageTag))
+          imageTag=imageTag.replace(/>$/,' height="'+dimensions.height+'">');
+        if(!/\bfetchpriority=/.test(imageTag))
+          imageTag=imageTag.replace(/>$/,' fetchpriority="high">');
+        imageTag=imageTag.replace(/\s+loading=["']lazy["']/gi,'');
+        return imageTag.replace(/>$/,' srcset="'+mobile+' 960w, '+desktop+' '+desktopWidth+'w" sizes="(max-width: 767px) 320px, 100vw">');
+      });
+    });
     const preloadMobile='<link rel="preload" as="image" type="image/webp" media="(max-width: 767px)" href="'+variant(name,"960",source)+'" fetchpriority="high">';
     const preloadDesktop='<link rel="preload" as="image" type="image/webp" media="(min-width: 768px)" href="'+variant(name,"1920",source)+'" fetchpriority="high">';
     html=html.replace(/<link\b[^>]*\brel=["']preload["'][^>]*>\s*/gi,tag=>{
