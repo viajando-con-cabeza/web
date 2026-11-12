@@ -124,3 +124,58 @@ body.que-llevar-hub .itinerarios-hero > .about-hero-photo{
  .vcc-it-catalog .vcc-guide-kind svg{width:12px;height:12px}
  .vcc-it-catalog .vcc-catalog-toolbar .vcc-catalog-field-country{flex:1 1 calc(50% - 6px)}
 }
+
+/* VCC · Filtres de les tres pàgines de catàleg: net, sense requadres.
+   No altera les pestanyes existents de /planifica/donde-ir/. */
+body.itinerarios-vcc .vcc-it-catalog .vcc-catalog-toolbar{
+ align-items:flex-end;
+ margin-bottom:0;
+}
+body.itinerarios-vcc .vcc-it-catalog .vcc-catalog-toolbar .vcc-catalog-search-group{
+ box-sizing:border-box;
+ display:flex;flex:0 0 218px;flex-direction:column;gap:4px;
+ width:218px;max-width:218px;min-width:0;
+ color:#625e5a;
+}
+body.itinerarios-vcc .vcc-it-catalog .vcc-catalog-toolbar .vcc-catalog-search{
+ box-sizing:border-box;display:flex;align-items:center;
+ flex:none;width:100%;max-width:none;min-width:0;
+ height:40px;margin:0;padding:0 12px;
+ background:#fff;border:0;border-radius:7px;
+ outline:0;box-shadow:none;
+}
+body.itinerarios-vcc .vcc-it-catalog .vcc-catalog-toolbar .vcc-catalog-search input{
+ border:0;outline:0;box-shadow:none;
+ background:transparent;padding:0;min-width:0;
+}
+body.itinerarios-vcc .vcc-it-catalog .vcc-catalog-toolbar .vcc-catalog-field select{
+ border:0;border-radius:7px;background:#fff;
+ outline:0;box-shadow:none;
+}
+body.itinerarios-vcc .vcc-it-catalog .vcc-catalog-toolbar .vcc-catalog-search:focus-within,
+body.itinerarios-vcc .vcc-it-catalog .vcc-catalog-toolbar .vcc-catalog-field select:focus-visible{
+ outline:0;
+ box-shadow:inset 0 -2px 0 rgba(190,103,69,.65);
+}
+body.itinerarios-vcc .vcc-it-catalog .vcc-catalog-toolbar input:focus-visible{
+ outline:0;box-shadow:none;
+}
+body.itinerarios-vcc .vcc-it-catalog .vcc-catalog-meta{
+ display:flex;justify-content:flex-start;align-items:center;
+ min-height:15px;margin:7px 0 16px;
+}
+body.itinerarios-vcc .vcc-it-catalog .vcc-catalog-meta .vcc-catalog-reset{
+ display:inline-block;padding:0;min-height:0;
+ color:#89827b;background:transparent;border:0;
+ font:500 10px/1.5 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
+ text-decoration:none;cursor:pointer;
+}
+body.itinerarios-vcc .vcc-it-catalog .vcc-catalog-meta .vcc-catalog-reset:is(:hover,:focus-visible){
+ color:#ad583c;text-decoration:underline;
+ outline-offset:3px;
+}
+@media(max-width:390px){
+ body.itinerarios-vcc .vcc-it-catalog .vcc-catalog-toolbar .vcc-catalog-search-group{
+  flex:0 0 min(218px,100%);width:min(218px,100%);max-width:100%;
+ }
+}
