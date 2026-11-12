@@ -155,7 +155,7 @@
       <div class="tv-calc-top vcc-editorial-heading">
         <div class="vcc-editorial-heading-main"><span class="tv-eyebrow vcc-editorial-overline">Ahorra en comisiones</span><h2 id="tv-calculator-title" class="tv-heading vcc-editorial-title">CALCULA TU AHORRO</h2></div>
         <div class="vcc-editorial-heading-side"><p class="tv-copy vcc-editorial-description">Introduce tus gastos y comisiones. Compara en segundos el coste real de ambas tarjetas.</p>
-        <button type="button" class="tv-export-pdf" data-tv-export-pdf><svg class="tv-field-icon" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><use href="/configuracion/imagenes/iconos/paginas/planifica-tarjetas-vcc-iconos.svg#pdf"></use></svg> GUARDAR EN PDF</button></div>
+        </div>
       </div>
       <div class="tv-calc-card">
         <div class="tv-calc-inputs">
@@ -171,12 +171,26 @@
             <label><span class="tv-field-label"><svg class="tv-field-icon" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><use href="/configuracion/imagenes/iconos/paginas/planifica-tarjetas-vcc-iconos.svg#cajero"></use></svg><span>Comisión retirada viaje (%)</span></span><input data-tv-cost="atmTravel" type="number" min="0" max="100" step="any" inputmode="decimal" value="0"></label>
           </div></details>
         </div>
-        <div class="tv-calc-summary">
+        <div class="tv-calc-summary" aria-label="Comparativa de costes y ahorro">
           <div class="tv-results">
-            <div class="tv-result"><span>Tu banco</span><strong id="tv-bank-total" aria-live="polite">1.545,00 €</strong></div>
-            <div class="tv-result tv-travel"><span>Tarjeta de viaje</span><strong id="tv-travel-total" aria-live="polite">1.507,50 €</strong></div>
+            <div class="tv-result">
+              <span class="tv-result-label"><svg class="tv-field-icon" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><use href="/configuracion/imagenes/iconos/paginas/planifica-tarjetas-vcc-iconos.svg#banco"></use></svg> <span>Tu banco habitual</span></span>
+              <strong id="tv-bank-total" aria-live="polite">1.545,00 €</strong>
+              <small>Gasto con comisiones</small>
+            </div>
+            <div class="tv-result tv-travel">
+              <span class="tv-result-label"><svg class="tv-field-icon" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><use href="/configuracion/imagenes/iconos/paginas/planifica-tarjetas-vcc-iconos.svg#tarjeta"></use></svg> <span>Tarjeta de viaje</span></span>
+              <strong id="tv-travel-total" aria-live="polite">1.507,50 €</strong>
+              <small>Gasto con comisiones</small>
+            </div>
           </div>
-          <div class="tv-saving" id="tv-saving-box"><span id="tv-saving-label">Ahorro estimado</span><strong id="tv-saving" aria-live="polite">37,50 €</strong></div>
+          <div class="tv-saving-panel">
+            <div class="tv-saving" id="tv-saving-box">
+              <span id="tv-saving-label">Ahorro estimado</span>
+              <strong id="tv-saving" aria-live="polite">37,50 €</strong>
+            </div>
+            <button type="button" class="tv-export-pdf" data-tv-export-pdf><svg class="tv-field-icon" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><use href="/configuracion/imagenes/iconos/paginas/planifica-tarjetas-vcc-iconos.svg#pdf"></use></svg> DESCARGAR PDF</button>
+          </div>
         </div>
         <p class="tv-disclaimer">Cálculo orientativo en euros equivalentes, sin cotizaciones en tiempo real. No incluye cuotas ni cargos fijos o del cajero. Comprueba las condiciones de cada entidad.</p>
       </div>
