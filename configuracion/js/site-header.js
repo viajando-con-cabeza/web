@@ -254,9 +254,9 @@
     // Els anys de preus i reserves són dades útils, no informació personal.
     // Manté-los en aquesta guia; continua ocultant els noms de poblacions privades.
     // Dónde ir publica editorials anuals (Navidad 2026, playas 2027).
-    // Els anys formen part del títol, de la cerca i del SEO; preserva'ls només
-    // en aquesta pàgina i en Entradas y pases, sense exposar noms privats.
-    const preserveYearsHere=/^\/destinos\/suecia\/estocolmo\/entradas-y-pases(?:\.html)?\/?$/i.test(location.pathname)
+    // Els anys de viatge i de tarifes són informació editorial, no privada.
+    // Conservem les dates al pressupost d'Estocolm i als continguts anuals.
+    const preserveYearsHere=/^\/destinos\/suecia\/estocolmo\/(?:presupuesto|entradas-y-pases)(?:\.html)?\/?$/i.test(location.pathname)
       || /^\/planifica\/donde-ir\/?(?:index\.html)?$/i.test(location.pathname);
     const clean=s=>{
       const withoutPlaces=s.replace(rePlaces,'');
