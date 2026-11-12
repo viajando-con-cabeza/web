@@ -14,13 +14,16 @@
   let lastHeaderHeight=-1,lastStickyTop=-1;
   const setTop=()=>{
     const h=document.querySelector('body > .shared-header, body > .page-header, .shared-header, .page-header');
-    // El encabezado ocupa espacio en el flujo aunque no sea sticky.
-    const height=h?Math.ceil(h.getBoundingClientRect().height):0;
+    // Agrupar totes les lectures ANTES de modificar variables CSS:
+    // evitar read -> write -> getBoundingClientRect (reflow forçat).
+    const rawHeight=h?h.getBoundingClientRect().height:0;
+    const position=h?getComputedStyle(h).position:'static';
+    const height=Math.ceil(rawHeight);
+    const top=position==='fixed'||position==='sticky'?Math.round(rawHeight):0;
     if(height!==lastHeaderHeight){
       document.documentElement.style.setProperty('--vcc-page-header-height',height+'px');
       lastHeaderHeight=height;
     }
-    const top=headerTop();
     if(top!==lastStickyTop){
       document.documentElement.style.setProperty('--vcc-subheader-top',top+'px');
       lastStickyTop=top;
