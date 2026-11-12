@@ -1,0 +1,34 @@
+name: Contacto VCC
+
+on:
+  push:
+    branches: [quality]
+    paths:
+      - "contacto/index.html"
+      - "en/contact/index.html"
+      - "configuracion/js/contacto-enviar.js"
+      - "configuracion/workers/web-vcc.js"
+      - "configuracion/tests/contacto-api.mjs"
+      - "configuracion/scripts/verificar-contacto-vcc.mjs"
+      - "politica-de-privacidad/index.html"
+      - "wrangler.jsonc"
+      - "wrangler.production.jsonc"
+      - ".github/workflows/contacto.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  contact:
+    name: Validate contact delivery
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate syntax
+        run: |
+          node --check configuracion/js/contacto-enviar.js
+          node --check configuracion/workers/web-vcc.js
+          node --check configuracion/scripts/verificar-contacto-vcc.mjs
+      - name: Validate forms, recipient and simulated email delivery
+        run: node configuracion/scripts/verificar-contacto-vcc.mjs
