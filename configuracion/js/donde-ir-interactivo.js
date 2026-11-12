@@ -52,37 +52,73 @@
     });
   });
 
-  // Catàlegs reals de pàgines: cerca immediata, independent per pestanya.
-  // Les miniatures i els enllaços són HTML estàtic perquè siguin accessibles i indexables.
-  const clean=(value)=>String(value||'')
-    .normalize('NFD').replace(/[\u0300-\u036f]/g,'')
-    .toLocaleLowerCase('es').trim();
+  // Els tres catàlegs comparteixen el controlador de cerca. Les opcions de país
+  // es generen de les metadades de les targetes (incloent itineraris multipaís).
+  const clean=value=>String(value||'').normalize('NFD')
+    .replace(/[\u0300-\u036f]/g,'').toLocaleLowerCase('es').trim();
   const plurals={
     itinerarios:['itinerario','itinerarios'],
     guias:['guía','guías'],
     consejos:['consejo','consejos']
   };
   validModes.forEach(mode=>{
-    const input=document.querySelector('[data-di-search-input="'+mode+'"]');
-    const root=document.querySelector('[data-di-list="'+mode+'"]');
-    const count=document.querySelector('[data-di-count="'+mode+'"]');
-    const empty=document.querySelector('[data-di-empty="'+mode+'"]');
-    if(!input||!root||!count||!empty)return;
-    const cards=[...root.querySelectorAll('[data-di-item]')];
+    const panel=panels.get(mode);
+    const input=panel.querySelector('[data-di-search-input="'+mode+'"]');
+    const grid=panel.querySelector('[data-di-list="'+mode+'"]');
+    const type=panel.querySelector('[data-di-filter-type="'+mode+'"]');
+    const continent=panel.querySelector('[data-di-filter-continent="'+mode+'"]');
+    const country=panel.querySelector('[data-di-filter-country="'+mode+'"]');
+    const reset=panel.querySelector('[data-di-reset="'+mode+'"]');
+    const count=panel.querySelector('[data-di-count="'+mode+'"]');
+    const empty=panel.querySelector('[data-di-empty="'+mode+'"]');
+    if(!grid||!input||!count||!empty)return;
+    const cards=[...grid.querySelectorAll('[data-di-item]')];
+
+    if(country){
+      const names=new Map();
+      for(const card of cards){
+        const codes=(card.dataset.country||'').split(/\s+/).filter(Boolean);
+        const line=card.querySelector('.di-country-line');
+        const labels=(line?.lastElementChild?.textContent||'').split(' · ').map(s=>s.trim());
+        codes.forEach((code,i)=>{
+          if(code&&labels[i]&&!names.has(code))names.set(code,labels[i]);
+        });
+      }
+      [...names].sort((a,b)=>a[1].localeCompare(b[1],'es'))
+        .forEach(([code,label])=>{
+          const option=document.createElement('option');
+          option.value=code;option.textContent=label;country.appendChild(option);
+        });
+    }
+    const matchTokens=(attribute,selected)=>{
+      if(!selected||selected==='all')return true;
+      return String(attribute||'').split(/\s+/).includes(selected);
+    };
     const update=()=>{
-      const query=clean(input.value);
-      let matches=0;
-      cards.forEach(card=>{
-        const found=!query||clean(card.dataset.diSearch).includes(query);
-        card.hidden=!found;
-        if(found)matches++;
-      });
-      const unit=plurals[mode][matches===1?0:1];
-      count.textContent=matches+' '+unit;
-      empty.hidden=matches!==0;
+      const q=clean(input.value);
+      let visible=0;
+      for(const card of cards){
+        const haystack=clean((card.dataset.diSearch||'')+' '+card.textContent);
+        const show=haystack.includes(q)
+          &&(!type||matchTokens(card.dataset.type,type.value))
+          &&(!continent||matchTokens(card.dataset.continent,continent.value))
+          &&(!country||matchTokens(card.dataset.country,country.value));
+        card.hidden=!show;
+        if(show)visible++;
+      }
+      const unit=plurals[mode][visible===1?0:1];
+      count.textContent=visible+' '+unit;
+      empty.hidden=visible!==0;
     };
     input.addEventListener('input',update);
     input.addEventListener('search',update);
+    [type,continent,country].filter(Boolean).forEach(el=>el.addEventListener('change',update));
+    reset?.addEventListener('click',()=>{
+      input.value='';
+      [type,continent,country].filter(Boolean).forEach(el=>{el.value='all'});
+      update();
+      input.focus();
+    });
     update();
   });
 
