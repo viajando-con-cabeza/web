@@ -328,3 +328,26 @@ html body .vl-hero.vcc-portada-transparente.vcc-breadcrumb-on-dark #vcc-global-b
   .vl-page .vl-faq-section{padding:30px 0 38px}
   .vl-page .vl-faq-list{grid-template-columns:minmax(0,1fr);gap:8px}
 }
+
+/* VCC · Enllaç oficial de cada aerolínia. Mateixa posició i format, ara navegable. */
+.vl-page .vl-air-card a.vl-air-action{text-decoration:none}
+.vl-page .vl-air-card a.vl-air-action:hover{text-decoration:underline;text-underline-offset:3px}
+.vl-page .vl-air-card a.vl-air-action:focus-visible{outline:2px solid #e96723;outline-offset:4px;border-radius:2px}
+
+/* Les files i els conceptes es desplacen JUNTS amb les opcions al mòbil.
+   Només el mode escriptori manté la primera columna sticky. */
+@media(max-width:720px){
+ #calculadora .vl-calc-table tr>*:first-child{position:static;left:auto;z-index:auto}
+ #calculadora .vl-calc-scroll{overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch;touch-action:pan-x pan-y;overscroll-behavior-x:contain}
+}
+
+/* Exportació corporativa compacta, sense controls de guardar/compartir enllaç. */
+#calculadora .vl-compare-utils [data-export-pdf]{
+ display:inline-flex;align-items:center;gap:7px;
+ color:#b65121;font-weight:800;text-decoration:none;
+}
+#calculadora .vl-compare-utils [data-export-pdf]>span{
+ display:inline-grid;place-items:center;width:19px;height:19px;
+ border:1px solid #e4af8a;border-radius:50%;font-size:13px;line-height:1;
+}
+#calculadora .vl-compare-utils [data-export-pdf]:disabled{opacity:.5;cursor:progress}
