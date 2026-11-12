@@ -1908,6 +1908,11 @@ html body .vl-page .vl-hero.tv-hero.vcc-portada-transparente{
   --vcc-portada-posicio:center center;
 }
 
+/* Contacto: la imagen de origen incluye bandas blancas de 20px arriba y abajo.
+   Ocultamos sus bordes dentro del hero, sin cambiar margenes ni dimensiones. */
+body:has(.contact-page) .contact-page .contact-hero{overflow:hidden}
+body:has(.contact-page) .contact-page .contact-hero::before{transform:scaleY(1.10);transform-origin:center}
+
 /* === configuracion/css/componentes/vcc-trip-context.css === */
 /* Nota editorial discreta: fechas del viaje y revisiones periódicas. */
 .vcc-trip-context{display:block;max-width:750px;margin:6px 0 13px;padding:0;border:0;background:none;color:#77736f!important;font-family:"DM Sans",sans-serif;font-size:11px!important;font-weight:400;line-height:1.48!important;letter-spacing:0;opacity:.94}
