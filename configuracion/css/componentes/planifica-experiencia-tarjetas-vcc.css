@@ -1,0 +1,83 @@
+/* VCC · Nuestra experiencia: un unico lenguaje de tarjetas
+   Compartido por Vuelos, Alojamientos y Tarjetas de viaje.
+   Los carruseles, marcas, fotografías y filtros siguen en cada plantilla.
+   Cualquier ajuste de densidad, pros/cons y botones se realiza aquí.
+*/
+html body :is(.vl-page .vl-air-card,.al-page .al-card,.tv-page .tv-card){
+  min-width:0;display:flex;flex-direction:column;scroll-snap-align:start;
+  border:1px solid #e3ddd7;border-radius:14px;background:#fff;
+  box-shadow:0 4px 15px rgba(43,34,26,.045);overflow:hidden;
+}
+html body :is(.vl-page .vl-air-card-body,.al-page .al-card-body,.tv-page .tv-card-body){
+  display:flex;flex-direction:column;flex:1;min-width:0;
+}
+html body .vl-page .vl-air-card-body{padding:14px 15px 12px}
+html body .al-page .al-card-body{padding:13px 15px 12px}
+html body .tv-page .tv-card-head{padding:14px 15px 9px;background:#fff}
+html body .tv-page .tv-card-head h3{
+  font:750 25px/1.1 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
+  letter-spacing:-.05em;margin:0 0 6px;
+}
+html body .tv-page .tv-card-head p{
+  color:#63686b;font:400 11.5px/1.4 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
+  margin:0;
+}
+html body .tv-page .tv-card-body{padding:0 15px 12px;gap:0}
+/* La línea divisoria, los encabezados y las listas se comparten. */
+html body :is(.vl-page .vl-air-lists,.al-page .al-lists,.tv-page .tv-card-points){
+  display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:0;min-width:0;border-top:1px solid #e8e5e1;padding:10px 0 5px;
+}
+html body :is(.vl-page .vl-air-lists,.al-page .al-lists,.tv-page .tv-card-points)>section{
+  min-width:0;padding:0 12px 0 0;
+}
+html body :is(.vl-page .vl-air-lists,.al-page .al-lists,.tv-page .tv-card-points)>section+section{
+  border-left:1px solid #e5e5e2;padding:0 0 0 12px;
+}
+html body :is(.vl-page .vl-air-lists,.al-page .al-lists,.tv-page .tv-card-points) h4{
+  display:flex;align-items:center;gap:6px;margin:0 0 7px;
+  color:#2d2a27;font:800 11px/1.25 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
+}
+html body :is(.vl-page .vl-air-lists,.al-page .al-lists,.tv-page .tv-card-points) :is(.vl-face-icon,.al-face-icon,.tv-face-icon){
+  width:19px;height:19px;flex:0 0 19px;
+  color:#ef6b45;stroke:#ef6b45;
+}
+html body :is(.vl-page .vl-air-lists,.al-page .al-lists,.tv-page .tv-card-points) ul{
+  list-style:none;padding:0;margin:0;
+}
+html body :is(.vl-page .vl-air-lists,.al-page .al-lists,.tv-page .tv-card-points) li{
+  position:relative;margin:0 0 5px;padding-left:10px;
+  color:#50555a;font:400 10.8px/1.38 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
+}
+html body :is(.vl-page .vl-air-lists,.al-page .al-lists,.tv-page .tv-card-points) li::before{
+  content:"•";position:absolute;left:1px;top:0;color:#4d504d;
+}
+html body :is(.vl-page .vl-air-card .vl-air-action,.al-page .al-card .al-external,.tv-page .tv-card .tv-card-link){
+  display:inline-flex;align-items:center;justify-content:flex-end;
+  align-self:flex-end;gap:5px;width:auto;max-width:100%;
+  margin:auto 0 0 auto;padding:9px 0 0;background:transparent;
+  border:0;border-radius:0;color:#df5d20!important;
+  font:800 11px/1.25 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
+  text-transform:uppercase;text-decoration:none;
+}
+html body :is(.vl-page .vl-air-card .vl-air-action,.al-page .al-card .al-external,.tv-page .tv-card .tv-card-link):hover{
+  text-decoration:underline;text-underline-offset:3px;
+}
+/* Tarjetas de viaje: no anular el carrusel común; solo compactar contenido. */
+@media(max-width:720px){
+  html body .vl-page .vl-air-card-body{padding:12px 13px 12px}
+  html body .al-page .al-card-body{padding:12px 13px 12px}
+  html body .tv-page .tv-card-head{padding:13px 13px 8px}
+  html body .tv-page .tv-card-head h3{font-size:24px}
+  html body .tv-page .tv-card-body{padding:0 13px 12px}
+  html body :is(.vl-page .vl-air-lists,.al-page .al-lists,.tv-page .tv-card-points){padding-top:9px}
+  html body :is(.vl-page .vl-air-lists,.al-page .al-lists,.tv-page .tv-card-points)>section{padding-right:9px}
+  html body :is(.vl-page .vl-air-lists,.al-page .al-lists,.tv-page .tv-card-points)>section+section{padding-right:0;padding-left:9px}
+  html body :is(.vl-page .vl-air-lists,.al-page .al-lists,.tv-page .tv-card-points) h4{font-size:10.6px;gap:5px}
+  html body :is(.vl-page .vl-air-lists,.al-page .al-lists,.tv-page .tv-card-points) li{font-size:10.5px;line-height:1.34;margin-bottom:4px}
+}
+@media(max-width:370px){
+  html body .tv-page .tv-card-points{grid-template-columns:1fr;gap:9px}
+  html body .tv-page .tv-card-points>section{padding-right:0}
+  html body .tv-page .tv-card-points>section+section{border-left:0;border-top:1px solid #ece6df;padding:9px 0 0}
+}
