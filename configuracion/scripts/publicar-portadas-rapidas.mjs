@@ -183,12 +183,20 @@ for(const p of approvedFiles){
   const sharedGuideCore=html.includes('data-vcc-guies-core') &&
     html.includes('/configuracion/css/componentes/vcc-guies-core-fons-compartit.css');
   if(!budgetBundle){
-    // La ruta versionada de la CSS canvia només quan canvien les fotos.
-    html=html.replace(/<link\b[^>]*data-vcc-fast-heroes[^>]*>\s*/gi,"");
-    if(cfg){
-      // Evitem nous salts de linia a cada generacio; la sortida ha de ser idempotent.
-      html=html.replace(/(?:\r?\n[ \t]*){2,}(?=<\/head\s*>)/i,"\n");
-      html=html.replace(/<\/head\s*>/i,link+"\n</head>");
+    // Els CSS de portada han de mantenir la seva posició dins de les guies:
+    // després del CSS de guies relacionades i ABANS del core compartit.
+    // Actualitzar el href in situ en lloc de traslladar-lo al final del head.
+    if(sharedGuideCore){
+      const fastHeroTag=/<link\b[^>]*data-vcc-fast-heroes[^>]*>/gi;
+      if(fastHeroTag.test(html)) html=html.replace(fastHeroTag,link);
+      else if(cfg) html=html.replace(/<link\b[^>]*data-vcc-guies-core[^>]*>/i,tag=>link+"\n"+tag);
+    }else{
+      // La ruta versionada de la CSS canvia només quan canvien les fotos.
+      html=html.replace(/<link\b[^>]*data-vcc-fast-heroes[^>]*>\s*/gi,"");
+      if(cfg){
+        html=html.replace(/(?:\r?\n[ \t]*){2,}(?=<\/head\s*>)/i,"\n");
+        html=html.replace(/<\/head\s*>/i,link+"\n</head>");
+      }
     }
     // El core continua bloquejant el primer renderitzat (sense FOUC),
     // però les guies ja el porten dins del paquet compartit final.
