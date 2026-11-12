@@ -71,15 +71,15 @@ verify(css.includes('grid-template-columns:repeat(2,minmax(0,1fr))') &&
 
 const ids=[...html.matchAll(/<section class="place place--no-media" id="([^"]+)" data-ssr-place="1"/g)]
   .map(match=>match[1]);
-verify(ids.length===15 && new Set(ids).size===15,
-  'HTML: deben existir 15 fichas únicas sin depender de JavaScript');
+verify(ids.length>=15 && new Set(ids).size===ids.length,
+  'HTML: debe haber al menos 15 fichas únicas sin depender de JavaScript');
 const dataMatch=html.match(/const data=(\[[\s\S]*?\]);\s*const esc=/);
 let data=[];
 try{data=JSON.parse(dataMatch?.[1]||'null');}
 catch(error){errors.push('Datos editoriales: JSON inválido '+error.message);}
-verify(Array.isArray(data)&&data.length===15,
-  'Datos editoriales: deben existir 15 lugares');
-if(Array.isArray(data)&&data.length===15){
+verify(Array.isArray(data)&&data.length===ids.length && data.length>=15,
+  'Datos editoriales: deben coincidir con el número de fichas HTML (mínimo 15)');
+if(Array.isArray(data)&&data.length===ids.length && data.length>=15){
   verify(ids.every((id,i)=>data[i]?.[0]===id),
     'Datos editoriales: orden de IDs distinto de las secciones HTML');
   verify(data.every(place=>typeof place[4]==='string' &&
@@ -93,7 +93,7 @@ for(const [name,regex] of [
   try{
     const obj=JSON.parse(html.match(regex)?.[1]||'null');
     verify(obj && ids.every(id=>typeof obj[id]!=='undefined') &&
-      Object.keys(obj).length===15,
+      Object.keys(obj).length===ids.length,
       'Datos: faltan '+name+' en alguna ficha');
   }catch(error){errors.push('Datos: JSON de '+name+' inválido: '+error.message);}
 }
@@ -129,8 +129,8 @@ verify(map.includes("pdf.save('estocolmo-15-imprescindibles-vcc.pdf')") &&
 
 const geo=map.match(/const geo = \{([\s\S]*?)\n  \};/);
 const geoIds=[...(geo?.[1]||'').matchAll(/'([^']+)':\[/g)].map(m=>m[1]);
-verify(geoIds.length===15 && ids.every(id=>geoIds.includes(id)),
-  'Mapa: faltan coordenadas de alguno de los 15 lugares');
+verify(geoIds.length===ids.length && ids.every(id=>geoIds.includes(id)),
+  'Mapa: faltan coordenadas de alguna ficha publicada');
 
 const jsonLD=[...html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)];
 verify(jsonLD.length===1,'SEO: debe existir un único bloque JSON-LD');
@@ -143,10 +143,11 @@ try{
   verify(pageNode?.url===canonical,'SEO: JSON-LD Page.url distinto de canonical');
   verify(crumbs?.itemListElement?.at(-1)?.item===canonical,
     'SEO: última miga de pan no coincide con canonical');
-  verify(listing?.itemListElement?.length===15 &&
+  verify(listing?.numberOfItems===ids.length &&
+    listing?.itemListElement?.length===ids.length &&
     listing.itemListElement.every((n,i)=>n.position===i+1 &&
       n.item?.url===canonical+'#'+ids[i]),
-    'SEO: JSON-LD debe describir los 15 anchors reales');
+    'SEO: JSON-LD debe describir los anchors reales de todas las fichas');
 }catch(error){errors.push('SEO: JSON-LD inválido: '+error.message);}
 
 // Comprobar sintaxis del JS sin ejecutarlo ni cargar fotografías ni bibliotecas.
@@ -172,5 +173,5 @@ if(errors.length){
   for(const message of errors)console.error('IMPRESCINDIBLES ERROR:',message);
   process.exitCode=1;
 }else{
-  console.log('IMPRESCINDIBLES OK: 15 fichas, mapa/PDF, rutas R2, SEO, recursos y JS verificados.');
+  console.log('IMPRESCINDIBLES OK: '+ids.length+' fichas, mapa/PDF, rutas R2, SEO, recursos y JS verificados.');
 }
