@@ -318,6 +318,9 @@
 
 /* VCC shared Consejo component loader 2026-11-08 */
 (function () {
+  // Presupuesto no conté targetes Consejo VCC: evita el CSS i el JS
+  // dinàmics que Lighthouse situa dins la cadena crítica en mòbil.
+  if (document.body?.classList.contains('budget-vcc')) return;
   const current = document.currentScript;
   const base = current && current.src ? new URL('../../', current.src) : new URL('/', window.location.href);
   if (!document.getElementById('vcc-consejo-global-css')) {
