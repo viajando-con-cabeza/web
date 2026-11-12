@@ -1272,3 +1272,37 @@ body.dv-page{
  .dv-page .dv-zone-hotel-top strong{font-size:14px}
  .dv-page .dv-zone-hotel-pricecol{justify-content:flex-start}
 }
+
+/* Logos de zonas y perfiles de hotel: SVGs visibles, grandes y sin fondo.
+   También elimina el disco blanco del logotipo VCC sin tocar las fichas. */
+.dv-page .dv-card .dv-card-icon,
+.dv-page .dv-card:nth-child(odd) .dv-card-icon{
+  width:48px;min-width:48px;height:48px;flex:0 0 48px;
+  padding:0;background:transparent!important;border:0!important;border-radius:0;
+}
+.dv-page .dv-card .dv-card-icon img,
+.dv-page .dv-card .dv-card-logo img{
+  width:48px;height:48px;max-width:100%;
+  object-fit:contain;background:transparent!important;
+}
+.dv-page .dv-zone-hotel-icon,
+.dv-page .dv-zone-hotel-icon.is-vcc-logo{
+  width:46px;height:46px;flex:0 0 46px;
+  padding:0;background:transparent!important;border:0!important;border-radius:0;
+  box-shadow:none;
+}
+.dv-page .dv-zone-hotel-icon img,
+.dv-page .dv-zone-hotel-icon.is-vcc-logo img{
+  width:45px;height:45px;max-width:100%;object-fit:contain;
+  background:transparent!important;
+}
+@media(max-width:600px){
+  .dv-page .dv-zone-hotel-icon,
+  .dv-page .dv-zone-hotel-icon.is-vcc-logo{
+    width:43px;height:43px;flex-basis:43px;
+  }
+  .dv-page .dv-zone-hotel-icon img,
+  .dv-page .dv-zone-hotel-icon.is-vcc-logo img{
+    width:42px;height:42px;
+  }
+}
