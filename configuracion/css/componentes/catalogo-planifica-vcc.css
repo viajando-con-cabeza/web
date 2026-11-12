@@ -179,3 +179,17 @@ body.que-llevar-hub .itinerarios-hero > .about-hero-photo{
   flex:0 0 min(218px,100%);width:min(218px,100%);max-width:100%;
  }
 }
+
+/* Text breu a la dreta del títol del catàleg de pressupostos. */
+@media(min-width:901px){
+  html body.presupuestos-vcc .vcc-it-catalog .vcc-it-heading.vcc-editorial-heading > p.vcc-editorial-description{
+    display:-webkit-box!important;
+    -webkit-line-clamp:2;
+    -webkit-box-orient:vertical;
+    overflow:hidden;
+    line-height:1.58!important;
+    max-height:3.16em;
+    max-width:450px!important;
+    text-align:right!important;
+  }
+}
