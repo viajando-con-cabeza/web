@@ -1306,3 +1306,75 @@ body.dv-page{
     width:42px;height:42px;
   }
 }
+
+/* VCC · Dónde dormir / Estocolmo · tarjetas de barrios compactas.
+   Alcance exclusivo del carrusel principal; NO modifica el desglose
+   .dv-zone-panel, hoteles, el logo ni las valoraciones. */
+@media (min-width: 701px) {
+  .dv-page #barrios .dv-carousel > .dv-card {
+    min-height: 0;
+    padding: 12px 13px 10px;
+  }
+  .dv-page #barrios .dv-carousel > .dv-card.is-vcc {
+    padding: 11px 12px 9px;
+  }
+  .dv-page #barrios .dv-card-top {
+    min-height: 56px;
+    gap: 7px;
+  }
+  .dv-page #barrios .dv-card-head {
+    padding-top: 0;
+  }
+  .dv-page #barrios .dv-card-kicker {
+    margin-bottom: 3px;
+    line-height: 1.03;
+    font-size: 21px;
+  }
+  .dv-page #barrios .dv-card-head h3 {
+    line-height: 1.05;
+  }
+  .dv-page #barrios .dv-card-description {
+    min-height: 0;
+    margin: 3px 0 7px!important;
+    line-height: 1.38;
+  }
+  .dv-page #barrios .dv-pros {
+    gap: 4px;
+    padding: 7px 0;
+  }
+  .dv-page #barrios .dv-pros li {
+    gap: 6px;
+    line-height: 1.28;
+  }
+  .dv-page #barrios .dv-pros .dv-sign {
+    flex-basis: 16px;
+  }
+  .dv-page #barrios .dv-card-bottom {
+    gap: 6px;
+    padding-top: 7px;
+  }
+  .dv-page #barrios .dv-meta {
+    gap: 5px;
+  }
+  .dv-page #barrios .dv-card-discover {
+    margin-top: 7px;
+    padding-top: 7px;
+  }
+}
+@media (max-width: 700px) {
+  /* Móvil: ajuste suave, manteniendo áreas táctiles y textos completos. */
+  .dv-page #barrios .dv-carousel > .dv-card {
+    min-height: 0;
+    padding-top: 13px;
+    padding-bottom: 11px;
+  }
+  .dv-page #barrios .dv-card-top { min-height: 56px; }
+  .dv-page #barrios .dv-card-kicker { margin-bottom: 4px; }
+  .dv-page #barrios .dv-card-description {
+    min-height: 0;
+    margin: 5px 0 8px!important;
+  }
+  .dv-page #barrios .dv-pros { gap: 5px; padding: 8px 0; }
+  .dv-page #barrios .dv-card-bottom { padding-top: 8px; }
+  .dv-page #barrios .dv-card-discover { margin-top: 8px; padding-top: 8px; }
+}
