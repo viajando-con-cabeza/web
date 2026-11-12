@@ -108,11 +108,12 @@ for(const [name,regex] of [
 ]){
   try{
     const obj=JSON.parse(html.match(regex)?.[1]||'null');
-    // Drottningholm té un comentari editorial encara que no tingui nota numèrica.
-    // Els comentaris es validen per a totes les 16 fitxes.
-    const required=ids;
+    // Les 15 fitxes amb nota requereixen comentari. Una fitxa sense nota
+    // pot tenir-ne o no, segons l'estat editorial, sense falsos errors.
+    const scoredIds=data.filter(place=>Number.isFinite(place[7])).map(place=>place[0]);
+    const required=name==='costes'?ids:scoredIds;
     verify(obj && required.every(id=>typeof obj[id]!=='undefined') &&
-      Object.keys(obj).length===required.length,
+      Object.keys(obj).every(id=>ids.includes(id)),
       'Datos: faltan '+name+' en las fichas a las que corresponden');
   }catch(error){errors.push('Datos: JSON de '+name+' inválido: '+error.message);}
 }
