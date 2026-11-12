@@ -58,7 +58,7 @@
  const bankRaw=Number(document.getElementById('tv-bank-total')?.dataset.rawValue);
  const travelRaw=Number(document.getElementById('tv-travel-total')?.dataset.rawValue);
  const difference=Number.isFinite(bankRaw)&&Number.isFinite(travelRaw)
-  ? bankRaw-travelRaw
+  ? Math.round(bankRaw)-Math.round(travelRaw)
   : eurosFromText(bankText)-eurosFromText(travelText);
   if(!bankText||!travelText||!Number.isFinite(difference)){
    if(status)status.textContent='Introduce los importes de la calculadora antes de guardar el PDF.';

@@ -71,10 +71,12 @@
       travelTotal.dataset.rawValue=String(traveler);
       bankTotal.textContent=euroEntero.format(bank);
       travelTotal.textContent=euroEntero.format(traveler);
-      // El ahorro tambien se muestra redondeado al euro.
-      const ahorroRedondeado=Math.round(Math.abs(diff));
-      const positive=diff>0&&ahorroRedondeado>0;
-      const negative=diff<0&&ahorroRedondeado>0;
+      // Se compara lo que el lector ve: importe de cada tarjeta redondeado a euros.
+      // Esto evita diferencias aparentes de 1 EUR entre las cifras publicadas.
+      const diferenciaVisible=Math.round(bank)-Math.round(traveler);
+      const ahorroRedondeado=Math.abs(diferenciaVisible);
+      const positive=diferenciaVisible>0;
+      const negative=diferenciaVisible<0;
       savingText.textContent=positive?'Ahorro estimado':negative?'Coste adicional estimado':'Diferencia estimada';
       saving.textContent=euroEntero.format(ahorroRedondeado);
       savingBox.classList.toggle('negative',negative);
