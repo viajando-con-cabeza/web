@@ -250,3 +250,213 @@ body.inicio-vcc.home-editorial-refresh .home-contact .home-card-more{
 @media(prefers-reduced-motion:reduce){
  body.inicio-vcc.home-editorial-refresh .home-photo-gallery.is-sliding img[data-vcc-it-slide]{transition:none!important;}
 }
+
+/* Portada VCC · quatre targetes a cada carrusel.
+   A 1440px la targeta iguala els ~315px del catàleg d'Itinerarios. */
+@media(min-width:1001px){
+ body.inicio-vcc.home-editorial-refresh .home-featured-itineraries .home-carousel-track,
+ body.inicio-vcc.home-editorial-refresh .home-featured-guide .home-carousel-track{
+   grid-auto-columns:calc((100% - 42px)/4)!important;gap:14px!important;
+ }
+}
+body.inicio-vcc.home-editorial-refresh .home-featured-itineraries .home-feature-card,
+body.inicio-vcc.home-editorial-refresh .home-featured-guide .home-feature-card{
+ height:315px!important;min-height:315px!important;max-height:none!important;
+}
+body.inicio-vcc.home-editorial-refresh .home-featured-itineraries .home-feature-photo,
+body.inicio-vcc.home-editorial-refresh .home-featured-guide .home-feature-photo{
+ height:164px!important;min-height:164px!important;flex:0 0 164px!important;
+ aspect-ratio:auto!important;
+}
+body.inicio-vcc.home-editorial-refresh .home-featured-itineraries .home-feature-details,
+body.inicio-vcc.home-editorial-refresh .home-featured-guide .home-feature-details{
+ min-height:0!important;flex:1 1 auto!important;
+ padding:11px 13px 12px!important;
+}
+body.inicio-vcc.home-editorial-refresh .home-feature-details h3{
+ font-size:clamp(20px,1.6vw,23px)!important;line-height:1.1!important;
+ margin-bottom:6px!important;
+}
+body.inicio-vcc.home-editorial-refresh .home-route-metadata,
+body.inicio-vcc.home-editorial-refresh .home-guide-metadata{
+ gap:5px 9px!important;margin-bottom:6px!important;
+}
+body.inicio-vcc.home-editorial-refresh .home-card-desc{
+ font-size:11px!important;line-height:1.37!important;
+ margin-bottom:6px!important;display:-webkit-box!important;
+ -webkit-box-orient:vertical!important;-webkit-line-clamp:2!important;
+ overflow:hidden!important;
+}
+body.inicio-vcc.home-editorial-refresh .home-route-metadata .home-feature-facts{
+ gap:4px 8px!important;
+}
+body.inicio-vcc.home-editorial-refresh .home-feature-details .home-feature-link,
+body.inicio-vcc.home-editorial-refresh .home-feature-details .home-feature-pending{
+ padding-top:4px!important;
+}
+/* Planifica: targeta blanca i quatre eines en taronja, amb iconografia SVG. */
+body.inicio-vcc.home-editorial-refresh .home-planning{
+ background:#fff!important;border-color:#ead9cb!important;
+ box-shadow:0 3px 15px rgba(62,38,20,.045)!important;
+ padding:20px 25px!important;min-height:175px!important;
+}
+body.inicio-vcc.home-editorial-refresh .home-planning-copy{
+ background:transparent!important;
+}
+body.inicio-vcc.home-editorial-refresh .home-planning-links{
+ gap:9px!important;
+}
+body.inicio-vcc.home-editorial-refresh .home-planning-links a{
+ display:grid!important;grid-template-columns:38px minmax(0,1fr) 16px!important;
+ grid-template-rows:auto!important;align-items:center!important;
+ gap:9px!important;min-height:65px!important;
+ padding:10px 13px!important;
+ background:#dc754d!important;color:#fff!important;
+ border:1px solid #ce6944!important;border-radius:11px!important;
+ box-shadow:0 2px 5px rgba(168,70,32,.11)!important;
+ text-decoration:none!important;transition:background-color .16s,transform .16s;
+}
+body.inicio-vcc.home-editorial-refresh .home-planning-links a:nth-child(2){
+ background:#d76e45!important;
+}
+body.inicio-vcc.home-editorial-refresh .home-planning-links a:nth-child(3){
+ background:#d5724b!important;
+}
+body.inicio-vcc.home-editorial-refresh .home-planning-links a:nth-child(4){
+ background:#cc6843!important;
+}
+body.inicio-vcc.home-editorial-refresh .home-planning-links a:hover{
+ background:#ba5534!important;transform:translateY(-1px);
+}
+body.inicio-vcc.home-editorial-refresh .home-planning-links a:focus-visible{
+ outline:3px solid #884324!important;outline-offset:3px;
+}
+body.inicio-vcc.home-editorial-refresh .home-planning-links a>span{
+ grid-column:auto!important;grid-row:1!important;
+ color:#fff!important;font-size:inherit!important;
+}
+body.inicio-vcc.home-editorial-refresh .home-planning-links .home-plan-icon{
+ width:38px;height:38px;display:grid;place-items:center;flex:none;
+ border-radius:10px;background:rgba(255,255,255,.16);
+}
+body.inicio-vcc.home-editorial-refresh .home-planning-links .home-plan-icon svg{
+ display:block;width:23px;height:23px;fill:none;color:white;
+}
+body.inicio-vcc.home-editorial-refresh .home-planning-links .home-plan-label{
+ display:flex;flex-direction:column;min-width:0;gap:3px;
+}
+body.inicio-vcc.home-editorial-refresh .home-planning-links .home-plan-label strong{
+ color:white!important;font-size:13px!important;font-weight:800!important;
+ line-height:1.15!important;
+}
+body.inicio-vcc.home-editorial-refresh .home-planning-links .home-plan-label small{
+ color:rgba(255,255,255,.87)!important;font-size:10px!important;
+ grid-column:auto!important;grid-row:auto!important;line-height:1.25!important;
+}
+body.inicio-vcc.home-editorial-refresh .home-planning-links .home-plan-arrow{
+ align-self:center!important;justify-self:end!important;
+ font-size:19px!important;line-height:1!important;opacity:.93;
+}
+/* Instagram i Contacto: format horitzontal baix i blanc. */
+body.inicio-vcc.home-editorial-refresh .home-social-contact{
+ gap:14px!important;
+}
+body.inicio-vcc.home-editorial-refresh .home-social-contact .home-instagram,
+body.inicio-vcc.home-editorial-refresh .home-social-contact .home-contact{
+ min-height:180px!important;max-height:none!important;height:auto!important;
+ background:#fff!important;
+}
+body.inicio-vcc.home-editorial-refresh .home-instagram .home-insta-largepost{
+ min-height:180px!important;
+}
+body.inicio-vcc.home-editorial-refresh .home-insta-editorial-copy{
+ padding:12px 16px!important;
+}
+body.inicio-vcc.home-editorial-refresh .home-social-eyebrow{
+ font-size:18px!important;margin-bottom:3px!important;
+}
+body.inicio-vcc.home-editorial-refresh .home-social-heading{
+ margin-bottom:5px!important;
+}
+body.inicio-vcc.home-editorial-refresh .home-social-heading h2{
+ font-size:clamp(21px,1.75vw,26px)!important;
+}
+body.inicio-vcc.home-editorial-refresh .home-insta-handle{
+ margin-bottom:5px!important;font-size:11px!important;
+}
+body.inicio-vcc.home-editorial-refresh .home-insta-text{
+ font-size:11px!important;line-height:1.38!important;
+ margin-bottom:7px!important;
+}
+body.inicio-vcc.home-editorial-refresh .home-social-contact .home-contact{
+ padding:13px 19px!important;background:#fff!important;
+}
+body.inicio-vcc.home-editorial-refresh .home-contact-symbol{
+ width:36px!important;height:34px!important;max-width:36px!important;
+ margin:0 0 4px!important;
+}
+body.inicio-vcc.home-editorial-refresh .home-contact-symbol img{
+ width:36px!important;height:34px!important;
+}
+body.inicio-vcc.home-editorial-refresh .home-contact h2{
+ font-size:clamp(23px,2vw,28px)!important;margin-bottom:5px!important;
+}
+body.inicio-vcc.home-editorial-refresh .home-contact p{
+ font-size:11px!important;line-height:1.4!important;margin-bottom:6px!important;
+}
+body.inicio-vcc.home-editorial-refresh .home-contact .home-card-more,
+body.inicio-vcc.home-editorial-refresh .home-insta-editorial-copy .home-card-more{
+ font-size:10.5px!important;
+}
+@media(min-width:1001px) and (max-width:1180px){
+ body.inicio-vcc.home-editorial-refresh .home-featured-itineraries .home-feature-photo,
+ body.inicio-vcc.home-editorial-refresh .home-featured-guide .home-feature-photo{
+  height:148px!important;min-height:148px!important;flex-basis:148px!important;
+ }
+ body.inicio-vcc.home-editorial-refresh .home-feature-details h3{font-size:19px!important;}
+ body.inicio-vcc.home-editorial-refresh .home-card-desc{font-size:10.5px!important;}
+ body.inicio-vcc.home-editorial-refresh .home-route-metadata{gap:4px!important}
+}
+@media(max-width:1000px){
+ body.inicio-vcc.home-editorial-refresh .home-featured-itineraries .home-feature-card,
+ body.inicio-vcc.home-editorial-refresh .home-featured-guide .home-feature-card{
+  height:325px!important;min-height:325px!important;
+ }
+ body.inicio-vcc.home-editorial-refresh .home-planning{padding:19px!important;}
+}
+@media(max-width:610px){
+ body.inicio-vcc.home-editorial-refresh .home-featured-itineraries .home-feature-card,
+ body.inicio-vcc.home-editorial-refresh .home-featured-guide .home-feature-card{
+  height:342px!important;min-height:342px!important;
+ }
+ body.inicio-vcc.home-editorial-refresh .home-featured-itineraries .home-feature-photo,
+ body.inicio-vcc.home-editorial-refresh .home-featured-guide .home-feature-photo{
+  height:160px!important;min-height:160px!important;flex-basis:160px!important;
+ }
+ body.inicio-vcc.home-editorial-refresh .home-feature-details h3{font-size:21px!important}
+ body.inicio-vcc.home-editorial-refresh .home-planning{padding:16px!important;gap:12px!important;}
+ body.inicio-vcc.home-editorial-refresh .home-planning-links{gap:7px!important;}
+ body.inicio-vcc.home-editorial-refresh .home-planning-links a{
+  grid-template-columns:30px minmax(0,1fr)!important;gap:6px!important;
+  min-height:61px!important;padding:9px 8px!important;
+ }
+ body.inicio-vcc.home-editorial-refresh .home-planning-links .home-plan-icon{
+  width:30px;height:30px;border-radius:8px;
+ }
+ body.inicio-vcc.home-editorial-refresh .home-planning-links .home-plan-icon svg{width:18px;height:18px;}
+ body.inicio-vcc.home-editorial-refresh .home-planning-links .home-plan-label strong{font-size:11px!important;}
+ body.inicio-vcc.home-editorial-refresh .home-planning-links .home-plan-label small{font-size:9px!important;}
+ body.inicio-vcc.home-editorial-refresh .home-planning-links .home-plan-arrow{display:none!important;}
+ body.inicio-vcc.home-editorial-refresh .home-instagram .home-insta-largepost{min-height:180px!important;}
+ body.inicio-vcc.home-editorial-refresh .home-insta-editorial-copy{padding:10px 11px!important;}
+ body.inicio-vcc.home-editorial-refresh .home-social-contact .home-contact{padding:12px 15px!important;}
+}
+@media(max-width:380px){
+ body.inicio-vcc.home-editorial-refresh .home-planning-links{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+ body.inicio-vcc.home-editorial-refresh .home-planning-links a{
+  grid-template-columns:1fr!important;justify-items:center;text-align:center;gap:5px!important;
+  padding:8px 5px!important;
+ }
+ body.inicio-vcc.home-editorial-refresh .home-planning-links .home-plan-label{align-items:center;}
+ body.inicio-vcc.home-editorial-refresh .home-planning-links .home-plan-label small{font-size:8.5px!important;}
+}
