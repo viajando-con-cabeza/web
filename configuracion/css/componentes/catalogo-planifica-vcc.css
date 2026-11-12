@@ -1,0 +1,55 @@
+/* Planifica · catàlegs de pressupostos i equipatge. Comparteixen l'estructura d'Itinerarios. */
+body.presupuestos-vcc .itinerarios-hero > .about-hero-photo,
+body.que-llevar-hub .itinerarios-hero > .about-hero-photo{
+ background-repeat:no-repeat!important;background-size:cover!important;
+ filter:none!important;
+}
+body.presupuestos-vcc .itinerarios-hero > .about-hero-photo{
+ background-image:url('/configuracion/imagenes/fondos/fondos-presupuesto.webp')!important;
+ background-position:center center!important;
+}
+body.que-llevar-hub .itinerarios-hero > .about-hero-photo{
+ background-image:url('/configuracion/imagenes/fondos/fondos-que-llevar.webp')!important;
+ background-position:center center!important;
+}
+@media(max-width:767px){
+ body.presupuestos-vcc .itinerarios-hero > .about-hero-photo{
+  background-image:url('/configuracion/imagenes/fondos/optimizadas/fondos-presupuesto-960.webp?v=0f43baf0e3ac')!important;
+ }
+ body.que-llevar-hub .itinerarios-hero > .about-hero-photo{
+  background-image:url('/configuracion/imagenes/fondos/optimizadas/fondos-que-llevar-960.webp?v=11b002ac8d30')!important;
+ }
+}
+@media(min-width:768px){
+ body.presupuestos-vcc .itinerarios-hero > .about-hero-photo{
+  background-image:url('/configuracion/imagenes/fondos/optimizadas/fondos-presupuesto-1920.webp?v=0f43baf0e3ac')!important;
+ }
+ body.que-llevar-hub .itinerarios-hero > .about-hero-photo{
+  background-image:url('/configuracion/imagenes/fondos/optimizadas/fondos-que-llevar-1920.webp?v=11b002ac8d30')!important;
+ }
+}
+.vcc-it-catalog .di-mini-card[hidden]{display:none!important}
+.vcc-it-catalog .vcc-catalog-filters{display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin:-5px 0 17px}
+.vcc-it-catalog .vcc-catalog-filters label{display:flex;align-items:center;gap:7px;color:#625e5a;font:700 11px/1.3 var(--vcc-font-body,"DM Sans",Arial,sans-serif)}
+.vcc-it-catalog .vcc-catalog-filters select{
+ min-width:115px;max-width:205px;padding:7px 28px 7px 10px;
+ border:1px solid #e7ddd4;border-radius:7px;background:#fff;color:#3e3935;
+ font:500 11px/1.3 var(--vcc-font-body,"DM Sans",Arial,sans-serif);cursor:pointer;
+}
+.vcc-it-catalog .vcc-catalog-filters select:focus-visible,
+.vcc-it-catalog .di-catalog-search input:focus-visible{outline:2px solid #c06342;outline-offset:2px}
+.vcc-it-catalog .vcc-catalog-reset{border:0;background:transparent;padding:7px 4px;
+ color:#b45032;font:700 11px var(--vcc-font-body,"DM Sans",Arial,sans-serif);cursor:pointer}
+.vcc-it-catalog .vcc-catalog-reset:hover{text-decoration:underline}
+.vcc-it-catalog .vcc-catalog-note{margin:12px 0 0;color:#716a64;font:400 11px/1.6 var(--vcc-font-body,"DM Sans",Arial,sans-serif)}
+.vcc-it-catalog .vcc-it-facts .di-budget-row .di-price{white-space:nowrap}
+.vcc-it-catalog .vcc-it-facts .di-route-stats{white-space:nowrap}
+.vcc-it-catalog .vcc-it-card .di-mini-body{display:flex;flex-direction:column}
+@media(max-width:620px){
+ .vcc-it-catalog .vcc-catalog-filters{gap:7px;margin:-4px 0 12px}
+ .vcc-it-catalog .vcc-catalog-filters label{flex:1 1 145px;display:block;font-size:10px}
+ .vcc-it-catalog .vcc-catalog-filters select{display:block;width:100%;max-width:none;margin-top:4px;font-size:11px}
+ .vcc-it-catalog .vcc-catalog-reset{flex:0 0 auto}
+ .vcc-it-catalog .vcc-it-facts{gap:9px}
+ .vcc-it-catalog .vcc-it-facts .di-price{font-size:9px}
+}
