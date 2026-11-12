@@ -45,15 +45,22 @@ if(image?.startsWith('https://viajandoconcabeza.com/')){
   verify(exists(image.split('https://viajandoconcabeza.com/')[1]),
     'SEO: no existe el archivo usado en og:image');
 }
-// Evitar precargar una imagen diferente de la realmente usada por el hero:
- // esa descarga extra penalizaba la red sin mejorar el LCP.
-const preload=html.match(/<link\b[^>]*rel="preload"[^>]*as="image"[^>]*>/)?.[0];
-const hero=preload?.match(/\bhref="([^"]+)"/)?.[1];
-verify(hero==='/configuracion/imagenes/fondos/fondos-que-ver.webp' &&
-  heroCss.includes('fondos-que-ver.webp') && !layoutCss.includes('goteborg/'),
-  'Rendimiento: preload debe coincidir con el hero compartido sin fotos de Göteborg');
+// Amb portades responsives, només es precarrega la resolució corresponent
+// a la pantalla i la foto utilitzada continua essent la mateixa.
+const preloads=[...html.matchAll(/<link\b[^>]*>/gi)].map(x=>x[0])
+  .filter(tag=>/\brel="preload"/.test(tag)&&/\bas="image"/.test(tag));
+const mobilePreload=preloads.find(tag=>tag.includes('fondos-que-ver-960.webp'));
+const desktopPreload=preloads.find(tag=>tag.includes('fondos-que-ver-1920.webp'));
+const responsiveCss=read('configuracion/css/componentes/portadas-rapidas-vcc.css');
+verify(Boolean(mobilePreload&&desktopPreload)&&
+  mobilePreload.includes('media="(max-width: 767px)"')&&
+  desktopPreload.includes('media="(min-width: 768px)"')&&
+  responsiveCss.includes('fondos-que-ver-960.webp')&&
+  responsiveCss.includes('fondos-que-ver-1920.webp')&&
+  heroCss.includes('fondos-que-ver.webp')&&!layoutCss.includes('goteborg/'),
+  'Rendimiento: preloads para 960/1920 deben corresponder al hero original de Estocolmo');
 verify(html.includes('imprescindibles-compilado-vcc.css') &&
-  !/@import\\s+url\\s*\\(/.test(compiledCss),
+  !/@import\s+url\s*\(/.test(compiledCss),
   'Rendimiento: usar CSS compilado sin ocho imports bloqueantes');
 verify(html.includes('imprescindibles-map-bootstrap.js') &&
   html.includes('vcc-gallery-on-demand.js') &&
