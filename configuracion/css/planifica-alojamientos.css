@@ -401,3 +401,22 @@
  .al-page .al-compare-table tbody th{font-size:10px;padding:5px 6px}
  .al-page .al-compare-icon{width:17px;height:17px;margin-right:4px}
 }
+
+/* 2026-11-12 · Ajustes de comparador y navegación de Alojamientos */
+.al-page .al-compare-layout>.al-compare-side{min-width:0;display:flex;flex-direction:column;gap:9px;padding-top:39px}
+.al-page .al-compare-side .al-compare-context{display:flex;flex-wrap:wrap;align-items:center;justify-content:flex-end;gap:7px 10px;margin:0}
+.al-page .al-compare-side .al-compare-context label{display:flex;align-items:center;gap:6px;font-size:10.5px;color:#5e534c;font-weight:700;white-space:nowrap}
+.al-page .al-compare-side .al-compare-context input{width:54px;min-width:0;padding:5px 6px;font-size:11px;background:#fff}
+.al-page .al-compare-side .al-compare-context p{flex:0 0 100%;margin:0;color:#82776e;font-size:9.5px;text-align:right;line-height:1.4}
+.al-page .al-compare-side .al-compare-advice{margin:0;flex:1}
+.al-page .al-compare-add button{cursor:pointer}
+.al-page .al-compare-add button:disabled{cursor:default}
+.al-page .al-compare-table .al-calc-total td .al-total-pill{min-width:0}
+.al-page #plataformas,.al-page #calculadora,.al-page #como-ahorrar{
+ scroll-margin-top:calc(var(--vcc-subheader-top,50px) + 2px);
+}
+@media(max-width:900px){
+ .al-page .al-compare-layout>.al-compare-side{padding-top:0}
+ .al-page .al-compare-side .al-compare-context{justify-content:flex-start}
+ .al-page .al-compare-side .al-compare-context p{text-align:left}
+}
