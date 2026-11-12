@@ -1,0 +1,72 @@
+name: Diagnosticar estils LCP per fitxer i regla
+
+on:
+  push:
+    branches: [quality]
+    paths: ['.github/workflows/diagnosticar-css-lcp-candidats.yml']
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  isolate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Bisectar CSS a Chrome sense tocar el lloc publicat
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m pip install --quiet playwright tinycss2
+          python - <<'PY'
+          import json,tinycss2
+          from playwright.sync_api import sync_playwright
+          base='https://www.quality.viajandoconcabeza.com/destinos/suecia/estocolmo/'
+          budget=[
+            'suecia-redesign.css','suecia-fixes.css','estocolmo.css',
+            'estocolmo-quality-fixes.css','presupuesto-vcc-visual.css',
+            'presupuesto-head-core-v1.css','guias-relacionadas-vcc.css',
+            'presupuesto-perfiles-desplegables.css','presupuesto-gastos-dia-vcc.css',
+            'header-fallback-vcc.css','vcc-trip-context.css'
+          ]
+          tests=[('presupuesto','baseline',None)]
+          tests += [('presupuesto','block_'+n,n) for n in budget]
+          tests += [('como-moverse','baseline',None)]
+          for i in range(4):
+            tests.append(('como-moverse','cut_quarter_'+str(i),(i/4,(i+1)/4)))
+          with sync_playwright() as p:
+            browser=p.chromium.launch(headless=True,executable_path='/usr/bin/google-chrome',args=['--no-sandbox','--disable-dev-shm-usage'])
+            for name,label,remove in tests:
+              page=browser.new_page(viewport={'width':390,'height':844},device_scale_factor=1,is_mobile=True,has_touch=True)
+              page.add_init_script("""(()=>{
+                window.__vccLcp=[];
+                new PerformanceObserver(es=>{for(const e of es.getEntries())window.__vccLcp.push({tag:e.element?.tagName,size:e.size,time:Math.round(e.startTime)});}).observe({type:'largest-contentful-paint',buffered:true});
+              })();""")
+              if remove:
+                def patch(route):
+                  uri=route.request.url
+                  if route.request.resource_type!='stylesheet':
+                    return route.continue_()
+                  if isinstance(remove,str) and remove in uri:
+                    return route.abort()
+                  if isinstance(remove,tuple) and 'como-moverse-vcc.css' in uri:
+                    resp=route.fetch()
+                    ast=tinycss2.parse_stylesheet(resp.text())
+                    important=[idx for idx,t in enumerate(ast) if t.type in ('qualified-rule','at-rule')]
+                    lo=int(len(important)*remove[0]);hi=int(len(important)*remove[1])
+                    skipped=set(important[lo:hi])
+                    part=tinycss2.serialize([t for i,t in enumerate(ast) if i not in skipped])
+                    return route.fulfill(response=resp,body=part,content_type='text/css')
+                  return route.continue_()
+                page.route('**/*',patch)
+              try:
+                response=page.goto(base+name+'?lcp_css_isolation_v3='+label,wait_until='domcontentloaded',timeout=35000)
+                page.wait_for_timeout(1050)
+                out=page.evaluate("""()=>({lcp:window.__vccLcp,paint:performance.getEntriesByType('paint').map(e=>Math.round(e.startTime)),h:document.querySelector('.mv-hero,.budget-hero')?.getBoundingClientRect().height})""")
+                print('LCP3',json.dumps({'p':name,'test':label,'http':response.status if response else None,**out},ensure_ascii=False),flush=True)
+              except Exception as e:
+                print('LCP3_ERROR',name,label,str(e)[:250],flush=True)
+              finally:page.close()
+            browser.close()
+          PY
