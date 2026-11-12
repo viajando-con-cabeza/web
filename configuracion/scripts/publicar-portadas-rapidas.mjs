@@ -41,29 +41,8 @@ function sync(p,content){
   updated.push(p);
   if(write){fs.mkdirSync(path.dirname(file(p)),{recursive:true});fs.writeFileSync(file(p),content,"utf8");}
 }
-const pages=[
-  ["index.html","fondos-inicio","body.inicio-vcc .home-hero::before","bg"],
-  ["destinos/index.html","fondos-destinos","body.destinos-vcc .destinos-about-hero > .about-hero-photo","bg"],
-  ["itinerarios/index.html","fondos-itinerarios","body.itinerarios-vcc:not(.que-llevar-hub):not(.presupuestos-vcc) .itinerarios-hero > .about-hero-photo","bg"],
-  ["planifica/index.html","fondos-planifica","body.planifica-vcc .planifica-about-hero > .about-hero-photo","bg"],
-  ["nosotros/index.html","fondos-nosotros","body.about-vcc .about-hero > .about-hero-photo","bg"],
-  ["contacto/index.html","fondos-contacto","body:has(.contact-page) .contact-page .contact-hero::before","bg"],
-  ["planifica/donde-ir/index.html","fondos-como-llegar","html body .di-hero.vcc-portada-transparente","var"],
-  ["planifica/vuelos/index.html","fondos-vuelos","html body .vl-page .vl-hero.tv-hero.vcc-portada-transparente","var"],
-  ["planifica/tarjetas-de-viaje/index.html","fondos-planifica","html body .tv-page .tv-hero.vcc-portada-transparente","var"],
-  ["planifica/que-llevar/index.html","fondos-que-llevar","body.que-llevar-hub .itinerarios-hero > .about-hero-photo","bg"],
-  // Abans carregava la foto de Presupuesto al preload però en pintava una
-  // altra d'Unsplash: dos fitxers per una única portada. Ara és 1 fotografia.
-  ["planifica/presupuesto/index.html","photo-1500530855697-b586d89ba3ee.webp","body.presupuestos-vcc .itinerarios-hero > .about-hero-photo","bg","externas"],
-  ["destinos/suecia/estocolmo/imprescindibles.html","fondos-que-ver","html body .imp-page .imp-hero.vcc-portada-transparente","var"],
-  ["destinos/suecia/estocolmo/presupuesto.html","fondos-presupuesto","html body.budget-vcc .budget-hero.vcc-portada-transparente","var"],
-  ["destinos/suecia/estocolmo/cuando-ir.html","fondos-cuando-ir","html body.ci-page .vcc-hero.vcc-portada-transparente","vcc"],
-  ["destinos/suecia/estocolmo/como-llegar.html","fondos-como-llegar","html body .cl-page.cl-landing .cl-landing-hero.vcc-portada-transparente","var"],
-  ["destinos/suecia/estocolmo/como-moverse.html","fondos-como-moverse","html body .mv-page .mv-hero.vcc-portada-transparente","var"],
-  ["destinos/suecia/estocolmo/entradas-y-pases.html","fondos-entradas-y-pases","html body .ep-page .ep-hero.vcc-portada-transparente","var"],
-  ["destinos/suecia/estocolmo/donde-dormir.html","fondos-donde-dormir","dv-hero-photo","img"],
-  ["destinos/suecia/estocolmo/que-llevar.html","fondos-que-llevar","ql-hero-photo","img"]
-];
+const registry=JSON.parse(fs.readFileSync(file("configuracion/datos/portadas-vcc.json"),"utf8"));
+const pages=registry.pages.map(({page,image,selector,kind,source})=>[page,image,selector,kind,source||"fondos"]);
 for(const [p,name,, ,source] of pages) {
   if(!approvedFiles.includes(p))issues.push("Pàgina optimitzada no aprovada "+p);
   if(!imageInfo(name,source))issues.push("No hi ha imatge original "+name);
