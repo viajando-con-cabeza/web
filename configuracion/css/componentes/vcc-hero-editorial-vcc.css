@@ -1,7 +1,15 @@
-/* Reutilitzable: la fotografia es configura en l'HTML amb
-   --vcc-hero-image:url('https://...') al contenidor .vcc-hero.
-   La composició, el degradat i els breakpoints són estàndards.
-   Manté exactament les regles de la portada de l'itinerari. */
+/* Única font de la fotografia d'itinerari (sense estils inline).
+   Mateixa foto original en AVIF d'alta qualitat a escriptori i
+   WebP 960px generat des de R2 a mòbil. El degradat i la màscara
+   viuen exclusivament a portadas-transparencia.css. */
+html body .vcc-hero.vcc-itinerary-stockholm-hero{
+ --vcc-hero-image:url('https://img.viajandoconcabeza.com/__vcc_preview/visor/destinos/suecia/estocolmo/2026-dia6/DSC07935-VSCO.avif');
+}
+@media(max-width:767px){
+ html body .vcc-hero.vcc-itinerary-stockholm-hero{
+  --vcc-hero-image:url('/configuracion/imagenes/fondos/optimizadas/estocolmo-itinerario-dia1-960.webp');
+ }
+}
 /* Portada de l'itinerari: mateixa composició i proporcions que
    Qué ver · Imprescindibles. No altera el subheader ni les galeries.
    La fotografia és la primera de la galeria del monument 10 (Paseo en ferry). */
@@ -10,9 +18,6 @@ html body .vcc-hero{
   display:block!important;
   height:var(--vcc-component-hero-desktop-height,475px)!important;min-height:var(--vcc-component-hero-desktop-height,475px)!important;max-height:var(--vcc-component-hero-desktop-height,475px)!important;
   color:#171717!important;
-  background:
-   linear-gradient(90deg,rgba(250,247,242,.93) 0%,rgba(250,247,242,.79) 29%,rgba(250,247,242,.39) 53%,rgba(250,247,242,.08) 78%),
-   var(--vcc-hero-image) center center / cover no-repeat!important;
 }
 html body .vcc-hero::after{background:transparent!important}
 html body .vcc-hero-inner{
@@ -75,9 +80,6 @@ html body .vcc-hero .vcc-facts{display:none!important}
 @media(max-width:650px){
  html body .vcc-hero{
   height:440px!important;min-height:440px!important;max-height:440px!important;
-  background:
-   linear-gradient(90deg,rgba(250,247,242,.91),rgba(250,247,242,.54) 77%,rgba(250,247,242,.28)),
-   var(--vcc-hero-image) 57% center / cover no-repeat!important;
  }
  html body .vcc-hero .vcc-hero-card{top:85px!important;width:100%!important}
  html body .vcc-hero h1{font-size:clamp(38px,10vw,54px)!important}
