@@ -22,7 +22,12 @@
     };
     next(0);
   };
-  const afterPaint = () => requestAnimationFrame(() => requestAnimationFrame(start));
+  const afterPaint = () => requestAnimationFrame(() => requestAnimationFrame(() => {
+    // Diagnóstico opt-in: permite aislar efectos de JS sin modificar la carga habitual.
+    const probeDelay = Number(new URLSearchParams(location.search).get('__vcc_script_delay'));
+    if(probeDelay > 0 && probeDelay <= 10000) setTimeout(start,probeDelay);
+    else start();
+  }));
   if (document.readyState === 'complete') afterPaint();
   else window.addEventListener('load', afterPaint, { once: true });
 })();
