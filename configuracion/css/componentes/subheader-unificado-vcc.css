@@ -210,10 +210,8 @@ html body #vcc-lcp-hero > :is(.budget-hero-inner,.cl-crumb,.cl-landing-stage,.mv
    CSS i carrusels scroll-snap cancela el candidat LCP en aquestes cinc guies.
    Només durant la primera pintura (opt-in HTML); al primer gest es retorna
    el CSS aprovat, incloent el snap i la suavitat de la navegació. */
-/* Limitat a l'scroll principal: evita el selector universal sobre totes les
-   targetes, galeries i carrusels; manté la navegació pròpia dels components. */
-html.vcc-lcp-scroll-stable,
-html.vcc-lcp-scroll-stable body{
+html.vcc-lcp-scroll-stable{scroll-behavior:auto!important}
+html.vcc-lcp-scroll-stable.vcc-lcp-scroll-stable.vcc-lcp-scroll-stable body *{
   scroll-behavior:auto!important;
 }
 
