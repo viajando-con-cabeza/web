@@ -56,7 +56,7 @@ const requirements=[
  [style.includes('border-color .16s ease'),'animació coherent del subratllat'],
  [style.includes('.place-nav-arrow'),'fletxes integrades al CSS global'],
  [style.includes('prefers-reduced-motion:reduce'),'accessibilitat: moviment reduït'],
- [header.includes('configuracion/css/componentes/subheader-unificado-vcc.css'),'CSS global carregat'],
+ [header.includes('configuracion/css/componentes/vcc-core-compartit.css'),'CSS global carregat a través del paquet comú'],
  [header.includes('configuracion/js/componentes/subheader-unificado-vcc.js'),'JS global carregat']
 ];
 for(const [ok,label] of requirements)if(!ok)errors.push('Component global: falta '+label);

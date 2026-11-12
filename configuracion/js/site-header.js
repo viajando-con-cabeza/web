@@ -6,54 +6,21 @@
   const siteRoot = script ? new URL('../../', script.src) : new URL('./', window.location.href);
   const url = (path) => new URL(path, siteRoot).href;
 
-  // Design tokens: una única paleta i font de tipografia per a tot el blog.
-  if(!document.querySelector('link[data-vcc-design-tokens]')){
-    const designTokens=document.createElement('link');
-    designTokens.rel='stylesheet';
-    designTokens.href=url('configuracion/css/base/tokens-vcc.css?v=20261111-sistema-v1');
-    designTokens.dataset.vccDesignTokens='true';
-    document.head.appendChild(designTokens);
+  // Un sol fitxer cachejable de disseny per a totes les pàgines.
+  // Conté, en el mateix ordre que abans: tokens, carrusels, subheader, breadcrumb i header.
+  if (!document.querySelector('link[data-vcc-core-styles], link[href*="/configuracion/css/componentes/vcc-core-compartit.css"]')) {
+    const coreStyle=document.createElement('link');
+    coreStyle.rel='stylesheet';
+    coreStyle.href=url('configuracion/css/componentes/vcc-core-compartit.css?v=20261112-core-v1');
+    coreStyle.dataset.vccCoreStyles='true';
+    document.head.appendChild(coreStyle);
   }
-
-  // Variants de carrusel centralitzades sense alterar els layouts existents.
-  if(!document.querySelector('link[data-vcc-carousel-tokens]')){
-    const carouselTokens=document.createElement('link');
-    carouselTokens.rel='stylesheet';
-    carouselTokens.href=url('configuracion/css/componentes/carruseles-vcc.css?v=20261111-v1');
-    carouselTokens.dataset.vccCarouselTokens='true';
-    document.head.appendChild(carouselTokens);
-  }
-
-  // Subheader editorial único en todas las páginas que lo incluyen (sin alterar el menú principal).
-  const existingSubCss=document.querySelector('link[data-vcc-shared-subheader],link[href*="subheader-unificado-vcc.css"]');
-  if(!existingSubCss){
-    const subheaderCss=document.createElement('link');
-    subheaderCss.rel='stylesheet';
-    subheaderCss.href=url('configuracion/css/componentes/subheader-unificado-vcc.css?v=20261110-mobile-firstscreen-v1');
-    subheaderCss.dataset.vccSharedSubheader='true';
-    document.head.appendChild(subheaderCss);
-  }
-  const existingSubJs=document.querySelector('script[src*="subheader-unificado-vcc.js"]');
-  if(!existingSubJs){
+  // El controlador del subheader continua sent únic i asíncron.
+  if (!document.querySelector('script[src*="subheader-unificado-vcc.js"]')) {
     const subheaderJs=document.createElement('script');
     subheaderJs.src=url('configuracion/js/componentes/subheader-unificado-vcc.js?v=20261110-mobile-firstscreen-v1');
     subheaderJs.async=true;
     document.head.appendChild(subheaderJs);
-  }
-  // Un único estilo para la ruta de navegación (Inicio > Destinos > país > ciudad > guía).
-  // Cada página conserva sus enlaces, mientras se unifican tamaños y espacios.
-  const breadcrumbSharedHref=url('configuracion/css/componentes/breadcrumb-vcc-global.css?v=20261110-tarjetas-v2');
-  const breadcrumbSharedLink=document.querySelector('link[data-vcc-shared-breadcrumb],link[href*="breadcrumb-vcc-global.css"]');
-  if(breadcrumbSharedLink){
-    // También actualiza las guías que ya cargaban una versión antigua explícita.
-    if(breadcrumbSharedLink.href!==breadcrumbSharedHref)breadcrumbSharedLink.href=breadcrumbSharedHref;
-    breadcrumbSharedLink.dataset.vccSharedBreadcrumb='true';
-  }else{
-    const breadcrumbStyle=document.createElement('link');
-    breadcrumbStyle.rel='stylesheet';
-    breadcrumbStyle.dataset.vccSharedBreadcrumb='true';
-    breadcrumbStyle.href=breadcrumbSharedHref;
-    document.head.appendChild(breadcrumbStyle);
   }
   const currentPath = window.location.pathname.replace(/\/index\.html$/, '/');
 
@@ -240,7 +207,7 @@
   } else {
     document.body.insertAdjacentHTML('afterbegin',header);
   }
-  if(!document.getElementById('shared-header-style')){const style=document.createElement('link');style.id='shared-header-style';style.rel='stylesheet';style.href=url('configuracion/css/componentes/header-vcc-global.css?v=20261111-1');document.head.appendChild(style);}
+  // header-vcc-global.css és part del paquet vcc-core-compartit.css.
 
   // Social icons: consistent 24px hit area and optically matched 19px drawings.
   if (!document.getElementById('vcc-header-social-icons')) {

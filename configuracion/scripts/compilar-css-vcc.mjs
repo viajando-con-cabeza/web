@@ -28,8 +28,13 @@ function expand(rel,ancestors=[]) {
  return source;
 }
 let errors=0;
-for(const {entry,out} of manifest.bundles){
- const generated='/* AUTO-GENERAT. Edita els CSS originals i executa: npm run css:build.\n * Cap @import bloquejant: la cascada es conserva i es carreguen 8 fulls menys.\n */\n'.replaceAll('\n','\n')+expand(entry);
+for(const {entry,sources,out} of manifest.bundles){
+ const joined=Array.isArray(sources)
+   ? sources.map(p=>'/* === '+p+' === */\n'+expand(p).trimEnd()+'\n').join('\n')
+   : expand(entry);
+ const generated=Array.isArray(sources)
+   ? "/* AUTO-GENERAT · CSS comu de VCC. Edita les fonts canonicas de configuracion/css.\n * Regenerar: npm run css:build. Inclou tokens, carrusels, subheader, breadcrumb i header.\n */\n"+joined
+   : '/* AUTO-GENERAT. Edita els CSS originals i executa: npm run css:build.\n * Cap @import bloquejant: la cascada es conserva i es carreguen 8 fulls menys.\n */\n'+joined;
  const output=path.join(root,out);
  if(process.argv.includes('--write')){fs.mkdirSync(path.dirname(output),{recursive:true});fs.writeFileSync(output,generated);console.log('CSS compilat:',out);}
  else if(!fs.existsSync(output)||fs.readFileSync(output,'utf8')!==generated){console.error('CSS desactualitzat: '+out+' (executa npm run css:build)');errors++;}

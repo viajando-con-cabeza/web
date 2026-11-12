@@ -1,0 +1,785 @@
+/* AUTO-GENERAT · CSS comu de VCC. Edita les fonts canonicas de configuracion/css.
+ * Regenerar: npm run css:build. Inclou tokens, carrusels, subheader, breadcrumb i header.
+ */
+/* === configuracion/css/base/tokens-vcc.css === */
+/* VCC Design System · Font única de variables globals.
+   Canviar la tipografia o l'escala aci no requereix editar guies.
+   Els tons antics es mantenen per defecte per evitar regressions. */
+:root {
+  /* Tipografies aprovades */
+  --vcc-font-body: "DM Sans", Arial, sans-serif;
+  --vcc-font-heading: "Oswald", sans-serif;
+  --vcc-font-script: "Caveat", cursive;
+
+  /* Ajustaments globals neutres per defecte: 0px = disseny actual */
+  --vcc-heading-size-adjust: 0px;
+  --vcc-overline-size-adjust: 0px;
+  --vcc-body-size-adjust: 0px;
+
+  /* Paleta semàntica i herència dels tons actuals. Per fer un canvi de marca
+     uniforme, declarar --vcc-accent-override: #nou-color; en aquest fitxer. */
+  --vcc-color-ink: #292724;
+  --vcc-color-muted: #716a64;
+  --vcc-color-paper: #faf6f1;
+  --vcc-color-surface: #fffdfb;
+  --vcc-color-border: #e7ddd4;
+  --vcc-color-accent: var(--vcc-accent-override, #c86f5d);
+  --vcc-color-accent-home: var(--vcc-accent-override, #d96847);
+  --vcc-color-accent-pages: var(--vcc-accent-override, #e97861);
+  --vcc-color-accent-legacy: var(--vcc-accent-override, #ef7168);
+  --vcc-color-accent-weather: var(--vcc-accent-override, #c46a4c);
+
+  /* Amplades i espaiat */
+  --vcc-content-max: 1180px;
+  --vcc-page-gutter: 48px;
+  --vcc-component-subheader-height: 39px;
+  --vcc-component-subheader-gap: 38px;
+  --vcc-component-subheader-desktop-font: 11.5px;
+  --vcc-component-subheader-mobile-font: 11px;
+  --vcc-component-hero-desktop-height: 475px;
+
+  /* Carrusels: motor comú futur; posició mòbil aprovada */
+  --vcc-carousel-arrow-size: 35px;
+  --vcc-carousel-arrow-previous-offset: 43px;
+  --vcc-carousel-mobile-padding-top: 46px;
+  --vcc-carousel-mobile-visible: 1;
+  --vcc-carousel-mobile-controls-top: 0px;
+  --vcc-carousel-card-gap: 16px;
+  --vcc-carousel-desktop-editorial-visible: 3;
+  --vcc-carousel-desktop-compact-visible: 5;
+  --vcc-carousel-desktop-detail-visible: 3;
+  /* Consell VCC: escales i colors centralitzats sense alterar el disseny vigent. */
+  --vcc-consejo-border-color: #d56a4c;
+  --vcc-consejo-title-color: #b35235;
+  --vcc-consejo-body-color: #50473f;
+  --vcc-consejo-logo-size: 52px;
+  --vcc-consejo-radius: 19px;
+}
+
+/* === configuracion/css/componentes/carruseles-vcc.css === */
+/* VCC · Tres variants de carrusel. No se substitueixen els layouts editorials
+   aprovats: aquestes variables governen la configuració i els controls comuns. */
+[data-vcc-carousel] {
+ --vcc-carousel-gap: var(--vcc-carousel-card-gap,16px);
+ --vcc-carousel-controls-size: var(--vcc-carousel-arrow-size,35px);
+ --vcc-carousel-card-visible-mobile: var(--vcc-carousel-mobile-visible,1);
+}
+[data-vcc-carousel="editorial"] { --vcc-carousel-visible-desktop: var(--vcc-carousel-desktop-editorial-visible,3); }
+[data-vcc-carousel="compacto"] { --vcc-carousel-visible-desktop: var(--vcc-carousel-desktop-compact-visible,5); }
+[data-vcc-carousel="detalle"] { --vcc-carousel-visible-desktop: var(--vcc-carousel-desktop-detail-visible,3); }
+@media(max-width:760px){
+ [data-vcc-carousel] { --vcc-carousel-visible: var(--vcc-carousel-card-visible-mobile,1); }
+}
+
+/* === configuracion/css/componentes/subheader-unificado-vcc.css === */
+/* VCC · 2026-11-08 · Navegación secundaria única.
+   Referencia: subheader de /destinos/suecia/estocolmo/ (39px, DM Sans, línea coral).
+   Se aplica únicamente a las barras detectadas; no al menú principal. */
+:root{
+  --vcc-subnav-height:var(--vcc-component-subheader-height,39px);
+  --vcc-subnav-gap:var(--vcc-component-subheader-gap,38px);
+  --vcc-subnav-side:max(24px,4vw);
+  --vcc-subnav-ink:#171717;
+  --vcc-subnav-coral:var(--vcc-color-accent,#c86f5d);
+  --vcc-subnav-line:#e9e2db;
+}
+html body nav.vcc-unified-subheader{
+  box-sizing:border-box!important;
+  position:sticky!important;top:var(--vcc-subheader-top,50px)!important;z-index:950!important;
+  width:100%!important;height:var(--vcc-subnav-height)!important;
+  min-height:var(--vcc-subnav-height)!important;max-height:var(--vcc-subnav-height)!important;
+  margin:0!important;padding:0 var(--vcc-subnav-side)!important;
+  display:flex!important;align-items:center!important;justify-content:flex-start!important;
+  flex-wrap:nowrap!important;gap:var(--vcc-subnav-gap)!important;
+  overflow-x:auto!important;overflow-y:hidden!important;
+  white-space:nowrap!important;scrollbar-width:none!important;
+  overscroll-behavior-x:contain!important;-webkit-overflow-scrolling:touch;
+  background:#fff!important;backdrop-filter:none!important;
+  border:0!important;border-top:1px solid var(--vcc-subnav-line)!important;
+  border-bottom:1px solid var(--vcc-subnav-line)!important;
+  box-shadow:none!important;
+}
+html body nav.vcc-unified-subheader::-webkit-scrollbar,
+html body nav.vcc-unified-subheader .vcc-nav-inner::-webkit-scrollbar,
+html body nav.vcc-unified-subheader .ql-subnav-inner::-webkit-scrollbar,
+html body nav.vcc-unified-subheader .country-nav-inner::-webkit-scrollbar,
+html body nav.vcc-unified-subheader .place-nav::-webkit-scrollbar{display:none!important}
+html body nav.vcc-unified-subheader.vcc-subnav-inner-layout{
+  padding:0!important;gap:0!important;overflow:hidden!important;
+}
+html body nav.vcc-unified-subheader :is(.vcc-nav-inner,.ql-subnav-inner,.country-nav-inner){
+  box-sizing:border-box!important;
+  width:100%!important;max-width:none!important;
+  height:var(--vcc-subnav-height)!important;min-height:var(--vcc-subnav-height)!important;
+  max-height:var(--vcc-subnav-height)!important;
+  margin:0!important;padding:0 var(--vcc-subnav-side)!important;
+  display:flex!important;align-items:center!important;justify-content:flex-start!important;
+  flex-wrap:nowrap!important;gap:var(--vcc-subnav-gap)!important;
+  overflow-x:auto!important;overflow-y:hidden!important;scrollbar-width:none!important;
+  white-space:nowrap!important;-webkit-overflow-scrolling:touch;
+}
+html body nav.vcc-unified-subheader a,
+html body nav.vcc-unified-subheader .place-nav a{
+  box-sizing:border-box!important;
+  position:relative!important;flex:0 0 auto!important;
+  display:inline-flex!important;align-items:center!important;justify-content:center!important;
+  height:var(--vcc-subnav-height)!important;min-height:var(--vcc-subnav-height)!important;
+  max-height:var(--vcc-subnav-height)!important;
+  margin:0!important;padding:0!important;
+  background:transparent!important;border:0!important;
+  border-bottom:2px solid transparent!important;border-radius:0!important;
+  font-family:var(--vcc-font-body, "DM Sans", Arial, sans-serif)!important;
+  font-size:var(--vcc-component-subheader-desktop-font,11.5px)!important;font-weight:800!important;line-height:1.15!important;
+  letter-spacing:0!important;text-transform:uppercase!important;
+  white-space:nowrap!important;color:var(--vcc-subnav-ink)!important;
+  text-decoration:none!important;box-shadow:none!important;
+  transition:color .16s ease,border-color .16s ease!important;
+}
+html body nav.vcc-unified-subheader a::before,
+html body nav.vcc-unified-subheader a::after{
+  content:none!important;display:none!important;
+}
+html body nav.vcc-unified-subheader a.vcc-subheader-current,
+html body nav.vcc-unified-subheader a:hover,
+html body nav.vcc-unified-subheader a:focus-visible,
+html body nav.vcc-unified-subheader.place-nav-wrap .place-nav a:is(.active,.is-active,[aria-current="location"]){
+  color:var(--vcc-subnav-coral)!important;
+  border-bottom-color:var(--vcc-subnav-coral)!important;
+}
+html body nav.vcc-unified-subheader a:focus-visible{outline:2px solid var(--vcc-subnav-coral)!important;outline-offset:-3px!important}
+/* El índice con flechas mantiene sus botones, pero comparte altura y escala. */
+html body nav.vcc-unified-subheader.place-nav-wrap{
+  padding:0!important;gap:0!important;overflow:hidden!important;
+}
+html body nav.vcc-unified-subheader.place-nav-wrap .place-nav-shell{
+  box-sizing:border-box!important;width:100%!important;max-width:none!important;
+  height:var(--vcc-subnav-height)!important;min-height:var(--vcc-subnav-height)!important;
+  max-height:var(--vcc-subnav-height)!important;
+  padding:0 var(--vcc-subnav-side)!important;margin:0!important;
+  display:flex!important;align-items:center!important;gap:8px!important;
+}
+html body nav.vcc-unified-subheader.place-nav-wrap .place-nav{
+  height:var(--vcc-subnav-height)!important;min-height:var(--vcc-subnav-height)!important;
+  max-height:var(--vcc-subnav-height)!important;
+  display:flex!important;align-items:center!important;gap:var(--vcc-subnav-gap)!important;
+  flex:1 1 auto!important;min-width:0!important;
+  overflow-x:auto!important;overflow-y:hidden!important;
+  scrollbar-width:none!important;
+}
+html body nav.vcc-unified-subheader.place-nav-wrap .place-nav-arrow{flex:0 0 auto!important}
+/* Las variantes fijadas por scripts propios preservan su funcionamiento. */
+html body nav.vcc-unified-subheader:is(.country-nav.is-fixed,.ci-subnav.ci-subnav-pinned,.vcc-nav.it-nav-pinned){
+  position:fixed!important;top:var(--vcc-subheader-top,0px)!important;left:0!important;right:0!important;
+}
+/* Mismo comienzo de barra en escritorio: 475px de hero + el encabezado principal.
+   No se fuerzan alturas de portada en móvil, donde el texto puede ocupar más líneas. */
+@media(min-width:721px){
+ html body :is(.st-hero,.country-hero,.imp-hero,.vcc-hero,.mv-hero,.dv-hero,.ep-hero,.ql-hero,.ci-hero,.budget-hero,.content-hero,.rich-hero,.tv-hero,.al-hero).vcc-subheader-hero{
+  box-sizing:border-box!important;height:475px!important;min-height:475px!important;max-height:475px!important;
+ }
+ html body .mv-hero.vcc-subheader-hero > .mv-container{
+  min-height:475px!important;height:475px!important;max-height:475px!important;
+ }
+ html body .ci-hero.vcc-subheader-hero .ci-hero-inner{
+  min-height:475px!important;height:475px!important;max-height:475px!important;
+ }
+}
+html body [data-vcc-subheader-target]{scroll-margin-top:calc(var(--vcc-subheader-top,50px) + var(--vcc-subnav-height) + 24px)!important}
+@media(max-width:720px){
+ :root{--vcc-subnav-height:39px;--vcc-subnav-gap:24px;--vcc-subnav-side:14px}
+ html body nav.vcc-unified-subheader a,
+ html body nav.vcc-unified-subheader .place-nav a{font-size:var(--vcc-component-subheader-mobile-font,11px)!important}
+ html body nav.vcc-unified-subheader.place-nav-wrap .place-nav-shell{gap:5px!important}
+ html body nav.vcc-unified-subheader.place-nav-wrap .place-nav{gap:24px!important}
+}
+
+
+/* Portadas VCC: escritorio conserva 475px. En móvil, el subheader debe
+   entrar en la primera pantalla útil (100svh considera las barras del navegador).
+   640px es el máximo para no ocultar la navegación en móviles altos.
+   El alto real de la cabecera se mide en el controlador compartido. */
+:root{
+  --vcc-standard-hero-desktop:475px;
+  --vcc-standard-hero-mobile:min(640px, calc(100svh - var(--vcc-page-header-height, 79px) - var(--vcc-subnav-height, 39px) - 20px));
+}
+@media(min-width:721px){
+  html body :is(.st-hero,.country-hero,.imp-hero,.vcc-hero,.mv-hero,.dv-hero,.ep-hero,.ql-hero,.ci-hero,.budget-hero,.content-hero,.rich-hero,.tv-hero,.al-hero).vcc-subheader-hero.vcc-subheader-hero.vcc-standardized-hero-height{
+    box-sizing:border-box!important;
+    height:var(--vcc-standard-hero-desktop)!important;
+    min-height:var(--vcc-standard-hero-desktop)!important;
+    max-height:var(--vcc-standard-hero-desktop)!important;
+    margin-top:0!important;margin-bottom:0!important;
+  }
+  html body .mv-hero.vcc-standardized-hero-height > .mv-container,
+  html body.ci-page .ci-hero.vcc-standardized-hero-height .ci-hero-inner{
+    box-sizing:border-box!important;
+    height:var(--vcc-standard-hero-desktop)!important;
+    min-height:var(--vcc-standard-hero-desktop)!important;
+    max-height:var(--vcc-standard-hero-desktop)!important;
+  }
+}
+@media(max-width:720px){
+  html body :is(.st-hero,.country-hero,.imp-hero,.vcc-hero,.mv-hero,.dv-hero,.ep-hero,.ql-hero,.ci-hero,.budget-hero,.content-hero,.rich-hero,.tv-hero,.al-hero).vcc-subheader-hero.vcc-subheader-hero.vcc-standardized-hero-height{
+    box-sizing:border-box!important;
+    height:var(--vcc-standard-hero-mobile)!important;
+    min-height:var(--vcc-standard-hero-mobile)!important;
+    max-height:var(--vcc-standard-hero-mobile)!important;
+    margin-top:0!important;margin-bottom:0!important;
+  }
+  html body .mv-hero.vcc-standardized-hero-height > .mv-container,
+  html body.ci-page .ci-hero.vcc-standardized-hero-height .ci-hero-inner{
+    box-sizing:border-box!important;
+    height:var(--vcc-standard-hero-mobile)!important;
+    min-height:var(--vcc-standard-hero-mobile)!important;
+    max-height:var(--vcc-standard-hero-mobile)!important;
+  }
+}
+
+
+/* VCC · auditoria de subheaders 2026-11-10: una única tipografia, alçada, focus i transició.
+ * Especificitat deliberadament superior a les plantilles antigues,
+ * inclosa ci-subnav. No es toquen els controladors sticky de cada guia. */
+html body nav.vcc-unified-subheader.vcc-unified-subheader{
+ box-sizing:border-box!important;
+ height:var(--vcc-subnav-height)!important;
+ min-height:var(--vcc-subnav-height)!important;
+ max-height:var(--vcc-subnav-height)!important;
+ background:#fff!important;
+ border-top:1px solid var(--vcc-subnav-line)!important;
+ border-bottom:1px solid var(--vcc-subnav-line)!important;
+ box-shadow:none!important;
+}
+html body nav.vcc-unified-subheader.vcc-unified-subheader:not(.vcc-subnav-inner-layout):not(.place-nav-wrap){
+ gap:var(--vcc-subnav-gap)!important;
+ padding:0 var(--vcc-subnav-side)!important;
+ justify-content:flex-start!important;
+ align-items:center!important;
+ overflow-x:auto!important;
+ overflow-y:hidden!important;
+}
+html body nav.vcc-unified-subheader.vcc-unified-subheader :is(.vcc-nav-inner,.ql-subnav-inner,.country-nav-inner){
+ height:var(--vcc-subnav-height)!important;
+ min-height:var(--vcc-subnav-height)!important;
+ max-height:var(--vcc-subnav-height)!important;
+ gap:var(--vcc-subnav-gap)!important;
+ padding:0 var(--vcc-subnav-side)!important;
+ justify-content:flex-start!important;
+ align-items:center!important;
+ overflow-x:auto!important;
+ overflow-y:hidden!important;
+}
+html body nav.vcc-unified-subheader.vcc-unified-subheader.place-nav-wrap :is(.place-nav-shell,.place-nav){
+ height:var(--vcc-subnav-height)!important;
+ min-height:var(--vcc-subnav-height)!important;
+ max-height:var(--vcc-subnav-height)!important;
+}
+html body nav.vcc-unified-subheader.vcc-unified-subheader.place-nav-wrap .place-nav{
+ gap:var(--vcc-subnav-gap)!important;
+}
+html body nav.vcc-unified-subheader.vcc-unified-subheader a,
+html body nav.vcc-unified-subheader.vcc-unified-subheader .place-nav a{
+ box-sizing:border-box!important;
+ height:var(--vcc-subnav-height)!important;
+ min-height:var(--vcc-subnav-height)!important;
+ max-height:var(--vcc-subnav-height)!important;
+ padding:0!important;
+ margin:0!important;
+ display:inline-flex!important;
+ align-items:center!important;
+ justify-content:center!important;
+ flex:0 0 auto!important;
+ background:transparent!important;
+ border:0!important;
+ border-bottom:2px solid transparent!important;
+ border-radius:0!important;
+ color:var(--vcc-subnav-ink)!important;
+ font:800 var(--vcc-component-subheader-desktop-font,11.5px)/1.15 var(--vcc-font-body, "DM Sans", Arial, sans-serif)!important;
+ letter-spacing:0!important;
+ text-transform:uppercase!important;
+ white-space:nowrap!important;
+ text-decoration:none!important;
+ transition:color .16s ease,border-color .16s ease!important;
+}
+/* Evitar etiquetes interiors més petites a Entradas y pases i altres guies. */
+html body nav.vcc-unified-subheader.vcc-unified-subheader a > span{
+ color:inherit!important;
+ font:inherit!important;
+ letter-spacing:inherit!important;
+ text-transform:inherit!important;
+}
+/* Un sol indicador actiu: les classes locals antigues no pinten un segon. */
+html body nav.vcc-unified-subheader.vcc-unified-subheader:not(.place-nav-wrap) a:not(.vcc-subheader-current):not(:hover):not(:focus-visible){
+ color:var(--vcc-subnav-ink)!important;
+ border-bottom-color:transparent!important;
+}
+html body nav.vcc-unified-subheader.vcc-unified-subheader a:is(.vcc-subheader-current,:hover,:focus-visible),
+html body nav.vcc-unified-subheader.vcc-unified-subheader.place-nav-wrap .place-nav a:is(.active,.is-active,[aria-current="location"],:hover,:focus-visible){
+ color:var(--vcc-subnav-coral)!important;
+ border-bottom-color:var(--vcc-subnav-coral)!important;
+}
+html body nav.vcc-unified-subheader.vcc-unified-subheader a:focus-visible{
+ outline:2px solid var(--vcc-subnav-coral)!important;
+ outline-offset:-3px!important;
+}
+/* Flechas del índice largo: mismo estilo de interacción; posicionamiento
+ * lateral y desplazamiento horizontal existentes no se modifican. */
+html body nav.vcc-unified-subheader.vcc-unified-subheader.place-nav-wrap .place-nav-arrow{
+ box-sizing:border-box!important;
+ display:grid!important;
+ place-items:center!important;
+ width:28px!important;
+ height:28px!important;
+ min-width:28px!important;
+ min-height:28px!important;
+ padding:0!important;
+ margin:0!important;
+ border:0!important;
+ border-radius:4px!important;
+ background:transparent!important;
+ box-shadow:none!important;
+ color:var(--vcc-subnav-ink)!important;
+ font:400 23px/1 var(--vcc-font-body, "DM Sans", Arial, sans-serif)!important;
+ transition:color .16s ease,opacity .16s ease!important;
+ cursor:pointer!important;
+}
+html body nav.vcc-unified-subheader.vcc-unified-subheader.place-nav-wrap .place-nav-arrow:not(:disabled):hover{
+ color:var(--vcc-subnav-coral)!important;
+}
+html body nav.vcc-unified-subheader.vcc-unified-subheader.place-nav-wrap .place-nav-arrow:disabled{
+ opacity:.25!important;
+ cursor:default!important;
+}
+html body nav.vcc-unified-subheader.vcc-unified-subheader.place-nav-wrap .place-nav-arrow:focus-visible{
+ outline:2px solid var(--vcc-subnav-coral)!important;
+ outline-offset:2px!important;
+}
+@media(max-width:720px){
+ html body nav.vcc-unified-subheader.vcc-unified-subheader a,
+ html body nav.vcc-unified-subheader.vcc-unified-subheader .place-nav a{
+  font-size:var(--vcc-component-subheader-mobile-font,11px)!important;
+ }
+}
+@media(prefers-reduced-motion:reduce){
+ html body nav.vcc-unified-subheader.vcc-unified-subheader a,
+ html body nav.vcc-unified-subheader.vcc-unified-subheader .place-nav-arrow{
+  transition:none!important;
+ }
+}
+
+/* Cuándo ir conserva su script de fijación, pero nunca la sombra local. */
+html body nav.vcc-unified-subheader.vcc-unified-subheader.ci-subnav.ci-subnav-pinned{
+ box-shadow:none!important;
+}
+
+/* === configuracion/css/componentes/breadcrumb-vcc-global.css === */
+/* VCC · Breadcrumb global único — 2026-11-07.
+   Fuente de verdad para país, ciudad y guías de /destinos/.
+   El componente lo construye configuracion/js/site-header.js, siempre en
+   la raíz del hero, independientemente del CSS de cada plantilla.
+   Importante: NO añadir reglas locales de breadcrumb en nuevas páginas. */
+html body .vcc-has-global-breadcrumb{
+  position:relative!important;
+}
+html body #vcc-global-breadcrumb{
+  position:absolute!important;
+  z-index:100!important;
+  top:12px!important;
+  left:26px!important;
+  right:auto!important;
+  bottom:auto!important;
+  display:flex!important;
+  align-items:center!important;
+  flex-wrap:wrap!important;
+  justify-content:flex-start!important;
+  gap:0!important;
+  width:auto!important;
+  height:auto!important;
+  max-width:calc(100% - 70px)!important;
+  min-height:0!important;
+  margin:0!important;
+  padding:0!important;
+  border:0!important;
+  border-radius:0!important;
+  transform:none!important;
+  background:none!important;
+  box-shadow:none!important;
+  font:500 12px/1.45 var(--vcc-font-body, "DM Sans", Arial, sans-serif)!important;
+  letter-spacing:0!important;
+  text-align:left!important;
+  text-transform:none!important;
+  text-shadow:none!important;
+  color:#48413d!important;
+}
+html body #vcc-global-breadcrumb a,
+html body #vcc-global-breadcrumb strong,
+html body #vcc-global-breadcrumb .vcc-bc-sep{
+  display:inline!important;
+  position:static!important;
+  float:none!important;
+  width:auto!important;
+  height:auto!important;
+  margin:0!important;
+  padding:0!important;
+  transform:none!important;
+  text-shadow:none!important;
+  font-family:inherit!important;
+  font-size:inherit!important;
+  line-height:inherit!important;
+  letter-spacing:0!important;
+  text-transform:none!important;
+  white-space:normal!important;
+  border:0!important;
+  background:none!important;
+}
+html body #vcc-global-breadcrumb a{
+  color:#48413d!important;
+  font-weight:400!important;
+  text-decoration:none!important;
+}
+html body #vcc-global-breadcrumb a:hover,
+html body #vcc-global-breadcrumb a:focus-visible{
+  color:#b45e47!important;
+  text-decoration:underline!important;
+  text-underline-offset:3px!important;
+}
+html body #vcc-global-breadcrumb a:focus-visible{
+  outline:2px solid #b45e47!important;
+  outline-offset:2px!important;
+}
+html body #vcc-global-breadcrumb .vcc-bc-sep{
+  flex:none!important;
+  margin:0 7px!important;
+  color:#92887e!important;
+  font-weight:400!important;
+  opacity:1!important;
+}
+html body #vcc-global-breadcrumb strong{
+  color:#3d3833!important;
+  font-weight:700!important;
+}
+html body .vcc-original-breadcrumb{
+  visibility:hidden!important;
+  pointer-events:none!important;
+}
+@media(max-width:720px){
+  html body #vcc-global-breadcrumb{
+    top:11px!important;
+    left:12px!important;
+    max-width:calc(100% - 24px)!important;
+    font-size:11px!important;
+    line-height:1.4!important;
+    row-gap:2px!important;
+  }
+  html body #vcc-global-breadcrumb .vcc-bc-sep{
+    margin:0 5px!important;
+  }
+}
+
+/* Variante del mismo breadcrumb compartido para portadas fotográficas oscuras. */
+html body .vcc-breadcrumb-on-dark #vcc-global-breadcrumb{color:#f3f2f1!important}
+html body .vcc-breadcrumb-on-dark #vcc-global-breadcrumb a{color:#ecebe9!important}
+html body .vcc-breadcrumb-on-dark #vcc-global-breadcrumb strong{color:#fff!important}
+html body .vcc-breadcrumb-on-dark #vcc-global-breadcrumb .vcc-bc-sep{color:#e7e1da!important}
+html body .vcc-breadcrumb-on-dark #vcc-global-breadcrumb a:is(:hover,:focus-visible){color:#ffa482!important}
+
+/* === configuracion/css/componentes/header-vcc-global.css === */
+/* VCC Header global · Cascade exacta de styles unificats. */
+/* --- shared-header-style --- */
+.shared-header{height:50px;background:#fff;border-bottom:1px solid #eee;position:sticky;top:0;z-index:1000;width:100%;font-family:var(--vcc-font-body, "DM Sans", Arial, sans-serif)}.shared-nav{width:min(1180px,calc(100% - 48px));height:50px;margin:auto;display:grid;grid-template-columns:138px 1fr 92px 52px;align-items:center;column-gap:16px}.shared-brand{display:flex;align-items:center;width:134px;height:44px}.shared-brand img{display:block;width:128px;height:42px;object-fit:contain;object-position:left center}.shared-menu{display:flex;align-items:center;justify-content:center;gap:25px;font-size:9.3px;font-weight:800}.shared-menu a{color:#111315;text-decoration:none;padding:18px 0 16px;position:relative;white-space:nowrap}.shared-menu a:hover{color:#ef7168}.shared-menu a.active:after{content:"";position:absolute;left:0;right:0;bottom:9px;height:2px;background:#ef7168}.shared-social{display:flex;justify-content:flex-end;align-items:center;gap:12px}.shared-language{display:flex;align-items:center;justify-content:flex-end;gap:5px;font:800 10px/1 var(--vcc-font-body, "DM Sans", Arial, sans-serif);white-space:nowrap}.shared-language a{color:#777;text-decoration:none;padding:7px 2px}.shared-language a.active,.shared-language a:hover{color:#ef7168}.shared-social a{display:grid;place-items:center;width:22px;height:22px;color:#0f1113;text-decoration:none}.shared-social a:hover{color:#ef7168}.shared-social svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}.shared-social .shared-solid{fill:currentColor;stroke:none}@media(max-width:720px){.shared-header{height:auto;position:relative}.shared-nav{width:calc(100% - 28px);height:auto;grid-template-columns:minmax(0,1fr) auto;padding:4px 0}.shared-brand{width:122px;height:41px}.shared-brand img{width:118px;height:39px}.shared-social{display:flex;gap:10px;justify-self:end;flex-shrink:0}.shared-language{grid-column:2;grid-row:1;align-self:start;margin-top:4px;justify-self:end}.shared-social a{width:28px;height:28px}.shared-social svg{width:19px;height:19px}.shared-menu{grid-column:1/3;order:3;overflow-x:auto;justify-content:flex-start;gap:18px;padding:2px 0 1px;scrollbar-width:none}.shared-menu::-webkit-scrollbar{display:none}.shared-menu a{padding:4px 0}.shared-menu a.active:after{bottom:0}}@media(max-width:380px){.shared-nav{width:calc(100% - 20px)}.shared-language{grid-column:2;grid-row:1;margin-right:0}.shared-brand{width:108px}.shared-brand img{width:104px}.shared-social{gap:6px}.shared-social a{width:26px;height:26px}.shared-social svg{width:18px;height:18px}}
+
+/* --- vcc-header-social-icons --- */
+
+      html body > .shared-header .shared-social a {
+        box-sizing:border-box!important;
+        display:grid!important;
+        place-items:center!important;
+        width:25px!important;
+        height:25px!important;
+        flex:0 0 25px!important;
+        padding:0!important;
+        margin:0!important;
+      }
+      html body > .shared-header .shared-social svg {
+        display:block!important;
+        width:19px!important;
+        height:19px!important;
+        fill:none!important;
+        stroke:currentColor!important;
+        stroke-width:1.8!important;
+        stroke-linecap:round!important;
+        stroke-linejoin:round!important;
+      }
+      html body > .shared-header .shared-social svg .shared-solid {
+        fill:currentColor!important;
+        stroke:none!important;
+      }
+      @media(max-width:380px) {
+        html body > .shared-header .shared-social a {
+          width:22px!important;height:22px!important;flex-basis:22px!important;
+        }
+        html body > .shared-header .shared-social svg {width:17px!important;height:17px!important}
+      }
+    
+
+/* --- vcc-global-navigation-unified --- */
+
+      html body > .shared-header .shared-nav { width:calc(100% - 80px)!important; max-width:none!important; margin-inline:auto!important; }
+      html body > .shared-header .shared-menu { font-family:var(--vcc-font-body, "DM Sans", Arial, sans-serif)!important; font-size:12px!important; font-weight:800!important; line-height:1.15!important; letter-spacing:0!important; text-transform:uppercase!important; gap:25px!important; }
+      html body > .shared-header .shared-menu a { font:inherit!important; font-size:12px!important; font-weight:800!important; line-height:1.15!important; letter-spacing:0!important; text-transform:uppercase!important; }
+      @media(max-width:720px) {
+        html body > .shared-header .shared-nav { display:grid!important; grid-template-columns:minmax(0,1fr) auto auto!important; grid-template-rows:auto auto!important; align-items:center!important; column-gap:10px!important; row-gap:2px!important; padding:4px 0!important; width:calc(100% - 28px)!important; }
+        html body > .shared-header .shared-brand { grid-column:1!important; grid-row:1!important; justify-self:start!important; }
+        html body > .shared-header .shared-social { grid-column:2!important; grid-row:1!important; display:flex!important; justify-self:end!important; align-self:center!important; align-items:center!important; gap:8px!important; margin:0!important; }
+        html body > .shared-header .shared-language { grid-column:3!important; grid-row:1!important; justify-self:end!important; align-self:center!important; margin:0!important; white-space:nowrap!important; }
+        html body > .shared-header .shared-menu { grid-column:1/4!important; grid-row:2!important; width:100%!important; min-width:0!important; display:flex!important; overflow-x:auto!important; justify-content:flex-start!important; gap:18px!important; padding:3px 0 2px!important; }
+        html body > .shared-header .shared-social a { display:grid!important; place-items:center!important; width:25px!important; height:25px!important; flex:0 0 25px!important; }
+        html body > .shared-header .shared-social svg { display:block!important; width:18px!important; height:18px!important; }
+      }
+      @media(max-width:380px) {
+        html body > .shared-header .shared-nav { width:calc(100% - 20px)!important; column-gap:7px!important; }
+        html body > .shared-header .shared-brand { width:104px!important; }
+        html body > .shared-header .shared-brand img { width:100px!important; }
+        html body > .shared-header .shared-social { gap:5px!important; }
+        html body > .shared-header .shared-social a { width:22px!important; height:22px!important; flex-basis:22px!important; }
+        html body > .shared-header .shared-social svg { width:17px!important; height:17px!important; }
+      }
+    
+
+      html body > .shared-header .shared-nav { width:calc(100% - 80px)!important; max-width:none!important; margin-inline:auto!important; }
+      html body > .shared-header .shared-menu { font-family:var(--vcc-font-body, "DM Sans", Arial, sans-serif)!important; font-size:12px!important; font-weight:800!important; line-height:1.15!important; letter-spacing:0!important; text-transform:uppercase!important; gap:25px!important; }
+      html body > .shared-header .shared-menu a { font:inherit!important; font-size:12px!important; font-weight:800!important; line-height:1.15!important; letter-spacing:0!important; text-transform:uppercase!important; }
+      @media(max-width:720px) {
+        html body > .shared-header .shared-nav { width:calc(100% - 28px)!important; }
+        html body > .shared-header .shared-menu { gap:18px!important; }
+        html body > .shared-header .shared-menu a { font-size:11px!important; }
+      }
+      @media(max-width:380px) { html body > .shared-header .shared-nav { width:calc(100% - 20px)!important; } }
+    
+
+/* --- vcc-mobile-header-edge-fix --- */
+
+      @media(max-width:720px) {
+        html body > .shared-header {
+          box-sizing:border-box!important;
+          display:block!important;
+          width:100%!important;
+          max-width:100%!important;
+          min-width:0!important;
+          margin:0!important;
+          overflow:visible!important;
+          background:#fff!important;
+          border-bottom:1px solid #eee!important;
+        }
+        html body > .shared-header > .shared-nav {
+          box-sizing:border-box!important;
+          display:grid!important;
+          width:100%!important;
+          max-width:100%!important;
+          min-width:0!important;
+          margin:0!important;
+          padding:4px 0 0!important;
+          grid-template-columns:minmax(0,1fr) auto auto!important;
+          grid-template-rows:50px 37px!important;
+          column-gap:8px!important;
+          row-gap:0!important;
+        }
+        html body > .shared-header .shared-brand {
+          grid-column:1!important;
+          grid-row:1!important;
+          justify-self:start!important;
+          margin-left:14px!important;
+        }
+        html body > .shared-header .shared-social {
+          grid-column:2!important;
+          grid-row:1!important;
+          justify-self:end!important;
+        }
+        html body > .shared-header .shared-language {
+          grid-column:3!important;
+          grid-row:1!important;
+          justify-self:end!important;
+          margin-right:14px!important;
+        }
+        html body > .shared-header .shared-menu {
+          box-sizing:border-box!important;
+          display:flex!important;
+          grid-column:1 / -1!important;
+          grid-row:2!important;
+          width:100%!important;
+          max-width:100%!important;
+          min-width:0!important;
+          margin:0!important;
+          padding:0 14px!important;
+          gap:20px!important;
+          justify-content:flex-start!important;
+          flex-wrap:nowrap!important;
+          white-space:nowrap!important;
+          overflow-x:auto!important;
+          overflow-y:hidden!important;
+          scrollbar-width:none!important;
+          -webkit-overflow-scrolling:touch!important;
+          overscroll-behavior-x:contain!important;
+        }
+        html body > .shared-header .shared-menu::-webkit-scrollbar{display:none!important}
+        html body > .shared-header .shared-menu a{
+          display:inline-flex!important;
+          align-items:center!important;
+          flex:0 0 auto!important;
+          padding:8px 0 10px!important;
+          font:800 12px/1.15 var(--vcc-font-body, "DM Sans", Arial, sans-serif)!important;
+          white-space:nowrap!important;
+        }
+        html body > .shared-header .shared-menu a.active::after {
+          bottom:2px!important;
+        }
+      }
+      @media(max-width:380px){
+        html body > .shared-header .shared-brand{margin-left:10px!important}
+        html body > .shared-header .shared-language{margin-right:10px!important}
+        html body > .shared-header .shared-menu{padding-inline:10px!important;gap:17px!important}
+      }
+    
+
+/* --- vcc-header-desktop-language-fix --- */
+
+      @media(min-width:721px) {
+        html body > .shared-header { width:100%!important; max-width:100%!important; }
+        html body > .shared-header > .shared-nav {
+          box-sizing:border-box!important;
+          display:grid!important;
+          width:calc(100% - 80px)!important;
+          max-width:none!important;
+          min-width:0!important;
+          grid-template-columns:140px minmax(0,1fr) 100px 65px!important;
+          align-items:center!important;
+          column-gap:16px!important;
+          margin-inline:auto!important;
+        }
+        html body > .shared-header .shared-brand { grid-column:1!important; min-width:0!important; }
+        html body > .shared-header .shared-menu { grid-column:2!important; min-width:0!important; }
+        html body > .shared-header .shared-social { grid-column:3!important; min-width:0!important; justify-content:flex-end!important; }
+        html body > .shared-header .shared-language {
+          grid-column:4!important;
+          display:flex!important;
+          visibility:visible!important;
+          opacity:1!important;
+          min-width:0!important;
+          justify-content:flex-end!important;
+          align-items:center!important;
+          white-space:nowrap!important;
+          margin:0!important;
+          position:static!important;
+        }
+        html body > .shared-header .shared-language a { display:inline-block!important; }
+      }
+      @media(min-width:721px) and (max-width:1050px) {
+        html body > .shared-header > .shared-nav {
+          width:calc(100% - 32px)!important;
+          grid-template-columns:120px minmax(0,1fr) 82px 55px!important;
+          column-gap:9px!important;
+        }
+        html body > .shared-header .shared-menu { gap:12px!important; }
+        html body > .shared-header .shared-menu a { font-size:10px!important; }
+        html body > .shared-header .shared-social { gap:5px!important; }
+      }
+    
+
+/* --- vcc-menu-scroll-stability --- */
+
+      @media(max-width:720px){
+        html body > .shared-header .shared-menu{
+          scroll-behavior:auto!important;
+          scroll-snap-type:x proximity!important;
+          scroll-padding-inline:14px!important;
+          touch-action:pan-x!important;
+        }
+        html body > .shared-header .shared-menu a{
+          scroll-snap-align:start!important;
+          scroll-snap-stop:normal!important;
+        }
+      }
+    
+
+/* --- vcc-header-viewport-guard --- */
+
+      @media(max-width:720px){
+        html,body{max-width:100%!important;overflow-x:clip!important}
+        html body > .shared-header{
+          position:sticky!important;
+          top:0!important;
+          left:0!important;
+          right:0!important;
+          display:block!important;
+          width:100%!important;
+          max-width:100%!important;
+          min-width:0!important;
+          margin:0!important;
+          padding:0!important;
+          border:0!important;
+          border-bottom:1px solid #e7ddd4!important;
+          background:#fff!important;
+          box-sizing:border-box!important;
+          overflow:hidden!important;
+          z-index:1100!important;
+        }
+        html body > .shared-header > .shared-nav{
+          width:100%!important;
+          max-width:100%!important;
+          min-width:0!important;
+          margin:0!important;
+          box-sizing:border-box!important;
+          padding:0!important;
+          height:auto!important;
+          min-height:0!important;
+          display:grid!important;
+          grid-template-columns:minmax(0,1fr) auto auto!important;
+          grid-template-rows:45px 33px!important;
+          column-gap:8px!important;
+          row-gap:0!important;
+        }
+        html body > .shared-header .shared-brand{
+          grid-column:1!important;grid-row:1!important;
+          margin:0 0 0 14px!important;
+          min-width:0!important;
+        }
+        html body > .shared-header .shared-social{
+          grid-column:2!important;grid-row:1!important;
+          margin:0!important;justify-self:end!important;
+        }
+        html body > .shared-header .shared-language{
+          grid-column:3!important;grid-row:1!important;
+          margin:0 14px 0 0!important;justify-self:end!important;
+        }
+        html body > .shared-header .shared-menu{
+          grid-column:1/-1!important;grid-row:2!important;
+          width:100%!important;max-width:100%!important;min-width:0!important;
+          box-sizing:border-box!important;
+          margin:0!important;
+          padding:0 14px!important;
+          display:flex!important;
+          flex-wrap:nowrap!important;
+          gap:20px!important;
+          align-items:center!important;
+          justify-content:flex-start!important;
+          white-space:nowrap!important;
+          overflow-x:auto!important;
+          overflow-y:hidden!important;
+          scrollbar-width:none!important;
+          overscroll-behavior-x:contain!important;
+          -webkit-overflow-scrolling:touch!important;
+          scroll-snap-type:none!important;
+          scroll-padding:0!important;
+        }
+        html body > .shared-header .shared-menu a{
+          flex:0 0 auto!important;
+          padding:9px 0 11px!important;
+          font:800 12px/1.15 var(--vcc-font-body, "DM Sans", Arial, sans-serif)!important;
+          scroll-snap-align:none!important;
+        }
+        html body > .shared-header .shared-menu a.active::after{bottom:3px!important}
+      }
+      @media(max-width:380px){
+        html body > .shared-header .shared-brand{margin-left:10px!important}
+        html body > .shared-header .shared-language{margin-right:10px!important}
+        html body > .shared-header .shared-menu{padding-inline:10px!important;gap:17px!important}
+      }

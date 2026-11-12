@@ -58,7 +58,7 @@ for(const prop of ['--vcc-color-accent','--vcc-font-body','--vcc-consejo-border-
   if(!tokens.includes(prop))failures.push('Falta variable del sistema '+prop);
 }
 const header=fs.readFileSync('configuracion/js/site-header.js','utf8');
-if(!header.includes('data-vcc-design-tokens')||!header.includes('data-vcc-carousel-tokens'))
-  failures.push('Header no carrega de manera única les variables compartides');
+if(!header.includes('vcc-core-compartit.css')||!header.includes('data-vcc-core-styles'))
+  failures.push('Header no carrega el paquet CSS comú de manera única');
 if(failures.length){for(const f of failures)console.error('CSS VCC:',f);process.exitCode=1;}
 else console.log('VCC CSS OK: regles exactes deduplicades, tokens i carregadors comuns correctes.');
