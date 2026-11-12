@@ -114,7 +114,7 @@ for(const p of approvedFiles){
   // Thumb: no descarregar 1 MB per cada targeta de 300 px.
   html=html.replace(/<img\b[^>]*>/gi,tag=>{
     if(/\bsrcset=/.test(tag))return tag;
-    const matched=tag.match(/\bsrc=["']([^"']+\/configuracion\/imagenes\/fondos\/(fondos-[\w-]+)\.webp)(?:\?[^"']*)?["']/i);
+    const matched=tag.match(/\bsrc=["']([^"']*\/configuracion\/imagenes\/fondos\/(fondos-[\w-]+)\.webp)(?:\?[^"']*)?["']/i);
     if(!matched||!imgs[matched[2]])return tag;
     const w=tag.match(/\bwidth=["'](\d+)["']/i)?.[1];
     if(!w||Number(w)>850)return tag;
