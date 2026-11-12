@@ -2414,3 +2414,218 @@ body.inicio-vcc .home-contact .home-card-more{
   body.inicio-vcc .home-contact .home-card-more{padding-top:5px!important}
 }
 
+
+
+/* VCC · MODULS INICI CONSOLIDATS des de configuracion/css/inicio-social-compact-v15.css */
+/* V15 · targetes compactes sota Guías destacadas, mateix cantell inferior.
+   El JS d'alineació defineix l'alçada exacta des de les targetes de guia. */
+@media(min-width:901px){
+  body.inicio-vcc .home-social-contact{
+    grid-auto-rows:minmax(0,1fr)!important;
+    align-items:stretch!important;
+    min-height:0!important;
+  }
+  body.inicio-vcc .home-social-contact .home-instagram,
+  body.inicio-vcc .home-social-contact .home-contact{
+    min-height:0!important;
+    max-height:100%!important;
+    height:100%!important;
+    padding:8px 10px!important;
+    box-sizing:border-box!important;
+    overflow:hidden!important;
+  }
+  body.inicio-vcc .home-social-eyebrow{
+    font-size:14px!important;line-height:1!important;margin:0 0 2px!important;
+  }
+  body.inicio-vcc .home-social-heading{
+    margin-bottom:4px!important;min-height:0!important;
+  }
+  body.inicio-vcc .home-social-heading h2{
+    font-size:clamp(13px,1.18vw,18px)!important;
+    line-height:1.05!important;white-space:nowrap!important;
+  }
+  body.inicio-vcc .home-insta-brand-icon{
+    width:15px!important;height:15px!important;flex-basis:15px!important;
+  }
+  body.inicio-vcc .home-instagram .home-insta-largepost{
+    flex:1 1 0!important;min-height:0!important;max-height:100%!important;
+    overflow:hidden!important;
+  }
+  body.inicio-vcc .home-insta-topline{min-height:22px!important;padding:2px 5px!important;gap:4px!important}
+  body.inicio-vcc .home-insta-avatar{width:15px!important;height:15px!important;min-width:15px!important}
+  body.inicio-vcc .home-instagram .home-insta-photo{
+    min-height:0!important;flex:1 1 0!important;overflow:hidden!important;
+  }
+  body.inicio-vcc .home-insta-footer{height:18px!important;min-height:18px!important;padding:1px 5px!important}
+  body.inicio-vcc .home-insta-footer img{width:12px!important;height:12px!important}
+  body.inicio-vcc .home-insta-text{
+    display:block!important;flex:0 0 auto!important;
+    white-space:nowrap!important;overflow:hidden!important;text-overflow:ellipsis!important;
+    padding:2px 5px 3px!important;font-size:8px!important;line-height:1.2!important;
+  }
+  body.inicio-vcc .home-contact{
+    justify-content:flex-start!important;gap:0!important;
+  }
+  body.inicio-vcc .home-contact-symbol{
+    flex:0 0 38px!important;
+    width:52px!important;height:38px!important;max-width:52px!important;
+    margin:0 0 3px!important;
+  }
+  body.inicio-vcc .home-contact-symbol img{width:52px!important;height:38px!important}
+  body.inicio-vcc .home-contact h2{
+    font-size:clamp(20px,1.65vw,25px)!important;
+    margin:0 0 5px!important;line-height:1.07!important;
+  }
+  body.inicio-vcc .home-contact p{
+    font-size:10px!important;line-height:1.34!important;
+    margin:0 0 5px!important;max-width:100%!important;
+  }
+  body.inicio-vcc .home-contact .home-card-more{
+    flex:0 0 auto!important;margin-top:auto!important;
+    font-size:9px!important;padding:3px 0 0!important;
+    white-space:nowrap!important;
+  }
+}
+@media(max-width:900px){
+  body.inicio-vcc .home-social-contact .home-instagram,
+  body.inicio-vcc .home-social-contact .home-contact{
+    min-height:0!important;height:auto!important;
+  }
+}
+
+
+
+/* VCC · MODULS INICI CONSOLIDATS des de configuracion/css/inicio-instagram-feed.css */
+/* Portada VCC · navegación de publicaciones de Instagram.
+ * No cambia las tarjetas existentes ni reserva espacio si la cuenta aún no está conectada.
+ */
+body.inicio-vcc .home-insta-head-actions{
+  display:flex;align-items:center;justify-content:flex-end;
+  gap:7px;flex:none;min-width:0;margin-left:auto;
+}
+body.inicio-vcc .home-insta-navigation{
+  display:flex;align-items:center;gap:4px;flex:none;
+}
+body.inicio-vcc .home-insta-navigation[hidden],
+body.inicio-vcc .home-insta-position[hidden],
+body.inicio-vcc .home-insta-inspiration[hidden]{display:none!important}
+body.inicio-vcc .home-insta-navigation button{
+  appearance:none;display:grid;place-items:center;
+  width:23px;height:23px;padding:0;
+  border:1px solid #ead9ca;border-radius:50%;
+  background:#fff;color:#a85d47;cursor:pointer;
+  font:600 16px/1 var(--vcc-font-body, "DM Sans", Arial, sans-serif);
+  transition:background .15s,border-color .15s;
+}
+body.inicio-vcc .home-insta-navigation button:hover{
+  background:#fff2e9;border-color:#d99980;
+}
+body.inicio-vcc .home-insta-navigation button:focus-visible{
+  outline:2px solid #be674c;outline-offset:2px;
+}
+body.inicio-vcc .home-insta-position{
+  position:absolute;z-index:1;top:7px;right:7px;
+  padding:4px 6px;border-radius:4px;
+  color:#fff;background:rgba(37,33,31,.72);
+  font:700 9px/1 var(--vcc-font-body, "DM Sans", Arial, sans-serif);
+  pointer-events:none;
+}
+@media(max-width:530px){
+  body.inicio-vcc .home-insta-head-actions{gap:6px}
+  body.inicio-vcc .home-insta-navigation{gap:5px}
+  body.inicio-vcc .home-insta-navigation button{width:28px;height:28px;font-size:17px}
+}
+@media(prefers-reduced-motion:reduce){
+  body.inicio-vcc .home-insta-navigation button{transition:none}
+}
+
+
+
+/* VCC · MODULS INICI CONSOLIDATS des de configuracion/css/inicio-hero-vcc-webp.css */
+/* Inici VCC · fons panoràmic real 3000 × 1000, sense retalls ni franges.
+   La zona esquerra ja està integrada al mateix WebP; no cal máscara CSS. */
+body.inicio-vcc .home-hero{
+  background:#eeedeb!important;
+}
+body.inicio-vcc .home-hero::before{
+  background-image:url('/configuracion/imagenes/fondos/fondos-inicio.webp?v=20261111-portades')!important;
+  
+  background-size:cover!important;
+  background-position:center center!important;
+  background-repeat:no-repeat!important;
+  filter:none!important;
+  transform:none!important;
+  -webkit-mask-image:none!important;
+  mask-image:none!important;
+}
+body.inicio-vcc .home-hero-wash{
+  background:linear-gradient(90deg,
+    rgba(242,242,241,.38) 0%,
+    rgba(238,238,237,.17) 29%,
+    rgba(230,230,230,.04) 49%,
+    transparent 65%)!important;
+}
+@media(max-width:720px){
+  body.inicio-vcc .home-hero::before{
+    background-position:67% center!important;
+  }
+  body.inicio-vcc .home-hero-wash{
+    background:linear-gradient(90deg,rgba(242,241,239,.88),rgba(235,234,232,.68) 70%,rgba(232,232,231,.27))!important;
+  }
+}
+
+
+
+/* VCC · MODULS INICI CONSOLIDATS des de configuracion/css/inicio-paises-temas-v16.css */
+/* Inicio · V16: geografía encima de las fotos y tema dentro de cada tarjeta.
+   Los iconos de banderas son SVG independientes en configuracion/imagenes/banderas/. */
+body.inicio-vcc .home-feature-photo .home-feature-country{
+  position:absolute;z-index:3;left:7px;top:7px;
+  display:inline-flex;align-items:center;gap:5px;
+  max-width:calc(100% - 16px);min-width:0;
+  padding:4px 7px;border-radius:6px;
+  background:rgba(255,252,247,.96);color:#5e443c;
+  box-shadow:0 1px 5px rgba(39,29,23,.15);
+  font:800 10px/1.15 var(--vcc-font-body, "DM Sans", Arial, sans-serif);
+  white-space:nowrap;
+}
+body.inicio-vcc .home-feature-country img{
+  display:block!important;position:static!important;
+  width:17px!important;height:12px!important;min-width:17px!important;
+  object-fit:cover!important;flex:0 0 auto!important;
+  border-radius:1px;border:1px solid rgba(35,35,35,.09);
+  box-sizing:border-box;
+}
+body.inicio-vcc .home-feature-country img[alt="Suiza"]{
+  width:12px!important;min-width:12px!important;
+}
+body.inicio-vcc .home-feature-country-multi{
+  gap:3px;padding:4px 6px;
+}
+body.inicio-vcc .home-feature-country-multi img{width:15px!important;min-width:15px!important}
+body.inicio-vcc .home-feature-country-multi img[alt="Suiza"]{width:12px!important;min-width:12px!important}
+body.inicio-vcc .home-feature-country-multi span{margin-left:3px}
+body.inicio-vcc .home-feature-details .home-feature-theme{
+  display:inline-flex;align-items:center;gap:5px;
+  margin-top:7px;max-width:100%;min-width:0;
+  padding:0;background:transparent;border:0;
+  font:700 10px/1.2 var(--vcc-font-body, "DM Sans", Arial, sans-serif);
+  color:#936650;white-space:nowrap;
+}
+body.inicio-vcc .home-feature-theme [aria-hidden="true"]{
+  display:inline-block;font-size:13px;line-height:1;flex:0 0 auto;
+}
+body.inicio-vcc .home-feature-details .home-feature-link,
+body.inicio-vcc .home-feature-details .home-feature-pending{
+  margin-top:auto;
+}
+@media(max-width:900px){
+  body.inicio-vcc .home-feature-photo .home-feature-country{font-size:9px;padding:3px 5px;gap:3px}
+  body.inicio-vcc .home-feature-country img{width:15px!important;min-width:15px!important;height:11px!important}
+  body.inicio-vcc .home-feature-country-multi img{width:13px!important;min-width:13px!important}
+  body.inicio-vcc .home-feature-country-multi img[alt="Suiza"],
+  body.inicio-vcc .home-feature-country img[alt="Suiza"]{width:11px!important;min-width:11px!important}
+  body.inicio-vcc .home-feature-details .home-feature-theme{font-size:9px;margin-top:5px;gap:3px}
+  body.inicio-vcc .home-feature-theme [aria-hidden="true"]{font-size:12px}
+}
+
