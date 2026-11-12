@@ -36,7 +36,12 @@ export function normalizeCardImageHtml(html,page){
      .replace(/\s+srcset=["'][^"']+["']/gi,'')
      .replace(/\s+sizes=["'][^"']+["']/gi,'')
      .replace(/\bsrc=["'][^"']+["']/i,'src="'+variant(info,960)+'"');
-   return clean.replace(/>$/, ' data-vcc-card-source="'+source+
+   // Si falta tota la parella de dimensions, reservar l'aspect ratio REAL.
+   // Si n'hi ha alguna, no interferir amb les proporcions editorials.
+   const preview=info.variants['960'];
+   const dimensions=!/\bwidth=["']/.test(clean)&&!/\bheight=["']/.test(clean)
+     ? ' width="'+preview.width+'" height="'+preview.height+'"' : '';
+   return clean.replace(/>$/, dimensions+' data-vcc-card-source="'+source+
      '" srcset="'+srcset+'" sizes="'+sizesFor(page)+'">');
  });
 }

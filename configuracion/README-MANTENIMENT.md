@@ -38,3 +38,7 @@ npm run site:check
 ## Miniatures de targetes i cost de les fotos
 
 Les imatges WebP de més de 250 KB utilitzades per pàgines aprovades es converteixen automàticament a amplades de 480, 960 i 1600 px. No s'alteren originals, colors, retalls ni imatges R2. Per regenerar: `npm run cards:build` (requereix Pillow); per comprovar: `npm run cards:check`. La font d'una targeta continua registrada a `data-vcc-card-source` i cada variant té un fingerprint per evitar fotografies obsoletes.
+
+## Revisió integral del blog
+
+Des de l'arrel del projecte: `npm run review:full`. Comprova rutes, SEO, idempotència de generadors, CSS, galeries, itineraris, SVG i estructura dels recursos. `Quality` bloqueja fotos locals de més de 400 KB sense `srcset` i imatges sense `alt` a les pàgines aprovades. També reporta imatges sense dimensions. Aquestes proves són estàtiques: cal completar-les amb Lighthouse i comparació visual mòbil/escriptori abans de publicar a `main`.

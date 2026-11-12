@@ -15,7 +15,9 @@ function walk(folder) {
 }
 const styles=walk(path.join(ROOT,"configuracion/css")).filter(p=>p.endsWith(".css"));
 const scripts=walk(path.join(ROOT,"configuracion/js")).filter(p=>p.endsWith(".js"));
-const sizes=new Map([...styles,...scripts].map(p=>["/"+path.relative(ROOT,p).split(path.sep).join("/"),fs.statSync(p).size]));
+const images=walk(path.join(ROOT,"configuracion/imagenes"))
+  .filter(p=>/\.(?:webp|avif|png|jpe?g)$/i.test(p));
+const sizes=new Map([...styles,...scripts,...images].map(p=>["/"+path.relative(ROOT,p).split(path.sep).join("/"),fs.statSync(p).size]));
 const approved=new Set(approvedFiles);
 const stats={html:pages.length,approved:approved.size,drafts:pages.length-approved.size,cssFiles:styles.length,jsFiles:scripts.length,
   cssBytes:styles.reduce((n,p)=>n+fs.statSync(p).size,0),jsBytes:scripts.reduce((n,p)=>n+fs.statSync(p).size,0)};
@@ -33,6 +35,13 @@ for(const file of pages){
   const imgs=[...html.matchAll(/<img\b[^>]*>/gi)].map(x=>x[0]);
   const missingAlt=imgs.filter(x=>!/\balt=/.test(x)).length;
   const noDimensions=imgs.filter(x=>!/\bwidth=["']\d+/.test(x)||!/\bheight=["']\d+/.test(x)).length;
+  // Pressupost de càrrega: les fotos locals grans no s'han de servir com a
+  // fitxer únic a targetes; els originals R2 del visor s'avaluen a part.
+  const heavyImg=imgs.filter(tag=>{
+    const url=attr(tag,"src").split("?")[0];
+    return url.startsWith("/configuracion/imagenes/") &&
+      (sizes.get(url)||0)>400*1024 && !/\bsrcset=["']/.test(tag);
+  });
   const result={file,live,stylesheets:css.length,cssRawBytes:css.reduce((n,u)=>n+(sizes.get(u)||0),0),
     javascript:js.length,jsRawBytes:js.reduce((n,u)=>n+(sizes.get(u)||0),0),
     repeatedCSS:repeatCss.length,repeatedJS:repeatJs.length,inlineStyle:(html.match(/<style\b/gi)||[]).length,
@@ -40,6 +49,8 @@ for(const file of pages){
     images:imgs.length,missingAlt,noDimensions,linksToDrafts:drafts.length};
   if(live){
     if(repeatCss.length||repeatJs.length)critical.push(file+": recursos CSS/JS cargados repetidamente");
+    if(missingAlt)critical.push(file+": "+missingAlt+" imagenes sin texto alternativo");
+    if(heavyImg.length)critical.push(file+": "+heavyImg.length+" fotografies locals >400 KB sense srcset");
     if(css.length>20)critical.push(file+": "+css.length+" hojas CSS (límite 20)");
     if(result.cssRawBytes>350*1024)critical.push(file+": "+Math.round(result.cssRawBytes/1024)+" KB de CSS original (límite 350 KB)");
     if(!html.includes("site-header.js")||!html.includes("site-footer.js"))

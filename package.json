@@ -24,7 +24,8 @@
     "audit:architecture": "node configuracion/scripts/auditar-dependencias-vcc.mjs",
     "audit:styles": "node configuracion/scripts/auditar-estilos.mjs",
     "cards:build": "python configuracion/scripts/generar-miniatures-targetes.py && node configuracion/scripts/publicar-miniatures-targetes.mjs --write",
-    "cards:check": "node configuracion/scripts/publicar-miniatures-targetes.mjs --check"
+    "cards:check": "node configuracion/scripts/publicar-miniatures-targetes.mjs --check",
+    "review:full": "npm test && node configuracion/scripts/validar-iconos-vcc.mjs && node configuracion/scripts/verificar-estructura-recursos.mjs && npm run audit:architecture"
   },
   "engines": {
     "node": ">=20"
