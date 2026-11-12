@@ -15,8 +15,10 @@ for(const [file,maxLocalCss] of Object.entries(targets)){
   const links=[...html.matchAll(/<link\b[^>]*>/gi)].map(x=>x[0])
     .filter(tag=>/\brel=["']stylesheet["']/i.test(tag))
     .map(tag=>tag.match(/\bhref=["']([^"']+)["']/i)?.[1]||'').filter(Boolean);
+  // L'hero i el core es gestionen de manera compartida i no són CSS de pàgina.
+  const shared=new Set(['/componentes/portadas-rapidas-vcc.css','/componentes/vcc-core-compartit.css']);
   const local=links.filter(url=>url.startsWith('/configuracion/css/') &&
-    !url.split('?')[0].endsWith('/componentes/portadas-rapidas-vcc.css'));
+    ![...shared].some(suffix=>url.split('?')[0].endsWith(suffix)));
   if(local.length>maxLocalCss)
     failures.push(file+': '+local.length+' CSS propis (límit actual '+maxLocalCss+')');
   const urls=links.filter(url=>url.startsWith('/configuracion/css/')).map(url=>url.split('?')[0]);

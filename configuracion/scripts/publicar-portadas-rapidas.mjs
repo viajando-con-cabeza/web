@@ -130,7 +130,8 @@ for(const p of approvedFiles){
   }
   // Prevenir FOUC/CLS: el CSS del header i dels tokens arriba amb l'HTML.
   // Es reescriu idempotentment amb hash de contingut per compartir caché.
-  html=html.replace(/<link\b[^>]*data-vcc-core-styles[^>]*>\s*/gi,"");
+  // Unificar també els enllaços antics afegits sense data-vcc-core-styles.
+  html=html.replace(/<link\b(?=[^>]*\bhref=["']\/configuracion\/css\/componentes\/vcc-core-compartit\.css(?:\?[^"']*)?["'])[^>]*>\s*/gi,"");
   if(html.includes('/configuracion/js/site-header.js')){
     html=html.replace(/(?:\r?\n[ \t]*){2,}(?=<\/head\s*>)/i,"\n");
     html=html.replace(/<\/head\s*>/i,coreLink+"\n</head>");
