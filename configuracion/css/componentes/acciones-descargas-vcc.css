@@ -117,6 +117,22 @@ html body.al-page .al-compare-utils .vcc-download-link{
   align-self:center!important;
   margin:0!important;
 }
+/* Alojamientos: Limpiar junto a PDF, ambos al pie derecho de la tabla. */
+html body.al-page .al-compare-utils{
+  display:flex!important;
+  flex-wrap:wrap!important;
+  align-items:center!important;
+  justify-content:flex-end!important;
+  gap:4px 16px!important;
+}
+html body.al-page .al-compare-utils [data-al-clear]{
+  order:1!important;
+  margin:0!important;
+}
+html body.al-page .al-compare-utils [data-al-pdf].vcc-download-link{
+  order:2!important;
+  margin:0!important;
+}
 html body .tv-page .tv-calc-actions{
   display:flex!important;
   align-items:center!important;
