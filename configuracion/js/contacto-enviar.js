@@ -46,8 +46,10 @@
         feedback.textContent = copy.error;
       } else {
         delivered = true;
-        success.hidden = false;
+        feedback.hidden = true;
+        feedback.textContent = "";
         form.hidden = true;
+        success.hidden = false;
         success.scrollIntoView({ behavior: "smooth", block: "center" });
       }
     } catch (error) {
