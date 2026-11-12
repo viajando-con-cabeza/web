@@ -63,9 +63,10 @@
 .vcc-it-catalog .vcc-it-photo img[data-vcc-it-slide].is-current,
 .vcc-it-catalog .vcc-it-photo img[data-vcc-it-slide].is-adjacent{opacity:1;visibility:visible}
 .vcc-it-catalog .vcc-it-photo.is-sliding img[data-vcc-it-slide]{
- transition:transform var(--vcc-it-slide-duration,420ms) cubic-bezier(.22,.75,.27,1)
+ transition:transform var(--vcc-it-slide-duration,240ms) cubic-bezier(.22,.75,.27,1)
 }
 .vcc-it-catalog .vcc-it-photo.is-dragging img[data-vcc-it-slide]{transition:none}
+.vcc-it-catalog .vcc-it-photo:is(.is-sliding,.is-dragging) img[data-vcc-it-slide]:is(.is-current,.is-adjacent){will-change:transform}
 .vcc-it-catalog .di-mini-card:hover .vcc-it-photo img[data-vcc-it-slide]{transform:translate3d(0,0,0)}
 .vcc-it-catalog .vcc-it-gallery-button{
  position:absolute;z-index:4;top:50%;transform:translateY(-50%);

@@ -8,22 +8,32 @@
     const counter = gallery.querySelector('[data-vcc-it-count]');
     if (photos.length < 2 || !counter) return;
     let current = 0, active = null, direction = 0, busy = false, gesture = null, endTimer = null, endListener = null;
+    const pending = new WeakMap();
     const images = photos.length;
     const position = i => (i + images) % images;
 
-    function load(i) {
+    function load(i, urgent = false) {
       const img = photos[position(i)];
+      if (urgent) img.fetchPriority = 'high';
       if (img.dataset.src) {
-        img.loading = "eager";
+        img.loading = 'eager';
+        if (!urgent) img.fetchPriority = 'low';
         img.src = img.dataset.src;
         delete img.dataset.src;
       }
-      if (img.complete && img.naturalWidth) return Promise.resolve(true);
       if (img.dataset.failed) return Promise.resolve(false);
-      return new Promise(resolve => {
+      if (img.complete) {
+        if (img.naturalWidth) return Promise.resolve(true);
+        img.dataset.failed = 'true';
+        return Promise.resolve(false);
+      }
+      if (pending.has(img)) return pending.get(img);
+      const task = new Promise(resolve => {
         img.addEventListener('load', () => resolve(true), { once: true });
         img.addEventListener('error', () => { img.dataset.failed = 'true'; resolve(false); }, { once: true });
       });
+      pending.set(img, task);
+      return task;
     }
 
     function prepare(dir) {
@@ -57,6 +67,9 @@
         photos[current].classList.add('is-current');
         photos[current].removeAttribute('aria-hidden');
         counter.textContent = (current + 1) + ' / ' + images;
+        // La siguiente foto ya se descarga mientras se muestra la actual.
+        load(current + 1);
+        load(current - 1);
       }
       active = null;
       direction = 0;
@@ -73,7 +86,7 @@
         cleanup(complete);
         return;
       }
-      const duration = Math.max(180, Math.min(430, Math.round(420 * (1 - Math.min(1, Math.abs(initialDistance) / width)))));
+      const duration = Math.max(110, Math.min(240, Math.round(240 * (1 - Math.min(1, Math.abs(initialDistance) / width)))));
       gallery.style.setProperty('--vcc-it-slide-duration', duration + 'ms');
       gallery.classList.add('is-sliding');
       void incoming.offsetWidth;
@@ -94,7 +107,7 @@
       if (busy || gesture) return;
       busy = true;
       const target = position(current + dir);
-      const ok = await load(target);
+      const ok = await load(target, true);
       if (!ok) { busy = false; return; }
       if (!prepare(dir)) { busy = false; return; }
       settle(true);
@@ -116,7 +129,7 @@
 
     gallery.addEventListener('touchstart', event => {
       if (busy || event.touches.length !== 1 || event.target.closest('button')) return;
-      gesture = { x: event.touches[0].clientX, y: event.touches[0].clientY, dx: 0, dy: 0, dragging: false };
+      gesture = { x: event.touches[0].clientX, y: event.touches[0].clientY, dx: 0, dy: 0, dragging: false, width: Math.max(1, gallery.clientWidth) };
     }, { passive: true });
     gallery.addEventListener('touchmove', event => {
       if (!gesture || busy || event.touches.length !== 1) return;
@@ -133,16 +146,16 @@
       gesture.dragging = true;
       gallery.classList.add('is-dragging');
       if (event.cancelable) event.preventDefault();
-      const offset = Math.max(-gallery.clientWidth, Math.min(gallery.clientWidth, dx));
+      const offset = Math.max(-gesture.width, Math.min(gesture.width, dx));
       photos[current].style.transform = 'translate3d(' + offset + 'px,0,0)';
-      photos[active].style.transform = 'translate3d(' + (offset + dir * gallery.clientWidth) + 'px,0,0)';
+      photos[active].style.transform = 'translate3d(' + (offset + dir * gesture.width) + 'px,0,0)';
     }, { passive: false });
     gallery.addEventListener('touchend', event => {
       if (!gesture) return;
       const drag = gesture;
       gesture = null;
       const dir = drag.dx < 0 ? 1 : -1;
-      const valid = Math.abs(drag.dx) > Math.max(38, gallery.clientWidth * 0.16) && Math.abs(drag.dx) > Math.abs(drag.dy) * 1.2;
+      const valid = Math.abs(drag.dx) > Math.max(38, drag.width * 0.16) && Math.abs(drag.dx) > Math.abs(drag.dy) * 1.2;
       if (active !== null) {
         settle(valid, drag.dx);
       } else if (valid) {
@@ -161,8 +174,10 @@
           load(1); load(images - 1);
           observer.disconnect();
         }
-      }, { rootMargin: '100px' });
+      }, { rootMargin: '800px 0px' });
       observer.observe(gallery);
+    } else {
+      load(1); load(images - 1);
     }
   }
   const boot = () => document.querySelectorAll('[data-vcc-it-gallery]').forEach(init);
