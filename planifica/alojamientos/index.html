@@ -14,7 +14,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=DM+Sans:wght@400;500;600;700;800&family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/configuracion/css/paginas.css">
 <link rel="stylesheet" href="/configuracion/css/overrides.css">
-<link rel="stylesheet" href="/configuracion/css/planifica-alojamientos.css?v=20261112-hero-web-v10">
+<link rel="stylesheet" href="/configuracion/css/planifica-alojamientos.css?v=20261112-calculadora-v11">
 <link rel="stylesheet" href="/configuracion/css/componentes/vcc-ui-compartida.css?v=20261112-b1">
 
 
@@ -37,6 +37,7 @@
 <nav class="vcc-nav al-subnav" aria-label="Apartados de alojamientos">
 <div class="vcc-nav-inner">
 <a href="#plataformas">NUESTRA EXPERIENCIA</a>
+<a href="#calculadora">CALCULADORA</a>
 <a href="#como-ahorrar">CÓMO AHORRAR</a>
 
 </div>
@@ -73,6 +74,35 @@
 </div>
 
 </div></section>
+<section class="al-compare" id="calculadora" aria-labelledby="al-compare-title">
+<div class="al-wrap">
+<header class="al-heading al-compare-head">
+<div><span class="al-eyebrow">Compara antes de reservar</span><h2 class="al-title" id="al-compare-title">COMPARA EL <em>PRECIO REAL</em></h2></div>
+<div class="al-compare-explain"><p>Compara alojamientos en las mismas fechas, con las mismas noches y personas. Añade los gastos de lo que una opción no incluya: desayunos, comidas, transporte, impuestos o aparcamiento.</p>
+<div class="al-compare-add"><span data-al-count>3 de 5 opciones</span><button type="button" data-al-add>+ Añadir alojamiento</button></div></div>
+</header>
+<div class="al-compare-context">
+<label>Personas <input type="number" min="1" max="20" step="1" value="2" data-al-personas></label>
+<label>Noches <input type="number" min="1" max="90" step="1" value="3" data-al-noches></label>
+<p>Introduce importes en € <strong>para toda la estancia y todas las personas</strong>. No multiplicamos automáticamente los importes; evita contar dos veces un gasto.</p>
+</div>
+<div class="al-compare-layout">
+<div class="al-compare-shell">
+<div class="al-compare-scroll" tabindex="0" role="region" aria-label="Comparación horizontal de alojamientos" data-al-calc-scroll>
+<table class="al-compare-table"><caption class="al-visually-hidden">Comparativa de hasta cinco alojamientos y todos sus costes</caption><thead data-al-calc-head></thead><tbody data-al-calc-body></tbody></table>
+</div></div>
+<aside class="al-compare-advice" aria-live="polite">
+<span class="al-advice-script">Nuestro consejo</span><h3>MEJOR OPCIÓN VCC</h3>
+<div class="al-advice-content"><img src="/configuracion/imagenes/marca/logo-vcc.svg" width="64" height="64" alt="VCC" loading="lazy">
+<div><p data-al-advice-empty>Introduce el precio de al menos dos alojamientos para ver cuál cuesta menos.</p><div data-al-advice-result hidden><strong data-al-winner></strong><b data-al-price></b><small>Coste total equivalente</small></div></div></div>
+<div class="al-advice-savings" data-al-savings hidden></div>
+<p class="al-advice-note">Compara también ubicación, horarios y cancelación: el menor coste no siempre es la mejor estancia.</p>
+</aside>
+</div>
+<div class="al-compare-utils"><button type="button" data-al-pdf>↓ GUARDAR EN PDF</button><button type="button" data-al-clear>Limpiar</button></div>
+<p class="al-compare-status" data-al-status role="status" aria-live="polite"></p>
+<noscript>Activa JavaScript para utilizar la calculadora.</noscript>
+</div></section>
 <section class="al-savings" id="como-ahorrar" aria-labelledby="al-save-title"><div class="al-wrap">
 <header class="al-heading"><span class="al-eyebrow">Consejos para reservar mejor</span><h2 class="al-title" id="al-save-title">CÓMO AHORRAR EN ALOJAMIENTO</h2><p>Seis consejos prácticos para pagar menos sin renunciar a una reserva que encaje con tu viaje.</p></header>
 <div class="al-tips-carousel" data-vcc-carousel="editorial" role="group" aria-label="Seis consejos de ahorro en alojamiento">
@@ -101,5 +131,5 @@
 <footer class="vcc-global-footer"></footer>
 <script src="/configuracion/js/site-header.js" defer></script>
 <script src="/configuracion/js/site-footer.js?v=20261102" defer></script>
-<script src="/configuracion/js/planifica-alojamientos.js?v=20261111-sin-comparador-v7" defer></script>
+<script src="/configuracion/js/planifica-alojamientos.js?v=20261112-calculadora-v11" defer></script>
 </body></html>
