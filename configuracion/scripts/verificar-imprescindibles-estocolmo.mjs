@@ -45,11 +45,9 @@ if(image?.startsWith('https://viajandoconcabeza.com/')){
 }
 // Evitar precargar una imagen diferente de la realmente usada por el hero:
  // esa descarga extra penalizaba la red sin mejorar el LCP.
-const hero='https://img.viajandoconcabeza.com/destinos/suecia/goteborg/2026-dia1/DSC06555.webp';
-verify(layoutCss.includes('url("'+hero+'")'),
-  'Rendimiento: el recurso del hero ha cambiado; actualizar el preload');
-verify(html.includes('<link rel="preload" as="image" href="'+hero+'" fetchpriority="high">'),
-  'Rendimiento: falta preload de la imagen realmente visible en el hero');
+const hero=html.match(/<link rel="preload" as="image" href="([^"]+)" fetchpriority="high">/)?.[1];
+verify(Boolean(hero) && layoutCss.includes(hero),
+  'Rendimiento: el preload debe apuntar a un recurso visible en el CSS del hero');
 
 // El CSS del layout es un recurso cacheable, con su posición de cascada
 // original. No volver a añadir miles de bytes inline al documento HTML.
@@ -123,9 +121,9 @@ verify(photos.includes("estocolmo-archipelago/") &&
 verify(interaction.includes('estocolmo-archipelago') &&
   interaction.includes('optimizedPhoto'),
   'R2: se ha cambiado el tratamiento de miniaturas AVIF');
-verify(map.includes("pdf.save('estocolmo-15-imprescindibles-vcc.pdf')") &&
-  html.includes('id="imp-export-pdf"'),
-  'Mapa: botón o generación del PDF eliminados');
+const pdfFile=map.match(/pdf\.save\('estocolmo-(\d+)-imprescindibles-vcc\.pdf'\)/)?.[1];
+verify(Number(pdfFile)===ids.length && html.includes('id="imp-export-pdf"'),
+  'Mapa: PDF o botón no coincide con el número de lugares');
 
 const geo=map.match(/const geo = \{([\s\S]*?)\n  \};/);
 const geoIds=[...(geo?.[1]||'').matchAll(/'([^']+)':\[/g)].map(m=>m[1]);
