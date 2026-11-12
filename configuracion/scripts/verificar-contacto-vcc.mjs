@@ -19,6 +19,11 @@ for (const [name, html] of [["Contacto", contact], ["Contact EN", english]]) {
   if (!html.includes("/configuracion/js/contacto-enviar.js")) issues.push(name + ": falta JS compartido");
   if (!html.includes('name="website"')) issues.push(name + ": falta campo antispam");
 }
+const styles = read("configuracion/css/contacto.css");
+if (!styles.includes("#contactForm[hidden],#contactSuccess[hidden],#contactFeedback[hidden]{display:none!important}"))
+  issues.push("El CSS debe ocultar el formulario y los avisos cuando tienen hidden");
+if (!client.includes("feedback.hidden = true;") || !client.includes("form.hidden = true;") || !client.includes("success.hidden = false;"))
+  issues.push("La confirmación debe ocultar formulario y texto ENVIANDO");
 if (!client.includes("AbortController")) issues.push("Falta límite de espera del cliente");
 if (!worker.includes("await env.CONTACT_EMAIL.send(") || !worker.includes(gmail) || !worker.includes(right))
   issues.push("Worker no usa destinatario Gmail confirmado");
