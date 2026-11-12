@@ -45,7 +45,8 @@ if(image?.startsWith('https://viajandoconcabeza.com/')){
 }
 // Evitar precargar una imagen diferente de la realmente usada por el hero:
  // esa descarga extra penalizaba la red sin mejorar el LCP.
-const hero=html.match(/<link rel="preload" as="image" href="([^"]+)" fetchpriority="high">/)?.[1];
+const preload=html.match(/<link\b[^>]*rel="preload"[^>]*as="image"[^>]*>/)?.[0];
+const hero=preload?.match(/\bhref="([^"]+)"/)?.[1];
 verify(Boolean(hero) && layoutCss.includes(hero),
   'Rendimiento: el preload debe apuntar a un recurso visible en el CSS del hero');
 
