@@ -1,14 +1,13 @@
-/* VCC · Itineraris: visor universal només quan és necessari.
- * El mosaic és HTML/CSS; no requereix les 38 KB de JS i les 30 KB de CSS
- * del visor fins que el lector s'acosta a les fotos.
- * Reutilitza sense modificar el component compartit Booking.
+/* VCC · Itineraris: codi del visor només quan és necessari.
+ * El CSS compartit conté el mosaic de 5 fotos i s'ha de carregar
+ * al primer render per no provocar salts de disseny mentre es fa scroll.
+ * El controlador JS del visor s'importa quan el lector s'apropa.
  */
 (()=>{
  'use strict';
  const modal=document.querySelector('[data-vcc-booking-gallery][data-vcc-lazy-gallery-modal]');
  const first=document.querySelector('.vcc-booking-gallery .day-mosaic');
  if(!modal||!first)return;
- const css='/configuracion/css/componentes/vcc-gallery-booking.css?v=20261112-itinerary-lazy-v1';
  const script='/configuracion/js/componentes/vcc-gallery-booking.js?v=20261112-itinerary-lazy-v1';
  let pending=null;
  const ready=()=>Boolean(window.VCCBookingGallery);
@@ -16,17 +15,11 @@
   if(ready())return Promise.resolve(true);
   if(pending)return pending;
   pending=new Promise((resolve,reject)=>{
-   const link=document.createElement('link');
-   link.rel='stylesheet';link.href=css;
-   link.onload=()=>{
-    const tag=document.createElement('script');
-    tag.src=script;tag.async=true;
-    tag.onload=()=>ready()?resolve(true):reject(new Error('Visor no inicializado'));
-    tag.onerror=()=>reject(new Error('Fallo cargando el visor'));
-    document.body.append(tag);
-   };
-   link.onerror=()=>reject(new Error('Fallo cargando el CSS del visor'));
-   document.head.append(link);
+   const tag=document.createElement('script');
+   tag.src=script;tag.async=true;
+   tag.onload=()=>ready()?resolve(true):reject(new Error('Visor no inicializado'));
+   tag.onerror=()=>reject(new Error('Fallo cargando el visor'));
+   document.body.append(tag);
   }).catch(e=>{
    console.warn('Galería VCC:',e);
    pending=null;
