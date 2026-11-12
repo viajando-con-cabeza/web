@@ -16,6 +16,7 @@ const html = read('destinos/suecia/estocolmo/itinerario.html');
 const core = read('configuracion/css/plantillas/itinerario-core-vcc.css');
 const polish = read('configuracion/css/plantillas/itinerario-polish-vcc.css');
 const hero = read('configuracion/css/componentes/vcc-hero-editorial-vcc.css');
+const heroTransparency = read('configuracion/css/componentes/portadas-transparencia.css');
 const galleryJS = read('configuracion/js/componentes/vcc-gallery-booking.js');
 const scrollspy = read('configuracion/js/destinos/suecia/estocolmo/vcc-section-scrollspy.js');
 const lazyBgJS = read('configuracion/js/componentes/vcc-lazy-background.js');
@@ -74,16 +75,27 @@ previewImgs.forEach(tag => {
   assert.match(tag, /\bdecoding="async"/, 'Les previsualitzacions han de descodificar-se async');
 });
 
-const heroUrl = html.match(/--vcc-hero-image:url\('([^']+)'\)/)?.[1];
-const preloadUrl = html.match(/rel="preload" as="image" href="([^"]+)"/)?.[1];
-assert.ok(heroUrl?.startsWith('https://img.viajandoconcabeza.com/'), 'Hero sense imatge R2');
-assert.equal(heroUrl, preloadUrl, 'La foto del hero i el seu preload han de ser la mateixa');
+const desktopHeroUrl=hero.match(/--vcc-hero-image:url\('([^']+\.avif)'\)/)?.[1];
+const mobileHeroUrl=hero.match(/@media\(max-width:767px\)[\s\S]*?--vcc-hero-image:url\('([^']+\.webp)'\)/)?.[1];
+const preloadTags=[...html.matchAll(/<link\b[^>]*\brel="preload"[^>]*>/gi)].map(m=>m[0])
+  .filter(tag=>/\bas="image"/.test(tag));
+const href=tag=>tag?.match(/\bhref="([^"]+)"/)?.[1];
+const desktopPreload=href(preloadTags.find(tag=>tag.includes('media="(min-width: 768px)"')));
+const mobilePreload=href(preloadTags.find(tag=>tag.includes('media="(max-width: 767px)"')));
+assert.ok(desktopHeroUrl?.startsWith('https://img.viajandoconcabeza.com/'),
+  "El hero escriptori ha de mantenir l'original R2");
+assert.equal(desktopHeroUrl,desktopPreload,'El preload escriptori ha de correspondre al CSS');
+assert.ok(mobileHeroUrl?.startsWith('/configuracion/imagenes/fondos/optimizadas/'),
+  "El hero mòbil ha d'utilitzar el WebP local reduït");
+assert.equal(mobileHeroUrl,mobilePreload,'El preload mòbil ha de correspondre al CSS');
+assert.ok(existsSync(join(root,mobileHeroUrl.slice(1))),'WebP responsive mòbil inexistent');
+assert.doesNotMatch(html,/--vcc-hero-image:url\(/,'No duplicar declaracions de portada a HTML');
 const socialImage = html.match(/<meta property="og:image" content="([^"]+)"/)?.[1];
 assert.ok(socialImage?.startsWith('https://img.viajandoconcabeza.com/destinos/'), 'Falta original per a les xarxes socials');
 assert.equal(ld.find(item => item['@type'] === 'BlogPosting').image, socialImage);
-assert.ok(heroUrl.includes('/__vcc_preview/visor/'), 'El hero ha de fer servir el visor optimitzat');
+assert.ok(desktopHeroUrl.includes('/__vcc_preview/visor/'), 'El hero escriptori ha de fer servir el visor optimitzat');
 assert.match(galleryJS, /requestOriginalForZoom\(\)/, 'Originals només quan es fa zoom');
-assert.match(hero, /var\(--vcc-hero-image\)/);
+assert.match(heroTransparency, /var\(--vcc-hero-image\)/, 'Degradat de portada compartit');
 assert.doesNotMatch(core, /fondos-itinerario\.webp/, 'No tornar a descarregar l’antic fons');
 assert.doesNotMatch(core + polish, /\.day-mosaic\.count-4/, 'No reintroduir l’antic mosaic de 4');
 
