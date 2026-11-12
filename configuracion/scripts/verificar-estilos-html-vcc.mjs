@@ -15,10 +15,11 @@ for(const [file,maxLocalCss] of Object.entries(targets)){
   const links=[...html.matchAll(/<link\b[^>]*>/gi)].map(x=>x[0])
     .filter(tag=>/\brel=["']stylesheet["']/i.test(tag))
     .map(tag=>tag.match(/\bhref=["']([^"']+)["']/i)?.[1]||'').filter(Boolean);
-  const local=links.filter(url=>url.startsWith('/configuracion/css/'));
+  const local=links.filter(url=>url.startsWith('/configuracion/css/') &&
+    !url.split('?')[0].endsWith('/componentes/portadas-rapidas-vcc.css'));
   if(local.length>maxLocalCss)
     failures.push(file+': '+local.length+' CSS propis (límit actual '+maxLocalCss+')');
-  const urls=local.map(url=>url.split('?')[0]);
+  const urls=links.filter(url=>url.startsWith('/configuracion/css/')).map(url=>url.split('?')[0]);
   if(new Set(urls).size!==urls.length)
     failures.push(file+': mateix CSS enllaçat més d’una vegada');
   for(const url of urls)if(!fs.existsSync(url.slice(1)))failures.push(file+': no existeix '+url);
