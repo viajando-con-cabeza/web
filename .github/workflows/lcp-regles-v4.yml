@@ -1,0 +1,71 @@
+name: Chrome LCP - cercar regla CSS
+
+on:
+  push:
+    branches: [quality]
+    paths: ['.github/workflows/lcp-regles-v4.yml']
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  bisect-rules:
+    runs-on: ubuntu-latest
+    timeout-minutes: 14
+    steps:
+      - name: Mesurar LCP segons blocs de regles de cada CSS
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m pip install --quiet playwright tinycss2
+          python - <<'PY'
+          import json,tinycss2
+          from playwright.sync_api import sync_playwright
+          base='https://www.quality.viajandoconcabeza.com/destinos/suecia/estocolmo/'
+          # Índexs de regles del fitxer, no línies CSS.
+          tests=[
+            ('como-moverse','base',None,True),
+            ('como-moverse','last_quarter_desktop',(163,218),False),
+            ('como-moverse','card_section',(163,200),True),
+            ('como-moverse','savings_section',(200,213),True),
+            ('como-moverse','media_1270',(213,214),True),
+            ('como-moverse','media_1050',(214,215),True),
+            ('como-moverse','media_690',(215,216),True),
+            ('como-moverse','media_420',(216,217),True),
+            ('como-moverse','media_reduce',(217,218),True),
+            ('presupuesto','base',None,True),
+            ('presupuesto','first_quarter',(0,121),True),
+            ('presupuesto','second_quarter',(121,242),True),
+            ('presupuesto','third_quarter',(242,364),True),
+            ('presupuesto','fourth_quarter',(364,485),True),
+          ]
+          with sync_playwright() as p:
+            browser=p.chromium.launch(headless=True,executable_path='/usr/bin/google-chrome',args=['--no-sandbox','--disable-dev-shm-usage'])
+            for name,label,cut,mobile in tests:
+              page=browser.new_page(viewport={'width':390 if mobile else 1440,'height':844 if mobile else 900},device_scale_factor=1,is_mobile=mobile,has_touch=mobile)
+              page.add_init_script("""(()=>{window.__lcp=[];new PerformanceObserver(l=>{for(const e of l.getEntries())window.__lcp.push({tag:e.element?.tagName,size:e.size,time:Math.round(e.startTime)});}).observe({type:'largest-contentful-paint',buffered:true})})();""")
+              nums={'total':None,'removed':None}
+              if cut is not None:
+                def route_handler(route):
+                  name_css='como-moverse-vcc.css' if name=='como-moverse' else 'presupuesto-vcc-visual.css'
+                  if route.request.resource_type!='stylesheet' or name_css not in route.request.url:
+                    return route.continue_()
+                  response=route.fetch()
+                  ast=tinycss2.parse_stylesheet(response.text())
+                  candidates=[i for i,t in enumerate(ast) if t.type in ('qualified-rule','at-rule')]
+                  removed=set(candidates[cut[0]:cut[1]])
+                  nums.update({'total':len(candidates),'removed':len(removed)})
+                  content=tinycss2.serialize([x for i,x in enumerate(ast) if i not in removed])
+                  route.fulfill(response=response,body=content,content_type='text/css')
+                page.route('**/*',route_handler)
+              try:
+                response=page.goto(base+name+'?css_rules_v4='+label,wait_until='domcontentloaded',timeout=35000)
+                page.wait_for_timeout(1050)
+                diag=page.evaluate("""()=>({lcp:window.__lcp,firstPaint:performance.getEntriesByType('paint').map(e=>Math.round(e.startTime)),hero:document.querySelector('.mv-hero,.budget-hero')?.getBoundingClientRect().height})""")
+                print('LCP4',json.dumps({'p':name,'case':label,'mobile':mobile,'http':response.status if response else None,**nums,**diag},ensure_ascii=False),flush=True)
+              except Exception as e:
+                print('LCP4_ERROR',name,label,str(e)[:290],flush=True)
+              page.close()
+            browser.close()
+          PY
