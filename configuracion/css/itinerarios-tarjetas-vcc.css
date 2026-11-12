@@ -197,3 +197,22 @@
  white-space:normal;
  overflow-wrap:break-word;
 }
+
+
+/* Metadades reutilitzables en Planifica > Dónde ir, sense estils inline ni emojis. */
+.vcc-it-catalog .vcc-it-facts .di-days{display:inline-flex;align-items:center;gap:4px}
+.vcc-it-catalog .di-vcc-flags{display:inline-flex;align-items:center;gap:2px;flex:none}
+.vcc-it-catalog .di-vcc-flags .vcc-it-country-flag{width:20px;height:13px}
+.vcc-it-catalog .di-vcc-flags .vcc-it-country-flag.is-ch{width:13px}
+.vcc-it-catalog .di-guide-info.vcc-it-facts{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:5px 8px;margin:0 0 6px}
+.vcc-it-catalog .di-guide-info.vcc-it-facts .di-country-line{min-width:0;white-space:normal;gap:5px}
+.vcc-it-catalog .di-guide-info.vcc-it-facts .di-guide-rating{margin-left:auto}
+.vcc-it-catalog .di-mini-body>b.vcc-it-cta{
+ display:inline-flex;align-self:flex-end;justify-content:flex-end;margin-top:auto;
+ padding-top:3px;font-size:9.5px;line-height:1.2;text-align:right;color:#b44f30;
+}
+.vcc-it-catalog .di-upcoming.vcc-it-card .di-upcoming-status{align-self:flex-end;text-align:right}
+@media(max-width:620px){
+ .vcc-it-catalog .di-vcc-flags .vcc-it-country-flag{width:19px;height:12px}
+ .vcc-it-catalog .di-vcc-flags .vcc-it-country-flag.is-ch{width:12px}
+}
