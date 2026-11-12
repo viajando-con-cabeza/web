@@ -43,6 +43,65 @@
   }
 
 
+
+  // Carrusel de hoteles en móvil: VCC primero. Escritorio mantiene el orden HTML.
+  const hotelMedia=window.matchMedia('(max-width: 760px)');
+  const hotelCarousels=Array.from(root.querySelectorAll('.dv-zone-hotels-list')).map(track=>{
+    const hotels=Array.from(track.querySelectorAll(':scope > .dv-zone-hotel'));
+    const vcc=hotels.find(hotel=>hotel.classList.contains('is-vcc-option'));
+    if(hotels.length<2||!vcc)return null;
+    const zone=track.closest('[data-dv-zone-panel]');
+    const zoneName=zone?.querySelector('.dv-zone-heading-title h3')?.textContent?.trim()||'la zona';
+    const stage=document.createElement('div');
+    stage.className='dv-tip-carousel-wrap dv-zone-hotels-carousel';
+    stage.dataset.vccCarousel='editorial';
+    const makeArrow=direction=>{
+      const arrow=document.createElement('button');
+      arrow.type='button';
+      arrow.className='dv-arrow '+(direction<0?'dv-tip-prev':'dv-tip-next');
+      arrow.textContent=direction<0?'‹':'›';
+      arrow.setAttribute('aria-label',(direction<0?'Hotel anterior en ':'Hotel siguiente en ')+zoneName);
+      return arrow;
+    };
+    const prevHotel=makeArrow(-1),nextHotel=makeArrow(1);
+    track.before(stage);
+    stage.append(prevHotel,track,nextHotel);
+    track.tabIndex=0;
+    track.setAttribute('role','region');
+    track.setAttribute('aria-label','Hoteles recomendados en '+zoneName);
+    const sync=()=>{
+      prevHotel.disabled=track.scrollLeft<=3;
+      nextHotel.disabled=track.scrollLeft+track.clientWidth>=track.scrollWidth-3;
+    };
+    const slide=direction=>{
+      const first=track.querySelector(':scope > .dv-zone-hotel');
+      if(!first)return;
+      const distance=first.getBoundingClientRect().width+(parseFloat(getComputedStyle(track).columnGap)||10);
+      if(distance>0)track.scrollBy({left:direction*distance,behavior:reducedMotion?'auto':'smooth'});
+    };
+    prevHotel.addEventListener('click',()=>slide(-1));
+    nextHotel.addEventListener('click',()=>slide(1));
+    track.addEventListener('scroll',()=>requestAnimationFrame(sync),{passive:true});
+    const setMobile=(mobile,reset=false)=>{
+      const target=mobile?[vcc,...hotels.filter(hotel=>hotel!==vcc)]:hotels;
+      const changed=target.some((hotel,i)=>track.children[i]!==hotel);
+      if(changed)track.append(...target);
+      if(changed||reset)track.scrollLeft=0;
+      requestAnimationFrame(sync);
+    };
+    return {setMobile,sync};
+  }).filter(Boolean);
+  let wasHotelMobile=null;
+  const refreshHotelCarousels=(reset=false)=>{
+    const mobile=hotelMedia.matches;
+    hotelCarousels.forEach(carousel=>carousel.setMobile(mobile,reset||wasHotelMobile!==mobile));
+    wasHotelMobile=mobile;
+  };
+  refreshHotelCarousels(true);
+  if(hotelMedia.addEventListener)hotelMedia.addEventListener('change',()=>refreshHotelCarousels(true));
+  else hotelMedia.addListener(()=>refreshHotelCarousels(true));
+  window.addEventListener('resize',()=>hotelCarousels.forEach(carousel=>carousel.sync()),{passive:true});
+
   // Al pulsar un barrio, mostrar exclusivamente su ficha ampliada bajo el carrusel.
   // Los siete paneles son HTML estático para que los buscadores puedan leer su contenido.
   const zoneDetails=root.querySelector('[data-dv-zone-details]');
@@ -56,6 +115,7 @@
       zonePanels.forEach(panel=>{
         panel.hidden=panel.dataset.dvZonePanel!==nextId;
       });
+      if(nextId)requestAnimationFrame(()=>refreshHotelCarousels(true));
       cards.forEach(card=>{
         card.setAttribute('aria-expanded',String(card.dataset.dvCard===nextId));
       });

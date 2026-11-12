@@ -1378,3 +1378,29 @@ body.dv-page{
   .dv-page #barrios .dv-card-bottom { padding-top: 8px; }
   .dv-page #barrios .dv-card-discover { margin-top: 8px; padding-top: 8px; }
 }
+
+/* Dónde dormir · 4 hoteles por barrio en móvil, con VCC primero.
+   Conservar la cuadrícula original en escritorio.
+   La apariencia de las flechas se toma del CSS compartido. */
+.dv-page .dv-zone-hotels-carousel{position:relative;min-width:0}
+.dv-page .dv-zone-hotels-carousel > .dv-arrow{display:none}
+@media(max-width:760px){
+  .dv-page .dv-zone-hotels-carousel{width:100%;min-width:0}
+  .dv-page .dv-zone-hotels-carousel .dv-zone-hotels-list{
+    display:flex;align-items:stretch;gap:10px;
+    width:100%;min-width:0;margin:0;padding:2px 1px 7px;
+    overflow-x:auto;overflow-y:hidden;
+    scroll-snap-type:x mandatory;scroll-behavior:smooth;
+    overscroll-behavior-inline:contain;
+    -webkit-overflow-scrolling:touch;scrollbar-width:none;
+  }
+  .dv-page .dv-zone-hotels-carousel .dv-zone-hotels-list::-webkit-scrollbar{display:none}
+  .dv-page .dv-zone-hotels-carousel .dv-zone-hotels-list > .dv-zone-hotel{
+    flex:0 0 calc(100% - 2px);width:calc(100% - 2px);
+    min-width:0;max-width:100%;scroll-snap-align:start;
+  }
+  .dv-page .dv-zone-hotels-carousel > .dv-arrow{display:grid;z-index:3}
+}
+@media(prefers-reduced-motion:reduce){
+  .dv-page .dv-zone-hotels-carousel .dv-zone-hotels-list{scroll-behavior:auto}
+}
