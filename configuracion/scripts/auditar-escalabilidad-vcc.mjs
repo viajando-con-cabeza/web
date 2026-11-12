@@ -25,7 +25,10 @@ const findings=[],pageStats=[],critical=[];
 function attr(tag,key){const m=tag.match(new RegExp("\\b"+key+"=[\"']([^\"']*)[\"']","i"));return m?m[1]:"";}
 const hubs=new Set(["planifica/presupuesto/index.html","planifica/mapas/index.html","planifica/que-llevar/index.html"]);
 for(const file of pages){
-  const html=fs.readFileSync(path.join(ROOT,file),"utf8"),live=approved.has(file);
+  const originalHtml=fs.readFileSync(path.join(ROOT,file),"utf8"),live=approved.has(file);
+  // Els <noscript> són recursos alternatius quan no hi ha JS: no s'han de
+  // comptar juntament amb els CSS/JS de la càrrega normal del navegador.
+  const html=originalHtml.replace(/<noscript\\b[^>]*>[\\s\\S]*?<\\/noscript>/gi,"");
   const sheets=[...html.matchAll(/<link\b[^>]*>/gi)].map(x=>x[0]).filter(x=>/\brel=["']stylesheet["']/i.test(x));
   const css=sheets.map(x=>attr(x,"href").split("?")[0]).filter(Boolean);
   const js=[...html.matchAll(/<script\b[^>]*\bsrc=["']([^"']+)/gi)].map(x=>x[1].split("?")[0]);
