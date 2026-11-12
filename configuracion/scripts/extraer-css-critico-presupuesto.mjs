@@ -39,9 +39,9 @@ function delimiter(source,from,block=false){
 function required(selector){
   if(criticalTokens.some(token=>selector.includes(token)))return true;
   return selector.split(',').some(s=>
-    /^(?:html|body|:root|\\*|a|img|main|button)$/i.test(s.trim())||
-    /^(?:html\\s+)?body\\.budget-vcc$/i.test(s.trim())||
-    /^(?:\\.budget-vcc\\s+)?\\.st-shell(?:\\s+a)?$/i.test(s.trim()));
+    /^(?:html|body|:root|\*|a|img|main|button)$/i.test(s.trim())||
+    /^(?:html\s+)?body\.budget-vcc$/i.test(s.trim())||
+    /^(?:\.budget-vcc\s+)?\.st-shell(?:\s+a)?$/i.test(s.trim()));
 }
 function extract(source){
   let out='',cursor=0;
@@ -57,17 +57,17 @@ function extract(source){
     const body=source.slice(open+1,end);
     cursor=end+1;
     if(selector.startsWith('@')){
-      if(/^@(?:media|supports|container|layer)\\b/i.test(selector)){
+      if(/^@(?:media|supports|container|layer)\b/i.test(selector)){
         const inner=extract(body);
-        if(inner.trim())out+=selector+'{'+inner+'}\\n';
+        if(inner.trim())out+=selector+'{'+inner+'}\n';
       }
-    }else if(required(selector))out+=selector+'{'+body+'}\\n';
+    }else if(required(selector))out+=selector+'{'+body+'}\n';
   }
   return out;
 }
 const original=fs.readFileSync(sourcePath,'utf8');
-const stripped=original.replace(/\\/\\*[\\s\\S]*?\\*\\//g,'');
-const output='/* AUTO-GENERAT · CSS crític mòbil de Presupuesto. No editar. */\\n'+extract(stripped);
+const stripped=original.replace(/\/\*[\s\S]*?\*\//g,'');
+const output='/* AUTO-GENERAT · CSS crític mòbil de Presupuesto. No editar. */\n'+extract(stripped);
 if(!output.includes('.vcc-hero-lcp-picture')||!output.includes('.shared-header')||
    !output.includes('#vcc-global-breadcrumb')||!output.includes('.budget-hero'))
   throw Error('Falten estils imprescindibles de la portada');
