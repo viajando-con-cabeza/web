@@ -23,14 +23,16 @@
     'skansen':[59.32822,18.10676],
     'fotografiska':[59.317995,18.08465],
     'kungstradgarden':[59.3311,18.07161],
-    'stromkajen':[59.329,18.075893]
+    'stromkajen':[59.329,18.075893],
+    'drottningholm':[59.321693,17.886825]
   };
   const caveats = {
     'gamla-stan':'Punto de referencia del barrio',
     'djurgarden':'Punto de referencia de la isla',
     'sodermalm':'Punto de referencia del barrio',
     'metro':'T-Centralen, una de las estaciones destacadas',
-    'ferry':'Embarque de Slussen, ferry público hacia Djurgården'
+    'ferry':'Embarque de Slussen, ferry público hacia Djurgården',
+    'drottningholm':'Palacio y jardines fuera del centro: excursión en Lovön (Ekerö)'
   };
   const spots = [...document.querySelectorAll('.imp-main .place[id]')]
     .filter(section => Object.prototype.hasOwnProperty.call(geo, section.id))
@@ -133,7 +135,8 @@
       marker.bindTooltip(spot.title,{direction:'top',offset:[0,-6]});
       marker.on('click',()=>choose(spot.id,false));
       markers.set(spot.id,marker);
-      bounds.push(spot.latlng);
+      // El palacio está en Lovön; no alejamos el encuadre del centro al abrir el mapa.
+      if(spot.id!=='drottningholm')bounds.push(spot.latlng);
     }
     map.fitBounds(bounds,{padding:[26,26],maxZoom:13});
     window.requestAnimationFrame(()=>map.invalidateSize());
@@ -169,7 +172,8 @@
     'ayuntamiento':'historia','sodermalm':'paseo','montelius':'mirador',
     'stortorget':'historia','riddarholmen':'historia','metro':'metro',
     'ferry':'ferry','palacio':'historia','skansen':'museo',
-    'fotografiska':'museo','kungstradgarden':'naturaleza','stromkajen':'ferry'
+    'fotografiska':'museo','kungstradgarden':'naturaleza','stromkajen':'ferry',
+    'drottningholm':'historia'
   };
   const pdfIconFiles={
     historia:'/configuracion/imagenes/iconos/entradas-y-pases/landmark.svg',
@@ -227,7 +231,7 @@
     exportButton.disabled=true;
     exportButton.setAttribute('aria-busy','true');
     if(exportStatus) exportStatus.textContent='Preparando PDF…';
-    let pdfMap=null,host=null;
+    let pdfMap=null,pdfInsetMap=null,host=null;
     try {
       // Librerías descargadas solo al solicitar el PDF.
       await Promise.all([
@@ -240,18 +244,29 @@
       host=document.createElement('div');
       host.className='imp-pdf-map-host';
       host.setAttribute('aria-hidden','true');
-      host.style.cssText='position:fixed;left:-3000px;top:0;width:1040px;height:440px;z-index:-1;pointer-events:none;background:#f3f1ec;';
+      host.style.cssText='position:fixed;left:-3000px;top:0;width:1040px;height:440px;display:flex;gap:6px;z-index:-1;pointer-events:none;background:#f3f1ec;';
+      const cityContainer=document.createElement('div');
+      cityContainer.style.cssText='width:762px;height:440px;flex:0 0 762px;background:#f3f1ec;';
+      const palaceContainer=document.createElement('div');
+      palaceContainer.style.cssText='width:272px;height:440px;flex:0 0 272px;background:#f3f1ec;';
+      host.append(cityContainer,palaceContainer);
       (document.querySelector('.imp-page')||document.body).append(host);
-      pdfMap=L.map(host,{scrollWheelZoom:false,zoomControl:false,attributionControl:true});
-      const tiles=L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
+      // A l'esquerra, el mapa detallat de centre. A la dreta, un petit mapa
+      // de Drottningholm per no fer il·legibles els altres 15 marcadors.
+      pdfMap=L.map(cityContainer,{scrollWheelZoom:false,zoomControl:false,attributionControl:true});
+      pdfInsetMap=L.map(palaceContainer,{scrollWheelZoom:false,zoomControl:false,attributionControl:false});
+      const makePdfTiles=mapInstance=>L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
         crossOrigin:'anonymous',minZoom:11,maxZoom:18,
         attribution:'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-      }).addTo(pdfMap);
+      }).addTo(mapInstance);
+      const tiles=makePdfTiles(pdfMap),insetTiles=makePdfTiles(pdfInsetMap);
       const loaded=new Promise(resolve=>{
-        let finished=false;
+        let pending=2,finished=false;
         const finish=()=>{if(!finished){finished=true;resolve();}};
-        tiles.once('load',finish);
-        setTimeout(finish,4500);
+        const onTileLoad=()=>{if(--pending<=0)finish();};
+        tiles.once('load',onTileLoad);
+        insetTiles.once('load',onTileLoad);
+        setTimeout(finish,4800);
       });
       spots.forEach((spot,i)=>{
         const offset=spot.id==='gamla-stan'?16:spot.id==='stortorget'?-16:0;
@@ -262,11 +277,13 @@
             iconSize:[28,28],iconAnchor:[14+offset,14]
           }),
           keyboard:false
-        }).addTo(pdfMap);
+        }).addTo(spot.id==='drottningholm'?pdfInsetMap:pdfMap);
       });
-      pdfMap.fitBounds(spots.map(spot=>spot.latlng),{
-        padding:[36,36],maxZoom:13,animate:false
+      pdfMap.fitBounds(spots.filter(spot=>spot.id!=='drottningholm').map(spot=>spot.latlng),{
+        padding:[28,28],maxZoom:13,animate:false
       });
+      pdfInsetMap.setView([59.321693,17.886825],14,{animate:false});
+      pdfMap.invalidateSize({animate:false});pdfInsetMap.invalidateSize({animate:false});
       await loaded;
       await new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve)));
       const canvas=await window.html2canvas(host,{
@@ -286,7 +303,7 @@
       const pdf=new PDF({orientation:'landscape',unit:'mm',format:'a4',compress:true});
       const ink=[40,39,37],orange=[200,91,48];
       pdf.setFont('helvetica','bold');pdf.setFontSize(19);pdf.setTextColor(...ink);
-      pdf.text('ESTOCOLMO · 15 IMPRESCINDIBLES',12,18);
+      pdf.text('ESTOCOLMO · 16 IMPRESCINDIBLES',12,18);
       pdf.setFont('helvetica','normal');pdf.setFontSize(9);pdf.setTextColor(110,104,99);
       pdf.text('Mapa numerado para planificar tu visita',12,25);
       // Logo circular oficial de Viajando con Cabeza.
@@ -297,32 +314,33 @@
       pdf.setDrawColor(224,213,204);pdf.setLineWidth(.4);pdf.line(12,31,285,31);
       pdf.addImage(vivid.toDataURL('image/jpeg',.91),'JPEG',12,34,273,113.5);
       pdf.setFont('helvetica','bold');pdf.setFontSize(10);
-      pdf.setTextColor(...ink);pdf.text('LOS 15 LUGARES',12,157);
+      pdf.setTextColor(...ink);pdf.text('LOS 16 LUGARES',12,157);
       // Número en el mapa + icono oficial VCC de cada categoría en la leyenda.
       spots.forEach((spot,i)=>{
-        const col=Math.floor(i/5),row=i%5;
-        const x=12+col*92;
-        const y=166+row*7.4;
+        const col=Math.floor(i/4),row=i%4;
+        const x=12+col*68.5;
+        const y=167+row*9;
         pdf.setFillColor(...orange);pdf.circle(x+3,y-1.6,3.1,'F');
         pdf.setFont('helvetica','bold');pdf.setFontSize(8);
         pdf.setTextColor(255,255,255);
         pdf.text(String(i+1),x+3,y-.7,{align:'center'});
         const icon=icons.get(pdfIconType[spot.id]);
         if(icon)pdf.addImage(icon,'PNG',x+8.9,y-4.8,5.1,5.1);
-        pdf.setFont('helvetica','normal');pdf.setFontSize(9);
+        pdf.setFont('helvetica','normal');pdf.setFontSize(8.5);
         pdf.setTextColor(...ink);
-        pdf.text(spot.title,x+16,y,{maxWidth:75});
+        pdf.text(spot.title,x+16,y,{maxWidth:49});
       });
       pdf.setFont('helvetica','normal');pdf.setFontSize(7.5);
       pdf.setTextColor(111,106,102);
-      pdf.text('Los puntos de barrios, metro y ferris son orientativos. Mapa: © OpenStreetMap contributors.',12,204);
-      pdf.save('estocolmo-15-imprescindibles-vcc.pdf');
+      pdf.text('Puntos de barrios y transporte orientativos. Drottningholm aparece en el recuadro derecho. © OpenStreetMap contributors.',12,204);
+      pdf.save('estocolmo-16-imprescindibles-vcc.pdf');
       if(exportStatus) exportStatus.textContent='PDF descargado';
     } catch(error) {
       console.error('No se pudo exportar el mapa a PDF.',error);
       if(exportStatus) exportStatus.textContent='No se pudo generar el PDF. Inténtalo de nuevo.';
     } finally {
       if(pdfMap) pdfMap.remove();
+      if(pdfInsetMap) pdfInsetMap.remove();
       if(host) host.remove();
       exportButton.removeAttribute('aria-busy');
       exportButton.disabled=!map;
