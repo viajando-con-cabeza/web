@@ -11,7 +11,7 @@
     "css:check": "node configuracion/scripts/verificar-css-vcc.mjs && node configuracion/scripts/verificar-estilos-html-vcc.mjs",
     "audit:site": "node configuracion/scripts/auditar-escalabilidad-vcc.mjs",
     "catalog:sync": "node configuracion/scripts/sincronizar-catalogo-vcc.mjs --write",
-    "site:sync": "node configuracion/scripts/generate-planifica-hubs.mjs && node configuracion/scripts/sincronizar-catalogo-vcc.mjs --write && node configuracion/scripts/preparar-publicacion.mjs --write && npm run css:build && npm run hero:build && npm run cards:build",
+    "site:sync": "node configuracion/scripts/generate-planifica-hubs.mjs && node configuracion/scripts/sincronizar-catalogo-vcc.mjs --write && node configuracion/scripts/preparar-publicacion.mjs --write && npm run css:build && npm run cards:build && npm run hero:build",
     "site:check": "node configuracion/scripts/generate-planifica-hubs.mjs --check && node configuracion/scripts/sincronizar-catalogo-vcc.mjs --check && node configuracion/scripts/preparar-publicacion.mjs --check && node configuracion/scripts/verificar-seo-global.mjs && npm run css:verify && npm run hero:check && npm run cards:check",
     "destino:crear": "node configuracion/scripts/destinos.mjs crear",
     "destino:generar": "node configuracion/scripts/destinos.mjs generar",
