@@ -42,7 +42,7 @@ function sync(p,content){
   if(write){fs.mkdirSync(path.dirname(file(p)),{recursive:true});fs.writeFileSync(file(p),content,"utf8");}
 }
 const registry=JSON.parse(fs.readFileSync(file("configuracion/datos/portadas-vcc.json"),"utf8"));
-const pages=registry.pages.map(({page,image,selector,kind,source})=>[page,image,selector,kind,source||"fondos"]);
+const pages=registry.pages.map(({page,image,selector,kind,source,r2})=>[page,image,selector,kind,source||"fondos",r2||null]);
 for(const [p,name,, ,source] of pages) {
   if(!approvedFiles.includes(p))issues.push("Pàgina optimitzada no aprovada "+p);
   if(!imageInfo(name,source))issues.push("No hi ha imatge original "+name);
@@ -61,8 +61,8 @@ css.push("/* VCC · Portades responsives: originals intactes, mateixes fotografi
 css.push("   El fade i les posicions segueixen regulats pels CSS de components. */");
 for(const [media,width] of [["(max-width: 767px)","960"],["(min-width: 768px)","1920"]]){
   css.push("@media "+media+" {");
-  for(const [,name,selector,kind,source] of maps){
-    const url="url('"+variant(name,width,source)+"')";
+  for(const [,name,selector,kind,source,r2] of maps){
+    const url="url('"+(r2||variant(name,width,source))+"')";
     const declarations=kind==="bg"?"background-image:"+url+"!important;":
       "--vcc-portada-imatge:"+url+"!important;"+(kind==="vcc"?"--vcc-hero-image:"+url+"!important;":"");
     css.push("  "+selector+"{"+declarations+"}");
@@ -86,6 +86,8 @@ for(const p of approvedFiles){
   const original=fs.readFileSync(file(p),"utf8");
   let html=original;
   const cfg=named.get(p);
+  // R2 és la font canònica per a aquestes portades: no reescriure-les amb WebP locals.
+  if(cfg?.[5])continue;
   // La fotografia OG no es toca. Els preloads només són de la portada real.
   if(cfg){
     const [,name,selector,kind,source]=cfg;
