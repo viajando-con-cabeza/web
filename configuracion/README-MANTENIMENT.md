@@ -34,3 +34,7 @@ npm run site:check
 - Identificar cada pàgina aprovada a `configuracion/datos/publicacion-vcc.json`; els esborranys no s'indexen.
 - No esborrar fitxers que l'auditoria consideri "possiblement no utilitzats" sense comprovar carregadors JS, recursos R2 i plantilles antigues.
 - Els CSS compartits es carreguen en paquets; canviar una font exigeix regenerar les sortides i validar-les abans de publicar.
+
+## Miniatures de targetes i cost de les fotos
+
+Les imatges WebP de més de 250 KB utilitzades per pàgines aprovades es converteixen automàticament a amplades de 480, 960 i 1600 px. No s'alteren originals, colors, retalls ni imatges R2. Per regenerar: `npm run cards:build` (requereix Pillow); per comprovar: `npm run cards:check`. La font d'una targeta continua registrada a `data-vcc-card-source` i cada variant té un fingerprint per evitar fotografies obsoletes.
