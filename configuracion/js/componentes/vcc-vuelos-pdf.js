@@ -79,6 +79,126 @@ const color=(pdf,kind,type='text')=>{
 };
 const label=(flight,names)=>names[flight.airline]||'Sin elegir';
 
+
+/* Reprodueix les mateixes proporcions que el comparador de la web:
+ * taula a l'esquerra, consell VCC a la dreta, fons blanc, gris crema i taronja.
+ * Coordenades en mm, A4 horitzontal; amb 1–5 columnes sense desbordaments.
+ */
+export const PDF_LAYOUT_VCC=Object.freeze({
+  pageWidth:297,pageHeight:210,
+  tableX:15,tableY:65,tableWidth:193,labelWidth:46,
+  adviceX:213,adviceY:78,adviceWidth:69,adviceHeight:107,
+  headHeight:11,
+  rows:[
+    {key:'airline',name:'Aerolínea',icon:'avion',height:13},
+    {key:'route',name:'Trayecto / aeropuerto',icon:'ruta',height:14},
+    {key:'base',name:'Billete',icon:'billete',height:13},
+    {key:'baggage',name:'Equipaje',icon:'equipaje',height:13},
+    {key:'seat',name:'Asiento',icon:'asiento',height:13},
+    {key:'food',name:'Comida y bebida',icon:'comida',height:13},
+    {key:'transfer',name:'Traslado aeropuerto',icon:'traslado',height:13},
+    {key:'total',name:'TOTAL POR OPCIÓN',icon:'total',height:15}
+  ]
+});
+const ICON_SPRITE='/configuracion/imagenes/iconos/paginas/planifica-vuelos-comparador-iconos.svg';
+const BRAND={
+  header:[250,240,231],paper:[250,247,243],orange:[233,101,27],
+  orangeDark:[171,82,31],winner:[251,225,203],pale:[255,248,242],
+  total:[255,240,223],line:[232,222,212],input:[221,214,208],
+  white:[255,255,255],text:[38,34,32],secondary:[109,97,89],
+  hint:[163,154,147],green:[19,125,73]
+};
+function paint(pdf,kind,mode='text'){
+  const rgb=BRAND[kind];
+  if(mode==='fill')pdf.setFillColor(...rgb);
+  else if(mode==='stroke')pdf.setDrawColor(...rgb);
+  else pdf.setTextColor(...rgb);
+}
+function lineText(pdf,text,x,y,maxWidth,initialSize=8,alignment='left',minSize=5.5){
+  const value=String(text??'').replace(/\s+/g,' ').trim()||'—';
+  let size=initialSize;
+  pdf.setFontSize(size);
+  while(size>minSize&&pdf.getTextWidth(value)>maxWidth){
+    size=Math.max(minSize,size-.3);
+    pdf.setFontSize(size);
+  }
+  if(pdf.getTextWidth(value)<=maxWidth){
+    pdf.text(value,x,y,{align:alignment});return;
+  }
+  let truncated=value;
+  while(truncated.length>1&&pdf.getTextWidth(truncated+'…')>maxWidth)
+    truncated=truncated.slice(0,-1);
+  pdf.text(truncated+'…',x,y,{align:alignment});
+}
+function compactPrice(value){
+  const n=Number(value);
+  if(!Number.isFinite(n)||n<0)return '0,00';
+  return new Intl.NumberFormat('es-ES',{maximumFractionDigits:2}).format(n);
+}
+/* Per als titulars s'aprofiten les tipografies de la web, sense incrustar
+ * fonts alienes. El cos de la taula continua sent text seleccionable al PDF.
+ */
+async function brandedText(pdf,text,x,top,height,kind='text',family='Oswald',maxWidth=100){
+  const raw=String(text),px=56;
+  try{
+    await document.fonts?.load('600 '+px+'px "'+family+'"');
+    const canvas=document.createElement('canvas');
+    const ctx=canvas.getContext('2d');
+    if(!ctx)throw new Error('canvas');
+    const font='600 '+px+'px "'+family+'",sans-serif';
+    ctx.font=font;
+    const measure=Math.max(20,Math.ceil(ctx.measureText(raw).width)+14);
+    const line=Math.ceil(px*1.28);
+    canvas.width=measure*2;canvas.height=line*2;
+    ctx.scale(2,2);ctx.font=font;
+    ctx.textBaseline='alphabetic';
+    ctx.fillStyle='rgb('+BRAND[kind].join(',')+')';
+    ctx.fillText(raw,6,px*1.07);
+    const width=Math.min(maxWidth,measure/line*height);
+    pdf.addImage(canvas.toDataURL('image/png'),'PNG',x,top,width,height);
+    return width;
+  }catch{
+    pdf.setFont('helvetica','bold');paint(pdf,kind);
+    pdf.setFontSize(height*2.6);
+    lineText(pdf,raw,x,top+height*.8,maxWidth,height*2.6);
+    return Math.min(maxWidth,pdf.getTextWidth(raw));
+  }
+}
+/* Les icones es llegeixen del mateix sprite SVG que utilitza el comparador.
+ * Cap traçat ni estil d'icona es duplica al codi del PDF.
+ */
+async function sharedIcons(){
+  try{
+    const response=await fetch(ICON_SPRITE);
+    if(!response.ok)throw new Error('Sprite SVG no disponible');
+    const xml=new DOMParser().parseFromString(await response.text(),'image/svg+xml');
+    const outputs={};
+    const NS='http://www.w3.org/2000/svg';
+    for(const name of PDF_LAYOUT_VCC.rows.map(row=>row.icon)){
+      const symbol=xml.getElementById(name);
+      if(!symbol)continue;
+      const svg=document.createElementNS(NS,'svg');
+      svg.setAttribute('xmlns',NS);
+      svg.setAttribute('viewBox',symbol.getAttribute('viewBox')||'0 0 24 24');
+      svg.setAttribute('width','80');svg.setAttribute('height','80');
+      svg.setAttribute('fill','none');svg.setAttribute('stroke','#e9651b');
+      svg.setAttribute('stroke-width','1.9');
+      svg.setAttribute('stroke-linecap','round');svg.setAttribute('stroke-linejoin','round');
+      [...symbol.childNodes].forEach(node=>svg.appendChild(node.cloneNode(true)));
+      const img=new Image();
+      img.src='data:image/svg+xml;charset=utf-8,'+
+        encodeURIComponent(new XMLSerializer().serializeToString(svg));
+      await img.decode();
+      const canvas=document.createElement('canvas');
+      canvas.width=80;canvas.height=80;
+      const ctx=canvas.getContext('2d');
+      ctx.drawImage(img,0,0,80,80);
+      outputs[name]=canvas.toDataURL('image/png');
+    }
+    return outputs;
+  }catch{return {};}
+}
+
 export async function exportarComparacionPDF(flights,airlines){
   if(!Array.isArray(flights)||flights.length<1||flights.length>5)throw new Error('La comparación admite entre una y cinco opciones.');
   const {items,valid,lowest,winners}=resumirComparacion(flights);
@@ -91,107 +211,201 @@ export async function exportarComparacionPDF(flights,airlines){
     author:'Viajando con Cabeza',creator:'Viajando con Cabeza',
     keywords:'vuelos, comparativa, VCC, presupuesto, viaje'
   });
-  const pageW=297,pageH=210, margin=17;
+  const L=PDF_LAYOUT_VCC;
+  const pageW=L.pageWidth, pageH=L.pageHeight,margin=15;
   const now=new Date();
   const stamp=now.toLocaleDateString('es-ES',{day:'2-digit',month:'long',year:'numeric'});
   const names=Object.fromEntries(airlines);
-  const logo=await logoPng();
+  const [logo,icons]=await Promise.all([logoPng(),sharedIcons()]);
+  const winning=new Set(winners.map(item=>item.index));
+  const colW=(L.tableWidth-L.labelWidth)/items.length;
+  const isWinning=index=>winning.has(index);
+  pdf.setLineWidth(.3);
 
-  // Cabecera editorial: naranja, blanco, negro y sello SVG corporativo.
-  color(pdf,'orange','fill');pdf.rect(0,0,pageW,4,'F');
-  if(logo)pdf.addImage(logo,'PNG',margin,10,26,26);
+  // Fons editorial VCC i capçalera amb el logo real.
+  paint(pdf,'paper','fill');pdf.rect(0,0,pageW,pageH,'F');
+  paint(pdf,'orange','fill');pdf.rect(0,0,pageW,2.8,'F');
+  if(logo)pdf.addImage(logo,'PNG',margin,7.5,25,25);
   else{
-    color(pdf,'ink','draw');pdf.setLineWidth(.8);pdf.circle(margin+13,23,12,'S');
-    color(pdf,'orange');pdf.setFont('helvetica','bold');pdf.setFontSize(12);
-    pdf.text('VCC',margin+13,25.5,{align:'center'});
+    paint(pdf,'orange','stroke');pdf.setLineWidth(1);pdf.circle(margin+12.5,20,11,'S');
+    paint(pdf,'orange');pdf.setFont('helvetica','bold');pdf.setFontSize(15);
+    pdf.text('VCC',margin+12.5,22,{align:'center'});
   }
-  color(pdf,'ink');pdf.setFont('helvetica','bold');pdf.setFontSize(11);
-  pdf.text('VIAJANDO CON CABEZA',49,19);
-  pdf.setFontSize(21);pdf.text('COMPARATIVA DE VUELOS',49,30);
-  pdf.setFont('helvetica','normal');pdf.setFontSize(8.5);color(pdf,'muted');
-  pdf.text('Precio real: billete + equipaje + asiento + comida + traslado',49,36);
-  pdf.text('Generado el '+stamp,pageW-margin,22,{align:'right'});
-  pdf.text('Datos introducidos por el viajero',pageW-margin,29,{align:'right'});
-  color(pdf,'border','draw');pdf.setLineWidth(.45);pdf.line(margin,41,pageW-margin,41);
+  paint(pdf,'text');pdf.setFont('helvetica','bold');pdf.setFontSize(11);
+  pdf.text('VIAJANDO CON CABEZA',45,17);
+  paint(pdf,'secondary');pdf.setFont('helvetica','normal');pdf.setFontSize(8);
+  pdf.text('PLANIFICA TU VIAJE  /  VUELOS',45,24);
+  pdf.text('Generado el '+stamp,pageW-margin,17,{align:'right'});
+  pdf.text('Datos introducidos por el viajero',pageW-margin,24,{align:'right'});
+  paint(pdf,'line','stroke');pdf.setLineWidth(.45);pdf.line(margin,36,pageW-margin,36);
 
-  const summaryX=margin,summaryY=48,summaryW=pageW-2*margin,summaryH=33;
-  color(pdf,'light','fill');pdf.roundedRect(summaryX,summaryY,summaryW,summaryH,3,3,'F');
-  color(pdf,'orange','fill');pdf.roundedRect(summaryX,summaryY,4,summaryH,1,1,'F');
-  color(pdf,'orange');pdf.setFont('helvetica','bold');pdf.setFontSize(10);
-  pdf.text('NUESTRO CONSEJO VCC',summaryX+10,summaryY+8);
-  color(pdf,'ink');pdf.setFont('helvetica','bold');pdf.setFontSize(12);
-  if(lowest!==null){
-    const winnerText=winners.map(item=>'Opción '+String.fromCharCode(65+item.index)+' · '+label(item.flight,names)).join(' / ');
-    cellText(pdf,winnerText,summaryX+10,summaryY+18,summaryW-95,1,12);
-    color(pdf,'orange');pdf.setFontSize(20);
-    pdf.text(euros.format(lowest),summaryX+summaryW-10,summaryY+20,{align:'right'});
-    color(pdf,'muted');pdf.setFont('helvetica','normal');pdf.setFontSize(7.5);
-    const saves=valid.filter(item=>item.total>lowest+.005).map(item=>
-      euros.format(item.total-lowest)+' frente a opción '+String.fromCharCode(65+item.index));
-    const note=saves.length?'Ahorro: '+saves.join('  ·  '):
-      'Las opciones con precio tienen el mismo coste total.';
-    cellText(pdf,note,summaryX+10,summaryY+28,summaryW-20,1,7.5);
-  }else{
-    pdf.text('Ya puedes guardar la opción introducida',summaryX+10,summaryY+19);
-    color(pdf,'muted');pdf.setFont('helvetica','normal');pdf.setFontSize(8);
-    pdf.text('Añade otro billete para calcular el ahorro comparado.',summaryX+10,summaryY+27);
+  paint(pdf,'orange');pdf.setFont('helvetica','bold');pdf.setFontSize(7.6);
+  pdf.text('COMPARA ANTES DE RESERVAR',margin,44);
+  const firstWidth=await brandedText(pdf,'COMPARA EL',margin,47,9,'text','Oswald',61);
+  await brandedText(pdf,'PRECIO REAL',margin+firstWidth+3,47,9,'orange','Oswald',67);
+  paint(pdf,'secondary');pdf.setFont('helvetica','normal');pdf.setFontSize(8);
+  pdf.text('Cada columna es un vuelo; cada fila, un gasto.',pageW-margin,49,{align:'right'});
+  pdf.text('Hasta cinco opciones con el mismo criterio.',pageW-margin,55,{align:'right'});
+
+  // Comparador: exactament la mateixa estructura que a la captura.
+  const tx=L.tableX,ty=L.tableY,tw=L.tableWidth,labelW=L.labelWidth;
+  const tableH=L.headHeight+L.rows.reduce((n,row)=>n+row.height,0);
+  paint(pdf,'white','fill');pdf.roundedRect(tx,ty,tw,tableH,3,3,'F');
+  paint(pdf,'line','stroke');pdf.setLineWidth(.35);pdf.roundedRect(tx,ty,tw,tableH,3,3,'S');
+  paint(pdf,'header','fill');pdf.rect(tx+.25,ty+.25,tw-.5,L.headHeight-.25,'F');
+  paint(pdf,'text');pdf.setFont('helvetica','bold');pdf.setFontSize(9.2);
+  pdf.text('Concepto',tx+3,ty+7);
+  for(const [i,item] of items.entries()){
+    const xx=tx+labelW+i*colW;
+    paint(pdf,isWinning(item.index)?'winner':'header','fill');
+    pdf.rect(xx,ty,colW,L.headHeight,'F');
+    await brandedText(pdf,'Opción '+String.fromCharCode(65+item.index),
+      xx+colW*.12,ty+2.2,6.5,isWinning(item.index)?'orangeDark':'text','Oswald',colW*.76);
   }
 
-  // Tabla apaisada: hasta cinco columnas; sin valores inventados.
-  const x=margin,y=88,w=pageW-2*margin,labelW=53,colW=(w-labelW)/items.length;
-  const rows=[
-    {label:'AEROLÍNEA',field:'airline',height:13},
-    {label:'TRAYECTO / AEROPUERTO',field:'route',height:16},
-    {label:'BILLETE',field:'base',height:9},
-    {label:'EQUIPAJE',field:'baggage',height:9},
-    {label:'ASIENTO',field:'seat',height:9},
-    {label:'COMIDA Y BEBIDA',field:'food',height:9},
-    {label:'TRASLADO AEROPUERTO',field:'transfer',height:9},
-    {label:'TOTAL POR OPCIÓN',field:'total',height:13}
-  ];
-  let cy=y;
-  color(pdf,'ink','fill');pdf.roundedRect(x,cy,w,10,2,2,'F');
-  color(pdf,'white');pdf.setFont('helvetica','bold');pdf.setFontSize(8.5);
-  pdf.text('CONCEPTO',x+4,cy+6.7);
-  items.forEach(({index},i)=>pdf.text('OPCIÓN '+String.fromCharCode(65+index),x+labelW+i*colW+colW/2,cy+6.7,{align:'center'}));
-  cy+=10;
-  for(const [ri,row] of rows.entries()){
-    const totalRow=row.field==='total';
-    color(pdf,totalRow?'light':ri%2?'cream':'white','fill');
-    pdf.rect(x,cy,w,row.height,'F');
-    color(pdf,'border','draw');pdf.setLineWidth(.26);pdf.line(x,cy+row.height,x+w,cy+row.height);
-    color(pdf,totalRow?'orange':'ink');pdf.setFont('helvetica','bold');
-    pdf.setFontSize(totalRow?9:8);
-    pdf.text(row.label,x+4,cy+row.height/2+2.5);
-    items.forEach(({flight,index,total,valid:isValid},i)=>{
-      const cellX=x+labelW+i*colW, cx=cellX+colW/2;
-      const winner=winners.some(item=>item.index===index);
-      if(totalRow&&winner){
-        color(pdf,'orange','fill');pdf.rect(cellX,cy,colW,row.height,'F');
+  let cy=ty+L.headHeight;
+  for(const [rowIndex,row] of L.rows.entries()){
+    const totalRow=row.key==='total',h=row.height;
+    paint(pdf,'white','fill');pdf.rect(tx,cy,tw,h,'F');
+    if(totalRow){paint(pdf,'line','stroke');pdf.setLineWidth(.48);pdf.line(tx,cy,tx+tw,cy);}
+    else{paint(pdf,'line','stroke');pdf.setLineWidth(.23);pdf.line(tx,cy+h,tx+tw,cy+h);}
+    if(icons[row.icon]){
+      pdf.addImage(icons[row.icon],'PNG',tx+3,cy+(h-5.2)/2,5.2,5.2);
+    }else{
+      paint(pdf,'orange','fill');pdf.circle(tx+5.5,cy+h/2,1.6,'F');
+    }
+    paint(pdf,totalRow?'orangeDark':'text');
+    pdf.setFont('helvetica','bold');pdf.setFontSize(totalRow?8.2:8);
+    lineText(pdf,row.name,tx+10,cy+h/2+2.7,labelW-12,totalRow?8.2:8,'left',7);
+    for(const [i,item] of items.entries()){
+      const xx=tx+labelW+i*colW,innerX=xx+1.5,innerW=colW-3;
+      if(!totalRow&&isWinning(item.index)){
+        paint(pdf,'pale','fill');pdf.rect(xx,cy,colW,h,'F');
       }
-      color(pdf,totalRow&&winner?'white':totalRow?'ink':'muted');
-      pdf.setFont('helvetica',totalRow?'bold':'normal');
-      if(row.field==='airline'){
-        cellText(pdf,label(flight,names),cellX+3,cy+6,Math.max(5,colW-6),2,8);
-      }else if(row.field==='route'){
-        cellText(pdf,flight.route||'—',cellX+3,cy+6,Math.max(5,colW-6),2,7.5);
+      if(totalRow){
+        paint(pdf,isWinning(item.index)?'orange':'total','fill');
+        pdf.roundedRect(innerX,cy+2,innerW,h-4,1.6,1.6,'F');
+        if(!isWinning(item.index)){
+          paint(pdf,'winner','stroke');pdf.setLineWidth(.22);
+          pdf.roundedRect(innerX,cy+2,innerW,h-4,1.6,1.6,'S');
+        }
+        const value=item.valid?euros.format(item.total):'—';
+        await brandedText(pdf,value,innerX+1.7,cy+3,9,
+          isWinning(item.index)?'white':'orangeDark','Oswald',innerW-3.4);
+        continue;
+      }
+      // Camp amb contorn suau, com els controls de la taula HTML.
+      paint(pdf,'white','fill');pdf.roundedRect(innerX,cy+1.6,innerW,h-3.2,1.45,1.45,'F');
+      paint(pdf,'input','stroke');pdf.setLineWidth(.25);
+      pdf.roundedRect(innerX,cy+1.6,innerW,h-3.2,1.45,1.45,'S');
+      const val=item.flight[row.key];
+      if(row.key==='airline'){
+        const text=val?label(item.flight,names):'Elige aerolínea';
+        paint(pdf,val?'text':'hint');pdf.setFont('helvetica','normal');
+        lineText(pdf,text,innerX+2.5,cy+h/2+2.5,innerW-6,7.7,'left',6.4);
+        // desplegable: fletxa discreta de les targetes originals
+        paint(pdf,'secondary','stroke');pdf.setLineWidth(.35);
+        const ax=innerX+innerW-3.7,ay=cy+h/2;
+        pdf.line(ax-1.05,ay-.6,ax,ay+.4);pdf.line(ax,ay+.4,ax+1.05,ay-.6);
+      }else if(row.key==='route'){
+        const text=String(val||'').trim()||'Ej. BCN → ARN';
+        paint(pdf,val?'text':'hint');pdf.setFont('helvetica','normal');
+        const chunks=pdf.splitTextToSize(text,Math.max(10,innerW-5));
+        pdf.setFontSize(7.1);
+        if(chunks.length>1){
+          pdf.text(chunks.slice(0,2),innerX+2.5,cy+5.6);
+        }else lineText(pdf,text,innerX+2.5,cy+h/2+2.2,innerW-5,7.1);
       }else{
-        const value=totalRow?(isValid?euros.format(total):'—'):
-          (String(flight[row.field]??'').trim()!==''?euros.format(amount(flight[row.field])):'—');
-        pdf.setFontSize(totalRow?10:8.5);
-        pdf.text(value,cx,cy+row.height/2+2.5,{align:'center'});
+        const hasValue=val!==null&&val!==undefined&&String(val).trim()!=='';
+        paint(pdf,hasValue?'text':'hint');pdf.setFont('helvetica','normal');
+        lineText(pdf,hasValue?compactPrice(val):'0,00',
+          innerX+innerW-2,cy+h/2+2.5,innerW-4,8,'right',6);
       }
-    });
-    cy+=row.height;
+    }
+    cy+=h;
+  }
+  paint(pdf,'line','stroke');pdf.setLineWidth(.35);
+  pdf.roundedRect(tx,ty,tw,tableH,3,3,'S');
+
+  // La recomanació queda a la DRETA, a la mateixa altura que el primer camp.
+  const sx=L.adviceX,sy=L.adviceY,sw=L.adviceWidth,sh=L.adviceHeight;
+  paint(pdf,'white','fill');pdf.roundedRect(sx,sy,sw,sh,3,3,'F');
+  paint(pdf,'winner','stroke');pdf.setLineWidth(.48);pdf.roundedRect(sx,sy,sw,sh,3,3,'S');
+  await brandedText(pdf,'Nuestro consejo',sx+4,sy+4,7,'orange','Caveat',sw-8);
+  await brandedText(pdf,'MEJOR OPCIÓN VCC',sx+4,sy+12,8,'text','Oswald',sw-8);
+
+  if(logo)pdf.addImage(logo,'PNG',sx+5,sy+27,19,19);
+  else{paint(pdf,'orange','stroke');pdf.circle(sx+14.5,sy+36.5,9,'S');}
+  paint(pdf,'orangeDark');pdf.setFont('helvetica','bold');pdf.setFontSize(7);
+  pdf.text('Consejo VCC',sx+14.5,sy+49.3,{align:'center'});
+
+  const detailX=sx+27,detailW=sw-31;
+  paint(pdf,'text');pdf.setFont('helvetica','bold');
+  const winnerText=lowest!==null
+    ?(winners.length>1?'Empate: ':'')+
+      winners.map(item=>'Opción '+String.fromCharCode(65+item.index)).join(' y ')+
+      (winners.length===1?' · '+label(winners[0].flight,names):'')
+    :'Introduce más vuelos';
+  const winnerLines=pdf.splitTextToSize(winnerText,detailW);
+  pdf.setFontSize(8.2);
+  pdf.text(winnerLines.slice(0,2),detailX,sy+30.3);
+  if(lowest!==null)
+    await brandedText(pdf,euros.format(lowest),detailX,sy+37,10.4,'orangeDark','Oswald',detailW);
+  else{
+    paint(pdf,'secondary');pdf.setFont('helvetica','normal');pdf.setFontSize(8);
+    pdf.text('—',detailX,sy+45);
+  }
+  paint(pdf,'secondary');pdf.setFont('helvetica','normal');pdf.setFontSize(7.1);
+  pdf.text('Coste total de esta opción',detailX,sy+49.7);
+
+  paint(pdf,'line','stroke');pdf.setLineWidth(.4);
+  pdf.line(sx+4,sy+58,sx+sw-4,sy+58);
+  paint(pdf,'orangeDark');pdf.setFont('helvetica','bold');pdf.setFontSize(8.5);
+  pdf.text('LO QUE TE AHORRAS',sx+4,sy+65);
+  if(lowest!==null){
+    const savings=valid.filter(item=>item.total>lowest+.005);
+    if(savings.length){
+      for(const [i,item] of savings.entries()){
+        const y=sy+73+i*6.4;
+        paint(pdf,'secondary');pdf.setFont('helvetica','normal');pdf.setFontSize(7);
+        const initial='Te ahorras ';
+        pdf.text(initial,sx+4,y);
+        const offset=pdf.getTextWidth(initial);
+        paint(pdf,'green');pdf.setFont('helvetica','bold');pdf.setFontSize(9.5);
+        const eurosSaved=euros.format(item.total-lowest);
+        const amountWidth=pdf.getTextWidth(eurosSaved);
+        pdf.text(eurosSaved,sx+4+offset,y);
+        paint(pdf,'secondary');pdf.setFont('helvetica','normal');pdf.setFontSize(6.9);
+        const remainder=' frente a opción '+String.fromCharCode(65+item.index);
+        if(offset+amountWidth+pdf.getTextWidth(remainder)>sw-8){
+          pdf.text('Frente a opción '+String.fromCharCode(65+item.index),
+            sx+sw-4,y+3.4,{align:'right'});
+        }else pdf.text(remainder,sx+4+offset+amountWidth,y);
+      }
+    }else{
+      paint(pdf,'secondary');pdf.setFont('helvetica','normal');pdf.setFontSize(7.3);
+      pdf.text('Todas las opciones tienen el mismo',sx+4,sy+74);
+      pdf.text('precio total.',sx+4,sy+79);
+    }
+  }else{
+    paint(pdf,'secondary');pdf.setFont('helvetica','normal');pdf.setFontSize(7.2);
+    pdf.text('Introduce dos billetes para ver',sx+4,sy+74);
+    pdf.text('cuánto puedes ahorrar.',sx+4,sy+79);
+  }
+  if(valid.length<=3){
+    paint(pdf,'secondary');pdf.setFont('helvetica','normal');pdf.setFontSize(7.2);
+    pdf.text('Compara importes finales y ten en cuenta',sx+4,sy+96);
+    pdf.text('también aeropuertos y horarios.',sx+4,sy+101);
   }
 
-  color(pdf,'muted');pdf.setFont('helvetica','normal');pdf.setFontSize(7.7);
-  pdf.text('Importes facilitados por ti. VCC no consulta tarifas en directo ni garantiza precios o disponibilidad.',margin,187);
-  pdf.text('Comprueba equipaje, condiciones de cambio y aeropuerto antes de reservar.',margin,192);
-  color(pdf,'border','draw');pdf.line(margin,198,pageW-margin,198);
-  color(pdf,'orange');pdf.setFont('helvetica','bold');pdf.setFontSize(9);
+  // Nota editorial i peu comú en el mateix estil del blog.
+  paint(pdf,'secondary');pdf.setFont('helvetica','normal');pdf.setFontSize(7.2);
+  pdf.text('Importes introducidos por ti. No son tarifas consultadas ni precios garantizados.',margin,190.5);
+  pdf.text('Comprueba el equipaje, la tarifa, los horarios y el aeropuerto antes de reservar.',margin,194.7);
+  paint(pdf,'line','stroke');pdf.setLineWidth(.4);pdf.line(margin,198,pageW-margin,198);
+  paint(pdf,'orangeDark');pdf.setFont('helvetica','bold');pdf.setFontSize(9);
   pdf.text('VCC',margin,204);
-  color(pdf,'muted');pdf.setFont('helvetica','normal');pdf.setFontSize(8.2);
+  paint(pdf,'secondary');pdf.setFont('helvetica','normal');pdf.setFontSize(8);
   pdf.text('viajandoconcabeza.com',margin+13,204);
   pdf.text('COMPARATIVA DE VUELOS  ·  1/1',pageW-margin,204,{align:'right'});
 
