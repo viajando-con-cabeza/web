@@ -453,3 +453,9 @@
  .al-page .al-tip h3{font-size:16px;margin-bottom:4px}
  .al-page .al-tip p{font-size:10.75px;line-height:1.35}
 }
+
+/* Subheader · salt al encabezado real, no al contenedor con padding.
+   Deja sobretítulo y título visibles inmediatamente bajo ambas barras fijas. */
+.al-page :is(#al-platforms-anchor,#al-compare-anchor,#al-save-anchor){
+ scroll-margin-top:calc(var(--vcc-subheader-top,50px) + 39px + 12px);
+}
