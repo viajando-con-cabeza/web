@@ -202,3 +202,19 @@ body>.shared-header .shared-menu,body>.shared-header .shared-menu a{font-family:
     max-height:173px!important;flex-basis:173px!important;
   }
 }
+
+/* Guía Estocolmo: fotografía propia del centro de la ciudad. Conserva
+   el degradado original de la portada definido en .st-hero::after. */
+.st-shell .st-hero {
+  background-image:url("https://img.viajandoconcabeza.com/__vcc_preview/visor/destinos/suecia/estocolmo/2026-dia6/DSC07935-VSCO.avif")!important;
+  background-size:cover!important;
+  background-position:center 48%!important;
+}
+
+/* Línea neutra de 1px entre fotografía (también logos VCC) y contenido.
+   Border-box mantiene exactamente la altura de cada tarjeta. */
+.st-discover .st-card-carousel .guide-image-wrap,
+.st-discover .st-featured-itinerary > img.vcc-guide-cover-132 {
+  box-sizing:border-box!important;
+  border-bottom:1px solid #dedbd6!important;
+}
