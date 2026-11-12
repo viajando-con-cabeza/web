@@ -78,25 +78,6 @@ body:has(.contact-page) .contact-page .contact-hero::after {
   background-color: var(--vcc-portada-base, #fff) !important;
   background-image: none !important;
 }
-.vcc-portada-transparente::before {
-  content: "" !important;
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-  background-image: var(--vcc-portada-imatge) !important;
-  background-size: cover !important;
-  background-position: var(--vcc-portada-posicio, center) !important;
-  background-repeat: no-repeat !important;
-  opacity: 1 !important;
-  filter: none !important;
-  -webkit-mask-image: var(--vcc-portada-fade) !important;
-  mask-image: var(--vcc-portada-fade) !important;
-  -webkit-mask-repeat: no-repeat;
-  mask-repeat: no-repeat;
-  -webkit-mask-size: 100% 100%;
-  mask-size: 100% 100%;
-}
 .vcc-portada-transparente > .mv-container {
   position: relative;
   z-index: 1;
@@ -271,7 +252,3 @@ html body .vl-page .vl-hero.tv-hero.vcc-portada-transparente{
   --vcc-portada-posicio:center center;
 }
 
-/* Contacto: la imagen de origen incluye bandas blancas de 20px arriba y abajo.
-   Ocultamos sus bordes dentro del hero, sin cambiar margenes ni dimensiones. */
-body:has(.contact-page) .contact-page .contact-hero{overflow:hidden}
-body:has(.contact-page) .contact-page .contact-hero::before{transform:scaleY(1.10);transform-origin:center}
