@@ -4,7 +4,7 @@ window.COUNTRY_CONFIG={
   continent:"Europa",
   tagline:"Ciudades tranquilas, naturaleza y diseño nórdico",
   description:"Guías, rutas y recomendaciones para descubrir Suecia sin intentar verlo todo.",
-  heroImage:"https://img.viajandoconcabeza.com/destinos/suecia/goteborg/2026-dia1/DSC06560.webp",
+  heroImage:"https://img.viajandoconcabeza.com/destinos/suecia/estocolmo-archipelago/2026-dia8/DSC08332.avif",
   inspirationImage:"https://img.viajandoconcabeza.com/destinos/suecia/goteborg/2026-dia1/DSC06553.webp",
   paths:{home:"../../index.html",destinations:"../index.html"},
   sections:{
@@ -16,7 +16,7 @@ window.COUNTRY_CONFIG={
   },
   facts:[['CAPITAL','Estocolmo'],['IDIOMA','Sueco'],['MONEDA','Corona sueca · SEK'],['POBLACIÓN','≈ 10,6 millones']],
   guides:[
-    {title:'Estocolmo',tag:'CIUDAD',image:'/configuracion/imagenes/externas/unsplash/photo-1509356843151-3e7d96241e11.webp',imageHref:'estocolmo/index.html',text:'Qué ver, barrios, transporte, gastronomía y consejos para descubrir la capital sueca.',days:'3 días',scores:{experience:9.1,photogenic:9.3,things:9.0,food:8.4,transport:9.3,safety:9.5,value:7.4},available:true,href:'estocolmo/index.html'},
+    {title:'Estocolmo',tag:'CIUDAD',image:'/configuracion/imagenes/fondos/optimizadas/estocolmo-itinerario-dia1-960.webp',imageHref:'estocolmo/index.html',text:'Qué ver, barrios, transporte, gastronomía y consejos para descubrir la capital sueca.',days:'3 días',scores:{experience:9.1,photogenic:9.3,things:9.0,food:8.4,transport:9.3,safety:9.5,value:7.4},available:true,href:'estocolmo/index.html'},
     {title:'Gotemburgo',tag:'CIUDAD',image:'https://img.viajandoconcabeza.com/destinos/suecia/goteborg/2026-dia1/DSC06553.webp',fallbackImage:'/configuracion/imagenes/externas/unsplash/photo-1508189860359-777d945909ef.webp',text:'Una guía práctica para conocer Gotemburgo, sus barrios, ambiente portuario y alrededores.',days:'2–3 días',scores:{experience:8.5,photogenic:8.3,things:8.2,food:8.7,transport:9.0,safety:9.4,value:7.7},available:false},
     {title:'Costa Oeste',tag:'REGIÓN',image:'/configuracion/imagenes/externas/unsplash/photo-1520769945061-0a448c463865.webp',text:'Pueblos costeros, islas, carreteras panorámicas y rincones del oeste de Suecia.',days:'2–4 días',scores:{experience:9.4,photogenic:9.6,things:8.7,food:8.6,transport:7.7,safety:9.6,value:8.0},available:false},
     {title:'Dalarna',tag:'REGIÓN',image:'/configuracion/imagenes/externas/unsplash/photo-1500530855697-b586d89ba3ee.webp',text:'Naturaleza, pueblos, tradición sueca y paisajes para bajar el ritmo y recorrer con calma.',days:'3–5 días',scores:{experience:9.2,photogenic:9.5,things:8.5,food:7.9,transport:7.4,safety:9.7,value:8.2},available:false},
