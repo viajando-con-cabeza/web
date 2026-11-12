@@ -165,9 +165,10 @@ jobs:
       - name: Validate Cuándo ir technical SEO
         run: node configuracion/scripts/verificar-seo-cuando-ir.mjs
 
-      - name: Validate shared galleries and Stockholm itinerary
+      - name: Validate galleries, subheaders and Stockholm itinerary
         run: |
           node configuracion/scripts/validar-galeries.mjs
+          node configuracion/scripts/validar-subheaders.mjs
           node configuracion/tests/itinerario-integridad.cjs
 
       - name: Validate Stockholm 16 imprescindibles (SEO, galleries and map)
