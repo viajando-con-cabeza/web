@@ -6,6 +6,8 @@ import fs from 'node:fs';
 
 const paths=[
   'configuracion/css/inicio-vcc.css',
+  'configuracion/css/plantillas/entradas-pases-vcc.css',
+  'configuracion/css/destinos/suecia/estocolmo/presupuesto-head-core-v1.css',
   'configuracion/css/paginas-principales-unificadas.css',
   'configuracion/css/plantillas/que-llevar-vcc-quality-optimizado.css',
   'configuracion/css/destinos/suecia/estocolmo/presupuesto-perfiles-desplegables.css'
