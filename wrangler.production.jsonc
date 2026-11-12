@@ -3,6 +3,27 @@
   "compatibility_date": "2026-09-05",
   "assets": {
     "directory": "./",
-    "html_handling": "auto-trailing-slash"
-  }
+    "html_handling": "auto-trailing-slash",
+    "binding": "ASSETS",
+    "run_worker_first": [
+      "/api/contact"
+    ]
+  },
+  "main": "./configuracion/workers/web-vcc.js",
+  "send_email": [
+    {
+      "name": "CONTACT_EMAIL",
+      "destination_address": "adminviajandoconcabeza@gmail.com"
+    }
+  ],
+  "ratelimits": [
+    {
+      "name": "CONTACT_RATE_LIMIT",
+      "namespace_id": "10427",
+      "simple": {
+        "limit": 5,
+        "period": 60
+      }
+    }
+  ]
 }
