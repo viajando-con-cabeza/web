@@ -9,8 +9,8 @@ import path from 'node:path';
 import {fileURLToPath} from 'node:url';
 const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'../..');
 const manifest=JSON.parse(fs.readFileSync(path.join(root,'configuracion/datos/compilacion-css-vcc.json'),'utf8'));
-const rx=/@import\\s+url\\(\\s*(['"]?)(\\/configuracion\\/css\\/[^)"']+?\\.css(?:\\?[^)"']*)?)\\1\\s*\\)\\s*;/g;
-const stripComments=text=>text.replace(/\\/\\*[\\s\\S]*?\\*\\//g,'');
+const rx=/@import\s+url\(\s*(['"]?)(\/configuracion\/css\/[^)"']+?\.css(?:\?[^)"']*)?)\1\s*\)\s*;/g;
+const stripComments=text=>text.replace(/\/\*[\s\S]*?\*\//g,'');
 function expand(rel,ancestors=[]) {
  if(ancestors.includes(rel))throw new Error('Cicle @import: '+[...ancestors,rel].join(' → '));
  const full=path.join(root,rel);
@@ -19,17 +19,17 @@ function expand(rel,ancestors=[]) {
  source=source.replace(rx,(_whole,_quote,uri)=>{
    const target=decodeURIComponent(uri.split('?')[0]).slice(1);
    const css=expand(target,[...ancestors,rel]);
-   return '\\n/* === '+target+' === */\\n'+css.trimEnd()+'\\n';
+   return '\n/* === '+target+' === */\n'+css.trimEnd()+'\n';
  });
- if(/@import\\b/.test(stripComments(source)))throw new Error('Import no suportat a '+rel+'; només URL absolutes locals');
- const relativeAssets=[...stripComments(source).matchAll(/url\\(\\s*['"]?([^'")\\s]+)['"]?\\s*\\)/g)]
+ if(/@import\b/.test(stripComments(source)))throw new Error('Import no suportat a '+rel+'; només URL absolutes locals');
+ const relativeAssets=[...stripComments(source).matchAll(/url\(\s*['"]?([^'")\s]+)['"]?\s*\)/g)]
    .map(m=>m[1]).filter(url=>!url.startsWith('/')&&!url.startsWith('data:')&&!/^https?:/.test(url)&&!url.startsWith('#'));
  if(relativeAssets.length)throw new Error('Revisar URL relativa CSS: '+rel+' '+relativeAssets[0]);
  return source;
 }
 let errors=0;
 for(const {entry,out} of manifest.bundles){
- const generated='/* AUTO-GENERAT. Edita els CSS originals i executa: npm run css:build.\\n * Cap @import bloquejant: la cascada es conserva i es carreguen 8 fulls menys.\\n */\\n'.replaceAll('\\n','\n')+expand(entry);
+ const generated='/* AUTO-GENERAT. Edita els CSS originals i executa: npm run css:build.\n * Cap @import bloquejant: la cascada es conserva i es carreguen 8 fulls menys.\n */\n'.replaceAll('\n','\n')+expand(entry);
  const output=path.join(root,out);
  if(process.argv.includes('--write')){fs.mkdirSync(path.dirname(output),{recursive:true});fs.writeFileSync(output,generated);console.log('CSS compilat:',out);}
  else if(!fs.existsSync(output)||fs.readFileSync(output,'utf8')!==generated){console.error('CSS desactualitzat: '+out+' (executa npm run css:build)');errors++;}
