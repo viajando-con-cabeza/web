@@ -44,7 +44,8 @@
 
 
 
-  // Carrusel de hoteles en móvil: VCC primero. Escritorio mantiene el orden HTML.
+  // Carrusel de hoteles en móvil: mostrar de entrada el tercer hotel (VCC).
+  // Mantener el orden real de la lista: Lujo, Medio, VCC y Mochilero.
   const hotelMedia=window.matchMedia('(max-width: 760px)');
   const hotelCarousels=Array.from(root.querySelectorAll('.dv-zone-hotels-list')).map(track=>{
     const hotels=Array.from(track.querySelectorAll(':scope > .dv-zone-hotel'));
@@ -83,11 +84,22 @@
     nextHotel.addEventListener('click',()=>slide(1));
     track.addEventListener('scroll',()=>requestAnimationFrame(sync),{passive:true});
     const setMobile=(mobile,reset=false)=>{
-      const target=mobile?[vcc,...hotels.filter(hotel=>hotel!==vcc)]:hotels;
-      const changed=target.some((hotel,i)=>track.children[i]!==hotel);
-      if(changed)track.append(...target);
-      if(changed||reset)track.scrollLeft=0;
-      requestAnimationFrame(sync);
+      if(reset){
+        // No reordenar nodos: el VCC sigue tercero en HTML y en el recorrido.
+        // Posicionar el carrusel directamente en esa tarjeta sin animación.
+        const inView=track.clientWidth>0&&vcc.getBoundingClientRect().width>0;
+        const target=mobile&&inView
+          ? Math.max(0,track.scrollLeft+vcc.getBoundingClientRect().left-track.getBoundingClientRect().left)
+          : 0;
+        track.style.scrollBehavior='auto';
+        track.scrollLeft=target;
+        requestAnimationFrame(()=>{
+          track.style.scrollBehavior='';
+          sync();
+        });
+      }else{
+        requestAnimationFrame(sync);
+      }
     };
     return {setMobile,sync};
   }).filter(Boolean);
