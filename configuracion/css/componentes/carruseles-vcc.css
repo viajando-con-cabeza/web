@@ -40,8 +40,17 @@
  :is(.budget-vcc,.sv-page) .vcc-editorial-carousel .vcc-editorial-card{flex:0 0 100%!important}
  :is(.budget-vcc,.sv-page) .vcc-editorial-carousel .vcc-editorial-track{--vcc-editorial-gap:10px}
 }
-/* Seguros: mismas flechas circulares que el carrusel editorial; en móvil
-   permanecen sobre los extremos de la tarjeta sin estrecharla. */
+/* Seguros utiliza exactamente la estructura de 3 columnas de Presupuesto:
+   flecha · track · flecha. En móvil, ambas flechas se superponen a la tarjeta. */
+.sv-page .vcc-editorial-carousel{
+ display:grid;grid-template-columns:30px minmax(0,1fr) 30px;
+ align-items:center;gap:10px;position:relative;min-width:0
+}
+.sv-page .vcc-editorial-carousel > .sv-arrow{
+ position:static!important;top:auto!important;left:auto!important;right:auto!important;
+ transform:none!important;margin:0!important;z-index:2
+}
+.sv-page .vcc-editorial-carousel > .sv-track{min-width:0}
 .sv-page .vcc-editorial-carousel .sv-arrow{
  box-sizing:border-box!important;width:36px!important;height:36px!important;
  border:1px solid #c7aa97!important;border-radius:50%!important;
@@ -50,10 +59,13 @@
  padding:0!important
 }
 .sv-page .vcc-editorial-carousel .sv-arrow:hover:not(:disabled){background:#fff1e8!important}
-@media(max-width:600px){
- .sv-page .vcc-editorial-carousel{padding-top:0!important}
- .sv-page .vcc-editorial-carousel .sv-controls{height:100%;inset:0;width:100%;pointer-events:none}
- .sv-page .vcc-editorial-carousel .sv-arrow{top:50%;transform:translateY(-50%)!important;pointer-events:auto}
- .sv-page .vcc-editorial-carousel .sv-prev{left:2px}
- .sv-page .vcc-editorial-carousel .sv-next-arrow{right:2px}
+@media(max-width:760px){
+ .sv-page .vcc-editorial-carousel{display:block!important;position:relative!important;padding:0!important;gap:0!important}
+ .sv-page .vcc-editorial-carousel > .sv-track{width:100%;min-width:0}
+ .sv-page .vcc-editorial-carousel > .sv-arrow{
+   position:absolute!important;top:50%!important;bottom:auto!important;
+   transform:translateY(-50%)!important;pointer-events:auto!important;z-index:3
+ }
+ .sv-page .vcc-editorial-carousel > .sv-prev{left:2px!important;right:auto!important}
+ .sv-page .vcc-editorial-carousel > .sv-next-arrow{right:2px!important;left:auto!important}
 }
