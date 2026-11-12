@@ -108,8 +108,9 @@ for(const [name,regex] of [
 ]){
   try{
     const obj=JSON.parse(html.match(regex)?.[1]||'null');
-    const scoredIds=data.filter(place=>Number.isFinite(place[7])).map(place=>place[0]);
-    const required=name==='costes'?ids:scoredIds;
+    // Drottningholm té un comentari editorial encara que no tingui nota numèrica.
+    // Els comentaris es validen per a totes les 16 fitxes.
+    const required=ids;
     verify(obj && required.every(id=>typeof obj[id]!=='undefined') &&
       Object.keys(obj).length===required.length,
       'Datos: faltan '+name+' en las fichas a las que corresponden');
