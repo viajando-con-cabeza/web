@@ -9,6 +9,7 @@ import crypto from "node:crypto";
 import {ROOT, approvedFiles} from "./lib/publicacion-vcc.mjs";
 const manifestPath="configuracion/imagenes/fondos/optimizadas/manifest.json";
 const cssPath="configuracion/css/componentes/portadas-rapidas-vcc.css";
+const sharedCorePath="configuracion/css/componentes/vcc-core-compartit.css";
 const write=process.argv.includes("--write");
 const issues=[],updated=[];
 const file=p=>path.join(ROOT,p);
@@ -72,6 +73,11 @@ const text=css.join("\n")+"\n";
 sync(cssPath,text);
 const linkHash=crypto.createHash("sha256").update(text).digest("hex").slice(0,12);
 const link='<link rel="stylesheet" data-vcc-fast-heroes href="/'+cssPath+'?v='+linkHash+'">';
+// La navegacio no pot esperar que site-header.js injecti el CSS després del DOM.
+// El mateix CSS compartit es carrega ara al <head> de totes les pàgines aprovades.
+if(!fs.existsSync(file(sharedCorePath)))throw Error("Falta el CSS compartit. Executa npm run css:build");
+const coreHash=crypto.createHash("sha256").update(fs.readFileSync(file(sharedCorePath))).digest("hex").slice(0,12);
+const coreLink='<link rel="stylesheet" data-vcc-core-styles href="/'+sharedCorePath+'?v='+coreHash+'">';
 const named=new Map(pages.map(x=>[x[0],x]));
 const originalRE=/\/configuracion\/imagenes\/fondos\/(fondos-[\w-]+)\.webp(?:\?[^"'\s<)]*)?/i;
 let pagesChanged=0;
@@ -121,6 +127,13 @@ for(const p of approvedFiles){
     // Evitem nous salts de linia a cada generacio; la sortida ha de ser idempotent.
     html=html.replace(/(?:\r?\n[ \t]*){2,}(?=<\/head\s*>)/i,"\n");
     html=html.replace(/<\/head\s*>/i,link+"\n</head>");
+  }
+  // Prevenir FOUC/CLS: el CSS del header i dels tokens arriba amb l'HTML.
+  // Es reescriu idempotentment amb hash de contingut per compartir caché.
+  html=html.replace(/<link\b[^>]*data-vcc-core-styles[^>]*>\s*/gi,"");
+  if(html.includes('/configuracion/js/site-header.js')){
+    html=html.replace(/(?:\r?\n[ \t]*){2,}(?=<\/head\s*>)/i,"\n");
+    html=html.replace(/<\/head\s*>/i,coreLink+"\n</head>");
   }
   if(html!==original){pagesChanged++;sync(p,html);}
 }

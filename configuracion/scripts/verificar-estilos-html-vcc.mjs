@@ -65,6 +65,10 @@ for(const file of published){
  if(localCSS.length>16)failures.push(file+': '+localCSS.length+' CSS locals (màxim 16, agrupa components)');
  if(new Set(localCSS).size!==localCSS.length)failures.push(file+': fulls CSS duplicats');
  if(/<style\b/i.test(html))failures.push(file+': no incloure blocs <style> a HTML publicat');
+ // CSS base disponible abans d'executar JavaScript: evita reflows del menú.
+ const coreTags=[...html.matchAll(/<link\b[^>]*data-vcc-core-styles[^>]*>/gi)];
+ if(coreTags.length!==1 || !coreTags[0][0].includes('/configuracion/css/componentes/vcc-core-compartit.css'))
+   failures.push(file+': falta un únic enllaç estàtic al CSS global VCC');
 }
 
 if(failures.length){
