@@ -270,3 +270,8 @@ html body .vl-page .vl-hero.tv-hero.vcc-portada-transparente{
   --vcc-portada-imatge:url('/configuracion/imagenes/fondos/fondos-vuelos.webp?v=20261111-quality');
   --vcc-portada-posicio:center center;
 }
+
+/* Contacto: la imagen de origen incluye bandas blancas de 20px arriba y abajo.
+   Ocultamos sus bordes dentro del hero, sin cambiar margenes ni dimensiones. */
+body:has(.contact-page) .contact-page .contact-hero{overflow:hidden}
+body:has(.contact-page) .contact-page .contact-hero::before{transform:scaleY(1.10);transform-origin:center}
