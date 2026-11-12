@@ -1,0 +1,1562 @@
+/* AUTO-GENERAT · CSS comu de VCC. Edita les fonts canonicas de configuracion/css.
+ * Regenerar: npm run css:build. Inclou tokens, carrusels, subheader, breadcrumb i header.
+ */
+/* === configuracion/css/paginas.css === */
+:root {
+    --negro: #18191b;
+    --gris: #686868;
+    --crema: #faf8f3;
+    --blanco: #ffffff;
+    --coral: var(--vcc-color-accent-pages, #e97861);
+    --coral-claro: var(--vcc-accent-override, #f9ddd5);
+    --verde: #dfece5;
+    --amarillo: #f7e8c5;
+    --rosa: #eadde8;
+    --borde: #e7e1d8;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    background: var(--crema);
+    color: var(--negro);
+    font-family: var(--vcc-font-body, "DM Sans", Arial, sans-serif);
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+img {
+    max-width: 100%;
+    display: block;
+}
+
+
+/* =========================
+   HEADER
+========================= */
+
+.page-header {
+    height: 78px;
+    background: #fff;
+    border-bottom: 1px solid var(--borde);
+    display: flex;
+    align-items: center;
+}
+
+.page-nav {
+    width: min(1240px, calc(100% - 50px));
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.page-logo {
+    font-size: 24px;
+    font-weight: 900;
+    letter-spacing: -1.5px;
+    line-height: .8;
+}
+
+.page-logo small {
+    display: block;
+    margin-top: 7px;
+    font-family: Georgia, serif;
+    font-size: 11px;
+    font-style: italic;
+    font-weight: 600;
+    text-align: center;
+}
+
+.page-menu {
+    display: flex;
+    gap: 28px;
+    font-size: 11px;
+    font-weight: 800;
+}
+
+.page-menu a:hover {
+    color: var(--coral);
+}
+
+.page-social {
+    display: flex;
+    gap: 13px;
+    font-weight: 800;
+}
+
+
+/* =========================
+   GENERAL
+========================= */
+
+.page-container {
+    width: min(1240px, calc(100% - 50px));
+    margin: auto;
+}
+
+.page-intro {
+    padding: 70px 0 35px;
+    position: relative;
+}
+
+.page-intro h1 {
+    margin: 0;
+    font-size: clamp(50px, 7vw, 82px);
+    line-height: .9;
+    letter-spacing: -4px;
+}
+
+.page-intro p {
+    margin: 15px 0 0;
+    color: var(--coral);
+    font-family: Georgia, serif;
+    font-size: 20px;
+    font-style: italic;
+}
+
+.page-intro .plane {
+    position: absolute;
+    right: 5%;
+    top: 55px;
+    font-size: 65px;
+    transform: rotate(-20deg);
+}
+
+.btn-page {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 46px;
+    padding: 0 22px;
+    border-radius: 8px;
+    background: var(--coral);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 800;
+}
+
+.btn-page.dark {
+    background: var(--negro);
+}
+
+
+/* =========================
+   DESTINOS
+========================= */
+
+.filters {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin: 10px 0 30px;
+}
+
+.filter {
+    padding: 9px 19px;
+    border: 1px solid var(--borde);
+    border-radius: 30px;
+    background: #fff;
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.filter.active,
+.filter:hover {
+    background: var(--coral);
+    color: #fff;
+    border-color: var(--coral);
+}
+
+.destinos-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    padding-bottom: 80px;
+}
+
+.destino-card {
+    position: relative;
+    height: 350px;
+    border-radius: 15px;
+    overflow: hidden;
+    background: #ddd;
+}
+
+.destino-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform .5s ease;
+}
+
+.destino-card:hover img {
+    transform: scale(1.06);
+}
+
+.destino-card::after {
+    content: "";
+    position: absolute;
+    inset: 35% 0 0;
+    background: linear-gradient(transparent, rgba(0,0,0,.8));
+}
+
+.destino-info {
+    position: absolute;
+    z-index: 2;
+    bottom: 20px;
+    left: 20px;
+    right: 20px;
+    color: white;
+}
+
+.destino-info span {
+    font-size: 12px;
+}
+
+.destino-info h2 {
+    margin: 3px 0;
+    font-size: 29px;
+}
+
+.destino-info p {
+    margin: 0;
+    font-size: 11px;
+}
+
+
+/* =========================
+   ITINERARIOS
+========================= */
+
+.itinerarios-list {
+    display: grid;
+    gap: 15px;
+    padding-bottom: 50px;
+}
+
+.itinerario-card {
+    display: grid;
+    grid-template-columns: 270px 1fr;
+    min-height: 190px;
+    background: #fff;
+    border: 1px solid var(--borde);
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+.itinerario-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.itinerario-content {
+    padding: 25px 30px;
+}
+
+.itinerario-content small {
+    color: var(--coral);
+    font-weight: 800;
+}
+
+.itinerario-content h2 {
+    margin: 5px 0 8px;
+    font-size: 26px;
+}
+
+.itinerario-content p {
+    color: var(--gris);
+    font-size: 13px;
+}
+
+.itinerario-meta {
+    display: flex;
+    gap: 25px;
+    margin: 18px 0;
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.itinerario-bottom {
+    background: var(--verde);
+    padding: 25px;
+    border-radius: 15px;
+    margin-bottom: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.itinerario-bottom h3 {
+    margin: 0;
+}
+
+.itinerario-bottom p {
+    margin: 4px 0 0;
+    color: var(--gris);
+    font-size: 12px;
+}
+
+
+/* =========================
+   PLANIFICA
+========================= */
+
+.plan-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    padding-bottom: 35px;
+}
+
+.plan-card {
+    min-height: 210px;
+    padding: 30px;
+    border: 1px solid var(--borde);
+    border-radius: 15px;
+    background: #fff;
+    text-align: center;
+    transition: transform .2s ease;
+}
+
+.plan-card:hover {
+    transform: translateY(-5px);
+}
+
+.plan-icon {
+    width: 62px;
+    height: 62px;
+    margin: auto auto 15px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    font-size: 27px;
+    background: var(--verde);
+}
+
+.plan-card:nth-child(2) .plan-icon {
+    background: var(--coral-claro);
+}
+
+.plan-card:nth-child(3) .plan-icon {
+    background: var(--amarillo);
+}
+
+.plan-card:nth-child(4) .plan-icon {
+    background: var(--rosa);
+}
+
+.plan-card h2 {
+    margin: 0;
+    font-size: 16px;
+}
+
+.plan-card p {
+    color: var(--gris);
+    font-size: 12px;
+}
+
+.plan-card a {
+    font-size: 10px;
+    font-weight: 800;
+}
+
+.calculadora {
+    margin: 25px 0 85px;
+    padding: 35px;
+    background: var(--verde);
+    border-radius: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 30px;
+}
+
+.calculadora h2 {
+    margin: 0;
+    font-size: 29px;
+}
+
+.calculadora p {
+    color: var(--gris);
+}
+
+
+/* =========================
+   NOSOTROS
+========================= */
+
+.about-main {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    gap: 40px;
+    align-items: center;
+    padding: 30px 0 60px;
+}
+
+.about-photo {
+    height: 480px;
+    border-radius: 18px;
+    overflow: hidden;
+}
+
+.about-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.about-text h2 {
+    margin: 0;
+    font-size: 50px;
+    line-height: .95;
+}
+
+.about-text .script {
+    color: var(--coral);
+    font-family: Georgia, serif;
+    font-size: 21px;
+    font-style: italic;
+}
+
+.about-text p {
+    color: var(--gris);
+    line-height: 1.7;
+}
+
+.signature {
+    font-family: Georgia, serif;
+    font-size: 30px;
+    font-style: italic;
+}
+
+.stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+    padding-bottom: 80px;
+}
+
+.stat {
+    padding: 25px;
+    background: #fff;
+    border: 1px solid var(--borde);
+    border-radius: 14px;
+    text-align: center;
+}
+
+.stat strong {
+    display: block;
+    font-size: 31px;
+}
+
+.stat span {
+    color: var(--gris);
+    font-size: 11px;
+}
+
+
+/* =========================
+   CONTACTO
+========================= */
+
+.contact-layout {
+    display: grid;
+    grid-template-columns: .8fr 1.5fr;
+    gap: 25px;
+    padding-bottom: 80px;
+}
+
+.contact-options {
+    display: grid;
+    gap: 12px;
+}
+
+.contact-option {
+    padding: 20px;
+    border-radius: 14px;
+    background: #fff;
+    border: 1px solid var(--borde);
+}
+
+.contact-option:nth-child(2) {
+    background: var(--verde);
+}
+
+.contact-option:nth-child(3) {
+    background: var(--rosa);
+}
+
+.contact-option h3 {
+    margin: 0;
+    font-size: 13px;
+}
+
+.contact-option p {
+    margin: 5px 0 0;
+    color: var(--gris);
+    font-size: 11px;
+}
+
+.contact-form {
+    padding: 30px;
+    background: #fff;
+    border: 1px solid var(--borde);
+    border-radius: 15px;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+.contact-form input,
+.contact-form textarea {
+    width: 100%;
+    margin-bottom: 15px;
+    padding: 14px;
+    border: 1px solid var(--borde);
+    border-radius: 7px;
+    background: #fff;
+    font-family: inherit;
+    outline: none;
+}
+
+.contact-form textarea {
+    height: 150px;
+    resize: vertical;
+}
+
+.contact-form button {
+    border: 0;
+    cursor: pointer;
+}
+
+
+/* =========================
+   FOOTER
+========================= */
+
+.page-footer {
+    padding: 45px 0 25px;
+    background: var(--negro);
+    color: white;
+}
+
+.footer-inner {
+    width: min(1240px, calc(100% - 50px));
+    margin: auto;
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 50px;
+}
+
+.footer-inner h3 {
+    font-size: 11px;
+}
+
+.footer-inner a,
+.footer-inner p {
+    display: block;
+    color: #aaa;
+    font-size: 11px;
+    margin-bottom: 7px;
+}
+
+.footer-copy {
+    width: min(1240px, calc(100% - 50px));
+    margin: 30px auto 0;
+    padding-top: 20px;
+    border-top: 1px solid #333;
+    color: #777;
+    text-align: center;
+    font-size: 10px;
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 800px) {
+
+    .page-menu {
+        gap: 12px;
+        font-size: 9px;
+    }
+
+    .page-social {
+        display: none;
+    }
+
+    .destinos-grid,
+    .plan-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .about-main {
+        grid-template-columns: 1fr;
+    }
+
+    .stats {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .contact-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .footer-inner {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media (max-width: 550px) {
+
+    .page-nav,
+    .page-container {
+        width: calc(100% - 25px);
+    }
+
+    .page-menu {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .page-intro {
+        padding-top: 50px;
+    }
+
+    .destinos-grid,
+    .plan-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .itinerario-card {
+        grid-template-columns: 1fr;
+    }
+
+    .itinerario-card img {
+        height: 220px;
+    }
+
+    .itinerario-bottom,
+    .calculadora {
+        display: block;
+    }
+
+    .stats {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+
+    .footer-inner {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* VCC GLOBAL PENDING STATE 20261105 — same grey on every page */
+.vcc-pending,.home-feature-pending,.it-card .it-cta.vcc-pending,.vcc-route-link.vcc-pending,
+a[aria-disabled="true"],[data-vcc-status="proximamente"]{
+ color:#aaa29c!important;text-decoration:none!important;cursor:default!important;pointer-events:none!important;
+}
+.vcc-country.vcc-pending-country{opacity:.58;cursor:default!important;pointer-events:none!important}
+
+
+/* VCC · Utilitats de barres de valoració compartides (0–100%).
+   Reutilitzades per les guies; evita width inline en els indicadors. */
+.vcc-bar-w0{width:0%}
+.vcc-bar-w1{width:1%}
+.vcc-bar-w2{width:2%}
+.vcc-bar-w3{width:3%}
+.vcc-bar-w4{width:4%}
+.vcc-bar-w5{width:5%}
+.vcc-bar-w6{width:6%}
+.vcc-bar-w7{width:7%}
+.vcc-bar-w8{width:8%}
+.vcc-bar-w9{width:9%}
+.vcc-bar-w10{width:10%}
+.vcc-bar-w11{width:11%}
+.vcc-bar-w12{width:12%}
+.vcc-bar-w13{width:13%}
+.vcc-bar-w14{width:14%}
+.vcc-bar-w15{width:15%}
+.vcc-bar-w16{width:16%}
+.vcc-bar-w17{width:17%}
+.vcc-bar-w18{width:18%}
+.vcc-bar-w19{width:19%}
+.vcc-bar-w20{width:20%}
+.vcc-bar-w21{width:21%}
+.vcc-bar-w22{width:22%}
+.vcc-bar-w23{width:23%}
+.vcc-bar-w24{width:24%}
+.vcc-bar-w25{width:25%}
+.vcc-bar-w26{width:26%}
+.vcc-bar-w27{width:27%}
+.vcc-bar-w28{width:28%}
+.vcc-bar-w29{width:29%}
+.vcc-bar-w30{width:30%}
+.vcc-bar-w31{width:31%}
+.vcc-bar-w32{width:32%}
+.vcc-bar-w33{width:33%}
+.vcc-bar-w34{width:34%}
+.vcc-bar-w35{width:35%}
+.vcc-bar-w36{width:36%}
+.vcc-bar-w37{width:37%}
+.vcc-bar-w38{width:38%}
+.vcc-bar-w39{width:39%}
+.vcc-bar-w40{width:40%}
+.vcc-bar-w41{width:41%}
+.vcc-bar-w42{width:42%}
+.vcc-bar-w43{width:43%}
+.vcc-bar-w44{width:44%}
+.vcc-bar-w45{width:45%}
+.vcc-bar-w46{width:46%}
+.vcc-bar-w47{width:47%}
+.vcc-bar-w48{width:48%}
+.vcc-bar-w49{width:49%}
+.vcc-bar-w50{width:50%}
+.vcc-bar-w51{width:51%}
+.vcc-bar-w52{width:52%}
+.vcc-bar-w53{width:53%}
+.vcc-bar-w54{width:54%}
+.vcc-bar-w55{width:55%}
+.vcc-bar-w56{width:56%}
+.vcc-bar-w57{width:57%}
+.vcc-bar-w58{width:58%}
+.vcc-bar-w59{width:59%}
+.vcc-bar-w60{width:60%}
+.vcc-bar-w61{width:61%}
+.vcc-bar-w62{width:62%}
+.vcc-bar-w63{width:63%}
+.vcc-bar-w64{width:64%}
+.vcc-bar-w65{width:65%}
+.vcc-bar-w66{width:66%}
+.vcc-bar-w67{width:67%}
+.vcc-bar-w68{width:68%}
+.vcc-bar-w69{width:69%}
+.vcc-bar-w70{width:70%}
+.vcc-bar-w71{width:71%}
+.vcc-bar-w72{width:72%}
+.vcc-bar-w73{width:73%}
+.vcc-bar-w74{width:74%}
+.vcc-bar-w75{width:75%}
+.vcc-bar-w76{width:76%}
+.vcc-bar-w77{width:77%}
+.vcc-bar-w78{width:78%}
+.vcc-bar-w79{width:79%}
+.vcc-bar-w80{width:80%}
+.vcc-bar-w81{width:81%}
+.vcc-bar-w82{width:82%}
+.vcc-bar-w83{width:83%}
+.vcc-bar-w84{width:84%}
+.vcc-bar-w85{width:85%}
+.vcc-bar-w86{width:86%}
+.vcc-bar-w87{width:87%}
+.vcc-bar-w88{width:88%}
+.vcc-bar-w89{width:89%}
+.vcc-bar-w90{width:90%}
+.vcc-bar-w91{width:91%}
+.vcc-bar-w92{width:92%}
+.vcc-bar-w93{width:93%}
+.vcc-bar-w94{width:94%}
+.vcc-bar-w95{width:95%}
+.vcc-bar-w96{width:96%}
+.vcc-bar-w97{width:97%}
+.vcc-bar-w98{width:98%}
+.vcc-bar-w99{width:99%}
+.vcc-bar-w100{width:100%}
+
+/* === configuracion/css/overrides.css === */
+/* Ajustes visuales compartidos para las páginas principales */
+.page-header{height:auto;min-height:88px;position:sticky;top:0;z-index:100;background:rgba(255,255,255,.97);backdrop-filter:blur(8px)}
+.page-nav{min-height:88px;gap:24px}
+.page-logo{display:flex;align-items:center;flex:0 0 auto}
+.page-logo img{width:168px;height:68px;object-fit:contain;object-position:left center}
+.page-menu{align-items:center;letter-spacing:.35px}
+.page-menu a{position:relative;padding:33px 0 30px}
+.page-menu a.active,.page-menu a:hover{color:var(--coral)}
+.page-menu a.active::after{content:"";position:absolute;left:0;right:0;bottom:20px;height:2px;background:var(--coral);border-radius:2px}
+.page-social{display:flex;gap:14px;align-items:center}
+.page-social a{font-size:18px;line-height:1}
+.page-intro{padding-top:78px}
+.page-intro h1{font-size:clamp(54px,7vw,92px);font-weight:900;letter-spacing:-4px}
+.page-intro p{font-family:Georgia,serif;font-size:22px;color:#e1887b}
+.destino-card,.plan-card,.itinerario-card,.contact-option,.contact-form,.stat{box-shadow:0 8px 25px rgba(30,30,30,.035)}
+.contact-layout{align-items:start}
+.contact-form textarea{min-height:170px}
+.about-main{grid-template-columns:.95fr 1.35fr}
+.about-photo{height:510px}
+@media(max-width:900px){.page-nav{flex-wrap:wrap;padding:10px 0}.page-menu{order:3;width:100%;justify-content:center}.page-menu a{padding:8px 0 12px}.page-menu a.active::after{bottom:3px}.page-logo img{width:145px;height:58px}}
+@media(max-width:550px){.page-header{position:relative}.page-nav{justify-content:center}.page-logo{width:100%;justify-content:center}.page-logo img{width:150px}.page-menu{gap:14px}.page-menu a{font-size:9px}.page-intro .plane{font-size:42px;opacity:.35}.page-intro h1{letter-spacing:-2px}.about-photo{height:360px}}
+
+/* Quality: dues barres juntes només en mòbil. */
+@media (max-width:720px) {
+  html body.country-page .country-nav,
+  html body:has(.st-shell) .st-shell .st-tabs,
+  html body:has(.imp-page) .imp-page .place-nav-wrap {
+    position:sticky!important;top:78px!important;margin-top:0!important;z-index:1000!important;background:#fff!important;
+  }
+  html body:has(.st-shell) .st-shell .st-tabs,
+  html body:has(.imp-page) .imp-page .place-nav-wrap {height:43px!important;min-height:43px!important;}
+  html body:has(.st-shell) .st-shell .st-tabs {
+    overflow-x:auto!important;overflow-y:hidden!important;flex-wrap:nowrap!important;gap:24px!important;padding-inline:14px!important;scrollbar-width:none!important;
+  }
+  html body:has(.imp-page) .imp-page .place-nav-shell,
+  html body:has(.imp-page) .imp-page .place-nav {height:43px!important;min-height:43px!important;}
+  html body.country-page [id],
+  html body:has(.st-shell) .st-shell [id],
+  html body:has(.imp-page) .imp-page .place[id] {scroll-margin-top:132px!important;}
+  /* La targeta de ciutat s'adapta a l'amplada mòbil sense desbordar. */
+  html body:has(.st-shell) .st-shell .st-hero-inner {width:calc(100% - 28px)!important;max-width:100%!important;margin-inline:auto!important;}
+  html body:has(.st-shell) .st-shell .st-crumb {width:100%!important;max-width:100%!important;left:0!important;transform:none!important;top:13px!important;padding:0!important;}
+  html body:has(.st-shell) .st-shell .st-card {box-sizing:border-box!important;left:0!important;right:0!important;top:57px!important;width:100%!important;max-width:100%!important;margin:0!important;padding:24px 22px!important;overflow-wrap:anywhere!important;}
+  html body:has(.st-shell) .st-shell .st-card h1 {font-size:clamp(43px,11.5vw,65px)!important;max-width:100%!important;overflow-wrap:normal!important;word-break:normal!important;letter-spacing:-.035em!important;}
+  html body:has(.st-shell) .st-shell .st-card .st-script,
+  html body:has(.st-shell) .st-shell .st-card .st-desc {max-width:100%!important;}
+  html body:has(.st-shell) .st-shell .st-hero {height:730px!important;min-height:730px!important;}
+  html body:has(.st-shell) .st-shell .st-main {width:calc(100% - 28px)!important;max-width:100%!important;margin-inline:auto!important;}
+}
+@media(max-width:380px){html body:has(.st-shell) .st-shell .st-card{padding-inline:17px!important}html body:has(.st-shell) .st-shell .st-card h1{font-size:clamp(40px,11vw,48px)!important}}
+
+/* La mateixa família, pes i escala als menús de les tres guies. */
+html body.country-page .country-nav a,
+html body:has(.st-shell) .st-shell .st-tabs a,
+html body:has(.imp-page) .imp-page .place-nav a {
+  font-family:var(--vcc-font-body, "DM Sans", Arial, sans-serif)!important;font-size:12px!important;font-weight:800!important;line-height:1.15!important;letter-spacing:0!important;text-transform:uppercase!important;
+}
+
+/* IMPORTANT: Les molles de pa es reposicionen NOMÉS en mòbil.
+   A escriptori cada hero conserva el seu contenidor i el seu layout originals. */
+@media(max-width:720px){
+  html body.country-page .country-hero,
+  html body:has(.st-shell) .st-shell .st-hero,
+  html body:has(.imp-page) .imp-page .imp-hero {position:relative!important;}
+  html body.country-page .country-hero .country-hero-inner {position:static!important;}
+  html body:has(.st-shell) .st-shell .st-hero-inner,
+  html body:has(.imp-page) .imp-page .imp-hero-inner {position:relative!important;height:100%!important;}
+  html body.country-page .country-hero .country-breadcrumb,
+  html body:has(.st-shell) .st-shell .st-crumb,
+  html body:has(.imp-page) .imp-page .imp-crumb {
+    position:absolute!important;top:14px!important;left:14px!important;right:14px!important;width:auto!important;max-width:none!important;height:auto!important;margin:0!important;padding:0!important;transform:none!important;z-index:4!important;display:flex!important;flex-wrap:wrap!important;align-items:center!important;column-gap:7px!important;row-gap:3px!important;color:#48433f!important;text-shadow:none!important;font-family:var(--vcc-font-body, "DM Sans", Arial, sans-serif)!important;font-size:12px!important;font-weight:500!important;line-height:1.5!important;letter-spacing:0!important;
+  }
+  html body:has(.st-shell) .st-shell .st-crumb {left:0!important;right:0!important;top:13px!important;}
+  html body.country-page .country-hero .country-breadcrumb a,
+  html body:has(.st-shell) .st-shell .st-crumb a,
+  html body:has(.imp-page) .imp-page .imp-crumb a {color:inherit!important;font:inherit!important;text-decoration:none!important;}
+  html body.country-page .country-hero .country-breadcrumb strong,
+  html body:has(.st-shell) .st-shell .st-crumb strong,
+  html body:has(.imp-page) .imp-page .imp-crumb strong {font-weight:800!important;color:#48433f!important;}
+  html body.country-page .country-hero .country-breadcrumb span,
+  html body:has(.st-shell) .st-shell .st-crumb span,
+  html body:has(.imp-page) .imp-page .imp-crumb span {margin:0!important;opacity:.65!important;color:inherit!important;}
+}
+
+/* Barra secundària compacta, sense alterar la disposició de portada d'escriptori. */
+html body.country-page .country-nav,
+html body:has(.st-shell) .st-shell .st-tabs,
+html body:has(.imp-page) .imp-page .place-nav-wrap,
+html body.country-page .country-nav-inner,
+html body:has(.imp-page) .imp-page .place-nav-shell,
+html body:has(.imp-page) .imp-page .place-nav {height:39px!important;min-height:39px!important;max-height:39px!important;}
+html body.country-page .country-nav-inner,
+html body:has(.st-shell) .st-shell .st-tabs,
+html body:has(.imp-page) .imp-page .place-nav-shell,
+html body:has(.imp-page) .imp-page .place-nav {align-items:center!important;}
+html body.country-page .country-nav a,
+html body:has(.st-shell) .st-shell .st-tabs a,
+html body:has(.imp-page) .imp-page .place-nav a {box-sizing:border-box!important;height:39px!important;min-height:39px!important;padding:0!important;display:inline-flex!important;align-items:center!important;flex:0 0 auto!important;}
+@media(max-width:720px){
+        html body.country-page .country-nav a,
+  html body:has(.st-shell) .st-shell .st-tabs a,
+  html body:has(.imp-page) .imp-page .place-nav a {font-size:11px!important;}
+  html body.country-page [id],
+  html body:has(.st-shell) .st-shell [id],
+  html body:has(.imp-page) .imp-page .place[id] {scroll-margin-top:128px!important;}
+}
+
+/* === configuracion/css/componentes/estocolmo-guias-final-vcc.css === */
+/* VCC · Bloque final de guías relacionadas, reutilizado en Estocolmo.
+   Mantener el mismo aspecto de Presupuesto / Qué ver. */
+html body .vcc-discover-section{
+  display:block!important;position:relative;box-sizing:border-box;
+  width:100%!important;max-width:none!important;min-height:0!important;
+  margin:0!important;clear:both;isolation:isolate;
+  background:linear-gradient(90deg,rgba(18,28,30,.72),rgba(18,28,30,.24)),
+    url("/configuracion/imagenes/externas/unsplash/photo-1464822759023-fed622ff2c3b-vcc-optimizado.webp") center 52%/cover no-repeat!important;
+  color:#fffaf5!important;border:0!important;padding:36px 0 40px!important;
+}
+html body .vcc-discover-section,html body .vcc-discover-section *{box-sizing:border-box}
+html body .vcc-discover-section .related-inner{width:min(1510px,calc(100% - 108px));margin:0 auto!important}
+html body .vcc-discover-section .related-head{display:block!important;margin:0 0 20px!important;text-align:left!important}
+html body .vcc-discover-section .related-head p{
+  color:#de9a83!important;font:600 28px/1 var(--vcc-font-script, "Caveat", cursive)!important;
+  text-transform:none!important;letter-spacing:0!important;margin:0 0 10px!important
+}
+html body .vcc-discover-section .related-head h2{
+  color:#fffaf5!important;font:500 clamp(27px,3.2vw,40px)/1.1 var(--vcc-font-heading, "Oswald", sans-serif)!important;
+  margin:0 0 9px!important;text-transform:uppercase!important;letter-spacing:0!important
+}
+html body .vcc-discover-section .related-head span{
+  display:block!important;color:#e5e0db!important;font:400 13px/1.5 var(--vcc-font-body, "DM Sans", Arial, sans-serif)!important
+}
+html body .vcc-discover-section .related-grid.vcc-related-cards{
+  display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr))!important;
+  gap:16px!important;max-width:none!important;margin:0!important;padding:0!important;
+  list-style:none!important
+}
+html body .vcc-discover-section .related-grid .vcc-related-link{
+  min-width:0!important;min-height:112px!important;display:flex!important;align-items:center!important;
+  justify-content:flex-start!important;gap:12px!important;padding:17px 20px!important;
+  background:rgba(28,42,47,.94)!important;border:1px solid rgba(211,225,223,.48)!important;
+  border-radius:14px!important;box-shadow:0 8px 20px rgba(0,0,0,.12)!important;
+  color:#fff!important;text-decoration:none!important;
+}
+html body .vcc-discover-section .related-grid .vcc-related-link:hover,
+html body .vcc-discover-section .related-grid .vcc-related-link:focus-visible{
+  background:rgba(43,61,66,.97)!important;border-color:#e4a18d!important;
+}
+html body .vcc-discover-section .related-grid .vcc-related-link:focus-visible{
+  outline:2px solid #edb092!important;outline-offset:3px!important
+}
+html body .vcc-discover-section .related-grid .vcc-related-icon{
+  display:block!important;flex:0 0 37px!important;width:37px!important;height:37px!important;
+  stroke:#e79b72!important;fill:none!important;stroke-width:1.8!important;
+}
+html body .vcc-discover-section .related-grid .vcc-related-copy{
+  display:flex!important;flex:1 1 auto!important;min-width:0!important;
+  flex-direction:column!important;gap:4px!important;align-items:flex-start!important
+}
+html body .vcc-discover-section .related-grid .vcc-related-copy strong{
+  display:block!important;font:500 clamp(17px,1.5vw,21px)/1.16 var(--vcc-font-heading, "Oswald", sans-serif)!important;
+  color:#fff!important;margin:0!important;text-transform:uppercase!important
+}
+html body .vcc-discover-section .related-grid .vcc-related-copy em{
+  display:block!important;font:400 11px/1.35 var(--vcc-font-body, "DM Sans", Arial, sans-serif)!important;
+  color:#e1dfdb!important;font-style:normal!important;margin:0!important
+}
+html body .vcc-discover-section .related-grid .vcc-related-arrow{
+  flex:0 0 24px!important;display:flex!important;margin-left:auto!important;align-items:center!important;
+  justify-content:center!important;color:#e79b72!important;background:none!important;
+  font:400 23px/1 var(--vcc-font-body, "DM Sans", Arial, sans-serif)!important
+}
+@media(max-width:1030px){
+  html body .vcc-discover-section .related-inner{width:calc(100% - 48px)}
+  html body .vcc-discover-section .related-grid.vcc-related-cards{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+}
+@media(max-width:580px){
+  html body .vcc-discover-section{padding:30px 0 34px!important}
+  html body .vcc-discover-section .related-inner{width:calc(100% - 30px)}
+  html body .vcc-discover-section .related-head{margin-bottom:17px!important}
+  html body .vcc-discover-section .related-grid.vcc-related-cards{grid-template-columns:1fr!important;gap:9px!important}
+  html body .vcc-discover-section .related-grid .vcc-related-link{min-height:75px!important;padding:12px 14px!important}
+  html body .vcc-discover-section .related-grid .vcc-related-icon{flex-basis:33px!important;width:33px!important;height:33px!important}
+  html body .vcc-discover-section .related-grid .vcc-related-copy strong{font-size:19px!important}
+}
+
+/* === configuracion/css/destinos/suecia/estocolmo/como-llegar-landing.css === */
+/* VCC · Cómo llegar a Estocolmo · hoja exclusiva de portada.
+   La plantilla compartida como-llegar-vcc.css continúa en las 12 guías.
+   Evita sobrescrituras históricas de la landing y facilita el mantenimiento. */
+html { scroll-behavior: smooth; }
+main.cl-page.cl-landing {
+  --cl-ink:#26352e;
+  --cl-orange:var(--vcc-accent-override, #c6683b);
+  --cl-line:#e8dbcd;
+  --cl-section-bg:#faf6f1; /* Mismo fondo grisáceo de Cómo moverse y Presupuesto */
+  display:block;
+  box-sizing:border-box;
+  width:100%;
+  max-width:none;
+  min-height:0;
+  margin:0;
+  padding:0;
+  color:var(--cl-ink);
+  background:var(--cl-section-bg);
+  font-family:var(--vcc-font-body, "DM Sans", Arial, sans-serif);
+}
+.cl-page.cl-landing *, .cl-page.cl-landing *::before, .cl-page.cl-landing *::after {box-sizing:border-box}
+.cl-page.cl-landing .cl-landing-hero {
+  position:relative;
+  isolation:isolate;
+  width:100%;
+  max-width:none;
+  min-height:var(--vcc-standard-hero-desktop,475px);
+  margin:0;
+  padding:48px max(22px,calc((100vw - 1600px)/2 + 32px)) 12px;
+  border:0;
+  border-radius:0;
+  background:linear-gradient(90deg,rgba(250,247,242,.97),rgba(250,247,242,.91) 26%,rgba(250,247,242,.72) 53%,rgba(250,247,242,.26)),url("/configuracion/imagenes/fondos/fondos-como-llegar.webp?v=20261111-qualitat-alta-v1") center/cover no-repeat;
+}
+.cl-page.cl-landing .cl-landing-hero .cl-crumb.vcc-crumb {
+  position:absolute;
+  z-index:1;
+  top:10px;
+  left:34px;
+  right:30px;
+  display:flex;
+  flex-wrap:wrap;
+  align-items:center;
+  gap:0;
+  max-width:calc(100% - 64px);
+  margin:0;
+  padding:0;
+  color:#48413d;
+  font:400 12px/1.5 var(--vcc-font-body, "DM Sans", Arial, sans-serif);
+  letter-spacing:0;
+  text-shadow:none;
+}
+.cl-page.cl-landing .cl-crumb.vcc-crumb a {color:inherit;text-decoration:none}
+.cl-page.cl-landing .cl-crumb.vcc-crumb a:hover {color:#a45131;text-decoration:underline}
+.cl-page.cl-landing .cl-crumb.vcc-crumb span {margin:0 4px;padding:0;color:#9b928a}
+.cl-page.cl-landing .cl-crumb.vcc-crumb strong {color:#48413d;font-weight:700}
+.cl-page.cl-landing .cl-landing-stage {
+  display:grid;
+  grid-template-columns:minmax(230px,280px) minmax(0,1fr);
+  align-items:start;
+  gap:16px;
+  width:100%;
+}
+.cl-page.cl-landing .cl-landing-intro {min-width:0;padding:9px 8px 0 0;text-align:left}
+.cl-page.cl-landing .cl-landing-kicker {
+  margin:0 0 12px;
+  color:#ba633e;
+  font:600 27px/1.08 var(--vcc-font-script, "Caveat", cursive);
+}
+.cl-page.cl-landing .cl-landing-intro h1 {
+  margin:0;
+  color:#181b18;
+  font:600 clamp(39px,3vw,47px)/1.06 var(--vcc-font-heading, "Oswald", sans-serif);
+  letter-spacing:-.01em;
+  white-space:nowrap;
+}
+.cl-page.cl-landing .cl-landing-underline {
+  width:86px;height:4px;margin:13px 0 15px;
+  border-radius:20px;background:#d36e34;transform:rotate(-1.5deg);
+}
+.cl-page.cl-landing .cl-landing-description {
+  max-width:300px;margin:0;
+  color:#383933;font:400 13.5px/1.6 var(--vcc-font-body, "DM Sans", Arial, sans-serif);
+}
+/* La señal decorativa añadía más de 200px de altura al hero y empujaba
+   el subheader fuera de la primera pantalla. Las tarjetas ya identifican
+   visualmente los transportes; ocultarla armoniza el alto con otras guías. */
+.cl-page.cl-landing .cl-direction-sign {display:none}
+.cl-page.cl-landing .cl-sign-post {
+  position:absolute;top:7px;bottom:0;left:69px;width:13px;
+  border-radius:6px;background:linear-gradient(90deg,#ab7142,#e6b77c,#91613c);
+}
+.cl-page.cl-landing .cl-sign-arrow {
+  position:absolute;top:0;left:9px;width:144px;height:30px;
+  padding:3px 0 0 15px;
+  color:#fff9ef;background:#3a796e;
+  clip-path:polygon(0 5%,89% 0,100% 50%,89% 100%,0 93%,4% 50%);
+  font:700 21px/1 var(--vcc-font-heading, "Oswald", sans-serif);
+}
+.cl-page.cl-landing .cl-sign-arrow:nth-child(3) {top:38px;background:#d39b61;transform:scaleX(-1)}
+.cl-page.cl-landing .cl-sign-arrow:nth-child(4) {top:76px;background:#396d64}
+.cl-page.cl-landing .cl-sign-arrow:nth-child(5) {top:114px;background:#c87d51;transform:scaleX(-1)}
+.cl-page.cl-landing .cl-sign-arrow:nth-child(6) {top:152px;background:#3b796e}
+.cl-page.cl-landing .cl-landing-cards {
+  display:grid;
+  grid-template-columns:repeat(5,minmax(0,1fr));
+  gap:9px;
+  align-items:stretch;
+  min-width:0;
+}
+.cl-page.cl-landing .cl-transport-group {
+  display:flex;flex-direction:column;align-items:center;
+  min-width:0;min-height:0;
+  padding:10px 10px 13px;gap:6px;
+  border:1px solid rgba(255,255,255,.81);border-radius:16px;
+  background:rgba(255,255,255,.84);
+  box-shadow:0 5px 15px rgba(63,43,19,.045);
+  text-align:center;
+}
+.cl-page.cl-landing .cl-illustration.cl-artwork {
+  display:flex;justify-content:center;align-items:center;
+  width:100%;height:60px;min-height:60px;
+  padding:0;margin:0;overflow:visible;
+  background:transparent;border:0;box-shadow:none;
+}
+.cl-page.cl-landing .cl-transport-photo {
+  display:block;width:49px;height:49px;max-width:49px;max-height:49px;
+  flex:0 0 auto;stroke:#c36b44;fill:none;
+  opacity:1;filter:none;
+}
+.cl-page.cl-landing .cl-transport-group h3 {
+  margin:0 0 2px;
+  color:#184c40;
+  font:600 clamp(20px,1.7vw,24px)/1.2 var(--vcc-font-heading, "Oswald", sans-serif);
+}
+.cl-page.cl-landing .cl-transport-group > p {
+  margin:0 0 5px;
+  color:#44443f;
+  font:400 12px/1.55 var(--vcc-font-body, "DM Sans", Arial, sans-serif);
+}
+.cl-page.cl-landing .cl-quicklinks {
+  display:flex;flex-direction:column;gap:0;
+  width:100%;margin:4px 0 0;
+}
+.cl-page.cl-landing .cl-guide-link {
+  display:grid;grid-template-columns:minmax(0,1fr) 17px;
+  align-items:center;gap:6px;
+  width:100%;min-height:46px;
+  padding:9px 2px;
+  border-top:1px solid #e8d9ca;
+  color:#26352e;text-decoration:none;text-align:left;
+}
+.cl-page.cl-landing .cl-guide-title {
+  color:inherit;
+  font:600 12px/1.45 var(--vcc-font-body, "DM Sans", Arial, sans-serif);
+  overflow-wrap:break-word;
+}
+.cl-page.cl-landing .cl-guide-cta {
+  display:flex;justify-content:center;align-items:center;
+  color:#9d8273;
+}
+.cl-page.cl-landing .cl-guide-cta b {font:600 17px/1 var(--vcc-font-body, "DM Sans", Arial, sans-serif)}
+.cl-page.cl-landing .cl-guide-link:hover,
+.cl-page.cl-landing .cl-guide-link:focus-visible {color:#b15330;background:#fffaf4}
+.cl-page.cl-landing .vcc-sr-only {
+  position:absolute;width:1px;height:1px;padding:0;margin:-1px;
+  overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;
+}
+/* Llegada a Estocolmo · comparación editorial clara, ligera y sin bloques duplicados. */
+.cl-page.cl-landing .vcc-transfer-overview {
+  padding:36px max(22px,calc((100vw - 1160px)/2)) 38px;
+  background:var(--cl-section-bg);
+}
+.cl-page.cl-landing .vcc-arrival-section-head {
+  max-width:840px;
+  margin:0 0 21px;
+}
+.cl-page.cl-landing .vcc-transfer-eyebrow,
+.cl-page.cl-landing .vcc-arrival-eyebrow {
+  margin:0 0 8px;
+  color:#bd6747;
+  font:600 25px/1.15 var(--vcc-font-script, "Caveat", cursive);
+}
+.cl-page.cl-landing .vcc-transfer-overview h2,
+.cl-page.cl-landing .vcc-arrival-brief h2 {
+  margin:0 0 10px;
+  color:#253932;
+  font:500 clamp(27px,2.8vw,35px)/1.18 var(--vcc-font-heading, "Oswald", sans-serif);
+}
+.cl-page.cl-landing .vcc-transfer-intro,
+.cl-page.cl-landing .vcc-arrival-summary {
+  max-width:740px;
+  margin:0;
+  color:#59615c;
+  font:400 13.5px/1.65 var(--vcc-font-body, "DM Sans", Arial, sans-serif);
+}
+.cl-page.cl-landing .vcc-transfer-grid {
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:13px;
+  align-items:stretch;
+}
+.cl-page.cl-landing .vcc-airport-card {
+  display:flex;
+  flex-direction:column;
+  min-width:0;
+  min-height:0;
+  padding:20px 21px 15px;
+  border:1px solid #e8e4df;
+  border-top:2px solid #ce8a6a;
+  border-radius:13px;
+  background:#fff;
+  box-shadow:0 4px 15px rgba(42,45,40,.035);
+}
+.cl-page.cl-landing .vcc-airport-kind {
+  display:block;
+  margin:0 0 5px;
+  color:#a8674d;
+  font:700 10px/1.3 var(--vcc-font-body, "DM Sans", Arial, sans-serif);
+  letter-spacing:.02em;
+}
+.cl-page.cl-landing .vcc-airport-card h3 {
+  display:flex;
+  align-items:baseline;
+  gap:9px;
+  margin:0;
+  color:#263a34;
+  font:500 25px/1.15 var(--vcc-font-heading, "Oswald", sans-serif);
+}
+.cl-page.cl-landing .vcc-airport-card h3 small {
+  color:#86827d;
+  font:600 11px/1.2 var(--vcc-font-body, "DM Sans", Arial, sans-serif);
+  letter-spacing:.04em;
+}
+.cl-page.cl-landing .vcc-airport-stat {
+  display:flex;
+  align-items:baseline;
+  gap:12px;
+  min-height:57px;
+  margin:13px 0 12px;
+  padding:12px 0 9px;
+  border-top:1px solid #ece6df;
+  border-bottom:1px solid #ece6df;
+}
+.cl-page.cl-landing .vcc-airport-stat strong {
+  flex:0 0 auto;
+  color:#2b5649;
+  font:500 29px/1 var(--vcc-font-heading, "Oswald", sans-serif);
+  white-space:nowrap;
+}
+.cl-page.cl-landing .vcc-airport-stat span {
+  min-width:0;
+  color:#696661;
+  font:400 11.5px/1.4 var(--vcc-font-body, "DM Sans", Arial, sans-serif);
+}
+.cl-page.cl-landing .vcc-airport-copy {
+  flex:1 1 auto;
+  margin:0 0 16px;
+  color:#4e5550;
+  font:400 12.5px/1.6 var(--vcc-font-body, "DM Sans", Arial, sans-serif);
+}
+.cl-page.cl-landing .vcc-transfer-detail {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:8px;
+  min-height:37px;
+  margin-top:auto;
+  padding-top:11px;
+  border-top:1px solid #ede7df;
+  color:#a55235;
+  font:700 11.8px/1.35 var(--vcc-font-body, "DM Sans", Arial, sans-serif);
+  text-decoration:none;
+}
+.cl-page.cl-landing .vcc-transfer-detail span {
+  flex:none;
+  font:500 16px/1 var(--vcc-font-body, "DM Sans", Arial, sans-serif);
+}
+.cl-page.cl-landing .vcc-transfer-detail:hover {color:#7f3c27;text-decoration:underline;text-underline-offset:3px}
+.cl-page.cl-landing .vcc-transfer-source {
+  margin:16px 0 0;
+  color:#77726d;
+  font:400 11.5px/1.65 var(--vcc-font-body, "DM Sans", Arial, sans-serif);
+}
+.cl-page.cl-landing .vcc-transfer-source a {
+  color:#97563f;
+  text-decoration:underline;
+  text-underline-offset:2px;
+}
+
+/* Cómo ahorrar: reproducción del formato habitual de Cómo moverse:
+   número punteado a la izquierda, texto a la derecha y flechas laterales. */
+.cl-page.cl-landing .vcc-arrival-brief {
+  padding:39px max(22px,calc((100vw - 1160px)/2)) 43px;
+  border-top:0;
+  background:var(--cl-section-bg);
+}
+.cl-page.cl-landing .vcc-saving-head {
+  display:flex;
+  align-items:end;
+  justify-content:space-between;
+  gap:24px;
+  margin:0 0 16px;
+}
+.cl-page.cl-landing .vcc-saving-title-group {min-width:0}
+.cl-page.cl-landing .vcc-saving-head .vcc-arrival-eyebrow {
+  display:block;
+  margin:0 0 4px;
+  color:#e6631e;
+  font:600 29px/1 var(--vcc-font-script, "Caveat", cursive);
+}
+.cl-page.cl-landing .vcc-saving-head h2 {
+  margin:0;
+  color:#202624;
+  font:600 clamp(27px,2.5vw,38px)/1.1 var(--vcc-font-heading, "Oswald", sans-serif);
+}
+.cl-page.cl-landing .vcc-saving-head .vcc-arrival-summary {
+  flex:0 1 380px;
+  max-width:380px;
+  margin:0 0 3px;
+  font-size:12px;
+  line-height:1.5;
+}
+.cl-page.cl-landing .vcc-saving-carousel {
+  position:relative;
+  min-width:0;
+  padding:0 45px;
+}
+.cl-page.cl-landing .vcc-saving-track {
+  display:flex;
+  align-items:stretch;
+  min-width:0;
+  gap:13px;
+  padding:1px 1px 5px;
+  overflow-x:auto;
+  overflow-y:hidden;
+  scroll-snap-type:x mandatory;
+  scroll-behavior:smooth;
+  scrollbar-width:none;
+  overscroll-behavior-inline:contain;
+  -webkit-overflow-scrolling:touch;
+}
+.cl-page.cl-landing .vcc-saving-track::-webkit-scrollbar {display:none}
+.cl-page.cl-landing .vcc-saving-card {
+  display:flex;
+  align-items:flex-start;
+  gap:12px;
+  flex:0 0 calc((100% - 26px)/3);
+  min-width:0;
+  min-height:161px;
+  padding:15px 16px;
+  scroll-snap-align:start;
+  border:1px solid #e6dbd0;
+  border-radius:13px;
+  background:#fff;
+  box-shadow:0 3px 11px rgba(54,38,26,.04);
+}
+.cl-page.cl-landing .vcc-saving-number {
+  display:grid;
+  place-items:center;
+  flex:0 0 39px;
+  width:39px;
+  height:39px;
+  margin:0;
+  border:1px dashed #d68f74;
+  border-radius:50%;
+  background:#fbeee6;
+  color:#b85b43;
+  font:600 20px/1 var(--vcc-font-heading, "Oswald", sans-serif);
+}
+.cl-page.cl-landing .vcc-saving-copy {
+  flex:1;
+  min-width:0;
+}
+.cl-page.cl-landing .vcc-saving-card h3 {
+  margin:0 0 7px;
+  font:600 19px/1.1 var(--vcc-font-heading, "Oswald", sans-serif);
+  color:#272d2a;
+}
+.cl-page.cl-landing .vcc-saving-card p {
+  margin:0;
+  color:#635d56;
+  font:400 11.6px/1.48 var(--vcc-font-body, "DM Sans", Arial, sans-serif);
+}
+.cl-page.cl-landing .vcc-saving-arrow {
+  position:absolute;
+  top:50%;
+  transform:translateY(-50%);
+  display:grid;
+  place-items:center;
+  width:34px;
+  height:34px;
+  padding:0 0 2px;
+  border:1px solid #dcc7b8;
+  border-radius:50%;
+  background:#fff;
+  color:#b75d43;
+  font:400 24px/1 var(--vcc-font-body, "DM Sans", Arial, sans-serif);
+  cursor:pointer;
+}
+.cl-page.cl-landing .vcc-saving-prev {left:0}
+.cl-page.cl-landing .vcc-saving-next {right:0}
+.cl-page.cl-landing .vcc-saving-arrow:hover:not(:disabled) {background:#fff0e6}
+.cl-page.cl-landing .vcc-saving-arrow:disabled {opacity:.36;cursor:default}
+.cl-page.cl-landing .vcc-saving-arrow:focus-visible,
+.cl-page.cl-landing .vcc-saving-track:focus-visible {
+  outline:2px solid #c56c50;
+  outline-offset:3px;
+}
+.cl-page.cl-landing .vcc-saving-source {
+  margin:12px 45px 0;
+  color:#77716b;
+  font:400 11.5px/1.65 var(--vcc-font-body, "DM Sans", Arial, sans-serif);
+}
+.cl-page.cl-landing .vcc-saving-source a {
+  color:#95533c;
+  text-decoration:underline;
+  text-underline-offset:2px;
+}
+@media(max-width:1050px) {
+  .cl-page.cl-landing .vcc-saving-card {flex-basis:calc((100% - 13px)/2)}
+}
+@media(max-width:760px) {
+  .cl-page.cl-landing .vcc-saving-head {display:block}
+  .cl-page.cl-landing .vcc-saving-head .vcc-arrival-eyebrow {font-size:27px}
+  .cl-page.cl-landing .vcc-saving-head .vcc-arrival-summary {
+    max-width:none;
+    margin:9px 0 0;
+  }
+}
+@media(max-width:650px) {
+  .cl-page.cl-landing .vcc-saving-carousel {padding:0 36px}
+  .cl-page.cl-landing .vcc-saving-card {
+    flex-basis:100%;
+    min-height:145px;
+    padding:14px 12px;
+  }
+  .cl-page.cl-landing .vcc-saving-number {width:34px;height:34px;flex-basis:34px;font-size:19px}
+  .cl-page.cl-landing .vcc-saving-card h3 {font-size:18px}
+  .cl-page.cl-landing .vcc-saving-card p {font-size:11.8px}
+  .cl-page.cl-landing .vcc-saving-arrow {width:30px;height:30px}
+  .cl-page.cl-landing .vcc-saving-source {margin:11px 36px 0}
+}
+
+/* El bloque SIGUE DESCUBRIENDO ESTOCOLMO usa exclusivamente
+   configuracion/css/componentes/estocolmo-guias-final-vcc.css,
+   compartido con las demás guías: montañas y tarjetas oscuras. */
+.cl-page.cl-landing :is(a):focus-visible {
+  outline:3px solid #be653d;outline-offset:3px;border-radius:3px;
+}
+@media(max-width:1390px) {
+  .cl-page.cl-landing .cl-landing-stage {grid-template-columns:240px minmax(0,1fr);gap:12px}
+  .cl-page.cl-landing .cl-landing-hero {padding-inline:24px}
+  .cl-page.cl-landing .cl-guide-title {font-size:11.5px}
+}
+@media(max-width:1190px) {
+  .cl-page.cl-landing .cl-landing-stage {display:block}
+  .cl-page.cl-landing .cl-landing-intro {padding:0 0 22px;max-width:680px}
+  .cl-page.cl-landing .cl-landing-intro h1 {font-size:clamp(45px,4.5vw,54px)}
+  .cl-page.cl-landing .cl-direction-sign {display:none}
+  .cl-page.cl-landing .cl-landing-description {max-width:640px}
+  .cl-page.cl-landing .cl-landing-cards {gap:12px}
+}
+@media(max-width:980px) {
+  .cl-page.cl-landing .cl-landing-cards {grid-template-columns:repeat(3,minmax(0,1fr))}
+  .cl-page.cl-landing .cl-landing-hero {background-position:center,60% center}
+}
+@media(max-width:760px){
+  .cl-page.cl-landing .vcc-transfer-grid {grid-template-columns:1fr;gap:11px}
+  .cl-page.cl-landing .vcc-transfer-overview,
+  .cl-page.cl-landing .vcc-arrival-brief {padding:28px 18px 32px}
+  .cl-page.cl-landing .vcc-airport-card {padding:17px 18px 13px}
+  .cl-page.cl-landing .vcc-airport-stat {min-height:0;margin:10px 0;padding:10px 0}
+  .cl-page.cl-landing .vcc-airport-copy {margin-bottom:10px}
+}
+@media(max-width:660px) {
+  .cl-page.cl-landing .cl-landing-cards {grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+  .cl-page.cl-landing .cl-landing-hero {
+    min-height:var(--vcc-standard-hero-mobile,730px);
+    padding:48px 15px 16px;
+  }
+  .cl-page.cl-landing .cl-landing-hero .cl-crumb.vcc-crumb {
+    top:9px;left:15px;right:15px;max-width:calc(100% - 30px);
+    font-size:11px;
+  }
+  .cl-page.cl-landing .cl-landing-intro h1 {font-size:clamp(38px,9vw,51px)}
+  .cl-page.cl-landing .cl-landing-kicker {font-size:26px}
+  .cl-page.cl-landing .cl-transport-group {padding:9px 9px 12px}
+  .cl-page.cl-landing .cl-illustration.cl-artwork {height:55px;min-height:55px}
+  .cl-page.cl-landing .cl-transport-photo {width:46px;height:46px}
+  .cl-page.cl-landing .cl-guide-title {font-size:12px}
+}
+@media(max-width:540px) {
+  .cl-page.cl-landing .cl-landing-cards {grid-template-columns:1fr}
+  .cl-page.cl-landing .cl-transport-group {
+    display:grid;grid-template-columns:76px minmax(0,1fr);
+    align-items:start;column-gap:12px;row-gap:4px;
+    padding:13px;text-align:left;
+  }
+  .cl-page.cl-landing .cl-illustration.cl-artwork {
+    grid-column:1;grid-row:1 / span 2;
+    width:76px;height:62px;min-height:62px;
+  }
+  .cl-page.cl-landing .cl-transport-photo {width:43px;height:43px}
+  .cl-page.cl-landing .cl-transport-group h3 {grid-column:2;font-size:23px}
+  .cl-page.cl-landing .cl-transport-group > p {grid-column:2;font-size:12.5px}
+  .cl-page.cl-landing .cl-quicklinks {grid-column:1 / -1;margin-top:6px}
+  .cl-page.cl-landing .cl-guide-link {min-height:44px}
+  .cl-page.cl-landing .cl-guide-title {font-size:13px}
+}
+@media(prefers-reduced-motion:reduce) {
+  html { scroll-behavior: auto; }
+  .cl-page.cl-landing .vcc-saving-track {scroll-behavior:auto}
+  .cl-page.cl-landing * {scroll-behavior:auto;animation-duration:.01ms;transition-duration:.01ms}
+}
+
+
+/* Navegación secundaria VCC: portada con secciones reales bajo el hero. */
+.cl-page.cl-landing .vcc-como-llegar-subnav {
+  position:sticky;
+  top:50px;
+  z-index:120;
+  width:100%;
+  margin:0;
+  background:#fff;
+  border-top:1px solid #e7ded6;
+  border-bottom:1px solid #e7ded6;
+}
+.cl-page.cl-landing .vcc-como-llegar-subnav .vcc-nav-inner {
+  display:flex;align-items:center;gap:30px;
+  width:min(1180px,calc(100% - 48px));
+  height:39px;min-height:39px;
+  margin:0 auto;
+  overflow-x:auto;
+  scrollbar-width:none;
+}
+.cl-page.cl-landing .vcc-como-llegar-subnav .vcc-nav-inner::-webkit-scrollbar {display:none}
+.cl-page.cl-landing .vcc-como-llegar-subnav a {
+  box-sizing:border-box;
+  display:inline-flex;align-items:center;justify-content:center;
+  flex:0 0 auto;
+  height:39px;
+  padding:1px 0 0;
+  border-bottom:3px solid transparent;
+  color:#292927;
+  font:800 11.5px/1.15 var(--vcc-font-body, "DM Sans", Arial, sans-serif);
+  letter-spacing:0;
+  text-decoration:none;
+  white-space:nowrap;
+}
+.cl-page.cl-landing .vcc-como-llegar-subnav a:hover,
+.cl-page.cl-landing .vcc-como-llegar-subnav a.is-active,
+.cl-page.cl-landing .vcc-como-llegar-subnav a[aria-current="location"] {
+  color:#b85f3e;
+  border-bottom-color:#cf7051;
+}
+#comparar-aeropuertos, #ahorrar {
+  scroll-margin-top:102px;
+}
+@media(max-width:720px) {
+  /* Referencia compartida de hero móvil, sin imponer max-height: las 5
+     tarjetas siguen siendo accesibles si requieren más espacio. */
+  .cl-page.cl-landing .cl-landing-hero {
+    min-height:var(--vcc-standard-hero-mobile,730px);
+  }
+  .cl-page.cl-landing .vcc-como-llegar-subnav {top:0}
+  .cl-page.cl-landing .vcc-como-llegar-subnav .vcc-nav-inner {
+    width:calc(100% - 30px);gap:22px;height:39px;min-height:39px;
+  }
+  .cl-page.cl-landing .vcc-como-llegar-subnav a {height:39px;font-size:10.5px}
+  #comparar-aeropuertos, #ahorrar {scroll-margin-top:54px}
+}
+
+/* Móvil: las cinco opciones de transporte se muestran después del subheader.
+   La introducción sigue en la portada y la barra entra en el primer viewport. */
+@media(max-width:720px){
+  html body .cl-page.cl-landing .cl-landing-hero.vcc-subheader-hero.vcc-standardized-hero-height{
+    box-sizing:border-box!important;
+    height:var(--vcc-standard-hero-mobile)!important;
+    min-height:var(--vcc-standard-hero-mobile)!important;
+    max-height:var(--vcc-standard-hero-mobile)!important;
+  }
+  .cl-page.cl-landing > .cl-landing-cards.vcc-cl-mobile-cards{
+    width:100%;
+    margin:0;
+    padding:18px 15px 25px;
+    background:var(--cl-section-bg);
+  }
+  .cl-page.cl-landing .cl-landing-stage{display:block}
+  .cl-page.cl-landing .cl-landing-intro{padding-bottom:0}
+}
