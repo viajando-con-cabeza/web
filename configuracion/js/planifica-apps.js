@@ -77,6 +77,11 @@
     });
     if(resultCount)resultCount.textContent=visible+" "+(visible===1?"actividad":"actividades");
     if(empty)empty.hidden=visible>0;
+    const activityCarousel=carousels.get("actividades");
+    if(activityCarousel){
+      activityCarousel.track.scrollLeft=0;
+      requestAnimationFrame(activityCarousel.sync);
+    }
   };
   [continent,destination].forEach(select=>select?.addEventListener("change",updateActivities));
   search?.addEventListener("input",updateActivities);
