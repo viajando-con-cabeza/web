@@ -54,19 +54,16 @@
 .sv-point li:before{content:"•";position:absolute;left:0;color:#5d5651}
 .sv-page .sv-insurer-action{align-self:flex-end;margin-top:14px;color:#e25d20;font:800 11.5px/1.2 var(--sv-body);white-space:nowrap}
 .sv-page .sv-insurer-action:hover{text-decoration:underline;text-underline-offset:3px}
-.sv-number-card{min-height:192px;padding:23px 21px;align-items:flex-start;gap:17px}
-.sv-count{display:grid;place-items:center;flex:0 0 54px;width:54px;height:54px;border:2px solid #c96d4e;outline:2px dashed #e1a18b;outline-offset:3px;border-radius:50%;color:#b95d43;background:#fff9f4;font:600 32px/1 var(--sv-title)}
-.sv-number-card h3{margin:0 0 9px}
-.sv-card.sv-number-card p{font-size:13px}
+.sv-number-card{flex:0 0 calc((100% - 36px)/3);min-height:190px;padding:21px 20px;align-items:flex-start;gap:14px;scroll-snap-align:start}
+.sv-number-card h3{font-size:22px;margin:2px 0 9px}
+.sv-card.sv-number-card p{font-size:12.5px;line-height:1.58}
 .sv-cover{min-height:185px;flex-direction:column;gap:9px;padding:18px 15px}
 .sv-cover .sv-icon{width:32px;height:32px;margin-bottom:3px}
 .sv-cover h3{font-size:20px}
 .sv-cover p{font-size:11.7px;line-height:1.42}
-.sv-error-card{min-height:160px;align-items:flex-start;gap:14px;padding:21px 17px}
-.sv-error-card h3{font-size:23px;margin:0 0 8px}
-.sv-error-card p{font-size:12.7px}
-.sv-warning-circle{display:grid;place-items:center;flex:0 0 45px;width:45px;height:45px;border-radius:50%;background:#f2efeb;color:#a26e5b}
-.sv-warning-symbol{width:27px;height:27px}
+.sv-error-card{flex:0 0 calc((100% - 36px)/3);min-height:180px;align-items:flex-start;gap:13px;padding:19px 18px;scroll-snap-align:start}
+.sv-error-card h3{font-size:22px;margin:0 0 8px}
+.sv-error-card p{font-size:12.7px;line-height:1.57}
 .sv-footnote{margin:4px 0 0;color:#74716e;font:400 11.5px/1.6 var(--sv-body);text-align:center}
 .sv-next{position:relative;isolation:isolate;margin-top:48px;padding:34px 0 43px;color:white;background:#25303b url('/configuracion/imagenes/fondos/fondos-planifica.webp') center 63%/cover}
 .sv-next:before{content:"";position:absolute;inset:0;z-index:-1;background:#17252fba}
@@ -112,3 +109,26 @@
  .sv-next-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
 }
 @media(prefers-reduced-motion:reduce){.sv-track{scroll-behavior:auto!important}}
+
+
+/* Carruseles 'Cómo comparar' y 'Errores': mismas proporciones editoriales que
+   .savings-section / .surprise-section de Presupuesto de Estocolmo.
+   Numeros e iconos proceden de los recursos CSS/SVG compartidos. */
+.sv-page :is(#sv-track-compare,#sv-track-tips){display:flex;gap:18px;align-items:stretch;overflow-x:auto;scroll-snap-type:x mandatory}
+.sv-page :is(#sv-track-compare,#sv-track-tips)>.sv-card{background:#fff!important;border:1px solid #e5dad1;border-radius:14px;box-shadow:0 4px 15px #47342a0d}
+.sv-page .sv-number-card>.saving-number{margin:5px 0 0;flex:none}
+.sv-page .sv-error-card>.surprise-icon{flex:0 0 34px;margin-top:0;background:var(--vcc-error-icon-bg)!important;color:var(--vcc-error-icon-color)!important}
+.sv-page{--vcc-error-icon-bg:#eaf2f2;--vcc-error-icon-color:#527b80}
+.sv-page .sv-carousel-shell[data-vcc-carousel="editorial"]{--vcc-carousel-desktop-editorial-visible:3}
+.sv-page .sv-arrow{width:36px;height:36px;padding-bottom:2px;font-size:21px!important;border:1px solid var(--vcc-carrusel-fletxa-contorn,#c7aa97);background:var(--vcc-carrusel-fletxa-fons,rgba(255,255,255,.78));color:var(--vcc-carrusel-fletxa-tinta,#ab553b);box-shadow:var(--vcc-carrusel-fletxa-ombra,0 2px 8px #1d161a1a)}
+.sv-page .sv-arrow:disabled{opacity:.3}
+@media(max-width:850px) and (min-width:601px){
+ .sv-page #sv-track-compare>.sv-number-card,.sv-page #sv-track-tips>.sv-error-card{flex-basis:calc((100% - 16px)/2)}
+}
+@media(max-width:600px){
+ .sv-page #sv-track-compare>.sv-number-card,.sv-page #sv-track-tips>.sv-error-card{flex:0 0 100%;min-width:0}
+ .sv-page .sv-number-card{min-height:160px;padding:17px 16px;gap:11px}
+ .sv-page .sv-number-card h3{font-size:21px}
+ .sv-page .sv-error-card{min-height:145px;padding:17px 16px;gap:11px}
+ .sv-page .sv-error-card h3{font-size:21px}
+}
