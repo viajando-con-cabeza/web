@@ -124,7 +124,7 @@ for(const p of approvedFiles){
           const dim=imageInfo(name,source).variants["960"];
           if(!/\bwidth=["']/.test(result))result=result.replace(/>$/,' width="'+dim.width+'">');
           if(!/\bheight=["']/.test(result))result=result.replace(/>$/,' height="'+dim.height+'">');
-          return result.replace(/>$/,' srcset="'+variant(name,"960",source)+' 960w, '+variant(name,"1920",source)+' '+(source==="externas"?"1600":"1920")+'w" sizes="100vw">');
+          return result.replace(/>$/,' srcset="'+variant(name,"960",source)+' 960w, '+variant(name,"1920",source)+' '+(source==="externas"?"1600":"1920")+'w" sizes="(max-width: 767px) 320px, 100vw">');
         });
       }
     }
@@ -142,7 +142,9 @@ for(const p of approvedFiles){
     });
     // LCP: l'escàner del navegador descobreix el recurs ABANS dels CSS,
     // evitant la descoberta tardana al final del <head>.
-    html=html.replace(/<head\b[^>]*>/i,tag=>tag+"\n"+preloadMobile+"\n"+preloadDesktop);
+    const early=/<meta\b[^>]*\bcharset\s*=\s*["']?[^\s>]+[^>]*>/i;
+    html=early.test(html)?html.replace(early,tag=>tag+"\n"+preloadMobile+"\n"+preloadDesktop):
+      html.replace(/<head\b[^>]*>/i,tag=>tag+"\n"+preloadMobile+"\n"+preloadDesktop);
   }
   // El logotip té viewBox 620x216; reservar la proporció a l'HTML
   // evita reflows mentre arriben els estils globals, sense canviar-ne el CSS.
