@@ -98,9 +98,16 @@ for (const anchor of matches(html, /<nav class="st-tabs ci-subnav"[^>]*>([\s\S]*
     .flatMap(m => matches(m[1], /href="#([^"]+)"/g).map(x => x[1]))) {
   assert.ok(ids.includes(anchor), `El subheader enlaza a una sección inexistente: #${anchor}`);
 }
+const portades=read('configuracion/css/componentes/portadas-rapidas-vcc.css');
+const photoManifest=JSON.parse(read('configuracion/imagenes/fondos/optimizadas/manifest.json'));
+const photo=photoManifest.images['fondos-cuando-ir'];
 assert.ok(/@media\s*\(max-width:\s*800px\)/.test(css) &&
-  css.includes('fondos-cuando-ir.webp') && html.includes('fondos-cuando-ir.webp'),
-  'La portada de fondo única debe mantenerse también en móvil');
+  photo && portades.includes('fondos-cuando-ir-960.webp?v='+photo.fingerprint) &&
+  portades.includes('fondos-cuando-ir-1920.webp?v='+photo.fingerprint) &&
+  html.includes('fondos-cuando-ir-960.webp?v='+photo.fingerprint) &&
+  html.includes('fondos-cuando-ir-1920.webp?v='+photo.fingerprint) &&
+  !/<section class="vcc-hero vcc-portada-transparente"[^>]*style=/.test(html),
+  'Cuándo ir ha de reutilitzar exactament la mateixa fotografia en ordinador i mòbil');
 
 // Tres iconos SVG compartidos externamente; la geometría nunca se declara en el HTML.
 const symbolPath='configuracion/imagenes/iconos/paginas/estocolmo-cuando-ir-simbolos.svg';
