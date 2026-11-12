@@ -26,6 +26,20 @@ jobs:
           ref: quality
           fetch-depth: 0
 
+      - name: Cache Stockholm itinerary hero WebP for mobile
+        if: ${{ hashFiles('configuracion/imagenes/fondos/optimizadas/estocolmo-itinerario-dia1-960.webp') == '' }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m pip install --quiet Pillow pillow-avif-plugin
+          python configuracion/scripts/generar-portada-itinerario-estocolmo.py
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add configuracion/imagenes/fondos/optimizadas/estocolmo-itinerario-dia1-960.webp
+          git commit -m "Cache original Stockholm itinerary hero as mobile WebP"
+          git pull --rebase origin quality
+          git push origin HEAD:quality
+
       - name: Cache Destinos hero as WebP
         if: ${{ hashFiles('configuracion/imagenes/fondos/fondos-destinos.webp') == '' }}
         shell: bash
@@ -114,8 +128,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          python -m pip install --quiet Pillow pillow-avif-plugin
-          python configuracion/scripts/generar-portada-itinerario-estocolmo.py
+          python -m pip install --quiet Pillow
           npm run site:sync
           if [[ -n "$(git status --porcelain)" ]]; then
             git config user.name "github-actions[bot]"
