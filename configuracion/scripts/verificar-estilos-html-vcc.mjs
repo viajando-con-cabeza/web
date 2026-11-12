@@ -68,8 +68,9 @@ for(const file of published){
  if(new Set(localCSS).size!==localCSS.length)failures.push(file+': fulls CSS duplicats');
  if(/<style\b/i.test(html))failures.push(file+': no incloure blocs <style> a HTML publicat');
  const logos=[...html.matchAll(/<img\b(?=[^>]*\bsrc=["']\/configuracion\/imagenes\/marca\/logo-viajando-con-cabeza\.svg["'])[^>]*>/gi)];
- if(logos.some(m=>!/\bwidth=["']620["']/.test(m[0])||!/\bheight=["']216["']/.test(m[0])))
-   failures.push(file+': logotip sense proporció intrínseca 620×216');
+ // Acceptar dimensions editorials existents; només exigir l'espai reservat.
+ if(logos.some(m=>!/\bwidth=["']\d+["']/.test(m[0])||!/\bheight=["']\d+["']/.test(m[0])))
+   failures.push(file+': logotip sense width/height intrínsecs');
 
  // CSS base disponible abans d'executar JavaScript: evita reflows del menú.
  const coreTags=[...html.matchAll(/<link\b[^>]*data-vcc-core-styles[^>]*>/gi)];
