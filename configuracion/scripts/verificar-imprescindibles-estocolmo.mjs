@@ -1,5 +1,5 @@
 /**
- * Guardarraíl técnico para la guía de los 15 imprescindibles (quality).
+ * Guardarraíl técnico para la guía de los 16 imprescindibles (quality).
  * Sin dependencias, sin acceder a R2 y sin modificar archivos.
  * Protege las rutas SEO, la compatibilidad de las galerías y el mapa/PDF.
  * No sustituye una prueba visual o una medición de Core Web Vitals.
@@ -24,6 +24,8 @@ const photos=read('configuracion/js/destinos/suecia/estocolmo/imprescindibles-fo
 const css=read('configuracion/css/destinos/suecia/estocolmo/imprescindibles-decisiones.css');
 const galleryCss=read('configuracion/css/plantillas/imprescindibles.css');
 const layoutCss=read('configuracion/css/destinos/suecia/estocolmo/imprescindibles-layout.css');
+const heroCss=read('configuracion/css/componentes/portadas-transparencia.css');
+const compiledCss=read('configuracion/css/plantillas/imprescindibles-compilado-vcc.css');
 const config=JSON.parse(read('wrangler.jsonc'));
 verify(config.assets?.html_handling==='auto-trailing-slash',
   'Cloudflare: la ruta canónica necesita html_handling=auto-trailing-slash');
@@ -47,8 +49,16 @@ if(image?.startsWith('https://viajandoconcabeza.com/')){
  // esa descarga extra penalizaba la red sin mejorar el LCP.
 const preload=html.match(/<link\b[^>]*rel="preload"[^>]*as="image"[^>]*>/)?.[0];
 const hero=preload?.match(/\bhref="([^"]+)"/)?.[1];
-verify(Boolean(hero) && layoutCss.includes(hero),
-  'Rendimiento: el preload debe apuntar a un recurso visible en el CSS del hero');
+verify(hero==='/configuracion/imagenes/fondos/fondos-que-ver.webp' &&
+  heroCss.includes('fondos-que-ver.webp') && !layoutCss.includes('goteborg/'),
+  'Rendimiento: preload debe coincidir con el hero compartido sin fotos de Göteborg');
+verify(html.includes('imprescindibles-compilado-vcc.css') &&
+  !/@import\\s+url\\s*\\(/.test(compiledCss),
+  'Rendimiento: usar CSS compilado sin ocho imports bloqueantes');
+verify(html.includes('imprescindibles-map-bootstrap.js') &&
+  html.includes('vcc-gallery-on-demand.js') &&
+  !html.includes('<script src="https://unpkg.com/leaflet'),
+  'Rendimiento: el mapa y visor han de ser diferidos');
 
 // El CSS del layout es un recurso cacheable, con su posición de cascada
 // original. No volver a añadir miles de bytes inline al documento HTML.
@@ -70,15 +80,15 @@ verify(css.includes('grid-template-columns:repeat(2,minmax(0,1fr))') &&
 
 const ids=[...html.matchAll(/<section class="place place--no-media" id="([^"]+)" data-ssr-place="1"/g)]
   .map(match=>match[1]);
-verify(ids.length>=15 && new Set(ids).size===ids.length,
-  'HTML: debe haber al menos 15 fichas únicas sin depender de JavaScript');
+verify(ids.length===16 && new Set(ids).size===ids.length,
+  'HTML: debe haber exactamente 16 fichas únicas sin depender de JavaScript');
 const dataMatch=html.match(/const data=(\[[\s\S]*?\]);\s*const esc=/);
 let data=[];
 try{data=JSON.parse(dataMatch?.[1]||'null');}
 catch(error){errors.push('Datos editoriales: JSON inválido '+error.message);}
-verify(Array.isArray(data)&&data.length===ids.length && data.length>=15,
-  'Datos editoriales: deben coincidir con el número de fichas HTML (mínimo 15)');
-if(Array.isArray(data)&&data.length===ids.length && data.length>=15){
+verify(Array.isArray(data)&&data.length===ids.length && data.length===16,
+  'Datos editoriales: deben coincidir con las 16 fichas HTML');
+if(Array.isArray(data)&&data.length===ids.length && data.length===16){
   verify(ids.every((id,i)=>data[i]?.[0]===id),
     'Datos editoriales: orden de IDs distinto de las secciones HTML');
   verify(data.every(place=>typeof place[4]==='string' &&
@@ -91,14 +101,16 @@ for(const [name,regex] of [
 ]){
   try{
     const obj=JSON.parse(html.match(regex)?.[1]||'null');
-    verify(obj && ids.every(id=>typeof obj[id]!=='undefined') &&
-      Object.keys(obj).length===ids.length,
-      'Datos: faltan '+name+' en alguna ficha');
+    const scoredIds=data.filter(place=>Number.isFinite(place[7])).map(place=>place[0]);
+    const required=name==='costes'?ids:scoredIds;
+    verify(obj && required.every(id=>typeof obj[id]!=='undefined') &&
+      Object.keys(obj).length===required.length,
+      'Datos: faltan '+name+' en las fichas a las que corresponden');
   }catch(error){errors.push('Datos: JSON de '+name+' inválido: '+error.message);}
 }
 verify(html.indexOf('id="mapa-imprescindibles"')<
   html.indexOf('<main class="imp-main" id="places">'),
-  'Experiencia: mapa debe estar antes de las 15 fichas');
+  'Experiencia: mapa debe estar antes de las 16 fichas');
 verify(html.includes('nav.innerHTML=\'<a href="#mapa-imprescindibles"'),
   'Navegación: el índice debe comenzar por Mapa');
 verify(html.includes("card.className='place-info-card'") &&
