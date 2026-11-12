@@ -15,55 +15,48 @@
 <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=DM+Sans:wght@400;500;600;700;800&family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/configuracion/css/paginas.css">
 <link rel="stylesheet" href="/configuracion/css/overrides.css">
-<link rel="stylesheet" href="/configuracion/css/tarjetas-de-viaje.css?v=20261111-mobile-v1">
 
 <meta property="og:type" content="article">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Inicio","item":"https://viajandoconcabeza.com/"},{"@type":"ListItem","position":2,"name":"Planifica","item":"https://viajandoconcabeza.com/planifica/"},{"@type":"ListItem","position":3,"name":"Tarjetas de viaje","item":"https://viajandoconcabeza.com/planifica/tarjetas-de-viaje/"}]}</script>
 <meta property="og:title" content="Tarjetas para viajar: comisiones, comparativa y ahorro | VCC">
 <meta property="og:description" content="Compara las condiciones de las tarjetas para viajar y estima el ahorro al pagar en otras divisas.">
-<link rel="stylesheet" href="/configuracion/css/componentes/carruseles-flechas-movil-vcc.css?v=20261111-arrow-refactor-v11">
-<link rel="stylesheet" href="/configuracion/css/componentes/portadas-transparencia.css?v=20261111-universal-white-v3">
+<link rel="stylesheet" href="/configuracion/css/componentes/vcc-ui-compartida.css?v=20261112-b1">
 
 
 <link rel="preload" as="image" type="image/webp" media="(max-width: 767px)" href="/configuracion/imagenes/fondos/optimizadas/fondos-planifica-960.webp?v=45336939710e" fetchpriority="high">
 <link rel="preload" as="image" type="image/webp" media="(min-width: 768px)" href="/configuracion/imagenes/fondos/optimizadas/fondos-planifica-1920.webp?v=45336939710e" fetchpriority="high">
 <link rel="stylesheet" data-vcc-fast-heroes href="/configuracion/css/componentes/portadas-rapidas-vcc.css?v=6c144064b66e">
 <link rel="stylesheet" data-vcc-core-styles href="/configuracion/css/componentes/vcc-core-compartit.css?v=fb195c27fb94">
+<link rel="stylesheet" href="/configuracion/css/tarjetas-de-viaje.css?v=20261112-reforma-v1">
 </head>
 <body>
 <header class="page-header"></header>
 <main class="tv-page">
-  <section class="tv-hero vcc-portada-transparente" aria-labelledby="tv-title">
+  <section class="tv-hero vcc-subheader-hero vcc-standardized-hero-height vcc-portada-transparente vcc-has-global-breadcrumb" data-vcc-hero aria-labelledby="tv-title">
+    <nav id="vcc-global-breadcrumb" class="vcc-breadcrumb-unified" aria-label="Ruta de navegación">
+      <a href="/">Inicio</a><span class="vcc-bc-sep" aria-hidden="true">›</span><a href="/planifica/">Planifica</a><span class="vcc-bc-sep" aria-hidden="true">›</span><strong aria-current="page">Tarjetas de viaje</strong>
+    </nav>
     <div class="tv-wrap tv-hero-inner">
-      <div>
-        
-        <span class="tv-eyebrow">PLANIFICA TU VIAJE</span>
-        <h1 id="tv-title">TARJETAS PARA VIAJAR<br><em>SIN COMISIONES INNECESARIAS</em></h1>
-        <p>Compara tarjetas para viajar, evita comisiones innecesarias y calcula cuánto puedes ahorrar cuando pagas en otra moneda.</p>
-        <div class="tv-actions"><a class="tv-button" href="#tarjetas">COMPARAR TARJETAS <span aria-hidden="true">↓</span></a><a class="tv-button ghost" href="#calculadora">CALCULAR MI AHORRO <span aria-hidden="true">↘</span></a></div>
-      </div>
-      <div class="tv-hero-art" aria-hidden="true">
-        <div class="tv-visual-card card-a"><span>Revolut</span><small>VIAJA CON CABEZA</small></div>
-        <div class="tv-visual-card card-b"><span>N26</span><small>MULTIDIVISA</small></div>
-        <div class="tv-visual-card card-c"><span>Wise</span><small>PAY WORLDWIDE</small></div>
-        <div class="tv-visual-card card-d"><span>bunq</span><small>TRAVEL SMARTER</small></div>
-      </div>
+      <span class="tv-eyebrow">Planifica tu viaje</span>
+      <h1 id="tv-title">TARJETAS DE VIAJE</h1>
+      <span class="tv-hero-rule" aria-hidden="true"></span>
+      <p>Compara las tarjetas que valoramos para viajar, sus ventajas y sus límites, y calcula cuánto podrías ahorrar al pagar en otra moneda.</p>
     </div>
   </section>
 
-  <nav class="tv-tabs" aria-label="Apartados de tarjetas de viaje">
+  <nav class="tv-tabs vcc-unified-subheader vcc-subnav-inner-layout" aria-label="Apartados de tarjetas de viaje">
     <div class="tv-wrap tv-tabs-inner vcc-nav-inner">
-      <a href="#tarjetas" class="active" aria-current="location">Nuestra experiencia</a>
-      <a href="#calculadora">Calcula tu ahorro</a>
-      <a href="#comparar">Qué comparar</a>
-      <a href="#tipos">Débito o crédito</a>
+      <a href="#tarjetas" class="vcc-subheader-current" aria-current="location">NUESTRA EXPERIENCIA</a>
+      <a href="#calculadora">CALCULADORA</a>
+      <a href="#errores">ERRORES A EVITAR</a>
     </div>
   </nav>
 
   <section class="tv-intro" id="tarjetas" aria-labelledby="tv-cards-title">
     <div class="tv-wrap">
-      <span class="tv-eyebrow">Nuestra experiencia</span>
-      <h2 id="tv-cards-title" class="tv-heading">LAS TARJETAS QUE COMPARAMOS</h2>
-      <p class="tv-copy">Analizamos las principales tarjetas para viajar: sus ventajas, límites y comisiones. Publicaremos nuestras experiencias cuando las hayamos probado.</p>
+      <span class="tv-eyebrow">Tarjetas que hemos analizado</span>
+      <h2 id="tv-cards-title" class="tv-heading">NUESTRA EXPERIENCIA</h2>
+      <p class="tv-copy">Estas son las tarjetas que valoramos para viajar. Compartimos sus puntos fuertes y lo que revisaríamos antes de elegir; distinguimos las condiciones consultadas de las experiencias de uso propias.</p>
     </div>
   </section>
 
@@ -77,10 +70,9 @@
           <div class="tv-card-body">
             
             <p class="tv-card-intro">Cuenta y tarjeta digital con funcionalidades para gestionar pagos y dinero desde el móvil.</p>
-            <div class="tv-point"><b><span class="tv-symbol" aria-hidden="true">✓</span> PUNTOS A FAVOR</b><p>Permite consultar los gastos y gestionar la tarjeta desde una app.</p></div>
-            <div class="tv-point review"><b><span class="tv-symbol" aria-hidden="true">!</span> LO QUE CONVIENE REVISAR</b><p>Los límites del plan, las retiradas y los posibles recargos por cambio de moneda.</p></div>
-            <div class="tv-vcc-state"><img src="/configuracion/imagenes/marca/logo-vcc.svg" alt="" loading="lazy"><span>EXPERIENCIA VCC · POR COMPLETAR</span></div>
-            <a class="tv-card-link" href="https://www.revolut.com/es-ES/" target="_blank" rel="noopener noreferrer nofollow">VER WEB OFICIAL <span aria-hidden="true">↗</span></a>
+            <div class="tv-point"><b><svg class="tv-face-icon" viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="/configuracion/imagenes/iconos/paginas/planifica-alojamientos-iconos.svg#al-face-icon-1"></use></svg> LO QUE NOS GUSTA</b><p>Permite consultar los gastos y gestionar la tarjeta desde una app.</p></div>
+            <div class="tv-point review"><b><svg class="tv-face-icon" viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="/configuracion/imagenes/iconos/paginas/planifica-alojamientos-iconos.svg#al-face-icon-2"></use></svg> A TENER EN CUENTA</b><p>Los límites del plan, las retiradas y los posibles recargos por cambio de moneda.</p></div>
+            <a class="tv-card-link" href="https://www.revolut.com/es-ES/" target="_blank" rel="noopener noreferrer nofollow">WEB <span aria-hidden="true">↗</span></a>
           </div>
         </article>
         <article class="tv-card">
@@ -88,10 +80,9 @@
           <div class="tv-card-body">
             
             <p class="tv-card-intro">Cuenta móvil con tarjetas bancarias y seguimiento digital de los movimientos.</p>
-            <div class="tv-point"><b><span class="tv-symbol" aria-hidden="true">✓</span> PUNTOS A FAVOR</b><p>Facilita el seguimiento de pagos y movimientos desde el móvil.</p></div>
-            <div class="tv-point review"><b><span class="tv-symbol" aria-hidden="true">!</span> LO QUE CONVIENE REVISAR</b><p>Las condiciones de retiradas en cajeros y las diferencias entre planes.</p></div>
-            <div class="tv-vcc-state"><img src="/configuracion/imagenes/marca/logo-vcc.svg" alt="" loading="lazy"><span>EXPERIENCIA VCC · POR COMPLETAR</span></div>
-            <a class="tv-card-link" href="https://n26.com/es-es" target="_blank" rel="noopener noreferrer nofollow">VER WEB OFICIAL <span aria-hidden="true">↗</span></a>
+            <div class="tv-point"><b><svg class="tv-face-icon" viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="/configuracion/imagenes/iconos/paginas/planifica-alojamientos-iconos.svg#al-face-icon-1"></use></svg> LO QUE NOS GUSTA</b><p>Facilita el seguimiento de pagos y movimientos desde el móvil.</p></div>
+            <div class="tv-point review"><b><svg class="tv-face-icon" viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="/configuracion/imagenes/iconos/paginas/planifica-alojamientos-iconos.svg#al-face-icon-2"></use></svg> A TENER EN CUENTA</b><p>Las condiciones de retiradas en cajeros y las diferencias entre planes.</p></div>
+            <a class="tv-card-link" href="https://n26.com/es-es" target="_blank" rel="noopener noreferrer nofollow">WEB <span aria-hidden="true">↗</span></a>
           </div>
         </article>
         <article class="tv-card">
@@ -99,10 +90,9 @@
           <div class="tv-card-body">
             
             <p class="tv-card-intro">Servicio multidivisa para gestionar, convertir y utilizar dinero en distintas monedas.</p>
-            <div class="tv-point"><b><span class="tv-symbol" aria-hidden="true">✓</span> PUNTOS A FAVOR</b><p>Permite consultar el coste de la conversión antes de realizarla.</p></div>
-            <div class="tv-point review"><b><span class="tv-symbol" aria-hidden="true">!</span> LO QUE CONVIENE REVISAR</b><p>Las tarifas por conversión y los límites o costes de las retiradas.</p></div>
-            <div class="tv-vcc-state"><img src="/configuracion/imagenes/marca/logo-vcc.svg" alt="" loading="lazy"><span>EXPERIENCIA VCC · POR COMPLETAR</span></div>
-            <a class="tv-card-link" href="https://wise.com/es/" target="_blank" rel="noopener noreferrer nofollow">VER WEB OFICIAL <span aria-hidden="true">↗</span></a>
+            <div class="tv-point"><b><svg class="tv-face-icon" viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="/configuracion/imagenes/iconos/paginas/planifica-alojamientos-iconos.svg#al-face-icon-1"></use></svg> LO QUE NOS GUSTA</b><p>Permite consultar el coste de la conversión antes de realizarla.</p></div>
+            <div class="tv-point review"><b><svg class="tv-face-icon" viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="/configuracion/imagenes/iconos/paginas/planifica-alojamientos-iconos.svg#al-face-icon-2"></use></svg> A TENER EN CUENTA</b><p>Las tarifas por conversión y los límites o costes de las retiradas.</p></div>
+            <a class="tv-card-link" href="https://wise.com/es/" target="_blank" rel="noopener noreferrer nofollow">WEB <span aria-hidden="true">↗</span></a>
           </div>
         </article>
         <article class="tv-card">
@@ -110,10 +100,9 @@
           <div class="tv-card-body">
             
             <p class="tv-card-intro">Banca digital con herramientas para organizar cuentas, pagos y presupuesto.</p>
-            <div class="tv-point"><b><span class="tv-symbol" aria-hidden="true">✓</span> PUNTOS A FAVOR</b><p>Ofrece funciones para organizar el saldo y separar dinero por objetivos.</p></div>
-            <div class="tv-point review"><b><span class="tv-symbol" aria-hidden="true">!</span> LO QUE CONVIENE REVISAR</b><p>La cuota y las funcionalidades incluidas en cada plan y sus posibles límites.</p></div>
-            <div class="tv-vcc-state"><img src="/configuracion/imagenes/marca/logo-vcc.svg" alt="" loading="lazy"><span>EXPERIENCIA VCC · POR COMPLETAR</span></div>
-            <a class="tv-card-link" href="https://www.bunq.com/" target="_blank" rel="noopener noreferrer nofollow">VER WEB OFICIAL <span aria-hidden="true">↗</span></a>
+            <div class="tv-point"><b><svg class="tv-face-icon" viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="/configuracion/imagenes/iconos/paginas/planifica-alojamientos-iconos.svg#al-face-icon-1"></use></svg> LO QUE NOS GUSTA</b><p>Ofrece funciones para organizar el saldo y separar dinero por objetivos.</p></div>
+            <div class="tv-point review"><b><svg class="tv-face-icon" viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="/configuracion/imagenes/iconos/paginas/planifica-alojamientos-iconos.svg#al-face-icon-2"></use></svg> A TENER EN CUENTA</b><p>La cuota y las funcionalidades incluidas en cada plan y sus posibles límites.</p></div>
+            <a class="tv-card-link" href="https://www.bunq.com/" target="_blank" rel="noopener noreferrer nofollow">WEB <span aria-hidden="true">↗</span></a>
           </div>
         </article>
       </div>
@@ -155,27 +144,40 @@
     </div>
   </section>
 
-  <section class="tv-guide" id="comparar" aria-labelledby="tv-compare-title">
+  <section class="tv-errors" id="errores" aria-labelledby="tv-errors-title">
     <div class="tv-wrap">
-      <div class="tv-guide-head"><span class="tv-eyebrow">Antes de elegir</span><h2 id="tv-compare-title" class="tv-heading">QUÉ COMPARAR ANTES DE ELEGIR</h2><p class="tv-copy">El tipo de cambio, las comisiones y los límites marcan la diferencia. Fíjate en estos cuatro puntos.</p></div>
-      <div class="tv-guide-grid">
-        <article class="tv-guide-item"><span class="tv-guide-icon" aria-hidden="true">↔</span><h3>TIPO DE CAMBIO</h3><p>Comparamos el cambio aplicado con una referencia de mercado y comprobamos si hay sobrecostes.</p></article>
-        <article class="tv-guide-item"><span class="tv-guide-icon" aria-hidden="true">€</span><h3>COMISIONES AL PAGAR</h3><p>Revisamos si existen porcentajes añadidos, cuotas de mantenimiento o límites mensuales.</p></article>
-        <article class="tv-guide-item"><span class="tv-guide-icon" aria-hidden="true">▣</span><h3>RETIRADAS EN CAJEROS</h3><p>Nos fijamos en el coste de retirar efectivo, los límites y las comisiones del propio cajero.</p></article>
-        <article class="tv-guide-item"><span class="tv-guide-icon" aria-hidden="true">30</span><h3>LÍMITES Y FINES DE SEMANA</h3><p>Algunas condiciones cambian según el día, el plan, la divisa o el importe utilizado.</p></article>
+      <header class="tv-errors-head">
+        <span class="tv-eyebrow">Pequeños consejos, grandes ahorros</span>
+        <h2 id="tv-errors-title" class="tv-heading">ERRORES A EVITAR</h2>
+        <p class="tv-copy">Lo que siempre comprobamos antes de pagar, sacar efectivo o elegir qué tarjeta llevar.</p>
+      </header>
+      <div class="tv-errors-grid">
+        <article class="tv-error-card">
+          <span class="tv-error-number vcc-numero-unificado" aria-hidden="true"><svg class="vcc-numero-svg" viewBox="0 0 44 44" focusable="false"><use href="/configuracion/imagenes/iconos/compartidos/numeros-consejos-vcc.svg?v=20261111-v2#numero-1"></use></svg></span>
+          <div class="tv-error-copy"><h3>Paga siempre en moneda local</h3><p>Si el terminal te ofrece cobrar en euros, elige la moneda del país. Evitarás la conversión del comercio, que suele tener un cambio peor.</p></div>
+        </article>
+        <article class="tv-error-card">
+          <span class="tv-error-number vcc-numero-unificado" aria-hidden="true"><svg class="vcc-numero-svg" viewBox="0 0 44 44" focusable="false"><use href="/configuracion/imagenes/iconos/compartidos/numeros-consejos-vcc.svg?v=20261111-v2#numero-2"></use></svg></span>
+          <div class="tv-error-copy"><h3>Prioriza el TPV frente al cajero</h3><p>Siempre que puedas, paga con tarjeta en comercios. Retirar efectivo puede añadir comisiones de tu banco y del propio cajero.</p></div>
+        </article>
+        <article class="tv-error-card">
+          <span class="tv-error-number vcc-numero-unificado" aria-hidden="true"><svg class="vcc-numero-svg" viewBox="0 0 44 44" focusable="false"><use href="/configuracion/imagenes/iconos/compartidos/numeros-consejos-vcc.svg?v=20261111-v2#numero-3"></use></svg></span>
+          <div class="tv-error-copy"><h3>Usa débito para el gasto diario</h3><p>Si tienes saldo y buenas condiciones de cambio, el débito ayuda a controlar lo que gastas sin financiar compras ni generar intereses.</p></div>
+        </article>
+        <article class="tv-error-card">
+          <span class="tv-error-number vcc-numero-unificado" aria-hidden="true"><svg class="vcc-numero-svg" viewBox="0 0 44 44" focusable="false"><use href="/configuracion/imagenes/iconos/compartidos/numeros-consejos-vcc.svg?v=20261111-v2#numero-4"></use></svg></span>
+          <div class="tv-error-copy"><h3>Comprueba las fianzas antes de viajar</h3><p>Para alquilar coche o dejar ciertos depósitos de hotel pueden exigir crédito. Confirma el tipo de tarjeta aceptado antes de reservar.</p></div>
+        </article>
+        <article class="tv-error-card">
+          <span class="tv-error-number vcc-numero-unificado" aria-hidden="true"><svg class="vcc-numero-svg" viewBox="0 0 44 44" focusable="false"><use href="/configuracion/imagenes/iconos/compartidos/numeros-consejos-vcc.svg?v=20261111-v2#numero-5"></use></svg></span>
+          <div class="tv-error-copy"><h3>No olvides límites y recargos</h3><p>Revisa cambio de divisa, cuotas, límites de retiradas y recargos fuera de horario o en fines de semana: dependen del plan y entidad.</p></div>
+        </article>
+        <article class="tv-error-card">
+          <span class="tv-error-number vcc-numero-unificado" aria-hidden="true"><svg class="vcc-numero-svg" viewBox="0 0 44 44" focusable="false"><use href="/configuracion/imagenes/iconos/compartidos/numeros-consejos-vcc.svg?v=20261111-v2#numero-6"></use></svg></span>
+          <div class="tv-error-copy"><h3>Lleva una segunda tarjeta</h3><p>Guarda una alternativa separada por si la principal falla, se pierde o bloquea. Activa notificaciones para detectar cargos extra.</p></div>
+        </article>
       </div>
-      <div class="tv-takeaway"><span aria-hidden="true">✈</span><p>Consejo VCC: al pagar fuera, normalmente conviene elegir la moneda local y evitar la conversión del comercio.</p></div>
-    </div>
-  </section>
-
-  <section class="tv-help" id="tipos" aria-labelledby="tv-types-title">
-    <div class="tv-wrap tv-help-layout">
-      <div><span class="tv-eyebrow">Elige con cabeza</span><h2 id="tv-types-title" class="tv-heading">¿DÉBITO O CRÉDITO?</h2><p class="tv-copy">Para pagar, sacar efectivo o dejar una fianza: cada tarjeta cumple una función distinta.</p></div>
-      <div class="tv-help-rows">
-        <article class="tv-help-row"><b>Tarjeta de débito para el día a día</b><p>Suele cargar las compras sobre el saldo disponible. Compara cambio, comisiones y límites antes de viajar.</p></article>
-        <article class="tv-help-row"><b>Tarjeta de crédito para algunos depósitos</b><p>Alquileres de coche y ciertos hoteles pueden pedir una tarjeta de crédito para la fianza. Comprueba qué tipo aceptan y el nombre del titular.</p></article>
-        <article class="tv-help-row"><b>Una segunda tarjeta como respaldo</b><p>Nos parece prudente llevar una alternativa por si alguna tarjeta se bloquea, falla o no la acepta el comercio.</p></article>
-      </div>
+      <p class="tv-errors-note">Consejo VCC: la tarjeta más barata depende de la moneda, el plan, los límites y el tipo de operación. Comprueba siempre las condiciones oficiales antes de viajar.</p>
     </div>
   </section>
 
@@ -184,6 +186,6 @@
 <footer class="vcc-global-footer"></footer>
 <script src="/configuracion/js/site-header.js?v=20261110-breadcrumb-v2"></script>
 <script src="/configuracion/js/site-footer.js?v=20261102"></script>
-<script src="/configuracion/js/tarjetas-de-viaje.js?v=20261110-v4" defer></script>
+<script src="/configuracion/js/tarjetas-de-viaje.js?v=20261112-reforma-v1" defer></script>
 </body>
 </html>
