@@ -178,6 +178,10 @@ for(const p of approvedFiles){
   const budgetBundle=p==='destinos/suecia/estocolmo/presupuesto.html' &&
     html.includes('data-vcc-budget-css') &&
     html.includes('/configuracion/css/plantillas/presupuesto-compilado-vcc.css');
+  // Els paquets de guies incorporen els estils de core i de fons final.
+  // Mantenir el preload i el CSS de portada, però sense reinjectar el core.
+  const sharedGuideCore=html.includes('data-vcc-guies-core') &&
+    html.includes('/configuracion/css/componentes/vcc-guies-core-fons-compartit.css');
   if(!budgetBundle){
     // La ruta versionada de la CSS canvia només quan canvien les fotos.
     html=html.replace(/<link\b[^>]*data-vcc-fast-heroes[^>]*>\s*/gi,"");
@@ -186,12 +190,14 @@ for(const p of approvedFiles){
       html=html.replace(/(?:\r?\n[ \t]*){2,}(?=<\/head\s*>)/i,"\n");
       html=html.replace(/<\/head\s*>/i,link+"\n</head>");
     }
-    // Prevenir FOUC/CLS: el CSS del header i dels tokens arriba amb l'HTML.
-    // Es reescriu idempotentment amb hash de contingut per compartir caché.
-    html=html.replace(/<link\b(?=[^>]*\bhref=["']\/configuracion\/css\/componentes\/vcc-core-compartit\.css(?:\?[^"']*)?["'])[^>]*>\s*/gi,"");
-    if(html.includes('/configuracion/js/site-header.js')){
-      html=html.replace(/(?:\r?\n[ \t]*){2,}(?=<\/head\s*>)/i,"\n");
-      html=html.replace(/<\/head\s*>/i,coreLink+"\n</head>");
+    // El core continua bloquejant el primer renderitzat (sense FOUC),
+    // però les guies ja el porten dins del paquet compartit final.
+    if(!sharedGuideCore){
+      html=html.replace(/<link\b(?=[^>]*\bhref=["']\/configuracion\/css\/componentes\/vcc-core-compartit\.css(?:\?[^"']*)?["'])[^>]*>\s*/gi,"");
+      if(html.includes('/configuracion/js/site-header.js')){
+        html=html.replace(/(?:\r?\n[ \t]*){2,}(?=<\/head\s*>)/i,"\n");
+        html=html.replace(/<\/head\s*>/i,coreLink+"\n</head>");
+      }
     }
   }
   // Un mateix full local només es carrega una vegada. En cas de versió
