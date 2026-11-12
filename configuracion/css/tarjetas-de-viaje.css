@@ -200,7 +200,13 @@
  padding:15px 14px;border:1px solid var(--tv-line);border-radius:12px;
  background:#fff;box-shadow:0 3px 10px rgba(66,37,20,.03);
 }
-.tv-page .tv-error-number{flex:0 0 42px;margin:0}
+/* Icona d'advertència igual que a «Errores a evitar» de Presupuesto. */
+.tv-page .tv-error-icon{
+ display:grid;place-items:center;flex:0 0 34px;
+ width:34px;height:34px;margin:0;
+ color:#527b80;background:#eaf2f2;border-radius:50%;
+}
+.tv-page .tv-error-icon svg{display:block;width:22px;height:22px;flex:none}
 .tv-page .tv-error-copy{min-width:0;flex:1}
 .tv-page .tv-error-copy h3{margin:0 0 7px;color:#26211c;font:600 19px/1.16 var(--vcc-font-heading,"Oswald",sans-serif)}
 .tv-page .tv-error-copy p{margin:0;color:#665d55;font:400 11.5px/1.5 var(--vcc-font-body,"DM Sans",sans-serif)}
