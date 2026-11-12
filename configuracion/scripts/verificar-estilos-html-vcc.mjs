@@ -118,6 +118,17 @@ for(const file of published){
    if(count)failures.push(file+': duplicat del CSS de core fora del paquet de guies');
    const guideUi=localUrls.filter(u=>u.endsWith('/vcc-guies-ui-compartit.css'));
    if(guideUi.length!==1)failures.push(file+': falta el paquet UI editorial reutilitzable');
+   const indexOfEnd=name=>localUrls.findIndex(u=>u.endsWith(name));
+   const baseIndex=localUrls.findIndex(u=>u.endsWith('-base-compilat.css'));
+   const uiIndex=indexOfEnd('/vcc-guies-ui-compartit.css');
+   const relatedIndex=indexOfEnd('/guias-relacionadas-vcc.css');
+   const heroIndex=indexOfEnd('/portadas-rapidas-vcc.css');
+   const coreIndex=indexOfEnd('/vcc-guies-core-fons-compartit.css');
+   if(baseIndex!==0||uiIndex!==1||!(relatedIndex>uiIndex)||
+      heroIndex!==relatedIndex+1||coreIndex!==localUrls.length-1||
+      localUrls.length>6){
+     failures.push(file+': ordre de cascada de CSS compartit inconsistent');
+   }
  }
 }
 
