@@ -47,6 +47,27 @@ for(const {page,image,selector,kind,source} of registry){
   if(external)check(!preloads.some(t=>t.includes('fondos-presupuesto')),
     page+': preload de foto equivocada');
 }
+
+// No tornar a introduir canvis tardans d'alçada als herois que van donar NO_LCP.
+const stableLcpPages=[
+  'destinos/suecia/estocolmo/presupuesto.html',
+  'destinos/suecia/estocolmo/como-llegar.html',
+  'destinos/suecia/estocolmo/como-moverse.html',
+  'destinos/suecia/estocolmo/donde-dormir.html',
+  'destinos/suecia/estocolmo/que-llevar.html'
+];
+const sharedSubheader=read('configuracion/css/componentes/subheader-unificado-vcc.css');
+check(sharedSubheader.includes('#vcc-lcp-hero')&&sharedSubheader.includes('--vcc-lcp-stable-height'),
+  'Manca la mida de portada mòbil estable per al LCP');
+for(const page of stableLcpPages){
+  const html=read(page);
+  const matches=[...html.matchAll(/\bid="vcc-lcp-hero"/g)];
+  check(matches.length===1,page+': manca identificador únic del hero LCP');
+  const head=html.split(/<\/head\s*>/i)[0];
+  check((head.match(/rel="preload" as="image"/g)||[]).length===2,
+    page+': els dos preloads responsius han de continuar en el head');
+}
+
 check(registry.length===19,'El registre ha de tenir 19 portades');
 if(problems.length){problems.forEach(x=>console.error('HERO VCC:',x));process.exitCode=1;}
 else console.log('HERO VCC OK: 19 portades, mateixa fotografia, càrrega LCP primerenca.');

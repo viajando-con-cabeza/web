@@ -162,6 +162,25 @@ html body [data-vcc-subheader-target]{scroll-margin-top:calc(var(--vcc-subheader
 }
 
 
+/* Portades d'Estocolm: LCP estable des del primer renderitzat.
+   La classe de subheader s'afegeix després via JS; l'altura no ha de
+   saltar de ~440px a 640px, perquè això pot deixar el viewport sense
+   candidat LCP durant les proves Lighthouse/PSI.
+   Opt-in explícit en 5 guies, sense alterar altres portades ni escriptori. */
+@media(max-width:720px){
+  html body #vcc-lcp-hero{
+    --vcc-lcp-stable-height:clamp(370px,calc(100svh - var(--vcc-page-header-height,79px) - var(--vcc-subnav-height,39px) - 20px),440px);
+    --vcc-standard-hero-mobile:var(--vcc-lcp-stable-height);
+    box-sizing:border-box!important;
+    height:var(--vcc-lcp-stable-height)!important;
+    min-height:var(--vcc-lcp-stable-height)!important;
+    max-height:var(--vcc-lcp-stable-height)!important;
+  }
+  html body #vcc-lcp-hero > .mv-container{
+    height:100%!important;min-height:0!important;max-height:100%!important;
+  }
+}
+
 /* VCC · auditoria de subheaders 2026-11-10: una única tipografia, alçada, focus i transició.
  * Especificitat deliberadament superior a les plantilles antigues,
  * inclosa ci-subnav. No es toquen els controladors sticky de cada guia. */
