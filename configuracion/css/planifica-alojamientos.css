@@ -360,3 +360,44 @@
 .al-page :is(.al-compare-table input,.al-compare-table button,.al-compare-utils button):focus-visible{outline:2px solid #d76526;outline-offset:2px}
 @media(max-width:900px){.al-page .al-compare-layout{grid-template-columns:minmax(0,1fr)}.al-page .al-compare-advice{min-height:0}}
 @media(max-width:680px){.al-page .al-compare-head{grid-template-columns:1fr;gap:4px}.al-page .al-compare .al-heading .al-title{font-size:32px}.al-page .al-compare .al-heading .al-eyebrow{font-size:23px}.al-page .al-compare-add{justify-content:flex-start}.al-page .al-compare-table{--al-label-width:124px;min-width:max(100%,calc(var(--al-label-width) + var(--al-options,3)*135px))}.al-page .al-compare-table tbody th{font-size:10px;padding:5px 6px}.al-page .al-compare{padding:28px 0}.al-page .al-compare-context p{flex-basis:100%}}
+
+/* VCC · Mismo aspecto que comparador de Vuelos: fila única por gasto,
+   casilla junto al importe, iconos SVG enlazados y totales encasillados. */
+.al-page .al-compare-head .al-compare-explain{display:flex;flex-direction:column;align-items:flex-end;gap:5px}
+.al-page .al-compare-head .al-compare-explain p{text-align:right;margin:0;max-width:440px}
+.al-page .al-compare-add button{min-height:25px;padding:3px 0;border:0;background:transparent;border-radius:0;font-size:11px;font-weight:600;color:#ae633f}
+.al-page .al-compare-add button:hover:not(:disabled){text-decoration:underline;text-underline-offset:3px}
+.al-page .al-compare-table{--al-label-width:183px;min-width:max(100%,calc(var(--al-label-width) + var(--al-options,3)*145px))}
+.al-page .al-compare-table tbody tr>*{height:42px}
+.al-page .al-compare-table tbody th{padding:5px 8px 5px 11px;font-size:10.5px;white-space:nowrap}
+.al-page .al-compare-icon{display:inline-block;vertical-align:middle;width:19px;height:19px;margin-right:6px;color:#d56627;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.al-page .al-compare-table tbody th>span{display:inline;vertical-align:middle}
+.al-page .al-compare-table .al-amount-wrap{display:flex;align-items:center;gap:3px;width:100%;min-width:0}
+.al-page .al-compare-table .al-amount-wrap>input[type=number]{flex:1 1 auto;width:1px;min-width:0;min-height:30px;padding:4px 5px;text-align:right;appearance:textfield;-moz-appearance:textfield}
+.al-page .al-compare-table .al-amount-wrap>input[type=number]::-webkit-inner-spin-button,
+.al-page .al-compare-table .al-amount-wrap>input[type=number]::-webkit-outer-spin-button{-webkit-appearance:none;margin:0}
+.al-page .al-compare-table .al-inline-check{display:flex;flex:none;align-items:center;gap:2px;cursor:pointer;color:#796b60;font-size:9px;white-space:nowrap}
+.al-page .al-compare-table .al-inline-check input[type=checkbox]{appearance:auto;min-height:14px;width:14px;height:14px;margin:0;padding:0;accent-color:#e7641d;cursor:pointer}
+.al-page .al-compare-table .al-amount-wrap.is-included>input[type=number]{background:#efefef;border-color:#ddd9d5;color:#97918c;opacity:1;cursor:not-allowed}
+.al-page .al-compare-table .al-amount-wrap.is-included .al-inline-check{color:#ad5a30;font-weight:700}
+.al-page .al-compare-table tbody .al-calc-total>*{background:#fff!important;border-top:1px solid #ebd8c8;height:54px!important;padding:5px 6px!important}
+.al-page .al-compare-table tbody .al-calc-total th{background:#fff!important}
+.al-page .al-compare-table .al-total-pill{display:flex;align-items:center;justify-content:center;min-height:34px;width:100%;padding:5px 3px;border-radius:7px;border:1px solid #f1d7c3;background:#fff0df}
+.al-page .al-compare-table .al-calc-total strong{color:#a95524;font-size:21px}
+.al-page .al-compare-table .al-calc-total td[data-al-best=true]{background:#fff!important}
+.al-page .al-compare-table .al-calc-total td[data-al-best=true] .al-total-pill{background:#e7641d;border-color:#e7641d}
+.al-page .al-compare-table .al-calc-total td[data-al-best=true] strong{color:#fff}
+.al-page .al-compare-advice{display:flex;flex-direction:column;align-self:stretch;margin-top:49px;border-radius:12px}
+.al-page .al-advice-note{margin-top:auto;padding-top:13px}
+.al-page .al-compare-utils{justify-content:flex-start;gap:18px;border-top:1px solid #e9ded4;padding-top:10px}
+.al-page .al-compare-utils button,.al-page .al-compare-utils button:first-child{border:0;border-radius:0;background:transparent;padding:5px 0;font-size:11px;color:#a65329}
+.al-page .al-compare-utils button:last-child{color:#6f6660}
+.al-page .al-compare-utils button:hover{text-decoration:underline;text-underline-offset:4px}
+@media(max-width:900px){.al-page .al-compare-advice{margin-top:0}}
+@media(max-width:680px){
+ .al-page .al-compare-head .al-compare-explain{align-items:flex-start}
+ .al-page .al-compare-head .al-compare-explain p{text-align:left}
+ .al-page .al-compare-table{--al-label-width:151px;min-width:calc(var(--al-label-width) + var(--al-options,3)*145px)}
+ .al-page .al-compare-table tbody th{font-size:10px;padding:5px 6px}
+ .al-page .al-compare-icon{width:17px;height:17px;margin-right:4px}
+}
