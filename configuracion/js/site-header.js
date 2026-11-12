@@ -2,6 +2,15 @@
   // Component singleton: una segona inclusió no crea menús ni descarrega CSS duplicat.
   if(window.__VCC_SHARED_HEADER_STARTED__)return;
   window.__VCC_SHARED_HEADER_STARTED__=true;
+  // Manté els carrusels sense scroll automàtic fins a la primera interacció.
+  // Després, les transicions CSS originals tornen sense cap recàrrega.
+  if(document.documentElement.classList.contains('vcc-lcp-scroll-stable')){
+    const activateScroll=()=>document.documentElement.classList.remove('vcc-lcp-scroll-stable');
+    for(const eventName of ['pointerdown','touchstart','wheel','keydown']){
+      window.addEventListener(eventName,activateScroll,{once:true,capture:true,passive:true});
+    }
+  }
+
   const script = document.currentScript;
   const siteRoot = script ? new URL('../../', script.src) : new URL('./', window.location.href);
   const url = (path) => new URL(path, siteRoot).href;

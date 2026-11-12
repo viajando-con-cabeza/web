@@ -280,6 +280,15 @@ html body #vcc-lcp-hero > :is(.budget-hero-inner,.cl-crumb,.cl-landing-stage,.mv
  }
 }
 
+/* LCP Chrome/Lighthouse: la combinació de scroll-behavior:smooth declarat al
+   CSS i carrusels scroll-snap cancela el candidat LCP en aquestes cinc guies.
+   Només durant la primera pintura (opt-in HTML); al primer gest es retorna
+   el CSS aprovat, incloent el snap i la suavitat de la navegació. */
+html.vcc-lcp-scroll-stable{scroll-behavior:auto!important}
+html.vcc-lcp-scroll-stable.vcc-lcp-scroll-stable.vcc-lcp-scroll-stable body *{
+  scroll-behavior:auto!important;
+}
+
 /* VCC · auditoria de subheaders 2026-11-10: una única tipografia, alçada, focus i transició.
  * Especificitat deliberadament superior a les plantilles antigues,
  * inclosa ci-subnav. No es toquen els controladors sticky de cada guia. */
