@@ -1,0 +1,73 @@
+name: Diagnosticar CSS que bloqueja LCP
+
+on:
+  push:
+    branches: [quality]
+    paths:
+      - '.github/workflows/diagnosticar-css-lcp.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  investigar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 13
+    steps:
+      - name: Analitzar exclusions CSS amb Chrome
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m pip install --quiet playwright
+          python - <<'PY'
+          import json
+          from playwright.sync_api import sync_playwright
+          base='https://www.quality.viajandoconcabeza.com/destinos/suecia/estocolmo/'
+          cases={
+            'baseline':[],
+            'all_css':['*'],
+            'core':['vcc-core-compartit.css'],
+            'ui':['vcc-ui-compartida.css'],
+            'template':['como-moverse-vcc.css'],
+            'base':['paginas.css','overrides.css'],
+            'extra_shared':['estocolmo-guias-final-vcc.css','vcc-capcaleres-editorials.css','portadas-rapidas-vcc.css'],
+            'core_ui':['vcc-core-compartit.css','vcc-ui-compartida.css'],
+            'core_template':['vcc-core-compartit.css','como-moverse-vcc.css'],
+            'all_except_template':['*','!como-moverse-vcc.css'],
+            'all_except_core':['*','!vcc-core-compartit.css'],
+            'all_except_ui':['*','!vcc-ui-compartida.css'],
+          }
+          with sync_playwright() as p:
+            browser=p.chromium.launch(headless=True,executable_path='/usr/bin/google-chrome',args=['--no-sandbox','--disable-dev-shm-usage'])
+            for name in ['como-moverse','presupuesto']:
+              for label,excluded in cases.items():
+                if name=='presupuesto' and label in ('template','core_template','all_except_template'):continue
+                page=browser.new_page(viewport={'width':390,'height':844},device_scale_factor=1,is_mobile=True,has_touch=True)
+                page.add_init_script("""(()=>{
+                  window.__vccLcp=[];
+                  new PerformanceObserver(es=>{for(const e of es.getEntries())window.__vccLcp.push({tag:e.element?.tagName,score:e.size,time:Math.round(e.startTime),url:e.url});}).observe({type:'largest-contentful-paint',buffered:true});
+                })();""")
+                if excluded:
+                  def blocker(route, excluded=excluded):
+                    url=route.request.url
+                    if route.request.resource_type!='stylesheet':
+                      return route.continue_()
+                    block='*' in excluded
+                    if block:
+                      for entry in excluded:
+                        if entry.startswith('!') and entry[1:] in url:block=False
+                    else:
+                      block=any(entry in url for entry in excluded)
+                    return route.abort() if block else route.continue_()
+                  page.route('**/*',blocker)
+                try:
+                  response=page.goto(base+name+'?css_bisect=20261112-'+label,wait_until='domcontentloaded',timeout=35000)
+                  page.wait_for_timeout(1250)
+                  data=page.evaluate("""()=>({lcp:window.__vccLcp,paint:performance.getEntriesByType('paint').map(e=>Math.round(e.startTime)),stylesheets:[...document.styleSheets].filter(s=>s.href).map(s=>s.href.split('?')[0].split('/').at(-1)),height:document.querySelector('.mv-hero,.budget-hero')?.getBoundingClientRect().height})""")
+                  print('CSS_BISECT',json.dumps({'page':name,'case':label,'http':response.status if response else None,**data},ensure_ascii=False),flush=True)
+                except Exception as e:
+                  print('CSS_BISECT_ERROR',name,label,str(e)[:260],flush=True)
+                finally:page.close()
+            browser.close()
+          PY
