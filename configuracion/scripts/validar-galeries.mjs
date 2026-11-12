@@ -47,13 +47,21 @@ for(const url of urls){
  const onDemand=html.includes('/'+demandPath)&&html.includes('data-vcc-lazy-gallery-modal');
  const demandSource=onDemand&&existsSync(join(root,demandPath))
    ?readFileSync(join(root,demandPath),'utf8'):'';
- const source=lazy?lazySource:onDemand?demandSource:html;
- check(source.includes(sharedCSS),
+ // Itinerarios: el CSS del mosaico debe estar presente desde la primera
+ // pintura, pero el controlador JS se importa únicamente al acercarse.
+ const itineraryPath='configuracion/js/componentes/vcc-itinerary-gallery-on-demand.js';
+ const itineraryLazy=html.includes('/'+itineraryPath)&&html.includes('data-vcc-lazy-gallery-modal');
+ const itinerarySource=itineraryLazy&&existsSync(join(root,itineraryPath))
+   ?readFileSync(join(root,itineraryPath),'utf8'):'';
+ const source=lazy?lazySource:onDemand?demandSource:itineraryLazy?itinerarySource:html;
+ check(source.includes(sharedCSS)||(itineraryLazy&&html.includes(sharedCSS)),
    'falta el CSS de la galeria compartida o al seu carregador');
  check(source.includes(sharedJS),
    'falta el controlador JS de la galeria compartida o al seu carregador');
  if(onDemand)check(!html.includes(sharedCSS)&&!html.includes(sharedJS),
    'el visor diferit no ha de bloquejar el renderitzat inicial');
+ if(itineraryLazy)check(html.includes(sharedCSS)&&!html.includes(sharedJS),
+   'mosaic de itinerario: CSS inicial per evitar CLS i JS ajornat');
  check((html.match(/data-vcc-booking-gallery\b/g)||[]).length===1,
   'ha de tenir un únic modal [data-vcc-booking-gallery]');
  check(/data-vcc-gallery-selector=["'][^"']+["']/.test(html),
