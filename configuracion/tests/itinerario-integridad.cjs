@@ -13,6 +13,9 @@ const { Script } = require('node:vm');
 const root = resolve(__dirname, '../..');
 const read = file => readFileSync(join(root, file), 'utf8');
 const html = read('destinos/suecia/estocolmo/itinerario.html');
+
+assert.match(html, /Viaje VCC: del 24 al 26 de agosto de 2026\./,
+  'Las fechas reales del itinerario deben incluir siempre el año 2026');
 const core = read('configuracion/css/plantillas/itinerario-core-vcc.css');
 const polish = read('configuracion/css/plantillas/itinerario-polish-vcc.css');
 const hero = read('configuracion/css/componentes/vcc-hero-editorial-vcc.css');
