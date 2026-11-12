@@ -14,7 +14,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=DM+Sans:wght@400;500;600;700;800&family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/configuracion/css/paginas.css">
 <link rel="stylesheet" href="/configuracion/css/overrides.css">
-<link rel="stylesheet" href="/configuracion/css/planifica-alojamientos.css?v=20261112-calculadora-compact-v12">
+<link rel="stylesheet" href="/configuracion/css/planifica-alojamientos.css?v=20261112-context-tax-v13">
 <link rel="stylesheet" href="/configuracion/css/componentes/vcc-ui-compartida.css?v=20261112-b1">
 
 
@@ -81,16 +81,18 @@
 <div class="al-compare-explain"><p>Compara alojamientos en las mismas fechas, con las mismas noches y personas. Añade los gastos de lo que una opción no incluya: desayunos, comidas, transporte, impuestos o aparcamiento.</p>
 <div class="al-compare-add"><span data-al-count>3 de 5 opciones</span><button type="button" data-al-add>+ Añadir alojamiento</button></div></div>
 </header>
-<div class="al-compare-context">
-<label>Personas <input type="number" min="1" max="20" step="1" value="2" data-al-personas></label>
-<label>Noches <input type="number" min="1" max="90" step="1" value="3" data-al-noches></label>
-<p>Introduce importes en € <strong>para toda la estancia y todas las personas</strong>. No multiplicamos automáticamente los importes; evita contar dos veces un gasto.</p>
-</div>
+
 <div class="al-compare-layout">
 <div class="al-compare-shell">
 <div class="al-compare-scroll" tabindex="0" role="region" aria-label="Comparación horizontal de alojamientos" data-al-calc-scroll>
 <table class="al-compare-table"><caption class="al-visually-hidden">Comparativa de hasta cinco alojamientos y todos sus costes</caption><thead data-al-calc-head></thead><tbody data-al-calc-body></tbody></table>
 </div></div>
+<div class="al-compare-side">
+<div class="al-compare-context">
+<label>Personas <input type="number" min="1" max="20" step="1" value="2" data-al-personas></label>
+<label>Noches <input type="number" min="1" max="90" step="1" value="3" data-al-noches></label>
+<p>Introduce importes en € <strong>para toda la estancia y todas las personas</strong>. No multiplicamos automáticamente los importes; evita contar dos veces un gasto.</p>
+</div>
 <aside class="al-compare-advice" aria-live="polite">
 <span class="al-advice-script">Nuestro consejo</span><h3>MEJOR OPCIÓN VCC</h3>
 <div class="al-advice-content"><img src="/configuracion/imagenes/marca/logo-vcc.svg" width="64" height="64" alt="VCC" loading="lazy">
@@ -98,6 +100,7 @@
 <div class="al-advice-savings" data-al-savings hidden></div>
 <p class="al-advice-note">Compara también ubicación, horarios y cancelación: el menor coste no siempre es la mejor estancia.</p>
 </aside>
+</div>
 </div>
 <div class="al-compare-utils"><button type="button" data-al-pdf>↓ GUARDAR EN PDF</button><button type="button" data-al-clear>Limpiar</button></div>
 <p class="al-compare-status" data-al-status role="status" aria-live="polite"></p>
@@ -131,5 +134,5 @@
 <footer class="vcc-global-footer"></footer>
 <script src="/configuracion/js/site-header.js" defer></script>
 <script src="/configuracion/js/site-footer.js?v=20261102" defer></script>
-<script src="/configuracion/js/planifica-alojamientos.js?v=20261112-calculadora-compact-v12" defer></script>
+<script src="/configuracion/js/planifica-alojamientos.js?v=20261112-context-tax-v13" defer></script>
 </body></html>
