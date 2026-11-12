@@ -103,6 +103,9 @@
         hero=document.querySelector(heroSelector);
       }
       if(!hero) return false;
+      // Las páginas que ya traen una ruta de navegación accesible no deben
+      // duplicarla, ocultarla ni alterar el hero durante el primer render.
+      if(original) return true;
       // Los enlaces se deducen de la URL, no de las distintas plantillas.
       const route=parts.slice(1);
       if(route[route.length-1]==='index.html')route.pop();
