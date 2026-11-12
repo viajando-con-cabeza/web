@@ -172,3 +172,33 @@ body>.shared-header .shared-menu,body>.shared-header .shared-menu a{font-family:
   color: #aaa29c !important;
   pointer-events: none !important;
 }
+
+/* Tarjeta de itinerario de Estocolmo: más foto, sin crecer respecto
+   al formato de las guías. Los 18px adicionales salen del espacio de la
+   etiqueta de días eliminada; el resto de tarjetas no se modifica. */
+.st-discover .st-featured-itinerary > img.vcc-guide-cover-132{
+  display:block!important;
+  width:100%!important;
+  height:150px!important;
+  min-height:150px!important;
+  max-height:150px!important;
+  flex:0 0 150px!important;
+  object-fit:cover!important;
+}
+.st-discover .st-featured-itinerary .country-itinerary-copy{
+  min-height:127px!important; /* antes 145px, compensación exacta */
+}
+.st-discover .st-featured-itinerary h3 .vcc-itinerary-days{
+  font:inherit!important;
+  font-size:.72em!important;
+  font-weight:500!important;
+  vertical-align:baseline!important;
+  white-space:nowrap!important;
+  letter-spacing:0!important;
+}
+@media(max-width:650px){
+  .st-discover .st-featured-itinerary > img.vcc-guide-cover-132{
+    height:173px!important;min-height:173px!important;
+    max-height:173px!important;flex-basis:173px!important;
+  }
+}
