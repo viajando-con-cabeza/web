@@ -327,6 +327,13 @@ body.inicio-vcc.home-editorial-refresh .home-planning-links a:hover{
 body.inicio-vcc.home-editorial-refresh .home-planning-links a:focus-visible{
   outline:2px solid #ba6545!important;outline-offset:2px;
 }
+/* Sense fletxes diagonals a la cantonada: ni markup antic ni pseudo-elements. */
+body.inicio-vcc.home-editorial-refresh .home-planning-links a .home-plan-arrow,
+body.inicio-vcc.home-editorial-refresh .home-planning-links a::before,
+body.inicio-vcc.home-editorial-refresh .home-planning-links a::after{
+  display:none!important;content:none!important;
+}
+
 @media(hover:hover){
  body.inicio-vcc.home-editorial-refresh .home-planning-links a:hover .home-plan-icon{background:rgba(255,255,255,.19)!important;color:#fff!important;}
  body.inicio-vcc.home-editorial-refresh .home-planning-links a:hover .home-plan-icon svg{color:#fff!important;}
