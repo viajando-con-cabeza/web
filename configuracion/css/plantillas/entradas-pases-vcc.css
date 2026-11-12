@@ -1056,3 +1056,79 @@
   }
 }
 
+
+/* Entradas por día · fitxes compactes. Només aquesta secció; resta de la guia intacta.
+   Cada targeta manté grups, consell i enllaç; el text ja és resumit al HTML. */
+.ep-page .ep4-our-list .ep4-day-head{
+  padding:9px 12px 5px!important;
+}
+.ep-page .ep4-our-list .ep4-day-title{
+  font-size:16px!important;line-height:1.18!important;
+}
+.ep-page .ep4-our-list .ep4-day-body{
+  padding:7px 12px 9px!important;
+}
+.ep-page .ep4-our-list .ep4-day-summary .ep4-day-two-columns{
+  gap:9px!important;
+}
+.ep-page .ep4-our-list .ep4-day-summary .ep4-day-activities li{
+  margin-bottom:1px!important;line-height:1.4!important;
+}
+.ep-page .ep4-our-list .ep4-day-story{
+  gap:5px!important;
+}
+.ep-page .ep4-our-list .ep4-day-story .ep4-day-reason{
+  flex:0 1 auto!important;
+  font-size:11px!important;line-height:1.47!important;
+}
+.ep-page .ep4-our-list .ep4-day-story>.ep4-day-link{
+  padding-top:5px!important;
+  min-height:32px!important;
+}
+@media(max-width:600px){
+  .ep-page .ep4-our-stage{
+    padding:0 37px!important;
+  }
+  .ep-page .ep4-our-list .ep4-day-head{
+    padding:9px 11px 4px!important;
+  }
+  .ep-page .ep4-our-list .ep4-day-title{
+    font-size:16px!important;line-height:1.18!important;
+  }
+  .ep-page .ep4-our-list .ep4-day-body{
+    padding:7px 11px 9px!important;
+  }
+  .ep-page .ep4-our-list .ep4-day-split{
+    gap:10px!important;
+  }
+  .ep-page .ep4-our-list .ep4-day-summary .ep4-day-two-columns{
+    gap:8px!important;
+  }
+  /* Anul·la la regla <360px que apila cada etiqueta i duplica l'alçada. */
+  .ep-page .ep4-our-list .ep4-day-summary .ep4-day-two-columns>.ep4-day-group{
+    display:grid!important;
+    grid-template-columns:minmax(95px,41%) minmax(0,1fr)!important;
+    gap:7px!important;column-gap:7px!important;
+    align-items:start!important;
+  }
+  .ep-page .ep4-our-list .ep4-day-summary .ep4-day-group-label{
+    font-size:11px!important;line-height:1.35!important;
+    align-self:start!important;
+  }
+  .ep-page .ep4-our-list .ep4-day-summary .ep4-day-activities li,
+  .ep-page .ep4-our-list .ep4-day-summary .ep4-day-not-bought,
+  .ep-page .ep4-our-list .ep4-day-summary .ep4-day-none{
+    margin:0!important;font-size:11px!important;line-height:1.39!important;
+    overflow-wrap:anywhere;
+  }
+  .ep-page .ep4-our-list .ep4-day-story{
+    padding:8px 0 0!important;gap:5px!important;
+  }
+  .ep-page .ep4-our-list .ep4-day-story .ep4-day-reason{
+    font-size:11.5px!important;line-height:1.47!important;
+  }
+  .ep-page .ep4-our-list .ep4-day-story>.ep4-day-link{
+    font-size:10px!important;min-height:36px!important;
+    padding-top:4px!important;
+  }
+}
