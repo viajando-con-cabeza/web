@@ -53,7 +53,7 @@
     const percentage=(name)=>Math.min(100,amount(name));
     const cashIncluded=document.getElementById('tv-cash-included');
     const update=()=>{
-      const purchases=amount('purchases');
+      const purchases=Math.round(amount('purchases'));
       const cash=amount('cash');
       // El gasto de referencia se convierte con el markup de CADA entidad.
       // La comisión de compra se aplica solo a pagos, no a retiradas.
@@ -66,9 +66,12 @@
         cashIncluded.hidden=cash<=0;
         cashIncluded.textContent=cash>0?'· Incluye '+euro.format(cash)+' en efectivo':'';
       }
-      bankTotal.textContent=euro.format(bank);
-      travelTotal.textContent=euro.format(traveler);
-      // Los totales conservan centimos; el ahorro visible se redondea al euro.
+      // Solo cambia la presentacion: guardamos los totales exactos para el PDF.
+      bankTotal.dataset.rawValue=String(bank);
+      travelTotal.dataset.rawValue=String(traveler);
+      bankTotal.textContent=euroEntero.format(bank);
+      travelTotal.textContent=euroEntero.format(traveler);
+      // El ahorro tambien se muestra redondeado al euro.
       const ahorroRedondeado=Math.round(Math.abs(diff));
       const positive=diff>0&&ahorroRedondeado>0;
       const negative=diff<0&&ahorroRedondeado>0;
@@ -78,6 +81,12 @@
       savingBox.classList.toggle('neutral',!positive&&!negative);
     };
     inputs.forEach(input=>input.addEventListener('input',update));
+    // El gasto en divisa admite solamente euros enteros, incluidos los valores escritos.
+    const purchasesInput=document.querySelector('[data-tv-cost="purchases"]');
+    purchasesInput?.addEventListener('change',()=>{
+      purchasesInput.value=String(Math.round(amount('purchases')));
+      update();
+    });
     update();
   }
 

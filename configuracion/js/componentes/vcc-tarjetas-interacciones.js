@@ -42,7 +42,8 @@
  const value=key=>{
   const input=document.querySelector('[data-tv-cost="'+key+'"]');
   const number=Number(input?.value);
-  return Number.isFinite(number)?Math.max(0,Math.min(number,100000000)):0;
+  const clamped=Number.isFinite(number)?Math.max(0,Math.min(number,100000000)):0;
+  return key==='purchases'?Math.round(clamped):clamped;
  };
  const eurosFromText=text=>{
   const normalized=String(text||'').replace(/[^\d,.-]/g,'').replace(/\./g,'').replace(',','.');
@@ -53,7 +54,12 @@
   if(button.disabled)return;
   const bankText=document.getElementById('tv-bank-total')?.textContent?.trim();
   const travelText=document.getElementById('tv-travel-total')?.textContent?.trim();
-  const difference=eurosFromText(bankText)-eurosFromText(travelText);
+  // Usar importes sin redondear para evitar diferencias de hasta 1 EUR en el PDF.
+ const bankRaw=Number(document.getElementById('tv-bank-total')?.dataset.rawValue);
+ const travelRaw=Number(document.getElementById('tv-travel-total')?.dataset.rawValue);
+ const difference=Number.isFinite(bankRaw)&&Number.isFinite(travelRaw)
+  ? bankRaw-travelRaw
+  : eurosFromText(bankText)-eurosFromText(travelText);
   if(!bankText||!travelText||!Number.isFinite(difference)){
    if(status)status.textContent='Introduce los importes de la calculadora antes de guardar el PDF.';
    return;
