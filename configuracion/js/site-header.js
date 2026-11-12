@@ -213,7 +213,8 @@
   const resetHeaderMenu=()=>{
     const menu=document.querySelector('body > .shared-header .shared-menu');
     if (!menu) return;
-    menu.scrollLeft=0;
+    // Evita generar una operación de scroll durante la primera pintura cuando ya está a cero.
+    if (Math.abs(menu.scrollLeft) > 1) menu.scrollLeft=0;
   };
   // pageshow also fires when the browser restores a page from cache.
   window.addEventListener('pageshow',()=>{
