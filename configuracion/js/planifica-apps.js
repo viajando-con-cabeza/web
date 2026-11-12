@@ -59,7 +59,7 @@
 
   const search=document.querySelector("[data-av-activity-search]");
   const continent=document.querySelector("[data-av-continent]");
-  const destination=document.querySelector("[data-av-destination]");
+  const country=document.querySelector("[data-av-country]");
   const reset=document.querySelector("[data-av-reset]");
   const resultCount=document.querySelector("[data-av-result-count]");
   const empty=document.querySelector("[data-av-empty]");
@@ -70,9 +70,9 @@
     let visible=0;
     activityCards.forEach(card=>{
       const continentMatches=!continent||continent.value==="all"||card.dataset.continent===continent.value;
-      const destinationMatches=!destination||destination.value==="all"||card.dataset.destination===destination.value;
+      const countryMatches=!country||country.value==="all"||card.dataset.country===country.value;
       const textMatches=!query||normalize(card.textContent).includes(query);
-      card.hidden=!(continentMatches&&destinationMatches&&textMatches);
+      card.hidden=!(continentMatches&&countryMatches&&textMatches);
       if(!card.hidden)visible++;
     });
     if(resultCount)resultCount.textContent=visible+" "+(visible===1?"actividad":"actividades");
@@ -83,12 +83,12 @@
       requestAnimationFrame(activityCarousel.sync);
     }
   };
-  [continent,destination].forEach(select=>select?.addEventListener("change",updateActivities));
+  [continent,country].forEach(select=>select?.addEventListener("change",updateActivities));
   search?.addEventListener("input",updateActivities);
   reset?.addEventListener("click",()=>{
     if(search)search.value="";
     if(continent)continent.value="all";
-    if(destination)destination.value="all";
+    if(country)country.value="all";
     updateActivities();
     search?.focus();
   });
