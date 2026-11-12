@@ -65,13 +65,16 @@ const head=root.querySelector('[data-al-calc-head]'),body=root.querySelector('[d
 const scroll=root.querySelector('[data-al-calc-scroll]'),add=root.querySelector('[data-al-add]');
 const status=root.querySelector('[data-al-status]'), euro=new Intl.NumberFormat('es-ES',{style:'currency',currency:'EUR'});
 const letters=['A','B','C','D','E'];
+const iconRoot='/configuracion/imagenes/iconos/paginas/planifica-alojamientos-comparador-iconos.svg#';
 const rows=[
- ['name','Alojamiento','text'],['base','Reserva completa (€)','number'],
- ['breakfastIncluded','Desayuno incluido','check'],['breakfast','Desayuno no incluido (€)','number'],
- ['mealsIncluded','Otras comidas incluidas','check'],['meals','Comidas no incluidas (€)','number'],
- ['taxes','Impuestos y tasas (€)','number'],['transport','Transporte (€)','number'],
- ['parkingIncluded','Parking incluido','check'],['parking','Parking no incluido (€)','number'],
- ['other','Otros gastos (€)','number']
+ ['name','Alojamiento','text','hotel'],
+ ['base','Dormir / reserva (€)','number','cama'],
+ ['breakfast','Desayuno (€)','number','desayuno','breakfastIncluded'],
+ ['meals','Otras comidas (€)','number','comida','mealsIncluded'],
+ ['taxes','Impuestos y tasas (€)','number','impuestos'],
+ ['transport','Transporte (€)','number','transporte'],
+ ['parking','Parking (€)','number','parking','parkingIncluded'],
+ ['other','Otros gastos (€)','number','otros']
 ];
 const monetary=['base','breakfast','meals','taxes','transport','parking','other'];
 const blank=()=>({name:'',base:'',breakfastIncluded:false,breakfast:'',mealsIncluded:false,meals:'',taxes:'',transport:'',parkingIncluded:false,parking:'',other:''});
@@ -86,18 +89,31 @@ function draw(){
  const tr=el('tr');tr.appendChild(el('th',null,'Concepto'));
  offers.forEach((o,i)=>{const th=el('th');th.scope='col';th.appendChild(el('span','al-option-title','Opción '+letters[i]));if(offers.length>1){const b=el('button','al-remove','×');b.type='button';b.dataset.remove=i;b.setAttribute('aria-label','Eliminar opción '+letters[i]);th.appendChild(b)}tr.appendChild(th)});
  head.replaceChildren(tr);body.replaceChildren();scroll.style.setProperty('--al-options',offers.length);
- for(const [key,label,kind] of rows){
- const line=el('tr');const th=el('th',null,label);th.scope='row';line.appendChild(th);
- offers.forEach((o,i)=>{const td=el('td');let input;
- if(kind==='check'){const wrap=el('label','al-included');input=el('input');input.type='checkbox';input.checked=!!o[key];wrap.append(input,document.createTextNode('Sí'));td.appendChild(wrap)}
- else {input=el('input');input.type=kind==='number'?'number':'text';input.value=o[key];if(kind==='number'){input.min='0';input.max='10000000';input.step='0.01';input.inputMode='decimal';input.placeholder='0,00'}else{input.maxLength=75;input.placeholder='Hotel / apartamento'}td.appendChild(input)}
- input.dataset.index=i;input.dataset.key=key;input.setAttribute('aria-label',label+' opción '+letters[i]);
- if(kind==='number'&&key!=='base'&&((key==='breakfast'&&o.breakfastIncluded)||(key==='meals'&&o.mealsIncluded)||(key==='parking'&&o.parkingIncluded))){input.disabled=true;input.title='Incluido en la reserva: se cuenta como 0 €'}
- line.appendChild(td)});
- body.appendChild(line);
+ for(const [key,label,kind,icon,flag] of rows){
+  const line=el('tr'),th=el('th');th.scope='row';
+  const svg=document.createElementNS('http://www.w3.org/2000/svg','svg');svg.setAttribute('class','al-compare-icon');svg.setAttribute('aria-hidden','true');
+  const use=document.createElementNS('http://www.w3.org/2000/svg','use');use.setAttribute('href',iconRoot+icon);svg.appendChild(use);th.append(svg,el('span',null,label));line.appendChild(th);
+  offers.forEach((o,i)=>{
+   const td=el('td'),wrapper=el('div','al-amount-wrap'),input=el('input');
+   input.type=kind==='number'?'number':'text';input.value=o[key];
+   if(kind==='number'){input.min='0';input.max='10000000';input.step='0.01';input.inputMode='decimal';input.placeholder='0,00'}
+   else{input.maxLength=75;input.placeholder='Hotel / apartamento'}
+   input.dataset.index=i;input.dataset.key=key;input.setAttribute('aria-label',label+' opción '+letters[i]);
+   wrapper.appendChild(input);
+   if(flag){
+    const included=!!o[flag],labelEl=el('label','al-inline-check'),check=el('input');
+    check.type='checkbox';check.checked=included;check.dataset.index=i;check.dataset.key=flag;
+    check.setAttribute('aria-label',label+' incluido en la reserva, opción '+letters[i]);
+    labelEl.title='Marcar si está incluido en el precio de la reserva';labelEl.append(check,el('span',null,'Incl.'));
+    wrapper.classList.toggle('is-included',included);input.disabled=included;
+    input.title=included?'Incluido en la reserva: coste adicional 0 €':'Introduce el coste para toda la estancia';
+    wrapper.appendChild(labelEl);
+   }
+   td.appendChild(wrapper);line.appendChild(td);
+  });body.appendChild(line);
  }
- const totalRow=el('tr','al-calc-total');const th=el('th',null,'TOTAL POR OPCIÓN');th.scope='row';totalRow.appendChild(th);
- offers.forEach(o=>{const td=el('td');td.appendChild(el('strong',null,filled(o)?fmt(total(o)):'—'));totalRow.appendChild(td)});
+ const totalRow=el('tr','al-calc-total');const th=el('th');th.scope='row';const icon=document.createElementNS('http://www.w3.org/2000/svg','svg');icon.setAttribute('class','al-compare-icon');icon.setAttribute('aria-hidden','true');const use=document.createElementNS('http://www.w3.org/2000/svg','use');use.setAttribute('href',iconRoot+'total');icon.appendChild(use);th.append(icon,el('span',null,'TOTAL POR OPCIÓN'));totalRow.appendChild(th);
+ offers.forEach(o=>{const td=el('td');const pill=el('span','al-total-pill');pill.appendChild(el('strong',null,filled(o)?fmt(total(o)):'—'));td.appendChild(pill);totalRow.appendChild(td)});
  body.appendChild(totalRow);scroll.scrollLeft=oldLeft;
  root.querySelector('[data-al-count]').textContent=offers.length+' de 5 opciones';add.disabled=offers.length>=5;update();
 }
@@ -125,9 +141,8 @@ function printable(){
  const esc=s=>String(s).replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
  const names=offers.map((o,i)=>esc(o.name||'Opción '+letters[i]));
  const tr=(label,values)=>'<tr><th>'+esc(label)+'</th>'+values.map(v=>'<td>'+esc(v)+'</td>').join('')+'</tr>';
- const lines=rows.filter(r=>r[2]==='number').map(([key,label])=>tr(label,offers.map(o=>key==='breakfast'&&o.breakfastIncluded||key==='meals'&&o.mealsIncluded||key==='parking'&&o.parkingIncluded?'Incluido':fmt(num(o[key])))));
- const included=['breakfastIncluded','mealsIncluded','parkingIncluded'].map((key,i)=>tr(['Desayuno incluido','Comidas incluidas','Parking incluido'][i],offers.map(o=>o[key]?'Sí':'No')));
- return '<!doctype html><html lang="es"><head><meta charset="utf-8"><title>VCC · Comparación de alojamientos</title><style>body{font-family:Arial,sans-serif;color:#302720;margin:38px}h1{font-size:30px;margin:5px 0;color:#2b2621}small,.eyebrow{color:#be5b2d}table{border-collapse:collapse;width:100%;font-size:11px;margin-top:24px}td,th{border:1px solid #eaded3;padding:9px;text-align:right}th:first-child{text-align:left}thead{background:#fae8d8}tfoot{background:#fbe0c8;font-weight:bold}p{font-size:12px}.note{margin-top:20px;color:#675e55}@page{size:A4 landscape;margin:12mm}</style></head><body><div class="eyebrow">VIAJANDO CON CABEZA · PLANIFICA TU VIAJE</div><h1>COMPARA EL PRECIO REAL</h1><p>'+people+' personas · '+nights+' noches · Costes totales para toda la estancia</p><table><thead><tr><th>Concepto</th>'+names.map(n=>'<th>'+n+'</th>').join('')+'</tr></thead><tbody>'+included.join('')+lines.join('')+'</tbody><tfoot>'+tr('TOTAL POR OPCIÓN',offers.map(o=>filled(o)?fmt(total(o)):'Sin precio'))+'</tfoot></table><p class="note">Los importes son estimaciones introducidas por el viajero, no tarifas consultadas por VCC. Verifica condiciones, ubicación y cancelación antes de reservar.</p></body></html>';
+ const lines=rows.filter(r=>r[2]==='number').map(([key,label,,,flag])=>tr(label,offers.map(o=>flag&&o[flag]?'Incluido':fmt(num(o[key])))));
+ return '<!doctype html><html lang="es"><head><meta charset="utf-8"><title>VCC · Comparación de alojamientos</title><style>body{font-family:Arial,sans-serif;color:#302720;margin:38px}h1{font-size:30px;margin:5px 0;color:#2b2621}small,.eyebrow{color:#be5b2d}table{border-collapse:collapse;width:100%;font-size:11px;margin-top:24px}td,th{border:1px solid #eaded3;padding:9px;text-align:right}th:first-child{text-align:left}thead{background:#fae8d8}tfoot{background:#fbe0c8;font-weight:bold}p{font-size:12px}.note{margin-top:20px;color:#675e55}@page{size:A4 landscape;margin:12mm}</style></head><body><div class="eyebrow">VIAJANDO CON CABEZA · PLANIFICA TU VIAJE</div><h1>COMPARA EL PRECIO REAL</h1><p>'+people+' personas · '+nights+' noches · Costes totales para toda la estancia</p><table><thead><tr><th>Concepto</th>'+names.map(n=>'<th>'+n+'</th>').join('')+'</tr></thead><tbody>'+lines.join('')+'</tbody><tfoot>'+tr('TOTAL POR OPCIÓN',offers.map(o=>filled(o)?fmt(total(o)):'Sin precio'))+'</tfoot></table><p class="note">Los importes son estimaciones introducidas por el viajero, no tarifas consultadas por VCC. Verifica condiciones, ubicación y cancelación antes de reservar.</p></body></html>';
 }
 root.querySelector('[data-al-pdf]').addEventListener('click',()=>{
  if(!offers.some(filled)){status.textContent='Introduce al menos un precio de reserva para guardar la comparación.';return}
