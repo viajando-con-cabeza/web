@@ -51,6 +51,44 @@ for (const [file, route] of publishable) {
   if (h1 !== 1) fail(file + ": requiere un H1 en el HTML inicial (tiene " + h1 + ")");
 }
 
+
+// Qualitat SEO editorial i integritat de les dades estructurades.
+const titles=new Map(),descriptions=new Map();
+for(const [file,route] of publishable){
+  const html=readSiteFile(file),head=headOf(html),canonical=canonicalUrl(route);
+  const title=head.match(/<title\b[^>]*>([\s\S]*?)<\/title>/i)?.[1]?.trim()||'';
+  const description=[...head.matchAll(/<meta\b[^>]*>/gi)].map(m=>m[0])
+    .find(tag=>/\bname=["']description["']/i.test(tag))
+    ?.match(/\bcontent=["']([^"']+)/i)?.[1]?.trim()||'';
+  if(title.length<12||title.length>85)fail(file+': title buit o massa extens ('+title.length+')');
+  if(description.length<55||description.length>185)
+    fail(file+': meta description buida o massa extensa ('+description.length+')');
+  for(const [table,value,label] of [[titles,title,'title'],[descriptions,description,'description']]){
+    if(table.has(value))fail(file+': '+label+' duplicat amb '+table.get(value));
+    table.set(value,file);
+  }
+  if(!/<html\b[^>]*\blang=["']es["']/i.test(html))
+    fail(file+': lang ES absent o incorrecte');
+  const scripts=[...html.matchAll(/<script\b[^>]*type=["']application\/ld\+json["'][^>]*>([\s\S]*?)<\/script>/gi)];
+  const nodes=[];
+  for(const block of scripts){
+    try{
+      const data=JSON.parse(block[1]);
+      nodes.push(...(Array.isArray(data)?data:(Array.isArray(data['@graph'])?data['@graph']:[data])));
+    }catch(error){fail(file+': JSON-LD invàlid: '+error.message);}
+  }
+  const bread=nodes.filter(n=>n?.['@type']==='BreadcrumbList');
+  if(bread.length>1)fail(file+': BreadcrumbList duplicat');
+  for(const b of bread){
+    const parts=b.itemListElement||[];
+    if(parts.length<2||parts.at(-1)?.item!==canonical||
+      !parts.every((n,i)=>n.position===i+1 && Boolean(n.name)))
+      fail(file+': BreadcrumbList no concorda amb la URL canònica o les posicions');
+  }
+  if(/<nav\b(?=[^>]*\bid=["']vcc-global-breadcrumb["'])/i.test(html)&&bread.length!==1)
+    fail(file+': molles de pa visibles sense JSON-LD o duplicades');
+}
+
 // Paginacion/enlaces en construccion: accesibles para usuarios, no para indexacion.
 for (const [file, route] of [["en/index.html","/en/"], ["planifica/apps/index.html","/planifica/apps/"]]) {
   if (!fs.existsSync(file)) continue;
