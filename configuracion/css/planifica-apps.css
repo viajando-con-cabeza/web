@@ -41,6 +41,7 @@
  gap:16px;min-width:0;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;
  scroll-padding-inline:2px;overscroll-behavior-inline:contain;-webkit-overflow-scrolling:touch;
  scrollbar-width:none;padding:3px 2px 13px}
+.av-track[data-av-track="platform"]{grid-auto-columns:calc((100% - 16px)/2.55)}
 .av-track::-webkit-scrollbar{display:none}
 .av-card{min-width:0;display:flex;flex-direction:column;scroll-snap-align:start;overflow:hidden;background:#fff;
  border:1px solid var(--av-line);border-radius:14px;box-shadow:0 4px 15px rgba(43,34,26,.045)}
@@ -109,7 +110,7 @@
 .av-chip.is-active{background:#ed6a27;color:#fff;border-color:#ed6a27}
 .av-mini{display:flex;flex-direction:row;align-items:flex-start;gap:12px;min-height:120px;padding:15px}
 .av-mini-icon{display:grid;place-items:center;flex:0 0 49px;width:49px;height:49px;border-radius:11px;background:#fff0e4;color:#a65737}
-.av-mini-icon .av-svg-icon{display:block;width:34px;height:34px;color:#a65737;stroke:none}
+.av-mini-icon .av-svg-icon{display:block;width:34px;height:34px;color:#a65737;stroke:currentColor}
 .av-mini h3{font:800 15px/1.25 var(--vcc-font-body,"DM Sans",sans-serif);margin:0 0 5px}
 .av-mini p{font:400 11px/1.48 var(--vcc-font-body,"DM Sans",sans-serif);color:#615b55;margin:0 0 7px}
 .av-mini a{font:800 10px/1.2 var(--vcc-font-body,"DM Sans",sans-serif);color:#d95e21!important;text-decoration:none}
@@ -131,6 +132,7 @@
  .av-heading{align-items:flex-start;flex-direction:column;gap:8px}
  .av-description{max-width:100%}
  .av-track{grid-auto-columns:calc((100% - 16px)/2.12)}
+ .av-track[data-av-track="platform"]{grid-auto-columns:calc((100% - 16px)/2.12)}
  .av-activities{grid-template-columns:repeat(2,minmax(0,1fr))}
  .av-local{grid-template-columns:repeat(2,minmax(0,1fr))}
 }
@@ -147,6 +149,7 @@
  .av-section{padding:29px 0 13px;scroll-margin-top:74px}
  .av-over{font-size:25px}.av-h2{font-size:28px}.av-description{font-size:12px}
  .av-track{grid-auto-columns:100%;gap:12px}
+ .av-track[data-av-track="platform"]{grid-auto-columns:100%}
  .av-arrows{justify-content:flex-end;gap:7px;min-height:36px;margin-bottom:10px}
  .av-platform{min-height:0}.av-platform-body{padding:12px 13px 13px}
  .av-lists{padding-top:9px}.av-lists>section{padding-right:9px}.av-lists>section+section{padding-left:9px;padding-right:0}
