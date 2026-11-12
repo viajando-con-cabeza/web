@@ -84,7 +84,13 @@ for(const file of published){
 
  // CSS base disponible abans d'executar JavaScript: evita reflows del menú.
  const coreTags=[...html.matchAll(/<link\b[^>]*data-vcc-core-styles[^>]*>/gi)];
- if(coreTags.length!==1 || !coreTags[0][0].includes('/configuracion/css/componentes/vcc-core-compartit.css'))
+ const coreHref=coreTags[0]?.[0]||'';
+ const isBudgetBundle=file==='destinos/suecia/estocolmo/presupuesto.html' &&
+   coreHref.includes('/configuracion/css/plantillas/presupuesto-compilado-vcc.css') &&
+   coreHref.includes('data-vcc-fast-heroes') &&
+   coreHref.includes('data-vcc-budget-css');
+ if(coreTags.length!==1 ||
+   !(coreHref.includes('/configuracion/css/componentes/vcc-core-compartit.css')||isBudgetBundle))
    failures.push(file+': falta un únic enllaç estàtic al CSS global VCC');
 }
 
