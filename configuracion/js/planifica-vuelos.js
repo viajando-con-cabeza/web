@@ -260,7 +260,7 @@
    exportButton.disabled=true;
    setStatus('Preparando tu PDF de VCC...');
    try{
-     const {exportarComparacionPDF}=await import('/configuracion/js/componentes/vcc-vuelos-pdf.js?v=20261112-v1');
+     const {exportarComparacionPDF}=await import('/configuracion/js/componentes/vcc-vuelos-pdf.js?v=20261112-v2');
      const file=await exportarComparacionPDF(flights.map(f=>({...f})),airlines);
      setStatus('PDF descargado: '+file);
    }catch(error){
