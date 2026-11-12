@@ -282,3 +282,10 @@
 @media(prefers-reduced-motion:reduce){
  .tv-page .tv-carousel{scroll-behavior:auto}
 }
+
+/* Portada Tarjetas de viaje: fitxer propi a quality, única imatge per a
+   escriptori i mòbil. Més específica que la taula global de portades ràpides. */
+html body .tv-page .tv-hero.vcc-portada-transparente[data-vcc-hero]{
+  --vcc-portada-imatge:url('/configuracion/imagenes/fondos/fondos-tarjetas-de-viaje.webp?v=6efd1950')!important;
+  --vcc-portada-posicio:center center;
+}
