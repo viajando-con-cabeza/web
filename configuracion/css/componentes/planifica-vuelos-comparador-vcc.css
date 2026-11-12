@@ -351,3 +351,42 @@ html body .vl-hero.vcc-portada-transparente.vcc-breadcrumb-on-dark #vcc-global-b
  border:1px solid #e4af8a;border-radius:50%;font-size:13px;line-height:1;
 }
 #calculadora .vl-compare-utils [data-export-pdf]:disabled{opacity:.5;cursor:progress}
+
+/* Calculadora · capçalera compacta: no heretar flex-basis vertical de
+   la descripció editorial global (450px) dins d'una columna flex. */
+html body .vl-page #calculadora .vl-calc-head{
+  align-items:flex-end!important;
+  gap:22px!important;
+  min-height:0!important;
+  margin-bottom:15px!important;
+}
+html body .vl-page #calculadora .vl-calc-head-side{
+  width:min(460px,100%)!important;
+  min-height:0!important;
+  height:auto!important;
+  flex:0 1 460px!important;
+  align-self:auto!important;
+  gap:7px!important;
+}
+html body .vl-page #calculadora .vl-calc-head-side>.vl-copy.vcc-editorial-description{
+  flex:0 0 auto!important;
+  align-self:auto!important;
+  height:auto!important;
+  min-height:0!important;
+  width:100%!important;
+  max-width:100%!important;
+  margin:0!important;
+  line-height:1.5!important;
+  text-align:right!important;
+}
+@media(max-width:900px){
+ html body .vl-page #calculadora .vl-calc-head{align-items:flex-start!important;gap:9px!important}
+ html body .vl-page #calculadora .vl-calc-head-side{
+   width:100%!important;max-width:100%!important;
+   flex:0 0 auto!important;align-items:flex-start!important;
+   margin:0!important;
+ }
+ html body .vl-page #calculadora .vl-calc-head-side>.vl-copy.vcc-editorial-description{
+   text-align:left!important;
+ }
+}
