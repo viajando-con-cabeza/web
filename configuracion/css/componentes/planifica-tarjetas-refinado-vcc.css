@@ -1,0 +1,71 @@
+/* Tarjetas de viaje · refinamiento sobre la plantilla VCC compartida.
+   Card layout matches Vuelos; errors share side arrows; only local styles here. */
+.tv-page .tv-catalog>.tv-wrap{width:min(1710px,calc(100% - 52px))}
+.tv-page .tv-carousel-shell:not(.tv-errors-carousel){grid-template-columns:28px minmax(0,1fr) 28px;gap:10px}
+.tv-page .tv-carousel{grid-auto-columns:calc((100% - 44px)/3);gap:22px}
+.tv-page .tv-card{border:1px solid #e1e2e0;border-radius:22px;box-shadow:0 8px 22px rgba(40,34,28,.055)}
+.tv-page .tv-card-head{padding:23px 21px 16px;background:#fff}
+.tv-page .tv-card-head h3{margin:0 0 9px;font:750 clamp(25px,2vw,34px)/1.08 var(--vcc-font-body,"DM Sans",Arial,sans-serif);letter-spacing:-.05em}
+.tv-page .tv-card-head p{margin:0;color:#63686b;font-size:13px;line-height:1.42}
+.tv-page .tv-card-head.revolut h3{color:#173e83}
+.tv-page .tv-card-head.n26 h3{color:#303236}
+.tv-page .tv-card-head.wise h3{color:#19743b}
+.tv-page .tv-card-head.bunq h3{color:#198663}
+.tv-page .tv-card-body{padding:0 21px 17px;gap:0}
+.tv-page .tv-card-points{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0;padding:15px 0 13px;border-top:1px solid #e1e2e1}
+.tv-page .tv-point{min-width:0;border:0;padding:0 14px 0 0}
+.tv-page .tv-point.review{border-left:1px solid #e2e4e2;padding:0 0 0 14px}
+.tv-page .tv-point h4{display:flex;align-items:center;gap:8px;margin:0 0 11px;font:800 12px/1.3 var(--vcc-font-body,"DM Sans",Arial,sans-serif);color:#272523}
+.tv-page .tv-face-icon{flex:0 0 21px;width:21px;height:21px;stroke:#ed6746;color:#ed6746}
+.tv-page .tv-point ul{margin:0;padding-left:15px;color:#50555a}
+.tv-page .tv-point li{margin:0 0 8px;font-size:12.6px;line-height:1.44}
+.tv-page .tv-card-link{margin-top:auto;padding-top:6px;font-size:12px;color:#e35c1f!important}
+.tv-page .tv-catalog-footnote{margin-inline:37px}
+@media(max-width:1100px){.tv-page .tv-carousel{grid-auto-columns:calc((100% - 18px)/2);gap:18px}}
+@media(max-width:720px){
+ .tv-page .tv-catalog>.tv-wrap{width:calc(100% - 28px)}
+ .tv-page .tv-carousel{grid-auto-columns:100%;gap:10px}
+ .tv-page .tv-card-head{padding:18px 16px 13px}
+ .tv-page .tv-card-head h3{font-size:27px}
+ .tv-page .tv-card-body{padding:0 16px 15px}
+ .tv-page .tv-card-points{padding-top:13px}
+ .tv-page .tv-point{padding-right:10px}
+ .tv-page .tv-point.review{padding-left:10px}
+ .tv-page .tv-point h4{font-size:11px;gap:5px}
+ .tv-page .tv-point li{font-size:11px}
+ .tv-page .tv-catalog-footnote{margin-inline:0}
+}
+@media(max-width:370px){
+ .tv-page .tv-card-points{grid-template-columns:1fr;gap:10px}
+ .tv-page .tv-point.review{border-left:0;border-top:1px solid #eee2d8;padding:10px 0 0}
+ .tv-page .tv-point{padding-right:0}
+}
+/* Errores a evitar: el mismo carrusel con flechas laterales VCC. */
+.tv-page .tv-errors-carousel{display:grid;grid-template-columns:28px minmax(0,1fr) 28px;gap:10px;align-items:center;position:relative;min-width:0}
+.tv-page .tv-errors-grid{display:flex;gap:13px;min-width:0;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;overscroll-behavior-x:contain;scrollbar-width:none;padding:3px 1px 9px}
+.tv-page .tv-errors-grid::-webkit-scrollbar{display:none}
+.tv-page .tv-errors-grid>.tv-error-card{flex:0 0 calc((100% - 26px)/3);scroll-snap-align:start;min-height:144px}
+.tv-page .tv-errors-carousel>.tv-error-arrow{display:grid;place-items:center}
+.tv-page .tv-errors-note{margin-inline:38px}
+@media(max-width:1100px){.tv-page .tv-errors-grid>.tv-error-card{flex-basis:calc((100% - 13px)/2)}}
+@media(max-width:720px){
+ .tv-page .tv-errors-carousel{display:block;padding:0}
+ .tv-page .tv-errors-grid{gap:10px}
+ .tv-page .tv-errors-grid>.tv-error-card{flex:0 0 100%;min-height:135px}
+ .tv-page .tv-errors-carousel>.tv-error-arrow{position:absolute;top:50%;transform:translateY(-50%);z-index:3}
+ .tv-page .tv-errors-carousel>[data-tv-errors-prev]{left:2px;right:auto}
+ .tv-page .tv-errors-carousel>[data-tv-errors-next]{right:2px;left:auto}
+ .tv-page .tv-errors-note{margin-inline:0}
+}
+/* Comparador: iconos del sprite VCC, PDF discreto y misma paleta crema. */
+.tv-page .tv-field-label{display:flex;align-items:center;gap:6px;min-height:20px;line-height:1.2}
+.tv-page .tv-field-label>span{min-width:0}
+.tv-page .tv-field-icon{width:18px;height:18px;flex:none;color:#d66b36;stroke:currentColor;fill:none;stroke-width:1.85;stroke-linecap:round;stroke-linejoin:round}
+.tv-page .tv-calc-top{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,390px) auto;align-items:end;gap:16px}
+.tv-page .tv-export-pdf{display:inline-flex;align-items:center;justify-content:center;gap:7px;min-height:35px;white-space:nowrap;padding:7px 11px;border:1px solid #dc9873;background:#fff8f2;color:#9a4e2e;border-radius:9px;font:800 11px/1.2 var(--vcc-font-body,"DM Sans",Arial,sans-serif)}
+.tv-page .tv-export-pdf:hover{background:#fbe9de;border-color:#c9754d}
+.tv-page .tv-export-pdf:disabled{opacity:.65;cursor:progress}
+.tv-page .tv-export-pdf .tv-field-icon{width:17px;height:17px}
+.tv-page .tv-pdf-status{margin:6px 0 0;color:#88563c;font-size:11px;line-height:1.35}
+@media(max-width:1100px){.tv-page .tv-calc-top{grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:8px 12px}.tv-page .tv-calc-top .tv-copy{grid-column:1/-1;grid-row:2}.tv-page .tv-export-pdf{grid-column:2;grid-row:1}}
+@media(max-width:720px){.tv-page .tv-export-pdf{font-size:10px;padding:6px 9px}.tv-page .tv-calc-top .tv-heading{font-size:28px}.tv-page .tv-field-label{font-size:10px;align-items:flex-start}.tv-page .tv-field-icon{width:16px;height:16px}.tv-page .tv-calc-top .tv-copy{margin:0}}
