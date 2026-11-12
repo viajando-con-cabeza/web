@@ -43,7 +43,7 @@ jobs:
                 })();""")
                 errors=[]
                 page.on('pageerror',lambda e:errors.append(str(e)[:200]))
-                url=base+name+'?vcc_lcp_diagnostic=20261112'
+                url=base+name+'?vcc_lcp_diagnostic=20261112-scroll-safe-v1'
                 try:
                   response=page.goto(url,wait_until='load',timeout=45000)
                   page.wait_for_timeout(1300)
@@ -53,7 +53,10 @@ jobs:
                     hero:document.querySelector('#vcc-lcp-hero')?.getBoundingClientRect().height,
                     veil:!!document.querySelector('.vcc-hero-lcp-veil'),
                     firstImg:document.querySelector('picture img,.dv-hero-photo,.ql-hero-photo')?.currentSrc,
-                    visible:document.visibilityState
+                    visible:document.visibilityState,
+                    stableClass:document.documentElement.classList.contains('vcc-lcp-scroll-stable'),
+                    htmlScroll:getComputedStyle(document.documentElement).scrollBehavior,
+                    sampleCarouselScroll:(()=>{const track=document.querySelector('.mv-saving-track,.tips-track,.cl-saving-track,.dv-carousel,.ql-advice-track');return track?getComputedStyle(track).scrollBehavior:null})()
                   })""")
                   obj.update({'page':name,'mobile':mobile,'http':response.status if response else None,'errors':errors[:3]})
                   print('LCP_PROBE',json.dumps(obj,ensure_ascii=False),flush=True)
@@ -62,18 +65,23 @@ jobs:
                 page.close()
             browser.close()
           PY
-      - name: Lighthouse mobile - comparativa real (presupuesto vs entradas)
+      - name: Lighthouse mobile - verificar NO_LCP a les cinc guies
         shell: bash
-        continue-on-error: true
         run: |
           set -euo pipefail
-          npx --yes lighthouse@12.8.2 'https://www.quality.viajandoconcabeza.com/destinos/suecia/estocolmo/presupuesto?vcc_lh=20261112' --chrome-flags='--headless --no-sandbox --disable-dev-shm-usage' --only-audits=largest-contentful-paint --output=json --output-path=/tmp/presupuesto-lcp.json --quiet
-          npx --yes lighthouse@12.8.2 'https://www.quality.viajandoconcabeza.com/destinos/suecia/estocolmo/entradas-y-pases?vcc_lh=20261112' --chrome-flags='--headless --no-sandbox --disable-dev-shm-usage' --only-audits=largest-contentful-paint --output=json --output-path=/tmp/entradas-lcp.json --quiet
+          npx --yes lighthouse@12.8.2 'https://www.quality.viajandoconcabeza.com/destinos/suecia/estocolmo/presupuesto?vcc_lh=20261112-scroll-safe' --chrome-flags='--headless --no-sandbox --disable-dev-shm-usage' --only-audits=largest-contentful-paint --output=json --output-path=/tmp/presupuesto-lcp.json --quiet
+          for page in como-llegar como-moverse donde-dormir que-llevar cuando-ir entradas-y-pases; do
+            npx --yes lighthouse@12.8.2 "https://www.quality.viajandoconcabeza.com/destinos/suecia/estocolmo/$page?vcc_lh=20261112-scroll-safe" --chrome-flags='--headless --no-sandbox --disable-dev-shm-usage' --only-audits=largest-contentful-paint --output=json --output-path="/tmp/$page-lcp.json" --quiet
+          done
           node - <<'JS'
           const fs=require('fs');
-          for(const p of ['presupuesto','entradas']){
+          let failures=0;
+          for(const p of ['presupuesto','como-llegar','como-moverse','donde-dormir','que-llevar','cuando-ir','entradas-y-pases']){
             const x=JSON.parse(fs.readFileSync('/tmp/'+p+'-lcp.json','utf8'));
             const a=x.audits['largest-contentful-paint'];
-            console.log('LIGHTHOUSE_LCP',JSON.stringify({page:p,value:a.numericValue,display:a.displayValue,error:a.errorMessage,score:a.score,description:a.description?.slice(0,180),requestedUrl:x.requestedUrl,finalUrl:x.finalUrl}));
+            const okay=Number.isFinite(a.numericValue)&&a.numericValue>0&&!a.errorMessage;
+            console.log('LIGHTHOUSE_LCP',JSON.stringify({page:p,okay,value:a.numericValue,display:a.displayValue,error:a.errorMessage,score:a.score}));
+            if(!okay)failures++;
           }
+          if(failures)throw new Error(failures+' guies encara amb NO_LCP');
           JS
