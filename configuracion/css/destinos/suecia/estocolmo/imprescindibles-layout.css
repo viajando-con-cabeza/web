@@ -204,3 +204,11 @@ html body .imp-page .imp-main .place.place--no-media .advice p {
   background-image:linear-gradient(90deg,rgba(18,28,30,.72),rgba(18,28,30,.24)),url('/configuracion/imagenes/fondos/optimizadas/fondos-que-ver-960.webp?v=edc6a65bfa7f')!important;
  }
 }
+
+/* Reserva la capçalera global abans que site-header.js reemplaci el placeholder.
+ * Evita el salt en la primera pintura; els estils de .shared-header segueixen
+ * definits al component de configuracion, sense alterar-ne l'aparença final. */
+body > header.page-header:empty {height:50px;min-height:50px;}
+@media (max-width:720px) {
+ body > header.page-header:empty {height:79px;min-height:79px;}
+}
