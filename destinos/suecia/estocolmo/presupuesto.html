@@ -42,77 +42,13 @@
 <link rel="stylesheet" href="/configuracion/css/plantillas/presupuesto-vcc-visual.css?v=20261112-perf1">
 
 <link rel="stylesheet" href="/configuracion/css/destinos/suecia/estocolmo/presupuesto-head-core-v1.css?v=20261112-budget-consolidated-v1"><noscript><link rel="stylesheet" href="/configuracion/css/componentes/guias-relacionadas-vcc.css?v=20261105-compact2"></noscript>
-<style data-vcc-budget-critical>/* Presupuesto Estocolmo · estilos finales de hero, navegación y carruseles.
-   Integrados aquí para evitar una hoja de estilos bloqueante adicional.
-   Mantener antes de las reglas de los perfiles; no reordenar. */
-/* vcc-budget-illustrated-background */
-
-/* Solo cambia el fondo del hero. Mantiene los tamaños, textos, subheader y otras secciones. */
-html body.budget-vcc .budget-hero,html body.budget-vcc .st-shell>section.budget-hero{
- background-image:linear-gradient(90deg,rgba(249,238,220,.98) 0%,rgba(249,238,220,.92) 31%,rgba(249,238,220,.35) 60%,rgba(249,238,220,0) 84%),url('/configuracion/imagenes/fondos/fondos-presupuesto.webp?v=20261106-final')!important;
- background-color:#f5e4c8!important;
- background-position:center right!important;background-size:cover!important;background-repeat:no-repeat!important;
-}
-@media(max-width:720px){
- html body.budget-vcc .budget-hero,html body.budget-vcc .st-shell>section.budget-hero{
- background-image:linear-gradient(90deg,rgba(249,238,220,.98),rgba(249,238,220,.85) 55%,rgba(249,238,220,.35)),url('/configuracion/imagenes/fondos/fondos-presupuesto.webp?v=20261106-final')!important;
- background-position:68% center!important;
- }
-}
-
-
-/* vcc-budget-mobile-hero-repair-20261105 */
-
-/* Corrección localizada: hero, imagen y migas de pan de presupuesto en móvil. */
-@media(max-width:720px){
- html body.budget-vcc > .st-shell{
-   margin-top:0!important;padding-top:0!important;
- }
- html body.budget-vcc .st-shell > section.budget-hero{
-   display:block!important;position:relative!important;
-   margin:0!important;padding:0!important;
-   height:auto!important;min-height:520px!important;max-height:none!important;
-   overflow:hidden!important;
-   background-color:#f5e4c8!important;
-   background-image:linear-gradient(90deg,rgba(249,238,220,.93) 0%,rgba(249,238,220,.75) 47%,rgba(249,238,220,.12) 100%),url('/configuracion/imagenes/fondos/fondos-presupuesto.webp?v=20261106-final')!important;
-   background-size:cover!important;background-position:60% center!important;background-repeat:no-repeat!important;
- }
- html body.budget-vcc .budget-hero .budget-hero-inner{
-   display:block!important;position:relative!important;
-   width:calc(100% - 32px)!important;margin:0 auto!important;
-   height:auto!important;min-height:520px!important;
-   padding:0 0 28px!important;
- }
- html body.budget-vcc .budget-hero .budget-crumb{
-   position:relative!important;top:auto!important;left:auto!important;right:auto!important;
-   display:flex!important;flex-wrap:wrap!important;align-items:center!important;
-   width:100%!important;height:auto!important;
-   padding:15px 0 0!important;margin:0 0 25px!important;
-   gap:0!important;z-index:2!important;
-   font:400 11px/1.5 var(--vcc-font-body, "DM Sans", Arial, sans-serif)!important;
- }
- html body.budget-vcc .budget-hero .budget-crumb span{margin:0 5px!important}
- html body.budget-vcc .budget-hero .budget-hero-card{
-   position:relative!important;top:auto!important;left:auto!important;right:auto!important;
-   display:block!important;width:100%!important;
-   margin:0!important;padding:0!important;
-   transform:none!important;
- }
- html body.budget-vcc .budget-hero .hero-eyebrow{margin:0 0 12px!important}
- html body.budget-vcc .budget-hero .budget-hero-card h1{
-   font-size:clamp(34px,8.6vw,46px)!important;line-height:1.07!important;
- }
- html body.budget-vcc .budget-hero .hero-intro{margin:17px 0 10px!important}
- html body.budget-vcc .budget-hero .hero-lead{max-width:36ch!important;line-height:1.6!important}
-}</style>
-<link rel="stylesheet" href="/configuracion/css/destinos/suecia/estocolmo/presupuesto-perfiles-desplegables.css?v=20261112-v27-data-font-normal" media="print" onload="this.media='all'" data-vcc-budget-deferred>
-<noscript><link rel="stylesheet" href="/configuracion/css/destinos/suecia/estocolmo/presupuesto-perfiles-desplegables.css?v=20261112-v27-data-font-normal"></noscript>
-<link rel="stylesheet" href="/configuracion/css/componentes/presupuesto-gastos-dia-vcc.css?v=20261111-mobile-labels-single-line" media="print" onload="this.media='all'" data-vcc-budget-deferred><noscript><link rel="stylesheet" href="/configuracion/css/componentes/presupuesto-gastos-dia-vcc.css?v=20261111-mobile-labels-single-line"></noscript>
+<link rel="stylesheet" href="/configuracion/css/destinos/suecia/estocolmo/presupuesto-perfiles-desplegables.css?v=20261112-v27-data-font-normal">
+<link rel="stylesheet" href="/configuracion/css/componentes/presupuesto-gastos-dia-vcc.css?v=20261111-mobile-labels-single-line">
 <link rel="stylesheet" href="/configuracion/css/componentes/vcc-ui-compartida.css?v=20261112-b1">
 <link rel="stylesheet" href="/configuracion/css/componentes/header-fallback-vcc.css?v=20261111-1" data-vcc-header-fallback>
 
   
-<link rel="stylesheet" href="/configuracion/css/componentes/vcc-trip-context.css?v=20261111-2" media="print" onload="this.media='all'" data-vcc-budget-deferred><noscript><link rel="stylesheet" href="/configuracion/css/componentes/vcc-trip-context.css?v=20261111-2"></noscript>
+<link rel="stylesheet" href="/configuracion/css/componentes/vcc-trip-context.css?v=20261111-2">
 
 
 <link rel="stylesheet" href="/configuracion/css/componentes/vcc-capcaleres-editorials.css?v=20261112-v1">
