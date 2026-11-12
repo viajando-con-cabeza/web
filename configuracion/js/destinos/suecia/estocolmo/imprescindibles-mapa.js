@@ -94,10 +94,27 @@
       zoomControl:true,
       attributionControl:true
     });
-    leaflet.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
+    // Mapas externos sujetos a licencia: relieve topográfico abierto (NO teselas de Google).
+    // La cartografía urbana original se conserva como alternativa y reserva.
+    const streets=leaflet.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{
       minZoom:11,maxZoom:18,
       attribution:'&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer">OpenStreetMap</a> contributors'
+    });
+    const terrain=leaflet.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png',{
+      minZoom:11,maxNativeZoom:17,maxZoom:18,subdomains:'abc',
+      attribution:'Mapa: &copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer">OpenStreetMap</a> contributors, SRTM | <a href="https://opentopomap.org/" target="_blank" rel="noopener noreferrer">OpenTopoMap</a> (CC BY-SA)'
+    });
+    terrain.addTo(map);
+    leaflet.control.layers({'Relieve':terrain,'Calles':streets},{},{
+      collapsed:true,position:'topright'
     }).addTo(map);
+    // Si el servidor de relieve no responde, mantenemos el mapa utilizable.
+    let failedTerrainTiles=0;
+    terrain.on('tileerror',()=>{
+      if(++failedTerrainTiles<5||!map?.hasLayer(terrain))return;
+      map.removeLayer(terrain);
+      if(!map.hasLayer(streets))streets.addTo(map);
+    });
     const bounds=[];
     for(const [i,spot] of spots.entries()){
       // Puntos numerados en el mismo orden que las fichas.
