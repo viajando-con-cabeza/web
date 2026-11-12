@@ -11,7 +11,7 @@
 <link rel="stylesheet" href="/configuracion/css/componentes/carruseles-flechas-movil-vcc.css?v=20261111-arrow-refactor-v11">
 
 
-<link rel="stylesheet" href="/configuracion/css/componentes/catalogo-planifica-vcc.css?v=20261112-filtres-icones-search">
+<link rel="stylesheet" href="/configuracion/css/componentes/catalogo-planifica-vcc.css?v=20261112-filtres-sense-vores">
 <link rel="preload" as="image" type="image/webp" media="(max-width: 767px)" href="/configuracion/imagenes/fondos/optimizadas/fondos-itinerarios-960.webp?v=0ce845de54e4" fetchpriority="high">
 <link rel="preload" as="image" type="image/webp" media="(min-width: 768px)" href="/configuracion/imagenes/fondos/optimizadas/fondos-itinerarios-1920.webp?v=0ce845de54e4" fetchpriority="high">
 <link rel="stylesheet" data-vcc-fast-heroes href="/configuracion/css/componentes/portadas-rapidas-vcc.css?v=6c144064b66e">
@@ -25,11 +25,11 @@
 </div></section><section class="itinerarios-results vcc-it-catalog" data-vcc-planifica-catalog="itinerarios" aria-labelledby="it-catalog-title">
  <header class="vcc-it-heading"><span class="section-kicker">Rutas para descubrir</span><h2 id="it-catalog-title">INSPÍRATE CON NUESTROS ITINERARIOS</h2><p>Explora nuestras rutas reales, con etapas, mapas y consejos para organizar tu viaje. El precio indicado es el total por persona cuando disponemos de ese dato.</p></header>
  <div class="vcc-catalog-toolbar" role="group" aria-label="Buscar y filtrar itinerarios">
-<label class="di-catalog-search vcc-catalog-search"><span aria-hidden="true">⌕</span><input type="search" id="itinerary-search" data-vcc-catalog-search aria-label="Buscar itinerarios" placeholder="Busca un destino..."></label>
+<label class="vcc-catalog-search-group"><span class="vcc-catalog-field-title"><svg aria-hidden="true" viewBox="0 0 24 24"><use href="/configuracion/imagenes/iconos/compartidos/catalogo-filtros-vcc.svg#buscar"></use></svg>Buscar</span><span class="di-catalog-search vcc-catalog-search"><input type="search" id="itinerary-search" data-vcc-catalog-search aria-label="Buscar itinerarios" placeholder="Busca un destino..."></span></label>
 <label class="vcc-catalog-field"><span class="vcc-catalog-field-title"><svg aria-hidden="true" viewBox="0 0 24 24"><use href="/configuracion/imagenes/iconos/compartidos/catalogo-filtros-vcc.svg#continent"></use></svg>Continente</span><select data-vcc-catalog-continent aria-label="Filtrar por continente"><option value="all">Todos los continentes</option><option value="europa">Europa</option><option value="asia">Asia</option><option value="america">América</option><option value="africa">África</option><option value="oceania">Oceanía</option></select></label>
 <label class="vcc-catalog-field"><span class="vcc-catalog-field-title"><svg aria-hidden="true" viewBox="0 0 24 24"><use href="/configuracion/imagenes/iconos/compartidos/catalogo-filtros-vcc.svg#tipo-viaje"></use></svg>Tipo de viaje</span><select data-vcc-catalog-type aria-label="Filtrar por tipo de viaje"><option value="all">Todos los tipos</option><option value="ciudades">Ciudades</option><option value="islas">Islas</option><option value="playas">Playas</option><option value="coche">Ruta en coche</option><option value="combinados">Ruta combinada</option><option value="naturaleza">Naturaleza</option><option value="montanas">Montañas</option><option value="navidad">Navidad</option><option value="otros">Otros viajes</option></select></label>
-<button class="vcc-catalog-reset" data-vcc-catalog-reset type="button">Limpiar filtros</button>
 <span class="di-catalog-count vcc-catalog-count" id="itinerary-count" data-vcc-catalog-count aria-live="polite">3 itinerarios</span></div>
+<div class="vcc-catalog-meta"><button class="vcc-catalog-reset" data-vcc-catalog-reset type="button">Limpiar filtros</button></div>
 <div class="di-mini-grid" id="itineraries-grid">
 <article class="di-mini-card vcc-it-card" data-it-card data-continent="europa" data-type="ciudades" data-it-search="Estocolmo en 3 días 3 días CIUDADES Suecia Gamla Stan, museos y barrios en una ruta por horas.">
    <span class="di-mini-photo vcc-it-photo" data-vcc-it-gallery role="group" aria-label="Fotografías de Estocolmo en 3 días" tabindex="0">
