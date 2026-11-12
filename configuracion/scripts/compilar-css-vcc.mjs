@@ -27,6 +27,40 @@ function expand(rel,ancestors=[]) {
  if(relativeAssets.length)throw new Error('Revisar URL relativa CSS: '+rel+' '+relativeAssets[0]);
  return source;
 }
+// Compactació conservadora del bundle de Presupuesto: només comentaris
+// i espais prescindibles, sense tocar selectores, valors o ordre de cascada.
+function compactBudgetCSS(css){
+ let result='',quote='',escaped=false,pendingSpace=false;
+ for(let i=0;i<css.length;i++){
+   const char=css[i],next=css[i+1];
+   if(quote){
+     result+=char;
+     if(escaped)escaped=false;
+     else if(char==='\\')escaped=true;
+     else if(char===quote)quote='';
+     continue;
+   }
+   if(char==='"'||char==="'"){
+     if(pendingSpace){result+=' ';pendingSpace=false}
+     quote=char;result+=char;continue;
+   }
+   if(char==='/'&&next==='*'){
+     i+=2;
+     while(i<css.length&&!(css[i]==='*'&&css[i+1]==='/'))i++;
+     i++;continue;
+   }
+   if(/\s/.test(char)){pendingSpace=true;continue}
+   if(pendingSpace){
+     const previous=result.at(-1)||'';
+     if(!/[{;:,}]/.test(previous)&&!/[{;:,}]/.test(char))result+=' ';
+     pendingSpace=false;
+   }
+   result+=char;
+ }
+ if(quote)throw new Error('Cadena CSS sense tancar a Presupuesto');
+ return result;
+}
+const budgetOutput='configuracion/css/plantillas/presupuesto-compilado-vcc.css';
 let errors=0;
 for(const {entry,sources,out} of manifest.bundles){
  const joined=Array.isArray(sources)
@@ -35,9 +69,10 @@ for(const {entry,sources,out} of manifest.bundles){
  const generated=Array.isArray(sources)
    ? "/* AUTO-GENERAT · CSS comu de VCC. Edita les fonts canonicas de configuracion/css.\n * Regenerar: npm run css:build. Inclou tokens, carrusels, subheader, breadcrumb i header.\n */\n"+joined
    : '/* AUTO-GENERAT. Edita els CSS originals i executa: npm run css:build.\n * Cap @import bloquejant: la cascada es conserva i es carreguen 8 fulls menys.\n */\n'+joined;
+ const optimized=out===budgetOutput?compactBudgetCSS(generated):generated;
  const output=path.join(root,out);
- if(process.argv.includes('--write')){fs.mkdirSync(path.dirname(output),{recursive:true});fs.writeFileSync(output,generated);console.log('CSS compilat:',out);}
- else if(!fs.existsSync(output)||fs.readFileSync(output,'utf8')!==generated){console.error('CSS desactualitzat: '+out+' (executa npm run css:build)');errors++;}
+ if(process.argv.includes('--write')){fs.mkdirSync(path.dirname(output),{recursive:true});fs.writeFileSync(output,optimized);console.log('CSS compilat:',out);}
+ else if(!fs.existsSync(output)||fs.readFileSync(output,'utf8')!==optimized){console.error('CSS desactualitzat: '+out+' (executa npm run css:build)');errors++;}
  else console.log('CSS al dia:',out);
 }
 if(errors)process.exitCode=1;
