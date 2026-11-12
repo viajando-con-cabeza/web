@@ -299,9 +299,9 @@ const packingCards = packingSources.map(file=>{
  const filePath=rel(file);
  const info=packingEditorial[filePath]||{};
  const html=fs.readFileSync(file,"utf8");
- const title=plain((html.match(/<title>([\\s\\S]*?)<\\/title>/i)||[])[1]||"");
+ const title=plain((html.match(/<title>([\s\S]*?)<\/title>/i)||[])[1]||"");
  const slug=filePath.split("/").at(-2);
- const name=info.name||(title.match(/Qu[eé] llevar a\\s+([^|:]+)/i)||[])[1]?.trim()||titleCaseSlug(slug);
+ const name=info.name||(title.match(/Qu[eé] llevar a\s+([^|:]+)/i)||[])[1]?.trim()||titleCaseSlug(slug);
  const fromDestinos=filePath.startsWith("destinos/");
  const countrySlug=fromDestinos?filePath.split("/")[1]:slug;
  const country=info.country||countryMeta[countrySlug]?.[0]||"";
