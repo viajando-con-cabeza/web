@@ -39,7 +39,7 @@
  const observer='IntersectionObserver' in window ? new IntersectionObserver(entries=>{
   if(!entries.some(e=>e.isIntersecting))return;
   observer.disconnect();void load();
- },{rootMargin:'600px 0px',threshold:0}) : null;
+ },{rootMargin:'0px 0px -100px 0px',threshold:0}) : null;
  if(observer)observer.observe(target);
  else if(document.readyState==='complete')void load();
  else window.addEventListener('load',load,{once:true});
