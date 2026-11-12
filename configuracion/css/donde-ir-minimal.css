@@ -37,7 +37,7 @@ body.planifica-vcc{margin:0;background:var(--di-paper);color:var(--di-ink);font-
 .di-section-head h2{font:500 clamp(29px,3vw,39px)/1.12 var(--vcc-font-heading, "Oswald", sans-serif);margin:4px 0 9px}
 .di-section-head p{margin:0;max-width:790px;color:var(--di-muted);font:400 13px/1.57 var(--vcc-font-body, "DM Sans", Arial, sans-serif)}
 
-/* Catàleg editorial: fins a cinc vinyetes al costat, com Itinerarios. */
+/* Catàleg editorial: quatre vinyetes al costat, compartit amb Itinerarios. */
 .di-catalog-toolbar{
   display:flex;justify-content:space-between;align-items:center;
   flex-wrap:wrap;gap:12px;margin:0 0 14px;
@@ -57,7 +57,7 @@ body.planifica-vcc{margin:0;background:var(--di-paper);color:var(--di-ink);font-
 .di-catalog-search input::placeholder{color:#89817c}
 .di-catalog-count{font:700 11px/1.2 var(--vcc-font-body, "DM Sans", Arial, sans-serif);color:#796b63;white-space:nowrap}
 .di-mini-grid{
-  display:grid;grid-template-columns:repeat(5,minmax(0,1fr));
+  display:grid;grid-template-columns:repeat(4,minmax(0,1fr));
   gap:12px;align-items:stretch;
 }
 .di-mini-card{
@@ -283,4 +283,20 @@ html body .di-hero.vcc-breadcrumb-on-dark #vcc-global-breadcrumb a:hover{
  .di-guide-rating{font-size:10px;padding:3px 5px}
  .di-rating-pending{font-size:8.5px}
  .di-topic{font-size:8px;padding:3px 5px}
+}
+
+/* Dónde ir: alçades de portada i subheader dels tokens compartits VCC. */
+.di-page .di-hero{box-sizing:border-box;height:var(--vcc-standard-hero-desktop,475px);min-height:var(--vcc-standard-hero-desktop,475px)}
+.di-page .di-hero-inner{height:100%}
+.di-page .di-subnav{top:var(--vcc-subheader-top,0px);height:var(--vcc-subnav-height,39px);min-height:var(--vcc-subnav-height,39px)}
+.di-page .di-subnav-inner{height:100%;min-height:var(--vcc-subnav-height,39px);gap:var(--vcc-subnav-gap,38px)}
+.di-page .di-subnav button{height:100%;font-size:var(--vcc-component-subheader-desktop-font,11.5px)}
+/* Vinyetes: el CSS visual es comparteix amb la pàgina Itinerarios. */
+.di-page .vcc-it-catalog .vcc-it-facts{flex-wrap:wrap;row-gap:5px}
+.di-page .vcc-it-catalog .di-mini-body>b{align-self:flex-end;text-align:right}
+.di-page .vcc-it-catalog .di-mini-tag{white-space:normal}
+@media(max-width:720px){
+ .di-page .di-hero{height:var(--vcc-standard-hero-mobile,calc(100svh - var(--vcc-page-header-height,79px) - 59px));min-height:var(--vcc-standard-hero-mobile,calc(100svh - var(--vcc-page-header-height,79px) - 59px))}
+ .di-page .di-subnav-inner{gap:var(--vcc-subnav-gap,24px)}
+ .di-page .di-subnav button{font-size:var(--vcc-component-subheader-mobile-font,11px)}
 }
