@@ -96,7 +96,7 @@ for(const p of approvedFiles){
     }
     const preloadMobile='<link rel="preload" as="image" type="image/webp" media="(max-width: 767px)" href="'+variant(name,"960")+'" fetchpriority="high">';
     const preloadDesktop='<link rel="preload" as="image" type="image/webp" media="(min-width: 768px)" href="'+variant(name,"1920")+'" fetchpriority="high">';
-    html=html.replace(/<link\b[^>]*\brel=["']preload["'][^>]*>/gi,tag=>{
+    html=html.replace(/<link\b[^>]*\brel=["']preload["'][^>]*>\s*/gi,tag=>{
       if(!/\bas=["']image["']/i.test(tag)||
          !(tag.includes("/configuracion/imagenes/fondos/"+name+".webp")||
            tag.includes("/configuracion/imagenes/fondos/optimizadas/"+name+"-")))return tag;
