@@ -1,49 +1,30 @@
-/* Iconografia editorial VCC: Como ahorrar = numeros; Errores a evitar = exclamacion.
-   El dibujo de alerta se modifica solo en iconos/compartidos/exclamacion-errores-vcc.svg.
+/* Errores a evitar: reproduccion EXACTA de la insignia ya aprobada en
+   Presupuesto de Estocolmo (configuracion/css/plantillas/presupuesto-vcc-visual.css).
+   El icono SVG procede de estocolmo-presupuesto-iconos.svg#surprise-icon-1.
+   Las secciones Como ahorrar mantienen sus iconos numericos compartidos.
 */
-html body .vcc-alerta-error {
-  box-sizing: border-box !important;
-  display: inline-flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  flex: 0 0 40px !important;
-  width: 40px !important;
-  height: 40px !important;
-  min-width: 40px !important;
-  min-height: 40px !important;
+html body.ci-page .ci-tip-card > .ci-tip-alert {
+  display: grid !important;
+  place-items: center !important;
+  flex: 0 0 34px !important;
+  width: 34px !important;
+  height: 34px !important;
+  min-width: 34px !important;
+  min-height: 34px !important;
   margin: 0 !important;
   padding: 0 !important;
   border: 0 !important;
-  outline: 0 !important;
-  background: transparent !important;
-  background-image: none !important;
+  outline: none !important;
+  border-radius: 50% !important;
+  color: #a67c48 !important;
+  background: #f1e5d1 !important;
   box-shadow: none !important;
   transform: none !important;
-  rotate: none !important;
-  font-size: 0 !important;
-  line-height: 0 !important;
-  text-decoration: none !important;
 }
-html body .vcc-alerta-error::before,
-html body .vcc-alerta-error::after { content: none !important; display: none !important; }
-html body .vcc-alerta-error > .vcc-alerta-svg {
+html body.ci-page .ci-tip-card > .ci-tip-alert > svg {
   display: block !important;
-  width: 100% !important;
-  height: 100% !important;
-  min-width: 0 !important;
-  min-height: 0 !important;
-  margin: 0 !important;
-  padding: 0 !important;
+  width: 22px !important;
+  height: 22px !important;
   flex: none !important;
   transform: none !important;
-  overflow: visible !important;
-}
-@media (max-width: 720px) {
-  html body .vcc-alerta-error {
-    flex-basis: 36px !important;
-    width: 36px !important;
-    height: 36px !important;
-    min-width: 36px !important;
-    min-height: 36px !important;
-  }
 }
