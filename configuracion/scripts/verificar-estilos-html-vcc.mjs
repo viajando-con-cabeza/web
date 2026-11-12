@@ -67,7 +67,16 @@ for(const file of published){
    .filter(url=>url.startsWith('/configuracion/css/'));
  if(localCSS.length>16)failures.push(file+': '+localCSS.length+' CSS locals (màxim 16, agrupa components)');
  if(new Set(localCSS).size!==localCSS.length)failures.push(file+': fulls CSS duplicats');
- if(/<style\b/i.test(html))failures.push(file+': no incloure blocs <style> a HTML publicat');
+ // Única excepció crítica: pressupost encapsula el primer fragment del
+ // CSS canonitzat per evitar un full render-blocking durant el LCP mòbil.
+ // Se'n valida el contingut 1:1 contra la font, sense permetre CSS arbitrari.
+ const inlineBlocks=[...html.matchAll(/<style\b([^>]*)>([\s\S]*?)<\/style>/gi)];
+ for(const style of inlineBlocks){
+   const critical=file==='destinos/suecia/estocolmo/presupuesto.html'&&
+      style[1].includes('data-vcc-budget-critical')&&
+      read('configuracion/css/destinos/suecia/estocolmo/presupuesto-perfiles-desplegables.css').startsWith(style[2]);
+   if(!critical)failures.push(file+': estils inline no governats per CSS central');
+ }
  const logos=[...html.matchAll(/<img\b(?=[^>]*\bsrc=["']\/configuracion\/imagenes\/marca\/logo-viajando-con-cabeza\.svg["'])[^>]*>/gi)];
  // Acceptar dimensions editorials existents; només exigir l'espai reservat.
  if(logos.some(m=>!/\bwidth=["']\d+["']/.test(m[0])||!/\bheight=["']\d+["']/.test(m[0])))
