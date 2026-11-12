@@ -157,6 +157,31 @@ for(const p of approvedFiles){
     html=html.replace(/(?:\r?\n[ \t]*){2,}(?=<\/head\s*>)/i,"\n");
     html=html.replace(/<\/head\s*>/i,coreLink+"\n</head>");
   }
+  // Un mateix full local només es carrega una vegada. En cas de versió
+  // print/onload + versió directa, conservar la directa. <noscript> no
+  // participa al renderitzat amb JS i no es modifica.
+  const fallbacks=[];
+  html=html.replace(/<noscript\b[^>]*>[\s\S]*?<\/noscript>/gi,chunk=>{
+    const token='VCC_NOSCRIPT_'+fallbacks.length+'_END';
+    fallbacks.push(chunk);return token;
+  });
+  const linkRE=/<link\b[^>]*\brel=["']stylesheet["'][^>]*>/gi;
+  const candidates=[...html.matchAll(linkRE)].map(m=>m[0]);
+  const choices=new Map();
+  candidates.forEach((tag,i)=>{
+    const href=tag.match(/\bhref=["']([^"']+)/i)?.[1]?.split('?')[0];
+    if(!href?.startsWith('/configuracion/css/'))return;
+    const deferred=/\bmedia=["']print["']|\bonload=/.test(tag),weight=deferred?0:1;
+    const previous=choices.get(href);
+    if(!previous||weight>previous.weight)choices.set(href,{index:i,weight});
+  });
+  let ix=0;
+  html=html.replace(linkRE,tag=>{
+    const href=tag.match(/\bhref=["']([^"']+)/i)?.[1]?.split('?')[0];
+    const keep=!href?.startsWith('/configuracion/css/')||choices.get(href)?.index===ix;
+    ix++;return keep?tag:'';
+  });
+  html=html.replace(/VCC_NOSCRIPT_(\d+)_END/g,(_,num)=>fallbacks[Number(num)]);
   if(html!==original){pagesChanged++;sync(p,html);}
 }
 if(issues.length)throw Error(issues.join("\n"));
