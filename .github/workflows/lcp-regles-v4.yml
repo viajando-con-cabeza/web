@@ -10,66 +10,50 @@ permissions:
   contents: read
 
 jobs:
-  bisect-rules:
+  css-props:
     runs-on: ubuntu-latest
     timeout-minutes: 14
     steps:
-      - name: Bisectar components i propietats que anul·len el LCP
+      - name: Provar scroll-snap i scroll-behavior de tots els CSS al primer render
         shell: bash
         run: |
           set -euo pipefail
-          python -m pip install --quiet playwright tinycss2
+          python -m pip install --quiet playwright
           python - <<'PY'
-          import json,tinycss2
+          import json,re
           from playwright.sync_api import sync_playwright
           base='https://www.quality.viajandoconcabeza.com/destinos/suecia/estocolmo/'
-          tests=[
-            ('como-moverse','baseline',[],None),
-            ('como-moverse','track_201',[201],None),
-            ('como-moverse','card_204',[204],None),
-            ('como-moverse','shell_200',[200],None),
-            ('como-moverse','start_200_204',list(range(200,205)),None),
-            ('como-moverse','rest_205_212',list(range(205,213)),None),
-            ('como-moverse','scroll_snap',[],'scroll-snap-type:x mandatory'),
-            ('como-moverse','scroll_smooth',[],'scroll-behavior:smooth'),
-            ('como-moverse','overflow_auto',[],'overflow-x:auto'),
-            ('presupuesto','baseline',[],None),
-            ('presupuesto','saving_100_110',list(range(100,111)),None),
-            ('presupuesto','carousel_102_106',list(range(102,107)),None),
-            ('presupuesto','hero_0_18',list(range(0,19)),None),
-            ('presupuesto','main_20_70',list(range(20,71)),None),
-            ('presupuesto','scroll_snap',[],'scroll-snap-type:x mandatory'),
-            ('presupuesto','scroll_smooth',[],'scroll-behavior:smooth'),
-            ('presupuesto','overflow_auto',[],'overflow-x:auto'),
-          ]
+          tests=['presupuesto','como-llegar','como-moverse','donde-dormir','que-llevar']
+          cases=['base','proximity','none','auto','proximity_auto']
           with sync_playwright() as p:
             browser=p.chromium.launch(headless=True,executable_path='/usr/bin/google-chrome',args=['--no-sandbox','--disable-dev-shm-usage'])
-            for name,label,removed,replace in tests:
-              page=browser.new_page(viewport={'width':390,'height':844},device_scale_factor=1,is_mobile=True,has_touch=True)
-              page.add_init_script("""(()=>{window.__lcp=[];new PerformanceObserver(l=>{for(const e of l.getEntries())window.__lcp.push({tag:e.element?.tagName,size:e.size,time:Math.round(e.startTime)});}).observe({type:'largest-contentful-paint',buffered:true})})();""")
-              if removed or replace:
-                def handler(route):
-                  file='como-moverse-vcc.css' if name=='como-moverse' else 'presupuesto-vcc-visual.css'
-                  if route.request.resource_type!='stylesheet' or file not in route.request.url:
-                    return route.continue_()
-                  resp=route.fetch()
-                  source=resp.text()
-                  if removed:
-                    ast=tinycss2.parse_stylesheet(source)
-                    idx=[i for i,t in enumerate(ast) if t.type in ('qualified-rule','at-rule')]
-                    selected=set(idx[i] for i in removed if i<len(idx))
-                    source=tinycss2.serialize([x for i,x in enumerate(ast) if i not in selected])
-                  if replace:
-                    source=source.replace(replace,replace.split(':')[0]+':initial')
-                  route.fulfill(response=resp,body=source,content_type='text/css')
-                page.route('**/*',handler)
-              try:
-                response=page.goto(base+name+'?lcp_rules_v5='+label,wait_until='domcontentloaded',timeout=35000)
-                page.wait_for_timeout(1050)
-                diag=page.evaluate("""()=>({lcp:window.__lcp,firstPaint:performance.getEntriesByType('paint').map(e=>Math.round(e.startTime)),height:document.querySelector('.mv-hero,.budget-hero')?.getBoundingClientRect().height})""")
-                print('LCP5',json.dumps({'p':name,'case':label,'http':response.status if response else None,**diag},ensure_ascii=False),flush=True)
-              except Exception as e:
-                print('LCP5_ERROR',name,label,str(e)[:270],flush=True)
-              page.close()
+            for name in tests:
+              for case in cases:
+                page=browser.new_page(viewport={'width':390,'height':844},device_scale_factor=1,is_mobile=True,has_touch=True)
+                page.add_init_script("""(()=>{window.__lcp=[];new PerformanceObserver(l=>{for(const e of l.getEntries())window.__lcp.push({tag:e.element?.tagName,size:e.size,time:Math.round(e.startTime)});}).observe({type:'largest-contentful-paint',buffered:true})})();""")
+                changes=[0,0]
+                if case!='base':
+                  def handler(route):
+                    if route.request.resource_type!='stylesheet':return route.continue_()
+                    resp=route.fetch()
+                    raw=resp.text()
+                    if case in ('proximity','proximity_auto'):
+                      raw,n=re.subn(r'scroll-snap-type\s*:\s*x\s+mandatory', 'scroll-snap-type:x proximity',raw,flags=re.I)
+                      changes[0]+=n
+                    elif case=='none':
+                      raw,n=re.subn(r'scroll-snap-type\s*:\s*x\s+(?:mandatory|proximity)', 'scroll-snap-type:none',raw,flags=re.I)
+                      changes[0]+=n
+                    if case in ('auto','proximity_auto'):
+                      raw,n=re.subn(r'scroll-behavior\s*:\s*smooth', 'scroll-behavior:auto',raw,flags=re.I)
+                      changes[1]+=n
+                    return route.fulfill(response=resp,body=raw,content_type='text/css')
+                  page.route('**/*',handler)
+                try:
+                  r=page.goto(base+name+'?lcp_css_props_v6='+case,wait_until='domcontentloaded',timeout=32000)
+                  page.wait_for_timeout(950)
+                  out=page.evaluate("""()=>({lcp:window.__lcp,h:document.querySelector('#vcc-lcp-hero')?.getBoundingClientRect().height,paint:performance.getEntriesByType('paint').map(e=>Math.round(e.startTime))})""")
+                  print('LCP6',json.dumps({'page':name,'case':case,'http':r.status if r else None,'changes':changes,**out},ensure_ascii=False),flush=True)
+                except Exception as e:print('LCP6_ERROR',name,case,str(e)[:250],flush=True)
+                page.close()
             browser.close()
           PY
