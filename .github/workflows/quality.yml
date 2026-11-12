@@ -114,12 +114,13 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
+          python -m pip install --quiet Pillow
           npm run site:sync
-          if ! git diff --quiet -- .; then
+          if [[ -n "$(git status --porcelain)" ]]; then
             git config user.name "github-actions[bot]"
             git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-            git add -u
-            git commit -m "Auto-sync VCC catalogs and SEO from shared editorial registry"
+            git add -A
+            git commit -m "Auto-sync VCC: variants WebP, portades, hubs i SEO"
             git pull --rebase origin quality
             git push origin HEAD:quality
           fi

@@ -43,3 +43,14 @@ Les pàgines noves es poden editar sense perdre l'estat d'esborrany. No promocio
 - `wrangler.production.jsonc` és la referència explícita per al deploy final. Una fusió completa de `quality` podria sobreescriure la configuració arrel de `main`; cal preservar-la o regenerar-la amb els valors de producció abans del desplegament.
 - `npm run deploy:check-quality` comprova l'entorn de proves. A `main`, executar `npm run deploy:check-production` abans de desplegar. El workflow Production el bloqueja si detecta `web-quality` o un mode d'URL incorrecte.
 - No fusionar o desplegar automàticament sense haver comprovat el domini real i les capçaleres `noindex`.
+
+## Portades lleugeres (Core Web Vitals / LCP)
+
+- Els originals `configuracion/imagenes/fondos/fondos-*.webp` **no es toquen**.
+- `npm run hero:build` (requereix Pillow) produeix des de la mateixa fotografia versions WebP 480, 960 i 1920 px, mantenint composició, color i transparències.
+- Les variants es guarden a `configuracion/imagenes/fondos/optimizadas/`. El manifest porta un hash de la font: si es canvia una foto, la versió es regenera.
+- `publicar-portadas-rapidas.mjs` injecta CSS compartit amb media queries: fins a 767 px es carrega 960 px; en escriptori, fins a 1920 px. També actualitza els preload, el `srcset` de fotos hero amb etiqueta `img` i de targetes petites.
+- Les portades carreguen la mateixa **foto principal original** en tots els dispositius; els fitxers alternatius antics amb `-mobile.webp` no s'utilitzen per fer variants.
+- Els URL optimitzats no es publiquen fins que els fitxers existeixin. El workflow `Quality` genera imatges, CSS, HTML i catàlegs en una mateixa sincronització i un sol commit.
+- `npm run hero:check` comprova que HTML i CSS segueixen al dia. La política de fotos i els formats s'han de revisar també amb PageSpeed **després de desplegar**, tant en mòbil com en ordinador.
+- Les fotografies R2 de galeries no són part d'aquesta passada: requereixen un optimitzador equivalent segons les seves dimensions i MIME real.
