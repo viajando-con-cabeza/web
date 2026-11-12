@@ -117,7 +117,11 @@ for(const p of approvedFiles){
   });
   // La ruta versionada de la CSS canvia només quan canvien les fotos.
   html=html.replace(/<link\b[^>]*data-vcc-fast-heroes[^>]*>\s*/gi,"");
-  if(cfg)html=html.replace(/<\/head\s*>/i,link+"\n</head>");
+  if(cfg){
+    // Evitem nous salts de linia a cada generacio; la sortida ha de ser idempotent.
+    html=html.replace(/(?:\r?\n[ \t]*){2,}(?=<\/head\s*>)/i,"\n");
+    html=html.replace(/<\/head\s*>/i,link+"\n</head>");
+  }
   if(html!==original){pagesChanged++;sync(p,html);}
 }
 if(issues.length)throw Error(issues.join("\n"));
