@@ -15,17 +15,23 @@
 <link rel="preload" as="image" type="image/webp" media="(min-width: 768px)" href="/configuracion/imagenes/fondos/optimizadas/fondos-itinerarios-1920.webp?v=0ce845de54e4" fetchpriority="high">
 <link rel="stylesheet" data-vcc-fast-heroes href="/configuracion/css/componentes/portadas-rapidas-vcc.css?v=6c144064b66e">
 <link rel="stylesheet" data-vcc-core-styles href="/configuracion/css/componentes/vcc-core-compartit.css?v=fb195c27fb94">
+<link rel="stylesheet" href="/configuracion/css/componentes/catalogo-planifica-vcc.css?v=20261112-toolbar-v2">
 </head><body class="itinerarios-vcc"><header class="shared-header"><div class="shared-nav"><a class="shared-brand" href="/" aria-label="Viajando con Cabeza"><img src="/configuracion/imagenes/marca/logo-viajando-con-cabeza.svg" alt="Viajando con Cabeza" width="620" height="216"></a><nav class="shared-menu" aria-label="Navegación principal"><a href="/">INICIO</a><a href="/destinos/">DESTINOS</a><a href="/itinerarios/" class="active">ITINERARIOS</a><a href="/planifica/">PLANIFICA</a><a href="/nosotros/">NOSOTROS</a><a href="/contacto/">CONTACTO</a></nav><div class="shared-social"><a href="https://www.instagram.com/viajaconcabeza/" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="/configuracion/imagenes/iconos/paginas/itinerarios-iconos.svg#shared-social-1"></use></svg></a><a href="https://www.tiktok.com/@viajaconcabeza" target="_blank" rel="noopener noreferrer" aria-label="TikTok"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="/configuracion/imagenes/iconos/paginas/itinerarios-iconos.svg#shared-solid-1"></use></svg></a><a href="https://www.youtube.com/@viajaconcabeza" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="/configuracion/imagenes/iconos/paginas/itinerarios-iconos.svg#general-1"></use></svg></a></div><div class="shared-language"><a href="/" class="active">ES</a><span>|</span><a href="/en/" class="">EN</a></div></div></header><main class="itinerarios-page"><section class="about-hero itinerarios-hero" aria-labelledby="itinerarios-title">
 <div class="about-hero-photo"></div><div class="about-hero-shade"></div><div class="about-hero-copy shell">
 <span class="eyebrow">Cada día cuenta</span>
 <h1 id="itinerarios-title">MENOS VUELTAS<br><em>MÁS LUGARES POR DESCUBRIR</em></h1>
 <p class="hero-lead">Itinerarios de viaje organizados día a día, con rutas optimizadas, tiempos realistas y consejos para aprovechar cada destino sin perder horas planificando</p>
 <div class="hero-signoff">RUTAS PENSADAS PARA DISFRUTAR CADA DÍA</div>
-</div></section><section class="itinerarios-results vcc-it-catalog" aria-labelledby="it-catalog-title">
+</div></section><section class="itinerarios-results vcc-it-catalog" data-vcc-planifica-catalog="itinerarios" aria-labelledby="it-catalog-title">
  <header class="vcc-it-heading"><span class="section-kicker">Rutas para descubrir</span><h2 id="it-catalog-title">INSPÍRATE CON NUESTROS ITINERARIOS</h2><p>Explora nuestras rutas reales, con etapas, mapas y consejos para organizar tu viaje. El precio indicado es el total por persona cuando disponemos de ese dato.</p></header>
- <div class="di-catalog-toolbar"><label class="di-catalog-search"><span aria-hidden="true">⌕</span><input type="search" id="itinerary-search" aria-label="Buscar itinerarios" placeholder="Busca un destino, un tema..."></label><span class="di-catalog-count" id="itinerary-count" aria-live="polite">3 itinerarios</span></div>
- <div class="di-mini-grid" id="itineraries-grid">
-<article class="di-mini-card vcc-it-card" data-it-card data-it-search="Estocolmo en 3 días 3 días CIUDADES Suecia Gamla Stan, museos y barrios en una ruta por horas.">
+ <div class="vcc-catalog-toolbar" role="group" aria-label="Buscar y filtrar itinerarios">
+<label class="di-catalog-search vcc-catalog-search"><span aria-hidden="true">⌕</span><input type="search" id="itinerary-search" data-vcc-catalog-search aria-label="Buscar itinerarios" placeholder="Busca un destino, un tema..."></label>
+<label class="vcc-catalog-field"><span>Continente</span><select data-vcc-catalog-continent aria-label="Filtrar por continente"><option value="all">Todos los continentes</option><option value="europa">Europa</option><option value="asia">Asia</option><option value="america">América</option><option value="africa">África</option><option value="oceania">Oceanía</option></select></label>
+<label class="vcc-catalog-field"><span>Tipo de viaje</span><select data-vcc-catalog-type aria-label="Filtrar por tipo de viaje"><option value="all">Todos los tipos</option><option value="ciudades">Ciudades</option><option value="islas">Islas</option><option value="playas">Playas</option><option value="coche">Ruta en coche</option><option value="combinados">Ruta combinada</option><option value="naturaleza">Naturaleza</option><option value="montanas">Montañas</option><option value="navidad">Navidad</option><option value="otros">Otros viajes</option></select></label>
+<button class="vcc-catalog-reset" data-vcc-catalog-reset type="button">Limpiar filtros</button>
+<span class="di-catalog-count vcc-catalog-count" id="itinerary-count" data-vcc-catalog-count aria-live="polite">3 itinerarios</span></div>
+<div class="di-mini-grid" id="itineraries-grid">
+<article class="di-mini-card vcc-it-card" data-it-card data-continent="europa" data-type="ciudades" data-it-search="Estocolmo en 3 días 3 días CIUDADES Suecia Gamla Stan, museos y barrios en una ruta por horas.">
    <span class="di-mini-photo vcc-it-photo" data-vcc-it-gallery role="group" aria-label="Fotografías de Estocolmo en 3 días" tabindex="0">
      <img data-vcc-it-slide class="is-current" src="https://img.viajandoconcabeza.com/destinos/suecia/estocolmo/2026-dia6/DSC07945.avif" alt="Foto 1 de 4: Estocolmo en 3 días"  width="640" height="380" loading="lazy" decoding="async">
      <img data-vcc-it-slide class="" data-src="https://img.viajandoconcabeza.com/destinos/suecia/estocolmo/2026-dia6/DSC08003.avif" alt="Foto 2 de 4: Estocolmo en 3 días" aria-hidden="true" width="640" height="380" loading="lazy" decoding="async">
@@ -43,7 +49,7 @@
      <a class="vcc-it-cta" href="/destinos/suecia/estocolmo/itinerario">VER ITINERARIO <span aria-hidden="true">↗</span></a>
    </div>
   </article>
-<article class="di-mini-card vcc-it-card vcc-it-card-pending" data-it-card data-it-search="Gotemburgo en 1 día 1 día CIUDADES Suecia Canales, barrios y rincones con encanto de Gotemburgo.">
+<article class="di-mini-card vcc-it-card vcc-it-card-pending" data-it-card data-continent="europa" data-type="ciudades" data-it-search="Gotemburgo en 1 día 1 día CIUDADES Suecia Canales, barrios y rincones con encanto de Gotemburgo.">
    <span class="di-mini-photo vcc-it-photo" data-vcc-it-gallery role="group" aria-label="Fotografías de Gotemburgo en 1 día" tabindex="0">
      <img data-vcc-it-slide class="is-current" src="https://img.viajandoconcabeza.com/destinos/suecia/goteborg/2026-dia1/DSC06603.avif" alt="Foto 1 de 4: Gotemburgo en 1 día"  width="640" height="380" loading="lazy" decoding="async">
      <img data-vcc-it-slide class="" data-src="https://img.viajandoconcabeza.com/destinos/suecia/goteborg/2026-dia1/DSC06555.avif" alt="Foto 2 de 4: Gotemburgo en 1 día" aria-hidden="true" width="640" height="380" loading="lazy" decoding="async">
@@ -61,7 +67,7 @@
      <span class="vcc-it-upcoming">PRÓXIMAMENTE</span>
    </div>
   </article>
-<article class="di-mini-card vcc-it-card vcc-it-card-pending" data-it-card data-it-search="Archipiélago de Gotemburgo en 2 días 2 días ISLAS Suecia Islas, ferris y paisajes costeros para explorar sin prisas.">
+<article class="di-mini-card vcc-it-card vcc-it-card-pending" data-it-card data-continent="europa" data-type="islas" data-it-search="Archipiélago de Gotemburgo en 2 días 2 días ISLAS Suecia Islas, ferris y paisajes costeros para explorar sin prisas.">
    <span class="di-mini-photo vcc-it-photo" data-vcc-it-gallery role="group" aria-label="Fotografías de Archipiélago de Gotemburgo en 2 días" tabindex="0">
      <img data-vcc-it-slide class="is-current" src="https://img.viajandoconcabeza.com/destinos/suecia/goteborg-archipelago/2026-dia3/DSC07173.avif" alt="Foto 1 de 4: Archipiélago de Gotemburgo en 2 días"  width="640" height="380" loading="lazy" decoding="async">
      <img data-vcc-it-slide class="" data-src="https://img.viajandoconcabeza.com/destinos/suecia/goteborg-archipelago/2026-dia2/DSC06769.avif" alt="Foto 2 de 4: Archipiélago de Gotemburgo en 2 días" aria-hidden="true" width="640" height="380" loading="lazy" decoding="async">
@@ -80,13 +86,5 @@
    </div>
   </article>
 </div>
- <p class="di-no-results" id="itinerary-empty" hidden>No encontramos coincidencias. Prueba con otro destino o tema.</p>
-</section><section class="it-help"><div><h3>¿No encuentras lo que buscas?</h3><p>Escríbenos y te ayudamos a planificar tu viaje.</p></div><a href="../contacto/index.html">CONTACTA CON NOSOTROS →</a></section></main><footer class="vcc-global-footer"></footer><script src="/configuracion/js/site-header.js?v=20261110-itinerarios-unico"></script><script>(function(){
-const search=document.getElementById('itinerary-search');
-const cards=Array.from(document.querySelectorAll('[data-it-card]'));
-const count=document.getElementById('itinerary-count');
-const empty=document.getElementById('itinerary-empty');
-const norm=s=>(s||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLocaleLowerCase('es').trim();
-function render(){const q=norm(search.value);let n=0;for(const el of cards){const show=norm(el.dataset.itSearch).includes(q);el.hidden=!show;if(show)n++}count.textContent=n+' itinerario'+(n===1?'':'s');empty.hidden=n!==0}
-search.addEventListener('input',render);render();
-})();</script><script src="/configuracion/js/site-footer.js?v=20261102"></script><script src="/configuracion/js/componentes/itinerarios-galeria-vcc.js?v=20261111-slide-v2" defer></script></body></html>
+ <p class="di-no-results" id="itinerary-empty" data-vcc-catalog-empty hidden>No encontramos coincidencias. Prueba con otro destino o tema.</p>
+</section><section class="it-help"><div><h3>¿No encuentras lo que buscas?</h3><p>Escríbenos y te ayudamos a planificar tu viaje.</p></div><a href="../contacto/index.html">CONTACTA CON NOSOTROS →</a></section></main><footer class="vcc-global-footer"></footer><script src="/configuracion/js/site-header.js?v=20261110-itinerarios-unico"></script><script src="/configuracion/js/componentes/catalogo-planifica-vcc.js?v=20261112-toolbar-v2" defer></script><script src="/configuracion/js/site-footer.js?v=20261102"></script><script src="/configuracion/js/componentes/itinerarios-galeria-vcc.js?v=20261111-slide-v2" defer></script></body></html>
