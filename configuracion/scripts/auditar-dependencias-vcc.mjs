@@ -31,7 +31,9 @@ for(const codePath of code){
 }
 const approved=[];
 for(const file of approvedFiles){
- const text=fs.readFileSync(path.join(ROOT,file),'utf8');
+ const original=fs.readFileSync(path.join(ROOT,file),'utf8');
+ // No comptabilitzar fallbacks <noscript> com a peticions CSS ordinàries.
+ const text=original.replace(/<noscript\b[^>]*>[\s\S]*?<\/noscript>/gi,'');
  const links=[...text.matchAll(/<link\b[^>]*>/gi)].map(m=>m[0])
   .filter(t=>/\brel\s*=\s*["']stylesheet["']/i.test(t))
   .map(t=>t.match(/\bhref\s*=\s*["']([^"']+)/i)?.[1]||'')
