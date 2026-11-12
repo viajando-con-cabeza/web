@@ -5,6 +5,17 @@ import fs from 'node:fs';
 
 const failures=[];
 const read=file=>fs.readFileSync(file,'utf8');
+// En Presupuesto el mismo archivo tiene dos media diferentes:
+// desktop render-blocking y móvil diferido. Son variantes intencionales.
+const stylesheetKey=(file,tag)=>{
+ const href=tag.match(/\bhref=["']([^"']+)/i)?.[1]?.split('?')[0]||'';
+ if(file==='destinos/suecia/estocolmo/presupuesto.html' &&
+    href==='/configuracion/css/plantillas/presupuesto-compilado-vcc.css'){
+   const media=tag.match(/\bmedia=["']([^"']+)["']/i)?.[1]||'all';
+   return href+'|'+media;
+ }
+ return href;
+};
 const targets={
   'index.html':4,
   'destinos/suecia/estocolmo/entradas-y-pases.html':9,
@@ -23,7 +34,11 @@ for(const [file,maxLocalCss] of Object.entries(targets)){
   if(local.length>maxLocalCss)
     failures.push(file+': '+local.length+' CSS propis (límit actual '+maxLocalCss+')');
   const urls=links.filter(url=>url.startsWith('/configuracion/css/')).map(url=>url.split('?')[0]);
-  if(new Set(urls).size!==urls.length)
+  const cssTags=[...html.matchAll(/<link\b[^>]*>/gi)].map(x=>x[0])
+    .filter(tag=>/\brel=["']stylesheet["']/i.test(tag)&&
+      (tag.match(/\bhref=["']([^"']+)/i)?.[1]||'').startsWith('/configuracion/css/'));
+  const keys=cssTags.map(tag=>stylesheetKey(file,tag));
+  if(new Set(keys).size!==keys.length)
     failures.push(file+': mateix CSS enllaçat més d’una vegada');
   for(const url of urls)if(!fs.existsSync(url.slice(1)))failures.push(file+': no existeix '+url);
 }
@@ -66,7 +81,11 @@ for(const file of published){
    .map(tag=>tag.match(/\bhref=["']([^"']+)/i)?.[1]?.split('?')[0]||'')
    .filter(url=>url.startsWith('/configuracion/css/'));
  if(localCSS.length>16)failures.push(file+': '+localCSS.length+' CSS locals (màxim 16, agrupa components)');
- if(new Set(localCSS).size!==localCSS.length)failures.push(file+': fulls CSS duplicats');
+ const localTags=[...html.matchAll(/<link\b[^>]*>/gi)].map(m=>m[0])
+   .filter(tag=>/\brel=["']stylesheet["']/i.test(tag)&&
+     (tag.match(/\bhref=["']([^"']+)/i)?.[1]||'').startsWith('/configuracion/css/'));
+ const localKeys=localTags.map(tag=>stylesheetKey(file,tag));
+ if(new Set(localKeys).size!==localKeys.length)failures.push(file+': fulls CSS duplicats');
  // Única excepció crítica: pressupost encapsula el primer fragment del
  // CSS canonitzat per evitar un full render-blocking durant el LCP mòbil.
  // Se'n valida el contingut 1:1 contra la font, sense permetre CSS arbitrari.
