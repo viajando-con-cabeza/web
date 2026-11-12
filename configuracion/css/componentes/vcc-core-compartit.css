@@ -255,6 +255,31 @@ html body [data-vcc-subheader-target]{scroll-margin-top:calc(var(--vcc-subheader
   }
 }
 
+/* VCC · LCP: mateixa foto natural i degradat blanc sense mask-image.
+   Només els cinc herois explícits; sense canvis a altres pàgines. */
+html body #vcc-lcp-hero{position:relative!important;isolation:isolate!important;background-color:#fff!important}
+html body #vcc-lcp-hero > :is(.vcc-hero-lcp-picture,.dv-hero-photo,.ql-hero-photo){
+ -webkit-mask-image:none!important;mask-image:none!important;
+ opacity:1!important;filter:none!important;mix-blend-mode:normal!important;
+}
+html body #vcc-lcp-hero > .vcc-hero-lcp-veil{
+ display:block!important;position:absolute!important;inset:0!important;
+ z-index:1!important;pointer-events:none!important;
+ background:linear-gradient(90deg,
+ rgba(255,255,255,.96) 0%,rgba(255,255,255,.79) 34%,
+ rgba(255,255,255,.41) 72%,rgba(255,255,255,.18) 100%);
+}
+html body #vcc-lcp-hero > :is(.budget-hero-inner,.cl-crumb,.cl-landing-stage,.mv-container,.dv-shell,.ql-wrap){
+ z-index:2!important;
+}
+@media(max-width:650px){
+ html body #vcc-lcp-hero > .vcc-hero-lcp-veil{
+  background:linear-gradient(90deg,rgba(255,255,255,.97) 0%,
+   rgba(255,255,255,.90) 32%,rgba(255,255,255,.79) 70%,
+   rgba(255,255,255,.59) 100%);
+ }
+}
+
 /* VCC · auditoria de subheaders 2026-11-10: una única tipografia, alçada, focus i transició.
  * Especificitat deliberadament superior a les plantilles antigues,
  * inclosa ci-subnav. No es toquen els controladors sticky de cada guia. */
