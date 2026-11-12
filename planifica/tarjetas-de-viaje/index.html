@@ -31,7 +31,7 @@
 <link rel="stylesheet" href="/configuracion/css/componentes/planifica-tarjetas-refinado-vcc.css?v=20261112-carousels-v2">
 <link rel="stylesheet" data-vcc-experience-cards href="/configuracion/css/componentes/planifica-experiencia-tarjetas-vcc.css?v=20261112-shared1">
 <link rel="stylesheet" href="/configuracion/css/componentes/vcc-capcaleres-editorials.css?v=20261112-v1">
-<link rel="stylesheet" href="/configuracion/css/componentes/planifica-tarjetas-calculadora-vcc.css?v=20261112-compact-v3">
+<link rel="stylesheet" href="/configuracion/css/componentes/planifica-tarjetas-calculadora-vcc.css?v=20261112-dos-columnas-v4">
 <link rel="stylesheet" href="/configuracion/css/componentes/guias-relacionadas-vcc.css?v=20261112-sigue-unificat-v4">
 <link rel="stylesheet" href="/configuracion/css/componentes/acciones-descargas-vcc.css?v=20261112-dreta-v2">
 <link rel="stylesheet" data-vcc-fast-heroes href="/configuracion/css/componentes/portadas-rapidas-vcc.css?v=2944778a2532">
@@ -162,19 +162,31 @@
       </div>
       <div class="tv-calc-card">
         <div class="tv-calc-inputs">
-          <div class="tv-fields">
-            <label><span class="tv-field-label"><svg class="tv-field-icon" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><use href="/configuracion/imagenes/iconos/paginas/planifica-tarjetas-vcc-iconos.svg#compras"></use></svg><span>Gasto en otra divisa (€)</span></span><input data-tv-cost="purchases" type="number" min="0" max="100000000" step="any" inputmode="decimal" value="1500"></label>
-            <label><span class="tv-field-label"><svg class="tv-field-icon" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><use href="/configuracion/imagenes/iconos/paginas/planifica-tarjetas-vcc-iconos.svg#banco"></use></svg><span>Comisión de tu banco (%)</span></span><input data-tv-cost="bank" type="number" min="0" max="100" step="any" inputmode="decimal" value="3"></label>
-            <label><span class="tv-field-label"><svg class="tv-field-icon" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><use href="/configuracion/imagenes/iconos/paginas/planifica-tarjetas-vcc-iconos.svg#cambio"></use></svg><span>Recargo de cambio (%)</span></span><input data-tv-cost="markup" type="number" min="0" max="100" step="any" inputmode="decimal" value="0"></label>
-            <label><span class="tv-field-label"><svg class="tv-field-icon" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><use href="/configuracion/imagenes/iconos/paginas/planifica-tarjetas-vcc-iconos.svg#tarjeta"></use></svg><span>Comisión tarjeta de viaje (%)</span></span><input data-tv-cost="travel" type="number" min="0" max="100" step="any" inputmode="decimal" value="0.5"></label>
+          <div class="tv-spend-row">
+            <label class="tv-spend-label" for="tv-purchases"><svg class="tv-field-icon" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><use href="/configuracion/imagenes/iconos/paginas/planifica-tarjetas-vcc-iconos.svg#compras"></use></svg><span>Gasto en otra divisa (€)<small>Importe estimado al tipo de cambio de referencia</small></span></label>
+            <input id="tv-purchases" data-tv-cost="purchases" type="number" min="0" max="100000000" step="any" inputmode="decimal" value="1500">
           </div>
-          <details class="tv-advanced"><summary>Añadir retiradas de efectivo (opcional)</summary><div class="tv-fields">
+          <div class="tv-fee-matrix" role="group" aria-label="Comparación de comisiones y tipos de cambio">
+            <div class="tv-fee-matrix-header"><span>Concepto</span><strong><svg class="tv-field-icon" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><use href="/configuracion/imagenes/iconos/paginas/planifica-tarjetas-vcc-iconos.svg#banco"></use></svg>Tu banco habitual</strong><strong><svg class="tv-field-icon" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><use href="/configuracion/imagenes/iconos/paginas/planifica-tarjetas-vcc-iconos.svg#tarjeta"></use></svg>Tarjeta de viaje</strong></div>
+            <div class="tv-fee-matrix-row">
+              <div class="tv-fee-concept"><strong>Comisión por pagar</strong><small>En moneda extranjera (%)</small></div>
+              <label class="tv-fee-control"><span class="tv-visually-hidden">Comisión por pagar en otra divisa de tu banco (%)</span><input data-tv-cost="bank" type="number" min="0" max="100" step="any" inputmode="decimal" value="3" aria-label="Comisión por pagar en otra divisa de tu banco (%)"></label>
+              <label class="tv-fee-control"><span class="tv-visually-hidden">Comisión por pagar en otra divisa de la tarjeta de viaje (%)</span><input data-tv-cost="travel" type="number" min="0" max="100" step="any" inputmode="decimal" value="0.5" aria-label="Comisión por pagar en otra divisa de la tarjeta de viaje (%)"></label>
+            </div>
+            <div class="tv-fee-matrix-row">
+              <div class="tv-fee-concept"><strong>Markup del cambio</strong><small>Diferencia respecto al cambio de referencia (%)</small></div>
+              <label class="tv-fee-control"><span class="tv-visually-hidden">Markup del tipo de cambio de tu banco (%)</span><input data-tv-cost="markup" type="number" min="0" max="100" step="any" inputmode="decimal" value="0" aria-label="Markup del tipo de cambio de tu banco (%)"></label>
+              <label class="tv-fee-control"><span class="tv-visually-hidden">Markup del tipo de cambio de la tarjeta de viaje (%)</span><input data-tv-cost="travelMarkup" type="number" min="0" max="100" step="any" inputmode="decimal" value="0" aria-label="Markup del tipo de cambio de la tarjeta de viaje (%)"></label>
+            </div>
+          </div>
+          <p class="tv-markup-note"><strong>¿Qué es el markup?</strong> Es el porcentaje que empeora el tipo de cambio aplicado por cada entidad frente al de referencia (por ejemplo, el del BCE). Es diferente de la comisión por pagar: algunas tarjetas pueden tener 0 % de comisión y aun así aplicar markup.</p>
+          <details class="tv-advanced"><summary>Añadir retiradas de efectivo (opcional)</summary><p class="tv-cash-note">Las retiradas se calculan aparte: se aplica el markup de cada tarjeta más su comisión específica de retirada, no la comisión por pagar en comercios.</p><div class="tv-fields">
             <label><span class="tv-field-label"><svg class="tv-field-icon" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><use href="/configuracion/imagenes/iconos/paginas/planifica-tarjetas-vcc-iconos.svg#efectivo"></use></svg><span>Efectivo retirado (€)</span></span><input data-tv-cost="cash" type="number" min="0" max="100000000" step="any" inputmode="decimal" value="0"></label>
             <label><span class="tv-field-label"><svg class="tv-field-icon" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><use href="/configuracion/imagenes/iconos/paginas/planifica-tarjetas-vcc-iconos.svg#cajero"></use></svg><span>Comisión retirada banco (%)</span></span><input data-tv-cost="atmBank" type="number" min="0" max="100" step="any" inputmode="decimal" value="4"></label>
             <label><span class="tv-field-label"><svg class="tv-field-icon" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><use href="/configuracion/imagenes/iconos/paginas/planifica-tarjetas-vcc-iconos.svg#cajero"></use></svg><span>Comisión retirada viaje (%)</span></span><input data-tv-cost="atmTravel" type="number" min="0" max="100" step="any" inputmode="decimal" value="0"></label>
           </div></details>
         </div>
-        <div class="tv-calc-summary" aria-label="Comparativa de costes y ahorro">
+        <div class="tv-calc-summary" aria-label="Comparativa de costes y ahorro"><p class="tv-results-heading">Coste total estimado <span id="tv-cash-included" hidden></span></p>
           <div class="tv-results">
             <div class="tv-result">
               <span class="tv-result-label"><svg class="tv-field-icon" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><use href="/configuracion/imagenes/iconos/paginas/planifica-tarjetas-vcc-iconos.svg#banco"></use></svg> <span>Tu banco habitual</span></span>
@@ -195,7 +207,7 @@
             
           </div>
         </div>
-        <p class="tv-disclaimer">Cálculo orientativo en euros equivalentes, sin cotizaciones en tiempo real. No incluye cuotas ni cargos fijos o del cajero. Comprueba las condiciones de cada entidad.</p>
+        <p class="tv-disclaimer">Estimación en euros a un cambio de referencia, sin cotizaciones en tiempo real. Se aplican por separado el markup del cambio y la comisión por pagar. Si añades efectivo, se incluyen sus comisiones de retirada. No incluye cuotas fijas ni cargos propios del cajero; consulta las condiciones reales de cada entidad.</p>
       </div>
       <div class="tv-calc-actions"><button type="button" class="tv-export-pdf vcc-download-link" data-tv-export-pdf><svg class="vcc-download-icon" viewBox="0 0 24 24" aria-hidden="true"><use href="/configuracion/imagenes/iconos/compartidos/acciones-documentos-vcc.svg#pdf"></use></svg>Guardar en PDF</button></div>
       <p class="tv-pdf-status" id="tv-pdf-status" role="status" aria-live="polite"></p>
@@ -253,7 +265,7 @@
 <footer class="vcc-global-footer"></footer>
 <script src="/configuracion/js/site-header.js?v=20261110-breadcrumb-v2"></script>
 <script src="/configuracion/js/site-footer.js?v=20261102"></script>
-<script src="/configuracion/js/tarjetas-de-viaje.js?v=20261112-calc-redesign-v3" defer></script>
-<script src="/configuracion/js/componentes/vcc-tarjetas-interacciones.js?v=20261112-carrusel-pdf-v2" defer></script>
+<script src="/configuracion/js/tarjetas-de-viaje.js?v=20261112-dos-columnas-v4" defer></script>
+<script src="/configuracion/js/componentes/vcc-tarjetas-interacciones.js?v=20261112-calc-pdf-v3" defer></script>
 </body>
 </html>

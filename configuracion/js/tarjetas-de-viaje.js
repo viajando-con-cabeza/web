@@ -50,15 +50,21 @@
       return Math.min(100000000,Math.max(0,Number(input?.value)||0));
     };
     const percentage=(name)=>Math.min(100,amount(name));
+    const cashIncluded=document.getElementById('tv-cash-included');
     const update=()=>{
       const purchases=amount('purchases');
       const cash=amount('cash');
-      const foreignSpending=purchases+cash;
-      // El tipo de cambio/comisión de divisa también afecta al efectivo.
-      // La comisión específica del cajero solo se aplica a la retirada.
-      const bank=foreignSpending*(1+(percentage('bank')+percentage('markup'))/100)+cash*percentage('atmBank')/100;
-      const traveler=foreignSpending*(1+percentage('travel')/100)+cash*percentage('atmTravel')/100;
+      // El gasto de referencia se convierte con el markup de CADA entidad.
+      // La comisión de compra se aplica solo a pagos, no a retiradas.
+      const bankFx=1+percentage('markup')/100;
+      const travelFx=1+percentage('travelMarkup')/100;
+      const bank=purchases*bankFx*(1+percentage('bank')/100)+cash*bankFx*(1+percentage('atmBank')/100);
+      const traveler=purchases*travelFx*(1+percentage('travel')/100)+cash*travelFx*(1+percentage('atmTravel')/100);
       const diff=bank-traveler;
+      if(cashIncluded){
+        cashIncluded.hidden=cash<=0;
+        cashIncluded.textContent=cash>0?'· Incluye '+euro.format(cash)+' en efectivo':'';
+      }
       bankTotal.textContent=euro.format(bank);
       travelTotal.textContent=euro.format(traveler);
       const positive=diff>0.005;

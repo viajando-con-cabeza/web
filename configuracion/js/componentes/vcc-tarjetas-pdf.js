@@ -70,27 +70,31 @@ export async function exportarAhorroTarjetasPDF({inputs,bankText,travelText,diff
  color(pdf,'orange');pdf.setFont('helvetica','bold');pdf.setFontSize(7.7);pdf.text('COMPARA ANTES DE PAGAR',x,44);
  await heading(pdf,'CALCULA TU AHORRO',x,47,135);
  color(pdf,'muted');pdf.setFont('helvetica','normal');pdf.setFontSize(8);
- pdf.text('Comisiones y gasto en euros equivalentes · sin cambio en tiempo real',x,65);
+ pdf.text('Comisión por pagar y markup del cambio de cada tarjeta · sin cotización en tiempo real',x,65);
+ // Las dos columnas muestran los mismos conceptos en cada tarjeta.
  const rows=[
-  ['Gasto en otra divisa', 'purchases','€'],
-  ['Comisión de tu banco','bank','%'],
-  ['Recargo de cambio','markup','%'],
-  ['Comisión tarjeta de viaje','travel','%'],
-  ['Efectivo retirado','cash','€'],
-  ['Comisión retirada banco','atmBank','%'],
-  ['Comisión retirada viaje','atmTravel','%']
+  ['Gasto en otra divisa', inputs.purchases,inputs.purchases,'€'],
+  ['Comisión por pagar en divisa',inputs.bank,inputs.travel,'%'],
+  ['Markup vs. cambio de referencia',inputs.markup,inputs.travelMarkup,'%'],
+  ['Efectivo retirado',inputs.cash,inputs.cash,'€'],
+  ['Comisión por retirada',inputs.atmBank,inputs.atmTravel,'%']
  ];
- const tx=15,ty=73,tw=173,rh=12.9;
- drawRounded(pdf,tx,ty,tw,103,'white');
- color(pdf,'header','fill');pdf.rect(tx+.3,ty+.3,tw-.6,11,'F');
- color(pdf,'ink');pdf.setFont('helvetica','bold');pdf.setFontSize(9.3);pdf.text('CONCEPTO',tx+6,ty+7.3);pdf.text('IMPORTE',tx+tw-6,ty+7.3,{align:'right'});
- let yy=ty+11;
- for(const [i,[label,key,unit]] of rows.entries()){
+ const tx=15,ty=73,tw=173,rh=15;
+ drawRounded(pdf,tx,ty,tw,104,'white');
+ color(pdf,'header','fill');pdf.rect(tx+.3,ty+.3,tw-.6,13,'F');
+ color(pdf,'ink');pdf.setFont('helvetica','bold');pdf.setFontSize(8.4);
+ pdf.text('CONCEPTO',tx+6,ty+8.4);
+ pdf.text('TU BANCO',tx+tw-50,ty+8.4,{align:'right'});
+ pdf.text('TARJETA DE VIAJE',tx+tw-6,ty+8.4,{align:'right'});
+ let yy=ty+13;
+ for(const [i,[label,bankValue,travelValue,unit]] of rows.entries()){
   if(i%2){color(pdf,'paper','fill');pdf.rect(tx+.3,yy,tw-.6,rh,'F')}
   color(pdf,'line','stroke');pdf.setLineWidth(.2);pdf.line(tx+3,yy+rh,tx+tw-3,yy+rh);
   color(pdf,'orange','fill');pdf.circle(tx+6,yy+rh/2,.9,'F');
-  color(pdf,'ink');pdf.setFont('helvetica','normal');write(pdf,label,tx+11,yy+8.2,118,9);
-  pdf.setFont('helvetica','bold');write(pdf,fmt(inputs[key],unit),tx+tw-6,yy+8.2,42,9,'right');
+  color(pdf,'ink');pdf.setFont('helvetica','normal');write(pdf,label,tx+11,yy+9.4,76,8.5);
+  pdf.setFont('helvetica','bold');
+  write(pdf,fmt(bankValue,unit),tx+tw-50,yy+9.4,34,8.5,'right');
+  write(pdf,fmt(travelValue,unit),tx+tw-6,yy+9.4,39,8.5,'right');
   yy+=rh;
  }
  const dx=199,dy=73,dw=83,dh=93;
@@ -111,8 +115,8 @@ export async function exportarAhorroTarjetasPDF({inputs,bankText,travelText,diff
  color(pdf,tone);pdf.setFont('helvetica','bold');pdf.setFontSize(20);
  write(pdf,euro.format(Math.abs(difference)),dx+9,dy+79,dw-18,20);
  color(pdf,'muted');pdf.setFont('helvetica','normal');pdf.setFontSize(7.8);
- pdf.text('Importes orientativos. No se consultan cotizaciones ni tarifas en tiempo real.',x,181);
- pdf.text('No se incluyen cuotas fijas ni posibles cargos propios del cajero. Verifica las condiciones.',x,187);
+ pdf.text('Markup: diferencia porcentual entre cambio aplicado y cambio de referencia (p. ej., BCE).',x,181);
+ pdf.text('Estimación; no incluye cuotas fijas ni cargos propios del cajero. Revisa las condiciones.',x,187);
  color(pdf,'line','stroke');pdf.line(x,193,W-x,193);
  color(pdf,'orangeDark');pdf.setFont('helvetica','bold');pdf.setFontSize(8);
  pdf.text('VIAJANDO CON CABEZA  ·  PLANIFICA TU VIAJE',x,200);

@@ -186,3 +186,120 @@ html body .tv-page .tv-pdf-status:empty{display:none}
  html body .tv-page .tv-result strong,
  html body .tv-page .tv-result.is-best strong{font-size:18px}
 }
+
+/* 2026-11-12 · Comparador 2 columnas banco / tarjeta, reutiliza la misma calculadora. */
+html body .tv-page .tv-calc-card{
+ grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);
+ align-items:center;gap:16px;padding:17px 19px 11px;
+}
+html body .tv-page .tv-calc-inputs{
+ border-right:1px solid #eee2d8;padding:0 19px 0 0;
+}
+html body .tv-page .tv-spend-row{
+ display:grid;grid-template-columns:minmax(0,1fr) 124px;gap:10px;
+ align-items:center;margin:0 0 12px;padding:0 0 13px;
+ border-bottom:1px solid #f0e6dc;
+}
+html body .tv-page .tv-spend-label{
+ display:flex;align-items:center;gap:9px;min-width:0;color:#25211d;
+ font-size:12px;line-height:1.35;font-weight:800;
+}
+html body .tv-page .tv-spend-label .tv-field-icon{flex:0 0 19px;width:19px;height:19px;color:#e46525}
+html body .tv-page .tv-spend-label small{
+ display:block;font-size:10px;line-height:1.45;font-weight:400;color:#817369;margin-top:2px;
+}
+html body .tv-page .tv-spend-row > input,
+html body .tv-page .tv-fee-control > input{
+ display:block;box-sizing:border-box;width:100%;min-width:0;height:35px;min-height:35px;
+ padding:5px 10px;border:1px solid #e6d8cd;border-radius:8px;background:#fff;
+ color:#272420;font:750 13px/1.3 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
+ text-align:right;box-shadow:none;
+}
+html body .tv-page .tv-spend-row > input:focus-visible,
+html body .tv-page .tv-fee-control > input:focus-visible{outline:2px solid #db6e3d;outline-offset:2px}
+html body .tv-page .tv-fee-matrix{min-width:0}
+html body .tv-page .tv-fee-matrix-header,
+html body .tv-page .tv-fee-matrix-row{
+ display:grid;grid-template-columns:minmax(136px,1.35fr) repeat(2,minmax(86px,.76fr));
+ gap:10px;align-items:center;min-width:0;
+}
+html body .tv-page .tv-fee-matrix-header{
+ padding:0 0 8px;border-bottom:1px solid #e9dcd1;color:#6e645b;
+}
+html body .tv-page .tv-fee-matrix-header>span{
+ text-transform:uppercase;font-size:9px;font-weight:800;letter-spacing:.065em;
+}
+html body .tv-page .tv-fee-matrix-header strong{
+ display:flex;align-items:center;justify-content:center;gap:5px;
+ font:750 11px/1.2 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
+ text-align:center;color:#2e2924;
+}
+html body .tv-page .tv-fee-matrix-header .tv-field-icon{flex:0 0 16px;width:16px;height:16px;color:#dc6a38}
+html body .tv-page .tv-fee-matrix-row{padding:9px 0;border-bottom:1px solid #f2eae3}
+html body .tv-page .tv-fee-concept strong{display:block;font-size:11px;font-weight:800;line-height:1.35}
+html body .tv-page .tv-fee-concept small{display:block;margin-top:2px;color:#786d63;font-size:9.5px;line-height:1.4}
+html body .tv-page .tv-fee-control{display:block;min-width:0}
+html body .tv-page .tv-visually-hidden{
+ position:absolute!important;overflow:hidden!important;clip:rect(0,0,0,0)!important;
+ white-space:nowrap!important;width:1px!important;height:1px!important;
+ padding:0!important;border:0!important;margin:-1px!important;
+}
+html body .tv-page .tv-markup-note{
+ margin:10px 0 0;color:#6c6158;font-size:10.5px;line-height:1.6;
+}
+html body .tv-page .tv-markup-note strong{color:#aa5735}
+html body .tv-page .tv-cash-note{
+ margin:4px 0 8px;color:#71685f;font-size:10px;line-height:1.5;
+}
+html body .tv-page .tv-calc-summary{
+ grid-template-columns:minmax(0,1.55fr) minmax(120px,.75fr);
+ align-items:center;gap:10px;
+}
+html body .tv-page .tv-results-heading{
+ grid-column:1/-1;margin:0;color:#73685d;font:700 10px/1.3 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
+}
+html body .tv-page .tv-results-heading span{font-weight:400;color:#9b664b}
+html body .tv-page .tv-result,html body .tv-page .tv-result.is-best{
+ min-height:84px;padding:8px 6px;border-width:1px;
+}
+html body .tv-page .tv-result .tv-result-label{font-size:10px;margin-bottom:5px;gap:4px}
+html body .tv-page .tv-result strong,html body .tv-page .tv-result.is-best strong{
+ font-size:clamp(19px,1.7vw,24px);
+}
+html body .tv-page .tv-saving-panel{padding-left:9px}
+html body .tv-page .tv-saving strong{font-size:clamp(23px,2.3vw,31px)}
+html body .tv-page .tv-advanced{margin-top:11px}
+html body .tv-page .tv-calc-actions{justify-content:flex-end!important}
+html body .tv-page .tv-pdf-status{text-align:right!important}
+@media(max-width:1250px){
+ html body .tv-page .tv-calc-card{grid-template-columns:1fr;gap:13px}
+ html body .tv-page .tv-calc-inputs{padding:0 0 12px;border-right:0;border-bottom:1px solid #eee2d8}
+ html body .tv-page .tv-calc-summary{grid-template-columns:minmax(0,1.55fr) minmax(130px,.72fr)}
+}
+@media(max-width:720px){
+ html body .tv-page .tv-calc-card{padding:12px 13px 10px;gap:13px}
+ html body .tv-page .tv-spend-row{grid-template-columns:minmax(0,1fr) 94px;gap:8px}
+ html body .tv-page .tv-fee-matrix-header,
+ html body .tv-page .tv-fee-matrix-row{
+  grid-template-columns:minmax(0,1.2fr) repeat(2,minmax(72px,.75fr));gap:6px;
+ }
+ html body .tv-page .tv-fee-matrix-header strong{font-size:9.5px;line-height:1.2;gap:3px}
+ html body .tv-page .tv-fee-matrix-header .tv-field-icon{width:13px;height:13px;flex-basis:13px}
+ html body .tv-page .tv-fee-concept strong{font-size:10px}
+ html body .tv-page .tv-fee-concept small{font-size:9px}
+ html body .tv-page .tv-fee-control > input{height:34px;padding:4px 6px;font-size:12px}
+ html body .tv-page .tv-calc-summary{grid-template-columns:1fr}
+ html body .tv-page .tv-results-heading{grid-column:1}
+ html body .tv-page .tv-result,html body .tv-page .tv-result.is-best{min-height:80px}
+ html body .tv-page .tv-saving strong{font-size:30px}
+ html body .tv-page .tv-calc-actions{justify-content:flex-end!important}
+ html body .tv-page .tv-pdf-status{text-align:right!important}
+}
+@media(max-width:370px){
+ html body .tv-page .tv-fee-matrix-header,
+ html body .tv-page .tv-fee-matrix-row{
+  grid-template-columns:minmax(0,1fr) repeat(2,minmax(62px,.63fr));gap:5px;
+ }
+ html body .tv-page .tv-fee-matrix-header strong{flex-direction:column}
+ html body .tv-page .tv-fee-matrix-header>span{font-size:8px}
+}

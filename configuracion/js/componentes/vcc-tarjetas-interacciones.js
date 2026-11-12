@@ -38,7 +38,7 @@
  }
  const button=document.querySelector('[data-tv-export-pdf]');
  const status=document.getElementById('tv-pdf-status');
- const values=['purchases','bank','markup','travel','cash','atmBank','atmTravel'];
+ const values=['purchases','bank','travel','markup','travelMarkup','cash','atmBank','atmTravel'];
  const value=key=>{
   const input=document.querySelector('[data-tv-cost="'+key+'"]');
   const number=Number(input?.value);
@@ -62,7 +62,7 @@
   if(status)status.textContent='Preparando tu PDF de VCC...';
   try{
    const inputs=Object.fromEntries(values.map(key=>[key,value(key)]));
-   const {exportarAhorroTarjetasPDF}=await import('/configuracion/js/componentes/vcc-tarjetas-pdf.js?v=20261112-v1');
+   const {exportarAhorroTarjetasPDF}=await import('/configuracion/js/componentes/vcc-tarjetas-pdf.js?v=20261112-dos-columnas-v2');
    const file=await exportarAhorroTarjetasPDF({inputs,bankText,travelText,difference});
    if(status)status.textContent='PDF descargado: '+file;
   }catch(error){
