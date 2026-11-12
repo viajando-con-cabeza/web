@@ -12,7 +12,7 @@
 .av-hero{position:relative;isolation:isolate;display:flex;align-items:center;overflow:hidden;
  height:var(--vcc-standard-hero-desktop,475px);min-height:475px;color:#1f2526;background-color:#e5e6e0;
  background-image:linear-gradient(90deg,rgba(250,249,245,.71) 0%,rgba(250,249,245,.41) 45%,rgba(250,249,245,.02) 80%),
- url('/configuracion/imagenes/fondos/optimizadas/fondos-apps-reservas-1920.webp');
+ url('/configuracion/imagenes/fondos/optimizadas/fondos-actividades-reservas-1920.webp');
  background-position:center;background-size:cover;background-repeat:no-repeat}
 .av-hero-inner{padding:60px 0 30px;position:relative}
 .av-hero-kicker{display:block;color:#aa542d;font:800 12px/1.3 var(--vcc-font-body,"DM Sans",sans-serif);
@@ -115,7 +115,7 @@
 }
 @media(max-width:767px){
  .av-hero{background-image:linear-gradient(90deg,rgba(250,249,245,.77),rgba(250,249,245,.24) 70%),
- url('/configuracion/imagenes/fondos/optimizadas/fondos-apps-reservas-960.webp')}
+ url('/configuracion/imagenes/fondos/optimizadas/fondos-actividades-reservas-960.webp')}
 }
 @media(max-width:600px){
  .av-wrap{width:calc(100% - 28px)}
@@ -183,30 +183,6 @@
 }
 .av-page .av-more-button:hover{background:#ffede1;border-color:#b24f2a}
 .av-page .av-more-button span{font-size:18px;line-height:1}
-/* Recursos con utilidad concreta, sin catálogo de apps conocidas ni información volátil. */
-.av-page .av-tools-section{padding-top:29px}
-.av-page .av-useful-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:13px}
-.av-page .av-useful-card{
- display:flex;align-items:flex-start;gap:13px;min-width:0;min-height:130px;
- padding:17px;border:1px solid var(--av-line);border-radius:14px;
- background:#fff;box-shadow:0 4px 15px rgba(43,34,26,.045);
- color:#2b2824;text-decoration:none;transition:border-color .18s,transform .18s;
-}
-.av-page .av-useful-card:is(:hover,:focus-visible){border-color:#d29b7c;transform:translateY(-2px)}
-.av-page .av-useful-icon{
- display:grid;place-items:center;flex:0 0 49px;width:49px;height:49px;
- border-radius:11px;background:#fff0e6;color:#ac5934
-}
-.av-page .av-useful-icon svg{display:block;width:33px;height:33px}
-.av-page .av-useful-copy{display:flex;flex-direction:column;min-width:0;flex:1}
-.av-page .av-useful-copy strong{font:800 14px/1.25 var(--vcc-font-body,"DM Sans",Arial,sans-serif);margin-bottom:5px}
-.av-page .av-useful-copy small{font:400 11px/1.46 var(--vcc-font-body,"DM Sans",Arial,sans-serif);color:#635d55}
-.av-page .av-useful-copy em{margin-top:auto;padding-top:12px;font:800 10px/1.25 var(--vcc-font-body,"DM Sans",Arial,sans-serif);color:#bb552f;font-style:normal}
-@media(max-width:900px){
- .av-page .av-useful-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
-}
 @media(max-width:600px){
- .av-page .av-useful-grid{grid-template-columns:1fr;gap:9px}
- .av-page .av-useful-card{min-height:0;padding:14px}
  .av-page .av-more-button{width:min(310px,100%)}
 }
