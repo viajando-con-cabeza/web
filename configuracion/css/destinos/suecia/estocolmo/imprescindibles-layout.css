@@ -196,3 +196,13 @@ html body .imp-page .imp-main .place.place--no-media .advice p {
     scroll-margin-top:calc(var(--vcc-subheader-top, 0px) + var(--vcc-subnav-height, 39px) - 8px)!important;
   }
 }
+
+/* VCC · Hero responsive de Imprescindibles: match exacte amb els preloads. */
+html body .imp-page section.imp-hero.vcc-portada-transparente{
+  --vcc-portada-imatge:url('/configuracion/imagenes/fondos/optimizadas/fondos-que-ver-1920.webp?v=edc6a65bfa7f');
+}
+@media(max-width:767px){
+ html body .imp-page section.imp-hero.vcc-portada-transparente{
+   --vcc-portada-imatge:url('/configuracion/imagenes/fondos/optimizadas/fondos-que-ver-960.webp?v=edc6a65bfa7f');
+ }
+}
