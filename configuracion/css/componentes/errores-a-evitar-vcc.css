@@ -1,0 +1,49 @@
+/* Iconografia editorial VCC: Como ahorrar = numeros; Errores a evitar = exclamacion.
+   El dibujo de alerta se modifica solo en iconos/compartidos/exclamacion-errores-vcc.svg.
+*/
+html body .vcc-alerta-error {
+  box-sizing: border-box !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  flex: 0 0 40px !important;
+  width: 40px !important;
+  height: 40px !important;
+  min-width: 40px !important;
+  min-height: 40px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  outline: 0 !important;
+  background: transparent !important;
+  background-image: none !important;
+  box-shadow: none !important;
+  transform: none !important;
+  rotate: none !important;
+  font-size: 0 !important;
+  line-height: 0 !important;
+  text-decoration: none !important;
+}
+html body .vcc-alerta-error::before,
+html body .vcc-alerta-error::after { content: none !important; display: none !important; }
+html body .vcc-alerta-error > .vcc-alerta-svg {
+  display: block !important;
+  width: 100% !important;
+  height: 100% !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  flex: none !important;
+  transform: none !important;
+  overflow: visible !important;
+}
+@media (max-width: 720px) {
+  html body .vcc-alerta-error {
+    flex-basis: 36px !important;
+    width: 36px !important;
+    height: 36px !important;
+    min-width: 36px !important;
+    min-height: 36px !important;
+  }
+}
