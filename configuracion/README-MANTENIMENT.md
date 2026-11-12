@@ -1,5 +1,36 @@
 # VCC · Guia de manteniment (branca quality)
 
+## Mapa del codi i criteri de seguretat
+
+| Carpeta | Responsabilitat | Precaució |
+| --- | --- | --- |
+| `css/base/` | Tokens de marca i variables de disseny | No canviar valors aprovats sense revisió visual |
+| `css/componentes/` | Header, subheader, carrusels, galeries i elements comuns | Respectar la cascada i l'ordre de càrrega |
+| `css/plantillas/` | Patrons editorials reutilitzables | Provar diverses destinacions abans de modificar-los |
+| `css/destinos/` i `css/paginas/` | Excepcions específiques | No passar-les a globals sense comprovar dependències |
+| `js/componentes/` i `js/plantillas/` | Comportaments compartits i controladors | Preservar els atributs i selectors que fan servir els HTML |
+| `imagenes/` i `branding/` | SVG, fons i recursos corporatius | No renombrar fitxers ni eliminar compatibilitats a cegues |
+| `datos/`, `rutas-recursos.json` | Registres i correspondències de rutes | Tractar-los com a fonts de veritat, no com a fitxers temporals |
+| `scripts/`, `scripts/lib/` | Generació, publicació i eines d'auditoria | Distingir els processos `--check` dels que escriuen |
+| `tests/` | Proves de regressió | Executar abans de passar de `quality` a `main` |
+| `workers/` | Lògica Cloudflare R2 | No barrejar amb JavaScript del navegador |
+
+### Recorregut compartit dels fitxers
+
+Els quatre scripts `auditar-dependencias-vcc.mjs`, `auditar-recursos.mjs`,
+`validar-iconos-vcc.mjs` i `verificar-estructura-recursos.mjs` reutilitzen
+`scripts/lib/listar-fitxers.mjs`. La funció és de només lectura; cada
+script manté la mateixa llista de carpetes ignorades i el mateix criteri
+d'inclusió que tenia abans. La prova `tests/listar-fitxers.test.mjs`
+s'executa dins de `npm test` i valida recorregut, exclusions i rutes POSIX.
+
+**No moure fitxers de CSS, JS, plantilles, fotografies ni Workers només per
+endreçar noms.** Moltes pàgines i rutes poden continuar referenciant-los,
+incloent-hi els assets històrics, els manifests i les rutes dinàmiques.
+Diferenciar CSS font de fitxers generats i no editar mai els generats a mà.
+La neteja segura d'una dependència requereix inventari, comprovació de
+referències, proves automàtiques i revisió visual a `quality`.
+
 ## On s'han de modificar els estils?
 
 1. **Disseny general:** `configuracion/css/base/tokens-vcc.css`.

@@ -6,17 +6,9 @@
  */
 import fs from 'node:fs';
 import path from 'node:path';
+import { listarFitxers } from './lib/listar-fitxers.mjs';
 import {ROOT,approvedFiles} from './lib/publicacion-vcc.mjs';
-const skip=new Set(['.git','node_modules','.wrangler','.next','preview-dist','dist','build']);
-function filesIn(rel=''){
- const abs=path.join(ROOT,rel);
- return fs.readdirSync(abs,{withFileTypes:true}).flatMap(ent=>{
-   if(skip.has(ent.name))return [];
-   const file=path.posix.join(rel,ent.name);
-   return ent.isDirectory()?filesIn(file):ent.isFile()?[file]:[];
- });
-}
-const all=filesIn();
+const all=listarFitxers(ROOT,{ignorar:new Set(['.git','node_modules','.wrangler','.next','preview-dist','dist','build'])});
 const code=all.filter(p=>/\.(?:html|css|js|mjs|json|yml|yaml|md)$/.test(p));
 const css=all.filter(p=>p.startsWith('configuracion/css/')&&p.endsWith('.css'));
 const refs=new Map(css.map(file=>[file,new Set()]));

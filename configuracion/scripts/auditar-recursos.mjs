@@ -1,11 +1,11 @@
 #!/usr/bin/env node
 import fs from 'node:fs';
 import path from 'node:path';
+import { listarFitxers } from './lib/listar-fitxers.mjs';
 import crypto from 'node:crypto';
-const root=process.cwd(),ignore=new Set(['.git','node_modules','dist','build']);
+const root=process.cwd();
 const image=/\.(?:svg|png|jpe?g|webp|avif|gif|ico)$/i;
-function walk(dir=''){let out=[];for(const e of fs.readdirSync(path.join(root,dir),{withFileTypes:true})){if(ignore.has(e.name))continue;const p=path.posix.join(dir,e.name);if(e.isDirectory())out.push(...walk(p));else if(e.isFile())out.push(p)}return out}
-const all=walk(),exists=new Set(all),code=all.filter(p=>/\.(html|css|js|mjs|json)$/i.test(p)),assets=all.filter(p=>image.test(p));
+const all=listarFitxers(root,{ignorar:new Set(['.git','node_modules','dist','build'])}),exists=new Set(all),code=all.filter(p=>/\.(html|css|js|mjs|json)$/i.test(p)),assets=all.filter(p=>image.test(p));
 let missing=new Set(),external=new Set(),usage=new Set();
 for(const file of code){
 if(file==='configuracion/rutas-recursos.json'||file==='configuracion/datos/recursos-externs-pendents.json'||file==='configuracion/datos/imagenes-externas-migrades.json'||file.endsWith('auditar-recursos.mjs'))continue;

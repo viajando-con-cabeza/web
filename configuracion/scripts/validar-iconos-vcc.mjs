@@ -2,20 +2,10 @@
  * Validació per totes les pagines (publicades, ocultes i plantilles) a Quality. */
 import fs from 'node:fs';
 import path from 'node:path';
+import { listarFitxers } from './lib/listar-fitxers.mjs';
 
 const ROOT=process.cwd();
-const SKIP=new Set(['.git','node_modules','.wrangler','dist','build']);
-function walk(dir=''){
-  let out=[];
-  for(const ent of fs.readdirSync(path.join(ROOT,dir),{withFileTypes:true})){
-    if(SKIP.has(ent.name))continue;
-    const name=path.posix.join(dir,ent.name);
-    if(ent.isDirectory())out.push(...walk(name));
-    else if(ent.isFile())out.push(name);
-  }
-  return out;
-}
-const files=walk();
+const files=listarFitxers(ROOT,{ignorar:new Set(['.git','node_modules','.wrangler','dist','build'])});
 const errors=[];
 let htmlChecked=0,cssChecked=0,jsChecked=0,externalReferences=0;
 const isGeometry=/<(?:path|rect|circle|ellipse|line|polyline|polygon|symbol|text|image|linearGradient|radialGradient|foreignObject)\b/i;
