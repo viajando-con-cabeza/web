@@ -1,0 +1,79 @@
+name: Auditar LCP Estocolmo - Chrome real
+
+on:
+  push:
+    branches: [quality]
+    paths:
+      - '.github/workflows/auditar-lcp-estocolmo.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  browser-lcp:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout quality
+        uses: actions/checkout@v4
+      - name: Playwright Chrome - detectar LCP real de les 7 portades
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m pip install --quiet playwright
+          python - <<'PY'
+          import json,time
+          from playwright.sync_api import sync_playwright
+          names=['presupuesto','como-llegar','como-moverse','donde-dormir','que-llevar','cuando-ir','entradas-y-pases']
+          base='https://www.quality.viajandoconcabeza.com/destinos/suecia/estocolmo/'
+          with sync_playwright() as p:
+            browser=p.chromium.launch(headless=True,executable_path='/usr/bin/google-chrome',args=['--no-sandbox','--disable-dev-shm-usage'])
+            for mobile in (True,False):
+              for name in names:
+                page=browser.new_page(viewport={'width':390 if mobile else 1440,'height':844 if mobile else 900},device_scale_factor=1,is_mobile=mobile,has_touch=mobile)
+                page.add_init_script("""(()=>{
+                  window.__vccLcp=[];
+                  new PerformanceObserver(list=>{
+                    for(const e of list.getEntries()) window.__vccLcp.push({
+                      time:Math.round(e.startTime),size:e.size,tag:e.element?.tagName,
+                      className:e.element?.className, url:e.url
+                    });
+                  }).observe({type:'largest-contentful-paint',buffered:true});
+                })();""")
+                errors=[]
+                page.on('pageerror',lambda e:errors.append(str(e)[:200]))
+                url=base+name+'?vcc_lcp_diagnostic=20261112'
+                try:
+                  response=page.goto(url,wait_until='load',timeout=45000)
+                  page.wait_for_timeout(1300)
+                  obj=page.evaluate("""()=>({
+                    lcp:window.__vccLcp,
+                    paints:performance.getEntriesByType('paint').map(e=>[e.name,Math.round(e.startTime)]),
+                    hero:document.querySelector('#vcc-lcp-hero')?.getBoundingClientRect().height,
+                    veil:!!document.querySelector('.vcc-hero-lcp-veil'),
+                    firstImg:document.querySelector('picture img,.dv-hero-photo,.ql-hero-photo')?.currentSrc,
+                    visible:document.visibilityState
+                  })""")
+                  obj.update({'page':name,'mobile':mobile,'http':response.status if response else None,'errors':errors[:3]})
+                  print('LCP_PROBE',json.dumps(obj,ensure_ascii=False),flush=True)
+                except Exception as err:
+                  print('LCP_PROBE_ERROR',name,mobile,str(err)[:300],flush=True)
+                page.close()
+            browser.close()
+          PY
+      - name: Lighthouse mobile - comparativa real (presupuesto vs entradas)
+        shell: bash
+        continue-on-error: true
+        run: |
+          set -euo pipefail
+          npx --yes lighthouse@12.8.2 'https://www.quality.viajandoconcabeza.com/destinos/suecia/estocolmo/presupuesto?vcc_lh=20261112' --chrome-flags='--headless --no-sandbox --disable-dev-shm-usage' --only-audits=largest-contentful-paint --output=json --output-path=/tmp/presupuesto-lcp.json --quiet
+          npx --yes lighthouse@12.8.2 'https://www.quality.viajandoconcabeza.com/destinos/suecia/estocolmo/entradas-y-pases?vcc_lh=20261112' --chrome-flags='--headless --no-sandbox --disable-dev-shm-usage' --only-audits=largest-contentful-paint --output=json --output-path=/tmp/entradas-lcp.json --quiet
+          node - <<'JS'
+          const fs=require('fs');
+          for(const p of ['presupuesto','entradas']){
+            const x=JSON.parse(fs.readFileSync('/tmp/'+p+'-lcp.json','utf8'));
+            const a=x.audits['largest-contentful-paint'];
+            console.log('LIGHTHOUSE_LCP',JSON.stringify({page:p,value:a.numericValue,display:a.displayValue,error:a.errorMessage,score:a.score,description:a.description?.slice(0,180),requestedUrl:x.requestedUrl,finalUrl:x.finalUrl}));
+          }
+          JS
