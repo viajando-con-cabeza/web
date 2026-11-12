@@ -21,11 +21,14 @@ function set(file,value){
  * No s'inventa navegació ni s'afegeix un segon BreadcrumbList quan ja existeix.
  */
 function syncVisibleBreadcrumbSchema(html,canonical){
-  const generated=/<script\b(?=[^>]*\bdata-vcc-generated-breadcrumb\b)[^>]*>[\s\S]*?<\/script>\s*/gi;
-  html=html.replace(generated,'');
+  // El generador d'imatges pot afegir CSS al final del head: actualitzem
+  // l'script IN SITU per no canviar-ne l'ordre a cada nova execució.
+  const generated=/<script\b(?=[^>]*\bdata-vcc-generated-breadcrumb\b)[^>]*>[\s\S]*?<\/script>/gi;
+  const existing=html.match(generated)?.[0]||null;
   const nav=html.match(/<nav\b(?=[^>]*\bid=["']vcc-global-breadcrumb["'])[^>]*>([\s\S]*?)<\/nav>/i)?.[1];
-  if(!nav)return html;
-  const jsonld=[...html.matchAll(/<script\b[^>]*type=["']application\/ld\+json["'][^>]*>([\s\S]*?)<\/script>/gi)];
+  if(!nav)return existing?html.replace(generated,''):html;
+  const jsonld=[...html.matchAll(/<script\b[^>]*type=["']application\/ld\+json["'][^>]*>([\s\S]*?)<\/script>/gi)]
+    .filter(match=>!match[0].includes('data-vcc-generated-breadcrumb'));
   const hasBreadcrumb=jsonld.some(match=>{
     try{
       const value=JSON.parse(match[1]);
@@ -34,7 +37,7 @@ function syncVisibleBreadcrumbSchema(html,canonical){
         (Array.isArray(node?.['@type'])&&node['@type'].includes('BreadcrumbList')));
     }catch{return false;}
   });
-  if(hasBreadcrumb)return html;
+  if(hasBreadcrumb)return existing?html.replace(generated,''):html;
   const strip=text=>text.replace(/<[^>]*>/g,'').replace(/&amp;/g,'&').replace(/&nbsp;/g,' ')
     .replace(/\s+/g,' ').trim();
   const links=[...nav.matchAll(/<a\b[^>]*href=["']([^"']+)["'][^>]*>([\s\S]*?)<\/a>/gi)];
@@ -47,9 +50,10 @@ function syncVisibleBreadcrumbSchema(html,canonical){
   elements.push({'@type':'ListItem',position:elements.length+1,name:strip(current),item:canonical});
   if(elements.some(item=>!item.name))return html;
   const data={'@context':'https://schema.org','@type':'BreadcrumbList','itemListElement':elements};
-  return html.replace(/<\/head\s*>/i,
-    '<script type="application/ld+json" data-vcc-generated-breadcrumb>'+
-    JSON.stringify(data)+'</script>\n</head>');
+  const script='<script type="application/ld+json" data-vcc-generated-breadcrumb>'+
+    JSON.stringify(data)+'</script>';
+  return existing?html.replace(generated,script):
+    html.replace(/<\/head\s*>/i,script+'\n</head>');
 }
 
 function decorate(html,file,isReady){
