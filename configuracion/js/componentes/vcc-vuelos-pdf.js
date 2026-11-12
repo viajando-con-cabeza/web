@@ -397,10 +397,11 @@ export async function exportarComparacionPDF(flights,airlines){
   pdf.text('VCC',margin,204);
   paint(pdf,'secondary');pdf.setFont('helvetica','normal');pdf.setFontSize(8);
   pdf.text('viajandoconcabeza.com',margin+13,204);
-  pdf.text('COMPARATIVA DE VUELOS  ·  1/1',pageW-margin,204,{align:'right'});
+  // Paginació coherent si cal afegir els trajectes complets en una segona pàgina.
+  const longRoutes=items.filter(item=>String(item.flight.route||'').length>55);
+  pdf.text('COMPARATIVA DE VUELOS  ·  '+(longRoutes.length?'1/2':'1/1'),pageW-margin,204,{align:'right'});
 
   // Rutes excepcionalment llargues no es perden: detall textual en la segona pàgina.
-  const longRoutes=items.filter(item=>String(item.flight.route||'').length>55);
   if(longRoutes.length){
     pdf.addPage('a4','landscape');
     paint(pdf,'orange','fill');pdf.rect(0,0,pageW,4,'F');
