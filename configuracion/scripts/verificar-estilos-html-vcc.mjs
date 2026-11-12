@@ -23,7 +23,8 @@ for(const [file,maxLocalCss] of Object.entries(targets)){
     '/componentes/vcc-core-compartit.css',
     '/componentes/header-fallback-vcc.css',
     '/componentes/portadas-transparencia.css',
-    '/componentes/vcc-tipologia-targetes.css'
+    '/componentes/vcc-tipologia-targetes.css',
+    '/componentes/vcc-targetes-itineraris-guies.css'
   ]);
   const local=links.filter(url=>url.startsWith('/configuracion/css/') &&
     ![...shared].some(suffix=>url.split('?')[0].endsWith(suffix)));
