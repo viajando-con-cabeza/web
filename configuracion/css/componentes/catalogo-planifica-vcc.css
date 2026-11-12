@@ -104,3 +104,23 @@ body.que-llevar-hub .itinerarios-hero > .about-hero-photo{
  .vcc-it-catalog .vcc-it-facts{gap:9px}
  .vcc-it-catalog .vcc-it-facts .di-price{font-size:9px}
 }
+
+
+/* VCC · Dónde ir: filtres del mateix component que Itinerarios/Presupuesto/Qué llevar.
+   La categoria d'una guia substitueix la nota d'un destí, que aquí no correspon. */
+.vcc-it-catalog .di-guide-card .di-guide-info{min-width:0}
+.vcc-it-catalog .vcc-guide-kind{
+ display:inline-flex;align-items:center;gap:5px;min-width:0;
+ color:#a45136;font:700 10px/1.3 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
+ white-space:nowrap;
+}
+.vcc-it-catalog .vcc-guide-kind svg{display:block;width:14px;height:14px;flex:none;color:#c56b46}
+.vcc-it-catalog .di-mini-tag svg{flex:none;width:14px;height:14px}
+.vcc-it-catalog .vcc-catalog-toolbar .vcc-catalog-field-country{flex:0 1 155px}
+.vcc-it-catalog .vcc-catalog-toolbar .vcc-catalog-search:focus-within{outline:2px solid #c06342;outline-offset:2px}
+@media(max-width:1020px){.vcc-it-catalog .vcc-catalog-toolbar .vcc-catalog-field-country{flex:1 1 155px}}
+@media(max-width:620px){
+ .vcc-it-catalog .vcc-guide-kind{font-size:9px;gap:3px}
+ .vcc-it-catalog .vcc-guide-kind svg{width:12px;height:12px}
+ .vcc-it-catalog .vcc-catalog-toolbar .vcc-catalog-field-country{flex:1 1 calc(50% - 6px)}
+}
