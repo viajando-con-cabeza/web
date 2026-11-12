@@ -50,3 +50,41 @@ html body .vcc-numero-unificado > .vcc-numero-svg {
     min-height: 38px !important;
   }
 }
+
+
+/* Numeración y tarjeta editorial compartidas: referencia del apartado
+   'Cómo ahorrar en Estocolmo'. Nunca crear números CSS alternativos. */
+:is(.budget-vcc,.sv-page) .vcc-editorial-numbered-card{
+ display:flex!important;flex-direction:row!important;align-items:flex-start!important;
+ justify-content:flex-start!important;gap:13px!important;text-align:left!important;
+ min-height:140px!important;height:auto!important;padding:13px 16px!important
+}
+:is(.budget-vcc,.sv-page) .vcc-editorial-numbered-card > .saving-number{
+ flex:0 0 42px!important;width:42px!important;height:42px!important;
+ margin:4px 0 0 2px!important;align-self:flex-start!important
+}
+:is(.budget-vcc,.sv-page) .vcc-editorial-numbered-card .saving-tip-copy{
+ flex:1 1 auto;min-width:0;display:flex;flex-direction:column;justify-content:flex-start
+}
+:is(.budget-vcc,.sv-page) .vcc-editorial-numbered-card h3{
+ font:500 22px/1.18 var(--vcc-font-heading,"Oswald",sans-serif)!important;
+ margin:2px 0 9px!important;display:-webkit-box;
+ -webkit-box-orient:vertical;-webkit-line-clamp:2;line-clamp:2;overflow:hidden
+}
+:is(.budget-vcc,.sv-page) .vcc-editorial-numbered-card p{
+ font:400 12px/1.55 var(--vcc-font-body,"DM Sans",sans-serif)!important;
+ color:#68615b!important;margin:0!important
+}
+@media(max-width:900px){
+ :is(.budget-vcc,.sv-page) .vcc-editorial-numbered-card{
+ min-height:138px!important;padding:13px!important;gap:12px!important}
+ :is(.budget-vcc,.sv-page) .vcc-editorial-numbered-card > .saving-number{
+ flex-basis:39px!important;width:39px!important;height:39px!important
+ }
+}
+@media(max-width:550px){
+ :is(.budget-vcc,.sv-page) .vcc-editorial-numbered-card{min-height:135px!important;padding:13px!important}
+ :is(.budget-vcc,.sv-page) .vcc-editorial-numbered-card > .saving-number{
+ flex-basis:37px!important;width:37px!important;height:37px!important}
+ :is(.budget-vcc,.sv-page) .vcc-editorial-numbered-card h3{font-size:20px!important;margin-bottom:8px!important}
+}
