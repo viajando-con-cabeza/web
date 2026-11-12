@@ -20,7 +20,9 @@
     "css:build": "node configuracion/scripts/compilar-css-vcc.mjs --write",
     "css:verify": "node configuracion/scripts/compilar-css-vcc.mjs --check",
     "hero:build": "python configuracion/scripts/generar-portadas-rapidas.py && node configuracion/scripts/publicar-portadas-rapidas.mjs --write",
-    "hero:check": "node configuracion/scripts/publicar-portadas-rapidas.mjs --check"
+    "hero:check": "node configuracion/scripts/publicar-portadas-rapidas.mjs --check",
+    "audit:architecture": "node configuracion/scripts/auditar-dependencias-vcc.mjs",
+    "audit:styles": "node configuracion/scripts/auditar-estilos.mjs"
   },
   "engines": {
     "node": ">=20"

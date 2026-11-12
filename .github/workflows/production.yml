@@ -38,6 +38,9 @@ jobs:
       - name: Check reusable CSS and absence of exact duplicates
         run: node configuracion/scripts/verificar-css-vcc.mjs
 
+      - name: Verify published HTML uses shared styles
+        run: node configuracion/scripts/verificar-estilos-html-vcc.mjs
+
       - name: Audit all pages, shared assets and editorial links
         run: node configuracion/scripts/auditar-escalabilidad-vcc.mjs --strict-hubs
 
