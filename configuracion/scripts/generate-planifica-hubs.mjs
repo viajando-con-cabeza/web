@@ -1,6 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import {PUBLISHED_FILES, publicRoute} from "./lib/publicacion-vcc.mjs";
+import {normalizeCardImageHtml} from "./lib/targetes-vcc.mjs";
 
 const ROOT = process.cwd();
 
@@ -57,7 +58,9 @@ function replaceAuto(file,start,end,body){
   const before=fs.readFileSync(full,"utf8");
   const a=before.indexOf(start), b=before.indexOf(end);
   if(a<0||b<0||b<a) throw new Error(`Missing auto markers in ${file}`);
-  const html=before.slice(0,a+start.length)+"\n"+body.trim()+"\n"+before.slice(b);
+  // La mateixa transformació que aplica la publicació final: evita que
+  // --check detecti com a desactualitzades les targetes WebP responsives.
+  const html=before.slice(0,a+start.length)+"\n"+normalizeCardImageHtml(body.trim(),file)+"\n"+before.slice(b);
   if(html!==before){
     outdated.push(file);
     if(!CHECK)fs.writeFileSync(full,html);
