@@ -35,6 +35,8 @@ a{color:inherit}
 .contact-form-wrap h2{font:600 clamp(23px,2.2vw,29px)/1.12 Oswald,Impact,sans-serif;margin:0 0 11px;max-width:520px;padding-right:78px}
 .form-intro{font-size:15px;margin:0 0 18px;line-height:1.5}
 #contactForm{display:grid;gap:12px}
+/* L'atribut hidden sempre preval sobre el layout del formulari. */
+#contactForm[hidden],#contactSuccess[hidden],#contactFeedback[hidden]{display:none!important}
 #contactForm input[type=text],#contactForm input[type=email],#contactForm select,#contactForm textarea{width:100%;border:1px solid #d6bfa5;border-radius:4px;background:#fff9f0;color:#211d19;padding:12px 13px;font:15px var(--vcc-font-body, "DM Sans", Arial, sans-serif);min-height:43px}
 #contactForm textarea{resize:vertical;min-height:112px}
 #contactForm input:focus,#contactForm select:focus,#contactForm textarea:focus{outline:2px solid #e85b0880;outline-offset:1px}
