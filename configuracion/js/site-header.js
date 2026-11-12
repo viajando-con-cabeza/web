@@ -5,8 +5,6 @@
   const script = document.currentScript;
   const siteRoot = script ? new URL('../../', script.src) : new URL('./', window.location.href);
   const url = (path) => new URL(path, siteRoot).href;
-  // Diagnóstico temporal sin alterar el comportamiento de las rutas normales.
-  const lcpProbe = new URLSearchParams(location.search).get('__vcc_lcp_probe');
 
   // Un sol fitxer cachejable de disseny per a totes les pàgines.
   // Conté, en el mateix ordre que abans: tokens, carrusels, subheader, breadcrumb i header.
@@ -30,7 +28,6 @@
      Las plantillas antiguas conservan su miga invisible como espacio de
      reserva para evitar desplazar el hero; no existen dos rutas accesibles. */
   (function initGlobalBreadcrumb() {
-    if(lcpProbe === 'no-breadcrumb') return;
     // Mantener el breadcrumb único también en Vuelos, sin alterar otras páginas de Planifica.
     const isSharedPlanificaPage = /^\/planifica\/(?:tarjetas-de-viaje|vuelos|donde-ir)\/?$/i.test(currentPath);
     if (!/^\/destinos\//i.test(currentPath) && !isSharedPlanificaPage) return;
@@ -111,9 +108,7 @@
       if(route[route.length-1]==='index.html')route.pop();
       if(!route.length)return false;
       const finalStrong=original?.querySelector('strong')?.textContent?.trim()||'';
-      // Comparativa controlada: reutilizar la miga existente en lugar de añadir otra encima.
-      const nav=(lcpProbe === 'reuse-breadcrumb' && original) ? original : document.createElement('nav');
-      if(nav===original) nav.replaceChildren();
+      const nav=document.createElement('nav');
       nav.id='vcc-global-breadcrumb';
       nav.className='vcc-breadcrumb-unified';
       nav.setAttribute('aria-label','Ruta de navegación');
@@ -149,12 +144,6 @@
         if(isLast)el.setAttribute('aria-current','page');
         nav.appendChild(el);
       });
-      if(original && original!==nav){
-        original.classList.add('vcc-original-breadcrumb');
-        original.setAttribute('aria-hidden','true');
-        original.setAttribute('inert','');
-        original.style.setProperty('visibility','hidden','important');
-      }
       hero.classList.add('vcc-has-global-breadcrumb');
       if(sectionRoot==='planifica')hero.classList.add('vcc-breadcrumb-on-dark');
       hero.insertBefore(nav,hero.firstChild);
@@ -225,13 +214,14 @@
     if (Math.abs(menu.scrollLeft) > 1) menu.scrollLeft=0;
   };
   // pageshow also fires when the browser restores a page from cache.
-  if(lcpProbe !== 'no-scroll') window.addEventListener('pageshow',()=>{
+  window.addEventListener('pageshow',()=>{
     resetHeaderMenu();
     requestAnimationFrame(()=>requestAnimationFrame(resetHeaderMenu));
   });
-  if(lcpProbe !== 'no-scroll') {
-    if (document.readyState==='loading') document.addEventListener('DOMContentLoaded', resetHeaderMenu, {once:true});
-    else resetHeaderMenu();
+  if (document.readyState==='loading') {
+    document.addEventListener('DOMContentLoaded', resetHeaderMenu, {once:true});
+  } else {
+    resetHeaderMenu();
   }
 
   // Final layout guard: the header is sized to the visual viewport, not
@@ -266,10 +256,8 @@
     document.querySelectorAll('title,meta[ name="description" ],meta[property="og:title"],meta[property="og:description"]').forEach(x=>{if(x.textContent){const v=clean(x.textContent);if(v!==x.textContent)x.textContent=v}if(x.content){const v=clean(x.content);if(v!==x.content)x.content=v}});
     document.querySelectorAll('[href]').forEach(x=>{const h=x.getAttribute('href')||'';if(/Olost|Prats de Lluçanès|Prats del Lluçanès/i.test(h))x.setAttribute('href',h.replace(/Olost|Prats de Lluçanès|Prats del Lluçanès/gi,'Barcelona'))});
   };
-  if(lcpProbe !== 'no-clean'){
-    cleanPublicText();
-    new MutationObserver(cleanPublicText).observe(document.body,{subtree:true,childList:true,characterData:true});
-  }
+  cleanPublicText();
+  new MutationObserver(cleanPublicText).observe(document.body,{subtree:true,childList:true,characterData:true});
 
   // Estado editorial global: "Próximamente" siempre deshabilitado y gris.
   const vccPendingStyle=document.createElement('style');
@@ -308,10 +296,8 @@
       a.replaceWith(span);
     });
   };
-  if(lcpProbe !== 'no-pending'){
-    normalizePending(document.body);
-    new MutationObserver(records=>records.forEach(r=>r.addedNodes.forEach(n=>normalizePending(n)))).observe(document.body,{childList:true,subtree:true});
-  }
+  normalizePending(document.body);
+  new MutationObserver(records=>records.forEach(r=>r.addedNodes.forEach(n=>normalizePending(n)))).observe(document.body,{childList:true,subtree:true});
 })();
 
 /* VCC shared Consejo component loader 2026-11-08 */
