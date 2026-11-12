@@ -67,16 +67,6 @@ function cellText(pdf,value,x,y,width,maxLines=1,fontsize=8){
   pdf.text(lines,x,y,{baseline:'alphabetic'});
 }
 
-const PALETTE={
-  ink:[31,29,27],muted:[102,94,88],orange:[231,100,29],light:[255,246,239],
-  cream:[250,247,243],border:[233,222,211],white:[255,255,255],green:[30,122,77]
-};
-const color=(pdf,kind,type='text')=>{
-  const c=PALETTE[kind];
-  if(type==='fill')pdf.setFillColor(...c);
-  else if(type==='draw')pdf.setDrawColor(...c);
-  else pdf.setTextColor(...c);
-};
 const label=(flight,names)=>names[flight.airline]||'Sin elegir';
 
 
@@ -413,28 +403,28 @@ export async function exportarComparacionPDF(flights,airlines){
   const longRoutes=items.filter(item=>String(item.flight.route||'').length>55);
   if(longRoutes.length){
     pdf.addPage('a4','landscape');
-    color(pdf,'orange','fill');pdf.rect(0,0,pageW,4,'F');
-    color(pdf,'ink');pdf.setFont('helvetica','bold');pdf.setFontSize(20);
+    paint(pdf,'orange','fill');pdf.rect(0,0,pageW,4,'F');
+    paint(pdf,'text');pdf.setFont('helvetica','bold');pdf.setFontSize(20);
     pdf.text('DETALLE DE LOS TRAYECTOS',margin,25);
-    color(pdf,'muted');pdf.setFontSize(9);pdf.setFont('helvetica','normal');
+    paint(pdf,'secondary');pdf.setFontSize(9);pdf.setFont('helvetica','normal');
     pdf.text('Información completa introducida en el comparador VCC.',margin,33);
     let py=47;
     items.forEach(({flight,index,total,valid:isValid})=>{
-      color(pdf,'cream','fill');pdf.roundedRect(margin,py,pageW-2*margin,22,2,2,'F');
-      color(pdf,'orange');pdf.setFont('helvetica','bold');pdf.setFontSize(10);
+      paint(pdf,'paper','fill');pdf.roundedRect(margin,py,pageW-2*margin,22,2,2,'F');
+      paint(pdf,'orange');pdf.setFont('helvetica','bold');pdf.setFontSize(10);
       pdf.text('OPCIÓN '+String.fromCharCode(65+index)+' · '+label(flight,names),margin+5,py+8);
-      color(pdf,'ink');pdf.setFont('helvetica','normal');pdf.setFontSize(9);
+      paint(pdf,'text');pdf.setFont('helvetica','normal');pdf.setFontSize(9);
       const lines=pdf.splitTextToSize(flight.route||'Trayecto no indicado',195);
       pdf.text(lines.slice(0,2),margin+5,py+15);
       pdf.setFont('helvetica','bold');
       pdf.text(isValid?euros.format(total):'Sin precio de billete',pageW-margin-5,py+12,{align:'right'});
       py+=27;
     });
-    color(pdf,'muted');pdf.setFont('helvetica','normal');pdf.setFontSize(8);
+    paint(pdf,'secondary');pdf.setFont('helvetica','normal');pdf.setFontSize(8);
     pdf.text('VIAJANDO CON CABEZA · viajandoconcabeza.com',margin,201);
     pdf.text('2/2',pageW-margin,201,{align:'right'});
     pdf.setPage(1);
-    pdf.setTextColor(...PALETTE.muted);pdf.setFontSize(8);
+    paint(pdf,'secondary');pdf.setFontSize(8);
     pdf.text('Trayectos completos en la página 2',pageW-margin,192,{align:'right'});
   }
   const name='VCC-comparativa-vuelos-'+now.toISOString().slice(0,10)+'.pdf';
