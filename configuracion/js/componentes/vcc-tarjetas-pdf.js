@@ -107,13 +107,14 @@ export async function exportarAhorroTarjetasPDF({inputs,bankText,travelText,diff
  color(pdf,'ink');pdf.setFont('helvetica','bold');pdf.setFontSize(15);
  write(pdf,bankText,dx+6,dy+31,dw-12,15);
  write(pdf,travelText,dx+6,dy+51,dw-12,15);
- const positive=difference>.005,negative=difference<-.005;
+ const roundedDifference=Math.round(Math.abs(difference));
+ const positive=difference>0&&roundedDifference>0,negative=difference<0&&roundedDifference>0;
  const tone=positive?'green':negative?'red':'neutral';
  drawRounded(pdf,dx+5,dy+58,dw-10,29,positive?'paleGreen':negative?'paleRed':'paper');
  color(pdf,'muted');pdf.setFont('helvetica','bold');pdf.setFontSize(7.7);
  pdf.text(positive?'AHORRO ESTIMADO':negative?'COSTE ADICIONAL':'MISMO COSTE ESTIMADO',dx+9,dy+67);
  color(pdf,tone);pdf.setFont('helvetica','bold');pdf.setFontSize(20);
- write(pdf,euro.format(Math.abs(difference)),dx+9,dy+79,dw-18,20);
+ write(pdf,new Intl.NumberFormat('es-ES',{style:'currency',currency:'EUR',minimumFractionDigits:0,maximumFractionDigits:0}).format(roundedDifference),dx+9,dy+79,dw-18,20);
  color(pdf,'muted');pdf.setFont('helvetica','normal');pdf.setFontSize(7.8);
  pdf.text('Markup: diferencia porcentual entre cambio aplicado y cambio de referencia (p. ej., BCE).',x,181);
  pdf.text('Estimación; no incluye cuotas fijas ni cargos propios del cajero. Revisa las condiciones.',x,187);

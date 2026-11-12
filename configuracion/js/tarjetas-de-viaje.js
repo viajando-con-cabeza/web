@@ -45,6 +45,7 @@
   const savingBox=document.getElementById('tv-saving-box');
   if(inputs.length && bankTotal && travelTotal && saving && savingText && savingBox){
     const euro=new Intl.NumberFormat('es-ES',{style:'currency',currency:'EUR',minimumFractionDigits:2,maximumFractionDigits:2});
+    const euroEntero=new Intl.NumberFormat('es-ES',{style:'currency',currency:'EUR',minimumFractionDigits:0,maximumFractionDigits:0});
     const amount=(name)=>{
       const input=document.querySelector('[data-tv-cost="'+name+'"]');
       return Math.min(100000000,Math.max(0,Number(input?.value)||0));
@@ -67,10 +68,12 @@
       }
       bankTotal.textContent=euro.format(bank);
       travelTotal.textContent=euro.format(traveler);
-      const positive=diff>0.005;
-      const negative=diff< -0.005;
+      // Los totales conservan centimos; el ahorro visible se redondea al euro.
+      const ahorroRedondeado=Math.round(Math.abs(diff));
+      const positive=diff>0&&ahorroRedondeado>0;
+      const negative=diff<0&&ahorroRedondeado>0;
       savingText.textContent=positive?'Ahorro estimado':negative?'Coste adicional estimado':'Diferencia estimada';
-      saving.textContent=euro.format(positive||negative?Math.abs(diff):0);
+      saving.textContent=euroEntero.format(ahorroRedondeado);
       savingBox.classList.toggle('negative',negative);
       savingBox.classList.toggle('neutral',!positive&&!negative);
     };
