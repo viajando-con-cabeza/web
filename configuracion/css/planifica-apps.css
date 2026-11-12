@@ -41,7 +41,7 @@
  gap:16px;min-width:0;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;
  scroll-padding-inline:2px;overscroll-behavior-inline:contain;-webkit-overflow-scrolling:touch;
  scrollbar-width:none;padding:3px 2px 13px}
-.av-track[data-av-track="platform"]{grid-auto-columns:calc((100% - 16px)/2.55)}
+.av-track[data-av-track="platform"]{grid-auto-columns:calc((100% - 32px)/3.08)}
 .av-track::-webkit-scrollbar{display:none}
 .av-card{min-width:0;display:flex;flex-direction:column;scroll-snap-align:start;overflow:hidden;background:#fff;
  border:1px solid var(--av-line);border-radius:14px;box-shadow:0 4px 15px rgba(43,34,26,.045)}
@@ -105,26 +105,6 @@
  margin-top:13px;color:#655c55;font:400 11px/1.5 var(--vcc-font-body,"DM Sans",sans-serif)}
 .av-activity-note p{margin:0}
 .av-activity-note a{white-space:normal;color:#d95e23!important;font-weight:800;text-decoration:none}
-.av-app-toolbar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:10px}
-.av-app-toolbar .av-arrows{margin:0}
-.av-chips{display:flex;gap:6px;flex-wrap:wrap}
-.av-chip{min-width:88px;padding:9px 13px;border:1px solid #ded2c8;border-radius:8px;
- background:#fff;color:#25211d;font-size:12px;font-weight:750}
-.av-chip.is-active{background:#ed6a27;color:#fff;border-color:#ed6a27}
-.av-mini{display:flex;flex-direction:row;align-items:flex-start;gap:12px;min-height:120px;padding:15px}
-.av-mini-icon{display:grid;place-items:center;flex:0 0 49px;width:49px;height:49px;border-radius:11px;background:#fff0e4;color:#a65737}
-.av-mini-icon .av-svg-icon{display:block;width:34px;height:34px;color:#a65737;stroke:currentColor}
-.av-mini h3{font:800 15px/1.25 var(--vcc-font-body,"DM Sans",sans-serif);margin:0 0 5px}
-.av-mini p{font:400 11px/1.48 var(--vcc-font-body,"DM Sans",sans-serif);color:#615b55;margin:0 0 7px}
-.av-mini a{font:800 10px/1.2 var(--vcc-font-body,"DM Sans",sans-serif);color:#d95e21!important;text-decoration:none}
-.av-mini a:hover{text-decoration:underline}
-.av-local{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
-.av-local .av-mini{min-height:112px}
-.av-local-guide{display:flex;width:max-content;max-width:100%;align-items:center;justify-content:center;gap:9px;
- margin:17px auto 0;border-radius:9px;min-height:40px;padding:11px 24px;
- background:#ed6b26;color:#fff!important;font:800 12px/1.3 var(--vcc-font-body,"DM Sans",sans-serif);text-decoration:none}
-.av-local-guide:hover{background:#dc5a1b}
-/* Errores a evitar: estilo compartido en componentes/errores-a-evitar-vcc.css. */
 #errores-a-evitar{padding-bottom:44px}
 @media(max-width:900px){
  .av-heading{align-items:flex-start;flex-direction:column;gap:8px}
@@ -152,13 +132,6 @@
  .av-lists{padding-top:9px}.av-lists>section{padding-right:9px}.av-lists>section+section{padding-left:9px;padding-right:0}
  .av-lists h4{font-size:10.6px}.av-lists li{font-size:10.5px}
  .av-activity-note{align-items:flex-start;flex-direction:column;gap:7px}
- .av-app-toolbar{align-items:stretch;flex-direction:column}
- .av-app-toolbar .av-arrows{align-self:flex-end}
- .av-chips{display:flex;flex-wrap:nowrap;gap:7px;max-width:100%;overflow-x:auto;scrollbar-width:none;overscroll-behavior-inline:contain;padding:2px 1px 5px}
- .av-chips::-webkit-scrollbar{display:none}
- .av-chip{flex:0 0 auto;min-width:94px;padding:9px 13px;font-size:11px;white-space:nowrap}
- .av-local{grid-template-columns:1fr;gap:9px}
- .av-mini{padding:13px}
  .av-page #actividades-destino .vcc-catalog-toolbar .vcc-catalog-search-group{flex:1 1 100%;width:100%;max-width:100%}
  .av-page #actividades-destino .vcc-catalog-toolbar .vcc-catalog-field{flex:1 1 calc(50% - 6px);min-width:0}
  .av-page #actividades-destino .vcc-catalog-toolbar .vcc-catalog-field select{width:100%;max-width:100%;overflow:hidden;text-overflow:ellipsis}
@@ -196,4 +169,44 @@
  .av-page .av-carousel > .av-arrows > .av-arrow-prev{right:44px;left:auto}
  .av-page .av-carousel > .av-arrows > .av-arrow-next{right:0;left:auto}
  .av-page .av-carousel .av-track{grid-auto-columns:100%!important}
+}
+
+/* Catálogo escalable: diez actividades por página visible, sin renderizar un directorio infinito. */
+.av-page .av-more-actions{display:flex;justify-content:center;margin:19px 0 7px}
+.av-page .av-more-actions[hidden]{display:none!important}
+.av-page .av-more-button{
+ display:inline-flex;align-items:center;justify-content:center;gap:10px;
+ min-width:200px;min-height:41px;padding:10px 22px;
+ border:1px solid #c56f49;border-radius:100px;background:#fff;
+ font:800 11px/1.35 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
+ color:#a94c27;letter-spacing:.02em;transition:background .16s,border-color .16s;
+}
+.av-page .av-more-button:hover{background:#ffede1;border-color:#b24f2a}
+.av-page .av-more-button span{font-size:18px;line-height:1}
+/* Recursos con utilidad concreta, sin catálogo de apps conocidas ni información volátil. */
+.av-page .av-tools-section{padding-top:29px}
+.av-page .av-useful-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:13px}
+.av-page .av-useful-card{
+ display:flex;align-items:flex-start;gap:13px;min-width:0;min-height:130px;
+ padding:17px;border:1px solid var(--av-line);border-radius:14px;
+ background:#fff;box-shadow:0 4px 15px rgba(43,34,26,.045);
+ color:#2b2824;text-decoration:none;transition:border-color .18s,transform .18s;
+}
+.av-page .av-useful-card:is(:hover,:focus-visible){border-color:#d29b7c;transform:translateY(-2px)}
+.av-page .av-useful-icon{
+ display:grid;place-items:center;flex:0 0 49px;width:49px;height:49px;
+ border-radius:11px;background:#fff0e6;color:#ac5934
+}
+.av-page .av-useful-icon svg{display:block;width:33px;height:33px}
+.av-page .av-useful-copy{display:flex;flex-direction:column;min-width:0;flex:1}
+.av-page .av-useful-copy strong{font:800 14px/1.25 var(--vcc-font-body,"DM Sans",Arial,sans-serif);margin-bottom:5px}
+.av-page .av-useful-copy small{font:400 11px/1.46 var(--vcc-font-body,"DM Sans",Arial,sans-serif);color:#635d55}
+.av-page .av-useful-copy em{margin-top:auto;padding-top:12px;font:800 10px/1.25 var(--vcc-font-body,"DM Sans",Arial,sans-serif);color:#bb552f;font-style:normal}
+@media(max-width:900px){
+ .av-page .av-useful-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(max-width:600px){
+ .av-page .av-useful-grid{grid-template-columns:1fr;gap:9px}
+ .av-page .av-useful-card{min-height:0;padding:14px}
+ .av-page .av-more-button{width:min(310px,100%)}
 }
