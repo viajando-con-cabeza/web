@@ -108,7 +108,9 @@
       if(route[route.length-1]==='index.html')route.pop();
       if(!route.length)return false;
       const finalStrong=original?.querySelector('strong')?.textContent?.trim()||'';
-      const nav=document.createElement('nav');
+      // Comparativa controlada: reutilizar la miga existente en lugar de añadir otra encima.
+      const nav=(lcpProbe === 'reuse-breadcrumb' && original) ? original : document.createElement('nav');
+      if(nav===original) nav.replaceChildren();
       nav.id='vcc-global-breadcrumb';
       nav.className='vcc-breadcrumb-unified';
       nav.setAttribute('aria-label','Ruta de navegación');
@@ -144,7 +146,7 @@
         if(isLast)el.setAttribute('aria-current','page');
         nav.appendChild(el);
       });
-      if(original){
+      if(original && original!==nav){
         original.classList.add('vcc-original-breadcrumb');
         original.setAttribute('aria-hidden','true');
         original.setAttribute('inert','');
