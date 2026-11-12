@@ -9,9 +9,12 @@ import hashlib
 import json
 from pathlib import Path
 from PIL import Image, ImageOps
+from generar_fondo_apps_vcc import generar as generar_fondo_apps
 
 ROOT = Path(__file__).resolve().parents[2]
 FONDOS = ROOT / "configuracion/imagenes/fondos"
+# Portada de Apps: se genera solo si todavía no existe, antes de crear las variantes.
+generar_fondo_apps()
 OUTPUT = FONDOS / "optimizadas"
 OUTPUT.mkdir(parents=True, exist_ok=True)
 WIDTHS = (480, 960, 1920)
