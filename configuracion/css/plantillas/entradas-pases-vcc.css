@@ -1133,10 +1133,29 @@
   }
 }
 
-/* El component compartit de fletxes treia tot el padding del carrusel:
-   deixem un carril real de 34px fora de la targeta, sense tapar la lectura. */
+/* Entradas por día: fitxa més ampla en mòbil, gairebé fins als marges de pantalla.
+   Fletxes petites als laterals, sense reduir l'amplada del contingut. */
 @media(max-width:600px){
+  html body .ep-page #nuestras-entradas .ep4-our-stage,
   html body .ep-page #nuestras-entradas .ep4-our-stage:not(.ep4-our-no-overflow){
-    padding:0 34px!important;
+    box-sizing:border-box!important;
+    width:calc(100% + 18px)!important;
+    max-width:none!important;
+    margin-left:-9px!important;
+    padding:0!important;
+  }
+  html body .ep-page #nuestras-entradas .ep4-our-stage > .ep4-our-list{
+    width:100%!important;max-width:100%!important;
+  }
+  html body .ep-page #nuestras-entradas .ep4-our-stage > .ep4-our-arrow{
+    width:28px!important;height:28px!important;
+    background:rgba(255,255,255,.93)!important;
+    border:1px solid rgba(167,130,106,.6)!important;
+  }
+  html body .ep-page #nuestras-entradas .ep4-our-stage > .ep4-our-arrow-prev{
+    left:0!important;
+  }
+  html body .ep-page #nuestras-entradas .ep4-our-stage > .ep4-our-arrow-next{
+    right:0!important;
   }
 }
