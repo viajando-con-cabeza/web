@@ -52,13 +52,13 @@
 <h2>¡ESTAREMOS ENCANTADOS<br>DE AYUDARTE!</h2>
 <p class="form-intro">Rellena el formulario y te responderemos lo antes posible.</p>
 <div id="contactSuccess" class="vcc-contact-success" role="status" aria-live="polite" hidden><strong class="vcc-contact-success-title">¡Mensaje enviado!</strong><span class="vcc-contact-success-text">Hemos recibido tu mensaje. Gracias por escribirnos; te responderemos lo antes posible.</span></div>
-<form id="contactForm" action="https://formsubmit.co/ajax/info@viajandoconcabeza.com" method="POST">
-<input type="hidden" name="_subject" value="Nuevo mensaje desde Viajando con Cabeza">
-<input type="hidden" name="_template" value="table">
-<label class="sr-only" for="contactName">Nombre</label><input id="contactName" name="nombre" type="text" placeholder="Nombre *" autocomplete="name" required>
-<label class="sr-only" for="contactEmail">Email</label><input id="contactEmail" name="email" type="email" placeholder="Email *" autocomplete="email" required>
+<form id="contactForm" action="/api/contact" method="POST">
+<input type="hidden" name="idioma" value="es">
+<div class="contact-trap" aria-hidden="true"><label for="contactWebsite">Deja este campo vacío</label><input id="contactWebsite" name="website" type="text" autocomplete="off" tabindex="-1"></div>
+<label class="sr-only" for="contactName">Nombre</label><input id="contactName" name="nombre" type="text" minlength="2" maxlength="100" placeholder="Nombre *" autocomplete="name" required>
+<label class="sr-only" for="contactEmail">Email</label><input id="contactEmail" name="email" type="email" maxlength="254" placeholder="Email *" autocomplete="email" required>
 <label class="sr-only" for="contactSubject">Asunto</label><select id="contactSubject" name="asunto"><option value="">Asunto</option><option>Dudas sobre un viaje</option><option>Colaboraciones</option><option>Sugerencias para el blog</option><option>Otro tema</option></select>
-<label class="sr-only" for="contactMessage">Tu mensaje</label><textarea id="contactMessage" name="mensaje" placeholder="Tu mensaje *" required rows="5"></textarea>
+<label class="sr-only" for="contactMessage">Tu mensaje</label><textarea id="contactMessage" name="mensaje" minlength="5" maxlength="4000" placeholder="Tu mensaje *" required rows="5"></textarea>
 <label class="privacy-check"><input type="checkbox" required><span>Acepto la <a href="/politica-de-privacidad/">política de privacidad</a> *</span></label>
 <button type="submit">ENVIAR MENSAJE <span aria-hidden="true">→</span></button>
 <p class="form-feedback" id="contactFeedback" aria-live="polite">Tu mensaje se enviará directamente a nuestro correo.</p>
@@ -73,45 +73,6 @@
 <footer class="vcc-global-footer"></footer>
 <script src="/configuracion/js/site-header.js?v=20261103-social-icons"></script>
 <script src="/configuracion/js/site-footer.js?v=20261102"></script>
-<script>
-(function(){
-  const form = document.getElementById('contactForm');
-  const success = document.getElementById('contactSuccess');
-  const feedback = document.getElementById('contactFeedback');
-  const submit = form.querySelector('button[type="submit"]');
-  const originalButton = submit.innerHTML;
-
-  form.addEventListener('submit', async function(event){
-    event.preventDefault();
-    if (!form.reportValidity()) return;
-
-    submit.disabled = true;
-    submit.textContent = 'ENVIANDO…';
-    feedback.textContent = 'Estamos enviando tu mensaje…';
-
-    try {
-      const response = await fetch(form.action, {
-        method: 'POST',
-        body: new FormData(form),
-        headers: { 'Accept': 'application/json' }
-      });
-      const result = await response.json();
-
-      if (!response.ok || result.success !== 'true') {
-        throw new Error(result.message || 'No se ha podido enviar el mensaje.');
-      }
-
-      success.hidden = false;
-      form.hidden = true;
-      feedback.hidden = true;
-      success.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    } catch (error) {
-      feedback.textContent = 'No hemos podido enviar el mensaje. Inténtalo de nuevo o escríbenos a info@viajandoconcabeza.com.';
-      submit.disabled = false;
-      submit.innerHTML = originalButton;
-    }
-  });
-})();
-</script>
+<script defer src="/configuracion/js/contacto-enviar.js?v=20261112-api"></script>
 </body>
 </html>
