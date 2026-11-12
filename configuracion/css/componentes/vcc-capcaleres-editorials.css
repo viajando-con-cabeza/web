@@ -1,0 +1,132 @@
+/* VCC · CAPÇALERES EDITORIALS COMPARTIDES · 2026-11-12
+ * Sobretítol Caveat + títol Oswald + resum DM Sans.
+ * La classe s'afegeix exclusivament als encapçalaments editorials de secció;
+ * NO canvia herois, targetes, menús ni apartats de detall.
+ * Les tres peces empren classes explícites per no alterar altres textos.
+ */
+html body .vcc-editorial-heading {
+  display:flex!important;
+  flex-direction:row!important;
+  align-items:flex-end!important;
+  justify-content:space-between!important;
+  flex-wrap:nowrap!important;
+  gap:clamp(20px,3vw,44px)!important;
+  width:100%;
+  max-width:none!important;
+  min-width:0;
+  padding:0!important;
+  margin:0 0 20px!important;
+  text-align:left!important;
+  border:0!important;
+  background:transparent!important;
+}
+html body .vcc-editorial-heading > .vcc-editorial-heading-main {
+  flex:1 1 auto!important;
+  min-width:0!important;
+  max-width:100%;
+  margin:0!important;
+  padding:0!important;
+  text-align:left!important;
+}
+html body .vcc-editorial-heading .vcc-editorial-overline {
+  display:block!important;
+  position:static!important;
+  width:auto!important;
+  max-width:100%!important;
+  margin:0 0 7px!important;
+  padding:0!important;
+  color:#c86f5d!important;
+  font:600 calc(clamp(25px,2.15vw,29px) + var(--vcc-overline-size-adjust,0px))/1.1 var(--vcc-font-script,"Caveat",cursive)!important;
+  letter-spacing:0!important;
+  text-transform:none!important;
+  text-align:left!important;
+  transform:none!important;
+}
+html body .vcc-editorial-heading .vcc-editorial-title {
+  display:block!important;
+  max-width:100%!important;
+  margin:0!important;
+  padding:0!important;
+  color:#171717!important;
+  font:600 calc(clamp(30px,3.2vw,43px) + var(--vcc-heading-size-adjust,0px))/1.08 var(--vcc-font-heading,"Oswald",sans-serif)!important;
+  letter-spacing:0!important;
+  text-transform:uppercase!important;
+  text-align:left!important;
+  overflow-wrap:normal;
+  text-wrap:balance;
+}
+html body .vcc-editorial-heading .vcc-editorial-title::after,
+html body .vcc-editorial-heading .vcc-editorial-title::before {
+  display:none!important;
+  content:none!important;
+}
+html body .vcc-editorial-heading > .vcc-editorial-description,
+html body .vcc-editorial-heading > .vcc-editorial-heading-side .vcc-editorial-description {
+  display:block!important;
+  flex:0 1 450px!important;
+  align-self:flex-end!important;
+  width:auto!important;
+  max-width:450px!important;
+  min-width:0!important;
+  margin:0 0 3px!important;
+  padding:0!important;
+  color:#655e58!important;
+  font:400 13px/1.58 var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;
+  letter-spacing:0!important;
+  text-align:right!important;
+  text-transform:none!important;
+  text-wrap:pretty;
+}
+html body .vcc-editorial-heading > .vcc-editorial-heading-side {
+  flex:0 1 450px!important;
+  min-width:0!important;
+  max-width:450px!important;
+  margin:0!important;
+  text-align:right!important;
+}
+html body .vcc-editorial-heading > .vcc-editorial-heading-side .vcc-editorial-description {
+  width:100%!important;
+  margin:0!important;
+}
+@media (max-width:900px) {
+  html body .vcc-editorial-heading {
+    flex-direction:column!important;
+    align-items:flex-start!important;
+    gap:8px!important;
+    margin-bottom:17px!important;
+  }
+  html body .vcc-editorial-heading > .vcc-editorial-heading-main,
+  html body .vcc-editorial-heading > .vcc-editorial-description,
+  html body .vcc-editorial-heading > .vcc-editorial-heading-side {
+    flex:0 1 auto!important;
+    align-self:stretch!important;
+    width:100%!important;
+    max-width:100%!important;
+    text-align:left!important;
+  }
+  html body .vcc-editorial-heading > .vcc-editorial-description,
+  html body .vcc-editorial-heading > .vcc-editorial-heading-side .vcc-editorial-description {
+    align-self:flex-start!important;
+    max-width:100%!important;
+    margin:0!important;
+    text-align:left!important;
+    font-size:12.5px!important;
+    line-height:1.5!important;
+  }
+}
+@media (max-width:600px) {
+  html body .vcc-editorial-heading { gap:6px!important; margin-bottom:14px!important; }
+  html body .vcc-editorial-heading .vcc-editorial-overline {
+    margin-bottom:5px!important;
+    font-size:calc(25px + var(--vcc-overline-size-adjust,0px))!important;
+  }
+  html body .vcc-editorial-heading .vcc-editorial-title {
+    font-size:calc(clamp(27px,8vw,34px) + var(--vcc-heading-size-adjust,0px))!important;
+    line-height:1.1!important;
+  }
+  html body .vcc-editorial-heading > .vcc-editorial-description,
+  html body .vcc-editorial-heading > .vcc-editorial-heading-side .vcc-editorial-description {
+    font-size:12px!important;
+    line-height:1.5!important;
+  }
+}
