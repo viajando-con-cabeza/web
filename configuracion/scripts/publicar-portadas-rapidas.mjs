@@ -198,30 +198,18 @@ for(const p of approvedFiles){
   });
   const linkRE=/<link\b[^>]*\brel=["']stylesheet["'][^>]*>/gi;
   const candidates=[...html.matchAll(linkRE)].map(m=>m[0]);
-  // El CSS de pressupost es carrega complet en desktop i diferit en mòbil.
-  // Tenen media diferents i no són fulls duplicats.
-  const styleKey=(tag,href)=>{
-    if(p==='destinos/suecia/estocolmo/presupuesto.html' &&
-      href==='/configuracion/css/plantillas/presupuesto-compilado-vcc.css'){
-      const media=tag.match(/\bmedia=["']([^"']+)["']/i)?.[1]||'all';
-      return href+'|'+media;
-    }
-    return href;
-  };
   const choices=new Map();
   candidates.forEach((tag,i)=>{
     const href=tag.match(/\bhref=["']([^"']+)/i)?.[1]?.split('?')[0];
     if(!href?.startsWith('/configuracion/css/'))return;
-    const key=styleKey(tag,href);
     const deferred=/\bmedia=["']print["']|\bonload=/.test(tag),weight=deferred?0:1;
-    const previous=choices.get(key);
-    if(!previous||weight>previous.weight)choices.set(key,{index:i,weight});
+    const previous=choices.get(href);
+    if(!previous||weight>previous.weight)choices.set(href,{index:i,weight});
   });
   let ix=0;
   html=html.replace(linkRE,tag=>{
     const href=tag.match(/\bhref=["']([^"']+)/i)?.[1]?.split('?')[0];
-    const keep=!href?.startsWith('/configuracion/css/')||
-      choices.get(styleKey(tag,href))?.index===ix;
+    const keep=!href?.startsWith('/configuracion/css/')||choices.get(href)?.index===ix;
     ix++;return keep?tag:'';
   });
   html=html.replace(/VCC_NOSCRIPT_(\d+)_END/g,(_,num)=>fallbacks[Number(num)]);
