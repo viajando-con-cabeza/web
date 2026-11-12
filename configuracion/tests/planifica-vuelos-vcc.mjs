@@ -33,7 +33,7 @@ assert.equal(resumirComparacion([{...flights[0],base:''}]).valid.length,0);
  */
 const L=PDF_LAYOUT_VCC;
 assert.equal(L.rows.length,8);
-assert.ok(L.tableX+L.tableWidth<L.adviceX,'El consell ha d'anar al costat de la taula');
+assert.ok(L.tableX+L.tableWidth<L.adviceX,"El consell ha d'anar al costat de la taula");
 assert.ok(L.adviceY>=L.tableY+L.headHeight,'La targeta comença sota la capçalera');
 assert.ok(L.tableY+L.headHeight+L.rows.reduce((n,row)=>n+row.height,0)<190,
   'La taula ha de cabre en una pàgina A4 apaïsada');
@@ -76,7 +76,7 @@ assert.equal(generated.pages,1);
 assert.ok(generated.ops.some(x=>x[0]==='roundedRect'&&x[1]===L.adviceX&&x[2]===L.adviceY),
   'Manca la targeta lateral del consell VCC');
 assert.ok(generated.ops.some(x=>x[0]==='roundedRect'&&x[1]===L.tableX&&x[2]===L.tableY),
-  'Manca la taula de comparació a l'esquerra');
+  "Manca la taula de comparació a l'esquerra");
 assert.equal(generated.filename,filename);
 const longFlights=[
  ...flights.slice(0,2),
