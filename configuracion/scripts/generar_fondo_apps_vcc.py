@@ -88,7 +88,7 @@ def generar():
     silhouette=Image.new("RGBA",tilted.size,(20,23,23,0))
     silhouette.putalpha(tilted.getchannel("A").point(lambda alpha:round(alpha*.33)))
     sh=Image.new("RGBA",(w,h),(0,0,0,0))
-    x,y=1335,-16
+    x,y=1300,0
     sh.alpha_composite(silhouette,(x+21,y+29))
     sh=sh.filter(ImageFilter.GaussianBlur(23))
     canvas=Image.alpha_composite(canvas,sh)
