@@ -44,6 +44,17 @@ for page in REGISTRY["approved"]:
         file_path = ROOT / url.lstrip("/")
         if file_path.is_file() and file_path.stat().st_size >= MIN_BYTES:
             references.add(file_path)
+# Registrar també fotografies utilitzades únicament com a portades: així el
+# generador de targetes no n'elimina les variants quan una vinyeta desapareix.
+HEROES = json.loads((ROOT / "configuracion/datos/portadas-vcc.json").read_text())
+for hero in HEROES["pages"]:
+    if hero.get("source") != "externas":
+        continue
+    picture = SOURCE / hero["image"]
+    if not picture.is_file():
+        raise FileNotFoundError(f"Portada sense original: {picture}")
+    references.add(picture)
+
 items = {}
 changed = 0
 for source in sorted(references):
