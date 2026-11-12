@@ -104,7 +104,7 @@ html body .imp-page main.imp-main .place-heading-line::after{content:none!import
  /* Sense halo ni fons al títol, també en mòbil. */
 }
 /* Guías relacionadas: reutiliza el fondo, tipografías y tarjetas de presupuesto. */
-html body .imp-page .related-section{background:linear-gradient(90deg,rgba(18,28,30,.72),rgba(18,28,30,.24)),url("/configuracion/imagenes/fondos/fondos-que-ver.webp") center 52%/cover no-repeat!important;color:#fffaf5!important;border:0!important;padding:36px 0 40px!important}
+html body .imp-page .related-section{background:linear-gradient(90deg,rgba(18,28,30,.72),rgba(18,28,30,.24)),url("/configuracion/imagenes/fondos/optimizadas/fondos-que-ver-1920.webp?v=edc6a65bfa7f") center 52%/cover no-repeat!important;color:#fffaf5!important;border:0!important;padding:36px 0 40px!important}
 html body .imp-page .related-inner{width:min(1180px,calc(100% - 48px));margin:auto}
 html body .imp-page .related-head{margin:0 0 17px!important;display:block}
 html body .imp-page .related-head p{color:#de9a83!important;font:600 28px/1 var(--vcc-font-script, "Caveat", cursive)!important;margin:0 0 10px!important}
@@ -195,4 +195,12 @@ html body .imp-page .imp-main .place.place--no-media .advice p {
   html body .imp-page .imp-main section.place[data-vcc-subheader-target]{
     scroll-margin-top:calc(var(--vcc-subheader-top, 0px) + var(--vcc-subnav-height, 39px) - 8px)!important;
   }
+}
+
+/* La secció relacionada reutilitza el mateix WebP que la portada;
+   evitem baixar també els 114 KB de l'original en mòbil. */
+@media(max-width:767px){
+ html body .imp-page .related-section{
+  background-image:linear-gradient(90deg,rgba(18,28,30,.72),rgba(18,28,30,.24)),url('/configuracion/imagenes/fondos/optimizadas/fondos-que-ver-960.webp?v=edc6a65bfa7f')!important;
+ }
 }
