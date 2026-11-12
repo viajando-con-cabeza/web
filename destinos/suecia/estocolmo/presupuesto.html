@@ -358,5 +358,19 @@ sync();
 })();
 </script>
 <script src="/configuracion/js/site-footer.js?v=20261111-precios-v2"></script><script src="/configuracion/js/destinos/suecia/estocolmo/vcc-section-scrollspy.js?v=20261104"></script><script src="/configuracion/js/destinos/suecia/estocolmo/presupuesto-perfiles-desplegables.js?v=20261111-v9-initial-collapsed" defer></script>
+<script>
+/* Carga la fotografía de pie de página solo al acercarse a la sección. */
+(function(){
+  const section=document.querySelector(".budget-vcc .related-section");
+  if(!section)return;
+  const reveal=()=>section.style.setProperty("--vcc-budget-related-photo",'url("/configuracion/imagenes/externas/unsplash/photo-1464822759023-fed622ff2c3b.webp")');
+  if(!("IntersectionObserver" in window)){reveal();return;}
+  const observer=new IntersectionObserver(entries=>{
+    if(entries.some(entry=>entry.isIntersecting)){reveal();observer.disconnect();}
+  },{rootMargin:"350px 0px"});
+  observer.observe(section);
+})();
+</script>
+<noscript><style>.budget-vcc .related-section{--vcc-budget-related-photo:url("/configuracion/imagenes/externas/unsplash/photo-1464822759023-fed622ff2c3b.webp")}</style></noscript>
 </body>
 </html>
