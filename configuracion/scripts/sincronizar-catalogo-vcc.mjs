@@ -27,7 +27,13 @@ let output=original.replace(/<a\b(?=[^>]*\bdata-di-item\b)[^>]*>/gi,tag=>{
   drafts++;
   return clean+' data-vcc-original-href="'+escapeAttr(old)+'" data-vcc-publication="draft" aria-disabled="true">';
 });
-if(!output.includes('href="'+css+'"')){
+// El CSS pot estar versionat amb ?v=...: no inserir una segona còpia
+// sense versió. Aquesta verificació ha de ser idempotent després de hero:build.
+const activeStyle=[...output.matchAll(/<link\b[^>]*>/gi)].map(m=>m[0]).some(tag=>
+  /\brel=["']stylesheet["']/i.test(tag)&&
+  tag.match(/\bhref=["']([^"']+)/i)?.[1]?.split('?')[0]===css
+);
+if(!activeStyle){
   output=output.replace(/<\/head\s*>/i,'<link rel="stylesheet" href="'+css+'">\n</head>');
 }
 if(total===0)throw new Error("No se localizaron tarjetas data-di-item");
