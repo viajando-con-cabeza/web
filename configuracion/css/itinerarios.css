@@ -140,3 +140,6 @@
   .itinerarios-vcc .itinerary-filters .section-kicker,
   .itinerarios-vcc .results-heading .section-kicker{font-size:23px!important}
 }
+
+/* La imagen original tiene bandas blancas de ~3% en los bordes superior e inferior. Ocultarlas en el hero sin alterar sus margenes ni su altura. */
+body.itinerarios-vcc:not(.que-llevar-hub):not(.presupuestos-vcc) .itinerarios-hero > .about-hero-photo{transform:scaleY(1.1);transform-origin:center center}
