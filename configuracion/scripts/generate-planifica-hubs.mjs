@@ -69,12 +69,62 @@ function replaceAuto(file,start,end,body){
 
 const all = walk(path.join(ROOT,"destinos")).filter(file=>file.endsWith(".html") && PUBLISHED_FILES.has(rel(file)));
 
+/* Catàlegs Planifica: la mateixa targeta i galeria que /itinerarios/.
+   Les noves guies s'afegeixen automàticament sense copiar CSS ni JavaScript. */
+const STOCKHOLM_GALLERY=[
+ "https://img.viajandoconcabeza.com/destinos/suecia/estocolmo/2026-dia6/DSC07945.avif",
+ "https://img.viajandoconcabeza.com/destinos/suecia/estocolmo/2026-dia6/DSC08003.avif",
+ "https://img.viajandoconcabeza.com/destinos/suecia/estocolmo/2026-dia7/DSC08199.avif",
+ "https://img.viajandoconcabeza.com/destinos/suecia/estocolmo/2026-dia7/DSC08255.avif"
+];
+const CATALOG_ICONS="/configuracion/imagenes/iconos/paginas/itinerarios-iconos.svg";
+function catalogIcon(id,cls=""){
+ return '<svg'+(cls?' class="'+cls+'"':'')+' viewBox="0 0 24 24" aria-hidden="true"><use href="'+CATALOG_ICONS+'#'+id+'"></use></svg>';
+}
+function catalogGallery(images,title,category){
+ const srcs=(images||[]).filter(Boolean);
+ const slides=srcs.map((src,i)=>
+   '<img data-vcc-it-slide class="'+(i===0?'is-current':'')+'" '+(i===0?'src':'data-src')+'="'+esc(src)+'" alt="'+esc('Foto '+(i+1)+' de '+srcs.length+': '+title)+'"'+(i?' aria-hidden="true"':'')+' width="640" height="380" loading="lazy" decoding="async">'
+ ).join("");
+ const multiple=srcs.length>1;
+ const arrow=multiple?
+ '<button class="vcc-it-gallery-button" type="button" data-vcc-it-dir="prev" aria-label="Foto anterior de '+esc(title)+'">'+catalogIcon("it-arrow-left")+'</button>'+
+ '<button class="vcc-it-gallery-button" type="button" data-vcc-it-dir="next" aria-label="Foto siguiente de '+esc(title)+'">'+catalogIcon("it-arrow-right")+'</button>'+
+ '<span class="vcc-it-photo-count" data-vcc-it-count aria-live="polite">1 / '+srcs.length+'</span>':"";
+ return '<span class="di-mini-photo vcc-it-photo" data-vcc-it-gallery role="group" aria-label="Fotos de '+esc(title)+'" tabindex="0">'+slides+
+ '<span class="di-mini-tag">'+catalogIcon("it-category-city")+esc(category.toUpperCase())+'</span>'+arrow+'</span>';
+}
+function catalogCountry(country){
+ return '<span class="di-country-line">'+
+ (country.toLocaleLowerCase('es')==='suecia'
+ ?'<svg class="vcc-it-country-flag" viewBox="0 0 32 20" role="img" aria-label="Bandera de Suecia"><use href="'+CATALOG_ICONS+'#it-flag-se"></use></svg>'
+ :"")+'<span>'+esc(country)+'</span></span>';
+}
+function catalogCard({kind,title,description,href,images,country,type,typeLabel,continent,days,daily}){
+ const budget=kind==="budget";
+ const label=budget?'VER PRESUPUESTO':'VER QUÉ LLEVAR';
+ const price=daily===null?'Consultar guía':new Intl.NumberFormat("es-ES",{maximumFractionDigits:1}).format(daily)+' €/persona/día';
+ const duration=budget?(days?days+' días':'Viaje real'):'Por temporada';
+ const facts='<span class="di-route-stats">'+catalogIcon("it-clock")+esc(duration)+'</span>'+
+ '<span class="di-budget-row" title="'+(budget?'Gasto por persona y día':'Lista de equipaje')+'">'+
+ '<svg class="vcc-it-coins" viewBox="0 0 24 24" aria-hidden="true"><use href="'+CATALOG_ICONS+'#'+(budget?'it-coins':'it-category-city')+'"></use></svg>'+
+ '<span class="di-price">'+esc(budget?price:'Checklist')+'</span></span>'+catalogCountry(country);
+ const search=[title,description,country,typeLabel,continent,budget?price:'equipaje ropa checklist maleta'].join(' ');
+ return '<article class="di-mini-card vcc-it-card '+(budget?'budget-card':'packing-card')+'" data-it-card data-it-search="'+esc(search)+'" data-continent="'+esc(continent)+'" data-type="'+esc(type)+'"'+(budget?' data-daily="'+(daily??'')+'"':'')+'>'+
+ catalogGallery(images,title,typeLabel)+
+ '<div class="di-mini-body"><a class="vcc-it-title" href="'+esc(href)+'">'+esc(title)+'</a>'+
+ '<div class="vcc-it-facts">'+facts+'</div><span class="di-mini-desc">'+esc(description)+'</span>'+
+ '<a class="vcc-it-cta" href="'+esc(href)+'">'+label+' <span aria-hidden="true">↗</span></a></div></article>';
+}
+
+
 // Metadata editorial. Los importes se leen siempre del presupuesto publicado
 // (perfil VCC), para no duplicar cifras ni confundir estimaciones con gastos reales.
 const budgetEditorial = {
   "destinos/suecia/estocolmo/presupuesto.html": {
     type: "ciudades", typeLabel: "Ciudades", days: 3,
     image: "/configuracion/imagenes/externas/unsplash/photo-1509356843151-3e7d96241e11.webp",
+    gallery: STOCKHOLM_GALLERY,
     description: "Nuestro gasto real en una escapada urbana de 3 días: alojamiento, comida, transporte y actividades. Sin vuelos ni traslados de ida y vuelta."
   }
 };
@@ -90,26 +140,21 @@ function budgetDailyAmount(html) {
 }
 
 const budgetFiles = all.filter(f=>/\/presupuesto\.html$/i.test(f));
-const budgetCards = budgetFiles.map(file => {
-  const html = fs.readFileSync(file, "utf8");
-  const filePath = rel(file);
-  const {country,continent} = metaFor(file);
-  const destination = destinationFrom(html, file, "budget");
-  const info = budgetEditorial[filePath] || {};
-  const daily = budgetDailyAmount(html);
-  const type = info.type || "otros";
-  const typeLabel = info.typeLabel || "Otros viajes";
-  const daysLabel = Number.isInteger(info.days) && info.days > 0 ? "<span>◷ " + info.days + " días</span>" : "";
-  const photo = info.image || "/configuracion/imagenes/externas/unsplash/photo-1500530855697-b586d89ba3ee.webp";
-  const description = info.description || "Consulta nuestro presupuesto completo, las categorías de gasto y los consejos para este destino.";
-  const priceLabel = daily === null ? "Ver presupuesto" : new Intl.NumberFormat("es-ES", {maximumFractionDigits:1}).format(daily) + " €/persona/día";
-  return [
-    '<article class="it-card budget-card" data-continent="' + esc(continent) + '" data-type="' + esc(type) + '" data-daily="' + (daily ?? "") + '">',
-    '<img src="' + esc(photo) + '" alt="Viaje a ' + esc(destination) + ', ' + esc(country) + '" loading="lazy" decoding="async">',
-    '<div class="it-card-copy"><h2>' + esc(destination.toUpperCase()) + '</h2><p>' + esc(description) + '</p>',
-    '<div class="it-meta"><span class="budget-price">€ ' + esc(priceLabel) + '</span><span>⌖ ' + esc(typeLabel) + '</span>' + daysLabel + '</div>',
-    '<a href="' + esc(publicRoute(filePath)) + '" class="it-cta">VER PRESUPUESTO COMPLETO →</a></div></article>'
-  ].join("");
+const budgetCards = budgetFiles.map(file=>{
+ const html=fs.readFileSync(file,"utf8");
+ const filePath=rel(file);
+ const {country,continent}=metaFor(file);
+ const destination=destinationFrom(html,file,"budget");
+ const info=budgetEditorial[filePath]||{};
+ const daily=budgetDailyAmount(html);
+ const type=info.type||"otros";
+ const typeLabel=info.typeLabel||"Otros viajes";
+ const title=destination+(info.days?' en '+info.days+' días':'');
+ return catalogCard({kind:"budget",title,description:info.description||
+  "Consulta nuestro presupuesto completo, las categorías de gasto y los consejos para este destino.",
+  href:publicRoute(filePath),images:info.gallery||[info.image||
+  "/configuracion/imagenes/fondos/fondos-presupuesto.webp"],country,
+  type,typeLabel,continent,days:info.days||null,daily});
 }).sort((a,b)=>a.localeCompare(b,"es"));
 replaceAuto("planifica/presupuesto/index.html", "<!-- AUTO_BUDGETS_START -->", "<!-- AUTO_BUDGETS_END -->", budgetCards.join("\n"));
 
@@ -146,6 +191,7 @@ const packingEditorial = {
     ],
     "typeLabel": "Ciudades",
     "image": "/configuracion/imagenes/externas/unsplash/photo-1509356843151-3e7d96241e11.webp",
+    "gallery": STOCKHOLM_GALLERY,
     "description": "Checklist personalizada según el mes y los días de viaje: ropa, equipaje y consejos prácticos.",
     "priority": 1
   },
@@ -250,29 +296,24 @@ const packingSources = [
   ...all.filter(file=>/^destinos\/.+\/que-llevar\.html$/i.test(rel(file)))
 ].filter(file=>PUBLISHED_FILES.has(rel(file)));
 const packingCards = packingSources.map(file=>{
-  const filePath=rel(file);
-  const info=packingEditorial[filePath]||{};
-  const html=fs.readFileSync(file,"utf8");
-  const title=plain((html.match(/<title>([\s\S]*?)<\/title>/i)||[])[1]||"");
-  const slug=filePath.split("/").at(-2);
-  const name=info.name||(title.match(/Qu[eé] llevar a\s+([^|:]+)/i)||[])[1]?.trim()||titleCaseSlug(slug);
-  const fromDestinos=filePath.startsWith("destinos/");
-  const countrySlug=fromDestinos?filePath.split("/")[1]:slug;
-  const continent=info.continent||countryMeta[countrySlug]?.[1]||"all";
-  const type=Array.isArray(info.type)?info.type:["otros"];
-  const typeLabel=info.typeLabel||"Otros viajes";
-  const description=info.description||"Consulta la checklist de equipaje, la ropa recomendada y los consejos para este destino.";
-  const image=info.image||"/configuracion/imagenes/fondos/fondos-que-llevar.webp";
-  const continentLabel=packingContinents[continent]||"Más destinos";
-  const href=publicRoute(filePath);
-  const markup=[
-    '<article class="it-card packing-card" data-continent="'+esc(continent)+'" data-type="'+esc(type.join(" "))+'">',
-    '<img src="'+esc(image)+'" alt="'+esc('Imagen ilustrativa para la guía de equipaje de '+name)+'" width="640" height="360" loading="lazy" decoding="async">',
-    '<div class="it-card-copy"><h2>'+esc(name.toUpperCase())+'</h2><p>'+esc(description)+'</p>',
-    '<div class="it-meta"><span>⌖ '+esc(typeLabel)+'</span><span>◎ '+esc(continentLabel)+'</span><span>✓ Checklist</span></div>',
-    '<a href="'+esc(href)+'" class="it-cta">VER QUÉ LLEVAR →</a></div></article>'
-  ].join("");
-  return {markup,priority:info.priority??999,name};
+ const filePath=rel(file);
+ const info=packingEditorial[filePath]||{};
+ const html=fs.readFileSync(file,"utf8");
+ const title=plain((html.match(/<title>([\\s\\S]*?)<\\/title>/i)||[])[1]||"");
+ const slug=filePath.split("/").at(-2);
+ const name=info.name||(title.match(/Qu[eé] llevar a\\s+([^|:]+)/i)||[])[1]?.trim()||titleCaseSlug(slug);
+ const fromDestinos=filePath.startsWith("destinos/");
+ const countrySlug=fromDestinos?filePath.split("/")[1]:slug;
+ const country=info.country||countryMeta[countrySlug]?.[0]||"";
+ const continent=info.continent||countryMeta[countrySlug]?.[1]||"all";
+ const type=Array.isArray(info.type)?info.type:["otros"];
+ const typeLabel=info.typeLabel||"Otros viajes";
+ const description=info.description||"Consulta la checklist de equipaje, la ropa recomendada y los consejos para este destino.";
+ const href=publicRoute(filePath);
+ const markup=catalogCard({kind:"packing",title:"Qué llevar a "+name,description,href,
+  images:info.gallery||[info.image||"/configuracion/imagenes/fondos/fondos-que-llevar.webp"],
+  country,type:type.join(" "),typeLabel,continent});
+ return {markup,priority:info.priority??999,name};
 }).sort((a,b)=>a.priority-b.priority||a.name.localeCompare(b.name,"es"));
 replaceAuto("planifica/que-llevar/index.html","<!-- AUTO_PACKING_START -->","<!-- AUTO_PACKING_END -->",packingCards.map(card=>card.markup).join("\n"));
 
