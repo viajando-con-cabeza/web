@@ -8,7 +8,7 @@ const externas=JSON.parse(read('configuracion/imagenes/externas/unsplash/optimiz
 const css=read('configuracion/css/componentes/portadas-rapidas-vcc.css');
 const problems=[],used=new Set();
 const check=(yes,message)=>{if(!yes)problems.push(message);};
-for(const {page,image,selector,kind,source} of registry){
+for(const {page,image,selector,kind,source,r2} of registry){
   const external=source==='externas',info=(external?externas:fondos)[image];
   check(!used.has(page),page+': duplicat al registre');
   used.add(page);
@@ -29,10 +29,18 @@ for(const {page,image,selector,kind,source} of registry){
   const html=read(page),head=html.split(/<\/head\s*>/i)[0];
   const preloads=[...head.matchAll(/<link\b[^>]*>/gi)].map(m=>m[0])
     .filter(tag=>tag.includes('rel="preload"')&&tag.includes('as="image"'));
-  check(preloads.length===2,page+': dos preloads de portada condicionals');
-  for(const [i,media] of ['(max-width: 767px)','(min-width: 768px)'].entries())
-    check(preloads.some(t=>t.includes('media="'+media+'"')&&t.includes('href="'+urls[i]+'"')&&t.includes('fetchpriority="high"')),
-      page+': preload '+media+' no coincideix');
+  if(r2){
+    // Una portada real del visor R2 utilitza UN preload AVIF. No iniciar
+    // també els WebP antics, que duplicarien la descàrrega de la fotografia.
+    check(preloads.length===1,page+': cal un únic preload AVIF R2');
+    check(preloads.some(t=>t.includes('href="'+r2+'"')&&t.includes('type="image/avif"')&&t.includes('fetchpriority="high"')),
+      page+': preload AVIF no coincideix amb la portada R2');
+  }else{
+    check(preloads.length===2,page+': dos preloads WebP responsius');
+    for(const [i,media] of ['(max-width: 767px)','(min-width: 768px)'].entries())
+      check(preloads.some(t=>t.includes('media="'+media+'"')&&t.includes('href="'+urls[i]+'"')&&t.includes('fetchpriority="high"')),
+        page+': preload '+media+' no coincideix');
+  }
   const viewport=head.search(/<meta\b(?=[^>]*\bname=["']viewport["'])[^>]*>/i);
   check(viewport>=0&&viewport<head.indexOf(preloads[0]),
     page+': el viewport ha de precedir els preloads per evitar la foto desktop en mòbil');
@@ -41,10 +49,10 @@ for(const {page,image,selector,kind,source} of registry){
   check(html.includes('data-vcc-fast-heroes'),page+': manca CSS comú');
   if(kind==='img'){
     const tag=[...html.matchAll(/<img\b[^>]*>/gi)].map(m=>m[0]).find(t=>t.includes(selector))||'';
-    check(urls.every(u=>tag.includes(u))&&tag.includes('fetchpriority="high"'),
+    check((r2?tag.includes(r2):urls.every(u=>tag.includes(u)))&&tag.includes('fetchpriority="high"'),
       page+': imatge <img> inconsistent');
   }else{
-    check(css.includes(selector+'{')&&urls.every(u=>css.includes(u)),
+    check(css.includes(selector+'{')&&(r2?css.includes(r2):urls.every(u=>css.includes(u))),
       page+': foto de CSS diferent de preload');
   }
   if(external)check(!preloads.some(t=>t.includes('fondos-presupuesto')),
@@ -67,8 +75,10 @@ for(const page of stableLcpPages){
   const matches=[...html.matchAll(/\bid="vcc-lcp-hero"/g)];
   check(matches.length===1,page+': manca identificador únic del hero LCP');
   const head=html.split(/<\/head\s*>/i)[0];
-  check((head.match(/rel="preload" as="image"/g)||[]).length===2,
-    page+': els dos preloads responsius han de continuar en el head');
+  const r2=registry.find(item=>item.page===page)?.r2;
+  const wanted=r2?1:2;
+  check((head.match(/rel="preload" as="image"/g)||[]).length===wanted,
+    page+': el nombre de preloads ha de coincidir amb el tipus de portada');
 }
 
 check(registry.length===19,'El registre ha de tenir 19 portades');
