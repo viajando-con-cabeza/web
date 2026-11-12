@@ -3,6 +3,15 @@ import fs from 'node:fs';
 const html=fs.readFileSync('destinos/suecia/estocolmo/presupuesto.html','utf8');
 const days=[...html.matchAll(/<div class="vcc-budget-day-head"><strong>([^<]+)<\/strong><span class="vcc-day-price" data-total-group-euros="(\d+)"[^>]*>[^<]+<\/span><\/div>([\s\S]*?)<\/ul>/g)];
 const issues=[];
+
+/* Regressió editorial: el filtre compartit NO pot eliminar l'any de les visites. */
+const itineraryHtml=fs.readFileSync('destinos/suecia/estocolmo/itinerario.html','utf8');
+const sharedHeader=fs.readFileSync('configuracion/js/site-header.js','utf8');
+const date='Viaje VCC: del 24 al 26 de agosto de 2026.';
+if(!html.includes(date))issues.push('Falta la fecha real completa en el presupuesto: 24–26 agosto de 2026.');
+if(!itineraryHtml.includes(date))issues.push('Falta la fecha real completa en el itinerario: 24–26 agosto de 2026.');
+if(/\breYears\b|withoutPlaces\.replace\(\s*reYears/.test(sharedHeader))
+  issues.push('El encabezado global no debe borrar años editoriales del contenido.');
 if(days.length!==12)issues.push('Deben existir exactamente 12 días: tres por perfil.');
 const byProfile=[0,0,0,0];
 days.forEach((day,i)=>{
