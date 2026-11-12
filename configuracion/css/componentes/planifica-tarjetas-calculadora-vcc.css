@@ -3,20 +3,20 @@
    Colores de resultado: todos negros excepto la cifra de ahorro/pérdida. */
 html body .tv-page .tv-calc-card{
  display:grid;grid-template-columns:minmax(300px,.96fr) minmax(0,1.62fr);
- align-items:stretch;gap:20px;padding:19px 21px 12px;
- background:#fff;border:1px solid #eadfd5;border-radius:16px;
- box-shadow:0 5px 18px rgba(56,39,24,.035);
+ align-items:center;gap:14px;padding:12px 16px 10px;
+ background:#fff;border:1px solid #eadfd5;border-radius:13px;
+ box-shadow:0 3px 12px rgba(56,39,24,.03);
 }
 html body .tv-page .tv-calc-inputs{
- display:block;min-width:0;padding:0 18px 0 0;
+ display:block;min-width:0;padding:0 13px 0 0;
  border-right:1px solid #eee2d8;
 }
 html body .tv-page .tv-calc-inputs .tv-fields{
  display:flex;flex-direction:column;gap:0;min-width:0;
 }
 html body .tv-page .tv-calc-inputs .tv-fields>label{
- display:grid;grid-template-columns:minmax(0,1fr) 98px;align-items:center;
- gap:10px;min-height:42px;padding:5px 0;
+ display:grid;grid-template-columns:minmax(0,1fr) 92px;align-items:center;
+ gap:8px;min-height:37px;padding:3px 0;
  border-bottom:1px solid #f2eae3;
  color:#282420;font-size:11px;font-weight:750;
 }
@@ -26,52 +26,52 @@ html body .tv-page .tv-calc-inputs .tv-field-label{
  color:#282420;font-size:11px;font-weight:750;line-height:1.3;
 }
 html body .tv-page .tv-calc-inputs .tv-field-label>.tv-field-icon{
- width:19px;height:19px;flex:0 0 19px;color:#e46525;
+ width:18px;height:18px;flex:0 0 18px;color:#e46525;
 }
 html body .tv-page .tv-calc-inputs .tv-fields input{
- display:block;width:100%;min-width:0;min-height:35px;height:35px;
- padding:5px 9px;background:#fff;border:1px solid #e3d9d0;
+ display:block;width:100%;min-width:0;min-height:32px;height:32px;
+ padding:4px 8px;background:#fff;border:1px solid #e3d9d0;
  border-radius:8px;color:#282522;font-size:13px;font-weight:700;text-align:right;
 }
 html body .tv-page .tv-calc-inputs .tv-fields input:focus-visible{
  outline:2px solid #e66a2e;outline-offset:2px;
 }
 html body .tv-page .tv-advanced{
- margin-top:8px;padding-top:8px;border-top:1px solid #f1e7de;
+ margin-top:5px;padding-top:6px;border-top:1px solid #f1e7de;
 }
 html body .tv-page .tv-advanced summary{
  cursor:pointer;color:#b95b34;font-size:11px;line-height:1.4;font-weight:700;
 }
-html body .tv-page .tv-advanced[open] summary{margin-bottom:7px}
-html body .tv-page .tv-advanced .tv-fields>label{min-height:40px}
+html body .tv-page .tv-advanced[open] summary{margin-bottom:5px}
+html body .tv-page .tv-advanced .tv-fields>label{min-height:36px}
 html body .tv-page .tv-calc-summary{
  display:grid;grid-template-columns:minmax(0,1.75fr) minmax(145px,.8fr);
- align-items:center;gap:16px;min-width:0;
+ align-items:center;gap:11px;min-width:0;
  padding:0;background:transparent;border:0;border-radius:0;
 }
 html body .tv-page .tv-results{
  display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
- gap:11px;min-width:0;align-items:stretch;
+ gap:9px;min-width:0;align-items:stretch;
 }
 html body .tv-page .tv-result,
 html body .tv-page .tv-result.is-best{
  display:flex;flex-direction:column;justify-content:center;align-items:center;
- min-width:0;min-height:130px;padding:13px 8px;
- border:1.5px solid #dc956f;border-radius:12px;
+ min-width:0;min-height:104px;padding:10px 8px;
+ border:1.5px solid #dc956f;border-radius:10px;
  background:#fff;box-shadow:none;text-align:center;
 }
 html body .tv-page .tv-result .tv-result-label{
- display:flex;align-items:center;justify-content:center;gap:6px;
- width:100%;margin:0 0 10px;
+ display:flex;align-items:center;justify-content:center;gap:5px;
+ width:100%;margin:0 0 7px;
  color:#272421;font-size:11.5px;font-weight:800;line-height:1.3;
 }
 html body .tv-page .tv-result .tv-result-label .tv-field-icon{
- flex:0 0 19px;width:19px;height:19px;color:#e36524;
+ flex:0 0 18px;width:18px;height:18px;color:#e36524;
 }
 html body .tv-page .tv-result strong,
 html body .tv-page .tv-result.is-best strong{
  display:block;margin:0;color:#22201d;
- font:600 clamp(21px,2.15vw,30px)/1.1 var(--vcc-font-heading,"Oswald",sans-serif);
+ font:600 clamp(20px,2.1vw,28px)/1.1 var(--vcc-font-heading,"Oswald",sans-serif);
  white-space:nowrap;font-variant-numeric:tabular-nums;
 }
 html body .tv-page .tv-result small{
@@ -80,14 +80,14 @@ html body .tv-page .tv-result small{
 }
 html body .tv-page .tv-saving-panel{
  display:flex;flex-direction:column;justify-content:center;align-items:center;
- min-width:0;padding:4px 0 4px 15px;
+ min-width:0;padding:2px 0 2px 12px;
  border-left:1px solid #eee2d8;
 }
 html body .tv-page .tv-saving,
 html body .tv-page .tv-saving.negative,
 html body .tv-page .tv-saving.neutral{
  display:flex;flex-direction:column;align-items:center;justify-content:center;
- gap:8px;min-height:0;margin:0;padding:0;
+ gap:6px;min-height:0;margin:0;padding:0;
  background:transparent;border:0;border-radius:0;box-shadow:none;
 }
 html body .tv-page .tv-saving span,
@@ -99,24 +99,24 @@ html body .tv-page .tv-saving.neutral span{
 }
 html body .tv-page .tv-saving strong{
  display:block;margin:0;color:#178439;
- font:600 clamp(29px,3vw,40px)/1 var(--vcc-font-heading,"Oswald",sans-serif);
+ font:600 clamp(27px,2.8vw,37px)/1 var(--vcc-font-heading,"Oswald",sans-serif);
  white-space:nowrap;text-align:center;font-variant-numeric:tabular-nums;
 }
 html body .tv-page .tv-saving.negative strong{color:#ba3a37}
 html body .tv-page .tv-saving.neutral strong{color:#22201d}
 html body .tv-page .tv-disclaimer{
  grid-column:1/-1;margin:0;max-width:none;
- border-top:1px solid #f2e9e1;padding:9px 0 0;
+ border-top:1px solid #f2e9e1;padding:7px 0 0;
  color:#7a7068;font-size:10px;line-height:1.45;
 }
 /* El control de descarga es un enlace discreto, FUERA de .tv-calc-card */
 html body .tv-page .tv-calc-actions{
  display:flex;justify-content:flex-end;align-items:center;
- margin:9px 1px 0;padding:0;min-height:24px;
+ margin:5px 1px 0;padding:0;min-height:20px;
 }
 html body .tv-page .tv-calc-actions .tv-export-pdf{
  display:inline-flex;align-items:center;justify-content:center;gap:6px;
- align-self:auto;width:auto;min-height:0;margin:0;padding:3px 1px;
+ align-self:auto;width:auto;min-height:0;margin:0;padding:2px 1px;
  background:transparent;border:0;border-radius:0;
  box-shadow:none;color:#a05a37;
  font:700 11px/1.3 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
@@ -142,40 +142,40 @@ html body .tv-page .tv-pdf-status{
 }
 html body .tv-page .tv-pdf-status:empty{display:none}
 @media(max-width:1100px){
- html body .tv-page .tv-calc-card{grid-template-columns:1fr;gap:14px;padding:17px}
+ html body .tv-page .tv-calc-card{grid-template-columns:1fr;gap:11px;padding:13px}
  html body .tv-page .tv-calc-inputs{
-  padding:0 0 12px;border-right:0;border-bottom:1px solid #eee2d8;
+  padding:0 0 9px;border-right:0;border-bottom:1px solid #eee2d8;
  }
  html body .tv-page .tv-calc-inputs>.tv-fields{
-  display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 16px;
+  display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 12px;
  }
  html body .tv-page .tv-calc-summary{
   grid-template-columns:minmax(0,1.7fr) minmax(155px,.8fr);
  }
 }
 @media(max-width:720px){
- html body .tv-page .tv-calc-card{padding:13px;gap:11px;border-radius:13px}
+ html body .tv-page .tv-calc-card{padding:11px;gap:9px;border-radius:12px}
  html body .tv-page .tv-calc-inputs>.tv-fields{display:flex;gap:0}
  html body .tv-page .tv-calc-inputs .tv-fields>label{
-  grid-template-columns:minmax(0,1fr) 90px;gap:8px;min-height:40px;
+  grid-template-columns:minmax(0,1fr) 90px;gap:8px;min-height:37px;
  }
- html body .tv-page .tv-calc-summary{grid-template-columns:1fr;gap:11px}
+ html body .tv-page .tv-calc-summary{grid-template-columns:1fr;gap:9px}
  html body .tv-page .tv-results{gap:9px}
  html body .tv-page .tv-result,
- html body .tv-page .tv-result.is-best{min-height:112px;padding:10px 7px}
- html body .tv-page .tv-result .tv-result-label{font-size:10.5px;margin-bottom:8px;gap:4px}
+ html body .tv-page .tv-result.is-best{min-height:96px;padding:8px 6px}
+ html body .tv-page .tv-result .tv-result-label{font-size:10.5px;margin-bottom:6px;gap:4px}
  html body .tv-page .tv-result .tv-result-label .tv-field-icon{width:17px;height:17px;flex-basis:17px}
  html body .tv-page .tv-result strong,
- html body .tv-page .tv-result.is-best strong{font-size:clamp(19px,6vw,27px)}
+ html body .tv-page .tv-result.is-best strong{font-size:clamp(19px,6vw,26px)}
  html body .tv-page .tv-result small{margin-top:6px;font-size:9px}
  html body .tv-page .tv-saving-panel{
-  border-left:0;border-top:1px solid #eee2d8;padding:11px 0 0;
+  border-left:0;border-top:1px solid #eee2d8;padding:8px 0 0;
  }
  html body .tv-page .tv-saving,
  html body .tv-page .tv-saving.negative,
  html body .tv-page .tv-saving.neutral{gap:5px}
- html body .tv-page .tv-saving strong{font-size:38px}
- html body .tv-page .tv-calc-actions{justify-content:flex-start;margin-top:7px}
+ html body .tv-page .tv-saving strong{font-size:34px}
+ html body .tv-page .tv-calc-actions{justify-content:flex-start;margin-top:5px}
  html body .tv-page .tv-pdf-status{text-align:left}
 }
 @media(max-width:360px){
