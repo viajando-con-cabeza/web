@@ -11,7 +11,8 @@ const targets={
   'destinos/suecia/estocolmo/presupuesto.html':16
 };
 for(const [file,maxLocalCss] of Object.entries(targets)){
-  const html=read(file);
+  // Les fulles dins <noscript> només es carreguen sense JS, no són peticions normals.
+  const html=read(file).replace(/<noscript\b[^>]*>[\s\S]*?<\/noscript>/gi,'');
   const links=[...html.matchAll(/<link\b[^>]*>/gi)].map(x=>x[0])
     .filter(tag=>/\brel=["']stylesheet["']/i.test(tag))
     .map(tag=>tag.match(/\bhref=["']([^"']+)["']/i)?.[1]||'').filter(Boolean);
@@ -59,7 +60,7 @@ for(const [file,retired] of [
  */
 const published=JSON.parse(read('configuracion/datos/publicacion-vcc.json')).approved;
 for(const file of published){
- const html=read(file);
+ const html=read(file).replace(/<noscript\b[^>]*>[\s\S]*?<\/noscript>/gi,'');
  const localCSS=[...html.matchAll(/<link\b[^>]*>/gi)]
    .map(m=>m[0]).filter(tag=>/\brel=["']stylesheet["']/i.test(tag))
    .map(tag=>tag.match(/\bhref=["']([^"']+)/i)?.[1]?.split('?')[0]||'')
