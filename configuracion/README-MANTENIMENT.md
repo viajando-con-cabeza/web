@@ -42,3 +42,16 @@ Les imatges WebP de més de 250 KB utilitzades per pàgines aprovades es convert
 ## Revisió integral del blog
 
 Des de l'arrel del projecte: `npm run review:full`. Comprova rutes, SEO, idempotència de generadors, CSS, galeries, itineraris, SVG i estructura dels recursos. `Quality` bloqueja fotos locals de més de 400 KB sense `srcset` i imatges sense `alt` a les pàgines aprovades. També reporta imatges sense dimensions. Aquestes proves són estàtiques: cal completar-les amb Lighthouse i comparació visual mòbil/escriptori abans de publicar a `main`.
+
+## Portades responsives: mateixa foto, menys pes
+
+La font de veritat és `configuracion/datos/portadas-vcc.json`: registra les **19 portades** aprovades, la fotografia original, el selector CSS i si és un element `<img>` o una capa de fons. No duplicar rutes en CSS de pàgina ni inventar una fotografia específica per al mòbil.
+
+- **Original únic:** `configuracion/imagenes/fondos/fondos-*.webp` o, quan el registre marca `externas`, la fotografia existent d'Unsplash. Sense alteracions de saturació, contrast, brillantor o retall: les variants només redueixen amplada i compressió.
+- **Mòbil / ordinador:** versions `960` i `1920` (o `1600` per a la portada vertical externa), referenciades a `portadas-rapidas-vcc.css` i `srcset` dels herois natius. Cadascuna té fingerprint per evitar caches antigues. Les dues deriven del mateix fitxer.
+- **LCP:** els dos preloads alternatius, condicionats per `media`, tenen `fetchpriority="high"` i es col·loquen després de `meta charset`, abans dels fulls CSS. No afegir altres preloads per a la mateixa portada.
+- **Components compartits:** `portadas-lcp-nativo-vcc.css` es compila dins de `vcc-core-compartit.css`; no carregar-lo novament a cada guia. El degradat blanc i les posicions continuen a `portadas-transparencia.css`.
+- **Per regenerar:** `npm run site:sync` o `npm run hero:build` (amb imatges ja generades); **per validar:** `npm run hero:check`. El test `verificar-portadas-unificadas.mjs` comprova imatges, variants, preloads, pes i rutes. En canvi de font externa, primer `npm run cards:build`.
+- **Rendiment real:** el pressupost mòbil de fotografia és com a màxim 275 KB per pàgina registrada. Això **no garanteix una puntuació PageSpeed fixa**: cal mesurar LCP, CSS bloquejant, fonts, recursos JS i CLS en la URL publicada a quality després de cada canvi.
+
+No reintroduir versions `fondos-*-mobile.webp` separades ni workflows específics per pàgina. Qualsevol nova guia ha d'entrar al registre compartit, no crear una variant pròpia del generador.
