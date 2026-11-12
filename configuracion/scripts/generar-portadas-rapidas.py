@@ -18,6 +18,13 @@ WIDTHS = (480, 960, 1920)
 QUALITY = 79
 items = {}
 changed = 0
+OLD_MANIFEST = {}
+old_path = OUTPUT / "manifest.json"
+if old_path.exists():
+    try:
+        OLD_MANIFEST = json.loads(old_path.read_text()).get("images", {})
+    except (ValueError, OSError):
+        OLD_MANIFEST = {}
 
 for source in sorted(FONDOS.glob("fondos-*.webp")):
     # Una antiga fotografia alternativa mòbil NO és font de variants: mantenim la principal.
@@ -33,7 +40,9 @@ for source in sorted(FONDOS.glob("fondos-*.webp")):
             dest = OUTPUT / f"{source.stem}-{width}.webp"
             img = base.copy()
             img.thumbnail((width, width * 10), Image.Resampling.LANCZOS)
-            if not dest.exists() or dest.stat().st_mtime_ns < source.stat().st_mtime_ns:
+            if (not dest.exists() or
+                OLD_MANIFEST.get(source.stem, {}).get("fingerprint") != fingerprint or
+                OLD_MANIFEST.get(source.stem, {}).get("variants", {}).get(str(width), {}).get("bytes") != dest.stat().st_size):
                 img.save(dest, "WEBP", quality=QUALITY, method=5)
                 changed += 1
             variants[str(width)] = {
