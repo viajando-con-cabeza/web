@@ -185,6 +185,9 @@ jobs:
           node configuracion/scripts/validar-subheaders.mjs
           node configuracion/tests/itinerario-integridad.cjs
 
+      - name: Validate flights official links, mobile scroll and PDF calculations
+        run: node configuracion/tests/planifica-vuelos-vcc.mjs
+
       - name: Validate Stockholm 16 imprescindibles (SEO, galleries and map)
         run: node configuracion/scripts/verificar-imprescindibles-estocolmo.mjs
 

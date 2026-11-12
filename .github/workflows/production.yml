@@ -49,6 +49,9 @@ jobs:
           node configuracion/scripts/validar-iconos-vcc.mjs
           node configuracion/scripts/verificar-estructura-recursos.mjs
 
+      - name: Validate flights official links and PDF
+        run: node configuracion/tests/planifica-vuelos-vcc.mjs
+
       - name: Verify published HTML uses shared styles
         run: node configuracion/scripts/verificar-estilos-html-vcc.mjs
 
