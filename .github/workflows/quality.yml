@@ -114,7 +114,8 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          python -m pip install --quiet Pillow
+          python -m pip install --quiet Pillow pillow-avif-plugin
+          python configuracion/scripts/generar-portada-itinerario-estocolmo.py
           npm run site:sync
           if [[ -n "$(git status --porcelain)" ]]; then
             git config user.name "github-actions[bot]"
