@@ -11,7 +11,9 @@
  const reset=root.querySelector('[data-vcc-catalog-reset]');
  const count=root.querySelector('[data-vcc-catalog-count]');
  const empty=root.querySelector('[data-vcc-catalog-empty]');
- const kind=root.dataset.vccPlanificaCatalog==='presupuestos'?'presupuesto':'guía';
+ const mode=root.dataset.vccPlanificaCatalog;
+ const singular=mode==='presupuestos'?'presupuesto':mode==='itinerarios'?'itinerario':'guía';
+ const plural=mode==='presupuestos'?'presupuestos':mode==='itinerarios'?'itinerarios':'guías';
  if(!search||!count||!empty)return;
  const norm=s=>(s||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLocaleLowerCase('es').trim();
  function matchPrice(value,band){
@@ -33,7 +35,7 @@
    card.hidden=!ok;
    if(ok)visible++;
   }
-  count.textContent=visible+' '+kind+(visible===1?'':kind==='guía'?'s':'s');
+  count.textContent=visible+' '+(visible===1?singular:plural);
   empty.hidden=visible>0;
  }
  search.addEventListener('input',apply);
