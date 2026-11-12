@@ -16,8 +16,15 @@ for(const [file,maxLocalCss] of Object.entries(targets)){
   const links=[...html.matchAll(/<link\b[^>]*>/gi)].map(x=>x[0])
     .filter(tag=>/\brel=["']stylesheet["']/i.test(tag))
     .map(tag=>tag.match(/\bhref=["']([^"']+)["']/i)?.[1]||'').filter(Boolean);
-  // L'hero i el core es gestionen de manera compartida i no són CSS de pàgina.
-  const shared=new Set(['/componentes/portadas-rapidas-vcc.css','/componentes/vcc-core-compartit.css']);
+  // Components realment compartits entre diversos hubs o amb la capçalera global.
+  // No són CSS exclusius de la pàgina i no han de penalitzar el pressupost local.
+  const shared=new Set([
+    '/componentes/portadas-rapidas-vcc.css',
+    '/componentes/vcc-core-compartit.css',
+    '/componentes/header-fallback-vcc.css',
+    '/componentes/portadas-transparencia.css',
+    '/componentes/vcc-tipologia-targetes.css'
+  ]);
   const local=links.filter(url=>url.startsWith('/configuracion/css/') &&
     ![...shared].some(suffix=>url.split('?')[0].endsWith(suffix)));
   if(local.length>maxLocalCss)
