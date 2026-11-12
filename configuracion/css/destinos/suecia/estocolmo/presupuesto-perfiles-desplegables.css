@@ -1395,21 +1395,29 @@ html body.budget-vcc #filosofia .vcc-budget-panel[data-budget-panel="vcc"]{
   border-color:#ca735b;
 }
 html body.budget-vcc #filosofia .vcc-budget-panel[data-budget-panel="vcc"] .vcc-budget-panel-head{
-  background:rgba(200,111,93,.075);
+  background:#fff!important;
   margin:-13px -16px 0;
   padding:13px 16px 10px!important;
   border-bottom:1px solid rgba(202,115,91,.22);
   border-radius:13px 13px 0 0;
+}
+/* Recuadros principales: gris neutro para perfiles estimados, naranja suave para el VCC real. */
+html body.budget-vcc #filosofia .vcc-budget-panel:not([data-budget-panel="vcc"]) .vcc-budget-total,
+html body.budget-vcc #filosofia .vcc-budget-panel:not([data-budget-panel="vcc"]) .vcc-daily-track{
+  background:rgba(230,229,228,.43)!important;
+  border-color:rgba(195,190,185,.45)!important;
 }
 html body.budget-vcc #filosofia .vcc-budget-panel[data-budget-panel="vcc"] .vcc-budget-total,
 html body.budget-vcc #filosofia .vcc-budget-panel[data-budget-panel="vcc"] .vcc-daily-track{
   background:rgba(200,111,93,.075)!important;
   border-color:rgba(202,115,91,.23)!important;
 }
-html body.budget-vcc #filosofia .vcc-budget-panel[data-budget-panel="vcc"] .vcc-daily-track .vcc-budget-day-expenses li:not(.vcc-day-total-tile){
-  background:rgba(255,255,255,.96)!important;
-  border-color:rgba(202,115,91,.15)!important;
+/* Fichas interiores blancas en los cuatro presupuestos; el total diario conserva fondo transparente. */
+html body.budget-vcc #filosofia .vcc-budget-panel .vcc-daily-track .vcc-budget-day-expenses li:not(.vcc-day-total-tile){
+  background:#fff!important;
+  border-color:rgba(195,190,185,.45)!important;
 }
+
 @media(max-width:750px){
   html body.budget-vcc #filosofia .vcc-budget-panel[data-budget-panel="vcc"] .vcc-budget-panel-head{
     margin:-13px -12px 0;
