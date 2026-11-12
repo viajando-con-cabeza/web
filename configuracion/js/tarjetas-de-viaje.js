@@ -46,6 +46,8 @@
   if(inputs.length && bankTotal && travelTotal && saving && savingText && savingBox){
     const euro=new Intl.NumberFormat('es-ES',{style:'currency',currency:'EUR',minimumFractionDigits:2,maximumFractionDigits:2});
     const euroEntero=new Intl.NumberFormat('es-ES',{style:'currency',currency:'EUR',minimumFractionDigits:0,maximumFractionDigits:0});
+    // Neutralizar errores binarios (p. ej. 1500*1.005 = 1507.49999999).
+    const redondearEuros=value=>Math.round(Math.round((value+1e-8)*100)/100);
     const amount=(name)=>{
       const input=document.querySelector('[data-tv-cost="'+name+'"]');
       return Math.min(100000000,Math.max(0,Number(input?.value)||0));
@@ -69,11 +71,11 @@
       // Solo cambia la presentacion: guardamos los totales exactos para el PDF.
       bankTotal.dataset.rawValue=String(bank);
       travelTotal.dataset.rawValue=String(traveler);
-      bankTotal.textContent=euroEntero.format(bank);
-      travelTotal.textContent=euroEntero.format(traveler);
+      bankTotal.textContent=euroEntero.format(redondearEuros(bank));
+      travelTotal.textContent=euroEntero.format(redondearEuros(traveler));
       // Se compara lo que el lector ve: importe de cada tarjeta redondeado a euros.
       // Esto evita diferencias aparentes de 1 EUR entre las cifras publicadas.
-      const diferenciaVisible=Math.round(bank)-Math.round(traveler);
+      const diferenciaVisible=redondearEuros(bank)-redondearEuros(traveler);
       const ahorroRedondeado=Math.abs(diferenciaVisible);
       const positive=diferenciaVisible>0;
       const negative=diferenciaVisible<0;
