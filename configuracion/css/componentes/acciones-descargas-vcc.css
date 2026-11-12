@@ -82,6 +82,124 @@ html body .al-page .al-compare-utils{
     font-size:10.5px!important;
   }
 }
+
+/* VCC · posición única de las exportaciones: SIEMPRE debajo y a la derecha
+ * de la tarjeta, tabla, comparador, mapa o checklist. Escritorio y móvil.
+ * 'Limpiar' y acciones de selección se mantienen a la izquierda.
+ * No se modifican funciones JS, únicamente distribución visual. */
+html body .vl-page .vl-compare-utils,
+html body .al-page .al-compare-utils{
+  display:flex!important;
+  align-items:center!important;
+  justify-content:space-between!important;
+  flex-wrap:wrap!important;
+  gap:5px 16px!important;
+  width:100%!important;
+}
+html body .vl-page .vl-compare-utils [data-clear-comparison],
+html body .al-page .al-compare-utils [data-al-clear]{
+  order:0!important;
+  margin-right:auto!important;
+}
+html body .vl-page .vl-compare-utils .vcc-download-link,
+html body .al-page .al-compare-utils .vcc-download-link{
+  order:20!important;
+  margin-left:auto!important;
+}
+html body .tv-page .tv-calc-actions{
+  display:flex!important;
+  align-items:center!important;
+  justify-content:flex-end!important;
+  width:100%!important;
+}
+html body .tv-page .tv-calc-actions .vcc-download-link{
+  margin-left:auto!important;
+}
+/* La exportación del mapa queda debajo del mapa, nunca junto al texto de apoyo. */
+html body .imp-map-footer{
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:stretch!important;
+}
+html body .imp-map-footer .imp-map-cta{
+  display:flex!important;
+  align-items:center!important;
+  justify-content:flex-end!important;
+  flex-wrap:wrap!important;
+  gap:4px 12px!important;
+  width:100%!important;
+  margin:5px 0 0!important;
+}
+html body .imp-map-footer .imp-map-cta .imp-export-status{
+  order:0!important;
+}
+html body .imp-map-footer .imp-map-cta .imp-export-status:empty{
+  display:none!important;
+}
+html body .imp-map-footer .imp-map-cta #imp-export-pdf.vcc-download-link{
+  order:20!important;
+  margin-left:auto!important;
+}
+/* Excel debajo de la calculadora, en el borde derecho aunque el texto ocupe
+   dos líneas; la caja nunca queda alineada a la izquierda en móvil. */
+html body.budget-vcc .vcc-budget-excel-row{
+  display:flex!important;
+  align-items:flex-end!important;
+  justify-content:flex-end!important;
+  flex-wrap:wrap!important;
+  gap:5px 14px!important;
+  width:100%!important;
+}
+html body.budget-vcc .vcc-budget-excel-row p{
+  flex:1 1 300px!important;
+  min-width:0!important;
+}
+html body.budget-vcc .vcc-budget-excel-row .vcc-download-link{
+  order:20!important;
+  margin-left:auto!important;
+}
+/* Checklist Estocolmo: seleccionar/desmarcar primero, imprimir/PDF siempre
+   en el extremo derecho, incluso cuando haya que saltar de línea. */
+html body .ql-page .ql-v7-section-pack > .ql-v17-actions-strip > .ql-v6-actions #ql-v6-print.vcc-download-link{
+  order:20!important;
+  margin-left:auto!important;
+}
+html body .ql-page .ql-v7-section-pack > .ql-v17-actions-strip > .ql-v6-actions{
+  justify-content:flex-end!important;
+}
+/* Las checklists por país muestran el enlace al pie de su bloque.
+   Se conserva el texto a la izquierda y la acción pegada a la derecha. */
+html body .printbar .printin{
+  display:flex!important;
+  flex-direction:row!important;
+  align-items:flex-end!important;
+  justify-content:space-between!important;
+  flex-wrap:wrap!important;
+  gap:6px 16px!important;
+}
+html body .printbar .printin > .vcc-download-link{
+  order:20!important;
+  margin-left:auto!important;
+  align-self:flex-end!important;
+}
+@media(max-width:720px){
+  html body.budget-vcc .vcc-budget-excel-row p{
+    flex-basis:100%!important;
+  }
+  html body .printbar .printin{
+    flex-direction:column!important;
+    align-items:stretch!important;
+    gap:4px!important;
+  }
+  html body .printbar .printin > .vcc-download-link{
+    align-self:flex-end!important;
+    margin-left:auto!important;
+  }
+  html body .imp-map-footer .imp-map-cta{
+    justify-content:flex-end!important;
+  }
+}
+
 @media print{
   html body button.vcc-download-link,
   html body #ql-v6-print.vcc-download-link{display:none!important}
