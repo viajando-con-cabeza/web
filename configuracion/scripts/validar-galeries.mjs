@@ -53,15 +53,19 @@ for(const url of urls){
  const itineraryLazy=html.includes('/'+itineraryPath)&&html.includes('data-vcc-lazy-gallery-modal');
  const itinerarySource=itineraryLazy&&existsSync(join(root,itineraryPath))
    ?readFileSync(join(root,itineraryPath),'utf8'):'';
+ const itineraryBundle='configuracion/css/plantillas/itinerario-compilado-vcc.css';
+ const itineraryCss=itineraryLazy&&html.includes('/'+itineraryBundle)
+   &&existsSync(join(root,itineraryBundle))
+   &&readFileSync(join(root,itineraryBundle),'utf8').includes('.vcc-booking-gallery .day-mosaic[data-count]');
  const source=lazy?lazySource:onDemand?demandSource:itineraryLazy?itinerarySource:html;
- check(source.includes(sharedCSS)||(itineraryLazy&&html.includes(sharedCSS)),
+ check(source.includes(sharedCSS)||itineraryCss,
    'falta el CSS de la galeria compartida o al seu carregador');
  check(source.includes(sharedJS),
    'falta el controlador JS de la galeria compartida o al seu carregador');
  if(onDemand)check(!html.includes(sharedCSS)&&!html.includes(sharedJS),
    'el visor diferit no ha de bloquejar el renderitzat inicial');
- if(itineraryLazy)check(html.includes(sharedCSS)&&!html.includes(sharedJS),
-   'mosaic de itinerario: CSS inicial per evitar CLS i JS ajornat');
+ if(itineraryLazy)check(itineraryCss&&!html.includes(sharedJS),
+   'mosaic de itinerario: CSS al bundle inicial per evitar CLS i JS ajornat');
  check((html.match(/data-vcc-booking-gallery\b/g)||[]).length===1,
   'ha de tenir un únic modal [data-vcc-booking-gallery]');
  check(/data-vcc-gallery-selector=["'][^"']+["']/.test(html),
