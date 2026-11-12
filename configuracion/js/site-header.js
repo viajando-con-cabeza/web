@@ -100,9 +100,6 @@
         hero=document.querySelector(heroSelector);
       }
       if(!hero) return false;
-      // Las páginas que ya traen una ruta de navegación accesible no deben
-      // duplicarla, ocultarla ni alterar el hero durante el primer render.
-      if(original) return true;
       // Los enlaces se deducen de la URL, no de las distintas plantillas.
       const route=parts.slice(1);
       if(route[route.length-1]==='index.html')route.pop();
@@ -144,6 +141,12 @@
         if(isLast)el.setAttribute('aria-current','page');
         nav.appendChild(el);
       });
+      if(original){
+        original.classList.add('vcc-original-breadcrumb');
+        original.setAttribute('aria-hidden','true');
+        original.setAttribute('inert','');
+        original.style.setProperty('visibility','hidden','important');
+      }
       hero.classList.add('vcc-has-global-breadcrumb');
       if(sectionRoot==='planifica')hero.classList.add('vcc-breadcrumb-on-dark');
       hero.insertBefore(nav,hero.firstChild);
@@ -210,8 +213,7 @@
   const resetHeaderMenu=()=>{
     const menu=document.querySelector('body > .shared-header .shared-menu');
     if (!menu) return;
-    // Evita generar una operación de scroll durante la primera pintura cuando ya está a cero.
-    if (Math.abs(menu.scrollLeft) > 1) menu.scrollLeft=0;
+    menu.scrollLeft=0;
   };
   // pageshow also fires when the browser restores a page from cache.
   window.addEventListener('pageshow',()=>{
