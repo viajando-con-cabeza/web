@@ -146,8 +146,12 @@ for(const p of approvedFiles){
     });
     // LCP: l'escàner del navegador descobreix el recurs ABANS dels CSS,
     // evitant la descoberta tardana al final del <head>.
+    // Primer viewport, després preload: en mòbil evita iniciar la foto desktop
+    // amb l'ample provisional de 980px abans de conèixer el viewport real.
+    const viewport=/<meta\b(?=[^>]*\bname=["']viewport["'])[^>]*>/i;
     const early=/<meta\b[^>]*\bcharset\s*=\s*["']?[^\s>]+[^>]*>/i;
-    html=early.test(html)?html.replace(early,tag=>tag+"\n"+preloadMobile+"\n"+preloadDesktop):
+    const anchor=viewport.test(html)?viewport:early;
+    html=anchor.test(html)?html.replace(anchor,tag=>tag+"\n"+preloadMobile+"\n"+preloadDesktop):
       html.replace(/<head\b[^>]*>/i,tag=>tag+"\n"+preloadMobile+"\n"+preloadDesktop);
   }
   // El logotip té viewBox 620x216; reservar la proporció a l'HTML
