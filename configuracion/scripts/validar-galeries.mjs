@@ -41,10 +41,19 @@ for(const url of urls){
  const lazy=html.includes('/'+lazyPath)&&html.includes('data-vcc-lazy-gallery');
  const lazySource=lazy&&existsSync(join(root,lazyPath))
    ?readFileSync(join(root,lazyPath),'utf8'):'';
- check(lazy ? lazySource.includes(sharedCSS) : html.includes(sharedCSS),
-   'falta el CSS de la galeria compartida');
- check(lazy ? lazySource.includes(sharedJS) : html.includes(sharedJS),
-   'falta el controlador JS de la galeria compartida');
+ // Imprescindibles: el visor es carrega quan s'apropa el mosaic o l'usuari hi
+ // interactua. Comprovar el carregador, no exigir CSS/JS bloquejants al HTML.
+ const demandPath='configuracion/js/componentes/vcc-gallery-on-demand.js';
+ const onDemand=html.includes('/'+demandPath)&&html.includes('data-vcc-lazy-gallery-modal');
+ const demandSource=onDemand&&existsSync(join(root,demandPath))
+   ?readFileSync(join(root,demandPath),'utf8'):'';
+ const source=lazy?lazySource:onDemand?demandSource:html;
+ check(source.includes(sharedCSS),
+   'falta el CSS de la galeria compartida o al seu carregador');
+ check(source.includes(sharedJS),
+   'falta el controlador JS de la galeria compartida o al seu carregador');
+ if(onDemand)check(!html.includes(sharedCSS)&&!html.includes(sharedJS),
+   'el visor diferit no ha de bloquejar el renderitzat inicial');
  check((html.match(/data-vcc-booking-gallery\b/g)||[]).length===1,
   'ha de tenir un únic modal [data-vcc-booking-gallery]');
  check(/data-vcc-gallery-selector=["'][^"']+["']/.test(html),

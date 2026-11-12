@@ -38,6 +38,11 @@ jobs:
       - name: Check reusable CSS and absence of exact duplicates
         run: node configuracion/scripts/verificar-css-vcc.mjs
 
+      - name: Validate shared galleries and Stockholm itinerary
+        run: |
+          node configuracion/scripts/validar-galeries.mjs
+          node configuracion/tests/itinerario-integridad.cjs
+
       - name: Verify published HTML uses shared styles
         run: node configuracion/scripts/verificar-estilos-html-vcc.mjs
 

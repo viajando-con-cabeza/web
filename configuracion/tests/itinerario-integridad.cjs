@@ -46,7 +46,9 @@ gallery.forEach((block, day) => {
   assert.equal(count(block[0], /<button\b/g), expectedPhotos[day], 'Fotos incorrectes al dia ' + (day + 1));
   assert.equal(count(block[0], /data-photo="[^"]+"/g), expectedPhotos[day], 'Falten originals al dia ' + (day + 1));
   const srcTags = [...block[0].matchAll(/<img\b[^>]*\bsrc="([^"]+)"/g)].map(x => x[1]);
-  assert.equal(srcTags.length, expectedPhotos[day], 'Falten imatges miniatura al dia ' + (day + 1));
+  // Només 5 fotos renderitzades per dia al HTML inicial: les altres continuen
+  // disponibles als botons data-photo i les carrega el visor quan calen.
+  assert.equal(srcTags.length, 5, 'El mosaic inicial ha de ser compacte al dia ' + (day + 1));
   assert.ok(srcTags.every(url => url.includes('/__vcc_preview/mini/') || url.includes('/__vcc_preview/visor/')), 'No carregar originals directament al mosaic');
 });
 assert.match(html, /google\.com\/maps\/d\/embed/);
@@ -57,17 +59,19 @@ for (const day of [1, 2, 3]) {
 }
 
 const images = [...html.matchAll(/<img\b[^>]*>/g)].map(x => x[0]);
-assert.equal(images.length, 96, 'Nombre inesperat d’imatges: comprovar el test si s’han afegit fotos');
+assert.ok(images.length >= 15 && images.length < 35, 'El mosaic inicial no ha de renderitzar les 89 fotos abans de la interacció');
 images.forEach((tag, i) => {
   assert.match(tag, /\balt="[^"]*"/, 'Falta alt a la foto ' + i);
   assert.match(tag, /\bwidth="\d+"/, 'Falta width a la foto ' + i);
   assert.match(tag, /\bheight="\d+"/, 'Falta height a la foto ' + i);
 });
-const thumbnails = images.filter(tag => tag.includes('/__vcc_preview/mini/'));
-assert.equal(thumbnails.length, 89, 'Les miniatures dels dies i el resum han de fer servir R2 mini');
-thumbnails.forEach(tag => {
-  assert.match(tag, /\bloading="lazy"/, 'Les miniatures han de ser lazy');
-  assert.match(tag, /\bdecoding="async"/, 'Les miniatures han de descodificar-se async');
+const previewImgs=gallery.flatMap(block => [...block[0].matchAll(/<img\b[^>]*>/g)].map(x=>x[0]));
+assert.equal(previewImgs.length, 15, 'Cinc imatges visibles per dia; les 89 originals es mantenen com data-photo');
+assert.equal(previewImgs.filter(tag => tag.includes('/__vcc_preview/mini/')).length, 12,
+  'Cada mosaic ha de tenir una foto principal nítida i quatre miniatures R2');
+previewImgs.forEach(tag => {
+  assert.match(tag, /\bloading="lazy"/, 'Les previsualitzacions han de ser lazy');
+  assert.match(tag, /\bdecoding="async"/, 'Les previsualitzacions han de descodificar-se async');
 });
 
 const heroUrl = html.match(/--vcc-hero-image:url\('([^']+)'\)/)?.[1];
@@ -116,4 +120,4 @@ const assetUrls = [
 ].map(m => m[1].split('?')[0].slice(1));
 assetUrls.forEach(file => assert.ok(existsSync(join(root, file)), 'Fitxer CSS/JS no trobat: ' + file));
 
-console.log('VCC itinerari: OK — SEO, 3 dies, 17 parades, 89 fotos, previews R2, hero, mapes i components.');
+console.log('VCC itinerari: OK — SEO, 3 dies, 17 parades, 89 fotos conservades, 15 previews R2, hero, mapes i components.');
