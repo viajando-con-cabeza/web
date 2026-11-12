@@ -103,7 +103,9 @@ for(const p of approvedFiles){
           const dim=imageInfo(name,source).variants["960"];
           if(!/\bwidth=["']/.test(result))result=result.replace(/>$/,' width="'+dim.width+'">');
           if(!/\bheight=["']/.test(result))result=result.replace(/>$/,' height="'+dim.height+'">');
-          return result.replace(/>$/,' srcset="'+variant(name,"960",source)+' 960w, '+variant(name,"1920",source)+' '+(source==="externas"?"1600":"1920")+'w" sizes="(max-width: 767px) 320px, 100vw">');
+          const imageVariants=imageInfo(name,source).variants;
+          const desktopSize=source==="externas"?"1600":"1920";
+          return result.replace(/>$/,' srcset="'+variant(name,"960",source)+' '+imageVariants["960"].width+'w, '+variant(name,"1920",source)+' '+imageVariants[desktopSize].width+'w" sizes="(max-width: 767px) 320px, 100vw">');
         });
       }
     }
@@ -127,7 +129,7 @@ for(const p of approvedFiles){
         if(!/\bfetchpriority=/.test(imageTag))
           imageTag=imageTag.replace(/>$/,' fetchpriority="high">');
         imageTag=imageTag.replace(/\s+loading=["']lazy["']/gi,'');
-        return imageTag.replace(/>$/,' srcset="'+mobile+' 960w, '+desktop+' '+desktopWidth+'w" sizes="(max-width: 767px) 320px, 100vw">');
+        return imageTag.replace(/>$/,' srcset="'+mobile+' '+imageInfo(name,source).variants["960"].width+'w, '+desktop+' '+dimensions.width+'w" sizes="(max-width: 767px) 320px, 100vw">');
       });
     });
     const preloadMobile='<link rel="preload" as="image" type="image/webp" media="(max-width: 767px)" href="'+variant(name,"960",source)+'" fetchpriority="high">';
