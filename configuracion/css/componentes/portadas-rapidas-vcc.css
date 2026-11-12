@@ -38,3 +38,29 @@
   html body .mv-page .mv-hero.vcc-portada-transparente{--vcc-portada-imatge:url('/configuracion/imagenes/fondos/optimizadas/fondos-como-moverse-1920.webp?v=6d25e23f48c6')!important;}
   html body .ep-page .ep-hero.vcc-portada-transparente{--vcc-portada-imatge:url('/configuracion/imagenes/fondos/optimizadas/fondos-entradas-y-pases-1920.webp?v=03e22cfacecb')!important;}
 }
+
+
+/* Portades VCC amb LCP natiu: imatge WebP en HTML, mateixa foto i màscara
+   que el pseudo-element compartit. No afectem portades encara no migrades. */
+html body .vcc-portada-transparente.vcc-hero-lcp-img::before,
+html body.budget-vcc .st-shell > section.budget-hero.vcc-portada-transparente.vcc-hero-lcp-img::before{
+  display:none!important;content:none!important;background-image:none!important;
+}
+html body .vcc-portada-transparente.vcc-hero-lcp-img > .vcc-hero-lcp-picture{
+  display:block!important;position:absolute!important;inset:0!important;
+  z-index:0!important;overflow:hidden!important;pointer-events:none!important;
+  margin:0!important;padding:0!important;
+  -webkit-mask-image:var(--vcc-portada-fade,linear-gradient(90deg,transparent,black))!important;
+  mask-image:var(--vcc-portada-fade,linear-gradient(90deg,transparent,black))!important;
+  -webkit-mask-size:100% 100%!important;mask-size:100% 100%!important;
+  -webkit-mask-repeat:no-repeat!important;mask-repeat:no-repeat!important;
+}
+html body .vcc-portada-transparente.vcc-hero-lcp-img > .vcc-hero-lcp-picture > img{
+  display:block!important;width:100%!important;height:100%!important;
+  max-width:none!important;margin:0!important;padding:0!important;
+  object-fit:cover!important;object-position:var(--vcc-portada-posicio,center center)!important;
+  filter:none!important;opacity:1!important;mix-blend-mode:normal!important;
+}
+html body .vcc-portada-transparente.vcc-hero-lcp-img > :not(.vcc-hero-lcp-picture){
+  position:relative;z-index:1;
+}
