@@ -40,23 +40,6 @@
     sync();
   });
 
-  const categoryButtons=[...document.querySelectorAll("[data-av-category]")];
-  const appCards=[...document.querySelectorAll("[data-av-app]")];
-  categoryButtons.forEach(button=>button.addEventListener("click",()=>{
-    const category=button.dataset.avCategory;
-    categoryButtons.forEach(b=>{
-      const active=b===button;
-      b.classList.toggle("is-active",active);
-      b.setAttribute("aria-pressed",String(active));
-    });
-    appCards.forEach(card=>{card.hidden=card.dataset.avApp!==category;});
-    const carousel=carousels.get("apps");
-    if(carousel){
-      carousel.track.scrollLeft=0;
-      requestAnimationFrame(carousel.sync);
-    }
-  }));
-
   const search=document.querySelector("[data-av-activity-search]");
   const continent=document.querySelector("[data-av-continent]");
   const country=document.querySelector("[data-av-country]");
@@ -64,24 +47,36 @@
   const resultCount=document.querySelector("[data-av-result-count]");
   const empty=document.querySelector("[data-av-empty]");
   const activityCards=[...document.querySelectorAll("[data-av-activity]")];
-  const normalize=value=>(value||"").normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLocaleLowerCase("es").trim();
-  const updateActivities=()=>{
+  const moreWrap=document.querySelector("[data-av-more-wrap]");
+  const moreButton=document.querySelector("[data-av-show-more]");
+  const PAGE_SIZE=10;
+  let visibleLimit=PAGE_SIZE;
+  const applyFilters=()=>{
     const query=normalize(search?.value);
-    let visible=0;
-    activityCards.forEach(card=>{
+    const matching=activityCards.filter(card=>{
       const continentMatches=!continent||continent.value==="all"||card.dataset.continent===continent.value;
       const countryMatches=!country||country.value==="all"||card.dataset.country===country.value;
-      const textMatches=!query||normalize(card.textContent).includes(query);
-      card.hidden=!(continentMatches&&countryMatches&&textMatches);
-      if(!card.hidden)visible++;
+      const textMatches=!query||normalize(card.dataset.avSearch+" "+card.textContent).includes(query);
+      return continentMatches&&countryMatches&&textMatches;
     });
-    if(resultCount)resultCount.textContent=visible+" "+(visible===1?"actividad":"actividades");
-    if(empty)empty.hidden=visible>0;
-    const activityCarousel=carousels.get("actividades");
-    if(activityCarousel){
-      activityCarousel.track.scrollLeft=0;
-      requestAnimationFrame(activityCarousel.sync);
+    const subset=new Set(matching.slice(0,visibleLimit));
+    activityCards.forEach(card=>{card.hidden=!subset.has(card);});
+    if(resultCount)resultCount.textContent=matching.length+" "+(matching.length===1?"actividad":"actividades");
+    if(empty)empty.hidden=matching.length>0;
+    if(moreWrap)moreWrap.hidden=matching.length<=visibleLimit;
+    if(moreButton){
+      const left=Math.max(0,matching.length-visibleLimit);
+      moreButton.setAttribute("aria-label","Mostrar "+Math.min(left,PAGE_SIZE)+" actividades más");
     }
+  };
+  moreButton?.addEventListener("click",()=>{
+    visibleLimit+=PAGE_SIZE;
+    applyFilters();
+  });
+  const normalize=value=>(value||"").normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLocaleLowerCase("es").trim();
+  const updateActivities=()=>{
+    visibleLimit=PAGE_SIZE;
+    applyFilters();
   };
   [continent,country].forEach(select=>select?.addEventListener("change",updateActivities));
   search?.addEventListener("input",updateActivities);
