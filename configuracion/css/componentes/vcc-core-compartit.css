@@ -71,6 +71,52 @@
  [data-vcc-carousel] { --vcc-carousel-visible: var(--vcc-carousel-card-visible-mobile,1); }
 }
 
+
+/* VCC · Carruseles editoriales compartidos: Presupuesto + Seguros.
+   Patrón original: tres tarjetas, gap 14px, bordes blanco papel,
+   navegación lateral y 1 tarjeta en móvil. */
+:is(.budget-vcc,.sv-page) .vcc-editorial-carousel{--vcc-editorial-gap:14px;min-width:0}
+:is(.budget-vcc,.sv-page) .vcc-editorial-carousel .vcc-editorial-track{
+ display:flex!important;flex-flow:row nowrap!important;align-items:stretch!important;
+ gap:var(--vcc-editorial-gap)!important;min-width:0;width:100%;
+ overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;
+ scroll-behavior:smooth;scrollbar-width:none;overscroll-behavior-x:contain
+}
+:is(.budget-vcc,.sv-page) .vcc-editorial-carousel .vcc-editorial-track::-webkit-scrollbar{display:none}
+:is(.budget-vcc,.sv-page) .vcc-editorial-carousel .vcc-editorial-card{
+ box-sizing:border-box!important;flex:0 0 calc((100% - 28px)/3)!important;
+ min-width:0!important;scroll-snap-align:start!important;
+ background:#fff!important;background-image:none!important;
+ border:1px solid #e2ddd6!important;border-radius:10px!important;
+ box-shadow:none!important
+}
+@media(max-width:900px){
+ :is(.budget-vcc,.sv-page) .vcc-editorial-carousel .vcc-editorial-card{
+   flex-basis:calc((100% - 14px)/2)!important
+ }
+}
+@media(max-width:760px){
+ :is(.budget-vcc,.sv-page) .vcc-editorial-carousel .vcc-editorial-card{flex:0 0 100%!important}
+ :is(.budget-vcc,.sv-page) .vcc-editorial-carousel .vcc-editorial-track{--vcc-editorial-gap:10px}
+}
+/* Seguros: mismas flechas circulares que el carrusel editorial; en móvil
+   permanecen sobre los extremos de la tarjeta sin estrecharla. */
+.sv-page .vcc-editorial-carousel .sv-arrow{
+ box-sizing:border-box!important;width:36px!important;height:36px!important;
+ border:1px solid #c7aa97!important;border-radius:50%!important;
+ color:#ab553b!important;background:rgba(255,255,255,.83)!important;
+ box-shadow:0 2px 8px rgba(29,22,18,.1)!important;font-size:20px!important;
+ padding:0!important
+}
+.sv-page .vcc-editorial-carousel .sv-arrow:hover:not(:disabled){background:#fff1e8!important}
+@media(max-width:600px){
+ .sv-page .vcc-editorial-carousel{padding-top:0!important}
+ .sv-page .vcc-editorial-carousel .sv-controls{height:100%;inset:0;width:100%;pointer-events:none}
+ .sv-page .vcc-editorial-carousel .sv-arrow{top:50%;transform:translateY(-50%)!important;pointer-events:auto}
+ .sv-page .vcc-editorial-carousel .sv-prev{left:2px}
+ .sv-page .vcc-editorial-carousel .sv-next-arrow{right:2px}
+}
+
 /* === configuracion/css/componentes/subheader-unificado-vcc.css === */
 /* VCC · 2026-11-08 · Navegación secundaria única.
    Referencia: subheader de /destinos/suecia/estocolmo/ (39px, DM Sans, línea coral).
