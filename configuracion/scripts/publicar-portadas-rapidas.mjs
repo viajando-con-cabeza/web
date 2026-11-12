@@ -167,20 +167,26 @@ for(const p of approvedFiles){
     const name=matched[2];
     return tag.replace(/>$/,' srcset="'+variant(name,"480")+' 480w, '+variant(name,"960")+' 960w" sizes="(max-width: 767px) 50vw, '+Math.max(200,Number(w))+'px">');
   });
-  // La ruta versionada de la CSS canvia només quan canvien les fotos.
-  html=html.replace(/<link\b[^>]*data-vcc-fast-heroes[^>]*>\s*/gi,"");
-  if(cfg){
-    // Evitem nous salts de linia a cada generacio; la sortida ha de ser idempotent.
-    html=html.replace(/(?:\r?\n[ \t]*){2,}(?=<\/head\s*>)/i,"\n");
-    html=html.replace(/<\/head\s*>/i,link+"\n</head>");
-  }
-  // Prevenir FOUC/CLS: el CSS del header i dels tokens arriba amb l'HTML.
-  // Es reescriu idempotentment amb hash de contingut per compartir caché.
-  // Unificar també els enllaços antics afegits sense data-vcc-core-styles.
-  html=html.replace(/<link\b(?=[^>]*\bhref=["']\/configuracion\/css\/componentes\/vcc-core-compartit\.css(?:\?[^"']*)?["'])[^>]*>\s*/gi,"");
-  if(html.includes('/configuracion/js/site-header.js')){
-    html=html.replace(/(?:\r?\n[ \t]*){2,}(?=<\/head\s*>)/i,"\n");
-    html=html.replace(/<\/head\s*>/i,coreLink+"\n</head>");
+  // El CSS compilat de pressupost inclou les portades i el core,
+  // en el mateix ordre. No reinserir-los: es duplicarien les peticions LCP.
+  const budgetBundle=p==='destinos/suecia/estocolmo/presupuesto.html' &&
+    html.includes('data-vcc-budget-css') &&
+    html.includes('/configuracion/css/plantillas/presupuesto-compilado-vcc.css');
+  if(!budgetBundle){
+    // La ruta versionada de la CSS canvia només quan canvien les fotos.
+    html=html.replace(/<link\b[^>]*data-vcc-fast-heroes[^>]*>\s*/gi,"");
+    if(cfg){
+      // Evitem nous salts de linia a cada generacio; la sortida ha de ser idempotent.
+      html=html.replace(/(?:\r?\n[ \t]*){2,}(?=<\/head\s*>)/i,"\n");
+      html=html.replace(/<\/head\s*>/i,link+"\n</head>");
+    }
+    // Prevenir FOUC/CLS: el CSS del header i dels tokens arriba amb l'HTML.
+    // Es reescriu idempotentment amb hash de contingut per compartir caché.
+    html=html.replace(/<link\b(?=[^>]*\bhref=["']\/configuracion\/css\/componentes\/vcc-core-compartit\.css(?:\?[^"']*)?["'])[^>]*>\s*/gi,"");
+    if(html.includes('/configuracion/js/site-header.js')){
+      html=html.replace(/(?:\r?\n[ \t]*){2,}(?=<\/head\s*>)/i,"\n");
+      html=html.replace(/<\/head\s*>/i,coreLink+"\n</head>");
+    }
   }
   // Un mateix full local només es carrega una vegada. En cas de versió
   // print/onload + versió directa, conservar la directa. <noscript> no
