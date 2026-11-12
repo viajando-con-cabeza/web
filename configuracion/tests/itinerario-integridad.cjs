@@ -18,6 +18,8 @@ const polish = read('configuracion/css/plantillas/itinerario-polish-vcc.css');
 const hero = read('configuracion/css/componentes/vcc-hero-editorial-vcc.css');
 const heroTransparency = read('configuracion/css/componentes/portadas-transparencia.css');
 const galleryJS = read('configuracion/js/componentes/vcc-gallery-booking.js');
+const galleryLoader = read('configuracion/js/componentes/vcc-itinerary-gallery-on-demand.js');
+const bundle = read('configuracion/css/plantillas/itinerario-compilado-vcc.css');
 const scrollspy = read('configuracion/js/destinos/suecia/estocolmo/vcc-section-scrollspy.js');
 const lazyBgJS = read('configuracion/js/componentes/vcc-lazy-background.js');
 
@@ -106,9 +108,15 @@ assert.match(lazyBgJS, /IntersectionObserver/, 'Cal mantenir lazy background per
 assert.equal(count(html, /<style id=/g), 0, 'Els estils editorials han de viure a configuracion');
 assert.match(html, /data-vcc-sticky-mobile/);
 assert.match(scrollspy, /stickyMobile=nav\.hasAttribute\('data-vcc-sticky-mobile'\)/);
-assert.match(html, /vcc-gallery-booking\.js/);
-assert.match(html, /vcc-gallery-booking\.css/, 'El CSS universal de galeria ha d’estar carregat');
-assert.match(html, /vcc-hero-editorial-vcc\.css/);
+assert.match(html, /vcc-itinerary-gallery-on-demand\.js/, 'El visor només es carrega a demanda');
+assert.match(html, /data-vcc-lazy-gallery-modal/, 'Cal activar el visor diferit');
+assert.doesNotMatch(html, /<script[^>]*src="[^"]*vcc-gallery-booking\.js/, 'No carregar el controlador abans de fer scroll');
+assert.match(galleryLoader, /vcc-gallery-booking\.js/, 'El carregador diferit ha de muntar el visor comú');
+assert.match(html, /vcc-gallery-booking\.css/, 'El mosaic necessita CSS des del primer pintat');
+assert.match(html, /itinerario-compilado-vcc\.css/, 'Un sol CSS compilat per a la guia');
+assert.match(bundle, /--vcc-hero-image:url\(/, 'El bundle ha de conservar el CSS de portada');
+assert.doesNotMatch(bundle, /@import\s+url/, 'No carregar @import bloquejants');
+assert.doesNotMatch(html, /<link[^>]*href="[^"]*vcc-hero-editorial-vcc\.css/, 'Hero integrat en el bundle');
 assert.doesNotMatch(html, /itinerario-vcc-gallery\.js/);
 assert.doesNotMatch(html, /itinerary-mobile-sticky-controller/);
 assert.match(galleryJS, /lastActiveThumb/, 'Les miniatures actives no es recalculen totes amb cada foto');
@@ -120,6 +128,7 @@ assert.match(galleryJS, /<span>Galería<\/span>/, 'Cal mantenir el text del bot�
 
 for (const file of [
   'configuracion/js/componentes/vcc-gallery-booking.js',
+  'configuracion/js/componentes/vcc-itinerary-gallery-on-demand.js',
   'configuracion/js/componentes/vcc-lazy-background.js',
   'configuracion/js/destinos/suecia/estocolmo/vcc-section-scrollspy.js'
 ]) {
