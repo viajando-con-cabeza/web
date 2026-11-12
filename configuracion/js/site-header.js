@@ -247,21 +247,11 @@
     const root=document.querySelector('#country-content');
     if(root&&!root.querySelector('#itinerarios'))root.insertAdjacentHTML('beforeend','<section id="itinerarios" class="sweden-itineraries-section country-main"><div class="country-heading"><div><p>Nuestras rutas reales</p><h2>ITINERARIOS EN ANDALUCÍA</h2></div><span>Rutas independientes y la gran ruta combinada.</span></div><div class="sweden-carousel vcc-fallback-itineraries"><article class="country-itinerary"><img src="/configuracion/imagenes/externas/unsplash/photo-1617469165786-8007eda3caa7.webp" alt="Córdoba en 2 días"><div class="country-itinerary-copy"><span class="tag">2 DÍAS · CIUDAD</span><h3>CÓRDOBA EN 2 DÍAS</h3><p>Mezquita-Catedral, Judería, puente romano y centro histórico.</p><span class="country-soon">PRÓXIMAMENTE</span></div></article><article class="country-itinerary"><img src="/configuracion/imagenes/externas/unsplash/photo-1543783207-ec64e4d95325.webp" alt="Provincia de Cádiz en 7 días"><div class="country-itinerary-copy"><span class="tag">7 DÍAS · COSTA</span><h3>PROVINCIA DE CÁDIZ EN 7 DÍAS</h3><p>Cádiz, Conil, Gibraltar, Tarifa, pueblos blancos y playas.</p><span class="country-soon">PRÓXIMAMENTE</span></div></article><article class="country-itinerary"><img src="/configuracion/imagenes/externas/unsplash/photo-1559564484-e48b3e040ff4.webp" alt="Sevilla en 2 días"><div class="country-itinerary-copy"><span class="tag">2 DÍAS · CIUDAD</span><h3>SEVILLA EN 2 DÍAS</h3><p>Catedral, Plaza de España, Arenal, Triana y Guadalquivir.</p><span class="country-soon">PRÓXIMAMENTE</span></div></article></div></section>');
   },1200);
-  // Privacy pass: keep the public site free of home-town names and calendar years.
+  // Solo se eliminan nombres de localidades privadas. Los años son datos
+  // editoriales necesarios para fechas de viaje, precios, itinerarios y SEO.
   const cleanPublicText=()=>{
     const rePlaces=/Olost|Prats de Lluçanès|Prats del Lluçanès/gi;
-    const reYears=/\b(?:19|20)\d{2}\b/g;
-    // Els anys de preus i reserves són dades útils, no informació personal.
-    // Manté-los en aquesta guia; continua ocultant els noms de poblacions privades.
-    // Dónde ir publica editorials anuals (Navidad 2026, playas 2027).
-    // Els anys de viatge i de tarifes són informació editorial, no privada.
-    // Conservem les dates al pressupost d'Estocolm i als continguts anuals.
-    const preserveYearsHere=/^\/destinos\/suecia\/estocolmo\/(?:presupuesto|entradas-y-pases)(?:\.html)?\/?$/i.test(location.pathname)
-      || /^\/planifica\/donde-ir\/?(?:index\.html)?$/i.test(location.pathname);
-    const clean=s=>{
-      const withoutPlaces=s.replace(rePlaces,'');
-      return (preserveYearsHere ? withoutPlaces : withoutPlaces.replace(reYears,'')).replace(/ {2,}/g,' ');
-    };
+    const clean=s=>s.replace(rePlaces,'').replace(/ {2,}/g,' ');
     const walker=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT);
     const nodes=[];let n;while(n=walker.nextNode())nodes.push(n);
     nodes.forEach(x=>{const v=clean(x.nodeValue);if(v!==x.nodeValue)x.nodeValue=v});
