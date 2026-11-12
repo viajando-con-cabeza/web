@@ -49,7 +49,7 @@ jobs:
                   new PerformanceObserver(es=>{for(const e of es.getEntries())window.__vccLcp.push({tag:e.element?.tagName,score:e.size,time:Math.round(e.startTime),url:e.url});}).observe({type:'largest-contentful-paint',buffered:true});
                 })();""")
                 if excluded:
-                  def blocker(route, excluded=excluded):
+                  def blocker(route):
                     url=route.request.url
                     if route.request.resource_type!='stylesheet':
                       return route.continue_()
