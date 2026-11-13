@@ -1,8 +1,8 @@
-/* VCC · COMPONENT COMPARTIT: targetes d'Itinerarios, Itinerarios destacados i Guías destacadas.
+/* VCC · COMPONENT COMPARTIT: targetes de portada, catàlegs i pagines de país (guies i itineraris).
    Tots els canvis de format, mida, alçada, metadades i CTA es fan aquí.
    El carrousel que les conté i els filtres són responsabilitat de cada pàgina.
    Les classes antigues s'han conservat només per compatibilitat amb JS/estructura. */
-:is(.vcc-it-catalog,body.inicio-vcc.home-editorial-refresh .home-featured-itineraries,body.inicio-vcc.home-editorial-refresh .home-featured-guide) .vcc-it-card{
+:is(.vcc-it-catalog,.vcc-card-collection,body.inicio-vcc.home-editorial-refresh .home-featured-itineraries,body.inicio-vcc.home-editorial-refresh .home-featured-guide) .vcc-it-card{
   display:flex!important;flex-direction:column!important;align-items:stretch!important;
   min-width:0!important;height:auto!important;min-height:315px!important;max-height:none!important;
   overflow:hidden!important;background:#fff!important;
@@ -10,69 +10,69 @@
   box-shadow:0 3px 12px rgba(55,38,26,.035)!important;
   transform:none!important;
 }
-:is(.vcc-it-catalog,body.inicio-vcc.home-editorial-refresh .home-featured-itineraries,body.inicio-vcc.home-editorial-refresh .home-featured-guide) .vcc-it-card .vcc-it-photo{
+:is(.vcc-it-catalog,.vcc-card-collection,body.inicio-vcc.home-editorial-refresh .home-featured-itineraries,body.inicio-vcc.home-editorial-refresh .home-featured-guide) .vcc-it-card .vcc-it-photo{
   position:relative!important;isolation:isolate!important;display:block!important;
   flex:0 0 auto!important;width:100%!important;height:auto!important;
   min-height:0!important;max-height:none!important;aspect-ratio:1.60!important;
   overflow:hidden!important;background:#e8e2d8!important;touch-action:pan-y;
 }
-:is(.vcc-it-catalog,body.inicio-vcc.home-editorial-refresh .home-featured-itineraries,body.inicio-vcc.home-editorial-refresh .home-featured-guide) .vcc-it-card .vcc-it-photo>img{
+:is(.vcc-it-catalog,.vcc-card-collection,body.inicio-vcc.home-editorial-refresh .home-featured-itineraries,body.inicio-vcc.home-editorial-refresh .home-featured-guide) .vcc-it-card .vcc-it-photo>img{
   display:block!important;position:absolute!important;inset:0!important;
   width:100%!important;height:100%!important;
   max-height:none!important;object-fit:cover!important;
   filter:none!important;
 }
-:is(.vcc-it-catalog,body.inicio-vcc.home-editorial-refresh .home-featured-itineraries,body.inicio-vcc.home-editorial-refresh .home-featured-guide) .vcc-it-card .di-mini-body{
+:is(.vcc-it-catalog,.vcc-card-collection,body.inicio-vcc.home-editorial-refresh .home-featured-itineraries,body.inicio-vcc.home-editorial-refresh .home-featured-guide) .vcc-it-card .di-mini-body{
   display:flex!important;flex:1 1 auto!important;flex-direction:column!important;
   align-items:stretch!important;gap:0!important;
   min-width:0!important;min-height:0!important;height:auto!important;
   padding:10px 12px 12px!important;
 }
-:is(.vcc-it-catalog,body.inicio-vcc.home-editorial-refresh .home-featured-itineraries,body.inicio-vcc.home-editorial-refresh .home-featured-guide) .vcc-it-card .vcc-it-title,
-:is(.vcc-it-catalog,body.inicio-vcc.home-editorial-refresh .home-featured-itineraries,body.inicio-vcc.home-editorial-refresh .home-featured-guide) .vcc-it-card .di-mini-body>strong{
+:is(.vcc-it-catalog,.vcc-card-collection,body.inicio-vcc.home-editorial-refresh .home-featured-itineraries,body.inicio-vcc.home-editorial-refresh .home-featured-guide) .vcc-it-card .vcc-it-title,
+:is(.vcc-it-catalog,.vcc-card-collection,body.inicio-vcc.home-editorial-refresh .home-featured-itineraries,body.inicio-vcc.home-editorial-refresh .home-featured-guide) .vcc-it-card .di-mini-body>strong{
   display:block!important;min-height:0!important;max-height:none!important;
   width:100%!important;margin:0 0 7px!important;padding:0!important;
   font:600 19px/1.13 var(--vcc-font-heading,"Oswald",sans-serif)!important;
   color:#23201e!important;text-transform:none!important;text-decoration:none!important;
   overflow-wrap:break-word!important;
 }
-:is(.vcc-it-catalog,body.inicio-vcc.home-editorial-refresh .home-featured-itineraries,body.inicio-vcc.home-editorial-refresh .home-featured-guide) .vcc-it-card .vcc-it-facts{
+:is(.vcc-it-catalog,.vcc-card-collection,body.inicio-vcc.home-editorial-refresh .home-featured-itineraries,body.inicio-vcc.home-editorial-refresh .home-featured-guide) .vcc-it-card .vcc-it-facts{
   display:flex!important;justify-content:flex-start!important;align-items:center!important;
   flex-wrap:wrap!important;gap:5px 10px!important;
   width:100%!important;min-width:0!important;margin:0 0 7px!important;padding:0!important;
 }
-:is(.vcc-it-catalog,body.inicio-vcc.home-editorial-refresh .home-featured-itineraries,body.inicio-vcc.home-editorial-refresh .home-featured-guide) .vcc-it-card .vcc-it-facts>span{
+:is(.vcc-it-catalog,.vcc-card-collection,body.inicio-vcc.home-editorial-refresh .home-featured-itineraries,body.inicio-vcc.home-editorial-refresh .home-featured-guide) .vcc-it-card .vcc-it-facts>span{
   display:inline-flex!important;flex:0 0 auto!important;align-items:center!important;
   gap:4px!important;margin:0!important;padding:0!important;min-width:0!important;
   color:#b95b3c;font:700 10px/1.2 var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;
   white-space:nowrap!important;
 }
-:is(.vcc-it-catalog,body.inicio-vcc.home-editorial-refresh .home-featured-itineraries,body.inicio-vcc.home-editorial-refresh .home-featured-guide) .vcc-it-card .vcc-it-facts .di-country-line{
+:is(.vcc-it-catalog,.vcc-card-collection,body.inicio-vcc.home-editorial-refresh .home-featured-itineraries,body.inicio-vcc.home-editorial-refresh .home-featured-guide) .vcc-it-card .vcc-it-facts .di-country-line{
   color:#4c4540!important;
 }
-:is(.vcc-it-catalog,body.inicio-vcc.home-editorial-refresh .home-featured-itineraries,body.inicio-vcc.home-editorial-refresh .home-featured-guide) .vcc-it-card .vcc-it-facts svg:not(.vcc-it-country-flag),
-:is(.vcc-it-catalog,body.inicio-vcc.home-editorial-refresh .home-featured-itineraries,body.inicio-vcc.home-editorial-refresh .home-featured-guide) .vcc-it-card .vcc-it-facts .vcc-it-coins{
+:is(.vcc-it-catalog,.vcc-card-collection,body.inicio-vcc.home-editorial-refresh .home-featured-itineraries,body.inicio-vcc.home-editorial-refresh .home-featured-guide) .vcc-it-card .vcc-it-facts svg:not(.vcc-it-country-flag),
+:is(.vcc-it-catalog,.vcc-card-collection,body.inicio-vcc.home-editorial-refresh .home-featured-itineraries,body.inicio-vcc.home-editorial-refresh .home-featured-guide) .vcc-it-card .vcc-it-facts .vcc-it-coins{
   display:block!important;flex:0 0 auto!important;width:14px!important;height:14px!important;color:#bf6343!important;
 }
-:is(.vcc-it-catalog,body.inicio-vcc.home-editorial-refresh .home-featured-itineraries,body.inicio-vcc.home-editorial-refresh .home-featured-guide) .vcc-it-card .vcc-it-facts .vcc-it-country-flag{
+:is(.vcc-it-catalog,.vcc-card-collection,body.inicio-vcc.home-editorial-refresh .home-featured-itineraries,body.inicio-vcc.home-editorial-refresh .home-featured-guide) .vcc-it-card .vcc-it-facts .vcc-it-country-flag{
   display:block!important;flex:0 0 auto!important;width:20px!important;height:13px!important;
   border:1px solid rgba(0,0,0,.10)!important;border-radius:2px!important;
   box-shadow:none!important;object-fit:cover!important;
 }
-:is(.vcc-it-catalog,body.inicio-vcc.home-editorial-refresh .home-featured-itineraries,body.inicio-vcc.home-editorial-refresh .home-featured-guide) .vcc-it-card .di-price{
+:is(.vcc-it-catalog,.vcc-card-collection,body.inicio-vcc.home-editorial-refresh .home-featured-itineraries,body.inicio-vcc.home-editorial-refresh .home-featured-guide) .vcc-it-card .di-price{
   color:#b65032!important;font:800 10px/1.2 var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;
 }
-:is(.vcc-it-catalog,body.inicio-vcc.home-editorial-refresh .home-featured-itineraries,body.inicio-vcc.home-editorial-refresh .home-featured-guide) .vcc-it-card .di-price-pending{
+:is(.vcc-it-catalog,.vcc-card-collection,body.inicio-vcc.home-editorial-refresh .home-featured-itineraries,body.inicio-vcc.home-editorial-refresh .home-featured-guide) .vcc-it-card .di-price-pending{
   color:#99918b!important;font-weight:600!important;
 }
 /* Les guies comparteixen fila de durada, pressupost i país amb els itineraris. */
-:is(.vcc-it-catalog,body.inicio-vcc.home-editorial-refresh .home-featured-guide) .vcc-it-card.vcc-guide-card .vcc-it-facts{
+:is(.vcc-it-catalog,.vcc-card-collection,body.inicio-vcc.home-editorial-refresh .home-featured-guide) .vcc-it-card.vcc-guide-card .vcc-it-facts{
   justify-content:flex-start!important;
 }
-:is(.vcc-it-catalog,body.inicio-vcc.home-editorial-refresh .home-featured-guide) .vcc-it-card.vcc-guide-card .vcc-it-facts .di-country-line{
+:is(.vcc-it-catalog,.vcc-card-collection,body.inicio-vcc.home-editorial-refresh .home-featured-guide) .vcc-it-card.vcc-guide-card .vcc-it-facts .di-country-line{
   margin-left:0!important;
 }
-:is(.vcc-it-catalog,body.inicio-vcc.home-editorial-refresh .home-featured-itineraries,body.inicio-vcc.home-editorial-refresh .home-featured-guide) .vcc-it-card .di-mini-desc{
+:is(.vcc-it-catalog,.vcc-card-collection,body.inicio-vcc.home-editorial-refresh .home-featured-itineraries,body.inicio-vcc.home-editorial-refresh .home-featured-guide) .vcc-it-card .di-mini-desc{
   display:-webkit-box!important;-webkit-box-orient:vertical!important;
   -webkit-line-clamp:3!important;line-clamp:3!important;
   overflow:hidden!important;white-space:normal!important;
@@ -82,8 +82,8 @@
   font:400 11px/1.36 var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;
   overflow-wrap:break-word!important;
 }
-:is(.vcc-it-catalog,body.inicio-vcc.home-editorial-refresh .home-featured-itineraries,body.inicio-vcc.home-editorial-refresh .home-featured-guide) .vcc-it-card .vcc-it-cta,
-:is(.vcc-it-catalog,body.inicio-vcc.home-editorial-refresh .home-featured-itineraries,body.inicio-vcc.home-editorial-refresh .home-featured-guide) .vcc-it-card .vcc-it-upcoming{
+:is(.vcc-it-catalog,.vcc-card-collection,body.inicio-vcc.home-editorial-refresh .home-featured-itineraries,body.inicio-vcc.home-editorial-refresh .home-featured-guide) .vcc-it-card .vcc-it-cta,
+:is(.vcc-it-catalog,.vcc-card-collection,body.inicio-vcc.home-editorial-refresh .home-featured-itineraries,body.inicio-vcc.home-editorial-refresh .home-featured-guide) .vcc-it-card .vcc-it-upcoming{
   display:inline-flex!important;flex:0 0 auto!important;
   align-self:flex-end!important;justify-content:flex-end!important;
   margin:auto 0 0!important;padding:8px 0 0!important;
@@ -91,9 +91,9 @@
   text-align:right!important;text-decoration:none!important;
   letter-spacing:0!important;
 }
-:is(.vcc-it-catalog,body.inicio-vcc.home-editorial-refresh .home-featured-itineraries,body.inicio-vcc.home-editorial-refresh .home-featured-guide) .vcc-it-card .vcc-it-cta{color:#b54c2e!important}
-:is(.vcc-it-catalog,body.inicio-vcc.home-editorial-refresh .home-featured-itineraries,body.inicio-vcc.home-editorial-refresh .home-featured-guide) .vcc-it-card .vcc-it-upcoming{color:#ada19a!important}
-:is(.vcc-it-catalog,body.inicio-vcc.home-editorial-refresh .home-featured-itineraries,body.inicio-vcc.home-editorial-refresh .home-featured-guide) .vcc-it-card .vcc-it-gallery-button{
+:is(.vcc-it-catalog,.vcc-card-collection,body.inicio-vcc.home-editorial-refresh .home-featured-itineraries,body.inicio-vcc.home-editorial-refresh .home-featured-guide) .vcc-it-card .vcc-it-cta{color:#b54c2e!important}
+:is(.vcc-it-catalog,.vcc-card-collection,body.inicio-vcc.home-editorial-refresh .home-featured-itineraries,body.inicio-vcc.home-editorial-refresh .home-featured-guide) .vcc-it-card .vcc-it-upcoming{color:#ada19a!important}
+:is(.vcc-it-catalog,.vcc-card-collection,body.inicio-vcc.home-editorial-refresh .home-featured-itineraries,body.inicio-vcc.home-editorial-refresh .home-featured-guide) .vcc-it-card .vcc-it-gallery-button{
   position:absolute!important;z-index:6!important;top:50%!important;
   display:grid!important;place-items:center!important;
   transform:translateY(-50%)!important;
@@ -102,66 +102,66 @@
   background:rgba(255,250,246,.9)!important;color:#b55e3a!important;
   cursor:pointer!important;box-shadow:0 2px 8px rgba(30,19,10,.12)!important;
 }
-:is(.vcc-it-catalog,body.inicio-vcc.home-editorial-refresh .home-featured-itineraries,body.inicio-vcc.home-editorial-refresh .home-featured-guide) .vcc-it-card .vcc-it-gallery-button[data-vcc-it-dir="prev"]{left:10px!important;right:auto!important}
-:is(.vcc-it-catalog,body.inicio-vcc.home-editorial-refresh .home-featured-itineraries,body.inicio-vcc.home-editorial-refresh .home-featured-guide) .vcc-it-card .vcc-it-gallery-button[data-vcc-it-dir="next"]{right:10px!important;left:auto!important}
-:is(.vcc-it-catalog,body.inicio-vcc.home-editorial-refresh .home-featured-itineraries,body.inicio-vcc.home-editorial-refresh .home-featured-guide) .vcc-it-card .vcc-it-gallery-button svg{
+:is(.vcc-it-catalog,.vcc-card-collection,body.inicio-vcc.home-editorial-refresh .home-featured-itineraries,body.inicio-vcc.home-editorial-refresh .home-featured-guide) .vcc-it-card .vcc-it-gallery-button[data-vcc-it-dir="prev"]{left:10px!important;right:auto!important}
+:is(.vcc-it-catalog,.vcc-card-collection,body.inicio-vcc.home-editorial-refresh .home-featured-itineraries,body.inicio-vcc.home-editorial-refresh .home-featured-guide) .vcc-it-card .vcc-it-gallery-button[data-vcc-it-dir="next"]{right:10px!important;left:auto!important}
+:is(.vcc-it-catalog,.vcc-card-collection,body.inicio-vcc.home-editorial-refresh .home-featured-itineraries,body.inicio-vcc.home-editorial-refresh .home-featured-guide) .vcc-it-card .vcc-it-gallery-button svg{
   width:18px!important;height:18px!important;filter:none!important;pointer-events:none!important;
 }
-:is(.vcc-it-catalog,body.inicio-vcc.home-editorial-refresh .home-featured-itineraries,body.inicio-vcc.home-editorial-refresh .home-featured-guide) .vcc-it-card .vcc-it-photo-count{
+:is(.vcc-it-catalog,.vcc-card-collection,body.inicio-vcc.home-editorial-refresh .home-featured-itineraries,body.inicio-vcc.home-editorial-refresh .home-featured-guide) .vcc-it-card .vcc-it-photo-count{
   position:absolute!important;z-index:5!important;right:10px!important;left:auto!important;
   bottom:9px!important;padding:5px 8px!important;border-radius:9px!important;
   color:#fff!important;background:rgba(28,33,35,.70)!important;
   font:800 11px/1.05 var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;
 }
 @media(max-width:620px){
-  :is(.vcc-it-catalog,body.inicio-vcc.home-editorial-refresh .home-featured-itineraries,body.inicio-vcc.home-editorial-refresh .home-featured-guide) .vcc-it-card{
+  :is(.vcc-it-catalog,.vcc-card-collection,body.inicio-vcc.home-editorial-refresh .home-featured-itineraries,body.inicio-vcc.home-editorial-refresh .home-featured-guide) .vcc-it-card{
     min-height:0!important;
   }
-  :is(.vcc-it-catalog,body.inicio-vcc.home-editorial-refresh .home-featured-itineraries,body.inicio-vcc.home-editorial-refresh .home-featured-guide) .vcc-it-card .vcc-it-title,
-  :is(.vcc-it-catalog,body.inicio-vcc.home-editorial-refresh .home-featured-itineraries,body.inicio-vcc.home-editorial-refresh .home-featured-guide) .vcc-it-card .di-mini-body>strong{
+  :is(.vcc-it-catalog,.vcc-card-collection,body.inicio-vcc.home-editorial-refresh .home-featured-itineraries,body.inicio-vcc.home-editorial-refresh .home-featured-guide) .vcc-it-card .vcc-it-title,
+  :is(.vcc-it-catalog,.vcc-card-collection,body.inicio-vcc.home-editorial-refresh .home-featured-itineraries,body.inicio-vcc.home-editorial-refresh .home-featured-guide) .vcc-it-card .di-mini-body>strong{
     font-size:17px!important;
   }
-  :is(.vcc-it-catalog,body.inicio-vcc.home-editorial-refresh .home-featured-itineraries,body.inicio-vcc.home-editorial-refresh .home-featured-guide) .vcc-it-card .di-mini-body{padding:11px!important;}
-  :is(.vcc-it-catalog,body.inicio-vcc.home-editorial-refresh .home-featured-itineraries,body.inicio-vcc.home-editorial-refresh .home-featured-guide) .vcc-it-card .vcc-it-gallery-button{
+  :is(.vcc-it-catalog,.vcc-card-collection,body.inicio-vcc.home-editorial-refresh .home-featured-itineraries,body.inicio-vcc.home-editorial-refresh .home-featured-guide) .vcc-it-card .di-mini-body{padding:11px!important;}
+  :is(.vcc-it-catalog,.vcc-card-collection,body.inicio-vcc.home-editorial-refresh .home-featured-itineraries,body.inicio-vcc.home-editorial-refresh .home-featured-guide) .vcc-it-card .vcc-it-gallery-button{
     width:36px!important;height:36px!important;
   }
 }
 
 /* Portada VCC: sobresortitols i puntuacions compartits per guies i itineraris */
 /* Categoria, sota la fotografia: mateixa lectura visual a les dues seccions. */
-body.inicio-vcc.home-editorial-refresh :is(.home-featured-itineraries,.home-featured-guide) .vcc-it-card .vcc-card-kicker{
+:is(body.inicio-vcc.home-editorial-refresh :is(.home-featured-itineraries,.home-featured-guide),.vcc-card-collection) .vcc-it-card .vcc-card-kicker{
   display:inline-flex!important;align-items:center!important;align-self:flex-start!important;gap:4px!important;
   position:static!important;width:auto!important;margin:0 0 4px!important;padding:0!important;
   border:0!important;box-shadow:none!important;background:transparent!important;border-radius:0!important;
   font:800 9px/1.2 var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;
   color:#c75e3c!important;letter-spacing:.03em!important;text-transform:uppercase!important;
 }
-body.inicio-vcc.home-editorial-refresh :is(.home-featured-itineraries,.home-featured-guide) .vcc-it-card .vcc-card-kicker svg{
+:is(body.inicio-vcc.home-editorial-refresh :is(.home-featured-itineraries,.home-featured-guide),.vcc-card-collection) .vcc-it-card .vcc-card-kicker svg{
   display:block!important;flex:0 0 13px!important;width:13px!important;height:13px!important;color:#ce6747!important;
 }
 /* Nota identica a la guia de Suecia (quadrat #777 + text blanc sobre foto),
    lleugerament reduida per encaixar a les targetes destacades. */
-body.inicio-vcc.home-editorial-refresh :is(.home-featured-itineraries,.home-featured-guide) .vcc-it-card .vcc-card-score{
+:is(body.inicio-vcc.home-editorial-refresh :is(.home-featured-itineraries,.home-featured-guide),.vcc-card-collection) .vcc-it-card .vcc-card-score{
   position:absolute!important;z-index:7!important;right:8px!important;top:7px!important;bottom:auto!important;left:auto!important;
   display:flex!important;flex-direction:column!important;align-items:flex-end!important;justify-content:flex-end!important;
   gap:0!important;min-width:0!important;width:max-content!important;margin:0!important;padding:0!important;
   border:0!important;border-radius:0!important;background:transparent!important;box-shadow:none!important;
   text-align:right!important;text-decoration:none!important;
 }
-body.inicio-vcc.home-editorial-refresh :is(.home-featured-itineraries,.home-featured-guide) .vcc-it-card .vcc-card-score strong{
+:is(body.inicio-vcc.home-editorial-refresh :is(.home-featured-itineraries,.home-featured-guide),.vcc-card-collection) .vcc-it-card .vcc-card-score strong{
   display:grid!important;place-items:center!important;
   width:36px!important;height:34px!important;margin:0!important;padding:2px 0 0!important;
   background:#777!important;color:#fff!important;
   border-radius:7px!important;box-shadow:0 4px 12px rgba(0,0,0,.2)!important;
   font:500 18px/1 var(--vcc-font-heading,"Oswald",sans-serif)!important;text-align:center!important;
 }
-body.inicio-vcc.home-editorial-refresh :is(.home-featured-itineraries,.home-featured-guide) .vcc-it-card .vcc-card-score small{
+:is(body.inicio-vcc.home-editorial-refresh :is(.home-featured-itineraries,.home-featured-guide),.vcc-card-collection) .vcc-it-card .vcc-card-score small{
   display:flex!important;align-items:center!important;justify-content:flex-end!important;gap:3px!important;
   margin:3px 0 0!important;padding:0 1px!important;color:#fff!important;
   font:800 7.5px/1.1 var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;
   white-space:nowrap!important;text-shadow:0 1px 4px rgba(0,0,0,.9),0 1px 9px rgba(0,0,0,.6)!important;
 }
-body.inicio-vcc.home-editorial-refresh :is(.home-featured-itineraries,.home-featured-guide) .vcc-it-card .vcc-card-score small::before{
+:is(body.inicio-vcc.home-editorial-refresh :is(.home-featured-itineraries,.home-featured-guide),.vcc-card-collection) .vcc-it-card .vcc-card-score small::before{
   content:""!important;width:10px!important;height:10px!important;flex:0 0 10px!important;
   background:url('/configuracion/imagenes/iconos/paper-plane-trail.svg') center/contain no-repeat!important;
   filter:brightness(0) invert(1) drop-shadow(0 1px 3px rgba(0,0,0,.65))!important;
@@ -176,19 +176,49 @@ body.inicio-vcc.home-editorial-refresh .home-featured-itineraries .vcc-score-met
 }
 body.inicio-vcc.home-editorial-refresh .home-featured-itineraries .vcc-score-method p{margin:6px 0 0!important;max-width:830px!important}
 @media(max-width:620px){
-  body.inicio-vcc.home-editorial-refresh :is(.home-featured-itineraries,.home-featured-guide) .vcc-it-card .vcc-card-kicker{
+  :is(body.inicio-vcc.home-editorial-refresh :is(.home-featured-itineraries,.home-featured-guide),.vcc-card-collection) .vcc-it-card .vcc-card-kicker{
     gap:4px!important;font-size:8.5px!important;margin-bottom:4px!important;
   }
-  body.inicio-vcc.home-editorial-refresh :is(.home-featured-itineraries,.home-featured-guide) .vcc-it-card .vcc-card-kicker svg{
+  :is(body.inicio-vcc.home-editorial-refresh :is(.home-featured-itineraries,.home-featured-guide),.vcc-card-collection) .vcc-it-card .vcc-card-kicker svg{
     width:12px!important;height:12px!important;flex-basis:12px!important;
   }
-  body.inicio-vcc.home-editorial-refresh :is(.home-featured-itineraries,.home-featured-guide) .vcc-it-card .vcc-card-score{
+  :is(body.inicio-vcc.home-editorial-refresh :is(.home-featured-itineraries,.home-featured-guide),.vcc-card-collection) .vcc-it-card .vcc-card-score{
     right:6px!important;top:6px!important;bottom:auto!important;
   }
-  body.inicio-vcc.home-editorial-refresh :is(.home-featured-itineraries,.home-featured-guide) .vcc-it-card .vcc-card-score strong{
+  :is(body.inicio-vcc.home-editorial-refresh :is(.home-featured-itineraries,.home-featured-guide),.vcc-card-collection) .vcc-it-card .vcc-card-score strong{
     width:34px!important;height:32px!important;font-size:17px!important;
   }
-  body.inicio-vcc.home-editorial-refresh :is(.home-featured-itineraries,.home-featured-guide) .vcc-it-card .vcc-card-score small{
+  :is(body.inicio-vcc.home-editorial-refresh :is(.home-featured-itineraries,.home-featured-guide),.vcc-card-collection) .vcc-it-card .vcc-card-score small{
     font-size:7px!important;
+  }
+}
+
+/* País: mateix component que la portada; només varia l'alçada. */
+.vcc-card-collection .vcc-it-card .vcc-it-photo{
+  border-bottom:1px solid #dedbd6!important;
+  box-sizing:border-box!important;
+}
+body.country-page .vcc-sweden-page :is(#guias,#itinerarios) .vcc-card-collection .vcc-it-card{
+  min-height:490px!important;
+}
+body.country-page .vcc-sweden-page .vcc-score-method{
+  margin:9px 2px 0;padding:0;color:#756861;
+  font:500 11px/1.45 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
+}
+body.country-page .vcc-sweden-page .vcc-score-method summary{
+  display:list-item;width:max-content;max-width:100%;
+  cursor:pointer;color:#a15c43;font-weight:700;
+}
+body.country-page .vcc-sweden-page .vcc-score-method p{
+  margin:6px 0 0;max-width:830px;
+}
+@media(max-width:900px){
+  body.country-page .vcc-sweden-page :is(#guias,#itinerarios) .vcc-card-collection .vcc-it-card{
+    min-height:460px!important;
+  }
+}
+@media(max-width:620px){
+  body.country-page .vcc-sweden-page :is(#guias,#itinerarios) .vcc-card-collection .vcc-it-card{
+    min-height:440px!important;
   }
 }
