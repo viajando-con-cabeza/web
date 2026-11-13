@@ -1,0 +1,208 @@
+/* VCC · Planifica tu viaje · paritat visual Suecia / Estocolmo.
+   Patró de referència: les sis targetes de Planifica de la guia d'Estocolmo.
+   S'aplica només a la guia país Suecia, carregat al final per neutralitzar
+   les regles antigues de l'actual plantilla. Les dades són independents. */
+
+html body.country-page .country-main.sweden-main{
+  width:min(1180px,calc(100% - 48px))!important;
+  max-width:1180px!important;
+  margin-left:auto!important;
+  margin-right:auto!important;
+}
+html body.country-page #planifica.vcc-plan-section{
+  min-width:0!important;
+  max-width:100%!important;
+  box-sizing:border-box!important;
+}
+html body.country-page #planifica>.country-heading{
+  display:flex!important;
+  align-items:flex-end!important;
+  justify-content:space-between!important;
+  gap:20px!important;
+}
+html body.country-page #planifica>.country-heading>span{
+  display:block!important;
+  flex:1 1 auto!important;
+  margin:0 0 2px!important;
+  text-align:right!important;
+  white-space:nowrap!important;
+  max-width:none!important;
+  font:400 12px/1.5 var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;
+  color:#716a64!important;
+}
+html body.country-page #planifica .vcc-prep-grid{
+  display:grid!important;
+  grid-template-columns:repeat(6,minmax(0,1fr))!important;
+  align-items:stretch!important;
+  width:100%!important;
+  min-width:0!important;
+  max-width:100%!important;
+  gap:10px!important;
+  margin:0!important;
+}
+html body.country-page #planifica .vcc-prep-card{
+  display:flex!important;
+  flex-direction:column!important;
+  width:100%!important;
+  min-width:0!important;
+  height:100%!important;
+  padding:0!important;
+  border:1px solid var(--country-line,#e8ded3)!important;
+  border-radius:10px!important;
+  background:#fff!important;
+  box-shadow:none!important;
+  overflow:hidden!important;
+}
+html body.country-page #planifica .vcc-prep-image{
+  display:block!important;
+  position:relative!important;
+  isolation:isolate!important;
+  width:100%!important;
+  height:120px!important;
+  min-height:120px!important;
+  flex:0 0 120px!important;
+  background-color:#eef0ee!important;
+  overflow:visible!important;
+  z-index:2!important;
+}
+html body.country-page #planifica .vcc-prep-image>img{
+  display:block!important;
+  width:100%!important;
+  height:100%!important;
+  object-fit:cover!important;
+  object-position:center!important;
+}
+html body.country-page #planifica .vcc-prep-image>span{
+  position:absolute!important;
+  left:50%!important;
+  bottom:-15px!important;
+  transform:translateX(-50%)!important;
+  z-index:5!important;
+  display:grid!important;
+  place-items:center!important;
+  width:31px!important;
+  height:31px!important;
+  padding:0!important;
+  box-sizing:border-box!important;
+  border:1px solid #e4d9cf!important;
+  border-radius:50%!important;
+  background:#fbf8f4!important;
+  color:#925344!important;
+  font-size:14px!important;
+  line-height:1!important;
+  pointer-events:none!important;
+}
+html body.country-page #planifica .vcc-prep-card:first-child .vcc-prep-image>span{
+  font-size:21px!important;
+  font-weight:600!important;
+}
+html body.country-page #planifica .vcc-prep-copy{
+  position:relative!important;
+  display:flex!important;
+  flex-direction:column!important;
+  flex:1 1 auto!important;
+  width:100%!important;
+  min-width:0!important;
+  height:auto!important;
+  min-height:130px!important;
+  padding:23px 10px 11px!important;
+  box-sizing:border-box!important;
+  text-align:center!important;
+  z-index:1!important;
+}
+html body.country-page #planifica .vcc-prep-copy h3{
+  font:500 16px/1.2 var(--vcc-font-heading,"Oswald",sans-serif)!important;
+  letter-spacing:0!important;
+  margin:0 0 5px!important;
+  color:#2b2b29!important;
+}
+html body.country-page #planifica .vcc-prep-copy>p{
+  font:400 11px/1.5 var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;
+  color:var(--vcc-muted,#5d5650)!important;
+  margin:0!important;
+}
+html body.country-page #planifica .vcc-prep-copy>.vcc-card-action{
+  display:flex!important;
+  align-items:flex-end!important;
+  justify-content:flex-end!important;
+  width:100%!important;
+  min-height:28px!important;
+  margin-top:auto!important;
+  padding-top:14px!important;
+  text-align:right!important;
+}
+html body.country-page #planifica .vcc-prep-action,
+html body.country-page #planifica .vcc-soon{
+  position:relative!important;
+  display:inline-flex!important;
+  align-self:flex-end!important;
+  justify-content:flex-end!important;
+  width:auto!important;
+  min-width:0!important;
+  min-height:0!important;
+  height:auto!important;
+  margin:0!important;
+  padding:0!important;
+  border:0!important;
+  border-radius:0!important;
+  background:transparent!important;
+  box-shadow:none!important;
+  text-align:right!important;
+  white-space:nowrap!important;
+  font:800 8.6px/1.2 var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;
+  letter-spacing:.035em!important;
+}
+html body.country-page #planifica .vcc-prep-action{
+  color:var(--vcc-action,#a65340)!important;
+  text-decoration:none!important;
+}
+html body.country-page #planifica .vcc-prep-action:hover,
+html body.country-page #planifica .vcc-prep-action:focus-visible{
+  color:var(--vcc-action-hover,#78392d)!important;
+  text-decoration:underline!important;
+  text-underline-offset:3px!important;
+}
+html body.country-page #planifica .vcc-prep-action:after{
+  content:"";
+  position:absolute;
+  inset:-12px -16px;
+}
+html body.country-page #planifica .vcc-soon{
+  color:var(--vcc-soon,#aaa29c)!important;
+  pointer-events:none!important;
+}
+@media(max-width:1050px){
+  html body.country-page #planifica .vcc-prep-grid{
+    grid-template-columns:repeat(3,minmax(0,1fr))!important;
+  }
+}
+@media(max-width:850px){
+  html body.country-page .country-main.sweden-main{
+    width:calc(100% - 28px)!important;
+  }
+}
+@media(max-width:720px){
+  html body.country-page #planifica>.country-heading{
+    display:block!important;
+  }
+  html body.country-page #planifica>.country-heading>span{
+    text-align:left!important;
+    white-space:normal!important;
+    margin-top:10px!important;
+  }
+}
+@media(max-width:600px){
+  html body.country-page #planifica .vcc-prep-grid{
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  }
+  html body.country-page #planifica .vcc-prep-image{
+    height:118px!important;
+    min-height:118px!important;
+    flex-basis:118px!important;
+  }
+}
+@media(max-width:420px){
+  html body.country-page #planifica .vcc-prep-grid{
+    grid-template-columns:1fr!important;
+  }
+}
