@@ -49,8 +49,8 @@ function countryCard(x,isGuide){
      '<span class="vcc-card-kicker">'+cardIcon(icon)+esc(tag)+'</span>'+
      '<h3 class="vcc-it-title">'+esc(title)+'</h3>'+
      '<div class="vcc-it-facts'+(isGuide?' vcc-it-guide-facts':'')+'">'+
-       '<span class="di-route-stats">'+cardIcon('clock')+esc(duration)+'</span>'+
-       '<span class="di-budget-row" title="'+priceTitle+'">'+cardIcon('coins','vcc-it-coins')+'<span class="di-price'+(x.budget?'':' di-price-pending')+'">'+esc(price)+'</span></span>'+
+       (isGuide?'':'<span class="di-route-stats">'+cardIcon('clock')+esc(duration)+'</span>'+
+         '<span class="di-budget-row" title="'+priceTitle+'">'+cardIcon('coins','vcc-it-coins')+'<span class="di-price'+(x.budget?'':' di-price-pending')+'">'+esc(price)+'</span></span>')+
        '<span class="di-country-line home-card-country" title="Suecia"><img class="vcc-it-country-flag" src="'+VCC_FLAG+'" alt="Suecia" width="16" height="12"><span>Suecia</span></span>'+
      '</div>'+
      '<p class="home-card-desc di-mini-desc">'+esc(x.text||'Próximamente más detalles de esta ruta.')+'</p>'+
