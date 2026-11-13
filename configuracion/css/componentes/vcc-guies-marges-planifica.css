@@ -1,0 +1,85 @@
+/* VCC | UNA sola font de veritat: marges de guia i targetes Planifica.
+   SUÈCIA i ESTOCOLM carreguen exactament aquest mateix full, en darrer lloc.
+   Continguts/destinacions independents, dimensions i breakpoints idèntics.
+   Evita regles d'alçada divergents provinents de les plantilles històriques. */
+
+:root{
+  --vcc-guide-max-width:1180px;
+  --vcc-guide-horizontal-gap:48px;
+  --vcc-prep-card-height:296px;
+  --vcc-prep-photo-height:120px;
+}
+html body :is(.st-shell,#country-content){min-width:0!important;max-width:100%!important;box-sizing:border-box!important}
+html body :is(.st-shell>main.st-main,.st-shell>main.country-main.after-inspiration,
+ #country-content>main.country-main.sweden-main){
+  display:block;
+  width:min(var(--vcc-guide-max-width),calc(100% - var(--vcc-guide-horizontal-gap)))!important;
+  max-width:var(--vcc-guide-max-width)!important;
+  margin-left:auto!important;
+  margin-right:auto!important;
+  padding-left:0!important;
+  padding-right:0!important;
+  box-sizing:border-box!important;
+  min-width:0!important;
+}
+html body :is(.st-shell .st-hero-inner,#country-content .country-hero-inner,
+ #country-content .country-nav-inner){
+  width:min(var(--vcc-guide-max-width),calc(100% - var(--vcc-guide-horizontal-gap)))!important;
+  max-width:var(--vcc-guide-max-width)!important;
+  margin-left:auto!important;
+  margin-right:auto!important;
+  box-sizing:border-box!important;
+}
+html body .st-shell .st-tabs{
+  padding-left:max(24px,calc((100vw - var(--vcc-guide-max-width))/2))!important;
+  padding-right:max(24px,calc((100vw - var(--vcc-guide-max-width))/2))!important;
+}
+html body :is(.st-shell>main.st-main,#country-content>main.country-main.sweden-main)>section{
+  min-width:0!important;
+  max-width:100%!important;
+  box-sizing:border-box!important;
+}
+:is(html body.country-page #planifica,html body .st-shell #planifica){box-sizing:border-box!important;min-width:0!important;max-width:100%!important;margin-top:66px!important;padding-top:2px!important;}
+:is(html body.country-page #planifica,html body .st-shell #planifica)>.country-heading{display:flex!important;align-items:flex-end!important;justify-content:space-between!important;gap:20px!important;margin:0 0 22px!important;min-width:0!important;}
+:is(html body.country-page #planifica,html body .st-shell #planifica)>.country-heading>div{min-width:0!important;flex:0 1 auto!important;}
+:is(html body.country-page #planifica,html body .st-shell #planifica)>.country-heading>div>p{font-family:var(--vcc-font-script,"Caveat",cursive)!important;font-size:25px!important;font-weight:600!important;line-height:1!important;letter-spacing:0!important;text-transform:none!important;color:var(--country-coral,#c86f5d)!important;margin:0!important;}
+:is(html body.country-page #planifica,html body .st-shell #planifica)>.country-heading>div>h2{font-family:var(--vcc-font-heading,"Oswald",sans-serif)!important;font-size:40px!important;font-weight:500!important;line-height:1!important;letter-spacing:0!important;color:var(--country-ink,#171717)!important;text-transform:uppercase!important;margin:2px 0 0!important;}
+:is(html body.country-page #planifica,html body .st-shell #planifica)>.country-heading>span{font-family:var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;font-size:12px!important;font-weight:400!important;line-height:1.5!important;color:#716a64!important;display:block!important;flex:1 1 auto!important;min-width:0!important;max-width:none!important;margin:0 0 2px!important;text-align:right!important;white-space:nowrap!important;}
+:is(html body.country-page #planifica,html body .st-shell #planifica) .vcc-prep-grid{display:grid!important;grid-template-columns:repeat(6,minmax(0,1fr))!important;grid-auto-rows:296px!important;align-items:stretch!important;gap:10px!important;width:100%!important;max-width:100%!important;min-width:0!important;margin:0!important;padding:0!important;box-sizing:border-box!important;}
+:is(html body.country-page #planifica,html body .st-shell #planifica) .vcc-prep-card{display:flex!important;flex-direction:column!important;align-items:stretch!important;min-width:0!important;width:100%!important;height:100%!important;min-height:0!important;max-height:100%!important;overflow:hidden!important;box-sizing:border-box!important;background:#fff!important;border:1px solid var(--country-line,#e8ded3)!important;border-radius:10px!important;box-shadow:none!important;}
+:is(html body.country-page #planifica,html body .st-shell #planifica) .vcc-prep-image{position:relative!important;isolation:isolate!important;display:block!important;flex:0 0 120px!important;width:100%!important;height:120px!important;min-height:120px!important;max-height:120px!important;overflow:visible!important;background:#eef0ee!important;z-index:2!important;}
+:is(html body.country-page #planifica,html body .st-shell #planifica) .vcc-prep-image>img{display:block!important;width:100%!important;height:100%!important;min-width:0!important;min-height:0!important;max-height:none!important;object-fit:cover!important;object-position:center center!important;opacity:1!important;filter:none!important;}
+:is(html body.country-page #planifica,html body .st-shell #planifica) .vcc-prep-image>span{position:absolute!important;left:50%!important;bottom:-15px!important;transform:translateX(-50%)!important;z-index:5!important;display:grid!important;place-items:center!important;flex:0 0 31px!important;width:31px!important;height:31px!important;padding:0!important;margin:0!important;box-sizing:border-box!important;border:1px solid #e4d9cf!important;border-radius:50%!important;background:#fbf8f4!important;color:#925344!important;font-size:14px!important;font-weight:400!important;line-height:1!important;pointer-events:none!important;}
+:is(html body.country-page #planifica,html body .st-shell #planifica) .vcc-prep-card:first-child .vcc-prep-image>span{font-size:21px!important;font-weight:600!important;}
+:is(html body.country-page #planifica,html body .st-shell #planifica) .vcc-prep-copy{display:flex!important;flex-direction:column!important;flex:1 1 auto!important;min-width:0!important;width:100%!important;height:auto!important;min-height:0!important;max-height:none!important;box-sizing:border-box!important;position:relative!important;z-index:1!important;padding:23px 10px 11px!important;text-align:center!important;}
+:is(html body.country-page #planifica,html body .st-shell #planifica) .vcc-prep-copy>h3{font-family:var(--vcc-font-heading,"Oswald",sans-serif)!important;font-size:16px!important;font-weight:500!important;line-height:1.2!important;letter-spacing:0!important;margin:0 0 5px!important;color:#2b2b29!important;}
+:is(html body.country-page #planifica,html body .st-shell #planifica) .vcc-prep-copy>p{font-family:var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;font-size:11px!important;font-weight:400!important;line-height:1.5!important;color:var(--vcc-muted,#5d5650)!important;margin:0!important;}
+:is(html body.country-page #planifica,html body .st-shell #planifica) .vcc-prep-copy>.vcc-card-action{display:flex!important;align-items:flex-end!important;justify-content:flex-end!important;flex:0 0 auto!important;align-self:stretch!important;width:100%!important;min-height:28px!important;margin-top:auto!important;padding:14px 0 0!important;text-align:right!important;}
+:is(html body.country-page #planifica,html body .st-shell #planifica) .vcc-prep-copy .vcc-card-action :is(.vcc-prep-action,.vcc-soon){position:relative!important;display:inline-flex!important;align-self:flex-end!important;justify-content:flex-end!important;min-width:0!important;width:auto!important;min-height:0!important;height:auto!important;margin:0!important;padding:0!important;border:0!important;border-radius:0!important;background:transparent!important;box-shadow:none!important;text-align:right!important;white-space:nowrap!important;font-family:var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;font-size:8.6px!important;line-height:1.2!important;font-weight:800!important;letter-spacing:.035em!important;}
+:is(html body.country-page #planifica,html body .st-shell #planifica) .vcc-prep-copy .vcc-prep-action{color:var(--vcc-action,#a65340)!important;text-decoration:none!important;}
+:is(html body.country-page #planifica,html body .st-shell #planifica) .vcc-prep-copy .vcc-soon{color:var(--vcc-soon,#c9bcb2)!important;pointer-events:none!important;}
+:is(html body.country-page #planifica,html body .st-shell #planifica) .vcc-prep-copy .vcc-prep-action:is(:hover,:focus-visible){color:var(--vcc-action-hover,#78392d)!important;text-decoration:underline!important;text-underline-offset:3px!important;}
+:is(html body.country-page #planifica,html body .st-shell #planifica) .vcc-prep-copy .vcc-prep-action::after{content:"";position:absolute;inset:-12px -16px;}
+
+@media(max-width:1050px){
+ :is(html body.country-page #planifica,html body .st-shell #planifica) .vcc-prep-grid{grid-template-columns:repeat(3,minmax(0,1fr))!important}
+}
+@media(max-width:850px){
+ :root{--vcc-guide-horizontal-gap:28px}
+ html body .st-shell .st-tabs{padding-left:14px!important;padding-right:14px!important}
+}
+@media(max-width:720px){
+ :is(html body.country-page #planifica,html body .st-shell #planifica)>.country-heading{display:block!important}
+ :is(html body.country-page #planifica,html body .st-shell #planifica)>.country-heading>span{display:block!important;margin-top:10px!important;text-align:left!important;white-space:normal!important}
+}
+@media(max-width:600px){
+ :is(html body.country-page #planifica,html body .st-shell #planifica) .vcc-prep-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;grid-auto-rows:308px!important;gap:10px!important}
+ :is(html body.country-page #planifica,html body .st-shell #planifica) .vcc-prep-image{height:118px!important;min-height:118px!important;max-height:118px!important;flex-basis:118px!important}
+ :is(html body.country-page #planifica,html body .st-shell #planifica) .vcc-prep-copy{padding:23px 10px 11px!important;min-height:0!important}
+ :is(html body.country-page #planifica,html body .st-shell #planifica) .vcc-prep-copy>h3{font-size:16px!important;line-height:1.2!important;margin-bottom:5px!important}
+ :is(html body.country-page #planifica,html body .st-shell #planifica) .vcc-prep-copy>p{font-size:11px!important;line-height:1.5!important}
+ :is(html body.country-page #planifica,html body .st-shell #planifica) .vcc-prep-copy>.vcc-card-action{min-height:28px!important;padding-top:14px!important}
+}
+@media(max-width:420px){
+ :is(html body.country-page #planifica,html body .st-shell #planifica) .vcc-prep-grid{grid-template-columns:1fr!important;grid-auto-rows:300px!important}
+}
