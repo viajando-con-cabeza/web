@@ -334,10 +334,11 @@ html body .vl-hero.vcc-portada-transparente.vcc-breadcrumb-on-dark #vcc-global-b
 .vl-page .vl-air-card a.vl-air-action:hover{text-decoration:underline;text-underline-offset:3px}
 .vl-page .vl-air-card a.vl-air-action:focus-visible{outline:2px solid #e96723;outline-offset:4px;border-radius:2px}
 
-/* Les files i els conceptes es desplacen JUNTS amb les opcions al mòbil.
-   Només el mode escriptori manté la primera columna sticky. */
+/* Igual que a Alojamientos: la columna Concepto i les capçaleres
+   de cada fila es queden fixes mentre les opcions llisquen al mòbil. */
 @media(max-width:720px){
- #calculadora .vl-calc-table tr>*:first-child{position:static;left:auto;z-index:auto}
+ #calculadora .vl-calc-table tr>*:first-child{position:sticky;left:0;z-index:2}
+ #calculadora .vl-calc-table thead th:first-child{z-index:4}
  #calculadora .vl-calc-scroll{overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch;touch-action:pan-x pan-y;overscroll-behavior-x:contain}
 }
 
