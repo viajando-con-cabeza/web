@@ -1,0 +1,70 @@
+/* VCC · Valoración hero unificada · Guías e itinerarios.
+   Un único componente gobierna forma, fuentes, medidas, posición, mobile y desglose.
+   Los textos y notas de cada destino/itinerario siguen siendo editoriales. */
+.vcc-unified-rating{
+  position:absolute;top:28px;right:0;z-index:40;
+  font-family:var(--vcc-font-body,"DM Sans",Arial,sans-serif);font-size:13px;color:#252525;
+  text-align:left;line-height:normal;
+}
+.vcc-unified-rating__toggle{
+  display:flex;align-items:center;gap:8px;
+  padding:5px 8px 5px 5px;border:0;border-radius:8px;
+  background:rgba(255,255,255,.96);box-shadow:0 5px 22px rgba(0,0,0,.10);
+  font:inherit;color:inherit;text-align:left;cursor:pointer;
+}
+.vcc-unified-rating__score{
+  display:block;flex:none;width:auto;height:auto;min-width:0;min-height:0;
+  padding:8px 9px;background:#666;border-radius:4px;
+  font-family:var(--vcc-font-heading,"Oswald",sans-serif);
+  font-size:19px;font-weight:500;line-height:1.1;color:#fff;
+  font-variant-numeric:tabular-nums;
+}
+.vcc-unified-rating__copy{display:flex;flex-direction:column;gap:2px;white-space:nowrap}
+.vcc-unified-rating__copy b{font-family:inherit;font-size:11.5px;font-weight:700;line-height:normal}
+.vcc-unified-rating__copy small{font-family:inherit;font-size:9.5px;font-weight:400;line-height:normal;color:#777}
+.vcc-unified-rating__chevron{
+  width:15px;height:15px;flex:none;fill:none;stroke:currentColor;
+  stroke-width:2;color:#777;transition:transform .2s;
+}
+.vcc-unified-rating__toggle[aria-expanded="true"] .vcc-unified-rating__chevron{transform:rotate(180deg)}
+.vcc-unified-rating__panel{
+  position:absolute;top:calc(100% + 9px);right:0;z-index:45;
+  width:min(270px,calc(100vw - 32px));max-width:calc(100vw - 32px);
+  padding:10px 13px 11px;box-sizing:border-box;
+  border:1px solid #e9e9e9;border-radius:11px;background:#fff;
+  box-shadow:0 8px 25px #0002;
+  font-family:var(--vcc-font-body,"DM Sans",Arial,sans-serif);
+  font-size:12px;font-weight:400;line-height:1.4;color:#222;
+}
+.vcc-unified-rating__panel[hidden]{display:none!important}
+.vcc-unified-rating__panel::before{
+  content:"";position:absolute;top:-8px;right:24px;
+  border-left:8px solid transparent;border-right:8px solid transparent;
+  border-bottom:9px solid #fff;
+}
+.vcc-unified-rating__row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:6px 0}
+.vcc-unified-rating__row>span{display:flex;align-items:center;gap:8px;min-width:0}
+.vcc-unified-rating__row svg{
+  width:15px;height:15px;flex:none;fill:none;stroke:#747474;
+  stroke-width:1.65;stroke-linecap:round;stroke-linejoin:round;
+}
+.vcc-unified-rating__row>strong{
+  font-family:inherit;font-size:12px;font-weight:700;line-height:1.3;
+  font-variant-numeric:tabular-nums;
+}
+.vcc-unified-rating__panel .vcc-unified-rating__note{
+  border-top:1px solid #eee;margin:7px 0 0;padding:9px 0 0;
+  font:400 10px/1.5 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
+  color:#777;max-width:none;
+}
+@media(max-width:850px){
+  .vcc-unified-rating{top:32px;right:0}
+}
+@media(max-width:560px){
+  .vcc-unified-rating{top:42px;right:0}
+  .vcc-unified-rating__toggle{gap:6px;padding:4px 6px 4px 4px}
+  .vcc-unified-rating__score{font-size:16px;padding:6px 7px}
+  .vcc-unified-rating__copy b{font-size:10.5px}
+  .vcc-unified-rating__copy small{font-size:8.5px}
+  .vcc-unified-rating__panel{padding:10px 12px}
+}
