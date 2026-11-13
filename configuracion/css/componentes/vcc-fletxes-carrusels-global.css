@@ -354,6 +354,8 @@ button.vcc-route-arrow){
 :root{
   --vcc-consell-titol:22px;
   --vcc-consell-text:12px;
+  --vcc-seccio-titol:clamp(30px,3.2vw,43px);
+  --vcc-seccio-descripcio:13px;
 }
 html body.budget-vcc :is(.savings-section .vcc-editorial-numbered-card,.surprise-section .vcc-editorial-error-card) h3{
   font:500 var(--vcc-consell-titol)/1.18 var(--vcc-font-heading,"Oswald",sans-serif)!important;
@@ -368,12 +370,22 @@ html body.budget-vcc :is(.savings-section .vcc-editorial-numbered-card,.surprise
 html body.budget-vcc :is(.savings-section,.surprise-section) .vcc-editorial-heading .vcc-editorial-title{
   font-family:var(--vcc-font-heading,"Oswald",sans-serif)!important;
   font-weight:600!important;
+  font-size:var(--vcc-seccio-titol)!important;
+  line-height:1.08!important;
 }
 html body.budget-vcc :is(.savings-section,.surprise-section) .vcc-editorial-heading .vcc-editorial-overline{
   font-family:var(--vcc-font-script,"Caveat",cursive)!important;
 }
 html body.budget-vcc :is(.savings-section,.surprise-section) .vcc-editorial-heading .vcc-editorial-description{
   font-family:var(--vcc-font-body,"DM Sans",sans-serif)!important;
+  font-size:var(--vcc-seccio-descripcio)!important;
+  line-height:1.58!important;
+}
+@media(max-width:600px){
+ :root{--vcc-seccio-titol:clamp(27px,8vw,34px);--vcc-seccio-descripcio:12px;}
+ html body.budget-vcc :is(.savings-section,.surprise-section) .vcc-editorial-heading .vcc-editorial-overline{
+   font-size:calc(25px + var(--vcc-overline-size-adjust,0px))!important;
+ }
 }
 @media(max-width:550px){
   :root{--vcc-consell-titol:20px;}
