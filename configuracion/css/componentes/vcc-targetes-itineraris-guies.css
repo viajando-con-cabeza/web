@@ -126,3 +126,51 @@
     width:36px!important;height:36px!important;
   }
 }
+
+/* Portada VCC: sobresortitols i puntuacions compartits per guies i itineraris */
+body.inicio-vcc.home-editorial-refresh :is(.home-featured-itineraries,.home-featured-guide) .vcc-it-card .vcc-card-kicker{
+  display:inline-flex!important;align-items:center!important;align-self:flex-start!important;gap:6px!important;
+  position:static!important;width:auto!important;margin:0 0 5px!important;padding:0!important;
+  border:0!important;box-shadow:none!important;background:transparent!important;
+  font:800 11px/1.25 var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;
+  color:#c75e3c!important;letter-spacing:.03em!important;text-transform:uppercase!important;
+}
+body.inicio-vcc.home-editorial-refresh :is(.home-featured-itineraries,.home-featured-guide) .vcc-it-card .vcc-card-kicker svg{
+  display:block!important;flex:0 0 16px!important;width:16px!important;height:16px!important;color:#ce6747!important;
+}
+body.inicio-vcc.home-editorial-refresh :is(.home-featured-itineraries,.home-featured-guide) .vcc-it-card .vcc-card-score{
+  position:absolute!important;z-index:7!important;right:11px!important;bottom:11px!important;top:auto!important;left:auto!important;
+  display:flex!important;flex-direction:column!important;align-items:center!important;justify-content:center!important;
+  gap:2px!important;min-width:73px!important;padding:8px 9px!important;
+  background:rgba(46,54,56,.88)!important;color:#fff!important;border:0!important;border-radius:10px!important;
+  box-shadow:0 2px 9px rgba(22,18,15,.18)!important;text-decoration:none!important;
+  text-align:center!important;transition:background .16s ease!important;
+}
+body.inicio-vcc.home-editorial-refresh :is(.home-featured-itineraries,.home-featured-guide) .vcc-it-card .vcc-card-score:is(:hover,:focus-visible){background:rgba(36,43,44,.97)!important}
+body.inicio-vcc.home-editorial-refresh :is(.home-featured-itineraries,.home-featured-guide) .vcc-it-card .vcc-card-score strong{
+  font:600 23px/1.03 var(--vcc-font-heading,"Oswald",sans-serif)!important;color:inherit!important;
+}
+body.inicio-vcc.home-editorial-refresh :is(.home-featured-itineraries,.home-featured-guide) .vcc-it-card .vcc-card-score small{
+  font:700 9px/1.16 var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;color:inherit!important;white-space:nowrap!important;
+}
+body.inicio-vcc.home-editorial-refresh .home-featured-itineraries .vcc-score-method{
+  margin:9px 2px 0!important;padding:0!important;
+  font:500 11px/1.45 var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;color:#756861!important;
+}
+body.inicio-vcc.home-editorial-refresh .home-featured-itineraries .vcc-score-method summary{
+  display:list-item!important;width:max-content!important;max-width:100%!important;
+  cursor:pointer!important;color:#a15c43!important;font-weight:700!important;
+}
+body.inicio-vcc.home-editorial-refresh .home-featured-itineraries .vcc-score-method p{margin:6px 0 0!important;max-width:830px!important}
+@media(max-width:620px){
+  body.inicio-vcc.home-editorial-refresh :is(.home-featured-itineraries,.home-featured-guide) .vcc-it-card .vcc-card-kicker{
+    gap:5px!important;font-size:10px!important;margin-bottom:5px!important;
+  }
+  body.inicio-vcc.home-editorial-refresh :is(.home-featured-itineraries,.home-featured-guide) .vcc-it-card .vcc-card-kicker svg{
+    width:14px!important;height:14px!important;flex-basis:14px!important;
+  }
+  body.inicio-vcc.home-editorial-refresh :is(.home-featured-itineraries,.home-featured-guide) .vcc-it-card .vcc-card-score{
+    right:8px!important;bottom:8px!important;min-width:65px!important;padding:6px 7px!important;
+  }
+  body.inicio-vcc.home-editorial-refresh :is(.home-featured-itineraries,.home-featured-guide) .vcc-it-card .vcc-card-score strong{font-size:21px!important}
+}
