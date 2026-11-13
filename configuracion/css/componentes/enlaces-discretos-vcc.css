@@ -32,6 +32,13 @@ html body .vcc-related-link:is(:hover,:focus-visible) .vcc-related-copy strong{
 html body :is(button,a):is(:hover,:focus-visible) .vcc-budget-mode-footer>span:first-child{
  text-decoration:underline!important;text-underline-offset:3px!important;
 }
+/* Especificitat suficient per als estils heretats que imposen
+   text-decoration:none!important als links de les portades antigues. */
+html body a.vcc-accion-discreta.vcc-accion-discreta.vcc-accion-discreta.vcc-accion-discreta.vcc-accion-discreta:is(:hover,:focus-visible){
+ text-decoration:underline!important;text-decoration-color:currentColor!important;
+ text-underline-offset:var(--vcc-action-underline-offset)!important;
+ text-decoration-thickness:1px!important;
+}
 /* Etiquetes d'acció dins d'una targeta sencera que ja és un enllaç. */
 html body :is(.planifica-card,.di-mini-card,.home-feature-card,.home-featured-guide,
  .home-featured-itineraries):is(:hover,:focus-within) :is(
