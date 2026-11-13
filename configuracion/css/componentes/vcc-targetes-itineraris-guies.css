@@ -258,27 +258,31 @@ html body .vcc-sweden-page .vcc-card-collection > article.home-feature-card.vcc-
   }
 }
 
-/* Suecia · insignia de valoración: más margen, cuadrado real y cifra más fina. */
-body.country-page .vcc-sweden-page .vcc-card-collection .vcc-it-card .vcc-card-score{
-  top:15px!important;
-  right:16px!important;
+/* VCC · NOTA COMPARTIDA de targetes de guia i itinerari.
+   Mateixa ubicació, mida, forma i tipografia a Suècia i Estocolm, desktop i mòbil.
+   Un únic selector per ambdues tipologies: NO variants per guia/itinerari. */
+.vcc-sweden-page{
+  --vcc-card-score-top:15px;
+  --vcc-card-score-right:16px;
+  --vcc-card-score-size:36px;
+  --vcc-card-score-font-size:17px;
 }
-body.country-page .vcc-sweden-page .vcc-card-collection .vcc-it-card .vcc-card-score strong{
-  width:36px!important;
-  height:36px!important;
+html body .vcc-sweden-page .vcc-card-collection .vcc-it-card.vcc-card-shared .vcc-card-score{
+  top:var(--vcc-card-score-top)!important;
+  right:var(--vcc-card-score-right)!important;
+}
+html body .vcc-sweden-page .vcc-card-collection .vcc-it-card.vcc-card-shared .vcc-card-score strong{
+  width:var(--vcc-card-score-size)!important;
+  height:var(--vcc-card-score-size)!important;
   box-sizing:border-box!important;
   padding:0!important;
-  font-size:17px!important;
+  font-size:var(--vcc-card-score-font-size)!important;
   line-height:1!important;
 }
 @media(max-width:620px){
-  body.country-page .vcc-sweden-page .vcc-card-collection .vcc-it-card .vcc-card-score{
-    top:12px!important;
-    right:12px!important;
-  }
-  body.country-page .vcc-sweden-page .vcc-card-collection .vcc-it-card .vcc-card-score strong{
-    width:34px!important;
-    height:34px!important;
-    font-size:17px!important;
+  .vcc-sweden-page{
+    --vcc-card-score-top:12px;
+    --vcc-card-score-right:12px;
+    --vcc-card-score-size:34px;
   }
 }
