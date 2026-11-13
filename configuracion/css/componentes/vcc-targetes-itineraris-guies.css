@@ -224,38 +224,36 @@ body.country-page .vcc-sweden-page .vcc-score-method p{
   }
 }
 
-/* Stockholm: guides + itinerary fixed to the SAME height. Extra specificity is
-   intentional: the canonical :is(...) base rule also matches body.inicio-vcc,
-   so without this its height:auto!important can override local dimensions. */
-.st-discover{
-  --vcc-stockholm-card-height:440px;
-  --vcc-stockholm-photo-height:225px;
-}
-html body .st-main .st-discover #quever .st-card-carousel.vcc-card-collection > article.home-feature-card.vcc-it-card.vcc-card-shared,
-html body .st-main .st-discover #itinerario.st-single-itinerary.vcc-card-collection > article.home-feature-card.vcc-it-card.vcc-card-shared{
-  box-sizing:border-box!important;
-  height:var(--vcc-stockholm-card-height)!important;
-  min-height:var(--vcc-stockholm-card-height)!important;
-  max-height:var(--vcc-stockholm-card-height)!important;
-}
-html body .st-main .st-discover #quever .st-card-carousel.vcc-card-collection > article.home-feature-card.vcc-it-card.vcc-card-shared .home-feature-photo.vcc-it-photo,
-html body .st-main .st-discover #itinerario.st-single-itinerary.vcc-card-collection > article.home-feature-card.vcc-it-card.vcc-card-shared .home-feature-photo.vcc-it-photo{
-  box-sizing:border-box!important;
-  height:var(--vcc-stockholm-photo-height)!important;
-  min-height:var(--vcc-stockholm-photo-height)!important;
-  max-height:var(--vcc-stockholm-photo-height)!important;
-  flex:0 0 var(--vcc-stockholm-photo-height)!important;
-  aspect-ratio:auto!important;
-}
 /* La etiqueta de zona en las guías de ciudad sigue la tipografía
    de metadatos del componente; no modifica las tarjetas de país. */
 .st-discover #quever .vcc-it-card .vcc-it-facts .di-country-line{
   font:700 10px/1.2 var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;
 }
+
+
+/* Mida única per a guies i itineraris de país i ciutat.
+   Recupera els 350 px originals de les targetes de Suècia; la foto ocupa
+   180 px, igual a Estocolm fins i tot si l'itinerari és més ample.
+   Una sola font de veritat: sense excepcions #quever / #itinerario. */
+html body .vcc-sweden-page .vcc-card-collection > article.home-feature-card.vcc-it-card.vcc-card-shared{
+  box-sizing:border-box!important;
+  height:350px!important;
+  min-height:350px!important;
+  max-height:350px!important;
+}
+html body .vcc-sweden-page .vcc-card-collection > article.home-feature-card.vcc-it-card.vcc-card-shared .home-feature-photo.vcc-it-photo{
+  box-sizing:border-box!important;
+  height:180px!important;
+  min-height:180px!important;
+  max-height:180px!important;
+  flex:0 0 180px!important;
+  aspect-ratio:auto!important;
+}
 @media(max-width:620px){
-  .st-discover{
-    --vcc-stockholm-card-height:440px;
-    --vcc-stockholm-photo-height:215px;
+  html body .vcc-sweden-page .vcc-card-collection > article.home-feature-card.vcc-it-card.vcc-card-shared{
+    height:365px!important;min-height:365px!important;max-height:365px!important;
+  }
+  html body .vcc-sweden-page .vcc-card-collection > article.home-feature-card.vcc-it-card.vcc-card-shared .home-feature-photo.vcc-it-photo{
+    height:180px!important;min-height:180px!important;max-height:180px!important;flex-basis:180px!important;
   }
 }
-
