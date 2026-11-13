@@ -128,30 +128,43 @@
 }
 
 /* Portada VCC: sobresortitols i puntuacions compartits per guies i itineraris */
+/* Categoria, sota la fotografia: mateixa lectura visual a les dues seccions. */
 body.inicio-vcc.home-editorial-refresh :is(.home-featured-itineraries,.home-featured-guide) .vcc-it-card .vcc-card-kicker{
-  display:inline-flex!important;align-items:center!important;align-self:flex-start!important;gap:6px!important;
-  position:static!important;width:auto!important;margin:0 0 5px!important;padding:0!important;
-  border:0!important;box-shadow:none!important;background:transparent!important;
-  font:800 11px/1.25 var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;
+  display:inline-flex!important;align-items:center!important;align-self:flex-start!important;gap:4px!important;
+  position:static!important;width:auto!important;margin:0 0 4px!important;padding:0!important;
+  border:0!important;box-shadow:none!important;background:transparent!important;border-radius:0!important;
+  font:800 9px/1.2 var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;
   color:#c75e3c!important;letter-spacing:.03em!important;text-transform:uppercase!important;
 }
 body.inicio-vcc.home-editorial-refresh :is(.home-featured-itineraries,.home-featured-guide) .vcc-it-card .vcc-card-kicker svg{
-  display:block!important;flex:0 0 16px!important;width:16px!important;height:16px!important;color:#ce6747!important;
+  display:block!important;flex:0 0 13px!important;width:13px!important;height:13px!important;color:#ce6747!important;
 }
+/* Nota identica a la guia de Suecia (quadrat #777 + text blanc sobre foto),
+   lleugerament reduida per encaixar a les targetes destacades. */
 body.inicio-vcc.home-editorial-refresh :is(.home-featured-itineraries,.home-featured-guide) .vcc-it-card .vcc-card-score{
   position:absolute!important;z-index:7!important;right:11px!important;bottom:11px!important;top:auto!important;left:auto!important;
-  display:flex!important;flex-direction:column!important;align-items:center!important;justify-content:center!important;
-  gap:2px!important;min-width:73px!important;padding:8px 9px!important;
-  background:rgba(46,54,56,.88)!important;color:#fff!important;border:0!important;border-radius:10px!important;
-  box-shadow:0 2px 9px rgba(22,18,15,.18)!important;text-decoration:none!important;
-  text-align:center!important;transition:background .16s ease!important;
+  display:flex!important;flex-direction:column!important;align-items:flex-end!important;justify-content:flex-end!important;
+  gap:0!important;min-width:0!important;width:max-content!important;margin:0!important;padding:0!important;
+  border:0!important;border-radius:0!important;background:transparent!important;box-shadow:none!important;
+  text-align:right!important;text-decoration:none!important;
 }
-body.inicio-vcc.home-editorial-refresh :is(.home-featured-itineraries,.home-featured-guide) .vcc-it-card .vcc-card-score:is(:hover,:focus-visible){background:rgba(36,43,44,.97)!important}
 body.inicio-vcc.home-editorial-refresh :is(.home-featured-itineraries,.home-featured-guide) .vcc-it-card .vcc-card-score strong{
-  font:600 23px/1.03 var(--vcc-font-heading,"Oswald",sans-serif)!important;color:inherit!important;
+  display:grid!important;place-items:center!important;
+  width:40px!important;height:38px!important;margin:0!important;padding:2px 0 0!important;
+  background:#777!important;color:#fff!important;
+  border-radius:7px!important;box-shadow:0 4px 12px rgba(0,0,0,.2)!important;
+  font:500 20px/1 var(--vcc-font-heading,"Oswald",sans-serif)!important;text-align:center!important;
 }
 body.inicio-vcc.home-editorial-refresh :is(.home-featured-itineraries,.home-featured-guide) .vcc-it-card .vcc-card-score small{
-  font:700 9px/1.16 var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;color:inherit!important;white-space:nowrap!important;
+  display:flex!important;align-items:center!important;justify-content:flex-end!important;gap:3px!important;
+  margin:4px 0 0!important;padding:0 1px!important;color:#fff!important;
+  font:800 8px/1.1 var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;
+  white-space:nowrap!important;text-shadow:0 1px 4px rgba(0,0,0,.9),0 1px 9px rgba(0,0,0,.6)!important;
+}
+body.inicio-vcc.home-editorial-refresh :is(.home-featured-itineraries,.home-featured-guide) .vcc-it-card .vcc-card-score small::before{
+  content:""!important;width:10px!important;height:10px!important;flex:0 0 10px!important;
+  background:url('/configuracion/imagenes/iconos/paper-plane-trail.svg') center/contain no-repeat!important;
+  filter:brightness(0) invert(1) drop-shadow(0 1px 3px rgba(0,0,0,.65))!important;
 }
 body.inicio-vcc.home-editorial-refresh .home-featured-itineraries .vcc-score-method{
   margin:9px 2px 0!important;padding:0!important;
@@ -164,13 +177,18 @@ body.inicio-vcc.home-editorial-refresh .home-featured-itineraries .vcc-score-met
 body.inicio-vcc.home-editorial-refresh .home-featured-itineraries .vcc-score-method p{margin:6px 0 0!important;max-width:830px!important}
 @media(max-width:620px){
   body.inicio-vcc.home-editorial-refresh :is(.home-featured-itineraries,.home-featured-guide) .vcc-it-card .vcc-card-kicker{
-    gap:5px!important;font-size:10px!important;margin-bottom:5px!important;
+    gap:4px!important;font-size:8.5px!important;margin-bottom:4px!important;
   }
   body.inicio-vcc.home-editorial-refresh :is(.home-featured-itineraries,.home-featured-guide) .vcc-it-card .vcc-card-kicker svg{
-    width:14px!important;height:14px!important;flex-basis:14px!important;
+    width:12px!important;height:12px!important;flex-basis:12px!important;
   }
   body.inicio-vcc.home-editorial-refresh :is(.home-featured-itineraries,.home-featured-guide) .vcc-it-card .vcc-card-score{
-    right:8px!important;bottom:8px!important;min-width:65px!important;padding:6px 7px!important;
+    right:8px!important;bottom:8px!important;
   }
-  body.inicio-vcc.home-editorial-refresh :is(.home-featured-itineraries,.home-featured-guide) .vcc-it-card .vcc-card-score strong{font-size:21px!important}
+  body.inicio-vcc.home-editorial-refresh :is(.home-featured-itineraries,.home-featured-guide) .vcc-it-card .vcc-card-score strong{
+    width:38px!important;height:36px!important;font-size:19px!important;
+  }
+  body.inicio-vcc.home-editorial-refresh :is(.home-featured-itineraries,.home-featured-guide) .vcc-it-card .vcc-card-score small{
+    font-size:7.5px!important;
+  }
 }
