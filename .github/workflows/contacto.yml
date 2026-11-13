@@ -7,8 +7,10 @@ on:
       - "contacto/index.html"
       - "en/contact/index.html"
       - "configuracion/js/contacto-enviar.js"
+      - "configuracion/js/contacto-fotos.js"
       - "configuracion/workers/web-vcc.js"
       - "configuracion/tests/contacto-api.mjs"
+      - "configuracion/tests/contacto-fotos.mjs"
       - "configuracion/scripts/verificar-contacto-vcc.mjs"
       - "politica-de-privacidad/index.html"
       - "wrangler.jsonc"
@@ -28,6 +30,7 @@ jobs:
       - name: Validate syntax
         run: |
           node --check configuracion/js/contacto-enviar.js
+          node --check configuracion/js/contacto-fotos.js
           node --check configuracion/workers/web-vcc.js
           node --check configuracion/scripts/verificar-contacto-vcc.mjs
       - name: Validate forms, recipient and simulated email delivery
