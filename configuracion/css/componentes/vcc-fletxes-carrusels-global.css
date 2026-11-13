@@ -194,6 +194,37 @@ button.sv-arrow,
 button.vcc-route-arrow)[aria-disabled="true"]{
   opacity:.35!important;cursor:default!important;
 }
+/* Respectar sempre controls amagats per accessibilitat o sense overflow. */
+:is(html body.budget-vcc .savings-section .carousel-shell > button.carousel-arrow,
+button.carousel-arrow,
+button.vcc-budget-mode-arrow,
+button.mv-transport-arrow,
+button.mv-carousel-arrow,
+button.mv-day-prev,
+button.mv-day-next,
+button.ep3-saving-arrow,
+button.ep4-our-arrow,
+button.ep-slider-arrow,
+button.ep-rail-arrow,
+button.tv-carousel-arrow,
+button.al-carousel-arrow,
+button.al-tips-arrow,
+button.vl-air-carousel-arrow,
+button.vl-tip-arrow,
+button.vcc-saving-arrow,
+button.dv-arrow,
+button.ci-tips-arrow,
+button.ci-august-weather-prev,
+button.ci-august-weather-next,
+button.ql-carousel-arrow,
+button.place-nav-arrow,
+button.sv-arrow,
+button.vcc-route-arrow):is([hidden],.is-hidden,.hidden){
+  display:none!important;
+}
+html body .ep-page .ep4-our-stage.ep4-our-no-overflow > button.ep4-our-arrow{
+  display:none!important;
+}
 @media(max-width:760px){
   :is(html body.budget-vcc .savings-section .carousel-shell > button.carousel-arrow,
 button.carousel-arrow,
