@@ -89,6 +89,59 @@
  const flightScroll=root.querySelector('[data-flight-scroll]');
  const tableHead=root.querySelector('[data-flight-head]');
  const tableBody=root.querySelector('[data-flight-body]');
+ // Respaldo móvil para navegadores que no anclan <th> en una tabla
+ // horizontalmente desplazable. En navegadores compatibles se mantiene
+ // exclusivamente el position:sticky nativo (como en Alojamientos).
+ let labelPinFallback=false, labelPinFrame=0;
+ const pinnedCells=()=>[
+   ...Array.from(tableHead?.querySelectorAll('tr > th:first-child')||[]),
+   ...Array.from(tableBody?.querySelectorAll('tr > th:first-child')||[])
+ ];
+ function syncFlightLabelPins(){
+   if(!flightScroll)return;
+   const cells=pinnedCells();
+   if(!cells.length)return;
+   const mobile=window.matchMedia('(max-width:720px)').matches;
+   if(!mobile){
+     labelPinFallback=false;
+     for(const cell of cells){
+       cell.style.removeProperty('position');
+       cell.style.removeProperty('left');
+       cell.style.removeProperty('transform');
+       cell.style.removeProperty('z-index');
+       cell.style.removeProperty('box-shadow');
+     }
+     return;
+   }
+   const x=flightScroll.scrollLeft;
+   if(!labelPinFallback){
+     // En caso de reglas CSS antiguas en caché, activar inmediatamente.
+     const first=cells[0];
+     const nativeSticky=getComputedStyle(first).position==='sticky';
+     if(!nativeSticky || (x>6 && first.getBoundingClientRect().left<flightScroll.getBoundingClientRect().left-3)){
+       labelPinFallback=true;
+     }
+   }
+   if(!labelPinFallback)return;
+   // Transform sobre las celdas (no sobre toda la tabla): los conceptos
+   // permanecen en el mismo píxel mientras avanzan las opciones A–E.
+   for(const cell of cells){
+     cell.style.setProperty('position','relative','important');
+     cell.style.setProperty('left','0px','important');
+     cell.style.setProperty('transform','translate3d('+x+'px,0,0)','important');
+     cell.style.setProperty('z-index',cell.closest('thead')?'6':'5','important');
+     cell.style.setProperty('box-shadow','1px 0 0 #e7ddd3');
+   }
+ }
+ function queueFlightLabelPins(){
+   if(labelPinFrame)return;
+   labelPinFrame=requestAnimationFrame(()=>{
+     labelPinFrame=0;
+     syncFlightLabelPins();
+   });
+ }
+ flightScroll?.addEventListener('scroll',queueFlightLabelPins,{passive:true});
+ window.addEventListener('resize',queueFlightLabelPins,{passive:true});
  const addFlight=root.querySelector('[data-add-flight]');
  const countFlight=root.querySelector('[data-flight-count]');
  const bestEmpty=root.querySelector('[data-best-empty]');
@@ -192,6 +245,7 @@
    });
    rows.push(totals);
    tableBody.replaceChildren(...rows);
+   queueFlightLabelPins();
    if(addFlight){
      addFlight.disabled=flights.length>=5;
      addFlight.setAttribute('aria-label',flights.length>=5?'Máximo de cinco opciones':'Añadir otra opción de vuelo');
