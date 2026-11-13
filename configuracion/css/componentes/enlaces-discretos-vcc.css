@@ -7,7 +7,7 @@ html body :is(a.vcc-it-cta,a.home-feature-link,a.home-section-more,
  a.home-about-link,a.vcc-prep-action,a.subtle-link,a.vl-air-action,
  a.vcc-itinerary-budget__link,a.ep4-day-link,a.vcc-map-open-link,
  a.vcc-card-action,a.al-action,a.sv-insurer-action,a.sv-insurer-link,
- a.tv-card-action,a.av-button,a.vcc-it-cta,a.vcc-related-link){
+ a.tv-card-action,a.av-button,a.vcc-it-cta){
  text-decoration:none;
  text-underline-offset:var(--vcc-action-underline-offset);
  text-decoration-thickness:1px;
@@ -17,11 +17,20 @@ html body :is(a.vcc-it-cta,a.home-feature-link,a.home-section-more,
  a.home-about-link,a.vcc-prep-action,a.subtle-link,a.vl-air-action,
  a.vcc-itinerary-budget__link,a.ep4-day-link,a.vcc-map-open-link,
  a.al-action,a.sv-insurer-action,a.sv-insurer-link,
- a.tv-card-action,a.av-button,a.vcc-related-link):is(:hover,:focus-visible){
+ a.tv-card-action,a.av-button):is(:hover,:focus-visible){
  text-decoration:underline!important;
  text-decoration-color:currentColor!important;
  text-underline-offset:var(--vcc-action-underline-offset)!important;
  text-decoration-thickness:1px!important;
+}
+/* Les targetes completes del bloc final segueixen sent targetes, no links de text. */
+html body .vcc-related-link:is(:hover,:focus-visible) .vcc-related-copy strong{
+ text-decoration:underline!important;text-decoration-color:currentColor!important;
+ text-underline-offset:3px!important;text-decoration-thickness:1px!important;
+}
+/* Desplegables «Ver desglose»: subratllar el text, mai els botons icona. */
+html body :is(button,a):is(:hover,:focus-visible) .vcc-budget-mode-footer>span:first-child{
+ text-decoration:underline!important;text-underline-offset:3px!important;
 }
 /* Etiquetes d'acció dins d'una targeta sencera que ja és un enllaç. */
 html body :is(.planifica-card,.di-mini-card,.home-feature-card,.home-featured-guide,
