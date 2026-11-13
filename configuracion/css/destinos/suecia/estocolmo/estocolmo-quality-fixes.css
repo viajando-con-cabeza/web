@@ -202,30 +202,12 @@ body>.shared-header .shared-menu,body>.shared-header .shared-menu a{font-family:
 /* Separador de foto també governat pel CSS compartit. */
 
 
-/* Hero Estocolmo: nota flotante y cuatro datos de viaje (13-11-2026). */
+/* Hero Estocolmo: la valoració es controla de forma compartida a
+   /configuracion/css/componentes/vcc-valoracion-hero.css. */
 .st-hero-inner{position:relative!important}
-.st-hero-score{position:absolute;top:28px;right:0;z-index:12;font-family:var(--vcc-font-body,"DM Sans",sans-serif)}
-.st-score-toggle{display:flex;align-items:center;gap:10px;border:0;background:rgba(255,255,255,.96);border-radius:8px;padding:6px 9px 6px 6px;box-shadow:0 5px 22px rgba(0,0,0,.10);color:#252525;cursor:pointer;font:inherit;text-align:left}
-.st-score-toggle>strong{font-family:var(--vcc-font-heading,"Oswald",sans-serif);background:#666;color:white;font-weight:500;font-size:20px;line-height:1.1;border-radius:4px;padding:9px 10px}
-.st-score-toggle>span{display:flex;flex-direction:column;gap:2px}
-.st-score-toggle>span>b{font-size:12px;font-weight:700}
-.st-score-toggle>span>small{font-size:10px;color:#777}
-.st-score-toggle>svg{color:#777;transition:transform .2s}
-.st-score-toggle[aria-expanded="true"]>svg{transform:rotate(180deg)}
-.st-hero-score .rating-details{position:absolute!important;top:calc(100% + 9px)!important;right:0!important;left:auto!important;width:min(350px,calc(100vw - 32px))!important;max-width:calc(100vw - 32px)!important;z-index:40!important}
-.st-hero-score .rating-details[hidden]{display:none!important}
 .st-shell .st-facts{grid-template-columns:repeat(4,minmax(0,1fr))!important}
 .st-shell .st-facts>.st-fact{min-width:0!important}
-@media(max-width:850px){
-.st-hero-score{top:32px;right:0}
-.st-hero-score .rating-details{left:auto!important;right:0!important;top:calc(100% + 9px)!important;width:min(350px,calc(100vw - 32px))!important}
-}
 @media(max-width:560px){
-.st-hero-score{top:28px;right:0}
-.st-score-toggle{gap:7px;padding:5px 7px 5px 5px}
-.st-score-toggle>strong{font-size:17px;padding:7px 8px}
-.st-score-toggle>span>b{font-size:11px}
-.st-score-toggle>span>small{font-size:9px}
-.st-hero-inner>.st-card{margin-top:54px!important}
-.st-shell .st-facts{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:14px!important}
+  .st-hero-inner>.st-card{margin-top:54px!important}
+  .st-shell .st-facts{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:14px!important}
 }
