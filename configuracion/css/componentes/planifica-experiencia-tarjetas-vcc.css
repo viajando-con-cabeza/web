@@ -81,3 +81,211 @@ html body :is(.vl-page .vl-air-card .vl-air-action,.al-page .al-card .al-externa
   html body .tv-page .tv-card-points>section{padding-right:0}
   html body .tv-page .tv-card-points>section+section{border-left:0;border-top:1px solid #ece6df;padding:9px 0 0}
 }
+
+/* ========================================================================
+   VCC · Nuestra experiencia · Componente canónico (2026-11-13)
+   Fuente de verdad: Alojamientos. Todos los bloques con vcc-experience-*
+   comparten dimensiones, cabecera, descripción, dos columnas, iconos y CTA.
+   No interviene en otras tarjetas, FAQs ni en la lógica de los carruseles.
+   ======================================================================== */
+
+/* Misma anchura de las fichas de Alojamientos en los cuatro carruseles. */
+html body .vcc-experience-track.vcc-experience-track{
+  grid-auto-columns:calc((100% - 32px)/3.08)!important;
+  gap:16px!important;
+  align-items:stretch!important;
+}
+html body .vcc-experience-track > .vcc-experience-card{
+  box-sizing:border-box!important;
+  height:100%!important;
+  min-height:315px!important;
+  min-width:0!important;
+  display:flex!important;
+  flex-direction:column!important;
+  scroll-snap-align:start!important;
+  overflow:hidden!important;
+  padding:0!important;
+  background:#fff!important;
+  border:1px solid #e3ddd7!important;
+  border-radius:12px!important;
+  box-shadow:0 4px 15px rgba(43,34,26,.045)!important;
+}
+html body .vcc-experience-card > .vcc-experience-body{
+  box-sizing:border-box!important;
+  display:flex!important;
+  flex-direction:column!important;
+  flex:1 1 auto!important;
+  min-height:0!important;
+  min-width:0!important;
+  width:100%!important;
+  padding:16px 15px 13px!important;
+  gap:0!important;
+}
+/* Seguros tenía padding en la tarjeta y un subencabezado adicional.
+   Lo neutralizamos aquí; el resto usa directamente el mismo body. */
+html body .vcc-experience-card .sv-insurer-head{
+  flex:0 0 auto!important;
+  margin:0!important;
+  padding:0!important;
+  border:0!important;
+}
+html body .vcc-experience-card .vcc-experience-name{
+  display:block!important;
+  height:auto!important;
+  min-height:27px!important;
+  max-width:100%!important;
+  margin:0 0 6px!important;
+  padding:0!important;
+  font:800 24px/1.05 var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;
+  letter-spacing:-.05em!important;
+  text-transform:none!important;
+  overflow-wrap:break-word!important;
+}
+html body .vcc-experience-card .vcc-experience-intro{
+  display:block!important;
+  flex:0 0 auto!important;
+  height:auto!important;
+  min-height:0!important;
+  margin:0 0 12px!important;
+  padding:0!important;
+  font:400 11.5px/1.42 var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;
+  color:#4c5258!important;
+}
+html body .vcc-experience-card .vcc-experience-points{
+  box-sizing:border-box!important;
+  display:grid!important;
+  flex:0 0 auto!important;
+  grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  gap:0!important;
+  width:100%!important;
+  min-width:0!important;
+  margin:0!important;
+  padding:10px 0 5px!important;
+  background:transparent!important;
+  border:0!important;
+  border-top:1px solid #e8e5e1!important;
+}
+html body .vcc-experience-card .vcc-experience-points > section{
+  display:block!important;
+  min-width:0!important;
+  padding:0 12px 0 0!important;
+  margin:0!important;
+  border:0!important;
+  background:transparent!important;
+}
+html body .vcc-experience-card .vcc-experience-points > section + section{
+  padding:0 0 0 12px!important;
+  border-left:1px solid #e5e5e2!important;
+}
+html body .vcc-experience-card .vcc-experience-points h4{
+  display:flex!important;
+  align-items:center!important;
+  gap:6px!important;
+  margin:0 0 7px!important;
+  padding:0!important;
+  font:800 11px/1.25 var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;
+  color:#2d2a27!important;
+}
+html body .vcc-experience-card .vcc-experience-points .vcc-experience-face{
+  display:inline-block!important;
+  flex:0 0 19px!important;
+  width:19px!important;
+  height:19px!important;
+  color:#ef6b45!important;
+  stroke:#ef6b45!important;
+}
+html body .vcc-experience-card .vcc-experience-points ul{
+  list-style:none!important;
+  padding:0!important;
+  margin:0!important;
+}
+html body .vcc-experience-card .vcc-experience-points li{
+  position:relative!important;
+  margin:0 0 5px!important;
+  padding:0 0 0 10px!important;
+  color:#50555a!important;
+  font:400 10.8px/1.38 var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;
+}
+html body .vcc-experience-card .vcc-experience-points li::before{
+  content:"•"!important;
+  position:absolute!important;
+  left:1px!important;
+  top:0!important;
+  color:#4d504d!important;
+}
+html body .vcc-experience-card .vcc-experience-body > .vcc-experience-link{
+  box-sizing:border-box!important;
+  display:inline-flex!important;
+  align-items:center!important;
+  justify-content:flex-end!important;
+  align-self:flex-end!important;
+  gap:5px!important;
+  width:auto!important;
+  min-width:0!important;
+  max-width:100%!important;
+  height:auto!important;
+  margin:auto 0 0 auto!important;
+  padding:13px 0 1px!important;
+  border:0!important;
+  border-radius:0!important;
+  background:transparent!important;
+  box-shadow:none!important;
+  color:#bf6546!important;
+  font:700 10.5px/1.2 var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;
+  letter-spacing:.07em!important;
+  text-transform:uppercase!important;
+  text-decoration:none!important;
+  white-space:nowrap!important;
+}
+html body .vcc-experience-card .vcc-experience-link:is(:hover,:focus-visible){
+  text-decoration:underline!important;
+  text-underline-offset:3px!important;
+}
+html body .vcc-experience-card .vcc-experience-link:focus-visible{
+  outline:2px solid #c46d43!important;
+  outline-offset:4px!important;
+}
+@media(max-width:1050px){
+  html body .vcc-experience-track.vcc-experience-track{
+    grid-auto-columns:calc((100% - 16px)/2.12)!important;
+  }
+}
+@media(max-width:740px){
+  html body .vcc-experience-track.vcc-experience-track{
+    grid-auto-columns:calc((100% - 16px)/1.12)!important;
+  }
+  html body .vcc-experience-track > .vcc-experience-card{
+    min-height:290px!important;
+  }
+  html body .vcc-experience-card > .vcc-experience-body{
+    padding:13px!important;
+  }
+  html body .vcc-experience-card .vcc-experience-name{
+    min-height:0!important;
+    font-size:22px!important;
+  }
+  html body .vcc-experience-card .vcc-experience-points{
+    padding-top:9px!important;
+  }
+  html body .vcc-experience-card .vcc-experience-points > section{
+    padding-right:9px!important;
+  }
+  html body .vcc-experience-card .vcc-experience-points > section + section{
+    padding-right:0!important;
+    padding-left:9px!important;
+  }
+  html body .vcc-experience-card .vcc-experience-points h4{
+    gap:5px!important;
+    font-size:10.6px!important;
+  }
+  html body .vcc-experience-card .vcc-experience-points li{
+    margin-bottom:4px!important;
+    font-size:10.5px!important;
+    line-height:1.34!important;
+  }
+}
+@media(max-width:520px){
+  html body .vcc-experience-track.vcc-experience-track{
+    grid-auto-columns:calc((100% - 20px)/1.08)!important;
+  }
+}
