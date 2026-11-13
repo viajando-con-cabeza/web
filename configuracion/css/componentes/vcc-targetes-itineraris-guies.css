@@ -224,19 +224,21 @@ body.country-page .vcc-sweden-page .vcc-score-method p{
   }
 }
 
-/* Estocolmo: la columna de itinerario es más ancha. Usamos la misma
-   altura de tarjeta y fotografía que las guías contiguas, sin cambiar
-   la distribución de columnas ni la tipografía del componente. */
+/* Stockholm: guides + itinerary fixed to the SAME height. Extra specificity is
+   intentional: the canonical :is(...) base rule also matches body.inicio-vcc,
+   so without this its height:auto!important can override local dimensions. */
 .st-discover{
-  --vcc-stockholm-card-height:456px;
-  --vcc-stockholm-photo-height:207px;
+  --vcc-stockholm-card-height:440px;
+  --vcc-stockholm-photo-height:225px;
 }
-.st-discover :is(.st-card-carousel.vcc-card-collection,.st-single-itinerary.vcc-card-collection) > .vcc-it-card{
+html body .st-main .st-discover :is(.st-card-carousel.vcc-card-collection,.st-single-itinerary.vcc-card-collection) > article.home-feature-card.vcc-it-card.vcc-card-shared{
+  box-sizing:border-box!important;
   height:var(--vcc-stockholm-card-height)!important;
   min-height:var(--vcc-stockholm-card-height)!important;
   max-height:var(--vcc-stockholm-card-height)!important;
 }
-.st-discover :is(.st-card-carousel.vcc-card-collection,.st-single-itinerary.vcc-card-collection) > .vcc-it-card .vcc-it-photo{
+html body .st-main .st-discover :is(.st-card-carousel.vcc-card-collection,.st-single-itinerary.vcc-card-collection) > article.home-feature-card.vcc-it-card.vcc-card-shared .home-feature-photo.vcc-it-photo{
+  box-sizing:border-box!important;
   height:var(--vcc-stockholm-photo-height)!important;
   min-height:var(--vcc-stockholm-photo-height)!important;
   max-height:var(--vcc-stockholm-photo-height)!important;
@@ -250,7 +252,17 @@ body.country-page .vcc-sweden-page .vcc-score-method p{
 }
 @media(max-width:620px){
   .st-discover{
-    --vcc-stockholm-card-height:445px;
-    --vcc-stockholm-photo-height:190px;
+    --vcc-stockholm-card-height:440px;
+    --vcc-stockholm-photo-height:215px;
   }
+}
+
+/* A pending guide can show that its rating is not yet assigned.
+   Do not invent numerical scores for future content. */
+.st-discover .vcc-card-score.vcc-card-score-pending strong{
+  background:#96918d!important;
+  font-size:19px!important;
+}
+.st-discover .vcc-card-score.vcc-card-score-pending small{
+  font-size:7px!important;
 }
