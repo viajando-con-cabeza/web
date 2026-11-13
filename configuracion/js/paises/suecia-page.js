@@ -4,10 +4,63 @@ const W={experience:25,photogenic:20,things:15,food:10,transport:10,safety:10,va
 function rating(s){return Object.keys(W).reduce((n,k)=>n+(Number(s&&s[k])||0)*W[k]/100,0)}
 function fmt(n){return n.toFixed(1).replace('.',',')}
 function label(n){return n>=9.5?'Excepcional · Espectacular':n>=9?'Fantástico':n>=8.5?'Fabuloso':n>=8?'Muy bien':n>=7.5?'Bien':n>=7?'Agradable':'Mejorable'}
-function guide(g){const r=Number.isFinite(g.rating)?g.rating:rating(g.scores);return `<article class="country-guide-card"><div class="guide-image-wrap"><img src="${esc(g.image)}" alt="${esc(g.title)}" loading="lazy"${g.fallbackImage?` onerror="this.onerror=null;this.src='${esc(g.fallbackImage)}'"`:''}>${(g.scores||Number.isFinite(g.rating))?`<div class="guide-score"><strong>${fmt(r)}</strong><span>${label(r)}</span></div>`:''}</div><div class="country-guide-copy"><span class="tag">${esc(g.tag)}</span><h3>${esc(g.title).toUpperCase()}</h3><p>${esc(g.text)}</p><div class="country-meta"><span>◷ ${esc(g.days)}</span></div><div class="vcc-card-action">${g.available&&g.href?`<a class="country-btn" href="${esc(g.href)}">VER GUÍA →</a>`:'<span class="country-soon">PRÓXIMAMENTE</span>'}</div></div></article>`}
-function itinerary(i){return `<article class="country-itinerary"><img src="${esc(i.image)}" alt="${esc(i.title)}" loading="lazy"><div class="country-itinerary-copy"><span class="tag">${esc(i.tag)}</span><h3>${esc(i.title).toUpperCase()}</h3><p>${esc(i.text)}</p><div class="vcc-card-action">${i.available&&i.href?`<a class="country-btn" href="${esc(i.href)}">VER ITINERARIO →</a>`:'<span class="country-soon">PRÓXIMAMENTE</span>'}</div></div></article>`}
-function itineraryPlaceholder(country){return `<article class="country-itinerary vcc-placeholder"><img class="vcc-photo-placeholder" src="/configuracion/imagenes/marca/logo-vcc.svg" alt="Próximo itinerario VCC" loading="lazy" style="object-fit:contain!important;background:#fff!important;padding:12px 0!important;box-sizing:border-box!important"><div class="country-itinerary-copy"><span class="tag">NUEVA RUTA</span><h3>PRÓXIMO ITINERARIO</h3><p>Estamos preparando una nueva ruta por ${esc(country)} para ampliar las opciones de viaje.</p><div class="vcc-card-action"><span class="country-soon">PRÓXIMAMENTE</span></div></div></article>`}
-function carousel(items,type){return `<div class="sweden-carousel-wrap vcc-four-carousel"><button class="carousel-arrow prev" data-carousel-prev aria-label="Anterior">←</button><div class="sweden-carousel" data-carousel="${type}">${items}</div><button class="carousel-arrow next" data-carousel-next aria-label="Siguiente">→</button></div>`}
+
+const VCC_ICONS='/configuracion/imagenes/iconos/paginas/itinerarios-iconos.svg';
+const VCC_FLAG='/configuracion/imagenes/banderas/suecia.svg';
+function cardIcon(type,extra){
+ return '<svg'+(extra?' class="'+extra+'"':'')+' viewBox="0 0 24 24" aria-hidden="true"><use href="'+VCC_ICONS+'#it-'+type+'"></use></svg>';
+}
+function category(x,isGuide){
+ if(x.cardCategory)return x.cardCategory;
+ if(isGuide)return x.tag==='CIUDAD'?'CIUDADES':'REGIÓN';
+ const value=String(x.tag||'').split('·').pop().trim();
+ return value==='CIUDAD'?'CIUDADES':value==='GRAN RUTA'?'RUTA COMBINADA':value||'RUTA';
+}
+function itineraryDays(i){
+ if(i.days)return i.days;
+ const match=String(i.tag||'').match(/^(\d+)\s+D[IÍ]AS?/i);
+ return match?match[1]+' '+(Number(match[1])===1?'día':'días'):'Duración pendiente';
+}
+function scoreMarkup(destination){
+ if(!destination||!(destination.scores||Number.isFinite(destination.rating)))return '';
+ const score=Number.isFinite(destination.rating)?destination.rating:rating(destination.scores);
+ const n=fmt(score),word=label(score),name=destination.title;
+ return '<a class="vcc-card-score" href="#metodo-notas-vcc" aria-label="Nota VCC del destino '+esc(name)+': '+n+' sobre 10, '+esc(word)+'. Consultar cómo puntuamos" title="Nota del destino según VCC. Ver metodología"><strong>'+n+'</strong><small>'+esc(word)+'</small></a>';
+}
+function countryCard(x,isGuide){
+ const published=!!(x.available&&x.href);
+ const title=x.cardTitle||x.title,tag=category(x,isGuide);
+ const duration=isGuide?x.days:itineraryDays(x);
+ const price=x.budget||'Pendiente';
+ const dest=isGuide?x:(window.COUNTRY_CONFIG&&window.COUNTRY_CONFIG.guides||[]).find(g=>g.title===x.scoreDestination);
+ const score=published?scoreMarkup(dest):'';
+ const photo=String(x.image||'/configuracion/imagenes/marca/logo-vcc.svg');
+ const optimized=photo.includes('/__vcc_preview/visor/');
+ const srcset=optimized?' srcset="'+esc(photo.replace('/__vcc_preview/visor/','/__vcc_preview/mini/'))+' 480w, '+esc(photo)+' 1800w" sizes="(max-width: 760px) 86vw, (max-width: 1100px) 48vw, 380px"':'';
+ const icon=tag==='CIUDADES'?'category-city':'category-islands';
+ const labelText=isGuide?'guía':'itinerario';
+ const actionText=isGuide?'VER GUÍA':'VER ITINERARIO';
+ const priceTitle=isGuide?'Presupuesto orientativo por persona y día':'Presupuesto total por persona';
+ return '<article class="home-feature-card '+(isGuide?'home-guide-card':'home-route-card')+' vcc-it-card vcc-card-shared'+(isGuide?' vcc-guide-card':'')+'">'+
+   '<div class="home-feature-photo vcc-it-photo">'+
+     '<img class="vcc-card-cover-photo" src="'+esc(photo)+'"'+srcset+' alt="'+esc(title)+'" width="640" height="380" loading="lazy" decoding="async">'+score+
+   '</div>'+
+   '<div class="home-feature-details di-mini-body">'+
+     '<span class="vcc-card-kicker">'+cardIcon(icon)+esc(tag)+'</span>'+
+     '<h3 class="vcc-it-title">'+esc(title)+'</h3>'+
+     '<div class="vcc-it-facts'+(isGuide?' vcc-it-guide-facts':'')+'">'+
+       '<span class="di-route-stats">'+cardIcon('clock')+esc(duration)+'</span>'+
+       '<span class="di-budget-row" title="'+priceTitle+'">'+cardIcon('coins','vcc-it-coins')+'<span class="di-price'+(x.budget?'':' di-price-pending')+'">'+esc(price)+'</span></span>'+
+       '<span class="di-country-line home-card-country" title="Suecia"><img class="vcc-it-country-flag" src="'+VCC_FLAG+'" alt="Suecia" width="16" height="12"><span>Suecia</span></span>'+
+     '</div>'+
+     '<p class="home-card-desc di-mini-desc">'+esc(x.text||'Próximamente más detalles de esta ruta.')+'</p>'+
+     (published?'<a class="home-feature-link vcc-it-cta" href="'+esc(x.href)+'" aria-label="Ver '+labelText+' de '+esc(title)+'">'+actionText+' →</a>':'<span class="home-feature-pending vcc-it-upcoming">PRÓXIMAMENTE</span>')+
+   '</div></article>';
+}
+function guide(g){return countryCard(g,true)}
+function itinerary(i){return countryCard(i,false)}
+function itineraryPlaceholder(name){return countryCard({title:'Próximo itinerario',cardCategory:'NUEVA RUTA',text:'Estamos preparando una nueva ruta por '+name+'.',days:'Pendiente',available:false},false)}
+function carousel(items,type){return `<div class="sweden-carousel-wrap vcc-four-carousel"><button class="carousel-arrow prev" data-carousel-prev aria-label="Anterior">←</button><div class="sweden-carousel vcc-card-collection" data-carousel="${type}">${items}</div><button class="carousel-arrow next" data-carousel-next aria-label="Siguiente">→</button></div>`}
 function prepCard(x){return `<article class="vcc-prep-card"><div class="vcc-prep-image" style="--vcc-prep-photo:url(&quot;${esc(x.image)}&quot;)"><img src="${esc(x.image)}" alt="${esc(x.title)}" loading="lazy"></div><span class="vcc-prep-badge" aria-hidden="true">${esc(x.icon)}</span><div class="vcc-prep-copy"><h3>${esc(x.title)}</h3><p>${esc(x.text)}</p><div class="vcc-card-action">${x.available&&x.href?`<a class="vcc-prep-action" href="${esc(x.href)}">${esc(x.ctaLabel||'VER MÁS')} →</a>`:'<span class="vcc-soon">PRÓXIMAMENTE</span>'}</div></div></article>`}
 const FAQ_META=[['SEGURIDAD','♢'],['MEJOR ÉPOCA','▣'],['REQUISITOS','▤'],['CLIMA','☼'],['PAGOS','▱'],['CÓMO MOVERSE','✈'],['ENCHUFES','⌁'],['QUÉ LLEVAR','♙'],['PRESUPUESTO','€'],['CONECTIVIDAD','⌁']];
 function faq(x,n){const m=x.category?[x.category,x.icon||'＋']:(FAQ_META[n]||['VCC','＋']);return `<details class="vcc-faq-item"><summary aria-expanded="false"><span class="vcc-faq-icon" aria-hidden="true">${esc(m[1])}</span><span class="vcc-faq-category">${esc(m[0])}</span><span class="vcc-faq-question">${esc(x.question)}</span><b aria-hidden="true">+</b></summary><div class="vcc-faq-answer"><p>${esc(x.answer)}</p></div></details>`}
@@ -15,7 +68,7 @@ function render(){const c=window.COUNTRY_CONFIG||window.SWEDEN_CONTENT,root=docu
 <section class="country-hero" style="background-image:url('${esc(c.heroImage)}')"><div class="country-hero-inner"><div class="country-breadcrumb"><a href="${esc(c.paths&&c.paths.home||'../../index.html')}">Inicio</a><span>›</span><a href="${esc(c.paths&&c.paths.destinations||'../index.html')}">Destinos</a><span>›</span><strong>${esc(name)}</strong></div><div class="country-hero-card"><div class="country-eyebrow">📍 ${esc(continent)}</div><h1>${esc(upper)}</h1><p class="country-script">${esc(c.tagline)}</p><p class="country-desc">${esc(c.description)}</p><div class="country-facts">${facts}</div><a class="hero-start" href="#guias">EMPIEZA A EXPLORAR ↓</a></div></div></section>
 <nav class="country-nav"><div class="country-nav-inner"><a href="#guias">GUÍAS</a><a href="#itinerarios">ITINERARIOS</a><a href="#planifica">PLANIFICA TU VIAJE</a><a href="#faq">PREGUNTAS FRECUENTES</a></div></nav>
 <main class="country-main sweden-main vcc-sweden-page">
-<section id="guias"><div class="country-heading"><div><p>${esc(guides.kicker||`Descubre ${name}`)}</p><h2>${esc(guides.title||'GUÍAS DE VIAJE')}</h2></div><span>${esc(guides.description||`Ciudades, regiones y rincones para descubrir ${name}.`)}</span></div>${carousel((c.guides||[]).map(guide).join(''),'guides')}</section>
+<section id="guias"><div class="country-heading"><div><p>${esc(guides.kicker||`Descubre ${name}`)}</p><h2>${esc(guides.title||'GUÍAS DE VIAJE')}</h2></div><span>${esc(guides.description||`Ciudades, regiones y rincones para descubrir ${name}.`)}</span></div>${carousel((c.guides||[]).map(guide).join(''),'guides')}<details class="vcc-score-method" id="metodo-notas-vcc"><summary>¿Cómo puntuamos los destinos?</summary><p>La nota VCC es una valoración editorial sobre 10 basada en nuestra experiencia: experiencia general (25 %), fotogenia (20 %), qué ver y hacer (15 %), gastronomía (10 %), transporte (10 %) y relación calidad-precio (10 %). En los itinerarios, la nota corresponde al destino, no a una puntuación independiente de la ruta.</p></details></section>
 <section id="itinerarios" class="sweden-itineraries-section"><div class="country-heading"><div><p>${esc(its.kicker||'Combina las piezas')}</p><h2>${esc(its.title||`ITINERARIOS EN ${upper}`)}</h2></div><span>${esc(its.description||`Rutas para organizar tu viaje por ${name}.`)}</span></div>${carousel(itin.map(x=>x?itinerary(x):itineraryPlaceholder(name)).join(''),'itineraries')}</section>
 <section id="planifica" class="vcc-plan-section"><div class="country-heading"><div><p>${esc(prep.kicker||`Antes de viajar a ${name}`)}</p><h2>${esc(prep.title||'PLANIFICA TU VIAJE')}</h2></div><span>${esc(prep.description||`Información práctica para preparar tu viaje a ${name}.`)}</span></div><div class="vcc-prep-grid">${(c.preparation||[]).map(prepCard).join('')}</div></section>
 <section class="vcc-inspiration"><img class="vcc-inspiration-photo" src="${esc(c.inspirationImage)}" alt="Fotografía de Göteborg, Suecia, alojada en Cloudflare R2" loading="lazy" decoding="async"><div><p>${esc(insp.line1||'Viaja mejor,')}</p><strong>${esc(insp.line2||'viaja con cabeza')}</strong></div></section>
