@@ -24,6 +24,22 @@
     coreStyle.dataset.vccCoreStyles='true';
     document.head.appendChild(coreStyle);
   }
+  // Accions editorials compartides: sense fletxa ornamental, hover subratllat,
+  // CTA al peu dret de les targetes, sense afectar controls de carrusel.
+  if (!document.querySelector('link[data-vcc-discreet-actions]')) {
+    const actionStyle=document.createElement('link');
+    actionStyle.rel='stylesheet';
+    actionStyle.href=url('configuracion/css/componentes/enlaces-discretos-vcc.css?v=20261113-v1');
+    actionStyle.dataset.vccDiscreetActions='true';
+    document.head.appendChild(actionStyle);
+  }
+  if (!document.querySelector('script[data-vcc-discreet-actions]')) {
+    const actionScript=document.createElement('script');
+    actionScript.src=url('configuracion/js/componentes/enlaces-discretos-vcc.js?v=20261113-v1');
+    actionScript.async=true;
+    actionScript.dataset.vccDiscreetActions='true';
+    document.head.appendChild(actionScript);
+  }
   // El controlador del subheader continua sent únic i asíncron.
   if (!document.querySelector('script[src*="subheader-unificado-vcc.js"]')) {
     const subheaderJs=document.createElement('script');
