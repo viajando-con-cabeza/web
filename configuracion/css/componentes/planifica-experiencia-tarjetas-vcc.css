@@ -293,3 +293,97 @@ html body .av-page .av-carousel .av-track.vcc-experience-track{
     grid-auto-columns:calc((100% - 20px)/1.08)!important;
   }
 }
+
+/* VCC · Nuestra experiencia: flechas EXACTAMENTE como Alojamientos.
+   Referencia: controles al-carousel-arrow a los laterales de la tarjeta.
+   Vuelos/Seguros/Apps usan la misma familia SVG, dimensiones y posición.
+   La regla solo toca los carruseles vcc-experience-carousel; no modifica
+   consejos, coberturas ni errores a evitar. */
+html body .vcc-experience-carousel{
+  position:relative!important;
+  padding-top:0!important;
+}
+html body .vcc-experience-carousel > :is(.sv-controls,.av-arrows){
+  position:absolute!important;
+  inset:0!important;
+  width:100%!important;
+  height:100%!important;
+  min-height:0!important;
+  margin:0!important;
+  padding:0!important;
+  display:block!important;
+  z-index:6!important;
+  pointer-events:none!important;
+}
+html body .vcc-experience-carousel .vcc-experience-arrow{
+  box-sizing:border-box!important;
+  position:absolute!important;
+  top:50%!important;
+  bottom:auto!important;
+  margin:0!important;
+  transform:translateY(-50%)!important;
+  z-index:7!important;
+  display:grid!important;
+  place-items:center!important;
+  width:var(--vcc-carrusel-fletxa-mida,36px)!important;
+  height:var(--vcc-carrusel-fletxa-mida,36px)!important;
+  min-width:0!important;
+  min-height:0!important;
+  flex:0 0 var(--vcc-carrusel-fletxa-mida,36px)!important;
+  padding:0!important;
+  border:1px solid var(--vcc-carrusel-fletxa-contorn,#c7aa97)!important;
+  border-radius:50%!important;
+  background:var(--vcc-carrusel-fletxa-fons,rgba(255,255,255,.78))!important;
+  color:var(--vcc-carrusel-fletxa-tinta,#ab553b)!important;
+  box-shadow:var(--vcc-carrusel-fletxa-ombra,0 2px 8px rgba(29,22,18,.1))!important;
+  font-size:20px!important;
+  line-height:1!important;
+  cursor:pointer!important;
+  pointer-events:auto!important;
+  transition:background-color .15s,border-color .15s,color .15s!important;
+}
+html body .vcc-experience-carousel .vcc-experience-prev{
+  left:-15px!important;
+  right:auto!important;
+}
+html body .vcc-experience-carousel .vcc-experience-next{
+  right:-15px!important;
+  left:auto!important;
+}
+html body .vcc-experience-carousel .vcc-experience-arrow svg{
+  display:block!important;
+  width:23px!important;
+  height:23px!important;
+  flex:none!important;
+  padding:0!important;
+  fill:none!important;
+  stroke:currentColor!important;
+  stroke-width:2.5!important;
+  stroke-linecap:round!important;
+  stroke-linejoin:round!important;
+}
+html body .vcc-experience-carousel .vcc-experience-arrow:hover:not(:disabled){
+  background:#fff1e8!important;
+  border-color:#c36c4f!important;
+}
+html body .vcc-experience-carousel .vcc-experience-arrow:disabled{
+  opacity:.25!important;
+  cursor:default!important;
+  pointer-events:none!important;
+}
+html body .vcc-experience-carousel .vcc-experience-arrow:focus-visible{
+  outline:2px solid #c36c4f!important;
+  outline-offset:3px!important;
+}
+/* En móvil, hotel sitúa las flechas sobre los lados, no arriba. */
+@media(max-width:760px){
+  html body .vcc-experience-carousel{
+    padding-top:0!important;
+  }
+  html body .vcc-experience-carousel .vcc-experience-prev{
+    left:2px!important;right:auto!important;
+  }
+  html body .vcc-experience-carousel .vcc-experience-next{
+    right:2px!important;left:auto!important;
+  }
+}
