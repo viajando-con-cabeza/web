@@ -7,7 +7,7 @@
   --vcc-separador-amplada-foto: 114%;
 }
 body.country-page .vcc-inspiration,
-body .st-shell .vcc-inspiration {
+body:has(.st-hero) .vcc-inspiration {
   position:relative!important;
   isolation:isolate;
   height:var(--vcc-separador-altura)!important;
@@ -19,7 +19,7 @@ body .st-shell .vcc-inspiration {
   box-sizing:border-box!important;
 }
 body.country-page .vcc-inspiration>.vcc-inspiration-photo,
-body .st-shell .vcc-inspiration>.vcc-inspiration-photo {
+body:has(.st-hero) .vcc-inspiration>.vcc-inspiration-photo {
   display:block!important;
   position:absolute!important;
   top:0!important;
@@ -37,9 +37,9 @@ body .st-shell .vcc-inspiration>.vcc-inspiration-photo {
   will-change:transform;
 }
 body.country-page .vcc-inspiration::before,
-body .st-shell .vcc-inspiration::before {z-index:1!important;pointer-events:none!important;}
+body:has(.st-hero) .vcc-inspiration::before {z-index:1!important;pointer-events:none!important;}
 body.country-page .vcc-inspiration>div,
-body .st-shell .vcc-inspiration>div {z-index:2!important;}
+body:has(.st-hero) .vcc-inspiration>div {z-index:2!important;}
 @keyframes vcc-separador-pan {
   from {transform:translate3d(0,0,0)}
   to {transform:translate3d(calc(-100% + 100vw),0,0)}
@@ -47,7 +47,7 @@ body .st-shell .vcc-inspiration>div {z-index:2!important;}
 @media(min-width:1200px) {
   /* 14% d'amplada extra; recorregut complet i constant. */
   body.country-page .vcc-inspiration>.vcc-inspiration-photo,
-  body .st-shell .vcc-inspiration>.vcc-inspiration-photo {
+  body:has(.st-hero) .vcc-inspiration>.vcc-inspiration-photo {
     animation-name:vcc-separador-pan-desktop!important;
   }
   @keyframes vcc-separador-pan-desktop {
@@ -57,20 +57,20 @@ body .st-shell .vcc-inspiration>div {z-index:2!important;}
 }
 @media(max-width:1199px){
   body.country-page .vcc-inspiration>.vcc-inspiration-photo,
-  body .st-shell .vcc-inspiration>.vcc-inspiration-photo {
+  body:has(.st-hero) .vcc-inspiration>.vcc-inspiration-photo {
     animation-name:vcc-separador-pan-desktop!important;
   }
 }
 @media(max-width:560px){
   body.country-page .vcc-inspiration,
-  body .st-shell .vcc-inspiration {
+  body:has(.st-hero) .vcc-inspiration {
     height:var(--vcc-separador-altura-mobil)!important;
     max-height:var(--vcc-separador-altura-mobil)!important;
   }
 }
 @media(prefers-reduced-motion:reduce) {
   body.country-page .vcc-inspiration>.vcc-inspiration-photo,
-  body .st-shell .vcc-inspiration>.vcc-inspiration-photo {
+  body:has(.st-hero) .vcc-inspiration>.vcc-inspiration-photo {
     animation:none!important;will-change:auto;
   }
 }
