@@ -64,6 +64,18 @@ for (const day of [1, 2, 3]) {
   assert.ok(html.includes('href="#dia' + day + '"'), 'Falta la navegació del dia ' + day);
 }
 
+/* El pressupost no és una quarta jornada del carrusel. */
+const summaryHtml=html.match(/<section id="resumen"[\s\S]*?<\/section>/)?.[0]||'';
+assert.equal(count(summaryHtml,/class="overview-card"/g),3,'Les targetes de 3 dies s’han de conservar');
+assert.equal(count(summaryHtml,/class="vcc-itinerary-budget"/g),1,'Hi ha d’haver un únic pressupost');
+assert.ok(summaryHtml.includes('class="vcc-summary-side"'),'Cal la columna lateral compartida');
+assert.ok(summaryHtml.indexOf('class="vcc-itinerary-budget"')>summaryHtml.lastIndexOf('class="overview-card"'),'El pressupost va després dels dies');
+assert.match(summaryHtml,/<strong>330 €<\/strong><span>\/ persona<\/span>/);
+assert.match(summaryHtml,/href="presupuesto\.html"/);
+const budgetCSS=read('configuracion/css/componentes/vcc-itinerary-budget-summary.css');
+assert.match(budgetCSS,/background:transparent/,'L’enllaç no pot tenir fons taronja');
+assert.ok(bundle.includes('vcc-itinerary-budget__link'),'Els estils del pressupost han d’estar dins del CSS compilat');
+
 const images = [...html.matchAll(/<img\b[^>]*>/g)].map(x => x[0]);
 assert.ok(images.length >= 15 && images.length < 35, 'El mosaic inicial no ha de renderitzar les 89 fotos abans de la interacció');
 images.forEach((tag, i) => {
