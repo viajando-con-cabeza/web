@@ -90,7 +90,8 @@ html body :is(.vl-page .vl-air-card .vl-air-action,.al-page .al-card .al-externa
    ======================================================================== */
 
 /* Misma anchura de las fichas de Alojamientos en los cuatro carruseles. */
-html body .vcc-experience-track.vcc-experience-track{
+html body .vcc-experience-track.vcc-experience-track,
+html body .av-page .av-carousel .av-track.vcc-experience-track{
   grid-auto-columns:calc((100% - 32px)/3.08)!important;
   gap:16px!important;
   align-items:stretch!important;
@@ -246,12 +247,14 @@ html body .vcc-experience-card .vcc-experience-link:focus-visible{
   outline-offset:4px!important;
 }
 @media(max-width:1050px){
-  html body .vcc-experience-track.vcc-experience-track{
+  html body .vcc-experience-track.vcc-experience-track,
+html body .av-page .av-carousel .av-track.vcc-experience-track{
     grid-auto-columns:calc((100% - 16px)/2.12)!important;
   }
 }
 @media(max-width:740px){
-  html body .vcc-experience-track.vcc-experience-track{
+  html body .vcc-experience-track.vcc-experience-track,
+html body .av-page .av-carousel .av-track.vcc-experience-track{
     grid-auto-columns:calc((100% - 16px)/1.12)!important;
   }
   html body .vcc-experience-track > .vcc-experience-card{
@@ -285,7 +288,8 @@ html body .vcc-experience-card .vcc-experience-link:focus-visible{
   }
 }
 @media(max-width:520px){
-  html body .vcc-experience-track.vcc-experience-track{
+  html body .vcc-experience-track.vcc-experience-track,
+html body .av-page .av-carousel .av-track.vcc-experience-track{
     grid-auto-columns:calc((100% - 20px)/1.08)!important;
   }
 }
