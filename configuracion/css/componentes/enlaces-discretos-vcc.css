@@ -101,6 +101,22 @@ html body :is(.ep4-day-card,.vcc-itinerary-budget,.di-mini-body)
  :is(a.ep4-day-link,a.vcc-itinerary-budget__link,a.vcc-accion-discreta){
  text-align:right;
 }
+/* Excepcions de composició: les vinyetes del pressupost perden el
+   caret decoratiu, però el text VER DESGLOSE continua al peu dret. */
+html body.budget-vcc .vcc-budget-mode-card .vcc-budget-mode-footer{
+ justify-content:flex-end!important;
+ align-items:center!important;
+ text-align:right!important;
+ margin-top:auto!important;
+}
+html body .ep4-day-card .ep4-day-story{
+ display:flex;flex-direction:column;min-width:0;
+}
+html body .ep4-day-card .ep4-day-story>a.ep4-day-link{
+ margin-top:auto!important;
+ align-self:flex-end!important;
+ text-align:right!important;
+}
 /* L'element enfocat continua visible sense necessitat de fletxa. */
 html body a.vcc-accion-discreta:focus-visible{
  outline:2px solid currentColor;outline-offset:3px;
