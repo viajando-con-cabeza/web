@@ -19,6 +19,16 @@ for (const [name, html] of [["Contacto", contact], ["Contact EN", english]]) {
   if (!html.includes("/configuracion/js/contacto-enviar.js")) issues.push(name + ": falta JS compartido");
   if (!html.includes('name="website"')) issues.push(name + ": falta campo antispam");
 }
+const photoScript = read("configuracion/js/contacto-fotos.js");
+for (const [name, html] of [["Contacto", contact], ["Contact EN", english]]) {
+  if (!html.includes("data-vcc-contact-photo") ||
+      !html.includes("/configuracion/js/contacto-fotos.js"))
+    issues.push(name + ": falta imagen rotativa de R2");
+  if (/contact-postcard world-map-image"><img[^>]*src="https:\/\//.test(html))
+    issues.push(name + ": foto fija que podría descargarse antes de la aleatoria");
+}
+if (!photoScript.includes("__vcc_preview/") || !photoScript.includes("sessionStorage"))
+  issues.push("Selector de fotografías de R2 incompleto");
 const styles = read("configuracion/css/contacto.css");
 if (!styles.includes("#contactForm[hidden],#contactSuccess[hidden],#contactFeedback[hidden]{display:none!important}"))
   issues.push("El CSS debe ocultar el formulario y los avisos cuando tienen hidden");
@@ -43,4 +53,5 @@ if (issues.length) {
 } else {
   console.log("VCC contacto OK: ES/EN envían por Cloudflare al Gmail verificado.");
   await import("../tests/contacto-api.mjs");
+  await import("../tests/contacto-fotos.mjs");
 }
