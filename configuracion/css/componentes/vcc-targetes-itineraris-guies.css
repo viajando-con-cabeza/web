@@ -26,12 +26,12 @@
   display:flex!important;flex:1 1 auto!important;flex-direction:column!important;
   align-items:stretch!important;gap:0!important;
   min-width:0!important;min-height:0!important;height:auto!important;
-  padding:10px 12px 12px!important;
+  padding:12px 14px 14px!important;
 }
 :is(.vcc-it-catalog,.vcc-card-collection,body.inicio-vcc.home-editorial-refresh .home-featured-itineraries,body.inicio-vcc.home-editorial-refresh .home-featured-guide) .vcc-it-card .vcc-it-title,
 :is(.vcc-it-catalog,.vcc-card-collection,body.inicio-vcc.home-editorial-refresh .home-featured-itineraries,body.inicio-vcc.home-editorial-refresh .home-featured-guide) .vcc-it-card .di-mini-body>strong{
   display:block!important;min-height:0!important;max-height:none!important;
-  width:100%!important;margin:0 0 7px!important;padding:0!important;
+  width:100%!important;margin:0 0 9px!important;padding:0!important;
   font:600 19px/1.13 var(--vcc-font-heading,"Oswald",sans-serif)!important;
   color:#23201e!important;text-transform:none!important;text-decoration:none!important;
   overflow-wrap:break-word!important;
@@ -39,7 +39,7 @@
 :is(.vcc-it-catalog,.vcc-card-collection,body.inicio-vcc.home-editorial-refresh .home-featured-itineraries,body.inicio-vcc.home-editorial-refresh .home-featured-guide) .vcc-it-card .vcc-it-facts{
   display:flex!important;justify-content:flex-start!important;align-items:center!important;
   flex-wrap:wrap!important;gap:5px 10px!important;
-  width:100%!important;min-width:0!important;margin:0 0 7px!important;padding:0!important;
+  width:100%!important;min-width:0!important;margin:0 0 9px!important;padding:0!important;
 }
 :is(.vcc-it-catalog,.vcc-card-collection,body.inicio-vcc.home-editorial-refresh .home-featured-itineraries,body.inicio-vcc.home-editorial-refresh .home-featured-guide) .vcc-it-card .vcc-it-facts>span{
   display:inline-flex!important;flex:0 0 auto!important;align-items:center!important;
@@ -87,11 +87,11 @@
   display:inline-flex!important;flex:0 0 auto!important;
   align-self:flex-end!important;justify-content:flex-end!important;
   margin:auto 0 0!important;padding:8px 0 0!important;
-  font:800 10px/1.25 var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;
+  font:700 9px/1.25 var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;
   text-align:right!important;text-decoration:none!important;
   letter-spacing:0!important;
 }
-:is(.vcc-it-catalog,.vcc-card-collection,body.inicio-vcc.home-editorial-refresh .home-featured-itineraries,body.inicio-vcc.home-editorial-refresh .home-featured-guide) .vcc-it-card .vcc-it-cta{color:#b54c2e!important}
+:is(.vcc-it-catalog,.vcc-card-collection,body.inicio-vcc.home-editorial-refresh .home-featured-itineraries,body.inicio-vcc.home-editorial-refresh .home-featured-guide) .vcc-it-card .vcc-it-cta{color:#a96048!important}
 :is(.vcc-it-catalog,.vcc-card-collection,body.inicio-vcc.home-editorial-refresh .home-featured-itineraries,body.inicio-vcc.home-editorial-refresh .home-featured-guide) .vcc-it-card .vcc-it-upcoming{color:#ada19a!important}
 :is(.vcc-it-catalog,.vcc-card-collection,body.inicio-vcc.home-editorial-refresh .home-featured-itineraries,body.inicio-vcc.home-editorial-refresh .home-featured-guide) .vcc-it-card .vcc-it-gallery-button{
   position:absolute!important;z-index:6!important;top:50%!important;
@@ -131,7 +131,7 @@
 /* Categoria, sota la fotografia: mateixa lectura visual a les dues seccions. */
 :is(body.inicio-vcc.home-editorial-refresh :is(.home-featured-itineraries,.home-featured-guide),.vcc-card-collection) .vcc-it-card .vcc-card-kicker{
   display:inline-flex!important;align-items:center!important;align-self:flex-start!important;gap:4px!important;
-  position:static!important;width:auto!important;margin:0 0 4px!important;padding:0!important;
+  position:static!important;width:auto!important;margin:0 0 6px!important;padding:0!important;
   border:0!important;box-shadow:none!important;background:transparent!important;border-radius:0!important;
   font:800 9px/1.2 var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;
   color:#c75e3c!important;letter-spacing:.03em!important;text-transform:uppercase!important;
@@ -177,7 +177,7 @@ body.inicio-vcc.home-editorial-refresh .home-featured-itineraries .vcc-score-met
 body.inicio-vcc.home-editorial-refresh .home-featured-itineraries .vcc-score-method p{margin:6px 0 0!important;max-width:830px!important}
 @media(max-width:620px){
   :is(body.inicio-vcc.home-editorial-refresh :is(.home-featured-itineraries,.home-featured-guide),.vcc-card-collection) .vcc-it-card .vcc-card-kicker{
-    gap:4px!important;font-size:8.5px!important;margin-bottom:4px!important;
+    gap:4px!important;font-size:8.5px!important;margin-bottom:5px!important;
   }
   :is(body.inicio-vcc.home-editorial-refresh :is(.home-featured-itineraries,.home-featured-guide),.vcc-card-collection) .vcc-it-card .vcc-card-kicker svg{
     width:12px!important;height:12px!important;flex-basis:12px!important;
@@ -221,5 +221,36 @@ body.country-page .vcc-sweden-page .vcc-score-method p{
 @media(max-width:620px){
   .st-discover .st-card-carousel.vcc-card-collection > .vcc-it-card{
     flex-basis:84%!important;
+  }
+}
+
+/* Estocolmo: la columna de itinerario es más ancha. Usamos la misma
+   altura de tarjeta y fotografía que las guías contiguas, sin cambiar
+   la distribución de columnas ni la tipografía del componente. */
+.st-discover{
+  --vcc-stockholm-card-height:456px;
+  --vcc-stockholm-photo-height:207px;
+}
+.st-discover :is(.st-card-carousel.vcc-card-collection,.st-single-itinerary.vcc-card-collection) > .vcc-it-card{
+  height:var(--vcc-stockholm-card-height)!important;
+  min-height:var(--vcc-stockholm-card-height)!important;
+  max-height:var(--vcc-stockholm-card-height)!important;
+}
+.st-discover :is(.st-card-carousel.vcc-card-collection,.st-single-itinerary.vcc-card-collection) > .vcc-it-card .vcc-it-photo{
+  height:var(--vcc-stockholm-photo-height)!important;
+  min-height:var(--vcc-stockholm-photo-height)!important;
+  max-height:var(--vcc-stockholm-photo-height)!important;
+  flex:0 0 var(--vcc-stockholm-photo-height)!important;
+  aspect-ratio:auto!important;
+}
+/* La etiqueta de zona en las guías de ciudad sigue la tipografía
+   de metadatos del componente; no modifica las tarjetas de país. */
+.st-discover #quever .vcc-it-card .vcc-it-facts .di-country-line{
+  font:700 10px/1.2 var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;
+}
+@media(max-width:620px){
+  .st-discover{
+    --vcc-stockholm-card-height:445px;
+    --vcc-stockholm-photo-height:190px;
   }
 }
