@@ -202,19 +202,23 @@ html body.about-vcc .travel-philosophy .philosophy-photo{
   background-position:center 50%!important;
 }
 
-/* VCC · Nosotros: Phosphor Duotone, acabat editorial; limitat a aquesta pàgina. */
+/* Nosotros · Icones de Remix Icon, sense contenidors ni fons. */
 html body.about-vcc .vcc-values .value-art{
-  display:grid!important;
-  place-items:center!important;
-  width:86px!important;height:86px!important;
-  margin:0 auto 10px!important;
-  border-radius:22px!important;
-  background:linear-gradient(150deg,rgba(201,101,71,.12),rgba(201,101,71,.035))!important;
-  color:#38312d!important;
+  display:grid!important;place-items:center!important;
+  width:82px!important;height:78px!important;
+  margin:0 auto 8px!important;
+  background:transparent!important;
+  border:0!important;border-radius:0!important;
+  box-shadow:none!important;
+  color:#bc6547!important;
+}
+html body.about-vcc .vcc-values .value-art::before,
+html body.about-vcc .vcc-values .value-art::after{
+  display:none!important;content:none!important;
 }
 html body.about-vcc .vcc-values .value-art svg{
   display:block!important;
-  width:61px!important;height:61px!important;
+  width:65px!important;height:65px!important;
   fill:currentColor!important;
   stroke:none!important;
 }
@@ -232,12 +236,11 @@ html body.about-vcc main > section.blog-paths{
 }
 @media(min-width:601px) and (max-width:900px){
   html body.about-vcc .vcc-values .value-art{
-    width:74px!important;height:74px!important;
-    border-radius:19px!important;
+    width:76px!important;height:72px!important;
     margin:0 auto 8px!important;
   }
   html body.about-vcc .vcc-values .value-art svg{
-    width:53px!important;height:53px!important;
+    width:58px!important;height:58px!important;
   }
 }
 @media(max-width:900px){
@@ -256,11 +259,11 @@ html body.about-vcc main > section.blog-paths{
 }
 @media(max-width:600px){
   html body.about-vcc .vcc-values .value-art{
-    width:66px!important;height:66px!important;
-    margin:0!important;border-radius:17px!important;
+    width:66px!important;height:62px!important;
+    margin:0!important;
   }
   html body.about-vcc .vcc-values .value-art svg{
-    width:48px!important;height:48px!important;
+    width:49px!important;height:49px!important;
   }
   html body.about-vcc main > section.about-story{
     padding-top:34px!important;
