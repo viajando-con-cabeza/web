@@ -1963,3 +1963,29 @@ html body .vl-page .vl-hero.tv-hero.vcc-portada-transparente{
   .vcc-summary .vcc-itinerary-budget__meta{font-size:9px}
   .vcc-summary .vcc-itinerary-budget__link{font-size:8.5px;gap:3px}
 }
+
+/* Tota la vinyeta del pressupost és un únic enllaç accessible, com els dies. */
+.vcc-summary a.vcc-itinerary-budget{
+  color:#171717;
+  text-decoration:none;
+  cursor:pointer;
+  transition:border-color .18s ease, box-shadow .18s ease, transform .18s ease;
+}
+.vcc-summary a.vcc-itinerary-budget:hover{
+  border-color:#d8c9c0;
+  box-shadow:0 5px 14px rgba(40,30,20,.08);
+  transform:translateY(-1px);
+}
+.vcc-summary a.vcc-itinerary-budget:hover .vcc-itinerary-budget__link{
+  color:#8c3a24;
+  text-decoration:underline;
+  text-underline-offset:3px;
+}
+.vcc-summary a.vcc-itinerary-budget:focus-visible{
+  outline:2px solid #b55a38;
+  outline-offset:3px;
+}
+@media(prefers-reduced-motion:reduce){
+  .vcc-summary a.vcc-itinerary-budget{transition:none}
+  .vcc-summary a.vcc-itinerary-budget:hover{transform:none}
+}
