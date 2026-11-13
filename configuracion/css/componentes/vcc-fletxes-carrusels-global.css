@@ -1,0 +1,394 @@
+/* VCC · sistema CANÒNIC de controls de carrusel.
+   Configuració única per a fletxes de navegar esquerra/dreta.
+   No genera icones amb ::before/::after ni substitueix el HTML/JS existent:
+   evita fletxes dobles i conserva el funcionament de cada carrusel.
+   Canviar variables de :root per actualitzar tots els controls. */
+:root{
+  --vcc-fletxa-mida:36px;
+  --vcc-fletxa-mida-mobil:34px;
+  --vcc-fletxa-fons:rgba(255,255,255,.88);
+  --vcc-fletxa-contorn:#c7aa97;
+  --vcc-fletxa-color:#a65340;
+  --vcc-fletxa-focus:#be6c4d;
+  --vcc-fletxa-offset-mobil:2px;
+  --vcc-fletxa-ombra:0 2px 8px rgba(29,22,18,.09);
+}
+:is(button.carousel-arrow,
+button.vcc-budget-mode-arrow,
+button.mv-transport-arrow,
+button.mv-carousel-arrow,
+button.mv-day-prev,
+button.mv-day-next,
+button.ep3-saving-arrow,
+button.ep4-our-arrow,
+button.ep-slider-arrow,
+button.ep-rail-arrow,
+button.tv-carousel-arrow,
+button.al-carousel-arrow,
+button.al-tips-arrow,
+button.vl-air-carousel-arrow,
+button.vl-tip-arrow,
+button.vcc-saving-arrow,
+button.dv-arrow,
+button.ci-tips-arrow,
+button.ci-august-weather-prev,
+button.ci-august-weather-next,
+button.ql-carousel-arrow,
+button.place-nav-arrow,
+button.sv-arrow,
+button.vcc-route-arrow){
+  -webkit-appearance:none!important;appearance:none!important;
+  box-sizing:border-box!important;
+  display:grid!important;place-items:center!important;
+  flex:0 0 var(--vcc-fletxa-mida)!important;
+  width:var(--vcc-fletxa-mida)!important;
+  height:var(--vcc-fletxa-mida)!important;
+  min-width:var(--vcc-fletxa-mida)!important;
+  min-height:var(--vcc-fletxa-mida)!important;
+  padding:0!important;
+  border:1px solid var(--vcc-fletxa-contorn)!important;
+  border-radius:50%!important;
+  background:var(--vcc-fletxa-fons)!important;
+  box-shadow:var(--vcc-fletxa-ombra)!important;
+  color:var(--vcc-fletxa-color)!important;
+  font:600 24px/1 Arial,Helvetica,sans-serif!important;
+  text-align:center!important;
+  text-indent:0!important;
+  vertical-align:middle!important;
+  cursor:pointer;
+  -webkit-tap-highlight-color:transparent;
+}
+:is(button.carousel-arrow,
+button.vcc-budget-mode-arrow,
+button.mv-transport-arrow,
+button.mv-carousel-arrow,
+button.mv-day-prev,
+button.mv-day-next,
+button.ep3-saving-arrow,
+button.ep4-our-arrow,
+button.ep-slider-arrow,
+button.ep-rail-arrow,
+button.tv-carousel-arrow,
+button.al-carousel-arrow,
+button.al-tips-arrow,
+button.vl-air-carousel-arrow,
+button.vl-tip-arrow,
+button.vcc-saving-arrow,
+button.dv-arrow,
+button.ci-tips-arrow,
+button.ci-august-weather-prev,
+button.ci-august-weather-next,
+button.ql-carousel-arrow,
+button.place-nav-arrow,
+button.sv-arrow,
+button.vcc-route-arrow) > svg{
+  display:block!important;justify-self:center!important;align-self:center!important;
+  width:17px!important;height:17px!important;
+  stroke-width:2.3!important;
+}
+:is(button.carousel-arrow,
+button.vcc-budget-mode-arrow,
+button.mv-transport-arrow,
+button.mv-carousel-arrow,
+button.mv-day-prev,
+button.mv-day-next,
+button.ep3-saving-arrow,
+button.ep4-our-arrow,
+button.ep-slider-arrow,
+button.ep-rail-arrow,
+button.tv-carousel-arrow,
+button.al-carousel-arrow,
+button.al-tips-arrow,
+button.vl-air-carousel-arrow,
+button.vl-tip-arrow,
+button.vcc-saving-arrow,
+button.dv-arrow,
+button.ci-tips-arrow,
+button.ci-august-weather-prev,
+button.ci-august-weather-next,
+button.ql-carousel-arrow,
+button.place-nav-arrow,
+button.sv-arrow,
+button.vcc-route-arrow):hover:not(:disabled):not([aria-disabled="true"]){
+  background:#fff2eb!important;border-color:#b66a4d!important;
+}
+:is(button.carousel-arrow,
+button.vcc-budget-mode-arrow,
+button.mv-transport-arrow,
+button.mv-carousel-arrow,
+button.mv-day-prev,
+button.mv-day-next,
+button.ep3-saving-arrow,
+button.ep4-our-arrow,
+button.ep-slider-arrow,
+button.ep-rail-arrow,
+button.tv-carousel-arrow,
+button.al-carousel-arrow,
+button.al-tips-arrow,
+button.vl-air-carousel-arrow,
+button.vl-tip-arrow,
+button.vcc-saving-arrow,
+button.dv-arrow,
+button.ci-tips-arrow,
+button.ci-august-weather-prev,
+button.ci-august-weather-next,
+button.ql-carousel-arrow,
+button.place-nav-arrow,
+button.sv-arrow,
+button.vcc-route-arrow):focus-visible{
+  outline:2px solid var(--vcc-fletxa-focus)!important;
+  outline-offset:3px!important;
+}
+:is(button.carousel-arrow,
+button.vcc-budget-mode-arrow,
+button.mv-transport-arrow,
+button.mv-carousel-arrow,
+button.mv-day-prev,
+button.mv-day-next,
+button.ep3-saving-arrow,
+button.ep4-our-arrow,
+button.ep-slider-arrow,
+button.ep-rail-arrow,
+button.tv-carousel-arrow,
+button.al-carousel-arrow,
+button.al-tips-arrow,
+button.vl-air-carousel-arrow,
+button.vl-tip-arrow,
+button.vcc-saving-arrow,
+button.dv-arrow,
+button.ci-tips-arrow,
+button.ci-august-weather-prev,
+button.ci-august-weather-next,
+button.ql-carousel-arrow,
+button.place-nav-arrow,
+button.sv-arrow,
+button.vcc-route-arrow):disabled,:is(button.carousel-arrow,
+button.vcc-budget-mode-arrow,
+button.mv-transport-arrow,
+button.mv-carousel-arrow,
+button.mv-day-prev,
+button.mv-day-next,
+button.ep3-saving-arrow,
+button.ep4-our-arrow,
+button.ep-slider-arrow,
+button.ep-rail-arrow,
+button.tv-carousel-arrow,
+button.al-carousel-arrow,
+button.al-tips-arrow,
+button.vl-air-carousel-arrow,
+button.vl-tip-arrow,
+button.vcc-saving-arrow,
+button.dv-arrow,
+button.ci-tips-arrow,
+button.ci-august-weather-prev,
+button.ci-august-weather-next,
+button.ql-carousel-arrow,
+button.place-nav-arrow,
+button.sv-arrow,
+button.vcc-route-arrow)[aria-disabled="true"]{
+  opacity:.35!important;cursor:default!important;
+}
+@media(max-width:760px){
+  :is(button.carousel-arrow,
+button.vcc-budget-mode-arrow,
+button.mv-transport-arrow,
+button.mv-carousel-arrow,
+button.mv-day-prev,
+button.mv-day-next,
+button.ep3-saving-arrow,
+button.ep4-our-arrow,
+button.ep-slider-arrow,
+button.ep-rail-arrow,
+button.tv-carousel-arrow,
+button.al-carousel-arrow,
+button.al-tips-arrow,
+button.vl-air-carousel-arrow,
+button.vl-tip-arrow,
+button.vcc-saving-arrow,
+button.dv-arrow,
+button.ci-tips-arrow,
+button.ci-august-weather-prev,
+button.ci-august-weather-next,
+button.ql-carousel-arrow,
+button.place-nav-arrow,
+button.sv-arrow,
+button.vcc-route-arrow){
+    --vcc-fletxa-mida:var(--vcc-fletxa-mida-mobil);
+    box-shadow:none!important;
+  }
+  /* Només dispositius mòbils: les fletxes existents se situen als laterals.
+     No es modifiquen els tracks ni es creen nodes DOM. */
+  html body.budget-vcc .budget-section .carousel-shell,
+  html body.budget-vcc #filosofia .vcc-budget-mode-carousel,
+  html body .st-carousel-wrap,
+  html body.country-page .sweden-carousel-wrap,
+  html body.country-page .faq-carousel-wrap,
+  html body.mv-body .mv-transport-shell,
+  html body.mv-body .mv-carousel-shell,
+  html body .ep-page .ep3-saving-stage,
+  html body .ep-page .ep4-our-stage,
+  html body.tv-page .tv-carousel-shell,
+  html body.tv-page .tv-error-carousel,
+  html body.al-page .al-carousel,
+  html body.al-page .al-tips-carousel,
+  html body.vl-page .vl-air-carousel,
+  html body.vl-page .vl-tips-carousel,
+  html body .vcc-saving-carousel,
+  html body.dv-page .dv-carousel-wrap,
+  html body.dv-page .dv-tip-carousel-wrap,
+  html body.ci-page .ci-tips-shell,
+  html body .ql-page .ql-advice-carousel-sides{
+    position:relative!important;
+  }
+  html body.budget-vcc .budget-section .carousel-shell{
+    display:block!important;grid-template-columns:none!important;
+    padding:0!important;gap:0!important;
+  }
+  html body.budget-vcc .budget-section .carousel-shell > .tips-track{
+    width:100%!important;min-width:0!important;grid-column:auto!important;
+  }
+  html body.budget-vcc .budget-section .carousel-shell > button.carousel-arrow.prev,
+  html body.budget-vcc .budget-section .carousel-shell > button.carousel-arrow.next,
+  html body.budget-vcc #filosofia .vcc-budget-mode-arrow.previous,
+  html body.budget-vcc #filosofia .vcc-budget-mode-arrow.next,
+  html body .st-carousel-wrap > button.carousel-arrow.prev,
+  html body .st-carousel-wrap > button.carousel-arrow.next,
+  html body.country-page .sweden-carousel-wrap > button.carousel-arrow.prev,
+  html body.country-page .sweden-carousel-wrap > button.carousel-arrow.next,
+  html body.mv-body .mv-transport-shell > button.mv-transport-prev,
+  html body.mv-body .mv-transport-shell > button.mv-transport-next,
+  html body.mv-body .mv-carousel-shell > button.mv-prev,
+  html body.mv-body .mv-carousel-shell > button.mv-next,
+  html body .ep-page .ep3-saving-stage > button.ep3-saving-prev,
+  html body .ep-page .ep3-saving-stage > button.ep3-saving-next,
+  html body .ep-page .ep4-our-stage > button.ep4-our-arrow-prev,
+  html body .ep-page .ep4-our-stage > button.ep4-our-arrow-next,
+  html body.tv-page .tv-carousel-shell > button[data-tv-prev],
+  html body.tv-page .tv-carousel-shell > button[data-tv-next],
+  html body.tv-page .tv-error-carousel button.tv-error-prev,
+  html body.tv-page .tv-error-carousel button.tv-error-next,
+  html body.al-page .al-carousel > button.al-carousel-prev,
+  html body.al-page .al-carousel > button.al-carousel-next,
+  html body.al-page .al-tips-carousel > button.al-tips-prev,
+  html body.al-page .al-tips-carousel > button.al-tips-next,
+  html body.vl-page .vl-air-carousel > button.vl-air-carousel-prev,
+  html body.vl-page .vl-air-carousel > button.vl-air-carousel-next,
+  html body.vl-page .vl-tips-carousel > button.vl-tip-prev,
+  html body.vl-page .vl-tips-carousel > button.vl-tip-next,
+  html body .vcc-saving-carousel > button.vcc-saving-prev,
+  html body .vcc-saving-carousel > button.vcc-saving-next,
+  html body.dv-page .dv-carousel-wrap > button.dv-arrow-left,
+  html body.dv-page .dv-carousel-wrap > button.dv-arrow-right,
+  html body.dv-page .dv-tip-carousel-wrap > button.dv-tip-prev,
+  html body.dv-page .dv-tip-carousel-wrap > button.dv-tip-next,
+  html body.ci-page .ci-tips-shell > button.ci-tips-prev,
+  html body.ci-page .ci-tips-shell > button.ci-tips-next,
+  html body .ql-page .ql-advice-carousel-sides > button#ql-advice-prev,
+  html body .ql-page .ql-advice-carousel-sides > button#ql-advice-next,
+  html body .vcc-route-carousel > button.vcc-route-prev,
+  html body .vcc-route-carousel > button.vcc-route-next{
+    position:absolute!important;
+    top:50%!important;bottom:auto!important;
+    transform:translateY(-50%)!important;
+    margin:0!important;z-index:5!important;
+  }
+  html body.budget-vcc .budget-section .carousel-shell > button.carousel-arrow.prev,
+  html body.budget-vcc #filosofia .vcc-budget-mode-arrow.previous,
+  html body .st-carousel-wrap > button.carousel-arrow.prev,
+  html body.country-page .sweden-carousel-wrap > button.carousel-arrow.prev,
+  html body.mv-body .mv-transport-shell > button.mv-transport-prev,
+  html body.mv-body .mv-carousel-shell > button.mv-prev,
+  html body .ep-page .ep3-saving-stage > button.ep3-saving-prev,
+  html body .ep-page .ep4-our-stage > button.ep4-our-arrow-prev,
+  html body.tv-page .tv-carousel-shell > button[data-tv-prev],
+  html body.tv-page .tv-error-carousel button.tv-error-prev,
+  html body.al-page .al-carousel > button.al-carousel-prev,
+  html body.al-page .al-tips-carousel > button.al-tips-prev,
+  html body.vl-page .vl-air-carousel > button.vl-air-carousel-prev,
+  html body.vl-page .vl-tips-carousel > button.vl-tip-prev,
+  html body .vcc-saving-carousel > button.vcc-saving-prev,
+  html body.dv-page .dv-carousel-wrap > button.dv-arrow-left,
+  html body.dv-page .dv-tip-carousel-wrap > button.dv-tip-prev,
+  html body.ci-page .ci-tips-shell > button.ci-tips-prev,
+  html body .ql-page .ql-advice-carousel-sides > button#ql-advice-prev,
+  html body .vcc-route-carousel > button.vcc-route-prev{
+    left:var(--vcc-fletxa-offset-mobil)!important;right:auto!important;
+  }
+  html body.budget-vcc .budget-section .carousel-shell > button.carousel-arrow.next,
+  html body.budget-vcc #filosofia .vcc-budget-mode-arrow.next,
+  html body .st-carousel-wrap > button.carousel-arrow.next,
+  html body.country-page .sweden-carousel-wrap > button.carousel-arrow.next,
+  html body.mv-body .mv-transport-shell > button.mv-transport-next,
+  html body.mv-body .mv-carousel-shell > button.mv-next,
+  html body .ep-page .ep3-saving-stage > button.ep3-saving-next,
+  html body .ep-page .ep4-our-stage > button.ep4-our-arrow-next,
+  html body.tv-page .tv-carousel-shell > button[data-tv-next],
+  html body.tv-page .tv-error-carousel button.tv-error-next,
+  html body.al-page .al-carousel > button.al-carousel-next,
+  html body.al-page .al-tips-carousel > button.al-tips-next,
+  html body.vl-page .vl-air-carousel > button.vl-air-carousel-next,
+  html body.vl-page .vl-tips-carousel > button.vl-tip-next,
+  html body .vcc-saving-carousel > button.vcc-saving-next,
+  html body.dv-page .dv-carousel-wrap > button.dv-arrow-right,
+  html body.dv-page .dv-tip-carousel-wrap > button.dv-tip-next,
+  html body.ci-page .ci-tips-shell > button.ci-tips-next,
+  html body .ql-page .ql-advice-carousel-sides > button#ql-advice-next,
+  html body .vcc-route-carousel > button.vcc-route-next{
+    right:var(--vcc-fletxa-offset-mobil)!important;left:auto!important;
+  }
+}
+/* Titulars i textos: una sola escala editorial per «Cómo ahorrar» i
+   «Errores a evitar» (presupuesto); aplicable també a nous destins. */
+:root{
+  --vcc-consell-titol:22px;
+  --vcc-consell-text:12px;
+}
+html body.budget-vcc :is(.savings-section .vcc-editorial-numbered-card,.surprise-section .vcc-editorial-error-card) h3{
+  font:500 var(--vcc-consell-titol)/1.18 var(--vcc-font-heading,"Oswald",sans-serif)!important;
+  color:#232120!important;letter-spacing:0!important;
+  margin:2px 0 9px!important;
+}
+html body.budget-vcc :is(.savings-section .vcc-editorial-numbered-card,.surprise-section .vcc-editorial-error-card) p{
+  font:400 var(--vcc-consell-text)/1.55 var(--vcc-font-body,"DM Sans",sans-serif)!important;
+  color:#68615b!important;
+  margin:0!important;
+}
+html body.budget-vcc :is(.savings-section,.surprise-section) .vcc-editorial-heading .vcc-editorial-title{
+  font-family:var(--vcc-font-heading,"Oswald",sans-serif)!important;
+  font-weight:600!important;
+}
+html body.budget-vcc :is(.savings-section,.surprise-section) .vcc-editorial-heading .vcc-editorial-overline{
+  font-family:var(--vcc-font-script,"Caveat",cursive)!important;
+}
+html body.budget-vcc :is(.savings-section,.surprise-section) .vcc-editorial-heading .vcc-editorial-description{
+  font-family:var(--vcc-font-body,"DM Sans",sans-serif)!important;
+}
+@media(max-width:550px){
+  :root{--vcc-consell-titol:20px;}
+}
+@media(prefers-reduced-motion:reduce){
+  :is(button.carousel-arrow,
+button.vcc-budget-mode-arrow,
+button.mv-transport-arrow,
+button.mv-carousel-arrow,
+button.mv-day-prev,
+button.mv-day-next,
+button.ep3-saving-arrow,
+button.ep4-our-arrow,
+button.ep-slider-arrow,
+button.ep-rail-arrow,
+button.tv-carousel-arrow,
+button.al-carousel-arrow,
+button.al-tips-arrow,
+button.vl-air-carousel-arrow,
+button.vl-tip-arrow,
+button.vcc-saving-arrow,
+button.dv-arrow,
+button.ci-tips-arrow,
+button.ci-august-weather-prev,
+button.ci-august-weather-next,
+button.ql-carousel-arrow,
+button.place-nav-arrow,
+button.sv-arrow,
+button.vcc-route-arrow){transition:none!important}
+}
