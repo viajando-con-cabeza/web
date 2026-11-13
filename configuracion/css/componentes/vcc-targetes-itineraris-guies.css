@@ -386,14 +386,14 @@ html body.vcc-planifica-cards .vcc-it-catalog .di-mini-card.vcc-it-card .di-topi
 html body.vcc-planifica-cards .vcc-it-catalog .di-mini-card.vcc-it-card{
   --vcc-card-score-top:15px;--vcc-card-score-right:16px;--vcc-card-score-size:36px;
 }
-html body.vcc-planifica-cards .vcc-it-catalog .di-mini-card.vcc-it-card .vcc-card-score{
+html body:is(.vcc-planifica-cards,.itinerarios-vcc) .vcc-it-catalog .di-mini-card.vcc-it-card .vcc-card-score{
   position:absolute!important;z-index:7!important;
   top:var(--vcc-card-score-top)!important;right:var(--vcc-card-score-right)!important;
   bottom:auto!important;left:auto!important;display:flex!important;flex-direction:column!important;
   align-items:flex-end!important;width:max-content!important;margin:0!important;padding:0!important;
   border:0!important;background:none!important;box-shadow:none!important;
 }
-html body.vcc-planifica-cards .vcc-it-catalog .di-mini-card.vcc-it-card .vcc-card-score strong{
+html body:is(.vcc-planifica-cards,.itinerarios-vcc) .vcc-it-catalog .di-mini-card.vcc-it-card .vcc-card-score strong{
   display:grid!important;place-items:center!important;
   width:var(--vcc-card-score-size)!important;height:var(--vcc-card-score-size)!important;
   box-sizing:border-box!important;padding:0!important;margin:0!important;
@@ -401,13 +401,13 @@ html body.vcc-planifica-cards .vcc-it-catalog .di-mini-card.vcc-it-card .vcc-car
   font:500 17px/1 var(--vcc-font-heading,"Oswald",sans-serif)!important;
   box-shadow:0 4px 12px rgba(0,0,0,.2)!important;
 }
-html body.vcc-planifica-cards .vcc-it-catalog .di-mini-card.vcc-it-card .vcc-card-score small{
+html body:is(.vcc-planifica-cards,.itinerarios-vcc) .vcc-it-catalog .di-mini-card.vcc-it-card .vcc-card-score small{
   display:flex!important;align-items:center!important;gap:3px!important;
   margin:3px 0 0!important;padding:0 1px!important;color:#fff!important;
   font:800 7.5px/1.1 var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;
   text-shadow:0 1px 4px rgba(0,0,0,.9),0 1px 9px rgba(0,0,0,.6)!important;
 }
-html body.vcc-planifica-cards .vcc-it-catalog .di-mini-card.vcc-it-card .vcc-card-score small::before{
+html body:is(.vcc-planifica-cards,.itinerarios-vcc) .vcc-it-catalog .di-mini-card.vcc-it-card .vcc-card-score small::before{
   content:"";width:10px;height:10px;flex:0 0 10px;
   background:url('/configuracion/imagenes/iconos/paper-plane-trail.svg') center/contain no-repeat;
   filter:brightness(0) invert(1) drop-shadow(0 1px 3px rgba(0,0,0,.65));
@@ -513,5 +513,15 @@ html body.vcc-planifica-cards #di-panel-guias .di-guide-card .vcc-guide-kind{
   }
   html body:is(.itinerarios-vcc,.vcc-planifica-cards) .vcc-it-catalog .di-mini-grid > .di-mini-card.vcc-it-card{
     height:auto!important;min-height:var(--vcc-catalog-fitxa-alcada)!important;max-height:none!important;
+  }
+}
+
+/* VCC · Notes a itineraris: exactament el mateix indicador que a Planifica. */
+html body.itinerarios-vcc .vcc-it-catalog .di-mini-card.vcc-it-card{
+  --vcc-card-score-top:15px;--vcc-card-score-right:16px;--vcc-card-score-size:36px;
+}
+@media(max-width:620px){
+  html body.itinerarios-vcc .vcc-it-catalog .di-mini-card.vcc-it-card{
+    --vcc-card-score-top:12px;--vcc-card-score-right:12px;--vcc-card-score-size:34px;
   }
 }
