@@ -133,6 +133,31 @@ html body.al-page .al-compare-utils [data-al-pdf].vcc-download-link{
   order:2!important;
   margin:0!important;
 }
+
+/* Vuelos: Limpiar + Guardar en PDF en un único grupo debajo de la tabla,
+   alineado siempre a la derecha (igual que Alojamientos). */
+html body .vl-page #calculadora .vl-compare-utils{
+  display:flex!important;
+  flex-wrap:wrap!important;
+  align-items:center!important;
+  justify-content:flex-end!important;
+  gap:4px 16px!important;
+  width:100%!important;
+}
+html body .vl-page #calculadora .vl-compare-utils [data-clear-comparison]{
+  order:1!important;
+  grid-column:auto!important;
+  grid-row:auto!important;
+  justify-self:auto!important;
+  margin:0!important;
+}
+html body .vl-page #calculadora .vl-compare-utils [data-export-pdf].vcc-download-link{
+  order:2!important;
+  grid-column:auto!important;
+  grid-row:auto!important;
+  justify-self:auto!important;
+  margin:0!important;
+}
 html body .tv-page .tv-calc-actions{
   display:flex!important;
   align-items:center!important;
