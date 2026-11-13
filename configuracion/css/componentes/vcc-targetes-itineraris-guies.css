@@ -4,7 +4,7 @@
    Les classes antigues s'han conservat només per compatibilitat amb JS/estructura. */
 :is(.vcc-it-catalog,.vcc-card-collection,body.inicio-vcc.home-editorial-refresh .home-featured-itineraries,body.inicio-vcc.home-editorial-refresh .home-featured-guide) .vcc-it-card{
   display:flex!important;flex-direction:column!important;align-items:stretch!important;
-  min-width:0!important;height:auto!important;min-height:315px!important;max-height:none!important;
+  min-width:0!important;height:auto!important;min-height:335px!important;max-height:none!important;
   overflow:hidden!important;background:#fff!important;
   border:1px solid #e7e0d9!important;border-radius:11px!important;
   box-shadow:0 3px 12px rgba(55,38,26,.035)!important;
@@ -13,7 +13,7 @@
 :is(.vcc-it-catalog,.vcc-card-collection,body.inicio-vcc.home-editorial-refresh .home-featured-itineraries,body.inicio-vcc.home-editorial-refresh .home-featured-guide) .vcc-it-card .vcc-it-photo{
   position:relative!important;isolation:isolate!important;display:block!important;
   flex:0 0 auto!important;width:100%!important;height:auto!important;
-  min-height:0!important;max-height:none!important;aspect-ratio:1.60!important;
+  min-height:0!important;max-height:none!important;aspect-ratio:1.55!important;
   overflow:hidden!important;background:#e8e2d8!important;touch-action:pan-y;
 }
 :is(.vcc-it-catalog,.vcc-card-collection,body.inicio-vcc.home-editorial-refresh .home-featured-itineraries,body.inicio-vcc.home-editorial-refresh .home-featured-guide) .vcc-it-card .vcc-it-photo>img{
@@ -115,7 +115,7 @@
 }
 @media(max-width:620px){
   :is(.vcc-it-catalog,.vcc-card-collection,body.inicio-vcc.home-editorial-refresh .home-featured-itineraries,body.inicio-vcc.home-editorial-refresh .home-featured-guide) .vcc-it-card{
-    min-height:0!important;
+    min-height:345px!important;
   }
   :is(.vcc-it-catalog,.vcc-card-collection,body.inicio-vcc.home-editorial-refresh .home-featured-itineraries,body.inicio-vcc.home-editorial-refresh .home-featured-guide) .vcc-it-card .vcc-it-title,
   :is(.vcc-it-catalog,.vcc-card-collection,body.inicio-vcc.home-editorial-refresh .home-featured-itineraries,body.inicio-vcc.home-editorial-refresh .home-featured-guide) .vcc-it-card .di-mini-body>strong{
@@ -193,14 +193,11 @@ body.inicio-vcc.home-editorial-refresh .home-featured-itineraries .vcc-score-met
   }
 }
 
-/* País: mateix component que la portada; només varia l'alçada. */
+/* Portada, país i ciutat: un únic component, sense variants d'alçada per pàgina. */
 .vcc-card-collection .vcc-it-card .vcc-it-photo{
   border-bottom:1px solid #dedbd6!important;
   box-sizing:border-box!important;
   touch-action:pan-x pan-y!important;
-}
-body.country-page .vcc-sweden-page :is(#guias,#itinerarios) .vcc-card-collection .vcc-it-card{
-  min-height:490px!important;
 }
 body.country-page .vcc-sweden-page .vcc-score-method{
   margin:9px 2px 0;padding:0;color:#756861;scroll-margin-top:155px;
@@ -213,13 +210,16 @@ body.country-page .vcc-sweden-page .vcc-score-method summary{
 body.country-page .vcc-sweden-page .vcc-score-method p{
   margin:6px 0 0;max-width:830px;
 }
-@media(max-width:900px){
-  body.country-page .vcc-sweden-page :is(#guias,#itinerarios) .vcc-card-collection .vcc-it-card{
-    min-height:460px!important;
-  }
+/* Stockholm: només configura l'amplada del carrusel, no una altra targeta. */
+.st-discover .st-card-carousel.vcc-card-collection > .vcc-it-card{
+  flex:0 0 calc((100% - 24px)/3)!important;
+  scroll-snap-align:start;
+}
+.st-discover .st-single-itinerary.vcc-card-collection > .vcc-it-card{
+  width:100%!important;
 }
 @media(max-width:620px){
-  body.country-page .vcc-sweden-page :is(#guias,#itinerarios) .vcc-card-collection .vcc-it-card{
-    min-height:440px!important;
+  .st-discover .st-card-carousel.vcc-card-collection > .vcc-it-card{
+    flex-basis:84%!important;
   }
 }
