@@ -4,6 +4,23 @@
  const root=document.querySelector('[data-vcc-planifica-catalog]');
  if(!root)return;
  const cards=[...root.querySelectorAll('[data-it-card]')];
+ // Les fitxes de Presupuestos i Qué llevar són generades automàticament.
+ // Mou la tipologia sota la foto com a les Guías, sense duplicar etiquetes,
+ // i manté l'estructura visual comuna després de cada regeneració.
+ for(const card of cards){
+   if(!card.matches('.budget-card,.packing-card'))continue;
+   const picture=card.querySelector('.di-mini-photo.vcc-it-photo');
+   const body=card.querySelector('.di-mini-body');
+   const overline=picture?.querySelector('.di-mini-tag');
+   if(body&&overline&&!body.querySelector('.vcc-card-kicker')){
+     overline.classList.remove('di-mini-tag');
+     overline.classList.add('vcc-card-kicker');
+     body.insertBefore(overline,body.firstChild);
+   }
+   const cta=body?.querySelector('.vcc-it-cta');
+   cta?.querySelector('[aria-hidden="true"]')?.remove();
+ }
+
  const search=root.querySelector('[data-vcc-catalog-search]');
  const type=root.querySelector('[data-vcc-catalog-type]');
  const continent=root.querySelector('[data-vcc-catalog-continent]');
