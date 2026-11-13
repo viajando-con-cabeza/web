@@ -75,30 +75,17 @@
 .av-page .vcc-it-catalog{background:transparent}
 .av-page .vcc-it-catalog .vcc-catalog-toolbar{min-width:0;width:100%}
 .av-page .vcc-it-catalog .vcc-catalog-toolbar .vcc-catalog-field-title .av-svg-icon{width:15px;height:15px;flex:0 0 15px;color:#c36244}
-/* Catálogo de actividades: reutiliza di-mini-card y la galería de Itinerarios.
-   Este archivo solo añade las diferencias: país/flag y CTA externo. */
-.av-page .vcc-it-catalog .av-activity-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;align-items:stretch}
-.av-page .vcc-it-catalog .av-activity-card{height:auto;min-height:0;background:#fff;border:1px solid #e7e0d9;border-radius:11px;overflow:hidden}
-.av-page .vcc-it-catalog .av-activity-card .di-mini-body{display:flex;flex-direction:column;align-items:stretch;flex:1;min-height:0;padding:10px 12px 12px}
-.av-page .vcc-it-catalog .av-activity-card .vcc-it-title{min-height:0;font-size:19px;line-height:1.15;margin:0 0 8px}
-.av-page .vcc-it-catalog .av-activity-card .av-activity-country{
- display:inline-flex;align-items:center;align-self:flex-start;gap:7px;color:#4b4541;
- font:700 11px/1.3 var(--vcc-font-body,"DM Sans",Arial,sans-serif);margin:0 0 8px
+/* Catàleg d'activitats: mateixa targeta que guies / itineraris.
+   Dimensions, foto única, títol, sobretítol, país i CTA:
+   /configuracion/css/componentes/vcc-targetes-itineraris-guies.css.
+   Aquí només es defineix la graella i la seva resposta per amplada. */
+.av-page .vcc-it-catalog .av-activity-grid{
+ display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;align-items:stretch
 }
-.av-page .vcc-it-catalog .av-activity-card .av-activity-country .vcc-it-country-flag{width:25px;height:16px}
-.av-page .vcc-it-catalog .av-activity-card .di-mini-desc{margin:0 0 10px;line-height:1.5;font-size:11px;flex:1}
-.av-page .vcc-it-catalog .av-activity-card .vcc-it-cta{
- display:inline-flex;align-self:flex-end;justify-content:flex-end;gap:5px;
- margin:auto 0 0;padding:3px 0 0;color:#bb5433;
- font:800 10px/1.25 var(--vcc-font-body,"DM Sans",Arial,sans-serif);text-decoration:none
-}
-.av-page .vcc-it-catalog .av-activity-card .vcc-it-cta:hover{text-decoration:underline}
-.av-page .vcc-it-catalog .av-activity-card .vcc-it-photo{aspect-ratio:1.70}
 @media(max-width:1120px){.av-page .vcc-it-catalog .av-activity-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media(max-width:850px){.av-page .vcc-it-catalog .av-activity-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:520px){
  .av-page .vcc-it-catalog .av-activity-grid{grid-template-columns:1fr}
- .av-page .vcc-it-catalog .av-activity-card .vcc-it-photo{aspect-ratio:2.05}
 }
 .av-empty{border:1px dashed #c9a98b;border-radius:12px;background:#fff;padding:14px;text-align:center;font-size:12px}
 .av-activity-note{display:flex;justify-content:space-between;align-items:center;gap:16px;
