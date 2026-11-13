@@ -24,6 +24,15 @@
     coreStyle.dataset.vccCoreStyles='true';
     document.head.appendChild(coreStyle);
   }
+  // Sistema global únic per a tots els botons de carrusel esquerra/dreta.
+  // Una sola inclusió, fins i tot si una plantilla ja carrega altres CSS.
+  if (!document.querySelector('link[data-vcc-arrows-global]')) {
+    const arrowsCSS=document.createElement('link');
+    arrowsCSS.rel='stylesheet';
+    arrowsCSS.href=url('configuracion/css/componentes/vcc-fletxes-carrusels-global.css?v=20261113-canon-v1');
+    arrowsCSS.dataset.vccArrowsGlobal='true';
+    document.head.appendChild(arrowsCSS);
+  }
   // Accions editorials compartides: sense fletxa ornamental, hover subratllat,
   // CTA al peu dret de les targetes, sense afectar controls de carrusel.
   if (!document.querySelector('link[data-vcc-discreet-actions]')) {
