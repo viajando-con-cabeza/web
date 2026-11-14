@@ -1,109 +1,174 @@
-/* VCC · ÚNICA FONT DE VERITAT PER A LES VINYETES "ERRORES A EVITAR".
-   2026-11-14. Afecta Presupuesto d'Estocolm, Cuándo ir, Planifica Apps/
-   Actividades y reservas, Seguros i Tarjetas de viaje.
-   Les targetes conserven el seu carrusel, el scroll-snap i els botons originals.
-   Per a pàgines futures: afegir .vcc-editorial-error-context al contenidor i
-   .vcc-editorial-error-card/.vcc-editorial-error-icon a la targeta i la icona.
-   Canviar els tokens de :root per actualitzar totes les pàgines. */
-:root {
-  --vcc-error-card-background:#fff;
-  --vcc-error-card-border:#e1dcd6;
-  --vcc-error-card-radius:14px;
+/* VCC — ÚNICA CONFIGURACIÓ COMPARTIDA D'«ERRORES A EVITAR».
+   Mateix disseny per a les 5 pàgines que tenen aquesta pestanya al subheader.
+   Les targetes són blanques i la icona d'alerta té fons gris-blau.
+   Els textos, la navegació del carrusel i les fletxes segueixen sent els de cada pàgina.
+   Modificar només aquest fitxer per canviar el patró visual. */
+:root{
+  --vcc-error-card-background:#ffffff;
+  --vcc-error-card-border:#dde5e9;
+  --vcc-error-card-radius:13px;
   --vcc-error-card-padding:18px;
-  --vcc-error-card-padding-mobile:15px;
   --vcc-error-card-gap:13px;
-  --vcc-error-card-min-height:145px;
-  --vcc-error-card-title-size:22px;
-  --vcc-error-card-title-size-mobile:20px;
-  --vcc-error-card-body-size:12px;
-  --vcc-error-card-icon-size:36px;
-  --vcc-error-card-icon-bg:#eaf2f1;
-  --vcc-error-card-icon-ink:#527b80;
+  --vcc-error-card-min-height:155px;
+  --vcc-error-card-title-size:20px;
+  --vcc-error-card-body-size:12.5px;
+  --vcc-error-card-icon-size:38px;
+  --vcc-error-card-icon-bg:#e8eff4;
+  --vcc-error-card-icon-ink:#587684;
+  --vcc-error-track-gap:14px;
 }
-html body :is(#sorpresas,#errores-a-evitar,#consejos,#errores,.vcc-editorial-error-context) .vcc-editorial-error-card {
+
+/* Els 5 carrusels comparteixen ample de targeta, distàncies i scroll.
+   Es mantenen els IDs originals perquè les fletxes de cada pàgina segueixin funcionant. */
+html body :is(#av-errores-track,#sv-track-tips,#tv-errors-track,#ciTipsTrack,#sorpresas .surprise-grid){
+  display:flex!important;
+  flex-direction:row!important;
+  align-items:stretch!important;
+  gap:var(--vcc-error-track-gap)!important;
+  min-width:0!important;
+  overflow-x:auto!important;
+  overflow-y:hidden!important;
+  scroll-snap-type:x mandatory!important;
+  scroll-behavior:smooth;
+  overscroll-behavior-x:contain;
+  scrollbar-width:none;
+  padding:2px 2px 9px!important;
+}
+html body :is(#av-errores-track,#sv-track-tips,#tv-errors-track,#ciTipsTrack,#sorpresas .surprise-grid)::-webkit-scrollbar{display:none}
+
+/* Targeta: sempre blanca, sense fons vintage ni degradats ni barres de color. */
+html body :is(#sorpresas,#errores-a-evitar,#consejos,#errores) .vcc-editorial-error-card{
   display:flex!important;
   flex-direction:row!important;
   align-items:flex-start!important;
+  align-self:stretch!important;
+  justify-content:flex-start!important;
   gap:var(--vcc-error-card-gap)!important;
-  box-sizing:border-box!important;
+  flex:0 0 calc((100% - (2 * var(--vcc-error-track-gap))) / 3)!important;
+  width:auto!important;
+  max-width:none!important;
   min-width:0!important;
-  height:auto!important;
   min-height:var(--vcc-error-card-min-height)!important;
+  height:auto!important;
   max-height:none!important;
+  box-sizing:border-box!important;
   margin:0!important;
   padding:var(--vcc-error-card-padding)!important;
   border:1px solid var(--vcc-error-card-border)!important;
   border-radius:var(--vcc-error-card-radius)!important;
   background:var(--vcc-error-card-background)!important;
   background-image:none!important;
-  box-shadow:0 2px 9px rgba(45,36,26,.045)!important;
-  color:#24211f!important;
+  box-shadow:0 2px 8px rgba(27,44,55,.045)!important;
+  color:#252a2e!important;
   text-align:left!important;
+  scroll-snap-align:start!important;
   overflow-wrap:break-word!important;
 }
-html body :is(#sorpresas,#errores-a-evitar,#consejos,#errores,.vcc-editorial-error-context) .vcc-editorial-error-card > .vcc-editorial-error-icon {
+html body :is(#sorpresas,#errores-a-evitar,#consejos,#errores) .vcc-editorial-error-card::before,
+html body :is(#sorpresas,#errores-a-evitar,#consejos,#errores) .vcc-editorial-error-card::after{
+  content:none!important;
+  display:none!important;
+}
+
+/* Un únic símbol d'advertència, dins del cercle gris/blau suau. */
+html body :is(#sorpresas,#errores-a-evitar,#consejos,#errores) .vcc-editorial-error-card > .vcc-editorial-error-icon{
   display:grid!important;
   place-items:center!important;
-  box-sizing:border-box!important;
   flex:0 0 var(--vcc-error-card-icon-size)!important;
   width:var(--vcc-error-card-icon-size)!important;
   height:var(--vcc-error-card-icon-size)!important;
   min-width:var(--vcc-error-card-icon-size)!important;
   min-height:var(--vcc-error-card-icon-size)!important;
-  padding:0!important;
   margin:0!important;
+  padding:0!important;
   border:0!important;
-  outline:0!important;
   border-radius:50%!important;
   background:var(--vcc-error-card-icon-bg)!important;
   background-image:none!important;
   color:var(--vcc-error-card-icon-ink)!important;
   box-shadow:none!important;
+  outline:0!important;
   transform:none!important;
 }
-html body :is(#sorpresas,#errores-a-evitar,#consejos,#errores,.vcc-editorial-error-context) .vcc-editorial-error-card > .vcc-editorial-error-icon svg {
+html body :is(#sorpresas,#errores-a-evitar,#consejos,#errores) .vcc-editorial-error-card > .vcc-editorial-error-icon svg{
   display:block!important;
+  flex:none!important;
   width:22px!important;
   height:22px!important;
-  flex:none!important;
+  fill:none!important;
+  stroke:currentColor!important;
+  stroke-width:1.7!important;
+  stroke-linecap:round!important;
+  stroke-linejoin:round!important;
   color:inherit!important;
   transform:none!important;
 }
-html body :is(#sorpresas,#errores-a-evitar,#consejos,#errores,.vcc-editorial-error-context) .vcc-editorial-error-card > div {
+
+/* Tipografia editorial VCC, idèntica als cinc apartats. */
+html body :is(#sorpresas,#errores-a-evitar,#consejos,#errores) .vcc-editorial-error-card > div{
+  display:flex!important;
   flex:1 1 auto!important;
+  flex-direction:column!important;
+  align-items:flex-start!important;
   min-width:0!important;
+  gap:0!important;
 }
-html body :is(#sorpresas,#errores-a-evitar,#consejos,#errores,.vcc-editorial-error-context) .vcc-editorial-error-card h3 {
-  margin:2px 0 9px!important;
+html body :is(#sorpresas,#errores-a-evitar,#consejos,#errores) .vcc-editorial-error-card h3{
+  display:block!important;
+  margin:1px 0 8px!important;
   padding:0!important;
   font-family:var(--vcc-font-heading,"Oswald",sans-serif)!important;
   font-size:var(--vcc-error-card-title-size)!important;
   font-weight:500!important;
-  line-height:1.18!important;
+  font-style:normal!important;
+  line-height:1.2!important;
   letter-spacing:0!important;
   text-transform:none!important;
-  color:#232120!important;
+  color:#27323a!important;
 }
-html body :is(#sorpresas,#errores-a-evitar,#consejos,#errores,.vcc-editorial-error-context) .vcc-editorial-error-card p {
+html body :is(#sorpresas,#errores-a-evitar,#consejos,#errores) .vcc-editorial-error-card p{
+  display:block!important;
   margin:0!important;
   padding:0!important;
   font-family:var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;
   font-size:var(--vcc-error-card-body-size)!important;
   font-weight:400!important;
+  font-style:normal!important;
   line-height:1.55!important;
-  color:#625f5b!important;
+  color:#5d6871!important;
   text-align:left!important;
 }
-html body :is(#sorpresas,#errores-a-evitar,#consejos,#errores,.vcc-editorial-error-context) .vcc-editorial-error-card a {
-  color:#a65340!important;
+html body :is(#sorpresas,#errores-a-evitar,#consejos,#errores) .vcc-editorial-error-card a{
+  color:#466b7f!important;
   text-decoration:underline;
   text-underline-offset:2px;
 }
-@media (max-width:760px) {
-  html body :is(#sorpresas,#errores-a-evitar,#consejos,#errores,.vcc-editorial-error-context) .vcc-editorial-error-card {
-    padding:var(--vcc-error-card-padding-mobile)!important;
+
+/* Els enllaços del subheader han de deixar el títol visible sota la barra fixa. */
+html body :is(#sorpresas,#errores-a-evitar,#consejos,#errores){scroll-margin-top:115px}
+
+@media(max-width:950px){
+  html body :is(#sorpresas,#errores-a-evitar,#consejos,#errores) .vcc-editorial-error-card{
+    flex-basis:calc((100% - var(--vcc-error-track-gap)) / 2)!important;
   }
-  html body :is(#sorpresas,#errores-a-evitar,#consejos,#errores,.vcc-editorial-error-context) .vcc-editorial-error-card h3 {
-    font-size:var(--vcc-error-card-title-size-mobile)!important;
+}
+@media(max-width:650px){
+  :root{
+    --vcc-error-card-padding:15px;
+    --vcc-error-card-min-height:145px;
+    --vcc-error-card-title-size:19px;
+    --vcc-error-card-body-size:12px;
+    --vcc-error-card-icon-size:34px;
+    --vcc-error-track-gap:10px;
+    --vcc-error-card-gap:11px;
+  }
+  html body :is(#sorpresas,#errores-a-evitar,#consejos,#errores) .vcc-editorial-error-card{
+    flex-basis:100%!important;
+  }
+  html body :is(#sorpresas,#errores-a-evitar,#consejos,#errores){scroll-margin-top:88px}
+}
+@media(prefers-reduced-motion:reduce){
+  html body :is(#av-errores-track,#sv-track-tips,#tv-errors-track,#ciTipsTrack,#sorpresas .surprise-grid){
+    scroll-behavior:auto!important;
   }
 }
