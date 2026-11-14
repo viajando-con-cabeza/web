@@ -45,7 +45,7 @@
       var imageSet=photo.indexOf("/__vcc_preview/visor/")>=0?
         ' srcset="'+esc(photo.replace("/__vcc_preview/visor/","/__vcc_preview/mini/"))+' 480w, '+esc(photo)+' 1800w" sizes="(max-width:650px) 90vw, (max-width:1000px) 46vw, 360px"':"";
       var card=document.createElement("article");
-      card.className="di-mini-card di-guide-card vcc-it-card vcc-card-shared"+
+      card.className="di-mini-card di-guide-card vcc-it-card"+
         (live?"":" vcc-it-card-pending");
       card.dataset.visitCategory=type;
       card.dataset.visitSearch=noAccent([title,category,item.text,type].join(" "));
