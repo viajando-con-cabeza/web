@@ -17,56 +17,61 @@
 .swmove-page .swmove-intro-summary>div{min-width:0}
 .swmove-page .swmove-intro-summary strong{display:block;margin:0 0 3px;color:#99583f;font:600 17px/1.2 var(--vcc-font-heading,"Oswald",sans-serif)}
 .swmove-page .swmove-intro-summary p{margin:0;color:#5b5751;font:400 12px/1.55 var(--vcc-font-body,"DM Sans",Arial,sans-serif)}
-/* Decision cards, matching the usual small VCC editorial tiles. */
-.swmove-page .swmove-choice-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:0 0 18px}
-.swmove-page .swmove-choice{min-width:0;background:#fff;border:1px solid #e3d8cf;border-radius:15px;padding:17px 18px 18px}
-.swmove-page .swmove-choice--vcc{border-color:#d9b4a2;background:linear-gradient(150deg,#fff,#fffaf7)}
-.swmove-page .swmove-choice-head{display:flex;align-items:center;gap:10px;margin:0 0 14px}
-.swmove-page .swmove-choice-icon{display:grid;place-items:center;flex:0 0 43px;width:43px;height:43px;border:1px solid #ead7c8;border-radius:50%;background:#faf3ed;color:#a85d43}
-.swmove-page .swmove-choice--no .swmove-choice-icon{color:#77726d;border-color:#dedbd7;background:#f8f7f5}
-.swmove-page .swmove-choice--vcc .swmove-choice-icon{background:#fff;border-color:#dfbaa9}
-.swmove-page .swmove-choice-icon svg{width:24px;height:24px;display:block}
-.swmove-page .swmove-choice-icon img{width:33px;height:33px;display:block;object-fit:contain}
+/* Compact decision tiles: Lucide happy/sad faces, the same VCC visual system. */
+.swmove-page .swmove-choice-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:0 0 12px}
+.swmove-page .swmove-choice{min-width:0;background:#fff;border:1px solid #e3d8cf;border-radius:13px;padding:13px 16px}
+.swmove-page .swmove-choice-head{display:flex;align-items:center;gap:10px;margin:0 0 9px}
+.swmove-page .swmove-choice-icon{display:grid;place-items:center;flex:0 0 40px;width:40px;height:40px;border:1px solid #edc8af;border-radius:50%;background:#fff7f0;color:#df732b}
+.swmove-page .swmove-choice--no .swmove-choice-icon{background:#fff2ed;border-color:#efc4b8;color:#cb6550}
+.swmove-page .swmove-choice-icon svg{display:block;width:26px;height:26px}
 .swmove-page .swmove-choice-head>div{min-width:0}
-.swmove-page .swmove-choice h3{font:600 21px/1.15 var(--vcc-font-heading,"Oswald",sans-serif);margin:0;color:#252a28}
-.swmove-page .swmove-choice-head p{font:500 10.5px/1.4 var(--vcc-font-body,"DM Sans",Arial,sans-serif);color:#9b644d;margin:3px 0 0}
-.swmove-page .swmove-choice ul{list-style:none;padding:0;margin:0;display:grid;gap:9px}
-.swmove-page .swmove-choice li{display:grid;grid-template-columns:15px minmax(0,1fr);gap:7px;align-items:start;color:#4d504c;font:500 11.5px/1.52 var(--vcc-font-body,"DM Sans",Arial,sans-serif)}
-.swmove-page .swmove-choice-tick{display:grid;place-items:center;width:15px;height:16px;color:#238a4b;font:800 15px/1 var(--vcc-font-body,"DM Sans",Arial,sans-serif)}
-.swmove-page .swmove-choice--no .swmove-choice-tick{color:#8c8a85}
-.swmove-page .swmove-choice--vcc .swmove-choice-tick{color:#bc6c4c}
-/* Compact calculator with consistent Lucide pictograms. */
-.swmove-page .swmove-calculator{display:grid;grid-template-columns:minmax(0,1.45fr) minmax(265px,.82fr);overflow:hidden;background:#fff;border:1px solid #e2d6cc;border-radius:15px}
-.swmove-page .swmove-calc-fields{min-width:0;padding:20px 21px}
-.swmove-page .swmove-calc-heading{display:flex;align-items:center;gap:10px;margin:0 0 16px}
-.swmove-page .swmove-calc-heading-icon{flex:0 0 37px;display:grid;place-items:center;width:37px;height:37px;border-radius:10px;background:#f8ede5;color:#ad5b3b}
-.swmove-page .swmove-calc-heading-icon svg{width:21px;height:21px}
-.swmove-page .swmove-calc-title{font:600 22px/1.15 var(--vcc-font-heading,"Oswald",sans-serif);color:#252825;margin:0}
-.swmove-page .swmove-calc-heading p{font:400 11px/1.5 var(--vcc-font-body,"DM Sans",Arial,sans-serif);color:#746d66;margin:3px 0 0}
-.swmove-page .swmove-fields{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
-.swmove-page .swmove-field{display:flex;flex-direction:column;gap:6px;min-width:0}
-.swmove-page .swmove-field-label{display:flex;align-items:center;gap:6px;min-width:0;color:#605953;font:700 10px/1.35 var(--vcc-font-body,"DM Sans",Arial,sans-serif)}
-.swmove-page .swmove-field-label svg{display:block;flex:0 0 17px;width:17px;height:17px;color:#ad654c}
+.swmove-page .swmove-choice h3{font:600 21px/1.16 var(--vcc-font-heading,"Oswald",sans-serif);margin:0;color:#252a28}
+.swmove-page .swmove-choice-head p{font:500 10.5px/1.35 var(--vcc-font-body,"DM Sans",Arial,sans-serif);color:#9b644d;margin:3px 0 0}
+.swmove-page .swmove-choice ul{list-style:none;padding:0;margin:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:13px;row-gap:7px}
+.swmove-page .swmove-choice li{display:grid;grid-template-columns:14px minmax(0,1fr);gap:6px;align-items:start;color:#4d504c;font:500 11px/1.45 var(--vcc-font-body,"DM Sans",Arial,sans-serif)}
+.swmove-page .swmove-choice-tick{display:grid;place-items:center;width:14px;height:15px;color:#278a4c;font:800 14px/1 var(--vcc-font-body,"DM Sans",Arial,sans-serif)}
+.swmove-page .swmove-choice--no .swmove-choice-tick{color:#c16e58}
+/* Consejo VCC: reuse Stockholm's real mv-day-advice / seal / brand component. */
+.swmove-page .swmove-vcc-advice{margin:0 0 14px;border-radius:13px;background:rgba(239,117,45,.065);min-width:0}
+.swmove-page .swmove-vcc-advice .mv-day-advice-content{padding:11px 15px;gap:9px}
+.swmove-page .swmove-vcc-advice .mv-day-advice-intro{grid-template-columns:70px minmax(0,1fr);gap:11px}
+.swmove-page .swmove-vcc-advice .mv-day-advice-text>strong{font-size:21px;margin-bottom:3px}
+.swmove-page .swmove-vcc-advice .mv-day-advice-text>p{font-size:11.5px;line-height:1.45}
+.swmove-page .swmove-vcc-advice-facts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;border-top:1px solid #eaddd1;padding-top:9px}
+.swmove-page .swmove-vcc-advice-facts span{display:block;color:#53534c;font:500 11px/1.45 var(--vcc-font-body,"DM Sans",Arial,sans-serif);min-width:0}
+.swmove-page .swmove-vcc-advice-facts strong{color:#ab5b39;font:700 11px/1.4 var(--vcc-font-heading,"Oswald",sans-serif);margin-right:4px}
+/* Calculator: short 3×2 inputs, clear cost comparison and one VCC verdict. */
+.swmove-page .swmove-calculator{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(270px,.75fr);min-width:0;overflow:hidden;background:#fff;border:1px solid #e2d6cc;border-radius:13px}
+.swmove-page .swmove-calc-fields{min-width:0;padding:13px 15px 15px}
+.swmove-page .swmove-calc-heading{display:flex;align-items:center;gap:9px;margin:0 0 10px}
+.swmove-page .swmove-calc-heading-icon{flex:0 0 33px;display:grid;place-items:center;width:33px;height:33px;border-radius:9px;background:#f8ede5;color:#ad5b3b}
+.swmove-page .swmove-calc-heading-icon svg{width:19px;height:19px}
+.swmove-page .swmove-calc-title{font:600 19px/1.14 var(--vcc-font-heading,"Oswald",sans-serif);color:#252825;margin:0}
+.swmove-page .swmove-calc-heading p{font:400 10px/1.42 var(--vcc-font-body,"DM Sans",Arial,sans-serif);color:#746d66;margin:2px 0 0}
+.swmove-page .swmove-fields{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));column-gap:9px;row-gap:8px}
+.swmove-page .swmove-field{display:flex;flex-direction:column;gap:4px;min-width:0}
+.swmove-page .swmove-field-label{display:flex;align-items:center;gap:5px;min-width:0;color:#605953;font:700 10px/1.3 var(--vcc-font-body,"DM Sans",Arial,sans-serif)}
+.swmove-page .swmove-field-label svg{display:block;flex:0 0 15px;width:15px;height:15px;color:#ad654c}
 .swmove-page .swmove-field-label span{min-width:0}
-.swmove-page .swmove-field input{box-sizing:border-box;display:block;width:100%;min-width:0;height:38px;padding:7px 10px;background:#fff;border:1px solid #ded6cf;border-radius:8px;color:#262a28;font:600 13px/1.3 var(--vcc-font-body,"DM Sans",Arial,sans-serif);font-variant-numeric:tabular-nums}
+.swmove-page .swmove-field input{box-sizing:border-box;display:block;width:100%;min-width:0;height:33px;padding:5px 9px;background:#fff;border:1px solid #ded6cf;border-radius:7px;color:#262a28;font:600 12px/1.2 var(--vcc-font-body,"DM Sans",Arial,sans-serif);font-variant-numeric:tabular-nums}
 .swmove-page .swmove-field input::placeholder{color:#b2a9a0;font-weight:400}
 .swmove-page .swmove-field input:focus-visible,.swmove-page .swmove-calc-reset:focus-visible{outline:2px solid #b45e44;outline-offset:2px}
-.swmove-page .swmove-calc-result{min-width:0;background:#f8f4f0;border-left:1px solid #e9ddd4;padding:19px 19px 18px;display:flex;flex-direction:column;justify-content:center;gap:11px}
-.swmove-page .swmove-result-overline{font:800 10px/1.35 var(--vcc-font-body,"DM Sans",Arial,sans-serif);letter-spacing:.08em;text-transform:uppercase;color:#a35e46}
-.swmove-page .swmove-costs{display:grid;gap:8px}
-.swmove-page .swmove-cost-row{display:flex;align-items:center;gap:10px;min-width:0;padding:8px 10px;border:1px solid #e8ded6;border-radius:10px;background:rgba(255,255,255,.77)}
-.swmove-page .swmove-cost-icon{flex:0 0 35px;width:35px;height:35px;display:grid;place-items:center;border-radius:9px;background:#f5e9df;color:#a86146}
-.swmove-page .swmove-cost-icon svg{width:20px;height:20px}
-.swmove-page .swmove-cost-row>div{min-width:0;display:flex;flex-direction:column;gap:3px;flex:1}
-.swmove-page .swmove-cost-row small{font:600 10px/1.4 var(--vcc-font-body,"DM Sans",Arial,sans-serif);color:#6f645e}
-.swmove-page .swmove-cost-row strong{font:600 24px/1 var(--vcc-font-heading,"Oswald",sans-serif);color:#302f2c;font-variant-numeric:tabular-nums}
-.swmove-page .swmove-verdict-box{display:flex;align-items:center;gap:9px;padding:11px;background:#fff;border:1px solid #e1cec0;border-radius:10px;min-width:0}
-.swmove-page .swmove-verdict-box>img{flex:0 0 30px;width:30px;height:30px;object-fit:contain}
+.swmove-page .swmove-calc-result{min-width:0;background:#f8f4f0;border-left:1px solid #e9ddd4;padding:12px 13px;display:flex;flex-direction:column;justify-content:center;gap:8px}
+.swmove-page .swmove-result-overline{font:800 9.5px/1.25 var(--vcc-font-body,"DM Sans",Arial,sans-serif);letter-spacing:.075em;text-transform:uppercase;color:#a35e46}
+.swmove-page .swmove-costs{display:grid;gap:6px}
+.swmove-page .swmove-cost-row{display:flex;align-items:center;gap:7px;min-width:0;padding:7px 8px;border:1px solid #e8ded6;border-radius:8px;background:rgba(255,255,255,.87)}
+.swmove-page .swmove-cost-icon{flex:0 0 27px;width:27px;height:27px;display:grid;place-items:center;border-radius:7px;background:#f5e9df;color:#a86146}
+.swmove-page .swmove-cost-icon svg{width:17px;height:17px}
+.swmove-page .swmove-cost-row>div{min-width:0;display:flex;flex:1;align-items:center;justify-content:space-between;gap:9px}
+.swmove-page .swmove-cost-row small{font:600 10px/1.35 var(--vcc-font-body,"DM Sans",Arial,sans-serif);color:#6f645e}
+.swmove-page .swmove-cost-row strong{font:600 21px/1 var(--vcc-font-heading,"Oswald",sans-serif);color:#302f2c;font-variant-numeric:tabular-nums;white-space:nowrap}
+.swmove-page .swmove-verdict-box{display:flex;align-items:center;gap:8px;padding:8px 9px;background:#fff;border:1px solid #e1cec0;border-radius:8px;min-width:0}
+.swmove-page .swmove-verdict-box>img{flex:0 0 27px;width:27px;height:27px;object-fit:contain}
 .swmove-page .swmove-verdict-box>div{min-width:0}
-.swmove-page .swmove-verdict-box span{display:block;margin:0 0 4px;font:800 9px/1.35 var(--vcc-font-body,"DM Sans",Arial,sans-serif);color:#9f5c44;letter-spacing:.045em}
-.swmove-page .swmove-calc-verdict{display:block;font:700 12px/1.4 var(--vcc-font-body,"DM Sans",Arial,sans-serif);color:#3d403a}
-.swmove-page .swmove-calc-explain{font:400 10px/1.52 var(--vcc-font-body,"DM Sans",Arial,sans-serif);color:#847a70;margin:0}
-.swmove-page .swmove-calc-reset{display:inline-flex;align-self:flex-start;padding:0;border:0;background:transparent;color:#9d5b41;text-decoration:underline;text-underline-offset:3px;font:700 10px/1.3 var(--vcc-font-body,"DM Sans",Arial,sans-serif);cursor:pointer}
+.swmove-page .swmove-verdict-box span{display:block;margin:0 0 2px;font:800 9px/1.25 var(--vcc-font-body,"DM Sans",Arial,sans-serif);color:#9f5c44;letter-spacing:.04em}
+.swmove-page .swmove-calc-verdict{display:block;font:700 11px/1.35 var(--vcc-font-body,"DM Sans",Arial,sans-serif);color:#3d403a}
+.swmove-page .swmove-calc-explain{font:400 9.5px/1.38 var(--vcc-font-body,"DM Sans",Arial,sans-serif);color:#847a70;margin:0}
+.swmove-page .swmove-calc-reset{display:inline-flex;align-self:flex-end;padding:0;border:0;background:transparent;color:#9d5b41;text-decoration:underline;text-underline-offset:3px;font:700 10px/1.25 var(--vcc-font-body,"DM Sans",Arial,sans-serif);cursor:pointer}
 /* Shared savings carousel */
 .swmove-page .swmove-tips-title{font:500 23px/1.2 var(--vcc-font-heading,"Oswald",sans-serif);color:#272725;margin:0 0 14px}
 .swmove-page .swmove-tips{margin-top:0}
@@ -74,38 +79,39 @@
 .swmove-page .swmove-tips .mv-saving-card h3{color:#242424}
 .swmove-page .swmove-sources{font:400 10.5px/1.6 var(--vcc-font-body,"DM Sans",Arial,sans-serif);color:#8a8179;margin:25px 0 0}
 .swmove-page .swmove-sources a{color:#806151;text-decoration:underline;text-underline-offset:2px}
-@media(max-width:1050px){
- .swmove-page .swmove-choice-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
- .swmove-page .swmove-choice--vcc{grid-column:1/-1}
+@media(max-width:1120px){
+ .swmove-page .swmove-choice ul{grid-template-columns:1fr}
  .swmove-page .swmove-fields{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(max-width:830px){
+ .swmove-page .swmove-calculator{grid-template-columns:1fr}
+ .swmove-page .swmove-calc-result{border-left:0;border-top:1px solid #e9ddd4}
+ .swmove-page .swmove-costs{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .swmove-page .swmove-cost-row>div{flex-direction:column;align-items:flex-start;gap:3px}
+ .swmove-page .swmove-fields{grid-template-columns:repeat(3,minmax(0,1fr))}
 }
 @media(max-width:740px){
  .swmove-page .swmove-section{padding-top:42px;scroll-margin-top:125px}
  .swmove-page .swmove-intro-summary{padding:12px 14px}
- .swmove-page .swmove-calculator{grid-template-columns:1fr}
- .swmove-page .swmove-calc-fields{padding:16px 15px}
- .swmove-page .swmove-calc-result{border-left:0;border-top:1px solid #e9ddd4;padding:15px}
- .swmove-page .swmove-costs{grid-template-columns:repeat(2,minmax(0,1fr))}
- .swmove-page .swmove-cost-row{align-items:start;gap:7px;padding:9px}
- .swmove-page .swmove-cost-icon{width:30px;height:30px;flex-basis:30px}
- .swmove-page .swmove-cost-row strong{font-size:22px}
  .swmove-page .swmove-tips .mv-saving-card{min-height:130px}
 }
-@media(max-width:540px){
- .swmove-page .swmove-choice-grid{grid-template-columns:1fr}
- .swmove-page .swmove-choice--vcc{grid-column:auto}
- .swmove-page .swmove-choice{padding:14px 15px}
- .swmove-page .swmove-choice ul{grid-template-columns:repeat(2,minmax(0,1fr));column-gap:13px;row-gap:10px}
- .swmove-page .swmove-choice-head{margin-bottom:12px}
- .swmove-page .swmove-calc-title{font-size:21px}
- .swmove-page .swmove-fields{gap:9px}
- .swmove-page .swmove-costs{grid-template-columns:1fr}
- .swmove-page .swmove-cost-row{align-items:center}
- .swmove-page .swmove-calc-result{gap:9px}
+@media(max-width:590px){
+ .swmove-page .swmove-choice-grid{grid-template-columns:1fr;gap:9px}
+ .swmove-page .swmove-choice{padding:11px 13px}
+ .swmove-page .swmove-choice ul{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px 9px}
+ .swmove-page .swmove-vcc-advice .mv-day-advice-content{padding:10px 12px}
+ .swmove-page .swmove-vcc-advice-facts{grid-template-columns:1fr;gap:4px}
+ .swmove-page .swmove-fields{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .swmove-page .swmove-calc-fields,.swmove-page .swmove-calc-result{padding:12px}
+ .swmove-page .swmove-calc-heading{margin-bottom:9px}
+ .swmove-page .swmove-calc-title{font-size:18px}
+ .swmove-page .swmove-calc-result{gap:8px}
+ .swmove-page .swmove-cost-row>div{flex-direction:column;align-items:flex-start}
 }
-@media(max-width:375px){
+@media(max-width:380px){
  .swmove-page .swmove-choice ul{grid-template-columns:1fr}
- .swmove-page .swmove-field-label{font-size:9.5px}
- .swmove-page .swmove-calc-heading{gap:7px}
+ .swmove-page .swmove-costs{grid-template-columns:1fr}
+ .swmove-page .swmove-cost-row>div{flex-direction:row;align-items:center}
+ .swmove-page .swmove-field-label{font-size:9.3px}
 }
 @media(prefers-reduced-motion:reduce){.swmove-page .mv-grid{scroll-behavior:auto}}
