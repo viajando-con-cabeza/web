@@ -31,7 +31,23 @@
     else window.addEventListener("resize",update,{passive:true});
     requestAnimationFrame(update);
   }
-  function init(){document.querySelectorAll("[data-home-carousel]").forEach(initCarousel)}
+  // Font unica de categoria: qualsevol variant antiga de ruta combinada
+  // es visualitza sempre amb el mateix nom i la mateixa icona SVG.
+  function normalizeCombinedCategories(){
+    const icon="/configuracion/imagenes/iconos/paginas/itinerarios-iconos.svg?v=20261114#it-category-combined";
+    document.querySelectorAll("#home-track-itinerarios .vcc-card-kicker").forEach(kicker=>{
+      const parts=kicker.querySelectorAll(".vcc-card-kicker-part");
+      (parts.length?Array.from(parts):[kicker]).forEach(part=>{
+        if(!/^(?:RUTA COMBINADA|COMBINADO|COMBINADOS)$/.test(part.textContent.trim().toUpperCase()))return;
+        const use=part.querySelector("svg use");
+        if(use)use.setAttribute("href",icon);
+        const label=Array.from(part.childNodes).find(node=>node.nodeType===3&&node.textContent.trim());
+        if(label)label.textContent="COMBINADOS";
+        else part.appendChild(document.createTextNode("COMBINADOS"));
+      });
+    });
+  }
+  function init(){normalizeCombinedCategories();document.querySelectorAll("[data-home-carousel]").forEach(initCarousel)};
   if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",init);
   else init();
 })();
