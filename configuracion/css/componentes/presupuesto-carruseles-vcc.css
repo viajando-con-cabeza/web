@@ -1,6 +1,7 @@
 /* VCC / Estocolm · Carrusels de pressupost
    Única font de veritat per a la distribució de Cómo ahorrar i Errores a evitar.
-   Conserva el component de targetes d'errors de errores-a-evitar-vcc.css.
+   Les mides, tipografies i colors de targeta provenen només dels components
+   erros-a-evitar-vcc.css i como-ahorrar-carruseles-vcc.css.
    Manté continguts i funcionament existents. */
 html body.budget-vcc :is(#ahorrar,#sorpresas) .carousel-shell{
   display:grid!important;
@@ -66,12 +67,9 @@ html body.budget-vcc #sorpresas .tips-track > .vcc-editorial-error-card{
   width:auto!important;
   height:auto!important;
   max-height:none!important;
-  min-height:132px!important;
   margin:0!important;
-  padding:14px!important;
   scroll-snap-align:start!important;
   align-self:stretch!important;
-  gap:11px!important;
 }
 html body.budget-vcc #ahorrar .tips-track > .saving-tip{flex-direction:row!important;align-items:flex-start!important}
 html body.budget-vcc #sorpresas .tips-track > .vcc-editorial-error-card{flex-direction:row!important;align-items:flex-start!important}
@@ -79,10 +77,6 @@ html body.budget-vcc #ahorrar .saving-tip-copy,
 html body.budget-vcc #sorpresas .vcc-editorial-error-card > div{
   min-width:0!important;height:auto!important;max-height:none!important;
 }
-html body.budget-vcc #ahorrar .saving-tip h3{font-size:19px!important;margin:1px 0 7px!important;line-height:1.2!important}
-html body.budget-vcc #ahorrar .saving-tip p{font-size:12px!important;line-height:1.5!important}
-html body.budget-vcc #sorpresas .vcc-editorial-error-card h3{font-size:19px!important;margin:1px 0 7px!important;line-height:1.2!important}
-html body.budget-vcc #sorpresas .vcc-editorial-error-card p{font-size:12px!important;line-height:1.5!important}
 @media(max-width:950px){
   html body.budget-vcc :is(#ahorrar,#sorpresas) .tips-track > :is(.saving-tip,.vcc-editorial-error-card){
     flex-basis:calc((100% - 12px)/2)!important;
@@ -99,12 +93,7 @@ html body.budget-vcc #sorpresas .vcc-editorial-error-card p{font-size:12px!impor
   html body.budget-vcc :is(#ahorrar,#sorpresas) .carousel-shell > .tips-track{gap:10px!important}
   html body.budget-vcc :is(#ahorrar,#sorpresas) .tips-track > :is(.saving-tip,.vcc-editorial-error-card){
     flex:0 0 100%!important;
-    min-height:138px!important;
-    padding:13px!important;
-    gap:10px!important;
   }
-  html body.budget-vcc #ahorrar .saving-tip h3,
-  html body.budget-vcc #sorpresas .vcc-editorial-error-card h3{font-size:18px!important}
 }
 @media(prefers-reduced-motion:reduce){
   html body.budget-vcc :is(#ahorrar,#sorpresas) .carousel-shell > .tips-track{scroll-behavior:auto!important}
