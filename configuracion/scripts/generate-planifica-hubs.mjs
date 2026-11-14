@@ -101,7 +101,7 @@ function catalogCard({kind,title,description,href,image,country,type,typeLabel,c
  const price=daily===null?'Consultar guía':new Intl.NumberFormat("es-ES",{maximumFractionDigits:1}).format(daily)+' €/persona/día';
  const facts=budget?
    '<span class="di-route-stats">'+catalogIcon("it-clock")+esc(days?days+' días':'Viaje real')+'</span>'+
-   '<span class="di-budget-row" title="Gasto por persona y día">'+catalogIcon("it-coins")+
+   '<span class="di-budget-row" title="Gasto por persona y día">'+catalogIcon("it-coins","vcc-it-coins")+
    '<span class="di-price">'+esc(price)+'</span></span>'+catalogCountry(country)
    :catalogCountry(country);
  const search=[title,description,country,typeLabel,continent,budget?price:'equipaje ropa checklist maleta'].join(' ');
