@@ -24,7 +24,10 @@ function featuredToCatalog(card,mode){
  const countryCodes={"Suecia":"se","España":"es","Austria":"at","Alemania":"de","Suiza":"ch","Italia":"it","Francia":"fr","Estados Unidos":"us","Portugal":"pt","Noruega":"no"};
  const countries=[...new Set(flags.map(f=>countryCodes[f]).filter(Boolean))];
  if(!countries.length)throw Error("No recognized country flags for "+name);
- const continent="europa"; // Els destacats actuals son exclusivament europeus.
+ const continents={"se":"europa","es":"europa","at":"europa","de":"europa","ch":"europa","it":"europa","fr":"europa","pt":"europa","no":"europa","us":"america"};
+ const regions=[...new Set(countries.map(c=>continents[c]).filter(Boolean))];
+ if(regions.length!==1)throw Error("Featured itinerary has unknown or mixed continent: "+name);
+ const continent=regions[0];
  const search=stripHtml(card).replace(/\s+/g," ");
  const attrs=mode==="planifica"
    ?'data-di-item data-continent="'+continent+'" data-country="'+countries.join(" ")+'" data-type="'+modes.join(" ")+'" data-di-search="'+escapeAttr(search)+'"'
