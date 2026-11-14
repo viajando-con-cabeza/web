@@ -1,0 +1,115 @@
+/* VCC · Módulos reutilizables de presupuesto: perfiles Estocolmo,
+   calculadora en dos columnas y carrusel de ahorro. Precios/datos nunca aquí. */
+.swb-page .swb-hero{--vcc-portada-imatge:url("https://img.viajandoconcabeza.com/destinos/suecia/dalarna/2026-dia9/DSC08592.avif");--vcc-portada-posicio:center center;background:#fff!important;color:#20292a!important}
+.swb-page .swb-hero-content{position:relative;z-index:2}
+.swb-page .swb-hero h1{color:#21292b!important}
+.swb-page .swb-hero .swb-hero-kicker{color:#b15d43!important}
+.swb-page .swb-hero .swb-script{color:#a65338!important}
+.swb-page .swb-hero-description{color:#45504e!important}
+.swb-page #vcc-global-breadcrumb{z-index:4!important}
+/* Perfil de presupuesto — mismo tipo de tarjeta que Estocolmo */
+.swb-page .vcc-budget-mode-carousel{position:relative;min-width:0}
+.swb-page .vcc-budget-mode-track{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;min-width:0}
+.swb-page #presupuesto-diario .vcc-budget-mode-card{appearance:none;display:flex;flex-direction:column;min-width:0;width:100%;min-height:128px;padding:11px 12px 9px;text-align:left;cursor:pointer;color:#222;background:#fff;border:1px solid #e6ddd5;border-radius:13px;font:inherit;box-shadow:0 3px 15px rgba(54,39,27,.045);transition:border-color .2s,box-shadow .2s,transform .2s}
+.swb-page #presupuesto-diario .vcc-budget-mode-card:hover{transform:translateY(-2px);border-color:#d88b71;box-shadow:0 8px 23px rgba(87,48,25,.10)}
+.swb-page #presupuesto-diario .vcc-budget-mode-card[aria-expanded=true]{border:2px solid #d46c50;padding:10px 11px 8px;box-shadow:0 5px 20px rgba(196,94,62,.10)}
+.swb-page #presupuesto-diario .vcc-budget-mode-top{display:flex;align-items:center;gap:7px;width:100%;min-width:0}
+.swb-page #presupuesto-diario .vcc-budget-mode-icon{width:34px;height:34px;flex:0 0 34px;display:flex;align-items:center;justify-content:center;border-radius:9px;background:#faf1e9}
+.swb-page #presupuesto-diario .vcc-budget-mode-icon img{width:27px;height:27px;object-fit:contain}
+.swb-page #presupuesto-diario .vcc-budget-mode-title{display:flex;flex-direction:column;gap:3px;min-width:0}
+.swb-page #presupuesto-diario .vcc-budget-mode-title strong{font:500 21px/1.1 var(--vcc-font-heading,Oswald,sans-serif);color:#191919}
+.swb-page #presupuesto-diario .vcc-budget-mode-title small{font:800 8px/1.2 var(--vcc-font-body,"DM Sans",sans-serif);color:#b35b45}
+.swb-page #presupuesto-diario .vcc-budget-mode-price{margin-left:auto;padding:5px 6px;border-radius:8px;text-align:right;background:#fbf5ef;white-space:nowrap}
+.swb-page #presupuesto-diario .vcc-budget-mode-price strong{display:block;font:600 19px/1.1 var(--vcc-font-heading,Oswald,sans-serif);color:#1d1d1d}
+.swb-page #presupuesto-diario .vcc-budget-mode-price small{display:block;font:400 9px/1.25 var(--vcc-font-body,"DM Sans",sans-serif);color:#685e55}
+.swb-page #presupuesto-diario .vcc-budget-mode-copy{font:400 11.5px/1.5 var(--vcc-font-body,"DM Sans",sans-serif);color:#5b524b;margin:6px 0 0}
+.swb-page #presupuesto-diario .vcc-budget-mode-footer{margin-top:auto;padding-top:7px;display:flex;justify-content:space-between;align-items:center;gap:9px;font:800 10px/1.3 var(--vcc-font-body,"DM Sans",sans-serif);color:#a5513d}
+.swb-page #presupuesto-diario .vcc-budget-mode-caret{display:grid;place-items:center;flex:0 0 20px;width:20px;height:20px;font-size:19px}
+.swb-page #presupuesto-diario .vcc-budget-mode-card[aria-expanded=true] .vcc-budget-mode-caret{transform:rotate(180deg)}
+.swb-page .vcc-budget-mode-arrow{display:none;position:absolute;top:50%;z-index:2;transform:translateY(-50%);height:32px;width:32px;border-radius:50%;border:1px solid #e8ded5;background:#fff;color:#a65339;cursor:pointer}
+.swb-page .vcc-budget-mode-arrow.previous{left:-8px}.swb-page .vcc-budget-mode-arrow.next{right:-8px}
+.swb-page .vcc-budget-mode-arrow:disabled{opacity:.3;cursor:default}
+/* Calculadora: mismo orden y controles que Estocolmo */
+.swb-page .calculator-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px;align-items:stretch}
+.swb-page .calculator-grid>.breakdown-card,.swb-page .calculator-grid>.calculator-card{min-width:0;margin:0;padding:14px 16px;border-radius:13px;background:#fff;border:1px solid #e7ddd3;box-shadow:0 7px 24px rgba(72,48,27,.045)}
+.swb-page .breakdown-head{display:flex;align-items:flex-end;justify-content:space-between;gap:8px;margin-bottom:14px}
+.swb-page .vcc-budget-mini{display:block;font-size:10px;font-weight:700;letter-spacing:.08em;color:#b3654d}
+.swb-page .breakdown-head h3{font:600 25px/1.1 var(--vcc-font-heading,Oswald,sans-serif);margin:3px 0 0}
+.swb-page .daily-label{font-size:10px;color:#86786e}
+.swb-page .chart-layout{display:grid;grid-template-columns:145px 1fr;align-items:center;gap:15px}
+.swb-page .donut{width:138px;height:138px;border-radius:50%;display:grid;place-items:center;background:conic-gradient(#ca765c 0 35%,#e6a35a 35% 60%,#6ca09b 60% 79%,#769a70 79% 92%,#b79d87 92% 100%)}
+.swb-page .donut-inner{width:96px;height:96px;display:flex;flex-direction:column;align-items:center;justify-content:center;border-radius:50%;background:#fff;text-align:center}
+.swb-page .vcc-donut-symbol{font-size:11px;color:#ba6449}
+.swb-page .donut-inner strong{font:600 25px/1 var(--vcc-font-heading,Oswald,sans-serif)}
+.swb-page .donut-inner small{font-size:9px;color:#697067}
+.swb-page .legend{display:grid;gap:0}
+.swb-page .legend-row{display:flex;align-items:center;gap:8px;min-height:35px;border-bottom:1px solid #f0e9e4;font-size:11px}
+.swb-page .legend-row i{flex:0 0 9px;width:9px;height:9px;border-radius:50%;background:var(--dot)}
+.swb-page .legend-row span{flex:1}.swb-page .legend-row strong{font-size:11px;white-space:nowrap}
+.swb-page .calc-ticket-head{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;margin-bottom:11px}
+.swb-page .calc-ticket-head h3{margin:0;font:600 25px/1 var(--vcc-font-heading,Oswald,sans-serif)}
+.swb-page .calc-ticket-head p{font-size:10px;max-width:175px;text-align:right;color:#77716b;margin:0}
+.swb-page .calc-top{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:0 0 12px}
+.swb-page .calc-control{min-width:0;min-height:79px;padding:9px 5px;background:#f7f8f8;border:1px solid #e5e8e8;border-radius:11px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px}
+.swb-page .calc-control>span{font-size:10px;font-weight:800;color:#514f4d}
+.swb-page .stepper{display:flex;align-items:center;justify-content:center;gap:9px;width:100%}
+.swb-page .stepper button{width:28px;height:28px;border:0;border-radius:6px;background:#eaeff0;color:#343e45;font-size:18px;cursor:pointer}
+.swb-page .stepper output{font-size:17px;font-weight:800;min-width:17px;text-align:center}
+.swb-page .calculator-card .category-row{display:grid;grid-template-columns:minmax(0,1fr) minmax(100px,.65fr) minmax(98px,.65fr);gap:7px;align-items:center;padding:8px 0;border-bottom:1px solid #ece7e3}
+.swb-page .vcc-category-name{display:flex;align-items:center;gap:6px;font-size:12px;font-weight:700}
+.swb-page .vcc-category-icon{width:22px;text-align:center;font-size:16px}
+.swb-page .category-row select{min-width:0;width:100%;padding:7px 8px;border:1px solid #ddd2ca;border-radius:7px;background:#fff;font-size:12px}
+.swb-page .vcc-price-block{display:flex;flex-direction:column;align-items:flex-end;min-width:0}
+.swb-page .vcc-budget-price{font:600 19px/1 var(--vcc-font-heading,Oswald,sans-serif)}
+.swb-page .vcc-price-block small{font-size:9px;color:#777;white-space:nowrap}
+.swb-page .calc-total{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;margin-top:12px;padding:10px;background:#f4f6f6;border:1px solid #e4e9e9;border-radius:10px}
+.swb-page .vcc-total-title{font-size:10px;letter-spacing:.07em;font-weight:800}
+.swb-page .vcc-total-meta{font-size:10px;color:#666}
+.swb-page .calc-total strong{font:600 35px/1 var(--vcc-font-heading,Oswald,sans-serif);color:#b65337}
+.swb-page .swb-calculator-bottom{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:10px;font-size:10px}
+.swb-page .swb-calculator-bottom>span{font-weight:700;color:#4a674d}
+.swb-page .swb-export{min-height:28px;width:auto;padding:5px 10px;border:1px solid #d2d5cd;background:#fff;border-radius:6px;font-size:9px!important}
+/* Carrusel de ahorro: las tarjetas las dibuja como-ahorrar-carruseles-vcc.css */
+.swb-page #ahorrar.swb-saving{background:none!important;border-radius:0!important;padding:32px 0 0!important;margin:0!important}
+.swb-page #ahorrar .carousel-shell{position:relative;min-width:0}
+.swb-page #ahorrar .tips-track{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;padding:3px 2px 9px}
+.swb-page #ahorrar .tips-track::-webkit-scrollbar{display:none}
+.swb-page #ahorrar .tips-track>.saving-tip{display:flex;flex:0 0 calc((100% - 24px)/3);scroll-snap-align:start;align-items:flex-start}
+.swb-page #ahorrar .saving-number{flex:0 0 38px;width:38px;height:38px}
+.swb-page #ahorrar .saving-number svg{width:38px;height:38px}
+.swb-page #ahorrar .saving-tip-copy{min-width:0}
+.swb-page #ahorrar .saving-tip-copy p{font-size:11px;line-height:1.5;margin:0;color:#5c625d}
+.swb-page #ahorrar .carousel-arrow{position:absolute;top:50%;z-index:3;transform:translateY(-50%);height:31px;width:31px;border-radius:50%;border:1px solid #e4d9d2;background:#fff;color:#a8583f;font-size:19px;cursor:pointer}
+.swb-page #ahorrar .carousel-arrow.prev{left:-14px}.swb-page #ahorrar .carousel-arrow.next{right:-14px}
+.swb-page #ahorrar .carousel-arrow:disabled{opacity:.25;cursor:default}
+/* Zonas: usar el mismo modelo y CSS de Planifica / Presupuestos */
+.swb-page #zonas .swb-regions-grid.di-mini-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.swb-page #zonas .swb-zone-card{position:relative}
+.swb-page #zonas .swb-zone-card.is-current{outline:2px solid #bd795e;outline-offset:1px}
+.swb-page #zonas .swb-zone-style{font-size:10px;color:#727b72}
+.swb-page #zonas .swb-zone-actions{display:flex;align-items:flex-end;justify-content:flex-end;gap:12px;flex-wrap:wrap;margin-top:auto}
+.swb-page #zonas .swb-zone-actions .vcc-it-cta{cursor:pointer;border:0;background:none;text-align:right;font-size:9px!important;padding:8px 0 0}
+.swb-page #zonas .swb-zone-real{font-size:9px;font-weight:700;color:#a65338;text-decoration:underline}
+.swb-page #zonas .swb-zone-card .di-price strong{font-weight:700;color:#a14b32}
+.swb-page #zonas .swb-zone-placeholder{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;background:linear-gradient(120deg,#415e6a,#8ba6aa);color:#fff;font-size:28px}
+.swb-page #zonas .swb-zone-placeholder small{font:600 18px/1.2 var(--vcc-font-heading,Oswald,sans-serif)}
+@media(max-width:980px){.swb-page .calculator-grid{grid-template-columns:1fr}.swb-page #zonas .swb-regions-grid.di-mini-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.swb-page #ahorrar .tips-track>.saving-tip{flex-basis:calc((100% - 12px)/2)}}
+@media(max-width:700px){
+.swb-page .vcc-budget-mode-track{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;padding:3px 2px 10px;gap:10px}
+.swb-page .vcc-budget-mode-track::-webkit-scrollbar{display:none}
+.swb-page #presupuesto-diario .vcc-budget-mode-card{flex:0 0 min(78vw,290px);scroll-snap-align:start}
+.swb-page .vcc-budget-mode-arrow{display:block}
+.swb-page .chart-layout{grid-template-columns:130px 1fr;gap:10px}
+.swb-page .donut{width:122px;height:122px}.swb-page .donut-inner{width:84px;height:84px}
+.swb-page #zonas .swb-regions-grid.di-mini-grid{grid-template-columns:1fr}
+.swb-page #ahorrar .tips-track>.saving-tip{flex-basis:calc(100% - 4px)}
+.swb-page #ahorrar .carousel-arrow.prev{left:-9px}.swb-page #ahorrar .carousel-arrow.next{right:-9px}
+}
+@media(max-width:440px){
+.swb-page .calc-top{gap:6px}.swb-page .calc-control{padding:7px 3px}
+.swb-page .calculator-card .category-row{grid-template-columns:minmax(75px,1fr) minmax(82px,.7fr) minmax(80px,.7fr);gap:5px}
+.swb-page .category-row select{padding:7px 4px;font-size:11px}
+.swb-page .vcc-price-block small{font-size:8px}
+.swb-page .chart-layout{grid-template-columns:1fr;justify-items:center}.swb-page .legend{width:100%}
+.swb-page .calc-ticket-head{flex-wrap:wrap}.swb-page .calc-ticket-head p{text-align:left}
+}
