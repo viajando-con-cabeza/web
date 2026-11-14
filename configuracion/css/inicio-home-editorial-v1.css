@@ -549,7 +549,7 @@ body.inicio-vcc.home-editorial-refresh .home-insta-photo .home-insta-platform-ma
 
 /* Portada · CTA d'Instagram i Contacto idèntics al CTA dels itineraris.
    Reutilitza la variable de tipografia compartida i s'ancora a baix a la dreta. */
-body.inicio-vcc.home-editorial-refresh .home-social-contact :is(.home-instagram,.home-contact) .vcc-home-social-cta{
+:is(body.inicio-vcc.home-editorial-refresh .home-social-contact :is(.home-instagram,.home-contact) .vcc-home-social-cta,body.inicio-vcc.home-editorial-refresh .home-about-summary .vcc-home-about-cta){
   display:inline-flex!important;align-items:center!important;justify-content:flex-end!important;
   align-self:flex-end!important;flex:0 0 auto!important;
   width:auto!important;min-width:0!important;min-height:0!important;height:auto!important;
@@ -559,6 +559,12 @@ body.inicio-vcc.home-editorial-refresh .home-social-contact :is(.home-instagram,
   letter-spacing:0!important;text-align:right!important;text-decoration:none!important;
   white-space:normal!important;color:#ad5a43!important;
 }
-body.inicio-vcc.home-editorial-refresh .home-social-contact :is(.home-instagram,.home-contact) .vcc-home-social-cta:hover{
+:is(body.inicio-vcc.home-editorial-refresh .home-social-contact :is(.home-instagram,.home-contact) .vcc-home-social-cta,body.inicio-vcc.home-editorial-refresh .home-about-summary .vcc-home-about-cta):hover{
   color:var(--vcc-ink,#24211e)!important;
+}
+
+/* Sobre nosotros · el texto queda a la izquierda y CONÓCENOS se ancla abajo a la derecha. */
+body.inicio-vcc.home-editorial-refresh .home-about-summary{
+  display:flex!important;flex-direction:column!important;align-items:stretch!important;
+  height:100%;box-sizing:border-box;
 }
