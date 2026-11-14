@@ -1,3 +1,25 @@
 /* CSS extret de destinos/suecia/index.html. L'ordre de la cascada es conserva. */
 html,body{max-width:100%;overflow-x:clip}#country-content{width:100%;max-width:100%;overflow-x:clip}#planifica .vcc-prep-grid{align-items:stretch!important}#planifica .vcc-prep-card{display:flex!important;flex-direction:column!important;height:100%!important}#planifica .vcc-prep-image{flex:0 0 auto!important}#planifica .vcc-prep-copy{display:flex!important;flex-direction:column!important;flex:1 1 auto!important;height:auto!important;min-height:0!important}#planifica .vcc-prep-copy .vcc-card-action{margin-top:auto!important;padding-top:14px!important;min-height:28px!important;display:flex!important;align-items:flex-end!important;justify-content:flex-end!important;width:100%!important;text-align:right!important}#planifica .vcc-prep-copy .vcc-card-action .vcc-prep-action,#planifica .vcc-prep-copy .vcc-card-action .vcc-soon{margin:0!important;padding:0!important;min-width:0!important;min-height:0!important;align-self:flex-end!important;text-align:right!important}#planifica .vcc-prep-action{position:relative!important}#planifica .vcc-prep-action:after{content:"";position:absolute;inset:-12px -16px}#guias .country-heading h2{font-size:40px!important}#guias .country-heading h2:after{content:none!important;display:none!important}.shared-header{position:sticky!important;top:0!important;z-index:1100!important}.country-nav{position:sticky!important;top:50px!important;z-index:1000!important;background:#fff!important;min-height:47px!important;border-top:1px solid var(--country-line)!important;border-bottom:1px solid var(--country-line)!important;box-shadow:0 1px 0 rgba(40,30,20,.02)!important}.country-nav-inner{min-height:47px!important;justify-content:flex-start!important;gap:38px!important}.country-nav a{font-family:var(--vcc-font-body, "DM Sans", Arial, sans-serif)!important;font-size:11px!important;font-weight:800!important;line-height:1!important;letter-spacing:0!important;padding:17px 0 14px!important}@media(max-width:720px){.shared-header{position:sticky!important;top:0!important}.country-nav{top:88px!important}}
 /* Targetes de guies i itineraris: únic disseny a /configuracion/css/componentes/vcc-targetes-itineraris-guies.css. */
+
+/* Suecia · enllaç al catàleg «Qué visitar» sota el carrusel de guies. */
+html body.country-page .vcc-sweden-page #guias .vcc-country-visit-cta{
+  display:flex;justify-content:flex-end;align-items:center;
+  margin:18px 5px 0;padding:0;
+}
+html body.country-page .vcc-sweden-page #guias .vcc-country-visit-cta>a{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:4px 0;border-bottom:1px solid #ba664b;
+  color:#a9563e;font:800 12px/1.4 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
+  text-decoration:none;transition:color .15s;
+}
+html body.country-page .vcc-sweden-page #guias .vcc-country-visit-cta>a:hover{color:#773b2a}
+html body.country-page .vcc-sweden-page #guias .vcc-country-visit-cta>a>span{
+  font-size:17px;line-height:1;
+}
+@media(max-width:650px){
+  html body.country-page .vcc-sweden-page #guias .vcc-country-visit-cta{
+    margin:13px 4px 0;justify-content:flex-end;
+  }
+  html body.country-page .vcc-sweden-page #guias .vcc-country-visit-cta>a{font-size:11px}
+}
