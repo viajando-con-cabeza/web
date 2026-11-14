@@ -16,17 +16,19 @@
   function isInsideCard(link){
     for(let parent=link.parentElement;parent&&parent!==document.body;parent=parent.parentElement){
       if(parent.matches("header,nav,footer"))return false;
+      if(parent.matches(".budget-tip,.home-instagram,.home-contact,.home-about-summary"))return true;
       if(parent.classList && [...parent.classList].some(name=>cardClass.test(name)))return true;
     }
     return false;
   }
   function clean(link){
     if(!link || link.tagName!=="A" || !link.hasAttribute("href"))return;
-    if(skip.test(link.className||""))return;
     const label=(link.textContent||"").replace(/\s+/g," ").trim();
+    // Un link textual dins d'un carrusel NO és una fletxa de navegació.
+    if(skip.test(link.className||"") && !action.test(label))return;
     if(!action.test(label) && !known.test(link.className||""))return;
     link.classList.add("vcc-accion-discreta");
-    if(/^VER(?:\s|$)/iu.test(label) && isInsideCard(link)){
+    if(/^(?:VER(?:\s|$)|IR A CONTACTO\b|CON[OÓ]CENOS\b)/iu.test(label) && isInsideCard(link)){
       link.classList.add("vcc-card-cta-unificada");
     }
     // Eliminar fletxes de text, sense tocar els SVG ni els controls funcionals.
