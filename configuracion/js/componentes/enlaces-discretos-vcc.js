@@ -10,12 +10,25 @@
   const arrowOnly=/^[→↗›➜➝]+$/u;
   const skip=/(?:carousel|carrusel|gallery|galeria|arrow|flecha|next|prev|subnav|breadcrumb|menu|paginacion|pagination)/i;
   const known=/\b(?:vcc-it-cta|home-feature-link|home-section-more|home-about-link|vcc-prep-action|vl-air-action|al-action|sv-insurer-action|sv-insurer-link|ep4-day-link|av-button|subtle-link|vcc-map-open-link|vcc-itinerary-budget__link)\b/;
+  // Només els hipervincles verbals "VER ..." que viuen en una vinyeta.
+  // Llegeix totes les classes dels avantpassats per cobrir plantilles actuals i futures.
+  const cardClass=/(?:^|[-_])(?:card|tarjeta|targeta|tile)(?:$|[-_])/i;
+  function isInsideCard(link){
+    for(let parent=link.parentElement;parent&&parent!==document.body;parent=parent.parentElement){
+      if(parent.matches("header,nav,footer"))return false;
+      if(parent.classList && [...parent.classList].some(name=>cardClass.test(name)))return true;
+    }
+    return false;
+  }
   function clean(link){
     if(!link || link.tagName!=="A" || !link.hasAttribute("href"))return;
     if(skip.test(link.className||""))return;
     const label=(link.textContent||"").replace(/\s+/g," ").trim();
     if(!action.test(label) && !known.test(link.className||""))return;
     link.classList.add("vcc-accion-discreta");
+    if(/^VER(?:\s|$)/iu.test(label) && isInsideCard(link)){
+      link.classList.add("vcc-card-cta-unificada");
+    }
     // Eliminar fletxes de text, sense tocar els SVG ni els controls funcionals.
     const nodes=[...link.childNodes];
     for(let i=nodes.length-1;i>=0;i--){
