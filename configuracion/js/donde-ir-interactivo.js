@@ -79,7 +79,12 @@
       for(const card of cards){
         const codes=(card.dataset.country||'').split(/\s+/).filter(Boolean);
         const line=card.querySelector('.di-country-line');
-        const labels=(line?.lastElementChild?.textContent||'').split(' · ').map(s=>s.trim());
+        const flags=[...(line?.querySelectorAll('img.vcc-it-country-flag[alt]')||[])].map(img=>img.alt.trim());
+        // Els itineraris multipaís mostren «3 países», però el filtre ha de
+        // reconèixer Austria, Alemania i Suiza individualment.
+        const labels=flags.length===codes.length&&flags.length>1
+          ?flags
+          :(line?.lastElementChild?.textContent||'').split(' · ').map(s=>s.trim());
         codes.forEach((code,i)=>{
           if(code&&labels[i]&&!names.has(code))names.set(code,labels[i]);
         });
