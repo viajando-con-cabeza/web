@@ -79,23 +79,6 @@
         const explanation=category==="transporte"?zones[state.zone].transport:descriptions[category][style];
         node.textContent=explanation+" · "+euro(value)+"/pax/"+(category==="alojamiento"?"noche":"día");
       });
-      panel.querySelectorAll("[data-day-category-rate]").forEach(node=>{
-        const c=node.dataset.dayCategoryRate;
-        const value=round(style,c,state.zone);
-        node.dataset.totalGroupEuros=String(value);
-        node.textContent=euro(value);
-      });
-      panel.querySelectorAll("[data-day-category-desc]").forEach(node=>{
-        const c=node.dataset.dayCategoryDesc;
-        node.textContent=c==="transporte"?zones[state.zone].transport:descriptions[c][style];
-      });
-      const dayTotal=panel.querySelector(".vcc-day-price");
-      if(dayTotal){
-        dayTotal.dataset.totalGroupEuros=String(average);
-        dayTotal.textContent=euro(average)+" / pax";
-      }
-      const sub=panel.querySelector(".vcc-daily-heading-sub");
-      if(sub)sub.textContent="Día tipo en "+zones[state.zone].name;
     }
     const description=el("swb-overview-detail");
     if(description)description.textContent=zones[state.zone].detail+" Una noche por día para comparar perfiles.";
