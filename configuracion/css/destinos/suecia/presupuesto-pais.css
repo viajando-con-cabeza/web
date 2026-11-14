@@ -265,3 +265,22 @@
  .swb-region-card>.swb-region-body{padding:11px 13px}
  .swb-saving{margin-top:15px}
 }
+
+/* Sigue descubriendo · mismo diseño de cierre que Estocolmo. */
+.swb-page section.related-section[data-vcc-destino="suecia"]{
+ --vcc-related-photo:url("https://img.viajandoconcabeza.com/destinos/suecia/dalarna/2026-dia9/DSC08592.avif");
+ margin:0;padding:37px 0 42px;width:100%;min-width:0;position:relative;isolation:isolate;
+}
+.swb-page .related-inner{width:min(1180px,calc(100% - 48px));margin-inline:auto;position:relative;z-index:1}
+.swb-page .related-head{display:block;margin-bottom:19px;text-align:left}
+.swb-page .related-head p{font:800 11px/1.2 var(--vcc-font-body,"DM Sans",Arial,sans-serif);letter-spacing:.12em;text-transform:uppercase;margin:0 0 7px}
+.swb-page .related-head h2{font:600 clamp(29px,3.4vw,42px)/1.1 var(--vcc-font-heading,Oswald,sans-serif);letter-spacing:.005em;margin:0 0 7px}
+.swb-page .related-head span{display:block;font-size:12px;line-height:1.45;margin:0}
+.swb-page .vcc-related-cards.related-grid{width:100%;margin:0}
+@media(max-width:550px){
+ .swb-page section.related-section[data-vcc-destino="suecia"]{padding:27px 0 32px}
+ .swb-page .related-inner{width:calc(100% - 30px)}
+ .swb-page .related-head{margin-bottom:14px}
+ .swb-page .related-head h2{font-size:30px}
+ .swb-page .related-head span{font-size:11px}
+}
