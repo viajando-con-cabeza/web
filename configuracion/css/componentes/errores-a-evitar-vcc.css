@@ -1,66 +1,109 @@
-/* Errores a evitar: reproduccion EXACTA de la insignia ya aprobada en
-   Presupuesto de Estocolmo (configuracion/css/plantillas/presupuesto-vcc-visual.css).
-   El icono SVG procede de estocolmo-presupuesto-iconos.svg#surprise-icon-1.
-   Las secciones Como ahorrar mantienen sus iconos numericos compartidos.
-*/
-html body.ci-page .ci-tip-card > .ci-tip-alert {
-  display: grid !important;
-  place-items: center !important;
-  flex: 0 0 34px !important;
-  width: 34px !important;
-  height: 34px !important;
-  min-width: 34px !important;
-  min-height: 34px !important;
-  margin: 0 !important;
-  padding: 0 !important;
-  border: 0 !important;
-  outline: none !important;
-  border-radius: 50% !important;
-  color: #a67c48 !important;
-  background: #f1e5d1 !important;
-  box-shadow: none !important;
-  transform: none !important;
+/* VCC · ÚNICA FONT DE VERITAT PER A LES VINYETES "ERRORES A EVITAR".
+   2026-11-14. Afecta Presupuesto d'Estocolm, Cuándo ir, Planifica Apps/
+   Actividades y reservas, Seguros i Tarjetas de viaje.
+   Les targetes conserven el seu carrusel, el scroll-snap i els botons originals.
+   Per a pàgines futures: afegir .vcc-editorial-error-context al contenidor i
+   .vcc-editorial-error-card/.vcc-editorial-error-icon a la targeta i la icona.
+   Canviar els tokens de :root per actualitzar totes les pàgines. */
+:root {
+  --vcc-error-card-background:#fff;
+  --vcc-error-card-border:#e1dcd6;
+  --vcc-error-card-radius:14px;
+  --vcc-error-card-padding:18px;
+  --vcc-error-card-padding-mobile:15px;
+  --vcc-error-card-gap:13px;
+  --vcc-error-card-min-height:145px;
+  --vcc-error-card-title-size:22px;
+  --vcc-error-card-title-size-mobile:20px;
+  --vcc-error-card-body-size:12px;
+  --vcc-error-card-icon-size:36px;
+  --vcc-error-card-icon-bg:#eaf2f1;
+  --vcc-error-card-icon-ink:#527b80;
 }
-html body.ci-page .ci-tip-card > .ci-tip-alert > svg {
-  display: block !important;
-  width: 22px !important;
-  height: 22px !important;
-  flex: none !important;
-  transform: none !important;
+html body :is(#sorpresas,#errores-a-evitar,#consejos,#errores,.vcc-editorial-error-context) .vcc-editorial-error-card {
+  display:flex!important;
+  flex-direction:row!important;
+  align-items:flex-start!important;
+  gap:var(--vcc-error-card-gap)!important;
+  box-sizing:border-box!important;
+  min-width:0!important;
+  height:auto!important;
+  min-height:var(--vcc-error-card-min-height)!important;
+  max-height:none!important;
+  margin:0!important;
+  padding:var(--vcc-error-card-padding)!important;
+  border:1px solid var(--vcc-error-card-border)!important;
+  border-radius:var(--vcc-error-card-radius)!important;
+  background:var(--vcc-error-card-background)!important;
+  background-image:none!important;
+  box-shadow:0 2px 9px rgba(45,36,26,.045)!important;
+  color:#24211f!important;
+  text-align:left!important;
+  overflow-wrap:break-word!important;
 }
-
-
-/* Tarjeta de aviso editorial compartida: aspecto original de
-   'Errores a evitar' en Presupuesto de Estocolmo. */
-:is(.budget-vcc,.sv-page,.av-page) .vcc-editorial-error-card{
- display:flex!important;flex-direction:row!important;align-items:flex-start!important;
- gap:13px!important;min-height:115px!important;padding:18px!important;
- box-sizing:border-box!important;background:#fffaf2!important;
- border:1px solid #e4d7c4!important;border-radius:8px!important;
- box-shadow:none!important;
- font-family:var(--vcc-font-body,"DM Sans",sans-serif)!important
+html body :is(#sorpresas,#errores-a-evitar,#consejos,#errores,.vcc-editorial-error-context) .vcc-editorial-error-card > .vcc-editorial-error-icon {
+  display:grid!important;
+  place-items:center!important;
+  box-sizing:border-box!important;
+  flex:0 0 var(--vcc-error-card-icon-size)!important;
+  width:var(--vcc-error-card-icon-size)!important;
+  height:var(--vcc-error-card-icon-size)!important;
+  min-width:var(--vcc-error-card-icon-size)!important;
+  min-height:var(--vcc-error-card-icon-size)!important;
+  padding:0!important;
+  margin:0!important;
+  border:0!important;
+  outline:0!important;
+  border-radius:50%!important;
+  background:var(--vcc-error-card-icon-bg)!important;
+  background-image:none!important;
+  color:var(--vcc-error-card-icon-ink)!important;
+  box-shadow:none!important;
+  transform:none!important;
 }
-:is(.budget-vcc,.sv-page,.av-page) .vcc-editorial-error-card h3{
- font:800 19px/1.2 var(--vcc-font-body,"DM Sans",sans-serif)!important;
- margin:0 0 7px!important;color:#232120!important
+html body :is(#sorpresas,#errores-a-evitar,#consejos,#errores,.vcc-editorial-error-context) .vcc-editorial-error-card > .vcc-editorial-error-icon svg {
+  display:block!important;
+  width:22px!important;
+  height:22px!important;
+  flex:none!important;
+  color:inherit!important;
+  transform:none!important;
 }
-:is(.budget-vcc,.sv-page,.av-page) .vcc-editorial-error-card p{
- font:400 11px/1.6 var(--vcc-font-body,"DM Sans",sans-serif)!important;
- color:#625b56!important;margin:0!important
+html body :is(#sorpresas,#errores-a-evitar,#consejos,#errores,.vcc-editorial-error-context) .vcc-editorial-error-card > div {
+  flex:1 1 auto!important;
+  min-width:0!important;
 }
-:is(.budget-vcc,.sv-page,.av-page) .vcc-editorial-error-card > .vcc-editorial-error-icon{
- display:grid!important;place-items:center!important;
- flex:0 0 34px!important;width:34px!important;height:34px!important;
- min-width:34px!important;min-height:34px!important;
- margin:0!important;padding:0!important;
- border:0!important;outline:none!important;border-radius:50%!important;
- background:#f1e5d1!important;color:#a67c48!important;
- box-shadow:none!important;transform:none!important
+html body :is(#sorpresas,#errores-a-evitar,#consejos,#errores,.vcc-editorial-error-context) .vcc-editorial-error-card h3 {
+  margin:2px 0 9px!important;
+  padding:0!important;
+  font-family:var(--vcc-font-heading,"Oswald",sans-serif)!important;
+  font-size:var(--vcc-error-card-title-size)!important;
+  font-weight:500!important;
+  line-height:1.18!important;
+  letter-spacing:0!important;
+  text-transform:none!important;
+  color:#232120!important;
 }
-:is(.budget-vcc,.sv-page,.av-page) .vcc-editorial-error-card > .vcc-editorial-error-icon > svg{
- width:22px!important;height:22px!important;display:block!important;flex:none!important;
- transform:none!important
+html body :is(#sorpresas,#errores-a-evitar,#consejos,#errores,.vcc-editorial-error-context) .vcc-editorial-error-card p {
+  margin:0!important;
+  padding:0!important;
+  font-family:var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;
+  font-size:var(--vcc-error-card-body-size)!important;
+  font-weight:400!important;
+  line-height:1.55!important;
+  color:#625f5b!important;
+  text-align:left!important;
 }
-@media(max-width:760px){
- :is(.budget-vcc,.sv-page,.av-page) .vcc-editorial-error-card{padding:15px!important;min-height:115px!important}
+html body :is(#sorpresas,#errores-a-evitar,#consejos,#errores,.vcc-editorial-error-context) .vcc-editorial-error-card a {
+  color:#a65340!important;
+  text-decoration:underline;
+  text-underline-offset:2px;
+}
+@media (max-width:760px) {
+  html body :is(#sorpresas,#errores-a-evitar,#consejos,#errores,.vcc-editorial-error-context) .vcc-editorial-error-card {
+    padding:var(--vcc-error-card-padding-mobile)!important;
+  }
+  html body :is(#sorpresas,#errores-a-evitar,#consejos,#errores,.vcc-editorial-error-context) .vcc-editorial-error-card h3 {
+    font-size:var(--vcc-error-card-title-size-mobile)!important;
+  }
 }
