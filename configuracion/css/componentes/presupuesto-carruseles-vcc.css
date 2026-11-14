@@ -1,0 +1,111 @@
+/* VCC / Estocolm · Carrusels de pressupost
+   Única font de veritat per a la distribució de Cómo ahorrar i Errores a evitar.
+   Conserva el component de targetes d'errors de errores-a-evitar-vcc.css.
+   Manté continguts i funcionament existents. */
+html body.budget-vcc :is(#ahorrar,#sorpresas) .carousel-shell{
+  display:grid!important;
+  grid-template-columns:34px minmax(0,1fr) 34px!important;
+  grid-template-rows:auto!important;
+  align-items:center!important;
+  gap:9px!important;
+  position:relative!important;
+  width:100%!important;
+  max-width:100%!important;
+  min-width:0!important;
+  min-height:0!important;
+  height:auto!important;
+  padding:0!important;
+  margin:0!important;
+}
+html body.budget-vcc :is(#ahorrar,#sorpresas) .carousel-shell > .tips-track{
+  display:flex!important;
+  flex-flow:row nowrap!important;
+  align-items:stretch!important;
+  justify-content:flex-start!important;
+  box-sizing:border-box!important;
+  grid-column:2!important;
+  grid-row:1!important;
+  gap:12px!important;
+  width:100%!important;
+  max-width:100%!important;
+  min-width:0!important;
+  min-height:0!important;
+  height:auto!important;
+  margin:0!important;
+  padding:2px 1px 5px!important;
+  overflow-x:auto!important;
+  overflow-y:hidden!important;
+  scroll-snap-type:x mandatory!important;
+  scrollbar-width:none!important;
+}
+html body.budget-vcc :is(#ahorrar,#sorpresas) .carousel-shell > .tips-track::-webkit-scrollbar{display:none}
+html body.budget-vcc :is(#ahorrar,#sorpresas) .carousel-shell > .carousel-arrow{
+  display:grid!important;
+  place-items:center!important;
+  position:static!important;
+  grid-row:1!important;
+  align-self:center!important;
+  justify-self:center!important;
+  top:auto!important;right:auto!important;bottom:auto!important;left:auto!important;
+  width:30px!important;height:30px!important;
+  min-width:30px!important;min-height:30px!important;
+  margin:0!important;padding:0!important;
+  transform:none!important;
+  line-height:1!important;
+  z-index:2!important;
+}
+html body.budget-vcc :is(#ahorrar,#sorpresas) .carousel-shell > .carousel-arrow.prev{grid-column:1!important}
+html body.budget-vcc :is(#ahorrar,#sorpresas) .carousel-shell > .carousel-arrow.next{grid-column:3!important}
+/* Cap altura gegant: cada targeta s'ajusta al text. Tres en escriptori. */
+html body.budget-vcc #ahorrar .tips-track > .saving-tip,
+html body.budget-vcc #sorpresas .tips-track > .vcc-editorial-error-card{
+  display:flex!important;
+  flex:0 0 calc((100% - 24px)/3)!important;
+  box-sizing:border-box!important;
+  min-width:0!important;
+  width:auto!important;
+  height:auto!important;
+  max-height:none!important;
+  min-height:132px!important;
+  margin:0!important;
+  padding:14px!important;
+  scroll-snap-align:start!important;
+  align-self:stretch!important;
+  gap:11px!important;
+}
+html body.budget-vcc #ahorrar .tips-track > .saving-tip{flex-direction:row!important;align-items:flex-start!important}
+html body.budget-vcc #sorpresas .tips-track > .vcc-editorial-error-card{flex-direction:row!important;align-items:flex-start!important}
+html body.budget-vcc #ahorrar .saving-tip-copy,
+html body.budget-vcc #sorpresas .vcc-editorial-error-card > div{
+  min-width:0!important;height:auto!important;max-height:none!important;
+}
+html body.budget-vcc #ahorrar .saving-tip h3{font-size:19px!important;margin:1px 0 7px!important;line-height:1.2!important}
+html body.budget-vcc #ahorrar .saving-tip p{font-size:12px!important;line-height:1.5!important}
+html body.budget-vcc #sorpresas .vcc-editorial-error-card h3{font-size:19px!important;margin:1px 0 7px!important;line-height:1.2!important}
+html body.budget-vcc #sorpresas .vcc-editorial-error-card p{font-size:12px!important;line-height:1.5!important}
+@media(max-width:950px){
+  html body.budget-vcc :is(#ahorrar,#sorpresas) .tips-track > :is(.saving-tip,.vcc-editorial-error-card){
+    flex-basis:calc((100% - 12px)/2)!important;
+  }
+}
+@media(max-width:650px){
+  html body.budget-vcc :is(#ahorrar,#sorpresas) .carousel-shell{
+    grid-template-columns:29px minmax(0,1fr) 29px!important;
+    gap:5px!important;
+  }
+  html body.budget-vcc :is(#ahorrar,#sorpresas) .carousel-shell > .carousel-arrow{
+    width:27px!important;height:27px!important;min-width:27px!important;min-height:27px!important;
+  }
+  html body.budget-vcc :is(#ahorrar,#sorpresas) .carousel-shell > .tips-track{gap:10px!important}
+  html body.budget-vcc :is(#ahorrar,#sorpresas) .tips-track > :is(.saving-tip,.vcc-editorial-error-card){
+    flex:0 0 100%!important;
+    min-height:138px!important;
+    padding:13px!important;
+    gap:10px!important;
+  }
+  html body.budget-vcc #ahorrar .saving-tip h3,
+  html body.budget-vcc #sorpresas .vcc-editorial-error-card h3{font-size:18px!important}
+}
+@media(prefers-reduced-motion:reduce){
+  html body.budget-vcc :is(#ahorrar,#sorpresas) .carousel-shell > .tips-track{scroll-behavior:auto!important}
+}
