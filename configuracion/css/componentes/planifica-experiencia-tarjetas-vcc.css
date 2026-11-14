@@ -387,3 +387,152 @@ html body .vcc-experience-carousel .vcc-experience-arrow:focus-visible{
     right:2px!important;left:auto!important;
   }
 }
+
+
+/* VCC 2026-11-14 · Carrusel Nuestra experiencia: geometría canónica de las cuatro páginas */
+html body .vcc-experience-carousel.vcc-experience-carousel{
+  box-sizing:border-box!important;display:block!important;position:relative!important;
+  width:100%!important;min-width:0!important;grid-template-columns:none!important;
+  margin:15px 0 0!important;padding:0!important;gap:0!important;background:transparent!important;
+}
+html body .vcc-experience-carousel > :is(.sv-controls,.av-arrows){
+  position:absolute!important;inset:0!important;width:100%!important;height:100%!important;
+  display:block!important;margin:0!important;padding:0!important;z-index:6!important;pointer-events:none!important;
+}
+html body .vcc-experience-carousel .vcc-experience-track.vcc-experience-track{
+  box-sizing:border-box!important;display:grid!important;grid-auto-flow:column!important;
+  grid-auto-columns:calc((100% - 32px)/3.08)!important;grid-template-columns:none!important;
+  grid-template-rows:1fr!important;align-items:stretch!important;
+  width:100%!important;min-width:0!important;max-width:100%!important;
+  gap:16px!important;margin:0!important;padding:3px 2px 12px!important;
+  overflow-x:auto!important;overflow-y:hidden!important;
+  scroll-snap-type:x mandatory!important;scroll-padding-inline:2px!important;
+  overscroll-behavior-x:contain!important;-webkit-overflow-scrolling:touch!important;
+  scrollbar-width:none!important;
+}
+html body .vcc-experience-carousel .vcc-experience-track::-webkit-scrollbar{display:none!important}
+html body .vcc-experience-carousel .vcc-experience-track > .vcc-experience-card.vcc-experience-card{
+  box-sizing:border-box!important;display:flex!important;flex-direction:column!important;
+  width:100%!important;height:355px!important;min-height:355px!important;max-height:355px!important;
+  min-width:0!important;margin:0!important;padding:0!important;
+  border:1px solid #e3ddd7!important;border-radius:12px!important;
+  background:#fff!important;box-shadow:0 4px 15px rgba(43,34,26,.045)!important;
+  scroll-snap-align:start!important;overflow:hidden!important;
+}
+html body .vcc-experience-carousel .vcc-experience-card > .vcc-experience-body.vcc-experience-body{
+  box-sizing:border-box!important;display:flex!important;flex-direction:column!important;flex:1!important;
+  width:100%!important;min-height:0!important;min-width:0!important;
+  margin:0!important;padding:16px 15px 13px!important;gap:0!important;
+  background:transparent!important;
+}
+html body .vcc-experience-carousel .vcc-experience-card .vcc-experience-head{
+  display:block!important;flex:0 0 auto!important;
+  margin:0!important;padding:0!important;border:0!important;background:none!important;box-shadow:none!important;
+}
+html body .vcc-experience-carousel .vcc-experience-card .vcc-experience-content{
+  box-sizing:border-box!important;display:flex!important;flex-direction:column!important;flex:1!important;
+  min-height:0!important;min-width:0!important;margin:0!important;padding:0!important;gap:0!important;
+  border:0!important;background:none!important;
+}
+html body .vcc-experience-carousel .vcc-experience-card .vcc-experience-name{
+  display:block!important;min-height:27px!important;height:auto!important;
+  margin:0 0 6px!important;padding:0!important;
+  font:800 24px/1.05 var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;
+  letter-spacing:-.05em!important;text-transform:none!important;
+}
+html body .vcc-experience-carousel .vcc-experience-card .vcc-experience-intro{
+  box-sizing:border-box!important;display:-webkit-box!important;-webkit-box-orient:vertical!important;
+  -webkit-line-clamp:3!important;line-clamp:3!important;overflow:hidden!important;
+  height:49px!important;min-height:49px!important;max-height:49px!important;flex:0 0 49px!important;
+  margin:0 0 10px!important;padding:0!important;
+  color:#4c5258!important;font:400 11.5px/1.42 var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;
+}
+html body .vcc-experience-carousel .vcc-experience-card .vcc-experience-points{
+  box-sizing:border-box!important;display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  align-items:start!important;gap:0!important;flex:0 0 auto!important;
+  width:100%!important;min-width:0!important;margin:0!important;padding:10px 0 5px!important;
+  border:0!important;border-top:1px solid #e8e5e1!important;border-radius:0!important;background:none!important;
+}
+html body .vcc-experience-carousel .vcc-experience-card .vcc-experience-points>section{
+  box-sizing:border-box!important;min-width:0!important;margin:0!important;padding:0 12px 0 0!important;
+  border:0!important;background:none!important;
+}
+html body .vcc-experience-carousel .vcc-experience-card .vcc-experience-points>section+section{
+  border-left:1px solid #e5e5e2!important;padding:0 0 0 12px!important;
+}
+html body .vcc-experience-carousel .vcc-experience-card .vcc-experience-points h4{
+  display:flex!important;align-items:center!important;gap:6px!important;
+  margin:0 0 7px!important;padding:0!important;color:#2d2a27!important;
+  font:800 11px/1.25 var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;
+}
+html body .vcc-experience-carousel .vcc-experience-card .vcc-experience-points .vcc-experience-face{
+  display:block!important;flex:0 0 19px!important;width:19px!important;height:19px!important;
+  color:#ef6b45!important;stroke:#ef6b45!important;
+}
+html body .vcc-experience-carousel .vcc-experience-card .vcc-experience-points ul{
+  list-style:none!important;margin:0!important;padding:0!important;
+}
+html body .vcc-experience-carousel .vcc-experience-card .vcc-experience-points li{
+  position:relative!important;margin:0 0 5px!important;padding:0 0 0 10px!important;
+  color:#50555a!important;font:400 10.8px/1.38 var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;
+}
+html body .vcc-experience-carousel .vcc-experience-card .vcc-experience-points li::before{
+  content:"•"!important;position:absolute!important;top:0!important;left:1px!important;color:#4d504d!important;
+}
+html body .vcc-experience-carousel .vcc-experience-card .vcc-experience-link{
+  box-sizing:border-box!important;display:inline-flex!important;align-items:center!important;
+  justify-content:flex-end!important;align-self:flex-end!important;
+  width:auto!important;height:auto!important;min-width:0!important;max-width:100%!important;
+  margin:auto 0 0 auto!important;padding:12px 0 0!important;border:0!important;border-radius:0!important;
+  background:transparent!important;box-shadow:none!important;color:#bf6546!important;
+  font:700 10.5px/1.2 var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;
+  letter-spacing:.07em!important;text-decoration:none!important;text-transform:uppercase!important;white-space:nowrap!important;
+}
+html body .vcc-experience-carousel .vcc-experience-arrow.vcc-experience-arrow{
+  box-sizing:border-box!important;position:absolute!important;top:50%!important;bottom:auto!important;
+  z-index:7!important;transform:translateY(-50%)!important;
+  display:grid!important;place-items:center!important;
+  width:36px!important;height:36px!important;min-width:36px!important;min-height:36px!important;
+  margin:0!important;padding:0!important;border:1px solid #c7aa97!important;border-radius:50%!important;
+  background:rgba(255,255,255,.84)!important;color:#ab553b!important;box-shadow:0 2px 8px rgba(29,22,18,.1)!important;
+  font-size:0!important;line-height:0!important;cursor:pointer!important;pointer-events:auto!important;
+}
+html body .vcc-experience-carousel .vcc-experience-arrow.vcc-experience-prev{left:-15px!important;right:auto!important}
+html body .vcc-experience-carousel .vcc-experience-arrow.vcc-experience-next{right:-15px!important;left:auto!important}
+html body .vcc-experience-carousel .vcc-experience-arrow svg{
+  display:block!important;flex:none!important;width:23px!important;height:23px!important;
+  margin:0!important;padding:0!important;fill:none!important;stroke:currentColor!important;
+  stroke-width:2.5!important;stroke-linecap:round!important;stroke-linejoin:round!important;transform:none!important;
+}
+html body .vcc-experience-carousel .vcc-experience-arrow:hover:not(:disabled){background:#fff1e8!important;border-color:#c36c4f!important}
+html body .vcc-experience-carousel .vcc-experience-arrow:disabled{opacity:.25!important;cursor:default!important;pointer-events:none!important}
+html body .vcc-experience-carousel .vcc-experience-arrow:focus-visible{outline:2px solid #c36c4f!important;outline-offset:3px!important}
+html body :is(.vl-page #experiencia,.al-page #plataformas,.tv-page #tarjetas,.sv-page #experiencia)
+.vcc-editorial-heading > .vcc-editorial-description{
+  box-sizing:border-box!important;display:-webkit-box!important;-webkit-box-orient:vertical!important;
+  -webkit-line-clamp:2!important;line-clamp:2!important;overflow:hidden!important;
+  max-width:430px!important;max-height:2.85em!important;margin:0!important;
+  font:400 13px/1.42 var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;color:#655e58!important;
+}
+@media(max-width:1050px){
+  html body .vcc-experience-carousel .vcc-experience-track.vcc-experience-track{grid-auto-columns:calc((100% - 16px)/2.12)!important}
+  html body .vcc-experience-carousel .vcc-experience-track > .vcc-experience-card.vcc-experience-card{
+    height:375px!important;min-height:375px!important;max-height:375px!important;
+  }
+}
+@media(max-width:740px){
+  html body .vcc-experience-carousel .vcc-experience-track.vcc-experience-track{grid-auto-columns:calc((100% - 16px)/1.12)!important}
+  html body .vcc-experience-carousel .vcc-experience-track > .vcc-experience-card.vcc-experience-card{
+    height:390px!important;min-height:390px!important;max-height:390px!important;
+  }
+  html body .vcc-experience-carousel .vcc-experience-card > .vcc-experience-body.vcc-experience-body{padding:13px!important}
+  html body .vcc-experience-carousel .vcc-experience-card .vcc-experience-points>section{padding-right:9px!important}
+  html body .vcc-experience-carousel .vcc-experience-card .vcc-experience-points>section+section{padding-right:0!important;padding-left:9px!important}
+  html body .vcc-experience-carousel .vcc-experience-arrow.vcc-experience-prev{left:2px!important;right:auto!important}
+  html body .vcc-experience-carousel .vcc-experience-arrow.vcc-experience-next{right:2px!important;left:auto!important}
+  html body :is(.vl-page #experiencia,.al-page #plataformas,.tv-page #tarjetas,.sv-page #experiencia)
+  .vcc-editorial-heading > .vcc-editorial-description{max-width:100%!important;font-size:12px!important}
+}
+@media(max-width:520px){
+  html body .vcc-experience-carousel .vcc-experience-track.vcc-experience-track{grid-auto-columns:calc((100% - 20px)/1.08)!important}
+}
