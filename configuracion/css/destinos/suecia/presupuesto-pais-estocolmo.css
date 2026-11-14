@@ -66,7 +66,7 @@ html body.sweden-budget-vcc .vcc-budget-regions .swb-regions-key small{
   color:#7d776e;font-size:10px;font-weight:500;
 }
 html body.sweden-budget-vcc .vcc-budget-regions .swb-regions-grid.di-mini-grid{
-  display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;
+  display:grid;grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:14px;
   width:100%;align-items:stretch;
 }
 html body.sweden-budget-vcc .vcc-budget-regions .di-mini-card.vcc-it-card .vcc-it-title{
@@ -115,4 +115,36 @@ html body.sweden-budget-vcc .related-section[data-vcc-destino="suecia"]{
  html body.sweden-budget-vcc .calculator-card .vcc-budget-calc-zone select{width:100%}
  html body.sweden-budget-vcc .vcc-budget-regions .swb-regions-grid.di-mini-grid{grid-template-columns:1fr}
  html body.sweden-budget-vcc .vcc-budget-regions .swb-regions-key{flex-wrap:wrap}
+}
+
+/* País: desgloses únicamente por pax, sin ficticio "Gastos por día". */
+html body.budget-vcc.sweden-budget-vcc #filosofia .vcc-budget-panel-grid{
+  display:grid!important;
+  grid-template-columns:minmax(0,.95fr) minmax(0,1.55fr)!important;
+  gap:20px!important;
+}
+html body.budget-vcc.sweden-budget-vcc #zonas .swb-regions-grid.di-mini-grid{
+  display:grid!important;
+  grid-template-columns:repeat(4,minmax(0,1fr))!important;
+  gap:14px!important;
+}
+@media(max-width:1000px){
+  html body.budget-vcc.sweden-budget-vcc #zonas .swb-regions-grid.di-mini-grid{
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  }
+}
+@media(max-width:760px){
+  html body.budget-vcc.sweden-budget-vcc #filosofia .vcc-budget-panel-grid{
+    grid-template-columns:minmax(0,1fr)!important;
+    gap:14px!important;
+  }
+  html body.budget-vcc.sweden-budget-vcc #filosofia .vcc-budget-panel-column+.vcc-budget-panel-column{
+    padding-left:0!important;border-left:0!important;
+    padding-top:14px!important;border-top:1px solid #eee3d8!important;
+  }
+}
+@media(max-width:620px){
+  html body.budget-vcc.sweden-budget-vcc #zonas .swb-regions-grid.di-mini-grid{
+    grid-template-columns:minmax(0,1fr)!important;
+  }
 }
