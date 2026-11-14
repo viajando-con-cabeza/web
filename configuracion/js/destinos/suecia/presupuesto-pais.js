@@ -83,8 +83,7 @@
       text.textContent=(c==="transporte"?zones[state.region].transport:categoryDetails[c][style])+" · por persona / "+(c==="alojamiento"?"noche":"día");
       top.append(icon,title,price);row.append(top,text);rows.appendChild(row);
     });
-    get("swb-profile-trip-total").textContent="≈ "+euro((unit("alojamiento",style)*7+categories.filter(c=>c!=="alojamiento").reduce((s,c)=>s+unit(c,style)*7,0))*2);
-  }
+    }
   function render(){
     const values=calculate();
     get("swb-days").textContent=state.days;get("swb-nights").textContent=state.nights;get("swb-people").textContent=state.people;
@@ -95,7 +94,7 @@
     get("swb-result-meta").textContent=state.people+(state.people===1?" persona":" personas")+" · "+state.days+(state.days===1?" día":" días")+" · "+state.nights+(state.nights===1?" noche":" noches");
     get("swb-result-average").textContent=avg.toLocaleString("es-ES",{maximumFractionDigits:2})+" € / persona / día";
     get("swb-donut-pct").textContent=euro(avg);
-    const inner=get("swb-donut-pct").nextElementSibling;if(inner)inner.textContent="pax / día";
+    const inner=get("swb-donut-pct").nextElementSibling;if(inner)inner.textContent="por persona y día";
     let arc=0;
     const segments=categories.map((c,i)=>{const start=arc;arc+=values.total?values.totals[c]/values.total*100:0;return colors[i]+" "+start.toFixed(3)+"% "+arc.toFixed(3)+"%"});
     get("swb-donut").style.background="conic-gradient("+segments.join(",")+")";
@@ -105,7 +104,7 @@
     btns.forEach(b=>{
       b.classList.toggle("is-active",b.dataset.style===active);
       b.setAttribute("aria-pressed",String(b.dataset.style===active));
-      const label=b.querySelector(".swb-style-bottom strong");if(label)label.textContent="≈ "+euro(profileRate(b.dataset.style,state.region));
+      const label=b.querySelector(".vcc-budget-mode-price strong");if(label)label.textContent="≈ "+euro(profileRate(b.dataset.style,state.region));
     });
     document.querySelectorAll("[data-region-card]").forEach(card=>{
       const region=card.dataset.regionCard;
@@ -163,5 +162,15 @@
     const url=URL.createObjectURL(new Blob(["\uFEFF"+csv],{type:"text/csv;charset=utf-8"}));
     const a=document.createElement("a");a.href=url;a.download="presupuesto-suecia-vcc.csv";document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1500);
   });
+  // Controls de carrusel compartits: mai auto-scroll.
+  function connectCarousel(selector,buttonAttribute){
+    const track=document.querySelector(selector),buttons=[...document.querySelectorAll("["+buttonAttribute+"]")];
+    if(!track)return;
+    const sync=()=>{const max=Math.max(0,track.scrollWidth-track.clientWidth);buttons.forEach(button=>{const dir=Number(button.getAttribute(buttonAttribute));button.disabled=dir<0?track.scrollLeft<2:track.scrollLeft>max-2;});};
+    buttons.forEach(button=>button.addEventListener("click",()=>{const first=track.firstElementChild;const gap=parseFloat(getComputedStyle(track).columnGap)||10;const step=first?first.getBoundingClientRect().width+gap:track.clientWidth;track.scrollBy({left:step*Number(button.getAttribute(buttonAttribute)),behavior:"smooth"});}));
+    track.addEventListener("scroll",sync,{passive:true});window.addEventListener("resize",sync,{passive:true});sync();
+  }
+  connectCarousel(".swb-page .vcc-budget-mode-track","data-swb-style-scroll");
+  connectCarousel("#swb-savings-track","data-swb-saving-direction");
   render();
 })();
