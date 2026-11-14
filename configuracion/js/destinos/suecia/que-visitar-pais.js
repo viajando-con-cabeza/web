@@ -40,7 +40,7 @@
       var title=String(item.cardTitle||item.title||"");
       var category=String(item.cardCategory||item.tag||"CIUDADES");
       var photo=String(item.image||"");
-      var icon=category==="CIUDADES"?"category-city":"category-islands";
+      var icon=({"CIUDADES":"category-city","COSTA":"category-islands","MONTAÑA":"category-mountains","NATURALEZA":"category-nature","RUTA EN COCHE":"category-roadtrip","COMBINADO":"category-combined"})[category]||"category-nature";
       var href=destinationUrl(item.href);
       var imageSet=photo.indexOf("/__vcc_preview/visor/")>=0?
         ' srcset="'+esc(photo.replace("/__vcc_preview/visor/","/__vcc_preview/mini/"))+' 480w, '+esc(photo)+' 1800w" sizes="(max-width:650px) 90vw, (max-width:1000px) 46vw, 360px"':"";
