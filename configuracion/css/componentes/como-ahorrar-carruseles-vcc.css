@@ -1,0 +1,48 @@
+/* VCC — Salvaguarda compartida dels carrusels «Cómo ahorrar».
+   NO substitueix els layouts de les plantilles: protegeix les dimensions
+   de la pista i de les targetes, inclòs l'ús mòbil, sense tocar fletxes,
+   tipografies, lògica JS ni el nombre de targetes visibles. */
+html body :is(
+  .vl-tips-carousel,
+  .al-tips-carousel,
+  .vcc-saving-carousel,
+  .dv-tip-carousel-wrap,
+  .ep3-saving-stage,
+  #ahorrar .carousel-shell
+){
+  box-sizing:border-box!important;
+  min-width:0!important;
+  max-width:100%!important;
+  min-height:0!important;
+  height:auto!important;
+}
+html body :is(
+  #vl-tip-track,
+  #al-tips-track,
+  #vcc-saving-track,
+  .dv-tip-grid[data-dv-tip-scroller],
+  #ep3-saving-track,
+  #ahorrar .tips-track
+){
+  box-sizing:border-box!important;
+  min-width:0!important;
+  max-width:100%!important;
+  min-height:0!important;
+  height:auto!important;
+  max-height:none!important;
+  overflow-y:hidden!important;
+}
+html body :is(
+  #vl-tip-track > .vl-tip,
+  #al-tips-track > .al-tip,
+  #vcc-saving-track > .vcc-saving-card,
+  .dv-tip-grid[data-dv-tip-scroller] > .dv-tip,
+  #ep3-saving-track > .ep3-saving-card,
+  #ahorrar .tips-track > .saving-tip
+){
+  box-sizing:border-box!important;
+  min-width:0!important;
+  height:auto!important;
+  max-height:none!important;
+  overflow-wrap:break-word;
+}
