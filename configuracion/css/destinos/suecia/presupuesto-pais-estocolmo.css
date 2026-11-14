@@ -49,14 +49,7 @@ html body.sweden-budget-vcc #filosofia .vcc-budget-panel .vcc-budget-total-meta{
 html body.sweden-budget-vcc #filosofia .vcc-budget-panel .vcc-budget-total-meta b{font-size:11px}
 html body.sweden-budget-vcc #filosofia .vcc-budget-panel .vcc-budget-panel-heading p{max-width:790px}
 /* Calculadora igual que Estocolmo: única diferencia, la región. */
-html body.sweden-budget-vcc .calculator-card .vcc-budget-calc-zone{
-  display:flex;align-items:center;gap:10px;justify-content:space-between;
-  padding:0 0 9px;margin:0 0 4px;border-bottom:1px solid #eee8e1;
-}
-html body.sweden-budget-vcc .calculator-card .vcc-budget-calc-zone label{
-  color:#61554d;font:800 10px/1.25 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
-  letter-spacing:.035em;
-}
+/* El filtro de zona ahora es la cuarta tarjeta de .calc-top, no una fila aparte. */
 /* Los importes por defecto son orientativos; Excel sí respeta días y viajeros elegidos. */
 html body.sweden-budget-vcc .vcc-budget-regions .swb-regions-key{
   display:flex;align-items:center;justify-content:space-between;gap:10px;
@@ -146,5 +139,207 @@ html body.budget-vcc.sweden-budget-vcc #zonas .swb-regions-grid.di-mini-grid{
 @media(max-width:620px){
   html body.budget-vcc.sweden-budget-vcc #zonas .swb-regions-grid.di-mini-grid{
     grid-template-columns:minmax(0,1fr)!important;
+  }
+}
+
+
+/* 2026-11-14 · Perfil detallado más corto, sin reducir la legibilidad. */
+html body.budget-vcc.sweden-budget-vcc #filosofia .vcc-budget-panel{
+  padding:12px 15px 13px!important;
+}
+html body.budget-vcc.sweden-budget-vcc #filosofia .vcc-budget-panel-head{
+  gap:9px!important;
+  padding-bottom:8px!important;
+  margin-bottom:0!important;
+}
+html body.budget-vcc.sweden-budget-vcc #filosofia .vcc-budget-panel-heading h3{
+  font-size:23px!important;
+  line-height:1.1!important;
+  margin-bottom:3px!important;
+}
+html body.budget-vcc.sweden-budget-vcc #filosofia .vcc-budget-panel-heading p{
+  font-size:10.5px!important;
+  line-height:1.3!important;
+  margin:0!important;
+}
+html body.budget-vcc.sweden-budget-vcc #filosofia .vcc-budget-panel-grid{
+  grid-template-columns:minmax(0,.88fr) minmax(0,1.5fr)!important;
+  gap:14px!important;
+  padding-top:10px!important;
+}
+html body.budget-vcc.sweden-budget-vcc #filosofia .vcc-budget-panel-column+.vcc-budget-panel-column{
+  padding-left:14px!important;
+}
+html body.budget-vcc.sweden-budget-vcc #filosofia .vcc-budget-total{
+  padding:8px 11px!important;
+  margin:0 0 6px!important;
+}
+html body.budget-vcc.sweden-budget-vcc #filosofia .vcc-budget-total strong{
+  font-size:29px!important;
+  margin:3px 0!important;
+  line-height:1!important;
+}
+html body.budget-vcc.sweden-budget-vcc #filosofia .vcc-budget-total-meta{
+  padding-top:3px!important;
+}
+html body.budget-vcc.sweden-budget-vcc #filosofia .vcc-budget-side-title{
+  font-size:19px!important;
+  margin:6px 0 3px!important;
+}
+html body.budget-vcc.sweden-budget-vcc #filosofia .vcc-budget-side-copy{
+  font-size:10.5px!important;
+  line-height:1.35!important;
+  margin:0 0 6px!important;
+}
+html body.budget-vcc.sweden-budget-vcc #filosofia .vcc-budget-pros{
+  gap:2px!important;
+  font-size:10px!important;
+  line-height:1.3!important;
+  margin:0!important;
+}
+html body.budget-vcc.sweden-budget-vcc #filosofia .vcc-budget-panel-column h4{
+  font-size:19px!important;
+  line-height:1.15!important;
+  margin:0 0 7px!important;
+}
+html body.budget-vcc.sweden-budget-vcc #filosofia .vcc-budget-breakdown{
+  display:grid!important;
+  grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  gap:5px 14px!important;
+}
+html body.budget-vcc.sweden-budget-vcc #filosofia .vcc-budget-breakdown-row{
+  min-width:0!important;
+  padding:3px 0 5px!important;
+  margin:0!important;
+  border-bottom:1px solid #eee9e3!important;
+}
+html body.budget-vcc.sweden-budget-vcc #filosofia .vcc-budget-row-heading{
+  gap:5px!important;
+  align-items:center!important;
+}
+html body.budget-vcc.sweden-budget-vcc #filosofia .vcc-budget-row-heading b{
+  font-size:17px!important;
+}
+html body.budget-vcc.sweden-budget-vcc #filosofia .vcc-budget-breakdown-row p{
+  margin:1px 0 0 26px!important;
+  font-size:10px!important;
+  line-height:1.25!important;
+}
+html body.budget-vcc.sweden-budget-vcc #filosofia .vcc-budget-row-icon{
+  width:22px!important;
+  height:22px!important;
+  flex-basis:22px!important;
+}
+/* Cuarto control de la calculadora: filtro visual igual que días/noches/viajeros. */
+html body.budget-vcc.sweden-budget-vcc .calculator-card .calc-top{
+  display:grid!important;
+  grid-template-columns:repeat(4,minmax(0,1fr))!important;
+  align-items:stretch!important;
+  gap:7px!important;
+}
+html body.budget-vcc.sweden-budget-vcc .calculator-card .calc-top > .calc-control{
+  min-width:0!important;
+  min-height:78px!important;
+  width:auto!important;
+  height:auto!important;
+  padding:7px 4px!important;
+}
+html body.budget-vcc.sweden-budget-vcc .calculator-card .calc-control.vcc-budget-calc-zone{
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:stretch!important;
+  justify-content:center!important;
+  gap:7px!important;
+  margin:0!important;
+  border:1px solid #e5e8e8!important;
+  border-radius:11px!important;
+  background:#f7f8f8!important;
+}
+html body.budget-vcc.sweden-budget-vcc .calculator-card .vcc-budget-calc-zone label{
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  gap:4px!important;
+  font:800 10px/1.15 var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;
+  letter-spacing:0!important;
+  color:#514f4d!important;
+  min-height:15px!important;
+}
+html body.budget-vcc.sweden-budget-vcc .calculator-card .vcc-budget-calc-zone select{
+  display:block!important;
+  width:100%!important;
+  min-width:0!important;
+  max-width:100%!important;
+  min-height:30px!important;
+  height:30px!important;
+  margin:0!important;
+  padding:3px 16px 3px 5px!important;
+  border:1px solid #d7dcda!important;
+  border-radius:6px!important;
+  background:#fff!important;
+  color:#343e45!important;
+  font:600 10px/1.2 var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;
+  text-overflow:ellipsis!important;
+  white-space:nowrap!important;
+  overflow:hidden!important;
+  cursor:pointer!important;
+}
+html body.budget-vcc.sweden-budget-vcc .vcc-zone-pin{
+  width:15px!important;
+  height:15px!important;
+  flex:0 0 15px!important;
+  color:#b5654b!important;
+}
+html body.budget-vcc.sweden-budget-vcc #filosofia .vcc-budget-country-zone label{
+  display:flex!important;
+  align-items:center!important;
+  gap:5px!important;
+}
+html body.budget-vcc.sweden-budget-vcc .vcc-budget-data-status{
+  display:none;
+}
+html body.budget-vcc.sweden-budget-vcc[data-budget-status="loading"] .vcc-budget-data-status,
+html body.budget-vcc.sweden-budget-vcc[data-budget-status="error"] .vcc-budget-data-status{
+  display:block!important;
+  margin:0 0 9px!important;
+  font-size:11px!important;
+  line-height:1.4!important;
+  color:#a4543b!important;
+}
+html body.budget-vcc.sweden-budget-vcc[data-budget-status="loading"] .calculator-card,
+html body.budget-vcc.sweden-budget-vcc[data-budget-status="loading"] #filosofia .vcc-budget-mode-track{
+  opacity:.72!important;
+}
+@media(max-width:980px){
+  html body.budget-vcc.sweden-budget-vcc #filosofia .vcc-budget-breakdown{
+    grid-template-columns:minmax(0,1fr)!important;
+    gap:1px!important;
+  }
+}
+@media(max-width:760px){
+  html body.budget-vcc.sweden-budget-vcc #filosofia .vcc-budget-panel-grid{
+    grid-template-columns:minmax(0,1fr)!important;
+    gap:9px!important;
+  }
+  html body.budget-vcc.sweden-budget-vcc #filosofia .vcc-budget-panel-column+.vcc-budget-panel-column{
+    padding:9px 0 0!important;
+    border-top:1px solid #eee3d8!important;
+    border-left:0!important;
+  }
+  html body.budget-vcc.sweden-budget-vcc #filosofia .vcc-budget-breakdown{
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    gap:4px 9px!important;
+  }
+}
+@media(max-width:600px){
+  html body.budget-vcc.sweden-budget-vcc .calculator-card .calc-top{
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    gap:8px!important;
+  }
+  html body.budget-vcc.sweden-budget-vcc #filosofia .vcc-budget-breakdown{
+    grid-template-columns:minmax(0,1fr)!important;
+  }
+  html body.budget-vcc.sweden-budget-vcc #filosofia .vcc-budget-panel{
+    padding:12px!important;
   }
 }
