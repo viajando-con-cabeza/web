@@ -215,7 +215,8 @@ body.country-page .vcc-sweden-page .vcc-score-method p{
   margin:6px 0 0;max-width:830px;
 }
 /* Stockholm: només configura l'amplada del carrusel, no una altra targeta. */
-:is(.st-discover,#planifica) .st-card-carousel.vcc-card-collection > .vcc-it-card{
+.st-discover .st-card-carousel.vcc-card-collection > .vcc-it-card,
+#planifica .st-card-carousel.vcc-card-collection > .vcc-it-card{
   flex:0 0 calc((100% - 24px)/3)!important;
   scroll-snap-align:start;
 }
@@ -223,7 +224,8 @@ body.country-page .vcc-sweden-page .vcc-score-method p{
   width:100%!important;
 }
 @media(max-width:620px){
-  :is(.st-discover,#planifica) .st-card-carousel.vcc-card-collection > .vcc-it-card{
+  .st-discover .st-card-carousel.vcc-card-collection > .vcc-it-card,
+#planifica .st-card-carousel.vcc-card-collection > .vcc-it-card{
     flex-basis:84%!important;
   }
 }
