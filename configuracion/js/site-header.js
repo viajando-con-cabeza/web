@@ -29,9 +29,17 @@
   if (!document.querySelector('link[data-vcc-arrows-global]')) {
     const arrowsCSS=document.createElement('link');
     arrowsCSS.rel='stylesheet';
-    arrowsCSS.href=url('configuracion/css/componentes/vcc-fletxes-carrusels-global.css?v=20261113-canon-v1');
+    arrowsCSS.href=url('configuracion/css/componentes/vcc-fletxes-carrusels-global.css?v=20261114-overflow-v1');
     arrowsCSS.dataset.vccArrowsGlobal='true';
     document.head.appendChild(arrowsCSS);
+  }
+  // Visibilitat adaptativa: fletxes només quan hi ha desplaçament real.
+  if (!document.querySelector('script[data-vcc-scroll-arrows]')) {
+    const scrollArrows=document.createElement('script');
+    scrollArrows.src=url('configuracion/js/componentes/vcc-carruseles-visibilidad.js?v=20261114-v1');
+    scrollArrows.async=true;
+    scrollArrows.dataset.vccScrollArrows='true';
+    document.head.appendChild(scrollArrows);
   }
   // Accions editorials compartides: sense fletxa ornamental, hover subratllat,
   // CTA al peu dret de les targetes, sense afectar controls de carrusel.
