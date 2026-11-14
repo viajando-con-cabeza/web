@@ -1,0 +1,118 @@
+/* Suecia país · presupuesto con los componentes visuales canónicos de Estocolmo.
+   Fuente de estilos: presupuesto-compilado-vcc.css; tarjetas de zonas:
+   vcc-targetes-itineraris-guies.css; ahorro: como-ahorrar-carruseles-vcc.css.
+   Este archivo solo contiene las diferencias territoriales. */
+html body.budget-vcc.sweden-budget-vcc #vcc-lcp-hero.budget-hero.vcc-portada-transparente{
+  --vcc-portada-imatge:url("https://img.viajandoconcabeza.com/destinos/suecia/dalarna/2026-dia9/DSC08592.avif")!important;
+  --vcc-portada-posicio:center 51%!important;
+  background-color:#fff!important;background-image:none!important;color:#171717!important;
+}
+html body.sweden-budget-vcc #vcc-lcp-hero > .vcc-hero-lcp-picture{
+  position:absolute!important;inset:0!important;z-index:0!important;display:block!important;
+  width:100%!important;height:100%!important;overflow:hidden!important;
+}
+html body.sweden-budget-vcc #vcc-lcp-hero .vcc-hero-lcp-picture>img{
+  width:100%!important;height:100%!important;object-fit:cover!important;
+  object-position:center 51%!important;filter:none!important;opacity:1!important;
+}
+html body.sweden-budget-vcc #vcc-lcp-hero>.vcc-hero-lcp-veil{
+  display:block!important;background:linear-gradient(90deg,
+  rgba(255,255,255,.96) 0%,rgba(255,255,255,.79) 34%,
+  rgba(255,255,255,.41) 72%,rgba(255,255,255,.18) 100%)!important;
+}
+html body.sweden-budget-vcc #vcc-lcp-hero>.budget-hero-inner{position:relative!important;z-index:2!important}
+html body.sweden-budget-vcc #vcc-lcp-hero>#vcc-global-breadcrumb{z-index:5!important}
+/* Perfiles: se mantiene intacta la tarjeta y el desplegable de Estocolmo. */
+html body.sweden-budget-vcc #filosofia .vcc-budget-country-zone{
+  display:flex;align-items:center;justify-content:flex-start;gap:12px;
+  margin:8px 0 4px;min-width:0;flex-wrap:wrap;
+}
+html body.sweden-budget-vcc #filosofia .vcc-budget-country-zone label{
+  color:#a65a43;font:800 10px/1.2 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
+  text-transform:uppercase;letter-spacing:.07em;
+}
+html body.sweden-budget-vcc #filosofia .vcc-budget-country-zone select,
+html body.sweden-budget-vcc .vcc-budget-calc-zone select{
+  min-width:220px;max-width:100%;min-height:39px;padding:7px 11px;
+  border:1px solid #d9d7d0;border-radius:9px;background:#fff;color:#333;
+  font:600 12px/1.25 var(--vcc-font-body,"DM Sans",Arial,sans-serif);cursor:pointer;
+}
+html body.sweden-budget-vcc #filosofia .vcc-budget-country-zone p{
+  margin:0;color:#7a6d64;font-size:11px;
+}
+html body.sweden-budget-vcc #filosofia .vcc-budget-panel[data-budget-panel="vcc"] .vcc-budget-total-person{color:#ad644c}
+/* El valor del desplegable es por pax/día; no se imprime total de viaje no seleccionado. */
+html body.sweden-budget-vcc #filosofia .vcc-budget-panel .vcc-budget-total-meta{
+  display:flex;justify-content:space-between;align-items:center;gap:6px;
+  font-size:11px;
+}
+html body.sweden-budget-vcc #filosofia .vcc-budget-panel .vcc-budget-total-meta b{font-size:11px}
+html body.sweden-budget-vcc #filosofia .vcc-budget-panel .vcc-budget-panel-heading p{max-width:790px}
+/* Calculadora igual que Estocolmo: única diferencia, la región. */
+html body.sweden-budget-vcc .calculator-card .vcc-budget-calc-zone{
+  display:flex;align-items:center;gap:10px;justify-content:space-between;
+  padding:0 0 9px;margin:0 0 4px;border-bottom:1px solid #eee8e1;
+}
+html body.sweden-budget-vcc .calculator-card .vcc-budget-calc-zone label{
+  color:#61554d;font:800 10px/1.25 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
+  letter-spacing:.035em;
+}
+/* Los importes por defecto son orientativos; Excel sí respeta días y viajeros elegidos. */
+html body.sweden-budget-vcc .vcc-budget-regions .swb-regions-key{
+  display:flex;align-items:center;justify-content:space-between;gap:10px;
+  padding:0 2px;margin:0 0 16px;color:#785f53;font-size:11px;font-weight:700;
+}
+html body.sweden-budget-vcc .vcc-budget-regions .swb-regions-key small{
+  color:#7d776e;font-size:10px;font-weight:500;
+}
+html body.sweden-budget-vcc .vcc-budget-regions .swb-regions-grid.di-mini-grid{
+  display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;
+  width:100%;align-items:stretch;
+}
+html body.sweden-budget-vcc .vcc-budget-regions .di-mini-card.vcc-it-card .vcc-it-title{
+  cursor:default!important;
+}
+html body.sweden-budget-vcc .vcc-budget-regions .di-mini-card.vcc-it-card .di-mini-body{
+  height:auto!important;
+}
+html body.sweden-budget-vcc .vcc-budget-regions .di-mini-card .vcc-it-cta{cursor:pointer!important}
+html body.sweden-budget-vcc .vcc-budget-regions .swb-real-budget-link{
+  align-self:flex-end;display:block;color:#a55d45;font:700 9px var(--vcc-font-body,"DM Sans",sans-serif);
+  margin-top:5px;text-decoration:underline;text-underline-offset:3px;
+}
+html body.sweden-budget-vcc .vcc-budget-regions .swb-zone-placeholder{
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;
+  width:100%;height:100%;background:linear-gradient(120deg,#315c6d,#8da9b0);
+  font-size:30px;color:#fff;
+}
+html body.sweden-budget-vcc .vcc-budget-regions .swb-zone-placeholder small{
+  font:600 20px/1.2 var(--vcc-font-heading,Oswald,sans-serif);
+}
+html body.sweden-budget-vcc .vcc-budget-regions .swb-regions-note{
+  margin:15px 0 0;color:#6e6c65;font-size:11px;line-height:1.6;
+}
+html body.sweden-budget-vcc .vcc-budget-regions .swb-regions-note a{
+  color:#aa6047;text-decoration:underline;text-underline-offset:3px;font-weight:700;
+}
+html body.sweden-budget-vcc .related-section[data-vcc-destino="suecia"]{
+  --vcc-budget-related-photo:url("https://img.viajandoconcabeza.com/destinos/suecia/dalarna/2026-dia9/DSC08592.avif");
+  --vcc-related-photo:url("https://img.viajandoconcabeza.com/destinos/suecia/dalarna/2026-dia9/DSC08592.avif");
+}
+@media(max-width:900px){
+ html body.sweden-budget-vcc .vcc-budget-regions .swb-regions-grid.di-mini-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(max-width:720px){
+ html body.sweden-budget-vcc #vcc-lcp-hero>.vcc-hero-lcp-veil{
+  background:linear-gradient(90deg,rgba(255,255,255,.97) 0%,rgba(255,255,255,.90) 32%,rgba(255,255,255,.79) 70%,rgba(255,255,255,.59) 100%)!important;
+ }
+ html body.sweden-budget-vcc #filosofia .vcc-budget-country-zone{align-items:flex-start;gap:8px}
+ html body.sweden-budget-vcc #filosofia .vcc-budget-country-zone label,
+ html body.sweden-budget-vcc #filosofia .vcc-budget-country-zone p{width:100%}
+ html body.sweden-budget-vcc #filosofia .vcc-budget-country-zone select{width:100%}
+ html body.sweden-budget-vcc .calculator-card .vcc-budget-calc-zone{
+  align-items:stretch;flex-direction:column;gap:5px;
+ }
+ html body.sweden-budget-vcc .calculator-card .vcc-budget-calc-zone select{width:100%}
+ html body.sweden-budget-vcc .vcc-budget-regions .swb-regions-grid.di-mini-grid{grid-template-columns:1fr}
+ html body.sweden-budget-vcc .vcc-budget-regions .swb-regions-key{flex-wrap:wrap}
+}
