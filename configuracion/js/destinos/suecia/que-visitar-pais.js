@@ -9,9 +9,9 @@
     var count=document.getElementById("vcc-visit-count");
     var empty=document.getElementById("vcc-visit-empty");
     var clear=document.getElementById("vcc-visit-reset");
-    var selectors=[].slice.call(document.querySelectorAll("[data-visit-type]"));
+    var typeSelect=document.getElementById("vcc-visit-type");
     var country=window.COUNTRY_CONFIG||window.SWEDEN_CONTENT;
-    if(!root||!search||!count||!empty||!country)return;
+    if(!root||!search||!typeSelect||!count||!empty||!country)return;
     function esc(value){
       return String(value==null?"":value).replace(/[&<>"']/g,function(char){
         return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[char];
@@ -80,9 +80,9 @@
     (country.guides||[]).forEach(function(guide){entries.push(card(guide,"principal"));});
     (country.visitingGuides||[]).forEach(function(guide){entries.push(card(guide,"que-ver"));});
     entries.forEach(function(entry){root.appendChild(entry);});
-    var selected="todas";
     function update(){
       var searchValue=noAccent(search.value.trim());
+      var selected=typeSelect.value;
       var visible=0;
       entries.forEach(function(entry){
         var show=(selected==="todas"||entry.dataset.visitCategory===selected)&&
@@ -93,26 +93,11 @@
       count.textContent=visible+" "+(visible===1?"guía":"guías");
       empty.hidden=visible!==0;
     }
-    selectors.forEach(function(button){
-      button.addEventListener("click",function(){
-        selected=button.dataset.visitType;
-        selectors.forEach(function(other){
-          var on=other===button;
-          other.classList.toggle("is-active",on);
-          other.setAttribute("aria-pressed",String(on));
-        });
-        update();
-      });
-    });
+    typeSelect.addEventListener("change",update);
     search.addEventListener("input",update);
     if(clear)clear.addEventListener("click",function(){
       search.value="";
-      selected="todas";
-      selectors.forEach(function(button){
-        var on=button.dataset.visitType==="todas";
-        button.classList.toggle("is-active",on);
-        button.setAttribute("aria-pressed",String(on));
-      });
+      typeSelect.value="todas";
       update();
       search.focus();
     });
