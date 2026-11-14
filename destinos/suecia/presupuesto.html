@@ -17,7 +17,7 @@
   <link rel="preconnect" href="https://img.viajandoconcabeza.com">
   <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=DM+Sans:wght@400;500;600;700;800&family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" data-vcc-core-styles href="/configuracion/css/componentes/vcc-core-compartit.css?v=20261114-suecia-budget-v1">
-  <link rel="stylesheet" href="/configuracion/css/destinos/suecia/presupuesto-pais.css?v=20261114-v1">
+  <link rel="stylesheet" href="/configuracion/css/destinos/suecia/presupuesto-pais.css?v=20261114-compact-zone-v2">
   <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebPage","name":"Presupuesto para viajar por Suecia","url":"https://viajandoconcabeza.com/destinos/suecia/presupuesto","inLanguage":"es","description":"Estimador de presupuesto por estilo, zona y duración, con enlaces a los presupuestos de las guías de Suecia.","isPartOf":{"@type":"WebSite","name":"Viajando con Cabeza","url":"https://viajandoconcabeza.com/"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Inicio","item":"https://viajandoconcabeza.com/"},{"@type":"ListItem","position":2,"name":"Destinos","item":"https://viajandoconcabeza.com/destinos/"},{"@type":"ListItem","position":3,"name":"Suecia","item":"https://viajandoconcabeza.com/destinos/suecia/"},{"@type":"ListItem","position":4,"name":"Presupuesto","item":"https://viajandoconcabeza.com/destinos/suecia/presupuesto"}]}]}</script>
 </head>
 <body class="swb-page">
@@ -40,51 +40,75 @@
     <a href="#ahorrar">CÓMO AHORRAR</a>
   </nav>
   <main class="swb-main">
+
     <section id="presupuesto-diario" class="swb-section" aria-labelledby="swb-daily-title">
       <header class="swb-heading">
-        <div><p class="swb-overline">ELIGE TU ESTILO DE VIAJE</p><h2 id="swb-daily-title">¿CUÁNTO CUESTA VIAJAR POR SUECIA?</h2></div>
-        <p>El presupuesto cambia según la región, la temporada y cómo te muevas. Estas cuatro referencias sirven para empezar; no son gastos reales de todo nuestro viaje.</p>
+        <div><p class="swb-overline">ELIGE TU ESTILO DE VIAJE</p><h2 id="swb-daily-title">¿CUÁNTO CUESTA VIAJAR POR SUECIA<br><span>SEGÚN TU PRESUPUESTO?</span></h2></div>
+        <p>Cuatro perfiles, cinco gastos y una diferencia clave: <strong>la zona</strong>. Son ejemplos orientativos por persona, no gastos reales de toda nuestra ruta.</p>
       </header>
-      <div class="swb-style-grid" role="group" aria-label="Presupuestos orientativos por estilo de viaje">
-        <button class="swb-style-card" type="button" data-style="mochilero" aria-pressed="false">
-          <span class="swb-style-top"><img src="/configuracion/imagenes/iconos/presupuesto-mochilero-vcc.svg" width="50" height="50" alt="" loading="lazy"><strong>MOCHILERO</strong></span>
-          <span class="swb-style-desc">Alojamientos sencillos, comida económica y actividades gratuitas.</span>
-          <span class="swb-style-bottom"><strong>≈ 60 €</strong><small>persona / día · ejemplo</small></span>
-        </button>
-        <button class="swb-style-card is-active" type="button" data-style="vcc" aria-pressed="true">
-          <span class="swb-ribbon">ESTILO VCC</span>
-          <span class="swb-style-top"><img src="/configuracion/imagenes/marca/logo-vcc.svg" width="50" height="50" alt="" loading="lazy"><strong>VIAJANDO<br>CON CABEZA</strong></span>
-          <span class="swb-style-desc">Comodidad práctica, decisiones conscientes y experiencias que merecen la pena.</span>
-          <span class="swb-style-bottom"><strong>≈ 95 €</strong><small>persona / día · ejemplo</small></span>
-        </button>
-        <button class="swb-style-card" type="button" data-style="medio" aria-pressed="false">
-          <span class="swb-style-top"><img src="/configuracion/imagenes/iconos/presupuesto-medio-vcc.svg" width="50" height="50" alt="" loading="lazy"><strong>MEDIO</strong></span>
-          <span class="swb-style-desc">Hoteles bien ubicados, más flexibilidad y visitas de pago.</span>
-          <span class="swb-style-bottom"><strong>≈ 140 €</strong><small>persona / día · ejemplo</small></span>
-        </button>
-        <button class="swb-style-card" type="button" data-style="lujo" aria-pressed="false">
-          <span class="swb-style-top"><img src="/configuracion/imagenes/iconos/presupuesto-lujo-vcc.svg" width="50" height="50" alt="" loading="lazy"><strong>LUJO</strong></span>
-          <span class="swb-style-desc">Alojamientos premium, restaurantes y actividades especiales.</span>
-          <span class="swb-style-bottom"><strong>≈ 230 €</strong><small>persona / día · ejemplo</small></span>
-        </button>
+      <div class="swb-overview-bar">
+        <div class="swb-overview-region"><label for="swb-region-top">COMPARA PRECIOS EN</label><select id="swb-region-top"><option value="centrosur" selected>Centro-sur · ruta mixta</option><option value="stockholm">Estocolmo · capital</option><option value="goteborg">Gotemburgo · ciudad</option><option value="oeste">Costa Oeste · islas</option><option value="dalarna">Dalarna · interior</option><option value="norte">Norte / Laponia · grandes distancias</option></select></div>
+        <p id="swb-overview-detail">Referencia para una ruta mixta por el centro-sur · 1 noche por día.</p>
       </div>
-      <p class="swb-note">* Importes de ejemplo para una ruta de referencia por el centro de Suecia, considerando una noche por día. No incluyen vuelos internacionales ni los traslados de entrada o salida del país. El estilo VCC no representa un gasto real de toda Suecia: <a href="/destinos/suecia/estocolmo/presupuesto.html">consulta nuestro presupuesto real de Estocolmo</a>.</p>
+      <div class="swb-style-grid" role="group" aria-label="Comparar presupuestos orientativos por estilo">
+        <button class="swb-style-card" type="button" data-style="lujo" aria-pressed="false" aria-expanded="false" aria-controls="swb-profile-detail">
+  
+  <span class="swb-style-top"><img src="/configuracion/imagenes/iconos/presupuesto-lujo-vcc.svg" width="46" height="46" alt="" loading="lazy"><strong>LUJO</strong></span>
+  <span class="swb-style-desc">Hoteles especiales, restaurantes y experiencias premium.</span>
+  <span class="swb-style-bottom"><strong>≈ 290 €</strong><small>por persona / día</small></span>
+  <span class="swb-style-cta">VER DESGLOSE <span aria-hidden="true">⌄</span></span>
+</button>
+<button class="swb-style-card" type="button" data-style="medio" aria-pressed="false" aria-expanded="false" aria-controls="swb-profile-detail">
+  
+  <span class="swb-style-top"><img src="/configuracion/imagenes/iconos/presupuesto-medio-vcc.svg" width="46" height="46" alt="" loading="lazy"><strong>MEDIO</strong></span>
+  <span class="swb-style-desc">Buen hotel, comidas variadas y visitas de pago.</span>
+  <span class="swb-style-bottom"><strong>≈ 171 €</strong><small>por persona / día</small></span>
+  <span class="swb-style-cta">VER DESGLOSE <span aria-hidden="true">⌄</span></span>
+</button>
+<button class="swb-style-card is-active" type="button" data-style="vcc" aria-pressed="true" aria-expanded="false" aria-controls="swb-profile-detail">
+  <span class="swb-ribbon">EQUILIBRADO</span>
+  <span class="swb-style-top"><img src="/configuracion/imagenes/marca/logo-vcc.svg" width="46" height="46" alt="" loading="lazy"><strong>VCC</strong></span>
+  <span class="swb-style-desc">Comodidad práctica y gastos bien elegidos.</span>
+  <span class="swb-style-bottom"><strong>≈ 106 €</strong><small>por persona / día</small></span>
+  <span class="swb-style-cta">VER DESGLOSE <span aria-hidden="true">⌄</span></span>
+</button>
+<button class="swb-style-card" type="button" data-style="mochilero" aria-pressed="false" aria-expanded="false" aria-controls="swb-profile-detail">
+  
+  <span class="swb-style-top"><img src="/configuracion/imagenes/iconos/presupuesto-mochilero-vcc.svg" width="46" height="46" alt="" loading="lazy"><strong>MOCHILERO</strong></span>
+  <span class="swb-style-desc">Alojamiento sencillo, comida económica y planes gratis.</span>
+  <span class="swb-style-bottom"><strong>≈ 65 €</strong><small>por persona / día</small></span>
+  <span class="swb-style-cta">VER DESGLOSE <span aria-hidden="true">⌄</span></span>
+</button>
+      </div>
+      <div id="swb-profile-detail" class="swb-profile-detail" role="region" aria-labelledby="swb-profile-title" hidden>
+        <div class="swb-profile-summary">
+          <div class="swb-profile-head"><div><span class="swb-overline">DESGLOSE SEGÚN LA ZONA</span><h3 id="swb-profile-title">Presupuesto VCC</h3><p id="swb-profile-zone">Centro-sur · ruta mixta</p></div><button type="button" id="swb-profile-close" aria-label="Cerrar desglose">×</button></div>
+          <div class="swb-profile-total"><strong id="swb-profile-avg">≈ 106 €</strong><span>por persona y día · incluyendo una noche</span></div>
+          <p id="swb-profile-explain">Estimación para viajar cómodo sin gastar de más.</p>
+          <span class="swb-profile-context">Ejemplo comparable: 7 días · 7 noches · 2 personas</span>
+        </div>
+        <div class="swb-profile-breakdown"><div class="swb-profile-breakdown-head"><h4>¿EN QUÉ SE VA EL DINERO?</h4><span>Precio orientativo / persona</span></div>
+          <div class="swb-profile-rows" id="swb-profile-rows"></div>
+          <div class="swb-profile-breakdown-foot"><span>7 días · 7 noches · 2 personas</span><strong id="swb-profile-trip-total">≈ 1.484 €</strong></div>
+        </div>
+      </div>
+      <p class="swb-note">* Promedios ilustrativos para comparar escenarios (no tarifas verificadas ni medias oficiales). El alojamiento se calcula por persona y noche; los demás gastos, por persona y día. Sin vuelos internacionales ni traslados de entrada/salida. <a href="/destinos/suecia/estocolmo/presupuesto">Nuestro gasto real de Estocolmo es distinto</a>.</p>
     </section>
 
-    <section id="calculadora" class="swb-section" aria-labelledby="swb-calc-title">
+        <section id="calculadora" class="swb-section" aria-labelledby="swb-calc-title">
       <header class="swb-heading">
         <div><p class="swb-overline">UN VIAJE A TU MEDIDA</p><h2 id="swb-calc-title">CALCULA TU PRESUPUESTO</h2></div>
-        <p>Ajusta días, noches, viajeros, categorías de gasto y zona. Tu estimación se actualiza al instante.</p>
+        <p>Combina alojamiento, comida, transporte, actividades y extras con la zona que quieras. Total y desglose al instante.</p>
       </header>
       <div class="swb-calculator-grid">
         <section class="swb-calculator-card" aria-label="Configuración de presupuesto">
-          <div class="swb-calculator-intro"><div><span class="swb-overline">PERSONALIZA TU VIAJE</span><h3>Diseña tu ruta por Suecia</h3></div><p>Los cambios se reflejan al instante.</p></div>
+          <div class="swb-calculator-intro"><div><span class="swb-overline">PERSONALIZA TU VIAJE</span><h3>Diseña tu ruta por Suecia</h3></div><p>Compara una zona y mezcla estilos por categoría.</p></div>
           <div class="swb-steppers">
             <div class="swb-field"><span>DÍAS</span><div class="swb-stepper"><button type="button" data-step="days" data-delta="-1" aria-label="Reducir días">−</button><output id="swb-days">7</output><button type="button" data-step="days" data-delta="1" aria-label="Aumentar días">+</button></div></div>
             <div class="swb-field"><span>NOCHES</span><div class="swb-stepper"><button type="button" data-step="nights" data-delta="-1" aria-label="Reducir noches">−</button><output id="swb-nights">7</output><button type="button" data-step="nights" data-delta="1" aria-label="Aumentar noches">+</button></div></div>
             <div class="swb-field"><span>VIAJEROS</span><div class="swb-stepper"><button type="button" data-step="people" data-delta="-1" aria-label="Reducir viajeros">−</button><output id="swb-people">2</output><button type="button" data-step="people" data-delta="1" aria-label="Aumentar viajeros">+</button></div></div>
           </div>
-          <div class="swb-region-field"><label for="swb-region">ZONA DE REFERENCIA</label><select id="swb-region"><option value="sur">Sur · ciudades y costa</option><option value="centro" selected>Centro · ruta mixta</option><option value="norte">Norte · distancias largas</option></select></div>
+          <div class="swb-region-field"><label for="swb-region">ZONA DE REFERENCIA</label><select id="swb-region"><option value="centrosur" selected>Centro-sur · ruta mixta</option><option value="stockholm">Estocolmo · capital</option><option value="goteborg">Gotemburgo · ciudad</option><option value="oeste">Costa Oeste · islas</option><option value="dalarna">Dalarna · interior</option><option value="norte">Norte / Laponia · grandes distancias</option></select></div>
           <div class="swb-categories" aria-label="Tipo de gasto por categoría">
             <div class="swb-category"><label for="swb-select-alojamiento">🛏 <strong>Alojamiento</strong></label><select id="swb-select-alojamiento" data-category="alojamiento"><option value="mochilero">Mochilero</option><option value="vcc" selected>VCC</option><option value="medio">Medio</option><option value="lujo">Lujo</option></select><div class="swb-category-price"><strong id="swb-price-alojamiento">35 €</strong><small>persona / noche</small></div></div>
             <div class="swb-category"><label for="swb-select-comida">🍴 <strong>Comida</strong></label><select id="swb-select-comida" data-category="comida"><option value="mochilero">Mochilero</option><option value="vcc" selected>VCC</option><option value="medio">Medio</option><option value="lujo">Lujo</option></select><div class="swb-category-price"><strong id="swb-price-comida">25 €</strong><small>persona / día</small></div></div>
@@ -107,27 +131,65 @@
             <div><i style="--swb-dot:#769a70"></i><span>Actividades</span><strong id="swb-total-actividades">168 €</strong></div>
             <div><i style="--swb-dot:#b79d87"></i><span>Extras</span><strong id="swb-total-extras">112 €</strong></div>
           </div>
-          <p class="swb-result-disclaimer">Estimación ilustrativa: los ajustes por zona sirven para comparar escenarios, no son medias oficiales ni precios de reservas. Alojamiento por noche; el resto, por día.</p>
+          <p class="swb-result-disclaimer">Promedio orientativo, no reserva ni media oficial. Alojamiento por noche; los demás importes por día. Sin vuelos internacionales ni traslados de entrada o salida.</p>
           <button type="button" id="swb-download" class="swb-export">Guardar en Excel (CSV) <span aria-hidden="true">↧</span></button>
         </aside>
       </div>
     </section>
 
+
     <section id="zonas" class="swb-section" aria-labelledby="swb-regions-title">
       <header class="swb-heading">
-        <div><p class="swb-overline">EL PRECIO CAMBIA SEGÚN EL DESTINO</p><h2 id="swb-regions-title">PRESUPUESTOS POR ZONAS DE SUECIA</h2></div>
-        <p>Consulta el presupuesto detallado de Estocolmo. Enlazaremos aquí los de las otras regiones cuando publiquemos sus guías.</p>
+        <div><p class="swb-overline">EL PRECIO CAMBIA SEGÚN EL DESTINO</p><h2 id="swb-regions-title">PRECIOS POR ZONAS DE SUECIA</h2></div>
+        <p><strong>Compara el mismo estilo en cada región.</strong> Las cifras se recalculan según el perfil o la combinación de categorías de la calculadora.</p>
       </header>
-      <div class="swb-regions-grid">
-        <article class="swb-region-card"><img src="https://img.viajandoconcabeza.com/__vcc_preview/visor/destinos/suecia/estocolmo/2026-dia6/DSC07945.avif" alt="Vista de Estocolmo" width="640" height="360" loading="lazy"><div><span>CAPITAL · CIUDAD</span><h3>Estocolmo</h3><p>Gasto real de nuestra escapada de 3 días, con desglose por categoría.</p><a href="/destinos/suecia/estocolmo/presupuesto.html">VER PRESUPUESTO</a></div></article>
-        <article class="swb-region-card"><img src="https://img.viajandoconcabeza.com/__vcc_preview/visor/destinos/suecia/goteborg/2026-dia1/DSC06603.avif" alt="Gotemburgo" width="640" height="360" loading="lazy"><div><span>COSTA OESTE · CIUDAD</span><h3>Gotemburgo</h3><p>Comidas, alojamiento y transporte para visitar la ciudad.</p><span class="swb-soon">PRESUPUESTO PRÓXIMAMENTE</span></div></article>
-        <article class="swb-region-card"><img src="https://img.viajandoconcabeza.com/__vcc_preview/visor/destinos/suecia/goteborg-archipelago/2026-dia3/DSC07173.avif" alt="Archipiélago de la costa oeste de Suecia" width="640" height="360" loading="lazy"><div><span>OESTE · COSTA E ISLAS</span><h3>Costa Oeste</h3><p>Ferries, pueblos marineros y desplazamientos entre islas.</p><span class="swb-soon">PRESUPUESTO PRÓXIMAMENTE</span></div></article>
-        <article class="swb-region-card"><img src="https://img.viajandoconcabeza.com/__vcc_preview/visor/destinos/suecia/dalarna/2026-dia9/DSC08592.avif" alt="Paisaje de Dalarna" width="640" height="360" loading="lazy"><div><span>CENTRO · NATURALEZA</span><h3>Dalarna</h3><p>Cabañas, lagos y movilidad por la región interior.</p><span class="swb-soon">PRESUPUESTO PRÓXIMAMENTE</span></div></article>
-        <article class="swb-region-card"><img src="https://img.viajandoconcabeza.com/destinos/suecia/dalarna/2026-dia12/DSC09101.avif" alt="Paisaje del centro de Suecia" width="640" height="360" loading="lazy"><div><span>CENTRO-SUR · RUTA</span><h3>Centro-sur</h3><p>Pueblos, lagos y gastos de una ruta en coche.</p><span class="swb-soon">PRESUPUESTO PRÓXIMAMENTE</span></div></article>
-      </div>
+      <div class="swb-regions-key"><span class="swb-region-indicator"></span><span id="swb-zone-current-style">Estás viendo el perfil VCC</span><small>€ por persona y día, suponiendo 1 noche por día</small></div>
+      <div class="swb-regions-grid"><article class="swb-region-card" data-region-card="stockholm">
+  <img src="https://img.viajandoconcabeza.com/__vcc_preview/visor/destinos/suecia/estocolmo/2026-dia6/DSC07945.avif" alt="Estocolmo" width="640" height="280" loading="lazy" decoding="async">
+  <div class="swb-region-body"><span>CAPITAL · CIUDAD</span><div class="swb-region-title-line"><h3>Estocolmo</h3><strong data-region-price>≈ 106 €</strong></div><small class="swb-region-price-caption">por persona / día · <span data-region-style>VCC</span></small>
+    <p>Hoteles y visitas urbanas; nuestro gasto real está en la guía.</p>
+    <div class="swb-region-actions"><button type="button" data-pick-region="stockholm" aria-label="Comparar el precio de Estocolmo">COMPARAR ZONA</button><a href="/destinos/suecia/estocolmo/presupuesto">PRESUPUESTO REAL</a></div>
+  </div>
+</article>
+<article class="swb-region-card" data-region-card="goteborg">
+  <img src="https://img.viajandoconcabeza.com/__vcc_preview/visor/destinos/suecia/goteborg/2026-dia1/DSC06603.avif" alt="Gotemburgo" width="640" height="280" loading="lazy" decoding="async">
+  <div class="swb-region-body"><span>OESTE · CIUDAD</span><div class="swb-region-title-line"><h3>Gotemburgo</h3><strong data-region-price>≈ 106 €</strong></div><small class="swb-region-price-caption">por persona / día · <span data-region-style>VCC</span></small>
+    <p>Escapada urbana junto al mar, con transporte público.</p>
+    <div class="swb-region-actions"><button type="button" data-pick-region="goteborg" aria-label="Comparar el precio de Gotemburgo">COMPARAR ZONA</button><span class="swb-soon">GUÍA PRÓXIMAMENTE</span></div>
+  </div>
+</article>
+<article class="swb-region-card" data-region-card="oeste">
+  <img src="https://img.viajandoconcabeza.com/__vcc_preview/visor/destinos/suecia/goteborg-archipelago/2026-dia3/DSC07173.avif" alt="Costa Oeste" width="640" height="280" loading="lazy" decoding="async">
+  <div class="swb-region-body"><span>COSTA · ARCHIPIÉLAGOS</span><div class="swb-region-title-line"><h3>Costa Oeste</h3><strong data-region-price>≈ 106 €</strong></div><small class="swb-region-price-caption">por persona / día · <span data-region-style>VCC</span></small>
+    <p>Ferries, islas y alojamientos con precio estacional.</p>
+    <div class="swb-region-actions"><button type="button" data-pick-region="oeste" aria-label="Comparar el precio de Costa Oeste">COMPARAR ZONA</button><span class="swb-soon">GUÍA PRÓXIMAMENTE</span></div>
+  </div>
+</article>
+<article class="swb-region-card" data-region-card="dalarna">
+  <img src="https://img.viajandoconcabeza.com/__vcc_preview/visor/destinos/suecia/dalarna/2026-dia9/DSC08592.avif" alt="Dalarna" width="640" height="280" loading="lazy" decoding="async">
+  <div class="swb-region-body"><span>INTERIOR · NATURALEZA</span><div class="swb-region-title-line"><h3>Dalarna</h3><strong data-region-price>≈ 106 €</strong></div><small class="swb-region-price-caption">por persona / día · <span data-region-style>VCC</span></small>
+    <p>Cabañas, lagos y más trayectos por carretera.</p>
+    <div class="swb-region-actions"><button type="button" data-pick-region="dalarna" aria-label="Comparar el precio de Dalarna">COMPARAR ZONA</button><span class="swb-soon">GUÍA PRÓXIMAMENTE</span></div>
+  </div>
+</article>
+<article class="swb-region-card is-current" data-region-card="centrosur">
+  <img src="https://img.viajandoconcabeza.com/destinos/suecia/dalarna/2026-dia12/DSC09101.avif" alt="Paisaje sueco de la zona centro-sur" width="640" height="280" loading="lazy" decoding="async">
+  <div class="swb-region-body"><span>RUTA · PUEBLOS Y LAGOS</span><div class="swb-region-title-line"><h3>Centro-sur</h3><strong data-region-price>≈ 106 €</strong></div><small class="swb-region-price-caption">por persona / día · <span data-region-style>VCC</span></small>
+    <p>Promedio de referencia para una ruta mixta.</p>
+    <div class="swb-region-actions"><button type="button" data-pick-region="centrosur" aria-label="Comparar el precio de Centro-sur">COMPARAR ZONA</button><span class="swb-soon">GUÍA PRÓXIMAMENTE</span></div>
+  </div>
+</article>
+<article class="swb-region-card" data-region-card="norte">
+  <div class="swb-region-placeholder" aria-label="Norte de Suecia"><span aria-hidden="true">❄</span><strong>NORTE DE SUECIA</strong></div>
+  <div class="swb-region-body"><span>LARGAS DISTANCIAS</span><div class="swb-region-title-line"><h3>Norte y Laponia</h3><strong data-region-price>≈ 106 €</strong></div><small class="swb-region-price-caption">por persona / día · <span data-region-style>VCC</span></small>
+    <p>Traslados largos y actividades especiales elevan el coste.</p>
+    <div class="swb-region-actions"><button type="button" data-pick-region="norte" aria-label="Comparar el precio de Norte y Laponia">COMPARAR ZONA</button><span class="swb-soon">GUÍA PRÓXIMAMENTE</span></div>
+  </div>
+</article></div>
+      <p class="swb-note">Estimaciones de planificación: los precios varían con la temporada, la disponibilidad, el ritmo de viaje y el transporte escogido. En el norte, excursiones como auroras y trineos pueden aumentar mucho el presupuesto. <a href="https://www.budgetyourtrip.com/sweden/" target="_blank" rel="noopener noreferrer">Consulta también referencias generales de precios</a>.</p>
     </section>
 
-    <section id="ahorrar" class="swb-section swb-saving" aria-labelledby="swb-savings-title">
+        <section id="ahorrar" class="swb-section swb-saving" aria-labelledby="swb-savings-title">
       <header class="swb-heading"><div><p class="swb-overline">CONSEJOS VCC</p><h2 id="swb-savings-title">CÓMO AHORRAR EN SUECIA</h2></div><p>La clave es planificar el recorrido sin perder lo mejor del país.</p></header>
       <div class="swb-tips"><article><span class="swb-tip-number">01</span><h3>Reserva alojamiento con margen</h3><p>Compara hoteles, cabañas y apartamentos. En verano y en destinos populares, hacerlo tarde limita las opciones.</p></article><article><span class="swb-tip-number">02</span><h3>Elige bien el transporte</h3><p>Tren para ciudades conectadas; coche solo cuando el recorrido por zonas rurales realmente lo justifique.</p></article><article><span class="swb-tip-number">03</span><h3>Aprovecha la naturaleza</h3><p>Bosques, lagos, pueblos y muchos paseos son experiencias que no exigen pagar una entrada.</p></article></div>
       <p class="swb-final-note">Si tu viaje se centra en la capital, utiliza el <a href="/destinos/suecia/estocolmo/presupuesto.html">presupuesto específico de Estocolmo</a>: recoge nuestra experiencia real y es más preciso para esa ciudad.</p>
@@ -150,7 +212,7 @@
   </section>
   <footer class="vcc-global-footer"></footer>
   <script src="/configuracion/js/site-header.js?v=20261114-global-v1"></script>
-  <script src="/configuracion/js/destinos/suecia/presupuesto-pais.js?v=20261114-v1" defer></script>
+  <script src="/configuracion/js/destinos/suecia/presupuesto-pais.js?v=20261114-compact-zone-v2" defer></script>
   <script src="/configuracion/js/site-footer.js?v=20261114-global-v1"></script>
 </body>
 </html>
