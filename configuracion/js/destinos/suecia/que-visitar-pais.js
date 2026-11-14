@@ -42,13 +42,16 @@
       var photo=String(item.image||"");
       var icon=({"CIUDADES":"category-city","COSTA":"category-islands","MONTAÑA":"category-mountains","NATURALEZA":"category-nature","RUTA EN COCHE":"category-roadtrip","COMBINADO":"category-combined"})[category]||"category-nature";
       var href=destinationUrl(item.href);
+      // La ubicació de la guia s’obté de les dades del país, no del títol de la targeta.
+      var place=String(item.cardLocation||"").trim();
+      var countryLabel="Suecia"+(place?" · "+place:"");
       var imageSet=photo.indexOf("/__vcc_preview/visor/")>=0?
         ' srcset="'+esc(photo.replace("/__vcc_preview/visor/","/__vcc_preview/mini/"))+' 480w, '+esc(photo)+' 1800w" sizes="(max-width:650px) 90vw, (max-width:1000px) 46vw, 360px"':"";
       var card=document.createElement("article");
       card.className="di-mini-card di-guide-card vcc-it-card"+
         (live?"":" vcc-it-card-pending");
       card.dataset.visitCategory=type;
-      card.dataset.visitSearch=noAccent([title,category,item.text,type].join(" "));
+      card.dataset.visitSearch=noAccent([title,category,item.text,type,place].join(" "));
       card.innerHTML=
         '<span class="di-mini-photo vcc-it-photo"><img class="vcc-card-cover-photo" src="'+esc(photo)+'"'+imageSet+
         ' alt="'+esc("Paisaje de "+title+", Suecia")+'" width="640" height="380" loading="lazy" decoding="async">'+
@@ -57,7 +60,7 @@
         '<span class="vcc-card-kicker"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="/configuracion/imagenes/iconos/paginas/categorias-vcc.svg#'+icon+'"></use></svg>'+esc(category)+'</span>'+
         (live?'<a class="vcc-it-title" href="'+esc(href)+'">'+esc(title)+'</a>':'<strong class="vcc-it-title">'+esc(title)+'</strong>')+
         '<span class="di-guide-info vcc-it-facts">'+
-        '<span class="di-country-line"><span class="di-vcc-flags" aria-hidden="true"><svg class="vcc-it-country-flag" viewBox="0 0 32 20"><use href="/configuracion/imagenes/iconos/paginas/itinerarios-iconos.svg#it-flag-se"></use></svg></span><span>Suecia</span></span>'+
+        '<span class="di-country-line"><span class="di-vcc-flags" aria-hidden="true"><svg class="vcc-it-country-flag" viewBox="0 0 32 20"><use href="/configuracion/imagenes/iconos/paginas/itinerarios-iconos.svg#it-flag-se"></use></svg></span><span>'+esc(countryLabel)+'</span></span>'+
         '<span class="vcc-guide-kind"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="/configuracion/imagenes/iconos/paginas/categorias-vcc.svg#'+(type==="principal"?"guide-main":"guide-see")+'"></use></svg><span>'+(type==="principal"?"Guía principal":"Qué ver")+'</span></span></span>'+
         '<p class="di-mini-desc">'+esc(item.text||"Descubre esta parte de Suecia.")+'</p>'+
         (live?
