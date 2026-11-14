@@ -72,6 +72,15 @@ const all = walk(path.join(ROOT,"destinos")).filter(file=>file.endsWith(".html")
 /* Catàlegs Planifica: mateixa targeta editorial amb una única fotografia.
    Les noves guies s'afegeixen automàticament sense copiar CSS ni JavaScript. */
 const STOCKHOLM_COVER="https://img.viajandoconcabeza.com/destinos/suecia/estocolmo/2026-dia6/DSC07945.avif";
+function sourceGuideHeroPhoto(file, cls){
+ const html=fs.readFileSync(path.join(ROOT,file),"utf8");
+ const tags=[...html.matchAll(/<img\b[^>]*>/gi)].map(m=>m[0]);
+ const tag=tags.find(t=>t.includes('class="'+cls+'"'));
+ const url=tag?.match(/\bsrc="([^"]+)"/i)?.[1];
+ if(!url)throw new Error("No s'ha trobat la foto principal de "+file);
+ return url;
+}
+
 const CATALOG_ICONS="/configuracion/imagenes/iconos/paginas/itinerarios-iconos.svg";
 function catalogIcon(id,cls=""){
  return '<svg'+(cls?' class="'+cls+'"':'')+' viewBox="0 0 24 24" aria-hidden="true"><use href="'+CATALOG_ICONS+'#'+id+'"></use></svg>';
@@ -185,7 +194,7 @@ const packingEditorial = {
       "ciudades"
     ],
     "typeLabel": "Ciudades",
-    "image": STOCKHOLM_COVER,
+    "image": sourceGuideHeroPhoto("destinos/suecia/estocolmo/que-llevar.html","ql-hero-photo"),
     "description": "Checklist personalizada según el mes y los días de viaje: ropa, equipaje y consejos prácticos.",
     "priority": 1
   },
