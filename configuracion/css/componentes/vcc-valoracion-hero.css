@@ -57,6 +57,22 @@
   font:400 10px/1.5 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
   color:#777;max-width:none;
 }
+/* Itinerarios: impedir que el estilo genérico '.vcc-hero p:not(.script)'
+   agrande esta nota. Mismo cuerpo que las filas (12px), en una línea. */
+.vcc-hero .vcc-unified-rating__panel{
+  width:min(288px,calc(100vw - 32px));
+}
+.vcc-hero .vcc-unified-rating__panel p.vcc-unified-rating__note{
+  font:400 12px/1.4 var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;
+  white-space:nowrap;
+  letter-spacing:-.01em;
+  max-width:none!important;
+}
+@media(max-width:340px){
+  .vcc-hero .vcc-unified-rating__panel p.vcc-unified-rating__note{
+    white-space:normal;
+  }
+}
 @media(max-width:850px){
   .vcc-unified-rating{top:32px;right:0}
 }
