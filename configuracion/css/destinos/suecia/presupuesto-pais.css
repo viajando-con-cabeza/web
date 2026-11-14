@@ -132,12 +132,9 @@
   .swb-heading{grid-template-columns:1fr;gap:9px}
   .swb-heading>p{max-width:700px}
   .swb-calculator-grid{grid-template-columns:minmax(0,1fr)}
-  .swb-result-card{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);column-gap:22px;align-items:start}
-  .swb-result-card .swb-result-overline,.swb-result-card .swb-grand-total,.swb-result-card .swb-result-meta,.swb-result-card .swb-result-average,.swb-result-card .swb-result-disclaimer,.swb-result-card .swb-export{grid-column:1}
-  .swb-result-card .swb-donut-wrap,.swb-result-card h3,.swb-result-card .swb-legend{grid-column:2}
-  .swb-result-card .swb-donut-wrap{grid-row:1 / span 4;margin:0 auto}
-  .swb-result-card h3{margin:9px 0 5px}
-  .swb-result-card .swb-legend{grid-row:5 / span 4}
+  .swb-result-card{max-width:560px;margin:0 auto}
+  .swb-result-card .swb-donut-wrap{margin:14px auto 8px}
+  .swb-result-card h3{margin:13px 0 8px}
   .swb-regions-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
 }
 @media(max-width:550px){
