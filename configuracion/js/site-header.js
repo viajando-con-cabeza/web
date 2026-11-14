@@ -31,7 +31,7 @@
     if(document.querySelector('link[data-vcc-related-unified]'))return;
     const relatedCss=document.createElement('link');
     relatedCss.rel='stylesheet';
-    relatedCss.href=url('configuracion/css/componentes/sigue-descubriendo-vcc.css?v=20261114-unificat-v1');
+    relatedCss.href=url('configuracion/css/componentes/sigue-descubriendo-vcc.css?v=20261114-icones-compartides-v2');
     relatedCss.dataset.vccRelatedUnified='true';
     document.head.appendChild(relatedCss);
   };
