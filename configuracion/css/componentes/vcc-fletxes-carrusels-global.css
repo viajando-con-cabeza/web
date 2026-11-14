@@ -448,3 +448,41 @@ button.place-nav-arrow,
 button.sv-arrow,
 button.vcc-route-arrow){transition:none!important}
 }
+
+/* VCC · visibilidad real de las flechas.
+   JS añade este atributo cuando no hay nada que recorrer en esa dirección.
+   La lista coincide con el estilo canónico y añade especificidad, incluso
+   si una plantilla fuerza display:grid con !important. */
+:is(html body.budget-vcc .savings-section .carousel-shell > button.carousel-arrow,
+button.carousel-arrow,
+button.vcc-budget-mode-arrow,
+button.mv-transport-arrow,
+button.mv-carousel-arrow,
+button.mv-day-prev,
+button.mv-day-next,
+button.ep3-saving-arrow,
+button.ep4-our-arrow,
+button.ep-slider-arrow,
+button.ep-rail-arrow,
+button.tv-carousel-arrow,
+button.al-carousel-arrow,
+button.al-tips-arrow,
+button.vl-air-carousel-arrow,
+button.vl-tip-arrow,
+button.vcc-saving-arrow,
+button.dv-arrow,
+button.ci-tips-arrow,
+button.ci-august-weather-prev,
+button.ci-august-weather-next,
+button.ql-carousel-arrow,
+button.place-nav-arrow,
+button.sv-arrow,
+button.vcc-route-arrow)[data-vcc-scroll-hidden]{display:none!important;pointer-events:none!important;}
+
+/* Presupuesto Estocolmo: VCC un punto más cálido y menos transparente. */
+html body.budget-vcc #filosofia .vcc-budget-mode-card[data-budget-mode="vcc"]{
+  background:rgba(218,111,67,.09)!important;
+}
+html body.budget-vcc #filosofia .vcc-budget-mode-card[data-budget-mode="vcc"][aria-expanded="true"]{
+  background:rgba(218,111,67,.11)!important;
+}
