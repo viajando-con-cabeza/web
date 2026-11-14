@@ -546,3 +546,19 @@ body.inicio-vcc.home-editorial-refresh .home-insta-photo .home-insta-platform-ma
     width:18px!important;height:18px!important;
   }
 }
+
+/* Portada · CTA d'Instagram i Contacto idèntics al CTA dels itineraris.
+   Reutilitza la variable de tipografia compartida i s'ancora a baix a la dreta. */
+body.inicio-vcc.home-editorial-refresh .home-social-contact :is(.home-instagram,.home-contact) .vcc-home-social-cta{
+  display:inline-flex!important;align-items:center!important;justify-content:flex-end!important;
+  align-self:flex-end!important;flex:0 0 auto!important;
+  width:auto!important;min-width:0!important;min-height:0!important;height:auto!important;
+  margin:auto 0 0!important;padding:4px 0 0!important;
+  border:0!important;border-radius:0!important;background:transparent!important;box-shadow:none!important;
+  font:800 var(--vcc-itinerary-card-cta-size,9px)/1.25 var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;
+  letter-spacing:0!important;text-align:right!important;text-decoration:none!important;
+  white-space:normal!important;color:#ad5a43!important;
+}
+body.inicio-vcc.home-editorial-refresh .home-social-contact :is(.home-instagram,.home-contact) .vcc-home-social-cta:hover{
+  color:var(--vcc-ink,#24211e)!important;
+}
