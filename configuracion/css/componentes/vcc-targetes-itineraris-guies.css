@@ -503,8 +503,21 @@ html body:is(.itinerarios-vcc,.vcc-planifica-cards) .vcc-it-catalog .di-mini-gri
 html body:is(.itinerarios-vcc,.vcc-planifica-cards) .vcc-it-catalog .di-mini-grid > .di-mini-card.vcc-it-card :is(.vcc-it-upcoming,.di-upcoming-status){
   color:#a5a09a!important;
 }
+/* Tipologia específica de guia al costat del país, sense duplicar el sobretítol. */
+html body.vcc-planifica-cards #di-panel-guias .di-guide-card .di-guide-info.vcc-it-facts{
+  display:flex!important;flex-wrap:wrap!important;align-items:center!important;
+  justify-content:flex-start!important;gap:5px 11px!important;
+}
 html body.vcc-planifica-cards #di-panel-guias .di-guide-card .vcc-guide-kind{
-  display:none!important;
+  display:inline-flex!important;align-items:center!important;gap:4px!important;
+  min-width:0!important;margin:0!important;padding:0!important;
+  background:transparent!important;border:0!important;
+  color:#b95b3c!important;
+  font:700 10px/1.25 var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;
+}
+html body.vcc-planifica-cards #di-panel-guias .di-guide-card .vcc-guide-kind svg{
+  display:block!important;flex:0 0 14px!important;
+  width:14px!important;height:14px!important;color:#bf6343!important;
 }
 @media(max-width:620px){
   :root{--vcc-catalog-fitxa-alcada:var(--vcc-catalog-fitxa-alcada-mobil);}
