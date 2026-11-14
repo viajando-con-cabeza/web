@@ -55,7 +55,7 @@
         scoreMarkup(item,type,live)+'</span>'+
         '<div class="di-mini-body">'+
         '<span class="vcc-card-kicker"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="/configuracion/imagenes/iconos/paginas/categorias-vcc.svg#'+icon+'"></use></svg>'+esc(category)+'</span>'+
-        '(live?'<a class="vcc-it-title" href="'+esc(href)+'">'+esc(title)+'</a>':'<strong class="vcc-it-title">'+esc(title)+'</strong>')'+
+        (live?'<a class="vcc-it-title" href="'+esc(href)+'">'+esc(title)+'</a>':'<strong class="vcc-it-title">'+esc(title)+'</strong>')+
         '<span class="di-guide-info vcc-it-facts">'+
         '<span class="di-country-line"><span class="di-vcc-flags" aria-hidden="true"><svg class="vcc-it-country-flag" viewBox="0 0 32 20"><use href="/configuracion/imagenes/iconos/paginas/itinerarios-iconos.svg#it-flag-se"></use></svg></span><span>Suecia</span></span>'+
         '<span class="vcc-guide-kind"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="/configuracion/imagenes/iconos/paginas/categorias-vcc.svg#'+(type==="principal"?"guide-main":"guide-see")+'"></use></svg><span>'+(type==="principal"?"Guía principal":"Qué ver")+'</span></span></span>'+
