@@ -1,64 +1,78 @@
-/* Suecia · Dónde dormir
-   Las tarjetas heredan EXACTAMENTE la plantilla de Estocolmo.
-   La calculadora utiliza el HTML, CSS y JS de Planifica/Alojamientos.
-   Aquí solo hay adaptaciones de la disposición del país y dos omisiones
-   solicitadas: sin puntuación, sin distancia al centro ni detalle. */
+/* VCC · Suecia / Dónde dormir
+   ÚNICA hoja de ajustes de integración. Las tarjetas heredan TODOS los estilos
+   de Estocolmo (donde-dormir-base-compilat.css); la calculadora hereda el mismo
+   HTML, CSS y JS que Planifica/Alojamientos. No duplicamos tipografías, anchos
+   de columna, padding, tamaños de fuente ni breakpoints de esos componentes. */
+
+/* El main ocupa toda la ventana solo para que el fondo de la calculadora
+   tenga exactamente la misma anchura que la página de Planifica. */
 body.dv-country-types .dv-main{
- width:100%!important;max-width:none!important;
- margin:0!important;padding:30px 0 32px!important
+  width:100%!important;
+  max-width:none!important;
+  margin-inline:0!important;
+  padding-top:30px!important;
+  padding-bottom:32px!important;
 }
-/* La colección editorial conserva el ancho de Estocolmo. */
+/* Idéntico ancho horizontal y márgenes del .dv-shell de Estocolmo. */
 body.dv-country-types #barrios,
 body.dv-country-types #como-ahorrar{
- box-sizing:border-box;width:min(1490px,calc(100% - 106px));
- margin-inline:auto
+  box-sizing:border-box;
+  width:min(1490px,calc(100% - 106px));
+  margin-inline:auto;
 }
-/* Las tarjetas NO tienen puntuación, así que no reservan su hueco. */
-body.dv-country-types #barrios .dv-card-top{padding-right:0!important}
-body.dv-country-types #barrios .dv-card{cursor:default!important}
-body.dv-country-types #barrios .dv-card .dv-card-icon{
- flex-shrink:0
-}
-body.dv-country-types #barrios .dv-card .dv-card-icon img{
- display:block;width:48px;height:48px;object-fit:contain
+
+/* No hay puntuación, distancia ni "Ver análisis" por petición editorial.
+   Reserva solo la altura del formato de Estocolmo sin cambiar su ancho,
+   tamaño de letra, separación entre tarjetas, padding o tipografía. */
+body.dv-country-types #barrios .dv-carousel > .dv-card{
+  min-height:330px;
+  cursor:default;
 }
 body.dv-country-types #barrios .dv-card-bottom{
- display:flex;align-items:center;justify-content:flex-start;
- width:100%;margin-top:auto
+  display:flex;
+  align-items:center;
+  justify-content:flex-start;
 }
 body.dv-country-types #barrios .dv-card-bottom .dv-meta{
- width:auto;min-width:0
+  width:auto;
+  min-width:0;
 }
-body.dv-country-types #barrios .dv-card-bottom .dv-meta-price strong{
- white-space:normal
-}
-/* Componente de Planifica conservado sin redefinir tipografía, filas,
-   iconos, casillas Incl., totales, resumen VCC ni lógica de PDF. */
+
+/* La calculadora es el bloque original de Planifica, a ancho completo:
+   sin márgenes extra externos, estilos propios o reinterpretaciones. */
 body.dv-country-types .dv-planifica-alojamiento-reuse{
- width:100%;min-width:0;margin:38px 0 0
+  width:100%;
+  min-width:0;
+  margin:0;
 }
 body.dv-country-types .dv-planifica-alojamiento-reuse .al-compare{
- scroll-margin-top:calc(var(--vcc-subheader-top,50px) + 2px)
+  scroll-margin-top:calc(var(--vcc-subheader-top,50px) + 2px);
 }
-/* Petición específica: Guardar PDF + Limpiar en el extremo inferior derecho. */
+/* Única diferencia de colocación solicitada: acciones abajo a la derecha. */
 body.dv-country-types .dv-planifica-alojamiento-reuse .al-compare-utils{
- justify-content:flex-end
+  justify-content:flex-end;
 }
 body.dv-country-types .dv-planifica-alojamiento-reuse .al-compare-status{
- text-align:right
+  text-align:right;
 }
-/* El siguiente bloque de ahorro sigue utilizando sus CSS y JS compartidos. */
-body.dv-country-types #como-ahorrar{padding-top:43px}
+/* El carrusel de consejos sigue usando su CSS común. */
 @media(max-width:1090px){
- body.dv-country-types #barrios,
- body.dv-country-types #como-ahorrar{width:calc(100% - 38px)}
- body.dv-country-types .dv-planifica-alojamiento-reuse{margin-top:26px}
+  body.dv-country-types #barrios,
+  body.dv-country-types #como-ahorrar{
+    width:calc(100% - 38px);
+  }
+}
+@media(max-width:700px){
+  body.dv-country-types #barrios .dv-carousel > .dv-card{
+    min-height:332px;
+  }
 }
 @media(max-width:600px){
- body.dv-country-types .dv-main{padding-top:23px!important}
- body.dv-country-types #barrios,
- body.dv-country-types #como-ahorrar{width:calc(100% - 30px)}
- body.dv-country-types #barrios .dv-card .dv-card-icon img{width:43px;height:43px}
- body.dv-country-types .dv-planifica-alojamiento-reuse{margin-top:15px}
- body.dv-country-types #como-ahorrar{padding-top:32px}
+  body.dv-country-types .dv-main{
+    padding-top:23px!important;
+  }
+  body.dv-country-types #barrios,
+  body.dv-country-types #como-ahorrar{
+    width:calc(100% - 30px);
+  }
 }
