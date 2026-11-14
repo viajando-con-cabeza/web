@@ -1,0 +1,126 @@
+/* VCC | Cómo moverse por Suecia — diseño editorial de país.
+   Mantiene el hero/subheader, tipografías y controles compartidos del blog.
+   La selección de rutas y calculadora funcionan con el JS pequeño propio. */
+.swmove-page{--sw-ink:#242624;--sw-muted:#706b65;--sw-border:#e7dfd7;--sw-accent:#ae583d;--sw-paper:#fff;--sw-tint:#f4efea;--sw-radius:15px;min-width:0}
+.swmove-page *{box-sizing:border-box}
+.swmove-page .swmove-section{padding:55px 0 0;scroll-margin-top:142px}
+.swmove-page .swmove-section:last-child{padding-bottom:57px}
+.swmove-page .swmove-head{margin:0 0 25px!important}
+.swmove-page .swmove-head .vcc-editorial-description{max-width:470px}
+.swmove-page .swmove-note{margin:14px 0 0;color:var(--sw-muted);font:400 12px/1.65 var(--vcc-font-body,"DM Sans",Arial,sans-serif)}
+.swmove-page .swmove-note a,.swmove-page a.swmove-inline{color:var(--sw-accent);font-weight:700;text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px}
+.swmove-page .swmove-tag{display:inline-flex;align-items:center;gap:7px;color:#a15d44;font:800 10px/1.35 var(--vcc-font-body,"DM Sans",Arial,sans-serif);letter-spacing:.08em;text-transform:uppercase}
+.swmove-page .swmove-intro-summary{padding:16px 19px;border:1px solid #e8ded6;border-radius:var(--sw-radius);background:#fff;display:flex;align-items:center;gap:16px;margin-bottom:24px}
+.swmove-page .swmove-intro-summary>strong{flex:0 0 auto;font:600 20px/1.2 var(--vcc-font-heading,"Oswald",sans-serif);color:#8d4c35}
+.swmove-page .swmove-intro-summary p{margin:0;color:#5a5853;font:400 13px/1.65 var(--vcc-font-body,"DM Sans",Arial,sans-serif)}
+/* Transport: 4 decision cards */
+.swmove-page .swmove-modes{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+.swmove-page .swmove-mode{display:flex;flex-direction:column;min-width:0;min-height:269px;padding:20px 19px 18px;border:1px solid var(--sw-border);border-radius:var(--sw-radius);background:var(--sw-paper);box-shadow:0 2px 12px rgba(43,32,25,.025)}
+.swmove-page .swmove-mode-icon{width:43px;height:43px;display:grid;place-items:center;border-radius:12px;background:#f5ece4;color:#9e593d;margin:0 0 16px}
+.swmove-page .swmove-mode-icon svg{width:25px;height:25px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.swmove-page .swmove-mode h3{font:500 25px/1.13 var(--vcc-font-heading,"Oswald",sans-serif);color:var(--sw-ink);margin:0 0 7px}
+.swmove-page .swmove-mode .swmove-mode-for{font:800 10px/1.5 var(--vcc-font-body,"DM Sans",Arial,sans-serif);letter-spacing:.04em;text-transform:uppercase;color:#aa654d;margin:0 0 11px}
+.swmove-page .swmove-mode p:not(.swmove-mode-for){font:400 12.5px/1.63 var(--vcc-font-body,"DM Sans",Arial,sans-serif);color:var(--sw-muted);margin:0 0 15px}
+.swmove-page .swmove-mode .swmove-mode-limit{font:400 11.5px/1.5 var(--vcc-font-body,"DM Sans",Arial,sans-serif);padding:10px 0 0;border-top:1px solid #eee7e1;color:#736a63;margin:auto 0 0}
+.swmove-page .swmove-mode .swmove-mode-limit b{color:#35322d}
+.swmove-page .swmove-mode--chosen{border-color:#d5a995;background:linear-gradient(150deg,#fff,#fff9f6)}
+/* Routes */
+.swmove-page .swmove-route-toolbar{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:17px}
+.swmove-page .swmove-filters{display:flex;flex-wrap:wrap;gap:7px}
+.swmove-page .swmove-filter{appearance:none;-webkit-appearance:none;border:1px solid #e1d8cf;background:#fff;color:#675b52;border-radius:100px;padding:8px 13px;font:700 10.5px/1.35 var(--vcc-font-body,"DM Sans",Arial,sans-serif);cursor:pointer;transition:background-color .16s,border-color .16s}
+.swmove-page .swmove-filter:hover{border-color:#bd8f77}
+.swmove-page .swmove-filter[aria-pressed="true"]{background:#a85b42;border-color:#a85b42;color:#fff}
+.swmove-page .swmove-filter:focus-visible,.swmove-page a:focus-visible,.swmove-page input:focus-visible{outline:2px solid #c2694a;outline-offset:2px}
+.swmove-page .swmove-route-count{font:700 10.5px/1.4 var(--vcc-font-body,"DM Sans",Arial,sans-serif);color:#82776d;white-space:nowrap}
+.swmove-page .swmove-routes{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}
+.swmove-page .swmove-route{display:flex;flex-direction:column;min-width:0;gap:11px;padding:20px 20px 17px;background:#fff;border:1px solid var(--sw-border);border-radius:var(--sw-radius)}
+.swmove-page .swmove-route[hidden]{display:none!important}
+.swmove-page .swmove-route-top{display:flex;align-items:flex-start;justify-content:space-between;gap:11px}
+.swmove-page .swmove-route h3{font:500 clamp(22px,2.1vw,26px)/1.17 var(--vcc-font-heading,"Oswald",sans-serif);color:var(--sw-ink);margin:4px 0 0}
+.swmove-page .swmove-route-best{flex:0 0 auto;padding:6px 9px;background:#eef3ee;color:#416a50;border-radius:6px;font:800 10px/1.3 var(--vcc-font-body,"DM Sans",Arial,sans-serif)}
+.swmove-page .swmove-route-stats{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:9px}
+.swmove-page .swmove-route-stat{border:1px solid #eee7df;background:#faf8f5;border-radius:8px;padding:10px 12px;min-width:0}
+.swmove-page .swmove-route-stat span{display:block;font:700 9px/1.4 var(--vcc-font-body,"DM Sans",Arial,sans-serif);text-transform:uppercase;letter-spacing:.07em;color:#8b7970;margin-bottom:3px}
+.swmove-page .swmove-route-stat strong{font:600 20px/1.2 var(--vcc-font-heading,"Oswald",sans-serif);color:#342e29;display:block}
+.swmove-page .swmove-route p{font:400 12px/1.6 var(--vcc-font-body,"DM Sans",Arial,sans-serif);color:var(--sw-muted);margin:0}
+.swmove-page .swmove-route .swmove-route-bottom{display:flex;align-items:end;justify-content:space-between;gap:12px;margin-top:auto;padding-top:11px;border-top:1px solid #eee8e2}
+.swmove-page .swmove-route-bottom small{font:400 10.5px/1.5 var(--vcc-font-body,"DM Sans",Arial,sans-serif);color:#8a8077;max-width:56%}
+.swmove-page .swmove-route-bottom a{font:800 10px/1.4 var(--vcc-font-body,"DM Sans",Arial,sans-serif);letter-spacing:.025em;color:#955037;text-decoration:none;text-align:right;white-space:nowrap}
+.swmove-page .swmove-route-bottom a:hover{text-decoration:underline;text-underline-offset:3px}
+/* Train versus car: explicit decision + transparent budget calculator */
+.swmove-page .swmove-choice-grid{display:grid;grid-template-columns:1fr 1fr;gap:13px;margin-bottom:18px}
+.swmove-page .swmove-choice{background:#fff;border:1px solid var(--sw-border);border-radius:var(--sw-radius);padding:20px 21px}
+.swmove-page .swmove-choice h3{font:500 24px/1.2 var(--vcc-font-heading,"Oswald",sans-serif);margin:0 0 10px;color:var(--sw-ink)}
+.swmove-page .swmove-choice ul{list-style:none;padding:0;margin:0;display:grid;gap:9px}
+.swmove-page .swmove-choice li{display:flex;gap:9px;align-items:flex-start;color:#655d55;font:400 12.5px/1.6 var(--vcc-font-body,"DM Sans",Arial,sans-serif)}
+.swmove-page .swmove-choice li::before{content:"✓";color:#4d826d;font:800 13px/1.4 var(--vcc-font-body,"DM Sans",Arial,sans-serif)}
+.swmove-page .swmove-choice--car li::before{color:#a65d46}
+.swmove-page .swmove-calculator{background:#fff;border:1px solid #dfd3c9;border-radius:16px;display:grid;grid-template-columns:minmax(0,1.35fr) minmax(235px,.75fr);overflow:hidden}
+.swmove-page .swmove-calc-fields{padding:22px 24px 24px;min-width:0}
+.swmove-page .swmove-calc-title{font:500 24px/1.2 var(--vcc-font-heading,"Oswald",sans-serif);margin:0 0 6px;color:var(--sw-ink)}
+.swmove-page .swmove-calc-fields>p{color:#776d65;font:400 12px/1.55 var(--vcc-font-body,"DM Sans",Arial,sans-serif);margin:0 0 19px}
+.swmove-page .swmove-fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}
+.swmove-page .swmove-field{display:flex;flex-direction:column;gap:6px;min-width:0}
+.swmove-page .swmove-field span{font:700 10.5px/1.4 var(--vcc-font-body,"DM Sans",Arial,sans-serif);color:#5b554d}
+.swmove-page .swmove-field input{display:block;width:100%;min-width:0;height:40px;box-sizing:border-box;background:#fff;border:1px solid #dcd3ca;border-radius:8px;padding:7px 11px;font:500 14px/1.3 var(--vcc-font-body,"DM Sans",Arial,sans-serif);color:#292724}
+.swmove-page .swmove-calc-result{padding:23px 22px;background:#f6f2ee;border-left:1px solid #e6dcd4;display:flex;flex-direction:column;justify-content:center;gap:13px;min-width:0}
+.swmove-page .swmove-calc-result>span{font:800 10px/1.4 var(--vcc-font-body,"DM Sans",Arial,sans-serif);color:#91583d;letter-spacing:.05em;text-transform:uppercase}
+.swmove-page .swmove-costs{display:grid;gap:11px}
+.swmove-page .swmove-cost-row{display:flex;align-items:center;justify-content:space-between;gap:9px;border-bottom:1px solid #e0d6cd;padding-bottom:9px}
+.swmove-page .swmove-cost-row small{font:500 11px/1.5 var(--vcc-font-body,"DM Sans",Arial,sans-serif);color:#68615b}
+.swmove-page .swmove-cost-row strong{font:600 24px/1 var(--vcc-font-heading,"Oswald",sans-serif);white-space:nowrap;color:#2e302e}
+.swmove-page .swmove-calc-verdict{font:700 13px/1.5 var(--vcc-font-body,"DM Sans",Arial,sans-serif);color:#a2583c}
+.swmove-page .swmove-calc-explain{font:400 10.5px/1.55 var(--vcc-font-body,"DM Sans",Arial,sans-serif);color:#786e68;margin:0}
+.swmove-page .swmove-calc-reset{display:inline-flex;align-self:flex-start;background:transparent;border:0;padding:0;color:#93553f;font:700 10px/1.4 var(--vcc-font-body,"DM Sans",Arial,sans-serif);text-decoration:underline;text-underline-offset:3px;cursor:pointer}
+/* Operators and region tickets */
+.swmove-page .swmove-booking-title{font:500 23px/1.2 var(--vcc-font-heading,"Oswald",sans-serif);color:#272725;margin:0 0 12px}
+.swmove-page .swmove-bookings{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:11px}
+.swmove-page .swmove-booking{display:flex;flex-direction:column;gap:7px;background:#fff;border:1px solid var(--sw-border);border-radius:12px;padding:17px 17px 16px;text-decoration:none;transition:border-color .15s}
+.swmove-page .swmove-booking:hover{border-color:#c9a491}
+.swmove-page .swmove-booking strong{font:600 20px/1.1 var(--vcc-font-heading,"Oswald",sans-serif);color:#2e2926}
+.swmove-page .swmove-booking span{font:400 11.5px/1.5 var(--vcc-font-body,"DM Sans",Arial,sans-serif);color:#746a62;flex:1}
+.swmove-page .swmove-booking em{font:800 normal 10px/1.4 var(--vcc-font-body,"DM Sans",Arial,sans-serif);font-style:normal;color:#985339;align-self:flex-start;margin-top:5px}
+.swmove-page .swmove-regions{display:flex;align-items:flex-start;gap:13px;background:#f0eeea;border-radius:12px;padding:17px 20px;margin:14px 0 28px}
+.swmove-page .swmove-regions>strong{flex:0 0 auto;color:#8e4939;font:600 19px/1.15 var(--vcc-font-heading,"Oswald",sans-serif)}
+.swmove-page .swmove-regions p{margin:0;color:#635d58;font:400 12px/1.65 var(--vcc-font-body,"DM Sans",Arial,sans-serif)}
+.swmove-page .swmove-regions a{color:#975039;text-decoration:underline;text-underline-offset:2px;font-weight:700}
+.swmove-page .swmove-tips-title{font:500 23px/1.2 var(--vcc-font-heading,"Oswald",sans-serif);color:#272725;margin:0 0 14px}
+.swmove-page .swmove-tips{margin-top:0}
+.swmove-page .swmove-tips .mv-saving-card{min-height:150px}
+.swmove-page .swmove-tips .mv-saving-card h3{color:#242424}
+.swmove-page .swmove-sources{font:400 10.5px/1.6 var(--vcc-font-body,"DM Sans",Arial,sans-serif);color:#8a8179;margin:25px 0 0}
+.swmove-page .swmove-sources a{color:#806151;text-decoration:underline;text-underline-offset:2px}
+@media(max-width:1020px){
+ .swmove-page .swmove-modes{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .swmove-page .swmove-mode{min-height:230px}
+ .swmove-page .swmove-bookings{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(max-width:740px){
+ .swmove-page .swmove-section{padding-top:42px;scroll-margin-top:125px}
+ .swmove-page .swmove-intro-summary{align-items:flex-start;flex-direction:column;gap:7px;padding:14px 15px}
+ .swmove-page .swmove-choice-grid,.swmove-page .swmove-routes{grid-template-columns:1fr}
+ .swmove-page .swmove-route-toolbar{align-items:flex-start;flex-direction:column;gap:10px}
+ .swmove-page .swmove-route{padding:17px 16px 15px}
+ .swmove-page .swmove-route h3{font-size:25px}
+ .swmove-page .swmove-calculator{grid-template-columns:1fr}
+ .swmove-page .swmove-calc-result{border-left:0;border-top:1px solid #e6dcd4}
+ .swmove-page .swmove-regions{flex-direction:column;gap:7px}
+ .swmove-page .swmove-tips .mv-saving-card{min-height:130px}
+}
+@media(max-width:490px){
+ .swmove-page .swmove-modes,.swmove-page .swmove-bookings{grid-template-columns:1fr}
+ .swmove-page .swmove-mode{min-height:0;padding:18px}
+ .swmove-page .swmove-mode-icon{margin-bottom:12px}
+ .swmove-page .swmove-mode h3{font-size:24px}
+ .swmove-page .swmove-calc-fields{padding:18px 15px}
+ .swmove-page .swmove-calc-result{padding:18px 15px}
+ .swmove-page .swmove-fields{gap:10px}
+ .swmove-page .swmove-field input{height:42px}
+ .swmove-page .swmove-route-stats{gap:7px}
+ .swmove-page .swmove-route-stat{padding:8px 9px}
+ .swmove-page .swmove-route-stat strong{font-size:19px}
+ .swmove-page .swmove-route-bottom{align-items:flex-start}
+}
+@media(prefers-reduced-motion:reduce){
+ .swmove-page .swmove-filter,.swmove-page .swmove-booking{transition:none}
+}
