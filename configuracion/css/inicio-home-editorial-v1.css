@@ -505,3 +505,44 @@ body.inicio-vcc.home-editorial-refresh .home-insta-editorial-copy .home-card-mor
  body.inicio-vcc.home-editorial-refresh .home-planning-links .home-plan-label{align-items:center;}
  body.inicio-vcc.home-editorial-refresh .home-planning-links .home-plan-label small{font-size:8.5px!important;}
 }
+
+/* Inicio · marca Instagram sobre la foto (sin texto decorativo).
+   Se mantiene tanto en la foto fija de R2 como con el feed conectado. */
+body.inicio-vcc.home-editorial-refresh .home-insta-photo .home-insta-platform-mark{
+  position:absolute!important;
+  left:10px!important;
+  bottom:10px!important;
+  z-index:6!important;
+  display:grid!important;
+  place-items:center!important;
+  width:34px!important;
+  height:34px!important;
+  border:1px solid rgba(255,255,255,.8)!important;
+  border-radius:50%!important;
+  background:rgba(255,255,255,.94)!important;
+  box-shadow:0 2px 9px rgba(20,20,20,.14)!important;
+  color:#c46a4d!important;
+  pointer-events:none!important;
+}
+body.inicio-vcc.home-editorial-refresh .home-insta-photo .home-insta-platform-mark svg{
+  display:block!important;
+  width:21px!important;
+  height:21px!important;
+  fill:none!important;
+  stroke:currentColor!important;
+  stroke-width:1.8!important;
+  stroke-linecap:round!important;
+  stroke-linejoin:round!important;
+}
+body.inicio-vcc.home-editorial-refresh .home-insta-photo .home-insta-platform-mark .shared-solid{
+  fill:currentColor!important;
+  stroke:none!important;
+}
+@media(max-width:530px){
+  body.inicio-vcc.home-editorial-refresh .home-insta-photo .home-insta-platform-mark{
+    width:29px!important;height:29px!important;left:7px!important;bottom:7px!important;
+  }
+  body.inicio-vcc.home-editorial-refresh .home-insta-photo .home-insta-platform-mark svg{
+    width:18px!important;height:18px!important;
+  }
+}
