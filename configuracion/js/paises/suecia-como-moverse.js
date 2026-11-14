@@ -1,26 +1,10 @@
-/* VCC · Cómo moverse por Suecia: filtros y comparativa honesta tren/coche.
-   Todos los trayectos permanecen en HTML para SEO y para funcionar sin JS.
-   Los precios sólo los introduce el lector; nunca fingimos tarifas en tiempo real. */
+/* VCC · Cómo moverse por Suecia: calculadora de tren versus coche.
+   Los precios sólo los introduce el lector; no se presentan tarifas en tiempo real. */
 (() => {
   "use strict";
   function init(){
     const page=document.querySelector(".swmove-page");
     if(!page)return;
-
-    const filters=Array.from(page.querySelectorAll("[data-sw-route-filter]"));
-    const routes=Array.from(page.querySelectorAll("[data-sw-route-category]"));
-    const count=page.querySelector("[data-sw-route-count]");
-    filters.forEach(button=>button.addEventListener("click",()=>{
-      const selected=button.dataset.swRouteFilter;
-      filters.forEach(item=>item.setAttribute("aria-pressed",String(item===button)));
-      let visible=0;
-      routes.forEach(route=>{
-        const show=selected==="todas"||route.dataset.swRouteCategory===selected;
-        route.hidden=!show;
-        if(show)visible++;
-      });
-      if(count)count.textContent=visible+" "+(visible===1?"ruta":"rutas");
-    }));
 
     const form=page.querySelector("#swmove-calc");
     if(!form)return;
