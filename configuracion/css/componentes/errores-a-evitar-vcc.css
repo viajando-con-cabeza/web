@@ -9,7 +9,7 @@
   --vcc-error-card-radius:13px;
   --vcc-error-card-padding:18px;
   --vcc-error-card-gap:13px;
-  --vcc-error-card-min-height:155px;
+  --vcc-error-card-min-height:136px;
   --vcc-error-card-title-size:20px;
   --vcc-error-card-body-size:12.5px;
   --vcc-error-card-icon-size:38px;
@@ -26,6 +26,11 @@ html body :is(#av-errores-track,#sv-track-tips,#tv-errors-track,#ciTipsTrack,#so
   align-items:stretch!important;
   gap:var(--vcc-error-track-gap)!important;
   min-width:0!important;
+  width:100%!important;
+  max-width:100%!important;
+  height:auto!important;
+  max-height:none!important;
+  box-sizing:border-box!important;
   overflow-x:auto!important;
   overflow-y:hidden!important;
   scroll-snap-type:x mandatory!important;
@@ -155,7 +160,7 @@ html body :is(#sorpresas,#errores-a-evitar,#consejos,#errores){scroll-margin-top
 @media(max-width:650px){
   :root{
     --vcc-error-card-padding:15px;
-    --vcc-error-card-min-height:145px;
+    --vcc-error-card-min-height:130px;
     --vcc-error-card-title-size:19px;
     --vcc-error-card-body-size:12px;
     --vcc-error-card-icon-size:34px;
