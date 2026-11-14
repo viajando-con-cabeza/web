@@ -46,13 +46,13 @@
   if (!document.querySelector('link[data-vcc-discreet-actions]')) {
     const actionStyle=document.createElement('link');
     actionStyle.rel='stylesheet';
-    actionStyle.href=url('configuracion/css/componentes/enlaces-discretos-vcc.css?v=20261113-v1');
+    actionStyle.href=url('configuracion/css/componentes/enlaces-discretos-vcc.css?v=20261114-card-ctas-unificados-v1');
     actionStyle.dataset.vccDiscreetActions='true';
     document.head.appendChild(actionStyle);
   }
   if (!document.querySelector('script[data-vcc-discreet-actions]')) {
     const actionScript=document.createElement('script');
-    actionScript.src=url('configuracion/js/componentes/enlaces-discretos-vcc.js?v=20261113-v1');
+    actionScript.src=url('configuracion/js/componentes/enlaces-discretos-vcc.js?v=20261114-card-ctas-unificados-v1');
     actionScript.async=true;
     actionScript.dataset.vccDiscreetActions='true';
     document.head.appendChild(actionScript);
