@@ -1,176 +1,200 @@
-/* Suecia · Presupuesto por perfil y zona.
-   Los valores son escenarios orientativos de planificación, nunca gasto real del país.
-   Se comparte la misma matriz de precios entre tarjetas, desglose, calculadora y CSV. */
+/* Presupuesto de Suecia: misma UI y nombres de campo que Estocolmo.
+   IMPORTES ORIENTATIVOS: no son medias oficiales ni nuestro gasto real.
+   Todas las vistas (perfiles, desglose, cálculo y regiones) usan una matriz única. */
 (function(){
   "use strict";
-  const categories=["alojamiento","comida","transporte","actividades","extras"];
-  const names={alojamiento:"Alojamiento",comida:"Comida",transporte:"Transporte",actividades:"Actividades",extras:"Extras"};
-  const glyphs={alojamiento:"⌂",comida:"♨",transporte:"▤",actividades:"✧",extras:"✦"};
-  const colors=["#ca765c","#e6a35a","#6ca09b","#769a70","#b79d87"];
-  const styles={lujo:"Lujo",medio:"Medio",vcc:"VCC",mochilero:"Mochilero"};
-  // €/persona/noche en alojamiento; €/persona/día para todas las demás categorías.
-  const baseline={
+  const cats=["alojamiento","comida","transporte","actividades","extras"];
+  const labels={alojamiento:"Alojamiento",comida:"Comida",transporte:"Transporte",actividades:"Actividades",extras:"Extras"};
+  const palette=["#cf705c","#e4a65a","#5ca5a2","#6e9e77","#c9ad7b"];
+  const names={lujo:"Lujo",medio:"Medio",vcc:"VCC",mochilero:"Mochilero"};
+  const rates={
     lujo:{alojamiento:120,comida:65,transporte:40,actividades:45,extras:25},
     medio:{alojamiento:68,comida:40,transporte:26,actividades:25,extras:14},
     vcc:{alojamiento:38,comida:28,transporte:18,actividades:15,extras:9},
     mochilero:{alojamiento:25,comida:18,transporte:12,actividades:6,extras:5}
   };
-  // Factores ilustrativos, no índices oficiales de precios regionales.
   const zones={
-    stockholm:{name:"Estocolmo",label:"Estocolmo · capital",f:{alojamiento:1.12,comida:1.07,transporte:1.04,actividades:1.08,extras:1.04},
-      summary:"La capital suele concentrar opciones de alojamiento y visitas urbanas más caras.",transport:"Metro, autobuses y ferris urbanos; sin vehículo de alquiler."},
-    goteborg:{name:"Gotemburgo",label:"Gotemburgo · ciudad",f:{alojamiento:1.02,comida:1.02,transporte:1,actividades:1,extras:1},
-      summary:"Ciudad con tranvías y un coste de alojamiento variable según fechas.",transport:"Tranvías, buses y desplazamientos por la ciudad."},
-    oeste:{name:"Costa Oeste",label:"Costa Oeste · islas",f:{alojamiento:1.12,comida:1.02,transporte:1.22,actividades:1.06,extras:1.02},
-      summary:"El alojamiento costero y los ferris pueden encarecer los días de islas.",transport:"Ferries y desplazamientos entre costa, pueblos e islas."},
-    dalarna:{name:"Dalarna",label:"Dalarna · interior",f:{alojamiento:.95,comida:.94,transporte:1.22,actividades:.9,extras:.95},
-      summary:"Las cabañas pueden equilibrar el presupuesto, pero aumenta el peso del transporte.",transport:"Trayectos por carretera o transporte regional; coste de coche no garantizado."},
-    centrosur:{name:"Centro-sur",label:"Centro-sur · ruta mixta",f:{alojamiento:.96,comida:.95,transporte:1.09,actividades:.95,extras:.95},
-      summary:"Un promedio de referencia para combinar pueblos, lagos y alguna ciudad.",transport:"Combinación de tren, bus y tramos por carretera."},
-    norte:{name:"Norte y Laponia",label:"Norte / Laponia · grandes distancias",f:{alojamiento:1.15,comida:1.09,transporte:1.55,actividades:1.35,extras:1.05},
-      summary:"Los trayectos largos y las actividades de invierno requieren un margen mayor.",transport:"Trayectos interurbanos largos; vuelos, coche y excursiones pueden costar más."}
+    centrosur:{name:"Centro-sur",factor:{alojamiento:.96,comida:.95,transporte:1.09,actividades:.95,extras:.95},
+      detail:"Ruta de pueblos, lagos y alguna ciudad; se combinan varios transportes.",
+      transport:"Tren, buses y desplazamientos por carretera"},
+    stockholm:{name:"Estocolmo",factor:{alojamiento:1.12,comida:1.07,transporte:1.04,actividades:1.08,extras:1.04},
+      detail:"Capital con mucha oferta de hoteles y visitas urbanas.",
+      transport:"Metro, autobuses y ferries urbanos"},
+    goteborg:{name:"Gotemburgo",factor:{alojamiento:1.02,comida:1.02,transporte:1,actividades:1,extras:1},
+      detail:"Ciudad cómoda para caminar y moverse en tranvía.",
+      transport:"Tranvías, buses y transporte urbano"},
+    oeste:{name:"Costa Oeste",factor:{alojamiento:1.12,comida:1.02,transporte:1.22,actividades:1.06,extras:1.02},
+      detail:"Ferries, islas y alojamientos muy afectados por temporada.",
+      transport:"Ferries y conexiones entre pueblos de costa e islas"},
+    dalarna:{name:"Dalarna",factor:{alojamiento:.95,comida:.94,transporte:1.22,actividades:.9,extras:.95},
+      detail:"Cabañas y entornos naturales; pueden aumentar los trayectos.",
+      transport:"Transporte regional y recorridos por carretera"},
+    norte:{name:"Norte y Laponia",factor:{alojamiento:1.15,comida:1.09,transporte:1.55,actividades:1.35,extras:1.05},
+      detail:"Distancias largas y actividades invernales con posibles suplementos.",
+      transport:"Trenes nocturnos, coche o vuelos entre grandes distancias"}
   };
-  const profileCopy={
-    lujo:"Hoteles especiales, más restaurantes y margen amplio para experiencias.",
-    medio:"Una alternativa cómoda para alojarte bien y pagar algunas actividades.",
-    vcc:"Equilibrio entre alojamiento funcional, buenos planes y gastos conscientes.",
-    mochilero:"Hostales o cabañas económicas, comida sencilla y muchas visitas gratuitas."
+  const descriptions={
+    alojamiento:{lujo:"Hotel superior o alojamiento especial",medio:"Hotel de gama media, bien comunicado",vcc:"Hotel o cabaña cómoda compartiendo doble",mochilero:"Hostal, habitación económica o camping"},
+    comida:{lujo:"Restaurantes y comidas especiales",medio:"Comidas fuera y opciones sencillas",vcc:"Cafés y combinaciones con supermercado",mochilero:"Comida económica y supermercado"},
+    transporte:{lujo:"Traslados más cómodos",medio:"Tren, bus y trayectos elegidos",vcc:"Transporte ajustado a la ruta",mochilero:"Transporte económico y trayectos a pie"},
+    actividades:{lujo:"Experiencias y entradas de pago",medio:"Museos y entradas seleccionadas",vcc:"Las experiencias que más interesan",mochilero:"Paseos gratis y alguna visita"},
+    extras:{lujo:"Cafés, compras y caprichos",medio:"Recuerdos y gastos puntuales",vcc:"Pequeños gastos e imprevistos",mochilero:"Gasto extra mínimo"}
   };
-  const get=id=>document.getElementById(id);
-  const btns=[...document.querySelectorAll(".swb-style-card[data-style]")];
-  const selects=[...document.querySelectorAll("[data-category]")];
-  if(!get("swb-grand-total")||!btns.length||!selects.length)return;
-  const state={days:7,nights:7,people:2,region:"centrosur",openProfile:null,
-    choices:{alojamiento:"vcc",comida:"vcc",transporte:"vcc",actividades:"vcc",extras:"vcc"}};
-  const euro=v=>Math.round(v).toLocaleString("es-ES")+" €";
-  const unit=(category,style,zone=state.region)=>Math.round(baseline[style][category]*zones[zone].f[category]);
-  const profileRate=(style,zone)=>categories.reduce((sum,c)=>sum+unit(c,style,zone),0);
-  const selectedRate=zone=>categories.reduce((sum,c)=>sum+unit(c,state.choices[c],zone),0);
-  const currentStyle=()=>{const s=state.choices[categories[0]];return categories.every(c=>state.choices[c]===s)?s:null;};
-  const categoryDetails={
-    alojamiento:{"lujo":"Hotel premium o estancia especial","medio":"Hotel de gama media bien ubicado","vcc":"Hotel o cabaña funcional, compartiendo doble","mochilero":"Hostal, habitación sencilla o camping"},
-    comida:{"lujo":"Restaurantes y cenas especiales","medio":"Restaurantes combinados con menús","vcc":"Cafés, supermercados y comidas locales","mochilero":"Supermercado y comidas económicas"},
-    transporte:{"lujo":"Más comodidad y flexibilidad en traslados","medio":"Transporte público y trayectos puntuales","vcc":"Billetes planificados y traslados necesarios","mochilero":"Transportes económicos y trayectos a pie"},
-    actividades:{"lujo":"Varias experiencias y visitas de pago","medio":"Museos y actividades seleccionadas","vcc":"Priorizar solo las experiencias que interesan","mochilero":"Paseos gratuitos y alguna entrada"},
-    extras:{"lujo":"Compras, cafés y caprichos","medio":"Cafés, recuerdos y gastos imprevistos","vcc":"Pequeños gastos y margen para imprevistos","mochilero":"Margen mínimo de gastos extra"}
-  };
-  function calculate(){
-    const totals={},prices={};
-    categories.forEach(c=>{
-      prices[c]=unit(c,state.choices[c]);
+  const state={days:7,nights:7,people:2,zone:"centrosur",choice:{
+    alojamiento:"vcc",comida:"vcc",transporte:"vcc",actividades:"vcc",extras:"vcc"
+  }};
+  const el=id=>document.getElementById(id);
+  const euro=n=>Math.round(n).toLocaleString("es-ES")+" €";
+  const round=(style,category,zone)=>Math.round(rates[style][category]*zones[zone].factor[category]);
+  const dayRate=(style,zone)=>cats.reduce((sum,c)=>sum+round(style,c,zone),0);
+  const currentStyle=()=>cats.every(c=>state.choice[c]===state.choice.alojamiento)?state.choice.alojamiento:null;
+  if(!el("grand-total")||!el("swb-region")||!el("swb-region-top"))return;
+  function categoryTotals(){
+    const prices={},totals={};
+    for(const c of cats){
+      prices[c]=round(state.choice[c],c,state.zone);
       totals[c]=prices[c]*(c==="alojamiento"?state.nights:state.days)*state.people;
-    });
-    return {prices,totals,total:categories.reduce((s,c)=>s+totals[c],0)};
-  }
-  function renderProfile(){
-    const node=get("swb-profile-detail"),style=state.openProfile;
-    node.hidden=!style;
-    btns.forEach(b=>b.setAttribute("aria-expanded",String(b.dataset.style===style)));
-    if(!style)return;
-    get("swb-profile-title").textContent="Presupuesto "+styles[style];
-    get("swb-profile-zone").textContent=zones[state.region].label;
-    get("swb-profile-avg").textContent="≈ "+euro(profileRate(style,state.region));
-    get("swb-profile-explain").textContent=profileCopy[style]+" "+zones[state.region].summary;
-    const rows=get("swb-profile-rows");
-    rows.replaceChildren();
-    categories.forEach(c=>{
-      const row=document.createElement("div");row.className="swb-profile-row";
-      const top=document.createElement("div");top.className="swb-profile-row-head";
-      const icon=document.createElement("span");icon.className="swb-profile-icon";icon.textContent=glyphs[c];
-      const title=document.createElement("strong");title.textContent=names[c];
-      const price=document.createElement("b");price.textContent=euro(unit(c,style));
-      const text=document.createElement("p");
-      text.textContent=(c==="transporte"?zones[state.region].transport:categoryDetails[c][style])+" · por persona / "+(c==="alojamiento"?"noche":"día");
-      top.append(icon,title,price);row.append(top,text);rows.appendChild(row);
-    });
     }
-  function render(){
-    const values=calculate();
-    get("swb-days").textContent=state.days;get("swb-nights").textContent=state.nights;get("swb-people").textContent=state.people;
-    get("swb-region").value=state.region;get("swb-region-top").value=state.region;
-    get("swb-overview-detail").textContent=zones[state.region].summary+" Se supone una noche por día.";
-    const avg=values.total/state.people/state.days;
-    get("swb-grand-total").textContent=euro(values.total);
-    get("swb-result-meta").textContent=state.people+(state.people===1?" persona":" personas")+" · "+state.days+(state.days===1?" día":" días")+" · "+state.nights+(state.nights===1?" noche":" noches");
-    get("swb-result-average").textContent=avg.toLocaleString("es-ES",{maximumFractionDigits:2})+" € / persona / día";
-    get("swb-donut-pct").textContent=euro(avg);
-    const inner=get("swb-donut-pct").nextElementSibling;if(inner)inner.textContent="por persona y día";
-    let arc=0;
-    const segments=categories.map((c,i)=>{const start=arc;arc+=values.total?values.totals[c]/values.total*100:0;return colors[i]+" "+start.toFixed(3)+"% "+arc.toFixed(3)+"%"});
-    get("swb-donut").style.background="conic-gradient("+segments.join(",")+")";
-    get("swb-donut").setAttribute("aria-label",categories.map(c=>names[c]+" "+euro(values.totals[c])).join(", "));
-    categories.forEach(c=>{get("swb-price-"+c).textContent=euro(values.prices[c]);get("swb-total-"+c).textContent=euro(values.totals[c]);});
-    const active=currentStyle();
-    btns.forEach(b=>{
-      b.classList.toggle("is-active",b.dataset.style===active);
-      b.setAttribute("aria-pressed",String(b.dataset.style===active));
-      const label=b.querySelector(".vcc-budget-mode-price strong");if(label)label.textContent="≈ "+euro(profileRate(b.dataset.style,state.region));
+    const total=cats.reduce((sum,c)=>sum+totals[c],0);
+    return {prices,totals,total};
+  }
+  function updateProfiles(){
+    for(const style of Object.keys(rates)){
+      const average=dayRate(style,state.zone);
+      const price=document.querySelector('[data-budget-rate="'+style+'"]');
+      if(price)price.textContent="≈ "+euro(average);
+      const panel=document.querySelector('[data-budget-panel="'+style+'"]');
+      if(!panel)continue;
+      const daily=panel.querySelector('[data-panel-daily]');
+      if(daily)daily.textContent="≈ "+euro(average);
+      const panelZone=panel.querySelector('[data-panel-zone]');
+      if(panelZone)panelZone.textContent=zones[state.zone].name;
+      panel.querySelectorAll("[data-panel-category]").forEach(node=>{
+        const category=node.dataset.panelCategory;
+        node.textContent=euro(round(style,category,state.zone));
+      });
+      panel.querySelectorAll("[data-panel-category-desc]").forEach(node=>{
+        const category=node.dataset.panelCategoryDesc;
+        const value=round(style,category,state.zone);
+        const explanation=category==="transporte"?zones[state.zone].transport:descriptions[category][style];
+        node.textContent=explanation+" · "+euro(value)+"/pax/"+(category==="alojamiento"?"noche":"día");
+      });
+      panel.querySelectorAll("[data-day-category-rate]").forEach(node=>{
+        const c=node.dataset.dayCategoryRate;
+        const value=round(style,c,state.zone);
+        node.dataset.totalGroupEuros=String(value);
+        node.textContent=euro(value);
+      });
+      panel.querySelectorAll("[data-day-category-desc]").forEach(node=>{
+        const c=node.dataset.dayCategoryDesc;
+        node.textContent=c==="transporte"?zones[state.zone].transport:descriptions[c][style];
+      });
+      const dayTotal=panel.querySelector(".vcc-day-price");
+      if(dayTotal){
+        dayTotal.dataset.totalGroupEuros=String(average);
+        dayTotal.textContent=euro(average)+" / pax";
+      }
+      const sub=panel.querySelector(".vcc-daily-heading-sub");
+      if(sub)sub.textContent="Día tipo en "+zones[state.zone].name;
+    }
+    const description=el("swb-overview-detail");
+    if(description)description.textContent=zones[state.zone].detail+" Una noche por día para comparar perfiles.";
+  }
+  function updateCalculator(){
+    const {prices,totals,total}=categoryTotals();
+    const daily=total/state.people/state.days;
+    let offset=0;
+    const arcs=cats.map((c,i)=>{
+      const start=offset;offset+=total?totals[c]/total*100:0;
+      return palette[i]+" "+start.toFixed(3)+"% "+offset.toFixed(3)+"%";
     });
-    document.querySelectorAll("[data-region-card]").forEach(card=>{
-      const region=card.dataset.regionCard;
-      card.classList.toggle("is-current",region===state.region);
-      const p=card.querySelector("[data-region-price]");if(p)p.textContent="≈ "+euro(selectedRate(region));
-      const st=card.querySelector("[data-region-style]");if(st)st.textContent=active?styles[active]:"personalizado";
-      const pick=card.querySelector("[data-pick-region]");if(pick)pick.setAttribute("aria-pressed",String(region===state.region));
-    });
-    get("swb-zone-current-style").textContent=active?"Estás viendo el perfil "+styles[active]:"Estás viendo tu selección personalizada";
-    document.querySelectorAll("[data-step]").forEach(b=>{
-      const key=b.dataset.step,delta=Number(b.dataset.delta);
+    const donut=document.querySelector(".calculator-section .donut");
+    if(donut)donut.style.background="conic-gradient("+arcs.join(",")+")";
+    for(const c of cats){
+      el("price-"+c).textContent=euro(prices[c]);
+      el("legend-"+c).textContent=euro(totals[c]);
+    }
+    el("days-output").textContent=state.days;
+    el("nights-output").textContent=state.nights;
+    el("people-output").textContent=state.people;
+    el("grand-total").textContent=euro(total);
+    el("donut-daily").textContent=daily.toLocaleString("es-ES",{maximumFractionDigits:2})+" €";
+    el("trip-total").textContent=state.people+" "+(state.people===1?"viajero":"viajeros")+" · "+state.days+" "+(state.days===1?"día":"días")+" · "+state.nights+" "+(state.nights===1?"noche":"noches");
+    document.querySelectorAll("[data-step]").forEach(button=>{
+      const key=button.dataset.step,delta=Number(button.dataset.delta);
       const min=key==="nights"?0:1,max=key==="people"?12:60;
-      b.disabled=delta<0?state[key]<=min:state[key]>=max;
+      button.disabled=delta<0?state[key]<=min:state[key]>=max;
     });
-    renderProfile();
   }
-  btns.forEach(b=>b.addEventListener("click",()=>{
-    const style=b.dataset.style;
-    const collapse=state.openProfile===style;
-    state.openProfile=collapse?null:style;
-    if(!baseline[style])return;
-    categories.forEach(c=>{state.choices[c]=style;get("swb-select-"+c).value=style;});
-    render();
-  }));
-  get("swb-profile-close").addEventListener("click",()=>{state.openProfile=null;render();const selected=btns.find(b=>b.getAttribute("aria-pressed")==="true");if(selected)selected.focus();});
-  selects.forEach(sel=>sel.addEventListener("change",()=>{
-    const c=sel.dataset.category;if(categories.includes(c)&&baseline[sel.value]){state.choices[c]=sel.value;state.openProfile=null;render();}
-  }));
-  for(const id of ["swb-region","swb-region-top"])get(id).addEventListener("change",e=>{
-    if(zones[e.target.value]){state.region=e.target.value;render();}
-  });
-  document.querySelectorAll("[data-pick-region]").forEach(b=>b.addEventListener("click",()=>{
-    if(!zones[b.dataset.pickRegion])return;
-    state.region=b.dataset.pickRegion;render();
-    const top=get("presupuesto-diario");if(top)top.scrollIntoView({behavior:"smooth",block:"start"});
-  }));
-  document.querySelectorAll("[data-step]").forEach(b=>b.addEventListener("click",()=>{
-    const key=b.dataset.step;if(!["days","nights","people"].includes(key))return;
-    const min=key==="nights"?0:1,max=key==="people"?12:60;
-    state[key]=Math.min(max,Math.max(min,state[key]+Number(b.dataset.delta)));render();
-  }));
-  get("swb-download").addEventListener("click",()=>{
-    const values=calculate();
-    const lines=[
-      ["PRESUPUESTO ORIENTATIVO DE SUECIA"],
-      ["Zona de referencia",zones[state.region].label],
-      ["Días",state.days],["Noches",state.nights],["Viajeros",state.people],
-      ["Categoría","Estilo","Precio unitario por persona (€)","Unidad","Total del grupo (€)"]
-    ];
-    categories.forEach(c=>lines.push([names[c],styles[state.choices[c]],values.prices[c],c==="alojamiento"?"noche":"día",values.totals[c]]));
-    lines.push(["TOTAL ESTIMADO","","","",values.total]);
-    lines.push(["Precios orientativos para planificación; no son medias oficiales ni tarifas de reserva."]);
-    lines.push(["Sin vuelos internacionales ni traslados de entrada/salida del país."]);
-    const csv=lines.map(row=>row.map(x=>'"'+String(x).replace(/"/g,'""')+'"').join(";")).join("\r\n");
-    const url=URL.createObjectURL(new Blob(["\uFEFF"+csv],{type:"text/csv;charset=utf-8"}));
-    const a=document.createElement("a");a.href=url;a.download="presupuesto-suecia-vcc.csv";document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1500);
-  });
-  // Controls de carrusel compartits: mai auto-scroll.
-  function connectCarousel(selector,buttonAttribute){
-    const track=document.querySelector(selector),buttons=[...document.querySelectorAll("["+buttonAttribute+"]")];
-    if(!track)return;
-    const sync=()=>{const max=Math.max(0,track.scrollWidth-track.clientWidth);buttons.forEach(button=>{const dir=Number(button.getAttribute(buttonAttribute));button.disabled=dir<0?track.scrollLeft<2:track.scrollLeft>max-2;});};
-    buttons.forEach(button=>button.addEventListener("click",()=>{const first=track.firstElementChild;const gap=parseFloat(getComputedStyle(track).columnGap)||10;const step=first?first.getBoundingClientRect().width+gap:track.clientWidth;track.scrollBy({left:step*Number(button.getAttribute(buttonAttribute)),behavior:"smooth"});}));
-    track.addEventListener("scroll",sync,{passive:true});window.addEventListener("resize",sync,{passive:true});sync();
+  function updateRegions(){
+    const selected=currentStyle();
+    const indicator=el("swb-zone-current-style");
+    if(indicator)indicator.textContent=selected?"Perfil "+names[selected]:"Perfil personalizado";
+    document.querySelectorAll("[data-region-card]").forEach(card=>{
+      const zone=card.dataset.regionCard;
+      card.classList.toggle("is-current",zone===state.zone);
+      const rateEl=card.querySelector("[data-zone-daily]");
+      const value=selected?dayRate(selected,zone):cats.reduce((sum,c)=>sum+round(state.choice[c],c,zone),0);
+      if(rateEl)rateEl.textContent="≈ "+value.toLocaleString("es-ES")+" €/pax/día";
+      const cta=card.querySelector("[data-choose-zone]");
+      if(cta)cta.setAttribute("aria-label","Usar zona "+zones[zone].name);
+    });
   }
-  connectCarousel(".swb-page .vcc-budget-mode-track","data-swb-style-scroll");
-  connectCarousel("#swb-savings-track","data-swb-saving-direction");
+  function render(){
+    el("swb-region").value=state.zone;
+    el("swb-region-top").value=state.zone;
+    updateProfiles();updateCalculator();updateRegions();
+  }
+  document.querySelectorAll("[data-budget-mode]").forEach(button=>{
+    button.addEventListener("click",()=>{
+      const style=button.dataset.budgetMode;
+      if(!rates[style])return;
+      cats.forEach(c=>{
+        state.choice[c]=style;
+        const select=document.querySelector('.calculator-card [data-category="'+c+'"]');
+        if(select)select.value=style;
+      });
+      render();
+    });
+  });
+  document.querySelectorAll(".calculator-card [data-category]").forEach(select=>{
+    select.addEventListener("change",()=>{
+      const category=select.dataset.category;
+      if(rates[select.value]&&cats.includes(category)){state.choice[category]=select.value;render();}
+    });
+  });
+  document.querySelectorAll("[data-step]").forEach(button=>{
+    button.addEventListener("click",()=>{
+      const key=button.dataset.step;
+      if(!["days","nights","people"].includes(key))return;
+      const min=key==="nights"?0:1,max=key==="people"?12:60;
+      state[key]=Math.max(min,Math.min(max,state[key]+Number(button.dataset.delta)));
+      render();
+    });
+  });
+  for(const id of ["swb-region","swb-region-top"]){
+    el(id).addEventListener("change",event=>{
+      if(zones[event.target.value]){state.zone=event.target.value;render();}
+    });
+  }
+  document.querySelectorAll("[data-choose-zone]").forEach(a=>{
+    a.addEventListener("click",()=>{
+      const z=a.dataset.chooseZone;if(zones[z]){state.zone=z;render();}
+    });
+  });
+  // Exact same non-autoplay arrows as in the Stockholm budget page.
+  document.querySelectorAll(".carousel-shell").forEach(carousel=>{
+    const track=carousel.querySelector(".tips-track");
+    const previous=carousel.querySelector(".prev"),next=carousel.querySelector(".next");
+    if(!track||!previous||!next)return;
+    const move=direction=>{
+      const item=track.firstElementChild;
+      if(!item)return;
+      const gap=parseFloat(getComputedStyle(track).gap)||0;
+      track.scrollBy({left:direction*(item.getBoundingClientRect().width+gap),behavior:"smooth"});
+    };
+    previous.addEventListener("click",()=>move(-1));
+    next.addEventListener("click",()=>move(1));
+  });
   render();
 })();
