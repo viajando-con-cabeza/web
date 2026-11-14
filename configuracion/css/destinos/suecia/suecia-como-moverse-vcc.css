@@ -17,61 +17,69 @@
 .swmove-page .swmove-intro-summary>div{min-width:0}
 .swmove-page .swmove-intro-summary strong{display:block;margin:0 0 3px;color:#99583f;font:600 17px/1.2 var(--vcc-font-heading,"Oswald",sans-serif)}
 .swmove-page .swmove-intro-summary p{margin:0;color:#5b5751;font:400 12px/1.55 var(--vcc-font-body,"DM Sans",Arial,sans-serif)}
-/* Compact decision tiles: Lucide happy/sad faces, the same VCC visual system. */
+
+/* Opción 1: dos decisiones y consejo VCC en formato compartido con Estocolmo */
 .swmove-page .swmove-choice-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:0 0 12px}
-.swmove-page .swmove-choice{min-width:0;background:#fff;border:1px solid #e3d8cf;border-radius:13px;padding:13px 16px}
-.swmove-page .swmove-choice-head{display:flex;align-items:center;gap:10px;margin:0 0 9px}
-.swmove-page .swmove-choice-icon{display:grid;place-items:center;flex:0 0 40px;width:40px;height:40px;border:1px solid #edc8af;border-radius:50%;background:#fff7f0;color:#df732b}
-.swmove-page .swmove-choice--no .swmove-choice-icon{background:#fff2ed;border-color:#efc4b8;color:#cb6550}
-.swmove-page .swmove-choice-icon svg{display:block;width:26px;height:26px}
+.swmove-page .swmove-choice{min-width:0;background:linear-gradient(150deg,#fff,#f8fbf6);border:1px solid #c9ddc2;border-radius:13px;padding:14px 16px}
+.swmove-page .swmove-choice--no{background:linear-gradient(150deg,#fff,#fff6f3);border-color:#edc5bb}
+.swmove-page .swmove-choice-head{display:flex;align-items:center;gap:10px;margin:0 0 10px;padding-bottom:7px;border-bottom:1px solid #e1e9dc}
+.swmove-page .swmove-choice--no .swmove-choice-head{border-bottom-color:#f0dfd9}
+.swmove-page .swmove-choice-icon{display:grid;place-items:center;flex:0 0 40px;width:40px;height:40px;border:0;border-radius:50%;background:transparent;color:#32842b}
+.swmove-page .swmove-choice--no .swmove-choice-icon{color:#d95441}
+.swmove-page .swmove-choice-icon svg{display:block;width:34px;height:34px}
 .swmove-page .swmove-choice-head>div{min-width:0}
 .swmove-page .swmove-choice h3{font:600 21px/1.16 var(--vcc-font-heading,"Oswald",sans-serif);margin:0;color:#252a28}
-.swmove-page .swmove-choice-head p{font:500 10.5px/1.35 var(--vcc-font-body,"DM Sans",Arial,sans-serif);color:#9b644d;margin:3px 0 0}
-.swmove-page .swmove-choice ul{list-style:none;padding:0;margin:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:13px;row-gap:7px}
-.swmove-page .swmove-choice li{display:grid;grid-template-columns:14px minmax(0,1fr);gap:6px;align-items:start;color:#4d504c;font:500 11px/1.45 var(--vcc-font-body,"DM Sans",Arial,sans-serif)}
+.swmove-page .swmove-choice-head p{font:500 10.5px/1.35 var(--vcc-font-body,"DM Sans",Arial,sans-serif);color:#74695d;margin:3px 0 0}
+.swmove-page .swmove-choice ul{list-style:none;padding:0;margin:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px 14px}
+.swmove-page .swmove-choice li{display:grid;grid-template-columns:14px minmax(0,1fr);gap:7px;align-items:start;color:#4d504c;font:500 11px/1.5 var(--vcc-font-body,"DM Sans",Arial,sans-serif)}
 .swmove-page .swmove-choice-tick{display:grid;place-items:center;width:14px;height:15px;color:#278a4c;font:800 14px/1 var(--vcc-font-body,"DM Sans",Arial,sans-serif)}
-.swmove-page .swmove-choice--no .swmove-choice-tick{color:#c16e58}
-/* Consejo VCC: reuse Stockholm's real mv-day-advice / seal / brand component. */
+.swmove-page .swmove-choice--no .swmove-choice-tick{color:#d95441}
+/* Reutilitza el component real de Consejo VCC d'Estocolm */
 .swmove-page .swmove-vcc-advice{margin:0 0 14px;border-radius:13px;background:rgba(239,117,45,.065);min-width:0}
-.swmove-page .swmove-vcc-advice .mv-day-advice-content{padding:11px 15px;gap:9px}
-.swmove-page .swmove-vcc-advice .mv-day-advice-intro{grid-template-columns:70px minmax(0,1fr);gap:11px}
-.swmove-page .swmove-vcc-advice .mv-day-advice-text>strong{font-size:21px;margin-bottom:3px}
-.swmove-page .swmove-vcc-advice .mv-day-advice-text>p{font-size:11.5px;line-height:1.45}
-.swmove-page .swmove-vcc-advice-facts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;border-top:1px solid #eaddd1;padding-top:9px}
+.swmove-page .swmove-vcc-advice .mv-day-advice-content{padding:12px 15px;gap:9px}
+.swmove-page .swmove-vcc-advice .mv-day-advice-intro{grid-template-columns:70px minmax(0,1fr);gap:12px}
+.swmove-page .swmove-vcc-advice .mv-day-advice-text>strong{font-size:21px;margin-bottom:4px}
+.swmove-page .swmove-vcc-advice .mv-day-advice-text>p{font-size:11.5px;line-height:1.5}
+.swmove-page .swmove-vcc-advice-facts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;border-top:1px solid #eaddd1;padding-top:9px}
 .swmove-page .swmove-vcc-advice-facts span{display:block;color:#53534c;font:500 11px/1.45 var(--vcc-font-body,"DM Sans",Arial,sans-serif);min-width:0}
 .swmove-page .swmove-vcc-advice-facts strong{color:#ab5b39;font:700 11px/1.4 var(--vcc-font-heading,"Oswald",sans-serif);margin-right:4px}
-/* Calculator: short 3×2 inputs, clear cost comparison and one VCC verdict. */
-.swmove-page .swmove-calculator{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(270px,.75fr);min-width:0;overflow:hidden;background:#fff;border:1px solid #e2d6cc;border-radius:13px}
-.swmove-page .swmove-calc-fields{min-width:0;padding:13px 15px 15px}
-.swmove-page .swmove-calc-heading{display:flex;align-items:center;gap:9px;margin:0 0 10px}
-.swmove-page .swmove-calc-heading-icon{flex:0 0 33px;display:grid;place-items:center;width:33px;height:33px;border-radius:9px;background:#f8ede5;color:#ad5b3b}
-.swmove-page .swmove-calc-heading-icon svg{width:19px;height:19px}
-.swmove-page .swmove-calc-title{font:600 19px/1.14 var(--vcc-font-heading,"Oswald",sans-serif);color:#252825;margin:0}
-.swmove-page .swmove-calc-heading p{font:400 10px/1.42 var(--vcc-font-body,"DM Sans",Arial,sans-serif);color:#746d66;margin:2px 0 0}
-.swmove-page .swmove-fields{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));column-gap:9px;row-gap:8px}
+/* Calculadora única: dos filas de inputs + tres resums amb estalvi verd dinàmic */
+.swmove-page .swmove-calculator{display:flex;flex-direction:column;min-width:0;overflow:hidden;background:#fff;border:1px solid #e2d6cc;border-radius:13px}
+.swmove-page .swmove-calc-fields{min-width:0;padding:13px 16px 11px}
+.swmove-page .swmove-calc-heading{display:flex;align-items:center;gap:9px;margin:0 0 11px}
+.swmove-page .swmove-calc-heading-icon{flex:0 0 34px;display:grid;place-items:center;width:34px;height:34px;border-radius:8px;background:#fff1e6;color:#df6d20}
+.swmove-page .swmove-calc-heading-icon svg{width:21px;height:21px}
+.swmove-page .swmove-calc-title{font:600 21px/1.15 var(--vcc-font-heading,"Oswald",sans-serif);color:#252825;margin:0}
+.swmove-page .swmove-calc-heading p{font:400 10.5px/1.45 var(--vcc-font-body,"DM Sans",Arial,sans-serif);color:#746d66;margin:2px 0 0}
+.swmove-page .swmove-fields{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));column-gap:11px;row-gap:9px}
 .swmove-page .swmove-field{display:flex;flex-direction:column;gap:4px;min-width:0}
-.swmove-page .swmove-field-label{display:flex;align-items:center;gap:5px;min-width:0;color:#605953;font:700 10px/1.3 var(--vcc-font-body,"DM Sans",Arial,sans-serif)}
-.swmove-page .swmove-field-label svg{display:block;flex:0 0 15px;width:15px;height:15px;color:#ad654c}
+.swmove-page .swmove-field-label{display:flex;align-items:center;gap:6px;min-width:0;color:#605953;font:700 10.5px/1.3 var(--vcc-font-body,"DM Sans",Arial,sans-serif)}
+.swmove-page .swmove-field-label svg{display:block;flex:0 0 17px;width:17px;height:17px;color:#e66b25}
 .swmove-page .swmove-field-label span{min-width:0}
-.swmove-page .swmove-field input{box-sizing:border-box;display:block;width:100%;min-width:0;height:33px;padding:5px 9px;background:#fff;border:1px solid #ded6cf;border-radius:7px;color:#262a28;font:600 12px/1.2 var(--vcc-font-body,"DM Sans",Arial,sans-serif);font-variant-numeric:tabular-nums}
+.swmove-page .swmove-field input{box-sizing:border-box;display:block;width:100%;min-width:0;height:35px;padding:5px 10px;background:#fff;border:1px solid #ded6cf;border-radius:8px;color:#262a28;font:600 13px/1.3 var(--vcc-font-body,"DM Sans",Arial,sans-serif);font-variant-numeric:tabular-nums}
 .swmove-page .swmove-field input::placeholder{color:#b2a9a0;font-weight:400}
 .swmove-page .swmove-field input:focus-visible,.swmove-page .swmove-calc-reset:focus-visible{outline:2px solid #b45e44;outline-offset:2px}
-.swmove-page .swmove-calc-result{min-width:0;background:#f8f4f0;border-left:1px solid #e9ddd4;padding:12px 13px;display:flex;flex-direction:column;justify-content:center;gap:8px}
-.swmove-page .swmove-result-overline{font:800 9.5px/1.25 var(--vcc-font-body,"DM Sans",Arial,sans-serif);letter-spacing:.075em;text-transform:uppercase;color:#a35e46}
-.swmove-page .swmove-costs{display:grid;gap:6px}
-.swmove-page .swmove-cost-row{display:flex;align-items:center;gap:7px;min-width:0;padding:7px 8px;border:1px solid #e8ded6;border-radius:8px;background:rgba(255,255,255,.87)}
-.swmove-page .swmove-cost-icon{flex:0 0 27px;width:27px;height:27px;display:grid;place-items:center;border-radius:7px;background:#f5e9df;color:#a86146}
+.swmove-page .swmove-calc-result{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(125px,.48fr) minmax(145px,.52fr);gap:9px;align-items:center;min-width:0;background:#fffaf6;border-top:1px solid #efe3d9;padding:10px 16px}
+.swmove-page .swmove-costs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;min-width:0}
+.swmove-page .swmove-cost-row{display:flex;align-items:center;gap:8px;min-width:0;background:#fff;border:1px solid #e8ded6;border-radius:8px;padding:7px 8px}
+.swmove-page .swmove-cost-icon{flex:0 0 26px;width:26px;height:26px;display:grid;place-items:center;border-radius:7px;background:#f5e9df;color:#b35d3d}
 .swmove-page .swmove-cost-icon svg{width:17px;height:17px}
-.swmove-page .swmove-cost-row>div{min-width:0;display:flex;flex:1;align-items:center;justify-content:space-between;gap:9px}
-.swmove-page .swmove-cost-row small{font:600 10px/1.35 var(--vcc-font-body,"DM Sans",Arial,sans-serif);color:#6f645e}
-.swmove-page .swmove-cost-row strong{font:600 21px/1 var(--vcc-font-heading,"Oswald",sans-serif);color:#302f2c;font-variant-numeric:tabular-nums;white-space:nowrap}
-.swmove-page .swmove-verdict-box{display:flex;align-items:center;gap:8px;padding:8px 9px;background:#fff;border:1px solid #e1cec0;border-radius:8px;min-width:0}
-.swmove-page .swmove-verdict-box>img{flex:0 0 27px;width:27px;height:27px;object-fit:contain}
+.swmove-page .swmove-cost-row>div{display:flex;flex-direction:column;gap:2px;min-width:0}
+.swmove-page .swmove-cost-row small{font:600 10px/1.3 var(--vcc-font-body,"DM Sans",Arial,sans-serif);color:#6f645e}
+.swmove-page .swmove-cost-row strong{font:600 23px/1.08 var(--vcc-font-heading,"Oswald",sans-serif);color:#302f2c;font-variant-numeric:tabular-nums;white-space:nowrap}
+.swmove-page .swmove-cost-row:nth-child(2) strong{color:#d65d2d}
+.swmove-page .swmove-saving-box{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;min-height:77px;padding:7px 9px;border-radius:10px;background:#e9f6d5;border:1px solid #daedc2;color:#247b18;text-align:center}
+.swmove-page .swmove-saving-box>span{font:800 10px/1.3 var(--vcc-font-body,"DM Sans",Arial,sans-serif)}
+.swmove-page .swmove-saving-box>strong{font:700 30px/1.05 var(--vcc-font-heading,"Oswald",sans-serif);white-space:nowrap;font-variant-numeric:tabular-nums}
+.swmove-page .swmove-saving-box>small{font:700 10px/1.3 var(--vcc-font-body,"DM Sans",Arial,sans-serif)}
+.swmove-page .swmove-saving-box[data-savings="pending"],.swmove-page .swmove-saving-box[data-savings="neutral"]{background:#f0f1ee;border-color:#e1e5dd;color:#6e756c}
+.swmove-page .swmove-verdict-box{display:flex;align-items:center;gap:9px;min-height:77px;padding:8px 10px;border:1px solid #d9e9c8;background:#f2f8e7;border-radius:10px;min-width:0}
+.swmove-page .swmove-verdict-box>img{flex:0 0 30px;width:30px;height:30px;object-fit:contain}
 .swmove-page .swmove-verdict-box>div{min-width:0}
-.swmove-page .swmove-verdict-box span{display:block;margin:0 0 2px;font:800 9px/1.25 var(--vcc-font-body,"DM Sans",Arial,sans-serif);color:#9f5c44;letter-spacing:.04em}
-.swmove-page .swmove-calc-verdict{display:block;font:700 11px/1.35 var(--vcc-font-body,"DM Sans",Arial,sans-serif);color:#3d403a}
-.swmove-page .swmove-calc-explain{font:400 9.5px/1.38 var(--vcc-font-body,"DM Sans",Arial,sans-serif);color:#847a70;margin:0}
-.swmove-page .swmove-calc-reset{display:inline-flex;align-self:flex-end;padding:0;border:0;background:transparent;color:#9d5b41;text-decoration:underline;text-underline-offset:3px;font:700 10px/1.25 var(--vcc-font-body,"DM Sans",Arial,sans-serif);cursor:pointer}
+.swmove-page .swmove-verdict-box span{display:block;margin:0 0 4px;font:800 9px/1.35 var(--vcc-font-body,"DM Sans",Arial,sans-serif);color:#576e43}
+.swmove-page .swmove-calc-verdict{display:block;font:600 22px/1.12 var(--vcc-font-heading,"Oswald",sans-serif);color:#2d5d20}
+.swmove-page .swmove-calc-explain{grid-column:1 / 3;color:#827970;font:400 9.5px/1.3 var(--vcc-font-body,"DM Sans",Arial,sans-serif);margin:0}
+.swmove-page .swmove-calc-reset{grid-column:3;justify-self:end;align-self:center;padding:0;border:0;background:transparent;color:#9d5b41;text-decoration:underline;text-underline-offset:3px;font:700 10px/1.25 var(--vcc-font-body,"DM Sans",Arial,sans-serif);cursor:pointer}
 /* Shared savings carousel */
 .swmove-page .swmove-tips-title{font:500 23px/1.2 var(--vcc-font-heading,"Oswald",sans-serif);color:#272725;margin:0 0 14px}
 .swmove-page .swmove-tips{margin-top:0}
@@ -81,14 +89,13 @@
 .swmove-page .swmove-sources a{color:#806151;text-decoration:underline;text-underline-offset:2px}
 @media(max-width:1120px){
  .swmove-page .swmove-choice ul{grid-template-columns:1fr}
- .swmove-page .swmove-fields{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .swmove-page .swmove-calc-result{grid-template-columns:minmax(0,1fr) minmax(115px,.43fr) minmax(145px,.51fr)}
 }
 @media(max-width:830px){
- .swmove-page .swmove-calculator{grid-template-columns:1fr}
- .swmove-page .swmove-calc-result{border-left:0;border-top:1px solid #e9ddd4}
- .swmove-page .swmove-costs{grid-template-columns:repeat(2,minmax(0,1fr))}
- .swmove-page .swmove-cost-row>div{flex-direction:column;align-items:flex-start;gap:3px}
- .swmove-page .swmove-fields{grid-template-columns:repeat(3,minmax(0,1fr))}
+ .swmove-page .swmove-calc-result{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .swmove-page .swmove-costs{grid-column:1/-1}
+ .swmove-page .swmove-calc-explain{grid-column:1}
+ .swmove-page .swmove-calc-reset{grid-column:2}
 }
 @media(max-width:740px){
  .swmove-page .swmove-section{padding-top:42px;scroll-margin-top:125px}
@@ -97,22 +104,21 @@
 }
 @media(max-width:590px){
  .swmove-page .swmove-choice-grid{grid-template-columns:1fr;gap:9px}
- .swmove-page .swmove-choice{padding:11px 13px}
+ .swmove-page .swmove-choice{padding:12px 13px}
  .swmove-page .swmove-choice ul{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px 9px}
  .swmove-page .swmove-vcc-advice .mv-day-advice-content{padding:10px 12px}
  .swmove-page .swmove-vcc-advice-facts{grid-template-columns:1fr;gap:4px}
  .swmove-page .swmove-fields{grid-template-columns:repeat(2,minmax(0,1fr))}
- .swmove-page .swmove-calc-fields,.swmove-page .swmove-calc-result{padding:12px}
+ .swmove-page .swmove-calc-fields,.swmove-page .swmove-calc-result{padding:11px 12px}
  .swmove-page .swmove-field input{height:42px}
- .swmove-page .swmove-calc-heading{margin-bottom:9px}
- .swmove-page .swmove-calc-title{font-size:18px}
+ .swmove-page .swmove-calc-title{font-size:19px}
  .swmove-page .swmove-calc-result{gap:8px}
- .swmove-page .swmove-cost-row>div{flex-direction:column;align-items:flex-start}
+ .swmove-page .swmove-saving-box,.swmove-page .swmove-verdict-box{min-height:78px}
 }
 @media(max-width:380px){
  .swmove-page .swmove-choice ul{grid-template-columns:1fr}
- .swmove-page .swmove-costs{grid-template-columns:1fr}
- .swmove-page .swmove-cost-row>div{flex-direction:row;align-items:center}
- .swmove-page .swmove-field-label{font-size:9.3px}
+ .swmove-page .swmove-field-label{font-size:9.5px}
+ .swmove-page .swmove-saving-box>strong{font-size:26px}
+ .swmove-page .swmove-calc-verdict{font-size:19px}
 }
 @media(prefers-reduced-motion:reduce){.swmove-page .mv-grid{scroll-behavior:auto}}
