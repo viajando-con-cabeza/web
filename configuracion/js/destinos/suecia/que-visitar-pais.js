@@ -54,11 +54,11 @@
         ' alt="'+esc("Paisaje de "+title+", Suecia")+'" width="640" height="380" loading="lazy" decoding="async">'+
         scoreMarkup(item,type,live)+'</span>'+
         '<div class="di-mini-body">'+
-        '<span class="vcc-card-kicker"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="/configuracion/imagenes/iconos/paginas/itinerarios-iconos.svg#it-'+icon+'"></use></svg>'+esc(category)+'</span>'+
-        '<strong class="vcc-it-title">'+esc(title)+'</strong>'+
+        '<span class="vcc-card-kicker"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="/configuracion/imagenes/iconos/paginas/categorias-vcc.svg#'+icon+'"></use></svg>'+esc(category)+'</span>'+
+        '(live?'<a class="vcc-it-title" href="'+esc(href)+'">'+esc(title)+'</a>':'<strong class="vcc-it-title">'+esc(title)+'</strong>')'+
         '<span class="di-guide-info vcc-it-facts">'+
-        '<span class="di-country-line"><img class="vcc-it-country-flag" src="/configuracion/imagenes/banderas/suecia.svg" alt="" width="20" height="13">Suecia</span>'+
-        '<span class="vcc-visit-kind">'+(type==="principal"?"Guía completa":"Qué ver y hacer")+'</span></span>'+
+        '<span class="di-country-line"><span class="di-vcc-flags" aria-hidden="true"><svg class="vcc-it-country-flag" viewBox="0 0 32 20"><use href="/configuracion/imagenes/iconos/paginas/itinerarios-iconos.svg#it-flag-se"></use></svg></span><span>Suecia</span></span>'+
+        '<span class="vcc-guide-kind"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="/configuracion/imagenes/iconos/paginas/categorias-vcc.svg#'+(type==="principal"?"guide-main":"guide-see")+'"></use></svg><span>'+(type==="principal"?"Guía principal":"Qué ver")+'</span></span></span>'+
         '<p class="di-mini-desc">'+esc(item.text||"Descubre esta parte de Suecia.")+'</p>'+
         (live?
           '<a class="vcc-it-cta" href="'+esc(href)+'" aria-label="Ver '+(type==="principal"?"guía completa de ":"qué ver en ")+esc(title)+'">VER GUÍA</a>':
