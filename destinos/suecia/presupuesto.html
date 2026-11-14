@@ -60,49 +60,26 @@
 </section>
 
 <section id="calculadora" class="swb-section" aria-labelledby="swb-calc-title">
-      <header class="swb-heading">
-        <div><p class="swb-overline">UN VIAJE A TU MEDIDA</p><h2 id="swb-calc-title">CALCULA TU PRESUPUESTO</h2></div>
-        <p>Combina alojamiento, comida, transporte, actividades y extras con la zona que quieras. Total y desglose al instante.</p>
-      </header>
-      <div class="swb-calculator-grid">
-        <section class="swb-calculator-card" aria-label="Configuración de presupuesto">
-          <div class="swb-calculator-intro"><div><span class="swb-overline">PERSONALIZA TU VIAJE</span><h3>Diseña tu ruta por Suecia</h3></div><p>Compara una zona y mezcla estilos por categoría.</p></div>
-          <div class="swb-steppers">
-            <div class="swb-field"><span>DÍAS</span><div class="swb-stepper"><button type="button" data-step="days" data-delta="-1" aria-label="Reducir días">−</button><output id="swb-days">7</output><button type="button" data-step="days" data-delta="1" aria-label="Aumentar días">+</button></div></div>
-            <div class="swb-field"><span>NOCHES</span><div class="swb-stepper"><button type="button" data-step="nights" data-delta="-1" aria-label="Reducir noches">−</button><output id="swb-nights">7</output><button type="button" data-step="nights" data-delta="1" aria-label="Aumentar noches">+</button></div></div>
-            <div class="swb-field"><span>VIAJEROS</span><div class="swb-stepper"><button type="button" data-step="people" data-delta="-1" aria-label="Reducir viajeros">−</button><output id="swb-people">2</output><button type="button" data-step="people" data-delta="1" aria-label="Aumentar viajeros">+</button></div></div>
-          </div>
-          <div class="swb-region-field"><label for="swb-region">ZONA DE REFERENCIA</label><select id="swb-region"><option value="centrosur" selected>Centro-sur · ruta mixta</option><option value="stockholm">Estocolmo · capital</option><option value="goteborg">Gotemburgo · ciudad</option><option value="oeste">Costa Oeste · islas</option><option value="dalarna">Dalarna · interior</option><option value="norte">Norte / Laponia · grandes distancias</option></select></div>
-          <div class="swb-categories" aria-label="Tipo de gasto por categoría">
-            <div class="swb-category"><label for="swb-select-alojamiento">🛏 <strong>Alojamiento</strong></label><select id="swb-select-alojamiento" data-category="alojamiento"><option value="mochilero">Mochilero</option><option value="vcc" selected>VCC</option><option value="medio">Medio</option><option value="lujo">Lujo</option></select><div class="swb-category-price"><strong id="swb-price-alojamiento">36 €</strong><small>persona / noche</small></div></div>
-            <div class="swb-category"><label for="swb-select-comida">🍴 <strong>Comida</strong></label><select id="swb-select-comida" data-category="comida"><option value="mochilero">Mochilero</option><option value="vcc" selected>VCC</option><option value="medio">Medio</option><option value="lujo">Lujo</option></select><div class="swb-category-price"><strong id="swb-price-comida">27 €</strong><small>persona / día</small></div></div>
-            <div class="swb-category"><label for="swb-select-transporte">🚆 <strong>Transporte</strong></label><select id="swb-select-transporte" data-category="transporte"><option value="mochilero">Mochilero</option><option value="vcc" selected>VCC</option><option value="medio">Medio</option><option value="lujo">Lujo</option></select><div class="swb-category-price"><strong id="swb-price-transporte">20 €</strong><small>persona / día</small></div></div>
-            <div class="swb-category"><label for="swb-select-actividades">✧ <strong>Actividades</strong></label><select id="swb-select-actividades" data-category="actividades"><option value="mochilero">Mochilero</option><option value="vcc" selected>VCC</option><option value="medio">Medio</option><option value="lujo">Lujo</option></select><div class="swb-category-price"><strong id="swb-price-actividades">14 €</strong><small>persona / día</small></div></div>
-            <div class="swb-category"><label for="swb-select-extras">✦ <strong>Extras</strong></label><select id="swb-select-extras" data-category="extras"><option value="mochilero">Mochilero</option><option value="vcc" selected>VCC</option><option value="medio">Medio</option><option value="lujo">Lujo</option></select><div class="swb-category-price"><strong id="swb-price-extras">9 €</strong><small>persona / día</small></div></div>
-          </div>
-        </section>
-        <aside class="swb-result-card" aria-label="Resultado del presupuesto">
-          <div class="swb-result-overline">TU PRESUPUESTO ESTIMADO</div>
-          <strong class="swb-grand-total" id="swb-grand-total" aria-live="polite">1.484 €</strong>
-          <span class="swb-result-meta" id="swb-result-meta">2 personas · 7 días · 7 noches</span>
-          <span class="swb-result-average" id="swb-result-average">106 € / persona / día</span>
-          <div class="swb-donut-wrap"><div class="swb-donut" id="swb-donut" role="img" aria-label="Distribución estimada del presupuesto"><div><strong id="swb-donut-pct">106 €</strong><small>pax / día</small></div></div></div>
-          <h3>Distribución del gasto</h3>
-          <div class="swb-legend">
-            <div><i style="--swb-dot:#ca765c"></i><span>Alojamiento</span><strong id="swb-total-alojamiento">504 €</strong></div>
-            <div><i style="--swb-dot:#e6a35a"></i><span>Comida</span><strong id="swb-total-comida">378 €</strong></div>
-            <div><i style="--swb-dot:#6ca09b"></i><span>Transporte</span><strong id="swb-total-transporte">280 €</strong></div>
-            <div><i style="--swb-dot:#769a70"></i><span>Actividades</span><strong id="swb-total-actividades">196 €</strong></div>
-            <div><i style="--swb-dot:#b79d87"></i><span>Extras</span><strong id="swb-total-extras">126 €</strong></div>
-          </div>
-          <p class="swb-result-disclaimer">Promedio orientativo, no reserva ni media oficial. Alojamiento por noche; los demás importes por día. Sin vuelos internacionales ni traslados de entrada o salida.</p>
-          <button type="button" id="swb-download" class="swb-export">Guardar en Excel (CSV) <span aria-hidden="true">↧</span></button>
-        </aside>
-      </div>
-    </section>
+<header class="swb-heading vcc-editorial-heading"><div class="vcc-editorial-heading-main"><p class="vcc-editorial-overline swb-overline">UN VIAJE A TU MEDIDA</p><h2 class="vcc-editorial-title" id="swb-calc-title">CALCULA TU PRESUPUESTO</h2></div><p class="vcc-editorial-description">Calculadora igual que en Estocolmo, con un selector adicional para adaptar el coste a cada zona.</p></header>
+<div class="calculator-grid">
+<section class="breakdown-card"><div class="breakdown-head"><div><span class="vcc-budget-mini">TU GASTO DE UN VISTAZO</span><h3>Gasto estimado de tu viaje</h3></div><span class="daily-label">según tu selección</span></div><div class="chart-layout"><div class="donut" id="swb-donut" role="img" aria-label="Distribución estimada del gasto"><div class="donut-inner"><span class="vcc-donut-symbol" aria-hidden="true">✦</span><strong id="swb-donut-pct">106 €</strong><small>por persona y día</small></div></div><div class="legend"><div class="legend-row"><i style="--dot:#ca765c"></i><span>Alojamiento</span><strong id="swb-total-alojamiento">504 €</strong></div>
+<div class="legend-row"><i style="--dot:#e6a35a"></i><span>Comida</span><strong id="swb-total-comida">378 €</strong></div>
+<div class="legend-row"><i style="--dot:#6ca09b"></i><span>Transporte</span><strong id="swb-total-transporte">280 €</strong></div>
+<div class="legend-row"><i style="--dot:#769a70"></i><span>Actividades</span><strong id="swb-total-actividades">196 €</strong></div>
+<div class="legend-row"><i style="--dot:#b79d87"></i><span>Extras</span><strong id="swb-total-extras">126 €</strong></div></div></div><p class="swb-result-disclaimer">El resultado depende de la zona, el perfil y los días/noches que selecciones. No son tarifas reales de reserva.</p></section>
+<section class="calculator-card"><div class="calc-ticket-head"><h3>Diseña tu ruta</h3><p>Elige cómo viajas y ajusta las cifras al instante.</p></div><div class="calc-top"><div class="calc-control"><span><span class="vcc-ctrl-icon" aria-hidden="true">▦</span> DÍAS</span><div class="stepper"><button type="button" data-step="days" data-delta="-1" aria-label="Reducir días">−</button><output id="swb-days">7</output><button type="button" data-step="days" data-delta="1" aria-label="Aumentar días">+</button></div></div>
+<div class="calc-control"><span><span class="vcc-ctrl-icon" aria-hidden="true">☾</span> NOCHES</span><div class="stepper"><button type="button" data-step="nights" data-delta="-1" aria-label="Reducir noches">−</button><output id="swb-nights">7</output><button type="button" data-step="nights" data-delta="1" aria-label="Aumentar noches">+</button></div></div>
+<div class="calc-control"><span><span class="vcc-ctrl-icon" aria-hidden="true">♙</span> VIAJEROS</span><div class="stepper"><button type="button" data-step="people" data-delta="-1" aria-label="Reducir viajeros">−</button><output id="swb-people">2</output><button type="button" data-step="people" data-delta="1" aria-label="Aumentar viajeros">+</button></div></div></div>
+<div class="swb-region-field"><label for="swb-region">ZONA DE REFERENCIA</label><select id="swb-region"><option value="centrosur" selected>Centro-sur · ruta mixta</option><option value="stockholm">Estocolmo · capital</option><option value="goteborg">Gotemburgo · ciudad</option><option value="oeste">Costa Oeste · islas</option><option value="dalarna">Dalarna · interior</option><option value="norte">Norte / Laponia · grandes distancias</option></select></div>
+<div class="category-row"><span class="vcc-category-name"><span class="vcc-category-icon" aria-hidden="true">🛏</span>Alojamiento</span><select id="swb-select-alojamiento" aria-label="Perfil para Alojamiento" data-category="alojamiento"><option value="mochilero">Mochilero</option><option value="vcc" selected>VCC</option><option value="medio">Medio</option><option value="lujo">Lujo</option></select><span class="vcc-price-block"><strong class="vcc-budget-price" id="swb-price-alojamiento">36 €</strong><small>persona / noche</small></span></div>
+<div class="category-row"><span class="vcc-category-name"><span class="vcc-category-icon" aria-hidden="true">♨</span>Comida</span><select id="swb-select-comida" aria-label="Perfil para Comida" data-category="comida"><option value="mochilero">Mochilero</option><option value="vcc" selected>VCC</option><option value="medio">Medio</option><option value="lujo">Lujo</option></select><span class="vcc-price-block"><strong class="vcc-budget-price" id="swb-price-comida">27 €</strong><small>persona / día</small></span></div>
+<div class="category-row"><span class="vcc-category-name"><span class="vcc-category-icon" aria-hidden="true">▤</span>Transporte</span><select id="swb-select-transporte" aria-label="Perfil para Transporte" data-category="transporte"><option value="mochilero">Mochilero</option><option value="vcc" selected>VCC</option><option value="medio">Medio</option><option value="lujo">Lujo</option></select><span class="vcc-price-block"><strong class="vcc-budget-price" id="swb-price-transporte">20 €</strong><small>persona / día</small></span></div>
+<div class="category-row"><span class="vcc-category-name"><span class="vcc-category-icon" aria-hidden="true">✧</span>Actividades</span><select id="swb-select-actividades" aria-label="Perfil para Actividades" data-category="actividades"><option value="mochilero">Mochilero</option><option value="vcc" selected>VCC</option><option value="medio">Medio</option><option value="lujo">Lujo</option></select><span class="vcc-price-block"><strong class="vcc-budget-price" id="swb-price-actividades">14 €</strong><small>persona / día</small></span></div>
+<div class="category-row"><span class="vcc-category-name"><span class="vcc-category-icon" aria-hidden="true">✦</span>Extras</span><select id="swb-select-extras" aria-label="Perfil para Extras" data-category="extras"><option value="mochilero">Mochilero</option><option value="vcc" selected>VCC</option><option value="medio">Medio</option><option value="lujo">Lujo</option></select><span class="vcc-price-block"><strong class="vcc-budget-price" id="swb-price-extras">9 €</strong><small>persona / día</small></span></div>
+<div class="calc-total"><span class="vcc-total-title">TOTAL ESTIMADO DEL VIAJE</span><small class="vcc-total-meta" id="swb-result-meta">2 personas · 7 días · 7 noches</small><strong id="swb-grand-total" aria-live="polite">1.484 €</strong></div>
+<div class="swb-calculator-bottom"><span id="swb-result-average">106 € / persona / día</span><button class="swb-export" id="swb-download" type="button">GUARDAR CSV ↧</button></div></section></div></section>
 
-
-    <section id="zonas" class="swb-section" aria-labelledby="swb-regions-title">
+<section id="zonas" class="swb-section" aria-labelledby="swb-regions-title">
       <header class="swb-heading">
         <div><p class="swb-overline">EL PRECIO CAMBIA SEGÚN EL DESTINO</p><h2 id="swb-regions-title">PRECIOS POR ZONAS DE SUECIA</h2></div>
         <p><strong>Compara el mismo estilo en cada región.</strong> Las cifras se recalculan según el perfil o la combinación de categorías de la calculadora.</p>
