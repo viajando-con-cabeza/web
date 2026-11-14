@@ -28,6 +28,11 @@ body.dv-country-types #barrios .dv-carousel > .dv-card{
   min-height:298px;
   cursor:default;
 }
+/* El espacio sobrante no debe estirar las filas de pros/contras.
+   Así conserva la misma separación entre líneas que Estocolmo. */
+body.dv-country-types #barrios .dv-pros{
+  align-content:start;
+}
 body.dv-country-types #barrios .dv-card-bottom{
   display:flex;
   align-items:center;
