@@ -49,18 +49,7 @@
 .swmove-page .swmove-calc-verdict{font:700 13px/1.5 var(--vcc-font-body,"DM Sans",Arial,sans-serif);color:#a2583c}
 .swmove-page .swmove-calc-explain{font:400 10.5px/1.55 var(--vcc-font-body,"DM Sans",Arial,sans-serif);color:#786e68;margin:0}
 .swmove-page .swmove-calc-reset{display:inline-flex;align-self:flex-start;background:transparent;border:0;padding:0;color:#93553f;font:700 10px/1.4 var(--vcc-font-body,"DM Sans",Arial,sans-serif);text-decoration:underline;text-underline-offset:3px;cursor:pointer}
-/* Operators and region tickets */
-.swmove-page .swmove-booking-title{font:500 23px/1.2 var(--vcc-font-heading,"Oswald",sans-serif);color:#272725;margin:0 0 12px}
-.swmove-page .swmove-bookings{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:11px}
-.swmove-page .swmove-booking{display:flex;flex-direction:column;gap:7px;background:#fff;border:1px solid var(--sw-border);border-radius:12px;padding:17px 17px 16px;text-decoration:none;transition:border-color .15s}
-.swmove-page .swmove-booking:hover{border-color:#c9a491}
-.swmove-page .swmove-booking strong{font:600 20px/1.1 var(--vcc-font-heading,"Oswald",sans-serif);color:#2e2926}
-.swmove-page .swmove-booking span{font:400 11.5px/1.5 var(--vcc-font-body,"DM Sans",Arial,sans-serif);color:#746a62;flex:1}
-.swmove-page .swmove-booking em{font:800 normal 10px/1.4 var(--vcc-font-body,"DM Sans",Arial,sans-serif);font-style:normal;color:#985339;align-self:flex-start;margin-top:5px}
-.swmove-page .swmove-regions{display:flex;align-items:flex-start;gap:13px;background:#f0eeea;border-radius:12px;padding:17px 20px;margin:14px 0 28px}
-.swmove-page .swmove-regions>strong{flex:0 0 auto;color:#8e4939;font:600 19px/1.15 var(--vcc-font-heading,"Oswald",sans-serif)}
-.swmove-page .swmove-regions p{margin:0;color:#635d58;font:400 12px/1.65 var(--vcc-font-body,"DM Sans",Arial,sans-serif)}
-.swmove-page .swmove-regions a{color:#975039;text-decoration:underline;text-underline-offset:2px;font-weight:700}
+/* Consejos compartidos de Cómo ahorrar */
 .swmove-page .swmove-tips-title{font:500 23px/1.2 var(--vcc-font-heading,"Oswald",sans-serif);color:#272725;margin:0 0 14px}
 .swmove-page .swmove-tips{margin-top:0}
 .swmove-page .swmove-tips .mv-saving-card{min-height:150px}
@@ -70,7 +59,6 @@
 @media(max-width:1020px){
  .swmove-page .swmove-modes{grid-template-columns:repeat(2,minmax(0,1fr))}
  .swmove-page .swmove-mode{min-height:230px}
- .swmove-page .swmove-bookings{grid-template-columns:repeat(2,minmax(0,1fr))}
 }
 @media(max-width:740px){
  .swmove-page .swmove-section{padding-top:42px;scroll-margin-top:125px}
@@ -78,11 +66,10 @@
  .swmove-page .swmove-choice-grid{grid-template-columns:1fr}
  .swmove-page .swmove-calculator{grid-template-columns:1fr}
  .swmove-page .swmove-calc-result{border-left:0;border-top:1px solid #e6dcd4}
- .swmove-page .swmove-regions{flex-direction:column;gap:7px}
  .swmove-page .swmove-tips .mv-saving-card{min-height:130px}
 }
 @media(max-width:490px){
- .swmove-page .swmove-modes,.swmove-page .swmove-bookings{grid-template-columns:1fr}
+ .swmove-page .swmove-modes{grid-template-columns:1fr}
  .swmove-page .swmove-mode{min-height:0;padding:18px}
  .swmove-page .swmove-mode-icon{margin-bottom:12px}
  .swmove-page .swmove-mode h3{font-size:24px}
@@ -92,5 +79,5 @@
  .swmove-page .swmove-field input{height:42px}
 }
 @media(prefers-reduced-motion:reduce){
- .swmove-page .swmove-filter,.swmove-page .swmove-booking{transition:none}
+ .swmove-page .swmove-filter{transition:none}
 }
