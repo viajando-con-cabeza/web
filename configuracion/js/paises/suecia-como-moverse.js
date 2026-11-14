@@ -12,7 +12,11 @@
     const resultTrain=page.querySelector("[data-sw-train-total]");
     const resultCar=page.querySelector("[data-sw-car-total]");
     const verdict=page.querySelector("[data-sw-verdict]");
-    const format=new Intl.NumberFormat("es-ES",{style:"currency",currency:"EUR",maximumFractionDigits:0});
+    const saving=page.querySelector("[data-sw-saving]");
+    const savingLabel=page.querySelector("[data-sw-saving-label]");
+    const savingWith=page.querySelector("[data-sw-saving-with]");
+    const savingBox=page.querySelector("[data-sw-saving-box]");
+    const format=new Intl.NumberFormat("es-ES",{style:"currency",currency:"EUR",maximumFractionDigits:2});
     const asNumber=name=>{
       const el=field(name);
       if(!el||el.value.trim()==="")return null;
@@ -32,22 +36,32 @@
       const carTotal=carReady?rental*days+fuel+(extras??0):null;
       if(resultTrain)resultTrain.textContent=trainTotal===null?"—":format.format(trainTotal);
       if(resultCar)resultCar.textContent=carTotal===null?"—":format.format(carTotal);
-      if(!verdict)return;
+      if(!verdict||!saving||!savingLabel||!savingWith||!savingBox)return;
       if(trainTotal===null||carTotal===null){
-        verdict.textContent="Introduce los precios de ambos transportes para compararlos.";
+        savingBox.dataset.savings="pending";
+        savingLabel.textContent="AHORRO";
+        saving.textContent="—";
+        savingWith.textContent="";
+        verdict.textContent="Introduce tus precios";
         return;
       }
-      const diff=Math.abs(trainTotal-carTotal);
-      if(diff<1){
-        verdict.textContent="El coste introducido es prácticamente igual.";
-      }else{
-        verdict.textContent=(trainTotal<carTotal?"El tren":"El coche")+" sale "+format.format(diff)+" más barato en total.";
-      }
+      const diff=Math.round(Math.abs(trainTotal-carTotal)*100)/100;
+      const trainBetter=trainTotal<carTotal;
+      savingBox.dataset.savings=diff<0.01?"neutral":"positive";
+      savingLabel.textContent=diff<0.01?"DIFERENCIA":"TE AHORRAS";
+      saving.textContent=format.format(diff);
+      savingWith.textContent=diff<0.01?"mismo coste":(trainBetter?"con el tren":"con el coche");
+      verdict.textContent=diff<0.01?"Empate":trainBetter?"Tren":"Coche";
     };
     form.addEventListener("input",show);
     form.addEventListener("change",show);
     const clear=page.querySelector("[data-sw-calc-reset]");
-    if(clear)clear.addEventListener("click",()=>{form.reset();show();});
+    if(clear)clear.addEventListener("click",()=>{
+      ["tren","alquiler","combustible","extras"].forEach(name=>{field(name).value="";});
+      field("personas").value="2";
+      field("dias").value="3";
+      show();
+    });
     show();
   }
   if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",init,{once:true});
