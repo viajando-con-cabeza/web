@@ -131,27 +131,55 @@
     if(scroller)scroller.scrollLeft=scroller.scrollWidth;
   });
   reset.addEventListener("click",()=>{
-    options=defaults();nextId=4;people.value="2";nights.value="3";draw();
+    options=defaults();nextId=4;people.value="2";nights.value="3";draw();const status=q("[data-dv-status]");if(status)status.textContent="Comparación limpiada.";
   });
-  save.addEventListener("click",()=>{
+
+  function printable(){
     const valid=options.filter(item=>total(item)!==null);
-    if(!valid.length)return;
-    const lines=[
-      ["Comparador de alojamientos - Suecia VCC"],["Viajeros",String(numPeople())],
-      ["Noches",String(numNights())],["Importes para la estancia completa y todos los viajeros"],
-      ["Concepto",...valid.map((item,index)=>nameOf(item,index))],
-      ["Tipo",...valid.map(item=>types.find(pair=>pair[0]===item.type)?.[1]||"Otro")],
-      ...costs.map(cost=>[cost.label,...valid.map(item=>String(item[cost.key]||0))]),
-      ["Coste final",...valid.map(item=>String(total(item)))],
-      ["Por persona",...valid.map(item=>(total(item)/numPeople()).toFixed(2))],
-      ["Por persona y noche",...valid.map(item=>(total(item)/numPeople()/numNights()).toFixed(2))]
+    const head='<th scope="col">Concepto</th>'+valid.map((item,index)=>'<th scope="col">'+esc(nameOf(item,index))+'</th>').join("");
+    const row=(label,values)=>'<tr><th scope="row">'+esc(label)+'</th>'+values.map(value=>'<td>'+esc(value)+'</td>').join("")+'</tr>';
+    const tableRows=[
+      row("Tipo de alojamiento",valid.map(item=>types.find(pair=>pair[0]===item.type)?.[1]||"Otro")),
+      ...costs.map(cost=>row(cost.label,valid.map(item=>money(Number(item[cost.key])||0)))),
+      row("Coste por persona",valid.map(item=>money(total(item)/numPeople()))),
+      row("Coste por persona / noche",valid.map(item=>money(total(item)/numPeople()/numNights())))
     ];
-    const text=lines.map(row=>row.map(value=>'"'+String(value).replace(/"/g,'""')+'"').join(";")).join("\r\n");
-    const blob=new Blob(["\uFEFF"+text],{type:"text/csv;charset=utf-8"});
-    const url=URL.createObjectURL(blob),anchor=document.createElement("a");
-    anchor.href=url;anchor.download="comparador-alojamientos-suecia-vcc.csv";
-    document.body.appendChild(anchor);anchor.click();anchor.remove();
-    window.setTimeout(()=>URL.revokeObjectURL(url),1500);
+    const totals=row("TOTAL POR OPCIÓN",valid.map(item=>money(total(item))));
+    const sorted=[...valid].sort((a,b)=>total(a)-total(b));
+    const lowest=total(sorted[0]);
+    const tied=sorted.filter(item=>Math.abs(total(item)-lowest)<.005);
+    const result=valid.length>=2?'<p class="winner">MEJOR OPCIÓN VCC · '+esc(tied.map((item,index)=>nameOf(item,index)).join(" y "))+' · '+esc(money(lowest))+'</p>':"";
+    const styles='@page{size:A4 landscape;margin:12mm}*{box-sizing:border-box}body{font:12px/1.5 Arial,sans-serif;color:#282420;margin:0;padding:10mm 5mm}h1{font-size:27px;line-height:1.1;margin:5px 0 8px}.eyebrow{font-size:11px;font-weight:bold;letter-spacing:.1em;color:#b65a3e}.context{color:#5e5a55}.winner{margin:17px 0 0;padding:10px 12px;background:#f6e9de;color:#9e4b32;font-weight:bold}.note{font-size:10px;color:#69615a;margin:19px 0 0}table{border-collapse:collapse;width:100%;table-layout:fixed;margin-top:18px;font-size:11px;word-break:break-word}th,td{border:1px solid #e7dcd4;padding:8px 7px;text-align:right;vertical-align:middle}th:first-child{text-align:left;width:22%}thead th{background:#f9eae0;color:#3e302a}tbody th{font-weight:normal}tfoot th,tfoot td{background:#fce0cf;font-weight:bold;color:#8f432e}';
+    return '<!doctype html><html lang="es"><head><meta charset="utf-8"><title>VCC · Comparativa de alojamientos en Suecia</title><style>'+styles+'</style></head><body>'+
+      '<div class="eyebrow">VIAJANDO CON CABEZA · SUECIA</div><h1>COMPARA EL PRECIO REAL</h1>'+
+      '<p class="context">'+numPeople()+' viajeros · '+numNights()+' noches · importes totales del grupo y de la estancia</p>'+
+      '<table><thead><tr>'+head+'</tr></thead><tbody>'+tableRows.join("")+'</tbody><tfoot>'+totals+'</tfoot></table>'+
+      result+'<p class="note">Cifras introducidas por el viajero. Verifica tarifas, impuestos, servicios, ubicación y cancelación antes de reservar. Los precios no son ofertas consultadas por VCC.</p>'+
+      '</body></html>';
+  }
+  const status=q("[data-dv-status]");
+  save.addEventListener("click",()=>{
+    if(!options.some(item=>total(item)!==null)){
+      if(status)status.textContent="Introduce al menos un precio de alojamiento para guardar la comparación.";
+      return;
+    }
+    if(status)status.textContent="";
+    // El mismo flujo que Planifica / Alojamientos: impresión del documento en PDF.
+    const frame=document.createElement("iframe");
+    frame.title="Documento para guardar en PDF";
+    frame.style.cssText="position:fixed;left:-10000px;top:0;width:1px;height:1px;opacity:0;border:0;pointer-events:none";
+    frame.onload=()=>{
+      try{
+        frame.contentWindow.focus();
+        frame.contentWindow.print();
+        if(status)status.textContent="En la ventana de impresión, selecciona «Guardar como PDF».";
+      }catch(err){
+        if(status)status.textContent="No se pudo abrir la impresión.";
+      }
+      window.setTimeout(()=>frame.remove(),90000);
+    };
+    frame.srcdoc=printable();
+    document.body.appendChild(frame);
   });
   draw();
 })();
