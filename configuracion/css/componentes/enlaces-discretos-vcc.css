@@ -162,3 +162,34 @@ html body .vcc-card-action > a.vcc-card-cta-unificada{
   align-self:flex-end!important;
   text-align:right!important;
 }
+
+/* La cascada anterior inclou regles amb IDs (#di-panel-itinerarios i
+   #planifica) i una regla de portada de 9px. Cal igualar-les amb la
+   mateixa variable global: una successió de classes no supera un ID. */
+html body #di-panel-itinerarios a.vcc-card-cta-unificada.vcc-card-cta-unificada.vcc-card-cta-unificada,
+html body #planifica a.vcc-card-cta-unificada.vcc-card-cta-unificada.vcc-card-cta-unificada{
+  font-family:var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;
+  font-size:var(--vcc-card-cta-font-size)!important;
+  font-weight:800!important;
+  line-height:1.3!important;
+  letter-spacing:0!important;
+  text-align:right!important;
+  color:var(--vcc-card-cta-color)!important;
+}
+html body #di-panel-itinerarios a.vcc-card-cta-unificada.vcc-card-cta-unificada.vcc-card-cta-unificada:is(:hover,:focus-visible),
+html body #planifica a.vcc-card-cta-unificada.vcc-card-cta-unificada.vcc-card-cta-unificada:is(:hover,:focus-visible){
+  color:var(--vcc-card-cta-hover)!important;
+}
+/* A la portada, Instagram, Contacto i Sobre nosotros són també
+   vinyes editorials encara que el text no comenci per "VER". */
+body.inicio-vcc.home-editorial-refresh .home-social-contact :is(.home-instagram,.home-contact) .vcc-home-social-cta,
+body.inicio-vcc.home-editorial-refresh .home-about-summary .vcc-home-about-cta{
+  font:800 var(--vcc-card-cta-font-size)/1.3 var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;
+  letter-spacing:0!important;
+  text-align:right!important;
+  color:var(--vcc-card-cta-color)!important;
+}
+body.inicio-vcc.home-editorial-refresh .home-social-contact :is(.home-instagram,.home-contact) .vcc-home-social-cta:is(:hover,:focus-visible),
+body.inicio-vcc.home-editorial-refresh .home-about-summary .vcc-home-about-cta:is(:hover,:focus-visible){
+  color:var(--vcc-card-cta-hover)!important;
+}
