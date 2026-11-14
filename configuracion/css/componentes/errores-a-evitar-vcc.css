@@ -172,3 +172,73 @@ html body :is(#sorpresas,#errores-a-evitar,#consejos,#errores){scroll-margin-top
     scroll-behavior:auto!important;
   }
 }
+
+/* Estocolm · pressupost: estabilitzar l'estructura del carrusel i la
+   seva amplada. Evita la pista de 26–30px i les targetes verticals gegants
+   causades per combinacions d'overrides mòbils i grid. */
+html body.budget-vcc #sorpresas .surprise-carousel{
+  display:grid!important;
+  grid-template-columns:36px minmax(0,1fr) 36px!important;
+  align-items:center!important;
+  gap:10px!important;
+  position:relative!important;
+  width:100%!important;
+  max-width:100%!important;
+  min-width:0!important;
+  height:auto!important;
+  min-height:0!important;
+  padding:0!important;
+}
+html body.budget-vcc #sorpresas .surprise-carousel > .surprise-grid.tips-track{
+  grid-column:2!important;
+  grid-row:1!important;
+  display:flex!important;
+  flex-flow:row nowrap!important;
+  align-items:stretch!important;
+  width:100%!important;
+  max-width:100%!important;
+  min-width:0!important;
+  min-height:0!important;
+  height:auto!important;
+  overflow-x:auto!important;
+  overflow-y:hidden!important;
+  box-sizing:border-box!important;
+}
+html body.budget-vcc #sorpresas .surprise-carousel > .carousel-arrow{
+  position:static!important;
+  top:auto!important;bottom:auto!important;
+  left:auto!important;right:auto!important;
+  transform:none!important;
+  margin:0!important;
+  padding:0!important;
+  justify-self:center!important;
+  align-self:center!important;
+  z-index:2!important;
+}
+html body.budget-vcc #sorpresas .surprise-carousel > .carousel-arrow.prev{
+  grid-column:1!important;grid-row:1!important;
+}
+html body.budget-vcc #sorpresas .surprise-carousel > .carousel-arrow.next{
+  grid-column:3!important;grid-row:1!important;
+}
+html body.budget-vcc #sorpresas .surprise-grid.tips-track > .vcc-editorial-error-card{
+  flex:0 0 calc((100% - 2 * var(--vcc-error-track-gap)) / 3)!important;
+  min-width:0!important;
+  min-height:var(--vcc-error-card-min-height)!important;
+  height:auto!important;
+  max-height:none!important;
+}
+@media(max-width:950px){
+  html body.budget-vcc #sorpresas .surprise-grid.tips-track > .vcc-editorial-error-card{
+    flex-basis:calc((100% - var(--vcc-error-track-gap)) / 2)!important;
+  }
+}
+@media(max-width:650px){
+  html body.budget-vcc #sorpresas .surprise-carousel{
+    grid-template-columns:30px minmax(0,1fr) 30px!important;
+    gap:5px!important;
+  }
+  html body.budget-vcc #sorpresas .surprise-grid.tips-track > .vcc-editorial-error-card{
+    flex-basis:100%!important;
+  }
+}
