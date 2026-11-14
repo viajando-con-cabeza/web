@@ -18,6 +18,36 @@
 .swmove-page .swmove-intro-summary strong{display:block;margin:0 0 3px;color:#99583f;font:600 17px/1.2 var(--vcc-font-heading,"Oswald",sans-serif)}
 .swmove-page .swmove-intro-summary p{margin:0;color:#5b5751;font:400 12px/1.55 var(--vcc-font-body,"DM Sans",Arial,sans-serif)}
 
+/* Infrastruktur de cada mètode: informació útil, visible al DOM i enllaçada des del carrusel. */
+.swmove-page .swmove-card-more{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:auto;padding:10px 0 0;border-top:1px solid #ece7e1;color:#ad5c39;font:800 10px/1.35 var(--vcc-font-body,"DM Sans",Arial,sans-serif);letter-spacing:.025em;text-decoration:none}
+.swmove-page .swmove-card-more:hover{text-decoration:underline;text-underline-offset:3px}
+.swmove-page .swmove-card-more:focus-visible{outline:2px solid #bd6a4c;outline-offset:3px}
+.swmove-page .swmove-card-more>span{font-size:14px}
+.swmove-page .mv-card .mv-card-body{gap:11px}
+.swmove-page .swmove-infra-area{padding:29px 0 0}
+.swmove-page .swmove-infra-heading{display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:8px 24px;margin:0 0 16px}
+.swmove-page .swmove-infra-heading .mv-overline{flex-basis:100%;margin:0 0 -1px}
+.swmove-page .swmove-infra-heading h3{margin:0;color:#252a28;font:600 clamp(26px,2.4vw,35px)/1.12 var(--vcc-font-heading,"Oswald",sans-serif);letter-spacing:0}
+.swmove-page .swmove-infra-heading p{max-width:445px;margin:0 0 2px;color:#77716b;font:400 12px/1.58 var(--vcc-font-body,"DM Sans",Arial,sans-serif)}
+.swmove-page .swmove-infra-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}
+.swmove-page .swmove-infra-card{display:flex;flex-direction:column;min-width:0;padding:19px 20px 16px;background:#fff;border:1px solid #e2d8d0;border-radius:15px;scroll-margin-top:142px}
+.swmove-page .swmove-infra-title{display:flex;align-items:center;gap:11px;margin:0 0 14px}
+.swmove-page .swmove-infra-icon{flex:0 0 46px}
+.swmove-page .swmove-infra-icon svg{width:27px;height:27px;display:block}
+.swmove-page .swmove-infra-title>div{min-width:0}
+.swmove-page .swmove-infra-overline{display:block;color:#a8674a;font:700 9.5px/1.4 var(--vcc-font-body,"DM Sans",Arial,sans-serif);letter-spacing:.07em;text-transform:uppercase}
+.swmove-page .swmove-infra-title h4{margin:3px 0 0;color:#272b29;font:600 24px/1.15 var(--vcc-font-heading,"Oswald",sans-serif)}
+.swmove-page .swmove-infra-body{display:flex;flex:1;flex-direction:column;gap:12px}
+.swmove-page .swmove-infra-body h5{margin:0 0 5px;color:#2f3532;font:600 15px/1.2 var(--vcc-font-heading,"Oswald",sans-serif)}
+.swmove-page .swmove-infra-body p{margin:0;color:#625e57;font:400 12.5px/1.65 var(--vcc-font-body,"DM Sans",Arial,sans-serif)}
+.swmove-page .swmove-infra-body p strong{color:#363936;font-weight:750}
+.swmove-page .swmove-infra-opinion{margin:14px 0 0;padding:11px 13px;background:#fbf5ef;border-left:3px solid #d69b78;border-radius:0 9px 9px 0;color:#56514c;font:500 11.8px/1.6 var(--vcc-font-body,"DM Sans",Arial,sans-serif)}
+.swmove-page .swmove-infra-opinion strong{color:#a65b3d;font-weight:800}
+.swmove-page .swmove-infra-references{display:flex;flex-wrap:wrap;gap:5px 14px;margin-top:12px;padding-top:10px;border-top:1px solid #ede8e3}
+.swmove-page .swmove-infra-references a{color:#98563e;font:700 10.3px/1.45 var(--vcc-font-body,"DM Sans",Arial,sans-serif);text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px}
+.swmove-page .swmove-infra-card:last-child{grid-column:1/-1}
+.swmove-page .swmove-infra-card:last-child .swmove-infra-body{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px}
+.swmove-page .swmove-infra-area+.swmove-intro-summary{margin-top:17px}
 /* Opción 1: dos decisiones y consejo VCC en formato compartido con Estocolmo */
 .swmove-page .swmove-choice-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:0 0 12px}
 .swmove-page .swmove-choice{min-width:0;background:linear-gradient(150deg,#fff,#f8fbf6);border:1px solid #c9ddc2;border-radius:13px;padding:14px 16px}
@@ -91,6 +121,23 @@ body.mv-body .swmove-page .mv-day-advice.swmove-vcc-advice{background:#fff;backg
 .swmove-page .swmove-tips .mv-saving-card h3{color:#242424}
 .swmove-page .swmove-sources{font:400 10.5px/1.6 var(--vcc-font-body,"DM Sans",Arial,sans-serif);color:#8a8179;margin:25px 0 0}
 .swmove-page .swmove-sources a{color:#806151;text-decoration:underline;text-underline-offset:2px}
+@media(max-width:900px){
+ .swmove-page .swmove-infra-grid{grid-template-columns:1fr}
+ .swmove-page .swmove-infra-card:last-child{grid-column:auto}
+ .swmove-page .swmove-infra-card:last-child .swmove-infra-body{display:flex;flex-direction:column;gap:12px}
+ .swmove-page .swmove-infra-heading{align-items:flex-start;flex-direction:column;gap:6px}
+ .swmove-page .swmove-infra-heading .mv-overline{flex-basis:auto}
+ .swmove-page .swmove-infra-heading p{max-width:620px}
+}
+@media(max-width:590px){
+ .swmove-page .swmove-infra-area{padding-top:23px}
+ .swmove-page .swmove-infra-card{padding:15px 15px 14px;scroll-margin-top:123px}
+ .swmove-page .swmove-infra-heading h3{font-size:27px}
+ .swmove-page .swmove-infra-body p{font-size:12px;line-height:1.6}
+ .swmove-page .swmove-infra-opinion{font-size:11.5px}
+ .swmove-page .swmove-infra-references{gap:5px 12px}
+ .swmove-page .swmove-card-more{padding-top:8px;font-size:10px}
+}
 @media(max-width:1120px){
  .swmove-page .swmove-choice ul{grid-template-columns:1fr}
  .swmove-page .swmove-calc-result{grid-template-columns:minmax(0,1fr) minmax(115px,.43fr) minmax(145px,.51fr)}
