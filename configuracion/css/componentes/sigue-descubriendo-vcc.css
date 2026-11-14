@@ -1,0 +1,188 @@
+/* VCC · ÚNICA FONT DEL FORMAT «CONTINÚA PLANIFICANDO / SIGUE DESCUBRIENDO».
+   Qualsevol pàgina amb section.related-section (o .vcc-discover-section)
+   i .vcc-related-cards hereta aquests estils. No copiar CSS a les guies.
+   El contingut/enllaços poden variar; la foto del destí es defineix amb
+   --vcc-related-photo al CSS compartit fondo-relacionadas-destino-vcc.css. */
+html body section:is(.related-section,.vcc-discover-section):has(.vcc-related-cards){
+  position:relative;
+  box-sizing:border-box;
+  width:100vw!important;
+  max-width:none!important;
+  margin:0 0 0 calc(50% - 50vw)!important;
+  padding:clamp(46px,5.2vw,68px) 0 clamp(48px,5.4vw,72px)!important;
+  overflow:hidden;
+  isolation:isolate;
+  color:#fff!important;
+  background-color:#203037!important;
+  background-image:
+    linear-gradient(90deg,rgba(15,24,27,.84) 0%,rgba(15,24,27,.69) 52%,rgba(15,24,27,.51) 100%),
+    var(--vcc-related-photo,var(--vcc-budget-related-photo,url("/configuracion/imagenes/externas/unsplash/photo-1464822759023-fed622ff2c3b.webp")))!important;
+  background-position:center,center 54%!important;
+  background-repeat:no-repeat,no-repeat!important;
+  background-size:cover,cover!important;
+}
+html body section:is(.related-section,.vcc-discover-section):has(.vcc-related-cards) > .related-inner{
+  box-sizing:border-box;
+  width:min(1180px,calc(100% - 48px))!important;
+  max-width:none!important;
+  margin-inline:auto!important;
+  padding:0!important;
+}
+html body section:is(.related-section,.vcc-discover-section):has(.vcc-related-cards) .related-head,
+html body section:is(.related-section,.vcc-discover-section):has(.vcc-related-cards) .related-head > div{
+  display:block!important;
+  width:100%!important;
+  max-width:none!important;
+  margin:0!important;
+  padding:0!important;
+  text-align:left!important;
+}
+html body section:is(.related-section,.vcc-discover-section):has(.vcc-related-cards) .related-head{
+  margin-bottom:24px!important;
+}
+html body section:is(.related-section,.vcc-discover-section):has(.vcc-related-cards) .related-head p{
+  display:block!important;
+  margin:0 0 8px!important;
+  color:#e7a28a!important;
+  font:700 12px/1.4 var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;
+  letter-spacing:.15em!important;
+  text-transform:uppercase!important;
+}
+html body section:is(.related-section,.vcc-discover-section):has(.vcc-related-cards) .related-head h2{
+  display:block!important;
+  margin:0!important;
+  max-width:none!important;
+  color:#fffaf5!important;
+  font:500 clamp(30px,3.5vw,42px)/1.16 var(--vcc-font-heading,"Oswald",sans-serif)!important;
+  letter-spacing:.005em!important;
+  text-transform:uppercase!important;
+  text-align:left!important;
+}
+html body section:is(.related-section,.vcc-discover-section):has(.vcc-related-cards) .related-head span{
+  display:block!important;
+  max-width:700px!important;
+  margin:9px 0 0!important;
+  color:#e6e3df!important;
+  font:400 14px/1.55 var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;
+  text-align:left!important;
+  letter-spacing:normal!important;
+}
+html body section:is(.related-section,.vcc-discover-section):has(.vcc-related-cards) .related-grid.vcc-related-cards{
+  display:grid!important;
+  grid-template-columns:repeat(4,minmax(0,1fr))!important;
+  gap:14px!important;
+  width:100%!important;
+  margin:0!important;
+  padding:0!important;
+}
+html body section:is(.related-section,.vcc-discover-section):has(.vcc-related-cards) .related-grid.vcc-related-cards > a.vcc-related-link{
+  box-sizing:border-box!important;
+  min-width:0!important;
+  min-height:88px!important;
+  display:flex!important;
+  flex-direction:row!important;
+  align-items:center!important;
+  justify-content:flex-start!important;
+  gap:11px!important;
+  margin:0!important;
+  padding:13px 14px!important;
+  border:1px solid rgba(211,225,223,.48)!important;
+  border-radius:13px!important;
+  background:rgba(28,42,47,.94)!important;
+  color:#fff!important;
+  box-shadow:0 8px 20px rgba(0,0,0,.12)!important;
+  text-decoration:none!important;
+  transition:background-color .2s,border-color .2s,transform .2s!important;
+}
+html body section:is(.related-section,.vcc-discover-section):has(.vcc-related-cards) .related-grid.vcc-related-cards > a.vcc-related-link:hover,
+html body section:is(.related-section,.vcc-discover-section):has(.vcc-related-cards) .related-grid.vcc-related-cards > a.vcc-related-link:focus-visible{
+  background:rgba(43,61,66,.97)!important;
+  border-color:#e4a18d!important;
+  transform:translateY(-2px);
+}
+html body section:is(.related-section,.vcc-discover-section):has(.vcc-related-cards) .related-grid.vcc-related-cards > a.vcc-related-link:focus-visible{
+  outline:2px solid #edb092!important;
+  outline-offset:3px!important;
+}
+html body section:is(.related-section,.vcc-discover-section):has(.vcc-related-cards) .vcc-related-icon{
+  display:block!important;
+  width:34px!important;
+  height:34px!important;
+  flex:0 0 34px!important;
+  color:#e79b72!important;
+  fill:none!important;
+  stroke:currentColor!important;
+  stroke-width:1.8!important;
+  stroke-linecap:round!important;
+  stroke-linejoin:round!important;
+}
+html body section:is(.related-section,.vcc-discover-section):has(.vcc-related-cards) .vcc-related-copy{
+  display:flex!important;
+  flex:1 1 auto!important;
+  min-width:0!important;
+  flex-direction:column!important;
+  justify-content:center!important;
+  gap:4px!important;
+  margin:0!important;
+}
+html body section:is(.related-section,.vcc-discover-section):has(.vcc-related-cards) .vcc-related-copy strong{
+  display:block!important;
+  margin:0!important;
+  color:#fff!important;
+  font:500 21px/1.1 var(--vcc-font-heading,"Oswald",sans-serif)!important;
+  letter-spacing:.005em!important;
+}
+html body section:is(.related-section,.vcc-discover-section):has(.vcc-related-cards) .vcc-related-copy em{
+  display:block!important;
+  margin:0!important;
+  color:#e1dfdb!important;
+  font:400 11px/1.35 var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;
+  font-style:normal!important;
+}
+@media(max-width:1030px){
+  html body section:is(.related-section,.vcc-discover-section):has(.vcc-related-cards) .related-grid.vcc-related-cards{
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    gap:11px!important;
+  }
+}
+@media(max-width:580px){
+  html body section:is(.related-section,.vcc-discover-section):has(.vcc-related-cards){
+    padding:42px 0 48px!important;
+  }
+  html body section:is(.related-section,.vcc-discover-section):has(.vcc-related-cards) > .related-inner{
+    width:calc(100% - 32px)!important;
+  }
+  html body section:is(.related-section,.vcc-discover-section):has(.vcc-related-cards) .related-head{
+    margin-bottom:18px!important;
+  }
+  html body section:is(.related-section,.vcc-discover-section):has(.vcc-related-cards) .related-head h2{
+    font-size:30px!important;
+    line-height:1.15!important;
+  }
+  html body section:is(.related-section,.vcc-discover-section):has(.vcc-related-cards) .related-head span{
+    font-size:12px!important;
+    line-height:1.5!important;
+  }
+  html body section:is(.related-section,.vcc-discover-section):has(.vcc-related-cards) .related-grid.vcc-related-cards{
+    grid-template-columns:minmax(0,1fr)!important;
+    gap:9px!important;
+  }
+  html body section:is(.related-section,.vcc-discover-section):has(.vcc-related-cards) .related-grid.vcc-related-cards > a.vcc-related-link{
+    min-height:70px!important;
+    padding:10px 13px!important;
+    gap:12px!important;
+  }
+  html body section:is(.related-section,.vcc-discover-section):has(.vcc-related-cards) .vcc-related-icon{
+    width:33px!important;
+    height:33px!important;
+    flex-basis:33px!important;
+  }
+  html body section:is(.related-section,.vcc-discover-section):has(.vcc-related-cards) .vcc-related-copy strong{
+    font-size:19px!important;
+  }
+}
+@media(prefers-reduced-motion:reduce){
+  html body section:is(.related-section,.vcc-discover-section):has(.vcc-related-cards) .related-grid.vcc-related-cards > a.vcc-related-link{
+    transition:none!important;
+  }
+}
