@@ -24,29 +24,6 @@
 .swmove-page .swmove-mode .swmove-mode-limit{font:400 11.5px/1.5 var(--vcc-font-body,"DM Sans",Arial,sans-serif);padding:10px 0 0;border-top:1px solid #eee7e1;color:#736a63;margin:auto 0 0}
 .swmove-page .swmove-mode .swmove-mode-limit b{color:#35322d}
 .swmove-page .swmove-mode--chosen{border-color:#d5a995;background:linear-gradient(150deg,#fff,#fff9f6)}
-/* Routes */
-.swmove-page .swmove-route-toolbar{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:17px}
-.swmove-page .swmove-filters{display:flex;flex-wrap:wrap;gap:7px}
-.swmove-page .swmove-filter{appearance:none;-webkit-appearance:none;border:1px solid #e1d8cf;background:#fff;color:#675b52;border-radius:100px;padding:8px 13px;font:700 10.5px/1.35 var(--vcc-font-body,"DM Sans",Arial,sans-serif);cursor:pointer;transition:background-color .16s,border-color .16s}
-.swmove-page .swmove-filter:hover{border-color:#bd8f77}
-.swmove-page .swmove-filter[aria-pressed="true"]{background:#a85b42;border-color:#a85b42;color:#fff}
-.swmove-page .swmove-filter:focus-visible,.swmove-page a:focus-visible,.swmove-page input:focus-visible{outline:2px solid #c2694a;outline-offset:2px}
-.swmove-page .swmove-route-count{font:700 10.5px/1.4 var(--vcc-font-body,"DM Sans",Arial,sans-serif);color:#82776d;white-space:nowrap}
-.swmove-page .swmove-routes{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}
-.swmove-page .swmove-route{display:flex;flex-direction:column;min-width:0;gap:11px;padding:20px 20px 17px;background:#fff;border:1px solid var(--sw-border);border-radius:var(--sw-radius)}
-.swmove-page .swmove-route[hidden]{display:none!important}
-.swmove-page .swmove-route-top{display:flex;align-items:flex-start;justify-content:space-between;gap:11px}
-.swmove-page .swmove-route h3{font:500 clamp(22px,2.1vw,26px)/1.17 var(--vcc-font-heading,"Oswald",sans-serif);color:var(--sw-ink);margin:4px 0 0}
-.swmove-page .swmove-route-best{flex:0 0 auto;padding:6px 9px;background:#eef3ee;color:#416a50;border-radius:6px;font:800 10px/1.3 var(--vcc-font-body,"DM Sans",Arial,sans-serif)}
-.swmove-page .swmove-route-stats{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:9px}
-.swmove-page .swmove-route-stat{border:1px solid #eee7df;background:#faf8f5;border-radius:8px;padding:10px 12px;min-width:0}
-.swmove-page .swmove-route-stat span{display:block;font:700 9px/1.4 var(--vcc-font-body,"DM Sans",Arial,sans-serif);text-transform:uppercase;letter-spacing:.07em;color:#8b7970;margin-bottom:3px}
-.swmove-page .swmove-route-stat strong{font:600 20px/1.2 var(--vcc-font-heading,"Oswald",sans-serif);color:#342e29;display:block}
-.swmove-page .swmove-route p{font:400 12px/1.6 var(--vcc-font-body,"DM Sans",Arial,sans-serif);color:var(--sw-muted);margin:0}
-.swmove-page .swmove-route .swmove-route-bottom{display:flex;align-items:end;justify-content:space-between;gap:12px;margin-top:auto;padding-top:11px;border-top:1px solid #eee8e2}
-.swmove-page .swmove-route-bottom small{font:400 10.5px/1.5 var(--vcc-font-body,"DM Sans",Arial,sans-serif);color:#8a8077;max-width:56%}
-.swmove-page .swmove-route-bottom a{font:800 10px/1.4 var(--vcc-font-body,"DM Sans",Arial,sans-serif);letter-spacing:.025em;color:#955037;text-decoration:none;text-align:right;white-space:nowrap}
-.swmove-page .swmove-route-bottom a:hover{text-decoration:underline;text-underline-offset:3px}
 /* Train versus car: explicit decision + transparent budget calculator */
 .swmove-page .swmove-choice-grid{display:grid;grid-template-columns:1fr 1fr;gap:13px;margin-bottom:18px}
 .swmove-page .swmove-choice{background:#fff;border:1px solid var(--sw-border);border-radius:var(--sw-radius);padding:20px 21px}
@@ -98,10 +75,7 @@
 @media(max-width:740px){
  .swmove-page .swmove-section{padding-top:42px;scroll-margin-top:125px}
  .swmove-page .swmove-intro-summary{align-items:flex-start;flex-direction:column;gap:7px;padding:14px 15px}
- .swmove-page .swmove-choice-grid,.swmove-page .swmove-routes{grid-template-columns:1fr}
- .swmove-page .swmove-route-toolbar{align-items:flex-start;flex-direction:column;gap:10px}
- .swmove-page .swmove-route{padding:17px 16px 15px}
- .swmove-page .swmove-route h3{font-size:25px}
+ .swmove-page .swmove-choice-grid{grid-template-columns:1fr}
  .swmove-page .swmove-calculator{grid-template-columns:1fr}
  .swmove-page .swmove-calc-result{border-left:0;border-top:1px solid #e6dcd4}
  .swmove-page .swmove-regions{flex-direction:column;gap:7px}
@@ -116,10 +90,6 @@
  .swmove-page .swmove-calc-result{padding:18px 15px}
  .swmove-page .swmove-fields{gap:10px}
  .swmove-page .swmove-field input{height:42px}
- .swmove-page .swmove-route-stats{gap:7px}
- .swmove-page .swmove-route-stat{padding:8px 9px}
- .swmove-page .swmove-route-stat strong{font-size:19px}
- .swmove-page .swmove-route-bottom{align-items:flex-start}
 }
 @media(prefers-reduced-motion:reduce){
  .swmove-page .swmove-filter,.swmove-page .swmove-booking{transition:none}
