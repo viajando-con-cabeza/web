@@ -703,3 +703,89 @@ html body.itinerarios-vcc .vcc-it-catalog .di-mini-card.vcc-it-card{
 
 /* Itineraris destacats: categories múltiples amb exactament el mateix espaiat a totes les pàgines. */
 :is(html body.inicio-vcc.home-editorial-refresh .home-featured-itineraries,html body.itinerarios-vcc .vcc-it-catalog,html body.planifica-vcc #di-panel-itinerarios) .vcc-itinerary-unified .di-mini-body>.vcc-card-kicker.vcc-card-kicker-multi{display:inline-flex!important;flex-wrap:wrap!important;gap:12px!important}
+
+/* VCC · NOTA TARGETES CANÒNICA UNIVERSAL: totes les guies i itineraris. */
+/* Un sol lloc per canviar el marge, el quadrat i la lletra de les notes VCC.
+   Afecta portada, catàlegs Itinerarios, Dónde ir / Guías i pàgines de país.
+   Sobreescriu les regles heretades fins que es puguin retirar sense riscos. */
+:root{
+ --vcc-note-card-top:15px;
+ --vcc-note-card-right:16px;
+ --vcc-note-card-square:36px;
+ --vcc-note-card-number-size:17px;
+ --vcc-note-card-label-size:7.5px;
+}
+html body :is(#di-panel-itinerarios,#di-panel-guias,.vcc-it-catalog,.vcc-card-collection,.home-featured-itineraries,.home-featured-guide) .vcc-it-card .vcc-it-photo{
+ position:relative!important;
+}
+html body :is(#di-panel-itinerarios,#di-panel-guias,.vcc-it-catalog,.vcc-card-collection,.home-featured-itineraries,.home-featured-guide) .vcc-it-card .vcc-card-score{
+ position:absolute!important;
+ z-index:8!important;
+ top:var(--vcc-note-card-top)!important;
+ right:var(--vcc-note-card-right)!important;
+ left:auto!important;
+ bottom:auto!important;
+ display:flex!important;
+ flex-direction:column!important;
+ align-items:flex-end!important;
+ justify-content:flex-start!important;
+ width:max-content!important;
+ min-width:0!important;
+ height:auto!important;
+ margin:0!important;
+ padding:0!important;
+ gap:0!important;
+ border:0!important;
+ border-radius:0!important;
+ box-shadow:none!important;
+ background:transparent!important;
+ text-align:right!important;
+}
+html body :is(#di-panel-itinerarios,#di-panel-guias,.vcc-it-catalog,.vcc-card-collection,.home-featured-itineraries,.home-featured-guide) .vcc-it-card .vcc-card-score strong{
+ display:grid!important;
+ place-items:center!important;
+ box-sizing:border-box!important;
+ width:var(--vcc-note-card-square)!important;
+ height:var(--vcc-note-card-square)!important;
+ min-width:var(--vcc-note-card-square)!important;
+ min-height:var(--vcc-note-card-square)!important;
+ margin:0!important;
+ padding:0!important;
+ border:0!important;
+ border-radius:7px!important;
+ background:#777!important;
+ color:#fff!important;
+ box-shadow:0 4px 12px rgba(0,0,0,.20)!important;
+ font:500 var(--vcc-note-card-number-size)/1 var(--vcc-font-heading,"Oswald",sans-serif)!important;
+ text-align:center!important;
+}
+html body :is(#di-panel-itinerarios,#di-panel-guias,.vcc-it-catalog,.vcc-card-collection,.home-featured-itineraries,.home-featured-guide) .vcc-it-card .vcc-card-score small{
+ display:flex!important;
+ align-items:center!important;
+ justify-content:flex-end!important;
+ gap:3px!important;
+ width:max-content!important;
+ margin:3px 0 0!important;
+ padding:0 1px!important;
+ color:#fff!important;
+ font:800 var(--vcc-note-card-label-size)/1.1 var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;
+ white-space:nowrap!important;
+ text-shadow:0 1px 4px rgba(0,0,0,.9),0 1px 9px rgba(0,0,0,.6)!important;
+}
+html body :is(#di-panel-itinerarios,#di-panel-guias,.vcc-it-catalog,.vcc-card-collection,.home-featured-itineraries,.home-featured-guide) .vcc-it-card .vcc-card-score small::before{
+ content:""!important;
+ flex:0 0 10px!important;
+ width:10px!important;
+ height:10px!important;
+ background:url('/configuracion/imagenes/iconos/paper-plane-trail.svg') center/contain no-repeat!important;
+ filter:brightness(0) invert(1) drop-shadow(0 1px 3px rgba(0,0,0,.65))!important;
+}
+@media(max-width:620px){
+ :root{
+  --vcc-note-card-top:12px;
+  --vcc-note-card-right:12px;
+  --vcc-note-card-square:34px;
+  --vcc-note-card-number-size:17px;
+  --vcc-note-card-label-size:7px;
+ }
+}
