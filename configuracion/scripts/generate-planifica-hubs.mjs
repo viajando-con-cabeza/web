@@ -87,8 +87,7 @@ function catalogCover(image,title,category){
   ' sizes="(max-width: 520px) 100vw, (max-width: 850px) 50vw, 300px"':"";
  return '<span class="di-mini-photo vcc-it-photo">'+
   '<img class="vcc-card-cover-photo" src="'+esc(src)+'"'+srcset+' alt="'+esc(title)+
-  '" width="640" height="380" loading="lazy" decoding="async">'+
-  '<span class="di-mini-tag">'+catalogIcon("it-category-city")+esc(category.toUpperCase())+'</span></span>';
+  '" width="640" height="380" loading="lazy" decoding="async"></span>';
 }
 function catalogCountry(country){
  return '<span class="di-country-line">'+
@@ -100,17 +99,18 @@ function catalogCard({kind,title,description,href,image,country,type,typeLabel,c
  const budget=kind==="budget";
  const label=budget?'VER PRESUPUESTO':'VER QUÉ LLEVAR';
  const price=daily===null?'Consultar guía':new Intl.NumberFormat("es-ES",{maximumFractionDigits:1}).format(daily)+' €/persona/día';
- const duration=budget?(days?days+' días':'Viaje real'):'Por temporada';
- const facts='<span class="di-route-stats">'+catalogIcon("it-clock")+esc(duration)+'</span>'+
- '<span class="di-budget-row" title="'+(budget?'Gasto por persona y día':'Lista de equipaje')+'">'+
- '<svg class="vcc-it-coins" viewBox="0 0 24 24" aria-hidden="true"><use href="'+CATALOG_ICONS+'#'+(budget?'it-coins':'it-category-city')+'"></use></svg>'+
- '<span class="di-price">'+esc(budget?price:'Checklist')+'</span></span>'+catalogCountry(country);
+ const facts=budget?
+   '<span class="di-route-stats">'+catalogIcon("it-clock")+esc(days?days+' días':'Viaje real')+'</span>'+
+   '<span class="di-budget-row" title="Gasto por persona y día">'+catalogIcon("it-coins")+
+   '<span class="di-price">'+esc(price)+'</span></span>'+catalogCountry(country)
+   :catalogCountry(country);
  const search=[title,description,country,typeLabel,continent,budget?price:'equipaje ropa checklist maleta'].join(' ');
  return '<article class="di-mini-card vcc-it-card '+(budget?'budget-card':'packing-card')+'" data-it-card data-it-search="'+esc(search)+'" data-continent="'+esc(continent)+'" data-type="'+esc(type)+'"'+(budget?' data-daily="'+(daily??'')+'"':'')+'>'+
  catalogCover(image,title,typeLabel)+
- '<div class="di-mini-body"><a class="vcc-it-title" href="'+esc(href)+'">'+esc(title)+'</a>'+
+ '<div class="di-mini-body"><span class="vcc-card-kicker">'+catalogIcon("it-category-city")+esc(typeLabel.toUpperCase())+'</span>'+
+ '<a class="vcc-it-title" href="'+esc(href)+'">'+esc(title)+'</a>'+
  '<div class="vcc-it-facts">'+facts+'</div><span class="di-mini-desc">'+esc(description)+'</span>'+
- '<a class="vcc-it-cta" href="'+esc(href)+'">'+label+' <span aria-hidden="true">↗</span></a></div></article>';
+ '<a class="vcc-it-cta" href="'+esc(href)+'">'+label+'</a></div></article>';
 }
 
 
