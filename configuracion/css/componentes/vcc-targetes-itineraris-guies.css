@@ -140,9 +140,9 @@
   display:block!important;flex:0 0 13px!important;width:13px!important;height:13px!important;color:#ce6747!important;
 }
 /* Categories múltiples: una icona pròpia per cada tipus, sense canviar l'alçada de la targeta. */
-.vcc-card-kicker.vcc-card-kicker-multi{gap:12px!important;flex-wrap:wrap}
+:is(body.inicio-vcc.home-editorial-refresh :is(.home-featured-itineraries,.home-featured-guide),.vcc-card-collection) .vcc-it-card .vcc-card-kicker.vcc-card-kicker-multi{gap:12px!important;flex-wrap:wrap}
 .vcc-card-kicker-multi .vcc-card-kicker-part{display:inline-flex;align-items:center;gap:4px;white-space:nowrap}
-@media(max-width:620px){.vcc-card-kicker.vcc-card-kicker-multi{gap:9px!important}}
+@media(max-width:620px){:is(body.inicio-vcc.home-editorial-refresh :is(.home-featured-itineraries,.home-featured-guide),.vcc-card-collection) .vcc-it-card .vcc-card-kicker.vcc-card-kicker-multi{gap:9px!important}}
 /* Nota identica a la guia de Suecia (quadrat #777 + text blanc sobre foto),
    lleugerament reduida per encaixar a les targetes destacades. */
 :is(body.inicio-vcc.home-editorial-refresh :is(.home-featured-itineraries,.home-featured-guide),.vcc-card-collection) .vcc-it-card .vcc-card-score{
