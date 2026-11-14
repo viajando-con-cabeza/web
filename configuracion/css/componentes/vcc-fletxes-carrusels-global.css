@@ -479,17 +479,12 @@ button.place-nav-arrow,
 button.sv-arrow,
 button.vcc-route-arrow)[data-vcc-scroll-hidden]{display:none!important;pointer-events:none!important;}
 
-/* Presupuesto Estocolmo: la tarjeta principal conserva su tono original.
-   Solo el DESGLOSE VCC abierto recibe un matiz naranja ligeramente más intenso. */
-html body.budget-vcc #filosofia .vcc-budget-panel[data-budget-panel="vcc"]{
-  background:rgba(218,111,67,.045)!important;
-}
-html body.budget-vcc #filosofia .vcc-budget-panel[data-budget-panel="vcc"] .vcc-budget-panel-head{
-  background:#fff9f6!important;
-}
+/* Presupuesto de Estocolmo: conservar la ficha VCC, el panel y su cabecera
+   como estaban. Solo estas DOS superficies del desglose aumentan ligeramente
+   la opacidad respecto al original rgba(200,111,93,.055). */
 html body.budget-vcc #filosofia .vcc-budget-panel[data-budget-panel="vcc"] .vcc-budget-total,
 html body.budget-vcc #filosofia .vcc-budget-panel[data-budget-panel="vcc"] .vcc-daily-track{
-  background:rgba(218,111,67,.095)!important;
+  background:rgba(200,111,93,.08)!important;
 }
 /* VCC · escritorio sin flechas para los cuatro presupuestos visibles. */
 @media(min-width:751px){
