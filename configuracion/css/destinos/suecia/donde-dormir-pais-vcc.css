@@ -198,15 +198,37 @@ body.dv-country-types .dv-compare-caveat{
  margin:auto 0 0!important;padding-top:18px;color:#7d7068;
  font-size:10px;line-height:1.6
 }
+/* Mateixa disposició de Guardar PDF + Limpiar que a Planifica / Alojamientos.
+   Les dues accions queden al peu, alineades a la dreta en tots els dispositius. */
 body.dv-country-types .dv-compare-actions{
- display:flex;flex-wrap:wrap;align-items:center;justify-content:flex-start;
- gap:13px;border-top:1px solid #e6e0da;padding-top:13px;margin-top:12px
+ display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;
+ gap:8px 16px;border-top:1px solid #e6e0da;padding-top:12px;margin-top:12px
 }
 body.dv-country-types .dv-compare-actions :is(button,a){
- border:0;background:transparent;padding:4px 0;color:#a35a3f;
- font-size:11px;font-weight:700;cursor:pointer
+ display:inline-flex;align-items:center;gap:6px;min-height:30px;
+ border:0;background:transparent;padding:5px 0;color:#a35a3f;
+ font-size:11px;font-weight:700;cursor:pointer;text-decoration:none
 }
-body.dv-country-types .dv-compare-actions :is(button,a):hover{text-decoration:underline;text-underline-offset:3px}
+body.dv-country-types .dv-compare-actions .dv-compare-buttons{
+ display:flex;flex-wrap:wrap;align-items:center;justify-content:flex-end;
+ gap:17px;margin-left:auto
+}
+body.dv-country-types .dv-compare-actions .dv-compare-reference{
+ color:#77736e;font-size:10.5px;font-weight:600
+}
+body.dv-country-types .dv-compare-actions .vcc-download-link svg{
+ display:inline-block;flex:none;width:16px;height:16px;stroke:currentColor;fill:none
+}
+body.dv-country-types .dv-compare-actions :is(button,a):hover{
+ text-decoration:underline;text-underline-offset:3px
+}
+body.dv-country-types .dv-compare-actions button:disabled{
+ cursor:default;opacity:.45;text-decoration:none
+}
+body.dv-country-types .dv-compare-status{
+ min-height:14px;margin:5px 0 0!important;color:#916047;
+ font-size:10.5px;line-height:1.35;text-align:right
+}
 body.dv-country-types .dv-visually-hidden{
  position:absolute!important;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap
 }
