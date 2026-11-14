@@ -4,7 +4,7 @@
   const logo='/configuracion/imagenes/marca/logo-viajando-con-cabeza-blanco.svg';
   const socials={
     instagram:'https://www.instagram.com/viajaconcabeza/',
-    tiktok:'https://www.tiktok.com/@viajaconcabeza',
+    tiktok:'https://www.tiktok.com/@viajandoconcabeza',
     youtube:'https://www.youtube.com/@viajaconcabeza'
   };
   const icons={
