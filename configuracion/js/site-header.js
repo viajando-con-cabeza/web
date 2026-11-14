@@ -29,7 +29,7 @@
   if (!document.querySelector('link[data-vcc-arrows-global]')) {
     const arrowsCSS=document.createElement('link');
     arrowsCSS.rel='stylesheet';
-    arrowsCSS.href=url('configuracion/css/componentes/vcc-fletxes-carrusels-global.css?v=20261114-budget-detail-v3');
+    arrowsCSS.href=url('configuracion/css/componentes/vcc-fletxes-carrusels-global.css?v=20261114-vcc-only-two-boxes-v4');
     arrowsCSS.dataset.vccArrowsGlobal='true';
     document.head.appendChild(arrowsCSS);
   }
