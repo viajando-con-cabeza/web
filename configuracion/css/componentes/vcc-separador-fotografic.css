@@ -1,76 +1,57 @@
-/* Separador fotogràfic únic: Suècia + Estocolm.
-   Ajustar les variables aquí canvia tots els separadors. */
+/* Separador fotogràfic compartit: Suècia i Estocolm.
+   Imatge estàtica i de costat a costat, també dins contenidors centrats. */
 :root {
   --vcc-separador-altura: 170px;
   --vcc-separador-altura-mobil: 135px;
-  --vcc-separador-durada: 18s;
-  --vcc-separador-amplada-foto: 114%;
 }
 body.country-page .vcc-inspiration,
 body:has(.st-hero) .vcc-inspiration {
-  position:relative!important;
-  isolation:isolate;
-  height:var(--vcc-separador-altura)!important;
-  min-height:0!important;
-  max-height:var(--vcc-separador-altura)!important;
-  overflow:hidden!important;
-  background-image:none!important;
-  background-color:#b8c3bd!important;
-  box-sizing:border-box!important;
+  position: relative!important;
+  isolation: isolate;
+  width: 100vw!important;
+  max-width: none!important;
+  margin-left: calc(50% - 50vw)!important;
+  margin-right: calc(50% - 50vw)!important;
+  height: var(--vcc-separador-altura)!important;
+  min-height: 0!important;
+  max-height: var(--vcc-separador-altura)!important;
+  overflow: hidden!important;
+  background-image: none!important;
+  background-color: #b8c3bd!important;
+  box-sizing: border-box!important;
 }
-body.country-page .vcc-inspiration>.vcc-inspiration-photo,
-body:has(.st-hero) .vcc-inspiration>.vcc-inspiration-photo {
-  display:block!important;
-  position:absolute!important;
-  top:0!important;
-  left:0!important;
-  width:var(--vcc-separador-amplada-foto)!important;
-  height:100%!important;
-  max-width:none!important;
-  min-height:0!important;
-  object-fit:cover!important;
-  object-position:center!important;
-  z-index:0!important;
-  pointer-events:none!important;
-  transform:translate3d(0,0,0);
-  animation:vcc-separador-pan var(--vcc-separador-durada) ease-in-out infinite alternate!important;
-  will-change:transform;
+body.country-page .vcc-inspiration > .vcc-inspiration-photo,
+body:has(.st-hero) .vcc-inspiration > .vcc-inspiration-photo {
+  display: block!important;
+  position: absolute!important;
+  top: 0!important;
+  left: 0!important;
+  width: 100%!important;
+  height: 100%!important;
+  max-width: none!important;
+  min-height: 0!important;
+  object-fit: cover!important;
+  object-position: center!important;
+  z-index: 0!important;
+  pointer-events: none!important;
+  transform: none!important;
+  animation: none!important;
+  transition: none!important;
+  will-change: auto!important;
 }
 body.country-page .vcc-inspiration::before,
-body:has(.st-hero) .vcc-inspiration::before {z-index:1!important;pointer-events:none!important;}
-body.country-page .vcc-inspiration>div,
-body:has(.st-hero) .vcc-inspiration>div {z-index:2!important;}
-@keyframes vcc-separador-pan {
-  from {transform:translate3d(0,0,0)}
-  to {transform:translate3d(calc(-100% + 100vw),0,0)}
+body:has(.st-hero) .vcc-inspiration::before {
+  z-index: 1!important;
+  pointer-events: none!important;
 }
-@media(min-width:1200px) {
-  /* 14% d'amplada extra; recorregut complet i constant. */
-  body.country-page .vcc-inspiration>.vcc-inspiration-photo,
-  body:has(.st-hero) .vcc-inspiration>.vcc-inspiration-photo {
-    animation-name:vcc-separador-pan-desktop!important;
-  }
-  @keyframes vcc-separador-pan-desktop {
-    from{transform:translate3d(0,0,0)}
-    to{transform:translate3d(-12.28%,0,0)}
-  }
+body.country-page .vcc-inspiration > div,
+body:has(.st-hero) .vcc-inspiration > div {
+  z-index: 2!important;
 }
-@media(max-width:1199px){
-  body.country-page .vcc-inspiration>.vcc-inspiration-photo,
-  body:has(.st-hero) .vcc-inspiration>.vcc-inspiration-photo {
-    animation-name:vcc-separador-pan-desktop!important;
-  }
-}
-@media(max-width:560px){
+@media(max-width: 560px) {
   body.country-page .vcc-inspiration,
   body:has(.st-hero) .vcc-inspiration {
-    height:var(--vcc-separador-altura-mobil)!important;
-    max-height:var(--vcc-separador-altura-mobil)!important;
-  }
-}
-@media(prefers-reduced-motion:reduce) {
-  body.country-page .vcc-inspiration>.vcc-inspiration-photo,
-  body:has(.st-hero) .vcc-inspiration>.vcc-inspiration-photo {
-    animation:none!important;will-change:auto;
+    height: var(--vcc-separador-altura-mobil)!important;
+    max-height: var(--vcc-separador-altura-mobil)!important;
   }
 }
