@@ -536,3 +536,31 @@ html body :is(.vl-page #experiencia,.al-page #plataformas,.tv-page #tarjetas,.sv
 @media(max-width:520px){
   html body .vcc-experience-carousel .vcc-experience-track.vcc-experience-track{grid-auto-columns:calc((100% - 20px)/1.08)!important}
 }
+
+
+/* VCC · Amplada editorial homogènia de la secció Nuestra experiencia */
+html body .vl-page #experiencia .vl-wrap,
+html body.al-page #plataformas .al-wrap,
+html body .tv-page #tarjetas .tv-wrap,
+html body .tv-page .tv-catalog .tv-wrap,
+html body .sv-page #experiencia .sv-wrap{
+  box-sizing:border-box!important;
+  width:min(1160px,calc(100% - 44px))!important;
+  max-width:1160px!important;
+  margin-left:auto!important;margin-right:auto!important;
+}
+html body :is(.vl-page #experiencia,.al-page #plataformas,.tv-page #tarjetas,.sv-page #experiencia)
+.vcc-editorial-heading{
+  align-items:end!important;justify-content:space-between!important;gap:18px!important;
+}
+@media(max-width:740px){
+  html body .vl-page #experiencia .vl-wrap,
+  html body.al-page #plataformas .al-wrap,
+  html body .tv-page #tarjetas .tv-wrap,
+  html body .tv-page .tv-catalog .tv-wrap,
+  html body .sv-page #experiencia .sv-wrap{
+    width:calc(100% - 28px)!important;max-width:none!important;
+  }
+  html body :is(.vl-page #experiencia,.al-page #plataformas,.tv-page #tarjetas,.sv-page #experiencia)
+  .vcc-editorial-heading{align-items:flex-start!important;flex-direction:column!important;gap:8px!important}
+}
