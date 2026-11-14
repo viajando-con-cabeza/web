@@ -22,6 +22,12 @@ window.COUNTRY_CONFIG={
     {title:'Dalarna',tag:'REGIÓN',cardCategory:'MONTAÑA',image:'https://img.viajandoconcabeza.com/__vcc_preview/visor/destinos/suecia/dalarna/2026-dia9/DSC08592.avif',text:'Lagos, bosques y pueblos tradicionales en el corazón de Suecia.',days:'3 días',scores:{experience:9.2,photogenic:9.5,things:8.5,food:7.9,transport:7.4,safety:9.7,value:8.2},available:false},
     {title:'Centro-sur',tag:'REGIÓN',cardCategory:'NATURALEZA',image:'https://images.unsplash.com/photo-1726134212431-c794fd3d0c34?auto=format&fit=crop&w=960&q=82',text:'Pueblos, lagos y rincones entre Småland, Örebro y Östergötland.',days:'2 días',rating:8.2,available:false}
   ],
+  // Catálogo específico de qué ver, compartido con la página «Qué visitar en Suecia».
+  // No muestra notas VCC: las notas pertenecen únicamente a las guías generales.
+  visitingGuides:[
+    {title:'Qué ver en Estocolmo',tag:'CIUDADES',cardCategory:'CIUDADES',type:'que-ver',image:'https://img.viajandoconcabeza.com/__vcc_preview/visor/destinos/suecia/estocolmo-archipelago/2026-dia8/DSC08335.avif',text:'Barrios, museos, miradores, parques e islas para elegir según tus días.',available:true,href:'/destinos/suecia/estocolmo/que-ver'},
+    {title:'Imprescindibles de Estocolmo',tag:'CIUDADES',cardCategory:'CIUDADES',type:'que-ver',image:'https://img.viajandoconcabeza.com/__vcc_preview/visor/destinos/suecia/estocolmo/2026-dia6/DSC07952.avif',text:'16 lugares con mapa, tiempos, costes orientativos y consejos VCC.',available:true,href:'/destinos/suecia/estocolmo/imprescindibles'}
+  ],
   itineraries:[
     {title:'Estocolmo',tag:'3 DÍAS · CIUDAD',cardCategory:'CIUDADES',cardTitle:'Estocolmo en 3 días',days:'3 días',budget:'235 €/pax',scoreDestination:'Estocolmo',text:'Gamla Stan, museos y barrios en una ruta por horas.',image:'https://img.viajandoconcabeza.com/__vcc_preview/visor/destinos/suecia/estocolmo/2026-dia6/DSC07945.avif',imageHref:'estocolmo/itinerario.html',available:true,href:'estocolmo/itinerario.html'},
     {title:'Estocolmo y Dalarna',tag:'6 DÍAS · COMBINADO',cardCategory:'COMBINADO',text:'Seis días combinando Estocolmo, pueblos tradicionales y naturaleza en Dalarna.',image:'https://img.viajandoconcabeza.com/destinos/suecia/dalarna/2026-dia9/DSC08592.avif',available:false},
