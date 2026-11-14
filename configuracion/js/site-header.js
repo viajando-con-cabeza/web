@@ -24,6 +24,23 @@
     coreStyle.dataset.vccCoreStyles='true';
     document.head.appendChild(coreStyle);
   }
+  // Una única font de format per a «Continúa planificando / Sigue descubriendo».
+  // Només es carrega quan hi ha realment targetes relacionades a la pàgina.
+  const mountRelatedSectionStyles=()=>{
+    if(!document.querySelector('section:is(.related-section,.vcc-discover-section) .vcc-related-cards'))return;
+    if(document.querySelector('link[data-vcc-related-unified]'))return;
+    const relatedCss=document.createElement('link');
+    relatedCss.rel='stylesheet';
+    relatedCss.href=url('configuracion/css/componentes/sigue-descubriendo-vcc.css?v=20261114-unificat-v1');
+    relatedCss.dataset.vccRelatedUnified='true';
+    document.head.appendChild(relatedCss);
+  };
+  if(document.readyState==='loading'){
+    document.addEventListener('DOMContentLoaded',mountRelatedSectionStyles,{once:true});
+  }else{
+    mountRelatedSectionStyles();
+  }
+
   // Sistema global únic per a tots els botons de carrusel esquerra/dreta.
   // Una sola inclusió, fins i tot si una plantilla ja carrega altres CSS.
   if (!document.querySelector('link[data-vcc-arrows-global]')) {
