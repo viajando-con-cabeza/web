@@ -49,7 +49,8 @@
   const hotelMedia=window.matchMedia('(max-width: 760px)');
   const hotelCarousels=Array.from(root.querySelectorAll('.dv-zone-hotels-list')).map(track=>{
     const hotels=Array.from(track.querySelectorAll(':scope > .dv-zone-hotel'));
-    const vcc=hotels.find(hotel=>hotel.classList.contains('is-vcc-option'));
+    const isCountryTypes=document.body.classList.contains('dv-country-types');
+    const vcc=hotels.find(hotel=>hotel.classList.contains('is-vcc-option'))||(isCountryTypes?hotels[0]:null);
     if(hotels.length<2||!vcc)return null;
     const zone=track.closest('[data-dv-zone-panel]');
     const zoneName=zone?.querySelector('.dv-zone-heading-title h3')?.textContent?.trim()||'la zona';
@@ -69,7 +70,7 @@
     stage.append(prevHotel,track,nextHotel);
     track.tabIndex=0;
     track.setAttribute('role','region');
-    track.setAttribute('aria-label','Hoteles recomendados en '+zoneName);
+    track.setAttribute('aria-label',isCountryTypes?'Opciones por región de '+zoneName:'Hoteles recomendados en '+zoneName);
     const sync=()=>{
       prevHotel.disabled=track.scrollLeft<=3;
       nextHotel.disabled=track.scrollLeft+track.clientWidth>=track.scrollWidth-3;
