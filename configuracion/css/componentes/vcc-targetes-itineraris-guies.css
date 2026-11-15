@@ -794,10 +794,11 @@ html body :is(#di-panel-itinerarios,#di-panel-guias,.vcc-it-catalog,.vcc-card-co
 
 
 /* VCC · CTA CANÒNIC ÚNIC · 2026-11-15
-   Ver itinerario / Ver guía / Ver presupuesto / Ver qué llevar.
-   Identics a portada, catàlegs i targetes de país. Les etiquetes
-   "Próximamente" comparteixen mides i alineació, però no color.
-   Aquesta regla és l'única font de veritat: evita els antics 9/9,5/10px. */
+   Textos comuns: VER ITINERARIO només en itineraris; VER GUÍA a totes
+   les altres guies (presupuesto, qué llevar, cuándo ir, cómo llegar...);
+   PRÓXIMAMENTE per a pàgines encara no disponibles.
+   El text s'unifica des de site-header.js; aquestes regles comparteixen
+   alçada, amplada, alineació i tipografia a totes les targetes. */
 /* Variables al CSS global enlaces-discretos-vcc.css; aquí només fallback. */
 html body :is(.vcc-it-catalog,.vcc-card-collection,.home-featured-itineraries,.home-featured-guide,#di-panel-itinerarios,#di-panel-guias,.vcc-budget-regions) .vcc-it-card .di-mini-body > :is(.vcc-it-cta,.vcc-it-upcoming,.di-upcoming-status,.home-feature-pending){
   display:inline-flex!important;
