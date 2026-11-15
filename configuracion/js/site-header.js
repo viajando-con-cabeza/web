@@ -86,7 +86,7 @@
   // El controlador del subheader continua sent únic i asíncron.
   if (!document.querySelector('script[src*="subheader-unificado-vcc.js"]')) {
     const subheaderJs=document.createElement('script');
-    subheaderJs.src=url('configuracion/js/componentes/subheader-unificado-vcc.js?v=20261110-mobile-firstscreen-v1');
+    subheaderJs.src=url('configuracion/js/componentes/subheader-unificado-vcc.js?v=20261115-active-anchor-v2');
     subheaderJs.async=true;
     document.head.appendChild(subheaderJs);
   }
