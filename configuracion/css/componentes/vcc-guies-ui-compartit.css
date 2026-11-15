@@ -865,3 +865,29 @@ html body .vcc-editorial-heading > .vcc-editorial-heading-side .vcc-editorial-de
     line-height:1.5!important;
   }
 }
+
+/* VCC · Desgloses editorials compartits: el mateix control compacte a totes les guies.
+   <details>/<summary> funciona sense JavaScript; els estils s'editen només aquí. */
+html body .vcc-desglose{display:block;min-width:0;margin:8px 0 0;padding:0;}
+html body .vcc-desglose>summary{
+  display:flex;align-items:center;justify-content:space-between;gap:8px;
+  min-height:30px;margin:0;padding:8px 0 0;
+  border:0;border-top:1px solid #ece7e1;border-radius:0;
+  color:#ad5c39;cursor:pointer;list-style:none;
+  font:800 10px/1.35 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
+  letter-spacing:.025em;text-transform:uppercase;
+}
+html body .vcc-desglose>summary::-webkit-details-marker{display:none;}
+html body .vcc-desglose>summary::marker{content:"";}
+html body .vcc-desglose>summary:hover{color:#8c422a;text-decoration:underline;text-underline-offset:3px;}
+html body .vcc-desglose>summary:focus-visible{outline:2px solid #bd6a4c;outline-offset:3px;}
+html body .vcc-desglose .vcc-desglose-caret{
+  display:inline-block;flex:0 0 auto;font-size:18px;line-height:.8;
+  transform-origin:center;transition:transform .17s ease;
+}
+html body .vcc-desglose[open] .vcc-desglose-caret{transform:rotate(180deg);}
+html body .vcc-desglose:not([open]) .vcc-desglose-open{display:none;}
+html body .vcc-desglose[open] .vcc-desglose-closed{display:none;}
+@media(prefers-reduced-motion:reduce){
+  html body .vcc-desglose .vcc-desglose-caret{transition:none;}
+}
