@@ -451,8 +451,9 @@ button.vcc-route-arrow){transition:none!important}
 
 /* VCC · visibilidad real de las flechas.
    JS añade este atributo cuando no hay nada que recorrer en esa dirección.
-   La lista coincide con el estilo canónico y añade especificidad, incluso
-   si una plantilla fuerza display:grid con !important. */
+   IMPORTANTE: visibility:hidden mantiene la casilla de grid, a diferencia
+   de display:none que desplaza la pista a la columna de flecha (30 px).
+   Esto protege los carruseles compartidos de Errores a evitar y otros. */
 :is(html body.budget-vcc .savings-section .carousel-shell > button.carousel-arrow,
 button.carousel-arrow,
 button.vcc-budget-mode-arrow,
@@ -477,7 +478,7 @@ button.ci-august-weather-next,
 button.ql-carousel-arrow,
 button.place-nav-arrow,
 button.sv-arrow,
-button.vcc-route-arrow)[data-vcc-scroll-hidden]{display:none!important;pointer-events:none!important;}
+button.vcc-route-arrow)[data-vcc-scroll-hidden]{visibility:hidden!important;opacity:0!important;pointer-events:none!important;}
 
 /* Presupuesto de Estocolmo: conservar la ficha VCC, el panel y su cabecera
    como estaban. Solo estas DOS superficies del desglose aumentan ligeramente
