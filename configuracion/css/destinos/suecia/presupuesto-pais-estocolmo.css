@@ -513,3 +513,35 @@ html body.budget-vcc.sweden-budget-vcc #ahorrar .carousel-shell > .carousel-arro
     outline:2px solid #b45e44;outline-offset:3px;
   }
 }
+
+/* Hero mòbil Suecia · El breadcrumb no pot solapar el sobretítol.
+   Reduïm l'espai buit heretat del hero de pressupost sense canviar l'estructura compartida. */
+@media(max-width:720px){
+  html body.budget-vcc.sweden-budget-vcc .st-shell > #vcc-lcp-hero.budget-hero{
+    height:auto!important;min-height:370px!important;max-height:none!important;
+    overflow:hidden!important;
+  }
+  html body.budget-vcc.sweden-budget-vcc #vcc-lcp-hero > .budget-hero-inner{
+    box-sizing:border-box!important;
+    display:flow-root!important;
+    position:relative!important;
+    width:calc(100% - 32px)!important;
+    height:auto!important;min-height:370px!important;max-height:none!important;
+    margin:0 auto!important;
+    padding:69px 0 26px!important;
+  }
+  html body.budget-vcc.sweden-budget-vcc #vcc-lcp-hero .budget-hero-card{
+    box-sizing:border-box!important;
+    position:relative!important;top:auto!important;left:auto!important;right:auto!important;
+    width:100%!important;max-width:100%!important;
+    margin:0!important;padding:0!important;
+  }
+  html body.budget-vcc.sweden-budget-vcc #vcc-lcp-hero #vcc-global-breadcrumb{
+    top:13px!important;left:16px!important;
+    right:16px!important;max-width:calc(100% - 32px)!important;
+    z-index:5!important;
+  }
+  html body.budget-vcc.sweden-budget-vcc #vcc-lcp-hero .hero-eyebrow{
+    margin:0 0 12px!important;
+  }
+}
