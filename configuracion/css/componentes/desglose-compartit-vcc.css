@@ -6,7 +6,7 @@
 :root{
   --vcc-desglose-font-size:10px;
   --vcc-desglose-caret-size:12px;
-  --vcc-desglose-gap:6px;
+  --vcc-desglose-gap:10px;
   --vcc-desglose-color:#ac5a45;
 }
 .vcc-disclosure-toggle,
@@ -41,8 +41,9 @@ button.vcc-disclosure-toggle:focus-visible{outline:2px solid #b65f42;outline-off
   display:flex!important;
   width:100%;
   margin-top:auto;
-  border-top:1px solid #ece7e1!important;
-  padding:9px 0 6px!important;
+  border:0!important;
+  background:transparent!important;
+  padding:13px 0 0!important;
   justify-content:flex-end;
 }
 .vcc-disclosure-toggle--inline{
@@ -77,7 +78,7 @@ html body.budget-vcc #filosofia .vcc-budget-mode-footer.vcc-disclosure-footer{
   gap:var(--vcc-desglose-gap)!important;
   width:100%!important;
   margin-top:auto!important;
-  padding-top:7px!important;
+  padding-top:13px!important;
   font-family:var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;
   font-size:var(--vcc-desglose-font-size)!important;
   font-weight:700!important;
@@ -115,8 +116,9 @@ html body .swmove-page button.vcc-disclosure-toggle{
   text-decoration:none;
 }
 html body .swmove-page button.vcc-disclosure-toggle--card{
-  border-top:1px solid #ece7e1!important;
-  padding:9px 0 6px!important;
+  border:0!important;
+  background:transparent!important;
+  padding:13px 0 0!important;
 }
 html body .swmove-page button.vcc-disclosure-toggle--inline{
   min-height:29px;
@@ -124,7 +126,7 @@ html body .swmove-page button.vcc-disclosure-toggle--inline{
 }
 @media(max-width:590px){
   :root{--vcc-desglose-font-size:10px;--vcc-desglose-caret-size:12px}
-  .vcc-disclosure-toggle--card{padding:8px 0 5px!important}
+  .vcc-disclosure-toggle--card{padding:11px 0 0!important}
 }
 @media(prefers-reduced-motion:reduce){
  .vcc-disclosure-caret--glyph,
