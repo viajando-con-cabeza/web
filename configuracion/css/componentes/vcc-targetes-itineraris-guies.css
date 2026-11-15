@@ -791,3 +791,43 @@ html body :is(#di-panel-itinerarios,#di-panel-guias,.vcc-it-catalog,.vcc-card-co
   --vcc-note-card-label-size:7px;
  }
 }
+
+
+/* VCC · CTA CANÒNIC ÚNIC · 2026-11-15
+   Ver itinerario / Ver guía / Ver presupuesto / Ver qué llevar.
+   Identics a portada, catàlegs i targetes de país. Les etiquetes
+   "Próximamente" comparteixen mides i alineació, però no color.
+   Aquesta regla és l'única font de veritat: evita els antics 9/9,5/10px. */
+:root{
+  --vcc-card-cta-font-size:9px;
+  --vcc-card-cta-line-height:1.25;
+  --vcc-card-cta-top-space:4px;
+}
+html body :is(.vcc-it-catalog,.vcc-card-collection,.home-featured-itineraries,.home-featured-guide,#di-panel-itinerarios,#di-panel-guias,.vcc-budget-regions) .vcc-it-card .di-mini-body > :is(.vcc-it-cta,.vcc-it-upcoming,.di-upcoming-status,.home-feature-pending){
+  display:inline-flex!important;
+  align-items:center!important;
+  justify-content:flex-end!important;
+  align-self:flex-end!important;
+  flex:0 0 auto!important;
+  width:auto!important;
+  min-width:0!important;
+  min-height:0!important;
+  height:auto!important;
+  margin:auto 0 0!important;
+  padding:var(--vcc-card-cta-top-space) 0 0!important;
+  border:0!important;
+  border-radius:0!important;
+  background:transparent!important;
+  box-shadow:none!important;
+  font:800 var(--vcc-card-cta-font-size)/var(--vcc-card-cta-line-height) var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;
+  letter-spacing:0!important;
+  text-transform:uppercase!important;
+  text-align:right!important;
+  text-decoration:none!important;
+  white-space:normal!important;
+  color:#ad5a43!important;
+}
+html body :is(.vcc-it-catalog,.vcc-card-collection,.home-featured-itineraries,.home-featured-guide,#di-panel-itinerarios,#di-panel-guias,.vcc-budget-regions) .vcc-it-card .di-mini-body > :is(.vcc-it-upcoming,.di-upcoming-status,.home-feature-pending),
+html body :is(.vcc-it-catalog,.vcc-card-collection,.home-featured-itineraries,.home-featured-guide,#di-panel-itinerarios,#di-panel-guias,.vcc-budget-regions) .vcc-it-card.vcc-it-card-pending .di-mini-body > .vcc-it-cta{
+  color:#aaa09a!important;
+}
