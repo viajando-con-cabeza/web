@@ -44,6 +44,60 @@ body.dv-country-types #barrios .dv-card-bottom .dv-meta{
    pros i contres, dades de preu i finalment el mateix .dv-card-discover.
    Els estils de CTA, espais, tipus de lletra i fletxa provenen del CSS compartit. */
 
+/* Component de desplegable de Cómo moverse per al carrusel Dónde dormir.
+   És un .vcc-disclosure-footer compartit: el selector només neutralitza el
+   llegat .dv-card-discover (10,5px, fletxa circular i separador).
+   Referència: configuracion/css/componentes/desglose-compartit-vcc.css */
+html body.dv-country-types #barrios .dv-carousel > .dv-card .dv-card-discover.vcc-disclosure-footer{
+  display:flex!important;
+  width:100%!important;
+  align-items:center!important;
+  justify-content:flex-end!important;
+  gap:var(--vcc-desglose-gap,10px)!important;
+  margin-top:9px!important;
+  padding:13px 0 0!important;
+  border:0!important;
+  border-radius:0!important;
+  background:transparent!important;
+  box-shadow:none!important;
+  color:var(--vcc-desglose-color,#ac5a45)!important;
+  font-family:var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;
+  font-size:var(--vcc-desglose-font-size,10px)!important;
+  font-weight:700!important;
+  line-height:1.2!important;
+  letter-spacing:.01em!important;
+  text-transform:uppercase!important;
+  text-align:right!important;
+  white-space:nowrap!important;
+}
+html body.dv-country-types #barrios .dv-carousel > .dv-card:hover .dv-card-discover.vcc-disclosure-footer{
+  color:#8c422a!important;
+}
+html body.dv-country-types #barrios .dv-carousel > .dv-card .dv-card-discover.vcc-disclosure-footer .vcc-disclosure-caret{
+  display:inline-flex!important;
+  flex:0 0 16px!important;
+  width:16px!important;
+  height:16px!important;
+  padding:0!important;
+  border:0!important;
+  border-radius:0!important;
+  background:transparent!important;
+  box-shadow:none!important;
+}
+html body.dv-country-types #barrios .dv-carousel > .dv-card .dv-card-discover.vcc-disclosure-footer .vcc-disclosure-caret svg{
+  display:block;
+  width:var(--vcc-desglose-caret-size,12px)!important;
+  height:var(--vcc-desglose-caret-size,12px)!important;
+  fill:none!important;
+  stroke:currentColor!important;
+  stroke-width:1.8!important;
+}
+@media(max-width:590px){
+  html body.dv-country-types #barrios .dv-carousel > .dv-card .dv-card-discover.vcc-disclosure-footer{
+    padding-top:11px!important;
+  }
+}
+
 /* La calculadora es el bloque original de Planifica, a ancho completo:
    sin márgenes extra externos, estilos propios o reinterpretaciones. */
 body.dv-country-types .dv-planifica-alojamiento-reuse{
