@@ -110,7 +110,7 @@
         if(meta.realBudgetUrl&&meta.realBudgetUrl.startsWith("/destinos/")){
           cta.removeAttribute("data-choose-zone");
           cta.href=meta.realBudgetUrl;
-          cta.textContent="VER PRESUPUESTO";
+          cta.textContent="VER GUÍA";
         }else{
           cta.dataset.chooseZone=key;
           cta.href="#filosofia";
