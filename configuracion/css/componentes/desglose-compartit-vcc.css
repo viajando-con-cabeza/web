@@ -5,7 +5,7 @@
  * dins de targetes clicables. El JS de cada plantilla manté aria-expanded. */
 :root{
   --vcc-desglose-font-size:10px;
-  --vcc-desglose-caret-size:14px;
+  --vcc-desglose-caret-size:12px;
   --vcc-desglose-gap:6px;
   --vcc-desglose-color:#ac5a45;
 }
@@ -64,8 +64,8 @@ button.vcc-disclosure-toggle:focus-visible{outline:2px solid #b65f42;outline-off
   line-height:1;
   transform:none;
 }
-.vcc-disclosure-caret svg{display:block;width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;transition:transform .16s ease}
-.vcc-disclosure-caret--glyph{font-family:Arial,sans-serif;font-size:14px;font-weight:400;line-height:1;transition:transform .16s ease}
+.vcc-disclosure-caret svg{display:block;width:var(--vcc-desglose-caret-size);height:var(--vcc-desglose-caret-size);fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;transition:transform .16s ease}
+.vcc-disclosure-caret--glyph{font-family:Arial,sans-serif;font-size:var(--vcc-desglose-caret-size);font-weight:400;line-height:1;transition:transform .16s ease}
 .vcc-disclosure-toggle[aria-expanded="true"] .vcc-disclosure-caret--glyph,
 .vcc-disclosure-toggle[aria-expanded="true"] .vcc-disclosure-caret svg{transform:rotate(180deg)}
 /* Pressupost: mateix component sobre un span, perquè tota la targeta és clicable. 
@@ -97,8 +97,8 @@ html body.budget-vcc #filosofia .vcc-budget-mode-footer .vcc-budget-mode-caret.v
   background:transparent!important;
 }
 html body.budget-vcc #filosofia .vcc-budget-mode-footer .vcc-budget-mode-caret.vcc-disclosure-caret svg{
-  width:14px!important;
-  height:14px!important;
+  width:var(--vcc-desglose-caret-size)!important;
+  height:var(--vcc-desglose-caret-size)!important;
 }
 /* Com moure's: els botons comparteixen dimensió independentment de la secció. */
 html body .swmove-page button.vcc-disclosure-toggle{
@@ -123,7 +123,7 @@ html body .swmove-page button.vcc-disclosure-toggle--inline{
   padding:5px 0;
 }
 @media(max-width:590px){
-  :root{--vcc-desglose-font-size:10px;--vcc-desglose-caret-size:14px}
+  :root{--vcc-desglose-font-size:10px;--vcc-desglose-caret-size:12px}
   .vcc-disclosure-toggle--card{padding:8px 0 5px!important}
 }
 @media(prefers-reduced-motion:reduce){
