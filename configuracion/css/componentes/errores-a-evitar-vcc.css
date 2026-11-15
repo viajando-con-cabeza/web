@@ -1,5 +1,5 @@
 /* VCC — ÚNICA CONFIGURACIÓ COMPARTIDA D'«ERRORES A EVITAR».
-   Mateix disseny per a les 5 pàgines que tenen aquesta pestanya al subheader.
+   Mateix disseny per a les 6 pàgines que utilitzen aquest component (5 variants).
    Les targetes són blanques i la icona d'alerta té fons gris-blau.
    Els textos, la navegació del carrusel i les fletxes segueixen sent els de cada pàgina.
    Modificar només aquest fitxer per canviar el patró visual. */
@@ -18,7 +18,7 @@
   --vcc-error-track-gap:14px;
 }
 
-/* Els 5 carrusels comparteixen ample de targeta, distàncies i scroll.
+/* Les 5 variants de carrusel en 6 pàgines comparteixen amplada, distàncies i scroll.
    Es mantenen els IDs originals perquè les fletxes de cada pàgina segueixin funcionant. */
 html body :is(#av-errores-track,#sv-track-tips,#tv-errors-track,#ciTipsTrack,#sorpresas .surprise-grid){
   display:flex!important;
@@ -109,7 +109,7 @@ html body :is(#sorpresas,#errores-a-evitar,#consejos,#errores) .vcc-editorial-er
   transform:none!important;
 }
 
-/* Tipografia editorial VCC, idèntica als cinc apartats. */
+/* Tipografia editorial VCC, idèntica a totes les pàgines amb el component. */
 html body :is(#sorpresas,#errores-a-evitar,#consejos,#errores) .vcc-editorial-error-card > div{
   display:flex!important;
   flex:1 1 auto!important;
