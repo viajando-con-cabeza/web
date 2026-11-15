@@ -21,15 +21,15 @@ body.dv-country-types #como-ahorrar{
   margin-inline:auto;
 }
 
-/* No hay puntuación, distancia ni "Ver análisis" por petición editorial.
-   Reserva solo la altura del formato de Estocolmo sin cambiar su ancho,
-   tamaño de letra, separación entre tarjetas, padding o tipografía. */
+/* El desglose plegado hace que las tarjetas sean compactas de entrada.
+   Se conserva la escala de Estocolmo y la lista original de pros/contras,
+   ahora dentro de <details> con el resumen CSS compartido. */
 body.dv-country-types #barrios .dv-carousel > .dv-card{
-  min-height:298px;
+  min-height:225px;
   cursor:default;
 }
-/* El espacio sobrante no debe estirar las filas de pros/contras.
-   Así conserva la misma separación entre líneas que Estocolmo. */
+/* Al abrir el desglose los pros/contras recuperan su formato original,
+   sin estirar la separación entre líneas. */
 body.dv-country-types #barrios .dv-pros{
   align-content:start;
 }
@@ -69,7 +69,7 @@ body.dv-country-types .dv-planifica-alojamiento-reuse .al-compare-status{
 }
 @media(max-width:700px){
   body.dv-country-types #barrios .dv-carousel > .dv-card{
-    min-height:303px;
+    min-height:240px;
   }
 }
 @media(max-width:600px){
