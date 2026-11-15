@@ -70,94 +70,65 @@ html body #ql-v6-print.vcc-download-link:disabled{
   cursor:progress!important;
   text-decoration:none!important;
 }
-html body .vl-page .vl-compare-utils,
-html body.al-page .al-compare-utils{
-  align-items:center;
-  column-gap:15px;
+/* VCC · Control compartit per a totes les calculadores.
+   La mateixa estructura HTML (.vcc-file-actions) es fa servir a Vuelos,
+   Planifica/Alojamientos i Dónde dormir/Suecia, sense selectors per pàgina.
+   Ordre de lectura i visual: Limpiar, Guardar en PDF. */
+html body .vcc-file-actions{
+  display:flex!important;
+  flex-direction:row!important;
+  align-items:center!important;
+  justify-content:flex-end!important;
+  flex-wrap:wrap!important;
+  gap:4px 16px!important;
+  width:100%!important;
+  min-width:0!important;
+  max-width:100%!important;
+  margin:10px 0 0!important;
+  padding:10px 0 0!important;
+  border:0!important;
+  border-top:1px solid #e9ded4!important;
+  background:transparent!important;
+}
+html body .vcc-file-actions > button{
+  appearance:none!important;
+  display:inline-flex!important;
+  flex:0 0 auto!important;
+  align-items:center!important;
+  justify-content:center!important;
+  width:auto!important;
+  min-width:0!important;
+  min-height:28px!important;
+  margin:0!important;
+  padding:4px 2px!important;
+  border:0!important;
+  border-radius:0!important;
+  background:transparent!important;
+  box-shadow:none!important;
+  font:600 10.5px/1.35 var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;
+  letter-spacing:0!important;
+  text-transform:none!important;
+  text-decoration:none!important;
+  white-space:nowrap!important;
+  cursor:pointer!important;
+}
+html body .vcc-file-actions > .vcc-file-clear{
+  color:#6f6660!important;
+}
+html body .vcc-file-actions > .vcc-file-clear:hover{
+  color:#a65340!important;
+  text-decoration:underline!important;
+  text-underline-offset:3px!important;
+}
+html body .vcc-file-actions > .vcc-file-clear:focus-visible{
+  outline:2px solid #c9724c!important;
+  outline-offset:3px!important;
+  border-radius:2px!important;
 }
 @media(max-width:720px){
-  html body button.vcc-download-link,
-  html body #ql-v6-print.vcc-download-link{
-    min-height:36px!important;
-    font-size:10.5px!important;
-  }
+  html body .vcc-file-actions > button{min-height:36px!important}
 }
 
-/* VCC · posición única de las exportaciones: SIEMPRE debajo y a la derecha
- * de la tarjeta, tabla, comparador, mapa o checklist. Escritorio y móvil.
- * 'Limpiar' y acciones de selección se mantienen a la izquierda.
- * No se modifican funciones JS, únicamente distribución visual. */
-/* Vuelos usa <main class="vl-page">. Alojamientos usa <body class="al-page">.
-   Los selectores deben seguir la estructura real: no usar 'body .al-page'.
-   Grid evita que el botón PDF quede junto a Limpiar a la izquierda. */
-html body .vl-page .vl-compare-utils,
-html body.al-page .al-compare-utils{
-  display:grid!important;
-  grid-template-columns:minmax(0,1fr) max-content!important;
-  grid-template-rows:auto!important;
-  align-items:center!important;
-  justify-items:stretch!important;
-  gap:8px 14px!important;
-  width:100%!important;
-  max-width:100%!important;
-}
-html body .vl-page .vl-compare-utils [data-clear-comparison],
-html body.al-page .al-compare-utils [data-al-clear]{
-  grid-column:1!important;
-  grid-row:1!important;
-  justify-self:start!important;
-  min-width:0!important;
-  margin:0!important;
-}
-html body .vl-page .vl-compare-utils .vcc-download-link,
-html body.al-page .al-compare-utils .vcc-download-link{
-  grid-column:2!important;
-  grid-row:1!important;
-  justify-self:end!important;
-  align-self:center!important;
-  margin:0!important;
-}
-/* Alojamientos: Limpiar junto a PDF, ambos al pie derecho de la tabla. */
-html body.al-page .al-compare-utils{
-  display:flex!important;
-  flex-wrap:wrap!important;
-  align-items:center!important;
-  justify-content:flex-end!important;
-  gap:4px 16px!important;
-}
-html body.al-page .al-compare-utils [data-al-clear]{
-  order:1!important;
-  margin:0!important;
-}
-html body.al-page .al-compare-utils [data-al-pdf].vcc-download-link{
-  order:2!important;
-  margin:0!important;
-}
-
-/* Vuelos: Limpiar + Guardar en PDF en un único grupo debajo de la tabla,
-   alineado siempre a la derecha (igual que Alojamientos). */
-html body .vl-page #calculadora .vl-compare-utils{
-  display:flex!important;
-  flex-wrap:wrap!important;
-  align-items:center!important;
-  justify-content:flex-end!important;
-  gap:4px 16px!important;
-  width:100%!important;
-}
-html body .vl-page #calculadora .vl-compare-utils [data-clear-comparison]{
-  order:1!important;
-  grid-column:auto!important;
-  grid-row:auto!important;
-  justify-self:auto!important;
-  margin:0!important;
-}
-html body .vl-page #calculadora .vl-compare-utils [data-export-pdf].vcc-download-link{
-  order:2!important;
-  grid-column:auto!important;
-  grid-row:auto!important;
-  justify-self:auto!important;
-  margin:0!important;
-}
 html body .tv-page .tv-calc-actions{
   display:flex!important;
   align-items:center!important;
