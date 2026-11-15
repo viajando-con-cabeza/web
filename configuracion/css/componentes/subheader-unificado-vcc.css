@@ -66,11 +66,12 @@ html body nav.vcc-unified-subheader a::after{
   content:none!important;display:none!important;
 }
 html body nav.vcc-unified-subheader a.vcc-subheader-current,
-html body nav.vcc-unified-subheader a:hover,
-html body nav.vcc-unified-subheader a:focus-visible,
 html body nav.vcc-unified-subheader.place-nav-wrap .place-nav a:is(.active,.is-active,[aria-current="location"]){
   color:var(--vcc-subnav-coral)!important;
   border-bottom-color:var(--vcc-subnav-coral)!important;
+}
+html body nav.vcc-unified-subheader a:is(:hover,:focus-visible){
+  color:var(--vcc-subnav-coral)!important;
 }
 html body nav.vcc-unified-subheader a:focus-visible{outline:2px solid var(--vcc-subnav-coral)!important;outline-offset:-3px!important}
 /* El índice con flechas mantiene sus botones, pero comparte altura y escala. */
@@ -291,10 +292,17 @@ html body nav.vcc-unified-subheader.vcc-unified-subheader:not(.place-nav-wrap) a
  color:var(--vcc-subnav-ink)!important;
  border-bottom-color:transparent!important;
 }
-html body nav.vcc-unified-subheader.vcc-unified-subheader a:is(.vcc-subheader-current,:hover,:focus-visible),
-html body nav.vcc-unified-subheader.vcc-unified-subheader.place-nav-wrap .place-nav a:is(.active,.is-active,[aria-current="location"],:hover,:focus-visible){
+/* El subrayado identifica solamente la sección activa, nunca el hover. */
+html body nav.vcc-unified-subheader.vcc-unified-subheader:not(.place-nav-wrap) a:not(.vcc-subheader-current){
+ border-bottom-color:transparent!important;
+}
+html body nav.vcc-unified-subheader.vcc-unified-subheader a.vcc-subheader-current,
+html body nav.vcc-unified-subheader.vcc-unified-subheader.place-nav-wrap .place-nav a:is(.active,.is-active,[aria-current="location"]){
  color:var(--vcc-subnav-coral)!important;
  border-bottom-color:var(--vcc-subnav-coral)!important;
+}
+html body nav.vcc-unified-subheader.vcc-unified-subheader a:is(:hover,:focus-visible){
+ color:var(--vcc-subnav-coral)!important;
 }
 html body nav.vcc-unified-subheader.vcc-unified-subheader a:focus-visible{
  outline:2px solid var(--vcc-subnav-coral)!important;
