@@ -215,7 +215,7 @@ body.mv-body .swmove-page .mv-day-advice.swmove-vcc-advice{background:#fff;backg
 }
 @media(prefers-reduced-motion:reduce){.swmove-page .mv-grid{scroll-behavior:auto}}
 
-/* Suecia · una diapositiva = sobretítulo exterior + tarjeta. El track mueve ambas juntas. */
+/* Carrusel Suecia: sobretítulo corporativo externo, compacto y vinculado a cada tarjeta. */
 .swmove-page .mv-grid>.swmove-transport-slide{
   flex:0 0 calc((100% - 24px)/3);
   min-width:0;
@@ -225,17 +225,18 @@ body.mv-body .swmove-page .mv-day-advice.swmove-vcc-advice{background:#fff;backg
 }
 .swmove-page .mv-grid>.swmove-transport-slide>.swmove-ideal{
   display:block;
-  flex:0 0 auto;
-  min-height:70px;
+  flex:none;
   margin:0;
-  padding:0 3px 10px;
+  padding:0 9px 9px;
+  min-height:39px;
   color:#c86f5d;
   background:transparent;
   border:0;
-  font:600 25px/1.1 var(--vcc-font-script,"Caveat",cursive);
+  font:600 25px/1.15 var(--vcc-font-script,"Caveat",cursive);
   letter-spacing:0;
   text-transform:none;
   text-align:left;
+  white-space:nowrap;
 }
 .swmove-page .mv-grid>.swmove-transport-slide>.mv-card{
   flex:1 1 auto;
@@ -245,14 +246,19 @@ body.mv-body .swmove-page .mv-day-advice.swmove-vcc-advice{background:#fff;backg
   width:100%;
 }
 .swmove-page .mv-grid>.swmove-transport-slide>.mv-card>.mv-card-body{flex:1 1 auto}
-.swmove-page .mv-transport-arrow{top:calc(50% + 31px)}
+.swmove-page .mv-transport-arrow{top:calc(50% + 17px)}
 @media(max-width:1050px){
   .swmove-page .mv-grid>.swmove-transport-slide{flex-basis:calc((100% - 12px)/2)}
-  .swmove-page .mv-grid>.swmove-transport-slide>.swmove-ideal{min-height:88px}
-  .swmove-page .mv-transport-arrow{top:calc(50% + 40px)}
 }
 @media(max-width:690px){
   .swmove-page .mv-grid>.swmove-transport-slide{flex-basis:100%}
-  .swmove-page .mv-grid>.swmove-transport-slide>.swmove-ideal{min-height:82px;padding-bottom:8px}
-  .swmove-page .mv-transport-arrow{top:calc(50% + 36px)}
+  .swmove-page .mv-grid>.swmove-transport-slide>.swmove-ideal{
+    padding:0 8px 8px;
+    min-height:36px;
+    font-size:24px;
+  }
+  .swmove-page .mv-transport-arrow{top:calc(50% + 15px)}
+}
+@media(max-width:360px){
+  .swmove-page .mv-grid>.swmove-transport-slide>.swmove-ideal{font-size:22px}
 }
