@@ -72,7 +72,7 @@
   if (!document.querySelector('link[data-vcc-discreet-actions]')) {
     const actionStyle=document.createElement('link');
     actionStyle.rel='stylesheet';
-    actionStyle.href=url('configuracion/css/componentes/enlaces-discretos-vcc.css?v=20261114-card-ctas-petits-v3');
+    actionStyle.href=url('configuracion/css/componentes/enlaces-discretos-vcc.css?v=20261115-card-ctas-unificats-v4');
     actionStyle.dataset.vccDiscreetActions='true';
     document.head.appendChild(actionStyle);
   }
