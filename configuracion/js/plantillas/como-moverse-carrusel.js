@@ -164,3 +164,49 @@
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", initDayCarousel, {once:true});
   else initDayCarousel();
 })();
+
+
+/* VCC · Perfils de cost de transport: 4 escriptori / 2 tauleta / 1 mòbil.
+   Conserva les quatre targetes al DOM i les fletxes globals compartides. */
+(function () {
+  "use strict";
+  function initProfileCarousel() {
+    const track = document.getElementById("mv-profile-track");
+    if (!track) return;
+    const shell = track.closest(".mv-profile-carousel");
+    const prev = shell && shell.querySelector(".mv-profile-prev");
+    const next = shell && shell.querySelector(".mv-profile-next");
+    const cards = Array.from(track.querySelectorAll(".mv-profile"));
+    if (!shell || !prev || !next || cards.length < 2) return;
+
+    const reduced = () => window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    function update() {
+      const remaining = Math.max(0, track.scrollWidth - track.clientWidth);
+      shell.classList.toggle("is-static", remaining <= 3);
+      prev.disabled = remaining <= 3 || track.scrollLeft <= 2;
+      next.disabled = remaining <= 3 || track.scrollLeft >= remaining - 2;
+    }
+    function move(direction) {
+      const gap = parseFloat(window.getComputedStyle(track).columnGap) || 0;
+      const width = cards[0].getBoundingClientRect().width;
+      track.scrollBy({left: direction * (width + gap), behavior: reduced() ? "auto" : "smooth"});
+    }
+    prev.addEventListener("click", () => move(-1));
+    next.addEventListener("click", () => move(1));
+    track.addEventListener("keydown", event => {
+      if (event.key !== "ArrowLeft" && event.key !== "ArrowRight") return;
+      event.preventDefault();
+      move(event.key === "ArrowRight" ? 1 : -1);
+    });
+    let queued = false;
+    track.addEventListener("scroll", () => {
+      if (queued) return;
+      queued = true;
+      window.requestAnimationFrame(() => { queued = false; update(); });
+    }, {passive: true});
+    window.addEventListener("resize", update, {passive: true});
+    update();
+  }
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", initProfileCarousel, {once: true});
+  else initProfileCarousel();
+})();
