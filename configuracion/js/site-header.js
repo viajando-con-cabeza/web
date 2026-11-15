@@ -383,6 +383,14 @@
     for(const node of nodes){
       const card=node.closest('.vcc-it-card');
       if(!card)continue;
+      // El estado de publicación manda: una guía borrador NO puede
+      // conservar VER GUÍA ni crear una segunda etiqueta por CSS.
+      if(card.getAttribute('data-vcc-publication')==='draft'){
+        if(node.textContent.trim()!=='PRÓXIMAMENTE')node.textContent='PRÓXIMAMENTE';
+        node.classList.remove('vcc-it-cta');
+        node.classList.add('vcc-it-upcoming');
+        continue;
+      }
       const label=(node.textContent||'').trim();
       if((node.matches('.vcc-it-upcoming,.di-upcoming-status')||node.classList.contains('vcc-pending'))&&
          /PR[ÓO]XIMAMENTE/i.test(label)){
