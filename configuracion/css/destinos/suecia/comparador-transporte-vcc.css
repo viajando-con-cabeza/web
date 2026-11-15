@@ -1,0 +1,55 @@
+/* Comparador de transporte Suecia · importes siempre visibles, sin desplegables */
+.swmove-page .swmove-calculator{display:block;background:#fff;border:1px solid #e4e0db;border-radius:15px;overflow:hidden}
+.swmove-page .swmove-compare-heading{padding:23px 24px 18px}
+.swmove-page .swmove-compare-overline{display:block;margin:0 0 5px;color:#b45f45;font:600 24px/1.15 var(--vcc-font-script,"Caveat",cursive)}
+.swmove-page .swmove-compare-heading h3{margin:0 0 7px;color:#272b28;font:600 26px/1.15 var(--vcc-font-heading,"Oswald",sans-serif)}
+.swmove-page .swmove-compare-heading p{max-width:770px;margin:0;color:#65645f;font:400 12.5px/1.65 var(--vcc-font-body,"DM Sans",sans-serif)}
+.swmove-page .swmove-compare-heading strong{font-weight:750;color:#292b28}
+.swmove-page .swmove-compare-form{margin:0;padding:0 24px 22px}
+.swmove-page .swmove-compare-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;align-items:stretch}
+.swmove-page .swmove-compare-panel{display:flex;flex-direction:column;min-width:0;padding:20px;border:1px solid #e3dfda;border-radius:13px;background:#fff}
+.swmove-page .swmove-compare-panel h4{margin:0;color:#242825;font:600 21px/1.2 var(--vcc-font-heading,"Oswald",sans-serif)}
+.swmove-page .swmove-compare-panel-desc{margin:6px 0 17px;color:#7a7873;font:400 12px/1.4 var(--vcc-font-body,"DM Sans",sans-serif)}
+.swmove-page .swmove-compare-fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px 12px;flex:1;align-content:start}
+.swmove-page .swmove-compare-field{display:flex;flex-direction:column;gap:8px;min-width:0}
+.swmove-page .swmove-compare-field>span:first-child{color:#303430;font:700 12px/1.35 var(--vcc-font-body,"DM Sans",sans-serif)}
+.swmove-page .swmove-compare-field small{display:block;margin-top:3px;color:#88837e;font:400 10.5px/1.4 var(--vcc-font-body,"DM Sans",sans-serif)}
+.swmove-page .swmove-compare-input{display:block;position:relative;min-width:0;margin-top:auto}
+.swmove-page .swmove-compare-input input{display:block;width:100%;min-width:0;height:46px;border:1px solid #dbd7d2;border-radius:9px;background:#fff;padding:10px 30px 10px 12px;color:#252926;font:700 15px/1.2 var(--vcc-font-body,"DM Sans",sans-serif);font-variant-numeric:tabular-nums}
+.swmove-page .swmove-compare-input input::placeholder{color:#a6a19c;font-size:11px;font-weight:400}
+.swmove-page .swmove-compare-input input:focus-visible{outline:2px solid #ad664c;outline-offset:1px;border-color:#ad664c}
+.swmove-page .swmove-compare-input>b{position:absolute;right:12px;top:50%;transform:translateY(-50%);pointer-events:none;color:#8a8782;font:600 14px/1 var(--vcc-font-body,"DM Sans",sans-serif)}
+.swmove-page .swmove-compare-total{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-top:20px;padding-top:15px;border-top:1px solid #e5e1dd}
+.swmove-page .swmove-compare-total>span{color:#6b6965;font:700 10.5px/1.4 var(--vcc-font-body,"DM Sans",sans-serif);letter-spacing:.035em}
+.swmove-page .swmove-compare-total>strong{color:#252825;font:600 25px/1.12 var(--vcc-font-heading,"Oswald",sans-serif);white-space:nowrap;font-variant-numeric:tabular-nums}
+.swmove-page .swmove-compare-result{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(160px,.65fr);gap:18px;align-items:center;padding:19px 24px;border-top:1px solid #e9e5e1;background:#faf9f7}
+.swmove-page .swmove-compare-verdict,.swmove-page .swmove-compare-saving{display:flex;flex-direction:column;gap:5px;min-width:0}
+.swmove-page .swmove-compare-result span{color:#6e6b66;font:800 10px/1.35 var(--vcc-font-body,"DM Sans",sans-serif);letter-spacing:.055em}
+.swmove-page .swmove-compare-verdict>strong{color:#292c28;font:600 26px/1.15 var(--vcc-font-heading,"Oswald",sans-serif)}
+.swmove-page .swmove-compare-result small{color:#73716c;font:400 11px/1.5 var(--vcc-font-body,"DM Sans",sans-serif)}
+.swmove-page .swmove-compare-saving{border-left:1px solid #e6e0db;padding-left:20px}
+.swmove-page .swmove-compare-saving>strong{color:#292c28;font:600 31px/1.1 var(--vcc-font-heading,"Oswald",sans-serif);font-variant-numeric:tabular-nums}
+.swmove-page .swmove-compare-saving[data-savings="positive"]>strong,.swmove-page .swmove-compare-saving[data-savings="negative"]>strong{color:#16833d}
+.swmove-page .swmove-compare-footer{display:flex;align-items:center;justify-content:space-between;gap:15px;padding:12px 24px 18px}
+.swmove-page .swmove-compare-footer p{margin:0;color:#85807a;font:400 10.5px/1.5 var(--vcc-font-body,"DM Sans",sans-serif)}
+.swmove-page .swmove-compare-reset{flex:none;border:0;padding:5px 0;background:transparent;color:#67625e;text-decoration:underline;text-underline-offset:3px;font:700 10px/1.25 var(--vcc-font-body,"DM Sans",sans-serif);cursor:pointer}
+.swmove-page .swmove-compare-reset:focus-visible{outline:2px solid #ad664c;outline-offset:3px}
+@media(max-width:900px){
+.swmove-page .swmove-compare-grid{grid-template-columns:1fr}
+.swmove-page .swmove-compare-panel{padding:18px}
+}
+@media(max-width:590px){
+.swmove-page .swmove-compare-heading{padding:20px 16px 16px}
+.swmove-page .swmove-compare-heading h3{font-size:22px}
+.swmove-page .swmove-compare-form{padding:0 12px 16px}
+.swmove-page .swmove-compare-grid{gap:12px}
+.swmove-page .swmove-compare-panel{padding:15px}
+.swmove-page .swmove-compare-fields{gap:12px 10px}
+.swmove-page .swmove-compare-field>span:first-child{font-size:11.5px}
+.swmove-page .swmove-compare-field small{font-size:10px}
+.swmove-page .swmove-compare-input input{height:44px}
+.swmove-page .swmove-compare-result{grid-template-columns:1fr;gap:15px;padding:17px}
+.swmove-page .swmove-compare-saving{border-left:0;border-top:1px solid #e6e0db;padding:14px 0 0}
+.swmove-page .swmove-compare-footer{padding:13px 17px 18px;align-items:flex-start;flex-direction:column}
+}
+@media(max-width:410px){.swmove-page .swmove-compare-fields{grid-template-columns:1fr}.swmove-page .swmove-compare-field{gap:5px}.swmove-page .swmove-compare-panel-desc{margin-bottom:13px}}
