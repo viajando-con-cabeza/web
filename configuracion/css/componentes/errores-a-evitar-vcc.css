@@ -177,3 +177,91 @@ html body :is(#sorpresas,#errores-a-evitar,#consejos,#errores){scroll-margin-top
     scroll-behavior:auto!important;
   }
 }
+
+
+/* VCC 2026-11-15 · FIX ESTRUCTURAL. Las flechas pueden ocultarse por overflow,
+   pero la pista NUNCA debe ocupar la columna de 30/40px reservada al botón.
+   En CSS grid, usar display:none en la flecha anterior reubica el track.
+   Posicionamos las 3 piezas explícitamente y conservamos sitio al ocultarla. */
+@media(min-width:761px){
+ html body.ci-page #errores .ci-tips-shell{
+   display:grid!important;
+   grid-template-columns:36px minmax(0,1fr) 36px!important;
+   align-items:center!important;
+   gap:12px!important;
+   width:100%!important;min-width:0!important;
+ }
+ html body.ci-page #errores .ci-tips-shell > #ciTipsPrev{
+   grid-column:1!important;grid-row:1!important;
+ }
+ html body.ci-page #errores .ci-tips-shell > #ciTipsTrack{
+   grid-column:2!important;grid-row:1!important;
+   width:100%!important;min-width:0!important;
+ }
+ html body.ci-page #errores .ci-tips-shell > #ciTipsNext{
+   grid-column:3!important;grid-row:1!important;
+ }
+ html body .tv-page #errores .tv-errors-carousel{
+   display:grid!important;
+   grid-template-columns:40px minmax(0,1fr) 40px!important;
+   align-items:center!important;gap:12px!important;
+ }
+ html body .tv-page #errores .tv-errors-carousel > [data-tv-errors-prev]{
+   grid-column:1!important;grid-row:1!important;
+ }
+ html body .tv-page #errores .tv-errors-carousel > #tv-errors-track{
+   grid-column:2!important;grid-row:1!important;
+   width:100%!important;min-width:0!important;
+ }
+ html body .tv-page #errores .tv-errors-carousel > [data-tv-errors-next]{
+   grid-column:3!important;grid-row:1!important;
+ }
+ html body .sv-page #consejos .sv-carousel-shell{
+   display:grid!important;
+   grid-template-columns:36px minmax(0,1fr) 36px!important;
+   align-items:center!important;gap:10px!important;
+ }
+ html body .sv-page #consejos .sv-carousel-shell > .sv-prev{
+   grid-column:1!important;grid-row:1!important;
+ }
+ html body .sv-page #consejos .sv-carousel-shell > #sv-track-tips{
+   grid-column:2!important;grid-row:1!important;
+   width:100%!important;min-width:0!important;
+ }
+ html body .sv-page #consejos .sv-carousel-shell > .sv-next-arrow{
+   grid-column:3!important;grid-row:1!important;
+ }
+}
+/* Fallback también frente a CSS global antiguo aún cacheado.
+   Especificidad con #id: el botón invisible conserva posición en el grid. */
+html body.ci-page #errores .ci-tips-shell > .ci-tips-arrow[data-vcc-scroll-hidden],
+html body .tv-page #errores .tv-errors-carousel > .tv-error-arrow[data-vcc-scroll-hidden],
+html body .sv-page #consejos .sv-carousel-shell > .sv-arrow[data-vcc-scroll-hidden]{
+  display:grid!important;
+  visibility:hidden!important;
+  opacity:0!important;
+  pointer-events:none!important;
+}
+@media(max-width:760px){
+ html body.ci-page #errores .ci-tips-shell{
+   display:block!important;
+   position:relative!important;
+   width:100%!important;min-width:0!important;
+ }
+ html body.ci-page #errores .ci-tips-shell > #ciTipsTrack{
+   display:flex!important;
+   width:100%!important;min-width:0!important;
+ }
+ html body.ci-page #errores .ci-tips-shell > .ci-tips-arrow{
+   position:absolute!important;
+   top:50%!important;
+   transform:translateY(-50%)!important;
+   z-index:3!important;
+ }
+ html body.ci-page #errores .ci-tips-shell > .ci-tips-prev{left:2px!important;right:auto!important}
+ html body.ci-page #errores .ci-tips-shell > .ci-tips-next{right:2px!important;left:auto!important}
+ html body .tv-page #errores .tv-errors-carousel > #tv-errors-track,
+ html body .sv-page #consejos .sv-carousel-shell > #sv-track-tips{
+   width:100%!important;min-width:0!important;
+ }
+}
