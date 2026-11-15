@@ -288,3 +288,24 @@ body.mv-body .swmove-page .mv-day-advice.swmove-vcc-advice{background:#fff;backg
   .swmove-page .mv-card-heading .mv-icon{width:50px;height:50px;flex-basis:50px}
   .swmove-page .mv-card-heading .mv-icon svg{width:37px;height:37px}
 }
+
+
+/* VCC · Regiones de Suecia | ficha local, compacta y alineada con las demás guías */
+.swmove-page .swmove-region-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.swmove-page .swmove-region-card{background:#fff;border:1px solid var(--sw-border);border-radius:16px;overflow:hidden;display:flex;flex-direction:column;min-width:0;min-height:352px}
+.swmove-page .swmove-region-photo{height:154px;flex:0 0 154px;overflow:hidden;background:linear-gradient(135deg,#e5e9e8,#cbd6d8);display:flex;align-items:center;justify-content:center}
+.swmove-page .swmove-region-photo img{display:block;width:100%;height:100%;object-fit:cover}
+.swmove-page .swmove-region-photo>span{font:600 22px/1.2 var(--vcc-font-title,"Oswald",sans-serif);letter-spacing:.06em;color:#445b63;text-align:center}
+.swmove-page .swmove-region-content{padding:16px 18px 15px;display:flex;flex-direction:column;flex:1;min-width:0}
+.swmove-page .swmove-region-content h3{font:600 25px/1.15 var(--vcc-font-title,"Oswald",sans-serif);text-transform:uppercase;color:#252b2a;margin:0 0 6px}
+.swmove-page .swmove-region-mode{color:#ad5c43;font:700 10px/1.4 var(--vcc-font-body,"DM Sans",sans-serif);letter-spacing:.08em;margin:0 0 9px}
+.swmove-page .swmove-region-description{font:400 13px/1.5 var(--vcc-font-body,"DM Sans",sans-serif);color:#5e5c59;margin:0}
+.swmove-page .swmove-region-footer{display:flex;justify-content:flex-end;align-items:flex-end;margin-top:auto;padding-top:13px;min-height:31px}
+.swmove-page .swmove-region-link,.swmove-page .swmove-region-upcoming{font:800 11px/1.25 var(--vcc-font-body,"DM Sans",sans-serif);letter-spacing:.025em;text-decoration:none}
+.swmove-page .swmove-region-link{color:#ac573e}
+.swmove-page .swmove-region-link:hover,.swmove-page .swmove-region-link:focus-visible{text-decoration:underline;text-underline-offset:4px}
+.swmove-page .swmove-region-link span{padding-left:4px}
+.swmove-page .swmove-region-upcoming{color:#918a83}
+.swmove-page .swmove-region-note{margin:14px 0 0;color:var(--sw-muted);font:400 12px/1.55 var(--vcc-font-body,"DM Sans",sans-serif)}
+@media(max-width:1020px){.swmove-page .swmove-region-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:680px){.swmove-page .swmove-region-grid{grid-template-columns:minmax(0,1fr);gap:12px}.swmove-page .swmove-region-card{min-height:0}.swmove-page .swmove-region-photo{height:148px;flex-basis:148px}.swmove-page .swmove-region-content{padding:15px 16px 13px}.swmove-page .swmove-region-content h3{font-size:23px}.swmove-page .swmove-region-description{font-size:12.8px}.swmove-page .swmove-region-footer{padding-top:14px}}
