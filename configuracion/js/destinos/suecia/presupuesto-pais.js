@@ -58,7 +58,7 @@
       for(const [key,zone] of Object.entries(data.zones)){
         const option=document.createElement("option");
         option.value=key;
-        option.textContent=zone.selectLabel||zone.name;
+        option.textContent=zone.name;
         select.appendChild(option);
       }
       select.value=state.zone;
@@ -80,14 +80,9 @@
       }
       const title=card.querySelector(".vcc-it-title");
       if(title)title.textContent=zone.name;
-      const kicker=card.querySelector(".vcc-card-kicker");
-      if(kicker){
-        const icon=kicker.querySelector("use");
-        if(icon&&/^it-category-[a-z-]+$/.test(meta.symbol||""))icon.setAttribute("href","/configuracion/imagenes/iconos/paginas/itinerarios-iconos.svg#"+meta.symbol);
-        const text=[...kicker.childNodes].find(n=>n.nodeType===3);
-        if(text)text.nodeValue=meta.type||"DESTINOS";
-        else kicker.appendChild(document.createTextNode(meta.type||"DESTINOS"));
-      }
+      // La ficha identifica el destino por su nombre: sin categorías
+      // genéricas "ciudades", "ruta", "islas", etc.
+      card.querySelector(".vcc-card-kicker")?.remove();
       const photo=card.querySelector(".di-mini-photo");
       if(photo){
         if(meta.image&&meta.image.startsWith("https://img.viajandoconcabeza.com/")){
@@ -104,13 +99,13 @@
         }
       }
       const info=card.querySelector(".di-mini-desc");
-      if(info)info.textContent=(meta.description||zone.detail)+". Precios orientativos.";
+      if(info)info.textContent=meta.description||zone.detail;
       const cta=card.querySelector(".vcc-it-cta");
       if(cta){
         if(meta.realBudgetUrl&&meta.realBudgetUrl.startsWith("/destinos/")){
           cta.removeAttribute("data-choose-zone");
           cta.href=meta.realBudgetUrl;
-          cta.textContent="VER GUÍA";
+          cta.textContent="VER PRESUPUESTO";
         }else{
           cta.dataset.chooseZone=key;
           cta.href="#filosofia";
@@ -173,14 +168,20 @@
     });
   }
   function renderRegions(){
-    const selected=selectedStyle();
+    // No fingir que los escenarios del simulador son tarifas reales por zona.
+    // El único gasto VCC verificado de las fichas es Estocolmo.
     const indicator=el("swb-zone-current-style");
-    if(indicator)indicator.textContent=selected?"Perfil "+data.styleLabels[selected]:"Perfil personalizado";
+    if(indicator)indicator.textContent="Gasto real VCC en Estocolmo";
     document.querySelectorAll("[data-region-card]").forEach(card=>{
       const key=card.dataset.regionCard;
-      const price=selected?dayRate(selected,key):cats.reduce((sum,category)=>sum+amount(state.choice[category],category,key),0);
       const cell=card.querySelector("[data-zone-daily]");
-      if(cell)cell.textContent="≈ "+price.toLocaleString("es-ES")+" €/pax/día";
+      if(cell){
+        const isReal=key==="stockholm";
+        cell.textContent=isReal?"110 €/pax/día":"Sin gasto real";
+        cell.closest(".di-budget-row")?.setAttribute("title",isReal?
+          "Gasto real VCC: 660 € / 2 viajeros / 3 días, sin vuelos ni traslados de entrada y salida":
+          "Sin datos reales de viaje para esta zona: VER ZONA abre una simulación orientativa");
+      }
       card.classList.toggle("is-current",key===state.zone);
     });
   }
