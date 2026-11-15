@@ -1,55 +1,36 @@
 /* Cuándo ir · Suecia | Fuente única de la lógica de página.
    Mantener en configuracion para permitir ajustes sin editar el HTML editorial. */
 (()=>{
-  // Los datos de los doce meses se mantienen únicamente en el HTML, para SEO y coherencia.
+  // Cada objetivo muestra su recomendación de temporada; el detalle depende de la región.
   const objectives=[
-    {id:'clima',icon:'/configuracion/imagenes/iconos/tabler/mejor-clima.svg',label:'Mejor clima',months:[5,6,7],title:'JUNIO – AGOSTO',description:'Días largos, rutas por ciudades, lagos y costa; recuerda las diferencias regionales.',reasons:['Muchas horas de luz en el centro, todavía más al norte','Excursiones, ferris y naturaleza','Demanda elevada en destinos de verano']},
-    {id:'calma',icon:'/configuracion/imagenes/iconos/tabler/menos-turistas.svg',label:'Menos turistas',months:[2,3,9,10],title:'MARZO – ABRIL · OCTUBRE – NOVIEMBRE',description:'Viaje más tranquilo por el sur y las ciudades, con tiempo más cambiante.',reasons:['Menos aglomeraciones habituales','Menos movimiento en varios destinos','Servicios de temporada más limitados']},
-    {id:'ahorro',icon:'/configuracion/imagenes/iconos/tabler/ahorrar.svg',label:'Ahorrar',months:[0,1,10],title:'ENERO – FEBRERO · NOVIEMBRE',description:'Meses que suelen ofrecer oportunidades para reducir gastos en alojamiento y transporte.',reasons:['Demanda generalmente menor','Compara tarifas antes de reservar','Más frío y menos horas de luz']},
-    {id:'navidad',icon:'/configuracion/imagenes/iconos/tabler/mercados-navidad.svg',label:'Mercados de Navidad',months:[11],title:'DICIEMBRE',description:'La mejor opción si tu objetivo es disfrutar del ambiente y los mercados navideños.',reasons:['Mercadillos y decoración navideña','Atardeceres tempranos y luces','Consulta las fechas concretas de apertura']},
-    {id:'nieve',icon:'/configuracion/imagenes/iconos/tabler/nieve-paisajes.svg',label:'Nieve y paisajes',months:[0,1],title:'ENERO – FEBRERO',description:'Los meses más fríos son los más adecuados para buscar paisajes de invierno.',reasons:['Más posibilidades de frío y nieve','Ambiente nórdico invernal','La nieve nunca está garantizada']},
-    {id:'primavera',icon:'/configuracion/imagenes/iconos/tabler/primavera.svg',label:'Primavera con encanto',months:[4],title:'MAYO',description:'Una gran alternativa si quieres parques florecidos, luz y temperaturas suaves.',reasons:['Naturaleza y jardines en primavera','Días cada vez más largos','Menos afluencia que en pleno verano']}
+    {id:'clima',icon:'/configuracion/imagenes/iconos/tabler/mejor-clima.svg',label:'Mejor clima',title:'Junio – Agosto',description:'Días largos, rutas por ciudades, lagos y costa; recuerda las diferencias regionales.',reasons:['Muchas horas de luz en el centro, todavía más al norte','Excursiones, ferris y naturaleza','Demanda elevada en destinos de verano']},
+    {id:'calma',icon:'/configuracion/imagenes/iconos/tabler/menos-turistas.svg',label:'Menos turistas',title:'Marzo – Abril · Octubre – Noviembre',description:'Viaje más tranquilo por el sur y las ciudades, con tiempo más cambiante.',reasons:['Menos aglomeraciones habituales','Menos movimiento en varios destinos','Servicios de temporada más limitados']},
+    {id:'ahorro',icon:'/configuracion/imagenes/iconos/tabler/ahorrar.svg',label:'Ahorrar',title:'Enero – Febrero · Noviembre',description:'Meses que suelen ofrecer oportunidades para reducir gastos en alojamiento y transporte.',reasons:['Demanda generalmente menor','Compara tarifas antes de reservar','Más frío y menos horas de luz']},
+    {id:'navidad',icon:'/configuracion/imagenes/iconos/tabler/mercados-navidad.svg',label:'Mercados de Navidad',title:'Diciembre',description:'La mejor opción si tu objetivo es disfrutar del ambiente y los mercados navideños.',reasons:['Mercadillos y decoración navideña','Atardeceres tempranos y luces','Consulta las fechas concretas de apertura']},
+    {id:'nieve',icon:'/configuracion/imagenes/iconos/tabler/nieve-paisajes.svg',label:'Nieve y paisajes',title:'Enero – Febrero',description:'Los meses más fríos son los más adecuados para buscar paisajes de invierno.',reasons:['Más posibilidades de frío y nieve','Ambiente nórdico invernal','La nieve nunca está garantizada']},
+    {id:'primavera',icon:'/configuracion/imagenes/iconos/tabler/primavera.svg',label:'Primavera con encanto',title:'Mayo',description:'Una gran alternativa si quieres parques florecidos, luz y temperaturas suaves.',reasons:['Naturaleza y jardines en primavera','Días cada vez más largos','Menos afluencia que en pleno verano']}
   ];
-  const calendar=document.getElementById('yearCalendar'),choices=document.getElementById('objectiveChoices');
-  let selected='clima',selectedMonth=5;
-  choices.innerHTML=objectives.map(o=>'<button type="button" class="ci-objective" data-id="'+o.id+'" aria-pressed="false"><span class="ci-objective-icon" aria-hidden="true"><img src="'+o.icon+'" alt="" width="26" height="26" decoding="async"></span><strong>'+o.label+'</strong></button>').join('');
-  // Calendario prerenderizado en HTML, visible para lectores y rastreadores sin ejecutar JavaScript.
-  const monthPanels=Array.from(document.querySelectorAll('.ci-month-result[data-month-panel]'));
-  // Los paneles de los 12 meses están en el HTML; se alterna únicamente su visibilidad.
-  const detail=(i)=>{
-    selectedMonth=i;
-    monthPanels.forEach((panel,j)=>{panel.hidden=j!==i});
-    calendar.querySelectorAll('button[data-month]').forEach((btn,j)=>{
-      btn.setAttribute('aria-pressed',String(j===i));
+  // Índice regional: no mezclar el clima de Estocolmo con datos del país.
+  // Se conservan los objetivos y el Consejo VCC, sin calendario genérico.
+  const choices=document.getElementById('objectiveChoices');
+  if(choices){
+    choices.innerHTML=objectives.map(o=>'<button type="button" class="ci-objective" data-id="'+o.id+'" aria-pressed="false"><span class="ci-objective-icon" aria-hidden="true"><img src="'+o.icon+'" alt="" width="26" height="26" decoding="async"></span><strong>'+o.label+'</strong></button>').join('');
+    const select=id=>{
+      const obj=objectives.find(o=>o.id===id);
+      if(!obj)return;
+      choices.querySelectorAll('button').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.id===id)));
+      document.getElementById('recommendationMonths').textContent=obj.title;
+      document.getElementById('recommendationWhy').textContent=obj.description;
+      document.getElementById('recommendationReasons').replaceChildren(...obj.reasons.map(reason=>{
+        const li=document.createElement('li');li.textContent=reason;return li;
+      }));
+    };
+    choices.addEventListener('click',event=>{
+      const button=event.target.closest('button[data-id]');
+      if(button&&choices.contains(button))select(button.dataset.id);
     });
-  };
-  const select=(id)=>{selected=id;const o=objectives.find(x=>x.id===id);choices.querySelectorAll('button').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.id===id)));document.getElementById('recommendationMonths').textContent=o.title;document.getElementById('recommendationWhy').textContent=o.description;document.getElementById('recommendationReasons').innerHTML=o.reasons.map(r=>'<li>'+r+'</li>').join('');calendar.querySelectorAll('button').forEach((b,i)=>b.classList.toggle('recommended',o.months.includes(i)));detail(o.months[0])};
-  choices.addEventListener('click',e=>{const b=e.target.closest('button[data-id]');if(b)select(b.dataset.id)});
-  const calendarScroll=calendar.closest('.ci-calendar-scroll');
-  const scrollToMonth=button=>{
-    if(!calendarScroll||!button)return;
-    const pos=button.offsetLeft-calendarScroll.clientWidth/2+button.clientWidth/2;
-    calendarScroll.scrollTo({left:Math.max(0,pos),behavior:window.matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});
-  };
-  calendar.addEventListener('click',e=>{
-    const b=e.target.closest('button[data-month]');
-    if(!b)return;
-    detail(Number(b.dataset.month));
-    if(window.matchMedia('(max-width: 750px)').matches)scrollToMonth(b);
-  });
-  // El calendario también se puede recorrer con las flechas del teclado.
-  calendar.addEventListener('keydown',e=>{
-    if(e.key!=='ArrowLeft'&&e.key!=='ArrowRight')return;
-    const currentButton=e.target.closest('button[data-month]');
-    if(!currentButton)return;
-    e.preventDefault();
-    const next=Math.min(11,Math.max(0,Number(currentButton.dataset.month)+(e.key==='ArrowRight'?1:-1)));
-    detail(next);
-    const button=calendar.querySelector('button[data-month="'+next+'"]');
-    button?.focus();
-    if(window.matchMedia('(max-width: 750px)').matches)scrollToMonth(button);
-  });
-  select('clima');
+    select('clima');
+  }
   const tipsTrack=document.getElementById('ciTipsTrack');
   const tipsPrev=document.getElementById('ciTipsPrev');
   const tipsNext=document.getElementById('ciTipsNext');
