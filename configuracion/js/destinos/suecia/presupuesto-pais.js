@@ -249,6 +249,36 @@
       next.addEventListener("click",()=>move(1));
     });
   }
+
+  function initZoneCarousel(){
+    const track=el("swbRegionTrack"), prev=el("swbRegionPrev"), next=el("swbRegionNext");
+    if(!track||!prev||!next)return;
+    const step=()=>{
+      const cards=track.querySelectorAll(".swb-zone-card");
+      return cards.length>1?cards[1].offsetLeft-cards[0].offsetLeft:(cards[0]?.getBoundingClientRect().width||1);
+    };
+    const sync=()=>{
+      const end=Math.max(0,track.scrollWidth-track.clientWidth);
+      prev.disabled=track.scrollLeft<=2;
+      next.disabled=track.scrollLeft>=end-2;
+    };
+    const move=direction=>{
+      const width=step();if(width<=0)return;
+      const end=Math.max(0,track.scrollWidth-track.clientWidth);
+      const left=Math.max(0,Math.min(end,(Math.round(track.scrollLeft/width)+direction)*width));
+      track.scrollTo({left,behavior:window.matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth"});
+    };
+    prev.addEventListener("click",()=>move(-1));
+    next.addEventListener("click",()=>move(1));
+    track.addEventListener("scroll",sync,{passive:true});
+    track.addEventListener("keydown",event=>{
+      if(event.target===track&&(event.key==="ArrowLeft"||event.key==="ArrowRight")){
+        event.preventDefault();move(event.key==="ArrowRight"?1:-1);
+      }
+    });
+    window.addEventListener("resize",sync,{passive:true});
+    sync();
+  }
   async function init(){
     try{
       const response=await fetch(source,{cache:"no-cache"});
@@ -257,6 +287,7 @@
       state.zone=data.defaultZone;
       hydrateSelects();
       hydrateRegionCards();
+      initZoneCarousel();
       wire();
       lock(false);
       root.dataset.budgetStatus="ready";
