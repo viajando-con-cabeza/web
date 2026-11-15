@@ -50,6 +50,15 @@
     arrowsCSS.dataset.vccArrowsGlobal='true';
     document.head.appendChild(arrowsCSS);
   }
+  // Control tipogràfic unificat per a VER / OCULTAR DESGLOSE.
+  // La mateixa classe s'aplica a pressupostos, transports i calculadores.
+  if (!document.querySelector('link[data-vcc-disclosures-global]')) {
+    const disclosuresCss=document.createElement('link');
+    disclosuresCss.rel='stylesheet';
+    disclosuresCss.href=url('configuracion/css/componentes/desglose-compartit-vcc.css?v=20261115-unificat-v1');
+    disclosuresCss.dataset.vccDisclosuresGlobal='true';
+    document.head.appendChild(disclosuresCss);
+  }
   // Visibilitat adaptativa: fletxes només quan hi ha desplaçament real.
   if (!document.querySelector('script[data-vcc-scroll-arrows]')) {
     const scrollArrows=document.createElement('script');
