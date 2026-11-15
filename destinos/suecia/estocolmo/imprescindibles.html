@@ -65,12 +65,13 @@
 <div class="imp-card"><div class="eyebrow">📍 SUECIA · ESTOCOLMO</div><h1 id="imp-page-title">IMPRESCINDIBLES DE ESTOCOLMO</h1><p class="imp-script">Qué ver en Estocolmo</p><p class="imp-lead">Nuestra selección de 16 lugares, con consejos VCC, tiempos y costes orientativos para decidir qué visitar y un mapa descargable para situarlos.</p><div class="imp-facts"><span><b>16 LUGARES</b><small>Explora a tu ritmo</small></span><span><b>3 DÍAS</b><small>Ruta orientativa</small></span><span><b>ESTOCOLMO</b><small>Historia · islas · cultura</small></span></div></div>
 </div>
 </section>
-<nav class="place-nav-wrap" aria-label="Índice de lugares"><div class="place-nav-shell"><button id="navPrev" class="place-nav-arrow" aria-label="Desplazar a la izquierda">‹</button><div class="place-nav" id="placeNav"></div><button id="navNext" class="place-nav-arrow" aria-label="Desplazar a la derecha">›</button></div></nav>
+<nav class="place-nav-wrap" aria-label="Índice de lugares"><div class="place-nav-shell"><button id="navPrev" class="place-nav-arrow" aria-label="Desplazar a la izquierda">‹</button><div class="place-nav" id="placeNav"><a href="#mapa-imprescindibles" class="active">Mapa</a><a href="#gamla-stan">Gamla Stan</a><a href="#djurgarden">Djurgården</a><a href="#ayuntamiento">Ayuntamiento</a><a href="#sodermalm">Södermalm</a><a href="#montelius">Monteliusvägen</a><a href="#stortorget">Stortorget</a><a href="#riddarholmen">Riddarholmen</a><a href="#metro">Metro de Estocolmo</a><a href="#ferry">Paseo en ferry</a><a href="#palacio">Palacio Real</a><a href="#stromkajen">Strömkajen</a><a href="#vasa">Museo Vasa</a><a href="#skansen">Skansen</a><a href="#fotografiska">Fotografiska</a><a href="#kungstradgarden">Kungsträdgården</a><a href="#drottningholm">Palacio de Drottningholm</a></div><button id="navNext" class="place-nav-arrow" aria-label="Desplazar a la derecha">›</button></div></nav>
 <section class="imp-map-section" id="mapa-imprescindibles" aria-labelledby="imp-map-title">
   <header class="imp-map-heading vcc-editorial-heading"><div class="imp-map-heading-title vcc-editorial-heading-main"><span class="imp-map-kicker vcc-editorial-overline">Todo de un vistazo</span><h2 id="imp-map-title" class="vcc-editorial-title">LOS IMPRESCINDIBLES EN EL MAPA</h2></div><p class="vcc-editorial-description" id="imp-map-help">Visualiza las zonas, localiza cada lugar y pulsa su nombre para orientarte. Desde cada punto puedes abrir la ficha con nuestros consejos.</p></header>
   <div class="imp-map-layout">
     <div id="imp-all-map" role="region" aria-label="Mapa de los imprescindibles de Estocolmo" aria-describedby="imp-map-help" tabindex="0">
       <p class="imp-map-unavailable">Cargando mapa interactivo…</p>
+      <noscript><p class="imp-map-unavailable">El mapa interactivo requiere JavaScript. Puedes consultar cada lugar y su enlace a Google Maps más abajo.</p></noscript>
     </div>
     <nav class="imp-map-index" id="imp-map-index" aria-label="Selecciona uno de los 16 lugares en el mapa"></nav>
   </div>
@@ -162,7 +163,15 @@ const renderRating=p=>{
   return `<span class="vcc-rating-fact"><button type="button" class="vcc-rating-trigger" aria-label="Puntuación VCC: ${p[7]} de 5. Ver si merece la pena" aria-describedby="${tipId}" aria-expanded="false">${rating(p[7])}<span class="vcc-rating-label">Puntuación VCC</span></button><span id="${tipId}" class="vcc-rating-tooltip" role="tooltip"><strong>¿Merece la pena?</strong>${esc(comment)}</span></span>`;
 };
 const nav=document.getElementById('placeNav');
-nav.innerHTML='<a href="#mapa-imprescindibles" class="active">Mapa</a>'+data.map(p=>`<a href="#${p[0]}">${esc(p[1])}</a>`).join('');
+// El subheader és navegable sense JavaScript: els 17 enllaços ja són a l'HTML.
+// Només reconstruïm l'índex si canvien els llocs o els seus títols.
+const navItems=[['mapa-imprescindibles','Mapa'],...data.map(p=>[p[0],p[1]])];
+const currentNav=[...nav.querySelectorAll(':scope > a')];
+if(currentNav.length!==navItems.length ||
+   currentNav.some((a,i)=>a.getAttribute('href')!=='#'+navItems[i][0] || a.textContent!==navItems[i][1])){
+  nav.innerHTML='<a href="#mapa-imprescindibles" class="active">Mapa</a>'+
+    data.map(p=>`<a href="#${p[0]}">${esc(p[1])}</a>`).join('');
+}
 const main=document.getElementById('places');
 
 /* Mejora progresiva: las 16 fichas ya existen en HTML y son legibles
