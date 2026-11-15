@@ -41,6 +41,8 @@ function countryCard(x,isGuide){
  const labelText=isGuide?'guía':'itinerario';
  const actionText=isGuide?'VER GUÍA':'VER ITINERARIO';
  const priceTitle=isGuide?'Presupuesto orientativo por persona y día':'Presupuesto total por persona';
+ const cardPlace=String(x.cardLocation||'').trim();
+ const countryLabel='Suecia'+(cardPlace?' · '+cardPlace:'');
  return '<article class="home-feature-card '+(isGuide?'home-guide-card':'home-route-card')+' vcc-it-card vcc-card-shared'+(isGuide?' vcc-guide-card':'')+'">'+
    '<div class="home-feature-photo vcc-it-photo">'+
      '<img class="vcc-card-cover-photo" src="'+esc(photo)+'"'+srcset+' alt="'+esc(title)+'" width="640" height="380" loading="lazy" decoding="async">'+score+
@@ -51,7 +53,7 @@ function countryCard(x,isGuide){
      '<div class="vcc-it-facts'+(isGuide?' vcc-it-guide-facts':'')+'">'+
        (isGuide?'':'<span class="di-route-stats">'+cardIcon('clock')+esc(duration)+'</span>'+
          '<span class="di-budget-row" title="'+priceTitle+'">'+cardIcon('coins','vcc-it-coins')+'<span class="di-price'+(x.budget?'':' di-price-pending')+'">'+esc(price)+'</span></span>')+
-       '<span class="di-country-line home-card-country" title="Suecia"><img class="vcc-it-country-flag" src="'+VCC_FLAG+'" alt="Suecia" width="16" height="12"><span>Suecia</span></span>'+
+       '<span class="di-country-line home-card-country" title="'+esc(countryLabel)+'"><img class="vcc-it-country-flag" src="'+VCC_FLAG+'" alt="" width="16" height="12"><span>'+esc(countryLabel)+'</span></span>'+
      '</div>'+
      '<p class="home-card-desc di-mini-desc">'+esc(x.text||'Próximamente más detalles de esta ruta.')+'</p>'+
      (published?'<a class="home-feature-link vcc-it-cta" href="'+esc(x.href)+'" aria-label="Ver '+labelText+' de '+esc(title)+'">'+actionText+' →</a>':'<span class="home-feature-pending vcc-it-upcoming">PRÓXIMAMENTE</span>')+
