@@ -1,0 +1,132 @@
+/* VCC — Control compartit VER / OCULTAR DESGLOSE
+ * Referència visual: targetes de Presupuesto Estocolmo.
+ * Una única mida de text i fletxa, sense botons grans ni vores ornamentals.
+ * Aplicar .vcc-disclosure-toggle a buttons i .vcc-disclosure-footer a labels
+ * dins de targetes clicables. El JS de cada plantilla manté aria-expanded. */
+:root{
+  --vcc-desglose-font-size:10px;
+  --vcc-desglose-caret-size:14px;
+  --vcc-desglose-gap:6px;
+  --vcc-desglose-color:#ac5a45;
+}
+.vcc-disclosure-toggle,
+.vcc-disclosure-footer{
+  display:inline-flex;
+  align-items:center;
+  justify-content:flex-end;
+  gap:var(--vcc-desglose-gap);
+  color:var(--vcc-desglose-color);
+  font-family:var(--vcc-font-body,"DM Sans",Arial,sans-serif);
+  font-size:var(--vcc-desglose-font-size);
+  font-weight:700;
+  line-height:1.2;
+  letter-spacing:.01em;
+  text-transform:uppercase;
+  text-decoration:none;
+}
+button.vcc-disclosure-toggle{
+  appearance:none;
+  border:0;
+  border-radius:0;
+  box-shadow:none;
+  background:transparent;
+  color:var(--vcc-desglose-color);
+  padding:7px 0;
+  cursor:pointer;
+  text-align:right;
+}
+button.vcc-disclosure-toggle:hover{color:#8c422a;text-decoration:none}
+button.vcc-disclosure-toggle:focus-visible{outline:2px solid #b65f42;outline-offset:3px;border-radius:3px}
+.vcc-disclosure-toggle--card{
+  display:flex!important;
+  width:100%;
+  margin-top:auto;
+  border-top:1px solid #ece7e1!important;
+  padding:9px 0 6px!important;
+  justify-content:flex-end;
+}
+.vcc-disclosure-toggle--inline{
+  display:inline-flex;
+  width:auto;
+  min-height:29px;
+  padding:5px 0;
+}
+.vcc-disclosure-caret{
+  display:inline-flex;
+  flex:0 0 16px;
+  width:16px;
+  height:16px;
+  align-items:center;
+  justify-content:center;
+  background:transparent;
+  border:0;
+  border-radius:0;
+  line-height:1;
+  transform:none;
+}
+.vcc-disclosure-caret svg{display:block;width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;transition:transform .16s ease}
+.vcc-disclosure-caret--glyph{font-family:Arial,sans-serif;font-size:14px;font-weight:400;line-height:1;transition:transform .16s ease}
+.vcc-disclosure-toggle[aria-expanded="true"] .vcc-disclosure-caret--glyph,
+.vcc-disclosure-toggle[aria-expanded="true"] .vcc-disclosure-caret svg{transform:rotate(180deg)}
+/* Pressupost: mateix component sobre un span, perquè tota la targeta és clicable. 
+ * Substitueix les overrides locals del CSS compilat, sense afectar el pressupost. */
+html body.budget-vcc #filosofia .vcc-budget-mode-footer.vcc-disclosure-footer{
+  display:flex!important;
+  align-items:center!important;
+  justify-content:flex-end!important;
+  gap:var(--vcc-desglose-gap)!important;
+  width:100%!important;
+  margin-top:auto!important;
+  padding-top:7px!important;
+  font-family:var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;
+  font-size:var(--vcc-desglose-font-size)!important;
+  font-weight:700!important;
+  line-height:1.2!important;
+  letter-spacing:.01em!important;
+  color:var(--vcc-desglose-color)!important;
+}
+html body.budget-vcc #filosofia .vcc-budget-mode-footer .vcc-budget-mode-caret.vcc-disclosure-caret{
+  display:inline-flex!important;
+  width:16px!important;
+  height:16px!important;
+  flex:0 0 16px!important;
+  align-items:center!important;
+  justify-content:center!important;
+  padding:0!important;
+  border:0!important;
+  background:transparent!important;
+}
+html body.budget-vcc #filosofia .vcc-budget-mode-footer .vcc-budget-mode-caret.vcc-disclosure-caret svg{
+  width:14px!important;
+  height:14px!important;
+}
+/* Com moure's: els botons comparteixen dimensió independentment de la secció. */
+html body .swmove-page button.vcc-disclosure-toggle{
+  border:0;
+  background:transparent;
+  box-shadow:none;
+  color:var(--vcc-desglose-color);
+  font-family:var(--vcc-font-body,"DM Sans",Arial,sans-serif);
+  font-size:var(--vcc-desglose-font-size);
+  font-weight:700;
+  line-height:1.2;
+  letter-spacing:.01em;
+  border-radius:0;
+  text-decoration:none;
+}
+html body .swmove-page button.vcc-disclosure-toggle--card{
+  border-top:1px solid #ece7e1!important;
+  padding:9px 0 6px!important;
+}
+html body .swmove-page button.vcc-disclosure-toggle--inline{
+  min-height:29px;
+  padding:5px 0;
+}
+@media(max-width:590px){
+  :root{--vcc-desglose-font-size:10px;--vcc-desglose-caret-size:14px}
+  .vcc-disclosure-toggle--card{padding:8px 0 5px!important}
+}
+@media(prefers-reduced-motion:reduce){
+ .vcc-disclosure-caret--glyph,
+ .vcc-disclosure-caret svg{transition:none}
+}
