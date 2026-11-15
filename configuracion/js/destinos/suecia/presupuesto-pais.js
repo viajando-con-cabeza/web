@@ -42,7 +42,6 @@
   }
   const amount=(style,category,zone=state.zone)=>data.zones[zone].prices[style][category];
   const dayRate=(style,zone)=>cats.reduce((sum,category)=>sum+amount(style,category,zone),0);
-  const selectedStyle=()=>cats.every(category=>state.choice[category]===state.choice.alojamiento)?state.choice.alojamiento:null;
   function totals(){
     const prices={},categoryTotals={};
     for(const category of cats){
