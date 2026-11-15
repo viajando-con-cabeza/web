@@ -20,7 +20,7 @@
   let data=null;
   if(!el("grand-total")||!el("swb-region")||!el("swb-region-top")||!source)return;
   const controls=[...document.querySelectorAll(
-    "[data-budget-mode],.calculator-card [data-step],.calculator-card [data-category],#swb-region,#swb-region-top,[data-vcc-download-excel]"
+    "[data-budget-mode],.calculator-card [data-step],.calculator-card [data-zone-step],.calculator-card [data-category],#swb-region,#swb-region-top,[data-vcc-download-excel]"
   )];
   const lock=locked=>controls.forEach(node=>{node.disabled=locked;});
   root.dataset.budgetStatus="loading";
@@ -170,16 +170,16 @@
     // No fingir que los escenarios del simulador son tarifas reales por zona.
     // El único gasto VCC verificado de las fichas es Estocolmo.
     const indicator=el("swb-zone-current-style");
-    if(indicator)indicator.textContent="Gasto real VCC en Estocolmo";
+    if(indicator)indicator.textContent="Presupuesto disponible: Estocolmo";
     document.querySelectorAll("[data-region-card]").forEach(card=>{
       const key=card.dataset.regionCard;
       const cell=card.querySelector("[data-zone-daily]");
       if(cell){
         const isReal=key==="stockholm";
-        cell.textContent=isReal?"110 €/pax/día":"Sin gasto real";
+        cell.textContent=isReal?"110 €/pax/día":"";
         cell.closest(".di-budget-row")?.setAttribute("title",isReal?
           "Gasto real VCC: 660 € / 2 viajeros / 3 días, sin vuelos ni traslados de entrada y salida":
-          "Sin datos reales de viaje para esta zona: VER ZONA abre una simulación orientativa");
+          "Próximamente: presupuesto de esta zona en preparación");
       }
       card.classList.toggle("is-current",key===state.zone);
     });
@@ -221,6 +221,17 @@
         if(data.zones[event.target.value]){state.zone=event.target.value;render();}
       });
     }
+    // Mismo patrón que DÍAS/NOCHES/VIAJEROS: − y + recorren zonas.
+    // El select central permite saltar directamente a cualquier región.
+    document.querySelectorAll(".calculator-card [data-zone-step]").forEach(button=>{
+      button.addEventListener("click",()=>{
+        const zoneKeys=Object.keys(data.zones);
+        const index=zoneKeys.indexOf(state.zone);
+        const delta=Number(button.dataset.zoneStep);
+        state.zone=zoneKeys[(index+delta+zoneKeys.length)%zoneKeys.length];
+        render();
+      });
+    });
     document.querySelectorAll("#zonas [data-choose-zone]").forEach(anchor=>anchor.addEventListener("click",()=>{
       const key=anchor.dataset.chooseZone;
       if(data.zones[key]){state.zone=key;render();}
