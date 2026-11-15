@@ -54,6 +54,15 @@
 .swmove-page .swmove-infra-card .swmove-infra-body,
 .swmove-page .swmove-infra-card:last-child .swmove-infra-body{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px}
 .swmove-page .swmove-infra-actions{display:flex;justify-content:flex-end;padding:10px 2px 0}
+.swmove-page .swmove-infra-close{
+  display:inline-grid;place-items:center;flex:0 0 27px;width:27px;height:27px;
+  padding:0;border:1px solid #e8d5c9;border-radius:50%;
+  background:#fff;color:#b85b40;box-shadow:none;cursor:pointer;
+  font:400 22px/1 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
+}
+.swmove-page .swmove-infra-close:hover{border-color:#bd8d74;background:#fff7f3}
+.swmove-page .swmove-infra-close:focus-visible{outline:2px solid #b65f42;outline-offset:3px}
+
 /* Calculadora: a la vista només totals, estalvi i millor opció. */
 .swmove-page .swmove-calc-overview{padding:12px 16px 0}
 .swmove-page .swmove-calc-overview .swmove-calc-heading{margin:0 0 3px}
