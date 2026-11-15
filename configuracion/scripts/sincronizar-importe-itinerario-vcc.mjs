@@ -35,8 +35,11 @@ for(const file of files){
     if(!card.includes('vcc-card-kicker'))throw new Error(file+': no hi ha categoria dins del cos de la targeta');
     return card.replace(priceRe,()=>{prices++;return canonical;});
   });
-  if(found!==1||prices!==(file==='planifica/donde-ir/index.html'?2:1)){
-    throw new Error(file+': es troben '+found+' targetes Estocolmo i '+prices+' imports; esperats 1 i '+(file==='planifica/donde-ir/index.html'?2:1));
+  // Els catàlegs de Itinerarios i Dónde ir també indexen el pressupost a data-*-search.
+  // La portada només mostra la xifra visible; els altres dos inclouen la del cercador.
+  const expectedPrices=file==='index.html'?1:2;
+  if(found!==1||prices!==expectedPrices){
+    throw new Error(file+': es troben '+found+' targetes Estocolmo i '+prices+' imports; esperats 1 i '+expectedPrices);
   }
 
   // La portada mostra durada només als itineraris, mai a Guías destacadas.
