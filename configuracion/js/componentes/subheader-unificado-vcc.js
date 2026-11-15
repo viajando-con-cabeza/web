@@ -53,10 +53,22 @@
       if(!nav.isConnected){managed.delete(nav);continue}
       if(nav.classList.contains('place-nav-wrap'))continue; // Su propio índice gestiona lugares.
       const items=itemsOf(nav);if(!items.length)continue;
-      const line=headerTop()+nav.getBoundingClientRect().height+25;
+      const line=headerTop()+nav.getBoundingClientRect().height+56;
       let chosen=items[0];
       for(const item of items){
         if(item.target.getBoundingClientRect().top<=line)chosen=item;
+      }
+      // Respecta l'àncora de l'URL quan és prop de la barra.
+      // El marge inclou el padding i els títols de les seccions.
+      const rawHash=window.location.hash.slice(1);
+      if(rawHash){
+        let id=rawHash;
+        try{id=decodeURIComponent(rawHash)}catch(_){}
+        const anchored=items.find(item=>item.target.id===id);
+        if(anchored){
+          const top=anchored.target.getBoundingClientRect().top;
+          if(top>=line-90&&top<=line+120)chosen=anchored;
+        }
       }
       const click=pending.get(nav);
       if(click){
