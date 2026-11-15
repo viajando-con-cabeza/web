@@ -731,6 +731,12 @@ html body .imp-page .imp-main .place.place--no-media .place-info-card > .facts >
   html body .imp-page main.imp-main{
     --vcc-place-ficha-altura:218px;
   }
+  /* Els consells de text llarg necessiten 5 línies a 1024px.
+     La mateixa alçada mínima evita desnivells entre les dues fitxes. */
+  html body .imp-page main.imp-main section.place.imp-grid-place .place-copy > .advice.vcc-consejo-unificado,
+  html body .imp-page main.imp-main section.place.imp-grid-place.place--no-media .place-copy > .advice.vcc-consejo-unificado{
+    min-height:105px!important;
+  }
   /* Amb les dues vinyetes més estretes, preserva dues columnes de dades. */
   html body .imp-page main.imp-main section.place.imp-grid-place .place-info-card > .facts,
   html body .imp-page main.imp-main section.place.imp-grid-place.place--no-media .place-info-card > .facts{
