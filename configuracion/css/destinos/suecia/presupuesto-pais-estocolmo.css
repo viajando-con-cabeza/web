@@ -458,3 +458,58 @@ html body.budget-vcc.sweden-budget-vcc #zonas .swb-regions-grid:focus-visible{
 @media(prefers-reduced-motion:reduce){
   html body.budget-vcc.sweden-budget-vcc #zonas .swb-regions-grid{scroll-behavior:auto!important}
 }
+
+/* Suècia · Mòbil: fletxes de Cómo ahorrar iguals a les de Precios por zonas.
+   Només canvia la posició / format de les fletxes, sense alterar les fitxes ni altres pàgines. */
+html body.budget-vcc.sweden-budget-vcc #ahorrar .carousel-shell > .carousel-arrow svg{
+  display:block;width:19px;height:19px;fill:none;stroke:currentColor;
+  stroke-width:2;stroke-linecap:round;stroke-linejoin:round;
+}
+@media(max-width:650px){
+  html body.budget-vcc.sweden-budget-vcc #ahorrar .carousel-shell{
+    display:block!important;
+    position:relative!important;
+    width:100%!important;
+    grid-template-columns:none!important;
+    gap:0!important;
+    padding:0!important;
+  }
+  html body.budget-vcc.sweden-budget-vcc #ahorrar .carousel-shell > .tips-track{
+    display:flex!important;
+    grid-column:auto!important;
+    grid-row:auto!important;
+    width:100%!important;
+    max-width:100%!important;
+    min-width:0!important;
+  }
+  html body.budget-vcc.sweden-budget-vcc #ahorrar .carousel-shell > .carousel-arrow{
+    position:absolute!important;
+    z-index:4!important;
+    top:50%!important;
+    transform:translateY(-50%)!important;
+    width:35px!important;height:35px!important;
+    min-width:35px!important;min-height:35px!important;
+    display:grid!important;place-items:center!important;
+    padding:0!important;
+    border:1px solid #ded8d2!important;
+    border-radius:50%!important;
+    background:#fff!important;color:#a65b43!important;
+    box-shadow:0 3px 12px rgba(40,36,32,.08)!important;
+    cursor:pointer!important;
+  }
+  html body.budget-vcc.sweden-budget-vcc #ahorrar .carousel-shell > .carousel-arrow.prev{
+    left:3px!important;right:auto!important;
+  }
+  html body.budget-vcc.sweden-budget-vcc #ahorrar .carousel-shell > .carousel-arrow.next{
+    right:3px!important;left:auto!important;
+  }
+  html body.budget-vcc.sweden-budget-vcc #ahorrar .carousel-shell > .carousel-arrow svg{
+    width:16px;height:16px;
+  }
+  html body.budget-vcc.sweden-budget-vcc #ahorrar .carousel-shell > .carousel-arrow:disabled{
+    opacity:.32!important;cursor:default!important;box-shadow:none!important;
+  }
+  html body.budget-vcc.sweden-budget-vcc #ahorrar .carousel-shell > .carousel-arrow:focus-visible{
+    outline:2px solid #b45e44;outline-offset:3px;
+  }
+}
