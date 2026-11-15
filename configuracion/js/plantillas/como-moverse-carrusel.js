@@ -45,7 +45,7 @@
     const next = section.querySelector(".mv-transport-next");
     const label = section.querySelector(".mv-transport-counter");
     const cards = Array.from(track.querySelectorAll(".mv-card"));
-    if (!prev || !next || !label || !cards.length) return;
+    if (!prev || !next || !cards.length) return;
 
     const visibleCount = () =>
       window.matchMedia("(max-width: 690px)").matches ? 1 :
@@ -63,7 +63,7 @@
     function update() {
       const first = currentStart();
       const last = Math.min(cards.length, first + visibleCount());
-      label.textContent = last + "/" + cards.length;
+      if (label) label.textContent = last + "/" + cards.length;
       prev.disabled = track.scrollLeft <= 2;
       next.disabled = track.scrollLeft + track.clientWidth >= track.scrollWidth - 2;
     }
