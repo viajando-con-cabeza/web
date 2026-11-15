@@ -17,7 +17,7 @@
         const selected=isOpen&&button.dataset.swInfraToggle===method;
         button.setAttribute("aria-expanded",String(selected));
         const label=button.querySelector("[data-sw-infra-label]");
-        if(label)label.textContent=selected?"OCULTAR DESGLOSE":"VER DESGLOSE";
+        if(label)label.textContent="VER DESGLOSE";
         const panel=page.querySelector("#red-"+button.dataset.swInfraToggle);
         if(panel)panel.hidden=!selected;
       });
@@ -44,7 +44,7 @@
         const open=calcToggle.getAttribute("aria-expanded")!=="true";
         calcDisclosure.hidden=!open;
         calcToggle.setAttribute("aria-expanded",String(open));
-        if(calcToggleLabel)calcToggleLabel.textContent=open?"OCULTAR DESGLOSE":"VER DESGLOSE";
+        if(calcToggleLabel)calcToggleLabel.textContent="VER DESGLOSE";
       });
     }
     const form=page.querySelector("#swmove-calc");
