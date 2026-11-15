@@ -1,46 +1,57 @@
-/* Cuándo ir a Suecia · Por región.
-   El formato, altura (322px), foto (150px), tipografía, contenido y CTA
-   vienen SOLO de vcc-targetes-itineraris-guies.css, como en Planifica.
-   Aquí solo se mantiene la distribución 4/2/1 y lo específico de temporada. */
-html body.ci-page #por-region{
-  scroll-margin-top:var(--ci-sticky-offset,110px);
-  padding:0 0 16px;
-}
+/* Cuándo ir · Suecia / Por región: carrusel; formato de tarjetas compartido. */
+html body.ci-page #por-region{scroll-margin-top:var(--ci-sticky-offset,110px);padding:0 0 16px}
 html body.ci-page #por-region .ci-heading{margin-bottom:18px}
+html body.ci-page #por-region .ci-region-carousel{position:relative;min-width:0}
 html body.ci-page #por-region .ci-region-grid{
-  display:grid!important;
-  grid-template-columns:repeat(4,minmax(0,1fr))!important;
-  align-items:stretch!important;
-  gap:14px!important;
-  width:100%!important;
-  min-width:0!important;
+  display:flex!important;flex-wrap:nowrap!important;align-items:stretch!important;
+  gap:14px!important;width:100%!important;min-width:0!important;
+  margin:0!important;padding:1px 0 4px!important;
+  overflow-x:auto!important;overflow-y:hidden!important;
+  overscroll-behavior-inline:contain;scroll-snap-type:x mandatory;scroll-behavior:smooth;
+  scrollbar-width:none;-webkit-overflow-scrolling:touch;
 }
-html body.ci-page #por-region .ci-region-card .ci-region-season{
-  color:#b65032!important;
-  font-weight:800!important;
+html body.ci-page #por-region .ci-region-grid::-webkit-scrollbar{display:none}
+html body.ci-page #por-region .ci-region-grid>.ci-region-card{
+  flex:0 0 calc((100% - 42px)/4)!important;width:auto!important;
+  scroll-snap-align:start;
 }
+html body.ci-page #por-region .ci-region-arrow{
+  position:absolute;z-index:4;top:50%;transform:translateY(-50%);
+  display:grid;place-items:center;width:41px;height:41px;padding:0;
+  border:1px solid #ded8d2;border-radius:50%;background:#fff;color:#a65b43;
+  box-shadow:0 3px 12px rgba(40,36,32,.08);cursor:pointer;
+}
+html body.ci-page #por-region .ci-region-arrow svg{
+  display:block;width:19px;height:19px;fill:none;stroke:currentColor;
+  stroke-width:2;stroke-linecap:round;stroke-linejoin:round;
+}
+html body.ci-page #por-region .ci-region-prev{left:-20px}
+html body.ci-page #por-region .ci-region-next{right:-20px}
+html body.ci-page #por-region .ci-region-arrow:disabled{opacity:.32;cursor:default;box-shadow:none}
+html body.ci-page #por-region .ci-region-arrow:focus-visible,
+html body.ci-page #por-region .ci-region-grid:focus-visible{outline:2px solid #b45e44;outline-offset:3px}
+html body.ci-page #por-region .ci-region-card .ci-region-season{color:#b65032!important;font-weight:800!important}
 html body.ci-page #por-region .ci-region-empty-photo{
-  position:absolute!important;
-  inset:0!important;
-  display:flex!important;
-  align-items:center!important;
-  justify-content:center!important;
-  background:linear-gradient(120deg,#426878,#91adb5)!important;
-  color:#fff!important;
-  font:500 24px var(--vcc-font-heading,"Oswald",sans-serif)!important;
+  position:absolute!important;inset:0!important;display:flex!important;align-items:center!important;
+  justify-content:center!important;background:linear-gradient(120deg,#426878,#91adb5)!important;
+  color:#fff!important;font:500 24px var(--vcc-font-heading,"Oswald",sans-serif)!important;
 }
 html body.ci-page #por-region .ci-region-note{
-  margin:15px 0 0;
-  color:#736960;
+  margin:15px 0 0;color:#736960;
   font:400 11px/1.5 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
 }
 @media(max-width:1020px){
-  html body.ci-page #por-region .ci-region-grid{
-    grid-template-columns:repeat(2,minmax(0,1fr))!important;
-  }
+  html body.ci-page #por-region .ci-region-grid>.ci-region-card{flex-basis:calc((100% - 14px)/2)!important}
+  html body.ci-page #por-region .ci-region-prev{left:-12px}
+  html body.ci-page #por-region .ci-region-next{right:-12px}
 }
 @media(max-width:620px){
-  html body.ci-page #por-region .ci-region-grid{
-    grid-template-columns:minmax(0,1fr)!important;
-  }
+  html body.ci-page #por-region .ci-region-grid>.ci-region-card{flex-basis:86%!important}
+  html body.ci-page #por-region .ci-region-arrow{width:35px;height:35px}
+  html body.ci-page #por-region .ci-region-arrow svg{width:16px;height:16px}
+  html body.ci-page #por-region .ci-region-prev{left:3px}
+  html body.ci-page #por-region .ci-region-next{right:3px}
+}
+@media(prefers-reduced-motion:reduce){
+  html body.ci-page #por-region .ci-region-grid{scroll-behavior:auto}
 }
