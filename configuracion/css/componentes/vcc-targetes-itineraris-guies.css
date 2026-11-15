@@ -831,3 +831,10 @@ html body :is(.vcc-it-catalog,.vcc-card-collection,.home-featured-itineraries,.h
 html body :is(.vcc-it-catalog,.vcc-card-collection,.home-featured-itineraries,.home-featured-guide,#di-panel-itinerarios,#di-panel-guias,.vcc-budget-regions) .vcc-it-card.vcc-it-card-pending .di-mini-body > .vcc-it-cta{
   color:#aaa09a!important;
 }
+
+
+/* El panell d'itineraris de Planifica té una regla històrica de 1.3.
+   Fixem també aquí la mateixa alçada de línia (1.25) de tots els CTA. */
+html body.planifica-vcc #di-panel-itinerarios .vcc-it-card.vcc-itinerary-unified .di-mini-body > :is(.vcc-it-cta,.vcc-it-upcoming,.di-upcoming-status){
+  line-height:var(--vcc-card-cta-line-height)!important;
+}
