@@ -343,3 +343,65 @@ html body.budget-vcc.sweden-budget-vcc[data-budget-status="loading"] #filosofia 
     padding:12px!important;
   }
 }
+
+
+/* Suècia, novembre 2026 · ZONA amb el mateix patró de DÍAS/NOCHES/VIAJEROS.
+   No altera la calculadora compartida d'Estocolm ni altres destinacions. */
+html body.budget-vcc.sweden-budget-vcc .calculator-card .calc-control.vcc-budget-calc-zone{
+  align-items:center!important;
+  gap:5px!important;
+}
+html body.budget-vcc.sweden-budget-vcc .calculator-card .vcc-budget-calc-zone .vcc-zone-stepper{
+  display:flex!important;align-items:center!important;justify-content:center!important;
+  gap:4px!important;width:100%!important;min-height:30px!important;
+}
+html body.budget-vcc.sweden-budget-vcc .calculator-card .vcc-budget-calc-zone .vcc-zone-stepper select{
+  display:block!important;flex:1 1 auto!important;
+  min-width:0!important;max-width:none!important;width:100%!important;
+  height:30px!important;min-height:30px!important;
+  border:0!important;border-radius:0!important;
+  background:transparent!important;appearance:none!important;-webkit-appearance:none!important;
+  padding:0 1px!important;margin:0!important;
+  text-align:center!important;text-align-last:center!important;
+  color:#272b2e!important;
+  font:700 11px/1.15 var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;
+  text-overflow:ellipsis!important;white-space:nowrap!important;overflow:hidden!important;
+  cursor:pointer!important;
+}
+html body.budget-vcc.sweden-budget-vcc .calculator-card .vcc-budget-calc-zone .vcc-zone-stepper select:focus-visible{
+  outline:2px solid #b76347!important;outline-offset:2px!important;border-radius:4px!important;
+}
+html body.budget-vcc.sweden-budget-vcc .calculator-card .vcc-budget-calc-zone .vcc-zone-stepper button{
+  flex:0 0 30px!important;
+  width:30px!important;min-width:30px!important;height:30px!important;
+  border-radius:50%!important;
+}
+/* La regió passa del requadre del càlcul a la capçalera, al costat de tancar. */
+html body.budget-vcc.sweden-budget-vcc #filosofia .vcc-budget-panel-actions{
+  display:flex;align-items:center;justify-content:flex-end;gap:12px;
+  margin-left:auto;flex:0 0 auto;min-width:0;
+}
+html body.budget-vcc.sweden-budget-vcc #filosofia .vcc-budget-panel-zone{
+  display:inline-block;min-width:0;max-width:min(36vw,230px);
+  padding:5px 9px;border:1px solid #e7d6cb;border-radius:8px;background:#fff;
+  color:#a9563c;font:700 11px/1.2 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+html body.budget-vcc.sweden-budget-vcc #filosofia .vcc-budget-panel-actions .vcc-budget-panel-close{
+  align-self:center;margin:0!important;flex:0 0 27px;
+}
+/* Mateixa classe de pròximament que a les targetes del catàleg. */
+html body.budget-vcc.sweden-budget-vcc .vcc-budget-regions .vcc-it-upcoming{
+  align-self:flex-end;margin:auto 0 0!important;
+  padding:4px 0 0!important;font:800 9px/1.25 var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;
+  letter-spacing:0!important;color:#aaa09a!important;text-align:right;
+}
+@media(max-width:600px){
+  html body.budget-vcc.sweden-budget-vcc #filosofia .vcc-budget-panel-actions{gap:6px}
+  html body.budget-vcc.sweden-budget-vcc #filosofia .vcc-budget-panel-zone{
+    max-width:120px;padding:5px 6px;font-size:10px
+  }
+  html body.budget-vcc.sweden-budget-vcc .calculator-card .vcc-budget-calc-zone .vcc-zone-stepper select{
+    font-size:10px!important;
+  }
+}
