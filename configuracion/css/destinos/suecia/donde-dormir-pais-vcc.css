@@ -40,6 +40,18 @@ body.dv-country-types #barrios .dv-card-bottom .dv-meta{
   min-width:0;
 }
 
+/* «Ver desglose» reutilitza el mateix component .dv-card-discover
+   de Dónde dormir en Estocolmo: mateixa DM Sans, pes, mida,
+   separador i fletxa; només alineem el contingut al peu dret.
+   El margin-top:auto del bloc de preu fixa el conjunt al fons. */
+body.dv-country-types #barrios .dv-carousel > .dv-card .dv-card-bottom{
+  margin-top:auto;
+}
+body.dv-country-types #barrios .dv-carousel > .dv-card .dv-card-discover{
+  justify-content:flex-end;
+  text-align:right;
+}
+
 /* La calculadora es el bloque original de Planifica, a ancho completo:
    sin márgenes extra externos, estilos propios o reinterpretaciones. */
 body.dv-country-types .dv-planifica-alojamiento-reuse{
