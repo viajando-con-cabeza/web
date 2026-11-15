@@ -865,35 +865,3 @@ html body .vcc-editorial-heading > .vcc-editorial-heading-side .vcc-editorial-de
     line-height:1.5!important;
   }
 }
-
-
-/* Cuándo ir · Consejo VCC: meses discretos, rango natural «Marzo a Abril».
-   Una sola regla para las páginas de Suecia y Estocolmo. */
-html body.ci-page .ci-recommendation .ci-recommendation-copy #recommendationMonths{
-  font:500 clamp(18px,1.65vw,23px)/1.2 var(--vcc-font-heading,"Oswald",sans-serif)!important;
-  text-transform:none!important;
-  letter-spacing:0!important;
-  margin:0 0 5px!important;
-  overflow-wrap:break-word!important;
-}
-/* Más aire entre apartados, sin alterar el interior de las tarjetas. */
-html body.ci-page .ci-main > #por-region,
-html body.ci-page .ci-main > #mes-a-mes{
-  padding-top:30px!important;
-}
-html body.ci-page .ci-main > #experiencia{
-  padding-top:55px!important;
-}
-html body.ci-page .ci-main > #errores{
-  padding-top:44px!important;
-}
-@media(max-width:680px){
-  html body.ci-page .ci-recommendation .ci-recommendation-copy #recommendationMonths{
-    font-size:19px!important;
-    line-height:1.23!important;
-  }
-  html body.ci-page .ci-main > #por-region,
-  html body.ci-page .ci-main > #mes-a-mes{padding-top:24px!important}
-  html body.ci-page .ci-main > #experiencia{padding-top:43px!important}
-  html body.ci-page .ci-main > #errores{padding-top:38px!important}
-}
