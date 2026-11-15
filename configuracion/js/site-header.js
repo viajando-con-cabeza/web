@@ -55,7 +55,7 @@
   if (!document.querySelector('link[data-vcc-disclosures-global]')) {
     const disclosuresCss=document.createElement('link');
     disclosuresCss.rel='stylesheet';
-    disclosuresCss.href=url('configuracion/css/componentes/desglose-compartit-vcc.css?v=20261115-unificat-v1');
+    disclosuresCss.href=url('configuracion/css/componentes/desglose-compartit-vcc.css?v=20261115-unificat-v2');
     disclosuresCss.dataset.vccDisclosuresGlobal='true';
     document.head.appendChild(disclosuresCss);
   }
