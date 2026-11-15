@@ -1889,6 +1889,54 @@ html body .vl-page .vl-hero.tv-hero.vcc-portada-transparente{
   --vcc-portada-posicio:center center;
 }
 
+
+
+/* País · portada con foto <img> y máscara de transparencia del diseño compartido VCC. */
+html body .swb-hero.vcc-portada-foto-img{
+  position:relative!important;
+  isolation:isolate!important;
+  background:#fff!important;
+  color:#27302e!important;
+}
+html body .swb-hero.vcc-portada-foto-img > .swb-hero-photo{
+  display:block!important;
+  z-index:0!important;
+  opacity:1!important;
+  filter:none!important;
+  mix-blend-mode:normal!important;
+  -webkit-mask-image:var(--vcc-portada-fade)!important;
+  mask-image:var(--vcc-portada-fade)!important;
+  -webkit-mask-size:100% 100%!important;
+  mask-size:100% 100%!important;
+  -webkit-mask-repeat:no-repeat!important;
+  mask-repeat:no-repeat!important;
+}
+html body .swb-hero.vcc-portada-foto-img > .swb-hero-veil{
+  display:none!important;
+  background:none!important;
+}
+html body .swb-hero.vcc-portada-foto-img > .swb-hero-content{
+  position:relative!important;
+  z-index:1!important;
+}
+html body .swb-hero.vcc-portada-foto-img .swb-hero-kicker{
+  color:#a65a3e!important;
+}
+html body .swb-hero.vcc-portada-foto-img h1{
+  color:#202a29!important;
+}
+html body .swb-hero.vcc-portada-foto-img .swb-script{
+  color:#b66d51!important;
+}
+html body .swb-hero.vcc-portada-foto-img .swb-hero-description{
+  color:#4b5352!important;
+}
+@media(max-width:650px){
+  html body .swb-hero.vcc-portada-foto-img > .swb-hero-photo{
+    object-position:64% center!important;
+  }
+}
+
 /* === configuracion/css/componentes/vcc-trip-context.css === */
 /* Nota editorial discreta: fechas del viaje y revisiones periódicas. */
 .vcc-trip-context{display:block;max-width:750px;margin:6px 0 13px;padding:0;border:0;background:none;color:#77736f!important;font-family:"DM Sans",sans-serif;font-size:11px!important;font-weight:400;line-height:1.48!important;letter-spacing:0;opacity:.94}
