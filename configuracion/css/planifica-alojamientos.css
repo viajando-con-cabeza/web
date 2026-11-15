@@ -463,7 +463,7 @@
 /* 2026-11-12 · FIX: evitar el gran hueco entre la descripción y el título
    de Calculadora causado por la combinación de layout local y editorial global.
    La cabecera ocupa solo el alto real de su contenido. */
-html body.al-page #al-compare-anchor.al-compare-head.vcc-editorial-heading{
+html body:is(.al-page,.dv-country-types) #al-compare-anchor.al-compare-head.vcc-editorial-heading{
  display:grid!important;
  grid-template-columns:minmax(0,1fr) minmax(260px,43%)!important;
  grid-auto-rows:min-content!important;
@@ -478,7 +478,7 @@ html body.al-page #al-compare-anchor.al-compare-head.vcc-editorial-heading{
  margin:0 0 15px!important;
  padding:0!important;
 }
-html body.al-page #al-compare-anchor > .vcc-editorial-heading-main{
+html body:is(.al-page,.dv-country-types) #al-compare-anchor > .vcc-editorial-heading-main{
  display:block!important;
  flex:none!important;
  align-self:end!important;
@@ -490,7 +490,7 @@ html body.al-page #al-compare-anchor > .vcc-editorial-heading-main{
  margin:0!important;
  padding:0!important;
 }
-html body.al-page #al-compare-anchor > .al-compare-explain.vcc-editorial-heading-side{
+html body:is(.al-page,.dv-country-types) #al-compare-anchor > .al-compare-explain.vcc-editorial-heading-side{
  display:flex!important;
  flex:none!important;
  flex-direction:column!important;
@@ -506,7 +506,7 @@ html body.al-page #al-compare-anchor > .al-compare-explain.vcc-editorial-heading
  margin:0!important;
  padding:0!important;
 }
-html body.al-page #al-compare-anchor .al-compare-explain > .vcc-editorial-description{
+html body:is(.al-page,.dv-country-types) #al-compare-anchor .al-compare-explain > .vcc-editorial-description{
  display:block!important;
  flex:none!important;
  align-self:flex-end!important;
@@ -516,28 +516,28 @@ html body.al-page #al-compare-anchor .al-compare-explain > .vcc-editorial-descri
  height:auto!important;
  text-align:right!important;
 }
-html body.al-page #al-compare-anchor .al-compare-add{
+html body:is(.al-page,.dv-country-types) #al-compare-anchor .al-compare-add{
  display:flex;align-items:center;justify-content:flex-end;
  gap:12px;margin:0;padding:0;
 }
 @media(max-width:900px){
- html body.al-page #al-compare-anchor.al-compare-head.vcc-editorial-heading{
+ html body:is(.al-page,.dv-country-types) #al-compare-anchor.al-compare-head.vcc-editorial-heading{
   grid-template-columns:minmax(0,1fr)!important;
   align-items:start!important;
   gap:9px!important;
  }
- html body.al-page #al-compare-anchor > .vcc-editorial-heading-main{
+ html body:is(.al-page,.dv-country-types) #al-compare-anchor > .vcc-editorial-heading-main{
   align-self:start!important;
  }
- html body.al-page #al-compare-anchor > .al-compare-explain.vcc-editorial-heading-side{
+ html body:is(.al-page,.dv-country-types) #al-compare-anchor > .al-compare-explain.vcc-editorial-heading-side{
   align-self:start!important;
   align-items:flex-start!important;
   gap:6px!important;
  }
- html body.al-page #al-compare-anchor .al-compare-explain > .vcc-editorial-description{
+ html body:is(.al-page,.dv-country-types) #al-compare-anchor .al-compare-explain > .vcc-editorial-description{
   align-self:flex-start!important;
   text-align:left!important;
   max-width:100%!important;
  }
- html body.al-page #al-compare-anchor .al-compare-add{justify-content:flex-start}
+ html body:is(.al-page,.dv-country-types) #al-compare-anchor .al-compare-add{justify-content:flex-start}
 }
