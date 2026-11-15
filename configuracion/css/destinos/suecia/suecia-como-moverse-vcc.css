@@ -215,20 +215,44 @@ body.mv-body .swmove-page .mv-day-advice.swmove-vcc-advice{background:#fff;backg
 }
 @media(prefers-reduced-motion:reduce){.swmove-page .mv-grid{scroll-behavior:auto}}
 
-/* Perfil del viajero · Sobretítulo de marca encima del icono y del nombre. */
-.swmove-page .mv-card .swmove-ideal{
+/* Suecia · una diapositiva = sobretítulo exterior + tarjeta. El track mueve ambas juntas. */
+.swmove-page .mv-grid>.swmove-transport-slide{
+  flex:0 0 calc((100% - 24px)/3);
+  min-width:0;
+  display:flex;
+  flex-direction:column;
+  scroll-snap-align:start;
+}
+.swmove-page .mv-grid>.swmove-transport-slide>.swmove-ideal{
   display:block;
-  min-height:55px;
+  flex:0 0 auto;
+  min-height:70px;
   margin:0;
-  padding:0;
-  background:none;
-  border:0;
+  padding:0 3px 10px;
   color:#c86f5d;
+  background:transparent;
+  border:0;
   font:600 25px/1.1 var(--vcc-font-script,"Caveat",cursive);
   letter-spacing:0;
   text-transform:none;
   text-align:left;
 }
-@media(max-width:590px){
-  .swmove-page .mv-card .swmove-ideal{min-height:0;font-size:25px;line-height:1.1}
+.swmove-page .mv-grid>.swmove-transport-slide>.mv-card{
+  flex:1 1 auto;
+  display:flex;
+  flex-direction:column;
+  min-width:0;
+  width:100%;
+}
+.swmove-page .mv-grid>.swmove-transport-slide>.mv-card>.mv-card-body{flex:1 1 auto}
+.swmove-page .mv-transport-arrow{top:calc(50% + 31px)}
+@media(max-width:1050px){
+  .swmove-page .mv-grid>.swmove-transport-slide{flex-basis:calc((100% - 12px)/2)}
+  .swmove-page .mv-grid>.swmove-transport-slide>.swmove-ideal{min-height:88px}
+  .swmove-page .mv-transport-arrow{top:calc(50% + 40px)}
+}
+@media(max-width:690px){
+  .swmove-page .mv-grid>.swmove-transport-slide{flex-basis:100%}
+  .swmove-page .mv-grid>.swmove-transport-slide>.swmove-ideal{min-height:82px;padding-bottom:8px}
+  .swmove-page .mv-transport-arrow{top:calc(50% + 36px)}
 }
