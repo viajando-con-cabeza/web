@@ -95,6 +95,7 @@
         verdict.textContent=difference>0?"Otro transporte":"Coche de alquiler";
       }
     }
+    form.addEventListener("submit",event=>event.preventDefault());
     form.addEventListener("input",recalculate);
     form.addEventListener("change",recalculate);
     const clear=page.querySelector("[data-sw-calc-reset]");
