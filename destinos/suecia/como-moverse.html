@@ -15,7 +15,7 @@
 
 <link rel="stylesheet" data-vcc-guies-base href="/configuracion/css/destinos/suecia/estocolmo/como-moverse-base-compilat.css?v=20261112-reusable-v1">
 <link rel="stylesheet" data-vcc-guies-ui href="/configuracion/css/componentes/vcc-guies-ui-compartit.css?v=20261112-reusable-v1">
-<link rel="stylesheet" href="/configuracion/css/destinos/suecia/suecia-como-moverse-vcc.css?v=20261115-regiones-v1">
+<link rel="stylesheet" href="/configuracion/css/destinos/suecia/suecia-como-moverse-vcc.css?v=20261115-minimal-car-regions-v2">
 
 <link rel="stylesheet" href="/configuracion/css/componentes/guias-relacionadas-vcc.css?v=20261112-sigue-unificat-v4">
 <link rel="stylesheet" data-vcc-fast-heroes href="/configuracion/css/componentes/portadas-rapidas-vcc.css?v=stockholm-r2-20261112">
@@ -133,7 +133,11 @@
     <div class="vcc-editorial-heading-main"><span class="mv-overline vcc-editorial-overline">Cada región, una forma de viajar</span><h2 class="vcc-editorial-title" id="swmove-regions-title">CÓMO MOVERSE ENTRE REGIONES DE SUECIA</h2></div>
     <p class="vcc-editorial-description">No se recorre igual Estocolmo que la Costa Oeste o Laponia. Descubre qué transportes encajan mejor en cada zona y accede a nuestras guías locales.</p>
   </header>
-  <div class="swmove-region-grid" aria-label="Transportes recomendados por regiones de Suecia">
+  <div class="swmove-region-carousel" role="group" aria-label="Desliza las regiones de Suecia">
+  <button type="button" class="swmove-region-arrow swmove-region-prev" aria-label="Ver regiones anteriores" aria-controls="swmove-region-track" disabled>
+    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="/configuracion/imagenes/iconos/paginas/estocolmo-como-moverse-iconos.svg#mv-transport-prev-1"></use></svg>
+  </button>
+  <div class="swmove-region-grid" id="swmove-region-track" role="region" aria-roledescription="carrusel" aria-label="Seis regiones de Suecia, cuatro visibles en ordenador" tabindex="0">
   <article class="swmove-region-card">
     <div class="swmove-region-photo"><img src="https://img.viajandoconcabeza.com/__vcc_preview/visor/destinos/suecia/estocolmo/2026-dia6/DSC07945.avif" alt="Estocolmo, Suecia" width="640" height="360" loading="lazy" decoding="async"></div>
     <div class="swmove-region-content">
@@ -189,20 +193,32 @@
     </div>
   </article>
   </div>
+  <button type="button" class="swmove-region-arrow swmove-region-next" aria-label="Ver más regiones" aria-controls="swmove-region-track">
+    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="/configuracion/imagenes/iconos/paginas/estocolmo-como-moverse-iconos.svg#mv-transport-next-1"></use></svg>
+  </button>
+  </div>
   <p class="swmove-region-note">Las combinaciones son orientativas: comprueba horarios y conexiones según las fechas de tu viaje. La guía detallada de Estocolmo ya está disponible; iremos publicando las demás.</p>
  </section>
 
  <section class="swmove-section" id="comparar" aria-labelledby="swmove-comparison-title">
- <header class="mv-section-head swmove-head vcc-editorial-heading"><div class="vcc-editorial-heading-main"><span class="mv-overline vcc-editorial-overline">Qué compensa según tu viaje</span><h2 class="vcc-editorial-title" id="swmove-comparison-title">¿MERECE LA PENA ALQUILAR COCHE?</h2></div><p class="vcc-editorial-description">Depende del recorrido: para ciudades conectadas suele bastar el transporte público; para pueblos, lagos y naturaleza puede merecer la pena. Compara cuándo sí y cuándo no.</p></header>
- <div class="swmove-choice-grid"><article class="swmove-choice swmove-choice--yes"><div class="swmove-choice-head"><span class="swmove-choice-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M8.5 9.5h.01M15.5 9.5h.01"/><path d="M8 14c1.2 1.7 2.6 2.5 4 2.5s2.8-.8 4-2.5"/></svg></span><div><h3>SÍ MERECE LA PENA</h3><p>Si buscas libertad y naturaleza</p></div></div><ul><li><span class="swmove-choice-tick" aria-hidden="true">✓</span><span>Visitarás pueblos, lagos o zonas rurales.</span></li><li><span class="swmove-choice-tick" aria-hidden="true">✓</span><span>Harás varias paradas lejos de las ciudades.</span></li><li><span class="swmove-choice-tick" aria-hidden="true">✓</span><span>Sois varios y podéis compartir gastos.</span></li><li><span class="swmove-choice-tick" aria-hidden="true">✓</span><span>Tu alojamiento no tiene buena conexión pública.</span></li></ul></article>
-<article class="swmove-choice swmove-choice--no"><div class="swmove-choice-head"><span class="swmove-choice-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M8.5 9.5h.01M15.5 9.5h.01"/><path d="M8 16.5c1.2-1.7 2.6-2.5 4-2.5s2.8.8 4 2.5"/></svg></span><div><h3>NO MERECE LA PENA</h3><p>Si tu ruta es urbana y bien conectada</p></div></div><ul><li><span class="swmove-choice-tick" aria-hidden="true">✓</span><span>Visitas Estocolmo, Göteborg o Malmö.</span></li><li><span class="swmove-choice-tick" aria-hidden="true">✓</span><span>Viajas entre ciudades con buenas conexiones.</span></li><li><span class="swmove-choice-tick" aria-hidden="true">✓</span><span>Duermes cerca del transporte público.</span></li><li><span class="swmove-choice-tick" aria-hidden="true">✓</span><span>Prefieres evitar parking y conducir en ciudad.</span></li></ul></article></div>
- <aside class="mv-day-advice swmove-vcc-advice" aria-label="Consejo VCC sobre alquilar coche en Suecia"><div class="mv-day-advice-content">
-<div class="mv-day-advice-intro">
- <div class="mv-day-advice-brand"><span class="mv-day-advice-seal"><img src="/configuracion/imagenes/marca/logo-vcc.svg" alt="" width="43" height="43" loading="lazy"></span><span>Consejo VCC</span></div>
- <div class="mv-day-advice-text"><strong>Tren en las ciudades, coche para explorar</strong><p>Combinaríamos tren para las grandes ciudades y coche solo en las etapas rurales. Así no pagas un alquiler los días que no lo necesitas.</p></div>
-</div>
-<div class="swmove-vcc-advice-facts"><span><strong>TREN</strong> Estocolmo, Göteborg y Malmö</span><span><strong>COCHE</strong> Pueblos, lagos y naturaleza</span><span><strong>CLAVE</strong> Comparar el coste total</span></div>
-</div></aside>
+ <header class="mv-section-head swmove-head vcc-editorial-heading"><div class="vcc-editorial-heading-main"><span class="mv-overline vcc-editorial-overline">Qué compensa según tu viaje</span><h2 class="vcc-editorial-title" id="swmove-comparison-title">¿MERECE LA PENA ALQUILAR COCHE?</h2></div><p class="vcc-editorial-description">Una elección sencilla: para ciudades, transporte público; para rutas con varias paradas rurales, compara la libertad del coche con su coste total.</p></header>
+
+ <div class="swmove-choice-grid" aria-label="Cuándo merece la pena alquilar coche">
+   <article class="swmove-choice">
+     <span class="swmove-choice-label">CUÁNDO SÍ</span>
+     <h3>Si vas a explorar zonas rurales</h3>
+     <p>Para combinar pueblos, lagos y naturaleza con varias paradas, especialmente cuando los horarios de autobús no encajan.</p>
+   </article>
+   <article class="swmove-choice">
+     <span class="swmove-choice-label">CUÁNDO NO</span>
+     <h3>Si visitas ciudades conectadas</h3>
+     <p>Para Estocolmo, Gotemburgo o Malmö preferimos tren y transporte urbano: sin aparcar ni pagar un coche que no usarás.</p>
+   </article>
+ </div>
+ <aside class="swmove-simple-tip" aria-label="Nuestra recomendación para alquilar coche en Suecia">
+   <img src="/configuracion/imagenes/marca/logo-vcc.svg" width="40" height="40" alt="" loading="lazy">
+   <p><strong>CONSEJO VCC</strong> Combinaríamos tren para las ciudades y coche solo los días que necesitemos explorar por libre.</p>
+ </aside>
  <div class="swmove-calculator">
  <div class="swmove-calc-overview"><div class="swmove-calc-heading"><span class="swmove-calc-heading-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 1.9 6.1L20 11l-6.1 1.9L12 19l-1.9-6.1L4 11l6.1-1.9L12 3Z"/></svg></span><div><h3 class="swmove-calc-title">CALCULADORA: TRANSPORTE VS. COCHE</h3><p>Importes de ejemplo editables: compara transporte público o avión con coche de alquiler.</p></div></div></div>
  <div class="swmove-calc-result" aria-live="polite">
@@ -263,5 +279,5 @@
 
 <script src="/configuracion/js/plantillas/como-moverse-subnav.js?v=20261107-compact8" defer></script>
 <script src="/configuracion/js/plantillas/como-moverse-carrusel.js?v=20261109-contador24" defer></script>
-<script src="/configuracion/js/paises/suecia-como-moverse.js?v=20261115-ver-desglose-estable-v11" defer></script>
+<script src="/configuracion/js/paises/suecia-como-moverse.js?v=20261115-minimal-car-regions-v2" defer></script>
 </body></html>
