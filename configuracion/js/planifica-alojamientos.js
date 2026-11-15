@@ -121,11 +121,16 @@ function update(){
  const valid=offers.map((o,i)=>({o,i,t:total(o)})).filter(x=>filled(x.o));
  const sorted=valid.sort((a,b)=>a.t-b.t);const best=sorted[0];
  const empty=root.querySelector('[data-al-advice-empty]'),result=root.querySelector('[data-al-advice-result]'),savings=root.querySelector('[data-al-savings]');
- empty.hidden=sorted.length>=2;result.hidden=sorted.length<2;savings.hidden=sorted.length<2;
- if(sorted.length>=2){
- root.querySelector('[data-al-winner]').textContent=(best.o.name.trim()||'Opción '+letters[best.i]);root.querySelector('[data-al-price]').textContent=fmt(best.t);
- const rest=sorted.slice(1).map(x=>'Ahorras '+fmt(x.t-best.t)+' frente a '+(x.o.name.trim()||'opción '+letters[x.i]));
- savings.replaceChildren(el('strong',null,'LO QUE TE AHORRAS'),...rest.map(t=>el('div',null,t)));
+ // El bloque opcional de consejo no existe en la guía Suecia, pero sí en otros comparadores.
+ if(empty&&result&&savings){
+  empty.hidden=sorted.length>=2;result.hidden=sorted.length<2;savings.hidden=sorted.length<2;
+  if(sorted.length>=2){
+   const winner=root.querySelector('[data-al-winner]'),price=root.querySelector('[data-al-price]');
+   if(winner)winner.textContent=(best.o.name.trim()||'Opción '+letters[best.i]);
+   if(price)price.textContent=fmt(best.t);
+   const rest=sorted.slice(1).map(x=>'Ahorras '+fmt(x.t-best.t)+' frente a '+(x.o.name.trim()||'opción '+letters[x.i]));
+   savings.replaceChildren(el('strong',null,'LO QUE TE AHORRAS'),...rest.map(t=>el('div',null,t)));
+  }
  }
  body.querySelectorAll('.al-calc-total td').forEach((td,i)=>{const isBest=sorted.length>=2&&best.i===i;td.dataset.alBest=String(isBest);td.querySelector('strong').textContent=filled(offers[i])?fmt(total(offers[i])):'—'});
  head.querySelectorAll('th').forEach((th,i)=>{if(i>0)th.dataset.alBest=String(sorted.length>=2&&best.i===i-1)});
