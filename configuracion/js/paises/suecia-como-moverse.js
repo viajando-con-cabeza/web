@@ -6,7 +6,11 @@
     const page=document.querySelector(".swmove-page");
     if(!page)return;
 
-    // Igual que els desplegables del pressupost: només un transport obert cada vegada.
+    // Manté el text fix igual que a Presupuesto Estocolmo, també amb el detall obert.
+    const disclosureText="VER DESGLOSE";
+    const keepDisclosureText=(label)=>{if(label&&label.textContent!==disclosureText)label.textContent=disclosureText;};
+
+    // Només un transport obert cada vegada.
     const infraArea=page.querySelector(".swmove-infra-area");
     const infraButtons=Array.from(page.querySelectorAll("[data-sw-infra-toggle]"));
     const infraClose=page.querySelector("[data-sw-infra-close]");
@@ -17,7 +21,7 @@
         const selected=isOpen&&button.dataset.swInfraToggle===method;
         button.setAttribute("aria-expanded",String(selected));
         const label=button.querySelector("[data-sw-infra-label]");
-        if(label)label.textContent="VER DESGLOSE";
+        keepDisclosureText(label);
         const panel=page.querySelector("#red-"+button.dataset.swInfraToggle);
         if(panel)panel.hidden=!selected;
       });
@@ -25,6 +29,7 @@
         infraArea.scrollIntoView({behavior:window.matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth",block:"start"});
       }
     };
+    setInfra(null,false);
     infraButtons.forEach(button=>button.addEventListener("click",()=>{
       const selected=button.getAttribute("aria-expanded")==="true";
       setInfra(selected?null:button.dataset.swInfraToggle,!selected);
@@ -44,8 +49,9 @@
         const open=calcToggle.getAttribute("aria-expanded")!=="true";
         calcDisclosure.hidden=!open;
         calcToggle.setAttribute("aria-expanded",String(open));
-        if(calcToggleLabel)calcToggleLabel.textContent="VER DESGLOSE";
+        keepDisclosureText(calcToggleLabel);
       });
+      keepDisclosureText(calcToggleLabel);
     }
     const form=page.querySelector("#swmove-calc");
     if(!form)return;
