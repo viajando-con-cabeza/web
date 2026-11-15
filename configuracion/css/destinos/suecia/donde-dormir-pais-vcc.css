@@ -21,15 +21,12 @@ body.dv-country-types #como-ahorrar{
   margin-inline:auto;
 }
 
-/* El desglose plegado hace que las tarjetas sean compactas de entrada.
-   Se conserva la escala de Estocolmo y la lista original de pros/contras,
-   ahora dentro de <details> con el resumen CSS compartido. */
+/* Igual que abans: la targeta mostra pros i contres sempre.
+   Només s'obre la fitxa ampliada inferior en clicar VER DESGLOSE.
+   Tota la presentació de la fitxa prové del component d'Estocolmo. */
 body.dv-country-types #barrios .dv-carousel > .dv-card{
-  min-height:225px;
-  cursor:default;
+  min-height:298px;
 }
-/* Al abrir el desglose los pros/contras recuperan su formato original,
-   sin estirar la separación entre líneas. */
 body.dv-country-types #barrios .dv-pros{
   align-content:start;
 }
@@ -69,7 +66,7 @@ body.dv-country-types .dv-planifica-alojamiento-reuse .al-compare-status{
 }
 @media(max-width:700px){
   body.dv-country-types #barrios .dv-carousel > .dv-card{
-    min-height:240px;
+    min-height:303px;
   }
 }
 @media(max-width:600px){
