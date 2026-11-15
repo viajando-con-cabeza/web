@@ -872,3 +872,10 @@ html body.ci-page #por-region .ci-region-card.di-mini-card.vcc-it-card .di-mini-
   min-width:0!important;
   min-height:0!important;
 }
+
+/* Els filtres dels catàlegs han de continuar ocultant elements sense resultats.
+   El selector de mida inclou IDs a :is(); [hidden] necessita més especificitat. */
+html body :is(.vcc-it-catalog,.vcc-card-collection,.home-featured-itineraries,.home-featured-guide,#di-panel-itinerarios,#di-panel-guias,#di-panel-consejos,.vcc-budget-regions) :is(.di-mini-card,.home-feature-card).vcc-it-card[hidden],
+html body.ci-page #por-region .ci-region-card.di-mini-card.vcc-it-card[hidden]{
+  display:none!important;
+}
