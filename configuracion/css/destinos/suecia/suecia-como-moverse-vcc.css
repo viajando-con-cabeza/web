@@ -90,16 +90,26 @@
  .swmove-page .swmove-calc-details{padding:12px}
  .swmove-page .swmove-calc-detail-grid{grid-template-columns:1fr;gap:9px}
 }
-/* Decisión sencilla: sin gradientes, caritas, semáforos ni listas decorativas. */
+/* Suecia · dos decisiones, inspiración Presupuesto Estocolmo. */
 .swmove-page .swmove-choice-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin:0}
-.swmove-page .swmove-choice{min-width:0;background:#fff;border:1px solid #e4e0db;border-radius:13px;padding:22px 23px 20px}
-.swmove-page .swmove-choice-label{display:block;color:#797672;font:700 10px/1.3 var(--vcc-font-body,"DM Sans",Arial,sans-serif);letter-spacing:.11em;margin:0 0 9px}
-.swmove-page .swmove-choice h3{margin:0 0 9px;color:#252a28;font:600 22px/1.15 var(--vcc-font-heading,"Oswald",sans-serif);text-transform:uppercase}
-.swmove-page .swmove-choice p{margin:0;max-width:470px;color:#5d5d5a;font:400 13px/1.65 var(--vcc-font-body,"DM Sans",Arial,sans-serif)}
+.swmove-page .swmove-choice{display:flex;flex-direction:column;min-width:0;padding:19px 21px 17px;background:#fff;border:1px solid #e6ded7;border-radius:13px}
+.swmove-page .swmove-choice-head{display:flex;align-items:center;gap:13px;margin:0 0 12px;padding:0 0 13px;border-bottom:1px solid #eae5df}
+.swmove-page .swmove-choice-head>div{min-width:0}
+.swmove-page .swmove-choice-face{display:grid;place-items:center;width:47px;height:47px;flex:0 0 47px;color:#d87545}
+.swmove-page .swmove-choice-face svg{display:block;width:43px;height:43px}
+.swmove-page .swmove-choice-label{display:block;margin:0 0 4px;color:#ab6549;font:700 10px/1.35 var(--vcc-font-body,"DM Sans",Arial,sans-serif);letter-spacing:.085em}
+.swmove-page .swmove-choice h3{margin:0 0 4px;color:#242926;font:600 23px/1.13 var(--vcc-font-heading,"Oswald",sans-serif)}
+.swmove-page .swmove-choice-head p{margin:0;color:#74716c;font:400 11.5px/1.4 var(--vcc-font-body,"DM Sans",Arial,sans-serif)}
+.swmove-page .swmove-choice-list{list-style:none;display:grid;grid-template-columns:1fr;flex:1;gap:0;margin:0;padding:0}
+.swmove-page .swmove-choice-list li{position:relative;margin:0;padding:8px 0 8px 15px;border-bottom:1px solid #f0ece8;color:#565955;font:400 12px/1.52 var(--vcc-font-body,"DM Sans",Arial,sans-serif)}
+.swmove-page .swmove-choice-list li:before{content:"";position:absolute;left:1px;top:15px;width:5px;height:5px;border-radius:50%;background:#d87545}
+.swmove-page .swmove-choice-list li:last-child{border-bottom:0;padding-bottom:1px}
+.swmove-page .swmove-choice-list strong{font-weight:700;color:#303632}
 .swmove-page .swmove-simple-tip{display:flex;gap:12px;align-items:center;margin:14px 0 24px;padding:0 2px;border:0;background:transparent}
 .swmove-page .swmove-simple-tip img{display:block;width:40px;height:40px;flex:0 0 40px;object-fit:contain}
 .swmove-page .swmove-simple-tip p{margin:0;color:#575955;font:400 12.5px/1.55 var(--vcc-font-body,"DM Sans",Arial,sans-serif)}
 .swmove-page .swmove-simple-tip strong{margin-right:7px;color:#272b29;font-weight:800;letter-spacing:.04em}
+@media(max-width:740px){.swmove-page .swmove-choice-grid{grid-template-columns:1fr;gap:10px}.swmove-page .swmove-choice{padding:15px 16px}.swmove-page .swmove-choice-head{margin-bottom:9px;padding-bottom:11px}.swmove-page .swmove-choice-face{width:42px;height:42px;flex-basis:42px}.swmove-page .swmove-choice-face svg{width:39px;height:39px}.swmove-page .swmove-choice h3{font-size:21px}}
 /* Calculadora única: dos filas de inputs + tres resums amb estalvi verd dinàmic */
 .swmove-page .swmove-calculator{display:flex;flex-direction:column;min-width:0;overflow:hidden;background:#fff;border:1px solid #e4e0db;border-radius:13px}
 .swmove-page .swmove-calc-fields{min-width:0;padding:13px 16px 11px}
