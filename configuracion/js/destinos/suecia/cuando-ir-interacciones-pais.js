@@ -31,6 +31,37 @@
     });
     select('clima');
   }
+  // Carrusel regional: cuatro tarjetas de ancho completo en escritorio.
+  const regionTrack=document.getElementById('ciRegionTrack');
+  const regionPrev=document.getElementById('ciRegionPrev');
+  const regionNext=document.getElementById('ciRegionNext');
+  if(regionTrack&&regionPrev&&regionNext){
+    const cards=[...regionTrack.querySelectorAll('.ci-region-card')];
+    const step=()=>cards.length>1?cards[1].offsetLeft-cards[0].offsetLeft:(cards[0]?.getBoundingClientRect().width||1);
+    const sync=()=>{
+      const end=Math.max(0,regionTrack.scrollWidth-regionTrack.clientWidth);
+      regionPrev.disabled=regionTrack.scrollLeft<=2;
+      regionNext.disabled=regionTrack.scrollLeft>=end-2;
+    };
+    const move=direction=>{
+      const width=step();
+      if(width<=0)return;
+      const end=Math.max(0,regionTrack.scrollWidth-regionTrack.clientWidth);
+      const left=Math.max(0,Math.min(end,(Math.round(regionTrack.scrollLeft/width)+direction)*width));
+      regionTrack.scrollTo({left,behavior:window.matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});
+    };
+    regionPrev.addEventListener('click',()=>move(-1));
+    regionNext.addEventListener('click',()=>move(1));
+    regionTrack.addEventListener('scroll',sync,{passive:true});
+    regionTrack.addEventListener('keydown',event=>{
+      if(event.target===regionTrack&&(event.key==='ArrowRight'||event.key==='ArrowLeft')){
+        event.preventDefault();move(event.key==='ArrowRight'?1:-1);
+      }
+    });
+    window.addEventListener('resize',sync,{passive:true});
+    sync();
+  }
+
   const tipsTrack=document.getElementById('ciTipsTrack');
   const tipsPrev=document.getElementById('ciTipsPrev');
   const tipsNext=document.getElementById('ciTipsNext');
