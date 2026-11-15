@@ -4,7 +4,7 @@
    Les classes antigues s'han conservat només per compatibilitat amb JS/estructura. */
 :is(.vcc-it-catalog,.vcc-card-collection,body.inicio-vcc.home-editorial-refresh .home-featured-itineraries,body.inicio-vcc.home-editorial-refresh .home-featured-guide) .vcc-it-card{
   display:flex!important;flex-direction:column!important;align-items:stretch!important;
-  min-width:0!important;height:auto!important;min-height:335px!important;max-height:none!important;
+  min-width:0!important;height:auto!important;min-height:var(--vcc-card-unified-height)!important;max-height:none!important;
   overflow:hidden!important;background:#fff!important;
   border:1px solid #e7e0d9!important;border-radius:11px!important;
   box-shadow:0 3px 12px rgba(55,38,26,.035)!important;
@@ -115,7 +115,7 @@
 }
 @media(max-width:620px){
   :is(.vcc-it-catalog,.vcc-card-collection,body.inicio-vcc.home-editorial-refresh .home-featured-itineraries,body.inicio-vcc.home-editorial-refresh .home-featured-guide) .vcc-it-card{
-    min-height:345px!important;
+    min-height:var(--vcc-card-unified-height)!important;
   }
   :is(.vcc-it-catalog,.vcc-card-collection,body.inicio-vcc.home-editorial-refresh .home-featured-itineraries,body.inicio-vcc.home-editorial-refresh .home-featured-guide) .vcc-it-card .vcc-it-title,
   :is(.vcc-it-catalog,.vcc-card-collection,body.inicio-vcc.home-editorial-refresh .home-featured-itineraries,body.inicio-vcc.home-editorial-refresh .home-featured-guide) .vcc-it-card .di-mini-body>strong{
@@ -243,24 +243,24 @@ body.country-page .vcc-sweden-page .vcc-score-method p{
    Una sola font de veritat: sense excepcions #quever / #itinerario. */
 html body .vcc-sweden-page .vcc-card-collection > article.home-feature-card.vcc-it-card.vcc-card-shared{
   box-sizing:border-box!important;
-  height:350px!important;
-  min-height:350px!important;
-  max-height:350px!important;
+  height:var(--vcc-card-unified-height)!important;
+  min-height:var(--vcc-card-unified-height)!important;
+  max-height:var(--vcc-card-unified-height)!important;
 }
 html body .vcc-sweden-page .vcc-card-collection > article.home-feature-card.vcc-it-card.vcc-card-shared .home-feature-photo.vcc-it-photo{
   box-sizing:border-box!important;
-  height:180px!important;
-  min-height:180px!important;
-  max-height:180px!important;
-  flex:0 0 180px!important;
+  height:var(--vcc-card-unified-photo-height)!important;
+  min-height:var(--vcc-card-unified-photo-height)!important;
+  max-height:var(--vcc-card-unified-photo-height)!important;
+  flex:0 0 var(--vcc-card-unified-photo-height)!important;
   aspect-ratio:auto!important;
 }
 @media(max-width:620px){
   html body .vcc-sweden-page .vcc-card-collection > article.home-feature-card.vcc-it-card.vcc-card-shared{
-    height:365px!important;min-height:365px!important;max-height:365px!important;
+    height:var(--vcc-card-unified-height)!important;min-height:var(--vcc-card-unified-height)!important;max-height:var(--vcc-card-unified-height)!important;
   }
   html body .vcc-sweden-page .vcc-card-collection > article.home-feature-card.vcc-it-card.vcc-card-shared .home-feature-photo.vcc-it-photo{
-    height:180px!important;min-height:180px!important;max-height:180px!important;flex-basis:180px!important;
+    height:var(--vcc-card-unified-photo-height)!important;min-height:var(--vcc-card-unified-photo-height)!important;max-height:var(--vcc-card-unified-photo-height)!important;flex-basis:var(--vcc-card-unified-photo-height)!important;
   }
 }
 
@@ -301,7 +301,7 @@ html body.vcc-planifica-cards .vcc-it-catalog .di-mini-grid{
 html body.vcc-planifica-cards .vcc-it-catalog .di-mini-grid > .di-mini-card.vcc-it-card{
   box-sizing:border-box!important;
   display:flex!important;flex-direction:column!important;min-width:0!important;
-  height:350px!important;min-height:350px!important;max-height:350px!important;
+  height:var(--vcc-card-unified-height)!important;min-height:var(--vcc-card-unified-height)!important;max-height:var(--vcc-card-unified-height)!important;
   padding:0!important;margin:0!important;gap:0!important;
   border:1px solid #dedbd6!important;border-radius:12px!important;
   overflow:hidden!important;background:#fff!important;
@@ -311,8 +311,8 @@ html body.vcc-planifica-cards .vcc-it-catalog .di-mini-grid > .di-mini-card.vcc-
 }
 html body.vcc-planifica-cards .vcc-it-catalog .di-mini-card.vcc-it-card .di-mini-photo.vcc-it-photo{
   display:block!important;position:relative!important;
-  width:100%!important;height:180px!important;min-height:180px!important;
-  max-height:180px!important;flex:0 0 180px!important;aspect-ratio:auto!important;
+  width:100%!important;height:var(--vcc-card-unified-photo-height)!important;min-height:var(--vcc-card-unified-photo-height)!important;
+  max-height:var(--vcc-card-unified-photo-height)!important;flex:0 0 var(--vcc-card-unified-photo-height)!important;aspect-ratio:auto!important;
   margin:0!important;padding:0!important;overflow:hidden!important;
   border:0!important;border-bottom:1px solid #dedbd6!important;
   box-sizing:border-box!important;background:#eee9e4!important;
@@ -421,7 +421,7 @@ html body:is(.vcc-planifica-cards,.itinerarios-vcc) .vcc-it-catalog .di-mini-car
 @media(max-width:620px){
   html body.vcc-planifica-cards .vcc-it-catalog .di-mini-grid{grid-template-columns:1fr!important;gap:14px!important}
   html body.vcc-planifica-cards .vcc-it-catalog .di-mini-grid > .di-mini-card.vcc-it-card{
-    height:365px!important;min-height:365px!important;max-height:365px!important;
+    height:var(--vcc-card-unified-height)!important;min-height:var(--vcc-card-unified-height)!important;max-height:var(--vcc-card-unified-height)!important;
   }
   html body.vcc-planifica-cards .vcc-it-catalog .di-mini-card.vcc-it-card{
     --vcc-card-score-top:12px;--vcc-card-score-right:12px;--vcc-card-score-size:34px;
@@ -434,9 +434,12 @@ html body:is(.vcc-planifica-cards,.itinerarios-vcc) .vcc-it-catalog .di-mini-car
 
 /* VCC · CATÀLEGS CANÒNICS: Itinerarios + No sabes dónde ir + Presupuestos + Qué llevar. */
 :root{
-  --vcc-catalog-fitxa-alcada:350px;
-  --vcc-catalog-fitxa-alcada-mobil:365px;
-  --vcc-catalog-fitxa-foto:180px;
+  /* Mida CANÒNICA per a itineraris, guies, consells i fitxes de país. */
+  --vcc-card-unified-height:322px;
+  --vcc-card-unified-photo-height:150px;
+  --vcc-catalog-fitxa-alcada:var(--vcc-card-unified-height);
+  --vcc-catalog-fitxa-alcada-mobil:var(--vcc-card-unified-height);
+  --vcc-catalog-fitxa-foto:var(--vcc-card-unified-photo-height);
   --vcc-catalog-fitxa-padding:12px 14px 14px;
   --vcc-catalog-fitxa-titol:21px;
   --vcc-catalog-fitxa-text:11px;
@@ -552,8 +555,8 @@ html body.itinerarios-vcc .vcc-it-catalog .di-mini-card.vcc-it-card{
    NO moure tipologies a la fotografia: .vcc-card-kicker va dins .di-mini-body.
    Controls únics de mida, fotografia, espaiat, colors i fonts. */
 :root{
- --vcc-itinerary-card-min-height:315px;
- --vcc-itinerary-card-photo-height:164px;
+ --vcc-itinerary-card-min-height:var(--vcc-card-unified-height);
+ --vcc-itinerary-card-photo-height:var(--vcc-card-unified-photo-height);
  --vcc-itinerary-card-radius:13px;
  --vcc-itinerary-card-gap:14px;
  --vcc-itinerary-card-padding:11px 13px 12px;
@@ -693,8 +696,8 @@ html body.itinerarios-vcc .vcc-it-catalog .di-mini-card.vcc-it-card{
 }
 @media(max-width:610px){
  :root{
-  --vcc-itinerary-card-min-height:342px;
-  --vcc-itinerary-card-photo-height:160px;
+  --vcc-itinerary-card-min-height:var(--vcc-card-unified-height);
+  --vcc-itinerary-card-photo-height:var(--vcc-card-unified-photo-height);
   --vcc-itinerary-card-title-size:19px;
   --vcc-itinerary-card-padding:11px 12px 13px;
  }
@@ -830,3 +833,42 @@ html body :is(.vcc-it-catalog,.vcc-card-collection,.home-featured-itineraries,.h
 }
 
 
+
+/* VCC · ALÇADA CANÒNICA ÚNICA · 2026-11-15.
+   Totes les targetes del mateix sistema: Inici, Itinerarios, Planifica
+   (Itinerarios / Guías / Consejos, Presupuestos, Qué llevar), pàgines de
+   país (Por región, Precios por zonas) i carrousels de guies.
+   Si cal canviar la mida, tocar NOMÉS --vcc-card-unified-* al :root de dalt.
+   No forçar heights a CSS propis de pàgina ni canviar la mida en mòbil. */
+html body :is(.vcc-it-catalog,.vcc-card-collection,.home-featured-itineraries,.home-featured-guide,#di-panel-itinerarios,#di-panel-guias,#di-panel-consejos,.vcc-budget-regions) :is(.di-mini-card,.home-feature-card).vcc-it-card,
+html body.ci-page #por-region .ci-region-card.di-mini-card.vcc-it-card{
+  box-sizing:border-box!important;
+  display:flex!important;
+  flex-direction:column!important;
+  min-width:0!important;
+  height:var(--vcc-card-unified-height)!important;
+  min-height:var(--vcc-card-unified-height)!important;
+  max-height:var(--vcc-card-unified-height)!important;
+  overflow:hidden!important;
+}
+html body :is(.vcc-it-catalog,.vcc-card-collection,.home-featured-itineraries,.home-featured-guide,#di-panel-itinerarios,#di-panel-guias,#di-panel-consejos,.vcc-budget-regions) :is(.di-mini-card,.home-feature-card).vcc-it-card .vcc-it-photo,
+html body.ci-page #por-region .ci-region-card.di-mini-card.vcc-it-card .vcc-it-photo{
+  box-sizing:border-box!important;
+  position:relative!important;
+  display:block!important;
+  flex:0 0 var(--vcc-card-unified-photo-height)!important;
+  width:100%!important;
+  height:var(--vcc-card-unified-photo-height)!important;
+  min-height:var(--vcc-card-unified-photo-height)!important;
+  max-height:var(--vcc-card-unified-photo-height)!important;
+  aspect-ratio:auto!important;
+  overflow:hidden!important;
+}
+html body :is(.vcc-it-catalog,.vcc-card-collection,.home-featured-itineraries,.home-featured-guide,#di-panel-itinerarios,#di-panel-guias,#di-panel-consejos,.vcc-budget-regions) :is(.di-mini-card,.home-feature-card).vcc-it-card .di-mini-body,
+html body.ci-page #por-region .ci-region-card.di-mini-card.vcc-it-card .di-mini-body{
+  display:flex!important;
+  flex:1 1 auto!important;
+  flex-direction:column!important;
+  min-width:0!important;
+  min-height:0!important;
+}
