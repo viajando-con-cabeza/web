@@ -371,8 +371,49 @@
       a.replaceWith(span);
     });
   };
+  // VCC · Contrato editorial ÚNICO para las tarjetas de guías/itinerarios:
+  //   VER ITINERARIO = itinerarios; VER GUÍA = todas las demás guías;
+  //   PRÓXIMAMENTE = ficha sin contenido publicado.
+  // No tocar enlaces funcionales que ejecutan acciones, p. ej. VER ZONA.
+  const normalizeCatalogCardLabels=(root)=>{
+    const selector='.vcc-it-card .vcc-it-cta,.vcc-it-card .vcc-it-upcoming,.vcc-it-card .di-upcoming-status';
+    const nodes=[];
+    if(root.nodeType===1&&root.matches(selector))nodes.push(root);
+    if(root.querySelectorAll)nodes.push(...root.querySelectorAll(selector));
+    for(const node of nodes){
+      const card=node.closest('.vcc-it-card');
+      if(!card)continue;
+      const label=(node.textContent||'').trim();
+      if((node.matches('.vcc-it-upcoming,.di-upcoming-status')||node.classList.contains('vcc-pending'))&&
+         /PR[ÓO]XIMAMENTE/i.test(label)){
+        if(label!=='PRÓXIMAMENTE')node.textContent='PRÓXIMAMENTE';
+        continue;
+      }
+      if(!node.classList.contains('vcc-it-cta')||node.classList.contains('vcc-pending'))continue;
+      const link=node.matches('a[href]')?node:node.closest('a[href]');
+      if(!link||node.hasAttribute('data-choose-zone')||link.hasAttribute('data-choose-zone'))continue;
+      const href=link.getAttribute('href')||'';
+      if(!href||href[0]==='#')continue;
+      let path;
+      try{
+        const target=new URL(href,location.href);
+        if(target.origin!==location.origin)continue;
+        path=target.pathname;
+      }catch(_){continue}
+      if(!/^\/(?:destinos|itinerarios)\//i.test(path))continue;
+      const isItinerary=card.matches('.di-itinerary-card,.vcc-itinerary-card,.vcc-itin-card')||
+        !!card.closest('#di-panel-itinerarios,.home-featured-itineraries')||
+        /\/itinerario(?:\.html|\/|$)|^\/itinerarios\/[^/]/i.test(path);
+      const expected=isItinerary?'VER ITINERARIO':'VER GUÍA';
+      if(label!==expected)node.textContent=expected;
+    }
+  };
   normalizePending(document.body);
-  new MutationObserver(records=>records.forEach(r=>r.addedNodes.forEach(n=>normalizePending(n)))).observe(document.body,{childList:true,subtree:true});
+  normalizeCatalogCardLabels(document.body);
+  new MutationObserver(records=>records.forEach(record=>record.addedNodes.forEach(node=>{
+    normalizePending(node);
+    normalizeCatalogCardLabels(node);
+  }))).observe(document.body,{childList:true,subtree:true});
 })();
 
 /* VCC shared Consejo component loader 2026-11-08 */
