@@ -114,7 +114,7 @@
         }else{
           cta.dataset.chooseZone=key;
           cta.href="#filosofia";
-          cta.textContent="COMPARAR ZONA";
+          cta.textContent="VER ZONA";
         }
       }
       const daily=card.querySelector("[data-zone-daily]");
