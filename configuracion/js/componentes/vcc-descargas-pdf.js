@@ -90,7 +90,7 @@ function generate(options){
   const entries=Array.isArray(sec.lines)?sec.lines:[];
   space(46);
   if(sec.heading){
-   ops.push(rgb(CREAM)+" rg "+MARGIN+" "+(PAGE_H-y+12).toFixed(2)+" "+MAX_W+" 30 re f");
+   ops.push(rgb(CREAM)+" rg "+MARGIN+" "+(PAGE_H-y-11).toFixed(2)+" "+MAX_W+" 30 re f");
    text(sec.heading.toLocaleUpperCase("es-ES"),MARGIN+11,y,12.5,true,ACCENT);y+=30;
   }
   lines(entries,{size:10.25});
