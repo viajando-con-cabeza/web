@@ -380,7 +380,7 @@
   }
   async function init(){
     try{
-      const response=await fetch(source,{cache:"no-cache"});
+      const response=await fetch(source);
       if(!response.ok)throw new Error("HTTP "+response.status);
       data=validate(await response.json());
       state.zone=data.defaultZone;
