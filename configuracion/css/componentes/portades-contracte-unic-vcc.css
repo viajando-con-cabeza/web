@@ -339,3 +339,53 @@ html body nav.vcc-unified-subheader.vcc-sacred-subnav.vcc-sacred-subnav button[r
     font-size:11px!important;
   }
 }
+
+/* Excepcions de composició, NO d'altura ni de tipografia:
+ * les opcions de «Dónde ir» es mantenen en 2 columnes de contingut
+ * i els transportes de «Cómo llegar» queden després del subheader. */
+@media(min-width:721px){
+ html body .di-hero.vcc-sacred-hero.vcc-sacred-hero.vcc-sacred-hero.vcc-sacred-hero .di-hero-inner{
+   display:grid!important;
+   grid-template-columns:minmax(0,.44fr) minmax(0,.56fr)!important;
+   align-items:start!important;
+   gap:22px!important;
+   padding-top:var(--vcc-contract-copy-top)!important;
+ }
+ html body .di-hero.vcc-sacred-hero .di-choices{
+   align-self:start!important;
+   margin:0!important;
+ }
+}
+html body .cl-landing-hero.vcc-sacred-hero.vcc-sacred-hero.vcc-sacred-hero.vcc-sacred-hero > .cl-landing-stage{
+  display:block!important;
+  height:100%!important;
+  width:calc(100% - 92px)!important;
+  margin:0 auto!important;
+  padding:0!important;
+}
+html body .cl-landing-cards.vcc-cl-cards-below{
+  box-sizing:border-box!important;
+  width:calc(100% - 92px)!important;
+  max-width:1510px!important;
+  margin:22px auto 34px!important;
+  position:relative!important;
+  z-index:1!important;
+}
+@media(max-width:720px){
+ html body .di-hero.vcc-sacred-hero.vcc-sacred-hero.vcc-sacred-hero.vcc-sacred-hero .di-hero-inner{
+   display:block!important;
+   padding-top:var(--vcc-contract-copy-top)!important;
+ }
+ html body .di-choices.vcc-di-choices-below{
+   box-sizing:border-box!important;
+   width:calc(100% - 36px)!important;
+   margin:15px auto 26px!important;
+ }
+ html body .cl-landing-hero.vcc-sacred-hero.vcc-sacred-hero.vcc-sacred-hero.vcc-sacred-hero > .cl-landing-stage,
+ html body .cl-landing-cards.vcc-cl-cards-below{
+   width:calc(100% - 36px)!important;
+ }
+ html body .cl-landing-cards.vcc-cl-cards-below{
+   margin:16px auto 26px!important;
+ }
+}
