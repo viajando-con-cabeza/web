@@ -323,3 +323,49 @@ html body .content-hero.vcc-guide-hero-unified .vcc-guide-hero-copy{
   }
 }
 
+
+/* Subguies de Cómo llegar: manté la foto del transport i el breadcrumb.
+   El títol pot ocupar més línies, sense retallar el contingut. */
+html body .cl-page .cl-hero.vcc-guide-hero-unified{
+  box-sizing:border-box!important;
+  height:auto!important;min-height:475px!important;
+  max-height:none!important;
+  background:
+    linear-gradient(90deg,rgba(255,255,255,.96) 0%,rgba(255,255,255,.83) 45%,rgba(255,255,255,.08) 100%),
+    url("/configuracion/imagenes/fondos/optimizadas/fondos-como-llegar-1920.webp")
+    center center/cover no-repeat!important;
+}
+html body .cl-page .cl-hero.vcc-guide-hero-unified .cl-hero-inner{
+  position:relative!important;
+  box-sizing:border-box!important;
+  width:min(1320px,calc(100% - 90px))!important;
+  max-width:1320px!important;
+  height:auto!important;
+  min-height:475px!important;
+  margin:auto!important;
+  padding:90px 0 48px!important;
+}
+html body .cl-page .cl-hero.vcc-guide-hero-unified .cl-card.vcc-guide-hero-copy{
+  position:relative!important;
+  top:auto!important;left:auto!important;
+  display:flex!important;
+  width:min(760px,100%)!important;
+  max-width:760px!important;
+  margin:0!important;
+  padding:0!important;
+}
+html body .cl-page .cl-hero.vcc-guide-hero-unified .cl-hero-line{display:none!important}
+@media(max-width:700px){
+ html body .cl-page .cl-hero.vcc-guide-hero-unified{
+   min-height:450px!important;
+   background:
+     linear-gradient(90deg,rgba(255,255,255,.97),rgba(255,255,255,.77)),
+     url("/configuracion/imagenes/fondos/optimizadas/fondos-como-llegar-960.webp")
+     center center/cover no-repeat!important;
+ }
+ html body .cl-page .cl-hero.vcc-guide-hero-unified .cl-hero-inner{
+   width:calc(100% - 36px)!important;
+   min-height:450px!important;
+   padding:86px 0 38px!important;
+ }
+}
