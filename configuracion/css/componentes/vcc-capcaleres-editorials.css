@@ -558,6 +558,19 @@ html body :is(.country-hero,.st-hero).vcc-guide-hero-unified .hero-start{
 
 
 
+/* Portada de país: la fitxa de Suecia tenia menys línies que Estocolmo.
+   Mateixa alçada de referència visual (400px); Estocolmo NO es modifica.
+   El CTA queda baix, sense canviar el padding, ample ni les tipografies. */
+html body.country-page .country-hero .country-hero-card.vcc-guide-hero-copy {
+  min-height:400px!important;
+  display:flex!important;
+  flex-direction:column!important;
+}
+html body.country-page .country-hero .country-hero-card.vcc-guide-hero-copy > .hero-start {
+  align-self:flex-start!important;
+  margin-top:auto!important;
+}
+
 /* Aire vertical dels dos requadres: conservar la geometria original i el subheader. */
 html body.country-page .country-hero .country-hero-card.vcc-guide-hero-copy,
 html body .st-shell .st-hero .st-card.vcc-guide-hero-copy {
