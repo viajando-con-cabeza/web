@@ -6,7 +6,7 @@
   const prev=document.getElementById('swAirportPrev');
   const next=document.getElementById('swAirportNext');
   if(!track||!prev||!next)return;
-  const cards=[...track.querySelectorAll('.vcc-airport-card')];
+  const cards=[...track.querySelectorAll('.sw-airport-card')];
   const getStep=()=>{
     if(cards.length>1)return cards[1].offsetLeft-cards[0].offsetLeft;
     return cards[0]?.getBoundingClientRect().width||0;
