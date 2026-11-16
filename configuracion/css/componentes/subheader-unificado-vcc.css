@@ -102,13 +102,13 @@ html body nav.vcc-unified-subheader:is(.country-nav.is-fixed,.ci-subnav.ci-subna
    No se fuerzan alturas de portada en móvil, donde el texto puede ocupar más líneas. */
 @media(min-width:721px){
  html body :is(.st-hero,.country-hero,.imp-hero,.vcc-hero,.mv-hero,.dv-hero,.ep-hero,.ql-hero,.ci-hero,.budget-hero,.content-hero,.rich-hero,.tv-hero,.al-hero).vcc-subheader-hero{
-  box-sizing:border-box!important;height:475px!important;min-height:475px!important;max-height:475px!important;
+  box-sizing:border-box!important;height:var(--vcc-subheader-cover-height,475px)!important;min-height:var(--vcc-subheader-cover-height,475px)!important;max-height:var(--vcc-subheader-cover-height,475px)!important;
  }
  html body .mv-hero.vcc-subheader-hero > .mv-container{
-  min-height:475px!important;height:475px!important;max-height:475px!important;
+  min-height:var(--vcc-subheader-cover-height,475px)!important;height:var(--vcc-subheader-cover-height,475px)!important;max-height:var(--vcc-subheader-cover-height,475px)!important;
  }
  html body .ci-hero.vcc-subheader-hero .ci-hero-inner{
-  min-height:475px!important;height:475px!important;max-height:475px!important;
+  min-height:var(--vcc-subheader-cover-height,475px)!important;height:var(--vcc-subheader-cover-height,475px)!important;max-height:var(--vcc-subheader-cover-height,475px)!important;
  }
 }
 html body [data-vcc-subheader-target]{scroll-margin-top:calc(var(--vcc-subheader-top,50px) + var(--vcc-subnav-height) + 24px)!important}
@@ -126,8 +126,8 @@ html body [data-vcc-subheader-target]{scroll-margin-top:calc(var(--vcc-subheader
    640px es el máximo para no ocultar la navegación en móviles altos.
    El alto real de la cabecera se mide en el controlador compartido. */
 :root{
-  --vcc-standard-hero-desktop:475px;
-  --vcc-standard-hero-mobile:min(640px, calc(100svh - var(--vcc-page-header-height, 79px) - var(--vcc-subnav-height, 39px) - 20px));
+  --vcc-standard-hero-desktop:var(--vcc-subheader-cover-height,475px);
+  --vcc-standard-hero-mobile:var(--vcc-subheader-cover-height,640px);
 }
 @media(min-width:721px){
   html body :is(.st-hero,.country-hero,.imp-hero,.vcc-hero,.mv-hero,.dv-hero,.ep-hero,.ql-hero,.ci-hero,.budget-hero,.content-hero,.rich-hero,.tv-hero,.al-hero).vcc-subheader-hero.vcc-subheader-hero.vcc-standardized-hero-height{
@@ -170,7 +170,7 @@ html body [data-vcc-subheader-target]{scroll-margin-top:calc(var(--vcc-subheader
    Opt-in explícit en 5 guies, sense alterar altres portades ni escriptori. */
 @media(max-width:720px){
   html body #vcc-lcp-hero{
-    --vcc-lcp-stable-height:clamp(370px,calc(100svh - var(--vcc-page-header-height,79px) - var(--vcc-subnav-height,39px) - 20px),440px);
+    --vcc-lcp-stable-height:var(--vcc-subheader-cover-height,640px);
     --vcc-standard-hero-mobile:var(--vcc-lcp-stable-height);
     box-sizing:border-box!important;
     height:var(--vcc-lcp-stable-height)!important;
