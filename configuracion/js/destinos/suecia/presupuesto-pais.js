@@ -15,12 +15,13 @@
   const euro=n=>Math.round(n).toLocaleString("es-ES")+" €";
   const state={
     days:7,nights:7,people:2,zone:"centrosur",
+    stops:[{zone:"centrosur",days:7,nights:7}],
     choice:{alojamiento:"vcc",comida:"vcc",transporte:"vcc",actividades:"vcc",extras:"vcc"}
   };
   let data=null;
   if(!el("grand-total")||!el("swb-region")||!el("swb-region-top")||!source)return;
   const controls=[...document.querySelectorAll(
-    "[data-budget-mode],.calculator-card [data-step],.calculator-card [data-zone-step],.calculator-card [data-category],#swb-region,#swb-region-top,[data-vcc-download-excel]"
+    "[data-budget-mode],.calculator-card [data-step],.calculator-card [data-zone-step],.calculator-card [data-category],#swb-region,#swb-region-top,[data-vcc-download-excel],[data-swb-add-stop]"
   )];
   const lock=locked=>controls.forEach(node=>{node.disabled=locked;});
   root.dataset.budgetStatus="loading";
@@ -42,11 +43,19 @@
   }
   const amount=(style,category,zone=state.zone)=>data.zones[zone].prices[style][category];
   const dayRate=(style,zone)=>cats.reduce((sum,category)=>sum+amount(style,category,zone),0);
+  const routeCount=(type)=>state.stops.reduce((sum,stop)=>sum+stop[type],0);
   function totals(){
+    // Un día de visita y una noche son unidades distintas: nunca duplicamos
+    // alojamiento por día ni comidas por noche.
+    state.days=routeCount("days");
+    state.nights=routeCount("nights");
     const prices={},categoryTotals={};
     for(const category of cats){
-      prices[category]=amount(state.choice[category],category);
-      categoryTotals[category]=prices[category]*(category==="alojamiento"?state.nights:state.days)*state.people;
+      const unit=category==="alojamiento"?"nights":"days";
+      const perPerson=state.stops.reduce((sum,stop)=>sum+
+        amount(state.choice[category],category,stop.zone)*stop[unit],0);
+      categoryTotals[category]=perPerson*state.people;
+      prices[category]=perPerson/Math.max(1,state[unit]);
     }
     return {prices,categoryTotals,total:cats.reduce((sum,category)=>sum+categoryTotals[category],0)};
   }
@@ -140,6 +149,70 @@
     const overview=el("swb-overview-detail");
     if(overview)overview.textContent=zone.detail+" Una noche por día para comparar perfiles.";
   }
+  const integer=(value,min,max,def)=>Number.isFinite(Number(value))?
+    Math.max(min,Math.min(max,Math.trunc(Number(value)))):def;
+  function renderRoute(){
+    const container=el("swb-route-rows");
+    if(!container)return;
+    container.replaceChildren();
+    state.stops.forEach((stop,i)=>{
+      const row=document.createElement("div");
+      row.className="vcc-budget-route-row";
+      const region=document.createElement("label");
+      region.className="vcc-budget-route-zone";
+      region.appendChild(document.createTextNode("ZONA"));
+      const select=document.createElement("select");
+      select.setAttribute("aria-label","Zona de la etapa "+(i+1));
+      for(const [key,zone] of Object.entries(data.zones)){
+        const opt=document.createElement("option");
+        opt.value=key;opt.textContent=zone.name;
+        select.appendChild(opt);
+      }
+      select.value=stop.zone;
+      select.addEventListener("change",()=>{
+        if(!data.zones[select.value])return;
+        stop.zone=select.value;renderRoute();renderCalculator();
+      });
+      region.appendChild(select);row.appendChild(region);
+      for(const unit of ["days","nights"]){
+        const label=document.createElement("label");
+        label.className="vcc-budget-route-quantity";
+        label.appendChild(document.createTextNode(unit==="days"?"DÍAS":"NOCHES"));
+        const input=document.createElement("input");
+        input.type="number";input.min=unit==="days"?"1":"0";input.max="60";
+        input.step="1";input.inputMode="numeric";
+        input.value=stop[unit];
+        input.setAttribute("aria-label",(unit==="days"?"Días":"Noches")+" en "+data.zones[stop.zone].name);
+        input.addEventListener("input",()=>{
+          stop[unit]=integer(input.value,unit==="days"?1:0,60,unit==="days"?1:0);
+          renderRouteSummary();renderCalculator();
+        });
+        input.addEventListener("change",()=>{
+          input.value=stop[unit];renderRouteSummary();renderCalculator();
+        });
+        label.appendChild(input);row.appendChild(label);
+      }
+      const remove=document.createElement("button");
+      remove.type="button";remove.className="vcc-budget-route-remove";
+      remove.textContent="×";remove.title="Quitar esta zona";
+      remove.setAttribute("aria-label","Quitar etapa "+(i+1));
+      remove.disabled=state.stops.length===1;
+      remove.addEventListener("click",()=>{
+        if(state.stops.length===1)return;
+        state.stops.splice(i,1);renderRoute();renderCalculator();
+      });
+      row.appendChild(remove);container.appendChild(row);
+    });
+    const add=document.querySelector("[data-swb-add-stop]");
+    if(add)add.disabled=state.stops.length>=8;
+    renderRouteSummary();
+  }
+  function renderRouteSummary(){
+    const summary=el("swb-route-summary");if(!summary)return;
+    const days=routeCount("days"),nights=routeCount("nights"),count=state.stops.length;
+    summary.textContent=days+" "+(days===1?"día":"días")+" · "+nights+
+      " "+(nights===1?"noche":"noches")+" · "+count+" "+(count===1?"zona":"etapas");
+  }
   function renderCalculator(){
     const result=totals(),daily=result.total/state.people/state.days;
     let offset=0;
@@ -187,7 +260,7 @@
   function render(){
     el("swb-region").value=state.zone;
     el("swb-region-top").value=state.zone;
-    renderProfiles();renderCalculator();renderRegions();
+    renderProfiles();renderRoute();renderCalculator();renderRegions();
   }
   function wire(){
     document.querySelectorAll("[data-budget-mode]").forEach(button=>{
@@ -221,6 +294,32 @@
         if(data.zones[event.target.value]){state.zone=event.target.value;render();}
       });
     }
+    document.querySelector("[data-swb-add-stop]")?.addEventListener("click",()=>{
+      if(state.stops.length>=8)return;
+      const next=Object.keys(data.zones).find(key=>!state.stops.some(s=>s.zone===key))||state.zone;
+      state.stops.push({zone:next,days:1,nights:1});
+      renderRoute();renderCalculator();
+    });
+    document.querySelector("[data-vcc-download-excel]")?.addEventListener("click",()=>{
+      // CSV UTF-8 compatible con Excel; columnas por región y total del grupo.
+      const rows=[["Zona","Días","Noches",...cats.map(k=>data.categories[k].label+" (€)"),"Total (€)"]];
+      for(const stop of state.stops){
+        const costs=cats.map(k=>amount(state.choice[k],k,stop.zone)*
+          (k==="alojamiento"?stop.nights:stop.days)*state.people);
+        rows.push([data.zones[stop.zone].name,stop.days,stop.nights,...costs,
+          costs.reduce((sum,n)=>sum+n,0)]);
+      }
+      const result=totals();
+      rows.push(["TOTAL",state.days,state.nights,...cats.map(k=>result.categoryTotals[k]),result.total]);
+      rows.push(["Viajeros",state.people]);rows.push(["Importes estimados; no son precios de reserva"]);
+      const csv="\uFEFF"+rows.map(cols=>cols.map(value=>'"'+
+        String(value).replace(/"/g,'""')+'"').join(";")).join("\r\n");
+      const blob=new Blob([csv],{type:"text/csv;charset=utf-8;"});
+      const url=URL.createObjectURL(blob),link=document.createElement("a");
+      link.href=url;link.download="presupuesto-suecia-por-zonas.csv";
+      document.body.appendChild(link);link.click();link.remove();
+      setTimeout(()=>URL.revokeObjectURL(url),1000);
+    });
     // Mismo patrón que DÍAS/NOCHES/VIAJEROS: − y + recorren zonas.
     // El select central permite saltar directamente a cualquier región.
     document.querySelectorAll(".calculator-card [data-zone-step]").forEach(button=>{
@@ -285,6 +384,7 @@
       if(!response.ok)throw new Error("HTTP "+response.status);
       data=validate(await response.json());
       state.zone=data.defaultZone;
+      state.stops=[{zone:data.defaultZone,days:7,nights:7}];
       hydrateSelects();
       hydrateRegionCards();
       initZoneCarousel();
