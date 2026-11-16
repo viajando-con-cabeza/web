@@ -69,7 +69,7 @@
   if(status)status.textContent='Preparando tu PDF de VCC...';
   try{
    const inputs=Object.fromEntries(values.map(key=>[key,value(key)]));
-   const {exportarAhorroTarjetasPDF}=await import('/configuracion/js/componentes/vcc-tarjetas-pdf.js?v=20261112-entero-v3');
+   const {exportarAhorroTarjetasPDF}=await import('/configuracion/js/componentes/vcc-tarjetas-pdf.js?v=20261116-milers-v4');
    const file=await exportarAhorroTarjetasPDF({inputs,bankText,travelText,difference});
    if(status)status.textContent='PDF descargado: '+file;
   }catch(error){
