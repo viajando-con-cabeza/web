@@ -1,0 +1,281 @@
+/* VCC · Contracte visual canònic per a totes les subpàgines editorials.
+ * NO s'aplica a les sis portades principals ni als dos herois amb vinyeta
+ * central (Suecia/Estocolmo). Afegit per subheader-unificado-vcc.js.
+ *
+ * Canvia variables aquí, mai marges/tipografies en fitxers de cada pàgina.
+ * 475px portada / 39px subheader. Imatge natural: màscara alfa única
+ * d'esquerra transparent a dreta visible, o vel blanc equivalent LCP.
+ */
+:root{
+  --vcc-contract-height:475px;
+  --vcc-contract-mobile-height:440px;
+  --vcc-contract-gutter:max(46px,calc((100vw - 1510px)/2));
+  --vcc-contract-copy-top:78px;
+  --vcc-contract-copy-width:760px;
+  --vcc-contract-overline:28px;
+  --vcc-contract-heading:clamp(43px,4.55vw,64px);
+  --vcc-contract-description:14px;
+  --vcc-contract-accent:#c86f5d;
+  --vcc-contract-ink:#171717;
+  --vcc-contract-copy-ink:#353535;
+  --vcc-contract-photo-alpha:linear-gradient(90deg,
+      rgba(0,0,0,.04) 0%,rgba(0,0,0,.21) 34%,
+      rgba(0,0,0,.59) 72%,rgba(0,0,0,.82) 100%);
+  --vcc-contract-photo-veil:linear-gradient(90deg,
+      rgba(255,255,255,.96) 0%,rgba(255,255,255,.79) 34%,
+      rgba(255,255,255,.41) 72%,rgba(255,255,255,.18) 100%);
+}
+html body .vcc-sacred-hero.vcc-sacred-hero{
+  --vcc-portada-fade:var(--vcc-contract-photo-alpha);
+  --vcc-pl-hero-height:var(--vcc-contract-height);
+  box-sizing:border-box!important;
+  position:relative!important;isolation:isolate!important;
+  display:block!important;width:100%!important;max-width:none!important;
+  height:var(--vcc-contract-height)!important;
+  min-height:var(--vcc-contract-height)!important;
+  max-height:var(--vcc-contract-height)!important;
+  margin:0!important;padding:0!important;overflow:hidden!important;
+  color:var(--vcc-contract-ink)!important;
+  background-color:#fff!important;
+}
+/* Contenidors únics. L'amplada de 1510px manté x=46 a 1440 i x=69 a 1648. */
+html body .vcc-sacred-hero.vcc-sacred-hero > :is(
+  .vcc-hero-inner,.mv-container,.dv-shell,.ql-wrap,.cl-landing-stage,
+  .imp-hero-inner,.ep-hero-inner,.ci-hero-inner,.budget-hero-inner,
+  .cl-hero-inner,.rich-hero-inner,.tv-hero-inner,.al-hero-inner,
+  .sv-hero-inner,.av-hero-inner,.di-hero-inner
+){
+  box-sizing:border-box!important;
+  position:relative!important;
+  z-index:2!important;
+  width:calc(100% - 92px)!important;
+  max-width:1510px!important;
+  height:100%!important;min-height:0!important;max-height:none!important;
+  margin:0 auto!important;padding:0!important;
+}
+/* La caixa de text de guia comparteix el mateix origen dins del contenidor. */
+html body .vcc-sacred-hero.vcc-sacred-hero .vcc-guide-hero-copy{
+  box-sizing:border-box!important;
+  position:absolute!important;
+  top:var(--vcc-contract-copy-top)!important;
+  left:0!important;right:auto!important;bottom:auto!important;
+  display:flex!important;flex-direction:column!important;
+  align-items:flex-start!important;justify-content:flex-start!important;
+  gap:0!important;
+  width:min(var(--vcc-contract-copy-width),100%)!important;
+  max-width:var(--vcc-contract-copy-width)!important;
+  height:auto!important;min-height:0!important;
+  margin:0!important;padding:0!important;
+  transform:none!important;
+  text-align:left!important;
+  border:0!important;border-radius:0!important;
+  background:transparent!important;background-image:none!important;
+  box-shadow:none!important;backdrop-filter:none!important;
+}
+/* Les guies 'content-hero' no tenen contenidor intermedi. */
+html body .content-hero.vcc-sacred-hero.vcc-sacred-hero > .vcc-guide-hero-copy{
+  left:var(--vcc-contract-gutter)!important;
+  width:min(var(--vcc-contract-copy-width),calc(100% - 92px))!important;
+}
+html body .vcc-sacred-hero.vcc-sacred-hero .vcc-planifica-hero-content{
+  box-sizing:border-box!important;
+  position:absolute!important;
+  top:var(--vcc-contract-copy-top)!important;
+  left:var(--vcc-contract-gutter)!important;
+  right:auto!important;bottom:auto!important;
+  z-index:3!important;
+  display:flex!important;flex-direction:column!important;
+  align-items:flex-start!important;justify-content:flex-start!important;
+  gap:0!important;
+  width:min(var(--vcc-contract-copy-width),calc(100% - 92px))!important;
+  max-width:var(--vcc-contract-copy-width)!important;
+  height:auto!important;min-height:0!important;
+  margin:0!important;padding:0!important;
+  transform:none!important;text-align:left!important;
+  background:transparent!important;border:0!important;box-shadow:none!important;
+}
+/* Planifica · No sabes dónde ir tiene una composición izquierda/derecha.
+ * Anclar primero su contenedor a la misma cuadrícula, sin deshacer las 3 opciones. */
+html body .di-hero.vcc-sacred-hero.vcc-sacred-hero .di-hero-inner{
+  box-sizing:border-box!important;
+  position:relative!important;
+  width:calc(100% - 92px)!important;
+  max-width:1510px!important;
+  height:100%!important;min-height:0!important;
+  margin:auto!important;padding:var(--vcc-contract-copy-top) 0 0!important;
+}
+html body .di-hero.vcc-sacred-hero.vcc-sacred-hero .di-hero-copy.vcc-planifica-hero-content{
+  position:relative!important;
+  top:auto!important;left:auto!important;right:auto!important;
+  margin:0!important;padding:0!important;
+  width:100%!important;max-width:760px!important;
+}
+/* Mismo subtítulo, título, texto y espaciado, independientemente de plantilla. */
+html body .vcc-sacred-hero.vcc-sacred-hero :is(
+  .vcc-guide-hero-kicker,.vcc-planifica-sobretitol,.vcc-sacred-kicker
+){
+  display:block!important;position:static!important;
+  width:auto!important;max-width:100%!important;
+  height:auto!important;min-height:0!important;
+  margin:0 0 13px!important;padding:0!important;
+  font:600 var(--vcc-contract-overline)/1.1 var(--vcc-font-script,"Caveat",cursive)!important;
+  color:var(--vcc-contract-accent)!important;
+  letter-spacing:0!important;text-transform:none!important;
+  text-align:left!important;transform:none!important;
+  background:transparent!important;border:0!important;
+  box-shadow:none!important;text-shadow:none!important;
+}
+html body .vcc-sacred-hero.vcc-sacred-hero :is(.vcc-guide-hero-copy,.vcc-planifica-hero-content) > h1,
+html body .rich-hero.vcc-sacred-hero.vcc-sacred-hero .rich-hero-inner > h1{
+  display:block!important;
+  position:relative!important;
+  width:auto!important;
+  max-width:var(--vcc-contract-copy-width)!important;
+  min-height:0!important;height:auto!important;
+  margin:0 0 17px!important;padding:0!important;
+  font:600 var(--vcc-contract-heading)/1.04 var(--vcc-font-heading,"Oswald",sans-serif)!important;
+  color:var(--vcc-contract-ink)!important;
+  letter-spacing:-.02em!important;text-transform:uppercase!important;
+  text-align:left!important;text-wrap:balance;
+  background:transparent!important;text-shadow:none!important;
+  transform:none!important;
+}
+html body .vcc-sacred-hero.vcc-sacred-hero :is(.vcc-guide-hero-copy,.vcc-planifica-hero-content) > h1 :is(em,span),
+html body .rich-hero.vcc-sacred-hero.vcc-sacred-hero .rich-hero-inner > h1 em{
+  color:#c4664c!important;font:inherit!important;
+  font-style:normal!important;letter-spacing:inherit!important;
+  text-transform:inherit!important;
+}
+html body .vcc-sacred-hero.vcc-sacred-hero :is(.vcc-guide-hero-copy,.vcc-planifica-hero-content) > h1::after,
+html body .rich-hero.vcc-sacred-hero.vcc-sacred-hero .rich-hero-inner > h1::after{
+  content:""!important;display:block!important;position:static!important;
+  width:184px!important;height:3px!important;min-height:3px!important;
+  margin:21px 0 0!important;padding:0!important;
+  background:#c86f5d!important;border:0!important;
+  box-shadow:none!important;transform:skewX(-28deg)!important;
+}
+html body .vcc-sacred-hero.vcc-sacred-hero :is(.vcc-guide-hero-copy,.vcc-planifica-hero-content) > p:not(.vcc-guide-hero-kicker):not(.vcc-planifica-sobretitol),
+html body .vcc-sacred-hero.vcc-sacred-hero .vcc-guide-hero-description,
+html body .rich-hero.vcc-sacred-hero.vcc-sacred-hero .rich-hero-inner > p{
+  display:block!important;position:static!important;
+  width:auto!important;max-width:710px!important;
+  margin:0!important;padding:0!important;
+  font:400 var(--vcc-contract-description)/1.58 var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;
+  color:var(--vcc-contract-copy-ink)!important;
+  letter-spacing:0!important;text-transform:none!important;
+  text-align:left!important;text-shadow:none!important;
+}
+/* No dos rayas tras el título: la única es el ::after compartido. */
+html body .vcc-sacred-hero.vcc-sacred-hero :is(
+ .mv-underline,.cl-landing-underline,.dv-hero-underline,.ep-stroke,
+ .ql-brush,.swb-hero-underline,.al-hero-rule,.av-hero-rule,.tv-hero-rule,
+ .cl-hero-line,.ci-visit-chip
+){display:none!important}
+/* Fade compartido sin modificar las fotos: máscara para photo/picture o
+ * vel de blanc per a LCP amb foto sense màscara (no tots dos). */
+html body #vcc-lcp-hero.vcc-sacred-hero > .vcc-hero-lcp-veil{
+  display:block!important;
+  position:absolute!important;inset:0!important;
+  z-index:1!important;
+  background:var(--vcc-contract-photo-veil)!important;
+  opacity:1!important;pointer-events:none!important;
+}
+html body #vcc-lcp-hero.vcc-sacred-hero > :is(.vcc-hero-lcp-picture,.dv-hero-photo,.ql-hero-photo){
+  -webkit-mask-image:none!important;mask-image:none!important;
+  opacity:1!important;filter:none!important;
+}
+html body .content-hero.vcc-sacred-hero.vcc-sacred-hero{
+  background-image:var(--vcc-contract-photo-veil),var(--vcc-guide-photo,url("/configuracion/imagenes/fondos/optimizadas/fondos-que-ver-1920.webp"))!important;
+  background-position:center,center!important;
+  background-size:cover,cover!important;
+  background-repeat:no-repeat,no-repeat!important;
+}
+html body .rich-hero.vcc-sacred-hero.vcc-sacred-hero::after{
+  content:""!important;position:absolute!important;inset:0!important;
+  background:var(--vcc-contract-photo-veil)!important;
+  pointer-events:none!important;z-index:1!important;
+}
+/* Ruta de Navidad: un H1 editorial a la misma cuadrícula, datos aparte. */
+html body .rich-hero.vcc-sacred-hero.vcc-sacred-hero .rich-hero-inner{
+  padding-top:var(--vcc-contract-copy-top)!important;
+  color:var(--vcc-contract-ink)!important;
+}
+html body .rich-hero.vcc-sacred-hero.vcc-sacred-hero .rich-hero-inner > :is(.rich-crumb,.vcc-sacred-kicker,h1,p){
+  max-width:760px!important;
+}
+html body .rich-hero.vcc-sacred-hero.vcc-sacred-hero .rich-hero-inner > .rich-crumb{
+  margin:0 0 48px!important;
+  font:400 12px/1.45 var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;
+}
+html body .rich-hero.vcc-sacred-hero.vcc-sacred-hero .rich-hero-inner > .rich-facts{
+  margin:14px 0 0!important;
+}
+/* Subheader: mismo alto y misma línea, incluso en plantillas antiguas. */
+html body nav.vcc-unified-subheader.vcc-sacred-subnav.vcc-sacred-subnav{
+  box-sizing:border-box!important;
+  width:100%!important;max-width:none!important;
+  height:39px!important;min-height:39px!important;max-height:39px!important;
+  margin:0!important;
+  border:0!important;
+  border-top:1px solid #e9e2db!important;
+  border-bottom:1px solid #e9e2db!important;
+  background:#fff!important;box-shadow:none!important;
+}
+html body nav.vcc-unified-subheader.vcc-sacred-subnav.vcc-sacred-subnav a{
+  font:800 11.5px/1.15 var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;
+  color:#171717!important;
+  text-transform:uppercase!important;letter-spacing:0!important;
+}
+html body nav.vcc-unified-subheader.vcc-sacred-subnav.vcc-sacred-subnav a.vcc-subheader-current{
+  color:#c86f5d!important;border-bottom-color:#c86f5d!important;
+}
+@media(max-width:720px){
+  :root{
+    --vcc-contract-height:var(--vcc-contract-mobile-height);
+    --vcc-contract-gutter:18px;
+    --vcc-contract-copy-top:72px;
+    --vcc-contract-overline:24px;
+    --vcc-contract-heading:clamp(34px,8.9vw,45px);
+    --vcc-contract-description:13px;
+    --vcc-contract-photo-alpha:linear-gradient(90deg,
+      rgba(0,0,0,.03) 0%,rgba(0,0,0,.10) 32%,
+      rgba(0,0,0,.21) 70%,rgba(0,0,0,.41) 100%);
+    --vcc-contract-photo-veil:linear-gradient(90deg,
+      rgba(255,255,255,.97) 0%,rgba(255,255,255,.90) 32%,
+      rgba(255,255,255,.79) 70%,rgba(255,255,255,.59) 100%);
+  }
+  html body .vcc-sacred-hero.vcc-sacred-hero > :is(
+   .vcc-hero-inner,.mv-container,.dv-shell,.ql-wrap,.cl-landing-stage,
+   .imp-hero-inner,.ep-hero-inner,.ci-hero-inner,.budget-hero-inner,
+   .cl-hero-inner,.rich-hero-inner,.tv-hero-inner,.al-hero-inner,
+   .sv-hero-inner,.av-hero-inner,.di-hero-inner
+  ){
+    width:calc(100% - 36px)!important;
+    max-width:none!important;
+  }
+  html body .vcc-sacred-hero.vcc-sacred-hero .vcc-guide-hero-copy{
+    width:100%!important;max-width:100%!important;
+  }
+  html body .vcc-sacred-hero.vcc-sacred-hero .vcc-planifica-hero-content{
+    width:calc(100% - 36px)!important;
+    max-width:calc(100% - 36px)!important;
+  }
+  html body .content-hero.vcc-sacred-hero.vcc-sacred-hero > .vcc-guide-hero-copy{
+    width:calc(100% - 36px)!important;
+  }
+  html body .vcc-sacred-hero.vcc-sacred-hero :is(.vcc-guide-hero-kicker,.vcc-planifica-sobretitol,.vcc-sacred-kicker){
+    margin-bottom:10px!important;
+  }
+  html body .vcc-sacred-hero.vcc-sacred-hero :is(.vcc-guide-hero-copy,.vcc-planifica-hero-content) > h1{
+    margin-bottom:13px!important;line-height:1.06!important;
+  }
+  html body .vcc-sacred-hero.vcc-sacred-hero :is(.vcc-guide-hero-copy,.vcc-planifica-hero-content) > h1::after{
+    width:115px!important;margin-top:14px!important;
+  }
+  html body nav.vcc-unified-subheader.vcc-sacred-subnav.vcc-sacred-subnav a{
+    font-size:11px!important;
+  }
+  html body .rich-hero.vcc-sacred-hero .rich-hero-inner > .rich-facts{
+    display:flex!important;flex-wrap:wrap!important;
+  }
+}
