@@ -20,6 +20,19 @@
     margin-block-start: var(--vcc-espai-entre-apartats) !important;
   }
 
+  /* Moltes guies tenen <nav> immediatament abans de <main>
+     (Presupuesto, Itinerario, etc.). Les mateixes dues regles s'apliquen
+     als fills directes del main, sense retocar cap secció interna. */
+  html body nav.vcc-unified-subheader:not(.place-nav-wrap):not([data-vcc-filter-nav])
+    ~ main > section:not(.related-section):not(.vcc-discover-section) {
+    margin-block-end: 0 !important;
+  }
+  html body nav.vcc-unified-subheader:not(.place-nav-wrap):not([data-vcc-filter-nav])
+    ~ main > section:not(.related-section):not(.vcc-discover-section)
+    ~ section:not(.related-section):not(.vcc-discover-section) {
+    margin-block-start: var(--vcc-espai-entre-apartats) !important;
+  }
+
   /* Mateix tancament abans de «Sigue descubriendo / Sigue planificando»,
      encara que el bloc de relacionades estigui fora del <main>. */
   html body:has(nav.vcc-unified-subheader)
