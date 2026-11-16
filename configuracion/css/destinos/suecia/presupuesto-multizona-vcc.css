@@ -647,3 +647,42 @@ html body.budget-vcc.sweden-budget-vcc #calculadora .vcc-budget-route-actions{
   display:block!important;
  }
 }
+
+/* VCC · Ajustos v13: número junt al nom i controls d'afegir/eliminar discrets. */
+html body.budget-vcc.sweden-budget-vcc #calculadora .vcc-budget-stage-chip{
+  padding-left:18px!important;
+}
+html body.budget-vcc.sweden-budget-vcc #calculadora .vcc-budget-stage-chip::before{
+  left:6px!important;
+}
+html body.budget-vcc.sweden-budget-vcc #calculadora .vcc-budget-route-actions{
+  gap:4px!important;
+}
+html body.budget-vcc.sweden-budget-vcc #calculadora .vcc-budget-route-actions :is(.vcc-budget-add-stop,.vcc-budget-remove-stop){
+  display:inline-flex!important;align-items:center!important;justify-content:center!important;
+  flex:0 0 auto!important;width:auto!important;min-width:0!important;
+  height:24px!important;min-height:24px!important;
+  margin:0!important;padding:0 3px!important;
+  border:0!important;border-radius:0!important;background:transparent!important;
+  color:#9e624f!important;letter-spacing:0!important;white-space:nowrap!important;
+  font:600 9px/1 var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;
+  cursor:pointer!important;
+}
+html body.budget-vcc.sweden-budget-vcc #calculadora .vcc-budget-route-actions :is(.vcc-budget-add-stop,.vcc-budget-remove-stop):hover:not(:disabled){
+  color:#a64f36!important;text-decoration:underline!important;text-underline-offset:3px!important;
+}
+html body.budget-vcc.sweden-budget-vcc #calculadora .vcc-budget-route-actions :is(.vcc-budget-add-stop,.vcc-budget-remove-stop):disabled{
+  opacity:.35!important;cursor:default!important;text-decoration:none!important;
+}
+@media(max-width:700px){
+  html body.budget-vcc.sweden-budget-vcc #calculadora .vcc-budget-stage-chip{
+    padding-left:17px!important;
+  }
+  html body.budget-vcc.sweden-budget-vcc #calculadora .vcc-budget-stage-chip::before{left:5px!important}
+  html body.budget-vcc.sweden-budget-vcc #calculadora .vcc-budget-route-actions{
+    gap:2px!important;padding-left:3px!important;
+  }
+  html body.budget-vcc.sweden-budget-vcc #calculadora .vcc-budget-route-actions :is(.vcc-budget-add-stop,.vcc-budget-remove-stop){
+    padding:0 2px!important;font-size:8.5px!important;
+  }
+}
