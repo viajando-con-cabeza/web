@@ -21,7 +21,7 @@
   let data=null;
   if(!el("grand-total")||!el("swb-route-rows")||!el("swb-region-top")||!source)return;
   const controls=[...document.querySelectorAll(
-    "[data-budget-mode],.calculator-card [data-step],#swb-region-top,[data-vcc-download-excel],[data-swb-add-stop],#swb-remove-stop,#swb-route-prev,#swb-route-next"
+    "[data-budget-mode],.calculator-card [data-step],#swb-region-top,[data-vcc-download-pdf],[data-swb-add-stop],#swb-remove-stop,#swb-route-prev,#swb-route-next"
   )];
   const lock=locked=>controls.forEach(node=>{node.disabled=locked;});
   root.dataset.budgetStatus="loading";
