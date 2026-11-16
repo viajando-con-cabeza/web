@@ -140,20 +140,56 @@ body.addEventListener('change',ev=>{const e=ev.target;if(e.type!=='checkbox'||!e
 head.addEventListener('click',ev=>{const b=ev.target.closest('[data-remove]');if(!b)return;offers.splice(Number(b.dataset.remove),1);draw()});
 add.addEventListener('click',()=>{if(offers.length<5){offers.push(blank());draw();scroll.scrollLeft=scroll.scrollWidth}});
 root.querySelector('[data-al-clear]').addEventListener('click',()=>{offers=[blank(),blank(),blank()];draw();status.textContent='Comparación limpiada.'});
-function printable(){
+/* Los mismos importes visibles: ahora descarga PDF directamente,
+ * no depende de abrir un iframe ni del cuadro de impresión del navegador. */
+function budgetSnapshot(){
  const people=Math.max(1,Math.round(num(root.querySelector('[data-al-personas]').value)||1));
  const nights=Math.max(1,Math.round(num(root.querySelector('[data-al-noches]').value)||1));
- const esc=s=>String(s).replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
- const names=offers.map((o,i)=>esc(o.name||'Opción '+letters[i]));
- const tr=(label,values)=>'<tr><th>'+esc(label)+'</th>'+values.map(v=>'<td>'+esc(v)+'</td>').join('')+'</tr>';
- const lines=rows.filter(r=>r[2]==='number').map(([key,label,,,flag])=>tr(label,offers.map(o=>flag&&o[flag]?'Incluido':fmt(num(o[key])))));
- return '<!doctype html><html lang="es"><head><meta charset="utf-8"><title>VCC · Comparación de alojamientos</title><style>body{font-family:Arial,sans-serif;color:#302720;margin:38px}h1{font-size:30px;margin:5px 0;color:#2b2621}small,.eyebrow{color:#be5b2d}table{border-collapse:collapse;width:100%;font-size:11px;margin-top:24px}td,th{border:1px solid #eaded3;padding:9px;text-align:right}th:first-child{text-align:left}thead{background:#fae8d8}tfoot{background:#fbe0c8;font-weight:bold}p{font-size:12px}.note{margin-top:20px;color:#675e55}@page{size:A4 landscape;margin:12mm}</style></head><body><div class="eyebrow">VIAJANDO CON CABEZA · PLANIFICA TU VIAJE</div><h1>COMPARA EL PRECIO REAL</h1><p>'+people+' personas · '+nights+' noches · Costes totales para toda la estancia</p><table><thead><tr><th>Concepto</th>'+names.map(n=>'<th>'+n+'</th>').join('')+'</tr></thead><tbody>'+lines.join('')+'</tbody><tfoot>'+tr('TOTAL POR OPCIÓN',offers.map(o=>filled(o)?fmt(total(o)):'Sin precio'))+'</tfoot></table><p class="note">Los importes son estimaciones introducidas por el viajero, no tarifas consultadas por VCC. Verifica condiciones, ubicación y cancelación antes de reservar.</p></body></html>';
+ const valid=offers.map((o,i)=>({o,i,t:total(o)})).filter(x=>filled(x.o));
+ if(!valid.length)throw Error('Introduce al menos un precio de reserva.');
+ const sorted=[...valid].sort((a,b)=>a.t-b.t);
+ const sections=[{heading:'Resumen de la comparación',lines:[
+  'Viajeros: '+people+' · noches: '+nights,
+  'Importes totales de cada alojamiento para todo el grupo y la estancia.',
+  valid.length+' alternativas con precio introducido.'
+ ]}];
+ if(sorted.length>=2){
+  const best=sorted[0],winners=sorted.filter(x=>Math.abs(x.t-best.t)<.005);
+  const next=sorted.find(x=>x.t>best.t+.005);
+  sections.push({heading:'Mejor opción por precio',lines:[
+   'Opción más económica: '+winners.map(x=>(x.o.name.trim()||'Opción '+letters[x.i])).join(' y '),
+   'Total: '+fmt(best.t),
+   ...(next?['Ahorro frente a la siguiente alternativa: '+fmt(next.t-best.t)]:[])
+  ]});
+ }
+ valid.forEach(({o,i,t})=>{
+  const lines=[];
+  rows.filter(row=>row[2]==='number').forEach(([key,label,,,flag])=>{
+   lines.push(label+': '+(flag&&o[flag]?'Incluido en la reserva · 0 € adicional':fmt(num(o[key]))));
+  });
+  lines.push('TOTAL POR OPCIÓN: '+fmt(t));
+  lines.push('Por pax: '+fmt(t/people));
+  lines.push('Por pax / noche: '+fmt(t/people/nights));
+  sections.push({heading:'Opción '+letters[i]+' · '+(o.name.trim()||'Sin nombre'),lines});
+ });
+ return {
+  filename:'comparativa-alojamientos-VCC.pdf',
+  title:'Compara el precio real',
+  subtitle:'Comparativa personalizada de alojamientos',
+  meta:['Viajeros: '+people+' · '+nights+' noches · '+valid.length+' opciones'],
+  sections,
+  note:'Costes introducidos por el viajero para toda la estancia; no son ofertas consultadas por VCC. Verifica condiciones, ubicación, cargos y cancelación.'
+ };
 }
 root.querySelector('[data-al-pdf]').addEventListener('click',()=>{
- if(!offers.some(filled)){status.textContent='Introduce al menos un precio de reserva para guardar la comparación.';return}
- const frame=document.createElement('iframe');frame.style.cssText='position:fixed;width:0;height:0;border:0;opacity:0';frame.title='Documento para guardar en PDF';document.body.appendChild(frame);
- const doc=frame.contentDocument;doc.open();doc.write(printable());doc.close();
- frame.onload=()=>{try{frame.contentWindow.focus();frame.contentWindow.print();status.textContent='En la ventana de impresión, selecciona «Guardar como PDF».'}catch(e){status.textContent='No se pudo abrir la impresión.'}setTimeout(()=>frame.remove(),90000)};
+ try{
+  if(!window.VCCPDF)throw Error('El generador PDF no está disponible.');
+  window.VCCPDF.download(budgetSnapshot());
+  if(status)status.textContent='PDF descargado con los importes actuales de la comparativa.';
+ }catch(error){
+  console.error('VCC: error al descargar comparación de alojamientos',error);
+  if(status)status.textContent='No se pudo generar el PDF. Revisa los datos e inténtalo de nuevo.';
+ }
 });
 draw();
 })();
