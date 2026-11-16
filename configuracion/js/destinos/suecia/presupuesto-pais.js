@@ -157,6 +157,23 @@
     const prev=el("swb-route-prev"),next=el("swb-route-next");
     if(prev)prev.disabled=state.activeStop===0;
     if(next)next.disabled=state.activeStop===state.stops.length-1;
+    // Si hi ha moltes etapes, la seleccionada no pot quedar tallada del carrusel.
+    requestAnimationFrame(()=>{
+      const strip=el("swb-route-chips");
+      const selected=strip?.children[state.activeStop];
+      if(!strip||!selected)return;
+      const bounds=strip.getBoundingClientRect();
+      const item=selected.getBoundingClientRect();
+      if(bounds.width===0||item.width===0)return;
+      const margin=9;
+      let delta=0;
+      if(item.left<bounds.left+margin)delta=item.left-bounds.left-margin;
+      else if(item.right>bounds.right-margin)delta=item.right-bounds.right+margin;
+      if(Math.abs(delta)>1)strip.scrollTo({
+        left:Math.max(0,strip.scrollLeft+delta),
+        behavior:window.matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth"
+      });
+    });
   }
   function renderRouteSummary(){
     const days=routeCount("days"),nights=routeCount("nights"),count=state.stops.length;
@@ -173,8 +190,10 @@
     }
     [...chips.children].forEach((chip,i)=>{
       const stop=state.stops[i];
-      chip.querySelector("strong").textContent=(i+1)+". "+data.zones[stop.zone].name;
+      chip.querySelector("strong").textContent=data.zones[stop.zone].name;
       chip.querySelector("small").textContent=stop.days+" d · "+stop.nights+" n";
+      chip.dataset.stageNumber=String(i+1);
+      chip.title="Zona "+(i+1)+": "+data.zones[stop.zone].name+" · "+stop.days+" días · "+stop.nights+" noches";
       chip.setAttribute("aria-label","Ver zona "+(i+1)+": "+data.zones[stop.zone].name+", "+stop.days+" días y "+stop.nights+" noches");
       chip.setAttribute("aria-pressed",String(i===state.activeStop));
     });
