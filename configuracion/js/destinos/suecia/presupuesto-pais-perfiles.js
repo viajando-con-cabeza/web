@@ -186,7 +186,7 @@
       if(!zone||!Number.isFinite(stageDays)||!Number.isFinite(stageNights)||cols.some((v,i)=>i%2===1&&!Number.isFinite(v))){
         throw new Error("Datos incompletos en la zona "+(index+1));
       }
-      details.push([zone,stageDays,stageNights,people,...cols,{
+      details.push([zone,stageDays,stageNights,{formula:"Resumen!$B$4",cached:people},...cols,{
         formula:"(F"+row+"*C"+row+"+(H"+row+"+J"+row+"+L"+row+"+N"+row+")*B"+row+")*D"+row,
         cached:stageTotal
       }]);
@@ -200,7 +200,7 @@
       ["Total viaje (€)",{formula:"SUM(Desglose!O2:O"+last+")",cached:total}],
       ["Total por persona (€)",{formula:"IF(B4>0,B5/B4,0)",cached:total/people}],
       ["Nota","Precios orientativos por zona; no son tarifas verificadas ni gasto real de toda Suecia."],
-      ["Uso","Puedes editar los días, noches, viajeros, perfiles y precios de cada etapa. Los importes se recalculan al abrir en Excel."],
+      ["Uso","Puedes editar los días, noches y precios de cada etapa, y los viajeros en Resumen. Los totales se recalculan en Excel."],
       ["Etapas",slides.length],
       ["Origen","www.viajandoconcabeza.com"]
     ];
