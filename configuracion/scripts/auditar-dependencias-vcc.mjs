@@ -21,6 +21,46 @@ for(const codePath of code){
    if(refs.has(key))refs.get(key).add(codePath);
  }
 }
+/* Audita també les fonts transitories dels paquets compilats.
+ * Un HTML pot enllaçar una sola vegada cada fitxer i, igualment,
+ * descarregar regles duplicades perquè un paquet ja les incorpora.
+ * Respectem la cascada: s'informa dels candidats, NO es reescriu CSS.
+ */
+const bundleManifest=JSON.parse(fs.readFileSync(
+ path.join(ROOT,'configuracion/datos/compilacion-css-vcc.json'),'utf8'));
+const bundles=new Map(bundleManifest.bundles.map(({entry,sources,out})=>[
+ out,Array.isArray(sources)?sources:[entry]
+]));
+// La font d'aquest paquet generat està definida en generar-ui-compartida.mjs.
+bundles.set('configuracion/css/componentes/vcc-ui-compartida.css',[
+ 'configuracion/css/componentes/carruseles-flechas-movil-vcc.css',
+ 'configuracion/css/componentes/portadas-transparencia.css',
+ 'configuracion/css/componentes/numeros-consejos-vcc.css'
+]);
+const cssLeavesCache=new Map();
+function cssLeaves(file,ancestors=[]){
+ if(ancestors.includes(file))throw new Error('Cicle CSS al manifest: '+[...ancestors,file].join(' -> '));
+ if(cssLeavesCache.has(file))return cssLeavesCache.get(file);
+ const components=bundles.get(file);
+ let leaves;
+ if(components){
+   leaves=[...new Set(components.flatMap(src=>cssLeaves(src,[...ancestors,file])))];
+ }else{
+   leaves=[file];
+   const full=path.join(ROOT,file);
+   if(fs.existsSync(full)){
+     const content=fs.readFileSync(full,'utf8');
+     const imports=[...content.matchAll(/@import\s+url\(\s*["']?(\/configuracion\/css\/[^)"']+\.css)/g)]
+       .map(m=>m[1].slice(1));
+     // La resta de les declaracions pròpies del fitxer també compten.
+     for(const imported of imports)leaves.push(...cssLeaves(imported,[...ancestors,file]));
+   }
+   leaves=[...new Set(leaves)];
+ }
+ cssLeavesCache.set(file,leaves);
+ return leaves;
+}
+const pageCssPaths=new Map();
 const approved=[];
 for(const file of approvedFiles){
  const original=fs.readFileSync(path.join(ROOT,file),'utf8');
@@ -32,11 +72,40 @@ for(const file of approvedFiles){
   .filter(u=>u.startsWith('/configuracion/css/'));
  const local=links.map(x=>x.split('?')[0]);
  const size=local.reduce((acc,p)=>acc+(fs.existsSync(path.join(ROOT,p.slice(1)))?fs.statSync(path.join(ROOT,p.slice(1))).size:0),0);
+ pageCssPaths.set(file,local.map(x=>x.slice(1)));
  approved.push({file,cssRequests:local.length,cssRawKB:Math.round(size/1024),
    inlineBlocks:(text.match(/<style\b/gi)||[]).length,
    inlineAttributes:(text.match(/\sstyle\s*=/gi)||[]).length,
    duplicateCss:[...new Set(local.filter((p,i)=>local.indexOf(p)!==i))]});
 }
+/* Solapaments de fonts CSS per pàgina, incloent imports i bundles.
+ * És una mesura de mantenibilitat, NO de transferència real de xarxa:
+ * compressió, cache i regles CSS de cascada canvien el cost efectiu.
+ */
+const sourceOverlap=[];
+for(const [file,cssPaths] of pageCssPaths){
+ const owners=new Map();
+ for(const cssPath of cssPaths){
+   for(const leaf of cssLeaves(cssPath)){
+     if(!owners.has(leaf))owners.set(leaf,new Set());
+     owners.get(leaf).add(cssPath);
+   }
+ }
+ const shared=[...owners.entries()]
+   .filter(([,includes])=>includes.size>1)
+   .map(([leaf,includes])=>({
+     leaf,through:[...includes],
+     rawBytes:fs.existsSync(path.join(ROOT,leaf))?fs.statSync(path.join(ROOT,leaf)).size:0
+   }));
+ if(shared.length){
+   sourceOverlap.push({
+     file,overlappingSources:shared.length,
+     redundantRawBytes:shared.reduce((sum,x)=>sum+x.rawBytes*(x.through.length-1),0),
+     examples:shared.sort((a,b)=>b.rawBytes-a.rawBytes).slice(0,7)
+   });
+ }
+}
+sourceOverlap.sort((a,b)=>b.redundantRawBytes-a.redundantRawBytes);
 const orphanCss=[...refs].filter(([p,where])=>where.size===0).map(([p])=>p);
 const biggest=approved.toSorted((a,b)=>b.cssRawKB-a.cssRawKB);
 const report={approved:approved.length,cssFiles:css.length,
@@ -45,18 +114,28 @@ const report={approved:approved.length,cssFiles:css.length,
   orphanCandidates:orphanCss,
   pageTopCSS:biggest.slice(0,12),
   pagesWithInlineBlocks:approved.filter(x=>x.inlineBlocks),
-  duplicateLinkedCSS:approved.filter(x=>x.duplicateCss.length)
+  duplicateLinkedCSS:approved.filter(x=>x.duplicateCss.length),
+  nestedCSSOverlap:{pages:sourceOverlap.length,topPages:sourceOverlap.slice(0,12)}
 };
 console.log('VCC arquitectura:',approved.length,'pàgines aprovades,',
  css.length,'CSS,',orphanCss.length,'CSS sense cap referència literal.');
 console.log('Pàgines CSS més pesades:',JSON.stringify(biggest.slice(0,8)));
 console.log('CSS candidats a arxivar (cal revisar JS dinàmic):',JSON.stringify(orphanCss));
+console.log('Solapaments CSS per bundles (candidats, no eliminar cegament):',
+ JSON.stringify(sourceOverlap.slice(0,6).map(x=>({file:x.file,overlaps:x.overlappingSources,
+ rawKB:Math.round(x.redundantRawBytes/1024),examples:x.examples.map(y=>y.leaf)}))));
 if(process.env.GITHUB_STEP_SUMMARY){
  const summary=['## Manteniment CSS VCC','Pàgines aprovades: **'+approved.length+
   '** · CSS a Git: **'+css.length+'** · Candidats sense referència: **'+orphanCss.length+'**',
   '| Pàgina | Peticions CSS HTML | KB CSS original HTML |',
   '|---|---:|---:|',...biggest.slice(0,8).map(p=>'| '+p.file+' | '+p.cssRequests+' | '+p.cssRawKB+' |'),
-  'La mida exclou CSS injectat per JS. Cap fitxer es considera segur de suprimir sense revisió.',''];
+  'La mida exclou CSS injectat per JS. Cap fitxer es considera segur de suprimir sense revisió.',
+  '',
+  '### Fonts CSS repetides dins de bundles i links',
+  '| Pàgina | Fonts solapades | KB repetits teòrics (sense cache) |',
+  '|---|---:|---:|',
+  ...sourceOverlap.slice(0,8).map(x=>'| '+x.file+' | '+x.overlappingSources+' | '+Math.round(x.redundantRawBytes/1024)+' |'),
+  'Aquest recompte és orientatiu. No és una mètrica de transferència i no justifica eliminar CSS sense validar la cascada.',''];
  fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY,summary.join('\n'));
 }
 if(process.argv.includes('--json'))console.log(JSON.stringify(report,null,2));
