@@ -3,7 +3,7 @@
  'use strict';
  const root=document.querySelector('.vl-page');
  if(!root)return;
- const money=new Intl.NumberFormat('es-ES',{style:'currency',currency:'EUR',minimumFractionDigits:2,maximumFractionDigits:2});
+ const money=new Intl.NumberFormat('es-ES',{useGrouping:'always',style:'currency',currency:'EUR',minimumFractionDigits:2,maximumFractionDigits:2});
  const reduceMotion=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
  const motion=reduceMotion?'auto':'smooth';
  const regionLabels={all:'todas las regiones',europa:'Europa',america:'América',asia:'Asia',oceania:'Oceanía'};
