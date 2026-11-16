@@ -9,6 +9,7 @@ const root=resolve('.');
 const read=path=>readFileSync(join(root,path),'utf8');
 const sitemap=read('sitemap.xml');
 const style=read('configuracion/css/componentes/subheader-unificado-vcc.css');
+const editorial=read('configuracion/css/componentes/vcc-capcaleres-editorials.css');
 const script=read('configuracion/js/componentes/subheader-unificado-vcc.js');
 const header=read('configuracion/js/site-header.js');
 const supported=new Set('st-tabs vcc-nav place-nav-wrap country-nav mv-subnav dv-subnav ep-subnav ql-subnav ci-subnav content-nav rich-tabs cl-subnav tv-tabs'.split(' '));
@@ -60,7 +61,11 @@ const requirements=[
  [style.includes('.place-nav-arrow'),'fletxes integrades al CSS global'],
  [style.includes('prefers-reduced-motion:reduce'),'accessibilitat: moviment reduït'],
  [header.includes('configuracion/css/componentes/vcc-core-compartit.css'),'CSS global carregat a través del paquet comú'],
- [header.includes('configuracion/js/componentes/subheader-unificado-vcc.js'),'JS global carregat']
+ [header.includes('configuracion/js/componentes/subheader-unificado-vcc.js'),'JS global carregat'],
+ [editorial.includes('grid-template-columns:minmax(0,1fr) minmax(270px,clamp('),'capçaleres editorials: columnes compartides sense solapament'],
+ [editorial.includes('white-space:nowrap!important'),'capçaleres editorials: títol d\'una línia en escriptori'],
+ [editorial.includes('@media(max-width:1150px)'),'capçaleres editorials: columna única quan falta amplada'],
+ [editorial.includes('.vcc-editorial-heading > .vcc-editorial-description'),'capçaleres editorials: resum al costat del títol']
 ];
 for(const [ok,label] of requirements)if(!ok)errors.push('Component global: falta '+label);
 if(errors.length){
