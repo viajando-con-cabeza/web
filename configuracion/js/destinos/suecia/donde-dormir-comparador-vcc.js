@@ -25,7 +25,7 @@
   const create=(id,type)=>({id,name:"Alojamiento "+id,type,base:null,limpieza:0,tasas:0,desayuno:0,traslados:0,otros:0});
   const defaults=()=>[create(1,"hoteles"),create(2,"apartamentos"),create(3,"cabanas")];
   let options=defaults(),nextId=4;
-  const money=value=>new Intl.NumberFormat("es-ES",{style:"currency",currency:"EUR",minimumFractionDigits:2,maximumFractionDigits:2}).format(value);
+  const money=value=>new Intl.NumberFormat("es-ES",{useGrouping:"always",style:"currency",currency:"EUR",minimumFractionDigits:2,maximumFractionDigits:2}).format(value);
   const esc=value=>String(value).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
   const svg=path=>'<svg viewBox="0 0 24 24" aria-hidden="true">'+path+'</svg>';
   const nameOf=(item,index)=>item.name.trim()||"Alojamiento "+(index+1);
