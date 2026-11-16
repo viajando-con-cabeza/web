@@ -1,4 +1,4 @@
-/* VCC Estocolmo: acordeón de presupuestos + descarga XLSX del cálculo existente.
+/* VCC Estocolmo: acordeón de presupuestos + descarga PDF del cálculo existente.
    La calculadora original permanece intacta: se leen sus resultados visibles. */
 (function () {
   "use strict";
@@ -283,4 +283,4 @@
       window.alert("No hemos podido generar el PDF. Revisa los datos e inténtalo de nuevo.");
     }
   });
-})();\n
+})();
