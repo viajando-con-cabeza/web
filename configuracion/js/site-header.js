@@ -60,8 +60,11 @@
     'configuracion/css/componentes/enlaces-discretos-vcc.css?v=20261115-card-ctas-unificats-v4','vccDiscreetActions');
   ensureSharedResource('script','script[data-vcc-discreet-actions]',
     'configuracion/js/componentes/enlaces-discretos-vcc.js?v=20261114-card-ctas-verificats-v2','vccDiscreetActions');
+  // Contracte visual únic: només subpàgines, sense alterar les portades principals.
+  ensureSharedResource('link','link[data-vcc-sacred-covers]',
+    'configuracion/css/componentes/portades-contracte-unic-vcc.css?v=20261116-sagrat-v1','vccSacredCovers');
   ensureSharedResource('script','script[src*="subheader-unificado-vcc.js"]',
-    'configuracion/js/componentes/subheader-unificado-vcc.js?v=20261115-active-anchor-v2');
+    'configuracion/js/componentes/subheader-unificado-vcc.js?v=20261116-sagrat-v3');
 
   const currentPath = window.location.pathname.replace(/\/index\.html$/, '/');
 
