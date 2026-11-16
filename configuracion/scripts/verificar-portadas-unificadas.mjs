@@ -106,7 +106,7 @@ check(canonicalHeroCss.includes('--vcc-contract-height:475px')&&
  canonicalSubheaderJs.includes("'/destinos/suecia/estocolmo'")&&
  sharedHeaderJs.includes('portades-contracte-unic-vcc.css'),
  'HERO VCC: manca el contracte global de foto, tipografia, altura i subheader');
-check(!/@layer\\s+vcc-suecia-planifica-portades\\s*\\{/.test(read('configuracion/css/componentes/vcc-suecia-planifica-portades.css')),
+check(!/@layer\s+vcc-suecia-planifica-portades\s*\{/.test(read('configuracion/css/componentes/vcc-suecia-planifica-portades.css')),
  'Suecia: el CSS local antic no pot redefinir capçalera, degradat o subheader');
 for(const section of [
  'cuando-ir','como-llegar','como-moverse','donde-dormir','que-visitar','presupuesto'
