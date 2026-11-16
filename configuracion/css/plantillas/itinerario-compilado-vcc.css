@@ -1635,19 +1635,47 @@ html body .vcc-hero .vcc-facts{display:none!important}
 }
 
 /* === configuracion/css/componentes/portadas-transparencia.css === */
-/* VCC · Portades principals: foto natural, transparència progressiva.
-   Només afecta Inicio, Destinos, Itinerarios, Planifica, Nosotros i Contacto.
-   L'esquerra queda molt atenuada i la dreta conserva la major part de la foto, amb una transparència suau.
-   No aplica saturació, sepia, contrast ni filtres de color. */
 
+/* === configuracion/css/componentes/portades-fade-global-vcc.css === */
+/* VCC · Únic degradat de transparència de portades.
+ * Fotografia original sobre blanc: d'esquerra gairebé invisible a dreta visible.
+ * Usat per Inicio, Destinos, Itinerarios, Planifica, Nosotros, Contacto,
+ * Suècia/Estocolm i les guies interiors, amb el mateix tractament.
+ * Màscara alfa i vel blanc són matemàticament equivalents; no s'apliquen junts.
+ * No aplicar a mosaics, targetes ni galeries de contingut. */
 :root {
+  --vcc-portada-base: #fff;
   --vcc-portada-fade: linear-gradient(90deg,
     rgba(0,0,0,.04) 0%,
     rgba(0,0,0,.21) 34%,
     rgba(0,0,0,.59) 72%,
     rgba(0,0,0,.82) 100%);
-  --vcc-portada-base: #ffffff;
+  --vcc-portada-veil: linear-gradient(90deg,
+    rgba(255,255,255,.96) 0%,
+    rgba(255,255,255,.79) 34%,
+    rgba(255,255,255,.41) 72%,
+    rgba(255,255,255,.18) 100%);
 }
+@media (max-width: 720px) {
+  :root {
+    --vcc-portada-fade: linear-gradient(90deg,
+      rgba(0,0,0,.03) 0%,
+      rgba(0,0,0,.10) 32%,
+      rgba(0,0,0,.21) 70%,
+      rgba(0,0,0,.41) 100%);
+    --vcc-portada-veil: linear-gradient(90deg,
+      rgba(255,255,255,.97) 0%,
+      rgba(255,255,255,.90) 32%,
+      rgba(255,255,255,.79) 70%,
+      rgba(255,255,255,.59) 100%);
+  }
+}
+
+
+/* VCC · Portades principals: foto natural, transparència progressiva.
+   Només afecta Inicio, Destinos, Itinerarios, Planifica, Nosotros i Contacto.
+   L'esquerra queda molt atenuada i la dreta conserva la major part de la foto, amb una transparència suau.
+   No aplica saturació, sepia, contrast ni filtres de color. */
 
 /* Un mateix fons neutre a sota de la foto semitransparent. */
 body.inicio-vcc .home-hero,
@@ -1723,13 +1751,6 @@ body:has(.contact-page) .contact-page .contact-hero::after {
 @media (max-width: 650px) {
   /* Mòbil: una fotografia molt més transparent a tota la pantalla.
      Degradat exclusivament de transparència sobre blanc, sense tintes. */
-  :root {
-    --vcc-portada-fade: linear-gradient(90deg,
-      rgba(0,0,0,.03) 0%,
-      rgba(0,0,0,.10) 32%,
-      rgba(0,0,0,.21) 70%,
-      rgba(0,0,0,.41) 100%);
-  }
   body:has(.contact-page) .contact-page .contact-hero::before {
     background-position: 65% center !important;
   }
