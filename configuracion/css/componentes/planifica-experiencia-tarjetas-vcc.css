@@ -411,6 +411,11 @@ html body .vcc-experience-carousel .vcc-experience-track.vcc-experience-track{
   scrollbar-width:none!important;
 }
 html body .vcc-experience-carousel .vcc-experience-track::-webkit-scrollbar{display:none!important}
+/* Respectar [hidden] a tots els filtres de Nuestra experiencia;
+   prioritat sobre el display:flex!important canònic de les targetes. */
+html body .vcc-experience-carousel .vcc-experience-track > .vcc-experience-card.vcc-experience-card[hidden]{
+  display:none!important;
+}
 html body .vcc-experience-carousel .vcc-experience-track > .vcc-experience-card.vcc-experience-card{
   box-sizing:border-box!important;display:flex!important;flex-direction:column!important;
   width:100%!important;height:355px!important;min-height:355px!important;max-height:355px!important;
