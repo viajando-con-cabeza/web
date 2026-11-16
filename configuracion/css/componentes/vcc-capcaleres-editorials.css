@@ -558,24 +558,24 @@ html body :is(.country-hero,.st-hero).vcc-guide-hero-unified .hero-start{
 
 
 
-/* Portada de país: la fitxa de Suecia tenia menys línies que Estocolmo.
-   Mateixa alçada de referència visual (400px); Estocolmo NO es modifica.
-   El CTA queda baix, sense canviar el padding, ample ni les tipografies. */
-html body.country-page .country-hero .country-hero-card.vcc-guide-hero-copy {
-  min-height:400px!important;
-  display:flex!important;
-  flex-direction:column!important;
-}
-html body.country-page .country-hero .country-hero-card.vcc-guide-hero-copy > .hero-start {
-  align-self:flex-start!important;
-  margin-top:auto!important;
-}
-
-/* Aire vertical dels dos requadres: conservar la geometria original i el subheader. */
+/* Requadre de portada COMPARTIT entre Suècia i Estocolm.
+   Un únic control d'alçada/padding/CTA per a les dues landings;
+   la mida pot créixer quan el contingut ho requereix (sobretot en mòbil).
+   No modificar els CSS específics de país/ciutat per aquests espais. */
 html body.country-page .country-hero .country-hero-card.vcc-guide-hero-copy,
 html body .st-shell .st-hero .st-card.vcc-guide-hero-copy {
-  padding-top:36px!important;
-  padding-bottom:39px!important;
+  box-sizing:border-box!important;
+  min-height:370px!important;
+  height:auto!important;
+  display:flex!important;
+  flex-direction:column!important;
+  padding-top:28px!important;
+  padding-bottom:30px!important;
+}
+html body.country-page .country-hero .country-hero-card.vcc-guide-hero-copy > .hero-start,
+html body .st-shell .st-hero .st-card.vcc-guide-hero-copy > .hero-start {
+  align-self:flex-start!important;
+  margin-top:auto!important;
 }
 /* VCC · Suècia / Estocolm: només escala de lletres als quadres de portada.
    Les dimensions i els espaiats INTERNS recuperen els CSS originals
