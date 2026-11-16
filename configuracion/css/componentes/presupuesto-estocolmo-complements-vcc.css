@@ -1829,56 +1829,125 @@ html body .day-rich > .vcc-editorial-heading{
 }
 
 
-/* VCC · SEPARACIÓ VERTICAL COMPARTIDA · 20261116
-   Separació de contingut entre apartats amb subheader, sense alterar
-   la separació dels elements interns, fotografies ni capçaleres.
-   La portada/heroi i la barra d'àncores queden exclosos. */
-html body:has(nav.vcc-sacred-subnav){
-  --vcc-section-space:52px;
+/* VCC · SEPARACIÓ ENTRE APARTATS ANCORATS AL SUBHEADER · 20261116
+   Font única per a totes les guies i pàgines Planifica.
+   Només espai EXTERIOR de seccions principals; no modifica targetes,
+   mapes, capçaleres, galeries, calculadores ni el hero.
+   Una mateixa mida a Suecia, Estocolmo, itineraris i Planifica. */
+html body:has(nav.vcc-sacred-subnav),
+html body.country-page:has(nav.country-nav),
+html body:has(.st-shell nav.st-tabs){
+  --vcc-section-space:76px;
 }
-/* Les guies amb contenidor principal alineen seccions, tant al principi
-   com entre blocs. Només els fills directes (mai subapartats interns). */
-html body:has(nav.vcc-sacred-subnav) main:is(.budget-main,.dv-main,.ci-main,.ep4-main,.ql-main,.content-shell) > section[id]{
+
+/* Guia editorial: cada apartat principal comença a la mateixa distància.
+   La galeria d'agost de «Cuando ir» pertany a Experiencia, no és
+   un apartat independent del subheader. */
+html body:has(nav.vcc-sacred-subnav)
+main:is(.budget-main,.dv-main,.ci-main,.ep4-main,.ql-main,.content-shell)
+> section[id]:not(#ci-august-gallery-place){
   box-sizing:border-box!important;
-  margin-bottom:var(--vcc-section-space)!important;
+  margin-block:0!important;
+}
+html body:has(nav.vcc-sacred-subnav)
+main:is(.budget-main,.dv-main,.ci-main,.ep4-main,.ql-main,.content-shell)
+> section[id]:not(#ci-august-gallery-place)
+~ section[id]:not(#ci-august-gallery-place){
+  margin-block-start:var(--vcc-section-space)!important;
+}
+html body:has(nav.vcc-sacred-subnav) main.ci-main > section#ci-august-gallery-place{
+  margin-block:0!important;
 }
 html body:has(nav.vcc-sacred-subnav) main:is(.budget-main,.dv-main,.ci-main){
-  padding-top:var(--vcc-section-space)!important;
+  padding-block-start:var(--vcc-section-space)!important;
 }
+
+/* Com moure's: cada bloc porta el seu espai superior, sense sumar marges. */
 html body:has(nav.vcc-sacred-subnav) main.mv-container > section.swmove-section{
   margin-block:0!important;
-  padding-top:var(--vcc-section-space)!important;
+  padding-block-start:var(--vcc-section-space)!important;
 }
 html body:has(nav.vcc-sacred-subnav) main.mv-container > section.swmove-section:last-of-type{
-  padding-bottom:var(--vcc-section-space)!important;
-}
-/* Suecia · Cómo llegar: mateix espai entre aeroports, regions i estalvi.
-   El padding de baix no es duplica amb el de dalt del bloc següent. */
-html body.vcc-suecia-planifica:has(nav.vcc-sacred-subnav) main.cl-page.cl-landing.sw-country-copy > section:is(#comparar-aeropuertos,#como-llegar-regiones,#ahorrar){
-  padding-top:var(--vcc-section-space)!important;
-  padding-bottom:0!important;
-  margin-top:0!important;
-  margin-bottom:0!important;
-}
-html body.vcc-suecia-planifica:has(nav.vcc-sacred-subnav) main.cl-page.cl-landing.sw-country-copy > section#ahorrar{
-  padding-bottom:var(--vcc-section-space)!important;
-}
-@media(max-width:760px){
-  html body:has(nav.vcc-sacred-subnav){--vcc-section-space:34px}
+  padding-block-end:var(--vcc-section-space)!important;
 }
 
+/* Com arribar: el fons segueix a pantalla completa. Separa el contingut
+   amb padding, sense franges de fons ni marges duplicats. */
+html body:has(nav.vcc-sacred-subnav) main.cl-page.cl-landing
+> nav.vcc-sacred-subnav ~ section[id]:not(.related-section){
+  padding-block-start:var(--vcc-section-space)!important;
+  padding-block-end:0!important;
+  margin-block:0!important;
+}
+html body:has(nav.vcc-sacred-subnav) main.cl-page.cl-landing
+> nav.vcc-sacred-subnav ~ section[id]:not(.related-section):last-of-type{
+  padding-block-end:var(--vcc-section-space)!important;
+}
 
-/* Evitem sumar el padding inferior de plantilla al marge de l'últim bloc. */
+/* Pàgines amb subheader DINS del main (Vuelos, Alojamientos,
+   Tarjetas, Seguros...) i pàgines amb nav just ABANS del main.
+   Només fills directes; mai subapartats dins targetes o panels. */
+html body:has(nav.vcc-sacred-subnav)
+main:not(.cl-page) > nav.vcc-sacred-subnav ~ section[id]:not(.related-section),
+html body nav.vcc-sacred-subnav ~ main > section[id]:not(.related-section){
+  margin-block-end:0!important;
+}
+html body:has(nav.vcc-sacred-subnav)
+main:not(.cl-page) > nav.vcc-sacred-subnav ~ section[id]:not(.related-section)
+~ section[id]:not(.related-section),
+html body nav.vcc-sacred-subnav ~ main > section[id]:not(.related-section)
+~ section[id]:not(.related-section){
+  margin-block-start:var(--vcc-section-space)!important;
+}
+
+/* Itinerari: La ruta i els dies són apartats germans,
+   encara que els dies siguin <article> en lloc de <section>. */
+html body:has(nav.vcc-sacred-subnav)
+main.vcc-shell > :is(section#resumen,article.day-section)
+~ :is(section#resumen,article.day-section){
+  margin-block-start:var(--vcc-section-space)!important;
+}
+
+/* Imprescindibles: cada lloc que té àncora pròpia disposa del mateix
+   marge exterior, sense tocar la fitxa interna ni les seves imatges. */
+html body:has(nav.place-nav-wrap.vcc-sacred-subnav)
+main.imp-main > section.place ~ section.place{
+  margin-block-start:var(--vcc-section-space)!important;
+}
+
+/* Hubs de país i ciutat amb subheader tradicional. */
+html body.country-page .country-main > section + section,
+html body .st-shell .st-main > section + section{
+  margin-block-start:var(--vcc-section-space)!important;
+}
+
+/* Distància uniforme de tancament amb el bloc següent. */
+html body:has(nav.vcc-sacred-subnav) section:is(.related-section,.vcc-discover-section){
+  margin-block-start:calc(var(--vcc-section-space) + 8px)!important;
+}
+html body:has(nav.vcc-sacred-subnav):not(:has(section:is(.related-section,.vcc-discover-section)))
+footer.vcc-global-footer{
+  margin-block-start:calc(var(--vcc-section-space) + 8px)!important;
+}
+
+/* No afegir dues separacions per culpa del padding històric de plantilla. */
 html body:has(nav.vcc-sacred-subnav) main:is(.dv-main,.ci-main){
-  padding-bottom:0!important;
+  padding-block-end:0!important;
 }
-/* Calculadora compartida Dónde dormir: espai únic entre apartats.
-   La fitxa conserva l'interior; només neutralitzem padding extern duplicat. */
-html body.dv-country-types:has(nav.vcc-sacred-subnav) main.dv-main > .dv-planifica-alojamiento-reuse{
+html body.dv-country-types:has(nav.vcc-sacred-subnav)
+main.dv-main > .dv-planifica-alojamiento-reuse{
   margin:0 0 var(--vcc-section-space)!important;
   padding:0!important;
 }
-html body.dv-country-types:has(nav.vcc-sacred-subnav) main.dv-main > .dv-planifica-alojamiento-reuse > .al-compare{
-  padding-top:0!important;
-  padding-bottom:0!important;
+html body.dv-country-types:has(nav.vcc-sacred-subnav)
+main.dv-main > .dv-planifica-alojamiento-reuse > .al-compare{
+  padding-block:0!important;
+}
+
+@media(max-width:760px){
+  html body:has(nav.vcc-sacred-subnav),
+  html body.country-page:has(nav.country-nav),
+  html body:has(.st-shell nav.st-tabs){
+    --vcc-section-space:52px;
+  }
 }
