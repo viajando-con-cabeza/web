@@ -8,7 +8,7 @@
  */
 :root{
   --vcc-contract-height:475px;
-  --vcc-contract-mobile-height:440px;
+  --vcc-contract-mobile-height:clamp(370px,calc(100svh - var(--vcc-page-header-height,79px) - var(--vcc-subnav-height,39px) - 20px),440px);
   --vcc-contract-gutter:max(46px,calc((100vw - 1510px)/2));
   --vcc-contract-copy-top:78px;
   --vcc-contract-copy-width:760px;
