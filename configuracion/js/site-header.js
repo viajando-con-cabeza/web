@@ -60,11 +60,22 @@
     'configuracion/css/componentes/enlaces-discretos-vcc.css?v=20261115-card-ctas-unificats-v4','vccDiscreetActions');
   ensureSharedResource('script','script[data-vcc-discreet-actions]',
     'configuracion/js/componentes/enlaces-discretos-vcc.js?v=20261114-card-ctas-verificats-v2','vccDiscreetActions');
-  // Contracte visual únic: només subpàgines, sense alterar les portades principals.
-  ensureSharedResource('link','link[data-vcc-sacred-covers]',
-    'configuracion/css/componentes/portades-contracte-unic-vcc.css?v=20261116-sagrat-v1','vccSacredCovers');
+  // Contracte interior: les pàgines publicades el carreguen al <head>,
+  // abans de pintar, i no fan cap petició duplicada. Per a futures guies
+  // mantenim un fallback només si REALMENT existeix un subheader editorial.
+  const mountInteriorContractFallback=()=>{
+    const route=location.pathname.replace(/\\/index\\.html$/i,'/').replace(/\\/$/,'')||'/';
+    const exception=new Set(['/','/destinos','/itinerarios','/planifica',
+      '/nosotros','/contacto','/destinos/suecia','/destinos/suecia/estocolmo']);
+    if(exception.has(route)||document.querySelector('link[data-vcc-sacred-covers]'))return;
+    if(!document.querySelector('nav.st-tabs,nav.vcc-nav,nav.place-nav-wrap,nav.mv-subnav,nav.dv-subnav,nav.ep-subnav,nav.ql-subnav,nav.ci-subnav,nav.content-nav,nav.rich-tabs,nav.av-subnav,nav.sv-tabs,nav.di-subnav,nav.tv-tabs,nav.vcc-unified-subheader'))return;
+    ensureSharedResource('link','link[data-vcc-sacred-covers]',
+      'configuracion/css/componentes/portades-contracte-unic-vcc.css?v=20261116-sagrat-v2','vccSacredCovers');
+  };
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',mountInteriorContractFallback,{once:true});
+  else mountInteriorContractFallback();
   ensureSharedResource('script','script[src*="subheader-unificado-vcc.js"]',
-    'configuracion/js/componentes/subheader-unificado-vcc.js?v=20261116-sagrat-v3');
+    'configuracion/js/componentes/subheader-unificado-vcc.js?v=20261116-sagrat-v4');
 
   const currentPath = window.location.pathname.replace(/\/index\.html$/, '/');
 
