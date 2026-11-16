@@ -300,7 +300,40 @@ $("ql-v6-clear").addEventListener("click",()=>{
  for(const x of buildItems().flatMap(g=>g.items))state.done.delete(labelKey(x.id));
  save();render();notify("Elementos desmarcados");
 });
-$("ql-v6-print").addEventListener("click",()=>window.print());
+$("ql-v6-print").addEventListener("click",()=>{
+ try{
+  if(!window.VCCPDF)throw Error("Generador PDF no disponible");
+  const month=byId(state.month),groups=buildItems();
+  const total=groups.reduce((n,g)=>n+g.items.length,0);
+  const checked=groups.reduce((n,g)=>n+g.items.filter(x=>state.done.has(labelKey(x.id))).length,0);
+  const bag=recommendedBag();
+  const sections=[
+   {heading:"Tu viaje",lines:[
+    "Destino: Estocolmo, Suecia",
+    "Mes: "+month.name,
+    "Duración: "+state.days+(state.days===1?" día":" días"),
+    "Lavado durante el viaje: "+(state.laundry?"Sí":"No"),
+    "Elementos preparados: "+checked+" de "+total
+   ]},
+   {heading:"Equipaje recomendado",lines:[bag.name,bag.reason]}
+  ];
+  groups.forEach(group=>sections.push({
+   heading:group.label,
+   lines:group.items.map(item=>(state.done.has(labelKey(item.id))?"[X] ":"[ ] ")+item.title+" · "+item.qty+(item.qty===1?" unidad":" unidades"))
+  }));
+  window.VCCPDF.download({
+   filename:"que-llevar-estocolmo-VCC.pdf",
+   title:"Qué llevar a Estocolmo",
+   subtitle:"Checklist personalizada · "+month.name+" · "+state.days+(state.days===1?" día":" días"),
+   sections,
+   note:"Cantidades orientativas. Revisa la previsión meteorológica antes de salir y las condiciones de equipaje de tu aerolínea."
+  });
+  notify("PDF descargado con tu lista actual");
+ }catch(error){
+  console.error("VCC: no se pudo generar la checklist en PDF",error);
+  notify("No se pudo generar el PDF. Inténtalo de nuevo.");
+ }
+});
 const nav=document.querySelector(".ql-subnav");
 if(nav){
  const links=[...nav.querySelectorAll('a[href^="#"]')];
