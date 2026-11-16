@@ -228,7 +228,7 @@
       const rows=cats.map(k=>`<div class="category-row">
         <span class="vcc-category-name"><span class="vcc-category-icon" aria-hidden="true">${categoryIcons[k]}</span><span>${categoryNames[k]}</span></span>
         <select data-zone-category="${k}" aria-label="Estilo de ${categoryNames[k].toLowerCase()} para zona ${i+1}"></select>
-        <span class="vcc-price-block"><strong class="vcc-budget-price" data-zone-price="${k}">—</strong><small>por persona / ${k==="alojamiento"?"noche":"día"}</small></span></div>`).join("");
+        <span class="vcc-price-block"><strong class="vcc-budget-price" data-zone-price="${k}">—</strong><small>por pax / ${k==="alojamiento"?"noche":"día"}</small></span></div>`).join("");
       slide.innerHTML=`<div class="vcc-budget-stage-heading"><span>ZONA ${i+1} DE ${state.stops.length}</span><span class="vcc-budget-stage-subtotal"><span>Subtotal</span><strong data-zone-total>—</strong></span></div>
         <div class="vcc-budget-stage-controls">
          <label class="vcc-budget-stage-region"><span class="vcc-budget-stage-label">REGIÓN</span><span class="vcc-budget-stage-select-wrap"><svg class="vcc-budget-stage-location-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 5-8 11-8 11S4 15 4 10a8 8 0 1 1 16 0Z"></path><circle cx="12" cy="10" r="2.5"></circle></svg><select data-zone-name aria-label="Región de la zona ${i+1}"></select></span></label>
