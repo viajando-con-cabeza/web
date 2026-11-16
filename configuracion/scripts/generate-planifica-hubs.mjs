@@ -98,13 +98,16 @@ function catalogCover(image,title,category){
   '<img class="vcc-card-cover-photo" src="'+esc(src)+'"'+srcset+' alt="'+esc(title)+
   '" width="640" height="380" loading="lazy" decoding="async"></span>';
 }
-function catalogCountry(country){
+function catalogCountry(country,region=""){
+ // Mostra país i, quan la guia és local, també la ciutat/regió.
+ // Les guies de país mantenen només el país (p. ex. Suecia).
+ const location=[country,region].filter(Boolean).join(' · ');
  return '<span class="di-country-line">'+
  (country.toLocaleLowerCase('es')==='suecia'
  ?'<svg class="vcc-it-country-flag" viewBox="0 0 32 20" role="img" aria-label="Bandera de Suecia"><use href="'+CATALOG_ICONS+'#it-flag-se"></use></svg>'
- :"")+'<span>'+esc(country)+'</span></span>';
+ :"")+'<span>'+esc(location)+'</span></span>';
 }
-function catalogCard({kind,title,description,href,image,country,type,typeLabel,continent,days,daily}){
+function catalogCard({kind,title,description,href,image,country,region="",type,typeLabel,continent,days,daily}){
  const budget=kind==="budget";
  const label='VER GUÍA';
  const price=daily===null?'Consultar guía':new Intl.NumberFormat("es-ES",{maximumFractionDigits:1}).format(daily)+' €/pax/día';
@@ -112,8 +115,8 @@ function catalogCard({kind,title,description,href,image,country,type,typeLabel,c
    '<span class="di-route-stats">'+catalogIcon("it-clock")+esc(days?days+' días':'Viaje real')+'</span>'+
    '<span class="di-budget-row" title="Gasto por pax y día">'+catalogIcon("it-coins","vcc-it-coins")+
    '<span class="di-price">'+esc(price)+'</span></span>'+catalogCountry(country)
-   :catalogCountry(country);
- const search=[title,description,country,typeLabel,continent,budget?price:'equipaje ropa checklist maleta'].join(' ');
+   :catalogCountry(country,region);
+ const search=[title,description,country,region,typeLabel,continent,budget?price:'equipaje ropa checklist maleta'].join(' ');
  return '<article class="di-mini-card vcc-it-card '+(budget?'budget-card':'packing-card')+'" data-it-card data-it-search="'+esc(search)+'" data-continent="'+esc(continent)+'" data-type="'+esc(type)+'"'+(budget?' data-daily="'+(daily??'')+'"':'')+'>'+
  catalogCover(image,title,typeLabel)+
  '<div class="di-mini-body"><span class="vcc-card-kicker">'+catalogIcon("it-category-city")+esc(typeLabel.toUpperCase())+'</span>'+
@@ -308,6 +311,8 @@ const packingCards = packingSources.map(file=>{
  const fromDestinos=filePath.startsWith("destinos/");
  const countrySlug=fromDestinos?filePath.split("/")[1]:slug;
  const country=info.country||countryMeta[countrySlug]?.[0]||"";
+ // Localidad propia de cada guía de equipaje (evita repetir «Suecia · Suecia»).
+ const region=name&&name.toLocaleLowerCase("es")!==country.toLocaleLowerCase("es")?name:"";
  const continent=info.continent||countryMeta[countrySlug]?.[1]||"all";
  const type=Array.isArray(info.type)?info.type:["otros"];
  const typeLabel=info.typeLabel||"Otros viajes";
@@ -315,7 +320,7 @@ const packingCards = packingSources.map(file=>{
  const href=publicRoute(filePath);
  const markup=catalogCard({kind:"packing",title:"Qué llevar a "+name,description,href,
   image:info.image||"/configuracion/imagenes/fondos/fondos-que-llevar.webp",
-  country,type:type.join(" "),typeLabel,continent});
+  country,region,type:type.join(" "),typeLabel,continent});
  return {markup,priority:info.priority??999,name};
 }).sort((a,b)=>a.priority-b.priority||a.name.localeCompare(b.name,"es"));
 replaceAuto("planifica/que-llevar/index.html","<!-- AUTO_PACKING_START -->","<!-- AUTO_PACKING_END -->",packingCards.map(card=>card.markup).join("\n"));
