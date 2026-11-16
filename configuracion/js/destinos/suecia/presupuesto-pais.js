@@ -331,26 +331,6 @@
       state.activeStop=state.stops.length-1;
       renderRoute();renderCalculator();
     });
-    document.querySelector("[data-vcc-download-excel]")?.addEventListener("click",()=>{
-      // CSV UTF-8 compatible con Excel; columnas por región y total del grupo.
-      const rows=[["Zona","Días","Noches",...cats.map(k=>data.categories[k].label+" (€)"),"Total (€)"]];
-      for(const stop of state.stops){
-        const costs=cats.map(k=>amount(stop.choice[k],k,stop.zone)*
-          (k==="alojamiento"?stop.nights:stop.days)*state.people);
-        rows.push([data.zones[stop.zone].name,stop.days,stop.nights,...costs,
-          costs.reduce((sum,n)=>sum+n,0)]);
-      }
-      const result=totals();
-      rows.push(["TOTAL",state.days,state.nights,...cats.map(k=>result.categoryTotals[k]),result.total]);
-      rows.push(["Viajeros",state.people]);rows.push(["Importes estimados; no son precios de reserva"]);
-      const csv="\uFEFF"+rows.map(cols=>cols.map(value=>'"'+
-        String(value).replace(/"/g,'""')+'"').join(";")).join("\r\n");
-      const blob=new Blob([csv],{type:"text/csv;charset=utf-8;"});
-      const url=URL.createObjectURL(blob),link=document.createElement("a");
-      link.href=url;link.download="presupuesto-suecia-por-zonas.csv";
-      document.body.appendChild(link);link.click();link.remove();
-      setTimeout(()=>URL.revokeObjectURL(url),1000);
-    });
     el("swb-route-prev")?.addEventListener("click",()=>showStop(state.activeStop-1));
     el("swb-route-next")?.addEventListener("click",()=>showStop(state.activeStop+1));
     const track=el("swb-route-rows");
