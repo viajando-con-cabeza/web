@@ -1,47 +1,85 @@
-/* VCC · Únic component compartit de regions (Suecia):
-   Como moverse / Como llegar. Fotos, fletxes, espais, tipografies, mobile.
-   No duplicar ni sobreescriure el format de les targetes a cada pàgina. */
-/* VCC · Regiones de Suecia | ficha local, compacta y alineada con las demás guías */
-:is(.swmove-page,.sw-country-copy) .swmove-region-grid{display:flex;gap:14px;align-items:stretch;overflow-x:auto;overscroll-behavior-inline:contain;scroll-snap-type:x mandatory;scroll-behavior:smooth;scrollbar-width:none;-webkit-overflow-scrolling:touch;padding:1px 0 3px;}
-:is(.swmove-page,.sw-country-copy) .swmove-region-card{background:#fff;border:1px solid var(--sw-border,#e7ddd3);border-radius:16px;overflow:hidden;display:flex;flex-direction:column;flex:0 0 calc((100% - 42px)/4);scroll-snap-align:start;min-width:0;min-height:352px}
-:is(.swmove-page,.sw-country-copy) .swmove-region-photo{height:154px;flex:0 0 154px;overflow:hidden;background:linear-gradient(135deg,#e5e9e8,#cbd6d8);display:flex;align-items:center;justify-content:center}
-:is(.swmove-page,.sw-country-copy) .swmove-region-photo img{display:block;width:100%;height:100%;object-fit:cover}
-:is(.swmove-page,.sw-country-copy) .swmove-region-photo>span{font:600 22px/1.2 var(--vcc-font-heading,"Oswald",sans-serif);letter-spacing:.06em;color:#445b63;text-align:center}
-:is(.swmove-page,.sw-country-copy) .swmove-region-content{padding:16px 18px 15px;display:flex;flex-direction:column;flex:1;min-width:0}
-:is(.swmove-page,.sw-country-copy) .swmove-region-content h3{font:600 22px/1.15 var(--vcc-font-heading,"Oswald",sans-serif);text-transform:uppercase;color:#252b2a;margin:0 0 6px}
-:is(.swmove-page,.sw-country-copy) .swmove-region-mode{color:#ad5c43;font:700 10px/1.4 var(--vcc-font-body,"DM Sans",sans-serif);letter-spacing:.08em;margin:0 0 9px}
-:is(.swmove-page,.sw-country-copy) .swmove-region-description{font:400 12px/1.5 var(--vcc-font-body,"DM Sans",sans-serif);color:#5e5c59;margin:0}
-:is(.swmove-page,.sw-country-copy) .swmove-region-footer{display:flex;justify-content:flex-end;align-items:flex-end;margin-top:auto;padding-top:13px;min-height:31px}
-:is(.swmove-page,.sw-country-copy) .swmove-region-link,:is(.swmove-page,.sw-country-copy) .swmove-region-upcoming{font:800 10px/1.25 var(--vcc-font-body,"DM Sans",sans-serif);letter-spacing:.025em;text-decoration:none}
-:is(.swmove-page,.sw-country-copy) .swmove-region-link{color:#ac573e}
-:is(.swmove-page,.sw-country-copy) .swmove-region-link:hover,:is(.swmove-page,.sw-country-copy) .swmove-region-link:focus-visible{text-decoration:underline;text-underline-offset:4px}
-:is(.swmove-page,.sw-country-copy) .swmove-region-link span{padding-left:4px}
-:is(.swmove-page,.sw-country-copy) .swmove-region-upcoming{color:#918a83}
-:is(.swmove-page,.sw-country-copy) .swmove-region-note{margin:14px 0 0;color:var(--sw-muted,#716a64);font:400 12px/1.55 var(--vcc-font-body,"DM Sans",sans-serif)}
-:is(.swmove-page,.sw-country-copy) .swmove-region-carousel{position:relative;min-width:0}
+/* VCC · Carrusel per regions: Cómo llegar i Cómo moverse.
+   L'ASPECTE de les targetes (322 px, foto 150 px, Oswald 21 px, DM Sans 11 px,
+   tipologies, bandera, descripcions i CTA) ve del CSS CANÒNIC
+   /configuracion/css/componentes/vcc-targetes-itineraris-guies.css
+   compartit amb Cuándo ir. Aquí NOMÉS geometria del carrusel i fletxes. */
+:is(.swmove-page,.sw-country-copy) .swmove-region-carousel{
+  position:relative;min-width:0;
+}
+:is(.swmove-page,.sw-country-copy) .swmove-region-grid.di-mini-grid{
+  box-sizing:border-box;
+  display:flex!important;flex-flow:row nowrap!important;align-items:stretch!important;
+  gap:14px!important;width:100%!important;min-width:0!important;
+  margin:0!important;padding:1px 0 4px!important;
+  overflow-x:auto!important;overflow-y:hidden!important;
+  overscroll-behavior-inline:contain;scroll-snap-type:x mandatory;
+  scroll-behavior:smooth;scrollbar-width:none;-webkit-overflow-scrolling:touch;
+}
 :is(.swmove-page,.sw-country-copy) .swmove-region-grid::-webkit-scrollbar{display:none}
+:is(.swmove-page,.sw-country-copy) .swmove-region-grid>.swmove-region-card{
+  box-sizing:border-box!important;
+  flex:0 0 calc((100% - 42px)/4)!important;
+  width:auto!important;max-width:none!important;min-width:0!important;
+  scroll-snap-align:start;
+}
+/* Fallback sense imatge: mateix espai de fotografia que la resta de fitxes. */
+:is(.swmove-page,.sw-country-copy) .swmove-region-photo>span{
+  display:flex;align-items:center;justify-content:center;
+  box-sizing:border-box;width:100%;height:100%;padding:12px;
+  color:#fff;background:linear-gradient(120deg,#426878,#91adb5);
+  font:500 22px/1.2 var(--vcc-font-heading,"Oswald",sans-serif);
+  text-align:center;
+}
+/* Les categories es mostren sobre el títol, mai 'Mejor tiempo'. */
+:is(.swmove-page,.sw-country-copy) .swmove-region-grid .vcc-card-kicker{
+  white-space:normal!important;
+}
+:is(.swmove-page,.sw-country-copy) .swmove-region-grid .swmove-region-facts{
+  align-items:center;
+}
+:is(.swmove-page,.sw-country-copy) .swmove-region-grid .swmove-region-footer{
+  display:flex;align-items:flex-end;justify-content:flex-end;
+  margin-top:auto;min-height:0;
+}
 :is(.swmove-page,.sw-country-copy) .swmove-region-arrow{
- position:absolute;z-index:4;top:50%;transform:translateY(-50%);
- display:grid;place-items:center;width:41px;height:41px;border-radius:50%;
- border:1px solid #ded8d2;background:#fff;color:#a65b43;
- box-shadow:0 3px 12px rgba(40,36,32,.08);padding:0;cursor:pointer;
+  position:absolute;z-index:4;top:50%;transform:translateY(-50%);
+  display:grid;place-items:center;width:41px;height:41px;margin:0;padding:0;
+  border:1px solid #ded8d2;border-radius:50%;background:#fff;color:#a65b43;
+  box-shadow:0 3px 12px rgba(40,36,32,.08);cursor:pointer;
 }
-:is(.swmove-page,.sw-country-copy) .swmove-region-arrow svg{display:block;width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
-:is(.swmove-page,.sw-country-copy) .swmove-region-prev{left:-21px}
-:is(.swmove-page,.sw-country-copy) .swmove-region-next{right:-21px}
-:is(.swmove-page,.sw-country-copy) .swmove-region-arrow:disabled{opacity:.35;cursor:default;box-shadow:none}
-:is(.swmove-page,.sw-country-copy) .swmove-region-arrow:focus-visible{outline:2px solid #b45e44;outline-offset:3px}
-@media(max-width:1100px){:is(.swmove-page,.sw-country-copy) .swmove-region-card{flex-basis:calc((100% - 28px)/3)}}
-@media(max-width:850px){:is(.swmove-page,.sw-country-copy) .swmove-region-card{flex-basis:calc((100% - 14px)/2)}}
-@media(max-width:680px){
- :is(.swmove-page,.sw-country-copy) .swmove-region-card{flex-basis:100%;min-height:0}
- :is(.swmove-page,.sw-country-copy) .swmove-region-photo{height:148px;flex-basis:148px}
- :is(.swmove-page,.sw-country-copy) .swmove-region-content{padding:15px 16px 13px}
- :is(.swmove-page,.sw-country-copy) .swmove-region-content h3{font-size:22px}
- :is(.swmove-page,.sw-country-copy) .swmove-region-description{font-size:12px}
- :is(.swmove-page,.sw-country-copy) .swmove-region-footer{padding-top:14px}
- :is(.swmove-page,.sw-country-copy) .swmove-region-prev{left:-9px}
- :is(.swmove-page,.sw-country-copy) .swmove-region-next{right:-9px}
- :is(.swmove-page,.sw-country-copy) .swmove-region-arrow{width:36px;height:36px}
+:is(.swmove-page,.sw-country-copy) .swmove-region-arrow svg{
+  display:block;width:19px;height:19px;fill:none;stroke:currentColor;
+  stroke-width:2;stroke-linecap:round;stroke-linejoin:round;
 }
-@media(prefers-reduced-motion:reduce){:is(.swmove-page,.sw-country-copy) .swmove-region-grid{scroll-behavior:auto}}
+:is(.swmove-page,.sw-country-copy) .swmove-region-prev{left:-20px}
+:is(.swmove-page,.sw-country-copy) .swmove-region-next{right:-20px}
+:is(.swmove-page,.sw-country-copy) .swmove-region-arrow:disabled{
+  opacity:.32;cursor:default;box-shadow:none;
+}
+:is(.swmove-page,.sw-country-copy) .swmove-region-arrow:focus-visible,
+:is(.swmove-page,.sw-country-copy) .swmove-region-grid:focus-visible{
+  outline:2px solid #b45e44;outline-offset:3px;
+}
+@media(max-width:1020px){
+  :is(.swmove-page,.sw-country-copy) .swmove-region-grid>.swmove-region-card{
+    flex-basis:calc((100% - 14px)/2)!important;
+  }
+  :is(.swmove-page,.sw-country-copy) .swmove-region-prev{left:-12px}
+  :is(.swmove-page,.sw-country-copy) .swmove-region-next{right:-12px}
+}
+@media(max-width:620px){
+  :is(.swmove-page,.sw-country-copy) .swmove-region-grid>.swmove-region-card{
+    flex-basis:86%!important;
+  }
+  :is(.swmove-page,.sw-country-copy) .swmove-region-arrow{
+    width:35px;height:35px;
+  }
+  :is(.swmove-page,.sw-country-copy) .swmove-region-arrow svg{
+    width:16px;height:16px;
+  }
+  :is(.swmove-page,.sw-country-copy) .swmove-region-prev{left:3px}
+  :is(.swmove-page,.sw-country-copy) .swmove-region-next{right:3px}
+}
+@media(prefers-reduced-motion:reduce){
+  :is(.swmove-page,.sw-country-copy) .swmove-region-grid{scroll-behavior:auto}
+}
