@@ -146,48 +146,66 @@
       type:"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
     });
   }
+  /* Una fila por etapa; Excel recalcula totales si se editan días,
+     noches, viajeros o precios unitarios de cada zona. */
   function snapshotWorkbook() {
-    const getText = function (selector) {
-      const element = document.querySelector(selector);
-      if (!element) throw new Error("Falta el campo " + selector);
-      return element.textContent.trim();
+    const text = selector => {
+      const el = document.querySelector(selector);
+      if (!el) throw new Error("Falta el dato "+selector);
+      return el.textContent.trim();
     };
-    const days = Number(getText("#days-output"));
-    const nights = Number(getText("#nights-output"));
-    const people = Number(getText("#people-output"));
-    const total = numberFrom(getText("#grand-total"));
-    if (!(days > 0 && nights >= 0 && people > 0 && Number.isFinite(total))) {
-      throw new Error("Los valores del presupuesto no son válidos");
-    }
-    const costs = categories.map(function (category, index) {
-      const key = category[0], label = category[1];
-      const selector = document.querySelector('[data-category="' + key + '"]');
-      const style = selector ? selector.selectedOptions[0].textContent.trim() : "VCC";
-      return {key:key, label:label,style:style,rate:numberFrom(getText("#price-" + key)),
-        units:key === "alojamiento" ? nights : days,
-        total:numberFrom(getText("#legend-" + key)),row:index+2};
+    const slides = [...document.querySelectorAll("#swb-route-rows .vcc-budget-route-row")];
+    if (!slides.length) throw new Error("Todavía no hay datos para exportar");
+    const days = Number(text("#days-output"));
+    const nights = Number(text("#nights-output"));
+    const people = Number(text("#people-output"));
+    const total = numberFrom(text("#grand-total"));
+    if (!(days>0 && nights>=0 && people>=1 && Number.isFinite(total))) throw new Error("Datos del viaje no válidos");
+    const details = [[
+      "Zona","Días","Noches","Viajeros",
+      "Alojamiento estilo","Alojamiento €/pax/noche",
+      "Comida estilo","Comida €/pax/día",
+      "Transporte estilo","Transporte €/pax/día",
+      "Actividades estilo","Actividades €/pax/día",
+      "Extras estilo","Extras €/pax/día",
+      "Total (€)"
+    ]];
+    slides.forEach((slide,index) => {
+      const zone=slide.querySelector("[data-zone-name]")?.selectedOptions[0]?.textContent.trim();
+      const stageDays=Number(slide.querySelector('[data-stage-input="days"]')?.value);
+      const stageNights=Number(slide.querySelector('[data-stage-input="nights"]')?.value);
+      const cols=[];
+      for(const [key] of categories){
+        const select=slide.querySelector('[data-zone-category="'+key+'"]');
+        const price=slide.querySelector('[data-zone-price="'+key+'"]');
+        if(!select||!price)throw new Error("Categoría no disponible: "+key);
+        cols.push(select.selectedOptions[0].textContent.trim(),numberFrom(price.textContent));
+      }
+      const row=index+2;
+      const stageTotal=numberFrom(slide.querySelector("[data-zone-total]")?.textContent);
+      if(!zone||!Number.isFinite(stageDays)||!Number.isFinite(stageNights)||cols.some((v,i)=>i%2===1&&!Number.isFinite(v))){
+        throw new Error("Datos incompletos en la zona "+(index+1));
+      }
+      details.push([zone,stageDays,stageNights,people,...cols,{
+        formula:"(F"+row+"*C"+row+"+(H"+row+"+J"+row+"+L"+row+"+N"+row+")*B"+row+")*D"+row,
+        cached:stageTotal
+      }]);
     });
-    const rowsSummary = [
-      ["VCC - PRESUPUESTO DE SUECIA", "Importe"],
-      ["Días",days],
-      ["Noches",nights],
+    const last=slides.length+1;
+    const summary=[
+      ["VCC - PRESUPUESTO POR ZONAS DE SUECIA","Importe"],
+      ["Días",{formula:"SUM(Desglose!B2:B"+last+")",cached:days}],
+      ["Noches",{formula:"SUM(Desglose!C2:C"+last+")",cached:nights}],
       ["Viajeros",people],
-      ["Total viaje (EUR)",{formula:"SUM(Desglose!E2:E6)",cached:total}],
-      ["Total por persona (EUR)",{formula:"IF(B4>0,B5/B4,0)",cached:total/people}],
-      ["Nota","Estimación; no incluye vuelos ni traslados de ida/vuelta al destino"],
-      ["Uso","Puedes modificar los días, noches, viajeros o precios unitarios; Excel recalculará el total."],
-      ["Zona seleccionada",document.querySelector("#swb-region")?.selectedOptions[0]?.textContent.trim()||"Centro-sur"],
-       ["Origen","www.viajandoconcabeza.com"]
+      ["Total viaje (€)",{formula:"SUM(Desglose!O2:O"+last+")",cached:total}],
+      ["Total por persona (€)",{formula:"IF(B4>0,B5/B4,0)",cached:total/people}],
+      ["Nota","Precios orientativos por zona; no son tarifas verificadas ni gasto real de toda Suecia."],
+      ["Uso","Puedes editar los días, noches, viajeros, perfiles y precios de cada etapa. Los importes se recalculan al abrir en Excel."],
+      ["Etapas",slides.length],
+      ["Origen","www.viajandoconcabeza.com"]
     ];
-    const rowsDetails = [["Categoría","Estilo","EUR/persona por unidad","Unidades","Total EUR"]];
-    costs.forEach(function (cost) {
-      rowsDetails.push([cost.label,cost.style,cost.rate,
-        {formula:cost.key === "alojamiento" ? "Resumen!$B$3" : "Resumen!$B$2",cached:cost.units},
-        {formula:"C" + cost.row + "*D" + cost.row + "*Resumen!$B$4",cached:cost.total}]);
-    });
-    rowsDetails.push(["TOTAL","","","",{formula:"SUM(E2:E6)",cached:total}]);
-    const main = 'http://schemas.openxmlformats.org/spreadsheetml/2006/main';
-    const office = 'http://schemas.openxmlformats.org/officeDocument/2006/relationships';
+    const main="http://schemas.openxmlformats.org/spreadsheetml/2006/main";
+    const office="http://schemas.openxmlformats.org/officeDocument/2006/relationships";
     return zipFile([
       {name:"[Content_Types].xml",content:'<?xml version="1.0" encoding="UTF-8"?>' +
         '<Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types">' +
@@ -199,20 +217,20 @@
         '</Types>'},
       {name:"_rels/.rels",content:'<?xml version="1.0" encoding="UTF-8"?>' +
         '<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">' +
-        '<Relationship Id="rId1" Type="' + office + '/officeDocument" Target="xl/workbook.xml"/>' +
+        '<Relationship Id="rId1" Type="'+office+'/officeDocument" Target="xl/workbook.xml"/>' +
         '</Relationships>'},
       {name:"xl/workbook.xml",content:'<?xml version="1.0" encoding="UTF-8"?>' +
-        '<workbook xmlns="' + main + '" xmlns:r="' + office + '">' +
+        '<workbook xmlns="'+main+'" xmlns:r="'+office+'">' +
         '<sheets><sheet name="Resumen" sheetId="1" r:id="rId1"/>' +
         '<sheet name="Desglose" sheetId="2" r:id="rId2"/></sheets>' +
         '<calcPr calcId="191029" fullCalcOnLoad="1"/></workbook>'},
       {name:"xl/_rels/workbook.xml.rels",content:'<?xml version="1.0" encoding="UTF-8"?>' +
         '<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">' +
-        '<Relationship Id="rId1" Type="' + office + '/worksheet" Target="worksheets/sheet1.xml"/>' +
-        '<Relationship Id="rId2" Type="' + office + '/worksheet" Target="worksheets/sheet2.xml"/>' +
+        '<Relationship Id="rId1" Type="'+office+'/worksheet" Target="worksheets/sheet1.xml"/>' +
+        '<Relationship Id="rId2" Type="'+office+'/worksheet" Target="worksheets/sheet2.xml"/>' +
         '</Relationships>'},
-      {name:"xl/worksheets/sheet1.xml",content:worksheet(rowsSummary)},
-      {name:"xl/worksheets/sheet2.xml",content:worksheet(rowsDetails)}
+      {name:"xl/worksheets/sheet1.xml",content:worksheet(summary)},
+      {name:"xl/worksheets/sheet2.xml",content:worksheet(details)}
     ]);
   }
   exporter.addEventListener("click", function () {
