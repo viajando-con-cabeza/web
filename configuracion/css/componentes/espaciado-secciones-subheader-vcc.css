@@ -54,6 +54,17 @@
     margin-block-end: var(--vcc-espai-despres-ultim-apartat) !important;
   }
 
+  /* Itineraris amb subheader de dies: la separació es comparteix,
+     però no s'aplica als elements interns de cada dia. */
+  html body nav.rich-tabs ~ section ~ section,
+  html body .rich-days > article.day-rich + article.day-rich {
+    margin-block-start: var(--vcc-espai-entre-apartats) !important;
+  }
+  html body:has(nav.rich-tabs):not(:has(.related-section,.vcc-discover-section))
+    footer.vcc-global-footer {
+    margin-block-start: var(--vcc-espai-despres-ultim-apartat) !important;
+  }
+
   @media (max-width: 720px) {
     :root {
       --vcc-espai-entre-apartats: 24px;
