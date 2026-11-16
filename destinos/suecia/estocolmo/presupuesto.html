@@ -282,7 +282,7 @@ const prices={
 };
 const state={days:3,nights:3,people:2,choices:{alojamiento:"vcc",comida:"vcc",transporte:"vcc",actividades:"vcc",extras:"vcc"}};
 const cats=["alojamiento","comida","transporte","actividades","extras"];
-const euro=n=>Math.round(n).toLocaleString("es-ES")+" €";
+const euro=n=>Math.round(n).toLocaleString("es-ES",{useGrouping:"always"})+" €";
 function sync(){
   let daily=0;
   cats.forEach(c=>{
@@ -305,12 +305,16 @@ function sync(){
     (prices[state.choices.comida].comida+prices[state.choices.transporte].transporte+
      prices[state.choices.actividades].actividades+prices[state.choices.extras].extras)*state.days)*state.people;
   document.getElementById("grand-total").textContent=euro(total);
-  document.getElementById("donut-daily").textContent=(total/state.people/state.days).toLocaleString("es-ES",{maximumFractionDigits:2})+" €";
+  document.getElementById("donut-daily").textContent=(total/state.people/state.days).toLocaleString("es-ES",{maximumFractionDigits:2,useGrouping:"always"})+" €";
   document.getElementById("trip-total").textContent=state.people+" viajeros · "+state.days+" días · "+state.nights+" noches";
+  document.querySelectorAll(".calculator-card [data-step]").forEach(button=>{
+    const key=button.dataset.step,minimum=key==="nights"?0:1,delta=Number(button.dataset.delta);
+    button.disabled=delta<0?state[key]<=minimum:state[key]>=99;
+  });
 }
 document.querySelectorAll("[data-category]").forEach(s=>s.addEventListener("change",()=>{state.choices[s.dataset.category]=s.value;sync()}));
 document.querySelectorAll("[data-step]").forEach(b=>b.addEventListener("click",()=>{
-  const k=b.dataset.step,min=k==="nights"?0:1,max=k==="people"?12:30;
+  const k=b.dataset.step,min=k==="nights"?0:1,max=99;
   state[k]=Math.max(min,Math.min(max,state[k]+Number(b.dataset.delta)));sync();
 }));
 document.querySelectorAll(".carousel-shell").forEach(carousel=>{
