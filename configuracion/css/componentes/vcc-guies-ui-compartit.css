@@ -1269,3 +1269,213 @@ html body :is(.country-hero,.st-hero).vcc-guide-hero-unified .hero-start{
    gap:10px!important;
  }
 }
+
+
+/* ============================================================
+   VCC · Planifica Suecia · portades completament unificades
+   Patró editorial existent, aplicat només a les sis subguies
+   de la secció «Planifica tu viaje» del país.
+   @layer permet prioritzar aquests valors sobre CSS antic amb
+   !important sense duplicar estils a cada plantilla.
+   ============================================================ */
+@layer vcc-suecia-portades {
+  html body .vcc-country-planning-hero {
+    box-sizing:border-box!important;
+    position:relative!important;
+    display:block!important;
+    width:100%!important;
+    height:520px!important;
+    min-height:520px!important;
+    max-height:none!important;
+    margin:0!important;
+    padding:0!important;
+    overflow:hidden!important;
+    isolation:isolate!important;
+  }
+  html body .vcc-country-planning-hero :is(
+    .vcc-hero-inner,.mv-container,.dv-shell,.cl-landing-stage,.budget-hero-inner
+  ) {
+    box-sizing:border-box!important;
+    position:static!important;
+    display:block!important;
+    width:min(1320px,calc(100% - 68px))!important;
+    max-width:1320px!important;
+    height:100%!important;
+    min-height:0!important;
+    max-height:none!important;
+    margin:0 auto!important;
+    padding:0!important;
+    transform:none!important;
+  }
+  html body .vcc-country-planning-hero :is(
+    .vcc-crumb,.mv-crumb,.dv-breadcrumb,.vcc-breadcrumb-unified
+  ) {
+    box-sizing:border-box!important;
+    position:absolute!important;
+    top:20px!important;
+    left:max(34px,calc((100% - 1320px)/2))!important;
+    right:auto!important;
+    bottom:auto!important;
+    z-index:4!important;
+    display:flex!important;
+    align-items:center!important;
+    flex-wrap:wrap!important;
+    gap:7px!important;
+    width:auto!important;
+    max-width:calc(100% - 68px)!important;
+    margin:0!important;
+    padding:0!important;
+    transform:none!important;
+    background:transparent!important;
+    font:400 12px/1.45 var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;
+    text-align:left!important;
+  }
+  html body .vcc-country-planning-hero .vcc-guide-hero-copy {
+    box-sizing:border-box!important;
+    position:absolute!important;
+    top:108px!important;
+    left:max(34px,calc((100% - 1320px)/2))!important;
+    right:auto!important;
+    bottom:auto!important;
+    z-index:3!important;
+    display:flex!important;
+    flex-direction:column!important;
+    align-items:flex-start!important;
+    justify-content:flex-start!important;
+    gap:0!important;
+    width:min(760px,calc(100% - 68px))!important;
+    max-width:760px!important;
+    height:auto!important;
+    min-height:0!important;
+    margin:0!important;
+    padding:0!important;
+    text-align:left!important;
+    transform:none!important;
+    background:transparent!important;
+    border:0!important;
+    box-shadow:none!important;
+  }
+  html body .vcc-country-planning-hero .vcc-guide-hero-copy > .vcc-guide-hero-kicker {
+    display:block!important;
+    width:auto!important;
+    max-width:100%!important;
+    height:auto!important;
+    min-height:0!important;
+    margin:0 0 13px!important;
+    padding:0!important;
+    color:#c86f5d!important;
+    font:600 31px/1.1 var(--vcc-font-script,"Caveat",cursive)!important;
+    font-style:normal!important;
+    letter-spacing:0!important;
+    text-transform:none!important;
+    text-align:left!important;
+    transform:none!important;
+    background:transparent!important;
+  }
+  html body .vcc-country-planning-hero .vcc-guide-hero-copy > h1 {
+    display:block!important;
+    width:auto!important;
+    max-width:760px!important;
+    height:auto!important;
+    min-height:0!important;
+    margin:0 0 17px!important;
+    padding:0!important;
+    color:#171717!important;
+    font:600 clamp(48px,5.35vw,77px)/1.04 var(--vcc-font-heading,"Oswald",sans-serif)!important;
+    font-style:normal!important;
+    letter-spacing:-.02em!important;
+    text-transform:uppercase!important;
+    text-align:left!important;
+    text-shadow:none!important;
+    text-wrap:balance!important;
+    transform:none!important;
+    background:transparent!important;
+  }
+  html body .vcc-country-planning-hero .vcc-guide-hero-copy > h1 em {
+    color:#c4664c!important;
+    font:inherit!important;
+    font-style:normal!important;
+    letter-spacing:inherit!important;
+    text-transform:inherit!important;
+  }
+  html body .vcc-country-planning-hero .vcc-guide-hero-copy > h1::after {
+    content:""!important;
+    display:block!important;
+    position:static!important;
+    width:184px!important;
+    height:3px!important;
+    min-height:3px!important;
+    margin:21px 0 0!important;
+    padding:0!important;
+    background:#c86f5d!important;
+    border:0!important;
+    box-shadow:none!important;
+    transform:skewX(-28deg)!important;
+  }
+  html body .vcc-country-planning-hero .vcc-guide-hero-copy > .vcc-guide-hero-description {
+    display:block!important;
+    width:auto!important;
+    max-width:710px!important;
+    height:auto!important;
+    min-height:0!important;
+    margin:0!important;
+    padding:0!important;
+    color:#353535!important;
+    font:400 17px/1.58 var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;
+    text-align:left!important;
+    text-shadow:none!important;
+    letter-spacing:0!important;
+    text-transform:none!important;
+  }
+  /* No dupliquem els traços decoratius heretats dels herois antics. */
+  html body .vcc-country-planning-hero :is(
+    .cl-landing-underline,.mv-underline,.dv-hero-underline,
+    .ep-stroke,.ql-brush,.swb-hero-underline
+  ) {display:none!important;}
+  @media(max-width:650px) {
+    html body .vcc-country-planning-hero {
+      height:520px!important;
+      min-height:520px!important;
+    }
+    html body .vcc-country-planning-hero :is(
+      .vcc-crumb,.mv-crumb,.dv-breadcrumb,.vcc-breadcrumb-unified
+    ) {
+      top:16px!important;
+      left:18px!important;
+      max-width:calc(100% - 36px)!important;
+      font-size:11px!important;
+      gap:5px!important;
+    }
+    html body .vcc-country-planning-hero .vcc-guide-hero-copy {
+      top:98px!important;
+      left:18px!important;
+      width:calc(100% - 36px)!important;
+      max-width:calc(100% - 36px)!important;
+    }
+    html body .vcc-country-planning-hero .vcc-guide-hero-copy > .vcc-guide-hero-kicker {
+      font-size:26px!important;
+      margin-bottom:10px!important;
+    }
+    html body .vcc-country-planning-hero .vcc-guide-hero-copy > h1 {
+      max-width:100%!important;
+      font-size:clamp(37px,9.7vw,53px)!important;
+      line-height:1.06!important;
+      margin-bottom:13px!important;
+    }
+    html body .vcc-country-planning-hero .vcc-guide-hero-copy > h1::after {
+      width:115px!important;
+      margin-top:14px!important;
+    }
+    html body .vcc-country-planning-hero .vcc-guide-hero-copy > .vcc-guide-hero-description {
+      max-width:100%!important;
+      font-size:13px!important;
+      line-height:1.55!important;
+    }
+  }
+  @media(max-width:370px) {
+    html body .vcc-country-planning-hero {
+      height:555px!important;
+      min-height:555px!important;
+    }
+  }
+}
