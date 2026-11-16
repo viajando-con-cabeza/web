@@ -158,10 +158,9 @@
     const before=preceding;
     if(before&&before.matches(HEROS)){
       markHero(before);
-      // Els dos herois centrals mantenen la geometria excepcional.
-      if(!eligible && before.matches('.country-hero,.st-hero')){
-        // El subheader continua compartit, però no la portada.
-      }else{
+      // Totes les portades de país o ciutat amb requadre editorial queden
+      // fora de les altures interiors, encara que siguin guies en proves.
+      if(!before.matches('.country-hero,.st-hero')){
         before.classList.add('vcc-subheader-hero','vcc-standardized-hero-height');
       }
       relocateTransportCards(nav,before);
