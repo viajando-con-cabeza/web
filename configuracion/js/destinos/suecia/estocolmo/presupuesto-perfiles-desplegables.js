@@ -254,7 +254,7 @@
       "Duración: "+days+" días · "+nights+" noches",
       "Viajeros: "+people,
       "Total estimado del viaje: "+euros(total),
-      "Total estimado por persona: "+euros(total/people)
+      "Total estimado por pax: "+euros(total/people)
     ]}];
     const details=[];
     for(const [key,label] of categories){
@@ -263,7 +263,7 @@
       const rate=numeric(text("#price-"+key));
       const amount=numeric(text("#legend-"+key));
       if(!Number.isFinite(rate)||!Number.isFinite(amount))throw Error("Datos incompletos: "+label);
-      details.push(label+" · "+selected+": "+euros(amount)+" (precio "+euros(rate)+" / persona / "+(key==="alojamiento"?"noche":"día")+")");
+      details.push(label+" · "+selected+": subtotal "+euros(amount)+" para el grupo (precio "+euros(rate)+" / pax / "+(key==="alojamiento"?"noche":"día")+")");
     }
     sections.push({heading:"Desglose por categorías",lines:details});
     return {
