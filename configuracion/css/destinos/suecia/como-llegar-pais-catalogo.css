@@ -105,3 +105,19 @@ html body .cl-page.cl-landing.sw-country-copy :is(
 ) {
   scroll-margin-top: max(0px, calc(var(--vcc-subheader-top, 50px) + var(--vcc-subnav-height, 39px) - 16px)) !important;
 }
+
+/* Text introductori dels aeroports, entre el capçal editorial i el carrusel.
+   Sense modificar la geometria de les vinyetes compartides. */
+html body .cl-page.cl-landing.sw-country-copy #comparar-aeropuertos .vcc-airport-introduction{
+  width:min(100%,880px);
+  max-width:100%;
+  margin:4px 0 0!important;
+  color:#555a57;
+  font:400 13px/1.65 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
+}
+@media(max-width:720px){
+  html body .cl-page.cl-landing.sw-country-copy #comparar-aeropuertos .vcc-airport-introduction{
+    font-size:12.5px;
+    line-height:1.6;
+  }
+}
