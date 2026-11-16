@@ -1,22 +1,49 @@
-/* VCC · CONTRACTE ÚNIC D'ALÇADA DE PORTADA AMB SUBHEADER
-   Una sola variable per dispositiu. La posició del subheader és sempre
-   capçalera global + altura de portada (sense marges addicionals).
-   Les fotos, els textos i la navegació no canvien d'estil. */
-/* La portada ha d'acabar ABANS del límit inferior de la primera
-   pantalla, reservant l'alçada de capçalera + subheader (39px) + 16px.
-   svh evita salts quan apareix/desapareix la barra del navegador.
-   El màxim conserva una mida comuna per dispositiu sense herois gegants. */
+/* VCC · ALÇADA ÚNICA DE PORTADA PER A TOTES LES PÀGINES AMB SUBHEADER
+   La barra ha de ser visible sense fer scroll en el primer viewport.
+   Un únic token compartit, no dimensions definides pàgina per pàgina.
+   Reservem espai REAL per a la barra (39px) i per al contingut inferior.
+   100svh evita saltar quan el navegador mòbil mostra/amaga controls. */
 :root{
-  --vcc-subheader-cover-height:min(430px, calc(100svh - var(--vcc-page-header-height, 100px) - var(--vcc-subnav-height, 39px) - 16px));
+  --vcc-subheader-firstscreen-clearance:96px;
+  --vcc-subheader-cover-height:min(405px, calc(100svh - var(--vcc-page-header-height, 100px) - var(--vcc-subnav-height, 39px) - var(--vcc-subheader-firstscreen-clearance)));
 }
 @media (min-width:721px) and (max-width:1024px){
   :root{
-    --vcc-subheader-cover-height:min(460px, calc(100svh - var(--vcc-page-header-height, 100px) - var(--vcc-subnav-height, 39px) - 16px));
+    --vcc-subheader-cover-height:min(425px, calc(100svh - var(--vcc-page-header-height, 100px) - var(--vcc-subnav-height, 39px) - var(--vcc-subheader-firstscreen-clearance)));
   }
 }
 @media (max-width:720px){
   :root{
-    --vcc-subheader-cover-height:min(530px, calc(100svh - var(--vcc-page-header-height, 145px) - var(--vcc-subnav-height, 39px) - 16px));
+    --vcc-subheader-firstscreen-clearance:80px;
+    --vcc-subheader-cover-height:min(455px, calc(100svh - var(--vcc-page-header-height, 145px) - var(--vcc-subnav-height, 39px) - var(--vcc-subheader-firstscreen-clearance)));
+  }
+}
+
+/* Les portades de Suècia i Estocolm comparteixen altura però tenen una
+   targeta més completa. Compactem només l'espai buit de la seva composició
+   al mòbil; mantenim descripcions, dades, botons i fotos sense retallar-los. */
+@media (max-width:720px){
+  html body.country-page:has(nav.country-nav) .country-hero .country-hero-inner{
+    padding-top:12px!important;
+    padding-bottom:12px!important;
+  }
+  html body.country-page:has(nav.country-nav) .country-hero .country-breadcrumb{
+    margin-bottom:22px!important;
+  }
+  html body:has(.st-shell nav.st-tabs) .st-shell > .st-hero > .st-hero-inner{
+    box-sizing:border-box!important;
+    height:100%!important;
+    min-height:0!important;
+    padding:12px 0!important;
+  }
+  html body:has(.st-shell nav.st-tabs) .st-shell > .st-hero .st-card.vcc-guide-hero-copy{
+    margin-top:38px!important;
+  }
+  html body.country-page:has(nav.country-nav) .country-hero .country-hero-card.vcc-guide-hero-copy,
+  html body:has(.st-shell nav.st-tabs) .st-shell > .st-hero .st-card.vcc-guide-hero-copy{
+    min-height:340px!important;
+    padding-top:12px!important;
+    padding-bottom:12px!important;
   }
 }
 
