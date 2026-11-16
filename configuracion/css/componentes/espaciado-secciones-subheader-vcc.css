@@ -84,8 +84,12 @@
 
   /* Itineraris amb subheader de dies: la separació es comparteix,
      però no s'aplica als elements interns de cada dia. */
-  html body nav.rich-tabs ~ section ~ section,
-  html body .rich-days > article.day-rich + article.day-rich {
+  html body nav.rich-tabs ~ main.rich-shell > section,
+  html body nav.rich-tabs ~ main.rich-shell #dias > article.day-rich {
+    margin-block-end: 0 !important;
+  }
+  html body nav.rich-tabs ~ main.rich-shell > section ~ section,
+  html body nav.rich-tabs ~ main.rich-shell #dias > article.day-rich + article.day-rich {
     margin-block-start: var(--vcc-espai-entre-apartats) !important;
   }
   html body:has(nav.rich-tabs):not(:has(.related-section,.vcc-discover-section))
