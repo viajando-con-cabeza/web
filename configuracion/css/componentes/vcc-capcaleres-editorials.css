@@ -559,6 +559,14 @@ html body.country-page .country-hero .country-hero-card.vcc-guide-hero-copy > .h
 html body .st-shell .st-hero .st-card.vcc-guide-hero-copy > .hero-start {
   align-self:flex-start!important;
   margin-top:auto!important;
+  /* Separació del CTA respecte a les 4 dades, igual a Suècia i Estocolm. */
+  padding-top:24px!important;
+}
+@media(max-width:700px){
+  html body.country-page .country-hero .country-hero-card.vcc-guide-hero-copy > .hero-start,
+  html body .st-shell .st-hero .st-card.vcc-guide-hero-copy > .hero-start {
+    padding-top:32px!important;
+  }
 }
 /* VCC · Suècia / Estocolm: només escala de lletres als quadres de portada.
    Les dimensions i els espaiats INTERNS recuperen els CSS originals
