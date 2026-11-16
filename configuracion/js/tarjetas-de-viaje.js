@@ -44,8 +44,8 @@
   const savingText=document.getElementById('tv-saving-label');
   const savingBox=document.getElementById('tv-saving-box');
   if(inputs.length && bankTotal && travelTotal && saving && savingText && savingBox){
-    const euro=new Intl.NumberFormat('es-ES',{style:'currency',currency:'EUR',minimumFractionDigits:2,maximumFractionDigits:2});
-    const euroEntero=new Intl.NumberFormat('es-ES',{style:'currency',currency:'EUR',minimumFractionDigits:0,maximumFractionDigits:0});
+    const euro=new Intl.NumberFormat('es-ES',{useGrouping:'always',style:'currency',currency:'EUR',minimumFractionDigits:2,maximumFractionDigits:2});
+    const euroEntero=new Intl.NumberFormat('es-ES',{useGrouping:'always',style:'currency',currency:'EUR',minimumFractionDigits:0,maximumFractionDigits:0});
     // Neutralizar errores binarios (p. ej. 1500*1.005 = 1507.49999999).
     const redondearEuros=value=>Math.round(Math.round((value+1e-8)*100)/100);
     const amount=(name)=>{
