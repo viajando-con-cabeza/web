@@ -143,6 +143,62 @@ for(const slug of [
 check(read('planifica/index.html').includes('planifica-about-hero'),
  'Planifica: la portada principal ha de conservar el seu tractament independent');
 
+/* Contracte sagrat: registre explícit de TOTES les pàgines interiors amb
+ * subheader. La classe i el CSS han d'existir a l'HTML d'origen per evitar CLS.
+ * Suècia i Estocolm són les úniques excepcions amb requadre central. */
+const interiorWithSubheader=[
+ 'planifica/vuelos/index.html',
+ 'planifica/alojamientos/index.html',
+ 'planifica/tarjetas-de-viaje/index.html',
+ 'planifica/donde-ir/index.html',
+ 'planifica/apps/index.html',
+ 'planifica/seguros/index.html',
+ ...['cuando-ir','como-llegar','como-moverse','donde-dormir','que-visitar','presupuesto']
+   .map(slug=>'destinos/suecia/'+slug+'.html'),
+ ...['que-ver','imprescindibles','itinerario','presupuesto','cuando-ir',
+     'como-llegar','como-moverse','donde-dormir','entradas-y-pases','que-llevar']
+   .map(slug=>'destinos/suecia/estocolmo/'+slug+'.html')
+];
+const firstPaintCss='portades-contracte-unic-vcc.css';
+for(const file of interiorWithSubheader){
+  const html=read(file);
+  const head=html.split(/<\/head\s*>/i)[0];
+  check((html.match(/\bvcc-sacred-hero\b/g)||[]).length===1,
+    file+': falta classe única de portada abans del primer render');
+  check((html.match(/\bvcc-sacred-subnav\b/g)||[]).length===1,
+    file+': falta classe única de subheader abans del primer render');
+  check((head.match(/data-vcc-sacred-covers/g)||[]).length===1&&
+    head.includes(firstPaintCss),
+    file+': contracte CSS compartit absent o duplicat al head');
+  check(/<nav\b[^>]*class="[^"]*\bvcc-unified-subheader\b[^"]*\bvcc-sacred-subnav\b/i.test(html)||
+    /<nav\b[^>]*class="[^"]*\bvcc-sacred-subnav\b[^"]*\bvcc-unified-subheader\b/i.test(html),
+    file+': navegació única sense les classes compartides');
+}
+for(const file of [
+ 'index.html','destinos/index.html','planifica/index.html','itinerarios/index.html',
+ 'nosotros/index.html','contacto/index.html',
+ 'destinos/suecia/index.html','destinos/suecia/estocolmo/index.html'
+]){
+  const html=read(file);
+  check(!html.includes('vcc-sacred-hero')&&!html.includes('data-vcc-sacred-covers'),
+    file+': portada principal o guia amb requadre no pot heretar l hero interior');
+}
+for(const file of ['planifica/presupuesto/index.html','planifica/que-llevar/index.html',
+                    'planifica/mapas/index.html','planifica/calcula-tu-viaje/index.html']){
+  const html=read(file);
+  check(!html.includes('vcc-sacred-hero')&&!html.includes('data-vcc-sacred-covers'),
+    file+': sense subheader no s ha de forçar el contracte');
+}
+check(canonicalHeroCss.includes('@layer vcc-interior-portades')&&
+  canonicalHeroCss.includes('--vcc-contract-mobile-height:440px')&&
+  canonicalHeroCss.includes('--vcc-contract-copy-top:78px')&&
+  canonicalHeroCss.includes('--vcc-contract-photo-veil:linear-gradient')&&
+  canonicalHeroCss.includes('nav.vcc-unified-subheader.vcc-sacred-subnav'),
+  'HERO VCC: el CSS no conté el contracte de geometria, text i foto');
+check(canonicalSubheaderJs.includes('preceding&&preceding.matches(HEROS)')&&
+  !canonicalSubheaderJs.includes('document.querySelectorAll(HERO_CONTRACT).forEach(markHero)'),
+  'HERO VCC: el controlador pot alterar pàgines sense subheader');
+
 check(registry.length===19,'El registre ha de tenir 19 portades');
 if(problems.length){problems.forEach(x=>console.error('HERO VCC:',x));process.exitCode=1;}
 else console.log('HERO VCC OK: 19 portades, mateixa fotografia, càrrega LCP primerenca.');
