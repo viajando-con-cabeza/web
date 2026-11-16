@@ -5,7 +5,7 @@
 const ENGINE='https://cdnjs.cloudflare.com/ajax/libs/jspdf/4.2.1/jspdf.umd.min.js';
 const LOGO='/configuracion/imagenes/marca/logo-vcc.svg';
 const fields=['base','baggage','seat','food','transfer'];
-const euros=new Intl.NumberFormat('es-ES',{style:'currency',currency:'EUR',minimumFractionDigits:2,maximumFractionDigits:2});
+const euros=new Intl.NumberFormat('es-ES',{useGrouping:'always',style:'currency',currency:'EUR',minimumFractionDigits:2,maximumFractionDigits:2});
 let enginePromise;
 
 function loadEngine(){
@@ -123,7 +123,7 @@ function lineText(pdf,text,x,y,maxWidth,initialSize=8,alignment='left',minSize=5
 function compactPrice(value){
   const n=Number(value);
   if(!Number.isFinite(n)||n<0)return '0,00';
-  return new Intl.NumberFormat('es-ES',{maximumFractionDigits:2}).format(n);
+  return new Intl.NumberFormat('es-ES',{useGrouping:'always',maximumFractionDigits:2}).format(n);
 }
 /* Per als titulars s'aprofiten les tipografies de la web, sense incrustar
  * fonts alienes. El cos de la taula continua sent text seleccionable al PDF.
