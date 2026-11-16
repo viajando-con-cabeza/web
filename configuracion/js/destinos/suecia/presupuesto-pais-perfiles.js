@@ -1,4 +1,4 @@
-/* VCC Suecia: mismo acordeón de Estocolmo + exportación Excel del cálculo regional.
+/* VCC Suecia: mismo acordeón de Estocolmo + exportación PDF del cálculo regional.
    La calculadora original permanece intacta: se leen sus resultados visibles. */
 (function () {
   "use strict";
@@ -112,4 +112,4 @@
       window.alert("No hemos podido generar el PDF. Revisa los datos e inténtalo de nuevo.");
     }
   });
-})();\n
+})();
