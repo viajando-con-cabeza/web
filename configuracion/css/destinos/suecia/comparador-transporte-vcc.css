@@ -3,19 +3,9 @@
    Los importes son totales del viaje y proceden de los campos del usuario. */
 
 /* El texto introductorio va debajo del título, sin Consejo VCC adicional. */
-html body.swmove-page #comparar .swmove-head{
-  display:flex!important;flex-direction:column!important;align-items:flex-start!important;
-  gap:8px!important;margin-bottom:16px!important;
-}
-html body.swmove-page #comparar .swmove-head .vcc-editorial-heading-main{
-  width:100%;max-width:100%;
-}
-html body.swmove-page #comparar .swmove-head .swmove-comparison-description{
-  display:block!important;width:100%!important;max-width:1050px!important;
-  margin:0!important;padding:0!important;
-  font:400 13px/1.55 var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;
-  color:#615b55!important;text-align:left!important;
-}
+/* La capçalera de l'apartat segueix la graella editorial comuna;
+   cap regla d'aquest component no altera sobretítol, títol ni resum. */
+.swmove-page #comparar .swmove-head{margin-bottom:16px!important}
 .swmove-page #comparar .swmove-choice-grid{margin-bottom:16px}
 
 /* Base de la calculadora: título breve arriba y tres columnas debajo. */
@@ -183,10 +173,7 @@ html body.swmove-page #comparar .swmove-head .swmove-comparison-description{
 
 /* Teléfono: tres bloques en vertical, sin columnas estrechas ni scroll lateral. */
 @media(max-width:700px){
-  html body.swmove-page #comparar .swmove-head{gap:7px!important;margin-bottom:12px!important}
-  html body.swmove-page #comparar .swmove-head .swmove-comparison-description{
-    font-size:12px!important;line-height:1.5!important;
-  }
+  .swmove-page #comparar .swmove-head{margin-bottom:12px!important}
   .swmove-page #comparar .swmove-choice-grid{margin-bottom:12px}
   .swmove-page #comparar .swmove-compare-heading{padding:11px 12px 8px}
   .swmove-page #comparar .swmove-compare-heading h3{font-size:20px}
