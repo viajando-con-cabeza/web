@@ -578,3 +578,72 @@ html body.budget-vcc.sweden-budget-vcc #calculadora .vcc-budget-stage-chip[aria-
     margin-bottom:9px!important;
   }
 }
+
+/* VCC · Pestanyes de zones v12: una línia, subtils i menys altes. */
+html body.budget-vcc.sweden-budget-vcc #calculadora .vcc-budget-stage-chips{
+ gap:7px!important;padding:1px 0!important;
+}
+html body.budget-vcc.sweden-budget-vcc #calculadora .vcc-budget-stage-chip{
+ position:relative!important;flex:0 0 auto!important;display:inline-flex!important;
+ flex-direction:row!important;align-items:center!important;justify-content:flex-start!important;
+ gap:7px!important;min-width:0!important;max-width:220px!important;
+ height:32px!important;min-height:32px!important;
+ padding:0 10px 0 24px!important;
+ border-radius:8px!important;border:1px solid #e5dfd8!important;
+ background:#fff!important;color:#4d4945!important;
+ box-shadow:none!important;
+}
+html body.budget-vcc.sweden-budget-vcc #calculadora .vcc-budget-stage-chip::before{
+ left:8px!important;top:50%!important;transform:translateY(-50%)!important;
+ color:#8e837b!important;font:600 10px/1 var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;
+}
+html body.budget-vcc.sweden-budget-vcc #calculadora .vcc-budget-stage-chip strong{
+ flex:0 1 auto!important;min-width:0!important;max-width:none!important;
+ font:700 10.5px/1.15 var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;
+ white-space:nowrap!important;overflow:hidden!important;text-overflow:ellipsis!important;
+}
+html body.budget-vcc.sweden-budget-vcc #calculadora .vcc-budget-stage-chip small{
+ display:block!important;flex:0 0 auto!important;margin:0!important;
+ padding:0 0 0 7px!important;border-left:1px solid #e6ddd6!important;
+ font:500 9px/1.15 var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;
+ color:#80756d!important;white-space:nowrap!important;
+}
+html body.budget-vcc.sweden-budget-vcc #calculadora .vcc-budget-stage-chip:hover{
+ background:#fdf7f3!important;border-color:#e8c1b4!important;
+}
+html body.budget-vcc.sweden-budget-vcc #calculadora .vcc-budget-stage-chip[aria-pressed="true"]{
+ background:rgba(204,104,75,.10)!important;
+ border-color:rgba(190,94,66,.39)!important;
+ color:#42332f!important;box-shadow:none!important;
+}
+html body.budget-vcc.sweden-budget-vcc #calculadora .vcc-budget-stage-chip[aria-pressed="true"]::before{
+ color:#b9684d!important;
+}
+html body.budget-vcc.sweden-budget-vcc #calculadora .vcc-budget-route-toolbar{
+ margin-bottom:6px!important;
+}
+html body.budget-vcc.sweden-budget-vcc #calculadora .vcc-budget-route-actions{
+ gap:4px!important;padding-left:5px!important;
+}
+@media(max-width:700px){
+ html body.budget-vcc.sweden-budget-vcc #calculadora .vcc-budget-stage-chip{
+  height:32px!important;min-height:32px!important;
+  padding:0 8px 0 22px!important;gap:5px!important;
+  max-width:194px!important;
+ }
+ html body.budget-vcc.sweden-budget-vcc #calculadora .vcc-budget-stage-chip::before{left:7px!important}
+ html body.budget-vcc.sweden-budget-vcc #calculadora .vcc-budget-stage-chip strong{
+  font-size:10px!important;max-width:none!important;
+ }
+ html body.budget-vcc.sweden-budget-vcc #calculadora .vcc-budget-stage-chip small{
+  display:block!important;font-size:9px!important;padding-left:5px!important;
+ }
+}
+@media(max-width:390px){
+ html body.budget-vcc.sweden-budget-vcc #calculadora .vcc-budget-stage-chip{
+  max-width:177px!important;
+ }
+ html body.budget-vcc.sweden-budget-vcc #calculadora .vcc-budget-stage-chip small{
+  display:block!important;
+ }
+}
