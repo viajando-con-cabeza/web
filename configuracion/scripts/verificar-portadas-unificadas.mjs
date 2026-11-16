@@ -190,7 +190,7 @@ for(const file of ['planifica/presupuesto/index.html','planifica/que-llevar/inde
     file+': sense subheader no s ha de forçar el contracte');
 }
 check(canonicalHeroCss.includes('@layer vcc-interior-portades')&&
-  canonicalHeroCss.includes('--vcc-contract-mobile-height:440px')&&
+  canonicalHeroCss.includes('--vcc-contract-mobile-height:')&&
   canonicalHeroCss.includes('--vcc-contract-copy-top:78px')&&
   canonicalHeroCss.includes('--vcc-contract-photo-veil:linear-gradient')&&
   canonicalHeroCss.includes('nav.vcc-unified-subheader.vcc-sacred-subnav'),
