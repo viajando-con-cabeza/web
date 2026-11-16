@@ -640,12 +640,22 @@ html body.dv-country-types:has(nav.vcc-sacred-subnav) main.dv-main .al-compare .
   max-width:none!important;
   margin-inline:0!important;
 }
-/* Cómo llegar usa un main de fons a ample complet i la portada a dins.
-   Apliquem el mateix gutter al contingut, sense retallar els fons/hero. */
+/* Cómo llegar és un main de fons a pantalla completa. Les seccions
+   interiors mantenen el fons ample, però comparteixen exactament l'eix
+   horitzontal amb les altres guies (sense max-width addicional). */
 html body:has(nav.vcc-sacred-subnav) main.cl-page.cl-landing > section:not(.cl-landing-hero):not(#vcc-lcp-hero){
   box-sizing:border-box!important;
   padding-left:max(var(--vcc-subheader-content-gutter),calc((100% - var(--vcc-subheader-content-max))/2))!important;
   padding-right:max(var(--vcc-subheader-content-gutter),calc((100% - var(--vcc-subheader-content-max))/2))!important;
+}
+/* Aquesta secció tenia max-width propi + padding del main: dos marges
+   acumulats. Forcem una sola amplada, igual que l'aeroport i l'estalvi. */
+html body.vcc-suecia-planifica:has(nav.vcc-sacred-subnav) main.cl-page.cl-landing.sw-country-copy > section#como-llegar-regiones.sw-country-guides{
+  box-sizing:border-box!important;
+  width:100%!important;
+  max-width:none!important;
+  margin-inline:0!important;
+  padding-inline:max(var(--vcc-subheader-content-gutter),calc((100% - var(--vcc-subheader-content-max))/2))!important;
 }
 @media(max-width:1090px){
   html body:has(nav.vcc-sacred-subnav){--vcc-subheader-content-gutter:19px}
@@ -678,4 +688,43 @@ html body .day-rich > .vcc-editorial-heading{
 }
 @media(max-width:720px){
   html body .day-rich > .vcc-editorial-heading{padding:16px 16px 0!important}
+}
+
+
+/* VCC · SEPARACIÓ VERTICAL COMPARTIDA · 20261116
+   Separació de contingut entre apartats amb subheader, sense alterar
+   la separació dels elements interns, fotografies ni capçaleres.
+   La portada/heroi i la barra d'àncores queden exclosos. */
+html body:has(nav.vcc-sacred-subnav){
+  --vcc-section-space:52px;
+}
+/* Les guies amb contenidor principal alineen seccions, tant al principi
+   com entre blocs. Només els fills directes (mai subapartats interns). */
+html body:has(nav.vcc-sacred-subnav) main:is(.budget-main,.dv-main,.ci-main,.ep4-main,.ql-main,.content-shell) > section[id]{
+  box-sizing:border-box!important;
+  margin-bottom:var(--vcc-section-space)!important;
+}
+html body:has(nav.vcc-sacred-subnav) main:is(.budget-main,.dv-main,.ci-main){
+  padding-top:var(--vcc-section-space)!important;
+}
+html body:has(nav.vcc-sacred-subnav) main.mv-container > section.swmove-section{
+  margin-block:0!important;
+  padding-top:var(--vcc-section-space)!important;
+}
+html body:has(nav.vcc-sacred-subnav) main.mv-container > section.swmove-section:last-of-type{
+  padding-bottom:var(--vcc-section-space)!important;
+}
+/* Suecia · Cómo llegar: mateix espai entre aeroports, regions i estalvi.
+   El padding de baix no es duplica amb el de dalt del bloc següent. */
+html body.vcc-suecia-planifica:has(nav.vcc-sacred-subnav) main.cl-page.cl-landing.sw-country-copy > section:is(#comparar-aeropuertos,#como-llegar-regiones,#ahorrar){
+  padding-top:var(--vcc-section-space)!important;
+  padding-bottom:0!important;
+  margin-top:0!important;
+  margin-bottom:0!important;
+}
+html body.vcc-suecia-planifica:has(nav.vcc-sacred-subnav) main.cl-page.cl-landing.sw-country-copy > section#ahorrar{
+  padding-bottom:var(--vcc-section-space)!important;
+}
+@media(max-width:760px){
+  html body:has(nav.vcc-sacred-subnav){--vcc-section-space:34px}
 }
