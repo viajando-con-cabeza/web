@@ -204,12 +204,11 @@
         <span class="vcc-category-name"><span class="vcc-category-icon" aria-hidden="true">${categoryIcons[k]}</span><span>${categoryNames[k]}</span></span>
         <select data-zone-category="${k}" aria-label="Estilo de ${categoryNames[k].toLowerCase()} para zona ${i+1}"></select>
         <span class="vcc-price-block"><strong class="vcc-budget-price" data-zone-price="${k}">—</strong><small>por persona / ${k==="alojamiento"?"noche":"día"}</small></span></div>`).join("");
-      slide.innerHTML=`<div class="vcc-budget-stage-heading"><span>ZONA ${i+1} DE ${state.stops.length}</span><button type="button" data-remove-stop aria-label="Eliminar etapa ${i+1}">× Quitar</button></div>
+      slide.innerHTML=`<div class="vcc-budget-stage-heading"><span>ZONA ${i+1} DE ${state.stops.length}</span><span class="vcc-budget-stage-subtotal"><span>Subtotal</span><strong data-zone-total>—</strong></span><button type="button" data-remove-stop aria-label="Eliminar etapa ${i+1}">× Quitar</button></div>
         <div class="vcc-budget-stage-controls">
          <label class="vcc-budget-stage-region"><span>REGIÓN</span><select data-zone-name aria-label="Región de la zona ${i+1}"></select></label>
          ${["days","nights"].map(unit=>`<div class="vcc-budget-stage-unit"><span>${unit==="days"?"DÍAS":"NOCHES"}</span><div class="vcc-budget-stage-step"><button type="button" data-stage-step="${unit}" data-stage-delta="-1" aria-label="Restar ${unit==="days"?"día":"noche"} en la zona ${i+1}">−</button><input type="number" data-stage-input="${unit}" min="${unit==="days"?1:0}" max="60" step="1" inputmode="numeric" aria-label="${unit==="days"?"Días":"Noches"} en la zona ${i+1}" value="${stop[unit]}"><button type="button" data-stage-step="${unit}" data-stage-delta="1" aria-label="Añadir ${unit==="days"?"día":"noche"} en la zona ${i+1}">+</button></div></div>`).join("")}
-        </div><div class="vcc-budget-stage-categories">${rows}</div>
-        <div class="vcc-budget-stage-subtotal"><span>TOTAL DE ESTA ZONA</span><strong data-zone-total>—</strong></div>`;
+        </div><div class="vcc-budget-stage-categories">${rows}</div>`;
       const selector=slide.querySelector("[data-zone-name]");
       for(const [key,zone] of Object.entries(data.zones)){
         const opt=document.createElement("option");opt.value=key;opt.textContent=zone.name;selector.append(opt);
