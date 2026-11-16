@@ -602,3 +602,51 @@ html body .st-shell .st-hero::after {
 html body .st-hero.vcc-guide-hero-unified::before {
   display:none!important;
 }
+
+
+/* VCC · MARGES LATERALS DE SUBHEADER · COMPARTIT
+   Un únic max-width / gutter per a contingut de les guies amb subheader.
+   No modifica hero, barra d'ancoratges ni seccions de fons a pantalla completa. */
+html body:has(nav.vcc-sacred-subnav){
+  --vcc-subheader-content-max:1490px;
+  --vcc-subheader-content-gutter:53px;
+}
+html body:has(nav.vcc-sacred-subnav) :is(
+  main.budget-main,
+  main.dv-main,
+  main.mv-container,
+  main.ci-main
+){
+  box-sizing:border-box!important;
+  width:min(var(--vcc-subheader-content-max),calc(100% - 2 * var(--vcc-subheader-content-gutter)))!important;
+  max-width:var(--vcc-subheader-content-max)!important;
+  margin-inline:auto!important;
+}
+/* Dónde dormir Suecia contenia amplades de secció pròpies i repetia gutter:
+   amb el main unificat, totes les seccions han d'ocupar el 100% del main. */
+html body.dv-country-types:has(nav.vcc-sacred-subnav) main.dv-main > :is(#barrios,#como-ahorrar,#por-region,.dv-planifica-alojamiento-reuse){
+  box-sizing:border-box!important;
+  width:100%!important;
+  max-width:none!important;
+  margin-left:0!important;
+  margin-right:0!important;
+}
+html body.dv-country-types:has(nav.vcc-sacred-subnav) main.dv-main .al-compare .al-wrap{
+  box-sizing:border-box!important;
+  width:100%!important;
+  max-width:none!important;
+  margin-inline:0!important;
+}
+/* Cómo llegar usa un main de fons a ample complet i la portada a dins.
+   Apliquem el mateix gutter al contingut, sense retallar els fons/hero. */
+html body:has(nav.vcc-sacred-subnav) main.cl-page.cl-landing > section:not(.cl-landing-hero):not(#vcc-lcp-hero){
+  box-sizing:border-box!important;
+  padding-left:max(var(--vcc-subheader-content-gutter),calc((100% - var(--vcc-subheader-content-max))/2))!important;
+  padding-right:max(var(--vcc-subheader-content-gutter),calc((100% - var(--vcc-subheader-content-max))/2))!important;
+}
+@media(max-width:1090px){
+  html body:has(nav.vcc-sacred-subnav){--vcc-subheader-content-gutter:19px}
+}
+@media(max-width:620px){
+  html body:has(nav.vcc-sacred-subnav){--vcc-subheader-content-gutter:15px}
+}
