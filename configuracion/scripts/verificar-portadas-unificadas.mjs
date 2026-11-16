@@ -94,10 +94,20 @@ check(swedenHomeRenderer.includes('country-hero-card vcc-guide-hero-copy')&&
 check(stockholmHome.includes('st-card vcc-guide-hero-copy')&&
  !stockholmHome.includes('st-hero vcc-guide-hero-unified'),
  'Estocolmo: cal conservar el requadre de la portada general');
-const countryPlanningCss=read('configuracion/css/componentes/vcc-suecia-planifica-portades.css');
-check(countryPlanningCss.includes('body.vcc-suecia-planifica')&&
- countryPlanningCss.includes('.vcc-suecia-planning-subnav'),
- 'Suecia: CSS comú de les sis portades de planificació absent');
+const canonicalHeroCss=read('configuracion/css/componentes/portades-contracte-unic-vcc.css');
+const canonicalSubheaderJs=read('configuracion/js/componentes/subheader-unificado-vcc.js');
+const sharedHeaderJs=read('configuracion/js/site-header.js');
+check(canonicalHeroCss.includes('--vcc-contract-height:475px')&&
+ canonicalHeroCss.includes('--vcc-contract-photo-alpha:linear-gradient')&&
+ canonicalHeroCss.includes('vcc-sacred-subnav')&&
+ canonicalHeroCss.includes('vcc-guide-hero-copy')&&
+ canonicalHeroCss.includes('vcc-planifica-hero-content')&&
+ canonicalSubheaderJs.includes("const HERO_CONTRACT=")&&
+ canonicalSubheaderJs.includes("'/destinos/suecia/estocolmo'")&&
+ sharedHeaderJs.includes('portades-contracte-unic-vcc.css'),
+ 'HERO VCC: manca el contracte global de foto, tipografia, altura i subheader');
+check(!read('configuracion/css/componentes/vcc-suecia-planifica-portades.css').includes('@layer vcc-suecia-planifica-portades'),
+ 'Suecia: el CSS local antic no pot redefinir capçalera, degradat o subheader');
 for(const section of [
  'cuando-ir','como-llegar','como-moverse','donde-dormir','que-visitar','presupuesto'
 ]){
@@ -105,8 +115,8 @@ for(const section of [
  check(html.includes('vcc-suecia-planifica')&&
   html.includes('vcc-suecia-planning-hero')&&
   html.includes('vcc-suecia-planning-subnav')&&
-  html.includes('/configuracion/css/componentes/vcc-suecia-planifica-portades.css'),
-  file+': falta la portada/subheader CSS compartit');
+  html.includes('site-header.js'),
+  file+': falta la portada, el subheader o el carregador global');
  check(html.includes('vcc-guide-hero-kicker')&&
   html.includes('vcc-guide-hero-description')&&
   html.includes('<em>SUECIA</em>'),
