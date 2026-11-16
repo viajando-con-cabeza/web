@@ -1858,3 +1858,19 @@ html body.vcc-suecia-planifica:has(nav.vcc-sacred-subnav) main.cl-page.cl-landin
 @media(max-width:760px){
   html body:has(nav.vcc-sacred-subnav){--vcc-section-space:34px}
 }
+
+
+/* Evitem sumar el padding inferior de plantilla al marge de l'últim bloc. */
+html body:has(nav.vcc-sacred-subnav) main:is(.dv-main,.ci-main){
+  padding-bottom:0!important;
+}
+/* Calculadora compartida Dónde dormir: espai únic entre apartats.
+   La fitxa conserva l'interior; només neutralitzem padding extern duplicat. */
+html body.dv-country-types:has(nav.vcc-sacred-subnav) main.dv-main > .dv-planifica-alojamiento-reuse{
+  margin:0 0 var(--vcc-section-space)!important;
+  padding:0!important;
+}
+html body.dv-country-types:has(nav.vcc-sacred-subnav) main.dv-main > .dv-planifica-alojamiento-reuse > .al-compare{
+  padding-top:0!important;
+  padding-bottom:0!important;
+}
