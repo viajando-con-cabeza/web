@@ -1,8 +1,20 @@
 /* VCC · Control común de subheaders, sin afectar al menú principal. */
 (() => {
   'use strict';
-  const NAVS='nav.st-tabs,nav.vcc-nav,nav.place-nav-wrap,nav.country-nav,nav.mv-subnav,nav.dv-subnav,nav.ep-subnav,nav.ql-subnav,nav.ci-subnav,nav.content-nav,nav.rich-tabs,nav.cl-subnav,nav.tv-tabs';
-  const HEROS='.st-hero,.country-hero,.imp-hero,.vcc-hero,.mv-hero,.dv-hero,.ep-hero,.ql-hero,.ci-hero,.budget-hero,.content-hero,.rich-hero,.tv-hero,.al-hero,.cl-landing-hero';
+  const NAVS='nav.st-tabs,nav.vcc-nav,nav.place-nav-wrap,nav.country-nav,nav.mv-subnav,nav.dv-subnav,nav.ep-subnav,nav.ql-subnav,nav.ci-subnav,nav.content-nav,nav.rich-tabs,nav.cl-subnav,nav.cl-subheader,nav.av-subnav,nav.sv-tabs,nav.di-subnav,nav.tv-tabs,nav.vcc-unified-subheader';
+  const HEROS='.st-hero,.country-hero,.imp-hero,.vcc-hero,.mv-hero,.dv-hero,.ep-hero,.ql-hero,.ci-hero,.budget-hero,.content-hero,.rich-hero,.tv-hero,.al-hero,.cl-landing-hero,.vcc-planifica-hero,.av-hero,.sv-hero,.di-hero,.vl-hero,.swb-hero';
+  /* La font de veritat visual és portades-contracte-unic-vcc.css.
+   * No tocar les 6 portades principals ni les dues guies amb targeta central.
+   * Per a la resta, qualsevol hero editorial reutilitza alçada/marges/fade. */
+  const pathname=location.pathname.replace(/\/index\.html$/i,'/').replace(/\/$/,'')||'/';
+  const excluded=new Set(['/','/destinos','/planifica','/itinerarios',
+    '/nosotros','/contacto','/destinos/suecia','/destinos/suecia/estocolmo']);
+  const eligible=!excluded.has(pathname);
+  const HERO_CONTRACT='.vcc-guide-hero-unified,.vcc-planifica-hero,.rich-hero';
+  const markHero=(hero)=>{
+    if(!eligible||!hero||hero.matches('.country-hero,.st-hero'))return;
+    if(hero.matches(HERO_CONTRACT))hero.classList.add('vcc-sacred-hero');
+  };
   const managed=new Set();
   const pending=new WeakMap();
   const headerTop=()=>{
@@ -102,9 +114,12 @@
     mq.addEventListener?.('change',place);
   };
   const setup=(nav)=>{
+    // La subnavegació interna de les targetes de transport no és un subheader.
+    if(nav.closest('main')&&!nav.classList.contains('vcc-unified-subheader'))return;
     if(managed.has(nav))return;
     managed.add(nav);
     nav.classList.add('vcc-unified-subheader');
+    if(eligible)nav.classList.add('vcc-sacred-subnav');
     if(nav.querySelector('.vcc-nav-inner,.ql-subnav-inner,.country-nav-inner'))
       nav.classList.add('vcc-subnav-inner-layout');
     // Algunas plantillas insertan un espaciador de la barra fija entre hero y subheader.
@@ -114,7 +129,13 @@
       before=before.previousElementSibling;
     }
     if(before&&before.matches(HEROS)){
-      before.classList.add('vcc-subheader-hero','vcc-standardized-hero-height');
+      markHero(before);
+      // Els dos herois centrals mantenen la geometria excepcional.
+      if(!eligible && before.matches('.country-hero,.st-hero')){
+        // El subheader continua compartit, però no la portada.
+      }else{
+        before.classList.add('vcc-subheader-hero','vcc-standardized-hero-height');
+      }
       relocateTransportCards(nav,before);
     }
     for(const item of itemsOf(nav))item.target.setAttribute('data-vcc-subheader-target','');
@@ -132,6 +153,7 @@
     }
   };
   const scan=()=>{
+    if(eligible)document.querySelectorAll(HERO_CONTRACT).forEach(markHero);
     document.querySelectorAll(NAVS).forEach(setup);
     for(const nav of managed){
       if(!nav.isConnected)continue;
