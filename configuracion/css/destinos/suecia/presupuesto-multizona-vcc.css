@@ -352,7 +352,7 @@ html body.budget-vcc.sweden-budget-vcc #calculadora .breakdown-card .legend-row{
   html body.budget-vcc.sweden-budget-vcc #calculadora .vcc-budget-add-stop{font-size:8px!important}
 }
 
-/* VCC · Zones v9: només les targetes pintades; barra neta i controls compactes.
+/* VCC · Zones v10: filtres abans del divisor; targetes de zona pintades sense franja.
    Es manté el format de total i els imports unitaris compartits amb Estocolm. */
 html body.budget-vcc.sweden-budget-vcc #calculadora .vcc-budget-route-planner{
   padding:0!important;margin:3px 0 5px!important;border:0!important;background:transparent!important;
@@ -414,14 +414,14 @@ html body.budget-vcc.sweden-budget-vcc #calculadora .vcc-budget-add-stop{
   height:30px!important;min-height:30px!important;font-size:10px!important;
 }
 html body.budget-vcc.sweden-budget-vcc #calculadora .vcc-budget-stage-heading{
-  padding:2px 2px 6px!important;margin:0 0 1px!important;
-  border-bottom:1px solid #ecebe8!important;
+  padding:2px 2px 3px!important;margin:0 0 2px!important;
+  border-bottom:0!important;
 }
 html body.budget-vcc.sweden-budget-vcc #calculadora .vcc-budget-stage-controls{
   display:grid!important;grid-template-columns:minmax(0,1.28fr) minmax(0,.9fr) minmax(0,.9fr)!important;
   gap:8px!important;align-items:end!important;
-  padding:0!important;margin:5px 0 7px!important;
-  border:0!important;border-radius:0!important;
+  padding:0 0 10px!important;margin:8px 0 7px!important;
+  border:0!important;border-bottom:1px solid #e8e4df!important;border-radius:0!important;
   background:transparent!important;
 }
 html body.budget-vcc.sweden-budget-vcc #calculadora .vcc-budget-stage-controls :is(label,.vcc-budget-stage-unit){
@@ -474,7 +474,7 @@ html body.budget-vcc.sweden-budget-vcc #calculadora .vcc-budget-stage-categories
     padding:0 2px!important;font-size:9px!important;
   }
   html body.budget-vcc.sweden-budget-vcc #calculadora .vcc-budget-stage-controls{
-    gap:6px!important;padding:0!important;
+    gap:6px!important;padding:0 0 8px!important;
   }
 }
 @media(max-width:510px){
