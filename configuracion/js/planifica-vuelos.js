@@ -314,7 +314,7 @@
    exportButton.disabled=true;
    setStatus('Preparando tu PDF de VCC...');
    try{
-     const {exportarComparacionPDF}=await import('/configuracion/js/componentes/vcc-vuelos-pdf.js?v=20261116-milers-v3');
+     const {exportarComparacionPDF}=await import('/configuracion/js/componentes/vcc-vuelos-pdf.js?v=20261116-extended-routes-v4');
      const file=await exportarComparacionPDF(flights.map(f=>({...f})),airlines);
      setStatus('PDF descargado: '+file);
    }catch(error){
