@@ -63,7 +63,7 @@
 const root=document.querySelector('.al-compare');if(!root)return;
 const head=root.querySelector('[data-al-calc-head]'),body=root.querySelector('[data-al-calc-body]');
 const scroll=root.querySelector('[data-al-calc-scroll]'),add=root.querySelector('[data-al-add]');
-const status=root.querySelector('[data-al-status]'), euro=new Intl.NumberFormat('es-ES',{style:'currency',currency:'EUR'});
+const status=root.querySelector('[data-al-status]'), euro=new Intl.NumberFormat('es-ES',{useGrouping:'always',style:'currency',currency:'EUR'});
 const letters=['A','B','C','D','E'];
 const iconRoot='/configuracion/imagenes/iconos/paginas/planifica-alojamientos-comparador-iconos.svg#';
 const rows=[
