@@ -4,7 +4,7 @@
  */
 const ENGINE='https://cdnjs.cloudflare.com/ajax/libs/jspdf/4.2.1/jspdf.umd.min.js';
 const LOGO='/configuracion/imagenes/marca/logo-vcc.svg';
-const euro=new Intl.NumberFormat('es-ES',{style:'currency',currency:'EUR',minimumFractionDigits:2,maximumFractionDigits:2});
+const euro=new Intl.NumberFormat('es-ES',{useGrouping:'always',style:'currency',currency:'EUR',minimumFractionDigits:2,maximumFractionDigits:2});
 let pdfPromise;
 function engine(){
  if(window.jspdf?.jsPDF)return Promise.resolve(window.jspdf.jsPDF);
@@ -46,7 +46,7 @@ async function heading(pdf,value,x,y,w){
 function fmt(n,unit){
  const value=Number(n);
  const val=Number.isFinite(value)?Math.max(0,Math.min(value,100000000)):0;
- return unit==='%'?new Intl.NumberFormat('es-ES',{maximumFractionDigits:2}).format(val)+' %':euro.format(val);
+ return unit==='%'?new Intl.NumberFormat('es-ES',{useGrouping:'always',maximumFractionDigits:2}).format(val)+' %':euro.format(val);
 }
 function drawRounded(pdf,x,y,w,h,fill,stroke='line'){
  color(pdf,fill,'fill');color(pdf,stroke,'stroke');pdf.setLineWidth(.3);pdf.roundedRect(x,y,w,h,3,3,'FD');
@@ -114,7 +114,7 @@ export async function exportarAhorroTarjetasPDF({inputs,bankText,travelText,diff
  color(pdf,'muted');pdf.setFont('helvetica','bold');pdf.setFontSize(7.7);
  pdf.text(positive?'AHORRO ESTIMADO':negative?'COSTE ADICIONAL':'MISMO COSTE ESTIMADO',dx+9,dy+67);
  color(pdf,tone);pdf.setFont('helvetica','bold');pdf.setFontSize(20);
- write(pdf,new Intl.NumberFormat('es-ES',{style:'currency',currency:'EUR',minimumFractionDigits:0,maximumFractionDigits:0}).format(roundedDifference),dx+9,dy+79,dw-18,20);
+ write(pdf,new Intl.NumberFormat('es-ES',{useGrouping:'always',style:'currency',currency:'EUR',minimumFractionDigits:0,maximumFractionDigits:0}).format(roundedDifference),dx+9,dy+79,dw-18,20);
  color(pdf,'muted');pdf.setFont('helvetica','normal');pdf.setFontSize(7.8);
  pdf.text('Markup: diferencia porcentual entre cambio aplicado y cambio de referencia (p. ej., BCE).',x,181);
  pdf.text('Estimación; no incluye cuotas fijas ni cargos propios del cajero. Revisa las condiciones.',x,187);
