@@ -60,5 +60,30 @@ for(const prop of ['--vcc-color-accent','--vcc-font-body','--vcc-consejo-border-
 const header=fs.readFileSync('configuracion/js/site-header.js','utf8');
 if(!header.includes('vcc-core-compartit.css')||!header.includes('data-vcc-core-styles'))
   failures.push('Header no carrega el paquet CSS comú de manera única');
+// El component editorial té una única font CSS efectiva: el full
+// vcc-capcaleres-editorials.css. El bundle de guies no el duplica.
+const manifest=JSON.parse(fs.readFileSync('configuracion/datos/compilacion-css-vcc.json','utf8'));
+const sharedBundle=manifest.bundles.find(x=>x.out==='configuracion/css/componentes/vcc-guies-ui-compartit.css');
+const editorialCss='configuracion/css/componentes/vcc-capcaleres-editorials.css';
+if(!sharedBundle||sharedBundle.sources?.includes(editorialCss))
+  failures.push('Les capçaleres editorials no han de duplicar-se dins del bundle de guies');
+const generatedUi=fs.readFileSync('configuracion/css/componentes/vcc-guies-ui-compartit.css','utf8');
+if(generatedUi.includes('/* === '+editorialCss+' === */'))
+  failures.push('CSS generat de guies encara inclou capçaleres editorials duplicades');
+for(const file of [
+ 'destinos/suecia/como-llegar.html','destinos/suecia/como-moverse.html',
+ 'destinos/suecia/cuando-ir.html','destinos/suecia/donde-dormir.html',
+ 'destinos/suecia/estocolmo/como-llegar.html',
+ 'destinos/suecia/estocolmo/como-moverse.html',
+ 'destinos/suecia/estocolmo/cuando-ir.html',
+ 'destinos/suecia/estocolmo/donde-dormir.html',
+ 'destinos/suecia/estocolmo/entradas-y-pases.html'
+]){
+ const html=fs.readFileSync(file,'utf8');
+ if(!html.includes('/configuracion/css/componentes/vcc-guies-ui-compartit.css')||
+    !html.includes('/'+editorialCss))
+   failures.push(file+': falta el bundle compartit o el CSS editorial independent');
+}
+
 if(failures.length){for(const f of failures)console.error('CSS VCC:',f);process.exitCode=1;}
 else console.log('VCC CSS OK: regles exactes deduplicades, tokens i carregadors comuns correctes.');
