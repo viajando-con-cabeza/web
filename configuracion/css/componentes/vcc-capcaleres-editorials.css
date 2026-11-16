@@ -653,3 +653,17 @@ html body:has(nav.vcc-sacred-subnav) main.cl-page.cl-landing > section:not(.cl-l
 @media(max-width:620px){
   html body:has(nav.vcc-sacred-subnav){--vcc-subheader-content-gutter:15px}
 }
+
+
+/* VCC · Capçaleres de les etapes de l'itinerari: una sola fila editorial. */
+html body .vcc-summary > .vcc-editorial-heading,
+html body .day-section > .vcc-editorial-heading{
+  grid-column:1/-1!important;
+  grid-row:auto!important;
+  width:100%!important;
+  margin:0 0 6px!important;
+}
+html body .day-section > .vcc-editorial-heading .hand,
+html body .vcc-summary > .vcc-editorial-heading .hand{
+  transform:none!important;
+}
