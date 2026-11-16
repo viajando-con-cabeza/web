@@ -60,6 +60,48 @@ node configuracion/scripts/generate-planifica-hubs.mjs
 
 El workflow Quality ejecuta las comprobaciones al publicar. Trabaja en `quality`; producción sigue usando `main`.
 
+## CSS compartido y mantenimiento seguro
+
+El diseño aprobado se mantiene desde las **fuentes canónicas**, nunca editando
+manualmente archivos con cabecera `AUTO-GENERAT` ni introduciendo CSS específico
+en todas las páginas para solucionar un único problema.
+
+| Qué se quiere modificar | Fuente principal |
+| --- | --- |
+| Tipografías, colores y variables de diseño | `configuracion/css/base/tokens-vcc.css` |
+| Sobreítulos Caveat, títulos Oswald y descripciones editoriales | `configuracion/css/componentes/vcc-capcaleres-editorials.css` |
+| Subheader y breadcrumb compartidos | `configuracion/css/componentes/subheader-unificado-vcc.css`, `breadcrumb-vcc-global.css` |
+| Carruseles y controles compartidos | `configuracion/css/componentes/carruseles-vcc.css` y componentes asociados |
+| Portadas de las seis guías de planificación de Suecia | `configuracion/css/componentes/vcc-suecia-planifica-portades.css` |
+| Composición de paquetes CSS generados | `configuracion/datos/compilacion-css-vcc.json` |
+| Carga condicional de CSS/JS global | `configuracion/js/site-header.js` |
+
+**Importante:** las portadas generales `/destinos/suecia/` y
+`/destinos/suecia/estocolmo/` conservan su tarjeta editorial original.
+No añadirles `vcc-guide-hero-unified`; esa clase reemplaza el panel visual.
+Las seis subguías del país usan el componente independiente
+`vcc-suecia-planifica-portades.css`.
+
+Los nueve HTML que cargan `vcc-guies-ui-compartit.css` también enlazan
+`vcc-capcaleres-editorials.css` por separado. El paquete generado se
+compone de `vcc-ui-compartida.css` exclusivamente: evita volver a introducir
+el CSS editorial duplicado en el manifiesto.
+
+Antes de integrar cambios a `main`, trabajar en `quality` y ejecutar:
+
+```bash
+npm run css:build
+npm run css:verify
+npm run hero:check
+npm run audit:architecture
+npm run review:full
+```
+
+`audit:architecture` identifica fuentes CSS repetidas a través de paquetes
+compilados, candidatas a revisión; **no las elimina automáticamente**. Una
+fuente puede ser necesaria por el orden de cascada, el LCP o una carga desde
+JavaScript. Las pruebas estáticas no sustituyen una revisión visual responsive.
+
 ## Galerías fotográficas y zoom del blog (plantilla común)
 
 El comportamiento de referencia aprobado está en `configuracion/js/plantillas/imprescindibles-galeria-escritorio.js` y sus estilos en `configuracion/css/plantillas/imprescindibles-galeria-escritorio.css`. La página de Estocolmo (`destinos/suecia/estocolmo/imprescindibles.html`) es la referencia visual, pero no debe copiarse su JS para cada ciudad.
