@@ -392,14 +392,7 @@ export async function exportarComparacionPDF(flights,airlines){
   paint(pdf,'secondary');pdf.setFont('helvetica','normal');pdf.setFontSize(7.2);
   pdf.text('Importes introducidos por ti. No son tarifas consultadas ni precios garantizados.',margin,190.5);
   pdf.text('Comprueba el equipaje, la tarifa, los horarios y el aeropuerto antes de reservar.',margin,194.7);
-  paint(pdf,'line','stroke');pdf.setLineWidth(.4);pdf.line(margin,198,pageW-margin,198);
-  paint(pdf,'orangeDark');pdf.setFont('helvetica','bold');pdf.setFontSize(9);
-  pdf.text('VCC',margin,204);
-  paint(pdf,'secondary');pdf.setFont('helvetica','normal');pdf.setFontSize(8);
-  pdf.text('viajandoconcabeza.com',margin+13,204);
-  // Paginació coherent si cal afegir els trajectes complets en una segona pàgina.
   const longRoutes=items.filter(item=>String(item.flight.route||'').length>55);
-  pdf.text('COMPARATIVA DE VUELOS',pageW-margin-22,204,{align:'right'});
 
   // Las rutas largas se exportan enteras; páginas adicionales con el logo oficial.
   if(longRoutes.length){
