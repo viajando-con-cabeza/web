@@ -1032,6 +1032,43 @@ html body.budget-vcc .spend-section .decision-panel .vcc-decision-symbol{
 }
 
 /* === configuracion/css/componentes/vcc-capcaleres-editorials.css === */
+
+/* === configuracion/css/componentes/portades-fade-global-vcc.css === */
+/* VCC · Únic degradat de transparència de portades.
+ * Fotografia original sobre blanc: d'esquerra gairebé invisible a dreta visible.
+ * Usat per Inicio, Destinos, Itinerarios, Planifica, Nosotros, Contacto,
+ * Suècia/Estocolm i les guies interiors, amb el mateix tractament.
+ * Màscara alfa i vel blanc són matemàticament equivalents; no s'apliquen junts.
+ * No aplicar a mosaics, targetes ni galeries de contingut. */
+:root {
+  --vcc-portada-base: #fff;
+  --vcc-portada-fade: linear-gradient(90deg,
+    rgba(0,0,0,.04) 0%,
+    rgba(0,0,0,.21) 34%,
+    rgba(0,0,0,.59) 72%,
+    rgba(0,0,0,.82) 100%);
+  --vcc-portada-veil: linear-gradient(90deg,
+    rgba(255,255,255,.96) 0%,
+    rgba(255,255,255,.79) 34%,
+    rgba(255,255,255,.41) 72%,
+    rgba(255,255,255,.18) 100%);
+}
+@media (max-width: 720px) {
+  :root {
+    --vcc-portada-fade: linear-gradient(90deg,
+      rgba(0,0,0,.03) 0%,
+      rgba(0,0,0,.10) 32%,
+      rgba(0,0,0,.21) 70%,
+      rgba(0,0,0,.41) 100%);
+    --vcc-portada-veil: linear-gradient(90deg,
+      rgba(255,255,255,.97) 0%,
+      rgba(255,255,255,.90) 32%,
+      rgba(255,255,255,.79) 70%,
+      rgba(255,255,255,.59) 100%);
+  }
+}
+
+
 /* VCC · CAPÇALERES EDITORIALS COMPARTIDES · 2026-11-12
  * Sobretítol Caveat + títol Oswald + resum DM Sans.
  * La classe s'afegeix exclusivament als encapçalaments editorials de secció;
@@ -1341,7 +1378,7 @@ html body .content-hero.vcc-guide-hero-unified{
   overflow:hidden!important;
   color:#171717!important;
   background:
-    linear-gradient(90deg,rgba(255,255,255,.97) 0%,rgba(255,255,255,.84) 42%,rgba(255,255,255,.12) 100%),
+    var(--vcc-portada-veil),
     var(--vcc-guide-photo,url("/configuracion/imagenes/fondos/optimizadas/fondos-que-ver-1920.webp"))
     center center/cover no-repeat!important;
 }
@@ -1367,7 +1404,7 @@ html body .content-hero.vcc-guide-hero-unified .vcc-guide-hero-copy{
     min-height:450px!important;
     padding:15px 18px 28px!important;
     background:
-      linear-gradient(90deg,rgba(255,255,255,.97),rgba(255,255,255,.78)),
+      var(--vcc-portada-veil),
       var(--vcc-guide-photo-mobile,var(--vcc-guide-photo,url("/configuracion/imagenes/fondos/optimizadas/fondos-que-ver-960.webp")))
       center center/cover no-repeat!important;
   }
@@ -1385,7 +1422,7 @@ html body .cl-page .cl-hero.vcc-guide-hero-unified{
   height:auto!important;min-height:475px!important;
   max-height:none!important;
   background:
-    linear-gradient(90deg,rgba(255,255,255,.96) 0%,rgba(255,255,255,.83) 45%,rgba(255,255,255,.08) 100%),
+    var(--vcc-portada-veil),
     url("/configuracion/imagenes/fondos/optimizadas/fondos-como-llegar-1920.webp")
     center center/cover no-repeat!important;
 }
@@ -1413,7 +1450,7 @@ html body .cl-page .cl-hero.vcc-guide-hero-unified .cl-hero-line{display:none!im
  html body .cl-page .cl-hero.vcc-guide-hero-unified{
    min-height:450px!important;
    background:
-     linear-gradient(90deg,rgba(255,255,255,.97),rgba(255,255,255,.77)),
+     var(--vcc-portada-veil),
      url("/configuracion/imagenes/fondos/optimizadas/fondos-como-llegar-960.webp")
      center center/cover no-repeat!important;
  }
@@ -1495,7 +1532,7 @@ html body .st-hero.vcc-guide-hero-unified::before{
   inset:0!important;
   z-index:0!important;
   pointer-events:none!important;
-  background:linear-gradient(90deg,rgba(255,255,255,.96) 0%,rgba(255,255,255,.86) 38%,rgba(255,255,255,.14) 82%)!important;
+  background:var(--vcc-portada-veil)!important;
 }
 html body .st-hero.vcc-guide-hero-unified .st-hero-inner{
   position:relative!important;
@@ -1641,4 +1678,15 @@ html body .st-shell .st-hero .st-card.vcc-guide-hero-copy > .vcc-guide-hero-desc
   html body .st-shell .st-hero .st-card.vcc-guide-hero-copy > .vcc-guide-hero-description {
     font-size:12.5px!important;
   }
+}
+
+/* Suecia i Estocolmo: mateix degradat blanc que les altres portades.
+   Les dues fotos es mantenen intactes i només canvia el vel superior. */
+html body.country-page .country-hero::after,
+html body .st-shell .st-hero::after {
+  background:var(--vcc-portada-veil)!important;
+}
+/* En les portades unificades, evitem superposar dos vels diferents. */
+html body .st-hero.vcc-guide-hero-unified::before {
+  display:none!important;
 }
