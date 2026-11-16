@@ -1,4 +1,4 @@
-/* VCC · Vuelos. Una única implementación de la comparativa, sin CSS de tarjetas antiguas.
+/* VCC · Vuelos. CSS local dels filtres, portada i experiència; calculadora en calculadora-comparativa-vcc.css.
    Portada: foto WebP registrada en portadas-transparencia.css (componente compartido).
    El resto de componentes y del contenido de la página conservan sus reglas globales. */
 
@@ -16,68 +16,6 @@
 .vl-page .vl-continent h3{font:700 11px/1.1 var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;margin:0}
 .vl-page .vl-continent[aria-pressed="true"]{background:#fff1e8;border-color:#ec752c;color:#aa4e24}
 
-/* Comparador: conceptos en filas, vuelos en columnas; desplazamiento horizontal
-   únicamente dentro de la tabla, sin romper el ancho del documento. */
-#calculadora .vl-calc-layout{display:grid;grid-template-columns:minmax(0,1fr) 265px;align-items:stretch;gap:14px;max-width:100%}
-#calculadora .vl-calc-shell{min-width:0;background:#fff;border:1px solid #e7ddd3;border-radius:12px;box-shadow:0 4px 15px rgba(47,36,30,.04);overflow:hidden}
-#calculadora .vl-calc-scroll{min-width:0;max-width:100%;overflow:auto;-webkit-overflow-scrolling:touch;scrollbar-width:thin;scrollbar-color:#dcc8b8 transparent}
-#calculadora .vl-calc-table{--vl-label-width:183px;width:100%;min-width:max(100%,calc(var(--vl-label-width) + var(--vl-flight-count,3)*139px));table-layout:fixed;border-collapse:separate;border-spacing:0;font-family:var(--vcc-font-body,"DM Sans",Arial,sans-serif)}
-#calculadora .vl-calc-table tr>*:first-child{width:var(--vl-label-width);left:0;position:sticky;z-index:2;text-align:left}
-#calculadora .vl-calc-table thead th{height:38px;padding:5px 8px;background:#faf0e7;border-bottom:1px solid #ebdcd0;font-size:11px;color:#48352c;white-space:nowrap}
-#calculadora .vl-calc-table thead th:first-child{z-index:4;background:#faf0e7}
-#calculadora .vl-calc-table thead th:not(:first-child){position:relative;text-align:center}
-#calculadora .vl-option-heading{display:inline-block;font:600 16px/1.1 var(--vcc-font-heading,"Oswald",sans-serif);padding-right:10px}
-#calculadora .vl-remove-option{position:absolute;right:3px;top:4px;display:grid;place-items:center;width:23px;height:23px;padding:4px;border:0;border-radius:50%;background:transparent;color:#b07558}
-#calculadora .vl-remove-option svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round}
-#calculadora .vl-remove-option:hover{background:#f9dbcb;color:#b4461c}
-#calculadora .vl-calc-table tbody tr>*{height:43px;border-bottom:1px solid #efe7df;background:#fff}
-#calculadora .vl-calc-table tbody tr:last-child>*{border-bottom:0}
-#calculadora .vl-calc-table tbody th{padding:6px 8px 6px 11px;display:table-cell;color:#463d37;font:700 10.5px/1.2 var(--vcc-font-body,"DM Sans",Arial,sans-serif)}
-#calculadora .vl-calc-table tbody th .vl-compare-icon{display:inline-block;vertical-align:middle;width:20px;height:20px;margin-right:7px;color:#d56627;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
-#calculadora .vl-calc-table tbody th>span{display:inline;vertical-align:middle}
-#calculadora .vl-calc-table tbody td{padding:4px 6px;text-align:center;transition:background .12s}
-#calculadora .vl-calc-table tbody td[data-best-option="true"]{background:#fff8f2}
-#calculadora .vl-calc-table thead th[data-best-option="true"]{background:#fbe1cb;color:#bf4c18}
-#calculadora .vl-calc-table :is(input,select){width:100%;min-width:0;min-height:30px;padding:4px 7px;border:1px solid #ddd6d0;border-radius:6px;background:#fff;color:#2f2b28;font:500 11px/1.25 var(--vcc-font-body,"DM Sans",Arial,sans-serif);box-sizing:border-box}
-#calculadora .vl-calc-table select{text-align:left;text-overflow:ellipsis;white-space:nowrap;padding-right:17px}
-#calculadora .vl-calc-table input[type="number"]{text-align:right;font-variant-numeric:tabular-nums}
-#calculadora .vl-calc-table input[type="text"]{text-align:left}
-#calculadora .vl-calc-table input::placeholder{color:#a9a29c}
-#calculadora .vl-calc-table :is(input,select):focus-visible{outline:2px solid #e56c29;outline-offset:1px}
-#calculadora .vl-row-total th,#calculadora .vl-row-total td{background:#fff0df!important;border-top:2px solid #ebc7a8}
-#calculadora .vl-row-total th{color:#a54b20!important;font-size:12px!important}
-#calculadora .vl-row-total td strong{display:block;color:#a95524;font:600 22px/1 var(--vcc-font-heading,"Oswald",sans-serif);font-variant-numeric:tabular-nums;white-space:nowrap}
-#calculadora .vl-row-total td[data-best-option="true"]{background:#e7641d!important}
-#calculadora .vl-row-total td[data-best-option="true"] strong{color:#fff}
-#calculadora .vl-compare-actions{display:flex;align-items:center;justify-content:flex-end;gap:12px;min-height:41px;padding:5px 12px;background:#fff;border-bottom:1px solid #eee6de}
-#calculadora .vl-add-option{display:inline-flex;align-items:center;gap:6px;min-height:29px;padding:5px 10px;border:1px solid #e9b99b;border-radius:7px;background:#fff6ef;color:#b75523;font-size:10.5px;font-weight:800}
-#calculadora .vl-add-option svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round}
-#calculadora .vl-add-option:disabled{opacity:.35!important;cursor:default!important}
-#calculadora .vl-compare-actions>span{color:#8d8279;font-size:10px}
-#calculadora .vl-calc-shell>.vl-footnote{margin:0;padding:7px 12px 10px;font-size:9.5px;line-height:1.4;color:#776b62}
-#calculadora .vl-calc-layout [hidden]{display:none!important}
-
-/* Consell VCC: mateix llenguatge visual que la comparativa de Cómo moverse. */
-#calculadora .vl-best-card{min-width:0;min-height:100%;padding:14px 15px;border:1px solid #e8c4ad;border-radius:12px;background:#fff;box-shadow:0 3px 14px rgba(47,36,30,.03)}
-#calculadora .vl-best-heading{margin:0 0 13px;text-align:left}
-#calculadora .vl-best-script{display:block;margin:0 0 3px;color:#d45f20;font:600 24px/1 var(--vcc-font-script,"Caveat",cursive)}
-#calculadora .vl-best-heading h3{margin:0;color:#282321;font:600 25px/1.12 var(--vcc-font-heading,"Oswald",sans-serif)}
-#calculadora .vl-best-feature{display:flex;align-items:flex-start;gap:12px}
-#calculadora .vl-best-seal{width:77px;flex:0 0 77px;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:4px}
-#calculadora .vl-best-seal img{width:65px;height:65px;display:block;object-fit:contain;border:1.5px solid #e86d25;border-radius:50%;padding:3px;background:#fff}
-#calculadora .vl-best-seal small{font-size:9px;font-weight:700;color:#b65b2b;text-align:center}
-#calculadora .vl-best-main{min-width:0;flex:1;text-align:left}
-#calculadora .vl-best-empty{margin:2px 0;font-size:11px;color:#70645c;line-height:1.55}
-#calculadora .vl-best-winner{display:block;overflow-wrap:anywhere;font:700 12px/1.4 var(--vcc-font-body,"DM Sans",Arial,sans-serif);color:#272727}
-#calculadora .vl-best-price{display:block;margin-top:8px;color:#cf6024;font:600 32px/1 var(--vcc-font-heading,"Oswald",sans-serif);font-variant-numeric:tabular-nums;white-space:nowrap}
-#calculadora .vl-best-selection>small{display:block;color:#80756d;font-size:9.5px;margin-top:4px}
-#calculadora .vl-best-comparison{margin-top:17px;padding:15px 0 0;border-top:1px solid #e6dbd3}
-#calculadora .vl-best-kicker{display:block;margin:0 0 10px;color:#b9521f;font:800 10px/1.2 var(--vcc-font-body,"DM Sans",Arial,sans-serif);letter-spacing:.06em}
-#calculadora .vl-best-savings{margin:0;padding:0;list-style:none}
-#calculadora .vl-best-savings li{margin:0;padding:4px 0;border:0;border-radius:0;background:transparent;display:block;color:#675c54;font:500 11px/1.5 var(--vcc-font-body,"DM Sans",Arial,sans-serif);overflow-wrap:anywhere}
-#calculadora .vl-best-savings li strong{display:inline-block;margin:0 3px;color:#168049;font:700 19px/1.1 var(--vcc-font-heading,"Oswald",sans-serif);vertical-align:baseline;white-space:nowrap}
-#calculadora .vl-best-note{margin:12px 0 0;color:#786e66;font:400 10px/1.5 var(--vcc-font-body,"DM Sans",Arial,sans-serif)}
-
 /* Portada compartida: el sistema de máscara alfa lo gestiona portadas-transparencia.css. */
 html body .vl-hero.tv-hero.vcc-portada-transparente{
   color:#191918!important;background:#fff!important;
@@ -92,24 +30,12 @@ html body .vl-hero.vcc-portada-transparente p{max-width:570px!important;color:#4
 html body .vl-hero.vcc-portada-transparente .vl-button.secondary{border-color:#ba7c57!important;color:#ad572b!important;background:#fff9f3!important}
 html body .vl-hero.vcc-portada-transparente.vcc-breadcrumb-on-dark #vcc-global-breadcrumb,
 html body .vl-hero.vcc-portada-transparente.vcc-breadcrumb-on-dark #vcc-global-breadcrumb :is(a,strong,.vcc-bc-sep){color:#403b37!important}
-
-@media(max-width:1120px){
-  #calculadora .vl-calc-layout{grid-template-columns:minmax(0,1fr)}
-  #calculadora .vl-best-feature{align-items:center}
-  #calculadora .vl-best-main{flex:1}
-  #calculadora .vl-best-savings{display:block}
-}
 @media(max-width:720px){
   .vl-page .vl-filter-compact{gap:9px}
   .vl-page .vl-filter-compact .vl-continent-grid{flex-basis:100%}
   .vl-page .vl-continent{padding:6px 11px!important;min-height:31px!important}
   .vl-page .vl-continent-map{width:17px!important;height:17px!important}
   .vl-page .vl-continent h3{font-size:11px!important}
-  #calculadora .vl-calc-table{--vl-label-width:158px;min-width:calc(var(--vl-label-width) + var(--vl-flight-count,3)*146px)}
-  #calculadora .vl-calc-table thead th{padding:7px 6px}
-  #calculadora .vl-calc-table tbody th{padding-left:9px;font-size:10px}
-  #calculadora .vl-calc-table tbody th .vl-compare-icon{width:18px;height:18px;margin-right:4px}
-  #calculadora .vl-best-heading h3{font-size:24px}
   html body .vl-hero.tv-hero.vcc-portada-transparente{height:460px!important;min-height:460px!important}
   html body .vl-hero.vcc-portada-transparente .vl-hero-content{padding:74px 0 32px!important}
   html body .vl-hero.vcc-portada-transparente h1{font-size:54px!important}
@@ -118,200 +44,7 @@ html body .vl-hero.vcc-portada-transparente.vcc-breadcrumb-on-dark #vcc-global-b
 }
 @media(max-width:430px){
   .vl-page .vl-continent{padding:6px 9px!important}
-  #calculadora .vl-compare-actions{padding:10px 11px}
-  #calculadora .vl-best-feature{gap:9px}
-  #calculadora .vl-best-seal{width:67px;flex-basis:67px}
-  #calculadora .vl-best-seal img{width:57px;height:57px}
 }
-
-/* VCC · Vuelos: el resumen lateral comparte exactamente la altura de la tabla
-   en escritorio. Los importes finales quedan encasillados por opción. */
-#calculadora .vl-row-total th,
-#calculadora .vl-row-total td{
-  background:#fff !important;
-  border-top:1px solid #ebd8c8;
-  padding:5px 6px !important;
-  height:54px !important;
-}
-#calculadora .vl-row-total th{
-  background:#fff !important;
-}
-#calculadora .vl-row-total td .vl-total-pill{
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  min-height:34px;
-  width:100%;
-  padding:5px 3px;
-  border-radius:7px;
-  border:1px solid #f1d7c3;
-  background:#fff0df;
-}
-#calculadora .vl-row-total td .vl-total-pill strong{
-  font-size:21px;
-}
-#calculadora .vl-row-total td[data-best-option="true"]{
-  background:#fff !important;
-}
-#calculadora .vl-row-total td[data-best-option="true"] .vl-total-pill{
-  background:#e7641d;
-  border-color:#e7641d;
-}
-#calculadora .vl-row-total td[data-best-option="true"] .vl-total-pill strong{
-  color:#fff !important;
-}
-#calculadora .vl-best-card{
-  display:flex;
-  flex-direction:column;
-  justify-content:flex-start;
-  align-self:stretch;
-}
-#calculadora .vl-best-note{
-  margin-top:auto;
-  padding-top:10px;
-}
-#calculadora .vl-best-savings li{
-  padding:6px 0;
-  margin:0;
-}
-#calculadora .vl-best-savings li + li{
-  border-top:1px solid #e9e1d9;
-  margin-top:4px;
-  padding-top:10px;
-}
-#calculadora .vl-best-comparison{
-  margin-top:11px;
-  padding-top:11px;
-}
-#calculadora .vl-best-heading{
-  margin-bottom:9px;
-}
-#calculadora .vl-compare-actions>span{order:0}
-#calculadora .vl-compare-actions>.vl-add-option{order:1}
-@media(max-width:1120px){
- #calculadora .vl-best-card{min-height:0}
-}
-
-/* Vuelos · ajustes finales: toolbar fuera de la tarjeta, consejo alineado con
-   la primera fila de aerolínea (bajo encabezados A/B/C) y footer compartido. */
-#calculadora .vl-compare-actions{
-  display:flex;
-  justify-content:flex-end;
-  align-items:center;
-  gap:12px;
-  min-height:0;
-  margin:0 0 9px;
-  padding:0;
-  background:transparent;
-  border:0;
-}
-#calculadora .vl-calc-shell{align-self:start}
-#calculadora .vl-best-card{
-  min-height:0;
-  margin-top:39px;
-  align-self:stretch;
-}
-@media(max-width:1120px){
-  #calculadora .vl-best-card{margin-top:0}
-}
-
-
-/* VCC · Herramienta discreta en el propio encabezado de la sección.
-   Fuera de la tabla, sin ninguna banda blanca alrededor. */
-#calculadora .vl-calc-head .vl-calc-head-side{
-  min-width:0;
-  width:min(440px,100%);
-  display:flex;
-  flex-direction:column;
-  align-items:flex-end;
-  gap:6px;
-}
-#calculadora .vl-calc-head .vl-calc-head-side>.vl-copy{
-  margin:0;
-  text-align:right;
-  max-width:100%;
-}
-#calculadora .vl-calc-head .vl-compare-actions{
-  display:flex;
-  align-items:center;
-  justify-content:flex-end;
-  gap:12px;
-  margin:0;
-  padding:0;
-  min-height:26px;
-  width:auto;
-  border:0;
-  background:transparent;
-  box-shadow:none;
-}
-#calculadora .vl-calc-head .vl-add-option{
-  display:inline-flex;
-  min-height:25px;
-  border:0;
-  border-radius:0;
-  padding:3px 0;
-  gap:5px;
-  background:transparent;
-  box-shadow:none;
-  color:#ae633f;
-  font:600 11px/1.3 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
-}
-#calculadora .vl-calc-head .vl-add-option svg{
-  width:13px;
-  height:13px;
-}
-#calculadora .vl-calc-head .vl-add-option:not(:disabled):hover{
-  color:#e06424;
-  text-decoration:underline;
-  text-underline-offset:3px;
-}
-#calculadora .vl-calc-head .vl-compare-actions>span{
-  color:#928479;
-  font-size:10px;
-}
-@media(min-width:1121px){
-  /* La tarjeta arranca justo debajo de las cabeceras de las opciones A/B/C. */
-  #calculadora .vl-calc-layout>.vl-best-card{
-    margin-top:49px!important;
-    min-height:0!important;
-    align-self:stretch!important;
-  }
-}
-@media(max-width:1120px){
-  #calculadora .vl-calc-layout>.vl-best-card{margin-top:0!important}
-}
-@media(max-width:760px){
-  #calculadora .vl-calc-head .vl-calc-head-side{
-    align-items:flex-start;
-    width:100%;
-    margin-top:8px;
-  }
-  #calculadora .vl-calc-head .vl-calc-head-side>.vl-copy{text-align:left}
-  #calculadora .vl-calc-head .vl-compare-actions{justify-content:flex-start}
-}
-
-/* VCC · Accions discretes sota la comparativa, sense alterar les columnes. */
-#calculadora .vl-compare-utils{
-  display:flex;flex-wrap:wrap;align-items:center;gap:5px 17px;
-  margin:11px 0 0;padding:10px 0 0;border-top:1px solid #e9ded4;
-}
-#calculadora .vl-compare-utils button{
-  appearance:none;border:0;background:transparent;padding:6px 0;
-  font:700 11px/1.4 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
-  color:#a65329;cursor:pointer;text-decoration:underline;text-decoration-color:transparent;
-  text-underline-offset:4px;
-}
-#calculadora .vl-compare-utils button:hover{color:#d95c1b;text-decoration-color:currentColor}
-#calculadora .vl-compare-utils button:focus-visible{outline:2px solid #cc642e;outline-offset:3px;border-radius:2px}
-#calculadora .vl-compare-utils [data-clear-comparison]{color:#6f6660}
-#calculadora .vl-calc-feedback{
-  min-height:1.15em;margin:3px 0 0;color:#746a61;
-  font:500 10.5px/1.5 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
-}
-#calculadora .vl-share-fallback[hidden]{display:none!important}
-#calculadora .vl-share-fallback{display:flex;align-items:center;gap:8px;max-width:100%;margin-top:7px}
-#calculadora .vl-share-fallback label{color:#665b51;font-size:10px;font-weight:700;white-space:nowrap}
-#calculadora .vl-share-fallback input{width:min(500px,100%);min-width:0;padding:8px;border:1px solid #ded4ca;border-radius:6px;background:#fff;font:500 11px/1.4 var(--vcc-font-body,"DM Sans",Arial,sans-serif)}
 /* FAQ editorials amb HTML accessible i contingut llegible. */
 .vl-page .vl-faq-section{padding:39px 0 47px;background:#fff}
 .vl-page .vl-faq-section .vl-section-head{margin-bottom:18px}
@@ -322,9 +55,6 @@ html body .vl-hero.vcc-portada-transparente.vcc-breadcrumb-on-dark #vcc-global-b
 .vl-page .vl-faq-list details[open]{background:#fff}
 .vl-page .vl-faq-list details p{margin:9px 0 0;color:#5e5751;font:400 11.5px/1.65 var(--vcc-font-body,"DM Sans",Arial,sans-serif)}
 @media(max-width:720px){
-  #calculadora .vl-compare-utils{gap:3px 14px}
-  #calculadora .vl-share-fallback{flex-direction:column;align-items:flex-start}
-  #calculadora .vl-share-fallback input{width:100%}
   .vl-page .vl-faq-section{padding:30px 0 38px}
   .vl-page .vl-faq-list{grid-template-columns:minmax(0,1fr);gap:8px}
 }
@@ -333,81 +63,3 @@ html body .vl-hero.vcc-portada-transparente.vcc-breadcrumb-on-dark #vcc-global-b
 .vl-page .vl-air-card a.vl-air-action{text-decoration:none}
 .vl-page .vl-air-card a.vl-air-action:hover{text-decoration:underline;text-underline-offset:3px}
 .vl-page .vl-air-card a.vl-air-action:focus-visible{outline:2px solid #e96723;outline-offset:4px;border-radius:2px}
-
-/* Vuelos: mateixa columna fixa que Alojamientos. L'àrea és l'únic
-   contenidor amb scroll i cada capçalera de fila té fons opac. */
-@media(max-width:720px){
- #calculadora .vl-calc-scroll{
-   overflow:auto;
-   -webkit-overflow-scrolling:touch;
-   touch-action:pan-x pan-y;
-   overscroll-behavior-x:contain;
- }
- #calculadora .vl-calc-table tbody tr>th:first-child{
-   position:sticky!important;
-   left:0!important;
-   z-index:4!important;
-   background:#fff;
-   box-shadow:1px 0 0 #e7ddd3;
- }
- #calculadora .vl-calc-table thead tr>th:first-child{
-   position:sticky!important;
-   left:0!important;
-   z-index:5!important;
-   background:#faf0e7;
-   box-shadow:1px 0 0 #e7ddd3;
- }
- #calculadora .vl-calc-table tbody tr.vl-row-total>th:first-child{
-   background:#fff0df!important;
- }
-}
-
-/* Exportació corporativa compacta, sense controls de guardar/compartir enllaç. */
-#calculadora .vl-compare-utils [data-export-pdf]{
- display:inline-flex;align-items:center;gap:7px;
- color:#b65121;font-weight:800;text-decoration:none;
-}
-#calculadora .vl-compare-utils [data-export-pdf]>span{
- display:inline-grid;place-items:center;width:19px;height:19px;
- border:1px solid #e4af8a;border-radius:50%;font-size:13px;line-height:1;
-}
-#calculadora .vl-compare-utils [data-export-pdf]:disabled{opacity:.5;cursor:progress}
-
-/* Calculadora · capçalera compacta: no heretar flex-basis vertical de
-   la descripció editorial global (450px) dins d'una columna flex. */
-html body .vl-page #calculadora .vl-calc-head{
-  align-items:flex-end!important;
-  gap:22px!important;
-  min-height:0!important;
-  margin-bottom:15px!important;
-}
-html body .vl-page #calculadora .vl-calc-head-side{
-  width:min(460px,100%)!important;
-  min-height:0!important;
-  height:auto!important;
-  flex:0 1 460px!important;
-  align-self:auto!important;
-  gap:7px!important;
-}
-html body .vl-page #calculadora .vl-calc-head-side>.vl-copy.vcc-editorial-description{
-  flex:0 0 auto!important;
-  align-self:auto!important;
-  height:auto!important;
-  min-height:0!important;
-  width:100%!important;
-  max-width:100%!important;
-  margin:0!important;
-  line-height:1.5!important;
-  text-align:right!important;
-}
-@media(max-width:900px){
- html body .vl-page #calculadora .vl-calc-head{align-items:flex-start!important;gap:9px!important}
- html body .vl-page #calculadora .vl-calc-head-side{
-   width:100%!important;max-width:100%!important;
-   flex:0 0 auto!important;align-items:flex-start!important;
-   margin:0!important;
- }
- html body .vl-page #calculadora .vl-calc-head-side>.vl-copy.vcc-editorial-description{
-   text-align:left!important;
- }
-}
