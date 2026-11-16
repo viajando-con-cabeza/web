@@ -2,14 +2,22 @@
    Una sola variable per dispositiu. La posició del subheader és sempre
    capçalera global + altura de portada (sense marges addicionals).
    Les fotos, els textos i la navegació no canvien d'estil. */
+/* La portada ha d'acabar ABANS del límit inferior de la primera
+   pantalla, reservant l'alçada de capçalera + subheader (39px) + 16px.
+   svh evita salts quan apareix/desapareix la barra del navegador.
+   El màxim conserva una mida comuna per dispositiu sense herois gegants. */
 :root{
-  --vcc-subheader-cover-height:475px; /* ordinador */
+  --vcc-subheader-cover-height:min(430px, calc(100svh - var(--vcc-page-header-height, 100px) - var(--vcc-subnav-height, 39px) - 16px));
 }
 @media (min-width:721px) and (max-width:1024px){
-  :root{--vcc-subheader-cover-height:560px;} /* tauleta */
+  :root{
+    --vcc-subheader-cover-height:min(460px, calc(100svh - var(--vcc-page-header-height, 100px) - var(--vcc-subnav-height, 39px) - 16px));
+  }
 }
 @media (max-width:720px){
-  :root{--vcc-subheader-cover-height:640px;} /* mòbil */
+  :root{
+    --vcc-subheader-cover-height:min(530px, calc(100svh - var(--vcc-page-header-height, 145px) - var(--vcc-subnav-height, 39px) - 16px));
+  }
 }
 
 /* Landings de país/ciutat amb vinyeta central, que no porten
