@@ -38,36 +38,11 @@ html body .cl-page.cl-landing.sw-country-copy #comparar-aeropuertos .vcc-arrival
 html body .cl-page.cl-landing.sw-country-copy #comparar-aeropuertos .sw-airport-carousel{
   margin-top:18px!important;
 }
-html body .cl-page.cl-landing.sw-country-copy #comparar-aeropuertos .vcc-transfer-grid.vcc-experience-track{
-  /* La geometría exacta (3.08 / 2.12 / 1.12) es la de Nuestra experiencia. */
-  align-items:stretch!important;
-}
-html body .cl-page.cl-landing.sw-country-copy #comparar-aeropuertos .vcc-transfer-grid > .vcc-airport-card.vcc-experience-card{
-  display:flex!important;flex-direction:column!important;
-  border-top:2px solid #ce8a6a!important;
-  text-align:left!important;
-  padding:17px 17px 15px!important;
-}
-html body .cl-page.cl-landing.sw-country-copy #comparar-aeropuertos .vcc-airport-card .vcc-airport-heading h3{
-  display:flex;flex-wrap:wrap;gap:7px!important;
-  font-size:clamp(20px,2vw,25px)!important;
-}
-html body .cl-page.cl-landing.sw-country-copy #comparar-aeropuertos .vcc-airport-card .vcc-airport-stat{
-  min-height:0!important;
-  margin:12px 0 10px!important;padding:10px 0!important;
-  align-items:center!important;
-}
-html body .cl-page.cl-landing.sw-country-copy #comparar-aeropuertos .vcc-airport-card .vcc-airport-stat strong{
-  font-size:24px!important;
-  white-space:normal!important;
-}
-html body .cl-page.cl-landing.sw-country-copy #comparar-aeropuertos .vcc-airport-card .vcc-airport-copy{
-  font-size:11.5px!important;line-height:1.55!important;
-  margin-bottom:12px!important;
-}
-html body .cl-page.cl-landing.sw-country-copy #comparar-aeropuertos .vcc-airport-card .vcc-transfer-detail{
-  margin-top:auto!important;
-}
+/* Las seis tarjetas de aeropuertos usan SIN EXCEPCIONES el componente
+   compartido de Alojamientos: .vcc-experience-card / -body / -name /
+   -intro / -points / -link.
+   Sus dimensiones y flechas están en planifica-experiencia-tarjetas-vcc.css.
+   No añadir tamaños de tarjetas ni tipografías específicos aquí. */
 html body .cl-page.cl-landing.sw-country-copy .vcc-airport-carousel-note{
   margin:11px 0 0!important;
   color:#726b65;font:400 11px/1.55 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
