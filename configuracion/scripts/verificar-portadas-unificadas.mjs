@@ -81,6 +81,38 @@ for(const page of stableLcpPages){
     page+': el nombre de preloads ha de coincidir amb el tipus de portada');
 }
 
+/* Contractes anti-regressió per a les dues portades generals i les sis
+ * subguies de planificació del país. Les portades Suècia/Estocolm
+ * tenen TARGETA editorial i no han d'heretar el hero transparent
+ * de les subguies. Manté la feina visual aprovada.
+ */
+const swedenHomeRenderer=read('configuracion/js/paises/suecia-page.js');
+const stockholmHome=read('destinos/suecia/estocolmo/index.html');
+check(swedenHomeRenderer.includes('country-hero-card vcc-guide-hero-copy')&&
+ !swedenHomeRenderer.includes('country-hero vcc-guide-hero-unified'),
+ 'Suecia: cal conservar la targeta de la portada general');
+check(stockholmHome.includes('st-card vcc-guide-hero-copy')&&
+ !stockholmHome.includes('st-hero vcc-guide-hero-unified'),
+ 'Estocolmo: cal conservar el requadre de la portada general');
+const countryPlanningCss=read('configuracion/css/componentes/vcc-suecia-planifica-portades.css');
+check(countryPlanningCss.includes('body.vcc-suecia-planifica')&&
+ countryPlanningCss.includes('.vcc-suecia-planning-subnav'),
+ 'Suecia: CSS comú de les sis portades de planificació absent');
+for(const section of [
+ 'cuando-ir','como-llegar','como-moverse','donde-dormir','que-visitar','presupuesto'
+]){
+ const file='destinos/suecia/'+section+'.html',html=read(file);
+ check(html.includes('vcc-suecia-planifica')&&
+  html.includes('vcc-suecia-planning-hero')&&
+  html.includes('vcc-suecia-planning-subnav')&&
+  html.includes('/configuracion/css/componentes/vcc-suecia-planifica-portades.css'),
+  file+': falta la portada/subheader CSS compartit');
+ check(html.includes('vcc-guide-hero-kicker')&&
+  html.includes('vcc-guide-hero-description')&&
+  html.includes('<em>SUECIA</em>'),
+  file+': falta estructura editorial de portada');
+}
+
 check(registry.length===19,'El registre ha de tenir 19 portades');
 if(problems.length){problems.forEach(x=>console.error('HERO VCC:',x));process.exitCode=1;}
 else console.log('HERO VCC OK: 19 portades, mateixa fotografia, càrrega LCP primerenca.');
