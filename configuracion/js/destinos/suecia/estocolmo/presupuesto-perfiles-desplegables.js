@@ -96,7 +96,7 @@
     /* Valores fuente = gasto del grupo completo (2 viajeros).
        Los importes visibles del carrusel se calculan SIEMPRE por persona.
        Guardamos el original en un atributo para evitar divisiones repetidas. */
-    const euroFormatter = new Intl.NumberFormat("es-ES", {
+    const euroFormatter = new Intl.NumberFormat("es-ES", {useGrouping:"always",
       minimumFractionDigits: 0,
       maximumFractionDigits: 2
     });
