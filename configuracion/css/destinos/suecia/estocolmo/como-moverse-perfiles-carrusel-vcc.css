@@ -74,3 +74,51 @@ html body.mv-body .mv-profile-carousel .mv-profile-grid:focus-visible {
     scroll-behavior: auto;
   }
 }
+
+
+/* Coste del transporte · badge dentro de la tarjeta, sin recorte.
+   La pista del carrusel oculta overflow-y: las insignias negativas
+   (top:-11px del CSS antiguo) quedaban cortadas por ese contenedor. */
+html body.mv-body .mv-profile-carousel .mv-profile-vcc .mv-profile-ribbon{
+  position:absolute!important;
+  top:7px!important;
+  right:13px!important;
+  z-index:2!important;
+  margin:0!important;
+  padding:5px 10px!important;
+  white-space:nowrap!important;
+  max-width:calc(100% - 26px)!important;
+  box-sizing:border-box!important;
+}
+
+/* Ritmo editorial de Como moverse Estocolmo, únicamente en esta página.
+   El hueco final depende del main, para no tocar el fondo ni el
+   padding compartido de Sigue descubriendo / Sigue planificando. */
+html body.mv-body .mv-page main.mv-container > #recomendacion{
+  margin-bottom:56px!important;
+}
+html body.mv-body .mv-page main.mv-container > #transportes{
+  margin-bottom:56px!important;
+}
+html body.mv-body .mv-page main.mv-container > #comparar-billetes{
+  margin-bottom:58px!important;
+}
+html body.mv-body .mv-page main.mv-container > #billetes{
+  margin-bottom:0!important;
+}
+html body.mv-body .mv-page main.mv-container{
+  padding-bottom:84px!important;
+}
+@media(max-width:690px){
+  html body.mv-body .mv-profile-carousel .mv-profile-vcc .mv-profile-ribbon{
+    top:7px!important;
+    right:8px!important;
+    padding:4px 8px!important;
+  }
+  html body.mv-body .mv-page main.mv-container > :is(#recomendacion,#transportes,#comparar-billetes){
+    margin-bottom:42px!important;
+  }
+  html body.mv-body .mv-page main.mv-container{
+    padding-bottom:64px!important;
+  }
+}
