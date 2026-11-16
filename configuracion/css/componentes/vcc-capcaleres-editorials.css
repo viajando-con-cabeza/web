@@ -667,3 +667,15 @@ html body .day-section > .vcc-editorial-heading .hand,
 html body .vcc-summary > .vcc-editorial-heading .hand{
   transform:none!important;
 }
+
+/* Els itineraris rich (Roma/Fuerteventura) mantenen les columnes de
+   ruta i fotos, amb la capçalera compartida ocupant tota l'amplada. */
+html body .day-rich > .vcc-editorial-heading{
+  grid-column:1/-1!important;
+  width:100%!important;
+  margin:0!important;
+  padding:20px 24px 0!important;
+}
+@media(max-width:720px){
+  html body .day-rich > .vcc-editorial-heading{padding:16px 16px 0!important}
+}
