@@ -1,0 +1,47 @@
+/* VCC · Dónde dormir Estocolmo · puntuaciones compactas.
+   Regla localizada y cargada al final de los CSS de esta página.
+   No modificar los valores editoriales, sólo su escala visual.
+*/
+html body.dv-page #barrios .dv-carousel .dv-card .dv-rating{
+  width:32px!important;
+  min-width:32px!important;
+  right:0!important;
+  top:0!important;
+}
+html body.dv-page #barrios .dv-carousel .dv-card .dv-rating>strong{
+  display:grid!important;
+  place-items:center!important;
+  width:32px!important;
+  height:30px!important;
+  border-radius:6px!important;
+  font:600 16px/1 var(--vcc-font-heading,"Oswald",sans-serif)!important;
+}
+html body.dv-page #barrios .dv-carousel .dv-card .dv-rating>small{
+  margin-top:3px!important;
+  font-size:7.5px!important;
+}
+html body.dv-page #barrios .dv-zone-details .dv-zone-score-compact{
+  gap:8px!important;
+}
+html body.dv-page #barrios .dv-zone-details .dv-zone-score-compact>strong{
+  width:36px!important;
+  height:36px!important;
+  flex:0 0 36px!important;
+  font:600 18px/1 var(--vcc-font-heading,"Oswald",sans-serif)!important;
+}
+html body.dv-page #barrios .dv-zone-details .dv-zone-score-compact b{
+  font-size:12.5px!important;
+}
+html body.dv-page #barrios .dv-zone-details .dv-zone-review-label strong{
+  font-size:10.5px!important;
+}
+@media(max-width:600px){
+  html body.dv-page #barrios .dv-carousel .dv-card .dv-rating{width:32px!important;min-width:32px!important}
+  html body.dv-page #barrios .dv-carousel .dv-card .dv-rating>strong{width:32px!important;height:30px!important;font-size:16px!important}
+  html body.dv-page #barrios .dv-zone-details .dv-zone-score-compact>strong{
+    width:35px!important;height:35px!important;flex-basis:35px!important;font-size:17px!important;
+  }
+  html body.dv-page #barrios .dv-zone-details .dv-zone-review-label strong{
+    font-size:10.5px!important;
+  }
+}
