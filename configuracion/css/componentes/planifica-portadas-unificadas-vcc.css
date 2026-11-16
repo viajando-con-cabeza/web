@@ -1,3 +1,5 @@
+@import url("/configuracion/css/componentes/portades-fade-global-vcc.css?v=20261116-unificat-v1");
+
 /* ================================================================
    VCC · Portadas de Planifica · componente editorial compartido
    Referencia visual: /planifica/ (Oswald + Caveat + DM Sans).
@@ -44,8 +46,8 @@ html body .vcc-planifica-hero:not(.planifica-about-hero)::before {
   background-repeat:no-repeat!important;
   /* Transparència real de la foto sobre blanc, igual que a la resta de VCC.
      La variable global governa el degradat i la versió mòbil. */
-  -webkit-mask-image:var(--vcc-portada-fade,linear-gradient(90deg,rgba(0,0,0,.04) 0%,rgba(0,0,0,.21) 34%,rgba(0,0,0,.59) 72%,rgba(0,0,0,.82) 100%))!important;
-  mask-image:var(--vcc-portada-fade,linear-gradient(90deg,rgba(0,0,0,.04) 0%,rgba(0,0,0,.21) 34%,rgba(0,0,0,.59) 72%,rgba(0,0,0,.82) 100%))!important;
+  -webkit-mask-image:var(--vcc-portada-fade)!important;
+  mask-image:var(--vcc-portada-fade)!important;
   -webkit-mask-size:100% 100%!important;
   mask-size:100% 100%!important;
   -webkit-mask-repeat:no-repeat!important;
@@ -228,17 +230,6 @@ html body .vcc-planifica-hero[data-vcc-planifica-hero="mapas"] {--vcc-pl-cover:u
   html body .vcc-planifica-hero[data-vcc-planifica-hero="checklist"] {--vcc-pl-cover:url("/configuracion/imagenes/fondos/optimizadas/fondos-que-llevar-960.webp");}
   html body .vcc-planifica-hero[data-vcc-planifica-hero="mapas"] {--vcc-pl-cover:url("/configuracion/imagenes/fondos/optimizadas/fondos-planifica-960.webp");}
 }
-/* VCC: fallback mòbil de transparència per a les pàgines de Planifica
-   (Mapas i Calcula tu viaje no carreguen el full global de portades).
-   La resta hereta exactament els mateixos valors del component global. */
-@media(max-width:650px){
-  html body .vcc-planifica-hero:not(.planifica-about-hero){
-    --vcc-portada-fade:linear-gradient(90deg,
-      rgba(0,0,0,.03) 0%,rgba(0,0,0,.10) 32%,
-      rgba(0,0,0,.21) 70%,rgba(0,0,0,.41) 100%);
-  }
-}
-
 /* La portada de inicio sigue con su propia foto y altura de la captura. */
 html body.planifica-vcc .planifica-about-hero.vcc-planifica-hero{
   --vcc-pl-ink:#262421;
