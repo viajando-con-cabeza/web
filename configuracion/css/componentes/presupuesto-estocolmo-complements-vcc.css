@@ -270,6 +270,62 @@ html body .sv-page #consejos .sv-carousel-shell > .sv-arrow[data-vcc-scroll-hidd
  }
 }
 
+/* VCC 2026-11-16 · CONTRACTE MÒBIL UNIVERSAL «ERRORES A EVITAR».
+   Una única amplada, sense columnes reservades a les fletxes; conserva el JS. */
+@media(max-width:760px){
+ html body :is(#sorpresas .surprise-carousel,#errores .ci-tips-shell,#errores .tv-errors-carousel,#consejos .sv-carousel-shell,#errores-a-evitar .av-carousel){
+  display:block!important;position:relative!important;box-sizing:border-box!important;
+  grid-template-columns:none!important;gap:0!important;width:100%!important;
+  min-width:0!important;max-width:100%!important;margin-inline:0!important;
+  padding:0!important;overflow:visible!important;
+ }
+ html body :is(#sorpresas .surprise-grid,#errores #ciTipsTrack,#errores #tv-errors-track,#consejos #sv-track-tips,#errores-a-evitar #av-errores-track){
+  display:flex!important;flex-direction:row!important;flex-wrap:nowrap!important;
+  grid-template-columns:none!important;grid-auto-flow:unset!important;
+  box-sizing:border-box!important;width:100%!important;max-width:100%!important;
+  min-width:0!important;min-height:0!important;height:auto!important;
+  gap:var(--vcc-error-track-gap,10px)!important;margin:0!important;
+  padding:2px 2px 8px!important;overflow-x:auto!important;overflow-y:hidden!important;
+  scroll-snap-type:x mandatory!important;scroll-padding-inline:2px!important;
+  overscroll-behavior-x:contain;scrollbar-width:none;-webkit-overflow-scrolling:touch;
+ }
+ html body :is(#sorpresas,#errores,#consejos,#errores-a-evitar) .vcc-editorial-error-card{
+  box-sizing:border-box!important;flex:0 0 100%!important;width:100%!important;
+  min-width:0!important;max-width:none!important;min-height:148px!important;
+  height:auto!important;margin:0!important;scroll-snap-align:start!important;
+ }
+ html body :is(#sorpresas .surprise-carousel>.carousel-arrow,#errores .ci-tips-shell>.ci-tips-arrow,#errores .tv-errors-carousel>.tv-error-arrow,#consejos .sv-carousel-shell>.sv-arrow){
+  display:grid!important;place-items:center!important;position:absolute!important;
+  top:50%!important;bottom:auto!important;transform:translateY(-50%)!important;
+  z-index:5!important;grid-column:auto!important;grid-row:auto!important;
+  box-sizing:border-box!important;width:34px!important;height:34px!important;
+  min-width:34px!important;min-height:34px!important;margin:0!important;padding:0!important;
+  border:1px solid #ceb5a4!important;border-radius:50%!important;
+  background:#fff!important;color:#9f5843!important;
+  box-shadow:0 2px 7px rgb(38 33 29 / 8%)!important;
+ }
+ html body :is(#sorpresas .surprise-carousel>.prev,#errores .ci-tips-shell>.ci-tips-prev,#errores .tv-errors-carousel>.tv-error-prev,#consejos .sv-carousel-shell>.sv-prev){
+  left:2px!important;right:auto!important;
+ }
+ html body :is(#sorpresas .surprise-carousel>.next,#errores .ci-tips-shell>.ci-tips-next,#errores .tv-errors-carousel>.tv-error-next,#consejos .sv-carousel-shell>.sv-next-arrow){
+  right:2px!important;left:auto!important;
+ }
+ html body #errores-a-evitar .av-carousel>.av-arrows{
+  position:absolute!important;inset:0!important;width:100%!important;height:100%!important;
+  z-index:5!important;pointer-events:none!important;
+ }
+ html body #errores-a-evitar .av-carousel>.av-arrows>.av-arrow{
+  position:absolute!important;top:50%!important;bottom:auto!important;
+  transform:translateY(-50%)!important;width:34px!important;height:34px!important;
+  min-width:34px!important;min-height:34px!important;box-sizing:border-box!important;
+  margin:0!important;padding:0!important;border:1px solid #ceb5a4!important;
+  border-radius:50%!important;background:#fff!important;color:#9f5843!important;
+  z-index:5!important;pointer-events:auto!important;
+ }
+ html body #errores-a-evitar .av-carousel>.av-arrows>.av-arrow-prev{left:2px!important;right:auto!important}
+ html body #errores-a-evitar .av-carousel>.av-arrows>.av-arrow-next{right:2px!important;left:auto!important}
+}
+
 /* === configuracion/css/componentes/presupuesto-carruseles-vcc.css === */
 /* VCC / Estocolm · Carrusels de pressupost
    Única font de veritat per a la distribució de Cómo ahorrar i Errores a evitar.
