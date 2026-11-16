@@ -19,7 +19,7 @@
 <link rel="stylesheet" href="/configuracion/css/componentes/guias-relacionadas-vcc.css?v=20261112-sigue-unificat-v4">
 <link rel="stylesheet" href="/configuracion/css/componentes/fondo-relacionadas-destino-vcc.css?v=20261112-stockholm-v2">
 <link rel="stylesheet" href="/configuracion/css/destinos/suecia/presupuesto-pais-estocolmo.css?v=20261115-hero-mobile-v3">
-<link rel="stylesheet" href="/configuracion/css/destinos/suecia/presupuesto-multizona-vcc.css?v=20261116-etapas-carrusel-v3">
+<link rel="stylesheet" href="/configuracion/css/destinos/suecia/presupuesto-multizona-vcc.css?v=20261116-extra-compacto-v4">
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebPage","name":"Presupuesto para viajar por Suecia","url":"https://viajandoconcabeza.com/destinos/suecia/presupuesto","inLanguage":"es","description":"Comparación orientativa de presupuestos por estilo y zona de Suecia."},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Inicio","item":"https://viajandoconcabeza.com/"},{"@type":"ListItem","position":2,"name":"Destinos","item":"https://viajandoconcabeza.com/destinos/"},{"@type":"ListItem","position":3,"name":"Suecia","item":"https://viajandoconcabeza.com/destinos/suecia/"},{"@type":"ListItem","position":4,"name":"Presupuesto","item":"https://viajandoconcabeza.com/destinos/suecia/presupuesto"}]}]}</script>
 <link rel="stylesheet" href="/configuracion/css/componentes/acciones-descargas-vcc.css?v=20261115-compartit-v5">
 <link rel="stylesheet" data-vcc-disclosures-global href="/configuracion/css/componentes/desglose-compartit-vcc.css?v=20261115-exacte-v3">
@@ -161,21 +161,26 @@
     </section>
 
     <section class="calculator-card">
-<div class="calc-ticket-head"><h3>Diseña tu escapada</h3><p>Ajusta las etapas por zona; el total reúne todo tu recorrido.</p></div>
+<div class="calc-ticket-head"><h3>Diseña tu escapada</h3></div>
 <div class="calc-top vcc-budget-route-overview" aria-label="Resumen de toda la ruta">
- <div class="calc-control vcc-budget-trip-summary"><span><span class="vcc-ctrl-icon" aria-hidden="true">▦</span> DÍAS TOTALES</span><div class="stepper vcc-summary-output"><output id="days-output">7</output></div></div>
- <div class="calc-control vcc-budget-trip-summary"><span><span class="vcc-ctrl-icon" aria-hidden="true">☾</span> NOCHES TOTALES</span><div class="stepper vcc-summary-output"><output id="nights-output">7</output></div></div>
+ <div class="calc-control vcc-budget-trip-summary"><span><span class="vcc-ctrl-icon" aria-hidden="true">▦</span> DÍAS</span><div class="stepper vcc-summary-output"><output id="days-output">7</output></div></div>
+ <div class="calc-control vcc-budget-trip-summary"><span><span class="vcc-ctrl-icon" aria-hidden="true">☾</span> NOCHES</span><div class="stepper vcc-summary-output"><output id="nights-output">7</output></div></div>
  <div class="calc-control"><span><span class="vcc-ctrl-icon" aria-hidden="true">♙</span> VIAJEROS</span><div class="stepper"><button type="button" aria-label="Reducir viajeros" data-step="people" data-delta="-1">−</button><output id="people-output">2</output><button type="button" aria-label="Aumentar viajeros" data-step="people" data-delta="1">+</button></div></div>
 </div>
-<div class="vcc-budget-stage-chips" id="swb-route-chips" role="group" aria-label="Resumen de etapas y acceso directo a cada zona"></div>
 <section class="vcc-budget-route-planner" aria-labelledby="swb-route-heading">
- <div class="vcc-budget-route-head"><div><span class="vcc-budget-route-overline">Una etapa a la vez</span><h4 id="swb-route-heading">PRESUPUESTO POR ZONA</h4></div><button type="button" data-swb-add-stop>+ AÑADIR ZONA</button></div>
- <div class="vcc-budget-zone-carousel">
-  <button type="button" class="vcc-budget-zone-arrow" id="swb-route-prev" aria-controls="swb-route-rows" aria-label="Ver zona anterior" disabled>‹</button>
-  <div class="vcc-budget-route-rows" id="swb-route-rows" role="region" aria-roledescription="carrusel" aria-label="Calculadora de cada zona" tabindex="0"></div>
-  <button type="button" class="vcc-budget-zone-arrow" id="swb-route-next" aria-controls="swb-route-rows" aria-label="Ver zona siguiente">›</button>
+ <h4 id="swb-route-heading" class="vcc-budget-visually-hidden">PRESUPUESTO POR ZONA</h4>
+ <div class="vcc-budget-route-toolbar">
+  <div class="vcc-budget-stage-chips" id="swb-route-chips" role="group" aria-label="Seleccionar etapa; cada botón indica región, días y noches"></div>
+  <div class="vcc-budget-route-actions">
+   <button type="button" class="vcc-budget-zone-arrow" id="swb-route-prev" aria-controls="swb-route-rows" aria-label="Ver zona anterior" disabled>‹</button>
+   <button type="button" class="vcc-budget-zone-arrow" id="swb-route-next" aria-controls="swb-route-rows" aria-label="Ver zona siguiente">›</button>
+   <button type="button" class="vcc-budget-add-stop" data-swb-add-stop aria-label="Añadir otra zona a la ruta">+ ZONA</button>
+  </div>
  </div>
- <p class="vcc-budget-route-note" id="swb-route-summary" aria-live="polite">7 días · 7 noches · 1 zona</p>
+ <div class="vcc-budget-zone-carousel">
+  <div class="vcc-budget-route-rows" id="swb-route-rows" role="region" aria-roledescription="carrusel" aria-label="Calculadora de cada zona" tabindex="0"></div>
+ </div>
+ <p class="vcc-budget-route-note vcc-budget-visually-hidden" id="swb-route-summary" aria-live="polite">7 días · 7 noches · 1 zona</p>
 </section>
 <div class="calc-total"><span class="vcc-total-title">TOTAL ESTIMADO DEL VIAJE</span><small class="vcc-total-meta" id="trip-total">2 viajeros · 7 días · 7 noches</small><strong id="grand-total" aria-live="polite">1.484 €</strong></div>
       </section>
