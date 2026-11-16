@@ -15,25 +15,33 @@
   const siteRoot = script ? new URL('../../', script.src) : new URL('./', window.location.href);
   const url = (path) => new URL(path, siteRoot).href;
 
-  // Un sol fitxer cachejable de disseny per a totes les pàgines.
-  // Conté, en el mateix ordre que abans: tokens, carrusels, subheader, breadcrumb i header.
-  if (!document.querySelector('link[data-vcc-core-styles], link[href*="/configuracion/css/componentes/vcc-core-compartit.css"]')) {
-    const coreStyle=document.createElement('link');
-    coreStyle.rel='stylesheet';
-    coreStyle.href=url('configuracion/css/componentes/vcc-core-compartit.css?v=20261112-core-v1');
-    coreStyle.dataset.vccCoreStyles='true';
-    document.head.appendChild(coreStyle);
-  }
-  // Una única font de format per a «Continúa planificando / Sigue descubriendo».
-  // Només es carrega quan hi ha realment targetes relacionades a la pàgina.
+  // Carregador únic dels recursos compartits: evita repetir el mateix
+  // patró de creació en cada secció i manté el mateix ordre d'inserció.
+  // Els selectors i URLs originals es preserven per no canviar la cascada.
+  const ensureSharedResource=(kind,selector,path,marker)=>{
+    if(document.querySelector(selector))return;
+    const node=document.createElement(kind);
+    if(kind==='link'){
+      node.rel='stylesheet';
+      node.href=url(path);
+    }else{
+      node.src=url(path);
+      node.async=true;
+    }
+    if(marker)node.dataset[marker]='true';
+    document.head.appendChild(node);
+  };
+
+  // Tokens, carrusels, subheader, breadcrumb i header en un sol CSS.
+  ensureSharedResource('link',
+    'link[data-vcc-core-styles], link[href*="/configuracion/css/componentes/vcc-core-compartit.css"]',
+    'configuracion/css/componentes/vcc-core-compartit.css?v=20261112-core-v1','vccCoreStyles');
+
+  // Related només es carrega en pàgines amb targetes relacionades.
   const mountRelatedSectionStyles=()=>{
     if(!document.querySelector('section:is(.related-section,.vcc-discover-section) .vcc-related-cards'))return;
-    if(document.querySelector('link[data-vcc-related-unified]'))return;
-    const relatedCss=document.createElement('link');
-    relatedCss.rel='stylesheet';
-    relatedCss.href=url('configuracion/css/componentes/sigue-descubriendo-vcc.css?v=20261116-compacte-global-v4');
-    relatedCss.dataset.vccRelatedUnified='true';
-    document.head.appendChild(relatedCss);
+    ensureSharedResource('link','link[data-vcc-related-unified]',
+      'configuracion/css/componentes/sigue-descubriendo-vcc.css?v=20261116-compacte-global-v4','vccRelatedUnified');
   };
   if(document.readyState==='loading'){
     document.addEventListener('DOMContentLoaded',mountRelatedSectionStyles,{once:true});
@@ -41,55 +49,20 @@
     mountRelatedSectionStyles();
   }
 
-  // Sistema global únic per a tots els botons de carrusel esquerra/dreta.
-  // Una sola inclusió, fins i tot si una plantilla ja carrega altres CSS.
-  if (!document.querySelector('link[data-vcc-arrows-global]')) {
-    const arrowsCSS=document.createElement('link');
-    arrowsCSS.rel='stylesheet';
-    arrowsCSS.href=url('configuracion/css/componentes/vcc-fletxes-carrusels-global.css?v=20261115-error-grid-arrows-v5');
-    arrowsCSS.dataset.vccArrowsGlobal='true';
-    document.head.appendChild(arrowsCSS);
-  }
-  // Control tipogràfic unificat per a VER / OCULTAR DESGLOSE.
-  // La mateixa classe s'aplica a pressupostos, transports i calculadores.
-  if (!document.querySelector('link[data-vcc-disclosures-global]')) {
-    const disclosuresCss=document.createElement('link');
-    disclosuresCss.rel='stylesheet';
-    disclosuresCss.href=url('configuracion/css/componentes/desglose-compartit-vcc.css?v=20261115-exacte-v3');
-    disclosuresCss.dataset.vccDisclosuresGlobal='true';
-    document.head.appendChild(disclosuresCss);
-  }
-  // Visibilitat adaptativa: fletxes només quan hi ha desplaçament real.
-  if (!document.querySelector('script[data-vcc-scroll-arrows]')) {
-    const scrollArrows=document.createElement('script');
-    scrollArrows.src=url('configuracion/js/componentes/vcc-carruseles-visibilidad.js?v=20261114-v1');
-    scrollArrows.async=true;
-    scrollArrows.dataset.vccScrollArrows='true';
-    document.head.appendChild(scrollArrows);
-  }
-  // Accions editorials compartides: sense fletxa ornamental, hover subratllat,
-  // CTA al peu dret de les targetes, sense afectar controls de carrusel.
-  if (!document.querySelector('link[data-vcc-discreet-actions]')) {
-    const actionStyle=document.createElement('link');
-    actionStyle.rel='stylesheet';
-    actionStyle.href=url('configuracion/css/componentes/enlaces-discretos-vcc.css?v=20261115-card-ctas-unificats-v4');
-    actionStyle.dataset.vccDiscreetActions='true';
-    document.head.appendChild(actionStyle);
-  }
-  if (!document.querySelector('script[data-vcc-discreet-actions]')) {
-    const actionScript=document.createElement('script');
-    actionScript.src=url('configuracion/js/componentes/enlaces-discretos-vcc.js?v=20261114-card-ctas-verificats-v2');
-    actionScript.async=true;
-    actionScript.dataset.vccDiscreetActions='true';
-    document.head.appendChild(actionScript);
-  }
-  // El controlador del subheader continua sent únic i asíncron.
-  if (!document.querySelector('script[src*="subheader-unificado-vcc.js"]')) {
-    const subheaderJs=document.createElement('script');
-    subheaderJs.src=url('configuracion/js/componentes/subheader-unificado-vcc.js?v=20261115-active-anchor-v2');
-    subheaderJs.async=true;
-    document.head.appendChild(subheaderJs);
-  }
+  // Components reutilitzats a tot el web (mateixos fitxers i marcadors).
+  ensureSharedResource('link','link[data-vcc-arrows-global]',
+    'configuracion/css/componentes/vcc-fletxes-carrusels-global.css?v=20261115-error-grid-arrows-v5','vccArrowsGlobal');
+  ensureSharedResource('link','link[data-vcc-disclosures-global]',
+    'configuracion/css/componentes/desglose-compartit-vcc.css?v=20261115-exacte-v3','vccDisclosuresGlobal');
+  ensureSharedResource('script','script[data-vcc-scroll-arrows]',
+    'configuracion/js/componentes/vcc-carruseles-visibilidad.js?v=20261114-v1','vccScrollArrows');
+  ensureSharedResource('link','link[data-vcc-discreet-actions]',
+    'configuracion/css/componentes/enlaces-discretos-vcc.css?v=20261115-card-ctas-unificats-v4','vccDiscreetActions');
+  ensureSharedResource('script','script[data-vcc-discreet-actions]',
+    'configuracion/js/componentes/enlaces-discretos-vcc.js?v=20261114-card-ctas-verificats-v2','vccDiscreetActions');
+  ensureSharedResource('script','script[src*="subheader-unificado-vcc.js"]',
+    'configuracion/js/componentes/subheader-unificado-vcc.js?v=20261115-active-anchor-v2');
+
   const currentPath = window.location.pathname.replace(/\/index\.html$/, '/');
 
   /* VCC · Breadcrumb universal de destinos. Un único DOM + un único CSS.
