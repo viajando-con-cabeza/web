@@ -91,15 +91,15 @@
         savingBox.dataset.savings=difference>0?"positive":"negative";
         savingLabel.textContent="TE AHORRAS";
         saving.textContent=format.format(Math.abs(difference));
-        savingWith.textContent=difference>0?"si eliges otro transporte":"si eliges coche de alquiler";
-        verdict.textContent=difference>0?"Otro transporte":"Coche de alquiler";
+        savingWith.textContent=difference>0?"si eliges transporte alternativo":"si eliges coche de alquiler";
+        verdict.textContent=difference>0?"Transporte alternativo":"Coche de alquiler";
       }
     }
     form.addEventListener("submit",event=>event.preventDefault());
     form.addEventListener("input",recalculate);
     form.addEventListener("change",recalculate);
     const clear=page.querySelector("[data-sw-calc-reset]");
-    if(clear)clear.addEventListener("click",()=>{form.reset();recalculate();field("publico")?.focus();});
+    if(clear)clear.addEventListener("click",()=>{form.reset();recalculate();field("alquiler")?.focus();});
     recalculate();
   }
   if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",init,{once:true});
