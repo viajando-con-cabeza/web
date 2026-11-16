@@ -113,6 +113,26 @@ for(const section of [
   file+': falta estructura editorial de portada');
 }
 
+/* Portades de Planifica: sempre foto original amb màscara alfa real.
+ * La capa blanca pintada per sobre o mask-image:none havia eliminat
+ * la transparència en Alojamientos i altres subpàgines. */
+const planificaPortades=read('configuracion/css/componentes/planifica-portadas-unificadas-vcc.css');
+check(planificaPortades.includes('background-image:var(--vcc-pl-cover)!important;')&&
+  planificaPortades.includes('mask-image:var(--vcc-portada-fade,')&&
+  !planificaPortades.includes('mask-image:none!important;'),
+  'Planifica: la fotografia ha de conservar la transparència compartida');
+for(const slug of [
+ 'vuelos','alojamientos','tarjetas-de-viaje','apps','seguros',
+ 'donde-ir','presupuesto','que-llevar','mapas','calcula-tu-viaje'
+]){
+ const file='planifica/'+slug+'/index.html',html=read(file);
+ check(html.includes('data-vcc-planifica-hero="'+slug+'"')&&
+  html.includes('/configuracion/css/componentes/planifica-portadas-unificadas-vcc.css'),
+  file+': manca la portada i el CSS compartit');
+}
+check(read('planifica/index.html').includes('planifica-about-hero'),
+ 'Planifica: la portada principal ha de conservar el seu tractament independent');
+
 check(registry.length===19,'El registre ha de tenir 19 portades');
 if(problems.length){problems.forEach(x=>console.error('HERO VCC:',x));process.exitCode=1;}
 else console.log('HERO VCC OK: 19 portades, mateixa fotografia, càrrega LCP primerenca.');
