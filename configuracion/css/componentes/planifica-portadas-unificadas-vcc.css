@@ -24,7 +24,7 @@ html body .vcc-planifica-hero:not(.planifica-about-hero) {
   max-height:none!important;
   margin:0!important;
   border:0!important;
-  background:#eee9e3!important;
+  background:#fff!important;
   color:var(--vcc-pl-ink)!important;
 }
 /* Un solo tratamiento fotográfico para portadas de las páginas hijas. */
@@ -37,14 +37,21 @@ html body .vcc-planifica-hero:not(.planifica-about-hero)::before {
   opacity:1!important;
   visibility:visible!important;
   pointer-events:none!important;
-  background-image:
-    linear-gradient(90deg,rgba(255,255,255,.94) 0%,rgba(255,255,255,.85) 34%,rgba(255,255,255,.42) 64%,rgba(255,255,255,.03) 100%),
-    var(--vcc-pl-cover)!important;
-  background-position:center center,center center!important;
-  background-size:cover,cover!important;
+  background-color:transparent!important;
+  background-image:var(--vcc-pl-cover)!important;
+  background-position:center center!important;
+  background-size:cover!important;
   background-repeat:no-repeat!important;
-  -webkit-mask-image:none!important;
-  mask-image:none!important;
+  /* Transparència real de la foto sobre blanc, igual que a la resta de VCC.
+     La variable global governa el degradat i la versió mòbil. */
+  -webkit-mask-image:var(--vcc-portada-fade,linear-gradient(90deg,rgba(0,0,0,.04) 0%,rgba(0,0,0,.21) 34%,rgba(0,0,0,.59) 72%,rgba(0,0,0,.82) 100%))!important;
+  mask-image:var(--vcc-portada-fade,linear-gradient(90deg,rgba(0,0,0,.04) 0%,rgba(0,0,0,.21) 34%,rgba(0,0,0,.59) 72%,rgba(0,0,0,.82) 100%))!important;
+  -webkit-mask-size:100% 100%!important;
+  mask-size:100% 100%!important;
+  -webkit-mask-repeat:no-repeat!important;
+  mask-repeat:no-repeat!important;
+  filter:none!important;
+  mix-blend-mode:normal!important;
 }
 html body .vcc-planifica-hero:not(.planifica-about-hero)::after {
   content:none!important;
@@ -189,11 +196,6 @@ html body .vcc-planifica-hero[data-vcc-planifica-hero="mapas"] {--vcc-pl-cover:u
     height:auto!important;
     min-height:415px!important;
     max-height:none!important;
-  }
-  html body .vcc-planifica-hero:not(.planifica-about-hero)::before{
-    background-image:
-      linear-gradient(90deg,rgba(255,255,255,.96) 0%,rgba(255,255,255,.87) 61%,rgba(255,255,255,.59) 100%),
-      var(--vcc-pl-cover)!important;
   }
   html body .vcc-planifica-hero .vcc-planifica-hero-content{
     width:calc(100% - 36px)!important;
