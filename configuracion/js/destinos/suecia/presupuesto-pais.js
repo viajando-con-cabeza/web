@@ -21,7 +21,7 @@
   let data=null;
   if(!el("grand-total")||!el("swb-route-rows")||!el("swb-region-top")||!source)return;
   const controls=[...document.querySelectorAll(
-    "[data-budget-mode],.calculator-card [data-step],#swb-region-top,[data-vcc-download-excel],[data-swb-add-stop],#swb-route-prev,#swb-route-next"
+    "[data-budget-mode],.calculator-card [data-step],#swb-region-top,[data-vcc-download-excel],[data-swb-add-stop],#swb-remove-stop,#swb-route-prev,#swb-route-next"
   )];
   const lock=locked=>controls.forEach(node=>{node.disabled=locked;});
   root.dataset.budgetStatus="loading";
@@ -157,6 +157,12 @@
     const prev=el("swb-route-prev"),next=el("swb-route-next");
     if(prev)prev.disabled=state.activeStop===0;
     if(next)next.disabled=state.activeStop===state.stops.length-1;
+    const remove=el("swb-remove-stop");
+    if(remove){
+      remove.disabled=state.stops.length<=1;
+      const zone=data?.zones[state.stops[state.activeStop]?.zone];
+      remove.setAttribute("aria-label","Eliminar zona "+(state.activeStop+1)+(zone?" ("+zone.name+")":"")+" de la ruta");
+    }
     // Si hi ha moltes etapes, la seleccionada no pot quedar tallada del carrusel.
     requestAnimationFrame(()=>{
       const strip=el("swb-route-chips");
@@ -223,7 +229,7 @@
         <span class="vcc-category-name"><span class="vcc-category-icon" aria-hidden="true">${categoryIcons[k]}</span><span>${categoryNames[k]}</span></span>
         <select data-zone-category="${k}" aria-label="Estilo de ${categoryNames[k].toLowerCase()} para zona ${i+1}"></select>
         <span class="vcc-price-block"><strong class="vcc-budget-price" data-zone-price="${k}">—</strong><small>por persona / ${k==="alojamiento"?"noche":"día"}</small></span></div>`).join("");
-      slide.innerHTML=`<div class="vcc-budget-stage-heading"><span>ZONA ${i+1} DE ${state.stops.length}</span><span class="vcc-budget-stage-subtotal"><span>Subtotal</span><strong data-zone-total>—</strong></span><button type="button" data-remove-stop aria-label="Eliminar etapa ${i+1}">× Quitar</button></div>
+      slide.innerHTML=`<div class="vcc-budget-stage-heading"><span>ZONA ${i+1} DE ${state.stops.length}</span><span class="vcc-budget-stage-subtotal"><span>Subtotal</span><strong data-zone-total>—</strong></span></div>
         <div class="vcc-budget-stage-controls">
          <label class="vcc-budget-stage-region"><span class="vcc-budget-stage-label">REGIÓN</span><span class="vcc-budget-stage-select-wrap"><svg class="vcc-budget-stage-location-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 5-8 11-8 11S4 15 4 10a8 8 0 1 1 16 0Z"></path><circle cx="12" cy="10" r="2.5"></circle></svg><select data-zone-name aria-label="Región de la zona ${i+1}"></select></span></label>
          ${["days","nights"].map(unit=>`<div class="vcc-budget-stage-unit"><span class="vcc-budget-stage-label">${unit==="days"?"DÍAS":"NOCHES"}</span><div class="vcc-budget-stage-step"><span class="vcc-ctrl-icon vcc-budget-stage-step-icon" aria-hidden="true">${unit==="days"?"▦":"☾"}</span><button type="button" data-stage-step="${unit}" data-stage-delta="-1" aria-label="Restar ${unit==="days"?"día":"noche"} en la zona ${i+1}">−</button><input type="number" data-stage-input="${unit}" min="${unit==="days"?1:0}" max="60" step="1" inputmode="numeric" aria-label="${unit==="days"?"Días":"Noches"} en la zona ${i+1}" value="${stop[unit]}"><button type="button" data-stage-step="${unit}" data-stage-delta="1" aria-label="Añadir ${unit==="days"?"día":"noche"} en la zona ${i+1}">+</button></div></div>`).join("")}
@@ -262,13 +268,6 @@
         }
         select.value=stop.choice[k];
         select.addEventListener("change",()=>{if(styles.includes(select.value)){stop.choice[k]=select.value;renderCalculator();}});
-      });
-      const remove=slide.querySelector("[data-remove-stop]");
-      remove.disabled=state.stops.length===1;
-      remove.addEventListener("click",()=>{
-        if(state.stops.length===1)return;
-        state.stops.splice(i,1);state.activeStop=Math.min(i,state.stops.length-1);
-        renderRoute();renderCalculator();
       });
       container.append(slide);
     });
@@ -347,6 +346,13 @@
       const next=Object.keys(data.zones).find(key=>!state.stops.some(s=>s.zone===key))||state.zone;
       state.stops.push({zone:next,days:1,nights:1,choice:{...state.choice}});
       state.activeStop=state.stops.length-1;
+      renderRoute();renderCalculator();
+    });
+    el("swb-remove-stop")?.addEventListener("click",()=>{
+      if(state.stops.length<=1)return;
+      const index=state.activeStop;
+      state.stops.splice(index,1);
+      state.activeStop=Math.min(index,state.stops.length-1);
       renderRoute();renderCalculator();
     });
     el("swb-route-prev")?.addEventListener("click",()=>showStop(state.activeStop-1));
