@@ -75,7 +75,7 @@
       "Duración: "+days+" días · "+nights+" noches",
       "Viajeros: "+people,
       "Total estimado del viaje: "+euros(total),
-      "Total estimado por persona: "+euros(total/people)
+      "Total estimado por pax: "+euros(total/people)
     ]}];
     rows.forEach((row,index)=>{
       const zone=row.querySelector("[data-zone-name]")?.selectedOptions[0]?.textContent.trim();
@@ -90,7 +90,9 @@
         if(!selector||!price)throw Error("Datos incompletos: "+label);
         const amount=numeric(price.textContent);
         if(!Number.isFinite(amount))throw Error("Precio incorrecto: "+label);
-        lines.push(label+" ("+selector.selectedOptions[0].textContent.trim()+"): "+euros(amount)+" / persona / "+(key==="alojamiento"?"noche":"día"));
+        const unit=key==="alojamiento"?"noche":"día";
+        const quantity=key==="alojamiento"?stopNights:stopDays;
+        lines.push(label+" ("+selector.selectedOptions[0].textContent.trim()+"): "+euros(amount)+" / pax / "+unit+" · subtotal "+euros(amount*quantity*people));
       }
       lines.push("Subtotal de la etapa: "+euros(stopTotal));
       sections.push({heading:"Etapa "+(index+1)+" · "+zone,lines});
