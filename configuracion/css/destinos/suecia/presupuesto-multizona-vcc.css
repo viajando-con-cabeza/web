@@ -155,19 +155,24 @@ html body.budget-vcc.sweden-budget-vcc #calculadora .vcc-budget-stage-label{
   min-height:15px!important;color:#333230!important;white-space:nowrap!important;
   font:700 10px/1.1 var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;
 }
-html body.budget-vcc.sweden-budget-vcc #calculadora .vcc-budget-stage-label .vcc-ctrl-icon{
-  display:inline-block!important;color:#c66b50!important;
-  font-size:16px!important;line-height:1!important;flex:0 0 auto!important;
+/* Símbols situats dins els controls, no sobre les etiquetes. */
+html body.budget-vcc.sweden-budget-vcc #calculadora .vcc-budget-stage-select-wrap{
+ position:relative!important;display:block!important;min-width:0!important;width:100%!important;height:27px!important;
 }
 html body.budget-vcc.sweden-budget-vcc #calculadora .vcc-budget-stage-location-icon{
-  display:block!important;width:15px!important;height:15px!important;
-  min-width:15px!important;flex:0 0 15px!important;
-  color:#c66b50!important;stroke:currentColor!important;
+ position:absolute!important;top:50%!important;left:8px!important;transform:translateY(-50%)!important;
+ pointer-events:none!important;z-index:1!important;display:block!important;
+ width:14px!important;height:14px!important;min-width:14px!important;color:#c66b50!important;stroke:currentColor!important;
 }
 html body.budget-vcc.sweden-budget-vcc #calculadora .vcc-budget-stage-region select{
-  width:100%!important;min-width:0!important;height:27px!important;min-height:27px!important;
-  padding:2px 5px!important;border:1px solid #dedbd8!important;border-radius:6px!important;
-  background:#fff!important;font-size:11px!important;color:#333!important;
+ width:100%!important;min-width:0!important;height:27px!important;min-height:27px!important;
+ padding:2px 4px 2px 27px!important;border:1px solid #dedbd8!important;border-radius:6px!important;
+ background:#fff!important;font-size:11px!important;color:#333!important;
+}
+html body.budget-vcc.sweden-budget-vcc #calculadora .vcc-budget-stage-step .vcc-budget-stage-step-icon{
+ display:inline-grid!important;place-items:center!important;flex:0 0 16px!important;
+ width:16px!important;min-width:16px!important;margin:0 0 0 5px!important;
+ color:#c66b50!important;font-size:15px!important;line-height:1!important;pointer-events:none!important;
 }
 html body.budget-vcc.sweden-budget-vcc #calculadora .vcc-budget-stage-step{
   display:flex!important;align-items:center!important;justify-content:space-between!important;
@@ -176,7 +181,7 @@ html body.budget-vcc.sweden-budget-vcc #calculadora .vcc-budget-stage-step{
   border:1px solid #dedbd8!important;border-radius:6px!important;background:#fff!important;
 }
 html body.budget-vcc.sweden-budget-vcc #calculadora .vcc-budget-stage-step button{
-  flex:0 0 22px!important;width:22px!important;height:25px!important;min-width:22px!important;
+  flex:0 0 20px!important;width:20px!important;height:25px!important;min-width:20px!important;
   display:grid!important;place-items:center!important;
   padding:0!important;margin:0!important;background:transparent!important;border:0!important;
   color:#a65c44!important;font-size:16px!important;cursor:pointer!important;
@@ -313,6 +318,14 @@ html body.budget-vcc.sweden-budget-vcc #calculadora .breakdown-card .legend-row{
   }
   html body.budget-vcc.sweden-budget-vcc #calculadora .vcc-budget-stage-step button{
     flex-basis:17px!important;width:17px!important;min-width:17px!important;font-size:15px!important;
+  }
+  html body.budget-vcc.sweden-budget-vcc #calculadora .vcc-budget-stage-step .vcc-budget-stage-step-icon{
+    flex-basis:13px!important;width:13px!important;min-width:13px!important;
+    margin-left:3px!important;font-size:13px!important;
+  }
+  html body.budget-vcc.sweden-budget-vcc #calculadora .vcc-budget-stage-region select{padding-left:24px!important}
+  html body.budget-vcc.sweden-budget-vcc #calculadora .vcc-budget-stage-location-icon{
+    left:6px!important;width:13px!important;height:13px!important;min-width:13px!important;
   }
   html body.budget-vcc.sweden-budget-vcc #calculadora .vcc-budget-stage-categories .category-row{
     grid-template-columns:minmax(0,1.05fr) minmax(0,.83fr) 74px!important;
