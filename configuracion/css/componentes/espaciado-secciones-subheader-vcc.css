@@ -43,7 +43,13 @@
   html body .st-shell .st-main > section {
     margin-block-end: 0 !important;
   }
-  html body.country-page .country-main > section:last-of-type,
+  /* Suecia inclou dos <main> separats per una foto editorial: el marge
+     final només és per al <main> de preguntes freqüents, no al primer. */
+  html body.country-page .country-main.after-inspiration,
+  html body .st-shell .st-main {
+    padding-block-end: 0 !important;
+  }
+  html body.country-page .country-main.after-inspiration > section:last-of-type,
   html body .st-shell .st-main > section:last-of-type {
     margin-block-end: var(--vcc-espai-despres-ultim-apartat) !important;
   }
