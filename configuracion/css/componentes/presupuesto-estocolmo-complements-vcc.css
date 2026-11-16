@@ -1075,93 +1075,74 @@ html body.budget-vcc .spend-section .decision-panel .vcc-decision-symbol{
  * NO canvia herois, targetes, menús ni apartats de detall.
  * Les tres peces empren classes explícites per no alterar altres textos.
  */
-html body .vcc-editorial-heading {
-  display:flex!important;
-  flex-direction:row!important;
-  align-items:flex-end!important;
-  justify-content:space-between!important;
-  flex-wrap:nowrap!important;
-  gap:clamp(20px,3vw,44px)!important;
-  width:100%;
-  max-width:none!important;
-  min-width:0;
-  padding:0!important;
-  margin:0 0 20px!important;
-  text-align:left!important;
-  border:0!important;
-  background:transparent!important;
+/* Únic patró per a totes les seccions de pàgines amb subheader:
+   sobretítol + títol d'una línia + resum a la dreta (màxim 2 línies). */
+html body .vcc-editorial-heading{
+  display:grid!important;
+  grid-template-columns:minmax(0,1fr) minmax(270px,clamp(320px,29vw,430px))!important;
+  align-items:end!important;
+  gap:clamp(18px,2.2vw,32px)!important;
+  width:100%!important;max-width:none!important;min-width:0!important;
+  margin:0 0 20px!important;padding:0!important;
+  border:0!important;background:transparent!important;text-align:left!important;
 }
-html body .vcc-editorial-heading > .vcc-editorial-heading-main {
-  flex:1 1 auto!important;
-  min-width:0!important;
-  max-width:100%;
-  margin:0!important;
-  padding:0!important;
-  text-align:left!important;
+html body .vcc-editorial-heading > .vcc-editorial-heading-main{
+  width:100%!important;min-width:0!important;max-width:100%!important;
+  margin:0!important;padding:0!important;text-align:left!important;
 }
-html body .vcc-editorial-heading .vcc-editorial-overline {
-  display:block!important;
-  position:static!important;
-  width:auto!important;
-  max-width:100%!important;
-  margin:0 0 7px!important;
-  padding:0!important;
+html body .vcc-editorial-heading .vcc-editorial-overline{
+  display:block!important;position:static!important;
+  width:auto!important;max-width:100%!important;margin:0 0 7px!important;padding:0!important;
   color:#c86f5d!important;
   font:600 calc(clamp(25px,2.15vw,29px) + var(--vcc-overline-size-adjust,0px))/1.1 var(--vcc-font-script,"Caveat",cursive)!important;
-  letter-spacing:0!important;
-  text-transform:none!important;
-  text-align:left!important;
-  transform:none!important;
+  letter-spacing:0!important;text-transform:none!important;text-align:left!important;transform:none!important;
 }
-html body .vcc-editorial-heading .vcc-editorial-title {
-  display:block!important;
-  max-width:100%!important;
-  margin:0!important;
-  padding:0!important;
+html body .vcc-editorial-heading .vcc-editorial-title{
+  display:block!important;width:100%!important;max-width:100%!important;
+  margin:0!important;padding:0!important;min-width:0!important;
   color:#171717!important;
-  font:600 calc(clamp(30px,3.2vw,43px) + var(--vcc-heading-size-adjust,0px))/1.08 var(--vcc-font-heading,"Oswald",sans-serif)!important;
-  letter-spacing:0!important;
-  text-transform:uppercase!important;
-  text-align:left!important;
-  overflow-wrap:normal;
-  text-wrap:balance;
+  font:600 calc(clamp(27px,2.55vw,37px) + var(--vcc-heading-size-adjust,0px))/1.1 var(--vcc-font-heading,"Oswald",sans-serif)!important;
+  letter-spacing:0!important;text-transform:uppercase!important;text-align:left!important;
+  white-space:nowrap!important;text-wrap:nowrap!important;
+  overflow:visible!important;overflow-wrap:normal!important;
 }
 html body .vcc-editorial-heading .vcc-editorial-title::after,
-html body .vcc-editorial-heading .vcc-editorial-title::before {
-  display:none!important;
-  content:none!important;
+html body .vcc-editorial-heading .vcc-editorial-title::before{
+  display:none!important;content:none!important;
 }
 html body .vcc-editorial-heading > .vcc-editorial-description,
-html body .vcc-editorial-heading > .vcc-editorial-heading-side .vcc-editorial-description {
-  display:block!important;
-  flex:0 1 450px!important;
-  align-self:flex-end!important;
-  width:auto!important;
-  max-width:450px!important;
-  min-width:0!important;
-  margin:0 0 3px!important;
-  padding:0!important;
+html body .vcc-editorial-heading > .vcc-editorial-heading-side{
+  display:block!important;align-self:end!important;
+  width:100%!important;max-width:430px!important;min-width:0!important;
+  margin:0 0 3px!important;padding:0!important;
   color:#655e58!important;
-  font:400 13px/1.58 var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;
-  letter-spacing:0!important;
-  text-align:right!important;
-  text-transform:none!important;
-  text-wrap:pretty;
+  font:400 12.5px/1.5 var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;
+  letter-spacing:0!important;text-align:right!important;text-transform:none!important;
+  text-wrap:pretty!important;
 }
-html body .vcc-editorial-heading > .vcc-editorial-heading-side {
-  flex:0 1 450px!important;
-  min-width:0!important;
-  max-width:450px!important;
-  margin:0!important;
-  text-align:right!important;
+html body .vcc-editorial-heading > .vcc-editorial-heading-side .vcc-editorial-description{
+  display:block!important;width:100%!important;max-width:100%!important;
+  margin:0!important;padding:0!important;text-align:right!important;
+  font:inherit!important;color:inherit!important;
 }
-html body .vcc-editorial-heading > .vcc-editorial-heading-side .vcc-editorial-description {
-  width:100%!important;
-  margin:0!important;
+@media(max-width:1150px){
+  html body .vcc-editorial-heading{
+    grid-template-columns:minmax(0,1fr)!important;
+    align-items:start!important;gap:8px!important;
+  }
+  html body .vcc-editorial-heading .vcc-editorial-title{
+    white-space:normal!important;text-wrap:pretty!important;
+  }
+  html body .vcc-editorial-heading > .vcc-editorial-description,
+  html body .vcc-editorial-heading > .vcc-editorial-heading-side,
+  html body .vcc-editorial-heading > .vcc-editorial-heading-side .vcc-editorial-description{
+    max-width:100%!important;text-align:left!important;
+    margin:0!important;align-self:start!important;
+  }
 }
 @media (max-width:900px) {
   html body .vcc-editorial-heading {
-    flex-direction:column!important;
+    grid-template-columns:minmax(0,1fr)!important;
     align-items:flex-start!important;
     gap:8px!important;
     margin-bottom:17px!important;
