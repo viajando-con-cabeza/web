@@ -94,14 +94,14 @@ html body .cl-page.cl-landing.sw-country-copy #como-llegar-regiones.sw-country-g
   }
 }
 
-/* Ancoratges del subheader: els tres apartats han de quedar just sota la
-   capçalera fixa, amb el títol visible i sense l'espai extra de 24px
-   afegit per la regla global [data-vcc-subheader-target].
-   Es respecten les variables compartides per ordinador i mòbil. */
+/* Les tres àncores del subheader apunten a seccions reals (sense
+   dependre del JS data-vcc-subheader-target). Deixem que el padding
+   intern situï el títol just sota la barra fixa, més amunt que abans.
+   Variables responsives compartides d'alçada de header i subnav. */
 html body .cl-page.cl-landing.sw-country-copy :is(
   #comparar-aeropuertos,
   #como-llegar-regiones,
   #ahorrar
-)[data-vcc-subheader-target] {
-  scroll-margin-top: max(0px, calc(var(--vcc-subheader-top, 50px) + var(--vcc-subnav-height, 39px) - 8px)) !important;
+) {
+  scroll-margin-top: max(0px, calc(var(--vcc-subheader-top, 50px) + var(--vcc-subnav-height, 39px) - 16px)) !important;
 }
