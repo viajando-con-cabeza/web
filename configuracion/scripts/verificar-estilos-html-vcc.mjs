@@ -124,9 +124,18 @@ for(const file of published){
    const relatedIndex=indexOfEnd('/guias-relacionadas-vcc.css');
    const heroIndex=indexOfEnd('/portadas-rapidas-vcc.css');
    const coreIndex=indexOfEnd('/vcc-guies-core-fons-compartit.css');
-   if(baseIndex!==0||uiIndex!==1||!(relatedIndex>uiIndex)||
-      heroIndex!==relatedIndex+1||coreIndex!==localUrls.length-1||
-      localUrls.length>6){
+   const editorialIndex=indexOfEnd('/vcc-capcaleres-editorials.css');
+   // Algunes guies requereixen UN CSS particular just després del base.
+   // El paquet UI ja no inclou capçaleres; el full editorial va després
+   // del core per conservar la cascada visual aprovada.
+   const optionalBeforeUi=new Set([
+     '/configuracion/css/destinos/suecia/estocolmo/como-moverse-preferidos-vcc.css',
+     '/configuracion/css/componentes/presupuesto-confianza-vcc.css'
+   ]);
+   const uiPositionOk=uiIndex===1||(uiIndex===2&&optionalBeforeUi.has(localUrls[1]));
+   if(baseIndex!==0||!uiPositionOk||relatedIndex!==uiIndex+1||
+      heroIndex!==relatedIndex+1||coreIndex!==heroIndex+1||
+      editorialIndex<=coreIndex||localUrls.length>10){
      failures.push(file+': ordre de cascada de CSS compartit inconsistent');
    }
  }
