@@ -1,0 +1,55 @@
+/* VCC · Mosaic d'agost compactat (2026-11-16).
+   ÚNICAMENT: destinos/suecia/cuando-ir i destinos/suecia/estocolmo/cuando-ir.
+   El body .vcc-august-gallery-compact només s'aplica en aquestes 2 pàgines.
+   Altres galeries (Qué ver, Imprescindibles, Itinerarios...) no es modifiquen. */
+html body.ci-page.vcc-august-gallery-compact #experiencia .ci-august-box{
+  padding:14px 17px!important;
+}
+html body.ci-page.vcc-august-gallery-compact #experiencia .ci-august-experience-layout{
+  gap:17px!important;
+  margin-bottom:13px!important;
+}
+html body.ci-page.vcc-august-gallery-compact #experiencia .ci-august-imp-gallery .gallery-mosaic{
+  width:100%!important;
+  height:auto!important;
+  min-height:0!important;
+  max-height:300px!important;
+  aspect-ratio:2.4!important;
+  border-radius:9px!important;
+  overflow:hidden!important;
+  box-shadow:none!important;
+}
+html body.ci-page.vcc-august-gallery-compact #experiencia .ci-august-imp-gallery .gallery-mosaic.count-4{
+  gap:3px!important;
+}
+html body.ci-page.vcc-august-gallery-compact #experiencia .ci-august-gallery-embed[data-vcc-lazy-gallery]:not([data-vcc-gallery-loaded]) .gallery{
+  aspect-ratio:2.4!important;
+  max-height:300px!important;
+}
+@media(max-width:1080px){
+  html body.ci-page.vcc-august-gallery-compact #experiencia .ci-august-imp-gallery .gallery-mosaic{
+    aspect-ratio:2.35!important;
+    max-height:310px!important;
+  }
+  html body.ci-page.vcc-august-gallery-compact #experiencia .ci-august-gallery-embed[data-vcc-lazy-gallery]:not([data-vcc-gallery-loaded]) .gallery{
+    aspect-ratio:2.35!important;
+    max-height:310px!important;
+  }
+}
+@media(max-width:650px){
+  html body.ci-page.vcc-august-gallery-compact #experiencia .ci-august-box{
+    padding:11px 12px!important;
+  }
+  html body.ci-page.vcc-august-gallery-compact #experiencia .ci-august-experience-layout{
+    gap:12px!important;
+    margin-bottom:12px!important;
+  }
+  html body.ci-page.vcc-august-gallery-compact #experiencia .ci-august-imp-gallery .gallery-mosaic{
+    aspect-ratio:1.8!important;
+    max-height:240px!important;
+  }
+  html body.ci-page.vcc-august-gallery-compact #experiencia .ci-august-gallery-embed[data-vcc-lazy-gallery]:not([data-vcc-gallery-loaded]) .gallery{
+    aspect-ratio:1.8!important;
+    max-height:240px!important;
+  }
+}
