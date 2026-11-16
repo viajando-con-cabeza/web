@@ -1,5 +1,5 @@
 @import url("/configuracion/css/componentes/portades-fade-global-vcc.css?v=20261116-unificat-v1");
-@import url("/configuracion/css/componentes/espaciado-secciones-subheader-vcc.css?v=20261116-global-v2");
+@import url("/configuracion/css/componentes/espaciado-secciones-subheader-vcc.css?v=20261116-altura-unica-v4");
 
 /* Capa única prioritària per als !important de portada interiors.
  * El contracte guanya sobre els CSS de plantilla antics sense duplicar
@@ -14,8 +14,8 @@
  * d'esquerra transparent a dreta visible, o vel blanc equivalent LCP.
  */
 :root{
-  --vcc-contract-height:475px;
-  --vcc-contract-mobile-height:clamp(370px,calc(100svh - var(--vcc-page-header-height,79px) - var(--vcc-subnav-height,39px) - 20px),440px);
+  --vcc-contract-height:var(--vcc-subheader-cover-height,475px);
+  --vcc-contract-mobile-height:var(--vcc-subheader-cover-height,640px);
   --vcc-contract-gutter:max(46px,calc((100vw - 1510px)/2));
   --vcc-contract-copy-top:78px;
   --vcc-contract-copy-width:760px;
