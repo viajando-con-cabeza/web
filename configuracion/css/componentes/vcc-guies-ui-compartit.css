@@ -1004,3 +1004,56 @@ html body .vcc-guide-hero-unified :is(
    line-height:1.55!important;
  }
 }
+
+
+/* Subguies històriques d'Estocolm: abans empraven Cormorant i
+   textos de 8–10px. Comparteixen ara la mateixa portada editorial. */
+html body .content-hero.vcc-guide-hero-unified{
+  box-sizing:border-box!important;
+  display:block!important;
+  position:relative!important;
+  isolation:isolate!important;
+  width:100%!important;
+  max-width:none!important;
+  height:475px!important;
+  min-height:475px!important;
+  margin:0!important;
+  padding:16px max(34px,calc((100% - 1320px)/2)) 36px!important;
+  overflow:hidden!important;
+  color:#171717!important;
+  background:
+    linear-gradient(90deg,rgba(255,255,255,.97) 0%,rgba(255,255,255,.84) 42%,rgba(255,255,255,.12) 100%),
+    var(--vcc-guide-photo,url("/configuracion/imagenes/fondos/optimizadas/fondos-que-ver-1920.webp"))
+    center center/cover no-repeat!important;
+}
+html body .content-hero.vcc-guide-hero-unified > .crumb{
+  display:block!important;
+  position:relative!important;
+  z-index:2!important;
+  margin:0 0 60px!important;
+  padding:0!important;
+  font:400 11px/1.4 var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;
+  color:#555!important;
+}
+html body .content-hero.vcc-guide-hero-unified .vcc-guide-hero-copy{
+  position:relative!important;
+  z-index:2!important;
+  width:100%!important;
+  margin:0!important;
+  padding:0!important;
+}
+@media(max-width:700px){
+  html body .content-hero.vcc-guide-hero-unified{
+    height:450px!important;
+    min-height:450px!important;
+    padding:15px 18px 28px!important;
+    background:
+      linear-gradient(90deg,rgba(255,255,255,.97),rgba(255,255,255,.78)),
+      var(--vcc-guide-photo-mobile,var(--vcc-guide-photo,url("/configuracion/imagenes/fondos/optimizadas/fondos-que-ver-960.webp")))
+      center center/cover no-repeat!important;
+  }
+  html body .content-hero.vcc-guide-hero-unified > .crumb{
+    margin-bottom:48px!important;
+    font-size:10px!important;
+  }
+}
