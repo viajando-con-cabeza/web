@@ -12,7 +12,7 @@
   const cats=["alojamiento","comida","transporte","actividades","extras"];
   const styles=["lujo","medio","vcc","mochilero"];
   const palette=["#cf705c","#e4a65a","#5ca5a2","#6e9e77","#c9ad7b"];
-  const euro=n=>Math.round(n).toLocaleString("es-ES")+" €";
+  const euro=n=>Math.round(n).toLocaleString("es-ES",{useGrouping:"always"})+" €";
   const state={
     days:7,nights:7,people:2,zone:"centrosur",activeStop:0,
     stops:[{zone:"centrosur",days:7,nights:7,choice:{alojamiento:"vcc",comida:"vcc",transporte:"vcc",actividades:"vcc",extras:"vcc"}}],
@@ -232,7 +232,7 @@
       slide.innerHTML=`<div class="vcc-budget-stage-heading"><span>ZONA ${i+1} DE ${state.stops.length}</span><span class="vcc-budget-stage-subtotal"><span>Subtotal</span><strong data-zone-total>—</strong></span></div>
         <div class="vcc-budget-stage-controls">
          <label class="vcc-budget-stage-region"><span class="vcc-budget-stage-label">REGIÓN</span><span class="vcc-budget-stage-select-wrap"><svg class="vcc-budget-stage-location-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 5-8 11-8 11S4 15 4 10a8 8 0 1 1 16 0Z"></path><circle cx="12" cy="10" r="2.5"></circle></svg><select data-zone-name aria-label="Región de la zona ${i+1}"></select></span></label>
-         ${["days","nights"].map(unit=>`<div class="vcc-budget-stage-unit"><span class="vcc-budget-stage-label">${unit==="days"?"DÍAS":"NOCHES"}</span><div class="vcc-budget-stage-step"><span class="vcc-ctrl-icon vcc-budget-stage-step-icon" aria-hidden="true">${unit==="days"?"▦":"☾"}</span><button type="button" data-stage-step="${unit}" data-stage-delta="-1" aria-label="Restar ${unit==="days"?"día":"noche"} en la zona ${i+1}">−</button><input type="number" data-stage-input="${unit}" min="${unit==="days"?1:0}" max="60" step="1" inputmode="numeric" aria-label="${unit==="days"?"Días":"Noches"} en la zona ${i+1}" value="${stop[unit]}"><button type="button" data-stage-step="${unit}" data-stage-delta="1" aria-label="Añadir ${unit==="days"?"día":"noche"} en la zona ${i+1}">+</button></div></div>`).join("")}
+         ${["days","nights"].map(unit=>`<div class="vcc-budget-stage-unit"><span class="vcc-budget-stage-label">${unit==="days"?"DÍAS":"NOCHES"}</span><div class="vcc-budget-stage-step"><span class="vcc-ctrl-icon vcc-budget-stage-step-icon" aria-hidden="true">${unit==="days"?"▦":"☾"}</span><button type="button" data-stage-step="${unit}" data-stage-delta="-1" aria-label="Restar ${unit==="days"?"día":"noche"} en la zona ${i+1}">−</button><input type="number" data-stage-input="${unit}" min="${unit==="days"?1:0}" max="99" step="1" inputmode="numeric" aria-label="${unit==="days"?"Días":"Noches"} en la zona ${i+1}" value="${stop[unit]}"><button type="button" data-stage-step="${unit}" data-stage-delta="1" aria-label="Añadir ${unit==="days"?"día":"noche"} en la zona ${i+1}">+</button></div></div>`).join("")}
         </div><div class="vcc-budget-stage-categories">${rows}</div>`;
       const selector=slide.querySelector("[data-zone-name]");
       for(const [key,zone] of Object.entries(data.zones)){
@@ -247,17 +247,17 @@
         const unit=input.dataset.stageInput;
         input.addEventListener("input",()=>{
           if(input.value==="")return;
-          stop[unit]=integer(input.value,unit==="days"?1:0,60,stop[unit]);
+          stop[unit]=integer(input.value,unit==="days"?1:0,99,stop[unit]);
           renderRouteSummary();renderCalculator();
         });
         input.addEventListener("change",()=>{
-          stop[unit]=integer(input.value,unit==="days"?1:0,60,stop[unit]);
+          stop[unit]=integer(input.value,unit==="days"?1:0,99,stop[unit]);
           input.value=stop[unit];renderRouteSummary();renderCalculator();
         });
       });
       slide.querySelectorAll("[data-stage-step]").forEach(button=>button.addEventListener("click",()=>{
         const unit=button.dataset.stageStep;
-        stop[unit]=integer(stop[unit]+Number(button.dataset.stageDelta),unit==="days"?1:0,60,stop[unit]);
+        stop[unit]=integer(stop[unit]+Number(button.dataset.stageDelta),unit==="days"?1:0,99,stop[unit]);
         slide.querySelector('[data-stage-input="'+unit+'"]').value=stop[unit];
         renderRouteSummary();renderCalculator();
       }));
@@ -290,11 +290,11 @@
     el("nights-output").textContent=state.nights;
     el("people-output").textContent=state.people;
     el("grand-total").textContent=euro(result.total);
-    el("donut-daily").textContent=daily.toLocaleString("es-ES",{maximumFractionDigits:2})+" €";
+    el("donut-daily").textContent=daily.toLocaleString("es-ES",{maximumFractionDigits:2,useGrouping:"always"})+" €";
     el("trip-total").textContent=state.people+" "+(state.people===1?"viajero":"viajeros")+" · "+
       state.days+" "+(state.days===1?"día":"días")+" · "+state.nights+" "+(state.nights===1?"noche":"noches");
     document.querySelectorAll("[data-step]").forEach(button=>{
-      const key=button.dataset.step,delta=Number(button.dataset.delta),min=key==="nights"?0:1,max=key==="people"?12:60;
+      const key=button.dataset.step,delta=Number(button.dataset.delta),min=key==="nights"?0:1,max=99;
       button.disabled=delta<0?state[key]<=min:state[key]>=max;
     });
   }
@@ -333,7 +333,7 @@
     document.querySelectorAll("[data-step]").forEach(button=>button.addEventListener("click",()=>{
       const key=button.dataset.step;
       if(key!=="people")return;
-      state.people=Math.max(1,Math.min(12,state.people+Number(button.dataset.delta)));
+      state.people=Math.max(1,Math.min(99,state.people+Number(button.dataset.delta)));
       renderCalculator();
     }));
     for(const id of ["swb-region-top"]){
