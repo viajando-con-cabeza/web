@@ -1,12 +1,12 @@
-/* VCC · Carrusel per regions: Cómo llegar i Cómo moverse.
+/* VCC · Carrusel per regions: Cómo llegar, Cómo moverse i Cuándo ir.
    L'ASPECTE de les targetes (322 px, foto 150 px, Oswald 21 px, DM Sans 11 px,
    tipologies, bandera, descripcions i CTA) ve del CSS CANÒNIC
    /configuracion/css/componentes/vcc-targetes-itineraris-guies.css
    compartit amb Cuándo ir. Aquí NOMÉS geometria del carrusel i fletxes. */
-:is(.swmove-page,.sw-country-copy) .swmove-region-carousel{
+:is(.swmove-page,.sw-country-copy,.ci-page) .swmove-region-carousel{
   position:relative;min-width:0;
 }
-:is(.swmove-page,.sw-country-copy) .swmove-region-grid.di-mini-grid{
+:is(.swmove-page,.sw-country-copy,.ci-page) .swmove-region-grid.di-mini-grid{
   box-sizing:border-box;
   display:flex!important;flex-flow:row nowrap!important;align-items:stretch!important;
   gap:14px!important;width:100%!important;min-width:0!important;
@@ -15,15 +15,15 @@
   overscroll-behavior-inline:contain;scroll-snap-type:x mandatory;
   scroll-behavior:smooth;scrollbar-width:none;-webkit-overflow-scrolling:touch;
 }
-:is(.swmove-page,.sw-country-copy) .swmove-region-grid::-webkit-scrollbar{display:none}
-:is(.swmove-page,.sw-country-copy) .swmove-region-grid>.swmove-region-card{
+:is(.swmove-page,.sw-country-copy,.ci-page) .swmove-region-grid::-webkit-scrollbar{display:none}
+:is(.swmove-page,.sw-country-copy,.ci-page) .swmove-region-grid>.swmove-region-card{
   box-sizing:border-box!important;
   flex:0 0 calc((100% - 42px)/4)!important;
   width:auto!important;max-width:none!important;min-width:0!important;
   scroll-snap-align:start;
 }
 /* Fallback sense imatge: mateix espai de fotografia que la resta de fitxes. */
-:is(.swmove-page,.sw-country-copy) .swmove-region-photo>span{
+:is(.swmove-page,.sw-country-copy,.ci-page) .swmove-region-photo>span{
   display:flex;align-items:center;justify-content:center;
   box-sizing:border-box;width:100%;height:100%;padding:12px;
   color:#fff;background:linear-gradient(120deg,#426878,#91adb5);
@@ -31,55 +31,55 @@
   text-align:center;
 }
 /* Les categories es mostren sobre el títol, mai 'Mejor tiempo'. */
-:is(.swmove-page,.sw-country-copy) .swmove-region-grid .vcc-card-kicker{
+:is(.swmove-page,.sw-country-copy,.ci-page) .swmove-region-grid .vcc-card-kicker{
   white-space:normal!important;
 }
-:is(.swmove-page,.sw-country-copy) .swmove-region-grid .swmove-region-facts{
+:is(.swmove-page,.sw-country-copy,.ci-page) .swmove-region-grid .swmove-region-facts{
   align-items:center;
 }
-:is(.swmove-page,.sw-country-copy) .swmove-region-grid .swmove-region-footer{
+:is(.swmove-page,.sw-country-copy,.ci-page) .swmove-region-grid .swmove-region-footer{
   display:flex;align-items:flex-end;justify-content:flex-end;
   margin-top:auto;min-height:0;
 }
-:is(.swmove-page,.sw-country-copy) .swmove-region-arrow{
+:is(.swmove-page,.sw-country-copy,.ci-page) .swmove-region-arrow{
   position:absolute;z-index:4;top:50%;transform:translateY(-50%);
   display:grid;place-items:center;width:41px;height:41px;margin:0;padding:0;
   border:1px solid #ded8d2;border-radius:50%;background:#fff;color:#a65b43;
   box-shadow:0 3px 12px rgba(40,36,32,.08);cursor:pointer;
 }
-:is(.swmove-page,.sw-country-copy) .swmove-region-arrow svg{
+:is(.swmove-page,.sw-country-copy,.ci-page) .swmove-region-arrow svg{
   display:block;width:19px;height:19px;fill:none;stroke:currentColor;
   stroke-width:2;stroke-linecap:round;stroke-linejoin:round;
 }
-:is(.swmove-page,.sw-country-copy) .swmove-region-prev{left:-20px}
-:is(.swmove-page,.sw-country-copy) .swmove-region-next{right:-20px}
-:is(.swmove-page,.sw-country-copy) .swmove-region-arrow:disabled{
+:is(.swmove-page,.sw-country-copy,.ci-page) .swmove-region-prev{left:-20px}
+:is(.swmove-page,.sw-country-copy,.ci-page) .swmove-region-next{right:-20px}
+:is(.swmove-page,.sw-country-copy,.ci-page) .swmove-region-arrow:disabled{
   opacity:.32;cursor:default;box-shadow:none;
 }
-:is(.swmove-page,.sw-country-copy) .swmove-region-arrow:focus-visible,
-:is(.swmove-page,.sw-country-copy) .swmove-region-grid:focus-visible{
+:is(.swmove-page,.sw-country-copy,.ci-page) .swmove-region-arrow:focus-visible,
+:is(.swmove-page,.sw-country-copy,.ci-page) .swmove-region-grid:focus-visible{
   outline:2px solid #b45e44;outline-offset:3px;
 }
 @media(max-width:1020px){
-  :is(.swmove-page,.sw-country-copy) .swmove-region-grid>.swmove-region-card{
+  :is(.swmove-page,.sw-country-copy,.ci-page) .swmove-region-grid>.swmove-region-card{
     flex-basis:calc((100% - 14px)/2)!important;
   }
-  :is(.swmove-page,.sw-country-copy) .swmove-region-prev{left:-12px}
-  :is(.swmove-page,.sw-country-copy) .swmove-region-next{right:-12px}
+  :is(.swmove-page,.sw-country-copy,.ci-page) .swmove-region-prev{left:-12px}
+  :is(.swmove-page,.sw-country-copy,.ci-page) .swmove-region-next{right:-12px}
 }
 @media(max-width:620px){
-  :is(.swmove-page,.sw-country-copy) .swmove-region-grid>.swmove-region-card{
+  :is(.swmove-page,.sw-country-copy,.ci-page) .swmove-region-grid>.swmove-region-card{
     flex-basis:86%!important;
   }
-  :is(.swmove-page,.sw-country-copy) .swmove-region-arrow{
+  :is(.swmove-page,.sw-country-copy,.ci-page) .swmove-region-arrow{
     width:35px;height:35px;
   }
-  :is(.swmove-page,.sw-country-copy) .swmove-region-arrow svg{
+  :is(.swmove-page,.sw-country-copy,.ci-page) .swmove-region-arrow svg{
     width:16px;height:16px;
   }
-  :is(.swmove-page,.sw-country-copy) .swmove-region-prev{left:3px}
-  :is(.swmove-page,.sw-country-copy) .swmove-region-next{right:3px}
+  :is(.swmove-page,.sw-country-copy,.ci-page) .swmove-region-prev{left:3px}
+  :is(.swmove-page,.sw-country-copy,.ci-page) .swmove-region-next{right:3px}
 }
 @media(prefers-reduced-motion:reduce){
-  :is(.swmove-page,.sw-country-copy) .swmove-region-grid{scroll-behavior:auto}
+  :is(.swmove-page,.sw-country-copy,.ci-page) .swmove-region-grid{scroll-behavior:auto}
 }
