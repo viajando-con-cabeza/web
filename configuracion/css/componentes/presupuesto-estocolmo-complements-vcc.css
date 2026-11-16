@@ -1592,6 +1592,12 @@ html body :is(.country-hero,.st-hero).vcc-guide-hero-unified .hero-start{
 
 
 
+/* Aire vertical dels dos requadres: conservar la geometria original i el subheader. */
+html body.country-page .country-hero .country-hero-card.vcc-guide-hero-copy,
+html body .st-shell .st-hero .st-card.vcc-guide-hero-copy {
+  padding-top:36px!important;
+  padding-bottom:39px!important;
+}
 /* VCC · Suècia / Estocolm: només escala de lletres als quadres de portada.
    Les dimensions i els espaiats INTERNS recuperen els CSS originals
    (pais.css i estocolmo-refine.css). Sense vcc-guide-hero-unified. */
@@ -1602,6 +1608,8 @@ html body .st-shell .st-hero .st-card.vcc-guide-hero-copy > .vcc-guide-hero-kick
 html body.country-page .country-hero .country-hero-card.vcc-guide-hero-copy > h1,
 html body .st-shell .st-hero .st-card.vcc-guide-hero-copy > h1 {
   font-size:clamp(48px,4.55vw,64px)!important;
+  line-height:1.04!important;
+  margin-bottom:16px!important;
 }
 html body.country-page .country-hero .country-hero-card.vcc-guide-hero-copy > .vcc-guide-hero-description,
 html body .st-shell .st-hero .st-card.vcc-guide-hero-copy > .vcc-guide-hero-description {
