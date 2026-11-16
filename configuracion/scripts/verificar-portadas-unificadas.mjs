@@ -145,7 +145,7 @@ check(read('planifica/index.html').includes('planifica-about-hero'),
 
 /* Contracte sagrat: registre explícit de TOTES les pàgines interiors amb
  * subheader. La classe i el CSS han d'existir a l'HTML d'origen per evitar CLS.
- * Suècia i Estocolm són les úniques excepcions amb requadre central. */
+ * Qualsevol portada de país/ciutat amb requadre central n'és una excepció. */
 const interiorWithSubheader=[
  'planifica/vuelos/index.html',
  'planifica/alojamientos/index.html',
@@ -153,6 +153,9 @@ const interiorWithSubheader=[
  'planifica/donde-ir/index.html',
  'planifica/apps/index.html',
  'planifica/seguros/index.html',
+ 'destinos/italia/roma/itinerario.html',
+ 'destinos/espana/fuerteventura/itinerario.html',
+ 'destinos/suecia/estocolmo/donde-comer.html',
  ...['cuando-ir','como-llegar','como-moverse','donde-dormir','que-visitar','presupuesto']
    .map(slug=>'destinos/suecia/'+slug+'.html'),
  ...['que-ver','imprescindibles','itinerario','presupuesto','cuando-ir',
@@ -177,7 +180,8 @@ for(const file of interiorWithSubheader){
 for(const file of [
  'index.html','destinos/index.html','planifica/index.html','itinerarios/index.html',
  'nosotros/index.html','contacto/index.html',
- 'destinos/suecia/index.html','destinos/suecia/estocolmo/index.html'
+ 'destinos/suecia/index.html','destinos/suecia/estocolmo/index.html',
+ 'destinos/italia/roma/index.html','destinos/espana/fuerteventura/index.html'
 ]){
   const html=read(file);
   check(!html.includes('vcc-sacred-hero')&&!html.includes('data-vcc-sacred-covers'),
