@@ -556,3 +556,90 @@ html body :is(.country-hero,.st-hero).vcc-guide-hero-unified .hero-start{
 }
 
 
+
+
+/* VCC · Escala compacta de les targetes hero de Suecia i Estocolmo.
+   Són portades amb un panell clar: NO activar-hi .vcc-guide-hero-unified,
+   perquè aquest patró transparent eliminaria el fons i la vora.
+   Els marges exteriors, la fotografia, el breadcrumb i la valoració no canvien. */
+html body :is(
+  body.country-page .country-hero .country-hero-card.vcc-guide-hero-copy,
+  .st-shell .st-hero .st-card.vcc-guide-hero-copy
+){
+  --vcc-landing-hero-kicker-size:26px;
+  --vcc-landing-hero-title-size:clamp(48px,4.55vw,64px);
+  --vcc-landing-hero-description-size:14px;
+  box-sizing:border-box!important;
+  min-width:0!important;
+}
+html body :is(
+  body.country-page .country-hero .country-hero-card.vcc-guide-hero-copy,
+  .st-shell .st-hero .st-card.vcc-guide-hero-copy
+) > .vcc-guide-hero-kicker{
+  font-family:var(--vcc-font-script,"Caveat",cursive)!important;
+  font-size:var(--vcc-landing-hero-kicker-size)!important;
+  font-weight:600!important;
+  line-height:1.12!important;
+  margin:0 0 12px!important;
+  padding:0!important;
+}
+html body :is(
+  body.country-page .country-hero .country-hero-card.vcc-guide-hero-copy,
+  .st-shell .st-hero .st-card.vcc-guide-hero-copy
+) > h1{
+  font-family:var(--vcc-font-heading,"Oswald",sans-serif)!important;
+  font-size:var(--vcc-landing-hero-title-size)!important;
+  font-weight:600!important;
+  line-height:1.04!important;
+  letter-spacing:-.025em!important;
+  margin:0 0 13px!important;
+  padding:0!important;
+  max-width:100%!important;
+  overflow-wrap:normal!important;
+  word-break:normal!important;
+}
+html body :is(
+  body.country-page .country-hero .country-hero-card.vcc-guide-hero-copy,
+  .st-shell .st-hero .st-card.vcc-guide-hero-copy
+) > .vcc-guide-hero-description{
+  font-family:var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;
+  font-size:var(--vcc-landing-hero-description-size)!important;
+  font-weight:400!important;
+  line-height:1.55!important;
+  margin:0!important;
+  padding:0!important;
+  max-width:100%!important;
+}
+html body :is(
+  body.country-page .country-hero .country-hero-card.vcc-guide-hero-copy,
+  .st-shell .st-hero .st-card.vcc-guide-hero-copy
+) > :is(.country-facts,.st-facts){
+  margin-top:24px!important;
+  padding-top:20px!important;
+}
+@media(max-width:700px){
+  html body :is(
+    body.country-page .country-hero .country-hero-card.vcc-guide-hero-copy,
+    .st-shell .st-hero .st-card.vcc-guide-hero-copy
+  ){
+    --vcc-landing-hero-kicker-size:23px;
+    --vcc-landing-hero-title-size:clamp(37px,9vw,48px);
+    --vcc-landing-hero-description-size:13px;
+    max-width:100%!important;
+  }
+  html body :is(
+    body.country-page .country-hero .country-hero-card.vcc-guide-hero-copy,
+    .st-shell .st-hero .st-card.vcc-guide-hero-copy
+  ) > .vcc-guide-hero-kicker{margin-bottom:10px!important;}
+  html body :is(
+    body.country-page .country-hero .country-hero-card.vcc-guide-hero-copy,
+    .st-shell .st-hero .st-card.vcc-guide-hero-copy
+  ) > h1{margin-bottom:11px!important;}
+  html body :is(
+    body.country-page .country-hero .country-hero-card.vcc-guide-hero-copy,
+    .st-shell .st-hero .st-card.vcc-guide-hero-copy
+  ) > :is(.country-facts,.st-facts){
+    margin-top:20px!important;
+    padding-top:18px!important;
+  }
+}
