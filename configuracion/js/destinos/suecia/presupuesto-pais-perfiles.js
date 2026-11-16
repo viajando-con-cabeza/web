@@ -47,206 +47,69 @@
   });
   activate("", false);
 
-  /* El libro Excel se construye con ZIP/OOXML sin bibliotecas de terceros. */
-  const exporter = document.querySelector("[data-vcc-download-excel]");
-  if (!exporter) return;
-  const categories = [
-    ["alojamiento", "Alojamiento"],
-    ["comida", "Comida"],
-    ["transporte", "Transporte"],
-    ["actividades", "Actividades"],
-    ["extras", "Extras"]
+  /* Descarga PDF real de las etapas que están seleccionadas en la calculadora. */
+  const exporter=document.querySelector("[data-vcc-download-pdf]");
+  if(!exporter)return;
+  const categories=[
+    ["alojamiento","Alojamiento"],["comida","Comida"],["transporte","Transporte"],
+    ["actividades","Actividades"],["extras","Extras"]
   ];
-  function numberFrom(text) {
-    return Number(String(text || "").replace(/[^\d,.-]/g,"").replace(/\./g,"").replace(",","."));
+  function numeric(value){
+    const text=String(value||"").replace(/[^0-9,.-]/g,"").replace(/\./g,"").replace(",",".");
+    return Number(text);
   }
-  function xmlEscape(value) {
-    return String(value).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")
-      .replace(/"/g,"&quot;").replace(/'/g,"&apos;");
-  }
-  function cell(address, value) {
-    if (value && typeof value === "object" && value.formula) {
-      return '<c r="' + address + '"><f>' + xmlEscape(value.formula) + '</f><v>' +
-        xmlEscape(value.cached || 0) + '</v></c>';
-    }
-    if (typeof value === "number" && Number.isFinite(value)) {
-      return '<c r="' + address + '" t="n"><v>' + value + '</v></c>';
-    }
-    return '<c r="' + address + '" t="inlineStr"><is><t>' +
-      xmlEscape(value == null ? "" : value) + '</t></is></c>';
-  }
-  function worksheet(rows) {
-    const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-    return '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>' +
-      '<worksheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main"><sheetData>' +
-      rows.map(function (row, rowIndex) {
-        return '<row r="' + (rowIndex + 1) + '">' +
-          row.map(function (value, colIndex) {
-            return cell(alphabet[colIndex] + (rowIndex + 1), value);
-          }).join("") + '</row>';
-      }).join("") + '</sheetData></worksheet>';
-  }
-  function zipFile(entries) {
-    const encoder = new TextEncoder();
-    const chunks = [];
-    const central = [];
-    let offset = 0;
-    const crcTable = new Uint32Array(256);
-    for (let n = 0; n < 256; n++) {
-      let x = n;
-      for (let bit = 0; bit < 8; bit++) x = x & 1 ? (0xedb88320 ^ (x >>> 1)) : x >>> 1;
-      crcTable[n] = x >>> 0;
-    }
-    function crc32(bytes) {
-      let crc = 0xffffffff;
-      bytes.forEach(function (byte) { crc = crcTable[(crc ^ byte) & 255] ^ (crc >>> 8); });
-      return (crc ^ 0xffffffff) >>> 0;
-    }
-    function header(length) {
-      const raw = new Uint8Array(length);
-      return {raw:raw, view:new DataView(raw.buffer)};
-    }
-    for (const entry of entries) {
-      const name = encoder.encode(entry.name);
-      const body = encoder.encode(entry.content);
-      const crc = crc32(body);
-      const local = header(30);
-      local.view.setUint32(0, 0x04034b50, true);
-      local.view.setUint16(4, 20, true);
-      local.view.setUint16(6, 0x0800, true);
-      local.view.setUint16(8, 0, true);
-      local.view.setUint32(14, crc, true);
-      local.view.setUint32(18, body.length, true);
-      local.view.setUint32(22, body.length, true);
-      local.view.setUint16(26, name.length, true);
-      chunks.push(local.raw, name, body);
-      const dir = header(46);
-      dir.view.setUint32(0, 0x02014b50, true);
-      dir.view.setUint16(4, 20, true);
-      dir.view.setUint16(6, 20, true);
-      dir.view.setUint16(8, 0x0800, true);
-      dir.view.setUint32(16, crc, true);
-      dir.view.setUint32(20, body.length, true);
-      dir.view.setUint32(24, body.length, true);
-      dir.view.setUint16(28, name.length, true);
-      dir.view.setUint32(42, offset, true);
-      central.push(dir.raw, name);
-      offset += local.raw.length + name.length + body.length;
-    }
-    const centralLength = central.reduce(function (sum, chunk) { return sum + chunk.length; }, 0);
-    chunks.push.apply(chunks, central);
-    const end = header(22);
-    end.view.setUint32(0, 0x06054b50, true);
-    end.view.setUint16(8, entries.length, true);
-    end.view.setUint16(10, entries.length, true);
-    end.view.setUint32(12, centralLength, true);
-    end.view.setUint32(16, offset, true);
-    chunks.push(end.raw);
-    return new Blob(chunks, {
-      type:"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+  const text=selector=>{
+    const field=document.querySelector(selector);
+    if(!field)throw Error("Dato no disponible: "+selector);
+    return field.textContent.trim();
+  };
+  const euros=value=>new Intl.NumberFormat("es-ES",{style:"currency",currency:"EUR",maximumFractionDigits:2}).format(value);
+
+  function snapshot(){
+    const rows=[...document.querySelectorAll("#swb-route-rows .vcc-budget-route-row")];
+    if(!rows.length)throw Error("Añade al menos una etapa");
+    const days=numeric(text("#days-output")),nights=numeric(text("#nights-output"));
+    const people=numeric(text("#people-output")),total=numeric(text("#grand-total"));
+    if(!(days>0&&nights>=0&&people>0&&Number.isFinite(total)))throw Error("Presupuesto incompleto");
+    const sections=[{heading:"Resumen del viaje",lines:[
+      "Duración: "+days+" días · "+nights+" noches",
+      "Viajeros: "+people,
+      "Total estimado del viaje: "+euros(total),
+      "Total estimado por persona: "+euros(total/people)
+    ]}];
+    rows.forEach((row,index)=>{
+      const zone=row.querySelector("[data-zone-name]")?.selectedOptions[0]?.textContent.trim();
+      const stopDays=numeric(row.querySelector('[data-stage-input="days"]')?.value);
+      const stopNights=numeric(row.querySelector('[data-stage-input="nights"]')?.value);
+      const stopTotal=numeric(row.querySelector("[data-zone-total]")?.textContent);
+      if(!zone||!Number.isFinite(stopDays)||!Number.isFinite(stopNights)||!Number.isFinite(stopTotal))throw Error("Datos incompletos en una zona");
+      const lines=["Duración: "+stopDays+" días · "+stopNights+" noches"];
+      for(const [key,label] of categories){
+        const selector=row.querySelector('[data-zone-category="'+key+'"]');
+        const price=row.querySelector('[data-zone-price="'+key+'"]');
+        if(!selector||!price)throw Error("Datos incompletos: "+label);
+        const amount=numeric(price.textContent);
+        if(!Number.isFinite(amount))throw Error("Precio incorrecto: "+label);
+        lines.push(label+" ("+selector.selectedOptions[0].textContent.trim()+"): "+euros(amount)+" / persona / "+(key==="alojamiento"?"noche":"día"));
+      }
+      lines.push("Subtotal de la etapa: "+euros(stopTotal));
+      sections.push({heading:"Etapa "+(index+1)+" · "+zone,lines});
     });
-  }
-  /* Una fila por etapa; Excel recalcula totales si se editan días,
-     noches, viajeros o precios unitarios de cada zona. */
-  function snapshotWorkbook() {
-    const text = selector => {
-      const el = document.querySelector(selector);
-      if (!el) throw new Error("Falta el dato "+selector);
-      return el.textContent.trim();
+    return {
+      filename:"presupuesto-suecia-VCC.pdf",
+      title:"Presupuesto de Suecia",
+      subtitle:"Tu estimación personalizada por zonas y etapas",
+      sections,
+      note:"Precios orientativos de planificación, no gastos reales de toda Suecia. Comprueba tarifas y disponibilidad antes de reservar."
     };
-    const slides = [...document.querySelectorAll("#swb-route-rows .vcc-budget-route-row")];
-    if (!slides.length) throw new Error("Todavía no hay datos para exportar");
-    const days = Number(text("#days-output"));
-    const nights = Number(text("#nights-output"));
-    const people = Number(text("#people-output"));
-    const total = numberFrom(text("#grand-total"));
-    if (!(days>0 && nights>=0 && people>=1 && Number.isFinite(total))) throw new Error("Datos del viaje no válidos");
-    const details = [[
-      "Zona","Días","Noches","Viajeros",
-      "Alojamiento estilo","Alojamiento €/pax/noche",
-      "Comida estilo","Comida €/pax/día",
-      "Transporte estilo","Transporte €/pax/día",
-      "Actividades estilo","Actividades €/pax/día",
-      "Extras estilo","Extras €/pax/día",
-      "Total (€)"
-    ]];
-    slides.forEach((slide,index) => {
-      const zone=slide.querySelector("[data-zone-name]")?.selectedOptions[0]?.textContent.trim();
-      const stageDays=Number(slide.querySelector('[data-stage-input="days"]')?.value);
-      const stageNights=Number(slide.querySelector('[data-stage-input="nights"]')?.value);
-      const cols=[];
-      for(const [key] of categories){
-        const select=slide.querySelector('[data-zone-category="'+key+'"]');
-        const price=slide.querySelector('[data-zone-price="'+key+'"]');
-        if(!select||!price)throw new Error("Categoría no disponible: "+key);
-        cols.push(select.selectedOptions[0].textContent.trim(),numberFrom(price.textContent));
-      }
-      const row=index+2;
-      const stageTotal=numberFrom(slide.querySelector("[data-zone-total]")?.textContent);
-      if(!zone||!Number.isFinite(stageDays)||!Number.isFinite(stageNights)||cols.some((v,i)=>i%2===1&&!Number.isFinite(v))){
-        throw new Error("Datos incompletos en la zona "+(index+1));
-      }
-      details.push([zone,stageDays,stageNights,{formula:"Resumen!$B$4",cached:people},...cols,{
-        formula:"(F"+row+"*C"+row+"+(H"+row+"+J"+row+"+L"+row+"+N"+row+")*B"+row+")*D"+row,
-        cached:stageTotal
-      }]);
-    });
-    const last=slides.length+1;
-    const summary=[
-      ["VCC - PRESUPUESTO POR ZONAS DE SUECIA","Importe"],
-      ["Días",{formula:"SUM(Desglose!B2:B"+last+")",cached:days}],
-      ["Noches",{formula:"SUM(Desglose!C2:C"+last+")",cached:nights}],
-      ["Viajeros",people],
-      ["Total viaje (€)",{formula:"SUM(Desglose!O2:O"+last+")",cached:total}],
-      ["Total por persona (€)",{formula:"IF(B4>0,B5/B4,0)",cached:total/people}],
-      ["Nota","Precios orientativos por zona; no son tarifas verificadas ni gasto real de toda Suecia."],
-      ["Uso","Puedes editar los días, noches y precios de cada etapa, y los viajeros en Resumen. Los totales se recalculan en Excel."],
-      ["Etapas",slides.length],
-      ["Origen","www.viajandoconcabeza.com"]
-    ];
-    const main="http://schemas.openxmlformats.org/spreadsheetml/2006/main";
-    const office="http://schemas.openxmlformats.org/officeDocument/2006/relationships";
-    return zipFile([
-      {name:"[Content_Types].xml",content:'<?xml version="1.0" encoding="UTF-8"?>' +
-        '<Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types">' +
-        '<Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/>' +
-        '<Default Extension="xml" ContentType="application/xml"/>' +
-        '<Override PartName="/xl/workbook.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet.main+xml"/>' +
-        '<Override PartName="/xl/worksheets/sheet1.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.worksheet+xml"/>' +
-        '<Override PartName="/xl/worksheets/sheet2.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.worksheet+xml"/>' +
-        '</Types>'},
-      {name:"_rels/.rels",content:'<?xml version="1.0" encoding="UTF-8"?>' +
-        '<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">' +
-        '<Relationship Id="rId1" Type="'+office+'/officeDocument" Target="xl/workbook.xml"/>' +
-        '</Relationships>'},
-      {name:"xl/workbook.xml",content:'<?xml version="1.0" encoding="UTF-8"?>' +
-        '<workbook xmlns="'+main+'" xmlns:r="'+office+'">' +
-        '<sheets><sheet name="Resumen" sheetId="1" r:id="rId1"/>' +
-        '<sheet name="Desglose" sheetId="2" r:id="rId2"/></sheets>' +
-        '<calcPr calcId="191029" fullCalcOnLoad="1"/></workbook>'},
-      {name:"xl/_rels/workbook.xml.rels",content:'<?xml version="1.0" encoding="UTF-8"?>' +
-        '<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">' +
-        '<Relationship Id="rId1" Type="'+office+'/worksheet" Target="worksheets/sheet1.xml"/>' +
-        '<Relationship Id="rId2" Type="'+office+'/worksheet" Target="worksheets/sheet2.xml"/>' +
-        '</Relationships>'},
-      {name:"xl/worksheets/sheet1.xml",content:worksheet(summary)},
-      {name:"xl/worksheets/sheet2.xml",content:worksheet(details)}
-    ]);
   }
-  exporter.addEventListener("click", function () {
-    try {
-      const blob = snapshotWorkbook();
-      const url = URL.createObjectURL(blob);
-      const download = document.createElement("a");
-      download.href = url;
-      download.download = "presupuesto-suecia-VCC.xlsx";
-      document.body.appendChild(download);
-      download.click();
-      download.remove();
-      setTimeout(function () { URL.revokeObjectURL(url); }, 3000);
-    } catch (error) {
-      console.error("VCC: no se pudo crear el Excel", error);
-      window.alert("No hemos podido exportar el presupuesto. Revisa los datos e inténtalo de nuevo.");
+  exporter.addEventListener("click",()=>{
+    try{
+      if(!window.VCCPDF)throw Error("Generador PDF no disponible");
+      window.VCCPDF.download(snapshot());
+    }catch(error){
+      console.error("VCC: no se pudo generar el PDF de Suecia",error);
+      window.alert("No hemos podido generar el PDF. Revisa los datos e inténtalo de nuevo.");
     }
   });
-})();
+})();\n
