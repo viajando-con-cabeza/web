@@ -494,3 +494,87 @@ html body.budget-vcc.sweden-budget-vcc #calculadora .vcc-budget-stage-categories
 @media(prefers-reduced-motion:reduce){
   html body.budget-vcc.sweden-budget-vcc #calculadora .vcc-budget-stage-chip{transition:none!important}
 }
+
+/* VCC · Distribució v11 (només pressupost país Suècia)
+   ORDRE VISUAL: resum global -> controls per zona -> navegació de zones -> despeses.
+   Display:contents permet reordenar sense duplicar inputs ni tocar l'Excel. */
+html body.budget-vcc.sweden-budget-vcc #calculadora .calc-top.vcc-budget-route-overview{
+  gap:6px!important;margin-bottom:5px!important;
+}
+html body.budget-vcc.sweden-budget-vcc #calculadora .calc-top.vcc-budget-route-overview>.calc-control{
+  min-height:36px!important;height:36px!important;
+  padding:3px 5px!important;gap:4px!important;
+}
+html body.budget-vcc.sweden-budget-vcc #calculadora .vcc-budget-route-overview>.calc-control>span{
+  font-size:9px!important;gap:3px!important;
+}
+html body.budget-vcc.sweden-budget-vcc #calculadora .vcc-budget-route-overview .vcc-ctrl-icon{
+  font-size:14px!important;
+}
+html body.budget-vcc.sweden-budget-vcc #calculadora .vcc-budget-route-overview .stepper{
+  height:23px!important;
+}
+html body.budget-vcc.sweden-budget-vcc #calculadora .vcc-budget-route-overview .stepper output{
+  font-size:17px!important;
+}
+html body.budget-vcc.sweden-budget-vcc #calculadora .vcc-budget-route-overview .stepper button{
+  width:20px!important;height:20px!important;min-width:20px!important;min-height:20px!important;
+  font-size:14px!important;
+}
+html body.budget-vcc.sweden-budget-vcc #calculadora .vcc-budget-route-planner{
+  display:grid!important;grid-template-columns:minmax(0,1fr)!important;
+  align-items:stretch!important;gap:0!important;margin:0 0 5px!important;min-width:0!important;
+}
+html body.budget-vcc.sweden-budget-vcc #calculadora .vcc-budget-zone-carousel,
+html body.budget-vcc.sweden-budget-vcc #calculadora .vcc-budget-route-rows{
+  display:contents!important;
+}
+html body.budget-vcc.sweden-budget-vcc #calculadora .vcc-budget-route-row:not([hidden]){
+  display:contents!important;
+}
+html body.budget-vcc.sweden-budget-vcc #calculadora .vcc-budget-route-row[hidden]{
+  display:none!important;
+}
+html body.budget-vcc.sweden-budget-vcc #calculadora .vcc-budget-stage-controls{
+  order:1!important;grid-column:1!important;
+  gap:8px!important;margin:2px 0 10px!important;
+  padding:0!important;border:0!important;background:transparent!important;
+}
+html body.budget-vcc.sweden-budget-vcc #calculadora .vcc-budget-route-toolbar{
+  order:2!important;grid-column:1!important;
+  margin:0 0 5px!important;padding:0!important;
+  border:0!important;background:transparent!important;
+}
+html body.budget-vcc.sweden-budget-vcc #calculadora .vcc-budget-stage-heading{
+  order:3!important;grid-column:1!important;
+  margin:0 0 2px!important;padding:1px 1px 4px!important;
+  border-bottom:1px solid #eee9e4!important;
+}
+html body.budget-vcc.sweden-budget-vcc #calculadora .vcc-budget-stage-categories{
+  order:4!important;grid-column:1!important;
+}
+html body.budget-vcc.sweden-budget-vcc #calculadora .vcc-budget-stage-chip{
+  border:1px solid #e7e2dd!important;background:#fff!important;
+  box-shadow:none!important;color:#55504b!important;
+}
+html body.budget-vcc.sweden-budget-vcc #calculadora .vcc-budget-stage-chip:hover{
+  border-color:#e0c1b4!important;background:#fff8f4!important;
+}
+html body.budget-vcc.sweden-budget-vcc #calculadora .vcc-budget-stage-chip[aria-pressed="true"]{
+  background:rgba(204,104,75,.12)!important;border:1px solid rgba(190,94,66,.43)!important;
+  color:#42302c!important;box-shadow:none!important;
+}
+html body.budget-vcc.sweden-budget-vcc #calculadora .vcc-budget-stage-chip[aria-pressed="true"]::before{
+  color:#b75f47!important;
+}
+@media(max-width:650px){
+  html body.budget-vcc.sweden-budget-vcc #calculadora .calc-top.vcc-budget-route-overview>.calc-control{
+    min-height:45px!important;height:45px!important;padding:4px 2px!important;
+  }
+  html body.budget-vcc.sweden-budget-vcc #calculadora .vcc-budget-route-overview .stepper output{
+    font-size:17px!important;
+  }
+  html body.budget-vcc.sweden-budget-vcc #calculadora .vcc-budget-stage-controls{
+    margin-bottom:9px!important;
+  }
+}
