@@ -95,19 +95,45 @@
   // Cómo llegar incluye cinco tarjetas de transporte dentro de la portada.
   // En móvil pasan justo después de la barra para que ambas sean accesibles;
   // al volver al escritorio recuperan su posición original, sin duplicados.
+  // Mantener la altura sagrada de portada: las tarjetas son contenido y
+  // se muestran debajo del subheader, nunca recortadas dentro del hero.
   const relocateTransportCards=(nav,hero)=>{
     if(!nav.classList.contains('vcc-como-llegar-subnav')||!hero?.classList.contains('cl-landing-hero'))return;
     const stage=hero.querySelector('.cl-landing-stage');
-    const cards=stage?.querySelector('.cl-landing-cards');
+    const cards=stage?.querySelector('.cl-landing-cards')||nav.nextElementSibling?.matches('.cl-landing-cards')&&nav.nextElementSibling;
     if(!stage||!cards)return;
     const mq=window.matchMedia('(max-width:720px)');
     const place=()=>{
-      if(mq.matches){
+      if(hero.classList.contains('vcc-sacred-hero')){
+        if(cards.previousElementSibling!==nav)nav.insertAdjacentElement('afterend',cards);
+        cards.classList.add('vcc-cl-cards-below');
+        cards.classList.toggle('vcc-cl-mobile-cards',mq.matches);
+      }else if(mq.matches){
         if(cards.previousElementSibling!==nav)nav.insertAdjacentElement('afterend',cards);
         cards.classList.add('vcc-cl-mobile-cards');
       }else{
         if(cards.parentElement!==stage)stage.appendChild(cards);
-        cards.classList.remove('vcc-cl-mobile-cards');
+        cards.classList.remove('vcc-cl-mobile-cards','vcc-cl-cards-below');
+      }
+    };
+    place();
+    mq.addEventListener?.('change',place);
+  };
+  // Les tres opcions de «¿No sabes dónde ir?» passen sota la barra només
+  // al mòbil; conserva els botons i els seus listeners originals.
+  const relocateDestinationChoices=(nav,hero)=>{
+    if(!nav.classList.contains('di-subnav')||!hero?.classList.contains('di-hero'))return;
+    const stage=hero.querySelector('.di-hero-inner');
+    const choices=stage?.querySelector('.di-choices')||nav.nextElementSibling?.matches('.di-choices')&&nav.nextElementSibling;
+    if(!stage||!choices)return;
+    const mq=window.matchMedia('(max-width:720px)');
+    const place=()=>{
+      if(mq.matches){
+        if(choices.previousElementSibling!==nav)nav.insertAdjacentElement('afterend',choices);
+        choices.classList.add('vcc-di-choices-below');
+      }else{
+        if(choices.parentElement!==stage)stage.appendChild(choices);
+        choices.classList.remove('vcc-di-choices-below');
       }
     };
     place();
@@ -139,6 +165,7 @@
         before.classList.add('vcc-subheader-hero','vcc-standardized-hero-height');
       }
       relocateTransportCards(nav,before);
+      relocateDestinationChoices(nav,before);
     }
     for(const item of itemsOf(nav))item.target.setAttribute('data-vcc-subheader-target','');
     if(!nav.classList.contains('place-nav-wrap')){
