@@ -72,47 +72,25 @@ html body .cl-page.cl-landing.sw-country-copy .vcc-airport-carousel-note{
   margin:11px 0 0!important;
   color:#726b65;font:400 11px/1.55 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
 }
-/* Catálogo: reusa el MISMO HTML, filtros, fotografias, banderas, CTA y
-   clases .vcc-it-catalog de /planifica/que-llevar/. Sólo ancho/espaciado local. */
-html body .cl-page.cl-landing.sw-country-copy .sw-country-guides.vcc-it-catalog{
-  box-sizing:border-box;
-  width:min(1160px,calc(100% - 48px));
-  max-width:none;
+/* Cómo llegar por regiones:
+   MISMO CSS compartido de Como moverse para las fichas, las fotos,
+   el carrusel, los botones y la tipografía. Aquí solo el ancho de sección. */
+html body .cl-page.cl-landing.sw-country-copy #como-llegar-regiones.sw-country-guides{
+  box-sizing:border-box!important;
+  display:block!important;
+  width:min(1160px,calc(100% - 48px))!important;
   margin:0 auto!important;
-  padding:37px 0 46px!important;
-  background:transparent!important;
+  padding:36px 0 44px!important;
   scroll-margin-top:calc(var(--vcc-header-h,50px) + 54px);
 }
-html body .cl-page.cl-landing.sw-country-copy .sw-country-guides .vcc-it-heading{
-  margin-bottom:20px!important;
+html body .cl-page.cl-landing.sw-country-copy #como-llegar-regiones .vcc-arrival-section-head{
+  display:block!important;
+  width:100%!important;
+  max-width:none!important;
+  margin:0 0 22px!important;
 }
-html body .cl-page.cl-landing.sw-country-copy .sw-country-guides .vcc-catalog-toolbar{
-  margin-bottom:0!important;
-}
-html body .cl-page.cl-landing.sw-country-copy .sw-country-guides .vcc-catalog-meta{
-  margin:7px 0 16px!important;
-}
-html body .cl-page.cl-landing.sw-country-copy .sw-country-guides .di-mini-grid{
-  display:grid!important;
-  align-items:stretch;
-}
-html body .cl-page.cl-landing.sw-country-copy .sw-country-guides .vcc-card-kicker{
-  display:inline-flex;align-items:center;gap:5px;
-  margin:0 0 8px;color:#b5583d;
-  font:700 10px/1.2 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
-}
-html body .cl-page.cl-landing.sw-country-copy .sw-country-guides .vcc-card-kicker svg{
-  width:14px;height:14px;flex:none;
-}
-html body .cl-page.cl-landing.sw-country-copy .sw-country-guides .sw-regions-placeholder{
-  display:flex;align-items:center;justify-content:center;
-  width:100%;height:100%;padding:20px;
-  background:linear-gradient(130deg,#4b7887,#acb9ac);
-  color:#fff;text-align:center;
-  font:500 22px/1.15 var(--vcc-font-heading,"Oswald",sans-serif);
-}
-html body .cl-page.cl-landing.sw-country-copy .sw-country-guides .vcc-it-upcoming{
-  margin-top:auto!important;
+html body .cl-page.cl-landing.sw-country-copy #como-llegar-regiones .vcc-editorial-description{
+  max-width:740px;
 }
 @media(max-width:720px){
   html body .cl-page.cl-landing.sw-country-copy > #vcc-lcp-hero.cl-landing-hero.vcc-subheader-hero.vcc-standardized-hero-height{
@@ -130,8 +108,8 @@ html body .cl-page.cl-landing.sw-country-copy .sw-country-guides .vcc-it-upcomin
   html body .cl-page.cl-landing.sw-country-copy #vcc-lcp-hero .cl-landing-description{
     font-size:12.5px!important;line-height:1.55!important;
   }
-  html body .cl-page.cl-landing.sw-country-copy .sw-country-guides.vcc-it-catalog{
-    width:calc(100% - 32px);
+  html body .cl-page.cl-landing.sw-country-copy #como-llegar-regiones.sw-country-guides{
+    width:calc(100% - 32px)!important;
     padding:29px 0 36px!important;
   }
   html body .cl-page.cl-landing.sw-country-copy #comparar-aeropuertos .vcc-transfer-grid.vcc-experience-track{
