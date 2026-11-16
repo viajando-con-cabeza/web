@@ -1,3 +1,4 @@
+/* La ruta visible #vcc-global-breadcrumb la governa només breadcrumb-vcc-global.css, exactament com a Estocolmo. La plantilla no la sobreescriu. */
 /* VCC | Patró exclusiu de portada + breadcrumb + subheader per a
    les SIS guies Planifica de Suecia. Referència: Estocolmo/como-moverse.
    No incloure a index.html (Suecia/Estocolmo), ni a guies d'Estocolmo. */
@@ -16,7 +17,7 @@ html body.vcc-suecia-planifica .vcc-suecia-planning-hero :is(
   margin:0!important;padding:0!important;transform:none!important;
 }
 html body.vcc-suecia-planifica .vcc-suecia-planning-hero :is(
-  .vcc-crumb,.mv-crumb,.dv-breadcrumb,.vcc-breadcrumb-unified){
+  .vcc-crumb,.mv-crumb,.dv-breadcrumb){
   box-sizing:border-box!important;position:absolute!important;top:18px!important;
   left:max(46px,calc((100% - 1510px)/2))!important;right:auto!important;bottom:auto!important;
   z-index:8!important;display:flex!important;align-items:center!important;flex-wrap:wrap!important;
@@ -26,15 +27,15 @@ html body.vcc-suecia-planifica .vcc-suecia-planning-hero :is(
   color:#605850!important;transform:none!important;text-align:left!important;background:none!important;
 }
 html body.vcc-suecia-planifica .vcc-suecia-planning-hero :is(
-  .vcc-crumb,.mv-crumb,.dv-breadcrumb,.vcc-breadcrumb-unified) a{
+  .vcc-crumb,.mv-crumb,.dv-breadcrumb) a{
   display:inline!important;font:inherit!important;color:inherit!important;text-decoration:none!important;
 }
 html body.vcc-suecia-planifica .vcc-suecia-planning-hero :is(
-  .vcc-crumb,.mv-crumb,.dv-breadcrumb,.vcc-breadcrumb-unified) > span{
+  .vcc-crumb,.mv-crumb,.dv-breadcrumb) > span{
   margin:0 7px!important;padding:0!important;color:#b1a294!important;
 }
 html body.vcc-suecia-planifica .vcc-suecia-planning-hero :is(
-  .vcc-crumb,.mv-crumb,.dv-breadcrumb,.vcc-breadcrumb-unified) strong{
+  .vcc-crumb,.mv-crumb,.dv-breadcrumb) strong{
   font:inherit!important;color:#b85d45!important;
 }
 /* Exactament l'ordre i les proporcions del text d'Estocolmo/como-moverse. */
@@ -126,11 +127,11 @@ html body.vcc-suecia-planifica .vcc-suecia-planning-subnav a:is(
     height:440px!important;min-height:440px!important;max-height:440px!important;
   }
   html body.vcc-suecia-planifica .vcc-suecia-planning-hero :is(
-    .vcc-crumb,.mv-crumb,.dv-breadcrumb,.vcc-breadcrumb-unified){
+    .vcc-crumb,.mv-crumb,.dv-breadcrumb){
     top:14px!important;left:18px!important;max-width:calc(100% - 36px)!important;font-size:10px!important;
   }
   html body.vcc-suecia-planifica .vcc-suecia-planning-hero :is(
-    .vcc-crumb,.mv-crumb,.dv-breadcrumb,.vcc-breadcrumb-unified) > span{margin:0 4px!important}
+    .vcc-crumb,.mv-crumb,.dv-breadcrumb) > span{margin:0 4px!important}
   html body.vcc-suecia-planifica .vcc-suecia-planning-hero .vcc-guide-hero-copy{
     top:72px!important;left:18px!important;width:calc(100% - 36px)!important;max-width:calc(100% - 36px)!important;
   }
