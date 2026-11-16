@@ -114,8 +114,13 @@
     mq.addEventListener?.('change',place);
   };
   const setup=(nav)=>{
-    // La subnavegació interna de les targetes de transport no és un subheader.
-    if(nav.closest('main')&&!nav.classList.contains('vcc-unified-subheader'))return;
+    // Un subheader pot ser fill directe de <main> (p. ex. Alojamientos i
+    // Dónde ir). Rebutgem només navegacions internes sense un hero germà.
+    let preceding=nav.previousElementSibling;
+    for(let i=0;i<3&&preceding&&preceding.matches('.country-nav-spacer,.ci-subnav-placeholder,.it-nav-placeholder');i++)
+      preceding=preceding.previousElementSibling;
+    if(nav.closest('main')&&!nav.classList.contains('vcc-unified-subheader')&&
+       !(preceding&&preceding.matches(HEROS)))return;
     if(managed.has(nav))return;
     managed.add(nav);
     nav.classList.add('vcc-unified-subheader');
@@ -124,10 +129,7 @@
       nav.classList.add('vcc-subnav-inner-layout');
     // Algunas plantillas insertan un espaciador de la barra fija entre hero y subheader.
     // Saltar únicamente esos espaciadores, sin asociar barras con contenidos ajenos.
-    let before=nav.previousElementSibling;
-    for(let i=0;i<3&&before&&before.matches('.country-nav-spacer,.ci-subnav-placeholder,.it-nav-placeholder');i++){
-      before=before.previousElementSibling;
-    }
+    const before=preceding;
     if(before&&before.matches(HEROS)){
       markHero(before);
       // Els dos herois centrals mantenen la geometria excepcional.
@@ -153,7 +155,6 @@
     }
   };
   const scan=()=>{
-    if(eligible)document.querySelectorAll(HERO_CONTRACT).forEach(markHero);
     document.querySelectorAll(NAVS).forEach(setup);
     for(const nav of managed){
       if(!nav.isConnected)continue;
