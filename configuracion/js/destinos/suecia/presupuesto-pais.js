@@ -14,14 +14,14 @@
   const palette=["#cf705c","#e4a65a","#5ca5a2","#6e9e77","#c9ad7b"];
   const euro=n=>Math.round(n).toLocaleString("es-ES")+" €";
   const state={
-    days:7,nights:7,people:2,zone:"centrosur",
-    stops:[{zone:"centrosur",days:7,nights:7}],
+    days:7,nights:7,people:2,zone:"centrosur",activeStop:0,
+    stops:[{zone:"centrosur",days:7,nights:7,choice:{alojamiento:"vcc",comida:"vcc",transporte:"vcc",actividades:"vcc",extras:"vcc"}}],
     choice:{alojamiento:"vcc",comida:"vcc",transporte:"vcc",actividades:"vcc",extras:"vcc"}
   };
   let data=null;
-  if(!el("grand-total")||!el("swb-region")||!el("swb-region-top")||!source)return;
+  if(!el("grand-total")||!el("swb-route-rows")||!el("swb-region-top")||!source)return;
   const controls=[...document.querySelectorAll(
-    "[data-budget-mode],.calculator-card [data-step],.calculator-card [data-zone-step],.calculator-card [data-category],#swb-region,#swb-region-top,[data-vcc-download-excel],[data-swb-add-stop]"
+    "[data-budget-mode],.calculator-card [data-step],#swb-region-top,[data-vcc-download-excel],[data-swb-add-stop],#swb-route-prev,#swb-route-next"
   )];
   const lock=locked=>controls.forEach(node=>{node.disabled=locked;});
   root.dataset.budgetStatus="loading";
@@ -45,22 +45,14 @@
   const dayRate=(style,zone)=>cats.reduce((sum,category)=>sum+amount(style,category,zone),0);
   const routeCount=(type)=>state.stops.reduce((sum,stop)=>sum+stop[type],0);
   function totals(){
-    // Un día de visita y una noche son unidades distintas: nunca duplicamos
-    // alojamiento por día ni comidas por noche.
-    state.days=routeCount("days");
-    state.nights=routeCount("nights");
-    const prices={},categoryTotals={};
-    for(const category of cats){
-      const unit=category==="alojamiento"?"nights":"days";
-      const perPerson=state.stops.reduce((sum,stop)=>sum+
-        amount(state.choice[category],category,stop.zone)*stop[unit],0);
-      categoryTotals[category]=perPerson*state.people;
-      prices[category]=perPerson/Math.max(1,state[unit]);
-    }
-    return {prices,categoryTotals,total:cats.reduce((sum,category)=>sum+categoryTotals[category],0)};
+    state.days=routeCount("days");state.nights=routeCount("nights");
+    const categoryTotals={};
+    for(const k of cats)categoryTotals[k]=state.people*state.stops.reduce((sum,stop)=>
+      sum+amount(stop.choice[k],k,stop.zone)*(k==="alojamiento"?stop.nights:stop.days),0);
+    return {categoryTotals,total:cats.reduce((sum,k)=>sum+categoryTotals[k],0)};
   }
   function hydrateSelects(){
-    for(const id of ["swb-region","swb-region-top"]){
+    for(const id of ["swb-region-top"]){
       const select=el(id);
       select.replaceChildren();
       for(const [key,zone] of Object.entries(data.zones)){
@@ -151,67 +143,119 @@
   }
   const integer=(value,min,max,def)=>Number.isFinite(Number(value))?
     Math.max(min,Math.min(max,Math.trunc(Number(value)))):def;
-  function renderRoute(){
-    const container=el("swb-route-rows");
-    if(!container)return;
-    container.replaceChildren();
-    state.stops.forEach((stop,i)=>{
-      const row=document.createElement("div");
-      row.className="vcc-budget-route-row";
-      const region=document.createElement("label");
-      region.className="vcc-budget-route-zone";
-      region.appendChild(document.createTextNode("ZONA"));
-      const select=document.createElement("select");
-      select.setAttribute("aria-label","Zona de la etapa "+(i+1));
-      for(const [key,zone] of Object.entries(data.zones)){
-        const opt=document.createElement("option");
-        opt.value=key;opt.textContent=zone.name;
-        select.appendChild(opt);
-      }
-      select.value=stop.zone;
-      select.addEventListener("change",()=>{
-        if(!data.zones[select.value])return;
-        stop.zone=select.value;renderRoute();renderCalculator();
+  const categoryIcons={alojamiento:"🛏",comida:"♨",transporte:"▤",actividades:"✧",extras:"✦"};
+  const categoryNames={alojamiento:"Alojamiento",comida:"Comida",transporte:"Transporte",actividades:"Actividades",extras:"Extras"};
+  const styleNames={mochilero:"Mochilero",vcc:"VCC",medio:"Medio",lujo:"Lujo"};
+  const maxStages=8;
+  function showStop(index){
+    state.activeStop=Math.max(0,Math.min(state.stops.length-1,index));
+    document.querySelectorAll("#swb-route-rows .vcc-budget-route-row").forEach((node,i)=>{
+      node.hidden=i!==state.activeStop;
+    });
+    document.querySelectorAll("#swb-route-chips button").forEach((node,i)=>
+      node.setAttribute("aria-pressed",String(i===state.activeStop)));
+    const prev=el("swb-route-prev"),next=el("swb-route-next");
+    if(prev)prev.disabled=state.activeStop===0;
+    if(next)next.disabled=state.activeStop===state.stops.length-1;
+  }
+  function renderRouteSummary(){
+    const days=routeCount("days"),nights=routeCount("nights"),count=state.stops.length;
+    const summary=el("swb-route-summary");
+    if(summary)summary.textContent=days+" "+(days===1?"día":"días")+" · "+nights+" "+(nights===1?"noche":"noches")+" · "+count+" "+(count===1?"zona":"zonas");
+    const chips=el("swb-route-chips");if(!chips)return;
+    if(chips.children.length!==count){
+      chips.replaceChildren();
+      state.stops.forEach((_,i)=>{
+        const chip=document.createElement("button");chip.type="button";chip.className="vcc-budget-stage-chip";
+        const name=document.createElement("strong"),detail=document.createElement("small");
+        chip.append(name,detail);chip.addEventListener("click",()=>showStop(i));chips.append(chip);
       });
-      region.appendChild(select);row.appendChild(region);
-      for(const unit of ["days","nights"]){
-        const label=document.createElement("label");
-        label.className="vcc-budget-route-quantity";
-        label.appendChild(document.createTextNode(unit==="days"?"DÍAS":"NOCHES"));
-        const input=document.createElement("input");
-        input.type="number";input.min=unit==="days"?"1":"0";input.max="60";
-        input.step="1";input.inputMode="numeric";
-        input.value=stop[unit];
-        input.setAttribute("aria-label",(unit==="days"?"Días":"Noches")+" en "+data.zones[stop.zone].name);
+    }
+    [...chips.children].forEach((chip,i)=>{
+      const stop=state.stops[i];
+      chip.querySelector("strong").textContent=(i+1)+". "+data.zones[stop.zone].name;
+      chip.querySelector("small").textContent=stop.days+" d · "+stop.nights+" n";
+      chip.setAttribute("aria-label","Ver zona "+(i+1)+": "+data.zones[stop.zone].name+", "+stop.days+" días y "+stop.nights+" noches");
+      chip.setAttribute("aria-pressed",String(i===state.activeStop));
+    });
+  }
+  function updateStagePrices(){
+    document.querySelectorAll("#swb-route-rows .vcc-budget-route-row").forEach((slide,i)=>{
+      const stop=state.stops[i];if(!stop)return;
+      let cost=0;
+      for(const k of cats){
+        const rate=amount(stop.choice[k],k,stop.zone);
+        const field=slide.querySelector('[data-zone-price="'+k+'"]');
+        if(field)field.textContent=euro(rate);
+        cost+=rate*(k==="alojamiento"?stop.nights:stop.days)*state.people;
+      }
+      const total=slide.querySelector("[data-zone-total]");
+      if(total)total.textContent=euro(cost);
+    });
+  }
+  function renderRoute(){
+    const container=el("swb-route-rows");if(!container)return;
+    container.replaceChildren();
+    state.activeStop=Math.min(state.activeStop,state.stops.length-1);
+    state.stops.forEach((stop,i)=>{
+      const slide=document.createElement("article");slide.className="vcc-budget-route-row";slide.dataset.stopIndex=i;
+      slide.setAttribute("aria-label","Presupuesto de la zona "+(i+1));
+      const rows=cats.map(k=>`<div class="category-row">
+        <span class="vcc-category-name"><span class="vcc-category-icon" aria-hidden="true">${categoryIcons[k]}</span><span>${categoryNames[k]}</span></span>
+        <select data-zone-category="${k}" aria-label="Estilo de ${categoryNames[k].toLowerCase()} para zona ${i+1}"></select>
+        <span class="vcc-price-block"><strong class="vcc-budget-price" data-zone-price="${k}">—</strong><small>por persona / ${k==="alojamiento"?"noche":"día"}</small></span></div>`).join("");
+      slide.innerHTML=`<div class="vcc-budget-stage-heading"><span>ZONA ${i+1} DE ${state.stops.length}</span><button type="button" data-remove-stop aria-label="Eliminar etapa ${i+1}">× Quitar</button></div>
+        <div class="vcc-budget-stage-controls">
+         <label class="vcc-budget-stage-region"><span>REGIÓN</span><select data-zone-name aria-label="Región de la zona ${i+1}"></select></label>
+         ${["days","nights"].map(unit=>`<div class="vcc-budget-stage-unit"><span>${unit==="days"?"DÍAS":"NOCHES"}</span><div class="vcc-budget-stage-step"><button type="button" data-stage-step="${unit}" data-stage-delta="-1" aria-label="Restar ${unit==="days"?"día":"noche"} en la zona ${i+1}">−</button><input type="number" data-stage-input="${unit}" min="${unit==="days"?1:0}" max="60" step="1" inputmode="numeric" aria-label="${unit==="days"?"Días":"Noches"} en la zona ${i+1}" value="${stop[unit]}"><button type="button" data-stage-step="${unit}" data-stage-delta="1" aria-label="Añadir ${unit==="days"?"día":"noche"} en la zona ${i+1}">+</button></div></div>`).join("")}
+        </div><div class="vcc-budget-stage-categories">${rows}</div>
+        <div class="vcc-budget-stage-subtotal"><span>TOTAL DE ESTA ZONA</span><strong data-zone-total>—</strong></div>`;
+      const selector=slide.querySelector("[data-zone-name]");
+      for(const [key,zone] of Object.entries(data.zones)){
+        const opt=document.createElement("option");opt.value=key;opt.textContent=zone.name;selector.append(opt);
+      }
+      selector.value=stop.zone;
+      selector.addEventListener("change",()=>{
+        if(!data.zones[selector.value])return;
+        stop.zone=selector.value;renderRouteSummary();renderCalculator();
+      });
+      slide.querySelectorAll("[data-stage-input]").forEach(input=>{
+        const unit=input.dataset.stageInput;
         input.addEventListener("input",()=>{
-          stop[unit]=integer(input.value,unit==="days"?1:0,60,unit==="days"?1:0);
+          if(input.value==="")return;
+          stop[unit]=integer(input.value,unit==="days"?1:0,60,stop[unit]);
           renderRouteSummary();renderCalculator();
         });
         input.addEventListener("change",()=>{
+          stop[unit]=integer(input.value,unit==="days"?1:0,60,stop[unit]);
           input.value=stop[unit];renderRouteSummary();renderCalculator();
         });
-        label.appendChild(input);row.appendChild(label);
-      }
-      const remove=document.createElement("button");
-      remove.type="button";remove.className="vcc-budget-route-remove";
-      remove.textContent="×";remove.title="Quitar esta zona";
-      remove.setAttribute("aria-label","Quitar etapa "+(i+1));
+      });
+      slide.querySelectorAll("[data-stage-step]").forEach(button=>button.addEventListener("click",()=>{
+        const unit=button.dataset.stageStep;
+        stop[unit]=integer(stop[unit]+Number(button.dataset.stageDelta),unit==="days"?1:0,60,stop[unit]);
+        slide.querySelector('[data-stage-input="'+unit+'"]').value=stop[unit];
+        renderRouteSummary();renderCalculator();
+      }));
+      slide.querySelectorAll("[data-zone-category]").forEach(select=>{
+        const k=select.dataset.zoneCategory;
+        for(const style of ["mochilero","vcc","medio","lujo"]){
+          const opt=document.createElement("option");opt.value=style;opt.textContent=styleNames[style];select.append(opt);
+        }
+        select.value=stop.choice[k];
+        select.addEventListener("change",()=>{if(styles.includes(select.value)){stop.choice[k]=select.value;renderCalculator();}});
+      });
+      const remove=slide.querySelector("[data-remove-stop]");
       remove.disabled=state.stops.length===1;
       remove.addEventListener("click",()=>{
         if(state.stops.length===1)return;
-        state.stops.splice(i,1);renderRoute();renderCalculator();
+        state.stops.splice(i,1);state.activeStop=Math.min(i,state.stops.length-1);
+        renderRoute();renderCalculator();
       });
-      row.appendChild(remove);container.appendChild(row);
+      container.append(slide);
     });
-    const add=document.querySelector("[data-swb-add-stop]");
-    if(add)add.disabled=state.stops.length>=8;
-    renderRouteSummary();
-  }
-  function renderRouteSummary(){
-    const summary=el("swb-route-summary");if(!summary)return;
-    const days=routeCount("days"),nights=routeCount("nights"),count=state.stops.length;
-    summary.textContent=days+" "+(days===1?"día":"días")+" · "+nights+
-      " "+(nights===1?"noche":"noches")+" · "+count+" "+(count===1?"zona":"etapas");
+    const add=document.querySelector("[data-swb-add-stop]");if(add)add.disabled=state.stops.length>=maxStages;
+    renderRouteSummary();showStop(state.activeStop);
   }
   function renderCalculator(){
     const result=totals(),daily=result.total/state.people/state.days;
@@ -223,10 +267,8 @@
     });
     const donut=document.querySelector(".calculator-section .donut");
     if(donut)donut.style.background="conic-gradient("+arcs.join(",")+")";
-    for(const category of cats){
-      el("price-"+category).textContent=euro(result.prices[category]);
-      el("legend-"+category).textContent=euro(result.categoryTotals[category]);
-    }
+    for(const category of cats)el("legend-"+category).textContent=euro(result.categoryTotals[category]);
+    updateStagePrices();
     el("days-output").textContent=state.days;
     el("nights-output").textContent=state.nights;
     el("people-output").textContent=state.people;
@@ -258,7 +300,6 @@
     });
   }
   function render(){
-    el("swb-region").value=state.zone;
     el("swb-region-top").value=state.zone;
     renderProfiles();renderRoute();renderCalculator();renderRegions();
   }
@@ -267,29 +308,18 @@
       button.addEventListener("click",()=>{
         const style=button.dataset.budgetMode;
         if(!styles.includes(style))return;
-        cats.forEach(category=>{
-          state.choice[category]=style;
-          const input=document.querySelector('.calculator-card [data-category="'+category+'"]');
-          if(input)input.value=style;
-        });
+        cats.forEach(category=>{state.choice[category]=style;});
+        state.stops.forEach(stop=>{cats.forEach(category=>{stop.choice[category]=style;});});
         render();
-      });
-    });
-    document.querySelectorAll(".calculator-card [data-category]").forEach(input=>{
-      input.addEventListener("change",()=>{
-        if(styles.includes(input.value)&&cats.includes(input.dataset.category)){
-          state.choice[input.dataset.category]=input.value;render();
-        }
       });
     });
     document.querySelectorAll("[data-step]").forEach(button=>button.addEventListener("click",()=>{
       const key=button.dataset.step;
-      if(!["days","nights","people"].includes(key))return;
-      const min=key==="nights"?0:1,max=key==="people"?12:60;
-      state[key]=Math.max(min,Math.min(max,state[key]+Number(button.dataset.delta)));
-      render();
+      if(key!=="people")return;
+      state.people=Math.max(1,Math.min(12,state.people+Number(button.dataset.delta)));
+      renderCalculator();
     }));
-    for(const id of ["swb-region","swb-region-top"]){
+    for(const id of ["swb-region-top"]){
       el(id).addEventListener("change",event=>{
         if(data.zones[event.target.value]){state.zone=event.target.value;render();}
       });
@@ -297,14 +327,15 @@
     document.querySelector("[data-swb-add-stop]")?.addEventListener("click",()=>{
       if(state.stops.length>=8)return;
       const next=Object.keys(data.zones).find(key=>!state.stops.some(s=>s.zone===key))||state.zone;
-      state.stops.push({zone:next,days:1,nights:1});
+      state.stops.push({zone:next,days:1,nights:1,choice:{...state.choice}});
+      state.activeStop=state.stops.length-1;
       renderRoute();renderCalculator();
     });
     document.querySelector("[data-vcc-download-excel]")?.addEventListener("click",()=>{
       // CSV UTF-8 compatible con Excel; columnas por región y total del grupo.
       const rows=[["Zona","Días","Noches",...cats.map(k=>data.categories[k].label+" (€)"),"Total (€)"]];
       for(const stop of state.stops){
-        const costs=cats.map(k=>amount(state.choice[k],k,stop.zone)*
+        const costs=cats.map(k=>amount(stop.choice[k],k,stop.zone)*
           (k==="alojamiento"?stop.nights:stop.days)*state.people);
         rows.push([data.zones[stop.zone].name,stop.days,stop.nights,...costs,
           costs.reduce((sum,n)=>sum+n,0)]);
@@ -320,17 +351,22 @@
       document.body.appendChild(link);link.click();link.remove();
       setTimeout(()=>URL.revokeObjectURL(url),1000);
     });
-    // Mismo patrón que DÍAS/NOCHES/VIAJEROS: − y + recorren zonas.
-    // El select central permite saltar directamente a cualquier región.
-    document.querySelectorAll(".calculator-card [data-zone-step]").forEach(button=>{
-      button.addEventListener("click",()=>{
-        const zoneKeys=Object.keys(data.zones);
-        const index=zoneKeys.indexOf(state.zone);
-        const delta=Number(button.dataset.zoneStep);
-        state.zone=zoneKeys[(index+delta+zoneKeys.length)%zoneKeys.length];
-        render();
-      });
+    el("swb-route-prev")?.addEventListener("click",()=>showStop(state.activeStop-1));
+    el("swb-route-next")?.addEventListener("click",()=>showStop(state.activeStop+1));
+    const track=el("swb-route-rows");
+    track?.addEventListener("keydown",event=>{
+      if(event.target!==track||!["ArrowLeft","ArrowRight"].includes(event.key))return;
+      event.preventDefault();showStop(state.activeStop+(event.key==="ArrowRight"?1:-1));
     });
+    let touchStart=null;
+    track?.addEventListener("touchstart",event=>{
+      touchStart=event.target.closest("button,select,input")?null:event.touches[0]?.clientX??null;
+    },{passive:true});
+    track?.addEventListener("touchend",event=>{
+      if(touchStart===null)return;
+      const dx=(event.changedTouches[0]?.clientX??touchStart)-touchStart;
+      touchStart=null;if(Math.abs(dx)>45)showStop(state.activeStop+(dx<0?1:-1));
+    },{passive:true});
     document.querySelectorAll("#zonas [data-choose-zone]").forEach(anchor=>anchor.addEventListener("click",()=>{
       const key=anchor.dataset.chooseZone;
       if(data.zones[key]){state.zone=key;render();}
@@ -384,7 +420,7 @@
       if(!response.ok)throw new Error("HTTP "+response.status);
       data=validate(await response.json());
       state.zone=data.defaultZone;
-      state.stops=[{zone:data.defaultZone,days:7,nights:7}];
+      state.stops=[{zone:data.defaultZone,days:7,nights:7,choice:{...state.choice}}];
       hydrateSelects();
       hydrateRegionCards();
       initZoneCarousel();
