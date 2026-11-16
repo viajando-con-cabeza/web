@@ -1220,6 +1220,54 @@ html body.budget-vcc .spend-section .decision-panel .vcc-decision-symbol{
 }
 
 
+/* === configuracion/css/componentes/vcc-altura-portades-subheader.css === */
+/* VCC · CONTRACTE ÚNIC D'ALÇADA DE PORTADA AMB SUBHEADER
+   Una sola variable per dispositiu. La posició del subheader és sempre
+   capçalera global + altura de portada (sense marges addicionals).
+   Les fotos, els textos i la navegació no canvien d'estil. */
+:root{
+  --vcc-subheader-cover-height:475px; /* ordinador */
+}
+@media (min-width:721px) and (max-width:1024px){
+  :root{--vcc-subheader-cover-height:560px;} /* tauleta */
+}
+@media (max-width:720px){
+  :root{--vcc-subheader-cover-height:640px;} /* mòbil */
+}
+
+/* Landings de país/ciutat amb vinyeta central, que no porten
+   .vcc-sacred-hero. Inclou Suècia, Estocolm, Roma i Fuerteventura. */
+html body.country-page:has(nav.country-nav) .country-hero,
+html body:has(.st-shell nav.st-tabs) .st-shell > .st-hero,
+html body:has(nav.rich-tabs) .rich-hero:not(.vcc-sacred-hero),
+html body:has(nav.vcc-unified-subheader) .vcc-subheader-hero.vcc-standardized-hero-height:not(.vcc-sacred-hero){
+  box-sizing:border-box!important;
+  height:var(--vcc-subheader-cover-height)!important;
+  min-height:var(--vcc-subheader-cover-height)!important;
+  max-height:var(--vcc-subheader-cover-height)!important;
+  margin-block:0!important;
+}
+
+/* Estocolm i ciutats basades en la seva plantilla:
+   alta especificitat perquè els antics fixes mòbils de 730px
+   no tornin a desplaçar la barra, encara que carreguin després. */
+html body:has(.st-shell nav.st-tabs) .st-shell > section.st-hero.st-hero{
+  height:var(--vcc-subheader-cover-height)!important;
+  min-height:var(--vcc-subheader-cover-height)!important;
+  max-height:var(--vcc-subheader-cover-height)!important;
+}
+
+/* El contingut interior de l'hero s'adapta a l'altura comuna,
+   sense fixar cap segona mesura incompatible. */
+html body:has(.st-shell nav.st-tabs) .st-shell > section.st-hero > .st-hero-inner{
+  box-sizing:border-box!important;
+  max-height:100%!important;
+}
+
+/* No canviar l'offset sticky: només on acaba la foto inicial.
+   La barra segueix gestionada pel component de subheader. */
+
+
 /* VCC · CAPÇALERES EDITORIALS COMPARTIDES · 2026-11-12
  * Sobretítol Caveat + títol Oswald + resum DM Sans.
  * La classe s'afegeix exclusivament als encapçalaments editorials de secció;
