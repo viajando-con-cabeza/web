@@ -21,7 +21,7 @@
  const controls={adults:$("ep-pl-adults"),children:$("ep-pl-children"),date:$("ep-pl-date"),season:$("ep-pl-season"),days:$("ep-pl-days"),ess:$("ep-pl-ess"),all:$("ep-pl-all"),rows:[...mount.querySelectorAll("[data-ep-choice]")],prices:[...mount.querySelectorAll("[data-ep-price]")],tasklist:$("ep-pl-tasklist"),status:$("ep-pl-status")};
  const names=Object.keys(master);
  const safeInt=(v,min,max,otherwise)=>{const n=Number(v);return Number.isFinite(n)&&n>=min&&n<=max?Math.round(n):otherwise};
- const money=n=>new Intl.NumberFormat("es-ES",{maximumFractionDigits:0}).format(n)+" SEK";
+ const money=n=>new Intl.NumberFormat("es-ES",{useGrouping:"always",maximumFractionDigits:0}).format(n)+" SEK";
  const selected=()=>controls.rows.filter(el=>el.checked).map(el=>el.dataset.epChoice);
  const getPrice=id=>safeInt(mount.querySelector('[data-ep-price="'+id+'"]').value,1,10000,null);
  const setHtml=(id,text)=>{const e=$(id);if(e)e.textContent=text};
