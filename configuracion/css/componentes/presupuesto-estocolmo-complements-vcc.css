@@ -1,0 +1,1570 @@
+/* AUTO-GENERAT · CSS comu de VCC. Edita les fonts canonicas de configuracion/css.
+ * Regenerar: npm run css:build. Inclou tokens, carrusels, subheader, breadcrumb i header.
+ */
+/* === configuracion/css/componentes/errores-a-evitar-vcc.css === */
+/* VCC — ÚNICA CONFIGURACIÓ COMPARTIDA D'«ERRORES A EVITAR».
+   Mateix disseny per a les 6 pàgines que utilitzen aquest component (5 variants).
+   Les targetes són blanques i la icona d'alerta té fons gris-blau.
+   Els textos, la navegació del carrusel i les fletxes segueixen sent els de cada pàgina.
+   Modificar només aquest fitxer per canviar el patró visual. */
+:root{
+  --vcc-error-card-background:#ffffff;
+  --vcc-error-card-border:#dde5e9;
+  --vcc-error-card-radius:13px;
+  --vcc-error-card-padding:14px;
+  --vcc-error-card-gap:10px;
+  --vcc-error-card-min-height:132px;
+  --vcc-error-card-title-size:18px;
+  --vcc-error-card-body-size:12px;
+  --vcc-error-card-icon-size:36px;
+  --vcc-error-card-icon-bg:#e8eff4;
+  --vcc-error-card-icon-ink:#587684;
+  --vcc-error-track-gap:14px;
+}
+
+/* Les 5 variants de carrusel en 6 pàgines comparteixen amplada, distàncies i scroll.
+   Es mantenen els IDs originals perquè les fletxes de cada pàgina segueixin funcionant. */
+html body :is(#av-errores-track,#sv-track-tips,#tv-errors-track,#ciTipsTrack,#sorpresas .surprise-grid){
+  display:flex!important;
+  flex-direction:row!important;
+  align-items:stretch!important;
+  gap:var(--vcc-error-track-gap)!important;
+  min-width:0!important;
+  width:100%!important;
+  max-width:100%!important;
+  height:auto!important;
+  max-height:none!important;
+  box-sizing:border-box!important;
+  overflow-x:auto!important;
+  overflow-y:hidden!important;
+  scroll-snap-type:x mandatory!important;
+  scroll-behavior:smooth;
+  overscroll-behavior-x:contain;
+  scrollbar-width:none;
+  padding:2px 2px 9px!important;
+}
+html body :is(#av-errores-track,#sv-track-tips,#tv-errors-track,#ciTipsTrack,#sorpresas .surprise-grid)::-webkit-scrollbar{display:none}
+
+/* Targeta: sempre blanca, sense fons vintage ni degradats ni barres de color. */
+html body :is(#sorpresas,#errores-a-evitar,#consejos,#errores) .vcc-editorial-error-card{
+  display:flex!important;
+  flex-direction:row!important;
+  align-items:flex-start!important;
+  align-self:stretch!important;
+  justify-content:flex-start!important;
+  gap:var(--vcc-error-card-gap)!important;
+  flex:0 0 calc((100% - var(--vcc-error-track-gap) - var(--vcc-error-track-gap)) / 3)!important;
+  width:auto!important;
+  max-width:none!important;
+  min-width:0!important;
+  min-height:var(--vcc-error-card-min-height)!important;
+  height:auto!important;
+  max-height:none!important;
+  box-sizing:border-box!important;
+  margin:0!important;
+  padding:var(--vcc-error-card-padding)!important;
+  border:1px solid var(--vcc-error-card-border)!important;
+  border-radius:var(--vcc-error-card-radius)!important;
+  background:var(--vcc-error-card-background)!important;
+  background-image:none!important;
+  box-shadow:0 2px 8px rgba(27,44,55,.045)!important;
+  color:#252a2e!important;
+  text-align:left!important;
+  scroll-snap-align:start!important;
+  overflow-wrap:break-word!important;
+}
+html body :is(#sorpresas,#errores-a-evitar,#consejos,#errores) .vcc-editorial-error-card::before,
+html body :is(#sorpresas,#errores-a-evitar,#consejos,#errores) .vcc-editorial-error-card::after{
+  content:none!important;
+  display:none!important;
+}
+
+/* Un únic símbol d'advertència, dins del cercle gris/blau suau. */
+html body :is(#sorpresas,#errores-a-evitar,#consejos,#errores) .vcc-editorial-error-card > .vcc-editorial-error-icon{
+  display:grid!important;
+  place-items:center!important;
+  flex:0 0 var(--vcc-error-card-icon-size)!important;
+  width:var(--vcc-error-card-icon-size)!important;
+  height:var(--vcc-error-card-icon-size)!important;
+  min-width:var(--vcc-error-card-icon-size)!important;
+  min-height:var(--vcc-error-card-icon-size)!important;
+  margin:0!important;
+  padding:0!important;
+  border:0!important;
+  border-radius:50%!important;
+  background:var(--vcc-error-card-icon-bg)!important;
+  background-image:none!important;
+  color:var(--vcc-error-card-icon-ink)!important;
+  box-shadow:none!important;
+  outline:0!important;
+  transform:none!important;
+}
+html body :is(#sorpresas,#errores-a-evitar,#consejos,#errores) .vcc-editorial-error-card > .vcc-editorial-error-icon svg{
+  display:block!important;
+  flex:none!important;
+  width:22px!important;
+  height:22px!important;
+  fill:none!important;
+  stroke:currentColor!important;
+  stroke-width:1.7!important;
+  stroke-linecap:round!important;
+  stroke-linejoin:round!important;
+  color:inherit!important;
+  transform:none!important;
+}
+
+/* Tipografia editorial VCC, idèntica a totes les pàgines amb el component. */
+html body :is(#sorpresas,#errores-a-evitar,#consejos,#errores) .vcc-editorial-error-card > div{
+  display:flex!important;
+  flex:1 1 auto!important;
+  flex-direction:column!important;
+  align-items:flex-start!important;
+  min-width:0!important;
+  gap:0!important;
+}
+html body :is(#sorpresas,#errores-a-evitar,#consejos,#errores) .vcc-editorial-error-card h3{
+  display:block!important;
+  margin:1px 0 8px!important;
+  padding:0!important;
+  font-family:var(--vcc-font-heading,"Oswald",sans-serif)!important;
+  font-size:var(--vcc-error-card-title-size)!important;
+  font-weight:500!important;
+  font-style:normal!important;
+  line-height:1.2!important;
+  letter-spacing:0!important;
+  text-transform:none!important;
+  color:#27323a!important;
+}
+html body :is(#sorpresas,#errores-a-evitar,#consejos,#errores) .vcc-editorial-error-card p{
+  display:block!important;
+  margin:0!important;
+  padding:0!important;
+  font-family:var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;
+  font-size:var(--vcc-error-card-body-size)!important;
+  font-weight:400!important;
+  font-style:normal!important;
+  line-height:1.5!important;
+  color:#5d6871!important;
+  text-align:left!important;
+}
+html body :is(#sorpresas,#errores-a-evitar,#consejos,#errores) .vcc-editorial-error-card a{
+  color:#466b7f!important;
+  text-decoration:underline;
+  text-underline-offset:2px;
+}
+
+/* Els enllaços del subheader han de deixar el títol visible sota la barra fixa. */
+html body :is(#sorpresas,#errores-a-evitar,#consejos,#errores){scroll-margin-top:115px}
+
+@media(max-width:950px){
+  html body :is(#sorpresas,#errores-a-evitar,#consejos,#errores) .vcc-editorial-error-card{
+    flex-basis:calc((100% - var(--vcc-error-track-gap)) / 2)!important;
+  }
+}
+@media(max-width:650px){
+  :root{
+    --vcc-error-card-padding:12px;
+    --vcc-error-card-min-height:130px;
+    --vcc-error-card-title-size:18px;
+    --vcc-error-card-body-size:12px;
+    --vcc-error-card-icon-size:34px;
+    --vcc-error-track-gap:10px;
+    --vcc-error-card-gap:9px;
+  }
+  html body :is(#sorpresas,#errores-a-evitar,#consejos,#errores) .vcc-editorial-error-card{
+    flex-basis:100%!important;
+  }
+  html body :is(#sorpresas,#errores-a-evitar,#consejos,#errores){scroll-margin-top:88px}
+}
+@media(prefers-reduced-motion:reduce){
+  html body :is(#av-errores-track,#sv-track-tips,#tv-errors-track,#ciTipsTrack,#sorpresas .surprise-grid){
+    scroll-behavior:auto!important;
+  }
+}
+
+
+/* VCC 2026-11-15 · FIX ESTRUCTURAL. Las flechas pueden ocultarse por overflow,
+   pero la pista NUNCA debe ocupar la columna de 30/40px reservada al botón.
+   En CSS grid, usar display:none en la flecha anterior reubica el track.
+   Posicionamos las 3 piezas explícitamente y conservamos sitio al ocultarla. */
+@media(min-width:761px){
+ html body.ci-page #errores .ci-tips-shell{
+   display:grid!important;
+   grid-template-columns:36px minmax(0,1fr) 36px!important;
+   align-items:center!important;
+   gap:12px!important;
+   width:100%!important;min-width:0!important;
+ }
+ html body.ci-page #errores .ci-tips-shell > #ciTipsPrev{
+   grid-column:1!important;grid-row:1!important;
+ }
+ html body.ci-page #errores .ci-tips-shell > #ciTipsTrack{
+   grid-column:2!important;grid-row:1!important;
+   width:100%!important;min-width:0!important;
+ }
+ html body.ci-page #errores .ci-tips-shell > #ciTipsNext{
+   grid-column:3!important;grid-row:1!important;
+ }
+ html body .tv-page #errores .tv-errors-carousel{
+   display:grid!important;
+   grid-template-columns:40px minmax(0,1fr) 40px!important;
+   align-items:center!important;gap:12px!important;
+ }
+ html body .tv-page #errores .tv-errors-carousel > [data-tv-errors-prev]{
+   grid-column:1!important;grid-row:1!important;
+ }
+ html body .tv-page #errores .tv-errors-carousel > #tv-errors-track{
+   grid-column:2!important;grid-row:1!important;
+   width:100%!important;min-width:0!important;
+ }
+ html body .tv-page #errores .tv-errors-carousel > [data-tv-errors-next]{
+   grid-column:3!important;grid-row:1!important;
+ }
+ html body .sv-page #consejos .sv-carousel-shell{
+   display:grid!important;
+   grid-template-columns:36px minmax(0,1fr) 36px!important;
+   align-items:center!important;gap:10px!important;
+ }
+ html body .sv-page #consejos .sv-carousel-shell > .sv-prev{
+   grid-column:1!important;grid-row:1!important;
+ }
+ html body .sv-page #consejos .sv-carousel-shell > #sv-track-tips{
+   grid-column:2!important;grid-row:1!important;
+   width:100%!important;min-width:0!important;
+ }
+ html body .sv-page #consejos .sv-carousel-shell > .sv-next-arrow{
+   grid-column:3!important;grid-row:1!important;
+ }
+}
+/* Fallback también frente a CSS global antiguo aún cacheado.
+   Especificidad con #id: el botón invisible conserva posición en el grid. */
+html body.ci-page #errores .ci-tips-shell > .ci-tips-arrow[data-vcc-scroll-hidden],
+html body .tv-page #errores .tv-errors-carousel > .tv-error-arrow[data-vcc-scroll-hidden],
+html body .sv-page #consejos .sv-carousel-shell > .sv-arrow[data-vcc-scroll-hidden]{
+  display:grid!important;
+  visibility:hidden!important;
+  opacity:0!important;
+  pointer-events:none!important;
+}
+@media(max-width:760px){
+ html body.ci-page #errores .ci-tips-shell{
+   display:block!important;
+   position:relative!important;
+   width:100%!important;min-width:0!important;
+ }
+ html body.ci-page #errores .ci-tips-shell > #ciTipsTrack{
+   display:flex!important;
+   width:100%!important;min-width:0!important;
+ }
+ html body.ci-page #errores .ci-tips-shell > .ci-tips-arrow{
+   position:absolute!important;
+   top:50%!important;
+   transform:translateY(-50%)!important;
+   z-index:3!important;
+ }
+ html body.ci-page #errores .ci-tips-shell > .ci-tips-prev{left:2px!important;right:auto!important}
+ html body.ci-page #errores .ci-tips-shell > .ci-tips-next{right:2px!important;left:auto!important}
+ html body .tv-page #errores .tv-errors-carousel > #tv-errors-track,
+ html body .sv-page #consejos .sv-carousel-shell > #sv-track-tips{
+   width:100%!important;min-width:0!important;
+ }
+}
+
+/* === configuracion/css/componentes/presupuesto-carruseles-vcc.css === */
+/* VCC / Estocolm · Carrusels de pressupost
+   Única font de veritat per a la distribució de Cómo ahorrar i Errores a evitar.
+   Les mides, tipografies i colors de targeta provenen només dels components
+   erros-a-evitar-vcc.css i como-ahorrar-carruseles-vcc.css.
+   Manté continguts i funcionament existents. */
+html body.budget-vcc :is(#ahorrar,#sorpresas) .carousel-shell{
+  display:grid!important;
+  grid-template-columns:34px minmax(0,1fr) 34px!important;
+  grid-template-rows:auto!important;
+  align-items:center!important;
+  gap:9px!important;
+  position:relative!important;
+  width:100%!important;
+  max-width:100%!important;
+  min-width:0!important;
+  min-height:0!important;
+  height:auto!important;
+  padding:0!important;
+  margin:0!important;
+}
+html body.budget-vcc :is(#ahorrar,#sorpresas) .carousel-shell > .tips-track{
+  display:flex!important;
+  flex-flow:row nowrap!important;
+  align-items:stretch!important;
+  justify-content:flex-start!important;
+  box-sizing:border-box!important;
+  grid-column:2!important;
+  grid-row:1!important;
+  gap:12px!important;
+  width:100%!important;
+  max-width:100%!important;
+  min-width:0!important;
+  min-height:0!important;
+  height:auto!important;
+  margin:0!important;
+  padding:2px 1px 5px!important;
+  overflow-x:auto!important;
+  overflow-y:hidden!important;
+  scroll-snap-type:x mandatory!important;
+  scrollbar-width:none!important;
+}
+html body.budget-vcc :is(#ahorrar,#sorpresas) .carousel-shell > .tips-track::-webkit-scrollbar{display:none}
+html body.budget-vcc :is(#ahorrar,#sorpresas) .carousel-shell > .carousel-arrow{
+  display:grid!important;
+  place-items:center!important;
+  position:static!important;
+  grid-row:1!important;
+  align-self:center!important;
+  justify-self:center!important;
+  top:auto!important;right:auto!important;bottom:auto!important;left:auto!important;
+  width:30px!important;height:30px!important;
+  min-width:30px!important;min-height:30px!important;
+  margin:0!important;padding:0!important;
+  transform:none!important;
+  line-height:1!important;
+  z-index:2!important;
+}
+html body.budget-vcc :is(#ahorrar,#sorpresas) .carousel-shell > .carousel-arrow.prev{grid-column:1!important}
+html body.budget-vcc :is(#ahorrar,#sorpresas) .carousel-shell > .carousel-arrow.next{grid-column:3!important}
+/* Cap altura gegant: cada targeta s'ajusta al text. Tres en escriptori. */
+html body.budget-vcc #ahorrar .tips-track > .saving-tip,
+html body.budget-vcc #sorpresas .tips-track > .vcc-editorial-error-card{
+  display:flex!important;
+  flex:0 0 calc((100% - 24px)/3)!important;
+  box-sizing:border-box!important;
+  min-width:0!important;
+  width:auto!important;
+  height:auto!important;
+  max-height:none!important;
+  margin:0!important;
+  scroll-snap-align:start!important;
+  align-self:stretch!important;
+}
+html body.budget-vcc #ahorrar .tips-track > .saving-tip{flex-direction:row!important;align-items:flex-start!important}
+html body.budget-vcc #sorpresas .tips-track > .vcc-editorial-error-card{flex-direction:row!important;align-items:flex-start!important}
+html body.budget-vcc #ahorrar .saving-tip-copy,
+html body.budget-vcc #sorpresas .vcc-editorial-error-card > div{
+  min-width:0!important;height:auto!important;max-height:none!important;
+}
+@media(max-width:950px){
+  html body.budget-vcc :is(#ahorrar,#sorpresas) .tips-track > :is(.saving-tip,.vcc-editorial-error-card){
+    flex-basis:calc((100% - 12px)/2)!important;
+  }
+}
+@media(max-width:650px){
+  html body.budget-vcc :is(#ahorrar,#sorpresas) .carousel-shell{
+    grid-template-columns:29px minmax(0,1fr) 29px!important;
+    gap:5px!important;
+  }
+  html body.budget-vcc :is(#ahorrar,#sorpresas) .carousel-shell > .carousel-arrow{
+    width:27px!important;height:27px!important;min-width:27px!important;min-height:27px!important;
+  }
+  html body.budget-vcc :is(#ahorrar,#sorpresas) .carousel-shell > .tips-track{gap:10px!important}
+  html body.budget-vcc :is(#ahorrar,#sorpresas) .tips-track > :is(.saving-tip,.vcc-editorial-error-card){
+    flex:0 0 100%!important;
+  }
+}
+@media(prefers-reduced-motion:reduce){
+  html body.budget-vcc :is(#ahorrar,#sorpresas) .carousel-shell > .tips-track{scroll-behavior:auto!important}
+}
+
+/* === configuracion/css/componentes/como-ahorrar-carruseles-vcc.css === */
+/* VCC — Salvaguarda compartida dels carrusels «Cómo ahorrar».
+   NO substitueix els layouts de les plantilles: protegeix les dimensions
+   de la pista i de les targetes, inclòs l'ús mòbil, sense tocar fletxes,
+   tipografies, lògica JS ni el nombre de targetes visibles. */
+html body :is(
+  .vl-tips-carousel,
+  .ql-advice-carousel,
+  .al-tips-carousel,
+  .vcc-saving-carousel,
+  .dv-tip-carousel-wrap,
+  .ep3-saving-stage,
+  #ahorrar .carousel-shell
+){
+  box-sizing:border-box!important;
+  min-width:0!important;
+  max-width:100%!important;
+  min-height:0!important;
+  height:auto!important;
+}
+html body :is(
+  #vl-tip-track,
+  #ql-advice-track,
+  #al-tips-track,
+  #sv-track-compare,
+  #vcc-saving-track,
+  .dv-tip-grid[data-dv-tip-scroller],
+  #ep3-saving-track,
+  #ahorrar .tips-track
+){
+  box-sizing:border-box!important;
+  min-width:0!important;
+  max-width:100%!important;
+  min-height:0!important;
+  height:auto!important;
+  max-height:none!important;
+  overflow-y:hidden!important;
+}
+html body :is(
+  #vl-tip-track > .vl-tip,
+  #ql-advice-track > .ql-advice-card,
+  #al-tips-track > .al-tip,
+  #sv-track-compare > .saving-tip,
+  #vcc-saving-track > .vcc-saving-card,
+  .dv-tip-grid[data-dv-tip-scroller] > .dv-tip,
+  #ep3-saving-track > .ep3-saving-card,
+  #ahorrar .tips-track > .saving-tip
+){
+  box-sizing:border-box!important;
+  min-width:0!important;
+  height:auto!important;
+  max-height:none!important;
+  overflow-wrap:break-word;
+}
+
+
+/* VCC · patró editorial compacte compartit per a TOTS els consells
+   «Cómo ahorrar»: 3/2/1 targetes segons la plantilla original.
+   No es toquen amplades/flex-basis, fletxes ni comportament dels carrusels. */
+html body :is(
+  #vl-tip-track > .vl-tip,
+  #al-tips-track > .al-tip,
+  #sv-track-compare > .saving-tip,
+  #vcc-saving-track > .vcc-saving-card,
+  .dv-tip-grid[data-dv-tip-scroller] > .dv-tip,
+  #ep3-saving-track > .ep3-saving-card,
+  #ql-advice-track > .ql-advice-card,
+  #ahorrar .tips-track > .saving-tip
+){
+  min-height:132px!important;
+  height:auto!important;
+  max-height:none!important;
+  box-sizing:border-box!important;
+  padding:13px 14px!important;
+  gap:10px!important;
+  background:#fff!important;
+  border:1px solid #e2ddd6!important;
+  border-radius:11px!important;
+  box-shadow:0 2px 8px rgba(27,44,55,.045)!important;
+  overflow:visible!important;
+}
+html body :is(
+  #vl-tip-track > .vl-tip,
+  #al-tips-track > .al-tip,
+  #sv-track-compare > .saving-tip,
+  #vcc-saving-track > .vcc-saving-card,
+  .dv-tip-grid[data-dv-tip-scroller] > .dv-tip,
+  #ep3-saving-track > .ep3-saving-card,
+  #ql-advice-track > .ql-advice-card,
+  #ahorrar .tips-track > .saving-tip
+) h3{
+  font-family:var(--vcc-font-heading,"Oswald",sans-serif)!important;
+  font-weight:500!important;
+  font-size:18px!important;
+  line-height:1.2!important;
+  margin:1px 0 7px!important;
+  text-transform:none!important;
+  letter-spacing:0!important;
+}
+html body :is(
+  #vl-tip-track > .vl-tip,
+  #al-tips-track > .al-tip,
+  #sv-track-compare > .saving-tip,
+  #vcc-saving-track > .vcc-saving-card,
+  .dv-tip-grid[data-dv-tip-scroller] > .dv-tip,
+  #ep3-saving-track > .ep3-saving-card,
+  #ql-advice-track > .ql-advice-card,
+  #ahorrar .tips-track > .saving-tip
+) p{
+  display:block!important;
+  font-family:var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;
+  font-weight:400!important;
+  font-size:12px!important;
+  line-height:1.5!important;
+  margin:0!important;
+  max-height:none!important;
+  overflow:visible!important;
+  -webkit-line-clamp:unset!important;
+  line-clamp:unset!important;
+  white-space:normal!important;
+}
+@media(max-width:650px){
+  html body :is(
+    #vl-tip-track > .vl-tip,
+    #al-tips-track > .al-tip,
+  #sv-track-compare > .saving-tip,
+    #vcc-saving-track > .vcc-saving-card,
+    .dv-tip-grid[data-dv-tip-scroller] > .dv-tip,
+    #ep3-saving-track > .ep3-saving-card,
+    #ql-advice-track > .ql-advice-card,
+    #ahorrar .tips-track > .saving-tip
+  ){
+    min-height:130px!important;
+    padding:12px!important;
+    gap:9px!important;
+  }
+}
+
+/* === configuracion/css/componentes/acciones-descargas-vcc.css === */
+/* VCC · Acciones de archivos. ÚNICO estilo para PDF, impresión y Excel.
+ * Añadir class="vcc-download-link" y un SVG .vcc-download-icon.
+ * Se importa al final del HEAD de cada página con exportación.
+ * Los handlers originales de cada calculadora/checklist no cambian. */
+html body button.vcc-download-link,
+html body .vcc-budget-excel-row button.vcc-download-link,
+html body .printbar button.vcc-download-link,
+html body #ql-v6-print.vcc-download-link,
+html body .ql-page .ql-v7-section-pack > .ql-v17-actions-strip > .ql-v6-actions #ql-v6-print.vcc-download-link{
+  display:inline-flex!important;
+  flex:0 0 auto!important;
+  align-items:center!important;
+  justify-content:center!important;
+  gap:6px!important;
+  width:auto!important;
+  min-width:0!important;
+  max-width:100%!important;
+  height:auto!important;
+  min-height:28px!important;
+  margin:0!important;
+  padding:4px 2px!important;
+  background:transparent!important;
+  background-image:none!important;
+  border:0!important;
+  border-radius:0!important;
+  box-shadow:none!important;
+  color:#926d58!important;
+  font:600 10.5px/1.35 var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;
+  letter-spacing:0!important;
+  text-transform:none!important;
+  text-align:center!important;
+  text-decoration:none!important;
+  text-shadow:none!important;
+  white-space:nowrap!important;
+  cursor:pointer!important;
+  filter:none!important;
+  transition:color .16s ease!important;
+}
+html body button.vcc-download-link .vcc-download-icon,
+html body #ql-v6-print.vcc-download-link .vcc-download-icon{
+  display:block!important;
+  flex:0 0 15px!important;
+  width:15px!important;
+  height:15px!important;
+  margin:0!important;
+  padding:0!important;
+  fill:none!important;
+  stroke:currentColor!important;
+  color:inherit!important;
+}
+html body button.vcc-download-link:hover,
+html body #ql-v6-print.vcc-download-link:hover,
+html body .ql-page .ql-v7-section-pack > .ql-v17-actions-strip > .ql-v6-actions #ql-v6-print.vcc-download-link:hover{
+  color:#c56239!important;
+  background:transparent!important;
+  border:0!important;
+  text-decoration:underline!important;
+  text-underline-offset:3px!important;
+  filter:none!important;
+}
+html body button.vcc-download-link:focus-visible,
+html body #ql-v6-print.vcc-download-link:focus-visible{
+  outline:2px solid #c9724c!important;
+  outline-offset:3px!important;
+  border-radius:2px!important;
+}
+html body button.vcc-download-link:disabled,
+html body #ql-v6-print.vcc-download-link:disabled{
+  opacity:.5!important;
+  cursor:progress!important;
+  text-decoration:none!important;
+}
+/* VCC · Control compartit per a totes les calculadores.
+   La mateixa estructura HTML (.vcc-file-actions) es fa servir a Vuelos,
+   Planifica/Alojamientos i Dónde dormir/Suecia, sense selectors per pàgina.
+   Ordre de lectura i visual: Limpiar, Guardar en PDF. */
+html body .vcc-file-actions{
+  display:flex!important;
+  flex-direction:row!important;
+  align-items:center!important;
+  justify-content:flex-end!important;
+  flex-wrap:wrap!important;
+  gap:4px 16px!important;
+  width:100%!important;
+  min-width:0!important;
+  max-width:100%!important;
+  margin:10px 0 0!important;
+  padding:10px 0 0!important;
+  border:0!important;
+  border-top:1px solid #e9ded4!important;
+  background:transparent!important;
+}
+html body .vcc-file-actions > button{
+  appearance:none!important;
+  display:inline-flex!important;
+  flex:0 0 auto!important;
+  align-items:center!important;
+  justify-content:center!important;
+  width:auto!important;
+  min-width:0!important;
+  min-height:28px!important;
+  margin:0!important;
+  padding:4px 2px!important;
+  border:0!important;
+  border-radius:0!important;
+  background:transparent!important;
+  box-shadow:none!important;
+  font:600 10.5px/1.35 var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;
+  letter-spacing:0!important;
+  text-transform:none!important;
+  text-decoration:none!important;
+  white-space:nowrap!important;
+  cursor:pointer!important;
+}
+html body .vcc-file-actions > .vcc-file-clear{
+  color:#6f6660!important;
+}
+html body .vcc-file-actions > .vcc-file-clear:hover{
+  color:#a65340!important;
+  text-decoration:underline!important;
+  text-underline-offset:3px!important;
+}
+html body .vcc-file-actions > .vcc-file-clear:focus-visible{
+  outline:2px solid #c9724c!important;
+  outline-offset:3px!important;
+  border-radius:2px!important;
+}
+@media(max-width:720px){
+  html body .vcc-file-actions > button{min-height:36px!important}
+}
+
+html body .tv-page .tv-calc-actions{
+  display:flex!important;
+  align-items:center!important;
+  justify-content:flex-end!important;
+  width:100%!important;
+}
+html body .tv-page .tv-calc-actions .vcc-download-link{
+  margin-left:auto!important;
+}
+/* La exportación del mapa queda debajo del mapa, nunca junto al texto de apoyo. */
+html body .imp-map-footer{
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:stretch!important;
+}
+html body .imp-map-footer .imp-map-cta{
+  display:flex!important;
+  align-items:center!important;
+  justify-content:flex-end!important;
+  flex-wrap:wrap!important;
+  gap:4px 12px!important;
+  width:100%!important;
+  margin:5px 0 0!important;
+}
+html body .imp-map-footer .imp-map-cta .imp-export-status{
+  order:0!important;
+}
+html body .imp-map-footer .imp-map-cta .imp-export-status:empty{
+  display:none!important;
+}
+html body .imp-map-footer .imp-map-cta #imp-export-pdf.vcc-download-link{
+  order:20!important;
+  margin-left:auto!important;
+}
+/* Excel debajo de la calculadora, en el borde derecho aunque el texto ocupe
+   dos líneas; la caja nunca queda alineada a la izquierda en móvil. */
+html body.budget-vcc .vcc-budget-excel-row{
+  display:flex!important;
+  align-items:flex-end!important;
+  justify-content:flex-end!important;
+  flex-wrap:wrap!important;
+  gap:5px 14px!important;
+  width:100%!important;
+}
+html body.budget-vcc .vcc-budget-excel-row p{
+  flex:1 1 300px!important;
+  min-width:0!important;
+}
+html body.budget-vcc .vcc-budget-excel-row .vcc-download-link{
+  order:20!important;
+  margin-left:auto!important;
+}
+/* Checklist Estocolmo: seleccionar/desmarcar primero, imprimir/PDF siempre
+   en el extremo derecho, incluso cuando haya que saltar de línea. */
+html body .ql-page .ql-v7-section-pack > .ql-v17-actions-strip > .ql-v6-actions #ql-v6-print.vcc-download-link{
+  order:20!important;
+  margin-left:auto!important;
+}
+html body .ql-page .ql-v7-section-pack > .ql-v17-actions-strip > .ql-v6-actions{
+  justify-content:flex-end!important;
+}
+/* Las checklists por país muestran el enlace al pie de su bloque.
+   Se conserva el texto a la izquierda y la acción pegada a la derecha. */
+html body .printbar .printin{
+  display:flex!important;
+  flex-direction:row!important;
+  align-items:flex-end!important;
+  justify-content:space-between!important;
+  flex-wrap:wrap!important;
+  gap:6px 16px!important;
+}
+html body .printbar .printin > .vcc-download-link{
+  order:20!important;
+  margin-left:auto!important;
+  align-self:flex-end!important;
+}
+@media(max-width:720px){
+  html body.budget-vcc .vcc-budget-excel-row p{
+    flex-basis:100%!important;
+  }
+  html body .printbar .printin{
+    flex-direction:column!important;
+    align-items:stretch!important;
+    gap:4px!important;
+  }
+  html body .printbar .printin > .vcc-download-link{
+    align-self:flex-end!important;
+    margin-left:auto!important;
+  }
+  html body .imp-map-footer .imp-map-cta{
+    justify-content:flex-end!important;
+  }
+}
+
+@media print{
+  html body button.vcc-download-link,
+  html body #ql-v6-print.vcc-download-link{display:none!important}
+}
+
+/* === configuracion/css/componentes/desglose-compartit-vcc.css === */
+/* VCC — Control compartit VER / OCULTAR DESGLOSE
+ * Referència visual: targetes de Presupuesto Estocolmo.
+ * Una única mida de text i fletxa, sense botons grans ni vores ornamentals.
+ * Aplicar .vcc-disclosure-toggle a buttons i .vcc-disclosure-footer a labels
+ * dins de targetes clicables. El JS de cada plantilla manté aria-expanded. */
+:root{
+  --vcc-desglose-font-size:10px;
+  --vcc-desglose-caret-size:12px;
+  --vcc-desglose-gap:10px;
+  --vcc-desglose-color:#ac5a45;
+}
+.vcc-disclosure-toggle,
+.vcc-disclosure-footer{
+  display:inline-flex;
+  align-items:center;
+  justify-content:flex-end;
+  gap:var(--vcc-desglose-gap);
+  color:var(--vcc-desglose-color);
+  font-family:var(--vcc-font-body,"DM Sans",Arial,sans-serif);
+  font-size:var(--vcc-desglose-font-size);
+  font-weight:700;
+  line-height:1.2;
+  letter-spacing:.01em;
+  text-transform:uppercase;
+  text-decoration:none;
+}
+button.vcc-disclosure-toggle{
+  appearance:none;
+  border:0;
+  border-radius:0;
+  box-shadow:none;
+  background:transparent;
+  color:var(--vcc-desglose-color);
+  padding:7px 0;
+  cursor:pointer;
+  text-align:right;
+}
+button.vcc-disclosure-toggle:hover{color:#8c422a;text-decoration:none}
+button.vcc-disclosure-toggle:focus-visible{outline:2px solid #b65f42;outline-offset:3px;border-radius:3px}
+.vcc-disclosure-toggle--card{
+  display:flex!important;
+  width:100%;
+  margin-top:auto;
+  border:0!important;
+  background:transparent!important;
+  padding:13px 0 0!important;
+  justify-content:flex-end;
+}
+.vcc-disclosure-toggle--inline{
+  display:inline-flex;
+  width:auto;
+  min-height:29px;
+  padding:5px 0;
+}
+.vcc-disclosure-caret{
+  display:inline-flex;
+  flex:0 0 16px;
+  width:16px;
+  height:16px;
+  align-items:center;
+  justify-content:center;
+  background:transparent;
+  border:0;
+  border-radius:0;
+  line-height:1;
+  transform:none;
+}
+.vcc-disclosure-caret svg{display:block;width:var(--vcc-desglose-caret-size);height:var(--vcc-desglose-caret-size);fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;transition:transform .16s ease}
+.vcc-disclosure-caret--glyph{font-family:Arial,sans-serif;font-size:var(--vcc-desglose-caret-size);font-weight:400;line-height:1;transition:transform .16s ease}
+.vcc-disclosure-toggle[aria-expanded="true"] .vcc-disclosure-caret--glyph,
+.vcc-disclosure-toggle[aria-expanded="true"] .vcc-disclosure-caret svg{transform:rotate(180deg)}
+/* Pressupost: mateix component sobre un span, perquè tota la targeta és clicable. 
+ * Substitueix les overrides locals del CSS compilat, sense afectar el pressupost. */
+html body.budget-vcc #filosofia .vcc-budget-mode-footer.vcc-disclosure-footer{
+  display:flex!important;
+  align-items:center!important;
+  justify-content:flex-end!important;
+  gap:var(--vcc-desglose-gap)!important;
+  width:100%!important;
+  margin-top:auto!important;
+  padding-top:13px!important;
+  font-family:var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;
+  font-size:var(--vcc-desglose-font-size)!important;
+  font-weight:700!important;
+  line-height:1.2!important;
+  letter-spacing:.01em!important;
+  color:var(--vcc-desglose-color)!important;
+}
+html body.budget-vcc #filosofia .vcc-budget-mode-footer .vcc-budget-mode-caret.vcc-disclosure-caret{
+  display:inline-flex!important;
+  width:16px!important;
+  height:16px!important;
+  flex:0 0 16px!important;
+  align-items:center!important;
+  justify-content:center!important;
+  padding:0!important;
+  border:0!important;
+  background:transparent!important;
+}
+html body.budget-vcc #filosofia .vcc-budget-mode-footer .vcc-budget-mode-caret.vcc-disclosure-caret svg{
+  width:var(--vcc-desglose-caret-size)!important;
+  height:var(--vcc-desglose-caret-size)!important;
+}
+/* Com moure's: els botons comparteixen dimensió independentment de la secció. */
+html body .swmove-page button.vcc-disclosure-toggle{
+  border:0;
+  background:transparent;
+  box-shadow:none;
+  color:var(--vcc-desglose-color);
+  font-family:var(--vcc-font-body,"DM Sans",Arial,sans-serif);
+  font-size:var(--vcc-desglose-font-size);
+  font-weight:700;
+  line-height:1.2;
+  letter-spacing:.01em;
+  border-radius:0;
+  text-decoration:none;
+}
+html body .swmove-page button.vcc-disclosure-toggle--card{
+  border:0!important;
+  background:transparent!important;
+  padding:13px 0 0!important;
+}
+html body .swmove-page button.vcc-disclosure-toggle--inline{
+  min-height:29px;
+  padding:5px 0;
+}
+@media(max-width:590px){
+  :root{--vcc-desglose-font-size:10px;--vcc-desglose-caret-size:12px}
+  .vcc-disclosure-toggle--card{padding:11px 0 0!important}
+}
+@media(prefers-reduced-motion:reduce){
+ .vcc-disclosure-caret--glyph,
+ .vcc-disclosure-caret svg{transition:none}
+}
+
+/* === configuracion/css/componentes/presupuesto-perfiles-tarjetas-vcc.css === */
+/* VCC · Targetes dels quatre perfils de pressupost
+   Font única per a les altures de Estocolmo i Suecia.
+   La resta de la presentació prové de presupuesto-compilado-vcc.css;
+   el control VER DESGLOSE prové de desglose-compartit-vcc.css. */
+html body.budget-vcc {
+  --vcc-budget-profile-card-height:192px;
+}
+html body.budget-vcc #filosofia .vcc-budget-mode-track {
+  align-items:stretch!important;
+}
+html body.budget-vcc #filosofia .vcc-budget-mode-track > .vcc-budget-mode-card,
+html body.budget-vcc #filosofia .vcc-budget-mode-track > .vcc-budget-mode-card[aria-expanded="true"] {
+  box-sizing:border-box!important;
+  height:var(--vcc-budget-profile-card-height)!important;
+  min-height:var(--vcc-budget-profile-card-height)!important;
+  max-height:var(--vcc-budget-profile-card-height)!important;
+}
+@media(min-width:751px) and (max-width:1100px) {
+  html body.budget-vcc {--vcc-budget-profile-card-height:180px}
+}
+@media(max-width:750px) {
+  html body.budget-vcc {--vcc-budget-profile-card-height:228px}
+}
+
+/* === configuracion/css/componentes/presupuesto-decisiones-sin-fondo-vcc.css === */
+/* VCC · Presupuestos: símbolos de decisiones sin círculo ni fondos.
+   Componente compartido en las páginas de presupuesto de cualquier destino.
+   Se conserva el color de cada icono, sin tocar el diseño del carrusel. */
+html body.budget-vcc .spend-section .decision-panel .vcc-decision-symbol{
+  background:transparent!important;
+  background-color:transparent!important;
+  border:0!important;
+  border-radius:0!important;
+  box-shadow:none!important;
+}
+
+/* === configuracion/css/componentes/presupuesto-confianza-vcc.css === */
+/* VCC · ¿Por qué confiar en nosotros?
+   Componente visual único para Presupuesto Estocolmo, Suecia y Dónde dormir Estocolmo.
+   Replica el bloque canónico de Estocolmo (mismas 3 viñetas, iconos,
+   dimensiones, bordes, tipografía y puntos de ruptura).
+   El contenido genérico se sincroniza con presupuesto-confianza-vcc.js.
+*/
+:is(html body.budget-vcc #filosofia, html body.dv-page #barrios) aside.vcc-budget-trust{
+  box-sizing:border-box!important;
+  display:grid!important;
+  width:100%!important;
+  min-width:0!important;
+  grid-template-columns:minmax(235px,.9fr) minmax(0,2.1fr)!important;
+  align-items:center!important;
+  column-gap:12px!important;
+  row-gap:0!important;
+  margin:12px 0 5px!important;
+  padding:10px 14px!important;
+  border:1px solid #e7ded7!important;
+  border-radius:12px!important;
+  background:#fff!important;
+  box-shadow:0 3px 12px rgba(69,47,33,.035)!important;
+  overflow:visible!important;
+}
+:is(html body.budget-vcc #filosofia, html body.dv-page #barrios) .vcc-budget-trust-heading{
+  display:flex!important;
+  align-items:center!important;
+  gap:8px!important;
+  min-width:0!important;
+}
+:is(html body.budget-vcc #filosofia, html body.dv-page #barrios) .vcc-budget-trust-heading>svg{
+  display:block!important;
+  flex:0 0 22px!important;
+  width:22px!important;
+  height:22px!important;
+  stroke:#c36a4d!important;
+}
+:is(html body.budget-vcc #filosofia, html body.dv-page #barrios) .vcc-budget-trust-heading h3{
+  margin:0!important;
+  font:600 17px/1.15 var(--vcc-font-heading,"Oswald",sans-serif)!important;
+  text-transform:uppercase!important;
+  color:#292624!important;
+}
+:is(html body.budget-vcc #filosofia, html body.dv-page #barrios) .vcc-budget-trust-grid{
+  display:grid!important;
+  grid-template-columns:repeat(3,minmax(0,1fr))!important;
+  align-items:stretch!important;
+  gap:10px!important;
+  min-width:0!important;
+}
+:is(html body.budget-vcc #filosofia, html body.dv-page #barrios) .vcc-budget-trust-grid>div{
+  box-sizing:border-box!important;
+  min-width:0!important;
+  padding:0 0 0 10px!important;
+  border:0!important;
+  border-left:1px solid #ead9cc!important;
+  background:transparent!important;
+}
+:is(html body.budget-vcc #filosofia, html body.dv-page #barrios) .vcc-budget-trust-point{
+  display:flex!important;
+  align-items:center!important;
+  gap:6px!important;
+  margin:0 0 3px!important;
+  min-width:0!important;
+}
+:is(html body.budget-vcc #filosofia, html body.dv-page #barrios) .vcc-budget-trust-point svg{
+  display:block!important;
+  flex:0 0 18px!important;
+  width:18px!important;
+  height:18px!important;
+  stroke:#bd6650!important;
+}
+:is(html body.budget-vcc #filosofia, html body.dv-page #barrios) .vcc-budget-trust-point strong{
+  color:#b65d46!important;
+  font:700 11px/1.3 var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;
+}
+:is(html body.budget-vcc #filosofia, html body.dv-page #barrios) .vcc-budget-trust-grid p{
+  margin:0!important;
+  padding:0!important;
+  color:#686059!important;
+  font:400 10.5px/1.38 var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;
+}
+@media(max-width:1100px){
+  :is(html body.budget-vcc #filosofia, html body.dv-page #barrios) aside.vcc-budget-trust{
+    grid-template-columns:minmax(0,1fr)!important;
+    row-gap:9px!important;
+    padding:11px 13px!important;
+  }
+  :is(html body.budget-vcc #filosofia, html body.dv-page #barrios) .vcc-budget-trust-grid>div:first-child{
+    border-left:0!important;
+    padding-left:0!important;
+  }
+}
+@media(max-width:750px){
+  :is(html body.budget-vcc #filosofia, html body.dv-page #barrios) aside.vcc-budget-trust{
+    margin-top:12px!important;
+    padding:10px 11px!important;
+  }
+  :is(html body.budget-vcc #filosofia, html body.dv-page #barrios) .vcc-budget-trust-heading h3{
+    font-size:16px!important;
+  }
+}
+@media(max-width:600px){
+  :is(html body.budget-vcc #filosofia, html body.dv-page #barrios) .vcc-budget-trust-grid{
+    grid-template-columns:minmax(0,1fr)!important;
+    gap:8px!important;
+  }
+  :is(html body.budget-vcc #filosofia, html body.dv-page #barrios) .vcc-budget-trust-grid>div,
+  :is(html body.budget-vcc #filosofia, html body.dv-page #barrios) .vcc-budget-trust-grid>div:first-child{
+    padding:0 0 0 10px!important;
+    border-left:2px solid #e5c3b0!important;
+  }
+  :is(html body.budget-vcc #filosofia, html body.dv-page #barrios) .vcc-budget-trust-grid p{
+    font-size:11px!important;
+  }
+}
+
+/* === configuracion/css/componentes/vcc-capcaleres-editorials.css === */
+/* VCC · CAPÇALERES EDITORIALS COMPARTIDES · 2026-11-12
+ * Sobretítol Caveat + títol Oswald + resum DM Sans.
+ * La classe s'afegeix exclusivament als encapçalaments editorials de secció;
+ * NO canvia herois, targetes, menús ni apartats de detall.
+ * Les tres peces empren classes explícites per no alterar altres textos.
+ */
+html body .vcc-editorial-heading {
+  display:flex!important;
+  flex-direction:row!important;
+  align-items:flex-end!important;
+  justify-content:space-between!important;
+  flex-wrap:nowrap!important;
+  gap:clamp(20px,3vw,44px)!important;
+  width:100%;
+  max-width:none!important;
+  min-width:0;
+  padding:0!important;
+  margin:0 0 20px!important;
+  text-align:left!important;
+  border:0!important;
+  background:transparent!important;
+}
+html body .vcc-editorial-heading > .vcc-editorial-heading-main {
+  flex:1 1 auto!important;
+  min-width:0!important;
+  max-width:100%;
+  margin:0!important;
+  padding:0!important;
+  text-align:left!important;
+}
+html body .vcc-editorial-heading .vcc-editorial-overline {
+  display:block!important;
+  position:static!important;
+  width:auto!important;
+  max-width:100%!important;
+  margin:0 0 7px!important;
+  padding:0!important;
+  color:#c86f5d!important;
+  font:600 calc(clamp(25px,2.15vw,29px) + var(--vcc-overline-size-adjust,0px))/1.1 var(--vcc-font-script,"Caveat",cursive)!important;
+  letter-spacing:0!important;
+  text-transform:none!important;
+  text-align:left!important;
+  transform:none!important;
+}
+html body .vcc-editorial-heading .vcc-editorial-title {
+  display:block!important;
+  max-width:100%!important;
+  margin:0!important;
+  padding:0!important;
+  color:#171717!important;
+  font:600 calc(clamp(30px,3.2vw,43px) + var(--vcc-heading-size-adjust,0px))/1.08 var(--vcc-font-heading,"Oswald",sans-serif)!important;
+  letter-spacing:0!important;
+  text-transform:uppercase!important;
+  text-align:left!important;
+  overflow-wrap:normal;
+  text-wrap:balance;
+}
+html body .vcc-editorial-heading .vcc-editorial-title::after,
+html body .vcc-editorial-heading .vcc-editorial-title::before {
+  display:none!important;
+  content:none!important;
+}
+html body .vcc-editorial-heading > .vcc-editorial-description,
+html body .vcc-editorial-heading > .vcc-editorial-heading-side .vcc-editorial-description {
+  display:block!important;
+  flex:0 1 450px!important;
+  align-self:flex-end!important;
+  width:auto!important;
+  max-width:450px!important;
+  min-width:0!important;
+  margin:0 0 3px!important;
+  padding:0!important;
+  color:#655e58!important;
+  font:400 13px/1.58 var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;
+  letter-spacing:0!important;
+  text-align:right!important;
+  text-transform:none!important;
+  text-wrap:pretty;
+}
+html body .vcc-editorial-heading > .vcc-editorial-heading-side {
+  flex:0 1 450px!important;
+  min-width:0!important;
+  max-width:450px!important;
+  margin:0!important;
+  text-align:right!important;
+}
+html body .vcc-editorial-heading > .vcc-editorial-heading-side .vcc-editorial-description {
+  width:100%!important;
+  margin:0!important;
+}
+@media (max-width:900px) {
+  html body .vcc-editorial-heading {
+    flex-direction:column!important;
+    align-items:flex-start!important;
+    gap:8px!important;
+    margin-bottom:17px!important;
+  }
+  html body .vcc-editorial-heading > .vcc-editorial-heading-main,
+  html body .vcc-editorial-heading > .vcc-editorial-description,
+  html body .vcc-editorial-heading > .vcc-editorial-heading-side {
+    flex:0 1 auto!important;
+    align-self:stretch!important;
+    width:100%!important;
+    max-width:100%!important;
+    text-align:left!important;
+  }
+  html body .vcc-editorial-heading > .vcc-editorial-description,
+  html body .vcc-editorial-heading > .vcc-editorial-heading-side .vcc-editorial-description {
+    align-self:flex-start!important;
+    max-width:100%!important;
+    margin:0!important;
+    text-align:left!important;
+    font-size:12.5px!important;
+    line-height:1.5!important;
+  }
+}
+@media (max-width:600px) {
+  html body .vcc-editorial-heading { gap:6px!important; margin-bottom:14px!important; }
+  html body .vcc-editorial-heading .vcc-editorial-overline {
+    margin-bottom:5px!important;
+    font-size:calc(25px + var(--vcc-overline-size-adjust,0px))!important;
+  }
+  html body .vcc-editorial-heading .vcc-editorial-title {
+    font-size:calc(clamp(27px,8vw,34px) + var(--vcc-heading-size-adjust,0px))!important;
+    line-height:1.1!important;
+  }
+  html body .vcc-editorial-heading > .vcc-editorial-description,
+  html body .vcc-editorial-heading > .vcc-editorial-heading-side .vcc-editorial-description {
+    font-size:12px!important;
+    line-height:1.5!important;
+  }
+}
+
+
+/* ============================================================
+   VCC · PORTADES EDITORIALS DE GUIES · 2026-11-16
+   Patró compartit opt-in (no modifica les capçaleres de secció).
+   Mateix sobretítol Caveat taronja, títol Oswald i descripció
+   DM Sans per totes les guies de Suecia / Estocolmo.
+   Els títols, fotos, breadcrumbs i continguts es conserven.
+   ============================================================ */
+html body .vcc-guide-hero-unified.vcc-guide-hero-unified .vcc-guide-hero-copy{
+  box-sizing:border-box!important;
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:flex-start!important;
+  justify-content:flex-start!important;
+  gap:0!important;
+  text-align:left!important;
+  min-width:0!important;
+  max-width:760px!important;
+  background:transparent!important;
+  border:0!important;
+  box-shadow:none!important;
+  backdrop-filter:none!important;
+  color:#171717!important;
+}
+html body .vcc-guide-hero-unified.vcc-guide-hero-unified .vcc-guide-hero-copy > .vcc-guide-hero-kicker{
+  display:block!important;
+  width:auto!important;
+  max-width:100%!important;
+  height:auto!important;
+  min-height:0!important;
+  padding:0!important;
+  margin:0 0 13px!important;
+  background:transparent!important;
+  border:0!important;
+  box-shadow:none!important;
+  color:#c86f5d!important;
+  font:600 31px/1.1 var(--vcc-font-script,"Caveat",cursive)!important;
+  font-style:normal!important;
+  text-transform:none!important;
+  letter-spacing:0!important;
+  transform:none!important;
+  text-align:left!important;
+}
+html body .vcc-guide-hero-unified.vcc-guide-hero-unified .vcc-guide-hero-copy > h1{
+  display:block!important;
+  max-width:760px!important;
+  width:auto!important;
+  min-height:0!important;
+  height:auto!important;
+  padding:0!important;
+  margin:0 0 17px!important;
+  background:transparent!important;
+  color:#171717!important;
+  font:600 clamp(48px,5.35vw,77px)/1.04 var(--vcc-font-heading,"Oswald",sans-serif)!important;
+  font-style:normal!important;
+  text-transform:uppercase!important;
+  letter-spacing:-.02em!important;
+  text-shadow:none!important;
+  transform:none!important;
+  text-align:left!important;
+  text-wrap:balance;
+  overflow-wrap:normal!important;
+}
+html body .vcc-guide-hero-unified.vcc-guide-hero-unified .vcc-guide-hero-copy > h1 :is(em,span){
+  font:inherit!important;
+  color:#c4664c!important;
+  text-transform:inherit!important;
+  font-style:normal!important;
+  letter-spacing:inherit!important;
+}
+html body .vcc-guide-hero-unified.vcc-guide-hero-unified .vcc-guide-hero-copy > h1::after{
+  content:""!important;
+  display:block!important;
+  position:static!important;
+  width:184px!important;
+  height:3px!important;
+  min-height:3px!important;
+  margin:21px 0 0!important;
+  padding:0!important;
+  background:#c86f5d!important;
+  border:0!important;
+  box-shadow:none!important;
+  transform:skewX(-28deg)!important;
+}
+html body .vcc-guide-hero-unified.vcc-guide-hero-unified .vcc-guide-hero-copy > .vcc-guide-hero-description{
+  display:block!important;
+  width:auto!important;
+  max-width:710px!important;
+  min-height:0!important;
+  margin:0!important;
+  padding:0!important;
+  background:transparent!important;
+  color:#353535!important;
+  font:400 17px/1.58 var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;
+  font-style:normal!important;
+  text-transform:none!important;
+  letter-spacing:0!important;
+  text-align:left!important;
+  text-shadow:none!important;
+}
+/* Evitar dobles subratllats quan la plantilla ja n'inclou un. */
+html body .vcc-guide-hero-unified :is(
+  .cl-landing-underline,.mv-underline,.dv-hero-underline,
+  .ep-stroke,.ql-brush,.swb-hero-underline
+){display:none!important;}
+/* Els scripts que abans anaven després de l'H1 ara són el primer element. */
+@media(max-width:900px){
+ html body .vcc-guide-hero-unified.vcc-guide-hero-unified .vcc-guide-hero-copy{
+   max-width:min(760px,calc(100vw - 36px))!important;
+ }
+ html body .vcc-guide-hero-unified.vcc-guide-hero-unified .vcc-guide-hero-copy > h1{
+   font-size:clamp(42px,7.6vw,67px)!important;
+   max-width:100%!important;
+ }
+ html body .vcc-guide-hero-unified.vcc-guide-hero-unified .vcc-guide-hero-copy > .vcc-guide-hero-description{
+   font-size:15px!important;
+   max-width:100%!important;
+ }
+}
+@media(max-width:600px){
+ html body .vcc-guide-hero-unified.vcc-guide-hero-unified .vcc-guide-hero-copy > .vcc-guide-hero-kicker{
+   font-size:26px!important;
+   margin-bottom:10px!important;
+ }
+ html body .vcc-guide-hero-unified.vcc-guide-hero-unified .vcc-guide-hero-copy > h1{
+   font-size:clamp(37px,9.7vw,53px)!important;
+   line-height:1.06!important;
+   margin-bottom:13px!important;
+ }
+ html body .vcc-guide-hero-unified.vcc-guide-hero-unified .vcc-guide-hero-copy > h1::after{
+   width:115px!important;
+   margin-top:14px!important;
+ }
+ html body .vcc-guide-hero-unified.vcc-guide-hero-unified .vcc-guide-hero-copy > .vcc-guide-hero-description{
+   font-size:13px!important;
+   line-height:1.55!important;
+ }
+}
+
+
+/* Subguies històriques d'Estocolm: abans empraven Cormorant i
+   textos de 8–10px. Comparteixen ara la mateixa portada editorial. */
+html body .content-hero.vcc-guide-hero-unified{
+  box-sizing:border-box!important;
+  display:block!important;
+  position:relative!important;
+  isolation:isolate!important;
+  width:100%!important;
+  max-width:none!important;
+  height:475px!important;
+  min-height:475px!important;
+  margin:0!important;
+  padding:16px max(34px,calc((100% - 1320px)/2)) 36px!important;
+  overflow:hidden!important;
+  color:#171717!important;
+  background:
+    linear-gradient(90deg,rgba(255,255,255,.97) 0%,rgba(255,255,255,.84) 42%,rgba(255,255,255,.12) 100%),
+    var(--vcc-guide-photo,url("/configuracion/imagenes/fondos/optimizadas/fondos-que-ver-1920.webp"))
+    center center/cover no-repeat!important;
+}
+html body .content-hero.vcc-guide-hero-unified > .crumb{
+  display:block!important;
+  position:relative!important;
+  z-index:2!important;
+  margin:0 0 60px!important;
+  padding:0!important;
+  font:400 11px/1.4 var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;
+  color:#555!important;
+}
+html body .content-hero.vcc-guide-hero-unified .vcc-guide-hero-copy{
+  position:relative!important;
+  z-index:2!important;
+  width:100%!important;
+  margin:0!important;
+  padding:0!important;
+}
+@media(max-width:700px){
+  html body .content-hero.vcc-guide-hero-unified{
+    height:450px!important;
+    min-height:450px!important;
+    padding:15px 18px 28px!important;
+    background:
+      linear-gradient(90deg,rgba(255,255,255,.97),rgba(255,255,255,.78)),
+      var(--vcc-guide-photo-mobile,var(--vcc-guide-photo,url("/configuracion/imagenes/fondos/optimizadas/fondos-que-ver-960.webp")))
+      center center/cover no-repeat!important;
+  }
+  html body .content-hero.vcc-guide-hero-unified > .crumb{
+    margin-bottom:48px!important;
+    font-size:10px!important;
+  }
+}
+
+
+/* Subguies de Cómo llegar: manté la foto del transport i el breadcrumb.
+   El títol pot ocupar més línies, sense retallar el contingut. */
+html body .cl-page .cl-hero.vcc-guide-hero-unified{
+  box-sizing:border-box!important;
+  height:auto!important;min-height:475px!important;
+  max-height:none!important;
+  background:
+    linear-gradient(90deg,rgba(255,255,255,.96) 0%,rgba(255,255,255,.83) 45%,rgba(255,255,255,.08) 100%),
+    url("/configuracion/imagenes/fondos/optimizadas/fondos-como-llegar-1920.webp")
+    center center/cover no-repeat!important;
+}
+html body .cl-page .cl-hero.vcc-guide-hero-unified .cl-hero-inner{
+  position:relative!important;
+  box-sizing:border-box!important;
+  width:min(1320px,calc(100% - 90px))!important;
+  max-width:1320px!important;
+  height:auto!important;
+  min-height:475px!important;
+  margin:auto!important;
+  padding:90px 0 48px!important;
+}
+html body .cl-page .cl-hero.vcc-guide-hero-unified .cl-card.vcc-guide-hero-copy{
+  position:relative!important;
+  top:auto!important;left:auto!important;
+  display:flex!important;
+  width:min(760px,100%)!important;
+  max-width:760px!important;
+  margin:0!important;
+  padding:0!important;
+}
+html body .cl-page .cl-hero.vcc-guide-hero-unified .cl-hero-line{display:none!important}
+@media(max-width:700px){
+ html body .cl-page .cl-hero.vcc-guide-hero-unified{
+   min-height:450px!important;
+   background:
+     linear-gradient(90deg,rgba(255,255,255,.97),rgba(255,255,255,.77)),
+     url("/configuracion/imagenes/fondos/optimizadas/fondos-como-llegar-960.webp")
+     center center/cover no-repeat!important;
+ }
+ html body .cl-page .cl-hero.vcc-guide-hero-unified .cl-hero-inner{
+   width:calc(100% - 36px)!important;
+   min-height:450px!important;
+   padding:86px 0 38px!important;
+ }
+}
+
+/* Fotografies reals de Suecia i Estocolmo, ja presents al projecte. */
+html body .content-hero.vcc-guide-hero-unified[data-vcc-guide-topic="que-ver"]{
+  --vcc-guide-photo:url("https://img.viajandoconcabeza.com/__vcc_preview/visor/destinos/suecia/estocolmo/2026-dia6/DSC07952.avif");
+  --vcc-guide-photo-mobile:url("https://img.viajandoconcabeza.com/__vcc_preview/visor/destinos/suecia/estocolmo/2026-dia6/DSC07952.avif");
+}
+html body .content-hero.vcc-guide-hero-unified[data-vcc-guide-topic="consejos"]{
+  --vcc-guide-photo:url("https://img.viajandoconcabeza.com/__vcc_preview/visor/destinos/suecia/estocolmo/2026-dia6/DSC07935-VSCO.avif");
+  --vcc-guide-photo-mobile:url("https://img.viajandoconcabeza.com/__vcc_preview/visor/destinos/suecia/estocolmo/2026-dia6/DSC07935-VSCO.avif");
+}
+html body .content-hero.vcc-guide-hero-unified[data-vcc-guide-topic="donde-comer"]{
+  --vcc-guide-photo:url("https://img.viajandoconcabeza.com/__vcc_preview/visor/destinos/suecia/estocolmo/2026-dia6/DSC08037.avif");
+  --vcc-guide-photo-mobile:url("https://img.viajandoconcabeza.com/__vcc_preview/visor/destinos/suecia/estocolmo/2026-dia6/DSC08037.avif");
+}
+html body .content-hero.vcc-guide-hero-unified[data-vcc-guide-topic="barrios-miradores"]{
+  --vcc-guide-photo:url("https://img.viajandoconcabeza.com/__vcc_preview/visor/destinos/suecia/estocolmo/2026-dia6/DSC07943.avif");
+  --vcc-guide-photo-mobile:url("https://img.viajandoconcabeza.com/__vcc_preview/visor/destinos/suecia/estocolmo/2026-dia6/DSC07943.avif");
+}
+html body .content-hero.vcc-guide-hero-unified[data-vcc-guide-topic="islas-ferris"]{
+  --vcc-guide-photo:url("https://img.viajandoconcabeza.com/destinos/suecia/estocolmo-archipelago/2026-dia8/DSC08332.avif");
+  --vcc-guide-photo-mobile:url("https://img.viajandoconcabeza.com/destinos/suecia/estocolmo-archipelago/2026-dia8/DSC08332.avif");
+}
+html body .content-hero.vcc-guide-hero-unified[data-vcc-guide-topic="museos"]{
+  --vcc-guide-photo:url("https://img.viajandoconcabeza.com/__vcc_preview/visor/destinos/suecia/estocolmo/2026-dia6/DSC07952.avif");
+  --vcc-guide-photo-mobile:url("https://img.viajandoconcabeza.com/__vcc_preview/visor/destinos/suecia/estocolmo/2026-dia6/DSC07952.avif");
+}
+html body .content-hero.vcc-guide-hero-unified[data-vcc-guide-topic="parques-naturaleza"]{
+  --vcc-guide-photo:url("https://img.viajandoconcabeza.com/__vcc_preview/visor/destinos/suecia/estocolmo-archipelago/2026-dia8/DSC08335.avif");
+  --vcc-guide-photo-mobile:url("https://img.viajandoconcabeza.com/__vcc_preview/visor/destinos/suecia/estocolmo-archipelago/2026-dia8/DSC08335.avif");
+}
+
+
+/* VCC 2026-11-16 · Portadas principales del país y ciudad.
+   Misma jerarquía del resto de 39 guías; se conservan fotos,
+   valoración, datos y navegación particulares de cada landing. */
+html body .country-hero.vcc-guide-hero-unified{
+  min-height:585px!important;
+  height:auto!important;
+  padding:0!important;
+}
+html body .country-hero.vcc-guide-hero-unified .country-hero-inner{
+  box-sizing:border-box!important;
+  width:min(1320px,calc(100% - 90px))!important;
+  max-width:1320px!important;
+  padding:22px 0 44px!important;
+  margin:auto!important;
+}
+html body .country-hero.vcc-guide-hero-unified .country-breadcrumb{
+  transform:none!important;
+  margin:0 0 45px!important;
+  font:400 11px/1.4 var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;
+}
+html body .country-hero.vcc-guide-hero-unified .country-hero-card.vcc-guide-hero-copy{
+  width:min(760px,100%)!important;
+  max-width:760px!important;
+  padding:0!important;
+  margin:0!important;
+  transform:none!important;
+}
+html body .st-hero.vcc-guide-hero-unified{
+  box-sizing:border-box!important;
+  position:relative!important;
+  height:620px!important;
+  min-height:620px!important;
+  max-height:none!important;
+}
+html body .st-hero.vcc-guide-hero-unified::before{
+  content:""!important;
+  position:absolute!important;
+  inset:0!important;
+  z-index:0!important;
+  pointer-events:none!important;
+  background:linear-gradient(90deg,rgba(255,255,255,.96) 0%,rgba(255,255,255,.86) 38%,rgba(255,255,255,.14) 82%)!important;
+}
+html body .st-hero.vcc-guide-hero-unified .st-hero-inner{
+  position:relative!important;
+  box-sizing:border-box!important;
+  width:min(1320px,calc(100% - 90px))!important;
+  max-width:1320px!important;
+  height:100%!important;
+  margin:auto!important;
+  padding:0!important;
+}
+html body .st-hero.vcc-guide-hero-unified .st-crumb{
+  top:18px!important;
+  left:0!important;
+  transform:none!important;
+  width:auto!important;
+  font:400 11px/1.4 var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;
+}
+html body .st-hero.vcc-guide-hero-unified .st-card.vcc-guide-hero-copy{
+  position:absolute!important;
+  top:106px!important;
+  left:0!important;
+  right:auto!important;
+  width:min(760px,100%)!important;
+  max-width:760px!important;
+  padding:0!important;
+  margin:0!important;
+}
+html body :is(.country-hero,.st-hero).vcc-guide-hero-unified .vcc-guide-hero-copy > .vcc-guide-hero-description{
+  max-width:670px!important;
+}
+html body :is(.country-hero,.st-hero).vcc-guide-hero-unified .country-facts,
+html body :is(.country-hero,.st-hero).vcc-guide-hero-unified .st-facts{
+  width:100%!important;
+  max-width:710px!important;
+  margin:18px 0 12px!important;
+  border-color:#e4d8cf!important;
+}
+html body :is(.country-hero,.st-hero).vcc-guide-hero-unified .hero-start{
+  margin-top:10px!important;
+}
+@media(max-width:850px){
+ html body .country-hero.vcc-guide-hero-unified{min-height:530px!important;}
+ html body .country-hero.vcc-guide-hero-unified .country-hero-inner,
+ html body .st-hero.vcc-guide-hero-unified .st-hero-inner{
+   width:calc(100% - 42px)!important;
+ }
+ html body .st-hero.vcc-guide-hero-unified{
+   height:auto!important;
+   min-height:575px!important;
+ }
+ html body .st-hero.vcc-guide-hero-unified .st-hero-inner{
+   height:auto!important;
+   min-height:575px!important;
+   padding:22px 0 30px!important;
+ }
+ html body .st-hero.vcc-guide-hero-unified .st-card.vcc-guide-hero-copy{
+   position:relative!important;
+   top:auto!important;
+   left:auto!important;
+   margin-top:78px!important;
+   padding-bottom:20px!important;
+ }
+}
+@media(max-width:600px){
+ html body .country-hero.vcc-guide-hero-unified{
+   min-height:0!important;
+ }
+ html body .country-hero.vcc-guide-hero-unified .country-hero-inner{
+   width:calc(100% - 36px)!important;
+   padding:18px 0 32px!important;
+ }
+ html body .country-hero.vcc-guide-hero-unified .country-breadcrumb{
+   margin-bottom:54px!important;
+ }
+ html body .st-hero.vcc-guide-hero-unified .st-hero-inner{
+   width:calc(100% - 36px)!important;
+   padding:16px 0 32px!important;
+ }
+ html body .st-hero.vcc-guide-hero-unified .st-card.vcc-guide-hero-copy{
+   margin-top:83px!important;
+   padding:0!important;
+ }
+ html body .st-hero.vcc-guide-hero-unified{min-height:600px!important;}
+ html body :is(.country-hero,.st-hero).vcc-guide-hero-unified .vcc-guide-hero-copy > h1{
+   font-size:clamp(42px,12vw,60px)!important;
+ }
+ html body :is(.country-hero,.st-hero).vcc-guide-hero-unified .country-facts,
+ html body :is(.country-hero,.st-hero).vcc-guide-hero-unified .st-facts{
+   grid-template-columns:repeat(2,minmax(0,1fr))!important;
+   gap:10px!important;
+ }
+}
