@@ -405,4 +405,24 @@ html body .cl-landing-cards.vcc-cl-cards-below{
    margin:16px auto 26px!important;
  }
 }
+
+/* Mantener los estados fijados de las navegaciones antiguas sin cambiar
+ * la altura ni la coordenada sticky del contrato. */
+html body nav.vcc-unified-subheader.vcc-sacred-subnav:is(.ci-subnav-pinned,.it-nav-pinned,.is-fixed){
+  position:fixed!important;
+  top:var(--vcc-subheader-top,50px)!important;
+  left:0!important;
+  right:0!important;
+}
+/* En pantallas estrechas, idéntica escala menor para todas las guías.
+ * No aumentar la altura de portada: el subheader debe empezar siempre igual. */
+@media(max-width:380px){
+  :root{
+    --vcc-contract-copy-top:62px;
+    --vcc-contract-overline:22px;
+    --vcc-contract-heading:clamp(30px,8.2vw,38px);
+    --vcc-contract-description:12.5px;
+  }
+}
+
 }
