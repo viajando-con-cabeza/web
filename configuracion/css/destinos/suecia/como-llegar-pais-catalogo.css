@@ -48,21 +48,11 @@ html body .cl-page.cl-landing.sw-country-copy .vcc-airport-carousel-note{
   color:#726b65;font:400 11px/1.55 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
 }
 /* Cómo llegar por regiones:
-   Encabezado editorial: vcc-capcaleres-editorials.css (título izquierda, texto derecha).
-   Tarjetas y carrusel: CSS compartido. Aquí solo el ancho y espaciado de la sección. */
+   Geometria horitzontal i vertical centralitzada a
+   vcc-capcaleres-editorials.css (mateixos marges que Cómo moverse).
+   Aquest fitxer només conserva la posició de l'ancoratge. */
 html body .cl-page.cl-landing.sw-country-copy #como-llegar-regiones.sw-country-guides{
-  box-sizing:border-box!important;
-  display:block!important;
-  width:min(1510px,calc(100% - 92px))!important;
-  margin:0 auto!important;
-  padding:36px 0 44px!important;
   scroll-margin-top:calc(var(--vcc-header-h,50px) + 54px);
-}
-/* Mateix ample de contenidor de Como moverse (mv-container). */
-@media(max-width:1270px){
-  html body .cl-page.cl-landing.sw-country-copy #como-llegar-regiones.sw-country-guides{
-    width:calc(100% - 52px)!important;
-  }
 }
 @media(max-width:720px){
   html body .cl-page.cl-landing.sw-country-copy > #vcc-lcp-hero.cl-landing-hero.vcc-subheader-hero.vcc-standardized-hero-height{
@@ -79,10 +69,6 @@ html body .cl-page.cl-landing.sw-country-copy #como-llegar-regiones.sw-country-g
   }
   html body .cl-page.cl-landing.sw-country-copy #vcc-lcp-hero .cl-landing-description{
     font-size:12.5px!important;line-height:1.55!important;
-  }
-  html body .cl-page.cl-landing.sw-country-copy #como-llegar-regiones.sw-country-guides{
-    width:calc(100% - 28px)!important;
-    padding:29px 0 36px!important;
   }
   html body .cl-page.cl-landing.sw-country-copy #comparar-aeropuertos .vcc-transfer-grid.vcc-experience-track{
     grid-template-columns:none!important;
