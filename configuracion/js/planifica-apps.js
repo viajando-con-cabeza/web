@@ -43,6 +43,7 @@
   const search=document.querySelector("[data-av-activity-search]");
   const continent=document.querySelector("[data-av-continent]");
   const country=document.querySelector("[data-av-country]");
+  const region=document.querySelector("[data-av-region]");
   const reset=document.querySelector("[data-av-reset]");
   const resultCount=document.querySelector("[data-av-result-count]");
   const empty=document.querySelector("[data-av-empty]");
@@ -51,13 +52,31 @@
   const moreButton=document.querySelector("[data-av-show-more]");
   const PAGE_SIZE=10;
   let visibleLimit=PAGE_SIZE;
+
+  // Construye únicamente las regiones con actividades para el continente y país elegidos.
+  // Conserva la selección cuando continúa disponible; evita filtros de regiones vacías.
+  const syncRegionOptions=()=>{
+    if(!region)return;
+    const selected=region.value;
+    const available=new Map();
+    activityCards.forEach(card=>{
+      if(continent&&continent.value!=="all"&&card.dataset.continent!==continent.value)return;
+      if(country&&country.value!=="all"&&card.dataset.country!==country.value)return;
+      if(card.dataset.region)available.set(card.dataset.region,card.dataset.regionLabel||card.dataset.region);
+    });
+    region.replaceChildren(new Option("Todas las regiones","all"),
+      ...[...available.entries()].sort((a,b)=>a[1].localeCompare(b[1],"es")).map(([code,label])=>new Option(label,code)));
+    region.value=available.has(selected)?selected:"all";
+    region.disabled=available.size===0;
+  };
   const applyFilters=()=>{
     const query=normalize(search?.value);
     const matching=activityCards.filter(card=>{
       const continentMatches=!continent||continent.value==="all"||card.dataset.continent===continent.value;
       const countryMatches=!country||country.value==="all"||card.dataset.country===country.value;
+      const regionMatches=!region||region.value==="all"||card.dataset.region===region.value;
       const textMatches=!query||normalize(card.dataset.avSearch+" "+card.textContent).includes(query);
-      return continentMatches&&countryMatches&&textMatches;
+      return continentMatches&&countryMatches&&regionMatches&&textMatches;
     });
     const subset=new Set(matching.slice(0,visibleLimit));
     activityCards.forEach(card=>{card.hidden=!subset.has(card);});
@@ -74,20 +93,23 @@
     applyFilters();
   });
   const normalize=value=>(value||"").normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLocaleLowerCase("es").trim();
-  const updateActivities=()=>{
+  const updateActivities=(refreshRegionOptions=false)=>{
     visibleLimit=PAGE_SIZE;
+    if(refreshRegionOptions)syncRegionOptions();
     applyFilters();
   };
-  [continent,country].forEach(select=>select?.addEventListener("change",updateActivities));
+  [continent,country].forEach(select=>select?.addEventListener("change",()=>updateActivities(true)));
+  region?.addEventListener("change",()=>updateActivities());
   search?.addEventListener("input",updateActivities);
   reset?.addEventListener("click",()=>{
     if(search)search.value="";
     if(continent)continent.value="all";
     if(country)country.value="all";
-    updateActivities();
+    if(region)region.value="all";
+    updateActivities(true);
     search?.focus();
   });
-  updateActivities();
+  updateActivities(true);
 
   const nav=[...document.querySelectorAll(".av-subnav a[href^='#']")];
   nav.forEach(link=>link.addEventListener("click",()=>{
