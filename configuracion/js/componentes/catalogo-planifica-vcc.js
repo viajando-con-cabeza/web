@@ -29,8 +29,8 @@
  const count=root.querySelector('[data-vcc-catalog-count]');
  const empty=root.querySelector('[data-vcc-catalog-empty]');
  const mode=root.dataset.vccPlanificaCatalog;
- const singular=mode==='presupuestos'?'presupuesto':mode==='itinerarios'?'itinerario':'guía';
- const plural=mode==='presupuestos'?'presupuestos':mode==='itinerarios'?'itinerarios':'guías';
+ const singular=mode==='regiones'?'región':mode==='presupuestos'?'presupuesto':mode==='itinerarios'?'itinerario':'guía';
+ const plural=mode==='regiones'?'regiones':mode==='presupuestos'?'presupuestos':mode==='itinerarios'?'itinerarios':'guías';
  if(!search||!count||!empty)return;
  const norm=s=>(s||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLocaleLowerCase('es').trim();
  function matchPrice(value,band){
