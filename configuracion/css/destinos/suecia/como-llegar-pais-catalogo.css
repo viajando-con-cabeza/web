@@ -1,0 +1,145 @@
+/* VCC · Cómo llegar a Suecia (quality).
+   Hero sin fichas superpuestas, aeropuerto con el carrusel COMPARTIDO
+   de Nuestra experiencia y catálogo de regiones con el CSS de Qué llevar.
+   Este archivo solo contiene ajustes exclusivos de esta página. */
+html body .cl-page.cl-landing.sw-country-copy > #vcc-lcp-hero.cl-landing-hero{
+  box-sizing:border-box!important;
+  display:block!important;
+  height:var(--vcc-standard-hero-desktop,475px)!important;
+  min-height:var(--vcc-standard-hero-desktop,475px)!important;
+  max-height:var(--vcc-standard-hero-desktop,475px)!important;
+  padding:74px max(24px,calc((100vw - 1180px)/2)) 36px!important;
+}
+html body .cl-page.cl-landing.sw-country-copy #vcc-lcp-hero .cl-landing-stage{
+  display:block!important;
+  width:100%!important;max-width:1180px!important;
+  margin:0 auto!important;padding:0!important;
+}
+html body .cl-page.cl-landing.sw-country-copy #vcc-lcp-hero .cl-landing-intro{
+  width:min(610px,100%)!important;
+  max-width:610px!important;
+  padding:0!important;margin:0!important;
+}
+html body .cl-page.cl-landing.sw-country-copy #vcc-lcp-hero .cl-landing-intro h1{
+  font-size:clamp(48px,5vw,70px)!important;
+  white-space:normal!important;
+  line-height:1.02!important;
+  max-width:620px!important;
+}
+html body .cl-page.cl-landing.sw-country-copy #vcc-lcp-hero .cl-landing-description{
+  max-width:560px!important;font-size:14px!important;line-height:1.58!important;
+}
+html body .cl-page.cl-landing.sw-country-copy #vcc-lcp-hero .cl-landing-underline{display:none!important}
+/* Carrusel: estructura, anchuras, flechas y responsive provienen del archivo
+   configuracion/css/componentes/planifica-experiencia-tarjetas-vcc.css. */
+html body .cl-page.cl-landing.sw-country-copy #comparar-aeropuertos .vcc-arrival-section-head{
+  max-width:none!important;
+}
+html body .cl-page.cl-landing.sw-country-copy #comparar-aeropuertos .sw-airport-carousel{
+  margin-top:18px!important;
+}
+html body .cl-page.cl-landing.sw-country-copy #comparar-aeropuertos .vcc-transfer-grid.vcc-experience-track{
+  /* La geometría exacta (3.08 / 2.12 / 1.12) es la de Nuestra experiencia. */
+  align-items:stretch!important;
+}
+html body .cl-page.cl-landing.sw-country-copy #comparar-aeropuertos .vcc-transfer-grid > .vcc-airport-card.vcc-experience-card{
+  display:flex!important;flex-direction:column!important;
+  border-top:2px solid #ce8a6a!important;
+  text-align:left!important;
+  padding:17px 17px 15px!important;
+}
+html body .cl-page.cl-landing.sw-country-copy #comparar-aeropuertos .vcc-airport-card .vcc-airport-heading h3{
+  display:flex;flex-wrap:wrap;gap:7px!important;
+  font-size:clamp(20px,2vw,25px)!important;
+}
+html body .cl-page.cl-landing.sw-country-copy #comparar-aeropuertos .vcc-airport-card .vcc-airport-stat{
+  min-height:0!important;
+  margin:12px 0 10px!important;padding:10px 0!important;
+  align-items:center!important;
+}
+html body .cl-page.cl-landing.sw-country-copy #comparar-aeropuertos .vcc-airport-card .vcc-airport-stat strong{
+  font-size:24px!important;
+  white-space:normal!important;
+}
+html body .cl-page.cl-landing.sw-country-copy #comparar-aeropuertos .vcc-airport-card .vcc-airport-copy{
+  font-size:11.5px!important;line-height:1.55!important;
+  margin-bottom:12px!important;
+}
+html body .cl-page.cl-landing.sw-country-copy #comparar-aeropuertos .vcc-airport-card .vcc-transfer-detail{
+  margin-top:auto!important;
+}
+html body .cl-page.cl-landing.sw-country-copy .vcc-airport-carousel-note{
+  margin:11px 0 0!important;
+  color:#726b65;font:400 11px/1.55 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
+}
+/* Catálogo: reusa el MISMO HTML, filtros, fotografias, banderas, CTA y
+   clases .vcc-it-catalog de /planifica/que-llevar/. Sólo ancho/espaciado local. */
+html body .cl-page.cl-landing.sw-country-copy .sw-country-guides.vcc-it-catalog{
+  box-sizing:border-box;
+  width:min(1160px,calc(100% - 48px));
+  max-width:none;
+  margin:0 auto!important;
+  padding:37px 0 46px!important;
+  background:transparent!important;
+  scroll-margin-top:calc(var(--vcc-header-h,50px) + 54px);
+}
+html body .cl-page.cl-landing.sw-country-copy .sw-country-guides .vcc-it-heading{
+  margin-bottom:20px!important;
+}
+html body .cl-page.cl-landing.sw-country-copy .sw-country-guides .vcc-catalog-toolbar{
+  margin-bottom:0!important;
+}
+html body .cl-page.cl-landing.sw-country-copy .sw-country-guides .vcc-catalog-meta{
+  margin:7px 0 16px!important;
+}
+html body .cl-page.cl-landing.sw-country-copy .sw-country-guides .di-mini-grid{
+  display:grid!important;
+  align-items:stretch;
+}
+html body .cl-page.cl-landing.sw-country-copy .sw-country-guides .vcc-card-kicker{
+  display:inline-flex;align-items:center;gap:5px;
+  margin:0 0 8px;color:#b5583d;
+  font:700 10px/1.2 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
+}
+html body .cl-page.cl-landing.sw-country-copy .sw-country-guides .vcc-card-kicker svg{
+  width:14px;height:14px;flex:none;
+}
+html body .cl-page.cl-landing.sw-country-copy .sw-country-guides .sw-regions-placeholder{
+  display:flex;align-items:center;justify-content:center;
+  width:100%;height:100%;padding:20px;
+  background:linear-gradient(130deg,#4b7887,#acb9ac);
+  color:#fff;text-align:center;
+  font:500 22px/1.15 var(--vcc-font-heading,"Oswald",sans-serif);
+}
+html body .cl-page.cl-landing.sw-country-copy .sw-country-guides .vcc-it-upcoming{
+  margin-top:auto!important;
+}
+@media(max-width:720px){
+  html body .cl-page.cl-landing.sw-country-copy > #vcc-lcp-hero.cl-landing-hero.vcc-subheader-hero.vcc-standardized-hero-height{
+    height:440px!important;
+    min-height:440px!important;
+    max-height:440px!important;
+    padding:74px 17px 30px!important;
+  }
+  html body .cl-page.cl-landing.sw-country-copy #vcc-lcp-hero .cl-landing-intro{
+    max-width:100%!important;
+  }
+  html body .cl-page.cl-landing.sw-country-copy #vcc-lcp-hero .cl-landing-intro h1{
+    font-size:clamp(39px,9.5vw,53px)!important;
+  }
+  html body .cl-page.cl-landing.sw-country-copy #vcc-lcp-hero .cl-landing-description{
+    font-size:12.5px!important;line-height:1.55!important;
+  }
+  html body .cl-page.cl-landing.sw-country-copy .sw-country-guides.vcc-it-catalog{
+    width:calc(100% - 32px);
+    padding:29px 0 36px!important;
+  }
+  html body .cl-page.cl-landing.sw-country-copy #comparar-aeropuertos .vcc-transfer-grid.vcc-experience-track{
+    grid-template-columns:none!important;
+  }
+}
+@media(prefers-reduced-motion:reduce){
+  html body .cl-page.cl-landing.sw-country-copy #comparar-aeropuertos .vcc-experience-track{
+    scroll-behavior:auto!important;
+  }
+}
