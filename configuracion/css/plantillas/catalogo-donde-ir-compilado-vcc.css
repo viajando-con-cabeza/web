@@ -1,0 +1,2024 @@
+/* AUTO-GENERAT · CSS comu de VCC. Edita les fonts canonicas de configuracion/css.
+ * Regenerar: npm run css:build. Inclou tokens, carrusels, subheader, breadcrumb i header.
+ */
+/* === configuracion/css/paginas.css === */
+:root {
+    --negro: #18191b;
+    --gris: #686868;
+    --crema: #faf8f3;
+    --blanco: #ffffff;
+    --coral: var(--vcc-color-accent-pages, #e97861);
+    --coral-claro: var(--vcc-accent-override, #f9ddd5);
+    --verde: #dfece5;
+    --amarillo: #f7e8c5;
+    --rosa: #eadde8;
+    --borde: #e7e1d8;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    background: var(--crema);
+    color: var(--negro);
+    font-family: var(--vcc-font-body, "DM Sans", Arial, sans-serif);
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+img {
+    max-width: 100%;
+    display: block;
+}
+
+
+/* =========================
+   HEADER
+========================= */
+
+.page-header {
+    height: 78px;
+    background: #fff;
+    border-bottom: 1px solid var(--borde);
+    display: flex;
+    align-items: center;
+}
+
+.page-nav {
+    width: min(1240px, calc(100% - 50px));
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.page-logo {
+    font-size: 24px;
+    font-weight: 900;
+    letter-spacing: -1.5px;
+    line-height: .8;
+}
+
+.page-logo small {
+    display: block;
+    margin-top: 7px;
+    font-family: Georgia, serif;
+    font-size: 11px;
+    font-style: italic;
+    font-weight: 600;
+    text-align: center;
+}
+
+.page-menu {
+    display: flex;
+    gap: 28px;
+    font-size: 11px;
+    font-weight: 800;
+}
+
+.page-menu a:hover {
+    color: var(--coral);
+}
+
+.page-social {
+    display: flex;
+    gap: 13px;
+    font-weight: 800;
+}
+
+
+/* =========================
+   GENERAL
+========================= */
+
+.page-container {
+    width: min(1240px, calc(100% - 50px));
+    margin: auto;
+}
+
+.page-intro {
+    padding: 70px 0 35px;
+    position: relative;
+}
+
+.page-intro h1 {
+    margin: 0;
+    font-size: clamp(50px, 7vw, 82px);
+    line-height: .9;
+    letter-spacing: -4px;
+}
+
+.page-intro p {
+    margin: 15px 0 0;
+    color: var(--coral);
+    font-family: Georgia, serif;
+    font-size: 20px;
+    font-style: italic;
+}
+
+.page-intro .plane {
+    position: absolute;
+    right: 5%;
+    top: 55px;
+    font-size: 65px;
+    transform: rotate(-20deg);
+}
+
+.btn-page {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 46px;
+    padding: 0 22px;
+    border-radius: 8px;
+    background: var(--coral);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 800;
+}
+
+.btn-page.dark {
+    background: var(--negro);
+}
+
+
+/* =========================
+   DESTINOS
+========================= */
+
+.filters {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin: 10px 0 30px;
+}
+
+.filter {
+    padding: 9px 19px;
+    border: 1px solid var(--borde);
+    border-radius: 30px;
+    background: #fff;
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.filter.active,
+.filter:hover {
+    background: var(--coral);
+    color: #fff;
+    border-color: var(--coral);
+}
+
+.destinos-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    padding-bottom: 80px;
+}
+
+.destino-card {
+    position: relative;
+    height: 350px;
+    border-radius: 15px;
+    overflow: hidden;
+    background: #ddd;
+}
+
+.destino-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform .5s ease;
+}
+
+.destino-card:hover img {
+    transform: scale(1.06);
+}
+
+.destino-card::after {
+    content: "";
+    position: absolute;
+    inset: 35% 0 0;
+    background: linear-gradient(transparent, rgba(0,0,0,.8));
+}
+
+.destino-info {
+    position: absolute;
+    z-index: 2;
+    bottom: 20px;
+    left: 20px;
+    right: 20px;
+    color: white;
+}
+
+.destino-info span {
+    font-size: 12px;
+}
+
+.destino-info h2 {
+    margin: 3px 0;
+    font-size: 29px;
+}
+
+.destino-info p {
+    margin: 0;
+    font-size: 11px;
+}
+
+
+/* =========================
+   ITINERARIOS
+========================= */
+
+.itinerarios-list {
+    display: grid;
+    gap: 15px;
+    padding-bottom: 50px;
+}
+
+.itinerario-card {
+    display: grid;
+    grid-template-columns: 270px 1fr;
+    min-height: 190px;
+    background: #fff;
+    border: 1px solid var(--borde);
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+.itinerario-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.itinerario-content {
+    padding: 25px 30px;
+}
+
+.itinerario-content small {
+    color: var(--coral);
+    font-weight: 800;
+}
+
+.itinerario-content h2 {
+    margin: 5px 0 8px;
+    font-size: 26px;
+}
+
+.itinerario-content p {
+    color: var(--gris);
+    font-size: 13px;
+}
+
+.itinerario-meta {
+    display: flex;
+    gap: 25px;
+    margin: 18px 0;
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.itinerario-bottom {
+    background: var(--verde);
+    padding: 25px;
+    border-radius: 15px;
+    margin-bottom: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.itinerario-bottom h3 {
+    margin: 0;
+}
+
+.itinerario-bottom p {
+    margin: 4px 0 0;
+    color: var(--gris);
+    font-size: 12px;
+}
+
+
+/* =========================
+   PLANIFICA
+========================= */
+
+.plan-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    padding-bottom: 35px;
+}
+
+.plan-card {
+    min-height: 210px;
+    padding: 30px;
+    border: 1px solid var(--borde);
+    border-radius: 15px;
+    background: #fff;
+    text-align: center;
+    transition: transform .2s ease;
+}
+
+.plan-card:hover {
+    transform: translateY(-5px);
+}
+
+.plan-icon {
+    width: 62px;
+    height: 62px;
+    margin: auto auto 15px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    font-size: 27px;
+    background: var(--verde);
+}
+
+.plan-card:nth-child(2) .plan-icon {
+    background: var(--coral-claro);
+}
+
+.plan-card:nth-child(3) .plan-icon {
+    background: var(--amarillo);
+}
+
+.plan-card:nth-child(4) .plan-icon {
+    background: var(--rosa);
+}
+
+.plan-card h2 {
+    margin: 0;
+    font-size: 16px;
+}
+
+.plan-card p {
+    color: var(--gris);
+    font-size: 12px;
+}
+
+.plan-card a {
+    font-size: 10px;
+    font-weight: 800;
+}
+
+.calculadora {
+    margin: 25px 0 85px;
+    padding: 35px;
+    background: var(--verde);
+    border-radius: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 30px;
+}
+
+.calculadora h2 {
+    margin: 0;
+    font-size: 29px;
+}
+
+.calculadora p {
+    color: var(--gris);
+}
+
+
+/* =========================
+   NOSOTROS
+========================= */
+
+.about-main {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    gap: 40px;
+    align-items: center;
+    padding: 30px 0 60px;
+}
+
+.about-photo {
+    height: 480px;
+    border-radius: 18px;
+    overflow: hidden;
+}
+
+.about-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.about-text h2 {
+    margin: 0;
+    font-size: 50px;
+    line-height: .95;
+}
+
+.about-text .script {
+    color: var(--coral);
+    font-family: Georgia, serif;
+    font-size: 21px;
+    font-style: italic;
+}
+
+.about-text p {
+    color: var(--gris);
+    line-height: 1.7;
+}
+
+.signature {
+    font-family: Georgia, serif;
+    font-size: 30px;
+    font-style: italic;
+}
+
+.stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+    padding-bottom: 80px;
+}
+
+.stat {
+    padding: 25px;
+    background: #fff;
+    border: 1px solid var(--borde);
+    border-radius: 14px;
+    text-align: center;
+}
+
+.stat strong {
+    display: block;
+    font-size: 31px;
+}
+
+.stat span {
+    color: var(--gris);
+    font-size: 11px;
+}
+
+
+/* =========================
+   CONTACTO
+========================= */
+
+.contact-layout {
+    display: grid;
+    grid-template-columns: .8fr 1.5fr;
+    gap: 25px;
+    padding-bottom: 80px;
+}
+
+.contact-options {
+    display: grid;
+    gap: 12px;
+}
+
+.contact-option {
+    padding: 20px;
+    border-radius: 14px;
+    background: #fff;
+    border: 1px solid var(--borde);
+}
+
+.contact-option:nth-child(2) {
+    background: var(--verde);
+}
+
+.contact-option:nth-child(3) {
+    background: var(--rosa);
+}
+
+.contact-option h3 {
+    margin: 0;
+    font-size: 13px;
+}
+
+.contact-option p {
+    margin: 5px 0 0;
+    color: var(--gris);
+    font-size: 11px;
+}
+
+.contact-form {
+    padding: 30px;
+    background: #fff;
+    border: 1px solid var(--borde);
+    border-radius: 15px;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+.contact-form input,
+.contact-form textarea {
+    width: 100%;
+    margin-bottom: 15px;
+    padding: 14px;
+    border: 1px solid var(--borde);
+    border-radius: 7px;
+    background: #fff;
+    font-family: inherit;
+    outline: none;
+}
+
+.contact-form textarea {
+    height: 150px;
+    resize: vertical;
+}
+
+.contact-form button {
+    border: 0;
+    cursor: pointer;
+}
+
+
+/* =========================
+   FOOTER
+========================= */
+
+.page-footer {
+    padding: 45px 0 25px;
+    background: var(--negro);
+    color: white;
+}
+
+.footer-inner {
+    width: min(1240px, calc(100% - 50px));
+    margin: auto;
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 50px;
+}
+
+.footer-inner h3 {
+    font-size: 11px;
+}
+
+.footer-inner a,
+.footer-inner p {
+    display: block;
+    color: #aaa;
+    font-size: 11px;
+    margin-bottom: 7px;
+}
+
+.footer-copy {
+    width: min(1240px, calc(100% - 50px));
+    margin: 30px auto 0;
+    padding-top: 20px;
+    border-top: 1px solid #333;
+    color: #777;
+    text-align: center;
+    font-size: 10px;
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 800px) {
+
+    .page-menu {
+        gap: 12px;
+        font-size: 9px;
+    }
+
+    .page-social {
+        display: none;
+    }
+
+    .destinos-grid,
+    .plan-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .about-main {
+        grid-template-columns: 1fr;
+    }
+
+    .stats {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .contact-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .footer-inner {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media (max-width: 550px) {
+
+    .page-nav,
+    .page-container {
+        width: calc(100% - 25px);
+    }
+
+    .page-menu {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .page-intro {
+        padding-top: 50px;
+    }
+
+    .destinos-grid,
+    .plan-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .itinerario-card {
+        grid-template-columns: 1fr;
+    }
+
+    .itinerario-card img {
+        height: 220px;
+    }
+
+    .itinerario-bottom,
+    .calculadora {
+        display: block;
+    }
+
+    .stats {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+
+    .footer-inner {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* VCC GLOBAL PENDING STATE 20261105 — same grey on every page */
+.vcc-pending,.home-feature-pending,.it-card .it-cta.vcc-pending,.vcc-route-link.vcc-pending,
+a[aria-disabled="true"],[data-vcc-status="proximamente"]{
+ color:#aaa29c!important;text-decoration:none!important;cursor:default!important;pointer-events:none!important;
+}
+.vcc-country.vcc-pending-country{opacity:.58;cursor:default!important;pointer-events:none!important}
+
+
+/* VCC · Utilitats de barres de valoració compartides (0–100%).
+   Reutilitzades per les guies; evita width inline en els indicadors. */
+.vcc-bar-w0{width:0%}
+.vcc-bar-w1{width:1%}
+.vcc-bar-w2{width:2%}
+.vcc-bar-w3{width:3%}
+.vcc-bar-w4{width:4%}
+.vcc-bar-w5{width:5%}
+.vcc-bar-w6{width:6%}
+.vcc-bar-w7{width:7%}
+.vcc-bar-w8{width:8%}
+.vcc-bar-w9{width:9%}
+.vcc-bar-w10{width:10%}
+.vcc-bar-w11{width:11%}
+.vcc-bar-w12{width:12%}
+.vcc-bar-w13{width:13%}
+.vcc-bar-w14{width:14%}
+.vcc-bar-w15{width:15%}
+.vcc-bar-w16{width:16%}
+.vcc-bar-w17{width:17%}
+.vcc-bar-w18{width:18%}
+.vcc-bar-w19{width:19%}
+.vcc-bar-w20{width:20%}
+.vcc-bar-w21{width:21%}
+.vcc-bar-w22{width:22%}
+.vcc-bar-w23{width:23%}
+.vcc-bar-w24{width:24%}
+.vcc-bar-w25{width:25%}
+.vcc-bar-w26{width:26%}
+.vcc-bar-w27{width:27%}
+.vcc-bar-w28{width:28%}
+.vcc-bar-w29{width:29%}
+.vcc-bar-w30{width:30%}
+.vcc-bar-w31{width:31%}
+.vcc-bar-w32{width:32%}
+.vcc-bar-w33{width:33%}
+.vcc-bar-w34{width:34%}
+.vcc-bar-w35{width:35%}
+.vcc-bar-w36{width:36%}
+.vcc-bar-w37{width:37%}
+.vcc-bar-w38{width:38%}
+.vcc-bar-w39{width:39%}
+.vcc-bar-w40{width:40%}
+.vcc-bar-w41{width:41%}
+.vcc-bar-w42{width:42%}
+.vcc-bar-w43{width:43%}
+.vcc-bar-w44{width:44%}
+.vcc-bar-w45{width:45%}
+.vcc-bar-w46{width:46%}
+.vcc-bar-w47{width:47%}
+.vcc-bar-w48{width:48%}
+.vcc-bar-w49{width:49%}
+.vcc-bar-w50{width:50%}
+.vcc-bar-w51{width:51%}
+.vcc-bar-w52{width:52%}
+.vcc-bar-w53{width:53%}
+.vcc-bar-w54{width:54%}
+.vcc-bar-w55{width:55%}
+.vcc-bar-w56{width:56%}
+.vcc-bar-w57{width:57%}
+.vcc-bar-w58{width:58%}
+.vcc-bar-w59{width:59%}
+.vcc-bar-w60{width:60%}
+.vcc-bar-w61{width:61%}
+.vcc-bar-w62{width:62%}
+.vcc-bar-w63{width:63%}
+.vcc-bar-w64{width:64%}
+.vcc-bar-w65{width:65%}
+.vcc-bar-w66{width:66%}
+.vcc-bar-w67{width:67%}
+.vcc-bar-w68{width:68%}
+.vcc-bar-w69{width:69%}
+.vcc-bar-w70{width:70%}
+.vcc-bar-w71{width:71%}
+.vcc-bar-w72{width:72%}
+.vcc-bar-w73{width:73%}
+.vcc-bar-w74{width:74%}
+.vcc-bar-w75{width:75%}
+.vcc-bar-w76{width:76%}
+.vcc-bar-w77{width:77%}
+.vcc-bar-w78{width:78%}
+.vcc-bar-w79{width:79%}
+.vcc-bar-w80{width:80%}
+.vcc-bar-w81{width:81%}
+.vcc-bar-w82{width:82%}
+.vcc-bar-w83{width:83%}
+.vcc-bar-w84{width:84%}
+.vcc-bar-w85{width:85%}
+.vcc-bar-w86{width:86%}
+.vcc-bar-w87{width:87%}
+.vcc-bar-w88{width:88%}
+.vcc-bar-w89{width:89%}
+.vcc-bar-w90{width:90%}
+.vcc-bar-w91{width:91%}
+.vcc-bar-w92{width:92%}
+.vcc-bar-w93{width:93%}
+.vcc-bar-w94{width:94%}
+.vcc-bar-w95{width:95%}
+.vcc-bar-w96{width:96%}
+.vcc-bar-w97{width:97%}
+.vcc-bar-w98{width:98%}
+.vcc-bar-w99{width:99%}
+.vcc-bar-w100{width:100%}
+
+/* === configuracion/css/overrides.css === */
+/* Ajustes visuales compartidos para las páginas principales */
+.page-header{height:auto;min-height:88px;position:sticky;top:0;z-index:100;background:rgba(255,255,255,.97);backdrop-filter:blur(8px)}
+.page-nav{min-height:88px;gap:24px}
+.page-logo{display:flex;align-items:center;flex:0 0 auto}
+.page-logo img{width:168px;height:68px;object-fit:contain;object-position:left center}
+.page-menu{align-items:center;letter-spacing:.35px}
+.page-menu a{position:relative;padding:33px 0 30px}
+.page-menu a.active,.page-menu a:hover{color:var(--coral)}
+.page-menu a.active::after{content:"";position:absolute;left:0;right:0;bottom:20px;height:2px;background:var(--coral);border-radius:2px}
+.page-social{display:flex;gap:14px;align-items:center}
+.page-social a{font-size:18px;line-height:1}
+.page-intro{padding-top:78px}
+.page-intro h1{font-size:clamp(54px,7vw,92px);font-weight:900;letter-spacing:-4px}
+.page-intro p{font-family:Georgia,serif;font-size:22px;color:#e1887b}
+.destino-card,.plan-card,.itinerario-card,.contact-option,.contact-form,.stat{box-shadow:0 8px 25px rgba(30,30,30,.035)}
+.contact-layout{align-items:start}
+.contact-form textarea{min-height:170px}
+.about-main{grid-template-columns:.95fr 1.35fr}
+.about-photo{height:510px}
+@media(max-width:900px){.page-nav{flex-wrap:wrap;padding:10px 0}.page-menu{order:3;width:100%;justify-content:center}.page-menu a{padding:8px 0 12px}.page-menu a.active::after{bottom:3px}.page-logo img{width:145px;height:58px}}
+@media(max-width:550px){.page-header{position:relative}.page-nav{justify-content:center}.page-logo{width:100%;justify-content:center}.page-logo img{width:150px}.page-menu{gap:14px}.page-menu a{font-size:9px}.page-intro .plane{font-size:42px;opacity:.35}.page-intro h1{letter-spacing:-2px}.about-photo{height:360px}}
+
+/* Quality: dues barres juntes només en mòbil. */
+@media (max-width:720px) {
+  html body.country-page .country-nav,
+  html body:has(.st-shell) .st-shell .st-tabs,
+  html body:has(.imp-page) .imp-page .place-nav-wrap {
+    position:sticky!important;top:78px!important;margin-top:0!important;z-index:1000!important;background:#fff!important;
+  }
+  html body:has(.st-shell) .st-shell .st-tabs,
+  html body:has(.imp-page) .imp-page .place-nav-wrap {height:43px!important;min-height:43px!important;}
+  html body:has(.st-shell) .st-shell .st-tabs {
+    overflow-x:auto!important;overflow-y:hidden!important;flex-wrap:nowrap!important;gap:24px!important;padding-inline:14px!important;scrollbar-width:none!important;
+  }
+  html body:has(.imp-page) .imp-page .place-nav-shell,
+  html body:has(.imp-page) .imp-page .place-nav {height:43px!important;min-height:43px!important;}
+  html body.country-page [id],
+  html body:has(.st-shell) .st-shell [id],
+  html body:has(.imp-page) .imp-page .place[id] {scroll-margin-top:132px!important;}
+  /* La targeta de ciutat s'adapta a l'amplada mòbil sense desbordar. */
+  html body:has(.st-shell) .st-shell .st-hero-inner {width:calc(100% - 28px)!important;max-width:100%!important;margin-inline:auto!important;}
+  html body:has(.st-shell) .st-shell .st-crumb {width:100%!important;max-width:100%!important;left:0!important;transform:none!important;top:13px!important;padding:0!important;}
+  html body:has(.st-shell) .st-shell .st-card {box-sizing:border-box!important;left:0!important;right:0!important;top:57px!important;width:100%!important;max-width:100%!important;margin:0!important;padding:24px 22px!important;overflow-wrap:anywhere!important;}
+  html body:has(.st-shell) .st-shell .st-card h1 {font-size:clamp(43px,11.5vw,65px)!important;max-width:100%!important;overflow-wrap:normal!important;word-break:normal!important;letter-spacing:-.035em!important;}
+  html body:has(.st-shell) .st-shell .st-card .st-script,
+  html body:has(.st-shell) .st-shell .st-card .st-desc {max-width:100%!important;}
+  html body:has(.st-shell) .st-shell .st-hero {height:730px!important;min-height:730px!important;}
+  html body:has(.st-shell) .st-shell .st-main {width:calc(100% - 28px)!important;max-width:100%!important;margin-inline:auto!important;}
+}
+@media(max-width:380px){html body:has(.st-shell) .st-shell .st-card{padding-inline:17px!important}html body:has(.st-shell) .st-shell .st-card h1{font-size:clamp(40px,11vw,48px)!important}}
+
+/* La mateixa família, pes i escala als menús de les tres guies. */
+html body.country-page .country-nav a,
+html body:has(.st-shell) .st-shell .st-tabs a,
+html body:has(.imp-page) .imp-page .place-nav a {
+  font-family:var(--vcc-font-body, "DM Sans", Arial, sans-serif)!important;font-size:12px!important;font-weight:800!important;line-height:1.15!important;letter-spacing:0!important;text-transform:uppercase!important;
+}
+
+/* IMPORTANT: Les molles de pa es reposicionen NOMÉS en mòbil.
+   A escriptori cada hero conserva el seu contenidor i el seu layout originals. */
+@media(max-width:720px){
+  html body.country-page .country-hero,
+  html body:has(.st-shell) .st-shell .st-hero,
+  html body:has(.imp-page) .imp-page .imp-hero {position:relative!important;}
+  html body.country-page .country-hero .country-hero-inner {position:static!important;}
+  html body:has(.st-shell) .st-shell .st-hero-inner,
+  html body:has(.imp-page) .imp-page .imp-hero-inner {position:relative!important;height:100%!important;}
+  html body.country-page .country-hero .country-breadcrumb,
+  html body:has(.st-shell) .st-shell .st-crumb,
+  html body:has(.imp-page) .imp-page .imp-crumb {
+    position:absolute!important;top:14px!important;left:14px!important;right:14px!important;width:auto!important;max-width:none!important;height:auto!important;margin:0!important;padding:0!important;transform:none!important;z-index:4!important;display:flex!important;flex-wrap:wrap!important;align-items:center!important;column-gap:7px!important;row-gap:3px!important;color:#48433f!important;text-shadow:none!important;font-family:var(--vcc-font-body, "DM Sans", Arial, sans-serif)!important;font-size:12px!important;font-weight:500!important;line-height:1.5!important;letter-spacing:0!important;
+  }
+  html body:has(.st-shell) .st-shell .st-crumb {left:0!important;right:0!important;top:13px!important;}
+  html body.country-page .country-hero .country-breadcrumb a,
+  html body:has(.st-shell) .st-shell .st-crumb a,
+  html body:has(.imp-page) .imp-page .imp-crumb a {color:inherit!important;font:inherit!important;text-decoration:none!important;}
+  html body.country-page .country-hero .country-breadcrumb strong,
+  html body:has(.st-shell) .st-shell .st-crumb strong,
+  html body:has(.imp-page) .imp-page .imp-crumb strong {font-weight:800!important;color:#48433f!important;}
+  html body.country-page .country-hero .country-breadcrumb span,
+  html body:has(.st-shell) .st-shell .st-crumb span,
+  html body:has(.imp-page) .imp-page .imp-crumb span {margin:0!important;opacity:.65!important;color:inherit!important;}
+}
+
+/* Barra secundària compacta, sense alterar la disposició de portada d'escriptori. */
+html body.country-page .country-nav,
+html body:has(.st-shell) .st-shell .st-tabs,
+html body:has(.imp-page) .imp-page .place-nav-wrap,
+html body.country-page .country-nav-inner,
+html body:has(.imp-page) .imp-page .place-nav-shell,
+html body:has(.imp-page) .imp-page .place-nav {height:39px!important;min-height:39px!important;max-height:39px!important;}
+html body.country-page .country-nav-inner,
+html body:has(.st-shell) .st-shell .st-tabs,
+html body:has(.imp-page) .imp-page .place-nav-shell,
+html body:has(.imp-page) .imp-page .place-nav {align-items:center!important;}
+html body.country-page .country-nav a,
+html body:has(.st-shell) .st-shell .st-tabs a,
+html body:has(.imp-page) .imp-page .place-nav a {box-sizing:border-box!important;height:39px!important;min-height:39px!important;padding:0!important;display:inline-flex!important;align-items:center!important;flex:0 0 auto!important;}
+@media(max-width:720px){
+        html body.country-page .country-nav a,
+  html body:has(.st-shell) .st-shell .st-tabs a,
+  html body:has(.imp-page) .imp-page .place-nav a {font-size:11px!important;}
+  html body.country-page [id],
+  html body:has(.st-shell) .st-shell [id],
+  html body:has(.imp-page) .imp-page .place[id] {scroll-margin-top:128px!important;}
+}
+
+/* === configuracion/css/donde-ir-minimal.css === */
+/* Dónde ir · VCC · 3 caminos. Un solo stylesheet: sin CSS antiguo superpuesto. */
+:root{--di-ink:#211f1d;--di-muted:#625e5a;--di-coral:var(--vcc-accent-override, #c56d51);--di-paper:#f7f5f2;--di-line:#e6e1dc}
+body.planifica-vcc{margin:0;background:var(--di-paper);color:var(--di-ink);font-family:var(--vcc-font-body, "DM Sans", Arial, sans-serif)}
+.di-page,.di-page *{box-sizing:border-box}
+.di-page{background:var(--di-paper)}
+.di-page a{color:inherit;text-decoration:none}
+.di-page button,.di-page select{font:inherit}
+.di-page button{cursor:pointer}
+.di-page :is(a,button,select):focus-visible{outline:3px solid #bc5b38;outline-offset:3px}
+.di-wrap{width:min(1180px,calc(100% - 48px));margin-inline:auto}
+.di-overline{display:block;color:#c06448;font:600 27px/1.05 var(--vcc-font-script, "Caveat", cursive)}
+.di-hero{position:relative;isolation:isolate;overflow:hidden;min-height:388px;background:#f2e6d5}
+.di-hero::before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,rgba(253,248,239,.96),rgba(250,242,229,.83) 46%,rgba(247,235,217,.48)),url('/configuracion/imagenes/fondos/fondos-como-llegar.webp?v=20261111-qualitat-alta-v1') center/cover}
+.di-hero-inner{display:grid;grid-template-columns:290px minmax(0,1fr);align-items:center;gap:22px;padding:68px 0 39px}
+.di-hero-copy{align-self:center}
+.di-hero-copy h1{font:600 clamp(43px,3.8vw,55px)/1.02 var(--vcc-font-heading, "Oswald", sans-serif);letter-spacing:-.01em;margin:9px 0 12px}
+.di-hero-copy h1::after{content:"";display:block;width:88px;height:4px;background:#d96c41;border-radius:5px;margin:14px 0 0}
+.di-hero-copy p{font:400 13px/1.6 var(--vcc-font-body, "DM Sans", Arial, sans-serif);color:#4f4945;margin:0;max-width:290px}
+.di-choices{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;align-items:stretch}
+.di-choice{display:flex;flex-direction:column;align-items:center;justify-content:flex-start;min-width:0;min-height:232px;padding:22px 15px 16px;background:rgba(255,255,255,.90);border:1px solid rgba(255,255,255,.92);border-radius:18px;box-shadow:0 4px 16px #5b3e2510;text-align:center;color:#38312a;transition:background .15s,border-color .15s,transform .15s}
+.di-choice:hover{transform:translateY(-2px);border-color:#e3a586}
+.di-choice.is-active{background:rgba(255,253,249,.98);border-color:#c96b4a;box-shadow:inset 0 -3px #c76e4e,0 7px 20px #714b2718}
+.di-choice-icon{height:65px;display:flex;align-items:center;justify-content:center;color:#bd6b46}
+.di-choice-icon svg{width:54px;height:54px}
+.di-choice strong{font:600 clamp(19px,1.85vw,25px)/1.13 var(--vcc-font-heading, "Oswald", sans-serif);margin:9px 0 11px;color:#23453f}
+.di-choice>span:not(.di-choice-icon){font:400 12px/1.5 var(--vcc-font-body, "DM Sans", Arial, sans-serif);color:#4f4a46;min-height:53px}
+.di-choice small{font:800 10px/1.2 var(--vcc-font-body, "DM Sans", Arial, sans-serif);color:#ae5537;letter-spacing:.03em;margin-top:auto;padding-top:8px}
+.di-choice small span{margin-left:6px}
+.di-subnav{position:sticky;top:var(--vcc-subheader-top,54px);z-index:950;background:#fff;border-top:1px solid #eee7e0;border-bottom:1px solid #e9e2db}
+.di-subnav-inner{display:flex;align-items:center;gap:36px;min-height:40px;overflow-x:auto;white-space:nowrap;scrollbar-width:none}
+.di-subnav-inner::-webkit-scrollbar{display:none}
+.di-subnav button{height:40px;flex:0 0 auto;display:flex;align-items:center;justify-content:center;padding:0;border:0;border-bottom:2px solid transparent;background:transparent;color:#171717;font:800 11px/1.2 var(--vcc-font-body, "DM Sans", Arial, sans-serif)}
+.di-subnav button:hover,.di-subnav button[aria-selected="true"]{color:#bd624b;border-bottom-color:#c86f5d}
+.di-content{min-height:240px;padding:30px 0 39px}
+.di-panel[hidden]{display:none!important}
+.di-section-head{margin-bottom:18px}
+.di-section-head h2{font:500 clamp(29px,3vw,39px)/1.12 var(--vcc-font-heading, "Oswald", sans-serif);margin:4px 0 9px}
+.di-section-head p{margin:0;max-width:790px;color:var(--di-muted);font:400 13px/1.57 var(--vcc-font-body, "DM Sans", Arial, sans-serif)}
+
+/* Catàleg editorial: quatre vinyetes al costat, compartit amb Itinerarios. */
+.di-catalog-toolbar{
+  display:flex;justify-content:space-between;align-items:center;
+  flex-wrap:wrap;gap:12px;margin:0 0 14px;
+}
+.di-catalog-search{
+  display:flex;align-items:center;gap:8px;min-width:0;
+  width:min(390px,100%);height:40px;padding:0 12px;
+  background:#fff;border:1px solid var(--di-line);border-radius:8px;
+}
+.di-catalog-search span{font:500 24px/1 Oswald,sans-serif;color:#bf694d}
+.di-catalog-search input{
+  display:block;flex:1;min-width:0;width:100%;height:100%;
+  border:0;outline:0;background:transparent;
+  color:#2d2926;font:500 12px/1.3 var(--vcc-font-body, "DM Sans", Arial, sans-serif);
+}
+.di-catalog-search:focus-within{outline:2px solid #c76949;outline-offset:2px}
+.di-catalog-search input::placeholder{color:#89817c}
+.di-catalog-count{font:700 11px/1.2 var(--vcc-font-body, "DM Sans", Arial, sans-serif);color:#796b63;white-space:nowrap}
+.di-mini-grid{
+  display:grid;grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:12px;align-items:stretch;
+}
+.di-mini-card{
+  display:flex;flex-direction:column;overflow:hidden;min-width:0;
+  border:1px solid #e7e0d9;border-radius:10px;background:#fff;
+  transition:border-color .16s,box-shadow .16s,transform .16s;
+}
+.di-mini-card[hidden]{display:none!important}
+.di-mini-card:is(:hover,:focus-visible){
+  border-color:#c9876e;box-shadow:0 6px 17px #33251e13;transform:translateY(-2px);
+}
+.di-mini-photo{
+  display:block;position:relative;overflow:hidden;flex:0 0 auto;
+  width:100%;aspect-ratio:1.88;background:#e8e2d8;
+}
+.di-mini-photo img{display:block;width:100%;height:100%;object-fit:cover;transition:transform .2s ease}
+.di-mini-card:hover .di-mini-photo img{transform:scale(1.025)}
+.di-mini-tag{
+  position:absolute;bottom:7px;left:8px;right:8px;width:max-content;
+  max-width:calc(100% - 16px);padding:5px 7px;border-radius:5px;
+  color:#fff;background:#161d21d9;
+  font:800 9px/1.22 var(--vcc-font-body, "DM Sans", Arial, sans-serif);
+  text-transform:uppercase;white-space:normal;
+}
+.di-mini-body{min-width:0;display:flex;flex-direction:column;align-items:stretch;flex:1;padding:13px 12px 12px}
+.di-mini-body strong{
+  font:600 clamp(17px,1.45vw,21px)/1.16 var(--vcc-font-heading, "Oswald", sans-serif);
+  color:#222;overflow-wrap:anywhere;margin:0 0 6px;
+}
+.di-mini-desc{
+  font:400 11px/1.48 var(--vcc-font-body, "DM Sans", Arial, sans-serif);color:var(--di-muted);
+  margin-bottom:9px;
+}
+.di-mini-body b{
+  margin-top:auto;color:#b44f30;
+  font:800 9.5px/1.25 var(--vcc-font-body, "DM Sans", Arial, sans-serif);padding-top:3px;
+  letter-spacing:.005em;
+}
+.di-mini-body b span{margin-left:3px}
+.di-no-results[hidden]{display:none!important}
+.di-no-results{
+  padding:18px;margin:0;border:1px dashed #dccfc5;border-radius:9px;
+  color:#665a52;background:#fff;
+  font:500 12px/1.55 var(--vcc-font-body, "DM Sans", Arial, sans-serif);
+}
+@media(max-width:1080px){
+ .di-hero-inner{grid-template-columns:235px minmax(0,1fr);gap:15px}
+ .di-choice{min-height:223px;padding:18px 10px 15px}
+ .di-choice>span:not(.di-choice-icon){font-size:11px}
+ .di-choice strong{font-size:21px}
+}
+@media(max-width:720px){
+ .di-wrap{width:calc(100% - 30px)}
+ .di-hero{min-height:0}
+ .di-hero::before{background:linear-gradient(90deg,rgba(253,248,239,.95),rgba(250,242,229,.78)),url('/configuracion/imagenes/fondos/fondos-como-llegar.webp?v=20261111-qualitat-alta-v1') center/cover}
+ .di-hero-inner{display:block;padding:52px 0 17px}
+ .di-hero-copy .di-overline{font-size:23px}
+ .di-hero-copy h1{font-size:38px;line-height:1.05;margin:4px 0 8px}
+ .di-hero-copy h1 br{display:none}
+ .di-hero-copy h1::after{width:62px;height:3px;margin:8px 0 0}
+ .di-hero-copy p{font-size:11.5px;line-height:1.45;max-width:510px;margin:0}
+ .di-choices{grid-template-columns:1fr;gap:8px;margin-top:15px}
+ .di-choice{display:grid;grid-template-columns:38px minmax(0,1fr) auto;grid-template-rows:auto auto;column-gap:12px;row-gap:3px;align-items:center;min-height:65px;text-align:left;border-radius:10px;padding:10px 12px}
+ .di-choice-icon{grid-row:1/3;grid-column:1;width:38px;height:40px}
+ .di-choice-icon svg{width:35px;height:35px}
+ .di-choice strong{grid-row:1;grid-column:2;margin:0;font-size:19px}
+ .di-choice>span:not(.di-choice-icon){grid-row:2;grid-column:2;min-height:0;font-size:10.5px;line-height:1.25}
+ .di-choice small{grid-row:1/3;grid-column:3;display:block;margin:0;padding:0;font-size:0}
+ .di-choice small span{font-size:20px}
+ .di-subnav{top:var(--vcc-subheader-top,88px)}
+ .di-subnav-inner{gap:24px}
+ .di-subnav button{font-size:10.5px}
+ .di-content{padding:25px 0 32px}
+ .di-section-head h2{font-size:31px}
+ .di-section-head p{font-size:12px;line-height:1.5}
+   .di-endline{align-items:start;flex-direction:column;gap:9px}
+}
+@media(max-width:410px){
+ .di-hero-inner{padding-top:56px}
+ .di-hero-copy h1{font-size:33px}
+ .di-choices{gap:7px;margin-top:12px}
+ .di-choice{min-height:61px;padding:9px 10px}
+ .di-choice strong{font-size:17px}
+ .di-choice>span:not(.di-choice-icon){font-size:10px}
+ .di-section-head h2{font-size:29px}
+}
+
+@media(max-width:1120px){
+  .di-mini-grid{grid-template-columns:repeat(4,minmax(0,1fr))}
+}
+@media(max-width:850px){
+  .di-mini-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+}
+@media(max-width:620px){
+  .di-mini-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+  .di-mini-body{padding:10px 9px 11px}
+  .di-mini-body strong{font-size:17px}
+  .di-mini-desc{font-size:10px;line-height:1.42}
+  .di-mini-body b{font-size:9px}
+  .di-mini-tag{font-size:8px;padding:4px 6px;left:6px;bottom:6px}
+  .di-catalog-toolbar{gap:8px;margin-bottom:12px}
+  .di-catalog-search{height:38px;width:100%}
+  .di-catalog-count{margin-left:auto;font-size:10px}
+    }
+@media(max-width:340px){
+  .di-mini-grid{grid-template-columns:1fr}
+  .di-mini-photo{aspect-ratio:2.2}
+}
+
+@media(prefers-reduced-motion:reduce){.di-choice,.di-mini-card,.di-mini-photo img{transition:none}}
+
+/* Breadcrumb global llegible sobre la fotografia clara de Dónde ir.
+   No altera la configuració dels altres heros de VCC. */
+html body .di-hero.vcc-breadcrumb-on-dark #vcc-global-breadcrumb,
+html body .di-hero.vcc-breadcrumb-on-dark #vcc-global-breadcrumb a,
+html body .di-hero.vcc-breadcrumb-on-dark #vcc-global-breadcrumb strong,
+html body .di-hero.vcc-breadcrumb-on-dark #vcc-global-breadcrumb .vcc-bc-sep{
+  color:#42372f!important;
+  text-shadow:none!important;
+}
+html body .di-hero.vcc-breadcrumb-on-dark #vcc-global-breadcrumb a:hover{
+  color:#ae512d!important;
+}
+.di-content{scroll-margin-top:calc(var(--vcc-subheader-top,88px) + 60px)}
+.di-panel{scroll-margin-top:calc(var(--vcc-subheader-top,88px) + 60px)}
+
+
+/* Consejos VCC: cards editorials, sense enllaç fins que l'article existeixi. */
+.di-editorial-grid{margin-top:2px}
+.di-upcoming{cursor:default}
+.di-upcoming:is(:hover,:focus-visible){transform:none;border-color:#e7e0d9;box-shadow:none}
+.di-upcoming .di-mini-photo img{filter:saturate(.88)}
+.di-upcoming:hover .di-mini-photo img{transform:none}
+.di-upcoming-status{
+  display:inline-flex;align-items:center;align-self:flex-start;
+  margin-top:auto;padding:6px 9px;border-radius:6px;
+  background:#f5f2ee;color:#75675e;
+  font:800 9px/1.2 var(--vcc-font-body, "DM Sans", Arial, sans-serif);
+  letter-spacing:.05em;
+}
+.di-editorial-note{
+  margin:12px 0 0;color:#77706a;
+  font:400 11px/1.52 var(--vcc-font-body, "DM Sans", Arial, sans-serif);
+}
+@media(max-width:620px){
+  .di-editorial-note{font-size:10.5px}
+  .di-upcoming-status{font-size:8.5px}
+}
+
+
+/* Vinyetes amb dades VCC, coherents amb el format d'Itinerarios. */
+.di-itinerary-card .di-mini-body,
+.di-guide-card .di-mini-body{gap:0}
+.di-route-stats{
+  display:flex;align-items:center;flex-wrap:wrap;gap:4px 9px;
+  color:#b7563a;font:800 10px/1.35 var(--vcc-font-body, "DM Sans", Arial, sans-serif);
+  margin:1px 0 7px;
+}
+.di-route-stats .di-type{color:#96654d}
+.di-budget-row{
+  display:flex;align-items:baseline;flex-wrap:wrap;gap:5px 7px;
+  margin-bottom:7px;color:#82756d;
+  font:800 9px/1.4 var(--vcc-font-body, "DM Sans", Arial, sans-serif);
+  letter-spacing:.03em;
+}
+.di-price{color:#ac5134;font-weight:800;letter-spacing:0;font-size:10.5px}
+.di-price-pending{color:#96908b;font-weight:600}
+.di-country-line{
+  display:inline-flex;align-items:center;gap:6px;min-width:0;
+  color:#3f3c38;font:700 10.5px/1.4 var(--vcc-font-body, "DM Sans", Arial, sans-serif);
+  margin-bottom:7px;
+}
+.di-flag{flex:none;white-space:nowrap;font-size:15px;line-height:1.2;letter-spacing:0}
+.di-guide-info{
+  display:flex;align-items:center;justify-content:space-between;gap:5px;
+  flex-wrap:wrap;margin:1px 0 8px;
+}
+.di-guide-info .di-country-line{margin:0;font-size:10px}
+.di-guide-rating{
+  flex:none;display:inline-flex;align-items:center;gap:2px;
+  padding:4px 6px;border-radius:6px;
+  background:#fff0e5;color:#a64a2c;
+  font:800 11px/1.2 var(--vcc-font-body, "DM Sans", Arial, sans-serif);
+}
+.di-guide-rating small{font-size:9px;font-weight:600}
+.di-rating-pending{
+  background:#f5f2ee;color:#8f8580;font-size:9px;font-weight:700;
+}
+.di-itinerary-card .di-mini-desc,
+.di-guide-card .di-mini-desc{
+  display:-webkit-box;-webkit-box-orient:vertical;
+  -webkit-line-clamp:2;line-clamp:2;overflow:hidden;
+}
+.di-topic-row{display:flex;align-items:center;flex-wrap:wrap;gap:5px;margin:0 0 8px}
+.di-topic{
+  display:inline-block;padding:4px 6px;
+  border-radius:5px;background:#fff1e8;color:#a75437;
+  font:800 9px/1.15 var(--vcc-font-body, "DM Sans", Arial, sans-serif);text-transform:uppercase;
+}
+@media(max-width:620px){
+ .di-route-stats{font-size:9.5px;gap:3px 7px;margin-bottom:6px}
+ .di-budget-row{font-size:8.5px;margin-bottom:6px;gap:3px 5px}
+ .di-price{font-size:9.5px}
+ .di-country-line{font-size:10px}
+ .di-guide-info .di-country-line{font-size:9.5px}
+ .di-flag{font-size:14px}
+ .di-guide-rating{font-size:10px;padding:3px 5px}
+ .di-rating-pending{font-size:8.5px}
+ .di-topic{font-size:8px;padding:3px 5px}
+}
+
+/* Dónde ir: alçades de portada i subheader dels tokens compartits VCC. */
+.di-page .di-hero{box-sizing:border-box;height:var(--vcc-standard-hero-desktop,475px);min-height:var(--vcc-standard-hero-desktop,475px)}
+.di-page .di-hero-inner{height:100%}
+.di-page .di-subnav{top:var(--vcc-subheader-top,0px);height:var(--vcc-subnav-height,39px);min-height:var(--vcc-subnav-height,39px)}
+.di-page .di-subnav-inner{height:100%;min-height:var(--vcc-subnav-height,39px);gap:var(--vcc-subnav-gap,38px)}
+.di-page .di-subnav button{height:100%;font-size:var(--vcc-component-subheader-desktop-font,11.5px)}
+/* Vinyetes: el CSS visual es comparteix amb la pàgina Itinerarios. */
+.di-page .vcc-it-catalog .vcc-it-facts{flex-wrap:wrap;row-gap:5px}
+.di-page .vcc-it-catalog .di-mini-body>b{align-self:flex-end;text-align:right}
+.di-page .vcc-it-catalog .di-mini-tag{white-space:normal}
+@media(max-width:720px){
+ .di-page .di-hero{height:var(--vcc-standard-hero-mobile,calc(100svh - var(--vcc-page-header-height,79px) - 59px));min-height:var(--vcc-standard-hero-mobile,calc(100svh - var(--vcc-page-header-height,79px) - 59px))}
+ .di-page .di-subnav-inner{gap:var(--vcc-subnav-gap,24px)}
+ .di-page .di-subnav button{font-size:var(--vcc-component-subheader-mobile-font,11px)}
+}
+
+/* Titular de Consejos en una sola línia a l'escriptori, sense alterar
+   la capçalera editorial compartida ni forçar desbordaments al mòbil. */
+@media (min-width:901px) {
+  html body #di-panel-consejos .vcc-editorial-heading { gap:18px!important; }
+  html body #di-panel-consejos .vcc-editorial-heading .vcc-editorial-title {
+    font-size:clamp(27px,2.25vw,34px)!important;
+    white-space:nowrap!important;
+    text-wrap:nowrap!important;
+  }
+  html body #di-panel-consejos .vcc-editorial-heading > .vcc-editorial-description {
+    flex:0 1 clamp(245px,25vw,360px)!important;
+    max-width:360px!important;
+  }
+}
+@media (max-width:900px) {
+  html body #di-panel-consejos .vcc-editorial-heading .vcc-editorial-title {
+    font-size:clamp(27px,3.7vw,34px)!important;
+    text-wrap:balance;
+  }
+}
+
+/* === configuracion/css/itinerarios-tarjetas-vcc.css === */
+/* Itinerarios · catàleg compartit amb Planifica > Dónde ir.
+   Les targetes base viuen a donde-ir-minimal.css; aquí només personalitzem la pàgina. */
+.itinerarios-vcc{background:#f7f5f2}
+.itinerarios-vcc .itinerarios-page{padding-bottom:56px}
+.itinerarios-vcc .itinerarios-hero{margin-bottom:23px}
+.vcc-it-catalog{margin:0 auto}
+.vcc-it-heading{margin:0 0 18px}
+.itinerarios-vcc .vcc-it-heading .section-kicker{
+  display:block!important;width:max-content!important;margin:0 0 5px!important;padding:0!important;
+  background:transparent!important;color:#c06448!important;
+  font:600 26px/1.06 var(--vcc-font-script,"Caveat",cursive)!important;
+  letter-spacing:0!important;text-transform:none!important
+}
+.vcc-it-heading h2{font:500 clamp(28px,3.1vw,40px)/1.12 var(--vcc-font-heading,"Oswald",sans-serif);margin:0 0 8px;color:#23201e}
+.vcc-it-heading p{max-width:800px;margin:0;color:#625e5a;font:400 13px/1.58 var(--vcc-font-body,"DM Sans",Arial,sans-serif)}
+.vcc-it-catalog .di-mini-grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.vcc-it-catalog .di-mini-card{cursor:default;border-radius:11px;background:#fff;overflow:hidden}
+.vcc-it-catalog a.di-mini-card{cursor:pointer;color:inherit;text-decoration:none}
+.vcc-it-catalog .vcc-it-card-pending:hover{border-color:#e7e0d9;box-shadow:none;transform:none}
+.vcc-it-catalog .vcc-it-card-pending:hover .di-mini-photo img{transform:none}
+.vcc-it-catalog .di-mini-photo{aspect-ratio:1.88}
+/* Estilo .vcc-tipologia-targeta centralizado en componentes/vcc-tipologia-targetes.css. */
+.vcc-it-catalog .di-mini-body{padding:13px 12px 12px}
+.vcc-it-catalog .di-mini-body>strong{min-height:2.35em;display:block;margin-bottom:8px}
+.vcc-it-catalog .di-route-stats{margin:0 0 8px;display:flex;align-items:center;gap:6px;color:#bb5939}
+.vcc-it-catalog .di-route-stats svg{width:13px;height:13px;flex:none}
+.vcc-it-catalog .di-budget-row{margin-bottom:9px;gap:4px 7px}
+.vcc-it-catalog .di-price{color:#b34f32;font-size:11px}
+.vcc-it-catalog .di-price-pending{color:#99908a;font-size:10px}
+.vcc-it-catalog .di-country-line{display:inline-flex;align-items:center;gap:7px;margin-bottom:9px}
+.vcc-it-catalog .di-country-line .di-flag{font-size:18px}
+.vcc-it-catalog .di-mini-desc{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;line-clamp:2;overflow:hidden;min-height:2.9em;margin-bottom:12px}
+.vcc-it-catalog .di-mini-body b{margin-top:auto;font-size:10px}
+.vcc-it-catalog .vcc-it-upcoming{
+  margin-top:auto;color:#aba19b;font:800 10px/1.3 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
+  letter-spacing:.02em;padding-top:3px
+}
+.vcc-it-catalog .di-no-results{margin-top:12px}
+.vcc-it-catalog .di-catalog-toolbar{margin-bottom:17px}
+@media(max-width:1120px){.vcc-it-catalog .di-mini-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:850px){.vcc-it-catalog .di-mini-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}}
+@media(max-width:620px){
+  .vcc-it-catalog .di-mini-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+  .vcc-it-catalog .di-mini-body{padding:11px 10px 12px}
+  .vcc-it-catalog .di-mini-body>strong{min-height:0;font-size:17px}
+  .vcc-it-catalog .di-mini-desc{font-size:10px}
+  .vcc-it-catalog .di-price{font-size:10px}
+  .vcc-it-catalog .di-country-line .di-flag{font-size:16px}
+  .vcc-it-heading h2{font-size:30px}
+  .vcc-it-heading p{font-size:12px}
+  .itinerarios-vcc .vcc-it-heading .section-kicker{font-size:23px!important}
+}
+@media(max-width:340px){.vcc-it-catalog .di-mini-grid{grid-template-columns:1fr}}
+@media(prefers-reduced-motion:reduce){.vcc-it-catalog .di-mini-card{transition:none}}
+
+/* Fotos múltiples: carrusel ligero por tarjeta con fotos de R2. */
+.vcc-it-catalog .vcc-it-photo{position:relative;display:block;isolation:isolate;overflow:hidden;aspect-ratio:1.68}
+.vcc-it-catalog .vcc-it-photo img[data-vcc-it-slide]{
+ position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+ opacity:0;visibility:hidden;pointer-events:none;transform:translate3d(0,0,0);
+ user-select:none;-webkit-user-drag:none;transition:none
+}
+.vcc-it-catalog .vcc-it-photo img[data-vcc-it-slide].is-current,
+.vcc-it-catalog .vcc-it-photo img[data-vcc-it-slide].is-adjacent{opacity:1;visibility:visible}
+.vcc-it-catalog .vcc-it-photo.is-sliding img[data-vcc-it-slide]{
+ transition:transform var(--vcc-it-slide-duration,240ms) cubic-bezier(.22,.75,.27,1)
+}
+.vcc-it-catalog .vcc-it-photo.is-dragging img[data-vcc-it-slide]{transition:none}
+.vcc-it-catalog .vcc-it-photo:is(.is-sliding,.is-dragging) img[data-vcc-it-slide]:is(.is-current,.is-adjacent){will-change:transform}
+.vcc-it-catalog .di-mini-card:hover .vcc-it-photo img[data-vcc-it-slide]{transform:translate3d(0,0,0)}
+.vcc-it-catalog .vcc-it-gallery-button{
+ position:absolute;z-index:4;top:50%;transform:translateY(-50%);
+ display:grid;place-items:center;padding:0;cursor:pointer;}
+.vcc-it-catalog .vcc-it-gallery-button svg{height:17px;width:17px;filter:drop-shadow(0 1px 1px rgba(0,0,0,.55))}
+.vcc-it-catalog .vcc-it-gallery-button[data-vcc-it-dir="prev"]{left:7px}
+.vcc-it-catalog .vcc-it-gallery-button[data-vcc-it-dir="next"]{right:7px}
+.vcc-it-catalog .vcc-it-gallery-button:focus-visible{outline:3px solid #d36c44;outline-offset:2px}
+.vcc-it-catalog .vcc-it-photo-count{
+ position:absolute;z-index:3;bottom:7px;right:9px;padding:3px 7px;border-radius:12px;
+ color:#fff;background:rgba(22,29,33,.64);font:700 10px/1.3 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
+ pointer-events:none
+}
+/* Banderes vectorials, no depenen de la compatibilitat amb emojis de Windows. */
+.vcc-it-catalog .vcc-it-country-flag{
+ flex:none;display:block;width:30px;height:19px;border:1px solid rgba(0,0,0,.11);
+ border-radius:2px;box-shadow:0 1px 2px rgba(0,0,0,.08)
+}
+.vcc-it-catalog .di-country-line{gap:8px}
+.vcc-it-catalog .di-budget-row{display:flex;align-items:center;gap:7px;letter-spacing:0}
+.vcc-it-catalog .di-budget-row .vcc-it-coins{display:block;flex:none;width:20px;height:20px;color:#bc6945}
+.vcc-it-catalog .di-mini-body a.vcc-it-title{
+ display:block;align-self:stretch;min-height:2.35em;margin:0 0 8px;
+ color:#222;text-decoration:none;font:600 clamp(19px,1.55vw,23px)/1.16 var(--vcc-font-heading,"Oswald",sans-serif)
+}
+.vcc-it-catalog .di-mini-body a.vcc-it-title:hover{color:#ae5537}
+.vcc-it-catalog .di-mini-body a.vcc-it-cta{
+ display:inline-block;align-self:flex-start;margin-top:auto;padding-top:3px;
+ color:#b44f30;text-decoration:none;font:800 10px/1.25 var(--vcc-font-body,"DM Sans",Arial,sans-serif)
+}
+.vcc-it-catalog .di-mini-body a.vcc-it-cta:hover{color:#d36c44}
+.vcc-it-catalog .vcc-it-sr-only{
+ position:absolute;width:1px;height:1px;clip-path:inset(50%);overflow:hidden;white-space:nowrap
+}
+@media(max-width:620px){
+ .vcc-it-catalog .vcc-it-photo{aspect-ratio:1.55}
+ .vcc-it-catalog .vcc-it-gallery-button svg{width:15px;height:15px}
+ .vcc-it-catalog .vcc-it-gallery-button[data-vcc-it-dir="prev"]{left:5px}
+ .vcc-it-catalog .vcc-it-gallery-button[data-vcc-it-dir="next"]{right:5px}
+ .vcc-it-catalog .di-mini-body a.vcc-it-title{min-height:0;font-size:17px}
+ .vcc-it-catalog .vcc-it-country-flag{width:26px;height:17px}
+ .vcc-it-catalog .di-budget-row .vcc-it-coins{width:18px;height:18px}
+ .vcc-it-catalog .vcc-it-photo-count{bottom:5px;right:6px;font-size:9px}
+}
+@media(prefers-reduced-motion:reduce){.vcc-it-catalog .vcc-it-photo img[data-vcc-it-slide]{transition:none}}
+
+/* Compactació VCC · mateix estil que Ruta multipaís de Destinos. */
+.vcc-it-catalog .vcc-it-photo{aspect-ratio:1.60;touch-action:pan-y}
+.vcc-it-catalog .di-mini-body{padding:9px 11px 10px}
+.vcc-it-catalog .di-mini-body>strong,
+.vcc-it-catalog .di-mini-body>a.vcc-it-title{
+ font-size:19px;line-height:1.12;min-height:0;margin:0 0 5px
+}
+/* Durada · cost · país, els tres a la mateixa fila. */
+.vcc-it-catalog .vcc-it-facts{
+ display:flex;align-items:center;justify-content:flex-start;flex-wrap:nowrap;
+ column-gap:13px;margin:0 0 5px;min-width:0
+}
+.vcc-it-catalog .vcc-it-facts .di-route-stats,
+.vcc-it-catalog .vcc-it-facts .di-budget-row,
+.vcc-it-catalog .vcc-it-facts .di-country-line{
+ flex:none;display:inline-flex;align-items:center;gap:4px;margin:0;
+ line-height:1.2;white-space:nowrap
+}
+.vcc-it-catalog .vcc-it-facts .di-route-stats{font-size:10px}
+.vcc-it-catalog .vcc-it-facts .di-route-stats svg{width:12px;height:12px}
+.vcc-it-catalog .vcc-it-facts .di-budget-row .vcc-it-coins{width:15px;height:15px}
+.vcc-it-catalog .vcc-it-facts .di-price{font-size:10px}
+.vcc-it-catalog .vcc-it-facts .di-country-line{font-size:10px;color:#4b4541}
+.vcc-it-catalog .vcc-it-facts .vcc-it-country-flag{width:20px;height:13px;border-radius:2px}
+.vcc-it-catalog .di-mini-desc{min-height:0;margin:0 0 5px;line-height:1.36;font-size:10.5px}
+.vcc-it-catalog .di-mini-body>a.vcc-it-cta{
+ display:inline-flex;align-self:flex-end;margin-top:auto;padding-top:3px;
+ font-size:9.5px;line-height:1.2;text-align:right
+}
+.vcc-it-catalog .vcc-it-upcoming{
+ align-self:flex-end;margin-top:auto;padding-top:3px;font-size:9.5px;text-align:right
+}
+.vcc-it-catalog .vcc-it-gallery-button svg{width:16px;height:16px}
+@media(max-width:620px){
+ .vcc-it-catalog .vcc-it-photo{aspect-ratio:1.72}
+ .vcc-it-catalog .di-mini-body{padding:8px 9px 9px}
+ .vcc-it-catalog .di-mini-body>strong,
+ .vcc-it-catalog .di-mini-body>a.vcc-it-title{
+   font-size:16.5px;line-height:1.12;min-height:0;margin-bottom:5px
+ }
+ .vcc-it-catalog .vcc-it-facts{gap:7px;margin-bottom:4px}
+ .vcc-it-catalog .vcc-it-facts .di-route-stats{font-size:9px}
+ .vcc-it-catalog .vcc-it-facts .di-budget-row .vcc-it-coins{width:14px;height:14px}
+ .vcc-it-catalog .vcc-it-facts .di-price{font-size:9px}
+ .vcc-it-catalog .vcc-it-facts .di-country-line{font-size:9px}
+ .vcc-it-catalog .vcc-it-facts .vcc-it-country-flag{width:19px;height:12px}
+ .vcc-it-catalog .di-mini-desc{font-size:10px;line-height:1.32;margin-bottom:4px}
+}
+/* A pantalles estretes, una targeta per fila evita que país, cost i dies es trenquin. */
+@media(max-width:520px){
+ .vcc-it-catalog .di-mini-grid{grid-template-columns:1fr}
+ .vcc-it-catalog .vcc-it-photo{aspect-ratio:2.05}
+ .vcc-it-catalog .vcc-it-facts{gap:12px}
+}
+@media(prefers-reduced-motion:reduce){
+ .vcc-it-catalog .vcc-it-photo.is-sliding img[data-vcc-it-slide]{transition:none}
+}
+
+
+/* VCC · Targetes de catàleg amb alçada automàtica, sense truncar descripcions.
+   Comparteixen aquestes regles Itinerarios, Presupuestos i Qué llevar. */
+.vcc-it-catalog .di-mini-grid{align-items:stretch}
+.vcc-it-catalog .vcc-it-card{height:auto;min-height:0}
+.vcc-it-catalog .vcc-it-card .di-mini-body{flex:1;min-height:0}
+.vcc-it-catalog .vcc-it-card .di-mini-desc{
+ display:block;
+ -webkit-box-orient:initial;
+ -webkit-line-clamp:unset;
+ line-clamp:unset;
+ overflow:visible;
+ max-height:none;
+ min-height:0;
+ white-space:normal;
+ overflow-wrap:break-word;
+}
+
+
+/* Metadades reutilitzables en Planifica > Dónde ir, sense estils inline ni emojis. */
+.vcc-it-catalog .vcc-it-facts .di-days{display:inline-flex;align-items:center;gap:4px}
+.vcc-it-catalog .di-vcc-flags{display:inline-flex;align-items:center;gap:2px;flex:none}
+.vcc-it-catalog .di-vcc-flags .vcc-it-country-flag{width:20px;height:13px}
+.vcc-it-catalog .di-vcc-flags .vcc-it-country-flag.is-ch{width:13px}
+.vcc-it-catalog .di-guide-info.vcc-it-facts{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:5px 8px;margin:0 0 6px}
+.vcc-it-catalog .di-guide-info.vcc-it-facts .di-country-line{min-width:0;white-space:normal;gap:5px}
+.vcc-it-catalog .di-guide-info.vcc-it-facts .di-guide-rating{margin-left:auto}
+.vcc-it-catalog .di-mini-body>b.vcc-it-cta{
+ display:inline-flex;align-self:flex-end;justify-content:flex-end;margin-top:auto;
+ padding-top:3px;font-size:9.5px;line-height:1.2;text-align:right;color:#b44f30;
+}
+.vcc-it-catalog .di-upcoming.vcc-it-card .di-upcoming-status{align-self:flex-end;text-align:right}
+@media(max-width:620px){
+ .vcc-it-catalog .di-vcc-flags .vcc-it-country-flag{width:19px;height:12px}
+ .vcc-it-catalog .di-vcc-flags .vcc-it-country-flag.is-ch{width:12px}
+}
+
+/* === configuracion/css/componentes/carruseles-flechas-movil-vcc.css === */
+/* VCC · Controls de carrusels en mòbil
+ * Un sol criteri reutilitzable: dues fletxes laterals sobre la targeta,
+ * petites i semitransparents, sense retallar l'amplada del carrusel.
+ * No altera els estils d'escriptori. */
+@media (max-width:760px) {
+  /* Pressupost Estocolm · Cómo ahorrar + Gastos sorpresa.
+     Els !important anul·len regles heretades de l'antiga plantilla. */
+  html body.budget-vcc .savings-section .carousel-shell,
+  html body.budget-vcc .surprise-section .carousel-shell {
+    display:block!important;position:relative!important;
+    grid-template-columns:none!important;
+    width:100%;min-width:0;padding:0!important;
+    gap:0!important;
+  }
+  html body.budget-vcc .savings-section .carousel-shell > .tips-track,
+  html body.budget-vcc .surprise-section .carousel-shell > .tips-track {
+    display:flex!important;width:100%!important;min-width:0!important;
+    grid-column:auto!important;
+  }
+  html body.budget-vcc .savings-section .saving-tip,
+  html body.budget-vcc .surprise-section .surprise-grid.tips-track article {
+    flex:0 0 100%!important;min-width:0!important;
+    box-sizing:border-box!important;
+  }
+  html body.budget-vcc .savings-section .carousel-shell > .carousel-arrow,
+  html body.budget-vcc .surprise-section .carousel-shell > .carousel-arrow {
+    display:grid!important;place-items:center!important;
+    position:absolute!important;top:50%!important;
+    bottom:auto!important;left:auto!important;
+    transform:translateY(-50%)!important;margin:0!important;
+    z-index:2!important;}
+  html body.budget-vcc .savings-section .carousel-shell > .carousel-arrow.prev,
+  html body.budget-vcc .surprise-section .carousel-shell > .carousel-arrow.prev {right:auto!important;left:2px!important;}
+  html body.budget-vcc .savings-section .carousel-shell > .carousel-arrow.next,
+  html body.budget-vcc .surprise-section .carousel-shell > .carousel-arrow.next {right:2px!important;}
+
+  /* Pressupost · selector de perfils (el carrusel de dies ja té controls propis). */
+  html body.budget-vcc #filosofia .vcc-budget-mode-carousel {
+    position:relative!important;padding-top:0!important;
+  }
+  html body.budget-vcc #filosofia .vcc-budget-mode-arrow {
+    top:50%!important;bottom:auto!important;left:auto!important;
+    transform:translateY(-50%)!important;}
+  html body.budget-vcc #filosofia .vcc-budget-mode-arrow.previous{right:auto!important;left:2px!important;}
+  html body.budget-vcc #filosofia .vcc-budget-mode-arrow.next{right:2px!important;}
+  html body.budget-vcc #filosofia .vcc-budget-mode-card{flex:0 0 100%!important}
+
+  /* Cómo moverse · transportes y tarjetas de consejos. */
+  body.mv-body .mv-transport-shell,
+  body.mv-body .mv-carousel-shell {
+    position:relative;padding:0;min-width:0;width:100%;
+  }
+  body.mv-body .mv-transport-arrow,
+  body.mv-body .mv-carousel-arrow {
+    top:50%;bottom:auto;left:auto;transform:translateY(-50%);
+    right:2px;}
+  body.mv-body .mv-transport-prev,
+  body.mv-body .mv-prev {right:auto;left:2px}
+  body.mv-body .mv-transport-next,
+  body.mv-body .mv-next {right:2px;left:auto}
+  body.mv-body .mv-grid > .mv-card,
+  body.mv-body .mv-saving-card{flex-basis:100%}
+
+  /* Entradas y pases · consejos y tarjetas de los días. */
+  .ep-page .ep3-saving-stage {
+    display:block;position:relative;grid-template-columns:none;
+    padding:0;min-width:0;
+  }
+  .ep-page .ep3-saving-stage > .ep3-saving-track {
+    display:flex;width:100%;min-width:0;grid-column:auto;grid-row:auto;
+  }
+  .ep-page .ep3-saving-stage > .ep3-saving-arrow {
+    position:absolute;top:50%;bottom:auto;left:auto;right:2px;grid-column:auto;grid-row:auto;}
+  .ep-page .ep3-saving-stage > .ep3-saving-prev {right:auto;left:2px}
+  .ep-page .ep3-saving-stage > .ep3-saving-next {right:2px;left:auto}
+  .ep-page .ep3-saving-track > .ep3-saving-card{flex:0 0 100%;min-width:0}
+
+  .ep-page .ep4-our-stage:not(.ep4-our-no-overflow){padding:0!important}
+  .ep-page .ep4-our-stage:not(.ep4-our-no-overflow) > .ep4-our-arrow {
+    position:absolute!important;top:50%!important;bottom:auto!important;
+    transform:translateY(-50%)!important;
+    left:auto!important;}
+  .ep-page .ep4-our-stage:not(.ep4-our-no-overflow) > .ep4-our-arrow-prev {
+    left:2px!important;right:auto!important;}
+  .ep-page .ep4-our-stage:not(.ep4-our-no-overflow) > .ep4-our-arrow-next {
+    left:auto!important;right:2px!important;}
+
+  /* Planifica · tarjetas de viaje. */
+  .tv-page .tv-carousel-shell {
+    display:block;position:relative;grid-template-columns:none;
+    width:100%;min-width:0;padding-top:0;
+  }
+  .tv-page .tv-carousel-shell > .tv-carousel-arrow {
+    position:absolute;top:50%;bottom:auto;}
+  .tv-page .tv-carousel-shell > [data-tv-prev]{right:auto;left:2px}
+  .tv-page .tv-carousel-shell > [data-tv-next]{right:2px;left:auto}
+  .tv-page .tv-carousel {width:100%;grid-auto-columns:100%}
+
+  /* Planifica · plataformas de alojamiento. */
+  .al-page .al-carousel{position:relative;padding-top:0}
+  .al-page .al-carousel > .al-carousel-arrow{
+    position:absolute;top:50%;bottom:auto;left:auto;
+    transform:translateY(-50%);}
+  .al-page .al-carousel > .al-carousel-prev{right:auto;left:2px}
+  .al-page .al-carousel > .al-carousel-next{right:2px;left:auto}
+  .al-page .al-carousel .al-track{width:100%;grid-auto-columns:100%}
+  /* Planifica · Alojamientos: també aplica els controls laterals comuns als consells. */
+  .al-page .al-tips-carousel{position:relative;padding:0}
+  .al-page .al-tips-carousel > .al-tips-arrow{
+    position:absolute;top:50%;bottom:auto;left:auto;
+    transform:translateY(-50%);}
+  .al-page .al-tips-track{width:100%}
+
+
+  /* Planifica · vuelos: conserva el patrón aprobado en el carrusel de ahorro. */
+  .vl-page .vl-tips-carousel{padding:0}
+  .vl-page .vl-tips-carousel > .vl-tip-arrow{
+    position:absolute;top:50%;bottom:auto;left:auto;
+    transform:translateY(-50%);}
+  .vl-page .vl-tips-carousel > .vl-tip-prev{right:auto;left:2px}
+  .vl-page .vl-tips-carousel > .vl-tip-next{right:2px;left:auto}
+  .vl-page .vl-tip-track > .vl-tip{flex-basis:100%} 
+  /* Cómo llegar · siete consejos de ahorro. */
+  .cl-page.cl-landing .vcc-saving-carousel{
+    position:relative;padding:0;
+    width:100%;min-width:0;
+  }
+  .cl-page.cl-landing .vcc-saving-carousel > .vcc-saving-arrow{
+    position:absolute;top:50%;bottom:auto;left:auto;transform:translateY(-50%);}
+  .cl-page.cl-landing .vcc-saving-prev{right:auto;left:2px}
+  .cl-page.cl-landing .vcc-saving-next{right:2px;left:auto}
+  .cl-page.cl-landing .vcc-saving-track > .vcc-saving-card{flex:0 0 100%}
+  .cl-page.cl-landing .vcc-saving-source{margin:11px 0 0}
+
+  /* Dónde alojarse · barrios y consejos de ahorro. */
+  .dv-page .dv-carousel-wrap,
+  .dv-page .dv-tip-carousel-wrap{
+    position:relative;padding-top:0;min-width:0;
+  }
+  .dv-page .dv-carousel-wrap > .dv-arrow,
+  .dv-page .dv-tip-carousel-wrap > .dv-arrow{
+    position:absolute;top:50%;bottom:auto;left:auto;
+    transform:translateY(-50%);}
+  .dv-page .dv-carousel-wrap > .dv-arrow-left,
+  .dv-page .dv-tip-carousel-wrap > .dv-tip-prev{right:auto;left:2px;}
+  .dv-page .dv-carousel-wrap > .dv-arrow-right,
+  .dv-page .dv-tip-carousel-wrap > .dv-tip-next{right:2px;left:auto;}
+  .dv-page .dv-carousel > .dv-card{
+    flex:0 0 100%;width:100%;max-width:100%;box-sizing:border-box;
+  }
+  .dv-page #como-ahorrar .dv-tip-grid > .dv-tip{
+    flex:0 0 100%;width:100%;max-width:100%;box-sizing:border-box;
+  }
+
+  /* Cuándo ir · errores a evitar. */
+  html body.ci-page .ci-tips-shell{
+    display:block;position:relative;grid-template-columns:none;
+    padding-top:0;min-width:0;
+  }
+  html body.ci-page .ci-tips-shell > .ci-tips-arrow{
+    position:absolute;top:50%;bottom:auto;left:auto;}
+  html body.ci-page .ci-tips-shell > .ci-tips-prev{right:auto;left:2px}
+  html body.ci-page .ci-tips-shell > .ci-tips-next{right:2px}
+  html body.ci-page .ci-tips-track > .ci-tip-card{flex:0 0 100%}
+
+  /* Qué llevar · consejos para ahorrar espacio. */
+  html body .ql-page .ql-advice-carousel.ql-advice-carousel-sides{
+    display:block!important;position:relative!important;
+    grid-template-columns:none!important;gap:0!important;
+    padding:0!important;min-width:0!important;
+  }
+  html body .ql-page .ql-advice-carousel-sides > .ql-carousel-arrow{
+    position:absolute!important;top:50%!important;bottom:auto!important;
+    left:auto!important;right:2px!important;transform:translateY(-50%)!important;}
+  html body .ql-page .ql-advice-carousel-sides > #ql-advice-prev{
+    left:2px!important;right:auto!important;
+  }
+  html body .ql-page .ql-advice-carousel-sides > #ql-advice-next{
+    left:auto!important;right:2px!important;
+  }
+  html body .ql-page .ql-advice-carousel-sides > .ql-advice-track{
+    width:100%!important;min-width:0!important;
+  }
+  html body .ql-page .ql-advice-carousel-sides .ql-advice-card{
+    flex:0 0 100%!important;max-width:100%!important;
+  }
+
+}
+
+/* =============================================================================
+   VCC · FLETXES DE CARRUSEL — ÚNIC CSS VISUAL (PC/MÒBIL).
+   Les pàgines només defineixen la disposició. Aquí s'unifiquen colors,
+   opacitat, contorn, estats, mides i accessibilitat; MAI es forcen
+   position, display, transform ni grid-template-columns.
+   Per incloure un component nou: afegiu només el seu selector a la llista.
+   ============================================================================= */
+:root{
+ --vcc-carrusel-fletxa-mida:36px;
+ --vcc-carrusel-fletxa-fons:rgba(255,255,255,.78);
+ --vcc-carrusel-fletxa-contorn:#c7aa97;
+ --vcc-carrusel-fletxa-tinta:#ab553b;
+ --vcc-carrusel-fletxa-activa:#e57147;
+ --vcc-carrusel-fletxa-ombra:0 2px 8px rgba(29,22,18,.1);
+}
+:is(html body.budget-vcc .savings-section .carousel-shell > .carousel-arrow,
+html body.budget-vcc .surprise-section .carousel-shell > .carousel-arrow,
+html body.budget-vcc #filosofia .vcc-budget-mode-arrow,
+html body.budget-vcc .decision-carousel .carousel-arrow,
+html body.mv-body .mv-transport-shell > .mv-transport-arrow,
+html body.mv-body .mv-carousel-shell > .mv-carousel-arrow,
+html body .ep-page .ep3-saving-stage > .ep3-saving-arrow,
+html body .ep-page .ep-slider-arrow,
+html body .ep-page .ep-rail-arrow,
+html body .ep-page .ep4-our-stage > .ep4-our-arrow,
+html body .tv-page .tv-carousel-shell > .tv-carousel-arrow,
+html body.al-page .al-carousel > .al-carousel-arrow,
+html body.al-page .al-tips-carousel > .al-tips-arrow,
+html body .vl-page .vl-tips-carousel > .vl-tip-arrow,
+html body .vl-page .vl-air-carousel > .vl-air-carousel-arrow,
+html body .cl-page.cl-landing .vcc-saving-carousel > .vcc-saving-arrow,
+html body.dv-page .dv-carousel-wrap > .dv-arrow,
+html body.dv-page .dv-tip-carousel-wrap > .dv-arrow,
+html body.ci-page .ci-tips-shell > .ci-tips-arrow,
+html body .ql-page .ql-advice-carousel-sides > .ql-carousel-arrow,
+html body .vcc-route-carousel > .vcc-route-arrow,
+html body.country-page .sweden-carousel-wrap > .carousel-arrow,
+html body.country-page .faq-carousel-wrap > .carousel-arrow,
+html body .st-carousel-wrap > .carousel-arrow,
+html body .vcc-it-photo > .vcc-it-gallery-button){
+ box-sizing:border-box!important;
+ width:var(--vcc-carrusel-fletxa-mida)!important;
+ height:var(--vcc-carrusel-fletxa-mida)!important;
+ border:1px solid var(--vcc-carrusel-fletxa-contorn)!important;
+ border-radius:50%!important;
+ background:var(--vcc-carrusel-fletxa-fons)!important;
+ color:var(--vcc-carrusel-fletxa-tinta)!important;
+ box-shadow:var(--vcc-carrusel-fletxa-ombra)!important;
+ font-size:20px!important;
+ transition:background-color .15s,border-color .15s,color .15s!important;
+}
+:is(html body.budget-vcc .savings-section .carousel-shell > .carousel-arrow,
+html body.budget-vcc .surprise-section .carousel-shell > .carousel-arrow,
+html body.budget-vcc #filosofia .vcc-budget-mode-arrow,
+html body.mv-body .mv-transport-shell > .mv-transport-arrow,
+html body.mv-body .mv-carousel-shell > .mv-carousel-arrow,
+html body .ep-page .ep3-saving-stage > .ep3-saving-arrow,
+html body .ep-page .ep4-our-stage > .ep4-our-arrow,
+html body .tv-page .tv-carousel-shell > .tv-carousel-arrow,
+html body.al-page .al-carousel > .al-carousel-arrow,
+html body.al-page .al-tips-carousel > .al-tips-arrow,
+html body .vl-page .vl-tips-carousel > .vl-tip-arrow,
+html body .vl-page .vl-air-carousel > .vl-air-carousel-arrow,
+html body .cl-page.cl-landing .vcc-saving-carousel > .vcc-saving-arrow,
+html body.dv-page .dv-carousel-wrap > .dv-arrow,
+html body.dv-page .dv-tip-carousel-wrap > .dv-arrow,
+html body.ci-page .ci-tips-shell > .ci-tips-arrow,
+html body .ql-page .ql-advice-carousel-sides > .ql-carousel-arrow,
+html body .vcc-route-carousel > .vcc-route-arrow,
+html body.country-page .sweden-carousel-wrap > .carousel-arrow,
+html body .st-carousel-wrap > .carousel-arrow,
+html body .vcc-it-photo > .vcc-it-gallery-button):hover:not(:disabled):not([aria-disabled="true"]){
+ background:#fff1e8!important;border-color:#c36c4f!important;color:var(--vcc-carrusel-fletxa-tinta)!important
+}
+:is(html body.budget-vcc .savings-section .carousel-shell > .carousel-arrow,
+html body.budget-vcc .surprise-section .carousel-shell > .carousel-arrow,
+html body.budget-vcc #filosofia .vcc-budget-mode-arrow,
+html body.mv-body .mv-transport-shell > .mv-transport-arrow,
+html body.mv-body .mv-carousel-shell > .mv-carousel-arrow,
+html body .ep-page .ep3-saving-stage > .ep3-saving-arrow,
+html body .ep-page .ep4-our-stage > .ep4-our-arrow,
+html body .tv-page .tv-carousel-shell > .tv-carousel-arrow,
+html body.al-page .al-carousel > .al-carousel-arrow,
+html body.al-page .al-tips-carousel > .al-tips-arrow,
+html body .vl-page .vl-tips-carousel > .vl-tip-arrow,
+html body .vl-page .vl-air-carousel > .vl-air-carousel-arrow,
+html body .cl-page.cl-landing .vcc-saving-carousel > .vcc-saving-arrow,
+html body.dv-page .dv-carousel-wrap > .dv-arrow,
+html body.dv-page .dv-tip-carousel-wrap > .dv-arrow,
+html body.ci-page .ci-tips-shell > .ci-tips-arrow,
+html body .ql-page .ql-advice-carousel-sides > .ql-carousel-arrow,
+html body .vcc-route-carousel > .vcc-route-arrow,
+html body.country-page .sweden-carousel-wrap > .carousel-arrow,
+html body .st-carousel-wrap > .carousel-arrow,
+html body .vcc-it-photo > .vcc-it-gallery-button):active:not(:disabled):not([aria-disabled="true"]){
+ background:var(--vcc-carrusel-fletxa-activa)!important;
+ border-color:var(--vcc-carrusel-fletxa-activa)!important;color:#fff!important
+}
+:is(html body.budget-vcc .savings-section .carousel-shell > .carousel-arrow,
+html body.budget-vcc .surprise-section .carousel-shell > .carousel-arrow,
+html body.budget-vcc #filosofia .vcc-budget-mode-arrow,
+html body.mv-body .mv-transport-shell > .mv-transport-arrow,
+html body.mv-body .mv-carousel-shell > .mv-carousel-arrow,
+html body .ep-page .ep3-saving-stage > .ep3-saving-arrow,
+html body .ep-page .ep4-our-stage > .ep4-our-arrow,
+html body .tv-page .tv-carousel-shell > .tv-carousel-arrow,
+html body.al-page .al-carousel > .al-carousel-arrow,
+html body.al-page .al-tips-carousel > .al-tips-arrow,
+html body .vl-page .vl-tips-carousel > .vl-tip-arrow,
+html body .vl-page .vl-air-carousel > .vl-air-carousel-arrow,
+html body .cl-page.cl-landing .vcc-saving-carousel > .vcc-saving-arrow,
+html body.dv-page .dv-carousel-wrap > .dv-arrow,
+html body.dv-page .dv-tip-carousel-wrap > .dv-arrow,
+html body.ci-page .ci-tips-shell > .ci-tips-arrow,
+html body .ql-page .ql-advice-carousel-sides > .ql-carousel-arrow,
+html body .vcc-route-carousel > .vcc-route-arrow,
+html body.country-page .sweden-carousel-wrap > .carousel-arrow,
+html body .st-carousel-wrap > .carousel-arrow,
+html body .vcc-it-photo > .vcc-it-gallery-button):focus-visible{
+ outline:2px solid var(--vcc-carrusel-fletxa-activa)!important;outline-offset:2px!important
+}
+:is(html body.budget-vcc .savings-section .carousel-shell > .carousel-arrow,
+html body.budget-vcc .surprise-section .carousel-shell > .carousel-arrow,
+html body.budget-vcc #filosofia .vcc-budget-mode-arrow,
+html body.mv-body .mv-transport-shell > .mv-transport-arrow,
+html body.mv-body .mv-carousel-shell > .mv-carousel-arrow,
+html body .ep-page .ep3-saving-stage > .ep3-saving-arrow,
+html body .ep-page .ep4-our-stage > .ep4-our-arrow,
+html body .tv-page .tv-carousel-shell > .tv-carousel-arrow,
+html body.al-page .al-carousel > .al-carousel-arrow,
+html body.al-page .al-tips-carousel > .al-tips-arrow,
+html body .vl-page .vl-tips-carousel > .vl-tip-arrow,
+html body .vl-page .vl-air-carousel > .vl-air-carousel-arrow,
+html body .cl-page.cl-landing .vcc-saving-carousel > .vcc-saving-arrow,
+html body.dv-page .dv-carousel-wrap > .dv-arrow,
+html body.dv-page .dv-tip-carousel-wrap > .dv-arrow,
+html body.ci-page .ci-tips-shell > .ci-tips-arrow,
+html body .ql-page .ql-advice-carousel-sides > .ql-carousel-arrow,
+html body .vcc-route-carousel > .vcc-route-arrow,
+html body.country-page .sweden-carousel-wrap > .carousel-arrow,
+html body .st-carousel-wrap > .carousel-arrow,
+html body .vcc-it-photo > .vcc-it-gallery-button):disabled,
+:is(html body.budget-vcc .savings-section .carousel-shell > .carousel-arrow,
+html body.budget-vcc .surprise-section .carousel-shell > .carousel-arrow,
+html body.budget-vcc #filosofia .vcc-budget-mode-arrow,
+html body.mv-body .mv-transport-shell > .mv-transport-arrow,
+html body.mv-body .mv-carousel-shell > .mv-carousel-arrow,
+html body .ep-page .ep3-saving-stage > .ep3-saving-arrow,
+html body .ep-page .ep4-our-stage > .ep4-our-arrow,
+html body .tv-page .tv-carousel-shell > .tv-carousel-arrow,
+html body.al-page .al-carousel > .al-carousel-arrow,
+html body.al-page .al-tips-carousel > .al-tips-arrow,
+html body .vl-page .vl-tips-carousel > .vl-tip-arrow,
+html body .vl-page .vl-air-carousel > .vl-air-carousel-arrow,
+html body .cl-page.cl-landing .vcc-saving-carousel > .vcc-saving-arrow,
+html body.dv-page .dv-carousel-wrap > .dv-arrow,
+html body.dv-page .dv-tip-carousel-wrap > .dv-arrow,
+html body.ci-page .ci-tips-shell > .ci-tips-arrow,
+html body .ql-page .ql-advice-carousel-sides > .ql-carousel-arrow,
+html body .vcc-route-carousel > .vcc-route-arrow,
+html body.country-page .sweden-carousel-wrap > .carousel-arrow,
+html body .st-carousel-wrap > .carousel-arrow,
+html body .vcc-it-photo > .vcc-it-gallery-button)[aria-disabled="true"]{
+ opacity:.32!important;cursor:default!important;pointer-events:none
+}
+@media(max-width:760px){
+ :root{
+  --vcc-carrusel-fletxa-mida:32px;
+  --vcc-carrusel-fletxa-fons:rgba(255,255,255,.06);
+  --vcc-carrusel-fletxa-ombra:none;
+ }
+}
+/* Fotomosaics compactes: mantenim l'àrea de la imatge lliure. */
+html body .vcc-it-photo > .vcc-it-gallery-button{
+ width:30px!important;height:30px!important
+}
+@media(max-width:760px){
+ html body .vcc-it-photo > .vcc-it-gallery-button{
+  width:27px!important;height:27px!important
+ }
+}
+@media(prefers-reduced-motion:reduce){
+ :is(html body.budget-vcc .savings-section .carousel-shell > .carousel-arrow,
+html body.budget-vcc .surprise-section .carousel-shell > .carousel-arrow,
+html body.budget-vcc #filosofia .vcc-budget-mode-arrow,
+html body.mv-body .mv-transport-shell > .mv-transport-arrow,
+html body.mv-body .mv-carousel-shell > .mv-carousel-arrow,
+html body .ep-page .ep3-saving-stage > .ep3-saving-arrow,
+html body .ep-page .ep4-our-stage > .ep4-our-arrow,
+html body .tv-page .tv-carousel-shell > .tv-carousel-arrow,
+html body.al-page .al-carousel > .al-carousel-arrow,
+html body.al-page .al-tips-carousel > .al-tips-arrow,
+html body .vl-page .vl-tips-carousel > .vl-tip-arrow,
+html body .vl-page .vl-air-carousel > .vl-air-carousel-arrow,
+html body .cl-page.cl-landing .vcc-saving-carousel > .vcc-saving-arrow,
+html body.dv-page .dv-carousel-wrap > .dv-arrow,
+html body.dv-page .dv-tip-carousel-wrap > .dv-arrow,
+html body.ci-page .ci-tips-shell > .ci-tips-arrow,
+html body .ql-page .ql-advice-carousel-sides > .ql-carousel-arrow,
+html body .vcc-route-carousel > .vcc-route-arrow,
+html body.country-page .sweden-carousel-wrap > .carousel-arrow,
+html body .st-carousel-wrap > .carousel-arrow,
+html body .vcc-it-photo > .vcc-it-gallery-button){transition:none!important}
+}
+
+/* Suècia: una única icona SVG real, centrada dins del botó circular.
+   Sense pseudo-elements que dupliquin la fletxa ni canvis als altres carrusels. */
+html body.country-page .sweden-carousel-wrap > .carousel-arrow{
+ display:grid!important;
+ place-items:center!important;
+ padding:0!important;
+ line-height:1!important;
+}
+html body.country-page .sweden-carousel-wrap > .carousel-arrow > svg.vcc-sweden-arrow-icon{
+ display:block!important;
+ width:19px!important;
+ height:19px!important;
+ fill:none!important;
+ stroke:currentColor!important;
+ stroke-width:2.35!important;
+ stroke-linecap:round!important;
+ stroke-linejoin:round!important;
+ transform:translateY(-.5px);
+ pointer-events:none;
+}
+
+/* === configuracion/css/componentes/catalogo-planifica-vcc.css === */
+/* Planifica · catàlegs de pressupostos i equipatge. Comparteixen l'estructura d'Itinerarios. */
+body.presupuestos-vcc .itinerarios-hero > .about-hero-photo,
+body.que-llevar-hub .itinerarios-hero > .about-hero-photo{
+ background-repeat:no-repeat!important;background-size:cover!important;
+ filter:none!important;
+}
+body.presupuestos-vcc .itinerarios-hero > .about-hero-photo{
+ background-image:url('/configuracion/imagenes/fondos/fondos-presupuesto.webp')!important;
+ background-position:center center!important;
+}
+body.que-llevar-hub .itinerarios-hero > .about-hero-photo{
+ background-image:url('/configuracion/imagenes/fondos/fondos-que-llevar.webp')!important;
+ background-position:center center!important;
+}
+@media(max-width:767px){
+ body.presupuestos-vcc .itinerarios-hero > .about-hero-photo{
+  background-image:url('/configuracion/imagenes/fondos/optimizadas/fondos-presupuesto-960.webp?v=0f43baf0e3ac')!important;
+ }
+ body.que-llevar-hub .itinerarios-hero > .about-hero-photo{
+  background-image:url('/configuracion/imagenes/fondos/optimizadas/fondos-que-llevar-960.webp?v=11b002ac8d30')!important;
+ }
+}
+@media(min-width:768px){
+ body.presupuestos-vcc .itinerarios-hero > .about-hero-photo{
+  background-image:url('/configuracion/imagenes/fondos/optimizadas/fondos-presupuesto-1920.webp?v=0f43baf0e3ac')!important;
+ }
+ body.que-llevar-hub .itinerarios-hero > .about-hero-photo{
+  background-image:url('/configuracion/imagenes/fondos/optimizadas/fondos-que-llevar-1920.webp?v=11b002ac8d30')!important;
+ }
+}
+.vcc-it-catalog .di-mini-card[hidden]{display:none!important}
+/* Fila compartida: buscador > continente > tipo > importe (solo presupuestos). */
+.vcc-it-catalog .vcc-catalog-toolbar{
+ display:flex;align-items:flex-end;gap:10px;flex-wrap:nowrap;
+ width:100%;min-width:0;margin:0 0 18px;
+}
+/* Amplada fixa i idèntica per als tres catàlegs, sense créixer a l'espai buit. */
+.vcc-it-catalog .vcc-catalog-toolbar .vcc-catalog-search{
+ box-sizing:border-box;flex:0 0 218px;
+ width:218px;max-width:218px;min-width:0;
+ height:40px;margin:0;
+}
+.vcc-it-catalog .vcc-catalog-toolbar .vcc-catalog-search input{
+ font-size:11px;
+}
+.vcc-it-catalog .vcc-catalog-toolbar .vcc-catalog-field{
+ display:flex;flex:0 1 162px;flex-direction:column;gap:4px;min-width:126px;
+ color:#625e5a;font:700 10px/1.25 var(--vcc-font-body,"DM Sans",Arial,sans-serif)
+}
+/* Icona vectorial reutilitzable a l'esquerra del nom de cada filtre. */
+.vcc-it-catalog .vcc-catalog-toolbar .vcc-catalog-field-title{
+ display:inline-flex;align-items:center;gap:6px;white-space:nowrap;
+ font:700 10px/1.25 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
+}
+.vcc-it-catalog .vcc-catalog-toolbar .vcc-catalog-field-title svg{
+ flex:0 0 15px;width:15px;height:15px;
+ color:#c36244;fill:none;stroke:none;
+}
+.vcc-it-catalog .vcc-catalog-toolbar .vcc-catalog-field select{
+ box-sizing:border-box;display:block;width:100%;height:40px;min-width:0;max-width:none;
+ padding:0 9px;border:1px solid #e7ddd4;border-radius:8px;
+ background:#fff;color:#3e3935;
+ font:500 11px/1.3 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
+ cursor:pointer;
+}
+.vcc-it-catalog .vcc-catalog-toolbar select:focus-visible,
+.vcc-it-catalog .vcc-catalog-toolbar input:focus-visible,
+.vcc-it-catalog .vcc-catalog-toolbar button:focus-visible{outline:2px solid #c06342;outline-offset:2px}
+.vcc-it-catalog .vcc-catalog-toolbar .vcc-catalog-reset{
+ flex:0 0 auto;min-height:40px;white-space:nowrap;border:0;background:transparent;
+ padding:7px 0;color:#b45032;font:700 11px/1.3 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
+ cursor:pointer
+}
+.vcc-it-catalog .vcc-catalog-toolbar .vcc-catalog-reset:hover{text-decoration:underline}
+.vcc-it-catalog .vcc-catalog-toolbar .vcc-catalog-count{
+ flex:0 0 auto;align-self:flex-end;display:block;
+ min-height:40px;line-height:40px;margin-left:auto;white-space:nowrap;
+}
+@media(max-width:1020px){
+ .vcc-it-catalog .vcc-catalog-toolbar{flex-wrap:wrap;gap:9px 11px}
+ .vcc-it-catalog .vcc-catalog-toolbar .vcc-catalog-search{
+  flex:0 0 218px;width:218px;max-width:218px;min-width:0;
+ }
+ .vcc-it-catalog .vcc-catalog-toolbar .vcc-catalog-field{flex:1 1 155px}
+}
+@media(max-width:620px){
+ .vcc-it-catalog .vcc-catalog-toolbar{gap:8px;margin-bottom:14px}
+ .vcc-it-catalog .vcc-catalog-toolbar .vcc-catalog-field{flex:1 1 calc(50% - 6px);min-width:0}
+ .vcc-it-catalog .vcc-catalog-toolbar .vcc-catalog-field select{font-size:11px}
+ .vcc-it-catalog .vcc-catalog-toolbar .vcc-catalog-reset{min-height:34px}
+ .vcc-it-catalog .vcc-catalog-toolbar .vcc-catalog-count{min-height:34px;line-height:34px}
+}
+@media(max-width:390px){
+ .vcc-it-catalog .vcc-catalog-toolbar .vcc-catalog-search{
+  flex:0 0 min(218px,100%);width:min(218px,100%);max-width:100%;
+ }
+ .vcc-it-catalog .vcc-catalog-toolbar .vcc-catalog-field{flex-basis:100%}
+}
+.vcc-it-catalog .vcc-catalog-note{margin:12px 0 0;color:#716a64;font:400 11px/1.6 var(--vcc-font-body,"DM Sans",Arial,sans-serif)}
+.vcc-it-catalog .vcc-it-facts .di-budget-row .di-price{white-space:nowrap}
+.vcc-it-catalog .vcc-it-facts .di-route-stats{white-space:nowrap}
+.vcc-it-catalog .vcc-it-card .di-mini-body{display:flex;flex-direction:column}
+@media(max-width:620px){
+ .vcc-it-catalog .vcc-it-facts{gap:9px}
+ .vcc-it-catalog .vcc-it-facts .di-price{font-size:9px}
+}
+
+
+/* VCC · Dónde ir: filtres del mateix component que Itinerarios/Presupuesto/Qué llevar.
+   La categoria d'una guia substitueix la nota d'un destí, que aquí no correspon. */
+.vcc-it-catalog .di-guide-card .di-guide-info{min-width:0}
+.vcc-it-catalog .vcc-guide-kind{
+ display:inline-flex;align-items:center;gap:5px;min-width:0;
+ color:#a45136;font:700 10px/1.3 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
+ white-space:nowrap;
+}
+.vcc-it-catalog .vcc-guide-kind svg{display:block;width:14px;height:14px;flex:none;color:#c56b46}
+.vcc-it-catalog .di-mini-tag svg{flex:none;width:14px;height:14px}
+.vcc-it-catalog .vcc-catalog-toolbar .vcc-catalog-field-country{flex:0 1 155px}
+.vcc-it-catalog .vcc-catalog-toolbar .vcc-catalog-search:focus-within{outline:2px solid #c06342;outline-offset:2px}
+@media(max-width:1020px){.vcc-it-catalog .vcc-catalog-toolbar .vcc-catalog-field-country{flex:1 1 155px}}
+@media(max-width:620px){
+ .vcc-it-catalog .vcc-guide-kind{font-size:9px;gap:3px}
+ .vcc-it-catalog .vcc-guide-kind svg{width:12px;height:12px}
+ .vcc-it-catalog .vcc-catalog-toolbar .vcc-catalog-field-country{flex:1 1 calc(50% - 6px)}
+}
+
+/* VCC · Format únic de filtres als hubs i a Dónde ir (Itinerarios, Guías, Consejos).
+   El CSS és compartit; cada apartat conserva els seus filtres existents. */
+:is(body.itinerarios-vcc,body.planifica-vcc,body.av-body,body.vcc-suecia-visitar) .vcc-it-catalog .vcc-catalog-toolbar{
+ align-items:flex-end;
+ margin-bottom:0;
+}
+:is(body.itinerarios-vcc,body.planifica-vcc,body.av-body,body.vcc-suecia-visitar) .vcc-it-catalog .vcc-catalog-toolbar .vcc-catalog-search-group{
+ box-sizing:border-box;
+ display:flex;flex:0 0 218px;flex-direction:column;gap:4px;
+ width:218px;max-width:218px;min-width:0;
+ color:#625e5a;
+}
+:is(body.itinerarios-vcc,body.planifica-vcc,body.av-body,body.vcc-suecia-visitar) .vcc-it-catalog .vcc-catalog-toolbar .vcc-catalog-search{
+ box-sizing:border-box;display:flex;align-items:center;
+ flex:none;width:100%;max-width:none;min-width:0;
+ height:40px;margin:0;padding:0 12px;
+ background:#fff;border:0;border-radius:7px;
+ outline:0;box-shadow:none;
+}
+:is(body.itinerarios-vcc,body.planifica-vcc,body.av-body,body.vcc-suecia-visitar) .vcc-it-catalog .vcc-catalog-toolbar .vcc-catalog-search input{
+ border:0;outline:0;box-shadow:none;
+ background:transparent;padding:0;min-width:0;
+}
+:is(body.itinerarios-vcc,body.planifica-vcc,body.av-body,body.vcc-suecia-visitar) .vcc-it-catalog .vcc-catalog-toolbar .vcc-catalog-field select{
+ border:0;border-radius:7px;background:#fff;
+ outline:0;box-shadow:none;
+}
+:is(body.itinerarios-vcc,body.planifica-vcc,body.av-body,body.vcc-suecia-visitar) .vcc-it-catalog .vcc-catalog-toolbar .vcc-catalog-search:focus-within,
+:is(body.itinerarios-vcc,body.planifica-vcc,body.av-body,body.vcc-suecia-visitar) .vcc-it-catalog .vcc-catalog-toolbar .vcc-catalog-field select:focus-visible{
+ outline:0;
+ box-shadow:inset 0 -2px 0 rgba(190,103,69,.65);
+}
+:is(body.itinerarios-vcc,body.planifica-vcc,body.av-body,body.vcc-suecia-visitar) .vcc-it-catalog .vcc-catalog-toolbar input:focus-visible{
+ outline:0;box-shadow:none;
+}
+:is(body.itinerarios-vcc,body.planifica-vcc,body.av-body,body.vcc-suecia-visitar) .vcc-it-catalog .vcc-catalog-meta{
+ display:flex;justify-content:flex-start;align-items:center;
+ min-height:15px;margin:7px 0 16px;
+}
+:is(body.itinerarios-vcc,body.planifica-vcc,body.av-body,body.vcc-suecia-visitar) .vcc-it-catalog .vcc-catalog-meta .vcc-catalog-reset{
+ display:inline-block;padding:0;min-height:0;
+ color:#89827b;background:transparent;border:0;
+ font:500 10px/1.5 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
+ text-decoration:none;cursor:pointer;
+}
+:is(body.itinerarios-vcc,body.planifica-vcc,body.av-body,body.vcc-suecia-visitar) .vcc-it-catalog .vcc-catalog-meta .vcc-catalog-reset:is(:hover,:focus-visible){
+ color:#ad583c;text-decoration:underline;
+ outline-offset:3px;
+}
+@media(max-width:390px){
+ :is(body.itinerarios-vcc,body.planifica-vcc,body.av-body,body.vcc-suecia-visitar) .vcc-it-catalog .vcc-catalog-toolbar .vcc-catalog-search-group{
+  flex:0 0 min(218px,100%);width:min(218px,100%);max-width:100%;
+ }
+}
+
+/* Text breu a la dreta del títol del catàleg de pressupostos. */
+@media(min-width:901px){
+  html body.presupuestos-vcc .vcc-it-catalog .vcc-it-heading.vcc-editorial-heading > p.vcc-editorial-description{
+    display:-webkit-box!important;
+    -webkit-line-clamp:2;
+    -webkit-box-orient:vertical;
+    overflow:hidden;
+    line-height:1.58!important;
+    max-height:3.16em;
+    max-width:450px!important;
+    text-align:right!important;
+  }
+}
