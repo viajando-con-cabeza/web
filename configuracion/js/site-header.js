@@ -64,7 +64,7 @@
   // abans de pintar, i no fan cap petició duplicada. Per a futures guies
   // mantenim un fallback només si REALMENT existeix un subheader editorial.
   const mountInteriorContractFallback=()=>{
-    const route=location.pathname.replace(/\\/index\\.html$/i,'/').replace(/\\/$/,'')||'/';
+    const route=location.pathname.replace(/\/index\.html$/i,'/').replace(/\/$/,'')||'/';
     const exception=new Set(['/','/destinos','/itinerarios','/planifica',
       '/nosotros','/contacto','/destinos/suecia','/destinos/suecia/estocolmo']);
     if(exception.has(route)||document.querySelector('link[data-vcc-sacred-covers]'))return;
