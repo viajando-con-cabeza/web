@@ -3,19 +3,38 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import {resumirComparacion,PDF_LAYOUT_VCC,exportarComparacionPDF} from '../js/componentes/vcc-vuelos-pdf.js';
 const html=fs.readFileSync('planifica/vuelos/index.html','utf8');
-const mainCss=fs.readFileSync('configuracion/css/componentes/planifica-vuelos-comparador-vcc.css','utf8');
+const mainCss=fs.readFileSync('configuracion/css/componentes/calculadora-comparativa-vcc.css','utf8');
+const localCss=fs.readFileSync('configuracion/css/componentes/planifica-vuelos-comparador-vcc.css','utf8');
+const experienceCss=fs.readFileSync('configuracion/css/componentes/planifica-experiencia-tarjetas-vcc.css','utf8');
 assert.doesNotMatch(html,/preguntas-vuelos|vl-faq-section|>FAQ<\/a>/,'FAQ eliminat del subheader i del final');
 assert.match(mainCss,/\.vl-calc-head-side>\.vl-copy\.vcc-editorial-description\s*\{[^}]*flex:0 0 auto!important/s,'La descripció no pot heretar flex-basis de 450px en vertical');
-const css=fs.readFileSync('configuracion/css/componentes/planifica-vuelos-comparador-vcc.css','utf8');
+const css=mainCss;
 const js=fs.readFileSync('configuracion/js/planifica-vuelos.js','utf8');
 const pdf=fs.readFileSync('configuracion/js/componentes/vcc-vuelos-pdf.js','utf8');
 const links=[...html.matchAll(/<a class="vl-air-action" href="([^"]+)" target="_blank" rel="noopener noreferrer"[^>]*>WEB OFICIAL/g)];
 assert.equal(links.length,16,'Les 16 aerolínies han d’enllaçar al web oficial');
 links.forEach(m=>assert.ok(m[1].startsWith('https://'),'URL d’aerolínia insegura'));
 assert.doesNotMatch(html,/data-use-airline|data-save-comparison|data-share-comparison|data-share-fallback/);
+/* Contracte visual: una única fulla compartida per a la calculadora.
+ * El filtre s'ha d'ocultar també quan les fitxes tenen display:flex!important.
+ */
+assert.match(html,/class="vl-section vcc-calculadora-comparativa" id="calculadora"/);
+assert.match(html,/href="\/configuracion\/css\/componentes\/calculadora-comparativa-vcc\.css\?/);
+assert.doesNotMatch(localCss,/#calculadora\s+\.vl-calc-/,'Les regles de la calculadora no es dupliquen al CSS local');
+assert.match(experienceCss,/\.vcc-experience-card\.vcc-experience-card\[hidden\]\s*\{\s*display:none!important/s,
+  'Els filtres no han de mostrar targetes ocultes');
+assert.match(js,/airlineCards\.forEach\(card=>card\.hidden=key!==['"]all['"]/);
+const continentCards=[...html.matchAll(/data-airline-card\s+data-continents="([^"]+)"/g)].map(m=>m[1].split(/\s+/));
+assert.equal(continentCards.length,16,'Es mantenen les 16 aerolínies');
+for(const [continent,expected] of Object.entries({europa:8,america:1,asia:6,oceania:3})){
+  assert.match(html,new RegExp('data-continent-filter="'+continent+'"'));
+  assert.equal(continentCards.filter(items=>items.includes(continent)).length,expected,
+    'Recompte de fitxes per '+continent);
+}
+
 assert.match(html,/data-export-pdf/);
 assert.match(js,/data-export-pdf/);
-assert.match(css,/@media\(max-width:720px\)\s*\{[\s\S]*?#calculadora \.vl-calc-table tr>\*:first-child\{position:static/);
+assert.match(css,/@media\(max-width:720px\)[\s\S]*?\.vl-calc-table tbody tr>th:first-child\{\s*position:sticky!important/s,'La primera columna segueix fixa al mòbil');
 assert.match(pdf,/logo-vcc\.svg/);
 assert.match(pdf,/jspdf\/4\.2\.1/);
 const flights=[
