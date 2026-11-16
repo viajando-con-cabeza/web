@@ -37,11 +37,15 @@ for(const [file,maxLocalCss] of Object.entries(targets)){
     const bundle='/configuracion/css/plantillas/presupuesto-compilado-vcc.css';
     const complements='/configuracion/css/componentes/presupuesto-estocolmo-complements-vcc.css';
     const delayed='/configuracion/css/componentes/presupuesto-related-sin-js-vcc.css';
-    // Base al head, nou complements en ordre original i related diferit
-    // al final de body (no moure'l al head per no alterar el LCP).
-    const expected=[bundle,complements,delayed];
+    // Dues peticions amb JS (base i complements). El CSS 'related'
+    // només és un fallback <noscript> al final de pàgina i no s'ha de
+    // moure al head ni comptar com una petició habitual.
+    const expected=[bundle,complements];
     if(urls.length!==expected.length||expected.some((u,i)=>urls[i]!==u))
-      failures.push(file+': base, complements i CSS diferit han de seguir l ordre aprovat');
+      failures.push(file+': la base i els complements han de seguir l ordre aprovat');
+    const fallbackBlocks=[...read(file).matchAll(/<noscript\b[^>]*>[\s\S]*?<\/noscript>/gi)];
+    if(!fallbackBlocks.some(block=>block[0].includes(delayed)))
+      failures.push(file+': falta el CSS fallback related dins noscript');
     const css=read(bundle.slice(1));
     for(const component of ['.vcc-editorial-carousel','.vcc-editorial-numbered-card','.vcc-editorial-error-card']){
       if(!css.includes(component))failures.push(file+': falta '+component+' al CSS compartit');
