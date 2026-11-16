@@ -207,7 +207,7 @@ function render(resetListScroll=false){
  $("ql-v8-temp-high").textContent=high+" °C";
  $("ql-v8-rain-days").textContent="≈"+Math.round(monthlyPrecipitationDays[state.month])+" días/mes";
  updatePackingAdvice(m);
- $("ql-v6-summary-title").textContent="Tu lista para "+m.name+" · "+state.days+(state.days===1?" día":" días");
+ $("ql-v6-summary-title").textContent="TU LISTA DE EQUIPAJE";
  $("ql-v6-caveat").textContent=state.days>10&&!state.laundry?
   "Para viajes de más de 10 días, esta lista limita las mudas a 10 días: te recomendamos planificar una colada para evitar llevar "+state.days+" cambios.":
   state.laundry&&state.days>5?"Calculamos ropa para hasta cinco días, contando con que podrás lavar durante el viaje.":"Cantidades orientativas; adapta tu lista a la previsión y a tu forma de viajar.";
