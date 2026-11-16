@@ -52,7 +52,7 @@
     const savingLabel=page.querySelector("[data-sw-saving-label]");
     const savingWith=page.querySelector("[data-sw-saving-with]");
     const savingBox=page.querySelector("[data-sw-saving-box]");
-    const format=new Intl.NumberFormat("es-ES",{style:"currency",currency:"EUR",maximumFractionDigits:2});
+    const format=new Intl.NumberFormat("es-ES",{useGrouping:"always",style:"currency",currency:"EUR",maximumFractionDigits:2});
     const asAmount=name=>{
       const el=field(name);
       if(!el||el.value.trim()===""||!el.validity.valid)return null;
