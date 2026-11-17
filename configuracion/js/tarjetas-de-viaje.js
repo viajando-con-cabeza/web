@@ -76,6 +76,15 @@
       // Se compara lo que el lector ve: importe de cada tarjeta redondeado a euros.
       // Esto evita diferencias aparentes de 1 EUR entre las cifras publicadas.
       const diferenciaVisible=redondearEuros(bank)-redondearEuros(traveler);
+      // Resaltar en verde el coste menor y en rojo el mayor;
+      // con importes iguales, usar un tono neutro en ambas tarjetas.
+      const bancoCard=bankTotal.closest('.tv-result');
+      const viajeCard=travelTotal.closest('.tv-result');
+      const costeClases=['is-lower','is-higher','is-equal'];
+      bancoCard?.classList.remove(...costeClases);
+      viajeCard?.classList.remove(...costeClases);
+      bancoCard?.classList.add(diferenciaVisible>0?'is-higher':diferenciaVisible<0?'is-lower':'is-equal');
+      viajeCard?.classList.add(diferenciaVisible>0?'is-lower':diferenciaVisible<0?'is-higher':'is-equal');
       const ahorroRedondeado=Math.abs(diferenciaVisible);
       const positive=diferenciaVisible>0;
       const negative=diferenciaVisible<0;
