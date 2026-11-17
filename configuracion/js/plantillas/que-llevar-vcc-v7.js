@@ -347,11 +347,27 @@ if(nav){
  };
  window.addEventListener("scroll",update,{passive:true});window.addEventListener("resize",update,{passive:true});update();
 }
-const track=$("ql-advice-track"),prev=$("ql-advice-prev"),next=$("ql-advice-next");
-if(track&&prev&&next){
- const refresh=()=>{prev.disabled=track.scrollLeft<=3;next.disabled=track.scrollLeft+track.clientWidth>=track.scrollWidth-3;};
- const slide=direction=>{const card=track.querySelector(".ql-advice-card");const gap=parseFloat(getComputedStyle(track).gap)||14;track.scrollBy({left:direction*((card?.getBoundingClientRect().width||300)+gap),behavior:"smooth"});};
- prev.addEventListener("click",()=>slide(-1));next.addEventListener("click",()=>slide(1));
- track.addEventListener("scroll",refresh,{passive:true});window.addEventListener("resize",refresh,{passive:true});refresh();
+/* Carruseles accesibles: una misma navegación para consejos e imprescindibles. */
+function wireHorizontalCarousel(trackId,prevId,nextId,cardSelector){
+ const track=$(trackId),prev=$(prevId),next=$(nextId);
+ if(!track||!prev||!next)return;
+ const refresh=()=>{
+  prev.disabled=track.scrollLeft<=3;
+  next.disabled=track.scrollLeft+track.clientWidth>=track.scrollWidth-3;
+ };
+ const slide=direction=>{
+  const card=track.querySelector(cardSelector);
+  const gap=parseFloat(getComputedStyle(track).gap)||14;
+  const step=(card?.getBoundingClientRect().width||300)+gap;
+  track.scrollBy({left:direction*step,behavior:window.matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth"});
+ };
+ prev.addEventListener("click",()=>slide(-1));
+ next.addEventListener("click",()=>slide(1));
+ track.addEventListener("scroll",refresh,{passive:true});
+ window.addEventListener("resize",refresh,{passive:true});
+ window.addEventListener("load",refresh,{once:true});
+ requestAnimationFrame(refresh);
 }
+wireHorizontalCarousel("ql-advice-track","ql-advice-prev","ql-advice-next",".ql-advice-card");
+wireHorizontalCarousel("ql-essentials-track","ql-essential-prev","ql-essential-next",".ql-essential-card");
 })();
