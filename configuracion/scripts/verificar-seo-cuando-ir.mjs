@@ -99,15 +99,19 @@ for (const anchor of matches(html, /<nav class="st-tabs ci-subnav"[^>]*>([\s\S]*
   assert.ok(ids.includes(anchor), `El subheader enlaza a una sección inexistente: #${anchor}`);
 }
 const portades=read('configuracion/css/componentes/portadas-rapidas-vcc.css');
-const photoManifest=JSON.parse(read('configuracion/imagenes/fondos/optimizadas/manifest.json'));
-const photo=photoManifest.images['fondos-cuando-ir'];
-assert.ok(/@media\s*\(max-width:\s*800px\)/.test(css) &&
-  photo && portades.includes('fondos-cuando-ir-960.webp?v='+photo.fingerprint) &&
-  portades.includes('fondos-cuando-ir-1920.webp?v='+photo.fingerprint) &&
-  html.includes('fondos-cuando-ir-960.webp?v='+photo.fingerprint) &&
-  html.includes('fondos-cuando-ir-1920.webp?v='+photo.fingerprint) &&
+// La foto aprovada ara és la pròpia d'R2; un únic original serveix
+// escriptori i mòbil (no dos fitxers de foto diferents). El test antic
+// exigia les previsualitzacions locals WebP abans de la migració R2.
+const heroManifest=JSON.parse(read('configuracion/datos/portadas-vcc.json'));
+const approvedHero=heroManifest.portadas?.find(x=>x.page==='destinos/suecia/estocolmo/cuando-ir.html')
+  ||heroManifest.pages?.find(x=>x.page==='destinos/suecia/estocolmo/cuando-ir.html');
+const heroR2=approvedHero?.r2;
+assert.ok(/@media\\s*\\(max-width:\\s*800px\\)/.test(css) &&
+  heroR2?.startsWith('https://img.viajandoconcabeza.com/') &&
+  portades.includes(heroR2) &&
+  html.includes('rel="preload" as="image" type="image/avif" href="'+heroR2+'"') &&
   !/<section class="vcc-hero vcc-portada-transparente"[^>]*style=/.test(html),
-  'Cuándo ir ha de reutilitzar exactament la mateixa fotografia en ordinador i mòbil');
+  'Cuándo ir: s ha de reutilitzar exactament la foto R2 aprovada en ordinador i mòbil');
 
 // Tres iconos SVG compartidos externamente; la geometría nunca se declara en el HTML.
 const symbolPath='configuracion/imagenes/iconos/paginas/estocolmo-cuando-ir-simbolos.svg';
