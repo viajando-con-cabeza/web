@@ -57,7 +57,7 @@ assert.ok(headers.includes('https://web-quality.albertini1199.workers.dev/*') &&
 assert.ok(!/^(?:\/\*|https:\/\/viajandoconcabeza\.com\/\*)\s*\n\s*X-Robots-Tag:\s*noindex/m.test(headers),
   'No bloquear el dominio de producción');
 
-const ld = matches(html, /<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)
+const ld = matches(html, /<script\b(?=[^>]*type="application\/ld\+json")[^>]*>([\s\S]*?)<\/script>/g)
   .map(m => JSON.parse(m[1]));
 const graph = ld.flatMap(v => v['@graph'] || [v]);
 const webpage = graph.find(v => v['@type'] === 'WebPage');
