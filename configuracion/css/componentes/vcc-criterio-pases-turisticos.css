@@ -156,23 +156,34 @@
   margin:0 0 8px;
   background:transparent!important;
 }
+/* Els dos símbols són vectors dibuixats en la mateixa caixa 17×17,
+   amb el mateix gruix de traç; no depenen de la mètrica del glif tipogràfic. */
 .vcc-pass-criterion .vcc-pass-criterion-option::before{
-  display:grid;
-  place-items:center;
+  content:""!important;
+  display:block!important;
   position:absolute;
   top:-1px;left:0;
-  width:17px;height:17px;
+  width:17px!important;
+  height:17px!important;
   border:0!important;
   border-radius:0!important;
-  background:transparent!important;
   box-shadow:none!important;
-  font:800 18px/1 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
+  -webkit-mask-repeat:no-repeat;
+  mask-repeat:no-repeat;
+  -webkit-mask-position:center;
+  mask-position:center;
+  -webkit-mask-size:17px 17px;
+  mask-size:17px 17px;
 }
 .vcc-pass-criterion .vcc-pass-criterion-option--no::before{
-  content:"×";color:#bc5144!important;
+  background-color:#bc5144!important;
+  -webkit-mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M6 6L18 18M18 6L6 18' fill='none' stroke='black' stroke-width='2.7' stroke-linecap='round'/%3E%3C/svg%3E");
+  mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M6 6L18 18M18 6L6 18' fill='none' stroke='black' stroke-width='2.7' stroke-linecap='round'/%3E%3C/svg%3E");
 }
 .vcc-pass-criterion .vcc-pass-criterion-option--yes::before{
-  content:"✓";color:#328454!important;
+  background-color:#328454!important;
+  -webkit-mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M6 12L10 16L18 8' fill='none' stroke='black' stroke-width='2.7' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M6 12L10 16L18 8' fill='none' stroke='black' stroke-width='2.7' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
 }
 .vcc-pass-criterion .vcc-pass-criterion-option strong{
   display:block;
