@@ -56,7 +56,8 @@ let dragSlide=null,dragSlideTimer=0,dragPaintFrame=0;
 const preloadedThumbs=new Map();
 // Cache LRU limitada: la foto activa i les adjacents, mai les 89 d'un cop.
 const sharpPhotos=new Map(),SHARP_CACHE_LIMIT=5;
-const sharpFor=item=>item.visor||(item.fastPreview?visorFor(item):item.src);
+// A totes les galeries, precalentar la mateixa versió nítida del visor.
+const sharpFor=item=>item.visor||(item.preview.includes('/mini/')?visorFor(item):item.src);
 function warmSharp(url,priority='low'){
  if(!url)return Promise.resolve(false);
  const cached=sharpPhotos.get(url);
@@ -107,7 +108,8 @@ function scheduleFullPhoto(item,id){
  // L'original només es descarrega quan es fa zoom.
  const requestedSrc=item.fastPreview?visorFor(item):item.src;
  if(photoImage.src===requestedSrc)return;
- const delay=item.fastPreview?(isMobile()?520:300):(isMobile()?420:220);
+ // Evita descarregar un original gran per cada swipe ràpid; l'AVIF del visor no perd qualitat.
+ const delay=isMobile()?1250:950;
  fullPhotoTimer=window.setTimeout(()=>{
   fullPhotoTimer=0;
   if(id!==photoSequence||!photoOpen())return;
@@ -256,30 +258,13 @@ function requestOriginalForZoom(){
 
 function preloadAdjacentPhotos(){
  if(currentImages.length<2)return;
- if(currentImages[currentIndex]?.fastPreview){
-  // Precàrrega nítida de només dues veïnes. Adaptar-se a l'estalvi de dades i les xarxes lentes.
-  const connection=navigator.connection;
-  if(connection?.saveData||/^(?:slow-2g|2g)$/.test(connection?.effectiveType||''))return;
-  const deltas=connection?.effectiveType==='3g'?[1]:[-1,1];
-  for(const delta of deltas){
-   const item=currentImages[(currentIndex+delta+currentImages.length)%currentImages.length];
-   warmSharp(sharpFor(item),'low');
-  }
-  return;
- }
- if(!isMobile())return;
- // Altres galeries: precàrrega anterior de miniatures.
- const urls=new Set([-1,1].map(delta=>
-  currentImages[(currentIndex+delta+currentImages.length)%currentImages.length].preview));
- for(const [url,image] of preloadedThumbs){
-  if(urls.has(url))continue;
-  image.removeAttribute('src');
-  preloadedThumbs.delete(url);
- }
- for(const url of urls){
-  if(preloadedThumbs.has(url))continue;
-  const image=new Image();image.decoding='async';image.src=url;
-  preloadedThumbs.set(url,image);
+ const connection=navigator.connection;
+ // Conservar el mode estalvi de dades: cap precàrrega quan s'ha activat.
+ if(connection?.saveData||/^(?:slow-2g|2g)$/.test(connection?.effectiveType||''))return;
+ const offsets=connection?.effectiveType==='3g'?[1]:[-1,1];
+ for(const offset of offsets){
+  const neighbor=currentImages[(currentIndex+offset+currentImages.length)%currentImages.length];
+  void warmSharp(sharpFor(neighbor),'low');
  }
 }
 
@@ -307,7 +292,7 @@ function beginDragSlide(direction){
  incoming.classList.add('vcc-gallery-drag-incoming');
  incoming.setAttribute('aria-hidden','true');
  const img=incoming.querySelector('img');
- img.src=item.fastPreview?sharpFor(item):(item.visor||visorFor(item));
+ img.src=sharpFor(item);
  img.alt=item.alt;
  const captionNode=incoming.querySelector('.day-lightbox-caption');
  const caption=typeof item.caption==='string'?item.caption.trim().slice(0,200):'';
@@ -385,7 +370,6 @@ function showPhoto(index,slideDirection=0){
  const enteringPhoto=!photoOpen();
  const isChanging=!enteringPhoto&&nextIndex!==currentIndex;
  clearPhotoSlide();
- if(isChanging&&slideDirection)beginPhotoSlide(slideDirection);
  currentIndex=nextIndex;
  const item=currentImages[currentIndex],id=++photoSequence;
  gridView.hidden=true;photoView.hidden=false;
@@ -397,37 +381,44 @@ function showPhoto(index,slideDirection=0){
  counter.textContent=isMobile()?'Foto '+(currentIndex+1)+' de '+currentImages.length:
   (currentIndex+1)+' / '+currentImages.length;
  resetTouchZoom();
- // Mostra directament la imatge nítida de visor (1800px), mai mini de 480px.
- const visor=item.fastPreview?sharpFor(item):(item.visor||visorFor(item));
- const cachedSharp=item.fastPreview&&sharpPhotos.get(visor)?.ready;
- photoFrame.classList.toggle('vcc-gallery-sharp-loading',item.fastPreview&&!cachedSharp);
- photoImage.onload=()=>{if(id===photoSequence)photoFrame.classList.remove('vcc-gallery-sharp-loading')};
- photoImage.src=visor;
- photoImage.alt=item.alt;
  const caption=typeof item.caption==='string'?item.caption.trim().slice(0,200):'';
  photoCaption.textContent=caption;
  photoCaption.hidden=!caption;
  photoFrame.classList.toggle('vcc-has-caption',Boolean(caption));
- photoImage.onerror=()=>{
-  if(id!==photoSequence||photoImage.src===item.src)return;
-  cancelFullPhoto();
-  photoFrame.classList.remove('vcc-gallery-sharp-loading');
-  photoImage.src=item.src;
+ // No buidar ni amagar la foto anterior. Canviar el src només quan
+ // l'AVIF de visor ja s'ha descarregat i descodificat (sense rodeta).
+ photoFrame.classList.remove('vcc-gallery-sharp-loading');
+ const visor=sharpFor(item);
+ const commit=async()=>{
+  let ready=await warmSharp(visor,'high');
+  let url=visor;
+  if(id!==photoSequence||!photoOpen())return;
+  // Si el derivat falla, provar l'original sense mostrar una foto borrosa.
+  if(!ready&&item.src!==visor){
+   ready=await warmSharp(item.src,'high');
+   url=item.src;
+  }
+  if(id!==photoSequence||!photoOpen())return;
+  if(!ready)return; // La fotografia visible continua fins que hi hagi resposta.
+  if(isChanging&&slideDirection)beginPhotoSlide(slideDirection);
+  photoImage.onload=null;
+  photoImage.onerror=null;
+  photoImage.src=url;
+  photoImage.alt=item.alt;
+  if(!item.fastPreview&&url!==item.src)scheduleFullPhoto(item,id);
  };
- if(item.fastPreview){
-  warmSharp(visor,'high').then(ok=>{
-   if(id!==photoSequence||!photoOpen())return;
-   if(!ok&&photoImage.src!==item.src)photoImage.src=item.src;
-  });
- }else scheduleFullPhoto(item,id);
+ // La versió ja descodificada entra al mateix tick. La resta es resol en paral·lel.
+ if(sharpPhotos.get(visor)?.ready){
+  void commit();
+ }else{
+  void commit();
+ }
  createThumbs();
  preloadAdjacentPhotos();
- // Quan entrem al visor individual, fem focus al contenidor (no a «Galería»).
- // Així el botó no queda enquadrat després d'obrir la foto ni de navegar.
- // El primer Tab porta al botó «Galería» amb el focus visible normal.
  if(enteringPhoto)photoView.focus({preventScroll:true});
  syncNativeZoom();
 }
+
 function move(delta){
  if(!photoOpen()||currentImages.length<2)return;
  showPhoto(currentIndex+delta,Math.sign(delta));
