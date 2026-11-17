@@ -93,7 +93,15 @@
       if(!root.parentElement.matches('main,.content-shell,.country-main,.st-main,.swb-main,.dv-main,.ci-main,.mv-container,.ql-main,.budget-main,.ep4-main,.vcc-shell,.rich-shell'))continue;
       roots.set(root,(roots.get(root)||0)+1);
     }
-    for(const [root] of roots)root.classList.add('vcc-subheader-section');
+    const ordered=[...roots.keys()];
+    for(const root of ordered)root.classList.add('vcc-subheader-section');
+    // Exclusiu de cada subheader: primer bloc a prop de la barra i
+    // últim bloc amb més aire abans de «Sigue planificando»/footer.
+    // No altera el punt d'àncora, les targetes ni els blocs intermedis.
+    if(ordered.length){
+      ordered[0].classList.add('vcc-subheader-first-section');
+      ordered[ordered.length-1].classList.add('vcc-subheader-last-section');
+    }
   };
   const alignHashOverline=()=>{
     if(!location.hash)return;
