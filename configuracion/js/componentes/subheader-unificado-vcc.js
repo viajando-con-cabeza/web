@@ -49,6 +49,35 @@
   };
   const itemsOf=(nav)=>Array.from(nav.querySelectorAll('a[href^="#"]'))
     .map(a=>({a,target:linkTarget(a)})).filter(x=>x.target&&getComputedStyle(x.a).display!=='none');
+  /* L'àncora ha de mostrar el SOBRETÍTOL, no l'inici de la caixa amb
+   * padding superior (76px en algunes pàgines). Calculem el sticky real. */
+  const editorialOverline=(target)=>{
+    const headingSelector='.vcc-editorial-heading,.dv-section-title,.swb-heading,.swmove-head,.mv-section-head,.al-heading,.country-heading,.st-heading';
+    const heading=target.closest(headingSelector)||target.querySelector(headingSelector)||target;
+    const selector='.vcc-editorial-overline,.dv-section-script,.swb-overline,.mv-overline,.al-eyebrow,.kicker,.section-script,.country-script,.st-script';
+    const el=heading.matches(selector)?heading:heading.querySelector(selector);
+    return el && el.getClientRects().length && getComputedStyle(el).visibility!=='hidden'?el:null;
+  };
+  const scrollToOverline=(nav,target,behavior='smooth')=>{
+    const anchor=editorialOverline(target);
+    if(!anchor)return false;
+    setTop();
+    const sticky=getComputedStyle(nav).position;
+    const navHeight=sticky==='sticky'||sticky==='fixed'?nav.getBoundingClientRect().height:0;
+    const top=window.scrollY+anchor.getBoundingClientRect().top-headerTop()-navHeight-12;
+    window.scrollTo({top:Math.max(0,Math.round(top)),behavior});
+    return true;
+  };
+  const alignHashOverline=()=>{
+    if(!location.hash)return;
+    let id;
+    try{id=decodeURIComponent(location.hash.slice(1))}catch(_){return}
+    for(const nav of managed){
+      if(!nav.isConnected||nav.classList.contains('place-nav-wrap'))continue;
+      const item=itemsOf(nav).find(x=>x.target.id===id);
+      if(item&&scrollToOverline(nav,item.target,'auto')){paint(nav,item);break}
+    }
+  };
   let raf=0;
   const paint=(nav,chosen)=>{
     if(!chosen)return;
@@ -173,6 +202,15 @@
         if(!a||!nav.contains(a))return;
         const target=linkTarget(a);
         if(target){
+          // Les navegacions editorials comparteixen el mateix punt d'arribada;
+          // la resta de menús conserva els seus listeners/àncores originals.
+          if(nav.classList.contains('vcc-sacred-subnav')&&!event.defaultPrevented&&
+             event.button===0&&!event.metaKey&&!event.ctrlKey&&!event.shiftKey&&!event.altKey&&
+             editorialOverline(target)){
+            event.preventDefault();
+            if(location.hash!==a.hash)history.pushState(null,'',a.hash);
+            scrollToOverline(nav,target);
+          }
           pending.set(nav,{a,target,until:performance.now()+1200});
           paint(nav,{a,target});
         }
@@ -198,9 +236,11 @@
     }).observe(document.body,{childList:true,subtree:true});
     window.addEventListener('scroll',schedule,{passive:true});
     window.addEventListener('resize',()=>{setTop();schedule()},{passive:true});
-    window.addEventListener('hashchange',schedule);
-    window.addEventListener('load',scan,{once:true});
-    if(document.fonts?.ready)document.fonts.ready.then(schedule).catch(()=>{});
+    window.addEventListener('hashchange',()=>{alignHashOverline();schedule()});
+    window.addEventListener('popstate',()=>{alignHashOverline();schedule()});
+    window.addEventListener('load',()=>{scan();requestAnimationFrame(alignHashOverline)},{once:true});
+    if(document.readyState==='complete')requestAnimationFrame(alignHashOverline);
+    if(document.fonts?.ready)document.fonts.ready.then(()=>{alignHashOverline();schedule()}).catch(()=>{});
   };
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',start,{once:true});
   else start();
