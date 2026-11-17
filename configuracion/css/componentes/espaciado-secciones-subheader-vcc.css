@@ -199,6 +199,13 @@
     main:is(.st-main,.country-main,.budget-main,.dv-main,.ci-main,.ep4-main,.ql-main,.content-shell):has(> .vcc-subheader-first-section){
     padding-block-start:0!important;
   }
+  /* Planifica Alojamientos i Tarjetas mantenien 31–54px de padding
+     sobre el primer títol, tot i tenir ja un marge exterior compacte.
+     Retirar-lo només a la primera secció, no als seus carrusels. */
+  html body:has(nav.vcc-unified-subheader)
+    main > :is(.al-catalog,.tv-intro).vcc-subheader-first-section{
+    padding-block-start:0!important;
+  }
   /* Fallback abans de rebre les classes del JS compartit. */
   html body:has(nav.vcc-unified-subheader)
     main.mv-container > section.swmove-section:first-of-type{
