@@ -24,13 +24,14 @@
  const search=root.querySelector('[data-vcc-catalog-search]');
  const type=root.querySelector('[data-vcc-catalog-type]');
  const continent=root.querySelector('[data-vcc-catalog-continent]');
+ const country=root.querySelector('[data-vcc-catalog-country]');
  const budget=root.querySelector('[data-vcc-catalog-budget]');
  const reset=root.querySelector('[data-vcc-catalog-reset]');
  const count=root.querySelector('[data-vcc-catalog-count]');
  const empty=root.querySelector('[data-vcc-catalog-empty]');
  const mode=root.dataset.vccPlanificaCatalog;
- const singular=mode==='regiones'?'región':mode==='presupuestos'?'presupuesto':mode==='itinerarios'?'itinerario':'guía';
- const plural=mode==='regiones'?'regiones':mode==='presupuestos'?'presupuestos':mode==='itinerarios'?'itinerarios':'guías';
+ const singular=mode==='regiones'?'región':mode==='presupuestos'?'presupuesto':mode==='itinerarios'?'itinerario':mode==='rutas'?'ruta':'guía';
+ const plural=mode==='regiones'?'regiones':mode==='presupuestos'?'presupuestos':mode==='itinerarios'?'itinerarios':mode==='rutas'?'rutas':'guías';
  if(!search||!count||!empty)return;
  const norm=s=>(s||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLocaleLowerCase('es').trim();
  function matchPrice(value,band){
@@ -48,6 +49,7 @@
    const ok=norm(card.dataset.itSearch||card.textContent).includes(q)
     &&(!type||type.value==='all'||(card.dataset.type||'').split(/\s+/).includes(type.value))
     &&(!continent||continent.value==='all'||card.dataset.continent===continent.value)
+    &&(!country||country.value==='all'||(card.dataset.countries||'').split('|').includes(country.value))
     &&(!budget||matchPrice(card.dataset.daily,budget.value));
    card.hidden=!ok;
    if(ok)visible++;
@@ -56,10 +58,10 @@
   empty.hidden=visible>0;
  }
  search.addEventListener('input',apply);
- [type,continent,budget].filter(Boolean).forEach(el=>el.addEventListener('change',apply));
+ [type,continent,country,budget].filter(Boolean).forEach(el=>el.addEventListener('change',apply));
  if(reset)reset.addEventListener('click',()=>{
   search.value='';
-  [type,continent,budget].filter(Boolean).forEach(el=>el.value='all');
+  [type,continent,country,budget].filter(Boolean).forEach(el=>el.value='all');
   apply();search.focus();
  });
  apply();
