@@ -75,7 +75,7 @@
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',mountInteriorContractFallback,{once:true});
   else mountInteriorContractFallback();
   ensureSharedResource('script','script[src*="subheader-unificado-vcc.js"]',
-    'configuracion/js/componentes/subheader-unificado-vcc.js?v=20261117-sobretitol-exacte-v2');
+    'configuracion/js/componentes/subheader-unificado-vcc.js?v=20261117-universal-v3');
 
   const currentPath = window.location.pathname.replace(/\/index\.html$/, '/');
 
