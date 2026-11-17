@@ -49,24 +49,51 @@
   };
   const itemsOf=(nav)=>Array.from(nav.querySelectorAll('a[href^="#"]'))
     .map(a=>({a,target:linkTarget(a)})).filter(x=>x.target&&getComputedStyle(x.a).display!=='none');
-  /* L'àncora ha de mostrar el SOBRETÍTOL, no l'inici de la caixa amb
-   * padding superior (76px en algunes pàgines). Calculem el sticky real. */
+  /* VCC · Arribada única de totes les àncores editorials.
+   * El primer element visible és el SOBRETÍTOL (o la capçalera, quan no n'hi
+   * ha). Això evita mostrar els padding interns diferents de cada plantilla. */
+  const OVERLINES='.vcc-editorial-overline,.sv-over,.vl-kicker,.tv-eyebrow,.av-over,.ep4-script,.dv-section-script,.swb-overline,.mv-overline,.al-eyebrow,.ql-kicker,.ci-over,.ep-over,.budget-script,.philosophy-script,.eyebrow,.kicker,.section-script,.country-script,.st-script,.hand';
+  const HEADING_ROOTS='.vcc-editorial-heading,.dv-section-title,.swb-heading,.swmove-head,.mv-section-head,.al-heading,.country-heading,.st-heading,.section-header,.section-head,.sv-heading,.av-heading,.vl-section-head,.tv-errors-head,.ep4-heading,.place-heading';
+  const visibleAnchor=(el)=>!!(el&&el.isConnected&&el.getClientRects().length&&getComputedStyle(el).visibility!=='hidden');
   const editorialOverline=(target)=>{
-    const headingSelector='.vcc-editorial-heading,.dv-section-title,.swb-heading,.swmove-head,.mv-section-head,.al-heading,.country-heading,.st-heading';
-    const heading=target.closest(headingSelector)||target.querySelector(headingSelector)||target;
-    const selector='.vcc-editorial-overline,.dv-section-script,.swb-overline,.mv-overline,.al-eyebrow,.kicker,.section-script,.country-script,.st-script';
-    const el=heading.matches(selector)?heading:heading.querySelector(selector);
-    return el && el.getClientRects().length && getComputedStyle(el).visibility!=='hidden'?el:null;
+    if(visibleAnchor(target)&&target.matches(OVERLINES))return target;
+    // Si l'àncora és a un header, no agafar un altre subtítol més avall.
+    const root=target.matches(HEADING_ROOTS)?target:target.querySelector(HEADING_ROOTS);
+    const candidate=(root?.querySelector(OVERLINES)||target.querySelector(OVERLINES));
+    if(visibleAnchor(candidate))return candidate;
+    // Els 16 imprescindibles fan servir el número i el títol primer:
+    // no saltar a la descripció inferior de cada lloc.
+    const heading=(root&&visibleAnchor(root)?root:target.querySelector('.place-heading,header,h2,h3'));
+    if(visibleAnchor(heading))return heading;
+    return visibleAnchor(target)?target:null;
   };
   const scrollToOverline=(nav,target,behavior='smooth')=>{
     const anchor=editorialOverline(target);
     if(!anchor)return false;
     setTop();
-    const sticky=getComputedStyle(nav).position;
-    const navHeight=sticky==='sticky'||sticky==='fixed'?nav.getBoundingClientRect().height:0;
-    const top=window.scrollY+anchor.getBoundingClientRect().top-headerTop()-navHeight-12;
+    const navPosition=getComputedStyle(nav).position;
+    const navHeight=navPosition==='sticky'||navPosition==='fixed'
+      ?Math.ceil(nav.getBoundingClientRect().height):0;
+    // 8px, no 24px: sobretítol visible just sota les dues barres fixes.
+    const top=window.scrollY+anchor.getBoundingClientRect().top-headerTop()-navHeight-8;
     window.scrollTo({top:Math.max(0,Math.round(top)),behavior});
     return true;
+  };
+  /* Només seccions principals ancorades, no els elements interns del
+   * carrusel ni els contenidors de calculadores, galeries o fitxes.
+   * Els diversos punts d'una mateixa secció comparteixen una sola caixa. */
+  const markSectionSpacing=(nav)=>{
+    const items=itemsOf(nav);
+    const roots=new Map();
+    for(const item of items){
+      const target=item.target;
+      target.setAttribute('data-vcc-subheader-target','');
+      const root=target.matches('section,article')?target:target.closest('section,article');
+      if(!root||!root.closest('main')||!root.parentElement)continue;
+      if(!root.parentElement.matches('main,.content-shell,.country-main,.st-main,.swb-main,.dv-main,.ci-main,.mv-container,.ql-main,.budget-main,.ep4-main,.vcc-shell,.rich-shell'))continue;
+      roots.set(root,(roots.get(root)||0)+1);
+    }
+    for(const [root] of roots)root.classList.add('vcc-subheader-section');
   };
   const alignHashOverline=()=>{
     if(!location.hash)return;
@@ -195,7 +222,7 @@
       relocateTransportCards(nav,before);
       relocateDestinationChoices(nav,before);
     }
-    for(const item of itemsOf(nav))item.target.setAttribute('data-vcc-subheader-target','');
+    markSectionSpacing(nav);
     if(!nav.classList.contains('place-nav-wrap')){
       nav.addEventListener('click',(event)=>{
         const a=event.target.closest('a[href^="#"]');
@@ -204,10 +231,13 @@
         if(target){
           // Les navegacions editorials comparteixen el mateix punt d'arribada;
           // la resta de menús conserva els seus listeners/àncores originals.
-          if(nav.classList.contains('vcc-sacred-subnav')&&!event.defaultPrevented&&
+          if(nav.classList.contains('vcc-sacred-subnav')&&
              event.button===0&&!event.metaKey&&!event.ctrlKey&&!event.shiftKey&&!event.altKey&&
              editorialOverline(target)){
             event.preventDefault();
+            // Evitar que controladors antics facin un segon scroll a l'inici
+            // de la secció i anul·lin l'alineament del sobretítol.
+            event.stopImmediatePropagation();
             if(location.hash!==a.hash)history.pushState(null,'',a.hash);
             scrollToOverline(nav,target);
           }
@@ -215,14 +245,14 @@
           paint(nav,{a,target});
         }
         schedule();
-      });
+      },true);
     }
   };
   const scan=()=>{
     document.querySelectorAll(NAVS).forEach(setup);
     for(const nav of managed){
       if(!nav.isConnected)continue;
-      for(const item of itemsOf(nav))item.target.setAttribute('data-vcc-subheader-target','');
+      markSectionSpacing(nav);
     }
     schedule();
   };
