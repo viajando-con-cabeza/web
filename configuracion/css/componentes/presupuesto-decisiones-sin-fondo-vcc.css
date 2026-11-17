@@ -8,3 +8,44 @@ html body.budget-vcc .spend-section .decision-panel .vcc-decision-symbol{
   border-radius:0!important;
   box-shadow:none!important;
 }
+
+/* Compacitat comuna dels pressupostos: menys marge esquerre i símbols
+   petits, sense alterar ni el contingut ni les fletxes del carrusel. */
+html body.budget-vcc .spend-section .decision-panel{
+  padding-inline:18px!important;
+}
+html body.budget-vcc .spend-section .decision-panel .decision-row{
+  grid-template-columns:32px minmax(0,1fr)!important;
+  column-gap:10px!important;
+  padding-block:11px!important;
+}
+html body.budget-vcc .spend-section .decision-panel .vcc-decision-symbol{
+  width:30px!important;
+  height:30px!important;
+  margin-top:5px!important;
+  line-height:1!important;
+}
+html body.budget-vcc .spend-section .decision-panel .vcc-decision-symbol.vcc-yes{
+  font-size:20px!important;
+}
+html body.budget-vcc .spend-section .decision-panel .vcc-decision-symbol.vcc-no{
+  font-size:22px!important;
+}
+@media(max-width:650px){
+  html body.budget-vcc .spend-section .decision-panel{
+    padding-inline:16px!important;
+  }
+  html body.budget-vcc .spend-section .decision-panel .decision-row{
+    grid-template-columns:28px minmax(0,1fr)!important;
+    column-gap:8px!important;
+    padding-block:9px!important;
+  }
+  html body.budget-vcc .spend-section .decision-panel .vcc-decision-symbol{
+    width:26px!important;
+    height:26px!important;
+    margin-top:4px!important;
+  }
+  html body.budget-vcc .spend-section .decision-panel .vcc-decision-symbol.vcc-yes{
+    font-size:19px!important;
+  }
+}
