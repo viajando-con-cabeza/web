@@ -66,7 +66,15 @@ const grab=async(origin,route,viewport)=>{
      }
      const clean=(document.querySelector('main')?.innerText||document.body.innerText||'').replace(/\s+/g,' ').trim();
      return {title:document.title,lang:document.documentElement.lang,
-       textHash:clean,css:rows,localImages:[...document.querySelectorAll('img')].map(img=>img.getAttribute('src'))};
+       textHash:clean,css:rows,localImages:[...document.querySelectorAll('img')].map(img=>{
+         const raw=img.getAttribute('src')||'';
+         // Les imatges generades des de location.origin inclouen ports
+         // diferents (4173/4174), però apunten a la mateixa ruta local.
+         try{
+           const uri=new URL(raw,location.href);
+           return uri.origin===location.origin?uri.pathname+uri.search:raw;
+         }catch{return raw;}
+       })};
    });
    const screenshot=await page.screenshot({animations:'disabled',type:'png',timeout:12000});
    return {snapshot,screenshot,badLocal};
@@ -88,6 +96,7 @@ for(const file of approved){
      const delta={ratio:Number(ratio.toFixed(6)),textSame:a.snapshot.textHash===b.snapshot.textHash,
        layoutSame:JSON.stringify(a.snapshot.css)===JSON.stringify(b.snapshot.css),
        imagesSame:JSON.stringify(a.snapshot.localImages)===JSON.stringify(b.snapshot.localImages),
+       imagesDiff:a.snapshot.localImages.flatMap((img,i)=>img===b.snapshot.localImages[i]?[]:[{i,base:img,quality:b.snapshot.localImages[i]}]).slice(0,5),
        newBroken:b.badLocal.filter(x=>!a.badLocal.includes(x))};
      const failed=ratio>maxRatio||!delta.textSame||!delta.layoutSame||!delta.imagesSame||delta.newBroken.length>0;
      results.push({page:file,viewport:vp.name,...delta,failed});
