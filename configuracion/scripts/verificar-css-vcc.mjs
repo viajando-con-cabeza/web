@@ -83,9 +83,13 @@ for(const file of [
  'destinos/suecia/estocolmo/entradas-y-pases.html'
 ]){
  const html=fs.readFileSync(file,'utf8');
+ const standaloneEditorial=html.includes('/'+editorialCss);
+ const pairedEditorial=html.includes('/configuracion/css/componentes/vcc-ahorrar-editorial-compartit.css');
  if(!html.includes('/configuracion/css/componentes/vcc-guies-ui-compartit.css')||
-    !html.includes('/'+editorialCss))
-   failures.push(file+': falta el bundle compartit o el CSS editorial independent');
+    !(standaloneEditorial||pairedEditorial))
+   failures.push(file+': falta el bundle compartit o el component editorial');
+ if(standaloneEditorial&&pairedEditorial)
+   failures.push(file+': CSS editorial carregat dues vegades');
 }
 
 if(failures.length){for(const f of failures)console.error('CSS VCC:',f);process.exitCode=1;}
