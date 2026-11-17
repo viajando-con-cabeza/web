@@ -13,7 +13,7 @@
   --vcc-error-card-radius:13px;
   --vcc-error-card-padding:14px;
   --vcc-error-card-gap:10px;
-  --vcc-error-card-min-height:132px;
+  --vcc-error-card-min-height:156px;
   --vcc-error-card-title-size:18px;
   --vcc-error-card-body-size:12px;
   --vcc-error-card-icon-size:36px;
@@ -164,7 +164,7 @@ html body :is(#sorpresas,#errores-a-evitar,#consejos,#errores){scroll-margin-top
 @media(max-width:650px){
   :root{
     --vcc-error-card-padding:12px;
-    --vcc-error-card-min-height:130px;
+    --vcc-error-card-min-height:158px;
     --vcc-error-card-title-size:18px;
     --vcc-error-card-body-size:12px;
     --vcc-error-card-icon-size:34px;
@@ -291,7 +291,7 @@ html body .sv-page #consejos .sv-carousel-shell > .sv-arrow[data-vcc-scroll-hidd
  }
  html body :is(#sorpresas,#errores,#consejos,#errores-a-evitar) .vcc-editorial-error-card{
   box-sizing:border-box!important;flex:0 0 100%!important;width:100%!important;
-  min-width:0!important;max-width:none!important;min-height:148px!important;
+  min-width:0!important;max-width:none!important;min-height:158px!important;
   height:auto!important;margin:0!important;scroll-snap-align:start!important;
  }
  html body :is(#sorpresas .surprise-carousel>.carousel-arrow,#errores .ci-tips-shell>.ci-tips-arrow,#errores .tv-errors-carousel>.tv-error-arrow,#consejos .sv-carousel-shell>.sv-arrow){
@@ -343,7 +343,7 @@ html body .sv-page #consejos .sv-carousel-shell > .sv-arrow[data-vcc-scroll-hidd
  }
  html body.budget-vcc #sorpresas.surprise-section .surprise-grid.tips-track>article.vcc-editorial-error-card{
   flex:0 0 100%!important;width:100%!important;max-width:none!important;
-  min-width:0!important;min-height:148px!important;height:auto!important;
+  min-width:0!important;min-height:158px!important;height:auto!important;
   margin:0!important;scroll-snap-align:start!important;
  }
  html body.budget-vcc #sorpresas.surprise-section .carousel-shell.surprise-carousel>button.carousel-arrow{
@@ -357,6 +357,26 @@ html body .sv-page #consejos .sv-carousel-shell > .sv-arrow[data-vcc-scroll-hidd
  }
  html body.budget-vcc #sorpresas.surprise-section .carousel-shell.surprise-carousel>button.next{
   right:2px!important;left:auto!important;
+ }
+}
+
+/* VCC 2026-11-17 · mateixes alçades que Cómo ahorrar i descripció de 5 línies. */
+html body :is(#sorpresas .vcc-editorial-error-card,#errores-a-evitar .vcc-editorial-error-card,#consejos .vcc-editorial-error-card,#errores .vcc-editorial-error-card){
+  height:156px!important;min-height:156px!important;max-height:156px!important;
+  overflow:hidden!important;
+}
+html body :is(#sorpresas .vcc-editorial-error-card,#errores-a-evitar .vcc-editorial-error-card,#consejos .vcc-editorial-error-card,#errores .vcc-editorial-error-card) h3{
+  display:-webkit-box!important;-webkit-box-orient:vertical!important;
+  -webkit-line-clamp:2!important;line-clamp:2!important;overflow:hidden!important;
+}
+html body :is(#sorpresas .vcc-editorial-error-card,#errores-a-evitar .vcc-editorial-error-card,#consejos .vcc-editorial-error-card,#errores .vcc-editorial-error-card) p{
+  display:-webkit-box!important;-webkit-box-orient:vertical!important;
+  -webkit-line-clamp:5!important;line-clamp:5!important;
+  max-height:7.5em!important;overflow:hidden!important;
+}
+@media(max-width:680px){
+ html body :is(#sorpresas .vcc-editorial-error-card,#errores-a-evitar .vcc-editorial-error-card,#consejos .vcc-editorial-error-card,#errores .vcc-editorial-error-card){
+  height:158px!important;min-height:158px!important;max-height:158px!important;
  }
 }
 
@@ -531,9 +551,9 @@ html body :is(
   #ql-advice-track > .ql-advice-card,
   #ahorrar .tips-track > .saving-tip
 ){
-  min-height:132px!important;
-  height:auto!important;
-  max-height:none!important;
+  min-height:156px!important;
+  height:156px!important;
+  max-height:156px!important;
   box-sizing:border-box!important;
   padding:13px 14px!important;
   gap:10px!important;
@@ -594,7 +614,9 @@ html body :is(
     #ql-advice-track > .ql-advice-card,
     #ahorrar .tips-track > .saving-tip
   ){
-    min-height:130px!important;
+    min-height:158px!important;
+    height:158px!important;
+    max-height:158px!important;
     padding:12px!important;
     gap:9px!important;
   }
@@ -622,7 +644,7 @@ html body:has(nav.vcc-sacred-subnav) :is(#ahorrar .tips-track>.saving-tip,#como-
  box-sizing:border-box!important;display:flex!important;align-items:flex-start!important;
  justify-content:flex-start!important;gap:12px!important;
  flex:0 0 calc((100% - 28px)/3)!important;width:calc((100% - 28px)/3)!important;
- min-width:0!important;min-height:170px!important;height:170px!important;max-height:170px!important;
+ min-width:0!important;min-height:156px!important;height:156px!important;max-height:156px!important;
  margin:0!important;padding:16px 17px!important;scroll-snap-align:start!important;
  background:#fff!important;border:1px solid #e2ddd6!important;
  border-radius:11px!important;box-shadow:0 2px 8px rgba(27,44,55,.045)!important;
@@ -653,13 +675,34 @@ html body:has(nav.vcc-sacred-subnav) :is(#ahorrar .carousel-shell>.next,#como-ah
 @media(max-width:680px){
  html body:has(nav.vcc-sacred-subnav) :is(#ahorrar .tips-track>.saving-tip,#como-ahorrar .dv-tip-grid>.dv-tip,#ahorrar .mv-saving-track>.mv-saving-card,#ahorrar .vcc-saving-track>.vcc-saving-card){
   flex-basis:100%!important;width:100%!important;
-  min-height:180px!important;height:180px!important;max-height:180px!important;
+  min-height:158px!important;height:158px!important;max-height:158px!important;
   padding:14px!important;
  }
  html body:has(nav.vcc-sacred-subnav) :is(#ahorrar .carousel-shell>.prev,#como-ahorrar .dv-tip-carousel-wrap>.dv-tip-prev,#ahorrar .mv-carousel-shell>.mv-prev,#ahorrar .vcc-saving-carousel>.vcc-saving-prev){left:2px!important}
  html body:has(nav.vcc-sacred-subnav) :is(#ahorrar .carousel-shell>.next,#como-ahorrar .dv-tip-carousel-wrap>.dv-tip-next,#ahorrar .mv-carousel-shell>.mv-next,#ahorrar .vcc-saving-carousel>.vcc-saving-next){right:2px!important}
 }
 @media(prefers-reduced-motion:reduce){html body:has(nav.vcc-sacred-subnav) :is(#ahorrar .tips-track,#como-ahorrar .dv-tip-grid,#ahorrar .mv-saving-track,#ahorrar .vcc-saving-track){scroll-behavior:auto!important}}
+
+/* VCC 2026-11-17 · alçada compacta universal + màxim cinc línies.
+   Un únic contracte per als carrusels Cómo ahorrar, sense afectar-ne la navegació. */
+html body :is(#vl-tip-track > .vl-tip,#ql-advice-track > .ql-advice-card,#al-tips-track > .al-tip,#sv-track-compare > .saving-tip,#vcc-saving-track > .vcc-saving-card,.dv-tip-grid[data-dv-tip-scroller] > .dv-tip,#ep3-saving-track > .ep3-saving-card,#ahorrar .tips-track > .saving-tip,#ahorrar .mv-saving-track > .mv-saving-card){
+  height:156px!important;min-height:156px!important;max-height:156px!important;
+  overflow:hidden!important;
+}
+html body :is(#vl-tip-track > .vl-tip,#ql-advice-track > .ql-advice-card,#al-tips-track > .al-tip,#sv-track-compare > .saving-tip,#vcc-saving-track > .vcc-saving-card,.dv-tip-grid[data-dv-tip-scroller] > .dv-tip,#ep3-saving-track > .ep3-saving-card,#ahorrar .tips-track > .saving-tip,#ahorrar .mv-saving-track > .mv-saving-card) h3{
+  display:-webkit-box!important;-webkit-box-orient:vertical!important;
+  -webkit-line-clamp:2!important;line-clamp:2!important;overflow:hidden!important;
+}
+html body :is(#vl-tip-track > .vl-tip,#ql-advice-track > .ql-advice-card,#al-tips-track > .al-tip,#sv-track-compare > .saving-tip,#vcc-saving-track > .vcc-saving-card,.dv-tip-grid[data-dv-tip-scroller] > .dv-tip,#ep3-saving-track > .ep3-saving-card,#ahorrar .tips-track > .saving-tip,#ahorrar .mv-saving-track > .mv-saving-card) p{
+  display:-webkit-box!important;-webkit-box-orient:vertical!important;
+  -webkit-line-clamp:5!important;line-clamp:5!important;
+  overflow:hidden!important;max-height:7.5em!important;
+}
+@media(max-width:680px){
+ html body :is(#vl-tip-track > .vl-tip,#ql-advice-track > .ql-advice-card,#al-tips-track > .al-tip,#sv-track-compare > .saving-tip,#vcc-saving-track > .vcc-saving-card,.dv-tip-grid[data-dv-tip-scroller] > .dv-tip,#ep3-saving-track > .ep3-saving-card,#ahorrar .tips-track > .saving-tip,#ahorrar .mv-saving-track > .mv-saving-card){
+  height:158px!important;min-height:158px!important;max-height:158px!important;
+ }
+}
 
 /* === configuracion/css/componentes/acciones-descargas-vcc.css === */
 /* VCC · Acciones de archivos. ÚNICO estilo para PDF, impresión y Excel.
