@@ -86,8 +86,11 @@ for(const [file,route] of publishable){
        page.inLanguage!=='es'||page.name!==title.replace(/&amp;/g,'&')||
        !page.description||page.isPartOf?.url!==ORIGIN+'/')
       fail(file+': WebPage no concorda amb els metadades i el canonical');
-    if(!page.primaryImageOfPage?.url?.startsWith(ORIGIN+'/'))
-      fail(file+': WebPage sense imatge local publicada');
+    const photo=page.primaryImageOfPage?.url||'';
+    const allowed=photo.startsWith(ORIGIN+'/') ||
+      (html.includes('data-vcc-generated-destination="1"') &&
+        photo.startsWith('https://img.viajandoconcabeza.com/'));
+    if(!allowed)fail(file+': WebPage sense imatge VCC local o R2 autoritzada');
   }
   const bread=nodes.filter(n=>n?.['@type']==='BreadcrumbList');
   if(bread.length>1)fail(file+': BreadcrumbList duplicat');
