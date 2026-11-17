@@ -2131,3 +2131,62 @@ html body .vcc-discover-section .related-grid .vcc-related-arrow{
     right:0!important;
   }
 }
+
+/* VCC 2026-11-17 · Rànquing de cinc entrades més compacte i criteri del passi turístic. */
+/* Reduir l'alçada sense eliminar cap dada ni enllaç de la taula. */
+@media(min-width:901px){
+  .ep-page .ep4-table-head{padding-block:7px}
+  .ep-page .ep4-table-row{min-height:52px;padding-block:5px}
+  .ep-page .ep4-place{gap:7px}
+  .ep-page .ep4-place-note{margin-top:2px;line-height:1.25}
+  .ep-page .ep4-kind{gap:5px}
+  .ep-page .ep4-medal-award{height:29px!important;margin:-1px 3px -1px 0!important}
+  .ep-page .ep4-medal-award :is(svg,img.ep4-medal-external){height:29px!important}
+  .ep-page .ep4-medal-plain{height:24px!important;width:24px!important;flex-basis:24px!important}
+  .ep-page .ep4-table-open{width:26px;height:26px}
+}
+@media(max-width:900px){
+  .ep-page .ep4-table-row{min-height:0;padding-block:9px}
+}
+@media(max-width:600px){
+  .ep-page .ep4-table-row{gap:6px 9px;padding:9px 12px}
+  .ep-page .ep4-place-note{margin-top:1px}
+}
+/* Decisió real VCC, diferent de la situació en què el passi sí que surt a compte. */
+.ep-page .ep4-pass-heading{margin-bottom:9px}
+.ep-page .ep4-pass .ep4-pass-verdict{
+  margin:0 0 8px;
+  padding:10px 12px;
+  background:#fffaf7;
+  border:1px solid #ead8cd;
+  border-left:3px solid #c86f5d;
+  border-radius:9px;
+}
+.ep-page .ep4-pass .ep4-pass-verdict-kicker{
+  display:block;
+  color:#a95339;
+  font:800 9px/1.35 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
+  letter-spacing:.03em;
+}
+.ep-page .ep4-pass .ep4-pass-verdict strong{
+  display:block;
+  margin:3px 0 0;
+  color:#242b2b;
+  font:600 18px/1.18 var(--vcc-font-heading,"Oswald",sans-serif);
+}
+.ep-page .ep4-pass .ep4-pass-verdict p{
+  margin:5px 0 0!important;
+  font-size:11px;
+  line-height:1.43;
+}
+.ep-page .ep4-pass .ep4-pass-highlight{
+  margin:4px 0 8px;
+  padding-top:4px;
+  padding-bottom:4px;
+}
+.ep-page .ep4-pass .ep4-pass-highlight::before{top:4px}
+.ep-page .ep4-pass .ep4-pass-highlight h3{margin-bottom:3px}
+.ep-page .ep4-pass .ep4-pass-link{margin-top:auto}
+@media(max-width:900px){
+  .ep-page .ep4-pass .ep4-pass-link{margin-top:9px}
+}
