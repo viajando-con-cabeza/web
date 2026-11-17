@@ -950,3 +950,32 @@ html body .st-shell #quever #topicCarousel .vcc-it-title{
   padding:clamp(22px,6%,50px)!important;
   background:var(--vcc-color-paper,#faf6f1)!important;
 }
+
+/* VCC · Imatges petites R2 a les targetes: font mòbil /mini i visor en desktop.
+   La capa <picture> no modifica la graella, l'enquadrament, ni les targetes.
+   El patró és compartit per a país, ciutat i guies que fan servir .vcc-it-photo. */
+html body .vcc-it-photo > picture.vcc-card-responsive-picture{
+  display:block!important;
+  position:absolute!important;
+  inset:0!important;
+  width:100%!important;
+  height:100%!important;
+  margin:0!important;
+  padding:0!important;
+  overflow:hidden!important;
+}
+html body .vcc-it-photo > picture.vcc-card-responsive-picture > img.vcc-card-cover-photo{
+  display:block!important;
+  position:absolute!important;
+  inset:0!important;
+  width:100%!important;
+  height:100%!important;
+  max-width:none!important;
+  max-height:none!important;
+  object-fit:cover!important;
+  object-position:center!important;
+  opacity:1!important;
+  visibility:visible!important;
+  filter:none!important;
+  transform:none!important;
+}
