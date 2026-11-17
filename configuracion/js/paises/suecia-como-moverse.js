@@ -86,14 +86,18 @@
         savingBox.dataset.savings="neutral";
         savingLabel.textContent="MISMO COSTE";
         saving.textContent=format.format(0);
-        savingWith.textContent="en ambas opciones";
+        savingWith.textContent="entre las dos opciones";
         verdict.textContent="Empate";
       } else {
-        savingBox.dataset.savings=difference>0?"positive":"negative";
-        savingLabel.textContent="TE AHORRAS";
+        // Referencia única: coche de alquiler frente a transporte alternativo.
+        // Positivo = coche más caro (sobrecoste rojo); negativo = coche
+        // más barato (ahorro verde). Solo cambia de color el importe.
+        const carCostsMore=difference>0;
+        savingBox.dataset.savings=carCostsMore?"negative":"positive";
+        savingLabel.textContent=carCostsMore?"SOBRECOSTE DEL COCHE":"AHORRO CON COCHE";
         saving.textContent=format.format(Math.abs(difference));
-        savingWith.textContent=difference>0?"si eliges transporte alternativo":"si eliges coche de alquiler";
-        verdict.textContent=difference>0?"Transporte alternativo":"Coche de alquiler";
+        savingWith.textContent="frente al transporte alternativo";
+        verdict.textContent=carCostsMore?"Transporte alternativo":"Coche de alquiler";
       }
     }
     form.addEventListener("submit",event=>event.preventDefault());
