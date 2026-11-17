@@ -257,6 +257,18 @@
     font-size:12px!important;
   }
 }
+/* A escriptori la pregunta cap sencera en la columna lateral.
+   Comprovat a 1365px amb Browser Rendering: evitem retall a la dreta. */
+@media(min-width:901px){
+  html body .ep-page .ep4-decision-layout.vcc-passes-comparison > .ep4-pass-heading h2.vcc-editorial-title{
+    font-size:clamp(19px,1.55vw,22px)!important;
+    letter-spacing:-.012em!important;
+    white-space:normal!important;
+    overflow-wrap:break-word!important;
+    max-width:100%!important;
+    display:block!important;
+  }
+}
 @media(min-width:901px) and (max-width:1130px){
   .ep-page .ep4-decision-layout.vcc-passes-comparison{
     grid-template-columns:minmax(0,1.5fr) minmax(250px,.85fr)!important;
