@@ -1126,45 +1126,6 @@ main.cl-page.cl-landing {
   font:600 12px/1.45 var(--vcc-font-body, "DM Sans", Arial, sans-serif);
   overflow-wrap:break-word;
 }
-/* Guías todavía no publicadas: el texto de estado se sitúa debajo del
-   título, nunca en la estrecha columna reservada para una flecha. La altura
-   se adapta a los textos largos de los cinco medios de transporte. */
-.cl-page.cl-landing .cl-guide-link.cl-guide-link-soon {
-  box-sizing:border-box;
-  display:flex;
-  flex-direction:column;
-  align-items:flex-start;
-  justify-content:center;
-  gap:4px;
-  min-height:84px;
-  padding:9px 4px;
-}
-.cl-page.cl-landing .cl-guide-link-soon .cl-guide-title {
-  display:block;
-  width:100%;
-  min-width:0;
-}
-.cl-page.cl-landing .cl-guide-link-soon .cl-guide-coming {
-  display:block;
-  position:static;
-  max-width:100%;
-  margin:0;
-  color:#806b5e;
-  font:600 12px/1.45 var(--vcc-font-body, "DM Sans", Arial, sans-serif);
-  letter-spacing:0;
-  text-transform:uppercase;
-  white-space:normal;
-  overflow-wrap:break-word;
-}
-@media(max-width:1390px) {
-  .cl-page.cl-landing .cl-guide-link-soon .cl-guide-coming {font-size:11.5px}
-}
-@media(max-width:660px) {
-  .cl-page.cl-landing .cl-guide-link-soon .cl-guide-coming {font-size:12px}
-}
-@media(max-width:540px) {
-  .cl-page.cl-landing .cl-guide-link-soon .cl-guide-coming {font-size:13px}
-}
 .cl-page.cl-landing .cl-guide-cta {
   display:flex;justify-content:center;align-items:center;
   color:#9d8273;
