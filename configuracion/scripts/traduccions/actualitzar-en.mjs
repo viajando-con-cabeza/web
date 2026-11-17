@@ -38,6 +38,7 @@ function segments(html){
 }
 const state=fs.existsSync(fullOut)?JSON.parse(fs.readFileSync(fullOut,'utf8')):{version:1,model,segments:{},pages:{}};
 if(state.version!==1||state.model!==model)throw Error('Unsupported translation memory version/model');
+state.rejected||={};
 let pending=0,done=0,requested=0,failed=0;const errors=[];
 async function translate(text){
  const endpoint=process.env.VCC_TRANSLATOR_URL, token=process.env.VCC_TRANSLATOR_OIDC;
@@ -63,14 +64,20 @@ for(const source of sources){
  const texts=segments(html),sourceHash=sha(html);
  for(const t of texts){
   const key=sha(model+'\0'+t);
-  if(!state.segments[key]){
+  if(!state.segments[key]&&!state.rejected[key]){
    pending++;
    if(requested>=maxPerRun)continue;
    requested++;
    try{
     const en=await translate(t);
-    for(const brand of ['VCC','Viajando con Cabeza'])if(t.includes(brand)&&!en.includes(brand))throw Error('Protected brand changed');
-    state.segments[key]={es:t,en,model};done++;
+    const changed=['VCC','Viajando con Cabeza'].some(brand=>t.includes(brand)&&!en.includes(brand));
+    if(changed){
+      // Keep the original and the suspect candidate for review; never publish it.
+      state.rejected[key]={es:t,candidate:en,reason:'protected-brand-changed'};
+      failed++;
+    }else{
+      state.segments[key]={es:t,en,model};done++;
+    }
    }catch(err){failed++;errors.push(source+': '+err.message);}
   }
  }
@@ -83,4 +90,8 @@ if(process.argv.includes('--write')){
  fs.writeFileSync(fullOut,JSON.stringify(state,null,2)+'\n');
 }
 console.log('ES→EN pilot: '+done+' new, '+pending+' missing, '+requested+' attempted, '+failed+' failed; nothing published');
-if(errors.length){for(const s of errors.slice(0,4))console.error(s);process.exitCode=1;}
+if(errors.length){
+  for(const s of errors.slice(0,4))console.error('::warning::'+s);
+  // Persist successful drafts even when one inference fails; retry missing segments later.
+}
+if(Object.keys(state.rejected).length)console.warn('::warning::'+Object.keys(state.rejected).length+' segments need editorial review before EN publication');
