@@ -4,20 +4,21 @@
    Les vinyetes principals i la calculadora no es modifiquen.
    Excepcions aprovades: capçalera blanca, logo VCC encerclat i consell màxim 2 línies. */
 
-/* Geometria del desplegable vs carrusel (patró Cómo moverse):
-   El CSS base d'Estocolmo afegia width:calc(100% - 56px) i max-width:1230px
-   a partir de 851px. Al país, el panell ha d'alinear-se amb la primera i
-   l'última targeta visibles del carrusel, sense inset ni límit extra.
-   El carrusel té 1px de padding horitzontal: l'igualem exactament. */
-html body.dv-country-types #barrios > .dv-zone-details{
+/* Aliniament exacte del desplegable amb el carrusel (Cómo moverse).
+   Neutralitza el max-width:1230px i width:calc(100% - 56px) heretats
+   d'Estocolmo. El panell ocupa TOT #barrios, sense margin auto/inset.
+   Regla única desktop + mobile; no altera ni el track ni les targetes. */
+html body.dv-page.dv-country-types #barrios > .dv-zone-details{
   box-sizing:border-box!important;
+  display:block;
+  width:100%!important;
   min-width:0!important;
-  width:calc(100% - 2px)!important;
-  max-width:none!important;
-  margin:13px 1px 6px!important;
+  max-width:100%!important;
+  margin:13px 0 6px!important;
+  padding:0!important;
 }
 @media(max-width:850px){
-  html body.dv-country-types #barrios > .dv-zone-details{
+  html body.dv-page.dv-country-types #barrios > .dv-zone-details{
     margin-top:12px!important;
   }
 }
