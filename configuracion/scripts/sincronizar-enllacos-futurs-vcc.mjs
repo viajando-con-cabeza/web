@@ -63,9 +63,12 @@ for(const file of approvedFiles){
   const current=publicRoute(file);
   const original=fs.readFileSync(full,"utf8");
   const next=original.replace(/<a\b[^>]*>/gi,tag=>{
+    // Dónde ir ja sincronitza els seus propis <a data-di-item> sense href.
+    // No interpretar data-vcc-original-href com un enllaç navegable.
+    if(/\sdata-di-item(?:\s|>)/i.test(tag))return tag;
     const href=attr(tag,"href");
     const stored=attr(tag,originalAttribute);
-    if(!href&&!stored)return tag;
+    if(!href)return tag;
     const intention=stored||href;
     const route=localRoute(intention,current);
     if(!route||!route.startsWith("/destinos/"))return tag;
@@ -75,7 +78,13 @@ for(const file of approvedFiles){
       restored++;
       return cleanTag(tag)+' href="'+escapeAttr(stored)+'">';
     }
-    if(isAncestor(route,current) && existing.has(route)){ancestors++;return tag;}
+    // Pàgines d'entrada a país: encara que no estiguin al sitemap
+    // editorial, són navegables i han de conservar la URL i el breadcrumb.
+    const countryLanding=/^\/destinos\/[^/]+\/$/.test(route);
+    if(existing.has(route)&&(isAncestor(route,current)||countryLanding)){
+      ancestors++;
+      return tag;
+    }
     if(!fallback){
       if(!existing.has(route))issues.push(file+" enllaç inexistent: "+intention);
       else issues.push(file+" guia no aprovada sense fallback configurat: "+intention);
