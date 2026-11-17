@@ -7,7 +7,8 @@
 @layer vcc-interior-portades {
   :root {
     --vcc-espai-entre-apartats: 76px;
-    --vcc-espai-despres-ultim-apartat: 84px;
+    --vcc-espai-abans-primer-apartat: 24px;
+    --vcc-espai-despres-ultim-apartat: 104px;
   }
 
   /* Guies editorials: només seccions germanes situades després del
@@ -102,7 +103,8 @@
   @media (max-width: 720px) {
     :root {
       --vcc-espai-entre-apartats: 52px;
-      --vcc-espai-despres-ultim-apartat: 60px;
+      --vcc-espai-abans-primer-apartat: 18px;
+      --vcc-espai-despres-ultim-apartat: 76px;
     }
   }
 }
@@ -154,7 +156,7 @@
 @layer vcc-interior-portades{
   html body:has(nav.vcc-unified-subheader)
     main:is(.budget-main,.dv-main,.ci-main) > section:first-of-type{
-    margin-block-start:var(--vcc-espai-entre-apartats)!important;
+    margin-block-start:var(--vcc-espai-abans-primer-apartat)!important;
   }
   html body:has(nav.vcc-unified-subheader)
     main.mv-container > section.swmove-section{
@@ -168,5 +170,50 @@
   html body main.cl-page.cl-landing > nav.vcc-unified-subheader ~ section[id]:not(.related-section){
     margin-block-start:var(--vcc-espai-entre-apartats)!important;
     padding-block-start:0!important;
+  }
+}
+
+/* VCC · 2026-11-17 · La PRIMERA secció no és una separació entre blocs.
+   24px desktop / 18px mòbil des del subheader; la resta es conserva
+   a 76px / 52px. La capçalera del primer apartat és el punt d'inici. */
+@layer vcc-interior-portades{
+  html body:has(nav.vcc-unified-subheader)
+    main > :is(section,article).vcc-subheader-first-section{
+    margin-block-start:var(--vcc-espai-abans-primer-apartat)!important;
+  }
+  /* El hub Estocolmo/Fuerteventura, entre altres, tenia padding-top
+     de 38/52px A MÉS del marge de la primera secció. Sense aquest
+     reset, la primera secció quedaria massa lluny del subheader. */
+  html body:has(nav.vcc-unified-subheader)
+    main:is(.st-main,.country-main,.budget-main,.dv-main,.ci-main,.ep4-main,.ql-main,.content-shell):has(> .vcc-subheader-first-section){
+    padding-block-start:0!important;
+  }
+  /* Fallback abans de rebre les classes del JS compartit. */
+  html body:has(nav.vcc-unified-subheader)
+    main.mv-container > section.swmove-section:first-of-type{
+    margin-block-start:var(--vcc-espai-abans-primer-apartat)!important;
+  }
+  html body main > nav.vcc-unified-subheader ~ section:is(.sv-section,.av-section,.vl-section):first-of-type{
+    margin-block-start:var(--vcc-espai-abans-primer-apartat)!important;
+  }
+  html body main.cl-page.cl-landing > nav.vcc-unified-subheader ~ section[id]:first-of-type:not(.related-section){
+    margin-block-start:var(--vcc-espai-abans-primer-apartat)!important;
+  }
+  /* Guies amb el mapa just després del subheader, abans del main:
+     mateixa proximitat, sense tocar l'interior de les fitxes de llocs. */
+  html body nav.place-nav-wrap.vcc-unified-subheader ~ section#mapa-imprescindibles{
+    margin-block-start:var(--vcc-espai-abans-primer-apartat)!important;
+  }
+  /* El tancament final queda governat per un únic espai de 104/76px
+     davant de Sigue planificando, Sigue descubriendo o footer.
+     No afegim una segona separació al darrer article. */
+  html body:has(nav.vcc-unified-subheader)
+    main > :is(section,article).vcc-subheader-last-section{
+    margin-block-end:0!important;
+  }
+  html body:has(nav.vcc-unified-subheader) section:is(.related-section,.vcc-discover-section),
+  html body:has(nav.vcc-unified-subheader):not(:has(section:is(.related-section,.vcc-discover-section)))
+    footer.vcc-global-footer{
+    margin-block-start:var(--vcc-espai-despres-ultim-apartat)!important;
   }
 }
