@@ -85,6 +85,7 @@ class FakePdf{
     return str.match(new RegExp('.{1,'+n+'}','g'))||[''];
   }
   addPage(){this.pages++;}
+  getNumberOfPages(){return this.pages;}
   setPage(page){this.activePage=page;}
   save(name){this.filename=name;}
 }
