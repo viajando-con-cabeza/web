@@ -730,6 +730,15 @@ html body:has(nav.vcc-sacred-subnav) main.ci-main > section#ci-august-gallery-pl
   margin-block:0!important;
 }
 
+/* Entradas y pases: las dos columnas (ranking + pase) forman un apartado
+   principal aunque su contenedor sea un div. Separa el bloque completo
+   con el mismo margen que el resto de secciones ancladas al subheader. */
+html body:has(nav.vcc-sacred-subnav)
+main.ep4-main > .ep4-decision-layout.vcc-passes-comparison{
+  box-sizing:border-box!important;
+  margin-block-start:var(--vcc-section-space)!important;
+}
+
 html body:has(nav.vcc-sacred-subnav) main:is(.budget-main,.dv-main,.ci-main){
   padding-block-start:var(--vcc-section-space)!important;
 }
