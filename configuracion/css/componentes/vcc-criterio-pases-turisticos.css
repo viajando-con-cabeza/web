@@ -4,20 +4,11 @@
    Las reglas ep4- solo adaptan la maqueta de Entradas y pases Estocolmo.
    No toca portadas, breadcrumbs, subheaders ni la altura de las filas. */
 
-/* Separación entre apartados: Entradas recomendadas y Pase turístico
-   comparten un bloque de dos columnas, separado de Entradas por día.
-   Aplicar padding externo a la cuadrícula evita colapso de márgenes. */
-.ep-page .ep4-main > .ep4-our{
-  margin-block-end:0!important;
-}
+/* El margen entre «Entradas por día» y el bloque de dos columnas
+   lo gobierna vcc-capcaleres-editorials.css mediante --vcc-section-space.
+   Sin padding añadido: una única separación exterior, también en móvil. */
 .ep-page .ep4-main > .ep4-our + .ep4-decision-layout.vcc-passes-comparison{
-  margin-block-start:0!important;
-  padding-block-start:var(--vcc-section-space,76px)!important;
-}
-@media(max-width:760px){
-  .ep-page .ep4-main > .ep4-our + .ep4-decision-layout.vcc-passes-comparison{
-    padding-block-start:var(--vcc-section-space,52px)!important;
-  }
+  padding-block-start:0!important;
 }
 
 /* Titulares hermanos: fuera de las dos viñetas y con un mismo eje vertical. */
