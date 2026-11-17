@@ -601,52 +601,94 @@ html body .st-shell .st-hero .st-card.vcc-guide-hero-copy > .vcc-guide-hero-desc
   }
 }
 
-/* 2026-11-17 · FITXES DEL HERO (SUÈCIA I ESTOCOLM)
-   Una única escala visual compartida. El quadre, les fotos, el títol
-   de destinació i l'alçada general no canvien: només reorganitzem les
-   4 dades per acostar-les visualment al centre vertical del requadre. */
+/* VCC · Contracte ÚNIC dels 4 indicadors de portada: Suècia i Estocolm.
+   No expandir les files de dades per omplir l'alçada fixa de la targeta.
+   Mateix espai des de la descripció fins a la línia, des de la línia fins
+   als rètols i entre files. Manté el mateix requadre i fotografia. */
+html body.country-page .country-hero .country-hero-card.vcc-guide-hero-copy,
+html body .st-shell .st-hero .st-card.vcc-guide-hero-copy{
+  justify-content:flex-start!important;
+  align-items:stretch!important;
+  gap:0!important;
+}
+html body.country-page .country-hero .country-hero-card.vcc-guide-hero-copy > .vcc-guide-hero-description,
+html body .st-shell .st-hero .st-card.vcc-guide-hero-copy > .vcc-guide-hero-description{
+  flex:0 0 auto!important;
+  height:auto!important;
+  min-height:0!important;
+  margin-bottom:0!important;
+}
 html body.country-page .country-hero .country-hero-card.vcc-guide-hero-copy > .country-facts,
 html body .st-shell .st-hero .st-card.vcc-guide-hero-copy > .st-facts{
   box-sizing:border-box!important;
   display:grid!important;
-  margin-top:42px!important;
-  padding-top:27px!important;
-  row-gap:24px!important;
-  column-gap:26px!important;
+  grid-template-columns:repeat(4,minmax(0,1fr))!important;
+  grid-auto-rows:min-content!important;
   align-content:start!important;
+  align-items:start!important;
+  align-self:stretch!important;
+  flex:0 0 auto!important;
+  width:100%!important;
+  max-width:none!important;
+  height:auto!important;
+  min-height:0!important;
+  margin:25px 0 0!important;
+  padding:18px 0 0!important;
+  row-gap:18px!important;
+  column-gap:22px!important;
+  border-top:1px solid #e4d8cf!important;
 }
 html body.country-page .country-hero .country-hero-card.vcc-guide-hero-copy > .country-facts > .country-fact,
 html body .st-shell .st-hero .st-card.vcc-guide-hero-copy > .st-facts > .st-fact{
-  min-width:0!important;
+  display:block!important;
   align-self:start!important;
+  min-width:0!important;
+  height:auto!important;
   margin:0!important;
   padding:0!important;
+  text-align:left!important;
 }
-/* Els rètols (CAPITAL, IDIOMA, DÍAS IDEALES...) mantenen la mida.
-   El valor i el petit text explicatiu queden lleument més discrets. */
-html body.country-page .country-hero .country-hero-card.vcc-guide-hero-copy .country-fact > span{
-  font-size:9.5px!important;
-  line-height:1.35!important;
-  margin-top:5px!important;
+/* La primera línia és el rètol en els dos casos, tot i que
+   el HTML de país usa <strong> i el de ciutat <span>. */
+html body.country-page .country-hero .country-hero-card.vcc-guide-hero-copy .country-fact > strong,
+html body .st-shell .st-hero .st-card.vcc-guide-hero-copy .st-fact > span{
+  display:block!important;
+  margin:0!important;
+  color:#171717!important;
+  font:800 11px/1.3 var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;
 }
+/* La segona línia és el valor: jerarquia idèntica, subtil. */
+html body.country-page .country-hero .country-hero-card.vcc-guide-hero-copy .country-fact > span,
 html body .st-shell .st-hero .st-card.vcc-guide-hero-copy .st-fact > strong{
-  font-size:11.5px!important;
-  line-height:1.3!important;
-  margin-top:5px!important;
+  display:block!important;
+  margin:4px 0 0!important;
+  color:#756d66!important;
+  font:700 11.5px/1.3 var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;
 }
 html body .st-shell .st-hero .st-card.vcc-guide-hero-copy .st-fact > small{
-  font-size:9px!important;
-  line-height:1.35!important;
-  margin-top:3px!important;
+  display:block!important;
+  margin:2px 0 0!important;
+  color:#756d66!important;
+  font:400 9px/1.3 var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;
 }
-@media(max-width:700px){
+@media(max-width:1050px){
   html body.country-page .country-hero .country-hero-card.vcc-guide-hero-copy > .country-facts,
   html body .st-shell .st-hero .st-card.vcc-guide-hero-copy > .st-facts{
     grid-template-columns:repeat(2,minmax(0,1fr))!important;
-    margin-top:40px!important;
-    padding-top:25px!important;
-    row-gap:25px!important;
-    column-gap:20px!important;
+    margin-top:25px!important;
+    padding-top:18px!important;
+    row-gap:18px!important;
+    column-gap:22px!important;
+  }
+}
+@media(max-width:600px){
+  html body.country-page .country-hero .country-hero-card.vcc-guide-hero-copy > .country-facts,
+  html body .st-shell .st-hero .st-card.vcc-guide-hero-copy > .st-facts{
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    margin-top:22px!important;
+    padding-top:16px!important;
+    row-gap:15px!important;
+    column-gap:14px!important;
   }
 }
 
