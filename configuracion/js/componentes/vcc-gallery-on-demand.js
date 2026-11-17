@@ -7,8 +7,8 @@
  const galleries=[...document.querySelectorAll('.imp-page .imp-main .gallery')];
  if(!modal||!galleries.length)return;
  let pending=null,ready=Boolean(window.VCCBookingGallery);
- const styleURL='/configuracion/css/componentes/vcc-gallery-booking.css?v=20261112-on-demand-v1';
- const scriptURL='/configuracion/js/componentes/vcc-gallery-booking.js?v=20261112-on-demand-v1';
+ const styleURL='/configuracion/css/componentes/vcc-gallery-booking.css?v=20261117-decoded-gallery-v2';
+ const scriptURL='/configuracion/js/componentes/vcc-gallery-booking.js?v=20261117-decoded-gallery-v2';
  function load(){
   if(ready)return Promise.resolve();
   if(pending)return pending;
