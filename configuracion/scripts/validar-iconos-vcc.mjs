@@ -3,12 +3,10 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { listarFitxers } from './lib/listar-fitxers.mjs';
-import {approvedFiles} from './lib/publicacion-vcc.mjs';
 
 const ROOT=process.cwd();
 const files=listarFitxers(ROOT,{ignorar:new Set(['.git','node_modules','.wrangler','dist','build'])});
-const errors=[],legacyDrafts=[];
-const published=new Set(approvedFiles);
+const errors=[];
 let htmlChecked=0,cssChecked=0,jsChecked=0,externalReferences=0;
 const isGeometry=/<(?:path|rect|circle|ellipse|line|polyline|polygon|symbol|text|image|linearGradient|radialGradient|foreignObject)\b/i;
 for(const file of files){
@@ -20,13 +18,9 @@ for(const file of files){
   if(/\.html$/i.test(file)){
     htmlChecked++;
     for(const block of src.matchAll(/<svg\b[^>]*>([\s\S]*?)<\/svg>/gi)){
-      if(isGeometry.test(block[1])){
-        const issue=file+': SVG dibuixat directament al HTML';
-        // Els borradors històrics no estan publicats. No reescriure centenars
-        // de formes sense contrast visual: es bloquejaran quan s'aprovin.
-        if(published.has(file))errors.push(issue);
-        else legacyDrafts.push(issue);
-      }
+      // Tots els HTML, inclosos els esborranys futurs: sprites externs.
+      // Les guies no poden acumular altra vegada vectors duplicats.
+      if(isGeometry.test(block[1]))errors.push(file+': SVG dibuixat directament al HTML');
     }
     for(const use of src.matchAll(/<use\b[^>]*\b(?:href|xlink:href)=["'](\/configuracion\/imagenes\/iconos\/[^"'#]+\.svg)#([^"']+)["']/gi)){
       externalReferences++;
@@ -47,13 +41,7 @@ for(const file of files){
     }
   }
 }
-console.log('VCC icones: '+htmlChecked+' HTML · '+cssChecked+' CSS · '+jsChecked+' JS · '+externalReferences+' referencies externes verificades; '+legacyDrafts.length+' SVG pendents en esborranys (no publicats)');
-if(legacyDrafts.length){
-  const byFile=new Map();
-  for(const issue of legacyDrafts){const file=issue.split(':')[0];byFile.set(file,(byFile.get(file)||0)+1);}
-  console.warn('AVIS VCC: SVG en esborranys, pendent de migració:',JSON.stringify([...byFile].map(([file,count])=>({file,count}))));
-  console.warn('Les icones internes es bloquejaran si aquests esborranys s’aproven.');
-}
+console.log('VCC icones: '+htmlChecked+' HTML · '+cssChecked+' CSS · '+jsChecked+' JS · '+externalReferences+' referencies externes verificades; 0 SVG inline permès');
 if(errors.length){
  for(const item of errors.slice(0,100))console.error('ICONA INCORRECTA:',item);
  process.exitCode=1;
