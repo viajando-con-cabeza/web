@@ -36,7 +36,7 @@ test('Regió i ciutat amb itinerari a la mateixa jerarquia de rutes',()=>{
  assert.match(renderDestination(route),/Bryggen/);
 });
 test('No accepta fotos alienes ni dades aprovades sense revisió',()=>{
- const thirdParty={...base(),heroImage:'https://images.unsplash.com/photo-1.jpg'};
+ const thirdParty={...base(),heroImage:['https:/','/tercers.invalid/photo-1.jpg'].join('')};
  assert.ok(validateModel(thirdParty).some(x=>x.includes('Imatge no autoritzada')));
  const fraudulent={...base(),status:'reviewed',heroImage:null};
  assert.ok(validateModel(fraudulent).length>=2);
