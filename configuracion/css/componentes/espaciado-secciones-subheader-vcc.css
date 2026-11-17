@@ -181,6 +181,17 @@
     main > :is(section,article).vcc-subheader-first-section{
     margin-block-start:var(--vcc-espai-abans-primer-apartat)!important;
   }
+  /* Fallback del primer render (abans del controlador):
+     els hubs st-tabs + st-main/st-discover no han de mostrar l'espai
+     de 38/52px extra ni saltar en activar-se el JavaScript. */
+  html body:has(nav.st-tabs)
+    main.st-main:has(> section.st-discover:first-child){
+    padding-block-start:0!important;
+  }
+  html body:has(nav.st-tabs)
+    main.st-main > section.st-discover:first-child{
+    margin-block-start:var(--vcc-espai-abans-primer-apartat)!important;
+  }
   /* El hub Estocolmo/Fuerteventura, entre altres, tenia padding-top
      de 38/52px A MÉS del marge de la primera secció. Sense aquest
      reset, la primera secció quedaria massa lluny del subheader. */
