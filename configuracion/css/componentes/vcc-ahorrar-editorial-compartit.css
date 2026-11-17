@@ -493,6 +493,22 @@ html body .sv-page #comparar .sv-carousel-shell > .sv-next-arrow{
   }
 }
 
+/* VCC · Separació compartida entre carrusels de consells i notes explicatives.
+   La nota és part de la mateixa secció, no un bloc independent. */
+html body :is(
+  .ql-advice-carousel,
+  .vl-tips-carousel,
+  .al-tips-carousel,
+  .vcc-saving-carousel,
+  .ep3-saving-stage,
+  #ahorrar .carousel-shell
+) + :is(p,.vcc-carousel-note){
+  margin:var(--vcc-carousel-note-gap,8px) 0 0!important;
+  padding-top:0!important;
+  padding-bottom:0!important;
+  line-height:1.45!important;
+}
+
 /* === configuracion/css/componentes/vcc-capcaleres-editorials.css === */
 
 /* === configuracion/css/componentes/portades-fade-global-vcc.css === */
