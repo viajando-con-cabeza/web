@@ -137,17 +137,19 @@ html body :is(
   }
 }
 
+/* Integració al contracte compartit: "Entradas y pases" fa servir
+   les classes ep3-saving-. No cal un carrusel de disseny diferent. */
 /* VCC · CARRUSELS AHORRAR · 20261116
    Mides i estructura úniques per a guies amb subheader:
    carrusel 100%, targetes 3/2/1, gap 14px, alçada 170/180px.
    Els botons no reserven columnes a l'interior del carrusel. */
-html body:has(nav.vcc-sacred-subnav) :is(#ahorrar .carousel-shell,#como-ahorrar .dv-tip-carousel-wrap,#ahorrar .mv-carousel-shell,#ahorrar .vcc-saving-carousel){
+html body:has(nav.vcc-sacred-subnav) :is(#ahorrar .carousel-shell,#como-ahorrar .dv-tip-carousel-wrap,#ahorrar .mv-carousel-shell,#ahorrar .vcc-saving-carousel,#ahorrar .ep3-saving-stage){
  box-sizing:border-box!important;display:block!important;position:relative!important;
  grid-template-columns:none!important;gap:0!important;
  width:100%!important;max-width:100%!important;min-width:0!important;
  padding:0!important;margin-inline:0!important;
 }
-html body:has(nav.vcc-sacred-subnav) :is(#ahorrar .tips-track,#como-ahorrar .dv-tip-grid,#ahorrar .mv-saving-track,#ahorrar .vcc-saving-track){
+html body:has(nav.vcc-sacred-subnav) :is(#ahorrar .tips-track,#como-ahorrar .dv-tip-grid,#ahorrar .mv-saving-track,#ahorrar .vcc-saving-track,#ahorrar .ep3-saving-track){
  box-sizing:border-box!important;display:flex!important;flex-flow:row nowrap!important;
  align-items:stretch!important;gap:14px!important;width:100%!important;min-width:0!important;
  margin:0!important;padding:1px 0 4px!important;overflow-x:auto!important;overflow-y:hidden!important;
@@ -155,7 +157,7 @@ html body:has(nav.vcc-sacred-subnav) :is(#ahorrar .tips-track,#como-ahorrar .dv-
  -webkit-overflow-scrolling:touch;
 }
 html body:has(nav.vcc-sacred-subnav) :is(#ahorrar .tips-track,#como-ahorrar .dv-tip-grid,#ahorrar .mv-saving-track,#ahorrar .vcc-saving-track)::-webkit-scrollbar{display:none}
-html body:has(nav.vcc-sacred-subnav) :is(#ahorrar .tips-track>.saving-tip,#como-ahorrar .dv-tip-grid>.dv-tip,#ahorrar .mv-saving-track>.mv-saving-card,#ahorrar .vcc-saving-track>.vcc-saving-card){
+html body:has(nav.vcc-sacred-subnav) :is(#ahorrar .tips-track>.saving-tip,#como-ahorrar .dv-tip-grid>.dv-tip,#ahorrar .mv-saving-track>.mv-saving-card,#ahorrar .vcc-saving-track>.vcc-saving-card,#ahorrar .ep3-saving-track>.ep3-saving-card){
  box-sizing:border-box!important;display:flex!important;align-items:flex-start!important;
  justify-content:flex-start!important;gap:12px!important;
  flex:0 0 calc((100% - 28px)/3)!important;width:calc((100% - 28px)/3)!important;
@@ -172,7 +174,7 @@ html body:has(nav.vcc-sacred-subnav) :is(#ahorrar .tips-track>.saving-tip,#como-
 html body:has(nav.vcc-sacred-subnav) :is(#ahorrar .tips-track>.saving-tip,#como-ahorrar .dv-tip-grid>.dv-tip,#ahorrar .mv-saving-track>.mv-saving-card,#ahorrar .vcc-saving-track>.vcc-saving-card) p{
  font:400 12px/1.5 var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;margin:0!important;
 }
-html body:has(nav.vcc-sacred-subnav) :is(#ahorrar .carousel-shell>.carousel-arrow,#como-ahorrar .dv-tip-carousel-wrap>.dv-arrow,#ahorrar .mv-carousel-shell>.mv-carousel-arrow,#ahorrar .vcc-saving-carousel>.vcc-saving-arrow){
+html body:has(nav.vcc-sacred-subnav) :is(#ahorrar .carousel-shell>.carousel-arrow,#como-ahorrar .dv-tip-carousel-wrap>.dv-arrow,#ahorrar .mv-carousel-shell>.mv-carousel-arrow,#ahorrar .vcc-saving-carousel>.vcc-saving-arrow,#ahorrar .ep3-saving-stage>.ep3-saving-arrow){
  box-sizing:border-box!important;display:grid!important;place-items:center!important;
  position:absolute!important;z-index:4!important;top:50%!important;bottom:auto!important;
  transform:translateY(-50%)!important;width:35px!important;height:35px!important;
@@ -180,23 +182,23 @@ html body:has(nav.vcc-sacred-subnav) :is(#ahorrar .carousel-shell>.carousel-arro
  border:1px solid #d9bca8!important;background:#fff!important;color:#ad5b43!important;
  box-shadow:0 2px 8px rgba(42,31,21,.07)!important;cursor:pointer;
 }
-html body:has(nav.vcc-sacred-subnav) :is(#ahorrar .carousel-shell>.prev,#como-ahorrar .dv-tip-carousel-wrap>.dv-tip-prev,#ahorrar .mv-carousel-shell>.mv-prev,#ahorrar .vcc-saving-carousel>.vcc-saving-prev){left:-17px!important;right:auto!important}
-html body:has(nav.vcc-sacred-subnav) :is(#ahorrar .carousel-shell>.next,#como-ahorrar .dv-tip-carousel-wrap>.dv-tip-next,#ahorrar .mv-carousel-shell>.mv-next,#ahorrar .vcc-saving-carousel>.vcc-saving-next){right:-17px!important;left:auto!important}
+html body:has(nav.vcc-sacred-subnav) :is(#ahorrar .carousel-shell>.prev,#como-ahorrar .dv-tip-carousel-wrap>.dv-tip-prev,#ahorrar .mv-carousel-shell>.mv-prev,#ahorrar .vcc-saving-carousel>.vcc-saving-prev,#ahorrar .ep3-saving-stage>.ep3-saving-prev){left:-17px!important;right:auto!important}
+html body:has(nav.vcc-sacred-subnav) :is(#ahorrar .carousel-shell>.next,#como-ahorrar .dv-tip-carousel-wrap>.dv-tip-next,#ahorrar .mv-carousel-shell>.mv-next,#ahorrar .vcc-saving-carousel>.vcc-saving-next,#ahorrar .ep3-saving-stage>.ep3-saving-next){right:-17px!important;left:auto!important}
 @media(max-width:1020px){
- html body:has(nav.vcc-sacred-subnav) :is(#ahorrar .tips-track>.saving-tip,#como-ahorrar .dv-tip-grid>.dv-tip,#ahorrar .mv-saving-track>.mv-saving-card,#ahorrar .vcc-saving-track>.vcc-saving-card){
+ html body:has(nav.vcc-sacred-subnav) :is(#ahorrar .tips-track>.saving-tip,#como-ahorrar .dv-tip-grid>.dv-tip,#ahorrar .mv-saving-track>.mv-saving-card,#ahorrar .vcc-saving-track>.vcc-saving-card,#ahorrar .ep3-saving-track>.ep3-saving-card){
   flex-basis:calc((100% - 14px)/2)!important;width:calc((100% - 14px)/2)!important;
  }
 }
 @media(max-width:680px){
- html body:has(nav.vcc-sacred-subnav) :is(#ahorrar .tips-track>.saving-tip,#como-ahorrar .dv-tip-grid>.dv-tip,#ahorrar .mv-saving-track>.mv-saving-card,#ahorrar .vcc-saving-track>.vcc-saving-card){
+ html body:has(nav.vcc-sacred-subnav) :is(#ahorrar .tips-track>.saving-tip,#como-ahorrar .dv-tip-grid>.dv-tip,#ahorrar .mv-saving-track>.mv-saving-card,#ahorrar .vcc-saving-track>.vcc-saving-card,#ahorrar .ep3-saving-track>.ep3-saving-card){
   flex-basis:100%!important;width:100%!important;
   min-height:158px!important;height:158px!important;max-height:158px!important;
   padding:14px!important;
  }
- html body:has(nav.vcc-sacred-subnav) :is(#ahorrar .carousel-shell>.prev,#como-ahorrar .dv-tip-carousel-wrap>.dv-tip-prev,#ahorrar .mv-carousel-shell>.mv-prev,#ahorrar .vcc-saving-carousel>.vcc-saving-prev){left:2px!important}
- html body:has(nav.vcc-sacred-subnav) :is(#ahorrar .carousel-shell>.next,#como-ahorrar .dv-tip-carousel-wrap>.dv-tip-next,#ahorrar .mv-carousel-shell>.mv-next,#ahorrar .vcc-saving-carousel>.vcc-saving-next){right:2px!important}
+ html body:has(nav.vcc-sacred-subnav) :is(#ahorrar .carousel-shell>.prev,#como-ahorrar .dv-tip-carousel-wrap>.dv-tip-prev,#ahorrar .mv-carousel-shell>.mv-prev,#ahorrar .vcc-saving-carousel>.vcc-saving-prev,#ahorrar .ep3-saving-stage>.ep3-saving-prev){left:2px!important}
+ html body:has(nav.vcc-sacred-subnav) :is(#ahorrar .carousel-shell>.next,#como-ahorrar .dv-tip-carousel-wrap>.dv-tip-next,#ahorrar .mv-carousel-shell>.mv-next,#ahorrar .vcc-saving-carousel>.vcc-saving-next,#ahorrar .ep3-saving-stage>.ep3-saving-next){right:2px!important}
 }
-@media(prefers-reduced-motion:reduce){html body:has(nav.vcc-sacred-subnav) :is(#ahorrar .tips-track,#como-ahorrar .dv-tip-grid,#ahorrar .mv-saving-track,#ahorrar .vcc-saving-track){scroll-behavior:auto!important}}
+@media(prefers-reduced-motion:reduce){html body:has(nav.vcc-sacred-subnav) :is(#ahorrar .tips-track,#como-ahorrar .dv-tip-grid,#ahorrar .mv-saving-track,#ahorrar .vcc-saving-track,#ahorrar .ep3-saving-track){scroll-behavior:auto!important}}
 
 /* VCC 2026-11-17 · alçada compacta universal + màxim cinc línies.
    Un únic contracte per als carrusels Cómo ahorrar, sense afectar-ne la navegació. */
