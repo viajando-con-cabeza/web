@@ -52,8 +52,8 @@
   /* VCC · Arribada única de totes les àncores editorials.
    * El primer element visible és el SOBRETÍTOL (o la capçalera, quan no n'hi
    * ha). Això evita mostrar els padding interns diferents de cada plantilla. */
-  const OVERLINES='.vcc-editorial-overline,.sv-over,.vl-kicker,.tv-eyebrow,.av-over,.ep4-script,.dv-section-script,.swb-overline,.mv-overline,.al-eyebrow,.ql-kicker,.ci-over,.ep-over,.budget-script,.philosophy-script,.eyebrow,.kicker,.section-script,.country-script,.st-script,.hand';
-  const HEADING_ROOTS='.vcc-editorial-heading,.dv-section-title,.swb-heading,.swmove-head,.mv-section-head,.al-heading,.country-heading,.st-heading,.section-header,.section-head,.sv-heading,.av-heading,.vl-section-head,.tv-errors-head,.ep4-heading,.place-heading';
+  const OVERLINES='.vcc-editorial-overline,.sv-over,.vl-kicker,.tv-eyebrow,.av-over,.ep4-script,.dv-section-script,.swb-overline,.mv-overline,.al-eyebrow,.ql-kicker,.ci-over,.ep-over,.budget-script,.philosophy-script,.eyebrow,.kicker,.section-script,.country-script,.st-script,.st-half-heading p,.country-heading > div > p,.budget-visual-heading p:first-child,.vcc-faq-kicker,.rich-heading small,.day-copy > small,.hand';
+  const HEADING_ROOTS='.vcc-editorial-heading,.dv-section-title,.swb-heading,.swmove-head,.mv-section-head,.al-heading,.country-heading,.st-heading,.section-header,.section-head,.sv-heading,.av-heading,.vl-section-head,.tv-errors-head,.ep4-heading,.place-heading,.rich-heading,.day-copy,.budget-visual-heading,.vcc-faq-top';
   const visibleAnchor=(el)=>!!(el&&el.isConnected&&el.getClientRects().length&&getComputedStyle(el).visibility!=='hidden');
   const editorialOverline=(target)=>{
     if(visibleAnchor(target)&&target.matches(OVERLINES))return target;
@@ -231,7 +231,7 @@
         if(target){
           // Les navegacions editorials comparteixen el mateix punt d'arribada;
           // la resta de menús conserva els seus listeners/àncores originals.
-          if(nav.classList.contains('vcc-sacred-subnav')&&
+          if(nav.classList.contains('vcc-unified-subheader')&&
              event.button===0&&!event.metaKey&&!event.ctrlKey&&!event.shiftKey&&!event.altKey&&
              editorialOverline(target)){
             event.preventDefault();
