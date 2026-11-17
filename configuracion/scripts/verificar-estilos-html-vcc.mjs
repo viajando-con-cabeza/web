@@ -37,10 +37,16 @@ for(const [file,maxLocalCss] of Object.entries(targets)){
     const bundle='/configuracion/css/plantillas/presupuesto-compilado-vcc.css';
     const complements='/configuracion/css/componentes/presupuesto-estocolmo-complements-vcc.css';
     const delayed='/configuracion/css/componentes/presupuesto-related-sin-js-vcc.css';
-    // Dues peticions amb JS (base i complements). El CSS 'related'
-    // només és un fallback <noscript> al final de pàgina i no s'ha de
-    // moure al head ni comptar com una petició habitual.
-    const expected=[bundle,complements];
+    // Fonts de cascada aprovades: la base + complements, després el
+    // paquet ahorrar/editorial (en aquest ordre), el contracte de
+    // portada i els errors. No canviar l'ordre sense revisió visual.
+    // El CSS 'related' és fallback <noscript> i no es carrega amb JS.
+    const expected=[
+      bundle,complements,
+      '/configuracion/css/componentes/vcc-ahorrar-editorial-compartit.css',
+      '/configuracion/css/componentes/portades-contracte-unic-vcc.css',
+      '/configuracion/css/componentes/errores-a-evitar-vcc.css'
+    ];
     if(urls.length!==expected.length||expected.some((u,i)=>urls[i]!==u))
       failures.push(file+': la base i els complements han de seguir l ordre aprovat');
     const fallbackBlocks=[...read(file).matchAll(/<noscript\b[^>]*>[\s\S]*?<\/noscript>/gi)];
@@ -133,7 +139,7 @@ for(const file of published){
    const relatedIndex=indexOfEnd('/guias-relacionadas-vcc.css');
    const heroIndex=indexOfEnd('/portadas-rapidas-vcc.css');
    const coreIndex=indexOfEnd('/vcc-guies-core-fons-compartit.css');
-   const editorialIndex=indexOfEnd('/vcc-capcaleres-editorials.css');
+   const editorialIndex=Math.max(indexOfEnd('/vcc-capcaleres-editorials.css'),indexOfEnd('/vcc-ahorrar-editorial-compartit.css'));
    // Algunes guies requereixen UN CSS particular just després del base.
    // El paquet UI ja no inclou capçaleres; el full editorial va després
    // del core per conservar la cascada visual aprovada.
