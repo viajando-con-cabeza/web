@@ -4,7 +4,7 @@ window.COUNTRY_CONFIG={
   continent:"Europa",
   tagline:"Ciudades tranquilas, naturaleza y diseño nórdico",
   description:"Guías, rutas y recomendaciones para descubrir Suecia sin intentar verlo todo.",
-  heroImage:"https://img.viajandoconcabeza.com/destinos/suecia/estocolmo-archipelago/2026-dia8/DSC08332.avif",
+  heroImage:"https://img.viajandoconcabeza.com/__vcc_preview/visor/destinos/suecia/estocolmo-archipelago/2026-dia8/DSC08332.avif",
   inspirationImage:"https://img.viajandoconcabeza.com/destinos/suecia/goteborg/2026-dia1/DSC06553.avif",
   paths:{home:"../../index.html",destinations:"../index.html"},
   sections:{
