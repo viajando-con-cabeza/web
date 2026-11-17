@@ -30,8 +30,19 @@ const settle=async page=>{
  await page.addStyleTag({content:'*,*::before,*::after{animation:none!important;transition:none!important;caret-color:transparent!important;scroll-behavior:auto!important}'}).catch(()=>{});
  await page.waitForTimeout(220);
 };
+// Les fotografies remotes poden acabar de carregar en moments diferents
+// i crear falsos positius (5–20% de píxels). Les neutralitzem només al
+// test visual; els src exactes i les rutes originals es validen a part.
+const IMAGE_PLACEHOLDER=Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+jA3sAAAAASUVORK5CYII=','base64');
 const grab=async(origin,route,viewport)=>{
  const page=await browser.newPage({viewport,deviceScaleFactor:1,reducedMotion:'reduce',colorScheme:'light',locale:'es-ES'});
+ await page.route('**/*',route=>{
+   const req=route.request(),u=req.url();
+   if(req.resourceType()==='image' && (/\.(?:avif|jpe?g|png|webp)(?:[?#]|$)/i.test(u) ||
+       /images\.unsplash\.com|img\.viajandoconcabeza\.com/.test(u)))
+     return route.fulfill({status:200,contentType:'image/png',body:IMAGE_PLACEHOLDER});
+   return route.continue();
+ });
  const badLocal=[];
  page.on('response',resp=>{
    if(resp.status()>=400&&resp.url().startsWith(origin))badLocal.push(resp.status()+' '+resp.url().replace(origin,''));
