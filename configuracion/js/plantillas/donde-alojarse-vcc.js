@@ -121,8 +121,11 @@
   const zonePanels=Array.from(root.querySelectorAll('[data-dv-zone-panel]'));
   if(zoneDetails&&zonePanels.length===cards.length){
     let activeZone=null;
-    const showZone=(id)=>{
-      const nextId=activeZone===id?null:id;
+    const isCountryTypes=document.body.classList.contains('dv-country-types');
+    const showZone=(id,forceClose=false)=>{
+      // En Suecia, repetir un toque no cierra el desglose por accidente:
+      // para cerrarlo se utiliza la X. En Estocolmo se mantiene el toggle original.
+      const nextId=(forceClose||(activeZone===id&&!isCountryTypes))?null:id;
       activeZone=nextId;
       zoneDetails.hidden=!nextId;
       zonePanels.forEach(panel=>{
@@ -134,9 +137,21 @@
       });
       if(nextId){
         requestAnimationFrame(()=>{
-          const rect=zoneDetails.getBoundingClientRect();
-          if(rect.top>window.innerHeight-110){
-            zoneDetails.scrollIntoView({behavior:reducedMotion?'auto':'smooth',block:'nearest'});
+          // En el móvil, mostrar la cabecera de la ficha en el primer toque.
+          // Compensar tanto el header como la subnavegación sticky.
+          if(isCountryTypes){
+            const bar=root.querySelector('.dv-subnav');
+            const cssHeader=parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--vcc-header-h'))||50;
+            const barHeight=bar?.getBoundingClientRect().height||39;
+            const destination=Math.max(0,window.scrollY+zoneDetails.getBoundingClientRect().top-cssHeader-barHeight-12);
+            if(Math.abs(window.scrollY-destination)>4){
+              window.scrollTo({top:destination,behavior:reducedMotion?'auto':'smooth'});
+            }
+          }else{
+            const rect=zoneDetails.getBoundingClientRect();
+            if(rect.top>window.innerHeight-110){
+              zoneDetails.scrollIntoView({behavior:reducedMotion?'auto':'smooth',block:'nearest'});
+            }
           }
         });
       }
@@ -150,13 +165,17 @@
       card.setAttribute('aria-controls',panel.id);
       card.setAttribute('aria-expanded','false');
       let pointerStart=null;
-      card.addEventListener('pointerdown',e=>{pointerStart={x:e.clientX,y:e.clientY};});
+      card.addEventListener('pointerdown',e=>{
+        // El navegador ya cancela el click cuando el usuario arrastra con el dedo.
+        // No aplicar un umbral adicional al touch: provoca falsos negativos.
+        pointerStart=e.pointerType==='mouse'?{x:e.clientX,y:e.clientY}:null;
+      });
       card.addEventListener('pointercancel',()=>{pointerStart=null;});
       card.addEventListener('click',e=>{
         if(pointerStart){
           const moved=Math.hypot(e.clientX-pointerStart.x,e.clientY-pointerStart.y)>10;
           pointerStart=null;
-          if(moved)return; // No abrir tras arrastrar el carrusel.
+          if(moved)return;
         }
         showZone(id);
       });
@@ -170,7 +189,7 @@
     zoneDetails.querySelectorAll('[data-dv-zone-close]').forEach(button=>{
       button.addEventListener('click',()=>{
         const id=activeZone;
-        showZone(id);
+        showZone(id,true);
         const matching=cards.find(card=>card.dataset.dvCard===id);
         matching?.focus({preventScroll:true});
       });
