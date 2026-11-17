@@ -511,3 +511,20 @@ html body .swmove-page #transportes .swmove-infra-card .swmove-infra-opinion .vc
 @media(prefers-reduced-motion:reduce){
  html body .swmove-page #transportes button.swmove-card-more .swmove-card-caret svg{transition:none!important}
 }
+
+/* VCC 2026-11-17: tancament del desglossament a l'angle superior dret. */
+/* La X continua sent el mateix botó i conserva el seu esdeveniment JS;
+   només canviem la posició dins del panell expandit. */
+.swmove-page .swmove-infra-area{position:relative}
+.swmove-page .swmove-infra-area > .swmove-infra-actions{
+ position:absolute;top:22px;right:12px;z-index:5;
+ display:flex;align-items:center;justify-content:center;
+ margin:0;padding:0;
+}
+.swmove-page .swmove-infra-card .swmove-infra-title{
+ padding-right:35px;
+}
+@media(max-width:590px){
+ .swmove-page .swmove-infra-area > .swmove-infra-actions{top:31px;right:9px}
+ .swmove-page .swmove-infra-card .swmove-infra-title{padding-right:31px}
+}
