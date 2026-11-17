@@ -43,11 +43,11 @@ body{background:var(--vcc-d-paper);color:var(--vcc-d-ink);font-family:var(--vcc-
 .vcc-continent-icon{font-size:22px}
 .vcc-chevron{font-size:22px;transition:transform .2s}
 .vcc-accordion[open] .vcc-chevron{transform:rotate(180deg)}
-.vcc-accordion[data-continent=europa] summary{background:#fff;color:#292724}
-.vcc-accordion[data-continent=asia] summary{background:#fff}
-.vcc-accordion[data-continent=america] summary{background:#fff}
-.vcc-accordion[data-continent=africa] summary{background:#fff}
-.vcc-accordion[data-continent=oceania] summary{background:#fff}
+.vcc-accordion[data-continent=europa] summary{background:linear-gradient(95deg,#237b7d,#4d9b98);color:#fff}
+.vcc-accordion[data-continent=asia] summary{background:#f5c8b8}
+.vcc-accordion[data-continent=america] summary{background:#f6dda9}
+.vcc-accordion[data-continent=africa] summary{background:#d6dfc1}
+.vcc-accordion[data-continent=oceania] summary{background:#c4e0ef}
 .vcc-country-grid{padding:12px 16px 15px;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:9px 11px}
 .vcc-country{min-width:0;background:#fffdfb;border:1px solid #e5dcd4;border-radius:9px;padding:9px 11px;display:flex;align-items:center;gap:9px;color:#292724;min-height:42px;box-shadow:0 2px 5px #3c2b1a0f}
 .vcc-country:hover{border-color:#cb8066;background:#fff6ef}
@@ -98,7 +98,7 @@ body{background:var(--vcc-d-paper);color:var(--vcc-d-ink);font-family:var(--vcc-
 .vcc-accordion-name strong{font:600 21px/1.15 var(--vcc-font-heading, "Oswald", sans-serif)}
 .vcc-continent-icon{display:flex;align-items:center;justify-content:center;width:35px;height:30px}
 .vcc-continent-icon img{display:block;width:31px;height:28px;object-fit:contain;filter:brightness(.22)}
-.vcc-accordion[data-continent=europa] .vcc-continent-icon img{filter:brightness(.22)}
+.vcc-accordion[data-continent=europa] .vcc-continent-icon img{filter:brightness(0) invert(1)}
 .vcc-country{border-radius:5px;box-shadow:none;min-height:44px}
 .vcc-country>span:nth-child(2){font-size:12px}
 .vcc-d-search,.vcc-d-sort select,.vcc-route-filter select{border-radius:6px;box-shadow:none}
@@ -257,21 +257,8 @@ html body.destinos-vcc .vcc-d-accordions .vcc-country[data-coming="true"] > :is(
   opacity:.58;
 }
 
-/* Destinos: capçaleres dels 5 continents, vinyetes superiors i països,
-   blanc pur també oberts, seleccionats, inactius i al passar el ratolí. */
-html body.destinos-vcc .vcc-d-accordions .vcc-accordion,
-html body.destinos-vcc .vcc-d-accordions .vcc-accordion > summary,
-html body.destinos-vcc .vcc-d-accordions .vcc-accordion[open] > summary,
-html body.destinos-vcc .vcc-d-accordions .vcc-accordion > summary:hover,
-html body.destinos-vcc .vcc-d-accordions .vcc-accordion > summary:focus-visible {
-  background-color:#fff!important;
-  background-image:none!important;
-  color:#292724!important;
-  opacity:1!important;
-}
-html body.destinos-vcc .vcc-d-accordions .vcc-accordion[data-continent="europa"] .vcc-continent-icon img {
-  filter:brightness(.22)!important;
-}
+/* Conservem els colors originals de les capçaleres dels continents;
+   només les targetes dels països i els filtres superiors queden blancs. */
 /* Els països futurs no s'activen, però el blanc de la vinyeta no s'atenua. */
 html body.destinos-vcc .vcc-d-accordions .vcc-country[data-coming="true"] {
   pointer-events:none!important;
