@@ -235,3 +235,15 @@
     margin-block-start:var(--vcc-espai-despres-ultim-apartat)!important;
   }
 }
+
+/* Mateix punt d'inici del primer sobretítol a les tres guies de Suècia.
+ * Neutralitza únicament el padding antic de cada plantilla; la distància
+ * inicial/final i la separació entre apartats segueixen als tokens globals. */
+@layer vcc-interior-portades {
+  html body main.cl-page.cl-landing > nav.vcc-unified-subheader ~ section#comparar-aeropuertos,
+  html body main.mv-container.swmove-page > section#transportes,
+  html body main.swb-main > section#lugares {
+    padding-block-start:0!important;
+    margin-block-start:var(--vcc-espai-abans-primer-apartat)!important;
+  }
+}
