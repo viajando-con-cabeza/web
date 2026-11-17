@@ -247,3 +247,32 @@
     margin-block-start:var(--vcc-espai-abans-primer-apartat)!important;
   }
 }
+
+/* VCC · Hubs de país i ciutat: fer servir la mateixa escala corporativa
+   que les altres guies (76px escriptori / 52px mòbil). Els selectors
+   històrics de 64/44px i el marge propi de Planifica no són l'última
+   paraula: aquest token compartit governa tots els apartats principals. */
+@layer vcc-interior-portades {
+  html body.country-page,
+  html body:has(.st-shell nav.st-tabs){
+    --vcc-espai-entre-apartats:var(--vcc-section-space,76px);
+  }
+
+  /* L'avió i la frase són un separador DECORATIU, no una secció nova.
+     La seva alçada completa ha de comptar com l'únic espai entre
+     Qué ver/Itinerario i Presupuesto, sense 108px + marges extra. */
+  html body .st-shell main.st-main > .flight-divider{
+    box-sizing:border-box!important;
+    height:var(--vcc-espai-entre-apartats)!important;
+    min-height:0!important;
+    margin-block:0!important;
+  }
+
+  /* Planifica tenia 66px + 2px de padding per compatibilitat antiga;
+     els dos hubs han de conservar un únic marge superior compartit. */
+  html body .st-shell main.st-main > section#planifica,
+  html body.country-page main.country-main > section#planifica{
+    margin-block-start:var(--vcc-espai-entre-apartats)!important;
+    padding-block-start:0!important;
+  }
+}
