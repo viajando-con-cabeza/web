@@ -16,7 +16,7 @@ function init(){
       const headerHeight=sticky?Math.round(header.getBoundingClientRect().height):0;
       document.documentElement.style.setProperty("--ep-header-height",headerHeight+"px");
       const trigger=headerHeight+nav.offsetHeight+24;
-      const pass=document.getElementById("pase-turistico");
+      const pass=root.querySelector(".ep4-pass") || document.getElementById("pase-turistico");
       // The pass is beside the comparison table on desktop; same Y ≠ different section.
       // Prefer the main comparison section unless the user explicitly requested the pass.
       let active=sections[0];
