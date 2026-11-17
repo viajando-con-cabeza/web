@@ -94,11 +94,12 @@ html body :is(
 ) h3{
   font-family:var(--vcc-font-heading,"Oswald",sans-serif)!important;
   font-weight:500!important;
-  font-size:18px!important;
+  font-size:var(--vcc-error-card-title-size,18px)!important;
   line-height:1.2!important;
-  margin:1px 0 7px!important;
+  margin:1px 0 8px!important;
   text-transform:none!important;
   letter-spacing:0!important;
+  color:#27323a!important;
 }
 html body :is(
   #vl-tip-track > .vl-tip,
@@ -113,8 +114,10 @@ html body :is(
   display:block!important;
   font-family:var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;
   font-weight:400!important;
-  font-size:12px!important;
+  font-size:var(--vcc-error-card-body-size,12px)!important;
   line-height:1.5!important;
+  color:#5d6871!important;
+  text-align:left!important;
   margin:0!important;
   max-height:none!important;
   overflow:visible!important;
@@ -172,11 +175,17 @@ html body:has(nav.vcc-sacred-subnav) :is(#ahorrar .tips-track>.saving-tip,#como-
  overflow:hidden!important;
 }
 html body:has(nav.vcc-sacred-subnav) :is(#ahorrar .tips-track>.saving-tip,#como-ahorrar .dv-tip-grid>.dv-tip,#ahorrar .mv-saving-track>.mv-saving-card,#billetes .mv-saving-track>.mv-saving-card,#ahorrar .vcc-saving-track>.vcc-saving-card) h3{
- font:600 19px/1.16 var(--vcc-font-heading,"Oswald",sans-serif)!important;
- margin:0 0 7px!important;
+ font:500 var(--vcc-error-card-title-size,18px)/1.2 var(--vcc-font-heading,"Oswald",sans-serif)!important;
+ margin:1px 0 8px!important;
+ color:#27323a!important;
+ letter-spacing:0!important;
+ text-transform:none!important;
 }
 html body:has(nav.vcc-sacred-subnav) :is(#ahorrar .tips-track>.saving-tip,#como-ahorrar .dv-tip-grid>.dv-tip,#ahorrar .mv-saving-track>.mv-saving-card,#billetes .mv-saving-track>.mv-saving-card,#ahorrar .vcc-saving-track>.vcc-saving-card) p{
- font:400 12px/1.5 var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;margin:0!important;
+ font:400 var(--vcc-error-card-body-size,12px)/1.5 var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;
+ margin:0!important;
+ color:#5d6871!important;
+ text-align:left!important;
 }
 html body:has(nav.vcc-sacred-subnav) :is(#ahorrar .carousel-shell>.carousel-arrow,#como-ahorrar .dv-tip-carousel-wrap>.dv-arrow,#ahorrar .mv-carousel-shell>.mv-carousel-arrow,#billetes .mv-carousel-shell>.mv-carousel-arrow,#ahorrar .vcc-saving-carousel>.vcc-saving-arrow,#ahorrar .ep3-saving-stage>.ep3-saving-arrow){
  box-sizing:border-box!important;display:grid!important;place-items:center!important;
