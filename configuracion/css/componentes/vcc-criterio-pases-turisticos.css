@@ -37,10 +37,22 @@
   font:600 clamp(25px,2.2vw,29px)/1.08 var(--vcc-font-script,"Caveat",cursive)!important;
   margin:0 0 5px!important;
 }
+.ep-page .ep4-decision-layout.vcc-passes-comparison > .ep4-pass-heading .vcc-editorial-heading-main{
+  min-width:0!important;
+  max-width:100%!important;
+  flex-wrap:wrap!important;
+}
 .ep-page .ep4-decision-layout.vcc-passes-comparison > .ep4-pass-heading h2{
+  display:block!important;
+  width:100%!important;
+  max-width:100%!important;
+  min-width:0!important;
   margin:0!important;
-  font:600 clamp(24px,2.25vw,30px)/1.09 var(--vcc-font-heading,"Oswald",sans-serif)!important;
+  font:600 clamp(21px,1.85vw,27px)/1.09 var(--vcc-font-heading,"Oswald",sans-serif)!important;
   color:var(--ep4-ink,#171717)!important;
+  white-space:normal!important;
+  overflow-wrap:normal!important;
+  text-wrap:balance;
 }
 .ep-page .ep4-decision-layout.vcc-passes-comparison > .ep4-pass-heading .ep4-subline{
   display:block!important;
@@ -198,6 +210,9 @@
 /* Tablet/móvil: encabezado encima de su propia viñeta; ancho sin recortes.
    No se fuerza la misma altura cuando las dos columnas pasan a una. */
 @media(max-width:900px){
+  .ep-page .ep4-decision-layout.vcc-passes-comparison > .ep4-pass-heading h2{
+    font-size:clamp(25px,6vw,31px)!important;
+  }
   .ep-page .ep4-decision-layout.vcc-passes-comparison{
     grid-template-columns:minmax(0,1fr)!important;
     grid-template-rows:auto!important;
