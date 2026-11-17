@@ -43,26 +43,20 @@ html body.budget-vcc #gastar .decision-panel .decision-row p{
   font-size:11px!important;
   line-height:1.44!important;
 }
-html body.budget-vcc #calculadora .calculator-card .vcc-budget-pdf-footer{
-  display:flex;
-  align-items:center;
-  justify-content:flex-end;
-  width:100%;
-  margin-top:9px;
-  padding-top:6px;
-  border-top:1px solid #eee8e1;
+/* Igual que en el presupuesto de Suecia: enlace sutil en el exterior,
+   justo debajo de ambas viñetas y alineado a la derecha. */
+html body.budget-vcc #calculadora .vcc-budget-excel-row{
+  display:flex!important;
+  align-items:center!important;
+  justify-content:flex-end!important;
+  width:100%!important;
+  margin:8px 0 0!important;
+  padding:0!important;
+  gap:0!important;
 }
-html body.budget-vcc #calculadora .calculator-card .vcc-budget-pdf-footer .vcc-budget-excel-action{
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  gap:7px;
-  margin:0;
-  padding:5px 0;
-  font-size:11px;
-  font-weight:700;
-  color:#aa604c;
-  white-space:nowrap;
+html body.budget-vcc #calculadora .vcc-budget-excel-row .vcc-budget-excel-action{
+  margin:0!important;
+  padding:4px 2px!important;
 }
 @media(max-width:720px){
   html body.budget-vcc #gastar .decision-panel{
