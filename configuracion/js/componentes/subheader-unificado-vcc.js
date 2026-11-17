@@ -100,7 +100,7 @@
     let id;
     try{id=decodeURIComponent(location.hash.slice(1))}catch(_){return}
     for(const nav of managed){
-      if(!nav.isConnected||nav.classList.contains('place-nav-wrap'))continue;
+      if(!nav.isConnected)continue;
       const item=itemsOf(nav).find(x=>x.target.id===id);
       if(item&&scrollToOverline(nav,item.target,'auto')){paint(nav,item);break}
     }
@@ -223,7 +223,7 @@
       relocateDestinationChoices(nav,before);
     }
     markSectionSpacing(nav);
-    if(!nav.classList.contains('place-nav-wrap')){
+    {
       nav.addEventListener('click',(event)=>{
         const a=event.target.closest('a[href^="#"]');
         if(!a||!nav.contains(a))return;
@@ -237,7 +237,7 @@
             event.preventDefault();
             // Evitar que controladors antics facin un segon scroll a l'inici
             // de la secció i anul·lin l'alineament del sobretítol.
-            event.stopImmediatePropagation();
+            if(!nav.classList.contains('place-nav-wrap'))event.stopImmediatePropagation();
             if(location.hash!==a.hash)history.pushState(null,'',a.hash);
             scrollToOverline(nav,target);
           }
