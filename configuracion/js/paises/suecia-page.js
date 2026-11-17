@@ -38,6 +38,9 @@ function countryCard(x,isGuide){
  const optimized=photo.includes('/__vcc_preview/visor/');
  const srcset=optimized?' srcset="'+esc(photo.replace('/__vcc_preview/visor/','/__vcc_preview/mini/'))+' 480w, '+esc(photo)+' 1800w" sizes="(max-width: 760px) 86vw, (max-width: 1100px) 48vw, 380px"':'';
  const icon=x.cardIcon||(tag==='CIUDADES'?'category-city':'category-islands');
+ const iconMarkup=x.cardIcon
+   ?'<svg viewBox="0 0 24 24" aria-hidden="true"><use href="/configuracion/imagenes/iconos/paginas/categorias-vcc.svg#'+esc(x.cardIcon)+'"></use></svg>'
+   :cardIcon(icon);
  const labelText=isGuide?'guía':'itinerario';
  const actionText=isGuide?'VER GUÍA':'VER ITINERARIO';
  const priceTitle=isGuide?'Presupuesto orientativo por persona y día':'Presupuesto total por persona';
@@ -48,7 +51,7 @@ function countryCard(x,isGuide){
      '<img class="vcc-card-cover-photo" src="'+esc(photo)+'"'+srcset+' alt="'+esc(title)+'" width="640" height="380" loading="lazy" decoding="async">'+score+
    '</div>'+
    '<div class="home-feature-details di-mini-body">'+
-     '<span class="vcc-card-kicker">'+cardIcon(icon)+esc(tag)+'</span>'+
+     '<span class="vcc-card-kicker">'+iconMarkup+esc(tag)+'</span>'+
      '<h3 class="vcc-it-title">'+esc(title)+'</h3>'+
      '<div class="vcc-it-facts'+(isGuide?' vcc-it-guide-facts':'')+'">'+
        (isGuide?'':'<span class="di-route-stats">'+cardIcon('clock')+esc(duration)+'</span>'+
