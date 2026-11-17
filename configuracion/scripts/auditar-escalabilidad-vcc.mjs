@@ -41,8 +41,17 @@ for(const file of pages){
   const css=sheets.map(x=>attr(x,"href").split("?")[0]).filter(Boolean);
   const js=[...html.matchAll(/<script\b[^>]*\bsrc=["']([^"']+)/gi)].map(x=>x[1].split("?")[0]);
   const repeatCss=css.filter((v,i)=>css.indexOf(v)!==i),repeatJs=js.filter((v,i)=>js.indexOf(v)!==i);
-  const localLinks=[...html.matchAll(/<a\b[^>]*\bhref=["']([^"']+)/gi)].map(x=>normalizePublicPath(x[1],publicRoute(file))).filter(Boolean);
-  const drafts=[...new Set(localLinks.filter(x=>x.startsWith("/destinos/")&&!published.has(x)))];
+  // IMPORTANT: \\bhref també detectava el sufix de data-vcc-original-href.
+  // Cal inspeccionar NOMÉS atributs href reals, i no comptar breadcrumbs
+  // ascendents cap a un país en draft com un enllaç a una guia futura.
+  const current=publicRoute(file);
+  const localLinks=[...html.matchAll(/<a\b[^>]*\s+href=["']([^"']+)/gi)]
+    .map(x=>x[1]).filter(x=>!x.includes("${"))
+    .map(x=>normalizePublicPath(x,current)).filter(Boolean);
+  const isAncestor=route=>route!==current && route.endsWith("/") && current.startsWith(route);
+  const drafts=[...new Set(localLinks.filter(x=>
+    x.startsWith("/destinos/")&&!published.has(x)&&!isAncestor(x)))];
+  const draftsRedirected=[...html.matchAll(/<a\b[^>]*\s+data-vcc-publication=["']draft["']/gi)].length;
   const imgs=[...html.matchAll(/<img\b[^>]*>/gi)].map(x=>x[0]);
   const missingAlt=imgs.filter(x=>!/\balt=/.test(x)).length;
   const noDimensions=imgs.filter(x=>!/\bwidth=["']\d+/.test(x)||!/\bheight=["']\d+/.test(x)).length;
@@ -58,7 +67,7 @@ for(const file of pages){
     javascript:js.length,jsRawBytes:js.reduce((n,u)=>n+(sizes.get(u)||0),0),
     repeatedCSS:repeatCss.length,repeatedJS:repeatJs.length,inlineStyle:(html.match(/<style\b/gi)||[]).length,
     inlineScript:(html.match(/<script\b(?![^>]*\bsrc=)(?![^>]*application\/ld\+json)[^>]*>/gi)||[]).length,
-    images:imgs.length,missingAlt,noDimensions,linksToDrafts:drafts.length};
+    images:imgs.length,missingAlt,noDimensions,linksToDrafts:drafts.length,draftFallbacks:draftsRedirected};
   if(live){
     if(repeatCss.length||repeatJs.length)critical.push(file+": recursos CSS/JS cargados repetidamente");
     if(missingAlt)critical.push(file+": "+missingAlt+" imagenes sin texto alternativo");
@@ -87,7 +96,9 @@ for(const file of pages){
 const sum=key=>pageStats.reduce((n,x)=>n+(x[key]||0),0);
 const totals={duplicateCSS:sum("repeatedCSS"),duplicateJS:sum("repeatedJS"),inlineStyle:sum("inlineStyle"),
   inlineScript:sum("inlineScript"),missingAlt:pageStats.filter(x=>x.live).reduce((n,x)=>n+x.missingAlt,0),
-  pagesLinkingDrafts:pageStats.filter(x=>x.live&&x.linksToDrafts).length};
+  pagesLinkingDrafts:pageStats.filter(x=>x.live&&x.linksToDrafts).length,
+  pagesWithDraftFallbacks:pageStats.filter(x=>x.live&&x.draftFallbacks).length,
+  totalDraftFallbacks:sum("draftFallbacks")};
 pageStats.sort((a,b)=>b.cssRawBytes-a.cssRawBytes);
 const topCssPages=pageStats.slice(0,12).map(x=>({file:x.file,css:x.stylesheets,cssKB:Math.round(x.cssRawBytes/1024),gzipKB:Math.round(x.cssGzipEstimate/1024),
   js:x.javascript,jsKB:Math.round(x.jsRawBytes/1024),draftLinks:x.linksToDrafts}));
