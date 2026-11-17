@@ -327,3 +327,61 @@ html body:has(nav.vcc-sacred-subnav) #consejos .ql-carousel-arrow:disabled{
 html body.mv-body #billetes .mv-carousel-shell > .mv-carousel-arrow{
   background:var(--vcc-carrusel-fletxa-fons,rgba(255,255,255,.88))!important;
 }
+
+
+/* Contrato compartido «Cómo ahorrar»: Vuelos usa toda la anchura igual que
+   Alojamientos. Flechas superpuestas sin columnas ni padding de reserva. */
+html body .vl-page #como-ahorrar .vl-wrap,
+html body .vl-page #calculadora .vl-wrap{
+  width:min(1180px,calc(100% - 48px));
+}
+html body .vl-page #como-ahorrar .vl-tips-carousel{
+  box-sizing:border-box!important;display:block!important;
+  position:relative!important;width:100%!important;min-width:0!important;
+  max-width:100%!important;padding:0!important;margin-inline:0!important;
+}
+html body .vl-page #como-ahorrar #vl-tip-track{
+  box-sizing:border-box!important;
+  display:flex!important;flex-flow:row nowrap!important;align-items:stretch!important;
+  width:100%!important;min-width:0!important;max-width:100%!important;
+  gap:14px!important;margin:0!important;padding:1px 0 4px!important;
+  overflow-x:auto!important;overflow-y:hidden!important;
+  scroll-snap-type:x mandatory!important;scrollbar-width:none;
+  -webkit-overflow-scrolling:touch;
+}
+html body .vl-page #como-ahorrar #vl-tip-track > .vl-tip{
+  flex:0 0 calc((100% - 28px)/3)!important;
+  width:calc((100% - 28px)/3)!important;
+  min-width:0!important;margin:0!important;scroll-snap-align:start!important;
+}
+html body .vl-page #como-ahorrar .vl-tips-carousel > .vl-tip-arrow{
+  box-sizing:border-box!important;position:absolute!important;
+  display:grid!important;place-items:center!important;
+  top:50%!important;bottom:auto!important;z-index:4!important;
+  transform:translateY(-50%)!important;
+  width:35px!important;height:35px!important;
+  margin:0!important;padding:0!important;
+}
+html body .vl-page #como-ahorrar .vl-tips-carousel > .vl-tip-prev{
+  left:-17px!important;right:auto!important;
+}
+html body .vl-page #como-ahorrar .vl-tips-carousel > .vl-tip-next{
+  right:-17px!important;left:auto!important;
+}
+@media (max-width:1020px){
+  html body .vl-page #como-ahorrar #vl-tip-track > .vl-tip{
+    flex-basis:calc((100% - 14px)/2)!important;
+    width:calc((100% - 14px)/2)!important;
+  }
+}
+@media (max-width:680px){
+  html body .vl-page #como-ahorrar #vl-tip-track > .vl-tip{
+    flex-basis:100%!important;width:100%!important;
+  }
+  html body .vl-page #como-ahorrar .vl-tips-carousel > .vl-tip-prev{left:2px!important}
+  html body .vl-page #como-ahorrar .vl-tips-carousel > .vl-tip-next{right:2px!important}
+}
+@media (max-width:520px){
+  html body .vl-page #como-ahorrar .vl-wrap,
+  html body .vl-page #calculadora .vl-wrap{width:calc(100% - 28px)}
+}
