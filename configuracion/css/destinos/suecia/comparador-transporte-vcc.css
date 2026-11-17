@@ -199,22 +199,27 @@
 .swmove-page #comparar .swmove-compare-result{
   padding:10px 12px;
 }
-.swmove-page #comparar .swmove-compare-result-heading{
-  display:flex;
-  align-items:center;
-  gap:9px;
+html body .swmove-page #comparar .swmove-compare-result-heading{
+  display:flex!important;
+  flex-direction:row!important;
+  align-items:center!important;
+  justify-content:flex-start!important;
+  gap:9px!important;
   min-width:0;
   margin:0 0 8px;
 }
-.swmove-page #comparar .swmove-compare-result-heading .swmove-compare-brand{
-  flex:0 0 35px;
-  display:block;
-  width:35px;
-  height:35px;
+html body .swmove-page #comparar .swmove-compare-result-heading .swmove-compare-brand{
+  flex:0 0 35px!important;
+  display:block!important;
+  width:35px!important;
+  height:35px!important;
+  margin:0!important;
   object-fit:contain;
 }
-.swmove-page #comparar .swmove-compare-result-headcopy{
-  min-width:0;
+html body .swmove-page #comparar .swmove-compare-result-headcopy{
+  display:block!important;
+  flex:1 1 auto!important;
+  min-width:0!important;
 }
 .swmove-page #comparar .swmove-compare-result-heading .swmove-compare-result-headcopy>span{
   display:block;
