@@ -27,6 +27,24 @@ if(action==='crear'){
  console.log('Destino creado. Edita '+base+'contenido.json y ejecuta generar.');process.exit(0);
 }
 const d=read(path.join(dir,'contenido.json'));
+/* Les dades de l'exemple són exclusivament esborranys. Un futur país
+ * no podrà convertir imports demostratius o fotos alienes en contingut
+ * publicable només canviant ready:true, ni tampoc modificar Estocolm. */
+if(d.ready===true){
+ if(d.editorialReviewed!==true)
+   throw Error('Abans de publicar: editorialReviewed ha de ser true després de revisar preus, contingut i fonts pròpies.');
+ const ownRoot='/destinos/'+country+'/'+city+'/imagenes/';
+ const ownPhoto=src=>typeof src==='string'&&(
+   src.startsWith('https://img.viajandoconcabeza.com/') ||
+   src.startsWith(ownRoot)
+ );
+ const photos=[d.hero,...(d.places||[]).flatMap(p=>p.photos||[]),
+   ...(d.itinerary?.days||[]).flatMap(day=>day.photos||[])];
+ if(photos.length===0||photos.some(src=>!ownPhoto(src)))
+   throw Error('Abans de publicar: hero i fotos han de ser originals VCC, a R2 o a la carpeta pròpia del destí.');
+ if(!d.intro?.trim()||/^escribe aquí|^describe |^añade /i.test(d.intro.trim()))
+   throw Error('Abans de publicar: substitueix el text demostratiu per experiència real.');
+}
 if(!d.city||!d.country||!Array.isArray(d.places)||!d.places.length||!d.itinerary?.days?.length)throw Error('Faltan ciudad, país, lugares o días.');
 if(d.itinerary.days.length>30)throw Error('Máximo 30 días por itinerario.');
 const ids=new Set();for(const p of d.places){if(!slug.test(p.id||'')||ids.has(p.id)||!p.photos?.length)throw Error('Cada lugar necesita un id único y al menos una foto.');ids.add(p.id);}
@@ -81,5 +99,5 @@ for(const [cls,k] of [['luxury','lujo'],['medium','medio'],['vcc-choice','vcc'],
  budget=budget.replace(new RegExp('(<article class="philosophy-profile '+cls+'">[\\s\\S]*?<div class="profile-price"><strong>)[^<]+'),`$1${amount} €`);
 }
 fs.writeFileSync(path.join(dir,'presupuesto.html'),budget);
-if(!fs.existsSync(path.join(dir,'index.html'))||fs.readFileSync(path.join(dir,'index.html'),'utf8').includes('<!-- VCC_GENERATED_INDEX -->'))fs.writeFileSync(path.join(dir,'index.html'),`<!doctype html><!-- VCC_GENERATED_INDEX --><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">${d.ready?'':'<meta name="robots" content="noindex,nofollow">'}<title>${esc(d.city)} | VCC</title></head><body><header class="page-header"></header><main style="max-width:900px;margin:50px auto;font-family:sans-serif"><h1>${esc(d.city)}</h1><p>${d.ready?esc(d.intro):'Borrador de destino. Revisa su contenido antes de publicar.'}</p>${['imprescindibles','itinerario','presupuesto'].map(name=>`<p><a href="${name}.html">${name}</a></p>`).join('')}</main><script src="/configuracion/js/site-header.js"></script></body></html>`);
+if(!fs.existsSync(path.join(dir,'index.html'))||fs.readFileSync(path.join(dir,'index.html'),'utf8').includes('<!-- VCC_GENERATED_INDEX -->'))fs.writeFileSync(path.join(dir,'index.html'),`<!doctype html><!-- VCC_GENERATED_INDEX --><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">${d.ready===true && isPublished('destinos/'+country+'/'+city+'/index.html')?'':'<meta name="robots" content="noindex,nofollow">'}<title>${esc(d.city)} | VCC</title></head><body><header class="page-header"></header><main style="max-width:900px;margin:50px auto;font-family:sans-serif"><h1>${esc(d.city)}</h1><p>${d.ready?esc(d.intro):'Borrador de destino. Revisa su contenido antes de publicar.'}</p>${['imprescindibles','itinerario','presupuesto'].map(name=>`<p><a href="${name}.html">${name}</a></p>`).join('')}</main><script src="/configuracion/js/site-header.js"></script></body></html>`);
 console.log(`Generadas 3 páginas en ${base}. ${d.ready?'Listas para revisión editorial final.':'Borradores noindex: no se añaden al sitemap ni a la navegación.'}`);
