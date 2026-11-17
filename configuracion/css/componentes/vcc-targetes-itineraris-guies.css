@@ -938,3 +938,15 @@ html body.country-page .vcc-sweden-page :is(#guias,#itinerarios,#quever) .vcc-ca
 html body .st-shell #quever #topicCarousel .vcc-it-title{
   text-transform:none!important;
 }
+
+/* Targetes futures sense fotografia pròpia: marca neutra, no s'atribueix
+   cap fotografia d'un altre destí a un lloc encara no publicat. */
+.vcc-it-photo img.vcc-upcoming-placeholder,
+.home-feature-photo img.vcc-upcoming-placeholder,
+.di-mini-photo img.vcc-upcoming-placeholder{
+  object-fit:contain!important;
+  object-position:center center!important;
+  box-sizing:border-box!important;
+  padding:clamp(22px,6%,50px)!important;
+  background:var(--vcc-color-paper,#faf6f1)!important;
+}
