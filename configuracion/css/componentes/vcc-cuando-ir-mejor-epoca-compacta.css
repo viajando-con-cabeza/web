@@ -1,0 +1,152 @@
+/* VCC · Mejor época: ajustes sutiles compartidos por Suecia y Estocolmo.
+   Mantener las seis opciones, la selección activa y el consejo dinámico. */
+
+/* Filtros: menos altura, iconos de menor presencia y tipografía ligera. */
+html body.ci-page #consejo .ci-objective-grid{
+  gap:8px!important;
+}
+html body.ci-page #consejo .ci-objective{
+  min-height:66px!important;
+  padding:7px 6px!important;
+  gap:3px!important;
+  border-radius:9px!important;
+  border-width:1px;
+}
+html body.ci-page #consejo .ci-objective:hover{
+  transform:translateY(-1px);
+}
+html body.ci-page #consejo .ci-objective[aria-pressed="true"]{
+  border:1px solid #bd8068!important;
+  background:#fff8f4!important;
+}
+html body.ci-page #consejo .ci-objective-icon{
+  width:29px;
+  height:27px;
+  flex-basis:27px;
+}
+html body.ci-page #consejo .ci-objective-icon img{
+  width:24px;
+  height:24px;
+}
+html body.ci-page #consejo .ci-objective strong{
+  font-size:9.5px!important;
+  font-weight:600;
+  line-height:1.25!important;
+  color:#514740;
+}
+
+/* Consejo VCC: menos volumen, borde neutro y jerarquía editorial. */
+html body.ci-page #consejo .ci-recommendation{
+  width:min(990px,100%)!important;
+  min-height:0!important;
+  grid-template-columns:80px minmax(0,1.15fr) minmax(0,1fr)!important;
+  gap:12px!important;
+  margin:17px auto 30px!important;
+  padding:10px 15px!important;
+  background:#fff!important;
+  border:1px solid #e8dbd0!important;
+  border-radius:11px!important;
+  box-shadow:none!important;
+}
+html body.ci-page #consejo .ci-recommendation-brand{
+  gap:3px;
+}
+html body.ci-page #consejo .ci-recommendation-brand img{
+  width:34px;
+  height:34px;
+}
+html body.ci-page #consejo .ci-recommendation-brand strong{
+  font-size:9px;
+  letter-spacing:.06em;
+  color:#a76b55;
+}
+html body.ci-page #consejo .ci-recommendation h3{
+  font-size:calc(clamp(20px,2vw,23px) + var(--vcc-heading-size-adjust,0px))!important;
+  line-height:1.14!important;
+  margin:0 0 3px!important;
+}
+html body.ci-page #consejo .ci-recommendation p{
+  font-size:10.5px!important;
+  line-height:1.45!important;
+}
+html body.ci-page #consejo .ci-recommendation ul{
+  padding:0 0 0 17px!important;
+  border-left-color:#ede3dc!important;
+}
+html body.ci-page #consejo .ci-recommendation li{
+  font-size:10.25px!important;
+  line-height:1.4!important;
+  margin:2px 0!important;
+  padding-left:15px;
+}
+html body.ci-page #consejo .ci-recommendation li::before{
+  color:#b8785e;
+}
+
+@media (min-width:601px) and (max-width:900px){
+  html body.ci-page #consejo .ci-objective{min-height:65px!important}
+  html body.ci-page #consejo .ci-recommendation{
+    grid-template-columns:78px minmax(0,1fr)!important;
+    padding:10px 14px!important;
+    gap:8px 14px!important;
+  }
+  html body.ci-page #consejo .ci-recommendation ul{
+    grid-column:2!important;
+    border-left:0!important;
+    border-top:1px solid #ede3dc!important;
+    padding:7px 0 0!important;
+  }
+}
+
+@media (max-width:600px){
+  html body.ci-page #consejo .ci-objective-grid{gap:6px!important}
+  html body.ci-page #consejo .ci-objective{
+    min-height:64px!important;
+    padding:6px 5px!important;
+    gap:3px!important;
+  }
+  html body.ci-page #consejo .ci-objective-icon{
+    width:26px;
+    height:25px;
+    flex-basis:25px;
+  }
+  html body.ci-page #consejo .ci-objective-icon img{
+    width:22px;
+    height:22px;
+  }
+  html body.ci-page #consejo .ci-objective strong{
+    font-size:10px!important;
+  }
+  html body.ci-page #consejo .ci-recommendation{
+    grid-template-columns:76px minmax(0,1fr)!important;
+    gap:7px 10px!important;
+    padding:11px 12px!important;
+    margin:15px auto 24px!important;
+  }
+  html body.ci-page #consejo .ci-recommendation-brand{
+    flex-direction:column;
+    justify-content:center;
+    gap:3px;
+    text-align:center;
+  }
+  html body.ci-page #consejo .ci-recommendation-brand img{
+    width:32px;
+    height:32px;
+  }
+  html body.ci-page #consejo .ci-recommendation h3{
+    font-size:calc(21px + var(--vcc-heading-size-adjust,0px))!important;
+  }
+  html body.ci-page #consejo .ci-recommendation p{
+    font-size:10.5px!important;
+  }
+  html body.ci-page #consejo .ci-recommendation ul{
+    grid-column:1/-1!important;
+    border:0!important;
+    border-top:1px solid #ede3dc!important;
+    padding:7px 0 0!important;
+  }
+  html body.ci-page #consejo .ci-recommendation li{
+    font-size:10.5px!important;
+    margin:2px 0!important;
+  }
+}
