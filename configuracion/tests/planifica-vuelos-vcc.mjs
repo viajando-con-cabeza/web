@@ -11,7 +11,7 @@ assert.match(mainCss,/\.vl-calc-head-side>\.vl-copy\.vcc-editorial-description\s
 const css=mainCss;
 const js=fs.readFileSync('configuracion/js/planifica-vuelos.js','utf8');
 const pdf=fs.readFileSync('configuracion/js/componentes/vcc-vuelos-pdf.js','utf8');
-const links=[...html.matchAll(/<a class="vl-air-action" href="([^"]+)" target="_blank" rel="noopener noreferrer"[^>]*>WEB OFICIAL/g)];
+const links=[...html.matchAll(/<a class="vl-air-action(?: vcc-experience-link)?" href="([^"]+)" target="_blank" rel="noopener noreferrer"[^>]*>WEB OFICIAL/g)];
 assert.equal(links.length,16,'Les 16 aerolínies han d’enllaçar al web oficial');
 links.forEach(m=>assert.ok(m[1].startsWith('https://'),'URL d’aerolínia insegura'));
 assert.doesNotMatch(html,/data-use-airline|data-save-comparison|data-share-comparison|data-share-fallback/);
