@@ -1,0 +1,50 @@
+/* VCC · ÚNIC ESTIL PER ALS FUTURS PAÏSOS, REGIONS, CIUTATS I ITINERARIS.
+   Inspirat en les capçaleres aprovades de Suècia/Estocolm, sense afectar
+   cap pàgina actual: tots els selectors estan aïllats a .vcc-destino-v2.
+   Variables corporatives editables en tokens-vcc.css. */
+.vcc-destino-v2{color:var(--vcc-ink,#242424);font-family:var(--vcc-font-body,"DM Sans",Arial,sans-serif);background:var(--vcc-color-paper,#faf6f1);min-height:100vh}
+.vcc-destino-v2 *, .vcc-destino-v2 *::before,.vcc-destino-v2 *::after{box-sizing:border-box}
+.vcc-destino-v2 .vcc-destino-hero{position:relative;min-height:470px;isolation:isolate;display:flex;align-items:stretch;overflow:hidden;background:#dfdbd5}
+.vcc-destino-v2 .vcc-destino-hero-image{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;z-index:-2}
+.vcc-destino-v2 .vcc-destino-hero::after{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;background:linear-gradient(90deg,rgba(255,255,255,.13),rgba(255,255,255,0) 75%)}
+.vcc-destino-v2 .vcc-destino-hero-inner{width:min(1240px,calc(100% - 48px));margin:auto;display:flex;flex-direction:column;align-items:flex-start;padding:34px 0 38px;gap:16px}
+.vcc-destino-v2 .vcc-destino-breadcrumbs{display:flex;align-items:center;flex-wrap:wrap;gap:9px;font-size:11px;color:#4b4b4b}
+.vcc-destino-v2 .vcc-destino-breadcrumbs a{color:inherit;text-decoration:none}
+.vcc-destino-v2 .vcc-destino-breadcrumbs a:hover{text-decoration:underline}
+.vcc-destino-v2 .vcc-destino-card{background:rgba(252,250,248,.95);width:min(765px,100%);padding:clamp(26px,3vw,47px);border:1px solid rgba(225,216,206,.6);min-height:390px;display:flex;flex-direction:column;justify-content:flex-start;border-radius:2px}
+.vcc-destino-v2 .vcc-destino-kicker{font:600 clamp(24px,2vw,30px)/1 var(--vcc-font-script,"Caveat",cursive);color:var(--vcc-color-accent,#c86f5d);margin:0 0 12px}
+.vcc-destino-v2 h1{font:600 clamp(42px,4.55vw,64px)/1.06 var(--vcc-font-heading,"Oswald",sans-serif);letter-spacing:.012em;margin:0 0 13px}
+.vcc-destino-v2 .vcc-destino-description{font-size:14px;line-height:1.5;margin:0;max-width:650px}
+.vcc-destino-v2 .vcc-destino-facts{width:100%;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:var(--vcc-guide-facts-row-gap,16px) var(--vcc-guide-facts-column-gap,22px);margin:var(--vcc-guide-facts-top-gap,22px) 0 0;padding:var(--vcc-guide-facts-divider-gap,16px) 0 0;border-top:1px solid #e4d8cf}
+.vcc-destino-v2 .vcc-destino-fact{min-width:0}
+.vcc-destino-v2 .vcc-destino-fact strong{display:block;font:800 var(--vcc-guide-facts-label-size,11px)/1.3 var(--vcc-font-body,"DM Sans",sans-serif)}
+.vcc-destino-v2 .vcc-destino-fact span{display:block;margin-top:4px;color:#756d66;font:700 var(--vcc-guide-facts-value-size,11.5px)/1.3 var(--vcc-font-body,"DM Sans",sans-serif)}
+.vcc-destino-v2 .vcc-destino-fact small{display:block;margin-top:2px;color:#756d66;font:400 var(--vcc-guide-facts-note-size,9px)/1.3 var(--vcc-font-body,"DM Sans",sans-serif)}
+.vcc-destino-v2 .vcc-destino-tabs{display:flex;gap:24px;overflow-x:auto;padding:13px max(24px,calc((100% - 1240px)/2));background:#fff;border-bottom:1px solid #e9e3dc;white-space:nowrap}
+.vcc-destino-v2 .vcc-destino-tabs a{font:700 11px/1.3 var(--vcc-font-body,"DM Sans",sans-serif);letter-spacing:.03em;color:#4a4542;text-decoration:none}
+.vcc-destino-v2 .vcc-destino-tabs a:hover{color:var(--vcc-color-accent,#c86f5d)}
+.vcc-destino-v2 .vcc-destino-main{width:min(1240px,calc(100% - 48px));margin:0 auto;padding:52px 0 84px}
+.vcc-destino-v2 .vcc-destino-section{padding:38px 0 50px}
+.vcc-destino-v2 .vcc-destino-heading{display:grid;grid-template-columns:minmax(0,1fr) minmax(240px,33%);gap:30px;align-items:end;margin-bottom:23px}
+.vcc-destino-v2 .vcc-destino-heading p{font:600 24px/1 var(--vcc-font-script,"Caveat",cursive);color:var(--vcc-color-accent,#c86f5d);margin:0 0 6px}
+.vcc-destino-v2 .vcc-destino-heading h2{font:600 clamp(27px,3vw,38px)/1.15 var(--vcc-font-heading,"Oswald",sans-serif);margin:0}
+.vcc-destino-v2 .vcc-destino-heading>span{font-size:13px;line-height:1.6;color:#69615e}
+.vcc-destino-v2 .vcc-destino-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.vcc-destino-v2 .vcc-destino-tile{display:flex;flex-direction:column;background:#fff;border:1px solid #e9e3dc;min-width:0;overflow:hidden}
+.vcc-destino-v2 .vcc-destino-tile img{width:100%;height:210px;object-fit:cover;display:block}
+.vcc-destino-v2 .vcc-destino-tile-content{padding:16px;display:grid;gap:8px}
+.vcc-destino-v2 .vcc-destino-tile small{color:var(--vcc-color-accent,#c86f5d);font:700 10px/1.2 var(--vcc-font-body,"DM Sans",sans-serif)}
+.vcc-destino-v2 .vcc-destino-tile h3{font:600 22px/1.2 var(--vcc-font-heading,"Oswald",sans-serif);margin:0}
+.vcc-destino-v2 .vcc-destino-tile p{font:400 12px/1.5 var(--vcc-font-body,"DM Sans",sans-serif);margin:0}
+.vcc-destino-v2 .vcc-destino-link{color:#354448;text-decoration:underline;text-underline-offset:3px;font-size:11px;font-weight:700;justify-self:start}
+.vcc-destino-v2 .vcc-destino-soon{font-size:10px;color:#827b75;letter-spacing:.06em;font-weight:700}
+.vcc-destino-v2 .vcc-destino-faq{display:grid;gap:9px}
+.vcc-destino-v2 .vcc-destino-faq details{padding:18px 20px;border:1px solid #e9e3dc;background:#fff}
+.vcc-destino-v2 .vcc-destino-faq summary{cursor:pointer;font-weight:700;font-size:13px}
+.vcc-destino-v2 .vcc-destino-faq p{font-size:13px;line-height:1.55;margin:10px 0 0}
+.vcc-destino-v2 .vcc-destino-day{margin:0 0 30px;padding:20px;background:white;border:1px solid #e9e3dc}
+.vcc-destino-v2 .vcc-destino-day h3{font:600 27px/1.2 var(--vcc-font-heading,"Oswald",sans-serif);margin:0 0 12px}
+.vcc-destino-v2 .vcc-destino-stop{margin:12px 0 12px 20px;font-size:13px;line-height:1.6}
+.vcc-destino-v2 .vcc-destino-draft{font:700 11px/1.3 var(--vcc-font-body,"DM Sans",sans-serif);background:#ece5dd;color:#57504c;padding:9px 22px;text-align:center}
+@media(max-width:900px){.vcc-destino-v2 .vcc-destino-facts{grid-template-columns:repeat(2,minmax(0,1fr))}.vcc-destino-v2 .vcc-destino-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.vcc-destino-v2 .vcc-destino-heading{grid-template-columns:1fr;gap:9px}}
+@media(max-width:600px){.vcc-destino-v2 .vcc-destino-hero-inner{width:calc(100% - 24px);padding:18px 0 30px}.vcc-destino-v2 .vcc-destino-card{min-height:0;padding:25px 20px}.vcc-destino-v2 h1{font-size:clamp(35px,9vw,46px)}.vcc-destino-v2 .vcc-destino-description{font-size:13px}.vcc-destino-v2 .vcc-destino-facts{column-gap:var(--vcc-guide-facts-mobile-column-gap,20px)}.vcc-destino-v2 .vcc-destino-main{width:calc(100% - 32px);padding:29px 0 65px}.vcc-destino-v2 .vcc-destino-section{padding:29px 0 37px}.vcc-destino-v2 .vcc-destino-grid{grid-template-columns:1fr}.vcc-destino-v2 .vcc-destino-tabs{gap:19px;padding:12px 16px}}
