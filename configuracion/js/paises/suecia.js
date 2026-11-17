@@ -32,35 +32,36 @@ window.COUNTRY_CONFIG={
   // Carrusel temático de ámbito NACIONAL, nunca guías de una sola ciudad.
   // Estas cinco guías están previstas, pero aún no tienen artículo publicado:
   // no se muestran enlaces inexistentes ni valoraciones inventadas.
+  // Guías nacionales pendientes: títulos breves para las tarjetas.
   thematicGuides:[
     {
-      title:'Suecia según tipología',tag:'POR TIPO',cardCategory:'POR TIPO',
-      text:'Ciudades, islas, pueblos, naturaleza y cultura: elige qué ver según el tipo de viaje que te apetece.',
-      image:'https://img.viajandoconcabeza.com/__vcc_preview/visor/destinos/suecia/goteborg-archipelago/2026-dia3/DSC07173.avif',
-      available:false
-    },
-    {
-      title:'Imprescindibles de Suecia',tag:'IMPRESCINDIBLES',cardCategory:'IMPRESCINDIBLES',
-      text:'Los lugares que no perderíamos de vista al preparar una ruta por Estocolmo, la costa oeste y el interior.',
+      title:'Lo imprescindible',tag:'PRIMERA VISITA',cardCategory:'IMPRESCINDIBLES',cardIcon:'guide-see',
+      text:'Los lugares esenciales que priorizaríamos en un primer viaje por Suecia.',
       image:'https://img.viajandoconcabeza.com/__vcc_preview/visor/destinos/suecia/estocolmo/2026-dia6/DSC07952.avif',
       available:false
     },
     {
-      title:'La Suecia más instagrameable',tag:'FOTOGRAFÍA',cardCategory:'FOTOGRAFÍA',
-      text:'Fachadas de colores, archipiélagos, lagos y escenarios fotogénicos para llevarte grandes recuerdos.',
+      title:'Lo más instagrameable',tag:'FOTOGRAFÍA',cardCategory:'FOTOGRAFÍA',cardIcon:'category-photography',
+      text:'Pueblos de colores, paisajes fotogénicos y rincones para recordar.',
       image:'https://img.viajandoconcabeza.com/__vcc_preview/visor/destinos/suecia/estocolmo-archipelago/2026-dia8/DSC08335.avif',
       available:false
     },
     {
-      title:'La Suecia más icónica',tag:'ICONOS DEL PAÍS',cardCategory:'ICONOS',
-      text:'Los grandes símbolos suecos: ciudades históricas, paisajes, tradiciones y lugares que definen el destino.',
+      title:'Mejores parques',tag:'NATURALEZA',cardCategory:'NATURALEZA',cardIcon:'category-nature',
+      text:'Parques nacionales, senderos y bosques para explorar a tu ritmo.',
       image:'https://img.viajandoconcabeza.com/destinos/suecia/dalarna/2026-dia9/DSC08592.avif',
       available:false
     },
     {
-      title:'Gemas escondidas de Suecia',tag:'RINCONES SECRETOS',cardCategory:'JOYAS OCULTAS',
-      text:'Pueblos tranquilos, islas menos transitadas y rincones del interior para ir un poco más allá de lo típico.',
+      title:'Mejores lagos',tag:'LAGOS Y PAISAJES',cardCategory:'LAGOS',cardIcon:'category-islands',
+      text:'Orillas tranquilas, miradores y paisajes de agua dulce en el país.',
       image:'https://img.viajandoconcabeza.com/destinos/suecia/dalarna/2026-dia12/DSC09101.avif',
+      available:false
+    },
+    {
+      title:'Joyas ocultas',tag:'RINCONES ESPECIALES',cardCategory:'JOYAS OCULTAS',cardIcon:'category-mountains',
+      text:'Pueblos pequeños e islas menos conocidas, lejos de las rutas más típicas.',
+      image:'https://img.viajandoconcabeza.com/__vcc_preview/visor/destinos/suecia/goteborg-archipelago/2026-dia3/DSC07173.avif',
       available:false
     }
   ],
