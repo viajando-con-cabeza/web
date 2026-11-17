@@ -69,7 +69,7 @@
 :is(#calculadora.vcc-calculadora-comparativa,.vcc-calculadora-comparativa) .vl-best-savings li strong{display:inline-block;margin:0 3px;color:#168049;font:700 19px/1.1 var(--vcc-font-heading,"Oswald",sans-serif);vertical-align:baseline;white-space:nowrap}
 :is(#calculadora.vcc-calculadora-comparativa,.vcc-calculadora-comparativa) .vl-best-note{margin:12px 0 0;color:#786e66;font:400 10px/1.5 var(--vcc-font-body,"DM Sans",Arial,sans-serif)}
 
-@media(max-width:1120px){
+@media(max-width:900px){
   :is(#calculadora.vcc-calculadora-comparativa,.vcc-calculadora-comparativa) .vl-calc-layout{grid-template-columns:minmax(0,1fr)}
   :is(#calculadora.vcc-calculadora-comparativa,.vcc-calculadora-comparativa) .vl-best-feature{align-items:center}
   :is(#calculadora.vcc-calculadora-comparativa,.vcc-calculadora-comparativa) .vl-best-main{flex:1}
@@ -150,7 +150,7 @@
 }
 :is(#calculadora.vcc-calculadora-comparativa,.vcc-calculadora-comparativa) .vl-compare-actions>span{order:0}
 :is(#calculadora.vcc-calculadora-comparativa,.vcc-calculadora-comparativa) .vl-compare-actions>.vl-add-option{order:1}
-@media(max-width:1120px){
+@media(max-width:900px){
  :is(#calculadora.vcc-calculadora-comparativa,.vcc-calculadora-comparativa) .vl-best-card{min-height:0}}
 
 /* Vuelos · ajustes finales: toolbar fuera de la tarjeta, consejo alineado con
@@ -172,7 +172,7 @@
   margin-top:39px;
   align-self:stretch;
 }
-@media(max-width:1120px){
+@media(max-width:900px){
   :is(#calculadora.vcc-calculadora-comparativa,.vcc-calculadora-comparativa) .vl-best-card{margin-top:0}}
 
 
@@ -229,14 +229,14 @@
   color:#928479;
   font-size:10px;
 }
-@media(min-width:1121px){
+@media(min-width:901px){
   /* La tarjeta arranca justo debajo de las cabeceras de las opciones A/B/C. */
   :is(#calculadora.vcc-calculadora-comparativa,.vcc-calculadora-comparativa) .vl-calc-layout>.vl-best-card{
     margin-top:49px!important;
     min-height:0!important;
     align-self:stretch!important;
   }}
-@media(max-width:1120px){
+@media(max-width:900px){
   :is(#calculadora.vcc-calculadora-comparativa,.vcc-calculadora-comparativa) .vl-calc-layout>.vl-best-card{margin-top:0!important}}
 @media(max-width:760px){
   :is(#calculadora.vcc-calculadora-comparativa,.vcc-calculadora-comparativa) .vl-calc-head .vl-calc-head-side{
@@ -349,3 +349,34 @@ html body :is(#calculadora.vcc-calculadora-comparativa,.vcc-calculadora-comparat
  html body :is(#calculadora.vcc-calculadora-comparativa,.vcc-calculadora-comparativa) .vl-calc-head-side>.vl-copy.vcc-editorial-description{
    text-align:left!important;
  }}
+
+/* Planifica · Vuelos: misma cabecera editorial y disposición lateral que
+   Alojamientos. El patrón se mantiene hasta 900 px; por debajo se apila. */
+@media (min-width:901px){
+  html body .vl-page #calculadora.vcc-calculadora-comparativa .vl-calc-head.vcc-editorial-heading{
+    display:grid!important;
+    grid-template-columns:minmax(0,1fr) minmax(260px,43%)!important;
+    grid-auto-rows:min-content!important;
+    align-items:end!important;align-content:start!important;
+    justify-content:space-between!important;
+    gap:10px 24px!important;
+    min-height:0!important;height:auto!important;
+    margin:0 0 15px!important;
+  }
+  html body .vl-page #calculadora.vcc-calculadora-comparativa .vl-calc-head > .vl-calc-head-side.vcc-editorial-heading-side{
+    display:flex!important;
+    flex:none!important;flex-direction:column!important;
+    width:100%!important;max-width:none!important;
+    height:auto!important;min-height:0!important;
+    align-self:end!important;align-items:flex-end!important;
+    justify-content:flex-end!important;
+    gap:7px!important;margin:0!important;padding:0!important;
+  }
+  html body .vl-page #calculadora.vcc-calculadora-comparativa .vl-calc-head-side > .vl-copy.vcc-editorial-description{
+    display:block!important;flex:none!important;
+    width:auto!important;max-width:460px!important;
+    height:auto!important;min-height:0!important;
+    align-self:flex-end!important;text-align:right!important;
+    margin:0!important;
+  }
+}
