@@ -39,6 +39,36 @@ function segments(html){
 const state=fs.existsSync(fullOut)?JSON.parse(fs.readFileSync(fullOut,'utf8')):{version:1,model,segments:{},pages:{}};
 if(state.version!==1||state.model!==model)throw Error('Unsupported translation memory version/model');
 state.rejected||={};
+// Never accept machine output that changes the destination, prices, dates, or VCC name.
+// Recheck the complete cache whenever the pilot runs (also catches older translations).
+function qualityIssue(es,en){
+ const pairs=[
+  [/Estocolmo/i,/Stockholm/i,'Stockholm'],
+  [/Suecia/i,/Sweden/i,'Sweden'],
+  [/Gotemburgo/i,/Gothenburg/i,'Gothenburg'],
+  [/Vaxholm/i,/Vaxholm/i,'Vaxholm'],
+  [/Grinda/i,/Grinda/i,'Grinda'],
+  [/Sigtuna/i,/Sigtuna/i,'Sigtuna'],
+  [/Djurgården/i,/Djurg(?:å|a)rden/i,'Djurgarden'],
+  [/Malmö/i,/Malm(?:ö|o)/i,'Malmo']
+ ];
+ for(const [src,dst,label] of pairs)if(src.test(es)&&!dst.test(en))return 'place-name-'+label;
+ if(/New York/i.test(en)&&!/Nueva York|New York/i.test(es))return 'unexpected-city';
+ if(/Viajando con Cabeza/.test(es)&&!en.includes('Viajando con Cabeza'))return 'protected-brand-changed';
+ if(/\bVCC\b/.test(es)&&!/\bVCC\b/.test(en))return 'protected-vcc-changed';
+ const srcNumbers=[...es.matchAll(/\b\d{2,4}\b/g)].map(x=>x[0]);
+ if(srcNumbers.some(n=>!en.includes(n)))return 'numeric-value-changed';
+ if(es.includes('€')&&!en.includes('€'))return 'currency-changed';
+ if(/\s+(?:a|the|of|to)$/i.test(en))return 'incomplete-fragment';
+ return null;
+}
+for(const [key,item] of Object.entries(state.segments)){
+ const reason=qualityIssue(item.es,item.en);
+ if(reason){
+  state.rejected[key]={es:item.es,candidate:item.en,reason};
+  delete state.segments[key];
+ }
+}
 const today=new Date().toISOString().slice(0,10);
 if(state.daily?.date!==today)state.daily={date:today,requested:0};
 const maxPerDay=Math.max(0,Math.min(150,Number(options.maxSegmentsPerDay||80)));
@@ -74,10 +104,10 @@ for(const source of sources){
    state.daily.requested++;
    try{
     const en=await translate(t);
-    const changed=['VCC','Viajando con Cabeza'].some(brand=>t.includes(brand)&&!en.includes(brand));
-    if(changed){
-      // Keep the original and the suspect candidate for review; never publish it.
-      state.rejected[key]={es:t,candidate:en,reason:'protected-brand-changed'};
+    const reason=qualityIssue(t,en);
+    if(reason){
+      // Keep the original and suspicious output for a later editorial check.
+      state.rejected[key]={es:t,candidate:en,reason};
       failed++;
     }else{
       state.segments[key]={es:t,en,model};done++;
