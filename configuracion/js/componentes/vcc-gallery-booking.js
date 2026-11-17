@@ -53,7 +53,6 @@ let currentImages=[],currentIndex=0,lastFocus=null,gridButtons=[];
 let photoSequence=0;
 let slideOverlay=null,slideTimeout=0;
 let dragSlide=null,dragSlideTimer=0,dragPaintFrame=0;
-const preloadedThumbs=new Map();
 // Cache LRU limitada: la foto activa i les adjacents, mai les 89 d'un cop.
 const sharpPhotos=new Map(),SHARP_CACHE_LIMIT=5;
 // A totes les galeries, precalentar la mateixa versió nítida del visor.
@@ -408,11 +407,7 @@ function showPhoto(index,slideDirection=0){
   if(!item.fastPreview&&url!==item.src)scheduleFullPhoto(item,id);
  };
  // La versió ja descodificada entra al mateix tick. La resta es resol en paral·lel.
- if(sharpPhotos.get(visor)?.ready){
-  void commit();
- }else{
-  void commit();
- }
+ void commit();
  createThumbs();
  preloadAdjacentPhotos();
  if(enteringPhoto)photoView.focus({preventScroll:true});
@@ -490,8 +485,6 @@ function openGallery(gallery,button){
 function closeGallery(){
  cancelFullPhoto();
  clearPhotoSlide();
- for(const image of preloadedThumbs.values())image.removeAttribute('src');
- preloadedThumbs.clear();
  clearSharpPhotos();
  deactivateGlobalGestures();
  ++photoSequence;
