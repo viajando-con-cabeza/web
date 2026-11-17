@@ -1,0 +1,37 @@
+/* VCC · Consell mensual de «Cuándo ir a Estocolmo» · 2026-11-17.
+   La capsa ocupa les dues columnes de la fitxa del mes.
+   Sense canviar la tipografia, el logotip, la vora ni el text. */
+html body.ci-page #mes-a-mes .ci-month-result .ci-month-layout > aside.ci-month-vcc{
+  box-sizing:border-box!important;
+  display:grid!important;
+  grid-column:1 / -1!important;
+  grid-row:auto!important;
+  width:calc(100% - 28px)!important;
+  max-width:none!important;
+  min-width:0!important;
+  justify-self:center!important;
+  align-self:center!important;
+  margin:11px auto 0!important;
+  grid-template-columns:80px minmax(0,1fr)!important;
+  gap:10px!important;
+  padding:7px 13px!important;
+  height:auto!important;
+  min-height:56px!important;
+  max-height:none!important;
+}
+/* La columna del logo es manté a l'esquerra i la resta és ample de lectura. */
+html body.ci-page #mes-a-mes .ci-month-result .ci-month-layout > aside.ci-month-vcc > p{
+  min-width:0!important;
+  max-width:none!important;
+  margin:0!important;
+  text-align:left!important;
+  text-align-last:left!important;
+}
+@media(max-width:600px){
+  html body.ci-page #mes-a-mes .ci-month-result .ci-month-layout > aside.ci-month-vcc{
+    width:calc(100% - 12px)!important;
+    grid-template-columns:66px minmax(0,1fr)!important;
+    gap:8px!important;
+    padding:6px 9px!important;
+  }
+}
