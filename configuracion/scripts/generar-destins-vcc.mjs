@@ -82,7 +82,20 @@ for(const file of files){
      issues.push('No sobreescriure pàgina editorial existent: '+route);
      continue;
    }
-   if(previous===html)continue;
+   // SEO global afegeix canonical, OG i WebPage després de generar.
+   // Comparar la font editorial real, NO els tags derivats del build:
+   // així --check és idempotent i no reescriu el head contínuament.
+   const extract=x=>({
+     title:x.match(/<title[^>]*>[\s\S]*?<\/title>/i)?.[0],
+     description:[...x.matchAll(/<meta\b[^>]*>/gi)].map(m=>m[0])
+       .find(tag=>/\bname=["']description["']/i.test(tag)),
+     css:[...x.matchAll(/<link\b[^>]*>/gi)].map(m=>m[0])
+       .filter(tag=>/\brel=["']stylesheet["']/i.test(tag))
+       .map(tag=>tag.match(/\bhref=["']([^"']+)/i)?.[1]),
+     editorial:x.match(/<section class="vcc-destino-hero">[\s\S]*?<\/main>/i)?.[0],
+     draft:x.includes('class="vcc-destino-draft"')
+   });
+   if(JSON.stringify(extract(previous))===JSON.stringify(extract(html)))continue;
  } else if(action==='--check'){
    issues.push('No està generada la nova ruta '+route);
    continue;
