@@ -12,34 +12,15 @@
 .swmove-page a.swmove-inline{color:var(--sw-accent);font-weight:700;text-decoration:underline;text-underline-offset:3px}
 /* Reuses all transport card dimensions, icons, breakpoints and carousel from Estocolmo. */
 .swmove-page .mv-transport-section{margin:0}
-/* Breu introducció abans del carrusel, sense caixa ni comptador. */
-.swmove-page #transportes .swmove-transport-intro{
-  max-width:790px;
-  margin:0 0 25px;
-  padding:0 0 0 16px;
-  border-left:2px solid #bd765b;
-}
-.swmove-page #transportes .swmove-transport-intro p{
-  margin:0;
-  color:#56524e;
-  font:400 13px/1.65 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
-}
-.swmove-page #transportes .swmove-transport-intro strong{
-  color:#292a28;
-  font-weight:700;
-}
-.swmove-page #transportes .swmove-transport-intro .swmove-transport-intro-hint{
-  margin-top:6px;
-  color:#82786f;
-  font-size:11.5px;
+/* La introducció llarga utilitza el mateix paràgraf editorial que els
+   altres apartats: sense barra, requadre, ni sagnat especial. */
+.swmove-page #transportes .swmove-head .vcc-editorial-description{
+  max-width:780px;
 }
 @media(max-width:700px){
-  .swmove-page #transportes .swmove-transport-intro{
-    margin-bottom:23px;
-    padding-left:12px;
+  .swmove-page #transportes .swmove-head .vcc-editorial-description{
+    max-width:100%;
   }
-  .swmove-page #transportes .swmove-transport-intro p{font-size:12px;line-height:1.58}
-  .swmove-page #transportes .swmove-transport-intro .swmove-transport-intro-hint{font-size:11px}
 }
 
 /* Infrastruktur de cada mètode: informació útil, visible al DOM i enllaçada des del carrusel. */
