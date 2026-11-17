@@ -52,9 +52,12 @@ for(const [file,maxLocalCss] of Object.entries(targets)){
     const fallbackBlocks=[...read(file).matchAll(/<noscript\b[^>]*>[\s\S]*?<\/noscript>/gi)];
     if(!fallbackBlocks.some(block=>block[0].includes(delayed)))
       failures.push(file+': falta el CSS fallback related dins noscript');
-    const css=read(bundle.slice(1));
+    // El component d'errors i les capçaleres se serveixen al final per
+    // preservar la prioritat visual. Comprovar tota la cascada efectiva,
+    // no exigir que el component estigui copiat dins el bundle de base.
+    const loadedCss=expected.map(url=>read(url.slice(1))).join('\n');
     for(const component of ['.vcc-editorial-carousel','.vcc-editorial-numbered-card','.vcc-editorial-error-card']){
-      if(!css.includes(component))failures.push(file+': falta '+component+' al CSS compartit');
+      if(!loadedCss.includes(component))failures.push(file+': falta '+component+' a la cascada CSS efectiva');
     }
   }
   for(const url of urls)if(!fs.existsSync(url.slice(1)))failures.push(file+': no existeix '+url);
