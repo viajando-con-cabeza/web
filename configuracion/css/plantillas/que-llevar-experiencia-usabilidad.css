@@ -383,3 +383,118 @@ html body .ql-page .ql-foot-note{
    font-size:8.5px!important;
  }
 }
+
+/* 17-11-2026 · Checklist editorial compacta. Sense scroll interior ni contingut ocult. */
+html body .ql-page #haz-tu-maleta > .ql-v17-climate-card{
+  margin-bottom:8px!important;
+  padding:7px 11px 5px!important;
+  min-height:0!important;
+}
+html body .ql-page #haz-tu-maleta > .ql-v6-list{
+  padding:10px 11px!important;
+}
+html body .ql-page #haz-tu-maleta .ql-v6-scroll-shell > .ql-v6-categories{
+  align-items:start!important;
+  align-content:start!important;
+  grid-auto-flow:row!important;
+  gap:9px!important;
+}
+html body .ql-page #haz-tu-maleta .ql-v6-scroll-shell > .ql-v6-categories > .ql-v6-category{
+  height:auto!important;
+  min-height:0!important;
+  align-self:start!important;
+  border-radius:9px!important;
+}
+html body .ql-page #haz-tu-maleta .ql-v6-category h4{
+  font-size:16px!important;
+  padding:7px 9px!important;
+  gap:5px!important;
+}
+html body .ql-page #haz-tu-maleta .ql-v6-category ul{
+  padding:3px 8px 5px!important;
+}
+html body .ql-page #haz-tu-maleta .ql-v6-category label{
+  min-height:34px!important;
+  padding:3px 0!important;
+  gap:5px!important;
+}
+html body .ql-page #haz-tu-maleta .ql-v6-item-icon{
+  width:21px!important;
+  height:21px!important;
+  flex:0 0 21px!important;
+}
+html body .ql-page #haz-tu-maleta .ql-v6-item-content{
+  font-size:10.5px!important;
+  line-height:1.3!important;
+  gap:4px!important;
+}
+html body .ql-page #haz-tu-maleta > .ql-v17-actions-strip{
+  margin-top:6px!important;
+  gap:5px 16px!important;
+}
+html body .ql-page #haz-tu-maleta .ql-v17-actions-strip > .ql-v6-caveat{
+  line-height:1.4!important;
+}
+/* Una sola fila en desktop: reduïm l'alçada total de la checklist. */
+@media (min-width:1080px){
+  html body .ql-page #haz-tu-maleta .ql-v6-scroll-shell > .ql-v6-categories{
+    grid-template-columns:repeat(4,minmax(0,1fr))!important;
+    grid-template-rows:none!important;
+  }
+}
+/* Dues columnes llegibles en tauletes i ordinadors estrets. */
+@media (min-width:701px) and (max-width:1079px){
+  html body .ql-page #haz-tu-maleta .ql-v6-scroll-shell > .ql-v6-categories{
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    grid-template-rows:none!important;
+  }
+}
+/* Al mòbil preval la lectura i la zona tàctil, sense retallar cap element. */
+@media (max-width:700px){
+  html body .ql-page #haz-tu-maleta .ql-v6-scroll-shell > .ql-v6-categories{
+    grid-template-columns:minmax(0,1fr)!important;
+    grid-template-rows:none!important;
+    gap:8px!important;
+  }
+  html body .ql-page #haz-tu-maleta .ql-v6-category label{
+    min-height:40px!important;
+    padding:5px 0!important;
+  }
+  html body .ql-page #haz-tu-maleta .ql-v6-item-content{
+    font-size:11.5px!important;
+  }
+  html body .ql-page #haz-tu-maleta > .ql-v17-actions-strip{
+    margin-top:5px!important;
+  }
+}
+/* Mateix ritme final per als apartats d'aquesta guia, inclòs estalvi d'espai. */
+html body .ql-page .ql-main > :is(.ql-v11-experience,.ql-v7-section-bag,.ql-v7-section-pack,.ql-essentials-section,.ql-advice-section){
+  margin-bottom:28px!important;
+}
+html body .ql-page #consejos .ql-advice-heading-row{
+  margin-bottom:11px!important;
+}
+html body .ql-page #consejos .ql-advice-carousel{
+  margin-bottom:0!important;
+}
+html body .ql-page #consejos .ql-foot-note{
+  margin:6px 0 0!important;
+  padding:0!important;
+  font-size:10px!important;
+  line-height:1.45!important;
+  color:#8a8078!important;
+}
+@media (max-width:700px){
+  html body .ql-page .ql-main > :is(.ql-v11-experience,.ql-v7-section-bag,.ql-v7-section-pack,.ql-essentials-section,.ql-advice-section){
+    margin-bottom:24px!important;
+  }
+}
+@media print{
+  html body .ql-page #haz-tu-maleta .ql-v6-scroll-shell > .ql-v6-categories{
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    gap:10px!important;
+  }
+  html body .ql-page #haz-tu-maleta .ql-v6-category label{
+    min-height:0!important;
+  }
+}
