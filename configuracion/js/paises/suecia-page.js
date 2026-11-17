@@ -69,7 +69,7 @@ function carousel(items,type){return `<div class="sweden-carousel-wrap vcc-four-
 function prepCard(x){return `<article class="vcc-prep-card"><div class="vcc-prep-image"><img src="${esc(x.image)}" alt="${esc(x.alt||x.title)}" width="480" height="240" loading="lazy" decoding="async" data-fallback="${esc(String(x.image).replace('/__vcc_preview/mini/','/'))}"><span aria-hidden="true">${esc(x.icon)}</span></div><div class="vcc-prep-copy"><h3>${esc(x.title)}</h3><p>${esc(x.text)}</p><div class="vcc-card-action">${x.available&&x.href?`<a class="vcc-prep-action" href="${esc(x.href)}">${esc(x.ctaLabel||'VER MÁS')}</a>`:'<span class="vcc-soon">PRÓXIMAMENTE</span>'}</div></div></article>`}
 const FAQ_META=[['SEGURIDAD','♢'],['MEJOR ÉPOCA','▣'],['REQUISITOS','▤'],['CLIMA','☼'],['PAGOS','▱'],['CÓMO MOVERSE','✈'],['ENCHUFES','⌁'],['QUÉ LLEVAR','♙'],['PRESUPUESTO','€'],['CONECTIVIDAD','⌁']];
 function faq(x,n){const m=x.category?[x.category,x.icon||'＋']:(FAQ_META[n]||['VCC','＋']);return `<details class="vcc-faq-item"><summary aria-expanded="false"><span class="vcc-faq-icon" aria-hidden="true">${esc(m[1])}</span><span class="vcc-faq-category">${esc(m[0])}</span><span class="vcc-faq-question">${esc(x.question)}</span><b aria-hidden="true">+</b></summary><div class="vcc-faq-answer"><p>${esc(x.answer)}</p></div></details>`}
-function render(){const c=window.COUNTRY_CONFIG||window.SWEDEN_CONTENT,root=document.getElementById('country-content');if(!c||!root)return;const name=c.name||'Destino',upper=name.toUpperCase(),continent=(c.continent||'Europa').toUpperCase(),s=c.sections||{},guides=s.guides||{},its=s.itineraries||{},prep=s.preparation||{},themes=s.thematic||{},insp=s.inspiration||{},fq=s.faq||{};const facts=(c.facts||[]).map(x=>`<div class="country-fact"><strong>${esc(x[0])}</strong><span>${esc(x[1])}</span></div>`).join('');const itin=[...(c.itineraries||[])];const min=its.minimumCards||4;while(itin.length<min)itin.push(null);root.innerHTML=`
+function render(){const c=window.COUNTRY_CONFIG||window.SWEDEN_CONTENT,root=document.getElementById('country-content');if(!c||!root)return;const name=c.name||'Destino',upper=name.toUpperCase(),continent=(c.continent||'Europa').toUpperCase(),s=c.sections||{},guides=s.guides||{},its=s.itineraries||{},prep=s.preparation||{},themes=s.thematic||{},insp=s.inspiration||{},fq=s.faq||{};const facts=(c.facts||[]).map(x=>`<div class="country-fact"><strong>${esc(x[0])}</strong><span>${esc(x[1])}</span></div>`).join('');const itin=[...(c.itineraries||[])];const min=its.minimumCards||4;while(itin.length<min)itin.push(null);const pageMarkup=`
 <section class="country-hero" style="background-image:url('${esc(c.heroImage)}')"><div class="country-hero-inner"><div class="country-breadcrumb"><a href="${esc(c.paths&&c.paths.home||'../../index.html')}">Inicio</a><span>›</span><a href="${esc(c.paths&&c.paths.destinations||'../index.html')}">Destinos</a><span>›</span><strong>${esc(name)}</strong></div><div class="country-hero-card vcc-guide-hero-copy"><p class="country-script vcc-guide-hero-kicker">${esc(c.tagline)}</p><h1>${esc(upper)}</h1><p class="country-desc vcc-guide-hero-description">${esc(c.description)}</p><div class="country-facts">${facts}</div></div></div></section>
 <nav class="country-nav"><div class="country-nav-inner"><a href="#guias">GUÍAS</a><a href="#itinerarios">ITINERARIOS</a><a href="#quever">QUÉ VER Y HACER</a><a href="#planifica">PLANIFICA TU VIAJE</a><a href="#faq">PREGUNTAS FRECUENTES</a></div></nav>
 <main class="country-main sweden-main vcc-sweden-page">
@@ -82,6 +82,15 @@ function render(){const c=window.COUNTRY_CONFIG||window.SWEDEN_CONTENT,root=docu
 <main class="country-main sweden-main vcc-sweden-page after-inspiration">
 <section id="faq" class="vcc-faq-section"><div class="vcc-faq-top"><div><p class="vcc-faq-kicker">${esc(fq.kicker||'Antes de viajar')}</p><h2>${esc(fq.title||'PREGUNTAS FRECUENTES')}</h2><p class="vcc-faq-intro">${esc(fq.description||`Todo lo que necesitas saber para viajar a ${name} con tranquilidad.`)}</p></div><div class="vcc-faq-side"><p>${esc(fq.sideLine1||'Viajar mejor')}<br>${esc(fq.sideLine2||'empieza con')}<br>${esc(fq.sideLine3||'buenas preguntas')}</p><div class="vcc-faq-brandmark" aria-hidden="true"></div></div></div><div class="vcc-faq-grid">${(c.faq||[]).map(faq).join('')}</div></section>
 </main>`;
+const preRenderedHero=root.querySelector(':scope > .country-hero[data-vcc-prerendered="1"]');
+if(preRenderedHero){
+  // No se vuelve a pintar la portada: ya está disponible en el HTML inicial.
+  const navStart=pageMarkup.indexOf('\n<nav class="country-nav">');
+  if(navStart<0)throw new Error('Navegación de país no encontrada');
+  root.insertAdjacentHTML('beforeend',pageMarkup.slice(navStart));
+}else{
+  root.innerHTML=pageMarkup;
+}
 root.querySelectorAll('#planifica .vcc-prep-image img[data-fallback]').forEach(img=>{
  img.addEventListener('error',()=>{
   const fallback=img.getAttribute('data-fallback');
