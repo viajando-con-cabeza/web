@@ -1710,7 +1710,8 @@ html body.country-page:has(nav.country-nav) .country-hero .country-desc.vcc-guid
 html body:has(.st-shell nav.st-tabs) .st-shell > .st-hero .st-desc.vcc-guide-hero-description{
   flex:none!important;
   width:100%!important;max-width:670px!important;
-  min-height:46px!important;
+  min-height:0!important;
+  height:auto!important;
   margin:0!important;padding:0!important;
   font:400 13px/1.48 var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;
 }
@@ -1721,10 +1722,14 @@ html body:has(.st-shell nav.st-tabs) .st-shell > .st-hero .st-facts{
   grid-template-columns:repeat(4,minmax(0,1fr))!important;
   align-content:start!important;
   width:100%!important;max-width:none!important;
-  gap:12px!important;
-  flex:none!important;
-  margin:10px 0 0!important;
-  padding:12px 0 0!important;
+  column-gap:22px!important;
+  row-gap:16px!important;
+  grid-auto-rows:min-content!important;
+  flex:0 0 auto!important;
+  height:auto!important;
+  min-height:0!important;
+  margin:22px 0 0!important;
+  padding:16px 0 0!important;
   border-top:1px solid #e4d8cf!important;
 }
 html body.country-page:has(nav.country-nav) .country-hero .country-fact,
@@ -1800,10 +1805,10 @@ html body:has(.st-shell nav.st-tabs) .st-shell > .st-hero .hero-start{
   html body.country-page:has(nav.country-nav) .country-hero .country-facts,
   html body:has(.st-shell nav.st-tabs) .st-shell > .st-hero .st-facts{
     grid-template-columns:repeat(2,minmax(0,1fr))!important;
-    column-gap:10px!important;
-    row-gap:8px!important;
-    margin-top:10px!important;
-    padding-top:11px!important;
+    column-gap:20px!important;
+    row-gap:16px!important;
+    margin-top:22px!important;
+    padding-top:16px!important;
   }
   html body.country-page:has(nav.country-nav) .country-hero .country-fact > strong,
   html body:has(.st-shell nav.st-tabs) .st-shell > .st-hero .st-fact > span{
@@ -1892,6 +1897,37 @@ html body:has(.st-shell nav.st-tabs) .st-shell > section.st-hero.st-hero{
 html body:has(.st-shell nav.st-tabs) .st-shell > section.st-hero > .st-hero-inner{
   box-sizing:border-box!important;
   max-height:100%!important;
+}
+
+
+/* MATEIXA JERARQUIA TIPOGRÀFICA PER A LES 4 DADES, TAMBÉ EN DESKTOP MÒBIL.
+   <strong> del país equival al <span> de la ciutat (rètol);
+   <span> del país equival al <strong> de la ciutat (valor). */
+html body.country-page:has(nav.country-nav) .country-hero .country-fact > strong,
+html body:has(.st-shell nav.st-tabs) .st-shell > .st-hero .st-fact > span{
+  font:800 11px/1.3 var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;
+  margin:0!important;
+  color:#171717!important;
+}
+html body.country-page:has(nav.country-nav) .country-hero .country-fact > span,
+html body:has(.st-shell nav.st-tabs) .st-shell > .st-hero .st-fact > strong{
+  font:700 11.5px/1.3 var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;
+  margin:4px 0 0!important;
+  color:#756d66!important;
+}
+html body:has(.st-shell nav.st-tabs) .st-shell > .st-hero .st-fact > small{
+  font:400 9px/1.3 var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;
+  margin:2px 0 0!important;
+  color:#756d66!important;
+}
+/* La vista d'escriptori del mòbil (~980px CSS) conserva sempre 2 columnes. */
+@media(max-width:1050px){
+  html body.country-page:has(nav.country-nav) .country-hero .country-facts,
+  html body:has(.st-shell nav.st-tabs) .st-shell > .st-hero .st-facts{
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    column-gap:20px!important;
+    row-gap:16px!important;
+  }
 }
 
 /* No canviar l'offset sticky: només on acaba la foto inicial.
@@ -2495,97 +2531,6 @@ html body .st-shell .st-hero .st-card.vcc-guide-hero-copy > .vcc-guide-hero-desc
   html body.country-page .country-hero .country-hero-card.vcc-guide-hero-copy > .vcc-guide-hero-description,
   html body .st-shell .st-hero .st-card.vcc-guide-hero-copy > .vcc-guide-hero-description {
     font-size:12.5px!important;
-  }
-}
-
-/* VCC · Contracte ÚNIC dels 4 indicadors de portada: Suècia i Estocolm.
-   No expandir les files de dades per omplir l'alçada fixa de la targeta.
-   Mateix espai des de la descripció fins a la línia, des de la línia fins
-   als rètols i entre files. Manté el mateix requadre i fotografia. */
-html body.country-page .country-hero .country-hero-card.vcc-guide-hero-copy,
-html body .st-shell .st-hero .st-card.vcc-guide-hero-copy{
-  justify-content:flex-start!important;
-  align-items:stretch!important;
-  gap:0!important;
-}
-html body.country-page .country-hero .country-hero-card.vcc-guide-hero-copy > .vcc-guide-hero-description,
-html body .st-shell .st-hero .st-card.vcc-guide-hero-copy > .vcc-guide-hero-description{
-  flex:0 0 auto!important;
-  height:auto!important;
-  min-height:0!important;
-  margin-bottom:0!important;
-}
-html body.country-page .country-hero .country-hero-card.vcc-guide-hero-copy > .country-facts,
-html body .st-shell .st-hero .st-card.vcc-guide-hero-copy > .st-facts{
-  box-sizing:border-box!important;
-  display:grid!important;
-  grid-template-columns:repeat(4,minmax(0,1fr))!important;
-  grid-auto-rows:min-content!important;
-  align-content:start!important;
-  align-items:start!important;
-  align-self:stretch!important;
-  flex:0 0 auto!important;
-  width:100%!important;
-  max-width:none!important;
-  height:auto!important;
-  min-height:0!important;
-  margin:25px 0 0!important;
-  padding:18px 0 0!important;
-  row-gap:18px!important;
-  column-gap:22px!important;
-  border-top:1px solid #e4d8cf!important;
-}
-html body.country-page .country-hero .country-hero-card.vcc-guide-hero-copy > .country-facts > .country-fact,
-html body .st-shell .st-hero .st-card.vcc-guide-hero-copy > .st-facts > .st-fact{
-  display:block!important;
-  align-self:start!important;
-  min-width:0!important;
-  height:auto!important;
-  margin:0!important;
-  padding:0!important;
-  text-align:left!important;
-}
-/* La primera línia és el rètol en els dos casos, tot i que
-   el HTML de país usa <strong> i el de ciutat <span>. */
-html body.country-page .country-hero .country-hero-card.vcc-guide-hero-copy .country-fact > strong,
-html body .st-shell .st-hero .st-card.vcc-guide-hero-copy .st-fact > span{
-  display:block!important;
-  margin:0!important;
-  color:#171717!important;
-  font:800 11px/1.3 var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;
-}
-/* La segona línia és el valor: jerarquia idèntica, subtil. */
-html body.country-page .country-hero .country-hero-card.vcc-guide-hero-copy .country-fact > span,
-html body .st-shell .st-hero .st-card.vcc-guide-hero-copy .st-fact > strong{
-  display:block!important;
-  margin:4px 0 0!important;
-  color:#756d66!important;
-  font:700 11.5px/1.3 var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;
-}
-html body .st-shell .st-hero .st-card.vcc-guide-hero-copy .st-fact > small{
-  display:block!important;
-  margin:2px 0 0!important;
-  color:#756d66!important;
-  font:400 9px/1.3 var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;
-}
-@media(max-width:1050px){
-  html body.country-page .country-hero .country-hero-card.vcc-guide-hero-copy > .country-facts,
-  html body .st-shell .st-hero .st-card.vcc-guide-hero-copy > .st-facts{
-    grid-template-columns:repeat(2,minmax(0,1fr))!important;
-    margin-top:25px!important;
-    padding-top:18px!important;
-    row-gap:18px!important;
-    column-gap:22px!important;
-  }
-}
-@media(max-width:600px){
-  html body.country-page .country-hero .country-hero-card.vcc-guide-hero-copy > .country-facts,
-  html body .st-shell .st-hero .st-card.vcc-guide-hero-copy > .st-facts{
-    grid-template-columns:repeat(2,minmax(0,1fr))!important;
-    margin-top:22px!important;
-    padding-top:16px!important;
-    row-gap:15px!important;
-    column-gap:14px!important;
   }
 }
 
