@@ -91,3 +91,17 @@ html body .vcc-sweden-page #faq .vcc-faq-top .vcc-faq-intro{
     --vcc-hub-description-gap:8px;
   }
 }
+
+/* VCC · Portada Suecia: separador com el de la Guia d'Estocolmo.
+ * Estocolm té margin:0 al paràgraf .st-desc; a Suecia .country-desc
+ * retenia el marge per defecte dels <p>, que desplaçava la línia.
+ * Mateix espai text/línia (26px) i línia/dades (22px), només al hero
+ * del país. No modifica mides ni estructura de les quatre dades. */
+html body.country-page .country-hero .country-hero-card.vcc-guide-hero-copy > .country-desc.vcc-guide-hero-description{
+  margin:0!important;
+}
+html body.country-page .country-hero .country-hero-card.vcc-guide-hero-copy > .country-facts{
+  margin-top:26px!important;
+  padding-top:22px!important;
+  border-top:1px solid var(--country-line,#e4d8cf)!important;
+}
