@@ -78,7 +78,7 @@
         savingLabel.textContent="AHORRO ESTIMADO";
         saving.textContent="—";
         savingWith.textContent="Completa el precio de ambas opciones";
-        verdict.textContent="Introduce los importes";
+        verdict.textContent="Introduce los precios";
         return;
       }
       const difference=Math.round((carTotal-publicTotal)*100)/100;
