@@ -824,6 +824,77 @@ html body #billetes .mv-saving-card p{
  }
 }
 
+
+/* VCC 2026-11-17 · Qué llevar Estocolmo
+   "Cómo ahorrar ESPACIO" utiliza exactamente el contrato universal de
+   "Cómo ahorrar", independientemente del texto de su título/ID.
+   Mantener la navegación de flechas propia de esta plantilla. */
+html body:has(nav.vcc-sacred-subnav) #consejos .ql-advice-carousel{
+  box-sizing:border-box!important;display:block!important;position:relative!important;
+  grid-template-columns:none!important;gap:0!important;
+  width:100%!important;max-width:100%!important;min-width:0!important;
+  padding:0!important;margin-inline:0!important;
+}
+html body:has(nav.vcc-sacred-subnav) #consejos #ql-advice-track{
+  box-sizing:border-box!important;display:flex!important;flex-flow:row nowrap!important;
+  flex:none!important;align-items:stretch!important;gap:14px!important;
+  width:100%!important;max-width:100%!important;min-width:0!important;
+  margin:0!important;padding:1px 0 4px!important;
+  overflow-x:auto!important;overflow-y:hidden!important;
+  scroll-snap-type:x mandatory!important;scroll-behavior:smooth!important;
+  scrollbar-width:none!important;-webkit-overflow-scrolling:touch;
+}
+html body:has(nav.vcc-sacred-subnav) #consejos #ql-advice-track::-webkit-scrollbar{display:none}
+html body:has(nav.vcc-sacred-subnav) #consejos #ql-advice-track > .ql-advice-card{
+  box-sizing:border-box!important;display:flex!important;
+  align-items:flex-start!important;justify-content:flex-start!important;
+  flex:0 0 calc((100% - 28px)/3)!important;width:calc((100% - 28px)/3)!important;
+  min-width:0!important;min-height:156px!important;height:156px!important;
+  max-height:156px!important;margin:0!important;padding:13px 14px!important;
+  gap:10px!important;scroll-snap-align:start!important;overflow:hidden!important;
+  background:#fff!important;border:1px solid #e2ddd6!important;
+  border-radius:11px!important;box-shadow:0 2px 8px rgba(27,44,55,.045)!important;
+}
+html body:has(nav.vcc-sacred-subnav) #consejos #ql-advice-track > .ql-advice-card h3{
+  font:600 18px/1.2 var(--vcc-font-heading,"Oswald",sans-serif)!important;
+  margin:0 0 7px!important;
+}
+html body:has(nav.vcc-sacred-subnav) #consejos #ql-advice-track > .ql-advice-card p{
+  font:400 12px/1.5 var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;
+  margin:0!important;
+}
+html body:has(nav.vcc-sacred-subnav) #consejos .ql-advice-carousel > .ql-carousel-arrow{
+  box-sizing:border-box!important;display:grid!important;place-items:center!important;
+  position:absolute!important;z-index:4!important;top:50%!important;bottom:auto!important;
+  transform:translateY(-50%)!important;
+  width:35px!important;height:35px!important;margin:0!important;padding:0!important;
+  border-radius:50%!important;border:1px solid #d9bca8!important;
+  background:#fff!important;color:#ad5b43!important;
+  box-shadow:0 2px 8px rgba(42,31,21,.07)!important;cursor:pointer!important;
+}
+html body:has(nav.vcc-sacred-subnav) #consejos #ql-advice-prev{left:-17px!important;right:auto!important}
+html body:has(nav.vcc-sacred-subnav) #consejos #ql-advice-next{right:-17px!important;left:auto!important}
+html body:has(nav.vcc-sacred-subnav) #consejos .ql-carousel-arrow:disabled{
+  opacity:0!important;pointer-events:none!important;
+}
+@media(max-width:1020px){
+ html body:has(nav.vcc-sacred-subnav) #consejos #ql-advice-track > .ql-advice-card{
+  flex-basis:calc((100% - 14px)/2)!important;width:calc((100% - 14px)/2)!important;
+ }
+}
+@media(max-width:680px){
+ html body:has(nav.vcc-sacred-subnav) #consejos #ql-advice-track > .ql-advice-card{
+  flex-basis:100%!important;width:100%!important;
+  min-height:158px!important;height:158px!important;max-height:158px!important;
+  padding:12px!important;gap:9px!important;
+ }
+ html body:has(nav.vcc-sacred-subnav) #consejos #ql-advice-prev{left:2px!important}
+ html body:has(nav.vcc-sacred-subnav) #consejos #ql-advice-next{right:2px!important}
+}
+@media(prefers-reduced-motion:reduce){
+ html body:has(nav.vcc-sacred-subnav) #consejos #ql-advice-track{scroll-behavior:auto!important}
+}
+
 /* === configuracion/css/componentes/acciones-descargas-vcc.css === */
 /* VCC · Acciones de archivos. ÚNICO estilo para PDF, impresión y Excel.
  * Añadir class="vcc-download-link" y un SVG .vcc-download-icon.
