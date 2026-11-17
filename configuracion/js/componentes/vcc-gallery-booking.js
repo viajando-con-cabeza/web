@@ -346,6 +346,10 @@ function settleDragSlide(complete){
   clearDragSlide();
   if(complete&&photoOpen())showPhoto(index);
  };
+ // A new swipe can arrive while the previous slide is settling.
+ // Commit its destination before processing the next gesture.
+ slide.settling=true;
+ slide.finish=finish;
  if(duration===0){finish();return}
  stage.classList.remove('vcc-gallery-dragging');
  stage.classList.add('vcc-gallery-drag-settling');
@@ -746,6 +750,8 @@ function deactivateGlobalGestures(){
 const distance=(a,b)=>Math.hypot(a.clientX-b.clientX,a.clientY-b.clientY);
 stage.addEventListener('touchstart',event=>{
  if(!isMobile()||!photoOpen())return;
+ // Do not discard an accepted swipe when fingers move faster than the animation.
+ if(dragSlide?.settling)dragSlide.finish();
  if(event.touches.length===2){
   clearDragSlide();
   const dist=distance(event.touches[0],event.touches[1]);
@@ -793,17 +799,27 @@ stage.addEventListener('touchmove',event=>{
 stage.addEventListener('touchend',event=>{
  if(!isMobile()||!photoOpen()||!touchGesture)return;
  if(event.touches.length)return;
- if(touchGesture.kind==='drag'&&touchZoom<=1.01&&dragSlide){
+ if(touchGesture.kind==='drag'&&touchZoom<=1.01){
   const t=event.changedTouches[0];
-  const dx=t.clientX-touchGesture.x;
-  paintDragSlide(dx);
+  const dx=t.clientX-touchGesture.x,dy=t.clientY-touchGesture.y;
   const elapsed=Math.max(16,performance.now()-touchGesture.start);
-  const quickFlick=Math.abs(dx)>34&&Math.abs(dx)/elapsed>.28;
-  settleDragSlide(Math.abs(dx)>=dragSlide.width*.25||quickFlick);
+  const horizontal=Math.abs(dx)>Math.abs(dy)*1.05;
+  const quickFlick=horizontal&&Math.abs(dx)>34&&Math.abs(dx)/elapsed>.28;
+  if(dragSlide){
+   paintDragSlide(dx);
+   settleDragSlide(horizontal&&(Math.abs(dx)>=dragSlide.width*.25||quickFlick));
+  }else if(horizontal&&(Math.abs(dx)>=Math.max(38,stage.clientWidth*.25)||quickFlick)){
+   // Very short flicks may end before the browser dispatches touchmove.
+   move(dx<0?1:-1);
+  }
  }
  touchGesture=null;
 },{passive:true});
-stage.addEventListener('touchcancel',()=>{touchGesture=null;clearDragSlide()},{passive:true});
+stage.addEventListener('touchcancel',()=>{
+ touchGesture=null;
+ if(dragSlide?.settling)dragSlide.finish();
+ else clearDragSlide();
+},{passive:true});
 stage.addEventListener('dblclick',event=>{
  if(!isMobile()||!photoOpen())return;
  event.preventDefault();touchZoom=touchZoom>1?1:2;
