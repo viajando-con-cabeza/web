@@ -1,8 +1,9 @@
-
-/* VCC 2026-11-17 · Itinerari Estocolmo · les tres columnes comencen
-   a la mateixa línia. CSS propi, fora del fitxer compilat regenerable.
-   Només escriptori. L'ordre de lectura HTML i la versió mòbil no canvien. */
-@media (min-width:951px){
+/* VCC · Alineació de les tres columnes: còpia final del CSS canònic.
+   S'ha de carregar després del CSS compilat per protegir la presentació
+   dels desplegaments que regeneren bundles de manera asíncrona. */
+/* VCC 2026-11-17 · Correcció canònica: tres columnes amb el mateix inici.
+   Evita l'antic centrament de les galeries i el header editorial a tota fila. */
+@media (min-width:951px) {
   html body article.day-section[id^="dia"]{
     display:grid!important;
     grid-template-columns:minmax(0,32fr) minmax(0,28fr) minmax(0,40fr)!important;
@@ -11,17 +12,27 @@
     align-items:start!important;
     box-sizing:border-box!important;
   }
-  /* Capçalera + introducció: columna esquerra, una sota l'altra.
-     Abans la capçalera ocupava totes les columnes i feia baixar la ruta. */
   html body article.day-section[id^="dia"] > header.vcc-editorial-heading{
+    display:block!important;
+    grid-template-columns:none!important;
     grid-column:1!important;
     grid-row:1!important;
     align-self:start!important;
     justify-self:stretch!important;
     width:100%!important;
+    min-width:0!important;
     margin:0!important;
     padding:0!important;
     transform:none!important;
+  }
+  html body article.day-section[id^="dia"] > header.vcc-editorial-heading .vcc-editorial-description{
+    display:block!important;
+    width:100%!important;
+    max-width:100%!important;
+    min-width:0!important;
+    margin:7px 0 0!important;
+    padding:0!important;
+    text-align:left!important;
   }
   html body article.day-section[id^="dia"] > .day-intro{
     grid-column:1!important;
@@ -32,8 +43,6 @@
     padding:0!important;
     transform:none!important;
   }
-  /* La ruta i les fotos comencen a l'alçada del títol del dia.
-     No centrar verticalment la galeria segons l'alçada del timeline. */
   html body article.day-section[id^="dia"] > .day-schedule{
     grid-column:2!important;
     grid-row:1 / span 2!important;
@@ -51,6 +60,7 @@
     justify-self:stretch!important;
     box-sizing:border-box!important;
     width:100%!important;
+    min-width:0!important;
     max-width:100%!important;
     min-height:0!important;
     margin:0!important;
