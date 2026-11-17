@@ -1,0 +1,93 @@
+/* VCC · 2026-11-17 · Capçaleres d'entrada de país i ciutat.
+ * Un únic contracte tipogràfic per a Suècia i Estocolm.
+ * Referència: «ITINERARIOS EN SUECIA» (no es modifica cap contingut ni targeta).
+ * Aplicat només des de les dues pàgines principals, després de tots els CSS antics.
+ */
+html body .vcc-sweden-page{
+  --vcc-hub-title-size:39px;
+  --vcc-hub-kicker-size:25px;
+  --vcc-hub-description-size:12px;
+  --vcc-hub-head-title-gap:2px;
+  --vcc-hub-description-gap:9px;
+}
+/* Totes les seccions: guies, itineraris, què veure, pressupost, planifica i FAQ.
+   El selector inclou l'ID de secció per prevaldre sobre els overrides antics
+   (#guias, #planifica i els estils especials de la portada d'Estocolm).
+ */
+html body .vcc-sweden-page :is(#guias,#itinerarios,#quever,#itinerario,#presupuesto,#planifica,#faq)
+:is(.country-heading,.budget-visual-heading,.vcc-faq-top) > div > h2{
+  display:block!important;
+  font-family:var(--vcc-font-heading,"Oswald",sans-serif)!important;
+  font-size:var(--vcc-hub-title-size)!important;
+  font-weight:500!important;
+  line-height:1.06!important;
+  letter-spacing:0!important;
+  text-transform:uppercase!important;
+  color:var(--country-ink,#171717)!important;
+  margin:var(--vcc-hub-head-title-gap) 0 0!important;
+  padding:0!important;
+  transform:none!important;
+}
+/* Evitar un títol duplicat en Guías per les regles antigues amb ::after. */
+html body.country-page .vcc-sweden-page #guias .country-heading h2::after{
+  display:none!important;
+  content:none!important;
+}
+html body .vcc-sweden-page :is(#guias,#itinerarios,#quever,#itinerario,#presupuesto,#planifica,#faq)
+:is(.country-heading,.budget-visual-heading,.vcc-faq-top) > div > p:not(.vcc-faq-intro){
+  font-family:var(--vcc-font-script,"Caveat",cursive)!important;
+  font-size:var(--vcc-hub-kicker-size)!important;
+  font-weight:600!important;
+  line-height:1.08!important;
+  letter-spacing:0!important;
+  text-transform:none!important;
+  color:var(--country-coral,#c86f5d)!important;
+  margin:0!important;
+  padding:0!important;
+}
+/* Descripció independent (country-heading / budget) o dins el bloc FAQ. */
+html body .vcc-sweden-page :is(#guias,#itinerarios,#quever,#itinerario,#presupuesto,#planifica,#faq)
+:is(.country-heading,.budget-visual-heading) > :is(span,p.budget-visual-intro),
+html body .vcc-sweden-page #faq .vcc-faq-top .vcc-faq-intro{
+  font-family:var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;
+  font-size:var(--vcc-hub-description-size)!important;
+  line-height:1.5!important;
+  font-weight:400!important;
+  letter-spacing:0!important;
+  text-transform:none!important;
+  color:#716a64!important;
+  white-space:normal!important;
+  text-wrap:pretty!important;
+}
+html body .vcc-sweden-page #faq .vcc-faq-top .vcc-faq-intro{
+  margin:var(--vcc-hub-description-gap) 0 0!important;
+  max-width:420px!important;
+}
+/* Als hubs estrets la descripció ha de tenir el mateix espai sota el títol. */
+@media(max-width:850px){
+  html body .vcc-sweden-page{
+    --vcc-hub-title-size:35px;
+    --vcc-hub-kicker-size:23px;
+  }
+  html body .vcc-sweden-page :is(#guias,#itinerarios,#quever,#itinerario,#presupuesto,#planifica)
+  :is(.country-heading,.budget-visual-heading){
+    display:block!important;
+  }
+  html body .vcc-sweden-page :is(#guias,#itinerarios,#quever,#itinerario,#presupuesto,#planifica)
+  :is(.country-heading,.budget-visual-heading) > :is(span,p.budget-visual-intro){
+    display:block!important;
+    width:100%!important;
+    max-width:none!important;
+    min-width:0!important;
+    margin:var(--vcc-hub-description-gap) 0 0!important;
+    text-align:left!important;
+  }
+}
+@media(max-width:560px){
+  html body .vcc-sweden-page{
+    --vcc-hub-title-size:32px;
+    --vcc-hub-kicker-size:22px;
+    --vcc-hub-description-size:12px;
+    --vcc-hub-description-gap:8px;
+  }
+}
