@@ -1,5 +1,13 @@
 # Viajando con Cabeza
 
+## Visió escalable (Suècia/Estocolm com a referència)
+
+Llegiu primer **[Arquitectura escalable VCC](configuracion/ARQUITECTURA-ESCALABLE-VCC.md)**: inventari del repositori, fonts de veritat, passos per crear futurs països/regions/ciutats, política d'esborranys, sistema de disseny, traducció EN futura i comprovacions sense regressions.
+
+La publicació no es decideix per l'existència d'un fitxer o d'una etiqueta al catàleg; només el registre editorial `configuracion/datos/publicacion-vcc.json` pot aprovar una guia. Suècia/Estocolm són les referències visuals; les altres destinacions encara no constitueixen guies validades.
+
+Comprovació del contracte: `npm run architecture:check`. Inventari machine-readable: `npm run architecture:report`.
+
 ## Dónde editar
 
 | Sección | Carpeta |
