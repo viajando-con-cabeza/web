@@ -205,6 +205,7 @@ Això proporciona una **estructura tècnica ja utilitzable per als nous destins*
 Referència visual immutable `21433cc37ceaeca04fd73608027f497f2cf2d9b0`, abans dels canvis d'aquest cicle.
 
 - Inclou les **25 pàgines publicables** i **8 guies/esborranys visuals** de Suècia/Planifica, 33 pàgines × 3 dispositius = 99 comprovacions.
+- **Execució verificada:** les 99 comparacions han passat, cap divergència de píxels/marges/text detectada amb les imatges neutralitzades. [GitHub Actions](https://github.com/viajando-con-cabeza/web/actions/runs/44112144404).
 - S'exclou de la comparació d'identitat estricta la fotografia decorativa **aleatòria** de Contacto (només si la captura, CSS i text són equivalents).
 - No se substitueix una prova humana amb fotografies i interaccions reals. El mapa, carrusels i PDF requereixen validació manual puntual; Core Web Vitals és una auditoria separada.
 
