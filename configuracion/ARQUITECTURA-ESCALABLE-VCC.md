@@ -103,6 +103,21 @@ Futur n8n: desencadenar tasques de traducció i comprovació després d'un push,
 
 La mida en bytes del CSS no equival a transferència real (compressió, caché, HTTP). Tot i així, una web amb centenars de guies requereix menys CSS repetit, imatges R2 amb lazy loading, bundles condicionats per tipus de pàgina i estratègies de cache verificades.
 
+### Deute mesurat per l'auditoria de dependències (GitHub Actions)
+
+Abans de fusionar a producció, prioritzar aquests casos concrets, sense canviar el disseny aprovat només per baixar un recompte:
+
+| Àrea | Diagnòstic mesurat | Acció segura |
+| --- | --- | --- |
+| Estocolm · pressupost | ~517 KB CSS cru en 6 enllaços; 5 fonts CSS solapades (~133 KB) | Revisar el manifest dels bundles i fusionar fonts en ordre de cascada, amb prova visual |
+| Estocolm · què portar | ~384 KB CSS cru, 14 fulls | Extreure CSS de plantilla reutilitzable i eliminar només dependències comprovades |
+| Estocolm · imprescindibles | ~347 KB CSS cru, 14 fulls | Centralitzar targetes i carrusel sense tocar galeries ni fotos |
+| Planifica · vols i targetes | 17 fulls CSS cadascuna; el validador actual limita a 16 | Consolidar els fitxers realment co-carregats i conservar la mateixa cascada |
+| Estocolm · allotjament / pressupost | El validador detecta ordre de cascada inconsistent | Comparar càrregues reals i la regla aprovada; corregir la font, no afeblir el test |
+| Imatges externes | Auditoria visual detecta una URL d'Unsplash no registrada en targetes destacades | Identificar la imatge i substituir-la per fotografia pròpia de R2 si correspon; no aprovar-la silenciosament |
+
+**Estat CI:** el workflow `VCC · Arquitectura i creixement` ha passat. El workflow global `Quality` encara falla en comprovacions de cascada CSS existents; l'auditoria de recursos bloqueja una fotografia externa no registrada. Aquests errors es mantenen visibles perquè no confonguem un contracte arquitectònic correcte amb un desplegament visual o una publicació completament validada.
+
 ## 6. Ordre de prioritats
 
 **Ara — sense regressions:** consolidar metadades del catàleg, declarar referències i idiomes, fer editables els tokens, afegir controls automàtics, corregir tests obsolets i registrar pendents.
