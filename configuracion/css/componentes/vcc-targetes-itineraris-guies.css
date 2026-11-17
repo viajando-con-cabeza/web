@@ -882,7 +882,7 @@ html body.ci-page #por-region .ci-region-card.di-mini-card.vcc-it-card[hidden]{
 
 /* VCC · Portada Suecia · Tres carrusels amb títols de fins a dues línies.
    Només #guias, #itinerarios i #quever: 20px més d'alçada (342 vs 322),
-   espai fix del títol, bandera i metadades en una fila pròpia.
+   alçada natural del títol (1 o 2 línies), bandera i metadades a sota.
    El component corporatiu i la resta del blog conserven els 322px. */
 html body.country-page .vcc-sweden-page :is(#guias,#itinerarios,#quever) .vcc-card-collection{
   --vcc-card-unified-height:342px;
@@ -895,8 +895,8 @@ html body.country-page .vcc-sweden-page :is(#guias,#itinerarios,#quever) .vcc-ca
   -webkit-box-orient:vertical!important;
   -webkit-line-clamp:2!important;
   line-clamp:2!important;
-  height:2.24em!important;
-  min-height:2.24em!important;
+  height:auto!important;
+  min-height:0!important;
   max-height:2.24em!important;
   line-height:1.12!important;
   margin:0 0 6px!important;
