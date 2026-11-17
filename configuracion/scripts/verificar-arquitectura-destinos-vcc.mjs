@@ -72,6 +72,17 @@ for(const file of approvedFiles){
     check(Boolean(countries.countries?.[id]),"País aprovat sense metadades: "+id);
   }
 }
+// Les futures ciutats es creen sempre com a esborranys reals,
+ // mai amb costos de demostració indexables o fotografies alienes.
+const example=json("configuracion/plantillas/destino-ejemplo.json");
+const createGenerator=read("configuracion/scripts/destinos.mjs");
+check(example.ready===false&&example.editorialReviewed===false,
+  "El contingut de demostració mai no pot ser ready ni editorialment aprovat");
+check(createGenerator.includes("d.editorialReviewed!==true") &&
+  createGenerator.includes("src.startsWith('https://img.viajandoconcabeza.com/')") &&
+  createGenerator.includes("isPublished('destinos/'+country+'/'+city+'/index.html')"),
+  "El generador futur ha de validar autoria VCC i registre editorial abans d'indexar");
+
 const script=read("configuracion/scripts/generate-planifica-hubs.mjs");
 check(script.includes('new URL("../datos/paises-vcc.json", import.meta.url)'),
   "El catàleg Planifica ha de llegir la font central de països");
