@@ -75,7 +75,7 @@
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',mountInteriorContractFallback,{once:true});
   else mountInteriorContractFallback();
   ensureSharedResource('script','script[src*="subheader-unificado-vcc.js"]',
-    'configuracion/js/componentes/subheader-unificado-vcc.js?v=20261116-sagrat-v4');
+    'configuracion/js/componentes/subheader-unificado-vcc.js?v=20261117-sobretitol-anchor-v1');
 
   const currentPath = window.location.pathname.replace(/\/index\.html$/, '/');
 
