@@ -232,3 +232,27 @@ html body.destinos-vcc .vcc-country[data-coming="true"] > img,
 html body.destinos-vcc .vcc-country[data-coming="true"] > span{
   opacity:.58;
 }
+
+
+/* Destinos · blanc pur a TOTES les vinyetes de continents i de països.
+   Conservar el marc de selecció i l'estat de properament, però mai tenyir el fons. */
+html body.destinos-vcc .vcc-d-continent-layout .vcc-continent-choice,
+html body.destinos-vcc .vcc-d-continent-layout .vcc-continent-choice:hover,
+html body.destinos-vcc .vcc-d-continent-layout .vcc-continent-choice[aria-pressed="true"],
+html body.destinos-vcc .vcc-d-continent-layout .vcc-continent-choice:focus-visible,
+html body.destinos-vcc .vcc-d-accordions .vcc-country,
+html body.destinos-vcc .vcc-d-accordions .vcc-country:hover,
+html body.destinos-vcc .vcc-d-accordions .vcc-country:focus-visible,
+html body.destinos-vcc .vcc-d-accordions .vcc-country[data-coming="true"] {
+  background:#fff!important;
+  background-image:none!important;
+  opacity:1!important;
+}
+html body.destinos-vcc .vcc-d-accordions .vcc-country.vcc-pending-country {
+  background:#fff!important;
+  opacity:1!important;
+}
+/* El contingut 'próximamente' pot continuar gris; la targeta sencera no. */
+html body.destinos-vcc .vcc-d-accordions .vcc-country[data-coming="true"] > :is(img,span) {
+  opacity:.58;
+}
