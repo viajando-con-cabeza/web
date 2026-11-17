@@ -56,6 +56,18 @@ html body .vcc-sacred-hero > :is(
   height:100%!important;min-height:0!important;max-height:none!important;
   margin:0 auto!important;padding:0!important;
 }
+/* Breadcrumb i text comparteixen exactament l'eix del contracte.
+ * Definició canònica carregada després del CSS base compilat. */
+html body .vcc-sacred-hero #vcc-global-breadcrumb{
+  left:var(--vcc-contract-gutter)!important;
+  max-width:calc(100% - 92px)!important;
+}
+@media(max-width:720px){
+  html body .vcc-sacred-hero #vcc-global-breadcrumb{
+    left:18px!important;
+    max-width:calc(100% - 36px)!important;
+  }
+}
 /* La caixa de text de guia comparteix el mateix origen dins del contenidor. */
 html body .vcc-sacred-hero .vcc-guide-hero-copy{
   box-sizing:border-box!important;
