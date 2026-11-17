@@ -35,8 +35,14 @@ function countryCard(x,isGuide){
  const dest=isGuide?x:(window.COUNTRY_CONFIG&&window.COUNTRY_CONFIG.guides||[]).find(g=>g.title===x.scoreDestination);
  const score=published?scoreMarkup(dest):'';
  const photo=String(x.image||'/configuracion/imagenes/marca/logo-vcc.svg');
- const optimized=photo.includes('/__vcc_preview/visor/');
- const srcset=optimized?' srcset="'+esc(photo.replace('/__vcc_preview/visor/','/__vcc_preview/mini/'))+' 480w, '+esc(photo)+' 1800w" sizes="(max-width: 760px) 86vw, (max-width: 1100px) 48vw, 380px"':'';
+ // Contrato universal de fotografias de tarjeta R2: mini en movil,
+ // visor para resoluciones amplias. Nunca usar la foto original en una vineta.
+ const r2Key=photo.match(/^https:\/\/img\.viajandoconcabeza\.com\/(?:__vcc_preview\/(?:mini|visor)\/)?(destinos\/[a-z0-9_\/-]+\.(?:avif|webp))$/i)?.[1];
+ const mini=r2Key?'https://img.viajandoconcabeza.com/__vcc_preview/mini/'+r2Key:'';
+ const visor=r2Key?'https://img.viajandoconcabeza.com/__vcc_preview/visor/'+r2Key:'';
+ const cardImage=r2Key
+   ?'<picture class="vcc-card-responsive-picture"><source media="(max-width: 760px)" srcset="'+esc(mini)+'"><img class="vcc-card-cover-photo" src="'+esc(visor)+'" srcset="'+esc(mini)+' 480w, '+esc(visor)+' 1800w" sizes="(max-width: 760px) 86vw, (max-width: 1100px) 48vw, 380px" alt="'+esc(title)+'" width="640" height="380" loading="lazy" decoding="async"></picture>'
+   :'<img class="vcc-card-cover-photo" src="'+esc(photo)+'" alt="'+esc(title)+'" width="640" height="380" loading="lazy" decoding="async">';
  const icon=x.cardIcon||(tag==='CIUDADES'?'category-city':'category-islands');
  const iconMarkup=x.cardIcon
    ?'<svg viewBox="0 0 24 24" aria-hidden="true"><use href="/configuracion/imagenes/iconos/paginas/categorias-vcc.svg#'+esc(x.cardIcon)+'"></use></svg>'
@@ -48,7 +54,7 @@ function countryCard(x,isGuide){
  const countryLabel='Suecia'+(cardPlace?' · '+cardPlace:'');
  return '<article class="home-feature-card '+(isGuide?'home-guide-card':'home-route-card')+' vcc-it-card vcc-card-shared'+(isGuide?' vcc-guide-card':'')+'">'+
    '<div class="home-feature-photo vcc-it-photo">'+
-     '<img class="vcc-card-cover-photo" src="'+esc(photo)+'"'+srcset+' alt="'+esc(title)+'" width="640" height="380" loading="lazy" decoding="async">'+score+
+     cardImage+score+
    '</div>'+
    '<div class="home-feature-details di-mini-body">'+
      '<span class="vcc-card-kicker">'+iconMarkup+esc(tag)+'</span>'+
