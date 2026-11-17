@@ -375,3 +375,95 @@ html body :is(#sorpresas .vcc-editorial-error-card,#errores-a-evitar .vcc-editor
   height:158px!important;min-height:158px!important;max-height:158px!important;
  }
 }
+
+/* VCC 2026-11-17 · ample/fletxes ERRORES com CÓMO AHORRAR (sense tocar targetes). */
+/* Regla geomètrica universal per a les cinc variants (sis pàgines).
+   No canvia icones, fonts, tipografia, colors ni contingut de cap targeta.
+   Contràriament als grids antics, les fletxes ja no reserven columnes. */
+html body.ci-page #errores .ci-tips-shell,
+html body.budget-vcc #sorpresas.surprise-section .carousel-shell.surprise-carousel,
+html body .tv-page #errores .tv-errors-carousel,
+html body .sv-page #consejos .sv-carousel-shell,
+html body #errores-a-evitar .av-carousel{
+ display:block!important;position:relative!important;
+ box-sizing:border-box!important;grid-template-columns:none!important;
+ grid-template-rows:none!important;gap:0!important;
+ width:100%!important;max-width:100%!important;min-width:0!important;
+ margin:0!important;padding:0!important;overflow:visible!important;
+}
+/* La pista ocupa tot l'ample: mateix punt d'inici que Cómo ahorrar. */
+html body.ci-page #errores .ci-tips-shell > #ciTipsTrack,
+html body.budget-vcc #sorpresas.surprise-section .surprise-carousel > .surprise-grid.tips-track,
+html body .tv-page #errores .tv-errors-carousel > #tv-errors-track,
+html body .sv-page #consejos .sv-carousel-shell > #sv-track-tips,
+html body #errores-a-evitar .av-carousel > #av-errores-track{
+ box-sizing:border-box!important;display:flex!important;
+ flex-flow:row nowrap!important;align-items:stretch!important;
+ grid-column:auto!important;grid-row:auto!important;grid-template-columns:none!important;
+ width:100%!important;max-width:100%!important;min-width:0!important;
+ margin:0!important;padding:1px 0 4px!important;
+ gap:var(--vcc-error-track-gap,14px)!important;
+ overflow-x:auto!important;overflow-y:hidden!important;
+ scroll-snap-type:x mandatory!important;scroll-padding-inline:0!important;
+ overscroll-behavior-x:contain!important;scrollbar-width:none;
+ -webkit-overflow-scrolling:touch;
+}
+/* En Apps els dos botons són dins un contenedor separat.
+   Se superposa a tota la pista, sense alterar-ne el desplaçament. */
+html body #errores-a-evitar .av-carousel > .av-arrows{
+ display:block!important;position:absolute!important;
+ inset:0!important;width:100%!important;height:100%!important;
+ min-height:0!important;margin:0!important;padding:0!important;
+ z-index:5!important;pointer-events:none!important;
+}
+/* Com a Cómo ahorrar: 35px, centre vertical, sobreposades a les vinyetes.
+   Cada pàgina manté el seu estil de fletxa i la lògica de desactivació. */
+html body.ci-page #errores .ci-tips-shell > .ci-tips-arrow,
+html body.budget-vcc #sorpresas.surprise-section .surprise-carousel > button.carousel-arrow,
+html body .tv-page #errores .tv-errors-carousel > .tv-error-arrow,
+html body .sv-page #consejos .sv-carousel-shell > .sv-arrow,
+html body #errores-a-evitar .av-carousel > .av-arrows > .av-arrow{
+ box-sizing:border-box!important;position:absolute!important;
+ top:50%!important;bottom:auto!important;z-index:6!important;
+ transform:translateY(-50%)!important;
+ grid-column:auto!important;grid-row:auto!important;
+ width:35px!important;height:35px!important;
+ min-width:35px!important;min-height:35px!important;
+ margin:0!important;padding:0!important;pointer-events:auto!important;
+}
+/* Escriptori / tauleta: com Cómo ahorrar, meitat de la fletxa per fora. */
+html body.ci-page #errores .ci-tips-shell > .ci-tips-prev,
+html body.budget-vcc #sorpresas.surprise-section .surprise-carousel > .prev,
+html body .tv-page #errores .tv-errors-carousel > .tv-error-prev,
+html body .sv-page #consejos .sv-carousel-shell > .sv-prev,
+html body #errores-a-evitar .av-carousel > .av-arrows > .av-arrow-prev{
+ left:-17px!important;right:auto!important;
+}
+html body.ci-page #errores .ci-tips-shell > .ci-tips-next,
+html body.budget-vcc #sorpresas.surprise-section .surprise-carousel > .next,
+html body .tv-page #errores .tv-errors-carousel > .tv-error-next,
+html body .sv-page #consejos .sv-carousel-shell > .sv-next-arrow,
+html body #errores-a-evitar .av-carousel > .av-arrows > .av-arrow-next{
+ right:-17px!important;left:auto!important;
+}
+/* Mòbil: fletxes superposades dins del mateix ample de la pista, com ahorro. */
+@media(max-width:680px){
+ html body.ci-page #errores .ci-tips-shell > .ci-tips-prev,
+ html body.budget-vcc #sorpresas.surprise-section .surprise-carousel > .prev,
+ html body .tv-page #errores .tv-errors-carousel > .tv-error-prev,
+ html body .sv-page #consejos .sv-carousel-shell > .sv-prev,
+ html body #errores-a-evitar .av-carousel > .av-arrows > .av-arrow-prev{
+  left:2px!important;right:auto!important;
+ }
+ html body.ci-page #errores .ci-tips-shell > .ci-tips-next,
+ html body.budget-vcc #sorpresas.surprise-section .surprise-carousel > .next,
+ html body .tv-page #errores .tv-errors-carousel > .tv-error-next,
+ html body .sv-page #consejos .sv-carousel-shell > .sv-next-arrow,
+ html body #errores-a-evitar .av-carousel > .av-arrows > .av-arrow-next{
+  right:2px!important;left:auto!important;
+ }
+}
+/* Respecta la visibilitat/desactivació que gestiona el JS de cada pàgina. */
+html body :is(#errores,#sorpresas,#consejos,#errores-a-evitar) button[data-vcc-scroll-hidden]{
+ visibility:hidden!important;opacity:0!important;pointer-events:none!important;
+}
