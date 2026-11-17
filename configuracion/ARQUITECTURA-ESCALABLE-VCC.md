@@ -118,6 +118,38 @@ Abans de fusionar a producció, prioritzar aquests casos concrets, sense canviar
 
 **Estat CI:** el workflow `VCC · Arquitectura i creixement` ha passat. El workflow global `Quality` encara falla en comprovacions de cascada CSS existents; l'auditoria de recursos bloqueja una fotografia externa no registrada. Aquests errors es mantenen visibles perquè no confonguem un contracte arquitectònic correcte amb un desplegament visual o una publicació completament validada.
 
+## 5 bis. Correccions aplicades i estat comprovat (17-11-2026)
+
+**A les execucions GitHub Actions sobre la branca Quality:**
+- Quality — PASSA: https://github.com/viajando-con-cabeza/web/actions/runs/44085808442
+- Recursos visuals — PASSA: https://github.com/viajando-con-cabeza/web/actions/runs/44085808514
+
+### Canvis tècnics confirmats
+
+1. Compilació de base `paginas.css + overrides.css` en un únic full compartit, utilitzat per Vuelos, Tarjetas de viaje, Mapas i Calcula tu viaje. Ordre de cascada conservat.
+2. Fonts d'editorial + «Cómo ahorrar» empaquetades per Pressupost i Allotjament. Sense moure les regles.
+3. Dues peticions de Google Fonts unificades en una a Mapas i Calcula tu viaje. Famílies i pesos iguals.
+4. SVG de ratings, passes, «Sigue descubriendo» i controls de Suècia extrets a recursos externs. Les guies aprovades no dibuixen vectors nous en HTML/JS/CSS.
+5. Foto externa no registrada eliminada d'una targeta d'itinerari *no publicat*. Substituïda per logo corporatiu neutre fins que hi hagi foto pròpia del lloc.
+6. `WebPage` JSON-LD sincronitzada automàticament des de title/description/canonical/OG de cada pàgina aprovada. S'han tret 3 nodes preexistents duplicats, conservant les breadcrumbs i les dades d'ItemList reals.
+7. Proves de SEO, itinerari, vols/PDF, Cuándo ir, Imprescindibles i portades actualitzades per comprovar fonts R2, classes i estructures **realment aprovades**, no snapshots antics.
+8. Auditoria CSS: pes cru i estimació gzip. A Pressupost Estocolm ~533 KB CSS cru, ~82 KB gzip estimat. El primer valor exigeix seguir refactoritzant, però no és la transferència de xarxa real.
+
+### Deute que no hem esborrat a cegues
+
+- 62 icones SVG definides als HTML de **7 esborranys històrics**; la comprovació n'avisa i en bloquejarà la publicació si es volen aprovar. No tocar-les abans de decidir la seva migració al nou format de Suècia/Estocolm.
+- 6 fonts CSS que l'auditoria no troba en referències literals; abans de suprimir-les, comprovar el seu ús per JavaScript i `@import`.
+- Solapaments de fonts CSS compilades (sobretot Pressupost Estocolm) documentats, no eliminats perquè el seu ordre pot afectar la presentació visual.
+- Alguns enllaços des de pàgines aprovades apunten a guies no aprovades. Els hubs principals ja apliquen la política editorial `deny-by-default`; abans de publicar nous destins, revisar també les relacions entre guies.
+- **No s'ha fet una comparació visual exhaustiva en navegadors** ni un mesurament de Core Web Vitals en una URL desplegada per a cada pàgina. Quality correcte no implica absència de regressions visuals ni cap promesa de posicionament a Google.
+- Traducció EN **encara desactivada**; depèn d'implementar un pipeline verificat i editorialment revisat.
+
+### Criteri SEO
+
+No afegir `meta keywords` ni blocs amb paraules ocultes. Google no utilitza la primera etiqueta, i les dades estructurades han de descriure contingut real. Prioritzar contingut propi, títols i descripcions únics, rutes estables, enllaços editorials, qualitat fotogràfica, rendiment i seguiment a Search Console.
+
+Fonts: https://developers.google.com/search/docs/fundamentals/seo-starter-guide i https://developers.google.com/search/docs/appearance/structured-data/sd-policies.
+
 ## 6. Ordre de prioritats
 
 **Ara — sense regressions:** consolidar metadades del catàleg, declarar referències i idiomes, fer editables els tokens, afegir controls automàtics, corregir tests obsolets i registrar pendents.
