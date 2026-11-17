@@ -114,6 +114,11 @@
  * col·lapsen a una sola separació de 76/52px, sense duplicar-la.
  * Els components interiors mai reben aquesta classe. */
 @layer vcc-interior-portades {
+  /* Fallback natiu (URL amb #hash, teclat o JS encara carregant):
+     petit espai real de 8px sota el subheader sticky. */
+  html body [data-vcc-subheader-target]{
+    scroll-margin-top:calc(var(--vcc-subheader-top,50px) + var(--vcc-subnav-height,39px) + 8px)!important;
+  }
   html body:has(nav.vcc-unified-subheader) main > :is(section,article).vcc-subheader-section {
     margin-block-start:var(--vcc-espai-entre-apartats)!important;
     margin-block-end:var(--vcc-espai-entre-apartats)!important;
