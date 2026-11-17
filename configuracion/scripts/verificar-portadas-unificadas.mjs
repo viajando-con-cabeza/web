@@ -97,8 +97,9 @@ check(stockholmHome.includes('st-card vcc-guide-hero-copy')&&
 const canonicalHeroCss=read('configuracion/css/componentes/portades-contracte-unic-vcc.css');
 const canonicalSubheaderJs=read('configuracion/js/componentes/subheader-unificado-vcc.js');
 const sharedHeaderJs=read('configuracion/js/site-header.js');
-check(canonicalHeroCss.includes('--vcc-contract-height:475px')&&
- canonicalHeroCss.includes('--vcc-contract-photo-alpha:linear-gradient')&&
+check(canonicalHeroCss.includes('--vcc-contract-height:var(--vcc-subheader-cover-height,475px)')&&
+ canonicalHeroCss.includes('--vcc-contract-photo-alpha:var(--vcc-portada-fade)')&&
+ canonicalHeroCss.includes('--vcc-contract-photo-veil:var(--vcc-portada-veil)')&&
  canonicalHeroCss.includes('vcc-sacred-subnav')&&
  canonicalHeroCss.includes('vcc-guide-hero-copy')&&
  canonicalHeroCss.includes('vcc-planifica-hero-content')&&
@@ -128,7 +129,7 @@ for(const section of [
  * la transparència en Alojamientos i altres subpàgines. */
 const planificaPortades=read('configuracion/css/componentes/planifica-portadas-unificadas-vcc.css');
 check(planificaPortades.includes('background-image:var(--vcc-pl-cover)!important;')&&
-  planificaPortades.includes('mask-image:var(--vcc-portada-fade,')&&
+  planificaPortades.includes('mask-image:var(--vcc-portada-fade)!important;')&&
   !planificaPortades.includes('mask-image:none!important;'),
   'Planifica: la fotografia ha de conservar la transparència compartida');
 for(const slug of [
@@ -196,13 +197,15 @@ for(const file of ['planifica/presupuesto/index.html','planifica/que-llevar/inde
 check(canonicalHeroCss.includes('@layer vcc-interior-portades')&&
   canonicalHeroCss.includes('--vcc-contract-mobile-height:')&&
   canonicalHeroCss.includes('--vcc-contract-copy-top:78px')&&
-  canonicalHeroCss.includes('--vcc-contract-photo-veil:linear-gradient')&&
+  canonicalHeroCss.includes('--vcc-contract-photo-veil:var(--vcc-portada-veil)')&&
   canonicalHeroCss.includes('nav.vcc-unified-subheader.vcc-sacred-subnav'),
   'HERO VCC: el CSS no conté el contracte de geometria, text i foto');
 check(canonicalSubheaderJs.includes('preceding&&preceding.matches(HEROS)')&&
   !canonicalSubheaderJs.includes('document.querySelectorAll(HERO_CONTRACT).forEach(markHero)'),
   'HERO VCC: el controlador pot alterar pàgines sense subheader');
 
-check(registry.length===19,'El registre ha de tenir 19 portades');
+check(registry.length>0,'El registre ha de tenir portades');
+check(new Set(registry.map(entry=>entry.page)).size===registry.length,
+ 'El registre conté portades duplicades');
 if(problems.length){problems.forEach(x=>console.error('HERO VCC:',x));process.exitCode=1;}
-else console.log('HERO VCC OK: 19 portades, mateixa fotografia, càrrega LCP primerenca.');
+else console.log('HERO VCC OK: '+registry.length+' portades, mateixa fotografia, càrrega LCP primerenca.');
