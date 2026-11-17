@@ -109,7 +109,7 @@ Abans de fusionar a producció, prioritzar aquests casos concrets, sense canviar
 
 | Àrea | Diagnòstic mesurat | Acció segura |
 | --- | --- | --- |
-| Estocolm · pressupost | ~517 KB CSS cru en 6 enllaços; 5 fonts CSS solapades (~133 KB) | Revisar el manifest dels bundles i fusionar fonts en ordre de cascada, amb prova visual |
+| Estocolm · pressupost | ~420 KB CSS cru en 5 enllaços (abans ~533 KB i 5 solapaments de ~133 KB) | Consolidació aplicada al manifest: conservar els components al final de la cascada; comprovar amb regressió visual |
 | Estocolm · què portar | ~384 KB CSS cru, 14 fulls | Extreure CSS de plantilla reutilitzable i eliminar només dependències comprovades |
 | Estocolm · imprescindibles | ~347 KB CSS cru, 14 fulls | Centralitzar targetes i carrusel sense tocar galeries ni fotos |
 | Planifica · vols i targetes | 17 fulls CSS cadascuna; el validador actual limita a 16 | Consolidar els fitxers realment co-carregats i conservar la mateixa cascada |
@@ -133,13 +133,13 @@ Abans de fusionar a producció, prioritzar aquests casos concrets, sense canviar
 5. Foto externa no registrada eliminada d'una targeta d'itinerari *no publicat*. Substituïda per logo corporatiu neutre fins que hi hagi foto pròpia del lloc.
 6. `WebPage` JSON-LD sincronitzada automàticament des de title/description/canonical/OG de cada pàgina aprovada. S'han tret 3 nodes preexistents duplicats, conservant les breadcrumbs i les dades d'ItemList reals.
 7. Proves de SEO, itinerari, vols/PDF, Cuándo ir, Imprescindibles i portades actualitzades per comprovar fonts R2, classes i estructures **realment aprovades**, no snapshots antics.
-8. Auditoria CSS: pes cru i estimació gzip. A Pressupost Estocolm ~533 KB CSS cru, ~82 KB gzip estimat. El primer valor exigeix seguir refactoritzant, però no és la transferència de xarxa real.
+8. Auditoria CSS: pes cru i estimació gzip. Pressupost Estocolm ha baixat de ~533 KB a ~420 KB CSS cru; mesurar gzip de nou després de regenerar bundles. El pes cru no és la transferència real de xarxa.
 
 ### Deute que no hem esborrat a cegues
 
-- 62 icones SVG definides als HTML de **7 esborranys històrics**; la comprovació n'avisa i en bloquejarà la publicació si es volen aprovar. No tocar-les abans de decidir la seva migració al nou format de Suècia/Estocolm.
-- 6 fonts CSS que l'auditoria no troba en referències literals; abans de suprimir-les, comprovar el seu ús per JavaScript i `@import`.
-- Solapaments de fonts CSS compilades (sobretot Pressupost Estocolm) documentats, no eliminats perquè el seu ordre pot afectar la presentació visual.
+- Les **62 icones SVG incrustades** que quedaven en set esborranys ja s'han migrat a sprites externs. La validació ara exigeix SVG compartit també als esborranys.
+- Després de la neteja queden un àlies de compatibilitat CSS i possibles recursos sense referències literals que no es poden declarar orfes sense inspeccionar els carregadors dinàmics.
+- Els solapaments grans del Pressupost Estocolm ja s'han eliminat de les inclusions primerenques conservant els últims components; resten solapaments interns menors de portades/guies, que requereixen comparació visual abans de tocar selectors.
 - Alguns enllaços des de pàgines aprovades apunten a guies no aprovades. Els hubs principals ja apliquen la política editorial `deny-by-default`; abans de publicar nous destins, revisar també les relacions entre guies.
 - **No s'ha fet una comparació visual exhaustiva en navegadors** ni un mesurament de Core Web Vitals en una URL desplegada per a cada pàgina. Quality correcte no implica absència de regressions visuals ni cap promesa de posicionament a Google.
 - Traducció EN **encara desactivada**; depèn d'implementar un pipeline verificat i editorialment revisat.
@@ -165,15 +165,15 @@ Fonts: https://developers.google.com/search/docs/fundamentals/seo-starter-guide 
 - `vcc-base-paginas-compartit.css` substitueix `paginas.css` i `overrides.css` com un únic paquet **en el mateix ordre** a les pàgines migrades: Planifica, Alojamientos, Vuelos, Tarjetas, Mapas, Calcula tu viaje i Qué llevar Estocolmo.
 - Els SVG de Suècia (carrusels, transport, allotjament, pressupost) i Planifica (Apps i Seguros) s'han traslladat a `configuracion/imagenes/iconos/compartidos/`. Conserven classes, mides i geometries dels originals. El validador d'icones ja bloqueja qualsevol nova geometria incrustada, també als esborranys.
 - Eliminar només CSS després de comprovar referències HTML, JS, imports, manifest i àlies. Eliminats com a obsolets `presupuestos-hub.css`, `que-llevar-hub.css`, `paginas/planifica-apps-interno-1.css` i `planifica-tarjetas-modelo-estocolmo-vcc.css`.
-- `acciones-pdf-vcc.css` es manté deliberadament com a àlies de compatibilitat; `presupuesto-compartido-vcc.css` es reserva per a migració posterior. **No renombrar físicament fitxers d'imatges ni icones en ús**: trencaria cache, URL i peticions.
-- Solapaments de bundles, sobretot Pressupost Estocolm, continuen documentats; no eliminar regles sense equivalència de cascada i proves visuals.
+- `acciones-pdf-vcc.css` es manté deliberadament com a àlies de compatibilitat; s'ha eliminat `presupuesto-compartido-vcc.css` perquè no tenia dependències al repositori. **No renombrar físicament fitxers d'imatges ni icones en ús**: trencaria cache, URL i peticions.
+- La consolidació dels bundles del Pressupost, Itinerari i Allotjament s'ha aplicat conservant els CSS compartits posteriors i la cascada. Qualsevol solapament restant s'ha de validar abans de suprimir-lo.
 
 ### Contractes per generar futurs destins
 
 - El generador històric `destinos.mjs` continua sent un **scaffold de tres guies** (imprescindibles, itinerari, pressupost), NO una còpia definitiva de les plantilles visuals de Suècia/Estocolm.
 - `configuracion/plantillas/destino-ejemplo.json` arrenca amb `ready:false` i `editorialReviewed:false` perquè les xifres de mostra, fotografies de referència i textos de demostració no es puguin publicar per accident.
 - Per activar `ready:true` cal revisió editorial explícita, text propi i fotografies originals en R2 VCC o la carpeta d'imatges pròpia de la ciutat. Encara així, el registre `publicacion-vcc.json` ha d'aprovar individualment la pàgina per poder-se indexar.
-- La creació futura de plantilles de país/regió/ciutat i la versió EN segueix pendent de migració progressiva amb comprovació visual; la memòria ES→EN pilot no implica publicar `/en/`.
+- El motor v2 de país/regió/ciutat/itinerari està creat i connectat a `site:sync` però **sense cap model real publicat encara**. Les pàgines actuals de Suècia/Estocolm no s'han reescrit; la memòria ES→EN pilot no implica publicar `/en/`.
 - **Regla per a noves fotos:** noms de fitxer originals estables, sense renombrar fitxers públics, variants AVIF/WebP derivades sense filtres de color, referència a R2 en dades de destinació. No atribuir fotos de Suècia a ciutats no visitades.
 
 ### Comprovació abans de promoure a main
@@ -184,11 +184,41 @@ Fonts: https://developers.google.com/search/docs/fundamentals/seo-starter-guide 
 4. Comparar Core Web Vitals a Google Search Console/PageSpeed a l'entorn real abans de considerar l'optimització completada.
 5. No fusionar una refactorització només perquè els tests estructurals passin; han de coincidir també l'aspecte i la funcionalitat reals.
 
+## 5 quater. Motor v2 i regressió visual automatitzada (17-11-2026)
+
+### Quatre tipus de pàgina a partir d'un JSON compartit
+
+- **Renderitzador:** `configuracion/scripts/lib/plantilles-destins-vcc.mjs`
+- **CLI:** `configuracion/scripts/generar-destins-vcc.mjs` (`npm run destinos:v2-new`, `destinos:v2-build`, `destinos:v2-check`, `destinos:v2-test`)
+- **Font de contingut:** `configuracion/contenido/destinos/` amb README d'exemples
+- **Full visual únic, encapsulat:** `configuracion/css/plantillas/destinos-genericos-vcc.css`, que consumeix els tokens globals d'hero, fonts i marges
+- **Validació i SEO:** publicar només per `reviewed + editorialReviewed + publicacion-vcc.json`, la resta `noindex`. Metaetiquetes, URL canònica, WebPage i BreadcrumbList. Imatges pròpies R2.
+- **CI:** quatre tests unitaris de tipus, rutes, noindex i SEO passen al workflow `Quality`.
+- **Compatibilitat:** el generador v2 mai sobreescriu els HTML editats manualment; les guies Suècia/Estocolm continuen intactes. El generador històric `destinos.mjs` només s'utilitza per a continguts antics.
+
+Això proporciona una **estructura tècnica ja utilitzable per als nous destins**, però no garanteix encara una equivalència al píxel del nou disseny amb TOTES les plantilles històriques: cal validar la primera pàgina real abans de publicar-la.
+
+### Regressió visual executada a GitHub Actions
+
+`VCC · Regressió visual responsive` utilitza Chromium amb fotografies neutralitzades només per comparar la geometria de manera reproduïble. Compara ordinador, tauleta i mòbil, text visible, CSS calculat, marges, rectangles, estils, fotos per ruta i 404 locals.
+
+Referència visual immutable `21433cc37ceaeca04fd73608027f497f2cf2d9b0`, abans dels canvis d'aquest cicle.
+
+- Inclou les **25 pàgines publicables** i **8 guies/esborranys visuals** de Suècia/Planifica, 33 pàgines × 3 dispositius = 99 comprovacions.
+- S'exclou de la comparació d'identitat estricta la fotografia decorativa **aleatòria** de Contacto (només si la captura, CSS i text són equivalents).
+- No se substitueix una prova humana amb fotografies i interaccions reals. El mapa, carrusels i PDF requereixen validació manual puntual; Core Web Vitals és una auditoria separada.
+
+### Política de neteja conservadora
+
+Eliminat el CSS `presupuesto-compartido-vcc.css` (~12 KB) sense cap dependència; es preserva l'àlies `acciones-pdf-vcc.css` per compatibilitat. S'han eliminat dues fonts repetides addicionals dels bundles d'Itinerari i Allotjament, conservant les versions carregades després de la base, sense canviar selectors.
+
+No eliminar fotografies, icones o carpetes només per tenir noms antics: una URL pot estar referenciada des de CSS, JS, R2 o enllaços externs.
+
 ## 6. Ordre de prioritats
 
 **Ara — sense regressions:** consolidar metadades del catàleg, declarar referències i idiomes, fer editables els tokens, afegir controls automàtics, corregir tests obsolets i registrar pendents.
 
-**Següent — motor de contingut:** dades estructurades de Suècia/Estocolm, generació de country/city/region i comparació visual contra els HTML aprovats. No borrar esborranys antics abans de preparar rutes de reemplaçament.
+**Següent — contingut nou:** utilitzar el motor v2 disponible per als propers països/regions/ciutats i comprovar-ne els components contra Suècia/Estocolm. Les guies existents continuen amb les seves plantilles aprovades. No esborrar esborranys antics abans de preparar rutes de reemplaçament.
 
 **Després — traducció EN + SEO:** pipeline incremental, revisió, cache persistent i selector ES/EN correcte per totes les pàgines.
 
