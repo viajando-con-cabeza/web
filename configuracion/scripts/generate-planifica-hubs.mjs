@@ -5,23 +5,11 @@ import {normalizeCardImageHtml} from "./lib/targetes-vcc.mjs";
 
 const ROOT = process.cwd();
 
-const countryMeta = {
-  "espana": ["ESPAÑA","europa"], "italia": ["ITALIA","europa"], "francia": ["FRANCIA","europa"],
-  "suecia": ["SUECIA","europa"], "austria": ["AUSTRIA","europa"], "alemania": ["ALEMANIA","europa"],
-  "portugal": ["PORTUGAL","europa"], "grecia": ["GRECIA","europa"], "croacia": ["CROACIA","europa"],
-  "noruega": ["NORUEGA","europa"], "dinamarca": ["DINAMARCA","europa"], "finlandia": ["FINLANDIA","europa"],
-  "reino-unido": ["REINO UNIDO","europa"], "irlanda": ["IRLANDA","europa"], "suiza": ["SUIZA","europa"],
-  "belgica": ["BÉLGICA","europa"], "paises-bajos": ["PAÍSES BAJOS","europa"], "islandia": ["ISLANDIA","europa"],
-  "estados-unidos": ["ESTADOS UNIDOS","america"], "canada": ["CANADÁ","america"], "mexico": ["MÉXICO","america"],
-  "argentina": ["ARGENTINA","america"], "chile": ["CHILE","america"], "peru": ["PERÚ","america"], "brasil": ["BRASIL","america"],
-  "japon": ["JAPÓN","asia"], "china": ["CHINA","asia"], "tailandia": ["TAILANDIA","asia"], "indonesia": ["INDONESIA","asia"],
-  "malasia": ["MALASIA","asia"], "singapur": ["SINGAPUR","asia"], "turquia": ["TURQUÍA","asia"],
-  "emiratos-arabes-unidos": ["EMIRATOS ÁRABES UNIDOS","asia"], "india": ["INDIA","asia"], "vietnam": ["VIETNAM","asia"],
-  "sudafrica": ["SUDÁFRICA","africa"], "madagascar": ["MADAGASCAR","africa"], "marruecos": ["MARRUECOS","africa"],
-  "egipto": ["EGIPTO","africa"], "kenia": ["KENIA","africa"], "tanzania": ["TANZANIA","africa"],
-  "australia": ["AUSTRALIA","oceania"], "nueva-zelanda": ["NUEVA ZELANDA","oceania"],
-  "polinesia-francesa": ["POLINESIA FRANCESA","oceania"]
-};
+// Metadades d'etiquetatge (NO d'estat de publicació): una sola font
+// per país, continent i futura escalabilitat dels catàlegs.
+const countryMeta = JSON.parse(fs.readFileSync(
+  new URL("../datos/paises-vcc.json", import.meta.url), "utf8"
+)).countries;
 
 function walk(dir, out = []) {
   if (!fs.existsSync(dir)) return out;
