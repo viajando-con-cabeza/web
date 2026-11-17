@@ -963,6 +963,100 @@ html body .vl-page #como-ahorrar .vl-tips-carousel > .vl-tip-next{
   html body .vl-page #calculadora .vl-wrap{width:calc(100% - 28px)}
 }
 
+/* VCC · Planifica Seguros · Cómo comparar: carrusel de borde a borde
+   de .sv-wrap, amb les fletxes superposades. Mateix contracte que Cómo
+   ahorrar (3/2/1 targetes, 156/158 px). No afecta asseguradores,
+   cobertures ni Errores a evitar. */
+html body .sv-page #comparar .sv-carousel-shell.vcc-editorial-carousel{
+  box-sizing:border-box!important;
+  display:block!important;
+  position:relative!important;
+  grid-template-columns:none!important;
+  grid-template-rows:none!important;
+  gap:0!important;
+  width:100%!important;
+  max-width:100%!important;
+  min-width:0!important;
+  padding:0!important;
+  margin:0!important;
+  overflow:visible!important;
+}
+html body .sv-page #comparar .sv-carousel-shell > #sv-track-compare{
+  box-sizing:border-box!important;
+  display:flex!important;
+  flex-flow:row nowrap!important;
+  align-items:stretch!important;
+  width:100%!important;
+  max-width:100%!important;
+  min-width:0!important;
+  margin:0!important;
+  padding:1px 0 4px!important;
+  gap:14px!important;
+  overflow-x:auto!important;
+  overflow-y:hidden!important;
+  scroll-snap-type:x mandatory!important;
+  scroll-padding-inline:0!important;
+  scrollbar-width:none;
+  -webkit-overflow-scrolling:touch;
+}
+html body .sv-page #comparar #sv-track-compare > .sv-number-card{
+  box-sizing:border-box!important;
+  flex:0 0 calc((100% - 28px)/3)!important;
+  width:calc((100% - 28px)/3)!important;
+  min-width:0!important;
+  margin:0!important;
+  scroll-snap-align:start!important;
+}
+html body .sv-page #comparar .sv-carousel-shell > .sv-arrow{
+  box-sizing:border-box!important;
+  display:grid!important;
+  place-items:center!important;
+  position:absolute!important;
+  z-index:5!important;
+  top:50%!important;
+  bottom:auto!important;
+  transform:translateY(-50%)!important;
+  width:35px!important;
+  height:35px!important;
+  padding:0!important;
+  margin:0!important;
+  border:1px solid var(--vcc-carrusel-fletxa-contorn,#d9bca8)!important;
+  border-radius:50%!important;
+  background:var(--vcc-carrusel-fletxa-fons,rgba(255,255,255,.86))!important;
+  color:var(--vcc-carrusel-fletxa-tinta,#ad5b43)!important;
+  box-shadow:var(--vcc-carrusel-fletxa-ombra,0 2px 8px rgba(42,31,21,.07))!important;
+  cursor:pointer;
+}
+html body .sv-page #comparar .sv-carousel-shell > .sv-prev{
+  left:-17px!important;
+  right:auto!important;
+}
+html body .sv-page #comparar .sv-carousel-shell > .sv-next-arrow{
+  right:-17px!important;
+  left:auto!important;
+}
+@media(max-width:900px){
+  html body .sv-page #comparar #sv-track-compare > .sv-number-card{
+    flex-basis:calc((100% - 14px)/2)!important;
+    width:calc((100% - 14px)/2)!important;
+  }
+}
+@media(max-width:760px){
+  html body .sv-page #comparar .sv-carousel-shell{
+    padding:0!important;
+  }
+  html body .sv-page #comparar #sv-track-compare > .sv-number-card{
+    flex-basis:100%!important;
+    width:100%!important;
+  }
+  html body .sv-page #comparar .sv-carousel-shell > .sv-prev{
+    left:2px!important;
+  }
+  html body .sv-page #comparar .sv-carousel-shell > .sv-next-arrow{
+    right:2px!important;
+  }
+}
+
 /* === configuracion/css/componentes/acciones-descargas-vcc.css === */
 /* VCC · Acciones de archivos. ÚNICO estilo para PDF, impresión y Excel.
  * Añadir class="vcc-download-link" y un SVG .vcc-download-icon.
