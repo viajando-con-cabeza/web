@@ -228,3 +228,55 @@ jobs:
           git commit -m "Actualitzar prova Instagram a quality"
           git pull --rebase origin quality
           git push origin HEAD:quality
+
+  # Traducció ES→EN després de validar Quality (mai en cada visita).
+  # Pilot segur: només memòria de segments al GitHub, sense publicar /en/.
+  translate_en:
+    name: Prepare English translations (draft only)
+    needs: validate
+    if: ${{ success() && github.ref == 'refs/heads/quality' }}
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      id-token: write
+    steps:
+      - name: Checkout validated quality
+        uses: actions/checkout@v4
+        with:
+          ref: quality
+          fetch-depth: 0
+
+      - name: Prepare GitHub OIDC identity for Cloudflare
+        id: oidc
+        shell: bash
+        run: |
+          set -euo pipefail
+          response="$(curl -fsS --retry 2 \
+            -H "Authorization: Bearer ${ACTIONS_ID_TOKEN_REQUEST_TOKEN}" \
+            "${ACTIONS_ID_TOKEN_REQUEST_URL}&audience=vcc-en-translator-quality")"
+          token="$(echo "$response" | jq -r '.value // empty')"
+          test -n "$token"
+          echo "::add-mask::$token"
+          echo "token=$token" >> "$GITHUB_OUTPUT"
+
+      - name: Translate only missing ES segments (do not publish English)
+        env:
+          VCC_TRANSLATOR_URL: https://vcc-en-translator-quality.albertini1199.workers.dev/translate
+          VCC_TRANSLATOR_OIDC: ${{ steps.oidc.outputs.token }}
+        run: node configuracion/scripts/traduccions/actualitzar-en.mjs --write
+
+      - name: Version English translation memory
+        shell: bash
+        run: |
+          set -euo pipefail
+          FILE="configuracion/datos/i18n/en-segments.json"
+          if git diff --quiet -- "$FILE"; then
+            echo "ES→EN: no new translations to commit."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add "$FILE"
+          git commit -m "i18n(en): cache approved-source translation drafts [skip ci]"
+          git pull --rebase origin quality
+          git push origin HEAD:quality
