@@ -62,20 +62,20 @@ function syncVisibleBreadcrumbSchema(html,canonical){
  * Es reescriu in situ en canviar un títol o una descripció i s'elimina
  * automàticament si una pàgina torna a esborrany. */
 function syncPageSchema(html,file,canonical,isReady){
-  const marked=/<script\\b(?=[^>]*\\bdata-vcc-generated-page\\b)[^>]*>[\\s\\S]*?<\\/script>\\s*/gi;
+  const marked=/<script\b(?=[^>]*\bdata-vcc-generated-page\b)[^>]*>[\s\S]*?<\/script>\s*/gi;
   if(!isReady)return html.replace(marked,'');
-  const head=html.split(/<\\/head\\s*>/i)[0]||'';
+  const head=html.split(/<\/head\s*>/i)[0]||'';
   const decode=s=>String(s||'')
     .replace(/&(?:amp|quot|lt|gt|nbsp|apos);/gi,entity=>({
       '&amp;':'&','&quot;':'"','&lt;':'<','&gt;':'>','&nbsp;':' ','&apos;':"'"
     })[entity.toLowerCase()]||entity)
-    .replace(/&#(\\d+);/g,(_,n)=>String.fromCodePoint(Number(n)))
+    .replace(/&#(\d+);/g,(_,n)=>String.fromCodePoint(Number(n)))
     .replace(/&#x([0-9a-f]+);/gi,(_,n)=>String.fromCodePoint(parseInt(n,16)))
-    .replace(/\\s+/g,' ').trim();
-  const title=decode(head.match(/<title\\b[^>]*>([\\s\\S]*?)<\\/title>/i)?.[1]);
-  const tag=[...head.matchAll(/<meta\\b[^>]*>/gi)].map(m=>m[0])
-    .find(t=>/\\bname=["']description["']/i.test(t));
-  const description=decode(tag?.match(/\\bcontent=["']([^"']+)/i)?.[1]);
+    .replace(/\s+/g,' ').trim();
+  const title=decode(head.match(/<title\b[^>]*>([\s\S]*?)<\/title>/i)?.[1]);
+  const tag=[...head.matchAll(/<meta\b[^>]*>/gi)].map(m=>m[0])
+    .find(t=>/\bname=["']description["']/i.test(t));
+  const description=decode(tag?.match(/\bcontent=["']([^"']+)/i)?.[1]);
   if(!title||!description){issues.push(file+': title o description absent per JSON-LD WebPage');return html;}
   const image=config.socialImages?.[file];
   if(!image||!image.startsWith('/')){issues.push(file+': imatge absent per WebPage');return html;}
@@ -87,9 +87,9 @@ function syncPageSchema(html,file,canonical,isReady){
     primaryImageOfPage:{'@type':'ImageObject',url:ORIGIN+image}
   };
   const block='<script type="application/ld+json" data-vcc-generated-page>'+
-    JSON.stringify(data).replace(/</g,'\\u003c')+'</script>\\n';
+    JSON.stringify(data).replace(/</g,String.fromCharCode(92)+'u003c')+'</script>\n';
   return html.includes('data-vcc-generated-page') ? html.replace(marked,block) :
-    html.replace(/<\\/head\\s*>/i,block+'</head>');
+    html.replace(/<\/head\s*>/i,block+'</head>');
 }
 
 function decorate(html,file,isReady){
