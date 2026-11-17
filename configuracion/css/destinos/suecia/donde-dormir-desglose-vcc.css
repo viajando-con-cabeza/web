@@ -1,66 +1,77 @@
-/* VCC · Suecia / Dónde dormir · Fitxes editorials VER DESGLOSE.
-   Només s'estilitza el detall inferior de les set targetes.
-   El carrusel, les targetes principals i la calculadora queden intactes.
-   El Consejo VCC hereta la identitat de consejo-vcc-global.css. */
+/* VCC | Dónde dormir en Suecia | Desglose editorial.
+   Patrón visual: infraestructura / ten en cuenta de Cómo moverse Suecia.
+   Afecta solo a #barrios .dv-zone-panel; las tarjetas principales,
+   el carrusel, la calculadora y el Consejo VCC global siguen intactos. */
+
+/* Cabecera blanca: alojamiento + subtítulo, cierre arriba a la derecha. */
+html body.dv-country-types #barrios .dv-zone-panel .dv-zone-heading{
+  background:#fff!important;
+  border-bottom:1px solid #ece5df!important;
+  padding:12px 21px 11px!important;
+}
+html body.dv-country-types #barrios .dv-zone-panel .dv-zone-heading-title h3{
+  font-size:clamp(22px,2vw,27px);
+}
+html body.dv-country-types #barrios .dv-zone-panel .dv-zone-heading-title > span{
+  font-size:clamp(19px,1.85vw,23px);
+}
+
+/* Dos blocs oberts, sense marcs ni backgrounds diferents del contenidor. */
 html body.dv-country-types #barrios .dv-zone-panel .dv-zone-body{
   display:block;
-  padding:17px 21px 19px;
-  background:transparent;
+  padding:15px 21px 14px;
+  background:#fff;
 }
 html body.dv-country-types #barrios .dv-facts-grid{
   display:grid;
   grid-template-columns:repeat(2,minmax(0,1fr));
   align-items:start;
-  column-gap:20px;
+  gap:clamp(15px,2.4vw,27px);
   width:100%;
   background:transparent;
 }
 html body.dv-country-types #barrios .dv-facts-col{
-  box-sizing:border-box;
   min-width:0;
   margin:0;
-  padding:0;
+  padding:1px 0;
   border:0;
   border-radius:0;
-  background:transparent;
   box-shadow:none;
+  background:transparent;
 }
 html body.dv-country-types #barrios .dv-facts-col + .dv-facts-col{
-  border-left:1px solid #e7e1dc;
-  padding-left:20px;
+  padding-left:clamp(15px,2.4vw,27px);
+  border-left:1px solid #e7d8cd;
 }
-html body.dv-country-types #barrios .dv-facts-top{
+html body.dv-country-types #barrios .dv-facts-title{
   display:flex;
   align-items:center;
-  gap:10px;
-  margin:0 0 11px;
+  gap:9px;
   min-width:0;
-  background:transparent;
+  margin:0 0 10px;
+  color:#2e3330;
+  font:600 clamp(16px,1.55vw,19px)/1.15 var(--vcc-font-heading,"Oswald",sans-serif);
+  text-transform:uppercase;
 }
 html body.dv-country-types #barrios .dv-facts-icon{
+  display:grid;
+  place-items:center;
+  width:33px;
+  height:33px;
+  flex:0 0 33px;
+  border-radius:50%;
+  background:#fbf2eb;
+  color:#b45d43;
+}
+html body.dv-country-types #barrios .dv-facts-icon svg{
+  width:19px;
+  height:19px;
   display:block;
-  flex:0 0 28px;
-  width:28px;
-  height:28px;
-  color:#c66343;
   fill:none;
   stroke:currentColor;
-  stroke-width:1.7;
+  stroke-width:1.8;
   stroke-linecap:round;
   stroke-linejoin:round;
-}
-html body.dv-country-types #barrios .dv-facts-headcopy{min-width:0}
-html body.dv-country-types #barrios .dv-facts-title{
-  margin:0 0 2px;
-  font:600 17px/1.13 var(--vcc-font-heading,"Oswald",sans-serif);
-  color:#282a29;
-  text-transform:uppercase;
-  letter-spacing:.005em;
-}
-html body.dv-country-types #barrios .dv-facts-subtitle{
-  margin:0;
-  color:#b85e45;
-  font:600 15px/1.12 var(--vcc-font-script,"Caveat",cursive);
 }
 html body.dv-country-types #barrios .dv-facts-list{
   display:grid;
@@ -73,62 +84,141 @@ html body.dv-country-types #barrios .dv-facts-list li{
   position:relative;
   min-width:0;
   margin:0;
-  padding:0 0 0 12px;
-  color:#44413f;
-  font:400 11.5px/1.45 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
+  padding:0 0 0 15px;
+  color:#55534f;
+  font:400 12.3px/1.48 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
   overflow-wrap:break-word;
+}
+html body.dv-country-types #barrios .dv-facts-list li strong{
+  color:#353532;
+  font-weight:700;
 }
 html body.dv-country-types #barrios .dv-facts-list li::before{
   content:"";
   position:absolute;
+  left:1px;
   top:.57em;
-  left:0;
-  width:4px;
-  height:4px;
+  width:6px;
+  height:6px;
   border-radius:50%;
-  background:#c66343;
+  background:#ba735a;
 }
-html body.dv-country-types #barrios .dv-zone-advice.vcc-consejo-unificado{
-  width:100%;
-  margin:12px 0 0;
+
+/* Reutilitzem la marca VCC oficial i l'anell taronja, però compactem
+   exclusivament aquest Consejo: el text visible té màxim 2 línies. */
+html body.dv-country-types #barrios .dv-zone-panel .dv-zone-advice.vcc-consejo-unificado{
+  display:grid!important;
+  grid-template-columns:70px minmax(0,1fr)!important;
+  align-items:center!important;
+  gap:9px!important;
+  width:100%!important;
+  min-height:56px!important;
+  height:auto!important;
+  margin:12px 0 0!important;
+  padding:6px 11px!important;
+  border:1.5px solid var(--vcc-consejo-border-color,#d56a4c)!important;
+  border-radius:12px!important;
+  background:#fff!important;
 }
-html body.dv-country-types #barrios .dv-zone-advice.vcc-consejo-unificado .vcc-consejo-texto p{
-  display:-webkit-box;
-  -webkit-box-orient:vertical;
-  -webkit-line-clamp:2;
-  line-clamp:2;
-  overflow:hidden;
+html body.dv-country-types #barrios .dv-zone-advice .vcc-consejo-marca{
+  gap:1px!important;
 }
-html body.dv-country-types #barrios .dv-vcc-logo-circle{
+html body.dv-country-types #barrios .dv-zone-advice .dv-vcc-logo-circle{
   display:grid;
   place-items:center;
   box-sizing:border-box;
-  width:47px;
-  height:47px;
-  padding:3px;
+  width:34px;
+  height:34px;
+  padding:2px;
   margin:0 auto;
   border:1px solid #d56a4c;
   border-radius:50%;
   background:#fff;
 }
-html body.dv-country-types #barrios .dv-vcc-logo-circle img{object-fit:contain}
-@media(max-width:700px){
-  html body.dv-country-types #barrios .dv-zone-panel .dv-zone-body{padding:12px 12px 13px}
-  html body.dv-country-types #barrios .dv-facts-grid{column-gap:10px}
-  html body.dv-country-types #barrios .dv-facts-col + .dv-facts-col{padding-left:10px}
-  html body.dv-country-types #barrios .dv-facts-top{gap:6px;margin-bottom:8px;align-items:flex-start}
-  html body.dv-country-types #barrios .dv-facts-icon{flex:0 0 22px;width:22px;height:22px}
-  html body.dv-country-types #barrios .dv-facts-title{font-size:12.5px;line-height:1.14}
-  html body.dv-country-types #barrios .dv-facts-subtitle{font-size:13px;line-height:1.1}
-  html body.dv-country-types #barrios .dv-facts-list{gap:6px}
-  html body.dv-country-types #barrios .dv-facts-list li{padding-left:10px;font-size:10px;line-height:1.38}
-  html body.dv-country-types #barrios .dv-facts-list li::before{width:3px;height:3px}
-  html body.dv-country-types #barrios .dv-zone-advice.vcc-consejo-unificado{margin-top:10px}
-  html body.dv-country-types #barrios .dv-vcc-logo-circle{width:41px;height:41px;padding:3px}
+html body.dv-country-types #barrios .dv-zone-advice .dv-vcc-logo-circle img{
+  display:block!important;
+  width:28px!important;
+  height:28px!important;
+  max-width:28px!important;
+  max-height:28px!important;
+  flex:0 0 28px!important;
+  object-fit:contain!important;
 }
-@media(max-width:370px){
-  html body.dv-country-types #barrios .dv-facts-grid{column-gap:8px}
+html body.dv-country-types #barrios .dv-zone-advice .vcc-consejo-marca > strong{
+  font-size:8px!important;
+  line-height:1.15!important;
+  letter-spacing:.02em!important;
+}
+html body.dv-country-types #barrios .dv-zone-advice .vcc-consejo-texto p{
+  display:-webkit-box!important;
+  -webkit-box-orient:vertical;
+  -webkit-line-clamp:2;
+  line-clamp:2;
+  max-height:calc(2 * 1.4em);
+  overflow:hidden!important;
+  font-size:11.3px!important;
+  line-height:1.4!important;
+}
+@media(max-width:700px){
+  html body.dv-country-types #barrios .dv-zone-panel .dv-zone-heading{
+    padding:10px 13px 9px!important;
+  }
+  html body.dv-country-types #barrios .dv-zone-panel .dv-zone-heading-title h3{
+    font-size:22px;
+  }
+  html body.dv-country-types #barrios .dv-zone-panel .dv-zone-heading-title > span{
+    font-size:19px;
+  }
+  html body.dv-country-types #barrios .dv-zone-panel .dv-zone-body{
+    padding:12px 13px 12px;
+  }
+  html body.dv-country-types #barrios .dv-facts-grid{
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:11px;
+  }
+  html body.dv-country-types #barrios .dv-facts-col + .dv-facts-col{
+    padding-left:11px;
+  }
+  html body.dv-country-types #barrios .dv-facts-title{
+    gap:6px;
+    margin-bottom:8px;
+    font-size:14px;
+    line-height:1.13;
+  }
+  html body.dv-country-types #barrios .dv-facts-icon{
+    width:27px;
+    height:27px;
+    flex-basis:27px;
+  }
+  html body.dv-country-types #barrios .dv-facts-icon svg{width:16px;height:16px}
+  html body.dv-country-types #barrios .dv-facts-list{gap:7px}
+  html body.dv-country-types #barrios .dv-facts-list li{
+    padding-left:11px;
+    font-size:10.5px;
+    line-height:1.43;
+  }
+  html body.dv-country-types #barrios .dv-facts-list li::before{
+    width:5px;
+    height:5px;
+    left:0;
+  }
+  html body.dv-country-types #barrios .dv-zone-panel .dv-zone-advice.vcc-consejo-unificado{
+    grid-template-columns:61px minmax(0,1fr)!important;
+    gap:6px!important;
+    min-height:52px!important;
+    margin-top:10px!important;
+    padding:5px 8px!important;
+  }
+  html body.dv-country-types #barrios .dv-zone-advice .vcc-consejo-texto p{
+    font-size:10.5px!important;
+    line-height:1.34!important;
+  }
+}
+@media(max-width:390px){
+  html body.dv-country-types #barrios .dv-facts-grid{gap:8px}
   html body.dv-country-types #barrios .dv-facts-col + .dv-facts-col{padding-left:8px}
-  html body.dv-country-types #barrios .dv-facts-title{font-size:11.5px}
-  html body.dv-country-types #barrios .dv-facts-list li{font-size:9.5px}
+  html body.dv-country-types #barrios .dv-facts-title{font-size:12px;gap:4px}
+  html body.dv-country-types #barrios .dv-facts-icon{flex-basis:23px;width:23px;height:23px}
+  html body.dv-country-types #barrios .dv-facts-icon svg{width:14px;height:14px}
+  html body.dv-country-types #barrios .dv-facts-list li{font-size:10px}
 }
