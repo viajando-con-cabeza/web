@@ -147,3 +147,26 @@
   /* Mòbil i escriptori utilitzen exactament la mateixa regla, amb els
      tokens 52/76px declarats més amunt. */
 }
+
+/* VCC · Primer render: el subheader no ha de produir salts de layout
+ * mentre el controlador compartit encara marca les seccions. Les regles
+ * són les mateixes que les posteriors, però sense esperar el JavaScript. */
+@layer vcc-interior-portades{
+  html body:has(nav.vcc-unified-subheader)
+    main:is(.budget-main,.dv-main,.ci-main) > section:first-of-type{
+    margin-block-start:var(--vcc-espai-entre-apartats)!important;
+  }
+  html body:has(nav.vcc-unified-subheader)
+    main.mv-container > section.swmove-section{
+    margin-block-start:var(--vcc-espai-entre-apartats)!important;
+    padding-block-start:0!important;
+  }
+  html body main > nav.vcc-unified-subheader ~ section:is(.sv-section,.av-section,.vl-section){
+    margin-block-start:var(--vcc-espai-entre-apartats)!important;
+    padding-block-start:0!important;
+  }
+  html body main.cl-page.cl-landing > nav.vcc-unified-subheader ~ section[id]:not(.related-section){
+    margin-block-start:var(--vcc-espai-entre-apartats)!important;
+    padding-block-start:0!important;
+  }
+}
