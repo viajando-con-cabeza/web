@@ -171,6 +171,9 @@ jobs:
       - name: Audit all pages, shared assets and editorial links
         run: node configuracion/scripts/auditar-escalabilidad-vcc.mjs --strict-hubs
 
+      - name: Validar motor compartit de país regió ciutat i itinerari
+        run: npm run destinos:v2-test
+
       - name: Validate JavaScript syntax
         shell: bash
         run: |
