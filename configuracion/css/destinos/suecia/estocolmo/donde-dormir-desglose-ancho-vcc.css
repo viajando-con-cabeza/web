@@ -1,0 +1,18 @@
+/* VCC · Dónde dormir en Estocolmo.
+   Desglose al mateix ample que el carrusel, com Dónde dormir i Cómo moverse
+   en Suecia. Només afecta el panell que s'obre sota les targetes.
+   Neutralitza l'inset de 56px i el max-width:1230px del CSS base, sense
+   modificar fitxes, valoracions, contingut o subheaders. */
+html body.dv-page:not(.dv-country-types) #barrios > .dv-zone-details{
+  box-sizing:border-box!important;
+  width:100%!important;
+  min-width:0!important;
+  max-width:100%!important;
+  margin:13px 0 6px!important;
+  padding:0!important;
+}
+@media(max-width:850px){
+  html body.dv-page:not(.dv-country-types) #barrios > .dv-zone-details{
+    margin-top:12px!important;
+  }
+}
