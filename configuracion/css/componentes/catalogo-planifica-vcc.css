@@ -193,3 +193,22 @@ body.que-llevar-hub .itinerarios-hero > .about-hero-photo{
     text-align:right!important;
   }
 }
+
+
+/* Dónde ir · Consejos: un únic «Tipo de viaje» no ha d'estirar-se per
+   omplir tota la fila quan el toolbar passa a flex-wrap. Mateixa amplada
+   que els filtres dels catàlegs d'Itinerarios i Guías. */
+html body .vcc-it-catalog #di-panel-consejos .vcc-catalog-toolbar .vcc-catalog-field{
+  box-sizing:border-box;
+  flex:0 0 162px;
+  width:162px;
+  min-width:0;
+  max-width:162px;
+}
+@media(max-width:390px){
+  html body .vcc-it-catalog #di-panel-consejos .vcc-catalog-toolbar .vcc-catalog-field{
+    flex:0 1 min(162px,100%);
+    width:min(162px,100%);
+    max-width:100%;
+  }
+}
