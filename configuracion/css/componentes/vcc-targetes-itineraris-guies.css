@@ -879,3 +879,62 @@ html body :is(.vcc-it-catalog,.vcc-card-collection,.home-featured-itineraries,.h
 html body.ci-page #por-region .ci-region-card.di-mini-card.vcc-it-card[hidden]{
   display:none!important;
 }
+
+/* VCC · Portada Suecia · Tres carrusels amb títols de fins a dues línies.
+   Només #guias, #itinerarios i #quever: 20px més d'alçada (342 vs 322),
+   espai fix del títol, bandera i metadades en una fila pròpia.
+   El component corporatiu i la resta del blog conserven els 322px. */
+html body.country-page .vcc-sweden-page :is(#guias,#itinerarios,#quever) .vcc-card-collection{
+  --vcc-card-unified-height:342px;
+}
+html body.country-page .vcc-sweden-page :is(#guias,#itinerarios,#quever) .vcc-card-collection .vcc-it-card .di-mini-body{
+  padding:10px 12px 12px!important;
+}
+html body.country-page .vcc-sweden-page :is(#guias,#itinerarios,#quever) .vcc-card-collection .vcc-it-card .vcc-it-title{
+  display:-webkit-box!important;
+  -webkit-box-orient:vertical!important;
+  -webkit-line-clamp:2!important;
+  line-clamp:2!important;
+  height:2.24em!important;
+  min-height:2.24em!important;
+  max-height:2.24em!important;
+  line-height:1.12!important;
+  margin:0 0 6px!important;
+  overflow:hidden!important;
+  overflow-wrap:anywhere!important;
+  text-transform:none!important;
+}
+html body.country-page .vcc-sweden-page :is(#guias,#itinerarios,#quever) .vcc-card-collection .vcc-it-card .vcc-it-facts{
+  flex:0 0 auto!important;
+  align-content:flex-start!important;
+  row-gap:4px!important;
+  column-gap:7px!important;
+  margin:0 0 6px!important;
+}
+html body.country-page .vcc-sweden-page :is(#guias,#itinerarios,#quever) .vcc-card-collection .vcc-it-card .vcc-it-facts .di-country-line{
+  box-sizing:border-box!important;
+  flex:0 0 100%!important;
+  width:100%!important;
+  max-width:100%!important;
+  min-width:0!important;
+  margin:0!important;
+  overflow:hidden!important;
+}
+html body.country-page .vcc-sweden-page :is(#guias,#itinerarios,#quever) .vcc-card-collection .vcc-it-card .vcc-it-facts .di-country-line > span{
+  display:block!important;
+  min-width:0!important;
+  max-width:100%!important;
+  white-space:nowrap!important;
+  overflow:hidden!important;
+  text-overflow:ellipsis!important;
+}
+html body.country-page .vcc-sweden-page :is(#guias,#itinerarios,#quever) .vcc-card-collection .vcc-it-card .di-mini-desc{
+  margin:0 0 5px!important;
+  line-height:1.27!important;
+  max-height:3.81em!important;
+}
+
+/* Estocolmo · Qué ver y hacer: títulos en frase, nunca forzar mayúsculas. */
+html body .st-shell #quever #topicCarousel .vcc-it-title{
+  text-transform:none!important;
+}
