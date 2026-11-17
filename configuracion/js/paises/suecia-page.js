@@ -41,7 +41,7 @@ function countryCard(x,isGuide){
  const mini=r2Key?'https://img.viajandoconcabeza.com/__vcc_preview/mini/'+r2Key:'';
  const visor=r2Key?'https://img.viajandoconcabeza.com/__vcc_preview/visor/'+r2Key:'';
  const cardImage=r2Key
-   ?'<picture class="vcc-card-responsive-picture"><source media="(max-width: 760px)" srcset="'+esc(mini)+'"><img class="vcc-card-cover-photo" src="'+esc(visor)+'" srcset="'+esc(mini)+' 480w, '+esc(visor)+' 1800w" sizes="(max-width: 760px) 86vw, (max-width: 1100px) 48vw, 380px" alt="'+esc(title)+'" width="640" height="380" loading="lazy" decoding="async"></picture>'
+   ?'<picture class="vcc-card-responsive-picture"><source media="(max-width: 560px)" srcset="'+esc(mini)+'"><img class="vcc-card-cover-photo" src="'+esc(visor)+'" srcset="'+esc(mini)+' 480w, '+esc(visor)+' 1800w" sizes="(max-width: 760px) 86vw, (max-width: 1100px) 48vw, 380px" alt="'+esc(title)+'" width="640" height="380" loading="lazy" decoding="async"></picture>'
    :'<img class="vcc-card-cover-photo" src="'+esc(photo)+'" alt="'+esc(title)+'" width="640" height="380" loading="lazy" decoding="async">';
  const icon=x.cardIcon||(tag==='CIUDADES'?'category-city':'category-islands');
  const iconMarkup=x.cardIcon
