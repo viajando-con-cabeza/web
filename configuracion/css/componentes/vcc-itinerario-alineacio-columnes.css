@@ -9,6 +9,10 @@
     grid-template-columns:minmax(0,32fr) minmax(0,28fr) minmax(0,40fr)!important;
     column-gap:24px!important;
     row-gap:12px!important;
+    /* La primera fila ha de tenir només l'altura del títol;
+       amb auto/stretch repartia espai sobrer i separava el text. */
+    grid-template-rows:max-content minmax(0,1fr) max-content!important;
+    align-content:start!important;
     align-items:start!important;
     box-sizing:border-box!important;
   }
