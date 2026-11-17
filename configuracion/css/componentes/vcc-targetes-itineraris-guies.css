@@ -392,14 +392,14 @@ html body.vcc-planifica-cards .vcc-it-catalog .di-mini-card.vcc-it-card .di-topi
 html body.vcc-planifica-cards .vcc-it-catalog .di-mini-card.vcc-it-card{
   --vcc-card-score-top:15px;--vcc-card-score-right:16px;--vcc-card-score-size:36px;
 }
-html body:is(.vcc-planifica-cards,.itinerarios-vcc) .vcc-it-catalog .di-mini-card.vcc-it-card .vcc-card-score{
+html body:is(.vcc-planifica-cards,.itinerarios-vcc,.destinos-vcc) .vcc-it-catalog .di-mini-card.vcc-it-card .vcc-card-score{
   position:absolute!important;z-index:7!important;
   top:var(--vcc-card-score-top)!important;right:var(--vcc-card-score-right)!important;
   bottom:auto!important;left:auto!important;display:flex!important;flex-direction:column!important;
   align-items:flex-end!important;width:max-content!important;margin:0!important;padding:0!important;
   border:0!important;background:none!important;box-shadow:none!important;
 }
-html body:is(.vcc-planifica-cards,.itinerarios-vcc) .vcc-it-catalog .di-mini-card.vcc-it-card .vcc-card-score strong{
+html body:is(.vcc-planifica-cards,.itinerarios-vcc,.destinos-vcc) .vcc-it-catalog .di-mini-card.vcc-it-card .vcc-card-score strong{
   display:grid!important;place-items:center!important;
   width:var(--vcc-card-score-size)!important;height:var(--vcc-card-score-size)!important;
   box-sizing:border-box!important;padding:0!important;margin:0!important;
@@ -407,13 +407,13 @@ html body:is(.vcc-planifica-cards,.itinerarios-vcc) .vcc-it-catalog .di-mini-car
   font:500 17px/1 var(--vcc-font-heading,"Oswald",sans-serif)!important;
   box-shadow:0 4px 12px rgba(0,0,0,.2)!important;
 }
-html body:is(.vcc-planifica-cards,.itinerarios-vcc) .vcc-it-catalog .di-mini-card.vcc-it-card .vcc-card-score small{
+html body:is(.vcc-planifica-cards,.itinerarios-vcc,.destinos-vcc) .vcc-it-catalog .di-mini-card.vcc-it-card .vcc-card-score small{
   display:flex!important;align-items:center!important;gap:3px!important;
   margin:3px 0 0!important;padding:0 1px!important;color:#fff!important;
   font:800 7.5px/1.1 var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;
   text-shadow:0 1px 4px rgba(0,0,0,.9),0 1px 9px rgba(0,0,0,.6)!important;
 }
-html body:is(.vcc-planifica-cards,.itinerarios-vcc) .vcc-it-catalog .di-mini-card.vcc-it-card .vcc-card-score small::before{
+html body:is(.vcc-planifica-cards,.itinerarios-vcc,.destinos-vcc) .vcc-it-catalog .di-mini-card.vcc-it-card .vcc-card-score small::before{
   content:"";width:10px;height:10px;flex:0 0 10px;
   background:url('/configuracion/imagenes/iconos/paper-plane-trail.svg') center/contain no-repeat;
   filter:brightness(0) invert(1) drop-shadow(0 1px 3px rgba(0,0,0,.65));
@@ -444,10 +444,10 @@ html body:is(.vcc-planifica-cards,.itinerarios-vcc) .vcc-it-catalog .di-mini-car
   --vcc-catalog-fitxa-titol:21px;
   --vcc-catalog-fitxa-text:11px;
 }
-html body:is(.itinerarios-vcc,.vcc-planifica-cards) .vcc-it-catalog .di-mini-grid{
+html body:is(.itinerarios-vcc,.vcc-planifica-cards,.destinos-vcc) .vcc-it-catalog .di-mini-grid{
   align-items:stretch!important;
 }
-html body:is(.itinerarios-vcc,.vcc-planifica-cards) .vcc-it-catalog .di-mini-grid > .di-mini-card.vcc-it-card{
+html body:is(.itinerarios-vcc,.vcc-planifica-cards,.destinos-vcc) .vcc-it-catalog .di-mini-grid > .di-mini-card.vcc-it-card{
   display:flex!important;flex-direction:column!important;align-items:stretch!important;
   box-sizing:border-box!important;width:auto!important;min-width:0!important;
   height:auto!important;min-height:var(--vcc-catalog-fitxa-alcada)!important;max-height:none!important;
@@ -456,10 +456,10 @@ html body:is(.itinerarios-vcc,.vcc-planifica-cards) .vcc-it-catalog .di-mini-gri
   background:#fff!important;overflow:hidden!important;
   box-shadow:0 2px 9px rgba(42,31,21,.05)!important;
 }
-html body:is(.itinerarios-vcc,.vcc-planifica-cards) .vcc-it-catalog .di-mini-grid > .di-mini-card.vcc-it-card[hidden]{
+html body:is(.itinerarios-vcc,.vcc-planifica-cards,.destinos-vcc) .vcc-it-catalog .di-mini-grid > .di-mini-card.vcc-it-card[hidden]{
   display:none!important;
 }
-html body:is(.itinerarios-vcc,.vcc-planifica-cards) .vcc-it-catalog .di-mini-grid > .di-mini-card.vcc-it-card .di-mini-photo.vcc-it-photo{
+html body:is(.itinerarios-vcc,.vcc-planifica-cards,.destinos-vcc) .vcc-it-catalog .di-mini-grid > .di-mini-card.vcc-it-card .di-mini-photo.vcc-it-photo{
   display:block!important;position:relative!important;isolation:isolate!important;
   width:100%!important;height:var(--vcc-catalog-fitxa-foto)!important;
   min-height:var(--vcc-catalog-fitxa-foto)!important;max-height:var(--vcc-catalog-fitxa-foto)!important;
@@ -467,41 +467,41 @@ html body:is(.itinerarios-vcc,.vcc-planifica-cards) .vcc-it-catalog .di-mini-gri
   margin:0!important;padding:0!important;overflow:hidden!important;
   border:0!important;border-bottom:1px solid #dedbd6!important;
 }
-html body:is(.itinerarios-vcc,.vcc-planifica-cards) .vcc-it-catalog .di-mini-photo.vcc-it-photo > img{
+html body:is(.itinerarios-vcc,.vcc-planifica-cards,.destinos-vcc) .vcc-it-catalog .di-mini-photo.vcc-it-photo > img{
   display:block!important;position:absolute!important;inset:0!important;
   width:100%!important;height:100%!important;min-height:0!important;max-height:none!important;
   object-fit:cover!important;transform:none!important;
 }
-html body:is(.itinerarios-vcc,.vcc-planifica-cards) .vcc-it-catalog .di-mini-grid > .di-mini-card.vcc-it-card .di-mini-body{
+html body:is(.itinerarios-vcc,.vcc-planifica-cards,.destinos-vcc) .vcc-it-catalog .di-mini-grid > .di-mini-card.vcc-it-card .di-mini-body{
   display:flex!important;flex:1 1 auto!important;flex-direction:column!important;
   align-items:stretch!important;min-width:0!important;min-height:0!important;
   height:auto!important;margin:0!important;padding:var(--vcc-catalog-fitxa-padding)!important;gap:0!important;
 }
-html body:is(.itinerarios-vcc,.vcc-planifica-cards) .vcc-it-catalog .di-mini-grid > .di-mini-card.vcc-it-card .di-mini-body > :is(.vcc-it-title,strong){
+html body:is(.itinerarios-vcc,.vcc-planifica-cards,.destinos-vcc) .vcc-it-catalog .di-mini-grid > .di-mini-card.vcc-it-card .di-mini-body > :is(.vcc-it-title,strong){
   display:block!important;height:auto!important;min-height:0!important;
   margin:0 0 7px!important;padding:0!important;
   font:500 var(--vcc-catalog-fitxa-titol)/1.08 var(--vcc-font-heading,"Oswald",sans-serif)!important;
   color:#222!important;letter-spacing:0!important;text-decoration:none!important;
 }
-html body:is(.itinerarios-vcc,.vcc-planifica-cards) .vcc-it-catalog .di-mini-grid > .di-mini-card.vcc-it-card .vcc-card-kicker{
+html body:is(.itinerarios-vcc,.vcc-planifica-cards,.destinos-vcc) .vcc-it-catalog .di-mini-grid > .di-mini-card.vcc-it-card .vcc-card-kicker{
   display:inline-flex!important;align-self:flex-start!important;align-items:center!important;
   gap:4px!important;margin:0 0 6px!important;padding:0!important;
   border:0!important;background:none!important;
   font:800 9px/1.2 var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;
   letter-spacing:.03em!important;color:#c75e3c!important;text-transform:uppercase!important;
 }
-html body:is(.itinerarios-vcc,.vcc-planifica-cards) .vcc-it-catalog .di-mini-grid > .di-mini-card.vcc-it-card .vcc-card-kicker svg{
+html body:is(.itinerarios-vcc,.vcc-planifica-cards,.destinos-vcc) .vcc-it-catalog .di-mini-grid > .di-mini-card.vcc-it-card .vcc-card-kicker svg{
   display:block!important;flex:0 0 13px!important;width:13px!important;height:13px!important;
   color:#ce6747!important;
 }
-html body:is(.itinerarios-vcc,.vcc-planifica-cards) .vcc-it-catalog .di-mini-grid > .di-mini-card.vcc-it-card .di-mini-desc{
+html body:is(.itinerarios-vcc,.vcc-planifica-cards,.destinos-vcc) .vcc-it-catalog .di-mini-grid > .di-mini-card.vcc-it-card .di-mini-desc{
   display:block!important;min-height:0!important;max-height:none!important;
   margin:0 0 8px!important;padding:0!important;
   overflow:visible!important;white-space:normal!important;overflow-wrap:break-word!important;
   font:400 var(--vcc-catalog-fitxa-text)/1.3 var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;
   color:#625f5b!important;
 }
-html body:is(.itinerarios-vcc,.vcc-planifica-cards) .vcc-it-catalog .di-mini-grid > .di-mini-card.vcc-it-card :is(.vcc-it-cta,.vcc-it-upcoming,.di-upcoming-status){
+html body:is(.itinerarios-vcc,.vcc-planifica-cards,.destinos-vcc) .vcc-it-catalog .di-mini-grid > .di-mini-card.vcc-it-card :is(.vcc-it-cta,.vcc-it-upcoming,.di-upcoming-status){
   display:inline-block!important;align-self:flex-end!important;
   width:auto!important;min-width:0!important;
   margin:auto 0 0!important;padding:0!important;border:0!important;
@@ -509,7 +509,7 @@ html body:is(.itinerarios-vcc,.vcc-planifica-cards) .vcc-it-catalog .di-mini-gri
   font:800 10px/1.3 var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;
   color:#9e604b!important;
 }
-html body:is(.itinerarios-vcc,.vcc-planifica-cards) .vcc-it-catalog .di-mini-grid > .di-mini-card.vcc-it-card :is(.vcc-it-upcoming,.di-upcoming-status){
+html body:is(.itinerarios-vcc,.vcc-planifica-cards,.destinos-vcc) .vcc-it-catalog .di-mini-grid > .di-mini-card.vcc-it-card :is(.vcc-it-upcoming,.di-upcoming-status){
   color:#a5a09a!important;
 }
 /* Tipologia específica de guia al costat del país, sense duplicar el sobretítol. */
@@ -530,25 +530,27 @@ html body.vcc-planifica-cards .vcc-it-catalog .di-guide-card .vcc-guide-kind svg
 }
 @media(max-width:620px){
   :root{--vcc-catalog-fitxa-alcada:var(--vcc-catalog-fitxa-alcada-mobil);}
-  html body:is(.itinerarios-vcc,.vcc-planifica-cards) .vcc-it-catalog .di-mini-grid{
+  html body:is(.itinerarios-vcc,.vcc-planifica-cards,.destinos-vcc) .vcc-it-catalog .di-mini-grid{
     grid-template-columns:1fr!important;gap:14px!important;
   }
-  html body:is(.itinerarios-vcc,.vcc-planifica-cards) .vcc-it-catalog .di-mini-grid > .di-mini-card.vcc-it-card{
+  html body:is(.itinerarios-vcc,.vcc-planifica-cards,.destinos-vcc) .vcc-it-catalog .di-mini-grid > .di-mini-card.vcc-it-card{
     height:auto!important;min-height:var(--vcc-catalog-fitxa-alcada)!important;max-height:none!important;
   }
 }
 
 /* VCC · Notes a itineraris: exactament el mateix indicador que a Planifica. */
-html body.itinerarios-vcc .vcc-it-catalog .di-mini-card.vcc-it-card{
+html body:is(.itinerarios-vcc,.destinos-vcc) .vcc-it-catalog .di-mini-card.vcc-it-card{
   --vcc-card-score-top:15px;--vcc-card-score-right:16px;--vcc-card-score-size:36px;
 }
 @media(max-width:620px){
-  html body.itinerarios-vcc .vcc-it-catalog .di-mini-card.vcc-it-card{
+  html body:is(.itinerarios-vcc,.destinos-vcc) .vcc-it-catalog .di-mini-card.vcc-it-card{
     --vcc-card-score-top:12px;--vcc-card-score-right:12px;--vcc-card-score-size:34px;
   }
 }
 
 
+/* Destinos / Rutas multipaís també reutilitza aquest únic component,
+   amb la mateixa foto, alçada, tipologia, metadades i CTA que Itinerarios. */
 /* VCC · ITINERARIOS: IDENTITAT ÚNICA portada + Itinerarios + Planifica/Dónde ir.
    El referent és «Itinerarios destacados» de la portada. Les altres dues pàgines
    comparteixen exactament la seva composició; només varia el contingut.
@@ -566,11 +568,11 @@ html body.itinerarios-vcc .vcc-it-catalog .di-mini-card.vcc-it-card{
  --vcc-itinerary-card-description-size:11px;
  --vcc-itinerary-card-cta-size:var(--vcc-card-cta-font-size,9px);
 }
-:is(html body.itinerarios-vcc .vcc-it-catalog .di-mini-grid,html body.planifica-vcc #di-panel-itinerarios .di-mini-grid){
+:is(html body:is(.itinerarios-vcc,.destinos-vcc) .vcc-it-catalog .di-mini-grid,html body.planifica-vcc #di-panel-itinerarios .di-mini-grid){
  gap:var(--vcc-itinerary-card-gap)!important;
  align-items:stretch!important;
 }
-:is(html body.inicio-vcc.home-editorial-refresh .home-featured-itineraries,html body.itinerarios-vcc .vcc-it-catalog,html body.planifica-vcc #di-panel-itinerarios) .vcc-itinerary-unified{
+:is(html body.inicio-vcc.home-editorial-refresh .home-featured-itineraries,html body:is(.itinerarios-vcc,.destinos-vcc) .vcc-it-catalog,html body.planifica-vcc #di-panel-itinerarios) .vcc-itinerary-unified{
  display:flex!important;flex-direction:column!important;align-items:stretch!important;
  box-sizing:border-box!important;min-width:0!important;width:auto!important;
  height:auto!important;min-height:var(--vcc-itinerary-card-min-height)!important;
@@ -579,10 +581,10 @@ html body.itinerarios-vcc .vcc-it-catalog .di-mini-card.vcc-it-card{
  background:#fff!important;box-shadow:0 3px 12px rgba(81,52,33,.04)!important;
  overflow:hidden!important;color:#23201e!important;text-align:left!important;text-decoration:none!important;
 }
-:is(html body.inicio-vcc.home-editorial-refresh .home-featured-itineraries,html body.itinerarios-vcc .vcc-it-catalog,html body.planifica-vcc #di-panel-itinerarios) .vcc-itinerary-unified[hidden]{
+:is(html body.inicio-vcc.home-editorial-refresh .home-featured-itineraries,html body:is(.itinerarios-vcc,.destinos-vcc) .vcc-it-catalog,html body.planifica-vcc #di-panel-itinerarios) .vcc-itinerary-unified[hidden]{
  display:none!important;
 }
-:is(html body.inicio-vcc.home-editorial-refresh .home-featured-itineraries,html body.itinerarios-vcc .vcc-it-catalog,html body.planifica-vcc #di-panel-itinerarios) .vcc-itinerary-unified .vcc-it-photo{
+:is(html body.inicio-vcc.home-editorial-refresh .home-featured-itineraries,html body:is(.itinerarios-vcc,.destinos-vcc) .vcc-it-catalog,html body.planifica-vcc #di-panel-itinerarios) .vcc-itinerary-unified .vcc-it-photo{
  display:block!important;position:relative!important;isolation:isolate!important;
  box-sizing:border-box!important;flex:0 0 var(--vcc-itinerary-card-photo-height)!important;
  width:100%!important;height:var(--vcc-itinerary-card-photo-height)!important;
@@ -592,20 +594,20 @@ html body.itinerarios-vcc .vcc-it-catalog .di-mini-card.vcc-it-card{
  overflow:hidden!important;background:#e8e2d8!important;border:0!important;
  border-bottom:1px solid #e7e0d9!important;
 }
-:is(html body.inicio-vcc.home-editorial-refresh .home-featured-itineraries,html body.itinerarios-vcc .vcc-it-catalog,html body.planifica-vcc #di-panel-itinerarios) .vcc-itinerary-unified .vcc-it-photo>img{
+:is(html body.inicio-vcc.home-editorial-refresh .home-featured-itineraries,html body:is(.itinerarios-vcc,.destinos-vcc) .vcc-it-catalog,html body.planifica-vcc #di-panel-itinerarios) .vcc-itinerary-unified .vcc-it-photo>img{
  display:block!important;position:absolute!important;inset:0!important;
  width:100%!important;height:100%!important;max-height:none!important;
  object-fit:cover!important;object-position:center!important;
  filter:none!important;transform:none!important;
 }
-:is(html body.inicio-vcc.home-editorial-refresh .home-featured-itineraries,html body.itinerarios-vcc .vcc-it-catalog,html body.planifica-vcc #di-panel-itinerarios) .vcc-itinerary-unified .di-mini-body{
+:is(html body.inicio-vcc.home-editorial-refresh .home-featured-itineraries,html body:is(.itinerarios-vcc,.destinos-vcc) .vcc-it-catalog,html body.planifica-vcc #di-panel-itinerarios) .vcc-itinerary-unified .di-mini-body{
  display:flex!important;flex:1 1 auto!important;flex-direction:column!important;
  align-items:stretch!important;gap:0!important;min-width:0!important;
  width:100%!important;min-height:0!important;height:auto!important;
  margin:0!important;padding:var(--vcc-itinerary-card-padding)!important;
  background:#fff!important;box-sizing:border-box!important;
 }
-:is(html body.inicio-vcc.home-editorial-refresh .home-featured-itineraries,html body.itinerarios-vcc .vcc-it-catalog,html body.planifica-vcc #di-panel-itinerarios) .vcc-itinerary-unified .di-mini-body>.vcc-card-kicker{
+:is(html body.inicio-vcc.home-editorial-refresh .home-featured-itineraries,html body:is(.itinerarios-vcc,.destinos-vcc) .vcc-it-catalog,html body.planifica-vcc #di-panel-itinerarios) .vcc-itinerary-unified .di-mini-body>.vcc-card-kicker{
  display:inline-flex!important;align-items:center!important;align-self:flex-start!important;
  gap:5px!important;max-width:100%!important;min-width:0!important;
  margin:0 0 7px!important;padding:0!important;
@@ -614,11 +616,11 @@ html body.itinerarios-vcc .vcc-it-catalog .di-mini-card.vcc-it-card{
  letter-spacing:.02em!important;text-transform:uppercase!important;
  color:#c85b3c!important;white-space:normal!important;
 }
-:is(html body.inicio-vcc.home-editorial-refresh .home-featured-itineraries,html body.itinerarios-vcc .vcc-it-catalog,html body.planifica-vcc #di-panel-itinerarios) .vcc-itinerary-unified .di-mini-body>.vcc-card-kicker svg{
+:is(html body.inicio-vcc.home-editorial-refresh .home-featured-itineraries,html body:is(.itinerarios-vcc,.destinos-vcc) .vcc-it-catalog,html body.planifica-vcc #di-panel-itinerarios) .vcc-itinerary-unified .di-mini-body>.vcc-card-kicker svg{
  display:block!important;flex:0 0 14px!important;
  width:14px!important;height:14px!important;color:#cc6648!important;
 }
-:is(html body.inicio-vcc.home-editorial-refresh .home-featured-itineraries,html body.itinerarios-vcc .vcc-it-catalog,html body.planifica-vcc #di-panel-itinerarios) .vcc-itinerary-unified .di-mini-body>:is(.vcc-it-title,strong){
+:is(html body.inicio-vcc.home-editorial-refresh .home-featured-itineraries,html body:is(.itinerarios-vcc,.destinos-vcc) .vcc-it-catalog,html body.planifica-vcc #di-panel-itinerarios) .vcc-itinerary-unified .di-mini-body>:is(.vcc-it-title,strong){
  display:block!important;width:100%!important;min-width:0!important;
  height:auto!important;min-height:0!important;max-height:none!important;
  margin:0 0 6px!important;padding:0!important;
@@ -626,42 +628,42 @@ html body.itinerarios-vcc .vcc-it-catalog .di-mini-card.vcc-it-card{
  letter-spacing:0!important;text-transform:none!important;text-decoration:none!important;
  color:#23211f!important;overflow-wrap:break-word!important;
 }
-:is(html body.inicio-vcc.home-editorial-refresh .home-featured-itineraries,html body.itinerarios-vcc .vcc-it-catalog,html body.planifica-vcc #di-panel-itinerarios) .vcc-itinerary-unified .vcc-it-facts{
+:is(html body.inicio-vcc.home-editorial-refresh .home-featured-itineraries,html body:is(.itinerarios-vcc,.destinos-vcc) .vcc-it-catalog,html body.planifica-vcc #di-panel-itinerarios) .vcc-itinerary-unified .vcc-it-facts{
  display:flex!important;align-items:center!important;justify-content:flex-start!important;
  flex-wrap:wrap!important;gap:4px 9px!important;
  width:100%!important;min-width:0!important;
  margin:0 0 7px!important;padding:0!important;
 }
-:is(html body.inicio-vcc.home-editorial-refresh .home-featured-itineraries,html body.itinerarios-vcc .vcc-it-catalog,html body.planifica-vcc #di-panel-itinerarios) .vcc-itinerary-unified .vcc-it-facts>span{
+:is(html body.inicio-vcc.home-editorial-refresh .home-featured-itineraries,html body:is(.itinerarios-vcc,.destinos-vcc) .vcc-it-catalog,html body.planifica-vcc #di-panel-itinerarios) .vcc-itinerary-unified .vcc-it-facts>span{
  display:inline-flex!important;align-items:center!important;gap:4px!important;
  flex:0 0 auto!important;width:auto!important;min-width:0!important;
  margin:0!important;padding:0!important;background:transparent!important;
  font:700 var(--vcc-itinerary-card-facts-size)/1.2 var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;
  white-space:normal!important;color:#bb5c3e!important;
 }
-:is(html body.inicio-vcc.home-editorial-refresh .home-featured-itineraries,html body.itinerarios-vcc .vcc-it-catalog,html body.planifica-vcc #di-panel-itinerarios) .vcc-itinerary-unified .vcc-it-facts :is(.di-route-stats,.di-budget-row,.di-country-line,.di-days,.di-vcc-flags){
+:is(html body.inicio-vcc.home-editorial-refresh .home-featured-itineraries,html body:is(.itinerarios-vcc,.destinos-vcc) .vcc-it-catalog,html body.planifica-vcc #di-panel-itinerarios) .vcc-itinerary-unified .vcc-it-facts :is(.di-route-stats,.di-budget-row,.di-country-line,.di-days,.di-vcc-flags){
  display:inline-flex!important;align-items:center!important;gap:4px!important;
  margin:0!important;padding:0!important;vertical-align:middle!important;
 }
-:is(html body.inicio-vcc.home-editorial-refresh .home-featured-itineraries,html body.itinerarios-vcc .vcc-it-catalog,html body.planifica-vcc #di-panel-itinerarios) .vcc-itinerary-unified .vcc-it-facts .di-country-line{
+:is(html body.inicio-vcc.home-editorial-refresh .home-featured-itineraries,html body:is(.itinerarios-vcc,.destinos-vcc) .vcc-it-catalog,html body.planifica-vcc #di-panel-itinerarios) .vcc-itinerary-unified .vcc-it-facts .di-country-line{
  color:#514c46!important;
 }
-:is(html body.inicio-vcc.home-editorial-refresh .home-featured-itineraries,html body.itinerarios-vcc .vcc-it-catalog,html body.planifica-vcc #di-panel-itinerarios) .vcc-itinerary-unified .vcc-it-facts :is(svg:not(.vcc-it-country-flag),.vcc-it-coins){
+:is(html body.inicio-vcc.home-editorial-refresh .home-featured-itineraries,html body:is(.itinerarios-vcc,.destinos-vcc) .vcc-it-catalog,html body.planifica-vcc #di-panel-itinerarios) .vcc-itinerary-unified .vcc-it-facts :is(svg:not(.vcc-it-country-flag),.vcc-it-coins){
  display:block!important;flex:0 0 14px!important;width:14px!important;height:14px!important;
  color:#bc6245!important;
 }
-:is(html body.inicio-vcc.home-editorial-refresh .home-featured-itineraries,html body.itinerarios-vcc .vcc-it-catalog,html body.planifica-vcc #di-panel-itinerarios) .vcc-itinerary-unified .vcc-it-facts .vcc-it-country-flag{
+:is(html body.inicio-vcc.home-editorial-refresh .home-featured-itineraries,html body:is(.itinerarios-vcc,.destinos-vcc) .vcc-it-catalog,html body.planifica-vcc #di-panel-itinerarios) .vcc-itinerary-unified .vcc-it-facts .vcc-it-country-flag{
  display:block!important;flex:0 0 20px!important;width:20px!important;height:13px!important;
  object-fit:cover!important;border-radius:1px!important;box-shadow:none!important;
 }
-:is(html body.inicio-vcc.home-editorial-refresh .home-featured-itineraries,html body.itinerarios-vcc .vcc-it-catalog,html body.planifica-vcc #di-panel-itinerarios) .vcc-itinerary-unified .vcc-it-facts .di-price{
+:is(html body.inicio-vcc.home-editorial-refresh .home-featured-itineraries,html body:is(.itinerarios-vcc,.destinos-vcc) .vcc-it-catalog,html body.planifica-vcc #di-panel-itinerarios) .vcc-itinerary-unified .vcc-it-facts .di-price{
  color:#b65335!important;
  font:800 var(--vcc-itinerary-card-facts-size)/1.2 var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;
 }
-:is(html body.inicio-vcc.home-editorial-refresh .home-featured-itineraries,html body.itinerarios-vcc .vcc-it-catalog,html body.planifica-vcc #di-panel-itinerarios) .vcc-itinerary-unified .vcc-it-facts .di-price-pending{
+:is(html body.inicio-vcc.home-editorial-refresh .home-featured-itineraries,html body:is(.itinerarios-vcc,.destinos-vcc) .vcc-it-catalog,html body.planifica-vcc #di-panel-itinerarios) .vcc-itinerary-unified .vcc-it-facts .di-price-pending{
  color:#9b9390!important;font-weight:600!important;
 }
-:is(html body.inicio-vcc.home-editorial-refresh .home-featured-itineraries,html body.itinerarios-vcc .vcc-it-catalog,html body.planifica-vcc #di-panel-itinerarios) .vcc-itinerary-unified .di-mini-body>.di-mini-desc{
+:is(html body.inicio-vcc.home-editorial-refresh .home-featured-itineraries,html body:is(.itinerarios-vcc,.destinos-vcc) .vcc-it-catalog,html body.planifica-vcc #di-panel-itinerarios) .vcc-itinerary-unified .di-mini-body>.di-mini-desc{
  display:-webkit-box!important;-webkit-box-orient:vertical!important;
  -webkit-line-clamp:2!important;line-clamp:2!important;
  white-space:normal!important;overflow:hidden!important;
@@ -670,7 +672,7 @@ html body.itinerarios-vcc .vcc-it-catalog .di-mini-card.vcc-it-card{
  font:400 var(--vcc-itinerary-card-description-size)/1.37 var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;
  color:#6e625b!important;overflow-wrap:break-word!important;
 }
-:is(html body.inicio-vcc.home-editorial-refresh .home-featured-itineraries,html body.itinerarios-vcc .vcc-it-catalog,html body.planifica-vcc #di-panel-itinerarios) .vcc-itinerary-unified .di-mini-body>:is(.vcc-it-cta,.vcc-it-upcoming,.home-feature-pending){
+:is(html body.inicio-vcc.home-editorial-refresh .home-featured-itineraries,html body:is(.itinerarios-vcc,.destinos-vcc) .vcc-it-catalog,html body.planifica-vcc #di-panel-itinerarios) .vcc-itinerary-unified .di-mini-body>:is(.vcc-it-cta,.vcc-it-upcoming,.home-feature-pending){
  display:inline-flex!important;align-items:center!important;justify-content:flex-end!important;
  align-self:flex-end!important;flex:0 0 auto!important;
  width:auto!important;min-width:0!important;min-height:0!important;
@@ -680,16 +682,16 @@ html body.itinerarios-vcc .vcc-it-catalog .di-mini-card.vcc-it-card{
  letter-spacing:0!important;text-decoration:none!important;text-align:right!important;
  white-space:normal!important;color:#ad5a43!important;
 }
-:is(html body.inicio-vcc.home-editorial-refresh .home-featured-itineraries,html body.itinerarios-vcc .vcc-it-catalog,html body.planifica-vcc #di-panel-itinerarios) .vcc-itinerary-unified .di-mini-body>:is(.vcc-it-upcoming,.home-feature-pending){
+:is(html body.inicio-vcc.home-editorial-refresh .home-featured-itineraries,html body:is(.itinerarios-vcc,.destinos-vcc) .vcc-it-catalog,html body.planifica-vcc #di-panel-itinerarios) .vcc-itinerary-unified .di-mini-body>:is(.vcc-it-upcoming,.home-feature-pending){
  color:#aaa09a!important;
 }
-:is(html body.inicio-vcc.home-editorial-refresh .home-featured-itineraries,html body.itinerarios-vcc .vcc-it-catalog,html body.planifica-vcc #di-panel-itinerarios) .vcc-itinerary-unified .vcc-card-score{
+:is(html body.inicio-vcc.home-editorial-refresh .home-featured-itineraries,html body:is(.itinerarios-vcc,.destinos-vcc) .vcc-it-catalog,html body.planifica-vcc #di-panel-itinerarios) .vcc-itinerary-unified .vcc-card-score{
  --vcc-card-score-top:12px;
  --vcc-card-score-right:12px;
  position:absolute!important;z-index:6!important;top:12px!important;right:12px!important;
  left:auto!important;bottom:auto!important;margin:0!important;
 }
-:is(html body.inicio-vcc.home-editorial-refresh .home-featured-itineraries,html body.itinerarios-vcc .vcc-it-catalog,html body.planifica-vcc #di-panel-itinerarios) .vcc-itinerary-unified .vcc-card-score strong{
+:is(html body.inicio-vcc.home-editorial-refresh .home-featured-itineraries,html body:is(.itinerarios-vcc,.destinos-vcc) .vcc-it-catalog,html body.planifica-vcc #di-panel-itinerarios) .vcc-itinerary-unified .vcc-card-score strong{
  box-sizing:border-box!important;display:grid!important;place-items:center!important;
  width:36px!important;height:36px!important;padding:0!important;
  font:500 17px/1 var(--vcc-font-heading,"Oswald",sans-serif)!important;
@@ -701,13 +703,13 @@ html body.itinerarios-vcc .vcc-it-catalog .di-mini-card.vcc-it-card{
   --vcc-itinerary-card-title-size:19px;
   --vcc-itinerary-card-padding:11px 12px 13px;
  }
- :is(html body.inicio-vcc.home-editorial-refresh .home-featured-itineraries,html body.itinerarios-vcc .vcc-it-catalog,html body.planifica-vcc #di-panel-itinerarios) .vcc-itinerary-unified .vcc-card-score strong{
+ :is(html body.inicio-vcc.home-editorial-refresh .home-featured-itineraries,html body:is(.itinerarios-vcc,.destinos-vcc) .vcc-it-catalog,html body.planifica-vcc #di-panel-itinerarios) .vcc-itinerary-unified .vcc-card-score strong{
    width:34px!important;height:34px!important;font-size:17px!important;
  }
 }
 
 /* Itineraris destacats: categories múltiples amb exactament el mateix espaiat a totes les pàgines. */
-:is(html body.inicio-vcc.home-editorial-refresh .home-featured-itineraries,html body.itinerarios-vcc .vcc-it-catalog,html body.planifica-vcc #di-panel-itinerarios) .vcc-itinerary-unified .di-mini-body>.vcc-card-kicker.vcc-card-kicker-multi{display:inline-flex!important;flex-wrap:wrap!important;gap:12px!important}
+:is(html body.inicio-vcc.home-editorial-refresh .home-featured-itineraries,html body:is(.itinerarios-vcc,.destinos-vcc) .vcc-it-catalog,html body.planifica-vcc #di-panel-itinerarios) .vcc-itinerary-unified .di-mini-body>.vcc-card-kicker.vcc-card-kicker-multi{display:inline-flex!important;flex-wrap:wrap!important;gap:12px!important}
 
 /* VCC · NOTA TARGETES CANÒNICA UNIVERSAL: totes les guies i itineraris. */
 /* Un sol lloc per canviar el marge, el quadrat i la lletra de les notes VCC.
