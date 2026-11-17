@@ -106,3 +106,39 @@
     }
   }
 }
+
+/* VCC 2026-11-17 · CONTRACTE ÚNIC DE MARGES PER ÀNCORES
+ * Les seccions marcades pel controlador són les destinacions reals del
+ * subheader. El marge superior i inferior fa servir la mateixa escala:
+ * 76px escriptori / 52px mòbil. En flux de blocs, els dos marges adjacents
+ * col·lapsen a una sola separació de 76/52px, sense duplicar-la.
+ * Els components interiors mai reben aquesta classe. */
+@layer vcc-interior-portades {
+  html body:has(nav.vcc-unified-subheader) main > :is(section,article).vcc-subheader-section {
+    margin-block-start:var(--vcc-espai-entre-apartats)!important;
+    margin-block-end:var(--vcc-espai-entre-apartats)!important;
+  }
+  /* La darrera secció no afegeix un segon espai al peu de pàgina ni
+     al carrusel relacionat: aquests ja tenen el tancament corporatiu. */
+  html body:has(nav.vcc-unified-subheader) main > :is(section,article).vcc-subheader-section:not(:has(~ .vcc-subheader-section)) {
+    margin-block-end:0!important;
+  }
+  /* Els tres mains antics ja introduïen 76px abans de la primera fitxa;
+     ara aquesta distància pertany a la primera secció, no es duplica. */
+  html body:has(nav.vcc-unified-subheader) main:is(.budget-main,.dv-main,.ci-main) {
+    padding-block-start:0!important;
+  }
+  /* Alguns layouts afegien una segona separació amb padding, que
+     desplaçava el sobretítol cap avall. Mantenim els paddings laterals
+     i el contingut, neutralitzant només aquest espai vertical redundant. */
+  html body:has(nav.vcc-unified-subheader)
+    main > :is(.swmove-section,.sv-section,.av-section,.vl-section,.budget-section).vcc-subheader-section{
+    padding-block-start:0!important;
+  }
+  html body:has(nav.vcc-unified-subheader)
+    main.cl-page.cl-landing > nav.vcc-unified-subheader ~ section.vcc-subheader-section{
+    padding-block-start:0!important;
+  }
+  /* Mòbil i escriptori utilitzen exactament la mateixa regla, amb els
+     tokens 52/76px declarats més amunt. */
+}
