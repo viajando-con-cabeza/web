@@ -77,14 +77,23 @@ function syncPageSchema(html,file,canonical,isReady){
     .find(t=>/\bname=["']description["']/i.test(t));
   const description=decode(tag?.match(/\bcontent=["']([^"']+)/i)?.[1]);
   if(!title||!description){issues.push(file+': title o description absent per JSON-LD WebPage');return html;}
+  // Les guies v2 declaren una portada original R2 al seu propi model.
+  // La resta de pàgines continuen amb el registre socialImages existent.
+  const isV2=html.includes('data-vcc-generated-destination="1"');
+  const ogImageTag=[...head.matchAll(/<meta\b[^>]*>/gi)].map(m=>m[0])
+    .find(tag=>/\bproperty=["']og:image["']/i.test(tag));
+  const declaredImage=ogImageTag?.match(/\bcontent=["']([^"']+)/i)?.[1];
   const image=config.socialImages?.[file];
-  if(!image||!image.startsWith('/')){issues.push(file+': imatge absent per WebPage');return html;}
+  const imageUrl=image?.startsWith('/') ? ORIGIN+image :
+    isV2 && declaredImage?.startsWith('https://img.viajandoconcabeza.com/')
+      ? declaredImage : null;
+  if(!imageUrl){issues.push(file+': imatge VCC absent per WebPage');return html;}
   const data={
     '@context':'https://schema.org','@type':'WebPage',
     '@id':canonical+'#webpage',url:canonical,
     name:title,description,inLanguage:'es',
     isPartOf:{'@type':'WebSite',name:'Viajando con Cabeza',url:ORIGIN+'/'},
-    primaryImageOfPage:{'@type':'ImageObject',url:ORIGIN+image}
+    primaryImageOfPage:{'@type':'ImageObject',url:imageUrl}
   };
   const block='<script type="application/ld+json" data-vcc-generated-page>'+
     JSON.stringify(data).replace(/</g,String.fromCharCode(92)+'u003c')+'</script>\n';
