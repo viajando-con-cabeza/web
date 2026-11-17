@@ -39,6 +39,7 @@ for(const file of pages){
   const html=originalHtml.replace(/<noscript\b[^>]*>[\s\S]*?<\/noscript>/gi,"");
   const sheets=[...html.matchAll(/<link\b[^>]*>/gi)].map(x=>x[0]).filter(x=>/\brel=["']stylesheet["']/i.test(x));
   const css=sheets.map(x=>attr(x,"href").split("?")[0]).filter(Boolean);
+  const googleFontRequests=css.filter(x=>x==="https://fonts.googleapis.com/css2").length;
   const js=[...html.matchAll(/<script\b[^>]*\bsrc=["']([^"']+)/gi)].map(x=>x[1].split("?")[0]);
   const repeatCss=css.filter((v,i)=>css.indexOf(v)!==i),repeatJs=js.filter((v,i)=>js.indexOf(v)!==i);
   // IMPORTANT: \\bhref també detectava el sufix de data-vcc-original-href.
@@ -62,13 +63,14 @@ for(const file of pages){
     return url.startsWith("/configuracion/imagenes/") &&
       (sizes.get(url)||0)>400*1024 && !/\bsrcset=["']/.test(tag);
   });
-  const result={file,live,stylesheets:css.length,cssRawBytes:css.reduce((n,u)=>n+(sizes.get(u)||0),0),
+  const result={file,live,stylesheets:css.length,googleFontRequests,cssRawBytes:css.reduce((n,u)=>n+(sizes.get(u)||0),0),
     cssGzipEstimate:css.reduce((n,u)=>n+(cssGzip.get(u)||0),0),
     javascript:js.length,jsRawBytes:js.reduce((n,u)=>n+(sizes.get(u)||0),0),
     repeatedCSS:repeatCss.length,repeatedJS:repeatJs.length,inlineStyle:(html.match(/<style\b/gi)||[]).length,
     inlineScript:(html.match(/<script\b(?![^>]*\bsrc=)(?![^>]*application\/ld\+json)[^>]*>/gi)||[]).length,
     images:imgs.length,missingAlt,noDimensions,linksToDrafts:drafts.length,draftFallbacks:draftsRedirected};
   if(live){
+    if(googleFontRequests>1)critical.push(file+": "+googleFontRequests+" peticions Google Fonts CSS; consolidar la família en una URL");
     if(repeatCss.length||repeatJs.length)critical.push(file+": recursos CSS/JS cargados repetidamente");
     if(missingAlt)critical.push(file+": "+missingAlt+" imagenes sin texto alternativo");
     if(heavyImg.length)critical.push(file+": "+heavyImg.length+" fotografies locals >400 KB sense srcset");
