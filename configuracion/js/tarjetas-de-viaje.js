@@ -43,6 +43,7 @@
   const saving=document.getElementById('tv-saving');
   const savingText=document.getElementById('tv-saving-label');
   const savingBox=document.getElementById('tv-saving-box');
+  const bestOption=document.getElementById('tv-best-option');
   if(inputs.length && bankTotal && travelTotal && saving && savingText && savingBox){
     const euro=new Intl.NumberFormat('es-ES',{useGrouping:'always',style:'currency',currency:'EUR',minimumFractionDigits:2,maximumFractionDigits:2});
     const euroEntero=new Intl.NumberFormat('es-ES',{useGrouping:'always',style:'currency',currency:'EUR',minimumFractionDigits:0,maximumFractionDigits:0});
@@ -88,6 +89,7 @@
       const ahorroRedondeado=Math.abs(diferenciaVisible);
       const positive=diferenciaVisible>0;
       const negative=diferenciaVisible<0;
+      if(bestOption)bestOption.textContent=positive?'Tarjeta de viaje':negative?'Tu banco habitual':'Mismo coste estimado';
       savingText.textContent=positive?'Ahorro estimado':negative?'Coste adicional estimado':'Diferencia estimada';
       saving.textContent=euroEntero.format(ahorroRedondeado);
       savingBox.classList.toggle('negative',negative);
