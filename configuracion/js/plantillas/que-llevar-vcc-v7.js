@@ -147,10 +147,6 @@ function recommendedBag(){
 }
 function updateBagAdvice(){
  const choice=recommendedBag();
- const month=byId(state.month).name;
- const duration=state.days+" "+(state.days===1?"día":"días");
- const luggage=choice.name.toLocaleLowerCase("es");
- $("ql-v7-bag-result-reason").textContent="Para "+duration+" en "+month+", nosotros elegiríamos "+luggage+" porque "+choice.reason;
  document.querySelectorAll(".ql-v7-bag-card").forEach(card=>{
   const selected=card.dataset.bag===choice.type;
   card.classList.toggle("is-recommended",selected);
@@ -174,22 +170,23 @@ const packingAdviceByMonth=[
  "Prepararíamos ya capas casi invernales: jersey, abrigo cálido y accesorios finos, fáciles de quitar en interiores.",
  "Con frío y posibles heladas, priorizaríamos abrigo, gorro, guantes y calzado impermeable con buen agarre."
 ];
-function updatePackingAdvice(month){
- const wetDays=monthlyPrecipitationDays[state.month];
- const coldRisk=month.lo<=0||month.hi<=5;
- const rainGuidance=coldRisk
-  ?"Si hay nieve, lluvia o hielo, una suela con agarre y una capa exterior impermeable serán tus mejores aliados."
-  :wetDays>=15
-   ?"Como puede haber bastantes días de lluvia, llevaríamos una capa exterior impermeable que ocupe poco."
-   :wetDays>=12
-    ?"Aunque sea una época agradable, guardaríamos un impermeable plegable por si llueve."
-    :"No olvidaría una chaqueta ligera resistente al agua, aunque los días de lluvia sean menos frecuentes.";
- const extra=state.days>7&&!state.laundry
-  ?" Si viajas tantos días, planifica lavar ropa en vez de multiplicar las mudas."
-  :state.days>5&&state.laundry
-   ?" Como podrás lavar ropa, bastan menos cambios y puedes repetir las capas exteriores."
-   :"";
- $("ql-v10-packing-tip").textContent=packingAdviceByMonth[state.month]+" "+rainGuidance+extra;
+const packingShortByMonth=[
+ "En enero: abrigo cortavientos, térmicas y calzado con agarre.",
+ "En febrero: térmicas, abrigo cálido, guantes y botas con agarre.",
+ "En marzo: abrigo, una capa térmica y calzado resistente al agua.",
+ "En abril: prendas por capas y una chaqueta impermeable.",
+ "En mayo: capas ligeras y cortavientos para las mañanas y los ferris.",
+ "En junio: ropa ligera, zapatillas cómodas y una capa fina.",
+ "En julio: ropa transpirable y una sudadera para la tarde.",
+ "En agosto: prendas ligeras y un impermeable plegable.",
+ "En septiembre: ropa versátil, jersey y una chaqueta fina.",
+ "En octubre: pantalón largo, jersey y chaqueta impermeable.",
+ "En noviembre: abrigo, capas y accesorios para el frío.",
+ "En diciembre: abrigo cálido, gorro, guantes y botas con agarre."
+];
+function updatePackingAdvice(){
+ const node=$("ql-v10-packing-tip");
+ if(node)node.textContent=packingShortByMonth[state.month];
 }
 function render(resetListScroll=false){
  const m=byId(state.month);const groups=buildItems();
