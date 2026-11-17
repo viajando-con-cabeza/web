@@ -218,3 +218,31 @@ html body :is(#vl-tip-track > .vl-tip,#ql-advice-track > .ql-advice-card,#al-tip
   height:158px!important;min-height:158px!important;max-height:158px!important;
  }
 }
+
+/* VCC 2026-11-17 · integració de Cómo moverse per Estocolmo.
+   La secció #billetes fa servir classes mv- i també comparteix
+   la mateixa alçada compacta, tipografia i límit de 5 línies. */
+html body #billetes .mv-saving-track > .mv-saving-card{
+ box-sizing:border-box!important;
+ height:156px!important;min-height:156px!important;max-height:156px!important;
+ padding:13px 14px!important;gap:10px!important;overflow:hidden!important;
+}
+html body #billetes .mv-saving-card h3{
+ display:-webkit-box!important;-webkit-box-orient:vertical!important;
+ -webkit-line-clamp:2!important;line-clamp:2!important;overflow:hidden!important;
+ font:600 18px/1.2 var(--vcc-font-heading,"Oswald",sans-serif)!important;
+ margin:0 0 7px!important;
+}
+html body #billetes .mv-saving-card p{
+ display:-webkit-box!important;-webkit-box-orient:vertical!important;
+ -webkit-line-clamp:5!important;line-clamp:5!important;
+ max-height:7.5em!important;overflow:hidden!important;
+ font:400 12px/1.5 var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;
+ margin:0!important;
+}
+@media(max-width:680px){
+ html body #billetes .mv-saving-track > .mv-saving-card{
+  height:158px!important;min-height:158px!important;max-height:158px!important;
+  padding:12px!important;gap:9px!important;
+ }
+}
