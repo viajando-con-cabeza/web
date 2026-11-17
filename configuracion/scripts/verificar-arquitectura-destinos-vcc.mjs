@@ -63,6 +63,16 @@ check(templates.policy?.sourceLanguage==="es" &&
   templates.policy?.publish==="explicit-approval-only",
   "Les plantilles han de requerir aprovació editorial explícita");
 
+const future=templates.futureTemplates;
+check(future?.status==="implemented-draft-first" &&
+  JSON.stringify(future.pageKinds)==='["country","region","city","itinerary"]',
+  "El motor de destins ha de cobrir país, regió, ciutat i itinerari");
+for(const key of ["sourceFolder","generator","renderer","stylesheet","test"])
+  check(typeof future?.[key]==="string" && exists(future[key]),
+    "Font compartida de nous destins absent: "+key);
+check(future?.existingReferencePagesStayUnchanged===true,
+  "Suècia/Estocolm continuen com a referència sense reescriure");
+
 const unique=new Set(approvedFiles);
 check(unique.size===approvedFiles.length,"Hi ha URL duplicades al registre de publicació");
 for(const file of approvedFiles){
