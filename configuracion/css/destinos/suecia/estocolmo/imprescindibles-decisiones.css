@@ -774,3 +774,16 @@ html body .imp-page .imp-main .place.place--no-media .place-info-card > .facts >
     transform:none!important;
   }
 }
+
+/* VCC · Alineació 01/02: mateixa fila, mateix marge inicial del subheader.
+   El CSS universal vcc-interior-portades considerava 02 una secció
+   intermèdia (76px), mentre 01 rebia el marge inicial (24px).
+   En un grid de dues columnes, les dues seccions són la PRIMERA fila.
+   Es corregeix dins de la mateixa layer perquè les regles globals !important
+   tenen prioritat sobre els overrides antics sense layer. No toca 03–16. */
+@layer vcc-interior-portades {
+  html body .imp-page:has(nav.place-nav-wrap.vcc-unified-subheader)
+    main.imp-main > section.place.imp-grid-place.vcc-subheader-section:is(#gamla-stan,#djurgarden) {
+    margin-block-start:var(--vcc-espai-abans-primer-apartat,24px)!important;
+  }
+}
