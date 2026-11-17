@@ -84,3 +84,61 @@
   .vcc-unified-rating__copy small{font-size:8.5px}
   .vcc-unified-rating__panel{padding:10px 12px}
 }
+
+/* 2026-11-17 · valoración VCC discreta (ordinador) · guía e itinerario Estocolmo. */
+@media(min-width:851px){
+  /* Requadre tancat: una mica més baix i estret, sense perdre llegibilitat. */
+  .vcc-unified-rating__toggle{
+    gap:6px;
+    padding:4px 7px 4px 4px;
+    border-radius:7px;
+    box-shadow:0 4px 16px rgba(0,0,0,.09);
+  }
+  .vcc-unified-rating__score{
+    padding:6px 7px;
+    font-size:17px;
+    border-radius:4px;
+  }
+  .vcc-unified-rating__copy{gap:1px}
+  .vcc-unified-rating__copy b{font-size:11px}
+  .vcc-unified-rating__copy small{font-size:9px}
+  .vcc-unified-rating__chevron{width:13px;height:13px}
+  /* Desglossament: més estret i amb files i separacions lleument compactes. */
+  .vcc-unified-rating__panel{
+    top:calc(100% + 7px);
+    width:min(255px,calc(100vw - 32px));
+    padding:8px 11px 9px;
+    border-radius:10px;
+    box-shadow:0 7px 20px rgba(0,0,0,.12);
+    font-size:11.5px;
+    line-height:1.35;
+  }
+  .vcc-unified-rating__panel::before{
+    top:-7px;right:21px;
+    border-left-width:7px;border-right-width:7px;border-bottom-width:8px;
+  }
+  .vcc-unified-rating__row{
+    gap:10px;
+    padding:4.5px 0;
+  }
+  .vcc-unified-rating__row > span{gap:7px}
+  .vcc-unified-rating__row svg{width:14px;height:14px}
+  .vcc-unified-rating__row > strong{
+    font-size:11.5px;
+    line-height:1.3;
+  }
+  .vcc-unified-rating__panel .vcc-unified-rating__note{
+    margin-top:6px;
+    padding-top:7px;
+    font-size:9.5px;
+    line-height:1.4;
+  }
+  /* Itinerari: manté la nota en una línia dins el nou ample. */
+  .vcc-hero .vcc-unified-rating__panel{
+    width:min(270px,calc(100vw - 32px));
+  }
+  .vcc-hero .vcc-unified-rating__panel p.vcc-unified-rating__note{
+    font-size:11px!important;
+    line-height:1.4!important;
+  }
+}
