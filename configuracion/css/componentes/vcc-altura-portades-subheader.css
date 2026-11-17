@@ -233,6 +233,16 @@ html body:has(.st-shell nav.st-tabs) .st-shell > .st-hero .hero-start{
   }
 }
 
+/* Unificar amplada només a l'ordinador: abans 760px, ara 560px.
+   Les dues targetes fan servir la mateixa regla. Mòbil i tauleta intactes. */
+@media (min-width:1025px){
+  html body.country-page:has(nav.country-nav) .country-hero .country-hero-card.vcc-guide-hero-copy,
+  html body:has(.st-shell nav.st-tabs) .st-shell > .st-hero .st-card.vcc-guide-hero-copy{
+    width:min(560px,100%)!important;
+    max-width:560px!important;
+  }
+}
+
 /* Landings de país/ciutat amb vinyeta central, que no porten
    .vcc-sacred-hero. Inclou Suècia, Estocolm, Roma i Fuerteventura. */
 html body.country-page:has(nav.country-nav) .country-hero,
