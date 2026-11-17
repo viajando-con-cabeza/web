@@ -320,21 +320,27 @@
 .swmove-page .swmove-choice-label{font-size:9px;margin-bottom:2px}
 .swmove-page .swmove-choice h3{font-size:20px;margin-bottom:2px}
 .swmove-page .swmove-choice-head p{font-size:10.5px;line-height:1.3}
-.swmove-page .swmove-choice-list{gap:0}
-.swmove-page .swmove-choice-list li{
-  padding:5px 0 5px 22px;
-  font:400 11.5px/1.37 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
+/* Mateix format editorial per a les dues decisions: punts neutres,
+   sense tics/creus ni línies separadores entre elements. */
+.swmove-page #comparar .swmove-choice-list{gap:5px}
+.swmove-page #comparar .swmove-choice-list li{
+  padding:2px 0 2px 15px;
+  border:0!important;
+  font:400 11.5px/1.42 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
 }
-.swmove-page .swmove-choice-list li:last-child{padding-bottom:0}
-.swmove-page .swmove-choice-list li::before{
-  content:"✓";
-  position:absolute;left:0;top:4px;
-  width:17px;height:19px;
-  border-radius:0;background:none;
-  font:800 17px/1.2 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
-  color:#188646;
+.swmove-page #comparar .swmove-choice-list li:last-child{padding-bottom:2px}
+.swmove-page #comparar .swmove-choice-list li::before,
+.swmove-page #comparar .swmove-choice--no .swmove-choice-list li::before{
+  content:""!important;
+  position:absolute;
+  left:1px;top:.68em;
+  display:block;
+  width:5px;height:5px;
+  border:0;
+  border-radius:50%;
+  background:#b77b60;
+  font-size:0;
 }
-.swmove-page .swmove-choice--no .swmove-choice-list li::before{content:"×";color:#c45443;font-size:19px}
 @media(max-width:700px){
   .swmove-page .swmove-choice-grid{gap:9px}
   .swmove-page .swmove-choice{padding:12px 13px}
