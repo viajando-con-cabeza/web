@@ -77,6 +77,18 @@ for(const [file,route] of publishable){
       nodes.push(...(Array.isArray(data)?data:(Array.isArray(data['@graph'])?data['@graph']:[data])));
     }catch(error){fail(file+': JSON-LD invàlid: '+error.message);}
   }
+  // WebPage és generada des del títol, descripció i URL reals. No permet
+  // dades estructurades que aparentin continguts, ratings o dates inventats.
+  const pages=nodes.filter(n=>n?.['@type']==='WebPage');
+  if(pages.length!==1)fail(file+': cal una sola WebPage JSON-LD generada');
+  for(const page of pages){
+    if(page.url!==canonical||page['@id']!==canonical+'#webpage'||
+       page.inLanguage!=='es'||page.name!==title.replace(/&amp;/g,'&')||
+       !page.description||page.isPartOf?.url!==ORIGIN+'/')
+      fail(file+': WebPage no concorda amb els metadades i el canonical');
+    if(!page.primaryImageOfPage?.url?.startsWith(ORIGIN+'/'))
+      fail(file+': WebPage sense imatge local publicada');
+  }
   const bread=nodes.filter(n=>n?.['@type']==='BreadcrumbList');
   if(bread.length>1)fail(file+': BreadcrumbList duplicat');
   for(const b of bread){
