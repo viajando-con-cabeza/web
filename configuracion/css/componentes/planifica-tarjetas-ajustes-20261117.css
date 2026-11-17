@@ -1,0 +1,175 @@
+/* VCC · Tarjetas de viaje: ritme editorial i calculadora compacta
+   Només s'aplica a aquesta pàgina; no modifica carrusels ni calculadores
+   d'altres guies. Últim full carregat després del CSS compartit. */
+
+/* L'encapçalament ha de conduir directament a les targetes. */
+html body .tv-page #tarjetas.tv-intro{
+  margin:0!important;
+  padding-bottom:0!important;
+}
+html body .tv-page #tarjetas .vcc-editorial-heading{
+  margin-bottom:0!important;
+  padding-bottom:0!important;
+}
+html body .tv-page #tarjetas .tv-copy{
+  margin-bottom:0!important;
+}
+html body .tv-page .tv-catalog{
+  margin-top:0!important;
+  padding-top:0!important;
+}
+html body .tv-page .tv-catalog .tv-carousel-shell.vcc-experience-carousel{
+  margin-top:8px!important;
+}
+
+/* Comparador: paleta melocotón del blog, resultados contrastados en blanco. */
+html body .tv-page #calculadora .tv-calc-card{
+  box-sizing:border-box!important;
+  background:#f7ece2!important;
+  background-image:none!important;
+  border:1px solid #e6cbb8!important;
+  border-radius:12px!important;
+  box-shadow:0 2px 12px rgba(89,50,28,.045)!important;
+  padding:12px 14px 10px!important;
+  gap:10px 14px!important;
+  align-items:center!important;
+}
+html body .tv-page #calculadora .tv-calc-inputs{
+  min-width:0!important;
+  padding-right:13px!important;
+  border-right:1px solid #e5cfc0!important;
+}
+html body .tv-page #calculadora .tv-spend-row{
+  margin-bottom:6px!important;
+  padding-bottom:7px!important;
+  border-bottom:1px solid #e8d9ce!important;
+}
+html body .tv-page #calculadora .tv-spend-row>input,
+html body .tv-page #calculadora .tv-fee-control>input{
+  min-height:31px!important;
+  height:31px!important;
+  background:#fff!important;
+  border:1px solid #dfcfc3!important;
+  border-radius:6px!important;
+}
+html body .tv-page #calculadora .tv-fee-matrix-header{
+  padding-bottom:4px!important;
+  border-bottom-color:#e5d3c6!important;
+}
+html body .tv-page #calculadora .tv-fee-matrix-row{
+  padding:4px 0!important;
+  border-bottom-color:#eadecf!important;
+}
+html body .tv-page #calculadora .tv-markup-note{
+  color:#806c5e!important;
+  font-size:9.5px!important;
+  line-height:1.42!important;
+  margin:6px 0 0!important;
+}
+html body .tv-page #calculadora .tv-advanced{
+  margin-top:5px!important;
+  padding-top:5px!important;
+  border-color:#e3d1c2!important;
+}
+html body .tv-page #calculadora .tv-calc-summary{
+  box-sizing:border-box!important;
+  min-width:0!important;
+  padding:0!important;
+  gap:7px 11px!important;
+  background:transparent!important;
+}
+html body .tv-page #calculadora .tv-results-heading{
+  color:#715c4f!important;
+  margin-bottom:0!important;
+}
+html body .tv-page #calculadora .tv-results{
+  gap:7px!important;
+}
+html body .tv-page #calculadora .tv-results .tv-result{
+  box-sizing:border-box!important;
+  min-height:58px!important;
+  background:#fff!important;
+  border:1px solid #e8d9cc!important;
+  border-radius:9px!important;
+  padding:8px 10px!important;
+  box-shadow:0 1px 5px rgba(77,42,22,.035)!important;
+}
+html body .tv-page #calculadora .tv-results .tv-result.is-lower{
+  border-color:#b9d6bf!important;
+}
+html body .tv-page #calculadora .tv-results .tv-result.is-higher{
+  border-color:#e2c6bb!important;
+}
+html body .tv-page #calculadora .tv-results .tv-result .tv-result-label{
+  color:#4c4139!important;
+  font-weight:700!important;
+}
+html body .tv-page #calculadora .tv-results .tv-result strong{
+  color:#29231f!important;
+  font-variant-numeric:tabular-nums!important;
+  white-space:nowrap!important;
+  font-size:clamp(19px,1.85vw,25px)!important;
+}
+html body .tv-page #calculadora .tv-results .tv-result.is-lower strong{
+  color:#287b4c!important;
+}
+html body .tv-page #calculadora .tv-results .tv-result.is-higher strong{
+  color:#b65247!important;
+}
+html body .tv-page #calculadora .tv-results .tv-result.is-equal strong{
+  color:#534b44!important;
+}
+html body .tv-page #calculadora .tv-saving-panel{
+  align-self:stretch!important;
+  border-left:1px solid #e4cbb9!important;
+  padding-left:11px!important;
+  background:transparent!important;
+}
+html body .tv-page #calculadora .tv-saving strong{
+  font-size:clamp(26px,2.45vw,34px)!important;
+}
+html body .tv-page #calculadora .tv-disclaimer{
+  color:#786b60!important;
+  border-top:1px solid #e3cfc0!important;
+  padding:7px 1px 0!important;
+  font-size:9.5px!important;
+  line-height:1.42!important;
+}
+html body .tv-page #calculadora .tv-calc-actions{margin-top:5px!important}
+
+@media(max-width:1250px){
+  html body .tv-page #calculadora .tv-calc-card{
+    grid-template-columns:minmax(0,1fr)!important;
+    gap:8px!important;
+    padding:11px 13px 9px!important;
+  }
+  html body .tv-page #calculadora .tv-calc-inputs{
+    padding:0 0 8px!important;
+    border-right:0!important;
+    border-bottom:1px solid #e5cfc0!important;
+  }
+}
+@media(max-width:720px){
+  html body .tv-page #tarjetas.tv-intro{padding-bottom:0!important}
+  html body .tv-page .tv-catalog .tv-carousel-shell.vcc-experience-carousel{
+    margin-top:6px!important;
+  }
+  html body .tv-page #calculadora .tv-calc-card{
+    padding:10px!important;
+    gap:8px!important;
+  }
+  html body .tv-page #calculadora .tv-fee-control>input{
+    min-height:34px!important;
+    height:34px!important;
+  }
+  html body .tv-page #calculadora .tv-results .tv-result{
+    min-height:64px!important;
+    padding:7px 7px!important;
+  }
+  html body .tv-page #calculadora .tv-results .tv-result strong{
+    font-size:clamp(17px,4.8vw,22px)!important;
+  }
+  html body .tv-page #calculadora .tv-saving-panel{
+    padding-left:7px!important;
+  }
+}
