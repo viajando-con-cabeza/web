@@ -9,7 +9,7 @@
   --vcc-error-card-radius:13px;
   --vcc-error-card-padding:14px;
   --vcc-error-card-gap:10px;
-  --vcc-error-card-min-height:132px;
+  --vcc-error-card-min-height:156px;
   --vcc-error-card-title-size:18px;
   --vcc-error-card-body-size:12px;
   --vcc-error-card-icon-size:36px;
@@ -160,7 +160,7 @@ html body :is(#sorpresas,#errores-a-evitar,#consejos,#errores){scroll-margin-top
 @media(max-width:650px){
   :root{
     --vcc-error-card-padding:12px;
-    --vcc-error-card-min-height:130px;
+    --vcc-error-card-min-height:158px;
     --vcc-error-card-title-size:18px;
     --vcc-error-card-body-size:12px;
     --vcc-error-card-icon-size:34px;
@@ -287,7 +287,7 @@ html body .sv-page #consejos .sv-carousel-shell > .sv-arrow[data-vcc-scroll-hidd
  }
  html body :is(#sorpresas,#errores,#consejos,#errores-a-evitar) .vcc-editorial-error-card{
   box-sizing:border-box!important;flex:0 0 100%!important;width:100%!important;
-  min-width:0!important;max-width:none!important;min-height:148px!important;
+  min-width:0!important;max-width:none!important;min-height:158px!important;
   height:auto!important;margin:0!important;scroll-snap-align:start!important;
  }
  html body :is(#sorpresas .surprise-carousel>.carousel-arrow,#errores .ci-tips-shell>.ci-tips-arrow,#errores .tv-errors-carousel>.tv-error-arrow,#consejos .sv-carousel-shell>.sv-arrow){
@@ -339,7 +339,7 @@ html body .sv-page #consejos .sv-carousel-shell > .sv-arrow[data-vcc-scroll-hidd
  }
  html body.budget-vcc #sorpresas.surprise-section .surprise-grid.tips-track>article.vcc-editorial-error-card{
   flex:0 0 100%!important;width:100%!important;max-width:none!important;
-  min-width:0!important;min-height:148px!important;height:auto!important;
+  min-width:0!important;min-height:158px!important;height:auto!important;
   margin:0!important;scroll-snap-align:start!important;
  }
  html body.budget-vcc #sorpresas.surprise-section .carousel-shell.surprise-carousel>button.carousel-arrow{
@@ -353,5 +353,25 @@ html body .sv-page #consejos .sv-carousel-shell > .sv-arrow[data-vcc-scroll-hidd
  }
  html body.budget-vcc #sorpresas.surprise-section .carousel-shell.surprise-carousel>button.next{
   right:2px!important;left:auto!important;
+ }
+}
+
+/* VCC 2026-11-17 · mateixes alçades que Cómo ahorrar i descripció de 5 línies. */
+html body :is(#sorpresas .vcc-editorial-error-card,#errores-a-evitar .vcc-editorial-error-card,#consejos .vcc-editorial-error-card,#errores .vcc-editorial-error-card){
+  height:156px!important;min-height:156px!important;max-height:156px!important;
+  overflow:hidden!important;
+}
+html body :is(#sorpresas .vcc-editorial-error-card,#errores-a-evitar .vcc-editorial-error-card,#consejos .vcc-editorial-error-card,#errores .vcc-editorial-error-card) h3{
+  display:-webkit-box!important;-webkit-box-orient:vertical!important;
+  -webkit-line-clamp:2!important;line-clamp:2!important;overflow:hidden!important;
+}
+html body :is(#sorpresas .vcc-editorial-error-card,#errores-a-evitar .vcc-editorial-error-card,#consejos .vcc-editorial-error-card,#errores .vcc-editorial-error-card) p{
+  display:-webkit-box!important;-webkit-box-orient:vertical!important;
+  -webkit-line-clamp:5!important;line-clamp:5!important;
+  max-height:7.5em!important;overflow:hidden!important;
+}
+@media(max-width:680px){
+ html body :is(#sorpresas .vcc-editorial-error-card,#errores-a-evitar .vcc-editorial-error-card,#consejos .vcc-editorial-error-card,#errores .vcc-editorial-error-card){
+  height:158px!important;min-height:158px!important;max-height:158px!important;
  }
 }
