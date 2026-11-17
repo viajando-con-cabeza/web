@@ -1,0 +1,86 @@
+/* Presupuesto de Estocolmo · ajustes discretos y aislados sobre el CSS compartido.
+   Dos viñetas de Dónde gastar y ahorrar + acción de PDF en Diseña tu escapada. */
+html body.budget-vcc #gastar .decision-panel{
+  padding:16px 16px 13px!important;
+}
+html body.budget-vcc #gastar .decision-panel>header{
+  margin-bottom:6px!important;
+  padding-top:0!important;
+  padding-bottom:8px!important;
+}
+html body.budget-vcc #gastar .decision-panel header h3{
+  font-size:24px!important;
+  line-height:1.1!important;
+  margin-bottom:3px!important;
+}
+html body.budget-vcc #gastar .decision-panel header p{
+  font-size:10.5px!important;
+  line-height:1.4!important;
+}
+html body.budget-vcc #gastar .decision-panel .decision-row{
+  grid-template-columns:24px minmax(0,1fr)!important;
+  column-gap:8px!important;
+  padding:7px 0!important;
+  align-items:start!important;
+}
+html body.budget-vcc #gastar .decision-panel .vcc-decision-symbol{
+  width:23px!important;
+  height:23px!important;
+  margin-top:2px!important;
+}
+html body.budget-vcc #gastar .decision-panel .vcc-decision-symbol.vcc-yes{
+  font-size:17px!important;
+}
+html body.budget-vcc #gastar .decision-panel .vcc-decision-symbol.vcc-no{
+  font-size:20px!important;
+}
+html body.budget-vcc #gastar .decision-panel .decision-script{
+  font-size:22px!important;
+  line-height:1.06!important;
+  margin:0 0 3px!important;
+}
+html body.budget-vcc #gastar .decision-panel .decision-row p{
+  font-size:11px!important;
+  line-height:1.44!important;
+}
+html body.budget-vcc #calculadora .calculator-card .vcc-budget-pdf-footer{
+  display:flex;
+  align-items:center;
+  justify-content:flex-end;
+  width:100%;
+  margin-top:9px;
+  padding-top:6px;
+  border-top:1px solid #eee8e1;
+}
+html body.budget-vcc #calculadora .calculator-card .vcc-budget-pdf-footer .vcc-budget-excel-action{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:7px;
+  margin:0;
+  padding:5px 0;
+  font-size:11px;
+  font-weight:700;
+  color:#aa604c;
+  white-space:nowrap;
+}
+@media(max-width:720px){
+  html body.budget-vcc #gastar .decision-panel{
+    padding:14px 14px 12px!important;
+  }
+  html body.budget-vcc #gastar .decision-panel header h3{
+    font-size:22px!important;
+  }
+  html body.budget-vcc #gastar .decision-panel .decision-row{
+    grid-template-columns:24px minmax(0,1fr)!important;
+    column-gap:7px!important;
+    padding:8px 0!important;
+  }
+  html body.budget-vcc #gastar .decision-panel .decision-script{
+    font-size:22px!important;
+  }
+  html body.budget-vcc #gastar .decision-panel .decision-row p{
+    font-size:11px!important;
+    line-height:1.48!important;
+  }
+}
