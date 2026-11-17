@@ -70,12 +70,12 @@
     if(exception.has(route)||document.querySelector('link[data-vcc-sacred-covers]'))return;
     if(!document.querySelector('nav.st-tabs,nav.vcc-nav,nav.place-nav-wrap,nav.mv-subnav,nav.dv-subnav,nav.ep-subnav,nav.ql-subnav,nav.ci-subnav,nav.content-nav,nav.rich-tabs,nav.av-subnav,nav.sv-tabs,nav.di-subnav,nav.tv-tabs,nav.vcc-unified-subheader'))return;
     ensureSharedResource('link','link[data-vcc-sacred-covers]',
-      'configuracion/css/componentes/portades-contracte-unic-vcc.css?v=20261116-sagrat-v2','vccSacredCovers');
+      'configuracion/css/componentes/portades-contracte-unic-vcc.css?v=20261117-marges-i-ancores-v3','vccSacredCovers');
   };
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',mountInteriorContractFallback,{once:true});
   else mountInteriorContractFallback();
   ensureSharedResource('script','script[src*="subheader-unificado-vcc.js"]',
-    'configuracion/js/componentes/subheader-unificado-vcc.js?v=20261117-sobretitol-anchor-v1');
+    'configuracion/js/componentes/subheader-unificado-vcc.js?v=20261117-sobretitol-exacte-v2');
 
   const currentPath = window.location.pathname.replace(/\/index\.html$/, '/');
 
