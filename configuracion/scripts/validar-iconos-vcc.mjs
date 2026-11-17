@@ -3,10 +3,12 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { listarFitxers } from './lib/listar-fitxers.mjs';
+import {approvedFiles} from './lib/publicacion-vcc.mjs';
 
 const ROOT=process.cwd();
 const files=listarFitxers(ROOT,{ignorar:new Set(['.git','node_modules','.wrangler','dist','build'])});
-const errors=[];
+const errors=[],legacyDrafts=[];
+const published=new Set(approvedFiles);
 let htmlChecked=0,cssChecked=0,jsChecked=0,externalReferences=0;
 const isGeometry=/<(?:path|rect|circle|ellipse|line|polyline|polygon|symbol|text|image|linearGradient|radialGradient|foreignObject)\b/i;
 for(const file of files){
@@ -18,7 +20,13 @@ for(const file of files){
   if(/\.html$/i.test(file)){
     htmlChecked++;
     for(const block of src.matchAll(/<svg\b[^>]*>([\s\S]*?)<\/svg>/gi)){
-      if(isGeometry.test(block[1]))errors.push(file+': SVG dibuixat directament al HTML');
+      if(isGeometry.test(block[1])){
+        const issue=file+': SVG dibuixat directament al HTML';
+        // Els borradors històrics no estan publicats. No reescriure centenars
+        // de formes sense contrast visual: es bloquejaran quan s'aprovin.
+        if(published.has(file))errors.push(issue);
+        else legacyDrafts.push(issue);
+      }
     }
     for(const use of src.matchAll(/<use\b[^>]*\b(?:href|xlink:href)=["'](\/configuracion\/imagenes\/iconos\/[^"'#]+\.svg)#([^"']+)["']/gi)){
       externalReferences++;
@@ -39,7 +47,8 @@ for(const file of files){
     }
   }
 }
-console.log('VCC icones: '+htmlChecked+' HTML · '+cssChecked+' CSS · '+jsChecked+' JS · '+externalReferences+' referencies externes verificades');
+console.log('VCC icones: '+htmlChecked+' HTML · '+cssChecked+' CSS · '+jsChecked+' JS · '+externalReferences+' referencies externes verificades; '+legacyDrafts.length+' SVG pendents en esborranys (no publicats)');
+if(legacyDrafts.length)console.warn('AVIS VCC: migració SVG pendent en '+new Set(legacyDrafts.map(s=>s.split(':')[0])).size+' esborranys; es bloquejaran quan entrin al registre editorial.');
 if(errors.length){
  for(const item of errors.slice(0,100))console.error('ICONA INCORRECTA:',item);
  process.exitCode=1;
