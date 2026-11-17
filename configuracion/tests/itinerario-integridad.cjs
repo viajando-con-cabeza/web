@@ -75,7 +75,7 @@ assert.match(summaryHtml,/href="presupuesto\.html"/);
 const budgetCSS=read('configuracion/css/componentes/vcc-itinerary-budget-summary.css');
 assert.match(budgetCSS,/background:transparent/,'L’enllaç no pot tenir fons taronja');
 assert.match(summaryHtml,/3 días · 3 noches · gasto real<\/p>/,'Les dades han de ser breus i sense VCC');
-assert.match(summaryHtml,/>VER DESGLOSE <span/,'L’enllaç ha de ser discret i abreujat');
+assert.match(summaryHtml,/<span class="vcc-itinerary-budget__link">VER DESGLOSE<\/span>/,'L’enllaç ha de ser discret i abreujat');
 assert.match(budgetCSS,/margin-top:auto/,'La targeta s’alinea amb la base de la columna');
 assert.match(budgetCSS,/background:#f6f7f7/,'Fons gris clar i uniforme');
 assert.match(budgetCSS,/white-space:nowrap/,'Dades del viatge en una sola línia');
