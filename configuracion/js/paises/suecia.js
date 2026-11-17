@@ -10,6 +10,7 @@ window.COUNTRY_CONFIG={
   sections:{
     guides:{kicker:"Descubre Suecia",title:"GUÍAS DE VIAJE",description:"Ciudades y rincones para descubrir Suecia."},
     itineraries:{kicker:"Combina las piezas",title:"ITINERARIOS EN SUECIA",description:"Rutas listas según los días que tengas.",minimumCards:4},
+    thematic:{kicker:"El país a tu manera",title:"QUÉ VER Y HACER EN SUECIA",description:"Guías temáticas de todo el país: imprescindibles, iconos, rincones fotogénicos y lugares menos conocidos."},
     preparation:{kicker:"Antes de viajar a Suecia",title:"PLANIFICA TU VIAJE",description:"Información práctica para preparar tu viaje."},
     inspiration:{line1:"Viaja mejor,",line2:"viaja con cabeza"},
     faq:{kicker:"Antes de viajar",title:"PREGUNTAS FRECUENTES",description:"Todo lo que necesitas saber para viajar a Suecia con tranquilidad.",sideLine1:"Viajar mejor",sideLine2:"empieza con",sideLine3:"buenas preguntas"}
@@ -27,6 +28,41 @@ window.COUNTRY_CONFIG={
   visitingGuides:[
     {title:'Qué ver en Estocolmo',cardLocation:'Estocolmo',tag:'CIUDADES',cardCategory:'CIUDADES',type:'que-ver',image:'https://img.viajandoconcabeza.com/__vcc_preview/visor/destinos/suecia/estocolmo-archipelago/2026-dia8/DSC08335.avif',text:'Barrios, museos, miradores, parques e islas para elegir según tus días.',available:true,href:'/destinos/suecia/estocolmo/que-ver'},
     {title:'Imprescindibles de Estocolmo',cardLocation:'Estocolmo',tag:'CIUDADES',cardCategory:'CIUDADES',type:'que-ver',image:'https://img.viajandoconcabeza.com/__vcc_preview/visor/destinos/suecia/estocolmo/2026-dia6/DSC07952.avif',text:'16 lugares con mapa, tiempos, costes orientativos y consejos VCC.',available:true,href:'/destinos/suecia/estocolmo/imprescindibles'}
+  ],
+  // Carrusel temático de ámbito NACIONAL, nunca guías de una sola ciudad.
+  // Estas cinco guías están previstas, pero aún no tienen artículo publicado:
+  // no se muestran enlaces inexistentes ni valoraciones inventadas.
+  thematicGuides:[
+    {
+      title:'Suecia según tipología',tag:'POR TIPO',cardCategory:'POR TIPO',
+      text:'Ciudades, islas, pueblos, naturaleza y cultura: elige qué ver según el tipo de viaje que te apetece.',
+      image:'https://img.viajandoconcabeza.com/__vcc_preview/visor/destinos/suecia/goteborg-archipelago/2026-dia3/DSC07173.avif',
+      available:false
+    },
+    {
+      title:'Imprescindibles de Suecia',tag:'IMPRESCINDIBLES',cardCategory:'IMPRESCINDIBLES',
+      text:'Los lugares que no perderíamos de vista al preparar una ruta por Estocolmo, la costa oeste y el interior.',
+      image:'https://img.viajandoconcabeza.com/__vcc_preview/visor/destinos/suecia/estocolmo/2026-dia6/DSC07952.avif',
+      available:false
+    },
+    {
+      title:'La Suecia más instagrameable',tag:'FOTOGRAFÍA',cardCategory:'FOTOGRAFÍA',
+      text:'Fachadas de colores, archipiélagos, lagos y escenarios fotogénicos para llevarte grandes recuerdos.',
+      image:'https://img.viajandoconcabeza.com/__vcc_preview/visor/destinos/suecia/estocolmo-archipelago/2026-dia8/DSC08335.avif',
+      available:false
+    },
+    {
+      title:'La Suecia más icónica',tag:'ICONOS DEL PAÍS',cardCategory:'ICONOS',
+      text:'Los grandes símbolos suecos: ciudades históricas, paisajes, tradiciones y lugares que definen el destino.',
+      image:'https://img.viajandoconcabeza.com/destinos/suecia/dalarna/2026-dia9/DSC08592.avif',
+      available:false
+    },
+    {
+      title:'Gemas escondidas de Suecia',tag:'RINCONES SECRETOS',cardCategory:'JOYAS OCULTAS',
+      text:'Pueblos tranquilos, islas menos transitadas y rincones del interior para ir un poco más allá de lo típico.',
+      image:'https://img.viajandoconcabeza.com/destinos/suecia/dalarna/2026-dia12/DSC09101.avif',
+      available:false
+    }
   ],
   itineraries:[
     {title:'Estocolmo',tag:'3 DÍAS · CIUDAD',cardCategory:'CIUDADES',cardTitle:'Estocolmo en 3 días',days:'3 días',budget:'235 €/pax',scoreDestination:'Estocolmo',text:'Gamla Stan, museos y barrios en una ruta por horas.',image:'https://img.viajandoconcabeza.com/__vcc_preview/visor/destinos/suecia/estocolmo/2026-dia6/DSC07945.avif',imageHref:'estocolmo/itinerario.html',available:true,href:'estocolmo/itinerario.html'},
