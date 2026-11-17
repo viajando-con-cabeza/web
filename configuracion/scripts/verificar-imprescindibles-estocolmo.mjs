@@ -49,16 +49,17 @@ if(image?.startsWith('https://viajandoconcabeza.com/')){
 // a la pantalla i la foto utilitzada continua essent la mateixa.
 const preloads=[...html.matchAll(/<link\b[^>]*>/gi)].map(x=>x[0])
   .filter(tag=>/\brel="preload"/.test(tag)&&/\bas="image"/.test(tag));
-const mobilePreload=preloads.find(tag=>tag.includes('fondos-que-ver-960.webp'));
-const desktopPreload=preloads.find(tag=>tag.includes('fondos-que-ver-1920.webp'));
+// Les portades migrades a fotografies pròpies R2 utilitzen UNA foto
+// AVIF tant en escriptori com en mòbil, sense preloads WebP obsolets.
+const approvedCovers=JSON.parse(read('configuracion/datos/portadas-vcc.json')).pages;
+const cover=approvedCovers.find(x=>x.page===page);
+const preload=preloads.find(tag=>cover?.r2&&tag.includes(cover.r2));
 const responsiveCss=read('configuracion/css/componentes/portadas-rapidas-vcc.css');
-verify(Boolean(mobilePreload&&desktopPreload)&&
-  mobilePreload.includes('media="(max-width: 767px)"')&&
-  desktopPreload.includes('media="(min-width: 768px)"')&&
-  responsiveCss.includes('fondos-que-ver-960.webp')&&
-  responsiveCss.includes('fondos-que-ver-1920.webp')&&
-  heroCss.includes('fondos-que-ver.webp')&&!layoutCss.includes('goteborg/'),
-  'Rendimiento: preloads para 960/1920 deben corresponder al hero original de Estocolmo');
+verify(cover?.r2?.startsWith('https://img.viajandoconcabeza.com/')&&
+  preloads.length===1&&preload?.includes('type="image/avif"')&&
+  responsiveCss.includes(cover.r2)&&!layoutCss.includes('goteborg/'),
+  'Rendimiento: portada R2 propia única en escritorio y móvil');
+
 verify(html.includes('imprescindibles-compilado-vcc.css') &&
   !/@import\s+url\s*\(/.test(compiledCss),
   'Rendimiento: usar CSS compilado sin ocho imports bloqueantes');
@@ -85,7 +86,7 @@ verify(css.includes('grid-template-columns:repeat(2,minmax(0,1fr))') &&
   css.includes('grid-template-columns:repeat(3,minmax(0,1fr))'),
   'Móvil: faltan rejillas regulares para datos de lugares sin foto');
 
-const ids=[...html.matchAll(/<section class="place place--no-media" id="([^"]+)" data-ssr-place="1"/g)]
+const ids=[...html.matchAll(/<section class="place place--no-media(?: imp-grid-place)?" id="([^"]+)" data-ssr-place="1"/g)]
   .map(match=>match[1]);
 verify(ids.length===16 && new Set(ids).size===ids.length,
   'HTML: debe haber exactamente 16 fichas únicas sin depender de JavaScript');
@@ -153,7 +154,8 @@ verify(geoIds.length===ids.length && ids.every(id=>geoIds.includes(id)),
   'Mapa: faltan coordenadas de alguna ficha publicada');
 
 const jsonLD=[...html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)];
-verify(jsonLD.length===1,'SEO: debe existir un único bloque JSON-LD');
+const vccGenerated=[...html.matchAll(/<script type="application\/ld\+json" data-vcc-generated-page>([\s\S]*?)<\/script>/g)];
+verify(jsonLD.length===1 && vccGenerated.length===1,'SEO: ItemList + WebPage global (uno de cada)');
 try{
   const ld=JSON.parse(jsonLD[0]?.[1]||'null');
   const graph=ld?.['@graph']||[];
