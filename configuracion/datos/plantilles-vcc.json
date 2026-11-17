@@ -28,5 +28,21 @@
     "publish": "explicit-approval-only",
     "referenceStrategy": "extract-components-progressively",
     "legacyGenerator": "configuracion/scripts/destinos.mjs"
+  },
+  "futureTemplates": {
+    "status": "implemented-draft-first",
+    "sourceFolder": "configuracion/contenido/destinos",
+    "generator": "configuracion/scripts/generar-destins-vcc.mjs",
+    "renderer": "configuracion/scripts/lib/plantilles-destins-vcc.mjs",
+    "stylesheet": "configuracion/css/plantillas/destinos-genericos-vcc.css",
+    "test": "configuracion/tests/destinos-motor-vcc.test.mjs",
+    "pageKinds": [
+      "country",
+      "region",
+      "city",
+      "itinerary"
+    ],
+    "publicationRule": "editorialReviewed + reviewed status + approvedFiles",
+    "existingReferencePagesStayUnchanged": true
   }
 }
