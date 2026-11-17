@@ -27,8 +27,16 @@ check(templates.version===1,"Versió de plantilles desconeguda");
 check(locales.version===1,"Versió del contracte de traducció desconeguda");
 check(locales.source==="es" && locales.locales?.es?.active===true,
   "El castellà ha de continuar sent la font editorial original");
-check(locales.locales?.en?.active===false && locales.translation?.status==="planned-not-deployed",
-  "No activar anglès automàtic abans d'implementar i revisar la publicació");
+check(locales.locales?.en?.prefix==="/en/",
+  "La ruta anglesa ha de tenir el prefix /en/");
+if(locales.locales?.en?.active){
+  check(locales.translation?.status==="active" &&
+    locales.translation?.reviewBeforeIndexing===true,
+    "L'anglès només es pot activar quan el pipeline existeixi i les traduccions passin revisió");
+} else {
+  check(locales.translation?.status==="planned-not-deployed",
+    "Marcar clarament com a pendent la traducció no desplegada");
+}
 check(publication.policy==="deny-by-default",
   "La publicació de noves pàgines ha de continuar bloquejada per defecte");
 
