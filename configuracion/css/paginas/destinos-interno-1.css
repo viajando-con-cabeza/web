@@ -217,3 +217,18 @@ body.destinos-vcc .about-hero .hero-signoff{
 @media(max-width:1100px){.vcc-route-grid{grid-auto-columns:calc((100% - 36px)/4)}}@media(max-width:850px){.vcc-route-grid{grid-auto-columns:calc((100% - 24px)/3)}}@media(max-width:650px){.vcc-route-grid{grid-auto-columns:calc((100% - 12px)/2)}}
 @media(max-width:550px){.vcc-route-grid{grid-auto-columns:72%;gap:12px}.vcc-route-photo{height:135px}.vcc-route-prev{left:-9px}.vcc-route-next{right:-9px}.vcc-d-note{margin-top:18px;font-size:12px}}
 
+
+
+/* Destinos · targetes de països realment blanques, també si encara no hi ha guia.
+   No abaixar l'opacitat de tota la fitxa: barreja el blanc amb el fons crema. */
+html body.destinos-vcc .vcc-country,
+html body.destinos-vcc .vcc-country:hover{
+  background:#fff!important;
+}
+html body.destinos-vcc .vcc-country[data-coming="true"]{
+  opacity:1!important;
+}
+html body.destinos-vcc .vcc-country[data-coming="true"] > img,
+html body.destinos-vcc .vcc-country[data-coming="true"] > span{
+  opacity:.58;
+}
