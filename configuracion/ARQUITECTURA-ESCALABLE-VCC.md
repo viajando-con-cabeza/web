@@ -150,6 +150,40 @@ No afegir `meta keywords` ni blocs amb paraules ocultes. Google no utilitza la p
 
 Fonts: https://developers.google.com/search/docs/fundamentals/seo-starter-guide i https://developers.google.com/search/docs/appearance/structured-data/sd-policies.
 
+## 5 ter. Consolidació segura del repositori — Quality (17-11-2026)
+
+### Enllaços a guies en preparació, sense canvis de maquetació
+
+- `configuracion/datos/enllacos-futurs-vcc.json` conté redireccions temporals **d'enllaços de contingut**, no redireccions HTTP de les URL dels esborranys.
+- `configuracion/scripts/sincronizar-enllacos-futurs-vcc.mjs` conserva `data-vcc-original-href` i restaura l'enllaç en aprovar el destí. Està integrat a `site:sync` i `site:check`.
+- El catàleg `planifica/donde-ir/` conserva els seus 41 esborranys no clicables; la seva font de veritat continua sent `sincronizar-catalogo-vcc.mjs`.
+- Els enllaços cap a la pàgina pare de país, i les molles de pa, no es desactiven encara que aquell país estigui exclòs del sitemap. `auditar-escalabilidad-vcc.mjs` deixa de comptar `data-vcc-original-href` com un `href` real.
+- Quan s'aprovin pàgines concretes, comprovar que el `site:sync` restaura les URL i que `links:check` no identifica alternatives obsoletes.
+
+### Estils, icones i recursos
+
+- `vcc-base-paginas-compartit.css` substitueix `paginas.css` i `overrides.css` com un únic paquet **en el mateix ordre** a les pàgines migrades: Planifica, Alojamientos, Vuelos, Tarjetas, Mapas, Calcula tu viaje i Qué llevar Estocolmo.
+- Els SVG de Suècia (carrusels, transport, allotjament, pressupost) i Planifica (Apps i Seguros) s'han traslladat a `configuracion/imagenes/iconos/compartidos/`. Conserven classes, mides i geometries dels originals. El validador d'icones ja bloqueja qualsevol nova geometria incrustada, també als esborranys.
+- Eliminar només CSS després de comprovar referències HTML, JS, imports, manifest i àlies. Eliminats com a obsolets `presupuestos-hub.css`, `que-llevar-hub.css`, `paginas/planifica-apps-interno-1.css` i `planifica-tarjetas-modelo-estocolmo-vcc.css`.
+- `acciones-pdf-vcc.css` es manté deliberadament com a àlies de compatibilitat; `presupuesto-compartido-vcc.css` es reserva per a migració posterior. **No renombrar físicament fitxers d'imatges ni icones en ús**: trencaria cache, URL i peticions.
+- Solapaments de bundles, sobretot Pressupost Estocolm, continuen documentats; no eliminar regles sense equivalència de cascada i proves visuals.
+
+### Contractes per generar futurs destins
+
+- El generador històric `destinos.mjs` continua sent un **scaffold de tres guies** (imprescindibles, itinerari, pressupost), NO una còpia definitiva de les plantilles visuals de Suècia/Estocolm.
+- `configuracion/plantillas/destino-ejemplo.json` arrenca amb `ready:false` i `editorialReviewed:false` perquè les xifres de mostra, fotografies de referència i textos de demostració no es puguin publicar per accident.
+- Per activar `ready:true` cal revisió editorial explícita, text propi i fotografies originals en R2 VCC o la carpeta d'imatges pròpia de la ciutat. Encara així, el registre `publicacion-vcc.json` ha d'aprovar individualment la pàgina per poder-se indexar.
+- La creació futura de plantilles de país/regió/ciutat i la versió EN segueix pendent de migració progressiva amb comprovació visual; la memòria ES→EN pilot no implica publicar `/en/`.
+- **Regla per a noves fotos:** noms de fitxer originals estables, sense renombrar fitxers públics, variants AVIF/WebP derivades sense filtres de color, referència a R2 en dades de destinació. No atribuir fotos de Suècia a ciutats no visitades.
+
+### Comprovació abans de promoure a main
+
+1. Executar `npm run site:sync` i `npm run site:check`, després `npm test` i l'auditoria de recursos visuals.
+2. Revisar a navegador les pàgines de referència **Suècia/Estocolm i Planifica** en mòbil i escriptori (hero, capçaleres, marges, carrusels, estats del mapa, calculadores, PDF, totes les fotos pròpies).
+3. Fer proves de regressió URL/ancoratges i visual després de qualsevol reorganització de carpetes.
+4. Comparar Core Web Vitals a Google Search Console/PageSpeed a l'entorn real abans de considerar l'optimització completada.
+5. No fusionar una refactorització només perquè els tests estructurals passin; han de coincidir també l'aspecte i la funcionalitat reals.
+
 ## 6. Ordre de prioritats
 
 **Ara — sense regressions:** consolidar metadades del catàleg, declarar referències i idiomes, fer editables els tokens, afegir controls automàtics, corregir tests obsolets i registrar pendents.
