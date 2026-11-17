@@ -106,7 +106,7 @@ const heroManifest=JSON.parse(read('configuracion/datos/portadas-vcc.json'));
 const approvedHero=heroManifest.portadas?.find(x=>x.page==='destinos/suecia/estocolmo/cuando-ir.html')
   ||heroManifest.pages?.find(x=>x.page==='destinos/suecia/estocolmo/cuando-ir.html');
 const heroR2=approvedHero?.r2;
-assert.ok(/@media\\s*\\(max-width:\\s*800px\\)/.test(css) &&
+assert.ok(/@media\s*\(max-width:\s*800px\)/.test(css) &&
   heroR2?.startsWith('https://img.viajandoconcabeza.com/') &&
   portades.includes(heroR2) &&
   html.includes('rel="preload" as="image" type="image/avif" href="'+heroR2+'"') &&
