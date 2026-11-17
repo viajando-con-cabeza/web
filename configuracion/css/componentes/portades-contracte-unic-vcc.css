@@ -76,7 +76,7 @@ html body .vcc-sacred-hero .vcc-guide-hero-copy{
   box-shadow:none!important;backdrop-filter:none!important;
 }
 /* Les guies 'content-hero' no tenen contenidor intermedi. */
-html body .content-hero.vcc-sacred-hero > .vcc-guide-hero-copy{
+html body .vcc-sacred-hero.vcc-sacred-hero > .vcc-guide-hero-copy{
   left:var(--vcc-contract-gutter)!important;
   width:min(var(--vcc-contract-copy-width),calc(100% - 92px))!important;
 }
@@ -269,8 +269,10 @@ html body nav.vcc-unified-subheader.vcc-sacred-subnav a.vcc-subheader-current{
     width:calc(100% - 36px)!important;
     max-width:calc(100% - 36px)!important;
   }
-  html body .content-hero.vcc-sacred-hero > .vcc-guide-hero-copy{
+  /* Mateix marge interior per a qualsevol portada de text directe. */
+  html body .vcc-sacred-hero.vcc-sacred-hero > .vcc-guide-hero-copy{
     width:calc(100% - 36px)!important;
+    max-width:calc(100% - 36px)!important;
   }
   html body .vcc-sacred-hero :is(.vcc-guide-hero-kicker,.vcc-planifica-sobretitol,.vcc-sacred-kicker){
     margin-bottom:10px!important;
