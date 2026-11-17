@@ -6,7 +6,7 @@
  * Canviar els dos tokens canvia tot el blog, sense excepcions per pàgina. */
 @layer vcc-interior-portades {
   :root {
-    --vcc-espai-entre-apartats: 76px;
+    --vcc-espai-entre-apartats: 68px;
     --vcc-espai-abans-primer-apartat: 24px;
     --vcc-espai-despres-ultim-apartat: 104px;
   }
@@ -102,7 +102,7 @@
 
   @media (max-width: 720px) {
     :root {
-      --vcc-espai-entre-apartats: 52px;
+      --vcc-espai-entre-apartats: 46px;
       --vcc-espai-abans-primer-apartat: 18px;
       --vcc-espai-despres-ultim-apartat: 76px;
     }
@@ -112,8 +112,8 @@
 /* VCC 2026-11-17 · CONTRACTE ÚNIC DE MARGES PER ÀNCORES
  * Les seccions marcades pel controlador són les destinacions reals del
  * subheader. El marge superior i inferior fa servir la mateixa escala:
- * 76px escriptori / 52px mòbil. En flux de blocs, els dos marges adjacents
- * col·lapsen a una sola separació de 76/52px, sense duplicar-la.
+ * 68px escriptori / 46px mòbil. La separació es crea només abans de
+ * cada apartat (excepte el primer), sense sumar marges adjacents.
  * Els components interiors mai reben aquesta classe. */
 @layer vcc-interior-portades {
   /* Fallback natiu (URL amb #hash, teclat o JS encara carregant):
@@ -123,7 +123,7 @@
   }
   html body:has(nav.vcc-unified-subheader) main > :is(section,article).vcc-subheader-section {
     margin-block-start:var(--vcc-espai-entre-apartats)!important;
-    margin-block-end:var(--vcc-espai-entre-apartats)!important;
+    margin-block-end:0!important;
   }
   /* La darrera secció no afegeix un segon espai al peu de pàgina ni
      al carrusel relacionat: aquests ja tenen el tancament corporatiu. */
@@ -146,8 +146,8 @@
     main.cl-page.cl-landing > nav.vcc-unified-subheader ~ section.vcc-subheader-section{
     padding-block-start:0!important;
   }
-  /* Mòbil i escriptori utilitzen exactament la mateixa regla, amb els
-     tokens 52/76px declarats més amunt. */
+  /* Mòbil i escriptori utilitzen la mateixa regla compartida,
+     amb els tokens 46/68px declarats més amunt. */
 }
 
 /* VCC · Primer render: el subheader no ha de produir salts de layout
@@ -183,7 +183,7 @@
   }
   /* Fallback del primer render (abans del controlador):
      els hubs st-tabs + st-main/st-discover no han de mostrar l'espai
-     de 38/52px extra ni saltar en activar-se el JavaScript. */
+     extra ni saltar en activar-se el JavaScript. */
   html body:has(nav.st-tabs)
     main.st-main:has(> section.st-discover:first-child){
     padding-block-start:0!important;
