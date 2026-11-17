@@ -64,7 +64,7 @@
     };
     function recalculate(){
       const groupSize=asAmount("personas");
-      const persons=Number.isInteger(groupSize)&&groupSize>=1&&groupSize<=9?groupSize:null;
+      const persons=Number.isInteger(groupSize)&&groupSize>=1&&groupSize<=99?groupSize:null;
       const publicFare=asAmount("publico");
       const publicExtra=asAmount("extra_publico");
       const rental=asAmount("alquiler");
@@ -86,7 +86,7 @@
         savingBox.dataset.savings="pending";
         savingLabel.textContent="AHORRO ESTIMADO";
         saving.textContent="—";
-        savingWith.textContent=persons===null?"Indica entre 1 y 9 personas":"Completa el precio de ambas opciones";
+        savingWith.textContent=persons===null?"Indica entre 1 y 99 personas":"Completa el precio de ambas opciones";
         verdict.textContent=persons===null?"Indica los viajeros":"Introduce los precios";
         return;
       }

@@ -15,8 +15,8 @@
 
 <link rel="stylesheet" data-vcc-guies-base href="/configuracion/css/destinos/suecia/estocolmo/como-moverse-base-compilat.css?v=20261112-reusable-v1">
 <link rel="stylesheet" data-vcc-guies-ui href="/configuracion/css/componentes/vcc-guies-ui-compartit.css?v=20261116-css-dedup-v2">
-<link rel="stylesheet" href="/configuracion/css/destinos/suecia/suecia-como-moverse-vcc.css?v=20261117-llistes-tics-v9">
-<link rel="stylesheet" href="/configuracion/css/destinos/suecia/comparador-transporte-vcc.css?v=20261117-viatgers-v11">
+<link rel="stylesheet" href="/configuracion/css/destinos/suecia/suecia-como-moverse-vcc.css?v=20261117-infra-petita-v10">
+<link rel="stylesheet" href="/configuracion/css/destinos/suecia/comparador-transporte-vcc.css?v=20261117-form-fix-v12">
 
 <link rel="stylesheet" href="/configuracion/css/componentes/guias-relacionadas-vcc.css?v=20261112-sigue-unificat-v4">
 <link rel="stylesheet" data-vcc-fast-heroes href="/configuracion/css/componentes/portadas-rapidas-vcc.css?v=stockholm-r2-20261112">
@@ -259,12 +259,13 @@
    <span class="swmove-compare-overline">Compara antes de reservar</span>
    <h3>CALCULADORA: ¿TE SALE A CUENTA ALQUILAR UN COCHE?</h3>
    <p>Introduce el <strong>coste total del coche</strong> y los precios del <strong>transporte alternativo por persona</strong>. Solo son obligatorios los dos importes principales.</p>
-   <div class="swmove-compare-travelers">
-    <label for="swmove-personas"><span>Número de personas</span><input id="swmove-personas" name="personas" type="number" min="1" max="9" step="1" value="2" inputmode="numeric" aria-label="Número de personas que comparten el coche" required></label>
-    <small>El coche se comparte; los billetes se multiplican por viajero.</small>
-   </div>
+
   </div>
   <form id="swmove-calc" class="swmove-compare-form" novalidate>
+   <div class="swmove-compare-travelers">
+    <label for="swmove-personas"><span>Número de personas</span><input id="swmove-personas" name="personas" type="number" min="1" max="99" step="1" value="2" inputmode="numeric" aria-label="Número de personas que comparten el coste del alquiler" required></label>
+    <small>El coche se comparte y los billetes se multiplican por viajero. Si necesitáis varios coches, suma sus costes.</small>
+   </div>
    <div class="swmove-compare-grid">
     <section class="swmove-compare-panel swmove-compare-panel--car" aria-labelledby="swmove-car-title">
      <div class="swmove-compare-panel-head"><svg class="swmove-c-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" focusable="false" aria-hidden="true"><use href="/configuracion/imagenes/iconos/compartidos/suecia-mobilitat-allotjament-vcc.svg#cotxe"></use></svg><div><h4 id="swmove-car-title">COCHE DE ALQUILER</h4><p>Alquiler y gastos de toda la ruta</p></div></div>
@@ -338,6 +339,6 @@
 
 <script src="/configuracion/js/plantillas/como-moverse-subnav.js?v=20261107-compact8" defer></script>
 <script src="/configuracion/js/plantillas/como-moverse-carrusel.js?v=20261109-contador24" defer></script>
-<script src="/configuracion/js/paises/suecia-como-moverse.js?v=20261117-viatgers-v4" defer></script>
+<script src="/configuracion/js/paises/suecia-como-moverse.js?v=20261117-form-fix-v5" defer></script>
 <script src="/configuracion/js/componentes/vcc-regiones-transporte.js?v=20261116-carrusel-shared-v1" defer></script>
 </body></html>
