@@ -20,6 +20,7 @@
       infraButtons.forEach(button=>{
         const selected=isOpen&&button.dataset.swInfraToggle===method;
         button.setAttribute("aria-expanded",String(selected));
+        button.setAttribute("aria-label",(selected?"Ocultar":"Ver")+" desglose del transporte "+button.dataset.swInfraToggle);
         const label=button.querySelector("[data-sw-infra-label]");
         keepDisclosureText(label);
         const panel=page.querySelector("#red-"+button.dataset.swInfraToggle);

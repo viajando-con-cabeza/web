@@ -438,3 +438,76 @@ html body .swmove-page .swmove-infra-card .swmove-infra-opinion.vcc-consejo-unif
   margin-top:15px!important;
  }
 }
+
+/* VCC 2026-11-17 · fitxa infra ampliada, fletxa visible i consejo mínim. */
+/* Mantenim la mida del component VER DESGLOSE de Presupuesto, però amb SVG
+   directe perquè la icona es vegi sense dependre de símbols externs. */
+html body .swmove-page #transportes button.swmove-card-more.vcc-disclosure-toggle{
+ display:flex!important;align-items:center!important;justify-content:flex-end!important;
+ gap:5px!important;white-space:nowrap!important;
+ font-size:var(--vcc-desglose-font-size,10px)!important;
+}
+html body .swmove-page #transportes button.swmove-card-more .swmove-card-caret{
+ display:inline-flex!important;align-items:center!important;justify-content:center!important;
+ width:14px!important;height:14px!important;min-width:14px!important;flex:0 0 14px!important;
+ margin:0!important;padding:0!important;background:transparent!important;border:0!important;
+ color:inherit!important;opacity:1!important;visibility:visible!important;
+}
+html body .swmove-page #transportes button.swmove-card-more .swmove-card-caret svg{
+ display:block!important;width:12px!important;height:12px!important;flex:none!important;
+ stroke:currentColor!important;stroke-width:2!important;fill:none!important;overflow:visible!important;
+ stroke-linecap:round!important;stroke-linejoin:round!important;
+ transform:rotate(0deg);transition:transform .16s ease!important;
+}
+html body .swmove-page #transportes button.swmove-card-more[aria-expanded="true"] .swmove-card-caret svg{
+ transform:rotate(180deg)!important;
+}
+/* Les dades de tota la xarxa nacional queden en punts breus i llegibles. */
+html body .swmove-page .swmove-infra-card .swmove-infra-column li strong{
+ color:#33312e;font-weight:700;
+}
+/* Només aquest Consejo VCC es fa més baix; la resta de la web no canvia. */
+html body .swmove-page #transportes .swmove-infra-card .swmove-infra-opinion.vcc-consejo-unificado:not(.ci-recommendation){
+ display:grid!important;grid-template-columns:74px minmax(0,1fr)!important;
+ align-items:center!important;gap:9px!important;
+ height:auto!important;min-height:0!important;max-height:none!important;
+ margin:13px 0 0!important;padding:7px 10px!important;
+ border:1.5px solid #cc765a!important;border-radius:13px!important;
+ background:#fff!important;
+}
+html body .swmove-page #transportes .swmove-infra-card .swmove-infra-opinion .vcc-consejo-marca{
+ gap:1px!important;min-height:0!important;margin:0!important;
+}
+html body .swmove-page #transportes .swmove-infra-card .swmove-infra-opinion .vcc-consejo-marca img{
+ width:27px!important;height:27px!important;min-width:0!important;min-height:0!important;
+ max-width:27px!important;max-height:27px!important;flex:0 0 27px!important;
+}
+html body .swmove-page #transportes .swmove-infra-card .swmove-infra-opinion .vcc-consejo-marca > strong{
+ font-size:8px!important;line-height:1.12!important;letter-spacing:.02em!important;
+ white-space:nowrap!important;
+}
+html body .swmove-page #transportes .swmove-infra-card .swmove-infra-opinion .vcc-consejo-texto{
+ min-width:0!important;grid-column:2!important;
+}
+html body .swmove-page #transportes .swmove-infra-card .swmove-infra-opinion .vcc-consejo-texto p{
+ font-size:11px!important;line-height:1.35!important;margin:0!important;
+}
+@media(max-width:590px){
+ html body .swmove-page #transportes .swmove-infra-card .swmove-infra-opinion.vcc-consejo-unificado:not(.ci-recommendation){
+  grid-template-columns:65px minmax(0,1fr)!important;gap:7px!important;
+  margin-top:11px!important;padding:6px 8px!important;
+ }
+ html body .swmove-page #transportes .swmove-infra-card .swmove-infra-opinion .vcc-consejo-marca img{
+  width:24px!important;height:24px!important;max-width:24px!important;max-height:24px!important;
+  flex:0 0 24px!important;
+ }
+ html body .swmove-page #transportes .swmove-infra-card .swmove-infra-opinion .vcc-consejo-marca > strong{
+  font-size:7.5px!important;
+ }
+ html body .swmove-page #transportes .swmove-infra-card .swmove-infra-opinion .vcc-consejo-texto p{
+  font-size:10px!important;line-height:1.3!important;
+ }
+}
+@media(prefers-reduced-motion:reduce){
+ html body .swmove-page #transportes button.swmove-card-more .swmove-card-caret svg{transition:none!important}
+}
