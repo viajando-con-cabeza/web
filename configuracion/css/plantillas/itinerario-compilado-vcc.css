@@ -2058,3 +2058,16 @@ html body .swb-hero.vcc-portada-foto-img .swb-hero-description{
   .vcc-summary a.vcc-itinerary-budget{transition:none}
   .vcc-summary a.vcc-itinerary-budget:hover{transform:none}
 }
+
+/* VCC · 2026-11-17: alinear les galeries dels tres dies amb l'inici de la ruta. */
+@media(min-width:951px){
+  /* L'antic align-self:center desplaçava la galeria en les files
+     que tenen un timeline més alt. Mateixa fila, inici alineat. */
+  html body .day-section > .day-gallery.vcc-booking-gallery{
+    align-self:start!important;
+    justify-self:stretch!important;
+    margin-top:3px!important;
+    margin-bottom:0!important;
+    transform:none!important;
+  }
+}
