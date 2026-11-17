@@ -1,0 +1,1665 @@
+/* AUTO-GENERAT · CSS comu de VCC. Edita les fonts canonicas de configuracion/css.
+ * Regenerar: npm run css:build. Inclou tokens, carrusels, subheader, breadcrumb i header.
+ */
+/* === configuracion/css/componentes/como-ahorrar-carruseles-vcc.css === */
+/* VCC — Salvaguarda compartida dels carrusels «Cómo ahorrar».
+   NO substitueix els layouts de les plantilles: protegeix les dimensions
+   de la pista i de les targetes, inclòs l'ús mòbil, sense tocar fletxes,
+   tipografies, lògica JS ni el nombre de targetes visibles. */
+html body :is(
+  .vl-tips-carousel,
+  .ql-advice-carousel,
+  .al-tips-carousel,
+  .vcc-saving-carousel,
+  .dv-tip-carousel-wrap,
+  .ep3-saving-stage,
+  #ahorrar .carousel-shell
+){
+  box-sizing:border-box!important;
+  min-width:0!important;
+  max-width:100%!important;
+  min-height:0!important;
+  height:auto!important;
+}
+html body :is(
+  #vl-tip-track,
+  #ql-advice-track,
+  #al-tips-track,
+  #sv-track-compare,
+  #vcc-saving-track,
+  .dv-tip-grid[data-dv-tip-scroller],
+  #ep3-saving-track,
+  #ahorrar .tips-track
+){
+  box-sizing:border-box!important;
+  min-width:0!important;
+  max-width:100%!important;
+  min-height:0!important;
+  height:auto!important;
+  max-height:none!important;
+  overflow-y:hidden!important;
+}
+html body :is(
+  #vl-tip-track > .vl-tip,
+  #ql-advice-track > .ql-advice-card,
+  #al-tips-track > .al-tip,
+  #sv-track-compare > .saving-tip,
+  #vcc-saving-track > .vcc-saving-card,
+  .dv-tip-grid[data-dv-tip-scroller] > .dv-tip,
+  #ep3-saving-track > .ep3-saving-card,
+  #ahorrar .tips-track > .saving-tip
+){
+  box-sizing:border-box!important;
+  min-width:0!important;
+  height:auto!important;
+  max-height:none!important;
+  overflow-wrap:break-word;
+}
+
+
+/* VCC · patró editorial compacte compartit per a TOTS els consells
+   «Cómo ahorrar»: 3/2/1 targetes segons la plantilla original.
+   No es toquen amplades/flex-basis, fletxes ni comportament dels carrusels. */
+html body :is(
+  #vl-tip-track > .vl-tip,
+  #al-tips-track > .al-tip,
+  #sv-track-compare > .saving-tip,
+  #vcc-saving-track > .vcc-saving-card,
+  .dv-tip-grid[data-dv-tip-scroller] > .dv-tip,
+  #ep3-saving-track > .ep3-saving-card,
+  #ql-advice-track > .ql-advice-card,
+  #ahorrar .tips-track > .saving-tip
+){
+  min-height:156px!important;
+  height:156px!important;
+  max-height:156px!important;
+  box-sizing:border-box!important;
+  padding:13px 14px!important;
+  gap:10px!important;
+  background:#fff!important;
+  border:1px solid #e2ddd6!important;
+  border-radius:11px!important;
+  box-shadow:0 2px 8px rgba(27,44,55,.045)!important;
+  overflow:visible!important;
+}
+html body :is(
+  #vl-tip-track > .vl-tip,
+  #al-tips-track > .al-tip,
+  #sv-track-compare > .saving-tip,
+  #vcc-saving-track > .vcc-saving-card,
+  .dv-tip-grid[data-dv-tip-scroller] > .dv-tip,
+  #ep3-saving-track > .ep3-saving-card,
+  #ql-advice-track > .ql-advice-card,
+  #ahorrar .tips-track > .saving-tip
+) h3{
+  font-family:var(--vcc-font-heading,"Oswald",sans-serif)!important;
+  font-weight:500!important;
+  font-size:18px!important;
+  line-height:1.2!important;
+  margin:1px 0 7px!important;
+  text-transform:none!important;
+  letter-spacing:0!important;
+}
+html body :is(
+  #vl-tip-track > .vl-tip,
+  #al-tips-track > .al-tip,
+  #sv-track-compare > .saving-tip,
+  #vcc-saving-track > .vcc-saving-card,
+  .dv-tip-grid[data-dv-tip-scroller] > .dv-tip,
+  #ep3-saving-track > .ep3-saving-card,
+  #ql-advice-track > .ql-advice-card,
+  #ahorrar .tips-track > .saving-tip
+) p{
+  display:block!important;
+  font-family:var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;
+  font-weight:400!important;
+  font-size:12px!important;
+  line-height:1.5!important;
+  margin:0!important;
+  max-height:none!important;
+  overflow:visible!important;
+  -webkit-line-clamp:unset!important;
+  line-clamp:unset!important;
+  white-space:normal!important;
+}
+@media(max-width:650px){
+  html body :is(
+    #vl-tip-track > .vl-tip,
+    #al-tips-track > .al-tip,
+  #sv-track-compare > .saving-tip,
+    #vcc-saving-track > .vcc-saving-card,
+    .dv-tip-grid[data-dv-tip-scroller] > .dv-tip,
+    #ep3-saving-track > .ep3-saving-card,
+    #ql-advice-track > .ql-advice-card,
+    #ahorrar .tips-track > .saving-tip
+  ){
+    min-height:158px!important;
+    height:158px!important;
+    max-height:158px!important;
+    padding:12px!important;
+    gap:9px!important;
+  }
+}
+
+/* Integració al contracte compartit: "Entradas y pases" fa servir
+   les classes ep3-saving-. No cal un carrusel de disseny diferent. */
+/* VCC · CARRUSELS AHORRAR · 20261116
+   Mides i estructura úniques per a guies amb subheader:
+   carrusel 100%, targetes 3/2/1, gap 14px, alçada 170/180px.
+   Els botons no reserven columnes a l'interior del carrusel. */
+html body:has(nav.vcc-sacred-subnav) :is(#ahorrar .carousel-shell,#como-ahorrar .dv-tip-carousel-wrap,#ahorrar .mv-carousel-shell,#billetes .mv-carousel-shell,#ahorrar .vcc-saving-carousel,#ahorrar .ep3-saving-stage){
+ box-sizing:border-box!important;display:block!important;position:relative!important;
+ grid-template-columns:none!important;gap:0!important;
+ width:100%!important;max-width:100%!important;min-width:0!important;
+ padding:0!important;margin-inline:0!important;
+}
+html body:has(nav.vcc-sacred-subnav) :is(#ahorrar .tips-track,#como-ahorrar .dv-tip-grid,#ahorrar .mv-saving-track,#billetes .mv-saving-track,#ahorrar .vcc-saving-track,#ahorrar .ep3-saving-track){
+ box-sizing:border-box!important;display:flex!important;flex-flow:row nowrap!important;
+ align-items:stretch!important;gap:14px!important;width:100%!important;min-width:0!important;
+ margin:0!important;padding:1px 0 4px!important;overflow-x:auto!important;overflow-y:hidden!important;
+ scroll-snap-type:x mandatory!important;scroll-behavior:smooth;scrollbar-width:none;
+ -webkit-overflow-scrolling:touch;
+}
+html body:has(nav.vcc-sacred-subnav) :is(#ahorrar .tips-track,#como-ahorrar .dv-tip-grid,#ahorrar .mv-saving-track,#billetes .mv-saving-track,#ahorrar .vcc-saving-track)::-webkit-scrollbar{display:none}
+html body:has(nav.vcc-sacred-subnav) :is(#ahorrar .tips-track>.saving-tip,#como-ahorrar .dv-tip-grid>.dv-tip,#ahorrar .mv-saving-track>.mv-saving-card,#billetes .mv-saving-track>.mv-saving-card,#ahorrar .vcc-saving-track>.vcc-saving-card,#ahorrar .ep3-saving-track>.ep3-saving-card){
+ box-sizing:border-box!important;display:flex!important;align-items:flex-start!important;
+ justify-content:flex-start!important;gap:12px!important;
+ flex:0 0 calc((100% - 28px)/3)!important;width:calc((100% - 28px)/3)!important;
+ min-width:0!important;min-height:156px!important;height:156px!important;max-height:156px!important;
+ margin:0!important;padding:16px 17px!important;scroll-snap-align:start!important;
+ background:#fff!important;border:1px solid #e2ddd6!important;
+ border-radius:11px!important;box-shadow:0 2px 8px rgba(27,44,55,.045)!important;
+ overflow:hidden!important;
+}
+html body:has(nav.vcc-sacred-subnav) :is(#ahorrar .tips-track>.saving-tip,#como-ahorrar .dv-tip-grid>.dv-tip,#ahorrar .mv-saving-track>.mv-saving-card,#billetes .mv-saving-track>.mv-saving-card,#ahorrar .vcc-saving-track>.vcc-saving-card) h3{
+ font:600 19px/1.16 var(--vcc-font-heading,"Oswald",sans-serif)!important;
+ margin:0 0 7px!important;
+}
+html body:has(nav.vcc-sacred-subnav) :is(#ahorrar .tips-track>.saving-tip,#como-ahorrar .dv-tip-grid>.dv-tip,#ahorrar .mv-saving-track>.mv-saving-card,#billetes .mv-saving-track>.mv-saving-card,#ahorrar .vcc-saving-track>.vcc-saving-card) p{
+ font:400 12px/1.5 var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;margin:0!important;
+}
+html body:has(nav.vcc-sacred-subnav) :is(#ahorrar .carousel-shell>.carousel-arrow,#como-ahorrar .dv-tip-carousel-wrap>.dv-arrow,#ahorrar .mv-carousel-shell>.mv-carousel-arrow,#billetes .mv-carousel-shell>.mv-carousel-arrow,#ahorrar .vcc-saving-carousel>.vcc-saving-arrow,#ahorrar .ep3-saving-stage>.ep3-saving-arrow){
+ box-sizing:border-box!important;display:grid!important;place-items:center!important;
+ position:absolute!important;z-index:4!important;top:50%!important;bottom:auto!important;
+ transform:translateY(-50%)!important;width:35px!important;height:35px!important;
+ margin:0!important;padding:0!important;border-radius:50%!important;
+ border:1px solid #d9bca8!important;background:#fff!important;color:#ad5b43!important;
+ box-shadow:0 2px 8px rgba(42,31,21,.07)!important;cursor:pointer;
+}
+html body:has(nav.vcc-sacred-subnav) :is(#ahorrar .carousel-shell>.prev,#como-ahorrar .dv-tip-carousel-wrap>.dv-tip-prev,#ahorrar .mv-carousel-shell>.mv-prev,#billetes .mv-carousel-shell>.mv-prev,#ahorrar .vcc-saving-carousel>.vcc-saving-prev,#ahorrar .ep3-saving-stage>.ep3-saving-prev){left:-17px!important;right:auto!important}
+html body:has(nav.vcc-sacred-subnav) :is(#ahorrar .carousel-shell>.next,#como-ahorrar .dv-tip-carousel-wrap>.dv-tip-next,#ahorrar .mv-carousel-shell>.mv-next,#billetes .mv-carousel-shell>.mv-next,#ahorrar .vcc-saving-carousel>.vcc-saving-next,#ahorrar .ep3-saving-stage>.ep3-saving-next){right:-17px!important;left:auto!important}
+@media(max-width:1020px){
+ html body:has(nav.vcc-sacred-subnav) :is(#ahorrar .tips-track>.saving-tip,#como-ahorrar .dv-tip-grid>.dv-tip,#ahorrar .mv-saving-track>.mv-saving-card,#billetes .mv-saving-track>.mv-saving-card,#ahorrar .vcc-saving-track>.vcc-saving-card,#ahorrar .ep3-saving-track>.ep3-saving-card){
+  flex-basis:calc((100% - 14px)/2)!important;width:calc((100% - 14px)/2)!important;
+ }
+}
+@media(max-width:680px){
+ html body:has(nav.vcc-sacred-subnav) :is(#ahorrar .tips-track>.saving-tip,#como-ahorrar .dv-tip-grid>.dv-tip,#ahorrar .mv-saving-track>.mv-saving-card,#billetes .mv-saving-track>.mv-saving-card,#ahorrar .vcc-saving-track>.vcc-saving-card,#ahorrar .ep3-saving-track>.ep3-saving-card){
+  flex-basis:100%!important;width:100%!important;
+  min-height:158px!important;height:158px!important;max-height:158px!important;
+  padding:14px!important;
+ }
+ html body:has(nav.vcc-sacred-subnav) :is(#ahorrar .carousel-shell>.prev,#como-ahorrar .dv-tip-carousel-wrap>.dv-tip-prev,#ahorrar .mv-carousel-shell>.mv-prev,#billetes .mv-carousel-shell>.mv-prev,#ahorrar .vcc-saving-carousel>.vcc-saving-prev,#ahorrar .ep3-saving-stage>.ep3-saving-prev){left:2px!important}
+ html body:has(nav.vcc-sacred-subnav) :is(#ahorrar .carousel-shell>.next,#como-ahorrar .dv-tip-carousel-wrap>.dv-tip-next,#ahorrar .mv-carousel-shell>.mv-next,#billetes .mv-carousel-shell>.mv-next,#ahorrar .vcc-saving-carousel>.vcc-saving-next,#ahorrar .ep3-saving-stage>.ep3-saving-next){right:2px!important}
+}
+@media(prefers-reduced-motion:reduce){html body:has(nav.vcc-sacred-subnav) :is(#ahorrar .tips-track,#como-ahorrar .dv-tip-grid,#ahorrar .mv-saving-track,#billetes .mv-saving-track,#ahorrar .vcc-saving-track,#ahorrar .ep3-saving-track){scroll-behavior:auto!important}}
+
+/* VCC 2026-11-17 · alçada compacta universal + màxim cinc línies.
+   Un únic contracte per als carrusels Cómo ahorrar, sense afectar-ne la navegació. */
+html body :is(#vl-tip-track > .vl-tip,#ql-advice-track > .ql-advice-card,#al-tips-track > .al-tip,#sv-track-compare > .saving-tip,#vcc-saving-track > .vcc-saving-card,.dv-tip-grid[data-dv-tip-scroller] > .dv-tip,#ep3-saving-track > .ep3-saving-card,#ahorrar .tips-track > .saving-tip,#ahorrar .mv-saving-track > .mv-saving-card,#billetes .mv-saving-track > .mv-saving-card){
+  height:156px!important;min-height:156px!important;max-height:156px!important;
+  overflow:hidden!important;
+}
+html body :is(#vl-tip-track > .vl-tip,#ql-advice-track > .ql-advice-card,#al-tips-track > .al-tip,#sv-track-compare > .saving-tip,#vcc-saving-track > .vcc-saving-card,.dv-tip-grid[data-dv-tip-scroller] > .dv-tip,#ep3-saving-track > .ep3-saving-card,#ahorrar .tips-track > .saving-tip,#ahorrar .mv-saving-track > .mv-saving-card,#billetes .mv-saving-track > .mv-saving-card) h3{
+  display:-webkit-box!important;-webkit-box-orient:vertical!important;
+  -webkit-line-clamp:2!important;line-clamp:2!important;overflow:hidden!important;
+}
+html body :is(#vl-tip-track > .vl-tip,#ql-advice-track > .ql-advice-card,#al-tips-track > .al-tip,#sv-track-compare > .saving-tip,#vcc-saving-track > .vcc-saving-card,.dv-tip-grid[data-dv-tip-scroller] > .dv-tip,#ep3-saving-track > .ep3-saving-card,#ahorrar .tips-track > .saving-tip,#ahorrar .mv-saving-track > .mv-saving-card,#billetes .mv-saving-track > .mv-saving-card) p{
+  display:-webkit-box!important;-webkit-box-orient:vertical!important;
+  -webkit-line-clamp:5!important;line-clamp:5!important;
+  overflow:hidden!important;max-height:7.5em!important;
+}
+@media(max-width:680px){
+ html body :is(#vl-tip-track > .vl-tip,#ql-advice-track > .ql-advice-card,#al-tips-track > .al-tip,#sv-track-compare > .saving-tip,#vcc-saving-track > .vcc-saving-card,.dv-tip-grid[data-dv-tip-scroller] > .dv-tip,#ep3-saving-track > .ep3-saving-card,#ahorrar .tips-track > .saving-tip,#ahorrar .mv-saving-track > .mv-saving-card,#billetes .mv-saving-track > .mv-saving-card){
+  height:158px!important;min-height:158px!important;max-height:158px!important;
+ }
+}
+
+/* VCC 2026-11-17 · integració de Cómo moverse per Estocolmo.
+   La secció #billetes fa servir classes mv- i també comparteix
+   la mateixa alçada compacta, tipografia i límit de 5 línies. */
+html body #billetes .mv-saving-track > .mv-saving-card{
+ box-sizing:border-box!important;
+ height:156px!important;min-height:156px!important;max-height:156px!important;
+ padding:13px 14px!important;gap:10px!important;overflow:hidden!important;
+}
+html body #billetes .mv-saving-card h3{
+ display:-webkit-box!important;-webkit-box-orient:vertical!important;
+ -webkit-line-clamp:2!important;line-clamp:2!important;overflow:hidden!important;
+ font:600 18px/1.2 var(--vcc-font-heading,"Oswald",sans-serif)!important;
+ margin:0 0 7px!important;
+}
+html body #billetes .mv-saving-card p{
+ display:-webkit-box!important;-webkit-box-orient:vertical!important;
+ -webkit-line-clamp:5!important;line-clamp:5!important;
+ max-height:7.5em!important;overflow:hidden!important;
+ font:400 12px/1.5 var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;
+ margin:0!important;
+}
+@media(max-width:680px){
+ html body #billetes .mv-saving-track > .mv-saving-card{
+  height:158px!important;min-height:158px!important;max-height:158px!important;
+  padding:12px!important;gap:9px!important;
+ }
+}
+
+
+/* VCC 2026-11-17 · Qué llevar Estocolmo
+   "Cómo ahorrar ESPACIO" utiliza exactamente el contrato universal de
+   "Cómo ahorrar", independientemente del texto de su título/ID.
+   Mantener la navegación de flechas propia de esta plantilla. */
+html body:has(nav.vcc-sacred-subnav) #consejos .ql-advice-carousel{
+  box-sizing:border-box!important;display:block!important;position:relative!important;
+  grid-template-columns:none!important;gap:0!important;
+  width:100%!important;max-width:100%!important;min-width:0!important;
+  padding:0!important;margin-inline:0!important;
+}
+html body:has(nav.vcc-sacred-subnav) #consejos #ql-advice-track{
+  box-sizing:border-box!important;display:flex!important;flex-flow:row nowrap!important;
+  flex:none!important;align-items:stretch!important;gap:14px!important;
+  width:100%!important;max-width:100%!important;min-width:0!important;
+  margin:0!important;padding:1px 0 4px!important;
+  overflow-x:auto!important;overflow-y:hidden!important;
+  scroll-snap-type:x mandatory!important;scroll-behavior:smooth!important;
+  scrollbar-width:none!important;-webkit-overflow-scrolling:touch;
+}
+html body:has(nav.vcc-sacred-subnav) #consejos #ql-advice-track::-webkit-scrollbar{display:none}
+html body:has(nav.vcc-sacred-subnav) #consejos #ql-advice-track > .ql-advice-card{
+  box-sizing:border-box!important;display:flex!important;
+  align-items:flex-start!important;justify-content:flex-start!important;
+  flex:0 0 calc((100% - 28px)/3)!important;width:calc((100% - 28px)/3)!important;
+  min-width:0!important;min-height:156px!important;height:156px!important;
+  max-height:156px!important;margin:0!important;padding:13px 14px!important;
+  gap:10px!important;scroll-snap-align:start!important;overflow:hidden!important;
+  background:#fff!important;border:1px solid #e2ddd6!important;
+  border-radius:11px!important;box-shadow:0 2px 8px rgba(27,44,55,.045)!important;
+}
+html body:has(nav.vcc-sacred-subnav) #consejos #ql-advice-track > .ql-advice-card h3{
+  font:600 18px/1.2 var(--vcc-font-heading,"Oswald",sans-serif)!important;
+  margin:0 0 7px!important;
+}
+html body:has(nav.vcc-sacred-subnav) #consejos #ql-advice-track > .ql-advice-card p{
+  font:400 12px/1.5 var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;
+  margin:0!important;
+}
+html body:has(nav.vcc-sacred-subnav) #consejos .ql-advice-carousel > .ql-carousel-arrow{
+  box-sizing:border-box!important;display:grid!important;place-items:center!important;
+  position:absolute!important;z-index:4!important;top:50%!important;bottom:auto!important;
+  transform:translateY(-50%)!important;
+  width:35px!important;height:35px!important;margin:0!important;padding:0!important;
+  border-radius:50%!important;border:1px solid #d9bca8!important;
+  background:#fff!important;color:#ad5b43!important;
+  box-shadow:0 2px 8px rgba(42,31,21,.07)!important;cursor:pointer!important;
+}
+html body:has(nav.vcc-sacred-subnav) #consejos #ql-advice-prev{left:-17px!important;right:auto!important}
+html body:has(nav.vcc-sacred-subnav) #consejos #ql-advice-next{right:-17px!important;left:auto!important}
+html body:has(nav.vcc-sacred-subnav) #consejos .ql-carousel-arrow:disabled{
+  opacity:0!important;pointer-events:none!important;
+}
+@media(max-width:1020px){
+ html body:has(nav.vcc-sacred-subnav) #consejos #ql-advice-track > .ql-advice-card{
+  flex-basis:calc((100% - 14px)/2)!important;width:calc((100% - 14px)/2)!important;
+ }
+}
+@media(max-width:680px){
+ html body:has(nav.vcc-sacred-subnav) #consejos #ql-advice-track > .ql-advice-card{
+  flex-basis:100%!important;width:100%!important;
+  min-height:158px!important;height:158px!important;max-height:158px!important;
+  padding:12px!important;gap:9px!important;
+ }
+ html body:has(nav.vcc-sacred-subnav) #consejos #ql-advice-prev{left:2px!important}
+ html body:has(nav.vcc-sacred-subnav) #consejos #ql-advice-next{right:2px!important}
+}
+@media(prefers-reduced-motion:reduce){
+ html body:has(nav.vcc-sacred-subnav) #consejos #ql-advice-track{scroll-behavior:auto!important}
+}
+
+/* Estocolmo / Cómo moverse: el bloque "Cómo ahorrar" se llama #billetes.
+   Comparte exactamente el contrato universal de pistas 100%, tarjetas
+   3/2/1 y flechas superpuestas. Respetar la transparencia de los demás
+   controles globales en móvil sin reservar márgenes para los botones. */
+html body.mv-body #billetes .mv-carousel-shell > .mv-carousel-arrow{
+  background:var(--vcc-carrusel-fletxa-fons,rgba(255,255,255,.88))!important;
+}
+
+
+/* Contrato compartido «Cómo ahorrar»: Vuelos usa toda la anchura igual que
+   Alojamientos. Flechas superpuestas sin columnas ni padding de reserva. */
+html body .vl-page #como-ahorrar .vl-wrap,
+html body .vl-page #calculadora .vl-wrap{
+  width:min(1180px,calc(100% - 48px));
+}
+html body .vl-page #como-ahorrar .vl-tips-carousel{
+  box-sizing:border-box!important;display:block!important;
+  position:relative!important;width:100%!important;min-width:0!important;
+  max-width:100%!important;padding:0!important;margin-inline:0!important;
+}
+html body .vl-page #como-ahorrar #vl-tip-track{
+  box-sizing:border-box!important;
+  display:flex!important;flex-flow:row nowrap!important;align-items:stretch!important;
+  width:100%!important;min-width:0!important;max-width:100%!important;
+  gap:14px!important;margin:0!important;padding:1px 0 4px!important;
+  overflow-x:auto!important;overflow-y:hidden!important;
+  scroll-snap-type:x mandatory!important;scrollbar-width:none;
+  -webkit-overflow-scrolling:touch;
+}
+html body .vl-page #como-ahorrar #vl-tip-track > .vl-tip{
+  flex:0 0 calc((100% - 28px)/3)!important;
+  width:calc((100% - 28px)/3)!important;
+  min-width:0!important;margin:0!important;scroll-snap-align:start!important;
+}
+html body .vl-page #como-ahorrar .vl-tips-carousel > .vl-tip-arrow{
+  box-sizing:border-box!important;position:absolute!important;
+  display:grid!important;place-items:center!important;
+  top:50%!important;bottom:auto!important;z-index:4!important;
+  transform:translateY(-50%)!important;
+  width:35px!important;height:35px!important;
+  margin:0!important;padding:0!important;
+}
+html body .vl-page #como-ahorrar .vl-tips-carousel > .vl-tip-prev{
+  left:-17px!important;right:auto!important;
+}
+html body .vl-page #como-ahorrar .vl-tips-carousel > .vl-tip-next{
+  right:-17px!important;left:auto!important;
+}
+@media (max-width:1020px){
+  html body .vl-page #como-ahorrar #vl-tip-track > .vl-tip{
+    flex-basis:calc((100% - 14px)/2)!important;
+    width:calc((100% - 14px)/2)!important;
+  }
+}
+@media (max-width:680px){
+  html body .vl-page #como-ahorrar #vl-tip-track > .vl-tip{
+    flex-basis:100%!important;width:100%!important;
+  }
+  html body .vl-page #como-ahorrar .vl-tips-carousel > .vl-tip-prev{left:2px!important}
+  html body .vl-page #como-ahorrar .vl-tips-carousel > .vl-tip-next{right:2px!important}
+}
+@media (max-width:520px){
+  html body .vl-page #como-ahorrar .vl-wrap,
+  html body .vl-page #calculadora .vl-wrap{width:calc(100% - 28px)}
+}
+
+/* VCC · Planifica Seguros · Cómo comparar: carrusel de borde a borde
+   de .sv-wrap, amb les fletxes superposades. Mateix contracte que Cómo
+   ahorrar (3/2/1 targetes, 156/158 px). No afecta asseguradores,
+   cobertures ni Errores a evitar. */
+html body .sv-page #comparar .sv-carousel-shell.vcc-editorial-carousel{
+  box-sizing:border-box!important;
+  display:block!important;
+  position:relative!important;
+  grid-template-columns:none!important;
+  grid-template-rows:none!important;
+  gap:0!important;
+  width:100%!important;
+  max-width:100%!important;
+  min-width:0!important;
+  padding:0!important;
+  margin:0!important;
+  overflow:visible!important;
+}
+html body .sv-page #comparar .sv-carousel-shell > #sv-track-compare{
+  box-sizing:border-box!important;
+  display:flex!important;
+  flex-flow:row nowrap!important;
+  align-items:stretch!important;
+  width:100%!important;
+  max-width:100%!important;
+  min-width:0!important;
+  margin:0!important;
+  padding:1px 0 4px!important;
+  gap:14px!important;
+  overflow-x:auto!important;
+  overflow-y:hidden!important;
+  scroll-snap-type:x mandatory!important;
+  scroll-padding-inline:0!important;
+  scrollbar-width:none;
+  -webkit-overflow-scrolling:touch;
+}
+html body .sv-page #comparar #sv-track-compare > .sv-number-card{
+  box-sizing:border-box!important;
+  flex:0 0 calc((100% - 28px)/3)!important;
+  width:calc((100% - 28px)/3)!important;
+  min-width:0!important;
+  margin:0!important;
+  scroll-snap-align:start!important;
+}
+html body .sv-page #comparar .sv-carousel-shell > .sv-arrow{
+  box-sizing:border-box!important;
+  display:grid!important;
+  place-items:center!important;
+  position:absolute!important;
+  z-index:5!important;
+  top:50%!important;
+  bottom:auto!important;
+  transform:translateY(-50%)!important;
+  width:35px!important;
+  height:35px!important;
+  padding:0!important;
+  margin:0!important;
+  border:1px solid var(--vcc-carrusel-fletxa-contorn,#d9bca8)!important;
+  border-radius:50%!important;
+  background:var(--vcc-carrusel-fletxa-fons,rgba(255,255,255,.86))!important;
+  color:var(--vcc-carrusel-fletxa-tinta,#ad5b43)!important;
+  box-shadow:var(--vcc-carrusel-fletxa-ombra,0 2px 8px rgba(42,31,21,.07))!important;
+  cursor:pointer;
+}
+html body .sv-page #comparar .sv-carousel-shell > .sv-prev{
+  left:-17px!important;
+  right:auto!important;
+}
+html body .sv-page #comparar .sv-carousel-shell > .sv-next-arrow{
+  right:-17px!important;
+  left:auto!important;
+}
+@media(max-width:900px){
+  html body .sv-page #comparar #sv-track-compare > .sv-number-card{
+    flex-basis:calc((100% - 14px)/2)!important;
+    width:calc((100% - 14px)/2)!important;
+  }
+}
+@media(max-width:760px){
+  html body .sv-page #comparar .sv-carousel-shell{
+    padding:0!important;
+  }
+  html body .sv-page #comparar #sv-track-compare > .sv-number-card{
+    flex-basis:100%!important;
+    width:100%!important;
+  }
+  html body .sv-page #comparar .sv-carousel-shell > .sv-prev{
+    left:2px!important;
+  }
+  html body .sv-page #comparar .sv-carousel-shell > .sv-next-arrow{
+    right:2px!important;
+  }
+}
+
+/* === configuracion/css/componentes/vcc-capcaleres-editorials.css === */
+
+/* === configuracion/css/componentes/portades-fade-global-vcc.css === */
+/* VCC · Únic degradat de transparència de portades.
+ * Fotografia original sobre blanc: d'esquerra gairebé invisible a dreta visible.
+ * Usat per Inicio, Destinos, Itinerarios, Planifica, Nosotros, Contacto,
+ * Suècia/Estocolm i les guies interiors, amb el mateix tractament.
+ * Màscara alfa i vel blanc són matemàticament equivalents; no s'apliquen junts.
+ * No aplicar a mosaics, targetes ni galeries de contingut. */
+:root {
+  --vcc-portada-base: #fff;
+  --vcc-portada-fade: linear-gradient(90deg,
+    rgba(0,0,0,.04) 0%,
+    rgba(0,0,0,.21) 34%,
+    rgba(0,0,0,.59) 72%,
+    rgba(0,0,0,.82) 100%);
+  --vcc-portada-veil: linear-gradient(90deg,
+    rgba(255,255,255,.96) 0%,
+    rgba(255,255,255,.79) 34%,
+    rgba(255,255,255,.41) 72%,
+    rgba(255,255,255,.18) 100%);
+}
+@media (max-width: 720px) {
+  :root {
+    --vcc-portada-fade: linear-gradient(90deg,
+      rgba(0,0,0,.03) 0%,
+      rgba(0,0,0,.10) 32%,
+      rgba(0,0,0,.21) 70%,
+      rgba(0,0,0,.41) 100%);
+    --vcc-portada-veil: linear-gradient(90deg,
+      rgba(255,255,255,.97) 0%,
+      rgba(255,255,255,.90) 32%,
+      rgba(255,255,255,.79) 70%,
+      rgba(255,255,255,.59) 100%);
+  }
+}
+
+
+/* === configuracion/css/componentes/vcc-altura-portades-subheader.css === */
+/* VCC · ALÇADA ÚNICA DE PORTADA PER A TOTES LES PÀGINES AMB SUBHEADER
+   La barra ha de ser visible sense fer scroll en el primer viewport.
+   Un únic token compartit, no dimensions definides pàgina per pàgina.
+   Reservem espai REAL per a la barra (39px) i per al contingut inferior.
+   100svh evita saltar quan el navegador mòbil mostra/amaga controls. */
+:root{
+  --vcc-subheader-firstscreen-clearance:96px;
+  --vcc-subheader-cover-height:min(405px, calc(100svh - var(--vcc-page-header-height, 100px) - var(--vcc-subnav-height, 39px) - var(--vcc-subheader-firstscreen-clearance)));
+}
+@media (min-width:721px) and (max-width:1024px){
+  :root{
+    --vcc-subheader-cover-height:min(425px, calc(100svh - var(--vcc-page-header-height, 100px) - var(--vcc-subnav-height, 39px) - var(--vcc-subheader-firstscreen-clearance)));
+  }
+}
+@media (max-width:720px){
+  :root{
+    --vcc-subheader-firstscreen-clearance:80px;
+    --vcc-subheader-cover-height:min(455px, calc(100svh - var(--vcc-page-header-height, 145px) - var(--vcc-subnav-height, 39px) - var(--vcc-subheader-firstscreen-clearance)));
+  }
+}
+
+/* Suècia i Estocolm: UNA SOLA targeta de portada per a les dues landings.
+   La nota VCC és exclusiva d'Estocolm i es col·loca a la franja superior,
+   sense consumir alçada de la targeta. La barra conserva la posició actual. */
+html body.country-page:has(nav.country-nav) .country-hero > .country-hero-inner,
+html body:has(.st-shell nav.st-tabs) .st-shell > .st-hero > .st-hero-inner{
+  box-sizing:border-box!important;
+  position:relative!important;
+  width:min(1320px,calc(100% - 90px))!important;
+  max-width:1320px!important;
+  height:100%!important;
+  min-height:0!important;
+  max-height:100%!important;
+  padding:0!important;
+  margin:0 auto!important;
+}
+html body.country-page:has(nav.country-nav) .country-hero .country-breadcrumb,
+html body:has(.st-shell nav.st-tabs) .st-shell > .st-hero .st-crumb{
+  position:absolute!important;
+  top:12px!important;left:0!important;right:auto!important;
+  margin:0!important;padding:0!important;
+  transform:none!important;
+  font:400 11px/1.45 var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;
+  z-index:3!important;
+}
+/* La nota queda al costat del breadcrumb; la targeta comença igual
+   en els dos destins i no passa mai per sota del subheader. */
+html body:has(.st-shell nav.st-tabs) .st-shell > .st-hero .vcc-unified-rating{
+  position:absolute!important;
+  top:12px!important;right:0!important;left:auto!important;
+  z-index:40!important;
+}
+html body.country-page:has(nav.country-nav) .country-hero .country-hero-card.vcc-guide-hero-copy,
+html body:has(.st-shell nav.st-tabs) .st-shell > .st-hero .st-card.vcc-guide-hero-copy{
+  box-sizing:border-box!important;
+  position:absolute!important;
+  top:50px!important;left:0!important;right:auto!important;bottom:auto!important;
+  display:flex!important;
+  flex-direction:column!important;align-items:stretch!important;
+  justify-content:flex-start!important;
+  gap:0!important;
+  width:min(760px,100%)!important;
+  max-width:760px!important;
+  height:calc(100% - 65px)!important;
+  min-height:0!important;
+  max-height:calc(100% - 65px)!important;
+  margin:0!important;
+  padding:19px 25px 17px!important;
+  transform:none!important;
+  border:1px solid rgba(232,222,211,.9)!important;
+  border-radius:12px!important;
+  background:rgba(255,253,249,.96)!important;
+  box-shadow:0 14px 40px rgba(71,49,33,.08)!important;
+  text-align:left!important;
+  overflow:visible!important;
+}
+html body.country-page:has(nav.country-nav) .country-hero .country-script.vcc-guide-hero-kicker,
+html body:has(.st-shell nav.st-tabs) .st-shell > .st-hero .st-script.vcc-guide-hero-kicker{
+  flex:none!important;
+  font:600 25px/1.08 var(--vcc-font-script,"Caveat",cursive)!important;
+  color:var(--country-coral,#c86f5d)!important;
+  margin:0 0 6px!important;
+  padding:0!important;
+}
+html body.country-page:has(nav.country-nav) .country-hero .country-hero-card > h1,
+html body:has(.st-shell nav.st-tabs) .st-shell > .st-hero .st-card > h1{
+  flex:none!important;
+  font:500 clamp(43px,4.55vw,59px)/1.05 var(--vcc-font-heading,"Oswald",sans-serif)!important;
+  letter-spacing:-.02em!important;
+  margin:0 0 9px!important;
+}
+html body.country-page:has(nav.country-nav) .country-hero .country-desc.vcc-guide-hero-description,
+html body:has(.st-shell nav.st-tabs) .st-shell > .st-hero .st-desc.vcc-guide-hero-description{
+  flex:none!important;
+  width:100%!important;max-width:670px!important;
+  min-height:0!important;
+  height:auto!important;
+  margin:0!important;padding:0!important;
+  font:400 13px/1.48 var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;
+}
+html body.country-page:has(nav.country-nav) .country-hero .country-facts,
+html body:has(.st-shell nav.st-tabs) .st-shell > .st-hero .st-facts{
+  box-sizing:border-box!important;
+  display:grid!important;
+  grid-template-columns:repeat(4,minmax(0,1fr))!important;
+  align-content:start!important;
+  width:100%!important;max-width:none!important;
+  column-gap:var(--vcc-guide-facts-column-gap,22px)!important;
+  row-gap:var(--vcc-guide-facts-row-gap,16px)!important;
+  grid-auto-rows:min-content!important;
+  flex:0 0 auto!important;
+  height:auto!important;
+  min-height:0!important;
+  margin:var(--vcc-guide-facts-top-gap,22px) 0 0!important;
+  padding:var(--vcc-guide-facts-divider-gap,16px) 0 0!important;
+  border-top:1px solid #e4d8cf!important;
+}
+html body.country-page:has(nav.country-nav) .country-hero .country-fact,
+html body:has(.st-shell nav.st-tabs) .st-shell > .st-hero .st-fact{
+  box-sizing:border-box!important;
+  min-width:0!important;
+  padding:0!important;
+  text-align:left!important;
+}
+html body.country-page:has(nav.country-nav) .country-hero .country-fact > strong,
+html body:has(.st-shell nav.st-tabs) .st-shell > .st-hero .st-fact > span{
+  display:block!important;
+  font:800 var(--vcc-guide-facts-label-size,11px)/1.3 var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;
+  color:#171717!important;
+}
+html body.country-page:has(nav.country-nav) .country-hero .country-fact > span,
+html body:has(.st-shell nav.st-tabs) .st-shell > .st-hero .st-fact > strong{
+  display:block!important;
+  font:700 12px/1.35 var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;
+  color:#756d66!important;
+  margin:3px 0 0!important;
+}
+html body:has(.st-shell nav.st-tabs) .st-shell > .st-hero .st-fact > small{
+  display:block!important;
+  font:400 var(--vcc-guide-facts-note-size,9px)/1.3 var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;
+  color:#756d66!important;
+  margin:2px 0 0!important;
+}
+html body.country-page:has(nav.country-nav) .country-hero .hero-start,
+html body:has(.st-shell nav.st-tabs) .st-shell > .st-hero .hero-start{
+  flex:none!important;
+  align-self:flex-start!important;
+  margin:auto 0 0!important;
+  padding:7px 0 2px!important;
+  font:800 9px/1.35 var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;
+  letter-spacing:.04em!important;
+}
+/* En mòbil i tauleta, els dos requadres han de tenir exactament
+   la mateixa posició, amplada, altura i padding. */
+@media(max-width:1024px){
+  html body.country-page:has(nav.country-nav) .country-hero > .country-hero-inner,
+  html body:has(.st-shell nav.st-tabs) .st-shell > .st-hero > .st-hero-inner{
+    width:calc(100% - 36px)!important;
+  }
+}
+@media(max-width:720px){
+  html body.country-page:has(nav.country-nav) .country-hero .country-hero-card.vcc-guide-hero-copy,
+  html body:has(.st-shell nav.st-tabs) .st-shell > .st-hero .st-card.vcc-guide-hero-copy{
+    top:55px!important;
+    width:100%!important;max-width:100%!important;
+    height:calc(100% - 67px)!important;
+    max-height:calc(100% - 67px)!important;
+    padding:15px 18px 15px!important;
+  }
+  html body.country-page:has(nav.country-nav) .country-hero .country-script.vcc-guide-hero-kicker,
+  html body:has(.st-shell nav.st-tabs) .st-shell > .st-hero .st-script.vcc-guide-hero-kicker{
+    font-size:23px!important;
+    line-height:1.08!important;
+    margin-bottom:6px!important;
+  }
+  html body.country-page:has(nav.country-nav) .country-hero .country-hero-card > h1,
+  html body:has(.st-shell nav.st-tabs) .st-shell > .st-hero .st-card > h1{
+    font-size:clamp(35px,9.2vw,42px)!important;
+    line-height:1.05!important;
+    margin-bottom:9px!important;
+  }
+  html body.country-page:has(nav.country-nav) .country-hero .country-desc.vcc-guide-hero-description,
+  html body:has(.st-shell nav.st-tabs) .st-shell > .st-hero .st-desc.vcc-guide-hero-description{
+    font-size:12.3px!important;
+    line-height:1.43!important;
+    min-height:72px!important;
+  }
+  html body.country-page:has(nav.country-nav) .country-hero .country-facts,
+  html body:has(.st-shell nav.st-tabs) .st-shell > .st-hero .st-facts{
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    column-gap:20px!important;
+    row-gap:16px!important;
+    margin-top:22px!important;
+    padding-top:16px!important;
+  }
+  html body.country-page:has(nav.country-nav) .country-hero .country-fact > strong,
+  html body:has(.st-shell nav.st-tabs) .st-shell > .st-hero .st-fact > span{
+    font-size:10.5px!important;
+    line-height:1.25!important;
+  }
+  html body.country-page:has(nav.country-nav) .country-hero .country-fact > span,
+  html body:has(.st-shell nav.st-tabs) .st-shell > .st-hero .st-fact > strong{
+    font-size:11.5px!important;
+    line-height:1.3!important;
+    margin-top:2px!important;
+  }
+  html body:has(.st-shell nav.st-tabs) .st-shell > .st-hero .st-fact > small{
+    font-size:9px!important;
+    line-height:1.25!important;
+    margin-top:1px!important;
+  }
+  html body:has(.st-shell nav.st-tabs) .st-shell > .st-hero .vcc-unified-rating{
+    top:6px!important;
+  }
+}
+@media(max-width:360px){
+  /* La nota conserva l'amplada del text del breadcrumb en pantalles petites:
+     es col·loca a sota, sense solapar noms ni la targeta. */
+  html body:has(.st-shell nav.st-tabs) .st-shell > .st-hero .vcc-unified-rating{
+    top:31px!important;
+  }
+  html body.country-page:has(nav.country-nav) .country-hero .country-hero-card.vcc-guide-hero-copy,
+  html body:has(.st-shell nav.st-tabs) .st-shell > .st-hero .st-card.vcc-guide-hero-copy{
+    top:78px!important;
+    height:calc(100% - 88px)!important;
+    max-height:calc(100% - 88px)!important;
+    padding:12px 14px 12px!important;
+  }
+  html body.country-page:has(nav.country-nav) .country-hero .country-script.vcc-guide-hero-kicker,
+  html body:has(.st-shell nav.st-tabs) .st-shell > .st-hero .st-script.vcc-guide-hero-kicker{
+    font-size:20px!important;
+  }
+  html body.country-page:has(nav.country-nav) .country-hero .country-hero-card > h1,
+  html body:has(.st-shell nav.st-tabs) .st-shell > .st-hero .st-card > h1{
+    font-size:34px!important;
+  }
+  html body.country-page:has(nav.country-nav) .country-hero .country-desc.vcc-guide-hero-description,
+  html body:has(.st-shell nav.st-tabs) .st-shell > .st-hero .st-desc.vcc-guide-hero-description{
+    font-size:11.5px!important;min-height:60px!important;
+  }
+}
+
+/* Recuperem l'amplada editorial original (520px) també quan
+   Chrome mòbil força la 'vista per a ordinador' (~980px de viewport CSS).
+   721px activa el format ample: el mòbil habitual continua intacte.
+   Regla única compartida per a Suècia i Estocolm. */
+@media (min-width:721px){
+  html body.country-page:has(nav.country-nav) .country-hero .country-hero-card.vcc-guide-hero-copy,
+  html body:has(.st-shell nav.st-tabs) .st-shell > .st-hero .st-card.vcc-guide-hero-copy{
+    width:min(520px,100%)!important;
+    max-width:520px!important;
+  }
+}
+
+/* Landings de país/ciutat amb vinyeta central, que no porten
+   .vcc-sacred-hero. Inclou Suècia, Estocolm, Roma i Fuerteventura. */
+html body.country-page:has(nav.country-nav) .country-hero,
+html body:has(.st-shell nav.st-tabs) .st-shell > .st-hero,
+html body:has(nav.rich-tabs) .rich-hero:not(.vcc-sacred-hero),
+html body:has(nav.content-nav) .content-hero:not(.vcc-sacred-hero),
+html body:has(nav.vcc-unified-subheader) .vcc-subheader-hero.vcc-standardized-hero-height:not(.vcc-sacred-hero){
+  box-sizing:border-box!important;
+  height:var(--vcc-subheader-cover-height)!important;
+  min-height:var(--vcc-subheader-cover-height)!important;
+  max-height:var(--vcc-subheader-cover-height)!important;
+  margin-block:0!important;
+}
+
+/* Estocolm i ciutats basades en la seva plantilla:
+   alta especificitat perquè els antics fixes mòbils de 730px
+   no tornin a desplaçar la barra, encara que carreguin després. */
+html body:has(.st-shell nav.st-tabs) .st-shell > section.st-hero.st-hero{
+  height:var(--vcc-subheader-cover-height)!important;
+  min-height:var(--vcc-subheader-cover-height)!important;
+  max-height:var(--vcc-subheader-cover-height)!important;
+}
+
+/* El contingut interior de l'hero s'adapta a l'altura comuna,
+   sense fixar cap segona mesura incompatible. */
+html body:has(.st-shell nav.st-tabs) .st-shell > section.st-hero > .st-hero-inner{
+  box-sizing:border-box!important;
+  max-height:100%!important;
+}
+
+
+/* MATEIXA JERARQUIA TIPOGRÀFICA PER A LES 4 DADES, TAMBÉ EN DESKTOP MÒBIL.
+   <strong> del país equival al <span> de la ciutat (rètol);
+   <span> del país equival al <strong> de la ciutat (valor). */
+html body.country-page:has(nav.country-nav) .country-hero .country-fact > strong,
+html body:has(.st-shell nav.st-tabs) .st-shell > .st-hero .st-fact > span{
+  font:800 var(--vcc-guide-facts-label-size,11px)/1.3 var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;
+  margin:0!important;
+  color:#171717!important;
+}
+html body.country-page:has(nav.country-nav) .country-hero .country-fact > span,
+html body:has(.st-shell nav.st-tabs) .st-shell > .st-hero .st-fact > strong{
+  font:700 var(--vcc-guide-facts-value-size,11.5px)/1.3 var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;
+  margin:4px 0 0!important;
+  color:#756d66!important;
+}
+html body:has(.st-shell nav.st-tabs) .st-shell > .st-hero .st-fact > small{
+  font:400 var(--vcc-guide-facts-note-size,9px)/1.3 var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;
+  margin:2px 0 0!important;
+  color:#756d66!important;
+}
+/* La vista d'escriptori del mòbil (~980px CSS) conserva sempre 2 columnes. */
+@media(max-width:1050px){
+  html body.country-page:has(nav.country-nav) .country-hero .country-facts,
+  html body:has(.st-shell nav.st-tabs) .st-shell > .st-hero .st-facts{
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    column-gap:var(--vcc-guide-facts-mobile-column-gap,20px)!important;
+    row-gap:var(--vcc-guide-facts-row-gap,16px)!important;
+  }
+}
+
+/* No canviar l'offset sticky: només on acaba la foto inicial.
+   La barra segueix gestionada pel component de subheader. */
+
+
+/* VCC · CAPÇALERES EDITORIALS COMPARTIDES · 2026-11-12
+ * Sobretítol Caveat + títol Oswald + resum DM Sans.
+ * La classe s'afegeix exclusivament als encapçalaments editorials de secció;
+ * NO canvia herois, targetes, menús ni apartats de detall.
+ * Les tres peces empren classes explícites per no alterar altres textos.
+ */
+/* Únic patró per a totes les seccions de pàgines amb subheader:
+   sobretítol + títol d'una línia + resum a la dreta (màxim 2 línies). */
+html body .vcc-editorial-heading{
+  display:grid!important;
+  grid-template-columns:minmax(0,1fr) minmax(270px,clamp(320px,29vw,430px))!important;
+  align-items:end!important;
+  gap:clamp(18px,2.2vw,32px)!important;
+  width:100%!important;max-width:none!important;min-width:0!important;
+  margin:0 0 20px!important;padding:0!important;
+  border:0!important;background:transparent!important;text-align:left!important;
+}
+html body .vcc-editorial-heading > .vcc-editorial-heading-main{
+  width:100%!important;min-width:0!important;max-width:100%!important;
+  margin:0!important;padding:0!important;text-align:left!important;
+}
+html body .vcc-editorial-heading .vcc-editorial-overline{
+  display:block!important;position:static!important;
+  width:auto!important;max-width:100%!important;margin:0 0 7px!important;padding:0!important;
+  color:var(--vcc-color-accent,#c86f5d)!important;
+  font:600 calc(clamp(25px,2.15vw,29px) + var(--vcc-overline-size-adjust,0px))/1.1 var(--vcc-font-script,"Caveat",cursive)!important;
+  letter-spacing:0!important;text-transform:none!important;text-align:left!important;transform:none!important;
+}
+html body .vcc-editorial-heading .vcc-editorial-title{
+  display:block!important;width:100%!important;max-width:100%!important;
+  margin:0!important;padding:0!important;min-width:0!important;
+  color:#171717!important;
+  font:600 calc(clamp(27px,2.55vw,37px) + var(--vcc-heading-size-adjust,0px))/1.1 var(--vcc-font-heading,"Oswald",sans-serif)!important;
+  letter-spacing:0!important;text-transform:uppercase!important;text-align:left!important;
+  white-space:nowrap!important;text-wrap:nowrap!important;
+  overflow:visible!important;overflow-wrap:normal!important;
+}
+html body .vcc-editorial-heading .vcc-editorial-title::after,
+html body .vcc-editorial-heading .vcc-editorial-title::before{
+  display:none!important;content:none!important;
+}
+html body .vcc-editorial-heading > .vcc-editorial-description,
+html body .vcc-editorial-heading > .vcc-editorial-heading-side{
+  display:block!important;align-self:end!important;
+  width:100%!important;max-width:430px!important;min-width:0!important;
+  margin:0 0 3px!important;padding:0!important;
+  color:#655e58!important;
+  font:400 12.5px/1.5 var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;
+  letter-spacing:0!important;text-align:right!important;text-transform:none!important;
+  text-wrap:pretty!important;
+}
+html body .vcc-editorial-heading > .vcc-editorial-heading-side .vcc-editorial-description{
+  display:block!important;width:100%!important;max-width:100%!important;
+  margin:0!important;padding:0!important;text-align:right!important;
+  font:inherit!important;color:inherit!important;
+}
+@media(max-width:1150px){
+  html body .vcc-editorial-heading{
+    grid-template-columns:minmax(0,1fr)!important;
+    align-items:start!important;gap:8px!important;
+  }
+  html body .vcc-editorial-heading .vcc-editorial-title{
+    white-space:normal!important;text-wrap:pretty!important;
+  }
+  html body .vcc-editorial-heading > .vcc-editorial-description,
+  html body .vcc-editorial-heading > .vcc-editorial-heading-side,
+  html body .vcc-editorial-heading > .vcc-editorial-heading-side .vcc-editorial-description{
+    max-width:100%!important;text-align:left!important;
+    margin:0!important;align-self:start!important;
+  }
+}
+@media (max-width:900px) {
+  html body .vcc-editorial-heading {
+    grid-template-columns:minmax(0,1fr)!important;
+    align-items:flex-start!important;
+    gap:8px!important;
+    margin-bottom:17px!important;
+  }
+  html body .vcc-editorial-heading > .vcc-editorial-heading-main,
+  html body .vcc-editorial-heading > .vcc-editorial-description,
+  html body .vcc-editorial-heading > .vcc-editorial-heading-side {
+    flex:0 1 auto!important;
+    align-self:stretch!important;
+    width:100%!important;
+    max-width:100%!important;
+    text-align:left!important;
+  }
+  html body .vcc-editorial-heading > .vcc-editorial-description,
+  html body .vcc-editorial-heading > .vcc-editorial-heading-side .vcc-editorial-description {
+    align-self:flex-start!important;
+    max-width:100%!important;
+    margin:0!important;
+    text-align:left!important;
+    font-size:12.5px!important;
+    line-height:1.5!important;
+  }
+}
+@media (max-width:600px) {
+  html body .vcc-editorial-heading { gap:6px!important; margin-bottom:14px!important; }
+  html body .vcc-editorial-heading .vcc-editorial-overline {
+    margin-bottom:5px!important;
+    font-size:calc(25px + var(--vcc-overline-size-adjust,0px))!important;
+  }
+  html body .vcc-editorial-heading .vcc-editorial-title {
+    font-size:calc(clamp(27px,8vw,34px) + var(--vcc-heading-size-adjust,0px))!important;
+    line-height:1.1!important;
+  }
+  html body .vcc-editorial-heading > .vcc-editorial-description,
+  html body .vcc-editorial-heading > .vcc-editorial-heading-side .vcc-editorial-description {
+    font-size:12px!important;
+    line-height:1.5!important;
+  }
+}
+
+
+/* ============================================================
+   VCC · PORTADES EDITORIALS DE GUIES · 2026-11-16
+   Patró compartit opt-in (no modifica les capçaleres de secció).
+   Mateix sobretítol Caveat taronja, títol Oswald i descripció
+   DM Sans per totes les guies de Suecia / Estocolmo.
+   Els títols, fotos, breadcrumbs i continguts es conserven.
+   ============================================================ */
+/* Escala única per a la tipografia dels herois de guia. */
+html body .vcc-guide-hero-unified{
+  --vcc-guide-hero-kicker-size:28px;
+  --vcc-guide-hero-title-size:clamp(43px,4.55vw,64px);
+  --vcc-guide-hero-description-size:14px;
+}
+@media(max-width:900px){
+  html body .vcc-guide-hero-unified{
+    --vcc-guide-hero-kicker-size:26px;
+    --vcc-guide-hero-title-size:clamp(40px,6.8vw,58px);
+    --vcc-guide-hero-description-size:14px;
+  }
+}
+@media(max-width:600px){
+  html body .vcc-guide-hero-unified{
+    --vcc-guide-hero-kicker-size:24px;
+    --vcc-guide-hero-title-size:clamp(34px,8.9vw,45px);
+    --vcc-guide-hero-description-size:13px;
+  }
+}
+html body .vcc-guide-hero-unified.vcc-guide-hero-unified .vcc-guide-hero-copy{
+  box-sizing:border-box!important;
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:flex-start!important;
+  justify-content:flex-start!important;
+  gap:0!important;
+  text-align:left!important;
+  min-width:0!important;
+  max-width:760px!important;
+  background:transparent!important;
+  border:0!important;
+  box-shadow:none!important;
+  backdrop-filter:none!important;
+  color:#171717!important;
+}
+html body .vcc-guide-hero-unified.vcc-guide-hero-unified .vcc-guide-hero-copy > .vcc-guide-hero-kicker{
+  display:block!important;
+  width:auto!important;
+  max-width:100%!important;
+  height:auto!important;
+  min-height:0!important;
+  padding:0!important;
+  margin:0 0 13px!important;
+  background:transparent!important;
+  border:0!important;
+  box-shadow:none!important;
+  color:var(--vcc-color-accent,#c86f5d)!important;
+  font:600 var(--vcc-guide-hero-kicker-size)/1.1 var(--vcc-font-script,"Caveat",cursive)!important;
+  font-style:normal!important;
+  text-transform:none!important;
+  letter-spacing:0!important;
+  transform:none!important;
+  text-align:left!important;
+}
+html body .vcc-guide-hero-unified.vcc-guide-hero-unified .vcc-guide-hero-copy > h1{
+  display:block!important;
+  max-width:760px!important;
+  width:auto!important;
+  min-height:0!important;
+  height:auto!important;
+  padding:0!important;
+  margin:0 0 17px!important;
+  background:transparent!important;
+  color:#171717!important;
+  font:600 var(--vcc-guide-hero-title-size)/1.04 var(--vcc-font-heading,"Oswald",sans-serif)!important;
+  font-style:normal!important;
+  text-transform:uppercase!important;
+  letter-spacing:-.02em!important;
+  text-shadow:none!important;
+  transform:none!important;
+  text-align:left!important;
+  text-wrap:balance;
+  overflow-wrap:normal!important;
+}
+html body .vcc-guide-hero-unified.vcc-guide-hero-unified .vcc-guide-hero-copy > h1 :is(em,span){
+  font:inherit!important;
+  color:#c4664c!important;
+  text-transform:inherit!important;
+  font-style:normal!important;
+  letter-spacing:inherit!important;
+}
+html body .vcc-guide-hero-unified.vcc-guide-hero-unified .vcc-guide-hero-copy > h1::after{
+  content:""!important;
+  display:block!important;
+  position:static!important;
+  width:184px!important;
+  height:3px!important;
+  min-height:3px!important;
+  margin:21px 0 0!important;
+  padding:0!important;
+  background:var(--vcc-color-accent,#c86f5d)!important;
+  border:0!important;
+  box-shadow:none!important;
+  transform:skewX(-28deg)!important;
+}
+html body .vcc-guide-hero-unified.vcc-guide-hero-unified .vcc-guide-hero-copy > .vcc-guide-hero-description{
+  display:block!important;
+  width:auto!important;
+  max-width:710px!important;
+  min-height:0!important;
+  margin:0!important;
+  padding:0!important;
+  background:transparent!important;
+  color:#353535!important;
+  font:400 var(--vcc-guide-hero-description-size)/1.58 var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;
+  font-style:normal!important;
+  text-transform:none!important;
+  letter-spacing:0!important;
+  text-align:left!important;
+  text-shadow:none!important;
+}
+/* Evitar dobles subratllats quan la plantilla ja n'inclou un. */
+html body .vcc-guide-hero-unified :is(
+  .cl-landing-underline,.mv-underline,.dv-hero-underline,
+  .ep-stroke,.ql-brush,.swb-hero-underline
+){display:none!important;}
+/* Els scripts que abans anaven després de l'H1 ara són el primer element. */
+@media(max-width:900px){
+ html body .vcc-guide-hero-unified.vcc-guide-hero-unified .vcc-guide-hero-copy{
+   max-width:min(760px,calc(100vw - 36px))!important;
+ }
+ html body .vcc-guide-hero-unified.vcc-guide-hero-unified .vcc-guide-hero-copy > h1{
+   font-size:var(--vcc-guide-hero-title-size)!important;
+   max-width:100%!important;
+ }
+ html body .vcc-guide-hero-unified.vcc-guide-hero-unified .vcc-guide-hero-copy > .vcc-guide-hero-description{
+   font-size:var(--vcc-guide-hero-description-size)!important;
+   max-width:100%!important;
+ }
+}
+@media(max-width:600px){
+ html body .vcc-guide-hero-unified.vcc-guide-hero-unified .vcc-guide-hero-copy > .vcc-guide-hero-kicker{
+   font-size:var(--vcc-guide-hero-kicker-size)!important;
+   margin-bottom:10px!important;
+ }
+ html body .vcc-guide-hero-unified.vcc-guide-hero-unified .vcc-guide-hero-copy > h1{
+   font-size:var(--vcc-guide-hero-title-size)!important;
+   line-height:1.06!important;
+   margin-bottom:13px!important;
+ }
+ html body .vcc-guide-hero-unified.vcc-guide-hero-unified .vcc-guide-hero-copy > h1::after{
+   width:115px!important;
+   margin-top:14px!important;
+ }
+ html body .vcc-guide-hero-unified.vcc-guide-hero-unified .vcc-guide-hero-copy > .vcc-guide-hero-description{
+   font-size:var(--vcc-guide-hero-description-size)!important;
+   line-height:1.55!important;
+ }
+}
+
+
+/* Subguies històriques d'Estocolm: abans empraven Cormorant i
+   textos de 8–10px. Comparteixen ara la mateixa portada editorial. */
+html body .content-hero.vcc-guide-hero-unified{
+  box-sizing:border-box!important;
+  display:block!important;
+  position:relative!important;
+  isolation:isolate!important;
+  width:100%!important;
+  max-width:none!important;
+  height:475px!important;
+  min-height:475px!important;
+  margin:0!important;
+  padding:16px max(34px,calc((100% - 1320px)/2)) 36px!important;
+  overflow:hidden!important;
+  color:#171717!important;
+  background:
+    var(--vcc-portada-veil),
+    var(--vcc-guide-photo,url("/configuracion/imagenes/fondos/optimizadas/fondos-que-ver-1920.webp"))
+    center center/cover no-repeat!important;
+}
+html body .content-hero.vcc-guide-hero-unified > .crumb{
+  display:block!important;
+  position:relative!important;
+  z-index:2!important;
+  margin:0 0 60px!important;
+  padding:0!important;
+  font:400 11px/1.4 var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;
+  color:#555!important;
+}
+html body .content-hero.vcc-guide-hero-unified .vcc-guide-hero-copy{
+  position:relative!important;
+  z-index:2!important;
+  width:100%!important;
+  margin:0!important;
+  padding:0!important;
+}
+@media(max-width:700px){
+  html body .content-hero.vcc-guide-hero-unified{
+    height:450px!important;
+    min-height:450px!important;
+    padding:15px 18px 28px!important;
+    background:
+      var(--vcc-portada-veil),
+      var(--vcc-guide-photo-mobile,var(--vcc-guide-photo,url("/configuracion/imagenes/fondos/optimizadas/fondos-que-ver-960.webp")))
+      center center/cover no-repeat!important;
+  }
+  html body .content-hero.vcc-guide-hero-unified > .crumb{
+    margin-bottom:48px!important;
+    font-size:10px!important;
+  }
+}
+
+
+/* Subguies de Cómo llegar: manté la foto del transport i el breadcrumb.
+   El títol pot ocupar més línies, sense retallar el contingut. */
+html body .cl-page .cl-hero.vcc-guide-hero-unified{
+  box-sizing:border-box!important;
+  height:auto!important;min-height:475px!important;
+  max-height:none!important;
+  background:
+    var(--vcc-portada-veil),
+    url("/configuracion/imagenes/fondos/optimizadas/fondos-como-llegar-1920.webp")
+    center center/cover no-repeat!important;
+}
+html body .cl-page .cl-hero.vcc-guide-hero-unified .cl-hero-inner{
+  position:relative!important;
+  box-sizing:border-box!important;
+  width:min(1320px,calc(100% - 90px))!important;
+  max-width:1320px!important;
+  height:auto!important;
+  min-height:475px!important;
+  margin:auto!important;
+  padding:90px 0 48px!important;
+}
+html body .cl-page .cl-hero.vcc-guide-hero-unified .cl-card.vcc-guide-hero-copy{
+  position:relative!important;
+  top:auto!important;left:auto!important;
+  display:flex!important;
+  width:min(760px,100%)!important;
+  max-width:760px!important;
+  margin:0!important;
+  padding:0!important;
+}
+html body .cl-page .cl-hero.vcc-guide-hero-unified .cl-hero-line{display:none!important}
+@media(max-width:700px){
+ html body .cl-page .cl-hero.vcc-guide-hero-unified{
+   min-height:450px!important;
+   background:
+     var(--vcc-portada-veil),
+     url("/configuracion/imagenes/fondos/optimizadas/fondos-como-llegar-960.webp")
+     center center/cover no-repeat!important;
+ }
+ html body .cl-page .cl-hero.vcc-guide-hero-unified .cl-hero-inner{
+   width:calc(100% - 36px)!important;
+   min-height:450px!important;
+   padding:86px 0 38px!important;
+ }
+}
+
+/* Fotografies reals de Suecia i Estocolmo, ja presents al projecte. */
+html body .content-hero.vcc-guide-hero-unified[data-vcc-guide-topic="que-ver"]{
+  --vcc-guide-photo:url("https://img.viajandoconcabeza.com/__vcc_preview/visor/destinos/suecia/estocolmo/2026-dia6/DSC07952.avif");
+  --vcc-guide-photo-mobile:url("https://img.viajandoconcabeza.com/__vcc_preview/visor/destinos/suecia/estocolmo/2026-dia6/DSC07952.avif");
+}
+html body .content-hero.vcc-guide-hero-unified[data-vcc-guide-topic="consejos"]{
+  --vcc-guide-photo:url("https://img.viajandoconcabeza.com/__vcc_preview/visor/destinos/suecia/estocolmo/2026-dia6/DSC07935-VSCO.avif");
+  --vcc-guide-photo-mobile:url("https://img.viajandoconcabeza.com/__vcc_preview/visor/destinos/suecia/estocolmo/2026-dia6/DSC07935-VSCO.avif");
+}
+html body .content-hero.vcc-guide-hero-unified[data-vcc-guide-topic="donde-comer"]{
+  --vcc-guide-photo:url("https://img.viajandoconcabeza.com/__vcc_preview/visor/destinos/suecia/estocolmo/2026-dia6/DSC08037.avif");
+  --vcc-guide-photo-mobile:url("https://img.viajandoconcabeza.com/__vcc_preview/visor/destinos/suecia/estocolmo/2026-dia6/DSC08037.avif");
+}
+html body .content-hero.vcc-guide-hero-unified[data-vcc-guide-topic="barrios-miradores"]{
+  --vcc-guide-photo:url("https://img.viajandoconcabeza.com/__vcc_preview/visor/destinos/suecia/estocolmo/2026-dia6/DSC07943.avif");
+  --vcc-guide-photo-mobile:url("https://img.viajandoconcabeza.com/__vcc_preview/visor/destinos/suecia/estocolmo/2026-dia6/DSC07943.avif");
+}
+html body .content-hero.vcc-guide-hero-unified[data-vcc-guide-topic="islas-ferris"]{
+  --vcc-guide-photo:url("https://img.viajandoconcabeza.com/destinos/suecia/estocolmo-archipelago/2026-dia8/DSC08332.avif");
+  --vcc-guide-photo-mobile:url("https://img.viajandoconcabeza.com/destinos/suecia/estocolmo-archipelago/2026-dia8/DSC08332.avif");
+}
+html body .content-hero.vcc-guide-hero-unified[data-vcc-guide-topic="museos"]{
+  --vcc-guide-photo:url("https://img.viajandoconcabeza.com/__vcc_preview/visor/destinos/suecia/estocolmo/2026-dia6/DSC07952.avif");
+  --vcc-guide-photo-mobile:url("https://img.viajandoconcabeza.com/__vcc_preview/visor/destinos/suecia/estocolmo/2026-dia6/DSC07952.avif");
+}
+html body .content-hero.vcc-guide-hero-unified[data-vcc-guide-topic="parques-naturaleza"]{
+  --vcc-guide-photo:url("https://img.viajandoconcabeza.com/__vcc_preview/visor/destinos/suecia/estocolmo-archipelago/2026-dia8/DSC08335.avif");
+  --vcc-guide-photo-mobile:url("https://img.viajandoconcabeza.com/__vcc_preview/visor/destinos/suecia/estocolmo-archipelago/2026-dia8/DSC08335.avif");
+}
+
+
+/* VCC 2026-11-16 · Portadas principales del país y ciudad.
+   Misma jerarquía del resto de 39 guías; se conservan fotos,
+   valoración, datos y navegación particulares de cada landing. */
+html body .country-hero.vcc-guide-hero-unified{
+  min-height:585px!important;
+  height:auto!important;
+  padding:0!important;
+}
+html body .country-hero.vcc-guide-hero-unified .country-hero-inner{
+  box-sizing:border-box!important;
+  width:min(1320px,calc(100% - 90px))!important;
+  max-width:1320px!important;
+  padding:22px 0 44px!important;
+  margin:auto!important;
+}
+html body .country-hero.vcc-guide-hero-unified .country-breadcrumb{
+  transform:none!important;
+  margin:0 0 45px!important;
+  font:400 11px/1.4 var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;
+}
+html body .country-hero.vcc-guide-hero-unified .country-hero-card.vcc-guide-hero-copy{
+  width:min(760px,100%)!important;
+  max-width:760px!important;
+  padding:0!important;
+  margin:0!important;
+  transform:none!important;
+}
+html body .st-hero.vcc-guide-hero-unified{
+  box-sizing:border-box!important;
+  position:relative!important;
+  height:620px!important;
+  min-height:620px!important;
+  max-height:none!important;
+}
+html body .st-hero.vcc-guide-hero-unified::before{
+  content:""!important;
+  position:absolute!important;
+  inset:0!important;
+  z-index:0!important;
+  pointer-events:none!important;
+  background:var(--vcc-portada-veil)!important;
+}
+html body .st-hero.vcc-guide-hero-unified .st-hero-inner{
+  position:relative!important;
+  box-sizing:border-box!important;
+  width:min(1320px,calc(100% - 90px))!important;
+  max-width:1320px!important;
+  height:100%!important;
+  margin:auto!important;
+  padding:0!important;
+}
+html body .st-hero.vcc-guide-hero-unified .st-crumb{
+  top:18px!important;
+  left:0!important;
+  transform:none!important;
+  width:auto!important;
+  font:400 11px/1.4 var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;
+}
+html body .st-hero.vcc-guide-hero-unified .st-card.vcc-guide-hero-copy{
+  position:absolute!important;
+  top:106px!important;
+  left:0!important;
+  right:auto!important;
+  width:min(760px,100%)!important;
+  max-width:760px!important;
+  padding:0!important;
+  margin:0!important;
+}
+html body :is(.country-hero,.st-hero).vcc-guide-hero-unified .vcc-guide-hero-copy > .vcc-guide-hero-description{
+  max-width:670px!important;
+}
+html body :is(.country-hero,.st-hero).vcc-guide-hero-unified .country-facts,
+html body :is(.country-hero,.st-hero).vcc-guide-hero-unified .st-facts{
+  width:100%!important;
+  max-width:710px!important;
+  margin:18px 0 12px!important;
+  border-color:#e4d8cf!important;
+}
+html body :is(.country-hero,.st-hero).vcc-guide-hero-unified .hero-start{
+  margin-top:10px!important;
+}
+@media(max-width:850px){
+ html body .country-hero.vcc-guide-hero-unified{min-height:530px!important;}
+ html body .country-hero.vcc-guide-hero-unified .country-hero-inner,
+ html body .st-hero.vcc-guide-hero-unified .st-hero-inner{
+   width:calc(100% - 42px)!important;
+ }
+ html body .st-hero.vcc-guide-hero-unified{
+   height:auto!important;
+   min-height:575px!important;
+ }
+ html body .st-hero.vcc-guide-hero-unified .st-hero-inner{
+   height:auto!important;
+   min-height:575px!important;
+   padding:22px 0 30px!important;
+ }
+ html body .st-hero.vcc-guide-hero-unified .st-card.vcc-guide-hero-copy{
+   position:relative!important;
+   top:auto!important;
+   left:auto!important;
+   margin-top:78px!important;
+   padding-bottom:20px!important;
+ }
+}
+@media(max-width:600px){
+ html body .country-hero.vcc-guide-hero-unified{
+   min-height:0!important;
+ }
+ html body .country-hero.vcc-guide-hero-unified .country-hero-inner{
+   width:calc(100% - 36px)!important;
+   padding:18px 0 32px!important;
+ }
+ html body .country-hero.vcc-guide-hero-unified .country-breadcrumb{
+   margin-bottom:54px!important;
+ }
+ html body .st-hero.vcc-guide-hero-unified .st-hero-inner{
+   width:calc(100% - 36px)!important;
+   padding:16px 0 32px!important;
+ }
+ html body .st-hero.vcc-guide-hero-unified .st-card.vcc-guide-hero-copy{
+   margin-top:83px!important;
+   padding:0!important;
+ }
+ html body .st-hero.vcc-guide-hero-unified{min-height:600px!important;}
+ html body :is(.country-hero,.st-hero).vcc-guide-hero-unified .vcc-guide-hero-copy > h1{
+   font-size:var(--vcc-guide-hero-title-size)!important;
+ }
+ html body :is(.country-hero,.st-hero).vcc-guide-hero-unified .country-facts,
+ html body :is(.country-hero,.st-hero).vcc-guide-hero-unified .st-facts{
+   grid-template-columns:repeat(2,minmax(0,1fr))!important;
+   gap:10px!important;
+ }
+}
+
+
+
+
+/* Requadre de portada COMPARTIT entre Suècia i Estocolm.
+   Un únic control d'alçada/padding/CTA per a les dues landings;
+   la mida pot créixer quan el contingut ho requereix (sobretot en mòbil).
+   No modificar els CSS específics de país/ciutat per aquests espais. */
+html body.country-page .country-hero .country-hero-card.vcc-guide-hero-copy,
+html body .st-shell .st-hero .st-card.vcc-guide-hero-copy {
+  box-sizing:border-box!important;
+  min-height:370px!important;
+  height:auto!important;
+  display:flex!important;
+  flex-direction:column!important;
+  padding-top:28px!important;
+  padding-bottom:30px!important;
+}
+html body.country-page .country-hero .country-hero-card.vcc-guide-hero-copy > .hero-start,
+html body .st-shell .st-hero .st-card.vcc-guide-hero-copy > .hero-start {
+  align-self:flex-start!important;
+  margin-top:auto!important;
+  /* Separació del CTA respecte a les 4 dades, igual a Suècia i Estocolm. */
+  padding-top:24px!important;
+}
+@media(max-width:700px){
+  html body.country-page .country-hero .country-hero-card.vcc-guide-hero-copy > .hero-start,
+  html body .st-shell .st-hero .st-card.vcc-guide-hero-copy > .hero-start {
+    padding-top:32px!important;
+  }
+}
+/* VCC · Suècia / Estocolm: només escala de lletres als quadres de portada.
+   Les dimensions i els espaiats INTERNS recuperen els CSS originals
+   (pais.css i estocolmo-refine.css). Sense vcc-guide-hero-unified. */
+html body.country-page .country-hero .country-hero-card.vcc-guide-hero-copy > .vcc-guide-hero-kicker,
+html body .st-shell .st-hero .st-card.vcc-guide-hero-copy > .vcc-guide-hero-kicker {
+  font-size:26px!important;
+}
+html body.country-page .country-hero .country-hero-card.vcc-guide-hero-copy > h1,
+html body .st-shell .st-hero .st-card.vcc-guide-hero-copy > h1 {
+  font-size:clamp(48px,4.55vw,64px)!important;
+  line-height:1.04!important;
+  margin-bottom:16px!important;
+}
+html body.country-page .country-hero .country-hero-card.vcc-guide-hero-copy > .vcc-guide-hero-description,
+html body .st-shell .st-hero .st-card.vcc-guide-hero-copy > .vcc-guide-hero-description {
+  font-size:13px!important;
+}
+@media(max-width:700px){
+  html body.country-page .country-hero .country-hero-card.vcc-guide-hero-copy > .vcc-guide-hero-kicker,
+  html body .st-shell .st-hero .st-card.vcc-guide-hero-copy > .vcc-guide-hero-kicker {
+    font-size:23px!important;
+  }
+  html body.country-page .country-hero .country-hero-card.vcc-guide-hero-copy > h1,
+  html body .st-shell .st-hero .st-card.vcc-guide-hero-copy > h1 {
+    font-size:clamp(37px,9vw,48px)!important;
+  }
+  html body.country-page .country-hero .country-hero-card.vcc-guide-hero-copy > .vcc-guide-hero-description,
+  html body .st-shell .st-hero .st-card.vcc-guide-hero-copy > .vcc-guide-hero-description {
+    font-size:12.5px!important;
+  }
+}
+
+/* Suecia i Estocolmo: mateix degradat blanc que les altres portades.
+   Les dues fotos es mantenen intactes i només canvia el vel superior. */
+html body.country-page .country-hero::after,
+html body .st-shell .st-hero::after {
+  background:var(--vcc-portada-veil)!important;
+}
+/* En les portades unificades, evitem superposar dos vels diferents. */
+html body .st-hero.vcc-guide-hero-unified::before {
+  display:none!important;
+}
+
+
+/* VCC · MARGES LATERALS DE SUBHEADER · COMPARTIT
+   Un únic max-width / gutter per a contingut de les guies amb subheader.
+   No modifica hero, barra d'ancoratges ni seccions de fons a pantalla completa. */
+html body:has(nav.vcc-sacred-subnav){
+  --vcc-subheader-content-max:1490px;
+  --vcc-subheader-content-gutter:53px;
+}
+html body:has(nav.vcc-sacred-subnav) :is(
+  main.budget-main,
+  main.dv-main,
+  main.mv-container,
+  main.ci-main,
+  main.ep4-main,
+  main.ql-main,
+  main.content-shell
+){
+  box-sizing:border-box!important;
+  width:min(var(--vcc-subheader-content-max),calc(100% - 2 * var(--vcc-subheader-content-gutter)))!important;
+  max-width:var(--vcc-subheader-content-max)!important;
+  margin-inline:auto!important;
+}
+/* Dónde dormir Suecia contenia amplades de secció pròpies i repetia gutter:
+   amb el main unificat, totes les seccions han d'ocupar el 100% del main. */
+html body.dv-country-types:has(nav.vcc-sacred-subnav) main.dv-main > :is(#barrios,#como-ahorrar,#por-region,.dv-planifica-alojamiento-reuse){
+  box-sizing:border-box!important;
+  width:100%!important;
+  max-width:none!important;
+  margin-left:0!important;
+  margin-right:0!important;
+}
+html body.dv-country-types:has(nav.vcc-sacred-subnav) main.dv-main .al-compare .al-wrap{
+  box-sizing:border-box!important;
+  width:100%!important;
+  max-width:none!important;
+  margin-inline:0!important;
+}
+/* Cómo llegar és un main de fons a pantalla completa. Les seccions
+   interiors mantenen el fons ample, però comparteixen exactament l'eix
+   horitzontal amb les altres guies (sense max-width addicional). */
+html body:has(nav.vcc-sacred-subnav) main.cl-page.cl-landing > section:not(.cl-landing-hero):not(#vcc-lcp-hero){
+  box-sizing:border-box!important;
+  padding-left:max(var(--vcc-subheader-content-gutter),calc((100% - var(--vcc-subheader-content-max))/2))!important;
+  padding-right:max(var(--vcc-subheader-content-gutter),calc((100% - var(--vcc-subheader-content-max))/2))!important;
+}
+/* Aquesta secció tenia max-width propi + padding del main: dos marges
+   acumulats. Forcem una sola amplada, igual que l'aeroport i l'estalvi. */
+html body.vcc-suecia-planifica:has(nav.vcc-sacred-subnav) main.cl-page.cl-landing.sw-country-copy > section#como-llegar-regiones.sw-country-guides{
+  box-sizing:border-box!important;
+  width:100%!important;
+  max-width:none!important;
+  margin-inline:0!important;
+  padding-inline:max(var(--vcc-subheader-content-gutter),calc((100% - var(--vcc-subheader-content-max))/2))!important;
+}
+@media(max-width:1090px){
+  html body:has(nav.vcc-sacred-subnav){--vcc-subheader-content-gutter:19px}
+}
+@media(max-width:620px){
+  html body:has(nav.vcc-sacred-subnav){--vcc-subheader-content-gutter:15px}
+}
+
+
+/* VCC · Capçaleres de les etapes de l'itinerari: una sola fila editorial. */
+html body .vcc-summary > .vcc-editorial-heading,
+html body .day-section > .vcc-editorial-heading{
+  grid-column:1/-1!important;
+  grid-row:auto!important;
+  width:100%!important;
+  margin:0 0 6px!important;
+}
+html body .day-section > .vcc-editorial-heading .hand,
+html body .vcc-summary > .vcc-editorial-heading .hand{
+  transform:none!important;
+}
+
+/* Els itineraris rich (Roma/Fuerteventura) mantenen les columnes de
+   ruta i fotos, amb la capçalera compartida ocupant tota l'amplada. */
+html body .day-rich > .vcc-editorial-heading{
+  grid-column:1/-1!important;
+  width:100%!important;
+  margin:0!important;
+  padding:20px 24px 0!important;
+}
+@media(max-width:720px){
+  html body .day-rich > .vcc-editorial-heading{padding:16px 16px 0!important}
+}
+
+
+/* VCC · SEPARACIÓ ENTRE APARTATS ANCORATS AL SUBHEADER · 20261116
+   Font única per a totes les guies i pàgines Planifica.
+   Només espai EXTERIOR de seccions principals; no modifica targetes,
+   mapes, capçaleres, galeries, calculadores ni el hero.
+   Una mateixa mida a Suecia, Estocolmo, itineraris i Planifica. */
+html body:has(nav.vcc-sacred-subnav),
+html body.country-page:has(nav.country-nav),
+html body:has(.st-shell nav.st-tabs){
+  --vcc-section-space:76px;
+}
+
+/* Guia editorial: cada apartat principal comença a la mateixa distància.
+   La galeria d'agost de «Cuando ir» pertany a Experiencia, no és
+   un apartat independent del subheader. */
+html body:has(nav.vcc-sacred-subnav)
+main:is(.budget-main,.dv-main,.ci-main,.ep4-main,.ql-main,.content-shell)
+> section[id]:not(#ci-august-gallery-place){
+  box-sizing:border-box!important;
+  margin-block:0!important;
+}
+html body:has(nav.vcc-sacred-subnav)
+main:is(.budget-main,.dv-main,.ci-main,.ep4-main,.ql-main,.content-shell)
+> section[id]:not(#ci-august-gallery-place)
+~ section[id]:not(#ci-august-gallery-place){
+  margin-block-start:var(--vcc-section-space)!important;
+}
+html body:has(nav.vcc-sacred-subnav) main.ci-main > section#ci-august-gallery-place{
+  margin-block:0!important;
+}
+html body:has(nav.vcc-sacred-subnav) main:is(.budget-main,.dv-main,.ci-main){
+  padding-block-start:var(--vcc-section-space)!important;
+}
+
+/* Com moure's: cada bloc porta el seu espai superior, sense sumar marges. */
+html body:has(nav.vcc-sacred-subnav) main.mv-container > section.swmove-section{
+  margin-block:0!important;
+  padding-block-start:var(--vcc-section-space)!important;
+}
+html body:has(nav.vcc-sacred-subnav) main.mv-container > section.swmove-section:last-of-type{
+  padding-block-end:var(--vcc-section-space)!important;
+}
+
+/* Com arribar: el fons segueix a pantalla completa. Separa el contingut
+   amb padding, sense franges de fons ni marges duplicats. */
+html body:has(nav.vcc-sacred-subnav) main.cl-page.cl-landing
+> nav.vcc-sacred-subnav ~ section[id]:not(.related-section){
+  padding-block-start:var(--vcc-section-space)!important;
+  padding-block-end:0!important;
+  margin-block:0!important;
+}
+html body:has(nav.vcc-sacred-subnav) main.cl-page.cl-landing
+> nav.vcc-sacred-subnav ~ section[id]:not(.related-section):last-of-type{
+  padding-block-end:var(--vcc-section-space)!important;
+}
+
+/* Pàgines amb subheader DINS del main (Vuelos, Alojamientos,
+   Tarjetas, Seguros...) i pàgines amb nav just ABANS del main.
+   Només fills directes; mai subapartats dins targetes o panels. */
+html body:has(nav.vcc-sacred-subnav)
+main:not(.cl-page) > nav.vcc-sacred-subnav ~ section[id]:not(.related-section),
+html body nav.vcc-sacred-subnav ~ main > section[id]:not(.related-section){
+  margin-block-end:0!important;
+}
+html body:has(nav.vcc-sacred-subnav)
+main:not(.cl-page) > nav.vcc-sacred-subnav ~ section[id]:not(.related-section)
+~ section[id]:not(.related-section),
+html body nav.vcc-sacred-subnav ~ main > section[id]:not(.related-section)
+~ section[id]:not(.related-section){
+  margin-block-start:var(--vcc-section-space)!important;
+}
+
+/* Itinerari: La ruta i els dies són apartats germans,
+   encara que els dies siguin <article> en lloc de <section>. */
+html body:has(nav.vcc-sacred-subnav)
+main.vcc-shell > :is(section#resumen,article.day-section)
+~ :is(section#resumen,article.day-section){
+  margin-block-start:var(--vcc-section-space)!important;
+}
+
+/* Imprescindibles: cada lloc que té àncora pròpia disposa del mateix
+   marge exterior, sense tocar la fitxa interna ni les seves imatges. */
+html body:has(nav.place-nav-wrap.vcc-sacred-subnav)
+main.imp-main > section.place ~ section.place{
+  margin-block-start:var(--vcc-section-space)!important;
+}
+
+/* Hubs de país i ciutat amb subheader tradicional. */
+html body.country-page .country-main > section + section,
+html body .st-shell .st-main > section + section{
+  margin-block-start:var(--vcc-section-space)!important;
+}
+
+/* Distància uniforme de tancament amb el bloc següent. */
+html body:has(nav.vcc-sacred-subnav) section:is(.related-section,.vcc-discover-section){
+  margin-block-start:calc(var(--vcc-section-space) + 8px)!important;
+}
+html body:has(nav.vcc-sacred-subnav):not(:has(section:is(.related-section,.vcc-discover-section)))
+footer.vcc-global-footer{
+  margin-block-start:calc(var(--vcc-section-space) + 8px)!important;
+}
+
+/* No afegir dues separacions per culpa del padding històric de plantilla. */
+html body:has(nav.vcc-sacred-subnav) main:is(.dv-main,.ci-main){
+  padding-block-end:0!important;
+}
+html body.dv-country-types:has(nav.vcc-sacred-subnav)
+main.dv-main > .dv-planifica-alojamiento-reuse{
+  margin:0 0 var(--vcc-section-space)!important;
+  padding:0!important;
+}
+html body.dv-country-types:has(nav.vcc-sacred-subnav)
+main.dv-main > .dv-planifica-alojamiento-reuse > .al-compare{
+  padding-block:0!important;
+}
+
+@media(max-width:760px){
+  html body:has(nav.vcc-sacred-subnav),
+  html body.country-page:has(nav.country-nav),
+  html body:has(.st-shell nav.st-tabs){
+    --vcc-section-space:52px;
+  }
+}
