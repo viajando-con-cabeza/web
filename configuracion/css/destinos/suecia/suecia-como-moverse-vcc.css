@@ -528,3 +528,21 @@ html body .swmove-page #transportes .swmove-infra-card .swmove-infra-opinion .vc
  .swmove-page .swmove-infra-area > .swmove-infra-actions{top:31px;right:9px}
  .swmove-page .swmove-infra-card .swmove-infra-title{padding-right:31px}
 }
+
+/* VCC 2026-11-17 · Capçalera grisa compartint el patró visual de
+   "Dónde dormir en Estocolmo" (#f6f6f5), sense alterar les dues columnes.
+   Només a la fitxa que s'obre amb VER DESGLOSE del primer apartat. */
+html body .swmove-page #transportes .swmove-infra-card .swmove-infra-title{
+  box-sizing:border-box;
+  background:#f6f6f5;
+  border-bottom:1px solid #e8e7e5;
+  border-radius:14px 14px 0 0;
+  margin:-16px -20px 14px;
+  padding:16px 55px 13px 20px;
+}
+@media(max-width:700px){
+  html body .swmove-page #transportes .swmove-infra-card .swmove-infra-title{
+    margin:-12px -13px 12px;
+    padding:12px 43px 10px 13px;
+  }
+}
