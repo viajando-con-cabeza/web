@@ -98,3 +98,41 @@ html body.budget-vcc #sorpresas .vcc-editorial-error-card > div{
 @media(prefers-reduced-motion:reduce){
   html body.budget-vcc :is(#ahorrar,#sorpresas) .carousel-shell > .tips-track{scroll-behavior:auto!important}
 }
+
+/* Geometria comuna de les icones d'Estocolm: Cómo ahorrar i Errores a evitar.
+   Mateixa caixa, padding i gap a totes les targetes sense canviar tipografia ni carrusels. */
+html body.budget-vcc{
+  --vcc-budget-editorial-icon-size:36px;
+  --vcc-budget-editorial-card-padding:14px;
+  --vcc-budget-editorial-card-gap:10px;
+}
+html body.budget-vcc #ahorrar.savings-section .saving-tip.vcc-editorial-numbered-card,
+html body.budget-vcc #sorpresas.surprise-section .vcc-editorial-error-card{
+  display:flex!important;
+  flex-direction:row!important;
+  align-items:flex-start!important;
+  padding:var(--vcc-budget-editorial-card-padding)!important;
+  gap:var(--vcc-budget-editorial-card-gap)!important;
+}
+html body.budget-vcc #ahorrar.savings-section .saving-tip.vcc-editorial-numbered-card > .saving-number.vcc-numero-unificado,
+html body.budget-vcc #sorpresas.surprise-section .vcc-editorial-error-card > .surprise-icon.vcc-editorial-error-icon{
+  flex:0 0 var(--vcc-budget-editorial-icon-size)!important;
+  width:var(--vcc-budget-editorial-icon-size)!important;
+  height:var(--vcc-budget-editorial-icon-size)!important;
+  min-width:var(--vcc-budget-editorial-icon-size)!important;
+  min-height:var(--vcc-budget-editorial-icon-size)!important;
+  margin:0!important;
+  align-self:flex-start!important;
+}
+html body.budget-vcc #ahorrar.savings-section .saving-tip.vcc-editorial-numbered-card > .saving-tip-copy,
+html body.budget-vcc #sorpresas.surprise-section .vcc-editorial-error-card > div{
+  flex:1 1 0!important;
+  min-width:0!important;
+}
+@media(max-width:650px){
+  html body.budget-vcc{
+    --vcc-budget-editorial-icon-size:34px;
+    --vcc-budget-editorial-card-padding:12px;
+    --vcc-budget-editorial-card-gap:9px;
+  }
+}
