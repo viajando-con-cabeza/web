@@ -2,6 +2,8 @@
 
 La branca de desenvolupament es quality. Produccio main no es modifica sense aprovacio.
 
+**Arquitectura futura:** `configuracion/ARQUITECTURA-ESCALABLE-VCC.md` és el mapa de dependències, plantilles de referència (Suècia/Estocolm), idiomes ES/EN, automatització n8n i fase de migració sense pèrdua del disseny. No confondre `paises-vcc.json` amb un registre de publicació.
+
 ## GitHub: recursos globals
 
 - configuracion/imagenes/marca/: SVG i logos oficials.
