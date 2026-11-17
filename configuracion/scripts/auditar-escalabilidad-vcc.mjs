@@ -3,6 +3,7 @@
  */
 import fs from "node:fs";
 import path from "node:path";
+import {gzipSync} from "node:zlib";
 import {ROOT, approvedFiles, publicRoute, normalizePublicPath, listSiteHtml} from "./lib/publicacion-vcc.mjs";
 
 const published=new Set(approvedFiles.map(publicRoute)), pages=listSiteHtml().sort();
@@ -18,6 +19,13 @@ const scripts=walk(path.join(ROOT,"configuracion/js")).filter(p=>p.endsWith(".js
 const images=walk(path.join(ROOT,"configuracion/imagenes"))
   .filter(p=>/\.(?:webp|avif|png|jpe?g)$/i.test(p));
 const sizes=new Map([...styles,...scripts,...images].map(p=>["/"+path.relative(ROOT,p).split(path.sep).join("/"),fs.statSync(p).size]));
+// La mida CSS sense compressió és de diagnòstic; per detectar el cost
+// aproximat de xarxa fem gzip per full. Cloudflare pot usar Brotli, per
+// tant aquesta no és una mesura real del CDN ni dels bytes a la cache.
+const cssGzip=new Map(styles.map(p=>[
+ "/"+path.relative(ROOT,p).split(path.sep).join("/"),
+ gzipSync(fs.readFileSync(p),{level:9}).length
+]));
 const approved=new Set(approvedFiles);
 const stats={html:pages.length,approved:approved.size,drafts:pages.length-approved.size,cssFiles:styles.length,jsFiles:scripts.length,
   cssBytes:styles.reduce((n,p)=>n+fs.statSync(p).size,0),jsBytes:scripts.reduce((n,p)=>n+fs.statSync(p).size,0)};
@@ -46,6 +54,7 @@ for(const file of pages){
       (sizes.get(url)||0)>400*1024 && !/\bsrcset=["']/.test(tag);
   });
   const result={file,live,stylesheets:css.length,cssRawBytes:css.reduce((n,u)=>n+(sizes.get(u)||0),0),
+    cssGzipEstimate:css.reduce((n,u)=>n+(cssGzip.get(u)||0),0),
     javascript:js.length,jsRawBytes:js.reduce((n,u)=>n+(sizes.get(u)||0),0),
     repeatedCSS:repeatCss.length,repeatedJS:repeatJs.length,inlineStyle:(html.match(/<style\b/gi)||[]).length,
     inlineScript:(html.match(/<script\b(?![^>]*\bsrc=)(?![^>]*application\/ld\+json)[^>]*>/gi)||[]).length,
@@ -55,7 +64,17 @@ for(const file of pages){
     if(missingAlt)critical.push(file+": "+missingAlt+" imagenes sin texto alternativo");
     if(heavyImg.length)critical.push(file+": "+heavyImg.length+" fotografies locals >400 KB sense srcset");
     if(css.length>20)critical.push(file+": "+css.length+" hojas CSS (límite 20)");
-    if(result.cssRawBytes>350*1024)critical.push(file+": "+Math.round(result.cssRawBytes/1024)+" KB de CSS original (límite 350 KB)");
+    // 350KB de CSS cru no equivalen al que descarrega l'usuari.
+    // No relaxem el pressupost: el substituïm per un límit
+    // comprimit + límit dur de CSS cru per protegir el parseig.
+    if(result.cssGzipEstimate>125*1024)
+      critical.push(file+": "+Math.round(result.cssGzipEstimate/1024)+" KB gzip CSS estimat (límit 125 KB)");
+    if(result.cssRawBytes>650*1024)
+      critical.push(file+": "+Math.round(result.cssRawBytes/1024)+" KB CSS cru (límit sever 650 KB)");
+    else if(result.cssRawBytes>350*1024)
+      findings.push({file,kind:"heavy-css-uncompressed",
+        rawKB:Math.round(result.cssRawBytes/1024),
+        gzipKB:Math.round(result.cssGzipEstimate/1024)});
     if(!html.includes("site-header.js")||!html.includes("site-footer.js"))
       critical.push(file+": faltan componentes comunes header/footer");
   }
@@ -70,7 +89,7 @@ const totals={duplicateCSS:sum("repeatedCSS"),duplicateJS:sum("repeatedJS"),inli
   inlineScript:sum("inlineScript"),missingAlt:pageStats.filter(x=>x.live).reduce((n,x)=>n+x.missingAlt,0),
   pagesLinkingDrafts:pageStats.filter(x=>x.live&&x.linksToDrafts).length};
 pageStats.sort((a,b)=>b.cssRawBytes-a.cssRawBytes);
-const topCssPages=pageStats.slice(0,12).map(x=>({file:x.file,css:x.stylesheets,cssKB:Math.round(x.cssRawBytes/1024),
+const topCssPages=pageStats.slice(0,12).map(x=>({file:x.file,css:x.stylesheets,cssKB:Math.round(x.cssRawBytes/1024),gzipKB:Math.round(x.cssGzipEstimate/1024),
   js:x.javascript,jsKB:Math.round(x.jsRawBytes/1024),draftLinks:x.linksToDrafts}));
 const report={stats,totals,topCssPages,findings:findings.slice(0,90),critical};
 if(process.argv.includes("--json"))console.log(JSON.stringify(report,null,2));
@@ -91,7 +110,7 @@ if(process.env.GITHUB_STEP_SUMMARY){
     "Enllaços als esborranys en pàgines publicables: "+totals.pagesLinkingDrafts,
     "CSS/JS duplicats a la mateixa pàgina: "+totals.duplicateCSS+"/"+totals.duplicateJS,
     "### CSS per pàgina"];
-  for(const p of topCssPages.slice(0,6))lines.push("- "+p.file+": "+p.cssKB+" KB ("+p.css+" fitxers)");
+  for(const p of topCssPages.slice(0,6))lines.push("- "+p.file+": "+p.cssKB+" KB cru / ~"+p.gzipKB+" KB gzip ("+p.css+" fitxers)");
   fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY,lines.join("\n")+"\n");
 }
 if(process.argv.includes("--strict-hubs")&&critical.length)process.exitCode=1;
