@@ -372,3 +372,40 @@ html body .swmove-page #comparar .swmove-compare-result > .swmove-compare-saving
     padding:7px!important;
   }
 }
+
+/* Suecia · 17-11-2026: viatgers compartits, controls compactes i
+   lectura del cost del grup i per persona sense canviar la graella. */
+.swmove-page #comparar .swmove-compare-travelers{
+  display:flex;align-items:center;flex-wrap:wrap;
+  gap:6px 14px;margin-top:9px;
+}
+.swmove-page #comparar .swmove-compare-travelers label{
+  display:inline-flex;align-items:center;gap:9px;
+  color:#484440;font:700 11px/1.3 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
+}
+.swmove-page #comparar .swmove-compare-travelers input{
+  box-sizing:border-box;width:68px;height:33px;
+  border:1px solid #ded8d2;border-radius:7px;
+  padding:5px 7px;background:#fff;color:#292927;
+  font:700 13px/1.1 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
+  font-variant-numeric:tabular-nums;text-align:center;
+}
+.swmove-page #comparar .swmove-compare-travelers input:focus-visible{
+  outline:2px solid #b6654c;outline-offset:1px;
+}
+.swmove-page #comparar .swmove-compare-travelers small{
+  color:#837970;font:400 10.3px/1.4 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
+}
+.swmove-page #comparar .swmove-compare-total>div{
+  display:flex;flex-direction:column;gap:3px;min-width:0;
+}
+.swmove-page #comparar .swmove-compare-total>div>span{
+  color:#6f6862;font:700 10px/1.3 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
+}
+.swmove-page #comparar .swmove-compare-total>div>small{
+  color:#8a7667;font:600 10.5px/1.3 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
+  font-variant-numeric:tabular-nums;
+}
+@media(max-width:700px){
+  .swmove-page #comparar .swmove-compare-travelers{gap:5px 9px}
+}

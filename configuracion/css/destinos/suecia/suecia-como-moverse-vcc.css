@@ -320,35 +320,31 @@
 .swmove-page #transportes .mv-card-advice-item strong{
   font:600 14px/1.18 var(--vcc-font-heading,"Oswald",sans-serif);
 }
-/* La decisión sobre el coche: dos tarjetas compactas, iconos ✓/× sin puntos. */
+/* Dos decisiones compactas: titulares completos, ✓ verde y × roja. */
 .swmove-page .swmove-choice-grid{gap:12px}
 .swmove-page .swmove-choice{padding:12px 15px 11px}
-.swmove-page .swmove-choice-head{gap:10px;margin-bottom:7px;padding-bottom:8px}
+.swmove-page #comparar .swmove-choice-head{gap:10px;margin-bottom:6px;padding-bottom:7px}
 .swmove-page .swmove-choice-face{width:35px;height:35px;flex-basis:35px}
 .swmove-page .swmove-choice-face svg{width:34px;height:34px}
-.swmove-page .swmove-choice-label{font-size:9px;margin-bottom:2px}
-.swmove-page .swmove-choice h3{font-size:20px;margin-bottom:2px}
+.swmove-page #comparar .swmove-choice h3{font-size:clamp(18px,1.65vw,21px);line-height:1.15;margin:0 0 3px}
 .swmove-page .swmove-choice-head p{font-size:10.5px;line-height:1.3}
-/* Mateix format editorial per a les dues decisions: punts neutres,
-   sense tics/creus ni línies separadores entre elements. */
-.swmove-page #comparar .swmove-choice-list{gap:5px}
+.swmove-page #comparar .swmove-choice-list{gap:2px}
 .swmove-page #comparar .swmove-choice-list li{
-  padding:2px 0 2px 15px;
+  padding:2px 0 2px 22px;
   border:0!important;
-  font:400 11.5px/1.42 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
+  font:400 11.5px/1.34 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
 }
 .swmove-page #comparar .swmove-choice-list li:last-child{padding-bottom:2px}
-.swmove-page #comparar .swmove-choice-list li::before,
+.swmove-page #comparar .swmove-choice-list li::before{
+  content:"✓"!important;
+  position:absolute;left:0;top:1px;
+  display:block;width:16px;height:auto;
+  border:0;border-radius:0;background:transparent!important;
+  color:#19804b;font:800 14px/1.25 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
+}
 .swmove-page #comparar .swmove-choice--no .swmove-choice-list li::before{
-  content:""!important;
-  position:absolute;
-  left:1px;top:.68em;
-  display:block;
-  width:5px;height:5px;
-  border:0;
-  border-radius:50%;
-  background:#b77b60;
-  font-size:0;
+  content:"×"!important;color:#c34c46;
+  font-size:17px;line-height:1.08;
 }
 @media(max-width:700px){
   .swmove-page .swmove-choice-grid{gap:9px}

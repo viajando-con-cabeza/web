@@ -42,12 +42,14 @@
     });
 
     // Los datos de ambas alternativas siempre están visibles. Se introducen
-    // importes totales del viaje (grupo y trayectos completos), no tarifas/pax/día.
+    // coche: costes compartidos del grupo; transporte alternativo: costes por persona.
     const form=page.querySelector("#swmove-calc");
     if(!form)return;
     const field=name=>form.elements.namedItem(name);
     const resultPublic=page.querySelector("[data-sw-public-total]");
     const resultCar=page.querySelector("[data-sw-car-total]");
+    const resultPublicPerPerson=page.querySelector("[data-sw-public-per-person]");
+    const resultCarPerPerson=page.querySelector("[data-sw-car-per-person]");
     const verdict=page.querySelector("[data-sw-verdict]");
     const saving=page.querySelector("[data-sw-saving]");
     const savingLabel=page.querySelector("[data-sw-saving-label]");
@@ -61,24 +63,31 @@
       return Number.isFinite(num)&&num>=0?num:null;
     };
     function recalculate(){
+      const groupSize=asAmount("personas");
+      const persons=Number.isInteger(groupSize)&&groupSize>=1&&groupSize<=9?groupSize:null;
       const publicFare=asAmount("publico");
       const publicExtra=asAmount("extra_publico");
       const rental=asAmount("alquiler");
       const fuel=asAmount("combustible");
       const insurance=asAmount("seguro");
       const parking=asAmount("parking");
-      // Solo son obligatorios los dos importes principales; extras vacíos = 0.
-      const publicTotal=publicFare===null?null:publicFare+(publicExtra??0);
+      // Costes del coche para todo el grupo; billetes y extras alternativos por persona.
+      // Los campos opcionales vacíos equivalen a 0.
+      const publicPerPerson=publicFare===null?null:publicFare+(publicExtra??0);
       const carTotal=rental===null?null:rental+(fuel??0)+(insurance??0)+(parking??0);
+      const publicTotal=publicPerPerson===null||persons===null?null:Math.round(publicPerPerson*persons*100)/100;
+      const carPerPerson=carTotal===null||persons===null?null:Math.round(carTotal/persons*100)/100;
       if(resultPublic)resultPublic.textContent=publicTotal===null?"—":format.format(publicTotal);
-      if(resultCar)resultCar.textContent=carTotal===null?"—":format.format(carTotal);
+      if(resultCar)resultCar.textContent=carTotal===null||persons===null?"—":format.format(carTotal);
+      if(resultPublicPerPerson)resultPublicPerPerson.textContent=publicPerPerson===null||persons===null?"— / pax":format.format(publicPerPerson)+" / pax";
+      if(resultCarPerPerson)resultCarPerPerson.textContent=carPerPerson===null?"— / pax":format.format(carPerPerson)+" / pax";
       if(!verdict||!saving||!savingLabel||!savingWith||!savingBox)return;
       if(publicTotal===null||carTotal===null){
         savingBox.dataset.savings="pending";
         savingLabel.textContent="AHORRO ESTIMADO";
         saving.textContent="—";
-        savingWith.textContent="Completa el precio de ambas opciones";
-        verdict.textContent="Introduce los precios";
+        savingWith.textContent=persons===null?"Indica entre 1 y 9 personas":"Completa el precio de ambas opciones";
+        verdict.textContent=persons===null?"Indica los viajeros":"Introduce los precios";
         return;
       }
       const difference=Math.round((carTotal-publicTotal)*100)/100;
