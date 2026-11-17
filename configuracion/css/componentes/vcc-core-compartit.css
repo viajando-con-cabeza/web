@@ -496,6 +496,10 @@ html body nav.vcc-unified-subheader.vcc-unified-subheader.ci-subnav.ci-subnav-pi
    El componente lo construye configuracion/js/site-header.js, siempre en
    la raíz del hero, independientemente del CSS de cada plantilla.
    Importante: NO añadir reglas locales de breadcrumb en nuevas páginas. */
+/* VCC · eix horitzontal únic de la ruta de navegació.
+   * No modifica l'altura de portada ni el text de l'hero. */
+:root{--vcc-breadcrumb-gutter:max(46px,calc((100vw - 1510px)/2));}
+@media(max-width:720px){:root{--vcc-breadcrumb-gutter:18px;}}
 html body .vcc-has-global-breadcrumb{
   position:relative!important;
 }
@@ -503,7 +507,7 @@ html body #vcc-global-breadcrumb{
   position:absolute!important;
   z-index:100!important;
   top:12px!important;
-  left:26px!important;
+  left:var(--vcc-breadcrumb-gutter)!important;
   right:auto!important;
   bottom:auto!important;
   display:flex!important;
@@ -513,7 +517,7 @@ html body #vcc-global-breadcrumb{
   gap:0!important;
   width:auto!important;
   height:auto!important;
-  max-width:calc(100% - 70px)!important;
+  max-width:calc(100% - 2 * var(--vcc-breadcrumb-gutter))!important;
   min-height:0!important;
   margin:0!important;
   padding:0!important;
@@ -583,8 +587,8 @@ html body .vcc-original-breadcrumb{
 @media(max-width:720px){
   html body #vcc-global-breadcrumb{
     top:11px!important;
-    left:12px!important;
-    max-width:calc(100% - 24px)!important;
+    left:var(--vcc-breadcrumb-gutter)!important;
+    max-width:calc(100% - 2 * var(--vcc-breadcrumb-gutter))!important;
     font-size:11px!important;
     line-height:1.4!important;
     row-gap:2px!important;
@@ -601,18 +605,6 @@ html body .vcc-breadcrumb-on-dark #vcc-global-breadcrumb strong{color:#fff!impor
 html body .vcc-breadcrumb-on-dark #vcc-global-breadcrumb .vcc-bc-sep{color:#e7e1da!important}
 html body .vcc-breadcrumb-on-dark #vcc-global-breadcrumb a:is(:hover,:focus-visible){color:#ffa482!important}
 
-/* La molla de pa i el text utilitzen el mateix eix horitzontal
-   a totes les portades interiors (cap excepció a Qué visitar). */
-html body .vcc-sacred-hero #vcc-global-breadcrumb{
-  left:var(--vcc-contract-gutter,46px)!important;
-  max-width:calc(100% - 92px)!important;
-}
-@media(max-width:720px){
-  html body .vcc-sacred-hero #vcc-global-breadcrumb{
-    left:18px!important;
-    max-width:calc(100% - 36px)!important;
-  }
-}
 
 /* === configuracion/css/componentes/header-vcc-global.css === */
 /* VCC Header global · Cascade exacta de styles unificats. */
