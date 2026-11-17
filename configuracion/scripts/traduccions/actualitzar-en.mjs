@@ -39,6 +39,9 @@ function segments(html){
 const state=fs.existsSync(fullOut)?JSON.parse(fs.readFileSync(fullOut,'utf8')):{version:1,model,segments:{},pages:{}};
 if(state.version!==1||state.model!==model)throw Error('Unsupported translation memory version/model');
 state.rejected||={};
+const today=new Date().toISOString().slice(0,10);
+if(state.daily?.date!==today)state.daily={date:today,requested:0};
+const maxPerDay=Math.max(0,Math.min(150,Number(options.maxSegmentsPerDay||80)));
 let pending=0,done=0,requested=0,failed=0;const errors=[];
 async function translate(text){
  const endpoint=process.env.VCC_TRANSLATOR_URL, token=process.env.VCC_TRANSLATOR_OIDC;
@@ -66,8 +69,9 @@ for(const source of sources){
   const key=sha(model+'\0'+t);
   if(!state.segments[key]&&!state.rejected[key]){
    pending++;
-   if(requested>=maxPerRun)continue;
+   if(requested>=maxPerRun||state.daily.requested>=maxPerDay)continue;
    requested++;
+   state.daily.requested++;
    try{
     const en=await translate(t);
     const changed=['VCC','Viajando con Cabeza'].some(brand=>t.includes(brand)&&!en.includes(brand));
