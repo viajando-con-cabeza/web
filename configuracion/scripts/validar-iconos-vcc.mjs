@@ -48,7 +48,12 @@ for(const file of files){
   }
 }
 console.log('VCC icones: '+htmlChecked+' HTML · '+cssChecked+' CSS · '+jsChecked+' JS · '+externalReferences+' referencies externes verificades; '+legacyDrafts.length+' SVG pendents en esborranys (no publicats)');
-if(legacyDrafts.length)console.warn('AVIS VCC: migració SVG pendent en '+new Set(legacyDrafts.map(s=>s.split(':')[0])).size+' esborranys; es bloquejaran quan entrin al registre editorial.');
+if(legacyDrafts.length){
+  const byFile=new Map();
+  for(const issue of legacyDrafts){const file=issue.split(':')[0];byFile.set(file,(byFile.get(file)||0)+1);}
+  console.warn('AVIS VCC: SVG en esborranys, pendent de migració:',JSON.stringify([...byFile].map(([file,count])=>({file,count}))));
+  console.warn('Les icones internes es bloquejaran si aquests esborranys s’aproven.');
+}
 if(errors.length){
  for(const item of errors.slice(0,100))console.error('ICONA INCORRECTA:',item);
  process.exitCode=1;
