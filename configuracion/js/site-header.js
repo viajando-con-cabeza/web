@@ -35,7 +35,7 @@
   // Tokens, carrusels, subheader, breadcrumb i header en un sol CSS.
   ensureSharedResource('link',
     'link[data-vcc-core-styles], link[href*="/configuracion/css/componentes/vcc-core-compartit.css"]',
-    'configuracion/css/componentes/vcc-core-compartit.css?v=20261112-core-v1','vccCoreStyles');
+    'configuracion/css/componentes/vcc-core-compartit.css?v=20261117-breadcrumb-universal-v2','vccCoreStyles');
 
   // Related només es carrega en pàgines amb targetes relacionades.
   const mountRelatedSectionStyles=()=>{
