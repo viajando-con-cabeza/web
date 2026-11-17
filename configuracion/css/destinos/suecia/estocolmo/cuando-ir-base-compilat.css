@@ -2255,26 +2255,3 @@ html body .vcc-discover-section .related-grid .vcc-related-arrow{
   html body .vcc-discover-section .related-grid .vcc-related-icon{flex-basis:33px!important;width:33px!important;height:33px!important}
   html body .vcc-discover-section .related-grid .vcc-related-copy strong{font-size:19px!important}
 }
-
-/* VCC 2026-11-17 · consejo mensual més ample i equilibrat, sense canviar-ne l'alçada. */
-/* Només la fitxa mes a mes d'Estocolmo. El límit antic de 455px
-   feia que el consell semblés una pastilla massa petita al centre. */
-html body.ci-page #mes-a-mes .ci-month-result .ci-month-right > .ci-month-vcc,
-html body.ci-page #mes-a-mes .ci-month-result .ci-month-right > .ci-month-procon + .ci-month-vcc{
-  box-sizing:border-box!important;
-  width:min(82%,680px)!important;
-  max-width:680px!important;
-  min-width:0!important;
-  margin-left:auto!important;
-  margin-right:auto!important;
-  justify-self:center!important;
-}
-/* En mòbil estret mantenim l'aprofitament del 100% de la columna
-   perquè la caixa i el logo continuïn sent llegibles. */
-@media(max-width:600px){
- html body.ci-page #mes-a-mes .ci-month-result .ci-month-right > .ci-month-vcc,
- html body.ci-page #mes-a-mes .ci-month-result .ci-month-right > .ci-month-procon + .ci-month-vcc{
-  width:100%!important;
-  max-width:100%!important;
- }
-}
