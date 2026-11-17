@@ -23,12 +23,13 @@ export function validateModel(c){
   const errors=[];
   if(c?.version!==1||!entityTypes.includes(c.kind))errors.push('version/kind');
   for(const key of ['slug','country'])if(!token.test(c[key]||''))errors.push(key);
+  if(c.kind==='country'&&c.slug!==c.country)errors.push('Country slug ha de coincidir amb country');
   if((c.kind==='city'||c.kind==='itinerary')&&c.region&&!token.test(c.region))errors.push('region');
   if(c.kind==='itinerary'&&!token.test(c.city||''))errors.push('city');
   if(!String(c.name||'').trim()||!String(c.description||'').trim())errors.push('name/description');
   if(!['draft','reviewed'].includes(c.status))errors.push('status');
   if(!Array.isArray(c.facts)||!Array.isArray(c.sections)||!Array.isArray(c.faq))errors.push('facts/sections/faq');
-  if(c.kind==='itinerary'&&(!Array.isArray(c.days)||!c.days.length))errors.push('days');
+  if(c.kind==='itinerary'&&(!Array.isArray(c.days)||(c.status==='reviewed'&&!c.days.length)))errors.push('days');
   for(const s of c.sections||[]){
     if(!token.test(s.id||'')||!String(s.title||'').trim())errors.push('section '+s.id);
     for(const card of s.cards||[]){
