@@ -123,7 +123,7 @@ export function renderDestination(c){
    '<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=DM+Sans:wght@400;500;600;700;800&family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet">',
    '<link rel="stylesheet" data-vcc-core-styles href="/configuracion/css/componentes/vcc-core-compartit.css">',
    '<link rel="stylesheet" href="/configuracion/css/plantillas/destinos-genericos-vcc.css">',
-   ...(published?schemaFor(c,route).map(x=>'<script type="application/ld+json">'+json(x)+'</script>'):[]),
+   ...(published?schemaFor(c,route).map(x=>'<script type="application/ld+json"'+(x['@type']==='WebPage'?' data-vcc-generated-page':'')+'>'+json(x)+'</script>'):[]),
    '</head>'];
  const body=['<body class="vcc-destino-v2" data-vcc-generated-destination="1" data-vcc-kind="'+c.kind+'">',
    '<header class="shared-header"></header>',
