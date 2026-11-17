@@ -192,3 +192,147 @@
 @media(max-width:370px){
   .swmove-page #comparar .swmove-compare-fields{grid-template-columns:minmax(0,1fr)}
 }
+
+/* VCC · 17-11-2026 — Resultat més breu, emblema real i diferencial honest.
+   L'estalvi/sobrecost es calcula respecte al transport alternatiu;
+   es pinta únicament el número, no la recomanació ni els altres textos. */
+.swmove-page #comparar .swmove-compare-result{
+  padding:10px 12px;
+}
+.swmove-page #comparar .swmove-compare-result-heading{
+  display:flex;
+  align-items:center;
+  gap:9px;
+  min-width:0;
+  margin:0 0 8px;
+}
+.swmove-page #comparar .swmove-compare-result-heading .swmove-compare-brand{
+  flex:0 0 35px;
+  display:block;
+  width:35px;
+  height:35px;
+  object-fit:contain;
+}
+.swmove-page #comparar .swmove-compare-result-headcopy{
+  min-width:0;
+}
+.swmove-page #comparar .swmove-compare-result-heading .swmove-compare-result-headcopy>span{
+  display:block;
+  color:#a65c44;
+  letter-spacing:.04em;
+  font:800 9px/1.25 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
+}
+.swmove-page #comparar .swmove-compare-result-heading h4{
+  margin:2px 0 0;
+  font-size:18px;
+}
+.swmove-page #comparar .swmove-compare-verdict{
+  gap:3px;
+}
+.swmove-page #comparar .swmove-compare-verdict>strong{
+  font-size:clamp(18px,1.7vw,22px);
+}
+.swmove-page #comparar .swmove-compare-saving{
+  gap:3px;
+  margin-top:8px;
+  padding-top:9px;
+}
+.swmove-page #comparar .swmove-compare-saving>strong{
+  color:#292925;
+  font-size:clamp(24px,2.1vw,29px);
+}
+.swmove-page #comparar .swmove-compare-saving[data-savings="positive"]>strong{
+  color:#19804b!important;
+}
+.swmove-page #comparar .swmove-compare-saving[data-savings="negative"]>strong{
+  color:#c34c46!important;
+}
+.swmove-page #comparar .swmove-compare-saving:is([data-savings="pending"],[data-savings="neutral"])>strong{
+  color:#292925!important;
+}
+.swmove-page #comparar .swmove-compare-footer{
+  margin-top:auto;
+  padding-top:8px;
+  gap:6px;
+}
+/* Quan el resultat passa a sota dels dos inputs, aprofitem una sola
+   fila de dades: emblema | recomanació | import. */
+@media(min-width:701px) and (max-width:1160px){
+ .swmove-page #comparar .swmove-compare-result{
+   display:grid;
+   grid-template-columns:minmax(155px,.85fr) minmax(0,1.1fr) minmax(150px,.85fr);
+   grid-template-rows:auto auto;
+   column-gap:12px;
+   row-gap:5px;
+   align-items:center;
+   padding:10px 12px;
+ }
+ .swmove-page #comparar .swmove-compare-result-heading{
+   grid-column:1;grid-row:1;margin:0;
+ }
+ .swmove-page #comparar .swmove-compare-verdict{
+   grid-column:2;grid-row:1;
+ }
+ .swmove-page #comparar .swmove-compare-saving{
+   grid-column:3;grid-row:1;
+   margin:0;padding:0 0 0 12px;
+   border-top:0;border-left:1px solid #eadfd6;
+ }
+ .swmove-page #comparar .swmove-compare-footer{
+   grid-column:1/-1;grid-row:2;
+   margin:0;padding-top:7px;
+ }
+}
+@media(max-width:700px){
+ .swmove-page #comparar .swmove-compare-result{
+   display:grid;
+   grid-template-columns:minmax(0,1fr) minmax(0,1fr);
+   grid-template-rows:auto auto auto;
+   column-gap:12px;
+   row-gap:6px;
+   padding:11px 12px;
+ }
+ .swmove-page #comparar .swmove-compare-result-heading{
+   grid-column:1/-1;
+   grid-row:1;
+   margin:0;
+ }
+ .swmove-page #comparar .swmove-compare-verdict{
+   grid-column:1;
+   grid-row:2;
+   min-width:0;
+ }
+ .swmove-page #comparar .swmove-compare-verdict>strong{
+   font-size:19px;
+   overflow-wrap:break-word;
+ }
+ .swmove-page #comparar .swmove-compare-saving{
+   grid-column:2;
+   grid-row:2;
+   margin:0;
+   padding:0 0 0 12px;
+   border-top:0;
+   border-left:1px solid #eadfd6;
+   min-width:0;
+ }
+ .swmove-page #comparar .swmove-compare-saving>strong{
+   font-size:27px;
+ }
+ .swmove-page #comparar .swmove-compare-footer{
+   grid-column:1/-1;
+   grid-row:3;
+   margin:0;
+   padding:7px 0 0;
+ }
+}
+@media(max-width:370px){
+ .swmove-page #comparar .swmove-compare-result{
+   column-gap:8px;
+ }
+ .swmove-page #comparar .swmove-compare-saving{
+   padding-left:8px;
+ }
+ .swmove-page #comparar .swmove-compare-saving>strong{
+   font-size:24px;
+ }
+}
