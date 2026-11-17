@@ -404,3 +404,134 @@ html body .tv-page #calculadora .tv-results-comparison>.tv-saving-panel>.tv-savi
     font-size:clamp(19px,4.6vw,27px)!important;
   }
 }
+
+
+/* 17/11 · Sello VCC y resumen compacto. Se mantiene la comparación
+   de tres columnas; el único recuadro blanco se ajusta al ahorro. */
+html body .tv-page #calculadora .tv-results-comparison{
+  grid-template-rows:auto minmax(0,1fr)!important;
+  row-gap:3px!important;
+  padding:7px 10px 8px!important;
+}
+html body .tv-page #calculadora .tv-recommendation-heading{
+  grid-column:1/-1!important;
+  grid-row:1!important;
+  display:inline-flex!important;
+  align-items:center!important;
+  justify-content:flex-start!important;
+  gap:7px!important;
+  min-height:24px!important;
+  margin:0!important;
+  padding:0 2px 2px!important;
+  background:transparent!important;
+  color:#8a573f!important;
+  font:700 9.5px/1.2 var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;
+  letter-spacing:.055em!important;
+}
+html body .tv-page #calculadora .tv-recommendation-logo{
+  box-sizing:border-box!important;
+  display:grid!important;
+  place-items:center!important;
+  flex:0 0 26px!important;
+  width:26px!important;
+  height:26px!important;
+  border-radius:50%!important;
+  border:1px solid #ead4c2!important;
+  background:#fff!important;
+  box-shadow:0 1px 3px rgba(89,49,30,.055)!important;
+}
+html body .tv-page #calculadora .tv-recommendation-logo img{
+  display:block!important;
+  width:23px!important;
+  height:23px!important;
+  object-fit:contain!important;
+}
+html body .tv-page #calculadora .tv-results-comparison>.tv-results>.tv-result:first-child,
+html body .tv-page #calculadora .tv-results-comparison>.tv-results>.tv-result:nth-child(2){
+  grid-row:2!important;
+}
+html body .tv-page #calculadora .tv-results-comparison>.tv-results>.tv-result{
+  min-height:67px!important;
+  height:auto!important;
+  padding:7px 5px!important;
+  gap:4px!important;
+}
+html body .tv-page #calculadora .tv-results-comparison>.tv-results>.tv-result .tv-result-label{
+  font-size:10px!important;
+}
+html body .tv-page #calculadora .tv-results-comparison>.tv-results>.tv-result strong,
+html body .tv-page #calculadora .tv-results-comparison>.tv-results>.tv-result.is-lower strong,
+html body .tv-page #calculadora .tv-results-comparison>.tv-results>.tv-result.is-higher strong,
+html body .tv-page #calculadora .tv-results-comparison>.tv-results>.tv-result.is-equal strong{
+  color:#26211e!important;
+  font-size:clamp(18px,1.7vw,23px)!important;
+}
+html body .tv-page #calculadora .tv-results-comparison>.tv-saving-panel{
+  grid-row:2!important;
+  min-height:67px!important;
+  align-items:center!important;
+  justify-content:center!important;
+}
+html body .tv-page #calculadora .tv-results-comparison>.tv-saving-panel>.tv-saving{
+  width:max-content!important;
+  max-width:100%!important;
+  min-width:0!important;
+  min-height:57px!important;
+  gap:4px!important;
+  margin:0 auto!important;
+  padding:8px 15px!important;
+  border-radius:7px!important;
+}
+html body .tv-page #calculadora .tv-results-comparison>.tv-saving-panel>.tv-saving span{
+  font-size:9.5px!important;
+  white-space:normal!important;
+}
+html body .tv-page #calculadora .tv-results-comparison>.tv-saving-panel>.tv-saving strong{
+  font-size:clamp(22px,2.1vw,29px)!important;
+}
+@media(max-width:720px){
+  html body .tv-page #calculadora .tv-results-comparison{
+    padding:6px!important;
+    row-gap:2px!important;
+  }
+  html body .tv-page #calculadora .tv-recommendation-heading{
+    font-size:9px!important;
+    min-height:22px!important;
+  }
+  html body .tv-page #calculadora .tv-recommendation-logo{
+    width:23px!important;
+    height:23px!important;
+    flex-basis:23px!important;
+  }
+  html body .tv-page #calculadora .tv-recommendation-logo img{
+    width:21px!important;height:21px!important;
+  }
+  html body .tv-page #calculadora .tv-results-comparison>.tv-results>.tv-result{
+    min-height:63px!important;
+    gap:3px!important;
+    padding:5px 2px!important;
+  }
+  html body .tv-page #calculadora .tv-results-comparison>.tv-results>.tv-result .tv-result-label{
+    font-size:8.5px!important;
+  }
+  html body .tv-page #calculadora .tv-results-comparison>.tv-results>.tv-result strong,
+  html body .tv-page #calculadora .tv-results-comparison>.tv-results>.tv-result.is-lower strong,
+  html body .tv-page #calculadora .tv-results-comparison>.tv-results>.tv-result.is-higher strong,
+  html body .tv-page #calculadora .tv-results-comparison>.tv-results>.tv-result.is-equal strong{
+    font-size:clamp(16px,3.4vw,21px)!important;
+  }
+  html body .tv-page #calculadora .tv-results-comparison>.tv-saving-panel{
+    min-height:63px!important;
+  }
+  html body .tv-page #calculadora .tv-results-comparison>.tv-saving-panel>.tv-saving{
+    min-height:52px!important;
+    gap:3px!important;
+    padding:6px 7px!important;
+  }
+  html body .tv-page #calculadora .tv-results-comparison>.tv-saving-panel>.tv-saving span{
+    font-size:8.5px!important;
+  }
+  html body .tv-page #calculadora .tv-results-comparison>.tv-saving-panel>.tv-saving strong{
+    font-size:clamp(18px,4vw,25px)!important;
+  }
+}
