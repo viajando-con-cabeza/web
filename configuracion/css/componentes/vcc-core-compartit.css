@@ -601,6 +601,19 @@ html body .vcc-breadcrumb-on-dark #vcc-global-breadcrumb strong{color:#fff!impor
 html body .vcc-breadcrumb-on-dark #vcc-global-breadcrumb .vcc-bc-sep{color:#e7e1da!important}
 html body .vcc-breadcrumb-on-dark #vcc-global-breadcrumb a:is(:hover,:focus-visible){color:#ffa482!important}
 
+/* La molla de pa i el text utilitzen el mateix eix horitzontal
+   a totes les portades interiors (cap excepció a Qué visitar). */
+html body .vcc-sacred-hero #vcc-global-breadcrumb{
+  left:var(--vcc-contract-gutter,46px)!important;
+  max-width:calc(100% - 92px)!important;
+}
+@media(max-width:720px){
+  html body .vcc-sacred-hero #vcc-global-breadcrumb{
+    left:18px!important;
+    max-width:calc(100% - 36px)!important;
+  }
+}
+
 /* === configuracion/css/componentes/header-vcc-global.css === */
 /* VCC Header global · Cascade exacta de styles unificats. */
 /* --- shared-header-style --- */
