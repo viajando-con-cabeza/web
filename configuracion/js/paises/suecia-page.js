@@ -37,7 +37,7 @@ function countryCard(x,isGuide){
  const photo=String(x.image||'/configuracion/imagenes/marca/logo-vcc.svg');
  const optimized=photo.includes('/__vcc_preview/visor/');
  const srcset=optimized?' srcset="'+esc(photo.replace('/__vcc_preview/visor/','/__vcc_preview/mini/'))+' 480w, '+esc(photo)+' 1800w" sizes="(max-width: 760px) 86vw, (max-width: 1100px) 48vw, 380px"':'';
- const icon=tag==='CIUDADES'?'category-city':'category-islands';
+ const icon=x.cardIcon||(tag==='CIUDADES'?'category-city':'category-islands');
  const labelText=isGuide?'guía':'itinerario';
  const actionText=isGuide?'VER GUÍA':'VER ITINERARIO';
  const priceTitle=isGuide?'Presupuesto orientativo por persona y día':'Presupuesto total por persona';
