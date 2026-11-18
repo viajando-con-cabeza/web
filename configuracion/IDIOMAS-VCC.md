@@ -1,37 +1,37 @@
-# VCC · Web bilingüe ES / EN
+# VCC · Web bilingüe ES → EN (Quality)
 
-## Font única i manteniment
+## Una única font de veritat
 
-- ES és l'única font editable de HTML, CSS, fotografies, JS i estructura.
-- Les pàgines es declaren a configuracion/datos/publicacion-vcc.json (approved).
-- EN es genera a en/<same-path>; no s'edita mai a mà.
-- Recursos compartits: configuracion/css, configuracion/js, configuracion/imagenes.
-- Memòria de traduccions: configuracion/datos/i18n/en-segments.json.
-- UI dinàmica traduïda amb configuracion/js/vcc-en-runtime.js, només amb frases disponibles al diccionari local.
-- URL equivalents ES /destinos/... i EN /en/destinos/..., mantenint els slugs originals.
+El castellà és la font editable. Les versions sota `en/` es generen automàticament des dels HTML originals. Comparteixen CSS, fotografies, scripts, estructura i components. **Mai no s'edita manualment `en/`**.
 
-## Actualització automàtica a Quality
+`configuracion/datos/publicacion-vcc.json` defineix les pàgines aprovades (actualment 25); el generador replica també els esborranys en anglès, conservant `noindex`. Els canvis d'estructura i imatges es reflecteixen per regeneració. L'anglès manté els mateixos slugs precedits de `/en/`.
 
-1. Cada push a quality valida i actualitza primer la versió castellana.
-2. El job translate_en demana al Cloudflare AI Worker només els segments nous, amb OIDC de GitHub.
-3. El generador sincronitza a EN la disposició, els recursos, les fotografies, els continguts i els textos que ja estan traduïts.
-4. Un test comprova que les 25 pàgines aprovades tenen els mateixos fitxers CSS, JS i les mateixes imatges i seccions.
-5. Les traduccions s'emmagatzemen i reutilitzen. Els canvis del diccionari invaliden la caché per hash.
-6. Quan s'aprova una pàgina castellana nova en el registre, es crea automàticament l'equivalent en anglès.
+## Pipeline de traducció
 
-## Estat editorial / limitacions
+1. El workflow `.github/workflows/quality.yml` s'executa a cada push de la branca `quality` i admet `workflow_dispatch`.
+2. `actualitzar-en-v2.mjs` inventaria textos HTML, atributs accessibles, scripts JS amb textos visibles i dades JSON dels pressupostos i països, sempre prioritzant les 25 pàgines aprovades.
+3. Només els textos no traduïts es transmeten en **lots** al Worker `vcc-en-translator-quality`, amb token GitHub OIDC verificat. El model contextual és `@cf/google/gemma-4-26b-a4b-it`. No es fa cap crida d'IA per visita al blog.
+4. Es guarden a `configuracion/datos/i18n/en-segments-v2.json` i es validen marca, topònims, quantitats i monedes. La memòria anterior `en-segments.json` és només una alternativa temporal.
+5. `generar-en.mjs` genera HTML en anglès i un diccionari JavaScript petit per als textos que apareixen dinàmicament.
+6. `verificar-en.mjs` comprova equivalència de rutes, scripts, imatges i estils. `comprobar-rutas.mjs` detecta enllaços trencats.
+7. `informe-en.mjs --write` genera `configuracion/datos/i18n/en-coverage.json` amb cobertura **real de textos**, no només el recompte de pàgines replicades.
+8. Un sol commit actualitza la memòria i els miralls. Cloudflare desplega automàticament els canvis de `quality`.
 
-- Aquesta primera activació és PROVISIONAL: els fragments sense traduir encara surten en castellà. Per això EN és noindex,follow.
-- Alguns textos generats només dins del JavaScript poden no estar al diccionari; s'hauran de cobrir abans de publicar EN com a complet.
-- Si s'esgota la quota diària o falla GitHub/Cloudflare, la traducció nova pot trigar més que uns minuts.
-- Els resultats de la IA requereixen validació de topònims, contingut, avisos, formularis i SEO abans d'habilitar-los a main.
-- Les quotes de segments a configuracion/datos/idiomas-vcc.json limiten les peticions, però no garanteixen un import màxim de facturació.
-- No s'afegeixen encara versions EN al sitemap ni s'activa hreflang públic per evitar indexar contingut bilingüe incomplet.
+## Represa
 
-## Ordres de verificació
+Quan hi ha pàgines pendents i no s'ha arribat al límit del dia, cada push continua la traducció. La tasca diària independent **Traducció EN VCC Quality** (05:10 Europe/Madrid) també revisa el progrés i provoca un nou push a `quality` si cal. Els GitHub Actions `schedule` només s'executarien a la branca per defecte (`main`), de manera que no s'utilitzen per programar exclusivament `quality`.
 
+El nombre màxim de lots i la seva mida es configuren a `configuracion/datos/idiomas-vcc.json`. Cloudflare Workers AI té límits de consum i pot aplicar càrrecs si el compte excedeix la quota gratuïta. Els límits de peticions **no garanteixen un cost màxim contractual**.
+
+## Comprovacions manuals
+
+    node configuracion/scripts/traduccions/actualitzar-en-v2.mjs --write  # cal OIDC del workflow
     node configuracion/scripts/traduccions/generar-en.mjs --write
     node configuracion/scripts/traduccions/generar-en.mjs --check
     node configuracion/scripts/traduccions/verificar-en.mjs
+    node configuracion/scripts/traduccions/informe-en.mjs --write
+    node configuracion/scripts/traduccions/informe-en.mjs --strict
 
-La traducció de segments requereix el Worker URL i el GitHub OIDC i s'executa a les Actions. NO modificar manualment els HTML generats a en/: seran sobreescrits al següent cicle.
+**No declarar la traducció completa ni activar indexació fins que** `--strict` passi, les frases de JavaScript estiguin cobertes i hi hagi una revisió editorial humana de llengua, SEO, metadades, avisos legals, formularis i mobile.
+
+**Main i producció no es modifiquen per aquest flux.**
