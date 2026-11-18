@@ -280,12 +280,13 @@ jobs:
           node configuracion/scripts/traduccions/generar-en.mjs --check
           node configuracion/scripts/traduccions/verificar-en.mjs
           node configuracion/scripts/comprobar-rutas.mjs
+          node configuracion/scripts/traduccions/informe-en.mjs --write
 
       - name: Commit English mirrors and translation memory atomically
         shell: bash
         run: |
           set -euo pipefail
-          git add -- configuracion/datos/i18n/en-segments-v2.json configuracion/datos/i18n/en-runtime.json en/
+          git add -- configuracion/datos/i18n/en-segments-v2.json configuracion/datos/i18n/en-runtime.json configuracion/datos/i18n/en-coverage.json en/
           if git diff --cached --quiet; then
             echo "ES→EN: translations and mirror already synchronized."
             exit 0
