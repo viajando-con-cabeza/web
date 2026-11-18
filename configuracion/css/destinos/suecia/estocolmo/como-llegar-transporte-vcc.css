@@ -150,11 +150,3 @@
   }
 }
 
-/* El primer apartat ha de començar arran del subheader, sense sumar
-   el marge/padding global assignat a la resta de seccions. */
-@layer vcc-interior-portades {
-  html body:has(nav.vcc-sacred-subnav) main.cl-page.cl-landing > nav.vcc-sacred-subnav + section#elige-transporte {
-    margin-block-start:0!important;
-    padding-block-start:0!important;
-  }
-}

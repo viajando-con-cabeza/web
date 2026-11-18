@@ -236,11 +236,12 @@
   }
 }
 
-/* Mateix punt d'inici del primer sobretítol a les tres guies de Suècia.
- * Neutralitza únicament el padding antic de cada plantilla; la distància
- * inicial/final i la separació entre apartats segueixen als tokens globals. */
+/* El primer apartat de les guies de Cómo llegar es reconeix per posició,
+ * no pel seu ID: pot ser «Elige tu transporte» o «Aeropuertos».
+ * El marge inicial (24/18px) és diferent del marge entre apartats;
+ * l'últim conserva el token final compartit (104/76px). */
 @layer vcc-interior-portades {
-  html body main.cl-page.cl-landing > nav.vcc-unified-subheader ~ section#comparar-aeropuertos,
+  html body main.cl-page.cl-landing > nav.vcc-unified-subheader + section[id]:not(.related-section),
   html body main.mv-container.swmove-page > section#transportes,
   html body main.swb-main > section#lugares {
     padding-block-start:0!important;
