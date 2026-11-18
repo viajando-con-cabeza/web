@@ -142,26 +142,6 @@ html body.budget-vcc #sorpresas.surprise-section .vcc-editorial-error-card > div
 }
 
 /* === configuracion/css/componentes/acciones-descargas-vcc.css === */
-/* Política VCC · descàrregues PDF/Excel desactivades temporalment.
-   No eliminar generadors: el flag de site-header.js els podrà restaurar.
-   Ho carreguem abans del JS per evitar que els botons apareguin un instant. */
-html:not(.vcc-file-exports-enabled) body :is(
-  button.vcc-download-link,
-  a.vcc-download-link,
-  #imp-export-pdf,
-  #ql-v6-print,
-  [data-vcc-download-pdf],
-  [data-export-pdf],
-  [data-tv-export-pdf],
-  [data-al-pdf],
-  a[href$=".pdf" i],
-  a[href$=".xlsx" i],
-  a[href$=".xls" i],
-  a[href$=".csv" i]
-){
-  display:none!important;
-}
-
 /* VCC · Acciones de archivos. ÚNICO estilo para PDF, impresión y Excel.
  * Añadir class="vcc-download-link" y un SVG .vcc-download-icon.
  * Se importa al final del HEAD de cada página con exportación.
@@ -390,6 +370,26 @@ html body .printbar .printin > .vcc-download-link{
 @media print{
   html body button.vcc-download-link,
   html body #ql-v6-print.vcc-download-link{display:none!important}
+}
+
+/* Política VCC · descàrregues PDF/Excel desactivades temporalment.
+   No eliminar generadors: el flag de site-header.js els podrà restaurar.
+   Ho carreguem abans del JS per evitar que els botons apareguin un instant. */
+html:not(.vcc-file-exports-enabled) body :is(
+  button.vcc-download-link,
+  a.vcc-download-link,
+  #imp-export-pdf,
+  #ql-v6-print,
+  [data-vcc-download-pdf],
+  [data-export-pdf],
+  [data-tv-export-pdf],
+  [data-al-pdf],
+  a[href$=".pdf" i],
+  a[href$=".xlsx" i],
+  a[href$=".xls" i],
+  a[href$=".csv" i]
+):not(#vcc-export-force-show){
+  display:none!important;
 }
 
 /* === configuracion/css/componentes/desglose-compartit-vcc.css === */
