@@ -56,17 +56,19 @@ function mirror(file,source){
   m=>'<!--VCC_I18N_KEEP_'+(protectedBlocks.push(m)-1)+'-->');
  html=html.replace(/<title\b([^>]*)>([\s\S]*?)<\/title>/gi,(all,attrs,value)=>
   '<title'+attrs+'>'+translate(value)+'</title>');
- html=html.replace(/<(meta|img|input|textarea|button|a|area|abbr)\b[^>]*>/gi,tag=>{
+ // Translate only textual attributes, on every HTML element, including
+ // headings, buttons, inputs, SVG wrappers, ARIA and option labels. Never touch
+ // IDs, classes, data IDs, URLs or application configuration attributes.
+ html=html.replace(/<[a-z][a-z0-9:-]*\b[^>]*>/gi,tag=>{
   if(/\b(?:translate|data-translate)\s*=\s*["']no["']/i.test(tag))return tag;
   const metaName=attr(tag,'name')||attr(tag,'property');
-  const names=['alt','aria-label','title','placeholder'];
+  const names=['alt','aria-label','aria-description','title','placeholder','label'];
   if(/^<meta\b/i.test(tag)&&/^(description|og:title|og:description|twitter:title|twitter:description)$/i.test(metaName))names.push('content');
   for(const name of names){
    const pattern=new RegExp('(\\b'+name+'\\s*=\\s*)(["\\x27])([\\s\\S]*?)\\2','i');
-   tag=tag.replace(pattern,(all,prefix,quote,value)=>{
-     const translation=translate(value,'attr');
-     // use quote-safe entities for both quoted forms
-     return prefix+quote+(quote==="'"?translation.replace(/'/g,'&#39;'):translation)+quote;
+   tag=tag.replace(pattern,(whole,prefix,quote,value)=>{
+    const translated=translate(value,'attr');
+    return prefix+quote+(quote==="'"?translated.replace(/'/g,'&#39;'):translated)+quote;
    });
   }
   return tag;
