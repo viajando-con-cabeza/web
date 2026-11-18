@@ -5,9 +5,7 @@ on:
     branches:
       - quality
   workflow_dispatch:
-  # Continue incomplete translations even when there are no Spanish edits.
-  schedule:
-    - cron: '15 2,14 * * *'
+  # Automatic translation resumes on pushes; the daily Quality task handles catch-up.
 
 permissions:
   contents: write
