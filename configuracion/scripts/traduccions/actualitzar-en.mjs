@@ -94,32 +94,54 @@ async function translate(text){
 }
 if(!Array.isArray(sources)||!sources.length)throw Error('No approved ES pages configured');
 if(!/^(pilot|auto)-/.test(options.status||'')){console.log('ES→EN inactive; no files modified');process.exit(0);}
-for(const source of sources){
+// Changes to existing ES pages take priority over first-time background coverage.
+// This is what keeps normal daily edits synchronized even during initial rollout.
+const sourceInfo=new Map(sources.map(source=>{
+  const full=path.join(root,source);
+  const html=fs.readFileSync(full,'utf8');
+  return [source,{html,sourceHash:sha(html),texts:segments(html)}];
+}));
+const priority=source=>{
+  const before=state.pages[source],current=sourceInfo.get(source).sourceHash;
+  return before&&before.sourceHash!==current?0:!before?1:2;
+};
+const orderedSources=[...sources].sort((a,b)=>priority(a)-priority(b));
+const work=[],queuedKeys=new Set();
+for(const source of orderedSources){
  if(!sourceSet.has(source)||source.includes('..')||source.startsWith('/'))throw Error('Unapproved source: '+source);
- const full=path.join(root,source);
- if(!fs.existsSync(full))throw Error('Missing ES source: '+source);
- const html=fs.readFileSync(full,'utf8');
- const texts=segments(html),sourceHash=sha(html);
+ const {texts}=sourceInfo.get(source);
  for(const t of texts){
   const key=sha(model+'\0'+t);
-  if(!state.segments[key]&&!state.rejected[key]){
-   pending++;
-   if(requested>=maxPerRun||state.daily.requested>=maxPerDay)continue;
-   requested++;
-   state.daily.requested++;
-   try{
-    const en=await translate(t);
-    const reason=qualityIssue(t,en);
-    if(reason){
-      // Keep the original and suspicious output for a later editorial check.
-      state.rejected[key]={es:t,candidate:en,reason};
-      failed++;
-    }else{
-      state.segments[key]={es:t,en,model};done++;
-    }
-   }catch(err){failed++;errors.push(source+': '+err.message);}
-  }
+  if(state.segments[key]||state.rejected[key])continue;
+  pending++;
+  if(queuedKeys.has(key))continue; // shared text across multiple pages
+  queuedKeys.add(key);
+  if(requested>=maxPerRun||state.daily.requested>=maxPerDay)continue;
+  requested++;
+  state.daily.requested++;
+  work.push({source,t,key});
  }
+}
+let index=0;
+const worker=async()=>{
+ while(index<work.length){
+  const task=work[index++];
+  try{
+   const en=await translate(task.t);
+   const reason=qualityIssue(task.t,en);
+   if(reason){
+    state.rejected[task.key]={es:task.t,candidate:en,reason};
+    failed++;
+   }else{
+    state.segments[task.key]={es:task.t,en,model};
+    done++;
+   }
+  }catch(err){failed++;errors.push(task.source+': '+err.message);}
+ }
+};
+await Promise.all(Array.from({length:Math.min(4,work.length)},worker));
+for(const source of sources){
+ const {sourceHash,texts}=sourceInfo.get(source);
  const readyUnits=texts.filter(t=>!!state.segments[sha(model+'\0'+t)]).length;
  state.pages[source]={sourceHash,sourceUnits:texts.length,readyUnits,status:readyUnits===texts.length?'translated-not-reviewed':'in-progress'};
  console.log(source+': '+readyUnits+'/'+texts.length+' units stored');
