@@ -17,7 +17,7 @@ permissions:
   contents: read
 
 concurrency:
-  group: quality-en-visual
+  group: quality-en-visual-system-chrome
   # Keep a single browser QA pass alive despite automatic translation pushes.
   cancel-in-progress: false
 
@@ -36,7 +36,7 @@ jobs:
       - name: Install isolated browser test dependencies
         run: |
           npm install --no-save --no-package-lock --ignore-scripts @playwright/test@1.58.2
-          npx playwright install --with-deps chromium
+          command -v google-chrome || command -v google-chrome-stable
       - name: Compare Quality EN versus ES in real browser
         env:
           CI: true
