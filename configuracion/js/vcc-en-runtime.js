@@ -67,22 +67,29 @@
     }
   }
   let observer;
-  const refresh=()=>{
+  const changes=new Set();
+  const observerOptions={
+    subtree:true,childList:true,characterData:true,attributes:true,
+    attributeFilter:['href','alt','title','placeholder','aria-label']
+  };
+  const flush=()=>{
+    queued=false;
     if(!document.body)return;
     observer?.disconnect();
-    translateElement(document.body);
-    observer?.observe(document.body,{
-      subtree:true,childList:true,characterData:true,attributes:true,
-      attributeFilter:['href','alt','title','placeholder','aria-label']
-    });
+    const pending=[...changes];changes.clear();
+    // Avoid rescanning the entire long guide every time a single card changes.
+    for(const el of pending)if(el?.isConnected)translateElement(el.nodeType===1?el:el.parentElement);
+    observer?.observe(document.body,observerOptions);
   };
-  const schedule=()=>{
+  const schedule=(root=document.body)=>{
+    if(root)changes.add(root);
     if(queued)return;queued=true;
-    queueMicrotask(()=>{queued=false;refresh();});
+    queueMicrotask(flush);
   };
   async function load(){
     try{
-      const res=await fetch('/configuracion/datos/i18n/en-runtime.json',{cache:'force-cache'});
+      const version=document.documentElement.getAttribute('data-vcc-i18n-version')||'1';
+      const res=await fetch('/configuracion/datos/i18n/en-runtime.json?v='+encodeURIComponent(version),{cache:'default'});
       if(!res.ok)throw Error('dictionary-'+res.status);
       const json=await res.json();
       dictionary=new Map([...Object.entries(common),...Object.entries(json.dictionary||{})]);
@@ -92,7 +99,18 @@
     }
     document.documentElement.lang='en';
     schedule();
-    observer=new MutationObserver(schedule);
+    observer=new MutationObserver(records=>{
+      for(const record of records){
+        if(record.type==='childList'){
+          for(const node of record.addedNodes) {
+            if(node.nodeType===1)changes.add(node);
+            else if(node.parentElement)changes.add(node.parentElement);
+          }
+        }else if(record.target?.nodeType===1)changes.add(record.target);
+        else if(record.target?.parentElement)changes.add(record.target.parentElement);
+      }
+      if(changes.size)schedule(null);
+    });
     schedule();
   }
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',load,{once:true});
