@@ -20,7 +20,10 @@
     'Volver al mosaico completo':'Back to the photo grid','Todas las fotografías del día':'All photos from the day',
     'Foto anterior':'Previous photo','Foto siguiente':'Next photo',
     'Miniaturas de la galería':'Gallery thumbnails',
-    'Abrir en Google Maps':'Open in Google Maps'
+    'Abrir en Google Maps':'Open in Google Maps',
+    'Fotografías de nuestro primer día en Estocolmo':'Photos from our first day in Stockholm',
+    'Fotografías de nuestro segundo día en Estocolmo':'Photos from our second day in Stockholm',
+    'Fotografías del viaje por el archipiélago de Estocolmo':'Photos from our Stockholm archipelago trip'
   };
   // Stable fallback for Sweden's JS-rendered card titles, categories and short metadata.
   // The generated translation dictionary remains authoritative when it contains a key.
@@ -112,7 +115,7 @@
       const mapped=localPath(el.getAttribute('href')||'');
       if(mapped)el.setAttribute('href',mapped);
     }
-    for(const key of ['alt','title','placeholder','aria-label']){
+    for(const key of ['alt','title','placeholder','aria-label','data-description']){
       const value=el.getAttribute(key);
       if(value==null)continue;
       const translated=translateValue(value);
@@ -121,13 +124,13 @@
     const walker=document.createTreeWalker(el,NodeFilter.SHOW_TEXT);
     let node;
     while((node=walker.nextNode()))translateText(node);
-    for(const inner of el.querySelectorAll('a[href],img[alt],[title],[placeholder],[aria-label]')){
+    for(const inner of el.querySelectorAll('a[href],img[alt],[title],[placeholder],[aria-label],.day-mosaic[data-description]')){
       if(inner.closest(skipSelector))continue;
       if(inner.matches('a[href]')){
         const mapped=localPath(inner.getAttribute('href')||'');
         if(mapped)inner.setAttribute('href',mapped);
       }
-      for(const key of ['alt','title','placeholder','aria-label']){
+      for(const key of ['alt','title','placeholder','aria-label','data-description']){
         const value=inner.getAttribute(key);
         if(value==null)continue;
         const translated=translateValue(value);
