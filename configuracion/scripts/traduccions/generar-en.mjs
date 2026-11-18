@@ -55,7 +55,7 @@ function mirror(file,source){
  };
  // Remove executable and machine-readable blocks before rewriting visible text.
  const protectedBlocks=[];
- let html=source.replace(/<(script|style|svg|template|noscript)\b[^>]*>[\s\S]*?<\/\1\s*>/gi,
+ let html=source.replace(/<(script|style|svg|template)\b[^>]*>[\s\S]*?<\/\1\s*>/gi,
   m=>'<!--VCC_I18N_KEEP_'+(protectedBlocks.push(m)-1)+'-->');
  html=html.replace(/<title\b([^>]*)>([\s\S]*?)<\/title>/gi,(all,attrs,value)=>
   '<title'+attrs+'>'+translate(value)+'</title>');
@@ -66,7 +66,7 @@ function mirror(file,source){
   if(/\b(?:translate|data-translate)\s*=\s*["']no["']/i.test(tag))return tag;
   const metaName=attr(tag,'name')||attr(tag,'property');
   const names=['alt','aria-label','aria-description','title','placeholder','label'];
-  if(/^<meta\b/i.test(tag)&&/^(description|og:title|og:description|twitter:title|twitter:description)$/i.test(metaName))names.push('content');
+  if(/^<meta\b/i.test(tag)&&/^(description|og:title|og:description|og:image:alt|twitter:title|twitter:description|twitter:image:alt)$/i.test(metaName))names.push('content');
   for(const name of names){
    const pattern=new RegExp('(\\b'+name+'\\s*=\\s*)(["\\x27])([\\s\\S]*?)\\2','i');
    tag=tag.replace(pattern,(whole,prefix,quote,value)=>{
