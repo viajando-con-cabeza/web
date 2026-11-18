@@ -14,7 +14,7 @@
     }
   },
   "translation": {
-    "status": "pilot-translation-memory-only",
+    "status": "auto-quality-noindex",
     "mode": "build-time",
     "sourceOfTruth": "es",
     "changeDetection": "source-content-hash",
@@ -32,14 +32,11 @@
       "image-paths"
     ],
     "service": "@cf/meta/m2m100-1.2b via vcc-en-translator-quality (GitHub OIDC)",
-    "maxRecurringTranslationCost": "0 EUR (subject to free-tier limits)",
-    "maxSegmentsPerRun": 40,
-    "pilotPages": [
-      "destinos/suecia/estocolmo/cuando-ir.html",
-      "destinos/suecia/estocolmo/itinerario.html"
-    ],
-    "publication": "disabled-until-html-js-seo-review",
+    "maxRecurringTranslationCost": "Usage limited by 500 AI requests/day, not a guaranteed monetary cap; verify Cloudflare billing.",
+    "maxSegmentsPerRun": 500,
+    "publication": "auto-generate-quality-noindex-until-reviewed",
     "englishIndexing": "noindex-until-review",
-    "maxSegmentsPerDay": 80
+    "maxSegmentsPerDay": 500,
+    "sourcePages": "configuracion/datos/publicacion-vcc.json#approved"
   }
 }
