@@ -51,8 +51,17 @@ const capture=page=>page.evaluate(()=>{
   if(style.visibility==='hidden'||style.display==='none')return false;
   return r.width>0&&r.height>0&&r.left>w+4;
  }).slice(0,6).map(el=>({type:el.tagName,text:(el.textContent||'').trim().slice(0,50)}));
- const screenshots={};
+ const overflowing=document.documentElement.scrollWidth>w+4
+   ? [...document.querySelectorAll('body *')].map(el=>{
+     const r=el.getBoundingClientRect(),cs=getComputedStyle(el);
+     return {tag:el.tagName,className:typeof el.className==='string'?el.className.slice(0,90):'',id:el.id,
+       left:Math.round(r.left),right:Math.round(r.right),width:Math.round(r.width),
+       position:cs.position,overflowX:cs.overflowX,display:cs.display};
+   }).filter(x=>x.right>w+8&&x.width>0&&x.display!=='none')
+     .sort((a,b)=>b.right-a.right).slice(0,12)
+   : [];
  return {
+  overflowing,
   lang:document.documentElement.lang,
   classes:document.body.className,
   styles,sections,photos,
@@ -111,7 +120,7 @@ for(const viewport of [{width:390,height:844},{width:1366,height:820}]){
     expect(failedResources,'Missing local CSS/JS/media').toEqual([]);
     if(en.overflow>4||en.offscreen.length){
      await info.attach('english-viewport.png',{body:await page.screenshot({fullPage:true}),contentType:'image/png'});
-     console.warn('LAYOUT: ',route,viewport,en.overflow,en.offscreen);
+     console.warn('LAYOUT: ',route,viewport,en.overflow,en.offscreen,JSON.stringify(en.overflowing));
     }
    });
   }
