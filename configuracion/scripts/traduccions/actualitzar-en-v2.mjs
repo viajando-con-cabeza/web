@@ -4,7 +4,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import crypto from 'node:crypto';
 import {ROOT,approvedFiles,listSiteHtml} from '../lib/publicacion-vcc.mjs';
-import {MODEL,SEED,htmlTexts,interactiveTexts} from './textos-compartits.mjs';
+import {MODEL,SEED,htmlTexts,interactiveTexts,fallbackEnglish} from './textos-compartits.mjs';
 
 const options=JSON.parse(fs.readFileSync(path.join(ROOT,'configuracion/datos/idiomas-vcc.json'),'utf8')).translation||{};
 const location='configuracion/datos/i18n/en-segments-v2.json';
@@ -73,7 +73,7 @@ function issue(es,en){
 const metadata=new Map(),seen=new Set(),tasks=[];
 function add(t){
  const id=key(t);
- if(SEED[t]!=null||seen.has(id)||state.segments[id]||state.rejected[id]?.attempts>=2)return;
+ if(SEED[t]!=null||fallbackEnglish(t)!=null||seen.has(id)||state.segments[id]||state.rejected[id]?.attempts>=2)return;
  seen.add(id);tasks.push({id,es:t});
 }
 for(const file of original){
@@ -141,10 +141,10 @@ async function runWorker(){
 if(!/^(auto|pilot)-/.test(options.status||''))throw Error('Quality translation disabled');
 await Promise.all(Array.from({length:Math.min(4,selected.length)},runWorker));
 for(const [file,{hash,texts}]of metadata){
- const ready=texts.filter(t=>SEED[t]!=null||state.segments[key(t)]).length;
+ const ready=texts.filter(t=>SEED[t]!=null||fallbackEnglish(t)!=null||state.segments[key(t)]).length;
  state.pages[file]={sourceHash:hash,units:texts.length,ready,complete:ready===texts.length};
 }
-state.dynamic={extracted:dynamic.length,ready:dynamic.filter(t=>SEED[t]!=null||state.segments[key(t)]).length};
+state.dynamic={extracted:dynamic.length,ready:dynamic.filter(t=>SEED[t]!=null||fallbackEnglish(t)!=null||state.segments[key(t)]).length};
 state.report={runDate:new Date().toISOString(),batches:attempted,translated:done,failed,
  remaining:tasks.length-done,approved:approvedFiles.length,allPages:files.length};
 if(process.argv.includes('--write')){
