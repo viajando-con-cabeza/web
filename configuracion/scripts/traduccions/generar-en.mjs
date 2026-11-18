@@ -1,0 +1,126 @@
+/**
+ * VCC English mirror: generated, NEVER edited by hand.
+ * ES files in publicacion-vcc.json are the only source of structure, photos and CSS.
+ * Missing translation => preserve source text and keep the EN page noindex.
+ *
+ * Usage: node configuracion/scripts/traduccions/generar-en.mjs --write
+ *        node configuracion/scripts/traduccions/generar-en.mjs --check
+ */
+import fs from 'node:fs';
+import path from 'node:path';
+import {ROOT,approvedFiles,publicRoute,ORIGIN} from '../lib/publicacion-vcc.mjs';
+
+const config=JSON.parse(fs.readFileSync(path.join(ROOT,'configuracion/datos/idiomas-vcc.json'),'utf8'));
+const memory=JSON.parse(fs.readFileSync(path.join(ROOT,'configuracion/datos/i18n/en-segments.json'),'utf8'));
+const dict=new Map(Object.values(memory.segments||{}).map(v=>[v.es,v.en]).filter(v=>v[0]&&v[1]));
+const mode=process.argv.includes('--write')?'write':process.argv.includes('--check')?'check':'report';
+const routes=new Map(approvedFiles.map(file=>[publicRoute(file),'/en'+publicRoute(file)]));
+const issues=[],summaries=[];
+const escapeText=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+const escapeAttribute=s=>escapeText(s).replace(/"/g,'&quot;');
+const decode=s=>String(s).replace(/&nbsp;/gi,' ').replace(/&amp;/gi,'&')
+ .replace(/&quot;/gi,'"').replace(/&#39;|&apos;/gi,"'").replace(/\s+/g,' ').trim();
+const eligible=s=>s.length>=2&&s.length<=850&&/[a-záéíóúñü]/i.test(s)&&!/^[-+\d.,€% ]+$/.test(s)&&!/<[^>]+>/.test(s);
+const attr=(tag,key)=>{
+ const m=tag.match(new RegExp('\\b'+key+'\\s*=\\s*(["\\x27])([\\s\\S]*?)\\1','i'));
+ return m?.[2]||'';
+};
+function mirror(file,source){
+ let wanted=0,available=0;
+ const translate=(value,kind='text')=>{
+   const key=decode(value);
+   if(!eligible(key)||key.includes('{{')||key.includes('$'+'{'))return value;
+   wanted++;
+   const en=dict.get(key);
+   if(!en)return value;
+   available++;
+   // Never inject HTML returned by the AI model as markup.
+   const match=String(value).match(/^(\s*)([\s\S]*?)(\s*)$/);
+   const safe=kind==='attr'?escapeAttribute(en):escapeText(en);
+   return match?match[1]+safe+match[3]:safe;
+ };
+ // Remove executable and machine-readable blocks before rewriting visible text.
+ const protectedBlocks=[];
+ let html=source.replace(/<(script|style|svg|template|noscript)\b[^>]*>[\s\S]*?<\/\1\s*>/gi,
+  m=>'<!--VCC_I18N_KEEP_'+(protectedBlocks.push(m)-1)+'-->');
+ html=html.replace(/<title\b([^>]*)>([\s\S]*?)<\/title>/gi,(all,attrs,value)=>
+  '<title'+attrs+'>'+translate(value)+'</title>');
+ html=html.replace(/<(meta|img|input|textarea|button|a|area|abbr)\b[^>]*>/gi,tag=>{
+  if(/\b(?:translate|data-translate)\s*=\s*["']no["']/i.test(tag))return tag;
+  const metaName=attr(tag,'name')||attr(tag,'property');
+  const names=['alt','aria-label','title','placeholder'];
+  if(/^<meta\b/i.test(tag)&&/^(description|og:title|og:description|twitter:title|twitter:description)$/i.test(metaName))names.push('content');
+  for(const name of names){
+   const pattern=new RegExp('(\\b'+name+'\\s*=\\s*)(["\\x27])([\\s\\S]*?)\\2','i');
+   tag=tag.replace(pattern,(all,prefix,quote,value)=>{
+     const translation=translate(value,'attr');
+     // use quote-safe entities for both quoted forms
+     return prefix+quote+(quote==="'"?translation.replace(/'/g,'&#39;'):translation)+quote;
+   });
+  }
+  return tag;
+ });
+ // Text nodes: same HTML element hierarchy and same styling as ES.
+ html=html.replace(/>([^<>]+)</g,(all,value)=>'>'+translate(value)+'<');
+ html=html.replace(/<!--VCC_I18N_KEEP_(\d+)-->/g,(all,n)=>protectedBlocks[Number(n)]||all);
+ html=html.replace(/<html\b([^>]*)>/i,(all,attrs)=>
+  '<html'+attrs.replace(/\blang\s*=\s*(["'])[^"']*\1/i,'')
+   .replace(/\s+data-vcc-en-coverage\s*=\s*(["'])[^"']*\1/gi,'')+
+   ' lang="en" data-vcc-generated-en="1" data-vcc-en-coverage="'+
+   (wanted?Math.round(available/wanted*100):100)+'">');
+ // Canonical/robots/alternate from ES are never carried over to an EN mirror.
+ html=html.replace(/<link\b(?=[^>]*\brel=["'](?:canonical|alternate)["'])[^>]*>\s*/gi,'');
+ html=html.replace(/<meta\b(?=[^>]*\bname=["']robots["'])[^>]*>\s*/gi,'');
+ html=html.replace(/<meta\b(?=[^>]*\bproperty=["']og:url["'])[^>]*>\s*/gi,'');
+ // ES structured data is not valid in EN; restore it once translated & reviewed.
+ html=html.replace(/<script\b(?=[^>]*\btype=["']application\/ld\+json["'])[^>]*>[\s\S]*?<\/script>\s*/gi,'');
+ const enRoute=routes.get(publicRoute(file));
+ const canonical=ORIGIN+enRoute;
+ const seo='<meta name="robots" content="noindex,follow">\n'+
+   '<link rel="canonical" href="'+escapeAttribute(canonical)+'">\n'+
+   '<meta property="og:url" content="'+escapeAttribute(canonical)+'">\n';
+ html=html.replace(/<head\b([^>]*)>/i,(all,attrs)=>'<head'+attrs+'>\n'+seo);
+ // Links to approved pages stay in the same language. Assets, API, anchors and
+ // unpublished routes retain their original targets.
+ html=html.replace(/(<a\b[^>]*\bhref\s*=\s*)(["'])([^"']+)\2/gi,(all,prefix,quote,href)=>{
+  if(!href.startsWith('/')||href.startsWith('//')||href.startsWith('/en/'))return all;
+  try {
+   const url=new URL(href,ORIGIN),route=url.pathname.replace(/\/index\.html$/i,'/')
+      .replace(/\.html$/i,'').replace(/\/+/g,'/');
+   const target=routes.get(route);
+   return target?prefix+quote+target+url.search+url.hash+quote:all;
+  }catch{return all;}
+ });
+ html=html.replace(/<\/body\s*>/i,
+  '<script src="/configuracion/js/vcc-en-runtime.js" defer></script>\n</body>');
+ return {html,wanted,available,canonical};
+}
+const routeList=JSON.stringify(Object.fromEntries(routes));
+const runtimeData=JSON.stringify({
+ version:1,routes:Object.fromEntries(routes),dictionary:Object.fromEntries(dict)
+});
+function emit(relative,content){
+ const full=path.join(ROOT,relative);
+ if(mode==='write'){
+  fs.mkdirSync(path.dirname(full),{recursive:true});
+  if(!fs.existsSync(full)||fs.readFileSync(full,'utf8')!==content){
+   fs.writeFileSync(full,content);issues.push('updated '+relative);
+  }
+ }else if(mode==='check'&&(!fs.existsSync(full)||fs.readFileSync(full,'utf8')!==content)){
+  issues.push('out of date '+relative);
+ }
+}
+for(const file of approvedFiles){
+ const source=fs.readFileSync(path.join(ROOT,file),'utf8');
+ const mirrorFile='en/'+file;
+ const {html,wanted,available}=mirror(file,source);
+ emit(mirrorFile,html);
+ summaries.push({page:file,translated:available,total:wanted,percent:wanted?Math.round(100*available/wanted):100});
+}
+emit('configuracion/datos/i18n/en-runtime.json',runtimeData+'\n');
+const complete=summaries.filter(p=>p.translated===p.total).length;
+console.log('VCC EN mirror: '+summaries.length+' approved ES pages; '+complete+' with complete cached static text translations.');
+console.log('VCC EN coverage: '+summaries.reduce((n,p)=>n+p.translated,0)+'/'+summaries.reduce((n,p)=>n+p.total,0)+' segments, English noindex until editorial review.');
+console.log(JSON.stringify(summaries));
+if(issues.length)console.log(issues.slice(0,40).join('\n')+(issues.length>40?'\n...':''));
+if(mode==='check'&&issues.length)process.exitCode=1;
