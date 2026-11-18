@@ -2,6 +2,114 @@
   // Component singleton: una segona inclusió no crea menús ni descarrega CSS duplicat.
   if(window.__VCC_SHARED_HEADER_STARTED__)return;
   window.__VCC_SHARED_HEADER_STARTED__=true;
+
+  /* VCC · Política reversible de descàrregues del blog.
+     Canviar només aquesta constant a true quan es decideixi habilitar PDF/Excel.
+     Les calculadores, els generadors i els seus arxius de codi es conserven. */
+  const VCC_ENABLE_PDF_EXCEL_EXPORTS = false;
+  window.VCC_ENABLE_PDF_EXCEL_EXPORTS = VCC_ENABLE_PDF_EXCEL_EXPORTS;
+  if (VCC_ENABLE_PDF_EXCEL_EXPORTS) {
+    document.documentElement.classList.add('vcc-file-exports-enabled');
+  } else {
+    document.documentElement.classList.remove('vcc-file-exports-enabled');
+    const style = document.createElement('style');
+    style.id = 'vcc-file-export-policy';
+    style.textContent = 'html body [data-vcc-file-export-disabled]{display:none!important}';
+    document.head.appendChild(style);
+
+    const actionSelector = 'a[href],button,input[type="button"],input[type="submit"],[role="button"]';
+    const explicitSelector = [
+      '.vcc-download-link','[data-vcc-download-pdf]','[data-export-pdf]',
+      '[data-tv-export-pdf]','[data-al-pdf]','#imp-export-pdf','#ql-v6-print'
+    ].join(',');
+    const fileSuffix = /\.(?:pdf|xlsx?|xlsm|xlsb|csv|ods)$/i;
+    const exportWord = /\b(?:pdf|excel|xlsx?|xlsm|xlsb|csv|ods)\b/i;
+    const exportVerb = /\b(?:descargar|descarregar|download|guardar|save|exportar|export|imprimir|impressi[oó]|print|generar|baixar|desar)\b/i;
+    const printableAction = /^(?:imprimir|print)(?:\s|$)/i;
+
+    function isFileExportAction(element) {
+      if (!element?.matches?.(actionSelector)) return false;
+      if (element.matches(explicitSelector)) return true;
+      const raw = [
+        element.getAttribute('download')||'',
+        element.getAttribute('aria-label')||'',
+        element.getAttribute('title')||'',
+        element.textContent||'',
+        element.id||''
+      ].join(' ').replace(/\s+/g,' ').trim();
+      if (exportWord.test(raw) && exportVerb.test(raw)) return true;
+      if (printableAction.test(raw)) return true;
+      for (const attr of element.attributes) {
+        if (/^data-.*(?:download|export|pdf|excel|xlsx?|csv)/i.test(attr.name) &&
+            /(?:pdf|excel|xlsx?|csv)/i.test(attr.name+' '+attr.value)) return true;
+      }
+      if (element.matches('a[href]')) {
+        const filename = element.getAttribute('download')||'';
+        if (fileSuffix.test(filename)) return true;
+        try {
+          const target = new URL(element.getAttribute('href'),location.href);
+          if (fileSuffix.test(decodeURIComponent(target.pathname))) return true;
+        } catch (_) { /* URL no interpretable: no bloqueamos navegación normal */ }
+      }
+      return false;
+    }
+    function hideFileExport(element) {
+      if (!isFileExportAction(element)) return;
+      element.dataset.vccFileExportDisabled = 'true';
+      element.hidden = true;
+      element.setAttribute('aria-hidden','true');
+      element.setAttribute('tabindex','-1');
+      element.style.setProperty('display','none','important');
+      // Evitar filas vacías; nunca ocultar "Limpiar" u otros controles útiles.
+      const parent = element.parentElement;
+      if (parent?.matches('.vcc-budget-excel-row,.tv-calc-actions') &&
+          [...parent.children].every(child => child === element ||
+            child.hasAttribute('data-vcc-file-export-disabled'))) {
+        parent.hidden = true;
+        parent.style.setProperty('display','none','important');
+      }
+    }
+    function inspectExports(root) {
+      if (!root || root.nodeType!==1) return;
+      if (root.matches(actionSelector)) hideFileExport(root);
+      for (const element of root.querySelectorAll(actionSelector)) hideFileExport(element);
+    }
+    // Captura también los botones generados más tarde y los enlaces Blob
+    // usados por generadores PDF/Excel si algún código intenta accionarlos.
+    function rejectFileExport(event) {
+      const target = event.target?.closest?.(actionSelector);
+      if (!target || !isFileExportAction(target)) return;
+      event.preventDefault();
+      event.stopImmediatePropagation();
+      hideFileExport(target);
+    }
+    document.addEventListener('click',rejectFileExport,true);
+    document.addEventListener('submit',event=>{
+      const submitter = event.submitter;
+      if (submitter && isFileExportAction(submitter)) {
+        event.preventDefault();
+        event.stopImmediatePropagation();
+      }
+    },true);
+    const startExportGuard = () => {
+      inspectExports(document.body);
+      new MutationObserver(records=>{
+        for (const record of records) {
+          if (record.type==='attributes') {
+            if (record.target.nodeType===1) inspectExports(record.target);
+          } else {
+            for (const node of record.addedNodes) inspectExports(node);
+          }
+        }
+      }).observe(document.body,{
+        childList:true,subtree:true,attributes:true,
+        attributeFilter:['href','download','aria-label','title','class']
+      });
+    };
+    if (document.readyState==='loading')
+      document.addEventListener('DOMContentLoaded',startExportGuard,{once:true});
+    else startExportGuard();
+  }
   // Manté els carrusels sense scroll automàtic fins a la primera interacció.
   // Després, les transicions CSS originals tornen sense cap recàrrega.
   if(document.documentElement.classList.contains('vcc-lcp-scroll-stable')){
