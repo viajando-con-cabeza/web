@@ -78,10 +78,36 @@ const today=new Date().toISOString().slice(0,10);
 if(state.daily?.date!==today)state.daily={date:today,requested:0};
 const maxPerDay=Math.max(0,Math.min(1000,Number(options.maxSegmentsPerDay||80)));
 let pending=0,done=0,requested=0,failed=0;const errors=[];
+// GitHub OIDC tokens are short-lived. A large first translation batch needs a
+// fresh job identity periodically; never persist this token in Git.
+let identityToken=process.env.VCC_TRANSLATOR_OIDC||'', identityObtained=Date.now();
+let identityRefresh;
+async function currentIdentity(){
+ if(identityToken && Date.now()-identityObtained<180000)return identityToken;
+ if(identityRefresh)return identityRefresh;
+ const url=process.env.ACTIONS_ID_TOKEN_REQUEST_URL;
+ const auth=process.env.ACTIONS_ID_TOKEN_REQUEST_TOKEN;
+ if(!url||!auth)return identityToken;
+ identityRefresh=(async()=>{
+  const join=url.includes('?')?'&':'?';
+  const res=await fetch(url+join+'audience=vcc-en-translator-quality',
+   {headers:{authorization:'Bearer '+auth},signal:AbortSignal.timeout(15000)});
+  if(!res.ok)throw Error('GitHub OIDC renewal HTTP '+res.status);
+  const payload=await res.json();
+  if(!payload.value)throw Error('GitHub OIDC renewal returned no token');
+  identityToken=payload.value;
+  identityObtained=Date.now();
+  return identityToken;
+ })();
+ try{return await identityRefresh;}
+ finally{identityRefresh=null;}
+}
 async function translate(text){
- const endpoint=process.env.VCC_TRANSLATOR_URL, token=process.env.VCC_TRANSLATOR_OIDC;
- if(!endpoint||!token)throw Error('Translation Worker URL/OIDC not configured');
+ const endpoint=process.env.VCC_TRANSLATOR_URL;
+ if(!endpoint)throw Error('Translation Worker URL not configured');
  for(let n=0;n<3;n++){
+  const token=await currentIdentity();
+  if(!token)throw Error('Translation Worker GitHub OIDC not configured');
   const response=await fetch(endpoint,{
    method:'POST',headers:{authorization:'Bearer '+token,'content-type':'application/json'},
    body:JSON.stringify({text,source_lang:'es',target_lang:'en'}),signal:AbortSignal.timeout(30000)
