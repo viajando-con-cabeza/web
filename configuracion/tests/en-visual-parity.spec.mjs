@@ -160,3 +160,28 @@ test('diagnose mobile horizontal overflow origin on travel calculator',async({pa
  });
  console.log('CALCULATOR_OVERFLOW_DIAGNOSIS '+JSON.stringify(result));
 });
+
+test('Stockholm essentials dynamic cards and mosaics render in English',async({page})=>{
+ await wait(page,'/en/destinos/suecia/estocolmo/imprescindibles');
+ await expect(page.locator('#djurgarden .place-kicker')).toContainText("Stockholm's green side");
+ await expect(page.locator('#djurgarden .facts')).toContainText('Island · urban park');
+ await expect(page.locator('#djurgarden .facts')).toContainText('Free');
+ await expect(page.locator('#djurgarden .gallery-more')).toContainText(/\\+\\d+ photos/);
+ await expect(page.locator('#djurgarden .advice')).toContainText('VCC TIP');
+});
+
+test('Stockholm three-day English itinerary retains non-overlapping desktop columns',async({page})=>{
+ await page.setViewportSize({width:1366,height:820});
+ await wait(page,'/en/destinos/suecia/estocolmo/itinerario');
+ const rects=await page.locator('#dia1').evaluate(el=>{
+   const title=el.querySelector('.vcc-editorial-title')?.getBoundingClientRect();
+   const intro=el.querySelector('.day-intro')?.getBoundingClientRect();
+   const schedule=el.querySelector('.day-schedule')?.getBoundingClientRect();
+   const gallery=el.querySelector('.day-gallery')?.getBoundingClientRect();
+   return {titleRight:title?.right,introRight:intro?.right,routeLeft:schedule?.left,routeRight:schedule?.right,galleryLeft:gallery?.left};
+ });
+ expect(rects.titleRight).toBeLessThanOrEqual(rects.routeLeft);
+ expect(rects.introRight).toBeLessThanOrEqual(rects.routeLeft);
+ expect(rects.routeRight).toBeLessThanOrEqual(rects.galleryLeft);
+ await expect(page.locator('#dia1 .day-mosaic')).toHaveAttribute('data-description','Photos from our first day in Stockholm');
+});
