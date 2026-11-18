@@ -5,7 +5,7 @@
   "use strict";
   if(window.__vccEnlacesDiscretos)return;
   window.__vccEnlacesDiscretos=true;
-  const action=/^(?:VER\b|WEB\b|DESCUBRIR\b|INSP[IÍ]RATE\b|EXPLORAR\b|CON[OÓ]CENOS\b|IR A\b|ABRIR\b|VISITAR\b|CONSULTAR\b|COMPARAR\b|RESERVAR\b|LEER\b|SABER M[AÁ]S\b|MOSTRAR M[AÁ]S\b|PONERLO EN ORDEN\b|TODAS LAS HERRAMIENTAS\b)/iu;
+  const action=/^(?:VER\b|VIEW\b|SEE\b|WEB\b|DESCUBRIR\b|DISCOVER\b|INSP[IÍ]RATE\b|EXPLORE\b|EXPLORAR\b|CON[OÓ]CENOS\b|GET TO KNOW US\b|IR A\b|GO TO\b|ABRIR\b|OPEN\b|VISITAR\b|VISIT\b|CONSULTAR\b|CHECK\b|COMPARAR\b|COMPARE\b|RESERVAR\b|BOOK\b|LEER\b|READ\b|LEARN MORE\b|SABER M[AÁ]S\b|MOSTRAR M[AÁ]S\b|PONERLO EN ORDEN\b|TODAS LAS HERRAMIENTAS\b|ALL TOOLS\b)/iu;
   const tail=/[\s\u00a0]*(?:[→↗›➜➝])+[\s\u00a0]*$/u;
   const arrowOnly=/^[→↗›➜➝]+$/u;
   const skip=/(?:carousel|carrusel|gallery|galeria|arrow|flecha|next|prev|subnav|breadcrumb|menu|paginacion|pagination)/i;
@@ -28,7 +28,7 @@
     if(skip.test(link.className||"") && !action.test(label))return;
     if(!action.test(label) && !known.test(link.className||""))return;
     link.classList.add("vcc-accion-discreta");
-    if(/^(?:VER(?:\s|$)|IR A CONTACTO\b|CON[OÓ]CENOS\b)/iu.test(label) && isInsideCard(link)){
+    if(/^(?:VER(?:\s|$)|VIEW(?:\s|$)|SEE(?:\s|$)|IR A CONTACTO\b|GO TO CONTACT\b|CON[OÓ]CENOS\b|GET TO KNOW US\b)/iu.test(label) && isInsideCard(link)){
       link.classList.add("vcc-card-cta-unificada");
     }
     // Eliminar fletxes de text, sense tocar els SVG ni els controls funcionals.
