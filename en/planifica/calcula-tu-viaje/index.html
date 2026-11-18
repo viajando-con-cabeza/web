@@ -1,0 +1,105 @@
+<!DOCTYPE html><html  lang="en" data-vcc-generated-en="1" data-vcc-i18n-version="3aba7030b26d" data-vcc-en-coverage="1"><head>
+<meta name="robots" content="noindex,follow">
+<link rel="canonical" href="https://viajandoconcabeza.com/en/planifica/calcula-tu-viaje/">
+<meta property="og:url" content="https://viajandoconcabeza.com/en/planifica/calcula-tu-viaje/">
+
+<meta property="og:title" content="Calcula tu viaje | Viajando con Cabeza">
+<meta property="og:description" content="Calcula un presupuesto orientativo para tu viaje con datos VCC reales por destino.">
+<meta property="og:image" content="https://viajandoconcabeza.com/configuracion/imagenes/fondos/fondos-presupuesto.webp">
+<meta name="twitter:card" content="summary_large_image">
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Calcula tu viaje | Viajando con Cabeza</title>
+<meta name="description" content="Calcula un presupuesto orientativo para tu viaje con datos VCC reales por destino.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Cormorant+Garamond:wght@600;700&family=Caveat:wght@600&family=Oswald:wght@600&display=swap" rel="stylesheet">
+<link rel="stylesheet" data-vcc-base-paginas href="/configuracion/css/componentes/vcc-base-paginas-compartit.css?v=base-vcc-v1">
+<link rel="stylesheet" href="/configuracion/css/paginas/planifica-calcula-tu-viaje-interno-1.css?v=20261111-1">
+<link rel="stylesheet" href="/configuracion/css/componentes/planifica-portadas-unificadas-vcc.css?v=20261116-transparencia-compartida-v2">
+<link rel="stylesheet" data-vcc-core-styles href="/configuracion/css/componentes/vcc-core-compartit.css?v=04af249925fd">
+</head><body><header class="page-header"></header><main>
+<section class="vcc-planifica-hero hero" data-vcc-planifica-hero="calcula-tu-viaje"><div class="shell hero-in vcc-planifica-hero-content"><div class="crumb">INICIO · PLANIFICA · CALCULA TU VIAJE</div><span class="k vcc-planifica-sobretitol">Calcula el presupuesto de tu viaje</span><h1>CALCULA EL PRESUPUESTO<br><em>DE TU VIAJE</em></h1><p>Personaliza días, viajeros y nivel de gasto. Cuando tenemos un presupuesto VCC publicado, usamos esas mismas referencias para que los números sean coherentes con nuestras guías.</p><div class="meta"><span>✓ Datos VCC</span><span>✓ Ajustable por partida</span><span>✓ Total por persona</span><span>✓ Sin inventar destinos</span></div></div></section>
+
+<section class="calc-wrap"><div class="shell calculator">
+<section class="panel">
+<span class="k">CONFIGURA TU VIAJE</span><h2>Haz tus números</h2>
+<div class="field"><label>DESTINO</label><select id="destination"><option value="estocolmo">Estocolmo · Suecia</option><option disabled>Roma · próximamente</option><option disabled>Fuerteventura · próximamente</option><option disabled>Más destinos · próximamente</option></select></div>
+<div class="trip-row">
+<div class="field"><label>DÍAS</label><input id="days" type="number" min="1" max="30" value="4"></div>
+<div class="field"><label>NOCHES</label><input id="nights" type="number" min="0" max="30" value="3"></div>
+<div class="field"><label>VIAJEROS</label><input id="people" type="number" min="1" max="12" value="2"></div>
+</div>
+<div class="partidas">
+<div class="partida"><span>🛏 Alojamiento</span><select data-cat="alojamiento"><option value="mochilero">Mochilero</option><option value="vcc" selected>VCC</option><option value="medio">Medio</option><option value="lujo">Lujo</option></select><strong id="p-alojamiento">35 €</strong></div>
+<div class="partida"><span>🍴 Comida</span><select data-cat="comida"><option value="mochilero">Mochilero</option><option value="vcc" selected>VCC</option><option value="medio">Medio</option><option value="lujo">Lujo</option></select><strong id="p-comida">25 €</strong></div>
+<div class="partida"><span>🚇 Transporte</span><select data-cat="transporte"><option value="mochilero">Mochilero</option><option value="vcc" selected>VCC</option><option value="medio">Medio</option><option value="lujo">Lujo</option></select><strong id="p-transporte">15 €</strong></div>
+<div class="partida"><span>🎟 Actividades</span><select data-cat="actividades"><option value="mochilero">Mochilero</option><option value="vcc" selected>VCC</option><option value="medio">Medio</option><option value="lujo">Lujo</option></select><strong id="p-actividades">25 €</strong></div>
+<div class="partida"><span>✦ Extras</span><select data-cat="extras"><option value="mochilero">Mochilero</option><option value="vcc" selected>VCC</option><option value="medio">Medio</option><option value="lujo">Lujo</option></select><strong id="p-extras">10 €</strong></div>
+</div>
+<div class="flight"><div><b>✈ Vuelos ida y vuelta</b><p>Introduce el precio por persona que hayas encontrado. El vuelo no forma parte del presupuesto diario VCC porque cambia según origen y fechas.</p></div><input id="flight" type="number" min="0" step="1" value="0" aria-label="Precio de vuelos por persona"></div>
+</section>
+
+<aside class="ticket">
+<span class="k">TU VIAJE</span><h2>Stockholm</h2><div class="sub" id="ticket-meta">4 días · 3 noches · 2 viajeros</div>
+<div class="grand" id="per-person">405 €</div><div class="perday" id="per-day">101 € por día y persona + vuelo</div>
+<div class="break">
+<div class="line"><span>✈ Vuelos</span><b id="r-flight">0 €</b></div>
+<div class="line"><span>🛏 Alojamiento</span><b id="r-alojamiento">105 €</b></div>
+<div class="line"><span>🍴 Comida</span><b id="r-comida">100 €</b></div>
+<div class="line"><span>🚇 Transporte</span><b id="r-transporte">60 €</b></div>
+<div class="line"><span>🎟 Actividades</span><b id="r-actividades">100 €</b></div>
+<div class="line"><span>✦ Extras</span><b id="r-extras">40 €</b></div>
+</div>
+<div class="totalparty"><span>TOTAL PARA TODOS LOS VIAJEROS</span><strong id="party-total">810 €</strong></div>
+<div class="ticket-actions"><a class="primary" href="/en/destinos/suecia/estocolmo/presupuesto">VER PRESUPUESTO REAL →</a><a class="secondary" href="/en/destinos/suecia/estocolmo/">VER GUÍA →</a></div>
+<div class="notice">Estimación orientativa basada en referencias VCC. Los precios reales pueden variar según fechas, disponibilidad y forma de viajar.</div>
+</aside>
+</div></section>
+
+<section class="why"><div class="shell whygrid">
+<article><span class="k">CÓMO LO CALCULAMOS</span><h2>La misma lógica que en nuestros presupuestos</h2><p>No mantenemos una calculadora con números separados. Cuando un destino tiene presupuesto VCC, esta herramienta reutiliza esas mismas referencias.</p></article>
+<article><h3>🛏 Alojamiento por noche</h3><p>Se multiplica por las noches y por el número de viajeros.</p></article>
+<article><h3>🍴 Gastos por día</h3><p>Comida, transporte, actividades y extras se calculan por día.</p></article>
+<article><h3>✈ Vuelos aparte</h3><p>Los introduces tú porque dependen mucho del origen y las fechas.</p></article>
+</div></section>
+</main><footer class="vcc-global-footer"></footer>
+<script src="/configuracion/js/site-header.js?v=20261116-contracte-sagrat-v4"></script><script>
+(()=>{
+const prices={
+ lujo:{alojamiento:120,comida:65,transporte:25,actividades:55,extras:35},
+ medio:{alojamiento:70,comida:40,transporte:18,actividades:35,extras:17},
+ vcc:{alojamiento:35,comida:25,transporte:15,actividades:25,extras:10},
+ mochilero:{alojamiento:25,comida:15,transporte:10,actividades:10,extras:5}
+};
+const cats=["alojamiento","comida","transporte","actividades","extras"];
+const euro=n=>Math.round(n).toLocaleString("es-ES")+" €";
+const clamp=(id,min,max)=>{const el=document.getElementById(id);let v=Number(el.value);if(!Number.isFinite(v))v=min;v=Math.max(min,Math.min(max,v));el.value=v;return v};
+function sync(){
+ const days=clamp("days",1,30),nights=clamp("nights",0,30),people=clamp("people",1,12),flight=clamp("flight",0,10000);
+ const selected={};document.querySelectorAll("[data-cat]").forEach(s=>selected[s.dataset.cat]=s.value);
+ const unit={};cats.forEach(c=>{unit[c]=prices[selected[c]][c];document.getElementById("p-"+c).textContent=euro(unit[c])});
+ const breakdown={
+   flight,
+   alojamiento:unit.alojamiento*nights,
+   comida:unit.comida*days,
+   transporte:unit.transporte*days,
+   actividades:unit.actividades*days,
+   extras:unit.extras*days
+ };
+ document.getElementById("r-flight").textContent=euro(breakdown.flight);
+ document.getElementById("r-alojamiento").textContent=euro(breakdown.alojamiento);
+ document.getElementById("r-comida").textContent=euro(breakdown.comida);
+ document.getElementById("r-transporte").textContent=euro(breakdown.transporte);
+ document.getElementById("r-actividades").textContent=euro(breakdown.actividades);
+ document.getElementById("r-extras").textContent=euro(breakdown.extras);
+ const perPerson=Object.values(breakdown).reduce((a,b)=>a+b,0);
+ document.getElementById("per-person").textContent=euro(perPerson);
+ document.getElementById("per-day").textContent=euro((perPerson-flight)/days)+" por día y persona + vuelo";
+ document.getElementById("party-total").textContent=euro(perPerson*people);
+ document.getElementById("ticket-meta").textContent=days+" días · "+nights+" noches · "+people+" viajero"+(people===1?"":"s");
+}
+document.querySelectorAll("input,[data-cat]").forEach(el=>el.addEventListener("input",sync));
+document.querySelectorAll("[data-cat]").forEach(el=>el.addEventListener("change",sync));
+sync();
+})();
+</script><script src="/configuracion/js/site-footer.js?v=20261102"></script><script src="/configuracion/js/vcc-en-runtime.js" defer></script>
+</body></html>
