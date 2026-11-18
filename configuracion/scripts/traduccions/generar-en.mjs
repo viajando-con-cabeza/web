@@ -10,7 +10,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import crypto from 'node:crypto';
 import {ROOT,approvedFiles,listSiteHtml,publicRoute,ORIGIN} from '../lib/publicacion-vcc.mjs';
-import {SEED,MODEL,normalize,eligible,interactiveTexts} from './textos-compartits.mjs';
+import {SEED,MODEL,normalize,eligible,interactiveTexts,fallbackEnglish} from './textos-compartits.mjs';
 
 const legacy=JSON.parse(fs.readFileSync(path.join(ROOT,'configuracion/datos/i18n/en-segments.json'),'utf8'));
 const v2=JSON.parse(fs.readFileSync(path.join(ROOT,'configuracion/datos/i18n/en-segments-v2.json'),'utf8'));
@@ -26,7 +26,10 @@ const routes=new Map(sourceFiles.map(file=>[publicRoute(file),'/en'+publicRoute(
 // is already translated in generated HTML; avoid sending the whole blog to visitors.
 const liveTexts=interactiveTexts(ROOT,approvedFiles);
 const clientStrings=new Map(Object.entries(SEED));
-for(const t of liveTexts)if(dict.has(t))clientStrings.set(t,dict.get(t));
+for(const t of liveTexts){
+ const en=dict.get(t)||fallbackEnglish(t);
+ if(en)clientStrings.set(t,en);
+}
 const runtimeData=JSON.stringify({version:2,routes:Object.fromEntries(routes),dictionary:Object.fromEntries(clientStrings)});
 const version=crypto.createHash('sha256').update(runtimeData).digest('hex').slice(0,12);
 const issues=[],summaries=[];
@@ -42,7 +45,7 @@ function mirror(file,source){
    const key=normalize(value);
    if(!eligible(key)||key.includes('{{')||key.includes('$'+'{'))return value;
    wanted++;
-   const en=dict.get(key);
+   const en=dict.get(key)||fallbackEnglish(key);
    if(!en)return value;
    available++;
    // Never inject HTML returned by the AI model as markup.
