@@ -186,6 +186,8 @@
     'configuracion/js/componentes/subheader-unificado-vcc.js?v=20261117-primer-darrer-v4');
 
   const currentPath = window.location.pathname.replace(/\/index\.html$/, '/');
+  // All /en/ pages mirror their Spanish URL after the language prefix.
+  const sourcePath = currentPath.replace(/^\/en(?=\/|$)/i,'') || '/';
 
   /* VCC · Breadcrumb universal de destinos. Un único DOM + un único CSS.
      Las plantillas antiguas conservan su miga invisible como espacio de
@@ -331,17 +333,17 @@
   })();
 
   function getSection() {
-    if (/\/destinos\//.test(currentPath)) return 'destinos';
-    if (/\/itinerarios\//.test(currentPath)) return 'itinerarios';
-    if (/\/planifica\//.test(currentPath)) return 'planifica';
-    if (/\/nosotros\//.test(currentPath) || /\/en\/about\//.test(currentPath)) return 'nosotros';
-    if (/\/contacto\//.test(currentPath) || /\/en\/contact\//.test(currentPath)) return 'contacto';
+    if (/\/destinos\//.test(sourcePath)) return 'destinos';
+    if (/\/itinerarios\//.test(sourcePath)) return 'itinerarios';
+    if (/\/planifica\//.test(sourcePath)) return 'planifica';
+    if (/\/nosotros\//.test(sourcePath) || /\/en\/about\//.test(currentPath)) return 'nosotros';
+    if (/\/contacto\//.test(sourcePath) || /\/en\/contact\//.test(currentPath)) return 'contacto';
     return 'inicio';
   }
   const section = getSection();
   const isEnglish = /^\/en(?:\/|$)/i.test(currentPath);
   const links = isEnglish ? {
-    inicio:url('en/index.html'),destinos:url('en/not-available/'),itinerarios:url('en/not-available/'),planifica:url('en/not-available/'),nosotros:url('en/about/index.html'),contacto:url('en/contact/index.html'),logo:url('/configuracion/imagenes/marca/logo-viajando-con-cabeza.svg'),
+    inicio:url('en/index.html'),destinos:url('en/destinos/index.html'),itinerarios:url('en/itinerarios/index.html'),planifica:url('en/planifica/index.html'),nosotros:url('en/nosotros/index.html'),contacto:url('en/contacto/index.html'),logo:url('/configuracion/imagenes/marca/logo-viajando-con-cabeza.svg'),
     instagram:'https://www.instagram.com/viajaconcabeza/',tiktok:'https://www.tiktok.com/@viajandoconcabeza'
   } : {
     inicio:url('index.html'),destinos:url('destinos/index.html'),itinerarios:url('itinerarios/index.html'),planifica:url('planifica/index.html'),nosotros:url('nosotros/index.html'),contacto:url('contacto/index.html'),logo:url('/configuracion/imagenes/marca/logo-viajando-con-cabeza.svg'),
@@ -351,14 +353,26 @@
   const instagramIcon='<svg viewBox="0 0 24 24" aria-hidden="true"><use href="/configuracion/imagenes/iconos/compartidos/redes-sociales.svg#cabecera-instagram"></use></svg>';
   const tiktokIcon='<svg viewBox="0 0 24 24" aria-hidden="true"><use href="/configuracion/imagenes/iconos/compartidos/redes-sociales.svg#cabecera-tiktok"></use></svg>';
   const youtubeIcon='<svg viewBox="0 0 24 24" aria-hidden="true"><use href="/configuracion/imagenes/iconos/compartidos/redes-sociales.svg#cabecera-youtube"></use></svg>'
-  const languageTargets = { inicio:{es:'/',en:'/en/'}, nosotros:{es:'/nosotros/',en:'/en/about/'}, contacto:{es:'/contacto/',en:'/en/contact/'} };
   const isSoonPage = /^(\/proximamente(?:\.html|\/)?|\/en\/(?:not-available|coming-soon)\/?)$/.test(currentPath);
-  const languageTarget = isSoonPage ? {es:'/proximamente/',en:'/en/coming-soon/'} : (languageTargets[section] || {es:currentPath,en:'/en/coming-soon/'});
+  // Never send an approved page's EN switch to Coming Soon. Future pages get
+  // their counterpart automatically without editing a hardcoded route table.
+  const languageTarget = isSoonPage ? {es:'/proximamente/',en:'/en/coming-soon/'} :
+    {es:sourcePath,en:'/en'+(sourcePath==='/'?'/':sourcePath)};
   const languageSwitch=`<div class="shared-language" aria-label="Language"><a href="${languageTarget.es}" lang="es" class="${isEnglish?"":"active"}" aria-label="Español">ES</a><span aria-hidden="true">|</span><a href="${languageTarget.en}" lang="en" class="${isEnglish?"active":""}" aria-label="English">EN</a></div>`;
   const header=`<header class="shared-header"><div class="shared-nav"><a class="shared-brand" href="${links.inicio}" aria-label="Viajando con Cabeza - Inicio"><img src="${links.logo}" alt="Viajando con Cabeza"></a><nav class="shared-menu" aria-label="Navegación principal">${menu.map(([key,label])=>`<a href="${links[key]}" class="${section===key?'active':''}">${label}</a>`).join('')}</nav><div class="shared-social" aria-label="Redes sociales"><a href="${links.instagram}" target="_blank" rel="noopener noreferrer" aria-label="Instagram @viajaconcabeza">${instagramIcon}</a><a href="${links.tiktok}" target="_blank" rel="noopener noreferrer" aria-label="TikTok @viajandoconcabeza">${tiktokIcon}</a><span class="vcc-social-unavailable" role="img" aria-label="YouTube Shorts, sin enlace">${youtubeIcon}</span></div>${languageSwitch}</div></header>`;
   // Preserve already-rendered HTML navigation; only fill legacy empty placeholders.
   const existing=document.querySelector('.site-header, .page-header, .shared-header');
   if (existing?.matches('.shared-header') && existing.querySelector('.shared-menu a')) {
+    // The ES HTML is the shared source. Localize its static navigation in EN.
+    if(isEnglish){
+      const linksHtml=menu.map(([key,label])=>'<a href="'+links[key]+'" class="'+(section===key?'active':'')+'">'+label+'</a>').join('');
+      const menuNode=existing.querySelector('.shared-menu');
+      if(menuNode)menuNode.innerHTML=linksHtml;
+      const languageNode=existing.querySelector('.shared-language');
+      if(languageNode)languageNode.outerHTML=languageSwitch;
+      const brandNode=existing.querySelector('a.shared-brand');
+      if(brandNode)brandNode.href=links.inicio;
+    }
     // Refresh the three icons without replacing the working shared header.
     const socialItems=Array.from(existing.querySelector('.shared-social')?.children||[]);
     // Actualitza els enllaços, també a les capçaleres prerenderitzades.
