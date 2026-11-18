@@ -18,7 +18,8 @@ permissions:
 
 concurrency:
   group: quality-en-visual
-  cancel-in-progress: true
+  # Keep a single browser QA pass alive despite automatic translation pushes.
+  cancel-in-progress: false
 
 jobs:
   browser_parity:
