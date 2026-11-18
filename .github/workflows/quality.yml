@@ -251,10 +251,8 @@ jobs:
           ref: quality
           fetch-depth: 0
 
-      - name: Verify Spanish site and approved routes before English generation
-        run: |
-          npm run site:check
-          node configuracion/scripts/comprobar-rutas.mjs
+      - name: Verify Spanish sources before English regeneration
+        run: npm run site:check
 
       - name: Prepare GitHub OIDC identity for Cloudflare
         id: oidc
@@ -280,6 +278,7 @@ jobs:
           node configuracion/scripts/traduccions/generar-en.mjs --write
           node configuracion/scripts/traduccions/generar-en.mjs --check
           node configuracion/scripts/traduccions/verificar-en.mjs
+          node configuracion/scripts/comprobar-rutas.mjs
 
       - name: Commit English mirrors and translation memory atomically
         shell: bash
