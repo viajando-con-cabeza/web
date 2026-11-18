@@ -795,3 +795,8 @@ html[lang="en"] body .imp-page .place-copy .facts > span:nth-child(4)::after{
 html[lang="en"] body .imp-page .place-copy .facts > span:nth-child(4)::before{
   content:none!important;
 }
+
+/* The editorial photo separator is CSS content, not a translatable DOM node. */
+html[lang="en"] body .imp-page .vcc-itinerary-feature::after{
+  content:"Stockholm is best enjoyed at an unhurried pace"!important;
+}
