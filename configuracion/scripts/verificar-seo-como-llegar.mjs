@@ -24,7 +24,13 @@ const files = [section + '.html', ...fs.readdirSync(path.join(root, section))
   .filter(name => name.endsWith('.html')).map(name => section + '/' + name)];
 const hub = read(section + '.html');
 const active = [...new Set([...hub.matchAll(/href="como-llegar\/([a-z0-9-]+)"/g)].map(m => m[1]))];
-assert(active.length === 12, 'Expected 12 active transport guides linked in hub, found ' + active.length);
+// Guides are draft-first: only approved transport guides should be linked.
+// The former hardcoded "12" contradicted the deny-by-default registry.
+const expectedActive = files.slice(1).filter(file => approved.has(file))
+  .map(file => file.slice((section+'/').length,-'.html'.length)).sort();
+assert(JSON.stringify([...active].sort()) === JSON.stringify(expectedActive),
+  'Active transport links differ from approved guides (found '+active.length+
+  ', approved '+expectedActive.length+'): '+active.join(', '));
 const activeUrls = [base, ...active.map(slug => base + '/' + slug)];
 
 for (const url of activeUrls) {
