@@ -416,9 +416,12 @@ html body .vcc-experience-carousel .vcc-experience-track::-webkit-scrollbar{disp
 html body .vcc-experience-carousel .vcc-experience-track > .vcc-experience-card.vcc-experience-card[hidden]{
   display:none!important;
 }
+/* Altura compacta compartida (Suecia · aeropuertos y Planifica · experiencia):
+   15px menos de altura mínima por tamaño de pantalla. El alto es flexible
+   para no recortar textos largos; grid mantiene tarjetas iguales por fila. */
 html body .vcc-experience-carousel .vcc-experience-track > .vcc-experience-card.vcc-experience-card{
   box-sizing:border-box!important;display:flex!important;flex-direction:column!important;
-  width:100%!important;height:355px!important;min-height:355px!important;max-height:355px!important;
+  width:100%!important;height:auto!important;min-height:340px!important;max-height:none!important;
   min-width:0!important;margin:0!important;padding:0!important;
   border:1px solid #e3ddd7!important;border-radius:12px!important;
   background:#fff!important;box-shadow:0 4px 15px rgba(43,34,26,.045)!important;
@@ -522,13 +525,13 @@ html body :is(.vl-page #experiencia,.al-page #plataformas,.tv-page #tarjetas,.sv
 @media(max-width:1050px){
   html body .vcc-experience-carousel .vcc-experience-track.vcc-experience-track{grid-auto-columns:calc((100% - 16px)/2.12)!important}
   html body .vcc-experience-carousel .vcc-experience-track > .vcc-experience-card.vcc-experience-card{
-    height:375px!important;min-height:375px!important;max-height:375px!important;
+    height:auto!important;min-height:360px!important;max-height:none!important;
   }
 }
 @media(max-width:740px){
   html body .vcc-experience-carousel .vcc-experience-track.vcc-experience-track{grid-auto-columns:calc((100% - 16px)/1.12)!important}
   html body .vcc-experience-carousel .vcc-experience-track > .vcc-experience-card.vcc-experience-card{
-    height:390px!important;min-height:390px!important;max-height:390px!important;
+    height:auto!important;min-height:375px!important;max-height:none!important;
   }
   html body .vcc-experience-carousel .vcc-experience-card > .vcc-experience-body.vcc-experience-body{padding:13px!important}
   html body .vcc-experience-carousel .vcc-experience-card .vcc-experience-points>section{padding-right:9px!important}
