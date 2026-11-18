@@ -342,10 +342,10 @@
   const isEnglish = /^\/en(?:\/|$)/i.test(currentPath);
   const links = isEnglish ? {
     inicio:url('en/index.html'),destinos:url('en/not-available/'),itinerarios:url('en/not-available/'),planifica:url('en/not-available/'),nosotros:url('en/about/index.html'),contacto:url('en/contact/index.html'),logo:url('/configuracion/imagenes/marca/logo-viajando-con-cabeza.svg'),
-    instagram:'https://www.instagram.com/viajaconcabeza/',tiktok:'https://www.tiktok.com/@viajaconcabeza',youtube:'https://www.youtube.com/@viajaconcabeza'
+    instagram:'https://www.instagram.com/viajaconcabeza/',tiktok:'https://www.tiktok.com/@viajandoconcabeza'
   } : {
     inicio:url('index.html'),destinos:url('destinos/index.html'),itinerarios:url('itinerarios/index.html'),planifica:url('planifica/index.html'),nosotros:url('nosotros/index.html'),contacto:url('contacto/index.html'),logo:url('/configuracion/imagenes/marca/logo-viajando-con-cabeza.svg'),
-    instagram:'https://www.instagram.com/viajaconcabeza/',tiktok:'https://www.tiktok.com/@viajaconcabeza',youtube:'https://www.youtube.com/@viajaconcabeza'
+    instagram:'https://www.instagram.com/viajaconcabeza/',tiktok:'https://www.tiktok.com/@viajandoconcabeza'
   };
   const menu = isEnglish ? [['inicio','HOME'],['destinos','DESTINATIONS'],['itinerarios','ITINERARIES'],['planifica','PLAN'],['nosotros','ABOUT'],['contacto','CONTACT']] : [['inicio','INICIO'],['destinos','DESTINOS'],['itinerarios','ITINERARIOS'],['planifica','PLANIFICA'],['nosotros','NOSOTROS'],['contacto','CONTACTO']];
   const instagramIcon='<svg viewBox="0 0 24 24" aria-hidden="true"><use href="/configuracion/imagenes/iconos/compartidos/redes-sociales.svg#cabecera-instagram"></use></svg>';
@@ -355,23 +355,46 @@
   const isSoonPage = /^(\/proximamente(?:\.html|\/)?|\/en\/(?:not-available|coming-soon)\/?)$/.test(currentPath);
   const languageTarget = isSoonPage ? {es:'/proximamente/',en:'/en/coming-soon/'} : (languageTargets[section] || {es:currentPath,en:'/en/coming-soon/'});
   const languageSwitch=`<div class="shared-language" aria-label="Language"><a href="${languageTarget.es}" lang="es" class="${isEnglish?"":"active"}" aria-label="Español">ES</a><span aria-hidden="true">|</span><a href="${languageTarget.en}" lang="en" class="${isEnglish?"active":""}" aria-label="English">EN</a></div>`;
-  const header=`<header class="shared-header"><div class="shared-nav"><a class="shared-brand" href="${links.inicio}" aria-label="Viajando con Cabeza - Inicio"><img src="${links.logo}" alt="Viajando con Cabeza"></a><nav class="shared-menu" aria-label="Navegación principal">${menu.map(([key,label])=>`<a href="${links[key]}" class="${section===key?'active':''}">${label}</a>`).join('')}</nav><div class="shared-social" aria-label="Redes sociales"><a href="${links.instagram}" target="_blank" rel="noopener noreferrer" aria-label="Instagram @viajaconcabeza">${instagramIcon}</a><a href="${links.tiktok}" target="_blank" rel="noopener noreferrer" aria-label="TikTok @viajaconcabeza">${tiktokIcon}</a><a href="${links.youtube}" target="_blank" rel="noopener noreferrer" aria-label="YouTube @viajaconcabeza">${youtubeIcon}</a></div>${languageSwitch}</div></header>`;
+  const header=`<header class="shared-header"><div class="shared-nav"><a class="shared-brand" href="${links.inicio}" aria-label="Viajando con Cabeza - Inicio"><img src="${links.logo}" alt="Viajando con Cabeza"></a><nav class="shared-menu" aria-label="Navegación principal">${menu.map(([key,label])=>`<a href="${links[key]}" class="${section===key?'active':''}">${label}</a>`).join('')}</nav><div class="shared-social" aria-label="Redes sociales"><a href="${links.instagram}" target="_blank" rel="noopener noreferrer" aria-label="Instagram @viajaconcabeza">${instagramIcon}</a><a href="${links.tiktok}" target="_blank" rel="noopener noreferrer" aria-label="TikTok @viajandoconcabeza">${tiktokIcon}</a><span class="vcc-social-unavailable" role="img" aria-label="YouTube Shorts, sin enlace">${youtubeIcon}</span></div>${languageSwitch}</div></header>`;
   // Preserve already-rendered HTML navigation; only fill legacy empty placeholders.
   const existing=document.querySelector('.site-header, .page-header, .shared-header');
   if (existing?.matches('.shared-header') && existing.querySelector('.shared-menu a')) {
     // Refresh the three icons without replacing the working shared header.
-    const socialLinks=existing.querySelectorAll('.shared-social a');
+    const socialItems=Array.from(existing.querySelector('.shared-social')?.children||[]);
+    // Actualitza els enllaços, també a les capçaleres prerenderitzades.
+    // Instagram i TikTok són comptes diferents; YouTube Shorts no té canal encara.
+    const instagram=socialItems[0];
+    if(instagram?.tagName==='A'){
+      instagram.setAttribute('href',links.instagram);
+      instagram.setAttribute('aria-label','Instagram @viajaconcabeza');
+    }
+    const tiktok=socialItems[1];
+    if(tiktok?.tagName==='A'){
+      tiktok.setAttribute('href',links.tiktok);
+      tiktok.setAttribute('aria-label','TikTok @viajandoconcabeza');
+    }
+    const youtube=socialItems[2];
+    if(youtube?.tagName==='A'){
+      const icon=document.createElement('span');
+      icon.className='vcc-social-unavailable';
+      icon.setAttribute('role','img');
+      icon.setAttribute('aria-label','YouTube Shorts, sin enlace');
+      icon.innerHTML=youtube.innerHTML;
+      youtube.replaceWith(icon);
+      socialItems[2]=icon;
+    }else if(youtube?.classList.contains('vcc-social-unavailable')){
+      youtube.setAttribute('aria-label','YouTube Shorts, sin enlace');
+    }
     const iconSources=[
       '/configuracion/imagenes/iconos/compartidos/redes-sociales.svg#cabecera-instagram',
       '/configuracion/imagenes/iconos/compartidos/redes-sociales.svg#cabecera-tiktok',
       '/configuracion/imagenes/iconos/compartidos/redes-sociales.svg#cabecera-youtube'
     ];
     [instagramIcon,tiktokIcon,youtubeIcon].forEach((svg,i)=>{
-      // La capçalera ja arriba preparada en HTML a les guies optimitzades.
-      // Evitem reemplaçar SVG idèntics i invalidar el layout abans del LCP.
-      const anchor=socialLinks[i];
-      if(anchor && anchor.querySelector('use')?.getAttribute('href')!==iconSources[i])
-        anchor.innerHTML=svg;
+      // Conserva el LCP: solo sustituye iconos si la referencia no coincide.
+      const item=socialItems[i];
+      if(item && item.querySelector('use')?.getAttribute('href')!==iconSources[i])
+        item.innerHTML=svg;
     });
     // Static header stays visible and functional even if this script fails later.
   } else if (existing) {
