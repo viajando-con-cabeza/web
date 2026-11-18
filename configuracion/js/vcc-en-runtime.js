@@ -16,8 +16,58 @@
     'Redes sociales':'Social media','SÍGUENOS':'FOLLOW US',
     'Ver todos':'See all','Ver más':'See more'
   };
+  // Stable fallback for Sweden's JS-rendered card titles, categories and short metadata.
+  // The generated translation dictionary remains authoritative when it contains a key.
+  const swedenCardText={
+      "ITINERARIOS EN SUECIA": "ITINERARIES IN SWEDEN",
+      "Goteborg": "Gothenburg",
+      "Goteborg y su costa": "Gothenburg and its coast",
+      "Goteborg, su costa y lagos": "Gothenburg, coast & lakes",
+      "Estocolmo y Dalarna": "Stockholm and Dalarna",
+      "Vuelta a Suecia": "Tour of Sweden",
+      "Imprescindibles de Estocolmo": "Stockholm must-sees",
+      "Lo imprescindible": "Must-see places",
+      "Mejores parques": "Best parks",
+      "Mejores lagos": "Best lakes",
+      "Joyas ocultas": "Hidden gems",
+      "CIUDAD": "CITY",
+      "CIUDADES": "CITIES",
+      "COSTA": "COAST",
+      "MONTAÑA": "MOUNTAINS",
+      "NATURALEZA": "NATURE",
+      "COMBINADO": "COMBINED",
+      "RUTA EN COCHE": "ROAD TRIP",
+      "RUTA COMBINADA": "COMBINED ROUTE",
+      "IMPRESCINDIBLES": "MUST-SEES",
+      "FOTOGRAFÍA": "PHOTOGRAPHY",
+      "LAGOS": "LAKES",
+      "JOYAS OCULTAS": "HIDDEN GEMS",
+      "PRIMERA VISITA": "FIRST VISIT",
+      "LAGOS Y PAISAJES": "LAKES & LANDSCAPES",
+      "RINCONES ESPECIALES": "SPECIAL PLACES",
+      "1 día": "1 day",
+      "2 días": "2 days",
+      "3 días": "3 days",
+      "5 días": "5 days",
+      "6 días": "6 days",
+      "14 días": "14 days",
+      "Pendiente": "TBC",
+      "Duración pendiente": "Duration TBC",
+      "Próximo itinerario": "Upcoming itinerary",
+      "NUEVA RUTA": "NEW ROUTE",
+      "Qué visitar": "What to see",
+      "Presupuesto": "Budget",
+      "Experiencias": "Experiences",
+      "Canales, paseos y lugares interesantes para descubrir Gotemburgo.": "Canals, walks and interesting places to discover Gothenburg.",
+      "Islas, ferris y pueblos marineros de la costa oeste sueca.": "Islands, ferries and seaside villages along Sweden’s west coast.",
+      "Pueblos, lagos y rincones entre Småland, Örebro y Östergötland.": "Towns, lakes and hidden corners between Småland, Örebro and Östergötland.",
+      "Parques nacionales, senderos y bosques para explorar a tu ritmo.": "National parks, trails and forests to explore at your own pace.",
+      "Gamla Stan, museos y barrios en una ruta por horas.": "Gamla Stan, museums and neighborhoods on an hour-by-hour route.",
+      "Guías completas y lugares que ver y hacer por todo el país.": "Detailed guides and places to see and explore across the country.",
+      "Compara estilos, calcula tu viaje y consulta presupuestos por destino.": "Compare travel styles, plan your costs and explore destination budgets."
+  };
   const spanishBase=location.pathname.replace(/^\/en(?=\/|$)/,'')||'/';
-  let dictionary=new Map(Object.entries(common)),routes=new Map();
+  let dictionary=new Map([...Object.entries(common),...Object.entries(swedenCardText)]),routes=new Map();
   let queued=false;
   const localPath=href=>{
     try{
@@ -92,7 +142,7 @@
       const res=await fetch('/configuracion/datos/i18n/en-runtime.json?v='+encodeURIComponent(version),{cache:'default'});
       if(!res.ok)throw Error('dictionary-'+res.status);
       const json=await res.json();
-      dictionary=new Map([...Object.entries(common),...Object.entries(json.dictionary||{})]);
+      dictionary=new Map([...Object.entries(common),...Object.entries(swedenCardText),...Object.entries(json.dictionary||{})]);
       routes=new Map(Object.entries(json.routes||{}));
     }catch(error){
       console.warn('VCC EN translations unavailable; retained shared interface.',error);
