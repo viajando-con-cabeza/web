@@ -10,22 +10,28 @@ import fs from 'node:fs';
 import path from 'node:path';
 import crypto from 'node:crypto';
 import {ROOT,approvedFiles,listSiteHtml,publicRoute,ORIGIN} from '../lib/publicacion-vcc.mjs';
+import {SEED,MODEL,normalize,eligible,interactiveTexts} from './textos-compartits.mjs';
 
-const config=JSON.parse(fs.readFileSync(path.join(ROOT,'configuracion/datos/idiomas-vcc.json'),'utf8'));
-const memory=JSON.parse(fs.readFileSync(path.join(ROOT,'configuracion/datos/i18n/en-segments.json'),'utf8'));
-const dict=new Map(Object.values(memory.segments||{}).map(v=>[v.es,v.en]).filter(v=>v[0]&&v[1]));
+const legacy=JSON.parse(fs.readFileSync(path.join(ROOT,'configuracion/datos/i18n/en-segments.json'),'utf8'));
+const v2=JSON.parse(fs.readFileSync(path.join(ROOT,'configuracion/datos/i18n/en-segments-v2.json'),'utf8'));
+if(v2.model!==MODEL)throw Error('English model mismatch in translation memory');
+// The newer contextual model always supersedes the old, lower-quality translator.
+const dict=new Map([...Object.values(legacy.segments||{}).map(v=>[v.es,v.en]),
+ ...Object.entries(SEED),...Object.values(v2.segments||{}).map(v=>[v.es,v.en])].filter(v=>v[0]&&v[1]));
 const mode=process.argv.includes('--write')?'write':process.argv.includes('--check')?'check':'report';
 // Mirror draft ES HTML too: approved pages link to some noindex drafts.
 const sourceFiles=listSiteHtml().filter(file=>!file.startsWith('en/')).sort();
 const routes=new Map(sourceFiles.map(file=>[publicRoute(file),'/en'+publicRoute(file)]));
-const runtimeData=JSON.stringify({version:1,routes:Object.fromEntries(routes),dictionary:Object.fromEntries(dict)});
+// Runtime only needs strings inserted by JavaScript after HTML load. Static text
+// is already translated in generated HTML; avoid sending the whole blog to visitors.
+const liveTexts=interactiveTexts(ROOT,approvedFiles);
+const clientStrings=new Map(Object.entries(SEED));
+for(const t of liveTexts)if(dict.has(t))clientStrings.set(t,dict.get(t));
+const runtimeData=JSON.stringify({version:2,routes:Object.fromEntries(routes),dictionary:Object.fromEntries(clientStrings)});
 const version=crypto.createHash('sha256').update(runtimeData).digest('hex').slice(0,12);
 const issues=[],summaries=[];
 const escapeText=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
 const escapeAttribute=s=>escapeText(s).replace(/"/g,'&quot;');
-const decode=s=>String(s).replace(/&nbsp;/gi,' ').replace(/&amp;/gi,'&')
- .replace(/&quot;/gi,'"').replace(/&#39;|&apos;/gi,"'").replace(/\s+/g,' ').trim();
-const eligible=s=>s.length>=2&&s.length<=850&&/[a-záéíóúñü]/i.test(s)&&!/^[-+\d.,€% ]+$/.test(s)&&!/<[^>]+>/.test(s);
 const attr=(tag,key)=>{
  const m=tag.match(new RegExp('\\b'+key+'\\s*=\\s*(["\\x27])([\\s\\S]*?)\\1','i'));
  return m?.[2]||'';
@@ -33,7 +39,7 @@ const attr=(tag,key)=>{
 function mirror(file,source){
  let wanted=0,available=0;
  const translate=(value,kind='text')=>{
-   const key=decode(value);
+   const key=normalize(value);
    if(!eligible(key)||key.includes('{{')||key.includes('$'+'{'))return value;
    wanted++;
    const en=dict.get(key);
