@@ -235,7 +235,7 @@ jobs:
   # Traducció ES→EN després de validar Quality (mai en cada visita).
   # Pilot segur: només memòria de segments al GitHub, sense publicar /en/.
   translate_en:
-    name: Prepare English translations (draft only)
+    name: Sync English translations and preview mirrors
     needs: validate
     if: ${{ success() && github.ref == 'refs/heads/quality' }}
     runs-on: ubuntu-latest
@@ -268,18 +268,23 @@ jobs:
           VCC_TRANSLATOR_OIDC: ${{ steps.oidc.outputs.token }}
         run: node configuracion/scripts/traduccions/actualitzar-en.mjs --write
 
-      - name: Version English translation memory
+      - name: Generate all English mirrors from the validated Spanish HTML
+        run: |
+          node configuracion/scripts/traduccions/generar-en.mjs --write
+          node configuracion/scripts/traduccions/generar-en.mjs --check
+          node configuracion/scripts/traduccions/verificar-en.mjs
+
+      - name: Commit English mirrors and translation memory atomically
         shell: bash
         run: |
           set -euo pipefail
-          FILE="configuracion/datos/i18n/en-segments.json"
-          if git diff --quiet -- "$FILE"; then
-            echo "ES→EN: no new translations to commit."
+          git add -- configuracion/datos/i18n/en-segments.json configuracion/datos/i18n/en-runtime.json en/
+          if git diff --cached --quiet; then
+            echo "ES→EN: translations and mirror already synchronized."
             exit 0
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add "$FILE"
-          git commit -m "i18n(en): cache approved-source translation drafts [skip ci]"
+          git commit -m "i18n(en): synchronize English mirrors with approved Spanish pages [skip ci]"
           git pull --rebase origin quality
           git push origin HEAD:quality
