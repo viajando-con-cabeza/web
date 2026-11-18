@@ -3,7 +3,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import crypto from 'node:crypto';
 import {ROOT,approvedFiles} from '../lib/publicacion-vcc.mjs';
-import {MODEL,SEED,htmlTexts,interactiveTexts} from './textos-compartits.mjs';
+import {MODEL,SEED,htmlTexts,interactiveTexts,fallbackEnglish} from './textos-compartits.mjs';
 const v2=JSON.parse(fs.readFileSync(path.join(ROOT,'configuracion/datos/i18n/en-segments-v2.json'),'utf8'));
 const old=JSON.parse(fs.readFileSync(path.join(ROOT,'configuracion/datos/i18n/en-segments.json'),'utf8'));
 const key=x=>crypto.createHash('sha256').update(MODEL+'\0'+x).digest('hex');
@@ -15,7 +15,7 @@ for(const file of approvedFiles){
  let fresh=0,glossary=0,legacy=0,missing=0;const examples=[];
  for(const t of texts){
   if(v2texts.has(t))fresh++;
-  else if(SEED[t]!=null)glossary++;
+  else if(SEED[t]!=null||fallbackEnglish(t)!=null)glossary++;
   else if(oldtexts.has(t))legacy++;
   else{missing++;if(examples.length<3)examples.push(t.slice(0,140));}
  }
@@ -26,7 +26,7 @@ const total=measured.reduce((a,x)=>a+x.total,0);
 const fresh=measured.reduce((a,x)=>a+x.fresh+x.glossary,0);
 const oldFallback=measured.reduce((a,x)=>a+x.legacy,0);
 const missing=measured.reduce((a,x)=>a+x.missing,0);
-const dynamicMissing=dynamic.filter(t=>!v2texts.has(t)&&SEED[t]==null&&!oldtexts.has(t));
+const dynamicMissing=dynamic.filter(t=>!v2texts.has(t)&&SEED[t]==null&&!oldtexts.has(t)&&fallbackEnglish(t)==null);
 const report={
  generatedAt:new Date().toISOString(),locale:'en',source:'es',
  approvedPages:approvedFiles.length,
