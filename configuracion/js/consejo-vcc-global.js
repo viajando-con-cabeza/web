@@ -16,7 +16,8 @@
   ].join(', ');
 
   const officialLogo = '/configuracion/imagenes/marca/logo-vcc.svg';
-  const labelPattern = /^(?:(?:NUESTRO|NUESTRA)\s+)?CONSEJOS?\s+VCC$/i;
+  const isEnglish = /^\/en(?:\/|$)/i.test(location.pathname);
+  const labelPattern = /^(?:(?:(?:NUESTRO|NUESTRA)\s+)?CONSEJOS?\s+VCC|(?:OUR\s+)?VCC\s+(?:TIPS?|ADVICE|RECOMMENDATIONS?)|(?:OUR\s+)?(?:TIPS?|ADVICE)\s+VCC)$/i;
 
   function isAdviceLabel(node) {
     if (!node || !node.textContent || node.closest('a, button, nav')) return false;
@@ -52,12 +53,12 @@
     // Una única etiqueta consistente, siempre debajo de la imagen.
     label.remove();
     const caption = document.createElement('strong');
-    caption.textContent = 'CONSEJO VCC';
+    caption.textContent = isEnglish ? 'VCC TIP' : 'CONSEJO VCC';
     brand.appendChild(caption);
 
     root.classList.add('vcc-consejo-unificado');
     if (!root.hasAttribute('aria-label')) {
-      root.setAttribute('aria-label', 'Consejo VCC');
+      root.setAttribute('aria-label', isEnglish ? 'VCC travel tip' : 'Consejo VCC');
     }
 
     // El bloque "Cuándo ir" ya tiene una estructura editorial de 3 columnas.
