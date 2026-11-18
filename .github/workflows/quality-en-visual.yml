@@ -7,6 +7,8 @@ on:
       - 'en/**'
       - 'configuracion/js/vcc-en-runtime.js'
       - 'configuracion/js/site-header.js'
+      - 'configuracion/js/site-footer.js'
+      - 'configuracion/js/consejo-vcc-global.js'
       - 'configuracion/js/componentes/**'
       - 'configuracion/css/**'
       - 'configuracion/tests/en-visual-parity.spec.mjs'
@@ -19,7 +21,7 @@ permissions:
 concurrency:
   group: quality-en-visual-system-chrome
   # Keep a single browser QA pass alive despite automatic translation pushes.
-  cancel-in-progress: false
+  cancel-in-progress: true
 
 jobs:
   browser_parity:
