@@ -1,5 +1,6 @@
-/* VCC ES→EN incremental translation memory. Draft-only: never publishes /en/.
- * Source content remains in Spanish; image URLs, markup and JS are not sent.
+/* VCC ES→EN incremental translation memory for every approved Spanish page.
+ * Source structure, image URLs and scripts remain in Spanish, shared with EN.
+ * The English mirror is separately generated, always noindex until reviewed.
  */
 import fs from 'node:fs';
 import path from 'node:path';
@@ -11,11 +12,13 @@ const options=config.translation||{};
 const output='configuracion/datos/i18n/en-segments.json';
 const fullOut=path.join(root,output);
 const model='@cf/meta/m2m100-1.2b';
-const maxPerRun=Math.max(0,Math.min(90,Number(options.maxSegmentsPerRun||60)));
-const sources=options.pilotPages||[];
+const maxPerRun=Math.max(0,Math.min(1000,Number(options.maxSegmentsPerRun||80)));
+const published=JSON.parse(fs.readFileSync(path.join(root,'configuracion/datos/publicacion-vcc.json'),'utf8'));
+const sources=published.approved||[];
+const sourceSet=new Set(sources);
 const sha=t=>crypto.createHash('sha256').update(t).digest('hex');
 const decode=t=>String(t).replace(/&nbsp;/gi,' ').replace(/&amp;/gi,'&').replace(/&quot;/gi,'"').replace(/&#39;|&apos;/gi,"'").replace(/\s+/g,' ').trim();
-const valid=t=>t.length>=9&&t.length<=850&&/[a-záéíóúñü]/i.test(t)&&!/^[-+\d.,€% ]+$/.test(t)&&!/<[^>]+>/.test(t);
+const valid=t=>t.length>=2&&t.length<=850&&/[a-záéíóúñü]/i.test(t)&&!/^[-+\d.,€% ]+$/.test(t)&&!/<[^>]+>/.test(t);
 function attr(tag,key){
  const m=tag.match(new RegExp('\\b'+key+'\\s*=\\s*(["\\x27])([\\s\\S]*?)\\1','i'));
  return m?.[2]||'';
@@ -33,7 +36,9 @@ function segments(html){
   .replace(/<(script|style|svg|template|noscript)\b[^>]*>[\s\S]*?<\/\1\s*>/gi,' ')
   .replace(/<[^>]+\s(?:data-translate|translate)=["']no["'][^>]*>[\s\S]*?<\/[^>]+>/gi,' ');
  for(const m of clean.matchAll(/>([^<>]+)</g))add(m[1]);
- for(const m of clean.matchAll(/<(?:img|input)\b[^>]*>/gi))add(attr(m[0],'alt'));
+ for(const m of clean.matchAll(/<(?:img|input|a|button|textarea|area|abbr)\b[^>]*>/gi)){
+  for(const key of ['alt','aria-label','title','placeholder'])add(attr(m[0],key));
+ }
  return [...ordered];
 }
 const state=fs.existsSync(fullOut)?JSON.parse(fs.readFileSync(fullOut,'utf8')):{version:1,model,segments:{},pages:{}};
@@ -71,7 +76,7 @@ for(const [key,item] of Object.entries(state.segments)){
 }
 const today=new Date().toISOString().slice(0,10);
 if(state.daily?.date!==today)state.daily={date:today,requested:0};
-const maxPerDay=Math.max(0,Math.min(150,Number(options.maxSegmentsPerDay||80)));
+const maxPerDay=Math.max(0,Math.min(1000,Number(options.maxSegmentsPerDay||80)));
 let pending=0,done=0,requested=0,failed=0;const errors=[];
 async function translate(text){
  const endpoint=process.env.VCC_TRANSLATOR_URL, token=process.env.VCC_TRANSLATOR_OIDC;
@@ -87,10 +92,10 @@ async function translate(text){
   await new Promise(resolve=>setTimeout(resolve,1000*(n+1)));
  }
 }
-if(!Array.isArray(sources)||!sources.length)throw Error('No translation pilot pages configured');
-if(!options.status?.startsWith('pilot-')){console.log('ES→EN inactive; no files modified');process.exit(0);}
+if(!Array.isArray(sources)||!sources.length)throw Error('No approved ES pages configured');
+if(!/^(pilot|auto)-/.test(options.status||'')){console.log('ES→EN inactive; no files modified');process.exit(0);}
 for(const source of sources){
- if(!/^destinos\/[a-z0-9/_-]+\.html$/.test(source)||source.includes('..'))throw Error('Unapproved source: '+source);
+ if(!sourceSet.has(source)||source.includes('..')||source.startsWith('/'))throw Error('Unapproved source: '+source);
  const full=path.join(root,source);
  if(!fs.existsSync(full))throw Error('Missing ES source: '+source);
  const html=fs.readFileSync(full,'utf8');
@@ -123,7 +128,7 @@ if(process.argv.includes('--write')){
  fs.mkdirSync(path.dirname(fullOut),{recursive:true});
  fs.writeFileSync(fullOut,JSON.stringify(state,null,2)+'\n');
 }
-console.log('ES→EN pilot: '+done+' new, '+pending+' missing, '+requested+' attempted, '+failed+' failed; nothing published');
+console.log('ES→EN approved site: '+done+' new, '+pending+' missing, '+requested+' attempted, '+failed+' failed; English mirrors remain noindex until reviewed');
 if(errors.length){
   for(const s of errors.slice(0,4))console.error('::warning::'+s);
   // Persist successful drafts even when one inference fails; retry missing segments later.
