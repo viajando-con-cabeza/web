@@ -78,6 +78,25 @@ export function interactiveTexts(root,sourceFiles=[]){
   }
  }
  walk(base);
+ // Some interactive tools render labels directly from shared JSON data, not HTML.
+ const budget=path.join(root,'configuracion/datos/presupuestos/suecia.json');
+ if(fs.existsSync(budget)){
+  const data=JSON.parse(fs.readFileSync(budget,'utf8'));
+  const visit=(obj,field='')=>{
+   if(typeof obj==='string'){
+    if(/^(?:label|name|detail|description|transport|unit|lujo|medio|mochilero|vcc)$/i.test(field)&&
+      !/^(?:https?:|\/|[a-z0-9-]+\.avif)$/i.test(obj))add(out,obj);
+   }else if(Array.isArray(obj))obj.forEach(x=>visit(x,field));
+   else if(obj&&typeof obj==='object')for(const [k,v]of Object.entries(obj))visit(v,k);
+  };
+  visit(data);
+ }
+ const countries=path.join(root,'configuracion/datos/paises-vcc.json');
+ if(fs.existsSync(countries)){
+  const data=JSON.parse(fs.readFileSync(countries,'utf8'));
+  for(const value of Object.values(data.countries||{}))
+   if(Array.isArray(value)&&typeof value[0]==='string')add(out,value[0]);
+ }
  for(const file of sourceFiles){
   const html=fs.readFileSync(path.join(root,file),'utf8');
   for(const match of html.matchAll(/<script\b[^>]*>([\s\S]*?)<\/script>/gi)){
