@@ -13,7 +13,7 @@ export function listarFitxers(root, { directori = '', ignorar = [] } = {}) {
 
   function recorrer(relatiu) {
     const fitxers = [];
-    for (const entrada of fs.readdirSync(path.join(root, relatiu), { withFileTypes: true })) {
+    for (const entrada of fs.readdirSync(path.join(root, relatiu), { withFileTypes: true }).sort((a, b) => a.name < b.name ? -1 : a.name > b.name ? 1 : 0)) {
       if (ometre.has(entrada.name)) continue;
       const ruta = path.posix.join(relatiu, entrada.name);
       if (entrada.isDirectory()) fitxers.push(...recorrer(ruta));
