@@ -28,7 +28,7 @@
     if(skip.test(link.className||"") && !action.test(label))return;
     if(!action.test(label) && !known.test(link.className||""))return;
     link.classList.add("vcc-accion-discreta");
-    if(/^(?:VER(?:\s|$)|VIEW(?:\s|$)|SEE(?:\s|$)|IR A CONTACTO\b|GO TO CONTACT\b|CON[OÓ]CENOS\b|GET TO KNOW US\b)/iu.test(label) && isInsideCard(link)){
+    if((/^(?:VER(?:\s|$)|VIEW(?:\s|$)|SEE(?:\s|$)|IR A CONTACTO\b|GO TO CONTACT\b|CON[OÓ]CENOS\b|GET TO KNOW US\b)/iu.test(label) || link.classList.contains('home-feature-link')) && isInsideCard(link)){
       link.classList.add("vcc-card-cta-unificada");
     }
     // Eliminar fletxes de text, sense tocar els SVG ni els controls funcionals.
