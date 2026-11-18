@@ -34,16 +34,23 @@ if(locales.locales?.en?.active){
     locales.translation?.reviewBeforeIndexing===true,
     "L'anglès només es pot activar quan el pipeline existeixi i les traduccions passin revisió");
 } else {
-  // Pilot d'IA pot generar només memòria ES→EN a Quality:
-  // mai no activa /en/ ni l'indexació mentre no es validin HTML, JS i SEO.
+  // Quality can generate full-structure EN mirrors while the English
+  // editorial locale stays disabled for indexing and production promotion.
   const status=locales.translation?.status;
-  check(["planned-not-deployed","pilot-translation-memory-only"].includes(status),
-    "La traducció inactiva ha de ser planned o un pilot segur");
+  check(["planned-not-deployed","pilot-translation-memory-only","auto-quality-noindex"].includes(status),
+    "La traducció inactiva només pot ser planificada, pilot o mirall noindex");
   if(status==="pilot-translation-memory-only")
     check(locales.translation?.publication==="disabled-until-html-js-seo-review" &&
       locales.translation?.englishIndexing==="noindex-until-review" &&
       locales.translation?.reviewBeforeIndexing===true,
       "Pilot EN: prohibida la publicació i indexació fins a revisió");
+  if(status==="auto-quality-noindex")
+    check(locales.translation?.publication==="auto-generate-quality-noindex-until-reviewed" &&
+      locales.translation?.englishIndexing==="noindex-until-review" &&
+      locales.translation?.reviewBeforeIndexing===true &&
+      exists("configuracion/scripts/traduccions/generar-en.mjs") &&
+      exists("configuracion/scripts/traduccions/verificar-en.mjs"),
+      "Mirall EN de Quality: generació i comprovacions obligatòries, noindex fins a revisió");
 }
 check(publication.policy==="deny-by-default",
   "La publicació de noves pàgines ha de continuar bloquejada per defecte");
