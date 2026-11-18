@@ -83,16 +83,28 @@ function mirror(file,source){
    '<link rel="canonical" href="'+escapeAttribute(canonical)+'">\n'+
    '<meta property="og:url" content="'+escapeAttribute(canonical)+'">\n';
  html=html.replace(/<head\b([^>]*)>/i,(all,attrs)=>'<head'+attrs+'>\n'+seo);
- // Links to approved pages stay in the same language. Assets, API, anchors and
- // unpublished routes retain their original targets.
- html=html.replace(/(<a\b[^>]*\bhref\s*=\s*)(["'])([^"']+)\2/gi,(all,prefix,quote,href)=>{
-  if(!href.startsWith('/')||href.startsWith('//')||href.startsWith('/en/'))return all;
-  try {
-   const url=new URL(href,ORIGIN),route=url.pathname.replace(/\/index\.html$/i,'/')
-      .replace(/\.html$/i,'').replace(/\/+/g,'/');
-   const target=routes.get(route);
-   return target?prefix+quote+target+url.search+url.hash+quote:all;
-  }catch{return all;}
+ // Normalize all relative links against the ORIGINAL Spanish location,
+ // since the English mirror lives one folder deeper. Known HTML routes move
+ // to /en/; shared images, JS and CSS stay on their original absolute paths.
+ const sourceBase=new URL(publicRoute(file),ORIGIN);
+ const resolveLink=(raw,toEnglish)=>{
+   if(!raw || /^(?:#|\/\/|https?:|mailto:|tel:|data:|javascript:|blob:)/i.test(raw) ||
+      raw.includes('{{') || raw.includes('$'+'{'))return raw;
+   try{
+     const resolved=new URL(raw,sourceBase);
+     if(resolved.origin!==ORIGIN)return raw;
+     const route=resolved.pathname.replace(/\/index\.html$/i,'/').replace(/\.html$/i,'');
+     const target=toEnglish?routes.get(route):null;
+     return (target||resolved.pathname)+resolved.search+resolved.hash;
+   }catch{return raw;}
+ };
+ html=html.replace(/<(a|area|link|img|source|script|iframe|video|audio|form)\b[^>]*>/gi,tag=>{
+   const kind=tag.match(/^<([a-z]+)/i)?.[1]?.toLowerCase()||'';
+   const name=kind==='form'?'action':
+     ['img','source','script','iframe','video','audio'].includes(kind)?'src':'href';
+   const re=new RegExp('(\\b'+name+'\\s*=\\s*)(["\\x27])([^"\\x27]*)\\2','i');
+   return tag.replace(re,(whole,prefix,quote,raw)=>
+     prefix+quote+resolveLink(raw,kind==='a'||kind==='area')+quote);
  });
  // The language switch must NEVER be machine-translated, and its ES target
  // must NEVER be converted to /en/. Rebuild only the controls from the path.
@@ -115,6 +127,12 @@ function mirror(file,source){
      start+(navLabels[count++]||content)+end);
    return open+rewritten+close;
   });
+ // Executable and structured-data blocks have never been exposed to the
+ // link/text rewriting; restore original scripts byte-for-byte.
+ html=html.replace(/<!--VCC_I18N_KEEP_(\d+)-->/g,(all,n)=>{
+   const block=protectedBlocks[Number(n)]||'';
+   return /<script\b[^>]*\btype=["']application\/ld\+json["']/i.test(block)?'':block;
+ });
  html=html.replace(/<\/body\s*>/i,
   '<script src="/configuracion/js/vcc-en-runtime.js" defer></script>\n</body>');
  return {html,wanted,available,canonical};
