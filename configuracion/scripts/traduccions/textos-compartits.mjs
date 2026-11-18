@@ -54,6 +54,8 @@ function jsStrings(script){
  const sections=script.split(String.fromCharCode(96));
  for(let i=1;i<sections.length;i+=2)literals.push(sections[i]);
  for(const raw of literals){
+  // Do not mistake embedded JavaScript source or comments for visible UI copy.
+  if(/\bconst\s+footerCSSPath\b/.test(raw))continue;
   if(!spanishCue.test(raw))continue;
   if(raw.includes('<')&&raw.includes('>')){
     const stripped=raw.replace(/\$\{[^}]*\}/g,' ');
