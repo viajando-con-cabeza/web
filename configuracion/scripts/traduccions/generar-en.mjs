@@ -9,13 +9,15 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import crypto from 'node:crypto';
-import {ROOT,approvedFiles,publicRoute,ORIGIN} from '../lib/publicacion-vcc.mjs';
+import {ROOT,approvedFiles,listSiteHtml,publicRoute,ORIGIN} from '../lib/publicacion-vcc.mjs';
 
 const config=JSON.parse(fs.readFileSync(path.join(ROOT,'configuracion/datos/idiomas-vcc.json'),'utf8'));
 const memory=JSON.parse(fs.readFileSync(path.join(ROOT,'configuracion/datos/i18n/en-segments.json'),'utf8'));
 const dict=new Map(Object.values(memory.segments||{}).map(v=>[v.es,v.en]).filter(v=>v[0]&&v[1]));
 const mode=process.argv.includes('--write')?'write':process.argv.includes('--check')?'check':'report';
-const routes=new Map(approvedFiles.map(file=>[publicRoute(file),'/en'+publicRoute(file)]));
+// Mirror draft ES HTML too: approved pages link to some noindex drafts.
+const sourceFiles=listSiteHtml().filter(file=>!file.startsWith('en/')).sort();
+const routes=new Map(sourceFiles.map(file=>[publicRoute(file),'/en'+publicRoute(file)]));
 const runtimeData=JSON.stringify({version:1,routes:Object.fromEntries(routes),dictionary:Object.fromEntries(dict)});
 const version=crypto.createHash('sha256').update(runtimeData).digest('hex').slice(0,12);
 const issues=[],summaries=[];
@@ -65,7 +67,6 @@ function mirror(file,source){
  });
  // Text nodes: same HTML element hierarchy and same styling as ES.
  html=html.replace(/>([^<>]+)</g,(all,value)=>'>'+translate(value)+'<');
- html=html.replace(/<!--VCC_I18N_KEEP_(\d+)-->/g,(all,n)=>protectedBlocks[Number(n)]||all);
  html=html.replace(/<html\b([^>]*)>/i,(all,attrs)=>
   '<html'+attrs.replace(/\blang\s*=\s*(["'])[^"']*\1/i,'')
    .replace(/\s+data-vcc-en-coverage\s*=\s*(["'])[^"']*\1/gi,'')+
@@ -76,7 +77,6 @@ function mirror(file,source){
  html=html.replace(/<meta\b(?=[^>]*\bname=["']robots["'])[^>]*>\s*/gi,'');
  html=html.replace(/<meta\b(?=[^>]*\bproperty=["']og:url["'])[^>]*>\s*/gi,'');
  // ES structured data is not valid in EN; restore it once translated & reviewed.
- html=html.replace(/<script\b(?=[^>]*\btype=["']application\/ld\+json["'])[^>]*>[\s\S]*?<\/script>\s*/gi,'');
  const enRoute=routes.get(publicRoute(file));
  const canonical=ORIGIN+enRoute;
  const seo='<meta name="robots" content="noindex,follow">\n'+
@@ -130,7 +130,7 @@ function emit(relative,content){
   issues.push('out of date '+relative);
  }
 }
-for(const file of approvedFiles){
+for(const file of sourceFiles){
  const source=fs.readFileSync(path.join(ROOT,file),'utf8');
  const mirrorFile='en/'+file;
  const {html,wanted,available}=mirror(file,source);
@@ -139,7 +139,7 @@ for(const file of approvedFiles){
 }
 emit('configuracion/datos/i18n/en-runtime.json',runtimeData+'\n');
 const complete=summaries.filter(p=>p.translated===p.total).length;
-console.log('VCC EN mirror: '+summaries.length+' approved ES pages; '+complete+' with complete cached static text translations.');
+console.log('VCC EN mirror: '+summaries.length+' ES pages mirrored ('+approvedFiles.length+' approved); '+complete+' with complete cached static text translations.');
 console.log('VCC EN coverage: '+summaries.reduce((n,p)=>n+p.translated,0)+'/'+summaries.reduce((n,p)=>n+p.total,0)+' segments, English noindex until editorial review.');
 console.log(JSON.stringify(summaries));
 if(issues.length)console.log(issues.slice(0,40).join('\n')+(issues.length>40?'\n...':''));
