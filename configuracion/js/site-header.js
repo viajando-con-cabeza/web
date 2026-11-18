@@ -490,6 +490,7 @@
   /* VCC_PUBLIC_ROUTES_START */
   const publicRoutes=new Set(["/","/contacto/","/destinos/","/destinos/suecia/estocolmo/","/destinos/suecia/estocolmo/como-llegar","/destinos/suecia/estocolmo/como-moverse","/destinos/suecia/estocolmo/cuando-ir","/destinos/suecia/estocolmo/donde-dormir","/destinos/suecia/estocolmo/entradas-y-pases","/destinos/suecia/estocolmo/imprescindibles","/destinos/suecia/estocolmo/itinerario","/destinos/suecia/estocolmo/presupuesto","/destinos/suecia/estocolmo/que-llevar","/destinos/suecia/estocolmo/que-ver","/itinerarios/","/nosotros/","/planifica/","/planifica/alojamientos/","/planifica/calcula-tu-viaje/","/planifica/donde-ir/","/planifica/mapas/","/planifica/presupuesto/","/planifica/que-llevar/","/planifica/tarjetas-de-viaje/","/planifica/vuelos/"]);
   /* VCC_PUBLIC_ROUTES_END */
+  const pendingLabel=isEnglishPage?'COMING SOON':'PRÓXIMAMENTE';
   const normalizePending=(root)=>{
     const candidates=[];
     if(root.nodeType===1&&root.matches('a'))candidates.push(root);
@@ -497,15 +498,15 @@
     candidates.forEach(a=>{
       const href=a.getAttribute('href')||'';
       const label=(a.textContent||'').trim();
-      const isPending=/^PR[ÓO]XIMAMENTE\s*(?:→|›)?$/i.test(label);
+      const isPending=/^(?:PR[ÓO]XIMAMENTE|COMING SOON)\s*(?:→|›)?$/i.test(label);
       const isPendingDestination=/\/proximamente\/?(?:[?#].*)?$|\/coming-soon\/?(?:[?#].*)?$/i.test(href);
       // Las guías e itinerarios de países sin publicar nunca deben abrir páginas antiguas.
       let isUnpublishedGuide=false;
-      if (/^VER\s+(?:ITINERARIO|GU[IÍ]A)(?:\s|$)/i.test(label)) {
+      if (/^(?:VER\s+(?:ITINERARIO|GU[IÍ]A)|VIEW\s+(?:ITINERARY|GUIDE)|SEE\s+(?:ITINERARY|GUIDE))(?:\s|$)/i.test(label)) {
         try {
           const target=new URL(href,location.href);
           const route=target.pathname;
-          const canonicalRoute=route.replace(/\/index\.html$/i,'/').replace(/\.html$/i,'');
+          const canonicalRoute=(route.replace(/^\/en(?=\/|$)/i,'')||'/').replace(/\/index\.html$/i,'/').replace(/\.html$/i,'');
           isUnpublishedGuide=target.origin===location.origin &&
             (canonicalRoute.startsWith('/destinos/')||canonicalRoute.startsWith('/itinerarios/')) &&
             !publicRoutes.has(canonicalRoute);
@@ -515,7 +516,7 @@
       const span=document.createElement('span');
       span.className=a.className||'';
       span.classList.add((isPending||isUnpublishedGuide)?'vcc-pending':'vcc-pending-country');
-      if(isPending||isUnpublishedGuide){span.textContent='PRÓXIMAMENTE';}else{span.innerHTML=a.innerHTML;}
+      if(isPending||isUnpublishedGuide){span.textContent=pendingLabel;}else{span.innerHTML=a.innerHTML;}
       for(const attr of a.attributes){if(attr.name.startsWith('data-'))span.setAttribute(attr.name,attr.value)}
       a.replaceWith(span);
     });
@@ -535,15 +536,15 @@
       // El estado de publicación manda: una guía borrador NO puede
       // conservar VER GUÍA ni crear una segunda etiqueta por CSS.
       if(card.getAttribute('data-vcc-publication')==='draft'){
-        if(node.textContent.trim()!=='PRÓXIMAMENTE')node.textContent='PRÓXIMAMENTE';
+        if(node.textContent.trim()!==pendingLabel)node.textContent=pendingLabel;
         node.classList.remove('vcc-it-cta');
         node.classList.add('vcc-it-upcoming');
         continue;
       }
       const label=(node.textContent||'').trim();
       if((node.matches('.vcc-it-upcoming,.di-upcoming-status')||node.classList.contains('vcc-pending'))&&
-         /PR[ÓO]XIMAMENTE/i.test(label)){
-        if(label!=='PRÓXIMAMENTE')node.textContent='PRÓXIMAMENTE';
+         /(?:PR[ÓO]XIMAMENTE|COMING SOON)/i.test(label)){
+        if(label!==pendingLabel)node.textContent=pendingLabel;
         continue;
       }
       if(!node.classList.contains('vcc-it-cta')||node.classList.contains('vcc-pending'))continue;
@@ -555,13 +556,13 @@
       try{
         const target=new URL(href,location.href);
         if(target.origin!==location.origin)continue;
-        path=target.pathname;
+        path=target.pathname.replace(/^\/en(?=\/|$)/i,'')||'/';
       }catch(_){continue}
       if(!/^\/(?:destinos|itinerarios)\//i.test(path))continue;
       const isItinerary=card.matches('.di-itinerary-card,.vcc-itinerary-card,.vcc-itin-card')||
         !!card.closest('#di-panel-itinerarios,.home-featured-itineraries')||
         /\/itinerario(?:\.html|\/|$)|^\/itinerarios\/[^/]/i.test(path);
-      const expected=isItinerary?'VER ITINERARIO':'VER GUÍA';
+      const expected=isEnglishPage?(isItinerary?'VIEW ITINERARY':'VIEW GUIDE'):(isItinerary?'VER ITINERARIO':'VER GUÍA');
       if(label!==expected)node.textContent=expected;
     }
   };
