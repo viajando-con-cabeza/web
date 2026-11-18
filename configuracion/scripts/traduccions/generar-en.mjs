@@ -87,6 +87,9 @@ function mirror(file,source){
  html=html.replace(/<link\b(?=[^>]*\brel=["'](?:canonical|alternate)["'])[^>]*>\s*/gi,'');
  html=html.replace(/<meta\b(?=[^>]*\bname=["']robots["'])[^>]*>\s*/gi,'');
  html=html.replace(/<meta\b(?=[^>]*\bproperty=["']og:url["'])[^>]*>\s*/gi,'');
+ // Correct the Open Graph locale in generated English pages.
+ html=html.replace(/<meta\b(?=[^>]*\bproperty=["']og:locale["'])[^>]*>/gi,
+  tag=>tag.replace(/(\bcontent=["'])[^"']*(["'])/i,'$1en_US$2'));
  // ES structured data is not valid in EN; restore it once translated & reviewed.
  const enRoute=routes.get(publicRoute(file));
  const canonical=ORIGIN+enRoute;
