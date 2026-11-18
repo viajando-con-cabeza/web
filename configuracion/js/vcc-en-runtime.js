@@ -5,7 +5,7 @@
 (()=>{
   if(!/^\/en(?:\/|$)/i.test(location.pathname))return;
   const normal=s=>String(s||'').replace(/\s+/g,' ').trim();
-  const skipSelector='script,style,svg,noscript,template,code,pre,[translate="no"],[data-translate="no"]';
+  const skipSelector='script,style,svg,noscript,template,code,pre,.shared-language,.home-language,.shared-menu,[translate="no"],[data-translate="no"]';
   const common={
     'INICIO':'HOME','Inicio':'Home','DESTINOS':'DESTINATIONS','Destinos':'Destinations',
     'ITINERARIOS':'ITINERARIES','Itinerarios':'Itineraries','PLANIFICA':'PLAN',
