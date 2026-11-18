@@ -368,11 +368,14 @@
       const linksHtml=menu.map(([key,label])=>'<a href="'+links[key]+'" class="'+(section===key?'active':'')+'">'+label+'</a>').join('');
       const menuNode=existing.querySelector('.shared-menu');
       if(menuNode)menuNode.innerHTML=linksHtml;
-      const languageNode=existing.querySelector('.shared-language');
-      if(languageNode)languageNode.outerHTML=languageSwitch;
       const brandNode=existing.querySelector('a.shared-brand');
       if(brandNode)brandNode.href=links.inicio;
     }
+    // The language control must keep the CURRENT PAGE in both directions.
+    // ES pages also contain an older static "/" / "/en/" switch; replace it.
+    const languageNode=existing.querySelector('.shared-language');
+    if(languageNode)languageNode.outerHTML=languageSwitch;
+    else existing.querySelector('.shared-nav')?.insertAdjacentHTML('beforeend',languageSwitch);
     // Refresh the three icons without replacing the working shared header.
     const socialItems=Array.from(existing.querySelector('.shared-social')?.children||[]);
     // Actualitza els enllaços, també a les capçaleres prerenderitzades.
