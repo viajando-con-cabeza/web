@@ -45,7 +45,7 @@ const SYSTEM=[
 ].join(' ');
 const parseBatch=(result,n)=>{
  const raw=result?.choices?.[0]?.message?.content||result?.response||result?.result||'';
- const clean=String(raw).trim().replace(/^\\x60{3}(?:json)?\s*/i,'').replace(/\s*\\x60{3}$/,'');
+ const clean=String(raw).trim().replace(/^\x60{3}(?:json)?\s*/i,'').replace(/\s*\x60{3}$/,'');
  let parsed;
  try{parsed=JSON.parse(clean);}
  catch{
