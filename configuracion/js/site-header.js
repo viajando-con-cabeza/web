@@ -343,7 +343,7 @@
   const section = getSection();
   const isEnglish = /^\/en(?:\/|$)/i.test(currentPath);
   const links = isEnglish ? {
-    inicio:url('en/index.html'),destinos:url('en/destinos/index.html'),itinerarios:url('en/itinerarios/index.html'),planifica:url('en/planifica/index.html'),nosotros:url('en/nosotros/index.html'),contacto:url('en/contacto/index.html'),logo:url('/configuracion/imagenes/marca/logo-viajando-con-cabeza.svg'),
+    inicio:'/en/',destinos:'/en/destinos/',itinerarios:'/en/itinerarios/',planifica:'/en/planifica/',nosotros:'/en/nosotros/',contacto:'/en/contacto/',logo:url('/configuracion/imagenes/marca/logo-viajando-con-cabeza.svg'),
     instagram:'https://www.instagram.com/viajaconcabeza/',tiktok:'https://www.tiktok.com/@viajandoconcabeza'
   } : {
     inicio:url('index.html'),destinos:url('destinos/index.html'),itinerarios:url('itinerarios/index.html'),planifica:url('planifica/index.html'),nosotros:url('nosotros/index.html'),contacto:url('contacto/index.html'),logo:url('/configuracion/imagenes/marca/logo-viajando-con-cabeza.svg'),
