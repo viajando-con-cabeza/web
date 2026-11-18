@@ -172,7 +172,7 @@
   // abans de pintar, i no fan cap petició duplicada. Per a futures guies
   // mantenim un fallback només si REALMENT existeix un subheader editorial.
   const mountInteriorContractFallback=()=>{
-    const route=location.pathname.replace(/\/index\.html$/i,'/').replace(/\/$/,'')||'/';
+    const route=(location.pathname.replace(/^\/en(?=\/|$)/i,'')||'/').replace(/\/index\.html$/i,'/').replace(/\/$/,'')||'/';
     const exception=new Set(['/','/destinos','/itinerarios','/planifica',
       '/nosotros','/contacto','/destinos/suecia','/destinos/suecia/estocolmo']);
     if(exception.has(route)||document.querySelector('link[data-vcc-sacred-covers]'))return;
@@ -188,14 +188,15 @@
   const currentPath = window.location.pathname.replace(/\/index\.html$/, '/');
   // All /en/ pages mirror their Spanish URL after the language prefix.
   const sourcePath = currentPath.replace(/^\/en(?=\/|$)/i,'') || '/';
+  const isEnglishPage=/^\/en(?:\/|$)/i.test(currentPath);
 
   /* VCC · Breadcrumb universal de destinos. Un único DOM + un único CSS.
      Las plantillas antiguas conservan su miga invisible como espacio de
      reserva para evitar desplazar el hero; no existen dos rutas accesibles. */
   (function initGlobalBreadcrumb() {
     // Mantener el breadcrumb único también en Vuelos, sin alterar otras páginas de Planifica.
-    const isSharedPlanificaPage = /^\/planifica\/(?:tarjetas-de-viaje|vuelos|donde-ir)\/?$/i.test(currentPath);
-    if (!/^\/destinos\//i.test(currentPath) && !isSharedPlanificaPage) return;
+    const isSharedPlanificaPage = /^\/planifica\/(?:tarjetas-de-viaje|vuelos|donde-ir)\/?$/i.test(sourcePath);
+    if (!/^\/destinos\//i.test(sourcePath) && !isSharedPlanificaPage) return;
     const labels = {
       suecia:'Suecia',italia:'Italia',francia:'Francia',espana:'España',
       alemania:'Alemania',austria:'Austria',andorra:'Andorra',suiza:'Suiza',
@@ -247,11 +248,23 @@
       '.country-breadcrumb','.rich-crumb','.cm-crumb','.crumb',
       'nav[aria-label="Ruta de navegación"]'
     ].join(',');
-    const displayName = (slug) => labels[slug] ||
-      slug.replace(/-/g,' ').replace(/^./,c=>c.toLocaleUpperCase('es'));
+    const englishLabels={
+      suecia:'Sweden',estocolmo:'Stockholm',espana:'Spain',alemania:'Germany',
+      italia:'Italy',francia:'France',suiza:'Switzerland',austria:'Austria',
+      'que-ver':'Things to do',imprescindibles:'Things to do',
+      itinerario:'Itinerary',presupuesto:'Budget','cuando-ir':'When to go',
+      'como-llegar':'How to get there','como-moverse':'Getting around',
+      'que-llevar':'What to pack','donde-dormir':'Where to stay',
+      'donde-comer':'Where to eat',consejos:'Tips',vuelos:'Flights',
+      'tarjetas-de-viaje':'Travel cards','donde-ir':'Where to go',
+      museos:'Museums','parques-naturaleza':'Parks and nature',
+      'islas-ferris':'Islands and ferries'
+    };
+    const displayName = (slug) => (isEnglishPage?englishLabels[slug]:null) ||
+      labels[slug] || slug.replace(/-/g,' ').replace(/^./,c=>c.toLocaleUpperCase(isEnglishPage?'en':'es'));
     function render() {
       if (document.getElementById('vcc-global-breadcrumb')) return true;
-      const path=decodeURIComponent(location.pathname).replace(/\/index\.html$/i,'/');
+      const path=decodeURIComponent(sourcePath).replace(/\/index\.html$/i,'/');
       const parts=path.split('/').filter(Boolean);
       if((parts[0]!=='destinos' && parts[0]!=='planifica')||parts.length<2)return false;
       let original=null,hero=null;
@@ -273,14 +286,15 @@
       const nav=document.createElement('nav');
       nav.id='vcc-global-breadcrumb';
       nav.className='vcc-breadcrumb-unified';
-      nav.setAttribute('aria-label','Ruta de navegación');
+      nav.setAttribute('aria-label',isEnglishPage?'Breadcrumb':'Ruta de navegación');
       const sectionRoot=parts[0];
-      const crumbs=[{label:'Inicio',href:'/'},{label:sectionRoot==='planifica'?'Planifica':'Destinos',href:'/'+sectionRoot+'/'}];
+      const prefix=isEnglishPage?'/en':'';
+      const crumbs=[{label:isEnglishPage?'Home':'Inicio',href:prefix+'/'},{label:sectionRoot==='planifica'?(isEnglishPage?'Plan':'Planifica'):(isEnglishPage?'Destinations':'Destinos'),href:prefix+'/'+sectionRoot+'/'}];
       route.forEach((segment,i)=>{
         const isHtml=/\.html$/i.test(segment);
         const slug=segment.replace(/\.html$/i,'');
         const terminal=i===route.length-1;
-        let href='/'+sectionRoot+'/'+route.slice(0,i+1).join('/');
+        let href=prefix+'/'+sectionRoot+'/'+route.slice(0,i+1).join('/');
         if(!isHtml){
           // La portada "Cómo llegar" es un .html; no existe /como-llegar/.
           if(!terminal&&slug==='como-llegar'&&route[i-1]==='estocolmo'){
@@ -289,7 +303,7 @@
             href+='/';
           }
         }
-        crumbs.push({label:terminal&&finalStrong||displayName(slug),href});
+        crumbs.push({label:(terminal&&!isEnglishPage&&finalStrong)||displayName(slug),href});
       });
       crumbs.forEach((crumb,i)=>{
         if(i){
