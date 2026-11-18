@@ -154,7 +154,9 @@ function decorate(html,file,isReady){
 }
 if(config.policy!=='deny-by-default')issues.push('policy debe ser deny-by-default');
 if(ORIGIN!=='https://viajandoconcabeza.com')issues.push('ORIGIN debe ser dominio final');
-const pages=scan().sort(), found=new Set(pages);
+// The EN mirror is derived separately from the approved Spanish documents.
+// Do not decorate /en/ via the Spanish SEO pipeline (it would erase EN metadata).
+const pages=scan().filter(file=>!file.startsWith('en/')).sort(), found=new Set(pages);
 for(const file of approved)if(!found.has(file))issues.push('Archivo aprobado no existe: '+file);
 for(const file of pages){
   const html=fs.readFileSync(path.join(ROOT,file),'utf8');
