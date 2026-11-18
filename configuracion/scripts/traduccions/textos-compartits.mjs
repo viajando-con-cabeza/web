@@ -21,6 +21,7 @@ export const normalize=s=>String(s||'').replace(/&nbsp;/gi,' ').replace(/&amp;/g
 export function eligible(value){
  const t=normalize(value);
  return t.length>=2&&t.length<=3500&&/[a-záéíóúñü]/i.test(t)&&
+  !/^[-−+≈]?\s*\d[\d\s.,:–-]*(?:h|°C)$/i.test(t)&&
   !/^[-+\d.,€£$% \s]+$/.test(t)&&!/[<>]/.test(t)&&!t.includes('{{')&&!t.includes('$'+'{');
 }
 const attr=(tag,key)=>tag.match(new RegExp('\\b'+key+'\\s*=\\s*(["\\x27])([\\s\\S]*?)\\1','i'))?.[2]||'';
