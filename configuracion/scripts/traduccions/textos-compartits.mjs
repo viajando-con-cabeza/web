@@ -12,7 +12,8 @@ export const SEED={
  'VER MÁS':'VIEW MORE','Ver todos':'View all','VOLVER':'BACK',
  'Volver':'Back','LEER MÁS':'READ MORE','Leer más':'Read more',
  'Web oficial':'Official website','WEB OFICIAL':'OFFICIAL WEBSITE',
- 'PAX':'PAX','pax':'pax','Próximamente':'Coming soon',
+ 'PAX':'PAX','pax':'pax','El mapa interactivo requiere JavaScript. Puedes consultar cada lugar y su enlace a Google Maps más abajo.':'The interactive map requires JavaScript. You can find each location and its Google Maps link below.',
+ 'Próximamente':'Coming soon',
  'PRÓXIMAMENTE':'COMING SOON','Día 1':'Day 1','Día 2':'Day 2','Día 3':'Day 3'
 };
 export const normalize=s=>String(s||'').replace(/&nbsp;/gi,' ').replace(/&amp;/gi,'&')
