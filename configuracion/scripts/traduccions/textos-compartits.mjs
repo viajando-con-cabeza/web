@@ -37,8 +37,8 @@ export function htmlTexts(source){
   .replace(/<(script|style|svg|template|noscript)\b[^>]*>[\s\S]*?<\/\1\s*>/gi,' ')
   .replace(/<[^>]+\s(?:data-translate|translate)=["']no["'][^>]*>[\s\S]*?<\/[^>]+>/gi,' ');
  for(const m of clean.matchAll(/>([^<>]+)</g))add(result,m[1]);
- for(const m of clean.matchAll(/<(?:img|input|a|button|textarea|area|abbr|select|option|nav|section|div)\b[^>]*>/gi)){
-  for(const key of ['alt','aria-label','title','placeholder'])add(result,attr(m[0],key));
+ for(const m of clean.matchAll(/<[a-z][a-z0-9:-]*\b[^>]*>/gi)){
+  for(const key of ['alt','aria-label','aria-description','title','placeholder','label'])add(result,attr(m[0],key));
  }
  return [...result];
 }
