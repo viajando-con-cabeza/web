@@ -52,9 +52,9 @@ for(const file of sourceFiles){
 // Require translations for the editorial fields, prices and rating tooltips.
 try {
  const source=read('destinos/suecia/estocolmo/imprescindibles.html');
- const dataMatch=source.match(/const data=\\[([\\s\\S]*?)\\n\\];/);
- const costsMatch=source.match(/const VCC_COSTS=(\\{.*?\\});/);
- const ratingsMatch=source.match(/const VCC_RATING_COMMENTS=(\\{.*?\\});/);
+ const dataMatch=source.match(/const data=\[([\s\S]*?)\n\];/);
+ const costsMatch=source.match(/const VCC_COSTS=(\{.*?\});/);
+ const ratingsMatch=source.match(/const VCC_RATING_COMMENTS=(\{.*?\});/);
  if(!dataMatch||!costsMatch||!ratingsMatch)throw Error('inline essentials schema changed');
  const rows=JSON.parse('['+dataMatch[1]+']');
  const costs=JSON.parse(costsMatch[1]);
@@ -67,7 +67,7 @@ try {
   ...Object.values(costs).flat(),...Object.values(ratings)
  ]);
  for(const item of visible){
-   if(typeof item!=='string'||!item.trim()||/^[€£$]+$/.test(item)||/^\\d+[–-]\\d+ min$/.test(item))continue;
+   if(typeof item!=='string'||!item.trim()||/^[€£$]+$/.test(item)||/^\d+[–-]\d+ min$/.test(item))continue;
    if(!translations[item])failures.push('Stockholm essentials runtime English missing: '+item.slice(0,90));
  }
  const runtimeSource=read('configuracion/js/vcc-en-runtime.js');
