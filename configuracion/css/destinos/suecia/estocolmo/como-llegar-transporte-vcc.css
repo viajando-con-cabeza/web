@@ -9,7 +9,7 @@
 }
 .cl-page.cl-landing .vcc-transport-options-section{
   box-sizing:border-box;
-  padding:37px max(22px,calc((100vw - 1160px)/2)) 35px;
+  padding:0 max(22px,calc((100vw - 1160px)/2)) 35px;
   background:var(--cl-section-bg);
   scroll-margin-top:86px;
 }
@@ -99,7 +99,7 @@
     --vcc-standard-hero-mobile:440px;
   }
   .cl-page.cl-landing .vcc-transport-options-section{
-    padding:26px 16px 29px;
+    padding:0 16px 29px;
   }
   .cl-page.cl-landing .vcc-transport-options-section .cl-landing-cards{
     grid-template-columns:repeat(2,minmax(0,1fr));
@@ -147,5 +147,14 @@
   .cl-page.cl-landing .vcc-transport-options-section .cl-guide-link{padding:5px 1px}
   .cl-page.cl-landing .vcc-transport-options-section .cl-guide-title{
     font-size:11.3px;
+  }
+}
+
+/* El primer apartat ha de començar arran del subheader, sense sumar
+   el marge/padding global assignat a la resta de seccions. */
+@layer vcc-interior-portades {
+  html body:has(nav.vcc-sacred-subnav) main.cl-page.cl-landing > nav.vcc-sacred-subnav + section#elige-transporte {
+    margin-block-start:0!important;
+    padding-block-start:0!important;
   }
 }
