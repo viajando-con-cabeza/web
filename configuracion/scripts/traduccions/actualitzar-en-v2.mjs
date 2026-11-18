@@ -127,7 +127,7 @@ async function solve(batch,level=0){
  }
 }
 let current=0;
-async function process(){
+async function runWorker(){
  while(current<selected.length&&!stop){
   const group=selected[current++];
   state.daily.batches++;state.daily.attempts+=group.length;attempted++;
@@ -139,7 +139,7 @@ async function process(){
  }
 }
 if(!/^(auto|pilot)-/.test(options.status||''))throw Error('Quality translation disabled');
-await Promise.all(Array.from({length:Math.min(4,selected.length)},process));
+await Promise.all(Array.from({length:Math.min(4,selected.length)},runWorker));
 for(const [file,{hash,texts}]of metadata){
  const ready=texts.filter(t=>SEED[t]!=null||state.segments[key(t)]).length;
  state.pages[file]={sourceHash:hash,units:texts.length,ready,complete:ready===texts.length};
