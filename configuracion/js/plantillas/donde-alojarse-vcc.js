@@ -2,6 +2,7 @@
    Las tarjetas son HTML indexable; este script solo gestiona la navegación y el My Maps. */
 (() => {
   'use strict';
+  const isEnglish=/^\/en(?:\/|$)/i.test(location.pathname);
   const root=document.querySelector('[data-dv-root]');
   if(!root) return;
   const reducedMotion=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -53,7 +54,7 @@
     const vcc=hotels.find(hotel=>hotel.classList.contains('is-vcc-option'))||(isCountryTypes?hotels[0]:null);
     if(hotels.length<2||!vcc)return null;
     const zone=track.closest('[data-dv-zone-panel]');
-    const zoneName=zone?.querySelector('.dv-zone-heading-title h3')?.textContent?.trim()||'la zona';
+    const zoneName=zone?.querySelector('.dv-zone-heading-title h3')?.textContent?.trim()||(isEnglish?'this area':'la zona');
     const stage=document.createElement('div');
     stage.className='dv-tip-carousel-wrap dv-zone-hotels-carousel';
     stage.dataset.vccCarousel='editorial';
@@ -62,7 +63,7 @@
       arrow.type='button';
       arrow.className='dv-arrow '+(direction<0?'dv-tip-prev':'dv-tip-next');
       arrow.textContent=direction<0?'‹':'›';
-      arrow.setAttribute('aria-label',(direction<0?'Hotel anterior en ':'Hotel siguiente en ')+zoneName);
+      arrow.setAttribute('aria-label',(isEnglish?(direction<0?'Previous hotel in ':'Next hotel in '):(direction<0?'Hotel anterior en ':'Hotel siguiente en '))+zoneName);
       return arrow;
     };
     const prevHotel=makeArrow(-1),nextHotel=makeArrow(1);
@@ -70,7 +71,7 @@
     stage.append(prevHotel,track,nextHotel);
     track.tabIndex=0;
     track.setAttribute('role','region');
-    track.setAttribute('aria-label',isCountryTypes?'Opciones por región de '+zoneName:'Hoteles recomendados en '+zoneName);
+    track.setAttribute('aria-label',isEnglish?(isCountryTypes?'Options by region: '+zoneName:'Recommended hotels in '+zoneName):(isCountryTypes?'Opciones por región de '+zoneName:'Hoteles recomendados en '+zoneName));
     const sync=()=>{
       prevHotel.disabled=track.scrollLeft<=3;
       nextHotel.disabled=track.scrollLeft+track.clientWidth>=track.scrollWidth-3;
