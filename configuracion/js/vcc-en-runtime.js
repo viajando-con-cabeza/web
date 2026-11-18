@@ -100,6 +100,14 @@
     if(photosOnly)return photosOnly[1]+' photos';
     const budget=key.match(/^(\d+)\s+viajeros\s+·\s+(\d+)\s+días\s+·\s+(\d+)\s+noches$/i);
     if(budget)return budget[1]+' travelers · '+budget[2]+' days · '+budget[3]+' nights';
+    const rating=key.match(/^Valoración VCC:\s*(\d+)\s+de\s+5$/i);
+    if(rating)return 'VCC rating: '+rating[1]+' out of 5';
+    const ratingDetails=key.match(/^Puntuación VCC:\s*(\d+)\s+de\s+5\.\s*Ver si merece la pena$/i);
+    if(ratingDetails)return 'VCC score: '+ratingDetails[1]+' out of 5. See if it is worth it';
+    const mapLink=key.match(/^Abrir (.+) en Google Maps$/i);
+    if(mapLink)return 'Open '+(dictionary.get(mapLink[1])||mapLink[1])+' in Google Maps';
+    const estimated=key.match(/^Precio orientativo:\s*(.+?)\.\s*(.+)$/i);
+    if(estimated)return 'Estimated price: '+(dictionary.get(estimated[1])||estimated[1])+'. '+(dictionary.get(estimated[2])||estimated[2]);
     const barePhoto=key.match(/^Fotografía\s+(\d+)$/i);
     if(barePhoto)return 'Photo '+barePhoto[1];
     const mosaic=key.match(/^\+(\d+)\s+fotos?(?:\s+m[aá]s)?$/i);
