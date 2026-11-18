@@ -14,7 +14,13 @@
     'Próximamente':'Coming soon','VOLVER':'BACK','VER MÁS':'SEE MORE',
     'Ruta de navegación':'Breadcrumb','Navegación principal':'Main navigation',
     'Redes sociales':'Social media','SÍGUENOS':'FOLLOW US',
-    'Ver todos':'See all','Ver más':'See more'
+    'Ver todos':'See all','Ver más':'See more',
+    'Mosaico completo de fotografías':'Full photo gallery','Volver a la guía':'Back to the guide',
+    'Cerrar galería':'Close gallery','Galería':'Gallery','Fotografía ampliada':'Enlarged photo',
+    'Volver al mosaico completo':'Back to the photo grid','Todas las fotografías del día':'All photos from the day',
+    'Foto anterior':'Previous photo','Foto siguiente':'Next photo',
+    'Miniaturas de la galería':'Gallery thumbnails',
+    'Abrir en Google Maps':'Open in Google Maps'
   };
   // Stable fallback for Sweden's JS-rendered card titles, categories and short metadata.
   // The generated translation dictionary remains authoritative when it contains a key.
@@ -79,9 +85,22 @@
       return mapped?mapped+u.search+u.hash:null;
     }catch{return null;}
   };
+  // Numeric mosaic badges, photo counters and image alt text are created at
+  // runtime, so exact-match translation memories cannot cover every value.
+  const translateValue=value=>{
+    const key=normal(value);
+    const direct=dictionary.get(key);
+    if(direct)return direct;
+    const mosaic=key.match(/^\\+(\\d+)\\s+fotos?(?:\\s+m[aá]s)?$/i);
+    if(mosaic)return '+'+mosaic[1]+' '+(mosaic[1]==='1'?'photo':'photos');
+    const counter=key.match(/^(Ampliar fotografía|Abrir fotografía|Ver foto|Fotografía|Foto)\\s+(\\d+)\\s+de\\s+(\\d+)$/i);
+    if(counter)return (counter[1].startsWith('Ampliar')?'Enlarge photo':counter[1].startsWith('Abrir')?'Open photo':counter[1].startsWith('Ver')?'View photo':'Photo')+' '+counter[2]+' of '+counter[3];
+    if(/ · imagen \\d+ de \\d+$/i.test(key))return key.replace(/ · imagen (\\d+) de (\\d+)$/i,' · image $1 of $2').replace(' · paisaje forestal',' · forest landscape').replace(' · costa y mar',' · coast and sea').replace(/^Estocolmo/,'Stockholm');
+    return null;
+  };
   const translateText=node=>{
     if(!node?.parentElement||node.parentElement.closest(skipSelector))return;
-    const original=node.nodeValue||'',key=normal(original),translation=dictionary.get(key);
+    const original=node.nodeValue||'',key=normal(original),translation=translateValue(key);
     if(!translation||translation===key)return;
     const match=original.match(/^(\s*)([\s\S]*?)(\s*)$/);
     const next=match?match[1]+translation+match[3]:translation;
@@ -96,7 +115,7 @@
     for(const key of ['alt','title','placeholder','aria-label']){
       const value=el.getAttribute(key);
       if(value==null)continue;
-      const translated=dictionary.get(normal(value));
+      const translated=translateValue(value);
       if(translated&&translated!==value)el.setAttribute(key,translated);
     }
     const walker=document.createTreeWalker(el,NodeFilter.SHOW_TEXT);
@@ -111,7 +130,7 @@
       for(const key of ['alt','title','placeholder','aria-label']){
         const value=inner.getAttribute(key);
         if(value==null)continue;
-        const translated=dictionary.get(normal(value));
+        const translated=translateValue(value);
         if(translated&&translated!==value)inner.setAttribute(key,translated);
       }
     }
@@ -146,6 +165,16 @@
       routes=new Map(Object.entries(json.routes||{}));
     }catch(error){
       console.warn('VCC EN translations unavailable; retained shared interface.',error);
+    }
+    // Script-generated Stockholm cards are not part of the HTML translation
+    // extractor: load their editorial glossary only on the relevant guide.
+    if(/^\\/en\\/destinos\\/suecia\\/estocolmo\\/imprescindibles(?:\\.html|\\/)?$/i.test(location.pathname)){
+      try{
+        const response=await fetch('/configuracion/datos/i18n/stockholm-essentials-en.json?v=20261118-v1',{cache:'default'});
+        if(!response.ok)throw Error('stockholm-'+response.status);
+        const extra=await response.json();
+        dictionary=new Map([...dictionary,...Object.entries(extra.dictionary||{})]);
+      }catch(error){ console.warn('VCC Stockholm English card glossary unavailable',error); }
     }
     document.documentElement.lang='en';
     schedule();
