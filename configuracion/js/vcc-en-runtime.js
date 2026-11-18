@@ -20,6 +20,8 @@
     'Volver al mosaico completo':'Back to the photo grid','Todas las fotografías del día':'All photos from the day',
     'Foto anterior':'Previous photo','Foto siguiente':'Next photo',
     'Miniaturas de la galería':'Gallery thumbnails',
+    'Galería de fotografías':'Photo gallery',
+    'Volver a las tres fotos por fila':'Back to the three-column photo grid',
     'Abrir en Google Maps':'Open in Google Maps',
     'Fotografías de nuestro primer día en Estocolmo':'Photos from our first day in Stockholm',
     'Fotografías de nuestro segundo día en Estocolmo':'Photos from our second day in Stockholm',
@@ -94,6 +96,12 @@
     const key=normal(value);
     const direct=dictionary.get(key);
     if(direct)return direct;
+    const photosOnly=key.match(/^(\d+)\s+fotografías$/i);
+    if(photosOnly)return photosOnly[1]+' photos';
+    const budget=key.match(/^(\d+)\s+viajeros\s+·\s+(\d+)\s+días\s+·\s+(\d+)\s+noches$/i);
+    if(budget)return budget[1]+' travelers · '+budget[2]+' days · '+budget[3]+' nights';
+    const barePhoto=key.match(/^Fotografía\s+(\d+)$/i);
+    if(barePhoto)return 'Photo '+barePhoto[1];
     const mosaic=key.match(/^\+(\d+)\s+fotos?(?:\s+m[aá]s)?$/i);
     if(mosaic)return '+'+mosaic[1]+' '+(mosaic[1]==='1'?'photo':'photos');
     const counter=key.match(/^(Ampliar fotografía|Abrir fotografía|Ver foto|Fotografía|Foto)\s+(\d+)\s+de\s+(\d+)$/i);
