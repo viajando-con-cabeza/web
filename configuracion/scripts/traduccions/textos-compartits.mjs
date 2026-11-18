@@ -33,10 +33,10 @@ export function htmlTexts(source){
  if(title)add(result,title[1]);
  for(const m of source.matchAll(/<meta\b[^>]*>/gi)){
   const name=attr(m[0],'name')||attr(m[0],'property');
-  if(/^(description|og:description|og:title|twitter:description|twitter:title)$/i.test(name))add(result,attr(m[0],'content'));
+  if(/^(description|og:description|og:title|og:image:alt|twitter:description|twitter:title|twitter:image:alt)$/i.test(name))add(result,attr(m[0],'content'));
  }
  const clean=source.replace(/<!--[\s\S]*?-->/g,' ')
-  .replace(/<(script|style|svg|template|noscript)\b[^>]*>[\s\S]*?<\/\1\s*>/gi,' ')
+  .replace(/<(script|style|svg|template)\b[^>]*>[\s\S]*?<\/\1\s*>/gi,' ')
   .replace(/<[^>]+\s(?:data-translate|translate)=["']no["'][^>]*>[\s\S]*?<\/[^>]+>/gi,' ');
  for(const m of clean.matchAll(/>([^<>]+)</g))add(result,m[1]);
  for(const m of clean.matchAll(/<[a-z][a-z0-9:-]*\b[^>]*>/gi)){
