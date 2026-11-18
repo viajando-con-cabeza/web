@@ -1,15 +1,15 @@
-<!DOCTYPE html><html  lang="en" data-vcc-generated-en="1" data-vcc-i18n-version="60d9b6960d11" data-vcc-en-coverage="8"><head>
+<!DOCTYPE html><html  lang="en" data-vcc-generated-en="1" data-vcc-i18n-version="993f6e32330f" data-vcc-en-coverage="99"><head>
 <meta name="robots" content="noindex,follow">
 <link rel="canonical" href="https://viajandoconcabeza.com/en/planifica/calcula-tu-viaje/">
 <meta property="og:url" content="https://viajandoconcabeza.com/en/planifica/calcula-tu-viaje/">
 
-<meta property="og:title" content="Calcula tu viaje | Viajando con Cabeza">
-<meta property="og:description" content="Calcula un presupuesto orientativo para tu viaje con datos VCC reales por destino.">
+<meta property="og:title" content="Calculate your trip | Viajando con Cabeza">
+<meta property="og:description" content="Calculate an estimated budget for your trip using real VCC data per destination.">
 <meta property="og:image" content="https://viajandoconcabeza.com/configuracion/imagenes/fondos/fondos-presupuesto.webp">
 <meta name="twitter:card" content="summary_large_image">
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Calcula tu viaje | Viajando con Cabeza</title>
-<meta name="description" content="Calcula un presupuesto orientativo para tu viaje con datos VCC reales por destino.">
+<title>Calculate your trip | Viajando con Cabeza</title>
+<meta name="description" content="Calculate an estimated budget for your trip using real VCC data per destination.">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Cormorant+Garamond:wght@600;700&family=Caveat:wght@600&family=Oswald:wght@600&display=swap" rel="stylesheet">
 <link rel="stylesheet" data-vcc-base-paginas href="/configuracion/css/componentes/vcc-base-paginas-compartit.css?v=base-vcc-v1">
@@ -18,49 +18,49 @@
 
 <link rel="stylesheet" data-vcc-core-styles href="/configuracion/css/componentes/vcc-core-compartit.css?v=04af249925fd">
 </head><body><header class="page-header"></header><main>
-<section class="vcc-planifica-hero hero" data-vcc-planifica-hero="calcula-tu-viaje"><div class="shell hero-in vcc-planifica-hero-content"><div class="crumb">INICIO · PLANIFICA · CALCULA TU VIAJE</div><span class="k vcc-planifica-sobretitol">Calcula el presupuesto de tu viaje</span><h1>CALCULA EL PRESUPUESTO<br><em>DE TU VIAJE</em></h1><p>Personaliza días, viajeros y nivel de gasto. Cuando tenemos un presupuesto VCC publicado, usamos esas mismas referencias para que los números sean coherentes con nuestras guías.</p><div class="meta"><span>✓ Datos VCC</span><span>✓ Ajustable por partida</span><span>✓ Total por persona</span><span>✓ Sin inventar destinos</span></div></div></section>
+<section class="vcc-planifica-hero hero" data-vcc-planifica-hero="calcula-tu-viaje"><div class="shell hero-in vcc-planifica-hero-content"><div class="crumb">HOME · PLAN · CALCULATE YOUR TRIP</div><span class="k vcc-planifica-sobretitol">Calculate your trip budget</span><h1>CALCULATE THE BUDGET<br><em>FOR YOUR TRIP</em></h1><p>Customize days, travelers, and spending level. When we have a published VCC budget, we use those same references so that the numbers are consistent with our guides.</p><div class="meta"><span>✓ VCC Data</span><span>✓ Adjustable per trip</span><span>✓ Total per person</span><span>✓ No invented destinations</span></div></div></section>
 
 <section class="calc-wrap"><div class="shell calculator">
 <section class="panel">
-<span class="k">CONFIGURA TU VIAJE</span><h2>Haz tus números</h2>
-<div class="field"><label>DESTINO</label><select id="destination"><option value="estocolmo">Estocolmo · Suecia</option><option disabled>Roma · próximamente</option><option disabled>Fuerteventura · próximamente</option><option disabled>Más destinos · próximamente</option></select></div>
+<span class="k">PLAN YOUR TRIP</span><h2>Do the math</h2>
+<div class="field"><label>DESTINATION</label><select id="destination"><option value="estocolmo">Stockholm · Sweden</option><option disabled>Rome · coming soon</option><option disabled>Fuerteventura · coming soon</option><option disabled>More destinations · coming soon</option></select></div>
 <div class="trip-row">
-<div class="field"><label>DÍAS</label><input id="days" type="number" min="1" max="30" value="4"></div>
-<div class="field"><label>NOCHES</label><input id="nights" type="number" min="0" max="30" value="3"></div>
-<div class="field"><label>VIAJEROS</label><input id="people" type="number" min="1" max="12" value="2"></div>
+<div class="field"><label>DAYS</label><input id="days" type="number" min="1" max="30" value="4"></div>
+<div class="field"><label>NIGHTS</label><input id="nights" type="number" min="0" max="30" value="3"></div>
+<div class="field"><label>TRAVELERS</label><input id="people" type="number" min="1" max="12" value="2"></div>
 </div>
 <div class="partidas">
-<div class="partida"><span>🛏 Alojamiento</span><select data-cat="alojamiento"><option value="mochilero">Mochilero</option><option value="vcc" selected>VCC</option><option value="medio">Medio</option><option value="lujo">Lujo</option></select><strong id="p-alojamiento">35 €</strong></div>
-<div class="partida"><span>🍴 Comida</span><select data-cat="comida"><option value="mochilero">Mochilero</option><option value="vcc" selected>VCC</option><option value="medio">Medio</option><option value="lujo">Lujo</option></select><strong id="p-comida">25 €</strong></div>
-<div class="partida"><span>🚇 Transporte</span><select data-cat="transporte"><option value="mochilero">Mochilero</option><option value="vcc" selected>VCC</option><option value="medio">Medio</option><option value="lujo">Lujo</option></select><strong id="p-transporte">15 €</strong></div>
-<div class="partida"><span>🎟 Actividades</span><select data-cat="actividades"><option value="mochilero">Mochilero</option><option value="vcc" selected>VCC</option><option value="medio">Medio</option><option value="lujo">Lujo</option></select><strong id="p-actividades">25 €</strong></div>
-<div class="partida"><span>✦ Extras</span><select data-cat="extras"><option value="mochilero">Mochilero</option><option value="vcc" selected>VCC</option><option value="medio">Medio</option><option value="lujo">Lujo</option></select><strong id="p-extras">10 €</strong></div>
+<div class="partida"><span>🛏 Accommodation</span><select data-cat="alojamiento"><option value="mochilero">Backpacker</option><option value="vcc" selected>VCC</option><option value="medio">Mid-range</option><option value="lujo">Luxury</option></select><strong id="p-alojamiento">35 €</strong></div>
+<div class="partida"><span>🍴 Food</span><select data-cat="comida"><option value="mochilero">Backpacker</option><option value="vcc" selected>VCC</option><option value="medio">Mid-range</option><option value="lujo">Luxury</option></select><strong id="p-comida">25 €</strong></div>
+<div class="partida"><span>🚇 Transport</span><select data-cat="transporte"><option value="mochilero">Backpacker</option><option value="vcc" selected>VCC</option><option value="medio">Mid-range</option><option value="lujo">Luxury</option></select><strong id="p-transporte">15 €</strong></div>
+<div class="partida"><span>🎟 Activities</span><select data-cat="actividades"><option value="mochilero">Backpacker</option><option value="vcc" selected>VCC</option><option value="medio">Mid-range</option><option value="lujo">Luxury</option></select><strong id="p-actividades">25 €</strong></div>
+<div class="partida"><span>✦ Extras</span><select data-cat="extras"><option value="mochilero">Backpacker</option><option value="vcc" selected>VCC</option><option value="medio">Mid-range</option><option value="lujo">Luxury</option></select><strong id="p-extras">10 €</strong></div>
 </div>
-<div class="flight"><div><b>✈ Vuelos ida y vuelta</b><p>Introduce el precio por persona que hayas encontrado. El vuelo no forma parte del presupuesto diario VCC porque cambia según origen y fechas.</p></div><input id="flight" type="number" min="0" step="1" value="0" aria-label="Precio de vuelos por persona"></div>
+<div class="flight"><div><b>✈ Round-trip flights</b><p>Enter the price per person you found. The flight is not part of the VCC daily budget because it varies depending on origin and dates.</p></div><input id="flight" type="number" min="0" step="1" value="0" aria-label="Flight price per person"></div>
 </section>
 
 <aside class="ticket">
-<span class="k">TU VIAJE</span><h2>Stockholm</h2><div class="sub" id="ticket-meta">4 días · 3 noches · 2 viajeros</div>
-<div class="grand" id="per-person">405 €</div><div class="perday" id="per-day">101 € por día y persona + vuelo</div>
+<span class="k">YOUR TRIP</span><h2>Stockholm</h2><div class="sub" id="ticket-meta">4 days · 3 nights · 2 travelers</div>
+<div class="grand" id="per-person">405 €</div><div class="perday" id="per-day">€101 per day per person + flight</div>
 <div class="break">
-<div class="line"><span>✈ Vuelos</span><b id="r-flight">0 €</b></div>
-<div class="line"><span>🛏 Alojamiento</span><b id="r-alojamiento">105 €</b></div>
-<div class="line"><span>🍴 Comida</span><b id="r-comida">100 €</b></div>
-<div class="line"><span>🚇 Transporte</span><b id="r-transporte">60 €</b></div>
-<div class="line"><span>🎟 Actividades</span><b id="r-actividades">100 €</b></div>
+<div class="line"><span>✈ Flights</span><b id="r-flight">0 €</b></div>
+<div class="line"><span>🛏 Accommodation</span><b id="r-alojamiento">105 €</b></div>
+<div class="line"><span>🍴 Food</span><b id="r-comida">100 €</b></div>
+<div class="line"><span>🚇 Transport</span><b id="r-transporte">60 €</b></div>
+<div class="line"><span>🎟 Activities</span><b id="r-actividades">100 €</b></div>
 <div class="line"><span>✦ Extras</span><b id="r-extras">40 €</b></div>
 </div>
-<div class="totalparty"><span>TOTAL PARA TODOS LOS VIAJEROS</span><strong id="party-total">810 €</strong></div>
-<div class="ticket-actions"><a class="primary" href="/en/destinos/suecia/estocolmo/presupuesto">VER PRESUPUESTO REAL →</a><a class="secondary" href="/en/destinos/suecia/estocolmo/">VER GUÍA →</a></div>
-<div class="notice">Estimación orientativa basada en referencias VCC. Los precios reales pueden variar según fechas, disponibilidad y forma de viajar.</div>
+<div class="totalparty"><span>TOTAL FOR ALL TRAVELERS</span><strong id="party-total">810 €</strong></div>
+<div class="ticket-actions"><a class="primary" href="/en/destinos/suecia/estocolmo/presupuesto">SEE REAL BUDGET →</a><a class="secondary" href="/en/destinos/suecia/estocolmo/">VIEW GUIDE →</a></div>
+<div class="notice">Estimated estimate based on VCC references. Actual prices may vary depending on dates, availability, and travel style.</div>
 </aside>
 </div></section>
 
 <section class="why"><div class="shell whygrid">
-<article><span class="k">CÓMO LO CALCULAMOS</span><h2>La misma lógica que en nuestros presupuestos</h2><p>No mantenemos una calculadora con números separados. Cuando un destino tiene presupuesto VCC, esta herramienta reutiliza esas mismas referencias.</p></article>
-<article><h3>🛏 Alojamiento por noche</h3><p>Se multiplica por las noches y por el número de viajeros.</p></article>
-<article><h3>🍴 Gastos por día</h3><p>Comida, transporte, actividades y extras se calculan por día.</p></article>
-<article><h3>✈ Vuelos aparte</h3><p>Los introduces tú porque dependen mucho del origen y las fechas.</p></article>
+<article><span class="k">HOW WE CALCULATE IT</span><h2>The same logic used in our budgets</h2><p>We do not maintain a calculator with separate figures. When a destination has a VCC budget, this tool reuses those same references.</p></article>
+<article><h3>🛏 Accommodation per night</h3><p>Multiplied by the number of nights and the number of travelers.</p></article>
+<article><h3>🍴 Daily expenses</h3><p>Food, transport, activities, and extras are calculated per day.</p></article>
+<article><h3>✈ Flights not included</h3><p>You enter these yourself as they depend heavily on your origin and dates.</p></article>
 </div></section>
 </main><footer class="vcc-global-footer"></footer>
 <script src="/configuracion/js/site-header.js?v=20261116-contracte-sagrat-v4"></script><script>
