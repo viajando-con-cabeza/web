@@ -1,5 +1,6 @@
 /* Quality: barra sincronitzada, mosaic Booking i visor accessible amb comptador. */
 (() => {
+  const isEnglish=/^\/en(?:\/|$)/i.test(location.pathname);
   // Un único controlador del subheader (antes había dos scripts compitiendo).
   // Orden DOM: mapa primero, después las 15 fichas.
   const nav=document.getElementById('placeNav');
@@ -224,16 +225,16 @@
     photos.slice(0,visible).forEach((src,index) => {
       const tile = document.createElement('button');
       tile.type='button'; tile.className='gallery-tile'; tile.dataset.i=String(index);
-      tile.setAttribute('aria-label',`Ampliar fotografía ${index+1} de ${photos.length}`);
+      tile.setAttribute('aria-label',isEnglish?`Enlarge photo ${index+1} of ${photos.length}`:`Ampliar fotografía ${index+1} de ${photos.length}`);
       if (gallery.dataset.seoImages === 'true') {
         // Solo en las galerías marcadas: <img> real, con alt, sin CSS background duplicado.
         // Conservamos el botón, el mosaico y el visor de Qué ver sin cambios.
         const img=document.createElement('img');
         img.src=optimizedPhoto(src, 'mini');
-        const placeName=gallery.closest('.place')?.querySelector('.place-heading h2')?.textContent?.trim()||'Estocolmo';
-        const subject=/\/bosques\//.test(src)?' · paisaje forestal':
-          /\/mar\//.test(src)?' · costa y mar':'';
-        img.alt=placeName+subject+' · imagen '+(index+1)+' de '+photos.length;
+        const placeName=gallery.closest('.place')?.querySelector('.place-heading h2')?.textContent?.trim()||(isEnglish?'Stockholm':'Estocolmo');
+        const subject=/\/bosques\//.test(src)?(isEnglish?' · forest landscape':' · paisaje forestal'):
+          /\/mar\//.test(src)?(isEnglish?' · coast and sea':' · costa y mar'):'';
+        img.alt=placeName+subject+(isEnglish?' · image ':' · imagen ')+(index+1)+(isEnglish?' of ':' de ')+photos.length;
         img.width=450;img.height=300;
         img.loading='lazy';img.decoding='async';
         img.onerror=()=>{ if (img.src!==src) img.src=src; };
@@ -245,7 +246,7 @@
       const extras = photos.length - visible;
       if (index === visible - 1 && extras > 0) {
         const more=document.createElement('span');more.className='gallery-more';
-        more.textContent=`+${extras} ${extras===1?'foto':'fotos'}`;
+        more.textContent=`+${extras} ${isEnglish?(extras===1?'photo':'photos'):(extras===1?'foto':'fotos')}`;
         tile.append(more);
       }
       // El visor VCC compartit gestiona el clic quan hi ha un modal universal.
