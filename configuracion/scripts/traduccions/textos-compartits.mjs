@@ -105,3 +105,47 @@ export function interactiveTexts(root,sourceFiles=[]){
  }
  return [...out];
 }
+
+/** Reviewed deterministic EN for rating aria-labels and decimal-price descriptions
+ *  that neural translators would otherwise reformat or leave in Spanish. */
+const ratingWord={'Fabuloso':'Excellent','Muy bien':'Very good','Fantástico':'Fantastic','Excelente':'Excellent'};
+const nameEn=v=>v.replace(/\bEstocolmo\b/g,'Stockholm').replace(/\bSuecia\b/g,'Sweden');
+const NUMERIC_PRICES=new Map([
+ ['Taxi puntual (trayecto tipo ≈32 €) + billete SL suelto ≈3,91 €/adulto. Sin coche.','Occasional taxi (typical trip ≈32 €) + single SL ticket ≈3,91 €/adult. No car.'],
+ ['Taxi puntual (≈32 € para 10 km/15 min) + SL suelto ≈3,91 €/adulto; sin parking','Occasional taxi (≈32 € for 10 km/15 min) + single SL ticket ≈3,91 €/adult; no parking'],
+ ['Taxi puntual a Djurgården + SL suelto ≈3,91 €/adulto; sin abono','Occasional taxi to Djurgården + single SL ticket ≈3,91 €/adult; no pass'],
+ ['Taxi urbano puntual o billete SL ≈3,91 €/adulto; sin alquiler','Occasional city taxi or SL ticket ≈3,91 €/adult; no rental car'],
+ ['Abono SL 72 h ≈32,74 €/adulto; margen para taxi puntual. Sin coche.','SL 72 h pass ≈32,74 €/adult; budget for an occasional taxi. No car.'],
+ ['Abono SL 72 h ≈32,74 €/adulto para todo el viaje (importe prorrateado)','SL 72 h pass ≈32,74 €/adult for the whole trip (allocated cost)'],
+ ['Metro/tranvía con abono SL 72 h (≈32,74 €/adulto los 3 días); margen para taxi','Metro/tram with an SL 72 h pass (≈32,74 €/adult for all 3 days); budget for taxis'],
+ ['Abono SL 72 h (≈32,74 €/adulto los 3 días); margen para otros traslados','SL 72 h pass (≈32,74 €/adult for all 3 days); budget for extra transfers'],
+ ['25 €/pax/día en comidas y cafés (≈8–12,50 €/comida, media orientativa).','25 €/person/day for meals and cafés (≈8–12,50 €/meal, indicative average).'],
+ ['7 billetes SL por persona (301 SEK ≈27,37 € por persona). Gasto total de transporte: 90 € entre dos.','7 SL tickets per person (301 SEK ≈27,37 € per person). Total transport cost: 90 € for two.'],
+ ['2 billetes SL sueltos por persona (≈7,82 €/adulto). Transporte del día: 25 € entre dos.','2 single SL tickets per person (≈7,82 €/adult). Daily transport: 25 € for two.'],
+ ['3 billetes SL sueltos por persona (≈11,73 €/adulto). Transporte del día: 39 € entre dos.','3 single SL tickets per person (≈11,73 €/adult). Daily transport: 39 € for two.'],
+ ['2 billetes SL sueltos por persona (≈7,82 €/adulto). Transporte del día: 26 € entre dos.','2 single SL tickets per person (≈7,82 €/adult). Daily transport: 26 € for two.'],
+ ['Billetes SL sueltos ≈3,91 €/adulto (7 serían ≈27,37 €/persona). Sin taxi ni coche.','Single SL tickets ≈3,91 €/adult (7 would be ≈27,37 €/person). No taxi or car.'],
+ ['2 billetes SL sueltos/persona ≈7,82 €/adulto; resto a pie','2 single SL tickets/person ≈7,82 €/adult; walk the rest'],
+ ['3 billetes SL sueltos/persona ≈11,73 €/adulto; resto a pie','3 single SL tickets/person ≈11,73 €/adult; walk the rest'],
+ ['2 billetes SL sueltos/persona ≈7,82 €/adulto; sin taxi ni coche','2 single SL tickets/person ≈7,82 €/adult; no taxi or car']
+]);
+export function fallbackEnglish(value){
+ const t=normalize(value);
+ if(NUMERIC_PRICES.has(t))return NUMERIC_PRICES.get(t);
+ let m;
+ if((m=t.match(/^(.+), valoración editorial VCC ([\d,.]+) sobre 10\. Ver análisis y (\d+) hoteles$/i)))
+  return nameEn(m[1])+', VCC editorial rating '+m[2]+' out of 10. View analysis and '+m[3]+' hotels';
+ if((m=t.match(/^Valoración VCC: ([\d,.]+) de 10 · (.+)$/i)))
+  return 'VCC rating: '+m[1]+' out of 10 · '+(ratingWord[m[2]]||m[2]);
+ if((m=t.match(/^Relación calidad-precio: ([\d,.]+) sobre 10$/i)))
+  return 'Value for money: '+m[1]+' out of 10';
+ if((m=t.match(/^Nota VCC del destino (.+): ([\d,.]+) sobre 10, (.+)$/i)))
+  return 'VCC destination rating for '+nameEn(m[1])+': '+m[2]+' out of 10, '+(ratingWord[m[3]]||m[3]);
+ if((m=t.match(/^Nota VCC de guía general de (.+): ([\d,.]+) sobre 10, (.+)$/i)))
+  return 'VCC general guide rating for '+nameEn(m[1])+': '+m[2]+' out of 10, '+(ratingWord[m[3]]||m[3]);
+ if((m=t.match(/^Ver valoración VCC de (.+): ([\d,.]+) sobre 10$/i)))
+  return 'View VCC rating for '+nameEn(m[1])+': '+m[2]+' out of 10';
+ if((m=t.match(/^Nota VCC de (.+): ([\d,.]+), (.+)$/i)))
+  return 'VCC rating for '+nameEn(m[1])+': '+m[2]+', '+(ratingWord[m[3]]||m[3]);
+ return null;
+}
