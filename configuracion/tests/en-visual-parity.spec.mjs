@@ -166,7 +166,7 @@ test('Stockholm essentials dynamic cards and mosaics render in English',async({p
  await expect(page.locator('#djurgarden .place-kicker')).toContainText("Stockholm's green side");
  await expect(page.locator('#djurgarden .facts')).toContainText('Island · urban park');
  await expect(page.locator('#djurgarden .facts')).toContainText('Free');
- await expect(page.locator('#djurgarden .gallery-more')).toContainText(/\\+\\d+ photos/);
+ await expect(page.locator('#djurgarden .gallery-more')).toContainText(/\+\d+ photos/);
  await expect(page.locator('#djurgarden .advice')).toContainText('VCC TIP');
 });
 
