@@ -135,3 +135,28 @@ test('ES ↔ EN switch stays on current page and menu clicks work',async({page})
  await page.locator('.shared-menu a').nth(3).click();
  await expect(page).toHaveURL(ORIGIN+'/en/planifica/');
 });
+
+test('diagnose mobile horizontal overflow origin on travel calculator',async({page})=>{
+ await page.setViewportSize({width:390,height:844});
+ await wait(page,'/en/planifica/calcula-tu-viaje/');
+ const result=await page.evaluate(()=>{
+  const root=document.documentElement;
+  const candidates=[...document.querySelectorAll('body *')].filter(el=>{
+   const r=el.getBoundingClientRect();
+   return r.width>0&&r.right>window.innerWidth+4;
+  }).sort((a,b)=>b.getBoundingClientRect().right-a.getBoundingClientRect().right).slice(0,18);
+  const describe=el=>{
+   const r=el.getBoundingClientRect();
+   const st=getComputedStyle(el);
+   return {tag:el.tagName,name:el.className,id:el.id,text:el.textContent?.trim().slice(0,42),
+     href:el.getAttribute('href'),outerHTML:el.outerHTML.slice(0,260),
+     rect:[r.left,r.right,r.width].map(Math.round),overflow:st.overflowX,
+     position:st.position,margin:st.marginLeft,
+     parent:el.parentElement?.className,parentOverflow:el.parentElement?getComputedStyle(el.parentElement).overflowX:null};
+  };
+  return {scrollWidth:root.scrollWidth,bodyScroll:document.body.scrollWidth,
+   rootOverflow:getComputedStyle(root).overflowX,bodyOverflow:getComputedStyle(document.body).overflowX,
+   nodes:candidates.map(describe)};
+ });
+ console.log('CALCULATOR_OVERFLOW_DIAGNOSIS '+JSON.stringify(result));
+});
