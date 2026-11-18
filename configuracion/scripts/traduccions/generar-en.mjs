@@ -94,6 +94,27 @@ function mirror(file,source){
    return target?prefix+quote+target+url.search+url.hash+quote:all;
   }catch{return all;}
  });
+ // The language switch must NEVER be machine-translated, and its ES target
+ // must NEVER be converted to /en/. Rebuild only the controls from the path.
+ const sourceRoute=publicRoute(file);
+ const sourceHref=sourceRoute;
+ const englishHref=enRoute;
+ const switchMarkup='<div class="shared-language" aria-label="Language">'+
+   '<a href="'+sourceHref+'" lang="es" aria-label="Español">ES</a>'+
+   '<span aria-hidden="true">|</span>'+
+   '<a href="'+englishHref+'" lang="en" class="active" aria-label="English">EN</a>'+
+   '</div>';
+ html=html.replace(/<div\b(?=[^>]*\bclass=["'][^"']*\bshared-language\b)[^>]*>[\s\S]*?<\/div>/gi,switchMarkup);
+ // Navigation is not prose: use fixed translated menu terms rather than
+ // accepting incorrect generic AI translations (Beginning, Planned, ours...).
+ const navLabels=['HOME','DESTINATIONS','ITINERARIES','PLAN','ABOUT','CONTACT'];
+ html=html.replace(/(<nav\b[^>]*\bclass=["'][^"']*\bshared-menu\b[^"']*["'][^>]*>)([\s\S]*?)(<\/nav>)/gi,
+  (_,open,inner,close)=>{
+   let count=0;
+   const rewritten=inner.replace(/(<a\b[^>]*>)([\s\S]*?)(<\/a>)/gi,(_,start,content,end)=>
+     start+(navLabels[count++]||content)+end);
+   return open+rewritten+close;
+  });
  html=html.replace(/<\/body\s*>/i,
   '<script src="/configuracion/js/vcc-en-runtime.js" defer></script>\n</body>');
  return {html,wanted,available,canonical};
