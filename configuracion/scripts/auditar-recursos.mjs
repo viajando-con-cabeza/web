@@ -10,6 +10,9 @@ let missing=new Set(),external=new Set(),usage=new Set();
 for(const file of code){
 if(file==='configuracion/rutas-recursos.json'||file==='configuracion/datos/recursos-externs-pendents.json'||file==='configuracion/datos/imagenes-externas-migrades.json'||file.endsWith('auditar-recursos.mjs'))continue;
 const src=fs.readFileSync(path.join(root,file),'utf8');
+// English HTML mirrors reuse the same source media. They are not new
+// independent external-image references and must not double the baseline.
+if(file.startsWith('en/')&&src.includes('data-vcc-generated-en="1"'))continue;
 const re=/(?:https?:\/\/[^\s"'<>)]*|\/?(?:configuracion|destinos|inicio)\/imagenes\/[a-zA-Z0-9_./-]+\.(?:svg|png|jpe?g|webp|avif|gif|ico))(?:\?[^\s"'<>)]*)?/gi;
 for(const m of src.matchAll(re)){
 const ref=m[0].split('?')[0];
