@@ -8,6 +8,7 @@
  */
 import fs from 'node:fs';
 import path from 'node:path';
+import crypto from 'node:crypto';
 import {ROOT,approvedFiles,publicRoute,ORIGIN} from '../lib/publicacion-vcc.mjs';
 
 const config=JSON.parse(fs.readFileSync(path.join(ROOT,'configuracion/datos/idiomas-vcc.json'),'utf8'));
@@ -15,6 +16,8 @@ const memory=JSON.parse(fs.readFileSync(path.join(ROOT,'configuracion/datos/i18n
 const dict=new Map(Object.values(memory.segments||{}).map(v=>[v.es,v.en]).filter(v=>v[0]&&v[1]));
 const mode=process.argv.includes('--write')?'write':process.argv.includes('--check')?'check':'report';
 const routes=new Map(approvedFiles.map(file=>[publicRoute(file),'/en'+publicRoute(file)]));
+const runtimeData=JSON.stringify({version:1,routes:Object.fromEntries(routes),dictionary:Object.fromEntries(dict)});
+const version=crypto.createHash('sha256').update(runtimeData).digest('hex').slice(0,12);
 const issues=[],summaries=[];
 const escapeText=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
 const escapeAttribute=s=>escapeText(s).replace(/"/g,'&quot;');
@@ -66,7 +69,7 @@ function mirror(file,source){
  html=html.replace(/<html\b([^>]*)>/i,(all,attrs)=>
   '<html'+attrs.replace(/\blang\s*=\s*(["'])[^"']*\1/i,'')
    .replace(/\s+data-vcc-en-coverage\s*=\s*(["'])[^"']*\1/gi,'')+
-   ' lang="en" data-vcc-generated-en="1" data-vcc-en-coverage="'+
+   ' lang="en" data-vcc-generated-en="1" data-vcc-i18n-version="'+version+'" data-vcc-en-coverage="'+
    (wanted?Math.round(available/wanted*100):100)+'">');
  // Canonical/robots/alternate from ES are never carried over to an EN mirror.
  html=html.replace(/<link\b(?=[^>]*\brel=["'](?:canonical|alternate)["'])[^>]*>\s*/gi,'');
@@ -95,10 +98,6 @@ function mirror(file,source){
   '<script src="/configuracion/js/vcc-en-runtime.js" defer></script>\n</body>');
  return {html,wanted,available,canonical};
 }
-const routeList=JSON.stringify(Object.fromEntries(routes));
-const runtimeData=JSON.stringify({
- version:1,routes:Object.fromEntries(routes),dictionary:Object.fromEntries(dict)
-});
 function emit(relative,content){
  const full=path.join(ROOT,relative);
  if(mode==='write'){
