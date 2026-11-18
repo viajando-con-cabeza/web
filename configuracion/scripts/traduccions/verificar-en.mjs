@@ -47,6 +47,35 @@ for(const file of sourceFiles){
  equivalent(scripts(source),scripts(en),'application scripts',enFile);
  equivalent(sections(source),sections(en),'section structure',enFile);
 }
+// The 16 Stockholm essentials are rebuilt from inline JavaScript. HTML-only
+// translation coverage used to report 100% even when these cards stayed ES.
+// Require translations for the editorial fields, prices and rating tooltips.
+try {
+ const source=read('destinos/suecia/estocolmo/imprescindibles.html');
+ const dataMatch=source.match(/const data=\\[([\\s\\S]*?)\\n\\];/);
+ const costsMatch=source.match(/const VCC_COSTS=(\\{.*?\\});/);
+ const ratingsMatch=source.match(/const VCC_RATING_COMMENTS=(\\{.*?\\});/);
+ if(!dataMatch||!costsMatch||!ratingsMatch)throw Error('inline essentials schema changed');
+ const rows=JSON.parse('['+dataMatch[1]+']');
+ const costs=JSON.parse(costsMatch[1]);
+ const ratings=JSON.parse(ratingsMatch[1]);
+ const glossary=JSON.parse(read('configuracion/datos/i18n/stockholm-essentials-en.json')).dictionary;
+ const runtime=JSON.parse(read('configuracion/datos/i18n/en-runtime.json')).dictionary;
+ const translations={...runtime,...glossary};
+ const visible=new Set([
+  ...rows.flatMap(r=>[r[2],r[3],r[4],r[6],r[8],r[9]]),
+  ...Object.values(costs).flat(),...Object.values(ratings)
+ ]);
+ for(const item of visible){
+   if(typeof item!=='string'||!item.trim()||/^[€£$]+$/.test(item)||/^\\d+[–-]\\d+ min$/.test(item))continue;
+   if(!translations[item])failures.push('Stockholm essentials runtime English missing: '+item.slice(0,90));
+ }
+ const runtimeSource=read('configuracion/js/vcc-en-runtime.js');
+ if(!runtimeSource.includes('stockholm-essentials-en.json'))failures.push('Stockholm essentials glossary not loaded by EN runtime');
+ const gallerySource=read('configuracion/js/plantillas/imprescindibles-interactions.js');
+ if(!gallerySource.includes('isEnglish?')||!gallerySource.includes("'photos'"))failures.push('Stockholm mosaic photo counter not localized');
+} catch(error){failures.push('Stockholm essentials dynamic translation audit: '+error.message)}
+
 if(failures.length){
  console.error('VCC ES/EN parity failed:\n'+failures.join('\n'));
  process.exitCode=1;
