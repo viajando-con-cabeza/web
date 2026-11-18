@@ -5,6 +5,9 @@ on:
     branches:
       - quality
   workflow_dispatch:
+  # Continue incomplete translations even when there are no Spanish edits.
+  schedule:
+    - cron: '15 2,14 * * *'
 
 permissions:
   contents: write
@@ -233,7 +236,7 @@ jobs:
           git push origin HEAD:quality
 
   # Traducció ES→EN després de validar Quality (mai en cada visita).
-  # Pilot segur: només memòria de segments al GitHub, sense publicar /en/.
+  # Mirrors ES originals; EN remains noindex until fully translated and reviewed.
   translate_en:
     name: Sync English translations and preview mirrors
     needs: validate
@@ -267,11 +270,11 @@ jobs:
           echo "::add-mask::$token"
           echo "token=$token" >> "$GITHUB_OUTPUT"
 
-      - name: Translate only missing ES segments (do not publish English)
+      - name: Translate all Spanish and dynamic JS text with contextual AI batches
         env:
           VCC_TRANSLATOR_URL: https://vcc-en-translator-quality.albertini1199.workers.dev/translate
           VCC_TRANSLATOR_OIDC: ${{ steps.oidc.outputs.token }}
-        run: node configuracion/scripts/traduccions/actualitzar-en.mjs --write
+        run: node configuracion/scripts/traduccions/actualitzar-en-v2.mjs --write
 
       - name: Generate all English mirrors from the validated Spanish HTML
         run: |
@@ -284,7 +287,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          git add -- configuracion/datos/i18n/en-segments.json configuracion/datos/i18n/en-runtime.json en/
+          git add -- configuracion/datos/i18n/en-segments-v2.json configuracion/datos/i18n/en-runtime.json en/
           if git diff --cached --quiet; then
             echo "ES→EN: translations and mirror already synchronized."
             exit 0
