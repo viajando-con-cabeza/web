@@ -94,11 +94,11 @@
     const key=normal(value);
     const direct=dictionary.get(key);
     if(direct)return direct;
-    const mosaic=key.match(/^\\+(\\d+)\\s+fotos?(?:\\s+m[aá]s)?$/i);
+    const mosaic=key.match(/^\+(\d+)\s+fotos?(?:\s+m[aá]s)?$/i);
     if(mosaic)return '+'+mosaic[1]+' '+(mosaic[1]==='1'?'photo':'photos');
-    const counter=key.match(/^(Ampliar fotografía|Abrir fotografía|Ver foto|Fotografía|Foto)\\s+(\\d+)\\s+de\\s+(\\d+)$/i);
+    const counter=key.match(/^(Ampliar fotografía|Abrir fotografía|Ver foto|Fotografía|Foto)\s+(\d+)\s+de\s+(\d+)$/i);
     if(counter)return (counter[1].startsWith('Ampliar')?'Enlarge photo':counter[1].startsWith('Abrir')?'Open photo':counter[1].startsWith('Ver')?'View photo':'Photo')+' '+counter[2]+' of '+counter[3];
-    if(/ · imagen \\d+ de \\d+$/i.test(key))return key.replace(/ · imagen (\\d+) de (\\d+)$/i,' · image $1 of $2').replace(' · paisaje forestal',' · forest landscape').replace(' · costa y mar',' · coast and sea').replace(/^Estocolmo/,'Stockholm');
+    if(/ · imagen \d+ de \d+$/i.test(key))return key.replace(/ · imagen (\d+) de (\d+)$/i,' · image $1 of $2').replace(' · paisaje forestal',' · forest landscape').replace(' · costa y mar',' · coast and sea').replace(/^Estocolmo/,'Stockholm');
     return null;
   };
   const translateText=node=>{
@@ -171,7 +171,7 @@
     }
     // Script-generated Stockholm cards are not part of the HTML translation
     // extractor: load their editorial glossary only on the relevant guide.
-    if(/^\\/en\\/destinos\\/suecia\\/estocolmo\\/imprescindibles(?:\\.html|\\/)?$/i.test(location.pathname)){
+    if(/^\/en\/destinos\/suecia\/estocolmo\/imprescindibles(?:\.html|\/)?$/i.test(location.pathname)){
       try{
         const response=await fetch('/configuracion/datos/i18n/stockholm-essentials-en.json?v=20261118-v1',{cache:'default'});
         if(!response.ok)throw Error('stockholm-'+response.status);
