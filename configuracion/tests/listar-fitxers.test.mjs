@@ -27,3 +27,16 @@ test('inventa fitxers recursivament, conserva rutes POSIX i respecta exclusions'
     fs.rmSync(root, { recursive: true, force: true });
   }
 });
+
+
+test('retorna un ordre estable independentment de l’ordre de creació', () => {
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), 'vcc-ordre-'));
+  try {
+    for (const name of ['z.css', 'b.css', 'a.css']) fs.writeFileSync(path.join(root, name), '');
+    fs.mkdirSync(path.join(root, 'm'));
+    for (const name of ['z.js', 'a.js']) fs.writeFileSync(path.join(root, 'm', name), '');
+    assert.deepEqual(listarFitxers(root), ['a.css', 'b.css', 'm/a.js', 'm/z.js', 'z.css']);
+  } finally {
+    fs.rmSync(root, { recursive: true, force: true });
+  }
+});
