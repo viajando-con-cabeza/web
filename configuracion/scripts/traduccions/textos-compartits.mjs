@@ -22,6 +22,7 @@ export function eligible(value){
  const t=normalize(value);
  return t.length>=2&&t.length<=3500&&/[a-záéíóúñü]/i.test(t)&&
   !/^[-−+≈]?\s*\d[\d\s.,:–-]*(?:h|°C)$/i.test(t)&&
+  !/^[-−+≈]?\s*\d[\d\s.,:–-]*\s*[€£$]\s*\/\s*pax$/i.test(t)&&
   !/^[-+\d.,€£$% \s]+$/.test(t)&&!/[<>]/.test(t)&&!t.includes('{{')&&!t.includes('$'+'{');
 }
 const attr=(tag,key)=>tag.match(new RegExp('\\b'+key+'\\s*=\\s*(["\\x27])([\\s\\S]*?)\\1','i'))?.[2]||'';
@@ -133,6 +134,15 @@ const NUMERIC_PRICES=new Map([
 export function fallbackEnglish(value){
  const t=normalize(value);
  if(NUMERIC_PRICES.has(t))return NUMERIC_PRICES.get(t);
+ const metrics={
+  'Conexiones':'Transport connections','Oferta hotelera':'Hotel selection',
+  'Restaurantes y servicios':'Restaurants and amenities','Tranquilidad':'Peace and quiet',
+  'Ambiente y entorno':'Atmosphere and surroundings','Oferta cultural':'Cultural attractions',
+  'Relación calidad-precio':'Value for money'
+ };
+ const metric=t.match(/^(.+): ([\d,.]+) sobre 10$/i);
+ if(metric&&metrics[metric[1]])return metrics[metric[1]]+': '+metric[2]+' out of 10';
+ if(/^Guía VCC: https?:\/\//i.test(t))return 'VCC guide: '+t.slice('Guía VCC: '.length);
  let m;
  if((m=t.match(/^(.+), valoración editorial VCC ([\d,.]+) sobre 10\. Ver análisis y (\d+) hoteles$/i)))
   return nameEn(m[1])+', VCC editorial rating '+m[2]+' out of 10. View analysis and '+m[3]+' hotels';
