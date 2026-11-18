@@ -64,6 +64,7 @@ const capture=page=>page.evaluate(()=>{
   nav:[...document.querySelectorAll('.shared-menu a')].map(n=>new URL(n.href).pathname)
  };
 });
+test.use({browserName:'chromium',channel:'chrome'});
 test.setTimeout(110000);
 for(const viewport of [{width:390,height:844},{width:1366,height:820}]){
  test.describe('ES/EN visual parity '+viewport.width+'px',()=>{
