@@ -832,3 +832,69 @@ main.dv-main > .dv-planifica-alojamiento-reuse > .al-compare{
     --vcc-section-space:52px;
   }
 }
+
+/* VCC 2026-11-19 · Contracte únic de resum de capçalera.
+   Predeterminat: resum a la dreta, ancorat al final del títol i màxim 2 línies.
+   Excepció opt-in: .vcc-editorial-heading--description-below trasllada el resum
+   complet sota el títol. També es pot afegir un paràgraf independent
+   .vcc-editorial-description-below sense eliminar el resum curt de la dreta. */
+html body .vcc-editorial-heading > .vcc-editorial-description,
+html body .vcc-editorial-heading > .vcc-editorial-heading-side{
+  align-self:end!important;
+  margin-bottom:0!important;
+}
+html body .vcc-editorial-heading:not(.vcc-editorial-heading--description-below) > .vcc-editorial-description,
+html body .vcc-editorial-heading > .vcc-editorial-heading-side > .vcc-editorial-description{
+  display:-webkit-box!important;
+  -webkit-box-orient:vertical!important;
+  -webkit-line-clamp:2!important;
+  line-clamp:2;
+  overflow:hidden!important;
+  max-height:3em!important;
+}
+html body .vcc-editorial-heading > .vcc-editorial-heading-side{
+  max-height:3em!important;
+  overflow:hidden!important;
+}
+html body .vcc-editorial-heading.vcc-editorial-heading--description-below{
+  grid-template-columns:minmax(0,1fr)!important;
+  align-items:start!important;
+  gap:9px!important;
+}
+html body .vcc-editorial-heading.vcc-editorial-heading--description-below > .vcc-editorial-description{
+  display:block!important;
+  width:100%!important;
+  max-width:840px!important;
+  align-self:start!important;
+  margin:0!important;
+  padding:0!important;
+  text-align:left!important;
+  overflow:visible!important;
+  max-height:none!important;
+  -webkit-line-clamp:unset!important;
+  line-clamp:unset;
+}
+html body .vcc-editorial-heading > .vcc-editorial-description-below{
+  display:block!important;
+  grid-column:1/-1;
+  width:100%!important;
+  max-width:840px!important;
+  margin:0!important;
+  padding:0!important;
+  color:#655e58!important;
+  font:400 12.5px/1.6 var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;
+  text-align:left!important;
+  overflow:visible!important;
+}
+@media(max-width:1150px){
+  html body .vcc-editorial-heading > .vcc-editorial-description,
+  html body .vcc-editorial-heading > .vcc-editorial-heading-side{
+    align-self:start!important;
+  }
+}
+@media(max-width:600px){
+  html body .vcc-editorial-heading.vcc-editorial-heading--description-below{gap:7px!important;}
+  html body .vcc-editorial-heading > .vcc-editorial-description-below{
+    font-size:12px!important;
+  }
+}
