@@ -52,6 +52,16 @@ const isMobile=()=>modal.classList.contains('vcc-gallery-mobile');
 // Opt-in de les galeries d'Estocolm: llegenda curta en sobreimpressió, sense lateral de text.
 const photoLabelOverlay=modal.hasAttribute('data-vcc-photo-label-overlay');
 const labelFor=item=>photoLabelOverlay?(item.area||item.caption||'').trim().slice(0,90):typeof item.caption==='string'?item.caption.trim().slice(0,200):'';
+// Ajustar l'etiqueta a la cantonada de la imatge real, no al rectangle blanc del visor.
+const positionPhotoLabel=()=>{
+ if(!photoLabelOverlay||photoCaption.hidden||!photoOpen())return;
+ const imageRect=photoImage.getBoundingClientRect();
+ const frameRect=photoFrame.getBoundingClientRect();
+ if(imageRect.width<1||imageRect.height<1||frameRect.width<1)return;
+ photoCaption.style.right=Math.max(8,frameRect.right-imageRect.right+8)+'px';
+ photoCaption.style.bottom=Math.max(8,frameRect.bottom-imageRect.bottom+8)+'px';
+};
+if(photoLabelOverlay)window.addEventListener('resize',()=>requestAnimationFrame(positionPhotoLabel),{passive:true});
 let currentImages=[],currentIndex=0,lastFocus=null,gridButtons=[];
 let photoSequence=0;
 let slideOverlay=null,slideTimeout=0;
@@ -410,10 +420,11 @@ function showPhoto(index,slideDirection=0){
   if(id!==photoSequence||!photoOpen())return;
   if(!ready)return; // La fotografia visible continua fins que hi hagi resposta.
   if(isChanging&&slideDirection)beginPhotoSlide(slideDirection);
-  photoImage.onload=null;
+  photoImage.onload=()=>requestAnimationFrame(positionPhotoLabel);
   photoImage.onerror=null;
   photoImage.src=url;
   photoImage.alt=item.alt;
+  if(photoLabelOverlay)requestAnimationFrame(positionPhotoLabel);
   if(!item.fastPreview&&url!==item.src)scheduleFullPhoto(item,id);
  };
  // La versió ja descodificada entra al mateix tick. La resta es resol en paral·lel.
