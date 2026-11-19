@@ -25,15 +25,8 @@
   color:#65615d;
   font:400 12px/1.55 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
 }
-/* Mosaico ligeramente más ancho en escritorio que la referencia de
-   Itinerario, pero siempre centrado. Móvil y tableta mantienen su tamaño.
-   Proporciones 1.32 (desktop) y 1.35 (móvil) del componente compartido. */
-.dv-page #barrios .dv-neighborhood-gallery .day-gallery.vcc-booking-gallery{
-  box-sizing:border-box;
-  width:min(100%, 510px, calc(45vw - 38.4px));
-  max-width:none;
-  margin-inline:auto;
-}
+/* Mosaico compartido con Cómo moverse: vcc-sto-mosaic-compact.
+   Mismas medidas en desktop, tableta y móvil desde vcc-gallery-booking.css. */
 .dv-page #barrios .dv-neighborhood-gallery .day-mosaic>button .dv-barrio-photo-label{
   position:absolute;
   z-index:3;
@@ -73,9 +66,6 @@
   .dv-page #barrios .dv-neighborhood-gallery-kicker{font-size:19px}
   .dv-page #barrios .dv-neighborhood-gallery-heading h3{font-size:20px}
   .dv-page #barrios .dv-neighborhood-gallery-description{font-size:11.5px}
-  .dv-page #barrios .dv-neighborhood-gallery .day-gallery.vcc-booking-gallery{
-    width:min(100%, calc(100vw - 48px));
-  }
   .dv-page #barrios .dv-neighborhood-gallery .day-mosaic>button .dv-barrio-photo-label{
     font-size:8px;left:auto;right:5px;bottom:5px;padding:2px 4px;
     max-width:calc(100% - 10px);
@@ -90,9 +80,6 @@
   }
 }
 @media(max-width:650px){
-  .dv-page #barrios .dv-neighborhood-gallery .day-gallery.vcc-booking-gallery{
-    width:min(100%, calc(100vw - 28px));
-  }
 }
 @media(prefers-reduced-motion:reduce){
   .dv-page #barrios .dv-neighborhood-gallery .day-mosaic>button>img{transition:none}
