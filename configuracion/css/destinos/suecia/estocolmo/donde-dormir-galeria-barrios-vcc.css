@@ -25,13 +25,12 @@
   color:#65615d;
   font:400 12px/1.55 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
 }
-/* Exactament la mateixa amplada responsive que a «Itinerario» i
-   «Cómo moverse»: només canviem la ubicació, centrada horitzontalment.
-   Les proporcions 1.32 (desktop) i 1.35 (mòbil) venen del CSS comú,
-   sense cap aspect-ratio específic en aquesta pàgina. */
+/* Mosaico ligeramente más ancho en escritorio que la referencia de
+   Itinerario, pero siempre centrado. Móvil y tableta mantienen su tamaño.
+   Proporciones 1.32 (desktop) y 1.35 (móvil) del componente compartido. */
 .dv-page #barrios .dv-neighborhood-gallery .day-gallery.vcc-booking-gallery{
   box-sizing:border-box;
-  width:min(100%, 453px, calc(40vw - 38.4px));
+  width:min(100%, 510px, calc(45vw - 38.4px));
   max-width:none;
   margin-inline:auto;
 }
