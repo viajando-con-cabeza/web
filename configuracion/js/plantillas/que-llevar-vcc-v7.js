@@ -175,24 +175,33 @@ function recommendedBag(){
  else if(state.days<=(cold?5:8))type="cabin";
  else type="checked";
  const name=bagOptions[type].title;
- let reason;
+ let reason,reasonEn;
  if(type==="personal"){
   reason="puedes llevar lo esencial y viajar ligero si repites prendas y llevas puesta la ropa más voluminosa.";
+  reasonEn="you can pack the essentials and travel light by repeating outfits and wearing your bulkiest items.";
  }else if(type==="cabin"&&state.laundry&&state.days>8){
   reason="podrás lavar ropa durante el viaje y preparar cambios para unos cinco días, en lugar de multiplicar las mudas. Comprueba el peso y las medidas de tu aerolínea.";
+  reasonEn="you can do laundry and bring around five days of clothes instead of packing extra changes. Check your airline’s size and weight limits.";
  }else if(type==="cabin"){
   reason=cold
    ?"las capas exteriores y la ropa térmica caben mejor si organizas bien el equipaje y llevas puesto el abrigo."
    :"te permite llevar ropa versátil y algún extra sin tener que facturar, si respetas las medidas de la tarifa.";
+  reasonEn=cold
+   ?"you can fit thermal and outer layers more easily by packing carefully and wearing your coat."
+   :"you can take versatile outfits and a few extras without checking a bag, if they fit your fare’s size allowance.";
  }else if(cold){
   reason="el abrigo, la ropa térmica y los cambios de un viaje largo pueden necesitar más espacio, especialmente si no podrás lavar ropa.";
+  reasonEn="a coat, thermal layers and changes for a longer trip may take more room, especially without access to laundry.";
  }else{
   reason="sin lavar ropa necesitarás más mudas durante un viaje largo; puede compensarte facturar si no quieres depender de una colada.";
+  reasonEn="on a long trip without laundry, you may need more changes of clothes, making checked luggage useful.";
  }
- return {type,name,reason,cold};
+ return {type,name,reason,reasonEn,cold};
 }
 function updateBagAdvice(){
  const choice=recommendedBag();
+ const explanation=$("ql-v7-bag-reason");
+ if(explanation)explanation.textContent=(isEnglish?"Why we suggest this bag: ":"Por qué recomendamos esta maleta: ")+(isEnglish?choice.reasonEn:choice.reason);
  document.querySelectorAll(".ql-v7-bag-card").forEach(card=>{
   const selected=card.dataset.bag===choice.type;
   card.classList.toggle("is-recommended",selected);
