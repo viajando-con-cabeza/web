@@ -876,6 +876,8 @@ html body:has(.st-shell nav.st-tabs) .st-shell > .st-hero .st-fact > small{
 /* Únic patró per a totes les seccions de pàgines amb subheader:
    sobretítol + títol d'una línia + resum a la dreta (màxim 2 línies). */
 html body .vcc-editorial-heading{
+  --vcc-editorial-description-short-size:12.5px;
+  --vcc-editorial-description-long-size:13.25px;
   display:grid!important;
   grid-template-columns:minmax(0,1fr) minmax(270px,clamp(320px,29vw,430px))!important;
   align-items:end!important;
@@ -914,7 +916,7 @@ html body .vcc-editorial-heading > .vcc-editorial-heading-side{
   width:100%!important;max-width:430px!important;min-width:0!important;
   margin:0 0 3px!important;padding:0!important;
   color:#655e58!important;
-  font:400 12.5px/1.5 var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;
+  font:400 var(--vcc-editorial-description-short-size)/1.5 var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;
   letter-spacing:0!important;text-align:right!important;text-transform:none!important;
   text-wrap:pretty!important;
 }
@@ -1700,6 +1702,9 @@ main.dv-main > .dv-planifica-alojamiento-reuse > .al-compare{
 }
 
 /* VCC 2026-11-19 · Contracte únic de resum de capçalera.
+   Lletres del sobretítol i del títol: mantenir l'escala comuna anterior.
+   Resum curt (màxim ~10 paraules): mateixa mida discreta a la dreta.
+   Resum llarg: mateixa mida (lleugerament més petita) sota el títol.
    Predeterminat: resum a la dreta, ancorat al final del títol i màxim 2 línies.
    Excepció opt-in: .vcc-editorial-heading--description-below trasllada el resum
    complet sota el títol. També es pot afegir un paràgraf independent
@@ -1747,7 +1752,7 @@ html body .vcc-editorial-heading.vcc-editorial-heading--description-below > .vcc
   max-height:none!important;
   -webkit-line-clamp:unset!important;
   line-clamp:unset;
-  font:400 14px/1.6 var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;
+  font:400 var(--vcc-editorial-description-long-size)/1.6 var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;
   color:#5f5954!important;
 }
 html body .vcc-editorial-heading > .vcc-editorial-description-below{
@@ -1758,7 +1763,7 @@ html body .vcc-editorial-heading > .vcc-editorial-description-below{
   margin:0!important;
   padding:0!important;
   color:#655e58!important;
-  font:400 12.5px/1.6 var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;
+  font:400 var(--vcc-editorial-description-long-size)/1.6 var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;
   text-align:left!important;
   overflow:visible!important;
 }
@@ -1770,9 +1775,12 @@ html body .vcc-editorial-heading > .vcc-editorial-description-below{
 }
 @media(max-width:600px){
   html body .vcc-editorial-heading.vcc-editorial-heading--description-below{gap:7px!important;}
+  html body .vcc-editorial-heading{
+    --vcc-editorial-description-long-size:13px;
+  }
   html body .vcc-editorial-heading.vcc-editorial-heading--description-below > .vcc-editorial-description,
   html body .vcc-editorial-heading > .vcc-editorial-description-below{
-    font-size:13px!important;
+    font-size:var(--vcc-editorial-description-long-size)!important;
     line-height:1.6!important;
   }
 }
