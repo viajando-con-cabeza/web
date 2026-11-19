@@ -37,7 +37,6 @@
    const carCosts=root.querySelector('#mv-vcc-car-costs');
    const carTotal=root.querySelector('#mv-vcc-car-total');
    const carPerson=root.querySelector('#mv-vcc-car-person');
-   const carSl=root.querySelector('#mv-vcc-car-sl');
    const carComparison=root.querySelector('#mv-vcc-car-comparison');
    const counts=[2,3,2,0,0,0,0];
    const destination=window.VCCTransportDestination;
@@ -62,8 +61,6 @@
    // una còpia de les tarifes o de les etiquetes per a cada ciutat.
    const currencyCaption=root.querySelector('#mv-vcc-fare-currency');
    if(currencyCaption)currencyCaption.textContent='PRECIO · '+currency;
-   const operatorCaption=root.querySelector('#mv-vcc-car-operator-label');
-   if(operatorCaption)operatorCaption.textContent='Transporte '+(destination?.operator||'público')+' · grupo';
 
    const clamp=(v,min,max)=>Math.max(min,Math.min(max,Number.isFinite(v)?v:min));
    const money=n=>new Intl.NumberFormat('es-ES',{maximumFractionDigits:2}).format(n)+' '+currency;
@@ -105,7 +102,6 @@
      carCosts.hidden=false;
      carTotal.textContent=money(total);
      carPerson.textContent=money(total/travellers);
-     carSl.textContent=money(slGroup);
      if(route==='city'){
        const delta=Math.abs(total-slGroup);
        carComparison.textContent=total<slGroup
@@ -251,7 +247,7 @@
      passGroup.textContent=passes.valid?money(passes.total):'—';
      passDescription.textContent=passes.valid
        ?'Mejor combinación con abono: '+passes.steps.join(' · ')
-       :'No hay abonamientos comparables para los trayectos elegidos.';
+       :'No hay abonos comparables para los trayectos elegidos.';
      if(!best.valid){
        option.textContent='Revisa las tarifas';
        cost.textContent='—';group.textContent='—';savingAmount.textContent='—';
