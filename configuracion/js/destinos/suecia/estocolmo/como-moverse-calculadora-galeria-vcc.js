@@ -16,8 +16,15 @@
    const savingAmount=root.querySelector('#mv-vcc-saving-amount');
    const savingScope=root.querySelector('#mv-vcc-saving-scope');
    const singles=root.querySelector('#mv-vcc-singles');
-   const pass72=root.querySelector('#mv-vcc-72');
-   const pass72row=root.querySelector('#mv-vcc-72-row');
+   const singleUnit=root.querySelector('#mv-vcc-single-unit');
+   const singleGroup=root.querySelector('#mv-vcc-single-group');
+   const singleCount=root.querySelector('#mv-vcc-single-count');
+   const passRates=root.querySelector('#mv-vcc-pass-rates');
+   const passCosts=root.querySelector('#mv-vcc-pass-costs');
+   const passPerson=root.querySelector('#mv-vcc-pass-person');
+   const passGroup=root.querySelector('#mv-vcc-pass-group');
+   const passDescription=root.querySelector('#mv-vcc-pass-description');
+   const recommendationNote=root.querySelector('#mv-vcc-recommend-note');
    const planEl=root.querySelector('#mv-vcc-plan');
    const carRoute=root.querySelector('#mv-vcc-car-route');
    const carType=root.querySelector('#mv-vcc-car-type');
@@ -29,6 +36,7 @@
    const carReason=root.querySelector('#mv-vcc-car-reason');
    const carCosts=root.querySelector('#mv-vcc-car-costs');
    const carTotal=root.querySelector('#mv-vcc-car-total');
+   const carPerson=root.querySelector('#mv-vcc-car-person');
    const carSl=root.querySelector('#mv-vcc-car-sl');
    const carComparison=root.querySelector('#mv-vcc-car-comparison');
    const counts=[2,3,2,0,0,0,0];
@@ -67,9 +75,9 @@
      return clamp(Number(value),0,100000);
    };
    function calculateCar(slGroup){
-     if(!carRoute)return;
-     const n=readDays(),travelers=clamp(Number(people.value),1,10);
-     const cars=Math.ceil(travelers/5);
+     const n=readDays(),travellers=clamp(Number(people.value),1,10);
+     // Capacidad orientativa; puede variarse en otros catálogos por destino.
+     const cars=Math.ceil(travellers/5);
      const route=carRoute.value;
      const renting=carType.value==='rent';
      carRentField.hidden=!renting;
@@ -77,37 +85,40 @@
      const parking=userCost(carParking);
      const extras=userCost(carExtras);
      const context={
-       city:['Para el centro, normalmente no compensa','Aparcar y acceder al centro añade costes y tiempo; SL y caminar suelen ser más prácticos.'],
-       road:['Puede ser útil para excursiones','La libertad de horarios puede compensar, según distancia, aparcamiento y alternativa de transporte.'],
-       islands:['El coche no sustituye el ferry','En rutas por las islas y Grinda necesitarás barco; conducir no sustituye ese trayecto.']
-     }[route]||['Depende de tu ruta','Revisa la conexión antes de reservar.'];
+       city:['En el centro, valora el tráfico','Aparcar, tráfico y accesos pueden hacerlo menos práctico que caminar y usar SL.'],
+       road:['Puede convenir en carretera','La flexibilidad ayuda fuera de la ciudad. Compara la ruta real y los gastos.'],
+       islands:['El coche no sustituye el ferry','Para ciertas islas necesitas barco; conducir no equivale al trayecto en ferry.']
+     }[route]||['Depende de la ruta','Comprueba el destino y los accesos.'];
      carVerdict.textContent=context[0];
      carReason.textContent=context[1];
      if(price===null||parking===null||extras===null){
        carCosts.hidden=true;
+       carTotal.textContent='—';carPerson.textContent='—';
        const missing=[];
        if(renting&&price===null)missing.push('alquiler');
        if(parking===null)missing.push('parking');
-       if(extras===null)missing.push('gasolina y peajes');
-       carComparison.textContent='Introduce '+missing.join(', ')+' (0 si no hay gasto) para calcular el coste del coche.';
-       return;
+       if(extras===null)missing.push('combustible y peajes');
+       carComparison.textContent='Indica '+missing.join(', ')+' (0 si no hay gasto).';
+       return {valid:false,route,cars};
      }
      const total=((price+parking)*n+extras)*cars;
      carCosts.hidden=false;
-     carTotal.textContent=money(total)+(cars>1?' · '+cars+' coches':'');
+     carTotal.textContent=money(total);
+     carPerson.textContent=money(total/travellers);
      carSl.textContent=money(slGroup);
-     if(route==='islands'){
-       carComparison.textContent='No son opciones equivalentes: el coche no sustituye los barcos del archipiélago.';
-     }else if(route==='road'){
-       carComparison.textContent='Los billetes SL introducidos pueden no cubrir esta excursión. Compara con el precio y la duración de la ruta real.';
-     }else{
+     if(route==='city'){
        const delta=Math.abs(total-slGroup);
-       carComparison.textContent=total>slGroup
-         ?'SL cuesta '+money(delta)+' menos para el grupo, con estos gastos.'
-         :total<slGroup
-           ?'El coche cuesta '+money(delta)+' menos en este cálculo, pero en el centro puede ser menos práctico.'
-           :'Empate de coste estimado; en el centro suele resultar más cómodo ir a pie y con SL.';
+       carComparison.textContent=total<slGroup
+         ?'Según estos gastos, '+money(delta)+' menos que el mejor transporte público para el grupo.'
+         :total>slGroup
+           ?'El transporte público ahorra '+money(delta)+' al grupo con estos costes.'
+           :'Coste similar; valora accesos y comodidad.';
+     }else{
+       carComparison.textContent=route==='islands'
+         ?'No comparable: el ferry puede ser imprescindible.'
+         :'No comparable directamente con billetes urbanos SL.';
      }
+     return {valid:true,total,perPerson:total/travellers,route,cars,comparable:route==='city'};
    }
    const readDays=()=>clamp(Number(days.value),1,7);
    const renderDayInputs=()=>{
@@ -196,43 +207,107 @@
      fareNote.textContent='SIMULACIÓN PERSONAL · Has cambiado un abono o su precio; verifica las tarifas reales antes de comprar.';
      calculate();
    }
+   function renderPassRates(){
+     passRates.replaceChildren();
+     const list=ticketCatalog.filter(t=>t.type!=='rides'||Number(t.quantity)>1);
+     if(!list.length){
+       const span=document.createElement('p');
+       span.textContent='No hay abonos configurados';
+       passRates.append(span);return;
+     }
+     const fragment=document.createDocumentFragment();
+     list.forEach(ticket=>{
+       const row=document.createElement('p');
+       const caption=document.createElement('span');
+       const amount=document.createElement('b');
+       const price=ticket.price?.[category.value];
+       caption.textContent=ticket.label+(ticket.simulation?' · Simulación':'');
+       amount.textContent=price===undefined||price===null||price===''?'—':money(Number(price));
+       row.append(caption,amount);fragment.append(row);
+     });
+     passRates.append(fragment);
+   }
    function calculate(){
-     const n=readDays(),p=clamp(Number(people.value),1,10);
+     const n=readDays(),travellers=clamp(Number(people.value),1,10);
      const arr=counts.slice(0,n).map(v=>clamp(v,0,20));
+     const activations=arr.reduce((sum,v)=>sum+v,0);
+     singleCount.textContent=activations+' '+(activations===1?'validación':'validaciones')+' por persona';
+     renderPassRates();
      if(!destination||!optimizer){
        option.textContent='Tarifas no disponibles';
        cost.textContent='—';group.textContent='—';savingAmount.textContent='—';
        return;
      }
-     const best=optimizer.solve({days:arr,catalog:ticketCatalog,category:category.value,people:p});
+     const request={days:arr,catalog:ticketCatalog,category:category.value,people:travellers};
+     const best=optimizer.solve(request);
+     const passes=optimizer.solve({...request,requireBundle:true});
+     const unit=best.singleUnit;
+     singleUnit.textContent=unit===null?'—':money(unit);
+     const singlePrice=best.singleTotal;
+     singles.textContent=singlePrice===null?'—':money(singlePrice);
+     singleGroup.textContent=singlePrice===null?'—':money(singlePrice*travellers);
+     passCosts.hidden=!passes.valid;
+     passPerson.textContent=passes.valid?money(passes.perPerson):'—';
+     passGroup.textContent=passes.valid?money(passes.total):'—';
+     passDescription.textContent=passes.valid
+       ?'Mejor combinación con abono: '+passes.steps.join(' · ')
+       :'No hay abonamientos comparables para los trayectos elegidos.';
      if(!best.valid){
-       option.textContent='Revisa los precios';
+       option.textContent='Revisa las tarifas';
        cost.textContent='—';group.textContent='—';savingAmount.textContent='—';
+       recommendationNote.textContent='No hay datos suficientes para comparar.';
        return;
      }
-     cost.textContent=money(best.perPerson);
-     group.textContent=money(best.total);
-     groupLabel.textContent='Total '+p+(p===1?' viajero':' viajeros');
-     singles.textContent=best.singleTotal===null?'No disponible':money(best.singleTotal);
-     pass72row.hidden=n!==3||best.pass72==null;
-     pass72.textContent=best.pass72==null?'No disponible':money(best.pass72);
-     const activations=arr.reduce((sum,v)=>sum+v,0);
-     const passUsed=best.steps.some(part=>!/Billete 75 min|billete sencillo/i.test(part));
-     option.textContent=activations===0?'No necesitas billetes':passUsed?'Mejor combinación de tarifas':'Billetes sueltos';
-     const reference=n===3&&best.pass72!=null?best.pass72:best.singleTotal;
-     savingLabel.textContent=n===3&&best.pass72!=null?'Ahorro frente a 72 h':'Ahorro frente a billetes sueltos';
-     savingAmount.textContent=money(reference===null?0:Math.max(0,reference-best.perPerson));
+     const car=calculateCar(best.total);
+     const possibilities=[];
+     if(singlePrice!==null)possibilities.push({kind:'single',cost:singlePrice*travellers,label:'Billetes sueltos'});
+     if(passes.valid)possibilities.push({kind:'pass',cost:passes.total,label:'Abonos y bonos'});
+     if(car.valid&&car.comparable)possibilities.push({kind:'car',cost:car.total,label:'Coche'});
+     possibilities.sort((a,b)=>a.cost-b.cost);
+     // En caso de empate preferir transporte público. El coche no reemplaza ferris
+     // ni rutas suburbanas no cubiertas por los billetes indicados.
+     const chosen=possibilities[0]||{kind:'best',cost:best.total,label:'Mejor opción pública'};
+     option.textContent=activations===0&&chosen.kind!=='car'
+       ?'No necesitas billetes'
+       :chosen.kind==='pass'?'Abonos y bonos'
+        :chosen.kind==='car'?'Coche · según tus gastos'
+        :'Billetes sueltos';
+     cost.textContent=money(chosen.cost/travellers);
+     group.textContent=money(chosen.cost);
+     groupLabel.textContent='Total '+travellers+(travellers===1?' viajero':' viajeros');
+     if(possibilities.length>=2){
+       const second=possibilities.find(p=>p.cost>chosen.cost+0.000001);
+       const difference=second?second.cost-chosen.cost:0;
+       savingLabel.textContent=second?'Frente a '+second.label:'Coste equivalente';
+       savingAmount.textContent=money(difference/travellers);
+     }else{
+       savingLabel.textContent='Sin otra opción comparable';
+       savingAmount.textContent='—';
+     }
      savingScope.textContent='por persona';
+     if(chosen.kind==='car'){
+       recommendationNote.textContent='Coste inferior con tus cifras, pero conducir por el centro puede ser menos práctico. Revisa seguro, accesos y aparcamiento.';
+     }else if(carRoute.value==='islands'){
+       recommendationNote.textContent='Los trayectos en ferry del archipiélago pueden requerir un título adicional; el coche no los sustituye.';
+     }else if(carRoute.value==='road'){
+       recommendationNote.textContent='Comparación de transporte urbano. Para excursiones por carretera, calcula una ruta específica.';
+     }else{
+       recommendationNote.textContent=car.valid
+         ?'Comparación de costes para '+travellers+(travellers===1?' viajero.':' viajeros.')+' En el centro valora también los tiempos y el aparcamiento.'
+         :'Introduce los costes del coche para incluirlo en la comparación.';
+     }
      planEl.replaceChildren();
-     best.steps.forEach(part=>{
+     const parts=chosen.kind==='pass'?passes.steps:chosen.kind==='single'
+       ?arr.map((q,i)=>q>0?'Día '+(i+1)+': '+q+' × billete sencillo':'').filter(Boolean)
+       :chosen.kind==='car'?['Coche: alquiler, parking, combustible y peajes'] :best.steps;
+     parts.forEach(part=>{
        const li=document.createElement('li');li.textContent=part;planEl.append(li);
      });
      if(best.uncomparable.length){
        const li=document.createElement('li');
-       li.textContent='No comparados: '+best.uncomparable.map(t=>t.label).join(', ')+' (necesitan horas de viaje u otras reglas).';
+       li.textContent='Sin comparar por horarios: '+best.uncomparable.map(t=>t.label).join(', ')+'.';
        planEl.append(li);
      }
-     calculateCar(best.total);
    }
    [carRoute,carType,carRent,carParking,carExtras].forEach(input=>{
      if(input){
