@@ -30,7 +30,7 @@
    }
    if(!['hours','days'].includes(bonus.type))return {valid:false,reason:'Indica si el abono es por horas, días o viajes.'};
    const timed=bonus.type==='hours';
-   const precise=timed&&eligible.every(t=>/^([01]\\d|2[0-3]):[0-5]\\d$/.test(t.time||''));
+   const precise=timed&&eligible.every(t=>/^([01]\d|2[0-3]):[0-5]\d$/.test(t.time||''));
    if(timed&&!precise&&(q<24||q%24!==0))return {valid:false,reason:'Para este abono necesitas indicar la hora de salida en todos los trayectos cubiertos.'};
    const span=timed?(precise?q*60:q/24*1440):q*1440;
    const ordered=[...eligible].sort((a,b)=>{
