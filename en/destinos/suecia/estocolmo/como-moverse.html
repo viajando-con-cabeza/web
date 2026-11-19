@@ -28,7 +28,7 @@
 <link rel="stylesheet" data-vcc-sacred-covers href="/configuracion/css/componentes/portades-contracte-unic-vcc.css?v=20261117-espais-intermedis-v6">
 <link rel="stylesheet" href="/configuracion/css/componentes/como-ahorrar-carruseles-vcc.css?v=20261117-notes-compactes-v3">
 <link rel="stylesheet" href="/configuracion/css/componentes/vcc-gallery-booking.css?v=20261119-etiquetes-visor-v2">
-<link rel="stylesheet" href="/configuracion/css/destinos/suecia/estocolmo/como-moverse-calculadora-galeria-vcc.css?v=20261119-tarifes-universals-v11">
+<link rel="stylesheet" href="/configuracion/css/destinos/suecia/estocolmo/como-moverse-calculadora-galeria-vcc.css?v=20261119-tarifes-universals-v12">
 
 </head><body class="mv-body">
 <header class="page-header"></header>
@@ -228,7 +228,7 @@
             <label class="mv-vcc-field"><span>NAME</span><input id="mv-vcc-fare-name" type="text" maxlength="38" placeholder="E.g. 10-trip pass"></label>
             <label class="mv-vcc-field"><span>DURATION</span><input id="mv-vcc-fare-quantity" type="number" min="1" max="365" step="1" inputmode="numeric" value="10"></label>
             <label class="mv-vcc-field"><span>TYPE</span><select id="mv-vcc-fare-kind"><option value="rides">Trips</option><option value="hours">Hours</option><option value="days">Days</option></select></label>
-            <label class="mv-vcc-field"><span>PRICE · SEK</span><input id="mv-vcc-fare-price" type="number" min="0" max="100000" step="0.01" inputmode="decimal" placeholder="Price"></label>
+            <label class="mv-vcc-field"><span id="mv-vcc-fare-currency">PRICE · SEK</span><input id="mv-vcc-fare-price" type="number" min="0" max="100000" step="0.01" inputmode="decimal" placeholder="Price"></label>
           </div>
           <div class="mv-vcc-fare-actions"><button id="mv-vcc-add-fare" type="button">+ Add simulation</button><button id="mv-vcc-reset-fares" type="button">Restore official prices</button></div>
         </div>
@@ -272,14 +272,14 @@
      <p id="mv-vcc-car-reason">Parking and access can be inconvenient. Walking and using SL is usually more practical.</p>
      <div class="mv-vcc-car-costs" id="mv-vcc-car-costs" hidden>
       <span><small>Car · group</small><b id="mv-vcc-car-total">—</b></span>
-      <span><small>SL Transport · group</small><b id="mv-vcc-car-sl">—</b></span>
+      <span><small id="mv-vcc-car-operator-label">SL Transport · group</small><b id="mv-vcc-car-sl">—</b></span>
      </div>
      <p id="mv-vcc-car-comparison" class="mv-vcc-car-compare-message">Enter your costs to calculate it; the rental price depends on your booking.</p>
     </div>
     <p class="mv-vcc-car-disclaimer">Estimated costs entered by you for the selected days. We calculate one car for every 5 travelers; please verify seating capacity and insurance. The SL cost only represents the urban trips you have indicated: <strong>does not include excursions or special ferries</strong>. Municipal parking in 2026: from 20–55 SEK/h in central areas, depending on the zone and time. Congestion charges can add up to 105–135 SEK/day; enter what you expect to pay in «Fuel + tolls». <a href="https://parkering.stockholm/en/paying-to-park/tariff-zones-and-fees/" target="_blank" rel="noopener noreferrer">Official parking</a> · <a href="https://www.transportstyrelsen.se/en/road/vehicles/taxes-and-fees/road-tolls/congestion-taxes-in-stockholm-and-gothenburg/congestion-tax-in-stockholm/hours-and-amounts-in-stockholm/" target="_blank" rel="noopener noreferrer">Official tolls</a>.</p>
    </div>
   </details>
-  <details class="mv-vcc-terms"><summary>Calculation rates and conditions</summary><p>SL 2026 fares: adult 43 / 180 / 360 SEK and reduced 26 / 110 / 220 SEK (single / 24 h / 72 h). Reduced fares require meeting SL requirements. Counts 75-minute tickets, not every transfer. Passes are activated for continuous hours; this comparison approximates day blocks. Check schedules and prices before purchasing in the <a href="https://sl.se/en/fares-and-tickets" target="_blank" rel="noopener noreferrer">official SL conditions</a>.</p></details>
+  <details class="mv-vcc-terms"><summary>Calculation rates and conditions</summary><p>SL 2026 Fares: adult 43 / 180 / 360 / 470 SEK and reduced 26 / 110 / 220 / 290 SEK (75 min single / 24 h / 72 h / 7 days). The reduced fare requires meeting SL requirements. Tickets count 75 minutes, not every transfer. Passes are activated for continuous hours; this comparison approximates day blocks. Check schedules and prices before buying at the <a href="https://sl.se/en/fares-and-tickets" target="_blank" rel="noopener noreferrer">official SL conditions</a>.</p></details>
  </div>
 </section>
 <section class="mv-vcc-photo-section" id="experiencia-transporte" aria-labelledby="mv-vcc-gallery-heading">
@@ -378,6 +378,6 @@
 <script src="/configuracion/js/componentes/vcc-itinerary-gallery-on-demand.js?v=20261119-etiquetes-visor-v3" defer></script>
 <script src="/configuracion/datos/transporte/estocolmo-sl-2026.js?v=20261119-v1" defer></script>
 <script src="/configuracion/js/componentes/vcc-transporte-optimizador.js?v=20261119-v1" defer></script>
-<script src="/configuracion/js/destinos/suecia/estocolmo/como-moverse-calculadora-galeria-vcc.js?v=20261119-tarifes-universals-v4" defer></script>
+<script src="/configuracion/js/destinos/suecia/estocolmo/como-moverse-calculadora-galeria-vcc.js?v=20261119-tarifes-universals-v5" defer></script>
 <script src="/configuracion/js/vcc-en-runtime.js" defer></script>
 </body></html>
