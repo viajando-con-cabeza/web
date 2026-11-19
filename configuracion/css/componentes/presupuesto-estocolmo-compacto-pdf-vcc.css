@@ -252,3 +252,59 @@ html body.budget-vcc #filosofia .vcc-budget-panel-column h4 .vcc-budget-basis{
   font:700 9.5px/1.25 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
   letter-spacing:.04em;color:#976453;white-space:nowrap;
 }
+
+
+/* Estocolmo · resumen de presupuesto: pax, día y total de itinerario (2026-11-19). */
+/* Disposición común para los cuatro perfiles; preservar colores específicos de VCC. */
+html body.budget-vcc #filosofia .vcc-budget-total .vcc-budget-total-top{
+  display:flex;align-items:flex-start;justify-content:space-between;
+  gap:8px;margin:0 0 6px;
+}
+html body.budget-vcc #filosofia .vcc-budget-total .vcc-budget-trip-meta{
+  font:500 9.5px/1.25 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
+  color:#756960;text-align:right;white-space:nowrap;
+}
+html body.budget-vcc #filosofia .vcc-budget-total .vcc-budget-total-main{
+  display:flex;align-items:baseline;flex-wrap:wrap;
+  column-gap:8px;row-gap:2px;margin:0 0 7px;
+}
+html body.budget-vcc #filosofia .vcc-budget-total .vcc-budget-total-main .vcc-budget-total-person{
+  display:inline-block!important;margin:0!important;
+  font-size:27px!important;line-height:1.08!important;
+}
+html body.budget-vcc #filosofia .vcc-budget-total .vcc-budget-total-day{
+  display:inline-block;
+  font:500 11px/1.25 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
+  color:#766960;white-space:nowrap;
+}
+html body.budget-vcc #filosofia .vcc-budget-total .vcc-budget-total-meta{
+  display:flex;align-items:baseline;justify-content:space-between;
+  gap:10px;margin:0!important;padding-top:6px!important;
+  font-size:10.5px!important;
+}
+html body.budget-vcc #filosofia .vcc-budget-total .vcc-budget-total-meta b{
+  font-size:17px!important;white-space:nowrap;
+}
+@media(max-width:750px){
+  html body.budget-vcc #filosofia .vcc-budget-total .vcc-budget-total-top{
+    gap:5px;margin-bottom:5px;
+  }
+  html body.budget-vcc #filosofia .vcc-budget-total .vcc-budget-trip-meta{
+    font-size:9px;
+  }
+  html body.budget-vcc #filosofia .vcc-budget-total .vcc-budget-total-main{
+    column-gap:7px;margin-bottom:6px;
+  }
+  html body.budget-vcc #filosofia .vcc-budget-total .vcc-budget-total-main .vcc-budget-total-person{
+    font-size:27px!important;
+  }
+  html body.budget-vcc #filosofia .vcc-budget-total .vcc-budget-total-day{
+    font-size:10px;
+  }
+  html body.budget-vcc #filosofia .vcc-budget-total .vcc-budget-total-meta{
+    font-size:10px!important;
+  }
+  html body.budget-vcc #filosofia .vcc-budget-total .vcc-budget-total-meta b{
+    font-size:16px!important;
+  }
+}
