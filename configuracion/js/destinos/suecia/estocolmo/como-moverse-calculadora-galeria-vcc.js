@@ -44,6 +44,13 @@
    const fareQuantity=root.querySelector('#mv-vcc-fare-quantity');
    const farePrice=root.querySelector('#mv-vcc-fare-price');
    const fareNote=root.querySelector('#mv-vcc-fare-note');
+   // La moneda i l'operador depenen del catàleg; la plantilla no necessita
+   // una còpia de les tarifes o de les etiquetes per a cada ciutat.
+   const currencyCaption=root.querySelector('#mv-vcc-fare-currency');
+   if(currencyCaption)currencyCaption.textContent='PRECIO · '+currency;
+   const operatorCaption=root.querySelector('#mv-vcc-car-operator-label');
+   if(operatorCaption)operatorCaption.textContent='Transporte '+(destination?.operator||'público')+' · grupo';
+
    const clamp=(v,min,max)=>Math.max(min,Math.min(max,Number.isFinite(v)?v:min));
    const money=n=>new Intl.NumberFormat('es-ES',{maximumFractionDigits:2}).format(n)+' '+currency;
    // El preu del cotxe només es calcula amb costos facilitats pel viatger.
@@ -125,7 +132,7 @@
        const name=document.createElement('div');name.className='mv-vcc-fare-row-name';
        const title=document.createElement('strong');title.textContent=ticket.label;
        const status=document.createElement('small');
-       status.textContent=ticket.simulation?'SIMULACIÓN':'SL · OFICIAL';
+       status.textContent=ticket.simulation?'SIMULACIÓN':(destination?.operator||'Red')+' · OFICIAL';
        name.append(title,status);
        const fields=document.createElement('div');fields.className='mv-vcc-fare-row-fields';
        const wrap=(label,node)=>{
@@ -160,7 +167,7 @@
      fareList.replaceChildren(fragment);
      fareNote.textContent=simulationChanged
        ?'SIMULACIÓN PERSONAL · Los precios o abonos editados no son tarifas oficiales. Para títulos de menos de 24 h, hacen falta los horarios de viaje.'
-       :'Precios SL de 2026. Puedes simular otras tarifas, pero no son productos oficiales. Las validez por horas inferior a 24 h necesita los horarios reales.';
+       :'Precios de '+(destination?.operator||'la red')+' ('+(destination?.updated||'fecha de referencia')+'). Puedes simular otras tarifas, pero no son productos oficiales. Los títulos de menos de 24 h necesitan los horarios reales.';
    }
    function editFare(event){
      const input=event.target;
