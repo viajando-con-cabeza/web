@@ -209,6 +209,7 @@
    const result=root.VCCTransportCompareCore.compare({
      trips,people:travellers,car,passes,days:$('days').value,selected,sameRoute:$('same-route').checked});
    if(!result.valid){
+     set('conclusion-label','COMPARACIÓN SIN COMPLETAR');
      set('recommend','Revisa los importes');
      for(const id of ['individual-person','individual-group','bonus-person','bonus-group','car-person','car-group','recommend-person','recommend-group','saving'])set(id,'—');
      set('recommend-note',result.reason);return;
@@ -233,6 +234,7 @@
    mark('.tc-option-car',result.choice==='car');
    mark('.tc-option-individual',result.choice==='individual');
    mark('.tc-option-bonus',result.choice==='bonus');
+   set('conclusion-label',result.unfinished?'RESULTADO PROVISIONAL · VCC':'CONCLUSIÓN VCC · MEJOR OPCIÓN');
    const title=result.choice==='car'?'Coche':
       result.choice==='bonus'?'Transporte público · Bono':'Transporte público · Billetes';
    set('recommend',result.unfinished?'Provisional · '+title:title);
