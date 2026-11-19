@@ -75,6 +75,27 @@
     const sync=()=>{
       prevHotel.disabled=track.scrollLeft<=3;
       nextHotel.disabled=track.scrollLeft+track.clientWidth>=track.scrollWidth-3;
+      // Solo Estocolmo: cada ficha del carrusel tiene su altura natural.
+      // Evitar que hoteles breves hereden la altura del hotel más largo.
+      if(isCountryTypes||!hotelMedia.matches){
+        track.style.removeProperty('height');
+        return;
+      }
+      if(!track.clientWidth||!track.getClientRects().length)return;
+      const position=track.getBoundingClientRect().left;
+      let active=null,nearest=Infinity;
+      for(const hotel of hotels){
+        const offset=Math.abs(hotel.getBoundingClientRect().left-position);
+        if(offset<nearest){nearest=offset;active=hotel;}
+      }
+      const measured=active?.getBoundingClientRect().height||0;
+      if(measured<=0)return;
+      const style=getComputedStyle(track);
+      const extra=(parseFloat(style.paddingTop)||0)+(parseFloat(style.paddingBottom)||0);
+      const required=Math.ceil(measured+extra);
+      if(Math.abs((parseFloat(track.style.height)||0)-required)>1){
+        track.style.height=required+'px';
+      }
     };
     const slide=direction=>{
       const first=track.querySelector(':scope > .dv-zone-hotel');
