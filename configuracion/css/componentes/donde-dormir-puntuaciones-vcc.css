@@ -258,17 +258,22 @@ html body.dv-page #barrios .dv-zone-details .dv-zone-hotel-pricecol .dv-zone-boo
   text-align:right;
 }
 @media(max-width:760px){
-  /* La pista deixa d'estirar totes les fitxes fins a l'altura de la més alta.
-     L'altura del carrusel s'ajusta a la fitxa visible al JS compartit. */
+  /* Totes les fitxes del mateix carrusel comparteixen l'altura de la més alta.
+     Sense canvis d'altura en passar d'una tipologia d'hotel a l'altra. */
   html body.dv-page #barrios .dv-zone-details .dv-zone-hotels-carousel .dv-zone-hotels-list{
-    align-items:flex-start;
+    align-items:stretch;
+    height:auto;
+  }
+  html body.dv-page #barrios .dv-zone-details .dv-zone-hotels-carousel .dv-zone-hotels-list > .dv-zone-hotel{
+    align-self:stretch;
+    height:auto;
   }
   /* Format en dues files: nom i descripció; preu esquerra + Booking inferior dreta.
      Reserva de 44px de zona tàctil, sense creació d'una tercera fila buida. */
   html body.dv-page #barrios .dv-zone-details .dv-zone-hotel{
     display:grid;
     grid-template-columns:40px minmax(0,1fr);
-    grid-template-rows:auto auto;
+    grid-template-rows:minmax(0,1fr) auto;
     gap:2px 9px;
     align-items:start;
     min-height:0;
