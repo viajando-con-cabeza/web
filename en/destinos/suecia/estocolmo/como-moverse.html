@@ -28,7 +28,7 @@
 <link rel="stylesheet" data-vcc-sacred-covers href="/configuracion/css/componentes/portades-contracte-unic-vcc.css?v=20261117-espais-intermedis-v6">
 <link rel="stylesheet" href="/configuracion/css/componentes/como-ahorrar-carruseles-vcc.css?v=20261117-notes-compactes-v3">
 <link rel="stylesheet" href="/configuracion/css/componentes/vcc-gallery-booking.css?v=20261117-decoded-gallery-v2">
-<link rel="stylesheet" href="/configuracion/css/destinos/suecia/estocolmo/como-moverse-calculadora-galeria-vcc.css?v=20261119-secciones-visor-v2">
+<link rel="stylesheet" href="/configuracion/css/destinos/suecia/estocolmo/como-moverse-calculadora-galeria-vcc.css?v=20261119-compacto-iconos-v3">
 
 </head><body class="mv-body">
 <header class="page-header"></header>
@@ -51,8 +51,8 @@
   <a href="#recomendacion" class="is-active" aria-current="location">TRANSPORT COSTS</a>
   <a href="#transportes">CHOOSE YOUR TRANSPORT</a>
   <a href="#comparar-billetes">CHOOSE YOUR TICKET</a>
-  <a href="#experiencia-transporte">OUR EXPERIENCE</a>
   <a href="#mv-vcc-ticket-calculator">CALCULATOR</a>
+  <a href="#experiencia-transporte">OUR EXPERIENCE</a>
   <a href="#billetes">HOW TO SAVE</a>
 </nav>
 <main class="mv-container">
@@ -198,6 +198,49 @@
 </section>
 
 
+<section class="mv-vcc-ticket-tool" id="mv-vcc-ticket-calculator" aria-labelledby="mv-vcc-ticket-heading">
+ <header class="mv-section-head vcc-editorial-heading">
+  <div class="vcc-editorial-heading-main"><span class="mv-overline vcc-editorial-overline">Your route, your tickets</span><h2 class="vcc-editorial-title" id="mv-vcc-ticket-heading">CALCULATE YOUR TRANSPORT</h2></div>
+  <p class="vcc-editorial-description">Choose your routes and see how much you can save.</p>
+ </header>
+ <div class="mv-vcc-tool-surface">
+  <div class="mv-vcc-tool-grid">
+   <div class="mv-vcc-ticket-controls">
+    <div class="mv-vcc-main-controls">
+     <label class="mv-vcc-field"><span class="mv-vcc-control-label"><svg class="mv-vcc-filter-icon" aria-hidden="true" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"></rect><path d="M16 3v4M8 3v4M3 10h18"></path></svg>DAYS</span><select id="mv-vcc-days" aria-label="Travel Days">
+      <option value="1">1 day</option><option value="2">2 days</option><option value="3" selected>3 days</option><option value="4">4 days</option><option value="5">5 days</option><option value="6">6 days</option><option value="7">7 days</option>
+     </select></label>
+     <label class="mv-vcc-field"><span class="mv-vcc-control-label"><svg class="mv-vcc-filter-icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8ZM22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"></path></svg>TRAVELERS</span><input id="mv-vcc-people" type="number" min="1" max="10" step="1" inputmode="numeric" value="2"></label>
+     <label class="mv-vcc-field"><span class="mv-vcc-control-label"><svg class="mv-vcc-filter-icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M2 9a3 3 0 0 0 0 6v3a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-3a3 3 0 0 1 0-6V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v3ZM13 5v2M13 10v4M13 17v2"></path></svg>FARE</span><select id="mv-vcc-fare" aria-label="SL Fare Type">
+      <option value="adult" selected>Adult</option><option value="reduced">Reduced*</option>
+     </select></label>
+    </div>
+    <div class="mv-vcc-day-heading"><strong>Tickets per day <small>(per person)</small></strong></div>
+    <div class="mv-vcc-day-inputs" id="mv-vcc-day-inputs"></div>
+    <button type="button" class="mv-vcc-reset" id="mv-vcc-reset">Reset VCC route</button>
+   </div>
+   <div class="mv-vcc-ticket-result" aria-live="polite" aria-atomic="true">
+    <span class="mv-vcc-result-eyebrow">CHEAPEST OPTION</span>
+    <strong class="mv-vcc-recommend" id="mv-vcc-recommend">Single tickets</strong>
+    <div class="mv-vcc-cost-summary">
+     <div><span>Per person</span><strong id="mv-vcc-optimal">301 SEK</strong></div>
+     <div><span id="mv-vcc-group-label">Total for 2 travelers</span><strong id="mv-vcc-group">602 SEK</strong></div>
+    </div>
+    <div class="mv-vcc-result-comparisons">
+     <p><span>All single tickets</span><b id="mv-vcc-singles">301 SEK</b></p>
+     <p id="mv-vcc-72-row"><span>72-hour SL pass</span><b id="mv-vcc-72">360 SEK</b></p>
+    </div>
+    <div class="mv-vcc-saving-card">
+      <span id="mv-vcc-saving-label">You save</span>
+      <strong id="mv-vcc-saving-amount">59 SEK</strong>
+      <span id="mv-vcc-saving-scope">per person</span>
+    </div>
+    <details class="mv-vcc-breakdown"><summary>View daily breakdown</summary><ol class="mv-vcc-plan" id="mv-vcc-plan" aria-label="Recommendation Breakdown"></ol></details>
+   </div>
+  </div>
+  <details class="mv-vcc-terms"><summary>Calculation rates and conditions</summary><p>SL 2026 fares: adult 43 / 180 / 360 SEK and reduced 26 / 110 / 220 SEK (single / 24 h / 72 h). Reduced fares require meeting SL requirements. Counts 75-minute tickets, not every transfer. Passes are activated for continuous hours; this comparison approximates day blocks. Check schedules and prices before purchasing in the <a href="https://sl.se/en/fares-and-tickets" target="_blank" rel="noopener noreferrer">official SL conditions</a>.</p></details>
+ </div>
+</section>
 <section class="mv-vcc-photo-section" id="experiencia-transporte" aria-labelledby="mv-vcc-gallery-heading">
  <header class="mv-section-head vcc-editorial-heading">
   <div class="vcc-editorial-heading-main"><span class="mv-overline vcc-editorial-overline">How we explored the city</span><h2 class="vcc-editorial-title" id="mv-vcc-gallery-heading">OUR EXPERIENCE</h2></div>
@@ -222,49 +265,6 @@
 <button type="button" data-photo="https://img.viajandoconcabeza.com/destinos/suecia/estocolmo-archipelago/2026-dia8/DSC08337.avif" data-caption="Desde el ferry" aria-label="Open photo 14 of 15: From the ferry"></button>
 <button type="button" data-photo="https://img.viajandoconcabeza.com/destinos/suecia/estocolmo/2026-dia6/DSC08080.avif" data-caption="Vistas al caminar" aria-label="Open photo 15 of 15: Views while walking"></button>
   </div>
- </div>
-</section>
-<section class="mv-vcc-ticket-tool" id="mv-vcc-ticket-calculator" aria-labelledby="mv-vcc-ticket-heading">
- <header class="mv-section-head vcc-editorial-heading">
-  <div class="vcc-editorial-heading-main"><span class="mv-overline vcc-editorial-overline">Your route, your tickets</span><h2 class="vcc-editorial-title" id="mv-vcc-ticket-heading">CALCULATE YOUR TRANSPORT</h2></div>
-  <p class="vcc-editorial-description">Tailor the SL pass comparison to your days, routes, and travelers.</p>
- </header>
- <div class="mv-vcc-tool-surface">
-  <div class="mv-vcc-tool-grid">
-   <div class="mv-vcc-ticket-controls">
-    <div class="mv-vcc-main-controls">
-     <label class="mv-vcc-field"><span>DAYS</span><select id="mv-vcc-days" aria-label="Travel Days">
-      <option value="1">1 day</option><option value="2">2 days</option><option value="3" selected>3 days</option><option value="4">4 days</option><option value="5">5 days</option><option value="6">6 days</option><option value="7">7 days</option>
-     </select></label>
-     <label class="mv-vcc-field"><span>TRAVELERS</span><input id="mv-vcc-people" type="number" min="1" max="10" step="1" inputmode="numeric" value="2"></label>
-     <label class="mv-vcc-field"><span>FARE</span><select id="mv-vcc-fare" aria-label="SL Fare Type">
-      <option value="adult" selected>Adult</option><option value="reduced">Reduced*</option>
-     </select></label>
-    </div>
-    <div class="mv-vcc-day-heading"><strong>75-min tickets per person</strong><small>Indicate how many you need each day</small></div>
-    <div class="mv-vcc-day-inputs" id="mv-vcc-day-inputs"></div>
-    <button type="button" class="mv-vcc-reset" id="mv-vcc-reset">Use our VCC · 3-day route</button>
-   </div>
-   <div class="mv-vcc-ticket-result" aria-live="polite" aria-atomic="true">
-    <span class="mv-vcc-result-eyebrow">CHEAPEST OPTION</span>
-    <strong class="mv-vcc-recommend" id="mv-vcc-recommend">Single tickets</strong>
-    <div class="mv-vcc-cost-summary">
-     <div><span>Per person</span><strong id="mv-vcc-optimal">301 SEK</strong></div>
-     <div><span id="mv-vcc-group-label">Total for 2 travelers</span><strong id="mv-vcc-group">602 SEK</strong></div>
-    </div>
-    <div class="mv-vcc-result-comparisons">
-     <p><span>All single tickets</span><b id="mv-vcc-singles">301 SEK</b></p>
-     <p id="mv-vcc-72-row"><span>72-hour SL pass</span><b id="mv-vcc-72">360 SEK</b></p>
-    </div>
-    <div class="mv-vcc-saving-card">
-      <span id="mv-vcc-saving-label">You save</span>
-      <strong id="mv-vcc-saving-amount">59 SEK</strong>
-      <span id="mv-vcc-saving-scope">per person</span>
-    </div>
-    <ol class="mv-vcc-plan" id="mv-vcc-plan" aria-label="Recommendation Breakdown"></ol>
-   </div>
-  </div>
-  <p class="mv-vcc-note">Estimate based on 2026 SL fares indicated in this guide (adult: 43 / 180 / 360 SEK; reduced: 26 / 110 / 220 SEK). *Reduced fares only apply to eligible persons. Counts 75-minute tickets, not every transfer. Passes are valid for 24 or 72 hours from activation: the calculation approximates day blocks and it is advisable to check actual schedules. <a href="https://sl.se/en/fares-and-tickets" target="_blank" rel="noopener noreferrer">Official SL conditions</a>.</p>
  </div>
 </section>
 <section class="mv-seo" id="billetes" aria-labelledby="mv-seo-title">
