@@ -126,6 +126,8 @@
  const set=(id,label)=>{const node=$(id);if(node)node.textContent=label;};
  const defaultDays=[1,1,2,2,2,3,3];
  let nextTrip=0,nextPass=0,edited=false;
+ let optionOrder=['car','individual','bonus'];
+ let selected={car:true,individual:true,bonus:true};
  const basePrice=()=>valueFor(singles)??0;
  let trips=defaultDays.map((day,i)=>({id:++nextTrip,day,mode:'metro',label:'Viaje '+(i+1),price:basePrice(),time:'',included:true,userEdited:false}));
  function passFromPreset(src){
@@ -205,13 +207,14 @@
      rental:$('rental').value,fuel:$('fuel').value,parking:$('parking').value,
      tolls:$('tolls').value,extras:$('extras').value};
    const result=root.VCCTransportCompareCore.compare({
-     trips,people:travellers,car,passes,sameRoute:$('same-route').checked});
+     trips,people:travellers,car,passes,days:$('days').value,selected,sameRoute:$('same-route').checked});
    if(!result.valid){
      set('recommend','Revisa los importes');
      for(const id of ['individual-person','individual-group','bonus-person','bonus-group','car-person','car-group','recommend-person','recommend-group','saving'])set(id,'—');
      set('recommend-note',result.reason);return;
    }
    set('trip-count',trips.length+' viajes');
+   set('individual-unit',trips.length&&trips.every(t=>t.price===trips[0].price)?money(trips[0].price):'Precios variables');
    set('individual-person',money(result.individual));set('individual-group',money(result.individualTotal));
    set('bonus-person',result.bonus.valid?money(result.bonus.cost):'—');
    set('bonus-group',result.bonus.valid?money(result.bonus.cost*travellers):'—');
@@ -222,18 +225,17 @@
      result.bonus.description+(result.bonus.approximate?' · Horarios por días':''):
      result.bonus.reason);
    const bestPublic=result.publicMode==='bonus'?'Bono':'Billetes';
-   set('best-public','Mejor: '+bestPublic+' · '+money(result.publicCost)+' / persona');
+   set('best-public',result.publicCost===null?'':('Mejor: '+bestPublic+' · '+money(result.publicCost)+' / persona'));
    const mark=(selector,chosen)=>{
      const element=container.querySelector(selector);
      if(element?.classList)element.classList.toggle('tc-winner',chosen);
    };
-   mark('.tc-panel-private',result.choice==='car');
-   mark('.tc-panel-public',result.choice!=='car');
-   mark('#tc-singles-card',result.publicMode==='individual');
-   mark('#tc-bonos-card',result.publicMode==='bonus');
+   mark('.tc-option-car',result.choice==='car');
+   mark('.tc-option-individual',result.choice==='individual');
+   mark('.tc-option-bonus',result.choice==='bonus');
    const title=result.choice==='car'?'Coche':
       result.choice==='bonus'?'Transporte público · Bono':'Transporte público · Billetes';
-   set('recommend',title);
+   set('recommend',result.unfinished?'Provisional · '+title:title);
    set('recommend-person',money(result.choiceTotal/travellers));
    set('recommend-group',money(result.choiceTotal));
    set('saving',money(result.saving/travellers));
