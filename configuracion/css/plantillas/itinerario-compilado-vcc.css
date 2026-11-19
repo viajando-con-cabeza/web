@@ -1474,6 +1474,26 @@ html body #dayLightbox.vcc-booking-gallery-modal button.day-lightbox-to-grid:foc
  -webkit-tap-highlight-color:transparent;
 }
 
+/* VCC · Galeria compacta unificada de Cómo moverse i Dónde dormir a Estocolm.
+   Opt-in: no modifica cap altre mosaic del blog.
+   Desktop: 590 px d'ample, més panoràmica (1.90) per reduir l'alçada.
+   Tauleta/mòbil: mateixes mides i distribució del mosaic compartit.
+   Mantenir totes dues centrades sense tocar el visor de fotos. */
+.vcc-booking-gallery.vcc-sto-mosaic-compact {
+  box-sizing:border-box;
+  width:min(100%, 590px);
+  max-width:590px;
+  margin-inline:auto;
+}
+html body .vcc-booking-gallery.vcc-sto-mosaic-compact .day-mosaic[data-count] {
+  aspect-ratio:1.9!important;
+}
+@media(max-width:800px){
+  html body .vcc-booking-gallery.vcc-sto-mosaic-compact .day-mosaic[data-count] {
+    aspect-ratio:1.35!important;
+  }
+}
+
 /* === configuracion/css/componentes/vcc-hero-editorial-vcc.css === */
 /* Única font de la fotografia d'itinerari (sense estils inline).
    Mateixa foto original en AVIF d'alta qualitat a escriptori i
