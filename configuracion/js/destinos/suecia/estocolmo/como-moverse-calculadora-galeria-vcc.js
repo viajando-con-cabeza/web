@@ -1,4 +1,4 @@
-/* Viajando con Cabeza · Calidad: calculadora SL y galería de fotografías verificadas.
+/* Viajando con Cabeza · calculadora SL. Galería: visor universal compartido.
    Sin dependencias ni llamadas de red. Tarifas declaradas en la página para 2026. */
 (() => {
  'use strict';
@@ -10,7 +10,11 @@
    const dayInputs=root.querySelector('#mv-vcc-day-inputs');
    const cost=root.querySelector('#mv-vcc-optimal');
    const group=root.querySelector('#mv-vcc-group');
+   const groupLabel=root.querySelector('#mv-vcc-group-label');
    const option=root.querySelector('#mv-vcc-recommend');
+   const savingLabel=root.querySelector('#mv-vcc-saving-label');
+   const savingAmount=root.querySelector('#mv-vcc-saving-amount');
+   const savingScope=root.querySelector('#mv-vcc-saving-scope');
    const singles=root.querySelector('#mv-vcc-singles');
    const pass72=root.querySelector('#mv-vcc-72');
    const pass72row=root.querySelector('#mv-vcc-72-row');
@@ -70,21 +74,18 @@
      const best=findBest(arr,fare);
      const alone=arr.reduce((s,v)=>s+v*fare.single,0);
      cost.textContent=money(best.cost);
-     group.textContent=money(best.cost*p)+' en total · '+p+(p===1?' viajero':' viajeros');
+     group.textContent=money(best.cost*p);
+     groupLabel.textContent='Total '+p+(p===1?' viajero':' viajeros');
      singles.textContent=money(alone);
-     pass72row.hidden=n>3;
+     pass72row.hidden=n!==3;
      pass72.textContent=money(fare.h72);
-     const diff=alone-best.cost;
-     const periodDiff=fare.h72-best.cost;
-     if(best.cost===0){
-       option.textContent='No necesitas billetes con esta selección.';
-     }else if(n===3&&periodDiff>0){
-       option.textContent='Ahorras '+money(periodDiff)+' por persona frente al abono de 72 h.';
-     }else if(diff>0){
-       option.textContent='La combinación más económica ahorra '+money(diff)+' por persona frente a todos los billetes sueltos.';
-     }else{
-       option.textContent='Los billetes sueltos son la opción más económica para estos desplazamientos.';
-     }
+     const usingPass=best.parts.some(part=>part.includes('abono'));
+     option.textContent=best.cost===0?'No necesitas billetes':usingPass?'Combinación de billetes y abonos':'Billetes sueltos';
+     const reference=n===3?fare.h72:alone;
+     const saving=Math.max(0,reference-best.cost);
+     savingLabel.textContent=n===3?'Te ahorras':'Ahorro frente a billetes sueltos';
+     savingAmount.textContent=money(saving);
+     savingScope.textContent='por persona';
      planEl.replaceChildren();
      best.parts.forEach(part=>{const li=document.createElement('li');li.textContent=part;planEl.append(li)});
    }
@@ -113,57 +114,5 @@
      renderDayInputs();
    });
    renderDayInputs();
- }
- const gallery=document.getElementById('mv-vcc-gallery');
- if(gallery){
-   const track=gallery.querySelector('.mv-vcc-gallery-track');
-   const slides=Array.from(track.querySelectorAll('.mv-vcc-gallery-card'));
-   const prev=gallery.querySelector('[data-vcc-photo-prev]');
-   const next=gallery.querySelector('[data-vcc-photo-next]');
-   const counter=gallery.querySelector('.mv-vcc-gallery-counter');
-   const visible=()=>window.matchMedia('(max-width:650px)').matches?1:window.matchMedia('(max-width:900px)').matches?2:3;
-   const current=()=>{
-     if(!slides.length)return 0;
-     const start=slides[0].offsetLeft;
-     let idx=0;
-     for(let i=0;i<slides.length;i++){
-       if(slides[i].offsetLeft-start<=track.scrollLeft+8)idx=i;
-       else break;
-     }
-     return idx;
-   };
-   const loadNearby=()=>{
-     const idx=current(),limit=Math.min(slides.length,idx+visible()+3);
-     for(let i=Math.max(0,idx-1);i<limit;i++){
-       const img=slides[i].querySelector('img[data-src]');
-       if(!img)continue;
-       img.src=img.dataset.src;
-       img.removeAttribute('data-src');
-     }
-   };
-   const refresh=()=>{
-     const idx=current(),v=visible();
-     if(counter)counter.textContent=(idx+1)+'–'+Math.min(slides.length,idx+v)+' / '+slides.length;
-     prev.disabled=track.scrollLeft<4;
-     next.disabled=track.scrollLeft+track.clientWidth>=track.scrollWidth-4;
-     loadNearby();
-   };
-   const go=direction=>{
-     const idx=clamp(current()+direction*visible(),0,slides.length-visible());
-     const left=slides[idx].offsetLeft-slides[0].offsetLeft;
-     track.scrollTo({left,behavior:'smooth'});
-     loadNearby();
-   };
-   prev.addEventListener('click',()=>go(-1));
-   next.addEventListener('click',()=>go(1));
-   track.addEventListener('scroll',refresh,{passive:true});
-   window.addEventListener('resize',refresh,{passive:true});
-   if('IntersectionObserver' in window){
-     const obs=new IntersectionObserver(entries=>{
-       if(entries.some(e=>e.isIntersecting)){loadNearby();obs.disconnect()}
-     },{rootMargin:'350px 0px'});
-     obs.observe(track);
-   }else loadNearby();
-   refresh();
  }
 })();
