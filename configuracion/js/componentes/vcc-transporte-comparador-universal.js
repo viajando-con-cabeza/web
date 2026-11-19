@@ -315,6 +315,57 @@
    }
    update();
  }
+ // Se pueden comparar 2 o 3 alternativas y cambiar su orden sin borrar datos.
+ function syncOptions(){
+   const visible=optionOrder.filter(name=>selected[name]);
+   const grid=$('options');
+   grid.dataset.count=String(visible.length);
+   grid.querySelectorAll('.tc-option').forEach(card=>{
+     const name=card.dataset.option,position=visible.indexOf(name);
+     card.hidden=position<0;
+     card.style.order=position<0?99:position;
+     card.querySelectorAll('.tc-order-btn').forEach(button=>{
+       const direction=Number(button.dataset.move);
+       button.disabled=position<0||position+direction<0||position+direction>=visible.length;
+     });
+   });
+   container.querySelectorAll('.tc-select-option input[data-option]').forEach(input=>{
+     input.checked=selected[input.dataset.option];
+   });
+   const equivalent=$('same-route').closest('.tc-compare-checkbox');
+   if(equivalent)equivalent.hidden=!selected.car;
+   set('select-status',visible.length+' opciones · usa ‹ › para cambiar el orden');
+ }
+ container.querySelectorAll('.tc-select-option input[data-option]').forEach(input=>{
+   input.addEventListener('change',()=>{
+     const name=input.dataset.option;
+     const count=Object.values(selected).filter(Boolean).length;
+     if(!input.checked&&count<=2){
+       input.checked=true;
+       set('select-status','Selecciona al menos 2 alternativas.');
+       return;
+     }
+     selected[name]=input.checked;
+     syncOptions();update();
+   });
+ });
+ $('options').addEventListener('click',event=>{
+   const button=event.target.closest('.tc-order-btn');
+   if(!button||button.disabled)return;
+   const card=button.closest('.tc-option');
+   if(!card)return;
+   const visible=optionOrder.filter(name=>selected[name]);
+   const pos=visible.indexOf(card.dataset.option),target=pos+Number(button.dataset.move);
+   if(pos<0||target<0||target>=visible.length)return;
+   [visible[pos],visible[target]]=[visible[target],visible[pos]];
+   optionOrder=[...visible,...optionOrder.filter(name=>!selected[name])];
+   syncOptions();update();
+ });
+ $('open-trips').addEventListener('click',()=>{
+   const details=$('trip-detail');
+   details.open=!details.open;
+   if(details.open)details.scrollIntoView({block:'nearest',behavior:root.matchMedia?.('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});
+ });
  $('trips').addEventListener('input',handleTrip);
  $('trips').addEventListener('change',handleTrip);
  $('passes').addEventListener('input',handlePass);
@@ -366,8 +417,9 @@
    $('same-route').checked=true;
    $('trip-number').value='7';$('trip-price').value=String(basePrice());
    nextPass=0;passes=[passFromPreset(presets.find(t=>t.quantity===72&&t.type==='hours')||presets[0])];
-   edited=false;resetTrips();renderTripEditor();renderPassEditor();renderTariffs();update();
+   edited=false;selected={car:true,individual:true,bonus:true};optionOrder=['car','individual','bonus'];
+   resetTrips();renderTripEditor();renderPassEditor();renderTariffs();syncOptions();update();
  });
  $('trip-price').value=String(basePrice());
- renderTripEditor();renderPassEditor();renderTariffs();update();
+ renderTripEditor();renderPassEditor();renderTariffs();syncOptions();update();
 })(window);
