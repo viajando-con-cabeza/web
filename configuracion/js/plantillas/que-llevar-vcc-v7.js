@@ -6,6 +6,52 @@
 const root=document.querySelector(".ql-page");
 if(!root||!document.getElementById("ql-v6-month"))return;
 const $=id=>document.getElementById(id);
+const isEnglish=/^\/en(?:\/|$)/i.test(location.pathname);
+const enLabels={
+ "ROPA":"CLOTHING","CALZADO":"FOOTWEAR","ACCESORIOS":"ACCESSORIES","EXTRAS":"EXTRAS",
+ "Camisetas térmicas":"Thermal base layers","Jersey de abrigo":"Warm sweater",
+ "Abrigo cálido y resistente al viento":"Warm wind-resistant coat",
+ "Camisetas de manga larga":"Long-sleeved tops","Jersey o sudadera":"Sweater or sweatshirt",
+ "Chaqueta impermeable":"Waterproof jacket","Camisetas ligeras":"Lightweight tops",
+ "Sudadera o jersey fino":"Light sweatshirt or sweater",
+ "Chubasquero o cortavientos plegable":"Packable rain jacket or windbreaker",
+ "Camisetas combinables":"Mix-and-match tops","Sudadera o jersey":"Sweatshirt or sweater",
+ "Chaqueta ligera impermeable":"Light waterproof jacket",
+ "Pantalones o faldas":"Trousers or skirts","Pantalones largos":"Long trousers",
+ "Ropa interior":"Underwear","Pijama":"Sleepwear",
+ "Botas impermeables con buen agarre":"Waterproof boots with good grip",
+ "Calzado resistente al agua":"Water-resistant shoes",
+ "Zapatillas cómodas para caminar":"Comfortable walking shoes",
+ "Calcetines cálidos":"Warm socks","Calcetines":"Socks",
+ "Gorro":"Warm hat","Guantes":"Gloves","Bufanda":"Scarf",
+ "Bufanda ligera":"Light scarf","Paraguas compacto":"Compact umbrella",
+ "Pañuelo fino":"Light scarf","Gafas de sol":"Sunglasses",
+ "Mochila de día":"Day backpack","Botella reutilizable":"Reusable water bottle",
+ "Cargador del móvil":"Phone charger","Batería externa":"Power bank",
+ "Neceser de viaje":"Toiletries bag","Documentación y reservas":"Travel documents and bookings",
+ "Medicamentos personales, si procede":"Personal medication, if needed",
+ "Protección solar":"Sunscreen",
+ "Bañador si irás al archipiélago":"Swimwear if visiting the archipelago",
+ "Bálsamo labial y crema de manos":"Lip balm and hand cream",
+ "Nieve posible":"Snow possible","Nubes":"Cloudy","Sol y nubes":"Sun and clouds","Sol":"Sunny"
+};
+const enMonths=["January","February","March","April","May","June","July","August","September","October","November","December"];
+const label=s=>isEnglish?(enLabels[s]||s):s;
+const enPackingTips=[
+ "In January: windproof coat, thermal layers and shoes with good grip.",
+ "In February: thermal layers, warm coat, gloves and grippy boots.",
+ "In March: coat, thermal layer and water-resistant footwear.",
+ "In April: layered clothing and a waterproof jacket.",
+ "In May: light layers and a windbreaker for mornings and ferries.",
+ "In June: light clothing, comfortable shoes and an extra layer.",
+ "In July: breathable clothes and a sweatshirt for the evening.",
+ "In August: light clothes and a packable rain jacket.",
+ "In September: versatile clothes, a sweater and light jacket.",
+ "In October: long trousers, sweater and waterproof jacket.",
+ "In November: coat, layers and cold-weather accessories.",
+ "In December: warm coat, hat, gloves and boots with good grip."
+];
+
 const monthData=[
  {name:"enero",season:"invierno",lo:-2.9,hi:1.0,focus:"Frío, posibles heladas y viento. Prioriza abrigo resistente al viento, capa térmica y botas con buen agarre.",skip:"No necesitas pantalones de esquí para visitar museos y pasear por la ciudad."},
  {name:"febrero",season:"invierno",lo:-3.2,hi:1.2,focus:"El mes más frío de media. Abrigo cálido, guantes, gorro y calzado impermeable con agarre son prioritarios.",skip:"Evita llenar la maleta de jerséis gruesos: combina capas y repite las prendas exteriores."},
@@ -51,7 +97,7 @@ function load(){
  }catch(e){}
 }
 function save(){try{localStorage.setItem(storeKey,JSON.stringify({month:state.month,days:state.days,laundry:state.laundry,done:[...state.done]}));}catch(e){}}
-function item(id,title,icon,qty,category){return {id,title,icon,qty,category};}
+function item(id,title,icon,qty,category){return {id,title:label(title),icon,qty,category};}
 function baseDays(){return Math.max(1,Math.min(state.days,state.laundry?5:10));}
 function quantities(){
  const d=baseDays();
@@ -99,7 +145,7 @@ function buildItems(){
  if(summer||m.name==="mayo"||m.name==="septiembre")add(extras,"sunscreen","Protección solar","suncream",1);
  if(summer)add(extras,"swimwear","Bañador si irás al archipiélago","swimsuit",1);
  if(cold||chilly)add(extras,"lip","Bálsamo labial y crema de manos","toiletry",1);
- return [{label:"ROPA",items:clothing},{label:"CALZADO",items:shoes},{label:"ACCESORIOS",items:accessories},{label:"EXTRAS",items:extras}];
+ return [{label:label("ROPA"),items:clothing},{label:label("CALZADO"),items:shoes},{label:label("ACCESORIOS"),items:accessories},{label:label("EXTRAS"),items:extras}];
 }
 const sprite="/configuracion/imagenes/iconos/equipaje-vcc-sprite.svg";
 function icon(name){
@@ -186,7 +232,7 @@ const packingShortByMonth=[
 ];
 function updatePackingAdvice(){
  const node=$("ql-v10-packing-tip");
- if(node)node.textContent=packingShortByMonth[state.month];
+ if(node)node.textContent=isEnglish?enPackingTips[state.month]:packingShortByMonth[state.month];
 }
 function render(resetListScroll=false){
  const m=byId(state.month);const groups=buildItems();
@@ -199,15 +245,17 @@ function render(resetListScroll=false){
  const low=m.lo.toLocaleString("es-ES",{minimumFractionDigits:1,maximumFractionDigits:1});
  const high=m.hi.toLocaleString("es-ES",{minimumFractionDigits:1,maximumFractionDigits:1});
  $("ql-v8-weather-icon").src="/configuracion/imagenes/iconos/iconos-tiempo-"+weather.icon+"-color.svg";
- $("ql-v8-weather-title").textContent=weather.label;
+ $("ql-v8-weather-title").textContent=label(weather.label);
  $("ql-v8-temp-low").textContent=low+" °C";
  $("ql-v8-temp-high").textContent=high+" °C";
- $("ql-v8-rain-days").textContent="≈"+Math.round(monthlyPrecipitationDays[state.month])+" días/mes";
+ $("ql-v8-rain-days").textContent="≈"+Math.round(monthlyPrecipitationDays[state.month])+(isEnglish?" days/month":" días/mes");
  updatePackingAdvice(m);
- $("ql-v6-summary-title").textContent="TU LISTA DE EQUIPAJE";
- $("ql-v6-caveat").textContent=state.days>10&&!state.laundry?
-  "Para viajes de más de 10 días, esta lista limita las mudas a 10 días: te recomendamos planificar una colada para evitar llevar "+state.days+" cambios.":
-  state.laundry&&state.days>5?"Calculamos ropa para hasta cinco días, contando con que podrás lavar durante el viaje.":"Cantidades orientativas; adapta tu lista a la previsión y a tu forma de viajar.";
+ $("ql-v6-summary-title").textContent=isEnglish?"YOUR PACKING LIST":"TU LISTA DE EQUIPAJE";
+ $("ql-v6-caveat").textContent=isEnglish?
+  (state.days>10&&!state.laundry?"For trips over 10 days, pack changes for 10 days and plan a laundry stop.":
+   state.laundry&&state.days>5?"We calculate clothing for up to five days because you can do laundry.":"Indicative quantities: adapt your list to the forecast and your needs."):
+  (state.days>10&&!state.laundry?"Para viajes de más de 10 días, esta lista limita las mudas a 10 días: te recomendamos planificar una colada para evitar llevar "+state.days+" cambios.":
+   state.laundry&&state.days>5?"Calculamos ropa para hasta cinco días, contando con que podrás lavar durante el viaje.":"Cantidades orientativas; adapta tu lista a la previsión y a tu forma de viajar.");
  const categories=$("ql-v6-categories");
  const previousScroll=resetListScroll?0:categories.scrollTop;
  categories.replaceChildren();
@@ -228,15 +276,15 @@ function render(resetListScroll=false){
    const input=document.createElement("input");input.type="checkbox";input.dataset.packId=x.id;input.checked=state.done.has(labelKey(x.id));
    const content=document.createElement("span");content.className="ql-v6-item-content";
    const name=document.createElement("span");name.textContent=x.title;
-   const qty=document.createElement("small");qty.className="ql-v6-qty";qty.textContent=x.qty+(x.qty===1?" ud.":" uds.");
+   const qty=document.createElement("small");qty.className="ql-v6-qty";qty.textContent=x.qty+(isEnglish?(x.qty===1?" item":" items"):(x.qty===1?" ud.":" uds."));
    content.append(name,qty);label.append(input,icon(x.icon),content);li.append(label);ul.append(li);
    total++;if(input.checked)completed++;
   });
   card.append(ul);categories.append(card);
  });
- $("ql-v6-progress").textContent=completed+" de "+total+" preparados";
+ $("ql-v6-progress").textContent=isEnglish?completed+" of "+total+" packed":completed+" de "+total+" preparados";
  $("ql-v6-progress-bar").style.width=(total?100*completed/total:0).toFixed(1)+"%";
- $("ql-v6-print-meta").textContent="Estocolmo · "+m.name+" · "+state.days+" días"+(state.laundry?" · con lavado":"");
+ $("ql-v6-print-meta").textContent=isEnglish?"Stockholm · "+enMonths[state.month]+" · "+state.days+(state.days===1?" day":" days")+(state.laundry?" · laundry possible":""):"Estocolmo · "+m.name+" · "+state.days+" días"+(state.laundry?" · con lavado":"");
  categories.scrollTop=previousScroll;
  requestPanelLayout();
 }
@@ -291,11 +339,11 @@ $("ql-v6-categories").addEventListener("change",e=>{
 });
 $("ql-v6-select-all").addEventListener("click",()=>{
  for(const x of buildItems().flatMap(g=>g.items))state.done.add(labelKey(x.id));
- save();render();notify("Todos los elementos de esta lista seleccionados");
+ save();render();notify(isEnglish?"All items on this list marked as packed":"Todos los elementos de esta lista seleccionados");
 });
 $("ql-v6-clear").addEventListener("click",()=>{
  for(const x of buildItems().flatMap(g=>g.items))state.done.delete(labelKey(x.id));
- save();render();notify("Elementos desmarcados");
+ save();render();notify(isEnglish?"Items unmarked":"Elementos desmarcados");
 });
 const nav=document.querySelector(".ql-subnav");
 if(nav){
