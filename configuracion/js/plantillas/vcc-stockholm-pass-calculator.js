@@ -15,6 +15,9 @@
     const withPass=root.querySelector("#ep4-calc-pass-total");
     const verdict=root.querySelector("#ep4-calc-verdict");
     const savingBadge=root.querySelector("#ep4-calc-saving");
+    const savingNumber=root.querySelector("#ep4-calc-saving-number");
+    const individualCard=individual.closest(".ep4-calc-sum");
+    const passCard=withPass.closest(".ep4-calc-sum");
     if(!list||!add||!adults||!passPrice||!individual||!withPass||!verdict)return;
     const format=n=>Math.round(n).toLocaleString(en?"en-GB":"es-ES")+" SEK";
     const asNumber=s=>{const n=Number(String(s).trim().replace(",","."));return Number.isFinite(n)&&n>=0?n:null};
@@ -52,7 +55,10 @@
       const noPrices=count===0;
       individual.textContent=noPrices?"—":format(total*people);
       withPass.textContent="—";
-      if(savingBadge){savingBadge.hidden=true;savingBadge.textContent=""}
+      if(savingBadge)savingBadge.hidden=true;
+      if(savingNumber)savingNumber.textContent="—";
+      individualCard?.classList.remove("vcc-calc-best","vcc-calc-worse");
+      passCard?.classList.remove("vcc-calc-best","vcc-calc-worse");
       root.dataset.result="pending";
       if(noPrices){
         verdict.textContent=en?"Add a visit and its ticket price to start.":"Añade una visita y su precio para empezar.";
@@ -70,11 +76,17 @@
       withPass.textContent=format(passTotal);
       const diff=total*people-passTotal;
       root.dataset.result=diff>0?"pass":diff<0?"tickets":"same";
+      if(diff!==0){
+        // Estalvi total (per a tots els viatgers), sempre en verd.
+        // L'opció més cara va en vermell i l'econòmica en verd.
+        if(savingBadge)savingBadge.hidden=false;
+        if(savingNumber)savingNumber.textContent=format(Math.abs(diff));
+        (diff>0?passCard:individualCard)?.classList.add("vcc-calc-best");
+        (diff>0?individualCard:passCard)?.classList.add("vcc-calc-worse");
+      }
       if(diff>0){
-        if(savingBadge){savingBadge.hidden=false;savingBadge.textContent=(en?"Pass saves ":"El pase ahorra ")+format(diff)}
         verdict.textContent=en?"The pass is cheaper only if it covers every visit listed.":"El pase solo sale mejor si incluye todas las visitas añadidas.";
       }else if(diff<0){
-        if(savingBadge){savingBadge.hidden=false;savingBadge.textContent=(en?"Tickets save ":"Las entradas ahorran ")+format(-diff)}
         verdict.textContent=en?"Separate tickets are cheaper at the prices entered.":"Las entradas sueltas son más económicas con estos precios.";
       }else{
         verdict.textContent=en?"Both options cost the same, if the pass covers every visit.":"Ambas opciones cuestan lo mismo si el pase incluye todas las visitas.";
