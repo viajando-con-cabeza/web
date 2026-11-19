@@ -36,29 +36,33 @@
 .dv-page #barrios .dv-neighborhood-gallery .day-mosaic>button .dv-barrio-photo-label{
   position:absolute;
   z-index:3;
-  left:9px;bottom:9px;
+  left:auto;right:8px;bottom:8px;
   max-width:calc(100% - 18px);
   overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
-  padding:5px 9px;
-  border-radius:5px;
-  background:rgba(19,25,24,.82);
-  color:#fff;
-  font:700 11px/1.2 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
+  padding:3px 7px;
+  border-radius:4px;
+  background:rgba(255,255,255,.94);
+  color:#45413d;
+  border:1px solid rgba(255,255,255,.75);
+  box-shadow:0 1px 5px rgba(0,0,0,.12);
+  font:700 9.5px/1.2 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
   pointer-events:none;
-  text-shadow:0 1px 1px rgba(0,0,0,.2);
+  text-shadow:none;
 }
 /* Etiqueta opcional dins del mosaic ampliat: només aquest visor de barris.
    La llegenda sota cada foto continua sent la del component universal. */
 .vcc-booking-gallery-modal[data-vcc-gallery-areas="1"] .day-lightbox-grid>button>span.vcc-gallery-area-label{
   display:block!important;
   position:absolute;z-index:2;
-  bottom:9px;left:9px;
-  max-width:calc(100% - 18px);
-  border-radius:5px;
-  padding:5px 9px;
-  background:rgba(19,25,24,.82);
-  color:#fff;
-  font:700 11px/1.2 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
+  bottom:8px;left:auto;right:8px;
+  max-width:calc(100% - 16px);
+  border-radius:4px;
+  padding:3px 7px;
+  background:rgba(255,255,255,.94);
+  color:#45413d;
+  border:1px solid rgba(255,255,255,.75);
+  box-shadow:0 1px 5px rgba(0,0,0,.12);
+  font:700 9.5px/1.2 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
   text-overflow:ellipsis;white-space:nowrap;overflow:hidden;
   pointer-events:none;
 }
@@ -72,11 +76,11 @@
     aspect-ratio:1.35!important;
   }
   .dv-page #barrios .dv-neighborhood-gallery .day-mosaic>button .dv-barrio-photo-label{
-    font-size:9px;left:5px;bottom:5px;padding:4px 6px;
+    font-size:9px;left:auto;right:5px;bottom:5px;padding:3px 6px;
     max-width:calc(100% - 10px);
   }
   .vcc-booking-gallery-modal[data-vcc-gallery-areas="1"] .day-lightbox-grid>button>span.vcc-gallery-area-label{
-    font-size:10px;padding:4px 6px;left:6px;bottom:6px;
+    font-size:9px;padding:3px 6px;left:auto;right:5px;bottom:5px;
   }
 }
 @media(prefers-reduced-motion:reduce){
