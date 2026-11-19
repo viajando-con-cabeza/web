@@ -33,7 +33,7 @@ for (const filename of htmlFiles) {
     if (!/\brel\s*=\s*["']stylesheet["']/i.test(tag)) continue;
     const url = tag.match(/\bhref\s*=\s*["']([^"']+)["']/i)?.[1];
     if (url?.startsWith('/configuracion/')) {
-      const path = decodeURIComponent(url.split('?')[0]).replace(/^\//, '');
+      const path = decodeURIComponent(url.split(/[?#]/)[0]).replace(/^\//, '');
       localCss.push(path);
       if (!existsSync(resolve(root, path))) assetsMissing.push({ page, path });
     }
