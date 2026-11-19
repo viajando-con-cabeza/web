@@ -872,7 +872,7 @@ html body .vcc-editorial-heading.vcc-editorial-heading--description-below{
 html body .vcc-editorial-heading.vcc-editorial-heading--description-below > .vcc-editorial-description{
   display:block!important;
   width:100%!important;
-  max-width:840px!important;
+  max-width:900px!important;
   align-self:start!important;
   margin:0!important;
   padding:0!important;
@@ -881,6 +881,8 @@ html body .vcc-editorial-heading.vcc-editorial-heading--description-below > .vcc
   max-height:none!important;
   -webkit-line-clamp:unset!important;
   line-clamp:unset;
+  font:400 14px/1.6 var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;
+  color:#5f5954!important;
 }
 html body .vcc-editorial-heading > .vcc-editorial-description-below{
   display:block!important;
@@ -902,7 +904,9 @@ html body .vcc-editorial-heading > .vcc-editorial-description-below{
 }
 @media(max-width:600px){
   html body .vcc-editorial-heading.vcc-editorial-heading--description-below{gap:7px!important;}
+  html body .vcc-editorial-heading.vcc-editorial-heading--description-below > .vcc-editorial-description,
   html body .vcc-editorial-heading > .vcc-editorial-description-below{
-    font-size:12px!important;
+    font-size:13px!important;
+    line-height:1.6!important;
   }
 }
