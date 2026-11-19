@@ -719,3 +719,19 @@ html body .vcc-booking-gallery-modal[data-vcc-photo-label-overlay] .day-lightbox
     grid-column:1;
   }
 }
+
+
+/* Recompte discret en mosaics VCC (opt-in): conserva el mosaic i visor compartits.
+   Només modifica la tipografia del +N fotos de la cinquena miniatura. */
+.vcc-booking-gallery .day-mosaic[data-count].vcc-gallery-compact-count .more{
+  font-size:10px!important;
+  line-height:1.2!important;
+  padding:3px!important;
+  letter-spacing:0!important;
+}
+@media(max-width:800px){
+ .vcc-booking-gallery .day-mosaic[data-count].vcc-gallery-compact-count .more{
+   font-size:9px!important;
+   padding:2px!important;
+ }
+}
