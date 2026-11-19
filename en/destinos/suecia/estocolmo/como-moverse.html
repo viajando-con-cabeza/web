@@ -28,7 +28,7 @@
 <link rel="stylesheet" data-vcc-sacred-covers href="/configuracion/css/componentes/portades-contracte-unic-vcc.css?v=20261117-espais-intermedis-v6">
 <link rel="stylesheet" href="/configuracion/css/componentes/como-ahorrar-carruseles-vcc.css?v=20261117-notes-compactes-v3">
 <link rel="stylesheet" href="/configuracion/css/componentes/vcc-gallery-booking.css?v=20261119-etiquetes-visor-v2">
-<link rel="stylesheet" href="/configuracion/css/destinos/suecia/estocolmo/como-moverse-calculadora-galeria-vcc.css?v=20261119-mosaic-compartit-v9">
+<link rel="stylesheet" href="/configuracion/css/destinos/suecia/estocolmo/como-moverse-calculadora-galeria-vcc.css?v=20261119-comparar-coche-v10">
 
 </head><body class="mv-body">
 <header class="page-header"></header>
@@ -239,6 +239,29 @@
     <details class="mv-vcc-breakdown"><summary>View daily breakdown</summary><ol class="mv-vcc-plan" id="mv-vcc-plan" aria-label="Recommendation Breakdown"></ol></details>
    </div>
   </div>
+
+  <details class="mv-vcc-car-compare" id="mv-vcc-car-compare">
+   <summary><span class="mv-vcc-car-summary-title"><svg aria-hidden="true" class="mv-vcc-car-icon" viewBox="0 0 24 24"><path d="M5 16h14l-1.4-6.5a2 2 0 0 0-2-1.5H8.4a2 2 0 0 0-2 1.5L5 16ZM4 16v3m16-3v3M3 16v-3.5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2V16H3Zm3-3h.01M18 13h.01"/></svg>WHAT IF YOU GO BY CAR?</span><span class="mv-vcc-car-summary-sub">Compare cost vs. actual utility</span></summary>
+   <div class="mv-vcc-car-body">
+    <div class="mv-vcc-car-fields">
+     <label class="mv-vcc-field"><span>ROUTE TYPE</span><select id="mv-vcc-car-route" aria-label="Car route type"><option value="city">Stockholm City Center</option><option value="road">Road trips</option><option value="islands">Archipelago islands</option></select></label>
+     <label class="mv-vcc-field"><span>CAR</span><select id="mv-vcc-car-type" aria-label="Car availability"><option value="own">Now available</option><option value="rent">For rent</option></select></label>
+     <label class="mv-vcc-field mv-vcc-car-rent-field" id="mv-vcc-car-rent-field" hidden><span>RENTAL · SEK/DAY</span><input id="mv-vcc-car-rent" type="number" inputmode="decimal" min="0" max="100000" step="1" placeholder="Actual price" aria-label="Car rental in crowns per day"></label>
+     <label class="mv-vcc-field"><span>PARKING · SEK/DAY</span><input id="mv-vcc-car-parking" type="number" inputmode="decimal" min="0" max="100000" step="1" placeholder="e.g. 120" aria-label="Daily parking cost in crowns"></label>
+     <label class="mv-vcc-field"><span>GAS + TOLLS · TOTAL SEK</span><input id="mv-vcc-car-extras" type="number" inputmode="decimal" min="0" max="100000" step="1" placeholder="Trip cost" aria-label="Total fuel and tolls per car in crowns"></label>
+    </div>
+    <div class="mv-vcc-car-verdict" aria-live="polite">
+     <strong id="mv-vcc-car-verdict">In the center, it's usually not worth it</strong>
+     <p id="mv-vcc-car-reason">Parking and access can be inconvenient. Walking and using SL is usually more practical.</p>
+     <div class="mv-vcc-car-costs" id="mv-vcc-car-costs" hidden>
+      <span><small>Car · group</small><b id="mv-vcc-car-total">—</b></span>
+      <span><small>SL Transport · group</small><b id="mv-vcc-car-sl">—</b></span>
+     </div>
+     <p id="mv-vcc-car-comparison" class="mv-vcc-car-compare-message">Enter your costs to calculate it; the rental price depends on your booking.</p>
+    </div>
+    <p class="mv-vcc-car-disclaimer">Estimated costs entered by you for the selected days. We calculate one car for every 5 travelers; please verify seating capacity and insurance. The SL cost only represents the urban trips you have indicated: <strong>does not include excursions or special ferries</strong>. Municipal parking in 2026: from 20–55 SEK/h in central areas, depending on the zone and time. Congestion charges can add up to 105–135 SEK/day; enter what you expect to pay in «Fuel + tolls». <a href="https://parkering.stockholm/en/paying-to-park/tariff-zones-and-fees/" target="_blank" rel="noopener noreferrer">Official parking</a> · <a href="https://www.transportstyrelsen.se/en/road/vehicles/taxes-and-fees/road-tolls/congestion-taxes-in-stockholm-and-gothenburg/congestion-tax-in-stockholm/hours-and-amounts-in-stockholm/" target="_blank" rel="noopener noreferrer">Official tolls</a>.</p>
+   </div>
+  </details>
   <details class="mv-vcc-terms"><summary>Calculation rates and conditions</summary><p>SL 2026 fares: adult 43 / 180 / 360 SEK and reduced 26 / 110 / 220 SEK (single / 24 h / 72 h). Reduced fares require meeting SL requirements. Counts 75-minute tickets, not every transfer. Passes are activated for continuous hours; this comparison approximates day blocks. Check schedules and prices before purchasing in the <a href="https://sl.se/en/fares-and-tickets" target="_blank" rel="noopener noreferrer">official SL conditions</a>.</p></details>
  </div>
 </section>
@@ -336,6 +359,6 @@
 <script src="/configuracion/js/plantillas/como-moverse-carrusel.js?v=20261115-perfiles-v1" defer></script>
 <div class="day-lightbox vcc-booking-gallery-modal" id="mvVCCSharedGallery" data-vcc-booking-gallery data-vcc-photo-label-overlay data-vcc-lazy-gallery-modal data-vcc-gallery-selector=".mv-vcc-photo-section .day-mosaic" hidden role="dialog" aria-modal="true" aria-label="Stockholm transport photo gallery"></div>
 <script src="/configuracion/js/componentes/vcc-itinerary-gallery-on-demand.js?v=20261119-etiquetes-visor-v3" defer></script>
-<script src="/configuracion/js/destinos/suecia/estocolmo/como-moverse-calculadora-galeria-vcc.js?v=20261119-secciones-visor-v2" defer></script>
+<script src="/configuracion/js/destinos/suecia/estocolmo/como-moverse-calculadora-galeria-vcc.js?v=20261119-comparar-coche-v3" defer></script>
 <script src="/configuracion/js/vcc-en-runtime.js" defer></script>
 </body></html>
