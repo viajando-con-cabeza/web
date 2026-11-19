@@ -26,7 +26,7 @@
 <link rel="stylesheet" data-vcc-sacred-covers href="/configuracion/css/componentes/portades-contracte-unic-vcc.css?v=20261117-espais-intermedis-v6">
 <link rel="stylesheet" href="/configuracion/css/componentes/como-ahorrar-carruseles-vcc.css?v=20261117-notes-compactes-v3">
 <link rel="stylesheet" href="/configuracion/css/componentes/vcc-gallery-booking.css?v=20261119-etiquetes-visor-v2">
-<link rel="stylesheet" href="/configuracion/css/destinos/suecia/estocolmo/como-moverse-calculadora-galeria-vcc.css?v=20261119-mosaic-compartit-v9">
+<link rel="stylesheet" href="/configuracion/css/destinos/suecia/estocolmo/como-moverse-calculadora-galeria-vcc.css?v=20261119-comparar-coche-v10">
 <script type="application/ld+json" data-vcc-generated-page>{"@context":"https://schema.org","@type":"WebPage","@id":"https://viajandoconcabeza.com/destinos/suecia/estocolmo/como-moverse#webpage","url":"https://viajandoconcabeza.com/destinos/suecia/estocolmo/como-moverse","name":"Cómo moverse por Estocolmo: metro, ferris y billetes | VCC","description":"Cómo moverse por Estocolmo: metro, autobús, ferry a Vaxholm, billetes SL y pago con Visa. Precios de 2026, nuestra ruta y consejos para ahorrar.","inLanguage":"es","isPartOf":{"@type":"WebSite","name":"Viajando con Cabeza","url":"https://viajandoconcabeza.com/"},"primaryImageOfPage":{"@type":"ImageObject","url":"https://viajandoconcabeza.com/configuracion/imagenes/fondos/fondos-como-moverse.webp"}}</script>
 </head><body class="mv-body">
 <header class="page-header"></header>
@@ -237,6 +237,29 @@
     <details class="mv-vcc-breakdown"><summary>Ver desglose por días</summary><ol class="mv-vcc-plan" id="mv-vcc-plan" aria-label="Desglose de la recomendación"></ol></details>
    </div>
   </div>
+
+  <details class="mv-vcc-car-compare" id="mv-vcc-car-compare">
+   <summary><span class="mv-vcc-car-summary-title"><svg aria-hidden="true" class="mv-vcc-car-icon" viewBox="0 0 24 24"><path d="M5 16h14l-1.4-6.5a2 2 0 0 0-2-1.5H8.4a2 2 0 0 0-2 1.5L5 16ZM4 16v3m16-3v3M3 16v-3.5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2V16H3Zm3-3h.01M18 13h.01"/></svg>¿Y SI VAS EN COCHE?</span><span class="mv-vcc-car-summary-sub">Compara coste y utilidad real</span></summary>
+   <div class="mv-vcc-car-body">
+    <div class="mv-vcc-car-fields">
+     <label class="mv-vcc-field"><span>TIPO DE RUTA</span><select id="mv-vcc-car-route" aria-label="Tipo de ruta en coche"><option value="city">Centro de Estocolmo</option><option value="road">Excursiones por carretera</option><option value="islands">Islas del archipiélago</option></select></label>
+     <label class="mv-vcc-field"><span>COCHE</span><select id="mv-vcc-car-type" aria-label="Disponibilidad del coche"><option value="own">Ya disponible</option><option value="rent">De alquiler</option></select></label>
+     <label class="mv-vcc-field mv-vcc-car-rent-field" id="mv-vcc-car-rent-field" hidden><span>ALQUILER · SEK/DÍA</span><input id="mv-vcc-car-rent" type="number" inputmode="decimal" min="0" max="100000" step="1" placeholder="Precio real" aria-label="Alquiler del coche en coronas por día"></label>
+     <label class="mv-vcc-field"><span>PARKING · SEK/DÍA</span><input id="mv-vcc-car-parking" type="number" inputmode="decimal" min="0" max="100000" step="1" placeholder="Ej. 120" aria-label="Coste diario del aparcamiento en coronas"></label>
+     <label class="mv-vcc-field"><span>GASOLINA + PEAJES · TOTAL SEK</span><input id="mv-vcc-car-extras" type="number" inputmode="decimal" min="0" max="100000" step="1" placeholder="Coste del viaje" aria-label="Combustible y peajes totales por coche en coronas"></label>
+    </div>
+    <div class="mv-vcc-car-verdict" aria-live="polite">
+     <strong id="mv-vcc-car-verdict">En el centro, normalmente no compensa</strong>
+     <p id="mv-vcc-car-reason">El parking y los accesos restan comodidad. Caminar y usar SL suele ser más práctico.</p>
+     <div class="mv-vcc-car-costs" id="mv-vcc-car-costs" hidden>
+      <span><small>Coche · grupo</small><b id="mv-vcc-car-total">—</b></span>
+      <span><small>Transporte SL · grupo</small><b id="mv-vcc-car-sl">—</b></span>
+     </div>
+     <p id="mv-vcc-car-comparison" class="mv-vcc-car-compare-message">Indica tus costes para calcularlo; el precio del alquiler depende de tu reserva.</p>
+    </div>
+    <p class="mv-vcc-car-disclaimer">Costes orientativos introducidos por ti, para los días seleccionados. Calculamos un coche por cada 5 viajeros; verifica plazas y seguro. El coste SL solo representa los trayectos urbanos que has indicado: <strong>no equivale a excursiones ni incluye ferris especiales</strong>. Parking municipal en 2026: desde 20–55 SEK/h en zonas céntricas, según zona y horario. La congestión puede sumar hasta 105–135 SEK/día; introduce lo que preveas pagar en «Gasolina + peajes». <a href="https://parkering.stockholm/en/paying-to-park/tariff-zones-and-fees/" target="_blank" rel="noopener noreferrer">Parking oficial</a> · <a href="https://www.transportstyrelsen.se/en/road/vehicles/taxes-and-fees/road-tolls/congestion-taxes-in-stockholm-and-gothenburg/congestion-tax-in-stockholm/hours-and-amounts-in-stockholm/" target="_blank" rel="noopener noreferrer">Peajes oficiales</a>.</p>
+   </div>
+  </details>
   <details class="mv-vcc-terms"><summary>Tarifas y condiciones del cálculo</summary><p>Tarifas SL 2026: adulto 43 / 180 / 360 SEK y reducida 26 / 110 / 220 SEK (sencillo / 24 h / 72 h). La tarifa reducida requiere cumplir los requisitos de SL. Cuenta billetes de 75 minutos, no cada transbordo. Los abonos se activan por horas continuas; esta comparación aproxima bloques de días. Verifica horarios y precios antes de comprar en las <a href="https://sl.se/en/fares-and-tickets" target="_blank" rel="noopener noreferrer">condiciones oficiales SL</a>.</p></details>
  </div>
 </section>
@@ -334,5 +357,5 @@
 <script src="/configuracion/js/plantillas/como-moverse-carrusel.js?v=20261115-perfiles-v1" defer></script>
 <div class="day-lightbox vcc-booking-gallery-modal" id="mvVCCSharedGallery" data-vcc-booking-gallery data-vcc-photo-label-overlay data-vcc-lazy-gallery-modal data-vcc-gallery-selector=".mv-vcc-photo-section .day-mosaic" hidden role="dialog" aria-modal="true" aria-label="Galería de fotografías del transporte en Estocolmo"></div>
 <script src="/configuracion/js/componentes/vcc-itinerary-gallery-on-demand.js?v=20261119-etiquetes-visor-v3" defer></script>
-<script src="/configuracion/js/destinos/suecia/estocolmo/como-moverse-calculadora-galeria-vcc.js?v=20261119-secciones-visor-v2" defer></script>
+<script src="/configuracion/js/destinos/suecia/estocolmo/como-moverse-calculadora-galeria-vcc.js?v=20261119-comparar-coche-v3" defer></script>
 </body></html>
