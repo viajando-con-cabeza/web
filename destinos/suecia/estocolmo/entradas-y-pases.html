@@ -37,9 +37,10 @@
 <link rel="stylesheet" href="/configuracion/css/componentes/vcc-capcaleres-editorials.css?v=20261117-espais-passes-v12">
 <link rel="stylesheet" data-vcc-sacred-covers href="/configuracion/css/componentes/portades-contracte-unic-vcc.css?v=20261117-espais-intermedis-v6">
 <link rel="stylesheet" data-vcc-pass-criterion href="/configuracion/css/componentes/vcc-criterio-pases-turisticos.css?v=20261117-separacio-bloc-columnes-v8">
-<link rel="stylesheet" href="/configuracion/css/destinos/suecia/estocolmo/vcc-que-llevar-entradas-redisenyo.css?v=20261119-rediseno-v1">
-<link rel="stylesheet" href="/configuracion/css/componentes/vcc-gallery-booking.css?v=20261119-entradas-shared-v1">
-<link rel="stylesheet" href="/configuracion/css/destinos/suecia/estocolmo/vcc-entradas-ruta-galeria.css?v=20261119-ruta-dos-tarjetas-v1">
+<link rel="stylesheet" href="/configuracion/css/destinos/suecia/estocolmo/vcc-que-llevar-entradas-redisenyo.css?v=20261119-centralized-v2">
+<link rel="stylesheet" href="/configuracion/css/componentes/calculadora-comparativa-vcc.css?v=20261119-vcc-calculadora-compacta-v1">
+<link rel="stylesheet" href="/configuracion/css/componentes/vcc-gallery-booking.css?v=20261119-companion-cols-v2">
+<link rel="stylesheet" href="/configuracion/css/destinos/suecia/estocolmo/vcc-entradas-ruta-galeria.css?v=20261119-tres-targetes-iguals-v2">
 <script type="application/ld+json" data-vcc-generated-page>{"@context":"https://schema.org","@type":"WebPage","@id":"https://viajandoconcabeza.com/destinos/suecia/estocolmo/entradas-y-pases#webpage","url":"https://viajandoconcabeza.com/destinos/suecia/estocolmo/entradas-y-pases","name":"Entradas y pases de Estocolmo: comparador y precios | VCC","description":"Compara entradas sueltas y pases de Estocolmo: elige museos, introduce precios y calcula qué opción conviene. Tarifas orientativas 2026 y nuestra ruta real.","inLanguage":"es","isPartOf":{"@type":"WebSite","name":"Viajando con Cabeza","url":"https://viajandoconcabeza.com/"},"primaryImageOfPage":{"@type":"ImageObject","url":"https://viajandoconcabeza.com/configuracion/imagenes/fondos/fondos-entradas-y-pases.webp"}}</script>
 </head>
 <body>
@@ -67,44 +68,49 @@
 </nav>
 
 <main class="ep-wrap ep4-main">
-<section class="ep4-section ep4-calculator" id="comparador" aria-labelledby="ep4-calc-title">
+<section class="ep4-section ep4-calculator vcc-calc-section" id="comparador" aria-labelledby="ep4-calc-title">
  <header class="ep4-heading ep4-heading-left vcc-editorial-heading"><div class="ep4-title-group vcc-editorial-heading-main"><span class="ep4-script vcc-editorial-overline">Decide antes de comprar</span><h2 id="ep4-calc-title" class="vcc-editorial-title">COMPARA ENTRADAS Y PASES</h2></div><p class="ep4-subline vcc-editorial-description">Elige qué quieres visitar, ajusta el precio de cada entrada e introduce el coste actual del pase. Te mostramos la diferencia sin suponer qué incluye.</p></header>
- <div class="ep4-calculator-panel" id="ep4-vcc-calculator">
-  <div class="ep4-calc-controls">
-   <label>Adultos<input type="number" id="ep4-calc-adults" value="2" min="1" max="6" step="1" inputmode="numeric"></label>
-   <label>Precio actual del pase por adulto (SEK)<input type="number" id="ep4-calc-pass-price" min="0" step="1" inputmode="numeric" placeholder="—" aria-label="Precio actual del pase por adulto (SEK)"></label>
+ <div class="ep4-calculator-panel vcc-calc-compact" id="ep4-vcc-calculator">
+  <div class="vcc-calc-topline">
+   <div class="vcc-calc-brand"><img src="/configuracion/imagenes/marca/logo-vcc.svg" width="35" height="35" alt="VCC — Viajando con Cabeza" decoding="async"><div><strong>Comparador VCC</strong><small>Calcula dónde ahorras de verdad</small></div></div>
+   <div class="ep4-calc-controls">
+   <label><img class="vcc-calc-control-icon" src="/configuracion/imagenes/iconos/entradas-y-pases/users-round.svg" width="14" height="14" alt="" aria-hidden="true" loading="lazy"><span>Adultos</span><input type="number" id="ep4-calc-adults" value="2" min="1" max="6" step="1" inputmode="numeric"></label>
+   <label><img class="vcc-calc-control-icon" src="/configuracion/imagenes/iconos/entradas-y-pases/coins.svg" width="14" height="14" alt="" aria-hidden="true" loading="lazy"><span>Precio actual del pase por adulto (SEK)</span><input type="number" id="ep4-calc-pass-price" min="0" step="1" inputmode="numeric" placeholder="—" aria-label="Precio actual del pase por adulto (SEK)"></label>
+   </div>
   </div>
-  <p class="ep4-calc-steps">1. Elige las visitas y ajusta el precio por adulto. 2. Marca «Incluida en mi pase» solo después de comprobar las condiciones oficiales.</p>
+  <p class="ep4-calc-steps">Elige visitas, ajusta precios y marca solo lo que incluye tu pase.</p>
   <ul class="ep4-calc-list"><li class="ep4-calc-row" data-vcc-attraction="vasa">
- <label class="ep4-calc-visit"><input type="checkbox" checked aria-label="Visitar Museo Vasa"><span>Museo Vasa</span></label>
+ <label class="ep4-calc-visit"><input type="checkbox" checked aria-label="Visitar Museo Vasa"><img class="vcc-calc-attraction-icon" src="/configuracion/imagenes/iconos/entradas-y-pases/ticket.svg" width="14" height="14" alt="" aria-hidden="true" loading="lazy"><span>Museo Vasa</span></label>
  <label class="ep4-calc-ticket">Entrada <input type="number" min="0" step="1" inputmode="numeric" value="240" aria-label="Precio en SEK de la entrada a Museo Vasa"> SEK</label>
  <label class="ep4-calc-included"><input type="checkbox" aria-label="El pase incluye Museo Vasa"><span>Incluida en mi pase</span></label>
  </li>
 <li class="ep4-calc-row" data-vcc-attraction="palacio">
- <label class="ep4-calc-visit"><input type="checkbox" checked aria-label="Visitar Palacio Real"><span>Palacio Real</span></label>
+ <label class="ep4-calc-visit"><input type="checkbox" checked aria-label="Visitar Palacio Real"><img class="vcc-calc-attraction-icon" src="/configuracion/imagenes/iconos/entradas-y-pases/landmark.svg" width="14" height="14" alt="" aria-hidden="true" loading="lazy"><span>Palacio Real</span></label>
  <label class="ep4-calc-ticket">Entrada <input type="number" min="0" step="1" inputmode="numeric" value="240" aria-label="Precio en SEK de la entrada a Palacio Real"> SEK</label>
  <label class="ep4-calc-included"><input type="checkbox" aria-label="El pase incluye Palacio Real"><span>Incluida en mi pase</span></label>
  </li>
 <li class="ep4-calc-row" data-vcc-attraction="abba">
- <label class="ep4-calc-visit"><input type="checkbox"  aria-label="Visitar ABBA The Museum"><span>ABBA The Museum</span></label>
+ <label class="ep4-calc-visit"><input type="checkbox"  aria-label="Visitar ABBA The Museum"><img class="vcc-calc-attraction-icon" src="/configuracion/imagenes/iconos/entradas-y-pases/heart.svg" width="14" height="14" alt="" aria-hidden="true" loading="lazy"><span>ABBA The Museum</span></label>
  <label class="ep4-calc-ticket">Entrada <input type="number" min="0" step="1" inputmode="numeric" value="349" aria-label="Precio en SEK de la entrada a ABBA The Museum"> SEK</label>
  <label class="ep4-calc-included"><input type="checkbox" aria-label="El pase incluye ABBA The Museum"><span>Incluida en mi pase</span></label>
  </li>
 <li class="ep4-calc-row" data-vcc-attraction="skansen">
- <label class="ep4-calc-visit"><input type="checkbox"  aria-label="Visitar Skansen"><span>Skansen</span></label>
+ <label class="ep4-calc-visit"><input type="checkbox"  aria-label="Visitar Skansen"><img class="vcc-calc-attraction-icon" src="/configuracion/imagenes/iconos/entradas-y-pases/house.svg" width="14" height="14" alt="" aria-hidden="true" loading="lazy"><span>Skansen</span></label>
  <label class="ep4-calc-ticket">Entrada <input type="number" min="0" step="1" inputmode="numeric" value="240" aria-label="Precio en SEK de la entrada a Skansen"> SEK</label>
  <label class="ep4-calc-included"><input type="checkbox" aria-label="El pase incluye Skansen"><span>Incluida en mi pase</span></label>
  </li>
 <li class="ep4-calc-row" data-vcc-attraction="barco">
- <label class="ep4-calc-visit"><input type="checkbox"  aria-label="Visitar Paseo en barco"><span>Paseo en barco</span></label>
+ <label class="ep4-calc-visit"><input type="checkbox"  aria-label="Visitar Paseo en barco"><img class="vcc-calc-attraction-icon" src="/configuracion/imagenes/iconos/entradas-y-pases/route.svg" width="14" height="14" alt="" aria-hidden="true" loading="lazy"><span>Paseo en barco</span></label>
  <label class="ep4-calc-ticket">Entrada <input type="number" min="0" step="1" inputmode="numeric" value="245" aria-label="Precio en SEK de la entrada a Paseo en barco"> SEK</label>
  <label class="ep4-calc-included"><input type="checkbox" aria-label="El pase incluye Paseo en barco"><span>Incluida en mi pase</span></label>
  </li></ul>
-  <div class="ep4-calc-footer">
+  <div class="vcc-calc-bottom">
+   <div class="ep4-calc-footer">
    <div class="ep4-calc-sum"><small>Entradas sueltas · total</small><strong id="ep4-calc-individual-total" aria-live="polite">—</strong></div>
    <div class="ep4-calc-sum"><small>Pase + entradas no incluidas · total</small><strong id="ep4-calc-pass-total" aria-live="polite">—</strong></div>
+   </div>
+   <div class="vcc-calc-verdict-wrap"><span class="vcc-calc-saving" id="ep4-calc-saving" hidden></span><p class="ep4-calc-verdict" id="ep4-calc-verdict" aria-live="polite">Selecciona las atracciones para comparar.</p></div>
   </div>
-  <p class="ep4-calc-verdict" id="ep4-calc-verdict" aria-live="polite">Selecciona las atracciones para comparar.</p>
   <p class="ep4-calc-disclaimer">Precios orientativos de entradas de 2026, editables. Consulta el precio y las inclusiones del pase en la web oficial. No calculamos automáticamente descuentos infantiles, duración de validez ni reservas. <a href="https://gocity.com/en/stockholm" target="_blank" rel="noopener noreferrer">Consultar condiciones Go City</a>.</p>
  </div>
  </section>
@@ -199,8 +205,8 @@
 
 <section class="ep4-section ep4-our" id="nuestras-entradas" aria-labelledby="ep4-ours-title">
  <header class="ep4-heading ep4-heading-left vcc-editorial-heading"><div class="ep4-title-group vcc-editorial-heading-main"><span class="ep4-script vcc-editorial-overline">Nuestro itinerario de 3 días</span><h2 id="ep4-ours-title" class="vcc-editorial-title">ENTRADAS DE NUESTRA RUTA REAL</h2></div><p class="ep4-subline vcc-editorial-description">Qué entradas compramos, cuáles descartamos y cómo organizamos nuestros tres días. Barcos y traslados se contabilizan aparte de las entradas a museos.</p></header>
- <div class="ep4-route-layout">
-<div class="ep4-our-carousel" aria-label="Entradas de nuestra ruta de Estocolmo">
+ <div class="ep4-route-layout vcc-gallery-companion-grid">
+<div class="ep4-our-carousel vcc-gallery-companion-main" aria-label="Entradas de nuestra ruta de Estocolmo">
 
   <div class="ep4-our-stage">
   <button type="button" class="ep4-our-arrow ep4-our-arrow-prev" data-ep-slide-target="ep4-our-track" data-ep-slide-dir="-1" aria-label="Ver día anterior" aria-controls="ep4-our-track">‹</button>
@@ -254,7 +260,7 @@
   </div>
 </div>
 
-<aside class="ep4-photos-aside" aria-labelledby="ep4-photos-title">
+<aside class="ep4-photos-aside vcc-gallery-companion-aside" aria-labelledby="ep4-photos-title">
  <h3 id="ep4-photos-title">Fotos de nuestra ruta</h3>
  <p class="ep4-photos-lead">Fotos propias de Gamla Stan, Djurgården y el archipiélago. Abre el mosaico para verlas todas.</p>
  <div class="day-gallery vcc-booking-gallery" aria-label="Fotografías propias de nuestro viaje a Estocolmo">
