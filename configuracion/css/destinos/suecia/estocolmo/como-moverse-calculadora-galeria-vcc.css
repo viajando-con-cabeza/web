@@ -11,17 +11,27 @@
   color:#515650;font:400 13px/1.65 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
 }
 .mv-page .mv-vcc-photo-section .day-gallery{
-  width:100%;max-width:900px;margin:0 auto;
+  width:100%;max-width:850px;margin:0 auto;
+}
+/* Mosaic VCC panoràmic, reutilitza el visor i la retícula compartits. */
+html body .mv-page #experiencia-transporte .vcc-booking-gallery .day-mosaic[data-count]{
+ aspect-ratio:2.3!important;
+ height:auto!important;
+}
+@media(max-width:800px){
+ html body .mv-page #experiencia-transporte .vcc-booking-gallery .day-mosaic[data-count]{
+  aspect-ratio:1.85!important;
+ }
 }
 .mv-page .mv-vcc-ticket-tool .mv-vcc-tool-surface{
-  padding:12px 15px 10px;background:#fffdfb;
+  padding:10px 13px 9px;background:#fffdfb;
   border:1px solid #eaded3;border-radius:17px;
   box-shadow:0 3px 15px rgba(59,43,34,.035);
   font-family:var(--vcc-font-body,"DM Sans",Arial,sans-serif);color:#292d29;
 }
 .mv-page .mv-vcc-tool-grid{
   display:grid;grid-template-columns:minmax(0,1fr) minmax(235px,.81fr);
-  gap:10px;align-items:start;
+  gap:9px;align-items:start;
 }
 .mv-page #mv-vcc-ticket-calculator,
 .mv-page #experiencia-transporte{
@@ -70,7 +80,7 @@
   text-decoration:underline;text-underline-offset:3px;cursor:pointer;
 }
 .mv-page .mv-vcc-ticket-result{
-  min-width:0;padding:11px 12px;border-radius:13px;
+  min-width:0;padding:9px 11px;border-radius:12px;
   background:#fbf0e7;border:1px solid #dca985;
 }
 /* Discret segell de marca al resum: no desplaça ni duplica els imports. */
@@ -79,7 +89,7 @@
 }
 .mv-page .mv-vcc-result-header>div{flex:1;min-width:0}
 .mv-page .mv-vcc-result-logo{
- display:block;width:40px;height:40px;flex:0 0 40px;
+ display:block;width:34px;height:34px;flex:0 0 34px;
  object-fit:contain;opacity:.9;
 }
 .mv-page .mv-vcc-result-eyebrow{
@@ -93,7 +103,7 @@
 }
 .mv-page .mv-vcc-cost-summary{
   display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
-  gap:10px;margin:8px 0 7px;padding:0 0 7px;
+  gap:8px;margin:6px 0 7px;padding:0 0 6px;
   border-bottom:1px solid #e9d9cb;
 }
 .mv-page .mv-vcc-cost-summary>div{
@@ -103,9 +113,15 @@
   color:#7c6c5f;font:600 10px/1.3 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
 }
 .mv-page .mv-vcc-cost-summary strong{
-  color:#29302a;font:600 22px/1.2 var(--vcc-font-heading,"Oswald",sans-serif);
+  color:#29302a;font:600 20px/1.2 var(--vcc-font-heading,"Oswald",sans-serif);
   white-space:nowrap;
 }
+.mv-page .mv-vcc-price-details{margin:5px 0 7px}
+.mv-page .mv-vcc-price-details summary{
+ cursor:pointer;color:#826551;
+ font:600 10px/1.4 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
+}
+.mv-page .mv-vcc-price-details[open] .mv-vcc-result-comparisons{margin-top:6px}
 .mv-page .mv-vcc-result-comparisons{
   display:grid;gap:3px;margin:0 0 7px;
 }
@@ -118,17 +134,17 @@
 .mv-page .mv-vcc-result-comparisons b{color:#4e453e;white-space:nowrap}
 .mv-page .mv-vcc-saving-card{
   display:flex;align-items:baseline;justify-content:center;gap:9px;flex-wrap:wrap;
-  min-height:43px;box-sizing:border-box;padding:6px 9px;
+  min-height:38px;box-sizing:border-box;padding:5px 9px;
   background:#fff;border:1px solid #e1dcd6;border-radius:11px;
   box-shadow:0 1px 2px rgba(50,40,30,.05);
   color:#4f4c49;font:600 12px/1.3 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
 }
 .mv-page .mv-vcc-saving-card strong{
-  color:#168142;font:700 25px/1.05 var(--vcc-font-heading,"Oswald",sans-serif);
+  color:#168142;font:700 23px/1.05 var(--vcc-font-heading,"Oswald",sans-serif);
   white-space:nowrap;
 }
 .mv-page .mv-vcc-ticket-result .mv-vcc-result-header .mv-vcc-recommend{
- font-size:19px;line-height:1.15;
+ font-size:18px;line-height:1.15;
 }
 .mv-page .mv-vcc-saving-card #mv-vcc-saving-scope{
   font-size:11px;font-weight:500;
@@ -161,26 +177,26 @@ html body .mv-page #transportes .mv-card .mv-card-advice-item p{
 }
 @media(max-width:900px){
   .mv-page .mv-vcc-tool-grid{grid-template-columns:minmax(0,1fr)}
-  .mv-page .mv-vcc-cost-summary strong{font-size:25px}
+  .mv-page .mv-vcc-cost-summary strong{font-size:22px}
 }
 @media(max-width:650px){
   .mv-page .mv-vcc-experience-copy{font-size:12px;margin-bottom:13px}
-  .mv-page .mv-vcc-ticket-tool .mv-vcc-tool-surface{padding:10px 10px 9px}
+  .mv-page .mv-vcc-ticket-tool .mv-vcc-tool-surface{padding:9px 10px 8px}
   .mv-page .mv-vcc-main-controls{gap:7px}
   .mv-page .mv-vcc-field{font-size:9px}
   .mv-page .mv-vcc-field input,.mv-page .mv-vcc-field select{min-height:34px;font-size:11px;padding:5px 5px}
   .mv-page .mv-vcc-day-inputs{gap:7px}
-  .mv-page .mv-vcc-ticket-result{padding:9px 10px}
-  .mv-page .mv-vcc-recommend{font-size:19px}
-  .mv-page .mv-vcc-cost-summary strong{font-size:21px}
-  .mv-page .mv-vcc-saving-card strong{font-size:24px}
+  .mv-page .mv-vcc-ticket-result{padding:8px 10px}
+  .mv-page .mv-vcc-recommend{font-size:18px}
+  .mv-page .mv-vcc-cost-summary strong{font-size:20px}
+  .mv-page .mv-vcc-saving-card strong{font-size:22px}
   html body .mv-page #transportes .mv-card .mv-experience-list li,
   html body .mv-page #transportes .mv-card .mv-card-advice-item p{
     font-size:10.9px;line-height:1.4;
   }
 }
 @media(max-width:650px){
- .mv-page .mv-vcc-result-logo{width:35px;height:35px;flex-basis:35px}
+ .mv-page .mv-vcc-result-logo{width:31px;height:31px;flex-basis:31px}
 }
 @media(max-width:365px){
   .mv-page .mv-vcc-cost-summary{gap:7px}
