@@ -158,6 +158,93 @@
   font:400 10.5px/1.55 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
 }
 .mv-page .mv-vcc-plan li{margin:1px 0}
+
+/* Comparació opcional cotxe/SL: compacta, reutilitza controls de la calculadora.
+   El cost del cotxe mai no s'infereix automàticament. */
+.mv-page .mv-vcc-car-compare{
+ margin-top:10px;padding:0;
+ border-top:1px solid #e7dfd8;
+}
+.mv-page .mv-vcc-car-compare>summary{
+ display:flex;align-items:center;gap:10px;
+ padding:10px 2px 5px;list-style:none;cursor:pointer;
+}
+.mv-page .mv-vcc-car-compare>summary::-webkit-details-marker{display:none}
+.mv-page .mv-vcc-car-compare>summary::after{
+ content:"+";font:500 19px/1 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
+ color:#b66e52;margin-left:auto;
+}
+.mv-page .mv-vcc-car-compare[open]>summary::after{content:"−"}
+.mv-page .mv-vcc-car-summary-title{
+ display:inline-flex;align-items:center;gap:7px;
+ color:#242f2b;font:700 12px/1.4 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
+}
+.mv-page .mv-vcc-car-icon{
+ width:19px;height:19px;flex:none;
+ fill:none;stroke:#b56b52;stroke-width:1.8;
+ stroke-linecap:round;stroke-linejoin:round;
+}
+.mv-page .mv-vcc-car-summary-sub{
+ color:#71716b;font:400 11px/1.4 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
+}
+.mv-page .mv-vcc-car-body{
+ display:grid;grid-template-columns:minmax(0,1fr) minmax(230px,.8fr);
+ gap:10px;padding:8px 1px 0;align-items:start;
+}
+.mv-page .mv-vcc-car-fields{
+ display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
+ gap:8px;min-width:0;
+}
+.mv-page .mv-vcc-car-fields .mv-vcc-field{font-size:9.5px}
+.mv-page .mv-vcc-car-fields [hidden],
+.mv-page .mv-vcc-car-verdict [hidden]{display:none!important}
+.mv-page .mv-vcc-car-verdict{
+ min-width:0;padding:9px 11px;border:1px solid #e5d9cc;
+ border-radius:10px;background:#fdf9f5;
+}
+.mv-page .mv-vcc-car-verdict>strong{
+ display:block;color:#475d50;
+ font:600 14px/1.2 var(--vcc-font-heading,"Oswald",sans-serif);
+}
+.mv-page .mv-vcc-car-verdict>p{
+ margin:4px 0 0;color:#5e615c;
+ font:400 10.5px/1.45 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
+}
+.mv-page .mv-vcc-car-verdict .mv-vcc-car-compare-message{
+ color:#996247;font-weight:600;
+}
+.mv-page .mv-vcc-car-costs{
+ display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
+ gap:10px;margin-top:9px;padding-top:7px;border-top:1px solid #e9e1da;
+}
+.mv-page .mv-vcc-car-costs span{display:flex;flex-direction:column;gap:2px;min-width:0}
+.mv-page .mv-vcc-car-costs small{
+ font:600 9.5px/1.3 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
+ color:#716b63;
+}
+.mv-page .mv-vcc-car-costs b{
+ font:600 17px/1.25 var(--vcc-font-heading,"Oswald",sans-serif);
+ color:#333a35;white-space:normal;
+}
+.mv-page .mv-vcc-car-disclaimer{
+ grid-column:1/-1;margin:0;color:#73716d;
+ font:400 10px/1.5 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
+}
+.mv-page .mv-vcc-car-disclaimer a{
+ color:#a45f4b;text-decoration:underline;text-underline-offset:2px;
+}
+@media(max-width:900px){
+ .mv-page .mv-vcc-car-body{grid-template-columns:minmax(0,1fr)}
+}
+@media(max-width:650px){
+ .mv-page .mv-vcc-car-compare>summary{flex-wrap:wrap;gap:5px;padding-top:9px}
+ .mv-page .mv-vcc-car-summary-title{font-size:11px}
+ .mv-page .mv-vcc-car-summary-sub{font-size:10px}
+ .mv-page .mv-vcc-car-fields{gap:7px}
+ .mv-page .mv-vcc-car-verdict{padding:9px}
+ .mv-page .mv-vcc-car-costs b{font-size:16px}
+}
+
 /* Només compactar el contingut de les llistes i descripcions:
    mantenir títols, "Nuestra experiencia", "Cómo pagar" i "Cuándo usarlo". */
 html body .mv-page #transportes .mv-card .mv-experience-list li,
