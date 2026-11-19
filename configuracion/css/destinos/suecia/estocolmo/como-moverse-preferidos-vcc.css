@@ -1,6 +1,6 @@
 /* Estocolmo · Sobretítulos integrados dentro de las tarjetas, mismo patrón que Dónde dormir. */
 .mv-transport-section .mv-grid>.mv-transport-slide{
- flex:0 0 calc((100% - 24px)/3);min-width:0;display:flex;flex-direction:column;scroll-snap-align:start;
+ flex:0 0 calc((100% - 12px)/2);min-width:0;display:flex;flex-direction:column;scroll-snap-align:start;
 }
 .mv-transport-section .mv-card .mv-card-title>.mv-transport-ideal{
  display:block;margin:0 0 5px;min-height:0;padding:0;
@@ -38,4 +38,52 @@
   .mv-transport-section .mv-card .mv-card-title>span {font-size:11.5px}
   .mv-transport-section .mv-card .mv-experience-list li,
   .mv-transport-section .mv-card .mv-card-advice-item p {font-size:11.7px;line-height:1.45}
+}
+
+/* Dues targetes navegables + tercera columna fixa de fotos. Reutilitza
+   vcc-gallery-companion-grid del mosaic universal; únicament aquest destí
+   canvia les proporcions del carrusel. */
+.mv-transport-section.mv-transport-with-gallery .mv-transport-gallery-layout{
+ gap:12px;align-items:stretch;
+}
+.mv-transport-section.mv-transport-with-gallery .mv-transport-gallery-layout>.vcc-gallery-companion-main{
+ min-width:0;display:flex;align-items:stretch;
+}
+.mv-transport-section.mv-transport-with-gallery .mv-transport-shell{
+ align-self:stretch;min-width:0;
+}
+.mv-transport-section.mv-transport-with-gallery .mv-transport-gallery-aside{
+ position:relative;min-width:0;min-height:285px;
+ border-radius:13px;overflow:hidden;border:1px solid #e7e4df;background:#fff;
+}
+.mv-transport-section.mv-transport-with-gallery .mv-transport-gallery-aside .day-gallery{
+ position:absolute;inset:0;width:100%;max-width:none;height:100%;margin:0;
+}
+html body .mv-transport-section.mv-transport-with-gallery .mv-transport-gallery-aside .day-mosaic[data-count]{
+ width:100%;height:100%!important;max-height:none!important;aspect-ratio:auto!important;
+}
+.mv-transport-section.mv-transport-with-gallery .mv-transport-gallery-aside .day-mosaic>button{
+ min-width:0;
+}
+@media(max-width:820px){
+ .mv-transport-section.mv-transport-with-gallery .mv-transport-gallery-layout{
+  gap:13px;
+ }
+ .mv-transport-section.mv-transport-with-gallery .mv-transport-gallery-aside{
+  min-height:0;
+ }
+ .mv-transport-section.mv-transport-with-gallery .mv-transport-gallery-aside .day-gallery{
+  position:relative;inset:auto;height:auto;
+ }
+ html body .mv-transport-section.mv-transport-with-gallery .mv-transport-gallery-aside .day-mosaic[data-count]{
+  height:auto!important;aspect-ratio:1.9!important;
+ }
+}
+@media(max-width:690px){
+ .mv-transport-section.mv-transport-with-gallery .mv-transport-gallery-aside{
+  border-radius:11px;
+ }
+ html body .mv-transport-section.mv-transport-with-gallery .mv-transport-gallery-aside .day-mosaic[data-count]{
+  aspect-ratio:1.6!important;
+ }
 }
