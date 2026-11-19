@@ -159,6 +159,70 @@
 }
 .mv-page .mv-vcc-plan li{margin:1px 0}
 
+/* Catàleg de tarifes multidestí: plegat per defecte per mantenir
+   compacta la calculadora original. Un sol CSS, sense regles globals. */
+.mv-page .mv-vcc-fare-catalog{
+ margin:8px 0 0;padding:5px 0 0;border-top:1px solid #e9e5de;
+}
+.mv-page .mv-vcc-fare-catalog>summary{
+ display:flex;align-items:center;gap:5px;cursor:pointer;
+ width:max-content;max-width:100%;color:#956247;
+ font:700 10.5px/1.45 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
+ text-decoration:underline;text-underline-offset:2px;
+}
+.mv-page .mv-vcc-fare-catalog .mv-vcc-filter-icon{width:13px;height:13px}
+.mv-page .mv-vcc-fare-editor{margin:8px 0 0}
+.mv-page .mv-vcc-fare-list{display:grid;gap:5px}
+.mv-page .mv-vcc-fare-row{
+ display:grid;grid-template-columns:minmax(110px,.7fr) minmax(0,1.3fr);
+ align-items:center;gap:9px;padding:6px 8px;
+ background:#fdfaf7;border:1px solid #eee4dc;border-radius:8px;
+}
+.mv-page .mv-vcc-fare-row-name{display:flex;flex-direction:column;gap:2px;min-width:0}
+.mv-page .mv-vcc-fare-row-name strong{
+ color:#45413d;font:700 11px/1.3 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
+}
+.mv-page .mv-vcc-fare-row-name small{
+ color:#956e61;font:700 8px/1.2 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
+ letter-spacing:.025em;
+}
+.mv-page .mv-vcc-fare-row-fields{
+ display:grid;grid-template-columns:minmax(68px,.8fr) minmax(48px,.65fr) minmax(70px,1fr);
+ align-items:end;gap:5px;min-width:0;
+}
+.mv-page .mv-vcc-fare-row-fields .mv-vcc-field{font-size:8px}
+.mv-page .mv-vcc-fare-row-fields .mv-vcc-field input,
+.mv-page .mv-vcc-fare-row-fields .mv-vcc-field select{min-height:30px;font-size:10px}
+.mv-page .mv-vcc-fare-custom{margin-top:8px;padding-top:8px;border-top:1px solid #eee4dc}
+.mv-page .mv-vcc-fare-custom>strong{
+ display:block;margin-bottom:6px;color:#54564f;
+ font:700 10.5px/1.3 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
+}
+.mv-page .mv-vcc-fare-add-fields{
+ display:grid;grid-template-columns:minmax(0,1.25fr) repeat(3,minmax(0,.8fr));
+ gap:6px;
+}
+.mv-page .mv-vcc-fare-add-fields .mv-vcc-field{font-size:8px}
+.mv-page .mv-vcc-fare-actions{
+ display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin-top:8px;
+}
+.mv-page .mv-vcc-fare-actions button{
+ padding:6px 9px;border:1px solid #d8b6a6;border-radius:7px;
+ background:#fffaf7;color:#965f4c;
+ font:700 10px/1.25 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
+ cursor:pointer;
+}
+.mv-page .mv-vcc-fare-actions button:hover{background:#f6e9df}
+.mv-page .mv-vcc-fare-note{
+ margin:7px 0 0;color:#72716b;
+ font:400 10px/1.45 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
+}
+@media(max-width:650px){
+ .mv-page .mv-vcc-fare-row{grid-template-columns:minmax(0,1fr);gap:6px}
+ .mv-page .mv-vcc-fare-add-fields{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .mv-page .mv-vcc-fare-row-fields{grid-template-columns:minmax(65px,.8fr) minmax(55px,.65fr) minmax(76px,1fr)}
+}
+
 /* Comparació opcional cotxe/SL: compacta, reutilitza controls de la calculadora.
    El cost del cotxe mai no s'infereix automàticament. */
 .mv-page .mv-vcc-car-compare{
