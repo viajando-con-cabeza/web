@@ -1,261 +1,283 @@
-/* VCC · Comparador universal de transporte (estilos compartidos opt-in).
-   Solo se activa con #vcc-transporte-comparador; no modifica las demás guías. */
+/* VCC · Compact transport comparator · shared opt-in component.
+   Scoped to #vcc-transporte-comparador; page spacing stays in shared editorial CSS. */
 #vcc-transporte-comparador{
- max-width:1120px;margin:0 auto;min-width:0;
- padding:13px 14px 11px;box-sizing:border-box;
- background:#fffdfa;border:1px solid #e8dfd6;border-radius:15px;
- box-shadow:0 2px 9px rgba(43,35,28,.04);
- font-family:var(--vcc-font-body,"DM Sans",Arial,sans-serif);color:#323530;
+ width:100%;max-width:1060px;margin-inline:auto;box-sizing:border-box;
+ padding:11px 12px;background:#fffdfa;border:1px solid #e9e2da;border-radius:13px;
+ box-shadow:0 2px 8px rgba(42,35,30,.035);color:#303831;
+ font-family:var(--vcc-font-body,"DM Sans",Arial,sans-serif);
 }
 #vcc-transporte-comparador *{box-sizing:border-box}
 #vcc-transporte-comparador [hidden]{display:none!important}
+#vcc-transporte-comparador .tc-svg{
+ display:inline-block;width:14px;height:14px;flex:none;fill:none;
+ stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;
+}
 #vcc-transporte-comparador :is(input,select){
- min-width:0;width:100%;min-height:32px;border:1px solid #dadbd7;
- border-radius:7px;padding:5px 7px;background:white;color:#30372f;
- font:500 11px/1.35 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
+ min-width:0;width:100%;height:29px;min-height:29px;padding:4px 6px;
+ border:1px solid #dddcd7;border-radius:6px;background:#fff;color:#343b34;
+ font:500 10.5px/1.25 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
 }
-#vcc-transporte-comparador input:focus-visible,
-#vcc-transporte-comparador select:focus-visible,
-#vcc-transporte-comparador button:focus-visible,
-#vcc-transporte-comparador summary:focus-visible{
- outline:2px solid #ca8164;outline-offset:2px;
-}
+#vcc-transporte-comparador :is(input,select,button,summary):focus-visible{outline:2px solid #c97859;outline-offset:2px}
 #vcc-transporte-comparador .tc-field{
  display:flex;flex-direction:column;gap:4px;min-width:0;
- color:#686762;font:700 9px/1.3 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
+ color:#676b65;font:700 9px/1.25 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
 }
-#vcc-transporte-comparador .tc-field>span{display:block}
+#vcc-transporte-comparador .tc-field>span{display:inline-flex;align-items:center;gap:4px;min-width:0}
+#vcc-transporte-comparador .tc-field>span .tc-svg{width:12px;height:12px;color:#b07b63}
 #vcc-transporte-comparador .tc-top{
- display:flex;justify-content:space-between;align-items:end;gap:12px;
- margin:0 0 12px;padding:0 0 10px;border-bottom:1px solid #eee8e1;
+ display:flex;align-items:end;justify-content:space-between;gap:9px;
+ margin-bottom:10px;padding-bottom:9px;border-bottom:1px solid #ede6df;
 }
-#vcc-transporte-comparador .tc-setup{display:flex;gap:9px;flex-wrap:wrap;flex:1}
-#vcc-transporte-comparador .tc-setup .tc-field{width:130px;max-width:calc(33.333% - 8px)}
+#vcc-transporte-comparador .tc-setup{display:flex;flex-wrap:wrap;gap:8px;flex:1}
+#vcc-transporte-comparador .tc-setup .tc-field{width:116px;max-width:calc(33.333% - 6px)}
 #vcc-transporte-comparador .tc-small-btn{
- flex:none;display:inline-flex;align-items:center;gap:5px;
- border:1px solid #e4d6cb;border-radius:7px;background:#fff9f4;
- color:#936147;padding:6px 8px;cursor:pointer;
- font:700 10px/1.25 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
+ display:inline-flex;align-items:center;justify-content:center;gap:5px;
+ white-space:nowrap;min-height:26px;padding:4px 7px;
+ border:1px solid #e7d9ca;border-radius:6px;background:#fffaf5;color:#996c54;
+ font:700 9.5px/1.2 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
+ cursor:pointer;
 }
+#vcc-transporte-comparador .tc-small-btn .tc-svg{width:12px;height:12px}
+#vcc-transporte-comparador .tc-small-btn:hover{background:#f8ede3}
 #vcc-transporte-comparador .tc-columns{
- display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.16fr);
- align-items:stretch;gap:11px;
+ display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:9px;align-items:stretch;
 }
 #vcc-transporte-comparador .tc-panel{
- min-width:0;display:flex;flex-direction:column;gap:10px;
- padding:12px;border:1px solid #e7e2dc;border-radius:11px;
- background:white;
+ display:flex;flex-direction:column;gap:9px;min-width:0;
+ padding:11px 12px;border-radius:10px;border:1px solid #e6e3dd;background:white;
 }
-#vcc-transporte-comparador .tc-panel-private{background:#fffcf9}
-#vcc-transporte-comparador .tc-panel-public{background:#fcfefd}
+#vcc-transporte-comparador .tc-panel-private{background:#fefbf8}
+#vcc-transporte-comparador .tc-panel-public{background:#fcfefc}
 #vcc-transporte-comparador .tc-panel-head{
- display:flex;align-items:center;gap:9px;padding-bottom:9px;
- border-bottom:1px solid #ece5de;
+ display:flex;align-items:center;gap:8px;min-height:32px;padding-bottom:7px;
+ border-bottom:1px solid #eae6df;
 }
 #vcc-transporte-comparador .tc-panel-icon{
- display:grid;place-items:center;flex:0 0 31px;width:31px;height:31px;
- border:1px solid #e8d2c5;border-radius:9px;color:#a76d51;
+ display:grid;place-items:center;width:27px;height:27px;flex:0 0 27px;
+ color:#ac745a;border:1px solid #eedacc;background:#fff7f0;border-radius:8px;
 }
-#vcc-transporte-comparador .tc-panel-icon svg{
- width:19px;height:19px;fill:none;stroke:currentColor;
- stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;
-}
+#vcc-transporte-comparador .tc-panel-icon .tc-svg{width:18px;height:18px}
 #vcc-transporte-comparador .tc-panel-overline{
- display:block;font:700 9px/1.25 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
- color:#a3715e;text-transform:uppercase;
+ display:block;color:#a57963;font:700 8.5px/1.2 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
 }
 #vcc-transporte-comparador .tc-panel-head h3{
- margin:2px 0 0;color:#2c352d;
- font:600 18px/1.1 var(--vcc-font-heading,"Oswald",sans-serif);
-}
-#vcc-transporte-comparador .tc-panel-subtext{
- margin:0;color:#696a64;font:400 10.5px/1.48 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
+ margin:1px 0 0;color:#2d382f;
+ font:600 17px/1.12 var(--vcc-font-heading,"Oswald",sans-serif);
 }
 #vcc-transporte-comparador .tc-car-options{
  display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;
 }
-#vcc-transporte-comparador .tc-car-options .tc-field input,
-#vcc-transporte-comparador .tc-car-options .tc-field select{min-height:33px}
-#vcc-transporte-comparador .tc-optional{
- display:block;font:400 9px/1.4 var(--vcc-font-body,"DM Sans",Arial,sans-serif);color:#88837b;
-}
-#vcc-transporte-comparador .tc-trip-head{
- display:flex;align-items:center;justify-content:space-between;gap:10px;
-}
-#vcc-transporte-comparador .tc-trip-head strong{
- font:700 11px/1.4 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
- color:#4b534b;
-}
-#vcc-transporte-comparador .tc-trip-list{
- display:grid;gap:5px;max-height:238px;overflow-y:auto;
- padding:2px 3px 2px 0;overscroll-behavior:contain;
-}
-#vcc-transporte-comparador .tc-trip{
- display:grid;grid-template-columns:minmax(95px,1.35fr) minmax(48px,.57fr) minmax(61px,.68fr) minmax(85px,.84fr) 48px 22px;
- align-items:center;gap:4px;padding:5px 6px;
- border:1px solid #e8e9e5;border-radius:7px;background:white;
-}
-#vcc-transporte-comparador .tc-trip :is(input,select){min-height:28px;font-size:10px;padding:4px}
-#vcc-transporte-comparador .tc-trip .tc-trip-label{font-size:10px}
-#vcc-transporte-comparador .tc-trip .tc-trip-price{font-weight:700}
-#vcc-transporte-comparador .tc-cover{
- display:flex;align-items:center;justify-content:center;gap:3px;
- font:500 9px/1 var(--vcc-font-body,"DM Sans",Arial,sans-serif);color:#6d756d;
- cursor:pointer;
-}
-#vcc-transporte-comparador .tc-cover input{width:13px;height:13px;min-height:13px;accent-color:#4e8e6e;padding:0}
-#vcc-transporte-comparador .tc-trip-delete{
- border:0;background:transparent;padding:0;color:#a77f6e;
- font:500 19px/1 var(--vcc-font-body,"DM Sans",Arial,sans-serif);cursor:pointer;
-}
-#vcc-transporte-comparador .tc-trip-hint{
- margin:-3px 0 0;font:400 9px/1.35 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
- color:#88837d;
-}
-#vcc-transporte-comparador .tc-bonus{
- margin-top:1px;padding:9px;border:1px solid #e1e9e1;border-radius:9px;background:#f8fbf8;
-}
-#vcc-transporte-comparador .tc-bonus-head{
- display:flex;align-items:center;justify-content:space-between;gap:9px;margin-bottom:6px;
-}
-#vcc-transporte-comparador .tc-bonus-head strong{
- color:#45644d;font:700 10.5px/1.3 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
-}
-#vcc-transporte-comparador .tc-bonus-head span{
- color:#7b857a;font:400 9px/1.3 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
-}
-#vcc-transporte-comparador .tc-bonus-fields{
- display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,.65fr) minmax(0,.6fr) minmax(0,.8fr);
- gap:6px;padding-top:7px;
-}
-#vcc-transporte-comparador .tc-bonus-note{
- margin:6px 0 0;font:400 9.5px/1.4 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
- color:#697569;
-}
-#vcc-transporte-comparador .tc-tariffs{margin:0;padding-top:4px}
-#vcc-transporte-comparador .tc-tariffs summary{
- cursor:pointer;color:#946c58;font:600 9.5px/1.4 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
-}
-#vcc-transporte-comparador .tc-tariffs-body{display:grid;gap:3px;margin-top:5px}
-#vcc-transporte-comparador .tc-tariffs-body p{
- margin:0;display:flex;justify-content:space-between;gap:5px;
- color:#6e736d;font:400 10px/1.45 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
-}
-#vcc-transporte-comparador .tc-tariffs-body b{white-space:nowrap;color:#516956}
+#vcc-transporte-comparador .tc-car-options #tc-rental-wrap{min-width:0}
 #vcc-transporte-comparador .tc-totals{
- display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;
- margin-top:auto;padding-top:9px;border-top:1px solid #e6e4df;
+ display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
+ margin-top:auto;gap:7px;padding-top:8px;border-top:1px solid #eae5df;
 }
 #vcc-transporte-comparador .tc-totals>div{display:flex;flex-direction:column;gap:3px;min-width:0}
 #vcc-transporte-comparador .tc-totals small{
- color:#7b7772;font:600 9.5px/1.35 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
+ color:#797b75;font:600 9px/1.25 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
 }
 #vcc-transporte-comparador .tc-totals strong{
- color:#313e34;font:600 20px/1.1 var(--vcc-font-heading,"Oswald",sans-serif);
- overflow-wrap:anywhere;
+ color:#324536;font:600 19px/1.15 var(--vcc-font-heading,"Oswald",sans-serif);overflow-wrap:anywhere;
 }
-#vcc-transporte-comparador .tc-public-totals{
- display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px;margin-top:auto;
+#vcc-transporte-comparador .tc-micro-hint{
+ margin:0;color:#85817b;font:400 9px/1.42 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
 }
-#vcc-transporte-comparador .tc-public-totals .tc-totals{
- padding:8px;margin:0;background:white;border:1px solid #e2e7e1;border-radius:8px;gap:5px;
+#vcc-transporte-comparador .tc-modes{
+ display:flex;flex-wrap:wrap;gap:5px;align-items:center;margin:-2px 0 0;
 }
-#vcc-transporte-comparador .tc-public-totals h4{
- margin:0 0 4px;font:700 10px/1.25 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
- color:#587461;
+#vcc-transporte-comparador .tc-modes span{
+ display:inline-flex;align-items:center;gap:3px;
+ padding:3px 6px;border:1px solid #e6ebe5;border-radius:6px;
+ background:#f6f9f6;color:#667369;
+ font:500 9px/1.2 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
 }
-#vcc-transporte-comparador .tc-public-totals .tc-totals{grid-template-columns:repeat(2,minmax(0,1fr))}
-#vcc-transporte-comparador .tc-public-totals .tc-totals strong{font-size:17px}
-#vcc-transporte-comparador .tc-bonus-output{
- margin:4px 0 0;min-height:26px;color:#717b71;
- font:400 9.5px/1.35 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
+#vcc-transporte-comparador .tc-simple-trip{
+ display:grid;grid-template-columns:minmax(90px,.6fr) minmax(115px,1fr) auto;
+ align-items:end;gap:8px;
 }
-#vcc-transporte-comparador .tc-compare-checkbox{
- display:flex;align-items:center;gap:6px;margin-top:10px;
- color:#6a6f68;font:500 10px/1.3 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
+#vcc-transporte-comparador .tc-compact-count{
+ color:#7c807a;white-space:nowrap;padding-bottom:7px;
+ font:600 9px/1.2 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
+}
+#vcc-transporte-comparador .tc-trips-details{
+ margin:0;padding:0;
+}
+#vcc-transporte-comparador .tc-trips-details summary{
+ display:flex;gap:5px;align-items:center;width:max-content;max-width:100%;
+ color:#9c715a;cursor:pointer;list-style:none;
+ font:600 10px/1.3 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
+ text-decoration:underline;text-underline-offset:2px;
+}
+#vcc-transporte-comparador .tc-trips-details summary::-webkit-details-marker{display:none}
+#vcc-transporte-comparador .tc-trips-details summary .tc-svg{width:12px;height:12px}
+#vcc-transporte-comparador .tc-trip-list{
+ display:grid;gap:4px;max-height:181px;overflow-y:auto;margin-top:7px;padding:0 3px 0 0;
+ overscroll-behavior:contain;
+}
+#vcc-transporte-comparador .tc-trip{
+ display:grid;grid-template-columns:44px minmax(66px,1.1fr) 40px 57px 78px 39px 17px;
+ gap:4px;align-items:center;padding:4px;border:1px solid #e8e8e4;border-radius:6px;background:#fff;
+}
+#vcc-transporte-comparador .tc-trip :is(input,select){height:26px;min-height:26px;padding:3px;font-size:9px}
+#vcc-transporte-comparador .tc-cover{
+ display:flex;flex-direction:column;align-items:center;gap:2px;
+ color:#777e75;font:500 8px/1 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
  cursor:pointer;
 }
+#vcc-transporte-comparador .tc-cover input{
+ width:13px;height:13px;min-height:13px;margin:0;accent-color:#558f6c;padding:0;
+}
+#vcc-transporte-comparador .tc-trip-counter{display:block;margin-top:3px;color:#7d817c;font-size:9px}
+#vcc-transporte-comparador .tc-bonus{
+ padding:8px;border-radius:8px;border:1px solid #e3eae0;background:#f8faf7;
+}
+#vcc-transporte-comparador .tc-bonus-head{
+ display:flex;align-items:center;justify-content:space-between;gap:7px;margin-bottom:6px;
+}
+#vcc-transporte-comparador .tc-bonus-head strong{
+ display:inline-flex;align-items:center;gap:5px;color:#4a7657;
+ font:700 10px/1.25 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
+}
+#vcc-transporte-comparador .tc-bonus-head .tc-svg{width:13px;height:13px}
+#vcc-transporte-comparador .tc-passes{
+ display:grid;gap:5px;max-height:200px;overflow-y:auto;padding-right:2px;
+}
+#vcc-transporte-comparador .tc-pass-row{
+ display:grid;grid-template-columns:minmax(99px,1.35fr) 54px 68px 70px 42px 16px;
+ align-items:end;gap:4px;padding:5px 5px 6px;
+ border:1px solid #e4e9e1;border-radius:7px;background:white;min-width:0;
+}
+#vcc-transporte-comparador .tc-pass-row .tc-pass-heading{display:none}
+#vcc-transporte-comparador .tc-pass-row .tc-field{font-size:8px;gap:3px}
+#vcc-transporte-comparador .tc-pass-row .tc-field :is(select,input){
+ height:26px;min-height:26px;padding:3px 4px;font-size:9px;
+}
+#vcc-transporte-comparador .tc-pass-row>.tc-field:has(input[data-field="label"]){grid-column:1/-1}
+#vcc-transporte-comparador .tc-remove{
+ border:0;background:transparent;color:#a98270;
+ font:500 17px/1 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
+ cursor:pointer;padding:0;margin:0 0 5px;
+}
+#vcc-transporte-comparador .tc-bonus-output{
+ margin:4px 0 0;color:#677368;
+ font:400 9.5px/1.4 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
+}
+#vcc-transporte-comparador .tc-tariffs{margin-top:4px}
+#vcc-transporte-comparador .tc-tariffs summary{
+ cursor:pointer;color:#98755f;font:600 9px/1.35 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
+}
+#vcc-transporte-comparador .tc-tariffs-body{display:grid;gap:3px;margin-top:5px}
+#vcc-transporte-comparador .tc-tariffs-body p{
+ display:flex;justify-content:space-between;gap:7px;margin:0;
+ color:#637369;font:400 9px/1.35 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
+}
+#vcc-transporte-comparador .tc-tariffs-body strong{white-space:nowrap}
+#vcc-transporte-comparador .tc-public-totals{
+ display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px;margin-top:auto;
+}
+#vcc-transporte-comparador .tc-public-total{
+ display:flex;flex-direction:column;min-width:0;gap:2px;
+ padding:7px 8px;background:#fff;border:1px solid #e4e9e4;border-radius:7px;
+}
+#vcc-transporte-comparador .tc-public-total span{
+ display:inline-flex;gap:4px;align-items:center;
+ color:#748074;font:600 9px/1.3 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
+}
+#vcc-transporte-comparador .tc-public-total span .tc-svg{width:11px;height:11px}
+#vcc-transporte-comparador .tc-public-total strong{
+ color:#375a42;font:600 19px/1.1 var(--vcc-font-heading,"Oswald",sans-serif);
+}
+#vcc-transporte-comparador .tc-public-total small{
+ color:#778179;font:400 9px/1.3 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
+}
+#vcc-transporte-comparador .tc-public-total small b{font-weight:600}
+#vcc-transporte-comparador .tc-best-public{
+ margin:-4px 0 0;text-align:right;color:#38815b;
+ font:700 10px/1.4 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
+}
+#vcc-transporte-comparador .tc-compare-checkbox{
+ display:inline-flex;align-items:center;gap:7px;cursor:pointer;margin:7px 0 0;
+ color:#757770;font:500 9.5px/1.3 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
+}
 #vcc-transporte-comparador .tc-compare-checkbox input{
- width:14px;height:14px;min-height:14px;accent-color:#4f8a67;flex:0 0 14px;
+ width:13px;height:13px;min-height:13px;flex:0 0 13px;accent-color:#558968;
 }
 #vcc-transporte-comparador .tc-result{
- display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,.9fr) minmax(0,.75fr);
- gap:13px;align-items:center;margin-top:10px;padding:10px 12px;
- background:#fcf1e8;border:1px solid #dec9b9;border-radius:11px;
+ display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr) minmax(0,.55fr);
+ gap:11px;align-items:center;margin-top:8px;padding:9px 11px;
+ border:1px solid #e7d4c5;border-radius:9px;background:#fcf3ec;
 }
-#vcc-transporte-comparador .tc-result-heading{display:flex;align-items:center;gap:9px;min-width:0}
-#vcc-transporte-comparador .tc-result-heading img{
- display:block;width:35px;height:35px;flex:0 0 35px;object-fit:contain;
-}
+#vcc-transporte-comparador .tc-result-heading{display:flex;gap:7px;align-items:center;min-width:0}
+#vcc-transporte-comparador .tc-result-heading img{width:30px;height:30px;object-fit:contain}
 #vcc-transporte-comparador .tc-result-heading span{
- display:block;color:#996a55;font:700 9px/1.3 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
+ display:block;color:#a07760;font:700 9px/1.3 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
 }
 #vcc-transporte-comparador .tc-result-heading strong{
- display:block;margin-top:2px;color:#2b3b2d;
- font:600 19px/1.12 var(--vcc-font-heading,"Oswald",sans-serif);
+ display:block;color:#2d4934;font:600 17px/1.15 var(--vcc-font-heading,"Oswald",sans-serif);
 }
-#vcc-transporte-comparador .tc-result-amounts{
- display:grid;grid-template-columns:1fr 1fr;gap:6px;
-}
-#vcc-transporte-comparador .tc-result-amounts>div{
- display:flex;flex-direction:column;gap:3px;min-width:0;
-}
+#vcc-transporte-comparador .tc-result-amounts{display:grid;grid-template-columns:1fr 1fr;gap:7px}
+#vcc-transporte-comparador .tc-result-amounts>div{display:flex;flex-direction:column;gap:3px}
 #vcc-transporte-comparador .tc-result-amounts small{
- font:600 9px/1.3 var(--vcc-font-body,"DM Sans",Arial,sans-serif);color:#857465;
+ color:#807a73;font:600 9px/1.3 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
 }
 #vcc-transporte-comparador .tc-result-amounts strong{
- font:600 19px/1.15 var(--vcc-font-heading,"Oswald",sans-serif);color:#2e3430;
- overflow-wrap:anywhere;
+ color:#2e382f;font:600 18px/1.2 var(--vcc-font-heading,"Oswald",sans-serif);
 }
 #vcc-transporte-comparador .tc-saving{
- display:flex;flex-direction:column;gap:2px;padding:7px 8px;
- border:1px solid #e4d9cc;border-radius:8px;background:#fff;
+ display:flex;flex-direction:column;gap:3px;padding:7px;
+ border:1px solid #e4dbd3;border-radius:7px;background:white;
 }
-#vcc-transporte-comparador .tc-saving span{
- font:600 9px/1.3 var(--vcc-font-body,"DM Sans",Arial,sans-serif);color:#77716b;
-}
+#vcc-transporte-comparador .tc-saving span{color:#817b73;font-size:9px}
 #vcc-transporte-comparador .tc-saving strong{
- color:#228451;font:700 20px/1.1 var(--vcc-font-heading,"Oswald",sans-serif);
+ color:#22804e;font:700 19px/1.1 var(--vcc-font-heading,"Oswald",sans-serif);
 }
-#vcc-transporte-comparador .tc-result p{
- grid-column:1/-1;margin:0;color:#756a61;
- font:400 10px/1.45 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
+#vcc-transporte-comparador .tc-result>p{
+ grid-column:1/-1;margin:0;color:#7a6f68;
+ font:400 9.5px/1.35 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
 }
-#vcc-transporte-comparador .tc-bottom{
- display:flex;justify-content:space-between;align-items:start;gap:10px;
- margin-top:8px;
+#vcc-transporte-comparador .tc-footer-note{
+ margin:7px 0 0;color:#8a8580;
+ font:400 9px/1.4 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
 }
-#vcc-transporte-comparador .tc-bottom p{
- max-width:750px;margin:0;color:#807b75;
- font:400 9px/1.45 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
-}
-@media(max-width:1020px){
- #vcc-transporte-comparador .tc-columns{grid-template-columns:1fr}
- #vcc-transporte-comparador .tc-panel{padding:12px}
- #vcc-transporte-comparador .tc-trip-list{max-height:260px}
-}
-@media(max-width:700px){
- #vcc-transporte-comparador{padding:10px 9px;border-radius:12px}
- #vcc-transporte-comparador .tc-top{align-items:start;flex-wrap:wrap;gap:8px}
- #vcc-transporte-comparador .tc-setup{gap:6px}
- #vcc-transporte-comparador .tc-setup .tc-field{width:calc(33.333% - 4px)}
- #vcc-transporte-comparador .tc-panel{padding:10px;gap:9px}
- #vcc-transporte-comparador .tc-trip{
-  grid-template-columns:minmax(0,1fr) 47px minmax(55px,.7fr) 26px;row-gap:5px;
+@media(max-width:980px){
+ #vcc-transporte-comparador .tc-columns{grid-template-columns:minmax(0,1fr)}
+ #vcc-transporte-comparador .tc-panel{padding:10px}
+ #vcc-transporte-comparador .tc-car-options{grid-template-columns:repeat(2,minmax(0,1fr))}
+ #vcc-transporte-comparador .tc-pass-row{
+  grid-template-columns:minmax(125px,1.3fr) 70px 80px minmax(75px,.7fr) 48px 16px;
  }
- #vcc-transporte-comparador .tc-trip .tc-trip-time{grid-column:1}
- #vcc-transporte-comparador .tc-trip .tc-cover{grid-column:2/4}
- #vcc-transporte-comparador .tc-trip .tc-trip-delete{grid-column:4;grid-row:1}
- #vcc-transporte-comparador .tc-bonus-fields{grid-template-columns:repeat(2,minmax(0,1fr))}
- #vcc-transporte-comparador .tc-public-totals{grid-template-columns:1fr}
- #vcc-transporte-comparador .tc-result{grid-template-columns:1fr 1fr;gap:9px}
- #vcc-transporte-comparador .tc-result-heading{grid-column:1/-1}
- #vcc-transporte-comparador .tc-result .tc-saving{grid-column:1/-1}
- #vcc-transporte-comparador .tc-totals strong{font-size:20px}
 }
-@media(max-width:390px){
- #vcc-transporte-comparador .tc-car-options{grid-template-columns:1fr 1fr}
- #vcc-transporte-comparador .tc-setup .tc-field{font-size:8px}
- #vcc-transporte-comparador .tc-result{grid-template-columns:1fr}
- #vcc-transporte-comparador .tc-result-amounts{grid-column:1}
+@media(max-width:600px){
+ #vcc-transporte-comparador{padding:8px}
+ #vcc-transporte-comparador .tc-top{align-items:start;flex-wrap:wrap;gap:6px}
+ #vcc-transporte-comparador .tc-setup{width:100%;gap:5px}
+ #vcc-transporte-comparador .tc-setup .tc-field{flex:1;min-width:0}
+ #vcc-transporte-comparador .tc-top>.tc-small-btn{min-height:24px}
+ #vcc-transporte-comparador .tc-panel{padding:9px;gap:8px}
+ #vcc-transporte-comparador .tc-pass-row{
+  grid-template-columns:minmax(0,1fr) 54px 66px 16px;gap:4px;
+ }
+ #vcc-transporte-comparador .tc-pass-row>.tc-field:has(select[data-field="preset"]){grid-column:1/4}
+ #vcc-transporte-comparador .tc-pass-row>.tc-field:has(input[data-field="quantity"]){grid-column:1}
+ #vcc-transporte-comparador .tc-pass-row>.tc-field:has(select[data-field="type"]){grid-column:2}
+ #vcc-transporte-comparador .tc-pass-row>.tc-field:has(input[data-field="price"]){grid-column:3}
+ #vcc-transporte-comparador .tc-pass-row>.tc-field:has(input[data-field="units"]){grid-column:4}
+ #vcc-transporte-comparador .tc-pass-row .tc-remove{grid-column:4;grid-row:1}
+ #vcc-transporte-comparador .tc-trip{grid-template-columns:42px minmax(72px,1fr) 39px 59px 18px}
+ #vcc-transporte-comparador .tc-trip input[data-field="time"]{grid-column:1/3}
+ #vcc-transporte-comparador .tc-trip .tc-cover{grid-column:3/5}
+ #vcc-transporte-comparador .tc-trip .tc-remove{grid-column:5;grid-row:1}
+ #vcc-transporte-comparador .tc-simple-trip{grid-template-columns:minmax(75px,1fr) minmax(120px,1.3fr);gap:6px}
+ #vcc-transporte-comparador .tc-compact-count{display:none}
+ #vcc-transporte-comparador .tc-result{grid-template-columns:1fr 1fr;gap:8px}
+ #vcc-transporte-comparador .tc-result-heading{grid-column:1/-1}
+ #vcc-transporte-comparador .tc-saving{grid-column:1/-1;flex-direction:row;justify-content:space-between}
+ #vcc-transporte-comparador .tc-result-amounts{grid-column:1/-1}
+}
+@media(max-width:375px){
+ #vcc-transporte-comparador .tc-panel-head h3{font-size:15px}
+ #vcc-transporte-comparador .tc-pass-row{grid-template-columns:minmax(0,1fr) 48px 62px 18px}
+ #vcc-transporte-comparador .tc-public-totals{gap:4px}
+ #vcc-transporte-comparador .tc-public-total{padding:6px}
+ #vcc-transporte-comparador .tc-public-total strong{font-size:17px}
 }
