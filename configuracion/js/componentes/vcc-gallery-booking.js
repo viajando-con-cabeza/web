@@ -174,6 +174,12 @@ function createGrid(){
   const b=document.createElement('button');b.type='button';
   b.setAttribute('aria-label','Abrir fotografía '+(index+1)+' de '+currentImages.length);
   b.append(createThumb(item.preview,item.src,'Fotografía '+(index+1)+' de '+currentImages.length));
+  if(item.area){
+   const label=document.createElement('span');
+   label.className='vcc-gallery-area-label';
+   label.textContent=item.area;
+   b.append(label);
+  }
   b.addEventListener('click',()=>showPhoto(index));
   fragment.append(b);gridButtons.push(b);
  });
@@ -453,12 +459,15 @@ function imagesFor(gallery){
   visor:b.dataset.visor||'',
   fastPreview:gallery.hasAttribute('data-fast-preview'),
   alt:b.querySelector('img')?.alt||'Fotografía '+(i+1),
-  caption:b.dataset.caption||''
+  caption:b.dataset.caption||'',
+  area:b.dataset.area||''
  }));
 }
 function openGallery(gallery,button){
  currentImages=imagesFor(gallery);
  if(!currentImages.length)return;
+ if(gallery.hasAttribute('data-vcc-gallery-areas'))modal.dataset.vccGalleryAreas='1';
+ else delete modal.dataset.vccGalleryAreas;
  const place=gallery.closest('.place');
  activeTitle=gallery.dataset.title||place?.querySelector('.place-heading h2, h2')?.textContent?.trim()||'Galería de fotografías';
  activeSubtitle=gallery.dataset.subtitle
