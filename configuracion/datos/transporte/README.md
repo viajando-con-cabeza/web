@@ -13,68 +13,70 @@ número de viajeros, tarifa aplicable y, si procede, costes de coche.
 El precio oficial lo carga VCC desde la ficha del destino; el lector puede
 modificarlo para SIMULAR, sin alterar nunca la ficha oficial.
 
-## Comparador universal · 2 columnas compactas
+## Comparador universal VCC · tres alternativas configurables
 
-**Piloto:** `/destinos/suecia/estocolmo/como-moverse.html` (rama `quality`).
-La guía de Suecia **no se modifica** hasta que se apruebe el diseño.
+**Piloto**: Estocolmo, `destinos/suecia/estocolmo/como-moverse.html` (rama `quality`).
+No trasladar los cambios a la guía general de Suecia sin aprobación.
 
-Motor/UI compartido: `/configuracion/js/componentes/vcc-transporte-comparador-universal.js`.
-CSS compartido: `/configuracion/css/componentes/vcc-transporte-comparador-universal.css`.
-Catálogo de referencia: `/configuracion/datos/transporte/estocolmo-sl-2026.js`.
+- Motor: `configuracion/js/componentes/vcc-transporte-comparador-universal.js`
+- CSS compartido (opt-in): `configuracion/css/componentes/vcc-transporte-comparador-universal.css`
+- Catálogo SL del destino: `configuracion/datos/transporte/estocolmo-sl-2026.js`
 
-### Diseño y datos
+El usuario elige **cualquiera de las tres combinaciones de dos alternativas**
+o las tres a la vez: coche, billetes individuales, abonos. Las flechas de
+cada tarjeta reordenan las opciones visibles sin perder datos; debe haber
+al menos dos activas. Alineación exterior: usa el ancho de `.mv-container`;
+no introducir un `max-width` menor que reduzca los márgenes del blog.
 
-Una franja superior compacta permite cambiar días, viajeros y tarifa.
-Debajo hay dos columnas y una recomendación horizontal con logo VCC.
+### Entradas compartidas
 
-- **Coche:** propiedad o alquiler, plazas por vehículo, alquiler,
-  combustible/carga, párquing, peajes y extras. Son importes del
-  itinerario **por vehículo**. `ceil(viajeros / plazas)` determina
-  la cantidad estimada de coches; todos los gastos se multiplican
-  por esa cantidad. Alquiler y combustible son obligatorios
-  para poder comparar, salvo que el coche ya esté disponible.
-- **Transporte público:** número de viajes y precio individual
-  habitual, por persona. El desglose se abre solamente cuando
-  interesa editar el transporte (metro, autobús, tren, tranvía,
-  ferry), el nombre, día, precio, hora o inclusión en el bono
-  de cada trayecto. Así pueden existir viajes de **precios distintos**
-  sin ocupar altura por defecto.
-- **Bonos:** lista de títulos editables con tipo (horas, días o
-  viajes), duración/cantidad, precio por bono y **número de unidades
-  por persona**. El botón «Añadir bono» permite combinar distintos
-  títulos; máximo 10 tipos, 8 unidades por tipo para mantener
-  controlado el coste de cálculo. Los bonos nuevos que el viajero
-  inventa son una **simulación**, nunca tarifas oficiales.
-- Se muestran en la misma columna el total de **billetes sueltos**
-  y el total **con los bonos seleccionados**, ambos por persona
-  y por grupo. El resultado inferior recomienda la opción más
-  barata de las comparables y muestra el ahorro por persona.
+Días, número de viajeros, categoría de tarifa, número de viajes por
+persona y precio habitual de un viaje. La sección desplegable de
+viajes permite editar **día, hora, tipo de transporte, precio y
+cobertura por abono** para cada billete. También se admiten precios
+distintos en días y trayectos diferentes.
 
-### Precisión y límites
+### Coche
 
-Los bonos seleccionados se tratan como **comprados**; se suma su
-coste completo, incluso si no se usan todos sus viajes. Los
-viajes no cubiertos siguen facturándose como billetes sueltos.
-Para paquetes por número de viajes, el precio individual variable
-hace que convenga cubrir los viajes elegibles más caros primero.
-Para combinar distintos bonos temporales se usa una asignación
-por **ahorro marginal**, que es una estimación y no garantiza el
-óptimo exhaustivo. No se debe afirmar una optimización exacta.
+Tipo propio o alquilado, plazas por coche, alquiler total, combustible
+total, **párquing por día**, peajes totales y extras/seguro.
+El párquing se multiplica por los días seleccionados. Todos los
+gastos son **por vehículo** y el grupo necesita
+`ceil(viajeros/plazas)` coches. Solo se incluyen sus costes si
+alquiler (cuando corresponde) y combustible están informados.
+Si no cubre el mismo recorrido, se excluye de la recomendación.
 
-En bonos horarios de menos de 24 h la interfaz **exige la hora**
-de cada trayecto incluido; si faltan, el resultado del bono
-aparece como no calculable. En bonos de 24 h o más se puede
-aproximar por días completos, indicado con una advertencia.
-Para ferry que no acepte el bono se debe desmarcar «Bono»
-en el trayecto. La cobertura depende del operador, zona y ruta.
+### Abonos y complementos
 
-Se necesitan costes del coche y confirmación de que ambos medios
-cubren el mismo recorrido para recomendar coche por precio.
-No comparar automáticamente viajes urbanos con excursiones
-sin transporte alternativo real.
+Cada bono tiene tipo (N horas / días / viajes), precio y **unidades por
+persona**. Se pueden añadir, eliminar y combinar hasta diez tipos,
+ocho unidades de cada uno. Los bonos seleccionados se consideran
+comprados; los viajes marcados como no cubiertos, y los trayectos
+sobrantes, se cobran aparte como billetes individuales.
 
-Los precios SL se cargan desde el catálogo 2026. El usuario
-puede introducir una simulación sin modificar los datos fuente.
+La cobertura combinada se aproxima mediante asignación por ahorro
+marginal; no garantiza una optimización exhaustiva de horarios.
+Un abono de menos de 24 horas exige horas reales en los trayectos
+elegibles; para títulos más largos sin horas se aproxima por días,
+y se muestra el aviso. No inventar la existencia comercial de
+abonos: los personalizados son simulaciones.
+
+### Resultados
+
+Precios por persona y para todo el grupo. La recomendación evalúa
+**solo las opciones seleccionadas y con datos suficientes**, destacando
+el coste menor y el ahorro frente a otra alternativa. Cuando faltan
+datos necesarios, el resultado es provisional y lo advierte.
+
+### Galería editorial
+
+`Elige tu transporte` usa `vcc-gallery-companion-grid`: dos
+tarjetas de transporte navegables en la izquierda y una columna fija
+a la derecha con el mosaico de 15 fotos del componente
+`vcc-gallery-booking`. Solo navegan las tarjetas, no las fotos.
+Se ha eliminado la sección independiente de "Nuestra experiencia".
+El modal conserva las fotos originales, sus etiquetas y el visor
+compartido; en pantallas pequeñas el mosaico queda debajo del carrusel.
 
 ## Alta de un nuevo destino
 
