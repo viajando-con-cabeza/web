@@ -18,10 +18,6 @@
   box-shadow:0 3px 15px rgba(59,43,34,.035);
   font-family:var(--vcc-font-body,"DM Sans",Arial,sans-serif);color:#292d29;
 }
-.mv-page .mv-vcc-tool-grid{
-  display:grid;grid-template-columns:minmax(0,1fr) minmax(235px,.81fr);
-  gap:9px;align-items:start;
-}
 .mv-page #mv-vcc-ticket-calculator,
 .mv-page #experiencia-transporte{
  scroll-margin-top:calc(var(--mv-header-height,50px) + 64px);
@@ -227,90 +223,178 @@
  .mv-page .mv-vcc-fare-row-fields{grid-template-columns:minmax(65px,.8fr) minmax(55px,.65fr) minmax(76px,1fr)}
 }
 
-/* Comparació opcional cotxe/SL: compacta, reutilitza controls de la calculadora.
-   El cost del cotxe mai no s'infereix automàticament. */
-.mv-page .mv-vcc-car-compare{
- margin-top:10px;padding:0;
- border-top:1px solid #e7dfd8;
+/* VCC · Comparador universal: 3 columnes a l'ordinador i apilat en mòbil.
+   Valors i comportament gestionats pel motor comú, sense marges de secció propis. */
+.mv-page .mv-vcc-shared-controls{
+ display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1.1fr) auto;
+ align-items:end;gap:13px;
+ padding:0 0 10px;margin-bottom:10px;border-bottom:1px solid #ece5de;
 }
-.mv-page .mv-vcc-car-compare>summary{
- display:flex;align-items:center;gap:10px;
- padding:10px 2px 5px;list-style:none;cursor:pointer;
+.mv-page .mv-vcc-shared-controls .mv-vcc-day-heading{margin:0 0 5px}
+.mv-page .mv-vcc-trip-inputs{min-width:0}
+.mv-page .mv-vcc-shared-controls>.mv-vcc-reset{
+ justify-self:end;white-space:nowrap;margin:0 0 7px;
 }
-.mv-page .mv-vcc-car-compare>summary::-webkit-details-marker{display:none}
-.mv-page .mv-vcc-car-compare>summary::after{
- content:"+";font:500 19px/1 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
- color:#b66e52;margin-left:auto;
+.mv-page .mv-vcc-comparison-grid{
+ display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
+ align-items:stretch;gap:10px;
 }
-.mv-page .mv-vcc-car-compare[open]>summary::after{content:"−"}
-.mv-page .mv-vcc-car-summary-title{
- display:inline-flex;align-items:center;gap:7px;
- color:#242f2b;font:700 12px/1.4 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
+.mv-page .mv-vcc-compare-card{
+ display:flex;flex-direction:column;gap:9px;min-width:0;
+ padding:12px 13px;background:#fff;
+ border:1px solid #e7e1dc;border-radius:12px;
 }
-.mv-page .mv-vcc-car-icon{
- width:19px;height:19px;flex:none;
- fill:none;stroke:#b56b52;stroke-width:1.8;
- stroke-linecap:round;stroke-linejoin:round;
+.mv-page .mv-vcc-car-card{background:#fcfaf8}
+.mv-page .mv-vcc-pass-card{background:#fafdfb}
+.mv-page .mv-vcc-compare-head{
+ display:flex;align-items:center;gap:9px;min-height:38px;
+ padding-bottom:9px;border-bottom:1px solid #ece7e1;
 }
-.mv-page .mv-vcc-car-summary-sub{
- color:#71716b;font:400 11px/1.4 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
+.mv-page .mv-vcc-card-icon{
+ width:30px;height:30px;flex:0 0 30px;
+ display:grid;place-items:center;border-radius:9px;
+ background:#fcf0e7;color:#a86550;
 }
-.mv-page .mv-vcc-car-body{
- display:grid;grid-template-columns:minmax(0,1fr) minmax(230px,.8fr);
- gap:10px;padding:8px 1px 0;align-items:start;
+.mv-page .mv-vcc-card-icon svg{
+ display:block;width:19px;height:19px;fill:none;stroke:currentColor;
+ stroke-width:1.8;stroke-linejoin:round;stroke-linecap:round;
+}
+.mv-page .mv-vcc-compare-overline{
+ display:block;color:#9c725f;
+ font:600 9px/1.35 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
+}
+.mv-page .mv-vcc-compare-head h3{
+ margin:2px 0 0;color:#29302b;
+ font:600 16px/1.15 var(--vcc-font-heading,"Oswald",sans-serif);
+ letter-spacing:.012em;
 }
 .mv-page .mv-vcc-car-fields{
- display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
- gap:8px;min-width:0;
+ display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px;
 }
-.mv-page .mv-vcc-car-fields .mv-vcc-field{font-size:9.5px}
+.mv-page .mv-vcc-car-fields .mv-vcc-field{font-size:9px}
 .mv-page .mv-vcc-car-fields [hidden],
-.mv-page .mv-vcc-car-verdict [hidden]{display:none!important}
+.mv-page .mv-vcc-option-totals[hidden]{display:none!important}
+.mv-page .mv-vcc-car-fields .mv-vcc-field input,
+.mv-page .mv-vcc-car-fields .mv-vcc-field select{min-height:32px;font-size:11px}
+.mv-page .mv-vcc-option-totals{
+ display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
+ gap:9px;margin-top:auto;padding:10px 0 0;
+ border-top:1px solid #ece6e0;
+}
+.mv-page .mv-vcc-option-totals>div{display:flex;flex-direction:column;min-width:0;gap:3px}
+.mv-page .mv-vcc-option-totals small{
+ color:#77716b;font:600 10px/1.3 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
+}
+.mv-page .mv-vcc-option-totals strong{
+ color:#313d33;font:600 clamp(16px,1.65vw,21px)/1.1 var(--vcc-font-heading,"Oswald",sans-serif);
+ overflow-wrap:anywhere;
+}
 .mv-page .mv-vcc-car-verdict{
- min-width:0;padding:9px 11px;border:1px solid #e5d9cc;
- border-radius:10px;background:#fdf9f5;
+ margin-top:0;padding:7px 9px;background:#f7f0e9;border:1px solid #f0e3d5;
+ border-radius:8px;
 }
 .mv-page .mv-vcc-car-verdict>strong{
- display:block;color:#475d50;
- font:600 14px/1.2 var(--vcc-font-heading,"Oswald",sans-serif);
+ display:block;color:#5a6c5e;
+ font:600 12px/1.2 var(--vcc-font-heading,"Oswald",sans-serif);
 }
 .mv-page .mv-vcc-car-verdict>p{
- margin:4px 0 0;color:#5e615c;
- font:400 10.5px/1.45 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
+ margin:4px 0 0;color:#6b625c;
+ font:400 10px/1.4 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
 }
-.mv-page .mv-vcc-car-verdict .mv-vcc-car-compare-message{
- color:#996247;font-weight:600;
+.mv-page .mv-vcc-car-verdict>.mv-vcc-car-compare-message{
+ color:#915f46;font-weight:600;
 }
-.mv-page .mv-vcc-car-costs{
- display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
- gap:10px;margin-top:9px;padding-top:7px;border-top:1px solid #e9e1da;
+.mv-page .mv-vcc-single-unit{
+ display:flex;justify-content:space-between;align-items:center;gap:6px;margin:0;
+ padding:7px 9px;background:#f9f5f1;border-radius:7px;
+ font:600 11px/1.35 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
+ color:#6f6963;
 }
-.mv-page .mv-vcc-car-costs span{display:flex;flex-direction:column;gap:2px;min-width:0}
-.mv-page .mv-vcc-car-costs small{
- font:600 9.5px/1.3 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
- color:#716b63;
+.mv-page .mv-vcc-single-unit strong{
+ color:#343a35;font:600 17px/1.15 var(--vcc-font-heading,"Oswald",sans-serif);
+ white-space:nowrap;
 }
-.mv-page .mv-vcc-car-costs b{
- font:600 17px/1.25 var(--vcc-font-heading,"Oswald",sans-serif);
- color:#333a35;white-space:normal;
+.mv-page .mv-vcc-count-hint{
+ margin:0;color:#666e69;font:400 11px/1.4 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
+}
+.mv-page .mv-vcc-card-foot{
+ margin:0;color:#74726e;font:400 10px/1.45 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
+}
+.mv-page .mv-vcc-pass-rates{
+ display:grid;gap:3px;min-width:0;
+}
+.mv-page .mv-vcc-pass-rates p{
+ display:flex;justify-content:space-between;gap:7px;margin:0;
+ font:400 10.5px/1.35 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
+ color:#5d6961;
+}
+.mv-page .mv-vcc-pass-rates p span{min-width:0}
+.mv-page .mv-vcc-pass-rates p b{
+ white-space:nowrap;color:#475e4b;
+ font-weight:700;
+}
+.mv-page .mv-vcc-pass-card .mv-vcc-card-foot{
+ overflow-wrap:anywhere;
+ display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;
+ overflow:hidden;
+}
+.mv-page .mv-vcc-ticket-result{
+ display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr) minmax(0,.9fr);
+ align-items:center;gap:11px;margin-top:10px;padding:11px 13px;
+}
+.mv-page .mv-vcc-ticket-result>.mv-vcc-cost-summary{
+ margin:0;padding:0;border:0;gap:12px;
+}
+.mv-page .mv-vcc-ticket-result>.mv-vcc-saving-card{
+ gap:5px;padding:7px 8px;min-height:40px;
+}
+.mv-page .mv-vcc-result-header .mv-vcc-result-logo{width:31px;height:31px;flex-basis:31px}
+.mv-page .mv-vcc-recommend-note{
+ grid-column:1/-1;margin:0;color:#6f655d;
+ font:400 10.5px/1.4 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
+}
+.mv-page .mv-vcc-breakdown{
+ grid-column:1/-1;margin:0;padding-top:6px;
+ border-top:1px solid #e9d9cb;
+}
+.mv-page .mv-vcc-car-notes{
+ margin:6px 0 0;
+}
+.mv-page .mv-vcc-car-notes summary{
+ cursor:pointer;color:#956247;
+ font:600 10px/1.45 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
+ text-decoration:underline;text-underline-offset:2px;
 }
 .mv-page .mv-vcc-car-disclaimer{
- grid-column:1/-1;margin:0;color:#73716d;
+ margin:7px 0 0;color:#73716d;
  font:400 10px/1.5 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
 }
 .mv-page .mv-vcc-car-disclaimer a{
  color:#a45f4b;text-decoration:underline;text-underline-offset:2px;
 }
-@media(max-width:900px){
- .mv-page .mv-vcc-car-body{grid-template-columns:minmax(0,1fr)}
+@media(max-width:1100px){
+ .mv-page .mv-vcc-shared-controls{
+  grid-template-columns:minmax(0,1fr) minmax(0,1fr);
+ }
+ .mv-page .mv-vcc-shared-controls>.mv-vcc-reset{
+  grid-column:1/-1;justify-self:start;margin:0;
+ }
+ .mv-page .mv-vcc-comparison-grid{gap:7px}
+ .mv-page .mv-vcc-compare-card{padding:10px;gap:8px}
+}
+@media(max-width:800px){
+ .mv-page .mv-vcc-comparison-grid{grid-template-columns:minmax(0,1fr)}
+ .mv-page .mv-vcc-compare-card{padding:12px;gap:9px}
+ .mv-page .mv-vcc-compare-head h3{font-size:17px}
+ .mv-page .mv-vcc-ticket-result{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+ .mv-page .mv-vcc-ticket-result>.mv-vcc-saving-card{grid-column:1/-1}
 }
 @media(max-width:650px){
- .mv-page .mv-vcc-car-compare>summary{flex-wrap:wrap;gap:5px;padding-top:9px}
- .mv-page .mv-vcc-car-summary-title{font-size:11px}
- .mv-page .mv-vcc-car-summary-sub{font-size:10px}
- .mv-page .mv-vcc-car-fields{gap:7px}
- .mv-page .mv-vcc-car-verdict{padding:9px}
- .mv-page .mv-vcc-car-costs b{font-size:16px}
+ .mv-page .mv-vcc-shared-controls{grid-template-columns:minmax(0,1fr);gap:7px}
+ .mv-page .mv-vcc-shared-controls>.mv-vcc-reset{grid-column:1}
+ .mv-page .mv-vcc-ticket-result{grid-template-columns:minmax(0,1fr);gap:10px}
+ .mv-page .mv-vcc-option-totals strong{font-size:20px}
+ .mv-page .mv-vcc-shared-controls .mv-vcc-main-controls{gap:7px}
 }
 
 /* Només compactar el contingut de les llistes i descripcions:
@@ -320,7 +404,6 @@ html body .mv-page #transportes .mv-card .mv-card-advice-item p{
   font-size:10.8px;line-height:1.43;
 }
 @media(max-width:900px){
-  .mv-page .mv-vcc-tool-grid{grid-template-columns:minmax(0,1fr)}
   .mv-page .mv-vcc-cost-summary strong{font-size:22px}
 }
 @media(max-width:650px){
