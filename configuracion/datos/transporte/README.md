@@ -13,36 +13,65 @@ número de viajeros, tarifa aplicable y, si procede, costes de coche.
 El precio oficial lo carga VCC desde la ficha del destino; el lector puede
 modificarlo para SIMULAR, sin alterar nunca la ficha oficial.
 
-## Interfaz de comparación (tres columnas)
+## Comparador universal de transporte privado vs público (dos columnas)
 
-La primera integración en Estocolmo muestra **días, número de viajeros,
-categoría de tarifa y validaciones pagadas por día** como entradas comunes.
-Debajo dispone de tres alternativas:
+**Primera implantación:** `/destinos/suecia/estocolmo/como-moverse.html`, rama quality.
 
-- **Coche:** alquiler en moneda local/día (si se alquila), aparcamiento/día,
-  combustible y peajes totales. El coste se multiplica por vehículos necesarios
-  (actualmente una capacidad orientativa de 5 personas/coche) y se divide
-  entre viajeros para mostrar precio por persona. No se infieren costes.
-- **Billetes individuales:** precio de un billete, validaciones por persona,
-  total por persona y total del grupo.
-- **Abonos y bonos:** listado de precios de títulos vigentes y la
-  **combinación más económica que incluye al menos un abono/bono**,
-  con el coste por persona y el total del grupo. Puede incluir títulos
-  individuales para completar días sueltos.
+- Interfaz universal: `/configuracion/js/componentes/vcc-transporte-comparador-universal.js` y `/configuracion/css/componentes/vcc-transporte-comparador-universal.css`.
+- El contenido de los precios oficiales se obtiene del catálogo de destino: `/configuracion/datos/transporte/estocolmo-sl-2026.js`.
+- La guía de **Suecia** no se modifica hasta aprobar el diseño de Estocolmo.
 
-Una recomendación VCC central calcula la menor de las alternativas
-comparables y muestra el ahorro por persona. El coche se puede comparar
-numéricamente con la red urbana en rutas por el centro, pero **no** en
-excursiones de carretera o islas/ferries no cubiertos por los mismos
-billetes, que se muestran con advertencias y sin recomendaciones de
-precio engañosas. Si no se han introducido todos los gastos del coche,
-su importe permanece indeterminado y no participa en el mínimo.
+### Transporte privado
 
-El editor de tarifas oficiales queda plegado; cualquier cambio del
-visitante pasa a ser **SIMULACIÓN PERSONAL** y no altera el catálogo.
-Para 48h o paquetes de N viajes se usa el motor genérico; títulos
-inferiores a 24 h requieren horas de trayecto reales y quedan excluidos
-de la optimización.
+Se introduce el coste total por VEHÍCULO para todo el itinerario:
+alquiler (si corresponde), combustible/carga, aparcamiento y peajes,
+seguro y otros gastos. Los dos costes principales se exigen para
+recomendar el coche; los opcionales vacíos equivalen a cero y se
+explica al usuario. La capacidad por vehículo es editable
+(predeterminada: 5 plazas) y `ceil(viajeros/plazas)` calcula
+los coches necesarios. Se muestran coste por persona y por grupo.
+
+### Transporte público
+
+Cada viaje es editable por separado: nombre, día, precio individual
+por pasajero, hora opcional e indicación de si el bono lo cubre.
+Pueden existir diez viajes de precios diferentes (por ejemplo uno
+de 5 y otro de 7) y se suman individualmente.
+
+Se permite comparar SIN bono o CON bono, por duración de N horas,
+N días o N viajes. Se pueden elegir los bonos oficiales del catálogo
+o introducir uno personalizado. Los bonos se calculan por persona,
+no compartidos, y solo cubren los trayectos marcados por el usuario.
+Para paquetes de N viajes, se cubren hasta N trayectos válidos por
+bono; el optimizador escoge los de precio más alto entre los elegibles
+para evitar sobrecostes. Para bonos temporales, se busca la compra
+más económica entre el bono y los trayectos individuales.
+
+**Horas reales:** en pases de menos de 24 horas se requieren horas
+para todas las salidas cubiertas; de lo contrario se indica
+que el cálculo no está disponible. Para 24 horas o más sin horas
+específicas se aproxima por bloques de días, visible como
+advertencia. No se presupone que los bonos de 10 viajes o 48 h
+se vendan realmente en Estocolmo: son **SIMULACIONES** si los
+introduce el usuario.
+
+### Recomendación VCC
+
+Se comparan costes totales para el mismo número de viajeros, dando
+la opción de menor coste entre billetes sueltos, la mejor combinación
+que incluye bono y coche. **El coche solo participa cuando hay
+costes introducidos y el usuario confirma que cubre la misma ruta**.
+La diferencia con la siguiente alternativa se expresa por persona.
+Si no coinciden los trayectos (ej. islas que requieren ferry), no
+se recomienda el coche por un importe irrelevante.
+
+### Adaptación a un destino nuevo
+
+No duplicar el motor ni el CSS. Usar el mismo componente y
+un catálogo por destino (operador, divisa, categorías, tipos de
+bono, precios y ámbito de cobertura), junto con el HTML de
+la calculadora. Las etiquetas específicas de moneda y operador
+deben configurarse desde la ficha correspondiente.
 
 ## Alta de un nuevo destino
 
