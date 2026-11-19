@@ -10,17 +10,21 @@
   max-width:850px;margin:0 0 17px;
   color:#515650;font:400 13px/1.65 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
 }
+/* Galería de la guía: mismo mosaico y visor VCC que Itinerarios / Qué ver,
+   con una previsualización mucho más baja y sin modificar el visor compartido. */
 .mv-page .mv-vcc-photo-section .day-gallery{
-  width:100%;max-width:850px;margin:0 auto;
+  width:100%;max-width:700px;margin:0 auto;
 }
-/* Mosaic VCC panoràmic, reutilitza el visor i la retícula compartits. */
 html body .mv-page #experiencia-transporte .vcc-booking-gallery .day-mosaic[data-count]{
- aspect-ratio:2.3!important;
- height:auto!important;
+  height:210px!important;
+  max-height:210px!important;
+  aspect-ratio:auto!important;
 }
 @media(max-width:800px){
  html body .mv-page #experiencia-transporte .vcc-booking-gallery .day-mosaic[data-count]{
-  aspect-ratio:1.85!important;
+   height:150px!important;
+   max-height:150px!important;
+   aspect-ratio:auto!important;
  }
 }
 .mv-page .mv-vcc-ticket-tool .mv-vcc-tool-surface{
