@@ -26,7 +26,7 @@
 <link rel="stylesheet" data-vcc-sacred-covers href="/configuracion/css/componentes/portades-contracte-unic-vcc.css?v=20261117-espais-intermedis-v6">
 <link rel="stylesheet" href="/configuracion/css/componentes/como-ahorrar-carruseles-vcc.css?v=20261117-notes-compactes-v3">
 <link rel="stylesheet" href="/configuracion/css/componentes/vcc-gallery-booking.css?v=20261117-decoded-gallery-v2">
-<link rel="stylesheet" href="/configuracion/css/destinos/suecia/estocolmo/como-moverse-calculadora-galeria-vcc.css?v=20261119-secciones-visor-v2">
+<link rel="stylesheet" href="/configuracion/css/destinos/suecia/estocolmo/como-moverse-calculadora-galeria-vcc.css?v=20261119-compacto-iconos-v3">
 <script type="application/ld+json" data-vcc-generated-page>{"@context":"https://schema.org","@type":"WebPage","@id":"https://viajandoconcabeza.com/destinos/suecia/estocolmo/como-moverse#webpage","url":"https://viajandoconcabeza.com/destinos/suecia/estocolmo/como-moverse","name":"Cómo moverse por Estocolmo: metro, ferris y billetes | VCC","description":"Cómo moverse por Estocolmo: metro, autobús, ferry a Vaxholm, billetes SL y pago con Visa. Precios de 2026, nuestra ruta y consejos para ahorrar.","inLanguage":"es","isPartOf":{"@type":"WebSite","name":"Viajando con Cabeza","url":"https://viajandoconcabeza.com/"},"primaryImageOfPage":{"@type":"ImageObject","url":"https://viajandoconcabeza.com/configuracion/imagenes/fondos/fondos-como-moverse.webp"}}</script>
 </head><body class="mv-body">
 <header class="page-header"></header>
@@ -49,8 +49,8 @@
   <a href="#recomendacion" class="is-active" aria-current="location">COSTE DEL TRANSPORTE</a>
   <a href="#transportes">ELIGE TU TRANSPORTE</a>
   <a href="#comparar-billetes">ELIGE TU BILLETE</a>
-  <a href="#experiencia-transporte">NUESTRA EXPERIENCIA</a>
   <a href="#mv-vcc-ticket-calculator">CALCULADORA</a>
+  <a href="#experiencia-transporte">NUESTRA EXPERIENCIA</a>
   <a href="#billetes">CÓMO AHORRAR</a>
 </nav>
 <main class="mv-container">
@@ -196,6 +196,49 @@
 </section>
 
 
+<section class="mv-vcc-ticket-tool" id="mv-vcc-ticket-calculator" aria-labelledby="mv-vcc-ticket-heading">
+ <header class="mv-section-head vcc-editorial-heading">
+  <div class="vcc-editorial-heading-main"><span class="mv-overline vcc-editorial-overline">Tu ruta, tus billetes</span><h2 class="vcc-editorial-title" id="mv-vcc-ticket-heading">CALCULA TU TRANSPORTE</h2></div>
+  <p class="vcc-editorial-description">Elige tus trayectos y descubre cuánto ahorrar.</p>
+ </header>
+ <div class="mv-vcc-tool-surface">
+  <div class="mv-vcc-tool-grid">
+   <div class="mv-vcc-ticket-controls">
+    <div class="mv-vcc-main-controls">
+     <label class="mv-vcc-field"><span class="mv-vcc-control-label"><svg class="mv-vcc-filter-icon" aria-hidden="true" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"></rect><path d="M16 3v4M8 3v4M3 10h18"></path></svg>DÍAS</span><select id="mv-vcc-days" aria-label="Días de transporte">
+      <option value="1">1 día</option><option value="2">2 días</option><option value="3" selected>3 días</option><option value="4">4 días</option><option value="5">5 días</option><option value="6">6 días</option><option value="7">7 días</option>
+     </select></label>
+     <label class="mv-vcc-field"><span class="mv-vcc-control-label"><svg class="mv-vcc-filter-icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8ZM22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"></path></svg>VIAJEROS</span><input id="mv-vcc-people" type="number" min="1" max="10" step="1" inputmode="numeric" value="2"></label>
+     <label class="mv-vcc-field"><span class="mv-vcc-control-label"><svg class="mv-vcc-filter-icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M2 9a3 3 0 0 0 0 6v3a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-3a3 3 0 0 1 0-6V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v3ZM13 5v2M13 10v4M13 17v2"></path></svg>TARIFA</span><select id="mv-vcc-fare" aria-label="Tipo de tarifa SL">
+      <option value="adult" selected>Adulto</option><option value="reduced">Reducida*</option>
+     </select></label>
+    </div>
+    <div class="mv-vcc-day-heading"><strong>Billetes por día <small>(por persona)</small></strong></div>
+    <div class="mv-vcc-day-inputs" id="mv-vcc-day-inputs"></div>
+    <button type="button" class="mv-vcc-reset" id="mv-vcc-reset">Restablecer ruta VCC</button>
+   </div>
+   <div class="mv-vcc-ticket-result" aria-live="polite" aria-atomic="true">
+    <span class="mv-vcc-result-eyebrow">OPCIÓN MÁS ECONÓMICA</span>
+    <strong class="mv-vcc-recommend" id="mv-vcc-recommend">Billetes sueltos</strong>
+    <div class="mv-vcc-cost-summary">
+     <div><span>Por persona</span><strong id="mv-vcc-optimal">301 SEK</strong></div>
+     <div><span id="mv-vcc-group-label">Total 2 viajeros</span><strong id="mv-vcc-group">602 SEK</strong></div>
+    </div>
+    <div class="mv-vcc-result-comparisons">
+     <p><span>Todos los billetes sueltos</span><b id="mv-vcc-singles">301 SEK</b></p>
+     <p id="mv-vcc-72-row"><span>Abono SL de 72 h</span><b id="mv-vcc-72">360 SEK</b></p>
+    </div>
+    <div class="mv-vcc-saving-card">
+      <span id="mv-vcc-saving-label">Te ahorras</span>
+      <strong id="mv-vcc-saving-amount">59 SEK</strong>
+      <span id="mv-vcc-saving-scope">por persona</span>
+    </div>
+    <details class="mv-vcc-breakdown"><summary>Ver desglose por días</summary><ol class="mv-vcc-plan" id="mv-vcc-plan" aria-label="Desglose de la recomendación"></ol></details>
+   </div>
+  </div>
+  <details class="mv-vcc-terms"><summary>Tarifas y condiciones del cálculo</summary><p>Tarifas SL 2026: adulto 43 / 180 / 360 SEK y reducida 26 / 110 / 220 SEK (sencillo / 24 h / 72 h). La tarifa reducida requiere cumplir los requisitos de SL. Cuenta billetes de 75 minutos, no cada transbordo. Los abonos se activan por horas continuas; esta comparación aproxima bloques de días. Verifica horarios y precios antes de comprar en las <a href="https://sl.se/en/fares-and-tickets" target="_blank" rel="noopener noreferrer">condiciones oficiales SL</a>.</p></details>
+ </div>
+</section>
 <section class="mv-vcc-photo-section" id="experiencia-transporte" aria-labelledby="mv-vcc-gallery-heading">
  <header class="mv-section-head vcc-editorial-heading">
   <div class="vcc-editorial-heading-main"><span class="mv-overline vcc-editorial-overline">Así recorrimos la ciudad</span><h2 class="vcc-editorial-title" id="mv-vcc-gallery-heading">NUESTRA EXPERIENCIA</h2></div>
@@ -220,49 +263,6 @@
 <button type="button" data-photo="https://img.viajandoconcabeza.com/destinos/suecia/estocolmo-archipelago/2026-dia8/DSC08337.avif" data-caption="Desde el ferry" aria-label="Abrir foto 14 de 15: Desde el ferry"></button>
 <button type="button" data-photo="https://img.viajandoconcabeza.com/destinos/suecia/estocolmo/2026-dia6/DSC08080.avif" data-caption="Vistas al caminar" aria-label="Abrir foto 15 de 15: Vistas al caminar"></button>
   </div>
- </div>
-</section>
-<section class="mv-vcc-ticket-tool" id="mv-vcc-ticket-calculator" aria-labelledby="mv-vcc-ticket-heading">
- <header class="mv-section-head vcc-editorial-heading">
-  <div class="vcc-editorial-heading-main"><span class="mv-overline vcc-editorial-overline">Tu ruta, tus billetes</span><h2 class="vcc-editorial-title" id="mv-vcc-ticket-heading">CALCULA TU TRANSPORTE</h2></div>
-  <p class="vcc-editorial-description">Adapta la comparativa SL a tus días, trayectos y viajeros.</p>
- </header>
- <div class="mv-vcc-tool-surface">
-  <div class="mv-vcc-tool-grid">
-   <div class="mv-vcc-ticket-controls">
-    <div class="mv-vcc-main-controls">
-     <label class="mv-vcc-field"><span>DÍAS</span><select id="mv-vcc-days" aria-label="Días de transporte">
-      <option value="1">1 día</option><option value="2">2 días</option><option value="3" selected>3 días</option><option value="4">4 días</option><option value="5">5 días</option><option value="6">6 días</option><option value="7">7 días</option>
-     </select></label>
-     <label class="mv-vcc-field"><span>VIAJEROS</span><input id="mv-vcc-people" type="number" min="1" max="10" step="1" inputmode="numeric" value="2"></label>
-     <label class="mv-vcc-field"><span>TARIFA</span><select id="mv-vcc-fare" aria-label="Tipo de tarifa SL">
-      <option value="adult" selected>Adulto</option><option value="reduced">Reducida*</option>
-     </select></label>
-    </div>
-    <div class="mv-vcc-day-heading"><strong>Billetes de 75 min por persona</strong><small>Indica cuántos necesitas cada día</small></div>
-    <div class="mv-vcc-day-inputs" id="mv-vcc-day-inputs"></div>
-    <button type="button" class="mv-vcc-reset" id="mv-vcc-reset">Usar nuestra ruta VCC · 3 días</button>
-   </div>
-   <div class="mv-vcc-ticket-result" aria-live="polite" aria-atomic="true">
-    <span class="mv-vcc-result-eyebrow">OPCIÓN MÁS ECONÓMICA</span>
-    <strong class="mv-vcc-recommend" id="mv-vcc-recommend">Billetes sueltos</strong>
-    <div class="mv-vcc-cost-summary">
-     <div><span>Por persona</span><strong id="mv-vcc-optimal">301 SEK</strong></div>
-     <div><span id="mv-vcc-group-label">Total 2 viajeros</span><strong id="mv-vcc-group">602 SEK</strong></div>
-    </div>
-    <div class="mv-vcc-result-comparisons">
-     <p><span>Todos los billetes sueltos</span><b id="mv-vcc-singles">301 SEK</b></p>
-     <p id="mv-vcc-72-row"><span>Abono SL de 72 h</span><b id="mv-vcc-72">360 SEK</b></p>
-    </div>
-    <div class="mv-vcc-saving-card">
-      <span id="mv-vcc-saving-label">Te ahorras</span>
-      <strong id="mv-vcc-saving-amount">59 SEK</strong>
-      <span id="mv-vcc-saving-scope">por persona</span>
-    </div>
-    <ol class="mv-vcc-plan" id="mv-vcc-plan" aria-label="Desglose de la recomendación"></ol>
-   </div>
-  </div>
-  <p class="mv-vcc-note">Estimación con tarifas SL de 2026 indicadas en esta guía (adulto: 43 / 180 / 360 SEK; reducida: 26 / 110 / 220 SEK). *La tarifa reducida solo corresponde a personas elegibles. Cuenta billetes de 75 minutos, no cada transbordo. Los abonos duran 24 o 72 horas desde su activación: el cálculo aproxima bloques de días y conviene verificar los horarios reales. <a href="https://sl.se/en/fares-and-tickets" target="_blank" rel="noopener noreferrer">Condiciones oficiales SL</a>.</p>
  </div>
 </section>
 <section class="mv-seo" id="billetes" aria-labelledby="mv-seo-title">
