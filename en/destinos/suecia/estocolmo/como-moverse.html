@@ -28,7 +28,7 @@
 <link rel="stylesheet" data-vcc-sacred-covers href="/configuracion/css/componentes/portades-contracte-unic-vcc.css?v=20261117-espais-intermedis-v6">
 <link rel="stylesheet" href="/configuracion/css/componentes/como-ahorrar-carruseles-vcc.css?v=20261117-notes-compactes-v3">
 <link rel="stylesheet" href="/configuracion/css/componentes/vcc-gallery-booking.css?v=20261119-etiquetes-visor-v2">
-<link rel="stylesheet" href="/configuracion/css/destinos/suecia/estocolmo/como-moverse-calculadora-galeria-vcc.css?v=20261119-comparar-coche-v10">
+<link rel="stylesheet" href="/configuracion/css/destinos/suecia/estocolmo/como-moverse-calculadora-galeria-vcc.css?v=20261119-tarifes-universals-v11">
 
 </head><body class="mv-body">
 <header class="page-header"></header>
@@ -218,6 +218,23 @@
     <div class="mv-vcc-day-heading"><strong>Tickets per day <small>(per person)</small></strong></div>
     <div class="mv-vcc-day-inputs" id="mv-vcc-day-inputs"></div>
     <button type="button" class="mv-vcc-reset" id="mv-vcc-reset">Reset VCC route</button>
+    <details class="mv-vcc-fare-catalog" id="mv-vcc-fare-catalog">
+      <summary><svg class="mv-vcc-filter-icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M2 9a3 3 0 0 0 0 6v3a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-3a3 3 0 0 1 0-6V6a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v3ZM13 5v2M13 10v4M13 17v2"/></svg>View tickets and passes · editable prices</summary>
+      <div class="mv-vcc-fare-editor">
+        <div class="mv-vcc-fare-list" id="mv-vcc-fare-list"></div>
+        <div class="mv-vcc-fare-custom">
+          <strong>Simulate another pass</strong>
+          <div class="mv-vcc-fare-add-fields">
+            <label class="mv-vcc-field"><span>NAME</span><input id="mv-vcc-fare-name" type="text" maxlength="38" placeholder="E.g. 10-trip pass"></label>
+            <label class="mv-vcc-field"><span>DURATION</span><input id="mv-vcc-fare-quantity" type="number" min="1" max="365" step="1" inputmode="numeric" value="10"></label>
+            <label class="mv-vcc-field"><span>TYPE</span><select id="mv-vcc-fare-kind"><option value="rides">Trips</option><option value="hours">Hours</option><option value="days">Days</option></select></label>
+            <label class="mv-vcc-field"><span>PRICE · SEK</span><input id="mv-vcc-fare-price" type="number" min="0" max="100000" step="0.01" inputmode="decimal" placeholder="Price"></label>
+          </div>
+          <div class="mv-vcc-fare-actions"><button id="mv-vcc-add-fare" type="button">+ Add simulation</button><button id="mv-vcc-reset-fares" type="button">Restore official prices</button></div>
+        </div>
+        <p id="mv-vcc-fare-note" class="mv-vcc-fare-note">Official prices are from SL for 2026. Changing an amount or adding a pass creates a personal simulation, not a published fare. Tickets for less than 24 h require real schedules to calculate combinations.</p>
+      </div>
+    </details>
    </div>
    <div class="mv-vcc-ticket-result" aria-live="polite" aria-atomic="true">
     <div class="mv-vcc-result-header"><div><span class="mv-vcc-result-eyebrow">CHEAPEST OPTION</span>
@@ -359,6 +376,8 @@
 <script src="/configuracion/js/plantillas/como-moverse-carrusel.js?v=20261115-perfiles-v1" defer></script>
 <div class="day-lightbox vcc-booking-gallery-modal" id="mvVCCSharedGallery" data-vcc-booking-gallery data-vcc-photo-label-overlay data-vcc-lazy-gallery-modal data-vcc-gallery-selector=".mv-vcc-photo-section .day-mosaic" hidden role="dialog" aria-modal="true" aria-label="Stockholm transport photo gallery"></div>
 <script src="/configuracion/js/componentes/vcc-itinerary-gallery-on-demand.js?v=20261119-etiquetes-visor-v3" defer></script>
-<script src="/configuracion/js/destinos/suecia/estocolmo/como-moverse-calculadora-galeria-vcc.js?v=20261119-comparar-coche-v3" defer></script>
+<script src="/configuracion/datos/transporte/estocolmo-sl-2026.js?v=20261119-v1" defer></script>
+<script src="/configuracion/js/componentes/vcc-transporte-optimizador.js?v=20261119-v1" defer></script>
+<script src="/configuracion/js/destinos/suecia/estocolmo/como-moverse-calculadora-galeria-vcc.js?v=20261119-tarifes-universals-v4" defer></script>
 <script src="/configuracion/js/vcc-en-runtime.js" defer></script>
 </body></html>
