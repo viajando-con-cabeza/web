@@ -1722,6 +1722,14 @@ html body .vcc-editorial-heading > .vcc-editorial-heading-side{
   max-height:3em!important;
   overflow:hidden!important;
 }
+/* Alçada del resum estable en escriptori: tant amb una com amb dues
+   línies comença a l'altura del títol, no del sobretítol. */
+@media(min-width:1151px){
+  html body .vcc-editorial-heading:not(.vcc-editorial-heading--description-below) > .vcc-editorial-description,
+  html body .vcc-editorial-heading > .vcc-editorial-heading-side{
+    height:3em!important;
+  }
+}
 html body .vcc-editorial-heading.vcc-editorial-heading--description-below{
   grid-template-columns:minmax(0,1fr)!important;
   align-items:start!important;
