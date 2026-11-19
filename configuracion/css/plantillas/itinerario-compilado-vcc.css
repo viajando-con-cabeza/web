@@ -1561,6 +1561,37 @@ html body .vcc-booking-gallery-modal[data-vcc-photo-label-overlay] .day-lightbox
  }
 }
 
+
+/* VCC · Patró reutilitzable de 3 targetes equivalents: dos panells de contingut
+   navegables i un mosaic fotogràfic lateral. Opt-in, no modifica altres galeries. */
+.vcc-gallery-companion-grid{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  column-gap:12px;
+  align-items:stretch;
+  width:100%;
+  min-width:0;
+}
+.vcc-gallery-companion-grid>.vcc-gallery-companion-main{
+  grid-column:span 2;
+  min-width:0;
+}
+.vcc-gallery-companion-grid>.vcc-gallery-companion-aside{
+  grid-column:3;
+  min-width:0;
+  align-self:stretch;
+}
+@media(max-width:820px){
+  .vcc-gallery-companion-grid{
+    grid-template-columns:minmax(0,1fr);
+    gap:14px;
+  }
+  .vcc-gallery-companion-grid>.vcc-gallery-companion-main,
+  .vcc-gallery-companion-grid>.vcc-gallery-companion-aside{
+    grid-column:1;
+  }
+}
+
 /* === configuracion/css/componentes/vcc-hero-editorial-vcc.css === */
 /* Única font de la fotografia d'itinerari (sense estils inline).
    Mateixa foto original en AVIF d'alta qualitat a escriptori i
