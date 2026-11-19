@@ -1,5 +1,5 @@
 <!doctype html>
-<html  class="vcc-lcp-scroll-stable" lang="en" data-vcc-generated-en="1" data-vcc-i18n-version="94739e6dd61f" data-vcc-en-coverage="89"><head>
+<html  class="vcc-lcp-scroll-stable" lang="en" data-vcc-generated-en="1" data-vcc-i18n-version="94739e6dd61f" data-vcc-en-coverage="90"><head>
 <meta name="robots" content="noindex,follow">
 <link rel="canonical" href="https://viajandoconcabeza.com/en/destinos/suecia/estocolmo/como-moverse">
 <meta property="og:url" content="https://viajandoconcabeza.com/en/destinos/suecia/estocolmo/como-moverse">
@@ -29,6 +29,7 @@
 <link rel="stylesheet" href="/configuracion/css/componentes/como-ahorrar-carruseles-vcc.css?v=20261117-notes-compactes-v3">
 <link rel="stylesheet" href="/configuracion/css/componentes/vcc-gallery-booking.css?v=20261119-etiquetes-visor-v2">
 <link rel="stylesheet" href="/configuracion/css/destinos/suecia/estocolmo/como-moverse-calculadora-galeria-vcc.css?v=20261119-comparador-3-columnas-v15">
+<link rel="stylesheet" href="/configuracion/css/componentes/vcc-transporte-comparador-universal.css?v=20261119-v1">
 
 </head><body class="mv-body">
 <header class="page-header"></header>
@@ -199,104 +200,62 @@
 
 
 <section class="mv-vcc-ticket-tool" id="mv-vcc-ticket-calculator" aria-labelledby="mv-vcc-ticket-heading">
- <header class="mv-section-head vcc-editorial-heading">
-  <div class="vcc-editorial-heading-main"><span class="mv-overline vcc-editorial-overline">Compare and decide</span><h2 class="vcc-editorial-title" id="mv-vcc-ticket-heading">CALCULATE YOUR TRANSPORT</h2></div>
-  <p class="vcc-editorial-description">Car, tickets, and passes: your best option.</p>
- </header>
- <div class="mv-vcc-tool-surface">
-  <div class="mv-vcc-shared-controls">
-   <div class="mv-vcc-main-controls">
-     <label class="mv-vcc-field"><span class="mv-vcc-control-label"><svg class="mv-vcc-filter-icon" aria-hidden="true" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"></rect><path d="M16 3v4M8 3v4M3 10h18"></path></svg>DAYS</span><select id="mv-vcc-days" aria-label="Travel Days">
-      <option value="1">1 day</option><option value="2">2 days</option><option value="3" selected>3 days</option><option value="4">4 days</option><option value="5">5 days</option><option value="6">6 days</option><option value="7">7 days</option>
-     </select></label>
-     <label class="mv-vcc-field"><span class="mv-vcc-control-label"><svg class="mv-vcc-filter-icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8ZM22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"></path></svg>TRAVELERS</span><input id="mv-vcc-people" type="number" min="1" max="10" step="1" inputmode="numeric" value="2"></label>
-     <label class="mv-vcc-field"><span class="mv-vcc-control-label"><svg class="mv-vcc-filter-icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M2 9a3 3 0 0 0 0 6v3a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-3a3 3 0 0 1 0-6V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v3ZM13 5v2M13 10v4M13 17v2"></path></svg>FARE</span><select id="mv-vcc-fare" aria-label="SL Fare Type">
-      <option value="adult" selected>Adult</option><option value="reduced">Reduced*</option>
-     </select></label>
-    </div>
-   <div class="mv-vcc-trip-inputs">
-    <div class="mv-vcc-day-heading"><strong>Tickets per day <small>(validations per person)</small></strong></div>
-    <div class="mv-vcc-day-inputs" id="mv-vcc-day-inputs"></div>
+<header class="mv-section-head vcc-editorial-heading"><div class="vcc-editorial-heading-main"><span class="mv-overline vcc-editorial-overline">Compare before you decide</span><h2 class="vcc-editorial-title" id="mv-vcc-ticket-heading">CALCULATE YOUR TRANSPORT</h2></div><p class="vcc-editorial-description">Compare private transport, individual trips, and passes based on your route and budget.</p></header>
+<div id="vcc-transporte-comparador">
+ <div class="tc-top"><div class="tc-setup">
+ <label class="tc-field"><span>DAYS</span><select id="tc-days"><option value="1">1 day</option><option value="2">2 days</option><option value="3" selected>3 days</option><option value="4">4 days</option><option value="5">5 days</option><option value="6">6 days</option><option value="7">7 days</option><option value="8">8 days</option><option value="9">9 days</option><option value="10">10 days</option><option value="11">11 days</option><option value="12">12 days</option><option value="13">13 days</option><option value="14">14 days</option></select></label>
+ <label class="tc-field"><span>TRAVELERS</span><input id="tc-people" type="number" min="1" max="30" step="1" value="2" inputmode="numeric"></label>
+ <label class="tc-field"><span>FARE</span><select id="tc-fare"><option value="adult">Adult</option><option value="reduced">Reduced*</option></select></label>
+ </div><button id="tc-reset" class="tc-small-btn" type="button">Reset VCC route</button></div>
+ <div class="tc-columns">
+  <section class="tc-panel tc-panel-private" aria-labelledby="tc-private-title">
+   <div class="tc-panel-head"><span class="tc-panel-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m5 16 1.4-6.5a2 2 0 0 1 2-1.5h7.2a2 2 0 0 1 2 1.5L19 16M4 19v-3h16v3M3 16v-3.5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2V16H3zM6 13h.01M18 13h.01"/></svg></span><div><span class="tc-panel-overline">Option 1</span><h3 id="tc-private-title">PRIVATE TRANSPORT</h3></div></div>
+   <p class="tc-panel-subtext">All itinerary expenses are per car, not per person.</p>
+   <div class="tc-car-options">
+    <label class="tc-field"><span>CAR</span><select id="tc-car-kind"><option value="rent">For rent</option><option value="owned">Now available</option></select></label>
+    <label class="tc-field"><span>SEATS PER CAR</span><input id="tc-seats" type="number" min="1" max="15" value="5"></label>
+    <div id="tc-rental-wrap"><label class="tc-field"><span>TOTAL RENTAL · SEK</span><input id="tc-rental" type="number" min="0" max="1000000" step=".01" inputmode="decimal" placeholder="Rental amount" ></label></div>
+    <label class="tc-field"><span>FUEL / CHARGING · SEK</span><input id="tc-fuel" type="number" min="0" max="1000000" step=".01" inputmode="decimal" placeholder="Total cost" ></label>
+    <label class="tc-field"><span>PARKING AND TOLLS · SEK</span><input id="tc-parking" type="number" min="0" max="1000000" step=".01" inputmode="decimal" placeholder="Optional: 0" ></label>
+    <label class="tc-field"><span>INSURANCE · SEK</span><input id="tc-insurance" type="number" min="0" max="1000000" step=".01" inputmode="decimal" placeholder="Optional: 0" ></label>
+    <label class="tc-field"><span>OTHER EXPENSES · SEK</span><input id="tc-extras" type="number" min="0" max="1000000" step=".01" inputmode="decimal" placeholder="Optional: 0" ></label>
    </div>
-   <button type="button" class="mv-vcc-reset" id="mv-vcc-reset">Reset VCC route</button>
-  </div>
-  <div class="mv-vcc-comparison-grid" aria-label="Comparison of three transport options">
-   <article class="mv-vcc-compare-card mv-vcc-car-card" aria-labelledby="mv-vcc-car-title">
-    <div class="mv-vcc-compare-head"><span class="mv-vcc-card-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m5 16 1.4-6.5a2 2 0 0 1 2-1.5h7.2a2 2 0 0 1 2 1.5L19 16M4 19v-3h16v3M3 16v-3.5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2V16H3zM6 13h.01M18 13h.01"/></svg></span><div><span class="mv-vcc-compare-overline">Private transport</span><h3 id="mv-vcc-car-title">CAR</h3></div></div>
-    <div class="mv-vcc-car-fields">
-     <label class="mv-vcc-field"><span>ROUTE TYPE</span><select id="mv-vcc-car-route" aria-label="Car route type"><option value="city">Stockholm City Center</option><option value="road">Road trips</option><option value="islands">Archipelago islands</option></select></label>
-     <label class="mv-vcc-field"><span>CAR</span><select id="mv-vcc-car-type" aria-label="Car availability"><option value="own">Now available</option><option value="rent">For rent</option></select></label>
-     <label class="mv-vcc-field mv-vcc-car-rent-field" id="mv-vcc-car-rent-field" hidden><span>RENTAL · SEK/DAY</span><input id="mv-vcc-car-rent" type="number" inputmode="decimal" min="0" max="100000" step="1" placeholder="Actual price" aria-label="Car rental in crowns per day"></label>
-     <label class="mv-vcc-field"><span>PARKING · SEK/DAY</span><input id="mv-vcc-car-parking" type="number" inputmode="decimal" min="0" max="100000" step="1" placeholder="e.g. 120" aria-label="Daily parking cost in crowns"></label>
-     <label class="mv-vcc-field"><span>GAS + TOLLS · TOTAL SEK</span><input id="mv-vcc-car-extras" type="number" inputmode="decimal" min="0" max="100000" step="1" placeholder="Trip cost" aria-label="Total fuel and tolls per car in crowns"></label>
+   <p class="tc-optional">To compare the car, enter the rental cost (if applicable) and fuel. Empty optional expenses are set to 0.</p>
+   <div class="tc-totals"><div><small id="tc-vehicles">1 car for 2 travelers</small><small>Per person</small><strong id="tc-car-pp">—</strong></div><div><small>Group total</small><strong id="tc-car-total">—</strong></div></div>
+  </section>
+  <section class="tc-panel tc-panel-public" aria-labelledby="tc-public-title">
+   <div class="tc-panel-head"><span class="tc-panel-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M2 9a3 3 0 0 0 0 6v3a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-3a3 3 0 0 1 0-6V6a2 2 0 0 1-2-2H4a2 2 0 0 1-2 2v3ZM13 5v2M13 10v4M13 17v2"/></svg></span><div><span class="tc-panel-overline">Option 2</span><h3 id="tc-public-title">PUBLIC TRANSPORT</h3></div></div>
+   <p class="tc-panel-subtext">Each trip (train, bus, metro, or ferry) may have a different price.</p>
+   <div class="tc-trip-head"><strong>Individual trips · <span id="tc-trip-count">7 trips</span></strong><button id="tc-add-trip" class="tc-small-btn" type="button">+ Add trip</button></div>
+   <div id="tc-trips" class="tc-trip-list" aria-label="Editable trips"></div>
+   <p class="tc-trip-hint">Nombre · día · precio por persona · hora opcional · «Bono» si el título lo cubre. La hora es necesaria para bonos cortos.</p>
+   <div class="tc-bonus">
+    <div class="tc-bonus-head"><strong>¿Compensa un abono?</strong><span>Price per person</span></div>
+    <label class="tc-field"><span>PASS / TICKET</span><select id="tc-pass" aria-label="Pass or voucher available"></select></label>
+    <div class="tc-bonus-fields" id="tc-pass-editor" hidden>
+      <label class="tc-field"><span>NAME</span><input id="tc-bonus-name" type="text" maxlength="48"></label>
+      <label class="tc-field"><span>TYPE</span><select id="tc-bonus-type"><option value="rides">Trips</option><option value="hours">Hours</option><option value="days">Days</option></select></label>
+      <label class="tc-field"><span>AMOUNT</span><input id="tc-bonus-quantity" type="number" min="1" max="365" value="10"></label>
+      <label class="tc-field"><span>PRICE · SEK</span><input id="tc-bonus-price" type="number" min="0" max="1000000" step=".01" inputmode="decimal" placeholder="Pass price" ></label>
     </div>
-    <div class="mv-vcc-option-totals" id="mv-vcc-car-costs" hidden>
-     <div><small>Per person</small><strong id="mv-vcc-car-person">—</strong></div>
-     <div><small>Group total</small><strong id="mv-vcc-car-total">—</strong></div>
-    </div>
-    <div class="mv-vcc-car-verdict" aria-live="polite">
-     <strong id="mv-vcc-car-verdict">In the center, it's usually not worth it</strong>
-     <p id="mv-vcc-car-reason">Parking and traveling to the center adds cost and time.</p>
-     <p id="mv-vcc-car-comparison" class="mv-vcc-car-compare-message">Enter expenses to compare them.</p>
-    </div>
-   </article>
-   <article class="mv-vcc-compare-card mv-vcc-single-card" aria-labelledby="mv-vcc-singles-title">
-    <div class="mv-vcc-compare-head"><span class="mv-vcc-card-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M2 9a3 3 0 0 0 0 6v3a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-3a3 3 0 0 1 0-6V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v3ZM13 5v2M13 10v4M13 17v2"/></svg></span><div><span class="mv-vcc-compare-overline">Public transport</span><h3 id="mv-vcc-singles-title">SINGLE TICKETS</h3></div></div>
-    <p class="mv-vcc-single-unit"><span>1 ticket</span><strong id="mv-vcc-single-unit">—</strong></p>
-    <p class="mv-vcc-count-hint" id="mv-vcc-single-count">7 validations per person</p>
-    <div class="mv-vcc-option-totals">
-     <div><small>Per person</small><strong id="mv-vcc-singles">301 SEK</strong></div>
-     <div><small>Group total</small><strong id="mv-vcc-single-group">602 SEK</strong></div>
-    </div>
-    <p class="mv-vcc-card-foot">A single paid validation may include transfers within its validity period.</p>
-   </article>
-   <article class="mv-vcc-compare-card mv-vcc-pass-card" aria-labelledby="mv-vcc-passes-title">
-    <div class="mv-vcc-compare-head"><span class="mv-vcc-card-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 10h18"/></svg></span><div><span class="mv-vcc-compare-overline">Public transport</span><h3 id="mv-vcc-passes-title">PASSES AND BONUSES</h3></div></div>
-    <div class="mv-vcc-pass-rates" id="mv-vcc-pass-rates" aria-label="Individual price for each pass"></div>
-    <div class="mv-vcc-option-totals" id="mv-vcc-pass-costs">
-     <div><small>Per person</small><strong id="mv-vcc-pass-person">—</strong></div>
-     <div><small>Group total</small><strong id="mv-vcc-pass-group">—</strong></div>
-    </div>
-    <p class="mv-vcc-card-foot" id="mv-vcc-pass-description">The best combination, including at least one pass or bonus.</p>
-   </article>
-  </div>
-  <div class="mv-vcc-ticket-result" aria-live="polite" aria-atomic="true">
-   <div class="mv-vcc-result-header"><div><span class="mv-vcc-result-eyebrow">VCC RECOMMENDATION</span>
-    <strong class="mv-vcc-recommend" id="mv-vcc-recommend">Single tickets</strong></div>
-    <img class="mv-vcc-result-logo" src="/configuracion/imagenes/marca/logo-vcc.svg" alt="Viajando con Cabeza" width="40" height="40" loading="lazy" decoding="async"></div>
-   <div class="mv-vcc-cost-summary">
-    <div><span>Per person</span><strong id="mv-vcc-optimal">301 SEK</strong></div>
-    <div><span id="mv-vcc-group-label">Total for 2 travelers</span><strong id="mv-vcc-group">602 SEK</strong></div>
+    <p id="tc-bonus-note" class="tc-bonus-output" aria-live="polite">Compare the pass with the indicated trips.</p>
+    <details class="tc-tariffs"><summary>Check SL reference rates</summary><div id="tc-official-tariffs" class="tc-tariffs-body"></div></details>
    </div>
-   <div class="mv-vcc-saving-card"><span id="mv-vcc-saving-label">Savings compared to the alternative</span><strong id="mv-vcc-saving-amount">—</strong><span id="mv-vcc-saving-scope">per person</span></div>
-   <p class="mv-vcc-recommend-note" id="mv-vcc-recommend-note"></p>
-   <details class="mv-vcc-breakdown"><summary>View ticket breakdown</summary><ol class="mv-vcc-plan" id="mv-vcc-plan" aria-label="Recommendation Breakdown"></ol></details>
-  </div>
-    <details class="mv-vcc-fare-catalog" id="mv-vcc-fare-catalog">
-      <summary><svg class="mv-vcc-filter-icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M2 9a3 3 0 0 0 0 6v3a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-3a3 3 0 0 1 0-6V6a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v3ZM13 5v2M13 10v4M13 17v2"/></svg>View tickets and passes · editable prices</summary>
-      <div class="mv-vcc-fare-editor">
-        <p class="mv-vcc-fare-modes" id="mv-vcc-fare-modes"></p>
-        <div class="mv-vcc-fare-list" id="mv-vcc-fare-list"></div>
-        <div class="mv-vcc-fare-custom">
-          <strong>Simulate another pass</strong>
-          <div class="mv-vcc-fare-add-fields">
-            <label class="mv-vcc-field"><span>NAME</span><input id="mv-vcc-fare-name" type="text" maxlength="38" placeholder="E.g. 10-trip pass"></label>
-            <label class="mv-vcc-field"><span>DURATION</span><input id="mv-vcc-fare-quantity" type="number" min="1" max="365" step="1" inputmode="numeric" value="10"></label>
-            <label class="mv-vcc-field"><span>TYPE</span><select id="mv-vcc-fare-kind"><option value="rides">Trips</option><option value="hours">Hours</option><option value="days">Days</option></select></label>
-            <label class="mv-vcc-field"><span id="mv-vcc-fare-currency">PRICE · SEK</span><input id="mv-vcc-fare-price" type="number" min="0" max="100000" step="0.01" inputmode="decimal" placeholder="Price"></label>
-          </div>
-          <div class="mv-vcc-fare-actions"><button id="mv-vcc-add-fare" type="button">+ Add simulation</button><button id="mv-vcc-reset-fares" type="button">Restore official prices</button></div>
-        </div>
-        <p id="mv-vcc-fare-note" class="mv-vcc-fare-note">Official prices are from SL for 2026. Changing an amount or adding a pass creates a personal simulation, not a published fare. Tickets for less than 24 h require real schedules to calculate combinations.</p>
-      </div>
-    </details>
-
-  <details class="mv-vcc-car-notes"><summary>Car conditions and tolls</summary>
-    <p class="mv-vcc-car-disclaimer">Estimated costs entered by you for the selected days. We calculate one car for every 5 travelers; please verify seating capacity and insurance. The SL cost only represents the urban trips you have indicated: <strong>does not include excursions or special ferries</strong>. Municipal parking in 2026: from 20–55 SEK/h in central areas, depending on the zone and time. Congestion charges can add up to 105–135 SEK/day; enter what you expect to pay in «Fuel + tolls». <a href="https://parkering.stockholm/en/paying-to-park/tariff-zones-and-fees/" target="_blank" rel="noopener noreferrer">Official parking</a> · <a href="https://www.transportstyrelsen.se/en/road/vehicles/taxes-and-fees/road-tolls/congestion-taxes-in-stockholm-and-gothenburg/congestion-tax-in-stockholm/hours-and-amounts-in-stockholm/" target="_blank" rel="noopener noreferrer">Official tolls</a>.</p>
-  </details>
-  <details class="mv-vcc-terms"><summary>Calculation rates and conditions</summary><p>Ticket and pass fares can be consulted and updated via the destination's official catalog (open "View tickets and passes" to see individual prices). Reduced fares require meeting SL requirements. It counts 75-minute tickets, not every transfer. Passes are activated for continuous hours; this comparison approximates day blocks. Verify schedules and prices before purchasing at the <a href="https://sl.se/en/fares-and-tickets" target="_blank" rel="noopener noreferrer">official SL conditions</a>.</p></details>
-
+   <div class="tc-public-totals">
+    <div><h4>Single tickets</h4><div class="tc-totals"><div><small>Per person</small><strong id="tc-individual-pp">—</strong></div><div><small>Group total</small><strong id="tc-individual-total">—</strong></div></div></div>
+    <div><h4>With pass</h4><div class="tc-totals"><div><small>Per person</small><strong id="tc-bonus-pp">—</strong></div><div><small>Group total</small><strong id="tc-bonus-total">—</strong></div></div></div>
+   </div>
+  </section>
  </div>
+ <label class="tc-compare-checkbox"><input id="tc-same-route" type="checkbox" checked>The car and public transport cover the same route (excluding ferries or extra trips)</label>
+ <div class="tc-result" aria-live="polite">
+  <div class="tc-result-heading"><img src="/configuracion/imagenes/marca/logo-vcc.svg" width="35" height="35" alt="Viajando con Cabeza" loading="lazy" decoding="async"><div><span>VCC RECOMMENDATION</span><strong id="tc-recommend">Single tickets</strong></div></div>
+  <div class="tc-result-amounts"><div><small>Per person</small><strong id="tc-result-pp">—</strong></div><div><small>Total · <span id="tc-people-label">2 travelers</span></small><strong id="tc-result-total">—</strong></div></div>
+  <div class="tc-saving"><span>Savings compared to another option</span><strong id="tc-saving">—</strong><span>per person</span></div>
+  <p id="tc-recommend-note">Enter expenses to compare.</p>
+ </div>
+ <div class="tc-bottom"><p id="tc-sim-note">Reference SL rates, editable by you.</p><p>Hourly passes: exact hours are used if provided. Without them, 24h or longer passes use a daily approximation. Per-person rates and non-shared passes apply to all travelers.</p></div>
+</div>
 </section>
 <section class="mv-vcc-photo-section" id="experiencia-transporte" aria-labelledby="mv-vcc-gallery-heading">
  <header class="mv-section-head vcc-editorial-heading">
@@ -393,7 +352,8 @@
 <div class="day-lightbox vcc-booking-gallery-modal" id="mvVCCSharedGallery" data-vcc-booking-gallery data-vcc-photo-label-overlay data-vcc-lazy-gallery-modal data-vcc-gallery-selector=".mv-vcc-photo-section .day-mosaic" hidden role="dialog" aria-modal="true" aria-label="Stockholm transport photo gallery"></div>
 <script src="/configuracion/js/componentes/vcc-itinerary-gallery-on-demand.js?v=20261119-etiquetes-visor-v3" defer></script>
 <script src="/configuracion/datos/transporte/estocolmo-sl-2026.js?v=20261119-v1" defer></script>
-<script src="/configuracion/js/componentes/vcc-transporte-optimizador.js?v=20261119-v2" defer></script>
-<script src="/configuracion/js/destinos/suecia/estocolmo/como-moverse-calculadora-galeria-vcc.js?v=20261119-comparador-3-columnas-v8" defer></script>
+<script src="/configuracion/js/componentes/vcc-transporte-comparador-universal.js?v=20261119-v2" defer></script>
+
+
 <script src="/configuracion/js/vcc-en-runtime.js" defer></script>
 </body></html>
