@@ -168,30 +168,21 @@ html body .ql-page #imprescindibles .ql-essential-arrow:disabled{
 }
 
 
-/* VCC · 17-11-2026 · Ritme editorial de totes les seccions Qué llevar.
-   Descripció natural immediatament després del títol, no a la columna dreta. */
-html body .ql-page :is(#experiencia-vcc,#que-maleta,#haz-tu-maleta,#imprescindibles,#consejos) .ql-section-heading{
-  display:block!important;width:100%!important;max-width:100%!important;
-  grid-template-columns:none!important;align-items:start!important;
-  margin-bottom:13px!important;
+/* Capçaleres compartides VCC: texts curts a la dreta (màx. 2 línies);
+   resum extens sota el títol, sense truncament. */
+html body .ql-page :is(#experiencia-vcc,#que-maleta,#haz-tu-maleta) > .ql-section-heading.vcc-editorial-heading{
+  display:grid!important;width:100%!important;max-width:100%!important;
+  grid-template-columns:minmax(0,1fr)!important;
+  align-items:start!important;gap:9px!important;
+  margin-bottom:17px!important;
 }
-html body .ql-page :is(#experiencia-vcc,#que-maleta,#haz-tu-maleta,#imprescindibles,#consejos) .ql-section-heading .vcc-editorial-heading-main{
-  display:block!important;min-width:0!important;max-width:100%!important;
-  width:100%!important;margin:0!important;padding:0!important;
-  text-align:left!important;
+@media(min-width:1151px){
+  html body .ql-page #experiencia-vcc > .ql-section-heading.vcc-editorial-heading:not(.vcc-editorial-heading--description-below){
+    grid-template-columns:minmax(0,1fr) minmax(250px,340px)!important;
+    align-items:end!important;
+  }
 }
-html body .ql-page :is(#experiencia-vcc,#que-maleta,#haz-tu-maleta,#imprescindibles,#consejos) .ql-section-heading p.ql-heading-lead{
-  box-sizing:border-box!important;position:static!important;
-  display:-webkit-box!important;-webkit-box-orient:vertical!important;
-  -webkit-line-clamp:3!important;line-clamp:3!important;
-  overflow:hidden!important;
-  width:100%!important;max-width:740px!important;
-  margin:7px 0 0!important;padding:0!important;
-  font:400 12px/1.55 var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;
-  color:#69615a!important;letter-spacing:0!important;text-transform:none!important;
-  text-align:left!important;
-}
-html body .ql-page #haz-tu-maleta .ql-heading-lead #ql-v10-packing-tip{
+html body .ql-page #haz-tu-maleta .vcc-editorial-description #ql-v10-packing-tip{
   color:#825941!important;
 }
 html body .ql-page #experiencia-vcc .ql-v11-experience-grid{
@@ -501,8 +492,8 @@ html body .ql-page #consejos .ql-foot-note{
 
 /* 17-11-2026 · Recuperem el taronja VCC i el segell visual de recomanació. */
 html body .ql-page #que-maleta .ql-v8-planner-results .ql-v7-bag-card{
-  background:#fafafa!important;
-  border-color:#e5e5e5!important;
+  background:rgba(241,243,245,.38)!important;
+  border-color:rgba(125,136,145,.16)!important;
 }
 html body .ql-page #que-maleta .ql-v8-planner-results .ql-v7-bag-card.is-recommended{
   background:#f5dac4!important;
