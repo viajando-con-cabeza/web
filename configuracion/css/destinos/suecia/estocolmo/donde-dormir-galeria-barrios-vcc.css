@@ -26,12 +26,13 @@
   font:400 12px/1.55 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
 }
 .dv-page #barrios .dv-neighborhood-gallery .day-gallery{
-  width:100%;
-  max-width:950px;
+  width:min(100%,760px);
+  max-width:760px;
   margin:0 auto;
 }
 .dv-page #barrios .dv-neighborhood-gallery .day-mosaic[data-count]{
-  aspect-ratio:1.72!important;
+  /* Proporció panoràmica del mosaic reutilitzada a la guia Cómo moverse. */
+  aspect-ratio:2.3!important;
 }
 .dv-page #barrios .dv-neighborhood-gallery .day-mosaic>button .dv-barrio-photo-label{
   position:absolute;
@@ -72,8 +73,13 @@
   .dv-page #barrios .dv-neighborhood-gallery-kicker{font-size:19px}
   .dv-page #barrios .dv-neighborhood-gallery-heading h3{font-size:20px}
   .dv-page #barrios .dv-neighborhood-gallery-description{font-size:11.5px}
+  .dv-page #barrios .dv-neighborhood-gallery .day-gallery{
+    width:min(92%,360px);
+    max-width:360px;
+    margin-inline:auto;
+  }
   .dv-page #barrios .dv-neighborhood-gallery .day-mosaic[data-count]{
-    aspect-ratio:1.35!important;
+    aspect-ratio:1.85!important;
   }
   .dv-page #barrios .dv-neighborhood-gallery .day-mosaic>button .dv-barrio-photo-label{
     font-size:9px;left:auto;right:5px;bottom:5px;padding:3px 6px;
