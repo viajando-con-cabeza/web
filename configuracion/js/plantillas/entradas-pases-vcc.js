@@ -13,6 +13,11 @@ function init(){
       ["Fotos de nuestra visita a Djurgården y al entorno del Museo Vasa","Photos from our Djurgården walk and the Vasa Museum area"],
       ["Fotos de nuestra excursión por el archipiélago de Estocolmo","Photos from our trip through the Stockholm archipelago"]
     ]);
+    const mosaic=root.querySelector('.ep4-photos-aside .day-mosaic');
+    if(mosaic){
+      if(mosaic.dataset.subtitle==="Dos visitas de pago y una jornada entre islas")mosaic.dataset.subtitle="Two paid attraction visits and a day among islands";
+      if(mosaic.dataset.description==="Fotos propias de Gamla Stan, Djurgården y el archipiélago. Abre el mosaico para verlas todas.")mosaic.dataset.description="Our own photos from Gamla Stan, Djurgården and the archipelago. Click to open the full gallery.";
+    }
     root.querySelectorAll('.ep4-photos-aside .day-mosaic button[data-photo]').forEach(photo=>{
       if(photo.dataset.area==="Archipiélago")photo.dataset.area="Archipelago";
       if(translations.has(photo.dataset.caption))photo.dataset.caption=translations.get(photo.dataset.caption);
