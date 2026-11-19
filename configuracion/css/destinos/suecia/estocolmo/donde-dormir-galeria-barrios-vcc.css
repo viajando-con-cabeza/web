@@ -25,14 +25,15 @@
   color:#65615d;
   font:400 12px/1.55 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
 }
-.dv-page #barrios .dv-neighborhood-gallery .day-gallery{
-  width:min(100%,560px);
-  max-width:560px;
-  margin:0 auto;
-}
-.dv-page #barrios .dv-neighborhood-gallery .day-mosaic[data-count]{
-  /* Proporció panoràmica del mosaic reutilitzada a la guia Cómo moverse. */
-  aspect-ratio:2.3!important;
+/* Exactament la mateixa amplada responsive que a «Itinerario» i
+   «Cómo moverse»: només canviem la ubicació, centrada horitzontalment.
+   Les proporcions 1.32 (desktop) i 1.35 (mòbil) venen del CSS comú,
+   sense cap aspect-ratio específic en aquesta pàgina. */
+.dv-page #barrios .dv-neighborhood-gallery .day-gallery.vcc-booking-gallery{
+  box-sizing:border-box;
+  width:min(100%, 453px, calc(40vw - 38.4px));
+  max-width:none;
+  margin-inline:auto;
 }
 .dv-page #barrios .dv-neighborhood-gallery .day-mosaic>button .dv-barrio-photo-label{
   position:absolute;
@@ -73,13 +74,8 @@
   .dv-page #barrios .dv-neighborhood-gallery-kicker{font-size:19px}
   .dv-page #barrios .dv-neighborhood-gallery-heading h3{font-size:20px}
   .dv-page #barrios .dv-neighborhood-gallery-description{font-size:11.5px}
-  .dv-page #barrios .dv-neighborhood-gallery .day-gallery{
-    width:100%;
-    max-width:none;
-    margin-inline:0;
-  }
-  .dv-page #barrios .dv-neighborhood-gallery .day-mosaic[data-count]{
-    aspect-ratio:1.85!important;
+  .dv-page #barrios .dv-neighborhood-gallery .day-gallery.vcc-booking-gallery{
+    width:min(100%, calc(100vw - 48px));
   }
   .dv-page #barrios .dv-neighborhood-gallery .day-mosaic>button .dv-barrio-photo-label{
     font-size:8px;left:auto;right:5px;bottom:5px;padding:2px 4px;
@@ -87,6 +83,16 @@
   }
   .vcc-booking-gallery-modal[data-vcc-gallery-areas="1"] .day-lightbox-grid>button>span.vcc-gallery-area-label{
     font-size:8px;padding:2px 4px;left:auto;right:5px;bottom:5px;
+  }
+}
+@media(min-width:801px) and (max-width:950px){
+  .dv-page #barrios .dv-neighborhood-gallery .day-gallery.vcc-booking-gallery{
+    width:min(100%, calc(100vw - 48px));
+  }
+}
+@media(max-width:650px){
+  .dv-page #barrios .dv-neighborhood-gallery .day-gallery.vcc-booking-gallery{
+    width:min(100%, calc(100vw - 28px));
   }
 }
 @media(prefers-reduced-motion:reduce){
