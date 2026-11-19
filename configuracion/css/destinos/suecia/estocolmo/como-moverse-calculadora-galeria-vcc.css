@@ -101,22 +101,6 @@
   color:#29302a;font:600 20px/1.2 var(--vcc-font-heading,"Oswald",sans-serif);
   white-space:nowrap;
 }
-.mv-page .mv-vcc-price-details{margin:5px 0 7px}
-.mv-page .mv-vcc-price-details summary{
- cursor:pointer;color:#826551;
- font:600 10px/1.4 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
-}
-.mv-page .mv-vcc-price-details[open] .mv-vcc-result-comparisons{margin-top:6px}
-.mv-page .mv-vcc-result-comparisons{
-  display:grid;gap:3px;margin:0 0 7px;
-}
-.mv-page .mv-vcc-result-comparisons p{
-  display:flex;justify-content:space-between;gap:8px;margin:0;
-  font:500 11px/1.4 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
-  color:#6b625a;
-}
-.mv-page .mv-vcc-result-comparisons p[hidden]{display:none!important}
-.mv-page .mv-vcc-result-comparisons b{color:#4e453e;white-space:nowrap}
 .mv-page .mv-vcc-saving-card{
   display:flex;align-items:baseline;justify-content:center;gap:9px;flex-wrap:wrap;
   min-height:38px;box-sizing:border-box;padding:5px 9px;
@@ -381,6 +365,12 @@
  }
  .mv-page .mv-vcc-comparison-grid{gap:7px}
  .mv-page .mv-vcc-compare-card{padding:10px;gap:8px}
+}
+@media(min-width:801px) and (max-width:1000px){
+ .mv-page .mv-vcc-comparison-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .mv-page .mv-vcc-car-card{grid-column:1/-1}
+ .mv-page .mv-vcc-car-card .mv-vcc-car-fields{grid-template-columns:repeat(4,minmax(0,1fr))}
+ .mv-page .mv-vcc-car-card .mv-vcc-option-totals{grid-template-columns:repeat(2,minmax(0,1fr))}
 }
 @media(max-width:800px){
  .mv-page .mv-vcc-comparison-grid{grid-template-columns:minmax(0,1fr)}
