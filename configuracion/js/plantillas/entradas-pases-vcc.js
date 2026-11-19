@@ -5,6 +5,21 @@
 function init(){
   const root=document.querySelector(".ep-page");
   if(!root)return;
+  // Les dades de les fotos a EN es poden regenerar des del castellà:
+  // normalitzar data-area i data-caption abans d'obrir el visor compartit.
+  if(window.location.pathname==="/en"||window.location.pathname.startsWith("/en/")){
+    const translations=new Map([
+      ["Fotos de nuestro primer día por Gamla Stan y el entorno del Palacio Real","Photos from day one around Gamla Stan and the Royal Palace area"],
+      ["Fotos de nuestra visita a Djurgården y al entorno del Museo Vasa","Photos from our Djurgården walk and the Vasa Museum area"],
+      ["Fotos de nuestra excursión por el archipiélago de Estocolmo","Photos from our trip through the Stockholm archipelago"]
+    ]);
+    root.querySelectorAll('.ep4-photos-aside .day-mosaic button[data-photo]').forEach(photo=>{
+      if(photo.dataset.area==="Archipiélago")photo.dataset.area="Archipelago";
+      if(translations.has(photo.dataset.caption))photo.dataset.caption=translations.get(photo.dataset.caption);
+      const badge=photo.querySelector(".ep4-photo-label");
+      if(badge&&photo.dataset.area)badge.textContent=photo.dataset.area;
+    });
+  }
   const nav=root.querySelector(".ep-subnav");
   if(nav){
     const links=[...nav.querySelectorAll('a[href^="#"]')];
