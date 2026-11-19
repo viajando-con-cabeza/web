@@ -32,9 +32,20 @@
    const carSl=root.querySelector('#mv-vcc-car-sl');
    const carComparison=root.querySelector('#mv-vcc-car-comparison');
    const counts=[2,3,2,0,0,0,0];
-   const tariffs={adult:{single:43,h24:180,h72:360},reduced:{single:26,h24:110,h72:220}};
+   const destination=window.VCCTransportDestination;
+   const optimizer=window.VCCTransportOptimizer;
+   const originalTickets=(destination&&destination.tickets||[]).map(x=>JSON.parse(JSON.stringify(x)));
+   let ticketCatalog=originalTickets.map(x=>JSON.parse(JSON.stringify(x)));
+   let simulationChanged=false;
+   const currency=destination&&destination.currency||'SEK';
+   const fareList=root.querySelector('#mv-vcc-fare-list');
+   const fareName=root.querySelector('#mv-vcc-fare-name');
+   const fareKind=root.querySelector('#mv-vcc-fare-kind');
+   const fareQuantity=root.querySelector('#mv-vcc-fare-quantity');
+   const farePrice=root.querySelector('#mv-vcc-fare-price');
+   const fareNote=root.querySelector('#mv-vcc-fare-note');
    const clamp=(v,min,max)=>Math.max(min,Math.min(max,Number.isFinite(v)?v:min));
-   const money=n=>new Intl.NumberFormat('es-ES',{maximumFractionDigits:0}).format(n)+' SEK';
+   const money=n=>new Intl.NumberFormat('es-ES',{maximumFractionDigits:2}).format(n)+' '+currency;
    // El preu del cotxe només es calcula amb costos facilitats pel viatger.
    // No inferim tarifes de lloguer ni peatges: varien segons reserva i trajecte.
    const userCost=input=>{
@@ -103,54 +114,43 @@
      }
      calculate();
    };
-   const findBest=(arr,t)=>{
-     const n=arr.length,dp=new Array(n+1);
-     dp[n]={cost:0,step:1,type:'end'};
-     for(let i=n-1;i>=0;i--){
-       let best={cost:arr[i]*t.single+dp[i+1].cost,step:1,type:'single'};
-       const day={cost:t.h24+dp[i+1].cost,step:1,type:'24'};
-       const end=Math.min(n,i+3);
-       const period={cost:t.h72+dp[end].cost,step:end-i,type:'72'};
-       if(day.cost<best.cost)best=day;
-       if(period.cost<best.cost)best=period;
-       dp[i]=best;
-     }
-     const parts=[];
-     for(let i=0;i<n;){
-       const v=dp[i],end=i+v.step;
-       const prefix=v.step>1?'Días '+(i+1)+'–'+end:'Día '+(i+1);
-       let label;
-       if(v.type==='single')label=arr[i]+' '+(arr[i]===1?'billete sencillo':'billetes sencillos');
-       else if(v.type==='24')label='abono de 24 h';
-       else label='abono de 72 h';
-       parts.push(prefix+': '+label);
-       i=end;
-     }
-     return {cost:dp[0].cost,parts};
-   };
    function calculate(){
-     const n=readDays();
-     const p=clamp(Number(people.value),1,10);
-     const fare=tariffs[category.value]||tariffs.adult;
+     const n=readDays(),p=clamp(Number(people.value),1,10);
      const arr=counts.slice(0,n).map(v=>clamp(v,0,20));
-     const best=findBest(arr,fare);
-     const alone=arr.reduce((s,v)=>s+v*fare.single,0);
-     cost.textContent=money(best.cost);
-     group.textContent=money(best.cost*p);
+     if(!destination||!optimizer){
+       option.textContent='Tarifas no disponibles';
+       cost.textContent='—';group.textContent='—';savingAmount.textContent='—';
+       return;
+     }
+     const best=optimizer.solve({days:arr,catalog:ticketCatalog,category:category.value,people:p});
+     if(!best.valid){
+       option.textContent='Revisa los precios';
+       cost.textContent='—';group.textContent='—';savingAmount.textContent='—';
+       return;
+     }
+     cost.textContent=money(best.perPerson);
+     group.textContent=money(best.total);
      groupLabel.textContent='Total '+p+(p===1?' viajero':' viajeros');
-     singles.textContent=money(alone);
-     pass72row.hidden=n!==3;
-     pass72.textContent=money(fare.h72);
-     const usingPass=best.parts.some(part=>part.includes('abono'));
-     option.textContent=best.cost===0?'No necesitas billetes':usingPass?'Combinación de billetes y abonos':'Billetes sueltos';
-     const reference=n===3?fare.h72:alone;
-     const saving=Math.max(0,reference-best.cost);
-     savingLabel.textContent=n===3?'Te ahorras':'Ahorro frente a billetes sueltos';
-     savingAmount.textContent=money(saving);
+     singles.textContent=best.singleTotal===null?'No disponible':money(best.singleTotal);
+     pass72row.hidden=n!==3||best.pass72==null;
+     pass72.textContent=best.pass72==null?'No disponible':money(best.pass72);
+     const activations=arr.reduce((sum,v)=>sum+v,0);
+     const passUsed=best.steps.some(part=>!/Billete 75 min|billete sencillo/i.test(part));
+     option.textContent=activations===0?'No necesitas billetes':passUsed?'Mejor combinación de tarifas':'Billetes sueltos';
+     const reference=n===3&&best.pass72!=null?best.pass72:best.singleTotal;
+     savingLabel.textContent=n===3&&best.pass72!=null?'Ahorro frente a 72 h':'Ahorro frente a billetes sueltos';
+     savingAmount.textContent=money(reference===null?0:Math.max(0,reference-best.perPerson));
      savingScope.textContent='por persona';
      planEl.replaceChildren();
-     best.parts.forEach(part=>{const li=document.createElement('li');li.textContent=part;planEl.append(li)});
-     calculateCar(best.cost*p);
+     best.steps.forEach(part=>{
+       const li=document.createElement('li');li.textContent=part;planEl.append(li);
+     });
+     if(best.uncomparable.length){
+       const li=document.createElement('li');
+       li.textContent='No comparados: '+best.uncomparable.map(t=>t.label).join(', ')+' (necesitan horas de viaje u otras reglas).';
+       planEl.append(li);
+     }
+     calculateCar(best.total);
    }
    [carRoute,carType,carRent,carParking,carExtras].forEach(input=>{
      if(input){
