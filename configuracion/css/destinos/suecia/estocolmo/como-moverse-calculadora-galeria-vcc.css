@@ -10,29 +10,8 @@
   max-width:850px;margin:0 0 17px;
   color:#515650;font:400 13px/1.65 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
 }
-/* Nuestra experiencia: mismas dimensiones responsivas que la galería
-   de los días en Itinerario de Estocolmo.
-   Desktop (>950px): ligeramente más ancha que la tercera columna (hasta 540px).
-   Tablet (<=950px): galería a lo ancho del contenido de Itinerario.
-   Móvil (<=650px): ancho del contenido de Itinerario (viewport - 28px).
-   ÚNICA diferencia: centrado horizontal de la galería en esta sección.
-   El mosaico adopta automáticamente 1.32 / 1.35 del CSS VCC compartido. */
-.mv-page #experiencia-transporte .day-gallery.vcc-booking-gallery {
-  box-sizing:border-box;
-  width:min(100%, 540px);
-  max-width:none;
-  margin-inline:auto;
-}
-@media(max-width:950px){
-  .mv-page #experiencia-transporte .day-gallery.vcc-booking-gallery {
-    width:min(100%, calc(100vw - 48px));
-  }
-}
-@media(max-width:650px){
-  .mv-page #experiencia-transporte .day-gallery.vcc-booking-gallery {
-    width:min(100%, calc(100vw - 28px));
-  }
-}
+/* Dimensiones del mosaico centralizadas en vcc-gallery-booking.css
+   mediante la clase vcc-sto-mosaic-compact (también en Dónde dormir). */
 .mv-page .mv-vcc-ticket-tool .mv-vcc-tool-surface{
   padding:10px 13px 9px;background:#fffdfb;
   border:1px solid #eaded3;border-radius:17px;
