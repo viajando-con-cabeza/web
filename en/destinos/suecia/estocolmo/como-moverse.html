@@ -29,7 +29,7 @@
 <link rel="stylesheet" href="/configuracion/css/componentes/como-ahorrar-carruseles-vcc.css?v=20261117-notes-compactes-v3">
 <link rel="stylesheet" href="/configuracion/css/componentes/vcc-gallery-booking.css?v=20261119-etiquetes-visor-v2">
 <link rel="stylesheet" href="/configuracion/css/destinos/suecia/estocolmo/como-moverse-calculadora-galeria-vcc.css?v=20261119-comparador-3-columnas-v15">
-<link rel="stylesheet" href="/configuracion/css/componentes/vcc-transporte-comparador-universal.css?v=20261119-v1">
+<link rel="stylesheet" href="/configuracion/css/componentes/vcc-transporte-comparador-universal.css?v=20261119-compacto-v2">
 
 </head><body class="mv-body">
 <header class="page-header"></header>
@@ -200,62 +200,71 @@
 
 
 <section class="mv-vcc-ticket-tool" id="mv-vcc-ticket-calculator" aria-labelledby="mv-vcc-ticket-heading">
-<header class="mv-section-head vcc-editorial-heading"><div class="vcc-editorial-heading-main"><span class="mv-overline vcc-editorial-overline">Compare before you decide</span><h2 class="vcc-editorial-title" id="mv-vcc-ticket-heading">CALCULATE YOUR TRANSPORT</h2></div><p class="vcc-editorial-description">Compare private transport, individual trips, and passes based on your route and budget.</p></header>
-<div id="vcc-transporte-comparador">
- <div class="tc-top"><div class="tc-setup">
- <label class="tc-field"><span>DAYS</span><select id="tc-days"><option value="1">1 day</option><option value="2">2 days</option><option value="3" selected>3 days</option><option value="4">4 days</option><option value="5">5 days</option><option value="6">6 days</option><option value="7">7 days</option><option value="8">8 days</option><option value="9">9 days</option><option value="10">10 days</option><option value="11">11 days</option><option value="12">12 days</option><option value="13">13 days</option><option value="14">14 days</option></select></label>
- <label class="tc-field"><span>TRAVELERS</span><input id="tc-people" type="number" min="1" max="30" step="1" value="2" inputmode="numeric"></label>
- <label class="tc-field"><span>FARE</span><select id="tc-fare"><option value="adult">Adult</option><option value="reduced">Reduced*</option></select></label>
- </div><button id="tc-reset" class="tc-small-btn" type="button">Reset VCC route</button></div>
- <div class="tc-columns">
-  <section class="tc-panel tc-panel-private" aria-labelledby="tc-private-title">
-   <div class="tc-panel-head"><span class="tc-panel-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m5 16 1.4-6.5a2 2 0 0 1 2-1.5h7.2a2 2 0 0 1 2 1.5L19 16M4 19v-3h16v3M3 16v-3.5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2V16H3zM6 13h.01M18 13h.01"/></svg></span><div><span class="tc-panel-overline">Option 1</span><h3 id="tc-private-title">PRIVATE TRANSPORT</h3></div></div>
-   <p class="tc-panel-subtext">All itinerary expenses are per car, not per person.</p>
-   <div class="tc-car-options">
-    <label class="tc-field"><span>CAR</span><select id="tc-car-kind"><option value="rent">For rent</option><option value="owned">Now available</option></select></label>
-    <label class="tc-field"><span>SEATS PER CAR</span><input id="tc-seats" type="number" min="1" max="15" value="5"></label>
-    <div id="tc-rental-wrap"><label class="tc-field"><span>TOTAL RENTAL · SEK</span><input id="tc-rental" type="number" min="0" max="1000000" step=".01" inputmode="decimal" placeholder="Rental amount" ></label></div>
-    <label class="tc-field"><span>FUEL / CHARGING · SEK</span><input id="tc-fuel" type="number" min="0" max="1000000" step=".01" inputmode="decimal" placeholder="Total cost" ></label>
-    <label class="tc-field"><span>PARKING AND TOLLS · SEK</span><input id="tc-parking" type="number" min="0" max="1000000" step=".01" inputmode="decimal" placeholder="Optional: 0" ></label>
-    <label class="tc-field"><span>INSURANCE · SEK</span><input id="tc-insurance" type="number" min="0" max="1000000" step=".01" inputmode="decimal" placeholder="Optional: 0" ></label>
-    <label class="tc-field"><span>OTHER EXPENSES · SEK</span><input id="tc-extras" type="number" min="0" max="1000000" step=".01" inputmode="decimal" placeholder="Optional: 0" ></label>
+ <header class="mv-section-head vcc-editorial-heading">
+  <div class="vcc-editorial-heading-main"><span class="mv-overline vcc-editorial-overline">Your route, your expenses</span><h2 class="vcc-editorial-title" id="mv-vcc-ticket-heading">CALCULATE YOUR TRANSPORT</h2></div>
+  <p class="vcc-editorial-description">Compare cars, single tickets, and passes in seconds.</p>
+ </header>
+ <div id="vcc-transporte-comparador">
+  <div class="tc-top">
+   <div class="tc-setup">
+    <label class="tc-field"><span><svg class="tc-svg" aria-hidden="true" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M7 3v4M17 3v4M3 10h18"/></svg>DAYS</span><select id="tc-days" ><option value="1">1 day</option><option value="2">2 days</option><option value="3" selected>3 days</option><option value="4">4 days</option><option value="5">5 days</option><option value="6">6 days</option><option value="7">7 days</option><option value="8">8 days</option><option value="9">9 days</option><option value="10">10 days</option><option value="11">11 days</option><option value="12">12 days</option><option value="13">13 days</option><option value="14">14 days</option></select></label>
+    <label class="tc-field"><span><svg class="tc-svg" aria-hidden="true" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3"/><path d="M3 20v-2a6 6 0 0 1 12 0v2M17 5a3 3 0 0 1 0 6M18 14a5 5 0 0 1 3 5v1"/></svg>TRAVELERS</span><input id="tc-people" type="number" min="1" max="30" step="1" inputmode="numeric" value="2"></label>
+    <label class="tc-field"><span><svg class="tc-svg" aria-hidden="true" viewBox="0 0 24 24"><path d="M3 8a2 2 0 0 0 0 4v4h18v-4a2 2 0 0 1 0-4V4H3v4M13 4v3M13 10v3M13 16v1"/></svg>FARE</span><select id="tc-fare" ><option value="adult">Adult</option><option value="reduced">Reduced*</option></select></label>
    </div>
-   <p class="tc-optional">To compare the car, enter the rental cost (if applicable) and fuel. Empty optional expenses are set to 0.</p>
-   <div class="tc-totals"><div><small id="tc-vehicles">1 car for 2 travelers</small><small>Per person</small><strong id="tc-car-pp">—</strong></div><div><small>Group total</small><strong id="tc-car-total">—</strong></div></div>
-  </section>
-  <section class="tc-panel tc-panel-public" aria-labelledby="tc-public-title">
-   <div class="tc-panel-head"><span class="tc-panel-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M2 9a3 3 0 0 0 0 6v3a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-3a3 3 0 0 1 0-6V6a2 2 0 0 1-2-2H4a2 2 0 0 1-2 2v3ZM13 5v2M13 10v4M13 17v2"/></svg></span><div><span class="tc-panel-overline">Option 2</span><h3 id="tc-public-title">PUBLIC TRANSPORT</h3></div></div>
-   <p class="tc-panel-subtext">Each trip (train, bus, metro, or ferry) may have a different price.</p>
-   <div class="tc-trip-head"><strong>Individual trips · <span id="tc-trip-count">7 trips</span></strong><button id="tc-add-trip" class="tc-small-btn" type="button">+ Add trip</button></div>
-   <div id="tc-trips" class="tc-trip-list" aria-label="Editable trips"></div>
-   <p class="tc-trip-hint">Name · day · price per person · optional time · «Pass» if covered by a pass. Time is required for short passes.</p>
-   <div class="tc-bonus">
-    <div class="tc-bonus-head"><strong>Is a pass worth it?</strong><span>Price per person</span></div>
-    <label class="tc-field"><span>PASS / TICKET</span><select id="tc-pass" aria-label="Pass or voucher available"></select></label>
-    <div class="tc-bonus-fields" id="tc-pass-editor" hidden>
-      <label class="tc-field"><span>NAME</span><input id="tc-bonus-name" type="text" maxlength="48"></label>
-      <label class="tc-field"><span>TYPE</span><select id="tc-bonus-type"><option value="rides">Trips</option><option value="hours">Hours</option><option value="days">Days</option></select></label>
-      <label class="tc-field"><span>AMOUNT</span><input id="tc-bonus-quantity" type="number" min="1" max="365" value="10"></label>
-      <label class="tc-field"><span>PRICE · SEK</span><input id="tc-bonus-price" type="number" min="0" max="1000000" step=".01" inputmode="decimal" placeholder="Pass price" ></label>
+   <button id="tc-reset" class="tc-small-btn" type="button">Reset VCC</button>
+  </div>
+  <div class="tc-columns">
+   <section class="tc-panel tc-panel-private" aria-labelledby="tc-private-title">
+    <div class="tc-panel-head"><span class="tc-panel-icon" aria-hidden="true"><svg class="tc-svg" aria-hidden="true" viewBox="0 0 24 24"><path d="m5 16 1.5-6.5h11L19 16M4 16v3m16-3v3M3 16h18M5 9h14M7 13h.01M17 13h.01"/></svg></span><div><span class="tc-panel-overline">Option 1</span><h3 id="tc-private-title">CAR</h3></div></div>
+    <div class="tc-car-options">
+     <label class="tc-field"><span><svg class="tc-svg" aria-hidden="true" viewBox="0 0 24 24"><path d="m5 16 1.5-6.5h11L19 16M4 16v3m16-3v3M3 16h18M5 9h14M7 13h.01M17 13h.01"/></svg>CAR TYPE</span><select id="tc-car-type" ><option value="rent">For rent</option><option value="own">Now available</option></select></label>
+     <label class="tc-field"><span><svg class="tc-svg" aria-hidden="true" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3"/><path d="M3 20v-2a6 6 0 0 1 12 0v2M17 5a3 3 0 0 1 0 6M18 14a5 5 0 0 1 3 5v1"/></svg>SEATS / CAR</span><input id="tc-seats" type="number" min="1" max="15" step="1" value="5" inputmode="numeric"></label>
+     <div id="tc-rental-wrap"><label class="tc-field"><span><svg class="tc-svg" aria-hidden="true" viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="15" rx="2"/><path d="M3 10h18M16 15h3"/></svg>RENTAL · SEK</span><input id="tc-rental" type="number" min="0" max="1000000" step=".01" inputmode="decimal" placeholder="Total cost" ></label></div>
+     <label class="tc-field"><span><svg class="tc-svg" aria-hidden="true" viewBox="0 0 24 24"><path d="M3 20V6a2 2 0 0 1 2-2h7a2 2 0 0 1 2 2v14M4 10h9M3 20h13M14 8l3 3v6a2 2 0 0 0 4 0v-6l-2-3"/></svg>FUEL · SEK</span><input id="tc-fuel" type="number" min="0" max="1000000" step=".01" inputmode="decimal" placeholder="Total cost" ></label>
+     <label class="tc-field"><span><svg class="tc-svg" aria-hidden="true" viewBox="0 0 24 24"><path d="m3 5 6-2 6 2 6-2v16l-6 2-6-2-6 2V5M9 3v16M15 5v16"/></svg>PARKING · SEK</span><input id="tc-parking" type="number" min="0" max="1000000" step=".01" inputmode="decimal" placeholder="0 if not applicable" ></label>
+     <label class="tc-field"><span><svg class="tc-svg" aria-hidden="true" viewBox="0 0 24 24"><path d="M3 8a2 2 0 0 0 0 4v4h18v-4a2 2 0 0 1 0-4V4H3v4M13 4v3M13 10v3M13 16v1"/></svg>TOLLS · SEK</span><input id="tc-tolls" type="number" min="0" max="1000000" step=".01" inputmode="decimal" placeholder="0 if not applicable" ></label>
+     <label class="tc-field"><span><svg class="tc-svg" aria-hidden="true" viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="15" rx="2"/><path d="M3 10h18M16 15h3"/></svg>EXTRAS · SEK</span><input id="tc-extras" type="number" min="0" max="1000000" step=".01" inputmode="decimal" placeholder="Insurance, others..." ></label>
     </div>
-    <p id="tc-bonus-note" class="tc-bonus-output" aria-live="polite">Compare the pass with the indicated trips.</p>
-    <details class="tc-tariffs"><summary>Check SL reference rates</summary><div id="tc-official-tariffs" class="tc-tariffs-body"></div></details>
-   </div>
-   <div class="tc-public-totals">
-    <div><h4>Single tickets</h4><div class="tc-totals"><div><small>Per person</small><strong id="tc-individual-pp">—</strong></div><div><small>Group total</small><strong id="tc-individual-total">—</strong></div></div></div>
-    <div><h4>With pass</h4><div class="tc-totals"><div><small>Per person</small><strong id="tc-bonus-pp">—</strong></div><div><small>Group total</small><strong id="tc-bonus-total">—</strong></div></div></div>
-   </div>
-  </section>
+    <div class="tc-totals tc-private-totals"><div><small id="tc-cars">1 car</small><small>Per person</small><strong id="tc-car-person">—</strong></div><div><small>Group total</small><strong id="tc-car-group">—</strong></div></div>
+    <p class="tc-micro-hint">Total expenses per vehicle. Empty optional items count as 0.</p>
+   </section>
+   <section class="tc-panel tc-panel-public" aria-labelledby="tc-public-title">
+    <div class="tc-panel-head"><span class="tc-panel-icon" aria-hidden="true"><svg class="tc-svg" aria-hidden="true" viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="16" rx="4"/><path d="M8 8h8M8 12h8M8 19l-2 3m10-3 2 3M8 16h.01M16 16h.01"/></svg></span><div><span class="tc-panel-overline">Option 2</span><h3 id="tc-public-title">PUBLIC TRANSPORT</h3></div></div>
+    <div class="tc-modes"><span>🚇 Metro</span><span>🚌 Bus</span><span>🚆 Train</span><span>🚋 Tram</span><span>⛴️ Ferry*</span></div>
+    <div class="tc-simple-trip">
+     <label class="tc-field"><span><svg class="tc-svg" aria-hidden="true" viewBox="0 0 24 24"><path d="M3 8a2 2 0 0 0 0 4v4h18v-4a2 2 0 0 1 0-4V4H3v4M13 4v3M13 10v3M13 16v1"/></svg>NO. OF TRIPS</span><input id="tc-trip-number" type="number" min="0" max="40" step="1" value="7" inputmode="numeric"></label>
+     <label class="tc-field"><span><svg class="tc-svg" aria-hidden="true" viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="15" rx="2"/><path d="M3 10h18M16 15h3"/></svg>PRICE / TRIP · SEK</span><input id="tc-trip-price" type="number" min="0" max="1000000" step=".01" inputmode="decimal" placeholder="43" value="43"></label>
+     <span id="tc-trip-count" class="tc-compact-count">7 trips</span>
+    </div>
+    <details class="tc-trips-details">
+     <summary><svg class="tc-svg" aria-hidden="true" viewBox="0 0 24 24"><path d="M20 12 12 20 4 12V4h8l8 8ZM8 8h.01"/></svg>Edit price, transport, and time for each trip</summary>
+     <div id="tc-trips" class="tc-trip-list" aria-label="Editable individual trips"></div>
+     <span id="tc-trip-edit-count" class="tc-trip-counter">7 trips</span>
+     <p class="tc-micro-hint">Mark 'Pass' only if that trip is included. *Not all ferries accept SL.</p>
+    </details>
+    <div class="tc-bonus">
+     <div class="tc-bonus-head"><strong><svg class="tc-svg" aria-hidden="true" viewBox="0 0 24 24"><path d="M3 8a2 2 0 0 0 0 4v4h18v-4a2 2 0 0 1 0-4V4H3v4M13 4v3M13 10v3M13 16v1"/></svg>PASSES AND BONUSES</strong><button id="tc-add-pass" class="tc-small-btn" type="button"><svg class="tc-svg" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg> Add pass</button></div>
+     <div id="tc-passes" class="tc-passes" aria-label="Editable pass list"></div>
+     <p class="tc-micro-hint">Each pass: duration (hours, days, or trips), price, and units <strong>per person</strong>. You can combine several.</p>
+     <p id="tc-bonus-note" class="tc-bonus-output" aria-live="polite"></p>
+     <details class="tc-tariffs"><summary>See reference SL fares</summary><div id="tc-tariffs" class="tc-tariffs-body"></div></details>
+    </div>
+    <div class="tc-public-totals">
+     <div class="tc-public-total"><span><svg class="tc-svg" aria-hidden="true" viewBox="0 0 24 24"><path d="M3 8a2 2 0 0 0 0 4v4h18v-4a2 2 0 0 1 0-4V4H3v4M13 4v3M13 10v3M13 16v1"/></svg>Single tickets</span><strong id="tc-individual-person">—</strong><small>per person · <b id="tc-individual-group">—</b> group</small></div>
+     <div class="tc-public-total"><span><svg class="tc-svg" aria-hidden="true" viewBox="0 0 24 24"><path d="M3 8a2 2 0 0 0 0 4v4h18v-4a2 2 0 0 1 0-4V4H3v4M13 4v3M13 10v3M13 16v1"/></svg>With passes</span><strong id="tc-bonus-person">—</strong><small>per person · <b id="tc-bonus-group">—</b> group</small></div>
+    </div>
+    <p id="tc-best-public" class="tc-best-public">Best: single tickets</p>
+   </section>
+  </div>
+  <label class="tc-compare-checkbox"><input type="checkbox" id="tc-same-route" checked>The car covers the same routes as public transport</label>
+  <div class="tc-result" aria-live="polite" aria-atomic="true">
+    <div class="tc-result-heading"><img src="/configuracion/imagenes/marca/logo-vcc.svg" width="32" height="32" alt="Viajando con Cabeza" decoding="async" loading="lazy"><div><span>VCC RECOMMENDATION</span><strong id="tc-recommend">Public transport</strong></div></div>
+    <div class="tc-result-amounts"><div><small>Per person</small><strong id="tc-recommend-person">—</strong></div><div><small>Total · <span id="tc-group-label">2 travelers</span></small><strong id="tc-recommend-group">—</strong></div></div>
+    <div class="tc-saving"><span>Savings / person</span><strong id="tc-saving">—</strong></div>
+    <p id="tc-recommend-note">Enter car expenses to compare them.</p>
+  </div>
+  <p id="tc-sim-note" class="tc-footer-note">Reference SL fares. Check coverage, schedules, and pass conditions.</p>
  </div>
- <label class="tc-compare-checkbox"><input id="tc-same-route" type="checkbox" checked>The car and public transport cover the same route (excluding ferries or extra trips)</label>
- <div class="tc-result" aria-live="polite">
-  <div class="tc-result-heading"><img src="/configuracion/imagenes/marca/logo-vcc.svg" width="35" height="35" alt="Viajando con Cabeza" loading="lazy" decoding="async"><div><span>VCC RECOMMENDATION</span><strong id="tc-recommend">Single tickets</strong></div></div>
-  <div class="tc-result-amounts"><div><small>Per person</small><strong id="tc-result-pp">—</strong></div><div><small>Total · <span id="tc-people-label">2 travelers</span></small><strong id="tc-result-total">—</strong></div></div>
-  <div class="tc-saving"><span>Savings compared to another option</span><strong id="tc-saving">—</strong><span>per person</span></div>
-  <p id="tc-recommend-note">Enter expenses to compare.</p>
- </div>
- <div class="tc-bottom"><p id="tc-sim-note">Reference SL rates, editable by you.</p><p>Hourly passes: exact hours are used if provided. Without them, 24h or longer passes use a daily approximation. Per-person rates and non-shared passes apply to all travelers.</p></div>
-</div>
 </section>
 <section class="mv-vcc-photo-section" id="experiencia-transporte" aria-labelledby="mv-vcc-gallery-heading">
  <header class="mv-section-head vcc-editorial-heading">
@@ -352,7 +361,7 @@
 <div class="day-lightbox vcc-booking-gallery-modal" id="mvVCCSharedGallery" data-vcc-booking-gallery data-vcc-photo-label-overlay data-vcc-lazy-gallery-modal data-vcc-gallery-selector=".mv-vcc-photo-section .day-mosaic" hidden role="dialog" aria-modal="true" aria-label="Stockholm transport photo gallery"></div>
 <script src="/configuracion/js/componentes/vcc-itinerary-gallery-on-demand.js?v=20261119-etiquetes-visor-v3" defer></script>
 <script src="/configuracion/datos/transporte/estocolmo-sl-2026.js?v=20261119-v1" defer></script>
-<script src="/configuracion/js/componentes/vcc-transporte-comparador-universal.js?v=20261119-v3" defer></script>
+<script src="/configuracion/js/componentes/vcc-transporte-comparador-universal.js?v=20261119-compacto-v4" defer></script>
 
 
 <script src="/configuracion/js/vcc-en-runtime.js" defer></script>
