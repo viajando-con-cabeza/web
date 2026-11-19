@@ -1494,6 +1494,22 @@ html body .vcc-booking-gallery.vcc-sto-mosaic-compact .day-mosaic[data-count] {
   }
 }
 
+/* Etiquetes en blanc translúcid a les miniatures de Cómo moverse;
+   Dónde dormir ja les aporta des de la fitxa de cada barri. */
+html body .vcc-booking-gallery.vcc-sto-mosaic-compact .day-mosaic[data-count]>button>.vcc-gallery-tile-label{
+ position:absolute;z-index:3;right:7px;bottom:7px;left:auto;
+ display:block;max-width:calc(100% - 14px);
+ padding:3px 6px;border:1px solid rgba(255,255,255,.6);
+ border-radius:4px;background:rgba(255,255,255,.82);
+ color:#302d2a;font:700 9px/1.25 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
+ white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-align:right;
+ pointer-events:none;
+}
+@media(max-width:800px){
+ html body .vcc-booking-gallery.vcc-sto-mosaic-compact .day-mosaic[data-count]>button>.vcc-gallery-tile-label{
+  right:5px;bottom:5px;padding:2px 5px;font-size:8px;
+ }
+}
 /* Estocolm · Com moure's + On dormir.
    Opt-in al visor compartit: foto sense columna descriptiva, i una única
    etiqueta blanca translúcida a la cantonada inferior dreta.
