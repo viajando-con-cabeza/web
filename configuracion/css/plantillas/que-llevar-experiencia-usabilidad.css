@@ -501,8 +501,8 @@ html body .ql-page #consejos .ql-foot-note{
 
 /* 17-11-2026 · Recuperem el taronja VCC i el segell visual de recomanació. */
 html body .ql-page #que-maleta .ql-v8-planner-results .ql-v7-bag-card{
-  background:#fff0e3!important;
-  border-color:#e8cab4!important;
+  background:#fafafa!important;
+  border-color:#e5e5e5!important;
 }
 html body .ql-page #que-maleta .ql-v8-planner-results .ql-v7-bag-card.is-recommended{
   background:#f5dac4!important;
@@ -601,29 +601,16 @@ html body .ql-page .ql-vcc-experience-route a:focus-visible{
  html body .ql-page .ql-vcc-bag-reason{font-size:11.5px;}
 }
 
-/* Únicament Qué llevar: visor fotogràfic sense columna editorial lateral.
-   El component comú continua intacte a totes les altres guies. */
-#vccQueLlevarGallery .day-lightbox-grid-main{
- grid-template-columns:minmax(0,1fr)!important;
-}
-#vccQueLlevarGallery .day-lightbox-grid-info,
-#vccQueLlevarGallery .day-lightbox-info{
- display:none!important;
-}
-#vccQueLlevarGallery .day-lightbox-photo-view:not([hidden]){
- grid-template-columns:minmax(0,1fr)!important;
-}
-#vccQueLlevarGallery .day-lightbox-grid-heading strong,
-#vccQueLlevarGallery .day-lightbox-photo-title{
- display:none!important;
-}
+/* El visor d'aquesta pàgina recupera les columnes i els laterals del component
+   CSS compartit vcc-gallery-booking.css, sense cap override local de la seva quadrícula. */
 /* Texto editorial más detallado sin alterar la distribución de fotos. */
 html body .ql-page .ql-vcc-experience-route{
  min-width:0;
 }
 html body .ql-page .ql-vcc-experience-route p{
- margin:0 0 11px;
- line-height:1.58;
+ margin:0 0 9px;
+ font-size:clamp(11.75px,.88vw,12.5px)!important;
+ line-height:1.55;
 }
 html body .ql-page .ql-vcc-experience-route p strong{
  font-weight:700;
