@@ -138,7 +138,7 @@
 <button type="button" class="mv-transport-next mv-transport-arrow" aria-label="Next transport options" aria-controls="mv-transport-track"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="/configuracion/imagenes/iconos/paginas/estocolmo-como-moverse-iconos.svg#mv-transport-next-1"></use></svg></button>
 </div>
  </div>
- <aside class="vcc-gallery-companion-aside mv-transport-gallery-aside" id="experiencia-transporte" aria-label="Our mosaic of 15 photographs from Stockholm">
+ <aside class="vcc-gallery-companion-aside mv-transport-gallery-aside mv-card" id="experiencia-transporte" aria-label="Our mosaic of 15 photographs from Stockholm">
 <div class="mv-card-heading mv-gallery-card-heading">
  <span class="mv-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h4l2-3h4l2 3h4v12H4z"/><circle cx="12" cy="13" r="4"/></svg></span>
  <div class="mv-card-title"><span class="mv-transport-ideal">Our experience</span><h3>OUR PHOTOS</h3><span>15 images from our trips</span></div>
@@ -261,15 +261,12 @@
         <label class="tc-field"><span><svg class="tc-svg" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M16 9H10a3 3 0 0 0 0 6h6M8 7v10"/></svg>TOLLS · SEK</span><input id="tc-tolls" type="number" min="0" max="1000000" step=".01" inputmode="decimal" placeholder="Total" ></label>
         <label class="tc-field"><span><svg class="tc-svg" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M16 9H10a3 3 0 0 0 0 6h6M8 7v10"/></svg>EXTRAS / INSURANCE · SEK</span><input id="tc-extras" type="number" min="0" max="1000000" step=".01" inputmode="decimal" placeholder="Total" ></label>
       </div>
-      <p class="tc-muted">Parking is calculated for all days of the trip, per car.</p>
       <div class="tc-option-costs"><div><span id="tc-cars">1 car</span><small>Per person</small><strong id="tc-car-person">—</strong></div><div><small>Group total</small><strong id="tc-car-group">—</strong></div></div>
     </section>
     <section class="tc-option tc-option-individual" data-option="individual" aria-labelledby="tc-title-individual">
       <div class="tc-option-heading"><div class="tc-panel-head"><span class="tc-panel-icon" aria-hidden="true"><svg class="tc-svg" aria-hidden="true" viewBox="0 0 24 24"><path d="M3 8a2 2 0 0 0 0 4v4h18v-4a2 2 0 0 1 0-4V4H3v4m10 0v3m0 3v3m0 3v1"/></svg></span><div><span class="tc-panel-overline">Public · Tickets</span><h3 id="tc-title-individual">SINGLE TICKETS</h3></div></div><div class="tc-reorder"><button type="button" class="tc-order-btn" data-move="-1" aria-label="Move loose tickets to the left">‹</button><button type="button" class="tc-order-btn" data-move="1" aria-label="Move loose tickets to the right">›</button></div></div>
-      <p class="tc-muted">Bus, metro, train, tram, and ferry if applicable.</p>
       <div class="tc-mode-icons"><span>🚇 Metro</span><span>🚌 Bus</span><span>🚆 Train</span><span>🚋 Tram</span><span>⛴️ Ferry*</span></div>
       <div class="tc-individual-summary"><span><svg class="tc-svg" aria-hidden="true" viewBox="0 0 24 24"><path d="M3 8a2 2 0 0 0 0 4v4h18v-4a2 2 0 0 1 0-4V4H3v4m10 0v3m0 3v3m0 3v1"/></svg><span id="tc-trip-count">7 trips</span> × editable price</span><strong id="tc-individual-unit">43 SEK</strong></div>
-      <p class="tc-muted">You can adjust the amount for each trip or day, even if they don't cost the same.</p>
       <button type="button" class="tc-inline-action" id="tc-open-trips"><svg class="tc-svg" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Edit trips and coverage <span aria-hidden="true">›</span></button>
       <div class="tc-option-costs"><div><small>Per person</small><strong id="tc-individual-person">—</strong></div><div><small>Group total</small><strong id="tc-individual-group">—</strong></div></div>
     </section>
@@ -280,7 +277,6 @@
       <p id="tc-bonus-note" class="tc-muted tc-bonus-note" aria-live="polite"></p>
       <details class="tc-tariffs"><summary>View SL reference prices</summary><div class="tc-tariffs-body" id="tc-tariffs"></div></details>
       <div class="tc-option-costs"><div><small>Per person</small><strong id="tc-bonus-person">—</strong></div><div><small>Group total</small><strong id="tc-bonus-group">—</strong></div></div>
-      <p class="tc-muted">Unincluded trips are added as individual tickets.</p>
     </section>
   </div>
   <label class="tc-compare-checkbox"><input id="tc-same-route" type="checkbox" checked>The car covers the same routes as public transport</label>
