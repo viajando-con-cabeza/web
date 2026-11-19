@@ -13,6 +13,37 @@ número de viajeros, tarifa aplicable y, si procede, costes de coche.
 El precio oficial lo carga VCC desde la ficha del destino; el lector puede
 modificarlo para SIMULAR, sin alterar nunca la ficha oficial.
 
+## Interfaz de comparación (tres columnas)
+
+La primera integración en Estocolmo muestra **días, número de viajeros,
+categoría de tarifa y validaciones pagadas por día** como entradas comunes.
+Debajo dispone de tres alternativas:
+
+- **Coche:** alquiler en moneda local/día (si se alquila), aparcamiento/día,
+  combustible y peajes totales. El coste se multiplica por vehículos necesarios
+  (actualmente una capacidad orientativa de 5 personas/coche) y se divide
+  entre viajeros para mostrar precio por persona. No se infieren costes.
+- **Billetes individuales:** precio de un billete, validaciones por persona,
+  total por persona y total del grupo.
+- **Abonos y bonos:** listado de precios de títulos vigentes y la
+  **combinación más económica que incluye al menos un abono/bono**,
+  con el coste por persona y el total del grupo. Puede incluir títulos
+  individuales para completar días sueltos.
+
+Una recomendación VCC central calcula la menor de las alternativas
+comparables y muestra el ahorro por persona. El coche se puede comparar
+numéricamente con la red urbana en rutas por el centro, pero **no** en
+excursiones de carretera o islas/ferries no cubiertos por los mismos
+billetes, que se muestran con advertencias y sin recomendaciones de
+precio engañosas. Si no se han introducido todos los gastos del coche,
+su importe permanece indeterminado y no participa en el mínimo.
+
+El editor de tarifas oficiales queda plegado; cualquier cambio del
+visitante pasa a ser **SIMULACIÓN PERSONAL** y no altera el catálogo.
+Para 48h o paquetes de N viajes se usa el motor genérico; títulos
+inferiores a 24 h requieren horas de trayecto reales y quedan excluidos
+de la optimización.
+
 ## Alta de un nuevo destino
 
 1. Crear `configuracion/datos/transporte/<destino>-<ano>.js` y publicar
