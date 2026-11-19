@@ -44,6 +44,12 @@
    const fareQuantity=root.querySelector('#mv-vcc-fare-quantity');
    const farePrice=root.querySelector('#mv-vcc-fare-price');
    const fareNote=root.querySelector('#mv-vcc-fare-note');
+   const modesCaption=root.querySelector('#mv-vcc-fare-modes');
+   if(modesCaption){
+     const modes=(destination&&Array.isArray(destination.modes)?destination.modes:[]);
+     modesCaption.textContent='Red '+(destination?.operator||'pública')+
+       (modes.length?' · Incluye '+modes.join(', '):'')+'.';
+   }
    // La moneda i l'operador depenen del catàleg; la plantilla no necessita
    // una còpia de les tarifes o de les etiquetes per a cada ciutat.
    const currencyCaption=root.querySelector('#mv-vcc-fare-currency');
