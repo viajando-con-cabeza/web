@@ -49,6 +49,9 @@ const next=modal.querySelector('.day-lightbox-next');
 const prefersReducedMotion=window.matchMedia('(prefers-reduced-motion: reduce)');
 const nativeMobile=()=>window.matchMedia('(max-width: 800px)').matches;
 const isMobile=()=>modal.classList.contains('vcc-gallery-mobile');
+// Opt-in de les galeries d'Estocolm: llegenda curta en sobreimpressió, sense lateral de text.
+const photoLabelOverlay=modal.hasAttribute('data-vcc-photo-label-overlay');
+const labelFor=item=>photoLabelOverlay?(item.area||item.caption||'').trim().slice(0,90):typeof item.caption==='string'?item.caption.trim().slice(0,200):'';
 let currentImages=[],currentIndex=0,lastFocus=null,gridButtons=[];
 let photoSequence=0;
 let slideOverlay=null,slideTimeout=0;
@@ -174,10 +177,11 @@ function createGrid(){
   const b=document.createElement('button');b.type='button';
   b.setAttribute('aria-label','Abrir fotografía '+(index+1)+' de '+currentImages.length+(item.area?' · '+item.area:''));
   b.append(createThumb(item.preview,item.src,'Fotografía '+(index+1)+' de '+currentImages.length));
-  if(item.area){
+  const tileLabel=item.area||(photoLabelOverlay?item.caption:'');
+  if(tileLabel){
    const label=document.createElement('span');
    label.className='vcc-gallery-area-label';
-   label.textContent=item.area;
+   label.textContent=tileLabel;
    b.append(label);
   }
   b.addEventListener('click',()=>showPhoto(index));
@@ -300,7 +304,7 @@ function beginDragSlide(direction){
  img.src=sharpFor(item);
  img.alt=item.alt;
  const captionNode=incoming.querySelector('.day-lightbox-caption');
- const caption=typeof item.caption==='string'?item.caption.trim().slice(0,200):'';
+ const caption=labelFor(item);
  if(captionNode){captionNode.textContent=caption;captionNode.hidden=!caption}
  incoming.classList.toggle('vcc-has-caption',Boolean(caption));
  img.onerror=()=>{if(img.src!==item.src)img.src=item.src};
@@ -386,7 +390,7 @@ function showPhoto(index,slideDirection=0){
  counter.textContent=isMobile()?'Foto '+(currentIndex+1)+' de '+currentImages.length:
   (currentIndex+1)+' / '+currentImages.length;
  resetTouchZoom();
- const caption=typeof item.caption==='string'?item.caption.trim().slice(0,200):'';
+ const caption=labelFor(item);
  photoCaption.textContent=caption;
  photoCaption.hidden=!caption;
  photoFrame.classList.toggle('vcc-has-caption',Boolean(caption));
