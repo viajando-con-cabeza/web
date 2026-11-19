@@ -24,6 +24,23 @@
 
     const monthText = visits.map(v => v.label);
     const monthList = new Intl.ListFormat(locale, {style:'long', type:'conjunction'}).format(monthText);
+    // Explicació editorial: una visita es redacta al HTML per garantir SEO i lectura
+    // sense JS. Amb diverses visites s'actualitza amb les èpoques i els motius
+    // documentats en cada panell (data-vcc-visit-purpose), sense inventar viatges.
+    const intro = section.querySelector('[data-vcc-visit-intro]');
+    const destination = (section.dataset.vccVisitDestination || '').trim();
+    if (intro && destination && visits.length > 1) {
+      const visitDetails = visits.map(({label, panel}) => {
+        const purpose = (panel.dataset.vccVisitPurpose || '').trim();
+        return lang === 'en'
+          ? 'in ' + label + (purpose ? ' to ' + purpose : '')
+          : 'en ' + label + (purpose ? ' para ' + purpose : '');
+      });
+      const details = new Intl.ListFormat(locale, {style:'long', type:'conjunction'}).format(visitDetails);
+      intro.textContent = lang === 'en'
+        ? "We've visited " + destination + ' ' + details + '. Choose a month to see our own photos, experiences and tips.'
+        : 'Hemos visitado ' + destination + ' ' + details + '. Elige un mes para descubrir nuestras fotos, vivencias y consejos reales de cada viaje.';
+    }
     if (visits.length > 1) {
       const chip = document.querySelector('.ci-visit-chip');
       if (chip) {
