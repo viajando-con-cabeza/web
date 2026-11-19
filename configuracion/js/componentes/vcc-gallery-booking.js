@@ -172,7 +172,7 @@ function createGrid(){
  const fragment=document.createDocumentFragment();
  currentImages.forEach((item,index)=>{
   const b=document.createElement('button');b.type='button';
-  b.setAttribute('aria-label','Abrir fotografía '+(index+1)+' de '+currentImages.length);
+  b.setAttribute('aria-label','Abrir fotografía '+(index+1)+' de '+currentImages.length+(item.area?' · '+item.area:''));
   b.append(createThumb(item.preview,item.src,'Fotografía '+(index+1)+' de '+currentImages.length));
   if(item.area){
    const label=document.createElement('span');
@@ -466,8 +466,12 @@ function imagesFor(gallery){
 function openGallery(gallery,button){
  currentImages=imagesFor(gallery);
  if(!currentImages.length)return;
- if(gallery.hasAttribute('data-vcc-gallery-areas'))modal.dataset.vccGalleryAreas='1';
- else delete modal.dataset.vccGalleryAreas;
+ if(gallery.hasAttribute('data-vcc-gallery-areas')){
+  // Un primer mosaic representatiu de diverses zones, visor ordenat per barri.
+  const order=[...new Set(currentImages.map(item=>item.area))];
+  currentImages.sort((a,b)=>order.indexOf(a.area)-order.indexOf(b.area));
+  modal.dataset.vccGalleryAreas='1';
+ }else delete modal.dataset.vccGalleryAreas;
  const place=gallery.closest('.place');
  activeTitle=gallery.dataset.title||place?.querySelector('.place-heading h2, h2')?.textContent?.trim()||'Galería de fotografías';
  activeSubtitle=gallery.dataset.subtitle
