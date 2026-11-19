@@ -68,26 +68,41 @@
      description:usage.length+' bono(s), '+(trips.length-uncovered.size)+' trayectos cubiertos'+(approximate?' · duración aproximada':''),
      note:'Estimación según los bonos seleccionados; revisa horarios, zonas y condiciones del operador.'};
  }
- function compare({trips=[],people=2,car={},passes=[],sameRoute=true}={}){
-   if(trips.some(t=>!finite(t.price)||!Number.isInteger(t.day)||t.day<1||t.day>31))return {valid:false,reason:'Revisa los importes y días de los trayectos.'};
-   const travellers=clamp(people,1,30),individual=priceTotal(trips),bonus=planBonuses(trips,passes);
-   const publicCost=bonus.valid&&bonus.cost<individual?bonus.cost:individual;
-   const publicMode=bonus.valid&&bonus.cost<individual?'bonus':'individual';
+ function compare({trips=[],people=2,car={},passes=[],days=3,sameRoute=true,selected={car:true,individual:true,bonus:true}}={}){
+   if(trips.some(t=>!finite(t.price)||!Number.isInteger(t.day)||t.day<1||t.day>31))
+     return {valid:false,reason:'Revisa los importes y días de los trayectos.'};
+   const active={car:!!selected.car,individual:!!selected.individual,bonus:!!selected.bonus};
+   if(Object.values(active).filter(Boolean).length<2)
+     return {valid:false,reason:'Elige al menos dos opciones para comparar.'};
+   const travellers=clamp(people,1,30),duration=clamp(days,1,14);
+   const individual=priceTotal(trips);
+   const bonus=planBonuses(trips,active.bonus?passes:[]);
+   const publicOffers=[
+     ...(active.individual?[{type:'individual',cost:individual}]:[]),
+     ...(active.bonus&&bonus.valid?[{type:'bonus',cost:bonus.cost}]:[])
+   ].sort((a,b)=>a.cost-b.cost);
+   const publicMode=publicOffers[0]?.type||null;
+   const publicCost=publicOffers[0]?.cost??null;
    const cars=Math.ceil(travellers/clamp(car.seats||5,1,15));
    const rent=car.owned?0:amount(car.rental),fuel=amount(car.fuel);
    const parking=amount(car.parking)??0,tolls=amount(car.tolls)??0,extras=amount(car.extras)??0;
    const carValid=[rent,fuel,parking,tolls,extras].every(finite);
-   const carTotal=carValid?(rent+fuel+parking+tolls+extras)*cars:null;
-   const alternatives=[{type:'individual',cost:individual*travellers}];
-   if(bonus.valid)alternatives.push({type:'bonus',cost:bonus.cost*travellers});
-   if(carValid&&sameRoute)alternatives.push({type:'car',cost:carTotal});
-   alternatives.sort((a,b)=>a.cost-b.cost|| (a.type==='car'?1:-1));
-   const choice=alternatives[0],next=alternatives.find(a=>a.cost>choice.cost+0.001);
+   // Parquing per dia, lloguer/combustible/peatges/extres per itinerari.
+   const carTotal=carValid?(rent+fuel+parking*duration+tolls+extras)*cars:null;
+   const alternatives=[
+     ...(active.individual?[{type:'individual',cost:individual*travellers}]:[]),
+     ...(active.bonus&&bonus.valid?[{type:'bonus',cost:bonus.cost*travellers}]:[]),
+     ...(active.car&&carValid&&sameRoute?[{type:'car',cost:carTotal}]:[])
+   ].sort((a,b)=>a.cost-b.cost||(a.type==='car'?1:-1));
+   if(!alternatives.length)return {valid:false,reason:'Introduce los importes para comparar las opciones seleccionadas.'};
+   const choice=alternatives[0],next=alternatives.find(a=>a!==choice&&a.cost>choice.cost+0.001);
+   const unfinished=active.car&&(!carValid||!sameRoute)||
+     active.bonus&&!bonus.valid;
    return {valid:true,travellers,individual,individualTotal:individual*travellers,
-     bonus,publicCost,publicMode,publicTotal:publicCost*travellers,
-     carValid,carTotal,cars,sameRoute,
+     bonus,publicCost,publicMode,publicTotal:publicCost===null?null:publicCost*travellers,
+     carValid,carTotal,cars,sameRoute,active,unfinished,
      choice:choice.type,choiceTotal:choice.cost,saving:next?next.cost-choice.cost:0,
-     needsCarInputs:!carValid};
+     needsCarInputs:active.car&&!carValid};
  }
  root.VCCTransportCompareCore={compare,planBonuses};
  const container=document.getElementById('vcc-transporte-comparador');
