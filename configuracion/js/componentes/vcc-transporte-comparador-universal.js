@@ -15,7 +15,7 @@
  function planBonuses(trips,passes){
    const active=(passes||[]).filter(p=>Number(p.units)>0);
    if(!active.length)return {valid:false,reason:'Añade al menos un abono para comparar.'};
-   if(active.length>10||active.some(p=>!finite(Number(p.price))||!Number.isInteger(Number(p.quantity))||Number(p.quantity)<1||Number(p.quantity)>365||!Number.isInteger(Number(p.units))||Number(p.units)>8||!['rides','hours','days'].includes(p.type))){
+   if(active.length>10||active.some(p=>!finite(amount(p.price))||!Number.isInteger(Number(p.quantity))||Number(p.quantity)<1||Number(p.quantity)>365||!Number.isInteger(Number(p.units))||Number(p.units)>8||!['rides','hours','days'].includes(p.type))){
      return {valid:false,reason:'Revisa tipo, duración, precio y número de abonos.'};
    }
    const eligible=trips.filter(t=>t.included);
@@ -168,9 +168,7 @@
      const units=input(pass.units,'number','units','Número de bonos por persona '+(i+1));units.max='8';
      const remove=el('button','tc-remove','×');remove.type='button';remove.dataset.action='remove';
      remove.setAttribute('aria-label','Eliminar bono '+(i+1));
-     const legend=el('div','tc-pass-heading');
-     legend.append(el('span','','TÍTULO'),el('span','','DURACIÓN'),el('span','','TIPO'),el('span','','PRECIO'),el('span','','UDS.'));
-     row.append(legend,field('Título',preset));
+     row.append(field('Título',preset));
      if(pass.preset==='custom')row.append(field('Nombre',name));
      row.append(field('Duración',quantity),field('Tipo',type),field('Precio '+currency,price),field('Unidades',units),remove);
      list.append(row);
@@ -251,7 +249,7 @@
      const p=amount(event.target.value);if(!finite(p))return;
      trip.price=p;trip.userEdited=true;edited=true;
    }else if(f==='label')trip.label=event.target.value;
-   else if(f==='mode'){trip.mode=event.target.value;if(trip.mode==='ferry')trip.included=false;}
+   else if(f==='mode'){trip.mode=event.target.value;if(trip.mode==='ferry'){trip.included=false;const cover=row.querySelector('input[data-field="included"]');if(cover)cover.checked=false;}}
    else if(f==='day')trip.day=Number(event.target.value);
    else if(f==='time')trip.time=event.target.value;
    else if(f==='included')trip.included=event.target.checked;
@@ -268,12 +266,12 @@
        price:src?valueFor(src):null,simulation:!src});
      renderPassEditor();
    }else if(f==='units'){
-     pass.units=clamp(event.target.value,0,8);
+     pass.units=clamp(event.target.value,0,8);if(event.type==='change')event.target.value=String(pass.units);
    }else if(f==='price'){
      const p=amount(event.target.value);pass.price=p;
      pass.simulation=true;edited=true;
    }else if(f==='quantity'){
-     pass.quantity=clamp(event.target.value,1,365);pass.simulation=true;edited=true;
+     pass.quantity=clamp(event.target.value,1,365);if(event.type==='change')event.target.value=String(pass.quantity);pass.simulation=true;edited=true;
    }else if(f==='type'){
      pass.type=event.target.value;pass.simulation=true;edited=true;
    }else if(f==='label'){
