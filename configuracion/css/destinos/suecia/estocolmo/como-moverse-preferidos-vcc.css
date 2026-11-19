@@ -1,28 +1,31 @@
-/* Estocolmo · Sobretítulos externos, en la misma familia visual que Suecia */
+/* Estocolmo · Sobretítulos integrados dentro de las tarjetas, mismo patrón que Dónde dormir. */
 .mv-transport-section .mv-grid>.mv-transport-slide{
  flex:0 0 calc((100% - 24px)/3);min-width:0;display:flex;flex-direction:column;scroll-snap-align:start;
 }
-.mv-transport-section .mv-grid>.mv-transport-slide>.mv-transport-ideal{
- display:block;flex:none;margin:0;padding:0 9px 9px;min-height:39px;
+.mv-transport-section .mv-card .mv-card-title>.mv-transport-ideal{
+ display:block;margin:0 0 5px;min-height:0;padding:0;
  color:#c86f5d;background:transparent;border:0;
- font:600 25px/1.15 var(--vcc-font-script,"Caveat",cursive);
+ font:600 19px/1.05 var(--vcc-font-script,"Caveat",cursive);
  letter-spacing:0;text-transform:none;text-align:left;
+ overflow-wrap:break-word;
 }
+.mv-transport-section .mv-card .mv-card-title>h3{margin:0}
+.mv-transport-section .mv-card .mv-card-heading{align-items:center}
 .mv-transport-section .mv-grid>.mv-transport-slide>.mv-card{
  flex:1 1 auto;display:flex;flex-direction:column;min-width:0;width:100%;
 }
 .mv-transport-section .mv-grid>.mv-transport-slide>.mv-card>.mv-card-body{flex:1 1 auto}
-.mv-transport-section .mv-transport-arrow{top:calc(50% + 17px)}
+.mv-transport-section .mv-transport-arrow{top:50%}
 @media(max-width:1050px){
  .mv-transport-section .mv-grid>.mv-transport-slide{flex-basis:calc((100% - 12px)/2)}
 }
 @media(max-width:690px){
  .mv-transport-section .mv-grid>.mv-transport-slide{flex-basis:100%}
- .mv-transport-section .mv-grid>.mv-transport-slide>.mv-transport-ideal{padding:0 8px 8px;min-height:36px;font-size:24px}
- .mv-transport-section .mv-transport-arrow{top:calc(50% + 15px)}
+ .mv-transport-section .mv-card .mv-card-title>.mv-transport-ideal{font-size:19px;margin-bottom:4px}
+ .mv-transport-section .mv-transport-arrow{top:50%}
 }
 @media(max-width:360px){
- .mv-transport-section .mv-grid>.mv-transport-slide>.mv-transport-ideal{font-size:22px}
+ .mv-transport-section .mv-card .mv-card-title>.mv-transport-ideal{font-size:18px}
 }
 
 /* Elige tu transporte: descripciones ligeramente más compactas.
