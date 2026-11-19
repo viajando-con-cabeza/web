@@ -191,7 +191,11 @@
      tolls:$('tolls').value,extras:$('extras').value};
    const result=root.VCCTransportCompareCore.compare({
      trips,people:travellers,car,passes,sameRoute:$('same-route').checked});
-   if(!result.valid){set('recommend','Revisa importes');set('recommend-note',result.reason);return;}
+   if(!result.valid){
+     set('recommend','Revisa los importes');
+     for(const id of ['individual-person','individual-group','bonus-person','bonus-group','car-person','car-group','recommend-person','recommend-group','saving'])set(id,'—');
+     set('recommend-note',result.reason);return;
+   }
    set('trip-count',trips.length+' viajes');
    set('individual-person',money(result.individual));set('individual-group',money(result.individualTotal));
    set('bonus-person',result.bonus.valid?money(result.bonus.cost):'—');
@@ -236,7 +240,10 @@
  }
  function adjustBasePrice(){
    const next=amount($('trip-price').value);
-   if(!finite(next)){set('recommend-note','Indica un precio válido por viaje.');return;}
+   if(!finite(next)){
+     for(const t of trips)if(!t.userEdited)t.price=NaN;
+     update();return;
+   }
    for(const trip of trips)if(!trip.userEdited)trip.price=next;
    edited=next!==basePrice()||trips.some(t=>t.userEdited);
    renderTripEditor();update();
@@ -246,8 +253,9 @@
    const trip=findTrip(Number(row.dataset.id));if(!trip)return;
    const f=event.target.dataset.field;
    if(f==='price'){
-     const p=amount(event.target.value);if(!finite(p))return;
-     trip.price=p;trip.userEdited=true;edited=true;
+     const p=amount(event.target.value);
+     trip.price=finite(p)?p:NaN;
+     trip.userEdited=true;edited=true;
    }else if(f==='label')trip.label=event.target.value;
    else if(f==='mode'){trip.mode=event.target.value;if(trip.mode==='ferry'){trip.included=false;const cover=row.querySelector('input[data-field="included"]');if(cover)cover.checked=false;}}
    else if(f==='day')trip.day=Number(event.target.value);
