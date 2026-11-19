@@ -13,9 +13,12 @@
     const individual=root.querySelector("#ep4-calc-individual-total");
     const withPass=root.querySelector("#ep4-calc-pass-total");
     const verdict=root.querySelector("#ep4-calc-verdict");
+    const savingBadge=root.querySelector("#ep4-calc-saving");
     const format=n=>Math.round(n).toLocaleString(en?"en-GB":"es-ES")+" SEK";
     const num=s=>{const n=Number(String(s).trim().replace(",","."));return Number.isFinite(n)?Math.max(0,n):0;};
     function render(){
+      root.dataset.result="pending";
+      if(savingBadge){savingBadge.hidden=true;savingBadge.textContent="";}
       const people=Math.max(1,Math.min(6,Math.round(num(adults.value))||1));
       let entry=0,remaining=0,count=0,covered=0;
       rows.forEach(row=>{
@@ -47,6 +50,11 @@
         const delta=entry*people-total;
         withPass.textContent=format(total);
         const saving=format(Math.abs(delta));
+        root.dataset.result=delta>0?"pass":delta<0?"tickets":"same";
+        if(savingBadge&&delta!==0){
+          savingBadge.textContent=(en?"You save ":"Ahorras ")+saving;
+          savingBadge.hidden=false;
+        }
         if(delta>0)verdict.textContent=en?"For the prices you entered, the pass saves "+saving+". Check its validity, bookings and limitations.":"Con los importes introducidos, el pase ahorra "+saving+". Comprueba validez, reservas y límites.";
         else if(delta<0)verdict.textContent=en?"For the prices you entered, separate tickets save "+saving+".":"Con los importes introducidos, comprar entradas sueltas ahorra "+saving+".";
         else verdict.textContent=en?"Both options cost the same with the prices entered.":"Ambas opciones cuestan lo mismo con los importes introducidos.";
