@@ -1,0 +1,147 @@
+/* VCC · Entradas y pases Estocolmo · dos fichas por vista + galería fija lateral.
+   Reutiliza carrusel ep4-our y visor universal vcc-gallery-booking; no duplica JS. */
+.ep-page .ep4-our .ep4-route-layout{
+  display:grid;
+  grid-template-columns:minmax(0,2fr) minmax(270px,1fr);
+  gap:13px;
+  align-items:stretch;
+  width:100%;
+  min-width:0;
+}
+.ep-page .ep4-our .ep4-route-layout > *{min-width:0}
+.ep-page .ep4-our .ep4-route-layout .ep4-our-carousel,
+.ep-page .ep4-our .ep4-route-layout .ep4-our-stage{height:100%;min-width:0}
+.ep-page .ep4-our .ep4-route-layout .ep4-our-stage > .ep4-our-list{
+  display:flex!important;
+  align-items:stretch;
+  gap:12px!important;
+  height:100%;
+  scroll-snap-type:x mandatory!important;
+  overflow-x:auto!important;
+  overflow-y:hidden!important;
+}
+@media(min-width:760px){
+  /* La tercera ficha sigue en el carrusel, pero fuera de la vista inicial. */
+  .ep-page .ep4-our .ep4-route-layout .ep4-our-list > .ep4-day-card{
+    flex:0 0 calc((100% - 12px)/2)!important;
+    width:calc((100% - 12px)/2)!important;
+    max-width:calc((100% - 12px)/2)!important;
+    scroll-snap-align:start!important;
+  }
+}
+.ep-page .ep4-our .ep4-route-layout .ep4-photos-aside{
+  display:flex;
+  flex-direction:column;
+  min-width:0;
+  margin:0;
+  padding:11px 11px 10px;
+  border:1px solid #e7e0d9;
+  border-radius:15px;
+  background:#fff;
+  box-shadow:0 3px 13px #392a1a10;
+}
+.ep-page .ep4-photos-aside h3{
+  margin:0;
+  color:#273030;
+  font:600 16px/1.22 var(--vcc-font-heading,"Oswald",sans-serif);
+  letter-spacing:0;
+}
+.ep-page .ep4-photos-aside .ep4-photos-lead{
+  margin:4px 0 10px;
+  color:#68615a;
+  font:400 10.5px/1.5 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
+}
+.ep-page .ep4-photos-aside .day-gallery{
+  display:flex;
+  flex:1 1 auto;
+  min-height:190px;
+  width:100%;
+  min-width:0;
+  margin:0;
+}
+.ep-page .ep4-photos-aside .day-mosaic[data-count]{
+  display:grid!important;
+  flex:1;
+  width:100%!important;
+  height:100%!important;
+  min-height:190px;
+  aspect-ratio:auto!important;
+}
+.ep-page .ep4-photos-aside .day-mosaic>button .ep4-photo-label{
+  position:absolute;
+  z-index:3;
+  right:6px;
+  bottom:6px;
+  max-width:calc(100% - 12px);
+  padding:2px 5px;
+  border:1px solid rgba(255,255,255,.28);
+  border-radius:3px;
+  background:rgba(255,255,255,.66);
+  color:#252321;
+  box-shadow:0 1px 3px rgba(0,0,0,.06);
+  font:700 8.5px/1.2 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
+  text-align:right;
+  text-transform:none!important;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  pointer-events:none;
+}
+.ep-page .ep4-photos-aside .ep4-photos-foot{
+  margin:9px 0 0;
+  color:#70675d;
+  font:400 10px/1.4 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
+}
+html body .ep4-gallery-modal[data-vcc-gallery-areas="1"] .day-lightbox-grid>button>span.vcc-gallery-area-label,
+html body .ep4-gallery-modal[data-vcc-photo-label-overlay] .day-lightbox-photo-frame .day-lightbox-caption:not([hidden]){
+  background:rgba(255,255,255,.66)!important;
+  border:1px solid rgba(255,255,255,.28)!important;
+  box-shadow:0 1px 3px rgba(0,0,0,.06)!important;
+  color:#252321!important;
+  border-radius:3px!important;
+  padding:2px 5px!important;
+  font:700 8.5px/1.2 var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;
+  text-transform:none!important;
+  text-align:right!important;
+}
+html body .ep4-gallery-modal[data-vcc-gallery-areas="1"] .day-lightbox-grid>button>span.vcc-gallery-area-label{
+  left:auto!important;
+  right:6px!important;
+  bottom:6px!important;
+  max-width:calc(100% - 12px);
+}
+@media(max-width:1099px){
+  .ep-page .ep4-our .ep4-route-layout{grid-template-columns:minmax(0,1fr);gap:15px}
+  .ep-page .ep4-photos-aside .day-gallery{
+    flex:none;
+    width:min(100%, 640px);
+    min-height:0;
+    margin:0 auto;
+  }
+  .ep-page .ep4-photos-aside .day-mosaic[data-count]{
+    flex:none;
+    height:auto!important;
+    min-height:0;
+    aspect-ratio:1.35!important;
+  }
+  .ep-page .ep4-our .ep4-route-layout .ep4-our-carousel,
+  .ep-page .ep4-our .ep4-route-layout .ep4-our-stage{height:auto}
+}
+@media(max-width:759px){
+  .ep-page .ep4-our .ep4-route-layout .ep4-our-list > .ep4-day-card{
+    flex:0 0 100%!important;
+    width:100%!important;
+    max-width:100%!important;
+  }
+  .ep-page .ep4-our .ep4-route-layout .ep4-photos-aside{padding:10px}
+  .ep-page .ep4-photos-aside .day-gallery{width:100%}
+  .ep-page .ep4-photos-aside .day-mosaic>button .ep4-photo-label{
+    right:5px;bottom:5px;font-size:8px;padding:2px 4px;
+  }
+  html body .ep4-gallery-modal[data-vcc-gallery-areas="1"] .day-lightbox-grid>button>span.vcc-gallery-area-label{
+    font-size:8px!important;padding:2px 4px!important;
+  }
+}
+@media(prefers-reduced-motion:reduce){
+  .ep-page .ep4-photos-aside .day-mosaic>button>img{transition:none}
+}
