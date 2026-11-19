@@ -99,7 +99,10 @@
  const currency=catalogue.currency||'SEK';
  const passSource=(catalogue.tickets||[]).filter(t=>t.quantity>1||t.type!=='rides');
  const single=(catalogue.tickets||[]).find(t=>t.type==='rides'&&t.quantity===1);
- const getPrice=t=>Number(t?.price?.[form('fare').value]??t?.price?.adult??0);
+ const getPrice=t=>{
+   const value=t?.price?.[form('fare').value];
+   return value==null||value===''?null:Number(value);
+ };
  const form=id=>container.querySelector('#tc-'+id);
  let nextId=0;
  const dates=[1,1,2,2,2,3,3];
@@ -132,7 +135,7 @@
    form('pass-editor').hidden=id==='auto';
    if(!custom&&id!=='auto'){
      const src=passSource.find(t=>t.id===id);
-     if(src){form('bonus-name').value=src.label;form('bonus-type').value=src.type;form('bonus-quantity').value=src.quantity;form('bonus-price').value=getPrice(src);}
+     if(src){form('bonus-name').value=src.label;form('bonus-type').value=src.type;form('bonus-quantity').value=src.quantity;form('bonus-price').value=getPrice(src)??'';}
    }else if(custom&&!model.customSet){
      form('bonus-name').value='Bono 10 viajes';form('bonus-type').value='rides';form('bonus-quantity').value=10;form('bonus-price').value='';
      model.customSet=true;
@@ -174,7 +177,7 @@
  function renderTariffs(){
    const box=form('official-tariffs');
    box.replaceChildren();
-   const row=(label,value)=>{const p=element('p');p.append(element('span','',label),element('b','',money(value)));box.append(p)};
+   const row=(label,value)=>{const p=element('p');p.append(element('span','',label),element('b','',finite(value)?money(value):'No disponible'));box.append(p)};
    if(single)row(single.label,getPrice(single));
    passSource.forEach(t=>row(t.label,getPrice(t)));
  }
@@ -212,7 +215,7 @@
    set('car-total',result.carValid?money(result.carTotal):'—');
    set('vehicles',result.cars+(result.cars===1?' coche':' coches')+' para '+people+' viajeros');
    let label=result.choice==='car'?'Coche':result.choice==='bonus'?'Bono de transporte':'Billetes individuales';
-   if(model.modified||mode==='custom')label+=' · Simulación';
+   if((model.modified||mode==='custom')&&result.choice!=='car')label+=' · Simulación';
    set('recommend',label);set('result-pp',money(result.choiceTotal/people));set('result-total',money(result.choiceTotal));
    set('saving',money(result.saving/people));set('people-label',people+(people===1?' viajero':' viajeros'));
    const note=result.choice==='car'
@@ -232,7 +235,7 @@
    if(field==='price'){
      const value=moneyValue(event.target.value);
      if(value===null||!finite(value))return;
-     trip.price=value;model.modified=true;
+     trip.price=value;trip.userEdited=true;model.modified=true;
    }
    if(field==='included')trip.included=event.target.checked;
    update();
@@ -263,7 +266,10 @@
  });
  form('pass').addEventListener('change',displayBonusEditor);
  form('fare').addEventListener('change',()=>{
-   if(single){const oldPrice=Number(single.price[form('fare').value]??single.price.adult);trips.forEach(t=>{t.price=oldPrice});model.modified=false;}
+   if(single){
+     const updated=getPrice(single);
+     if(updated!==null)trips.forEach(t=>{if(!t.userEdited)t.price=updated;});
+   }
    renderTrips();renderTariffs();displayBonusEditor();
  });
  for(const id of ['people','car-kind','seats','rental','fuel','parking','insurance','extras','same-route']){
