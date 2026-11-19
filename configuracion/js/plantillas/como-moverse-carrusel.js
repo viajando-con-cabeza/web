@@ -49,6 +49,7 @@
 
     const visibleCount = () =>
       window.matchMedia("(max-width: 690px)").matches ? 1 :
+      section.classList.contains("mv-transport-with-gallery") ? 2 :
       window.matchMedia("(max-width: 1050px)").matches ? 2 : 3;
     const reduceMotion = () =>
       window.matchMedia("(prefers-reduced-motion: reduce)").matches;
