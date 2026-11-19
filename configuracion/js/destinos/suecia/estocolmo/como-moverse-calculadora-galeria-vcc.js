@@ -114,6 +114,75 @@
      }
      calculate();
    };
+   // UI de catàleg: mateix component per a qualsevol destí.
+   // Els canvis del lector no modifiquen el catàleg oficial al repositori.
+   function renderFareEditor(){
+     if(!fareList)return;
+     const fragment=document.createDocumentFragment();
+     ticketCatalog.forEach((ticket,index)=>{
+       const row=document.createElement('div');
+       row.className='mv-vcc-fare-row';
+       const name=document.createElement('div');name.className='mv-vcc-fare-row-name';
+       const title=document.createElement('strong');title.textContent=ticket.label;
+       const status=document.createElement('small');
+       status.textContent=ticket.simulation?'SIMULACIÓN':'SL · OFICIAL';
+       name.append(title,status);
+       const fields=document.createElement('div');fields.className='mv-vcc-fare-row-fields';
+       const wrap=(label,node)=>{
+         const field=document.createElement('label');field.className='mv-vcc-field';
+         const caption=document.createElement('span');caption.textContent=label;
+         field.append(caption,node);return field;
+       };
+       const select=document.createElement('select');
+       for(const [key,label] of [['rides','Viajes'],['hours','Horas'],['days','Días']]){
+         const option=document.createElement('option');
+         option.value=key;option.textContent=label;select.append(option);
+       }
+       select.value=ticket.type;
+       select.dataset.index=String(index);select.dataset.field='type';
+       select.setAttribute('aria-label','Tipo de abono · '+ticket.label);
+       fields.append(wrap('TIPO',select));
+       for(const [field,label,value] of [
+         ['quantity','CANTIDAD',ticket.quantity],
+         ['price','PRECIO '+currency,ticket.price&&ticket.price[category.value]]
+       ]){
+         const input=document.createElement('input');
+         input.type='number';input.inputMode='decimal';
+         input.min=field==='quantity'?'1':'0';input.max='100000';
+         input.step=field==='price'?'0.01':'1';
+         input.value=value===undefined?'':String(value);
+         input.dataset.index=String(index);input.dataset.field=field;
+         input.setAttribute('aria-label',label+' · '+ticket.label);
+         fields.append(wrap(label,input));
+       }
+       row.append(name,fields);fragment.append(row);
+     });
+     fareList.replaceChildren(fragment);
+     fareNote.textContent=simulationChanged
+       ?'SIMULACIÓN PERSONAL · Los precios o abonos editados no son tarifas oficiales. Para títulos de menos de 24 h, hacen falta los horarios de viaje.'
+       :'Precios SL de 2026. Puedes simular otras tarifas, pero no son productos oficiales. Las validez por horas inferior a 24 h necesita los horarios reales.';
+   }
+   function editFare(event){
+     const input=event.target;
+     const i=Number(input.dataset.index),field=input.dataset.field;
+     const ticket=ticketCatalog[i];
+     if(!ticket||!['type','quantity','price'].includes(field))return;
+     if(field==='type')ticket.type=input.value;
+     if(field==='quantity'){
+       const value=Number(input.value);
+       if(!Number.isInteger(value)||value<1||value>365)return;
+       ticket.quantity=value;
+     }
+     if(field==='price'){
+       const value=Number(input.value);
+       if(input.value.trim()===''||!Number.isFinite(value)||value<0||value>100000)return;
+       ticket.price[category.value]=value;
+     }
+     simulationChanged=true;
+     ticket.simulation=true;
+     fareNote.textContent='SIMULACIÓN PERSONAL · Has cambiado un abono o su precio; verifica las tarifas reales antes de comprar.';
+     calculate();
+   }
    function calculate(){
      const n=readDays(),p=clamp(Number(people.value),1,10);
      const arr=counts.slice(0,n).map(v=>clamp(v,0,20));
@@ -158,13 +227,38 @@
        input.addEventListener('change',calculate);
      }
    });
+   fareList.addEventListener('input',editFare);
+   fareList.addEventListener('change',editFare);
+   root.querySelector('#mv-vcc-add-fare').addEventListener('click',()=>{
+     const title=fareName.value.trim().slice(0,38),type=fareKind.value;
+     const quantity=Number(fareQuantity.value),price=Number(farePrice.value);
+     if(!title||!['rides','days','hours'].includes(type)||
+        !Number.isInteger(quantity)||quantity<1||quantity>365||
+        farePrice.value.trim()===''||!Number.isFinite(price)||price<0||price>100000){
+       fareNote.textContent='Introduce nombre, tipo, cantidad y precio para simular un abono.';
+       return;
+     }
+     const priceByCategory={};
+     priceByCategory[category.value]=price;
+     ticketCatalog.push({
+       id:'simulated-'+ticketCatalog.length,label:title,type,
+       quantity,price:priceByCategory,scope:'person',simulation:true
+     });
+     simulationChanged=true;fareName.value='';farePrice.value='';
+     renderFareEditor();calculate();
+   });
+   root.querySelector('#mv-vcc-reset-fares').addEventListener('click',()=>{
+     ticketCatalog=originalTickets.map(x=>JSON.parse(JSON.stringify(x)));
+     simulationChanged=false;
+     renderFareEditor();calculate();
+   });
    days.addEventListener('change',renderDayInputs);
    people.addEventListener('input',calculate);
    people.addEventListener('change',()=>{
      people.value=String(clamp(Number(people.value),1,10));
      calculate();
    });
-   category.addEventListener('change',calculate);
+   category.addEventListener('change',()=>{renderFareEditor();calculate()});
    dayInputs.addEventListener('input',e=>{
      const i=Number(e.target.dataset.day);
      if(!Number.isInteger(i)||i<0||i>=7)return;
@@ -179,11 +273,14 @@
    });
    root.querySelector('#mv-vcc-reset').addEventListener('click',()=>{
      days.value='3';people.value='2';category.value='adult';
+     ticketCatalog=originalTickets.map(x=>JSON.parse(JSON.stringify(x)));
+     simulationChanged=false;renderFareEditor();
      carRoute.value='city';carType.value='own';
      carRent.value='';carParking.value='';carExtras.value='';
      [2,3,2,0,0,0,0].forEach((v,i)=>{counts[i]=v});
      renderDayInputs();
    });
+   renderFareEditor();
    renderDayInputs();
  }
 })();
