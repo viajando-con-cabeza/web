@@ -78,7 +78,7 @@
      const periodDiff=fare.h72-best.cost;
      if(best.cost===0){
        option.textContent='No necesitas billetes con esta selección.';
-     }else if(n<=3&&periodDiff>0){
+     }else if(n===3&&periodDiff>0){
        option.textContent='Ahorras '+money(periodDiff)+' por persona frente al abono de 72 h.';
      }else if(diff>0){
        option.textContent='La combinación más económica ahorra '+money(diff)+' por persona frente a todos los billetes sueltos.';
