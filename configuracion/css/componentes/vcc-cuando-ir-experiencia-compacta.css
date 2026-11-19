@@ -62,3 +62,52 @@ html body.ci-page.vcc-august-gallery-compact #experiencia .ci-august-gallery-emb
     max-height:270px!important;
   }
 }
+
+/* Selector editorial compartit · mesos realment visitats (ES/EN).
+   Un sol component tant si hi ha una visita com si n'hi ha dotze. */
+html body.ci-page #experiencia .vcc-visit-tabs{
+  display:flex;align-items:center;gap:8px;flex-wrap:wrap;
+  margin:0 0 13px;padding:0;
+}
+html body.ci-page #experiencia .vcc-visit-tab{
+  appearance:none;display:inline-flex;align-items:center;justify-content:center;
+  min-height:35px;padding:7px 16px;border:1px solid #d9d4cf;
+  border-radius:9px;background:#fff;color:#5c554e;cursor:pointer;
+  font:700 11px/1.25 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
+  letter-spacing:.055em;text-transform:uppercase;
+  transition:background-color .15s,border-color .15s,color .15s;
+}
+html body.ci-page #experiencia .vcc-visit-tab:hover{
+  background:#faf5f0;border-color:#d6aa88;
+}
+html body.ci-page #experiencia .vcc-visit-tab[aria-selected="true"]{
+  color:#96552f;background:#fff1e7;border-color:#c98557;
+}
+html body.ci-page #experiencia .vcc-visit-tab:focus-visible{
+  outline:2px solid #ba6c39;outline-offset:3px;
+}
+html body.ci-page #experiencia .vcc-visit-panel[hidden]{
+  display:none!important;
+}
+html body.ci-page #experiencia .vcc-visit-panel>.ci-august-bottom{
+  border:0!important;margin:10px 3px 0!important;
+  padding:0!important;background:transparent!important;
+}
+html body.ci-page #experiencia .vcc-visit-panel>.ci-august-bottom>p{
+  font-size:10px;line-height:1.5;
+}
+@media(max-width:600px){
+  html body.ci-page #experiencia .vcc-visit-tabs{
+    gap:7px;margin-bottom:11px;flex-wrap:nowrap;
+    overflow-x:auto;scrollbar-width:thin;
+  }
+  html body.ci-page #experiencia .vcc-visit-tab{
+    min-height:34px;padding:7px 13px;flex:0 0 auto;
+  }
+  html body.ci-page #experiencia .vcc-visit-panel>.ci-august-bottom{
+    margin-top:9px!important;
+  }
+}
+@media(prefers-reduced-motion:reduce){
+  html body.ci-page #experiencia .vcc-visit-tab{transition:none}
+}
