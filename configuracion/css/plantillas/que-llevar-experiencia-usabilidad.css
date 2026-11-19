@@ -601,3 +601,19 @@ html body .ql-page .ql-vcc-experience-route a:focus-visible{
  html body .ql-page .ql-vcc-experience-photo img{max-height:195px;}
  html body .ql-page .ql-vcc-bag-reason{font-size:11.5px;}
 }
+
+/* Galería editorial de qué llevar: los mosaicos y el visor usan el componente VCC compartido. */
+html body .ql-page .ql-main > .ql-vcc-photo-gallery{
+ margin-top:var(--vcc-section-space,58px);
+ margin-bottom:var(--vcc-section-space,58px);
+ min-width:0;
+}
+html body .ql-page .ql-main > .ql-vcc-photo-gallery .ql-section-heading{
+ margin-bottom:14px!important;
+}
+@media(max-width:700px){
+ html body .ql-page .ql-main > .ql-vcc-photo-gallery{
+  margin-top:var(--vcc-section-space,44px);
+  margin-bottom:var(--vcc-section-space,44px);
+ }
+}
