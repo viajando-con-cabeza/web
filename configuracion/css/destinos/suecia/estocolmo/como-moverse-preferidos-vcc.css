@@ -24,3 +24,15 @@
 @media(max-width:360px){
  .mv-transport-section .mv-grid>.mv-transport-slide>.mv-transport-ideal{font-size:22px}
 }
+
+/* Elige tu transporte: descripciones ligeramente más compactas.
+   Conservamos el tamaño de los títulos (h3, Nuestra experiencia, Cómo pagar y Cuándo usarlo). */
+@media (min-width:1271px) {
+  .mv-transport-section .mv-card .mv-experience-list li,
+  .mv-transport-section .mv-card .mv-card-advice-item p {font-size:11px}
+}
+@media (max-width:690px) {
+  .mv-transport-section .mv-card .mv-card-title>span {font-size:11.5px}
+  .mv-transport-section .mv-card .mv-experience-list li,
+  .mv-transport-section .mv-card .mv-card-advice-item p {font-size:11.7px;line-height:1.45}
+}
