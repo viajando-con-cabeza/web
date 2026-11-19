@@ -240,15 +240,17 @@
    set('recommend-group',money(result.choiceTotal));
    set('saving',money(result.saving/travellers));
    set('group-label',travellers+(travellers===1?' viajero':' viajeros'));
-   const reason=!result.sameRoute?
-     'No se compara el coche: no cubre exactamente los mismos trayectos.':
-     !result.carValid?
-       'Indica los gastos del coche para incluirlo en la comparación final.':
+   const reason=selected.car&&!result.sameRoute?
+     'El coche se excluye: no cubre el mismo recorrido.':
+     selected.car&&!result.carValid?
+       'Comparación provisional: informa alquiler y combustible para incluir el coche.':
+     selected.bonus&&!result.bonus.valid?
+       'Comparación provisional: revisa los precios y la cobertura de los abonos.':
      result.choice==='car'?
-       'Coste menor con tus datos; revisa tiempos, aparcamiento, seguro y accesos.':
-     result.publicMode==='bonus'?
-       'Según los importes indicados, la combinación de bonos compensa.':
-       'Según los importes indicados, los billetes individuales compensan.';
+       'Con estos importes, el coche cuesta menos; revisa aparcamiento y accesos.':
+     result.choice==='bonus'?
+       'La combinación de abonos y billetes complementarios cuesta menos.':
+       'Los billetes individuales son la alternativa más económica.';
    set('recommend-note',reason);
    set('sim-note',edited||passes.some(p=>p.preset==='custom'||p.simulation)?
      'SIMULACIÓN PERSONAL · Comprueba precios, horarios y cobertura de los títulos.':
