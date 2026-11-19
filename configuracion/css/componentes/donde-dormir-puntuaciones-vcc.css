@@ -258,14 +258,21 @@ html body.dv-page #barrios .dv-zone-details .dv-zone-hotel-pricecol .dv-zone-boo
   text-align:right;
 }
 @media(max-width:700px){
-  /* La fitxa es disposa en dues files: descripció, preu i, al peu dret,
-     la reserva. Sense superposicions amb les fletxes del carrusel d'hotels. */
+  /* La pista deixa d'estirar totes les fitxes fins a l'altura de la més alta.
+     L'altura del carrusel s'ajusta a la fitxa visible al JS compartit. */
+  html body.dv-page #barrios .dv-zone-details .dv-zone-hotels-carousel .dv-zone-hotels-list{
+    align-items:flex-start;
+  }
+  /* Format en dues files: nom i descripció; preu esquerra + Booking inferior dreta.
+     Reserva de 44px de zona tàctil, sense creació d'una tercera fila buida. */
   html body.dv-page #barrios .dv-zone-details .dv-zone-hotel{
     display:grid;
     grid-template-columns:40px minmax(0,1fr);
     grid-template-rows:auto auto;
     gap:2px 9px;
     align-items:start;
+    min-height:0;
+    padding:7px 9px;
   }
   html body.dv-page #barrios .dv-zone-details .dv-zone-hotel-icon{
     grid-column:1;grid-row:1 / span 2;align-self:start;
@@ -276,27 +283,26 @@ html body.dv-page #barrios .dv-zone-details .dv-zone-hotel-pricecol .dv-zone-boo
   html body.dv-page #barrios .dv-zone-details .dv-zone-hotel-pricecol{
     display:grid;
     grid-column:2;grid-row:2;
-    grid-template-columns:minmax(0,1fr);
-    grid-template-rows:auto auto;
-    gap:0;
-    align-content:start;justify-items:stretch;
+    grid-template-columns:minmax(0,1fr) max-content;
+    grid-template-rows:auto;
+    gap:6px;
+    align-items:end;
+    justify-items:stretch;
     align-self:start;
     width:100%;min-width:0;
-    margin:0;padding:1px 0 0;
+    margin:2px 0 0;padding:0;
     text-align:left;
   }
   html body.dv-page #barrios .dv-zone-details .dv-zone-hotel-pricecol .dv-zone-price{
     grid-column:1;grid-row:1;
-    align-self:start;justify-self:start;
-    white-space:normal;
+    justify-self:start;align-self:center;
+    min-width:0;white-space:normal;
   }
   html body.dv-page #barrios .dv-zone-details .dv-zone-hotel-pricecol .dv-zone-booking-link{
-    grid-column:1;grid-row:2;
+    grid-column:2;grid-row:1;
     justify-self:end;align-self:end;
-    margin:1px 0 0;
-    padding:3px 0 0;
-    display:inline-flex;
-    align-items:center;
+    margin:0;padding:7px 0;
+    display:inline-flex;align-items:center;
     min-height:44px;
   }
 }
