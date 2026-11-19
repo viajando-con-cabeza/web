@@ -217,7 +217,8 @@
        const caption=document.createElement('span');
        const amount=document.createElement('b');
        const price=ticket.price?.[category.value];
-       caption.textContent=ticket.label+(ticket.simulation?' · Simulación':'');
+       const requiresTimes=ticket.type==='hours'&&(Number(ticket.quantity)<24||Number(ticket.quantity)%24!==0);
+       caption.textContent=ticket.label+(ticket.simulation?' · Simulación':'')+(requiresTimes?' · Horarios necesarios':'');
        amount.textContent=price===undefined||price===null||price===''?'—':money(Number(price));
        row.append(caption,amount);fragment.append(row);
      });
@@ -248,6 +249,7 @@
      passDescription.textContent=passes.valid
        ?'Mejor combinación con abono: '+passes.steps.join(' · ')
        :'No hay abonos comparables para los trayectos elegidos.';
+     if(passes.uncomparable.length)passDescription.textContent+=' Algunos títulos necesitan horas exactas.';
      if(!best.valid){
        option.textContent='Revisa las tarifas';
        cost.textContent='—';group.textContent='—';savingAmount.textContent='—';
