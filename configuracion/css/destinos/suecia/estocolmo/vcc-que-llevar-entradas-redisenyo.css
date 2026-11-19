@@ -1,0 +1,58 @@
+/* VCC · Rediseño de las guías Qué llevar / Entradas y pases, Estocolmo.
+   CSS local, sin alterar mosaicos, portadas ni estilos de otras ciudades. */
+.ql-page .ql-main .ql-v7-section-bag + .ql-v7-section-pack{margin-top:clamp(14px,2.5vw,28px)!important}
+.ql-page .ql-flow-note{margin:8px 0 0;color:#66605b;font:400 11.5px/1.5 var(--vcc-font-body,"DM Sans",Arial,sans-serif)}
+.ql-page .ql-main #experiencia-vcc{margin-top:var(--vcc-section-space,58px)}
+.ql-page .ql-main .ql-advice-section{margin-bottom:var(--vcc-section-space,58px)}
+.ql-page .ql-v7-section-bag .ql-section-heading .ql-heading-lead{max-width:860px}
+.ql-page .ql-v7-section-pack .ql-section-heading .ql-heading-lead{max-width:860px}
+.ql-page .ql-v7-bag-planner{margin-bottom:0}
+.ql-page .ql-v17-actions-strip .ql-v6-actions{gap:7px}
+.ep-page .ep4-main .ep4-calculator{margin:0 0 var(--vcc-section-space,64px);min-width:0}
+.ep-page .ep4-calculator .ep4-heading{margin-bottom:14px}
+.ep-page .ep4-calculator-panel{background:#fff;border:1px solid #e8ded5;border-radius:15px;padding:16px;box-shadow:0 4px 16px rgba(54,40,31,.035);font-family:var(--vcc-font-body,"DM Sans",Arial,sans-serif)}
+.ep-page .ep4-calc-controls{display:flex;flex-wrap:wrap;gap:14px;align-items:flex-end;margin-bottom:12px}
+.ep-page .ep4-calc-controls label{display:flex;flex-direction:column;gap:5px;font-size:11px;font-weight:700;color:#514840}
+.ep-page .ep4-calc-controls select,.ep-page .ep4-calc-controls input{box-sizing:border-box;border:1px solid #d7cdc4;border-radius:7px;background:#fff;padding:8px 9px;min-height:36px;font:500 12px/1.3 var(--vcc-font-body,"DM Sans",Arial,sans-serif);color:#272522}
+.ep-page .ep4-calc-controls input{width:115px;max-width:100%}
+.ep-page .ep4-calc-steps{margin:0 0 9px;color:#655d56;font-size:11px;line-height:1.5}
+.ep-page .ep4-calc-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin:0;padding:0;list-style:none}
+.ep-page .ep4-calc-row{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:8px 12px;min-width:0;border:1px solid #ece5de;border-radius:10px;padding:9px 11px}
+.ep-page .ep4-calc-row .ep4-calc-visit{display:flex;align-items:center;gap:8px;min-width:0;font-size:12px;font-weight:700;color:#292722}
+.ep-page .ep4-calc-row .ep4-calc-visit input{width:16px;height:16px;flex:0 0 16px;accent-color:#b45c44}
+.ep-page .ep4-calc-row .ep4-calc-ticket{display:flex;align-items:center;gap:5px;justify-self:end;color:#706960;font-size:10px}
+.ep-page .ep4-calc-row .ep4-calc-ticket input{width:66px;min-width:0;padding:5px;border:1px solid #d7cdc4;border-radius:6px;color:#272522;font-size:11px;text-align:right}
+.ep-page .ep4-calc-row .ep4-calc-included{display:flex;gap:7px;align-items:center;grid-column:1/-1;color:#665e57;font-size:10.5px}
+.ep-page .ep4-calc-row .ep4-calc-included input{width:15px;height:15px;accent-color:#b45c44}
+.ep-page .ep4-calc-row .ep4-calc-included input:disabled{opacity:.45}
+.ep-page .ep4-calc-footer{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:10px;margin-top:13px}
+.ep-page .ep4-calc-sum{padding:10px 12px;border:1px solid #e8ded5;border-radius:9px;background:#fbfaf8}
+.ep-page .ep4-calc-sum small{display:block;margin-bottom:3px;font-size:10px;color:#625951}
+.ep-page .ep4-calc-sum strong{font:600 23px/1.1 var(--vcc-font-heading,"Oswald",sans-serif);color:#25231f}
+.ep-page .ep4-calc-sum strong[aria-live]{display:block}
+.ep-page .ep4-calc-verdict{margin:10px 0 0;padding:9px 11px;border-left:3px solid #b5644a;color:#403a34;font:600 12px/1.5 var(--vcc-font-body,"DM Sans",Arial,sans-serif);background:#fbf9f6}
+.ep-page .ep4-calc-disclaimer{margin:10px 0 0;color:#756b62;font:400 10.5px/1.5 var(--vcc-font-body,"DM Sans",Arial,sans-serif)}
+.ep-page .ep4-calc-disclaimer a{color:#a24b30;text-underline-offset:3px}
+.ep-page .ep4-main .ep4-our{margin-top:var(--vcc-section-space,64px)!important}
+.ep-page .ep4-route-photos{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px;margin:13px 0 0}
+.ep-page .ep4-route-photos figure{margin:0;min-width:0;background:#fff;border:1px solid #eae1d9;border-radius:10px;overflow:hidden}
+.ep-page .ep4-route-photos img{display:block;width:100%;height:165px;object-fit:cover}
+.ep-page .ep4-route-photos figcaption{padding:8px 11px;color:#60574f;font:400 11px/1.5 var(--vcc-font-body,"DM Sans",Arial,sans-serif)}
+.ep-page .ep4-route-photos figcaption strong{color:#332e2a}
+.ep-page .ep4-main .ep4-savings .ep3-saving-track{min-width:0}
+@media(max-width:850px){
+ .ep-page .ep4-calc-list{grid-template-columns:1fr}
+ .ep-page .ep4-route-photos img{height:145px}
+}
+@media(max-width:650px){
+ .ql-page .ql-main #experiencia-vcc{margin-top:var(--vcc-section-space,44px)}
+ .ep-page .ep4-main .ep4-calculator{margin-bottom:var(--vcc-section-space,48px)}
+ .ep-page .ep4-calculator-panel{padding:11px}
+ .ep-page .ep4-calc-controls{gap:9px}
+ .ep-page .ep4-calc-controls label{flex:1 1 135px}
+ .ep-page .ep4-calc-footer{grid-template-columns:1fr 1fr;gap:7px}
+ .ep-page .ep4-calc-sum{padding:9px}
+ .ep-page .ep4-calc-sum strong{font-size:20px}
+ .ep-page .ep4-route-photos{grid-template-columns:1fr}
+ .ep-page .ep4-route-photos img{height:160px}
+}
