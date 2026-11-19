@@ -111,3 +111,28 @@ html body.ci-page #experiencia .vcc-visit-panel>.ci-august-bottom>p{
 @media(prefers-reduced-motion:reduce){
   html body.ci-page #experiencia .vcc-visit-tab{transition:none}
 }
+
+/* Només "Nuestra experiencia" a Cuándo ir: explicació immediatament sota
+   el títol, no a la columna dreta del patró editorial compartit. */
+html body.ci-page #experiencia > .ci-heading.vcc-editorial-heading{
+  display:grid!important;
+  grid-template-columns:minmax(0,1fr)!important;
+  align-items:start!important;
+  justify-items:start!important;
+  gap:9px!important;
+  margin-bottom:14px!important;
+}
+html body.ci-page #experiencia > .ci-heading.vcc-editorial-heading > .vcc-editorial-description{
+  display:block!important;
+  width:100%!important;
+  max-width:840px!important;
+  align-self:start!important;
+  margin:0!important;
+  text-align:left!important;
+}
+@media(max-width:650px){
+  html body.ci-page #experiencia > .ci-heading.vcc-editorial-heading{
+    gap:7px!important;
+    margin-bottom:12px!important;
+  }
+}
