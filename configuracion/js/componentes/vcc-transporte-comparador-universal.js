@@ -208,6 +208,14 @@
      result.bonus.reason);
    const bestPublic=result.publicMode==='bonus'?'Bono':'Billetes';
    set('best-public','Mejor: '+bestPublic+' · '+money(result.publicCost)+' / persona');
+   const mark=(selector,chosen)=>{
+     const element=container.querySelector(selector);
+     if(element?.classList)element.classList.toggle('tc-winner',chosen);
+   };
+   mark('.tc-panel-private',result.choice==='car');
+   mark('.tc-panel-public',result.choice!=='car');
+   mark('#tc-singles-card',result.publicMode==='individual');
+   mark('#tc-bonos-card',result.publicMode==='bonus');
    const title=result.choice==='car'?'Coche':
       result.choice==='bonus'?'Transporte público · Bono':'Transporte público · Billetes';
    set('recommend',title);
