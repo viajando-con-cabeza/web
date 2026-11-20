@@ -33,7 +33,7 @@
 <link rel="stylesheet" data-vcc-ahorrar-editorial href="/configuracion/css/componentes/vcc-ahorrar-editorial-compartit.css?v=ahorro-editorial-v1">
 <link rel="stylesheet" data-vcc-rating-compact href="/configuracion/css/componentes/donde-dormir-puntuaciones-vcc.css?v=20261119-hotels-altura-unificada-v6">
 <link rel="stylesheet" data-vcc-sacred-covers href="/configuracion/css/componentes/portades-contracte-unic-vcc.css?v=20261117-espais-intermedis-v6">
-<link rel="stylesheet" href="/configuracion/css/destinos/suecia/estocolmo/donde-dormir-desglose-ancho-vcc.css?v=20261120-limpiar-sota-taula-v3">
+<link rel="stylesheet" href="/configuracion/css/destinos/suecia/estocolmo/donde-dormir-desglose-ancho-vcc.css?v=20261120-alinear-consell-i-taula-v4">
 <link rel="stylesheet" href="/configuracion/css/planifica-alojamientos.css?v=20261115-compare-country-fix-v17">
 
 <link rel="stylesheet" href="/configuracion/css/componentes/vcc-gallery-booking.css?v=20261120-map-60-fotos-40-v5">
@@ -494,7 +494,13 @@
 <header class="al-heading al-compare-head vcc-editorial-heading" id="al-compare-anchor">
 <div class="vcc-editorial-heading-main"><span class="al-eyebrow vcc-editorial-overline">Compare before booking</span><h2 class="al-title vcc-editorial-title" id="al-compare-title">COMPARE THE ACTUAL PRICE</h2></div>
 <div class="al-compare-explain vcc-editorial-heading-side"><p class="vcc-editorial-description">Compare accommodations using the total cost of the stay and extras.</p>
-<div class="al-compare-add"><span data-al-count>3 of 5 options</span><button type="button" data-al-add>+ Add accommodation</button></div></div>
+<div class="al-compare-add"><span data-al-count>3 of 5 options</span><button type="button" data-al-add>+ Add accommodation</button></div>
+<div class="al-compare-context">
+<label>People <input type="number" min="1" max="20" step="1" value="2" data-al-personas></label>
+<label>Nights <input type="number" min="1" max="90" step="1" value="3" data-al-noches></label>
+<p>Enter the amount of <strong>Accommodation / booking (€)</strong> in at least two options so we can compare them. Later, add the expenses for the entire stay.</p>
+</div>
+</div>
 </header>
 
 <div class="al-compare-layout">
@@ -507,11 +513,6 @@
 <div class="al-compare-utils vcc-file-actions" role="group" aria-label="Comparison actions"><button type="button" class="vcc-file-clear vcc-form-utility-action" data-al-clear>Clear</button><button type="button" class="vcc-download-link" data-al-pdf hidden><svg class="vcc-download-icon" viewBox="0 0 24 24" aria-hidden="true"><use href="/configuracion/imagenes/iconos/compartidos/acciones-documentos-vcc.svg#pdf"></use></svg>Save as PDF</button></div>
 </div>
 <div class="al-compare-side">
-<div class="al-compare-context">
-<label>People <input type="number" min="1" max="20" step="1" value="2" data-al-personas></label>
-<label>Nights <input type="number" min="1" max="90" step="1" value="3" data-al-noches></label>
-<p>Enter the amount of <strong>Accommodation / booking (€)</strong> in at least two options so we can compare them. Later, add the expenses for the entire stay.</p>
-</div>
 <aside class="al-compare-advice" aria-live="polite">
 <span class="al-advice-script">Our tip</span><h3>VCC BEST OPTION</h3>
 <div class="al-advice-content"><img src="/configuracion/imagenes/marca/logo-vcc.svg" width="64" height="64" alt="VCC" loading="lazy">
