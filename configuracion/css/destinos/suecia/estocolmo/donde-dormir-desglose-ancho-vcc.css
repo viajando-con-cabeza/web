@@ -28,3 +28,39 @@ html body.dv-page:not(.dv-country-types) .dv-planifica-alojamiento-reuse .al-com
 html body.dv-page:not(.dv-country-types) .dv-planifica-alojamiento-reuse [data-al-pdf][hidden]{
   display:none!important;
 }
+
+/* Estocolm · el «Limpiar» pertany al peu de la taula, no al peu del panell
+   que conté també el consell lateral. Alineat a baix a la dreta i compacte. */
+html body.dv-page:not(.dv-country-types) #calculadora .al-compare-table-stack{
+  min-width:0;
+  width:100%;
+  display:flex;
+  flex-direction:column;
+}
+html body.dv-page:not(.dv-country-types) #calculadora .al-compare-table-stack .al-compare-shell{
+  width:100%;
+}
+html body.dv-page:not(.dv-country-types) #calculadora .al-compare-table-stack .al-compare-status{
+  min-height:0;
+  margin:2px 0 0;
+  font-size:10px;
+  text-align:right;
+}
+html body.dv-page:not(.dv-country-types) #calculadora .al-compare-table-stack .al-compare-status:empty{
+  display:none;
+}
+html body.dv-page:not(.dv-country-types) #calculadora .al-compare-table-stack .al-compare-utils{
+  display:flex!important;
+  align-items:center!important;
+  justify-content:flex-end!important;
+  gap:0!important;
+  width:100%!important;
+  margin:2px 0 0!important;
+  padding:0!important;
+  border:0!important;
+  background:transparent!important;
+}
+html body.dv-page:not(.dv-country-types) #calculadora .al-compare-table-stack .al-compare-utils [data-al-clear]{
+  margin-left:auto!important;
+  font-size:var(--vcc-form-utility-font-size,10.5px)!important;
+}
