@@ -38,7 +38,7 @@
 <link rel="stylesheet" data-vcc-sacred-covers href="/configuracion/css/componentes/portades-contracte-unic-vcc.css?v=20261117-espais-intermedis-v6">
 <link rel="stylesheet" data-vcc-pass-criterion href="/configuracion/css/componentes/vcc-criterio-pases-turisticos.css?v=20261117-separacio-bloc-columnes-v8">
 <link rel="stylesheet" href="/configuracion/css/destinos/suecia/estocolmo/vcc-que-llevar-entradas-redisenyo.css?v=20261119-centralized-v2">
-<link rel="stylesheet" href="/configuracion/css/componentes/calculadora-comparativa-vcc.css?v=20261119-estalvi-verd-fons-blanc-v3">
+<link rel="stylesheet" href="/configuracion/css/componentes/calculadora-comparativa-vcc.css?v=20261120-tres-paneles-v4">
 <link rel="stylesheet" href="/configuracion/css/componentes/vcc-gallery-booking.css?v=20261119-compact-count-v3">
 <link rel="stylesheet" href="/configuracion/css/destinos/suecia/estocolmo/vcc-entradas-ruta-galeria.css?v=20261120-mosaic-sense-vinyeta-v3">
 
@@ -70,26 +70,29 @@
 <main class="ep-wrap ep4-main">
 <section class="ep4-section ep4-calculator vcc-calc-section" id="comparador" aria-labelledby="ep4-calc-title">
  <header class="ep4-heading ep4-heading-left vcc-editorial-heading"><div class="ep4-title-group vcc-editorial-heading-main"><span class="ep4-script vcc-editorial-overline">Decide before you buy</span><h2 id="ep4-calc-title" class="vcc-editorial-title">COMPARE TICKETS AND PASSES</h2></div><p class="ep4-subline vcc-editorial-description">Add your visits and their prices to compare them with a tourist pass.</p></header>
- <div class="ep4-calculator-panel vcc-calc-compact" id="ep4-vcc-calculator">
-  <div class="vcc-calc-topline">
-   <div class="vcc-calc-brand"><img src="/configuracion/imagenes/marca/logo-vcc.svg" width="35" height="35" alt="VCC — Viajando con Cabeza" decoding="async"><div><strong>VCC Comparator</strong><small>Calculate where you actually save</small></div></div>
-   <div class="ep4-calc-controls">
-   <label><img class="vcc-calc-control-icon" src="/configuracion/imagenes/iconos/entradas-y-pases/users-round.svg" width="14" height="14" alt="" aria-hidden="true" loading="lazy"><span>Adults</span><input type="number" id="ep4-calc-adults" value="2" min="1" max="6" step="1" inputmode="numeric"></label>
-   <label><img class="vcc-calc-control-icon" src="/configuracion/imagenes/iconos/entradas-y-pases/coins.svg" width="14" height="14" alt="" aria-hidden="true" loading="lazy"><span>Current pass price per adult (SEK)</span><input type="number" id="ep4-calc-pass-price" min="0" step="1" inputmode="numeric" placeholder="—" aria-label="Current pass price per adult (SEK)"></label>
-   </div>
+ <div class="ep4-calculator-panel vcc-calc-compact vcc-calc-three-col" id="ep4-vcc-calculator">
+  <div class="vcc-calc-three-grid">
+   <section class="vcc-calc-pane vcc-calc-pane-tickets" aria-labelledby="ep4-calc-tickets-title">
+    <header class="vcc-calc-pane-head"><span class="vcc-calc-pane-index">01</span><div><h3 id="ep4-calc-tickets-title">Individual tickets</h3><p>Name, price and pass coverage</p></div></header>
+    <ul class="ep4-calc-list vcc-calc-free-list" id="ep4-calc-visits" aria-label="Individual tickets"></ul>
+    <button type="button" class="vcc-calc-add" id="ep4-calc-add"><span aria-hidden="true">+</span> Add ticket</button>
+    <div class="vcc-calc-pane-total"><small>Tickets · per person</small><strong id="ep4-calc-individual-total" aria-live="polite">—</strong></div>
+   </section>
+   <section class="vcc-calc-pane vcc-calc-pane-pass" aria-labelledby="ep4-calc-pass-title">
+    <header class="vcc-calc-pane-head"><span class="vcc-calc-pane-index">02</span><div><h3 id="ep4-calc-pass-title">Tourist pass</h3><p>Choose a duration and enter its price</p></div></header>
+    <label class="vcc-calc-field"><span>Pass duration</span><select id="ep4-calc-pass-duration"><option value="1">1 day</option><option value="2">2 days</option><option value="3">3 days</option><option value="4">4 days</option><option value="5">5 days</option><option value="custom">Other pass</option></select></label>
+    <label class="vcc-calc-field" id="ep4-calc-custom-wrap" hidden><span>Other pass or duration</span><input id="ep4-calc-custom-duration" type="text" maxlength="50" autocomplete="off"></label>
+    <label class="vcc-calc-field"><span>Pass price per person (SEK)</span><span class="vcc-calc-price-field"><input id="ep4-calc-pass-price" type="number" min="0" step="1" inputmode="decimal" placeholder="—" aria-label="Pass price per person en SEK"><em>SEK</em></span></label>
+    <p class="vcc-calc-pass-note">Consecutive calendar days, not 24-hour periods.</p>
+    <div class="vcc-calc-pane-total"><small>Pass + extra tickets · per person</small><strong id="ep4-calc-pass-total" aria-live="polite">—</strong></div>
+   </section>
+   <section class="vcc-calc-pane vcc-calc-pane-result" aria-labelledby="ep4-calc-result-title">
+    <header class="vcc-calc-pane-head"><span class="vcc-calc-pane-index">03</span><div><h3 id="ep4-calc-result-title">VCC conclusion</h3><p>Your best option</p></div></header>
+    <p class="ep4-calc-verdict" id="ep4-calc-verdict" aria-live="polite">Add tickets and a pass price</p>
+    <div class="vcc-calc-saving" id="ep4-calc-saving" hidden><span class="vcc-calc-saving-label">Savings per person</span><strong class="vcc-calc-saving-number" id="ep4-calc-saving-number" aria-live="polite">—</strong></div>
+    <p class="vcc-calc-verification">Check what's included. <a href="https://gocity.com/en/stockholm" target="_blank" rel="noopener noreferrer">Go City conditions</a></p>
+   </section>
   </div>
-  <p class="ep4-calc-steps">Enter the name and price of each ticket. Add as many visits as you like.</p>
-  <ul class="ep4-calc-list vcc-calc-free-list" id="ep4-calc-visits" aria-label="Your tickets"></ul>
-  <button type="button" class="vcc-calc-add" id="ep4-calc-add"><img src="/configuracion/imagenes/iconos/entradas-y-pases/ticket.svg" alt="" aria-hidden="true" width="14" height="14">Add visit +</button>
-  <p class="vcc-calc-simple-warning"><img src="/configuracion/imagenes/iconos/entradas-y-pases/coins.svg" alt="" aria-hidden="true" width="14" height="14"><span>The comparison assumes the pass includes all added visits. Double-check this before deciding.</span></p>
-  <div class="vcc-calc-bottom">
-   <div class="ep4-calc-footer">
-   <div class="ep4-calc-sum"><small>Individual tickets · total</small><strong id="ep4-calc-individual-total" aria-live="polite">—</strong></div>
-   <div class="ep4-calc-sum"><small>Pass + non-included tickets · total</small><strong id="ep4-calc-pass-total" aria-live="polite">—</strong></div>
-   </div>
-   <div class="vcc-calc-verdict-wrap"><div class="vcc-calc-result-head"><img class="vcc-calc-result-logo" src="/configuracion/imagenes/marca/logo-vcc.svg" width="23" height="23" alt="" aria-hidden="true" decoding="async"><span>VCC Result</span></div><div class="vcc-calc-saving" id="ep4-calc-saving" hidden><span class="vcc-calc-saving-label">Total Savings</span><strong class="vcc-calc-saving-number" id="ep4-calc-saving-number" aria-live="polite">—</strong></div><p class="ep4-calc-verdict" id="ep4-calc-verdict" aria-live="polite">Select attractions to compare.</p></div>
-  </div>
-  <p class="ep4-calc-disclaimer">Enter adult prices in SEK. Check the pass's inclusions, validity, reservations, and child discounts. <a href="https://gocity.com/en/stockholm" target="_blank" rel="noopener noreferrer">Check Go City terms</a>.</p>
  </div>
  </section>
 <div class="ep4-decision-layout vcc-passes-comparison">
@@ -310,7 +313,7 @@
 <script defer src="/configuracion/js/site-footer.js?v=20261111-precios-v2"></script>
 <script defer src="/configuracion/js/componentes/vcc-gallery-booking.js?v=20261119-entradas-shared-v1"></script>
 <script defer src="/configuracion/js/plantillas/entradas-pases-vcc.js?v=20261119-gallery-i18n-v2"></script>
-<script defer src="/configuracion/js/plantillas/vcc-stockholm-pass-calculator.js?v=20261119-estalvi-total-v4"></script>
+<script defer src="/configuracion/js/plantillas/vcc-stockholm-pass-calculator.js?v=20261120-estalvi-persona-v5"></script>
 <script src="/configuracion/js/vcc-en-runtime.js" defer></script>
 </body>
 </html>
