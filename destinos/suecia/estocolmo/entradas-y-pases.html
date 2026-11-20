@@ -38,7 +38,7 @@
 <link rel="stylesheet" data-vcc-sacred-covers href="/configuracion/css/componentes/portades-contracte-unic-vcc.css?v=20261117-espais-intermedis-v6">
 <link rel="stylesheet" data-vcc-pass-criterion href="/configuracion/css/componentes/vcc-criterio-pases-turisticos.css?v=20261117-separacio-bloc-columnes-v8">
 <link rel="stylesheet" href="/configuracion/css/destinos/suecia/estocolmo/vcc-que-llevar-entradas-redisenyo.css?v=20261119-centralized-v2">
-<link rel="stylesheet" href="/configuracion/css/componentes/calculadora-comparativa-vcc.css?v=20261119-estalvi-verd-fons-blanc-v3">
+<link rel="stylesheet" href="/configuracion/css/componentes/calculadora-comparativa-vcc.css?v=20261120-tres-paneles-v4">
 <link rel="stylesheet" href="/configuracion/css/componentes/vcc-gallery-booking.css?v=20261119-compact-count-v3">
 <link rel="stylesheet" href="/configuracion/css/destinos/suecia/estocolmo/vcc-entradas-ruta-galeria.css?v=20261120-mosaic-sense-vinyeta-v3">
 <script type="application/ld+json" data-vcc-generated-page>{"@context":"https://schema.org","@type":"WebPage","@id":"https://viajandoconcabeza.com/destinos/suecia/estocolmo/entradas-y-pases#webpage","url":"https://viajandoconcabeza.com/destinos/suecia/estocolmo/entradas-y-pases","name":"Entradas y pases de Estocolmo: comparador y precios | VCC","description":"Compara entradas sueltas y pases de Estocolmo: elige museos, introduce precios y calcula qué opción conviene. Tarifas orientativas 2026 y nuestra ruta real.","inLanguage":"es","isPartOf":{"@type":"WebSite","name":"Viajando con Cabeza","url":"https://viajandoconcabeza.com/"},"primaryImageOfPage":{"@type":"ImageObject","url":"https://viajandoconcabeza.com/configuracion/imagenes/fondos/fondos-entradas-y-pases.webp"}}</script>
@@ -70,26 +70,29 @@
 <main class="ep-wrap ep4-main">
 <section class="ep4-section ep4-calculator vcc-calc-section" id="comparador" aria-labelledby="ep4-calc-title">
  <header class="ep4-heading ep4-heading-left vcc-editorial-heading"><div class="ep4-title-group vcc-editorial-heading-main"><span class="ep4-script vcc-editorial-overline">Decide antes de comprar</span><h2 id="ep4-calc-title" class="vcc-editorial-title">COMPARA ENTRADAS Y PASES</h2></div><p class="ep4-subline vcc-editorial-description">Añade tus visitas y sus precios para compararlos con un pase turístico.</p></header>
- <div class="ep4-calculator-panel vcc-calc-compact" id="ep4-vcc-calculator">
-  <div class="vcc-calc-topline">
-   <div class="vcc-calc-brand"><img src="/configuracion/imagenes/marca/logo-vcc.svg" width="35" height="35" alt="VCC — Viajando con Cabeza" decoding="async"><div><strong>Comparador VCC</strong><small>Calcula dónde ahorras de verdad</small></div></div>
-   <div class="ep4-calc-controls">
-   <label><img class="vcc-calc-control-icon" src="/configuracion/imagenes/iconos/entradas-y-pases/users-round.svg" width="14" height="14" alt="" aria-hidden="true" loading="lazy"><span>Adultos</span><input type="number" id="ep4-calc-adults" value="2" min="1" max="6" step="1" inputmode="numeric"></label>
-   <label><img class="vcc-calc-control-icon" src="/configuracion/imagenes/iconos/entradas-y-pases/coins.svg" width="14" height="14" alt="" aria-hidden="true" loading="lazy"><span>Precio actual del pase por adulto (SEK)</span><input type="number" id="ep4-calc-pass-price" min="0" step="1" inputmode="numeric" placeholder="—" aria-label="Precio actual del pase por adulto (SEK)"></label>
-   </div>
+ <div class="ep4-calculator-panel vcc-calc-compact vcc-calc-three-col" id="ep4-vcc-calculator">
+  <div class="vcc-calc-three-grid">
+   <section class="vcc-calc-pane vcc-calc-pane-tickets" aria-labelledby="ep4-calc-tickets-title">
+    <header class="vcc-calc-pane-head"><span class="vcc-calc-pane-index">01</span><div><h3 id="ep4-calc-tickets-title">Entradas individuales</h3><p>Nombre, precio y si las incluye el pase</p></div></header>
+    <ul class="ep4-calc-list vcc-calc-free-list" id="ep4-calc-visits" aria-label="Entradas individuales"></ul>
+    <button type="button" class="vcc-calc-add" id="ep4-calc-add"><span aria-hidden="true">+</span> Añadir entrada</button>
+    <div class="vcc-calc-pane-total"><small>Entradas · por persona</small><strong id="ep4-calc-individual-total" aria-live="polite">—</strong></div>
+   </section>
+   <section class="vcc-calc-pane vcc-calc-pane-pass" aria-labelledby="ep4-calc-pass-title">
+    <header class="vcc-calc-pane-head"><span class="vcc-calc-pane-index">02</span><div><h3 id="ep4-calc-pass-title">Pase turístico</h3><p>Elige duración y escribe su precio</p></div></header>
+    <label class="vcc-calc-field"><span>Duración del pase</span><select id="ep4-calc-pass-duration"><option value="1">1 día</option><option value="2">2 días</option><option value="3">3 días</option><option value="4">4 días</option><option value="5">5 días</option><option value="custom">Otro pase</option></select></label>
+    <label class="vcc-calc-field" id="ep4-calc-custom-wrap" hidden><span>Otro pase o duración</span><input id="ep4-calc-custom-duration" type="text" maxlength="50" autocomplete="off"></label>
+    <label class="vcc-calc-field"><span>Precio del pase por persona (SEK)</span><span class="vcc-calc-price-field"><input id="ep4-calc-pass-price" type="number" min="0" step="1" inputmode="decimal" placeholder="—" aria-label="Precio del pase por persona en SEK"><em>SEK</em></span></label>
+    <p class="vcc-calc-pass-note">Días naturales consecutivos, no periodos de 24 horas.</p>
+    <div class="vcc-calc-pane-total"><small>Pase + extras · por persona</small><strong id="ep4-calc-pass-total" aria-live="polite">—</strong></div>
+   </section>
+   <section class="vcc-calc-pane vcc-calc-pane-result" aria-labelledby="ep4-calc-result-title">
+    <header class="vcc-calc-pane-head"><span class="vcc-calc-pane-index">03</span><div><h3 id="ep4-calc-result-title">Conclusión VCC</h3><p>Qué te sale más a cuenta</p></div></header>
+    <p class="ep4-calc-verdict" id="ep4-calc-verdict" aria-live="polite">Añade entradas y el precio del pase</p>
+    <div class="vcc-calc-saving" id="ep4-calc-saving" hidden><span class="vcc-calc-saving-label">Tu ahorro por persona</span><strong class="vcc-calc-saving-number" id="ep4-calc-saving-number" aria-live="polite">—</strong></div>
+    <p class="vcc-calc-verification">Comprueba las visitas incluidas. <a href="https://gocity.com/en/stockholm" target="_blank" rel="noopener noreferrer">Condiciones de Go City</a></p>
+   </section>
   </div>
-  <p class="ep4-calc-steps">Escribe el nombre y el precio de cada entrada. Añade tantas visitas como quieras.</p>
-  <ul class="ep4-calc-list vcc-calc-free-list" id="ep4-calc-visits" aria-label="Tus entradas"></ul>
-  <button type="button" class="vcc-calc-add" id="ep4-calc-add"><img src="/configuracion/imagenes/iconos/entradas-y-pases/ticket.svg" alt="" aria-hidden="true" width="14" height="14">Añadir visita +</button>
-  <p class="vcc-calc-simple-warning"><img src="/configuracion/imagenes/iconos/entradas-y-pases/coins.svg" alt="" aria-hidden="true" width="14" height="14"><span>La comparación supone que el pase incluye todas las visitas añadidas. Compruébalo antes de decidir.</span></p>
-  <div class="vcc-calc-bottom">
-   <div class="ep4-calc-footer">
-   <div class="ep4-calc-sum"><small>Entradas sueltas · total</small><strong id="ep4-calc-individual-total" aria-live="polite">—</strong></div>
-   <div class="ep4-calc-sum"><small>Pase + entradas no incluidas · total</small><strong id="ep4-calc-pass-total" aria-live="polite">—</strong></div>
-   </div>
-   <div class="vcc-calc-verdict-wrap"><div class="vcc-calc-result-head"><img class="vcc-calc-result-logo" src="/configuracion/imagenes/marca/logo-vcc.svg" width="23" height="23" alt="" aria-hidden="true" decoding="async"><span>Resultado VCC</span></div><div class="vcc-calc-saving" id="ep4-calc-saving" hidden><span class="vcc-calc-saving-label">Ahorro total</span><strong class="vcc-calc-saving-number" id="ep4-calc-saving-number" aria-live="polite">—</strong></div><p class="ep4-calc-verdict" id="ep4-calc-verdict" aria-live="polite">Selecciona las atracciones para comparar.</p></div>
-  </div>
-  <p class="ep4-calc-disclaimer">Introduce los precios por adulto en SEK. Comprueba las inclusiones, validez, reservas y descuentos infantiles del pase. <a href="https://gocity.com/en/stockholm" target="_blank" rel="noopener noreferrer">Consultar condiciones Go City</a>.</p>
  </div>
  </section>
 <div class="ep4-decision-layout vcc-passes-comparison">
@@ -310,6 +313,6 @@
 <script defer src="/configuracion/js/site-footer.js?v=20261111-precios-v2"></script>
 <script defer src="/configuracion/js/componentes/vcc-gallery-booking.js?v=20261119-entradas-shared-v1"></script>
 <script defer src="/configuracion/js/plantillas/entradas-pases-vcc.js?v=20261119-gallery-i18n-v2"></script>
-<script defer src="/configuracion/js/plantillas/vcc-stockholm-pass-calculator.js?v=20261119-estalvi-total-v4"></script>
+<script defer src="/configuracion/js/plantillas/vcc-stockholm-pass-calculator.js?v=20261120-estalvi-persona-v5"></script>
 </body>
 </html>
