@@ -1,33 +1,8 @@
-/* Estocolmo · ¿Qué zona elegir? · Fotografías propias por barrio.
-   Reutiliza el mosaico y visor universal VCC. No duplica sus interacciones. */
-.dv-page #barrios .dv-neighborhood-gallery{
-  margin:24px auto 23px;
-  width:100%;
-  min-width:0;
-}
-.dv-page #barrios .dv-neighborhood-gallery-heading{
-  margin:0 0 13px;
-}
-.dv-page #barrios .dv-neighborhood-gallery-kicker{
-  margin:0 0 4px;
-  color:#b8644d;
-  font:600 20px/1.1 var(--vcc-font-script,"Caveat",cursive);
-}
-.dv-page #barrios .dv-neighborhood-gallery-heading h3{
-  margin:0 0 6px;
-  color:#242321;
-  font:600 23px/1.15 var(--vcc-font-heading,"Oswald",sans-serif);
-  letter-spacing:.012em;
-}
-.dv-page #barrios .dv-neighborhood-gallery-description{
-  max-width:720px;
-  margin:0;
-  color:#65615d;
-  font:400 12px/1.55 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
-}
-/* Mosaico compartido con Cómo moverse: vcc-sto-mosaic-compact.
-   Mismas medidas en desktop, tableta y móvil desde vcc-gallery-booking.css. */
-.dv-page #barrios .dv-neighborhood-gallery .day-mosaic>button .dv-barrio-photo-label{
+/* Estocolmo · Fotos propias de barrios junto al mapa.
+   La rejilla 50/50, altura y responsive viven en el componente compartido
+   vcc-gallery-booking.css (.vcc-map-gallery-pair).
+   Este archivo SOLO aporta las etiquetas específicas de barrio y visor. */
+.dv-page #mapa .dv-neighborhood-gallery .day-mosaic>button .dv-barrio-photo-label{
   position:absolute;
   z-index:3;
   left:auto;right:8px;bottom:8px;
@@ -43,8 +18,6 @@
   pointer-events:none;
   text-shadow:none;
 }
-/* Etiqueta opcional dins del mosaic ampliat: només aquest visor de barris.
-   La llegenda sota cada foto continua sent la del component universal. */
 .vcc-booking-gallery-modal[data-vcc-gallery-areas="1"] .day-lightbox-grid>button>span.vcc-gallery-area-label{
   display:block!important;
   position:absolute;z-index:2;
@@ -61,12 +34,7 @@
   pointer-events:none;
 }
 @media(max-width:800px){
-  .dv-page #barrios .dv-neighborhood-gallery{margin:18px auto 20px}
-  .dv-page #barrios .dv-neighborhood-gallery-heading{margin-bottom:11px}
-  .dv-page #barrios .dv-neighborhood-gallery-kicker{font-size:19px}
-  .dv-page #barrios .dv-neighborhood-gallery-heading h3{font-size:20px}
-  .dv-page #barrios .dv-neighborhood-gallery-description{font-size:11.5px}
-  .dv-page #barrios .dv-neighborhood-gallery .day-mosaic>button .dv-barrio-photo-label{
+  .dv-page #mapa .dv-neighborhood-gallery .day-mosaic>button .dv-barrio-photo-label{
     font-size:8px;left:auto;right:5px;bottom:5px;padding:2px 4px;
     max-width:calc(100% - 10px);
   }
@@ -74,13 +42,6 @@
     font-size:8px;padding:2px 4px;left:auto;right:5px;bottom:5px;
   }
 }
-@media(min-width:801px) and (max-width:950px){
-  .dv-page #barrios .dv-neighborhood-gallery .day-gallery.vcc-booking-gallery{
-    width:min(100%, calc(100vw - 48px));
-  }
-}
-@media(max-width:650px){
-}
 @media(prefers-reduced-motion:reduce){
-  .dv-page #barrios .dv-neighborhood-gallery .day-mosaic>button>img{transition:none}
+  .dv-page #mapa .dv-neighborhood-gallery .day-mosaic>button>img{transition:none}
 }
