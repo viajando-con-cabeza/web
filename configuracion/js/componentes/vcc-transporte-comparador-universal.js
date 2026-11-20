@@ -224,7 +224,6 @@
    const passTitle=passCount===0?'Sin abonos':passCount===1?purchased[0].label:passCount+' abonos';
    set('bonus-glance',passAmount===null?passTitle+' · indica precio':passTitle+' · '+money(passAmount));
    set('trip-count',trips.length+' viajes');
-   set('individual-unit',trips.length&&trips.every(t=>t.price===trips[0].price)?money(trips[0].price):'Precios variables');
    set('individual-person',money(result.individual));set('individual-group',money(result.individualTotal));
    set('bonus-person',result.bonus.valid?money(result.bonus.cost):'—');
    set('bonus-group',result.bonus.valid?money(result.bonus.cost*travellers):'—');
@@ -245,10 +244,10 @@
    mark('.tc-option-car',result.choice==='car');
    mark('.tc-option-individual',result.choice==='individual');
    mark('.tc-option-bonus',result.choice==='bonus');
-   set('conclusion-label',result.unfinished?'RESULTADO PROVISIONAL · VCC':'CONCLUSIÓN VCC · MEJOR OPCIÓN');
+   set('conclusion-label',result.unfinished?'MEJOR OPCIÓN CON TUS DATOS · VCC':'CONCLUSIÓN VCC · MEJOR OPCIÓN');
    const title=result.choice==='car'?'Coche':
-      result.choice==='bonus'?'Transporte público · Bono':'Transporte público · Billetes';
-   set('recommend',result.unfinished?'Provisional · '+title:title);
+      result.choice==='bonus'?'Abonos + billetes':'Billetes sueltos';
+   set('recommend',title);
    set('recommend-person',money(result.choiceTotal/travellers));
    set('recommend-group',money(result.choiceTotal));
    const savingBox=$('saving')?.closest('.tc-saving');
