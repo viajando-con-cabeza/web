@@ -168,3 +168,25 @@ html body #mvVCCSharedGallery.vcc-booking-gallery-modal[data-vcc-photo-label-ove
   right:10px;bottom:12px;max-width:75%;padding:3px 5px;font-size:8px;
  }
 }
+
+/* 20-11 · Mosaic d'Elige tu transporte com el d'Itinerario 3 días:
+   sense targeta, sense títol propi ni marc, dimensions del mosaic VCC compartit. */
+.mv-transport-section.mv-transport-with-gallery .mv-transport-gallery-aside{
+ display:flex;flex-direction:column;justify-content:center;align-items:stretch;
+ min-height:0;padding:0;border:0;border-radius:0;
+ background:transparent;box-shadow:none;overflow:visible;
+}
+.mv-transport-section.mv-transport-with-gallery .mv-transport-gallery-aside .day-gallery{
+ position:relative;inset:auto;display:block;flex:none;
+ width:100%;max-width:none;height:auto;min-height:0;
+ border-radius:0;overflow:visible;margin:0;
+}
+html body .mv-transport-section.mv-transport-with-gallery .mv-transport-gallery-aside .day-mosaic[data-count]{
+ display:grid;width:100%;height:auto!important;min-height:0;
+ max-height:none!important;aspect-ratio:1.32!important;
+}
+@media(max-width:820px){
+ html body .mv-transport-section.mv-transport-with-gallery .mv-transport-gallery-aside .day-mosaic[data-count]{
+  height:auto!important;aspect-ratio:1.35!important;
+ }
+}
