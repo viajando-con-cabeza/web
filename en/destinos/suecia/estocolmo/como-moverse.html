@@ -29,7 +29,7 @@
 <link rel="stylesheet" href="/configuracion/css/componentes/como-ahorrar-carruseles-vcc.css?v=20261117-notes-compactes-v3">
 <link rel="stylesheet" href="/configuracion/css/componentes/vcc-gallery-booking.css?v=20261119-etiquetes-visor-v2">
 <link rel="stylesheet" href="/configuracion/css/destinos/suecia/estocolmo/como-moverse-calculadora-galeria-vcc.css?v=20261119-comparador-3-columnas-v15">
-<link rel="stylesheet" href="/configuracion/css/componentes/vcc-transporte-comparador-universal.css?v=20261120-viatges-senzills-v12">
+<link rel="stylesheet" href="/configuracion/css/componentes/vcc-transporte-comparador-universal.css?v=20261120-editor-flotant-v13">
 
 </head><body class="mv-body">
 <header class="page-header"></header>
@@ -267,23 +267,38 @@
         <label class="tc-field"><span><svg class="tc-svg" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M16 9H10a3 3 0 0 0 0 6h6M8 7v10"/></svg>PRICE PER TICKET · SEK</span><input id="tc-trip-price" type="number" min="0" max="1000000" step=".01" inputmode="decimal" placeholder="Ex. 43" value="43"></label>
       </div>
       <div class="tc-individual-actions">
-       <button type="button" class="tc-small-btn tc-add-trip" id="tc-add-trip">+ Add trip</button>
-       <button type="button" class="tc-inline-action" id="tc-open-trips">Edit trips ›</button>
+        <button type="button" class="tc-small-btn tc-add-trip" id="tc-add-trip">+ Trip</button>
+        <details id="tc-trip-detail" class="tc-flyout">
+          <summary>Edit <span id="tc-trip-edit-count">7 trips</span></summary>
+          <div class="tc-flyout-panel">
+            <div class="tc-flyout-head"><strong>Tickets per person</strong><button id="tc-close-trips" type="button" class="tc-flyout-close" aria-label="Close ticket editor">×</button></div>
+            <div id="tc-trips" class="tc-trip-list" aria-label="Individual ticket breakdown"></div>
+            <p class="tc-muted">Number, description, and price of each ticket.</p>
+          </div>
+        </details>
       </div>
-      <details id="tc-trip-detail" class="tc-trip-detail"><summary><svg class="tc-svg" aria-hidden="true" viewBox="0 0 24 24"><path d="M3 8a2 2 0 0 0 0 4v4h18v-4a2 2 0 0 1 0-4V4H3v4m10 0v3m0 3v3m0 3v1"/></svg>Trip breakdown (optional) <span id="tc-trip-edit-count"></span></summary>
-    <div id="tc-trips" class="tc-trip-list" aria-label="Individual trips"></div>
-    <p class="tc-muted">Write a brief description and the price for each trip. Passes are calculated as estimates; check coverage and schedules.</p>
-  </details>
       <div class="tc-option-costs"><div><small>Per person</small><strong id="tc-individual-person">—</strong></div><div><small>Group total</small><strong id="tc-individual-group">—</strong></div></div>
     </section>
     <section class="tc-option tc-option-bonus" data-option="bonus" aria-labelledby="tc-title-bonus">
       <div class="tc-option-heading"><div class="tc-panel-head"><span class="tc-panel-icon" aria-hidden="true"><svg class="tc-svg" aria-hidden="true" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M7 3v4m10-4v4M3 10h18"/></svg></span><div><span class="tc-panel-overline">Audience · Passes</span><h3 id="tc-title-bonus">PASSES AND SEASON TICKETS</h3></div></div><div class="tc-reorder"><button type="button" class="tc-order-btn" data-move="-1" aria-label="Move passes and season tickets to the left">‹</button><button type="button" class="tc-order-btn" data-move="1" aria-label="Move passes and season tickets to the right">›</button></div></div>
-      <p class="tc-muted tc-bonus-description">Customize each pass: name, duration, price, and quantity.</p>
-      <div class="tc-bonus-head"><span>Up to 10 combinable titles</span><button id="tc-add-pass" type="button" class="tc-small-btn"><svg class="tc-svg" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg> Add</button></div>
-      <div id="tc-passes" class="tc-passes" aria-label="Passes, quantities and prices"></div>
-      <p id="tc-bonus-glance" class="tc-bonus-glance-text">1 pass configured</p>
-      <p id="tc-bonus-note" class="tc-muted tc-bonus-note" aria-live="polite"></p>
-      <details class="tc-tariffs"><summary>View SL reference prices</summary><div class="tc-tariffs-body" id="tc-tariffs"></div></details>
+      <div class="tc-bonus-quick">
+        <span id="tc-bonus-glance" class="tc-bonus-glance-text">1 pass · 360 SEK</span>
+        <details id="tc-bonus-detail" class="tc-flyout">
+          <summary>Edit passes</summary>
+          <div class="tc-flyout-panel">
+            <div class="tc-flyout-head"><strong>Passes per person</strong><button id="tc-close-bonuses" type="button" class="tc-flyout-close" aria-label="Close pass editor">×</button></div>
+            <p class="tc-muted">Each row is a pass: description and price.</p>
+            <div id="tc-passes" class="tc-passes" aria-label="Custom passes"></div>
+            <button id="tc-add-pass" type="button" class="tc-small-btn">+ Pass</button>
+            <div class="tc-flyout-divider"></div>
+            <div class="tc-flyout-subhead"><strong>Tickets not included in the pass</strong><button id="tc-add-bonus-extra" type="button" class="tc-small-btn">+ Ticket</button></div>
+            <div id="tc-bonus-extras" class="tc-trip-list" aria-label="Add-on tickets for passes"></div>
+            <p class="tc-muted">Only add tickets that you must pay for separately. The pass description does not automatically determine which trips are covered.</p>
+            <details class="tc-tariffs"><summary>Reference SL prices</summary><div class="tc-tariffs-body" id="tc-tariffs"></div></details>
+          </div>
+        </details>
+      </div>
+      <p id="tc-bonus-note" class="tc-muted tc-bonus-note" aria-live="polite">Add the tickets that the pass does not cover.</p>
       <div class="tc-option-costs"><div><small>Per person</small><strong id="tc-bonus-person">—</strong></div><div><small>Group total</small><strong id="tc-bonus-group">—</strong></div></div>
     </section>
   </div>
@@ -367,7 +382,7 @@
 <div class="day-lightbox vcc-booking-gallery-modal" id="mvVCCSharedGallery" data-vcc-booking-gallery data-vcc-photo-label-overlay data-vcc-lazy-gallery-modal data-vcc-gallery-selector="#experiencia-transporte .day-mosaic" hidden role="dialog" aria-modal="true" aria-label="Stockholm transport photo gallery"></div>
 <script src="/configuracion/js/componentes/vcc-itinerary-gallery-on-demand.js?v=20261119-etiquetes-visor-v3" defer></script>
 <script src="/configuracion/datos/transporte/estocolmo-sl-2026.js?v=20261119-v1" defer></script>
-<script src="/configuracion/js/componentes/vcc-transporte-comparador-universal.js?v=20261120-viatges-senzills-v12" defer></script>
+<script src="/configuracion/js/componentes/vcc-transporte-comparador-universal.js?v=20261120-editor-flotant-v13" defer></script>
 
 
 <script src="/configuracion/js/vcc-en-runtime.js" defer></script>
