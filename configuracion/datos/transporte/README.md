@@ -28,13 +28,30 @@ cada tarjeta reordenan las opciones visibles sin perder datos; debe haber
 al menos dos activas. Alineación exterior: usa el ancho de `.mv-container`;
 no introducir un `max-width` menor que reduzca los márgenes del blog.
 
-### Entradas compartidas
+### Filtros compartidos y tarjetas independientes
 
-Días, número de viajeros, categoría de tarifa, número de viajes por
-persona y precio habitual de un viaje. La sección desplegable de
-viajes permite editar **día, hora, tipo de transporte, precio y
-cobertura por abono** para cada billete. También se admiten precios
-distintos en días y trayectos diferentes.
+**Solo días y número de viajeros** son filtros compartidos. La interfaz
+tiene tres tarjetas blancas independientes, separadas por 16 píxeles
+en escritorio y apiladas en móvil, con los campos de cada alternativa
+dentro de su propia tarjeta.
+
+- **Coche:** propiedad o alquiler, plazas, alquiler total, combustible,
+  parking por día, peajes y otros gastos. La casilla de equivalencia
+  de ruta también queda dentro de su tarjeta.
+- **Billetes individuales:** número de viajes por persona y precio
+  habitual por billete; botón «Añadir viaje». El detalle desplegable,
+  ahora dentro de la tarjeta, permite editar nombre, modo de transporte,
+  día, hora, precio diferente por trayecto y cobertura de bonos.
+- **Abonos y pases:** cada bono muestra directamente una **descripción
+  libre**, duración numérica, tipo (horas / días / viajes), precio
+  editable y cantidad por persona. Se pueden añadir distintos bonos
+  y complementar con billetes sueltos para los trayectos que no cubran.
+  El catálogo SL sigue aportando los importes adultos por defecto
+  pero los precios son editables, sin un selector común de tarifa.
+
+El mosaico editorial de fotografías es 12 px más bajo que la fila de
+tarjetas en escritorio (6 px libres arriba y abajo); en móvil conserva
+su proporción responsive.
 
 ### Coche
 
