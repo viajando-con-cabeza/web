@@ -705,3 +705,146 @@
  margin:0;padding:14px 10px 8px;
  border:0;border-top:1px solid #e6dfd7;background:transparent;
 }
+
+/* VCC 2026-11-20 · Editor flotant compacte compartit per billetes i abonos.
+   No incrementa l'alçada de les vinyetes; sempre hi ha una fila de resum. */
+#vcc-transporte-comparador .tc-top{
+ margin:0 0 6px;padding:0 0 6px;
+}
+#vcc-transporte-comparador .tc-select-bar{
+ gap:5px;margin:0 0 7px;
+}
+#vcc-transporte-comparador .tc-options-grid,
+#vcc-transporte-comparador .tc-options-grid[data-count="2"]{
+ gap:11px;
+}
+#vcc-transporte-comparador .tc-option{
+ position:relative;overflow:visible;gap:6px;
+ padding:9px 10px 10px;border-radius:11px;
+}
+#vcc-transporte-comparador .tc-option-heading{
+ padding-bottom:5px;
+}
+#vcc-transporte-comparador .tc-panel-head h3{font-size:15px}
+#vcc-transporte-comparador .tc-panel-icon{
+ width:24px;height:24px;flex-basis:24px;
+}
+#vcc-transporte-comparador .tc-car-fields.tc-car-all{
+ gap:5px 7px;
+}
+#vcc-transporte-comparador .tc-field{font-size:9px;gap:3px}
+#vcc-transporte-comparador .tc-field>span .tc-svg{width:10px;height:10px}
+#vcc-transporte-comparador :is(input:not([type="checkbox"]),select){
+ height:27px;min-height:27px;font-size:10px;
+}
+#vcc-transporte-comparador .tc-car-cost-note{
+ font-size:8.5px;line-height:1.25;
+}
+#vcc-transporte-comparador .tc-ticket-quick{gap:6px}
+#vcc-transporte-comparador .tc-individual-actions{gap:6px}
+#vcc-transporte-comparador .tc-small-btn,
+#vcc-transporte-comparador .tc-inline-action{
+ min-height:26px;padding:4px 7px;font-size:9.5px;
+}
+#vcc-transporte-comparador .tc-bonus-quick{
+ display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;
+ gap:6px;padding:7px 8px;
+ border:1px solid #e6e6e3;border-radius:7px;background:#fff;
+ min-height:38px;
+}
+#vcc-transporte-comparador .tc-bonus-glance-text{
+ min-width:0;flex:1;margin:0;
+ font-size:10.5px;line-height:1.3;
+}
+#vcc-transporte-comparador .tc-option-costs{
+ margin-top:auto;padding-top:7px;gap:7px;
+}
+#vcc-transporte-comparador .tc-option-costs strong{font-size:20px}
+#vcc-transporte-comparador .tc-compare-checkbox{margin-top:4px;font-size:8.5px}
+#vcc-transporte-comparador .tc-bonus-note{
+ color:#888781;font-size:8.5px;line-height:1.25;
+}
+#vcc-transporte-comparador .tc-flyout{
+ position:relative;display:inline-block;min-width:0;flex:none;
+ margin:0;padding:0;
+}
+#vcc-transporte-comparador .tc-flyout>summary{
+ display:inline-flex;align-items:center;gap:4px;
+ padding:4px 6px;border:1px solid #e6ded7;border-radius:6px;
+ color:#916951;background:#fff;cursor:pointer;
+ list-style:none;white-space:nowrap;
+ font:700 9.5px/1.3 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
+}
+#vcc-transporte-comparador .tc-flyout>summary::-webkit-details-marker{display:none}
+#vcc-transporte-comparador .tc-flyout>summary::after{content:"›";font-size:13px}
+#vcc-transporte-comparador .tc-flyout[open]>summary::after{content:"⌄"}
+#vcc-transporte-comparador .tc-flyout-panel{
+ position:absolute;z-index:60;top:calc(100% + 7px);left:0;
+ display:flex;flex-direction:column;gap:9px;
+ width:min(425px,calc(100vw - 48px));max-height:min(435px,68vh);
+ overflow:auto;overscroll-behavior:contain;
+ padding:12px;border:1px solid #d9d6d2;border-radius:10px;
+ background:#fff;box-shadow:0 12px 35px rgba(37,33,30,.16);
+}
+#vcc-transporte-comparador .tc-option-bonus .tc-flyout-panel{
+ left:auto;right:0;
+}
+#vcc-transporte-comparador .tc-flyout-head,
+#vcc-transporte-comparador .tc-flyout-subhead{
+ display:flex;align-items:center;justify-content:space-between;gap:8px;
+}
+#vcc-transporte-comparador .tc-flyout-head strong{
+ color:#303b33;font:600 17px/1.2 var(--vcc-font-heading,"Oswald",sans-serif);
+}
+#vcc-transporte-comparador .tc-flyout-subhead strong{
+ color:#4c584e;font:700 10px/1.2 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
+}
+#vcc-transporte-comparador .tc-flyout-close{
+ width:25px;height:25px;border:1px solid #e9e5e1;border-radius:6px;
+ background:#fff;color:#8a7162;font:500 20px/1 sans-serif;cursor:pointer;
+}
+#vcc-transporte-comparador .tc-flyout-divider{
+ height:1px;min-height:1px;margin:1px 0;background:#e9e9e6;
+}
+#vcc-transporte-comparador .tc-flyout-panel .tc-trip-list,
+#vcc-transporte-comparador .tc-flyout-panel .tc-passes{
+ display:grid;gap:4px;max-height:none;overflow:visible;margin:0;padding:0;
+}
+#vcc-transporte-comparador .tc-flyout-panel .tc-trip.tc-trip-simple,
+#vcc-transporte-comparador .tc-flyout-panel .tc-trip.tc-trip-simple.tc-pass-row{
+ display:grid;
+ grid-template-columns:25px minmax(0,1fr) minmax(66px,86px) 18px;
+ align-items:center;gap:5px;min-width:0;
+ padding:4px;border:1px solid #ebe8e4;border-radius:6px;
+ background:#fff;
+}
+#vcc-transporte-comparador .tc-flyout-panel .tc-trip.tc-trip-simple .tc-trip-number{
+ width:22px;height:22px;font-size:9px;
+}
+#vcc-transporte-comparador .tc-flyout-panel .tc-trip.tc-trip-simple input{
+ display:block;grid-column:auto;min-width:0;
+ height:26px;min-height:26px;padding:3px 5px;font-size:10px;
+}
+#vcc-transporte-comparador .tc-flyout-panel .tc-trip.tc-trip-simple .tc-remove{
+ grid-column:4;grid-row:1;justify-self:center;margin:0;
+}
+#vcc-transporte-comparador .tc-flyout-panel .tc-tariffs{margin:0}
+#vcc-transporte-comparador .tc-flyout-panel .tc-muted{font-size:9px;line-height:1.4}
+@media(max-width:780px){
+ #vcc-transporte-comparador .tc-options-grid,
+ #vcc-transporte-comparador .tc-options-grid[data-count="2"]{gap:9px}
+ #vcc-transporte-comparador .tc-flyout-panel,
+ #vcc-transporte-comparador .tc-option-bonus .tc-flyout-panel{
+  position:fixed;z-index:100;top:12vh;left:5vw;right:auto;
+  width:90vw;max-height:76vh;padding:11px;
+ }
+}
+@media(max-width:520px){
+ #vcc-transporte-comparador .tc-option{padding:8px}
+ #vcc-transporte-comparador .tc-car-fields.tc-car-all{gap:5px}
+ #vcc-transporte-comparador .tc-flyout-panel{gap:8px}
+ #vcc-transporte-comparador .tc-flyout-panel .tc-trip.tc-trip-simple,
+ #vcc-transporte-comparador .tc-flyout-panel .tc-trip.tc-trip-simple.tc-pass-row{
+  grid-template-columns:23px minmax(0,1fr) minmax(62px,74px) 18px;gap:4px;
+ }
+}
