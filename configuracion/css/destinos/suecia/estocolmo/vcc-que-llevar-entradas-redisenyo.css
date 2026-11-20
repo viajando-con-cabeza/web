@@ -16,3 +16,96 @@
  .ql-page .ql-main #experiencia-vcc{margin-top:var(--vcc-section-space,44px)}
  .ep-page .ep4-main .ep4-calculator{margin-bottom:var(--vcc-section-space,48px)}
 }
+
+
+/* Estocolmo · ¿Qué llevar? · els dos primers apartats són seccions
+   independents, però comparteixen fila en escriptori.
+   Es manté la disposició original en pantalles estretes i impressió. */
+@media screen and (min-width:1040px){
+  html body .ql-page .ql-main{
+    display:grid!important;
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    column-gap:20px!important;
+    row-gap:var(--vcc-section-space,58px)!important;
+    align-items:start!important;
+  }
+  html body .ql-page .ql-main > #que-maleta,
+  html body .ql-page .ql-main > #haz-tu-maleta{
+    box-sizing:border-box!important;
+    width:100%!important;
+    min-width:0!important;
+    max-width:100%!important;
+    align-self:start!important;
+    margin:0!important;
+    padding:18px 16px!important;
+    border:1px solid var(--ql11-border,#e6d7ca)!important;
+    border-radius:15px!important;
+    background:#fffdfa!important;
+    box-shadow:0 5px 24px rgba(72,44,20,.035)!important;
+  }
+  html body .ql-page .ql-main > #que-maleta{grid-column:1;grid-row:1;}
+  html body .ql-page .ql-main > #haz-tu-maleta{grid-column:2;grid-row:1;}
+  html body .ql-page .ql-main > #experiencia-vcc{
+    grid-column:1/-1!important;
+    grid-row:2!important;
+    min-width:0!important;
+    margin-top:0!important;
+  }
+  /* Amb mig ample, les descripcions van sota el títol,
+     sense amagar text ni desbordar cap de les dues seccions. */
+  html body .ql-page .ql-main > :is(#que-maleta,#haz-tu-maleta) > .ql-section-heading{
+    display:block!important;
+    grid-template-columns:minmax(0,1fr)!important;
+    width:100%!important;
+    min-width:0!important;
+    margin:0 0 14px!important;
+    padding:0!important;
+  }
+  html body .ql-page .ql-main > :is(#que-maleta,#haz-tu-maleta) > .ql-section-heading .vcc-editorial-title{
+    white-space:normal!important;
+    text-wrap:balance!important;
+    overflow-wrap:break-word!important;
+    max-width:100%!important;
+  }
+  html body .ql-page .ql-main > :is(#que-maleta,#haz-tu-maleta) > .ql-section-heading > .vcc-editorial-description{
+    display:block!important;
+    width:100%!important;
+    max-width:100%!important;
+    height:auto!important;
+    min-height:0!important;
+    max-height:none!important;
+    margin:7px 0 0!important;
+    padding:0!important;
+    text-align:left!important;
+    -webkit-line-clamp:unset!important;
+    line-clamp:unset;
+    overflow:visible!important;
+  }
+  /* Distribució compacta dels filtres dins la columna esquerra. */
+  html body .ql-page #que-maleta .ql-v8-planner-controls{
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    gap:7px 10px!important;
+  }
+  html body .ql-page #que-maleta .ql-v8-planner-controls > .ql-v11-laundry{
+    grid-column:1/-1!important;
+  }
+  /* La checklist conserva tots els elements sense scroll interior. */
+  html body .ql-page #haz-tu-maleta > .ql-v17-climate-card .ql-v6-list-head.ql-v9-list-head.ql-v13-climate-progress{
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  }
+  html body .ql-page #haz-tu-maleta .ql-v6-scroll-shell > .ql-v6-categories{
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    grid-template-rows:none!important;
+  }
+  html body .ql-page #haz-tu-maleta > .ql-v17-actions-strip{
+    grid-template-columns:minmax(0,1fr)!important;
+    gap:7px!important;
+  }
+  html body .ql-page #haz-tu-maleta > .ql-v17-actions-strip > .ql-v6-caveat,
+  html body .ql-page #haz-tu-maleta > .ql-v17-actions-strip > .ql-v6-actions{
+    grid-column:1!important;
+  }
+  html body .ql-page #haz-tu-maleta > .ql-v17-actions-strip > .ql-v6-actions{
+    justify-content:flex-start!important;
+  }
+}
