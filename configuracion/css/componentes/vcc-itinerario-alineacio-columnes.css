@@ -97,3 +97,86 @@
     margin:0!important;
   }
 }
+
+
+/* VCC · Paritat de capçaleres dels 3 dies (ES/EN).
+   Mateixes fonts, mides, x, espais i alçada reservada per al títol.
+   No s'afegeix cap microdescripció a la dreta ni sota el títol. */
+html body article.day-section[id^="dia"]{
+  --vcc-it-day-title-block:122px;
+  --vcc-it-day-heading-size:clamp(27px,2.55vw,37px);
+  --vcc-it-day-overline-size:clamp(25px,2.15vw,29px);
+}
+html body article.day-section[id^="dia"] > header.vcc-itinerary-section-heading{
+  box-sizing:border-box!important;
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:stretch!important;
+  justify-content:flex-start!important;
+  width:100%!important;
+  min-height:var(--vcc-it-day-title-block)!important;
+  margin:0!important;
+  padding:0!important;
+  transform:none!important;
+}
+html body article.day-section[id^="dia"] > header.vcc-itinerary-section-heading .vcc-editorial-heading-main{
+  display:block!important;
+  box-sizing:border-box!important;
+  width:100%!important;
+  min-width:0!important;
+  max-width:100%!important;
+  margin:0!important;
+  padding:0!important;
+}
+html body article.day-section[id^="dia"] > header.vcc-itinerary-section-heading .vcc-editorial-overline{
+  display:block!important;
+  font-size:var(--vcc-it-day-overline-size)!important;
+  line-height:1.1!important;
+  margin:0 0 7px!important;
+  padding:0!important;
+  transform:none!important;
+}
+html body article.day-section[id^="dia"] > header.vcc-itinerary-section-heading .vcc-editorial-title{
+  font-size:var(--vcc-it-day-heading-size)!important;
+  line-height:1.1!important;
+  font-weight:600!important;
+  margin:0!important;
+  padding:0!important;
+  text-align:left!important;
+  max-width:100%!important;
+  white-space:normal!important;
+  text-wrap:balance!important;
+  overflow-wrap:break-word!important;
+}
+html body article.day-section[id^="dia"] > .day-intro{
+  box-sizing:border-box!important;
+  margin:0!important;
+  padding:0!important;
+  justify-content:flex-start!important;
+  align-items:stretch!important;
+}
+html body article.day-section[id^="dia"] > .day-intro > p{
+  font:400 14px/1.65 var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;
+  width:100%!important;
+  min-width:0!important;
+  margin:0!important;
+  padding:0!important;
+  text-align:left!important;
+}
+@media(max-width:950px){
+  html body article.day-section[id^="dia"] > header.vcc-itinerary-section-heading{
+    min-height:0!important;
+  }
+  html body article.day-section[id^="dia"]{
+    --vcc-it-day-heading-size:calc(clamp(27px,3.2vw,35px) + var(--vcc-heading-size-adjust,0px));
+  }
+}
+@media(max-width:600px){
+  html body article.day-section[id^="dia"]{
+    --vcc-it-day-heading-size:calc(clamp(27px,8vw,34px) + var(--vcc-heading-size-adjust,0px));
+    --vcc-it-day-overline-size:calc(25px + var(--vcc-overline-size-adjust,0px));
+  }
+  html body article.day-section[id^="dia"] > header.vcc-itinerary-section-heading .vcc-editorial-overline{
+    margin-bottom:5px!important;
+  }
+}
