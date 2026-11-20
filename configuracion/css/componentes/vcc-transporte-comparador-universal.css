@@ -848,3 +848,56 @@
   grid-template-columns:23px minmax(0,1fr) minmax(62px,74px) 18px;gap:4px;
  }
 }
+
+/* Resum compacte i visible dels elements triats, sense fer créixer les
+   vinyetes amb cada nova entrada. Mateix patró per bitllets i abonaments. */
+#vcc-transporte-comparador .tc-selected{
+ display:flex;flex-direction:column;gap:4px;min-width:0;max-width:100%;
+ padding:6px 0 2px;border-top:1px solid #efefec;
+}
+#vcc-transporte-comparador .tc-selected-heading{
+ display:block;color:#747a75;
+ font:700 8px/1.25 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
+ letter-spacing:.025em;
+}
+#vcc-transporte-comparador .tc-selected-items{
+ display:flex;flex-wrap:nowrap;align-items:center;gap:4px;
+ min-width:0;width:100%;max-width:100%;overflow-x:auto;overflow-y:hidden;
+ padding:1px 0 3px;scrollbar-width:thin;scrollbar-color:#dddcd8 transparent;
+ overscroll-behavior-inline:contain;
+}
+#vcc-transporte-comparador .tc-selected-chip{
+ display:inline-flex;align-items:center;gap:4px;flex:0 0 auto;
+ max-width:205px;min-width:0;height:23px;padding:2px 5px;
+ border:1px solid #e4e4e0;border-radius:5px;background:#fff;
+ color:#4d574f;cursor:pointer;
+ font:500 9px/1.2 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
+}
+#vcc-transporte-comparador .tc-selected-chip:hover,
+#vcc-transporte-comparador .tc-selected-chip:focus-visible{
+ border-color:#bca38f;background:#faf8f5;
+}
+#vcc-transporte-comparador .tc-selected-index{
+ flex:none;color:#b67f61;font-weight:700;font-size:8px;
+}
+#vcc-transporte-comparador .tc-selected-name{
+ display:block;min-width:0;max-width:108px;overflow:hidden;
+ white-space:nowrap;text-overflow:ellipsis;
+}
+#vcc-transporte-comparador .tc-selected-price{
+ flex:none;color:#345f42;font-weight:700;white-space:nowrap;
+}
+#vcc-transporte-comparador .tc-selected-empty{
+ color:#93918d;font:400 9px/1.4 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
+}
+#vcc-transporte-comparador .tc-selected-extra{
+ display:flex;flex-direction:column;gap:4px;min-width:0;
+}
+#vcc-transporte-comparador .tc-selected-extra[hidden]{display:none!important}
+@media(max-width:520px){
+ #vcc-transporte-comparador .tc-selected{gap:3px;padding:5px 0 1px}
+ #vcc-transporte-comparador .tc-selected-chip{
+  max-width:185px;height:22px;padding:2px 4px;
+ }
+ #vcc-transporte-comparador .tc-selected-name{max-width:94px}
+}
