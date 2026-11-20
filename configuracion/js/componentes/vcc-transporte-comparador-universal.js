@@ -166,7 +166,39 @@
      list.append(p);
    });
  }
+ // Els noms i preus introduïts es mostren en cada targeta.
+ // La tira de pastilles és desplaçable horitzontalment: l'alçada no creix
+ // quan s'afegeixen viatges o abonaments. Clicant-ne un s'obre l'editor.
+ function renderSelectionSummaries(){
+   const populate=(id,items,empty,kind)=>{
+     const target=$(id);if(!target)return;
+     target.replaceChildren();
+     target.dataset.count=String(items.length);
+     if(!items.length){target.append(el('span','tc-selected-empty',empty));return;}
+     items.forEach((item,i)=>{
+       const text=(item.label||((kind==='bonus'?'Abono ':'Viaje ')+(i+1))).trim();
+       const price=finite(amount(item.price))?money(Number(item.price)):'Sin precio';
+       const chip=el('button','tc-selected-chip');
+       chip.type='button';
+       chip.dataset.editor=kind==='trip'?'trip-detail':'bonus-detail';
+       chip.title=String(i+1).padStart(2,'0')+' · '+text+' · '+price+' · Editar';
+       chip.setAttribute('aria-label',chip.title);
+       chip.append(
+         el('span','tc-selected-index',String(i+1).padStart(2,'0')),
+         el('span','tc-selected-name',text),
+         el('span','tc-selected-price',price)
+       );
+       target.append(chip);
+     });
+   };
+   populate('trip-preview',trips,'Sin viajes','trip');
+   populate('bonus-preview',passes,'Sin abonos','bonus');
+   populate('extra-preview',bonusExtras,'Sin billetes extra','bonus');
+   const extraSection=$('bonus-extra-summary');
+   if(extraSection)extraSection.hidden=bonusExtras.length===0;
+ }
  function update(){
+   renderSelectionSummaries();
    $('rental-wrap').hidden=$('car-type').value==='own';
    const travellers=clamp($('people').value,1,30);
    const car={owned:$('car-type').value==='own',
@@ -330,6 +362,15 @@
    optionOrder=[...visible,...optionOrder.filter(name=>!selected[name])];
    syncOptions();update();
  });
+ // Els petits resums també permeten anar directament al registre.
+ for(const id of ['trip-preview','bonus-preview','extra-preview']){
+   $(id).addEventListener('click',event=>{
+     const chip=event.target.closest('.tc-selected-chip');
+     if(!chip)return;
+     const detail=$(chip.dataset.editor);
+     if(detail)detail.open=true;
+   });
+ }
  $('close-trips').addEventListener('click',()=>{$('trip-detail').open=false;});
  $('close-bonuses').addEventListener('click',()=>{$('bonus-detail').open=false;});
  document.addEventListener?.('keydown',event=>{
