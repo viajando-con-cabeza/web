@@ -38,7 +38,7 @@
 <link rel="stylesheet" data-vcc-sacred-covers href="/configuracion/css/componentes/portades-contracte-unic-vcc.css?v=20261117-espais-intermedis-v6">
 <link rel="stylesheet" data-vcc-pass-criterion href="/configuracion/css/componentes/vcc-criterio-pases-turisticos.css?v=20261117-separacio-bloc-columnes-v8">
 <link rel="stylesheet" href="/configuracion/css/destinos/suecia/estocolmo/vcc-que-llevar-entradas-redisenyo.css?v=20261119-centralized-v2">
-<link rel="stylesheet" href="/configuracion/css/componentes/calculadora-comparativa-vcc.css?v=20261120-tres-paneles-v4">
+<link rel="stylesheet" href="/configuracion/css/componentes/calculadora-comparativa-vcc.css?v=20261120-comparativa-visual-v5">
 <link rel="stylesheet" href="/configuracion/css/componentes/vcc-gallery-booking.css?v=20261119-compact-count-v3">
 <link rel="stylesheet" href="/configuracion/css/destinos/suecia/estocolmo/vcc-entradas-ruta-galeria.css?v=20261120-mosaic-sense-vinyeta-v3">
 
@@ -73,13 +73,13 @@
  <div class="ep4-calculator-panel vcc-calc-compact vcc-calc-three-col" id="ep4-vcc-calculator">
   <div class="vcc-calc-three-grid">
    <section class="vcc-calc-pane vcc-calc-pane-tickets" aria-labelledby="ep4-calc-tickets-title">
-    <header class="vcc-calc-pane-head"><span class="vcc-calc-pane-index">01</span><div><h3 id="ep4-calc-tickets-title">Individual tickets</h3><p>Name, price, and whether included in the pass</p></div></header>
+    <header class="vcc-calc-pane-head"><span class="vcc-calc-pane-index" aria-hidden="true">01</span><img class="vcc-calc-pane-icon" src="/configuracion/imagenes/iconos/entradas-y-pases/ticket.svg" width="20" height="20" alt="" aria-hidden="true"><div><h3 id="ep4-calc-tickets-title">Individual tickets</h3><p>Add prices and mark what's covered</p></div></header>
     <ul class="ep4-calc-list vcc-calc-free-list" id="ep4-calc-visits" aria-label="Individual tickets"></ul>
     <button type="button" class="vcc-calc-add" id="ep4-calc-add"><span aria-hidden="true">+</span> Add ticket</button>
     <div class="vcc-calc-pane-total"><small>Tickets · per person</small><strong id="ep4-calc-individual-total" aria-live="polite">—</strong></div>
    </section>
    <section class="vcc-calc-pane vcc-calc-pane-pass" aria-labelledby="ep4-calc-pass-title">
-    <header class="vcc-calc-pane-head"><span class="vcc-calc-pane-index">02</span><div><h3 id="ep4-calc-pass-title">Tourist pass</h3><p>Choose duration and enter price</p></div></header>
+    <header class="vcc-calc-pane-head"><span class="vcc-calc-pane-index" aria-hidden="true">02</span><img class="vcc-calc-pane-icon" src="/configuracion/imagenes/iconos/entradas-y-pases/coins.svg" width="20" height="20" alt="" aria-hidden="true"><div><h3 id="ep4-calc-pass-title">Tourist pass</h3><p>Choose the duration and enter its price</p></div></header>
     <label class="vcc-calc-field"><span>Pass duration</span><select id="ep4-calc-pass-duration"><option value="1">1 day</option><option value="2">2 days</option><option value="3">3 days</option><option value="4">4 days</option><option value="5">5 days</option><option value="custom">Other pass</option></select></label>
     <label class="vcc-calc-field" id="ep4-calc-custom-wrap" hidden><span>Other pass or duration</span><input id="ep4-calc-custom-duration" type="text" maxlength="50" autocomplete="off"></label>
     <label class="vcc-calc-field"><span>Pass price per person (SEK)</span><span class="vcc-calc-price-field"><input id="ep4-calc-pass-price" type="number" min="0" step="1" inputmode="decimal" placeholder="—" aria-label="Pass price per person in SEK"><em>SEK</em></span></label>
@@ -87,10 +87,18 @@
     <div class="vcc-calc-pane-total"><small>Pass + extras · per person</small><strong id="ep4-calc-pass-total" aria-live="polite">—</strong></div>
    </section>
    <section class="vcc-calc-pane vcc-calc-pane-result" aria-labelledby="ep4-calc-result-title">
-    <header class="vcc-calc-pane-head"><span class="vcc-calc-pane-index">03</span><div><h3 id="ep4-calc-result-title">VCC Conclusion</h3><p>Which is better value</p></div></header>
-    <p class="ep4-calc-verdict" id="ep4-calc-verdict" aria-live="polite">Add tickets and pass price</p>
-    <div class="vcc-calc-saving" id="ep4-calc-saving" hidden><span class="vcc-calc-saving-label">Your savings per person</span><strong class="vcc-calc-saving-number" id="ep4-calc-saving-number" aria-live="polite">—</strong></div>
-    <p class="vcc-calc-verification">Check included tours. <a href="https://gocity.com/en/stockholm" target="_blank" rel="noopener noreferrer">Go City Terms and Conditions</a></p>
+    <header class="vcc-calc-pane-head"><span class="vcc-calc-pane-index" aria-hidden="true">03</span><img class="vcc-calc-pane-icon vcc-calc-pane-icon-brand" src="/configuracion/imagenes/marca/logo-vcc.svg" width="22" height="22" alt="" aria-hidden="true"><div><h3 id="ep4-calc-result-title">VCC conclusion</h3><p>Compare both prices and see your savings</p></div></header>
+    <div class="vcc-calc-advice-intro">
+     <div class="vcc-calc-advice-brand"><span class="vcc-calc-advice-seal"><img src="/configuracion/imagenes/marca/logo-vcc.svg" width="43" height="43" alt="" aria-hidden="true"></span><span>VCC tip</span></div>
+     <div class="vcc-calc-advice-text"><strong id="ep4-calc-winner" aria-live="polite">The best option</strong><p class="ep4-calc-verdict" id="ep4-calc-verdict" aria-live="polite">Add tickets and a pass price to compare.</p></div>
+    </div>
+    <div class="vcc-calc-price-comparison" aria-label="Compare both prices and see your savings">
+     <div><span id="ep4-calc-result-individual-label">Individual tickets</span><strong id="ep4-calc-result-individual" aria-live="polite">—</strong></div>
+     <span class="vcc-calc-advice-vs" aria-hidden="true">vs.</span>
+     <div><span id="ep4-calc-result-pass-label">Tourist pass + extras</span><strong id="ep4-calc-result-pass" aria-live="polite">—</strong></div>
+    </div>
+    <div class="vcc-calc-saving" id="ep4-calc-saving" hidden><span class="vcc-calc-saving-label" id="ep4-calc-saving-label">You save</span><strong class="vcc-calc-saving-number" id="ep4-calc-saving-number" aria-live="polite">—</strong><small>per person</small></div>
+    <p class="vcc-calc-verification">Check which attractions are covered. <a href="https://gocity.com/en/stockholm" target="_blank" rel="noopener noreferrer">Go City terms</a></p>
    </section>
   </div>
  </div>
@@ -313,7 +321,7 @@
 <script defer src="/configuracion/js/site-footer.js?v=20261111-precios-v2"></script>
 <script defer src="/configuracion/js/componentes/vcc-gallery-booking.js?v=20261119-entradas-shared-v1"></script>
 <script defer src="/configuracion/js/plantillas/entradas-pases-vcc.js?v=20261119-gallery-i18n-v2"></script>
-<script defer src="/configuracion/js/plantillas/vcc-stockholm-pass-calculator.js?v=20261120-estalvi-persona-v5"></script>
+<script defer src="/configuracion/js/plantillas/vcc-stockholm-pass-calculator.js?v=20261120-veredicte-v6"></script>
 <script src="/configuracion/js/vcc-en-runtime.js" defer></script>
 </body>
 </html>
