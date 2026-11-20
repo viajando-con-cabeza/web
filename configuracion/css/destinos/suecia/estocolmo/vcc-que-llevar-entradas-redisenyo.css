@@ -592,3 +592,65 @@ html body .ql-page .ql-first-two-layout #haz-tu-maleta > .ql-v17-actions-strip >
     margin-left:auto!important;
   }
 }
+
+
+/* 2026-11-20 · Checklist tipus masonry sense llacunes.
+   Dues columnes reals de contingut independent, no una graella de
+   files amb alçada compartida. La separació és sempre només 8 px.
+   Soluciona el buit visible sota Ropa quan Extras era més llarg. */
+html body .ql-page .ql-first-two-layout #haz-tu-maleta .ql-v6-scroll-shell > .ql-v6-categories{
+  grid-template-rows:none!important;
+  grid-auto-rows:auto!important;
+  align-items:start!important;
+  align-content:start!important;
+}
+html body .ql-page .ql-first-two-layout #haz-tu-maleta .ql-v6-scroll-shell > .ql-v6-categories > .ql-v6-column{
+  box-sizing:border-box!important;
+  display:flex!important;
+  flex-direction:column!important;
+  align-self:start!important;
+  justify-content:flex-start!important;
+  align-items:stretch!important;
+  width:100%!important;
+  min-width:0!important;
+  min-height:0!important;
+  height:auto!important;
+  margin:0!important;
+  padding:0!important;
+  gap:8px!important;
+}
+html body .ql-page .ql-first-two-layout #haz-tu-maleta .ql-v6-categories > .ql-v6-column > .ql-v6-category{
+  box-sizing:border-box!important;
+  display:flex!important;
+  flex-direction:column!important;
+  flex:0 0 auto!important;
+  align-self:stretch!important;
+  width:100%!important;
+  min-width:0!important;
+  min-height:0!important;
+  height:auto!important;
+  max-height:none!important;
+  margin:0!important;
+  overflow:hidden!important;
+}
+html body .ql-page .ql-first-two-layout #haz-tu-maleta .ql-v6-column > .ql-v6-category > ul{
+  flex:0 0 auto!important;
+  height:auto!important;
+  min-height:0!important;
+  max-height:none!important;
+}
+
+/* Contracte de marges: primer apartat amb espai superior curt
+   sota navegació, separació editorial normal abans de la resta. */
+html body .ql-page .ql-main > .ql-first-two-layout{
+  margin-top:12px!important;
+  margin-bottom:var(--vcc-section-space,58px)!important;
+}
+html body .ql-page .ql-main > #experiencia-vcc{
+  margin-top:0!important;
+}
+@media(max-width:1039px){
+  html body .ql-page .ql-main > .ql-first-two-layout{
+    margin-top:8px!important;
+  }
+}
