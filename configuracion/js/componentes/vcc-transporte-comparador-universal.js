@@ -325,7 +325,7 @@
    }else if(f==='type'){
      pass.type=event.target.value;pass.simulation=true;edited=true;
    }else if(f==='label'){
-     pass.label=event.target.value.trim().slice(0,36)||'Bono personalizado';
+     pass.label=event.target.value.trim().slice(0,48)||'Bono personalizado';
      pass.simulation=true;edited=true;
    }
    update();
