@@ -53,7 +53,7 @@
 }
 .ep-page .ep4-our .ep4-route-layout .ep4-our-stage>.ep4-our-arrow-prev{left:2px!important}
 .ep-page .ep4-our .ep4-route-layout .ep4-our-stage>.ep4-our-arrow-next{right:2px!important}
-/* La vinyeta de la galeria és estructuralment idèntica a les altres dues. */
+/* Les fotos són la tercera columna, sense la vinyeta blanca exterior. */
 .ep-page .ep4-our .ep4-route-layout>.ep4-photos-aside{
   display:flex;
   flex-direction:column;
@@ -62,11 +62,11 @@
   min-height:0;
   height:100%;
   margin:0;
-  padding:10px 11px;
-  border:1px solid #e7e0d9;
-  border-radius:15px;
-  background:#fff;
-  box-shadow:0 3px 13px #392a1a10;
+  padding:0;
+  border:0;
+  border-radius:0;
+  background:transparent;
+  box-shadow:none;
 }
 .ep-page .ep4-photos-aside h3{
   margin:0;color:#273030;
@@ -91,6 +91,8 @@
   height:100%!important;
   min-height:0!important;
   aspect-ratio:auto!important;
+  border-radius:15px;
+  overflow:hidden;
 }
 .ep-page .ep4-photos-aside .day-mosaic>button .ep4-photo-label{
   position:absolute;z-index:3;right:6px;bottom:6px;
@@ -135,7 +137,7 @@ html body .ep4-gallery-modal[data-vcc-gallery-areas="1"] .day-lightbox-grid>butt
   }
 }
 @media(max-width:650px){
-  .ep-page .ep4-our .ep4-route-layout>.ep4-photos-aside{padding:10px}
+  .ep-page .ep4-our .ep4-route-layout>.ep4-photos-aside{padding:0}
   .ep-page .ep4-photos-aside .day-gallery{width:100%}
   .ep-page .ep4-photos-aside .day-mosaic>button .ep4-photo-label{
     right:5px;bottom:5px;font-size:8px;padding:2px 4px;
