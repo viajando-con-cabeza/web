@@ -649,3 +649,59 @@
  }
  #vcc-transporte-comparador .tc-pass-row .tc-field{font-size:8px}
 }
+
+/* VCC · Viajes simples: número / descripción / precio. Se eliminan
+   iconos, hora y día del editor visual; cada viaje es una fila compacta. */
+#vcc-transporte-comparador .tc-trip.tc-trip-simple{
+ display:grid;grid-template-columns:27px minmax(0,1fr) minmax(68px,88px) 19px;
+ gap:7px;align-items:center;
+ padding:5px 6px;border:1px solid #e7e7e4;border-radius:7px;
+ background:#fff;min-width:0;
+}
+#vcc-transporte-comparador .tc-trip.tc-trip-simple .tc-trip-number{
+ display:grid;place-items:center;
+ width:24px;height:24px;border:1px solid #e5d4ca;border-radius:50%;
+ color:#ba785a;font:700 10px/1 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
+}
+#vcc-transporte-comparador .tc-trip.tc-trip-simple :is(input:not([type="checkbox"])){
+ display:block;grid-column:auto;min-width:0;width:100%;height:27px;min-height:27px;
+ font:500 10.5px/1.2 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
+}
+#vcc-transporte-comparador .tc-trip.tc-trip-simple .tc-remove{
+ grid-column:4;grid-row:auto;
+ align-self:center;justify-self:center;
+ width:19px;height:24px;margin:0;
+}
+#vcc-transporte-comparador .tc-pass-row{
+ grid-template-columns:repeat(4,minmax(0,1fr)) 21px;
+ gap:4px;padding:5px;
+}
+#vcc-transporte-comparador .tc-pass-row>.tc-field:first-of-type{
+ grid-column:1/5;
+}
+#vcc-transporte-comparador .tc-pass-row .tc-field :is(input,select){
+ min-width:0;height:27px;min-height:27px;
+ font-size:10px;
+}
+#vcc-transporte-comparador .tc-car-cost-note{margin-top:0}
+#vcc-transporte-comparador .tc-option .tc-trip-detail{padding:6px}
+@media(max-width:520px){
+ #vcc-transporte-comparador .tc-trip.tc-trip-simple{
+  grid-template-columns:24px minmax(0,1fr) minmax(62px,78px) 19px;
+  gap:4px;padding:5px 4px;
+ }
+ #vcc-transporte-comparador .tc-trip.tc-trip-simple .tc-trip-number{
+  width:22px;height:22px;font-size:9px;
+ }
+ #vcc-transporte-comparador .tc-pass-row{
+  grid-template-columns:repeat(4,minmax(0,1fr)) 19px;gap:3px;
+ }
+}
+/* Billetes y abonos · el bloque de pago va después de la ruta real. */
+.mv-ticket-compare .mv-ticket-payment{
+ margin:19px 0 0;
+}
+.mv-ticket-compare .mv-ticket-payment .mv-pay-guide{
+ margin:0;padding:14px 10px 8px;
+ border:0;border-top:1px solid #e6dfd7;background:transparent;
+}
