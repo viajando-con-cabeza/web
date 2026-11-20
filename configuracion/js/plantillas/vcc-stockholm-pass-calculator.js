@@ -8,13 +8,14 @@
     const en=(document.documentElement.lang||"").toLowerCase().startsWith("en");
     const $=id=>root.querySelector("#"+id);
     const list=$("ep4-calc-visits"),add=$("ep4-calc-add"),duration=$("ep4-calc-pass-duration");
+    const scrollControls=$("ep4-calc-scroll-controls"),scrollUp=$("ep4-calc-scroll-up"),scrollDown=$("ep4-calc-scroll-down");
     const customWrap=$("ep4-calc-custom-wrap"),custom=$("ep4-calc-custom-duration"),passPrice=$("ep4-calc-pass-price");
     const individual=$("ep4-calc-individual-total"),withPass=$("ep4-calc-pass-total"),verdict=$("ep4-calc-verdict");
     const saving=$("ep4-calc-saving"),savingNumber=$("ep4-calc-saving-number");
     const winner=$("ep4-calc-winner"),rightIndividual=$("ep4-calc-result-individual");
     const rightPass=$("ep4-calc-result-pass"),rightIndividualLabel=$("ep4-calc-result-individual-label");
     const rightPassLabel=$("ep4-calc-result-pass-label"),savingLabel=$("ep4-calc-saving-label");
-    if(!list||!add||!duration||!customWrap||!passPrice||!individual||!withPass||!verdict||!saving||!savingNumber||!winner||!rightIndividual||!rightPass||!rightIndividualLabel||!rightPassLabel||!savingLabel)return;
+    if(!list||!add||!duration||!customWrap||!passPrice||!individual||!withPass||!verdict||!saving||!savingNumber||!winner||!rightIndividual||!rightPass||!rightIndividualLabel||!rightPassLabel||!savingLabel||!scrollControls||!scrollUp||!scrollDown)return;
     const formatter=new Intl.NumberFormat(en?"en-GB":"es-ES",{maximumFractionDigits:2});
     const format=n=>formatter.format(n)+" SEK";
     const asNumber=s=>{
@@ -56,7 +57,18 @@
         li.querySelector(".vcc-ticket-remove").setAttribute("aria-label",t.remove+" "+(i+1));
       });
     }
+    function updateScrollState(){
+      // El màxim visual són quatre files; la resta es desplaça dins la llista.
+      const crowded=list.querySelectorAll(".vcc-ticket-entry").length>4;
+      list.classList.toggle("is-scrollable",crowded);
+      scrollControls.hidden=!crowded;
+      if(!crowded)list.scrollTop=0;
+      const max=Math.max(0,list.scrollHeight-list.clientHeight);
+      scrollUp.disabled=!crowded||list.scrollTop<2;
+      scrollDown.disabled=!crowded||list.scrollTop>=max-2;
+    }
     function render(){
+      updateScrollState();
       let entries=0,all=0,outside=0,incomplete=false;
       list.querySelectorAll(".vcc-ticket-entry").forEach(li=>{
         const name=li.querySelector(".vcc-ticket-name input").value.trim();
@@ -96,6 +108,9 @@
       if(focus)li.querySelector(".vcc-ticket-name input").focus();
     }
     add.addEventListener("click",()=>addRow(true));
+    scrollUp.addEventListener("click",()=>list.scrollBy({top:-140,behavior:"smooth"}));
+    scrollDown.addEventListener("click",()=>list.scrollBy({top:140,behavior:"smooth"}));
+    list.addEventListener("scroll",updateScrollState,{passive:true});
     list.addEventListener("click",event=>{
       const button=event.target.closest(".vcc-ticket-remove");if(!button)return;
       const li=button.closest(".vcc-ticket-entry"),prev=li.previousElementSibling;
