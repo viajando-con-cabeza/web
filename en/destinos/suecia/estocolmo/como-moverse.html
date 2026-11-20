@@ -29,7 +29,7 @@
 <link rel="stylesheet" href="/configuracion/css/componentes/como-ahorrar-carruseles-vcc.css?v=20261117-notes-compactes-v3">
 <link rel="stylesheet" href="/configuracion/css/componentes/vcc-gallery-booking.css?v=20261119-etiquetes-visor-v2">
 <link rel="stylesheet" href="/configuracion/css/destinos/suecia/estocolmo/como-moverse-calculadora-galeria-vcc.css?v=20261119-comparador-3-columnas-v15">
-<link rel="stylesheet" href="/configuracion/css/componentes/vcc-transporte-comparador-universal.css?v=20261120-editor-flotant-v13">
+<link rel="stylesheet" href="/configuracion/css/componentes/vcc-transporte-comparador-universal.css?v=20261120-resum-seleccio-v14">
 
 </head><body class="mv-body">
 <header class="page-header"></header>
@@ -277,6 +277,10 @@
           </div>
         </details>
       </div>
+      <div class="tc-selected" id="tc-trip-selected" aria-label="Summary of selected trips">
+        <span class="tc-selected-heading">TRIPS YOU HAVE ADDED</span>
+        <div class="tc-selected-items" id="tc-trip-preview"></div>
+      </div>
       <div class="tc-option-costs"><div><small>Per person</small><strong id="tc-individual-person">—</strong></div><div><small>Group total</small><strong id="tc-individual-group">—</strong></div></div>
     </section>
     <section class="tc-option tc-option-bonus" data-option="bonus" aria-labelledby="tc-title-bonus">
@@ -297,6 +301,14 @@
             <details class="tc-tariffs"><summary>Reference SL prices</summary><div class="tc-tariffs-body" id="tc-tariffs"></div></details>
           </div>
         </details>
+      </div>
+      <div class="tc-selected" id="tc-bonus-selected" aria-label="Summary of added passes and tickets">
+        <span class="tc-selected-heading">PASSES YOU HAVE CHOSEN</span>
+        <div class="tc-selected-items" id="tc-bonus-preview"></div>
+        <div class="tc-selected-extra" id="tc-bonus-extra-summary" hidden>
+          <span class="tc-selected-heading">ADDITIONAL TICKETS</span>
+          <div class="tc-selected-items" id="tc-extra-preview"></div>
+        </div>
       </div>
       <p id="tc-bonus-note" class="tc-muted tc-bonus-note" aria-live="polite">Add the tickets that the pass does not cover.</p>
       <div class="tc-option-costs"><div><small>Per person</small><strong id="tc-bonus-person">—</strong></div><div><small>Group total</small><strong id="tc-bonus-group">—</strong></div></div>
@@ -382,7 +394,7 @@
 <div class="day-lightbox vcc-booking-gallery-modal" id="mvVCCSharedGallery" data-vcc-booking-gallery data-vcc-photo-label-overlay data-vcc-lazy-gallery-modal data-vcc-gallery-selector="#experiencia-transporte .day-mosaic" hidden role="dialog" aria-modal="true" aria-label="Stockholm transport photo gallery"></div>
 <script src="/configuracion/js/componentes/vcc-itinerary-gallery-on-demand.js?v=20261119-etiquetes-visor-v3" defer></script>
 <script src="/configuracion/datos/transporte/estocolmo-sl-2026.js?v=20261119-v1" defer></script>
-<script src="/configuracion/js/componentes/vcc-transporte-comparador-universal.js?v=20261120-editor-flotant-v13" defer></script>
+<script src="/configuracion/js/componentes/vcc-transporte-comparador-universal.js?v=20261120-resum-seleccio-v14" defer></script>
 
 
 <script src="/configuracion/js/vcc-en-runtime.js" defer></script>
