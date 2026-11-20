@@ -654,3 +654,200 @@ html body .ql-page .ql-main > #experiencia-vcc{
     margin-top:8px!important;
   }
 }
+
+
+
+/* 20-11-2026 · Clima: tres vinyetes individuals i línia de progrés inferior.
+   Manté icones, valors, comptador i les actualitzacions dinàmiques originals. */
+html body .ql-page .ql-first-two-layout #haz-tu-maleta > .ql-v17-climate-card{
+  box-sizing:border-box!important;
+  width:100%!important;
+  padding:0!important;
+  margin:0!important;
+  min-height:0!important;
+  height:auto!important;
+  max-height:none!important;
+  background:transparent!important;
+  border:0!important;
+  border-radius:0!important;
+  box-shadow:none!important;
+}
+html body .ql-page .ql-first-two-layout #haz-tu-maleta > .ql-v17-climate-card .ql-v6-list-head.ql-v9-list-head.ql-v13-climate-progress{
+  display:grid!important;
+  grid-template-columns:minmax(0,1fr)!important;
+  grid-template-rows:auto auto!important;
+  justify-content:stretch!important;
+  align-items:start!important;
+  gap:7px!important;
+  width:100%!important;
+  margin:0!important;
+  padding:0!important;
+  border:0!important;
+  min-height:0!important;
+  background:transparent!important;
+}
+html body .ql-page .ql-first-two-layout #haz-tu-maleta > .ql-v17-climate-card .ql-v13-climate-progress > .ql-v9-weather-summary{
+  display:grid!important;
+  grid-column:1!important;
+  grid-row:1!important;
+  grid-template-columns:repeat(3,minmax(0,1fr))!important;
+  gap:8px!important;
+  align-items:stretch!important;
+  width:100%!important;
+  margin:0!important;
+  padding:0!important;
+}
+html body .ql-page .ql-first-two-layout #haz-tu-maleta > .ql-v17-climate-card .ql-v13-climate-progress .ql-v9-weather-stat{
+  box-sizing:border-box!important;
+  display:flex!important;
+  flex-direction:row!important;
+  align-items:center!important;
+  justify-content:flex-start!important;
+  width:100%!important;
+  min-width:0!important;
+  min-height:48px!important;
+  height:auto!important;
+  gap:7px!important;
+  padding:7px 9px!important;
+  margin:0!important;
+  background:#fffaf7!important;
+  border:1px solid #eee3d9!important;
+  border-radius:9px!important;
+  box-shadow:0 1px 3px rgba(55,37,23,.025)!important;
+}
+html body .ql-page .ql-first-two-layout #haz-tu-maleta > .ql-v17-climate-card .ql-v13-climate-progress .ql-v9-weather-stat img{
+  display:block!important;
+  flex:0 0 22px!important;
+  width:22px!important;
+  height:22px!important;
+  object-fit:contain!important;
+}
+html body .ql-page .ql-first-two-layout #haz-tu-maleta > .ql-v17-climate-card .ql-v13-climate-progress .ql-v9-weather-stat > span{
+  min-width:0!important;
+  flex:1 1 auto!important;
+  display:flex!important;
+  flex-direction:column!important;
+  gap:1px!important;
+}
+html body .ql-page .ql-first-two-layout #haz-tu-maleta > .ql-v17-climate-card .ql-v13-climate-progress .ql-v9-weather-stat small{
+  font-size:9px!important;
+  line-height:1.15!important;
+  color:#84776f!important;
+  white-space:normal!important;
+}
+html body .ql-page .ql-first-two-layout #haz-tu-maleta > .ql-v17-climate-card .ql-v13-climate-progress .ql-v9-weather-stat strong{
+  font-size:clamp(11px,1vw,14px)!important;
+  line-height:1.16!important;
+  overflow-wrap:normal!important;
+  white-space:normal!important;
+}
+html body .ql-page .ql-first-two-layout #haz-tu-maleta > .ql-v17-climate-card .ql-v13-climate-progress > .ql-v6-progress{
+  box-sizing:border-box!important;
+  display:grid!important;
+  grid-template-columns:max-content minmax(0,1fr)!important;
+  grid-column:1!important;
+  grid-row:2!important;
+  align-items:center!important;
+  justify-content:stretch!important;
+  gap:11px!important;
+  width:100%!important;
+  min-width:0!important;
+  height:auto!important;
+  min-height:0!important;
+  margin:0!important;
+  padding:0 2px!important;
+  border:0!important;
+}
+html body .ql-page .ql-first-two-layout #haz-tu-maleta > .ql-v17-climate-card .ql-v13-climate-progress > .ql-v6-progress > strong{
+  margin:0!important;
+  text-align:left!important;
+  font-size:10px!important;
+  color:#806e60!important;
+  white-space:nowrap!important;
+}
+html body .ql-page .ql-first-two-layout #haz-tu-maleta > .ql-v17-climate-card .ql-v13-climate-progress > .ql-v6-progress > .ql-v6-track{
+  display:block!important;
+  box-sizing:border-box!important;
+  width:100%!important;
+  max-width:none!important;
+  min-width:0!important;
+  height:5px!important;
+  margin:0!important;
+  border-radius:20px!important;
+}
+
+/* Accions de la checklist, F O R A de la vinyeta i a baix a la dreta.
+   Reutilitza .vcc-file-actions > button i .vcc-file-clear del CSS comú. */
+html body .ql-page .ql-first-two-module--pack > .ql-v17-actions-strip.vcc-file-actions{
+  box-sizing:border-box!important;
+  display:flex!important;
+  flex-direction:row!important;
+  align-items:center!important;
+  justify-content:flex-end!important;
+  flex-wrap:wrap!important;
+  width:100%!important;
+  min-width:0!important;
+  max-width:100%!important;
+  min-height:0!important;
+  margin:0!important;
+  padding:0!important;
+  border:0!important;
+  background:transparent!important;
+  box-shadow:none!important;
+  gap:4px 13px!important;
+}
+html body .ql-page .ql-first-two-module--pack > .ql-v17-actions-strip.vcc-file-actions > .ql-v6-caveat{
+  display:block!important;
+  flex:1 1 250px!important;
+  min-width:0!important;
+  margin:0!important;
+  padding:0!important;
+  font:400 9.5px/1.35 var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;
+  color:#8c8179!important;
+}
+html body .ql-page .ql-first-two-module--pack > .ql-v17-actions-strip.vcc-file-actions > button{
+  flex:0 0 auto!important;
+  margin:0!important;
+  min-height:27px!important;
+  font-size:10px!important;
+}
+html body .ql-page .ql-first-two-module--pack > .ql-v17-actions-strip.vcc-file-actions > .ql-v6-action-status{
+  flex:0 0 100%!important;
+  margin:0!important;
+  text-align:right!important;
+  font-size:10px!important;
+}
+html body .ql-page .ql-first-two-module--pack > .ql-v17-actions-strip.vcc-file-actions > .ql-v6-action-status:empty{
+  display:none!important;
+}
+@media screen and (min-width:1040px){
+  html body .ql-page .ql-first-two-layout{
+    grid-template-rows:auto 440px auto!important;
+  }
+  html body .ql-page .ql-first-two-module--pack > .ql-v17-actions-strip.vcc-file-actions{
+    grid-column:2!important;
+    grid-row:3!important;
+    justify-self:stretch!important;
+    align-self:start!important;
+  }
+}
+@media(max-width:1039px){
+  html body .ql-page .ql-first-two-module--pack > .ql-v17-actions-strip.vcc-file-actions{
+    margin-top:7px!important;
+  }
+}
+@media(max-width:560px){
+  html body .ql-page .ql-first-two-module--pack > .ql-v17-actions-strip.vcc-file-actions{
+    justify-content:flex-end!important;
+    gap:4px 10px!important;
+  }
+  html body .ql-page .ql-first-two-module--pack > .ql-v17-actions-strip.vcc-file-actions > .ql-v6-caveat{
+    flex-basis:100%!important;
+  }
+  html body .ql-page .ql-first-two-layout #haz-tu-maleta > .ql-v17-climate-card .ql-v13-climate-progress .ql-v9-weather-stat{
+    min-height:45px!important;padding:6px 5px!important;gap:4px!important;
+  }
+  html body .ql-page .ql-first-two-layout #haz-tu-maleta > .ql-v17-climate-card .ql-v13-climate-progress .ql-v9-weather-stat img{
+    width:18px!important;height:18px!important;flex-basis:18px!important;
+  }
+}
