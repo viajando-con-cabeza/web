@@ -15,7 +15,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=DM+Sans:wght@400;500;600;700;800&family=Caveat:wght@500;600;700&display=swap" rel="stylesheet">
 
 <link rel="stylesheet" data-vcc-guies-base href="/configuracion/css/destinos/suecia/estocolmo/como-moverse-base-compilat.css?v=20261112-reusable-v1">
-<link rel="stylesheet" href="/configuracion/css/destinos/suecia/estocolmo/como-moverse-preferidos-vcc.css?v=20261120-mosaic-alcada-targetes-v8">
+<link rel="stylesheet" href="/configuracion/css/destinos/suecia/estocolmo/como-moverse-preferidos-vcc.css?v=20261120-mosaic-menys-alt-v9">
 <link rel="stylesheet" data-vcc-guies-ui href="/configuracion/css/componentes/vcc-guies-ui-compartit.css?v=20261116-css-dedup-v2">
 
 <link rel="stylesheet" href="/configuracion/css/componentes/guias-relacionadas-vcc.css?v=20261112-sigue-unificat-v4">
@@ -27,7 +27,7 @@
 <link rel="stylesheet" href="/configuracion/css/componentes/como-ahorrar-carruseles-vcc.css?v=20261117-notes-compactes-v3">
 <link rel="stylesheet" href="/configuracion/css/componentes/vcc-gallery-booking.css?v=20261119-etiquetes-visor-v2">
 <link rel="stylesheet" href="/configuracion/css/destinos/suecia/estocolmo/como-moverse-calculadora-galeria-vcc.css?v=20261119-comparador-3-columnas-v15">
-<link rel="stylesheet" href="/configuracion/css/componentes/vcc-transporte-comparador-universal.css?v=20261120-simplificat-v10">
+<link rel="stylesheet" href="/configuracion/css/componentes/vcc-transporte-comparador-universal.css?v=20261120-tres-targetes-v11">
 <script type="application/ld+json" data-vcc-generated-page>{"@context":"https://schema.org","@type":"WebPage","@id":"https://viajandoconcabeza.com/destinos/suecia/estocolmo/como-moverse#webpage","url":"https://viajandoconcabeza.com/destinos/suecia/estocolmo/como-moverse","name":"Cómo moverse por Estocolmo: metro, ferris y billetes | VCC","description":"Cómo moverse por Estocolmo: metro, autobús, ferry a Vaxholm, billetes SL y pago con Visa. Precios de 2026, nuestra ruta y consejos para ahorrar.","inLanguage":"es","isPartOf":{"@type":"WebSite","name":"Viajando con Cabeza","url":"https://viajandoconcabeza.com/"},"primaryImageOfPage":{"@type":"ImageObject","url":"https://viajandoconcabeza.com/configuracion/imagenes/fondos/fondos-como-moverse.webp"}}</script>
 </head><body class="mv-body">
 <header class="page-header"></header>
@@ -230,9 +230,6 @@
     <div class="tc-setup">
       <label class="tc-field"><span><svg class="tc-svg" aria-hidden="true" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M7 3v4m10-4v4M3 10h18"/></svg>DÍAS</span><select id="tc-days"><option value="1">1 día</option><option value="2">2 días</option><option value="3" selected>3 días</option><option value="4">4 días</option><option value="5">5 días</option><option value="6">6 días</option><option value="7">7 días</option><option value="8">8 días</option><option value="9">9 días</option><option value="10">10 días</option><option value="11">11 días</option><option value="12">12 días</option><option value="13">13 días</option><option value="14">14 días</option></select></label>
       <label class="tc-field"><span><svg class="tc-svg" aria-hidden="true" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3"/><path d="M3 20v-2a6 6 0 0 1 12 0v2M17 5a3 3 0 0 1 0 6M18 14a5 5 0 0 1 3 5v1"/></svg>VIAJEROS</span><input id="tc-people" type="number" min="1" max="30" step="1" inputmode="numeric" value="2"></label>
-      <label class="tc-field"><span><svg class="tc-svg" aria-hidden="true" viewBox="0 0 24 24"><path d="M3 8a2 2 0 0 0 0 4v4h18v-4a2 2 0 0 1 0-4V4H3v4m10 0v3m0 3v3m0 3v1"/></svg>TARIFA</span><select id="tc-fare"><option value="adult">Adulto</option><option value="reduced">Reducida*</option></select></label>
-      <label class="tc-field"><span><svg class="tc-svg" aria-hidden="true" viewBox="0 0 24 24"><path d="M3 8a2 2 0 0 0 0 4v4h18v-4a2 2 0 0 1 0-4V4H3v4m10 0v3m0 3v3m0 3v1"/></svg>VIAJES / PERSONA</span><input id="tc-trip-number" type="number" min="0" max="40" step="1" value="7" inputmode="numeric"></label>
-      
     </div>
     <button type="button" class="tc-small-btn" id="tc-reset">Restablecer VCC</button>
   </div>
@@ -246,27 +243,43 @@
   <div class="tc-options-grid" id="tc-options" data-count="3">
     <section class="tc-option tc-option-car" data-option="car" aria-labelledby="tc-title-car">
       <div class="tc-option-heading"><div class="tc-panel-head"><span class="tc-panel-icon" aria-hidden="true"><svg class="tc-svg" aria-hidden="true" viewBox="0 0 24 24"><path d="M5 16 7 9h10l2 7M4 16h16M5 16v3m14-3v3M7 13h.01M17 13h.01"/></svg></span><div><span class="tc-panel-overline">Privado</span><h3 id="tc-title-car">COCHE</h3></div></div><div class="tc-reorder"><button type="button" class="tc-order-btn" data-move="-1" aria-label="Mover coche a la izquierda">‹</button><button type="button" class="tc-order-btn" data-move="1" aria-label="Mover coche a la derecha">›</button></div></div>
-      <div class="tc-car-fields tc-car-simple"><label class="tc-field"><span><svg class="tc-svg" aria-hidden="true" viewBox="0 0 24 24"><path d="M5 16 7 9h10l2 7M4 16h16M5 16v3m14-3v3M7 13h.01M17 13h.01"/></svg>DISPONIBILIDAD</span><select id="tc-car-type"><option value="rent">De alquiler</option><option value="own">Ya disponible</option></select></label><div id="tc-rental-wrap"><label class="tc-field"><span><svg class="tc-svg" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M16 9H10a3 3 0 0 0 0 6h6M8 7v10"/></svg>ALQUILER TOTAL · SEK</span><input id="tc-rental" type="number" min="0" max="1000000" step=".01" inputmode="decimal" placeholder="Precio total" ></label></div><label class="tc-field"><span><svg class="tc-svg" aria-hidden="true" viewBox="0 0 24 24"><path d="M3 20V6h11v14m-11-10h11M3 20h14M15 8l4 4v6a2 2 0 0 0 4 0v-6l-2-3"/></svg>COMBUSTIBLE · SEK</span><input id="tc-fuel" type="number" min="0" max="1000000" step=".01" inputmode="decimal" placeholder="Total" ></label>
+      <div class="tc-car-fields tc-car-all">
+       <label class="tc-field"><span><svg class="tc-svg" aria-hidden="true" viewBox="0 0 24 24"><path d="M5 16 7 9h10l2 7M4 16h16M5 16v3m14-3v3M7 13h.01M17 13h.01"/></svg>DISPONIBILIDAD</span><select id="tc-car-type"><option value="rent">De alquiler</option><option value="own">Ya disponible</option></select></label>
+       <label class="tc-field"><span><svg class="tc-svg" aria-hidden="true" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3"/><path d="M3 20v-2a6 6 0 0 1 12 0v2M17 5a3 3 0 0 1 0 6M18 14a5 5 0 0 1 3 5v1"/></svg>PLAZAS / COCHE</span><input id="tc-seats" type="number" min="1" max="15" step="1" value="5"></label>
+       <div id="tc-rental-wrap"><label class="tc-field"><span><svg class="tc-svg" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M16 9H10a3 3 0 0 0 0 6h6M8 7v10"/></svg>ALQUILER TOTAL · SEK</span><input id="tc-rental" type="number" min="0" max="1000000" step=".01" inputmode="decimal" placeholder="Precio total" ></label></div>
+       <label class="tc-field"><span><svg class="tc-svg" aria-hidden="true" viewBox="0 0 24 24"><path d="M3 20V6h11v14m-11-10h11M3 20h14M15 8l4 4v6a2 2 0 0 0 4 0v-6l-2-3"/></svg>COMBUSTIBLE · SEK</span><input id="tc-fuel" type="number" min="0" max="1000000" step=".01" inputmode="decimal" placeholder="Total" ></label>
+       <label class="tc-field"><span><svg class="tc-svg" aria-hidden="true" viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M9 17V7h4a3 3 0 0 1 0 6H9"/></svg>PÁRQUING / DÍA · SEK</span><input id="tc-parking" type="number" min="0" max="1000000" step=".01" inputmode="decimal" placeholder="0 si no hay" ></label>
+       <label class="tc-field"><span><svg class="tc-svg" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M16 9H10a3 3 0 0 0 0 6h6M8 7v10"/></svg>PEAJES · SEK</span><input id="tc-tolls" type="number" min="0" max="1000000" step=".01" inputmode="decimal" placeholder="Total" ></label>
+       <label class="tc-field"><span><svg class="tc-svg" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M16 9H10a3 3 0 0 0 0 6h6M8 7v10"/></svg>EXTRAS / SEGURO · SEK</span><input id="tc-extras" type="number" min="0" max="1000000" step=".01" inputmode="decimal" placeholder="Total" ></label>
       </div>
-      <details class="tc-option-more" id="tc-car-more"><summary>+ Aparcamiento, peajes y otros gastos</summary><div class="tc-car-extra-fields"><label class="tc-field"><span><svg class="tc-svg" aria-hidden="true" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3"/><path d="M3 20v-2a6 6 0 0 1 12 0v2M17 5a3 3 0 0 1 0 6M18 14a5 5 0 0 1 3 5v1"/></svg>PLAZAS / COCHE</span><input id="tc-seats" type="number" min="1" max="15" step="1" value="5"></label><label class="tc-field"><span><svg class="tc-svg" aria-hidden="true" viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M9 17V7h4a3 3 0 0 1 0 6H9"/></svg>PÁRQUING / DÍA · SEK</span><input id="tc-parking" type="number" min="0" max="1000000" step=".01" inputmode="decimal" placeholder="0 si no hay" ></label><label class="tc-field"><span><svg class="tc-svg" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M16 9H10a3 3 0 0 0 0 6h6M8 7v10"/></svg>PEAJES · SEK</span><input id="tc-tolls" type="number" min="0" max="1000000" step=".01" inputmode="decimal" placeholder="Total" ></label><label class="tc-field"><span><svg class="tc-svg" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M16 9H10a3 3 0 0 0 0 6h6M8 7v10"/></svg>EXTRAS / SEGURO · SEK</span><input id="tc-extras" type="number" min="0" max="1000000" step=".01" inputmode="decimal" placeholder="Total" ></label></div></details>
+      <p class="tc-muted tc-car-cost-note">Aparcamiento por día; alquiler, combustible, peajes y extras por todo el viaje.</p>
       <div class="tc-option-costs"><div><span id="tc-cars">1 coche</span><small>Por persona</small><strong id="tc-car-person">—</strong></div><div><small>Total grupo</small><strong id="tc-car-group">—</strong></div></div>
     </section>
     <section class="tc-option tc-option-individual" data-option="individual" aria-labelledby="tc-title-individual">
       <div class="tc-option-heading"><div class="tc-panel-head"><span class="tc-panel-icon" aria-hidden="true"><svg class="tc-svg" aria-hidden="true" viewBox="0 0 24 24"><path d="M3 8a2 2 0 0 0 0 4v4h18v-4a2 2 0 0 1 0-4V4H3v4m10 0v3m0 3v3m0 3v1"/></svg></span><div><span class="tc-panel-overline">Público · Billetes</span><h3 id="tc-title-individual">BILLETES SUELTOS</h3></div></div><div class="tc-reorder"><button type="button" class="tc-order-btn" data-move="-1" aria-label="Mover billetes sueltos a la izquierda">‹</button><button type="button" class="tc-order-btn" data-move="1" aria-label="Mover billetes sueltos a la derecha">›</button></div></div>
 
-      <div class="tc-ticket-quick"><label class="tc-field"><span><svg class="tc-svg" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M16 9H10a3 3 0 0 0 0 6h6M8 7v10"/></svg>PRECIO POR BILLETE · SEK</span><input id="tc-trip-price" type="number" min="0" max="1000000" step=".01" inputmode="decimal" placeholder="Ej. 43" value="43"></label><div class="tc-trip-indicator"><small>TRAYECTOS / PERSONA</small><strong id="tc-trip-count">7 viajes</strong></div></div>
-      <button type="button" class="tc-inline-action" id="tc-open-trips"><svg class="tc-svg" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Editar viajes y cobertura <span aria-hidden="true">›</span></button>
+      <div class="tc-ticket-quick">
+        <label class="tc-field"><span><svg class="tc-svg" aria-hidden="true" viewBox="0 0 24 24"><path d="M3 8a2 2 0 0 0 0 4v4h18v-4a2 2 0 0 1 0-4V4H3v4m10 0v3m0 3v3m0 3v1"/></svg>VIAJES / PERSONA</span><input id="tc-trip-number" type="number" min="0" max="40" step="1" value="7" inputmode="numeric"></label>
+        <label class="tc-field"><span><svg class="tc-svg" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M16 9H10a3 3 0 0 0 0 6h6M8 7v10"/></svg>PRECIO POR BILLETE · SEK</span><input id="tc-trip-price" type="number" min="0" max="1000000" step=".01" inputmode="decimal" placeholder="Ej. 43" value="43"></label>
+      </div>
+      <div class="tc-individual-actions">
+       <button type="button" class="tc-small-btn tc-add-trip" id="tc-add-trip">+ Añadir viaje</button>
+       <button type="button" class="tc-inline-action" id="tc-open-trips">Editar viajes ›</button>
+      </div>
+      <details id="tc-trip-detail" class="tc-trip-detail"><summary><svg class="tc-svg" aria-hidden="true" viewBox="0 0 24 24"><path d="M3 8a2 2 0 0 0 0 4v4h18v-4a2 2 0 0 1 0-4V4H3v4m10 0v3m0 3v3m0 3v1"/></svg>Personalizar cada viaje: transporte, día, hora y precio <span id="tc-trip-edit-count"></span></summary>
+    <div id="tc-trips" class="tc-trip-list" aria-label="Trayectos individuales"></div>
+    <p class="tc-muted">Marca «Bono» solo para trayectos cubiertos por el título. Algunos ferris requieren billetes separados.</p>
+  </details>
       <div class="tc-option-costs"><div><small>Por persona</small><strong id="tc-individual-person">—</strong></div><div><small>Total grupo</small><strong id="tc-individual-group">—</strong></div></div>
     </section>
     <section class="tc-option tc-option-bonus" data-option="bonus" aria-labelledby="tc-title-bonus">
       <div class="tc-option-heading"><div class="tc-panel-head"><span class="tc-panel-icon" aria-hidden="true"><svg class="tc-svg" aria-hidden="true" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M7 3v4m10-4v4M3 10h18"/></svg></span><div><span class="tc-panel-overline">Público · Pases</span><h3 id="tc-title-bonus">ABONOS Y PASES</h3></div></div><div class="tc-reorder"><button type="button" class="tc-order-btn" data-move="-1" aria-label="Mover abonos y pases a la izquierda">‹</button><button type="button" class="tc-order-btn" data-move="1" aria-label="Mover abonos y pases a la derecha">›</button></div></div>
-      <div class="tc-bonus-glance"><span id="tc-bonus-glance">Abono SL · precio por persona</span><button type="button" class="tc-inline-action" id="tc-open-bonuses">Configurar ›</button></div>
-      <details class="tc-option-more tc-bonus-details" id="tc-bonus-more"><summary>+ Editar duración, precio y cantidad</summary>
-       <div class="tc-bonus-head"><span>Hasta 10 títulos combinables</span><button id="tc-add-pass" type="button" class="tc-small-btn"><svg class="tc-svg" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg> Añadir</button></div>
-             <div id="tc-passes" class="tc-passes" aria-label="Abonos, cantidades y precios"></div>
-       <details class="tc-tariffs"><summary>Ver precios de referencia SL</summary><div class="tc-tariffs-body" id="tc-tariffs"></div></details>
-      </details>
+      <p class="tc-muted tc-bonus-description">Personaliza cada abono: nombre, duración, precio y cantidad.</p>
+      <div class="tc-bonus-head"><span>Hasta 10 títulos combinables</span><button id="tc-add-pass" type="button" class="tc-small-btn"><svg class="tc-svg" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg> Añadir</button></div>
+      <div id="tc-passes" class="tc-passes" aria-label="Abonos, cantidades y precios"></div>
+      <p id="tc-bonus-glance" class="tc-bonus-glance-text">1 abono configurado</p>
       <p id="tc-bonus-note" class="tc-muted tc-bonus-note" aria-live="polite"></p>
+      <details class="tc-tariffs"><summary>Ver precios de referencia SL</summary><div class="tc-tariffs-body" id="tc-tariffs"></div></details>
       <div class="tc-option-costs"><div><small>Por persona</small><strong id="tc-bonus-person">—</strong></div><div><small>Total grupo</small><strong id="tc-bonus-group">—</strong></div></div>
     </section>
   </div>
@@ -277,10 +290,7 @@
     <div class="tc-saving" data-state="pending"><span id="tc-saving-label">Ahorro / persona</span><strong id="tc-saving">—</strong></div>
     <p id="tc-recommend-note">Selecciona dos o tres opciones para comparar.</p>
   </div>
-  <details id="tc-trip-detail" class="tc-trip-detail"><summary><svg class="tc-svg" aria-hidden="true" viewBox="0 0 24 24"><path d="M3 8a2 2 0 0 0 0 4v4h18v-4a2 2 0 0 1 0-4V4H3v4m10 0v3m0 3v3m0 3v1"/></svg>Personalizar cada viaje: transporte, día, hora y precio <span id="tc-trip-edit-count"></span></summary>
-    <div id="tc-trips" class="tc-trip-list" aria-label="Trayectos individuales"></div>
-    <p class="tc-muted">Marca «Bono» solo para trayectos cubiertos por el título. Algunos ferris requieren billetes separados.</p>
-  </details>
+
   <p class="tc-footer-note" id="tc-sim-note">Las tarifas personalizadas son simulaciones. Verifica precios y condiciones oficiales.</p>
   <span id="tc-best-public" hidden></span>
  </div>
@@ -354,7 +364,7 @@
 <div class="day-lightbox vcc-booking-gallery-modal" id="mvVCCSharedGallery" data-vcc-booking-gallery data-vcc-photo-label-overlay data-vcc-lazy-gallery-modal data-vcc-gallery-selector="#experiencia-transporte .day-mosaic" hidden role="dialog" aria-modal="true" aria-label="Galería de fotografías del transporte en Estocolmo"></div>
 <script src="/configuracion/js/componentes/vcc-itinerary-gallery-on-demand.js?v=20261119-etiquetes-visor-v3" defer></script>
 <script src="/configuracion/datos/transporte/estocolmo-sl-2026.js?v=20261119-v1" defer></script>
-<script src="/configuracion/js/componentes/vcc-transporte-comparador-universal.js?v=20261120-simplificat-v10" defer></script>
+<script src="/configuracion/js/componentes/vcc-transporte-comparador-universal.js?v=20261120-filtres-propis-v11" defer></script>
 
 
 </body></html>
