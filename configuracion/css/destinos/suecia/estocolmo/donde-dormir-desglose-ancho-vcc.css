@@ -95,8 +95,13 @@ html body.dv-page:not(.dv-country-types) #calculadora .al-compare-head .al-compa
   line-height:1.35;
   text-align:right;
 }
+/* A la vista desktop, el consell s'alinea amb el cos de la taula:
+   comença just sota la fila Opción A/B/C i acaba en TOTAL POR OPCIÓN.
+   El footer «Limpiar», que és exterior a la taula, no allarga la targeta. */
 html body.dv-page:not(.dv-country-types) #calculadora .al-compare-layout>.al-compare-side{
-  padding-top:0!important;
+  box-sizing:border-box!important;
+  padding-top:46px!important;
+  padding-bottom:40px!important;
   gap:0!important;
 }
 html body.dv-page:not(.dv-country-types) #calculadora .al-compare-side .al-compare-advice{
@@ -110,5 +115,13 @@ html body.dv-page:not(.dv-country-types) #calculadora .al-compare-side .al-compa
   }
   html body.dv-page:not(.dv-country-types) #calculadora .al-compare-head .al-compare-context p{
     text-align:left;
+  }
+}
+
+/* En mòbil la taula i el consell s'apilen; no deixar espais artificials. */
+@media(max-width:900px){
+  html body.dv-page:not(.dv-country-types) #calculadora .al-compare-layout>.al-compare-side{
+    padding-top:0!important;
+    padding-bottom:0!important;
   }
 }
