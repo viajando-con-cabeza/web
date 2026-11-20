@@ -38,7 +38,7 @@
 <link rel="stylesheet" data-vcc-sacred-covers href="/configuracion/css/componentes/portades-contracte-unic-vcc.css?v=20261117-espais-intermedis-v6">
 <link rel="stylesheet" data-vcc-pass-criterion href="/configuracion/css/componentes/vcc-criterio-pases-turisticos.css?v=20261117-separacio-bloc-columnes-v8">
 <link rel="stylesheet" href="/configuracion/css/destinos/suecia/estocolmo/vcc-que-llevar-entradas-redisenyo.css?v=20261119-centralized-v2">
-<link rel="stylesheet" href="/configuracion/css/componentes/calculadora-comparativa-vcc.css?v=20261120-scroll-consell-compact-v7">
+<link rel="stylesheet" href="/configuracion/css/componentes/calculadora-comparativa-vcc.css?v=20261120-scroll-resultat-compact-v8">
 <link rel="stylesheet" href="/configuracion/css/componentes/vcc-gallery-booking.css?v=20261119-compact-count-v3">
 <link rel="stylesheet" href="/configuracion/css/destinos/suecia/estocolmo/vcc-entradas-ruta-galeria.css?v=20261120-mosaic-sense-vinyeta-v3">
 
@@ -74,7 +74,13 @@
   <div class="vcc-calc-three-grid">
    <section class="vcc-calc-pane vcc-calc-pane-tickets" aria-labelledby="ep4-calc-tickets-title">
     <header class="vcc-calc-pane-head"><span class="vcc-calc-pane-index" aria-hidden="true">01</span><img class="vcc-calc-pane-icon" src="/configuracion/imagenes/iconos/entradas-y-pases/ticket.svg" width="20" height="20" alt="" aria-hidden="true"><div><h3 id="ep4-calc-tickets-title">Individual tickets</h3><p>Add prices and mark those included</p></div></header>
-    <ul class="ep4-calc-list vcc-calc-free-list" id="ep4-calc-visits" aria-label="Individual tickets"></ul>
+    <div class="vcc-calc-ticket-scroll-layout">
+     <ul class="ep4-calc-list vcc-calc-free-list" id="ep4-calc-visits" aria-label="Individual tickets"></ul>
+     <div class="vcc-calc-ticket-scroll-controls" id="ep4-calc-scroll-controls" hidden role="group" aria-label="Scroll ticket list">
+      <button id="ep4-calc-scroll-up" type="button" aria-controls="ep4-calc-visits" aria-label="Scroll tickets up" title="Scroll up"><span aria-hidden="true">⌃</span></button>
+      <button id="ep4-calc-scroll-down" type="button" aria-controls="ep4-calc-visits" aria-label="Scroll tickets down" title="Scroll down"><span aria-hidden="true">⌄</span></button>
+     </div>
+    </div>
     <button type="button" class="vcc-calc-add" id="ep4-calc-add"><span aria-hidden="true">+</span> Add ticket</button>
     <div class="vcc-calc-pane-total"><small>Tickets · per person</small><strong id="ep4-calc-individual-total" aria-live="polite">—</strong></div>
    </section>
@@ -91,16 +97,18 @@
      <span class="vcc-calc-pane-index" aria-hidden="true">03</span>
      <div><span class="vcc-calc-result-script">Our tip</span><h3 id="ep4-calc-result-title">VCC BEST OPTION</h3></div>
     </header>
-    <div class="vcc-calc-advice-intro">
-     <span class="vcc-calc-advice-seal"><img src="/configuracion/imagenes/marca/logo-vcc.svg" width="48" height="48" alt="" aria-hidden="true"></span>
-     <div class="vcc-calc-advice-text"><strong id="ep4-calc-winner" aria-live="polite">Your best option</strong><p class="ep4-calc-verdict" id="ep4-calc-verdict" aria-live="polite">Add individual tickets and the pass price to compare.</p></div>
+    <div class="vcc-calc-recommend-body">
+     <div class="vcc-calc-advice-intro">
+      <span class="vcc-calc-advice-seal"><img src="/configuracion/imagenes/marca/logo-vcc.svg" width="48" height="48" alt="" aria-hidden="true"></span>
+      <div class="vcc-calc-advice-text"><strong id="ep4-calc-winner" aria-live="polite">Your best option</strong><p class="ep4-calc-verdict" id="ep4-calc-verdict" aria-live="polite">Add individual tickets and the pass price to compare.</p></div>
+     </div>
+     <div class="vcc-calc-price-comparison" aria-label="Compare ticket prices with the pass">
+      <div><span id="ep4-calc-result-individual-label">Single tickets</span><strong id="ep4-calc-result-individual" aria-live="polite">—</strong></div>
+      <span class="vcc-calc-advice-vs" aria-hidden="true">vs.</span>
+      <div><span id="ep4-calc-result-pass-label">Pass + extras</span><strong id="ep4-calc-result-pass" aria-live="polite">—</strong></div>
+     </div>
+     <div class="vcc-calc-saving" id="ep4-calc-saving" hidden><span class="vcc-calc-saving-label" id="ep4-calc-saving-label">You save</span><strong class="vcc-calc-saving-number" id="ep4-calc-saving-number" aria-live="polite">—</strong><small>per person</small></div>
     </div>
-    <div class="vcc-calc-price-comparison" aria-label="Compare ticket prices with the pass">
-     <div><span id="ep4-calc-result-individual-label">Single tickets</span><strong id="ep4-calc-result-individual" aria-live="polite">—</strong></div>
-     <span class="vcc-calc-advice-vs" aria-hidden="true">vs.</span>
-     <div><span id="ep4-calc-result-pass-label">Pass + extras</span><strong id="ep4-calc-result-pass" aria-live="polite">—</strong></div>
-    </div>
-    <div class="vcc-calc-saving" id="ep4-calc-saving" hidden><span class="vcc-calc-saving-label" id="ep4-calc-saving-label">You save</span><strong class="vcc-calc-saving-number" id="ep4-calc-saving-number" aria-live="polite">—</strong><small>per person</small></div>
    </section>
   </div>
  </div>
@@ -323,7 +331,7 @@
 <script defer src="/configuracion/js/site-footer.js?v=20261111-precios-v2"></script>
 <script defer src="/configuracion/js/componentes/vcc-gallery-booking.js?v=20261119-entradas-shared-v1"></script>
 <script defer src="/configuracion/js/plantillas/entradas-pases-vcc.js?v=20261119-gallery-i18n-v2"></script>
-<script defer src="/configuracion/js/plantillas/vcc-stockholm-pass-calculator.js?v=20261120-veredicte-v6"></script>
+<script defer src="/configuracion/js/plantillas/vcc-stockholm-pass-calculator.js?v=20261120-scroll-controls-v7"></script>
 <script src="/configuracion/js/vcc-en-runtime.js" defer></script>
 </body>
 </html>
