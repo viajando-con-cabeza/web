@@ -861,12 +861,22 @@ html body .vcc-editorial-heading > .vcc-editorial-heading-side{
   max-height:3em!important;
   overflow:hidden!important;
 }
-/* Alçada del resum estable en escriptori: tant amb una com amb dues
-   línies comença a l'altura del títol, no del sobretítol. */
+/* VCC · alineació inferior real del resum lateral.
+   Amb una o dues línies, la darrera s'alinea amb la part inferior
+   del títol. El màxim de dues línies segueix aplicant-se; no hi ha
+   cap alçada reservada que desplaci el text d'una sola línia. */
 @media(min-width:1151px){
   html body .vcc-editorial-heading:not(.vcc-editorial-heading--description-below) > .vcc-editorial-description,
-  html body .vcc-editorial-heading > .vcc-editorial-heading-side{
-    height:3em!important;
+  html body .vcc-editorial-heading:not(.vcc-editorial-heading--description-below) > .vcc-editorial-heading-side{
+    height:auto!important;
+    min-height:0!important;
+    align-self:end!important;
+    margin-bottom:0!important;
+  }
+  html body .vcc-editorial-heading:not(.vcc-editorial-heading--description-below) > .vcc-editorial-heading-side > .vcc-editorial-description{
+    height:auto!important;
+    min-height:0!important;
+    margin-bottom:0!important;
   }
 }
 html body .vcc-editorial-heading.vcc-editorial-heading--description-below{
