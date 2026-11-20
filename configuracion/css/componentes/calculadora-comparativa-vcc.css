@@ -656,8 +656,8 @@ html body :is(#calculadora.vcc-calculadora-comparativa,.vcc-calculadora-comparat
 }
 
 /* VCC · Comparador compartit, variant 35 / 35 / 30.
-   Scroll real de tickets, títol del consell fora de la superfície de resultat,
-   estat pendent blanc i taronja només quan el càlcul és vàlid. */
+   Scroll vertical natiu amb rodeta a partir de cinc entrades, sense fletxes.
+   Recomanació sempre amb un fons taronja subtil, també sense dades. */
 .ep-page .vcc-calc-compact.vcc-calc-three-col{
   padding:0!important;border:0!important;border-radius:0!important;
   background:transparent!important;box-shadow:none!important;overflow:visible!important;
@@ -693,11 +693,10 @@ html body :is(#calculadora.vcc-calculadora-comparativa,.vcc-calculadora-comparat
   margin:2px 0 0;color:#776d65;
   font:400 9px/1.26 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
 }
-/* Les entrades només creixen fins a quatre files visibles. Per a la resta,
-   el JS activa .is-scrollable i mostra també fletxes accessibles. */
+/* Les entrades només creixen fins a quatre files visibles.
+   A partir de la cinquena el JS activa .is-scrollable. */
 .ep-page .vcc-calc-three-col .vcc-calc-ticket-scroll-layout{
-  display:grid;grid-template-columns:minmax(0,1fr) auto;
-  align-items:start;gap:4px;min-width:0;
+  display:block;min-width:0;width:100%;
 }
 .ep-page .vcc-calc-three-col .ep4-calc-list.vcc-calc-free-list{
   display:flex!important;flex-direction:column!important;gap:4px!important;
@@ -716,23 +715,6 @@ html body :is(#calculadora.vcc-calculadora-comparativa,.vcc-calculadora-comparat
 .ep-page .vcc-calc-three-col .ep4-calc-list.vcc-calc-free-list::-webkit-scrollbar-track{background:transparent}
 .ep-page .vcc-calc-three-col .ep4-calc-list.vcc-calc-free-list::-webkit-scrollbar-thumb{
   background:#bca89b;border-radius:12px;
-}
-.ep-page .vcc-calc-three-col .vcc-calc-ticket-scroll-controls[hidden]{display:none!important}
-.ep-page .vcc-calc-three-col .vcc-calc-ticket-scroll-controls:not([hidden]){
-  display:flex;flex-direction:column;gap:5px;
-}
-.ep-page .vcc-calc-three-col .vcc-calc-ticket-scroll-controls button{
-  display:grid;place-items:center;width:23px;height:25px;
-  padding:0;border:1px solid #e3d7cf;border-radius:7px;
-  background:#fff9f5;color:#a1694c;
-  font:700 19px/1 var(--vcc-font-body,Arial,sans-serif);
-  cursor:pointer;
-}
-.ep-page .vcc-calc-three-col .vcc-calc-ticket-scroll-controls button:hover{
-  background:#fbede5;border-color:#cfb49f;
-}
-.ep-page .vcc-calc-three-col .vcc-calc-ticket-scroll-controls button:disabled{
-  opacity:.35;cursor:default;
 }
 .ep-page .vcc-calc-three-col .vcc-ticket-entry{
   display:block!important;flex:0 0 auto;min-width:0!important;
@@ -811,6 +793,21 @@ html body :is(#calculadora.vcc-calculadora-comparativa,.vcc-calculadora-comparat
 .ep-page .vcc-calc-three-col .vcc-calc-pass-note a{
   color:#895238;text-decoration:underline;text-underline-offset:2px;
 }
+
+/* Icones petites als filtres sense desplaçar els textos ni afectar el càlcul. */
+.ep-page .vcc-calc-three-col .vcc-calc-filter-label{
+  display:inline-flex;align-items:center;gap:5px;
+}
+.ep-page .vcc-calc-three-col .vcc-calc-filter-icon{
+  display:block;flex:0 0 13px;width:13px;height:13px;
+  object-fit:contain;opacity:.65;
+}
+.ep-page .vcc-calc-three-col .vcc-ticket-name>.vcc-calc-filter-icon{
+  flex-basis:12px;width:12px;height:12px;opacity:.60;
+}
+.ep-page .vcc-calc-three-col .vcc-ticket-price>.vcc-calc-filter-icon{
+  flex-basis:11px;width:11px;height:11px;opacity:.55;
+}
 .ep-page .vcc-calc-three-col .vcc-calc-pane-total{
   display:flex;align-items:center;justify-content:space-between;gap:7px;
   margin-top:auto;padding:7px 0 0;border-top:1px solid #f0ece9;
@@ -843,13 +840,8 @@ html body :is(#calculadora.vcc-calculadora-comparativa,.vcc-calculadora-comparat
   font:600 clamp(18px,1.55vw,22px)/1.08 var(--vcc-font-heading,"Oswald",sans-serif)!important;
 }
 .ep-page .vcc-calc-three-col .vcc-calc-recommend-body{
-  min-width:0;padding:9px 10px;border:1px solid #e7e3df;border-radius:12px;
-  background:#fff;box-shadow:0 2px 8px rgba(41,30,23,.02);
-}
-.ep-page .vcc-calc-three-col[data-result="pass"] .vcc-calc-recommend-body,
-.ep-page .vcc-calc-three-col[data-result="tickets"] .vcc-calc-recommend-body,
-.ep-page .vcc-calc-three-col[data-result="same"] .vcc-calc-recommend-body{
-  background:#fff6ef;border-color:#edc6aa;
+  min-width:0;padding:9px 10px;border:1px solid #edc6aa;border-radius:12px;
+  background:#fff6ef;box-shadow:0 2px 8px rgba(41,30,23,.02);
 }
 .ep-page .vcc-calc-three-col .vcc-calc-advice-intro{
   display:grid;grid-template-columns:43px minmax(0,1fr);
