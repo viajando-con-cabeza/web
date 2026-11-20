@@ -15,85 +15,69 @@ modificarlo para SIMULAR, sin alterar nunca la ficha oficial.
 
 ## Comparador universal VCC · tres alternativas configurables
 
-**Piloto**: Estocolmo, `destinos/suecia/estocolmo/como-moverse.html` (rama `quality`).
-No trasladar los cambios a la guía general de Suecia sin aprobación.
+**Piloto:** `destinos/suecia/estocolmo/como-moverse.html` (rama `quality`).
+No aplicar el rediseño a la guía general de Suecia sin aprobación.
 
 - Motor: `configuracion/js/componentes/vcc-transporte-comparador-universal.js`
-- CSS compartido (opt-in): `configuracion/css/componentes/vcc-transporte-comparador-universal.css`
-- Catálogo SL del destino: `configuracion/datos/transporte/estocolmo-sl-2026.js`
+- CSS: `configuracion/css/componentes/vcc-transporte-comparador-universal.css`
+- Referencia de precios iniciales: `configuracion/datos/transporte/estocolmo-sl-2026.js`
 
-El usuario elige **cualquiera de las tres combinaciones de dos alternativas**
-o las tres a la vez: coche, billetes individuales, abonos. Las flechas de
-cada tarjeta reordenan las opciones visibles sin perder datos; debe haber
-al menos dos activas. Alineación exterior: usa el ancho de `.mv-container`;
-no introducir un `max-width` menor que reduzca los márgenes del blog.
+### Interfaz
 
-### Filtros compartidos y tarjetas independientes
+Dos filtros comunes: **días** y **viajeros**. Tres tarjetas independientes
+seleccionables y ordenables: coche, billetes sueltos y abonos.
+Al cambiar el orden no se pierden datos. La comparación exige dos opciones
+activadas como mínimo. Los márgenes exteriores los define la página.
 
-**Solo días y número de viajeros** son filtros compartidos. La interfaz
-tiene tres tarjetas blancas independientes, separadas por 16 píxeles
-en escritorio y apiladas en móvil, con los campos de cada alternativa
-dentro de su propia tarjeta.
+- **Coche:** coche propio o alquilado, alquiler total de todos los coches,
+  combustible total, párquing por día (de todo el grupo), peajes totales,
+  extras y confirmación de que la ruta sea comparable. No se pregunta por
+  plazas ni se multiplican automáticamente los gastos por número de coches.
+- **Billetes individuales:** número de billetes por persona y precio
+  habitual, con botón para añadir. El editor flotante se abre bajo
+  «Editar» y permite cambiar cada fila: **01 · descripción · precio · ×**.
+  No se pide el medio de transporte ni las horas.
+- **Abonos:** misma estructura de fila numerada (**01 · descripción ·
+  precio · ×**). La descripción es libre: `72 horas`, `10 viajes`,
+  etcétera. El usuario añade tantas filas como abonos necesite (máximo
+  30). No se infiere automáticamente la cobertura del nombre del bono.
+  En el mismo panel puede añadir **billetes complementarios**: también
+  tienen número, descripción y precio.
 
-- **Coche:** propiedad o alquiler, plazas, alquiler total, combustible,
-  parking por día, peajes y otros gastos. La casilla de equivalencia
-  de ruta también queda dentro de su tarjeta.
-- **Billetes individuales:** número de viajes por persona y precio
-  habitual por billete; botón «Añadir viaje». El detalle desplegable,
-  ahora dentro de la tarjeta, permite editar nombre, modo de transporte,
-  día, hora, precio diferente por trayecto y cobertura de bonos.
-- **Abonos y pases:** cada bono muestra directamente una **descripción
-  libre**, duración numérica, tipo (horas / días / viajes), precio
-  editable y cantidad por persona. Se pueden añadir distintos bonos
-  y complementar con billetes sueltos para los trayectos que no cubran.
-  El catálogo SL sigue aportando los importes adultos por defecto
-  pero los precios son editables, sin un selector común de tarifa.
+Los editores de billetes y abonos son **paneles flotantes** colocados fuera
+del flujo vertical (`position:absolute` escritorio, `fixed` en móvil).
+Abrirlos no aumenta la altura de las tarjetas; cada panel dispone de cierre,
+su propio desplazamiento y un alto máximo. Se mantienen las tres tarjetas
+con fondos neutros y una conclusión sobre naranja translúcido.
 
-El mosaico editorial de fotografías es 12 px más bajo que la fila de
-tarjetas en escritorio (6 px libres arriba y abajo); en móvil conserva
-su proporción responsive.
+### Lógica de cálculo
 
-### Coche
+- **Coche:** `alquiler + combustible + párquing_diario × días + peajes + extras`.
+  Los importes son **totales del grupo**; se dividen por viajeros solo para
+  mostrar el coste individual.
+- **Billetes sueltos:** suma de precios de cada trayecto por persona;
+  el total de grupo multiplica por viajeros. Los viajes pueden tener
+  precios distintos.
+- **Abonos:** suma de precios de abonos informados + suma de billetes
+  adicionales informados, **por persona**. No se asignan viajes a bonos
+  ni se predice si un pase de 24/72 h cubre trayectos: el viajero
+  debe introducir los billetes no cubiertos y consultar las condiciones
+  del operador. Un importe sin rellenar invalida esa alternativa,
+  sin considerarlo cero. Los bonos personalizados son simulaciones,
+  no tarifas oficiales reconocidas.
 
-Tipo propio o alquilado, plazas por coche, alquiler total, combustible
-total, **párquing por día**, peajes totales y extras/seguro.
-El párquing se multiplica por los días seleccionados. Todos los
-gastos son **por vehículo** y el grupo necesita
-`ceil(viajeros/plazas)` coches. Solo se incluyen sus costes si
-alquiler (cuando corresponde) y combustible están informados.
-Si no cubre el mismo recorrido, se excluye de la recomendación.
-
-### Abonos y complementos
-
-Cada bono tiene tipo (N horas / días / viajes), precio y **unidades por
-persona**. Se pueden añadir, eliminar y combinar hasta diez tipos,
-ocho unidades de cada uno. Los bonos seleccionados se consideran
-comprados; los viajes marcados como no cubiertos, y los trayectos
-sobrantes, se cobran aparte como billetes individuales.
-
-La cobertura combinada se aproxima mediante asignación por ahorro
-marginal; no garantiza una optimización exhaustiva de horarios.
-Un abono de menos de 24 horas exige horas reales en los trayectos
-elegibles; para títulos más largos sin horas se aproxima por días,
-y se muestra el aviso. No inventar la existencia comercial de
-abonos: los personalizados son simulaciones.
-
-### Resultados
-
-Precios por persona y para todo el grupo. La recomendación evalúa
-**solo las opciones seleccionadas y con datos suficientes**, destacando
-el coste menor y el ahorro frente a otra alternativa. Cuando faltan
-datos necesarios, el resultado es provisional y lo advierte.
+La recomendación evalúa solamente las alternativas seleccionadas con
+datos válidos. Si faltan importes de otras opciones seleccionadas,
+se indica que el resultado es provisional. Los precios y los descuentos
+son orientativos y deben contrastarse con el operador.
 
 ### Galería editorial
 
-`Elige tu transporte` usa `vcc-gallery-companion-grid`: dos
-tarjetas de transporte navegables en la izquierda y una columna fija
-a la derecha con el mosaico de 15 fotos del componente
-`vcc-gallery-booking`. Solo navegan las tarjetas, no las fotos.
-Se ha eliminado la sección independiente de "Nuestra experiencia".
-El modal conserva las fotos originales, sus etiquetas y el visor
-compartido; en pantallas pequeñas el mosaico queda debajo del carrusel.
+`Elige tu transporte` tiene dos tarjetas navegables y, a la derecha,
+un mosaico fijo de 15 fotos compartido con `vcc-gallery-booking`,
+sin tarjeta exterior. Solo navegan las fichas; la galería conserva
+etiquetas y visor. En ordenador el mosaico queda 12 px más bajo
+(6 px arriba y abajo); en móvil sigue una proporción adaptable.
 
 ## Alta de un nuevo destino
 
