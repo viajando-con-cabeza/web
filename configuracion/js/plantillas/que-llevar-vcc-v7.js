@@ -239,10 +239,14 @@ function render(resetListScroll=false){
  const categories=$("ql-v6-categories");
  const previousScroll=resetListScroll?0:categories.scrollTop;
  categories.replaceChildren();
- // Orden visual equilibrado en dos filas: las dos categorías largas juntas
- // y las dos cortas juntas, sin huecos irregulares al final de la checklist.
+ // Dos pilars independents: Ropa -> Calzado / Extras -> Accesorios.
+ // Això evita el buit artificial de les files compartides d'una CSS grid.
+ // Els contenidors es creen en cada render per mantenir els checkboxes reactius.
+ const leftColumn=document.createElement("div");leftColumn.className="ql-v6-column ql-v6-column--primary";
+ const rightColumn=document.createElement("div");rightColumn.className="ql-v6-column ql-v6-column--secondary";
+ categories.append(leftColumn,rightColumn);
  let completed=0,total=0;
- [0,3,1,2].forEach(index=>{
+ [0,1,3,2].forEach(index=>{
   const group=groups[index];
   const card=document.createElement("section");card.className="ql-v6-category";
   const h=document.createElement("h4");
@@ -260,7 +264,8 @@ function render(resetListScroll=false){
    content.append(name,qty);label.append(input,icon(x.icon),content);li.append(label);ul.append(li);
    total++;if(input.checked)completed++;
   });
-  card.append(ul);categories.append(card);
+  card.append(ul);
+  (index===0||index===1?leftColumn:rightColumn).append(card);
  });
  $("ql-v6-progress").textContent=isEnglish?completed+" of "+total+" packed":completed+" de "+total+" preparados";
  $("ql-v6-progress-bar").style.width=(total?100*completed/total:0).toFixed(1)+"%";
