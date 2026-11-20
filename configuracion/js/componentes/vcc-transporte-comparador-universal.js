@@ -211,6 +211,9 @@
    if(!result.valid){
      set('conclusion-label','COMPARACIÓN SIN COMPLETAR');
      set('recommend','Revisa los importes');
+     const savingBox=$('saving')?.closest('.tc-saving');
+     if(savingBox)savingBox.dataset.state='pending';
+     set('saving-label','Ahorro por persona');
      for(const id of ['individual-person','individual-group','bonus-person','bonus-group','car-person','car-group','recommend-person','recommend-group','saving'])set(id,'—');
      set('recommend-note',result.reason);return;
    }
@@ -240,7 +243,12 @@
    set('recommend',result.unfinished?'Provisional · '+title:title);
    set('recommend-person',money(result.choiceTotal/travellers));
    set('recommend-group',money(result.choiceTotal));
-   set('saving',money(result.saving/travellers));
+   const savingBox=$('saving')?.closest('.tc-saving');
+   const savingPerPerson=result.saving/travellers;
+   const savingState=result.unfinished?'pending':savingPerPerson>0.005?'positive':'zero';
+   if(savingBox)savingBox.dataset.state=savingState;
+   set('saving-label',savingState==='zero'?'Sin ahorro': 'Ahorro por persona');
+   set('saving',savingState==='pending'?'—':money(savingPerPerson));
    set('group-label',travellers+(travellers===1?' viajero':' viajeros'));
    const reason=selected.car&&!result.sameRoute?
      'El coche se excluye: no cubre el mismo recorrido.':
