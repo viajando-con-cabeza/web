@@ -784,21 +784,21 @@ html body :is(#calculadora.vcc-calculadora-comparativa,.vcc-calculadora-comparat
 /* VCC · Consell comparatiu tipus Como moverse: variant compacta del component compartit.
    Afecta únicament les calculadores de tres vinyetes; no altera altres comparadors. */
 .ep-page .vcc-calc-three-col .vcc-calc-three-grid{
- grid-template-columns:minmax(0,1.24fr) minmax(0,.85fr) minmax(0,1.15fr);
+ grid-template-columns:minmax(0,35fr) minmax(0,35fr) minmax(0,30fr);
  gap:9px;
 }
 .ep-page .vcc-calc-three-col .vcc-calc-pane{
- padding:9px 10px;
+ padding:8px 10px;
  border-radius:12px;
 }
 .ep-page .vcc-calc-three-col .vcc-calc-pane-result{
- background:#faf0e8;
- border:1px solid #edb58a;
+ background:#fbf5ef;
+ border:1px solid #e9c8ac;
 }
 .ep-page .vcc-calc-three-col .vcc-calc-pane-head{
  gap:6px;
  min-height:0;
- margin-bottom:7px;
+ margin-bottom:6px;
 }
 .ep-page .vcc-calc-three-col .vcc-calc-pane-index{
  flex-basis:21px;width:21px;height:21px;
@@ -812,7 +812,7 @@ html body :is(#calculadora.vcc-calculadora-comparativa,.vcc-calculadora-comparat
  width:20px;height:20px;flex-basis:20px;opacity:1;
 }
 .ep-page .vcc-calc-three-col .vcc-calc-pane-head h3{
- font-size:17px!important;line-height:1.15!important;
+ font-size:16px!important;line-height:1.15!important;
 }
 .ep-page .vcc-calc-three-col .vcc-calc-pane-head p{
  font-size:9.1px!important;line-height:1.3!important;
@@ -873,9 +873,7 @@ html body :is(#calculadora.vcc-calculadora-comparativa,.vcc-calculadora-comparat
 }
 /* Consell VCC: segell, veredicte comparatiu, dos imports i estalvi blanc/verd. */
 .ep-page .vcc-calc-three-col .vcc-calc-advice-intro{
- display:grid;grid-template-columns:61px minmax(0,1fr);
- gap:10px;align-items:start;
- min-width:0;margin:4px 0 9px;
+ display:block;min-width:0;margin:2px 0 5px;
 }
 .ep-page .vcc-calc-three-col .vcc-calc-advice-brand{
  display:flex;flex-direction:column;align-items:center;
@@ -893,30 +891,30 @@ html body :is(#calculadora.vcc-calculadora-comparativa,.vcc-calculadora-comparat
 }
 .ep-page .vcc-calc-three-col .vcc-calc-advice-text{min-width:0}
 .ep-page .vcc-calc-three-col .vcc-calc-advice-text>strong{
- display:block;margin:0 0 3px;
+ display:block;margin:0 0 2px;
  color:#29312c;
- font:650 clamp(19px,1.8vw,23px)/1.13 var(--vcc-font-heading,"Oswald",sans-serif);
+ font:650 clamp(17px,1.5vw,21px)/1.13 var(--vcc-font-heading,"Oswald",sans-serif);
 }
 .ep-page .vcc-calc-three-col .vcc-calc-advice-text .ep4-calc-verdict{
  display:block!important;margin:0!important;
  color:#5d5b56!important;
- font:500 10.5px/1.45 var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;
+ font:500 10px/1.38 var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;
 }
 .ep-page .vcc-calc-three-col .vcc-calc-price-comparison{
  display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);
- gap:7px;align-items:end;min-width:0;
- border-top:1px solid rgba(151,115,90,.16);
- padding:9px 1px 10px;margin:0 0 9px;
+ gap:5px;align-items:end;min-width:0;
+ border-top:1px solid rgba(151,115,90,.14);
+ padding:7px 0 5px;margin:0 0 6px;
 }
 .ep-page .vcc-calc-three-col .vcc-calc-price-comparison>div{min-width:0}
 .ep-page .vcc-calc-three-col .vcc-calc-price-comparison>div:last-child{text-align:right}
 .ep-page .vcc-calc-three-col .vcc-calc-price-comparison>div>span{
- display:block;min-height:25px;color:#74685e;
- font:600 9.5px/1.3 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
+ display:block;min-height:22px;color:#74685e;
+ font:600 9px/1.28 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
 }
 .ep-page .vcc-calc-three-col .vcc-calc-price-comparison>div>strong{
- display:block;margin:3px 0 0;white-space:nowrap;
- color:#303730;font:650 clamp(19px,1.7vw,23px)/1.05 var(--vcc-font-heading,"Oswald",sans-serif);
+ display:block;margin:2px 0 0;white-space:nowrap;
+ color:#303730;font:650 clamp(17px,1.42vw,21px)/1.05 var(--vcc-font-heading,"Oswald",sans-serif);
  font-variant-numeric:tabular-nums;
 }
 .ep-page .vcc-calc-three-col .vcc-calc-advice-vs{
@@ -926,7 +924,7 @@ html body :is(#calculadora.vcc-calculadora-comparativa,.vcc-calculadora-comparat
 .ep-page .vcc-calc-three-col .vcc-calc-pane-result .vcc-calc-saving:not([hidden]){
  display:flex!important;flex-direction:row!important;align-items:baseline!important;
  justify-content:center!important;flex-wrap:wrap;gap:3px 7px;
- margin:auto 0 0!important;padding:8px 7px!important;
+ margin:0!important;padding:6px 6px!important;
  border:1px solid #e4dcd6!important;border-radius:9px!important;
  background:#fff!important;box-shadow:none!important;
  text-align:center;
@@ -937,7 +935,7 @@ html body :is(#calculadora.vcc-calculadora-comparativa,.vcc-calculadora-comparat
 }
 .ep-page .vcc-calc-three-col .vcc-calc-saving-number{
  color:#168543!important;
- font:700 27px/1.05 var(--vcc-font-heading,"Oswald",sans-serif)!important;
+ font:700 25px/1.05 var(--vcc-font-heading,"Oswald",sans-serif)!important;
 }
 .ep-page .vcc-calc-three-col .vcc-calc-saving small{
  color:#504e4a;
@@ -946,9 +944,11 @@ html body :is(#calculadora.vcc-calculadora-comparativa,.vcc-calculadora-comparat
 .ep-page .vcc-calc-three-col[data-result="same"] .vcc-calc-saving-number{
  color:#6c655e!important;
 }
+.ep-page .vcc-calc-three-col .vcc-calc-pass-note a{
+ color:#895238;text-decoration:underline;text-underline-offset:2px;
+}
 .ep-page .vcc-calc-three-col .vcc-calc-verification{
- margin:6px 0 0!important;
- font-size:8.7px!important;line-height:1.35!important;
+ margin:0!important;font-size:8.7px!important;line-height:1.3!important;
 }
 @media(max-width:1020px){
  .ep-page .vcc-calc-three-col .vcc-calc-three-grid{
