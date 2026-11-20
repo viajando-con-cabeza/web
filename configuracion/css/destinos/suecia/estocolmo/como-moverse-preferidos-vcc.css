@@ -121,3 +121,50 @@ html body .mv-transport-section.mv-transport-with-gallery .mv-transport-gallery-
   aspect-ratio:1.6!important;
  }
 }
+
+/* Fotos del transport: patró de Dónde dormir (badge blanc semitransparent
+   baix a la dreta), subtilment més petit per cabre dins la targeta. */
+html body .mv-transport-section.mv-transport-with-gallery .mv-transport-gallery-aside
+ .vcc-booking-gallery.vcc-sto-mosaic-compact .day-mosaic[data-count]>button>.vcc-gallery-tile-label{
+ position:absolute;z-index:3;top:auto;left:auto;right:7px;bottom:7px;
+ display:block;max-width:calc(100% - 14px);
+ padding:2px 5px;border:1px solid rgba(255,255,255,.22);
+ border-radius:3px;background:rgba(255,255,255,.56);
+ color:#252321;
+ font:600 7.5px/1.2 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
+ text-align:right;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+ box-shadow:0 1px 3px rgba(0,0,0,.04);pointer-events:none;text-shadow:none;
+}
+/* També al mosaic ampliat i a la imatge en gran, sense tocar altres visors. */
+html body #mvVCCSharedGallery.vcc-booking-gallery-modal[data-vcc-photo-label-overlay]
+ .day-lightbox-grid>button>span.vcc-gallery-area-label{
+ right:7px;bottom:7px;left:auto;
+ padding:2px 5px;border:1px solid rgba(255,255,255,.22);
+ border-radius:3px;background:rgba(255,255,255,.56);
+ color:#252321;
+ font:600 8px/1.2 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
+ box-shadow:0 1px 3px rgba(0,0,0,.04);
+}
+html body #mvVCCSharedGallery.vcc-booking-gallery-modal[data-vcc-photo-label-overlay]
+ .day-lightbox-photo-frame .day-lightbox-caption:not([hidden]){
+ right:61px;bottom:13px;left:auto;
+ padding:3px 6px;border:1px solid rgba(255,255,255,.22);
+ border-radius:3px;background:rgba(255,255,255,.56);
+ color:#252321;
+ font:600 9px/1.25 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
+ box-shadow:0 1px 3px rgba(0,0,0,.04);
+}
+@media(max-width:800px){
+ html body .mv-transport-section.mv-transport-with-gallery .mv-transport-gallery-aside
+  .vcc-booking-gallery.vcc-sto-mosaic-compact .day-mosaic[data-count]>button>.vcc-gallery-tile-label{
+  right:5px;bottom:5px;padding:2px 4px;font-size:7px;
+ }
+ html body #mvVCCSharedGallery.vcc-booking-gallery-modal[data-vcc-photo-label-overlay]
+  .day-lightbox-grid>button>span.vcc-gallery-area-label{
+  right:5px;bottom:5px;padding:2px 4px;font-size:7.5px;
+ }
+ html body #mvVCCSharedGallery.vcc-booking-gallery-modal[data-vcc-photo-label-overlay]
+  .day-lightbox-photo-frame .day-lightbox-caption:not([hidden]){
+  right:10px;bottom:12px;max-width:75%;padding:3px 5px;font-size:8px;
+ }
+}
