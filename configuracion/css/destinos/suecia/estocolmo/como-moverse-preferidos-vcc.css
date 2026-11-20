@@ -202,3 +202,22 @@ html body #mvVCCSharedGallery.vcc-booking-gallery-modal[data-vcc-photo-label-ove
   max-height:none!important;aspect-ratio:1.35!important;
  }
 }
+
+/* Elige tu transporte · títol i icona mantenen la seva posició, però
+   la descripció del consell comença a la vertical de la icona. */
+.mv-transport-section .mv-card-advice-item{
+ display:grid;grid-template-columns:19px minmax(0,1fr);
+ column-gap:7px;row-gap:5px;align-items:start;
+}
+.mv-transport-section .mv-card-advice-item>svg{
+ grid-column:1;grid-row:1;
+}
+.mv-transport-section .mv-card-advice-item>div{
+ display:contents;
+}
+.mv-transport-section .mv-card-advice-item>div>strong{
+ grid-column:2;grid-row:1;margin:0;align-self:center;
+}
+.mv-transport-section .mv-card-advice-item>div>p{
+ grid-column:1/-1;grid-row:2;margin:0;
+}
