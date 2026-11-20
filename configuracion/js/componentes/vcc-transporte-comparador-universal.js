@@ -114,7 +114,7 @@
  const $=name=>container.querySelector('#tc-'+name);
  const money=value=>format(value,currency);
  const valueFor=t=>{
-   const value=t?.price?.[$('fare').value];
+   const value=t?.price?.adult;
    return value==null||value===''?null:Number(value);
  };
  const el=(tag,cls,label)=>{
@@ -174,20 +174,24 @@
  }
  function renderPassEditor(){
    const list=$('passes');list.replaceChildren();
-   const items=[...presets.map(t=>[t.id,t.label]),['custom','Personalizado']];
    passes.forEach((pass,i)=>{
      const row=el('div','tc-pass-row');row.dataset.id=String(pass.id);
-     const preset=choice(pass.preset,items,'preset','Título del abono '+(i+1));
-     const name=input(pass.label,'text','label','Nombre del bono '+(i+1));name.maxLength=36;
-     const quantity=input(pass.quantity,'number','quantity','Duración o viajes del bono '+(i+1));
-     const type=choice(pass.type,[['rides','Viajes'],['hours','Horas'],['days','Días']],'type','Tipo de duración del bono '+(i+1));
-     const price=input(pass.price,'number','price','Precio de un bono '+(i+1)+' en '+currency);
-     const units=input(pass.units,'number','units','Número de bonos por persona '+(i+1));units.max='8';
+     const name=input(pass.label,'text','label','Descripción del abono '+(i+1));
+     name.maxLength=48;name.placeholder='Ej. Pase 48 horas, bono 10 viajes';
+     const quantity=input(pass.quantity,'number','quantity','Duración o número de viajes del abono '+(i+1));
+     const type=choice(pass.type,[['hours','Horas'],['days','Días'],['rides','Viajes']],'type','Tipo de duración del abono '+(i+1));
+     const price=input(pass.price,'number','price','Precio del abono '+(i+1)+' en '+currency);
+     const units=input(pass.units,'number','units','Abonos por persona '+(i+1));units.max='8';
      const remove=el('button','tc-remove','×');remove.type='button';remove.dataset.action='remove';
-     remove.setAttribute('aria-label','Eliminar bono '+(i+1));
-     row.append(field('Título',preset));
-     if(pass.preset==='custom')row.append(field('Nombre',name));
-     row.append(field('Duración',quantity),field('Tipo',type),field('Precio '+currency,price),field('Unidades',units),remove);
+     remove.setAttribute('aria-label','Eliminar abono '+(i+1));
+     row.append(
+       field('Descripción del abono',name),
+       field('Duración',quantity),
+       field('Tipo',type),
+       field('Precio '+currency,price),
+       field('Nº abonos',units),
+       remove
+     );
      list.append(row);
    });
    set('pass-count',passes.length+(passes.length===1?' abono':' abonos'));
@@ -311,13 +315,7 @@
    const row=event.target.closest('.tc-pass-row');if(!row)return;
    const pass=findPass(Number(row.dataset.id));if(!pass)return;
    const f=event.target.dataset.field;
-   if(f==='preset'){
-     const src=presets.find(t=>t.id===event.target.value);
-     Object.assign(pass,{preset:src?.id||'custom',label:src?.label||'Bono personalizado',
-       type:src?.type||'rides',quantity:Number(src?.quantity||10),
-       price:src?valueFor(src):null,simulation:!src});
-     renderPassEditor();
-   }else if(f==='units'){
+   if(f==='units'){
      pass.units=clamp(event.target.value,0,8);if(event.type==='change')event.target.value=String(pass.units);
    }else if(f==='price'){
      const p=amount(event.target.value);pass.price=p;
@@ -378,11 +376,6 @@
    optionOrder=[...visible,...optionOrder.filter(name=>!selected[name])];
    syncOptions();update();
  });
- $('open-bonuses').addEventListener('click',()=>{
-   const details=$('bonus-more');
-   details.open=!details.open;
-   $('open-bonuses').textContent=details.open?'Cerrar ajustes':'Configurar ›';
- });
  $('open-trips').addEventListener('click',()=>{
    const details=$('trip-detail');
    details.open=!details.open;
@@ -406,24 +399,18 @@
    if(passes.length>=10)return;
    passes.push(passFromPreset(null));renderPassEditor();update();
  });
+ $('add-trip').addEventListener('click',()=>{
+   if(trips.length>=40)return;
+   $('trip-number').value=String(trips.length+1);
+   adjustTripCount();
+   $('trip-detail').open=true;
+ });
  $('trip-number').addEventListener('input',adjustTripCount);
  $('trip-number').addEventListener('change',adjustTripCount);
  $('trip-price').addEventListener('change',adjustBasePrice);
  $('trip-price').addEventListener('input',adjustBasePrice);
- for(const id of ['people','days','fare','car-type','seats','rental','fuel','parking','tolls','extras','same-route']){
+ for(const id of ['people','days','car-type','seats','rental','fuel','parking','tolls','extras','same-route']){
    $(id).addEventListener('input',()=>{
-     if(id==='fare'){
-       const next=valueFor(singles);
-       if(finite(next)){
-         for(const t of trips)if(!t.userEdited)t.price=next;
-         $('trip-price').value=String(next);
-       }
-       for(const p of passes){
-         const src=presets.find(t=>t.id===p.preset);
-         if(src&&!p.simulation)p.price=valueFor(src);
-       }
-       renderPassEditor();renderTariffs();renderTripEditor();
-     }
      if(id==='days'){
        const n=clamp($('days').value,1,14);
        for(const trip of trips)trip.day=Math.min(trip.day,n);
@@ -433,15 +420,14 @@
    });
  }
  $('reset').addEventListener('click',()=>{
-   $('days').value='3';$('people').value='2';$('fare').value='adult';
+   $('days').value='3';$('people').value='2';
    $('car-type').value='rent';$('seats').value='5';
    for(const id of ['rental','fuel','parking','tolls','extras'])$(id).value='';
    $('same-route').checked=true;
    $('trip-number').value='7';$('trip-price').value=String(basePrice());
    nextPass=0;passes=[passFromPreset(presets.find(t=>t.quantity===72&&t.type==='hours')||presets[0])];
    edited=false;selected={car:true,individual:true,bonus:true};optionOrder=['car','individual','bonus'];
-   $('bonus-more').open=false;$('car-more').open=false;$('trip-detail').open=false;
-   $('open-bonuses').textContent='Configurar ›';
+   $('trip-detail').open=false;
    resetTrips();renderTripEditor();renderPassEditor();renderTariffs();syncOptions();update();
  });
  $('trip-price').value=String(basePrice());
