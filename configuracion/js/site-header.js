@@ -145,6 +145,12 @@
     'link[data-vcc-core-styles], link[href*="/configuracion/css/componentes/vcc-core-compartit.css"]',
     'configuracion/css/componentes/vcc-core-compartit.css?v=20261118-social-shorts-v3','vccCoreStyles');
 
+  // Controls secundaris comuns (netejar, restablir, marcar/desmarcar) a tot el blog.
+  // Una sola font CSS per a calculadores, checklists i filtres ES/EN.
+  ensureSharedResource('link',
+    'link[data-vcc-form-utility-actions]',
+    'configuracion/css/componentes/accions-formularis-vcc.css?v=20261120-unificat-v1','vccFormUtilityActions');
+
   // Related només es carrega en pàgines amb targetes relacionades.
   const mountRelatedSectionStyles=()=>{
     if(!document.querySelector('section:is(.related-section,.vcc-discover-section) .vcc-related-cards'))return;
