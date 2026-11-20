@@ -217,6 +217,12 @@
      for(const id of ['individual-person','individual-group','bonus-person','bonus-group','car-person','car-group','recommend-person','recommend-group','saving'])set(id,'—');
      set('recommend-note',result.reason);return;
    }
+   const purchased=passes.filter(pass=>Number(pass.units)>0);
+   const passCount=purchased.reduce((sum,pass)=>sum+Number(pass.units),0);
+   const passAmount=purchased.every(pass=>Number.isFinite(pass.price)&&pass.price>=0)
+     ?purchased.reduce((sum,pass)=>sum+pass.price*Number(pass.units),0):null;
+   const passTitle=passCount===0?'Sin abonos':passCount===1?purchased[0].label:passCount+' abonos';
+   set('bonus-glance',passAmount===null?passTitle+' · indica precio':passTitle+' · '+money(passAmount));
    set('trip-count',trips.length+' viajes');
    set('individual-unit',trips.length&&trips.every(t=>t.price===trips[0].price)?money(trips[0].price):'Precios variables');
    set('individual-person',money(result.individual));set('individual-group',money(result.individualTotal));
@@ -226,7 +232,9 @@
    set('car-group',result.carValid?money(result.carTotal):'—');
    set('cars',result.cars+(result.cars===1?' coche':' coches'));
    set('bonus-note',result.bonus.valid?
-     result.bonus.description+(result.bonus.approximate?' · Horarios por días':''):
+     result.bonus.approximate?'Duración estimada por días · añade horas si las conoces':
+     result.bonus.remaining>0?'Incluye billetes sueltos para viajes no cubiertos':
+     'Abono aplicado a los viajes indicados':
      result.bonus.reason);
    const bestPublic=result.publicMode==='bonus'?'Bono':'Billetes';
    set('best-public',result.publicCost===null?'':('Mejor: '+bestPublic+' · '+money(result.publicCost)+' / persona'));
@@ -371,6 +379,11 @@
    optionOrder=[...visible,...optionOrder.filter(name=>!selected[name])];
    syncOptions();update();
  });
+ $('open-bonuses').addEventListener('click',()=>{
+   const details=$('bonus-more');
+   details.open=!details.open;
+   $('open-bonuses').textContent=details.open?'Cerrar ajustes':'Configurar ›';
+ });
  $('open-trips').addEventListener('click',()=>{
    const details=$('trip-detail');
    details.open=!details.open;
@@ -428,6 +441,8 @@
    $('trip-number').value='7';$('trip-price').value=String(basePrice());
    nextPass=0;passes=[passFromPreset(presets.find(t=>t.quantity===72&&t.type==='hours')||presets[0])];
    edited=false;selected={car:true,individual:true,bonus:true};optionOrder=['car','individual','bonus'];
+   $('bonus-more').open=false;$('car-more').open=false;$('trip-detail').open=false;
+   $('open-bonuses').textContent='Configurar ›';
    resetTrips();renderTripEditor();renderPassEditor();renderTariffs();syncOptions();update();
  });
  $('trip-price').value=String(basePrice());
