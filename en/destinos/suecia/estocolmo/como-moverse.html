@@ -29,7 +29,7 @@
 <link rel="stylesheet" href="/configuracion/css/componentes/como-ahorrar-carruseles-vcc.css?v=20261117-notes-compactes-v3">
 <link rel="stylesheet" href="/configuracion/css/componentes/vcc-gallery-booking.css?v=20261119-etiquetes-visor-v2">
 <link rel="stylesheet" href="/configuracion/css/destinos/suecia/estocolmo/como-moverse-calculadora-galeria-vcc.css?v=20261119-comparador-3-columnas-v15">
-<link rel="stylesheet" href="/configuracion/css/componentes/vcc-transporte-comparador-universal.css?v=20261121-tres-fixes-v16">
+<link rel="stylesheet" href="/configuracion/css/componentes/vcc-transporte-comparador-universal.css?v=20261121-consell-v17">
 
 </head><body class="mv-body">
 <header class="page-header"></header>
@@ -262,9 +262,9 @@
         <label class="tc-field"><span><svg class="tc-svg" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M16 9H10a3 3 0 0 0 0 6h6M8 7v10"/></svg>PRICE PER TICKET · SEK</span><input id="tc-trip-price" type="number" min="0" max="1000000" step=".01" inputmode="decimal" placeholder="Ex. 43" value="43"></label>
       </div>
       <div class="tc-individual-actions">
-        <button type="button" class="tc-small-btn tc-add-trip" id="tc-add-trip">+ Trip</button>
+        <button type="button" class="tc-text-action" id="tc-add-trip">+ Add trip</button>
         <details id="tc-trip-detail" class="tc-flyout">
-          <summary>Edit <span id="tc-trip-edit-count">7 trips</span></summary>
+          <summary class="tc-text-action">Edit trips <span class="tc-action-count" id="tc-trip-edit-count">7</span></summary>
           <div class="tc-flyout-panel">
             <div class="tc-flyout-head"><strong>Tickets per person</strong><button id="tc-close-trips" type="button" class="tc-flyout-close" aria-label="Close ticket editor">×</button></div>
             <div id="tc-trips" class="tc-trip-list" aria-label="Individual ticket breakdown"></div>
@@ -283,17 +283,19 @@
       <p class="tc-scope-label">Prices per person · SEK</p>
       <div class="tc-bonus-quick">
         <span id="tc-bonus-glance" class="tc-bonus-glance-text">1 pass · 360 SEK</span>
-        <details id="tc-bonus-detail" class="tc-flyout">
-          <summary>Edit list</summary>
+        <div class="tc-bonus-actions">
+          <button type="button" id="tc-add-pass" class="tc-text-action">+ Add</button>
+          <details id="tc-bonus-detail" class="tc-flyout">
+            <summary class="tc-text-action">Edit passes</summary>
           <div class="tc-flyout-panel">
             <div class="tc-flyout-head"><strong>Passes and extra tickets</strong><button id="tc-close-bonuses" type="button" class="tc-flyout-close" aria-label="Close passes and tickets editor">×</button></div>
             <p class="tc-muted">Enter the type, description, and price for each item, always per person.</p>
             <div id="tc-passes" class="tc-passes tc-mixed-list" aria-label="List of complementary passes and tickets"></div>
-            <button id="tc-add-pass" type="button" class="tc-small-btn">+ Add</button>
             <p class="tc-muted">Only note tickets that are not covered by the passes.</p>
             <details class="tc-tariffs"><summary>Reference SL prices</summary><div class="tc-tariffs-body" id="tc-tariffs"></div></details>
           </div>
-        </details>
+          </details>
+        </div>
       </div>
       <div class="tc-selected" id="tc-bonus-selected" aria-label="Summary of extra passes and tickets">
         <div class="tc-selected-header"><span class="tc-selected-heading">PASSES AND TICKETS ADDED</span><span class="tc-selected-count" id="tc-bonus-selected-count">1 item</span></div>
@@ -303,13 +305,37 @@
       <div class="tc-option-costs"><div><small>Per person</small><strong id="tc-bonus-person">—</strong></div><div><small>Total</small><strong id="tc-bonus-group">—</strong></div></div>
     </section>
   </div>
-  <div class="tc-result" aria-live="polite" aria-atomic="true">
-    <div class="tc-result-heading"><img src="/configuracion/imagenes/marca/logo-vcc.svg" alt="Viajando con Cabeza" width="30" height="30" decoding="async" loading="lazy"><div><span id="tc-conclusion-label">VCC CONCLUSION · BEST OPTION</span><strong id="tc-recommend">Calculating...</strong></div></div>
-    <div class="tc-result-amounts"><div><small>Per person</small><strong id="tc-recommend-person">—</strong></div><div><small>Total · <span id="tc-group-label">2 travelers</span></small><strong id="tc-recommend-group">—</strong></div></div>
-    <div class="tc-saving" data-state="pending"><span id="tc-saving-label">Savings / person</span><strong id="tc-saving">—</strong></div>
-    <p id="tc-recommend-note">We will compare the three alternatives using the amounts you provide.</p>
-  </div>
-
+  <section class="tc-result" aria-labelledby="tc-result-title" aria-live="polite" aria-atomic="true">
+    <div class="tc-result-title">
+      <span class="tc-result-overline">Our tip</span>
+      <h3 id="tc-result-title">VCC BEST OPTION</h3>
+    </div>
+    <div class="tc-result-main">
+      <div class="tc-result-lead">
+        <div class="tc-result-heading">
+          <img src="/configuracion/imagenes/marca/logo-vcc.svg" alt="Viajando con Cabeza" width="44" height="44" decoding="async" loading="lazy">
+          <div>
+            <span id="tc-conclusion-label">VCC RECOMMENDATION</span>
+            <strong id="tc-recommend">Calculating...</strong>
+            <p id="tc-recommend-note">Comparing the costs of the three alternatives.</p>
+          </div>
+        </div>
+        <div class="tc-result-amounts">
+          <div><small>Price per person</small><strong id="tc-recommend-person">—</strong></div>
+          <div><small>Total · <span id="tc-group-label">2 travelers</span></small><strong id="tc-recommend-group">—</strong></div>
+        </div>
+      </div>
+      <div class="tc-result-comparisons">
+        <span class="tc-comparison-title">SAVINGS COMPARED TO EACH ALTERNATIVE</span>
+        <div class="tc-comparison-items" id="tc-comparison-items"></div>
+      </div>
+      <div class="tc-saving" data-state="pending">
+        <span id="tc-saving-label">Savings compared to the next option</span>
+        <strong id="tc-saving">—</strong>
+        <small id="tc-saving-detail">per person</small>
+      </div>
+    </div>
+  </section>
   <p class="tc-footer-note" id="tc-sim-note">Customized fares are simulations. Verify official prices and conditions.</p>
   <span id="tc-best-public" hidden></span>
  </div>
@@ -383,7 +409,7 @@
 <div class="day-lightbox vcc-booking-gallery-modal" id="mvVCCSharedGallery" data-vcc-booking-gallery data-vcc-photo-label-overlay data-vcc-lazy-gallery-modal data-vcc-gallery-selector="#experiencia-transporte .day-mosaic" hidden role="dialog" aria-modal="true" aria-label="Stockholm transport photo gallery"></div>
 <script src="/configuracion/js/componentes/vcc-itinerary-gallery-on-demand.js?v=20261119-etiquetes-visor-v3" defer></script>
 <script src="/configuracion/datos/transporte/estocolmo-sl-2026.js?v=20261119-v1" defer></script>
-<script src="/configuracion/js/componentes/vcc-transporte-comparador-universal.js?v=20261121-tres-fixes-v16" defer></script>
+<script src="/configuracion/js/componentes/vcc-transporte-comparador-universal.js?v=20261121-consell-v17" defer></script>
 
 
 <script src="/configuracion/js/vcc-en-runtime.js" defer></script>
