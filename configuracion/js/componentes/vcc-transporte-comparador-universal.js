@@ -215,7 +215,7 @@
    set('bonus-group',result.bonus.valid?money(result.bonus.cost*travellers):'—');
    set('car-person',result.carValid?money(result.carTotal/travellers):'—');
    set('car-group',result.carValid?money(result.carTotal):'—');
-   set('bonus-note',result.bonus.valid?'Todos los importes son por persona. Añade solo los billetes no incluidos.':result.bonus.reason);
+   set('bonus-note',result.bonus.valid?'Importes por persona. Revisa qué cubre cada abono antes de comprar.':result.bonus.reason);
    const bestPublic=result.publicMode==='bonus'?'Bono':'Billetes';
    set('best-public',result.publicCost===null?'':('Mejor: '+bestPublic+' · '+money(result.publicCost)+' / persona'));
    const mark=(selector,chosen)=>{
@@ -227,7 +227,7 @@
    mark('.tc-option-bonus',result.choice==='bonus');
    set('conclusion-label',result.unfinished?'MEJOR OPCIÓN CON TUS DATOS · VCC':'CONCLUSIÓN VCC · MEJOR OPCIÓN');
    const title=result.choice==='car'?'Coche':
-      result.choice==='bonus'?'Abonos + extras':'Billetes sueltos';
+      result.choice==='bonus'?(bonusPasses().length?(bonusTickets().length?'Abonos y billetes':'Abonos'):'Billetes personalizados'):'Billetes sueltos';
    set('recommend',title);
    set('recommend-person',money(result.choiceTotal/travellers));
    set('recommend-group',money(result.choiceTotal));
@@ -247,7 +247,7 @@
      result.choice==='car'?
        'Con estos importes, el coche cuesta menos; revisa aparcamiento y accesos.':
      result.choice==='bonus'?
-       'Con los abonos y billetes extra indicados, esta opción cuesta menos. Verifica qué cubre cada pase.':
+       'La combinación que has indicado cuesta menos. Revisa la validez y cobertura de los títulos.':
        'Los billetes individuales son la alternativa más económica.';
    set('recommend-note',reason);
    set('sim-note','SIMULACIÓN · Cada abono o billete extra se introduce por persona. Comprueba precios y cobertura antes de comprar.');
