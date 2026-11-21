@@ -231,7 +231,7 @@
      return;
    }
    const saving=Math.max(0,closest.total-best.total),pending=result.unfinished;
-   if(savingBox)savingBox.dataset.state=pending?'pending':saving>0.005?'positive':'zero';
+   if(savingBox)savingBox.dataset.state=saving>0.005?'positive':'zero';
    set('saving-label',saving>0.005?(pending?'Ahorro parcial frente a '+closest.name:'Te ahorras frente a '+closest.name):'Mismo coste que '+closest.name);
    set('saving',money(saving/travellers));
    set('saving-detail',(pending?'Comparación provisional · ':'')+money(saving)+' en total');
@@ -287,12 +287,20 @@
    set('recommend-group',money(result.choiceTotal));
    set('group-label',travellers+(travellers===1?' viajero':' viajeros'));
    renderComparisons(result,travellers);
+   const comparableTotals=[
+     result.individualTotal,
+     result.bonus.valid?result.bonus.cost*travellers:null,
+     result.carValid&&result.sameRoute?result.carTotal:null
+   ].filter(value=>value!==null);
+   const isTie=comparableTotals.filter(value=>Math.abs(value-result.choiceTotal)<0.005).length>1;
    const reason=selected.car&&!result.sameRoute?
      'El coche se excluye: no cubre el mismo recorrido.':
      selected.car&&!result.carValid?
        'Comparación provisional: informa alquiler y combustible para incluir el coche.':
      selected.bonus&&!result.bonus.valid?
        'Comparación provisional: revisa los precios y la cobertura de los abonos.':
+     isTie?
+       'Hay un empate en el precio más bajo; elige según comodidad y recorrido.':
      result.choice==='car'?
        'Con estos importes, el coche cuesta menos; revisa aparcamiento y accesos.':
      result.choice==='bonus'?
