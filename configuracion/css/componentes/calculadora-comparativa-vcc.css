@@ -870,7 +870,13 @@ html body :is(#calculadora.vcc-calculadora-comparativa,.vcc-calculadora-comparat
   gap:5px;align-items:end;min-width:0;padding:7px 0 6px;margin:0 0 5px;
   border-top:1px solid rgba(151,115,90,.13);
 }
-.ep-page .vcc-calc-three-col[data-result="pending"] .vcc-calc-price-comparison{display:none!important}
+/* Sense dades es manté l'estructura del consell: imports i estalvi sense xifres inventades. */
+.ep-page .vcc-calc-three-col[data-result="pending"] .vcc-calc-price-comparison{
+  opacity:.72;
+}
+.ep-page .vcc-calc-three-col[data-result="pending"] .vcc-calc-recommend-body .vcc-calc-saving-number{
+  color:#8b827a!important;
+}
 .ep-page .vcc-calc-three-col .vcc-calc-price-comparison>div{min-width:0}
 .ep-page .vcc-calc-three-col .vcc-calc-price-comparison>div:last-child{text-align:right}
 .ep-page .vcc-calc-three-col .vcc-calc-price-comparison>div>span{
