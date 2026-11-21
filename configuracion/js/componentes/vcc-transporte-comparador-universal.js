@@ -273,7 +273,7 @@
      mode:'metro',label:'Viaje '+(trips.length+1),price:amount($('trip-price').value)??basePrice(),
      time:'',included:true,userEdited:false});
    if(trips.length>n)trips=trips.slice(0,n);
-   renderTripEditor();update();
+   update();
  }
  function adjustBasePrice(){
    const next=amount($('trip-price').value);
@@ -283,103 +283,75 @@
    }
    for(const trip of trips)if(!trip.userEdited)trip.price=next;
    edited=next!==basePrice()||trips.some(t=>t.userEdited);
-   renderTripEditor();update();
- }
- function handleTrip(event){
-   const row=event.target.closest('.tc-trip');if(!row)return;
-   const trip=findTrip(Number(row.dataset.id));if(!trip)return;
-   const f=event.target.dataset.field;
-   if(f==='price'){
-     const p=amount(event.target.value);
-     trip.price=finite(p)?p:NaN;
-     trip.userEdited=true;edited=true;
-   }else if(f==='label'){
-     trip.label=event.target.value.slice(0,42);
-   }
    update();
  }
- function handlePass(event){
-   const row=event.target.closest('.tc-pass-row');if(!row)return;
-   const item=findPass(Number(row.dataset.id));if(!item)return;
-   const field=event.target.dataset.field;
-   if(field==='kind'){
-     item.kind=event.target.value==='billete'?'billete':'abono';
-     item.simulation=true;edited=true;
-   }else if(field==='price'){
-     item.price=amount(event.target.value);item.simulation=true;edited=true;
-   }else if(field==='label'){
-     item.label=event.target.value.slice(0,48);item.simulation=true;edited=true;
-   }
-   update();
+ function editCurrent(field,value){
+   if(!activeEdit)return;
+   const item=activeEdit.type==='trip'?findTrip(activeEdit.id):findPass(activeEdit.id);
+   if(!item){closeQuickEditor();return;}
+   if(field==='label')item.label=value.slice(0,activeEdit.type==='trip'?42:48);
+   else if(field==='price'){
+     const parsed=amount(value);
+     item.price=finite(parsed)?parsed:NaN;
+     if(activeEdit.type==='trip')item.userEdited=true;
+   }else if(field==='kind'&&activeEdit.type==='bonus')item.kind=value==='billete'?'billete':'abono';
+   edited=true;update();
  }
- // Les tres alternatives són fixes, sempre visibles i en el mateix ordre.
- // Els petits resums també permeten anar directament al registre.
- for(const id of ['trip-preview','bonus-preview']){
-   $(id).addEventListener('click',event=>{
-     const chip=event.target.closest('.tc-selected-chip');
-     if(!chip)return;
-     const detail=$(chip.dataset.editor);
-     if(detail)detail.open=true;
+ for(const type of ['trip','bonus']){
+   $(type+'-preview').addEventListener('click',event=>{
+     const chip=event.target.closest('.tc-selected-chip');if(!chip)return;
+     openQuickEditor(type,Number(chip.dataset.id));
+   });
+   $(type+'-editor-label').addEventListener('input',event=>editCurrent('label',event.target.value));
+   $(type+'-editor-price').addEventListener('input',event=>editCurrent('price',event.target.value));
+   $(type+'-editor-close').addEventListener('click',closeQuickEditor);
+   $(type+'-editor-done').addEventListener('click',closeQuickEditor);
+   $(type+'-editor-delete').addEventListener('click',()=>{
+     if(!activeEdit||activeEdit.type!==type)return;
+     if(type==='trip'){
+       trips=trips.filter(t=>t.id!==activeEdit.id);
+       $('trip-number').value=String(trips.length);
+     }else bonusItems=bonusItems.filter(t=>t.id!==activeEdit.id);
+     closeQuickEditor();update();
    });
  }
- $('close-trips').addEventListener('click',()=>{$('trip-detail').open=false;});
- $('close-bonuses').addEventListener('click',()=>{$('bonus-detail').open=false;});
+ $('bonus-editor-kind').addEventListener('change',event=>editCurrent('kind',event.target.value));
  document.addEventListener?.('keydown',event=>{
-   if(event.key==='Escape'){$('trip-detail').open=false;$('bonus-detail').open=false;}
- });
- $('trips').addEventListener('input',handleTrip);
- $('trips').addEventListener('change',handleTrip);
- $('passes').addEventListener('input',handlePass);
- $('passes').addEventListener('change',handlePass);
- $('trips').addEventListener('click',event=>{
-   if(event.target.dataset.action!=='remove')return;
-   const row=event.target.closest('.tc-trip');if(!row)return;
-   trips=trips.filter(item=>item.id!==Number(row.dataset.id));
-   $('trip-number').value=String(trips.length);
-   renderTripEditor();update();
- });
- $('passes').addEventListener('click',event=>{
-   if(event.target.dataset.action!=='remove')return;
-   const row=event.target.closest('.tc-pass-row');if(!row)return;
-   bonusItems=bonusItems.filter(item=>item.id!==Number(row.dataset.id));
-   renderPassEditor();update();
+   if(event.key==='Escape')closeQuickEditor();
+   else if(event.key==='Enter'&&activeEdit&&event.target?.closest?.('.tc-quick-editor'))closeQuickEditor();
  });
  $('add-pass').addEventListener('click',()=>{
    if(bonusItems.length>=40)return;
    bonusItems.push({id:++nextPass,kind:'abono',label:'Abono '+(bonusItems.length+1),price:null,units:1,simulation:true});
-   renderPassEditor();$('bonus-detail').open=true;update();
+   update();
+   const list=$('bonus-preview');list.scrollTop=list.scrollHeight;
  });
  $('add-trip').addEventListener('click',()=>{
    if(trips.length>=40)return;
    $('trip-number').value=String(trips.length+1);
    adjustTripCount();
-   $('trip-detail').open=true;
+   const list=$('trip-preview');list.scrollTop=list.scrollHeight;
  });
  $('trip-number').addEventListener('input',adjustTripCount);
  $('trip-number').addEventListener('change',adjustTripCount);
  $('trip-price').addEventListener('change',adjustBasePrice);
  $('trip-price').addEventListener('input',adjustBasePrice);
- for(const id of ['people','days','car-type','rental','fuel','parking','tolls','extras','same-route']){
+ for(const id of ['people','days','car-type','rental','fuel','parking','tolls','extras']){
    $(id).addEventListener('input',()=>{
      if(id==='days'){
        const n=clamp($('days').value,1,14);
        for(const trip of trips)trip.day=Math.min(trip.day,n);
-       renderTripEditor();
      }
      update();
    });
  }
  $('reset').addEventListener('click',()=>{
-   $('days').value='3';$('people').value='2';
-   $('car-type').value='rent';
+   $('days').value='3';$('people').value='2';$('car-type').value='rent';
    for(const id of ['rental','fuel','parking','tolls','extras'])$(id).value='';
-   $('same-route').checked=true;
-   $('trip-number').value='7';$('trip-price').value=String(basePrice());
-   nextPass=0;bonusItems=[passFromPreset(presets.find(t=>t.quantity===72&&t.type==='hours')||presets[0])];
-   edited=false;
-   $('trip-detail').open=false;$('bonus-detail').open=false;
-   resetTrips();renderTripEditor();renderPassEditor();renderTariffs();update();
+   $('trip-number').value='0';$('trip-price').value=String(basePrice());
+   trips=[];nextTrip=0;bonusItems=[];nextPass=0;edited=false;
+   closeQuickEditor();update();
  });
  $('trip-price').value=String(basePrice());
- renderTripEditor();renderPassEditor();renderTariffs();update();
+ update();
 })(window);
