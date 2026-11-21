@@ -13,71 +13,67 @@ número de viajeros, tarifa aplicable y, si procede, costes de coche.
 El precio oficial lo carga VCC desde la ficha del destino; el lector puede
 modificarlo para SIMULAR, sin alterar nunca la ficha oficial.
 
-## Comparador universal VCC · tres alternativas configurables
+## Comparador universal VCC · tres alternativas fijas
 
-**Piloto:** `destinos/suecia/estocolmo/como-moverse.html` (rama `quality`).
-No aplicar el rediseño a la guía general de Suecia sin aprobación.
+**Piloto:** `destinos/suecia/estocolmo/como-moverse.html`, rama `quality`.
+No extender a la guía general de Suecia sin aprobación.
 
-- Motor: `configuracion/js/componentes/vcc-transporte-comparador-universal.js`
-- CSS: `configuracion/css/componentes/vcc-transporte-comparador-universal.css`
-- Referencia de precios iniciales: `configuracion/datos/transporte/estocolmo-sl-2026.js`
+**Archivos:** `configuracion/js/componentes/vcc-transporte-comparador-universal.js`
+(lógica), `configuracion/css/componentes/vcc-transporte-comparador-universal.css`
+(estilo compartido) y `configuracion/datos/transporte/estocolmo-sl-2026.js`
+(referencia de importes SL). Todas las opciones son simulaciones editables.
 
-### Interfaz
+### Diseño vigente
 
-Dos filtros comunes: **días** y **viajeros**. Tres tarjetas independientes
-seleccionables y ordenables: coche, billetes sueltos y abonos.
-Al cambiar el orden no se pierden datos. La comparación exige dos opciones
-activadas como mínimo. Los márgenes exteriores los define la página.
+- Tres tarjetas **siempre visibles, fijas y en el mismo orden**: coche,
+  billetes sueltos, abonos y pases. No hay barra «COMPARA», casillas de
+  activación ni flechas de reordenamiento.
+- Solo son filtros comunes **días y viajeros**. Kicker manuscrito Caveat
+  encima del título de cada tarjeta, igual que otros encabezados VCC.
+- En las tres tarjetas se presentan al pie, idénticos y **en negro**,
+  `Por persona` y `Total`. Los importes del transporte público son
+  **por persona**; en coche se introduce el coste del **vehículo** (o la
+  suma de todos los vehículos) y se reparte entre viajeros.
+- Los resúmenes de selección son recuadros neutros y compactos de **tres
+  elementos por fila**, visibles hasta tres filas con desplazamiento
+  **vertical interno** a partir de la cuarta. En móvil se distribuyen
+  en dos columnas. Al pulsar un elemento se abre su editor flotante.
+- La conclusión VCC permanece debajo, sobre fondo naranja translúcido,
+  con ahorro sobre blanco y color verde / rojo para el ahorro positivo / cero.
 
-- **Coche:** coche propio o alquilado, alquiler total de todos los coches,
-  combustible total, párquing por día (de todo el grupo), peajes totales,
-  extras y confirmación de que la ruta sea comparable. No se pregunta por
-  plazas ni se multiplican automáticamente los gastos por número de coches.
-- **Billetes individuales:** número de billetes por persona y precio
-  habitual, con botón para añadir. El editor flotante se abre bajo
-  «Editar» y permite cambiar cada fila: **01 · descripción · precio · ×**.
-  No se pide el medio de transporte ni las horas.
-- **Abonos:** misma estructura de fila numerada (**01 · descripción ·
-  precio · ×**). La descripción es libre: `72 horas`, `10 viajes`,
-  etcétera. El usuario añade tantas filas como abonos necesite (máximo
-  30). No se infiere automáticamente la cobertura del nombre del bono.
-  En el mismo panel puede añadir **billetes complementarios**: también
-  tienen número, descripción y precio.
+### Entradas y cálculo
 
-Los editores de billetes y abonos son **paneles flotantes** colocados fuera
-del flujo vertical (`position:absolute` escritorio, `fixed` en móvil).
-Abrirlos no aumenta la altura de las tarjetas; cada panel dispone de cierre,
-su propio desplazamiento y un alto máximo. Se mantienen las tres tarjetas
-con fondos neutros y una conclusión sobre naranja translúcido.
+**Coche**: alquiler total + combustible + párquing del grupo por día × días +
+peajes + extras. Si se utilizan varios vehículos, se introduce la suma
+de todos sus costes, sin multiplicaciones automáticas por vehículos.
+Coche propio omite el alquiler. Para formar una conclusión definitiva
+debe tener importes suficientes y el recorrido debe ser equivalente.
 
-### Lógica de cálculo
+**Billetes sueltos**: cada fila tiene número, descripción y precio;
+el sumatorio es por persona. Se pueden agregar, eliminar y editar hasta
+40 trayectos con precios distintos. El editor flotante no altera la altura
+de la tarjeta.
 
-- **Coche:** `alquiler + combustible + párquing_diario × días + peajes + extras`.
-  Los importes son **totales del grupo**; se dividen por viajeros solo para
-  mostrar el coste individual.
-- **Billetes sueltos:** suma de precios de cada trayecto por persona;
-  el total de grupo multiplica por viajeros. Los viajes pueden tener
-  precios distintos.
-- **Abonos:** suma de precios de abonos informados + suma de billetes
-  adicionales informados, **por persona**. No se asignan viajes a bonos
-  ni se predice si un pase de 24/72 h cubre trayectos: el viajero
-  debe introducir los billetes no cubiertos y consultar las condiciones
-  del operador. Un importe sin rellenar invalida esa alternativa,
-  sin considerarlo cero. Los bonos personalizados son simulaciones,
-  no tarifas oficiales reconocidas.
+**Abonos y pases**: una **lista única** con filas formadas por número,
+**Tipo** (`Abono` o `Billete`), descripción, precio y eliminar. Un botón
+`+ Añadir` incorpora nuevos elementos (máximo 40). Un billete marcado
+en esta tercera tarjeta representa un billete complementario que no cubre
+el pase. No se deduce automáticamente la cobertura de la descripción
+de un abono: el usuario decide qué necesita y introduce los precios.
 
-La recomendación evalúa solamente las alternativas seleccionadas con
-datos válidos. Si faltan importes de otras opciones seleccionadas,
-se indica que el resultado es provisional. Los precios y los descuentos
-son orientativos y deben contrastarse con el operador.
+El sumatorio de la tercera tarjeta = abonos + billetes complementarios,
+**por persona**; el coste de grupo es esa cantidad × viajeros. Un importe
+sin informar invalida esa alternativa sin considerarlo cero. Se admite
+incluso una lista solo de billetes, que se denomina «Billetes personalizados»
+en la recomendación. El resultado es provisional cuando falta algún
+importe de las demás opciones.
 
 ### Galería editorial
 
-`Elige tu transporte` tiene dos tarjetas navegables y, a la derecha,
-un mosaico fijo de 15 fotos compartido con `vcc-gallery-booking`,
-sin tarjeta exterior. Solo navegan las fichas; la galería conserva
-etiquetas y visor. En ordenador el mosaico queda 12 px más bajo
-(6 px arriba y abajo); en móvil sigue una proporción adaptable.
+En «Elige tu transporte» quedan dos tarjetas navegables más el mosaico
+fijo de 15 fotos `vcc-gallery-booking`, sin tarjeta exterior. El mosaico
+desktop es 12 px más bajo (6 arriba / abajo). En móvil usa la proporción
+compartida. No modificar los activos ni la galería al editar la calculadora.
 
 ## Alta de un nuevo destino
 
