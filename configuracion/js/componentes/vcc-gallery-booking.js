@@ -56,16 +56,24 @@ const isMobile=()=>modal.classList.contains('vcc-gallery-mobile');
 // Opt-in de les galeries d'Estocolm: llegenda curta en sobreimpressió, sense lateral de text.
 const photoLabelOverlay=modal.hasAttribute('data-vcc-photo-label-overlay');
 const labelFor=item=>photoLabelOverlay?(item.area||item.caption||'').trim().slice(0,90):typeof item.caption==='string'?item.caption.trim().slice(0,200):'';
-// Ajustar l'etiqueta a la cantonada de la imatge real, no al rectangle blanc del visor.
+// La nota del barri queda sota la cantonada dreta de la imatge (no del modal).
+// Utilitzem la fila existent del comptador per no modificar la mida de la foto.
 const positionPhotoLabel=()=>{
- if(photoLabelNote||!photoLabelOverlay||photoCaption.hidden||!photoOpen())return;
+ if(!photoLabelOverlay||photoCaption.hidden||!photoOpen())return;
  const imageRect=photoImage.getBoundingClientRect();
+ if(imageRect.width<1||imageRect.height<1)return;
+ if(photoLabelNote){
+  const counterRect=counter.getBoundingClientRect();
+  if(counterRect.width<1)return;
+  photoCaption.style.setProperty('--vcc-gallery-note-inset',Math.max(8,Math.round(counterRect.right-imageRect.right))+'px');
+  return;
+ }
  const frameRect=photoFrame.getBoundingClientRect();
- if(imageRect.width<1||imageRect.height<1||frameRect.width<1)return;
+ if(frameRect.width<1)return;
  photoCaption.style.right=Math.max(8,frameRect.right-imageRect.right+8)+'px';
  photoCaption.style.bottom=Math.max(8,frameRect.bottom-imageRect.bottom+8)+'px';
 };
-if(photoLabelOverlay&&!photoLabelNote)window.addEventListener('resize',()=>requestAnimationFrame(positionPhotoLabel),{passive:true});
+if(photoLabelOverlay)window.addEventListener('resize',()=>requestAnimationFrame(positionPhotoLabel),{passive:true});
 let currentImages=[],currentIndex=0,lastFocus=null,gridButtons=[];
 let photoSequence=0;
 let slideOverlay=null,slideTimeout=0;
