@@ -26,40 +26,27 @@
    return {valid:true,cost:prepaid+remaining,prepaid,remaining,covered:null,units:active.length,
      approximate:false,manual:true,description:active.length+' abono(s) más '+bonusExtras.length+' billete(s) extra'};
  }
- function compare({trips=[],people=2,car={},passes=[],bonusExtras=[],days=3,sameRoute=true,selected={car:true,individual:true,bonus:true}}={}){
-   if(trips.some(t=>!finite(t.price)||!Number.isInteger(t.day)||t.day<1||t.day>31))
-     return {valid:false,reason:'Revisa los importes y días de los trayectos.'};
-   const active={car:!!selected.car,individual:!!selected.individual,bonus:!!selected.bonus};
-   if(Object.values(active).filter(Boolean).length<2)
-     return {valid:false,reason:'Elige al menos dos opciones para comparar.'};
+ function compare({trips=[],people=2,car={},passes=[],bonusExtras=[],days=3}={}){
    const travellers=clamp(people,1,30),duration=clamp(days,1,14);
-   const individual=priceTotal(trips);
-   const bonus=planBonuses(trips,active.bonus?passes:[],active.bonus?bonusExtras:[]);
-   const publicOffers=[
-     ...(active.individual?[{type:'individual',cost:individual}]:[]),
-     ...(active.bonus&&bonus.valid?[{type:'bonus',cost:bonus.cost}]:[])
-   ].sort((a,b)=>a.cost-b.cost);
-   const publicMode=publicOffers[0]?.type||null;
-   const publicCost=publicOffers[0]?.cost??null;
-   // Todos los importes de coche son totales del grupo, aunque alquilen varios vehículos.
-   const rent=car.owned?0:amount(car.rental),fuel=amount(car.fuel);
-   const parking=amount(car.parking)??0,tolls=amount(car.tolls)??0,extras=amount(car.extras)??0;
+   const individualValid=trips.length>0&&trips.every(t=>finite(t.price)&&Number.isInteger(t.day)&&t.day>=1&&t.day<=31);
+   const individual=individualValid?priceTotal(trips):null;
+   const bonus=planBonuses(trips,passes,bonusExtras);
+   const offers=[...(individualValid?[{type:'individual',cost:individual}]:[]),...(bonus.valid?[{type:'bonus',cost:bonus.cost}]:[])].sort((a,b)=>a.cost-b.cost);
+   const publicMode=offers[0]?.type||null,publicCost=offers[0]?.cost??null;
+   const rent=car.owned?0:amount(car.rental),fuel=amount(car.fuel),parking=amount(car.parking)??0,tolls=amount(car.tolls)??0,extras=amount(car.extras)??0;
    const carValid=[rent,fuel,parking,tolls,extras].every(finite);
-   // Parquing per dia, lloguer/combustible/peatges/extres per itinerari.
    const carTotal=carValid?rent+fuel+parking*duration+tolls+extras:null;
    const alternatives=[
-     ...(active.individual?[{type:'individual',cost:individual*travellers}]:[]),
-     ...(active.bonus&&bonus.valid?[{type:'bonus',cost:bonus.cost*travellers}]:[]),
-     ...(active.car&&carValid&&sameRoute?[{type:'car',cost:carTotal}]:[])
+     ...(individualValid?[{type:'individual',cost:individual*travellers}]:[]),
+     ...(bonus.valid?[{type:'bonus',cost:bonus.cost*travellers}]:[]),
+     ...(carValid?[{type:'car',cost:carTotal}]:[])
    ].sort((a,b)=>a.cost-b.cost||(a.type==='car'?1:-1));
-   if(!alternatives.length)return {valid:false,reason:'Introduce los importes para comparar las opciones seleccionadas.'};
-   const choice=alternatives[0],next=alternatives.find(a=>a!==choice);
-   const unfinished=active.car&&(!carValid||!sameRoute)||active.bonus&&!bonus.valid;
-   return {valid:true,travellers,individual,individualTotal:individual*travellers,
+   if(!alternatives.length)return {valid:false,reason:'Añade viajes, abonos o costes del coche para empezar.'};
+   const best=alternatives[0],next=alternatives[1];
+   return {valid:true,travellers,individualValid,individual,individualTotal:individualValid?individual*travellers:null,
      bonus,publicCost,publicMode,publicTotal:publicCost===null?null:publicCost*travellers,
-     carValid,carTotal,sameRoute,active,unfinished,
-     choice:choice.type,choiceTotal:choice.cost,saving:next?Math.max(0,next.cost-choice.cost):null,
-     needsCarInputs:active.car&&!carValid};
+     carValid,carTotal,unfinished:!individualValid||!bonus.valid||!carValid,
+     choice:best.type,choiceTotal:best.cost,saving:next?Math.max(0,next.cost-best.cost):null,needsCarInputs:!carValid};
  }
  root.VCCTransportCompareCore={compare,planBonuses};
  const container=document.getElementById('vcc-transporte-comparador');
@@ -83,7 +70,6 @@
  const set=(id,label)=>{const node=$(id);if(node)node.textContent=label;};
  const defaultDays=[1,1,2,2,2,3,3];
  let nextTrip=0,nextPass=0,edited=false;
- const selected={car:true,individual:true,bonus:true};
  const basePrice=()=>valueFor(singles)??0;
  let trips=defaultDays.map((day,i)=>({id:++nextTrip,day,mode:'metro',label:'Viaje '+(i+1),price:basePrice(),time:'',included:true,userEdited:false}));
  function passFromPreset(src){
@@ -92,6 +78,7 @@
      price:src?valueFor(src):null,units:1,simulation:false};
  }
  let bonusItems=[passFromPreset(presets.find(t=>t.quantity===72&&t.type==='hours')||presets[0])];
+ let activeEdit=null;
  const bonusPasses=()=>bonusItems.filter(item=>item.kind==='abono');
  const bonusTickets=()=>bonusItems.filter(item=>item.kind==='billete');
  const findPass=id=>bonusItems.find(p=>p.id===id);
@@ -112,73 +99,41 @@
    if(kind==='number'){node.min='0';node.max='1000000';node.step=attr==='units'||attr==='quantity'?'1':'0.01';node.inputMode='decimal';}
    node.value=val==null?'':String(val);return node;
  };
- function renderTripEditor(){
-   const list=$('trips');list.replaceChildren();
-   trips.forEach((trip,i)=>{
-     const row=el('div','tc-trip tc-trip-simple');row.dataset.id=String(trip.id);
-     const number=el('span','tc-trip-number',String(i+1).padStart(2,'0'));
-     const name=input(trip.label,'text','label','Descripción breve del viaje '+(i+1));
-     name.maxLength=42;name.placeholder='Ej. Hotel → centro';
-     const price=input(trip.price,'number','price','Precio del viaje '+(i+1)+' en '+currency);
-     price.placeholder='Precio';
-     const remove=el('button','tc-remove','×');remove.type='button';remove.dataset.action='remove';
-     remove.setAttribute('aria-label','Eliminar viaje '+(i+1));
-     row.append(number,name,price,remove);
-     list.append(row);
-   });
-   set('trip-edit-count','('+trips.length+')');
+ function closeQuickEditor(){
+   activeEdit=null;
+   $('trip-editor').hidden=true;$('bonus-editor').hidden=true;
  }
- function renderPassEditor(){
-   const list=$('passes');list.replaceChildren();
-   bonusItems.forEach((item,i)=>{
-     const row=el('div','tc-trip tc-trip-simple tc-pass-row');row.dataset.id=String(item.id);
-     const num=el('span','tc-trip-number',String(i+1).padStart(2,'0'));
-     const kind=el('select');kind.dataset.field='kind';
-     kind.setAttribute('aria-label','Tipo de entrada '+(i+1));
-     for(const [value,label] of [['abono','Abono'],['billete','Billete']]){
-       const opt=el('option','',label);opt.value=value;kind.append(opt);
-     }
-     kind.value=item.kind;
-     const name=input(item.label,'text','label','Descripción de la entrada '+(i+1));
-     name.maxLength=48;name.placeholder=item.kind==='billete'?'Ej. Ferry extra':'Ej. Abono 72 h';
-     const price=input(item.price,'number','price','Precio de la entrada '+(i+1)+' en '+currency);
-     price.placeholder='Precio';
-     const remove=el('button','tc-remove','×');remove.type='button';remove.dataset.action='remove';
-     remove.setAttribute('aria-label','Eliminar entrada '+(i+1));
-     row.append(num,kind,name,price,remove);
-     list.append(row);
-   });
+ function openQuickEditor(type,id){
+   const item=type==='trip'?findTrip(id):findPass(id);
+   if(!item)return;
+   closeQuickEditor();activeEdit={type,id};
+   const prefix=type==='trip'?'trip':'bonus';
+   $(prefix+'-editor').hidden=false;
+   const index=(type==='trip'?trips:bonusItems).findIndex(x=>x.id===id)+1;
+   set(prefix+'-editor-title','Editar '+(type==='trip'?'viaje ':'entrada ')+String(index).padStart(2,'0'));
+   $(prefix+'-editor-label').value=item.label||'';
+   $(prefix+'-editor-price').value=finite(amount(item.price))?String(item.price):'';
+   if(type==='bonus')$('bonus-editor-kind').value=item.kind;
+   $(prefix+'-editor-label').focus?.();
  }
- function renderTariffs(){
-   const list=$('tariffs');list.replaceChildren();
-   official.forEach(ticket=>{
-     const p=el('p');p.append(el('span','',ticket.label),el('strong','',
-       valueFor(ticket)==null?'—':money(valueFor(ticket))));
-     list.append(p);
-   });
- }
- // Els noms i preus seleccionats apareixen dins de requadres de tres
- // elements per fila. La graella es desplaça verticalment a partir de dues
- // files, sense fer créixer la targeta ni canviar els càlculs.
  function renderSelectionSummaries(){
    const populate=(id,items,empty,isBonus)=>{
-     const target=$(id);target.replaceChildren();
+     const target=$(id),scroll=target.scrollTop||0;
+     target.replaceChildren();
      if(!items.length){target.append(el('span','tc-selected-empty',empty));return;}
      items.forEach((item,i)=>{
-       const title=(item.label||('Entrada '+(i+1))).trim();
-       const value=finite(amount(item.price))?money(Number(item.price)):'Sin precio';
-       const chip=el('button','tc-selected-chip');
-       chip.type='button';chip.dataset.editor=isBonus?'bonus-detail':'trip-detail';
+       const type=isBonus?'bonus':'trip',title=(item.label||('Entrada '+(i+1))).trim(),
+         value=finite(amount(item.price))?money(Number(item.price)):'Sin precio';
+       const chip=el('button','tc-selected-chip');chip.type='button';
+       chip.dataset.type=type;chip.dataset.id=String(item.id);
        chip.title=String(i+1).padStart(2,'0')+' · '+(isBonus?(item.kind==='billete'?'Billete · ':'Abono · '):'')+title+' · '+value+' · Editar';
        chip.setAttribute('aria-label',chip.title);
-       chip.append(
-         el('span','tc-selected-index',String(i+1).padStart(2,'0')),
+       chip.append(el('span','tc-selected-index',String(i+1).padStart(2,'0')),
          ...(isBonus?[el('span','tc-selected-type',item.kind==='billete'?'B':'A')]:[]),
-         el('span','tc-selected-name',title),
-         el('span','tc-selected-price',value)
-       );
+         el('span','tc-selected-name',title),el('span','tc-selected-price',value));
        target.append(chip);
      });
+     target.scrollTop=scroll;
    };
    populate('trip-preview',trips,'Sin viajes',false);
    populate('bonus-preview',bonusItems,'Sin entradas',true);
@@ -191,8 +146,8 @@
  function renderComparisons(result,travellers){
    const list=$('comparison-items');list.replaceChildren();
    const candidates=[
-     {type:'car',name:'Coche',total:result.carValid&&result.sameRoute?result.carTotal:null,
-       issue:!result.sameRoute?'No comparable: recorrido distinto':'Pendiente: introduce alquiler y combustible'},
+     {type:'car',name:'Coche',total:result.carValid?result.carTotal:null,
+       issue:'Pendiente: introduce alquiler y combustible'},
      {type:'individual',name:'Billetes sueltos',total:result.individualTotal,issue:''},
      {type:'bonus',name:bonusPasses().length?'Abonos y pases':'Billetes personalizados',
        total:result.bonus.valid?result.bonus.cost*travellers:null,
@@ -244,7 +199,15 @@
      rental:$('rental').value,fuel:$('fuel').value,parking:$('parking').value,
      tolls:$('tolls').value,extras:$('extras').value};
    const result=root.VCCTransportCompareCore.compare({
-     trips,people:travellers,car,passes:bonusPasses(),bonusExtras:bonusTickets(),days:$('days').value,selected,sameRoute:$('same-route').checked});
+     trips,people:travellers,car,passes:bonusPasses(),bonusExtras:bonusTickets(),days:$('days').value});
+   // Resums encara que no hi hagi una alternativa completa.
+   const validAmounts=bonusItems.length>0&&bonusItems.every(item=>finite(amount(item.price)));
+   const listTotal=validAmounts?bonusItems.reduce((sum,item)=>sum+Number(item.price),0):null;
+   const countBono=bonusPasses().length,countTicket=bonusTickets().length;
+   const kinds=[countBono?countBono+(countBono===1?' abono':' abonos'):'',
+     countTicket?countTicket+(countTicket===1?' billete':' billetes'):''].filter(Boolean).join(' + ');
+   set('bonus-glance',(kinds||'Sin entradas')+' · '+(validAmounts?money(listTotal):'indica precios'));
+   set('trip-count',trips.length+' viajes');
    if(!result.valid){
      set('conclusion-label','COMPARACIÓN SIN COMPLETAR');
      set('recommend','Revisa los importes');
@@ -257,14 +220,8 @@
      set('group-label',travellers+(travellers===1?' viajero':' viajeros'));
      set('recommend-note',result.reason);return;
    }
-   const validAmounts=bonusItems.length>0&&bonusItems.every(item=>finite(amount(item.price)));
-   const listTotal=validAmounts?bonusItems.reduce((sum,item)=>sum+Number(item.price),0):null;
-   const countBono=bonusPasses().length,countTicket=bonusTickets().length;
-   const kinds=[countBono?countBono+(countBono===1?' abono':' abonos'):'',
-     countTicket?countTicket+(countTicket===1?' billete':' billetes'):''].filter(Boolean).join(' + ');
-   set('bonus-glance',(kinds||'Sin entradas')+' · '+(validAmounts?money(listTotal):'indica precios'));
-   set('trip-count',trips.length+' viajes');
-   set('individual-person',money(result.individual));set('individual-group',money(result.individualTotal));
+   set('individual-person',result.individualValid?money(result.individual):'—');
+   set('individual-group',result.individualValid?money(result.individualTotal):'—');
    set('bonus-person',result.bonus.valid?money(result.bonus.cost):'—');
    set('bonus-group',result.bonus.valid?money(result.bonus.cost*travellers):'—');
    set('car-person',result.carValid?money(result.carTotal/travellers):'—');
@@ -290,14 +247,14 @@
    const comparableTotals=[
      result.individualTotal,
      result.bonus.valid?result.bonus.cost*travellers:null,
-     result.carValid&&result.sameRoute?result.carTotal:null
+     result.carValid?result.carTotal:null
    ].filter(value=>value!==null);
    const isTie=comparableTotals.filter(value=>Math.abs(value-result.choiceTotal)<0.005).length>1;
-   const reason=selected.car&&!result.sameRoute?
-     'El coche se excluye: no cubre el mismo recorrido.':
-     selected.car&&!result.carValid?
-       'Comparación provisional: informa alquiler y combustible para incluir el coche.':
-     selected.bonus&&!result.bonus.valid?
+   const reason=!result.carValid?
+     'Comparación provisional: informa alquiler y combustible para incluir el coche.':
+     !result.individualValid?
+       'Comparación provisional: añade viajes y precios para incluir los billetes.':
+     !result.bonus.valid?
        'Comparación provisional: revisa los precios y la cobertura de los abonos.':
      isTie?
        'Hay un empate en el precio más bajo; elige según comodidad y recorrido.':
