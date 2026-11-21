@@ -62,14 +62,14 @@ html body #dvNeighborhoodGalleryModal[data-vcc-photo-label-note] .day-lightbox-p
   left:auto!important;
   top:auto!important;
   max-width:38%;
-  margin:0 17px 0 0!important;
+  margin:0 var(--vcc-gallery-note-inset,17px) 0 0!important;
   padding:0!important;
   border:0!important;
   border-radius:0!important;
   background:transparent!important;
   box-shadow:none!important;
   color:#827a73!important;
-  font:400 9px/1.2 var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;
+  font:400 10.5px/1.2 var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;
   text-align:right!important;
   white-space:nowrap;
   overflow:hidden;
@@ -78,8 +78,8 @@ html body #dvNeighborhoodGalleryModal[data-vcc-photo-label-note] .day-lightbox-p
 }
 @media(max-width:800px){
   html body #dvNeighborhoodGalleryModal[data-vcc-photo-label-note] .day-lightbox-photo-view:not([hidden]) > .day-lightbox-caption:not([hidden]){
-    font-size:8.5px!important;
+    font-size:10px!important;
     max-width:43%;
-    margin-right:11px!important;
+    margin-right:var(--vcc-gallery-note-inset,11px)!important;
   }
 }
