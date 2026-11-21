@@ -125,3 +125,13 @@ html body.dv-page:not(.dv-country-types) #calculadora .al-compare-side .al-compa
     padding-bottom:0!important;
   }
 }
+
+/* Dónde dormir Estocolmo: les fletxes generades per als hotels del detall
+   són necessàries en mòbil, però no a escriptori (els 4 hotels ja estan
+   visibles en retícula). La regla global de fletxes aplica display:grid
+   !important, per això cal sobreescriure-la acotant el component. */
+@media(min-width:761px){
+  html body.dv-page:not(.dv-country-types) #barrios .dv-zone-details .dv-zone-hotels-carousel > button.dv-arrow{
+    display:none!important;
+  }
+}
