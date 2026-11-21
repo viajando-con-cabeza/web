@@ -38,8 +38,17 @@ No extender a la guía general de Suecia sin aprobación.
   elementos por fila**, visibles hasta tres filas con desplazamiento
   **vertical interno** a partir de la cuarta. En móvil se distribuyen
   en dos columnas. Al pulsar un elemento se abre su editor flotante.
-- La conclusión VCC permanece debajo, sobre fondo naranja translúcido,
-  con ahorro sobre blanco y color verde / rojo para el ahorro positivo / cero.
+- La recomendación VCC lleva sobretítulo «Nuestro consejo» y título
+  «MEJOR OPCIÓN VCC». Muestra la alternativa más económica, lo que
+  se paga **por persona y para el grupo**, y el ahorro frente a
+  **cada una de las otras dos alternativas**. Las alternativas sin
+  precio o con un recorrido no equivalente quedan pendientes o excluidas,
+  nunca se calculan como cero. La franja blanca muestra el ahorro por
+  persona frente a la siguiente alternativa válida y la diferencia
+  total del grupo; se señalan las conclusiones provisionales y los empates.
+- Las acciones «+ Añadir viaje», «Editar viajes», «+ Añadir» y «Editar
+  abonos» son **controles de texto discretos sin recuadro**, con
+  interacción y foco accesibles.
 
 ### Entradas y cálculo
 
