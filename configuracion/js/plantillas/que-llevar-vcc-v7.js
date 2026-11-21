@@ -271,44 +271,13 @@ function render(resetListScroll=false){
  $("ql-v6-progress-bar").style.width=(total?100*completed/total:0).toFixed(1)+"%";
  $("ql-v6-print-meta").textContent=isEnglish?"Stockholm · "+enMonths[state.month]+" · "+state.days+(state.days===1?" day":" days")+(state.laundry?" · laundry possible":""):"Estocolmo · "+m.name+" · "+state.days+" días"+(state.laundry?" · con lavado":"");
  categories.scrollTop=previousScroll;
- requestPanelLayout();
 }
 function notify(text){
  const status=$("ql-v6-action-status");status.textContent=text;
 }
 
-/* Checklist visible sin scroll interno: altura gestionada por el documento. */
-function syncPanelHeights(){
- updateScrollArrows();
-}
-function updateScrollArrows(){
- const list=$("ql-v6-categories"),up=$("ql-v6-scroll-up"),down=$("ql-v6-scroll-down");
- if(!list||!up||!down)return;
- const remaining=Math.max(0,list.scrollHeight-list.clientHeight);
- up.disabled=list.scrollTop<=2;
- down.disabled=remaining<=2||list.scrollTop>=remaining-2;
-}
-function requestPanelLayout(){
- requestAnimationFrame(()=>{syncPanelHeights();updateScrollArrows()});
-}
+// La checklist conserva el desplazamiento nativo con rueda, trackpad y barra vertical.
 load();render();
-const scrollList=$("ql-v6-categories");
-scrollList.addEventListener("scroll",updateScrollArrows,{passive:true});
-$("ql-v6-scroll-up").addEventListener("click",()=>{
- const amount=Math.max(115,Math.round(scrollList.clientHeight*.7));
- scrollList.scrollBy({top:-amount,behavior:"smooth"});
-});
-$("ql-v6-scroll-down").addEventListener("click",()=>{
- const amount=Math.max(115,Math.round(scrollList.clientHeight*.7));
- scrollList.scrollBy({top:amount,behavior:"smooth"});
-});
-if(typeof ResizeObserver!=="undefined"){
- const ro=new ResizeObserver(()=>requestPanelLayout());
- ro.observe(root.querySelector(".ql-v6-list"));
-}
-window.addEventListener("resize",requestPanelLayout,{passive:true});
-window.addEventListener("load",requestPanelLayout,{once:true});
-requestPanelLayout();
 document.querySelectorAll(".ql-v11-laundry-buttons button").forEach(button=>{
  button.addEventListener("click",()=>{
   state.laundry=button.dataset.laundry==="yes";save();render();
