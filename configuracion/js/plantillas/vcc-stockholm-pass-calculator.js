@@ -24,18 +24,18 @@
     };
     const t=en?{
       name:"Attraction name",price:"Price per person (SEK)",covered:"Included in the pass",shortCovered:"In pass",remove:"Remove ticket",
-      placeholder:"Museum, attraction…",empty:"Add a ticket and its price to start.",
-      incomplete:"Complete each ticket's name and price.",missing:"Enter the pass price.",
+      placeholder:"Museum, attraction…",empty:"Enter a ticket price to start comparing.",
+      incomplete:"Add a price to each named visit.",missing:"Enter the pass price.",
       initialWinner:"Your best option",passWinner:"Tourist pass",ticketsWinner:"Individual tickets",sameWinner:"Same price",
       pass:"For these visits, the pass is cheaper than separate tickets.",tickets:"These individual tickets cost less than the pass.",same:"Both options cost the same for these visits.",
-      individualLabel:"Individual tickets",passLabel:"Pass",extras:" + extras",save:"You save",equalSave:"No difference"
+      individualLabel:"Individual tickets",passLabel:"Pass",extras:" + extras",save:"You save",equalSave:"No difference",pendingSavings:"Estimated savings"
     }:{
       name:"Nombre de la visita",price:"Precio por persona (SEK)",covered:"Incluida en el pase",shortCovered:"En pase",remove:"Eliminar entrada",
-      placeholder:"Museo, visita…",empty:"Añade una entrada y su precio para empezar.",
-      incomplete:"Completa el nombre y precio de cada entrada.",missing:"Introduce el precio del pase.",
+      placeholder:"Museo, visita…",empty:"Introduce el precio de una entrada para comparar.",
+      incomplete:"Añade el precio de cada visita que hayas escrito.",missing:"Introduce el precio del pase.",
       initialWinner:"Tu mejor opción",passWinner:"Pase turístico",ticketsWinner:"Entradas sueltas",sameWinner:"Mismo precio",
       pass:"Para estas visitas, el pase cuesta menos que las entradas sueltas.",tickets:"La suma de tus entradas sale más barata que el pase.",same:"Ambas opciones cuestan lo mismo para estas visitas.",
-      individualLabel:"Entradas sueltas",passLabel:"Pase",extras:" + extras",save:"Te ahorras",equalSave:"Sin diferencia"
+      individualLabel:"Entradas sueltas",passLabel:"Pase",extras:" + extras",save:"Te ahorras",equalSave:"Sin diferencia",pendingSavings:"Ahorro estimado"
     };
     const pricesByDuration=new Map();
     let nextId=1;
@@ -68,21 +68,23 @@
       list.querySelectorAll(".vcc-ticket-entry").forEach(li=>{
         const name=li.querySelector(".vcc-ticket-name input").value.trim();
         const raw=li.querySelector(".vcc-ticket-price input").value.trim();
-        if(!name&&!raw)return;
+        // El nombre es opcional: el precio por sí solo ya permite comparar.
+        // Una visita nombrada sin precio sí es incompleta; no inventamos importes.
+        if(!raw){if(name)incomplete=true;return;}
         const price=asNumber(raw);
-        if(!name||price===null){incomplete=true;return}
+        if(price===null){incomplete=true;return;}
         entries++;all+=price;
         if(!li.querySelector(".vcc-ticket-covered").checked)outside+=price;
       });
       const passOption=duration.options[duration.selectedIndex];
       const passName=duration.value==="custom"?(custom?.value.trim()||(en?"custom pass":"pase personalizado")):(passOption?.textContent.trim()||"");
-      const title=t.passLabel+(duration.value==="custom"?" · ":" · ")+passName;
+      const title=t.passLabel+" · "+passName;
       rightIndividualLabel.textContent=t.individualLabel+(entries?" · "+entries:"");
       rightPassLabel.textContent=title+(outside>0?t.extras:"");
       individual.textContent=entries?format(all):"—";
       rightIndividual.textContent=individual.textContent;
       withPass.textContent="—";rightPass.textContent="—";
-      saving.hidden=true;savingNumber.textContent="—";savingLabel.textContent=t.save;
+      saving.hidden=false;savingNumber.textContent="—";savingLabel.textContent=t.pendingSavings;
       winner.textContent=t.initialWinner;
       root.dataset.result="pending";
       if(!entries){verdict.textContent=incomplete?t.incomplete:t.empty;return;}
