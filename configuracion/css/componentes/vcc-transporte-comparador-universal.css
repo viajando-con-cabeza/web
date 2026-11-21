@@ -1255,3 +1255,197 @@
  #vcc-transporte-comparador .tc-saving{padding:9px;gap:5px}
  #vcc-transporte-comparador .tc-saving strong{font-size:28px}
 }
+
+/* VCC · Edició directa compacta: la vinyeta és el botó d'edició;
+   afegir no obre res. Els totals ocupen tota la franja inferior. */
+#vcc-transporte-comparador .tc-option{
+ overflow:visible;border-radius:11px;
+}
+#vcc-transporte-comparador .tc-individual-actions,
+#vcc-transporte-comparador .tc-bonus-quick{
+ gap:7px;min-height:0;margin:0;
+}
+#vcc-transporte-comparador .tc-bonus-quick{
+ flex-direction:row;justify-content:space-between;align-items:center;flex-wrap:wrap;
+}
+#vcc-transporte-comparador .tc-bonus-glance-text{font-size:9.5px}
+#vcc-transporte-comparador .tc-text-action,
+#vcc-transporte-comparador .tc-individual-actions .tc-text-action,
+#vcc-transporte-comparador .tc-bonus-quick .tc-text-action{
+ display:inline-block;min-height:18px;height:auto;padding:0;
+ border:0;border-radius:0;box-shadow:none;background:transparent;
+ color:#987660;cursor:pointer;
+ font:600 9px/1.3 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
+}
+#vcc-transporte-comparador .tc-text-action:hover{
+ color:#694b3c;text-decoration:underline;text-underline-offset:2px;
+}
+#vcc-transporte-comparador .tc-selected{
+ position:relative;overflow:visible;
+}
+#vcc-transporte-comparador .tc-selected-chip{
+ transition:border-color .12s ease,background-color .12s ease;
+}
+#vcc-transporte-comparador .tc-selected-chip:focus-visible{
+ outline:2px solid #ac836e;outline-offset:2px;
+}
+#vcc-transporte-comparador .tc-quick-editor{
+ position:absolute;z-index:70;
+ top:calc(100% + 5px);left:0;
+ display:flex;flex-direction:column;gap:9px;
+ width:min(335px,calc(100vw - 40px));max-width:calc(100vw - 40px);
+ padding:12px;border:1px solid #dedbd7;border-radius:9px;
+ background:#fff;box-shadow:0 12px 32px rgba(45,39,35,.14);
+}
+#vcc-transporte-comparador .tc-option-bonus .tc-quick-editor{
+ left:auto;right:0;
+}
+#vcc-transporte-comparador .tc-quick-editor[hidden]{display:none!important}
+#vcc-transporte-comparador .tc-quick-editor-head{
+ display:flex;align-items:center;justify-content:space-between;gap:8px;
+}
+#vcc-transporte-comparador .tc-quick-editor-head strong{
+ color:#313832;font:600 15px/1.2 var(--vcc-font-heading,"Oswald",sans-serif);
+}
+#vcc-transporte-comparador .tc-quick-close{
+ flex:none;width:23px;height:23px;padding:0;
+ display:grid;place-items:center;
+ border:1px solid #ece9e6;border-radius:5px;background:#fff;
+ color:#847970;font:500 17px/1 Arial,sans-serif;cursor:pointer;
+}
+#vcc-transporte-comparador .tc-quick-editor-fields{
+ display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,.8fr);gap:7px;
+}
+#vcc-transporte-comparador .tc-option-bonus .tc-quick-editor-fields{
+ grid-template-columns:minmax(0,.8fr) minmax(0,1.4fr) minmax(0,.8fr);
+}
+#vcc-transporte-comparador .tc-quick-editor-fields label{
+ display:flex;flex-direction:column;gap:4px;min-width:0;
+ color:#75736f;font:600 9px/1.2 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
+}
+#vcc-transporte-comparador .tc-quick-editor-fields :is(input,select){
+ display:block;min-width:0;width:100%;height:30px;min-height:30px;
+ padding:5px 6px;border:1px solid #e0dedb;border-radius:5px;
+ background:#fff;color:#323632;
+ font:500 11px/1.2 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
+}
+#vcc-transporte-comparador .tc-quick-editor-fields :is(input,select):focus-visible{
+ border-color:#ba8b70;outline:2px solid rgba(187,125,91,.18);
+}
+#vcc-transporte-comparador .tc-quick-editor-actions{
+ display:flex;align-items:center;justify-content:space-between;gap:7px;
+}
+#vcc-transporte-comparador .tc-quick-editor-actions button{
+ padding:3px 0;border:0;border-radius:0;background:transparent;
+ cursor:pointer;font:600 10px/1.3 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
+}
+#vcc-transporte-comparador .tc-quick-delete{color:#a6665b}
+#vcc-transporte-comparador .tc-quick-done{color:#39784e}
+#vcc-transporte-comparador .tc-quick-editor-actions button:hover{
+ text-decoration:underline;text-underline-offset:2px;
+}
+/* Franja de totals única, molt clara i quasi blanca: tota l'amplada de la targeta. */
+#vcc-transporte-comparador .tc-option-costs{
+ grid-template-columns:repeat(2,minmax(0,1fr));
+ margin:auto -11px -11px;padding:9px 12px 10px;
+ border-top:1px solid rgba(220,220,217,.65);
+ border-radius:0 0 10px 10px;
+ background:rgba(245,245,244,.76);
+}
+#vcc-transporte-comparador .tc-option.tc-winner .tc-option-costs{
+ background:rgba(245,245,244,.76);
+}
+#vcc-transporte-comparador .tc-option-costs strong,
+#vcc-transporte-comparador .tc-option.tc-winner .tc-option-costs strong{
+ color:#252925;
+}
+#vcc-transporte-comparador .tc-result{
+ margin:10px 0 0;padding:0;
+}
+#vcc-transporte-comparador .tc-result-main{
+ gap:9px;padding:10px 11px;border-radius:11px;
+}
+#vcc-transporte-comparador .tc-result-lead{
+ gap:8px;padding:1px 6px 0 0;
+}
+#vcc-transporte-comparador .tc-result-heading{gap:9px}
+#vcc-transporte-comparador .tc-result-heading img{
+ width:40px;height:40px;
+}
+#vcc-transporte-comparador .tc-result-heading span{font-size:8px}
+#vcc-transporte-comparador .tc-result-heading strong{
+ margin-top:2px;font-size:21px;
+}
+#vcc-transporte-comparador .tc-result-heading p,
+#vcc-transporte-comparador .tc-result-heading #tc-recommend-note{
+ margin-top:3px;font-size:10px;line-height:1.35;
+}
+#vcc-transporte-comparador .tc-result-amounts{
+ padding-top:7px;gap:8px;
+}
+#vcc-transporte-comparador .tc-result-amounts strong{font-size:21px}
+#vcc-transporte-comparador .tc-result-comparisons{
+ padding-left:9px;gap:4px;
+}
+#vcc-transporte-comparador .tc-comparison-items{gap:4px}
+#vcc-transporte-comparador .tc-compare-item{
+ gap:3px;padding:6px 8px;border-radius:6px;
+}
+#vcc-transporte-comparador .tc-compare-item-detail{font-size:9px}
+#vcc-transporte-comparador .tc-saving{
+ padding:7px 10px;border-radius:8px;gap:6px;
+}
+#vcc-transporte-comparador .tc-saving strong{font-size:26px}
+#vcc-transporte-comparador .tc-result-caption{
+ margin:5px 1px 0;color:#8b8783;
+ text-align:right;font:400 9px/1.35 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
+}
+#vcc-transporte-comparador .tc-bottom-bar{
+ display:flex;align-items:center;justify-content:space-between;
+ gap:12px;min-height:22px;margin:7px 0 0;
+}
+#vcc-transporte-comparador .tc-bottom-bar .tc-footer-note{
+ flex:1;margin:0;color:#8f8b86;font-size:9px;line-height:1.3;
+}
+#vcc-transporte-comparador .tc-reset-link{
+ flex:none;display:inline-block;min-height:18px;
+ border:0;padding:0;background:transparent;
+ color:#8e8077;cursor:pointer;
+ font:600 9px/1.3 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
+}
+#vcc-transporte-comparador .tc-reset-link:hover{
+ color:#a56e53;text-decoration:underline;text-underline-offset:2px;
+}
+#vcc-transporte-comparador .tc-reset-link:focus-visible{
+ outline:2px solid #b7866a;outline-offset:3px;
+}
+@media(max-width:900px){
+ #vcc-transporte-comparador .tc-result-main{padding:10px}
+ #vcc-transporte-comparador .tc-result-comparisons{padding:8px 0 0}
+}
+@media(max-width:780px){
+ #vcc-transporte-comparador .tc-quick-editor,
+ #vcc-transporte-comparador .tc-option-bonus .tc-quick-editor{
+  position:fixed;z-index:150;left:50%;right:auto;top:27vh;
+  transform:translateX(-50%);
+  width:min(335px,calc(100vw - 30px));max-width:calc(100vw - 30px);
+ }
+}
+@media(max-width:520px){
+ #vcc-transporte-comparador .tc-option-costs{
+  margin:auto -9px -9px;padding:9px 10px;
+ }
+ #vcc-transporte-comparador .tc-result-main{padding:9px}
+ #vcc-transporte-comparador .tc-result-heading img{width:36px;height:36px}
+ #vcc-transporte-comparador .tc-result-heading strong{font-size:20px}
+ #vcc-transporte-comparador .tc-result-amounts strong{font-size:20px}
+ #vcc-transporte-comparador .tc-saving strong{font-size:25px}
+ #vcc-transporte-comparador .tc-bottom-bar{align-items:flex-end}
+ #vcc-transporte-comparador .tc-result-caption{font-size:8px}
+ #vcc-transporte-comparador .tc-option-bonus .tc-quick-editor-fields{
+  grid-template-columns:75px minmax(0,1fr);
+ }
+ #vcc-transporte-comparador .tc-option-bonus .tc-quick-editor-fields label:last-child{
+  grid-column:1/-1;
+ }
+}
