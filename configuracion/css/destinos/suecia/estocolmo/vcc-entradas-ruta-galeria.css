@@ -108,8 +108,9 @@
   margin:6px 0 0;color:#70675d;
   font:400 9px/1.35 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
 }
-html body .ep4-gallery-modal[data-vcc-gallery-areas="1"] .day-lightbox-grid>button>span.vcc-gallery-area-label,
-html body .ep4-gallery-modal[data-vcc-photo-label-overlay] .day-lightbox-photo-frame .day-lightbox-caption:not([hidden]){
+/* El mosaic manté l'etiqueta de zona; la foto individual
+   usa la nota tipogràfica comuna fora de la imatge. */
+html body .ep4-gallery-modal[data-vcc-gallery-areas="1"] .day-lightbox-grid>button>span.vcc-gallery-area-label{
   background:rgba(255,255,255,.66)!important;
   border:1px solid rgba(255,255,255,.28)!important;
   box-shadow:0 1px 3px #0000000f!important;color:#252321!important;
