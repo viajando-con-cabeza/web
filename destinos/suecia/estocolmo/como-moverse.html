@@ -27,7 +27,7 @@
 <link rel="stylesheet" href="/configuracion/css/componentes/como-ahorrar-carruseles-vcc.css?v=20261117-notes-compactes-v3">
 <link rel="stylesheet" href="/configuracion/css/componentes/vcc-gallery-booking.css?v=20261121-nota-fotografia-compartida-v6">
 <link rel="stylesheet" href="/configuracion/css/destinos/suecia/estocolmo/como-moverse-calculadora-galeria-vcc.css?v=20261119-comparador-3-columnas-v15">
-<link rel="stylesheet" href="/configuracion/css/componentes/vcc-transporte-comparador-universal.css?v=20261121-consell-v17">
+<link rel="stylesheet" href="/configuracion/css/componentes/vcc-transporte-comparador-universal.css?v=20261121-edicio-directa-v18">
 <script type="application/ld+json" data-vcc-generated-page>{"@context":"https://schema.org","@type":"WebPage","@id":"https://viajandoconcabeza.com/destinos/suecia/estocolmo/como-moverse#webpage","url":"https://viajandoconcabeza.com/destinos/suecia/estocolmo/como-moverse","name":"Cómo moverse por Estocolmo: metro, ferris y billetes | VCC","description":"Cómo moverse por Estocolmo: metro, autobús, ferry a Vaxholm, billetes SL y pago con Visa. Precios de 2026, nuestra ruta y consejos para ahorrar.","inLanguage":"es","isPartOf":{"@type":"WebSite","name":"Viajando con Cabeza","url":"https://viajandoconcabeza.com/"},"primaryImageOfPage":{"@type":"ImageObject","url":"https://viajandoconcabeza.com/configuracion/imagenes/fondos/fondos-como-moverse.webp"}}</script>
 </head><body class="mv-body">
 <header class="page-header"></header>
@@ -232,7 +232,6 @@
       <label class="tc-field"><span><svg class="tc-svg" aria-hidden="true" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M7 3v4m10-4v4M3 10h18"/></svg>DÍAS</span><select id="tc-days"><option value="1">1 día</option><option value="2">2 días</option><option value="3" selected>3 días</option><option value="4">4 días</option><option value="5">5 días</option><option value="6">6 días</option><option value="7">7 días</option><option value="8">8 días</option><option value="9">9 días</option><option value="10">10 días</option><option value="11">11 días</option><option value="12">12 días</option><option value="13">13 días</option><option value="14">14 días</option></select></label>
       <label class="tc-field"><span><svg class="tc-svg" aria-hidden="true" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3"/><path d="M3 20v-2a6 6 0 0 1 12 0v2M17 5a3 3 0 0 1 0 6M18 14a5 5 0 0 1 3 5v1"/></svg>VIAJEROS</span><input id="tc-people" type="number" min="1" max="30" step="1" inputmode="numeric" value="2"></label>
     </div>
-    <button type="button" class="tc-small-btn" id="tc-reset">Restablecer VCC</button>
   </div>
   <div class="tc-options-grid" id="tc-options" data-count="3">
     <section class="tc-option tc-option-car" data-option="car" aria-labelledby="tc-title-car">
@@ -248,7 +247,6 @@
        <label class="tc-field"><span><svg class="tc-svg" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M16 9H10a3 3 0 0 0 0 6h6M8 7v10"/></svg>EXTRAS / SEGURO · SEK</span><input id="tc-extras" type="number" min="0" max="1000000" step=".01" inputmode="decimal" placeholder="Total" ></label>
       </div>
       <p class="tc-muted tc-car-cost-note">Importes por vehículo. Si usas varios, introduce la suma; el párquing es diario.</p>
-      <label class="tc-compare-checkbox"><input id="tc-same-route" type="checkbox" checked>Coche y transporte público cubren la misma ruta</label>
       <div class="tc-option-costs"><div><small>Por persona</small><strong id="tc-car-person">—</strong></div><div><small>Total</small><strong id="tc-car-group">—</strong></div></div>
     </section>
     <section class="tc-option tc-option-individual" data-option="individual" aria-labelledby="tc-title-individual">
@@ -261,18 +259,19 @@
       </div>
       <div class="tc-individual-actions">
         <button type="button" class="tc-text-action" id="tc-add-trip">+ Añadir viaje</button>
-        <details id="tc-trip-detail" class="tc-flyout">
-          <summary class="tc-text-action">Editar viajes <span class="tc-action-count" id="tc-trip-edit-count">7</span></summary>
-          <div class="tc-flyout-panel">
-            <div class="tc-flyout-head"><strong>Billetes por persona</strong><button id="tc-close-trips" type="button" class="tc-flyout-close" aria-label="Cerrar editor de billetes">×</button></div>
-            <div id="tc-trips" class="tc-trip-list" aria-label="Desglose de billetes individuales"></div>
-            <p class="tc-muted">Número, descripción y precio de cada billete.</p>
-          </div>
-        </details>
+
       </div>
       <div class="tc-selected" id="tc-trip-selected" aria-label="Resumen de los viajes elegidos">
         <div class="tc-selected-header"><span class="tc-selected-heading">VIAJES SELECCIONADOS</span><span class="tc-selected-count" id="tc-trip-selected-count">7 viajes</span></div>
         <div class="tc-selected-items" id="tc-trip-preview"></div>
+        <div class="tc-quick-editor" id="tc-trip-editor" hidden>
+          <div class="tc-quick-editor-head"><strong id="tc-trip-editor-title">Editar viaje</strong><button type="button" id="tc-trip-editor-close" class="tc-quick-close" aria-label="Cerrar editor">×</button></div>
+          <div class="tc-quick-editor-fields">
+            <label>Descripción<input id="tc-trip-editor-label" type="text" maxlength="42" autocomplete="off" placeholder="Descripción breve"></label>
+            <label>Precio · SEK<input id="tc-trip-editor-price" type="number" min="0" step=".01" inputmode="decimal" placeholder="Importe"></label>
+          </div>
+          <div class="tc-quick-editor-actions"><button type="button" class="tc-quick-delete" id="tc-trip-editor-delete">Eliminar</button><button type="button" class="tc-quick-done" id="tc-trip-editor-done">Listo</button></div>
+        </div>
       </div>
       <div class="tc-option-costs"><div><small>Por persona</small><strong id="tc-individual-person">—</strong></div><div><small>Total</small><strong id="tc-individual-group">—</strong></div></div>
     </section>
@@ -281,33 +280,26 @@
       <p class="tc-scope-label">Precios por persona · SEK</p>
       <div class="tc-bonus-quick">
         <span id="tc-bonus-glance" class="tc-bonus-glance-text">1 abono · 360 SEK</span>
-        <div class="tc-bonus-actions">
-          <button type="button" id="tc-add-pass" class="tc-text-action">+ Añadir</button>
-          <details id="tc-bonus-detail" class="tc-flyout">
-            <summary class="tc-text-action">Editar abonos</summary>
-          <div class="tc-flyout-panel">
-            <div class="tc-flyout-head"><strong>Abonos y billetes extra</strong><button id="tc-close-bonuses" type="button" class="tc-flyout-close" aria-label="Cerrar editor de abonos y billetes">×</button></div>
-            <p class="tc-muted">Indica el tipo, la descripción y el precio de cada elemento, siempre por persona.</p>
-            <div id="tc-passes" class="tc-passes tc-mixed-list" aria-label="Lista de abonos y billetes complementarios"></div>
-            <p class="tc-muted">Anota únicamente los billetes que no cubran los abonos.</p>
-            <details class="tc-tariffs"><summary>Precios SL de referencia</summary><div class="tc-tariffs-body" id="tc-tariffs"></div></details>
-          </div>
-          </details>
-        </div>
+        <button type="button" id="tc-add-pass" class="tc-text-action">+ Añadir</button>
       </div>
       <div class="tc-selected" id="tc-bonus-selected" aria-label="Resumen de abonos y billetes extra">
         <div class="tc-selected-header"><span class="tc-selected-heading">ABONOS Y BILLETES AÑADIDOS</span><span class="tc-selected-count" id="tc-bonus-selected-count">1 elemento</span></div>
         <div class="tc-selected-items" id="tc-bonus-preview"></div>
+        <div class="tc-quick-editor" id="tc-bonus-editor" hidden>
+          <div class="tc-quick-editor-head"><strong id="tc-bonus-editor-title">Editar entrada</strong><button type="button" id="tc-bonus-editor-close" class="tc-quick-close" aria-label="Cerrar editor">×</button></div>
+          <div class="tc-quick-editor-fields">
+            <label>Tipo<select id="tc-bonus-editor-kind"><option value="abono">Abono</option><option value="billete">Billete</option></select></label>
+            <label>Descripción<input id="tc-bonus-editor-label" type="text" maxlength="48" autocomplete="off" placeholder="Nombre del abono o billete"></label>
+            <label>Precio · SEK<input id="tc-bonus-editor-price" type="number" min="0" step=".01" inputmode="decimal" placeholder="Importe"></label>
+          </div>
+          <div class="tc-quick-editor-actions"><button type="button" class="tc-quick-delete" id="tc-bonus-editor-delete">Eliminar</button><button type="button" class="tc-quick-done" id="tc-bonus-editor-done">Listo</button></div>
+        </div>
       </div>
       <p id="tc-bonus-note" class="tc-muted tc-bonus-note" aria-live="polite">Añade solo los billetes que el abono no cubra.</p>
       <div class="tc-option-costs"><div><small>Por persona</small><strong id="tc-bonus-person">—</strong></div><div><small>Total</small><strong id="tc-bonus-group">—</strong></div></div>
     </section>
   </div>
-  <section class="tc-result" aria-labelledby="tc-result-title" aria-live="polite" aria-atomic="true">
-    <div class="tc-result-title">
-      <span class="tc-result-overline">Nuestro consejo</span>
-      <h3 id="tc-result-title">MEJOR OPCIÓN VCC</h3>
-    </div>
+  <section class="tc-result" aria-label="Recomendación VCC" aria-live="polite" aria-atomic="true">
     <div class="tc-result-main">
       <div class="tc-result-lead">
         <div class="tc-result-heading">
@@ -333,8 +325,12 @@
         <small id="tc-saving-detail">por persona</small>
       </div>
     </div>
+    <p class="tc-result-caption">Consejo VCC · Comparación orientativa según los importes introducidos.</p>
   </section>
-  <p class="tc-footer-note" id="tc-sim-note">Las tarifas personalizadas son simulaciones. Verifica precios y condiciones oficiales.</p>
+  <div class="tc-bottom-bar">
+    <p class="tc-footer-note" id="tc-sim-note">Las tarifas personalizadas son simulaciones. Verifica precios y condiciones oficiales.</p>
+    <button type="button" class="tc-reset-link" id="tc-reset">Limpiar todo</button>
+  </div>
   <span id="tc-best-public" hidden></span>
  </div>
 </section>
@@ -407,7 +403,7 @@
 <div class="day-lightbox vcc-booking-gallery-modal" id="mvVCCSharedGallery" data-vcc-booking-gallery data-vcc-photo-label-overlay data-vcc-photo-label-note data-vcc-lazy-gallery-modal data-vcc-gallery-selector="#experiencia-transporte .day-mosaic" hidden role="dialog" aria-modal="true" aria-label="Galería de fotografías del transporte en Estocolmo"></div>
 <script src="/configuracion/js/componentes/vcc-itinerary-gallery-on-demand.js?v=20261121-nota-fora-foto-v4" defer></script>
 <script src="/configuracion/datos/transporte/estocolmo-sl-2026.js?v=20261119-v1" defer></script>
-<script src="/configuracion/js/componentes/vcc-transporte-comparador-universal.js?v=20261121-consell-v17" defer></script>
+<script src="/configuracion/js/componentes/vcc-transporte-comparador-universal.js?v=20261121-edicio-directa-v18" defer></script>
 
 
 </body></html>
