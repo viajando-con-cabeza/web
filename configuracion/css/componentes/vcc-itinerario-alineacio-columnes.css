@@ -99,11 +99,12 @@
 }
 
 
-/* VCC · Paritat de capçaleres dels 3 dies (ES/EN).
-   Mateixes fonts, mides, x, espais i alçada reservada per al títol.
-   No s'afegeix cap microdescripció a la dreta ni sota el títol. */
+/* VCC · Capçaleres dels 3 dies (ES/EN).
+   Mateixes fonts, mides i posició, però sense reservar 122px buits:
+   la introducció comença després de l'alçada real del títol.
+   Respecta automàticament títols en 1 o 2 línies i evita solapaments. */
 html body article.day-section[id^="dia"]{
-  --vcc-it-day-title-block:122px;
+  --vcc-it-day-title-block:0px;
   --vcc-it-day-heading-size:clamp(27px,2.55vw,37px);
   --vcc-it-day-overline-size:clamp(25px,2.15vw,29px);
 }
