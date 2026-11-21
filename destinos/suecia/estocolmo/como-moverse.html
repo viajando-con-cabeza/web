@@ -27,7 +27,7 @@
 <link rel="stylesheet" href="/configuracion/css/componentes/como-ahorrar-carruseles-vcc.css?v=20261117-notes-compactes-v3">
 <link rel="stylesheet" href="/configuracion/css/componentes/vcc-gallery-booking.css?v=20261119-etiquetes-visor-v2">
 <link rel="stylesheet" href="/configuracion/css/destinos/suecia/estocolmo/como-moverse-calculadora-galeria-vcc.css?v=20261119-comparador-3-columnas-v15">
-<link rel="stylesheet" href="/configuracion/css/componentes/vcc-transporte-comparador-universal.css?v=20261121-tres-fixes-v16">
+<link rel="stylesheet" href="/configuracion/css/componentes/vcc-transporte-comparador-universal.css?v=20261121-consell-v17">
 <script type="application/ld+json" data-vcc-generated-page>{"@context":"https://schema.org","@type":"WebPage","@id":"https://viajandoconcabeza.com/destinos/suecia/estocolmo/como-moverse#webpage","url":"https://viajandoconcabeza.com/destinos/suecia/estocolmo/como-moverse","name":"Cómo moverse por Estocolmo: metro, ferris y billetes | VCC","description":"Cómo moverse por Estocolmo: metro, autobús, ferry a Vaxholm, billetes SL y pago con Visa. Precios de 2026, nuestra ruta y consejos para ahorrar.","inLanguage":"es","isPartOf":{"@type":"WebSite","name":"Viajando con Cabeza","url":"https://viajandoconcabeza.com/"},"primaryImageOfPage":{"@type":"ImageObject","url":"https://viajandoconcabeza.com/configuracion/imagenes/fondos/fondos-como-moverse.webp"}}</script>
 </head><body class="mv-body">
 <header class="page-header"></header>
@@ -260,9 +260,9 @@
         <label class="tc-field"><span><svg class="tc-svg" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M16 9H10a3 3 0 0 0 0 6h6M8 7v10"/></svg>PRECIO POR BILLETE · SEK</span><input id="tc-trip-price" type="number" min="0" max="1000000" step=".01" inputmode="decimal" placeholder="Ej. 43" value="43"></label>
       </div>
       <div class="tc-individual-actions">
-        <button type="button" class="tc-small-btn tc-add-trip" id="tc-add-trip">+ Viaje</button>
+        <button type="button" class="tc-text-action" id="tc-add-trip">+ Añadir viaje</button>
         <details id="tc-trip-detail" class="tc-flyout">
-          <summary>Editar <span id="tc-trip-edit-count">7 viajes</span></summary>
+          <summary class="tc-text-action">Editar viajes <span class="tc-action-count" id="tc-trip-edit-count">7</span></summary>
           <div class="tc-flyout-panel">
             <div class="tc-flyout-head"><strong>Billetes por persona</strong><button id="tc-close-trips" type="button" class="tc-flyout-close" aria-label="Cerrar editor de billetes">×</button></div>
             <div id="tc-trips" class="tc-trip-list" aria-label="Desglose de billetes individuales"></div>
@@ -281,17 +281,19 @@
       <p class="tc-scope-label">Precios por persona · SEK</p>
       <div class="tc-bonus-quick">
         <span id="tc-bonus-glance" class="tc-bonus-glance-text">1 abono · 360 SEK</span>
-        <details id="tc-bonus-detail" class="tc-flyout">
-          <summary>Editar lista</summary>
+        <div class="tc-bonus-actions">
+          <button type="button" id="tc-add-pass" class="tc-text-action">+ Añadir</button>
+          <details id="tc-bonus-detail" class="tc-flyout">
+            <summary class="tc-text-action">Editar abonos</summary>
           <div class="tc-flyout-panel">
             <div class="tc-flyout-head"><strong>Abonos y billetes extra</strong><button id="tc-close-bonuses" type="button" class="tc-flyout-close" aria-label="Cerrar editor de abonos y billetes">×</button></div>
             <p class="tc-muted">Indica el tipo, la descripción y el precio de cada elemento, siempre por persona.</p>
             <div id="tc-passes" class="tc-passes tc-mixed-list" aria-label="Lista de abonos y billetes complementarios"></div>
-            <button id="tc-add-pass" type="button" class="tc-small-btn">+ Añadir</button>
             <p class="tc-muted">Anota únicamente los billetes que no cubran los abonos.</p>
             <details class="tc-tariffs"><summary>Precios SL de referencia</summary><div class="tc-tariffs-body" id="tc-tariffs"></div></details>
           </div>
-        </details>
+          </details>
+        </div>
       </div>
       <div class="tc-selected" id="tc-bonus-selected" aria-label="Resumen de abonos y billetes extra">
         <div class="tc-selected-header"><span class="tc-selected-heading">ABONOS Y BILLETES AÑADIDOS</span><span class="tc-selected-count" id="tc-bonus-selected-count">1 elemento</span></div>
@@ -301,13 +303,37 @@
       <div class="tc-option-costs"><div><small>Por persona</small><strong id="tc-bonus-person">—</strong></div><div><small>Total</small><strong id="tc-bonus-group">—</strong></div></div>
     </section>
   </div>
-  <div class="tc-result" aria-live="polite" aria-atomic="true">
-    <div class="tc-result-heading"><img src="/configuracion/imagenes/marca/logo-vcc.svg" alt="Viajando con Cabeza" width="30" height="30" decoding="async" loading="lazy"><div><span id="tc-conclusion-label">CONCLUSIÓN VCC · MEJOR OPCIÓN</span><strong id="tc-recommend">Calculando...</strong></div></div>
-    <div class="tc-result-amounts"><div><small>Por persona</small><strong id="tc-recommend-person">—</strong></div><div><small>Total · <span id="tc-group-label">2 viajeros</span></small><strong id="tc-recommend-group">—</strong></div></div>
-    <div class="tc-saving" data-state="pending"><span id="tc-saving-label">Ahorro / persona</span><strong id="tc-saving">—</strong></div>
-    <p id="tc-recommend-note">Comparamos las tres alternativas con los importes que indiques.</p>
-  </div>
-
+  <section class="tc-result" aria-labelledby="tc-result-title" aria-live="polite" aria-atomic="true">
+    <div class="tc-result-title">
+      <span class="tc-result-overline">Nuestro consejo</span>
+      <h3 id="tc-result-title">MEJOR OPCIÓN VCC</h3>
+    </div>
+    <div class="tc-result-main">
+      <div class="tc-result-lead">
+        <div class="tc-result-heading">
+          <img src="/configuracion/imagenes/marca/logo-vcc.svg" alt="Viajando con Cabeza" width="44" height="44" decoding="async" loading="lazy">
+          <div>
+            <span id="tc-conclusion-label">RECOMENDACIÓN VCC</span>
+            <strong id="tc-recommend">Calculando...</strong>
+            <p id="tc-recommend-note">Comparando los costes de las tres alternativas.</p>
+          </div>
+        </div>
+        <div class="tc-result-amounts">
+          <div><small>Pagas por persona</small><strong id="tc-recommend-person">—</strong></div>
+          <div><small>Total · <span id="tc-group-label">2 viajeros</span></small><strong id="tc-recommend-group">—</strong></div>
+        </div>
+      </div>
+      <div class="tc-result-comparisons">
+        <span class="tc-comparison-title">AHORRO FRENTE A CADA ALTERNATIVA</span>
+        <div class="tc-comparison-items" id="tc-comparison-items"></div>
+      </div>
+      <div class="tc-saving" data-state="pending">
+        <span id="tc-saving-label">Ahorro frente a la siguiente opción</span>
+        <strong id="tc-saving">—</strong>
+        <small id="tc-saving-detail">por persona</small>
+      </div>
+    </div>
+  </section>
   <p class="tc-footer-note" id="tc-sim-note">Las tarifas personalizadas son simulaciones. Verifica precios y condiciones oficiales.</p>
   <span id="tc-best-public" hidden></span>
  </div>
@@ -381,7 +407,7 @@
 <div class="day-lightbox vcc-booking-gallery-modal" id="mvVCCSharedGallery" data-vcc-booking-gallery data-vcc-photo-label-overlay data-vcc-lazy-gallery-modal data-vcc-gallery-selector="#experiencia-transporte .day-mosaic" hidden role="dialog" aria-modal="true" aria-label="Galería de fotografías del transporte en Estocolmo"></div>
 <script src="/configuracion/js/componentes/vcc-itinerary-gallery-on-demand.js?v=20261119-etiquetes-visor-v3" defer></script>
 <script src="/configuracion/datos/transporte/estocolmo-sl-2026.js?v=20261119-v1" defer></script>
-<script src="/configuracion/js/componentes/vcc-transporte-comparador-universal.js?v=20261121-tres-fixes-v16" defer></script>
+<script src="/configuracion/js/componentes/vcc-transporte-comparador-universal.js?v=20261121-consell-v17" defer></script>
 
 
 </body></html>
