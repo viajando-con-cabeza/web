@@ -614,24 +614,29 @@ html body .ql-page .ql-first-two-layout #haz-tu-maleta .ql-v6-column > .ql-v6-ca
   max-height:none!important;
 }
 
-/* Contracte de marges: primer apartat amb espai superior curt
-   sota navegació, separació editorial normal abans de la resta. */
+/* Contracte editorial VCC: espai net sota el subheader abans de les
+   dues capçaleres paral·leles. A Entradas y pases el padding pertany al
+   main; aquí les dues seccions són fills d'una mateixa graella, i
+   l'espai s'aplica A LA GRAELLA perquè els dos títols baixin junts.
+   1px de padding al main impedeix col·lapse del margin del primer fill. */
 html body .ql-page .ql-main{
-  padding-top:34px!important; /* mateix espai que Entradas y pases */
+  padding-top:1px!important;
 }
 html body .ql-page .ql-main > .ql-first-two-layout{
-  margin-top:0!important;
+  margin-top:clamp(48px,3.5vw,60px)!important;
   margin-bottom:var(--vcc-section-space,58px)!important;
 }
 html body .ql-page .ql-main > #experiencia-vcc{
   margin-top:0!important;
 }
 @media(max-width:1039px){
-  html body .ql-page .ql-main{
-    padding-top:25px!important;
-  }
   html body .ql-page .ql-main > .ql-first-two-layout{
-    margin-top:0!important;
+    margin-top:36px!important;
+  }
+}
+@media(max-width:600px){
+  html body .ql-page .ql-main > .ql-first-two-layout{
+    margin-top:30px!important;
   }
 }
 
