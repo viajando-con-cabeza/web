@@ -34,21 +34,29 @@ No extender a la guía general de Suecia sin aprobación.
   `Por persona` y `Total`. Los importes del transporte público son
   **por persona**; en coche se introduce el coste del **vehículo** (o la
   suma de todos los vehículos) y se reparte entre viajeros.
-- Los resúmenes de selección son recuadros neutros y compactos de **tres
-  elementos por fila**, visibles hasta tres filas con desplazamiento
-  **vertical interno** a partir de la cuarta. En móvil se distribuyen
-  en dos columnas. Al pulsar un elemento se abre su editor flotante.
-- La recomendación VCC lleva sobretítulo «Nuestro consejo» y título
-  «MEJOR OPCIÓN VCC». Muestra la alternativa más económica, lo que
-  se paga **por persona y para el grupo**, y el ahorro frente a
-  **cada una de las otras dos alternativas**. Las alternativas sin
-  precio o con un recorrido no equivalente quedan pendientes o excluidas,
-  nunca se calculan como cero. La franja blanca muestra el ahorro por
-  persona frente a la siguiente alternativa válida y la diferencia
-  total del grupo; se señalan las conclusiones provisionales y los empates.
-- Las acciones «+ Añadir viaje», «Editar viajes», «+ Añadir» y «Editar
-  abonos» son **controles de texto discretos sin recuadro**, con
-  interacción y foco accesibles.
+- Los resúmenes de selección son recuadros neutros de **tres elementos
+  por fila**, hasta tres filas con desplazamiento vertical interno. En
+  móvil tienen dos columnas. **Cada elemento es el punto de edición**:
+  pulsarlo abre un mini-editor (descripción y precio; también tipo en
+  abonos), con acciones Listo, Eliminar y cerrar. No hay ventanas grandes.
+- «+ Añadir viaje» y «+ Añadir» son enlaces de texto discretos que agregan
+  directamente la nueva ficha **al final de la lista** y desplazan la
+  vista del resumen hacia abajo, sin abrir el editor.
+- La recomendación VCC mantiene el cuadro naranja translúcido y el ahorro
+  en blanco, pero **sin título ni sobretítulo grande encima**. Una nota
+  «Consejo VCC» discreta queda debajo. La recomendación informa de la
+  alternativa más barata, su coste por persona y total y el ahorro frente
+  a las otras dos si se conocen sus importes. Los casos incompletos se
+  marcan como provisionales y los empates no se presentan como ahorro.
+- Las **tres filas finales de totales** tienen la misma franja completa
+  gris casi blanca, incluidos los importes de la opción recomendada.
+- «Limpiar todo» es un control de texto pequeño en el extremo inferior
+  derecho. Elimina las entradas, los abonamientos y los gastos del coche,
+  conservando días y viajeros en sus valores iniciales. Al no haber
+  entradas ni importes no se recomienda una alternativa ficticia de 0 €.
+- La casilla «Coche y transporte público cubren la misma ruta» ha sido
+  retirada. Se asume que el usuario introduce alternativas para un mismo
+  viaje; no se infiere que todos los recorridos sean equivalentes.
 
 ### Entradas y cálculo
 
@@ -60,7 +68,7 @@ debe tener importes suficientes y el recorrido debe ser equivalente.
 
 **Billetes sueltos**: cada fila tiene número, descripción y precio;
 el sumatorio es por persona. Se pueden agregar, eliminar y editar hasta
-40 trayectos con precios distintos. El editor flotante no altera la altura
+40 trayectos con precios distintos. El mini-editor de cada ficha se superpone sin modificar la altura
 de la tarjeta.
 
 **Abonos y pases**: una **lista única** con filas formadas por número,
