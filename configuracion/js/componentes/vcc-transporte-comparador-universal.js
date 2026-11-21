@@ -1,16 +1,13 @@
-/* VCC · Comparador universal y compacto: coche vs transporte público.
-   Fuente de tarifas: window.VCCTransportDestination (por destino).
-   Los precios individuales editados y los abonos personalizados son simulaciones.
-   El coste de varios abonos seleccionados es una estimación de cobertura sin
-   doble contabilizar viajes; no es un optimizador exhaustivo de horarios. */
+/* VCC · Comparador compacto: coche, billetes individuales y abonos.
+   Tarifas orientativas: window.VCCTransportDestination (por destino).
+   Los abonos y billetes extra se introducen por persona; el motor no
+   deduce su cobertura ni exige horarios. Edición directa en cada ficha. */
 (function(root){
  'use strict';
  const finite=value=>typeof value==='number'&&Number.isFinite(value)&&value>=0;
  const amount=value=>value===''||value===undefined||value===null?null:Number(value);
  const clamp=(value,min,max)=>Math.min(max,Math.max(min,Number.isFinite(Number(value))?Math.trunc(Number(value)):min));
  const format=(value,currency)=>new Intl.NumberFormat('es-ES',{maximumFractionDigits:2}).format(value)+' '+currency;
- const minute=trip=>trip.day*1440+(trip.time?Number(trip.time.slice(0,2))*60+Number(trip.time.slice(3,5)):0);
- const timeValid=time=>/^([01]\d|2[0-3]):[0-5]\d$/.test(time||'');
  const priceTotal=trips=>trips.reduce((sum,t)=>sum+t.price,0);
  // La cobertura de un título no se infiere de su descripción:
  // el usuario introduce el precio de cada abono y los billetes no cubiertos.
@@ -69,7 +66,7 @@
  };
  const set=(id,label)=>{const node=$(id);if(node)node.textContent=label;};
  const defaultDays=[1,1,2,2,2,3,3];
- let nextTrip=0,nextPass=0,edited=false;
+ let nextTrip=0,nextPass=0;
  const basePrice=()=>valueFor(singles)??0;
  let trips=defaultDays.map((day,i)=>({id:++nextTrip,day,mode:'metro',label:'Viaje '+(i+1),price:basePrice(),time:'',included:true,userEdited:false}));
  function passFromPreset(src){
@@ -83,22 +80,7 @@
  const bonusTickets=()=>bonusItems.filter(item=>item.kind==='billete');
  const findPass=id=>bonusItems.find(p=>p.id===id);
  const findTrip=id=>trips.find(t=>t.id===id);
- const resetTrips=()=>{nextTrip=0;trips=defaultDays.map((day,i)=>({id:++nextTrip,day,mode:'metro',label:'Viaje '+(i+1),price:basePrice(),time:'',included:true,userEdited:false}));};
- const field=(label,node)=>{
-   const wrapper=el('label','tc-field');wrapper.append(el('span','',label),node);return wrapper;
- };
- const choice=(selected,items,attr,aria)=>{
-   const select=el('select');select.dataset.field=attr;select.setAttribute('aria-label',aria);
-   for(const [value,label] of items){const option=el('option','',label);option.value=value;select.append(option);}
-   select.value=selected;
-   return select;
- };
- const input=(val,kind,attr,aria)=>{
-   const node=el('input');node.type=kind;node.dataset.field=attr;
-   node.setAttribute('aria-label',aria);
-   if(kind==='number'){node.min='0';node.max='1000000';node.step=attr==='units'||attr==='quantity'?'1':'0.01';node.inputMode='decimal';}
-   node.value=val==null?'':String(val);return node;
- };
+
  function closeQuickEditor(){
    activeEdit=null;
    $('trip-editor').hidden=true;$('bonus-editor').hidden=true;
@@ -282,7 +264,6 @@
      update();return;
    }
    for(const trip of trips)if(!trip.userEdited)trip.price=next;
-   edited=next!==basePrice()||trips.some(t=>t.userEdited);
    update();
  }
  function editCurrent(field,value){
@@ -295,7 +276,6 @@
      item.price=finite(parsed)?parsed:NaN;
      if(activeEdit.type==='trip')item.userEdited=true;
    }else if(field==='kind'&&activeEdit.type==='bonus')item.kind=value==='billete'?'billete':'abono';
-   edited=true;update();
  }
  for(const type of ['trip','bonus']){
    $(type+'-preview').addEventListener('click',event=>{
@@ -349,7 +329,7 @@
    $('days').value='3';$('people').value='2';$('car-type').value='rent';
    for(const id of ['rental','fuel','parking','tolls','extras'])$(id).value='';
    $('trip-number').value='0';$('trip-price').value=String(basePrice());
-   trips=[];nextTrip=0;bonusItems=[];nextPass=0;edited=false;
+   trips=[];nextTrip=0;bonusItems=[];nextPass=0;
    closeQuickEditor();update();
  });
  $('trip-price').value=String(basePrice());
