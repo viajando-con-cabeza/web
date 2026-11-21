@@ -29,7 +29,7 @@
 <link rel="stylesheet" href="/configuracion/css/componentes/como-ahorrar-carruseles-vcc.css?v=20261117-notes-compactes-v3">
 <link rel="stylesheet" href="/configuracion/css/componentes/vcc-gallery-booking.css?v=20261119-etiquetes-visor-v2">
 <link rel="stylesheet" href="/configuracion/css/destinos/suecia/estocolmo/como-moverse-calculadora-galeria-vcc.css?v=20261119-comparador-3-columnas-v15">
-<link rel="stylesheet" href="/configuracion/css/componentes/vcc-transporte-comparador-universal.css?v=20261120-resum-seleccio-v14">
+<link rel="stylesheet" href="/configuracion/css/componentes/vcc-transporte-comparador-universal.css?v=20261121-grid-mosaic-v15">
 
 </head><body class="mv-body">
 <header class="page-header"></header>
@@ -227,7 +227,7 @@
 
 
 <section class="mv-vcc-ticket-tool" id="mv-vcc-ticket-calculator" aria-labelledby="mv-vcc-ticket-heading">
- <header class="mv-section-head vcc-editorial-heading"><div class="vcc-editorial-heading-main"><span class="mv-overline vcc-editorial-overline">Your route, your numbers</span><h2 class="vcc-editorial-title" id="mv-vcc-ticket-heading">CALCULATE YOUR TRANSPORT</h2></div><p class="vcc-editorial-description">Compare two or three alternatives and discover which one costs less.</p></header>
+ <header class="mv-section-head vcc-editorial-heading"><div class="vcc-editorial-heading-main"><span class="mv-overline vcc-editorial-overline">Compare by route</span><h2 class="vcc-editorial-title" id="mv-vcc-ticket-heading">WHICH TRANSPORT IS BEST FOR YOU?</h2></div><p class="vcc-editorial-description">Car, tickets, or passes: compare your trip expenses.</p></header>
  <div id="vcc-transporte-comparador">
   <div class="tc-top">
     <div class="tc-setup">
@@ -278,7 +278,7 @@
         </details>
       </div>
       <div class="tc-selected" id="tc-trip-selected" aria-label="Summary of selected trips">
-        <span class="tc-selected-heading">TRIPS YOU HAVE ADDED</span>
+        <div class="tc-selected-header"><span class="tc-selected-heading">SELECTED TRIPS</span><span class="tc-selected-count" id="tc-trip-selected-count">7 trips</span></div>
         <div class="tc-selected-items" id="tc-trip-preview"></div>
       </div>
       <div class="tc-option-costs"><div><small>Per person</small><strong id="tc-individual-person">—</strong></div><div><small>Group total</small><strong id="tc-individual-group">—</strong></div></div>
@@ -303,10 +303,10 @@
         </details>
       </div>
       <div class="tc-selected" id="tc-bonus-selected" aria-label="Summary of added passes and tickets">
-        <span class="tc-selected-heading">PASSES YOU HAVE CHOSEN</span>
+        <div class="tc-selected-header"><span class="tc-selected-heading">SELECTED PASSES</span><span class="tc-selected-count" id="tc-bonus-selected-count">1 pass</span></div>
         <div class="tc-selected-items" id="tc-bonus-preview"></div>
         <div class="tc-selected-extra" id="tc-bonus-extra-summary" hidden>
-          <span class="tc-selected-heading">ADDITIONAL TICKETS</span>
+          <div class="tc-selected-header"><span class="tc-selected-heading">ADDITIONAL TICKETS</span><span class="tc-selected-count" id="tc-extra-selected-count">0 extras</span></div>
           <div class="tc-selected-items" id="tc-extra-preview"></div>
         </div>
       </div>
@@ -394,7 +394,7 @@
 <div class="day-lightbox vcc-booking-gallery-modal" id="mvVCCSharedGallery" data-vcc-booking-gallery data-vcc-photo-label-overlay data-vcc-lazy-gallery-modal data-vcc-gallery-selector="#experiencia-transporte .day-mosaic" hidden role="dialog" aria-modal="true" aria-label="Stockholm transport photo gallery"></div>
 <script src="/configuracion/js/componentes/vcc-itinerary-gallery-on-demand.js?v=20261119-etiquetes-visor-v3" defer></script>
 <script src="/configuracion/datos/transporte/estocolmo-sl-2026.js?v=20261119-v1" defer></script>
-<script src="/configuracion/js/componentes/vcc-transporte-comparador-universal.js?v=20261120-resum-seleccio-v14" defer></script>
+<script src="/configuracion/js/componentes/vcc-transporte-comparador-universal.js?v=20261121-grid-mosaic-v15" defer></script>
 
 
 <script src="/configuracion/js/vcc-en-runtime.js" defer></script>
