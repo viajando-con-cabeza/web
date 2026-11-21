@@ -8,7 +8,7 @@
  const modal=document.querySelector('[data-vcc-booking-gallery][data-vcc-lazy-gallery-modal]');
  const first=document.querySelector('.vcc-booking-gallery .day-mosaic');
  if(!modal||!first)return;
- const script='/configuracion/js/componentes/vcc-gallery-booking.js?v=20261119-etiquetes-visor-v2';
+ const script='/configuracion/js/componentes/vcc-gallery-booking.js?v=20261121-nota-fora-foto-v7';
  let pending=null;
  const ready=()=>Boolean(window.VCCBookingGallery);
  function load(){
