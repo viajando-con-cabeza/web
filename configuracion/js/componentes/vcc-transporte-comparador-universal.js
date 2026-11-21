@@ -166,9 +166,9 @@
      list.append(p);
    });
  }
- // Els noms i preus introduïts es mostren en cada targeta.
- // La tira de pastilles és desplaçable horitzontalment: l'alçada no creix
- // quan s'afegeixen viatges o abonaments. Clicant-ne un s'obre l'editor.
+ // Els noms i preus seleccionats apareixen dins de requadres de tres
+ // elements per fila. La graella es desplaça verticalment a partir de dues
+ // files, sense fer créixer la targeta ni canviar els càlculs.
  function renderSelectionSummaries(){
    const populate=(id,items,empty,kind)=>{
      const target=$(id);if(!target)return;
@@ -194,6 +194,9 @@
    populate('trip-preview',trips,'Sin viajes','trip');
    populate('bonus-preview',passes,'Sin abonos','bonus');
    populate('extra-preview',bonusExtras,'Sin billetes extra','bonus');
+   set('trip-selected-count',trips.length+(trips.length===1?' viaje':' viajes'));
+   set('bonus-selected-count',passes.length+(passes.length===1?' abono':' abonos'));
+   set('extra-selected-count',bonusExtras.length+(bonusExtras.length===1?' billete':' billetes'));
    const extraSection=$('bonus-extra-summary');
    if(extraSection)extraSection.hidden=bonusExtras.length===0;
  }
