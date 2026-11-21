@@ -39,6 +39,10 @@ const photoFrame=photoImage.parentElement;
 const photoCaption=photoFrame.querySelector('.day-lightbox-caption');
 const stage=modal.querySelector('.day-lightbox-stage');
 const counter=modal.querySelector('.day-lightbox-counter');
+// Opt-in: la nota de barri passa a la fila del comptador, fora de la foto.
+// Movem el mateix node (no un duplicat); showPhoto continua actualitzant-lo.
+const photoLabelNote=modal.hasAttribute('data-vcc-photo-label-note');
+if(photoLabelNote)counter.after(photoCaption);
 const thumbs=modal.querySelector('.day-lightbox-thumbs');
 const photoInfoTitle=modal.querySelector('.day-lightbox-info h3');
 const photoInfoDescription=modal.querySelector('.day-lightbox-info p');
@@ -54,14 +58,14 @@ const photoLabelOverlay=modal.hasAttribute('data-vcc-photo-label-overlay');
 const labelFor=item=>photoLabelOverlay?(item.area||item.caption||'').trim().slice(0,90):typeof item.caption==='string'?item.caption.trim().slice(0,200):'';
 // Ajustar l'etiqueta a la cantonada de la imatge real, no al rectangle blanc del visor.
 const positionPhotoLabel=()=>{
- if(!photoLabelOverlay||photoCaption.hidden||!photoOpen())return;
+ if(photoLabelNote||!photoLabelOverlay||photoCaption.hidden||!photoOpen())return;
  const imageRect=photoImage.getBoundingClientRect();
  const frameRect=photoFrame.getBoundingClientRect();
  if(imageRect.width<1||imageRect.height<1||frameRect.width<1)return;
  photoCaption.style.right=Math.max(8,frameRect.right-imageRect.right+8)+'px';
  photoCaption.style.bottom=Math.max(8,frameRect.bottom-imageRect.bottom+8)+'px';
 };
-if(photoLabelOverlay)window.addEventListener('resize',()=>requestAnimationFrame(positionPhotoLabel),{passive:true});
+if(photoLabelOverlay&&!photoLabelNote)window.addEventListener('resize',()=>requestAnimationFrame(positionPhotoLabel),{passive:true});
 let currentImages=[],currentIndex=0,lastFocus=null,gridButtons=[];
 let photoSequence=0;
 let slideOverlay=null,slideTimeout=0;
