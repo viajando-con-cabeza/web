@@ -806,3 +806,43 @@ html body .vcc-map-gallery-pair>.vcc-map-gallery-photos .day-mosaic[data-count]{
     height:clamp(265px,54vw,310px)!important;
   }
 }
+
+/* VCC · Etiqueta discreta compartida de fotografia individual,
+   Comparteix la fila de 30px del comptador (p. ex. «5 / 13»), sense
+   afegir alçada, retallar la imatge o canviar el mosaic ni les miniatures. */
+html body .vcc-booking-gallery-modal[data-vcc-photo-label-note] .day-lightbox-photo-view:not([hidden]) > .day-lightbox-caption:not([hidden]){
+  display:block!important;
+  position:relative!important;
+  grid-column:1!important;
+  grid-row:3!important;
+  align-self:center!important;
+  justify-self:end!important;
+  /* Apropar la nota a la vora inferior de la foto sense canviar la quadrícula. */
+  transform:translateY(-12px)!important;
+  z-index:2;
+  right:auto!important;
+  bottom:auto!important;
+  left:auto!important;
+  top:auto!important;
+  max-width:38%;
+  margin:0 var(--vcc-gallery-note-inset,17px) 0 0!important;
+  padding:0!important;
+  border:0!important;
+  border-radius:0!important;
+  background:transparent!important;
+  box-shadow:none!important;
+  color:#827a73!important;
+  font:400 10.5px/1.2 var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;
+  text-align:right!important;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  pointer-events:none;
+}
+@media(max-width:800px){
+  html body .vcc-booking-gallery-modal[data-vcc-photo-label-note] .day-lightbox-photo-view:not([hidden]) > .day-lightbox-caption:not([hidden]){
+    font-size:10px!important;
+    max-width:43%;
+    margin-right:var(--vcc-gallery-note-inset,11px)!important;
+  }
+}
