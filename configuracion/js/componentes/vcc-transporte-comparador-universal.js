@@ -53,12 +53,12 @@
      ...(active.car&&carValid&&sameRoute?[{type:'car',cost:carTotal}]:[])
    ].sort((a,b)=>a.cost-b.cost||(a.type==='car'?1:-1));
    if(!alternatives.length)return {valid:false,reason:'Introduce los importes para comparar las opciones seleccionadas.'};
-   const choice=alternatives[0],next=alternatives.find(a=>a!==choice&&a.cost>choice.cost+0.001);
+   const choice=alternatives[0],next=alternatives.find(a=>a!==choice);
    const unfinished=active.car&&(!carValid||!sameRoute)||active.bonus&&!bonus.valid;
    return {valid:true,travellers,individual,individualTotal:individual*travellers,
      bonus,publicCost,publicMode,publicTotal:publicCost===null?null:publicCost*travellers,
      carValid,carTotal,sameRoute,active,unfinished,
-     choice:choice.type,choiceTotal:choice.cost,saving:next?next.cost-choice.cost:0,
+     choice:choice.type,choiceTotal:choice.cost,saving:next?Math.max(0,next.cost-choice.cost):null,
      needsCarInputs:active.car&&!carValid};
  }
  root.VCCTransportCompareCore={compare,planBonuses};
@@ -126,7 +126,7 @@
      row.append(number,name,price,remove);
      list.append(row);
    });
-   set('trip-edit-count',trips.length+(trips.length===1?' viaje':' viajes'));
+   set('trip-edit-count','('+trips.length+')');
  }
  function renderPassEditor(){
    const list=$('passes');list.replaceChildren();
@@ -185,6 +185,57 @@
    set('trip-selected-count',trips.length+(trips.length===1?' viaje':' viajes'));
    set('bonus-selected-count',bonusItems.length+(bonusItems.length===1?' elemento':' elementos'));
  }
+ // Recomanació editorial: compara el cost final de tot el grup i mostra
+ // l'estalvi davant de cadascuna de les dues alternatives restants.
+ // Una opció sense import complet mai es tracta com si costés 0.
+ function renderComparisons(result,travellers){
+   const list=$('comparison-items');list.replaceChildren();
+   const candidates=[
+     {type:'car',name:'Coche',total:result.carValid&&result.sameRoute?result.carTotal:null,
+       issue:!result.sameRoute?'No comparable: recorrido distinto':'Pendiente: introduce alquiler y combustible'},
+     {type:'individual',name:'Billetes sueltos',total:result.individualTotal,issue:''},
+     {type:'bonus',name:bonusPasses().length?'Abonos y pases':'Billetes personalizados',
+       total:result.bonus.valid?result.bonus.cost*travellers:null,
+       issue:result.bonus.reason||'Completa los precios de la lista'}
+   ];
+   const best=candidates.find(candidate=>candidate.type===result.choice);
+   if(!best)return;
+   candidates.filter(candidate=>candidate.type!==result.choice).forEach(candidate=>{
+     const row=el('div','tc-compare-item');
+     const first=el('div','tc-compare-item-heading');
+     first.append(el('span','tc-compare-item-name',candidate.name),
+       el('strong','tc-compare-item-cost',candidate.total===null?'—':money(candidate.total/travellers)+' / persona'));
+     const detail=el('div','tc-compare-item-detail');
+     if(candidate.total===null){
+       row.dataset.state='pending';
+       detail.textContent=candidate.issue;
+     }else{
+       const difference=Math.max(0,candidate.total-best.total);
+       row.dataset.state=difference>0.005?'positive':'equal';
+       detail.textContent=difference>0.005?
+         'Ahorras '+money(difference/travellers)+' / persona · '+money(difference)+' en total':
+         'Mismo precio que la opción recomendada';
+     }
+     row.append(first,detail);
+     list.append(row);
+   });
+   const validRivals=candidates.filter(candidate=>candidate.type!==result.choice&&candidate.total!==null)
+     .sort((a,b)=>a.total-b.total);
+   const closest=validRivals[0];
+   const savingBox=$('saving')?.closest('.tc-saving');
+   if(!closest){
+     if(savingBox)savingBox.dataset.state='pending';
+     set('saving-label','Ahorro pendiente de comparar');
+     set('saving','—');
+     set('saving-detail','Completa los importes de las otras opciones');
+     return;
+   }
+   const saving=Math.max(0,closest.total-best.total),pending=result.unfinished;
+   if(savingBox)savingBox.dataset.state=pending?'pending':saving>0.005?'positive':'zero';
+   set('saving-label',saving>0.005?(pending?'Ahorro parcial frente a '+closest.name:'Te ahorras frente a '+closest.name):'Mismo coste que '+closest.name);
+   set('saving',money(saving/travellers));
+   set('saving-detail',(pending?'Comparación provisional · ':'')+money(saving)+' en total');
+ }
  function update(){
    renderSelectionSummaries();
    $('rental-wrap').hidden=$('car-type').value==='own';
@@ -199,8 +250,11 @@
      set('recommend','Revisa los importes');
      const savingBox=$('saving')?.closest('.tc-saving');
      if(savingBox)savingBox.dataset.state='pending';
-     set('saving-label','Ahorro por persona');
+     set('saving-label','Ahorro pendiente de comparar');
+     set('saving-detail','por persona');
+     $('comparison-items').replaceChildren();
      for(const id of ['individual-person','individual-group','bonus-person','bonus-group','car-person','car-group','recommend-person','recommend-group','saving'])set(id,'—');
+     set('group-label',travellers+(travellers===1?' viajero':' viajeros'));
      set('recommend-note',result.reason);return;
    }
    const validAmounts=bonusItems.length>0&&bonusItems.every(item=>finite(amount(item.price)));
@@ -225,19 +279,14 @@
    mark('.tc-option-car',result.choice==='car');
    mark('.tc-option-individual',result.choice==='individual');
    mark('.tc-option-bonus',result.choice==='bonus');
-   set('conclusion-label',result.unfinished?'MEJOR OPCIÓN CON TUS DATOS · VCC':'CONCLUSIÓN VCC · MEJOR OPCIÓN');
+   set('conclusion-label',result.unfinished?'MEJOR ENTRE LOS IMPORTES DISPONIBLES · VCC':'OPCIÓN MÁS ECONÓMICA · VCC');
    const title=result.choice==='car'?'Coche':
       result.choice==='bonus'?(bonusPasses().length?(bonusTickets().length?'Abonos y billetes':'Abonos'):'Billetes personalizados'):'Billetes sueltos';
    set('recommend',title);
    set('recommend-person',money(result.choiceTotal/travellers));
    set('recommend-group',money(result.choiceTotal));
-   const savingBox=$('saving')?.closest('.tc-saving');
-   const savingPerPerson=result.saving/travellers;
-   const savingState=result.unfinished?'pending':savingPerPerson>0.005?'positive':'zero';
-   if(savingBox)savingBox.dataset.state=savingState;
-   set('saving-label',savingState==='zero'?'Sin ahorro': 'Ahorro por persona');
-   set('saving',savingState==='pending'?'—':money(savingPerPerson));
    set('group-label',travellers+(travellers===1?' viajero':' viajeros'));
+   renderComparisons(result,travellers);
    const reason=selected.car&&!result.sameRoute?
      'El coche se excluye: no cubre el mismo recorrido.':
      selected.car&&!result.carValid?
