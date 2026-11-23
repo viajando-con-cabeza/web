@@ -558,12 +558,12 @@
           <div class="imp-main" data-no-itinerary-feature>
             <section class="place ci-august-gallery-place" id="ci-august-gallery-place">
               <header class="place-heading"><h2>Archipiélago de Estocolmo en agosto</h2></header>
-              <div class="gallery" data-count="8" data-mosaic-visible="4" data-seo-images="true">
+              <div class="gallery" data-count="20" data-mosaic-visible="4" data-seo-images="true">
                 <div class="gallery-main" id="ci-august-gallery-src" data-images="[]">
                   <span class="ci-august-gallery-loading">Fotografías de nuestro viaje</span>
                 </div>
               </div>
-              <div class="place-copy"><p>Ocho fotografías propias del archipiélago de Estocolmo tomadas en nuestro viaje de agosto.</p></div>
+              <div class="place-copy"><p>Veinte fotografías propias del archipiélago de Estocolmo tomadas en nuestro viaje de agosto.</p></div>
             </section>
           </div>
         </div>
@@ -633,10 +633,10 @@
   const el=document.getElementById('ci-august-gallery-src');
   if(!el)return;
   const base='https://img.viajandoconcabeza.com/destinos/suecia/estocolmo-archipelago/'+'20'+'26-dia8/';
-  const paths=["paisajes/DSC08335.avif","bosques/DSC08336.avif","bosques/DSC08337.avif","mar/DSC08342.avif","mar/DSC08344.avif","mar/DSC08345.avif","paisajes/DSC08332.avif","mar/DSC08359.avif"];
+  const paths=["DSC08315-VSCO.avif","DSC08324-VSCO.avif","DSC08330-VSCO.avif","DSC08333-VSCO.avif","DSC08336-VSCO.avif","DSC08343-VSCO.avif","DSC08389-VSCO.avif","DSC08392-VSCO.avif","DSC08404-VSCO.avif","DSC08405-VSCO.avif","DSC08414-VSCO.avif","DSC08416-VSCO.avif","DSC08419-VSCO.avif","DSC08422-VSCO.avif","DSC08425-VSCO.avif","DSC08431-VSCO.avif","DSC08435-VSCO.avif","DSC08438-VSCO.avif","DSC08468-VSCO.avif","DSC08521-VSCO.avif"];
   el.dataset.images=JSON.stringify(paths.map(path=>base+path));
 })();
 </script>
-<div class="day-lightbox vcc-booking-gallery-modal" id="vccSharedGallery" data-vcc-booking-gallery data-vcc-gallery-selector=".ci-august-imp-gallery .gallery" hidden role="dialog" aria-modal="true" aria-label="Galería de nuestra experiencia en Estocolmo"></div>
+<div class="day-lightbox vcc-booking-gallery-modal" id="vccSharedGallery" data-vcc-booking-gallery data-vcc-photo-label-overlay data-vcc-gallery-selector=".ci-august-imp-gallery .gallery" hidden role="dialog" aria-modal="true" aria-label="Galería de nuestra experiencia en Estocolmo"></div>
 <script src="/configuracion/js/componentes/vcc-cuando-ir-meses-visitados.js?v=20261119-v1" defer></script>
 </body></html>
