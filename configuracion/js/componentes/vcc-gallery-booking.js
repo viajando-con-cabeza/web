@@ -459,6 +459,9 @@ const existingMiniPreviews=new Set(['DSC08334.avif','DSC08335.avif','DSC08336.av
 const previewFor=source=>{
  const url=String(source||'');
  const arch=url.match(/^https:\/\/img\.viajandoconcabeza\.com\/(destinos\/suecia\/estocolmo-archipelago\/[0-9]{4}-dia8)\/(?:paisajes|bosques|mar)\/(DSC\d+\.avif)$/i);
+ // Els originals VSCO d'agost són a l'arrel i ja tenen miniatures R2.
+ const archVsco=url.match(/^https:\/\/img\.viajandoconcabeza\.com\/(destinos\/suecia\/estocolmo-archipelago\/[0-9]{4}-dia8)\/(DSC\d+-VSCO\.avif)$/i);
+ if(archVsco)return 'https://img.viajandoconcabeza.com/'+archVsco[1]+'/_preview/mini/'+archVsco[2];
  if(arch&&existingMiniPreviews.has(arch[2]))
   return 'https://img.viajandoconcabeza.com/'+arch[1]+'/_preview/mini/'+arch[2];
  return url.replace(/^https:\/\/img\.viajandoconcabeza\.com\/(destinos\/.+\.(?:avif|webp))$/i,
