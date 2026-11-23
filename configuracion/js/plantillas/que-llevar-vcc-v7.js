@@ -302,14 +302,33 @@ $("ql-v6-clear").addEventListener("click",()=>{
 const nav=document.querySelector(".ql-subnav");
 if(nav){
  const links=[...nav.querySelectorAll('a[href^="#"]')];
+ // Les dues primeres capçaleres són paral·leles en escriptori: el clic
+ // ha de conservar la pestanya triada encara que comparteixin altura.
+ let preferredHash=window.location.hash;
+ const markActive=active=>{
+  links.forEach(a=>{a.classList.toggle("is-active",a===active);if(a===active)a.setAttribute("aria-current","location");else a.removeAttribute("aria-current");});
+ };
  const update=()=>{
   const header=document.querySelector(".shared-header");
   const headerH=header?Math.round(header.getBoundingClientRect().height):50;
+  const navH=Math.round(nav.getBoundingClientRect().height);
   root.style.setProperty("--ql-sticky-header-height",headerH+"px");
-  let active=links[0];
-  links.forEach(a=>{const node=document.getElementById(a.hash.slice(1));if(node&&node.getBoundingClientRect().top<=headerH+100)active=a});
-  links.forEach(a=>{a.classList.toggle("is-active",a===active);if(a===active)a.setAttribute("aria-current","location");else a.removeAttribute("aria-current");});
+  const threshold=headerH+navH+26;
+  const visible=links.filter(a=>{
+   const node=document.getElementById(a.hash.slice(1));
+   return node&&node.getBoundingClientRect().top<=threshold;
+  });
+  let active=visible.at(-1)||links[0];
+  const preferred=visible.find(a=>a.hash===preferredHash);
+  if(preferred&&active){
+   const selectedTop=document.getElementById(preferred.hash.slice(1))?.getBoundingClientRect().top;
+   const activeTop=document.getElementById(active.hash.slice(1))?.getBoundingClientRect().top;
+   if(Math.abs(selectedTop-activeTop)<5)active=preferred;
+  }
+  markActive(active);
  };
+ links.forEach(a=>a.addEventListener("click",()=>{preferredHash=a.hash;markActive(a)}));
+ window.addEventListener("hashchange",()=>{preferredHash=window.location.hash;update()});
  window.addEventListener("scroll",update,{passive:true});window.addEventListener("resize",update,{passive:true});update();
 }
 /* Carruseles accesibles: una misma navegación para consejos e imprescindibles. */
