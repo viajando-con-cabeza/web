@@ -128,7 +128,10 @@
    populate('trip-preview',trips,'Añade un viaje para empezar',false);
    populate('bonus-preview',bonusItems,'Añade un abono o billete para empezar',true);
    set('trip-selected-count',trips.length+(trips.length===1?' viaje':' viajes'));
-   set('bonus-selected-count',bonusItems.length+(bonusItems.length===1?' elemento':' elementos'));
+   const countBono=bonusPasses().length,countTicket=bonusTickets().length;
+   const names=[countBono?countBono+(countBono===1?' abono':' abonos'):'',
+     countTicket?countTicket+(countTicket===1?' billete':' billetes'):''].filter(Boolean);
+   set('bonus-selected-count',names.join(' + ')||'0 abonos');
  }
  for(const type of ['trip','bonus']){
    const list=$(type+'-preview');
@@ -217,16 +220,8 @@
      tolls:$('tolls').value,extras:$('extras').value};
    const result=root.VCCTransportCompareCore.compare({
      trips,people:travellers,car,passes:bonusPasses(),bonusExtras:bonusTickets(),days:$('days').value});
-   // Resums encara que no hi hagi una alternativa completa.
-   const validAmounts=bonusItems.length>0&&bonusItems.every(item=>finite(amount(item.price))&&Number.isInteger(Number(item.people))&&Number(item.people)>=1&&Number(item.people)<=30);
-   const listTotal=validAmounts?bonusItems.reduce((sum,item)=>sum+Number(item.price)*Number(item.people),0):null;
-   const countBono=bonusPasses().length,countTicket=bonusTickets().length;
-   const kinds=[countBono?countBono+(countBono===1?' abono':' abonos'):'',
-     countTicket?countTicket+(countTicket===1?' billete':' billetes'):''].filter(Boolean).join(' + ');
-   set('bonus-glance',(kinds||'Sin entradas')+' · '+(validAmounts?money(listTotal)+' en total':'indica precios'));
+   // La cantidad vive junto al rótulo de precios; los totales ya están en el pie.
    set('trip-count',trips.length+' viajes');
-   const tripValid=trips.length>0&&trips.every(item=>finite(item.price)&&Number.isInteger(Number(item.people))&&Number(item.people)>=1&&Number(item.people)<=30);
-   set('trip-glance',trips.length+(trips.length===1?' viaje':' viajes')+' · '+(tripValid?money(priceTotal(trips))+' en total':'indica precios'));
    if(!result.valid){
      set('conclusion-label','COMPARACIÓN SIN COMPLETAR');
      set('recommend','Revisa los importes');
