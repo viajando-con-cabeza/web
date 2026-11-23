@@ -128,8 +128,12 @@ function update(){
    const winner=root.querySelector('[data-al-winner]'),price=root.querySelector('[data-al-price]');
    if(winner)winner.textContent=(best.o.name.trim()||'Opción '+letters[best.i]);
    if(price)price.textContent=fmt(best.t);
-   const rest=sorted.slice(1).map(x=>'Ahorras '+fmt(x.t-best.t)+' frente a '+(x.o.name.trim()||'opción '+letters[x.i]));
-   savings.replaceChildren(el('strong',null,'LO QUE TE AHORRAS'),...rest.map(t=>el('div',null,t)));
+   const rest=sorted.slice(1).map(x=>{
+    const row=el('div');
+    row.append('Ahorras ',el('span','al-savings-amount',fmt(x.t-best.t)),' frente a '+(x.o.name.trim()||'opción '+letters[x.i]));
+    return row;
+   });
+   savings.replaceChildren(el('strong',null,'LO QUE TE AHORRAS'),...rest);
   }
  }
  body.querySelectorAll('.al-calc-total td').forEach((td,i)=>{const isBest=sorted.length>=2&&best.i===i;td.dataset.alBest=String(isBest);td.querySelector('strong').textContent=filled(offers[i])?fmt(total(offers[i])):'—'});
