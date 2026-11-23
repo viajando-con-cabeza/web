@@ -211,7 +211,7 @@
    const result=root.VCCTransportCompareCore.compare({
      trips,people:travellers,car,passes:bonusPasses(),bonusExtras:bonusTickets(),days:$('days').value});
    // Resums encara que no hi hagi una alternativa completa.
-   const validAmounts=bonusItems.length>0&&bonusItems.every(item=>finite(amount(item.price)));
+   const validAmounts=bonusItems.length>0&&bonusItems.every(item=>finite(amount(item.price))&&Number.isInteger(Number(item.people))&&Number(item.people)>=1&&Number(item.people)<=30);
    const listTotal=validAmounts?bonusItems.reduce((sum,item)=>sum+Number(item.price)*Number(item.people),0):null;
    const countBono=bonusPasses().length,countTicket=bonusTickets().length;
    const kinds=[countBono?countBono+(countBono===1?' abono':' abonos'):'',
