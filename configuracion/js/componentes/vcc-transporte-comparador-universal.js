@@ -149,7 +149,7 @@
    list.addEventListener('change',event=>{
      if(event.target.dataset.field!=='kind')return;
      const row=event.target.closest('.tc-entry-row'),item=findPass(Number(row?.dataset.id));
-     if(item){item.kind=event.target.value==='billete'?'billete':'abono';update(true);}
+     if(item){item.kind=event.target.value==='billete'?'billete':'abono';update();}
    });
    list.addEventListener('click',event=>{
      const remove=event.target.closest('.tc-entry-delete');
