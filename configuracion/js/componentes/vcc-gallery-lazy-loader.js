@@ -13,8 +13,8 @@
    '/configuracion/css/componentes/vcc-gallery-booking.css?v=20261111-fast-preview-v5'
   ];
   const scripts=[
-   '/configuracion/js/plantillas/imprescindibles-interactions.js?v=20261110-universal1',
-   '/configuracion/js/componentes/vcc-gallery-booking.js?v=20261111-fast-preview-v5'
+   '/configuracion/js/plantillas/imprescindibles-interactions.js?v=20261123-r2-vsco-20',
+   '/configuracion/js/componentes/vcc-gallery-booking.js?v=20261123-r2-vsco-20'
   ];
   const addStyle=url=>new Promise(resolve=>{
    if(document.querySelector('link[rel="stylesheet"][href="'+url+'"]'))return resolve();
