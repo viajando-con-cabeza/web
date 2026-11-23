@@ -114,6 +114,10 @@
     // mentre els AVIF originals són dins paisajes/, bosques/ i mar/.
     // No demanar al Worker una ruta _preview que no existeix.
     const arch = String(original).match(/^https:\/\/img\.viajandoconcabeza\.com\/(destinos\/suecia\/estocolmo-archipelago\/[0-9]{4}-dia8)\/(?:paisajes|bosques|mar)\/(DSC\d+\.avif)$/i);
+    // L'arxipèlag disposa també d'originals VSCO a l'arrel amb miniatures
+    // i visors ja generats a R2; evita passar per URLs de carpetes antigues.
+    const archVsco = String(original).match(/^https:\/\/img\.viajandoconcabeza\.com\/(destinos\/suecia\/estocolmo-archipelago\/[0-9]{4}-dia8)\/(DSC\d+-VSCO\.avif)$/i);
+    if (archVsco) return 'https://img.viajandoconcabeza.com/'+archVsco[1]+'/_preview/'+size+'/'+archVsco[2];
     if (arch) {
       // Las fotos aún sin derivado se optimizan bajo demanda en el Worker
       // /__vcc_preview/. No descargamos su AVIF original de varios MB.
