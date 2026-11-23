@@ -122,3 +122,87 @@ html body.mv-body .mv-page main.mv-container{
     padding-bottom:64px!important;
   }
 }
+
+
+/* VCC 2026-11-23 · Perfils de transport compactes i enllaços al pressupost. */
+html body.mv-body #recomendacion .mv-profile-carousel .mv-profile{
+  min-height:0;
+  padding:12px 14px 11px;
+}
+html body.mv-body #recomendacion .mv-profile-carousel .mv-profile-vcc{
+  padding:11px 13px 10px;
+}
+html body.mv-body #recomendacion .mv-profile-top{
+  min-height:42px;
+  gap:8px;
+  margin-bottom:7px;
+}
+html body.mv-body #recomendacion .mv-profile-top img{
+  width:43px;
+  height:43px;
+  flex-basis:43px;
+}
+html body.mv-body #recomendacion .mv-profile-ident h3{
+  font-size:23px;
+  line-height:1.08;
+}
+html body.mv-body #recomendacion .mv-profile-method{
+  margin-bottom:6px;
+  font-size:15.5px;
+  line-height:1.2;
+}
+html body.mv-body #recomendacion .mv-profile>p{
+  flex:1;
+  min-height:0;
+  margin-bottom:10px;
+  font-size:10.8px;
+  line-height:1.43;
+}
+html body.mv-body #recomendacion .mv-profile-bottom{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) auto;
+  align-items:end;
+  gap:3px 6px;
+  margin-top:auto;
+  padding-top:8px;
+}
+html body.mv-body #recomendacion .mv-profile-bottom>span{
+  grid-column:1 / -1;
+  font-size:8.5px;
+}
+html body.mv-body #recomendacion .mv-profile-bottom>strong{
+  grid-column:1;
+  grid-row:2;
+  font-size:14px;
+  line-height:1.25;
+  white-space:normal;
+}
+html body.mv-body #recomendacion .mv-profile-bottom>strong small{
+  font-size:9px;
+  line-height:1.2;
+}
+html body.mv-body #recomendacion .mv-profile-detail{
+  grid-column:2;
+  grid-row:2;
+  align-self:center;
+  justify-self:end;
+  flex:none;
+  padding:4px 0;
+  color:#a96a50;
+  font:600 10px/1.2 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
+  text-decoration:none;
+  white-space:nowrap;
+}
+html body.mv-body #recomendacion .mv-profile-detail:hover,
+html body.mv-body #recomendacion .mv-profile-detail:focus-visible{
+  color:#994b32;
+  text-decoration:underline;
+  text-underline-offset:2px;
+}
+@media (max-width:600px){
+  html body.mv-body #recomendacion .mv-profile-carousel .mv-profile{padding:12px 12px 11px}
+  html body.mv-body #recomendacion .mv-profile-carousel .mv-profile-vcc{padding:11px 11px 10px}
+  html body.mv-body #recomendacion .mv-profile-method{font-size:15px}
+  html body.mv-body #recomendacion .mv-profile>p{font-size:11px;line-height:1.44}
+  html body.mv-body #recomendacion .mv-profile-detail{font-size:10.5px}
+}
