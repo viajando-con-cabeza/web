@@ -87,6 +87,13 @@
      const target=$(id),scroll=target.scrollTop||0;
      target.replaceChildren();
      if(!items.length){target.append(el('span','tc-selected-empty',empty));return;}
+     // Un sol encabezado por lista: ambas tienen el mismo formato compacto.
+     // Abonos añade únicamente la columna de tipo.
+     const headers=isBonus?['Tipo','Descripción','Personas','Importe · '+currency,'']:
+       ['Descripción','Personas','Importe · '+currency,''];
+     const columns=el('div','tc-entry-columns'+(isBonus?' tc-entry-bonus':''));
+     for(const title of headers)columns.append(el('span','',title));
+     target.append(columns);
      items.forEach((item,i)=>{
        const row=el('div','tc-entry-row'+(isBonus?' tc-entry-bonus':''));row.dataset.id=String(item.id);
        const field=(label,name,value,inputType)=>{
@@ -218,6 +225,8 @@
      countTicket?countTicket+(countTicket===1?' billete':' billetes'):''].filter(Boolean).join(' + ');
    set('bonus-glance',(kinds||'Sin entradas')+' · '+(validAmounts?money(listTotal)+' en total':'indica precios'));
    set('trip-count',trips.length+' viajes');
+   const tripValid=trips.length>0&&trips.every(item=>finite(item.price)&&Number.isInteger(Number(item.people))&&Number(item.people)>=1&&Number(item.people)<=30);
+   set('trip-glance',trips.length+(trips.length===1?' viaje':' viajes')+' · '+(tripValid?money(priceTotal(trips))+' en total':'indica precios'));
    if(!result.valid){
      set('conclusion-label','COMPARACIÓN SIN COMPLETAR');
      set('recommend','Revisa los importes');
