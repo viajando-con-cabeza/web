@@ -866,3 +866,26 @@ html body .vcc-booking-gallery-modal[data-vcc-photo-label-overlay][data-vcc-phot
   bottom:5px;right:5px;left:auto;padding:2px 4px;font-size:8px;
  }
 }
+
+/* Nota de foto a la primera vista de l'itinerari, opt-in com Dónde dormir.
+   El mosaic ampliat i la vista individual ja reutilitzen els estils compartits. */
+.vcc-booking-gallery .day-mosaic[data-vcc-photo-labels] > button[data-area]::after{
+  content:attr(data-area);
+  position:absolute;z-index:3;
+  bottom:8px;right:8px;left:auto;
+  display:block;box-sizing:border-box;
+  max-width:calc(100% - 16px);
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
+  padding:2px 5px;border:1px solid rgba(255,255,255,.28);
+  border-radius:3px;background:rgba(255,255,255,.66);
+  box-shadow:0 1px 3px rgba(0,0,0,.06);
+  color:#252321;text-align:right;text-shadow:none;
+  font:700 8.5px/1.2 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
+  pointer-events:none;
+}
+@media(max-width:800px){
+ .vcc-booking-gallery .day-mosaic[data-vcc-photo-labels] > button[data-area]::after{
+  bottom:5px;right:5px;padding:2px 4px;
+  font-size:8px;max-width:calc(100% - 10px);
+ }
+}
