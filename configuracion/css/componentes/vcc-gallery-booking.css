@@ -889,3 +889,18 @@ html body .vcc-booking-gallery-modal[data-vcc-photo-label-overlay][data-vcc-phot
   font-size:8px;max-width:calc(100% - 10px);
  }
 }
+
+/* Itinerari: descripció editorial del dia a la dreta tant del mosaic
+   ampliat com de la foto individual. Conserva les etiquetes petites
+   del mosaic, i la nota fora de la foto, sense afectar altres guies. */
+@media(min-width:801px){
+ html body .vcc-booking-gallery-modal[data-vcc-photo-label-overlay][data-vcc-gallery-side-description].vcc-gallery-desktop .day-lightbox-grid-main,
+ html body .vcc-booking-gallery-modal[data-vcc-photo-label-overlay][data-vcc-gallery-side-description].vcc-gallery-desktop .day-lightbox-photo-view:not([hidden]),
+ html body .vcc-booking-gallery-modal[data-vcc-photo-label-overlay][data-vcc-gallery-side-description].vcc-gallery-desktop.vcc-gallery-viewport .day-lightbox-photo-view:not([hidden]){
+  grid-template-columns:minmax(0,1fr) minmax(245px,290px)!important;
+ }
+ html body .vcc-booking-gallery-modal[data-vcc-photo-label-overlay][data-vcc-gallery-side-description] .day-lightbox-grid-info,
+ html body .vcc-booking-gallery-modal[data-vcc-photo-label-overlay][data-vcc-gallery-side-description] .day-lightbox-info{
+  display:block!important;
+ }
+}
