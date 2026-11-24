@@ -136,3 +136,80 @@ html body.ci-page #experiencia > .ci-heading.vcc-editorial-heading > .vcc-editor
     margin-bottom:12px!important;
   }
 }
+
+/* Estocolmo · Vista més compacta de Nuestra experiencia.
+   El mosaic conserva la proporció editorial 1.26 i les 20 fotos; es
+   redueix l'amplada, no es retallen textos ni es modifica el visor. */
+html body.ci-page.ci-stockholm-tight #experiencia{
+  --vcc-experience-gallery-width:420px;
+}
+html body.ci-page.ci-stockholm-tight #experiencia .ci-august-box{
+  padding:11px 14px!important;
+}
+html body.ci-page.ci-stockholm-tight #experiencia .ci-august-experience-layout{
+  gap:15px!important;
+  margin-bottom:8px!important;
+}
+html body.ci-page.ci-stockholm-tight #experiencia .ci-august-gallery-embed{
+  margin-top:0!important;
+  margin-bottom:0!important;
+}
+html body.ci-page.ci-stockholm-tight #experiencia .ci-august-firsthand .ci-august-visit{
+  font-size:9px!important;
+  margin-bottom:4px!important;
+}
+html body.ci-page.ci-stockholm-tight #experiencia .ci-august-firsthand h3{
+  font-size:clamp(20px,1.7vw,24px)!important;
+  line-height:1.2!important;
+  margin-bottom:8px!important;
+}
+html body.ci-page.ci-stockholm-tight #experiencia .ci-august-firsthand p{
+  font-size:12px!important;
+  line-height:1.5!important;
+  margin-bottom:8px!important;
+}
+html body.ci-page.ci-stockholm-tight #experiencia .ci-august-weather-options{
+  gap:9px!important;
+  margin:2px 0 8px!important;
+}
+html body.ci-page.ci-stockholm-tight #experiencia .ci-august-plan{
+  gap:8px!important;
+  padding:10px 11px!important;
+  border-radius:8px!important;
+}
+html body.ci-page.ci-stockholm-tight #experiencia .ci-august-plan-icon{
+  width:25px!important;
+  height:25px!important;
+  flex-basis:25px!important;
+  font-size:16px!important;
+}
+html body.ci-page.ci-stockholm-tight #experiencia .ci-august-plan h4{
+  font-size:16px!important;
+  line-height:1.2!important;
+  margin-bottom:4px!important;
+}
+html body.ci-page.ci-stockholm-tight #experiencia .ci-august-plan p{
+  font-size:11.5px!important;
+  line-height:1.45!important;
+}
+@media(min-width:900px) and (max-width:1100px){
+  html body.ci-page.ci-stockholm-tight #experiencia{
+    --vcc-experience-gallery-width:350px;
+  }
+  html body.ci-page.ci-stockholm-tight #experiencia .ci-august-experience-layout.vcc-experience-gallery-grid{
+    grid-template-columns:minmax(0,min(40%,var(--vcc-experience-gallery-width))) minmax(0,1fr)!important;
+    gap:13px!important;
+  }
+}
+@media(max-width:700px){
+  html body.ci-page.ci-stockholm-tight #experiencia .ci-august-box{
+    padding:10px 11px!important;
+  }
+  html body.ci-page.ci-stockholm-tight #experiencia .ci-august-firsthand p{
+    font-size:12px!important;
+    line-height:1.55!important;
+  }
+  html body.ci-page.ci-stockholm-tight #experiencia .ci-august-plan{
+    padding:11px 12px!important;
+  }
+}
