@@ -2099,3 +2099,63 @@
   flex:0 0 156px;height:156px;min-height:156px;
  }
 }
+
+
+/* VCC · Prioridad visual consistente: importe por persona antes que importe total.
+   El ahorro se escribe en dos líneas; el verde se reserva a las cifras. */
+#vcc-transporte-comparador .tc-compare-item-detail{
+ display:flex;flex-direction:column;align-items:flex-start;gap:2px;
+ color:#615d56;
+}
+#vcc-transporte-comparador .tc-compare-saving-line{
+ display:block;width:100%;line-height:1.3;white-space:normal;
+ color:#615d56;
+}
+#vcc-transporte-comparador .tc-compare-saving-line--person{
+ font-size:10.2px;line-height:1.3;
+}
+#vcc-transporte-comparador .tc-compare-saving-number--person{
+ color:#17834c;font-size:14px;font-weight:800;line-height:1.12;
+ font-variant-numeric:tabular-nums;
+}
+#vcc-transporte-comparador .tc-compare-saving-line--person .tc-compare-saving-text{
+ color:#615d56;font-size:10px;font-weight:500;
+}
+#vcc-transporte-comparador .tc-compare-saving-line--total{
+ font-size:8.8px;line-height:1.2;
+}
+#vcc-transporte-comparador .tc-compare-saving-number--total{
+ color:#17834c;font-size:9.5px;font-weight:700;line-height:1.2;
+ font-variant-numeric:tabular-nums;
+}
+#vcc-transporte-comparador .tc-compare-saving-line--total .tc-compare-saving-text{
+ color:#756f69;font-size:8.7px;font-weight:500;
+}
+#vcc-transporte-comparador .tc-compare-item-cost{
+ font-size:13px;font-weight:600;line-height:1.1;
+}
+/* Footer de coche, billetes y abonos: mismo criterio tipográfico. */
+#vcc-transporte-comparador .tc-option .tc-option-costs>div:first-child strong,
+#vcc-transporte-comparador .tc-option.tc-winner .tc-option-costs>div:first-child strong{
+ font-size:22px;line-height:1.1;
+}
+#vcc-transporte-comparador .tc-option .tc-option-costs>div:last-child strong,
+#vcc-transporte-comparador .tc-option.tc-winner .tc-option-costs>div:last-child strong{
+ font-size:16px;line-height:1.15;
+}
+@media(max-width:620px){
+ #vcc-transporte-comparador .tc-compare-saving-number--person{
+  font-size:13px;
+ }
+ #vcc-transporte-comparador .tc-compare-saving-number--total{
+  font-size:9px;
+ }
+ #vcc-transporte-comparador .tc-option .tc-option-costs>div:first-child strong,
+ #vcc-transporte-comparador .tc-option.tc-winner .tc-option-costs>div:first-child strong{
+  font-size:20px;
+ }
+ #vcc-transporte-comparador .tc-option .tc-option-costs>div:last-child strong,
+ #vcc-transporte-comparador .tc-option.tc-winner .tc-option-costs>div:last-child strong{
+  font-size:15px;
+ }
+}
