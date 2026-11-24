@@ -6,32 +6,39 @@
  'use strict';
  const finite=value=>typeof value==='number'&&Number.isFinite(value)&&value>=0;
  const amount=value=>value===''||value===undefined||value===null?null:Number(value);
+ // Un importe sin rellenar vale cero; un valor negativo o no numérico sigue siendo inválido.
+ const cost=value=>value===''||value===undefined||value===null?0:Number(value);
  const clamp=(value,min,max)=>Math.min(max,Math.max(min,Number.isFinite(Number(value))?Math.trunc(Number(value)):min));
  const format=(value,currency)=>new Intl.NumberFormat('es-ES',{maximumFractionDigits:2}).format(value)+' '+currency;
- const priceTotal=trips=>trips.reduce((sum,t)=>sum+Number(t.price)*clamp(t.people??1,1,30),0);
+ const priceTotal=trips=>trips.reduce((sum,t)=>sum+cost(t.price)*clamp(t.people??1,1,30),0);
  // La cobertura de un título no se infiere de su descripción:
  // el usuario introduce el precio de cada abono y los billetes no cubiertos.
  function planBonuses(trips,passes,bonusExtras=[]){
    const active=(passes||[]).filter(pass=>pass.units!==0);
    if(!active.length&&!bonusExtras.length)return {valid:false,reason:'Añade al menos un abono o billete.'};
-   if(active.length>30||active.some(pass=>!finite(amount(pass.price))||!Number.isInteger(Number(pass.people??1))||Number(pass.people??1)<1||Number(pass.people??1)>30))
-     return {valid:false,reason:'Indica el precio de cada abono.'};
-   if(bonusExtras.some(ticket=>!finite(ticket.price)||!Number.isInteger(Number(ticket.people??1))||Number(ticket.people??1)<1||Number(ticket.people??1)>30))
+   if(active.length>30||active.some(pass=>!finite(cost(pass.price))||!Number.isInteger(Number(pass.people??1))||Number(pass.people??1)<1||Number(pass.people??1)>30))
+     return {valid:false,reason:'Revisa los importes y las personas de los abonos.'};
+   if(bonusExtras.some(ticket=>!finite(cost(ticket.price))||!Number.isInteger(Number(ticket.people??1))||Number(ticket.people??1)<1||Number(ticket.people??1)>30))
      return {valid:false,reason:'Revisa el precio de los billetes complementarios.'};
-   const prepaid=active.reduce((sum,pass)=>sum+Number(pass.price)*Number(pass.people??1),0);
-   const remaining=bonusExtras.reduce((sum,ticket)=>sum+Number(ticket.price)*Number(ticket.people??1),0);
+   const prepaid=active.reduce((sum,pass)=>sum+cost(pass.price)*Number(pass.people??1),0);
+   const remaining=bonusExtras.reduce((sum,ticket)=>sum+cost(ticket.price)*Number(ticket.people??1),0);
    return {valid:true,cost:prepaid+remaining,prepaid,remaining,covered:null,units:active.length,
      approximate:false,manual:true,description:active.length+' abono(s) más '+bonusExtras.length+' billete(s) extra'};
  }
  function compare({trips=[],people=2,car={},passes=[],bonusExtras=[],days=3}={}){
    const travellers=clamp(people,1,30),duration=clamp(days,1,14);
-   const individualValid=trips.length>0&&trips.every(t=>finite(t.price)&&Number.isInteger(t.day)&&t.day>=1&&t.day<=31&&Number.isInteger(Number(t.people??1))&&Number(t.people??1)>=1&&Number(t.people??1)<=30);
+   const individualValid=trips.length>0&&trips.every(t=>finite(cost(t.price))&&Number.isInteger(t.day)&&t.day>=1&&t.day<=31&&Number.isInteger(Number(t.people??1))&&Number(t.people??1)>=1&&Number(t.people??1)<=30);
    const individual=individualValid?priceTotal(trips):null;
    const bonus=planBonuses(trips,passes,bonusExtras);
    const offers=[...(individualValid?[{type:'individual',cost:individual}]:[]),...(bonus.valid?[{type:'bonus',cost:bonus.cost}]:[])].sort((a,b)=>a.cost-b.cost);
    const publicMode=offers[0]?.type||null,publicTotal=offers[0]?.cost??null,publicCost=publicTotal===null?null:publicTotal/travellers;
-   const rent=car.owned?0:amount(car.rental),fuel=amount(car.fuel),parking=amount(car.parking)??0,tolls=amount(car.tolls)??0,extras=amount(car.extras)??0;
-   const carValid=[rent,fuel,parking,tolls,extras].every(finite);
+   const rent=car.owned?0:cost(car.rental),fuel=cost(car.fuel),
+     parking=cost(car.parking),tolls=cost(car.tolls),extras=cost(car.extras);
+   // No recomendar un coche a coste cero cuando el formulario está totalmente sin usar.
+   // Una vez indicado un coste (o coche propio), los demás huecos cuentan como cero.
+   const hasCarInput=car.owned||['rental','fuel','parking','tolls','extras']
+     .some(field=>car[field]!==''&&car[field]!==null&&car[field]!==undefined);
+   const carValid=hasCarInput&&[rent,fuel,parking,tolls,extras].every(finite);
    const carTotal=carValid?rent+fuel+parking*duration+tolls+extras:null;
    const alternatives=[
      ...(individualValid?[{type:'individual',cost:individual}]:[]),
@@ -142,7 +149,7 @@
      if(!item)return;
      const field=event.target.dataset.field;
      if(field==='label')item.label=event.target.value.slice(0,type==='trip'?42:48);
-     if(field==='price')item.price=event.target.value===''?NaN:Number(event.target.value);
+     if(field==='price')item.price=event.target.value===''?null:Number(event.target.value);
      if(field==='people')item.people=event.target.value===''?NaN:Number(event.target.value);
      update(true);
    });
@@ -167,7 +174,7 @@
    const list=$('comparison-items');list.replaceChildren();
    const candidates=[
      {type:'car',name:'Coche',total:result.carValid?result.carTotal:null,
-       issue:'Pendiente: introduce alquiler y combustible'},
+       issue:'Pendiente: indica algún coste del coche'},
      {type:'individual',name:'Billetes sueltos',total:result.individualTotal,issue:''},
      {type:'bonus',name:bonusPasses().length?'Abonos y pases':'Billetes personalizados',
        total:result.bonus.valid?result.bonus.cost:null,
@@ -187,9 +194,16 @@
      }else{
        const difference=Math.max(0,candidate.total-best.total);
        row.dataset.state=difference>0.005?'positive':'equal';
-       detail.textContent=difference>0.005?
-         'Ahorras '+money(difference/travellers)+' / persona · '+money(difference)+' en total':
-         'Mismo precio que la opción recomendada';
+       if(difference>0.005){
+         const one=el('span','tc-compare-saving-line');
+         one.append(el('span','tc-compare-saving-text','Ahorras '),
+           el('strong','tc-compare-saving-number',money(difference/travellers)),
+           el('span','tc-compare-saving-text',' / persona'));
+         const group=el('span','tc-compare-saving-line tc-compare-saving-total');
+         group.append(el('strong','tc-compare-saving-number',money(difference)),
+           el('span','tc-compare-saving-text',' en total'));
+         detail.append(one,group);
+       }else detail.textContent='Mismo precio que la opción recomendada';
      }
      row.append(first,detail);
      list.append(row);
@@ -265,11 +279,11 @@
    ].filter(value=>value!==null);
    const isTie=comparableTotals.filter(value=>Math.abs(value-result.choiceTotal)<0.005).length>1;
    const reason=!result.carValid?
-     'Comparación provisional: informa alquiler y combustible para incluir el coche.':
+     'Comparación provisional: añade algún coste del coche para incluirlo.':
      !result.individualValid?
-       'Comparación provisional: añade viajes y precios para incluir los billetes.':
+       'Comparación provisional: añade algún viaje para incluir los billetes.':
      !result.bonus.valid?
-       'Comparación provisional: revisa los precios y la cobertura de los abonos.':
+       'Comparación provisional: añade un abono o billete para compararlo.':
      isTie?
        'Hay un empate en el precio más bajo; elige según comodidad y recorrido.':
      result.choice==='car'?
@@ -278,7 +292,7 @@
        'La combinación que has indicado cuesta menos. Revisa la validez y cobertura de los títulos.':
        'Los billetes individuales son la alternativa más económica.';
    set('recommend-note',reason);
-   set('sim-note','SIMULACIÓN · Multiplicamos el importe por el número de personas indicado en cada entrada. Comprueba precios y cobertura.');
+   set('sim-note','SIMULACIÓN · Los importes vacíos cuentan como 0. Cada importe se multiplica por las personas indicadas. Comprueba precios y cobertura.');
  }
  $('add-pass').addEventListener('click',()=>{
    if(bonusItems.length>=40)return;
