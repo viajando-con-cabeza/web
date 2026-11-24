@@ -2033,3 +2033,59 @@
  #vcc-transporte-comparador .tc-result-amounts strong{font-size:16px}
  #vcc-transporte-comparador .tc-compare-item{padding:3px}
 }
+
+
+/* VCC · 24/11/2026 · Estalvi explícit: només l'import en verd.
+   Dos renglons llegibles per alternativa, fins i tot a amplades reduïdes. */
+#vcc-transporte-comparador .tc-compare-item{
+ gap:5px;padding:6px 8px;
+}
+#vcc-transporte-comparador .tc-compare-item-heading{
+ align-items:baseline;gap:4px 8px;
+}
+#vcc-transporte-comparador .tc-compare-item-name{
+ font-size:9.5px;line-height:1.25;
+}
+#vcc-transporte-comparador .tc-compare-item-cost{
+ color:#303630;font-size:12.5px;line-height:1.15;
+}
+#vcc-transporte-comparador .tc-compare-item-detail{
+ display:flex;flex-direction:column;gap:2px;
+ color:#615d56;font-size:10px;font-weight:500;line-height:1.32;
+}
+#vcc-transporte-comparador .tc-compare-saving-line{
+ display:block;color:#615d56;white-space:normal;
+}
+#vcc-transporte-comparador .tc-compare-saving-number{
+ color:#17834c;font-weight:750;font-size:11px;line-height:1.25;
+ font-variant-numeric:tabular-nums;
+}
+#vcc-transporte-comparador .tc-compare-saving-text{
+ color:#615d56;font-weight:500;font-size:9.5px;
+}
+#vcc-transporte-comparador .tc-compare-saving-total{
+ color:#615d56;
+}
+#vcc-transporte-comparador .tc-compare-item[data-state="pending"] .tc-compare-item-detail,
+#vcc-transporte-comparador .tc-compare-item[data-state="equal"] .tc-compare-item-detail{
+ font-size:9.5px;color:#827971;
+}
+@media(max-width:620px){
+ #vcc-transporte-comparador .tc-comparison-items{
+  gap:5px;
+ }
+ #vcc-transporte-comparador .tc-compare-item{
+  padding:5px 6px;
+ }
+ #vcc-transporte-comparador .tc-compare-item-cost{
+  font-size:11.5px;
+ }
+ #vcc-transporte-comparador .tc-compare-saving-number{
+  font-size:10.5px;
+ }
+}
+@media(max-width:390px){
+ #vcc-transporte-comparador .tc-comparison-items{
+  grid-template-columns:minmax(0,1fr);
+ }
+}
