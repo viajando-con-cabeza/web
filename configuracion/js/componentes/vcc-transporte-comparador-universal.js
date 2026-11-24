@@ -182,30 +182,27 @@
    const best=candidates.find(candidate=>candidate.type===result.choice);
    if(!best)return;
    candidates.filter(candidate=>candidate.type!==result.choice).forEach(candidate=>{
-     const row=el('div','tc-compare-item');
-     const first=el('div','tc-compare-item-heading');
-     first.append(el('span','tc-compare-item-name',candidate.name),
-       el('strong','tc-compare-item-cost',candidate.total===null?'—':money(candidate.total/travellers)+' / persona'));
-     const detail=el('div','tc-compare-item-detail');
+     const row=el('p','tc-compare-item');
+     row.append(el('span','tc-compare-item-name','Frente a '+candidate.name+': '));
      if(candidate.total===null){
        row.dataset.state='pending';
-       detail.textContent=candidate.issue;
+       row.append(el('span','tc-compare-missing',candidate.issue));
      }else{
        const difference=Math.max(0,candidate.total-best.total);
        row.dataset.state=difference>0.005?'positive':'equal';
        if(difference>0.005){
-         const one=el('span','tc-compare-saving-line tc-compare-saving-line--person');
-         one.append(el('span','tc-compare-saving-text','Ahorras '),
+         const sentence=el('span','tc-compare-sentence');
+         sentence.append(
+           el('span','tc-compare-saving-text','Ahorras '),
            el('strong','tc-compare-saving-number tc-compare-saving-number--person',money(difference/travellers)),
-           el('span','tc-compare-saving-text',' / persona'));
-         const group=el('span','tc-compare-saving-line tc-compare-saving-line--total');
-         group.append(el('span','tc-compare-saving-text','Ahorras '),
+           el('span','tc-compare-saving-text','/pax '),
+           el('span','tc-compare-total-wrap','('),
            el('strong','tc-compare-saving-number tc-compare-saving-number--total',money(difference)),
-           el('span','tc-compare-saving-text',' en total'));
-         detail.append(one,group);
-       }else detail.textContent='Mismo precio que la opción recomendada';
+           el('span','tc-compare-total-wrap',' en total)')
+         );
+         row.append(sentence);
+       }else row.append(el('span','tc-compare-missing','Mismo coste'));
      }
-     row.append(first,detail);
      list.append(row);
    });
    const validRivals=candidates.filter(candidate=>candidate.type!==result.choice&&candidate.total!==null)
