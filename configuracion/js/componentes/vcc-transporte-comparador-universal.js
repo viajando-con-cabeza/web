@@ -72,14 +72,13 @@
    return node;
  };
  const set=(id,label)=>{const node=$(id);if(node)node.textContent=label;};
- const defaultDays=[1,1,2,2,2,3,3];
  let nextTrip=0,nextPass=0;
- const basePrice=()=>valueFor(singles)??0;
- let trips=defaultDays.map((day,i)=>({id:++nextTrip,day,label:'Viaje '+(i+1),people:2,price:basePrice()}));
+ // Estado inicial neutral: una fila de cada modalidad, ambas con coste cero.
+ let trips=[{id:++nextTrip,day:1,label:'Viaje 1',people:2,price:0}];
  function passFromPreset(src){
    return {id:++nextPass,kind:'abono',preset:src?.id||'custom',label:src?.label||'Abono personalizado',
      type:src?.type||'rides',quantity:Number(src?.quantity||10),
-     price:src?valueFor(src):null,people:2,units:1,simulation:false};
+     price:0,people:2,units:1,simulation:false};
  }
  let bonusItems=[passFromPreset(presets.find(t=>t.quantity===72&&t.type==='hours')||presets[0])];
  const bonusPasses=()=>bonusItems.filter(item=>item.kind==='abono');
@@ -195,12 +194,13 @@
        const difference=Math.max(0,candidate.total-best.total);
        row.dataset.state=difference>0.005?'positive':'equal';
        if(difference>0.005){
-         const one=el('span','tc-compare-saving-line');
+         const one=el('span','tc-compare-saving-line tc-compare-saving-line--person');
          one.append(el('span','tc-compare-saving-text','Ahorras '),
-           el('strong','tc-compare-saving-number',money(difference/travellers)),
+           el('strong','tc-compare-saving-number tc-compare-saving-number--person',money(difference/travellers)),
            el('span','tc-compare-saving-text',' / persona'));
-         const group=el('span','tc-compare-saving-line tc-compare-saving-total');
-         group.append(el('strong','tc-compare-saving-number',money(difference)),
+         const group=el('span','tc-compare-saving-line tc-compare-saving-line--total');
+         group.append(el('span','tc-compare-saving-text','Ahorras '),
+           el('strong','tc-compare-saving-number tc-compare-saving-number--total',money(difference)),
            el('span','tc-compare-saving-text',' en total'));
          detail.append(one,group);
        }else detail.textContent='Mismo precio que la opción recomendada';
@@ -297,14 +297,14 @@
  $('add-pass').addEventListener('click',()=>{
    if(bonusItems.length>=40)return;
    bonusItems.push({id:++nextPass,kind:'abono',label:'Abono '+(bonusItems.length+1),
-     price:null,people:clamp($('people').value,1,30),units:1,simulation:true});
+     price:0,people:clamp($('people').value,1,30),units:1,simulation:true});
    update();
    const list=$('bonus-preview');list.scrollTop=list.scrollHeight;
  });
  $('add-trip').addEventListener('click',()=>{
    if(trips.length>=40)return;
    trips.push({id:++nextTrip,day:1,label:'Viaje '+(trips.length+1),
-     price:basePrice(),people:clamp($('people').value,1,30)});
+     price:0,people:clamp($('people').value,1,30)});
    update();
    const list=$('trip-preview');list.scrollTop=list.scrollHeight;
  });
