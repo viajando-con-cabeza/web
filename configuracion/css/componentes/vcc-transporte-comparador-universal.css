@@ -1810,7 +1810,8 @@
  white-space:nowrap;
 }
 #vcc-transporte-comparador .tc-selected{
- flex:0 0 108px;height:108px;min-height:108px;
+ /* Crece hasta el pie de la tarjeta: mismo comportamiento para viajes y abonos. */
+ flex:1 1 108px;height:auto;min-height:108px;min-width:0;
  margin:0;padding:4px 5px;gap:2px;
  border-radius:7px;border-color:#eae8e5;background:#fdfcfb;
 }
@@ -1831,7 +1832,8 @@
  font-size:8.7px;line-height:1;
 }
 #vcc-transporte-comparador .tc-selected-items{
- flex:1 1 auto;min-height:0;height:84px;max-height:84px;
+ /* Solo esta lista desplaza; el panel gris ocupa todo el hueco disponible. */
+ flex:1 1 0;min-height:0;height:0;max-height:none;
  grid-auto-rows:max-content;align-content:start;
  gap:2px;padding:0 4px 0 0;
  overflow-x:hidden;overflow-y:auto;
@@ -2087,5 +2089,13 @@
 @media(max-width:390px){
  #vcc-transporte-comparador .tc-comparison-items{
   grid-template-columns:minmax(0,1fr);
+ }
+}
+
+
+/* A una sola columna ambas listas mantienen la misma altura y scroll. */
+@media(max-width:999px){
+ #vcc-transporte-comparador .tc-option:is(.tc-option-individual,.tc-option-bonus) .tc-selected{
+  flex:0 0 156px;height:156px;min-height:156px;
  }
 }
