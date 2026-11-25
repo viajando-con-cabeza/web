@@ -1,7 +1,7 @@
 /* VCC · Comparador compacto: coche, billetes individuales y abonos.
    Tarifas orientativas: window.VCCTransportDestination (por destino).
-   Los abonos y billetes extra se introducen por persona; el motor no
-   deduce su cobertura ni exige horarios. Edición directa en cada ficha. */
+   Cada entrada indica cantidad de títulos y precio por título; viajeros
+   define el divisor del coste total. Sin inferir coberturas ni horarios. */
 (function(root){
  'use strict';
  const finite=value=>typeof value==='number'&&Number.isFinite(value)&&value>=0;
@@ -10,24 +10,26 @@
  const cost=value=>value===''||value===undefined||value===null?0:Number(value);
  const clamp=(value,min,max)=>Math.min(max,Math.max(min,Number.isFinite(Number(value))?Math.trunc(Number(value)):min));
  const format=(value,currency)=>new Intl.NumberFormat('es-ES',{maximumFractionDigits:2}).format(value)+' '+currency;
- const priceTotal=trips=>trips.reduce((sum,t)=>sum+cost(t.price)*clamp(t.people??1,1,30),0);
+ const unitCount=item=>Number(item?.count??item?.people??1); // Compatibilidad con comparaciones anteriores.
+ const validPrice=value=>value!==null&&value!==undefined&&value!==''&&finite(Number(value));
+ const priceTotal=trips=>trips.reduce((sum,t)=>sum+Number(t.price)*clamp(unitCount(t),1,30),0);
  // La cobertura de un título no se infiere de su descripción:
  // el usuario introduce el precio de cada abono y los billetes no cubiertos.
  function planBonuses(trips,passes,bonusExtras=[]){
    const active=(passes||[]).filter(pass=>pass.units!==0);
    if(!active.length&&!bonusExtras.length)return {valid:false,reason:'Añade al menos un abono o billete.'};
-   if(active.length>30||active.some(pass=>!finite(cost(pass.price))||!Number.isInteger(Number(pass.people??1))||Number(pass.people??1)<1||Number(pass.people??1)>30))
-     return {valid:false,reason:'Revisa los importes y las personas de los abonos.'};
-   if(bonusExtras.some(ticket=>!finite(cost(ticket.price))||!Number.isInteger(Number(ticket.people??1))||Number(ticket.people??1)<1||Number(ticket.people??1)>30))
-     return {valid:false,reason:'Revisa el precio de los billetes complementarios.'};
-   const prepaid=active.reduce((sum,pass)=>sum+cost(pass.price)*Number(pass.people??1),0);
-   const remaining=bonusExtras.reduce((sum,ticket)=>sum+cost(ticket.price)*Number(ticket.people??1),0);
+   if(active.length>30||active.some(pass=>!validPrice(pass.price)||!Number.isInteger(unitCount(pass))||unitCount(pass)<1||unitCount(pass)>30))
+     return {valid:false,reason:'Indica el precio y el nº de cada abono.'};
+   if(bonusExtras.some(ticket=>!validPrice(ticket.price)||!Number.isInteger(unitCount(ticket))||unitCount(ticket)<1||unitCount(ticket)>30))
+     return {valid:false,reason:'Indica el precio y el nº de los billetes extra.'};
+   const prepaid=active.reduce((sum,pass)=>sum+Number(pass.price)*unitCount(pass),0);
+   const remaining=bonusExtras.reduce((sum,ticket)=>sum+Number(ticket.price)*unitCount(ticket),0);
    return {valid:true,cost:prepaid+remaining,prepaid,remaining,covered:null,units:active.length,
      approximate:false,manual:true,description:active.length+' abono(s) más '+bonusExtras.length+' billete(s) extra'};
  }
  function compare({trips=[],people=2,car={},passes=[],bonusExtras=[],days=3}={}){
    const travellers=clamp(people,1,30),duration=clamp(days,1,14);
-   const individualValid=trips.length>0&&trips.every(t=>finite(cost(t.price))&&Number.isInteger(t.day)&&t.day>=1&&t.day<=31&&Number.isInteger(Number(t.people??1))&&Number(t.people??1)>=1&&Number(t.people??1)<=30);
+   const individualValid=trips.length>0&&trips.every(t=>validPrice(t.price)&&Number.isInteger(t.day)&&t.day>=1&&t.day<=31&&Number.isInteger(unitCount(t))&&unitCount(t)>=1&&unitCount(t)<=30);
    const individual=individualValid?priceTotal(trips):null;
    const bonus=planBonuses(trips,passes,bonusExtras);
    const offers=[...(individualValid?[{type:'individual',cost:individual}]:[]),...(bonus.valid?[{type:'bonus',cost:bonus.cost}]:[])].sort((a,b)=>a.cost-b.cost);
@@ -73,20 +75,19 @@
  };
  const set=(id,label)=>{const node=$(id);if(node)node.textContent=label;};
  let nextTrip=0,nextPass=0;
- // Estado inicial neutral: una fila de cada modalidad, ambas con coste cero.
- let trips=[{id:++nextTrip,day:1,label:'Viaje 1',people:2,price:0}];
+ // Estado inicial neutral: sin billetes ni abonos hasta que el viajero los añada.
+ let trips=[];
  function passFromPreset(src){
    return {id:++nextPass,kind:'abono',preset:src?.id||'custom',label:src?.label||'Abono personalizado',
      type:src?.type||'rides',quantity:Number(src?.quantity||10),
-     price:0,people:2,units:1,simulation:false};
+     price:null,count:1,units:1,simulation:false};
  }
- let bonusItems=[passFromPreset(presets.find(t=>t.quantity===72&&t.type==='hours')||presets[0])];
+ let bonusItems=[];
  const bonusPasses=()=>bonusItems.filter(item=>item.kind==='abono');
  const bonusTickets=()=>bonusItems.filter(item=>item.kind==='billete');
  const findPass=id=>bonusItems.find(p=>p.id===id);
  const findTrip=id=>trips.find(t=>t.id===id);
- const rowsCount=items=>items.reduce((sum,item)=>sum+Number(item.people||0),0);
- // Entradas editables siempre visibles: descripción, personas e importe por persona.
+ // Cada fila representa una cantidad de billetes o abonos, no de viajeros.
  // La lista admite borrado directo sin ventanas flotantes.
  function renderSelectionSummaries(){
    const populate=(id,items,empty,isBonus)=>{
@@ -95,8 +96,8 @@
      if(!items.length){target.append(el('span','tc-selected-empty',empty));return;}
      // Un sol encabezado por lista: ambas tienen el mismo formato compacto.
      // Abonos añade únicamente la columna de tipo.
-     const headers=isBonus?['Tipo','Descripción','Personas','Importe · '+currency,'']:
-       ['Descripción','Personas','Importe · '+currency,''];
+     const headers=isBonus?['Tipo','Descripción','Nº títulos','Precio/u · '+currency,'']:
+       ['Descripción','Nº billetes','Precio/u · '+currency,''];
      const columns=el('div','tc-entry-columns'+(isBonus?' tc-entry-bonus':''));
      for(const title of headers)columns.append(el('span','',title));
      target.append(columns);
@@ -107,8 +108,8 @@
          const input=el('input','tc-entry-input');input.dataset.field=name;
          input.type=inputType;input.value=value===null||value===undefined||Number.isNaN(value)?'':String(value);
          if(inputType==='number'){
-           input.min=name==='people'?'1':'0';input.max=name==='people'?'30':'1000000';
-           input.step=name==='people'?'1':'0.01';input.inputMode=name==='people'?'numeric':'decimal';
+           input.min=name==='count'?'1':'0';input.max=name==='count'?'30':'1000000';
+           input.step=name==='count'?'1':'0.01';input.inputMode=name==='count'?'numeric':'decimal';
          }else{input.maxLength=isBonus?48:42;input.autocomplete='off';}
          input.setAttribute('aria-label',label+' '+(i+1));
          wrap.append(title,input);return wrap;
@@ -121,9 +122,10 @@
          }
          select.value=item.kind;kind.append(el('span','','Tipo'),select);row.append(kind);
        }
+       const countLabel=isBonus?(item.kind==='abono'?'Nº abonos':'Nº billetes'):'Nº billetes';
        row.append(field('Descripción','label',item.label||'','text'),
-         field('Personas','people',item.people??1,'number'),
-         field('Importe · '+currency,'price',item.price,'number'));
+         field(countLabel,'count',unitCount(item),'number'),
+         field('Precio/u · '+currency,'price',item.price,'number'));
        const del=el('button','tc-entry-delete','×');del.type='button';
        del.dataset.action='delete';del.title='Eliminar '+(item.label||'entrada');
        del.setAttribute('aria-label',del.title);
@@ -149,7 +151,7 @@
      const field=event.target.dataset.field;
      if(field==='label')item.label=event.target.value.slice(0,type==='trip'?42:48);
      if(field==='price')item.price=event.target.value===''?null:Number(event.target.value);
-     if(field==='people')item.people=event.target.value===''?NaN:Number(event.target.value);
+     if(field==='count')item.count=event.target.value===''?NaN:Number(event.target.value);
      update(true);
    });
    list.addEventListener('change',event=>{
@@ -232,18 +234,22 @@
    const result=root.VCCTransportCompareCore.compare({
      trips,people:travellers,car,passes:bonusPasses(),bonusExtras:bonusTickets(),days:$('days').value});
    // La cantidad vive junto al rótulo de precios; los totales ya están en el pie.
-   set('trip-count',trips.length+' viajes');
+   set('trip-count',trips.length+(trips.length===1?' viaje':' viajes'));
+   const advicePanel=container.querySelector('.tc-result');
+   if(advicePanel)advicePanel.dataset.state=result.valid?(result.unfinished?'partial':'complete'):'empty';
    if(!result.valid){
-     set('conclusion-label','COMPARACIÓN SIN COMPLETAR');
-     set('recommend','Revisa los importes');
+     for(const element of container.querySelectorAll('.tc-option.tc-winner'))element.classList.remove('tc-winner');
+     set('conclusion-label','AÚN SIN COMPARACIÓN');
+     set('recommend','Añade tus datos');
      const savingBox=$('saving')?.closest('.tc-saving');
      if(savingBox)savingBox.dataset.state='pending';
      set('saving-label','Ahorro pendiente de comparar');
-     set('saving-detail','por persona');
+     set('saving-detail','');
+     set('bonus-note',result.reason);
      $('comparison-items').replaceChildren();
      for(const id of ['individual-person','individual-group','bonus-person','bonus-group','car-person','car-group','recommend-person','recommend-group','saving'])set(id,'—');
      set('group-label',travellers+(travellers===1?' viajero':' viajeros'));
-     set('recommend-note',result.reason);return;
+     set('recommend-note','Introduce tus billetes, abonos o costes del coche para comparar.');return;
    }
    set('individual-person',result.individualValid?money(result.individual):'—');
    set('individual-group',result.individualValid?money(result.individualTotal):'—');
@@ -251,7 +257,7 @@
    set('bonus-group',result.bonus.valid?money(result.bonus.cost):'—');
    set('car-person',result.carValid?money(result.carTotal/travellers):'—');
    set('car-group',result.carValid?money(result.carTotal):'—');
-   set('bonus-note',result.bonus.valid?'Cada importe es por persona y título. Revisa qué cubre cada abono.':result.bonus.reason);
+   set('bonus-note',result.bonus.valid?'Precio por título × nº de títulos. Comprueba qué cubre cada abono.':result.bonus.reason);
    const bestPublic=result.publicMode==='bonus'?'Bono':'Billetes';
    set('best-public',result.publicCost===null?'':('Mejor: '+bestPublic+' · '+money(result.publicCost)+' / persona'));
    const mark=(selector,chosen)=>{
@@ -261,7 +267,7 @@
    mark('.tc-option-car',result.choice==='car');
    mark('.tc-option-individual',result.choice==='individual');
    mark('.tc-option-bonus',result.choice==='bonus');
-   set('conclusion-label',result.unfinished?'MEJOR ENTRE LOS IMPORTES DISPONIBLES · VCC':'OPCIÓN MÁS ECONÓMICA · VCC');
+   set('conclusion-label',result.unfinished?'RESULTADO PROVISIONAL':'OPCIÓN MÁS ECONÓMICA');
    const title=result.choice==='car'?'Coche':
       result.choice==='bonus'?(bonusPasses().length?(bonusTickets().length?'Abonos y billetes':'Abonos'):'Billetes personalizados'):'Billetes sueltos';
    set('recommend',title);
@@ -275,33 +281,29 @@
      result.carValid?result.carTotal:null
    ].filter(value=>value!==null);
    const isTie=comparableTotals.filter(value=>Math.abs(value-result.choiceTotal)<0.005).length>1;
-   const reason=!result.carValid?
-     'Comparación provisional: añade algún coste del coche para incluirlo.':
-     !result.individualValid?
-       'Comparación provisional: añade algún viaje para incluir los billetes.':
-     !result.bonus.valid?
-       'Comparación provisional: añade un abono o billete para compararlo.':
+   const reason=result.unfinished?
+       'Mejor entre las opciones con precio: completa las restantes para confirmarlo.':
      isTie?
-       'Hay un empate en el precio más bajo; elige según comodidad y recorrido.':
+       'Empate en el precio: elige según comodidad y recorrido.':
      result.choice==='car'?
-       'Con estos importes, el coche cuesta menos; revisa aparcamiento y accesos.':
+       'El coche sale más barato con tus importes; revisa el aparcamiento.':
      result.choice==='bonus'?
-       'La combinación que has indicado cuesta menos. Revisa la validez y cobertura de los títulos.':
-       'Los billetes individuales son la alternativa más económica.';
+       'Los abonos y billetes indicados cuestan menos; comprueba su cobertura.':
+       'Los billetes sueltos son la opción más económica con estos importes.';
    set('recommend-note',reason);
-   set('sim-note','SIMULACIÓN · Los importes vacíos cuentan como 0. Cada importe se multiplica por las personas indicadas. Comprueba precios y cobertura.');
+   set('sim-note','SIMULACIÓN · Cada precio se multiplica por el nº de billetes o abonos; el total se reparte entre los viajeros. Comprueba precios y cobertura.');
  }
  $('add-pass').addEventListener('click',()=>{
    if(bonusItems.length>=40)return;
    bonusItems.push({id:++nextPass,kind:'abono',label:'Abono '+(bonusItems.length+1),
-     price:0,people:clamp($('people').value,1,30),units:1,simulation:true});
+     price:null,count:1,units:1,simulation:true});
    update();
    const list=$('bonus-preview');list.scrollTop=list.scrollHeight;
  });
  $('add-trip').addEventListener('click',()=>{
    if(trips.length>=40)return;
    trips.push({id:++nextTrip,day:1,label:'Viaje '+(trips.length+1),
-     price:0,people:clamp($('people').value,1,30)});
+     price:null,count:1});
    update();
    const list=$('trip-preview');list.scrollTop=list.scrollHeight;
  });
