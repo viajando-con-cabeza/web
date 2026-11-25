@@ -141,7 +141,7 @@ html body.ci-page #experiencia > .ci-heading.vcc-editorial-heading > .vcc-editor
    El mosaic conserva la proporció editorial 1.26 i les 20 fotos; es
    redueix l'amplada, no es retallen textos ni es modifica el visor. */
 html body.ci-page.ci-stockholm-tight #experiencia{
-  --vcc-experience-gallery-width:390px;
+  --vcc-experience-gallery-width:340px;
 }
 html body.ci-page.ci-stockholm-tight #experiencia .ci-august-box{
   padding:11px 14px!important;
@@ -247,15 +247,15 @@ html body.ci-page.ci-stockholm-tight #experiencia .ci-august-plan{
 }
 @media(min-width:1101px){
   html body.ci-page.ci-stockholm-tight #experiencia .ci-august-experience-layout.vcc-experience-gallery-grid{
-    grid-template-columns:minmax(0,min(37%,390px)) minmax(0,1fr)!important;
+    grid-template-columns:minmax(0,min(35%,340px)) minmax(0,1fr)!important;
   }
 }
 @media(min-width:900px) and (max-width:1100px){
   html body.ci-page.ci-stockholm-tight #experiencia{
-    --vcc-experience-gallery-width:340px;
+    --vcc-experience-gallery-width:310px;
   }
   html body.ci-page.ci-stockholm-tight #experiencia .ci-august-experience-layout.vcc-experience-gallery-grid{
-    grid-template-columns:minmax(0,min(39%,340px)) minmax(0,1fr)!important;
+    grid-template-columns:minmax(0,min(38%,310px)) minmax(0,1fr)!important;
   }
 }
 @media(max-width:899px){
@@ -264,8 +264,8 @@ html body.ci-page.ci-stockholm-tight #experiencia .ci-august-plan{
     gap:10px!important;
   }
   html body.ci-page.ci-stockholm-tight #experiencia .ci-august-gallery-embed{
-    width:min(100%,390px)!important;
-    max-width:390px!important;
+    width:min(100%,340px)!important;
+    max-width:340px!important;
   }
 }
 @media(max-width:700px){
@@ -273,17 +273,47 @@ html body.ci-page.ci-stockholm-tight #experiencia .ci-august-plan{
     padding:9px 10px!important;
   }
   html body.ci-page.ci-stockholm-tight #experiencia .ci-august-gallery-embed{
-    width:100%!important;
-    max-width:100%!important;
+    width:min(100%,340px)!important;
+    max-width:340px!important;
   }
   html body.ci-page.ci-stockholm-tight #experiencia .ci-august-imp-gallery .gallery-mosaic,
   html body.ci-page.ci-stockholm-tight #experiencia
    .ci-august-gallery-embed[data-vcc-lazy-gallery]:not([data-vcc-gallery-loaded]) .gallery{
-    aspect-ratio:1.36!important;
+    aspect-ratio:1.48!important;
     height:auto!important;
     max-height:none!important;
   }
   html body.ci-page.ci-stockholm-tight #experiencia .ci-august-firsthand .ci-august-visit.ci-august-overline{
     font-size:21px!important;
   }
+}
+
+/* Estocolmo · mosaico más estrecho y bajo, sin afectar a fotos ni visor.
+   Exactamente la misma proporción antes y después de la carga para evitar CLS. */
+html body.ci-page.ci-stockholm-tight #experiencia
+ .ci-august-imp-gallery .gallery-mosaic,
+html body.ci-page.ci-stockholm-tight #experiencia
+ .ci-august-gallery-embed[data-vcc-lazy-gallery]:not([data-vcc-gallery-loaded]) .gallery{
+  width:100%!important;
+  height:auto!important;
+  min-height:0!important;
+  max-height:none!important;
+  aspect-ratio:1.46!important;
+}
+html body.ci-page.ci-stockholm-tight #experiencia .ci-august-firsthand h3{
+  font-size:clamp(19px,1.6vw,23px)!important;
+  margin-bottom:5px!important;
+}
+html body.ci-page.ci-stockholm-tight #experiencia .ci-august-firsthand p{
+  font-size:11.8px!important;
+  line-height:1.45!important;
+  margin-bottom:5px!important;
+}
+@media(max-width:700px){
+ html body.ci-page.ci-stockholm-tight #experiencia
+  .ci-august-imp-gallery .gallery-mosaic,
+ html body.ci-page.ci-stockholm-tight #experiencia
+  .ci-august-gallery-embed[data-vcc-lazy-gallery]:not([data-vcc-gallery-loaded]) .gallery{
+   aspect-ratio:1.48!important;
+ }
 }
