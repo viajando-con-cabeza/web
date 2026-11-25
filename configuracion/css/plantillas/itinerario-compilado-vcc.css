@@ -932,7 +932,7 @@ body .day-section .day-schedule .timeline li::before{
     grid-column:span 2!important;grid-row:2!important;
   }
   .vcc-booking-gallery .day-mosaic[data-count] .more{
-    font-size:clamp(13px,3.5vw,17px);
+    font-size:10px;
   }
 }
 
@@ -1596,14 +1596,14 @@ html body .vcc-booking-gallery-modal[data-vcc-photo-label-overlay] .day-lightbox
 /* Recompte discret en mosaics VCC (opt-in): conserva el mosaic i visor compartits.
    Només modifica la tipografia del +N fotos de la cinquena miniatura. */
 .vcc-booking-gallery .day-mosaic[data-count].vcc-gallery-compact-count .more{
-  font-size:10px!important;
+  font-size:12px!important;
   line-height:1.2!important;
   padding:3px!important;
   letter-spacing:0!important;
 }
 @media(max-width:800px){
  .vcc-booking-gallery .day-mosaic[data-count].vcc-gallery-compact-count .more{
-   font-size:9px!important;
+   font-size:10px!important;
    padding:2px!important;
  }
 }
@@ -1775,6 +1775,26 @@ html body .vcc-booking-gallery-modal[data-vcc-photo-label-overlay][data-vcc-phot
  html body .vcc-booking-gallery-modal[data-vcc-photo-label-overlay][data-vcc-gallery-side-description] .day-lightbox-info{
   display:block!important;
  }
+}
+
+
+/* VCC · ÚNICA regla tipogràfica dels comptadors +N fotos.
+   Day mosaic (booking) i photo mosaic (experiència) comparteixen 12/10px.
+   No altera la mida ni la distribució de les imatges. */
+:root{
+ --vcc-gallery-more-font-size:12px;
+}
+html body .vcc-booking-gallery .day-mosaic[data-count] .more,
+html body .imp-page .gallery-mosaic .gallery-more{
+ font-family:var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;
+ font-size:var(--vcc-gallery-more-font-size)!important;
+ font-weight:700!important;
+ line-height:1.2!important;
+ letter-spacing:0!important;
+ text-align:center!important;
+}
+@media(max-width:800px){
+ :root{--vcc-gallery-more-font-size:10px}
 }
 
 /* === configuracion/css/componentes/vcc-hero-editorial-vcc.css === */
