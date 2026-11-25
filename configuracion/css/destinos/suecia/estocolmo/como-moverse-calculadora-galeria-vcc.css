@@ -420,3 +420,50 @@ html body .mv-page #transportes .mv-card .mv-card-advice-item p{
   .mv-page .mv-vcc-cost-summary strong{font-size:20px}
   .mv-page .mv-vcc-saving-card{gap:5px}
 }
+/* Calculadora Stockholm · Recomanació més llegible, mateixa alçada de la banda.
+   No afecta el comparador universal d'altres destinacions. */
+html body .mv-page #vcc-transporte-comparador .tc-comparison-title{
+  color:#c65e3e!important;
+  font-weight:800!important;
+  letter-spacing:.035em;
+}
+html body .mv-page #vcc-transporte-comparador .tc-advice-choice-copy>strong{
+  color:#1c2925!important;
+  font-size:13px!important;
+  font-weight:800!important;
+  line-height:1.12!important;
+}
+html body .mv-page #vcc-transporte-comparador .tc-advice-state{
+  color:#b85b3a!important;
+  font-size:8.5px!important;
+  font-weight:800!important;
+  line-height:1.1!important;
+}
+html body .mv-page #vcc-transporte-comparador .tc-advice-choice img{
+  width:38px!important;
+  height:38px!important;
+  flex-basis:38px!important;
+  padding:4px!important;
+}
+html body .mv-page #vcc-transporte-comparador .tc-advice-choice-copy .tc-advice-price{
+  font-size:25px!important;
+}
+html body .mv-page #vcc-transporte-comparador #tc-recommend-note{
+  color:#74685f!important;
+  font-size:8.5px!important;
+  line-height:1.2!important;
+}
+html body .mv-page #vcc-transporte-comparador .tc-result[data-state="complete"] .tc-advice-choice-copy>strong{
+  color:#bc5638!important;
+}
+html body .mv-page #vcc-transporte-comparador .tc-result[data-state="empty"] .tc-advice-choice-copy>strong{
+  color:#746d66!important;
+}
+@media(max-width:620px){
+ html body .mv-page #vcc-transporte-comparador .tc-advice-choice-copy>strong{
+  font-size:12.2px!important;
+ }
+ html body .mv-page #vcc-transporte-comparador .tc-advice-state{
+  font-size:8px!important;
+ }
+}
