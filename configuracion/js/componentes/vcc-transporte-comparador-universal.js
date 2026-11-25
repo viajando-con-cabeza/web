@@ -177,7 +177,7 @@
      {type:'car',name:'Coche',total:result.carValid?result.carTotal:null,
        issue:'Pendiente: indica algún coste del coche'},
      {type:'individual',name:'Billetes sueltos',total:result.individualTotal,issue:''},
-     {type:'bonus',name:bonusPasses().length?'Abonos y pases':'Billetes personalizados',
+     {type:'bonus',name:bonusPasses().length?'Abonos y Pases':'Billetes personalizados',
        total:result.bonus.valid?result.bonus.cost:null,
        issue:result.bonus.reason||'Completa los precios de la lista'}
    ];
@@ -269,7 +269,7 @@
    mark('.tc-option-bonus',result.choice==='bonus');
    set('conclusion-label',result.unfinished?'RESULTADO PROVISIONAL':'OPCIÓN MÁS ECONÓMICA');
    const title=result.choice==='car'?'Coche':
-      result.choice==='bonus'?(bonusPasses().length?(bonusTickets().length?'Abonos y billetes':'Abonos'):'Billetes personalizados'):'Billetes sueltos';
+      result.choice==='bonus'?(bonusPasses().length?'Abonos y Pases':'Billetes personalizados'):'Billetes sueltos';
    set('recommend',title);
    set('recommend-person',money(result.choiceTotal/travellers));
    set('recommend-group',money(result.choiceTotal));
