@@ -1,0 +1,23 @@
+/* Suecia · Qué visitar · Catálogo de guías
+   Utilitza el mateix component de targetes que Planifica/No sabes dónde ir:
+   /configuracion/css/componentes/vcc-targetes-itineraris-guies.css.
+   Aquest fitxer només gestiona hero, filtres, graella i distribució. */
+.vcc-suecia-visitar .swb-hero-photo{object-position:center 53%}
+.vcc-suecia-visitar .swb-hero h1{max-width:800px}
+/* Filtres, graella, tipografia, alçada de vinyetes i CTA són 100% del
+   catàleg compartit; no repetir aquí cap regla de vcc-catalog ni di-mini-card. */
+.vcc-suecia-visitar .vcc-visit-empty{
+  margin:12px 0;padding:25px 22px;border:1px solid #dfdfd9;border-radius:11px;
+  color:#626861;background:#fff;font:400 14px/1.55 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
+}
+.vcc-suecia-visitar .vcc-visit-footnote{
+  margin:17px 0 0;color:#72746d;
+  font:400 11px/1.55 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
+}
+@media(max-width:650px){
+  .vcc-suecia-visitar .swb-hero h1{font-size:clamp(40px,10.7vw,58px)}
+  .vcc-suecia-visitar .swb-hero-content{padding-top:64px}
+}
+
+/* Utiliza el mismo papel corporativo crema que el resto de guías. */
+html body.swb-page.vcc-suecia-visitar{background:var(--vcc-color-paper,#faf6f1);}

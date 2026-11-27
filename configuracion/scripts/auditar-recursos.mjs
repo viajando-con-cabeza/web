@@ -1,0 +1,45 @@
+#!/usr/bin/env node
+import fs from 'node:fs';
+import path from 'node:path';
+import { listarFitxers } from './lib/listar-fitxers.mjs';
+import crypto from 'node:crypto';
+const root=process.cwd();
+const image=/\.(?:svg|png|jpe?g|webp|avif|gif|ico)$/i;
+const all=listarFitxers(root,{ignorar:new Set(['.git','node_modules','dist','build'])}),exists=new Set(all),code=all.filter(p=>/\.(html|css|js|mjs|json)$/i.test(p)),assets=all.filter(p=>image.test(p));
+let missing=new Set(),external=new Set(),usage=new Set();
+for(const file of code){
+if(file==='configuracion/rutas-recursos.json'||file==='configuracion/datos/recursos-externs-pendents.json'||file==='configuracion/datos/imagenes-externas-migrades.json'||file.endsWith('auditar-recursos.mjs'))continue;
+const src=fs.readFileSync(path.join(root,file),'utf8');
+// English HTML mirrors reuse the same source media. They are not new
+// independent external-image references and must not double the baseline.
+if(file.startsWith('en/')&&src.includes('data-vcc-generated-en="1"'))continue;
+const re=/(?:https?:\/\/[^\s"'<>)]*|\/?(?:configuracion|destinos|inicio)\/imagenes\/[a-zA-Z0-9_./-]+\.(?:svg|png|jpe?g|webp|avif|gif|ico))(?:\?[^\s"'<>)]*)?/gi;
+for(const m of src.matchAll(re)){
+const ref=m[0].split('?')[0];
+if(/^https?:\/\//i.test(ref)){
+ // Los mosaicos de mapas son cartografía servida bajo demanda, no fotos que migrar a R2.
+ if(/^https:\/\/(?:\{s\}\.)?tile\.openstreetmap\.org\//.test(ref))continue;
+ if(/^https:\/\/img\.viajandoconcabeza\.com\//.test(ref)||/^https:\/\/(?:www\.)?viajandoconcabeza\.com\//.test(ref)||/^https:\/\/raw\.githubusercontent\.com\/viajando-con-cabeza\/web\//.test(ref))continue;
+ if(image.test(ref)||/images\.unsplash\.com\/photo-/.test(ref))external.add(file+' => '+ref);
+}else{
+const target=ref.replace(/^\//,'');
+if(exists.has(target))usage.add(target);else missing.add(file+' => '+target);
+}}}
+const routes=JSON.parse(fs.readFileSync('configuracion/rutas-recursos.json','utf8'));
+for(const [a,b] of Object.entries(routes))if(!exists.has(b))missing.add('rutas-recursos.json: '+a+' => '+b);
+const hashes=new Map(),duplicates=[];
+for(const p of assets){const hash=crypto.createHash('sha256').update(fs.readFileSync(p)).digest('hex');if(hashes.has(hash))duplicates.push([hashes.get(hash),p]);else hashes.set(hash,p)}
+const report={files:code.length,images:assets.length,used:usage.size,missing:[...missing],external:[...external],duplicates,possiblyUnused:assets.filter(p=>!usage.has(p))};
+if(!process.argv.includes('--no-write')){fs.mkdirSync('configuracion/datos',{recursive:true});fs.writeFileSync('configuracion/datos/auditoria-recursos.json',JSON.stringify(report,null,2)+'\n')}
+console.log('Auditoria VCC: '+code.length+' fitxers, '+assets.length+' imatges, '+missing.size+' referencies absents, '+external.size+' externes, '+duplicates.length+' duplicats');
+for(const p of [...missing].slice(0,40))console.error('RUTA INEXISTENT',p);
+if(process.argv.includes('--strict-external'))for(const p of [...external].slice(0,100))console.error('FOTO EXTERNA',p);
+const baselinePath='configuracion/datos/recursos-externs-pendents.json';
+let newcomers=[];
+if(process.argv.includes('--enforce-external-baseline')){
+ const baseline=JSON.parse(fs.readFileSync(baselinePath,'utf8'));
+ const allowed=new Set(baseline.remaining||[]);
+ newcomers=[...external].filter(x=>!allowed.has(x));
+ for(const x of newcomers)console.error('NOU RECURS EXTERN:',x);
+}
+if(missing.size||newcomers.length||(process.argv.includes('--strict-external')&&external.size))process.exitCode=1;

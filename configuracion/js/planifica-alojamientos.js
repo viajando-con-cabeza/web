@@ -1,0 +1,199 @@
+/* VCC · Alojamientos. Carruseles nativos de plataformas y consejos.
+   Sin dependencias ni datos externos. */
+(() => {
+  'use strict';
+  const reducedMotion = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function activateCarousel(trackSelector, itemSelector, prevSelector, nextSelector) {
+    const track = document.querySelector(trackSelector);
+    const items = track && Array.from(track.querySelectorAll(itemSelector));
+    const prev = document.querySelector(prevSelector);
+    const next = document.querySelector(nextSelector);
+    if (!track || !items.length || !prev || !next) return;
+
+    const maxScroll = () => Math.max(0, track.scrollWidth - track.clientWidth);
+    const positions = () => items.map(item => item.offsetLeft - items[0].offsetLeft);
+    const currentIndex = () => {
+      const offsets = positions();
+      let nearest = 0, distance = Infinity;
+      offsets.forEach((x, i) => {
+        const d = Math.abs(x - track.scrollLeft);
+        if (d < distance) { distance = d; nearest = i; }
+      });
+      return nearest;
+    };
+    const update = () => {
+      prev.disabled = track.scrollLeft <= 3;
+      next.disabled = track.scrollLeft >= maxScroll() - 3;
+    };
+    const scrollStep = direction => {
+      const x = positions();
+      const nextIndex = Math.max(0, Math.min(items.length - 1, currentIndex() + direction));
+      const target = direction > 0 && nextIndex === items.length - 1 ? maxScroll() : Math.min(maxScroll(), x[nextIndex]);
+      track.scrollTo({ left: target, behavior: reducedMotion() ? 'auto' : 'smooth' });
+    };
+    prev.addEventListener('click', () => scrollStep(-1));
+    next.addEventListener('click', () => scrollStep(1));
+    track.addEventListener('keydown', event => {
+      if (event.key !== 'ArrowRight' && event.key !== 'ArrowLeft') return;
+      event.preventDefault();
+      scrollStep(event.key === 'ArrowRight' ? 1 : -1);
+    });
+    let scheduled = false;
+    track.addEventListener('scroll', () => {
+      if (scheduled) return;
+      scheduled = true;
+      requestAnimationFrame(() => { scheduled = false; update(); });
+    }, { passive: true });
+    window.addEventListener('resize', update, { passive: true });
+    update();
+  }
+
+  const boot = () => {
+    activateCarousel('[data-al-track]', '.al-card', '[data-al-prev]', '[data-al-next]');
+    activateCarousel('[data-al-tips-track]', '.al-tip', '[data-al-tips-prev]', '[data-al-tips-next]');
+  };
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot, { once: true });
+  else boot();
+})();
+
+/* Comparación de alojamiento: importes de estancia completa, hasta cinco opciones. */
+(function(){
+'use strict';
+const root=document.querySelector('.al-compare');if(!root)return;
+const head=root.querySelector('[data-al-calc-head]'),body=root.querySelector('[data-al-calc-body]');
+const scroll=root.querySelector('[data-al-calc-scroll]'),add=root.querySelector('[data-al-add]');
+const status=root.querySelector('[data-al-status]'), euro=new Intl.NumberFormat('es-ES',{useGrouping:'always',style:'currency',currency:'EUR'});
+const letters=['A','B','C','D','E'];
+const iconRoot='/configuracion/imagenes/iconos/paginas/planifica-alojamientos-comparador-iconos.svg#';
+const rows=[
+ ['name','Alojamiento','text','hotel'],
+ ['base','Dormir / reserva (€)','number','cama'],
+ ['breakfast','Desayuno (€)','number','desayuno','breakfastIncluded'],
+ ['meals','Otras comidas (€)','number','comida','mealsIncluded'],
+ ['taxes','Impuestos y tasas (€)','number','impuestos','taxesIncluded'],
+ ['transport','Transporte (€)','number','transporte','transportIncluded'],
+ ['parking','Parking (€)','number','parking','parkingIncluded'],
+ ['other','Otros gastos (€)','number','otros']
+];
+const monetary=['base','breakfast','meals','taxes','transport','parking','other'];
+const blank=()=>({name:'',base:'',breakfastIncluded:false,breakfast:'',mealsIncluded:false,meals:'',taxes:'',transport:'',parkingIncluded:false,parking:'',taxesIncluded:false,transportIncluded:false,other:''});
+let offers=[blank(),blank(),blank()];
+const fmt=v=>euro.format(v);
+const num=v=>{const n=Number(v);return Number.isFinite(n)&&n>0?Math.min(n,1e7):0};
+const total=o=>Math.round(monetary.reduce((s,k)=>s+((k==='breakfast'&&o.breakfastIncluded)||(k==='meals'&&o.mealsIncluded)||(k==='parking'&&o.parkingIncluded)||(k==='taxes'&&o.taxesIncluded)||(k==='transport'&&o.transportIncluded)?0:num(o[k])),0)*100)/100;
+const filled=o=>o.base!==''&&Number.isFinite(Number(o.base))&&Number(o.base)>=0;
+function el(tag,cls,txt){const e=document.createElement(tag);if(cls)e.className=cls;if(txt!=null)e.textContent=txt;return e}
+function draw(){
+ const oldLeft=scroll.scrollLeft;
+ const tr=el('tr');tr.appendChild(el('th',null,'Concepto'));
+ offers.forEach((o,i)=>{const th=el('th');th.scope='col';th.appendChild(el('span','al-option-title','Opción '+letters[i]));if(offers.length>1){const b=el('button','al-remove','×');b.type='button';b.dataset.remove=i;b.setAttribute('aria-label','Eliminar opción '+letters[i]);th.appendChild(b)}tr.appendChild(th)});
+ head.replaceChildren(tr);body.replaceChildren();scroll.style.setProperty('--al-options',offers.length);
+ for(const [key,label,kind,icon,flag] of rows){
+  const line=el('tr'),th=el('th');th.scope='row';
+  const svg=document.createElementNS('http://www.w3.org/2000/svg','svg');svg.setAttribute('class','al-compare-icon');svg.setAttribute('aria-hidden','true');
+  const use=document.createElementNS('http://www.w3.org/2000/svg','use');use.setAttribute('href',iconRoot+icon);svg.appendChild(use);th.append(svg,el('span',null,label));line.appendChild(th);
+  offers.forEach((o,i)=>{
+   const td=el('td'),wrapper=el('div','al-amount-wrap'),input=el('input');
+   input.type=kind==='number'?'number':'text';input.value=o[key];
+   if(kind==='number'){input.min='0';input.max='10000000';input.step='0.01';input.inputMode='decimal';input.placeholder='0,00'}
+   else{input.maxLength=75;input.placeholder='Hotel / apartamento'}
+   input.dataset.index=i;input.dataset.key=key;input.setAttribute('aria-label',label+' opción '+letters[i]);
+   wrapper.appendChild(input);
+   if(flag){
+    const included=!!o[flag],labelEl=el('label','al-inline-check'),check=el('input');
+    check.type='checkbox';check.checked=included;check.dataset.index=i;check.dataset.key=flag;
+    check.setAttribute('aria-label',label+' incluido en la reserva, opción '+letters[i]);
+    labelEl.title='Marcar si está incluido en el precio de la reserva';labelEl.append(check,el('span',null,'Incl.'));
+    wrapper.classList.toggle('is-included',included);input.disabled=included;
+    input.title=included?'Incluido en la reserva: coste adicional 0 €':'Introduce el coste para toda la estancia';
+    wrapper.appendChild(labelEl);
+   }
+   td.appendChild(wrapper);line.appendChild(td);
+  });body.appendChild(line);
+ }
+ const totalRow=el('tr','al-calc-total');const th=el('th');th.scope='row';const icon=document.createElementNS('http://www.w3.org/2000/svg','svg');icon.setAttribute('class','al-compare-icon');icon.setAttribute('aria-hidden','true');const use=document.createElementNS('http://www.w3.org/2000/svg','use');use.setAttribute('href',iconRoot+'total');icon.appendChild(use);th.append(icon,el('span',null,'TOTAL POR OPCIÓN'));totalRow.appendChild(th);
+ offers.forEach(o=>{const td=el('td');const pill=el('span','al-total-pill');pill.appendChild(el('strong',null,filled(o)?fmt(total(o)):'—'));td.appendChild(pill);totalRow.appendChild(td)});
+ body.appendChild(totalRow);scroll.scrollLeft=oldLeft;
+ root.querySelector('[data-al-count]').textContent=offers.length+' de 5 opciones';add.disabled=offers.length>=5;update();
+}
+function update(){
+ const valid=offers.map((o,i)=>({o,i,t:total(o)})).filter(x=>filled(x.o));
+ const sorted=valid.sort((a,b)=>a.t-b.t);const best=sorted[0];
+ const empty=root.querySelector('[data-al-advice-empty]'),result=root.querySelector('[data-al-advice-result]'),savings=root.querySelector('[data-al-savings]');
+ // El bloque opcional de consejo no existe en la guía Suecia, pero sí en otros comparadores.
+ if(empty&&result&&savings){
+  empty.hidden=sorted.length>=2;result.hidden=sorted.length<2;savings.hidden=sorted.length<2;
+  if(sorted.length>=2){
+   const winner=root.querySelector('[data-al-winner]'),price=root.querySelector('[data-al-price]');
+   if(winner)winner.textContent=(best.o.name.trim()||'Opción '+letters[best.i]);
+   if(price)price.textContent=fmt(best.t);
+   const rest=sorted.slice(1).map(x=>{
+    const row=el('div');
+    row.append('Ahorras ',el('span','al-savings-amount',fmt(x.t-best.t)),' frente a '+(x.o.name.trim()||'opción '+letters[x.i]));
+    return row;
+   });
+   savings.replaceChildren(el('strong',null,'LO QUE TE AHORRAS'),...rest);
+  }
+ }
+ body.querySelectorAll('.al-calc-total td').forEach((td,i)=>{const isBest=sorted.length>=2&&best.i===i;td.dataset.alBest=String(isBest);td.querySelector('strong').textContent=filled(offers[i])?fmt(total(offers[i])):'—'});
+ head.querySelectorAll('th').forEach((th,i)=>{if(i>0)th.dataset.alBest=String(sorted.length>=2&&best.i===i-1)});
+}
+body.addEventListener('input',ev=>{const e=ev.target;if(!e.dataset.key||e.type==='checkbox')return;const i=Number(e.dataset.index);offers[i][e.dataset.key]=e.value;update()});
+body.addEventListener('change',ev=>{const e=ev.target;if(e.type!=='checkbox'||!e.dataset.key)return;const i=Number(e.dataset.index);offers[i][e.dataset.key]=e.checked;draw()});
+head.addEventListener('click',ev=>{const b=ev.target.closest('[data-remove]');if(!b)return;offers.splice(Number(b.dataset.remove),1);draw()});
+add.addEventListener('click',()=>{if(offers.length<5){offers.push(blank());draw();scroll.scrollLeft=scroll.scrollWidth}});
+root.querySelector('[data-al-clear]').addEventListener('click',()=>{offers=[blank(),blank(),blank()];draw();status.textContent='Comparación limpiada.'});
+/* Los mismos importes visibles: ahora descarga PDF directamente,
+ * no depende de abrir un iframe ni del cuadro de impresión del navegador. */
+function budgetSnapshot(){
+ const people=Math.max(1,Math.round(num(root.querySelector('[data-al-personas]').value)||1));
+ const nights=Math.max(1,Math.round(num(root.querySelector('[data-al-noches]').value)||1));
+ const valid=offers.map((o,i)=>({o,i,t:total(o)})).filter(x=>filled(x.o));
+ if(!valid.length)throw Error('Introduce al menos un precio de reserva.');
+ const sorted=[...valid].sort((a,b)=>a.t-b.t);
+ const sections=[{heading:'Resumen de la comparación',lines:[
+  'Viajeros: '+people+' · noches: '+nights,
+  'Importes totales de cada alojamiento para todo el grupo y la estancia.',
+  valid.length+' alternativas con precio introducido.'
+ ]}];
+ if(sorted.length>=2){
+  const best=sorted[0],winners=sorted.filter(x=>Math.abs(x.t-best.t)<.005);
+  const next=sorted.find(x=>x.t>best.t+.005);
+  sections.push({heading:'Mejor opción por precio',lines:[
+   'Opción más económica: '+winners.map(x=>(x.o.name.trim()||'Opción '+letters[x.i])).join(' y '),
+   'Total: '+fmt(best.t),
+   ...(next?['Ahorro frente a la siguiente alternativa: '+fmt(next.t-best.t)]:[])
+  ]});
+ }
+ valid.forEach(({o,i,t})=>{
+  const lines=[];
+  rows.filter(row=>row[2]==='number').forEach(([key,label,,,flag])=>{
+   lines.push(label+': '+(flag&&o[flag]?'Incluido en la reserva · 0 € adicional':fmt(num(o[key]))));
+  });
+  lines.push('TOTAL POR OPCIÓN: '+fmt(t));
+  lines.push('Por pax: '+fmt(t/people));
+  lines.push('Por pax / noche: '+fmt(t/people/nights));
+  sections.push({heading:'Opción '+letters[i]+' · '+(o.name.trim()||'Sin nombre'),lines});
+ });
+ return {
+  filename:'comparativa-alojamientos-VCC.pdf',
+  title:'Compara el precio real',
+  subtitle:'Comparativa personalizada de alojamientos',
+  meta:['Viajeros: '+people+' · '+nights+' noches · '+valid.length+' opciones'],
+  sections,
+  note:'Costes introducidos por el viajero para toda la estancia; no son ofertas consultadas por VCC. Verifica condiciones, ubicación, cargos y cancelación.'
+ };
+}
+root.querySelector('[data-al-pdf]').addEventListener('click',()=>{
+ try{
+  if(!window.VCCPDF)throw Error('El generador PDF no está disponible.');
+  window.VCCPDF.download(budgetSnapshot());
+  if(status)status.textContent='PDF descargado con los importes actuales de la comparativa.';
+ }catch(error){
+  console.error('VCC: error al descargar comparación de alojamientos',error);
+  if(status)status.textContent='No se pudo generar el PDF. Revisa los datos e inténtalo de nuevo.';
+ }
+});
+draw();
+})();

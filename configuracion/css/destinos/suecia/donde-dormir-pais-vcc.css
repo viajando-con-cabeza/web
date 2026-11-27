@@ -1,0 +1,152 @@
+/* VCC · Suecia / Dónde dormir
+   ÚNICA hoja de ajustes de integración. Las tarjetas heredan TODOS los estilos
+   de Estocolmo (donde-dormir-base-compilat.css); la calculadora hereda el mismo
+   HTML, CSS y JS que Planifica/Alojamientos. No duplicamos tipografías, anchos
+   de columna, padding, tamaños de fuente ni breakpoints de esos componentes. */
+
+/* El main ocupa toda la ventana solo para que el fondo de la calculadora
+   tenga exactamente la misma anchura que la página de Planifica. */
+body.dv-country-types .dv-main{
+  width:100%!important;
+  max-width:none!important;
+  margin-inline:0!important;
+  padding-top:30px!important;
+  padding-bottom:32px!important;
+}
+/* Idéntico ancho horizontal y márgenes del .dv-shell de Estocolmo. */
+body.dv-country-types #barrios,
+body.dv-country-types #como-ahorrar{
+  box-sizing:border-box;
+  width:min(1490px,calc(100% - 106px));
+  margin-inline:auto;
+}
+
+/* Igual que abans: la targeta mostra pros i contres sempre.
+   Només s'obre la fitxa ampliada inferior en clicar VER DESGLOSE.
+   Tota la presentació de la fitxa prové del component d'Estocolmo. */
+body.dv-country-types #barrios .dv-carousel > .dv-card{
+  min-height:298px;
+}
+body.dv-country-types #barrios .dv-pros{
+  align-content:start;
+}
+body.dv-country-types #barrios .dv-card-bottom{
+  display:flex;
+  align-items:center;
+  justify-content:flex-start;
+}
+body.dv-country-types #barrios .dv-card-bottom .dv-meta{
+  width:auto;
+  min-width:0;
+}
+
+/* Les targetes de Suecia segueixen exactament l'ordre del carrusel d'Estocolmo:
+   pros i contres, dades de preu i finalment el mateix .dv-card-discover.
+   Els estils de CTA, espais, tipus de lletra i fletxa provenen del CSS compartit. */
+
+/* Component de desplegable de Cómo moverse per al carrusel Dónde dormir.
+   És un .vcc-disclosure-footer compartit: el selector només neutralitza el
+   llegat .dv-card-discover (10,5px, fletxa circular i separador).
+   Referència: configuracion/css/componentes/desglose-compartit-vcc.css */
+html body.dv-country-types #barrios .dv-carousel > .dv-card .dv-card-discover.vcc-disclosure-footer{
+  display:flex!important;
+  width:100%!important;
+  align-items:center!important;
+  justify-content:flex-end!important;
+  gap:var(--vcc-desglose-gap,10px)!important;
+  margin-top:9px!important;
+  padding:13px 0 0!important;
+  border:0!important;
+  border-radius:0!important;
+  background:transparent!important;
+  box-shadow:none!important;
+  color:var(--vcc-desglose-color,#ac5a45)!important;
+  font-family:var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;
+  font-size:var(--vcc-desglose-font-size,10px)!important;
+  font-weight:700!important;
+  line-height:1.2!important;
+  letter-spacing:.01em!important;
+  text-transform:uppercase!important;
+  text-align:right!important;
+  white-space:nowrap!important;
+}
+html body.dv-country-types #barrios .dv-carousel > .dv-card:hover .dv-card-discover.vcc-disclosure-footer{
+  color:#8c422a!important;
+}
+html body.dv-country-types #barrios .dv-carousel > .dv-card .dv-card-discover.vcc-disclosure-footer .vcc-disclosure-caret{
+  display:inline-flex!important;
+  flex:0 0 16px!important;
+  width:16px!important;
+  height:16px!important;
+  padding:0!important;
+  border:0!important;
+  border-radius:0!important;
+  background:transparent!important;
+  box-shadow:none!important;
+}
+html body.dv-country-types #barrios .dv-carousel > .dv-card .dv-card-discover.vcc-disclosure-footer .vcc-disclosure-caret svg{
+  display:block;
+  width:var(--vcc-desglose-caret-size,12px)!important;
+  height:var(--vcc-desglose-caret-size,12px)!important;
+  fill:none!important;
+  stroke:currentColor!important;
+  stroke-width:1.8!important;
+}
+@media(max-width:590px){
+  html body.dv-country-types #barrios .dv-carousel > .dv-card .dv-card-discover.vcc-disclosure-footer{
+    padding-top:11px!important;
+  }
+}
+
+/* La calculadora es el bloque original de Planifica, a ancho completo:
+   sin márgenes extra externos, estilos propios o reinterpretaciones. */
+body.dv-country-types .dv-planifica-alojamiento-reuse{
+  width:100%;
+  min-width:0;
+  margin:0;
+}
+body.dv-country-types .dv-planifica-alojamiento-reuse .al-compare{
+  scroll-margin-top:calc(var(--vcc-subheader-top,50px) + 2px);
+}
+/* Única diferencia de colocación solicitada: acciones abajo a la derecha. */
+body.dv-country-types .dv-planifica-alojamiento-reuse .al-compare-utils{
+  justify-content:flex-end;
+}
+body.dv-country-types .dv-planifica-alojamiento-reuse .al-compare-status{
+  text-align:right;
+}
+/* El carrusel de consejos sigue usando su CSS común. */
+@media(max-width:1090px){
+  body.dv-country-types #barrios,
+  body.dv-country-types #como-ahorrar{
+    width:calc(100% - 38px);
+  }
+}
+@media(max-width:700px){
+  body.dv-country-types #barrios .dv-carousel > .dv-card{
+    min-height:303px;
+  }
+}
+@media(max-width:600px){
+  body.dv-country-types .dv-main{
+    padding-top:23px!important;
+  }
+  body.dv-country-types #barrios,
+  body.dv-country-types #como-ahorrar{
+    width:calc(100% - 30px);
+  }
+}
+/* Dónde dormir Suecia: geometria del carrusel i de les targetes centralitzada
+   a vcc-regiones-transporte.css i vcc-targetes-itineraris-guies.css. */
+html body.dv-country-types #por-region.dv-regions-section{
+ box-sizing:border-box;width:min(1490px,calc(100% - 106px));margin:0 auto 30px;
+ scroll-margin-top:calc(var(--vcc-header-h,50px) + 58px);
+}
+html body.dv-country-types #por-region .dv-section-title{margin-bottom:18px}
+html body.dv-country-types #por-region .dv-region-placeholder{
+ display:flex;align-items:center;justify-content:center;box-sizing:border-box;
+ width:100%;height:100%;padding:12px;background:linear-gradient(120deg,#426878,#91adb5);
+ color:#fff;text-align:center;font:500 22px/1.2 var(--vcc-font-heading,"Oswald",sans-serif);
+}
+@media(max-width:1090px){html body.dv-country-types #por-region.dv-regions-section{width:calc(100% - 38px)}}
+@media(max-width:620px){html body.dv-country-types #por-region.dv-regions-section{width:calc(100% - 30px)}}

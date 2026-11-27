@@ -1,0 +1,48 @@
+{
+  "version": 1,
+  "description": "Contracte d'arquitectura. Les pàgines de Suècia i Estocolm són referències visuals, NO fitxers que s'hagin de copiar sencers per cada nova destinació.",
+  "references": {
+    "country": "destinos/suecia/index.html",
+    "city": "destinos/suecia/estocolmo/index.html",
+    "itinerary": "destinos/suecia/estocolmo/itinerario.html",
+    "places": "destinos/suecia/estocolmo/imprescindibles.html",
+    "budget": "destinos/suecia/estocolmo/presupuesto.html",
+    "arrival": "destinos/suecia/estocolmo/como-llegar.html",
+    "mobility": "destinos/suecia/estocolmo/como-moverse.html",
+    "when": "destinos/suecia/estocolmo/cuando-ir.html",
+    "accommodation": "destinos/suecia/estocolmo/donde-dormir.html",
+    "packing": "destinos/suecia/estocolmo/que-llevar.html"
+  },
+  "sources": {
+    "designTokens": "configuracion/css/base/tokens-vcc.css",
+    "sharedHero": "configuracion/css/componentes/vcc-altura-portades-subheader.css",
+    "sharedHeaders": "configuracion/css/componentes/vcc-capcaleres-editorials.css",
+    "cssBuild": "configuracion/datos/compilacion-css-vcc.json",
+    "publication": "configuracion/datos/publicacion-vcc.json",
+    "countryMetadata": "configuracion/datos/paises-vcc.json",
+    "languages": "configuracion/datos/idiomas-vcc.json"
+  },
+  "policy": {
+    "sourceLanguage": "es",
+    "newContent": "draft",
+    "publish": "explicit-approval-only",
+    "referenceStrategy": "extract-components-progressively",
+    "legacyGenerator": "configuracion/scripts/destinos.mjs"
+  },
+  "futureTemplates": {
+    "status": "implemented-draft-first",
+    "sourceFolder": "configuracion/contenido/destinos",
+    "generator": "configuracion/scripts/generar-destins-vcc.mjs",
+    "renderer": "configuracion/scripts/lib/plantilles-destins-vcc.mjs",
+    "stylesheet": "configuracion/css/plantillas/destinos-genericos-vcc.css",
+    "test": "configuracion/tests/destinos-motor-vcc.test.mjs",
+    "pageKinds": [
+      "country",
+      "region",
+      "city",
+      "itinerary"
+    ],
+    "publicationRule": "editorialReviewed + reviewed status + approvedFiles",
+    "existingReferencePagesStayUnchanged": true
+  }
+}

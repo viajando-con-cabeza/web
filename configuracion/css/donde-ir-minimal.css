@@ -1,0 +1,307 @@
+/* Dónde ir · VCC · 3 caminos. Un solo stylesheet: sin CSS antiguo superpuesto. */
+:root{--di-ink:#211f1d;--di-muted:#625e5a;--di-coral:var(--vcc-accent-override, #c56d51);--di-paper:#f7f5f2;--di-line:#e6e1dc}
+body.planifica-vcc{margin:0;background:var(--di-paper);color:var(--di-ink);font-family:var(--vcc-font-body, "DM Sans", Arial, sans-serif)}
+.di-page,.di-page *{box-sizing:border-box}
+.di-page{background:var(--di-paper)}
+.di-page a{color:inherit;text-decoration:none}
+.di-page button,.di-page select{font:inherit}
+.di-page button{cursor:pointer}
+.di-page :is(a,button,select):focus-visible{outline:3px solid #bc5b38;outline-offset:3px}
+.di-wrap{width:min(1180px,calc(100% - 48px));margin-inline:auto}
+.di-overline{display:block;color:#c06448;font:600 27px/1.05 var(--vcc-font-script, "Caveat", cursive)}
+.di-hero{position:relative;isolation:isolate;overflow:hidden;min-height:388px;background:#f2e6d5}
+.di-hero::before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,rgba(253,248,239,.96),rgba(250,242,229,.83) 46%,rgba(247,235,217,.48)),url('/configuracion/imagenes/fondos/fondos-como-llegar.webp?v=20261111-qualitat-alta-v1') center/cover}
+.di-hero-inner{display:grid;grid-template-columns:290px minmax(0,1fr);align-items:center;gap:22px;padding:68px 0 39px}
+.di-hero-copy{align-self:center}
+.di-hero-copy h1{font:600 clamp(43px,3.8vw,55px)/1.02 var(--vcc-font-heading, "Oswald", sans-serif);letter-spacing:-.01em;margin:9px 0 12px}
+.di-hero-copy h1::after{content:"";display:block;width:88px;height:4px;background:#d96c41;border-radius:5px;margin:14px 0 0}
+.di-hero-copy p{font:400 13px/1.6 var(--vcc-font-body, "DM Sans", Arial, sans-serif);color:#4f4945;margin:0;max-width:290px}
+.di-choices{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;align-items:stretch}
+.di-choice{display:flex;flex-direction:column;align-items:center;justify-content:flex-start;min-width:0;min-height:232px;padding:22px 15px 16px;background:rgba(255,255,255,.90);border:1px solid rgba(255,255,255,.92);border-radius:18px;box-shadow:0 4px 16px #5b3e2510;text-align:center;color:#38312a;transition:background .15s,border-color .15s,transform .15s}
+.di-choice:hover{transform:translateY(-2px);border-color:#e3a586}
+.di-choice.is-active{background:rgba(255,253,249,.98);border-color:#c96b4a;box-shadow:inset 0 -3px #c76e4e,0 7px 20px #714b2718}
+.di-choice-icon{height:65px;display:flex;align-items:center;justify-content:center;color:#bd6b46}
+.di-choice-icon svg{width:54px;height:54px}
+.di-choice strong{font:600 clamp(19px,1.85vw,25px)/1.13 var(--vcc-font-heading, "Oswald", sans-serif);margin:9px 0 11px;color:#23453f}
+.di-choice>span:not(.di-choice-icon){font:400 12px/1.5 var(--vcc-font-body, "DM Sans", Arial, sans-serif);color:#4f4a46;min-height:53px}
+.di-choice small{font:800 10px/1.2 var(--vcc-font-body, "DM Sans", Arial, sans-serif);color:#ae5537;letter-spacing:.03em;margin-top:auto;padding-top:8px}
+.di-choice small span{margin-left:6px}
+.di-subnav{position:sticky;top:var(--vcc-subheader-top,54px);z-index:950;background:#fff;border-top:1px solid #eee7e0;border-bottom:1px solid #e9e2db}
+.di-subnav-inner{display:flex;align-items:center;gap:36px;min-height:40px;overflow-x:auto;white-space:nowrap;scrollbar-width:none}
+.di-subnav-inner::-webkit-scrollbar{display:none}
+.di-subnav button{height:40px;flex:0 0 auto;display:flex;align-items:center;justify-content:center;padding:0;border:0;border-bottom:2px solid transparent;background:transparent;color:#171717;font:800 11px/1.2 var(--vcc-font-body, "DM Sans", Arial, sans-serif)}
+.di-subnav button:hover,.di-subnav button[aria-selected="true"]{color:#bd624b;border-bottom-color:#c86f5d}
+.di-content{min-height:240px;padding:30px 0 39px}
+.di-panel[hidden]{display:none!important}
+.di-section-head{margin-bottom:18px}
+.di-section-head h2{font:500 clamp(29px,3vw,39px)/1.12 var(--vcc-font-heading, "Oswald", sans-serif);margin:4px 0 9px}
+.di-section-head p{margin:0;max-width:790px;color:var(--di-muted);font:400 13px/1.57 var(--vcc-font-body, "DM Sans", Arial, sans-serif)}
+
+/* Catàleg editorial: quatre vinyetes al costat, compartit amb Itinerarios. */
+.di-catalog-toolbar{
+  display:flex;justify-content:space-between;align-items:center;
+  flex-wrap:wrap;gap:12px;margin:0 0 14px;
+}
+.di-catalog-search{
+  display:flex;align-items:center;gap:8px;min-width:0;
+  width:min(390px,100%);height:40px;padding:0 12px;
+  background:#fff;border:1px solid var(--di-line);border-radius:8px;
+}
+.di-catalog-search span{font:500 24px/1 Oswald,sans-serif;color:#bf694d}
+.di-catalog-search input{
+  display:block;flex:1;min-width:0;width:100%;height:100%;
+  border:0;outline:0;background:transparent;
+  color:#2d2926;font:500 12px/1.3 var(--vcc-font-body, "DM Sans", Arial, sans-serif);
+}
+.di-catalog-search:focus-within{outline:2px solid #c76949;outline-offset:2px}
+.di-catalog-search input::placeholder{color:#89817c}
+.di-catalog-count{font:700 11px/1.2 var(--vcc-font-body, "DM Sans", Arial, sans-serif);color:#796b63;white-space:nowrap}
+.di-mini-grid{
+  display:grid;grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:12px;align-items:stretch;
+}
+.di-mini-card{
+  display:flex;flex-direction:column;overflow:hidden;min-width:0;
+  border:1px solid #e7e0d9;border-radius:10px;background:#fff;
+  transition:border-color .16s,box-shadow .16s,transform .16s;
+}
+.di-mini-card[hidden]{display:none!important}
+.di-mini-card:is(:hover,:focus-visible){
+  border-color:#c9876e;box-shadow:0 6px 17px #33251e13;transform:translateY(-2px);
+}
+.di-mini-photo{
+  display:block;position:relative;overflow:hidden;flex:0 0 auto;
+  width:100%;aspect-ratio:1.88;background:#e8e2d8;
+}
+.di-mini-photo img{display:block;width:100%;height:100%;object-fit:cover;transition:transform .2s ease}
+.di-mini-card:hover .di-mini-photo img{transform:scale(1.025)}
+.di-mini-tag{
+  position:absolute;bottom:7px;left:8px;right:8px;width:max-content;
+  max-width:calc(100% - 16px);padding:5px 7px;border-radius:5px;
+  color:#fff;background:#161d21d9;
+  font:800 9px/1.22 var(--vcc-font-body, "DM Sans", Arial, sans-serif);
+  text-transform:uppercase;white-space:normal;
+}
+.di-mini-body{min-width:0;display:flex;flex-direction:column;align-items:stretch;flex:1;padding:13px 12px 12px}
+.di-mini-body strong{
+  font:600 clamp(17px,1.45vw,21px)/1.16 var(--vcc-font-heading, "Oswald", sans-serif);
+  color:#222;overflow-wrap:anywhere;margin:0 0 6px;
+}
+.di-mini-desc{
+  font:400 11px/1.48 var(--vcc-font-body, "DM Sans", Arial, sans-serif);color:var(--di-muted);
+  margin-bottom:9px;
+}
+.di-mini-body b{
+  margin-top:auto;color:#b44f30;
+  font:800 9.5px/1.25 var(--vcc-font-body, "DM Sans", Arial, sans-serif);padding-top:3px;
+  letter-spacing:.005em;
+}
+.di-mini-body b span{margin-left:3px}
+.di-no-results[hidden]{display:none!important}
+.di-no-results{
+  padding:18px;margin:0;border:1px dashed #dccfc5;border-radius:9px;
+  color:#665a52;background:#fff;
+  font:500 12px/1.55 var(--vcc-font-body, "DM Sans", Arial, sans-serif);
+}
+@media(max-width:1080px){
+ .di-hero-inner{grid-template-columns:235px minmax(0,1fr);gap:15px}
+ .di-choice{min-height:223px;padding:18px 10px 15px}
+ .di-choice>span:not(.di-choice-icon){font-size:11px}
+ .di-choice strong{font-size:21px}
+}
+@media(max-width:720px){
+ .di-wrap{width:calc(100% - 30px)}
+ .di-hero{min-height:0}
+ .di-hero::before{background:linear-gradient(90deg,rgba(253,248,239,.95),rgba(250,242,229,.78)),url('/configuracion/imagenes/fondos/fondos-como-llegar.webp?v=20261111-qualitat-alta-v1') center/cover}
+ .di-hero-inner{display:block;padding:52px 0 17px}
+ .di-hero-copy .di-overline{font-size:23px}
+ .di-hero-copy h1{font-size:38px;line-height:1.05;margin:4px 0 8px}
+ .di-hero-copy h1 br{display:none}
+ .di-hero-copy h1::after{width:62px;height:3px;margin:8px 0 0}
+ .di-hero-copy p{font-size:11.5px;line-height:1.45;max-width:510px;margin:0}
+ .di-choices{grid-template-columns:1fr;gap:8px;margin-top:15px}
+ .di-choice{display:grid;grid-template-columns:38px minmax(0,1fr) auto;grid-template-rows:auto auto;column-gap:12px;row-gap:3px;align-items:center;min-height:65px;text-align:left;border-radius:10px;padding:10px 12px}
+ .di-choice-icon{grid-row:1/3;grid-column:1;width:38px;height:40px}
+ .di-choice-icon svg{width:35px;height:35px}
+ .di-choice strong{grid-row:1;grid-column:2;margin:0;font-size:19px}
+ .di-choice>span:not(.di-choice-icon){grid-row:2;grid-column:2;min-height:0;font-size:10.5px;line-height:1.25}
+ .di-choice small{grid-row:1/3;grid-column:3;display:block;margin:0;padding:0;font-size:0}
+ .di-choice small span{font-size:20px}
+ .di-subnav{top:var(--vcc-subheader-top,88px)}
+ .di-subnav-inner{gap:24px}
+ .di-subnav button{font-size:10.5px}
+ .di-content{padding:25px 0 32px}
+ .di-section-head h2{font-size:31px}
+ .di-section-head p{font-size:12px;line-height:1.5}
+   .di-endline{align-items:start;flex-direction:column;gap:9px}
+}
+@media(max-width:410px){
+ .di-hero-inner{padding-top:56px}
+ .di-hero-copy h1{font-size:33px}
+ .di-choices{gap:7px;margin-top:12px}
+ .di-choice{min-height:61px;padding:9px 10px}
+ .di-choice strong{font-size:17px}
+ .di-choice>span:not(.di-choice-icon){font-size:10px}
+ .di-section-head h2{font-size:29px}
+}
+
+@media(max-width:1120px){
+  .di-mini-grid{grid-template-columns:repeat(4,minmax(0,1fr))}
+}
+@media(max-width:850px){
+  .di-mini-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+}
+@media(max-width:620px){
+  .di-mini-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+  .di-mini-body{padding:10px 9px 11px}
+  .di-mini-body strong{font-size:17px}
+  .di-mini-desc{font-size:10px;line-height:1.42}
+  .di-mini-body b{font-size:9px}
+  .di-mini-tag{font-size:8px;padding:4px 6px;left:6px;bottom:6px}
+  .di-catalog-toolbar{gap:8px;margin-bottom:12px}
+  .di-catalog-search{height:38px;width:100%}
+  .di-catalog-count{margin-left:auto;font-size:10px}
+    }
+@media(max-width:340px){
+  .di-mini-grid{grid-template-columns:1fr}
+  .di-mini-photo{aspect-ratio:2.2}
+}
+
+@media(prefers-reduced-motion:reduce){.di-choice,.di-mini-card,.di-mini-photo img{transition:none}}
+
+/* Breadcrumb global llegible sobre la fotografia clara de Dónde ir.
+   No altera la configuració dels altres heros de VCC. */
+html body .di-hero.vcc-breadcrumb-on-dark #vcc-global-breadcrumb,
+html body .di-hero.vcc-breadcrumb-on-dark #vcc-global-breadcrumb a,
+html body .di-hero.vcc-breadcrumb-on-dark #vcc-global-breadcrumb strong,
+html body .di-hero.vcc-breadcrumb-on-dark #vcc-global-breadcrumb .vcc-bc-sep{
+  color:#42372f!important;
+  text-shadow:none!important;
+}
+html body .di-hero.vcc-breadcrumb-on-dark #vcc-global-breadcrumb a:hover{
+  color:#ae512d!important;
+}
+.di-content{scroll-margin-top:calc(var(--vcc-subheader-top,88px) + 60px)}
+.di-panel{scroll-margin-top:calc(var(--vcc-subheader-top,88px) + 60px)}
+
+
+/* Consejos VCC: cards editorials, sense enllaç fins que l'article existeixi. */
+.di-editorial-grid{margin-top:2px}
+.di-upcoming{cursor:default}
+.di-upcoming:is(:hover,:focus-visible){transform:none;border-color:#e7e0d9;box-shadow:none}
+.di-upcoming .di-mini-photo img{filter:saturate(.88)}
+.di-upcoming:hover .di-mini-photo img{transform:none}
+.di-upcoming-status{
+  display:inline-flex;align-items:center;align-self:flex-start;
+  margin-top:auto;padding:6px 9px;border-radius:6px;
+  background:#f5f2ee;color:#75675e;
+  font:800 9px/1.2 var(--vcc-font-body, "DM Sans", Arial, sans-serif);
+  letter-spacing:.05em;
+}
+.di-editorial-note{
+  margin:12px 0 0;color:#77706a;
+  font:400 11px/1.52 var(--vcc-font-body, "DM Sans", Arial, sans-serif);
+}
+@media(max-width:620px){
+  .di-editorial-note{font-size:10.5px}
+  .di-upcoming-status{font-size:8.5px}
+}
+
+
+/* Vinyetes amb dades VCC, coherents amb el format d'Itinerarios. */
+.di-itinerary-card .di-mini-body,
+.di-guide-card .di-mini-body{gap:0}
+.di-route-stats{
+  display:flex;align-items:center;flex-wrap:wrap;gap:4px 9px;
+  color:#b7563a;font:800 10px/1.35 var(--vcc-font-body, "DM Sans", Arial, sans-serif);
+  margin:1px 0 7px;
+}
+.di-route-stats .di-type{color:#96654d}
+.di-budget-row{
+  display:flex;align-items:baseline;flex-wrap:wrap;gap:5px 7px;
+  margin-bottom:7px;color:#82756d;
+  font:800 9px/1.4 var(--vcc-font-body, "DM Sans", Arial, sans-serif);
+  letter-spacing:.03em;
+}
+.di-price{color:#ac5134;font-weight:800;letter-spacing:0;font-size:10.5px}
+.di-price-pending{color:#96908b;font-weight:600}
+.di-country-line{
+  display:inline-flex;align-items:center;gap:6px;min-width:0;
+  color:#3f3c38;font:700 10.5px/1.4 var(--vcc-font-body, "DM Sans", Arial, sans-serif);
+  margin-bottom:7px;
+}
+.di-flag{flex:none;white-space:nowrap;font-size:15px;line-height:1.2;letter-spacing:0}
+.di-guide-info{
+  display:flex;align-items:center;justify-content:space-between;gap:5px;
+  flex-wrap:wrap;margin:1px 0 8px;
+}
+.di-guide-info .di-country-line{margin:0;font-size:10px}
+.di-guide-rating{
+  flex:none;display:inline-flex;align-items:center;gap:2px;
+  padding:4px 6px;border-radius:6px;
+  background:#fff0e5;color:#a64a2c;
+  font:800 11px/1.2 var(--vcc-font-body, "DM Sans", Arial, sans-serif);
+}
+.di-guide-rating small{font-size:9px;font-weight:600}
+.di-rating-pending{
+  background:#f5f2ee;color:#8f8580;font-size:9px;font-weight:700;
+}
+.di-itinerary-card .di-mini-desc,
+.di-guide-card .di-mini-desc{
+  display:-webkit-box;-webkit-box-orient:vertical;
+  -webkit-line-clamp:2;line-clamp:2;overflow:hidden;
+}
+.di-topic-row{display:flex;align-items:center;flex-wrap:wrap;gap:5px;margin:0 0 8px}
+.di-topic{
+  display:inline-block;padding:4px 6px;
+  border-radius:5px;background:#fff1e8;color:#a75437;
+  font:800 9px/1.15 var(--vcc-font-body, "DM Sans", Arial, sans-serif);text-transform:uppercase;
+}
+@media(max-width:620px){
+ .di-route-stats{font-size:9.5px;gap:3px 7px;margin-bottom:6px}
+ .di-budget-row{font-size:8.5px;margin-bottom:6px;gap:3px 5px}
+ .di-price{font-size:9.5px}
+ .di-country-line{font-size:10px}
+ .di-guide-info .di-country-line{font-size:9.5px}
+ .di-flag{font-size:14px}
+ .di-guide-rating{font-size:10px;padding:3px 5px}
+ .di-rating-pending{font-size:8.5px}
+ .di-topic{font-size:8px;padding:3px 5px}
+}
+
+/* Dónde ir: alçades de portada i subheader dels tokens compartits VCC. */
+.di-page .di-hero{box-sizing:border-box;height:var(--vcc-standard-hero-desktop,475px);min-height:var(--vcc-standard-hero-desktop,475px)}
+.di-page .di-hero-inner{height:100%}
+.di-page .di-subnav{top:var(--vcc-subheader-top,0px);height:var(--vcc-subnav-height,39px);min-height:var(--vcc-subnav-height,39px)}
+.di-page .di-subnav-inner{height:100%;min-height:var(--vcc-subnav-height,39px);gap:var(--vcc-subnav-gap,38px)}
+.di-page .di-subnav button{height:100%;font-size:var(--vcc-component-subheader-desktop-font,11.5px)}
+/* Vinyetes: el CSS visual es comparteix amb la pàgina Itinerarios. */
+.di-page .vcc-it-catalog .vcc-it-facts{flex-wrap:wrap;row-gap:5px}
+.di-page .vcc-it-catalog .di-mini-body>b{align-self:flex-end;text-align:right}
+.di-page .vcc-it-catalog .di-mini-tag{white-space:normal}
+@media(max-width:720px){
+ .di-page .di-hero{height:var(--vcc-standard-hero-mobile,calc(100svh - var(--vcc-page-header-height,79px) - 59px));min-height:var(--vcc-standard-hero-mobile,calc(100svh - var(--vcc-page-header-height,79px) - 59px))}
+ .di-page .di-subnav-inner{gap:var(--vcc-subnav-gap,24px)}
+ .di-page .di-subnav button{font-size:var(--vcc-component-subheader-mobile-font,11px)}
+}
+
+/* Titular de Consejos en una sola línia a l'escriptori, sense alterar
+   la capçalera editorial compartida ni forçar desbordaments al mòbil. */
+@media (min-width:901px) {
+  html body #di-panel-consejos .vcc-editorial-heading { gap:18px!important; }
+  html body #di-panel-consejos .vcc-editorial-heading .vcc-editorial-title {
+    font-size:clamp(27px,2.25vw,34px)!important;
+    white-space:nowrap!important;
+    text-wrap:nowrap!important;
+  }
+  html body #di-panel-consejos .vcc-editorial-heading > .vcc-editorial-description {
+    flex:0 1 clamp(245px,25vw,360px)!important;
+    max-width:360px!important;
+  }
+}
+@media (max-width:900px) {
+  html body #di-panel-consejos .vcc-editorial-heading .vcc-editorial-title {
+    font-size:clamp(27px,3.7vw,34px)!important;
+    text-wrap:balance;
+  }
+}

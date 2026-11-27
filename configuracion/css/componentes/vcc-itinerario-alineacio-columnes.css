@@ -1,0 +1,183 @@
+/* VCC · Alineació de les tres columnes: còpia final del CSS canònic.
+   S'ha de carregar després del CSS compilat per protegir la presentació
+   dels desplegaments que regeneren bundles de manera asíncrona. */
+/* VCC 2026-11-17 · Correcció canònica: tres columnes amb el mateix inici.
+   Evita l'antic centrament de les galeries i el header editorial a tota fila. */
+@media (min-width:951px) {
+  html body article.day-section[id^="dia"]{
+    display:grid!important;
+    grid-template-columns:minmax(0,32fr) minmax(0,28fr) minmax(0,40fr)!important;
+    column-gap:24px!important;
+    row-gap:12px!important;
+    /* La primera fila ha de tenir només l'altura del títol;
+       amb auto/stretch repartia espai sobrer i separava el text. */
+    grid-template-rows:max-content minmax(0,1fr) max-content!important;
+    align-content:start!important;
+    align-items:start!important;
+    box-sizing:border-box!important;
+  }
+  html body article.day-section[id^="dia"] > header.vcc-editorial-heading{
+    display:block!important;
+    grid-template-columns:none!important;
+    grid-column:1!important;
+    grid-row:1!important;
+    align-self:start!important;
+    justify-self:stretch!important;
+    width:100%!important;
+    min-width:0!important;
+    margin:0!important;
+    padding:0!important;
+    transform:none!important;
+  }
+  /* English headings are longer: never let a nowrap title overrun
+     the hour-by-hour route in the next grid column. */
+  html body article.day-section[id^="dia"] > header.vcc-editorial-heading .vcc-editorial-title{
+    white-space:normal!important;
+    text-wrap:balance!important;
+    overflow-wrap:break-word!important;
+    max-width:100%!important;
+    line-height:1.15!important;
+  }
+  html body article.day-section[id^="dia"] > header.vcc-editorial-heading .vcc-editorial-heading-main{
+    min-width:0!important;
+    max-width:100%!important;
+  }
+  html body article.day-section[id^="dia"] > header.vcc-editorial-heading .vcc-editorial-overline{
+    white-space:normal!important;
+    overflow-wrap:break-word!important;
+  }
+  html body article.day-section[id^="dia"] > header.vcc-editorial-heading .vcc-editorial-description{
+    display:block!important;
+    width:100%!important;
+    max-width:100%!important;
+    min-width:0!important;
+    margin:7px 0 0!important;
+    padding:0!important;
+    text-align:left!important;
+  }
+  html body article.day-section[id^="dia"] > .day-intro{
+    grid-column:1!important;
+    grid-row:2!important;
+    align-self:start!important;
+    min-height:0!important;
+    margin:0!important;
+    padding:0!important;
+    transform:none!important;
+  }
+  html body article.day-section[id^="dia"] > .day-schedule{
+    grid-column:2!important;
+    grid-row:1 / span 2!important;
+    align-self:start!important;
+    justify-self:stretch!important;
+    min-height:0!important;
+    margin:0!important;
+    padding:0!important;
+    transform:none!important;
+  }
+  html body article.day-section[id^="dia"] > .day-gallery.vcc-booking-gallery{
+    grid-column:3!important;
+    grid-row:1 / span 2!important;
+    align-self:start!important;
+    justify-self:stretch!important;
+    box-sizing:border-box!important;
+    width:100%!important;
+    min-width:0!important;
+    max-width:100%!important;
+    min-height:0!important;
+    margin:0!important;
+    padding:0!important;
+    position:relative!important;
+    top:auto!important;
+    transform:none!important;
+  }
+  html body article.day-section[id^="dia"] > .day-tip{
+    grid-column:1 / -1!important;
+    grid-row:3!important;
+    align-self:stretch!important;
+    margin:0!important;
+  }
+}
+
+
+/* VCC · Capçaleres dels 3 dies (ES/EN).
+   Mateixes fonts, mides i posició, però sense reservar 122px buits:
+   la introducció comença després de l'alçada real del títol.
+   Respecta automàticament títols en 1 o 2 línies i evita solapaments. */
+html body article.day-section[id^="dia"]{
+  --vcc-it-day-title-block:0px;
+  --vcc-it-day-heading-size:clamp(27px,2.55vw,37px);
+  --vcc-it-day-overline-size:clamp(25px,2.15vw,29px);
+}
+html body article.day-section[id^="dia"] > header.vcc-itinerary-section-heading{
+  box-sizing:border-box!important;
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:stretch!important;
+  justify-content:flex-start!important;
+  width:100%!important;
+  min-height:var(--vcc-it-day-title-block)!important;
+  margin:0!important;
+  padding:0!important;
+  transform:none!important;
+}
+html body article.day-section[id^="dia"] > header.vcc-itinerary-section-heading .vcc-editorial-heading-main{
+  display:block!important;
+  box-sizing:border-box!important;
+  width:100%!important;
+  min-width:0!important;
+  max-width:100%!important;
+  margin:0!important;
+  padding:0!important;
+}
+html body article.day-section[id^="dia"] > header.vcc-itinerary-section-heading .vcc-editorial-overline{
+  display:block!important;
+  font-size:var(--vcc-it-day-overline-size)!important;
+  line-height:1.1!important;
+  margin:0 0 7px!important;
+  padding:0!important;
+  transform:none!important;
+}
+html body article.day-section[id^="dia"] > header.vcc-itinerary-section-heading .vcc-editorial-title{
+  font-size:var(--vcc-it-day-heading-size)!important;
+  line-height:1.1!important;
+  font-weight:600!important;
+  margin:0!important;
+  padding:0!important;
+  text-align:left!important;
+  max-width:100%!important;
+  white-space:normal!important;
+  text-wrap:balance!important;
+  overflow-wrap:break-word!important;
+}
+html body article.day-section[id^="dia"] > .day-intro{
+  box-sizing:border-box!important;
+  margin:0!important;
+  padding:0!important;
+  justify-content:flex-start!important;
+  align-items:stretch!important;
+}
+html body article.day-section[id^="dia"] > .day-intro > p{
+  font:400 14px/1.65 var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;
+  width:100%!important;
+  min-width:0!important;
+  margin:0!important;
+  padding:0!important;
+  text-align:left!important;
+}
+@media(max-width:950px){
+  html body article.day-section[id^="dia"] > header.vcc-itinerary-section-heading{
+    min-height:0!important;
+  }
+  html body article.day-section[id^="dia"]{
+    --vcc-it-day-heading-size:calc(clamp(27px,3.2vw,35px) + var(--vcc-heading-size-adjust,0px));
+  }
+}
+@media(max-width:600px){
+  html body article.day-section[id^="dia"]{
+    --vcc-it-day-heading-size:calc(clamp(27px,8vw,34px) + var(--vcc-heading-size-adjust,0px));
+    --vcc-it-day-overline-size:calc(25px + var(--vcc-overline-size-adjust,0px));
+  }
+  html body article.day-section[id^="dia"] > header.vcc-itinerary-section-heading .vcc-editorial-overline{
+    margin-bottom:5px!important;
+  }
+}

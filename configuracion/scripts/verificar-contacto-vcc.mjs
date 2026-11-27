@@ -1,0 +1,57 @@
+/* Valida el mismo contacto ES/EN y la entrega nativa a Gmail (sin FormSubmit). */
+import fs from "node:fs";
+const read = (path) => fs.readFileSync(path, "utf8");
+const contact = read("contacto/index.html");
+const english = read("en/contact/index.html");
+const privacy = read("politica-de-privacidad/index.html");
+const client = read("configuracion/js/contacto-enviar.js");
+const worker = read("configuracion/workers/web-vcc.js");
+const right = "info@viajandoconcabeza.com";
+const gmail = "adminviajandoconcabeza@gmail.com";
+const issues = [];
+for (const [name, html] of [["Contacto", contact], ["Contact EN", english], ["Privacidad", privacy]]) {
+  if (html.includes("info@viajaconcabeza.com")) issues.push(name + ": dominio de correo incorrecto");
+  if (!html.includes(right)) issues.push(name + ": falta email corporativo");
+  if (/FormSubmit|formsubmit\.co/i.test(html)) issues.push(name + ": aún depende de FormSubmit");
+}
+for (const [name, html] of [["Contacto", contact], ["Contact EN", english]]) {
+  if (!html.includes('action="/api/contact"')) issues.push(name + ": falta ruta local /api/contact");
+  if (!html.includes("/configuracion/js/contacto-enviar.js")) issues.push(name + ": falta JS compartido");
+  if (!html.includes('name="website"')) issues.push(name + ": falta campo antispam");
+}
+const photoScript = read("configuracion/js/contacto-fotos.js");
+for (const [name, html] of [["Contacto", contact], ["Contact EN", english]]) {
+  if (!html.includes("data-vcc-contact-photo") ||
+      !html.includes("/configuracion/js/contacto-fotos.js"))
+    issues.push(name + ": falta imagen rotativa de R2");
+  if (/contact-postcard world-map-image"><img[^>]*src="https:\/\//.test(html))
+    issues.push(name + ": foto fija que podría descargarse antes de la aleatoria");
+}
+if (!photoScript.includes("__vcc_preview/") || !photoScript.includes("sessionStorage"))
+  issues.push("Selector de fotografías de R2 incompleto");
+const styles = read("configuracion/css/contacto.css");
+if (!styles.includes("#contactForm[hidden],#contactSuccess[hidden],#contactFeedback[hidden]{display:none!important}"))
+  issues.push("El CSS debe ocultar el formulario y los avisos cuando tienen hidden");
+if (!client.includes("feedback.hidden = true;") || !client.includes("form.hidden = true;") || !client.includes("success.hidden = false;"))
+  issues.push("La confirmación debe ocultar formulario y texto ENVIANDO");
+if (!client.includes("AbortController")) issues.push("Falta límite de espera del cliente");
+if (!worker.includes("await env.CONTACT_EMAIL.send(") || !worker.includes(gmail) || !worker.includes(right))
+  issues.push("Worker no usa destinatario Gmail confirmado");
+for (const path of ["wrangler.jsonc", "wrangler.production.jsonc"]) {
+  const cfg = JSON.parse(read(path));
+  if (cfg.main !== "./configuracion/workers/web-vcc.js" ||
+      !cfg.assets?.run_worker_first?.includes("/api/contact") ||
+      cfg.assets?.binding !== "ASSETS") issues.push(path + ": falta ruta Worker");
+  if (!cfg.send_email?.some(b => b.name === "CONTACT_EMAIL" && b.destination_address === gmail))
+    issues.push(path + ": falta binding al Gmail verificado");
+  if (!cfg.ratelimits?.some(b => b.name === "CONTACT_RATE_LIMIT"))
+    issues.push(path + ": falta límite antispam");
+}
+if (issues.length) {
+  issues.forEach(x => console.error("CONTACTO:", x));
+  process.exitCode = 1;
+} else {
+  console.log("VCC contacto OK: ES/EN envían por Cloudflare al Gmail verificado.");
+  await import("../tests/contacto-api.mjs");
+  await import("../tests/contacto-fotos.mjs");
+}

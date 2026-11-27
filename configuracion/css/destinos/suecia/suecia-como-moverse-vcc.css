@@ -1,0 +1,540 @@
+/* VCC · Suecia / Cómo moverse
+   Las tarjetas de transportes usan EXACTAMENTE el componente compartido
+   .mv-transport-section / .mv-card / .mv-transport-arrow del CSS base.
+   Este fichero sólo ajusta composición editorial, decisión coche y calculadora. */
+.swmove-page{--sw-ink:#242624;--sw-muted:#706b65;--sw-border:#e7dfd7;--sw-accent:#ae583d;--sw-paper:#fff;--sw-tint:#f8f4f0;--sw-radius:15px;min-width:0}
+.swmove-page *{box-sizing:border-box}
+.swmove-page .swmove-section{padding:55px 0 0;scroll-margin-top:142px}
+.swmove-page .swmove-section:last-child{padding-bottom:56px}
+.swmove-page .swmove-head{margin:0 0 22px!important}
+.swmove-page .swmove-head .vcc-editorial-description{max-width:470px}
+.swmove-page .swmove-note{margin:13px 0 0;color:var(--sw-muted);font:400 12px/1.65 var(--vcc-font-body,"DM Sans",Arial,sans-serif)}
+.swmove-page a.swmove-inline{color:var(--sw-accent);font-weight:700;text-decoration:underline;text-underline-offset:3px}
+/* Reuses all transport card dimensions, icons, breakpoints and carousel from Estocolmo. */
+.swmove-page .mv-transport-section{margin:0}
+/* La introducció llarga utilitza el mateix paràgraf editorial que els
+   altres apartats: sense barra, requadre, ni sagnat especial. */
+/* El primer titular y su texto comparten columna, no en paralelo. */
+.swmove-page #transportes .swmove-head{
+  grid-template-columns:minmax(0,1fr)!important;
+  align-items:start!important;
+  gap:0!important;
+}
+.swmove-page #transportes .swmove-head .vcc-editorial-description{
+  max-width:780px;
+  width:100%;
+  margin:9px 0 0!important;
+  text-align:left!important;
+}
+@media(max-width:700px){
+  .swmove-page #transportes .swmove-head .vcc-editorial-description{
+    max-width:100%;
+  }
+}
+
+/* Infrastruktur de cada mètode: informació útil, visible al DOM i enllaçada des del carrusel. */
+.swmove-page .mv-card .mv-card-body{gap:11px}
+.swmove-page .swmove-infra-area{padding:13px 0 0}
+.swmove-page .swmove-infra-heading{display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:8px 24px;margin:0 0 16px}
+.swmove-page .swmove-infra-heading .mv-overline{flex-basis:100%;margin:0 0 -1px}
+.swmove-page .swmove-infra-heading h3{margin:0;color:#252a28;font:600 clamp(26px,2.4vw,35px)/1.12 var(--vcc-font-heading,"Oswald",sans-serif);letter-spacing:0}
+.swmove-page .swmove-infra-heading p{max-width:445px;margin:0 0 2px;color:#77716b;font:400 12px/1.58 var(--vcc-font-body,"DM Sans",Arial,sans-serif)}
+.swmove-page .swmove-infra-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}
+.swmove-page .swmove-infra-card{display:flex;flex-direction:column;min-width:0;padding:16px 20px 16px;background:#fff;border:1px solid #e2d8d0;border-radius:15px;scroll-margin-top:142px}
+.swmove-page .swmove-infra-title{display:flex;align-items:center;gap:11px;margin:0 0 14px}
+.swmove-page .swmove-infra-icon{flex:0 0 46px}
+.swmove-page .swmove-infra-icon svg{width:27px;height:27px;display:block}
+.swmove-page .swmove-infra-title>div{min-width:0}
+.swmove-page .swmove-infra-overline{display:block;color:#a8674a;font:700 9.5px/1.4 var(--vcc-font-body,"DM Sans",Arial,sans-serif);letter-spacing:.07em;text-transform:uppercase}
+.swmove-page .swmove-infra-title h4{margin:3px 0 0;color:#272b29;font:600 24px/1.15 var(--vcc-font-heading,"Oswald",sans-serif)}
+.swmove-page .swmove-infra-body{display:flex;flex:1;flex-direction:column;gap:12px}
+.swmove-page .swmove-infra-body h5{margin:0 0 5px;color:#2f3532;font:600 15px/1.2 var(--vcc-font-heading,"Oswald",sans-serif)}
+.swmove-page .swmove-infra-body p{margin:0;color:#625e57;font:400 12.5px/1.65 var(--vcc-font-body,"DM Sans",Arial,sans-serif)}
+.swmove-page .swmove-infra-body p strong{color:#363936;font-weight:750}
+.swmove-page .swmove-infra-opinion{margin:14px 0 0;padding:11px 13px;background:#fbf5ef;border-left:3px solid #d69b78;border-radius:0 9px 9px 0;color:#56514c;font:500 11.8px/1.6 var(--vcc-font-body,"DM Sans",Arial,sans-serif)}
+.swmove-page .swmove-infra-opinion strong{color:#a65b3d;font-weight:800}
+.swmove-page .swmove-infra-references{display:flex;flex-wrap:wrap;gap:5px 14px;margin-top:12px;padding-top:10px;border-top:1px solid #ede8e3}
+.swmove-page .swmove-infra-references a{color:#98563e;font:700 10.3px/1.45 var(--vcc-font-body,"DM Sans",Arial,sans-serif);text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px}
+.swmove-page .swmove-infra-card:last-child{grid-column:1/-1}
+.swmove-page .swmove-infra-card:last-child .swmove-infra-body{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px}
+.swmove-page .swmove-infra-area+.swmove-intro-summary{margin-top:17px}
+/* Desglossament: el format visual de botons/fletxes viu exclusivament a desglose-compartit-vcc.css. */
+.swmove-page .swmove-infra-area[hidden],
+.swmove-page .swmove-infra-card[hidden],
+.swmove-page .swmove-calc-details[hidden]{display:none!important}
+.swmove-page .swmove-infra-area{scroll-margin-top:136px}
+.swmove-page .swmove-infra-grid{display:block}
+.swmove-page .swmove-infra-card{width:100%;margin:0}
+.swmove-page .swmove-infra-card .swmove-infra-body,
+.swmove-page .swmove-infra-card:last-child .swmove-infra-body{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px}
+.swmove-page .swmove-infra-actions{display:flex;justify-content:flex-end;padding:10px 2px 0}
+.swmove-page .swmove-infra-close{
+  display:inline-grid;place-items:center;flex:0 0 27px;width:27px;height:27px;
+  padding:0;border:1px solid #e8d5c9;border-radius:50%;
+  background:#fff;color:#b85b40;box-shadow:none;cursor:pointer;
+  font:400 22px/1 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
+}
+.swmove-page .swmove-infra-close:hover{border-color:#bd8d74;background:#fff7f3}
+.swmove-page .swmove-infra-close:focus-visible{outline:2px solid #b65f42;outline-offset:3px}
+
+/* Calculadora: a la vista només totals, estalvi i millor opció. */
+.swmove-page .swmove-calc-overview{padding:12px 16px 0}
+.swmove-page .swmove-calc-overview .swmove-calc-heading{margin:0 0 3px}
+.swmove-page .swmove-calculator>.swmove-calc-result{border-top:0;padding-top:9px}
+.swmove-page .swmove-calc-actions{display:flex;justify-content:flex-end;padding:0 16px 12px;background:#fff}
+.swmove-page .swmove-calc-details{padding:15px 16px 16px;border-top:1px solid #e8e5e1;background:#fff}
+.swmove-page .swmove-calc-details .swmove-calc-fields{padding:0 0 14px}
+.swmove-page .swmove-calc-detail-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.swmove-page .swmove-calc-detail-col{min-width:0;background:#fff;border:1px solid #e6ddd5;border-radius:10px;padding:12px 13px}
+.swmove-page .swmove-calc-detail-col h4{margin:0 0 9px;font:600 17px/1.15 var(--vcc-font-heading,"Oswald",sans-serif);color:#303230}
+.swmove-page .swmove-calc-detail-row{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:7px 0;border-bottom:1px solid #f0ebe6;font:500 11px/1.4 var(--vcc-font-body,"DM Sans",Arial,sans-serif);color:#5b5752}
+.swmove-page .swmove-calc-detail-row strong{color:#292e2b;text-align:right;font-weight:750;white-space:nowrap;font-variant-numeric:tabular-nums}
+.swmove-page .swmove-calc-detail-total{margin-top:5px;border-bottom:0;border-top:1px solid #e6d4c8;padding:11px 0 0;color:#292e2b;font-weight:800}
+.swmove-page .swmove-calc-detail-total strong{font:600 19px/1.1 var(--vcc-font-heading,"Oswald",sans-serif)}
+.swmove-page .swmove-calc-detail-note{margin:12px 0 7px;color:#857a72;font:400 10px/1.55 var(--vcc-font-body,"DM Sans",Arial,sans-serif)}
+.swmove-page .swmove-calc-details .swmove-calc-reset{display:flex;margin-left:auto;justify-self:auto;align-self:auto}
+@media(max-width:900px){
+ .swmove-page .swmove-infra-card .swmove-infra-body,
+ .swmove-page .swmove-infra-card:last-child .swmove-infra-body{grid-template-columns:1fr;gap:12px}
+}
+@media(max-width:590px){
+ .swmove-page .swmove-infra-area{scroll-margin-top:123px}
+ .swmove-page .swmove-calc-overview{padding:12px 12px 0}
+ .swmove-page .swmove-calc-actions{padding:2px 12px 12px}
+ .swmove-page .swmove-calc-details{padding:12px}
+ .swmove-page .swmove-calc-detail-grid{grid-template-columns:1fr;gap:9px}
+}
+/* Suecia · dos decisiones, inspiración Presupuesto Estocolmo. */
+.swmove-page .swmove-choice-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin:0}
+.swmove-page .swmove-choice{display:flex;flex-direction:column;min-width:0;padding:19px 21px 17px;background:#fff;border:1px solid #e6ded7;border-radius:13px}
+.swmove-page .swmove-choice-head{display:flex;align-items:center;gap:13px;margin:0 0 12px;padding:0 0 13px;border-bottom:1px solid #eae5df}
+.swmove-page .swmove-choice-head>div{min-width:0}
+.swmove-page .swmove-choice-face{display:grid;place-items:center;width:47px;height:47px;flex:0 0 47px;color:#d87545}
+.swmove-page .swmove-choice-face svg{display:block;width:43px;height:43px}
+.swmove-page .swmove-choice-label{display:block;margin:0 0 4px;color:#ab6549;font:700 10px/1.35 var(--vcc-font-body,"DM Sans",Arial,sans-serif);letter-spacing:.085em}
+.swmove-page .swmove-choice h3{margin:0 0 4px;color:#242926;font:600 23px/1.13 var(--vcc-font-heading,"Oswald",sans-serif)}
+.swmove-page .swmove-choice-head p{margin:0;color:#74716c;font:400 11.5px/1.4 var(--vcc-font-body,"DM Sans",Arial,sans-serif)}
+.swmove-page .swmove-choice-list{list-style:none;display:grid;grid-template-columns:1fr;flex:1;gap:0;margin:0;padding:0}
+.swmove-page .swmove-choice-list li{position:relative;margin:0;padding:8px 0 8px 15px;border-bottom:1px solid #f0ece8;color:#565955;font:400 12px/1.52 var(--vcc-font-body,"DM Sans",Arial,sans-serif)}
+.swmove-page .swmove-choice-list li:before{content:"";position:absolute;left:1px;top:15px;width:5px;height:5px;border-radius:50%;background:#d87545}
+.swmove-page .swmove-choice-list li:last-child{border-bottom:0;padding-bottom:1px}
+.swmove-page .swmove-choice-list strong{font-weight:700;color:#303632}
+.swmove-page .swmove-simple-tip{display:flex;gap:12px;align-items:center;margin:14px 0 24px;padding:0 2px;border:0;background:transparent}
+.swmove-page .swmove-simple-tip img{display:block;width:40px;height:40px;flex:0 0 40px;object-fit:contain}
+.swmove-page .swmove-simple-tip p{margin:0;color:#575955;font:400 12.5px/1.55 var(--vcc-font-body,"DM Sans",Arial,sans-serif)}
+.swmove-page .swmove-simple-tip strong{margin-right:7px;color:#272b29;font-weight:800;letter-spacing:.04em}
+@media(max-width:740px){.swmove-page .swmove-choice-grid{grid-template-columns:1fr;gap:10px}.swmove-page .swmove-choice{padding:15px 16px}.swmove-page .swmove-choice-head{margin-bottom:9px;padding-bottom:11px}.swmove-page .swmove-choice-face{width:42px;height:42px;flex-basis:42px}.swmove-page .swmove-choice-face svg{width:39px;height:39px}.swmove-page .swmove-choice h3{font-size:21px}}
+/* Calculadora única: dos filas de inputs + tres resums amb estalvi verd dinàmic */
+.swmove-page .swmove-calculator{display:flex;flex-direction:column;min-width:0;overflow:hidden;background:#fff;border:1px solid #e4e0db;border-radius:13px}
+.swmove-page .swmove-calc-fields{min-width:0;padding:13px 16px 11px}
+.swmove-page .swmove-calc-clarity{margin:8px 0 0;color:#786c63;font:400 10px/1.4 var(--vcc-font-body,"DM Sans",Arial,sans-serif)}
+.swmove-page .swmove-calc-clarity b{color:#68584e;font-weight:700}
+.swmove-page .swmove-calc-heading{display:flex;align-items:center;gap:9px;margin:0 0 11px}
+.swmove-page .swmove-calc-heading-icon{flex:0 0 34px;display:grid;place-items:center;width:34px;height:34px;border-radius:8px;background:transparent;color:#4e5350}
+.swmove-page .swmove-calc-heading-icon svg{width:21px;height:21px}
+.swmove-page .swmove-calc-title{font:600 21px/1.15 var(--vcc-font-heading,"Oswald",sans-serif);color:#252825;margin:0}
+.swmove-page .swmove-calc-heading p{font:400 10.5px/1.45 var(--vcc-font-body,"DM Sans",Arial,sans-serif);color:#746d66;margin:2px 0 0}
+.swmove-page .swmove-fields{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));column-gap:11px;row-gap:9px}
+.swmove-page .swmove-field{display:flex;flex-direction:column;gap:4px;min-width:0}
+.swmove-page .swmove-field-label{display:flex;align-items:center;gap:6px;min-width:0;color:#605953;font:700 10.5px/1.3 var(--vcc-font-body,"DM Sans",Arial,sans-serif)}
+.swmove-page .swmove-field-label svg{display:block;flex:0 0 17px;width:17px;height:17px;color:#777874}
+.swmove-page .swmove-field-label span{min-width:0}
+.swmove-page .swmove-field input{box-sizing:border-box;display:block;width:100%;min-width:0;height:35px;padding:5px 10px;background:#fff;border:1px solid #ded6cf;border-radius:8px;color:#262a28;font:600 13px/1.3 var(--vcc-font-body,"DM Sans",Arial,sans-serif);font-variant-numeric:tabular-nums}
+.swmove-page .swmove-field input::placeholder{color:#b2a9a0;font-weight:400}
+.swmove-page .swmove-field input:focus-visible,.swmove-page .swmove-calc-reset:focus-visible{outline:2px solid #b45e44;outline-offset:2px}
+.swmove-page .swmove-calc-result{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(125px,.48fr) minmax(145px,.52fr);gap:9px;align-items:center;min-width:0;background:#fff;border-top:1px solid #efe3d9;padding:10px 16px}
+.swmove-page .swmove-costs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;min-width:0}
+.swmove-page .swmove-cost-row{display:flex;align-items:center;gap:8px;min-width:0;background:#fff;border:1px solid #e8ded6;border-radius:8px;padding:7px 8px}
+.swmove-page .swmove-cost-icon{flex:0 0 26px;width:26px;height:26px;display:grid;place-items:center;border-radius:7px;background:transparent;color:#555956}
+.swmove-page .swmove-cost-icon svg{width:17px;height:17px}
+.swmove-page .swmove-cost-row>div{display:flex;flex-direction:column;gap:2px;min-width:0}
+.swmove-page .swmove-cost-row small{font:600 10px/1.3 var(--vcc-font-body,"DM Sans",Arial,sans-serif);color:#6f645e}
+.swmove-page .swmove-cost-row strong{font:600 23px/1.08 var(--vcc-font-heading,"Oswald",sans-serif);color:#302f2c;font-variant-numeric:tabular-nums;white-space:nowrap}
+.swmove-page .swmove-cost-row:nth-child(2) strong{color:#302f2c}
+.swmove-page .swmove-saving-box{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;min-height:77px;padding:7px 9px;border-radius:10px;background:#fff;border:1px solid #e4e0db;color:#4b4d4b;text-align:center}
+.swmove-page .swmove-saving-box>span{font:800 10px/1.3 var(--vcc-font-body,"DM Sans",Arial,sans-serif)}
+.swmove-page .swmove-saving-box>strong{font:700 30px/1.05 var(--vcc-font-heading,"Oswald",sans-serif);white-space:nowrap;font-variant-numeric:tabular-nums;color:#333634}
+.swmove-page .swmove-saving-box[data-savings="positive"]>strong,.swmove-page .swmove-saving-box[data-savings="negative"]>strong{color:#16833d}
+.swmove-page .swmove-saving-box>small{font:700 10px/1.3 var(--vcc-font-body,"DM Sans",Arial,sans-serif)}
+.swmove-page .swmove-saving-box[data-savings="negative"]{color:#4b4d4b}
+.swmove-page .swmove-saving-box[data-savings="pending"],.swmove-page .swmove-saving-box[data-savings="neutral"]{color:#302f2c}
+.swmove-page .swmove-verdict-box{display:flex;align-items:center;gap:9px;min-height:77px;padding:8px 10px;border:1px solid #e4e0db;background:#fff;border-radius:10px;min-width:0}
+.swmove-page .swmove-verdict-box>img{flex:0 0 30px;width:30px;height:30px;object-fit:contain}
+.swmove-page .swmove-verdict-box>div{min-width:0}
+.swmove-page .swmove-verdict-box span{display:block;margin:0 0 4px;font:800 9px/1.35 var(--vcc-font-body,"DM Sans",Arial,sans-serif);color:#302f2c}
+.swmove-page .swmove-calc-verdict{display:block;font:600 22px/1.12 var(--vcc-font-heading,"Oswald",sans-serif);color:#302f2c}
+.swmove-page .swmove-calc-explain{grid-column:1 / 3;color:#827970;font:400 9.5px/1.3 var(--vcc-font-body,"DM Sans",Arial,sans-serif);margin:0}
+.swmove-page .swmove-calc-reset{grid-column:3;justify-self:end;align-self:center;padding:0;border:0;background:transparent;color:#545955;text-decoration:underline;text-underline-offset:3px;font:700 10px/1.25 var(--vcc-font-body,"DM Sans",Arial,sans-serif);cursor:pointer}
+/* Shared savings carousel */
+.swmove-page .swmove-tips-title{font:500 23px/1.2 var(--vcc-font-heading,"Oswald",sans-serif);color:#272725;margin:0 0 14px}
+.swmove-page .swmove-tips{margin-top:0}
+.swmove-page .swmove-tips .mv-saving-card{min-height:150px}
+.swmove-page .swmove-tips .mv-saving-card h3{color:#242424}
+.swmove-page .swmove-sources{font:400 10.5px/1.6 var(--vcc-font-body,"DM Sans",Arial,sans-serif);color:#8a8179;margin:25px 0 0}
+.swmove-page .swmove-sources a{color:#806151;text-decoration:underline;text-underline-offset:2px}
+@media(max-width:900px){
+ .swmove-page .swmove-infra-grid{grid-template-columns:1fr}
+ .swmove-page .swmove-infra-card:last-child{grid-column:auto}
+ .swmove-page .swmove-infra-card:last-child .swmove-infra-body{display:flex;flex-direction:column;gap:12px}
+ .swmove-page .swmove-infra-heading{align-items:flex-start;flex-direction:column;gap:6px}
+ .swmove-page .swmove-infra-heading .mv-overline{flex-basis:auto}
+ .swmove-page .swmove-infra-heading p{max-width:620px}
+}
+@media(max-width:590px){
+ .swmove-page .swmove-infra-area{padding-top:23px}
+ .swmove-page .swmove-infra-card{padding:15px 15px 14px;scroll-margin-top:123px}
+ .swmove-page .swmove-infra-heading h3{font-size:27px}
+ .swmove-page .swmove-infra-body p{font-size:12px;line-height:1.6}
+ .swmove-page .swmove-infra-opinion{font-size:11.5px}
+ .swmove-page .swmove-infra-references{gap:5px 12px}
+}
+@media(max-width:1120px){
+ .swmove-page .swmove-calc-result{grid-template-columns:minmax(0,1fr) minmax(115px,.43fr) minmax(145px,.51fr)}
+}
+@media(max-width:830px){
+ .swmove-page .swmove-calc-result{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .swmove-page .swmove-costs{grid-column:1/-1}
+ .swmove-page .swmove-calc-explain{grid-column:1}
+ .swmove-page .swmove-calc-reset{grid-column:2}
+}
+@media(max-width:740px){
+ .swmove-page .swmove-section{padding-top:42px;scroll-margin-top:125px}
+ .swmove-page .swmove-intro-summary{padding:12px 14px}
+ .swmove-page .swmove-tips .mv-saving-card{min-height:130px}
+}
+@media(max-width:590px){
+ .swmove-page .swmove-choice-grid{grid-template-columns:1fr;gap:9px}
+ .swmove-page .swmove-choice{padding:12px 13px}
+ .swmove-page .swmove-fields{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .swmove-page .swmove-calc-fields,.swmove-page .swmove-calc-result{padding:11px 12px}
+ .swmove-page .swmove-field input{height:42px}
+ .swmove-page .swmove-calc-title{font-size:19px}
+ .swmove-page .swmove-calc-result{gap:8px}
+ .swmove-page .swmove-saving-box,.swmove-page .swmove-verdict-box{min-height:78px}
+}
+@media(max-width:380px){
+ .swmove-page .swmove-field-label{font-size:9.5px}
+ .swmove-page .swmove-saving-box>strong{font-size:26px}
+ .swmove-page .swmove-calc-verdict{font-size:19px}
+}
+@media(prefers-reduced-motion:reduce){.swmove-page .mv-grid{scroll-behavior:auto}}
+
+/* Carrusel Suecia: sobretítulo corporativo externo, compacto y vinculado a cada tarjeta. */
+.swmove-page .mv-grid>.swmove-transport-slide{
+  flex:0 0 calc((100% - 24px)/3);
+  min-width:0;
+  display:flex;
+  flex-direction:column;
+  scroll-snap-align:start;
+}
+.swmove-page .mv-grid>.swmove-transport-slide>.swmove-ideal{
+  display:block;
+  flex:none;
+  margin:0;
+  padding:0 9px 9px;
+  min-height:39px;
+  color:#c86f5d;
+  background:transparent;
+  border:0;
+  font:600 25px/1.15 var(--vcc-font-script,"Caveat",cursive);
+  letter-spacing:0;
+  text-transform:none;
+  text-align:left;
+  white-space:nowrap;
+}
+.swmove-page .mv-grid>.swmove-transport-slide>.mv-card{
+  flex:1 1 auto;
+  display:flex;
+  flex-direction:column;
+  min-width:0;
+  width:100%;
+}
+.swmove-page .mv-grid>.swmove-transport-slide>.mv-card>.mv-card-body{flex:1 1 auto}
+.swmove-page .mv-transport-arrow{top:calc(50% + 17px)}
+@media(max-width:1050px){
+  .swmove-page .mv-grid>.swmove-transport-slide{flex-basis:calc((100% - 12px)/2)}
+}
+@media(max-width:690px){
+  .swmove-page .mv-grid>.swmove-transport-slide{flex-basis:100%}
+  .swmove-page .mv-grid>.swmove-transport-slide>.swmove-ideal{
+    padding:0 8px 8px;
+    min-height:36px;
+    font-size:24px;
+  }
+  .swmove-page .mv-transport-arrow{top:calc(50% + 15px)}
+}
+@media(max-width:360px){
+  .swmove-page .mv-grid>.swmove-transport-slide>.swmove-ideal{font-size:22px}
+}
+
+/* Iconos de transporte: exactamente la familia de Planifica (Tabler + acentos naranja). */
+.swmove-page .mv-card-heading .mv-icon{
+  width:52px;
+  height:52px;
+  flex:0 0 52px;
+  display:grid;
+  place-items:center;
+  border:0;
+  border-radius:50%;
+  background:transparent;
+  box-shadow:none;
+  color:#192b39;
+}
+.swmove-page .mv-card-heading .mv-icon svg{
+  display:block;
+  width:39px;
+  height:39px;
+  overflow:visible;
+  fill:none;
+  stroke:none;
+  color:inherit;
+}
+@media(max-width:690px){
+  .swmove-page .mv-card-heading .mv-icon{width:50px;height:50px;flex-basis:50px}
+  .swmove-page .mv-card-heading .mv-icon svg{width:37px;height:37px}
+}
+
+
+@media(max-width:590px){
+ .swmove-page .swmove-choice-grid{grid-template-columns:1fr}
+ .swmove-page .swmove-choice{padding:18px 18px 16px}
+ .swmove-page .swmove-choice h3{font-size:21px}
+ .swmove-page .swmove-simple-tip{align-items:flex-start;gap:10px}
+ .swmove-page .swmove-simple-tip img{width:34px;height:34px;flex-basis:34px}
+}
+
+
+/* 2026-11 · Transporte Suecia: misma jerarquía que tarjetas editoriales VCC
+   (Oswald para títulos, DM Sans para detalles). */
+.swmove-page #transportes .mv-card-heading h3{
+  font:500 22px/1.12 var(--vcc-font-heading,"Oswald",sans-serif);
+}
+.swmove-page #transportes .mv-card-title>span{
+  font:500 11.5px/1.35 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
+}
+.swmove-page #transportes .mv-experience-list li,
+.swmove-page #transportes .mv-card-advice-item p{
+  font:400 11.7px/1.42 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
+}
+.swmove-page #transportes .mv-experience-title strong,
+.swmove-page #transportes .mv-card-advice-item strong{
+  font:600 14px/1.18 var(--vcc-font-heading,"Oswald",sans-serif);
+}
+/* Dos decisiones compactas: titulares completos, ✓ verde y × roja. */
+.swmove-page .swmove-choice-grid{gap:12px}
+.swmove-page .swmove-choice{padding:12px 15px 11px}
+.swmove-page #comparar .swmove-choice-head{gap:10px;margin-bottom:6px;padding-bottom:7px}
+.swmove-page .swmove-choice-face{width:35px;height:35px;flex-basis:35px}
+.swmove-page .swmove-choice-face svg{width:34px;height:34px}
+.swmove-page #comparar .swmove-choice h3{font-size:clamp(18px,1.65vw,21px);line-height:1.15;margin:0 0 3px}
+.swmove-page .swmove-choice-head p{font-size:10.5px;line-height:1.3}
+.swmove-page #comparar .swmove-choice-list{gap:2px}
+.swmove-page #comparar .swmove-choice-list li{
+  padding:2px 0 2px 22px;
+  border:0!important;
+  font:400 11.5px/1.34 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
+}
+.swmove-page #comparar .swmove-choice-list li:last-child{padding-bottom:2px}
+.swmove-page #comparar .swmove-choice-list li::before{
+  content:"✓"!important;
+  position:absolute;left:0;top:1px;
+  display:block;width:16px;height:auto;
+  border:0;border-radius:0;background:transparent!important;
+  color:#19804b;font:800 14px/1.25 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
+}
+.swmove-page #comparar .swmove-choice--no .swmove-choice-list li::before{
+  content:"×"!important;color:#c34c46;
+  font-size:17px;line-height:1.08;
+}
+@media(max-width:700px){
+  .swmove-page .swmove-choice-grid{gap:9px}
+  .swmove-page .swmove-choice{padding:12px 13px}
+}
+
+/* VCC · desglossament Suecia 2026-11-17
+   Dos blocs esquemàtics + Consejo VCC canònic, només al detall desplegat. */
+.swmove-page .swmove-infra-card .swmove-infra-title{
+ display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.5fr);
+ align-items:center;column-gap:20px;row-gap:6px;
+ margin:0 0 14px;padding:0 0 13px;border-bottom:1px solid #ede6df;
+}
+.swmove-page .swmove-infra-card .swmove-infra-title h4{
+ margin:0;color:#252925;font:600 clamp(23px,2.3vw,29px)/1.1 var(--vcc-font-heading,"Oswald",sans-serif);
+}
+.swmove-page .swmove-infra-card .swmove-infra-title .swmove-infra-mini{
+ margin:0;min-width:0;color:#b66a50;text-align:right;
+ font:600 clamp(16px,1.6vw,20px)/1.2 "Caveat",cursive;
+ letter-spacing:0;text-transform:none;
+}
+.swmove-page .swmove-infra-card .swmove-infra-body,
+.swmove-page .swmove-infra-card:last-child .swmove-infra-body{
+ display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;
+ align-items:start;gap:clamp(12px,2.4vw,28px)!important;
+}
+.swmove-page .swmove-infra-card .swmove-infra-column{min-width:0;padding:2px 0}
+.swmove-page .swmove-infra-card .swmove-infra-column + .swmove-infra-column{
+ padding-left:clamp(10px,2.1vw,24px);border-left:1px solid #e7d8cd;
+}
+.swmove-page .swmove-infra-card .swmove-infra-column h5{
+ display:flex;align-items:center;gap:9px;margin:0 0 10px;
+ font:600 clamp(16px,1.55vw,19px)/1.15 var(--vcc-font-heading,"Oswald",sans-serif);
+ color:#2e3330;
+}
+.swmove-page .swmove-infra-feature-icon{
+ display:grid;place-items:center;flex:0 0 33px;
+ width:33px;height:33px;border-radius:50%;
+ background:#fbf2eb;color:#b45d43;
+}
+.swmove-page .swmove-infra-feature-icon svg{display:block;width:19px;height:19px}
+.swmove-page .swmove-infra-column ul{
+ display:grid;gap:7px;list-style:none;padding:0;margin:0;
+}
+.swmove-page .swmove-infra-column li{
+ position:relative;padding:0 0 0 16px;
+ color:#55534f;font:400 11.5px/1.46 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
+ overflow-wrap:break-word;
+}
+.swmove-page .swmove-infra-column li::before{
+ content:"";position:absolute;left:1px;top:.57em;
+ width:6px;height:6px;border-radius:50%;background:#ba735a;
+}
+html body .swmove-page .swmove-infra-card .swmove-infra-opinion.vcc-consejo-unificado{
+ margin:17px 0 0!important;background:#fff!important;
+ border:1.5px solid var(--vcc-consejo-border-color,#d56a4c)!important;
+ border-radius:15px!important;
+}
+.swmove-page .swmove-infra-card .swmove-infra-references{margin-top:13px}
+@media(max-width:700px){
+ .swmove-page .swmove-infra-card{padding:12px 13px 13px}
+ .swmove-page .swmove-infra-card .swmove-infra-title{
+  grid-template-columns:minmax(0,.7fr) minmax(0,1.3fr);
+  column-gap:10px;margin-bottom:12px;padding-bottom:10px;
+ }
+ .swmove-page .swmove-infra-card .swmove-infra-title .swmove-infra-mini{
+  font-size:16px;line-height:1.15;
+ }
+ .swmove-page .swmove-infra-card .swmove-infra-body,
+ .swmove-page .swmove-infra-card:last-child .swmove-infra-body{
+  gap:11px!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;
+ }
+ .swmove-page .swmove-infra-card .swmove-infra-column + .swmove-infra-column{padding-left:11px}
+ .swmove-page .swmove-infra-card .swmove-infra-column h5{
+  font-size:15px;gap:6px;flex-wrap:wrap;
+ }
+ .swmove-page .swmove-infra-feature-icon{width:29px;height:29px;flex-basis:29px}
+ .swmove-page .swmove-infra-feature-icon svg{width:17px;height:17px}
+ .swmove-page .swmove-infra-column ul{gap:8px}
+ .swmove-page .swmove-infra-column li{font-size:10.5px;line-height:1.46;padding-left:12px}
+ .swmove-page .swmove-infra-column li::before{width:5px;height:5px;left:0}
+ html body .swmove-page .swmove-infra-card .swmove-infra-opinion.vcc-consejo-unificado{
+  margin-top:15px!important;
+ }
+}
+
+/* VCC 2026-11-17 · fitxa infra ampliada, fletxa visible i consejo mínim. */
+/* Mantenim la mida del component VER DESGLOSE de Presupuesto, però amb SVG
+   directe perquè la icona es vegi sense dependre de símbols externs. */
+html body .swmove-page #transportes button.swmove-card-more.vcc-disclosure-toggle{
+ display:flex!important;align-items:center!important;justify-content:flex-end!important;
+ gap:5px!important;white-space:nowrap!important;
+ font-size:var(--vcc-desglose-font-size,10px)!important;
+}
+html body .swmove-page #transportes button.swmove-card-more .swmove-card-caret{
+ display:inline-flex!important;align-items:center!important;justify-content:center!important;
+ width:14px!important;height:14px!important;min-width:14px!important;flex:0 0 14px!important;
+ margin:0!important;padding:0!important;background:transparent!important;border:0!important;
+ color:inherit!important;opacity:1!important;visibility:visible!important;
+}
+html body .swmove-page #transportes button.swmove-card-more .swmove-card-caret svg{
+ display:block!important;width:12px!important;height:12px!important;flex:none!important;
+ stroke:currentColor!important;stroke-width:2!important;fill:none!important;overflow:visible!important;
+ stroke-linecap:round!important;stroke-linejoin:round!important;
+ transform:rotate(0deg);transition:transform .16s ease!important;
+}
+html body .swmove-page #transportes button.swmove-card-more[aria-expanded="true"] .swmove-card-caret svg{
+ transform:rotate(180deg)!important;
+}
+/* Les dades de tota la xarxa nacional queden en punts breus i llegibles. */
+html body .swmove-page .swmove-infra-card .swmove-infra-column li strong{
+ color:#33312e;font-weight:700;
+}
+/* Només aquest Consejo VCC es fa més baix; la resta de la web no canvia. */
+html body .swmove-page #transportes .swmove-infra-card .swmove-infra-opinion.vcc-consejo-unificado:not(.ci-recommendation){
+ display:grid!important;grid-template-columns:74px minmax(0,1fr)!important;
+ align-items:center!important;gap:9px!important;
+ height:auto!important;min-height:0!important;max-height:none!important;
+ margin:13px 0 0!important;padding:7px 10px!important;
+ border:1.5px solid #cc765a!important;border-radius:13px!important;
+ background:#fff!important;
+}
+html body .swmove-page #transportes .swmove-infra-card .swmove-infra-opinion .vcc-consejo-marca{
+ gap:1px!important;min-height:0!important;margin:0!important;
+}
+html body .swmove-page #transportes .swmove-infra-card .swmove-infra-opinion .vcc-consejo-marca img{
+ width:27px!important;height:27px!important;min-width:0!important;min-height:0!important;
+ max-width:27px!important;max-height:27px!important;flex:0 0 27px!important;
+}
+html body .swmove-page #transportes .swmove-infra-card .swmove-infra-opinion .vcc-consejo-marca > strong{
+ font-size:8px!important;line-height:1.12!important;letter-spacing:.02em!important;
+ white-space:nowrap!important;
+}
+html body .swmove-page #transportes .swmove-infra-card .swmove-infra-opinion .vcc-consejo-texto{
+ min-width:0!important;grid-column:2!important;
+}
+html body .swmove-page #transportes .swmove-infra-card .swmove-infra-opinion .vcc-consejo-texto p{
+ font-size:11px!important;line-height:1.35!important;margin:0!important;
+}
+@media(max-width:590px){
+ html body .swmove-page #transportes .swmove-infra-card .swmove-infra-opinion.vcc-consejo-unificado:not(.ci-recommendation){
+  grid-template-columns:65px minmax(0,1fr)!important;gap:7px!important;
+  margin-top:11px!important;padding:6px 8px!important;
+ }
+ html body .swmove-page #transportes .swmove-infra-card .swmove-infra-opinion .vcc-consejo-marca img{
+  width:24px!important;height:24px!important;max-width:24px!important;max-height:24px!important;
+  flex:0 0 24px!important;
+ }
+ html body .swmove-page #transportes .swmove-infra-card .swmove-infra-opinion .vcc-consejo-marca > strong{
+  font-size:7.5px!important;
+ }
+ html body .swmove-page #transportes .swmove-infra-card .swmove-infra-opinion .vcc-consejo-texto p{
+  font-size:10px!important;line-height:1.3!important;
+ }
+}
+@media(prefers-reduced-motion:reduce){
+ html body .swmove-page #transportes button.swmove-card-more .swmove-card-caret svg{transition:none!important}
+}
+
+/* VCC 2026-11-17: tancament del desglossament a l'angle superior dret. */
+/* La X continua sent el mateix botó i conserva el seu esdeveniment JS;
+   només canviem la posició dins del panell expandit. */
+.swmove-page .swmove-infra-area{position:relative}
+.swmove-page .swmove-infra-area > .swmove-infra-actions{
+ position:absolute;top:22px;right:12px;z-index:5;
+ display:flex;align-items:center;justify-content:center;
+ margin:0;padding:0;
+}
+.swmove-page .swmove-infra-card .swmove-infra-title{
+ padding-right:35px;
+}
+@media(max-width:590px){
+ .swmove-page .swmove-infra-area > .swmove-infra-actions{top:31px;right:9px}
+ .swmove-page .swmove-infra-card .swmove-infra-title{padding-right:31px}
+}
+
+/* VCC 2026-11-17 · Capçalera grisa compartint el patró visual de
+   "Dónde dormir en Estocolmo" (#f6f6f5), sense alterar les dues columnes.
+   Només a la fitxa que s'obre amb VER DESGLOSE del primer apartat. */
+html body .swmove-page #transportes .swmove-infra-card .swmove-infra-title{
+  box-sizing:border-box;
+  background:#f6f6f5;
+  border-bottom:1px solid #e8e7e5;
+  border-radius:14px 14px 0 0;
+  margin:-16px -20px 14px;
+  padding:16px 55px 13px 20px;
+}
+@media(max-width:700px){
+  html body .swmove-page #transportes .swmove-infra-card .swmove-infra-title{
+    margin:-12px -13px 12px;
+    padding:12px 43px 10px 13px;
+  }
+}

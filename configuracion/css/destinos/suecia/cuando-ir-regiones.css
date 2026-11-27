@@ -1,0 +1,24 @@
+/* Cuándo ir · Suecia / Por región.
+   La geometría del carrusel, sus flechas y el responsive están CENTRALIZADOS en
+   /configuracion/css/componentes/vcc-regiones-transporte.css.
+   Las tarjetas en /configuracion/css/componentes/vcc-targetes-itineraris-guies.css.
+   Aquí solo quedan diferencias de contenido de Cuándo ir (temporadas y notas). */
+html body.ci-page #por-region{
+  scroll-margin-top:var(--ci-sticky-offset,110px);
+  padding:0 0 16px;
+}
+html body.ci-page #por-region .ci-heading{margin-bottom:18px}
+html body.ci-page #por-region .ci-region-card .ci-region-season{
+  color:#b65032!important;font-weight:800!important;
+}
+html body.ci-page #por-region .ci-region-empty-photo{
+  position:absolute!important;inset:0!important;
+  display:flex!important;align-items:center!important;justify-content:center!important;
+  background:linear-gradient(120deg,#426878,#91adb5)!important;
+  color:#fff!important;
+  font:500 24px var(--vcc-font-heading,"Oswald",sans-serif)!important;
+}
+html body.ci-page #por-region .ci-region-note{
+  margin:15px 0 0;color:#736960;
+  font:400 11px/1.5 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
+}

@@ -1,0 +1,36 @@
+/* VCC · Cómo moverse: guía visual por zona, sin llamadas externas. */
+(()=>{"use strict";
+const iconBase="/configuracion/imagenes/iconos/como-moverse/transportes/";
+const zonaBase="/configuracion/imagenes/ilustraciones/como-moverse/zonas/";
+const modes=[
+{id:"walk",name:"A pie",icon:"apie",price:"Gratis"},
+{id:"metro",name:"Metro",icon:"metro",price:"43 SEK · 75 min"},
+{id:"bike",name:"Bicicleta",icon:"bicicleta",price:"Alquiler variable"},
+{id:"bus",name:"Bus / tranvía",icon:"autobus",price:"43 SEK · SL"},
+{id:"ferry",name:"Ferry",icon:"ferry",price:"SL u otra tarifa"},
+{id:"car",name:"Coche",icon:"coche",price:"Parking + gasolina"}];
+const areas={
+gamla:{title:"GAMLA STAN",picture:"gamla-stan",summary:"El casco antiguo y el corazón histórico de Estocolmo.",reach:"Metro o a pie, según tu hotel.",visit:"A pie, por las calles del casco antiguo.",pick:[["walk","A PIE","Para recorrer el casco antiguo"],["metro","METRO PARA LLEGAR","Si duermes lejos"]],tip:"Combina un trayecto en metro con un paseo por Gamla Stan. Si te alojas cerca, puedes hacerlo todo gratis.",tipTitle:"No pagues transporte innecesario",ratings:{walk:[1,"Perfecto para pasear sin gastar."],metro:[1,"Rápido para llegar desde lejos."],bike:[0,"Mejor aparcarla y seguir a pie."],bus:[1,"Alternativa según dónde duermas."],ferry:[0,"No hace falta para visitar el casco."],car:[0,"Aparcamiento caro y limitado."]}},
+djurgarden:{title:"DJURGÅRDEN",picture:"djurgarden",summary:"Museos, jardines y paseos junto al agua.",reach:"Tranvía 7, autobús 67 o ferry SL 82.",visit:"A pie entre museos y parques.",pick:[["tranvia","TRANVÍA 7","Para llegar a los museos"],["walk","A PIE","Para explorar la isla"]],tip:"Agrupa los museos de Djurgården en el mismo día. El tranvía 7 y el ferry 82 son buenas alternativas para llegar.",tipTitle:"Un día de museos, menos trayectos",ratings:{walk:[1,"Ideal para ir de museo en museo."],metro:[0,"No llega al núcleo de museos."],bike:[1,"Muy agradable con buen tiempo."],bus:[1,"La línea 67 conecta con la isla."],ferry:[1,"El SL 82 llega desde Slussen."],car:[0,"Pocas plazas y parking de pago."]}},
+archipielago:{title:"ARCHIPIÉLAGO",picture:"archipielago",summary:"Islas, pueblos costeros y excursiones en barco.",reach:"Primero elige isla y embarcadero.",visit:"En ferry y después a pie.",pick:[["ferry","FERRY","La conexión clave entre islas"],["walk","A PIE","Para disfrutar cada isla"]],tip:"No todos los ferris cuestan lo mismo: busca primero las rutas públicas incluidas en SL y compara después con los barcos turísticos.",tipTitle:"Compara los ferris antes de reservar",ratings:{walk:[1,"Explora las islas sin más gastos."],metro:[0,"Solo sirve para acercarte al muelle."],bike:[1,"Útil en islas con rutas ciclables."],bus:[1,"Algunas islas tienen acceso por tierra."],ferry:[1,"Esencial para muchas islas."],car:[0,"No llega a la mayoría de islas."]}},
+norrmalm:{title:"CITY / NORRMALM",picture:"norrmalm",summary:"El centro comercial, plazas y principales conexiones.",reach:"Metro hasta T-Centralen o a pie.",visit:"A pie por las calles del centro.",pick:[["walk","A PIE","Para tiendas y plazas"],["metro","METRO PARA LLEGAR","Si te alojas lejos"]],tip:"Bájate en una estación céntrica y reúne tus visitas a pie; así evitas comprar billetes para recorridos de pocas calles.",tipTitle:"Recorre el centro caminando",ratings:{walk:[1,"Todo bastante cerca en el centro."],metro:[1,"T-Centralen conecta muchas líneas."],bike:[1,"Útil para trayectos algo más largos."],bus:[1,"Varias líneas llegan al centro."],ferry:[0,"No hace falta para las compras."],car:[0,"Tráfico y aparcamiento caro."]}},
+sodermalm:{title:"SÖDERMALM",picture:"sodermalm",summary:"Barrios con encanto, cafeterías y miradores.",reach:"Metro a la parada próxima a tu ruta.",visit:"A pie por calles y miradores.",pick:[["metro","METRO PARA LLEGAR","Para llegar a tu punto de inicio"],["walk","A PIE","Para descubrir miradores"]],tip:"Llega en metro al punto más alejado y recorre Södermalm a pie. Ten en cuenta las cuestas si vas en bici.",tipTitle:"Visita los miradores en una sola ruta",ratings:{walk:[1,"Mejor para descubrir miradores."],metro:[1,"Muy útil para salvar distancias."],bike:[0,"Las pendientes pueden cansar."],bus:[1,"Complementa las paradas de metro."],ferry:[0,"No es necesario para el barrio."],car:[0,"No compensa pagar parking."]}}
+};
+const root=document.getElementById("cm-app");if(!root)return;
+const byId=(id)=>document.getElementById(id),tabs=[...root.querySelectorAll("[data-zone]")],photo=byId("cm-zone-photo"),grid=byId("cm-transport-grid"),recs=byId("cm-recommendations");
+function enc(text){return String(text).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));}
+const icons={walk:"apie",metro:"metro",bike:"bicicleta",bus:"autobus",ferry:"ferry",car:"coche",tranvia:"tranvia"};
+function icon(id){return iconBase+icons[id]+".svg";}
+function show(id,moveFocus=false){const a=areas[id]||areas.gamla;
+ tabs.forEach(b=>{let selected=b.dataset.zone===id;b.classList.toggle("is-active",selected);b.setAttribute("aria-selected",String(selected));b.tabIndex=selected?0:-1;if(selected)byId("cm-zone-panel").setAttribute("aria-labelledby",b.id)});
+ byId("cm-zone-name").textContent=a.title;byId("cm-zone-summary").textContent=a.summary;byId("cm-zone-reach").textContent=a.reach;byId("cm-zone-visit").textContent=a.visit;byId("cm-tip-title").textContent=a.tipTitle;byId("cm-tip-text").textContent=a.tip;
+ photo.src=zonaBase+(id==="gamla"?"detalle-gamla-stan":a.picture)+".webp";photo.alt="Zona de "+a.title+" en Estocolmo";
+ recs.innerHTML=a.pick.map(([id,name,desc])=>'<div class="cm-reco"><img src="'+icon(id)+'" width="30" height="30" alt=""><strong>'+enc(name)+'</strong><small>'+enc(desc)+'</small></div>').join("");
+ grid.innerHTML=modes.map(m=>{const r=a.ratings[m.id],yes=r[0]===1,best=a.pick.some(p=>p[0]===m.id||(p[0]==="tranvia"&&m.id==="bus"));return '<article class="cm-mode'+(best?' is-recommended':'')+'"><div class="cm-mode-head"><img src="'+icon(m.id)+'" width="31" height="31" alt=""><div><strong>'+enc(m.name)+'</strong><div class="cm-mode-cost">'+enc(m.price)+'</div></div></div><div class="cm-mode-benefit"><span class="cm-mode-symbol'+(!yes?' is-neutral':'')+'" aria-label="'+(yes?'Ventaja':'Inconveniente')+'">'+(yes?'✓':'−')+'</span><span>'+enc(r[1])+'</span>'+(best?'<span class="cm-mode-value">VCC</span>':'')+'</div></article>'}).join("");
+ try{const u=new URL(window.location.href);u.searchParams.set("zona",id);window.history.replaceState(null,"",u.pathname+u.search+u.hash)}catch(e){}
+}
+root.addEventListener("click",e=>{const b=e.target.closest("[data-zone]");if(b)show(b.dataset.zone)});
+byId("cm-zone-tabs").addEventListener("keydown",e=>{if(!["ArrowRight","ArrowLeft","Home","End"].includes(e.key))return;const i=tabs.indexOf(document.activeElement);if(i<0)return;e.preventDefault();const n=e.key==="Home"?0:e.key==="End"?tabs.length-1:(i+(e.key==="ArrowRight"?1:-1)+tabs.length)%tabs.length;tabs[n].focus();show(tabs[n].dataset.zone)});
+let initial;try{initial=new URLSearchParams(window.location.search).get("zona")}catch(e){}
+show(areas[initial]?initial:"gamla");
+})();

@@ -1,0 +1,184 @@
+/* VCC ES→EN incremental translation memory for every approved Spanish page.
+ * Source structure, image URLs and scripts remain in Spanish, shared with EN.
+ * The English mirror is separately generated, always noindex until reviewed.
+ */
+import fs from 'node:fs';
+import path from 'node:path';
+import crypto from 'node:crypto';
+import {fileURLToPath} from 'node:url';
+const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'../../..');
+const config=JSON.parse(fs.readFileSync(path.join(root,'configuracion/datos/idiomas-vcc.json'),'utf8'));
+const options=config.translation||{};
+const output='configuracion/datos/i18n/en-segments.json';
+const fullOut=path.join(root,output);
+const model='@cf/meta/m2m100-1.2b';
+const maxPerRun=Math.max(0,Math.min(1000,Number(options.maxSegmentsPerRun||80)));
+const published=JSON.parse(fs.readFileSync(path.join(root,'configuracion/datos/publicacion-vcc.json'),'utf8'));
+const sources=published.approved||[];
+const sourceSet=new Set(sources);
+const sha=t=>crypto.createHash('sha256').update(t).digest('hex');
+const decode=t=>String(t).replace(/&nbsp;/gi,' ').replace(/&amp;/gi,'&').replace(/&quot;/gi,'"').replace(/&#39;|&apos;/gi,"'").replace(/\s+/g,' ').trim();
+const valid=t=>t.length>=2&&t.length<=850&&/[a-záéíóúñü]/i.test(t)&&!/^[-+\d.,€% ]+$/.test(t)&&!/<[^>]+>/.test(t);
+function attr(tag,key){
+ const m=tag.match(new RegExp('\\b'+key+'\\s*=\\s*(["\\x27])([\\s\\S]*?)\\1','i'));
+ return m?.[2]||'';
+}
+function segments(html){
+ const ordered=new Set();
+ const add=t=>{const s=decode(t);if(valid(s)&&!s.includes('{{')&&!s.includes('$'+'{'))ordered.add(s);};
+ const title=html.match(/<title\b[^>]*>([\s\S]*?)<\/title>/i);
+ if(title)add(title[1]);
+ for(const m of html.matchAll(/<meta\b[^>]*>/gi)){
+  const tag=m[0],name=attr(tag,'name')||attr(tag,'property');
+  if(/^(description|og:description|og:title|twitter:description|twitter:title)$/i.test(name))add(attr(tag,'content'));
+ }
+ const clean=html.replace(/<!--[\s\S]*?-->/g,' ')
+  .replace(/<(script|style|svg|template|noscript)\b[^>]*>[\s\S]*?<\/\1\s*>/gi,' ')
+  .replace(/<[^>]+\s(?:data-translate|translate)=["']no["'][^>]*>[\s\S]*?<\/[^>]+>/gi,' ');
+ for(const m of clean.matchAll(/>([^<>]+)</g))add(m[1]);
+ for(const m of clean.matchAll(/<(?:img|input|a|button|textarea|area|abbr)\b[^>]*>/gi)){
+  for(const key of ['alt','aria-label','title','placeholder'])add(attr(m[0],key));
+ }
+ return [...ordered];
+}
+const state=fs.existsSync(fullOut)?JSON.parse(fs.readFileSync(fullOut,'utf8')):{version:1,model,segments:{},pages:{}};
+if(state.version!==1||state.model!==model)throw Error('Unsupported translation memory version/model');
+state.rejected||={};
+// Never accept machine output that changes the destination, prices, dates, or VCC name.
+// Recheck the complete cache whenever the pilot runs (also catches older translations).
+function qualityIssue(es,en){
+ const pairs=[
+  [/Estocolmo/i,/Stockholm/i,'Stockholm'],
+  [/Suecia/i,/Sweden/i,'Sweden'],
+  [/Gotemburgo/i,/Gothenburg/i,'Gothenburg'],
+  [/Vaxholm/i,/Vaxholm/i,'Vaxholm'],
+  [/Grinda/i,/Grinda/i,'Grinda'],
+  [/Sigtuna/i,/Sigtuna/i,'Sigtuna'],
+  [/Djurgården/i,/Djurg(?:å|a)rden/i,'Djurgarden'],
+  [/Malmö/i,/Malm(?:ö|o)/i,'Malmo']
+ ];
+ for(const [src,dst,label] of pairs)if(src.test(es)&&!dst.test(en))return 'place-name-'+label;
+ if(/New York/i.test(en)&&!/Nueva York|New York/i.test(es))return 'unexpected-city';
+ if(/Viajando con Cabeza/.test(es)&&!en.includes('Viajando con Cabeza'))return 'protected-brand-changed';
+ if(/\bVCC\b/.test(es)&&!/\bVCC\b/.test(en))return 'protected-vcc-changed';
+ const srcNumbers=[...es.matchAll(/\b\d{2,4}\b/g)].map(x=>x[0]);
+ if(srcNumbers.some(n=>!en.includes(n)))return 'numeric-value-changed';
+ if(es.includes('€')&&!en.includes('€'))return 'currency-changed';
+ if(/\s+(?:a|the|of|to)$/i.test(en))return 'incomplete-fragment';
+ return null;
+}
+for(const [key,item] of Object.entries(state.segments)){
+ const reason=qualityIssue(item.es,item.en);
+ if(reason){
+  state.rejected[key]={es:item.es,candidate:item.en,reason};
+  delete state.segments[key];
+ }
+}
+const today=new Date().toISOString().slice(0,10);
+if(state.daily?.date!==today)state.daily={date:today,requested:0};
+const maxPerDay=Math.max(0,Math.min(1000,Number(options.maxSegmentsPerDay||80)));
+let pending=0,done=0,requested=0,failed=0;const errors=[];
+// GitHub OIDC tokens are short-lived. A large first translation batch needs a
+// fresh job identity periodically; never persist this token in Git.
+let identityToken=process.env.VCC_TRANSLATOR_OIDC||'', identityObtained=Date.now();
+let identityRefresh;
+async function currentIdentity(){
+ if(identityToken && Date.now()-identityObtained<180000)return identityToken;
+ if(identityRefresh)return identityRefresh;
+ const url=process.env.ACTIONS_ID_TOKEN_REQUEST_URL;
+ const auth=process.env.ACTIONS_ID_TOKEN_REQUEST_TOKEN;
+ if(!url||!auth)return identityToken;
+ identityRefresh=(async()=>{
+  const join=url.includes('?')?'&':'?';
+  const res=await fetch(url+join+'audience=vcc-en-translator-quality',
+   {headers:{authorization:'Bearer '+auth},signal:AbortSignal.timeout(15000)});
+  if(!res.ok)throw Error('GitHub OIDC renewal HTTP '+res.status);
+  const payload=await res.json();
+  if(!payload.value)throw Error('GitHub OIDC renewal returned no token');
+  identityToken=payload.value;
+  identityObtained=Date.now();
+  return identityToken;
+ })();
+ try{return await identityRefresh;}
+ finally{identityRefresh=null;}
+}
+async function translate(text){
+ const endpoint=process.env.VCC_TRANSLATOR_URL;
+ if(!endpoint)throw Error('Translation Worker URL not configured');
+ for(let n=0;n<3;n++){
+  const token=await currentIdentity();
+  if(!token)throw Error('Translation Worker GitHub OIDC not configured');
+  const response=await fetch(endpoint,{
+   method:'POST',headers:{authorization:'Bearer '+token,'content-type':'application/json'},
+   body:JSON.stringify({text,source_lang:'es',target_lang:'en'}),signal:AbortSignal.timeout(30000)
+  });
+  const data=await response.json().catch(()=>({}));
+  if(response.ok&&typeof data.translated_text==='string'&&data.translated_text.trim())return data.translated_text.trim();
+  if(![429,503].includes(response.status)||n===2)throw Error('Worker HTTP '+response.status+' ('+(data.error||'unknown')+')');
+  await new Promise(resolve=>setTimeout(resolve,1000*(n+1)));
+ }
+}
+if(!Array.isArray(sources)||!sources.length)throw Error('No approved ES pages configured');
+if(!/^(pilot|auto)-/.test(options.status||'')){console.log('ES→EN inactive; no files modified');process.exit(0);}
+// Changes to existing ES pages take priority over first-time background coverage.
+// This is what keeps normal daily edits synchronized even during initial rollout.
+const sourceInfo=new Map(sources.map(source=>{
+  const full=path.join(root,source);
+  const html=fs.readFileSync(full,'utf8');
+  return [source,{html,sourceHash:sha(html),texts:segments(html)}];
+}));
+const priority=source=>{
+  const before=state.pages[source],current=sourceInfo.get(source).sourceHash;
+  return before&&before.sourceHash!==current?0:!before?1:2;
+};
+const orderedSources=[...sources].sort((a,b)=>priority(a)-priority(b));
+const work=[],queuedKeys=new Set();
+for(const source of orderedSources){
+ if(!sourceSet.has(source)||source.includes('..')||source.startsWith('/'))throw Error('Unapproved source: '+source);
+ const {texts}=sourceInfo.get(source);
+ for(const t of texts){
+  const key=sha(model+'\0'+t);
+  if(state.segments[key]||state.rejected[key])continue;
+  pending++;
+  if(queuedKeys.has(key))continue; // shared text across multiple pages
+  queuedKeys.add(key);
+  if(requested>=maxPerRun||state.daily.requested>=maxPerDay)continue;
+  requested++;
+  state.daily.requested++;
+  work.push({source,t,key});
+ }
+}
+let index=0;
+const worker=async()=>{
+ while(index<work.length){
+  const task=work[index++];
+  try{
+   const en=await translate(task.t);
+   const reason=qualityIssue(task.t,en);
+   if(reason){
+    state.rejected[task.key]={es:task.t,candidate:en,reason};
+    failed++;
+   }else{
+    state.segments[task.key]={es:task.t,en,model};
+    done++;
+   }
+  }catch(err){failed++;errors.push(task.source+': '+err.message);}
+ }
+};
+await Promise.all(Array.from({length:Math.min(4,work.length)},worker));
+for(const source of sources){
+ const {sourceHash,texts}=sourceInfo.get(source);
+ const readyUnits=texts.filter(t=>!!state.segments[sha(model+'\0'+t)]).length;
+ state.pages[source]={sourceHash,sourceUnits:texts.length,readyUnits,status:readyUnits===texts.length?'translated-not-reviewed':'in-progress'};
+ console.log(source+': '+readyUnits+'/'+texts.length+' units stored');
+}
+if(process.argv.includes('--write')){
+ fs.mkdirSync(path.dirname(fullOut),{recursive:true});
+ fs.writeFileSync(fullOut,JSON.stringify(state,null,2)+'\n');
+}
+console.log('ES→EN approved site: '+done+' new, '+pending+' missing, '+requested+' attempted, '+failed+' failed; English mirrors remain noindex until reviewed');
+if(errors.length){
+  for(const s of errors.slice(0,4))console.error('::warning::'+s);
+  // Persist successful drafts even when one inference fails; retry missing segments later.
+}
+if(Object.keys(state.rejected).length)console.warn('::warning::'+Object.keys(state.rejected).length+' segments need editorial review before EN publication');

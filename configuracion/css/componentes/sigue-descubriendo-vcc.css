@@ -1,0 +1,225 @@
+/* VCC · ÚNICA FONT DEL FORMAT «CONTINÚA PLANIFICANDO / SIGUE DESCUBRIENDO».
+   Versió compacta: 72px targetes desktop / 64px mòbil,
+   icones 28px / 27px i secció amb marges verticals reduïts.
+   Qualsevol pàgina amb section.related-section (o .vcc-discover-section)
+   i .vcc-related-cards hereta aquests estils. No copiar CSS a les guies.
+   El contingut/enllaços poden variar; la foto del destí es defineix amb
+   --vcc-related-photo al CSS compartit fondo-relacionadas-destino-vcc.css. */
+html body section:is(.related-section,.vcc-discover-section):has(.vcc-related-cards){
+  position:relative;
+  box-sizing:border-box;
+  width:100vw!important;
+  max-width:none!important;
+  margin:0 0 0 calc(50% - 50vw)!important;
+  padding:clamp(30px,3vw,38px) 0 clamp(32px,3.2vw,40px)!important;
+  overflow:hidden;
+  isolation:isolate;
+  color:#fff!important;
+  background-color:#203037!important;
+  background-image:
+    linear-gradient(90deg,rgba(15,24,27,.84) 0%,rgba(15,24,27,.69) 52%,rgba(15,24,27,.51) 100%),
+    var(--vcc-related-photo,var(--vcc-budget-related-photo,url("/configuracion/imagenes/externas/unsplash/photo-1464822759023-fed622ff2c3b.webp")))!important;
+  background-position:center,center 54%!important;
+  background-repeat:no-repeat,no-repeat!important;
+  background-size:cover,cover!important;
+}
+html body section:is(.related-section,.vcc-discover-section):has(.vcc-related-cards) > .related-inner{
+  box-sizing:border-box;
+  width:min(1180px,calc(100% - 48px))!important;
+  max-width:none!important;
+  margin-inline:auto!important;
+  padding:0!important;
+}
+html body section:is(.related-section,.vcc-discover-section):has(.vcc-related-cards) .related-head,
+html body section:is(.related-section,.vcc-discover-section):has(.vcc-related-cards) .related-head > div{
+  display:block!important;
+  width:100%!important;
+  max-width:none!important;
+  margin:0!important;
+  padding:0!important;
+  text-align:left!important;
+}
+html body section:is(.related-section,.vcc-discover-section):has(.vcc-related-cards) .related-head{
+  margin-bottom:15px!important;
+}
+html body section:is(.related-section,.vcc-discover-section):has(.vcc-related-cards) .related-head p{
+  display:block!important;
+  margin:0 0 5px!important;
+  color:#e7a28a!important;
+  font:700 11px/1.3 var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;
+  letter-spacing:.15em!important;
+  text-transform:uppercase!important;
+}
+html body section:is(.related-section,.vcc-discover-section):has(.vcc-related-cards) .related-head h2{
+  display:block!important;
+  margin:0!important;
+  max-width:none!important;
+  color:#fffaf5!important;
+  font:500 clamp(27px,3vw,36px)/1.12 var(--vcc-font-heading,"Oswald",sans-serif)!important;
+  letter-spacing:.005em!important;
+  text-transform:uppercase!important;
+  text-align:left!important;
+}
+html body section:is(.related-section,.vcc-discover-section):has(.vcc-related-cards) .related-head span{
+  display:block!important;
+  max-width:700px!important;
+  margin:6px 0 0!important;
+  color:#e6e3df!important;
+  font:400 12px/1.45 var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;
+  text-align:left!important;
+  letter-spacing:normal!important;
+}
+html body section:is(.related-section,.vcc-discover-section):has(.vcc-related-cards) .related-grid.vcc-related-cards{
+  display:grid!important;
+  grid-template-columns:repeat(4,minmax(0,1fr))!important;
+  gap:11px!important;
+  width:100%!important;
+  margin:0!important;
+  padding:0!important;
+}
+html body section:is(.related-section,.vcc-discover-section):has(.vcc-related-cards) .related-grid.vcc-related-cards > a.vcc-related-link{
+  box-sizing:border-box!important;
+  min-width:0!important;
+  min-height:72px!important;
+  display:flex!important;
+  flex-direction:row!important;
+  align-items:center!important;
+  justify-content:flex-start!important;
+  gap:9px!important;
+  margin:0!important;
+  padding:10px 12px!important;
+  border:1px solid rgba(211,225,223,.48)!important;
+  border-radius:11px!important;
+  background:rgba(28,42,47,.94)!important;
+  color:#fff!important;
+  box-shadow:0 5px 14px rgba(0,0,0,.11)!important;
+  text-decoration:none!important;
+  transition:background-color .2s,border-color .2s,transform .2s!important;
+}
+html body section:is(.related-section,.vcc-discover-section):has(.vcc-related-cards) .related-grid.vcc-related-cards > a.vcc-related-link:hover,
+html body section:is(.related-section,.vcc-discover-section):has(.vcc-related-cards) .related-grid.vcc-related-cards > a.vcc-related-link:focus-visible{
+  background:rgba(43,61,66,.97)!important;
+  border-color:#e4a18d!important;
+  transform:translateY(-2px);
+}
+html body section:is(.related-section,.vcc-discover-section):has(.vcc-related-cards) .related-grid.vcc-related-cards > a.vcc-related-link:focus-visible{
+  outline:2px solid #edb092!important;
+  outline-offset:3px!important;
+}
+html body section:is(.related-section,.vcc-discover-section):has(.vcc-related-cards) .vcc-related-icon{
+  display:block!important;
+  width:28px!important;
+  height:28px!important;
+  flex:0 0 28px!important;
+  color:#e79b72!important;
+  fill:none!important;
+  stroke:currentColor!important;
+  stroke-width:1.8!important;
+  stroke-linecap:round!important;
+  stroke-linejoin:round!important;
+}
+html body section:is(.related-section,.vcc-discover-section):has(.vcc-related-cards) .vcc-related-copy{
+  display:flex!important;
+  flex:1 1 auto!important;
+  min-width:0!important;
+  flex-direction:column!important;
+  justify-content:center!important;
+  gap:3px!important;
+  margin:0!important;
+}
+html body section:is(.related-section,.vcc-discover-section):has(.vcc-related-cards) .vcc-related-copy strong{
+  display:block!important;
+  margin:0!important;
+  color:#fff!important;
+  font:500 18px/1.12 var(--vcc-font-heading,"Oswald",sans-serif)!important;
+  letter-spacing:.005em!important;
+}
+html body section:is(.related-section,.vcc-discover-section):has(.vcc-related-cards) .vcc-related-copy em{
+  display:block!important;
+  margin:0!important;
+  color:#e1dfdb!important;
+  font:400 10.5px/1.35 var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;
+  font-style:normal!important;
+}
+@media(max-width:1030px){
+  html body section:is(.related-section,.vcc-discover-section):has(.vcc-related-cards) .related-grid.vcc-related-cards{
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    gap:10px!important;
+  }
+}
+@media(max-width:580px){
+  html body section:is(.related-section,.vcc-discover-section):has(.vcc-related-cards){
+    padding:27px 0 32px!important;
+  }
+  html body section:is(.related-section,.vcc-discover-section):has(.vcc-related-cards) > .related-inner{
+    width:calc(100% - 32px)!important;
+  }
+  html body section:is(.related-section,.vcc-discover-section):has(.vcc-related-cards) .related-head{
+    margin-bottom:12px!important;
+  }
+  html body section:is(.related-section,.vcc-discover-section):has(.vcc-related-cards) .related-head h2{
+    font-size:27px!important;
+    line-height:1.15!important;
+  }
+  html body section:is(.related-section,.vcc-discover-section):has(.vcc-related-cards) .related-head span{
+    font-size:11.5px!important;
+    line-height:1.45!important;
+  }
+  html body section:is(.related-section,.vcc-discover-section):has(.vcc-related-cards) .related-grid.vcc-related-cards{
+    grid-template-columns:minmax(0,1fr)!important;
+    gap:9px!important;
+  }
+  html body section:is(.related-section,.vcc-discover-section):has(.vcc-related-cards) .related-grid.vcc-related-cards > a.vcc-related-link{
+    min-height:64px!important;
+    padding:9px 11px!important;
+    gap:9px!important;
+  }
+  html body section:is(.related-section,.vcc-discover-section):has(.vcc-related-cards) .vcc-related-icon{
+    width:27px!important;
+    height:27px!important;
+    flex-basis:27px!important;
+  }
+  html body section:is(.related-section,.vcc-discover-section):has(.vcc-related-cards) .vcc-related-copy strong{
+    font-size:17px!important;
+  }
+}
+@media(prefers-reduced-motion:reduce){
+  html body section:is(.related-section,.vcc-discover-section):has(.vcc-related-cards) .related-grid.vcc-related-cards > a.vcc-related-link{
+    transition:none!important;
+  }
+}
+
+
+/* VCC · Icones de substitució COMPARTIDES per a targetes relacionades sense icona HTML. */
+html body section:is(.related-section,.vcc-discover-section) .vcc-related-cards > a.vcc-related-link:not(:has(> svg, > .vcc-related-icon))::before{
+  content:""!important;
+  display:block!important;
+  width:28px!important;
+  height:28px!important;
+  flex:0 0 28px!important;
+  align-self:center!important;
+  background-color:#e79b72!important;
+  -webkit-mask:var(--vcc-related-fallback-icon) center / contain no-repeat!important;
+  mask:var(--vcc-related-fallback-icon) center / contain no-repeat!important;
+  --vcc-related-fallback-icon:url("/configuracion/imagenes/iconos/compartidos/related-compass-vcc.svg");
+}
+html body section:is(.related-section,.vcc-discover-section) .vcc-related-cards > a.vcc-related-link[href*="/destinos/suecia/"]:not(:has(> svg, > .vcc-related-icon))::before{--vcc-related-fallback-icon:url("/configuracion/imagenes/iconos/compartidos/related-map-vcc.svg")}
+html body section:is(.related-section,.vcc-discover-section) .vcc-related-cards > a.vcc-related-link[href*="/que-visitar"]:not(:has(> svg, > .vcc-related-icon))::before{--vcc-related-fallback-icon:url("/configuracion/imagenes/iconos/compartidos/related-compass-vcc.svg")}
+html body section:is(.related-section,.vcc-discover-section) .vcc-related-cards > a.vcc-related-link[href*="/presupuesto"]:not(:has(> svg, > .vcc-related-icon))::before{--vcc-related-fallback-icon:url("/configuracion/imagenes/iconos/compartidos/related-budget-vcc.svg")}
+html body section:is(.related-section,.vcc-discover-section) .vcc-related-cards > a.vcc-related-link[href*="/cuando-ir"]:not(:has(> svg, > .vcc-related-icon))::before{--vcc-related-fallback-icon:url("/configuracion/imagenes/iconos/compartidos/related-calendar-vcc.svg")}
+html body section:is(.related-section,.vcc-discover-section) .vcc-related-cards > a.vcc-related-link[href*="/como-moverse"]:not(:has(> svg, > .vcc-related-icon))::before{--vcc-related-fallback-icon:url("/configuracion/imagenes/iconos/compartidos/related-transport-vcc.svg")}
+html body section:is(.related-section,.vcc-discover-section) .vcc-related-cards > a.vcc-related-link[href*="/como-llegar"]:not(:has(> svg, > .vcc-related-icon))::before{--vcc-related-fallback-icon:url("/configuracion/imagenes/iconos/compartidos/related-plane-vcc.svg")}
+html body section:is(.related-section,.vcc-discover-section) .vcc-related-cards > a.vcc-related-link[href*="/donde-dormir"]:not(:has(> svg, > .vcc-related-icon))::before{--vcc-related-fallback-icon:url("/configuracion/imagenes/iconos/compartidos/related-accommodation-vcc.svg")}
+html body section:is(.related-section,.vcc-discover-section) .vcc-related-cards > a.vcc-related-link[href*="/alojamientos"]:not(:has(> svg, > .vcc-related-icon))::before{--vcc-related-fallback-icon:url("/configuracion/imagenes/iconos/compartidos/related-accommodation-vcc.svg")}
+html body section:is(.related-section,.vcc-discover-section) .vcc-related-cards > a.vcc-related-link[href*="/entradas"]:not(:has(> svg, > .vcc-related-icon))::before{--vcc-related-fallback-icon:url("/configuracion/imagenes/iconos/compartidos/related-tickets-vcc.svg")}
+html body section:is(.related-section,.vcc-discover-section) .vcc-related-cards > a.vcc-related-link[href*="/que-llevar"]:not(:has(> svg, > .vcc-related-icon))::before{--vcc-related-fallback-icon:url("/configuracion/imagenes/iconos/compartidos/related-packing-vcc.svg")}
+html body section:is(.related-section,.vcc-discover-section) .vcc-related-cards > a.vcc-related-link[href*="/vuelos"]:not(:has(> svg, > .vcc-related-icon))::before{--vcc-related-fallback-icon:url("/configuracion/imagenes/iconos/compartidos/related-plane-vcc.svg")}
+html body section:is(.related-section,.vcc-discover-section) .vcc-related-cards > a.vcc-related-link[href*="/seguros"]:not(:has(> svg, > .vcc-related-icon))::before{--vcc-related-fallback-icon:url("/configuracion/imagenes/iconos/compartidos/related-safety-vcc.svg")}
+html body section:is(.related-section,.vcc-discover-section) .vcc-related-cards > a.vcc-related-link[href*="/tarjetas"]:not(:has(> svg, > .vcc-related-icon))::before{--vcc-related-fallback-icon:url("/configuracion/imagenes/iconos/compartidos/related-cards-vcc.svg")}
+html body section:is(.related-section,.vcc-discover-section) .vcc-related-cards > a.vcc-related-link[href="/destinos/suecia/estocolmo/"]:not(:has(> svg, > .vcc-related-icon))::before{--vcc-related-fallback-icon:url("/configuracion/imagenes/iconos/compartidos/related-home-vcc.svg")}
+
+@media(max-width:580px){
+  html body section:is(.related-section,.vcc-discover-section) .vcc-related-cards > a.vcc-related-link:not(:has(> svg, > .vcc-related-icon))::before{
+    width:27px!important;height:27px!important;flex-basis:27px!important;
+  }
+}

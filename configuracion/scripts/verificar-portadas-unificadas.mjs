@@ -1,0 +1,211 @@
+import fs from 'node:fs';
+import crypto from 'node:crypto';
+import {ROOT,approvedFiles} from './lib/publicacion-vcc.mjs';
+const read=p=>fs.readFileSync(ROOT+'/'+p,'utf8');
+const registry=JSON.parse(read('configuracion/datos/portadas-vcc.json')).pages;
+const fondos=JSON.parse(read('configuracion/imagenes/fondos/optimizadas/manifest.json')).images;
+const externas=JSON.parse(read('configuracion/imagenes/externas/unsplash/optimizadas/manifest.json')).images;
+const css=read('configuracion/css/componentes/portadas-rapidas-vcc.css');
+const problems=[],used=new Set();
+const check=(yes,message)=>{if(!yes)problems.push(message);};
+for(const {page,image,selector,kind,source,r2} of registry){
+  const external=source==='externas',info=(external?externas:fondos)[image];
+  check(!used.has(page),page+': duplicat al registre');
+  used.add(page);
+  check(approvedFiles.includes(page),page+': no és un HTML aprovat');
+  if(!info){problems.push(page+': font d'+'imatge absent');continue;}
+  const src=ROOT+info.source;
+  const sha=crypto.createHash('sha256').update(fs.readFileSync(src)).digest('hex').slice(0,12);
+  check(sha===info.fingerprint,page+': variants desactualitzades');
+  const versions=[960,external?1600:1920];
+  const urls=versions.map(w=>{
+    const v=info.variants[String(w)];
+    check(!!v,page+': falta la variant '+w);
+    if(!v)return '';
+    check(fs.existsSync(ROOT+v.path),page+': manca '+v.path);
+    if(w===960)check(v.bytes<275000,page+': foto mòbil massa pesada');
+    return v.path+'?v='+info.fingerprint;
+  });
+  const html=read(page),head=html.split(/<\/head\s*>/i)[0];
+  const preloads=[...head.matchAll(/<link\b[^>]*>/gi)].map(m=>m[0])
+    .filter(tag=>tag.includes('rel="preload"')&&tag.includes('as="image"'));
+  if(r2){
+    // Una portada real del visor R2 utilitza UN preload AVIF. No iniciar
+    // també els WebP antics, que duplicarien la descàrrega de la fotografia.
+    check(preloads.length===1,page+': cal un únic preload AVIF R2');
+    check(preloads.some(t=>t.includes('href="'+r2+'"')&&t.includes('type="image/avif"')&&t.includes('fetchpriority="high"')),
+      page+': preload AVIF no coincideix amb la portada R2');
+  }else{
+    check(preloads.length===2,page+': dos preloads WebP responsius');
+    for(const [i,media] of ['(max-width: 767px)','(min-width: 768px)'].entries())
+      check(preloads.some(t=>t.includes('media="'+media+'"')&&t.includes('href="'+urls[i]+'"')&&t.includes('fetchpriority="high"')),
+        page+': preload '+media+' no coincideix');
+  }
+  const viewport=head.search(/<meta\b(?=[^>]*\bname=["']viewport["'])[^>]*>/i);
+  check(viewport>=0&&viewport<head.indexOf(preloads[0]),
+    page+': el viewport ha de precedir els preloads per evitar la foto desktop en mòbil');
+  const cssFirst=head.search(/<link\b[^>]*rel="stylesheet"/i);
+  check(cssFirst<0||head.indexOf(preloads[0])<cssFirst,page+': preload LCP darrere CSS');
+  check(html.includes('data-vcc-fast-heroes'),page+': manca CSS comú');
+  if(kind==='img'){
+    const tag=[...html.matchAll(/<img\b[^>]*>/gi)].map(m=>m[0]).find(t=>t.includes(selector))||'';
+    check((r2?tag.includes(r2):urls.every(u=>tag.includes(u)))&&tag.includes('fetchpriority="high"'),
+      page+': imatge <img> inconsistent');
+  }else{
+    check(css.includes(selector+'{')&&(r2?css.includes(r2):urls.every(u=>css.includes(u))),
+      page+': foto de CSS diferent de preload');
+  }
+  if(external)check(!preloads.some(t=>t.includes('fondos-presupuesto')),
+    page+': preload de foto equivocada');
+}
+
+// No tornar a introduir canvis tardans d'alçada als herois que van donar NO_LCP.
+const stableLcpPages=[
+  'destinos/suecia/estocolmo/presupuesto.html',
+  'destinos/suecia/estocolmo/como-llegar.html',
+  'destinos/suecia/estocolmo/como-moverse.html',
+  'destinos/suecia/estocolmo/donde-dormir.html',
+  'destinos/suecia/estocolmo/que-llevar.html'
+];
+const sharedSubheader=read('configuracion/css/componentes/subheader-unificado-vcc.css');
+check(sharedSubheader.includes('#vcc-lcp-hero')&&sharedSubheader.includes('--vcc-lcp-stable-height'),
+  'Manca la mida de portada mòbil estable per al LCP');
+for(const page of stableLcpPages){
+  const html=read(page);
+  const matches=[...html.matchAll(/\bid="vcc-lcp-hero"/g)];
+  check(matches.length===1,page+': manca identificador únic del hero LCP');
+  const head=html.split(/<\/head\s*>/i)[0];
+  const r2=registry.find(item=>item.page===page)?.r2;
+  const wanted=r2?1:2;
+  check((head.match(/rel="preload" as="image"/g)||[]).length===wanted,
+    page+': el nombre de preloads ha de coincidir amb el tipus de portada');
+}
+
+/* Contractes anti-regressió per a les dues portades generals i les sis
+ * subguies de planificació del país. Les portades Suècia/Estocolm
+ * tenen TARGETA editorial i no han d'heretar el hero transparent
+ * de les subguies. Manté la feina visual aprovada.
+ */
+const swedenHomeRenderer=read('configuracion/js/paises/suecia-page.js');
+const stockholmHome=read('destinos/suecia/estocolmo/index.html');
+check(swedenHomeRenderer.includes('country-hero-card vcc-guide-hero-copy')&&
+ !swedenHomeRenderer.includes('country-hero vcc-guide-hero-unified'),
+ 'Suecia: cal conservar la targeta de la portada general');
+check(stockholmHome.includes('st-card vcc-guide-hero-copy')&&
+ !stockholmHome.includes('st-hero vcc-guide-hero-unified'),
+ 'Estocolmo: cal conservar el requadre de la portada general');
+const canonicalHeroCss=read('configuracion/css/componentes/portades-contracte-unic-vcc.css');
+const canonicalSubheaderJs=read('configuracion/js/componentes/subheader-unificado-vcc.js');
+const sharedHeaderJs=read('configuracion/js/site-header.js');
+check(canonicalHeroCss.includes('--vcc-contract-height:var(--vcc-subheader-cover-height,475px)')&&
+ canonicalHeroCss.includes('--vcc-contract-photo-alpha:var(--vcc-portada-fade)')&&
+ canonicalHeroCss.includes('--vcc-contract-photo-veil:var(--vcc-portada-veil)')&&
+ canonicalHeroCss.includes('vcc-sacred-subnav')&&
+ canonicalHeroCss.includes('vcc-guide-hero-copy')&&
+ canonicalHeroCss.includes('vcc-planifica-hero-content')&&
+ canonicalSubheaderJs.includes("const HERO_CONTRACT=")&&
+ canonicalSubheaderJs.includes("'/destinos/suecia/estocolmo'")&&
+ sharedHeaderJs.includes('portades-contracte-unic-vcc.css'),
+ 'HERO VCC: manca el contracte global de foto, tipografia, altura i subheader');
+check(!/@layer\s+vcc-suecia-planifica-portades\s*\{/.test(read('configuracion/css/componentes/vcc-suecia-planifica-portades.css')),
+ 'Suecia: el CSS local antic no pot redefinir capçalera, degradat o subheader');
+for(const section of [
+ 'cuando-ir','como-llegar','como-moverse','donde-dormir','que-visitar','presupuesto'
+]){
+ const file='destinos/suecia/'+section+'.html',html=read(file);
+ check(html.includes('vcc-suecia-planifica')&&
+  html.includes('vcc-suecia-planning-hero')&&
+  html.includes('vcc-suecia-planning-subnav')&&
+  html.includes('site-header.js'),
+  file+': falta la portada, el subheader o el carregador global');
+ check(html.includes('vcc-guide-hero-kicker')&&
+  html.includes('vcc-guide-hero-description')&&
+  html.includes('<em>SUECIA</em>'),
+  file+': falta estructura editorial de portada');
+}
+
+/* Portades de Planifica: sempre foto original amb màscara alfa real.
+ * La capa blanca pintada per sobre o mask-image:none havia eliminat
+ * la transparència en Alojamientos i altres subpàgines. */
+const planificaPortades=read('configuracion/css/componentes/planifica-portadas-unificadas-vcc.css');
+check(planificaPortades.includes('background-image:var(--vcc-pl-cover)!important;')&&
+  planificaPortades.includes('mask-image:var(--vcc-portada-fade)!important;')&&
+  !planificaPortades.includes('mask-image:none!important;'),
+  'Planifica: la fotografia ha de conservar la transparència compartida');
+for(const slug of [
+ 'vuelos','alojamientos','tarjetas-de-viaje','apps','seguros',
+ 'donde-ir','presupuesto','que-llevar','mapas','calcula-tu-viaje'
+]){
+ const file='planifica/'+slug+'/index.html',html=read(file);
+ check(html.includes('data-vcc-planifica-hero="'+slug+'"')&&
+  html.includes('/configuracion/css/componentes/planifica-portadas-unificadas-vcc.css'),
+  file+': manca la portada i el CSS compartit');
+}
+check(read('planifica/index.html').includes('planifica-about-hero'),
+ 'Planifica: la portada principal ha de conservar el seu tractament independent');
+
+/* Contracte sagrat: registre explícit de TOTES les pàgines interiors amb
+ * subheader. La classe i el CSS han d'existir a l'HTML d'origen per evitar CLS.
+ * Qualsevol portada de país/ciutat amb requadre central n'és una excepció. */
+const interiorWithSubheader=[
+ 'planifica/vuelos/index.html',
+ 'planifica/alojamientos/index.html',
+ 'planifica/tarjetas-de-viaje/index.html',
+ 'planifica/donde-ir/index.html',
+ 'planifica/apps/index.html',
+ 'planifica/seguros/index.html',
+ 'destinos/italia/roma/itinerario.html',
+ 'destinos/espana/fuerteventura/itinerario.html',
+ 'destinos/suecia/estocolmo/donde-comer.html',
+ ...['cuando-ir','como-llegar','como-moverse','donde-dormir','que-visitar','presupuesto']
+   .map(slug=>'destinos/suecia/'+slug+'.html'),
+ ...['que-ver','imprescindibles','itinerario','presupuesto','cuando-ir',
+     'como-llegar','como-moverse','donde-dormir','entradas-y-pases','que-llevar']
+   .map(slug=>'destinos/suecia/estocolmo/'+slug+'.html')
+];
+const firstPaintCss='portades-contracte-unic-vcc.css';
+for(const file of interiorWithSubheader){
+  const html=read(file);
+  const head=html.split(/<\/head\s*>/i)[0];
+  check((html.match(/\bvcc-sacred-hero\b/g)||[]).length===1,
+    file+': falta classe única de portada abans del primer render');
+  check((html.match(/\bvcc-sacred-subnav\b/g)||[]).length===1,
+    file+': falta classe única de subheader abans del primer render');
+  check((head.match(/data-vcc-sacred-covers/g)||[]).length===1&&
+    head.includes(firstPaintCss),
+    file+': contracte CSS compartit absent o duplicat al head');
+  check(/<nav\b[^>]*class="[^"]*\bvcc-unified-subheader\b[^"]*\bvcc-sacred-subnav\b/i.test(html)||
+    /<nav\b[^>]*class="[^"]*\bvcc-sacred-subnav\b[^"]*\bvcc-unified-subheader\b/i.test(html),
+    file+': navegació única sense les classes compartides');
+}
+for(const file of [
+ 'index.html','destinos/index.html','planifica/index.html','itinerarios/index.html',
+ 'nosotros/index.html','contacto/index.html',
+ 'destinos/suecia/index.html','destinos/suecia/estocolmo/index.html',
+ 'destinos/italia/roma/index.html','destinos/espana/fuerteventura/index.html'
+]){
+  const html=read(file);
+  check(!html.includes('vcc-sacred-hero')&&!html.includes('data-vcc-sacred-covers'),
+    file+': portada principal o guia amb requadre no pot heretar l hero interior');
+}
+for(const file of ['planifica/presupuesto/index.html','planifica/que-llevar/index.html',
+                    'planifica/mapas/index.html','planifica/calcula-tu-viaje/index.html']){
+  const html=read(file);
+  check(!html.includes('vcc-sacred-hero')&&!html.includes('data-vcc-sacred-covers'),
+    file+': sense subheader no s ha de forçar el contracte');
+}
+check(canonicalHeroCss.includes('@layer vcc-interior-portades')&&
+  canonicalHeroCss.includes('--vcc-contract-mobile-height:')&&
+  canonicalHeroCss.includes('--vcc-contract-copy-top:78px')&&
+  canonicalHeroCss.includes('--vcc-contract-photo-veil:var(--vcc-portada-veil)')&&
+  canonicalHeroCss.includes('nav.vcc-unified-subheader.vcc-sacred-subnav'),
+  'HERO VCC: el CSS no conté el contracte de geometria, text i foto');
+check(canonicalSubheaderJs.includes('preceding&&preceding.matches(HEROS)')&&
+  !canonicalSubheaderJs.includes('document.querySelectorAll(HERO_CONTRACT).forEach(markHero)'),
+  'HERO VCC: el controlador pot alterar pàgines sense subheader');
+
+check(registry.length>0,'El registre ha de tenir portades');
+check(new Set(registry.map(entry=>entry.page)).size===registry.length,
+ 'El registre conté portades duplicades');
+if(problems.length){problems.forEach(x=>console.error('HERO VCC:',x));process.exitCode=1;}
+else console.log('HERO VCC OK: '+registry.length+' portades, mateixa fotografia, càrrega LCP primerenca.');

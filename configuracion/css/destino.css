@@ -1,0 +1,178 @@
+/* =====================================================
+   VIAJANDO CON CABEZA · DESTINO / ROMA
+   ===================================================== */
+:root{
+  --crema:#f7f3ed;
+  --crema-2:#efe8dd;
+  --blanco:#fffdf9;
+  --tinta:#171714;
+  --gris:#66625b;
+  --coral:var(--vcc-accent-override, #cb674d);
+  --coral-2:var(--vcc-accent-override, #e8c9bd);
+  --verde:#dfe5da;
+  --linea:#ded7cd;
+  --max:1220px;
+  --radius:12px;
+  --shadow:0 12px 35px rgba(43,34,24,.09);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--crema);color:var(--tinta);font-family:var(--vcc-font-body, "DM Sans", Arial, sans-serif);font-size:15px}
+a{color:inherit;text-decoration:none}
+img{display:block;width:100%}
+button{font:inherit}
+
+.destino-header{background:#fff;border-bottom:1px solid #ece7df;position:relative;z-index:20}
+.destino-nav{max-width:var(--max);min-height:82px;margin:auto;padding:0 22px;display:grid;grid-template-columns:180px 1fr 150px;align-items:center;gap:26px}
+.destino-logo{display:inline-flex;flex-direction:column;width:max-content;line-height:.95;font-weight:800;font-size:21px;letter-spacing:.6px}
+.destino-logo small{font-family:"Nothing You Could Do",cursive;font-size:13px;font-weight:400;letter-spacing:0;margin-top:4px;text-align:center;transform:rotate(-3deg)}
+.destino-menu{display:flex;justify-content:center;gap:38px;font-size:11px;font-weight:700;letter-spacing:.25px}
+.destino-menu a{padding:31px 0 27px;border-bottom:2px solid transparent}
+.destino-menu a:hover{color:var(--coral);border-color:var(--coral)}
+.destino-social{display:flex;justify-content:flex-end;gap:20px;font-size:18px}
+.destino-breadcrumb{max-width:var(--max);margin:auto;padding:18px 22px 13px;font-size:11px;color:#615e58;background:transparent}
+.destino-breadcrumb span{margin:0 8px;color:#8c877f}
+.destino-breadcrumb strong{font-weight:600;color:var(--tinta)}
+
+.destino-hero{position:relative;min-height:520px;background-size:cover;background-position:center;display:flex;align-items:center}
+.roma-hero{background-image:linear-gradient(90deg,rgba(34,24,16,.05),rgba(34,24,16,0)),url("/configuracion/imagenes/externas/unsplash/photo-1531572753322-ad063cecc140.webp");background-position:center 52%}
+.destino-hero-inner{width:100%;max-width:var(--max);margin:auto;padding:44px 22px}
+.destino-hero-card{max-width:550px;background:rgba(255,253,249,.96);border-radius:14px;padding:36px 38px 34px;box-shadow:var(--shadow)}
+.destino-eyebrow{font-size:11px;font-weight:700;letter-spacing:.3px;margin-bottom:22px;text-transform:uppercase}
+.destino-hero h1{font-family:"Cormorant Garamond",Georgia,serif;font-size:94px;line-height:.74;letter-spacing:-4px;margin:0;font-weight:700}
+.destino-subtitle{font-family:"Nothing You Could Do",cursive;color:var(--coral);font-size:20px;margin:22px 0 15px;line-height:1.25}
+.destino-description{font-size:12px;line-height:1.55;margin:0;color:#2b2925}
+.destino-facts{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:36px}
+.destino-fact{min-width:0}
+.fact-icon{display:block;font-family:Georgia,serif;font-size:23px;line-height:1;margin-bottom:11px}
+.destino-fact strong{display:block;font-size:10px;letter-spacing:.2px;margin-bottom:4px}
+.destino-fact>span:last-child{display:block;font-size:9px;line-height:1.25;color:#5f5b54}
+
+.destino-tabs{background:#fff;border-bottom:1px solid var(--linea);position:sticky;top:0;z-index:15;box-shadow:0 2px 8px rgba(0,0,0,.02)}
+.destino-tabs-inner{max-width:var(--max);margin:auto;padding:0 8px;display:flex;justify-content:space-between;overflow-x:auto;scrollbar-width:none}
+.destino-tabs-inner::-webkit-scrollbar{display:none}
+.destino-tabs a{position:relative;white-space:nowrap;padding:18px 12px 16px;font-size:10px;font-weight:700;color:#33312d;border-bottom:2px solid transparent}
+.destino-tabs a:hover,.destino-tabs a.active{color:var(--coral);border-color:var(--coral)}
+
+.roma-page{background:var(--crema)}
+.roma-shell{max-width:var(--max);margin:auto;padding:30px 22px 24px;display:grid;grid-template-columns:minmax(0,2.5fr) minmax(260px,1fr);gap:28px;align-items:start}
+.roma-main{min-width:0}
+.roma-section{margin-bottom:30px}
+.section-title-row{display:flex;align-items:center;gap:13px;margin:0 0 20px}
+.section-title-row h2{margin:0;font-family:"Cormorant Garamond",Georgia,serif;font-size:28px;line-height:1;font-weight:700;letter-spacing:.1px}
+.section-icon{font-family:Georgia,serif;font-size:22px;color:#3d3a35}
+.destino-kicker{font-size:10px;font-weight:700;color:var(--coral);letter-spacing:.8px;margin-bottom:3px}
+
+.quick-guide{display:grid;grid-template-columns:.95fr 1.15fr;gap:28px;align-items:center;padding:0}
+.quick-copy{padding:10px 2px}
+.quick-copy p{font-size:12px;line-height:1.7;max-width:390px;color:#393631;margin:0 0 22px}
+.quick-photo{height:255px;border-radius:11px;overflow:hidden}
+.quick-photo img{height:100%;object-fit:cover}
+.destino-button{display:inline-flex;align-items:center;justify-content:center;gap:12px;border:0;background:var(--coral);color:#fff;padding:13px 18px;border-radius:5px;font-size:10px;font-weight:700;letter-spacing:.15px;transition:.2s ease}
+.destino-button:hover{background:#b95740;transform:translateY(-1px)}
+
+.dias-box{background:#f0ebe2;border-radius:10px;padding:23px 30px;margin:10px 0 32px;text-align:center;display:grid;grid-template-columns:80px 1fr 120px;align-items:center;min-height:112px}
+.dias-box h3{font-family:"Cormorant Garamond",Georgia,serif;font-size:22px;margin:0 0 7px}
+.dias-box p{margin:0;font-size:11px;line-height:1.45;color:#393631}
+.leaf-sketch,.colosseum-sketch{font-family:"Cormorant Garamond",serif;color:#c9c1b5;font-size:56px;opacity:.65}
+.colosseum-sketch{font-size:76px;transform:rotate(-5deg)}
+
+.itinerary-switch{display:flex;gap:13px;margin:-2px 0 18px}
+.itinerary-switch button{border:1px solid #d7d0c6;background:#f9f6f1;border-radius:5px;color:#2b2925;padding:9px 25px;font-size:9px;font-weight:700;cursor:pointer}
+.itinerary-switch button.is-active{background:var(--coral);border-color:var(--coral);color:#fff}
+.itinerario-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.dia-card{background:#f9f6f1;border:1px solid #e1dbd2;border-radius:7px;overflow:hidden}
+.dia-image{height:162px;position:relative;overflow:hidden}
+.dia-image img{height:100%;object-fit:cover;transition:transform .35s ease}
+.dia-card:hover .dia-image img{transform:scale(1.03)}
+.dia-number{position:absolute;top:11px;left:11px;background:#fff;color:#4d4841;padding:6px 9px;border-radius:4px;font-size:9px;font-weight:700;box-shadow:0 3px 10px rgba(0,0,0,.06)}
+.dia-content{padding:17px 14px 14px;min-height:154px;display:flex;flex-direction:column}
+.dia-content h3{font-family:"Cormorant Garamond",Georgia,serif;font-size:18px;line-height:1.1;margin:0 0 7px}
+.dia-content p{font-size:9px;line-height:1.55;color:#514d46;margin:0 0 12px;flex:1}
+.dia-link{font-size:9px;font-weight:700;color:var(--coral)}
+
+.must-see-section{padding-top:2px}
+.imprescindibles{display:grid;grid-template-columns:repeat(6,1fr);gap:10px}
+.imprescindible{text-align:center}
+.imprescindible-icon{width:48px;height:48px;margin:0 auto 9px;border-radius:50%;background:#eee8df;display:grid;place-items:center;font-family:Georgia,serif;font-size:21px;color:#514d45}
+.imprescindible strong{display:block;font-family:"Cormorant Garamond",Georgia,serif;font-size:14px;line-height:1.05}
+.imprescindible span{display:block;color:#615d56;font-size:8px;margin-top:4px}
+
+.compact-info-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.info-card{background:#f9f6f1;border:1px solid #e0dad0;border-radius:9px;padding:20px}
+.info-card h3{font-family:"Cormorant Garamond",Georgia,serif;font-size:20px;margin:0 0 9px}
+.info-card p{font-size:10px;line-height:1.6;color:#555149;margin:0}
+
+.roma-sidebar{display:grid;gap:18px;position:sticky;top:64px}
+.roma-sidebar-card{border-radius:10px;padding:24px 25px;background:#f5f2ed;border:1px solid rgba(80,73,63,.04)}
+.roma-sidebar-card h3{font-size:10px;letter-spacing:.15px;margin:0 0 18px;font-weight:700}
+.roma-sidebar-card p{font-size:10px;line-height:1.7;color:#46423b;margin:0}
+.advice-card{background:#e9ebe5;min-height:177px}
+.firma{font-family:"Nothing You Could Do",cursive;color:#22201d}
+.big-sign{font-size:24px;margin-top:19px;transform:rotate(-4deg);display:inline-block}
+.links-card{background:#eef0eb}
+.links-card a{font-size:9px;padding:6px 0;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(90,85,75,.08)}
+.links-card a:last-child{border-bottom:0}
+.budget-card{background:#f2dfd7}
+.budget-row{display:flex;justify-content:space-between;gap:12px;font-size:9px;padding:6px 0}
+.budget-row b{font-weight:500;white-space:nowrap}
+.budget-total{border-top:1px solid rgba(80,50,40,.15);margin-top:12px;padding-top:13px;display:flex;flex-direction:column;gap:3px;font-size:10px}
+.budget-total strong{font-family:"Cormorant Garamond",Georgia,serif;font-size:21px}
+.full-button{width:100%;margin-top:12px}
+.map-card{background:#e6ece6;display:grid;grid-template-columns:1fr 88px;gap:10px;align-items:center}
+.map-card p{margin:0 0 14px}
+.map-pin{font-family:Georgia,serif;font-size:58px;text-align:center;color:#799083;transform:rotate(8deg)}
+.outline-button{display:inline-flex;border:1px solid #858d84;border-radius:4px;padding:8px 10px;font-size:8px;font-weight:700}
+
+.real-trip{display:grid;grid-template-columns:190px 1.15fr 1fr;gap:22px;align-items:center;background:#eee8df;border-radius:8px;padding:12px;margin-top:4px}
+.real-trip>img{height:110px;object-fit:cover;border-radius:5px}
+.real-trip h3{font-family:"Cormorant Garamond",Georgia,serif;font-size:19px;margin:0 0 5px}
+.real-trip p{font-size:8.5px;line-height:1.45;margin:0 0 7px;color:#514d46}
+.real-trip .firma{font-size:15px}
+.trip-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;text-align:center}
+.trip-stats strong{display:block;font-family:"Cormorant Garamond",Georgia,serif;font-size:21px;line-height:1}
+.trip-stats span{display:block;font-size:7.5px;line-height:1.25;margin-top:4px}
+
+.destino-footer{background:#22221f;color:#fff;margin-top:20px;padding:42px 22px}
+.destino-footer-inner{max-width:var(--max);margin:auto;display:flex;justify-content:space-between;gap:30px;align-items:flex-end;font-size:11px}
+.destino-footer p{color:#c9c7c0;margin:7px 0 0}
+
+@media (max-width:1050px){
+  .destino-nav{grid-template-columns:150px 1fr 90px}
+  .destino-menu{gap:22px}
+  .roma-shell{grid-template-columns:minmax(0,1fr) 280px}
+  .destino-hero-card{max-width:500px}
+  .destino-hero h1{font-size:82px}
+  .real-trip{grid-template-columns:160px 1fr}.trip-stats{grid-column:1/-1}
+}
+@media (max-width:860px){
+  .destino-nav{display:flex;justify-content:space-between;min-height:72px}
+  .destino-menu{display:none}
+  .destino-social{font-size:15px}
+  .destino-hero{min-height:470px}
+  .destino-hero-card{max-width:520px}
+  .roma-shell{grid-template-columns:1fr}
+  .roma-sidebar{position:static;grid-template-columns:1fr 1fr}
+  .quick-guide{grid-template-columns:1fr 1fr}
+  .imprescindibles{grid-template-columns:repeat(3,1fr);row-gap:22px}
+}
+@media (max-width:640px){
+  .destino-breadcrumb{padding-top:13px}
+  .destino-hero{min-height:auto;padding:20px 0;background-position:60% center}
+  .destino-hero-inner{padding:28px 16px}
+  .destino-hero-card{padding:28px 24px;max-width:100%;background:rgba(255,253,249,.95)}
+  .destino-hero h1{font-size:68px;letter-spacing:-3px}
+  .destino-subtitle{font-size:17px}
+  .destino-description br{display:none}
+  .destino-facts{grid-template-columns:1fr 1fr;gap:22px}
+  .destino-tabs a{padding:15px 12px;font-size:9px}
+  .roma-shell{padding:24px 16px}
+  .quick-guide{grid-template-columns:1fr}.quick-photo{height:220px;order:-1}
+  .dias-box{grid-template-columns:1fr;padding:22px 18px}.leaf-sketch,.colosseum-sketch{display:none}
+  .itinerario-grid{grid-template-columns:1fr}.dia-image{height:220px}
+  .compact-info-grid{grid-template-columns:1fr}
+  .roma-sidebar{grid-template-columns:1fr}
+  .map-card{grid-template-columns:1fr 70px}
+  .real-trip{grid-template-columns:1fr;padding:14px}.real-trip>img{height:170px}.trip-stats{grid-template-columns:1fr 1fr}
+  .destino-footer-inner{display:block}.destino-footer-inner>div:last-child{margin-top:20px}
+}

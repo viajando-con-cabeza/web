@@ -1,0 +1,61 @@
+/* Entradas y pases · enlaces oficiales discretos y sin saltos de línea.
+   Ajuste aislado para no alterar los estilos compartidos del blog. */
+@media (min-width:761px){
+  .ep-page .ep4-table-head,
+  .ep-page .ep4-table-row{
+    grid-template-columns:
+      minmax(148px,1.86fr)
+      minmax(80px,1.07fr)
+      minmax(55px,.65fr)
+      minmax(83px,.86fr)
+      minmax(126px,1.16fr)
+      58px;
+    column-gap:6px;
+  }
+
+  .ep-page .ep4-table-row > [role="cell"]:has(> .ep4-table-open){
+    min-width:0;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+
+  .ep-page .ep4-table-open{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    width:auto;
+    height:auto;
+    min-height:32px;
+    padding:6px 0;
+    border-radius:0;
+    color:#a47761;
+    background:transparent;
+    font:600 10px/1.2 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
+    letter-spacing:0;
+    text-decoration:none!important;
+    white-space:nowrap;
+    overflow-wrap:normal;
+    word-break:normal;
+  }
+  .ep-page .ep4-table-open:hover,
+  .ep-page .ep4-table-open:focus-visible{
+    color:#b65e33;
+    background:transparent;
+    text-decoration:underline!important;
+    text-underline-offset:2px;
+  }
+}
+@media (min-width:761px) and (max-width:900px){
+  .ep-page .ep4-table-open{font-size:9.5px}
+}
+@media (max-width:760px){
+  .ep-page .ep4-row-mobile-link{
+    color:#a47761;
+    font-size:11px!important;
+    font-weight:600;
+    white-space:nowrap;
+  }
+  .ep-page .ep4-row-mobile-link:hover,
+  .ep-page .ep4-row-mobile-link:focus-visible{color:#b65e33}
+}

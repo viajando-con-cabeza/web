@@ -1,0 +1,96 @@
+/* VCC · Anti-regressions CSS, sense dependències.
+ * Detecta només regles EXACTAMENT iguals, amb el mateix selector i
+ * el mateix context @media/@supports. No altera el disseny.
+ */
+import fs from 'node:fs';
+
+const paths=[
+  'configuracion/css/inicio-vcc.css',
+  'configuracion/css/plantillas/entradas-pases-vcc.css',
+  'configuracion/css/destinos/suecia/estocolmo/presupuesto-head-core-v1.css',
+  'configuracion/css/paginas-principales-unificadas.css',
+  'configuracion/css/componentes/header-vcc-global.css',
+  'configuracion/css/plantillas/presupuesto-vcc-visual.css',
+  'configuracion/css/plantillas/donde-alojarse-vcc.css',
+  'configuracion/css/plantillas/que-llevar-vcc-quality-optimizado.css',
+  'configuracion/css/destinos/suecia/estocolmo/presupuesto-perfiles-desplegables.css'
+];
+function findDuplicates(css){
+  const stack=[], rules=[];
+  let start=0;
+  for(let i=0;i<css.length;i++){
+    if(css[i]==='/'&&css[i+1]==='*'){
+      const end=css.indexOf('*/',i+2);
+      if(end<0)break;
+      i=end+1;continue;
+    }
+    if(css[i]==='"'||css[i]==="'"){
+      const quote=css[i];
+      while(++i<css.length&&css[i]!==quote){if(css[i]==='\\')i++;}
+      continue;
+    }
+    if(css[i]==='{'){
+      const raw=css.slice(start,i);
+      const head=raw.replace(/\/\*[\s\S]*?\*\//g,'').trim();
+      if(stack.length)stack[stack.length-1].children++;
+      stack.push({head,raw,at:head.startsWith('@'),start,open:i,children:0});
+      start=i+1;
+    }else if(css[i]==='}'){
+      const entry=stack.pop();
+      if(!entry){start=i+1;continue;}
+      if(!entry.at&&!entry.children&&stack.every(x=>x.at)
+         &&!entry.raw.includes('/*')&&entry.head&&!entry.head.includes('@')){
+        rules.push(JSON.stringify([stack.map(x=>x.head),entry.head,
+          css.slice(entry.open+1,i).trim()]));
+      }
+      start=i+1;
+    }
+  }
+  const seen=new Set(),dup=[];
+  for(const key of rules){if(seen.has(key))dup.push(JSON.parse(key)[1]);else seen.add(key);}
+  return dup;
+}
+const failures=[];
+for(const file of paths){
+  const css=fs.readFileSync(file,'utf8');
+  const duplicates=findDuplicates(css);
+  if(duplicates.length)failures.push(file+': '+duplicates.length+' regles idèntiques redundants');
+}
+const tokens=fs.readFileSync('configuracion/css/base/tokens-vcc.css','utf8');
+for(const prop of ['--vcc-color-accent','--vcc-font-body','--vcc-consejo-border-color','--vcc-carousel-arrow-size']){
+  if(!tokens.includes(prop))failures.push('Falta variable del sistema '+prop);
+}
+const header=fs.readFileSync('configuracion/js/site-header.js','utf8');
+if(!header.includes('vcc-core-compartit.css')||!header.includes('data-vcc-core-styles'))
+  failures.push('Header no carrega el paquet CSS comú de manera única');
+// El component editorial té una única font CSS efectiva: el full
+// vcc-capcaleres-editorials.css. El bundle de guies no el duplica.
+const manifest=JSON.parse(fs.readFileSync('configuracion/datos/compilacion-css-vcc.json','utf8'));
+const sharedBundle=manifest.bundles.find(x=>x.out==='configuracion/css/componentes/vcc-guies-ui-compartit.css');
+const editorialCss='configuracion/css/componentes/vcc-capcaleres-editorials.css';
+if(!sharedBundle||sharedBundle.sources?.includes(editorialCss))
+  failures.push('Les capçaleres editorials no han de duplicar-se dins del bundle de guies');
+const generatedUi=fs.readFileSync('configuracion/css/componentes/vcc-guies-ui-compartit.css','utf8');
+if(generatedUi.includes('/* === '+editorialCss+' === */'))
+  failures.push('CSS generat de guies encara inclou capçaleres editorials duplicades');
+for(const file of [
+ 'destinos/suecia/como-llegar.html','destinos/suecia/como-moverse.html',
+ 'destinos/suecia/cuando-ir.html','destinos/suecia/donde-dormir.html',
+ 'destinos/suecia/estocolmo/como-llegar.html',
+ 'destinos/suecia/estocolmo/como-moverse.html',
+ 'destinos/suecia/estocolmo/cuando-ir.html',
+ 'destinos/suecia/estocolmo/donde-dormir.html',
+ 'destinos/suecia/estocolmo/entradas-y-pases.html'
+]){
+ const html=fs.readFileSync(file,'utf8');
+ const standaloneEditorial=html.includes('/'+editorialCss);
+ const pairedEditorial=html.includes('/configuracion/css/componentes/vcc-ahorrar-editorial-compartit.css');
+ if(!html.includes('/configuracion/css/componentes/vcc-guies-ui-compartit.css')||
+    !(standaloneEditorial||pairedEditorial))
+   failures.push(file+': falta el bundle compartit o el component editorial');
+ if(standaloneEditorial&&pairedEditorial)
+   failures.push(file+': CSS editorial carregat dues vegades');
+}
+
+if(failures.length){for(const f of failures)console.error('CSS VCC:',f);process.exitCode=1;}
+else console.log('VCC CSS OK: regles exactes deduplicades, tokens i carregadors comuns correctes.');

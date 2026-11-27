@@ -1,0 +1,208 @@
+/* VCC · Estocolmo · Coste del transporte
+   4 targetes a escriptori, 2 a tauleta i 1 a mòbil.
+   Conserva el disseny de perfil i les fletxes compartides de les guies. */
+html body.mv-body .mv-profile-carousel {
+  position: relative;
+  width: 100%;
+  min-width: 0;
+  padding: 0; /* Fletxes sobreposades a les targetes, sense canals laterals */
+}
+html body.mv-body .mv-profile-carousel.is-static {
+  padding: 0;
+}
+html body.mv-body .mv-profile-carousel .mv-profile-grid {
+  display: flex;
+  grid-template-columns: none;
+  align-items: stretch;
+  width: 100%;
+  min-width: 0;
+  gap: 13px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  overscroll-behavior-inline: contain;
+  -webkit-overflow-scrolling: touch;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+  padding: 3px 1px;
+}
+html body.mv-body .mv-profile-carousel .mv-profile-grid::-webkit-scrollbar {
+  display: none;
+}
+html body.mv-body .mv-profile-carousel .mv-profile {
+  box-sizing: border-box;
+  flex: 0 0 calc((100% - 39px - 2px) / 4);
+  min-width: 0;
+  height: auto;
+  scroll-snap-align: start;
+}
+html body.mv-body .mv-profile-carousel > .mv-profile-prev {
+  left: 2px !important;
+  right: auto !important;
+}
+html body.mv-body .mv-profile-carousel > .mv-profile-next {
+  left: auto !important;
+  right: 2px !important;
+}
+html body.mv-body .mv-profile-carousel.is-static > .mv-carousel-arrow {
+  display: none !important;
+}
+html body.mv-body .mv-profile-carousel .mv-profile-grid:focus-visible {
+  outline: 2px solid #c96b4e;
+  outline-offset: 2px;
+}
+@media (max-width: 1050px) {
+  html body.mv-body .mv-profile-carousel .mv-profile {
+    flex-basis: calc((100% - 13px - 2px) / 2);
+  }
+}
+@media (max-width: 760px) {
+  html body.mv-body .mv-profile-carousel {
+    padding: 0 !important;
+  }
+  html body.mv-body .mv-profile-carousel .mv-profile-grid {
+    padding-inline: 1px;
+  }
+}
+@media (max-width: 690px) {
+  html body.mv-body .mv-profile-carousel .mv-profile {
+    flex-basis: calc(100% - 2px);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  html body.mv-body .mv-profile-carousel .mv-profile-grid {
+    scroll-behavior: auto;
+  }
+}
+
+
+/* Coste del transporte · badge dentro de la tarjeta, sin recorte.
+   La pista del carrusel oculta overflow-y: las insignias negativas
+   (top:-11px del CSS antiguo) quedaban cortadas por ese contenedor. */
+html body.mv-body .mv-profile-carousel .mv-profile-vcc .mv-profile-ribbon{
+  position:absolute!important;
+  top:7px!important;
+  right:13px!important;
+  z-index:2!important;
+  margin:0!important;
+  padding:5px 10px!important;
+  white-space:nowrap!important;
+  max-width:calc(100% - 26px)!important;
+  box-sizing:border-box!important;
+}
+
+/* Ritmo editorial de Como moverse Estocolmo, únicamente en esta página.
+   El hueco final depende del main, para no tocar el fondo ni el
+   padding compartido de Sigue descubriendo / Sigue planificando. */
+html body.mv-body .mv-page main.mv-container > #recomendacion{
+  margin-bottom:56px!important;
+}
+html body.mv-body .mv-page main.mv-container > #transportes{
+  margin-bottom:56px!important;
+}
+html body.mv-body .mv-page main.mv-container > #comparar-billetes{
+  margin-bottom:58px!important;
+}
+html body.mv-body .mv-page main.mv-container > #billetes{
+  margin-bottom:0!important;
+}
+html body.mv-body .mv-page main.mv-container{
+  padding-bottom:84px!important;
+}
+@media(max-width:690px){
+  html body.mv-body .mv-profile-carousel .mv-profile-vcc .mv-profile-ribbon{
+    top:7px!important;
+    right:8px!important;
+    padding:4px 8px!important;
+  }
+  html body.mv-body .mv-page main.mv-container > :is(#recomendacion,#transportes,#comparar-billetes){
+    margin-bottom:42px!important;
+  }
+  html body.mv-body .mv-page main.mv-container{
+    padding-bottom:64px!important;
+  }
+}
+
+
+/* VCC 2026-11-23 · Perfils de transport compactes i enllaços al pressupost. */
+html body.mv-body #recomendacion .mv-profile-carousel .mv-profile{
+  min-height:0;
+  padding:12px 14px 11px;
+}
+html body.mv-body #recomendacion .mv-profile-carousel .mv-profile-vcc{
+  padding:11px 13px 10px;
+}
+html body.mv-body #recomendacion .mv-profile-top{
+  min-height:42px;
+  gap:8px;
+  margin-bottom:7px;
+}
+html body.mv-body #recomendacion .mv-profile-top img{
+  width:43px;
+  height:43px;
+  flex-basis:43px;
+}
+html body.mv-body #recomendacion .mv-profile-ident h3{
+  font-size:23px;
+  line-height:1.08;
+}
+html body.mv-body #recomendacion .mv-profile-method{
+  margin-bottom:6px;
+  font-size:15.5px;
+  line-height:1.2;
+}
+html body.mv-body #recomendacion .mv-profile>p{
+  flex:1;
+  min-height:0;
+  margin-bottom:10px;
+  font-size:10.8px;
+  line-height:1.43;
+}
+html body.mv-body #recomendacion .mv-profile-bottom{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) auto;
+  align-items:end;
+  gap:3px 6px;
+  margin-top:auto;
+  padding-top:8px;
+}
+html body.mv-body #recomendacion .mv-profile-bottom>span{
+  grid-column:1 / -1;
+  font-size:8.5px;
+}
+html body.mv-body #recomendacion .mv-profile-bottom>strong{
+  grid-column:1;
+  grid-row:2;
+  font-size:14px;
+  line-height:1.25;
+  white-space:normal;
+}
+html body.mv-body #recomendacion .mv-profile-bottom>strong small{
+  font-size:9px;
+  line-height:1.2;
+}
+html body.mv-body #recomendacion .mv-profile-detail{
+  grid-column:2;
+  grid-row:2;
+  align-self:center;
+  justify-self:end;
+  flex:none;
+  padding:4px 0;
+  color:#a96a50;
+  font:600 10px/1.2 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
+  text-decoration:none;
+  white-space:nowrap;
+}
+html body.mv-body #recomendacion .mv-profile-detail:hover,
+html body.mv-body #recomendacion .mv-profile-detail:focus-visible{
+  color:#994b32;
+  text-decoration:underline;
+  text-underline-offset:2px;
+}
+@media (max-width:600px){
+  html body.mv-body #recomendacion .mv-profile-carousel .mv-profile{padding:12px 12px 11px}
+  html body.mv-body #recomendacion .mv-profile-carousel .mv-profile-vcc{padding:11px 11px 10px}
+  html body.mv-body #recomendacion .mv-profile-method{font-size:15px}
+  html body.mv-body #recomendacion .mv-profile>p{font-size:11px;line-height:1.44}
+  html body.mv-body #recomendacion .mv-profile-detail{font-size:10.5px}
+}

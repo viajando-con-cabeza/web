@@ -1,0 +1,279 @@
+@import url("/configuracion/css/componentes/vcc-altura-portades-subheader.css?v=20261117-country-city-520-v6");
+
+/* VCC · separació editorial única per a pàgines amb subheader.
+ * Font de veritat de marges exteriors; els paddings interns de targetes,
+ * calculadores, mapes i galeries continuen governats per cada component.
+ * Canviar els dos tokens canvia tot el blog, sense excepcions per pàgina. */
+@layer vcc-interior-portades {
+  :root {
+    --vcc-espai-entre-apartats: 64px;
+    --vcc-espai-abans-primer-apartat: 24px;
+    --vcc-espai-despres-ultim-apartat: 104px;
+  }
+
+  /* Guies editorials: només seccions germanes situades després del
+     subheader real. No toca l'hero, el primer apartat ni subcomponents. */
+  html body nav.vcc-unified-subheader:not(.place-nav-wrap):not([data-vcc-filter-nav])
+    ~ section:not(.related-section):not(.vcc-discover-section) {
+    margin-block-end: 0 !important;
+  }
+  html body nav.vcc-unified-subheader:not(.place-nav-wrap):not([data-vcc-filter-nav])
+    ~ section:not(.related-section):not(.vcc-discover-section)
+    ~ section:not(.related-section):not(.vcc-discover-section) {
+    margin-block-start: var(--vcc-espai-entre-apartats) !important;
+  }
+
+  /* Moltes guies tenen <nav> immediatament abans de <main>
+     (Presupuesto, Itinerario, etc.). Les mateixes dues regles s'apliquen
+     als fills directes del main, sense retocar cap secció interna. */
+  html body nav.vcc-unified-subheader:not(.place-nav-wrap):not([data-vcc-filter-nav])
+    ~ main > section:not(.related-section):not(.vcc-discover-section) {
+    margin-block-end: 0 !important;
+  }
+  html body nav.vcc-unified-subheader:not(.place-nav-wrap):not([data-vcc-filter-nav])
+    ~ main > section:not(.related-section):not(.vcc-discover-section)
+    ~ section:not(.related-section):not(.vcc-discover-section) {
+    margin-block-start: var(--vcc-espai-entre-apartats) !important;
+  }
+
+  /* Mateix tancament abans de «Sigue descubriendo / Sigue planificando»,
+     encara que el bloc de relacionades estigui fora del <main>. */
+  html body:has(nav.vcc-unified-subheader)
+    section:is(.related-section,.vcc-discover-section) {
+    margin-block-start: var(--vcc-espai-despres-ultim-apartat) !important;
+  }
+
+  /* Plantilles sense relacionades: marge entre l'últim apartat i el footer. */
+  html body:has(nav.vcc-unified-subheader):not(:has(.related-section,.vcc-discover-section))
+    footer.vcc-global-footer {
+    margin-block-start: var(--vcc-espai-despres-ultim-apartat) !important;
+  }
+
+  /* Hubs de país/ciutat: nav tradicional, mateixa escala de marges per
+     a les seccions principals, sense alterar el grid de dues columnes. */
+  html body.country-page .country-main > section + section,
+  html body .st-shell .st-main > section + section {
+    margin-block-start: var(--vcc-espai-entre-apartats) !important;
+  }
+  html body.country-page .country-main > section,
+  html body .st-shell .st-main > section {
+    margin-block-end: 0 !important;
+  }
+  /* Suecia inclou dos <main> separats per una foto editorial: el marge
+     final només és per al <main> de preguntes freqüents, no al primer. */
+  html body.country-page .country-main.after-inspiration,
+  html body .st-shell .st-main {
+    padding-block-end: 0 !important;
+  }
+  html body.country-page .country-main.after-inspiration > section:last-of-type,
+  html body .st-shell .st-main > section:last-of-type {
+    margin-block-end: var(--vcc-espai-despres-ultim-apartat) !important;
+  }
+
+  /* Antigues guies de consells amb nav d'àncores .content-nav:
+     adopten els mateixos dos marges sense refer les seves plantilles. */
+  html body nav.content-nav:not(.vcc-unified-subheader)
+    ~ main.content-shell > section {
+    margin-block-end: 0 !important;
+  }
+  html body nav.content-nav:not(.vcc-unified-subheader)
+    ~ main.content-shell > section ~ section {
+    margin-block-start: var(--vcc-espai-entre-apartats) !important;
+  }
+  html body:has(nav.content-nav):not(:has(.related-section,.vcc-discover-section))
+    footer.vcc-global-footer {
+    margin-block-start: var(--vcc-espai-despres-ultim-apartat) !important;
+  }
+
+  /* Itineraris amb subheader de dies: la separació es comparteix,
+     però no s'aplica als elements interns de cada dia. */
+  html body nav.rich-tabs ~ main.rich-shell > section,
+  html body nav.rich-tabs ~ main.rich-shell #dias > article.day-rich {
+    margin-block-end: 0 !important;
+  }
+  html body nav.rich-tabs ~ main.rich-shell > section ~ section,
+  html body nav.rich-tabs ~ main.rich-shell #dias > article.day-rich + article.day-rich {
+    margin-block-start: var(--vcc-espai-entre-apartats) !important;
+  }
+  html body:has(nav.rich-tabs):not(:has(.related-section,.vcc-discover-section))
+    footer.vcc-global-footer {
+    margin-block-start: var(--vcc-espai-despres-ultim-apartat) !important;
+  }
+
+  @media (max-width: 720px) {
+    :root {
+      --vcc-espai-entre-apartats: 44px;
+      --vcc-espai-abans-primer-apartat: 18px;
+      --vcc-espai-despres-ultim-apartat: 76px;
+    }
+  }
+}
+
+/* VCC 2026-11-17 · CONTRACTE ÚNIC DE MARGES PER ÀNCORES
+ * Les seccions marcades pel controlador són les destinacions reals del
+ * subheader. El marge superior i inferior fa servir la mateixa escala:
+ * 68px escriptori / 46px mòbil. La separació es crea només abans de
+ * cada apartat (excepte el primer), sense sumar marges adjacents.
+ * Els components interiors mai reben aquesta classe. */
+@layer vcc-interior-portades {
+  /* Fallback natiu (URL amb #hash, teclat o JS encara carregant):
+     petit espai real de 8px sota el subheader sticky. */
+  html body [data-vcc-subheader-target]{
+    scroll-margin-top:calc(var(--vcc-subheader-top,50px) + var(--vcc-subnav-height,39px) + 8px)!important;
+  }
+  html body:has(nav.vcc-unified-subheader) main > :is(section,article).vcc-subheader-section {
+    margin-block-start:var(--vcc-espai-entre-apartats)!important;
+    margin-block-end:0!important;
+  }
+  /* La darrera secció no afegeix un segon espai al peu de pàgina ni
+     al carrusel relacionat: aquests ja tenen el tancament corporatiu. */
+  html body:has(nav.vcc-unified-subheader) main > :is(section,article).vcc-subheader-section:not(:has(~ .vcc-subheader-section)) {
+    margin-block-end:0!important;
+  }
+  /* Els tres mains antics ja introduïen 76px abans de la primera fitxa;
+     ara aquesta distància pertany a la primera secció, no es duplica. */
+  html body:has(nav.vcc-unified-subheader) main:is(.budget-main,.dv-main,.ci-main) {
+    padding-block-start:0!important;
+  }
+  /* Alguns layouts afegien una segona separació amb padding, que
+     desplaçava el sobretítol cap avall. Mantenim els paddings laterals
+     i el contingut, neutralitzant només aquest espai vertical redundant. */
+  html body:has(nav.vcc-unified-subheader)
+    main > :is(.swmove-section,.sv-section,.av-section,.vl-section,.budget-section).vcc-subheader-section{
+    padding-block-start:0!important;
+  }
+  html body:has(nav.vcc-unified-subheader)
+    main.cl-page.cl-landing > nav.vcc-unified-subheader ~ section.vcc-subheader-section{
+    padding-block-start:0!important;
+  }
+  /* Mòbil i escriptori utilitzen la mateixa regla compartida,
+     amb els tokens 46/68px declarats més amunt. */
+}
+
+/* VCC · Primer render: el subheader no ha de produir salts de layout
+ * mentre el controlador compartit encara marca les seccions. Les regles
+ * són les mateixes que les posteriors, però sense esperar el JavaScript. */
+@layer vcc-interior-portades{
+  html body:has(nav.vcc-unified-subheader)
+    main:is(.budget-main,.dv-main,.ci-main) > section:first-of-type{
+    margin-block-start:var(--vcc-espai-abans-primer-apartat)!important;
+  }
+  html body:has(nav.vcc-unified-subheader)
+    main.mv-container > section.swmove-section{
+    margin-block-start:var(--vcc-espai-entre-apartats)!important;
+    padding-block-start:0!important;
+  }
+  html body main > nav.vcc-unified-subheader ~ section:is(.sv-section,.av-section,.vl-section){
+    margin-block-start:var(--vcc-espai-entre-apartats)!important;
+    padding-block-start:0!important;
+  }
+  html body main.cl-page.cl-landing > nav.vcc-unified-subheader ~ section[id]:not(.related-section){
+    margin-block-start:var(--vcc-espai-entre-apartats)!important;
+    padding-block-start:0!important;
+  }
+}
+
+/* VCC · 2026-11-17 · La PRIMERA secció no és una separació entre blocs.
+   24px desktop / 18px mòbil des del subheader; la resta es conserva
+   a 76px / 52px. La capçalera del primer apartat és el punt d'inici. */
+@layer vcc-interior-portades{
+  html body:has(nav.vcc-unified-subheader)
+    main > :is(section,article).vcc-subheader-first-section{
+    margin-block-start:var(--vcc-espai-abans-primer-apartat)!important;
+  }
+  /* Fallback del primer render (abans del controlador):
+     els hubs st-tabs + st-main/st-discover no han de mostrar l'espai
+     extra ni saltar en activar-se el JavaScript. */
+  html body:has(nav.st-tabs)
+    main.st-main:has(> section.st-discover:first-child){
+    padding-block-start:0!important;
+  }
+  html body:has(nav.st-tabs)
+    main.st-main > section.st-discover:first-child{
+    margin-block-start:var(--vcc-espai-abans-primer-apartat)!important;
+  }
+  /* El hub Estocolmo/Fuerteventura, entre altres, tenia padding-top
+     de 38/52px A MÉS del marge de la primera secció. Sense aquest
+     reset, la primera secció quedaria massa lluny del subheader. */
+  html body:has(nav.vcc-unified-subheader)
+    main:is(.st-main,.country-main,.budget-main,.dv-main,.ci-main,.ep4-main,.ql-main,.content-shell):has(> .vcc-subheader-first-section){
+    padding-block-start:0!important;
+  }
+  /* Planifica Alojamientos i Tarjetas mantenien 31–54px de padding
+     sobre el primer títol, tot i tenir ja un marge exterior compacte.
+     Retirar-lo només a la primera secció, no als seus carrusels. */
+  html body:has(nav.vcc-unified-subheader)
+    main > :is(.al-catalog,.tv-intro).vcc-subheader-first-section{
+    padding-block-start:0!important;
+  }
+  /* Fallback abans de rebre les classes del JS compartit. */
+  html body:has(nav.vcc-unified-subheader)
+    main.mv-container > section.swmove-section:first-of-type{
+    margin-block-start:var(--vcc-espai-abans-primer-apartat)!important;
+  }
+  html body main > nav.vcc-unified-subheader ~ section:is(.sv-section,.av-section,.vl-section):first-of-type{
+    margin-block-start:var(--vcc-espai-abans-primer-apartat)!important;
+  }
+  html body main.cl-page.cl-landing > nav.vcc-unified-subheader ~ section[id]:first-of-type:not(.related-section){
+    margin-block-start:var(--vcc-espai-abans-primer-apartat)!important;
+  }
+  /* Guies amb el mapa just després del subheader, abans del main:
+     mateixa proximitat, sense tocar l'interior de les fitxes de llocs. */
+  html body nav.place-nav-wrap.vcc-unified-subheader ~ section#mapa-imprescindibles{
+    margin-block-start:var(--vcc-espai-abans-primer-apartat)!important;
+  }
+  /* El tancament final queda governat per un únic espai de 104/76px
+     davant de Sigue planificando, Sigue descubriendo o footer.
+     No afegim una segona separació al darrer article. */
+  html body:has(nav.vcc-unified-subheader)
+    main > :is(section,article).vcc-subheader-last-section{
+    margin-block-end:0!important;
+  }
+  html body:has(nav.vcc-unified-subheader) section:is(.related-section,.vcc-discover-section),
+  html body:has(nav.vcc-unified-subheader):not(:has(section:is(.related-section,.vcc-discover-section)))
+    footer.vcc-global-footer{
+    margin-block-start:var(--vcc-espai-despres-ultim-apartat)!important;
+  }
+}
+
+/* El primer apartat de les guies de Cómo llegar es reconeix per posició,
+ * no pel seu ID: pot ser «Elige tu transporte» o «Aeropuertos».
+ * El marge inicial (24/18px) és diferent del marge entre apartats;
+ * l'últim conserva el token final compartit (104/76px). */
+@layer vcc-interior-portades {
+  html body main.cl-page.cl-landing > nav.vcc-unified-subheader + section[id]:not(.related-section),
+  html body main.mv-container.swmove-page > section#transportes,
+  html body main.swb-main > section#lugares {
+    padding-block-start:0!important;
+    margin-block-start:var(--vcc-espai-abans-primer-apartat)!important;
+  }
+}
+
+/* VCC · Hubs de país i ciutat: fer servir la mateixa escala corporativa
+   que les altres guies (76px escriptori / 52px mòbil). Els selectors
+   històrics de 64/44px i el marge propi de Planifica no són l'última
+   paraula: aquest token compartit governa tots els apartats principals. */
+@layer vcc-interior-portades {
+  html body.country-page,
+  html body:has(.st-shell nav.st-tabs){
+    --vcc-espai-entre-apartats:var(--vcc-section-space,76px);
+  }
+
+  /* L'avió i la frase són un separador DECORATIU, no una secció nova.
+     La seva alçada completa ha de comptar com l'únic espai entre
+     Qué ver/Itinerario i Presupuesto, sense 108px + marges extra. */
+  html body .st-shell main.st-main > .flight-divider{
+    box-sizing:border-box!important;
+    height:var(--vcc-espai-entre-apartats)!important;
+    min-height:0!important;
+    margin-block:0!important;
+  }
+
+  /* Planifica tenia 66px + 2px de padding per compatibilitat antiga;
+     els dos hubs han de conservar un únic marge superior compartit. */
+  html body .st-shell main.st-main > section#planifica,
+  html body.country-page main.country-main > section#planifica{
+    margin-block-start:var(--vcc-espai-entre-apartats)!important;
+    padding-block-start:0!important;
+  }
+}

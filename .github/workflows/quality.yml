@@ -5,13 +5,15 @@ on:
     branches:
       - quality
   workflow_dispatch:
+  # Automatic translation resumes on pushes; the daily Quality task handles catch-up.
 
 permissions:
-  contents: read
+  contents: write
 
 concurrency:
   group: quality
-  cancel-in-progress: true
+  # The workflow pushes its generated files back to quality; do not cancel validation mid-run.
+  cancel-in-progress: false
 
 jobs:
   validate:
@@ -21,6 +23,179 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          ref: quality
+          fetch-depth: 0
+
+      - name: Cache Stockholm itinerary hero WebP for mobile
+        if: ${{ hashFiles('configuracion/imagenes/fondos/optimizadas/estocolmo-itinerario-dia1-960.webp') == '' }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m pip install --quiet Pillow pillow-avif-plugin
+          python configuracion/scripts/generar-portada-itinerario-estocolmo.py
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add configuracion/imagenes/fondos/optimizadas/estocolmo-itinerario-dia1-960.webp
+          git commit -m "Cache original Stockholm itinerary hero as mobile WebP"
+          git pull --rebase origin quality
+          git push origin HEAD:quality
+
+      - name: Cache Destinos hero as WebP
+        if: ${{ hashFiles('configuracion/imagenes/fondos/fondos-destinos.webp') == '' }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m pip install --quiet Pillow
+          python configuracion/scripts/cache-destinos-background.py
+          if ! git diff --quiet -- configuracion/imagenes/fondos/destinos-background.webp || [[ -n "$(git ls-files --others --exclude-standard -- configuracion/imagenes/fondos/destinos-background.webp)" ]]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add configuracion/imagenes/fondos/destinos-background.webp
+            git commit -m "Guardar background de Destinos en WebP"
+            git push origin HEAD:quality
+          fi
+
+
+      - name: Generate panoramic home hero WebP
+        if: ${{ hashFiles('configuracion/imagenes/fondos/fondos-inicio.webp') == '' }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m pip install --quiet Pillow
+          python configuracion/scripts/generate-inicio-hero-panoramico.py
+          if ! git diff --quiet -- configuracion/imagenes/fondos/inicio-vcc-hero-panoramico.webp || [[ -n "$(git ls-files --others --exclude-standard -- configuracion/imagenes/fondos/inicio-vcc-hero-panoramico.webp)" ]]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add configuracion/imagenes/fondos/inicio-vcc-hero-panoramico.webp
+            git commit -m "Generate full-width VCC Inici background"
+            git push origin HEAD:quality
+          fi
+
+      - name: Cache subtle neutral suitcase photo as local WebP
+        shell: bash
+        run: |
+          set -euo pipefail
+          TARGET="configuracion/imagenes/ilustraciones/maleta-vcc-neutra-pexels.webp"
+          if [[ -s "$TARGET" ]]; then
+            echo "Neutral suitcase photo already cached in GitHub."
+            exit 0
+          fi
+          python -m pip install --quiet Pillow
+          curl -fLsS --retry 3 --retry-delay 2 --connect-timeout 12 --max-time 90 \
+            -A "ViajandoConCabeza/1.0 (travel-blog)" \
+            'https://images.pexels.com/photos/8276910/pexels-photo-8276910.jpeg?auto=compress&cs=tinysrgb&w=1600' \
+            -o /tmp/vcc-open-suitcase-source.jpg
+          python - <<'PY'
+          from PIL import Image, ImageOps
+          from pathlib import Path
+          path=Path("configuracion/imagenes/ilustraciones/maleta-vcc-neutra-pexels.webp")
+          path.parent.mkdir(parents=True,exist_ok=True)
+          with Image.open("/tmp/vcc-open-suitcase-source.jpg") as im:
+              im=ImageOps.exif_transpose(im).convert("RGB")
+              im.thumbnail((1400,1100),Image.Resampling.LANCZOS)
+              if min(im.size) < 450:
+                  raise ValueError("Source photo resolution is too low")
+              im.save(path,"WEBP",quality=88,method=6)
+              print("Saved",path,im.size,path.stat().st_size,"bytes")
+          PY
+          git add "$TARGET"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "Cache neutral suitcase photo locally for Qué llevar"
+          git pull --rebase origin quality
+          git push origin HEAD:quality
+
+      - name: Optimize mountain background once (shared footer)
+        shell: bash
+        run: |
+          set -euo pipefail
+          TARGET="configuracion/imagenes/externas/unsplash/photo-1464822759023-fed622ff2c3b-vcc-optimizado.webp"
+          if [[ -s "$TARGET" ]]; then
+            echo "Optimized VCC mountains already committed."
+          else
+            python -m pip install --quiet Pillow
+            python configuracion/scripts/optimizar-fondo-montanas.py
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add "$TARGET"
+            git commit -m "Optimize mountain footer WebP without changing its design"
+            git pull --rebase origin quality
+            git push origin HEAD:quality
+          fi
+
+      # Una sola generació i un sol commit per evitar carreres entre hubs i sitemap.
+      - name: Sincronitzar catalegs, SEO, canoniques i esborranys
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m pip install --quiet Pillow
+          npm run site:sync
+          if [[ -n "$(git status --porcelain)" ]]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add -A
+            git commit -m "Auto-sync VCC: variants WebP, portades, hubs i SEO"
+            git pull --rebase origin quality
+            git push origin HEAD:quality
+          fi
+          npm run site:check
+
+      - name: Prevent quality deployment to production Worker
+        run: node configuracion/scripts/verificar-config-despliegue.mjs --quality
+
+      - name: Check local links and resources
+        run: node configuracion/scripts/comprobar-rutas.mjs
+
+      - name: Validate shared SEO, canonical and sitemap
+        run: node configuracion/scripts/verificar-seo-global.mjs
+
+      - name: Validate Stockholm arrival SEO and staging noindex rules
+        run: node configuracion/scripts/verificar-seo-como-llegar.mjs
+
+      - name: Validate real budget totals and contact email
+        run: |
+          node configuracion/scripts/verificar-presupuestos-vcc.mjs
+          node configuracion/scripts/verificar-contacto-vcc.mjs
+
+      - name: Check reusable CSS and absence of exact duplicates
+        run: node configuracion/scripts/verificar-css-vcc.mjs
+
+      # Sempre emetre el diagnòstic dels bundles, encara que les comprovacions
+      # de límits de CSS detectin deute pendent en un pas posterior.
+      - name: Report CSS dependency graph and page budgets
+        run: npm run audit:architecture
+
+      - name: Verify shared styles and absence of inline styles
+        run: node configuracion/scripts/verificar-estilos-html-vcc.mjs
+
+      - name: Audit all pages, shared assets and editorial links
+        run: node configuracion/scripts/auditar-escalabilidad-vcc.mjs --strict-hubs
+
+      - name: Validar motor compartit de país regió ciutat i itinerari
+        run: npm run destinos:v2-test
+
+      - name: Validate JavaScript syntax
+        shell: bash
+        run: |
+          set -euo pipefail
+          find configuracion/js -type f -name '*.js' -print0 | xargs -0 -n1 node --check
+          find configuracion/scripts -type f -name '*.mjs' -print0 | xargs -0 -n1 node --check
+
+      - name: Validate Cuándo ir technical SEO
+        run: node configuracion/scripts/verificar-seo-cuando-ir.mjs
+
+      - name: Validate galleries, subheaders and Stockholm itinerary
+        run: |
+          node configuracion/scripts/validar-galeries.mjs
+          node configuracion/scripts/validar-subheaders.mjs
+          node configuracion/tests/itinerario-integridad.cjs
+
+      - name: Validate flights official links, mobile scroll and PDF calculations
+        run: node configuracion/tests/planifica-vuelos-vcc.mjs
+
+      - name: Validate Stockholm 16 imprescindibles (SEO, galleries and map)
+        run: node configuracion/scripts/verificar-imprescindibles-estocolmo.mjs
 
       - name: Validate static site
         shell: bash
@@ -32,3 +207,92 @@ jobs:
             exit 1
           fi
           echo 'Quality validation passed.'
+
+      # Per provar la connexió abans de promoure-la a main:
+      # Actions → Quality → Run workflow → quality.
+      - name: Sincronitzar Instagram en execució manual (si està autoritzat)
+        if: github.event_name == 'workflow_dispatch'
+        env:
+          INSTAGRAM_ACCESS_TOKEN: ${{ secrets.INSTAGRAM_ACCESS_TOKEN }}
+        run: node configuracion/scripts/actualizar-instagram.mjs
+
+      - name: Desar publicacions autoritzades a quality
+        if: github.event_name == 'workflow_dispatch'
+        shell: bash
+        run: |
+          set -euo pipefail
+          FILE=configuracion/datos/instagram-ultimo.json
+          if git diff --quiet -- "$FILE"; then
+            echo "Instagram sense canvis / no autoritzat."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add "$FILE"
+          git commit -m "Actualitzar prova Instagram a quality"
+          git pull --rebase origin quality
+          git push origin HEAD:quality
+
+  # Traducció ES→EN després de validar Quality (mai en cada visita).
+  # Mirrors ES originals; EN remains noindex until fully translated and reviewed.
+  translate_en:
+    name: Sync English translations and preview mirrors
+    needs: validate
+    # Existing non-i18n visual/CSS audits may fail independently. Run the
+    # English mirror job only after rechecking the actual Spanish source build.
+    if: ${{ always() && github.ref == 'refs/heads/quality' && !cancelled() }}
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      id-token: write
+    steps:
+      - name: Checkout validated quality
+        uses: actions/checkout@v4
+        with:
+          ref: quality
+          fetch-depth: 0
+
+      - name: Verify Spanish sources before English regeneration
+        run: npm run site:check
+
+      - name: Prepare GitHub OIDC identity for Cloudflare
+        id: oidc
+        shell: bash
+        run: |
+          set -euo pipefail
+          response="$(curl -fsS --retry 2 \
+            -H "Authorization: Bearer ${ACTIONS_ID_TOKEN_REQUEST_TOKEN}" \
+            "${ACTIONS_ID_TOKEN_REQUEST_URL}&audience=vcc-en-translator-quality")"
+          token="$(echo "$response" | jq -r '.value // empty')"
+          test -n "$token"
+          echo "::add-mask::$token"
+          echo "token=$token" >> "$GITHUB_OUTPUT"
+
+      - name: Translate all Spanish and dynamic JS text with contextual AI batches
+        env:
+          VCC_TRANSLATOR_URL: https://vcc-en-translator-quality.albertini1199.workers.dev/translate
+          VCC_TRANSLATOR_OIDC: ${{ steps.oidc.outputs.token }}
+        run: node configuracion/scripts/traduccions/actualitzar-en-v2.mjs --write
+
+      - name: Generate all English mirrors from the validated Spanish HTML
+        run: |
+          node configuracion/scripts/traduccions/generar-en.mjs --write
+          node configuracion/scripts/traduccions/generar-en.mjs --check
+          node configuracion/scripts/traduccions/verificar-en.mjs
+          node configuracion/scripts/comprobar-rutas.mjs
+          node configuracion/scripts/traduccions/informe-en.mjs --write
+
+      - name: Commit English mirrors and translation memory atomically
+        shell: bash
+        run: |
+          set -euo pipefail
+          git add -- configuracion/datos/i18n/en-segments-v2.json configuracion/datos/i18n/en-runtime.json configuracion/datos/i18n/en-coverage.json en/
+          if git diff --cached --quiet; then
+            echo "ES→EN: translations and mirror already synchronized."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "i18n(en): synchronize English mirrors with approved Spanish pages"
+          git pull --rebase origin quality
+          git push origin HEAD:quality

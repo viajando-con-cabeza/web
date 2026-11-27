@@ -1,0 +1,29 @@
+name: VCC itinerario · integridad
+on:
+  push:
+    branches:
+      - quality
+    paths:
+      - "destinos/suecia/estocolmo/itinerario.html"
+      - "configuracion/css/plantillas/itinerario-*.css"
+      - "configuracion/css/componentes/vcc-gallery-*.css"
+      - "configuracion/css/componentes/vcc-hero-editorial-vcc.css"
+      - "configuracion/js/componentes/vcc-gallery-*.js"
+      - "configuracion/js/destinos/suecia/estocolmo/vcc-section-scrollspy.js"
+      - "configuracion/tests/itinerario-integridad.cjs"
+      - "sitemap.xml"
+      - ".github/workflows/vcc-itinerario-quality.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify-itinerary:
+    name: Verificar SEO, galeries i recursos
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@v4
+      - name: Comprovar itinerari sense dependències
+        run: node configuracion/tests/itinerario-integridad.cjs

@@ -1,0 +1,45 @@
+{
+  "version": 1,
+  "source": "es",
+  "locales": {
+    "es": {
+      "label": "Español",
+      "prefix": "/",
+      "active": true
+    },
+    "en": {
+      "label": "English",
+      "prefix": "/en/",
+      "active": false
+    }
+  },
+  "translation": {
+    "status": "auto-quality-noindex",
+    "mode": "build-time",
+    "sourceOfTruth": "es",
+    "changeDetection": "source-content-hash",
+    "cache": "versioned-files-in-git",
+    "reviewBeforeIndexing": true,
+    "translateDynamicUi": true,
+    "translateSeoMetadata": true,
+    "protect": [
+      "Viajando con Cabeza",
+      "VCC",
+      "URL",
+      "code",
+      "numeric-values",
+      "currency",
+      "image-paths"
+    ],
+    "service": "@cf/google/gemma-4-26b-a4b-it via vcc-en-translator-quality (verified GitHub OIDC; batch)",
+    "maxRecurringTranslationCost": "Up to 450 model batches per day; billed per Workers AI neuron above Cloudflare's free allocation; monitor Cloudflare usage.",
+    "publication": "auto-generate-quality-noindex-until-reviewed",
+    "englishIndexing": "noindex-until-review",
+    "sourcePages": "configuracion/datos/publicacion-vcc.json#approved",
+    "maxBatchesPerRun": 450,
+    "maxBatchesPerDay": 450,
+    "batchSize": 15,
+    "translateJavascriptStrings": true,
+    "translationMemory": "configuracion/datos/i18n/en-segments-v2.json"
+  }
+}

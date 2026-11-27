@@ -1,0 +1,544 @@
+/* VCC · Alojamientos: carrusel editorial; estilos aislados de otras páginas */
+.al-page{--al-orange:var(--vcc-accent-override, #ee6a28);--al-ink:#181a1d;--al-muted:#62676c;--al-bg:#f5f5f3;--al-line:#e5e7e6;background:var(--al-bg);color:var(--al-ink);font-family:var(--vcc-font-body, "DM Sans", Arial, sans-serif)}
+.al-page *{box-sizing:border-box}
+.al-page a{color:inherit;text-decoration:none}
+.al-page button{font:inherit;cursor:pointer}
+.al-wrap{width:min(1180px,calc(100% - 48px));margin-inline:auto}
+.al-eyebrow{display:block;color:var(--al-orange);font-weight:800;letter-spacing:.1em;font-size:12px;text-transform:uppercase}
+.al-title{font:600 clamp(30px,3.8vw,44px)/1.13 "Oswald","Arial Narrow",sans-serif;margin:8px 0 12px;text-transform:uppercase}
+.al-hero{position:relative;isolation:isolate;height:var(--vcc-standard-hero-desktop,475px);min-height:var(--vcc-standard-hero-desktop,475px);background:#293138;display:flex;align-items:center;overflow:hidden}
+.al-hero::before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,rgba(7,14,19,.89),rgba(7,14,19,.65) 46%,rgba(7,14,19,.08) 100%),url("/configuracion/imagenes/externas/unsplash/photo-1566073771259-6a8506099945.webp") center 52%/cover no-repeat}
+.al-hero-inner{padding:84px 0 55px;color:#fff}
+.al-hero .al-eyebrow{color:#ff9148}
+.al-hero h1{font:600 clamp(43px,5.6vw,68px)/1.04 "Oswald","Arial Narrow",sans-serif;max-width:760px;margin:11px 0 14px;text-transform:uppercase;letter-spacing:-.02em}
+.al-hero-rule{display:block;width:58px;height:3px;border-radius:3px;background:var(--al-orange);margin:-1px 0 16px}
+.al-hero p:not(.al-eyebrow){max-width:630px;font-size:15px;line-height:1.65;color:#f2f3f4;margin:0}
+.al-hero-facts{display:flex;flex-wrap:wrap;gap:12px 21px;margin-top:23px;font-size:12px;font-weight:700}
+.al-hero-facts span{display:inline-flex;gap:7px;align-items:center}
+.al-hero-facts svg{color:#ff9148;flex:none}
+/* La ruta superior hereda el componente #vcc-global-breadcrumb de configuracion.
+   La barra de anclas usa las reglas compartidas vcc-unified-subheader. */
+.al-subnav{position:sticky;top:var(--vcc-subheader-top,50px);z-index:950;background:#fff;border-block:1px solid #e9e2db}
+.al-subnav .vcc-nav-inner{display:flex;align-items:center;gap:38px;min-height:39px;padding:0 max(24px,4vw);overflow-x:auto;white-space:nowrap;scrollbar-width:none}
+.al-subnav .vcc-nav-inner::-webkit-scrollbar{display:none}
+.al-subnav a{display:inline-flex;align-items:center;flex:none;min-height:39px;border-bottom:2px solid transparent;font:800 11.5px/1.15 var(--vcc-font-body, "DM Sans", Arial, sans-serif);text-transform:uppercase;color:#171717}
+.al-subnav a:hover,.al-subnav a:focus-visible,.al-subnav a.vcc-subheader-current{color:#c86f5d;border-bottom-color:#c86f5d}
+#plataformas,#elegir,#consejo-vcc,#sigue-planificando{scroll-margin-top:calc(var(--vcc-subheader-top,50px) + 39px + 24px)}
+
+.al-catalog{padding:54px 0 22px}
+.al-heading{text-align:left;max-width:none;margin:0 0 27px}
+.al-heading p{font-size:13px;color:var(--al-muted);line-height:1.65;margin:0;max-width:810px}
+.al-accent{display:block;width:54px;height:3px;background:var(--al-orange);margin:11px 0 15px;border-radius:2px}
+.al-carousel{position:relative}
+.al-track{display:grid;grid-auto-flow:column;grid-auto-columns:calc((100% - 32px)/3.08);gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding-inline:2px;padding:3px 2px 12px;-webkit-overflow-scrolling:touch;overscroll-behavior-inline:contain;scrollbar-width:none}
+.al-track::-webkit-scrollbar{display:none}
+.al-card{min-width:0;display:flex;flex-direction:column;scroll-snap-align:start;background:#fff;border:1px solid var(--al-line);border-radius:16px;overflow:hidden;box-shadow:0 4px 18px rgba(18,25,31,.07)}
+.al-card img{display:block;width:100%;height:120px;object-fit:cover;background:#ececea}
+.al-card-body{display:flex;flex-direction:column;flex:1;padding:13px 15px 14px}
+.al-card h3{font:800 clamp(21px,2vw,26px)/1.05 var(--vcc-font-body, "DM Sans", Arial, sans-serif);letter-spacing:-.05em;margin:0 0 5px}
+.al-card .al-booking{color:#124d98}.al-card .al-booking span{color:#079fe3}
+.al-card .al-airbnb{color:#ff385c}.al-card .al-atrapalo{color:#ed285a}
+.al-card .al-central{color:#173766;font-size:22px;letter-spacing:-.035em}
+.al-card .al-central span{color:#f36c24}
+.al-intro{font-size:11.5px;line-height:1.4;color:#4c5258;margin:0 0 10px;min-height:0}
+.al-lists{display:grid;grid-template-columns:1fr 1fr;gap:9px;border-top:1px solid #e7e9e8;padding-top:10px}
+.al-lists section{min-width:0}
+.al-lists section+section{border-left:1px solid #e5e7e6;padding-left:9px}
+.al-lists h4{display:flex;align-items:center;gap:6px;font:800 11px/1.25 var(--vcc-font-body, "DM Sans", Arial, sans-serif);margin:0 0 6px}
+.al-lists .al-face-icon{color:var(--al-orange);flex:none;width:19px;height:19px}
+.al-lists ul{list-style:none;margin:0;padding:0}
+.al-lists li{position:relative;font-size:10.75px;line-height:1.38;color:#3e454b;padding-left:10px;margin:0 0 5px}
+.al-lists li::before{content:"•";position:absolute;left:1px;color:#464b4d}
+.al-external{display:inline-flex;align-items:center;justify-content:space-between;gap:8px;margin-top:auto;padding:10px 0 0;font-size:11.5px;font-weight:800;color:#d5551a!important}
+.al-external:hover{text-decoration:underline}
+.al-carousel-arrow{position:absolute;top:38%;z-index:2;display:grid;place-items:center;}
+.al-carousel-arrow:disabled{cursor:default;}
+.al-carousel-prev{left:-19px}.al-carousel-next{right:-19px}
+.al-page :is(button,a,[tabindex]):focus-visible{outline:3px solid var(--al-orange);outline-offset:3px}
+.al-photo-note{font-size:10.5px;color:#818487;text-align:center;margin:6px 0 0}
+.al-guide{padding:28px 0 45px}
+.al-guide-panel{background:#fff;border:1px solid var(--al-line);border-radius:18px;box-shadow:0 4px 18px #10101009;padding:25px 26px}
+.al-guide-heading{margin-bottom:22px}
+.al-guide-options{display:grid;grid-template-columns:repeat(4,minmax(0,1fr))}
+.al-guide-options article{padding:0 13px;min-width:0;border-left:1px solid #dedfe1}
+.al-guide-options svg{width:31px;height:31px;color:var(--al-orange);stroke-width:1.8}
+.al-guide-options h3{font:700 13px/1.2 var(--vcc-font-heading, "Oswald", sans-serif);margin:6px 0 6px}
+.al-guide-options p{font-size:11.5px;line-height:1.5;color:#50565b;margin:0}
+.al-advice{padding:0 0 48px}
+.al-advice .vcc-consejo-unificado{margin:0}
+.al-next{padding:40px 0 52px;background:linear-gradient(90deg,rgba(9,17,24,.9),rgba(9,17,24,.73)),url("/configuracion/imagenes/externas/unsplash/photo-1500530855697-b586d89ba3ee.webp") center/cover;color:#fff}
+.al-next .al-eyebrow{color:#ff9151}
+.al-next .al-title{margin-bottom:7px}
+.al-next p{font-size:13px;color:#e6ebeb;margin:0 0 20px}
+.al-next-links{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px}
+.al-next-links a{display:flex;flex-direction:column;gap:5px;min-height:90px;padding:16px;border-radius:10px;background:rgba(9,15,19,.88);border:1px solid rgba(255,255,255,.2)}
+.al-next-links a:hover{border-color:#fa995a}
+.al-next-links strong{font:700 16px var(--vcc-font-heading, "Oswald", sans-serif)}
+.al-next-links span{font-size:11px;color:#e7e7e7}
+@media(max-width:1050px){.al-track{grid-auto-columns:calc((100% - 16px)/2.12)}.al-guide-options article:first-child{border-left:0;padding-left:0}}
+@media(max-width:740px){.al-hero{height:var(--vcc-standard-hero-mobile,730px);min-height:var(--vcc-standard-hero-mobile,730px)}.al-hero-inner{padding:76px 0 45px}.al-subnav .vcc-nav-inner{gap:24px;padding-inline:14px}.al-subnav a{font-size:11px}.al-catalog{padding-top:38px}.al-track{grid-auto-columns:calc((100% - 16px)/1.12)}.al-card img{height:135px}.al-intro{min-height:0}.al-guide-panel{padding:23px 19px}.al-guide-options{grid-template-columns:repeat(2,minmax(0,1fr));row-gap:24px}.al-guide-options article:nth-child(odd){border-left:0;padding-left:0}.al-next-links{grid-template-columns:repeat(2,minmax(0,1fr))}.al-carousel-arrow{top:31%}}
+@media(max-width:520px){.al-wrap{width:calc(100% - 28px)}.al-hero h1{font-size:43px}.al-hero-facts{gap:10px 15px}.al-hero p:not(.al-eyebrow){font-size:13px}.al-catalog{padding-top:31px}.al-heading{margin-bottom:19px}.al-heading p{font-size:12px}.al-card-body{padding:12px 13px 13px}.al-card img{height:115px}.al-lists{gap:9px}.al-lists section+section{padding-left:9px}.al-lists h4{font-size:11px}.al-lists li{font-size:10.5px;line-height:1.35;margin-bottom:4px}.al-carousel-arrow{top:30%;}.al-carousel-prev{left:-8px}.al-carousel-next{right:-8px}.al-guide{padding-top:20px}.al-next{padding:32px 0 40px}}
+@media(prefers-reduced-motion:reduce){.al-track{scroll-behavior:auto}}
+/* Titulares de sección: alineación editorial VCC, sin depender de caché heredada. */
+.al-page .al-catalog .al-heading,
+.al-page .al-guide .al-guide-heading{
+  display:block;
+  width:100%;
+  max-width:none;
+  margin-inline:0;
+  text-align:left;
+}
+.al-page .al-catalog .al-heading :is(.al-eyebrow,.al-title,.al-accent,p),
+.al-page .al-guide .al-guide-heading :is(.al-eyebrow,.al-title,.al-accent,p){
+  text-align:left;
+  margin-left:0;
+  margin-right:0;
+}
+.al-page .al-guide .al-guide-panel{margin-top:0}
+
+
+/* Encabezados editoriales de secciones: misma jerarquía que Guías de viaje (Suecia).
+   Sobretítulo manuscrito Caveat, título Oswald; mantienen descripción debajo. */
+.al-page :is(.al-catalog,.al-guide) .al-heading .al-eyebrow{
+  display:block;
+  width:max-content;
+  max-width:100%;
+  font-family:var(--vcc-font-script, "Caveat", cursive);
+  font-size:25px;
+  font-weight:600;
+  line-height:1;
+  letter-spacing:0;
+  text-transform:none;
+  color:#c86f5d;
+  margin:0;
+}
+.al-page :is(.al-catalog,.al-guide) .al-heading .al-title{
+  font-family:"Oswald","Arial Narrow",sans-serif;
+  font-size:40px;
+  font-weight:500;
+  line-height:1;
+  letter-spacing:0;
+  text-transform:uppercase;
+  color:var(--al-ink);
+  margin:3px 0 12px;
+}
+.al-page :is(.al-catalog,.al-guide) .al-heading p{
+  font-family:var(--vcc-font-body, "DM Sans", Arial, sans-serif);
+  font-size:13px;
+  line-height:1.5;
+  font-weight:400;
+  margin:0;
+  max-width:810px;
+}
+@media(max-width:720px){
+  .al-page :is(.al-catalog,.al-guide) .al-heading .al-eyebrow{font-size:22px}
+  .al-page :is(.al-catalog,.al-guide) .al-heading .al-title{font-size:32px}
+  .al-page :is(.al-catalog,.al-guide) .al-heading p{font-size:12px}
+}
+
+/* VCC · Alojamientos: portada fotogràfica blanca i seccions editorials compartides.
+   Només afecta aquesta pàgina; cap modificació al CSS global. */
+.al-page{--al-bg:#f7f5f2;--al-ink:#211f1d;--al-orange:var(--vcc-accent-override,#ca6543)}
+.al-page .al-hero.vcc-portada-transparente{
+ --vcc-portada-imatge:url('/configuracion/imagenes/fondos/fondos-alojamientos.webp?v=20261111-foto-vcc-v2');
+ --vcc-portada-posicio:center center;
+ background:#fff!important;color:#282522;isolation:isolate
+}
+.al-page .al-hero.vcc-portada-transparente::before{
+ background-image:var(--vcc-portada-imatge)!important;
+ filter:none!important;mix-blend-mode:normal!important
+}
+.al-page .al-hero.vcc-portada-transparente .al-hero-inner{
+ position:relative;z-index:2;color:#24211f;padding:65px 0 42px
+}
+.al-page .al-hero .al-hero-eyebrow{
+ display:block;width:max-content;max-width:100%;margin:0;
+ color:#be6044;font:600 28px/1.05 var(--vcc-font-script,"Caveat",cursive);
+ text-transform:none;letter-spacing:0
+}
+.al-page .al-hero h1.al-hero-title{
+ display:block;max-width:780px;margin:8px 0 12px;
+ color:#24211f;font:600 clamp(46px,5vw,66px)/1.04 var(--vcc-font-heading,"Oswald",sans-serif);
+ letter-spacing:0;text-transform:uppercase
+}
+.al-page .al-hero p:not(.al-eyebrow){color:#49433f;max-width:550px;font-size:14px;line-height:1.56}
+.al-page .al-hero-facts{color:#55473e;font-size:11px;margin-top:17px;gap:12px 18px}
+.al-page .al-hero-facts svg{color:#b65e3e}
+.al-page .al-hero-rule{margin:0 0 14px;height:3px;width:64px}
+.al-page .al-hero #vcc-global-breadcrumb,
+.al-page .al-hero #vcc-global-breadcrumb a,
+.al-page .al-hero #vcc-global-breadcrumb strong,
+.al-page .al-hero #vcc-global-breadcrumb .vcc-bc-sep{color:#403b36!important;text-shadow:none!important}
+@media(max-width:740px){
+ .al-page .al-hero.vcc-portada-transparente{--vcc-portada-posicio:65% center}
+ .al-page .al-hero.vcc-portada-transparente .al-hero-inner{padding:70px 0 42px}
+ .al-page .al-hero h1.al-hero-title{font-size:clamp(42px,10vw,54px)}
+ .al-page .al-hero-facts{gap:8px 14px}
+}
+/* Jerarquia tipogràfica única Caveat / Oswald per a títols i sobretítols. */
+.al-page :is(.al-catalog,.al-savings) .al-heading{text-align:left;max-width:none;margin:0 0 16px}
+.al-page :is(.al-catalog,.al-savings) .al-heading .al-eyebrow{
+ font:600 26px/1.04 var(--vcc-font-script,"Caveat",cursive);
+ color:#c0674b;margin:0 0 4px;letter-spacing:0;text-transform:none
+}
+.al-page :is(.al-catalog,.al-savings) .al-heading .al-title{
+ font:500 clamp(30px,3vw,39px)/1.1 var(--vcc-font-heading,"Oswald",sans-serif);
+ color:#24211f;letter-spacing:0;text-transform:uppercase;margin:0 0 8px
+}
+.al-page :is(.al-catalog,.al-savings) .al-heading p{
+ color:#655f59;font:400 12.5px/1.5 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
+ margin:0;max-width:820px
+}
+.al-page :is(#plataformas,#como-ahorrar){scroll-margin-top:calc(var(--vcc-subheader-top,50px) + 39px + 18px)}
+.al-page .al-catalog{padding:36px 0 21px}
+.al-page .al-card{border-radius:12px}
+.al-page .al-card-body{padding:16px 15px 13px}
+.al-page .al-card h3{font-size:24px;margin:0 0 6px;min-height:27px}
+.al-page .al-card .al-intro{font-size:11.5px;line-height:1.42;margin-bottom:12px}
+.al-page .al-card .al-lists{padding-top:10px;gap:11px}
+.al-page .al-card .al-lists li{font-size:10.7px;line-height:1.38}
+.al-page .al-carousel-arrow{top:50%;transform:translateY(-50%);}
+.al-page .al-carousel-prev{left:-15px}
+.al-page .al-carousel-next{right:-15px}
+/* Cómo ahorrar: números SVG compartits, targetes compactes i carrusel. */
+.al-page .al-savings{padding:33px 0 29px;background:#f7f5f2}
+.al-page .al-tips-carousel{position:relative;margin-top:7px}
+.al-page .al-tips-track{
+ display:grid;grid-auto-flow:column;grid-auto-columns:calc((100% - 24px) / 3);
+ gap:12px;padding:3px 2px 12px;overflow-x:auto;scroll-snap-type:x mandatory;
+ scroll-padding-inline:2px;scrollbar-width:none;-webkit-overflow-scrolling:touch;
+ overscroll-behavior-inline:contain
+}
+.al-page .al-tips-track::-webkit-scrollbar{display:none}
+.al-page .al-tip{
+ display:flex;align-items:flex-start;gap:12px;min-width:0;scroll-snap-align:start;
+ padding:15px 14px;background:#fff;border:1px solid #e7ded7;border-radius:12px;
+ box-shadow:0 2px 10px #18110d08
+}
+.al-page .al-tip .al-tip-num.vcc-numero-unificado{flex:none}
+.al-page .al-tip-copy{min-width:0}
+.al-page .al-tip h3{
+ font:600 19px/1.16 var(--vcc-font-heading,"Oswald",sans-serif);
+ margin:2px 0 6px;color:#28221f
+}
+.al-page .al-tip p{font:400 11.5px/1.48 var(--vcc-font-body,"DM Sans",Arial,sans-serif);margin:0;color:#625d58}
+.al-page .al-tips-carousel > .al-tips-arrow{
+ position:absolute;top:50%;bottom:auto;transform:translateY(-50%);
+ z-index:3;display:grid;place-items:center;padding:0;}
+.al-page .al-tips-carousel > .al-tips-prev{left:-12px;right:auto}
+.al-page .al-tips-carousel > .al-tips-next{right:-12px;left:auto}
+.al-page .al-tips-arrow svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+
+.al-page .al-tips-arrow:disabled{cursor:default;}
+@media(max-width:1000px){
+ .al-page .al-tips-track{grid-auto-columns:calc((100% - 12px)/2)}
+}
+@media(max-width:740px){
+ .al-page .al-tips-track{grid-auto-columns:calc((100% - 30px)/1.25)}
+ .al-page .al-tip{padding:12px}
+ .al-page .al-tip h3{font-size:17px}
+ .al-page .al-savings{padding:26px 0 26px}
+ .al-page :is(.al-catalog,.al-savings) .al-heading .al-eyebrow{font-size:23px}
+ .al-page :is(.al-catalog,.al-savings) .al-heading .al-title{font-size:31px}
+}
+@media(max-width:520px){
+ .al-page .al-catalog{padding-top:28px}
+ .al-page .al-card-body{padding:13px}
+ .al-page .al-card h3{font-size:22px}
+ .al-page .al-track{grid-auto-columns:calc((100% - 20px)/1.08)}
+ .al-page .al-tips-track{grid-auto-columns:calc(100% - 18px)}
+ .al-page .al-tip{gap:9px}
+ .al-page .al-tip p{font-size:11px}
+ .al-page .al-hero .al-hero-eyebrow{font-size:24px}
+}
+@media(prefers-reduced-motion:reduce){}
+
+/* VCC · Carrusel de consejos: compacto, altura mínima estable y fletchas laterales.
+   Los números e iconos continúan centralizados en configuración. */
+.al-page .al-tips-track{align-items:stretch}
+.al-page .al-tip{
+ min-height:178px;align-items:flex-start;gap:11px;padding:17px 16px
+}
+.al-page .al-tip-copy{flex:1;min-width:0}
+.al-page .al-tip h3{margin:2px 0 8px;line-height:1.16}
+.al-page .al-tip p{line-height:1.48}
+@media(max-width:740px){
+ .al-page .al-tip{min-height:166px;padding:15px 14px;gap:10px}
+ .al-page .al-tip h3{margin:2px 0 7px}
+}
+@media(max-width:520px){
+ .al-page .al-tip{min-height:158px;padding:14px 13px;gap:10px}
+}
+
+/* VCC · Portada Planifica: sobretítulo manuscrito + título único.
+   Accesos WEB discretos al pie derecho de cada tarjeta. */
+.al-page .al-hero .al-hero-eyebrow{
+  font:600 clamp(25px,2.6vw,32px)/1.1 var(--vcc-font-script,"Caveat",cursive);
+  color:#c0674b;letter-spacing:0;text-transform:none;
+  margin:0 0 7px;
+}
+.al-page .al-hero h1.al-hero-title{
+  font:600 clamp(46px,5vw,66px)/1.06 var(--vcc-font-heading,"Oswald",sans-serif);
+  color:#24211f;max-width:760px;letter-spacing:0;
+  margin:0 0 13px;
+}
+.al-page .al-hero .al-hero-inner{position:relative;z-index:1}
+.al-page .al-card-body>.al-external{
+  align-self:flex-end;
+  justify-content:flex-end;
+  width:max-content;
+  margin-top:auto;
+  padding:13px 0 1px;
+  color:#bf6546!important;
+  font:700 10.5px/1.2 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
+  letter-spacing:.07em;
+  text-transform:uppercase;
+  gap:5px;
+}
+.al-page .al-card-body>.al-external:hover,
+.al-page .al-card-body>.al-external:focus-visible{text-decoration:underline;text-underline-offset:3px}
+@media(max-width:740px){
+  .al-page .al-hero .al-hero-eyebrow{font-size:26px}
+  .al-page .al-hero h1.al-hero-title{font-size:clamp(43px,10vw,56px)}
+}
+
+/* Comparador alojamientos VCC: mismo patrón de columnas + consejo lateral que Vuelos. */
+.al-page .al-compare{padding:38px 0 36px;background:#f7f5f2}
+.al-page .al-compare-head{display:grid;grid-template-columns:minmax(0,1fr) minmax(250px,43%);align-items:end;gap:20px}
+.al-page .al-compare .al-heading .al-eyebrow{font:600 26px/1.04 var(--vcc-font-script,"Caveat",cursive);color:#c0674b;letter-spacing:0;text-transform:none}
+.al-page .al-compare .al-heading .al-title{font:500 clamp(30px,3vw,39px)/1.1 var(--vcc-font-heading,"Oswald",sans-serif);margin:4px 0 8px}
+.al-page .al-compare .al-heading .al-title em{color:#c8683c;font-style:normal}
+.al-page .al-compare-explain p{font-size:12px;line-height:1.55;color:#655f59;margin:0 0 9px}
+.al-page .al-compare-add{display:flex;align-items:center;justify-content:flex-end;gap:12px}
+.al-page .al-compare-add span{font-size:10px;color:#8d8279}
+.al-page .al-compare-add button{background:#fff8f1;border:1px solid #e9b99b;border-radius:7px;padding:8px 11px;color:#a95125;font-size:11px;font-weight:700}
+.al-page .al-compare-add button:disabled{opacity:.4;cursor:not-allowed}
+.al-page .al-compare-context{display:flex;align-items:center;flex-wrap:wrap;gap:12px;margin:0 0 12px}
+.al-page .al-compare-context label{display:flex;align-items:center;gap:7px;font-size:11px;font-weight:700}
+.al-page .al-compare-context input{width:65px;padding:6px;border:1px solid #ded0c6;border-radius:6px;font:inherit}
+.al-page .al-compare-context p{flex:1 1 280px;font-size:10px;line-height:1.5;color:#776960;margin:0}
+.al-page .al-compare-layout{display:grid;grid-template-columns:minmax(0,1fr) 265px;gap:14px;align-items:stretch}
+.al-page .al-compare-shell{min-width:0;background:#fff;border:1px solid #e7ddd3;border-radius:12px;overflow:hidden}
+.al-page .al-compare-scroll{overflow:auto;max-width:100%;-webkit-overflow-scrolling:touch;scrollbar-width:thin}
+.al-page .al-compare-table{--al-label-width:173px;border-spacing:0;border-collapse:separate;table-layout:fixed;width:100%;min-width:max(100%,calc(var(--al-label-width) + var(--al-options,3)*145px));font-family:var(--vcc-font-body,"DM Sans",Arial,sans-serif)}
+.al-page .al-compare-table tr>*:first-child{position:sticky;left:0;z-index:2;width:var(--al-label-width);text-align:left}
+.al-page .al-compare-table thead th{height:39px;background:#faf0e7;border-bottom:1px solid #ebdcd0;padding:6px 9px;color:#48352c;font-size:11px}
+.al-page .al-compare-table thead th:first-child{z-index:4}
+.al-page .al-compare-table thead th:not(:first-child){position:relative;text-align:center}
+.al-page .al-compare-table .al-option-title{font:600 16px/1.2 var(--vcc-font-heading,"Oswald",sans-serif)}
+.al-page .al-remove{position:absolute;right:4px;top:5px;background:transparent;border:0;color:#a65b38;padding:3px 6px}
+.al-page .al-compare-table tbody tr>*{border-bottom:1px solid #efe7df;background:#fff;height:43px}
+.al-page .al-compare-table tbody th{padding:7px 10px;color:#453c36;font-size:10.5px;font-weight:700}
+.al-page .al-compare-table tbody td{padding:4px 6px;text-align:center}
+.al-page .al-compare-table :is(input,select){box-sizing:border-box;min-width:0;width:100%;min-height:30px;padding:4px 7px;background:#fff;border:1px solid #ddd6d0;border-radius:6px;color:#302b27;font:500 11px/1.25 var(--vcc-font-body,"DM Sans",Arial,sans-serif)}
+.al-page .al-compare-table input[type=number]{text-align:right;font-variant-numeric:tabular-nums}
+.al-page .al-compare-table input::placeholder{color:#aaa29a}
+.al-page .al-compare-table .al-calc-total>*{background:#fff0df!important;border-top:2px solid #ebc7a8}
+.al-page .al-compare-table .al-calc-total strong{color:#a95524;font:600 21px/1.2 var(--vcc-font-heading,"Oswald",sans-serif);white-space:nowrap}
+.al-page .al-compare-table [data-al-best=true]{background:#fff6ea}
+.al-page .al-compare-table .al-calc-total [data-al-best=true]{background:#e7641d!important}
+.al-page .al-compare-table .al-calc-total [data-al-best=true] strong{color:#fff}
+.al-page .al-compare-table .al-included{display:flex;align-items:center;justify-content:center;gap:4px;font-size:10px}
+.al-page .al-compare-table .al-included input{width:15px;min-height:15px;height:15px;accent-color:#d76526}
+.al-page .al-compare-advice{min-width:0;border:1px solid #e8c4ad;border-radius:12px;background:#fff;padding:16px}
+.al-page .al-advice-script{font:600 24px/1 var(--vcc-font-script,"Caveat",cursive);color:#cf6128}
+.al-page .al-compare-advice h3{font:600 25px/1.14 var(--vcc-font-heading,"Oswald",sans-serif);margin:4px 0 14px}
+.al-page .al-advice-content{display:flex;align-items:flex-start;gap:12px}
+.al-page .al-advice-content img{width:65px;height:65px;border:1.5px solid #e86d25;border-radius:50%;padding:3px;box-sizing:border-box}
+.al-page .al-advice-content>div{min-width:0;flex:1}
+.al-page .al-advice-content p{margin:0;font-size:11px;line-height:1.5;color:#70645c}
+.al-page .al-advice-content strong{display:block;font-size:12px;overflow-wrap:anywhere}
+.al-page .al-advice-content b{display:block;font:600 31px/1.3 var(--vcc-font-heading,"Oswald",sans-serif);color:#cf6024}
+.al-page .al-advice-content small{font-size:10px;color:#80756d}
+.al-page .al-advice-savings{margin-top:16px;padding-top:12px;border-top:1px solid #eee2d8;font-size:11px;line-height:1.6;color:#655a52}
+.al-page .al-advice-savings .al-savings-amount{color:#16783f;font-weight:700}
+.al-page .al-advice-note{font-size:10px;line-height:1.6;color:#776960;margin:18px 0 0}
+.al-page .al-compare-utils{display:flex;justify-content:flex-end;gap:14px;margin-top:10px}
+.al-page .al-compare-utils button{border:0;background:transparent;color:#a55028;font-size:11px;font-weight:800;padding:8px}
+.al-page .al-compare-utils button:first-child{border:1px solid #e8bd9f;border-radius:7px;background:#fff}
+.al-page .al-compare-status{font-size:11px;min-height:14px;color:#956044;margin:4px 0}
+.al-page .al-visually-hidden{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+.al-page :is(.al-compare-table input,.al-compare-table button,.al-compare-utils button):focus-visible{outline:2px solid #d76526;outline-offset:2px}
+@media(max-width:900px){.al-page .al-compare-layout{grid-template-columns:minmax(0,1fr)}.al-page .al-compare-advice{min-height:0}}
+@media(max-width:680px){.al-page .al-compare-head{grid-template-columns:1fr;gap:4px}.al-page .al-compare .al-heading .al-title{font-size:32px}.al-page .al-compare .al-heading .al-eyebrow{font-size:23px}.al-page .al-compare-add{justify-content:flex-start}.al-page .al-compare-table{--al-label-width:124px;min-width:max(100%,calc(var(--al-label-width) + var(--al-options,3)*135px))}.al-page .al-compare-table tbody th{font-size:10px;padding:5px 6px}.al-page .al-compare{padding:28px 0}.al-page .al-compare-context p{flex-basis:100%}}
+
+/* VCC · Mismo aspecto que comparador de Vuelos: fila única por gasto,
+   casilla junto al importe, iconos SVG enlazados y totales encasillados. */
+.al-page .al-compare-head .al-compare-explain{display:flex;flex-direction:column;align-items:flex-end;gap:5px}
+.al-page .al-compare-head .al-compare-explain p{text-align:right;margin:0;max-width:440px}
+.al-page .al-compare-add button{min-height:25px;padding:3px 0;border:0;background:transparent;border-radius:0;font-size:11px;font-weight:600;color:#ae633f}
+.al-page .al-compare-add button:hover:not(:disabled){text-decoration:underline;text-underline-offset:3px}
+.al-page .al-compare-table{--al-label-width:183px;min-width:max(100%,calc(var(--al-label-width) + var(--al-options,3)*145px))}
+.al-page .al-compare-table tbody tr>*{height:42px}
+.al-page .al-compare-table tbody th{padding:5px 8px 5px 11px;font-size:10.5px;white-space:nowrap}
+.al-page .al-compare-icon{display:inline-block;vertical-align:middle;width:19px;height:19px;margin-right:6px;color:#d56627;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.al-page .al-compare-table tbody th>span{display:inline;vertical-align:middle}
+.al-page .al-compare-table .al-amount-wrap{display:flex;align-items:center;gap:3px;width:100%;min-width:0}
+.al-page .al-compare-table .al-amount-wrap>input[type=number]{flex:1 1 auto;width:1px;min-width:0;min-height:30px;padding:4px 5px;text-align:right;appearance:textfield;-moz-appearance:textfield}
+.al-page .al-compare-table .al-amount-wrap>input[type=number]::-webkit-inner-spin-button,
+.al-page .al-compare-table .al-amount-wrap>input[type=number]::-webkit-outer-spin-button{-webkit-appearance:none;margin:0}
+.al-page .al-compare-table .al-inline-check{display:flex;flex:none;align-items:center;gap:2px;cursor:pointer;color:#796b60;font-size:9px;white-space:nowrap}
+.al-page .al-compare-table .al-inline-check input[type=checkbox]{appearance:auto;min-height:14px;width:14px;height:14px;margin:0;padding:0;accent-color:#e7641d;cursor:pointer}
+.al-page .al-compare-table .al-amount-wrap.is-included>input[type=number]{background:#efefef;border-color:#ddd9d5;color:#97918c;opacity:1;cursor:not-allowed}
+.al-page .al-compare-table .al-amount-wrap.is-included .al-inline-check{color:#ad5a30;font-weight:700}
+.al-page .al-compare-table tbody .al-calc-total>*{background:#fff!important;border-top:1px solid #ebd8c8;height:54px!important;padding:5px 6px!important}
+.al-page .al-compare-table tbody .al-calc-total th{background:#fff!important}
+.al-page .al-compare-table .al-total-pill{display:flex;align-items:center;justify-content:center;min-height:34px;width:100%;padding:5px 3px;border-radius:7px;border:1px solid #f1d7c3;background:#fff0df}
+.al-page .al-compare-table .al-calc-total strong{color:#a95524;font-size:21px}
+.al-page .al-compare-table .al-calc-total td[data-al-best=true]{background:#fff!important}
+.al-page .al-compare-table .al-calc-total td[data-al-best=true] .al-total-pill{background:#e7641d;border-color:#e7641d}
+.al-page .al-compare-table .al-calc-total td[data-al-best=true] strong{color:#fff}
+.al-page .al-compare-advice{display:flex;flex-direction:column;align-self:stretch;margin-top:49px;border-radius:12px}
+.al-page .al-advice-note{margin-top:auto;padding-top:13px}
+.al-page .al-compare-utils{justify-content:flex-start;gap:18px;border-top:1px solid #e9ded4;padding-top:10px}
+.al-page .al-compare-utils button,.al-page .al-compare-utils button:first-child{border:0;border-radius:0;background:transparent;padding:5px 0;font-size:11px;color:#a65329}
+.al-page .al-compare-utils button:last-child{color:#6f6660}
+.al-page .al-compare-utils button:hover{text-decoration:underline;text-underline-offset:4px}
+@media(max-width:900px){.al-page .al-compare-advice{margin-top:0}}
+@media(max-width:680px){
+ .al-page .al-compare-head .al-compare-explain{align-items:flex-start}
+ .al-page .al-compare-head .al-compare-explain p{text-align:left}
+ .al-page .al-compare-table{--al-label-width:151px;min-width:calc(var(--al-label-width) + var(--al-options,3)*145px)}
+ .al-page .al-compare-table tbody th{font-size:10px;padding:5px 6px}
+ .al-page .al-compare-icon{width:17px;height:17px;margin-right:4px}
+}
+
+/* 2026-11-12 · Ajustes de comparador y navegación de Alojamientos */
+.al-page .al-compare-layout>.al-compare-side{min-width:0;display:flex;flex-direction:column;gap:9px;padding-top:39px}
+.al-page .al-compare-side .al-compare-context{display:flex;flex-wrap:wrap;align-items:center;justify-content:flex-end;gap:7px 10px;margin:0}
+.al-page .al-compare-side .al-compare-context label{display:flex;align-items:center;gap:6px;font-size:10.5px;color:#5e534c;font-weight:700;white-space:nowrap}
+.al-page .al-compare-side .al-compare-context input{width:54px;min-width:0;padding:5px 6px;font-size:11px;background:#fff}
+.al-page .al-compare-side .al-compare-context p{flex:0 0 100%;margin:0;color:#82776e;font-size:9.5px;text-align:right;line-height:1.4}
+.al-page .al-compare-side .al-compare-advice{margin:0;flex:1}
+.al-page .al-compare-add button{cursor:pointer}
+.al-page .al-compare-add button:disabled{cursor:default}
+.al-page .al-compare-table .al-calc-total td .al-total-pill{min-width:0}
+.al-page #plataformas,.al-page #calculadora,.al-page #como-ahorrar{
+ scroll-margin-top:calc(var(--vcc-subheader-top,50px) + 2px);
+}
+@media(max-width:900px){
+ .al-page .al-compare-layout>.al-compare-side{padding-top:0}
+ .al-page .al-compare-side .al-compare-context{justify-content:flex-start}
+ .al-page .al-compare-side .al-compare-context p{text-align:left}
+}
+
+/* Ajuste editorial: explicación breve, tarjetas de ahorro bajas y resumen más alto. */
+.al-page .al-compare-head .al-compare-explain p{
+ max-width:510px;
+ font-size:12px;
+ line-height:1.4;
+ margin:0;
+ text-align:right;
+}
+.al-page .al-compare-layout>.al-compare-side{
+ padding-top:9px;
+ gap:6px;
+}
+.al-page .al-compare-side .al-compare-context{gap:5px 9px}
+.al-page .al-compare-side .al-compare-context p{font-size:9px;line-height:1.3}
+.al-page .al-compare-side .al-compare-advice{min-height:0}
+.al-page .al-tips-track{align-items:stretch}
+.al-page .al-tip{
+ min-height:116px;
+ padding:11px 12px;
+ gap:9px;
+}
+.al-page .al-tip h3{font-size:17px;line-height:1.13;margin:1px 0 5px}
+.al-page .al-tip p{font-size:11px;line-height:1.38}
+@media(max-width:900px){
+ .al-page .al-compare-layout>.al-compare-side{padding-top:0}
+}
+@media(max-width:740px){
+ .al-page .al-compare-head .al-compare-explain p{text-align:left;max-width:100%}
+ .al-page .al-tip{min-height:108px;padding:10px 11px;gap:8px}
+ .al-page .al-tip h3{font-size:16px;margin-bottom:4px}
+ .al-page .al-tip p{font-size:10.75px;line-height:1.35}
+}
+
+/* Subheader · salt al encabezado real, no al contenedor con padding.
+   Deja sobretítulo y título visibles inmediatamente bajo ambas barras fijas. */
+.al-page :is(#al-platforms-anchor,#al-compare-anchor,#al-save-anchor){
+ scroll-margin-top:calc(var(--vcc-subheader-top,50px) + 39px + 12px);
+}
+
+/* 2026-11-12 · FIX: evitar el gran hueco entre la descripción y el título
+   de Calculadora causado por la combinación de layout local y editorial global.
+   La cabecera ocupa solo el alto real de su contenido. */
+html body:is(.al-page,.dv-country-types) #al-compare-anchor.al-compare-head.vcc-editorial-heading{
+ display:grid!important;
+ grid-template-columns:minmax(0,1fr) minmax(260px,43%)!important;
+ grid-auto-rows:min-content!important;
+ align-items:end!important;
+ align-content:start!important;
+ justify-content:space-between!important;
+ width:100%!important;
+ height:auto!important;
+ min-height:0!important;
+ max-height:none!important;
+ gap:10px 24px!important;
+ margin:0 0 15px!important;
+ padding:0!important;
+}
+html body:is(.al-page,.dv-country-types) #al-compare-anchor > .vcc-editorial-heading-main{
+ display:block!important;
+ flex:none!important;
+ align-self:end!important;
+ width:auto!important;
+ min-width:0!important;
+ height:auto!important;
+ min-height:0!important;
+ max-height:none!important;
+ margin:0!important;
+ padding:0!important;
+}
+html body:is(.al-page,.dv-country-types) #al-compare-anchor > .al-compare-explain.vcc-editorial-heading-side{
+ display:flex!important;
+ flex:none!important;
+ flex-direction:column!important;
+ align-items:flex-end!important;
+ justify-content:flex-end!important;
+ align-self:end!important;
+ width:100%!important;
+ max-width:none!important;
+ height:auto!important;
+ min-height:0!important;
+ max-height:none!important;
+ gap:7px!important;
+ margin:0!important;
+ padding:0!important;
+}
+html body:is(.al-page,.dv-country-types) #al-compare-anchor .al-compare-explain > .vcc-editorial-description{
+ display:block!important;
+ flex:none!important;
+ align-self:flex-end!important;
+ margin:0!important;
+ max-width:460px!important;
+ width:auto!important;
+ height:auto!important;
+ text-align:right!important;
+}
+html body:is(.al-page,.dv-country-types) #al-compare-anchor .al-compare-add{
+ display:flex;align-items:center;justify-content:flex-end;
+ gap:12px;margin:0;padding:0;
+}
+@media(max-width:900px){
+ html body:is(.al-page,.dv-country-types) #al-compare-anchor.al-compare-head.vcc-editorial-heading{
+  grid-template-columns:minmax(0,1fr)!important;
+  align-items:start!important;
+  gap:9px!important;
+ }
+ html body:is(.al-page,.dv-country-types) #al-compare-anchor > .vcc-editorial-heading-main{
+  align-self:start!important;
+ }
+ html body:is(.al-page,.dv-country-types) #al-compare-anchor > .al-compare-explain.vcc-editorial-heading-side{
+  align-self:start!important;
+  align-items:flex-start!important;
+  gap:6px!important;
+ }
+ html body:is(.al-page,.dv-country-types) #al-compare-anchor .al-compare-explain > .vcc-editorial-description{
+  align-self:flex-start!important;
+  text-align:left!important;
+  max-width:100%!important;
+ }
+ html body:is(.al-page,.dv-country-types) #al-compare-anchor .al-compare-add{justify-content:flex-start}
+}

@@ -1,0 +1,103 @@
+/**
+ * SEO guardrail for the Stockholm arrival hub and guides.
+ * Cloudflare Workers Static Assets with html_handling=auto-trailing-slash
+ * publishes page.html at /page (without .html).
+ * This is a static code-level check; live response headers need HTTP smoke tests.
+ */
+import fs from 'node:fs';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..');
+const read = p => fs.readFileSync(path.join(root, p), 'utf8');
+const section = 'destinos/suecia/estocolmo/como-llegar';
+const base = 'https://viajandoconcabeza.com/' + section;
+const errors = [];
+const assert = (okay, message) => { if (!okay) errors.push(message); };
+const routes = JSON.parse(read('wrangler.jsonc'));
+assert(routes.assets?.html_handling === 'auto-trailing-slash', 'wrangler: expected auto-trailing-slash HTML handling');
+
+const sitemap = read('sitemap.xml');
+const sitemapUrls = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map(m => m[1]);
+const approved = new Set(JSON.parse(read('configuracion/datos/publicacion-vcc.json')).approved);
+const files = [section + '.html', ...fs.readdirSync(path.join(root, section))
+  .filter(name => name.endsWith('.html')).map(name => section + '/' + name)];
+const hub = read(section + '.html');
+const active = [...new Set([...hub.matchAll(/href="como-llegar\/([a-z0-9-]+)"/g)].map(m => m[1]))];
+// Guides are draft-first: only approved transport guides should be linked.
+// The former hardcoded "12" contradicted the deny-by-default registry.
+const expectedActive = files.slice(1).filter(file => approved.has(file))
+  .map(file => file.slice((section+'/').length,-'.html'.length)).sort();
+assert(JSON.stringify([...active].sort()) === JSON.stringify(expectedActive),
+  'Active transport links differ from approved guides (found '+active.length+
+  ', approved '+expectedActive.length+'): '+active.join(', '));
+const activeUrls = [base, ...active.map(slug => base + '/' + slug)];
+
+for (const url of activeUrls) {
+  const file = url.slice('https://viajandoconcabeza.com/'.length) + '.html';
+  if (approved.has(file)) {
+    assert(sitemapUrls.includes(url), 'Sitemap is missing approved canonical URL ' + url);
+  } else {
+    assert(!sitemapUrls.includes(url), 'Draft URL wrongly indexed in sitemap ' + url);
+  }
+}
+assert(!sitemapUrls.some(url => url.startsWith(base) && url.endsWith('.html')),
+  'Sitemap still lists .html URLs under Cómo llegar');
+
+for (const file of files) {
+  const html = read(file);
+  const own = 'https://viajandoconcabeza.com/' + file.replace(/\.html$/, '');
+  const canonical = html.match(/<link rel="canonical" href="([^"]+)"/)?.[1];
+  const ogUrl = html.match(/<meta property="og:url" content="([^"]+)"/)?.[1];
+  const published = approved.has(file);
+  if (published) {
+    assert(canonical === own, file + ': incorrect canonical (' + canonical + ')');
+    if (ogUrl) assert(ogUrl === own, file + ': og:url differs from canonical');
+  } else {
+    assert(/<meta\b[^>]*name="robots"[^>]*content="noindex,follow"/i.test(html),
+      file + ': draft missing noindex');
+    assert(!sitemapUrls.includes(own),file+': draft unexpectedly in sitemap');
+  }
+  assert(!/href="(?:\.{0,2}\/|\/)[^"]+\.html(?:\?[^"]*)?"/.test(html),
+    file + ': a local HTML link still uses .html');
+  for (const match of html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)) {
+    let json;
+    try { json = JSON.parse(match[1]); } catch (error) {
+      errors.push(file + ': invalid JSON-LD: ' + error.message);
+      continue;
+    }
+    const graph = Array.isArray(json['@graph']) ? json['@graph'] : [json];
+    for (const node of graph) {
+      if (published && node['@type'] === 'WebPage') {
+        assert(node.url === own, file + ': WebPage.url differs from canonical');
+        assert(node['@id'] === own + '#webpage', file + ': WebPage @id differs from canonical');
+      }
+      if (published && node['@type'] === 'BreadcrumbList' && Array.isArray(node.itemListElement)) {
+        const last = node.itemListElement.at(-1);
+        assert(last?.item === own, file + ': last breadcrumb item differs from canonical');
+      }
+    }
+  }
+}
+
+const headers = read('_headers');
+for (const hostname of [
+  'web-quality.albertini1199.workers.dev',
+  'quality.viajandoconcabeza.com',
+  'www.quality.viajandoconcabeza.com'
+]) {
+  const declaration = 'https://' + hostname + '/*';
+  const index = headers.indexOf(declaration);
+  assert(index !== -1 && /^\s+X-Robots-Tag:\s*noindex\b/im.test(headers.slice(index + declaration.length).split(/\n(?=\S)/)[0]),
+    '_headers: no hostname-specific noindex for ' + hostname);
+}
+assert(!/^\/\*\s*\r?\n\s*X-Robots-Tag:\s*noindex/im.test(headers),
+  '_headers: wildcard noindex could affect production');
+
+if (errors.length) {
+  for (const err of errors) console.error('SEO ERROR:', err);
+  process.exitCode = 1;
+} else {
+  console.log('SEO OK:', files.length, 'arrival HTML pages checked;',
+    activeUrls.length, 'sitemap URLs and staging noindex header rules validated.');
+}

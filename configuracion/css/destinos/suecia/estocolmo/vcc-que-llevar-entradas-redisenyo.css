@@ -1,0 +1,838 @@
+/* VCC · Qué llevar Estocolmo · parella 35 / 65.
+   Capçaleres fora de les vinyetes, contingut compacte, mateixa alçada.
+   Les seccions mantenen ids, JS i rols propis. Sense canvis globals. */
+.ql-page .ql-flow-note{margin:8px 0 0;color:#66605b;font:400 11.5px/1.5 var(--vcc-font-body,"DM Sans",Arial,sans-serif)}
+.ql-page .ql-main #experiencia-vcc{margin-top:var(--vcc-section-space,58px)}
+.ql-page .ql-main .ql-advice-section{margin-bottom:var(--vcc-section-space,58px)}
+.ql-page .ql-v17-actions-strip .ql-v6-actions{gap:7px}
+.ep-page .ep4-main .ep4-calculator{margin:0 0 var(--vcc-section-space,64px);min-width:0}
+.ep-page .ep4-main .ep4-our{margin-top:var(--vcc-section-space,64px)!important}
+.ep-page .ep4-main .ep4-savings .ep3-saving-track{min-width:0}
+
+/* Estructura base: agrupació visual, però cada secció segueix independent. */
+html body .ql-page .ql-main{display:block!important}
+html body .ql-page .ql-main > .ql-first-two-layout{
+  display:grid!important;
+  grid-template-columns:minmax(0,1fr);
+  gap:22px;
+  width:100%;
+  min-width:0;
+  margin:0 0 var(--vcc-section-space,58px)!important;
+  padding:0;
+  align-items:start;
+}
+html body .ql-page .ql-first-two-module{
+  display:grid;
+  grid-template-columns:minmax(0,1fr);
+  grid-template-rows:auto auto;
+  min-width:0;
+  gap:10px;
+}
+html body .ql-page .ql-first-two-module > .ql-section-heading{
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:flex-start!important;
+  justify-content:flex-end!important;
+  box-sizing:border-box;
+  width:100%!important;
+  min-width:0!important;
+  max-width:100%!important;
+  margin:0!important;
+  padding:0!important;
+  gap:0!important;
+  border:0!important;
+  background:transparent!important;
+}
+html body .ql-page .ql-first-two-module > .ql-section-heading .vcc-editorial-heading-main{
+  width:100%!important;min-width:0!important;margin:0!important;padding:0!important;
+}
+html body .ql-page .ql-first-two-module > .ql-section-heading .vcc-editorial-overline{
+  font-size:calc(23px + var(--vcc-overline-size-adjust,0px))!important;
+  line-height:1.08!important;
+  margin:0 0 5px!important;
+}
+html body .ql-page .ql-first-two-module > .ql-section-heading .vcc-editorial-title{
+  font-size:calc(clamp(26px,2.5vw,32px) + var(--vcc-heading-size-adjust,0px))!important;
+  line-height:1.13!important;
+  white-space:normal!important;text-wrap:balance!important;
+  overflow-wrap:break-word!important;
+  margin:0!important;
+}
+html body .ql-page .ql-first-two-module > .ql-section-heading > .vcc-editorial-description{
+  display:block!important;
+  width:100%!important;
+  max-width:100%!important;
+  min-width:0!important;
+  height:auto!important;
+  max-height:none!important;
+  margin:5px 0 0!important;
+  padding:0!important;
+  color:#756e68!important;
+  font:400 11.5px/1.45 var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;
+  text-align:left!important;
+  white-space:normal!important;
+  overflow:visible!important;
+  -webkit-line-clamp:unset!important;
+  line-clamp:unset;
+}
+html body .ql-page .ql-first-two-module > :is(#que-maleta,#haz-tu-maleta){
+  display:flex!important;
+  flex-direction:column!important;
+  box-sizing:border-box!important;
+  width:100%!important;
+  min-width:0!important;
+  max-width:100%!important;
+  margin:0!important;
+  padding:12px!important;
+  background:#fff!important;
+  border:1px solid #e7ded5!important;
+  border-radius:13px!important;
+  box-shadow:0 3px 13px rgba(44,33,22,.035)!important;
+}
+
+/* Planificador: manté la recomanació visual, però cap targeta gegant. */
+html body .ql-page .ql-first-two-layout #que-maleta > .ql-v8-bag-planner{
+  display:flex!important;
+  flex:1 1 auto!important;
+  flex-direction:column!important;
+  width:100%!important;
+  min-width:0!important;min-height:0!important;
+  margin:0!important;padding:0!important;
+  border:0!important;box-shadow:none!important;background:transparent!important;
+}
+html body .ql-page .ql-first-two-layout #que-maleta .ql-v8-planner-layout{
+  display:grid!important;
+  grid-template-columns:minmax(0,1fr)!important;
+  grid-template-rows:auto minmax(0,1fr);
+  flex:1 1 auto!important;
+  width:100%!important;
+  min-height:0!important;
+  align-items:start!important;
+  gap:9px!important;
+  margin:0!important;padding:0!important;
+}
+html body .ql-page .ql-first-two-layout #que-maleta .ql-v8-planner-controls{
+  display:grid!important;
+  grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  gap:7px 9px!important;
+  width:100%!important;
+  min-width:0!important;
+  margin:0!important;
+  padding:0!important;
+  border:0!important;
+  background:transparent!important;
+}
+html body .ql-page .ql-first-two-layout #que-maleta .ql-v8-planner-controls>.ql-v11-laundry{
+  grid-column:1/-1!important;
+  margin:0!important;padding:0!important;
+}
+html body .ql-page .ql-first-two-layout #que-maleta .ql-v8-planner-controls .ql-v6-field select,
+html body .ql-page .ql-first-two-layout #que-maleta .ql-v11-laundry-buttons button{
+  height:33px!important;
+  min-height:33px!important;
+  font-size:11px!important;
+}
+html body .ql-page .ql-first-two-layout #que-maleta .ql-v8-planner-results{
+  display:flex!important;
+  flex-direction:column!important;
+  justify-content:flex-start!important;
+  width:100%!important;
+  min-width:0!important;
+  min-height:0!important;
+  gap:5px!important;
+}
+html body .ql-page .ql-first-two-layout #que-maleta .ql-v8-planner-results > .ql-v7-bag-grid{
+  display:grid!important;
+  grid-template-columns:minmax(0,1fr)!important;
+  grid-auto-rows:minmax(0,1fr)!important;
+  width:100%!important;
+  min-width:0!important;
+  height:auto!important;
+  gap:6px!important;
+  margin:0!important;padding:0!important;
+}
+html body .ql-page .ql-first-two-layout #que-maleta .ql-v8-planner-results .ql-v7-bag-card{
+  position:relative!important;
+  box-sizing:border-box!important;
+  display:flex!important;
+  flex-direction:row!important;
+  align-items:center!important;
+  justify-content:flex-start!important;
+  gap:8px!important;
+  width:100%!important;
+  min-width:0!important;
+  min-height:58px!important;
+  height:58px!important;
+  margin:0!important;
+  padding:7px 10px!important;
+  text-align:left!important;
+  border-radius:8px!important;
+}
+html body .ql-page .ql-first-two-layout #que-maleta .ql-v8-planner-results .ql-v7-bag-icon{
+  display:grid!important;
+  place-items:center!important;
+  flex:0 0 35px!important;
+  width:35px!important;height:39px!important;min-width:35px!important;
+  margin:0!important;
+}
+html body .ql-page .ql-first-two-layout #que-maleta .ql-v8-planner-results .ql-v7-bag-icon svg{
+  width:32px!important;height:37px!important;
+}
+html body .ql-page .ql-first-two-layout #que-maleta .ql-v8-planner-results .ql-v7-bag-card h3{
+  margin:0!important;
+  font-size:calc(15px + var(--vcc-heading-size-adjust,0px))!important;
+  line-height:1.12!important;
+  text-align:left!important;
+}
+html body .ql-page .ql-first-two-layout #que-maleta .ql-v8-planner-results .ql-v7-bag-badge{
+  top:4px!important;right:5px!important;
+  padding:2px 4px!important;
+  font-size:7px!important;
+}
+
+/* Checklist: clima compacte, consell del mes subtil i scroll intern amb
+   controls amunt/avall ja connectats al JS del planificador. */
+html body .ql-page .ql-first-two-layout #haz-tu-maleta{
+  overflow:hidden!important;
+  gap:7px!important;
+}
+html body .ql-page .ql-first-two-layout #haz-tu-maleta > .ql-v17-climate-card{
+  flex:0 0 auto!important;
+  min-height:0!important;height:auto!important;
+  width:100%!important;
+  margin:0!important;
+  padding:6px 9px!important;
+  border-radius:9px!important;
+}
+html body .ql-page .ql-first-two-layout #haz-tu-maleta .ql-v13-climate-progress .ql-v9-weather-stat img{
+  width:23px!important;height:23px!important;flex-basis:23px!important;
+}
+html body .ql-page .ql-first-two-layout #haz-tu-maleta > .ql-v17-climate-card .ql-v6-list-head.ql-v9-list-head.ql-v13-climate-progress{
+  grid-template-columns:repeat(2,minmax(0,1fr))!important;
+}
+html body .ql-page .ql-first-two-layout #haz-tu-maleta > .ql-v10-packing-tip-inline{
+  flex:0 0 auto;
+  margin:0!important;padding:0 2px!important;
+  font:400 10.5px/1.4 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
+  color:#79716a;
+}
+html body .ql-page .ql-first-two-layout #haz-tu-maleta > .ql-v6-list{
+  display:flex!important;
+  flex:1 1 auto!important;
+  flex-direction:column!important;
+  min-height:0!important;height:auto!important;max-height:none!important;
+  width:100%!important;min-width:0!important;
+  overflow:hidden!important;
+  margin:0!important;
+  padding:8px!important;
+  border:1px solid #eee7df!important;
+  border-radius:9px!important;
+  background:#fff!important;
+  box-shadow:none!important;
+}
+html body .ql-page .ql-first-two-layout #haz-tu-maleta .ql-v6-list .ql-v6-scroll-shell{
+  display:grid!important;
+  grid-template-columns:minmax(0,1fr)!important;
+  flex:1 1 auto!important;
+  width:100%!important;
+  min-width:0!important;
+  min-height:0!important;
+  height:auto!important;max-height:none!important;
+  overflow:hidden!important;
+  gap:0!important;
+  margin:0!important;
+}
+html body .ql-page .ql-first-two-layout #haz-tu-maleta .ql-v6-scroll-shell > .ql-v6-categories{
+  display:grid!important;
+  grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  grid-template-rows:none!important;
+  flex:1 1 auto!important;
+  min-width:0!important;min-height:0!important;
+  width:100%!important;height:100%!important;max-height:none!important;
+  overflow-y:auto!important;overflow-x:hidden!important;
+  align-content:start!important;align-items:start!important;
+  gap:7px!important;
+  margin:0!important;padding:0 3px 2px 0!important;
+  overscroll-behavior:contain;
+  scrollbar-width:auto!important;
+  scrollbar-color:auto!important;
+  scroll-behavior:smooth;
+}
+html body .ql-page .ql-first-two-layout #haz-tu-maleta > .ql-v17-actions-strip{
+  display:flex!important;
+  flex:0 0 auto!important;
+  flex-wrap:wrap!important;
+  align-items:center!important;
+  justify-content:space-between!important;
+  gap:3px 12px!important;
+  margin:0!important;padding:1px!important;
+  border:0!important;background:transparent!important;
+}
+html body .ql-page .ql-first-two-layout #haz-tu-maleta > .ql-v17-actions-strip > .ql-v6-caveat{
+  flex:1 1 185px!important;
+  font-size:9px!important;
+  line-height:1.3!important;
+}
+html body .ql-page .ql-first-two-layout #haz-tu-maleta > .ql-v17-actions-strip > .ql-v6-actions{
+  display:flex!important;
+  flex:0 1 auto!important;
+  align-items:center!important;
+  gap:8px!important;
+  margin:0!important;
+}
+html body .ql-page .ql-first-two-layout #haz-tu-maleta > .ql-v17-actions-strip > .ql-v6-action-status{
+  flex:0 0 100%!important;
+  margin:0!important;
+}
+
+/* La graella usa el mateix row-track per als dos títols i els dos panells.
+   Això alinea exactament tant l'inici com el final de les vinyetes. */
+@media screen and (min-width:1040px){
+  html body .ql-page .ql-first-two-layout{
+    grid-template-columns:minmax(0,31fr) minmax(0,69fr)!important;
+    grid-template-rows:auto 440px!important;
+    column-gap:19px!important;
+    row-gap:11px!important;
+    align-items:stretch!important;
+  }
+  html body .ql-page .ql-first-two-module{
+    display:contents!important;
+  }
+  html body .ql-page .ql-first-two-module--bag > .ql-section-heading{
+    grid-column:1!important;grid-row:1!important;
+  }
+  html body .ql-page .ql-first-two-module--pack > .ql-section-heading{
+    grid-column:2!important;grid-row:1!important;
+  }
+  html body .ql-page .ql-first-two-module--bag > #que-maleta{
+    grid-column:1!important;grid-row:2!important;
+  }
+  html body .ql-page .ql-first-two-module--pack > #haz-tu-maleta{
+    grid-column:2!important;grid-row:2!important;
+  }
+  html body .ql-page .ql-first-two-module > :is(#que-maleta,#haz-tu-maleta){
+    height:440px!important;
+    min-height:0!important;
+    max-height:440px!important;
+  }
+}
+/* Mòbil i tauleta: cada capçalera sempre precedeix la seva vinyeta.
+   La llista queda desplegada, sense scroll intern ni elements ocults. */
+@media(max-width:1039px){
+  html body .ql-page .ql-main > .ql-first-two-layout{
+    grid-template-columns:minmax(0,1fr)!important;
+    grid-template-rows:auto!important;
+    row-gap:25px!important;
+  }
+  html body .ql-page .ql-first-two-module{
+    display:grid!important;
+    grid-template-columns:minmax(0,1fr)!important;
+    grid-template-rows:auto auto!important;
+    gap:11px!important;
+  }
+  html body .ql-page .ql-first-two-module > :is(#que-maleta,#haz-tu-maleta){
+    height:auto!important;max-height:none!important;overflow:visible!important;
+  }
+  html body .ql-page .ql-first-two-layout #haz-tu-maleta > .ql-v6-list{
+    height:auto!important;
+    overflow:visible!important;
+  }
+  html body .ql-page .ql-first-two-layout #haz-tu-maleta .ql-v6-list .ql-v6-scroll-shell{
+    display:block!important;
+    height:auto!important;max-height:none!important;
+    overflow:visible!important;
+  }
+  html body .ql-page .ql-first-two-layout #haz-tu-maleta .ql-v6-scroll-shell > .ql-v6-categories{
+    height:auto!important;max-height:none!important;
+    overflow:visible!important;
+  }
+  }
+@media(max-width:640px){
+  html body .ql-page .ql-first-two-layout #haz-tu-maleta .ql-v6-scroll-shell > .ql-v6-categories{
+    grid-template-columns:minmax(0,1fr)!important;
+  }
+}
+@media print{
+  html body .ql-page .ql-first-two-module{
+    display:block!important;break-inside:avoid;
+  }
+  html body .ql-page .ql-first-two-layout #haz-tu-maleta .ql-v6-scroll-shell > .ql-v6-categories{
+    overflow:visible!important;height:auto!important;
+  }
+  }
+
+
+/* 2026-11-20 · Millora a partir de la captura real.
+   31/69 i mòduls de 440px: clima en una línia de tres indicadors,
+   progrés separat a sota i 4 categories a files de contingut real.
+   Evita que la segona fila de categories es pinti per sobre de la primera. */
+@media screen and (min-width:1040px){
+  html body .ql-page .ql-first-two-layout #que-maleta .ql-v8-planner-controls{
+    gap:5px 8px!important;
+  }
+  html body .ql-page .ql-first-two-layout #que-maleta .ql-planner-step{
+    margin:0 0 1px!important;
+    font-size:10px!important;
+  }
+  html body .ql-page .ql-first-two-layout #que-maleta .ql-v8-planner-results .ql-v7-bag-card{
+    padding:6px 9px!important;
+  }
+  html body .ql-page .ql-first-two-layout #que-maleta .ql-v8-planner-results .ql-v7-bag-card h3{
+    font-size:calc(14px + var(--vcc-heading-size-adjust,0px))!important;
+    line-height:1.2!important;
+    padding-right:2px;
+  }
+  html body .ql-page .ql-first-two-layout #que-maleta .ql-v8-planner-results .ql-v7-bag-icon{
+    flex-basis:30px!important;
+    width:30px!important;min-width:30px!important;height:34px!important;
+  }
+  html body .ql-page .ql-first-two-layout #que-maleta .ql-v8-planner-results .ql-v7-bag-icon svg{
+    width:29px!important;height:33px!important;
+  }
+  html body .ql-page .ql-first-two-layout #que-maleta .ql-v8-planner-results .ql-v7-bag-badge{
+    font-size:6.5px!important;
+    padding:2px 3px!important;
+    top:3px!important;right:4px!important;
+  }
+  html body .ql-page .ql-first-two-layout #haz-tu-maleta{
+    gap:5px!important;
+    padding:10px!important;
+  }
+  html body .ql-page .ql-first-two-layout #haz-tu-maleta > .ql-v17-climate-card{
+    gap:0!important;
+    padding:7px 9px 5px!important;
+    min-height:0!important;
+    height:auto!important;
+    max-height:none!important;
+  }
+  html body .ql-page .ql-first-two-layout #haz-tu-maleta > .ql-v17-climate-card .ql-v6-list-head.ql-v9-list-head.ql-v13-climate-progress{
+    display:grid!important;
+    grid-template-columns:minmax(0,1fr)!important;
+    grid-template-rows:auto auto!important;
+    align-items:center!important;
+    gap:5px!important;
+    width:100%!important;
+    margin:0!important;
+    padding:0 0 5px!important;
+    min-height:0!important;
+    border-bottom:1px solid #efe7df!important;
+  }
+  html body .ql-page .ql-first-two-layout #haz-tu-maleta > .ql-v17-climate-card .ql-v13-climate-progress > .ql-v9-weather-summary{
+    display:grid!important;
+    grid-column:1!important;
+    grid-row:1!important;
+    grid-template-columns:repeat(3,minmax(0,1fr))!important;
+    gap:8px!important;
+    align-items:center!important;
+    width:100%!important;
+    min-width:0!important;
+  }
+  html body .ql-page .ql-first-two-layout #haz-tu-maleta > .ql-v17-climate-card .ql-v13-climate-progress .ql-v9-weather-stat{
+    display:flex!important;
+    flex-direction:row!important;
+    align-items:center!important;
+    min-width:0!important;
+    min-height:34px!important;
+    height:auto!important;
+    margin:0!important;
+    padding:3px 6px!important;
+    border:0!important;
+    border-right:1px solid #eee5dd!important;
+    border-radius:0!important;
+    background:transparent!important;
+    gap:5px!important;
+  }
+  html body .ql-page .ql-first-two-layout #haz-tu-maleta > .ql-v17-climate-card .ql-v13-climate-progress .ql-v9-weather-stat:last-child{
+    border-right:0!important;
+  }
+  html body .ql-page .ql-first-two-layout #haz-tu-maleta > .ql-v17-climate-card .ql-v13-climate-progress .ql-v9-weather-stat img{
+    width:19px!important;height:19px!important;
+    flex:0 0 19px!important;
+  }
+  html body .ql-page .ql-first-two-layout #haz-tu-maleta > .ql-v17-climate-card .ql-v13-climate-progress .ql-v9-weather-stat > span{
+    display:flex!important;
+    flex-direction:column!important;
+    gap:1px!important;
+    min-width:0!important;
+  }
+  html body .ql-page .ql-first-two-layout #haz-tu-maleta > .ql-v17-climate-card .ql-v13-climate-progress .ql-v9-weather-stat small{
+    font-size:8.5px!important;
+    line-height:1.2!important;
+    white-space:normal!important;
+  }
+  html body .ql-page .ql-first-two-layout #haz-tu-maleta > .ql-v17-climate-card .ql-v13-climate-progress .ql-v9-weather-stat strong{
+    font-size:clamp(11px,1vw,14px)!important;
+    line-height:1.15!important;
+    overflow-wrap:anywhere!important;
+    white-space:normal!important;
+  }
+  html body .ql-page .ql-first-two-layout #haz-tu-maleta > .ql-v17-climate-card .ql-v13-climate-progress > .ql-v6-progress{
+    display:flex!important;
+    flex-direction:row!important;
+    justify-content:flex-end!important;
+    align-items:center!important;
+    grid-column:1!important;
+    grid-row:2!important;
+    min-height:0!important;
+    height:auto!important;
+    width:100%!important;
+    gap:10px!important;
+    margin:0!important;
+    padding:2px 6px 0!important;
+    border:0!important;
+  }
+  html body .ql-page .ql-first-two-layout #haz-tu-maleta > .ql-v17-climate-card .ql-v6-progress strong{
+    font-size:10px!important;
+    white-space:nowrap!important;
+  }
+  html body .ql-page .ql-first-two-layout #haz-tu-maleta > .ql-v17-climate-card .ql-v6-progress .ql-v6-track{
+    flex:1 1 0!important;
+    width:auto!important;
+    max-width:220px!important;
+    margin:0!important;
+  }
+  html body .ql-page .ql-first-two-layout #haz-tu-maleta > .ql-v17-climate-card .ql-v9-climate-source{
+    margin:3px 0 0!important;
+    font-size:8px!important;
+    line-height:1.2!important;
+    text-align:right!important;
+  }
+  html body .ql-page .ql-first-two-layout #haz-tu-maleta > .ql-v10-packing-tip-inline{
+    font-size:10px!important;
+    line-height:1.35!important;
+  }
+  html body .ql-page .ql-first-two-layout #haz-tu-maleta > .ql-v6-list{
+    padding:7px!important;
+  }
+  html body .ql-page .ql-first-two-layout #haz-tu-maleta .ql-v6-scroll-shell > .ql-v6-categories{
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    grid-template-rows:repeat(2,max-content)!important;
+    grid-auto-rows:max-content!important;
+    grid-auto-flow:row!important;
+    align-content:start!important;
+    align-items:start!important;
+    row-gap:10px!important;
+    column-gap:9px!important;
+    min-height:0!important;
+    overflow-y:auto!important;
+    overflow-x:hidden!important;
+  }
+  html body .ql-page .ql-first-two-layout #haz-tu-maleta .ql-v6-scroll-shell > .ql-v6-categories > .ql-v6-category{
+    position:relative!important;
+    box-sizing:border-box!important;
+    display:flex!important;
+    flex-direction:column!important;
+    align-self:start!important;
+    justify-self:stretch!important;
+    width:100%!important;
+    height:auto!important;
+    min-height:max-content!important;
+    max-height:none!important;
+    margin:0!important;
+    overflow:hidden!important;
+  }
+  html body .ql-page .ql-first-two-layout #haz-tu-maleta .ql-v6-category ul{
+    height:auto!important;
+    min-height:0!important;
+    max-height:none!important;
+    flex:0 0 auto!important;
+    margin:0!important;
+  }
+  html body .ql-page .ql-first-two-layout #haz-tu-maleta .ql-v6-category h4{
+    position:relative!important;
+    flex:0 0 auto!important;
+    font-size:15px!important;
+    line-height:1.12!important;
+    padding:6px 9px!important;
+  }
+  html body .ql-page .ql-first-two-layout #haz-tu-maleta .ql-v6-category label{
+    position:relative!important;
+    min-height:30px!important;
+    height:auto!important;
+    padding:3px 0!important;
+    align-items:center!important;
+  }
+  html body .ql-page .ql-first-two-layout #haz-tu-maleta .ql-v6-item-content{
+    min-width:0!important;
+    font-size:10.5px!important;
+    line-height:1.3!important;
+  }
+  html body .ql-page .ql-first-two-layout #haz-tu-maleta .ql-v6-item-content > span{
+    overflow-wrap:break-word!important;
+    white-space:normal!important;
+  }
+  html body .ql-page .ql-first-two-layout #haz-tu-maleta .ql-v6-qty{
+    flex:0 0 auto!important;
+    margin-left:auto!important;
+  }
+}
+
+
+/* 2026-11-20 · Checklist tipus masonry sense llacunes.
+   Dues columnes reals de contingut independent, no una graella de
+   files amb alçada compartida. La separació és sempre només 8 px.
+   Soluciona el buit visible sota Ropa quan Extras era més llarg. */
+html body .ql-page .ql-first-two-layout #haz-tu-maleta .ql-v6-scroll-shell > .ql-v6-categories{
+  grid-template-rows:none!important;
+  grid-auto-rows:auto!important;
+  align-items:start!important;
+  align-content:start!important;
+}
+html body .ql-page .ql-first-two-layout #haz-tu-maleta .ql-v6-scroll-shell > .ql-v6-categories > .ql-v6-column{
+  box-sizing:border-box!important;
+  display:flex!important;
+  flex-direction:column!important;
+  align-self:start!important;
+  justify-content:flex-start!important;
+  align-items:stretch!important;
+  width:100%!important;
+  min-width:0!important;
+  min-height:0!important;
+  height:auto!important;
+  margin:0!important;
+  padding:0!important;
+  gap:8px!important;
+}
+html body .ql-page .ql-first-two-layout #haz-tu-maleta .ql-v6-categories > .ql-v6-column > .ql-v6-category{
+  box-sizing:border-box!important;
+  display:flex!important;
+  flex-direction:column!important;
+  flex:0 0 auto!important;
+  align-self:stretch!important;
+  width:100%!important;
+  min-width:0!important;
+  min-height:0!important;
+  height:auto!important;
+  max-height:none!important;
+  margin:0!important;
+  overflow:hidden!important;
+}
+html body .ql-page .ql-first-two-layout #haz-tu-maleta .ql-v6-column > .ql-v6-category > ul{
+  flex:0 0 auto!important;
+  height:auto!important;
+  min-height:0!important;
+  max-height:none!important;
+}
+
+/* Contracte editorial VCC: espai net sota el subheader abans de les
+   dues capçaleres paral·leles. A Entradas y pases el padding pertany al
+   main; aquí les dues seccions són fills d'una mateixa graella, i
+   l'espai s'aplica A LA GRAELLA perquè els dos títols baixin junts.
+   1px de padding al main impedeix col·lapse del margin del primer fill. */
+html body .ql-page .ql-main{
+  padding-top:1px!important;
+}
+html body .ql-page .ql-main > .ql-first-two-layout{
+  margin-top:clamp(48px,3.5vw,60px)!important;
+  margin-bottom:var(--vcc-section-space,58px)!important;
+}
+html body .ql-page .ql-main > #experiencia-vcc{
+  margin-top:0!important;
+}
+@media(max-width:1039px){
+  html body .ql-page .ql-main > .ql-first-two-layout{
+    margin-top:36px!important;
+  }
+}
+@media(max-width:600px){
+  html body .ql-page .ql-main > .ql-first-two-layout{
+    margin-top:30px!important;
+  }
+}
+
+
+
+/* 20-11-2026 · Clima: tres vinyetes individuals i línia de progrés inferior.
+   Manté icones, valors, comptador i les actualitzacions dinàmiques originals. */
+html body .ql-page .ql-first-two-layout #haz-tu-maleta > .ql-v17-climate-card{
+  box-sizing:border-box!important;
+  width:100%!important;
+  padding:0!important;
+  margin:0!important;
+  min-height:0!important;
+  height:auto!important;
+  max-height:none!important;
+  background:transparent!important;
+  border:0!important;
+  border-radius:0!important;
+  box-shadow:none!important;
+}
+html body .ql-page .ql-first-two-layout #haz-tu-maleta > .ql-v17-climate-card .ql-v6-list-head.ql-v9-list-head.ql-v13-climate-progress{
+  display:grid!important;
+  grid-template-columns:minmax(0,1fr)!important;
+  grid-template-rows:auto auto!important;
+  justify-content:stretch!important;
+  align-items:start!important;
+  gap:7px!important;
+  width:100%!important;
+  margin:0!important;
+  padding:0!important;
+  border:0!important;
+  min-height:0!important;
+  background:transparent!important;
+}
+html body .ql-page .ql-first-two-layout #haz-tu-maleta > .ql-v17-climate-card .ql-v13-climate-progress > .ql-v9-weather-summary{
+  display:grid!important;
+  grid-column:1!important;
+  grid-row:1!important;
+  grid-template-columns:repeat(3,minmax(0,1fr))!important;
+  gap:8px!important;
+  align-items:stretch!important;
+  width:100%!important;
+  margin:0!important;
+  padding:0!important;
+}
+html body .ql-page .ql-first-two-layout #haz-tu-maleta > .ql-v17-climate-card .ql-v13-climate-progress .ql-v9-weather-stat{
+  box-sizing:border-box!important;
+  display:flex!important;
+  flex-direction:row!important;
+  align-items:center!important;
+  justify-content:flex-start!important;
+  width:100%!important;
+  min-width:0!important;
+  min-height:48px!important;
+  height:auto!important;
+  gap:7px!important;
+  padding:7px 9px!important;
+  margin:0!important;
+  background:#fffaf7!important;
+  border:1px solid #eee3d9!important;
+  border-radius:9px!important;
+  box-shadow:0 1px 3px rgba(55,37,23,.025)!important;
+}
+html body .ql-page .ql-first-two-layout #haz-tu-maleta > .ql-v17-climate-card .ql-v13-climate-progress .ql-v9-weather-stat img{
+  display:block!important;
+  flex:0 0 22px!important;
+  width:22px!important;
+  height:22px!important;
+  object-fit:contain!important;
+}
+html body .ql-page .ql-first-two-layout #haz-tu-maleta > .ql-v17-climate-card .ql-v13-climate-progress .ql-v9-weather-stat > span{
+  min-width:0!important;
+  flex:1 1 auto!important;
+  display:flex!important;
+  flex-direction:column!important;
+  gap:1px!important;
+}
+html body .ql-page .ql-first-two-layout #haz-tu-maleta > .ql-v17-climate-card .ql-v13-climate-progress .ql-v9-weather-stat small{
+  font-size:9px!important;
+  line-height:1.15!important;
+  color:#84776f!important;
+  white-space:normal!important;
+}
+html body .ql-page .ql-first-two-layout #haz-tu-maleta > .ql-v17-climate-card .ql-v13-climate-progress .ql-v9-weather-stat strong{
+  font-size:clamp(11px,1vw,14px)!important;
+  line-height:1.16!important;
+  overflow-wrap:normal!important;
+  white-space:normal!important;
+}
+html body .ql-page .ql-first-two-layout #haz-tu-maleta > .ql-v17-climate-card .ql-v13-climate-progress > .ql-v6-progress{
+  box-sizing:border-box!important;
+  display:grid!important;
+  grid-template-columns:max-content minmax(0,1fr)!important;
+  grid-column:1!important;
+  grid-row:2!important;
+  align-items:center!important;
+  justify-content:stretch!important;
+  gap:11px!important;
+  width:100%!important;
+  min-width:0!important;
+  height:auto!important;
+  min-height:0!important;
+  margin:0!important;
+  padding:0 2px!important;
+  border:0!important;
+}
+html body .ql-page .ql-first-two-layout #haz-tu-maleta > .ql-v17-climate-card .ql-v13-climate-progress > .ql-v6-progress > strong{
+  margin:0!important;
+  text-align:left!important;
+  font-size:10px!important;
+  color:#806e60!important;
+  white-space:nowrap!important;
+}
+html body .ql-page .ql-first-two-layout #haz-tu-maleta > .ql-v17-climate-card .ql-v13-climate-progress > .ql-v6-progress > .ql-v6-track{
+  display:block!important;
+  box-sizing:border-box!important;
+  width:100%!important;
+  max-width:none!important;
+  min-width:0!important;
+  height:5px!important;
+  margin:0!important;
+  border-radius:20px!important;
+}
+
+/* Accions de la checklist, F O R A de la vinyeta i a baix a la dreta.
+   Reutilitza .vcc-file-actions > button i .vcc-file-clear del CSS comú. */
+html body .ql-page .ql-first-two-module--pack > .ql-v17-actions-strip.vcc-file-actions{
+  box-sizing:border-box!important;
+  display:flex!important;
+  flex-direction:row!important;
+  align-items:center!important;
+  justify-content:flex-end!important;
+  flex-wrap:wrap!important;
+  width:100%!important;
+  min-width:0!important;
+  max-width:100%!important;
+  min-height:0!important;
+  margin:0!important;
+  padding:0!important;
+  border:0!important;
+  background:transparent!important;
+  box-shadow:none!important;
+  gap:4px 13px!important;
+}
+html body .ql-page .ql-first-two-module--pack > .ql-v17-actions-strip.vcc-file-actions > .ql-v6-caveat{
+  display:block!important;
+  flex:1 1 250px!important;
+  min-width:0!important;
+  margin:0!important;
+  padding:0!important;
+  font:400 9.5px/1.35 var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;
+  color:#8c8179!important;
+}
+html body .ql-page .ql-first-two-module--pack > .ql-v17-actions-strip.vcc-file-actions > button{
+  flex:0 0 auto!important;
+  margin:0!important;
+  min-height:27px!important;
+  font-size:10px!important;
+}
+html body .ql-page .ql-first-two-module--pack > .ql-v17-actions-strip.vcc-file-actions > .ql-v6-action-status{
+  flex:0 0 100%!important;
+  margin:0!important;
+  text-align:right!important;
+  font-size:10px!important;
+}
+html body .ql-page .ql-first-two-module--pack > .ql-v17-actions-strip.vcc-file-actions > .ql-v6-action-status:empty{
+  display:none!important;
+}
+@media screen and (min-width:1040px){
+  html body .ql-page .ql-first-two-layout{
+    grid-template-rows:auto 440px auto!important;
+  }
+  html body .ql-page .ql-first-two-module--pack > .ql-v17-actions-strip.vcc-file-actions{
+    grid-column:2!important;
+    grid-row:3!important;
+    justify-self:stretch!important;
+    align-self:start!important;
+  }
+}
+@media(max-width:1039px){
+  html body .ql-page .ql-first-two-module--pack > .ql-v17-actions-strip.vcc-file-actions{
+    margin-top:7px!important;
+  }
+}
+@media(max-width:560px){
+  html body .ql-page .ql-first-two-module--pack > .ql-v17-actions-strip.vcc-file-actions{
+    justify-content:flex-end!important;
+    gap:4px 10px!important;
+  }
+  html body .ql-page .ql-first-two-module--pack > .ql-v17-actions-strip.vcc-file-actions > .ql-v6-caveat{
+    flex-basis:100%!important;
+  }
+  html body .ql-page .ql-first-two-layout #haz-tu-maleta > .ql-v17-climate-card .ql-v13-climate-progress .ql-v9-weather-stat{
+    min-height:45px!important;padding:6px 5px!important;gap:4px!important;
+  }
+  html body .ql-page .ql-first-two-layout #haz-tu-maleta > .ql-v17-climate-card .ql-v13-climate-progress .ql-v9-weather-stat img{
+    width:18px!important;height:18px!important;flex-basis:18px!important;
+  }
+}

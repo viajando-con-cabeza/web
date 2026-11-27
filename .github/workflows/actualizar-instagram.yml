@@ -1,0 +1,51 @@
+name: Instagram · actualitzar portada
+
+# Les programacions de GitHub Actions només funcionen des de la branca
+# per defecte (main). El procés escriu SEMPRE a quality.
+# Promoure aquest workflow a main quan s'hagi aprovat la integració.
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '37 6,18 * * *'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: instagram-feed-quality
+  cancel-in-progress: false
+
+jobs:
+  update-instagram:
+    runs-on: ubuntu-latest
+    environment: quality
+    steps:
+      - name: Obtenir la branca quality
+        uses: actions/checkout@v4
+        with:
+          ref: quality
+          fetch-depth: 0
+
+      - name: Validar el script
+        run: node --check configuracion/scripts/actualizar-instagram.mjs
+
+      - name: Consultar publicacions reals de @viajaconcabeza
+        env:
+          INSTAGRAM_ACCESS_TOKEN: ${{ secrets.INSTAGRAM_ACCESS_TOKEN }}
+        run: node configuracion/scripts/actualizar-instagram.mjs
+
+      - name: Publicar el JSON actualitzat a quality
+        shell: bash
+        run: |
+          set -euo pipefail
+          FILE=configuracion/datos/instagram-ultimo.json
+          if git diff --quiet -- "$FILE"; then
+            echo "Instagram: sense canvis."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add "$FILE"
+          git commit -m "Actualitzar posts reals Instagram portada"
+          git pull --rebase origin quality
+          git push origin HEAD:quality

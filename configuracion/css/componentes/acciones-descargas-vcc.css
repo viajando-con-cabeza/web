@@ -1,0 +1,250 @@
+/* VCC · Acciones de archivos. ÚNICO estilo para PDF, impresión y Excel.
+ * Añadir class="vcc-download-link" y un SVG .vcc-download-icon.
+ * Se importa al final del HEAD de cada página con exportación.
+ * Los handlers originales de cada calculadora/checklist no cambian. */
+html body button.vcc-download-link,
+html body .vcc-budget-excel-row button.vcc-download-link,
+html body .printbar button.vcc-download-link,
+html body #ql-v6-print.vcc-download-link,
+html body .ql-page .ql-v7-section-pack > .ql-v17-actions-strip > .ql-v6-actions #ql-v6-print.vcc-download-link{
+  display:inline-flex!important;
+  flex:0 0 auto!important;
+  align-items:center!important;
+  justify-content:center!important;
+  gap:6px!important;
+  width:auto!important;
+  min-width:0!important;
+  max-width:100%!important;
+  height:auto!important;
+  min-height:28px!important;
+  margin:0!important;
+  padding:4px 2px!important;
+  background:transparent!important;
+  background-image:none!important;
+  border:0!important;
+  border-radius:0!important;
+  box-shadow:none!important;
+  color:#926d58!important;
+  font:600 10.5px/1.35 var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;
+  letter-spacing:0!important;
+  text-transform:none!important;
+  text-align:center!important;
+  text-decoration:none!important;
+  text-shadow:none!important;
+  white-space:nowrap!important;
+  cursor:pointer!important;
+  filter:none!important;
+  transition:color .16s ease!important;
+}
+html body button.vcc-download-link .vcc-download-icon,
+html body #ql-v6-print.vcc-download-link .vcc-download-icon{
+  display:block!important;
+  flex:0 0 15px!important;
+  width:15px!important;
+  height:15px!important;
+  margin:0!important;
+  padding:0!important;
+  fill:none!important;
+  stroke:currentColor!important;
+  color:inherit!important;
+}
+html body button.vcc-download-link:hover,
+html body #ql-v6-print.vcc-download-link:hover,
+html body .ql-page .ql-v7-section-pack > .ql-v17-actions-strip > .ql-v6-actions #ql-v6-print.vcc-download-link:hover{
+  color:#c56239!important;
+  background:transparent!important;
+  border:0!important;
+  text-decoration:underline!important;
+  text-underline-offset:3px!important;
+  filter:none!important;
+}
+html body button.vcc-download-link:focus-visible,
+html body #ql-v6-print.vcc-download-link:focus-visible{
+  outline:2px solid #c9724c!important;
+  outline-offset:3px!important;
+  border-radius:2px!important;
+}
+html body button.vcc-download-link:disabled,
+html body #ql-v6-print.vcc-download-link:disabled{
+  opacity:.5!important;
+  cursor:progress!important;
+  text-decoration:none!important;
+}
+/* VCC · Control compartit per a totes les calculadores.
+   La mateixa estructura HTML (.vcc-file-actions) es fa servir a Vuelos,
+   Planifica/Alojamientos i Dónde dormir/Suecia, sense selectors per pàgina.
+   Ordre de lectura i visual: Limpiar, Guardar en PDF. */
+html body .vcc-file-actions{
+  display:flex!important;
+  flex-direction:row!important;
+  align-items:center!important;
+  justify-content:flex-end!important;
+  flex-wrap:wrap!important;
+  gap:4px 16px!important;
+  width:100%!important;
+  min-width:0!important;
+  max-width:100%!important;
+  margin:10px 0 0!important;
+  padding:10px 0 0!important;
+  border:0!important;
+  border-top:1px solid #e9ded4!important;
+  background:transparent!important;
+}
+html body .vcc-file-actions > button{
+  appearance:none!important;
+  display:inline-flex!important;
+  flex:0 0 auto!important;
+  align-items:center!important;
+  justify-content:center!important;
+  width:auto!important;
+  min-width:0!important;
+  min-height:28px!important;
+  margin:0!important;
+  padding:4px 2px!important;
+  border:0!important;
+  border-radius:0!important;
+  background:transparent!important;
+  box-shadow:none!important;
+  font:600 10.5px/1.35 var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;
+  letter-spacing:0!important;
+  text-transform:none!important;
+  text-decoration:none!important;
+  white-space:nowrap!important;
+  cursor:pointer!important;
+}
+html body .vcc-file-actions > .vcc-file-clear{
+  color:#6f6660!important;
+}
+html body .vcc-file-actions > .vcc-file-clear:hover{
+  color:#a65340!important;
+  text-decoration:underline!important;
+  text-underline-offset:3px!important;
+}
+html body .vcc-file-actions > .vcc-file-clear:focus-visible{
+  outline:2px solid #c9724c!important;
+  outline-offset:3px!important;
+  border-radius:2px!important;
+}
+@media(max-width:720px){
+  html body .vcc-file-actions > button{min-height:36px!important}
+}
+
+html body .tv-page .tv-calc-actions{
+  display:flex!important;
+  align-items:center!important;
+  justify-content:flex-end!important;
+  width:100%!important;
+}
+html body .tv-page .tv-calc-actions .vcc-download-link{
+  margin-left:auto!important;
+}
+/* La exportación del mapa queda debajo del mapa, nunca junto al texto de apoyo. */
+html body .imp-map-footer{
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:stretch!important;
+}
+html body .imp-map-footer .imp-map-cta{
+  display:flex!important;
+  align-items:center!important;
+  justify-content:flex-end!important;
+  flex-wrap:wrap!important;
+  gap:4px 12px!important;
+  width:100%!important;
+  margin:5px 0 0!important;
+}
+html body .imp-map-footer .imp-map-cta .imp-export-status{
+  order:0!important;
+}
+html body .imp-map-footer .imp-map-cta .imp-export-status:empty{
+  display:none!important;
+}
+html body .imp-map-footer .imp-map-cta #imp-export-pdf.vcc-download-link{
+  order:20!important;
+  margin-left:auto!important;
+}
+/* Excel debajo de la calculadora, en el borde derecho aunque el texto ocupe
+   dos líneas; la caja nunca queda alineada a la izquierda en móvil. */
+html body.budget-vcc .vcc-budget-excel-row{
+  display:flex!important;
+  align-items:flex-end!important;
+  justify-content:flex-end!important;
+  flex-wrap:wrap!important;
+  gap:5px 14px!important;
+  width:100%!important;
+}
+html body.budget-vcc .vcc-budget-excel-row p{
+  flex:1 1 300px!important;
+  min-width:0!important;
+}
+html body.budget-vcc .vcc-budget-excel-row .vcc-download-link{
+  order:20!important;
+  margin-left:auto!important;
+}
+/* Checklist Estocolmo: seleccionar/desmarcar primero, imprimir/PDF siempre
+   en el extremo derecho, incluso cuando haya que saltar de línea. */
+html body .ql-page .ql-v7-section-pack > .ql-v17-actions-strip > .ql-v6-actions #ql-v6-print.vcc-download-link{
+  order:20!important;
+  margin-left:auto!important;
+}
+html body .ql-page .ql-v7-section-pack > .ql-v17-actions-strip > .ql-v6-actions{
+  justify-content:flex-end!important;
+}
+/* Las checklists por país muestran el enlace al pie de su bloque.
+   Se conserva el texto a la izquierda y la acción pegada a la derecha. */
+html body .printbar .printin{
+  display:flex!important;
+  flex-direction:row!important;
+  align-items:flex-end!important;
+  justify-content:space-between!important;
+  flex-wrap:wrap!important;
+  gap:6px 16px!important;
+}
+html body .printbar .printin > .vcc-download-link{
+  order:20!important;
+  margin-left:auto!important;
+  align-self:flex-end!important;
+}
+@media(max-width:720px){
+  html body.budget-vcc .vcc-budget-excel-row p{
+    flex-basis:100%!important;
+  }
+  html body .printbar .printin{
+    flex-direction:column!important;
+    align-items:stretch!important;
+    gap:4px!important;
+  }
+  html body .printbar .printin > .vcc-download-link{
+    align-self:flex-end!important;
+    margin-left:auto!important;
+  }
+  html body .imp-map-footer .imp-map-cta{
+    justify-content:flex-end!important;
+  }
+}
+
+@media print{
+  html body button.vcc-download-link,
+  html body #ql-v6-print.vcc-download-link{display:none!important}
+}
+
+/* Política VCC · descàrregues PDF/Excel desactivades temporalment.
+   No eliminar generadors: el flag de site-header.js els podrà restaurar.
+   Ho carreguem abans del JS per evitar que els botons apareguin un instant. */
+html:not(.vcc-file-exports-enabled) body :is(
+  button.vcc-download-link,
+  a.vcc-download-link,
+  #imp-export-pdf,
+  #ql-v6-print,
+  [data-vcc-download-pdf],
+  [data-export-pdf],
+  [data-tv-export-pdf],
+  [data-al-pdf],
+  a[href$=".pdf" i],
+  a[href$=".xlsx" i],
+  a[href$=".xls" i],
+  a[href$=".csv" i]
+):not(#vcc-export-force-show){
+  display:none!important;
+}
+

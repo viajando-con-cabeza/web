@@ -1,0 +1,1 @@
+SVG icons from Lucide (https://lucide.dev/), licensed under ISC. Original source: https://github.com/lucide-icons/lucide/tree/main/icons . License text: https://github.com/lucide-icons/lucide/blob/main/LICENSE . Local copies avoid runtime dependency on third-party CDNs.

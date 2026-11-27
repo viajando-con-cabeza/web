@@ -1,0 +1,22 @@
+name: VCC - coherencia CSS compartit
+on:
+  push:
+    branches: [quality]
+    paths:
+      - 'configuracion/css/componentes/carruseles-flechas-movil-vcc.css'
+      - 'configuracion/css/componentes/portadas-transparencia.css'
+      - 'configuracion/css/componentes/numeros-consejos-vcc.css'
+      - 'configuracion/css/componentes/vcc-ui-compartida.css'
+      - 'configuracion/scripts/generar-ui-compartida.mjs'
+      - '.github/workflows/vcc-css-compartit.yml'
+  pull_request:
+    paths:
+      - 'configuracion/css/componentes/**'
+      - 'configuracion/scripts/generar-ui-compartida.mjs'
+jobs:
+  comprovar-css:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Comprovar paquet visual generat
+        run: node configuracion/scripts/generar-ui-compartida.mjs --check

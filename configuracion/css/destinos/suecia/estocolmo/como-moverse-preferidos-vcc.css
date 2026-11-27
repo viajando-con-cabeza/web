@@ -1,0 +1,223 @@
+/* Estocolmo · Sobretítulos integrados dentro de las tarjetas, mismo patrón que Dónde dormir. */
+.mv-transport-section .mv-grid>.mv-transport-slide{
+ flex:0 0 calc((100% - 12px)/2);min-width:0;display:flex;flex-direction:column;scroll-snap-align:start;
+}
+.mv-transport-section .mv-card .mv-card-title>.mv-transport-ideal{
+ display:block;margin:0 0 5px;min-height:0;padding:0;
+ color:#c86f5d;background:transparent;border:0;
+ font:600 19px/1.05 var(--vcc-font-script,"Caveat",cursive);
+ letter-spacing:0;text-transform:none;text-align:left;
+ overflow-wrap:break-word;
+}
+.mv-transport-section .mv-card .mv-card-title>h3{margin:0}
+.mv-transport-section .mv-card .mv-card-heading{align-items:center}
+.mv-transport-section .mv-grid>.mv-transport-slide>.mv-card{
+ flex:1 1 auto;display:flex;flex-direction:column;min-width:0;width:100%;
+}
+.mv-transport-section .mv-grid>.mv-transport-slide>.mv-card>.mv-card-body{flex:1 1 auto}
+.mv-transport-section .mv-transport-arrow{top:50%}
+@media(max-width:1050px){
+ .mv-transport-section .mv-grid>.mv-transport-slide{flex-basis:calc((100% - 12px)/2)}
+}
+@media(max-width:690px){
+ .mv-transport-section .mv-grid>.mv-transport-slide{flex-basis:100%}
+ .mv-transport-section .mv-card .mv-card-title>.mv-transport-ideal{font-size:19px;margin-bottom:4px}
+ .mv-transport-section .mv-transport-arrow{top:50%}
+}
+@media(max-width:360px){
+ .mv-transport-section .mv-card .mv-card-title>.mv-transport-ideal{font-size:18px}
+}
+
+/* Elige tu transporte: descripciones ligeramente más compactas.
+   Conservamos el tamaño de los títulos (h3, Nuestra experiencia, Cómo pagar y Cuándo usarlo). */
+@media (min-width:1271px) {
+  .mv-transport-section .mv-card .mv-experience-list li,
+  .mv-transport-section .mv-card .mv-card-advice-item p {font-size:11px}
+}
+@media (max-width:690px) {
+  .mv-transport-section .mv-card .mv-card-title>span {font-size:11.5px}
+  .mv-transport-section .mv-card .mv-experience-list li,
+  .mv-transport-section .mv-card .mv-card-advice-item p {font-size:11.7px;line-height:1.45}
+}
+
+/* Dues targetes navegables + tercera columna fixa de fotos. Reutilitza
+   vcc-gallery-companion-grid del mosaic universal; únicament aquest destí
+   canvia les proporcions del carrusel. */
+.mv-transport-section.mv-transport-with-gallery .mv-transport-gallery-layout{
+ gap:12px;align-items:stretch;
+}
+.mv-transport-section.mv-transport-with-gallery .mv-transport-gallery-layout>.vcc-gallery-companion-main{
+ min-width:0;display:flex;align-items:stretch;
+}
+.mv-transport-section.mv-transport-with-gallery .mv-transport-shell{
+ align-self:stretch;min-width:0;
+}
+.mv-transport-section.mv-transport-with-gallery .mv-transport-arrow{
+ width:28px;height:28px;border:1px solid rgba(207,202,196,.78);
+ border-radius:50%;background:rgba(255,255,255,.88);
+ box-shadow:0 1px 5px rgba(38,35,30,.09);
+}
+.mv-transport-section.mv-transport-with-gallery .mv-transport-prev{left:3px}
+.mv-transport-section.mv-transport-with-gallery .mv-transport-next{right:3px}
+.mv-transport-section.mv-transport-with-gallery .mv-transport-arrow:disabled{
+ opacity:.24;pointer-events:none;
+}
+
+/* La galeria es una fitxa igual que les de transports: capçalera dins la
+   targeta i fotos dins el cos, sense quedar enganxades a les vores. */
+.mv-transport-section.mv-transport-with-gallery .mv-transport-gallery-aside{
+ display:flex;flex-direction:column;gap:11px;
+ position:relative;min-width:0;min-height:300px;
+ padding:14px 15px 15px;border-radius:16px;overflow:hidden;
+ border:1px solid #d5d5d5;background:#fff;
+}
+.mv-transport-section.mv-transport-with-gallery .mv-gallery-card-heading{
+ flex:none;align-items:center;gap:12px;min-width:0;
+}
+.mv-transport-section.mv-transport-with-gallery .mv-gallery-card-heading .mv-icon svg{
+ width:27px;height:27px;
+}
+.mv-transport-section.mv-transport-with-gallery .mv-gallery-card-heading .mv-card-title{
+ min-width:0;
+}
+.mv-transport-section.mv-transport-with-gallery .mv-gallery-card-heading .mv-transport-ideal{
+ display:block;margin:0 0 5px;padding:0;
+ color:#c86f5d;background:transparent;border:0;
+ font:600 19px/1.05 var(--vcc-font-script,"Caveat",cursive);
+}
+.mv-transport-section.mv-transport-with-gallery .mv-gallery-card-heading h3{
+ margin:0;
+}
+.mv-transport-section.mv-transport-with-gallery .mv-gallery-card-heading .mv-card-title>span:last-child{
+ font-size:11px;
+}
+.mv-transport-section.mv-transport-with-gallery .mv-transport-gallery-aside .day-gallery{
+ position:relative;inset:auto;flex:1 1 auto;min-height:190px;
+ width:100%;max-width:none;height:auto;margin:0;
+ border-radius:9px;overflow:hidden;
+}
+html body .mv-transport-section.mv-transport-with-gallery .mv-transport-gallery-aside .day-mosaic[data-count]{
+ display:grid;width:100%;height:100%!important;min-height:190px;
+ max-height:none!important;aspect-ratio:auto!important;
+}
+.mv-transport-section.mv-transport-with-gallery .mv-transport-gallery-aside .day-mosaic>button{
+ min-width:0;
+}
+@media(max-width:820px){
+ .mv-transport-section.mv-transport-with-gallery .mv-transport-gallery-layout{gap:13px}
+ .mv-transport-section.mv-transport-with-gallery .mv-transport-gallery-aside{min-height:0}
+ .mv-transport-section.mv-transport-with-gallery .mv-transport-gallery-aside .day-gallery{
+  flex:none;min-height:0;height:auto;
+ }
+ html body .mv-transport-section.mv-transport-with-gallery .mv-transport-gallery-aside .day-mosaic[data-count]{
+  height:auto!important;min-height:0;aspect-ratio:1.9!important;
+ }
+}
+@media(max-width:690px){
+ .mv-transport-section.mv-transport-with-gallery .mv-transport-gallery-aside{
+  border-radius:11px;
+ }
+ html body .mv-transport-section.mv-transport-with-gallery .mv-transport-gallery-aside .day-mosaic[data-count]{
+  aspect-ratio:1.6!important;
+ }
+}
+
+/* Fotos del transport: patró de Dónde dormir (badge blanc semitransparent
+   baix a la dreta), subtilment més petit per cabre dins la targeta. */
+html body .mv-transport-section.mv-transport-with-gallery .mv-transport-gallery-aside
+ .vcc-booking-gallery.vcc-sto-mosaic-compact .day-mosaic[data-count]>button>.vcc-gallery-tile-label{
+ position:absolute;z-index:3;top:auto;left:auto;right:7px;bottom:7px;
+ display:block;max-width:calc(100% - 14px);
+ padding:2px 5px;border:1px solid rgba(255,255,255,.22);
+ border-radius:3px;background:rgba(255,255,255,.56);
+ color:#252321;
+ font:600 7.5px/1.2 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
+ text-align:right;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+ box-shadow:0 1px 3px rgba(0,0,0,.04);pointer-events:none;text-shadow:none;
+}
+/* També al mosaic ampliat i a la imatge en gran, sense tocar altres visors. */
+html body #mvVCCSharedGallery.vcc-booking-gallery-modal[data-vcc-photo-label-overlay]
+ .day-lightbox-grid>button>span.vcc-gallery-area-label{
+ right:7px;bottom:7px;left:auto;
+ padding:2px 5px;border:1px solid rgba(255,255,255,.22);
+ border-radius:3px;background:rgba(255,255,255,.56);
+ color:#252321;
+ font:600 8px/1.2 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
+ box-shadow:0 1px 3px rgba(0,0,0,.04);
+}
+html body #mvVCCSharedGallery.vcc-booking-gallery-modal[data-vcc-photo-label-overlay]
+ .day-lightbox-photo-frame .day-lightbox-caption:not([hidden]){
+ right:61px;bottom:13px;left:auto;
+ padding:3px 6px;border:1px solid rgba(255,255,255,.22);
+ border-radius:3px;background:rgba(255,255,255,.56);
+ color:#252321;
+ font:600 9px/1.25 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
+ box-shadow:0 1px 3px rgba(0,0,0,.04);
+}
+@media(max-width:800px){
+ html body .mv-transport-section.mv-transport-with-gallery .mv-transport-gallery-aside
+  .vcc-booking-gallery.vcc-sto-mosaic-compact .day-mosaic[data-count]>button>.vcc-gallery-tile-label{
+  right:5px;bottom:5px;padding:2px 4px;font-size:7px;
+ }
+ html body #mvVCCSharedGallery.vcc-booking-gallery-modal[data-vcc-photo-label-overlay]
+  .day-lightbox-grid>button>span.vcc-gallery-area-label{
+  right:5px;bottom:5px;padding:2px 4px;font-size:7.5px;
+ }
+ html body #mvVCCSharedGallery.vcc-booking-gallery-modal[data-vcc-photo-label-overlay]
+  .day-lightbox-photo-frame .day-lightbox-caption:not([hidden]){
+  right:10px;bottom:12px;max-width:75%;padding:3px 5px;font-size:8px;
+ }
+}
+
+/* 20-11 · Mosaic sense vinyeta, a l'alçada exacta de les dues targetes
+   visibles. La fila compartida defineix l'alçada; les fotos la segueixen.
+   A les pantalles estretes torna a proporció natural com a l'itinerari. */
+@media(min-width:821px){
+ .mv-transport-section.mv-transport-with-gallery .mv-transport-gallery-aside{
+  display:block;position:relative;align-self:stretch;min-height:0;
+  padding:0;border:0;border-radius:0;background:transparent;box-shadow:none;overflow:visible;
+ }
+ .mv-transport-section.mv-transport-with-gallery .mv-transport-gallery-aside .day-gallery{
+  position:absolute;inset:6px 0;display:block;flex:none;
+  width:100%;max-width:none;height:calc(100% - 12px);min-height:0;margin:0;
+  border:0;border-radius:0;overflow:visible;
+ }
+ html body .mv-transport-section.mv-transport-with-gallery .mv-transport-gallery-aside .day-mosaic[data-count]{
+  display:grid;width:100%;height:100%!important;min-height:0;
+  max-height:none!important;aspect-ratio:auto!important;
+ }
+}
+@media(max-width:820px){
+ .mv-transport-section.mv-transport-with-gallery .mv-transport-gallery-aside{
+  display:block;position:relative;min-height:0;padding:0;border:0;
+  border-radius:0;background:transparent;box-shadow:none;overflow:visible;
+ }
+ .mv-transport-section.mv-transport-with-gallery .mv-transport-gallery-aside .day-gallery{
+  position:relative;inset:auto;display:block;flex:none;
+  width:100%;max-width:none;height:auto;min-height:0;margin:0;
+  border:0;border-radius:0;overflow:visible;
+ }
+ html body .mv-transport-section.mv-transport-with-gallery .mv-transport-gallery-aside .day-mosaic[data-count]{
+  display:grid;width:100%;height:auto!important;min-height:0;
+  max-height:none!important;aspect-ratio:1.35!important;
+ }
+}
+
+/* Elige tu transporte · títol i icona mantenen la seva posició, però
+   la descripció del consell comença a la vertical de la icona. */
+.mv-transport-section .mv-card-advice-item{
+ display:grid;grid-template-columns:19px minmax(0,1fr);
+ column-gap:7px;row-gap:5px;align-items:start;
+}
+.mv-transport-section .mv-card-advice-item>svg{
+ grid-column:1;grid-row:1;
+}
+.mv-transport-section .mv-card-advice-item>div{
+ display:contents;
+}
+.mv-transport-section .mv-card-advice-item>div>strong{
+ grid-column:2;grid-row:1;margin:0;align-self:center;
+}
+.mv-transport-section .mv-card-advice-item>div>p{
+ grid-column:1/-1;grid-row:2;margin:0;
+}

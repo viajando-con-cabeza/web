@@ -1,0 +1,574 @@
+/* VCC · Nuestra experiencia: un unico lenguaje de tarjetas
+   Compartido por Vuelos, Alojamientos y Tarjetas de viaje.
+   Los carruseles, marcas, fotografías y filtros siguen en cada plantilla.
+   Cualquier ajuste de densidad, pros/cons y botones se realiza aquí.
+*/
+html body :is(.vl-page .vl-air-card,.al-page .al-card,.tv-page .tv-card){
+  min-width:0;display:flex;flex-direction:column;scroll-snap-align:start;
+  border:1px solid #e3ddd7;border-radius:14px;background:#fff;
+  box-shadow:0 4px 15px rgba(43,34,26,.045);overflow:hidden;
+}
+html body :is(.vl-page .vl-air-card-body,.al-page .al-card-body,.tv-page .tv-card-body){
+  display:flex;flex-direction:column;flex:1;min-width:0;
+}
+html body .vl-page .vl-air-card-body{padding:14px 15px 12px}
+html body .al-page .al-card-body{padding:13px 15px 12px}
+html body .tv-page .tv-card-head{padding:14px 15px 9px;background:#fff}
+html body .tv-page .tv-card-head h3{
+  font:750 25px/1.1 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
+  letter-spacing:-.05em;margin:0 0 6px;
+}
+html body .tv-page .tv-card-head p{
+  color:#63686b;font:400 11.5px/1.4 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
+  margin:0;
+}
+html body .tv-page .tv-card-body{padding:0 15px 12px;gap:0}
+/* La línea divisoria, los encabezados y las listas se comparten. */
+html body :is(.vl-page .vl-air-lists,.al-page .al-lists,.tv-page .tv-card-points){
+  display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:0;min-width:0;border-top:1px solid #e8e5e1;padding:10px 0 5px;
+}
+html body :is(.vl-page .vl-air-lists,.al-page .al-lists,.tv-page .tv-card-points)>section{
+  min-width:0;padding:0 12px 0 0;
+}
+html body :is(.vl-page .vl-air-lists,.al-page .al-lists,.tv-page .tv-card-points)>section+section{
+  border-left:1px solid #e5e5e2;padding:0 0 0 12px;
+}
+html body :is(.vl-page .vl-air-lists,.al-page .al-lists,.tv-page .tv-card-points) h4{
+  display:flex;align-items:center;gap:6px;margin:0 0 7px;
+  color:#2d2a27;font:800 11px/1.25 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
+}
+html body :is(.vl-page .vl-air-lists,.al-page .al-lists,.tv-page .tv-card-points) :is(.vl-face-icon,.al-face-icon,.tv-face-icon){
+  width:19px;height:19px;flex:0 0 19px;
+  color:#ef6b45;stroke:#ef6b45;
+}
+html body :is(.vl-page .vl-air-lists,.al-page .al-lists,.tv-page .tv-card-points) ul{
+  list-style:none;padding:0;margin:0;
+}
+html body :is(.vl-page .vl-air-lists,.al-page .al-lists,.tv-page .tv-card-points) li{
+  position:relative;margin:0 0 5px;padding-left:10px;
+  color:#50555a;font:400 10.8px/1.38 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
+}
+html body :is(.vl-page .vl-air-lists,.al-page .al-lists,.tv-page .tv-card-points) li::before{
+  content:"•";position:absolute;left:1px;top:0;color:#4d504d;
+}
+html body :is(.vl-page .vl-air-card .vl-air-action,.al-page .al-card .al-external,.tv-page .tv-card .tv-card-link){
+  display:inline-flex;align-items:center;justify-content:flex-end;
+  align-self:flex-end;gap:5px;width:auto;max-width:100%;
+  margin:auto 0 0 auto;padding:9px 0 0;background:transparent;
+  border:0;border-radius:0;color:#df5d20!important;
+  font:800 11px/1.25 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
+  text-transform:uppercase;text-decoration:none;
+}
+html body :is(.vl-page .vl-air-card .vl-air-action,.al-page .al-card .al-external,.tv-page .tv-card .tv-card-link):hover{
+  text-decoration:underline;text-underline-offset:3px;
+}
+/* Tarjetas de viaje: no anular el carrusel común; solo compactar contenido. */
+@media(max-width:720px){
+  html body .vl-page .vl-air-card-body{padding:12px 13px 12px}
+  html body .al-page .al-card-body{padding:12px 13px 12px}
+  html body .tv-page .tv-card-head{padding:13px 13px 8px}
+  html body .tv-page .tv-card-head h3{font-size:24px}
+  html body .tv-page .tv-card-body{padding:0 13px 12px}
+  html body :is(.vl-page .vl-air-lists,.al-page .al-lists,.tv-page .tv-card-points){padding-top:9px}
+  html body :is(.vl-page .vl-air-lists,.al-page .al-lists,.tv-page .tv-card-points)>section{padding-right:9px}
+  html body :is(.vl-page .vl-air-lists,.al-page .al-lists,.tv-page .tv-card-points)>section+section{padding-right:0;padding-left:9px}
+  html body :is(.vl-page .vl-air-lists,.al-page .al-lists,.tv-page .tv-card-points) h4{font-size:10.6px;gap:5px}
+  html body :is(.vl-page .vl-air-lists,.al-page .al-lists,.tv-page .tv-card-points) li{font-size:10.5px;line-height:1.34;margin-bottom:4px}
+}
+@media(max-width:370px){
+  html body .tv-page .tv-card-points{grid-template-columns:1fr;gap:9px}
+  html body .tv-page .tv-card-points>section{padding-right:0}
+  html body .tv-page .tv-card-points>section+section{border-left:0;border-top:1px solid #ece6df;padding:9px 0 0}
+}
+
+/* ========================================================================
+   VCC · Nuestra experiencia · Componente canónico (2026-11-13)
+   Fuente de verdad: Alojamientos. Todos los bloques con vcc-experience-*
+   comparten dimensiones, cabecera, descripción, dos columnas, iconos y CTA.
+   No interviene en otras tarjetas, FAQs ni en la lógica de los carruseles.
+   ======================================================================== */
+
+/* Misma anchura de las fichas de Alojamientos en los cuatro carruseles. */
+html body .vcc-experience-track.vcc-experience-track,
+html body .av-page .av-carousel .av-track.vcc-experience-track{
+  grid-auto-columns:calc((100% - 32px)/3.08)!important;
+  gap:16px!important;
+  align-items:stretch!important;
+}
+html body .vcc-experience-track > .vcc-experience-card{
+  box-sizing:border-box!important;
+  height:100%!important;
+  min-height:315px!important;
+  min-width:0!important;
+  display:flex!important;
+  flex-direction:column!important;
+  scroll-snap-align:start!important;
+  overflow:hidden!important;
+  padding:0!important;
+  background:#fff!important;
+  border:1px solid #e3ddd7!important;
+  border-radius:12px!important;
+  box-shadow:0 4px 15px rgba(43,34,26,.045)!important;
+}
+html body .vcc-experience-card > .vcc-experience-body{
+  box-sizing:border-box!important;
+  display:flex!important;
+  flex-direction:column!important;
+  flex:1 1 auto!important;
+  min-height:0!important;
+  min-width:0!important;
+  width:100%!important;
+  padding:16px 15px 13px!important;
+  gap:0!important;
+}
+/* Seguros tenía padding en la tarjeta y un subencabezado adicional.
+   Lo neutralizamos aquí; el resto usa directamente el mismo body. */
+html body .vcc-experience-card .sv-insurer-head{
+  flex:0 0 auto!important;
+  margin:0!important;
+  padding:0!important;
+  border:0!important;
+}
+html body .vcc-experience-card .vcc-experience-name{
+  display:block!important;
+  height:auto!important;
+  min-height:27px!important;
+  max-width:100%!important;
+  margin:0 0 6px!important;
+  padding:0!important;
+  font:800 24px/1.05 var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;
+  letter-spacing:-.05em!important;
+  text-transform:none!important;
+  overflow-wrap:break-word!important;
+}
+html body .vcc-experience-card .vcc-experience-intro{
+  display:block!important;
+  flex:0 0 auto!important;
+  height:auto!important;
+  min-height:0!important;
+  margin:0 0 12px!important;
+  padding:0!important;
+  font:400 11.5px/1.42 var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;
+  color:#4c5258!important;
+}
+html body .vcc-experience-card .vcc-experience-points{
+  box-sizing:border-box!important;
+  display:grid!important;
+  flex:0 0 auto!important;
+  grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  gap:0!important;
+  width:100%!important;
+  min-width:0!important;
+  margin:0!important;
+  padding:10px 0 5px!important;
+  background:transparent!important;
+  border:0!important;
+  border-top:1px solid #e8e5e1!important;
+}
+html body .vcc-experience-card .vcc-experience-points > section{
+  display:block!important;
+  min-width:0!important;
+  padding:0 12px 0 0!important;
+  margin:0!important;
+  border:0!important;
+  background:transparent!important;
+}
+html body .vcc-experience-card .vcc-experience-points > section + section{
+  padding:0 0 0 12px!important;
+  border-left:1px solid #e5e5e2!important;
+}
+html body .vcc-experience-card .vcc-experience-points h4{
+  display:flex!important;
+  align-items:center!important;
+  gap:6px!important;
+  margin:0 0 7px!important;
+  padding:0!important;
+  font:800 11px/1.25 var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;
+  color:#2d2a27!important;
+}
+html body .vcc-experience-card .vcc-experience-points .vcc-experience-face{
+  display:inline-block!important;
+  flex:0 0 19px!important;
+  width:19px!important;
+  height:19px!important;
+  color:#ef6b45!important;
+  stroke:#ef6b45!important;
+}
+html body .vcc-experience-card .vcc-experience-points ul{
+  list-style:none!important;
+  padding:0!important;
+  margin:0!important;
+}
+html body .vcc-experience-card .vcc-experience-points li{
+  position:relative!important;
+  margin:0 0 5px!important;
+  padding:0 0 0 10px!important;
+  color:#50555a!important;
+  font:400 10.8px/1.38 var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;
+}
+html body .vcc-experience-card .vcc-experience-points li::before{
+  content:"•"!important;
+  position:absolute!important;
+  left:1px!important;
+  top:0!important;
+  color:#4d504d!important;
+}
+html body .vcc-experience-card .vcc-experience-body > .vcc-experience-link{
+  box-sizing:border-box!important;
+  display:inline-flex!important;
+  align-items:center!important;
+  justify-content:flex-end!important;
+  align-self:flex-end!important;
+  gap:5px!important;
+  width:auto!important;
+  min-width:0!important;
+  max-width:100%!important;
+  height:auto!important;
+  margin:auto 0 0 auto!important;
+  padding:13px 0 1px!important;
+  border:0!important;
+  border-radius:0!important;
+  background:transparent!important;
+  box-shadow:none!important;
+  color:#bf6546!important;
+  font:700 10.5px/1.2 var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;
+  letter-spacing:.07em!important;
+  text-transform:uppercase!important;
+  text-decoration:none!important;
+  white-space:nowrap!important;
+}
+html body .vcc-experience-card .vcc-experience-link:is(:hover,:focus-visible){
+  text-decoration:underline!important;
+  text-underline-offset:3px!important;
+}
+html body .vcc-experience-card .vcc-experience-link:focus-visible{
+  outline:2px solid #c46d43!important;
+  outline-offset:4px!important;
+}
+@media(max-width:1050px){
+  html body .vcc-experience-track.vcc-experience-track,
+html body .av-page .av-carousel .av-track.vcc-experience-track{
+    grid-auto-columns:calc((100% - 16px)/2.12)!important;
+  }
+}
+@media(max-width:740px){
+  html body .vcc-experience-track.vcc-experience-track,
+html body .av-page .av-carousel .av-track.vcc-experience-track{
+    grid-auto-columns:calc((100% - 16px)/1.12)!important;
+  }
+  html body .vcc-experience-track > .vcc-experience-card{
+    min-height:290px!important;
+  }
+  html body .vcc-experience-card > .vcc-experience-body{
+    padding:13px!important;
+  }
+  html body .vcc-experience-card .vcc-experience-name{
+    min-height:0!important;
+    font-size:22px!important;
+  }
+  html body .vcc-experience-card .vcc-experience-points{
+    padding-top:9px!important;
+  }
+  html body .vcc-experience-card .vcc-experience-points > section{
+    padding-right:9px!important;
+  }
+  html body .vcc-experience-card .vcc-experience-points > section + section{
+    padding-right:0!important;
+    padding-left:9px!important;
+  }
+  html body .vcc-experience-card .vcc-experience-points h4{
+    gap:5px!important;
+    font-size:10.6px!important;
+  }
+  html body .vcc-experience-card .vcc-experience-points li{
+    margin-bottom:4px!important;
+    font-size:10.5px!important;
+    line-height:1.34!important;
+  }
+}
+@media(max-width:520px){
+  html body .vcc-experience-track.vcc-experience-track,
+html body .av-page .av-carousel .av-track.vcc-experience-track{
+    grid-auto-columns:calc((100% - 20px)/1.08)!important;
+  }
+}
+
+/* VCC · Nuestra experiencia: flechas EXACTAMENTE como Alojamientos.
+   Referencia: controles al-carousel-arrow a los laterales de la tarjeta.
+   Vuelos/Seguros/Apps usan la misma familia SVG, dimensiones y posición.
+   La regla solo toca los carruseles vcc-experience-carousel; no modifica
+   consejos, coberturas ni errores a evitar. */
+html body .vcc-experience-carousel{
+  position:relative!important;
+  padding-top:0!important;
+}
+html body .vcc-experience-carousel > :is(.sv-controls,.av-arrows){
+  position:absolute!important;
+  inset:0!important;
+  width:100%!important;
+  height:100%!important;
+  min-height:0!important;
+  margin:0!important;
+  padding:0!important;
+  display:block!important;
+  z-index:6!important;
+  pointer-events:none!important;
+}
+html body .vcc-experience-carousel .vcc-experience-arrow{
+  box-sizing:border-box!important;
+  position:absolute!important;
+  top:50%!important;
+  bottom:auto!important;
+  margin:0!important;
+  transform:translateY(-50%)!important;
+  z-index:7!important;
+  display:grid!important;
+  place-items:center!important;
+  width:var(--vcc-carrusel-fletxa-mida,36px)!important;
+  height:var(--vcc-carrusel-fletxa-mida,36px)!important;
+  min-width:0!important;
+  min-height:0!important;
+  flex:0 0 var(--vcc-carrusel-fletxa-mida,36px)!important;
+  padding:0!important;
+  border:1px solid var(--vcc-carrusel-fletxa-contorn,#c7aa97)!important;
+  border-radius:50%!important;
+  background:var(--vcc-carrusel-fletxa-fons,rgba(255,255,255,.78))!important;
+  color:var(--vcc-carrusel-fletxa-tinta,#ab553b)!important;
+  box-shadow:var(--vcc-carrusel-fletxa-ombra,0 2px 8px rgba(29,22,18,.1))!important;
+  font-size:20px!important;
+  line-height:1!important;
+  cursor:pointer!important;
+  pointer-events:auto!important;
+  transition:background-color .15s,border-color .15s,color .15s!important;
+}
+html body .vcc-experience-carousel .vcc-experience-prev{
+  left:-15px!important;
+  right:auto!important;
+}
+html body .vcc-experience-carousel .vcc-experience-next{
+  right:-15px!important;
+  left:auto!important;
+}
+html body .vcc-experience-carousel .vcc-experience-arrow svg{
+  display:block!important;
+  width:23px!important;
+  height:23px!important;
+  flex:none!important;
+  padding:0!important;
+  fill:none!important;
+  stroke:currentColor!important;
+  stroke-width:2.5!important;
+  stroke-linecap:round!important;
+  stroke-linejoin:round!important;
+}
+html body .vcc-experience-carousel .vcc-experience-arrow:hover:not(:disabled){
+  background:#fff1e8!important;
+  border-color:#c36c4f!important;
+}
+html body .vcc-experience-carousel .vcc-experience-arrow:disabled{
+  opacity:.25!important;
+  cursor:default!important;
+  pointer-events:none!important;
+}
+html body .vcc-experience-carousel .vcc-experience-arrow:focus-visible{
+  outline:2px solid #c36c4f!important;
+  outline-offset:3px!important;
+}
+/* En móvil, hotel sitúa las flechas sobre los lados, no arriba. */
+@media(max-width:760px){
+  html body .vcc-experience-carousel{
+    padding-top:0!important;
+  }
+  html body .vcc-experience-carousel .vcc-experience-prev{
+    left:2px!important;right:auto!important;
+  }
+  html body .vcc-experience-carousel .vcc-experience-next{
+    right:2px!important;left:auto!important;
+  }
+}
+
+
+/* VCC 2026-11-14 · Carrusel Nuestra experiencia: geometría canónica de las cuatro páginas */
+html body .vcc-experience-carousel.vcc-experience-carousel{
+  box-sizing:border-box!important;display:block!important;position:relative!important;
+  width:100%!important;min-width:0!important;grid-template-columns:none!important;
+  margin:15px 0 0!important;padding:0!important;gap:0!important;background:transparent!important;
+}
+html body .vcc-experience-carousel > :is(.sv-controls,.av-arrows){
+  position:absolute!important;inset:0!important;width:100%!important;height:100%!important;
+  display:block!important;margin:0!important;padding:0!important;z-index:6!important;pointer-events:none!important;
+}
+html body .vcc-experience-carousel .vcc-experience-track.vcc-experience-track{
+  box-sizing:border-box!important;display:grid!important;grid-auto-flow:column!important;
+  grid-auto-columns:calc((100% - 32px)/3.08)!important;grid-template-columns:none!important;
+  grid-template-rows:1fr!important;align-items:stretch!important;
+  width:100%!important;min-width:0!important;max-width:100%!important;
+  gap:16px!important;margin:0!important;padding:3px 2px 12px!important;
+  overflow-x:auto!important;overflow-y:hidden!important;
+  scroll-snap-type:x mandatory!important;scroll-padding-inline:2px!important;
+  overscroll-behavior-x:contain!important;-webkit-overflow-scrolling:touch!important;
+  scrollbar-width:none!important;
+}
+html body .vcc-experience-carousel .vcc-experience-track::-webkit-scrollbar{display:none!important}
+/* Respectar [hidden] a tots els filtres de Nuestra experiencia;
+   prioritat sobre el display:flex!important canònic de les targetes. */
+html body .vcc-experience-carousel .vcc-experience-track > .vcc-experience-card.vcc-experience-card[hidden]{
+  display:none!important;
+}
+/* Altura compacta compartida (Suecia · aeropuertos y Planifica · experiencia):
+   15px menos de altura mínima por tamaño de pantalla. El alto es flexible
+   para no recortar textos largos; grid mantiene tarjetas iguales por fila. */
+html body .vcc-experience-carousel .vcc-experience-track > .vcc-experience-card.vcc-experience-card{
+  box-sizing:border-box!important;display:flex!important;flex-direction:column!important;
+  width:100%!important;height:auto!important;min-height:340px!important;max-height:none!important;
+  min-width:0!important;margin:0!important;padding:0!important;
+  border:1px solid #e3ddd7!important;border-radius:12px!important;
+  background:#fff!important;box-shadow:0 4px 15px rgba(43,34,26,.045)!important;
+  scroll-snap-align:start!important;overflow:hidden!important;
+}
+html body .vcc-experience-carousel .vcc-experience-card > .vcc-experience-body.vcc-experience-body{
+  box-sizing:border-box!important;display:flex!important;flex-direction:column!important;flex:1!important;
+  width:100%!important;min-height:0!important;min-width:0!important;
+  margin:0!important;padding:16px 15px 13px!important;gap:0!important;
+  background:transparent!important;
+}
+html body .vcc-experience-carousel .vcc-experience-card .vcc-experience-head{
+  display:block!important;flex:0 0 auto!important;
+  margin:0!important;padding:0!important;border:0!important;background:none!important;box-shadow:none!important;
+}
+html body .vcc-experience-carousel .vcc-experience-card .vcc-experience-content{
+  box-sizing:border-box!important;display:flex!important;flex-direction:column!important;flex:1!important;
+  min-height:0!important;min-width:0!important;margin:0!important;padding:0!important;gap:0!important;
+  border:0!important;background:none!important;
+}
+html body .vcc-experience-carousel .vcc-experience-card .vcc-experience-name{
+  display:block!important;min-height:27px!important;height:auto!important;
+  margin:0 0 6px!important;padding:0!important;
+  font:800 24px/1.05 var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;
+  letter-spacing:-.05em!important;text-transform:none!important;
+}
+html body .vcc-experience-carousel .vcc-experience-card .vcc-experience-intro{
+  box-sizing:border-box!important;display:-webkit-box!important;-webkit-box-orient:vertical!important;
+  -webkit-line-clamp:3!important;line-clamp:3!important;overflow:hidden!important;
+  height:49px!important;min-height:49px!important;max-height:49px!important;flex:0 0 49px!important;
+  margin:0 0 10px!important;padding:0!important;
+  color:#4c5258!important;font:400 11.5px/1.42 var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;
+}
+html body .vcc-experience-carousel .vcc-experience-card .vcc-experience-points{
+  box-sizing:border-box!important;display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  align-items:start!important;gap:0!important;flex:0 0 auto!important;
+  width:100%!important;min-width:0!important;margin:0!important;padding:10px 0 5px!important;
+  border:0!important;border-top:1px solid #e8e5e1!important;border-radius:0!important;background:none!important;
+}
+html body .vcc-experience-carousel .vcc-experience-card .vcc-experience-points>section{
+  box-sizing:border-box!important;min-width:0!important;margin:0!important;padding:0 12px 0 0!important;
+  border:0!important;background:none!important;
+}
+html body .vcc-experience-carousel .vcc-experience-card .vcc-experience-points>section+section{
+  border-left:1px solid #e5e5e2!important;padding:0 0 0 12px!important;
+}
+html body .vcc-experience-carousel .vcc-experience-card .vcc-experience-points h4{
+  display:flex!important;align-items:center!important;gap:6px!important;
+  margin:0 0 7px!important;padding:0!important;color:#2d2a27!important;
+  font:800 11px/1.25 var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;
+}
+html body .vcc-experience-carousel .vcc-experience-card .vcc-experience-points .vcc-experience-face{
+  display:block!important;flex:0 0 19px!important;width:19px!important;height:19px!important;
+  color:#ef6b45!important;stroke:#ef6b45!important;
+}
+html body .vcc-experience-carousel .vcc-experience-card .vcc-experience-points ul{
+  list-style:none!important;margin:0!important;padding:0!important;
+}
+html body .vcc-experience-carousel .vcc-experience-card .vcc-experience-points li{
+  position:relative!important;margin:0 0 5px!important;padding:0 0 0 10px!important;
+  color:#50555a!important;font:400 10.8px/1.38 var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;
+}
+html body .vcc-experience-carousel .vcc-experience-card .vcc-experience-points li::before{
+  content:"•"!important;position:absolute!important;top:0!important;left:1px!important;color:#4d504d!important;
+}
+html body .vcc-experience-carousel .vcc-experience-card .vcc-experience-link{
+  box-sizing:border-box!important;display:inline-flex!important;align-items:center!important;
+  justify-content:flex-end!important;align-self:flex-end!important;
+  width:auto!important;height:auto!important;min-width:0!important;max-width:100%!important;
+  margin:auto 0 0 auto!important;padding:12px 0 0!important;border:0!important;border-radius:0!important;
+  background:transparent!important;box-shadow:none!important;color:#bf6546!important;
+  font:700 10.5px/1.2 var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;
+  letter-spacing:.07em!important;text-decoration:none!important;text-transform:uppercase!important;white-space:nowrap!important;
+}
+html body .vcc-experience-carousel .vcc-experience-arrow.vcc-experience-arrow{
+  box-sizing:border-box!important;position:absolute!important;top:50%!important;bottom:auto!important;
+  z-index:7!important;transform:translateY(-50%)!important;
+  display:grid!important;place-items:center!important;
+  width:36px!important;height:36px!important;min-width:36px!important;min-height:36px!important;
+  margin:0!important;padding:0!important;border:1px solid #c7aa97!important;border-radius:50%!important;
+  background:rgba(255,255,255,.84)!important;color:#ab553b!important;box-shadow:0 2px 8px rgba(29,22,18,.1)!important;
+  font-size:0!important;line-height:0!important;cursor:pointer!important;pointer-events:auto!important;
+}
+html body .vcc-experience-carousel .vcc-experience-arrow.vcc-experience-prev{left:-15px!important;right:auto!important}
+html body .vcc-experience-carousel .vcc-experience-arrow.vcc-experience-next{right:-15px!important;left:auto!important}
+html body .vcc-experience-carousel .vcc-experience-arrow svg{
+  display:block!important;flex:none!important;width:23px!important;height:23px!important;
+  margin:0!important;padding:0!important;fill:none!important;stroke:currentColor!important;
+  stroke-width:2.5!important;stroke-linecap:round!important;stroke-linejoin:round!important;transform:none!important;
+}
+html body .vcc-experience-carousel .vcc-experience-arrow:hover:not(:disabled){background:#fff1e8!important;border-color:#c36c4f!important}
+html body .vcc-experience-carousel .vcc-experience-arrow:disabled{opacity:.25!important;cursor:default!important;pointer-events:none!important}
+html body .vcc-experience-carousel .vcc-experience-arrow:focus-visible{outline:2px solid #c36c4f!important;outline-offset:3px!important}
+html body :is(.vl-page #experiencia,.al-page #plataformas,.tv-page #tarjetas,.sv-page #experiencia)
+.vcc-editorial-heading > .vcc-editorial-description{
+  box-sizing:border-box!important;display:-webkit-box!important;-webkit-box-orient:vertical!important;
+  -webkit-line-clamp:2!important;line-clamp:2!important;overflow:hidden!important;
+  max-width:430px!important;max-height:2.85em!important;margin:0!important;
+  font:400 13px/1.42 var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;color:#655e58!important;
+}
+@media(max-width:1050px){
+  html body .vcc-experience-carousel .vcc-experience-track.vcc-experience-track{grid-auto-columns:calc((100% - 16px)/2.12)!important}
+  html body .vcc-experience-carousel .vcc-experience-track > .vcc-experience-card.vcc-experience-card{
+    height:auto!important;min-height:360px!important;max-height:none!important;
+  }
+}
+@media(max-width:740px){
+  html body .vcc-experience-carousel .vcc-experience-track.vcc-experience-track{grid-auto-columns:calc((100% - 16px)/1.12)!important}
+  html body .vcc-experience-carousel .vcc-experience-track > .vcc-experience-card.vcc-experience-card{
+    height:auto!important;min-height:375px!important;max-height:none!important;
+  }
+  html body .vcc-experience-carousel .vcc-experience-card > .vcc-experience-body.vcc-experience-body{padding:13px!important}
+  html body .vcc-experience-carousel .vcc-experience-card .vcc-experience-points>section{padding-right:9px!important}
+  html body .vcc-experience-carousel .vcc-experience-card .vcc-experience-points>section+section{padding-right:0!important;padding-left:9px!important}
+  html body .vcc-experience-carousel .vcc-experience-arrow.vcc-experience-prev{left:2px!important;right:auto!important}
+  html body .vcc-experience-carousel .vcc-experience-arrow.vcc-experience-next{right:2px!important;left:auto!important}
+  html body :is(.vl-page #experiencia,.al-page #plataformas,.tv-page #tarjetas,.sv-page #experiencia)
+  .vcc-editorial-heading > .vcc-editorial-description{max-width:100%!important;font-size:12px!important}
+}
+@media(max-width:520px){
+  html body .vcc-experience-carousel .vcc-experience-track.vcc-experience-track{grid-auto-columns:calc((100% - 20px)/1.08)!important}
+}
+
+
+/* VCC · Amplada editorial homogènia de la secció Nuestra experiencia */
+html body .vl-page #experiencia .vl-wrap,
+html body.al-page #plataformas .al-wrap,
+html body .tv-page #tarjetas .tv-wrap,
+html body .tv-page .tv-catalog .tv-wrap,
+html body .sv-page #experiencia .sv-wrap{
+  box-sizing:border-box!important;
+  width:min(1160px,calc(100% - 44px))!important;
+  max-width:1160px!important;
+  margin-left:auto!important;margin-right:auto!important;
+}
+html body :is(.vl-page #experiencia,.al-page #plataformas,.tv-page #tarjetas,.sv-page #experiencia)
+.vcc-editorial-heading{
+  align-items:end!important;justify-content:space-between!important;gap:18px!important;
+}
+@media(max-width:740px){
+  html body .vl-page #experiencia .vl-wrap,
+  html body.al-page #plataformas .al-wrap,
+  html body .tv-page #tarjetas .tv-wrap,
+  html body .tv-page .tv-catalog .tv-wrap,
+  html body .sv-page #experiencia .sv-wrap{
+    width:calc(100% - 28px)!important;max-width:none!important;
+  }
+  html body :is(.vl-page #experiencia,.al-page #plataformas,.tv-page #tarjetas,.sv-page #experiencia)
+  .vcc-editorial-heading{align-items:flex-start!important;flex-direction:column!important;gap:8px!important}
+}

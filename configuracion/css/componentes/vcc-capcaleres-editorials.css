@@ -1,0 +1,930 @@
+@import url("/configuracion/css/componentes/portades-fade-global-vcc.css?v=20261116-unificat-v1");
+@import url("/configuracion/css/componentes/vcc-altura-portades-subheader.css?v=20261117-paritat-flex-v8");
+
+/* VCC · CAPÇALERES EDITORIALS COMPARTIDES · 2026-11-12
+ * Sobretítol Caveat + títol Oswald + resum DM Sans.
+ * La classe s'afegeix exclusivament als encapçalaments editorials de secció;
+ * NO canvia herois, targetes, menús ni apartats de detall.
+ * Les tres peces empren classes explícites per no alterar altres textos.
+ */
+/* Únic patró per a totes les seccions de pàgines amb subheader:
+   sobretítol + títol d'una línia + resum a la dreta (màxim 2 línies). */
+html body .vcc-editorial-heading{
+  --vcc-editorial-description-short-size:12.5px;
+  --vcc-editorial-description-long-size:13.25px;
+  display:grid!important;
+  grid-template-columns:minmax(0,1fr) minmax(270px,clamp(320px,29vw,430px))!important;
+  align-items:end!important;
+  gap:clamp(18px,2.2vw,32px)!important;
+  width:100%!important;max-width:none!important;min-width:0!important;
+  margin:0 0 20px!important;padding:0!important;
+  border:0!important;background:transparent!important;text-align:left!important;
+}
+html body .vcc-editorial-heading > .vcc-editorial-heading-main{
+  width:100%!important;min-width:0!important;max-width:100%!important;
+  margin:0!important;padding:0!important;text-align:left!important;
+}
+html body .vcc-editorial-heading .vcc-editorial-overline{
+  display:block!important;position:static!important;
+  width:auto!important;max-width:100%!important;margin:0 0 7px!important;padding:0!important;
+  color:var(--vcc-color-accent,#c86f5d)!important;
+  font:600 calc(clamp(25px,2.15vw,29px) + var(--vcc-overline-size-adjust,0px))/1.1 var(--vcc-font-script,"Caveat",cursive)!important;
+  letter-spacing:0!important;text-transform:none!important;text-align:left!important;transform:none!important;
+}
+html body .vcc-editorial-heading .vcc-editorial-title{
+  display:block!important;width:100%!important;max-width:100%!important;
+  margin:0!important;padding:0!important;min-width:0!important;
+  color:#171717!important;
+  font:600 calc(clamp(27px,2.55vw,37px) + var(--vcc-heading-size-adjust,0px))/1.1 var(--vcc-font-heading,"Oswald",sans-serif)!important;
+  letter-spacing:0!important;text-transform:uppercase!important;text-align:left!important;
+  white-space:nowrap!important;text-wrap:nowrap!important;
+  overflow:visible!important;overflow-wrap:normal!important;
+}
+html body .vcc-editorial-heading .vcc-editorial-title::after,
+html body .vcc-editorial-heading .vcc-editorial-title::before{
+  display:none!important;content:none!important;
+}
+html body .vcc-editorial-heading > .vcc-editorial-description,
+html body .vcc-editorial-heading > .vcc-editorial-heading-side{
+  display:block!important;align-self:end!important;
+  width:100%!important;max-width:430px!important;min-width:0!important;
+  margin:0 0 3px!important;padding:0!important;
+  color:#655e58!important;
+  font:400 var(--vcc-editorial-description-short-size)/1.5 var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;
+  letter-spacing:0!important;text-align:right!important;text-transform:none!important;
+  text-wrap:pretty!important;
+}
+html body .vcc-editorial-heading > .vcc-editorial-heading-side .vcc-editorial-description{
+  display:block!important;width:100%!important;max-width:100%!important;
+  margin:0!important;padding:0!important;text-align:right!important;
+  font:inherit!important;color:inherit!important;
+}
+@media(max-width:1150px){
+  html body .vcc-editorial-heading{
+    grid-template-columns:minmax(0,1fr)!important;
+    align-items:start!important;gap:8px!important;
+  }
+  html body .vcc-editorial-heading .vcc-editorial-title{
+    white-space:normal!important;text-wrap:pretty!important;
+  }
+  html body .vcc-editorial-heading > .vcc-editorial-description,
+  html body .vcc-editorial-heading > .vcc-editorial-heading-side,
+  html body .vcc-editorial-heading > .vcc-editorial-heading-side .vcc-editorial-description{
+    max-width:100%!important;text-align:left!important;
+    margin:0!important;align-self:start!important;
+  }
+}
+@media (max-width:900px) {
+  html body .vcc-editorial-heading {
+    grid-template-columns:minmax(0,1fr)!important;
+    align-items:flex-start!important;
+    gap:8px!important;
+    margin-bottom:17px!important;
+  }
+  html body .vcc-editorial-heading > .vcc-editorial-heading-main,
+  html body .vcc-editorial-heading > .vcc-editorial-description,
+  html body .vcc-editorial-heading > .vcc-editorial-heading-side {
+    flex:0 1 auto!important;
+    align-self:stretch!important;
+    width:100%!important;
+    max-width:100%!important;
+    text-align:left!important;
+  }
+  html body .vcc-editorial-heading > .vcc-editorial-description,
+  html body .vcc-editorial-heading > .vcc-editorial-heading-side .vcc-editorial-description {
+    align-self:flex-start!important;
+    max-width:100%!important;
+    margin:0!important;
+    text-align:left!important;
+    font-size:12.5px!important;
+    line-height:1.5!important;
+  }
+}
+@media (max-width:600px) {
+  html body .vcc-editorial-heading { gap:6px!important; margin-bottom:14px!important; }
+  html body .vcc-editorial-heading .vcc-editorial-overline {
+    margin-bottom:5px!important;
+    font-size:calc(25px + var(--vcc-overline-size-adjust,0px))!important;
+  }
+  html body .vcc-editorial-heading .vcc-editorial-title {
+    font-size:calc(clamp(27px,8vw,34px) + var(--vcc-heading-size-adjust,0px))!important;
+    line-height:1.1!important;
+  }
+  html body .vcc-editorial-heading > .vcc-editorial-description,
+  html body .vcc-editorial-heading > .vcc-editorial-heading-side .vcc-editorial-description {
+    font-size:12px!important;
+    line-height:1.5!important;
+  }
+}
+
+
+/* ============================================================
+   VCC · PORTADES EDITORIALS DE GUIES · 2026-11-16
+   Patró compartit opt-in (no modifica les capçaleres de secció).
+   Mateix sobretítol Caveat taronja, títol Oswald i descripció
+   DM Sans per totes les guies de Suecia / Estocolmo.
+   Els títols, fotos, breadcrumbs i continguts es conserven.
+   ============================================================ */
+/* Escala única per a la tipografia dels herois de guia. */
+html body .vcc-guide-hero-unified{
+  --vcc-guide-hero-kicker-size:28px;
+  --vcc-guide-hero-title-size:clamp(43px,4.55vw,64px);
+  --vcc-guide-hero-description-size:14px;
+}
+@media(max-width:900px){
+  html body .vcc-guide-hero-unified{
+    --vcc-guide-hero-kicker-size:26px;
+    --vcc-guide-hero-title-size:clamp(40px,6.8vw,58px);
+    --vcc-guide-hero-description-size:14px;
+  }
+}
+@media(max-width:600px){
+  html body .vcc-guide-hero-unified{
+    --vcc-guide-hero-kicker-size:24px;
+    --vcc-guide-hero-title-size:clamp(34px,8.9vw,45px);
+    --vcc-guide-hero-description-size:13px;
+  }
+}
+html body .vcc-guide-hero-unified.vcc-guide-hero-unified .vcc-guide-hero-copy{
+  box-sizing:border-box!important;
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:flex-start!important;
+  justify-content:flex-start!important;
+  gap:0!important;
+  text-align:left!important;
+  min-width:0!important;
+  max-width:760px!important;
+  background:transparent!important;
+  border:0!important;
+  box-shadow:none!important;
+  backdrop-filter:none!important;
+  color:#171717!important;
+}
+html body .vcc-guide-hero-unified.vcc-guide-hero-unified .vcc-guide-hero-copy > .vcc-guide-hero-kicker{
+  display:block!important;
+  width:auto!important;
+  max-width:100%!important;
+  height:auto!important;
+  min-height:0!important;
+  padding:0!important;
+  margin:0 0 13px!important;
+  background:transparent!important;
+  border:0!important;
+  box-shadow:none!important;
+  color:var(--vcc-color-accent,#c86f5d)!important;
+  font:600 var(--vcc-guide-hero-kicker-size)/1.1 var(--vcc-font-script,"Caveat",cursive)!important;
+  font-style:normal!important;
+  text-transform:none!important;
+  letter-spacing:0!important;
+  transform:none!important;
+  text-align:left!important;
+}
+html body .vcc-guide-hero-unified.vcc-guide-hero-unified .vcc-guide-hero-copy > h1{
+  display:block!important;
+  max-width:760px!important;
+  width:auto!important;
+  min-height:0!important;
+  height:auto!important;
+  padding:0!important;
+  margin:0 0 17px!important;
+  background:transparent!important;
+  color:#171717!important;
+  font:600 var(--vcc-guide-hero-title-size)/1.04 var(--vcc-font-heading,"Oswald",sans-serif)!important;
+  font-style:normal!important;
+  text-transform:uppercase!important;
+  letter-spacing:-.02em!important;
+  text-shadow:none!important;
+  transform:none!important;
+  text-align:left!important;
+  text-wrap:balance;
+  overflow-wrap:normal!important;
+}
+html body .vcc-guide-hero-unified.vcc-guide-hero-unified .vcc-guide-hero-copy > h1 :is(em,span){
+  font:inherit!important;
+  color:#c4664c!important;
+  text-transform:inherit!important;
+  font-style:normal!important;
+  letter-spacing:inherit!important;
+}
+html body .vcc-guide-hero-unified.vcc-guide-hero-unified .vcc-guide-hero-copy > h1::after{
+  content:""!important;
+  display:block!important;
+  position:static!important;
+  width:184px!important;
+  height:3px!important;
+  min-height:3px!important;
+  margin:21px 0 0!important;
+  padding:0!important;
+  background:var(--vcc-color-accent,#c86f5d)!important;
+  border:0!important;
+  box-shadow:none!important;
+  transform:skewX(-28deg)!important;
+}
+html body .vcc-guide-hero-unified.vcc-guide-hero-unified .vcc-guide-hero-copy > .vcc-guide-hero-description{
+  display:block!important;
+  width:auto!important;
+  max-width:710px!important;
+  min-height:0!important;
+  margin:0!important;
+  padding:0!important;
+  background:transparent!important;
+  color:#353535!important;
+  font:400 var(--vcc-guide-hero-description-size)/1.58 var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;
+  font-style:normal!important;
+  text-transform:none!important;
+  letter-spacing:0!important;
+  text-align:left!important;
+  text-shadow:none!important;
+}
+/* Evitar dobles subratllats quan la plantilla ja n'inclou un. */
+html body .vcc-guide-hero-unified :is(
+  .cl-landing-underline,.mv-underline,.dv-hero-underline,
+  .ep-stroke,.ql-brush,.swb-hero-underline
+){display:none!important;}
+/* Els scripts que abans anaven després de l'H1 ara són el primer element. */
+@media(max-width:900px){
+ html body .vcc-guide-hero-unified.vcc-guide-hero-unified .vcc-guide-hero-copy{
+   max-width:min(760px,calc(100vw - 36px))!important;
+ }
+ html body .vcc-guide-hero-unified.vcc-guide-hero-unified .vcc-guide-hero-copy > h1{
+   font-size:var(--vcc-guide-hero-title-size)!important;
+   max-width:100%!important;
+ }
+ html body .vcc-guide-hero-unified.vcc-guide-hero-unified .vcc-guide-hero-copy > .vcc-guide-hero-description{
+   font-size:var(--vcc-guide-hero-description-size)!important;
+   max-width:100%!important;
+ }
+}
+@media(max-width:600px){
+ html body .vcc-guide-hero-unified.vcc-guide-hero-unified .vcc-guide-hero-copy > .vcc-guide-hero-kicker{
+   font-size:var(--vcc-guide-hero-kicker-size)!important;
+   margin-bottom:10px!important;
+ }
+ html body .vcc-guide-hero-unified.vcc-guide-hero-unified .vcc-guide-hero-copy > h1{
+   font-size:var(--vcc-guide-hero-title-size)!important;
+   line-height:1.06!important;
+   margin-bottom:13px!important;
+ }
+ html body .vcc-guide-hero-unified.vcc-guide-hero-unified .vcc-guide-hero-copy > h1::after{
+   width:115px!important;
+   margin-top:14px!important;
+ }
+ html body .vcc-guide-hero-unified.vcc-guide-hero-unified .vcc-guide-hero-copy > .vcc-guide-hero-description{
+   font-size:var(--vcc-guide-hero-description-size)!important;
+   line-height:1.55!important;
+ }
+}
+
+
+/* Subguies històriques d'Estocolm: abans empraven Cormorant i
+   textos de 8–10px. Comparteixen ara la mateixa portada editorial. */
+html body .content-hero.vcc-guide-hero-unified{
+  box-sizing:border-box!important;
+  display:block!important;
+  position:relative!important;
+  isolation:isolate!important;
+  width:100%!important;
+  max-width:none!important;
+  height:475px!important;
+  min-height:475px!important;
+  margin:0!important;
+  padding:16px max(34px,calc((100% - 1320px)/2)) 36px!important;
+  overflow:hidden!important;
+  color:#171717!important;
+  background:
+    var(--vcc-portada-veil),
+    var(--vcc-guide-photo,url("/configuracion/imagenes/fondos/optimizadas/fondos-que-ver-1920.webp"))
+    center center/cover no-repeat!important;
+}
+html body .content-hero.vcc-guide-hero-unified > .crumb{
+  display:block!important;
+  position:relative!important;
+  z-index:2!important;
+  margin:0 0 60px!important;
+  padding:0!important;
+  font:400 11px/1.4 var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;
+  color:#555!important;
+}
+html body .content-hero.vcc-guide-hero-unified .vcc-guide-hero-copy{
+  position:relative!important;
+  z-index:2!important;
+  width:100%!important;
+  margin:0!important;
+  padding:0!important;
+}
+@media(max-width:700px){
+  html body .content-hero.vcc-guide-hero-unified{
+    height:450px!important;
+    min-height:450px!important;
+    padding:15px 18px 28px!important;
+    background:
+      var(--vcc-portada-veil),
+      var(--vcc-guide-photo-mobile,var(--vcc-guide-photo,url("/configuracion/imagenes/fondos/optimizadas/fondos-que-ver-960.webp")))
+      center center/cover no-repeat!important;
+  }
+  html body .content-hero.vcc-guide-hero-unified > .crumb{
+    margin-bottom:48px!important;
+    font-size:10px!important;
+  }
+}
+
+
+/* Subguies de Cómo llegar: manté la foto del transport i el breadcrumb.
+   El títol pot ocupar més línies, sense retallar el contingut. */
+html body .cl-page .cl-hero.vcc-guide-hero-unified{
+  box-sizing:border-box!important;
+  height:auto!important;min-height:475px!important;
+  max-height:none!important;
+  background:
+    var(--vcc-portada-veil),
+    url("/configuracion/imagenes/fondos/optimizadas/fondos-como-llegar-1920.webp")
+    center center/cover no-repeat!important;
+}
+html body .cl-page .cl-hero.vcc-guide-hero-unified .cl-hero-inner{
+  position:relative!important;
+  box-sizing:border-box!important;
+  width:min(1320px,calc(100% - 90px))!important;
+  max-width:1320px!important;
+  height:auto!important;
+  min-height:475px!important;
+  margin:auto!important;
+  padding:90px 0 48px!important;
+}
+html body .cl-page .cl-hero.vcc-guide-hero-unified .cl-card.vcc-guide-hero-copy{
+  position:relative!important;
+  top:auto!important;left:auto!important;
+  display:flex!important;
+  width:min(760px,100%)!important;
+  max-width:760px!important;
+  margin:0!important;
+  padding:0!important;
+}
+html body .cl-page .cl-hero.vcc-guide-hero-unified .cl-hero-line{display:none!important}
+@media(max-width:700px){
+ html body .cl-page .cl-hero.vcc-guide-hero-unified{
+   min-height:450px!important;
+   background:
+     var(--vcc-portada-veil),
+     url("/configuracion/imagenes/fondos/optimizadas/fondos-como-llegar-960.webp")
+     center center/cover no-repeat!important;
+ }
+ html body .cl-page .cl-hero.vcc-guide-hero-unified .cl-hero-inner{
+   width:calc(100% - 36px)!important;
+   min-height:450px!important;
+   padding:86px 0 38px!important;
+ }
+}
+
+/* Fotografies reals de Suecia i Estocolmo, ja presents al projecte. */
+html body .content-hero.vcc-guide-hero-unified[data-vcc-guide-topic="que-ver"]{
+  --vcc-guide-photo:url("https://img.viajandoconcabeza.com/__vcc_preview/visor/destinos/suecia/estocolmo/2026-dia6/DSC07952.avif");
+  --vcc-guide-photo-mobile:url("https://img.viajandoconcabeza.com/__vcc_preview/visor/destinos/suecia/estocolmo/2026-dia6/DSC07952.avif");
+}
+html body .content-hero.vcc-guide-hero-unified[data-vcc-guide-topic="consejos"]{
+  --vcc-guide-photo:url("https://img.viajandoconcabeza.com/__vcc_preview/visor/destinos/suecia/estocolmo/2026-dia6/DSC07935-VSCO.avif");
+  --vcc-guide-photo-mobile:url("https://img.viajandoconcabeza.com/__vcc_preview/visor/destinos/suecia/estocolmo/2026-dia6/DSC07935-VSCO.avif");
+}
+html body .content-hero.vcc-guide-hero-unified[data-vcc-guide-topic="donde-comer"]{
+  --vcc-guide-photo:url("https://img.viajandoconcabeza.com/__vcc_preview/visor/destinos/suecia/estocolmo/2026-dia6/DSC08037.avif");
+  --vcc-guide-photo-mobile:url("https://img.viajandoconcabeza.com/__vcc_preview/visor/destinos/suecia/estocolmo/2026-dia6/DSC08037.avif");
+}
+html body .content-hero.vcc-guide-hero-unified[data-vcc-guide-topic="barrios-miradores"]{
+  --vcc-guide-photo:url("https://img.viajandoconcabeza.com/__vcc_preview/visor/destinos/suecia/estocolmo/2026-dia6/DSC07943.avif");
+  --vcc-guide-photo-mobile:url("https://img.viajandoconcabeza.com/__vcc_preview/visor/destinos/suecia/estocolmo/2026-dia6/DSC07943.avif");
+}
+html body .content-hero.vcc-guide-hero-unified[data-vcc-guide-topic="islas-ferris"]{
+  --vcc-guide-photo:url("https://img.viajandoconcabeza.com/destinos/suecia/estocolmo-archipelago/2026-dia8/DSC08332.avif");
+  --vcc-guide-photo-mobile:url("https://img.viajandoconcabeza.com/destinos/suecia/estocolmo-archipelago/2026-dia8/DSC08332.avif");
+}
+html body .content-hero.vcc-guide-hero-unified[data-vcc-guide-topic="museos"]{
+  --vcc-guide-photo:url("https://img.viajandoconcabeza.com/__vcc_preview/visor/destinos/suecia/estocolmo/2026-dia6/DSC07952.avif");
+  --vcc-guide-photo-mobile:url("https://img.viajandoconcabeza.com/__vcc_preview/visor/destinos/suecia/estocolmo/2026-dia6/DSC07952.avif");
+}
+html body .content-hero.vcc-guide-hero-unified[data-vcc-guide-topic="parques-naturaleza"]{
+  --vcc-guide-photo:url("https://img.viajandoconcabeza.com/__vcc_preview/visor/destinos/suecia/estocolmo-archipelago/2026-dia8/DSC08335.avif");
+  --vcc-guide-photo-mobile:url("https://img.viajandoconcabeza.com/__vcc_preview/visor/destinos/suecia/estocolmo-archipelago/2026-dia8/DSC08335.avif");
+}
+
+
+/* VCC 2026-11-16 · Portadas principales del país y ciudad.
+   Misma jerarquía del resto de 39 guías; se conservan fotos,
+   valoración, datos y navegación particulares de cada landing. */
+html body .country-hero.vcc-guide-hero-unified{
+  min-height:585px!important;
+  height:auto!important;
+  padding:0!important;
+}
+html body .country-hero.vcc-guide-hero-unified .country-hero-inner{
+  box-sizing:border-box!important;
+  width:min(1320px,calc(100% - 90px))!important;
+  max-width:1320px!important;
+  padding:22px 0 44px!important;
+  margin:auto!important;
+}
+html body .country-hero.vcc-guide-hero-unified .country-breadcrumb{
+  transform:none!important;
+  margin:0 0 45px!important;
+  font:400 11px/1.4 var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;
+}
+html body .country-hero.vcc-guide-hero-unified .country-hero-card.vcc-guide-hero-copy{
+  width:min(760px,100%)!important;
+  max-width:760px!important;
+  padding:0!important;
+  margin:0!important;
+  transform:none!important;
+}
+html body .st-hero.vcc-guide-hero-unified{
+  box-sizing:border-box!important;
+  position:relative!important;
+  height:620px!important;
+  min-height:620px!important;
+  max-height:none!important;
+}
+html body .st-hero.vcc-guide-hero-unified::before{
+  content:""!important;
+  position:absolute!important;
+  inset:0!important;
+  z-index:0!important;
+  pointer-events:none!important;
+  background:var(--vcc-portada-veil)!important;
+}
+html body .st-hero.vcc-guide-hero-unified .st-hero-inner{
+  position:relative!important;
+  box-sizing:border-box!important;
+  width:min(1320px,calc(100% - 90px))!important;
+  max-width:1320px!important;
+  height:100%!important;
+  margin:auto!important;
+  padding:0!important;
+}
+html body .st-hero.vcc-guide-hero-unified .st-crumb{
+  top:18px!important;
+  left:0!important;
+  transform:none!important;
+  width:auto!important;
+  font:400 11px/1.4 var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;
+}
+html body .st-hero.vcc-guide-hero-unified .st-card.vcc-guide-hero-copy{
+  position:absolute!important;
+  top:106px!important;
+  left:0!important;
+  right:auto!important;
+  width:min(760px,100%)!important;
+  max-width:760px!important;
+  padding:0!important;
+  margin:0!important;
+}
+html body :is(.country-hero,.st-hero).vcc-guide-hero-unified .vcc-guide-hero-copy > .vcc-guide-hero-description{
+  max-width:670px!important;
+}
+html body :is(.country-hero,.st-hero).vcc-guide-hero-unified .country-facts,
+html body :is(.country-hero,.st-hero).vcc-guide-hero-unified .st-facts{
+  width:100%!important;
+  max-width:710px!important;
+  margin:18px 0 12px!important;
+  border-color:#e4d8cf!important;
+}
+html body :is(.country-hero,.st-hero).vcc-guide-hero-unified .hero-start{
+  margin-top:10px!important;
+}
+@media(max-width:850px){
+ html body .country-hero.vcc-guide-hero-unified{min-height:530px!important;}
+ html body .country-hero.vcc-guide-hero-unified .country-hero-inner,
+ html body .st-hero.vcc-guide-hero-unified .st-hero-inner{
+   width:calc(100% - 42px)!important;
+ }
+ html body .st-hero.vcc-guide-hero-unified{
+   height:auto!important;
+   min-height:575px!important;
+ }
+ html body .st-hero.vcc-guide-hero-unified .st-hero-inner{
+   height:auto!important;
+   min-height:575px!important;
+   padding:22px 0 30px!important;
+ }
+ html body .st-hero.vcc-guide-hero-unified .st-card.vcc-guide-hero-copy{
+   position:relative!important;
+   top:auto!important;
+   left:auto!important;
+   margin-top:78px!important;
+   padding-bottom:20px!important;
+ }
+}
+@media(max-width:600px){
+ html body .country-hero.vcc-guide-hero-unified{
+   min-height:0!important;
+ }
+ html body .country-hero.vcc-guide-hero-unified .country-hero-inner{
+   width:calc(100% - 36px)!important;
+   padding:18px 0 32px!important;
+ }
+ html body .country-hero.vcc-guide-hero-unified .country-breadcrumb{
+   margin-bottom:54px!important;
+ }
+ html body .st-hero.vcc-guide-hero-unified .st-hero-inner{
+   width:calc(100% - 36px)!important;
+   padding:16px 0 32px!important;
+ }
+ html body .st-hero.vcc-guide-hero-unified .st-card.vcc-guide-hero-copy{
+   margin-top:83px!important;
+   padding:0!important;
+ }
+ html body .st-hero.vcc-guide-hero-unified{min-height:600px!important;}
+ html body :is(.country-hero,.st-hero).vcc-guide-hero-unified .vcc-guide-hero-copy > h1{
+   font-size:var(--vcc-guide-hero-title-size)!important;
+ }
+ html body :is(.country-hero,.st-hero).vcc-guide-hero-unified .country-facts,
+ html body :is(.country-hero,.st-hero).vcc-guide-hero-unified .st-facts{
+   grid-template-columns:repeat(2,minmax(0,1fr))!important;
+   gap:10px!important;
+ }
+}
+
+
+
+
+/* Requadre de portada COMPARTIT entre Suècia i Estocolm.
+   Un únic control d'alçada/padding/CTA per a les dues landings;
+   la mida pot créixer quan el contingut ho requereix (sobretot en mòbil).
+   No modificar els CSS específics de país/ciutat per aquests espais. */
+html body.country-page .country-hero .country-hero-card.vcc-guide-hero-copy,
+html body .st-shell .st-hero .st-card.vcc-guide-hero-copy {
+  box-sizing:border-box!important;
+  min-height:370px!important;
+  height:auto!important;
+  display:flex!important;
+  flex-direction:column!important;
+  padding-top:28px!important;
+  padding-bottom:30px!important;
+}
+html body.country-page .country-hero .country-hero-card.vcc-guide-hero-copy > .hero-start,
+html body .st-shell .st-hero .st-card.vcc-guide-hero-copy > .hero-start {
+  align-self:flex-start!important;
+  margin-top:auto!important;
+  /* Separació del CTA respecte a les 4 dades, igual a Suècia i Estocolm. */
+  padding-top:24px!important;
+}
+@media(max-width:700px){
+  html body.country-page .country-hero .country-hero-card.vcc-guide-hero-copy > .hero-start,
+  html body .st-shell .st-hero .st-card.vcc-guide-hero-copy > .hero-start {
+    padding-top:32px!important;
+  }
+}
+/* VCC · Suècia / Estocolm: només escala de lletres als quadres de portada.
+   Les dimensions i els espaiats INTERNS recuperen els CSS originals
+   (pais.css i estocolmo-refine.css). Sense vcc-guide-hero-unified. */
+html body.country-page .country-hero .country-hero-card.vcc-guide-hero-copy > .vcc-guide-hero-kicker,
+html body .st-shell .st-hero .st-card.vcc-guide-hero-copy > .vcc-guide-hero-kicker {
+  font-size:26px!important;
+}
+html body.country-page .country-hero .country-hero-card.vcc-guide-hero-copy > h1,
+html body .st-shell .st-hero .st-card.vcc-guide-hero-copy > h1 {
+  font-size:clamp(48px,4.55vw,64px)!important;
+  line-height:1.04!important;
+  margin-bottom:16px!important;
+}
+html body.country-page .country-hero .country-hero-card.vcc-guide-hero-copy > .vcc-guide-hero-description,
+html body .st-shell .st-hero .st-card.vcc-guide-hero-copy > .vcc-guide-hero-description {
+  font-size:13px!important;
+}
+@media(max-width:700px){
+  html body.country-page .country-hero .country-hero-card.vcc-guide-hero-copy > .vcc-guide-hero-kicker,
+  html body .st-shell .st-hero .st-card.vcc-guide-hero-copy > .vcc-guide-hero-kicker {
+    font-size:23px!important;
+  }
+  html body.country-page .country-hero .country-hero-card.vcc-guide-hero-copy > h1,
+  html body .st-shell .st-hero .st-card.vcc-guide-hero-copy > h1 {
+    font-size:clamp(37px,9vw,48px)!important;
+  }
+  html body.country-page .country-hero .country-hero-card.vcc-guide-hero-copy > .vcc-guide-hero-description,
+  html body .st-shell .st-hero .st-card.vcc-guide-hero-copy > .vcc-guide-hero-description {
+    font-size:12.5px!important;
+  }
+}
+
+/* Suecia i Estocolmo: mateix degradat blanc que les altres portades.
+   Les dues fotos es mantenen intactes i només canvia el vel superior. */
+html body.country-page .country-hero::after,
+html body .st-shell .st-hero::after {
+  background:var(--vcc-portada-veil)!important;
+}
+/* En les portades unificades, evitem superposar dos vels diferents. */
+html body .st-hero.vcc-guide-hero-unified::before {
+  display:none!important;
+}
+
+
+/* VCC · MARGES LATERALS DE SUBHEADER · COMPARTIT
+   Un únic max-width / gutter per a contingut de les guies amb subheader.
+   No modifica hero, barra d'ancoratges ni seccions de fons a pantalla completa. */
+html body:has(nav.vcc-sacred-subnav){
+  --vcc-subheader-content-max:1490px;
+  --vcc-subheader-content-gutter:53px;
+}
+html body:has(nav.vcc-sacred-subnav) :is(
+  main.budget-main,
+  main.dv-main,
+  main.mv-container,
+  main.ci-main,
+  main.ep4-main,
+  main.ql-main,
+  main.content-shell
+){
+  box-sizing:border-box!important;
+  width:min(var(--vcc-subheader-content-max),calc(100% - 2 * var(--vcc-subheader-content-gutter)))!important;
+  max-width:var(--vcc-subheader-content-max)!important;
+  margin-inline:auto!important;
+}
+/* Dónde dormir Suecia contenia amplades de secció pròpies i repetia gutter:
+   amb el main unificat, totes les seccions han d'ocupar el 100% del main. */
+html body.dv-country-types:has(nav.vcc-sacred-subnav) main.dv-main > :is(#barrios,#como-ahorrar,#por-region,.dv-planifica-alojamiento-reuse){
+  box-sizing:border-box!important;
+  width:100%!important;
+  max-width:none!important;
+  margin-left:0!important;
+  margin-right:0!important;
+}
+html body.dv-country-types:has(nav.vcc-sacred-subnav) main.dv-main .al-compare .al-wrap{
+  box-sizing:border-box!important;
+  width:100%!important;
+  max-width:none!important;
+  margin-inline:0!important;
+}
+/* Cómo llegar és un main de fons a pantalla completa. Les seccions
+   interiors mantenen el fons ample, però comparteixen exactament l'eix
+   horitzontal amb les altres guies (sense max-width addicional). */
+html body:has(nav.vcc-sacred-subnav) main.cl-page.cl-landing > section:not(.cl-landing-hero):not(#vcc-lcp-hero){
+  box-sizing:border-box!important;
+  padding-left:max(var(--vcc-subheader-content-gutter),calc((100% - var(--vcc-subheader-content-max))/2))!important;
+  padding-right:max(var(--vcc-subheader-content-gutter),calc((100% - var(--vcc-subheader-content-max))/2))!important;
+}
+/* Aquesta secció tenia max-width propi + padding del main: dos marges
+   acumulats. Forcem una sola amplada, igual que l'aeroport i l'estalvi. */
+html body.vcc-suecia-planifica:has(nav.vcc-sacred-subnav) main.cl-page.cl-landing.sw-country-copy > section#como-llegar-regiones.sw-country-guides{
+  box-sizing:border-box!important;
+  width:100%!important;
+  max-width:none!important;
+  margin-inline:0!important;
+  padding-inline:max(var(--vcc-subheader-content-gutter),calc((100% - var(--vcc-subheader-content-max))/2))!important;
+}
+@media(max-width:1090px){
+  html body:has(nav.vcc-sacred-subnav){--vcc-subheader-content-gutter:19px}
+}
+@media(max-width:620px){
+  html body:has(nav.vcc-sacred-subnav){--vcc-subheader-content-gutter:15px}
+}
+
+
+/* VCC · Capçaleres de les etapes de l'itinerari: una sola fila editorial. */
+html body .vcc-summary > .vcc-editorial-heading,
+html body .day-section > .vcc-editorial-heading{
+  grid-column:1/-1!important;
+  grid-row:auto!important;
+  width:100%!important;
+  margin:0 0 6px!important;
+}
+html body .day-section > .vcc-editorial-heading .hand,
+html body .vcc-summary > .vcc-editorial-heading .hand{
+  transform:none!important;
+}
+
+/* Els itineraris rich (Roma/Fuerteventura) mantenen les columnes de
+   ruta i fotos, amb la capçalera compartida ocupant tota l'amplada. */
+html body .day-rich > .vcc-editorial-heading{
+  grid-column:1/-1!important;
+  width:100%!important;
+  margin:0!important;
+  padding:20px 24px 0!important;
+}
+@media(max-width:720px){
+  html body .day-rich > .vcc-editorial-heading{padding:16px 16px 0!important}
+}
+
+
+/* VCC · SEPARACIÓ ENTRE APARTATS ANCORATS AL SUBHEADER · 20261116
+   Font única per a totes les guies i pàgines Planifica.
+   Només espai EXTERIOR de seccions principals; no modifica targetes,
+   mapes, capçaleres, galeries, calculadores ni el hero.
+   Una mateixa mida a Suecia, Estocolmo, itineraris i Planifica. */
+html body:has(nav.vcc-sacred-subnav),
+html body.country-page:has(nav.country-nav),
+html body:has(.st-shell nav.st-tabs){
+  --vcc-section-space:76px;
+}
+
+/* Guia editorial: cada apartat principal comença a la mateixa distància.
+   La galeria d'agost de «Cuando ir» pertany a Experiencia, no és
+   un apartat independent del subheader. */
+html body:has(nav.vcc-sacred-subnav)
+main:is(.budget-main,.dv-main,.ci-main,.ep4-main,.ql-main,.content-shell)
+> section[id]:not(#ci-august-gallery-place){
+  box-sizing:border-box!important;
+  margin-block:0!important;
+}
+html body:has(nav.vcc-sacred-subnav)
+main:is(.budget-main,.dv-main,.ci-main,.ep4-main,.ql-main,.content-shell)
+> section[id]:not(#ci-august-gallery-place)
+~ section[id]:not(#ci-august-gallery-place){
+  margin-block-start:var(--vcc-section-space)!important;
+}
+html body:has(nav.vcc-sacred-subnav) main.ci-main > section#ci-august-gallery-place{
+  margin-block:0!important;
+}
+
+/* Entradas y pases: las dos columnas (ranking + pase) forman un apartado
+   principal aunque su contenedor sea un div. Separa el bloque completo
+   con el mismo margen que el resto de secciones ancladas al subheader. */
+html body:has(nav.vcc-sacred-subnav)
+main.ep4-main > .ep4-decision-layout.vcc-passes-comparison{
+  box-sizing:border-box!important;
+  margin-block-start:var(--vcc-section-space)!important;
+}
+
+html body:has(nav.vcc-sacred-subnav) main:is(.budget-main,.dv-main,.ci-main){
+  padding-block-start:var(--vcc-section-space)!important;
+}
+
+/* Com moure's: cada bloc porta el seu espai superior, sense sumar marges. */
+html body:has(nav.vcc-sacred-subnav) main.mv-container > section.swmove-section{
+  margin-block:0!important;
+  padding-block-start:var(--vcc-section-space)!important;
+}
+html body:has(nav.vcc-sacred-subnav) main.mv-container > section.swmove-section:last-of-type{
+  padding-block-end:var(--vcc-section-space)!important;
+}
+
+/* Com arribar: el fons segueix a pantalla completa. Separa el contingut
+   amb padding, sense franges de fons ni marges duplicats. */
+html body:has(nav.vcc-sacred-subnav) main.cl-page.cl-landing
+> nav.vcc-sacred-subnav ~ section[id]:not(.related-section){
+  padding-block-start:var(--vcc-section-space)!important;
+  padding-block-end:0!important;
+  margin-block:0!important;
+}
+html body:has(nav.vcc-sacred-subnav) main.cl-page.cl-landing
+> nav.vcc-sacred-subnav ~ section[id]:not(.related-section):last-of-type{
+  padding-block-end:var(--vcc-section-space)!important;
+}
+
+/* Pàgines amb subheader DINS del main (Vuelos, Alojamientos,
+   Tarjetas, Seguros...) i pàgines amb nav just ABANS del main.
+   Només fills directes; mai subapartats dins targetes o panels. */
+html body:has(nav.vcc-sacred-subnav)
+main:not(.cl-page) > nav.vcc-sacred-subnav ~ section[id]:not(.related-section),
+html body nav.vcc-sacred-subnav ~ main > section[id]:not(.related-section){
+  margin-block-end:0!important;
+}
+html body:has(nav.vcc-sacred-subnav)
+main:not(.cl-page) > nav.vcc-sacred-subnav ~ section[id]:not(.related-section)
+~ section[id]:not(.related-section),
+html body nav.vcc-sacred-subnav ~ main > section[id]:not(.related-section)
+~ section[id]:not(.related-section){
+  margin-block-start:var(--vcc-section-space)!important;
+}
+
+/* Itinerari: La ruta i els dies són apartats germans,
+   encara que els dies siguin <article> en lloc de <section>. */
+html body:has(nav.vcc-sacred-subnav)
+main.vcc-shell > :is(section#resumen,article.day-section)
+~ :is(section#resumen,article.day-section){
+  margin-block-start:var(--vcc-section-space)!important;
+}
+
+/* Imprescindibles: cada lloc que té àncora pròpia disposa del mateix
+   marge exterior, sense tocar la fitxa interna ni les seves imatges. */
+html body:has(nav.place-nav-wrap.vcc-sacred-subnav)
+main.imp-main > section.place ~ section.place{
+  margin-block-start:var(--vcc-section-space)!important;
+}
+
+/* Hubs de país i ciutat amb subheader tradicional. */
+html body.country-page .country-main > section + section,
+html body .st-shell .st-main > section + section{
+  margin-block-start:var(--vcc-section-space)!important;
+}
+
+/* Distància uniforme de tancament amb el bloc següent. */
+html body:has(nav.vcc-sacred-subnav) section:is(.related-section,.vcc-discover-section){
+  margin-block-start:calc(var(--vcc-section-space) + 8px)!important;
+}
+html body:has(nav.vcc-sacred-subnav):not(:has(section:is(.related-section,.vcc-discover-section)))
+footer.vcc-global-footer{
+  margin-block-start:calc(var(--vcc-section-space) + 8px)!important;
+}
+
+/* No afegir dues separacions per culpa del padding històric de plantilla. */
+html body:has(nav.vcc-sacred-subnav) main:is(.dv-main,.ci-main){
+  padding-block-end:0!important;
+}
+html body.dv-country-types:has(nav.vcc-sacred-subnav)
+main.dv-main > .dv-planifica-alojamiento-reuse{
+  margin:0 0 var(--vcc-section-space)!important;
+  padding:0!important;
+}
+html body.dv-country-types:has(nav.vcc-sacred-subnav)
+main.dv-main > .dv-planifica-alojamiento-reuse > .al-compare{
+  padding-block:0!important;
+}
+
+@media(max-width:760px){
+  html body:has(nav.vcc-sacred-subnav),
+  html body.country-page:has(nav.country-nav),
+  html body:has(.st-shell nav.st-tabs){
+    --vcc-section-space:52px;
+  }
+}
+
+/* VCC 2026-11-19 · Contracte únic de resum de capçalera.
+   Lletres del sobretítol i del títol: mantenir l'escala comuna anterior.
+   Resum curt (màxim ~10 paraules): mateixa mida discreta a la dreta.
+   Resum llarg: mateixa mida (lleugerament més petita) sota el títol.
+   Predeterminat: resum a la dreta, ancorat al final del títol i màxim 2 línies.
+   Excepció opt-in: .vcc-editorial-heading--description-below trasllada el resum
+   complet sota el títol. També es pot afegir un paràgraf independent
+   .vcc-editorial-description-below sense eliminar el resum curt de la dreta. */
+html body .vcc-editorial-heading > .vcc-editorial-description,
+html body .vcc-editorial-heading > .vcc-editorial-heading-side{
+  align-self:end!important;
+  margin-bottom:0!important;
+}
+html body .vcc-editorial-heading:not(.vcc-editorial-heading--description-below) > .vcc-editorial-description,
+html body .vcc-editorial-heading > .vcc-editorial-heading-side > .vcc-editorial-description{
+  display:-webkit-box!important;
+  -webkit-box-orient:vertical!important;
+  -webkit-line-clamp:2!important;
+  line-clamp:2;
+  overflow:hidden!important;
+  max-height:3em!important;
+}
+html body .vcc-editorial-heading > .vcc-editorial-heading-side{
+  max-height:3em!important;
+  overflow:hidden!important;
+}
+/* VCC · alineació inferior real del resum lateral.
+   Amb una o dues línies, la darrera s'alinea amb la part inferior
+   del títol. El màxim de dues línies segueix aplicant-se; no hi ha
+   cap alçada reservada que desplaci el text d'una sola línia. */
+@media(min-width:1151px){
+  html body .vcc-editorial-heading:not(.vcc-editorial-heading--description-below) > .vcc-editorial-description,
+  html body .vcc-editorial-heading:not(.vcc-editorial-heading--description-below) > .vcc-editorial-heading-side{
+    height:auto!important;
+    min-height:0!important;
+    align-self:end!important;
+    margin-bottom:0!important;
+  }
+  html body .vcc-editorial-heading:not(.vcc-editorial-heading--description-below) > .vcc-editorial-heading-side > .vcc-editorial-description{
+    height:auto!important;
+    min-height:0!important;
+    margin-bottom:0!important;
+  }
+}
+html body .vcc-editorial-heading.vcc-editorial-heading--description-below{
+  grid-template-columns:minmax(0,1fr)!important;
+  align-items:start!important;
+  gap:9px!important;
+}
+html body .vcc-editorial-heading.vcc-editorial-heading--description-below > .vcc-editorial-description{
+  display:block!important;
+  width:100%!important;
+  max-width:900px!important;
+  align-self:start!important;
+  margin:0!important;
+  padding:0!important;
+  text-align:left!important;
+  overflow:visible!important;
+  max-height:none!important;
+  -webkit-line-clamp:unset!important;
+  line-clamp:unset;
+  font:400 var(--vcc-editorial-description-long-size)/1.6 var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;
+  color:#5f5954!important;
+}
+html body .vcc-editorial-heading > .vcc-editorial-description-below{
+  display:block!important;
+  grid-column:1/-1;
+  width:100%!important;
+  max-width:840px!important;
+  margin:0!important;
+  padding:0!important;
+  color:#655e58!important;
+  font:400 var(--vcc-editorial-description-long-size)/1.6 var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;
+  text-align:left!important;
+  overflow:visible!important;
+}
+@media(max-width:1150px){
+  html body .vcc-editorial-heading > .vcc-editorial-description,
+  html body .vcc-editorial-heading > .vcc-editorial-heading-side{
+    align-self:start!important;
+  }
+}
+@media(max-width:600px){
+  html body .vcc-editorial-heading.vcc-editorial-heading--description-below{gap:7px!important;}
+  html body .vcc-editorial-heading{
+    --vcc-editorial-description-long-size:13px;
+  }
+  html body .vcc-editorial-heading.vcc-editorial-heading--description-below > .vcc-editorial-description,
+  html body .vcc-editorial-heading > .vcc-editorial-description-below{
+    font-size:var(--vcc-editorial-description-long-size)!important;
+    line-height:1.6!important;
+  }
+}

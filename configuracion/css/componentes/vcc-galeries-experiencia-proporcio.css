@@ -1,0 +1,67 @@
+/* VCC · Proporció compartida dels mosaics editorials «Nuestra experiencia».
+   Opt-in: només Qué llevar i Cuándo ir (Estocolmo).
+   Mosaics propers al quadrat (1.26), mateixa amplada real en escriptori,
+   sense tocar els visors, el CSS general o les altres galeries. */
+:root{
+  --vcc-experience-gallery-width:540px;
+  --vcc-experience-gallery-ratio:1.26;
+}
+@media(min-width:1101px){
+  html body .ql-page #experiencia-vcc .ql-vcc-experience-context.vcc-experience-gallery-grid,
+  html body.ci-page.vcc-august-gallery-compact #experiencia .ci-august-experience-layout.vcc-experience-gallery-grid{
+    grid-template-columns:minmax(0,min(39%,var(--vcc-experience-gallery-width))) minmax(0,1fr)!important;
+    gap:clamp(18px,1.8vw,26px)!important;
+    align-items:start!important;
+  }
+}
+html body .ql-page #experiencia-vcc .vcc-experience-gallery-grid .ql-vcc-experience-gallery.vcc-sto-mosaic-compact,
+html body.ci-page.vcc-august-gallery-compact #experiencia .vcc-experience-gallery-grid .ci-august-gallery-embed{
+  box-sizing:border-box!important;
+  width:100%!important;
+  max-width:100%!important;
+  min-width:0!important;
+  margin-inline:0!important;
+}
+html body .ql-page #experiencia-vcc .vcc-experience-gallery-grid .day-mosaic[data-count],
+html body.ci-page.vcc-august-gallery-compact #experiencia .vcc-experience-gallery-grid .ci-august-imp-gallery .gallery-mosaic{
+  box-sizing:border-box!important;
+  display:grid!important;
+  width:100%!important;
+  height:auto!important;
+  min-height:0!important;
+  max-height:none!important;
+  aspect-ratio:var(--vcc-experience-gallery-ratio)!important;
+}
+html body.ci-page.vcc-august-gallery-compact #experiencia .vcc-experience-gallery-grid
+ .ci-august-gallery-embed[data-vcc-lazy-gallery]:not([data-vcc-gallery-loaded]) .gallery{
+  width:100%!important;
+  height:auto!important;
+  max-height:none!important;
+  aspect-ratio:var(--vcc-experience-gallery-ratio)!important;
+}
+@media(max-width:1100px){
+  html body .ql-page #experiencia-vcc .ql-vcc-experience-context.vcc-experience-gallery-grid,
+  html body.ci-page.vcc-august-gallery-compact #experiencia .ci-august-experience-layout.vcc-experience-gallery-grid{
+    grid-template-columns:minmax(0,1fr)!important;
+    gap:16px!important;
+  }
+  html body .ql-page #experiencia-vcc .vcc-experience-gallery-grid .ql-vcc-experience-gallery.vcc-sto-mosaic-compact,
+  html body.ci-page.vcc-august-gallery-compact #experiencia .vcc-experience-gallery-grid .ci-august-gallery-embed{
+    width:min(100%,var(--vcc-experience-gallery-width))!important;
+    max-width:var(--vcc-experience-gallery-width)!important;
+  }
+}
+@media(max-width:700px){
+  html body .ql-page #experiencia-vcc .vcc-experience-gallery-grid .ql-vcc-experience-gallery.vcc-sto-mosaic-compact,
+  html body.ci-page.vcc-august-gallery-compact #experiencia .vcc-experience-gallery-grid .ci-august-gallery-embed{
+    width:100%!important;
+    max-width:100%!important;
+  }
+  html body .ql-page #experiencia-vcc .vcc-experience-gallery-grid .day-mosaic[data-count],
+  html body.ci-page.vcc-august-gallery-compact #experiencia .vcc-experience-gallery-grid .ci-august-imp-gallery .gallery-mosaic,
+  html body.ci-page.vcc-august-gallery-compact #experiencia .vcc-experience-gallery-grid
+   .ci-august-gallery-embed[data-vcc-lazy-gallery]:not([data-vcc-gallery-loaded]) .gallery{
+    aspect-ratio:1.18!important;
+    max-height:none!important;
+  }
+}

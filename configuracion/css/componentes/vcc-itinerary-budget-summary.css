@@ -1,0 +1,91 @@
+/* VCC · Pressupost compacte en la columna lateral dels itineraris.
+ * No forma part del carrusel de dies; CSS canònic reutilitzable.
+ */
+.vcc-summary .vcc-summary-side{min-width:0;display:flex;flex-direction:column;align-items:stretch;gap:12px}
+.vcc-summary .vcc-summary-side>.overview-list{min-width:0;margin:0}
+.vcc-summary .vcc-itinerary-budget{
+  box-sizing:border-box;width:100%;min-width:0;margin-top:auto;
+  display:grid;grid-template-columns:minmax(0,1fr) auto;
+  grid-template-areas:"heading price" "meta link";
+  align-items:center;column-gap:10px;row-gap:4px;
+  padding:12px 14px;border:1px solid #e3e5e5;border-radius:11px;
+  background:#f6f7f7;color:#171717
+}
+.vcc-summary .vcc-itinerary-budget__heading{
+  grid-area:heading;display:flex;align-items:center;min-width:0;gap:8px;margin:0
+}
+.vcc-summary .vcc-itinerary-budget__icon{display:block;flex:0 0 28px;width:28px;height:28px;color:#c26942}
+.vcc-summary .vcc-itinerary-budget__title{
+  margin:0;color:#171717;
+  font:500 14px/1.17 var(--vcc-font-heading,"Oswald",sans-serif);
+  letter-spacing:.008em;text-transform:uppercase
+}
+.vcc-summary .vcc-itinerary-budget__price{
+  grid-area:price;display:flex;align-items:baseline;justify-content:flex-end;
+  flex-wrap:nowrap;gap:4px;margin:0;color:#c26942;white-space:nowrap
+}
+.vcc-summary .vcc-itinerary-budget__price strong{
+  font:600 clamp(29px,2.5vw,35px)/1.08 var(--vcc-font-heading,"Oswald",sans-serif);
+  white-space:nowrap;font-variant-numeric:tabular-nums
+}
+.vcc-summary .vcc-itinerary-budget__price span{
+  font:500 14px/1.2 var(--vcc-font-heading,"Oswald",sans-serif);white-space:nowrap
+}
+.vcc-summary .vcc-itinerary-budget__meta{
+  grid-area:meta;margin:0;color:#686c6d;white-space:nowrap;
+  font:500 10px/1.35 var(--vcc-font-body,"DM Sans",Arial,sans-serif)
+}
+.vcc-summary .vcc-itinerary-budget__link{
+  grid-area:link;display:inline-flex;align-items:center;justify-content:flex-end;
+  gap:6px;margin:0;padding:0;border:0;border-radius:0;
+  background:transparent;color:#9a7770;text-decoration:none;text-align:right;white-space:nowrap;
+  font:600 9.5px/1.25 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
+  letter-spacing:0;transition:color .18s ease
+}
+.vcc-summary .vcc-itinerary-budget__link:hover{color:#8c3a24;text-decoration:underline;text-underline-offset:3px}
+.vcc-summary .vcc-itinerary-budget__link:focus-visible{outline:2px solid #b55a38;outline-offset:4px;border-radius:2px}
+.vcc-summary .vcc-itinerary-budget__arrow{font-size:14px;line-height:1;font-weight:500}
+@media(max-width:950px){
+  .vcc-summary .vcc-summary-side{grid-column:1/-1;min-width:0}
+}
+@media(max-width:650px){
+  .vcc-summary .vcc-summary-side{gap:10px}
+  .vcc-summary .vcc-itinerary-budget{padding:11px 12px;column-gap:8px}
+  .vcc-summary .vcc-itinerary-budget__icon{flex-basis:25px;width:25px;height:25px}
+  .vcc-summary .vcc-itinerary-budget__title{font-size:13px}
+  .vcc-summary .vcc-itinerary-budget__price strong{font-size:32px}
+  .vcc-summary .vcc-itinerary-budget__price span{font-size:13px}
+  .vcc-summary .vcc-itinerary-budget__meta{font-size:9.5px}
+  .vcc-summary .vcc-itinerary-budget__link{font-size:9px}
+}
+@media(max-width:360px){
+  .vcc-summary .vcc-itinerary-budget{column-gap:5px;padding-inline:10px}
+  .vcc-summary .vcc-itinerary-budget__meta{font-size:9px}
+  .vcc-summary .vcc-itinerary-budget__link{font-size:8.5px;gap:3px}
+}
+
+/* Tota la vinyeta del pressupost és un únic enllaç accessible, com els dies. */
+.vcc-summary a.vcc-itinerary-budget{
+  color:#171717;
+  text-decoration:none;
+  cursor:pointer;
+  transition:border-color .18s ease, box-shadow .18s ease, transform .18s ease;
+}
+.vcc-summary a.vcc-itinerary-budget:hover{
+  border-color:#d8c9c0;
+  box-shadow:0 5px 14px rgba(40,30,20,.08);
+  transform:translateY(-1px);
+}
+.vcc-summary a.vcc-itinerary-budget:hover .vcc-itinerary-budget__link{
+  color:#8c3a24;
+  text-decoration:underline;
+  text-underline-offset:3px;
+}
+.vcc-summary a.vcc-itinerary-budget:focus-visible{
+  outline:2px solid #b55a38;
+  outline-offset:3px;
+}
+@media(prefers-reduced-motion:reduce){
+  .vcc-summary a.vcc-itinerary-budget{transition:none}
+  .vcc-summary a.vcc-itinerary-budget:hover{transform:none}
+}

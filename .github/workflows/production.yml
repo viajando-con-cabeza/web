@@ -4,6 +4,9 @@ on:
   push:
     branches:
       - main
+  pull_request:
+    branches:
+      - main
   workflow_dispatch:
 
 permissions:
@@ -17,10 +20,59 @@ jobs:
   validate:
     name: Validate production release
     runs-on: ubuntu-latest
-    environment: production
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+
+      - name: Block release to wrong Cloudflare Worker
+        run: node configuracion/scripts/verificar-config-despliegue.mjs --main
+
+      - name: Prevent draft indexing and ensure canonical release
+        run: |
+          npm run site:check
+          node configuracion/scripts/comprobar-rutas.mjs
+
+      - name: Validate real budget totals and contact email
+        run: |
+          node configuracion/scripts/verificar-presupuestos-vcc.mjs
+          node configuracion/scripts/verificar-contacto-vcc.mjs
+
+      - name: Check reusable CSS and absence of exact duplicates
+        run: node configuracion/scripts/verificar-css-vcc.mjs
+
+      - name: Validate shared galleries, subheaders and itinerary
+        run: |
+          node configuracion/scripts/validar-galeries.mjs
+          node configuracion/scripts/validar-subheaders.mjs
+          node configuracion/tests/itinerario-integridad.cjs
+
+      - name: Check corporate SVG and assets placement
+        run: |
+          node configuracion/scripts/validar-iconos-vcc.mjs
+          node configuracion/scripts/verificar-estructura-recursos.mjs
+
+      - name: Validate flights official links and PDF
+        run: node configuracion/tests/planifica-vuelos-vcc.mjs
+
+      - name: Verify published HTML uses shared styles
+        run: node configuracion/scripts/verificar-estilos-html-vcc.mjs
+
+      - name: Audit all pages, shared assets and editorial links
+        run: node configuracion/scripts/auditar-escalabilidad-vcc.mjs --strict-hubs
+
+      - name: Block release while editorial selection is pending
+        run: |
+          if test -f configuracion/datos/lanzamiento-inicial-pendiente.json; then
+            echo 'BLOQUEADO: completar selección editorial, exclusión real de borradores y validaciones antes de publicar.'
+            exit 1
+          fi
+
+      - name: Check privacy policy is legally complete
+        run: |
+          if grep -q "Antes de publicar esta página de forma definitiva" politica-de-privacidad/index.html; then
+            echo "BLOQUEADO: falta identificar al titular y completar la política legal antes de lanzar producción."
+            exit 1
+          fi
 
       - name: Validate static site
         shell: bash
