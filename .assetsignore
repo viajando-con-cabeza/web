@@ -1,0 +1,54 @@
+# Exclude Git metadata from Cloudflare Workers static assets.
+# Cover root and nested Git directories, including generated pack files.
+.git
+.git/
+**/.git
+**/.git/
+**/.git/**
+*.pack
+*.idx
+*.rev
+*.bitmap
+
+# Exclude repository and local development metadata.
+.github
+.github/
+**/.github/**
+node_modules
+node_modules/
+**/node_modules/**
+.wrangler
+.wrangler/
+**/.wrangler/**
+
+# Tooling and editable templates must not be served as public web assets.
+configuracion/scripts/
+configuracion/scripts/**
+configuracion/plantillas/
+configuracion/plantillas/**
+configuracion/workers/
+configuracion/workers/**
+
+# Lançament de descàrregues pendent d'aprovació: PDF i fulls de càlcul
+# continuen guardats al repositori però no es publiquen com a assets web.
+*.pdf
+**/*.pdf
+*.PDF
+**/*.PDF
+*.xls
+**/*.xls
+*.xlsx
+**/*.xlsx
+*.xlsm
+**/*.xlsm
+*.xlsb
+**/*.xlsb
+*.csv
+**/*.csv
+*.ods
+**/*.ods
+
+# Translation dictionaries for build-time only; never expose machine drafts.
+configuracion/datos/i18n/en-segments.json
+configuracion/datos/i18n/en-segments-v2.json
+configuracion/datos/i18n/en-coverage.json

@@ -1,0 +1,187 @@
+/* Inicio Quality v9 · corrección real de las dos tarjetas según captura móvil (modo escritorio).
+   No cambia carruseles, cabecera ni el diseño del resto del sitio. */
+body.inicio-vcc .home-planning{
+  height:auto!important;
+  min-height:245px!important;
+  overflow:hidden!important;
+  grid-template-columns:38% minmax(0,1fr)!important;
+  align-items:stretch!important;
+}
+body.inicio-vcc .home-planning-visual{
+  position:relative!important;
+  min-height:245px!important;
+  align-self:stretch!important;
+}
+body.inicio-vcc .home-planning-visual img{
+  width:100%!important;height:100%!important;
+  object-fit:cover!important;object-position:center!important;
+}
+body.inicio-vcc .home-planning-copy{
+  display:flex!important;flex-direction:column!important;
+  align-items:flex-start!important;justify-content:center!important;
+  min-height:245px!important;height:auto!important;
+  padding:17px 17px 18px!important;
+  box-sizing:border-box!important;
+}
+body.inicio-vcc .home-planning-eyebrow{
+  font-size:clamp(17px,1.6vw,22px)!important;
+  margin:0 0 5px!important;
+}
+body.inicio-vcc .home-planning h2{
+  font-size:clamp(24px,2.15vw,32px)!important;
+  line-height:1.08!important;margin:0 0 8px!important;
+}
+body.inicio-vcc .home-planning p{
+  max-width:unset!important;
+  font-size:clamp(11px,.98vw,13px)!important;
+  line-height:1.48!important;margin:0 0 11px!important;
+}
+body.inicio-vcc .home-planning-tags{
+  gap:6px!important;margin:0 0 12px!important;
+}
+body.inicio-vcc .home-planning-tags span{
+  font-size:9px!important;padding:5px 8px!important;
+}
+body.inicio-vcc .home-planning .home-btn{
+  position:relative!important;display:inline-flex!important;
+  align-items:center!important;justify-content:center!important;
+  min-height:34px!important;margin:0!important;
+  padding:9px 14px!important;
+  font-size:10px!important;line-height:1.25!important;
+  flex:0 0 auto!important;visibility:visible!important;
+}
+body.inicio-vcc .home-contact{
+  justify-content:space-between!important;
+  align-items:flex-start!important;
+  padding:18px 18px 16px!important;
+}
+body.inicio-vcc .home-contact-symbol{
+  width:92px!important;height:70px!important;max-width:92px!important;
+  margin:0 0 4px!important;align-self:flex-start!important;
+  display:flex!important;align-items:center!important;justify-content:flex-start!important;
+}
+body.inicio-vcc .home-contact-symbol img{
+  width:92px!important;height:70px!important;max-width:100%!important;
+  object-fit:contain!important;object-position:left center!important;
+}
+body.inicio-vcc .home-contact h2{
+  font-size:clamp(25px,2.1vw,31px)!important;
+  line-height:1.08!important;margin:0 0 8px!important;
+}
+body.inicio-vcc .home-contact p{
+  max-width:100%!important;
+  font-size:clamp(11px,.95vw,13px)!important;
+  line-height:1.52!important;margin:0 0 12px!important;
+}
+body.inicio-vcc .home-contact .home-btn{
+  align-self:flex-start!important;margin-top:auto!important;
+  min-height:34px!important;font-size:10px!important;
+  padding:9px 12px!important;
+}
+@media(max-width:1120px) and (min-width:901px){
+  body.inicio-vcc .home-planning{grid-template-columns:35% minmax(0,1fr)!important}
+  body.inicio-vcc .home-planning-copy{padding:12px 12px 14px!important}
+  body.inicio-vcc .home-planning h2{font-size:25px!important}
+  body.inicio-vcc .home-planning-tags span{font-size:8px!important;padding:4px 6px!important}
+  body.inicio-vcc .home-contact{padding:12px!important}
+  body.inicio-vcc .home-contact-symbol{width:75px!important;height:58px!important;max-width:75px!important}
+  body.inicio-vcc .home-contact-symbol img{width:75px!important;height:58px!important}
+  body.inicio-vcc .home-contact h2{font-size:26px!important}
+}
+@media(max-width:900px){
+  body.inicio-vcc .home-planning{height:auto!important;min-height:252px!important;grid-template-columns:38% minmax(0,1fr)!important}
+  body.inicio-vcc .home-planning-visual{min-height:252px!important}
+  body.inicio-vcc .home-planning-copy{min-height:252px!important;padding:12px!important}
+  body.inicio-vcc .home-planning h2{font-size:25px!important}
+  body.inicio-vcc .home-contact{padding:14px!important}
+}
+@media(max-width:530px){
+  body.inicio-vcc .home-planning{grid-template-columns:33% minmax(0,1fr)!important;min-height:280px!important}
+  body.inicio-vcc .home-planning-visual{min-height:280px!important}
+  body.inicio-vcc .home-planning-copy{min-height:280px!important;padding:12px 10px!important}
+  body.inicio-vcc .home-planning-eyebrow{font-size:17px!important}
+  body.inicio-vcc .home-planning h2{font-size:22px!important}
+  body.inicio-vcc .home-planning p{font-size:11px!important}
+  body.inicio-vcc .home-planning-tags span{font-size:8px!important;padding:4px 6px!important}
+  body.inicio-vcc .home-planning .home-btn{font-size:9px!important;padding:8px 10px!important}
+  body.inicio-vcc .home-contact{padding:12px!important}
+  body.inicio-vcc .home-contact-symbol{width:58px!important;height:48px!important;max-width:58px!important}
+  body.inicio-vcc .home-contact-symbol img{width:58px!important;height:48px!important}
+  body.inicio-vcc .home-contact h2{font-size:22px!important}
+  body.inicio-vcc .home-contact p{font-size:10px!important}
+  body.inicio-vcc .home-contact .home-btn{font-size:8px!important;padding:8px!important}
+}
+
+/* V10 · Enlaces de texto como «VER TODOS» y Planifica más compacta. */
+body.inicio-vcc .home-planning{
+  height:192px!important;min-height:192px!important;
+  grid-template-columns:36% minmax(0,1fr)!important;
+}
+body.inicio-vcc .home-planning-visual{min-height:0!important;height:100%!important}
+body.inicio-vcc .home-planning-copy{
+  height:100%!important;min-height:0!important;
+  justify-content:center!important;
+  padding:10px 13px!important;
+}
+body.inicio-vcc .home-planning-eyebrow{
+  font-size:clamp(15px,1.25vw,19px)!important;margin-bottom:3px!important;
+}
+body.inicio-vcc .home-planning h2{
+  font-size:clamp(21px,1.85vw,27px)!important;margin-bottom:5px!important;
+}
+body.inicio-vcc .home-planning p{
+  font-size:clamp(9px,.83vw,11px)!important;
+  line-height:1.38!important;margin-bottom:7px!important;
+}
+body.inicio-vcc .home-planning-tags{gap:4px!important;margin-bottom:7px!important}
+body.inicio-vcc .home-planning-tags span{font-size:8px!important;padding:3px 5px!important}
+body.inicio-vcc .home-planning .home-card-more,
+body.inicio-vcc .home-contact .home-card-more{
+  display:inline-flex!important;align-items:center!important;justify-content:flex-start!important;
+  align-self:flex-start!important;flex:0 0 auto!important;
+  width:auto!important;min-width:0!important;min-height:0!important;
+  height:auto!important;margin:0!important;padding:0 0 2px!important;
+  border:0!important;border-radius:0!important;background:transparent!important;
+  color:var(--vcc-orange-dark,#b94f34)!important;
+  font:800 10px/1.3 var(--vcc-font-body, "DM Sans", Arial, sans-serif)!important;
+  white-space:nowrap!important;letter-spacing:0!important;box-shadow:none!important;
+  text-decoration:none!important;
+}
+body.inicio-vcc .home-planning .home-card-more span,
+body.inicio-vcc .home-contact .home-card-more span{
+  font-size:16px!important;margin-left:4px!important;font-weight:500!important;
+}
+body.inicio-vcc .home-planning .home-card-more:hover,
+body.inicio-vcc .home-contact .home-card-more:hover{
+  background:transparent!important;color:var(--vcc-ink,#292724)!important;
+}
+body.inicio-vcc .home-contact .home-card-more{margin-top:auto!important}
+@media(max-width:900px){
+  body.inicio-vcc .home-planning{height:205px!important;min-height:205px!important}
+  body.inicio-vcc .home-planning-copy{padding:10px!important}
+}
+@media(max-width:530px){
+  body.inicio-vcc .home-planning{
+    height:auto!important;min-height:215px!important;
+    grid-template-columns:34% minmax(0,1fr)!important;
+  }
+  body.inicio-vcc .home-planning-visual{min-height:215px!important}
+  body.inicio-vcc .home-planning-copy{height:auto!important;min-height:215px!important;padding:9px!important}
+  body.inicio-vcc .home-planning-eyebrow{font-size:15px!important}
+  body.inicio-vcc .home-planning h2{font-size:20px!important}
+  body.inicio-vcc .home-planning p{font-size:10px!important}
+  body.inicio-vcc .home-planning .home-card-more,
+  body.inicio-vcc .home-contact .home-card-more{font-size:9px!important}
+}
+
+/* V11 · Instagram i Contacto baixen junts, i la il·lustració de Planifica no es deforma. */
+body.inicio-vcc .home-social-contact{
+  margin-top:9px!important;
+}
+body.inicio-vcc .home-planning-visual img{
+  object-fit:cover!important;
+  object-position:50% 48%!important;
+}
+@media(max-width:900px){
+  body.inicio-vcc .home-social-contact{margin-top:7px!important}
+}

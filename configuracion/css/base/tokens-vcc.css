@@ -1,0 +1,65 @@
+/* VCC Design System · Font única de variables globals.
+   Canviar la tipografia o l'escala aci no requereix editar guies.
+   Els tons antics es mantenen per defecte per evitar regressions. */
+:root {
+  /* Tipografies aprovades */
+  --vcc-font-body: "DM Sans", Arial, sans-serif;
+  --vcc-font-heading: "Oswald", sans-serif;
+  --vcc-font-script: "Caveat", cursive;
+
+  /* Ajustaments globals neutres per defecte: 0px = disseny actual */
+  --vcc-heading-size-adjust: 0px;
+  --vcc-overline-size-adjust: 0px;
+  --vcc-body-size-adjust: 0px;
+
+  /* Paleta semàntica i herència dels tons actuals. Per fer un canvi de marca
+     uniforme, declarar --vcc-accent-override: #nou-color; en aquest fitxer. */
+  --vcc-color-ink: #292724;
+  --vcc-color-muted: #716a64;
+  --vcc-color-paper: #faf6f1;
+  --vcc-color-surface: #fffdfb;
+  --vcc-color-border: #e7ddd4;
+  --vcc-color-accent: var(--vcc-accent-override, #c86f5d);
+  --vcc-color-accent-home: var(--vcc-accent-override, #d96847);
+  --vcc-color-accent-pages: var(--vcc-accent-override, #e97861);
+  --vcc-color-accent-legacy: var(--vcc-accent-override, #ef7168);
+  --vcc-color-accent-weather: var(--vcc-accent-override, #c46a4c);
+
+  /* Amplades i espaiat */
+  --vcc-content-max: 1180px;
+  --vcc-page-gutter: 48px;
+  --vcc-component-subheader-height: 39px;
+  --vcc-component-subheader-gap: 38px;
+  --vcc-component-subheader-desktop-font: 11.5px;
+  --vcc-component-subheader-mobile-font: 11px;
+  --vcc-component-hero-desktop-height: 475px;
+
+  /* Contracte de portada compartit Suècia/Estocolm, i futures guies
+     derivades del mateix patró. Els valors reprodueixen el disseny validat.
+     Canviar-los aquí afecta totes les pàgines que usen el component. */
+  --vcc-guide-facts-top-gap: 22px;
+  --vcc-guide-facts-divider-gap: 16px;
+  --vcc-guide-facts-row-gap: 16px;
+  --vcc-guide-facts-column-gap: 22px;
+  --vcc-guide-facts-mobile-column-gap: 20px;
+  --vcc-guide-facts-label-size: 11px;
+  --vcc-guide-facts-value-size: 11.5px;
+  --vcc-guide-facts-note-size: 9px;
+
+  /* Carrusels: motor comú futur; posició mòbil aprovada */
+  --vcc-carousel-arrow-size: 35px;
+  --vcc-carousel-arrow-previous-offset: 43px;
+  --vcc-carousel-mobile-padding-top: 46px;
+  --vcc-carousel-mobile-visible: 1;
+  --vcc-carousel-mobile-controls-top: 0px;
+  --vcc-carousel-card-gap: 16px;
+  --vcc-carousel-desktop-editorial-visible: 3;
+  --vcc-carousel-desktop-compact-visible: 5;
+  --vcc-carousel-desktop-detail-visible: 3;
+  /* Consell VCC: escales i colors centralitzats sense alterar el disseny vigent. */
+  --vcc-consejo-border-color: #d56a4c;
+  --vcc-consejo-title-color: #b35235;
+  --vcc-consejo-body-color: #50473f;
+  --vcc-consejo-logo-size: 52px;
+  --vcc-consejo-radius: 19px;
+}

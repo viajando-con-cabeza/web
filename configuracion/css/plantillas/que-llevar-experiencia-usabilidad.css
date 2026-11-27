@@ -1,0 +1,635 @@
+/* VCC · Qué llevar Estocolmo · refinamiento editorial y usabilidad.
+   Cargado tras la plantilla. Sólo personaliza esta guía; la sección
+   "Cómo ahorrar espacio" hereda su geometría del CSS compartido. */
+
+/* Marcadores sobre fondo totalmente transparente: mismo tamaño visual. */
+html body .ql-page .ql-v11-experience-grid h3{
+  display:flex!important;align-items:center!important;gap:7px!important;
+}
+html body .ql-page .ql-v11-experience-marker{
+  display:inline-grid!important;place-items:center!important;
+  box-sizing:border-box!important;width:23px!important;height:23px!important;
+  flex:0 0 23px!important;margin:0!important;padding:0!important;
+  background:transparent!important;background-image:none!important;
+  border:0!important;border-radius:0!important;box-shadow:none!important;
+  font:700 22px/1 "DM Sans",Arial,sans-serif!important;
+}
+html body .ql-page .ql-v11-experience-marker.positive{color:#628a46!important}
+html body .ql-page .ql-v11-experience-marker.negative{color:#d65d50!important}
+html body .ql-page .ql-v11-experience-marker.repeat{color:#c7852f!important}
+
+/* La selección de maleta se lee en dos pasos: parámetros y resultado.
+   Evitamos un segundo bloque de Consejo VCC con marca innecesaria. */
+html body .ql-page .ql-v7-section-bag .ql-planner-step{
+  grid-column:1/-1!important;align-self:start!important;
+  display:flex!important;align-items:center!important;gap:8px!important;
+  margin:0 0 8px!important;padding:0!important;
+  color:#65594f!important;font:600 11px/1.4 "DM Sans",Arial,sans-serif!important;
+  letter-spacing:.015em!important;
+}
+html body .ql-page .ql-v7-section-bag .ql-planner-step-num{
+  display:inline-grid;place-items:center;flex:0 0 21px;
+  width:21px;height:21px;border-radius:50%;
+  color:#ae6d54;background:#f6ece4;border:1px solid #e7d2c1;
+  font:700 11px/1 "DM Sans",Arial,sans-serif;
+}
+html body .ql-page .ql-v7-section-bag .ql-v8-planner-controls{
+  align-content:start!important;
+}
+html body .ql-page .ql-v7-section-bag .ql-v8-planner-results{
+  min-width:0!important;
+}
+html body .ql-page .ql-v7-section-bag .ql-v8-planner-results > .ql-planner-step{
+  margin-bottom:9px!important;
+}
+html body .ql-page .ql-v7-section-bag .ql-bag-decision{
+  display:flex!important;flex-wrap:wrap!important;align-items:center!important;
+  justify-content:space-between!important;gap:10px 16px!important;
+  margin:12px 0 0!important;padding:12px 2px 1px!important;
+  border-top:1px solid #e9ded4!important;background:transparent!important;
+}
+html body .ql-page .ql-v7-section-bag .ql-bag-explanation{
+  flex:1 1 310px;min-width:0;margin:0!important;
+  color:#564b44;font:400 12px/1.55 "DM Sans",Arial,sans-serif!important;
+}
+html body .ql-page .ql-v7-section-bag .ql-bag-explanation strong{
+  display:block!important;margin-bottom:3px!important;
+  color:#3f3731!important;font:600 13px/1.3 "DM Sans",Arial,sans-serif!important;
+}
+html body .ql-page .ql-v7-section-bag .ql-bag-next{
+  display:inline-flex!important;align-items:center!important;justify-content:center!important;
+  gap:7px!important;white-space:nowrap!important;
+  min-height:37px!important;padding:8px 14px!important;
+  color:#fff!important;background:#b7694c!important;border:1px solid #b7694c!important;
+  border-radius:7px!important;text-decoration:none!important;
+  font:600 11px/1.3 "DM Sans",Arial,sans-serif!important;
+  transition:background-color .15s ease!important;
+}
+html body .ql-page .ql-v7-section-bag .ql-bag-next:hover,
+html body .ql-page .ql-v7-section-bag .ql-bag-next:focus-visible{
+  background:#965339!important;
+}
+
+/* La recomendación por clima queda como texto normal, no como otra tarjeta. */
+html body .ql-page .ql-v7-section-pack > .ql-pack-guidance{
+  display:block!important;width:100%!important;
+  margin:0 0 15px!important;padding:0!important;
+  border:0!important;border-radius:0!important;box-shadow:none!important;
+  background:transparent!important;color:#5a5049!important;
+  font:400 12.5px/1.6 "DM Sans",Arial,sans-serif!important;
+}
+html body .ql-page .ql-v7-section-pack > .ql-pack-guidance strong{
+  color:#3d332c!important;font-weight:700!important;
+}
+
+/* Imprescindibles: 3/2/1 visibles; desplazamiento táctil con flechas
+   operativas también para teclado. Las cinco tarjetas siguen accesibles. */
+html body .ql-page #imprescindibles .ql-essentials-carousel{
+  box-sizing:border-box!important;position:relative!important;display:block!important;
+  width:100%!important;min-width:0!important;max-width:100%!important;
+  margin:0!important;padding:0!important;
+}
+html body .ql-page #imprescindibles #ql-essentials-track{
+  display:flex!important;flex-flow:row nowrap!important;align-items:stretch!important;
+  box-sizing:border-box!important;gap:14px!important;width:100%!important;
+  max-width:100%!important;min-width:0!important;
+  margin:0!important;padding:2px 0 8px!important;
+  overflow-x:auto!important;overflow-y:hidden!important;
+  scroll-snap-type:x mandatory!important;scroll-padding-left:1px!important;
+  scroll-behavior:smooth!important;scrollbar-width:none!important;
+  -webkit-overflow-scrolling:touch;
+}
+html body .ql-page #imprescindibles #ql-essentials-track::-webkit-scrollbar{display:none}
+html body .ql-page #imprescindibles #ql-essentials-track > .ql-essential-card{
+  box-sizing:border-box!important;display:flex!important;flex-direction:column!important;
+  align-items:center!important;justify-content:flex-start!important;
+  flex:0 0 calc((100% - 28px)/3)!important;width:calc((100% - 28px)/3)!important;
+  min-width:0!important;margin:0!important;
+  padding:18px 14px!important;scroll-snap-align:start!important;
+  background:#fff!important;border:1px solid #e2ddd6!important;
+  border-radius:11px!important;box-shadow:0 2px 8px rgba(27,44,55,.045)!important;
+}
+html body .ql-page #imprescindibles #ql-essentials-track > .ql-essential-card h3,
+html body .ql-page #imprescindibles #ql-essentials-track > .ql-essential-card p{
+  text-align:center!important;
+}
+html body .ql-page #imprescindibles .ql-essential-arrow{
+  box-sizing:border-box!important;position:absolute!important;z-index:5!important;
+  top:50%!important;transform:translateY(-50%)!important;
+  display:grid!important;place-items:center!important;
+  width:35px!important;height:35px!important;padding:0!important;
+  border:1px solid #d9bca8!important;border-radius:50%!important;
+  color:#ad5b43!important;background:#fff!important;
+  box-shadow:0 2px 8px rgba(42,31,21,.07)!important;
+  font:400 23px/1 "DM Sans",Arial,sans-serif!important;cursor:pointer!important;
+}
+html body .ql-page #imprescindibles #ql-essential-prev{left:-17px!important;right:auto!important}
+html body .ql-page #imprescindibles #ql-essential-next{right:-17px!important;left:auto!important}
+html body .ql-page #imprescindibles .ql-essential-arrow:disabled{
+  opacity:0!important;pointer-events:none!important;
+}
+@media(max-width:1020px){
+ html body .ql-page #imprescindibles #ql-essentials-track > .ql-essential-card{
+   flex-basis:calc((100% - 14px)/2)!important;width:calc((100% - 14px)/2)!important;
+ }
+}
+@media(max-width:680px){
+ html body .ql-page .ql-v7-section-bag .ql-planner-step{
+   margin-bottom:7px!important;
+ }
+ html body .ql-page .ql-v7-section-bag .ql-bag-decision{
+   gap:10px!important;margin-top:11px!important;
+ }
+ html body .ql-page .ql-v7-section-bag .ql-bag-next{
+   width:100%!important;white-space:normal!important;
+ }
+ html body .ql-page .ql-v7-section-pack > .ql-pack-guidance{
+   font-size:12px!important;line-height:1.55!important;margin-bottom:12px!important;
+ }
+ html body .ql-page #imprescindibles #ql-essentials-track > .ql-essential-card{
+   flex-basis:100%!important;width:100%!important;
+ }
+ html body .ql-page #imprescindibles #ql-essential-prev{left:2px!important}
+ html body .ql-page #imprescindibles #ql-essential-next{right:2px!important}
+}
+@media(prefers-reduced-motion:reduce){
+ html body .ql-page #imprescindibles #ql-essentials-track{scroll-behavior:auto!important}
+}
+@media print{
+ html body .ql-page #imprescindibles #ql-essentials-track{
+  display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;
+  overflow:visible!important;gap:10px!important;
+ }
+ html body .ql-page #imprescindibles #ql-essentials-track > .ql-essential-card{
+  width:auto!important;break-inside:avoid!important;
+ }
+ html body .ql-page #imprescindibles .ql-essential-arrow,
+ html body .ql-page .ql-v7-section-bag .ql-bag-next{display:none!important}
+}
+
+
+/* Capçaleres compartides VCC: texts curts a la dreta (màx. 2 línies);
+   resum extens sota el títol, sense truncament. */
+html body .ql-page :is(#experiencia-vcc,#que-maleta,#haz-tu-maleta) > .ql-section-heading.vcc-editorial-heading{
+  display:grid!important;width:100%!important;max-width:100%!important;
+  grid-template-columns:minmax(0,1fr)!important;
+  align-items:start!important;gap:9px!important;
+  margin-bottom:17px!important;
+}
+@media(min-width:1151px){
+  html body .ql-page :is(#que-maleta,#experiencia-vcc) > .ql-section-heading.vcc-editorial-heading:not(.vcc-editorial-heading--description-below){
+    grid-template-columns:minmax(0,1fr) minmax(250px,340px)!important;
+    align-items:end!important;
+  }
+}
+html body .ql-page #haz-tu-maleta .vcc-editorial-description #ql-v10-packing-tip{
+  color:#825941!important;
+}
+html body .ql-page #experiencia-vcc .ql-v11-experience-grid{
+  margin-top:0!important;
+}
+
+/* Estructura real única: el pas 1 (filtres) i el pas 2 (maletes)
+   ocupen exactament la mateixa amplada disponible i els mateixos laterals.
+   Cap subcaixa reserva columnes, paddings ni marges diferents. */
+html body .ql-page #que-maleta{
+  box-sizing:border-box!important;
+  width:100%!important;max-width:100%!important;
+  min-width:0!important;margin-inline:0!important;padding:0!important;
+}
+html body .ql-page #que-maleta > .ql-v8-bag-planner{
+  box-sizing:border-box!important;width:100%!important;max-width:100%!important;
+  min-width:0!important;
+  padding:10px 12px 9px!important;margin:0!important;
+  border-radius:12px!important;
+  background:#fff!important;
+}
+html body .ql-page #que-maleta .ql-v8-planner-layout{
+  display:grid!important;grid-template-columns:minmax(0,1fr)!important;
+  align-items:stretch!important;justify-items:stretch!important;
+  gap:9px!important;margin:0!important;padding:0!important;
+  width:100%!important;min-width:0!important;
+}
+html body .ql-page #que-maleta .ql-v8-planner-layout > .ql-v8-planner-controls,
+html body .ql-page #que-maleta .ql-v8-planner-layout > .ql-v8-planner-results{
+  box-sizing:border-box!important;width:100%!important;min-width:0!important;
+  max-width:100%!important;margin:0!important;
+  padding:0!important;background:transparent!important;
+  border:0!important;border-radius:0!important;box-shadow:none!important;
+}
+html body .ql-page #que-maleta .ql-v8-planner-controls{
+  display:grid!important;
+  grid-template-columns:minmax(0,1fr) minmax(0,.78fr) minmax(0,1.08fr)!important;
+  gap:5px 10px!important;align-items:end!important;
+  align-content:start!important;
+}
+html body .ql-page #que-maleta .ql-planner-step{
+  grid-column:1/-1!important;margin:0 0 2px!important;gap:6px!important;
+  font:600 10.5px/1.3 "DM Sans",Arial,sans-serif!important;
+  color:#615a54!important;
+}
+html body .ql-page #que-maleta .ql-planner-step-num{
+  width:18px!important;height:18px!important;flex:0 0 18px!important;
+  background:#f8f0e9!important;border-color:#e7d8cb!important;
+  font:700 10px/1 "DM Sans",Arial,sans-serif!important;
+}
+html body .ql-page #que-maleta .ql-v8-planner-controls > .ql-v6-field{
+  display:block!important;min-width:0!important;width:100%!important;margin:0!important;
+}
+html body .ql-page #que-maleta .ql-v8-planner-controls .ql-v6-field > span,
+html body .ql-page #que-maleta .ql-v11-laundry-label{
+  display:block!important;margin:0 0 3px!important;
+  font:600 10px/1.35 "DM Sans",Arial,sans-serif!important;
+  color:#575049!important;
+}
+html body .ql-page #que-maleta .ql-v8-planner-controls .ql-v6-field select{
+  box-sizing:border-box!important;width:100%!important;
+  height:34px!important;min-height:34px!important;
+  padding:5px 9px!important;font:400 11.5px/1.3 "DM Sans",Arial,sans-serif!important;
+  border-radius:6px!important;
+}
+html body .ql-page #que-maleta .ql-v8-planner-controls > .ql-v11-laundry{
+  grid-column:auto!important;width:100%!important;min-width:0!important;
+  align-self:end!important;min-height:0!important;
+  margin:0!important;padding:0!important;
+}
+html body .ql-page #que-maleta .ql-v11-laundry-buttons{
+  display:flex!important;align-items:center!important;gap:6px!important;
+}
+html body .ql-page #que-maleta .ql-v11-laundry-buttons button{
+  min-height:34px!important;height:34px!important;flex:1 1 0!important;
+  padding:5px 9px!important;font-size:11px!important;border-radius:6px!important;
+}
+html body .ql-page #que-maleta .ql-v8-planner-results{
+  display:flex!important;flex-direction:column!important;
+  align-items:stretch!important;gap:5px!important;
+}
+html body .ql-page #que-maleta .ql-v8-planner-results > .ql-planner-step{
+  width:100%!important;margin:0 0 1px!important;padding:0!important;
+}
+html body .ql-page #que-maleta .ql-v8-planner-results > .ql-v7-bag-grid{
+  box-sizing:border-box!important;display:grid!important;
+  grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:8px!important;
+  width:100%!important;height:auto!important;min-height:0!important;
+  margin:0!important;padding:0!important;
+}
+html body .ql-page #que-maleta .ql-v8-planner-results .ql-v7-bag-card{
+  box-sizing:border-box!important;display:flex!important;flex-direction:column!important;
+  align-items:center!important;justify-content:center!important;
+  min-width:0!important;min-height:98px!important;height:auto!important;
+  margin:0!important;padding:8px 8px 7px!important;
+  gap:2px!important;text-align:center!important;
+  border:1px solid #d9dbd7!important;border-radius:9px!important;
+  background:#f4f5f3!important;
+}
+html body .ql-page #que-maleta .ql-v8-planner-results .ql-v7-bag-card.is-recommended{
+  border:1.5px solid #bc8062!important;
+  background:#e9ece8!important;
+  padding:8px 8px 7px!important;
+}
+html body .ql-page #que-maleta .ql-v8-planner-results .ql-v7-bag-icon{
+  width:29px!important;min-width:29px!important;
+  height:33px!important;min-height:0!important;
+  flex:0 0 33px!important;margin:0 auto!important;
+}
+html body .ql-page #que-maleta .ql-v8-planner-results .ql-v7-bag-icon svg{
+  width:28px!important;height:32px!important;
+}
+html body .ql-page #que-maleta .ql-v8-planner-results .ql-v7-bag-card h3{
+  font:500 15px/1.14 var(--vcc-font-heading,"Oswald",sans-serif)!important;
+  margin:0 0 2px!important;
+}
+html body .ql-page #que-maleta .ql-v8-planner-results .ql-v7-bag-card p{
+  font:400 10px/1.25 var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;
+  margin:0 0 2px!important;
+}
+html body .ql-page #que-maleta .ql-v8-planner-results .ql-v7-bag-card small{
+  font:400 9px/1.2 var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;
+  margin:0!important;
+}
+html body .ql-page #que-maleta .ql-v8-planner-results .ql-v7-bag-badge{
+  top:4px!important;right:4px!important;
+  font-size:7px!important;line-height:1.2!important;
+  padding:2px 5px!important;border-radius:3px!important;
+}
+html body .ql-page #que-maleta .ql-v7-airline-note{
+  box-sizing:border-box!important;width:100%!important;
+  margin:5px 0 0!important;padding:5px 0 0!important;
+  font:400 9.5px/1.45 var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;
+  color:#857970!important;border-top:1px solid #eee8e2!important;
+}
+/* Fonts climàtiques citades sense aspecte de botó ni element prioritari. */
+html body .ql-page #haz-tu-maleta .ql-v9-climate-source,
+html body .ql-page #haz-tu-maleta .ql-v9-climate-source a{
+  color:#93877e!important;font-size:9px!important;font-weight:400!important;
+  text-decoration-color:#d7c8bb!important;
+}
+html body .ql-page .ql-foot-note{
+  font-size:10px!important;line-height:1.45!important;color:#8a8078!important;
+}
+
+@media(max-width:700px){
+ html body .ql-page #que-maleta > .ql-v8-bag-planner{
+   padding:10px 11px 9px!important;
+ }
+ html body .ql-page #que-maleta .ql-v8-planner-controls{
+   grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important;
+   gap:6px 9px!important;
+ }
+ html body .ql-page #que-maleta .ql-v8-planner-controls > .ql-v11-laundry{
+   grid-column:1/-1!important;
+ }
+ html body .ql-page #que-maleta .ql-v8-planner-results > .ql-v7-bag-grid{
+   gap:7px!important;
+ }
+ html body .ql-page #que-maleta .ql-v8-planner-results .ql-v7-bag-card{
+   min-height:98px!important;padding:8px 6px 6px!important;
+ }
+ html body .ql-page #que-maleta .ql-v8-planner-results .ql-v7-bag-card.is-recommended{
+   padding:8px 6px 6px!important;
+ }
+ html body .ql-page #que-maleta .ql-v8-planner-results .ql-v7-bag-card h3{
+   font-size:14px!important;
+ }
+}
+@media(max-width:480px){
+ html body .ql-page :is(#experiencia-vcc,#que-maleta,#haz-tu-maleta,#imprescindibles,#consejos) .ql-section-heading p.ql-heading-lead{
+   font-size:11.5px!important;line-height:1.5!important;margin-top:5px!important;
+ }
+ html body .ql-page #que-maleta > .ql-v8-bag-planner{padding:9px 9px 8px!important}
+ html body .ql-page #que-maleta .ql-v8-planner-results > .ql-v7-bag-grid{gap:6px!important}
+ html body .ql-page #que-maleta .ql-v8-planner-results .ql-v7-bag-card{
+   min-height:94px!important;padding:8px 5px 6px!important;
+ }
+ html body .ql-page #que-maleta .ql-v8-planner-results .ql-v7-bag-card.is-recommended{
+   padding:8px 5px 6px!important;
+ }
+ html body .ql-page #que-maleta .ql-v8-planner-results .ql-v7-bag-card p{
+   display:none!important;
+ }
+ html body .ql-page #que-maleta .ql-v8-planner-results .ql-v7-bag-card h3{
+   font-size:13.5px!important;
+ }
+ html body .ql-page #que-maleta .ql-v8-planner-results .ql-v7-bag-card small{
+   font-size:8.5px!important;
+ }
+}
+
+/* 17-11-2026 · Checklist editorial compacta. Sense scroll interior ni contingut ocult. */
+html body .ql-page #haz-tu-maleta > .ql-v17-climate-card{
+  margin-bottom:8px!important;
+  padding:7px 11px 5px!important;
+  min-height:0!important;
+}
+html body .ql-page #haz-tu-maleta > .ql-v6-list{
+  padding:10px 11px!important;
+}
+html body .ql-page #haz-tu-maleta .ql-v6-scroll-shell > .ql-v6-categories{
+  align-items:start!important;
+  align-content:start!important;
+  grid-auto-flow:row!important;
+  gap:9px!important;
+}
+html body .ql-page #haz-tu-maleta .ql-v6-scroll-shell > .ql-v6-categories > .ql-v6-category{
+  height:auto!important;
+  min-height:0!important;
+  align-self:start!important;
+  border-radius:9px!important;
+}
+html body .ql-page #haz-tu-maleta .ql-v6-category h4{
+  font-size:16px!important;
+  padding:7px 9px!important;
+  gap:5px!important;
+}
+html body .ql-page #haz-tu-maleta .ql-v6-category ul{
+  padding:3px 8px 5px!important;
+}
+html body .ql-page #haz-tu-maleta .ql-v6-category label{
+  min-height:34px!important;
+  padding:3px 0!important;
+  gap:5px!important;
+}
+html body .ql-page #haz-tu-maleta .ql-v6-item-icon{
+  width:21px!important;
+  height:21px!important;
+  flex:0 0 21px!important;
+}
+html body .ql-page #haz-tu-maleta .ql-v6-item-content{
+  font-size:10.5px!important;
+  line-height:1.3!important;
+  gap:4px!important;
+}
+html body .ql-page #haz-tu-maleta > .ql-v17-actions-strip{
+  margin-top:6px!important;
+  gap:5px 16px!important;
+}
+html body .ql-page #haz-tu-maleta .ql-v17-actions-strip > .ql-v6-caveat{
+  line-height:1.4!important;
+}
+/* Una sola fila en desktop: reduïm l'alçada total de la checklist. */
+@media (min-width:1080px){
+  html body .ql-page #haz-tu-maleta .ql-v6-scroll-shell > .ql-v6-categories{
+    grid-template-columns:repeat(4,minmax(0,1fr))!important;
+    grid-template-rows:none!important;
+  }
+}
+/* Dues columnes llegibles en tauletes i ordinadors estrets. */
+@media (min-width:701px) and (max-width:1079px){
+  html body .ql-page #haz-tu-maleta .ql-v6-scroll-shell > .ql-v6-categories{
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    grid-template-rows:none!important;
+  }
+}
+/* Al mòbil preval la lectura i la zona tàctil, sense retallar cap element. */
+@media (max-width:700px){
+  html body .ql-page #haz-tu-maleta .ql-v6-scroll-shell > .ql-v6-categories{
+    grid-template-columns:minmax(0,1fr)!important;
+    grid-template-rows:none!important;
+    gap:8px!important;
+  }
+  html body .ql-page #haz-tu-maleta .ql-v6-category label{
+    min-height:40px!important;
+    padding:5px 0!important;
+  }
+  html body .ql-page #haz-tu-maleta .ql-v6-item-content{
+    font-size:11.5px!important;
+  }
+  html body .ql-page #haz-tu-maleta > .ql-v17-actions-strip{
+    margin-top:5px!important;
+  }
+}
+/* Mateix ritme final per als apartats d'aquesta guia, inclòs estalvi d'espai. */
+html body .ql-page .ql-main > :is(.ql-v11-experience,.ql-v7-section-bag,.ql-v7-section-pack,.ql-essentials-section,.ql-advice-section){
+  margin-bottom:28px!important;
+}
+html body .ql-page #consejos .ql-advice-heading-row{
+  margin-bottom:11px!important;
+}
+html body .ql-page #consejos .ql-advice-carousel{
+  margin-bottom:0!important;
+}
+html body .ql-page #consejos .ql-foot-note{
+  margin:6px 0 0!important;
+  padding:0!important;
+  font-size:10px!important;
+  line-height:1.45!important;
+  color:#8a8078!important;
+}
+@media (max-width:700px){
+  html body .ql-page .ql-main > :is(.ql-v11-experience,.ql-v7-section-bag,.ql-v7-section-pack,.ql-essentials-section,.ql-advice-section){
+    margin-bottom:24px!important;
+  }
+}
+@media print{
+  html body .ql-page #haz-tu-maleta .ql-v6-scroll-shell > .ql-v6-categories{
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    gap:10px!important;
+  }
+  html body .ql-page #haz-tu-maleta .ql-v6-category label{
+    min-height:0!important;
+  }
+}
+
+/* 17-11-2026 · Recuperem el taronja VCC i el segell visual de recomanació. */
+html body .ql-page #que-maleta .ql-v8-planner-results .ql-v7-bag-card{
+  background:rgba(241,243,245,.38)!important;
+  border-color:rgba(125,136,145,.16)!important;
+}
+html body .ql-page #que-maleta .ql-v8-planner-results .ql-v7-bag-card.is-recommended{
+  background:#f5dac4!important;
+  border:2px solid #b96d45!important;
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.48),0 2px 10px rgba(144,83,43,.1)!important;
+}
+html body .ql-page #que-maleta .ql-v8-planner-results .ql-v7-bag-badge{
+  display:inline-flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  gap:4px!important;
+  top:-5px!important;
+  right:4px!important;
+  padding:2px 7px 2px 3px!important;
+  min-height:24px!important;
+  border:1px solid #b96d45!important;
+  border-radius:999px!important;
+  background:#fffdfa!important;
+  color:#964a2c!important;
+  font:800 9px/1.1 var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;
+  letter-spacing:.035em!important;
+  box-shadow:0 2px 6px rgba(110,66,43,.12)!important;
+  white-space:nowrap!important;
+}
+html body .ql-page #que-maleta .ql-v8-planner-results .ql-v7-bag-badge::before{
+  content:"";
+  display:block;
+  width:19px;
+  height:19px;
+  flex:0 0 19px;
+  border:1px solid #ebd7c5;
+  border-radius:50%;
+  background:#fff url("/configuracion/imagenes/marca/logo-vcc.svg") center / 17px 17px no-repeat;
+}
+html body .ql-page #que-maleta .ql-v8-planner-results .ql-v7-bag-badge[hidden]{
+  display:none!important;
+}
+@media(max-width:480px){
+  html body .ql-page #que-maleta .ql-v8-planner-results .ql-v7-bag-badge{
+    top:-4px!important;
+    right:2px!important;
+    gap:3px!important;
+    min-height:21px!important;
+    padding:1px 5px 1px 2px!important;
+    font-size:7.8px!important;
+    letter-spacing:0!important;
+  }
+  html body .ql-page #que-maleta .ql-v8-planner-results .ql-v7-bag-badge::before{
+    width:17px;height:17px;flex-basis:17px;
+    background-size:15px 15px;
+  }
+}
+
+/* VCC · Qué llevar: explicación de la recomendación y prueba visual de la ruta real.
+   Estilos compartidos entre ES y EN, sin duplicar diseño. */
+html body .ql-page .ql-vcc-bag-reason{
+ margin:9px 4px 0;
+ color:#514e49;
+ font:500 12px/1.5 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
+}
+html body .ql-page .ql-vcc-experience-context{
+ display:grid;
+ grid-template-columns:minmax(0,.9fr) minmax(0,1.4fr);
+ gap:clamp(14px,2.4vw,26px);
+ align-items:center;
+ margin:16px 0 20px;
+ padding:14px;
+ border:1px solid rgba(102,95,80,.13);
+ border-radius:14px;
+ background:rgba(255,255,255,.72);
+}
+html body .ql-page .ql-vcc-experience-gallery{
+  min-width:0;
+  width:100%;
+  margin:0;
+}
+html body .ql-page .ql-vcc-experience-gallery .day-mosaic{
+  width:100%;
+}
+html body .ql-page .ql-vcc-experience-route span{
+ display:block;margin-bottom:7px;color:#9b612d;text-transform:uppercase;
+ letter-spacing:.06em;font:700 11px/1.4 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
+}
+html body .ql-page .ql-vcc-experience-route p{
+ margin:0 0 12px;color:#46413e;font:400 clamp(12px,1.13vw,14px)/1.65 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
+}
+html body .ql-page .ql-vcc-experience-route a{
+ color:#9b612d;font:700 12px/1.5 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
+ text-decoration:underline;text-underline-offset:3px;
+}
+html body .ql-page .ql-vcc-experience-route a:focus-visible{
+ outline:2px solid currentColor;outline-offset:3px;
+}
+@media(max-width:700px){
+ html body .ql-page .ql-vcc-experience-context{grid-template-columns:1fr;gap:12px;padding:11px;}
+ html body .ql-page .ql-vcc-bag-reason{font-size:11.5px;}
+}
+
+/* El visor d'aquesta pàgina recupera les columnes i els laterals del component
+   CSS compartit vcc-gallery-booking.css, sense cap override local de la seva quadrícula. */
+/* Texto editorial más detallado sin alterar la distribución de fotos. */
+html body .ql-page .ql-vcc-experience-route{
+ min-width:0;
+}
+html body .ql-page .ql-vcc-experience-route p{
+ margin:0 0 9px;
+ font-size:clamp(11.75px,.88vw,12.5px)!important;
+ line-height:1.55;
+}
+html body .ql-page .ql-vcc-experience-route p strong{
+ font-weight:700;
+}
+html body .ql-page .ql-vcc-experience-context{
+ align-items:start;
+}
+
+/* Qué llevar: dos passos visuals, filtres i recomanació sense notes. */
+html body .ql-page #que-maleta .ql-v8-planner-controls .ql-v6-field > .ql-filter-label,
+html body .ql-page #que-maleta .ql-v8-planner-controls .ql-v11-laundry > .ql-filter-label{
+ display:flex!important;align-items:center!important;gap:5px!important;
+ color:#68635e!important;white-space:normal!important;
+}
+html body .ql-page #que-maleta .ql-filter-icon{
+ display:block;width:14px;height:14px;flex:0 0 14px;
+ color:#888983;stroke:#888983;fill:none;
+}
+html body .ql-page #que-maleta .ql-planner-step{
+ font-size:11px!important;font-weight:600!important;
+ color:#55534f!important;letter-spacing:0!important;
+}
+html body .ql-page #que-maleta .ql-planner-step-num{
+ width:19px!important;height:19px!important;flex:0 0 19px!important;
+ background:rgba(241,243,245,.6)!important;
+ border:1px solid #dedfdf!important;
+ color:#666763!important;
+}
+html body .ql-page #que-maleta .ql-v7-bag-card{gap:5px!important;}
+html body .ql-page #que-maleta .ql-v7-bag-card > h3{margin:3px 0 0!important;}
+html body .ql-page #que-maleta > .ql-section-heading{margin-bottom:13px!important;}

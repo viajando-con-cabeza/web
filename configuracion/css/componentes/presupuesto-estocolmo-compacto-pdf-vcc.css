@@ -1,0 +1,416 @@
+/* Presupuesto de Estocolmo · ajustes discretos y aislados sobre el CSS compartido.
+   Dos viñetas de Dónde gastar y ahorrar + acción de PDF en Diseña tu escapada. */
+html body.budget-vcc #gastar .decision-panel{
+  padding:16px 16px 13px!important;
+}
+html body.budget-vcc #gastar .decision-panel>header{
+  margin-bottom:6px!important;
+  padding-top:0!important;
+  padding-bottom:8px!important;
+}
+html body.budget-vcc #gastar .decision-panel header h3{
+  font-size:24px!important;
+  line-height:1.1!important;
+  margin-bottom:3px!important;
+}
+html body.budget-vcc #gastar .decision-panel header p{
+  font-size:10.5px!important;
+  line-height:1.4!important;
+}
+html body.budget-vcc #gastar .decision-panel .decision-row{
+  grid-template-columns:24px minmax(0,1fr)!important;
+  column-gap:8px!important;
+  padding:7px 0!important;
+  align-items:start!important;
+}
+html body.budget-vcc #gastar .decision-panel .vcc-decision-symbol{
+  width:23px!important;
+  height:23px!important;
+  margin-top:2px!important;
+}
+html body.budget-vcc #gastar .decision-panel .vcc-decision-symbol.vcc-yes{
+  font-size:17px!important;
+}
+html body.budget-vcc #gastar .decision-panel .vcc-decision-symbol.vcc-no{
+  font-size:20px!important;
+}
+html body.budget-vcc #gastar .decision-panel .decision-script{
+  font-size:22px!important;
+  line-height:1.06!important;
+  margin:0 0 3px!important;
+}
+html body.budget-vcc #gastar .decision-panel .decision-row p{
+  font-size:11px!important;
+  line-height:1.44!important;
+}
+/* Igual que en el presupuesto de Suecia: enlace sutil en el exterior,
+   justo debajo de ambas viñetas y alineado a la derecha. */
+html body.budget-vcc #calculadora .vcc-budget-excel-row{
+  display:flex!important;
+  align-items:center!important;
+  justify-content:flex-end!important;
+  width:100%!important;
+  margin:8px 0 0!important;
+  padding:0!important;
+  gap:0!important;
+}
+html body.budget-vcc #calculadora .vcc-budget-excel-row .vcc-budget-excel-action{
+  margin:0!important;
+  padding:4px 2px!important;
+}
+@media(max-width:720px){
+  html body.budget-vcc #gastar .decision-panel{
+    padding:14px 14px 12px!important;
+  }
+  html body.budget-vcc #gastar .decision-panel header h3{
+    font-size:22px!important;
+  }
+  html body.budget-vcc #gastar .decision-panel .decision-row{
+    grid-template-columns:24px minmax(0,1fr)!important;
+    column-gap:7px!important;
+    padding:8px 0!important;
+  }
+  html body.budget-vcc #gastar .decision-panel .decision-script{
+    font-size:22px!important;
+  }
+  html body.budget-vcc #gastar .decision-panel .decision-row p{
+    font-size:11px!important;
+    line-height:1.48!important;
+  }
+}
+
+/* Estocolmo · perfiles y desglose: densidad visual sutil (2026-11-19). */
+/* Reutilizamos las tarjetas existentes; sólo cambiamos su escala en esta página. */
+html body.budget-vcc{--vcc-budget-profile-card-height:170px}
+html body.budget-vcc #filosofia{--vcc-desglose-font-size:9.5px}
+html body.budget-vcc #filosofia .vcc-budget-mode-track>.vcc-budget-mode-card{
+  padding:9px 10px 8px!important;
+}
+html body.budget-vcc #filosofia .vcc-budget-mode-track>.vcc-budget-mode-card[aria-expanded="true"]{
+  padding:8px 9px 7px!important;
+}
+html body.budget-vcc #filosofia .vcc-budget-mode-top{gap:6px}
+html body.budget-vcc #filosofia .vcc-budget-mode-icon{
+  width:40px;height:40px;flex:0 0 40px;
+}
+html body.budget-vcc #filosofia .vcc-budget-mode-icon img{
+  width:39px;height:39px;
+}
+html body.budget-vcc #filosofia .vcc-budget-mode-title{gap:2px}
+html body.budget-vcc #filosofia .vcc-budget-mode-title strong{font-size:19px!important}
+html body.budget-vcc #filosofia .vcc-budget-mode-price{padding:4px 5px}
+html body.budget-vcc #filosofia .vcc-budget-mode-price strong{font-size:18px!important}
+html body.budget-vcc #filosofia .vcc-budget-mode-copy{
+  margin-top:5px;font-size:11px!important;line-height:1.42!important;
+}
+html body.budget-vcc #filosofia .vcc-budget-mode-footer.vcc-disclosure-footer{
+  padding-top:8px!important;
+}
+/* Panel desplegado: cabecera, totales y categorías más discretos, sin tocar importes. */
+html body.budget-vcc #filosofia .vcc-budget-panel{
+  padding:12px 15px 11px!important;
+}
+html body.budget-vcc #filosofia .vcc-budget-panel-head{
+  gap:9px!important;padding-bottom:8px!important;
+}
+html body.budget-vcc #filosofia .vcc-budget-panel-mark{
+  width:44px!important;height:44px!important;flex:0 0 44px!important;
+}
+html body.budget-vcc #filosofia .vcc-budget-panel-mark img{
+  width:42px!important;height:42px!important;
+}
+html body.budget-vcc #filosofia .vcc-budget-panel-heading h3{
+  font-size:22px!important;
+}
+html body.budget-vcc #filosofia .vcc-budget-panel-heading p{
+  font-size:10.5px!important;line-height:1.37!important;
+}
+html body.budget-vcc #filosofia .vcc-budget-panel-grid{
+  padding-top:9px!important;gap:14px!important;
+}
+html body.budget-vcc #filosofia .vcc-budget-panel-column h4{
+  font-size:19px!important;margin-bottom:8px!important;
+}
+html body.budget-vcc #filosofia .vcc-budget-total{
+  padding:7px 10px!important;margin-bottom:7px!important;
+}
+html body.budget-vcc #filosofia .vcc-budget-total .vcc-budget-total-person{
+  font-size:27px!important;
+}
+html body.budget-vcc #filosofia .vcc-budget-total-meta b{
+  font-size:16px!important;
+}
+html body.budget-vcc #filosofia .vcc-budget-side-title{
+  font-size:20px!important;margin:11px 0 5px!important;
+}
+html body.budget-vcc #filosofia .vcc-budget-side-copy,
+html body.budget-vcc #filosofia .vcc-budget-pros{
+  font-size:10.5px!important;line-height:1.45!important;
+}
+html body.budget-vcc #filosofia .vcc-budget-breakdown{gap:3px!important}
+html body.budget-vcc #filosofia .vcc-budget-breakdown-row{
+  padding-bottom:6px!important;
+}
+html body.budget-vcc #filosofia .vcc-budget-row-heading{
+  grid-template-columns:20px minmax(0,1fr) auto;gap:6px;
+}
+html body.budget-vcc #filosofia .vcc-budget-row-icon{
+  font-size:16px!important;
+}
+html body.budget-vcc #filosofia .vcc-budget-row-heading strong{
+  font-size:11.5px!important;
+}
+html body.budget-vcc #filosofia .vcc-budget-row-heading b{
+  font-size:17px!important;
+}
+html body.budget-vcc #filosofia .vcc-budget-breakdown-row p{
+  margin:2px 0 0 26px!important;
+  font-size:10.5px!important;line-height:1.42!important;
+}
+html body.budget-vcc #filosofia .vcc-budget-breakdown-total{
+  padding:6px 9px;font-size:11.5px;
+}
+html body.budget-vcc #filosofia .vcc-budget-breakdown-total strong{
+  font-size:22px;
+}
+html body.budget-vcc #filosofia .vcc-daily-track .vcc-budget-day{
+  padding:8px!important;
+}
+html body.budget-vcc #filosofia .vcc-daily-track .vcc-budget-day-head{
+  padding-bottom:8px!important;
+}
+html body.budget-vcc #filosofia .vcc-daily-track .vcc-budget-day-expenses{
+  gap:6px!important;padding-top:8px!important;
+}
+html body.budget-vcc #filosofia .vcc-daily-track .vcc-budget-day-expenses li{
+  grid-template-columns:20px minmax(0,1fr) auto!important;
+  gap:5px!important;padding:7px!important;
+}
+html body.budget-vcc #filosofia .vcc-day-tile-icon{
+  width:20px!important;height:20px!important;
+}
+html body.budget-vcc #filosofia .vcc-day-tile-icon svg{
+  width:14px;height:14px;
+}
+html body.budget-vcc #filosofia .vcc-daily-track .vcc-day-expense-category{
+  font-size:10.5px!important;
+}
+html body.budget-vcc #filosofia .vcc-daily-track .vcc-budget-day-expenses li>strong{
+  font-size:11px!important;
+}
+@media(min-width:751px) and (max-width:1100px){
+  html body.budget-vcc{--vcc-budget-profile-card-height:170px}
+  html body.budget-vcc #filosofia .vcc-budget-mode-title strong{font-size:17.5px!important}
+  html body.budget-vcc #filosofia .vcc-budget-mode-price strong{font-size:16.5px!important}
+}
+@media(max-width:750px){
+  html body.budget-vcc{--vcc-budget-profile-card-height:198px}
+  html body.budget-vcc #filosofia{--vcc-desglose-font-size:10px}
+  html body.budget-vcc #filosofia .vcc-budget-mode-copy{
+    font-size:11.5px!important;line-height:1.45!important;
+  }
+  html body.budget-vcc #filosofia .vcc-budget-panel{padding:12px!important}
+  html body.budget-vcc #filosofia .vcc-budget-panel-grid{gap:12px!important}
+  html body.budget-vcc #filosofia .vcc-budget-breakdown-row p{
+    font-size:11.5px!important;line-height:1.46!important;
+  }
+  html body.budget-vcc #filosofia .vcc-budget-panel-column+.vcc-budget-panel-column{
+    padding-top:12px!important;
+  }
+}
+
+
+/* Estocolmo · ajuste tipográfico únicamente en los dos desgloses (2026-11-19 b). */
+/* Se mantienen precios, importes, iconos y tamaño de tarjetas. */
+html body.budget-vcc #filosofia .vcc-budget-row-heading strong{
+  font-size:10.5px!important;
+}
+html body.budget-vcc #filosofia .vcc-budget-breakdown-row p{
+  font-size:9.5px!important;
+}
+html body.budget-vcc #filosofia .vcc-daily-track .vcc-day-expense-category{
+  font-size:9.5px!important;
+}
+html body.budget-vcc #filosofia .vcc-daily-track .vcc-budget-day-expenses .vcc-day-expense-info{
+  font-size:9.5px!important;
+}
+@media(max-width:750px){
+  html body.budget-vcc #filosofia .vcc-budget-breakdown-row p{
+    font-size:10.5px!important;
+  }
+  html body.budget-vcc #filosofia .vcc-daily-track .vcc-day-expense-category{
+    font-size:9.8px!important;
+  }
+  html body.budget-vcc #filosofia .vcc-daily-track .vcc-budget-day-expenses .vcc-day-expense-info{
+    font-size:10px!important;
+  }
+}
+
+/* Etiqueta de unidad visible en el desglose por persona · 2026-11-19. */
+html body.budget-vcc #filosofia .vcc-budget-panel-column h4 .vcc-budget-basis{
+  display:inline-block;vertical-align:middle;margin-left:5px;
+  font:700 9.5px/1.25 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
+  letter-spacing:.04em;color:#976453;white-space:nowrap;
+}
+
+
+/* Estocolmo · resumen de presupuesto: pax, día y total de itinerario (2026-11-19). */
+/* Disposición común para los cuatro perfiles; preservar colores específicos de VCC. */
+html body.budget-vcc #filosofia .vcc-budget-total .vcc-budget-total-top{
+  display:flex;align-items:flex-start;justify-content:space-between;
+  gap:8px;margin:0 0 6px;
+}
+html body.budget-vcc #filosofia .vcc-budget-total .vcc-budget-trip-meta{
+  font:500 9.5px/1.25 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
+  color:#756960;text-align:right;white-space:nowrap;
+}
+html body.budget-vcc #filosofia .vcc-budget-total .vcc-budget-total-main{
+  display:flex;align-items:baseline;flex-wrap:wrap;
+  column-gap:8px;row-gap:2px;margin:0 0 7px;
+}
+html body.budget-vcc #filosofia .vcc-budget-total .vcc-budget-total-main .vcc-budget-total-person{
+  display:inline-block!important;margin:0!important;
+  font-size:27px!important;line-height:1.08!important;
+}
+html body.budget-vcc #filosofia .vcc-budget-total .vcc-budget-total-day{
+  display:inline-block;
+  font:500 11px/1.25 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
+  color:#766960;white-space:nowrap;
+}
+html body.budget-vcc #filosofia .vcc-budget-total .vcc-budget-total-meta{
+  display:flex;align-items:baseline;justify-content:space-between;
+  gap:10px;margin:0!important;padding-top:6px!important;
+  font-size:10.5px!important;
+}
+html body.budget-vcc #filosofia .vcc-budget-total .vcc-budget-total-meta b{
+  font-size:17px!important;white-space:nowrap;
+}
+@media(max-width:750px){
+  html body.budget-vcc #filosofia .vcc-budget-total .vcc-budget-total-top{
+    gap:5px;margin-bottom:5px;
+  }
+  html body.budget-vcc #filosofia .vcc-budget-total .vcc-budget-trip-meta{
+    font-size:9px;
+  }
+  html body.budget-vcc #filosofia .vcc-budget-total .vcc-budget-total-main{
+    column-gap:7px;margin-bottom:6px;
+  }
+  html body.budget-vcc #filosofia .vcc-budget-total .vcc-budget-total-main .vcc-budget-total-person{
+    font-size:27px!important;
+  }
+  html body.budget-vcc #filosofia .vcc-budget-total .vcc-budget-total-day{
+    font-size:10px;
+  }
+  html body.budget-vcc #filosofia .vcc-budget-total .vcc-budget-total-meta{
+    font-size:10px!important;
+  }
+  html body.budget-vcc #filosofia .vcc-budget-total .vcc-budget-total-meta b{
+    font-size:16px!important;
+  }
+}
+
+
+/* Estocolmo · desglose de presupuesto: panel más bajo y enlace de itinerario visible (2026-11-24). */
+/* Solo el desglose desplegado: nunca las tarjetas selectoras, calculadora ni otras páginas. */
+html body.budget-vcc #filosofia .vcc-budget-panel{
+  padding:10px 13px 9px!important;
+}
+html body.budget-vcc #filosofia .vcc-budget-panel-head{
+  gap:8px!important;
+  padding-bottom:6px!important;
+}
+html body.budget-vcc #filosofia .vcc-budget-panel[data-budget-panel="vcc"] .vcc-budget-panel-head{
+  margin:-10px -13px 0!important;
+  padding:9px 13px 7px!important;
+}
+html body.budget-vcc #filosofia .vcc-budget-panel-mark{
+  width:40px!important;height:40px!important;flex-basis:40px!important;
+}
+html body.budget-vcc #filosofia .vcc-budget-panel-mark img{
+  width:32px!important;height:32px!important;
+}
+html body.budget-vcc #filosofia .vcc-budget-panel-heading h3{
+  font-size:21px!important;line-height:1.05!important;margin-bottom:1px!important;
+}
+html body.budget-vcc #filosofia .vcc-budget-panel-heading p{
+  margin-top:2px!important;font-size:10.5px!important;line-height:1.3!important;
+}
+html body.budget-vcc #filosofia .vcc-budget-panel-grid{
+  padding-top:7px!important;gap:12px!important;
+}
+html body.budget-vcc #filosofia .vcc-budget-panel-column+.vcc-budget-panel-column{
+  padding-left:12px!important;
+}
+html body.budget-vcc #filosofia .vcc-budget-panel-column h4{
+  margin-bottom:6px!important;font-size:18px!important;line-height:1.12!important;
+}
+html body.budget-vcc #filosofia .vcc-budget-total{
+  margin-bottom:5px!important;padding:6px 9px!important;
+}
+html body.budget-vcc #filosofia .vcc-budget-side-title{
+  margin:7px 0 3px!important;font-size:19px!important;
+}
+html body.budget-vcc #filosofia .vcc-budget-side-copy{
+  line-height:1.4!important;margin-bottom:7px!important;
+}
+html body.budget-vcc #filosofia .vcc-budget-breakdown{
+  gap:2px!important;
+}
+html body.budget-vcc #filosofia .vcc-budget-breakdown-row{
+  padding-bottom:4px!important;
+}
+html body.budget-vcc #filosofia .vcc-budget-breakdown-row p{
+  margin:2px 0 0 26px!important;line-height:1.32!important;
+}
+html body.budget-vcc #filosofia .vcc-budget-row-heading b{
+  font-size:16px!important;
+}
+html body.budget-vcc #filosofia .vcc-budget-daily-top{
+  margin-bottom:6px!important;gap:7px!important;
+}
+html body.budget-vcc #filosofia .vcc-daily-track .vcc-budget-day{
+  padding:6px 8px 7px!important;
+}
+html body.budget-vcc #filosofia .vcc-daily-track .vcc-budget-day-head{
+  padding-bottom:5px!important;
+}
+html body.budget-vcc #filosofia .vcc-daily-track .vcc-budget-day-expenses{
+  gap:4px!important;padding-top:4px!important;
+}
+html body.budget-vcc #filosofia .vcc-daily-track .vcc-budget-day-expenses li:not(.vcc-day-total-tile){
+  padding:5px 6px!important;gap:3px!important;row-gap:3px!important;
+}
+html body.budget-vcc #filosofia .vcc-daily-track .vcc-budget-day-expenses .vcc-day-expense-info{
+  line-height:1.3!important;
+}
+html body.budget-vcc #filosofia .vcc-budget-daily-column>.vcc-budget-side-copy{
+  margin:5px 0 0!important;text-align:right!important;
+}
+/* El mateix taronja dels enllaços editorials VCC, sense afegir cap botó. */
+html body.budget-vcc #filosofia .vcc-budget-daily-column>.vcc-budget-side-copy a{
+  color:#bc5a3b!important;
+  font-weight:700!important;
+  text-decoration:none!important;
+}
+html body.budget-vcc #filosofia .vcc-budget-daily-column>.vcc-budget-side-copy a:is(:hover,:focus-visible){
+  color:#923e27!important;text-decoration:underline!important;text-underline-offset:3px!important;
+}
+/* Mobile: compactar espais, sense escurçar les descripcions ni canviar el layout. */
+@media(max-width:750px){
+  html body.budget-vcc #filosofia .vcc-budget-panel{
+    padding:10px 11px!important;
+  }
+  html body.budget-vcc #filosofia .vcc-budget-panel[data-budget-panel="vcc"] .vcc-budget-panel-head{
+    margin:-10px -11px 0!important;padding:10px 11px 7px!important;
+  }
+  html body.budget-vcc #filosofia .vcc-budget-panel-column+.vcc-budget-panel-column{
+    padding:10px 0 0!important;
+  }
+  html body.budget-vcc #filosofia .vcc-budget-panel-grid{gap:10px!important;}
+  html body.budget-vcc #filosofia .vcc-budget-breakdown-row p{
+    line-height:1.4!important;
+  }
+  html body.budget-vcc #filosofia .vcc-daily-track .vcc-budget-day-expenses .vcc-day-expense-info{
+    line-height:1.35!important;
+  }
+}

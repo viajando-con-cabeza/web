@@ -1,0 +1,21 @@
+/* VCC · Estat editorial de targetes reutilitzable a noves destinacions. */
+.di-mini-card[data-vcc-publication="draft"]{
+  cursor:default;opacity:.76;
+}
+.di-mini-card[data-vcc-publication="draft"]:is(:hover,:focus-visible){
+  transform:none;box-shadow:none;
+}
+.di-mini-card[data-vcc-publication="draft"] .di-mini-photo img{
+  transform:none!important;
+}
+/* L'etiqueta pendent és text real (PRÓXIMAMENTE), mai un ::after.
+   El ::after antic pintava PRÓXIMAMENTE sobre VER GUÍA quan es carregava
+   el CSS unificat de targetes. Una sola etiqueta = cap solapament. */
+.di-mini-card[data-vcc-publication="draft"] .di-mini-body > :is(.vcc-it-cta,.vcc-it-upcoming,.di-upcoming-status){
+  color:var(--vcc-color-muted,#716a64)!important;
+  text-decoration:none!important;
+}
+.di-mini-card[data-vcc-publication="draft"] .di-mini-body > b::after{
+  content:none!important;
+  display:none!important;
+}

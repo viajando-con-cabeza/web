@@ -1,0 +1,33 @@
+<!--
+PLANTILLA REUTILIZABLE · PÁGINA COMPLETA DE ITINERARIO
+
+Usar esta estructura para cualquier itinerario de ciudad:
+- hero hero-itinerary: fondo gris con avión azul decorativo.
+- h1: título SEO del itinerario.
+- hero p: 1-2 frases de resumen ejecutivo.
+- Después del hero empiezan directamente los day-section.
+- No añadir el antiguo bloque itinerary-intro.
+- Cada lugar de mañana/tarde/noche debe enlazar a que-ver.html con itinerary-place-link.
+- Las galerías usan photo-gallery + photo-frame y se comportan como un componente común.
+
+RUTAS:
+- Desde destinos/<pais>/<ciudad>/itinerario.html, que-ver.html apunta a la página "Qué ver" de esa ciudad.
+- En otros niveles, adaptar la ruta relativa manteniendo la misma estructura.
+
+ESTILOS GLOBALES:
+- /configuracion/css/styles.css contiene la estructura general y el hero de itinerarios.
+- /configuracion/css/itinerary-gallery.css contiene la galería reutilizable.
+- /configuracion/js/itinerary-gallery.js contiene el visor.
+-->
+<section class="hero hero-itinerary">
+  <div class="breadcrumb">Inicio / Destinos / País / Ciudad / Itinerario</div>
+  <div class="eyebrow">Ciudad en X días</div>
+  <h1>Itinerario de X días en Ciudad</h1>
+  <p>Resumen ejecutivo de una o dos frases sobre la ruta y sus imprescindibles.</p>
+</section>
+
+<main class="content">
+  <div class="itinerary">
+    <!-- Repetir config/itinerario-dia-template.html por cada día -->
+  </div>
+</main>

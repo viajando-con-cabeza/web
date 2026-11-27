@@ -1,0 +1,10 @@
+# Prevent test/preview hosts from appearing in Google; safe to retain on production.
+# Domain-qualified rules ONLY: production viajandoconcabeza.com is unaffected.
+https://web-quality.albertini1199.workers.dev/*
+  X-Robots-Tag: noindex
+
+https://quality.viajandoconcabeza.com/*
+  X-Robots-Tag: noindex
+
+https://www.quality.viajandoconcabeza.com/*
+  X-Robots-Tag: noindex

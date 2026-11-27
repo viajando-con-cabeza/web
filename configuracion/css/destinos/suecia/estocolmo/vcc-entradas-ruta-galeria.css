@@ -1,0 +1,149 @@
+/* Entradas y pases · especialització del component compartit
+   .vcc-gallery-companion-grid (vcc-gallery-booking.css).
+   El component comú defineix 3 columnes exactes: 2 per als dies, 1 per fotos. */
+.ep-page .ep4-our .ep4-route-layout{min-width:0;align-items:stretch}
+.ep-page .ep4-our .ep4-route-layout>.ep4-our-carousel,
+.ep-page .ep4-our .ep4-route-layout .ep4-our-stage,
+.ep-page .ep4-our .ep4-route-layout .ep4-our-stage>.ep4-our-list{
+  min-width:0;
+  height:100%;
+}
+/* Les fletxes se sobreposen a les targetes, no reserven marges:
+   així cada dia fa exactament l'ample de la 3a columna de fotos. */
+.ep-page .ep4-our .ep4-route-layout .ep4-our-stage{
+  padding:0!important;
+}
+.ep-page .ep4-our .ep4-route-layout .ep4-our-stage>.ep4-our-list{
+  display:flex!important;
+  align-items:stretch;
+  gap:12px!important;
+  padding:0!important;
+  margin:0!important;
+  scroll-padding:0!important;
+  overflow-x:auto!important;
+  overflow-y:hidden!important;
+  scroll-snap-type:x mandatory!important;
+}
+.ep-page .ep4-our .ep4-route-layout .ep4-our-list>.ep4-day-card{
+  display:flex!important;
+  flex-direction:column!important;
+  align-self:stretch;
+  box-sizing:border-box;
+  height:auto;
+  scroll-snap-align:start!important;
+}
+.ep-page .ep4-our .ep4-route-layout .ep4-our-list .ep4-day-body{
+  flex:1 1 auto;
+}
+@media(min-width:821px){
+  .ep-page .ep4-our .ep4-route-layout .ep4-our-list>.ep4-day-card{
+    flex:0 0 calc((100% - 12px)/2)!important;
+    width:calc((100% - 12px)/2)!important;
+    max-width:calc((100% - 12px)/2)!important;
+  }
+}
+.ep-page .ep4-our .ep4-route-layout .ep4-our-stage>.ep4-our-arrow{
+  z-index:4;
+  width:27px;
+  height:27px;
+  border-radius:50%;
+  background:rgba(255,255,255,.91);
+  border:1px solid #e7ded6;
+  box-shadow:0 1px 8px #36291b22;
+}
+.ep-page .ep4-our .ep4-route-layout .ep4-our-stage>.ep4-our-arrow-prev{left:2px!important}
+.ep-page .ep4-our .ep4-route-layout .ep4-our-stage>.ep4-our-arrow-next{right:2px!important}
+/* Les fotos són la tercera columna, sense la vinyeta blanca exterior. */
+.ep-page .ep4-our .ep4-route-layout>.ep4-photos-aside{
+  display:flex;
+  flex-direction:column;
+  box-sizing:border-box;
+  min-width:0;
+  min-height:0;
+  height:100%;
+  margin:0;
+  padding:0;
+  border:0;
+  border-radius:0;
+  background:transparent;
+  box-shadow:none;
+}
+.ep-page .ep4-photos-aside h3{
+  margin:0;color:#273030;
+  font:600 16px/1.22 var(--vcc-font-heading,"Oswald",sans-serif);
+}
+.ep-page .ep4-photos-aside .ep4-photos-lead{
+  margin:3px 0 7px;color:#68615a;
+  font:400 10px/1.42 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
+}
+.ep-page .ep4-photos-aside .day-gallery{
+  display:flex;
+  flex:1 1 auto;
+  width:100%;
+  min-width:0;
+  min-height:0;
+  margin:0;
+}
+.ep-page .ep4-photos-aside .day-mosaic[data-count]{
+  display:grid!important;
+  flex:1 1 auto;
+  width:100%!important;
+  height:100%!important;
+  min-height:0!important;
+  aspect-ratio:auto!important;
+  border-radius:15px;
+  overflow:hidden;
+}
+.ep-page .ep4-photos-aside .day-mosaic>button .ep4-photo-label{
+  position:absolute;z-index:3;right:6px;bottom:6px;
+  max-width:calc(100% - 12px);
+  padding:2px 5px;border:1px solid #ffffff47;border-radius:3px;
+  background:rgba(255,255,255,.66);color:#252321;
+  box-shadow:0 1px 3px #0000000f;
+  font:700 8.5px/1.2 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
+  text-align:right;text-transform:none!important;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;pointer-events:none;
+}
+.ep-page .ep4-photos-aside .ep4-photos-foot{
+  margin:6px 0 0;color:#70675d;
+  font:400 9px/1.35 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
+}
+/* El mosaic manté l'etiqueta de zona; la foto individual
+   usa la nota tipogràfica comuna fora de la imatge. */
+html body .ep4-gallery-modal[data-vcc-gallery-areas="1"] .day-lightbox-grid>button>span.vcc-gallery-area-label{
+  background:rgba(255,255,255,.66)!important;
+  border:1px solid rgba(255,255,255,.28)!important;
+  box-shadow:0 1px 3px #0000000f!important;color:#252321!important;
+  border-radius:3px!important;padding:2px 5px!important;
+  font:700 8.5px/1.2 var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;
+  text-transform:none!important;text-align:right!important;
+}
+html body .ep4-gallery-modal[data-vcc-gallery-areas="1"] .day-lightbox-grid>button>span.vcc-gallery-area-label{
+  left:auto!important;right:6px!important;bottom:6px!important;
+  max-width:calc(100% - 12px);
+}
+@media(max-width:820px){
+  .ep-page .ep4-our .ep4-route-layout>.ep4-our-carousel,
+  .ep-page .ep4-our .ep4-route-layout .ep4-our-stage,
+  .ep-page .ep4-our .ep4-route-layout .ep4-our-stage>.ep4-our-list{height:auto}
+  .ep-page .ep4-our .ep4-route-layout .ep4-our-list>.ep4-day-card{
+    flex:0 0 100%!important;width:100%!important;max-width:100%!important;
+  }
+  .ep-page .ep4-our .ep4-route-layout>.ep4-photos-aside{height:auto}
+  .ep-page .ep4-photos-aside .day-gallery{
+    flex:none;width:min(100%,640px);margin:0 auto;
+  }
+  .ep-page .ep4-photos-aside .day-mosaic[data-count]{
+    flex:none;height:auto!important;aspect-ratio:1.35!important;
+  }
+}
+@media(max-width:650px){
+  .ep-page .ep4-our .ep4-route-layout>.ep4-photos-aside{padding:0}
+  .ep-page .ep4-photos-aside .day-gallery{width:100%}
+  .ep-page .ep4-photos-aside .day-mosaic>button .ep4-photo-label{
+    right:5px;bottom:5px;font-size:8px;padding:2px 4px;
+  }
+}
+@media(prefers-reduced-motion:reduce){
+  .ep-page .ep4-photos-aside .day-mosaic>button>img{transition:none}
+}

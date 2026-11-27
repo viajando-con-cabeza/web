@@ -1,0 +1,52 @@
+name: Prepare initial VCC release
+on:
+  push:
+    branches:
+      - release/lanzamiento-suecia-2026-11-27
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: vcc-initial-release
+  cancel-in-progress: false
+jobs:
+  prepare:
+    if: github.ref == 'refs/heads/release/lanzamiento-suecia-2026-11-27'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install image build dependencies
+        run: python -m pip install Pillow pillow-avif-plugin
+      - name: Synchronize Spanish site and cached English mirror
+        run: |
+          npm run site:sync
+          node configuracion/scripts/generar-ui-compartida.mjs
+          node configuracion/scripts/traduccions/generar-en.mjs --write
+          node configuracion/scripts/traduccions/informe-en.mjs --write
+      - name: Commit generated candidate only (never main or quality)
+        run: |
+          test "$(git branch --show-current)" = "release/lanzamiento-suecia-2026-11-27"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if ! git diff --cached --quiet; then
+            git commit -m "Sync SEO, catalogs and cached EN for initial release"
+            git push origin HEAD:refs/heads/release/lanzamiento-suecia-2026-11-27
+          fi
+      - name: Validate release candidate without deploying
+        run: |
+          failures=0
+          for command in 'npm run deploy:check-production' 'npm test' 'npm run seo:check' 'node configuracion/scripts/validar-galeries.mjs' 'node configuracion/scripts/validar-iconos-vcc.mjs' 'node configuracion/scripts/generar-ui-compartida.mjs --check' 'node configuracion/scripts/traduccions/verificar-en.mjs' 'node configuracion/scripts/traduccions/informe-en.mjs --strict'; do
+            echo "::group::$command"
+            if ! bash -c "$command"; then failures=1; fi
+            echo "::endgroup::"
+          done
+          exit "$failures"

@@ -1,0 +1,214 @@
+/* Planifica · catàlegs de pressupostos i equipatge. Comparteixen l'estructura d'Itinerarios. */
+body.presupuestos-vcc .itinerarios-hero > .about-hero-photo,
+body.que-llevar-hub .itinerarios-hero > .about-hero-photo{
+ background-repeat:no-repeat!important;background-size:cover!important;
+ filter:none!important;
+}
+body.presupuestos-vcc .itinerarios-hero > .about-hero-photo{
+ background-image:url('/configuracion/imagenes/fondos/fondos-presupuesto.webp')!important;
+ background-position:center center!important;
+}
+body.que-llevar-hub .itinerarios-hero > .about-hero-photo{
+ background-image:url('/configuracion/imagenes/fondos/fondos-que-llevar.webp')!important;
+ background-position:center center!important;
+}
+@media(max-width:767px){
+ body.presupuestos-vcc .itinerarios-hero > .about-hero-photo{
+  background-image:url('/configuracion/imagenes/fondos/optimizadas/fondos-presupuesto-960.webp?v=0f43baf0e3ac')!important;
+ }
+ body.que-llevar-hub .itinerarios-hero > .about-hero-photo{
+  background-image:url('/configuracion/imagenes/fondos/optimizadas/fondos-que-llevar-960.webp?v=11b002ac8d30')!important;
+ }
+}
+@media(min-width:768px){
+ body.presupuestos-vcc .itinerarios-hero > .about-hero-photo{
+  background-image:url('/configuracion/imagenes/fondos/optimizadas/fondos-presupuesto-1920.webp?v=0f43baf0e3ac')!important;
+ }
+ body.que-llevar-hub .itinerarios-hero > .about-hero-photo{
+  background-image:url('/configuracion/imagenes/fondos/optimizadas/fondos-que-llevar-1920.webp?v=11b002ac8d30')!important;
+ }
+}
+.vcc-it-catalog .di-mini-card[hidden]{display:none!important}
+/* Fila compartida: buscador > continente > tipo > importe (solo presupuestos). */
+.vcc-it-catalog .vcc-catalog-toolbar{
+ display:flex;align-items:flex-end;gap:10px;flex-wrap:nowrap;
+ width:100%;min-width:0;margin:0 0 18px;
+}
+/* Amplada fixa i idèntica per als tres catàlegs, sense créixer a l'espai buit. */
+.vcc-it-catalog .vcc-catalog-toolbar .vcc-catalog-search{
+ box-sizing:border-box;flex:0 0 218px;
+ width:218px;max-width:218px;min-width:0;
+ height:40px;margin:0;
+}
+.vcc-it-catalog .vcc-catalog-toolbar .vcc-catalog-search input{
+ font-size:11px;
+}
+.vcc-it-catalog .vcc-catalog-toolbar .vcc-catalog-field{
+ display:flex;flex:0 1 162px;flex-direction:column;gap:4px;min-width:126px;
+ color:#625e5a;font:700 10px/1.25 var(--vcc-font-body,"DM Sans",Arial,sans-serif)
+}
+/* Icona vectorial reutilitzable a l'esquerra del nom de cada filtre. */
+.vcc-it-catalog .vcc-catalog-toolbar .vcc-catalog-field-title{
+ display:inline-flex;align-items:center;gap:6px;white-space:nowrap;
+ font:700 10px/1.25 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
+}
+.vcc-it-catalog .vcc-catalog-toolbar .vcc-catalog-field-title svg{
+ flex:0 0 15px;width:15px;height:15px;
+ color:#c36244;fill:none;stroke:none;
+}
+.vcc-it-catalog .vcc-catalog-toolbar .vcc-catalog-field select{
+ box-sizing:border-box;display:block;width:100%;height:40px;min-width:0;max-width:none;
+ padding:0 9px;border:1px solid #e7ddd4;border-radius:8px;
+ background:#fff;color:#3e3935;
+ font:500 11px/1.3 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
+ cursor:pointer;
+}
+.vcc-it-catalog .vcc-catalog-toolbar select:focus-visible,
+.vcc-it-catalog .vcc-catalog-toolbar input:focus-visible,
+.vcc-it-catalog .vcc-catalog-toolbar button:focus-visible{outline:2px solid #c06342;outline-offset:2px}
+.vcc-it-catalog .vcc-catalog-toolbar .vcc-catalog-reset{
+ flex:0 0 auto;min-height:40px;white-space:nowrap;border:0;background:transparent;
+ padding:7px 0;color:#b45032;font:700 11px/1.3 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
+ cursor:pointer
+}
+.vcc-it-catalog .vcc-catalog-toolbar .vcc-catalog-reset:hover{text-decoration:underline}
+.vcc-it-catalog .vcc-catalog-toolbar .vcc-catalog-count{
+ flex:0 0 auto;align-self:flex-end;display:block;
+ min-height:40px;line-height:40px;margin-left:auto;white-space:nowrap;
+}
+@media(max-width:1020px){
+ .vcc-it-catalog .vcc-catalog-toolbar{flex-wrap:wrap;gap:9px 11px}
+ .vcc-it-catalog .vcc-catalog-toolbar .vcc-catalog-search{
+  flex:0 0 218px;width:218px;max-width:218px;min-width:0;
+ }
+ .vcc-it-catalog .vcc-catalog-toolbar .vcc-catalog-field{flex:1 1 155px}
+}
+@media(max-width:620px){
+ .vcc-it-catalog .vcc-catalog-toolbar{gap:8px;margin-bottom:14px}
+ .vcc-it-catalog .vcc-catalog-toolbar .vcc-catalog-field{flex:1 1 calc(50% - 6px);min-width:0}
+ .vcc-it-catalog .vcc-catalog-toolbar .vcc-catalog-field select{font-size:11px}
+ .vcc-it-catalog .vcc-catalog-toolbar .vcc-catalog-reset{min-height:34px}
+ .vcc-it-catalog .vcc-catalog-toolbar .vcc-catalog-count{min-height:34px;line-height:34px}
+}
+@media(max-width:390px){
+ .vcc-it-catalog .vcc-catalog-toolbar .vcc-catalog-search{
+  flex:0 0 min(218px,100%);width:min(218px,100%);max-width:100%;
+ }
+ .vcc-it-catalog .vcc-catalog-toolbar .vcc-catalog-field{flex-basis:100%}
+}
+.vcc-it-catalog .vcc-catalog-note{margin:12px 0 0;color:#716a64;font:400 11px/1.6 var(--vcc-font-body,"DM Sans",Arial,sans-serif)}
+.vcc-it-catalog .vcc-it-facts .di-budget-row .di-price{white-space:nowrap}
+.vcc-it-catalog .vcc-it-facts .di-route-stats{white-space:nowrap}
+.vcc-it-catalog .vcc-it-card .di-mini-body{display:flex;flex-direction:column}
+@media(max-width:620px){
+ .vcc-it-catalog .vcc-it-facts{gap:9px}
+ .vcc-it-catalog .vcc-it-facts .di-price{font-size:9px}
+}
+
+
+/* VCC · Dónde ir: filtres del mateix component que Itinerarios/Presupuesto/Qué llevar.
+   La categoria d'una guia substitueix la nota d'un destí, que aquí no correspon. */
+.vcc-it-catalog .di-guide-card .di-guide-info{min-width:0}
+.vcc-it-catalog .vcc-guide-kind{
+ display:inline-flex;align-items:center;gap:5px;min-width:0;
+ color:#a45136;font:700 10px/1.3 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
+ white-space:nowrap;
+}
+.vcc-it-catalog .vcc-guide-kind svg{display:block;width:14px;height:14px;flex:none;color:#c56b46}
+.vcc-it-catalog .di-mini-tag svg{flex:none;width:14px;height:14px}
+.vcc-it-catalog .vcc-catalog-toolbar .vcc-catalog-field-country{flex:0 1 155px}
+.vcc-it-catalog .vcc-catalog-toolbar .vcc-catalog-search:focus-within{outline:2px solid #c06342;outline-offset:2px}
+@media(max-width:1020px){.vcc-it-catalog .vcc-catalog-toolbar .vcc-catalog-field-country{flex:1 1 155px}}
+@media(max-width:620px){
+ .vcc-it-catalog .vcc-guide-kind{font-size:9px;gap:3px}
+ .vcc-it-catalog .vcc-guide-kind svg{width:12px;height:12px}
+ .vcc-it-catalog .vcc-catalog-toolbar .vcc-catalog-field-country{flex:1 1 calc(50% - 6px)}
+}
+
+/* VCC · Format únic de filtres als hubs i a Dónde ir (Itinerarios, Guías, Consejos).
+   El CSS és compartit; cada apartat conserva els seus filtres existents. */
+:is(body.itinerarios-vcc,body.planifica-vcc,body.av-body,body.vcc-suecia-visitar,body.destinos-vcc) .vcc-it-catalog .vcc-catalog-toolbar{
+ align-items:flex-end;
+ margin-bottom:0;
+}
+:is(body.itinerarios-vcc,body.planifica-vcc,body.av-body,body.vcc-suecia-visitar,body.destinos-vcc) .vcc-it-catalog .vcc-catalog-toolbar .vcc-catalog-search-group{
+ box-sizing:border-box;
+ display:flex;flex:0 0 218px;flex-direction:column;gap:4px;
+ width:218px;max-width:218px;min-width:0;
+ color:#625e5a;
+}
+:is(body.itinerarios-vcc,body.planifica-vcc,body.av-body,body.vcc-suecia-visitar,body.destinos-vcc) .vcc-it-catalog .vcc-catalog-toolbar .vcc-catalog-search{
+ box-sizing:border-box;display:flex;align-items:center;
+ flex:none;width:100%;max-width:none;min-width:0;
+ height:40px;margin:0;padding:0 12px;
+ background:#fff;border:0;border-radius:7px;
+ outline:0;box-shadow:none;
+}
+:is(body.itinerarios-vcc,body.planifica-vcc,body.av-body,body.vcc-suecia-visitar,body.destinos-vcc) .vcc-it-catalog .vcc-catalog-toolbar .vcc-catalog-search input{
+ border:0;outline:0;box-shadow:none;
+ background:transparent;padding:0;min-width:0;
+}
+:is(body.itinerarios-vcc,body.planifica-vcc,body.av-body,body.vcc-suecia-visitar,body.destinos-vcc) .vcc-it-catalog .vcc-catalog-toolbar .vcc-catalog-field select{
+ border:0;border-radius:7px;background:#fff;
+ outline:0;box-shadow:none;
+}
+:is(body.itinerarios-vcc,body.planifica-vcc,body.av-body,body.vcc-suecia-visitar,body.destinos-vcc) .vcc-it-catalog .vcc-catalog-toolbar .vcc-catalog-search:focus-within,
+:is(body.itinerarios-vcc,body.planifica-vcc,body.av-body,body.vcc-suecia-visitar,body.destinos-vcc) .vcc-it-catalog .vcc-catalog-toolbar .vcc-catalog-field select:focus-visible{
+ outline:0;
+ box-shadow:inset 0 -2px 0 rgba(190,103,69,.65);
+}
+:is(body.itinerarios-vcc,body.planifica-vcc,body.av-body,body.vcc-suecia-visitar,body.destinos-vcc) .vcc-it-catalog .vcc-catalog-toolbar input:focus-visible{
+ outline:0;box-shadow:none;
+}
+:is(body.itinerarios-vcc,body.planifica-vcc,body.av-body,body.vcc-suecia-visitar,body.destinos-vcc) .vcc-it-catalog .vcc-catalog-meta{
+ display:flex;justify-content:flex-start;align-items:center;
+ min-height:15px;margin:7px 0 16px;
+}
+:is(body.itinerarios-vcc,body.planifica-vcc,body.av-body,body.vcc-suecia-visitar,body.destinos-vcc) .vcc-it-catalog .vcc-catalog-meta .vcc-catalog-reset{
+ display:inline-block;padding:0;min-height:0;
+ color:#89827b;background:transparent;border:0;
+ font:500 10px/1.5 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
+ text-decoration:none;cursor:pointer;
+}
+:is(body.itinerarios-vcc,body.planifica-vcc,body.av-body,body.vcc-suecia-visitar,body.destinos-vcc) .vcc-it-catalog .vcc-catalog-meta .vcc-catalog-reset:is(:hover,:focus-visible){
+ color:#ad583c;text-decoration:underline;
+ outline-offset:3px;
+}
+@media(max-width:390px){
+ :is(body.itinerarios-vcc,body.planifica-vcc,body.av-body,body.vcc-suecia-visitar,body.destinos-vcc) .vcc-it-catalog .vcc-catalog-toolbar .vcc-catalog-search-group{
+  flex:0 0 min(218px,100%);width:min(218px,100%);max-width:100%;
+ }
+}
+
+/* Text breu a la dreta del títol del catàleg de pressupostos. */
+@media(min-width:901px){
+  html body.presupuestos-vcc .vcc-it-catalog .vcc-it-heading.vcc-editorial-heading > p.vcc-editorial-description{
+    display:-webkit-box!important;
+    -webkit-line-clamp:2;
+    -webkit-box-orient:vertical;
+    overflow:hidden;
+    line-height:1.58!important;
+    max-height:3.16em;
+    max-width:450px!important;
+    text-align:right!important;
+  }
+}
+
+
+/* Dónde ir · Consejos: un únic «Tipo de viaje» no ha d'estirar-se per
+   omplir tota la fila quan el toolbar passa a flex-wrap. Mateixa amplada
+   que els filtres dels catàlegs d'Itinerarios i Guías. */
+html body .vcc-it-catalog #di-panel-consejos .vcc-catalog-toolbar .vcc-catalog-field{
+  box-sizing:border-box;
+  flex:0 0 162px;
+  width:162px;
+  min-width:0;
+  max-width:162px;
+}
+@media(max-width:390px){
+  html body .vcc-it-catalog #di-panel-consejos .vcc-catalog-toolbar .vcc-catalog-field{
+    flex:0 1 min(162px,100%);
+    width:min(162px,100%);
+    max-width:100%;
+  }
+}

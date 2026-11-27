@@ -1,0 +1,68 @@
+name: VCC · Regressió visual responsive
+on:
+  push:
+    branches: [quality]
+    paths:
+      - '.github/workflows/vcc-regressio-visual.yml'
+      - 'configuracion/scripts/validar-regresion-visual-vcc.mjs'
+      - 'configuracion/datos/compilacion-css-vcc.json'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: vcc-visual-quality
+  cancel-in-progress: true
+
+jobs:
+  compare:
+    name: Comparar 25 pàgines en PC, tablet i mòbil
+    runs-on: ubuntu-24.04
+    timeout-minutes: 22
+    steps:
+      - name: Quality actual
+        uses: actions/checkout@v4
+        with:
+          path: candidate
+          persist-credentials: false
+      - name: Referència visual abans de la consolidació
+        uses: actions/checkout@v4
+        with:
+          ref: 21433cc37ceaeca04fd73608027f497f2cf2d9b0
+          path: baseline
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Instal·lar només utilitats visuals al runner
+        working-directory: candidate
+        run: |
+          npm install --no-save --no-package-lock --ignore-scripts playwright@1.56.1 pixelmatch@6 pngjs@7
+          npx playwright install --with-deps chromium
+      - name: Servir ambdós snapshots estàtics de manera local
+        run: |
+          python3 -m http.server 4173 --bind 127.0.0.1 --directory baseline >/tmp/vcc-baseline.log 2>&1 &
+          python3 -m http.server 4174 --bind 127.0.0.1 --directory candidate >/tmp/vcc-quality.log 2>&1 &
+          for i in $(seq 1 30); do
+            if curl -sf http://127.0.0.1:4173/ >/dev/null && curl -sf http://127.0.0.1:4174/ >/dev/null; then exit 0; fi
+            sleep 1
+          done
+          echo "No es poden iniciar els servidors locals" >&2
+          exit 1
+      - name: Validar contingut, composició i captures Chromium
+        working-directory: candidate
+        env:
+          VCC_VISUAL_BASE: http://127.0.0.1:4173
+          VCC_VISUAL_CANDIDATE: http://127.0.0.1:4174
+          VCC_VISUAL_OUTPUT: /tmp/vcc-visual-report
+          VCC_VISUAL_BASE_SHA: 21433cc37ceaeca04fd73608027f497f2cf2d9b0
+        run: node configuracion/scripts/validar-regresion-visual-vcc.mjs
+      - name: Captures i informe de diferències
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: vcc-comparativa-responsive
+          path: /tmp/vcc-visual-report/
+          retention-days: 14
+          if-no-files-found: warn

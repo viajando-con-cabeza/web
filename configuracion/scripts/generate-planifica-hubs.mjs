@@ -1,0 +1,320 @@
+import fs from "node:fs";
+import path from "node:path";
+import {PUBLISHED_FILES, publicRoute} from "./lib/publicacion-vcc.mjs";
+import {normalizeCardImageHtml} from "./lib/targetes-vcc.mjs";
+
+const ROOT = process.cwd();
+
+// Metadades d'etiquetatge (NO d'estat de publicació): una sola font
+// per país, continent i futura escalabilitat dels catàlegs.
+const countryMeta = JSON.parse(fs.readFileSync(
+  new URL("../datos/paises-vcc.json", import.meta.url), "utf8"
+)).countries;
+
+function walk(dir, out = []) {
+  if (!fs.existsSync(dir)) return out;
+  for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+    const full = path.join(dir, entry.name);
+    if (entry.isDirectory()) walk(full, out);
+    else out.push(full);
+  }
+  return out;
+}
+function rel(file){ return path.relative(ROOT,file).split(path.sep).join("/"); }
+function esc(s=""){ return s.replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[c])); }
+function plain(s=""){ return s.replace(/<[^>]*>/g," ").replace(/\s+/g," ").trim(); }
+function titleCaseSlug(s=""){ return s.split("-").map(x=>x ? x[0].toUpperCase()+x.slice(1) : x).join(" "); }
+function metaFor(file){
+  const parts = rel(file).split("/");
+  const countrySlug = parts[1] || "";
+  const [country, continent] = countryMeta[countrySlug] || [titleCaseSlug(countrySlug).toUpperCase(), "all"];
+  return {country,continent};
+}
+function destinationFrom(html,file,type){
+  const title = plain((html.match(/<title>([\s\S]*?)<\/title>/i)||[])[1]||"");
+  let m;
+  if(type==="budget") m = title.match(/viajar a\s+([^:|]+?)(?:\s*[:|]|$)/i);
+  if(type==="map") m = title.match(/^(.+?)(?:\s+en\s+\d+\s+d[ií]as|\s*\||$)/i);
+  if(m?.[1]) return m[1].trim();
+  const parts=rel(file).split("/");
+  return titleCaseSlug(parts[parts.length-2]||"Destino");
+}
+const CHECK=process.argv.includes("--check");
+const outdated=[];
+function replaceAuto(file,start,end,body){
+  const full=path.join(ROOT,file);
+  const before=fs.readFileSync(full,"utf8");
+  const a=before.indexOf(start), b=before.indexOf(end);
+  if(a<0||b<0||b<a) throw new Error(`Missing auto markers in ${file}`);
+  // La mateixa transformació que aplica la publicació final: evita que
+  // --check detecti com a desactualitzades les targetes WebP responsives.
+  const html=before.slice(0,a+start.length)+"\n"+normalizeCardImageHtml(body.trim(),file)+"\n"+before.slice(b);
+  if(html!==before){
+    outdated.push(file);
+    if(!CHECK)fs.writeFileSync(full,html);
+  }
+}
+
+const all = walk(path.join(ROOT,"destinos")).filter(file=>file.endsWith(".html") && PUBLISHED_FILES.has(rel(file)));
+
+/* Catàlegs Planifica: mateixa targeta editorial amb una única fotografia.
+   Les noves guies s'afegeixen automàticament sense copiar CSS ni JavaScript. */
+const STOCKHOLM_COVER="https://img.viajandoconcabeza.com/destinos/suecia/estocolmo/2026-dia6/DSC07945.avif";
+function sourceGuideHeroPhoto(file, cls){
+ const html=fs.readFileSync(path.join(ROOT,file),"utf8");
+ const tags=[...html.matchAll(/<img\b[^>]*>/gi)].map(m=>m[0]);
+ const tag=tags.find(t=>t.includes('class="'+cls+'"'));
+ const url=tag?.match(/\bsrc="([^"]+)"/i)?.[1];
+ if(!url)throw new Error("No s'ha trobat la foto principal de "+file);
+ return url;
+}
+
+const CATALOG_ICONS="/configuracion/imagenes/iconos/paginas/itinerarios-iconos.svg";
+function catalogIcon(id,cls=""){
+ return '<svg'+(cls?' class="'+cls+'"':'')+' viewBox="0 0 24 24" aria-hidden="true"><use href="'+CATALOG_ICONS+'#'+id+'"></use></svg>';
+}
+/* Totes les targetes del catàleg tenen una única fotografia; el visor de fotos
+   segueix disponible dins de cada guia. R2 serveix mini i visor responsius. */
+function catalogCover(image,title,category){
+ const remote=String(image||'').match(/^https:\/\/img\.viajandoconcabeza\.com\/(?:__vcc_preview\/(?:mini|visor)\/)?(destinos\/[a-z0-9_.\/-]+\.(?:avif|webp))$/i);
+ const key=remote?.[1];
+ const base="https://img.viajandoconcabeza.com/__vcc_preview/";
+ const src=key?base+"visor/"+key:image;
+ const srcset=key?' srcset="'+esc(base+'mini/'+key)+' 480w, '+esc(base+'visor/'+key)+' 1800w"'+
+  ' sizes="(max-width: 520px) 100vw, (max-width: 850px) 50vw, 300px"':"";
+ return '<span class="di-mini-photo vcc-it-photo">'+
+  '<img class="vcc-card-cover-photo" src="'+esc(src)+'"'+srcset+' alt="'+esc(title)+
+  '" width="640" height="380" loading="lazy" decoding="async"></span>';
+}
+function catalogCountry(country,region=""){
+ // Mostra país i, quan la guia és local, també la ciutat/regió.
+ // Les guies de país mantenen només el país (p. ex. Suecia).
+ const location=[country,region].filter(Boolean).join(' · ');
+ return '<span class="di-country-line">'+
+ (country.toLocaleLowerCase('es')==='suecia'
+ ?'<svg class="vcc-it-country-flag" viewBox="0 0 32 20" role="img" aria-label="Bandera de Suecia"><use href="'+CATALOG_ICONS+'#it-flag-se"></use></svg>'
+ :"")+'<span>'+esc(location)+'</span></span>';
+}
+function catalogCard({kind,title,description,href,image,country,region="",type,typeLabel,continent,days,daily}){
+ const budget=kind==="budget";
+ const label='VER GUÍA';
+ const price=daily===null?'Consultar guía':new Intl.NumberFormat("es-ES",{maximumFractionDigits:1}).format(daily)+' €/pax/día';
+ const facts=budget?
+   '<span class="di-route-stats">'+catalogIcon("it-clock")+esc(days?days+' días':'Viaje real')+'</span>'+
+   '<span class="di-budget-row" title="Gasto por pax y día">'+catalogIcon("it-coins","vcc-it-coins")+
+   '<span class="di-price">'+esc(price)+'</span></span>'+catalogCountry(country)
+   :catalogCountry(country,region);
+ const search=[title,description,country,region,typeLabel,continent,budget?price:'equipaje ropa checklist maleta'].join(' ');
+ return '<article class="di-mini-card vcc-it-card '+(budget?'budget-card':'packing-card')+'" data-it-card data-it-search="'+esc(search)+'" data-continent="'+esc(continent)+'" data-type="'+esc(type)+'"'+(budget?' data-daily="'+(daily??'')+'"':'')+'>'+
+ catalogCover(image,title,typeLabel)+
+ '<div class="di-mini-body"><span class="vcc-card-kicker">'+catalogIcon("it-category-city")+esc(typeLabel.toUpperCase())+'</span>'+
+ '<a class="vcc-it-title" href="'+esc(href)+'">'+esc(title)+'</a>'+
+ '<div class="vcc-it-facts">'+facts+'</div><span class="di-mini-desc">'+esc(description)+'</span>'+
+ '<a class="vcc-it-cta" href="'+esc(href)+'">'+label+'</a></div></article>';
+}
+
+
+// Metadata editorial. Los importes se leen siempre del presupuesto publicado
+// (perfil VCC), para no duplicar cifras ni confundir estimaciones con gastos reales.
+const budgetEditorial = {
+  "destinos/suecia/estocolmo/presupuesto.html": {
+    type: "ciudades", typeLabel: "Ciudades", days: 3,
+    image: STOCKHOLM_COVER,
+    description: "Nuestro gasto real en una escapada urbana de 3 días: alojamiento, comida, transporte y actividades. Sin vuelos ni traslados de ida y vuelta."
+  }
+};
+
+function budgetDailyAmount(html) {
+  const declared = html.match(/<meta[^>]+name=["']vcc-budget-daily["'][^>]+content=["']([\d.,]+)["']/i);
+  const vccButton = html.match(/<button[^>]*data-budget-mode=["']vcc["'][\s\S]*?<\/button>/i);
+  const actual = vccButton?.[0].match(/class=["']vcc-budget-mode-price["'][\s\S]*?<strong[^>]*>\s*(?:≈\s*)?([\d.,]+)\s*€\s*<\/strong>/i);
+  const rawAmount = declared?.[1] || actual?.[1];
+  if (!rawAmount) return null;
+  const normalized = Number(rawAmount.replace(/\./g, "").replace(",", "."));
+  return Number.isFinite(normalized) && normalized > 0 ? normalized : null;
+}
+
+const budgetFiles = all.filter(f=>/\/presupuesto\.html$/i.test(f));
+const budgetCards = budgetFiles.map(file=>{
+ const html=fs.readFileSync(file,"utf8");
+ const filePath=rel(file);
+ const {country,continent}=metaFor(file);
+ const destination=destinationFrom(html,file,"budget");
+ const info=budgetEditorial[filePath]||{};
+ const daily=budgetDailyAmount(html);
+ const type=info.type||"otros";
+ const typeLabel=info.typeLabel||"Otros viajes";
+ const title=destination+(info.days?' en '+info.days+' días':'');
+ return catalogCard({kind:"budget",title,description:info.description||
+  "Consulta nuestro presupuesto completo, las categorías de gasto y los consejos para este destino.",
+  href:publicRoute(filePath),image:info.image||
+  "/configuracion/imagenes/fondos/fondos-presupuesto.webp",country,
+  type,typeLabel,continent,days:info.days||null,daily});
+}).sort((a,b)=>a.localeCompare(b,"es"));
+replaceAuto("planifica/presupuesto/index.html", "<!-- AUTO_BUDGETS_START -->", "<!-- AUTO_BUDGETS_END -->", budgetCards.join("\n"));
+
+const mapFiles = all.filter(f=>/\/itinerario\.html$/i.test(f));
+const mapCards = mapFiles.map(file=>{
+  const html=fs.readFileSync(file,"utf8");
+  const google=[...html.matchAll(/https:\/\/www\.google\.com\/maps\/[^"'\s<]+/gi)].map(m=>m[0]);
+  const hasMapAnchor=/id=["']mapa["']/i.test(html);
+  if(!google.length && !hasMapAnchor) return null;
+  const {country,continent}=metaFor(file);
+  const destination=destinationFrom(html,file,"map");
+  const title=plain((html.match(/<title>([\s\S]*?)<\/title>/i)||[])[1]||"");
+  const h1=plain((html.match(/<h1[^>]*>([\s\S]*?)<\/h1>/i)||[])[1]||"");
+  const d=(h1.match(/(\d+)\s+D[IÍ]AS/i)||title.match(/en\s+(\d+)\s+d[ií]as/i)||[])[1];
+  const dayCount=Number(d)||Math.max(1,(html.match(/VER RUTA EN GOOGLE MAPS/gi)||[]).length);
+  const routes=Array.from({length:dayCount},(_,i)=>`<li><strong>Día ${i+1}</strong><span>Ruta del día ${i+1}</span></li>`).join("");
+  const href=publicRoute(rel(file));
+  return `<article class="card destination" data-continent="${esc(continent)}"><div class="preview"><span class="badge">MAPA + ${dayCount} DÍA${dayCount===1?"":"S"}</span><i class="line"></i><i class="dot d1"></i><i class="dot d2"></i><i class="dot d3"></i><i class="dot d4"></i></div><div class="body"><div class="titleline"><div><h3>${esc(destination)}</h3><div class="country">${esc(country)}</div></div><div class="days">${dayCount} día${dayCount===1?"":"s"}</div></div><div class="general"><b>⌖ Mapa general</b><span>Mapa y rutas enlazados desde el itinerario</span></div><ul class="routes">${routes}</ul><div class="actions"><a class="primary" href="${href}#mapa">VER MAPA GENERAL ↗</a><a class="secondary" href="${href}">VER ITINERARIO →</a></div></div></article>`;
+}).filter(Boolean).sort((a,b)=>a.localeCompare(b,"es"));
+
+const mapPlaceholder=`<article class="placeholder"><span>PRÓXIMAMENTE</span><h3>Más mapas VCC</h3><p>Cada nuevo itinerario con mapa o rutas de Google Maps aparecerá automáticamente aquí.</p></article>`;
+replaceAuto("planifica/mapas/index.html","<!-- AUTO_MAPS_START -->","<!-- AUTO_MAPS_END -->",[...mapCards,mapPlaceholder].join("\n"));
+
+
+/* Qué llevar: añadir automáticamente todas las guías de equipaje existentes,
+   tanto las guías de Planifica como las de Destinos. Solo se publican archivos reales. */
+const packingEditorial = {
+  "destinos/suecia/estocolmo/que-llevar.html": {
+    "name": "Estocolmo",
+    "country": "Suecia",
+    "continent": "europa",
+    "type": [
+      "ciudades"
+    ],
+    "typeLabel": "Ciudades",
+    "image": sourceGuideHeroPhoto("destinos/suecia/estocolmo/que-llevar.html","ql-hero-photo"),
+    "description": "Checklist personalizada según el mes y los días de viaje: ropa, equipaje y consejos prácticos.",
+    "priority": 1
+  },
+  "planifica/que-llevar/suecia/index.html": {
+    "name": "Suecia",
+    "country": "Suecia",
+    "continent": "europa",
+    "type": [
+      "ciudades",
+      "naturaleza",
+      "montanas"
+    ],
+    "typeLabel": "Ciudades · Naturaleza",
+    "image": "/configuracion/imagenes/externas/unsplash/photo-1531366936337-7c912a4589a7.webp",
+    "description": "Ropa por capas, prendas de abrigo y calzado adecuado para cada época del año.",
+    "priority": 2
+  },
+  "planifica/que-llevar/bali/index.html": {
+    "name": "Bali",
+    "country": "Indonesia",
+    "continent": "asia",
+    "type": [
+      "playas",
+      "naturaleza",
+      "combinados"
+    ],
+    "typeLabel": "Playas · Naturaleza",
+    "image": "/configuracion/imagenes/externas/unsplash/photo-1537996194471-e657df975ab4.webp",
+    "description": "Lo esencial para playas, excursiones, humedad y temporada de lluvias.",
+    "priority": 3
+  },
+  "planifica/que-llevar/fuerteventura/index.html": {
+    "name": "Fuerteventura",
+    "country": "España",
+    "continent": "europa",
+    "type": [
+      "playas",
+      "naturaleza",
+      "coche"
+    ],
+    "typeLabel": "Playas · Naturaleza",
+    "image": "/configuracion/imagenes/externas/unsplash/photo-1507525428034-b723cf961d3e.webp",
+    "description": "Bañador, protección solar, cortavientos y básicos para recorrer la isla.",
+    "priority": 4
+  },
+  "planifica/que-llevar/estados-unidos/index.html": {
+    "name": "Estados Unidos",
+    "country": "Estados Unidos",
+    "continent": "america",
+    "type": [
+      "coche",
+      "naturaleza",
+      "ciudades",
+      "combinados"
+    ],
+    "typeLabel": "Ruta en coche · Naturaleza",
+    "image": "/configuracion/imagenes/externas/unsplash/photo-1500530855697-b586d89ba3ee.webp",
+    "description": "Equipaje versátil para una ruta que combina carretera, ciudades y parques naturales.",
+    "priority": 5
+  },
+  "planifica/que-llevar/dubai/index.html": {
+    "name": "Dubái",
+    "country": "Emiratos Árabes Unidos",
+    "continent": "asia",
+    "type": [
+      "ciudades",
+      "combinados"
+    ],
+    "typeLabel": "Ciudades",
+    "image": "/configuracion/imagenes/externas/unsplash/photo-1518005020951-eccb494ad742.webp",
+    "description": "Ropa fresca, calzado cómodo y prendas adecuadas para las visitas y el calor.",
+    "priority": 6
+  },
+  "planifica/que-llevar/roma/index.html": {
+    "name": "Roma",
+    "country": "Italia",
+    "continent": "europa",
+    "type": [
+      "ciudades"
+    ],
+    "typeLabel": "Ciudades",
+    "image": "/configuracion/imagenes/externas/unsplash/photo-1552832230-c0197dd311b5.webp",
+    "description": "Calzado para caminar, ropa de temporada y accesorios para una escapada urbana.",
+    "priority": 7
+  },
+  "planifica/que-llevar/paris/index.html": {
+    "name": "París",
+    "country": "Francia",
+    "continent": "europa",
+    "type": [
+      "ciudades"
+    ],
+    "typeLabel": "Ciudades",
+    "image": "/configuracion/imagenes/externas/unsplash/photo-1502602898657-3e91760cbb34.webp",
+    "description": "Capas, prendas para la lluvia y una checklist práctica para descubrir la ciudad.",
+    "priority": 8
+  }
+};
+const packingContinents = {europa:"Europa",asia:"Asia",america:"América",africa:"África",oceania:"Oceanía"};
+const packingSources = [
+  ...walk(path.join(ROOT,"planifica","que-llevar")).filter(file=>/^planifica\/que-llevar\/[^/]+\/index\.html$/i.test(rel(file))),
+  ...all.filter(file=>/^destinos\/.+\/que-llevar\.html$/i.test(rel(file)))
+].filter(file=>PUBLISHED_FILES.has(rel(file)));
+const packingCards = packingSources.map(file=>{
+ const filePath=rel(file);
+ const info=packingEditorial[filePath]||{};
+ const html=fs.readFileSync(file,"utf8");
+ const title=plain((html.match(/<title>([\s\S]*?)<\/title>/i)||[])[1]||"");
+ const slug=filePath.split("/").at(-2);
+ const name=info.name||(title.match(/Qu[eé] llevar a\s+([^|:]+)/i)||[])[1]?.trim()||titleCaseSlug(slug);
+ const fromDestinos=filePath.startsWith("destinos/");
+ const countrySlug=fromDestinos?filePath.split("/")[1]:slug;
+ const country=info.country||countryMeta[countrySlug]?.[0]||"";
+ // Localidad propia de cada guía de equipaje (evita repetir «Suecia · Suecia»).
+ const region=name&&name.toLocaleLowerCase("es")!==country.toLocaleLowerCase("es")?name:"";
+ const continent=info.continent||countryMeta[countrySlug]?.[1]||"all";
+ const type=Array.isArray(info.type)?info.type:["otros"];
+ const typeLabel=info.typeLabel||"Otros viajes";
+ const description=info.description||"Consulta la checklist de equipaje, la ropa recomendada y los consejos para este destino.";
+ const href=publicRoute(filePath);
+ const markup=catalogCard({kind:"packing",title:"Qué llevar a "+name,description,href,
+  image:info.image||"/configuracion/imagenes/fondos/fondos-que-llevar.webp",
+  country,region,type:type.join(" "),typeLabel,continent});
+ return {markup,priority:info.priority??999,name};
+}).sort((a,b)=>a.priority-b.priority||a.name.localeCompare(b.name,"es"));
+replaceAuto("planifica/que-llevar/index.html","<!-- AUTO_PACKING_START -->","<!-- AUTO_PACKING_END -->",packingCards.map(card=>card.markup).join("\n"));
+
+console.log(`Hubs actualizados: ${budgetCards.length} presupuestos, ${mapCards.length} mapas, ${packingCards.length} guías de equipaje.`);
+if(CHECK&&outdated.length){
+  console.error("VCC: catálogos automáticos desactualizados: "+outdated.join(", "));
+  process.exitCode=1;
+}

@@ -1,0 +1,114 @@
+/* VCC · Breadcrumb global único — 2026-11-07.
+   Fuente de verdad para país, ciudad y guías de /destinos/.
+   El componente lo construye configuracion/js/site-header.js, siempre en
+   la raíz del hero, independientemente del CSS de cada plantilla.
+   Importante: NO añadir reglas locales de breadcrumb en nuevas páginas. */
+/* VCC · eix horitzontal únic de la ruta de navegació.
+   * No modifica l'altura de portada ni el text de l'hero. */
+:root{--vcc-breadcrumb-gutter:max(46px,calc((100vw - 1510px)/2));}
+@media(max-width:720px){:root{--vcc-breadcrumb-gutter:18px;}}
+html body .vcc-has-global-breadcrumb{
+  position:relative!important;
+}
+html body #vcc-global-breadcrumb{
+  position:absolute!important;
+  z-index:100!important;
+  top:12px!important;
+  left:var(--vcc-breadcrumb-gutter)!important;
+  right:auto!important;
+  bottom:auto!important;
+  display:flex!important;
+  align-items:center!important;
+  flex-wrap:wrap!important;
+  justify-content:flex-start!important;
+  gap:0!important;
+  width:auto!important;
+  height:auto!important;
+  max-width:calc(100% - var(--vcc-breadcrumb-gutter) - var(--vcc-breadcrumb-gutter))!important;
+  min-height:0!important;
+  margin:0!important;
+  padding:0!important;
+  border:0!important;
+  border-radius:0!important;
+  transform:none!important;
+  background:none!important;
+  box-shadow:none!important;
+  font:500 12px/1.45 var(--vcc-font-body, "DM Sans", Arial, sans-serif)!important;
+  letter-spacing:0!important;
+  text-align:left!important;
+  text-transform:none!important;
+  text-shadow:none!important;
+  color:#48413d!important;
+}
+html body #vcc-global-breadcrumb a,
+html body #vcc-global-breadcrumb strong,
+html body #vcc-global-breadcrumb .vcc-bc-sep{
+  display:inline!important;
+  position:static!important;
+  float:none!important;
+  width:auto!important;
+  height:auto!important;
+  margin:0!important;
+  padding:0!important;
+  transform:none!important;
+  text-shadow:none!important;
+  font-family:inherit!important;
+  font-size:inherit!important;
+  line-height:inherit!important;
+  letter-spacing:0!important;
+  text-transform:none!important;
+  white-space:normal!important;
+  border:0!important;
+  background:none!important;
+}
+html body #vcc-global-breadcrumb a{
+  color:#48413d!important;
+  font-weight:400!important;
+  text-decoration:none!important;
+}
+html body #vcc-global-breadcrumb a:hover,
+html body #vcc-global-breadcrumb a:focus-visible{
+  color:#b45e47!important;
+  text-decoration:underline!important;
+  text-underline-offset:3px!important;
+}
+html body #vcc-global-breadcrumb a:focus-visible{
+  outline:2px solid #b45e47!important;
+  outline-offset:2px!important;
+}
+html body #vcc-global-breadcrumb .vcc-bc-sep{
+  flex:none!important;
+  margin:0 7px!important;
+  color:#92887e!important;
+  font-weight:400!important;
+  opacity:1!important;
+}
+html body #vcc-global-breadcrumb strong{
+  color:#3d3833!important;
+  font-weight:700!important;
+}
+html body .vcc-original-breadcrumb{
+  visibility:hidden!important;
+  pointer-events:none!important;
+}
+@media(max-width:720px){
+  html body #vcc-global-breadcrumb{
+    top:11px!important;
+    left:var(--vcc-breadcrumb-gutter)!important;
+    max-width:calc(100% - var(--vcc-breadcrumb-gutter) - var(--vcc-breadcrumb-gutter))!important;
+    font-size:11px!important;
+    line-height:1.4!important;
+    row-gap:2px!important;
+  }
+  html body #vcc-global-breadcrumb .vcc-bc-sep{
+    margin:0 5px!important;
+  }
+}
+
+/* Variante del mismo breadcrumb compartido para portadas fotográficas oscuras. */
+html body .vcc-breadcrumb-on-dark #vcc-global-breadcrumb{color:#f3f2f1!important}
+html body .vcc-breadcrumb-on-dark #vcc-global-breadcrumb a{color:#ecebe9!important}
+html body .vcc-breadcrumb-on-dark #vcc-global-breadcrumb strong{color:#fff!important}
+html body .vcc-breadcrumb-on-dark #vcc-global-breadcrumb .vcc-bc-sep{color:#e7e1da!important}
+html body .vcc-breadcrumb-on-dark #vcc-global-breadcrumb a:is(:hover,:focus-visible){color:#ffa482!important}
+

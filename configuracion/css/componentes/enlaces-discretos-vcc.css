@@ -1,0 +1,197 @@
+/* VCC · norma global dels enllaços editorials d'acció.
+   Sense fletxes ornamentals, color original, majúscules i subratllat en hover.
+   NO afecta botons de carrusel, menú, navegació per dies ni paginació funcional. */
+:root{--vcc-action-underline-offset:3px}
+html body a.vcc-accion-discreta,
+html body :is(a.vcc-it-cta,a.home-feature-link,a.home-section-more,
+ a.home-about-link,a.vcc-prep-action,a.subtle-link,a.vl-air-action,
+ a.vcc-itinerary-budget__link,a.ep4-day-link,a.vcc-map-open-link,
+ a.vcc-card-action,a.al-action,a.sv-insurer-action,a.sv-insurer-link,
+ a.tv-card-action,a.av-button,a.vcc-it-cta){
+ text-decoration:none;
+ text-underline-offset:var(--vcc-action-underline-offset);
+ text-decoration-thickness:1px;
+}
+html body a.vcc-accion-discreta:is(:hover,:focus-visible),
+html body :is(a.vcc-it-cta,a.home-feature-link,a.home-section-more,
+ a.home-about-link,a.vcc-prep-action,a.subtle-link,a.vl-air-action,
+ a.vcc-itinerary-budget__link,a.ep4-day-link,a.vcc-map-open-link,
+ a.al-action,a.sv-insurer-action,a.sv-insurer-link,
+ a.tv-card-action,a.av-button):is(:hover,:focus-visible){
+ text-decoration:underline!important;
+ text-decoration-color:currentColor!important;
+ text-underline-offset:var(--vcc-action-underline-offset)!important;
+ text-decoration-thickness:1px!important;
+}
+/* Les targetes completes del bloc final segueixen sent targetes, no links de text. */
+html body .vcc-related-link:is(:hover,:focus-visible) .vcc-related-copy strong{
+ text-decoration:underline!important;text-decoration-color:currentColor!important;
+ text-underline-offset:3px!important;text-decoration-thickness:1px!important;
+}
+/* Desplegables «Ver desglose»: subratllar el text, mai els botons icona. */
+html body :is(button,a):is(:hover,:focus-visible) .vcc-budget-mode-footer>span:first-child{
+ text-decoration:underline!important;text-underline-offset:3px!important;
+}
+/* Especificitat suficient per als estils heretats que imposen
+   text-decoration:none!important als links de les portades antigues. */
+html body a.vcc-accion-discreta.vcc-accion-discreta.vcc-accion-discreta.vcc-accion-discreta.vcc-accion-discreta:is(:hover,:focus-visible){
+ text-decoration:underline!important;text-decoration-color:currentColor!important;
+ text-underline-offset:var(--vcc-action-underline-offset)!important;
+ text-decoration-thickness:1px!important;
+}
+/* Etiquetes d'acció dins d'una targeta sencera que ja és un enllaç. */
+html body :is(.planifica-card,.di-mini-card,.home-feature-card,.home-featured-guide,
+ .home-featured-itineraries):is(:hover,:focus-within) :is(
+ .planifica-card-link,.vcc-it-cta,.home-feature-link){
+ text-decoration:underline!important;
+ text-decoration-color:currentColor!important;
+ text-underline-offset:var(--vcc-action-underline-offset)!important;
+ text-decoration-thickness:1px!important;
+}
+/* Fletxes purament decoratives dels enllaços de lectura i reserva.
+   Els selectors no inclouen controls de carrusels, galeries ni direccions. */
+html body :is(a.vcc-it-cta,a.home-section-more,a.home-feature-link,
+ a.home-about-link,a.vcc-prep-action,a.vl-air-action,a.vcc-map-open-link,
+ a.vcc-itinerary-budget__link,a.ep4-day-link,a.av-button,
+ a.al-action,a.sv-insurer-action,a.sv-insurer-link,
+ a.tv-card-action) > span[aria-hidden="true"],
+html body .planifica-card-link > b,
+html body .vcc-related-arrow,
+html body .vcc-itinerary-budget__arrow,
+html body .map-link-arrow,
+html body .vcc-budget-mode-caret{
+ display:none!important;
+}
+/* El text d'acció és l'última peça, subtil i a baix a la dreta. */
+html body .vcc-it-catalog .di-mini-body{
+ display:flex;flex-direction:column;min-width:0;
+}
+html body .vcc-it-catalog .di-mini-body > :is(a.vcc-it-cta,b.vcc-it-cta,span.vcc-it-cta){
+ margin-top:auto!important;align-self:flex-end!important;
+ text-align:right!important;justify-content:flex-end!important;
+}
+html body .av-page .av-activity-card .di-mini-body > a.vcc-it-cta,
+html body .vl-page .vl-air-card .vl-air-card-body > a.vl-air-action,
+html body .vl-page .vl-air-card .vl-air-card-body > a.vl-air-action,
+html body .al-page .al-card a.al-action,
+html body .sv-page .sv-insurer a.sv-insurer-action,
+html body .sv-page .sv-insurer a.sv-insurer-link{
+ margin-top:auto!important;
+ align-self:flex-end!important;
+ text-align:right!important;
+ justify-content:flex-end!important;
+}
+html body .home-feature-details :is(a.home-feature-link,a.vcc-it-cta),
+html body .vcc-card-action,
+html body .vcc-prep-card .vcc-prep-action,
+html body .vcc-itinerary-budget__link{
+ margin-top:auto!important;
+ align-self:flex-end!important;
+ text-align:right!important;
+ justify-content:flex-end!important;
+}
+html body .vcc-card-action{display:flex;justify-content:flex-end!important}
+html body .planifica-card-link{
+ display:flex!important;align-items:center!important;
+ justify-content:flex-end!important;align-self:flex-end!important;
+ width:100%!important;margin-top:auto!important;text-align:right!important;
+}
+/* CTA de taules i fitxes: no convertir tota la taula en una superfície flex. */
+html body :is(.ep4-day-card,.vcc-itinerary-budget,.di-mini-body)
+ :is(a.ep4-day-link,a.vcc-itinerary-budget__link,a.vcc-accion-discreta){
+ text-align:right;
+}
+/* Excepcions de composició: les vinyetes del pressupost perden el
+   caret decoratiu, però el text VER DESGLOSE continua al peu dret. */
+html body.budget-vcc .vcc-budget-mode-card .vcc-budget-mode-footer{
+ justify-content:flex-end!important;
+ align-items:center!important;
+ text-align:right!important;
+ margin-top:auto!important;
+}
+html body .ep4-day-card .ep4-day-story{
+ display:flex;flex-direction:column;min-width:0;
+}
+html body .ep4-day-card .ep4-day-story>a.ep4-day-link{
+ margin-top:auto!important;
+ align-self:flex-end!important;
+ text-align:right!important;
+}
+/* L'element enfocat continua visible sense necessitat de fletxa. */
+html body a.vcc-accion-discreta:focus-visible{
+ outline:2px solid currentColor;outline-offset:3px;
+}
+@media(prefers-reduced-motion:reduce){
+ html body a.vcc-accion-discreta{transition:none!important}
+}
+
+/* Enllacos VER ... dins de vinyetes: tipografia editorial unica a tot el blog.
+   Es marquen amb JS (també les targetes afegides dinamicament).
+   La especificitat neutralitza antigues regles de pagina amb !important.
+   No alterem els padding/tap-target de cada disseny ni els estats "proximamente". */
+:root{
+  --vcc-card-cta-font-size:9px;
+  --vcc-card-cta-line-height:1.25;
+  --vcc-card-cta-top-space:4px;
+  --vcc-card-cta-color:#a96048;
+  --vcc-card-cta-hover:#c47559;
+}
+html body a.vcc-card-cta-unificada.vcc-card-cta-unificada.vcc-card-cta-unificada.vcc-card-cta-unificada.vcc-card-cta-unificada.vcc-card-cta-unificada.vcc-card-cta-unificada{
+  font-family:var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;
+  font-size:var(--vcc-card-cta-font-size)!important;
+  font-style:normal!important;
+  font-weight:800!important;
+  line-height:var(--vcc-card-cta-line-height)!important;
+  letter-spacing:0!important;
+  text-transform:uppercase!important;
+  color:var(--vcc-card-cta-color)!important;
+  text-align:right!important;
+  white-space:normal!important;
+  text-decoration:none!important;
+  background-color:transparent!important;
+  border-color:transparent!important;
+  box-shadow:none!important;
+}
+html body a.vcc-card-cta-unificada.vcc-card-cta-unificada.vcc-card-cta-unificada.vcc-card-cta-unificada.vcc-card-cta-unificada.vcc-card-cta-unificada.vcc-card-cta-unificada:is(:hover,:focus-visible){
+  color:var(--vcc-card-cta-hover)!important;
+  text-decoration:underline!important;
+  text-underline-offset:var(--vcc-action-underline-offset)!important;
+}
+html body :is(.vcc-card-action,.st-card-carousel .vcc-card-action,.st-featured-itinerary .vcc-card-action){
+  justify-content:flex-end!important;
+}
+html body .vcc-card-action > a.vcc-card-cta-unificada{
+  align-self:flex-end!important;
+  text-align:right!important;
+}
+
+/* La cascada anterior inclou regles amb IDs (#di-panel-itinerarios i
+   #planifica) i una regla de portada de 9px. Cal igualar-les amb la
+   mateixa variable global: una successió de classes no supera un ID. */
+html body #di-panel-itinerarios a.vcc-card-cta-unificada.vcc-card-cta-unificada.vcc-card-cta-unificada.vcc-card-cta-unificada.vcc-card-cta-unificada.vcc-card-cta-unificada,
+html body #planifica a.vcc-card-cta-unificada.vcc-card-cta-unificada.vcc-card-cta-unificada.vcc-card-cta-unificada.vcc-card-cta-unificada.vcc-card-cta-unificada{
+  font-family:var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;
+  font-size:var(--vcc-card-cta-font-size)!important;
+  font-weight:800!important;
+  line-height:var(--vcc-card-cta-line-height)!important;
+  letter-spacing:0!important;
+  text-align:right!important;
+  color:var(--vcc-card-cta-color)!important;
+}
+html body #di-panel-itinerarios a.vcc-card-cta-unificada.vcc-card-cta-unificada.vcc-card-cta-unificada.vcc-card-cta-unificada.vcc-card-cta-unificada.vcc-card-cta-unificada:is(:hover,:focus-visible),
+html body #planifica a.vcc-card-cta-unificada.vcc-card-cta-unificada.vcc-card-cta-unificada.vcc-card-cta-unificada.vcc-card-cta-unificada.vcc-card-cta-unificada:is(:hover,:focus-visible){
+  color:var(--vcc-card-cta-hover)!important;
+}
+/* A la portada, Instagram, Contacto i Sobre nosotros són també
+   vinyes editorials encara que el text no comenci per "VER". */
+body.inicio-vcc.home-editorial-refresh .home-social-contact :is(.home-instagram,.home-contact) .vcc-home-social-cta,
+body.inicio-vcc.home-editorial-refresh .home-about-summary .vcc-home-about-cta{
+  font:800 var(--vcc-card-cta-font-size)/1.3 var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;
+  letter-spacing:0!important;
+  text-align:right!important;
+  color:var(--vcc-card-cta-color)!important;
+}
+body.inicio-vcc.home-editorial-refresh .home-social-contact :is(.home-instagram,.home-contact) .vcc-home-social-cta:is(:hover,:focus-visible),
+body.inicio-vcc.home-editorial-refresh .home-about-summary .vcc-home-about-cta:is(:hover,:focus-visible){
+  color:var(--vcc-card-cta-hover)!important;
+}

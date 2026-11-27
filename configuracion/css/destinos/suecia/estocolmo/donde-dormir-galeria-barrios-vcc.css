@@ -1,0 +1,47 @@
+/* Estocolmo · Fotos propias de barrios junto al mapa.
+   La rejilla 50/50, altura y responsive viven en el componente compartido
+   vcc-gallery-booking.css (.vcc-map-gallery-pair).
+   Este archivo SOLO aporta las etiquetas específicas de barrio y visor. */
+.dv-page #mapa .dv-neighborhood-gallery .day-mosaic>button .dv-barrio-photo-label{
+  position:absolute;
+  z-index:3;
+  left:auto;right:8px;bottom:8px;
+  max-width:calc(100% - 18px);
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
+  padding:2px 5px;
+  border-radius:3px;
+  background:rgba(255,255,255,.66);
+  color:#252321;
+  border:1px solid rgba(255,255,255,.28);
+  box-shadow:0 1px 3px rgba(0,0,0,.06);
+  font:700 8.5px/1.2 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
+  pointer-events:none;
+  text-shadow:none;
+}
+.vcc-booking-gallery-modal[data-vcc-gallery-areas="1"] .day-lightbox-grid>button>span.vcc-gallery-area-label{
+  display:block!important;
+  position:absolute;z-index:2;
+  bottom:8px;left:auto;right:8px;
+  max-width:calc(100% - 16px);
+  border-radius:4px;
+  padding:2px 5px;
+  background:rgba(255,255,255,.66);
+  color:#252321;
+  border:1px solid rgba(255,255,255,.28);
+  box-shadow:0 1px 3px rgba(0,0,0,.06);
+  font:700 8.5px/1.2 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
+  text-overflow:ellipsis;white-space:nowrap;overflow:hidden;
+  pointer-events:none;
+}
+@media(max-width:800px){
+  .dv-page #mapa .dv-neighborhood-gallery .day-mosaic>button .dv-barrio-photo-label{
+    font-size:8px;left:auto;right:5px;bottom:5px;padding:2px 4px;
+    max-width:calc(100% - 10px);
+  }
+  .vcc-booking-gallery-modal[data-vcc-gallery-areas="1"] .day-lightbox-grid>button>span.vcc-gallery-area-label{
+    font-size:8px;padding:2px 4px;left:auto;right:5px;bottom:5px;
+  }
+}
+@media(prefers-reduced-motion:reduce){
+  .dv-page #mapa .dv-neighborhood-gallery .day-mosaic>button>img{transition:none}
+}

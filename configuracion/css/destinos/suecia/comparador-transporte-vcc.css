@@ -1,0 +1,411 @@
+/* VCC · Suecia · comparador de alquiler de coche frente a transporte alternativo.
+   Un único componente responsive de tres columnas, sin reglas duplicadas.
+   Los importes son totales del viaje y proceden de los campos del usuario. */
+
+/* El texto introductorio va debajo del título, sin Consejo VCC adicional. */
+/* La capçalera de l'apartat segueix la graella editorial comuna;
+   cap regla d'aquest component no altera sobretítol, títol ni resum. */
+.swmove-page #comparar .swmove-head{margin-bottom:16px!important}
+.swmove-page #comparar .swmove-choice-grid{margin-bottom:16px}
+
+/* Base de la calculadora: título breve arriba y tres columnas debajo. */
+.swmove-page #comparar .swmove-calculator{
+  display:block;min-width:0;overflow:hidden;
+  background:#fff;border:1px solid #e5ddd4;border-radius:14px;
+}
+.swmove-page #comparar .swmove-compare-heading{padding:13px 16px 10px}
+.swmove-page #comparar .swmove-compare-overline{
+  display:block;margin:0 0 2px;color:#bb6148;
+  font:600 22px/1.15 var(--vcc-font-script,"Caveat",cursive);
+}
+.swmove-page #comparar .swmove-compare-heading h3{
+  margin:0 0 5px;color:#292824;
+  font:600 clamp(20px,2vw,25px)/1.13 var(--vcc-font-heading,"Oswald",sans-serif);
+}
+.swmove-page #comparar .swmove-compare-heading p{
+  margin:0;color:#746c65;
+  font:400 11.5px/1.45 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
+}
+.swmove-page #comparar .swmove-compare-heading strong{color:#33312f;font-weight:700}
+.swmove-page #comparar .swmove-compare-form{margin:0;padding:0 14px 13px}
+.swmove-page #comparar .swmove-compare-grid{
+  display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr) minmax(238px,.82fr);
+  gap:10px;align-items:stretch;min-width:0;
+}
+.swmove-page #comparar .swmove-compare-panel{
+  display:flex;flex-direction:column;min-width:0;min-height:0;
+  padding:12px;border:1px solid #e7dfd8;border-radius:10px;background:#fff;
+}
+.swmove-page #comparar .swmove-compare-panel-head{
+  display:flex;align-items:center;gap:8px;margin:0 0 10px;
+}
+.swmove-page #comparar .swmove-compare-panel-head>.swmove-c-icon{
+  box-sizing:border-box;width:29px;height:29px;flex:0 0 29px;
+  padding:4px;border:1px solid #e8d9cf;border-radius:8px;color:#b6654c;
+}
+.swmove-page #comparar .swmove-compare-panel-head h4{
+  margin:0;color:#262724;
+  font:600 18px/1.1 var(--vcc-font-heading,"Oswald",sans-serif);
+}
+.swmove-page #comparar .swmove-compare-panel-head p{
+  margin:2px 0 0;color:#888079;
+  font:400 10px/1.35 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
+}
+.swmove-page #comparar .swmove-compare-fields{
+  display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:9px 10px;flex:1;align-content:start;
+}
+.swmove-page #comparar .swmove-compare-field{
+  display:flex;flex-direction:column;gap:4px;min-width:0;
+}
+.swmove-page #comparar .swmove-compare-label{
+  display:flex;align-items:center;gap:5px;min-height:17px;
+  color:#484440;font:600 11px/1.3 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
+}
+.swmove-page #comparar .swmove-compare-label .swmove-c-icon{
+  width:15px;height:15px;flex:0 0 15px;color:#b86951;
+}
+.swmove-page #comparar .swmove-compare-input{display:block;position:relative;min-width:0}
+.swmove-page #comparar .swmove-compare-input input{
+  box-sizing:border-box;display:block;width:100%;min-width:0;height:35px;
+  padding:5px 24px 5px 9px;border:1px solid #ded8d2;border-radius:7px;
+  background:#fff;color:#292927;font:700 13px/1.1 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
+  font-variant-numeric:tabular-nums;
+}
+.swmove-page #comparar .swmove-compare-input input::placeholder{
+  color:#aaa29a;font-size:10px;font-weight:400;
+}
+.swmove-page #comparar .swmove-compare-input input:focus-visible{
+  outline:2px solid #b6654c;outline-offset:1px;
+}
+.swmove-page #comparar .swmove-compare-input>b{
+  position:absolute;top:50%;right:9px;transform:translateY(-50%);
+  color:#888078;pointer-events:none;
+  font:700 12px/1 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
+}
+.swmove-page #comparar .swmove-compare-total{
+  display:flex;align-items:center;justify-content:space-between;
+  gap:7px;margin-top:10px;padding-top:9px;border-top:1px solid #ece6df;
+}
+.swmove-page #comparar .swmove-compare-total>span{
+  color:#6f6862;font:700 10px/1.3 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
+}
+.swmove-page #comparar .swmove-compare-total>strong{
+  color:#292925;white-space:nowrap;font-variant-numeric:tabular-nums;
+  font:600 22px/1 var(--vcc-font-heading,"Oswald",sans-serif);
+}
+
+/* Tercera columna: la recomendación se calcula automáticamente. */
+.swmove-page #comparar .swmove-compare-result{
+  display:flex;flex-direction:column;gap:0;align-items:stretch;
+  min-width:0;min-height:0;padding:12px;
+  border:1px solid #eadbd0;border-radius:10px;background:#fcf8f4;
+}
+.swmove-page #comparar .swmove-compare-result-heading{
+  margin:0 0 11px;
+}
+.swmove-page #comparar .swmove-compare-result-heading>span{
+  display:block;color:#b76a4e;letter-spacing:.06em;
+  font:800 9.5px/1.3 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
+}
+.swmove-page #comparar .swmove-compare-result-heading h4{
+  margin:3px 0 0;color:#302c27;
+  font:600 19px/1.12 var(--vcc-font-heading,"Oswald",sans-serif);
+}
+.swmove-page #comparar .swmove-compare-verdict{
+  display:flex;flex-direction:column;gap:4px;min-width:0;
+}
+.swmove-page #comparar .swmove-compare-result .swmove-compare-verdict>span,
+.swmove-page #comparar .swmove-compare-saving>span{
+  color:#7c736c;font:800 10px/1.3 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
+  letter-spacing:0;
+}
+.swmove-page #comparar .swmove-compare-verdict>strong{
+  color:#292925;font:600 clamp(19px,2vw,24px)/1.12 var(--vcc-font-heading,"Oswald",sans-serif);
+}
+.swmove-page #comparar .swmove-compare-saving{
+  display:flex;flex-direction:column;gap:4px;min-width:0;
+  margin-top:12px;padding:12px 0 0;border:0;border-top:1px solid #eadfd6;
+}
+.swmove-page #comparar .swmove-compare-saving>strong{
+  color:#292925;font:600 clamp(25px,2.4vw,31px)/1 var(--vcc-font-heading,"Oswald",sans-serif);
+  font-variant-numeric:tabular-nums;
+}
+.swmove-page #comparar .swmove-compare-saving:is([data-savings="positive"],[data-savings="negative"])>strong{
+  color:#16833d;
+}
+.swmove-page #comparar .swmove-compare-saving small{
+  color:#766d66;font:400 10.5px/1.4 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
+}
+.swmove-page #comparar .swmove-compare-footer{
+  display:flex;align-items:center;justify-content:space-between;
+  flex-wrap:wrap;gap:8px;margin-top:auto;padding:12px 0 0;
+}
+.swmove-page #comparar .swmove-compare-footer p{
+  margin:0;color:#8a8077;font:400 10px/1.4 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
+}
+.swmove-page #comparar .swmove-compare-reset{
+  flex:0 0 auto;padding:0;border:0;background:transparent;
+  color:#a05b44;cursor:pointer;text-decoration:underline;text-underline-offset:3px;
+  font:800 10px/1.35 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
+}
+.swmove-page #comparar .swmove-compare-reset:focus-visible{
+  outline:2px solid #b6654c;outline-offset:3px;
+}
+
+/* Pantallas medianas: entradas lado a lado y recomendación debajo. */
+@media(max-width:1160px){
+  .swmove-page #comparar .swmove-compare-grid{
+    grid-template-columns:repeat(2,minmax(0,1fr));
+  }
+  .swmove-page #comparar .swmove-compare-result{
+    display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:5px 14px;grid-column:1/-1;align-items:start;
+  }
+  .swmove-page #comparar .swmove-compare-result-heading{grid-column:1/-1;margin-bottom:4px}
+  .swmove-page #comparar .swmove-compare-saving{
+    margin-top:0;padding:0 0 0 14px;border-top:0;border-left:1px solid #eadfd6;
+  }
+  .swmove-page #comparar .swmove-compare-footer{
+    grid-column:1/-1;margin-top:0;padding-top:7px;border-top:1px solid #eadfd6;
+  }
+}
+
+/* Teléfono: tres bloques en vertical, sin columnas estrechas ni scroll lateral. */
+@media(max-width:700px){
+  .swmove-page #comparar .swmove-head{margin-bottom:12px!important}
+  .swmove-page #comparar .swmove-choice-grid{margin-bottom:12px}
+  .swmove-page #comparar .swmove-compare-heading{padding:11px 12px 8px}
+  .swmove-page #comparar .swmove-compare-heading h3{font-size:20px}
+  .swmove-page #comparar .swmove-compare-form{padding:0 10px 10px}
+  .swmove-page #comparar .swmove-compare-grid{grid-template-columns:minmax(0,1fr);gap:9px}
+  .swmove-page #comparar .swmove-compare-panel{padding:11px}
+  .swmove-page #comparar .swmove-compare-result{
+    display:flex;grid-column:auto;padding:12px;
+  }
+  .swmove-page #comparar .swmove-compare-result-heading{margin:0 0 9px}
+  .swmove-page #comparar .swmove-compare-saving{
+    margin-top:10px;padding:10px 0 0;border-left:0;border-top:1px solid #eadfd6;
+  }
+  .swmove-page #comparar .swmove-compare-footer{margin-top:10px;padding-top:8px}
+}
+@media(max-width:370px){
+  .swmove-page #comparar .swmove-compare-fields{grid-template-columns:minmax(0,1fr)}
+}
+
+/* VCC · 17-11-2026 — Resultat més breu, emblema real i diferencial honest.
+   L'estalvi/sobrecost es calcula respecte al transport alternatiu;
+   es pinta únicament el número, no la recomanació ni els altres textos. */
+.swmove-page #comparar .swmove-compare-result{
+  padding:9px 11px;
+}
+html body .swmove-page #comparar .swmove-compare-result-heading{
+  display:flex!important;
+  flex-direction:row!important;
+  align-items:center!important;
+  justify-content:flex-start!important;
+  gap:9px!important;
+  min-width:0;
+  margin:0 0 6px;
+}
+html body .swmove-page #comparar .swmove-compare-result-heading .swmove-compare-brand{
+  flex:0 0 32px!important;
+  display:block!important;
+  width:32px!important;
+  height:32px!important;
+  margin:0!important;
+  object-fit:contain;
+}
+html body .swmove-page #comparar .swmove-compare-result-headcopy{
+  display:block!important;
+  flex:1 1 auto!important;
+  min-width:0!important;
+}
+.swmove-page #comparar .swmove-compare-result-heading .swmove-compare-result-headcopy>span{
+  display:block;
+  color:#a65c44;
+  letter-spacing:.04em;
+  font:800 9px/1.25 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
+}
+.swmove-page #comparar .swmove-compare-result-heading h4{
+  margin:2px 0 0;
+  font-size:18px;
+}
+.swmove-page #comparar .swmove-compare-verdict{
+  gap:3px;
+}
+.swmove-page #comparar .swmove-compare-verdict>strong{
+  font-size:clamp(18px,1.7vw,22px);
+}
+.swmove-page #comparar .swmove-compare-saving{
+  gap:3px;
+  margin-top:8px;
+  padding:9px 11px;
+  min-width:0;
+  border:1px solid #e8dfd6;
+  border-radius:9px;
+  background:#fff;
+  box-shadow:0 1px 3px rgba(40,33,26,.035);
+}
+.swmove-page #comparar .swmove-compare-saving>strong{
+  color:#292925;
+  font-size:clamp(24px,2.1vw,29px);
+}
+.swmove-page #comparar .swmove-compare-saving[data-savings="positive"]>strong{
+  color:#19804b!important;
+}
+.swmove-page #comparar .swmove-compare-saving[data-savings="negative"]>strong{
+  color:#c34c46!important;
+}
+.swmove-page #comparar .swmove-compare-saving:is([data-savings="pending"],[data-savings="neutral"])>strong{
+  color:#292925!important;
+}
+.swmove-page #comparar .swmove-compare-footer{
+  margin-top:auto;
+  padding-top:6px;
+  gap:5px;
+}
+/* Quan el resultat passa a sota dels dos inputs, aprofitem una sola
+   fila de dades: emblema | recomanació | import. */
+@media(min-width:701px) and (max-width:1160px){
+ .swmove-page #comparar .swmove-compare-result{
+   display:grid;
+   grid-template-columns:minmax(155px,.85fr) minmax(0,1.1fr) minmax(150px,.85fr);
+   grid-template-rows:auto auto;
+   column-gap:12px;
+   row-gap:5px;
+   align-items:center;
+   padding:10px 12px;
+ }
+ .swmove-page #comparar .swmove-compare-result-heading{
+   grid-column:1;grid-row:1;margin:0;
+ }
+ .swmove-page #comparar .swmove-compare-verdict{
+   grid-column:2;grid-row:1;
+ }
+ .swmove-page #comparar .swmove-compare-saving{
+   grid-column:3;grid-row:1;
+   margin:0;
+   padding:8px 10px;
+   border:1px solid #e8dfd6;
+   border-radius:9px;
+   background:#fff;
+ }
+ .swmove-page #comparar .swmove-compare-footer{
+   grid-column:1/-1;grid-row:2;
+   margin:0;padding-top:7px;
+ }
+}
+@media(max-width:700px){
+ .swmove-page #comparar .swmove-compare-result{
+   display:grid;
+   grid-template-columns:minmax(0,1fr) minmax(0,1fr);
+   grid-template-rows:auto auto auto;
+   column-gap:12px;
+   row-gap:4px;
+   padding:9px 11px;
+ }
+ .swmove-page #comparar .swmove-compare-result-heading{
+   grid-column:1/-1;
+   grid-row:1;
+   margin:0;
+ }
+ .swmove-page #comparar .swmove-compare-verdict{
+   grid-column:1;
+   grid-row:2;
+   min-width:0;
+ }
+ .swmove-page #comparar .swmove-compare-verdict>strong{
+   font-size:19px;
+   overflow-wrap:break-word;
+ }
+ .swmove-page #comparar .swmove-compare-saving{
+   grid-column:2;
+   grid-row:2;
+   margin:0;
+   padding:8px 9px;
+   border:1px solid #e8dfd6;
+   border-radius:9px;
+   background:#fff;
+   min-width:0;
+ }
+ .swmove-page #comparar .swmove-compare-saving>strong{
+   font-size:27px;
+ }
+ .swmove-page #comparar .swmove-compare-footer{
+   grid-column:1/-1;
+   grid-row:3;
+   margin:0;
+   padding:6px 0 0;
+ }
+}
+@media(max-width:370px){
+ .swmove-page #comparar .swmove-compare-result{
+   column-gap:8px;
+ }
+ .swmove-page #comparar .swmove-compare-saving{
+   padding:8px;
+ }
+ .swmove-page #comparar .swmove-compare-saving>strong{
+   font-size:24px;
+ }
+}
+
+/* VCC · requadre blanc visible per al diferencial de la calculadora. */
+html body .swmove-page #comparar .swmove-compare-result > .swmove-compare-saving{
+  box-sizing:border-box!important;
+  background:#fff!important;
+  border:1px solid #e5dcd3!important;
+  border-radius:9px!important;
+  box-shadow:0 2px 7px rgba(38,30,23,.045)!important;
+  margin:0!important;
+  padding:7px 9px!important;
+  min-width:0!important;
+}
+@media(min-width:1161px){
+  html body .swmove-page #comparar .swmove-compare-result > .swmove-compare-saving{
+    margin-top:6px!important;
+  }
+}
+@media(max-width:370px){
+  html body .swmove-page #comparar .swmove-compare-result > .swmove-compare-saving{
+    padding:7px!important;
+  }
+}
+
+/* Suecia · 17-11-2026: viatgers compartits, controls compactes i
+   lectura del cost del grup i per persona sense canviar la graella. */
+.swmove-page #comparar .swmove-compare-travelers{
+  display:flex;align-items:center;flex-wrap:wrap;
+  gap:6px 14px;margin:0 0 10px;
+}
+.swmove-page #comparar .swmove-compare-travelers label{
+  display:inline-flex;align-items:center;gap:9px;
+  color:#484440;font:700 11px/1.3 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
+}
+.swmove-page #comparar .swmove-compare-travelers input{
+  box-sizing:border-box;width:68px;height:33px;
+  border:1px solid #ded8d2;border-radius:7px;
+  padding:5px 7px;background:#fff;color:#292927;
+  font:700 13px/1.1 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
+  font-variant-numeric:tabular-nums;text-align:center;
+}
+.swmove-page #comparar .swmove-compare-travelers input:focus-visible{
+  outline:2px solid #b6654c;outline-offset:1px;
+}
+.swmove-page #comparar .swmove-compare-travelers small{
+  color:#837970;font:400 10.3px/1.4 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
+}
+.swmove-page #comparar .swmove-compare-total>div{
+  display:flex;flex-direction:column;gap:3px;min-width:0;
+}
+.swmove-page #comparar .swmove-compare-total>div>span{
+  color:#6f6862;font:700 10px/1.3 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
+}
+.swmove-page #comparar .swmove-compare-total>div>small{
+  color:#8a7667;font:600 10.5px/1.3 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
+  font-variant-numeric:tabular-nums;
+}
+@media(max-width:700px){
+  .swmove-page #comparar .swmove-compare-travelers{gap:5px 9px}
+}

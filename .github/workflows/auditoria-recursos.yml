@@ -1,0 +1,25 @@
+name: Auditar recursos visuals VCC
+on:
+  push:
+    branches: [quality, main]
+  pull_request:
+    branches: [quality, main]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  auditar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Validar rutes locals i manifest
+        run: node configuracion/scripts/auditar-recursos.mjs --no-write --enforce-external-baseline
+      - name: Validar SVG externs sense icones dibuixades en HTML/CSS/JS
+        run: node configuracion/scripts/validar-iconos-vcc.mjs
+      - name: Validar ubicacio de recursos visuals
+        run: node configuracion/scripts/verificar-estructura-recursos.mjs
+      - name: Registrar fonts visuals externes pendents (sense bloquejar)
+        run: node configuracion/scripts/auditar-recursos.mjs --no-write --strict-external || true

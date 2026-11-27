@@ -1,0 +1,625 @@
+/* Home editorial VCC: carruseles anchos como /itinerarios, modulos sin alturas forzadas. */
+body.inicio-vcc.home-editorial-refresh .home-feature-grid,
+body.inicio-vcc.home-editorial-refresh .home-stories-grid{
+ display:flex!important;flex-direction:column!important;align-items:stretch!important;
+ width:min(1260px,calc(100% - 56px))!important;max-width:100%!important;
+ gap:52px!important;margin:43px auto 0!important;
+}
+body.inicio-vcc.home-editorial-refresh .home-featured-itineraries,
+body.inicio-vcc.home-editorial-refresh .home-featured-guide{width:100%!important;min-width:0!important}
+body.inicio-vcc.home-editorial-refresh .home-featured-itineraries .home-carousel-track,
+body.inicio-vcc.home-editorial-refresh .home-featured-guide .home-carousel-track{
+ grid-auto-columns:calc((100% - 32px)/3)!important;gap:16px!important;
+ padding:2px 2px 8px!important;align-items:stretch!important;
+}
+body.inicio-vcc.home-editorial-refresh .home-featured-itineraries .home-feature-card,
+body.inicio-vcc.home-editorial-refresh .home-featured-guide .home-feature-card{
+ display:flex!important;flex-direction:column!important;height:auto!important;min-height:0!important;
+ border:1px solid #e6d9ce!important;border-radius:13px!important;
+ background:#fff!important;overflow:hidden!important;box-shadow:0 3px 12px #5134210a!important;
+}
+body.inicio-vcc.home-editorial-refresh .home-featured-itineraries .home-feature-photo,
+body.inicio-vcc.home-editorial-refresh .home-featured-guide .home-feature-photo{
+ display:block!important;position:relative!important;isolation:isolate!important;overflow:hidden!important;
+ flex:0 0 auto!important;width:100%!important;height:auto!important;min-height:0!important;aspect-ratio:1.65!important;
+}
+body.inicio-vcc.home-editorial-refresh .home-feature-photo>img{
+ position:absolute!important;inset:0!important;display:block!important;
+ width:100%!important;height:100%!important;object-fit:cover!important;transform:none!important;
+}
+body.inicio-vcc.home-editorial-refresh .home-photo-gallery{touch-action:pan-y}
+body.inicio-vcc.home-editorial-refresh .home-photo-gallery img[data-vcc-it-slide]{
+ opacity:0!important;visibility:hidden!important;transform:translate3d(0,0,0);transition:none!important;pointer-events:none!important;
+}
+body.inicio-vcc.home-editorial-refresh .home-photo-gallery img[data-vcc-it-slide].is-current,
+body.inicio-vcc.home-editorial-refresh .home-photo-gallery img[data-vcc-it-slide].is-adjacent{opacity:1!important;visibility:visible!important}
+body.inicio-vcc.home-editorial-refresh .home-photo-gallery.is-sliding img[data-vcc-it-slide]{
+ transition:transform var(--vcc-it-slide-duration,420ms) cubic-bezier(.22,.75,.27,1)!important;
+}
+body.inicio-vcc.home-editorial-refresh .home-photo-gallery.is-dragging img[data-vcc-it-slide]{transition:none!important}
+/* Tipologia: configuracion/css/componentes/vcc-tipologia-targetes.css */
+body.inicio-vcc.home-editorial-refresh .home-gallery-button{
+ position:absolute!important;z-index:6!important;top:50%!important;transform:translateY(-50%)!important;
+ display:grid!important;place-items:center!important;width:41px!important;height:41px!important;padding:0!important;
+ border:1px solid #e5d4c5!important;border-radius:50%!important;background:#fffbf6eb!important;
+ color:#b45b3c!important;box-shadow:0 2px 8px #33211722!important;cursor:pointer;
+}
+body.inicio-vcc.home-editorial-refresh .home-gallery-prev{left:10px!important}
+body.inicio-vcc.home-editorial-refresh .home-gallery-next{right:10px!important}
+body.inicio-vcc.home-editorial-refresh .home-gallery-button svg{width:18px;height:18px;pointer-events:none}
+body.inicio-vcc.home-editorial-refresh .home-gallery-count{
+ position:absolute;z-index:5;right:10px;bottom:9px;padding:5px 8px;border-radius:7px;
+ background:#23282ab8;color:#fff;font:800 11px/1 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
+}
+body.inicio-vcc.home-editorial-refresh .home-guide-card .home-gallery-count{right:auto;left:10px}
+body.inicio-vcc.home-editorial-refresh .home-feature-score{z-index:5!important;min-width:44px!important;min-height:44px!important}
+body.inicio-vcc.home-editorial-refresh .home-feature-score strong{font-size:23px!important}
+body.inicio-vcc.home-editorial-refresh .home-featured-itineraries .home-feature-details,
+body.inicio-vcc.home-editorial-refresh .home-featured-guide .home-feature-details{
+ display:flex!important;flex-direction:column!important;align-items:stretch!important;
+ flex:1!important;min-height:121px!important;padding:14px 15px!important;
+}
+body.inicio-vcc.home-editorial-refresh .home-feature-details h3{
+ margin:0 0 8px!important;color:#25211e!important;text-transform:none!important;
+ font:600 clamp(22px,2vw,27px)/1.13 var(--vcc-font-heading,"Oswald",sans-serif)!important;
+}
+body.inicio-vcc.home-editorial-refresh .home-route-metadata,
+body.inicio-vcc.home-editorial-refresh .home-guide-metadata{
+ display:flex;align-items:center;flex-wrap:wrap;gap:7px 12px;margin:0 0 7px;
+}
+body.inicio-vcc.home-editorial-refresh .home-route-metadata .home-feature-facts{
+ display:flex!important;flex-wrap:wrap!important;gap:6px 12px!important;margin:0!important;
+}
+body.inicio-vcc.home-editorial-refresh .home-card-country{
+ display:inline-flex;align-items:center;gap:6px;min-width:0;
+ font:700 11px/1.3 var(--vcc-font-body,"DM Sans",Arial,sans-serif);color:#594d45;
+}
+body.inicio-vcc.home-editorial-refresh .home-card-country img{
+ width:25px!important;min-width:25px!important;height:16px!important;object-fit:cover!important;
+}
+body.inicio-vcc.home-editorial-refresh .home-card-country img[alt="Suiza"]{width:16px!important;min-width:16px!important}
+body.inicio-vcc.home-editorial-refresh .home-card-desc{
+ display:block;margin:0 0 11px!important;color:#6e625b;
+ font:400 12px/1.48 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
+}
+body.inicio-vcc.home-editorial-refresh .home-guide-kind{
+ color:#a15f42;font:750 11px/1.3 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
+}
+body.inicio-vcc.home-editorial-refresh .home-feature-details .home-feature-link,
+body.inicio-vcc.home-editorial-refresh .home-feature-details .home-feature-pending{
+ display:inline-flex!important;align-self:flex-end!important;margin-top:auto!important;
+ padding-top:8px!important;font-size:11px!important;text-align:right!important;
+}
+body.inicio-vcc.home-editorial-refresh .home-carousel-arrow{z-index:10!important;width:46px!important;height:46px!important}
+body.inicio-vcc.home-editorial-refresh .home-planning{
+ position:relative!important;top:auto!important;display:grid!important;
+ grid-template-columns:minmax(235px,.75fr) minmax(0,1.4fr)!important;
+ gap:26px!important;align-items:center!important;width:100%!important;
+ height:auto!important;min-height:190px!important;max-height:none!important;
+ margin:0!important;padding:26px 29px!important;overflow:visible!important;
+ border:1px solid #e7d6c5!important;border-radius:15px!important;
+ background:linear-gradient(110deg,#f7eee5,#fcf8f3 70%,#fff)!important;
+ box-shadow:0 3px 13px #5134210a!important;
+}
+body.inicio-vcc.home-editorial-refresh .home-planning-copy{
+ display:flex!important;flex-direction:column!important;align-items:flex-start!important;
+ justify-content:center!important;background:none!important;height:auto!important;min-height:0!important;padding:0!important;
+}
+body.inicio-vcc.home-editorial-refresh .home-planning-eyebrow{
+ margin:0 0 6px!important;color:#c16449!important;
+ font:600 23px/1.12 var(--vcc-font-script,"Caveat",cursive)!important;
+}
+body.inicio-vcc.home-editorial-refresh .home-planning h2{
+ margin:0 0 8px!important;font:600 clamp(28px,3vw,39px)/1.1 var(--vcc-font-heading,"Oswald",sans-serif)!important;
+}
+body.inicio-vcc.home-editorial-refresh .home-planning p{
+ margin:0 0 13px!important;font:400 13px/1.5 var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;
+}
+body.inicio-vcc.home-editorial-refresh .home-planning .home-card-more{
+ position:static!important;margin:0!important;padding:0!important;font-size:11px!important;
+}
+body.inicio-vcc.home-editorial-refresh .home-planning-links{
+ display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;min-width:0;
+}
+body.inicio-vcc.home-editorial-refresh .home-planning-links a{
+ display:grid;grid-template-columns:minmax(0,1fr) auto;gap:5px 8px;
+ min-width:0;padding:13px 14px;border-radius:9px;border:1px solid #e8dbcf;
+ background:#fff;color:#29231f;text-decoration:none;
+}
+body.inicio-vcc.home-editorial-refresh .home-planning-links a:hover{border-color:#ce896a}
+body.inicio-vcc.home-editorial-refresh .home-planning-links strong{
+ font:750 13px/1.2 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
+}
+body.inicio-vcc.home-editorial-refresh .home-planning-links small{
+ grid-row:2;color:#82746b;font:400 10px/1.35 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
+}
+body.inicio-vcc.home-editorial-refresh .home-planning-links a>span{
+ grid-column:2;grid-row:1/3;align-self:center;color:#be6341;font-size:19px;
+}
+body.inicio-vcc.home-editorial-refresh .home-social-contact{
+ display:grid!important;grid-template-columns:minmax(0,1.45fr) minmax(0,.85fr)!important;
+ gap:16px!important;align-items:stretch!important;align-self:auto!important;grid-auto-rows:auto!important;
+ width:100%!important;height:auto!important;min-height:0!important;margin:0!important;overflow:visible!important;
+}
+body.inicio-vcc.home-editorial-refresh .home-social-contact .home-instagram,
+body.inicio-vcc.home-editorial-refresh .home-social-contact .home-contact{
+ height:auto!important;min-height:215px!important;max-height:none!important;margin:0!important;
+ overflow:hidden!important;border:1px solid #e9dacf!important;border-radius:14px!important;
+ background:#fff!important;box-shadow:0 3px 14px #5134210a!important;
+}
+body.inicio-vcc.home-editorial-refresh .home-social-contact .home-instagram{
+ display:flex!important;flex-direction:row!important;align-items:stretch!important;padding:0!important;gap:0!important;
+}
+body.inicio-vcc.home-editorial-refresh .home-instagram .home-insta-largepost{
+ display:block!important;position:relative!important;flex:0 0 43%!important;width:43%!important;
+ height:auto!important;min-height:215px!important;max-height:none!important;
+ margin:0!important;padding:0!important;border:0!important;border-radius:0!important;overflow:hidden!important;
+}
+body.inicio-vcc.home-editorial-refresh .home-instagram .home-insta-photo{
+ position:absolute!important;inset:0!important;display:block!important;width:100%!important;height:100%!important;
+ min-height:0!important;max-height:none!important;overflow:hidden!important;
+}
+body.inicio-vcc.home-editorial-refresh .home-insta-photo>img{
+ display:block!important;width:100%!important;height:100%!important;object-fit:cover!important;
+}
+body.inicio-vcc.home-editorial-refresh .home-insta-editorial-copy{
+ flex:1;min-width:0;display:flex;flex-direction:column;align-items:flex-start;padding:20px 21px;
+}
+body.inicio-vcc.home-editorial-refresh .home-social-eyebrow{
+ margin:0 0 6px!important;color:#be644b!important;
+ font:600 21px/1.15 var(--vcc-font-script,"Caveat",cursive)!important;
+}
+body.inicio-vcc.home-editorial-refresh .home-social-heading{
+ display:flex!important;align-items:flex-start!important;justify-content:space-between!important;
+ gap:7px!important;min-height:0!important;margin:0 0 9px!important;
+}
+body.inicio-vcc.home-editorial-refresh .home-social-heading h2{
+ margin:0!important;white-space:normal!important;
+ font:600 clamp(22px,2.15vw,30px)/1.1 var(--vcc-font-heading,"Oswald",sans-serif)!important;
+}
+body.inicio-vcc.home-editorial-refresh .home-insta-handle{
+ margin:0 0 8px;color:#a8563b;font:800 12px/1.3 var(--vcc-font-body,"DM Sans",Arial,sans-serif);
+}
+body.inicio-vcc.home-editorial-refresh .home-insta-text{
+ display:block!important;flex:0 0 auto!important;margin:0 0 13px!important;padding:0!important;
+ white-space:normal!important;overflow:visible!important;text-overflow:clip!important;
+ font:400 12px/1.5 var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;
+}
+body.inicio-vcc.home-editorial-refresh .home-insta-editorial-copy .home-card-more{
+ margin-top:auto!important;padding:0!important;font-size:11px!important;
+}
+body.inicio-vcc.home-editorial-refresh .home-social-contact .home-contact{
+ display:flex!important;flex-direction:column!important;align-items:flex-start!important;justify-content:flex-start!important;
+ padding:20px 23px!important;gap:0!important;background:linear-gradient(115deg,#fff,#faf3ec)!important;
+}
+body.inicio-vcc.home-editorial-refresh .home-contact-symbol{
+ flex:0 0 auto!important;width:48px!important;height:48px!important;max-width:48px!important;margin:0 0 9px!important;
+}
+body.inicio-vcc.home-editorial-refresh .home-contact-symbol img{width:47px!important;height:47px!important}
+body.inicio-vcc.home-editorial-refresh .home-contact h2{
+ margin:0 0 8px!important;font:600 clamp(25px,2.4vw,33px)/1.13 var(--vcc-font-heading,"Oswald",sans-serif)!important;
+}
+body.inicio-vcc.home-editorial-refresh .home-contact p{
+ margin:0 0 10px!important;max-width:340px!important;
+ font:400 12px/1.5 var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;
+}
+body.inicio-vcc.home-editorial-refresh .home-contact .home-card-more{
+ margin-top:auto!important;padding:0!important;font-size:11px!important;
+}
+@media(max-width:1000px){
+ body.inicio-vcc.home-editorial-refresh .home-feature-grid,
+ body.inicio-vcc.home-editorial-refresh .home-stories-grid{width:calc(100% - 32px)!important;gap:22px!important;}
+ body.inicio-vcc.home-editorial-refresh .home-featured-itineraries .home-carousel-track,
+ body.inicio-vcc.home-editorial-refresh .home-featured-guide .home-carousel-track{
+  grid-auto-columns:calc((100% - 12px)/2)!important;gap:12px!important;
+ }
+ body.inicio-vcc.home-editorial-refresh .home-planning{grid-template-columns:1fr!important;gap:18px!important;padding:20px!important;}
+ body.inicio-vcc.home-editorial-refresh .home-social-contact{grid-template-columns:1fr!important;gap:13px!important;}
+}
+@media(max-width:610px){
+ body.inicio-vcc.home-editorial-refresh .home-feature-grid,
+ body.inicio-vcc.home-editorial-refresh .home-stories-grid{width:calc(100% - 28px)!important;gap:19px!important;}
+ body.inicio-vcc.home-editorial-refresh .home-featured-itineraries .home-carousel-track,
+ body.inicio-vcc.home-editorial-refresh .home-featured-guide .home-carousel-track{grid-auto-columns:86%!important;gap:10px!important;}
+ body.inicio-vcc.home-editorial-refresh .home-featured-itineraries .home-feature-details,
+ body.inicio-vcc.home-editorial-refresh .home-featured-guide .home-feature-details{
+  min-height:116px!important;padding:12px!important;
+ }
+ body.inicio-vcc.home-editorial-refresh .home-feature-details h3{font-size:22px!important;}
+ body.inicio-vcc.home-editorial-refresh .home-planning{padding:17px!important;}
+ body.inicio-vcc.home-editorial-refresh .home-planning-links{gap:7px;}
+ body.inicio-vcc.home-editorial-refresh .home-planning-links a{padding:10px;}
+ body.inicio-vcc.home-editorial-refresh .home-planning-links strong{font-size:11px;}
+ body.inicio-vcc.home-editorial-refresh .home-planning-links small{font-size:9px;}
+ body.inicio-vcc.home-editorial-refresh .home-instagram .home-insta-largepost{flex-basis:37%!important;width:37%!important;}
+ body.inicio-vcc.home-editorial-refresh .home-insta-editorial-copy{padding:13px!important;}
+ body.inicio-vcc.home-editorial-refresh .home-social-eyebrow{font-size:18px!important;}
+ body.inicio-vcc.home-editorial-refresh .home-social-heading h2{font-size:21px!important;}
+ body.inicio-vcc.home-editorial-refresh .home-insta-text{font-size:11px!important;}
+}
+@media(max-width:380px){
+ body.inicio-vcc.home-editorial-refresh .home-planning-links{grid-template-columns:1fr!important;}
+ body.inicio-vcc.home-editorial-refresh .home-instagram .home-insta-largepost{flex-basis:35%!important;width:35%!important;}
+}
+@media(prefers-reduced-motion:reduce){
+ body.inicio-vcc.home-editorial-refresh .home-photo-gallery.is-sliding img[data-vcc-it-slide]{transition:none!important;}
+}
+
+/* Portada VCC · quatre targetes a cada carrusel.
+   A 1440px la targeta iguala els ~315px del catàleg d'Itinerarios. */
+@media(min-width:1001px){
+ body.inicio-vcc.home-editorial-refresh .home-featured-itineraries .home-carousel-track,
+ body.inicio-vcc.home-editorial-refresh .home-featured-guide .home-carousel-track{
+   grid-auto-columns:calc((100% - 42px)/4)!important;gap:14px!important;
+ }
+}
+body.inicio-vcc.home-editorial-refresh .home-featured-itineraries .home-feature-card,
+body.inicio-vcc.home-editorial-refresh .home-featured-guide .home-feature-card{
+ height:315px!important;min-height:315px!important;max-height:none!important;
+}
+body.inicio-vcc.home-editorial-refresh .home-featured-itineraries .home-feature-photo,
+body.inicio-vcc.home-editorial-refresh .home-featured-guide .home-feature-photo{
+ height:164px!important;min-height:164px!important;flex:0 0 164px!important;
+ aspect-ratio:auto!important;
+}
+body.inicio-vcc.home-editorial-refresh .home-featured-itineraries .home-feature-details,
+body.inicio-vcc.home-editorial-refresh .home-featured-guide .home-feature-details{
+ min-height:0!important;flex:1 1 auto!important;
+ padding:11px 13px 12px!important;
+}
+body.inicio-vcc.home-editorial-refresh .home-feature-details h3{
+ font-size:clamp(20px,1.6vw,23px)!important;line-height:1.1!important;
+ margin-bottom:6px!important;
+}
+body.inicio-vcc.home-editorial-refresh .home-route-metadata,
+body.inicio-vcc.home-editorial-refresh .home-guide-metadata{
+ gap:5px 9px!important;margin-bottom:6px!important;
+}
+body.inicio-vcc.home-editorial-refresh .home-card-desc{
+ font-size:11px!important;line-height:1.37!important;
+ margin-bottom:6px!important;display:-webkit-box!important;
+ -webkit-box-orient:vertical!important;-webkit-line-clamp:2!important;
+ overflow:hidden!important;
+}
+body.inicio-vcc.home-editorial-refresh .home-route-metadata .home-feature-facts{
+ gap:4px 8px!important;
+}
+body.inicio-vcc.home-editorial-refresh .home-feature-details .home-feature-link,
+body.inicio-vcc.home-editorial-refresh .home-feature-details .home-feature-pending{
+ padding-top:4px!important;
+}
+/* Planifica: components compactes, taronja pàl·lid i icones SVG.
+   Les quatre targetes comparteixen aquestes regles; no hi ha colors per nth-child. */
+body.inicio-vcc.home-editorial-refresh .home-planning{
+  background:#fff!important;border-color:#e9d9ce!important;
+  box-shadow:0 3px 13px rgba(62,38,20,.035)!important;
+  grid-template-columns:minmax(0,1fr) minmax(0,540px)!important;
+  gap:24px!important;min-height:0!important;
+  padding:20px 27px!important;
+}
+body.inicio-vcc.home-editorial-refresh .home-planning-copy{
+  background:transparent!important;
+}
+body.inicio-vcc.home-editorial-refresh .home-planning-links{
+  display:grid!important;
+  grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  width:min(100%,450px)!important;max-width:450px!important;
+  justify-self:center!important;align-self:center!important;
+  transform:translateX(-48px)!important;
+  column-gap:36px!important;row-gap:21px!important;
+}
+body.inicio-vcc.home-editorial-refresh .home-planning-links a{
+  position:relative!important;display:grid!important;
+  grid-template-columns:36px minmax(0,1fr)!important;
+  grid-template-rows:auto!important;align-items:center!important;
+  min-width:0!important;min-height:88px!important;
+  gap:9px!important;padding:10px 11px!important;
+  border:0!important;border-radius:10px!important;
+  background:rgba(250,250,249,.64)!important;color:#49372f!important;
+  box-shadow:none!important;text-decoration:none!important;
+  transition:background-color .16s,border-color .16s!important;
+}
+body.inicio-vcc.home-editorial-refresh .home-planning-links a:hover{
+  background:#d87551!important;color:#fff!important;
+  transform:none!important;
+  box-shadow:0 3px 12px rgba(153,74,43,.13)!important;
+}
+body.inicio-vcc.home-editorial-refresh .home-planning-links a:focus-visible{
+  outline:2px solid #ba6545!important;outline-offset:2px;
+}
+/* Sense fletxes diagonals a la cantonada: ni markup antic ni pseudo-elements. */
+body.inicio-vcc.home-editorial-refresh .home-planning-links a .home-plan-arrow,
+body.inicio-vcc.home-editorial-refresh .home-planning-links a::before,
+body.inicio-vcc.home-editorial-refresh .home-planning-links a::after{
+  display:none!important;content:none!important;
+}
+
+@media(hover:hover){
+ body.inicio-vcc.home-editorial-refresh .home-planning-links a:hover .home-plan-icon{background:rgba(255,255,255,.19)!important;color:#fff!important;}
+ body.inicio-vcc.home-editorial-refresh .home-planning-links a:hover .home-plan-icon svg{color:#fff!important;}
+ body.inicio-vcc.home-editorial-refresh .home-planning-links a:hover .home-plan-label strong,
+ body.inicio-vcc.home-editorial-refresh .home-planning-links a:hover .home-plan-label small{color:#fff!important;}
+}
+body.inicio-vcc.home-editorial-refresh .home-planning-links a>span{
+  color:inherit!important;
+}
+body.inicio-vcc.home-editorial-refresh .home-planning-links .home-plan-icon{
+  grid-column:1!important;grid-row:1!important;
+  display:grid!important;place-items:center!important;
+  width:36px!important;height:36px!important;flex:none!important;
+  border-radius:9px!important;background:rgba(196,103,69,.13)!important;
+  color:#b96345!important;
+}
+body.inicio-vcc.home-editorial-refresh .home-planning-links .home-plan-icon svg{
+  display:block!important;width:24px!important;height:24px!important;
+  fill:none!important;color:#b96345!important;
+}
+body.inicio-vcc.home-editorial-refresh .home-planning-links .home-plan-label{
+  grid-column:2!important;grid-row:1!important;
+  display:flex!important;flex-direction:column!important;
+  min-width:0!important;gap:3px!important;padding-right:5px!important;
+}
+body.inicio-vcc.home-editorial-refresh .home-planning-links .home-plan-label strong{
+  color:#514036!important;font-size:15.5px!important;
+  font-weight:800!important;line-height:1.2!important;
+}
+body.inicio-vcc.home-editorial-refresh .home-planning-links .home-plan-label small{
+  grid-column:auto!important;grid-row:auto!important;
+  color:#827065!important;font-size:9.5px!important;line-height:1.32!important;
+}
+/* El fons de les targetes d'Inicio es gestiona a vcc-fons-targetes-compartit.css. */
+body.inicio-vcc.home-editorial-refresh .home-about{
+  width:min(1260px,calc(100% - 56px))!important;
+  max-width:100%!important;
+  margin-inline:auto!important;
+  border-color:#e7e8e8!important;
+}
+@media(max-width:1000px){
+  body.inicio-vcc.home-editorial-refresh .home-about{
+    width:calc(100% - 32px)!important;
+  }
+}
+@media(max-width:610px){
+  body.inicio-vcc.home-editorial-refresh .home-about{
+    width:calc(100% - 28px)!important;
+  }
+}
+/* Sobre nosotros: separació pròpia, sense afectar la resta de seccions. */
+body.inicio-vcc.home-editorial-refresh .home-about{
+  margin-top:70px!important;
+}
+@media(max-width:1000px){
+  body.inicio-vcc.home-editorial-refresh .home-planning{
+    grid-template-columns:1fr!important;
+  }
+  body.inicio-vcc.home-editorial-refresh .home-planning-links{
+    justify-self:center!important;
+    transform:none!important;
+  }
+  body.inicio-vcc.home-editorial-refresh .home-feature-grid,
+  body.inicio-vcc.home-editorial-refresh .home-stories-grid{gap:36px!important;margin-top:32px!important;}
+  body.inicio-vcc.home-editorial-refresh .home-about{
+    margin-top:55px!important;
+  }
+}
+@media(max-width:610px){
+  body.inicio-vcc.home-editorial-refresh .home-about{
+    margin-top:45px!important;
+  }
+  body.inicio-vcc.home-editorial-refresh .home-feature-grid,
+  body.inicio-vcc.home-editorial-refresh .home-stories-grid{gap:28px!important;margin-top:24px!important;}
+}
+/* Protegeix l'espai de la columna de text en portàtils estrets. */
+@media(min-width:1001px) and (max-width:1200px){
+ body.inicio-vcc.home-editorial-refresh .home-planning-links{
+   transform:translateX(-22px)!important;
+ }
+}
+/* Instagram i Contacto: format horitzontal baix i blanc. */
+body.inicio-vcc.home-editorial-refresh .home-social-contact{
+ gap:14px!important;
+}
+body.inicio-vcc.home-editorial-refresh .home-social-contact .home-instagram,
+body.inicio-vcc.home-editorial-refresh .home-social-contact .home-contact{
+ min-height:180px!important;max-height:none!important;height:auto!important;
+ background:#fff!important;
+}
+body.inicio-vcc.home-editorial-refresh .home-instagram .home-insta-largepost{
+ min-height:180px!important;
+}
+body.inicio-vcc.home-editorial-refresh .home-insta-editorial-copy{
+ padding:12px 16px!important;
+}
+body.inicio-vcc.home-editorial-refresh .home-social-eyebrow{
+ font-size:18px!important;margin-bottom:3px!important;
+}
+body.inicio-vcc.home-editorial-refresh .home-social-heading{
+ margin-bottom:5px!important;
+}
+body.inicio-vcc.home-editorial-refresh .home-social-heading h2{
+ font-size:clamp(21px,1.75vw,26px)!important;
+}
+body.inicio-vcc.home-editorial-refresh .home-insta-handle{
+ margin-bottom:5px!important;font-size:11px!important;
+}
+body.inicio-vcc.home-editorial-refresh .home-insta-text{
+ font-size:11px!important;line-height:1.38!important;
+ margin-bottom:7px!important;
+}
+body.inicio-vcc.home-editorial-refresh .home-social-contact .home-contact{
+ padding:13px 19px!important;background:#fff!important;
+}
+body.inicio-vcc.home-editorial-refresh .home-contact-symbol{
+ width:36px!important;height:34px!important;max-width:36px!important;
+ margin:0 0 4px!important;
+}
+body.inicio-vcc.home-editorial-refresh .home-contact-symbol img{
+ width:36px!important;height:34px!important;
+}
+body.inicio-vcc.home-editorial-refresh .home-contact h2{
+ font-size:clamp(23px,2vw,28px)!important;margin-bottom:5px!important;
+}
+body.inicio-vcc.home-editorial-refresh .home-contact p{
+ font-size:11px!important;line-height:1.4!important;margin-bottom:6px!important;
+}
+body.inicio-vcc.home-editorial-refresh .home-contact .home-card-more,
+body.inicio-vcc.home-editorial-refresh .home-insta-editorial-copy .home-card-more{
+ font-size:10.5px!important;
+}
+@media(min-width:1001px) and (max-width:1180px){
+ body.inicio-vcc.home-editorial-refresh .home-featured-itineraries .home-feature-photo,
+ body.inicio-vcc.home-editorial-refresh .home-featured-guide .home-feature-photo{
+  height:148px!important;min-height:148px!important;flex-basis:148px!important;
+ }
+ body.inicio-vcc.home-editorial-refresh .home-feature-details h3{font-size:19px!important;}
+ body.inicio-vcc.home-editorial-refresh .home-card-desc{font-size:10.5px!important;}
+ body.inicio-vcc.home-editorial-refresh .home-route-metadata{gap:4px!important}
+}
+@media(max-width:1000px){
+ body.inicio-vcc.home-editorial-refresh .home-featured-itineraries .home-feature-card,
+ body.inicio-vcc.home-editorial-refresh .home-featured-guide .home-feature-card{
+  height:325px!important;min-height:325px!important;
+ }
+ body.inicio-vcc.home-editorial-refresh .home-planning{padding:19px!important;}
+}
+@media(max-width:610px){
+ body.inicio-vcc.home-editorial-refresh .home-featured-itineraries .home-feature-card,
+ body.inicio-vcc.home-editorial-refresh .home-featured-guide .home-feature-card{
+  height:342px!important;min-height:342px!important;
+ }
+ body.inicio-vcc.home-editorial-refresh .home-featured-itineraries .home-feature-photo,
+ body.inicio-vcc.home-editorial-refresh .home-featured-guide .home-feature-photo{
+  height:160px!important;min-height:160px!important;flex-basis:160px!important;
+ }
+ body.inicio-vcc.home-editorial-refresh .home-feature-details h3{font-size:21px!important}
+ body.inicio-vcc.home-editorial-refresh .home-planning{padding:16px!important;gap:12px!important;}
+ body.inicio-vcc.home-editorial-refresh .home-planning-links{
+  column-gap:10px!important;row-gap:11px!important;transform:none!important;
+ }
+ body.inicio-vcc.home-editorial-refresh .home-planning-links a{
+  grid-template-columns:34px minmax(0,1fr)!important;gap:7px!important;
+  min-height:78px!important;padding:9px 8px!important;
+ }
+ body.inicio-vcc.home-editorial-refresh .home-planning-links .home-plan-icon{
+  width:34px!important;height:34px!important;border-radius:8px;
+ }
+ body.inicio-vcc.home-editorial-refresh .home-planning-links .home-plan-icon svg{width:21px!important;height:21px!important;}
+ body.inicio-vcc.home-editorial-refresh .home-planning-links .home-plan-label strong{font-size:13px!important;}
+ body.inicio-vcc.home-editorial-refresh .home-planning-links .home-plan-label small{font-size:9px!important;}
+ body.inicio-vcc.home-editorial-refresh .home-instagram .home-insta-largepost{min-height:180px!important;}
+ body.inicio-vcc.home-editorial-refresh .home-insta-editorial-copy{padding:10px 11px!important;}
+ body.inicio-vcc.home-editorial-refresh .home-social-contact .home-contact{padding:12px 15px!important;}
+}
+@media(max-width:380px){
+ body.inicio-vcc.home-editorial-refresh .home-planning-links{
+  grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  column-gap:9px!important;row-gap:11px!important;
+}
+ body.inicio-vcc.home-editorial-refresh .home-planning-links a{
+  grid-template-columns:1fr!important;justify-items:center;text-align:center;gap:5px!important;
+  padding:8px 5px!important;
+ }
+ body.inicio-vcc.home-editorial-refresh .home-planning-links .home-plan-label{align-items:center;}
+ body.inicio-vcc.home-editorial-refresh .home-planning-links .home-plan-label small{font-size:8.5px!important;}
+}
+
+/* Inicio · marca Instagram sobre la foto (sin texto decorativo).
+   Se mantiene tanto en la foto fija de R2 como con el feed conectado. */
+body.inicio-vcc.home-editorial-refresh .home-insta-photo .home-insta-platform-mark{
+  position:absolute!important;
+  left:10px!important;
+  bottom:10px!important;
+  z-index:6!important;
+  display:grid!important;
+  place-items:center!important;
+  width:34px!important;
+  height:34px!important;
+  border:1px solid rgba(255,255,255,.8)!important;
+  border-radius:50%!important;
+  background:rgba(255,255,255,.94)!important;
+  box-shadow:0 2px 9px rgba(20,20,20,.14)!important;
+  color:#c46a4d!important;
+  pointer-events:none!important;
+}
+body.inicio-vcc.home-editorial-refresh .home-insta-photo .home-insta-platform-mark svg{
+  display:block!important;
+  width:21px!important;
+  height:21px!important;
+  fill:none!important;
+  stroke:currentColor!important;
+  stroke-width:1.8!important;
+  stroke-linecap:round!important;
+  stroke-linejoin:round!important;
+}
+body.inicio-vcc.home-editorial-refresh .home-insta-photo .home-insta-platform-mark .shared-solid{
+  fill:currentColor!important;
+  stroke:none!important;
+}
+@media(max-width:530px){
+  body.inicio-vcc.home-editorial-refresh .home-insta-photo .home-insta-platform-mark{
+    width:29px!important;height:29px!important;left:7px!important;bottom:7px!important;
+  }
+  body.inicio-vcc.home-editorial-refresh .home-insta-photo .home-insta-platform-mark svg{
+    width:18px!important;height:18px!important;
+  }
+}
+
+/* Portada · CTA d'Instagram i Contacto idèntics al CTA dels itineraris.
+   Reutilitza la variable de tipografia compartida i s'ancora a baix a la dreta. */
+:is(body.inicio-vcc.home-editorial-refresh .home-social-contact :is(.home-instagram,.home-contact) .vcc-home-social-cta,body.inicio-vcc.home-editorial-refresh .home-about-summary .vcc-home-about-cta){
+  display:inline-flex!important;align-items:center!important;justify-content:flex-end!important;
+  align-self:flex-end!important;flex:0 0 auto!important;
+  width:auto!important;min-width:0!important;min-height:0!important;height:auto!important;
+  margin:auto 0 0!important;padding:4px 0 0!important;
+  border:0!important;border-radius:0!important;background:transparent!important;box-shadow:none!important;
+  font:800 var(--vcc-itinerary-card-cta-size,9px)/1.25 var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;
+  letter-spacing:0!important;text-align:right!important;text-decoration:none!important;
+  white-space:normal!important;color:#ad5a43!important;
+}
+:is(body.inicio-vcc.home-editorial-refresh .home-social-contact :is(.home-instagram,.home-contact) .vcc-home-social-cta,body.inicio-vcc.home-editorial-refresh .home-about-summary .vcc-home-about-cta):hover{
+  color:var(--vcc-ink,#24211e)!important;
+}
+
+/* Sobre nosotros · el texto queda a la izquierda y CONÓCENOS se ancla abajo a la derecha. */
+body.inicio-vcc.home-editorial-refresh .home-about-summary{
+  display:flex!important;flex-direction:column!important;align-items:stretch!important;
+  height:100%;box-sizing:border-box;
+}
+
+
+/* VCC · Portada · 17/11/2026
+   «Planifica tu viaje» en versió escriptori, inclosa la vista d'escriptori
+   de Chrome en mòbil: editorial a l'esquerra i 4 eines a la dreta.
+   La regla anterior a 1000px les col·locava equivocadament a sota. */
+@media(min-width:850px){
+  body.inicio-vcc.home-editorial-refresh .home-planning{
+    display:grid!important;
+    grid-template-columns:minmax(0,1fr) minmax(0,1.12fr)!important;
+    align-items:center!important;
+    column-gap:clamp(15px,2.2vw,28px)!important;
+  }
+  body.inicio-vcc.home-editorial-refresh .home-planning > .home-planning-copy{
+    grid-column:1!important;grid-row:1!important;
+    width:100%!important;min-width:0!important;
+  }
+  body.inicio-vcc.home-editorial-refresh .home-planning > .home-planning-links{
+    grid-column:2!important;grid-row:1!important;
+    display:grid!important;
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    justify-self:end!important;
+    align-self:center!important;
+    width:100%!important;max-width:470px!important;min-width:0!important;
+    transform:none!important;
+    column-gap:12px!important;row-gap:12px!important;
+  }
+}
+@media(min-width:850px) and (max-width:1040px){
+  body.inicio-vcc.home-editorial-refresh .home-planning-links a{
+    padding:10px 8px!important;
+    gap:7px!important;
+    min-height:80px!important;
+  }
+  body.inicio-vcc.home-editorial-refresh .home-planning-links .home-plan-label strong{
+    font-size:13px!important;
+  }
+}

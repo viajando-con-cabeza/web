@@ -1,0 +1,630 @@
+/* VCC · Cómo llegar a Estocolmo · hoja exclusiva de portada.
+   La plantilla compartida como-llegar-vcc.css continúa en las 12 guías.
+   Evita sobrescrituras históricas de la landing y facilita el mantenimiento. */
+html { scroll-behavior: smooth; }
+main.cl-page.cl-landing {
+  --cl-ink:#26352e;
+  --cl-orange:var(--vcc-accent-override, #c6683b);
+  --cl-line:#e8dbcd;
+  --cl-section-bg:#faf6f1; /* Mismo fondo grisáceo de Cómo moverse y Presupuesto */
+  display:block;
+  box-sizing:border-box;
+  width:100%;
+  max-width:none;
+  min-height:0;
+  margin:0;
+  padding:0;
+  color:var(--cl-ink);
+  background:var(--cl-section-bg);
+  font-family:var(--vcc-font-body, "DM Sans", Arial, sans-serif);
+}
+.cl-page.cl-landing *, .cl-page.cl-landing *::before, .cl-page.cl-landing *::after {box-sizing:border-box}
+.cl-page.cl-landing .cl-landing-hero {
+  position:relative;
+  isolation:isolate;
+  width:100%;
+  max-width:none;
+  min-height:var(--vcc-standard-hero-desktop,475px);
+  margin:0;
+  padding:48px max(22px,calc((100vw - 1600px)/2 + 32px)) 12px;
+  border:0;
+  border-radius:0;
+  background:linear-gradient(90deg,rgba(250,247,242,.97),rgba(250,247,242,.91) 26%,rgba(250,247,242,.72) 53%,rgba(250,247,242,.26)),url("/configuracion/imagenes/fondos/fondos-como-llegar.webp?v=20261111-qualitat-alta-v1") center/cover no-repeat;
+}
+.cl-page.cl-landing .cl-landing-hero .cl-crumb.vcc-crumb {
+  position:absolute;
+  z-index:1;
+  top:10px;
+  left:34px;
+  right:30px;
+  display:flex;
+  flex-wrap:wrap;
+  align-items:center;
+  gap:0;
+  max-width:calc(100% - 64px);
+  margin:0;
+  padding:0;
+  color:#48413d;
+  font:400 12px/1.5 var(--vcc-font-body, "DM Sans", Arial, sans-serif);
+  letter-spacing:0;
+  text-shadow:none;
+}
+.cl-page.cl-landing .cl-crumb.vcc-crumb a {color:inherit;text-decoration:none}
+.cl-page.cl-landing .cl-crumb.vcc-crumb a:hover {color:#a45131;text-decoration:underline}
+.cl-page.cl-landing .cl-crumb.vcc-crumb span {margin:0 4px;padding:0;color:#9b928a}
+.cl-page.cl-landing .cl-crumb.vcc-crumb strong {color:#48413d;font-weight:700}
+.cl-page.cl-landing .cl-landing-stage {
+  display:grid;
+  grid-template-columns:minmax(230px,280px) minmax(0,1fr);
+  align-items:start;
+  gap:16px;
+  width:100%;
+}
+.cl-page.cl-landing .cl-landing-intro {min-width:0;padding:9px 8px 0 0;text-align:left}
+.cl-page.cl-landing .cl-landing-kicker {
+  margin:0 0 12px;
+  color:#ba633e;
+  font:600 27px/1.08 var(--vcc-font-script, "Caveat", cursive);
+}
+.cl-page.cl-landing .cl-landing-intro h1 {
+  margin:0;
+  color:#181b18;
+  font:600 clamp(39px,3vw,47px)/1.06 var(--vcc-font-heading, "Oswald", sans-serif);
+  letter-spacing:-.01em;
+  white-space:nowrap;
+}
+.cl-page.cl-landing .cl-landing-underline {
+  width:86px;height:4px;margin:13px 0 15px;
+  border-radius:20px;background:#d36e34;transform:rotate(-1.5deg);
+}
+.cl-page.cl-landing .cl-landing-description {
+  max-width:300px;margin:0;
+  color:#383933;font:400 13.5px/1.6 var(--vcc-font-body, "DM Sans", Arial, sans-serif);
+}
+/* La señal decorativa añadía más de 200px de altura al hero y empujaba
+   el subheader fuera de la primera pantalla. Las tarjetas ya identifican
+   visualmente los transportes; ocultarla armoniza el alto con otras guías. */
+.cl-page.cl-landing .cl-direction-sign {display:none}
+.cl-page.cl-landing .cl-sign-post {
+  position:absolute;top:7px;bottom:0;left:69px;width:13px;
+  border-radius:6px;background:linear-gradient(90deg,#ab7142,#e6b77c,#91613c);
+}
+.cl-page.cl-landing .cl-sign-arrow {
+  position:absolute;top:0;left:9px;width:144px;height:30px;
+  padding:3px 0 0 15px;
+  color:#fff9ef;background:#3a796e;
+  clip-path:polygon(0 5%,89% 0,100% 50%,89% 100%,0 93%,4% 50%);
+  font:700 21px/1 var(--vcc-font-heading, "Oswald", sans-serif);
+}
+.cl-page.cl-landing .cl-sign-arrow:nth-child(3) {top:38px;background:#d39b61;transform:scaleX(-1)}
+.cl-page.cl-landing .cl-sign-arrow:nth-child(4) {top:76px;background:#396d64}
+.cl-page.cl-landing .cl-sign-arrow:nth-child(5) {top:114px;background:#c87d51;transform:scaleX(-1)}
+.cl-page.cl-landing .cl-sign-arrow:nth-child(6) {top:152px;background:#3b796e}
+.cl-page.cl-landing .cl-landing-cards {
+  display:grid;
+  grid-template-columns:repeat(5,minmax(0,1fr));
+  gap:9px;
+  align-items:stretch;
+  min-width:0;
+}
+.cl-page.cl-landing .cl-transport-group {
+  display:flex;flex-direction:column;align-items:center;
+  min-width:0;min-height:0;
+  padding:10px 10px 13px;gap:6px;
+  border:1px solid rgba(255,255,255,.81);border-radius:16px;
+  background:rgba(255,255,255,.84);
+  box-shadow:0 5px 15px rgba(63,43,19,.045);
+  text-align:center;
+}
+.cl-page.cl-landing .cl-illustration.cl-artwork {
+  display:flex;justify-content:center;align-items:center;
+  width:100%;height:60px;min-height:60px;
+  padding:0;margin:0;overflow:visible;
+  background:transparent;border:0;box-shadow:none;
+}
+.cl-page.cl-landing .cl-transport-photo {
+  display:block;width:49px;height:49px;max-width:49px;max-height:49px;
+  flex:0 0 auto;stroke:#c36b44;fill:none;
+  opacity:1;filter:none;
+}
+.cl-page.cl-landing .cl-transport-group h3 {
+  margin:0 0 2px;
+  color:#184c40;
+  font:600 clamp(20px,1.7vw,24px)/1.2 var(--vcc-font-heading, "Oswald", sans-serif);
+}
+.cl-page.cl-landing .cl-transport-group > p {
+  margin:0 0 5px;
+  color:#44443f;
+  font:400 12px/1.55 var(--vcc-font-body, "DM Sans", Arial, sans-serif);
+}
+.cl-page.cl-landing .cl-quicklinks {
+  display:flex;flex-direction:column;gap:0;
+  width:100%;margin:4px 0 0;
+}
+.cl-page.cl-landing .cl-guide-link {
+  display:grid;grid-template-columns:minmax(0,1fr) 17px;
+  align-items:center;gap:6px;
+  width:100%;min-height:46px;
+  padding:9px 2px;
+  border-top:1px solid #e8d9ca;
+  color:#26352e;text-decoration:none;text-align:left;
+}
+.cl-page.cl-landing .cl-guide-title {
+  color:inherit;
+  font:600 12px/1.45 var(--vcc-font-body, "DM Sans", Arial, sans-serif);
+  overflow-wrap:break-word;
+}
+/* Guías en preparación: el estado ocupa su propia línea y nunca la columna
+   estrecha prevista para las flechas de las guías publicadas. */
+.cl-page.cl-landing .cl-guide-link.cl-guide-link-soon {
+  box-sizing:border-box;
+  display:flex;
+  flex-direction:column;
+  align-items:flex-start;
+  justify-content:center;
+  gap:5px;
+  min-height:86px;
+  padding:10px 4px;
+}
+.cl-page.cl-landing .cl-guide-link-soon .cl-guide-title {
+  display:block;
+  width:100%;
+  min-width:0;
+}
+.cl-page.cl-landing .cl-guide-link-soon .cl-guide-coming {
+  display:block;
+  position:static;
+  width:auto;
+  max-width:100%;
+  margin:0;
+  padding:0;
+  color:#826e61;
+  font:600 12px/1.45 var(--vcc-font-body, "DM Sans", Arial, sans-serif);
+  letter-spacing:0;
+  text-transform:uppercase;
+  white-space:normal;
+  overflow-wrap:break-word;
+}
+@media(max-width:1390px) {
+  .cl-page.cl-landing .cl-guide-link-soon .cl-guide-coming {font-size:11.5px}
+}
+@media(max-width:660px) {
+  .cl-page.cl-landing .cl-guide-link-soon .cl-guide-coming {font-size:12px}
+}
+@media(max-width:540px) {
+  .cl-page.cl-landing .cl-guide-link-soon .cl-guide-coming {font-size:13px}
+}
+.cl-page.cl-landing .cl-guide-cta {
+  display:flex;justify-content:center;align-items:center;
+  color:#9d8273;
+}
+.cl-page.cl-landing .cl-guide-cta b {font:600 17px/1 var(--vcc-font-body, "DM Sans", Arial, sans-serif)}
+.cl-page.cl-landing .cl-guide-link:hover,
+.cl-page.cl-landing .cl-guide-link:focus-visible {color:#b15330;background:#fffaf4}
+.cl-page.cl-landing .vcc-sr-only {
+  position:absolute;width:1px;height:1px;padding:0;margin:-1px;
+  overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;
+}
+/* Llegada a Estocolmo · comparación editorial clara, ligera y sin bloques duplicados. */
+.cl-page.cl-landing .vcc-transfer-overview {
+  padding:36px max(22px,calc((100vw - 1160px)/2)) 38px;
+  background:var(--cl-section-bg);
+}
+.cl-page.cl-landing .vcc-arrival-section-head {
+  max-width:840px;
+  margin:0 0 21px;
+}
+.cl-page.cl-landing .vcc-transfer-eyebrow,
+.cl-page.cl-landing .vcc-arrival-eyebrow {
+  margin:0 0 8px;
+  color:#bd6747;
+  font:600 25px/1.15 var(--vcc-font-script, "Caveat", cursive);
+}
+.cl-page.cl-landing .vcc-transfer-overview h2,
+.cl-page.cl-landing .vcc-arrival-brief h2 {
+  margin:0 0 10px;
+  color:#253932;
+  font:500 clamp(27px,2.8vw,35px)/1.18 var(--vcc-font-heading, "Oswald", sans-serif);
+}
+.cl-page.cl-landing .vcc-transfer-intro,
+.cl-page.cl-landing .vcc-arrival-summary {
+  max-width:740px;
+  margin:0;
+  color:#59615c;
+  font:400 13.5px/1.65 var(--vcc-font-body, "DM Sans", Arial, sans-serif);
+}
+.cl-page.cl-landing .vcc-transfer-grid {
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:13px;
+  align-items:stretch;
+}
+.cl-page.cl-landing .vcc-airport-card {
+  display:flex;
+  flex-direction:column;
+  min-width:0;
+  min-height:0;
+  padding:20px 21px 15px;
+  border:1px solid #e8e4df;
+  border-top:2px solid #ce8a6a;
+  border-radius:13px;
+  background:#fff;
+  box-shadow:0 4px 15px rgba(42,45,40,.035);
+}
+.cl-page.cl-landing .vcc-airport-kind {
+  display:block;
+  margin:0 0 5px;
+  color:#a8674d;
+  font:700 10px/1.3 var(--vcc-font-body, "DM Sans", Arial, sans-serif);
+  letter-spacing:.02em;
+}
+.cl-page.cl-landing .vcc-airport-card h3 {
+  display:flex;
+  align-items:baseline;
+  gap:9px;
+  margin:0;
+  color:#263a34;
+  font:500 25px/1.15 var(--vcc-font-heading, "Oswald", sans-serif);
+}
+.cl-page.cl-landing .vcc-airport-card h3 small {
+  color:#86827d;
+  font:600 11px/1.2 var(--vcc-font-body, "DM Sans", Arial, sans-serif);
+  letter-spacing:.04em;
+}
+.cl-page.cl-landing .vcc-airport-stat {
+  display:flex;
+  align-items:baseline;
+  gap:12px;
+  min-height:57px;
+  margin:13px 0 12px;
+  padding:12px 0 9px;
+  border-top:1px solid #ece6df;
+  border-bottom:1px solid #ece6df;
+}
+.cl-page.cl-landing .vcc-airport-stat strong {
+  flex:0 0 auto;
+  color:#2b5649;
+  font:500 29px/1 var(--vcc-font-heading, "Oswald", sans-serif);
+  white-space:nowrap;
+}
+.cl-page.cl-landing .vcc-airport-stat span {
+  min-width:0;
+  color:#696661;
+  font:400 11.5px/1.4 var(--vcc-font-body, "DM Sans", Arial, sans-serif);
+}
+.cl-page.cl-landing .vcc-airport-copy {
+  flex:1 1 auto;
+  margin:0 0 16px;
+  color:#4e5550;
+  font:400 12.5px/1.6 var(--vcc-font-body, "DM Sans", Arial, sans-serif);
+}
+.cl-page.cl-landing .vcc-transfer-detail {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:8px;
+  min-height:37px;
+  margin-top:auto;
+  padding-top:11px;
+  border-top:1px solid #ede7df;
+  color:#a55235;
+  font:700 11.8px/1.35 var(--vcc-font-body, "DM Sans", Arial, sans-serif);
+  text-decoration:none;
+}
+.cl-page.cl-landing .vcc-transfer-detail span {
+  flex:none;
+  font:500 16px/1 var(--vcc-font-body, "DM Sans", Arial, sans-serif);
+}
+.cl-page.cl-landing .vcc-transfer-detail:hover {color:#7f3c27;text-decoration:underline;text-underline-offset:3px}
+.cl-page.cl-landing .vcc-transfer-source {
+  margin:16px 0 0;
+  color:#77726d;
+  font:400 11.5px/1.65 var(--vcc-font-body, "DM Sans", Arial, sans-serif);
+}
+.cl-page.cl-landing .vcc-transfer-source a {
+  color:#97563f;
+  text-decoration:underline;
+  text-underline-offset:2px;
+}
+
+/* Cómo ahorrar: reproducción del formato habitual de Cómo moverse:
+   número punteado a la izquierda, texto a la derecha y flechas laterales. */
+.cl-page.cl-landing .vcc-arrival-brief {
+  padding:39px max(22px,calc((100vw - 1160px)/2)) 43px;
+  border-top:0;
+  background:var(--cl-section-bg);
+}
+.cl-page.cl-landing .vcc-saving-head {
+  display:flex;
+  align-items:end;
+  justify-content:space-between;
+  gap:24px;
+  margin:0 0 16px;
+}
+.cl-page.cl-landing .vcc-saving-title-group {min-width:0}
+.cl-page.cl-landing .vcc-saving-head .vcc-arrival-eyebrow {
+  display:block;
+  margin:0 0 4px;
+  color:#e6631e;
+  font:600 29px/1 var(--vcc-font-script, "Caveat", cursive);
+}
+.cl-page.cl-landing .vcc-saving-head h2 {
+  margin:0;
+  color:#202624;
+  font:600 clamp(27px,2.5vw,38px)/1.1 var(--vcc-font-heading, "Oswald", sans-serif);
+}
+.cl-page.cl-landing .vcc-saving-head .vcc-arrival-summary {
+  flex:0 1 380px;
+  max-width:380px;
+  margin:0 0 3px;
+  font-size:12px;
+  line-height:1.5;
+}
+.cl-page.cl-landing .vcc-saving-carousel {
+  position:relative;
+  min-width:0;
+  padding:0 45px;
+}
+.cl-page.cl-landing .vcc-saving-track {
+  display:flex;
+  align-items:stretch;
+  min-width:0;
+  gap:13px;
+  padding:1px 1px 5px;
+  overflow-x:auto;
+  overflow-y:hidden;
+  scroll-snap-type:x mandatory;
+  scroll-behavior:smooth;
+  scrollbar-width:none;
+  overscroll-behavior-inline:contain;
+  -webkit-overflow-scrolling:touch;
+}
+.cl-page.cl-landing .vcc-saving-track::-webkit-scrollbar {display:none}
+.cl-page.cl-landing .vcc-saving-card {
+  display:flex;
+  align-items:flex-start;
+  gap:12px;
+  flex:0 0 calc((100% - 26px)/3);
+  min-width:0;
+  min-height:161px;
+  padding:15px 16px;
+  scroll-snap-align:start;
+  border:1px solid #e6dbd0;
+  border-radius:13px;
+  background:#fff;
+  box-shadow:0 3px 11px rgba(54,38,26,.04);
+}
+.cl-page.cl-landing .vcc-saving-number {
+  display:grid;
+  place-items:center;
+  flex:0 0 39px;
+  width:39px;
+  height:39px;
+  margin:0;
+  border:1px dashed #d68f74;
+  border-radius:50%;
+  background:#fbeee6;
+  color:#b85b43;
+  font:600 20px/1 var(--vcc-font-heading, "Oswald", sans-serif);
+}
+.cl-page.cl-landing .vcc-saving-copy {
+  flex:1;
+  min-width:0;
+}
+.cl-page.cl-landing .vcc-saving-card h3 {
+  margin:0 0 7px;
+  font:600 19px/1.1 var(--vcc-font-heading, "Oswald", sans-serif);
+  color:#272d2a;
+}
+.cl-page.cl-landing .vcc-saving-card p {
+  margin:0;
+  color:#635d56;
+  font:400 11.6px/1.48 var(--vcc-font-body, "DM Sans", Arial, sans-serif);
+}
+.cl-page.cl-landing .vcc-saving-arrow {
+  position:absolute;
+  top:50%;
+  transform:translateY(-50%);
+  display:grid;
+  place-items:center;
+  width:34px;
+  height:34px;
+  padding:0 0 2px;
+  border:1px solid #dcc7b8;
+  border-radius:50%;
+  background:#fff;
+  color:#b75d43;
+  font:400 24px/1 var(--vcc-font-body, "DM Sans", Arial, sans-serif);
+  cursor:pointer;
+}
+.cl-page.cl-landing .vcc-saving-prev {left:0}
+.cl-page.cl-landing .vcc-saving-next {right:0}
+.cl-page.cl-landing .vcc-saving-arrow:hover:not(:disabled) {background:#fff0e6}
+.cl-page.cl-landing .vcc-saving-arrow:disabled {opacity:.36;cursor:default}
+.cl-page.cl-landing .vcc-saving-arrow:focus-visible,
+.cl-page.cl-landing .vcc-saving-track:focus-visible {
+  outline:2px solid #c56c50;
+  outline-offset:3px;
+}
+.cl-page.cl-landing .vcc-saving-source {
+  margin:12px 45px 0;
+  color:#77716b;
+  font:400 11.5px/1.65 var(--vcc-font-body, "DM Sans", Arial, sans-serif);
+}
+.cl-page.cl-landing .vcc-saving-source a {
+  color:#95533c;
+  text-decoration:underline;
+  text-underline-offset:2px;
+}
+@media(max-width:1050px) {
+  .cl-page.cl-landing .vcc-saving-card {flex-basis:calc((100% - 13px)/2)}
+}
+@media(max-width:760px) {
+  .cl-page.cl-landing .vcc-saving-head {display:block}
+  .cl-page.cl-landing .vcc-saving-head .vcc-arrival-eyebrow {font-size:27px}
+  .cl-page.cl-landing .vcc-saving-head .vcc-arrival-summary {
+    max-width:none;
+    margin:9px 0 0;
+  }
+}
+@media(max-width:650px) {
+  .cl-page.cl-landing .vcc-saving-carousel {padding:0 36px}
+  .cl-page.cl-landing .vcc-saving-card {
+    flex-basis:100%;
+    min-height:145px;
+    padding:14px 12px;
+  }
+  .cl-page.cl-landing .vcc-saving-number {width:34px;height:34px;flex-basis:34px;font-size:19px}
+  .cl-page.cl-landing .vcc-saving-card h3 {font-size:18px}
+  .cl-page.cl-landing .vcc-saving-card p {font-size:11.8px}
+  .cl-page.cl-landing .vcc-saving-arrow {width:30px;height:30px}
+  .cl-page.cl-landing .vcc-saving-source {margin:11px 36px 0}
+}
+
+/* El bloque SIGUE DESCUBRIENDO ESTOCOLMO usa exclusivamente
+   configuracion/css/componentes/estocolmo-guias-final-vcc.css,
+   compartido con las demás guías: montañas y tarjetas oscuras. */
+.cl-page.cl-landing :is(a):focus-visible {
+  outline:3px solid #be653d;outline-offset:3px;border-radius:3px;
+}
+@media(max-width:1390px) {
+  .cl-page.cl-landing .cl-landing-stage {grid-template-columns:240px minmax(0,1fr);gap:12px}
+  .cl-page.cl-landing .cl-landing-hero {padding-inline:24px}
+  .cl-page.cl-landing .cl-guide-title {font-size:11.5px}
+}
+@media(max-width:1190px) {
+  .cl-page.cl-landing .cl-landing-stage {display:block}
+  .cl-page.cl-landing .cl-landing-intro {padding:0 0 22px;max-width:680px}
+  .cl-page.cl-landing .cl-landing-intro h1 {font-size:clamp(45px,4.5vw,54px)}
+  .cl-page.cl-landing .cl-direction-sign {display:none}
+  .cl-page.cl-landing .cl-landing-description {max-width:640px}
+  .cl-page.cl-landing .cl-landing-cards {gap:12px}
+}
+@media(max-width:980px) {
+  .cl-page.cl-landing .cl-landing-cards {grid-template-columns:repeat(3,minmax(0,1fr))}
+  .cl-page.cl-landing .cl-landing-hero {background-position:center,60% center}
+}
+@media(max-width:760px){
+  .cl-page.cl-landing .vcc-transfer-grid {grid-template-columns:1fr;gap:11px}
+  .cl-page.cl-landing .vcc-transfer-overview,
+  .cl-page.cl-landing .vcc-arrival-brief {padding:28px 18px 32px}
+  .cl-page.cl-landing .vcc-airport-card {padding:17px 18px 13px}
+  .cl-page.cl-landing .vcc-airport-stat {min-height:0;margin:10px 0;padding:10px 0}
+  .cl-page.cl-landing .vcc-airport-copy {margin-bottom:10px}
+}
+@media(max-width:660px) {
+  .cl-page.cl-landing .cl-landing-cards {grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+  .cl-page.cl-landing .cl-landing-hero {
+    min-height:var(--vcc-standard-hero-mobile,730px);
+    padding:48px 15px 16px;
+  }
+  .cl-page.cl-landing .cl-landing-hero .cl-crumb.vcc-crumb {
+    top:9px;left:15px;right:15px;max-width:calc(100% - 30px);
+    font-size:11px;
+  }
+  .cl-page.cl-landing .cl-landing-intro h1 {font-size:clamp(38px,9vw,51px)}
+  .cl-page.cl-landing .cl-landing-kicker {font-size:26px}
+  .cl-page.cl-landing .cl-transport-group {padding:9px 9px 12px}
+  .cl-page.cl-landing .cl-illustration.cl-artwork {height:55px;min-height:55px}
+  .cl-page.cl-landing .cl-transport-photo {width:46px;height:46px}
+  .cl-page.cl-landing .cl-guide-title {font-size:12px}
+}
+@media(max-width:540px) {
+  .cl-page.cl-landing .cl-landing-cards {grid-template-columns:1fr}
+  .cl-page.cl-landing .cl-transport-group {
+    display:grid;grid-template-columns:76px minmax(0,1fr);
+    align-items:start;column-gap:12px;row-gap:4px;
+    padding:13px;text-align:left;
+  }
+  .cl-page.cl-landing .cl-illustration.cl-artwork {
+    grid-column:1;grid-row:1 / span 2;
+    width:76px;height:62px;min-height:62px;
+  }
+  .cl-page.cl-landing .cl-transport-photo {width:43px;height:43px}
+  .cl-page.cl-landing .cl-transport-group h3 {grid-column:2;font-size:23px}
+  .cl-page.cl-landing .cl-transport-group > p {grid-column:2;font-size:12.5px}
+  .cl-page.cl-landing .cl-quicklinks {grid-column:1 / -1;margin-top:6px}
+  .cl-page.cl-landing .cl-guide-link {min-height:44px}
+  .cl-page.cl-landing .cl-guide-title {font-size:13px}
+}
+@media(prefers-reduced-motion:reduce) {
+  html { scroll-behavior: auto; }
+  .cl-page.cl-landing .vcc-saving-track {scroll-behavior:auto}
+  .cl-page.cl-landing * {scroll-behavior:auto;animation-duration:.01ms;transition-duration:.01ms}
+}
+
+
+/* Navegación secundaria VCC: portada con secciones reales bajo el hero. */
+.cl-page.cl-landing .vcc-como-llegar-subnav {
+  position:sticky;
+  top:50px;
+  z-index:120;
+  width:100%;
+  margin:0;
+  background:#fff;
+  border-top:1px solid #e7ded6;
+  border-bottom:1px solid #e7ded6;
+}
+.cl-page.cl-landing .vcc-como-llegar-subnav .vcc-nav-inner {
+  display:flex;align-items:center;gap:30px;
+  width:min(1180px,calc(100% - 48px));
+  height:39px;min-height:39px;
+  margin:0 auto;
+  overflow-x:auto;
+  scrollbar-width:none;
+}
+.cl-page.cl-landing .vcc-como-llegar-subnav .vcc-nav-inner::-webkit-scrollbar {display:none}
+.cl-page.cl-landing .vcc-como-llegar-subnav a {
+  box-sizing:border-box;
+  display:inline-flex;align-items:center;justify-content:center;
+  flex:0 0 auto;
+  height:39px;
+  padding:1px 0 0;
+  border-bottom:3px solid transparent;
+  color:#292927;
+  font:800 11.5px/1.15 var(--vcc-font-body, "DM Sans", Arial, sans-serif);
+  letter-spacing:0;
+  text-decoration:none;
+  white-space:nowrap;
+}
+.cl-page.cl-landing .vcc-como-llegar-subnav a:hover,
+.cl-page.cl-landing .vcc-como-llegar-subnav a.is-active,
+.cl-page.cl-landing .vcc-como-llegar-subnav a[aria-current="location"] {
+  color:#b85f3e;
+  border-bottom-color:#cf7051;
+}
+#comparar-aeropuertos, #ahorrar {
+  scroll-margin-top:102px;
+}
+@media(max-width:720px) {
+  /* Referencia compartida de hero móvil, sin imponer max-height: las 5
+     tarjetas siguen siendo accesibles si requieren más espacio. */
+  .cl-page.cl-landing .cl-landing-hero {
+    min-height:var(--vcc-standard-hero-mobile,730px);
+  }
+  .cl-page.cl-landing .vcc-como-llegar-subnav {top:0}
+  .cl-page.cl-landing .vcc-como-llegar-subnav .vcc-nav-inner {
+    width:calc(100% - 30px);gap:22px;height:39px;min-height:39px;
+  }
+  .cl-page.cl-landing .vcc-como-llegar-subnav a {height:39px;font-size:10.5px}
+  #comparar-aeropuertos, #ahorrar {scroll-margin-top:54px}
+}
+
+/* Móvil: las cinco opciones de transporte se muestran después del subheader.
+   La introducción sigue en la portada y la barra entra en el primer viewport. */
+@media(max-width:720px){
+  html body .cl-page.cl-landing .cl-landing-hero.vcc-subheader-hero.vcc-standardized-hero-height{
+    box-sizing:border-box!important;
+    height:var(--vcc-standard-hero-mobile)!important;
+    min-height:var(--vcc-standard-hero-mobile)!important;
+    max-height:var(--vcc-standard-hero-mobile)!important;
+  }
+  .cl-page.cl-landing > .cl-landing-cards.vcc-cl-mobile-cards{
+    width:100%;
+    margin:0;
+    padding:18px 15px 25px;
+    background:var(--cl-section-bg);
+  }
+  .cl-page.cl-landing .cl-landing-stage{display:block}
+  .cl-page.cl-landing .cl-landing-intro{padding-bottom:0}
+}

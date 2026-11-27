@@ -1,0 +1,290 @@
+@import url("/configuracion/css/componentes/portades-fade-global-vcc.css?v=20261116-unificat-v1");
+
+/* ================================================================
+   VCC · Portadas de Planifica · componente editorial compartido
+   Referencia visual: /planifica/ (Oswald + Caveat + DM Sans).
+   - Mismos estilos de sobretítulo y título en todas las subpáginas.
+   - Sobretítulos en formato oración, escritos como texto real en el HTML.
+   - Sin modificar las tipografías ni el diseño de los bloques interiores.
+   - Fotos locales existentes, con degradado blanco a la izquierda.
+   ================================================================ */
+html body .vcc-planifica-hero {
+  --vcc-pl-ink:#262421;
+  --vcc-pl-accent:#c15c40;
+  --vcc-pl-hero-height:475px;
+  box-sizing:border-box;
+  isolation:isolate!important;
+  position:relative!important;
+  overflow:hidden!important;
+}
+html body .vcc-planifica-hero:not(.planifica-about-hero) {
+  display:flex!important;
+  align-items:center!important;
+  justify-content:stretch!important;
+  min-height:var(--vcc-pl-hero-height)!important;
+  height:var(--vcc-pl-hero-height)!important;
+  max-height:none!important;
+  margin:0!important;
+  border:0!important;
+  background:#fff!important;
+  color:var(--vcc-pl-ink)!important;
+}
+/* Un solo tratamiento fotográfico para portadas de las páginas hijas. */
+html body .vcc-planifica-hero:not(.planifica-about-hero)::before {
+  content:""!important;
+  display:block!important;
+  position:absolute!important;
+  inset:0!important;
+  z-index:0!important;
+  opacity:1!important;
+  visibility:visible!important;
+  pointer-events:none!important;
+  background-color:transparent!important;
+  background-image:var(--vcc-pl-cover)!important;
+  background-position:center center!important;
+  background-size:cover!important;
+  background-repeat:no-repeat!important;
+  /* Transparència real de la foto sobre blanc, igual que a la resta de VCC.
+     La variable global governa el degradat i la versió mòbil. */
+  -webkit-mask-image:var(--vcc-portada-fade)!important;
+  mask-image:var(--vcc-portada-fade)!important;
+  -webkit-mask-size:100% 100%!important;
+  mask-size:100% 100%!important;
+  -webkit-mask-repeat:no-repeat!important;
+  mask-repeat:no-repeat!important;
+  filter:none!important;
+  mix-blend-mode:normal!important;
+}
+html body .vcc-planifica-hero:not(.planifica-about-hero)::after {
+  content:none!important;
+  display:none!important;
+}
+html body .vcc-planifica-hero:not(.planifica-about-hero) > :is(.about-hero-photo,.about-hero-shade) {
+  display:none!important;
+}
+html body .vcc-planifica-hero:not(.planifica-about-hero) > :is(.hero-art,.map-art) {
+  display:none!important;
+}
+/* Alineación de los bloques de texto sin añadir CSS propio a cada página. */
+html body .vcc-planifica-hero .vcc-planifica-hero-content {
+  position:relative!important;
+  z-index:2!important;
+  box-sizing:border-box!important;
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:flex-start!important;
+  justify-content:center!important;
+  gap:0!important;
+  min-width:0!important;
+  width:min(1320px,calc(100% - 72px))!important;
+  max-width:1320px!important;
+  height:auto!important;
+  min-height:0!important;
+  padding:58px 0!important;
+  margin:0 auto!important;
+  background:none!important;
+  color:var(--vcc-pl-ink)!important;
+}
+/* La portada "Dónde ir" tiene botones al lado: respetar esa distribución. */
+html body .vcc-planifica-hero .di-hero-inner {
+  position:relative!important;
+  z-index:2!important;
+}
+html body .vcc-planifica-hero .di-hero-copy.vcc-planifica-hero-content {
+  width:100%!important;
+  max-width:850px!important;
+  padding:0!important;
+  margin:0!important;
+}
+/* Las páginas de checklists y mapas antes tenían arte/emoji en lugar de foto. */
+html body .vcc-planifica-hero .hero-in.vcc-planifica-hero-content > :is(.hero-art,.map-art) {
+  display:none!important;
+}
+html body .vcc-planifica-hero .hero-in.vcc-planifica-hero-content > div:first-child {
+  width:100%!important;
+  max-width:920px!important;
+  min-width:0!important;
+}
+/* Sobretítulo canónico: Caveat y siempre en formato oración. */
+html body .vcc-planifica-hero .vcc-planifica-sobretitol {
+  display:block!important;
+  position:relative!important;
+  color:var(--vcc-pl-accent)!important;
+  font-family:var(--vcc-font-script,"Caveat",cursive)!important;
+  font-size:clamp(25px,2.5vw,35px)!important;
+  font-style:normal!important;
+  font-weight:600!important;
+  line-height:1.14!important;
+  letter-spacing:0!important;
+  text-transform:none!important;
+  padding:0!important;
+  margin:0 0 16px!important;
+  background:none!important;
+  border:0!important;
+  box-shadow:none!important;
+  max-width:100%!important;
+}
+html body .vcc-planifica-hero h1 {
+  display:block!important;
+  position:relative!important;
+  font-family:var(--vcc-font-heading,"Oswald",sans-serif)!important;
+  font-size:clamp(44px,5vw,70px)!important;
+  font-weight:600!important;
+  font-style:normal!important;
+  line-height:1.055!important;
+  letter-spacing:-.024em!important;
+  text-transform:uppercase!important;
+  color:var(--vcc-pl-ink)!important;
+  width:auto!important;
+  max-width:1030px!important;
+  padding:0!important;
+  margin:0 0 17px!important;
+  background:none!important;
+  text-shadow:none!important;
+}
+html body .vcc-planifica-hero h1 em,
+html body .vcc-planifica-hero h1 strong.vcc-pl-accent {
+  color:var(--vcc-pl-accent)!important;
+  font-family:inherit!important;
+  font-size:inherit!important;
+  font-weight:inherit!important;
+  font-style:normal!important;
+  text-transform:inherit!important;
+  letter-spacing:inherit!important;
+}
+html body .vcc-planifica-hero .vcc-planifica-hero-content > p:not(.vcc-planifica-sobretitol),
+html body .vcc-planifica-hero .hero-in.vcc-planifica-hero-content > div:first-child > p {
+  color:#41413d!important;
+  font-family:var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;
+  font-size:clamp(13px,1vw,14px)!important;
+  font-weight:400!important;
+  line-height:1.57!important;
+  max-width:850px!important;
+  margin:0 0 12px!important;
+}
+/* Los antiguos rayados debajo del título no están en la portada de referencia. */
+html body .vcc-planifica-hero :is(.al-hero-rule,.av-hero-rule,.tv-hero-rule) {
+  display:none!important;
+}
+/* Fotografías ya existentes en el proyecto. */
+html body .vcc-planifica-hero[data-vcc-planifica-hero="vuelos"] {--vcc-pl-cover:url("/configuracion/imagenes/fondos/optimizadas/fondos-vuelos-1920.webp");}
+html body .vcc-planifica-hero[data-vcc-planifica-hero="alojamientos"] {--vcc-pl-cover:url("/configuracion/imagenes/fondos/optimizadas/fondos-alojamientos-1920.webp");}
+html body .vcc-planifica-hero[data-vcc-planifica-hero="tarjetas-de-viaje"] {--vcc-pl-cover:url("/configuracion/imagenes/fondos/optimizadas/fondos-tarjetas-de-viaje-1920.webp");}
+html body .vcc-planifica-hero[data-vcc-planifica-hero="apps"] {--vcc-pl-cover:url("/configuracion/imagenes/fondos/optimizadas/fondos-apps-editorial-1920.webp");}
+html body .vcc-planifica-hero[data-vcc-planifica-hero="seguros"] {--vcc-pl-cover:url("/configuracion/imagenes/fondos/optimizadas/fondos-seguros-claro-1600.webp");}
+html body .vcc-planifica-hero[data-vcc-planifica-hero="donde-ir"] {--vcc-pl-cover:url("/configuracion/imagenes/fondos/optimizadas/fondos-como-llegar-1920.webp");}
+html body .vcc-planifica-hero[data-vcc-planifica-hero="presupuesto"],
+html body .vcc-planifica-hero[data-vcc-planifica-hero="calcula-tu-viaje"] {--vcc-pl-cover:url("/configuracion/imagenes/fondos/optimizadas/fondos-presupuesto-1920.webp");}
+html body .vcc-planifica-hero[data-vcc-planifica-hero="que-llevar"],
+html body .vcc-planifica-hero[data-vcc-planifica-hero="checklist"] {--vcc-pl-cover:url("/configuracion/imagenes/fondos/optimizadas/fondos-que-llevar-1920.webp");}
+html body .vcc-planifica-hero[data-vcc-planifica-hero="mapas"] {--vcc-pl-cover:url("/configuracion/imagenes/fondos/optimizadas/fondos-planifica-1920.webp");}
+@media(max-width:950px){
+  html body .vcc-planifica-hero:not(.planifica-about-hero) {
+    height:auto!important;
+    min-height:420px!important;
+    max-height:none!important;
+  }
+  html body .vcc-planifica-hero .vcc-planifica-hero-content {
+    width:calc(100% - 48px)!important;
+    padding:58px 0!important;
+  }
+  html body .vcc-planifica-hero h1{
+    font-size:clamp(39px,6.3vw,61px)!important;
+    max-width:880px!important;
+  }
+}
+@media(max-width:700px){
+  html body .vcc-planifica-hero:not(.planifica-about-hero){
+    height:auto!important;
+    min-height:415px!important;
+    max-height:none!important;
+  }
+  html body .vcc-planifica-hero .vcc-planifica-hero-content{
+    width:calc(100% - 36px)!important;
+    padding:53px 0!important;
+  }
+  html body .vcc-planifica-hero .vcc-planifica-sobretitol{
+    font-size:clamp(25px,7.1vw,31px)!important;
+    margin-bottom:13px!important;
+  }
+  html body .vcc-planifica-hero h1{
+    font-size:clamp(38px,10.4vw,50px)!important;
+    line-height:1.06!important;
+    max-width:100%!important;
+    margin-bottom:14px!important;
+  }
+  html body .vcc-planifica-hero .vcc-planifica-hero-content > p:not(.vcc-planifica-sobretitol),
+  html body .vcc-planifica-hero .hero-in.vcc-planifica-hero-content > div:first-child > p {
+    font-size:13px!important;
+    line-height:1.5!important;
+  }
+  html body .vcc-planifica-hero[data-vcc-planifica-hero="vuelos"] {--vcc-pl-cover:url("/configuracion/imagenes/fondos/optimizadas/fondos-vuelos-960.webp");}
+  html body .vcc-planifica-hero[data-vcc-planifica-hero="alojamientos"] {--vcc-pl-cover:url("/configuracion/imagenes/fondos/optimizadas/fondos-alojamientos-960.webp");}
+  html body .vcc-planifica-hero[data-vcc-planifica-hero="tarjetas-de-viaje"] {--vcc-pl-cover:url("/configuracion/imagenes/fondos/optimizadas/fondos-tarjetas-de-viaje-960.webp");}
+  html body .vcc-planifica-hero[data-vcc-planifica-hero="apps"] {--vcc-pl-cover:url("/configuracion/imagenes/fondos/optimizadas/fondos-apps-editorial-960.webp");}
+  html body .vcc-planifica-hero[data-vcc-planifica-hero="seguros"] {--vcc-pl-cover:url("/configuracion/imagenes/fondos/optimizadas/fondos-seguros-claro-mobile-704.webp");}
+  html body .vcc-planifica-hero[data-vcc-planifica-hero="donde-ir"] {--vcc-pl-cover:url("/configuracion/imagenes/fondos/optimizadas/fondos-como-llegar-960.webp");}
+  html body .vcc-planifica-hero[data-vcc-planifica-hero="presupuesto"],
+  html body .vcc-planifica-hero[data-vcc-planifica-hero="calcula-tu-viaje"] {--vcc-pl-cover:url("/configuracion/imagenes/fondos/optimizadas/fondos-presupuesto-960.webp");}
+  html body .vcc-planifica-hero[data-vcc-planifica-hero="que-llevar"],
+  html body .vcc-planifica-hero[data-vcc-planifica-hero="checklist"] {--vcc-pl-cover:url("/configuracion/imagenes/fondos/optimizadas/fondos-que-llevar-960.webp");}
+  html body .vcc-planifica-hero[data-vcc-planifica-hero="mapas"] {--vcc-pl-cover:url("/configuracion/imagenes/fondos/optimizadas/fondos-planifica-960.webp");}
+}
+/* La portada de inicio sigue con su propia foto y altura de la captura. */
+html body.planifica-vcc .planifica-about-hero.vcc-planifica-hero{
+  --vcc-pl-ink:#262421;
+  --vcc-pl-accent:#c15c40;
+}
+@media print{
+  html body .vcc-planifica-hero:not(.planifica-about-hero){height:auto!important;min-height:0!important;background:#fff!important;}
+  html body .vcc-planifica-hero:not(.planifica-about-hero)::before{display:none!important;}
+}
+
+
+/* Paritat comprovada amb la portada /planifica/: a 1440 CSS px
+   el h1 és Oswald fins a 44px i el sobretítol Caveat fins a 23px.
+   Prioritat superior als estils antics específics de cada guia. */
+html body .vcc-planifica-hero[data-vcc-planifica-hero].vcc-planifica-hero h1 {
+  font-family:var(--vcc-font-heading,"Oswald",sans-serif)!important;
+  font-size:clamp(34px,3.3vw,44px)!important;
+  font-weight:600!important;
+  line-height:1.08!important;
+  letter-spacing:-.025em!important;
+  text-transform:uppercase!important;
+  color:var(--vcc-pl-ink)!important;
+  margin:0 0 17px!important;
+  max-width:1030px!important;
+}
+html body .vcc-planifica-hero[data-vcc-planifica-hero].vcc-planifica-hero .vcc-planifica-sobretitol{
+  font-family:var(--vcc-font-script,"Caveat",cursive)!important;
+  font-size:clamp(21px,1.85vw,23px)!important;
+  font-weight:600!important;
+  font-style:normal!important;
+  line-height:1.15!important;
+  text-transform:none!important;
+  letter-spacing:0!important;
+  margin:0 0 15px!important;
+  padding:0!important;
+  background:none!important;
+  color:var(--vcc-pl-accent)!important;
+}
+@media(max-width:700px){
+  html body .vcc-planifica-hero[data-vcc-planifica-hero].vcc-planifica-hero h1{
+    font-size:clamp(34px,9vw,42px)!important;
+    line-height:1.08!important;
+  }
+  html body .vcc-planifica-hero[data-vcc-planifica-hero].vcc-planifica-hero .vcc-planifica-sobretitol{
+    font-size:clamp(22px,6vw,24px)!important;
+  }
+}
+
+/* Shared full-bleed hero: the two planning hubs are nested in a centred
+   1180px shell. The old itinerary CSS gives them width:100vw with a
+   compensating negative left margin; the unified margin:0 override removed
+   that compensation and shifted both covers 93px to the right on desktop.
+   Restore only the centring, keeping exactly the same image and typography. */
+@media (min-width:1024px) {
+  html body:is(.presupuestos-vcc,.que-llevar-hub) .vcc-planifica-hero.itinerarios-hero {
+    margin-left:calc(50% - 50vw)!important;
+  }
+}

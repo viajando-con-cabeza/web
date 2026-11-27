@@ -1,0 +1,57 @@
+name: Quality EN Visual Parity
+
+on:
+  push:
+    branches: [quality]
+    paths:
+      - 'en/**'
+      - 'configuracion/js/vcc-en-runtime.js'
+      - 'configuracion/js/site-header.js'
+      - 'configuracion/js/site-footer.js'
+      - 'configuracion/js/consejo-vcc-global.js'
+      - 'configuracion/js/componentes/**'
+      - 'configuracion/css/**'
+      - 'configuracion/tests/en-visual-parity.spec.mjs'
+      - '.github/workflows/quality-en-visual.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: quality-en-visual-system-chrome
+  # Keep a single browser QA pass alive despite automatic translation pushes.
+  cancel-in-progress: true
+
+jobs:
+  browser_parity:
+    name: Check ES/EN real-browser desktop and mobile
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: quality
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install isolated browser test dependencies
+        run: |
+          npm install --no-save --no-package-lock --ignore-scripts @playwright/test@1.58.2
+          command -v google-chrome || command -v google-chrome-stable
+      - name: Compare Quality EN versus ES in real browser
+        env:
+          CI: true
+        run: |
+          npx playwright test configuracion/tests/en-visual-parity.spec.mjs \
+            --workers=2 --retries=1 --reporter=line
+      - name: Save failure screenshots and traces
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: quality-en-visual-errors
+          path: |
+            test-results/
+            playwright-report/
+          retention-days: 7
+          if-no-files-found: ignore

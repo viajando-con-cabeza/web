@@ -1,0 +1,308 @@
+/* VCC · Tarjetas de viaje: ritme editorial i calculadora compacta
+   Només s'aplica a aquesta pàgina; no modifica carrusels ni calculadores
+   d'altres guies. Últim full carregat després del CSS compartit. */
+
+/* L'encapçalament ha de conduir directament a les targetes. */
+html body .tv-page #tarjetas.tv-intro{
+  margin:0!important;
+  padding-bottom:0!important;
+}
+html body .tv-page #tarjetas .vcc-editorial-heading{
+  margin-bottom:0!important;
+  padding-bottom:0!important;
+}
+html body .tv-page #tarjetas .tv-copy{
+  margin-bottom:0!important;
+}
+html body .tv-page .tv-catalog{
+  margin-top:0!important;
+  padding-top:0!important;
+}
+html body .tv-page .tv-catalog .tv-carousel-shell.vcc-experience-carousel{
+  margin-top:0!important;
+}
+
+/* Comparador de tarjetas · contracte visual de ¿Alquilar un coche? Suecia.
+   Un sol resum, fons crema clar #fcf8f4 i resultat blanc; sense
+   recomanacions comercials: només el cost menor segons els camps. */
+html body .tv-page #calculadora .tv-calc-card{
+  background:#fff!important;
+  border-color:#e7dcd2!important;
+  box-shadow:0 2px 10px rgba(40,33,26,.035)!important;
+}
+html body .tv-page #calculadora .tv-calc-summary{
+  display:block!important;
+  min-width:0!important;
+  margin:0!important;
+  padding:0!important;
+  background:#fff!important;
+  border:0!important;
+}
+html body .tv-page #calculadora .tv-results-heading{
+  display:block!important;
+  margin:0 0 6px!important;
+  color:#7c736c!important;
+  background:#fff!important;
+  font-size:9.5px!important;
+}
+html body .tv-page #calculadora .tv-results-comparison{
+  box-sizing:border-box!important;
+  display:grid!important;
+  grid-template-columns:minmax(0,1.25fr) minmax(0,1fr) minmax(0,1fr)!important;
+  grid-template-rows:auto auto!important;
+  align-items:center!important;
+  width:100%!important;
+  min-width:0!important;
+  min-height:0!important;
+  margin:0!important;
+  padding:10px 11px!important;
+  column-gap:0!important;
+  row-gap:8px!important;
+  border:1px solid #eadbd0!important;
+  border-radius:10px!important;
+  background:#fcf8f4!important;
+  box-shadow:none!important;
+}
+html body .tv-page #calculadora .tv-recommendation-heading{
+  grid-column:1!important;
+  grid-row:1!important;
+  box-sizing:border-box!important;
+  display:flex!important;
+  flex-direction:row!important;
+  align-items:center!important;
+  justify-content:flex-start!important;
+  width:100%!important;
+  min-width:0!important;
+  min-height:56px!important;
+  gap:8px!important;
+  padding:5px 9px 5px 2px!important;
+  margin:0!important;
+  text-align:left!important;
+}
+html body .tv-page #calculadora .tv-recommendation-heading .tv-recommendation-logo{
+  box-sizing:content-box!important;
+  display:block!important;
+  flex:0 0 32px!important;
+  width:32px!important;
+  height:32px!important;
+  margin:0!important;
+  padding:0!important;
+  border:0!important;
+  background:transparent!important;
+  border-radius:0!important;
+  object-fit:contain!important;
+}
+html body .tv-page #calculadora .tv-recommendation-copy{
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:flex-start!important;
+  min-width:0!important;
+  gap:2px!important;
+  line-height:1.2!important;
+}
+html body .tv-page #calculadora .tv-recommendation-copy>span{
+  display:block!important;
+  margin:0!important;
+  color:#a65c44!important;
+  font:800 8.5px/1.2 var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;
+  letter-spacing:.035em!important;
+}
+html body .tv-page #calculadora .tv-recommendation-copy>strong{
+  display:block!important;
+  color:#302c27!important;
+  font:600 15px/1.1 var(--vcc-font-heading,"Oswald",sans-serif)!important;
+  letter-spacing:0!important;
+}
+html body .tv-page #calculadora .tv-recommendation-copy>small{
+  display:block!important;
+  max-width:100%!important;
+  margin:1px 0 0!important;
+  color:#796e65!important;
+  font:400 9px/1.25 var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;
+}
+html body .tv-page #calculadora .tv-recommendation-copy>small b{
+  color:#322c27!important;
+  font-weight:750!important;
+}
+html body .tv-page #calculadora .tv-results-comparison>.tv-results{
+  display:contents!important;
+}
+html body .tv-page #calculadora .tv-results-comparison>.tv-results>.tv-result{
+  box-sizing:border-box!important;
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:center!important;
+  justify-content:center!important;
+  min-width:0!important;
+  min-height:56px!important;
+  height:auto!important;
+  gap:6px!important;
+  padding:6px 5px!important;
+  margin:0!important;
+  background:transparent!important;
+  border:0!important;
+  border-radius:0!important;
+  box-shadow:none!important;
+}
+html body .tv-page #calculadora .tv-results-comparison>.tv-results>.tv-result:first-child{
+  grid-column:2!important;grid-row:1!important;
+  border-left:1px solid #eadfd6!important;
+}
+html body .tv-page #calculadora .tv-results-comparison>.tv-results>.tv-result:nth-child(2){
+  grid-column:3!important;grid-row:1!important;
+  border-left:1px solid #eadfd6!important;
+}
+html body .tv-page #calculadora .tv-results-comparison>.tv-results>.tv-result .tv-result-label{
+  display:flex!important;
+  flex-direction:row!important;
+  flex-wrap:wrap!important;
+  align-items:center!important;
+  justify-content:center!important;
+  width:100%!important;
+  min-width:0!important;
+  gap:4px!important;
+  margin:0!important;
+  padding:0!important;
+  color:#6b5e55!important;
+  font:700 9.4px/1.25 var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;
+  text-align:center!important;
+}
+html body .tv-page #calculadora .tv-results-comparison>.tv-results>.tv-result .tv-result-label .tv-field-icon{
+  display:block!important;
+  flex:0 0 14px!important;
+  width:14px!important;
+  height:14px!important;
+}
+html body .tv-page #calculadora .tv-results-comparison>.tv-results>.tv-result strong,
+html body .tv-page #calculadora .tv-results-comparison>.tv-results>.tv-result.is-lower strong,
+html body .tv-page #calculadora .tv-results-comparison>.tv-results>.tv-result.is-higher strong,
+html body .tv-page #calculadora .tv-results-comparison>.tv-results>.tv-result.is-equal strong{
+  display:block!important;
+  flex:none!important;
+  width:auto!important;
+  margin:0!important;
+  color:#292925!important;
+  font:600 clamp(18px,1.65vw,22px)/1.1 var(--vcc-font-heading,"Oswald",sans-serif)!important;
+  font-variant-numeric:tabular-nums!important;
+  white-space:nowrap!important;
+}
+html body .tv-page #calculadora .tv-results-comparison>.tv-saving-panel{
+  box-sizing:border-box!important;
+  display:flex!important;
+  grid-column:1/-1!important;
+  grid-row:2!important;
+  align-items:center!important;
+  justify-content:center!important;
+  width:100%!important;
+  min-width:0!important;
+  min-height:0!important;
+  height:auto!important;
+  padding:0!important;
+  margin:0!important;
+  border:0!important;
+  border-radius:0!important;
+  background:transparent!important;
+  box-shadow:none!important;
+}
+html body .tv-page #calculadora .tv-results-comparison>.tv-saving-panel>.tv-saving{
+  box-sizing:border-box!important;
+  display:flex!important;
+  flex-direction:row!important;
+  align-items:center!important;
+  justify-content:space-between!important;
+  width:100%!important;
+  min-width:0!important;
+  max-width:100%!important;
+  min-height:44px!important;
+  gap:10px!important;
+  margin:0!important;
+  padding:9px 14px!important;
+  border:1px solid #e5dcd3!important;
+  border-radius:9px!important;
+  background:#fff!important;
+  box-shadow:0 2px 7px rgba(38,30,23,.045)!important;
+}
+html body .tv-page #calculadora .tv-results-comparison>.tv-saving-panel>.tv-saving span{
+  margin:0!important;
+  color:#7c736c!important;
+  font:800 10px/1.3 var(--vcc-font-body,"DM Sans",Arial,sans-serif)!important;
+  text-align:left!important;
+}
+html body .tv-page #calculadora .tv-results-comparison>.tv-saving-panel>.tv-saving strong{
+  display:block!important;
+  margin:0!important;
+  color:#19804b!important;
+  font:600 clamp(22px,2vw,28px)/1 var(--vcc-font-heading,"Oswald",sans-serif)!important;
+  white-space:nowrap!important;
+}
+html body .tv-page #calculadora .tv-results-comparison>.tv-saving-panel>.tv-saving.negative strong{color:#c34c46!important}
+html body .tv-page #calculadora .tv-results-comparison>.tv-saving-panel>.tv-saving.neutral strong{color:#292925!important}
+
+@media(max-width:850px){
+  html body .tv-page #calculadora .tv-results-comparison{
+    grid-template-columns:repeat(3,minmax(0,1fr))!important;
+    grid-template-rows:auto auto!important;
+    padding:7px 9px!important;
+    row-gap:3px!important;
+  }
+  html body .tv-page #calculadora .tv-recommendation-heading{
+    grid-column:1/-1!important;
+    grid-row:1!important;
+    min-height:32px!important;
+    padding:0 0 3px!important;
+  }
+  html body .tv-page #calculadora .tv-results-comparison>.tv-results>.tv-result{
+    min-height:60px!important;
+    padding:6px 4px!important;
+  }
+  html body .tv-page #calculadora .tv-results-comparison>.tv-results>.tv-result:first-child{
+    grid-column:1!important;grid-row:2!important;border-left:0!important;
+  }
+  html body .tv-page #calculadora .tv-results-comparison>.tv-results>.tv-result:nth-child(2){
+    grid-column:2!important;grid-row:2!important;border-left:1px solid #eadfd6!important;
+  }
+  html body .tv-page #calculadora .tv-results-comparison>.tv-saving-panel{
+    grid-column:3!important;grid-row:2!important;
+    min-height:60px!important;
+  }
+  html body .tv-page #calculadora .tv-results-comparison>.tv-saving-panel>.tv-saving{
+    flex-direction:column!important;
+    justify-content:center!important;
+    width:100%!important;
+    min-height:57px!important;
+    gap:3px!important;
+    padding:6px 4px!important;
+  }
+  html body .tv-page #calculadora .tv-results-comparison>.tv-saving-panel>.tv-saving span{
+    text-align:center!important;
+  }
+}
+@media(max-width:480px){
+  html body .tv-page #calculadora .tv-results-comparison{
+    padding:7px!important;
+    row-gap:3px!important;
+  }
+  html body .tv-page #calculadora .tv-results-comparison>.tv-results>.tv-result{
+    min-height:60px!important;
+    gap:5px!important;
+    padding:6px 2px!important;
+  }
+  html body .tv-page #calculadora .tv-results-comparison>.tv-results>.tv-result .tv-result-label{
+    flex-direction:column!important;
+    gap:2px!important;
+    font-size:8.5px!important;
+  }
+  html body .tv-page #calculadora .tv-results-comparison>.tv-results>.tv-result .tv-result-label .tv-field-icon{
+    width:13px!important;height:13px!important;flex-basis:13px!important;
+  }
+  html body .tv-page #calculadora .tv-results-comparison>.tv-results>.tv-result strong{
+    font-size:clamp(16px,4.3vw,20px)!important;
+  }
+  html body .tv-page #calculadora .tv-results-comparison>.tv-saving-panel>.tv-saving{
+    min-width:0!important;
+    min-height:55px!important;
+    padding:6px!important;
+  }
+  html body .tv-page #calculadora .tv-results-comparison>.tv-saving-panel>.tv-saving span{font-size:8.5px!important}
+  html body .tv-page #calculadora .tv-results-comparison>.tv-saving-panel>.tv-saving strong{font-size:clamp(18px,5vw,23px)!important}
+}

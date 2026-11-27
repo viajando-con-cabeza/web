@@ -1,0 +1,359 @@
+/* VCC · 2026-11-08 · Navegación secundaria única.
+   Referencia: subheader de /destinos/suecia/estocolmo/ (39px, DM Sans, línea coral).
+   Se aplica únicamente a las barras detectadas; no al menú principal. */
+:root{
+  --vcc-subnav-height:var(--vcc-component-subheader-height,39px);
+  --vcc-subnav-gap:var(--vcc-component-subheader-gap,38px);
+  --vcc-subnav-side:max(24px,4vw);
+  --vcc-subnav-ink:#171717;
+  --vcc-subnav-coral:var(--vcc-color-accent,#c86f5d);
+  --vcc-subnav-line:#e9e2db;
+}
+html body nav.vcc-unified-subheader{
+  box-sizing:border-box!important;
+  position:sticky!important;top:var(--vcc-subheader-top,50px)!important;z-index:950!important;
+  width:100%!important;height:var(--vcc-subnav-height)!important;
+  min-height:var(--vcc-subnav-height)!important;max-height:var(--vcc-subnav-height)!important;
+  margin:0!important;padding:0 var(--vcc-subnav-side)!important;
+  display:flex!important;align-items:center!important;justify-content:flex-start!important;
+  flex-wrap:nowrap!important;gap:var(--vcc-subnav-gap)!important;
+  overflow-x:auto!important;overflow-y:hidden!important;
+  white-space:nowrap!important;scrollbar-width:none!important;
+  overscroll-behavior-x:contain!important;-webkit-overflow-scrolling:touch;
+  background:#fff!important;backdrop-filter:none!important;
+  border:0!important;border-top:1px solid var(--vcc-subnav-line)!important;
+  border-bottom:1px solid var(--vcc-subnav-line)!important;
+  box-shadow:none!important;
+}
+html body nav.vcc-unified-subheader::-webkit-scrollbar,
+html body nav.vcc-unified-subheader .vcc-nav-inner::-webkit-scrollbar,
+html body nav.vcc-unified-subheader .ql-subnav-inner::-webkit-scrollbar,
+html body nav.vcc-unified-subheader .country-nav-inner::-webkit-scrollbar,
+html body nav.vcc-unified-subheader .place-nav::-webkit-scrollbar{display:none!important}
+html body nav.vcc-unified-subheader.vcc-subnav-inner-layout{
+  padding:0!important;gap:0!important;overflow:hidden!important;
+}
+html body nav.vcc-unified-subheader :is(.vcc-nav-inner,.ql-subnav-inner,.country-nav-inner){
+  box-sizing:border-box!important;
+  width:100%!important;max-width:none!important;
+  height:var(--vcc-subnav-height)!important;min-height:var(--vcc-subnav-height)!important;
+  max-height:var(--vcc-subnav-height)!important;
+  margin:0!important;padding:0 var(--vcc-subnav-side)!important;
+  display:flex!important;align-items:center!important;justify-content:flex-start!important;
+  flex-wrap:nowrap!important;gap:var(--vcc-subnav-gap)!important;
+  overflow-x:auto!important;overflow-y:hidden!important;scrollbar-width:none!important;
+  white-space:nowrap!important;-webkit-overflow-scrolling:touch;
+}
+html body nav.vcc-unified-subheader a,
+html body nav.vcc-unified-subheader .place-nav a{
+  box-sizing:border-box!important;
+  position:relative!important;flex:0 0 auto!important;
+  display:inline-flex!important;align-items:center!important;justify-content:center!important;
+  height:var(--vcc-subnav-height)!important;min-height:var(--vcc-subnav-height)!important;
+  max-height:var(--vcc-subnav-height)!important;
+  margin:0!important;padding:0!important;
+  background:transparent!important;border:0!important;
+  border-bottom:2px solid transparent!important;border-radius:0!important;
+  font-family:var(--vcc-font-body, "DM Sans", Arial, sans-serif)!important;
+  font-size:var(--vcc-component-subheader-desktop-font,11.5px)!important;font-weight:800!important;line-height:1.15!important;
+  letter-spacing:0!important;text-transform:uppercase!important;
+  white-space:nowrap!important;color:var(--vcc-subnav-ink)!important;
+  text-decoration:none!important;box-shadow:none!important;
+  transition:color .16s ease,border-color .16s ease!important;
+}
+html body nav.vcc-unified-subheader a::before,
+html body nav.vcc-unified-subheader a::after{
+  content:none!important;display:none!important;
+}
+html body nav.vcc-unified-subheader a.vcc-subheader-current,
+html body nav.vcc-unified-subheader.place-nav-wrap .place-nav a:is(.active,.is-active,[aria-current="location"]){
+  color:var(--vcc-subnav-coral)!important;
+  border-bottom-color:var(--vcc-subnav-coral)!important;
+}
+html body nav.vcc-unified-subheader a:is(:hover,:focus-visible){
+  color:var(--vcc-subnav-coral)!important;
+}
+html body nav.vcc-unified-subheader a:focus-visible{outline:2px solid var(--vcc-subnav-coral)!important;outline-offset:-3px!important}
+/* El índice con flechas mantiene sus botones, pero comparte altura y escala. */
+html body nav.vcc-unified-subheader.place-nav-wrap{
+  padding:0!important;gap:0!important;overflow:hidden!important;
+}
+html body nav.vcc-unified-subheader.place-nav-wrap .place-nav-shell{
+  box-sizing:border-box!important;width:100%!important;max-width:none!important;
+  height:var(--vcc-subnav-height)!important;min-height:var(--vcc-subnav-height)!important;
+  max-height:var(--vcc-subnav-height)!important;
+  padding:0 var(--vcc-subnav-side)!important;margin:0!important;
+  display:flex!important;align-items:center!important;gap:8px!important;
+}
+html body nav.vcc-unified-subheader.place-nav-wrap .place-nav{
+  height:var(--vcc-subnav-height)!important;min-height:var(--vcc-subnav-height)!important;
+  max-height:var(--vcc-subnav-height)!important;
+  display:flex!important;align-items:center!important;gap:var(--vcc-subnav-gap)!important;
+  flex:1 1 auto!important;min-width:0!important;
+  overflow-x:auto!important;overflow-y:hidden!important;
+  scrollbar-width:none!important;
+}
+html body nav.vcc-unified-subheader.place-nav-wrap .place-nav-arrow{flex:0 0 auto!important}
+/* Las variantes fijadas por scripts propios preservan su funcionamiento. */
+html body nav.vcc-unified-subheader:is(.country-nav.is-fixed,.ci-subnav.ci-subnav-pinned,.vcc-nav.it-nav-pinned){
+  position:fixed!important;top:var(--vcc-subheader-top,0px)!important;left:0!important;right:0!important;
+}
+/* Mismo comienzo de barra en escritorio: 475px de hero + el encabezado principal.
+   No se fuerzan alturas de portada en móvil, donde el texto puede ocupar más líneas. */
+@media(min-width:721px){
+ html body :is(.st-hero,.country-hero,.imp-hero,.vcc-hero,.mv-hero,.dv-hero,.ep-hero,.ql-hero,.ci-hero,.budget-hero,.content-hero,.rich-hero,.tv-hero,.al-hero).vcc-subheader-hero{
+  box-sizing:border-box!important;height:var(--vcc-subheader-cover-height,475px)!important;min-height:var(--vcc-subheader-cover-height,475px)!important;max-height:var(--vcc-subheader-cover-height,475px)!important;
+ }
+ html body .mv-hero.vcc-subheader-hero > .mv-container{
+  min-height:var(--vcc-subheader-cover-height,475px)!important;height:var(--vcc-subheader-cover-height,475px)!important;max-height:var(--vcc-subheader-cover-height,475px)!important;
+ }
+ html body .ci-hero.vcc-subheader-hero .ci-hero-inner{
+  min-height:var(--vcc-subheader-cover-height,475px)!important;height:var(--vcc-subheader-cover-height,475px)!important;max-height:var(--vcc-subheader-cover-height,475px)!important;
+ }
+}
+html body [data-vcc-subheader-target]{scroll-margin-top:calc(var(--vcc-subheader-top,50px) + var(--vcc-subnav-height) + 24px)!important}
+@media(max-width:720px){
+ :root{--vcc-subnav-height:39px;--vcc-subnav-gap:24px;--vcc-subnav-side:14px}
+ html body nav.vcc-unified-subheader a,
+ html body nav.vcc-unified-subheader .place-nav a{font-size:var(--vcc-component-subheader-mobile-font,11px)!important}
+ html body nav.vcc-unified-subheader.place-nav-wrap .place-nav-shell{gap:5px!important}
+ html body nav.vcc-unified-subheader.place-nav-wrap .place-nav{gap:24px!important}
+}
+
+
+/* Portadas VCC: escritorio conserva 475px. En móvil, el subheader debe
+   entrar en la primera pantalla útil (100svh considera las barras del navegador).
+   640px es el máximo para no ocultar la navegación en móviles altos.
+   El alto real de la cabecera se mide en el controlador compartido. */
+:root{
+  --vcc-standard-hero-desktop:var(--vcc-subheader-cover-height,475px);
+  --vcc-standard-hero-mobile:var(--vcc-subheader-cover-height,640px);
+}
+@media(min-width:721px){
+  html body :is(.st-hero,.country-hero,.imp-hero,.vcc-hero,.mv-hero,.dv-hero,.ep-hero,.ql-hero,.ci-hero,.budget-hero,.content-hero,.rich-hero,.tv-hero,.al-hero).vcc-subheader-hero.vcc-subheader-hero.vcc-standardized-hero-height{
+    box-sizing:border-box!important;
+    height:var(--vcc-standard-hero-desktop)!important;
+    min-height:var(--vcc-standard-hero-desktop)!important;
+    max-height:var(--vcc-standard-hero-desktop)!important;
+    margin-top:0!important;margin-bottom:0!important;
+  }
+  html body .mv-hero.vcc-standardized-hero-height > .mv-container,
+  html body.ci-page .ci-hero.vcc-standardized-hero-height .ci-hero-inner{
+    box-sizing:border-box!important;
+    height:var(--vcc-standard-hero-desktop)!important;
+    min-height:var(--vcc-standard-hero-desktop)!important;
+    max-height:var(--vcc-standard-hero-desktop)!important;
+  }
+}
+@media(max-width:720px){
+  html body :is(.st-hero,.country-hero,.imp-hero,.vcc-hero,.mv-hero,.dv-hero,.ep-hero,.ql-hero,.ci-hero,.budget-hero,.content-hero,.rich-hero,.tv-hero,.al-hero).vcc-subheader-hero.vcc-subheader-hero.vcc-standardized-hero-height{
+    box-sizing:border-box!important;
+    height:var(--vcc-standard-hero-mobile)!important;
+    min-height:var(--vcc-standard-hero-mobile)!important;
+    max-height:var(--vcc-standard-hero-mobile)!important;
+    margin-top:0!important;margin-bottom:0!important;
+  }
+  html body .mv-hero.vcc-standardized-hero-height > .mv-container,
+  html body.ci-page .ci-hero.vcc-standardized-hero-height .ci-hero-inner{
+    box-sizing:border-box!important;
+    height:var(--vcc-standard-hero-mobile)!important;
+    min-height:var(--vcc-standard-hero-mobile)!important;
+    max-height:var(--vcc-standard-hero-mobile)!important;
+  }
+}
+
+
+/* Portades d'Estocolm: LCP estable des del primer renderitzat.
+   La classe de subheader s'afegeix després via JS; l'altura no ha de
+   saltar de ~440px a 640px, perquè això pot deixar el viewport sense
+   candidat LCP durant les proves Lighthouse/PSI.
+   Opt-in explícit en 5 guies, sense alterar altres portades ni escriptori. */
+@media(max-width:720px){
+  html body #vcc-lcp-hero{
+    --vcc-lcp-stable-height:var(--vcc-subheader-cover-height,640px);
+    --vcc-standard-hero-mobile:var(--vcc-lcp-stable-height);
+    box-sizing:border-box!important;
+    height:var(--vcc-lcp-stable-height)!important;
+    min-height:var(--vcc-lcp-stable-height)!important;
+    max-height:var(--vcc-lcp-stable-height)!important;
+  }
+  html body #vcc-lcp-hero > .mv-container{
+    height:100%!important;min-height:0!important;max-height:100%!important;
+  }
+}
+
+/* VCC · LCP: mateixa foto natural i degradat blanc sense mask-image.
+   Només els cinc herois explícits; sense canvis a altres pàgines. */
+html body #vcc-lcp-hero{position:relative!important;isolation:isolate!important;background-color:#fff!important}
+html body #vcc-lcp-hero > :is(.vcc-hero-lcp-picture,.dv-hero-photo,.ql-hero-photo){
+ -webkit-mask-image:none!important;mask-image:none!important;
+ opacity:1!important;filter:none!important;mix-blend-mode:normal!important;
+}
+html body #vcc-lcp-hero > .vcc-hero-lcp-veil{
+ display:block!important;position:absolute!important;inset:0!important;
+ z-index:1!important;pointer-events:none!important;
+ background:linear-gradient(90deg,
+ rgba(255,255,255,.96) 0%,rgba(255,255,255,.79) 34%,
+ rgba(255,255,255,.41) 72%,rgba(255,255,255,.18) 100%);
+}
+html body #vcc-lcp-hero > :is(.budget-hero-inner,.cl-crumb,.cl-landing-stage,.mv-container,.dv-shell,.ql-wrap){
+ z-index:2!important;
+}
+@media(max-width:650px){
+ html body #vcc-lcp-hero > .vcc-hero-lcp-veil{
+  background:linear-gradient(90deg,rgba(255,255,255,.97) 0%,
+   rgba(255,255,255,.90) 32%,rgba(255,255,255,.79) 70%,
+   rgba(255,255,255,.59) 100%);
+ }
+}
+
+/* LCP Chrome/Lighthouse: la combinació de scroll-behavior:smooth declarat al
+   CSS i carrusels scroll-snap cancela el candidat LCP en aquestes cinc guies.
+   Només durant la primera pintura (opt-in HTML); al primer gest es retorna
+   el CSS aprovat, incloent el snap i la suavitat de la navegació. */
+html.vcc-lcp-scroll-stable{scroll-behavior:auto!important}
+html.vcc-lcp-scroll-stable.vcc-lcp-scroll-stable.vcc-lcp-scroll-stable body *{
+  scroll-behavior:auto!important;
+}
+
+/* VCC · auditoria de subheaders 2026-11-10: una única tipografia, alçada, focus i transició.
+ * Especificitat deliberadament superior a les plantilles antigues,
+ * inclosa ci-subnav. No es toquen els controladors sticky de cada guia. */
+html body nav.vcc-unified-subheader.vcc-unified-subheader{
+ box-sizing:border-box!important;
+ height:var(--vcc-subnav-height)!important;
+ min-height:var(--vcc-subnav-height)!important;
+ max-height:var(--vcc-subnav-height)!important;
+ background:#fff!important;
+ border-top:1px solid var(--vcc-subnav-line)!important;
+ border-bottom:1px solid var(--vcc-subnav-line)!important;
+ box-shadow:none!important;
+}
+html body nav.vcc-unified-subheader.vcc-unified-subheader:not(.vcc-subnav-inner-layout):not(.place-nav-wrap){
+ gap:var(--vcc-subnav-gap)!important;
+ padding:0 var(--vcc-subnav-side)!important;
+ justify-content:flex-start!important;
+ align-items:center!important;
+ overflow-x:auto!important;
+ overflow-y:hidden!important;
+}
+html body nav.vcc-unified-subheader.vcc-unified-subheader :is(.vcc-nav-inner,.ql-subnav-inner,.country-nav-inner){
+ height:var(--vcc-subnav-height)!important;
+ min-height:var(--vcc-subnav-height)!important;
+ max-height:var(--vcc-subnav-height)!important;
+ gap:var(--vcc-subnav-gap)!important;
+ padding:0 var(--vcc-subnav-side)!important;
+ justify-content:flex-start!important;
+ align-items:center!important;
+ overflow-x:auto!important;
+ overflow-y:hidden!important;
+}
+html body nav.vcc-unified-subheader.vcc-unified-subheader.place-nav-wrap :is(.place-nav-shell,.place-nav){
+ height:var(--vcc-subnav-height)!important;
+ min-height:var(--vcc-subnav-height)!important;
+ max-height:var(--vcc-subnav-height)!important;
+}
+html body nav.vcc-unified-subheader.vcc-unified-subheader.place-nav-wrap .place-nav{
+ gap:var(--vcc-subnav-gap)!important;
+}
+html body nav.vcc-unified-subheader.vcc-unified-subheader a,
+html body nav.vcc-unified-subheader.vcc-unified-subheader .place-nav a{
+ box-sizing:border-box!important;
+ height:var(--vcc-subnav-height)!important;
+ min-height:var(--vcc-subnav-height)!important;
+ max-height:var(--vcc-subnav-height)!important;
+ padding:0!important;
+ margin:0!important;
+ display:inline-flex!important;
+ align-items:center!important;
+ justify-content:center!important;
+ flex:0 0 auto!important;
+ background:transparent!important;
+ border:0!important;
+ border-bottom:2px solid transparent!important;
+ border-radius:0!important;
+ color:var(--vcc-subnav-ink)!important;
+ font:800 var(--vcc-component-subheader-desktop-font,11.5px)/1.15 var(--vcc-font-body, "DM Sans", Arial, sans-serif)!important;
+ letter-spacing:0!important;
+ text-transform:uppercase!important;
+ white-space:nowrap!important;
+ text-decoration:none!important;
+ transition:color .16s ease,border-color .16s ease!important;
+}
+/* Evitar etiquetes interiors més petites a Entradas y pases i altres guies. */
+html body nav.vcc-unified-subheader.vcc-unified-subheader a > span{
+ color:inherit!important;
+ font:inherit!important;
+ letter-spacing:inherit!important;
+ text-transform:inherit!important;
+}
+/* Un sol indicador actiu: les classes locals antigues no pinten un segon. */
+html body nav.vcc-unified-subheader.vcc-unified-subheader:not(.place-nav-wrap) a:not(.vcc-subheader-current):not(:hover):not(:focus-visible){
+ color:var(--vcc-subnav-ink)!important;
+ border-bottom-color:transparent!important;
+}
+/* El subrayado identifica solamente la sección activa, nunca el hover. */
+html body nav.vcc-unified-subheader.vcc-unified-subheader:not(.place-nav-wrap) a:not(.vcc-subheader-current){
+ border-bottom-color:transparent!important;
+}
+html body nav.vcc-unified-subheader.vcc-unified-subheader a.vcc-subheader-current,
+html body nav.vcc-unified-subheader.vcc-unified-subheader.place-nav-wrap .place-nav a:is(.active,.is-active,[aria-current="location"]){
+ color:var(--vcc-subnav-coral)!important;
+ border-bottom-color:var(--vcc-subnav-coral)!important;
+}
+html body nav.vcc-unified-subheader.vcc-unified-subheader a:is(:hover,:focus-visible){
+ color:var(--vcc-subnav-coral)!important;
+}
+html body nav.vcc-unified-subheader.vcc-unified-subheader a:focus-visible{
+ outline:2px solid var(--vcc-subnav-coral)!important;
+ outline-offset:-3px!important;
+}
+/* Flechas del índice largo: mismo estilo de interacción; posicionamiento
+ * lateral y desplazamiento horizontal existentes no se modifican. */
+html body nav.vcc-unified-subheader.vcc-unified-subheader.place-nav-wrap .place-nav-arrow{
+ box-sizing:border-box!important;
+ display:grid!important;
+ place-items:center!important;
+ width:28px!important;
+ height:28px!important;
+ min-width:28px!important;
+ min-height:28px!important;
+ padding:0!important;
+ margin:0!important;
+ border:0!important;
+ border-radius:4px!important;
+ background:transparent!important;
+ box-shadow:none!important;
+ color:var(--vcc-subnav-ink)!important;
+ font:400 23px/1 var(--vcc-font-body, "DM Sans", Arial, sans-serif)!important;
+ transition:color .16s ease,opacity .16s ease!important;
+ cursor:pointer!important;
+}
+html body nav.vcc-unified-subheader.vcc-unified-subheader.place-nav-wrap .place-nav-arrow:not(:disabled):hover{
+ color:var(--vcc-subnav-coral)!important;
+}
+html body nav.vcc-unified-subheader.vcc-unified-subheader.place-nav-wrap .place-nav-arrow:disabled{
+ opacity:.25!important;
+ cursor:default!important;
+}
+html body nav.vcc-unified-subheader.vcc-unified-subheader.place-nav-wrap .place-nav-arrow:focus-visible{
+ outline:2px solid var(--vcc-subnav-coral)!important;
+ outline-offset:2px!important;
+}
+@media(max-width:720px){
+ html body nav.vcc-unified-subheader.vcc-unified-subheader a,
+ html body nav.vcc-unified-subheader.vcc-unified-subheader .place-nav a{
+  font-size:var(--vcc-component-subheader-mobile-font,11px)!important;
+ }
+}
+@media(prefers-reduced-motion:reduce){
+ html body nav.vcc-unified-subheader.vcc-unified-subheader a,
+ html body nav.vcc-unified-subheader.vcc-unified-subheader .place-nav-arrow{
+  transition:none!important;
+ }
+}
+
+/* Cuándo ir conserva su script de fijación, pero nunca la sombra local. */
+html body nav.vcc-unified-subheader.vcc-unified-subheader.ci-subnav.ci-subnav-pinned{
+ box-shadow:none!important;
+}

@@ -1,0 +1,46 @@
+{
+  "name": "viajando-con-cabeza-web",
+  "private": true,
+  "version": "0.1.0",
+  "description": "VCC static travel website and reusable editorial tooling",
+  "type": "module",
+  "scripts": {
+    "seo:sync": "node configuracion/scripts/preparar-publicacion.mjs --write",
+    "seo:check": "node configuracion/scripts/preparar-publicacion.mjs --check && node configuracion/scripts/verificar-seo-global.mjs",
+    "test": "node configuracion/scripts/comprobar-rutas.mjs && node configuracion/scripts/verificar-seo-como-llegar.mjs && node configuracion/scripts/verificar-presupuestos-vcc.mjs && node configuracion/scripts/verificar-contacto-vcc.mjs && node configuracion/scripts/verificar-css-vcc.mjs && node configuracion/scripts/verificar-estilos-html-vcc.mjs && node configuracion/scripts/auditar-escalabilidad-vcc.mjs --strict-hubs && node configuracion/scripts/validar-galeries.mjs && node configuracion/scripts/validar-subheaders.mjs && node configuracion/tests/targetes-foto-unica.cjs && node configuracion/tests/itinerario-integridad.cjs && node configuracion/tests/planifica-vuelos-vcc.mjs && node --test configuracion/tests/listar-fitxers.test.mjs && npm run site:check && npm run destinos:v2-test",
+    "css:check": "node configuracion/scripts/verificar-css-vcc.mjs && node configuracion/scripts/verificar-estilos-html-vcc.mjs",
+    "audit:site": "node configuracion/scripts/auditar-escalabilidad-vcc.mjs",
+    "catalog:sync": "node configuracion/scripts/sincronizar-catalogo-vcc.mjs --write",
+    "site:sync": "npm run destinos:v2-build && node configuracion/scripts/generate-planifica-hubs.mjs && node configuracion/scripts/sincronizar-catalogo-vcc.mjs --write && node configuracion/scripts/preparar-publicacion.mjs --write && npm run css:build && npm run cards:build && npm run hero:build && node configuracion/scripts/sincronizar-itinerarios-destacados-vcc.mjs --write && node configuracion/scripts/sincronizar-importe-itinerario-vcc.mjs --write && node configuracion/scripts/sincronizar-fotos-guias-vcc.mjs --write && npm run links:sync",
+    "site:check": "node configuracion/scripts/generate-planifica-hubs.mjs --check && node configuracion/scripts/sincronizar-catalogo-vcc.mjs --check && node configuracion/scripts/preparar-publicacion.mjs --check && node configuracion/scripts/verificar-seo-global.mjs && npm run css:verify && npm run hero:check && npm run cards:check && node configuracion/scripts/sincronizar-itinerarios-destacados-vcc.mjs --check && node configuracion/scripts/sincronizar-importe-itinerario-vcc.mjs --check && node configuracion/scripts/sincronizar-fotos-guias-vcc.mjs --check && npm run ui:check && npm run architecture:check && npm run links:check && npm run destinos:v2-check",
+    "destino:crear": "node configuracion/scripts/destinos.mjs crear",
+    "destino:generar": "node configuracion/scripts/destinos.mjs generar",
+    "deploy:check-quality": "node configuracion/scripts/verificar-config-despliegue.mjs --quality",
+    "deploy:check-production": "node configuracion/scripts/verificar-config-despliegue.mjs --main",
+    "css:build": "node configuracion/scripts/compilar-css-vcc.mjs --write",
+    "css:verify": "node configuracion/scripts/compilar-css-vcc.mjs --check",
+    "hero:build": "python configuracion/scripts/generar-portadas-rapidas.py && node configuracion/scripts/publicar-portadas-rapidas.mjs --write",
+    "hero:check": "node configuracion/scripts/publicar-portadas-rapidas.mjs --check && node configuracion/scripts/verificar-portadas-unificadas.mjs",
+    "architecture:check": "node configuracion/scripts/verificar-arquitectura-destinos-vcc.mjs --strict",
+    "architecture:report": "node configuracion/scripts/verificar-arquitectura-destinos-vcc.mjs --json",
+    "audit:architecture": "node configuracion/scripts/auditar-dependencias-vcc.mjs",
+    "audit:styles": "node configuracion/scripts/auditar-estilos.mjs",
+    "cards:build": "python configuracion/scripts/generar-miniatures-targetes.py && node configuracion/scripts/publicar-miniatures-targetes.mjs --write && node configuracion/scripts/sincronizar-destacados-vcc.mjs --write",
+    "cards:check": "node configuracion/scripts/publicar-miniatures-targetes.mjs --check && node configuracion/scripts/sincronizar-destacados-vcc.mjs --check",
+    "review:full": "npm test && node configuracion/scripts/validar-iconos-vcc.mjs && node configuracion/scripts/verificar-estructura-recursos.mjs && npm run audit:architecture && npm run audit:styles",
+    "ui:check": "node configuracion/scripts/verificar-portades-planifica-suecia-vcc.mjs",
+    "links:sync": "node configuracion/scripts/sincronizar-enllacos-futurs-vcc.mjs --write",
+    "links:check": "node configuracion/scripts/sincronizar-enllacos-futurs-vcc.mjs --check",
+    "links:report": "node configuracion/scripts/sincronizar-enllacos-futurs-vcc.mjs --json",
+    "destinos:v2-build": "node configuracion/scripts/generar-destins-vcc.mjs --write",
+    "destinos:v2-check": "node configuracion/scripts/generar-destins-vcc.mjs --check",
+    "destinos:v2-new": "node configuracion/scripts/generar-destins-vcc.mjs crear",
+    "destinos:v2-test": "node --test configuracion/tests/destinos-motor-vcc.test.mjs"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "optionalDependencies": {
+    "sharp": "0.34.4"
+  }
+}

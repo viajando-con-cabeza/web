@@ -1,0 +1,111 @@
+/* Suecia · Qué visitar · Datos compartidos con el catálogo del país.
+   Imágenes y disponibilidad desde /configuracion/js/paises/suecia.js.
+   Las tarjetas adoptan el componente compartido VCC, sin estilos duplicados. */
+(function(){
+  "use strict";
+  function start(){
+    var root=document.getElementById("vcc-visit-grid");
+    var search=document.getElementById("vcc-visit-search");
+    var count=document.getElementById("vcc-visit-count");
+    var empty=document.getElementById("vcc-visit-empty");
+    var clear=document.getElementById("vcc-visit-reset");
+    var typeSelect=document.getElementById("vcc-visit-type");
+    var country=window.COUNTRY_CONFIG||window.SWEDEN_CONTENT;
+    if(!root||!search||!typeSelect||!count||!empty||!country)return;
+    function esc(value){
+      return String(value==null?"":value).replace(/[&<>"']/g,function(char){
+        return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[char];
+      });
+    }
+    function noAccent(s){
+      return String(s||"").toLocaleLowerCase("es").normalize("NFD").replace(/[\u0300-\u036f]/g,"");
+    }
+    function destinationUrl(href){
+      var url=String(href||"");
+      return url.charAt(0)==="/"?url:"/destinos/suecia/"+url;
+    }
+    function scoreMarkup(item,type,live){
+      if(type!=="principal"||!live)return "";
+      var scores=item.scores||null;
+      var score=Number.isFinite(item.rating)?item.rating:
+        scores?(scores.experience*25+scores.photogenic*20+scores.things*15+
+          scores.food*10+scores.transport*10+scores.safety*10+scores.value*10)/100:NaN;
+      if(!Number.isFinite(score))return "";
+      var label=score>=9.5?"Excepcional":score>=9?"Fantástico":score>=8.5?"Fabuloso":score>=8?"Muy bien":"Bien";
+      var number=score.toFixed(1).replace(".",",");
+      return '<span class="vcc-card-score" role="img" aria-label="Valoración VCC de '+esc(item.title)+': '+number+' sobre 10, '+label+'"><strong>'+number+'</strong><small>'+label+'</small></span>';
+    }
+    function card(item,type){
+      var live=!!(item.available&&item.href);
+      var title=String(item.cardTitle||item.title||"");
+      var category=String(item.cardCategory||item.tag||"CIUDADES");
+      var photo=String(item.image||"");
+      var icon=({"CIUDADES":"category-city","COSTA":"category-islands","MONTAÑA":"category-mountains","NATURALEZA":"category-nature","RUTA EN COCHE":"category-roadtrip","COMBINADO":"category-combined"})[category]||"category-nature";
+      var href=destinationUrl(item.href);
+      // La ubicació de la guia s’obté de les dades del país, no del títol de la targeta.
+      var place=String(item.cardLocation||"").trim();
+      var countryLabel="Suecia"+(place?" · "+place:"");
+      var imageSet=photo.indexOf("/__vcc_preview/visor/")>=0?
+        ' srcset="'+esc(photo.replace("/__vcc_preview/visor/","/__vcc_preview/mini/"))+' 480w, '+esc(photo)+' 1800w" sizes="(max-width:650px) 90vw, (max-width:1000px) 46vw, 360px"':"";
+      var card=document.createElement("article");
+      card.className="di-mini-card di-guide-card vcc-it-card"+
+        (live?"":" vcc-it-card-pending");
+      card.dataset.visitCategory=type;
+      card.dataset.visitSearch=noAccent([title,category,item.text,type,place].join(" "));
+      card.innerHTML=
+        '<span class="di-mini-photo vcc-it-photo"><img class="vcc-card-cover-photo" src="'+esc(photo)+'"'+imageSet+
+        ' alt="'+esc("Paisaje de "+title+", Suecia")+'" width="640" height="380" loading="lazy" decoding="async">'+
+        scoreMarkup(item,type,live)+'</span>'+
+        '<div class="di-mini-body">'+
+        '<span class="vcc-card-kicker"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="/configuracion/imagenes/iconos/paginas/categorias-vcc.svg#'+icon+'"></use></svg>'+esc(category)+'</span>'+
+        (live?'<a class="vcc-it-title" href="'+esc(href)+'">'+esc(title)+'</a>':'<strong class="vcc-it-title">'+esc(title)+'</strong>')+
+        '<span class="di-guide-info vcc-it-facts">'+
+        '<span class="di-country-line"><span class="di-vcc-flags" aria-hidden="true"><svg class="vcc-it-country-flag" viewBox="0 0 32 20"><use href="/configuracion/imagenes/iconos/paginas/itinerarios-iconos.svg#it-flag-se"></use></svg></span><span>'+esc(countryLabel)+'</span></span>'+
+        '<span class="vcc-guide-kind"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="/configuracion/imagenes/iconos/paginas/categorias-vcc.svg#'+(type==="principal"?"guide-main":"guide-see")+'"></use></svg><span>'+(type==="principal"?"Guía principal":"Qué ver")+'</span></span></span>'+
+        '<p class="di-mini-desc">'+esc(item.text||"Descubre esta parte de Suecia.")+'</p>'+
+        (live?
+          '<a class="vcc-it-cta" href="'+esc(href)+'" aria-label="Ver '+(type==="principal"?"guía completa de ":"qué ver en ")+esc(title)+'">VER GUÍA</a>':
+          '<span class="vcc-it-upcoming">PRÓXIMAMENTE</span>')+
+        '</div>';
+      var img=card.querySelector("img.vcc-card-cover-photo");
+      if(img&&photo.indexOf("/__vcc_preview/visor/")>=0){
+        img.addEventListener("error",function(){
+          if(!img.dataset.fallbackDone){
+            img.dataset.fallbackDone="1";
+            img.removeAttribute("srcset");
+            img.src=photo.replace("/__vcc_preview/visor/","/");
+          }
+        });
+      }
+      return card;
+    }
+    var entries=[];
+    (country.guides||[]).forEach(function(guide){entries.push(card(guide,"principal"));});
+    (country.visitingGuides||[]).forEach(function(guide){entries.push(card(guide,"que-ver"));});
+    entries.forEach(function(entry){root.appendChild(entry);});
+    function update(){
+      var searchValue=noAccent(search.value.trim());
+      var selected=typeSelect.value;
+      var visible=0;
+      entries.forEach(function(entry){
+        var show=(selected==="todas"||entry.dataset.visitCategory===selected)&&
+          (!searchValue||entry.dataset.visitSearch.indexOf(searchValue)>=0);
+        entry.hidden=!show;
+        if(show)visible++;
+      });
+      count.textContent=visible+" "+(visible===1?"guía":"guías");
+      empty.hidden=visible!==0;
+    }
+    typeSelect.addEventListener("change",update);
+    search.addEventListener("input",update);
+    if(clear)clear.addEventListener("click",function(){
+      search.value="";
+      typeSelect.value="todas";
+      update();
+      search.focus();
+    });
+    update();
+  }
+  if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",start,{once:true});
+  else start();
+})();

@@ -1,0 +1,92 @@
+window.COUNTRY_CONFIG={
+  slug:"suecia",
+  name:"Suecia",
+  continent:"Europa",
+  tagline:"Ciudades tranquilas, naturaleza y diseño nórdico",
+  description:"Guías, rutas y recomendaciones para descubrir Suecia sin intentar verlo todo.",
+  heroImage:"https://img.viajandoconcabeza.com/__vcc_preview/visor/destinos/suecia/estocolmo-archipelago/2026-dia8/DSC08332.avif",
+  inspirationImage:"https://img.viajandoconcabeza.com/destinos/suecia/goteborg/2026-dia1/DSC06553.avif",
+  paths:{home:"../../index.html",destinations:"../index.html"},
+  sections:{
+    guides:{kicker:"Descubre Suecia",title:"GUÍAS DE VIAJE",description:"Ciudades y rincones para descubrir Suecia."},
+    itineraries:{kicker:"Combina las piezas",title:"ITINERARIOS EN SUECIA",description:"Rutas listas según los días que tengas.",minimumCards:4},
+    thematic:{kicker:"El país a tu manera",title:"QUÉ VER Y HACER EN SUECIA",description:"Guías temáticas de todo el país: imprescindibles, iconos, rincones fotogénicos y lugares menos conocidos."},
+    preparation:{kicker:"Antes de viajar a Suecia",title:"PLANIFICA TU VIAJE",description:"Información práctica para preparar tu viaje."},
+    inspiration:{line1:"Viaja mejor,",line2:"viaja con cabeza"},
+    faq:{kicker:"Antes de viajar",title:"PREGUNTAS FRECUENTES",description:"Todo lo que necesitas saber para viajar a Suecia con tranquilidad.",sideLine1:"Viajar mejor",sideLine2:"empieza con",sideLine3:"buenas preguntas"}
+  },
+  facts:[['CAPITAL','Estocolmo'],['IDIOMA','Sueco'],['MONEDA','Corona sueca · SEK'],['POBLACIÓN','≈ 10,6 millones']],
+  guides:[
+    {title:'Estocolmo',cardLocation:'Estocolmo',tag:'CIUDAD',cardCategory:'CIUDADES',budget:'70 €/día',image:'https://img.viajandoconcabeza.com/__vcc_preview/visor/destinos/suecia/estocolmo/2026-dia6/DSC07945.avif',imageHref:'estocolmo/index.html',text:'Qué ver, barrios y consejos para conocer los rincones de la capital sueca.',days:'3 días',scores:{experience:9.1,photogenic:9.3,things:9.0,food:8.4,transport:9.3,safety:9.5,value:7.4},available:true,href:'estocolmo/index.html'},
+    {title:'Gotemburgo',cardLocation:'Gotemburgo',tag:'CIUDAD',cardCategory:'CIUDADES',image:'https://img.viajandoconcabeza.com/__vcc_preview/visor/destinos/suecia/goteborg/2026-dia1/DSC06603.avif',text:'Canales, paseos y lugares interesantes para descubrir Gotemburgo.',days:'1 día',scores:{experience:8.5,photogenic:8.3,things:8.2,food:8.7,transport:9.0,safety:9.4,value:7.7},available:false},
+    {title:'Costa Oeste',cardLocation:'Costa Oeste',tag:'REGIÓN',cardCategory:'COSTA',image:'https://img.viajandoconcabeza.com/__vcc_preview/visor/destinos/suecia/goteborg-archipelago/2026-dia3/DSC07173.avif',text:'Islas, ferris y pueblos marineros de la costa oeste sueca.',days:'2 días',scores:{experience:9.4,photogenic:9.6,things:8.7,food:8.6,transport:7.7,safety:9.6,value:8.0},available:false},
+    {title:'Dalarna',cardLocation:'Dalarna',tag:'REGIÓN',cardCategory:'MONTAÑA',image:'https://img.viajandoconcabeza.com/__vcc_preview/visor/destinos/suecia/dalarna/2026-dia9/DSC08592.avif',text:'Lagos, bosques y pueblos tradicionales en el corazón de Suecia.',days:'3 días',scores:{experience:9.2,photogenic:9.5,things:8.5,food:7.9,transport:7.4,safety:9.7,value:8.2},available:false},
+    {title:'Centro-sur',cardLocation:'Centro-sur',tag:'REGIÓN',cardCategory:'NATURALEZA',image:'https://img.viajandoconcabeza.com/destinos/suecia/dalarna/2026-dia12/DSC09101.avif',text:'Pueblos, lagos y rincones entre Småland, Örebro y Östergötland.',days:'2 días',rating:8.2,available:false}
+  ],
+  // Catálogo específico de qué ver, compartido con la página «Qué visitar en Suecia».
+  // No muestra notas VCC: las notas pertenecen únicamente a las guías generales.
+  visitingGuides:[
+    {title:'Qué ver en Estocolmo',cardLocation:'Estocolmo',tag:'CIUDADES',cardCategory:'CIUDADES',type:'que-ver',image:'https://img.viajandoconcabeza.com/__vcc_preview/visor/destinos/suecia/estocolmo-archipelago/2026-dia8/DSC08335.avif',text:'Barrios, museos, miradores, parques e islas para elegir según tus días.',available:true,href:'/destinos/suecia/estocolmo/que-ver'},
+    {title:'Imprescindibles de Estocolmo',cardLocation:'Estocolmo',tag:'CIUDADES',cardCategory:'CIUDADES',type:'que-ver',image:'https://img.viajandoconcabeza.com/__vcc_preview/visor/destinos/suecia/estocolmo/2026-dia6/DSC07952.avif',text:'16 lugares con mapa, tiempos, costes orientativos y consejos VCC.',available:true,href:'/destinos/suecia/estocolmo/imprescindibles'}
+  ],
+  // Carrusel temático de ámbito NACIONAL, nunca guías de una sola ciudad.
+  // Estas cinco guías están previstas, pero aún no tienen artículo publicado:
+  // no se muestran enlaces inexistentes ni valoraciones inventadas.
+  // Guías nacionales pendientes: títulos breves para las tarjetas.
+  thematicGuides:[
+    {
+      title:'Lo imprescindible',tag:'PRIMERA VISITA',cardCategory:'IMPRESCINDIBLES',cardIcon:'guide-see',
+      text:'Los lugares esenciales que priorizaríamos en un primer viaje por Suecia.',
+      image:'https://img.viajandoconcabeza.com/__vcc_preview/visor/destinos/suecia/estocolmo/2026-dia6/DSC07952.avif',
+      available:false
+    },
+    {
+      title:'Lo más instagrameable',tag:'FOTOGRAFÍA',cardCategory:'FOTOGRAFÍA',cardIcon:'category-photography',
+      text:'Pueblos de colores, paisajes fotogénicos y rincones para recordar.',
+      image:'https://img.viajandoconcabeza.com/__vcc_preview/visor/destinos/suecia/estocolmo-archipelago/2026-dia8/DSC08335.avif',
+      available:false
+    },
+    {
+      title:'Mejores parques',tag:'NATURALEZA',cardCategory:'NATURALEZA',cardIcon:'category-nature',
+      text:'Parques nacionales, senderos y bosques para explorar a tu ritmo.',
+      image:'https://img.viajandoconcabeza.com/destinos/suecia/dalarna/2026-dia9/DSC08592.avif',
+      available:false
+    },
+    {
+      title:'Mejores lagos',tag:'LAGOS Y PAISAJES',cardCategory:'LAGOS',cardIcon:'category-islands',
+      text:'Orillas tranquilas, miradores y paisajes de agua dulce en el país.',
+      image:'https://img.viajandoconcabeza.com/destinos/suecia/dalarna/2026-dia12/DSC09101.avif',
+      available:false
+    },
+    {
+      title:'Joyas ocultas',tag:'RINCONES ESPECIALES',cardCategory:'JOYAS OCULTAS',cardIcon:'category-mountains',
+      text:'Pueblos pequeños e islas menos conocidas, lejos de las rutas más típicas.',
+      image:'https://img.viajandoconcabeza.com/__vcc_preview/visor/destinos/suecia/goteborg-archipelago/2026-dia3/DSC07173.avif',
+      available:false
+    }
+  ],
+  itineraries:[
+    {title:'Estocolmo',tag:'3 DÍAS · CIUDAD',cardCategory:'CIUDADES',cardTitle:'Estocolmo en 3 días',days:'3 días',budget:'235 €/pax',scoreDestination:'Estocolmo',text:'Gamla Stan, museos y barrios en una ruta por horas.',image:'https://img.viajandoconcabeza.com/__vcc_preview/visor/destinos/suecia/estocolmo/2026-dia6/DSC07945.avif',imageHref:'estocolmo/itinerario.html',available:true,href:'estocolmo/itinerario.html'},
+    {title:'Estocolmo y Dalarna',tag:'6 DÍAS · COMBINADO',cardCategory:'COMBINADO',text:'Seis días combinando Estocolmo, pueblos tradicionales y naturaleza en Dalarna.',image:'https://img.viajandoconcabeza.com/destinos/suecia/dalarna/2026-dia9/DSC08592.avif',available:false},
+    {title:'Goteborg',tag:'1 DÍA · CIUDAD',cardCategory:'CIUDADES',text:'Un día para descubrir el centro, los barrios y el ambiente de Goteborg.',image:'https://img.viajandoconcabeza.com/destinos/suecia/goteborg/2026-dia1/_preview/visor/DSC06553.webp',available:false},
+    {title:'Goteborg y su costa',tag:'3 DÍAS · COSTA Y CIUDAD',cardCategory:'COSTA',text:'Tres días entre Goteborg, su archipiélago y los pueblos de la costa oeste.',image:'https://img.viajandoconcabeza.com/destinos/suecia/goteborg-archipelago/2026-dia3/DSC07199.avif',available:false},
+    {title:'Centro-sur',tag:'2 DÍAS · RUTA EN COCHE',cardCategory:'RUTA EN COCHE',text:'Dos días recorriendo Småland, Örebro, Västra Götaland y Östergötland.',image:'https://img.viajandoconcabeza.com/destinos/suecia/goteborg/2026-dia1/_preview/visor/DSC06576.webp',available:false},
+    {title:'Vuelta a Suecia',tag:'14 DÍAS · GRAN RUTA',cardCategory:'RUTA COMBINADA',text:'Vuelta de 14 días por Dalarna, Estocolmo, Goteborg, Costa Oeste y Centro-sur.',image:'https://img.viajandoconcabeza.com/destinos/suecia/estocolmo-archipelago/2026-dia8/DSC08332.avif',available:false},
+    {title:'Goteborg, su costa y lagos',tag:'5 DÍAS · RUTA EN COCHE',cardCategory:'RUTA EN COCHE',text:'Cinco días entre Goteborg, la costa oeste y los paisajes de lagos de Suecia.',image:'https://img.viajandoconcabeza.com/destinos/suecia/dalarna/2026-dia12/DSC09101.avif',available:false}
+  ],
+  budget:{
+    kicker:'Cuánto cuesta viajar',title:'PRESUPUESTO PARA SUECIA',description:'Suecia no es barata, pero saber dónde se concentra el gasto ayuda muchísimo a organizar el viaje sin recortar lo que de verdad merece la pena.',items:[{icon:'⌂',label:'GASTO PRINCIPAL',title:'Alojamiento',alt:'Barrio de Södermalm, Estocolmo',text:'Es una de las partidas donde más se nota reservar con tiempo, especialmente en Estocolmo y en temporada alta.',note:'RESERVAR ANTES COMPENSA'},{icon:'◌',label:'MUY VARIABLE',title:'Comida',text:'Restaurantes y cenas pueden subir el presupuesto rápido. Combinar restaurantes, fika y opciones informales funciona muy bien.',note:'FÁCIL DE AJUSTAR'},{icon:'→',label:'DEPENDE DE LA RUTA',title:'Transporte',text:'En ciudad el transporte público funciona muy bien; en road trip hay que contar coche, combustible y posibles ferris.',note:'PLANIFICAR LA RUTA AYUDA'},{icon:'✦',label:'DONDE ELEGIR',title:'Experiencias',text:'Museos, saunas, barcos o actividades especiales son la parte donde nosotros preferimos reservar margen y no ir demasiado justos.',note:'PRIORIZAR LO QUE IMPORTA'}],script:'Gastar mejor, no gastar menos',philosophyTitle:'NUESTRA FORMA DE ENTENDER EL PRESUPUESTO',philosophyText:'No intentaríamos convertir Suecia en un destino barato a cualquier precio. Preferimos cerrar bien alojamiento y transporte, controlar las comidas del día a día y dejar margen para esas experiencias que hacen que el viaje merezca la pena.',summaryLabel:'EN QUÉ NOS FIJARÍAMOS',summary:[['ALOJAMIENTO','Reserva con tiempo'],['COMIDA','Combina opciones'],['TRANSPORTE','Define bien la ruta'],['EXPERIENCIAS','Deja margen']]
+  },
+  preparation:[
+    {icon:'◷',title:'Cuándo ir',alt:'Paisaje de Dalarna, Suecia',text:'Clima, estaciones y mejores momentos para recorrer Suecia.',image:'https://img.viajandoconcabeza.com/__vcc_preview/mini/destinos/suecia/dalarna/2026-dia9/DSC08592.avif',imageHref:'cuando-ir.html',available:true,href:'cuando-ir.html',ctaLabel:'VER MÁS'},
+    {icon:'✈',title:'Cómo llegar',alt:'Muelles de Strömkajen, Estocolmo',text:'Vuelos y opciones para empezar tu ruta por Suecia.',image:'https://img.viajandoconcabeza.com/__vcc_preview/mini/destinos/suecia/estocolmo/2026-dia7/DSC08228.avif',imageHref:'como-llegar.html',available:true,href:'como-llegar.html',ctaLabel:'VER MÁS'},
+    {icon:'🚆',title:'Cómo moverse',alt:'Metro de Estocolmo, Suecia',text:'Trenes, transporte público y coche según la zona que visites.',image:'https://img.viajandoconcabeza.com/__vcc_preview/mini/destinos/suecia/estocolmo/2026-dia7/DSC08140.avif',available:true,href:'como-moverse.html',ctaLabel:'VER MÁS'},
+    {icon:'⌂',title:'Dónde dormir',alt:'Alojamientos en Suecia',text:'Hoteles, cabañas y alojamientos según la región y tu presupuesto.',image:'https://img.viajandoconcabeza.com/__vcc_preview/mini/destinos/suecia/estocolmo/2026-dia6/DSC08037.avif',available:true,href:'donde-dormir.html',ctaLabel:'VER MÁS'},
+    {icon:'⌖',title:'Qué visitar',alt:'Archipiélago de Gotemburgo, costa oeste de Suecia',text:'Guías completas y lugares que ver y hacer por todo el país.',image:'https://img.viajandoconcabeza.com/__vcc_preview/mini/destinos/suecia/goteborg-archipelago/2026-dia3/DSC07173.avif',imageHref:'que-visitar.html',available:true,href:'que-visitar.html',ctaLabel:'VER MÁS'},
+    {icon:'€',title:'Presupuesto',alt:'Fotografía de Gotemburgo, Suecia',text:'Compara estilos, calcula tu viaje y consulta presupuestos por destino.',image:'https://img.viajandoconcabeza.com/__vcc_preview/mini/destinos/suecia/goteborg/2026-dia1/DSC06603.avif',imageHref:'presupuesto.html',available:true,href:'presupuesto.html',ctaLabel:'VER MÁS'}
+  ],
+  faq:[
+    {category:'SEGURIDAD',icon:'♢',question:'¿Es seguro viajar a Suecia?',answer:'Sí. En general es un destino muy seguro para viajar, aplicando las precauciones habituales.'},{category:'MEJOR ÉPOCA',icon:'▣',question:'¿Cuál es la mejor época para viajar?',answer:'Depende del viaje. El verano ofrece días muy largos; el invierno cambia por completo la experiencia.'},{category:'REQUISITOS',icon:'▤',question:'¿Necesito visado para entrar?',answer:'Los requisitos dependen de tu nacionalidad. Conviene consultar siempre la información oficial actualizada.'},{category:'CLIMA',icon:'☼',question:'¿Cómo es el clima?',answer:'Es muy variable según la zona y la estación. El norte es bastante más frío.'},{category:'PAGOS',icon:'▱',question:'¿Cuál es la moneda y se puede pagar con tarjeta?',answer:'La moneda es la corona sueca (SEK). El pago con tarjeta está muy extendido.'},{category:'CÓMO MOVERSE',icon:'✈',question:'¿Es necesario un coche para recorrer el país?',answer:'No para Estocolmo y otras ciudades, pero sí es muy recomendable para road trips por zonas rurales.'},{category:'ENCHUFES',icon:'⌁',question:'¿Qué enchufes se utilizan?',answer:'Suecia utiliza enchufes tipo C y F, con 230 V.'},{category:'QUÉ LLEVAR',icon:'♙',question:'¿Qué ropa llevar?',answer:'Lleva capas y una prenda impermeable incluso en verano. En invierno necesitarás ropa térmica.'},{category:'PRESUPUESTO',icon:'€',question:'¿Es caro viajar a Suecia?',answer:'No es un destino barato, pero se puede controlar bastante el presupuesto reservando con tiempo.'},{category:'CONECTIVIDAD',icon:'⌁',question:'¿Hay cobertura móvil e internet?',answer:'La cobertura es buena en ciudades y carreteras principales, aunque baja en algunas zonas remotas.'}
+  ]
+};
+window.SWEDEN_CONTENT=window.COUNTRY_CONFIG;

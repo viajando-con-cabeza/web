@@ -1,0 +1,43 @@
+name: VCC · Arquitectura i creixement
+on:
+  push:
+    branches: [quality]
+    paths:
+      - 'configuracion/datos/paises-vcc.json'
+      - 'configuracion/datos/plantilles-vcc.json'
+      - 'configuracion/datos/idiomas-vcc.json'
+      - 'configuracion/datos/publicacion-vcc.json'
+      - 'configuracion/datos/compilacion-css-vcc.json'
+      - 'configuracion/css/base/tokens-vcc.css'
+      - 'configuracion/css/componentes/vcc-altura-portades-subheader.css'
+      - 'configuracion/scripts/generate-planifica-hubs.mjs'
+      - 'configuracion/scripts/verificar-arquitectura-destinos-vcc.mjs'
+      - 'configuracion/ARQUITECTURA-ESCALABLE-VCC.md'
+      - 'package.json'
+      - '.github/workflows/vcc-arquitectura.yml'
+  pull_request:
+    branches: [quality, main]
+    paths:
+      - 'configuracion/datos/**'
+      - 'configuracion/css/base/tokens-vcc.css'
+      - 'configuracion/scripts/**'
+      - 'package.json'
+      - '.github/workflows/vcc-arquitectura.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  contractes:
+    name: Validar les fonts de veritat VCC
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Validar contractes de contingut, plantilles, tokens i idiomes
+        run: npm run architecture:check
+      - name: Mostrar resum del creixement
+        run: npm run architecture:report

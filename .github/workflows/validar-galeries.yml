@@ -1,0 +1,36 @@
+name: Components VCC compartits
+on:
+  push:
+    branches: [quality]
+    paths:
+      - "**/*.html"
+      - "sitemap.xml"
+      - "configuracion/scripts/validar-galeries.mjs"
+      - "configuracion/scripts/validar-subheaders.mjs"
+      - "configuracion/css/componentes/subheader-unificado-vcc.css"
+      - "configuracion/js/componentes/subheader-unificado-vcc.js"
+      - "configuracion/js/site-header.js"
+      - "configuracion/js/componentes/vcc-gallery-booking.js"
+      - "configuracion/css/componentes/vcc-gallery-booking.css"
+      - ".github/workflows/validar-galeries.yml"
+  pull_request:
+    paths:
+      - "**/*.html"
+      - "sitemap.xml"
+      - "configuracion/scripts/validar-galeries.mjs"
+      - "configuracion/scripts/validar-subheaders.mjs"
+      - "configuracion/css/componentes/subheader-unificado-vcc.css"
+      - "configuracion/js/componentes/subheader-unificado-vcc.js"
+      - "configuracion/js/site-header.js"
+      - ".github/workflows/validar-galeries.yml"
+permissions:
+  contents: read
+jobs:
+  comprovacio:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verificar el component únic de les galeries
+        run: node configuracion/scripts/validar-galeries.mjs
+      - name: Verificar els subheaders comuns a totes les guies
+        run: node configuracion/scripts/validar-subheaders.mjs

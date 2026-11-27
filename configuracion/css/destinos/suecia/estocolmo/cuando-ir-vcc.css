@@ -1,0 +1,1193 @@
+:root{--ci-paper:#faf7f2;--ci-orange:var(--vcc-accent-override, #c46a4c);--ci-ink:#302820;--ci-line:#e7d9cb}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body.ci-page{margin:0;background:var(--ci-paper);color:var(--ci-ink);font-family:var(--vcc-font-body, "DM Sans", Arial, sans-serif)}body.ci-page button{font-family:inherit;cursor:pointer}body.ci-page a{text-decoration:none;color:inherit}.ci-wrap{width:min(1180px,calc(100% - 48px));margin-inline:auto}.ci-crumb{font-size:11px;color:#6e6159}.ci-crumb span{padding:0 8px;color:#a99482}.ci-kicker,.ci-script{font:600 28px var(--vcc-font-script, "Caveat", cursive);color:var(--ci-orange)}.ci-main{padding:30px 0 60px}.ci-heading{display:flex;justify-content:space-between;align-items:end;gap:24px;margin-bottom:18px}.ci-heading h2,.ci-more h2{font:500 clamp(25px,3vw,34px)/1.2 var(--vcc-font-heading, "Oswald", sans-serif);margin:3px 0 0}.ci-heading p{max-width:400px;font-size:11px;line-height:1.6;color:#73675f;margin:0}.ci-objective-grid{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:11px}.ci-objective{background:#fff;border:1px solid var(--ci-line);border-radius:12px;padding:18px 8px;min-height:114px;color:#342c26;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:11px;transition:transform .2s,border-color .2s}.ci-objective:hover{transform:translateY(-2px);border-color:#d58e70}.ci-objective[aria-pressed=true]{border:2px solid var(--ci-orange);background:#fff1e7}.ci-objective-icon{font-size:32px;color:#a95938;line-height:1}.ci-objective strong{font-size:11px;line-height:1.3;text-align:center;max-width:100px}.ci-recommendation{display:grid;grid-template-columns:76px minmax(0,1.2fr) minmax(230px,1fr);gap:20px;align-items:center;background:#f6e7da;border-radius:20px;padding:20px 28px;margin:24px 0 48px;border:1px solid #ecd1bb}.ci-recommendation-copy span,.ci-detail-eyebrow{font-size:calc(10px + var(--vcc-overline-size-adjust,0px));font-weight:800;letter-spacing:.08em;color:#b75c39}.ci-recommendation h3{font:500 clamp(25px,3vw,36px)/1.1 var(--vcc-font-heading, "Oswald", sans-serif);margin:4px 0 7px}.ci-recommendation p{font-size:11px;line-height:1.55;margin:0;color:#685b51}.ci-recommendation ul{margin:0;padding:4px 0 4px 25px;border-left:1px solid #cda68a;list-style:none}.ci-recommendation li{font-size:11px;line-height:1.5;margin:4px 0;position:relative;padding-left:16px}.ci-recommendation li:before{content:'✓';color:var(--ci-orange);font-weight:900;position:absolute;left:0}.ci-calendar-scroll{overflow-x:auto;border:1px solid var(--ci-line);background:#fffaf6;border-radius:14px}.ci-calendar{display:grid;grid-template-columns:repeat(12,minmax(82px,1fr));min-width:984px;padding:9px}.ci-calendar-month{background:transparent;border:0;border-right:1px solid #eee2d8;padding:7px 3px 10px;display:flex;align-items:center;flex-direction:column;color:#342b25;gap:7px}.ci-calendar-month:last-child{border-right:0}.ci-calendar-month b{font:500 17px var(--vcc-font-heading, "Oswald", sans-serif);background:#f4ede5;width:100%;padding:7px 0;border-radius:7px}.ci-calendar-month.recommended{background:#fae7d9}.ci-calendar-month.recommended b{background:#efc5ae}.ci-calendar-month[aria-pressed=true]{outline:2px solid var(--ci-orange);outline-offset:-2px;border-radius:8px}.ci-weather{font-size:28px;line-height:1.2;color:#d69b34}.ci-temperature{font-size:11px;font-weight:700;white-space:nowrap}.ci-metric{font-size:9px;line-height:1.3;display:flex;align-items:center;flex-direction:column;gap:2px;color:#71645a}.ci-metric strong{font-weight:800;color:#3f3730}.ci-dot{width:9px;height:9px;border-radius:50%;display:inline-block}.ci-dot.low{background:#67965e}.ci-dot.medium{background:#dba018}.ci-dot.high{background:#bd5636}.ci-month-detail{display:flex;justify-content:space-between;gap:20px;align-items:center;border:1px solid var(--ci-line);border-radius:12px;background:#fff;padding:17px 23px;margin-top:8px}.ci-month-detail h3{font:500 24px var(--vcc-font-heading, "Oswald", sans-serif);margin:3px 0}.ci-month-detail p{font-size:11px;color:#655b53;line-height:1.6;max-width:590px;margin:0}
+@media(max-width:900px){.ci-objective-grid{grid-template-columns:repeat(3,1fr)}.ci-recommendation{grid-template-columns:60px 1fr}.ci-recommendation ul{grid-column:2;border-left:0;border-top:1px solid #cda68a;padding:12px 0 0}}
+@media(max-width:600px){
+.ci-wrap{width:calc(100% - 28px)}
+.ci-heading{display:block}
+.ci-heading p{margin-top:8px}
+.ci-objective-grid{grid-template-columns:repeat(3,1fr);gap:7px}
+.ci-objective{min-height:105px;padding:12px 6px}
+.ci-objective-icon{font-size:26px}
+.ci-objective strong{font-size:10px}
+.ci-recommendation{grid-template-columns:1fr;gap:12px;padding:19px}
+.ci-recommendation ul{grid-column:auto}
+.ci-month-detail{display:block}
+.ci-crumb{font-size:9px}
+}
+
+/* VCC 2026-11-05: shared destination breadcrumbs, consistent with Itinerario/Presupuesto */
+html body.ci-page .ci-hero-inner{position:relative}
+html body.ci-page .ci-crumb{
+ position:absolute;width:100%;z-index:4;gap:0;
+ margin:0;padding:0;color:#665f58;letter-spacing:0;text-transform:none;}
+html body.ci-page .ci-crumb a{color:inherit;text-decoration:none;}
+html body.ci-page .ci-crumb span{color:#9b928a}
+@media(max-width:600px){
+
+ html body.ci-page .ci-crumb{top:12px;font-size:10px;line-height:1.4}
+
+ html body.ci-page .ci-crumb span{margin:0 5px}
+}
+
+/* 2026-11-05 Visual fix: sharp retro background, mobile visibility and trip month */
+html body.ci-page .ci-crumb{
+ font:400 11px/1.4 var(--vcc-font-body, "DM Sans", Arial, sans-serif)!important;
+ left:0!important;top:12px!important;display:flex!important;
+ align-items:center!important;flex-wrap:wrap!important;
+ text-shadow:none!important;
+}
+html body.ci-page .ci-crumb a{font-weight:400!important}
+html body.ci-page .ci-crumb strong{font-weight:800!important;color:#4f4a45!important}
+html body.ci-page .ci-crumb span{margin:0 8px!important}
+.ci-visit-chip{
+ display:inline-flex;gap:8px;align-items:center;padding:9px 13px;margin-top:18px;
+ background:#fff9efed;border:1px solid #d7ad8c;border-radius:28px;
+ color:#985434;font:700 10px/1.3 var(--vcc-font-body, "DM Sans", Arial, sans-serif);
+ letter-spacing:.04em;box-shadow:0 2px 10px #6e452019
+}
+.ci-visit-chip span{font-size:17px}.ci-visit-chip strong{font-weight:900;color:#8d3e25}
+@media(max-width:600px){
+
+ html body.ci-page .ci-kicker{font-size:calc(25px + var(--vcc-overline-size-adjust,0px))}
+
+ html body.ci-page .ci-crumb{top:12px!important;font-size:10px!important}
+
+ html body.ci-page .ci-crumb span{margin:0 5px!important}
+
+ .ci-visit-chip{margin-top:14px;font-size:9px}
+
+ .ci-calendar-month{position:relative}
+}
+
+/* Breadcrumb unified across VCC destination guides: same geometry as itinerario / presupuesto. */
+html body.ci-page nav.vcc-crumb.ci-crumb {
+ position:absolute!important;
+ top:12px!important;
+ left:0!important;
+ right:0!important;
+ width:100%!important;
+ margin:0!important;
+ padding:0!important;
+ display:flex!important;
+ align-items:center!important;
+ flex-wrap:wrap!important;
+ gap:0!important;
+ font:400 11px/1.4 var(--vcc-font-body, "DM Sans", Arial, sans-serif)!important;
+ letter-spacing:0!important;
+ text-transform:none!important;
+ color:#665f58!important;
+ text-shadow:none!important;
+ z-index:7!important;
+}
+html body.ci-page nav.vcc-crumb.ci-crumb a{
+ color:inherit!important;
+ font-weight:400!important;
+ text-decoration:none!important
+}
+html body.ci-page nav.vcc-crumb.ci-crumb span{
+ margin:0 8px!important;
+ padding:0!important;
+ color:#9b928a!important
+}
+html body.ci-page nav.vcc-crumb.ci-crumb strong{
+ color:#4f4a45!important;
+ font-weight:800!important
+}
+@media(max-width:600px){
+
+ html body.ci-page nav.vcc-crumb.ci-crumb{
+  top:12px!important;font-size:10px!important;
+  flex-wrap:wrap!important;
+ }
+
+ html body.ci-page nav.vcc-crumb.ci-crumb span{margin:0 5px!important}
+}
+
+/* Ready for approved text-free photographic WebP (keep existing illustration as fallback until file is uploaded). */
+
+
+/* Final approved photographic background — no duplicate image, mobile-first crop. */
+html body.ci-page .ci-hero {
+ background-image:url('/configuracion/imagenes/fondos/fondos-cuando-ir.webp?v=20261111-mobil-imatge-actual-v2')!important;
+ background-position:center center!important;
+ background-size:cover!important;
+ background-repeat:no-repeat!important;
+}
+
+
+/* VCC compact layout 2026-11-05: Planifica-scale hero, smaller goals, intro between cards */
+html body.ci-page .ci-hero h1{
+ font-family:var(--vcc-font-heading, "Oswald", sans-serif)!important;
+ font-size:calc(clamp(34px,3.6vw,48px) + var(--vcc-heading-size-adjust,0px))!important;
+ line-height:1.08!important;
+ font-weight:600!important;
+ letter-spacing:-.025em!important;
+ margin:12px 0!important;
+}
+html body.ci-page .ci-objectives .ci-heading{margin-bottom:13px}
+html body.ci-page .ci-objective-grid{gap:10px}
+html body.ci-page .ci-objective{
+ min-height:88px!important;
+ padding:11px 7px!important;
+ gap:6px!important;
+ border-radius:10px!important;
+}
+html body.ci-page .ci-objective-icon{font-size:25px!important}
+html body.ci-page .ci-objective strong{
+ font-size:10.5px!important;
+ line-height:1.28!important;
+ max-width:130px;
+}
+html body.ci-page .ci-recommendation{margin-top:0!important}
+@media(max-width:900px){
+ html body.ci-page .ci-objective{min-height:84px!important}
+}
+@media(max-width:600px){
+
+ html body.ci-page .ci-objective-grid{gap:7px}
+
+ html body.ci-page .ci-objective{min-height:76px!important;padding:9px 5px!important}
+
+ html body.ci-page .ci-objective-icon{font-size:22px!important}
+
+ html body.ci-page .ci-objective strong{font-size:10px!important}
+}
+
+/* 2026-11-05: compact objective controls and balanced intro spacing */
+@media(min-width:901px){
+ html body.ci-page .ci-objective-grid{
+  width:min(1080px,100%)!important;
+  margin-inline:auto!important;
+  grid-template-columns:repeat(6,minmax(0,1fr))!important;
+  gap:9px!important;
+ }
+ html body.ci-page .ci-objective{
+  min-height:75px!important;
+  padding:8px 6px!important;
+  gap:4px!important;
+  border-radius:9px!important;
+ }
+ html body.ci-page .ci-objective-icon{font-size:22px!important}
+ html body.ci-page .ci-objective strong{font-size:10px!important}
+ html body.ci-page .ci-recommendation{
+  width:min(1120px,100%)!important;
+  min-height:0!important;
+  margin:0 auto 32px!important;
+  grid-template-columns:50px minmax(0,1.15fr) minmax(0,.95fr)!important;
+  gap:14px!important;
+  padding:13px 23px!important;
+  border-radius:16px!important;
+ }
+ html body.ci-page .ci-recommendation h3{font-size:calc(clamp(25px,2.5vw,31px) + var(--vcc-heading-size-adjust,0px))!important;margin:2px 0 3px!important}
+ html body.ci-page .ci-recommendation p{font-size:10.5px!important}
+ html body.ci-page .ci-recommendation ul{padding-top:0!important;padding-bottom:0!important}
+ html body.ci-page .ci-recommendation li{font-size:10px!important;margin:2px 0!important}
+}
+@media(min-width:601px) and (max-width:900px){
+ html body.ci-page .ci-objective-grid{
+  width:100%!important;
+  grid-template-columns:repeat(3,minmax(0,1fr))!important;
+  gap:8px!important;
+ }
+ html body.ci-page .ci-objective{min-height:73px!important;padding:8px 5px!important}
+ html body.ci-page .ci-objective-icon{font-size:21px!important}
+ html body.ci-page .ci-recommendation{padding:15px 18px!important;margin-bottom:28px!important}
+}
+@media(max-width:600px){
+ html body.ci-page .ci-objective{min-height:70px!important;padding:7px 5px!important;gap:4px!important}
+ html body.ci-page .ci-objective-icon{font-size:20px!important}
+ html body.ci-page .ci-recommendation{padding:15px!important;margin-bottom:26px!important}
+ html body.ci-page .ci-recommendation h3{font-size:calc(28px + var(--vcc-heading-size-adjust,0px))!important}
+}
+
+/* Subheader consistent with Presupuesto & Itinerario. One row on desktop and mobile. */
+html body.ci-page .ci-subnav{
+ display:flex!important;
+ align-items:center!important;
+ justify-content:flex-start!important;
+ gap:34px!important;
+ height:43px!important;
+ min-height:43px!important;
+ max-height:43px!important;
+ padding:0 max(24px,calc((100vw - 1180px)/2))!important;
+ margin:0!important;
+ background:#fff!important;
+ border-top:1px solid #e8e8e8!important;
+ border-bottom:1px solid #e8e8e8!important;
+ overflow-x:auto!important;
+ overflow-y:hidden!important;
+ scrollbar-width:none!important;
+ white-space:nowrap!important;
+}
+html body.ci-page .ci-subnav::-webkit-scrollbar{display:none}
+html body.ci-page .ci-subnav a{
+ display:inline-flex!important;
+ align-items:center!important;
+ justify-content:center!important;
+ flex:0 0 auto!important;
+ height:43px!important;
+ padding:0!important;
+ border-bottom:3px solid transparent!important;
+ color:#171717!important;
+ font:800 11px/1 var(--vcc-font-body, "DM Sans", Arial, sans-serif)!important;
+ text-decoration:none!important;
+ white-space:nowrap!important;
+}
+html body.ci-page .ci-subnav a.is-active,
+html body.ci-page .ci-subnav a.active,
+html body.ci-page .ci-subnav a:hover{
+ color:#a65340!important;
+ border-bottom-color:#cf705c!important;
+}
+@media(max-width:720px){
+ html body.ci-page .ci-subnav{
+  top:var(--vcc-header-h,87px)!important;
+  padding:0 14px!important;
+  gap:25px!important;
+ }
+ html body.ci-page .ci-subnav a{font-size:11px!important}
+}
+
+/* 2026-11-05: robust fixed subheader while scrolling, keeping its original space */
+html body.ci-page .ci-subnav{
+ position:relative!important;
+ top:auto!important;
+ left:auto!important;
+ right:auto!important;
+ z-index:90!important;
+ width:100%!important;
+ box-sizing:border-box!important;
+}
+html body.ci-page .ci-subnav.ci-subnav-pinned{
+ position:fixed!important;
+ top:var(--ci-nav-top,50px)!important;
+ left:0!important;
+ right:0!important;
+ z-index:90!important;
+ box-shadow:0 2px 7px rgba(36,26,20,.06)!important;
+}
+html body.ci-page .ci-subnav-placeholder{
+ display:block;
+ height:0;
+ width:100%;
+ pointer-events:none;
+}
+/* El índice alinea los títulos bajo la cabecera+subheader, no a media pantalla.
+   Estas dos secciones tienen padding superior propio (32/43 px). Compensarlo
+   permite que el sobretítulo llegue arriba sin quedar tapado por la barra. */
+html body.ci-page :is(#consejo,#mes-a-mes){
+ scroll-margin-top:var(--ci-sticky-offset,115px)!important;
+}
+html body.ci-page #experiencia{
+ scroll-margin-top:max(0px,calc(var(--ci-sticky-offset,115px) - 34px))!important;
+}
+html body.ci-page #errores{
+ scroll-margin-top:max(0px,calc(var(--ci-sticky-offset,115px) - 45px))!important;
+}
+
+/* Igualar la altura del hero al Presupuesto de Estocolmo: 452px escritorio.
+   Dejar el subheader inmediatamente debajo y visible en la primera pantalla. */
+
+/* 2026-11-06: Mobile hero unified with Itinerarios. One continuous image
+   behind breadcrumbs and heading, not a separate image strip. Desktop untouched. */
+@media(max-width:600px){
+
+ html body.ci-page nav.vcc-crumb.ci-crumb{
+  top:15px!important;
+  color:#59514b!important;
+ }
+}
+
+/* VCC — iconos SVG negros y reutilizables, vinculados al selector de objetivos */
+html body.ci-page .ci-objective-icon{
+  line-height:1;
+}
+@media(max-width:900px){
+  html body.ci-page .ci-objective-icon img{width:24px;height:24px}
+}
+@media(max-width:600px){
+  html body.ci-page .ci-objective-icon img{width:22px;height:22px}
+}
+html body.ci-page .ci-weather {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  line-height: 1;
+}
+html body.ci-page .ci-weather img {
+  display: block;
+  width: 32px;
+  height: 32px;
+  max-width: 100%;
+  object-fit: contain;
+}
+@media (max-width: 600px) {
+  html body.ci-page .ci-weather,
+  html body.ci-page .ci-weather img {
+    width: 30px;
+    height: 30px;
+  }
+}
+html body.ci-page .ci-recommendation {
+  display:grid!important;
+  width:min(990px,100%)!important;
+  grid-template-columns:105px minmax(0,1.04fr) minmax(0,1fr)!important;
+  align-items:center!important;
+  gap:15px!important;
+  margin:0 auto 34px!important;
+  padding:12px 17px!important;
+  min-height:103px!important;
+  background:#fff!important;
+  border:1.5px solid var(--ci-orange)!important;
+  border-radius:17px!important;
+  box-shadow:0 3px 13px rgba(75,48,29,.035);
+}
+html body.ci-page .ci-recommendation-brand {
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:4px;
+  align-self:stretch;
+  text-align:center;
+}
+html body.ci-page .ci-recommendation-brand img {
+  display:block;
+  width:44px;
+  height:44px;
+  max-width:none;
+  object-fit:contain;
+}
+html body.ci-page .ci-recommendation-brand strong {
+  color:#ad593b;
+  font:800 10px/1.3 var(--vcc-font-body, "DM Sans", Arial, sans-serif);
+  letter-spacing:.09em;
+  white-space:nowrap;
+}
+html body.ci-page .ci-recommendation-copy {min-width:0}
+html body.ci-page .ci-recommendation h3 {
+  margin:0 0 4px!important;
+  font:500 clamp(21px,2.1vw,27px)/1.18 var(--vcc-font-heading, "Oswald", sans-serif)!important;
+  overflow-wrap:break-word;
+}
+html body.ci-page .ci-recommendation p {
+  margin:0!important;
+  color:#685b51;
+  font:400 11.5px/1.6 var(--vcc-font-body, "DM Sans", Arial, sans-serif)!important;
+}
+html body.ci-page .ci-recommendation ul {
+  min-width:0;
+  margin:0!important;
+  padding:2px 0 2px 23px!important;
+  border-left:1px solid #e6d5c9!important;
+  border-top:0!important;
+  list-style:none;
+}
+html body.ci-page .ci-recommendation li {
+  font:400 11px/1.5 var(--vcc-font-body, "DM Sans", Arial, sans-serif)!important;
+  margin:3px 0!important;
+  padding-left:18px;
+  color:#544a42;
+}
+html body.ci-page .ci-recommendation li:before {left:0;color:var(--ci-orange)}
+@media (min-width:601px) and (max-width:900px) {
+  html body.ci-page .ci-recommendation {
+    grid-template-columns:110px minmax(0,1fr)!important;
+    gap:12px 17px!important;
+    padding:14px 17px!important;
+  }
+  html body.ci-page .ci-recommendation ul {
+    grid-column:2!important;
+    border-left:0!important;
+    border-top:1px solid #e6d5c9!important;
+    padding:11px 0 0!important;
+  }
+}
+@media (max-width:600px) {
+  html body.ci-page .ci-recommendation {
+    grid-template-columns:1fr!important;
+    gap:11px!important;
+    padding:16px!important;
+    min-height:0!important;
+    margin:0 auto 26px!important;
+    border-radius:13px!important;
+  }
+  html body.ci-page .ci-recommendation-brand {
+    flex-direction:row;
+    justify-content:flex-start;
+    align-self:auto;
+    gap:10px;
+    text-align:left;
+  }
+  html body.ci-page .ci-recommendation-brand img {width:42px;height:42px}
+  html body.ci-page .ci-recommendation-brand strong {font-size:10px}
+  html body.ci-page .ci-recommendation h3 {font-size:calc(25px + var(--vcc-heading-size-adjust,0px))!important}
+  html body.ci-page .ci-recommendation p {font-size:11.5px!important}
+  html body.ci-page .ci-recommendation ul {
+    grid-column:1!important;
+    border-left:0!important;
+    border-top:1px solid #e6d5c9!important;
+    padding:9px 0 0!important;
+  }
+  html body.ci-page .ci-recommendation li {font-size:11px!important;margin:4px 0!important}
+}
+
+/* 2026-11-07 — Tabler Icons, conjunto uniforme y guardado en GitHub. */
+html body.ci-page .ci-objective-icon{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  width:36px;
+  height:34px;
+  flex:0 0 34px;
+  border-radius:0;
+  background:transparent;
+}
+html body.ci-page .ci-objective-icon img{
+  display:block;
+  width:30px;
+  height:30px;
+  max-width:none;
+  object-fit:contain;
+}
+html body.ci-page .ci-objective[aria-pressed="true"] .ci-objective-icon{
+  background:transparent;
+}
+@media (max-width:900px){
+  html body.ci-page .ci-objective-icon{width:34px;height:33px;flex-basis:33px}
+  html body.ci-page .ci-objective-icon img{width:29px;height:29px}
+}
+@media (max-width:600px){
+  html body.ci-page .ci-objective-icon{width:32px;height:31px;flex-basis:31px;border-radius:0}
+  html body.ci-page .ci-objective-icon img{width:27px;height:27px}
+  html body.ci-page .ci-recommendation{padding:13px!important;gap:9px!important}
+}
+
+/* 2026-11-09 — Mes seleccionado con presentación editorial VCC: estilo Nuestra opinión. */
+html body.ci-page .ci-month-procon{display:grid;grid-template-columns:1fr 1fr;gap:25px}
+html body.ci-page .ci-month-points{min-width:0;background:transparent!important;border:0!important;border-radius:0;padding:0!important}
+html body.ci-page .ci-month-points h4{display:flex;align-items:center;gap:10px;font:600 18px/1.25 var(--vcc-font-heading, "Oswald", sans-serif);margin:0 0 11px;color:#302820}
+html body.ci-page .ci-month-points h4 svg{display:block;flex-shrink:0}
+html body.ci-page .ci-month-good h4 svg{color:#238c60}
+html body.ci-page .ci-month-bad h4 svg{color:#c4664e}
+html body.ci-page .ci-month-points ul{list-style:none;display:grid;gap:8px;margin:0;padding:0}
+html body.ci-page .ci-month-points li{position:relative;padding-left:17px;color:#5d5149;font:400 11.5px/1.55 var(--vcc-font-body, "DM Sans", Arial, sans-serif)}
+html body.ci-page .ci-month-points li:before{content:'•';position:absolute;left:2px;top:0;color:#a59a90;font-weight:900}
+html body.ci-page .ci-month-visited{max-width:none;margin:15px 0 0;color:#9e5738}
+html body.ci-page .ci-month-visited[hidden]{display:none}
+
+@media(max-width:600px){
+  html body.ci-page .ci-month-detail{padding:16px}
+  html body.ci-page .ci-month-procon{grid-template-columns:1fr;gap:17px}
+  html body.ci-page .ci-month-points h4{font-size:18px}
+}
+html body.ci-page .ci-august-box{grid-template-columns:185px minmax(0,1fr);gap:24px;align-items:start;border:1px solid var(--ci-line);}
+html body.ci-page .ci-tips-section{padding-top:43px}
+html body.ci-page .ci-tips-shell{display:grid;grid-template-columns:30px minmax(0,1fr) 30px;gap:10px;align-items:center}
+html body.ci-page .ci-tips-track{display:flex;gap:14px;min-width:0;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;scroll-behavior:smooth;scrollbar-width:none;overscroll-behavior-x:contain;align-items:stretch;padding:2px 0}
+html body.ci-page .ci-tips-track::-webkit-scrollbar{display:none}
+html body.ci-page .ci-tip-card{flex:0 0 calc((100% - 28px)/3);min-width:0;box-sizing:border-box;scroll-snap-align:start;display:flex;align-items:flex-start;gap:12px;background:#fff;border:1px solid var(--ci-line);border-radius:10px;padding:15px;min-height:131px}
+html body.ci-page .ci-tip-number{display:flex;align-items:center;justify-content:center;flex:0 0 29px;width:29px;height:29px;border:1px solid #dc9e73;border-radius:50%;background:#fff3e9;color:#b75b38;font:700 15px var(--vcc-font-heading, "Oswald", sans-serif)}
+html body.ci-page .ci-tip-card h3{font:500 19px/1.2 var(--vcc-font-heading, "Oswald", sans-serif);margin:2px 0 7px}
+html body.ci-page .ci-tip-card p{font:400 11px/1.55 var(--vcc-font-body, "DM Sans", Arial, sans-serif);color:#6a5e55;margin:0}
+html body.ci-page .ci-tips-arrow{display:flex;align-items:center;justify-content:center;}
+html body.ci-page .ci-tips-arrow:focus-visible{outline:2px solid var(--ci-orange);outline-offset:2px}
+html body.ci-page .ci-tips-arrow:disabled{cursor:default;}
+@media(max-width:900px){
+  html body.ci-page .ci-tip-card{flex-basis:calc((100% - 14px)/2)}
+}
+@media(max-width:600px){
+  html body.ci-page .ci-month-procon{grid-template-columns:1fr;gap:9px}
+  html body.ci-page .ci-month-points{padding:12px}
+  html body.ci-page .ci-august-box{grid-template-columns:1fr;gap:12px;padding:16px}
+  html body.ci-page .ci-tips-shell{grid-template-columns:26px minmax(0,1fr) 26px;gap:6px}
+  html body.ci-page .ci-tips-track{gap:10px}
+  html body.ci-page .ci-tip-card{flex-basis:100%;padding:13px;min-height:126px}
+}
+
+/* VCC 2026-11-09: detalle mes a mes en dos columnas, sin fondos de color en pros/contras. */
+html body.ci-page .ci-calendar-rain{display:flex;align-items:center;justify-content:center;gap:3px;font:700 10px/1.3 var(--vcc-font-body, "DM Sans", Arial, sans-serif);color:#4e4844;white-space:nowrap}
+html body.ci-page .ci-calendar-rain>span{font-size:15px;color:#c46a4c}
+html body.ci-page .ci-month-detail{display:block;padding:20px 23px 13px;background:#fff;border:1px solid var(--ci-line);border-radius:13px}
+html body.ci-page .ci-month-layout{display:grid;grid-template-columns:minmax(0,1.06fr) minmax(0,1fr);gap:23px;align-items:start}
+html body.ci-page .ci-month-left{min-width:0}
+html body.ci-page .ci-month-right{min-width:0;border-left:1px solid #e8dbce;padding-left:23px}
+html body.ci-page .ci-month-heading h3{font:600 33px/1.1 var(--vcc-font-heading, "Oswald", sans-serif);margin:0 0 7px;color:#302820}
+html body.ci-page .ci-month-heading p{max-width:none;font:400 11.5px/1.65 var(--vcc-font-body, "DM Sans", Arial, sans-serif);color:#675950;margin:0 0 16px;min-height:39px}
+html body.ci-page .ci-month-left-columns{display:grid;grid-template-columns:minmax(0,.93fr) minmax(0,1.07fr);align-items:start;gap:16px}
+html body.ci-page .ci-month-facts{border:1px solid #eee2d7;border-radius:10px;padding:7px 11px;background:#fffdfa;min-width:0}
+html body.ci-page .ci-month-fact{display:grid;grid-template-columns:21px minmax(0,1fr) auto;align-items:center;gap:6px;min-height:34px;border-bottom:1px solid #efe9e2;font:500 10px/1.25 var(--vcc-font-body, "DM Sans", Arial, sans-serif)}
+html body.ci-page .ci-month-fact:last-child{border-bottom:0}
+html body.ci-page .ci-month-fact .ci-fact-icon{font:800 16px/1 var(--vcc-font-body, "DM Sans", Arial, sans-serif);text-align:center;color:#ce653b}
+html body.ci-page .ci-month-fact strong{font:700 10.5px/1.3 var(--vcc-font-body, "DM Sans", Arial, sans-serif);white-space:nowrap;color:#3a312b}
+html body.ci-page .ci-month-fact strong.ci-fact-euros{letter-spacing:.05em;font-size:13px}
+html body.ci-page .ci-month-suitability{min-width:0}
+html body.ci-page .ci-month-suitability h4{font:600 13px/1.3 var(--vcc-font-heading, "Oswald", sans-serif);margin:0 0 11px;color:#2d2824}
+html body.ci-page .ci-score-rows{display:grid;gap:7px}
+html body.ci-page .ci-score-row{display:grid;grid-template-columns:15px minmax(92px,1.3fr) minmax(40px,.92fr) 18px;align-items:center;gap:5px;min-width:0}
+html body.ci-page .ci-score-icon{font:800 14px/1 var(--vcc-font-body, "DM Sans", Arial, sans-serif);text-align:center;color:#c56a45}
+html body.ci-page .ci-score-name{font:500 9.5px/1.25 var(--vcc-font-body, "DM Sans", Arial, sans-serif);color:#544940}
+html body.ci-page .ci-score-track{display:block;height:7px;background:#e9e7e5;border-radius:99px;overflow:hidden}
+html body.ci-page .ci-score-fill{display:block;height:100%;border-radius:99px;background:#cb714c}
+html body.ci-page .ci-score-value{font:700 10px/1.2 var(--vcc-font-body, "DM Sans", Arial, sans-serif);text-align:right}
+html body.ci-page .ci-month-right .ci-month-procon{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+html body.ci-page .ci-month-right .ci-month-points{min-width:0;background:transparent!important;border:0!important;padding:0!important}
+html body.ci-page .ci-month-right .ci-month-points h4{font:600 18px/1.25 var(--vcc-font-heading, "Oswald", sans-serif);display:flex;align-items:center;gap:8px;margin:0 0 12px}
+html body.ci-page .ci-month-right .ci-month-points ul{display:grid;gap:9px;list-style:none;margin:0;padding:0}
+html body.ci-page .ci-month-right .ci-month-points li{font:400 10.5px/1.5 var(--vcc-font-body, "DM Sans", Arial, sans-serif);padding-left:13px;color:#564b42}
+html body.ci-page .ci-month-right .ci-month-points li:before{left:0;color:#a59a90;content:'•'}
+html body.ci-page .ci-month-vcc{display:grid;align-items:center;margin-top:20px;background:#fff;border:1.5px solid var(--ci-orange);}
+html body.ci-page .ci-month-vcc-brand{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;text-align:center;border-right:1px solid #e8d7ca;}
+html body.ci-page .ci-month-vcc-brand img{display:block;object-fit:contain}
+html body.ci-page .ci-month-vcc-brand strong{font:800 9px/1.25 var(--vcc-font-body, "DM Sans", Arial, sans-serif);letter-spacing:.045em;color:#a8573a;white-space:nowrap}
+html body.ci-page .ci-month-vcc>p{font:400 10.8px/1.6 var(--vcc-font-body, "DM Sans", Arial, sans-serif);color:#574b43;margin:0;max-width:none}
+html body.ci-page .ci-month-visited{font:600 10px/1.4 var(--vcc-font-body, "DM Sans", Arial, sans-serif);margin-top:11px}
+html body.ci-page .ci-month-sources{border-top:1px solid #ede2d8;margin:16px 0 0;padding-top:9px;max-width:none;color:#84766d;font:400 9px/1.55 var(--vcc-font-body, "DM Sans", Arial, sans-serif)}
+html body.ci-page .ci-month-sources a{color:#a95638;text-decoration:underline;text-underline-offset:2px}
+@media(max-width:1080px){
+ html body.ci-page .ci-month-layout{grid-template-columns:1fr}
+ html body.ci-page .ci-month-right{border-left:0;border-top:1px solid #e9dcd0;padding:17px 0 0}
+ html body.ci-page .ci-month-left-columns{grid-template-columns:minmax(0,1fr) minmax(0,1.1fr)}
+ html body.ci-page .ci-month-heading p{min-height:0}
+}
+@media(max-width:600px){
+ html body.ci-page .ci-month-detail{padding:15px}
+ html body.ci-page .ci-month-left-columns{grid-template-columns:1fr;gap:15px}
+ html body.ci-page .ci-month-right .ci-month-procon{grid-template-columns:1fr;gap:15px}
+ html body.ci-page .ci-month-heading h3{font-size:calc(29px + var(--vcc-heading-size-adjust,0px))}
+ html body.ci-page .ci-score-row{grid-template-columns:19px minmax(115px,1.4fr) minmax(40px,1fr) 23px}
+ html body.ci-page .ci-month-vcc{grid-template-columns:76px minmax(0,1fr);gap:8px;padding:10px}
+ html body.ci-page .ci-month-vcc-brand{padding-right:8px}
+ html body.ci-page .ci-month-vcc-brand img{width:34px;height:34px}
+}
+html body.ci-page .ci-month-fact strong.ci-fact-euros{color:#302820!important;font-weight:700!important}
+html body.ci-page .ci-fact-sunset{color:var(--ci-orange)!important;display:flex;justify-content:center;align-items:center}
+html body.ci-page .ci-fact-sunset svg{stroke:var(--ci-orange)!important;display:block}
+html body.ci-page .ci-month-right{display:flex;flex-direction:column;align-self:stretch;min-height:0}
+html body.ci-page .ci-month-right .ci-month-procon{flex:0 0 auto}
+html body.ci-page .ci-month-vcc{
+  width:fit-content;
+  max-width:100%;
+  min-width:min(100%,330px);
+  grid-template-columns:80px minmax(0,1fr);
+  gap:11px;
+  margin:20px 0 0 auto;
+  align-self:flex-end;
+  padding:9px 13px;
+  border-radius:12px;
+}
+html body.ci-page .ci-month-vcc-brand{min-height:0;}
+html body.ci-page .ci-month-vcc>p{text-align:justify;text-align-last:left;font-size:10.5px;line-height:1.5}
+html body.ci-page .ci-month-right .ci-month-vcc{margin-top:auto}
+html body.ci-page .ci-month-right .ci-month-procon + .ci-month-vcc{margin-top:auto;padding-top:9px}
+@media(max-width:1080px){
+  html body.ci-page .ci-month-right .ci-month-vcc{margin-top:16px}
+}
+@media(max-width:600px){
+  html body.ci-page .ci-month-vcc{max-width:100%;min-width:0;width:100%;grid-template-columns:78px minmax(0,1fr)}
+  html body.ci-page .ci-month-vcc>p{font-size:10.5px}
+}
+
+/* Meses prerenderizados: solo se muestra el seleccionado. */
+html body.ci-page .ci-month-result[data-month-panel][hidden]{display:none!important}
+
+/* VCC 2026-11-09 — experiencia agosto, precios y contraste: se conserva el layout aprobado. */
+html body.ci-page .ci-calendar-scroll{background:#fff!important;border-color:#e4d4c7!important;box-shadow:0 4px 20px rgba(64,43,31,.035)}
+html body.ci-page .ci-calendar{background:#fff!important;scroll-snap-type:x proximity}
+html body.ci-page .ci-calendar-month:hover:not([aria-pressed="true"]){background:#fff7f1}
+html body.ci-page .ci-calendar-month:focus-visible{outline:2px solid var(--ci-orange)!important;outline-offset:-2px}
+html body.ci-page .ci-price-label,html body.ci-page .ci-fact-price{display:inline-flex;align-items:center;justify-content:center;gap:5px;color:#302820!important;font-weight:700}
+html body.ci-page .ci-price-label{font-size:10.5px}
+html body.ci-page .ci-price-label .ci-dot,html body.ci-page .ci-fact-price .ci-dot{flex:0 0 auto}
+html body.ci-page .ci-fact-price{white-space:nowrap;font-size:11px}
+html body.ci-page .ci-august-experience{padding-top:32px}
+html body.ci-page .ci-august-box{display:block!important;padding:22px 25px!important;border-radius:13px;background:#fff}
+html body.ci-page .ci-august-visit{display:inline-block;margin-bottom:8px;color:#ae603e;font:800 10px/1.4 var(--vcc-font-body, "DM Sans", Arial, sans-serif);letter-spacing:.06em}
+html body.ci-page .ci-august-bottom{display:flex;align-items:center;justify-content:space-between;gap:20px;border-top:1px solid #ece0d5;padding-top:11px}
+html body.ci-page .ci-august-bottom p{font:400 9.4px/1.5 var(--vcc-font-body, "DM Sans", Arial, sans-serif);color:#87796c;margin:0;max-width:690px}
+html body.ci-page .ci-august-bottom a{font:700 10px/1.45 var(--vcc-font-body, "DM Sans", Arial, sans-serif);text-decoration:underline;text-underline-offset:3px;color:#a85639;white-space:normal}
+html body.ci-page .ci-august-bottom a:hover{color:#763e2b}
+@media(max-width:900px){html body.ci-page .ci-august-box{padding:18px!important}}
+@media(max-width:600px){
+html body.ci-page .ci-august-box{padding:15px!important}
+html body.ci-page .ci-august-bottom{display:block}
+html body.ci-page .ci-august-bottom a{display:inline-block;margin-top:9px}
+}
+@media(prefers-reduced-motion:reduce){html body.ci-page .ci-tips-track{scroll-behavior:auto!important}}
+
+/* Indicador discreto de desplazamiento horizontal solo en móvil */
+html body.ci-page .ci-calendar-hint{display:none}
+@media(max-width:700px){
+  html body.ci-page .ci-calendar-hint{
+    display:flex;align-items:center;justify-content:center;gap:9px;
+    font:700 10px/1.5 var(--vcc-font-body, "DM Sans", Arial, sans-serif);color:#a65b3a;
+    margin:6px auto 0;
+  }
+  html body.ci-page .ci-calendar-hint>span:last-child{font-size:18px;line-height:1}
+}
+/* 2026-11-09: puntos de turistas y precios alineados junto a Bajo / Medio / Alto. */
+html body.ci-page .ci-calendar-month .ci-tourist-label,
+html body.ci-page .ci-calendar-month .ci-price-label{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  flex-direction:row;
+  gap:4px;
+  font-size:9.5px;
+  line-height:1.25;
+  font-weight:700;
+  color:#3f3730;
+  white-space:nowrap;
+}
+html body.ci-page .ci-calendar-month .ci-tourist-label .ci-dot,
+html body.ci-page .ci-calendar-month .ci-price-label .ci-dot{
+  display:inline-block;
+  width:7px;
+  height:7px;
+  flex:0 0 7px;
+  border-radius:50%;
+}
+
+/* 2026-11-09 — consejos del mes con idéntica anchura y altura, sin recortes de contenido. */
+html body.ci-page .ci-month-right>.ci-month-vcc,
+html body.ci-page .ci-month-right>.ci-month-procon+.ci-month-vcc{
+  box-sizing:border-box;
+  display:grid!important;
+  width:min(100%,455px)!important;
+  max-width:455px!important;
+  min-width:0!important;
+  align-self:center!important;
+  align-items:center;
+  scrollbar-width:thin;
+}
+html body.ci-page .ci-month-right>.ci-month-vcc>p{
+  min-width:0;
+  overflow-wrap:break-word;
+}
+html body.ci-page .ci-august-weather-options{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:12px;
+  margin:4px 0 17px;
+}
+html body.ci-page .ci-august-plan{
+  display:flex;
+  align-items:flex-start;
+  gap:10px;
+  background:#fff;
+  border:1px solid #e8d8ca;
+  border-radius:10px;
+  padding:15px 13px;
+  min-width:0;
+}
+html body.ci-page .ci-august-plan-icon{
+  display:flex;align-items:center;justify-content:center;
+  flex:0 0 28px;width:28px;height:28px;border-radius:50%;
+  border:1px solid #edc9b6;
+  color:#bc5e3c;
+  background:#fff7f1;
+  font:700 18px/1 var(--vcc-font-body, "DM Sans", Arial, sans-serif);
+}
+html body.ci-page .ci-august-plan h4{
+  color:#332922;
+  font:600 17px/1.22 var(--vcc-font-heading, "Oswald", sans-serif);
+  margin:2px 0 7px;
+}
+html body.ci-page .ci-august-plan p{
+  color:#62544c;
+  font:400 11px/1.6 var(--vcc-font-body, "DM Sans", Arial, sans-serif);
+  margin:0;
+}
+@media(max-width:1080px){
+  html body.ci-page .ci-month-right>.ci-month-vcc,
+  html body.ci-page .ci-month-right>.ci-month-procon+.ci-month-vcc{
+    height:90px!important;min-height:90px!important;max-height:90px!important;flex-basis:90px!important;
+    margin:auto auto 0!important;
+  }
+}
+@media(max-width:750px){
+  html body.ci-page .ci-august-plan{padding:12px 13px}
+}
+@media(max-width:600px){
+  html body.ci-page .ci-month-right>.ci-month-vcc,
+  html body.ci-page .ci-month-right>.ci-month-procon+.ci-month-vcc{
+    grid-template-columns:72px minmax(0,1fr)!important;
+    width:100%!important;max-width:100%!important;
+    height:124px!important;min-height:124px!important;max-height:124px!important;flex-basis:124px!important;
+    margin:auto auto 0!important;padding:8px!important;
+  }
+}
+@media(max-width:380px){
+  html body.ci-page .ci-month-right>.ci-month-vcc,
+  html body.ci-page .ci-month-right>.ci-month-procon+.ci-month-vcc{
+    height:144px!important;min-height:144px!important;max-height:144px!important;flex-basis:144px!important;
+  }
+}
+
+/* Alinea el Consejo VCC al centro inferior de la mitad derecha, dejando aire respecto a los pros/contras. */
+html body.ci-page .ci-month-right{row-gap:12px}
+html body.ci-page .ci-month-right>.ci-month-vcc,
+html body.ci-page .ci-month-right>.ci-month-procon+.ci-month-vcc{justify-self:center!important}
+/* VCC 2026-11-09: consejo mensual aún más bajo, igual de ancho y centrado al pie. */
+html body.ci-page .ci-month-right>.ci-month-vcc,
+html body.ci-page .ci-month-right>.ci-month-procon+.ci-month-vcc{
+  height:76px!important;min-height:76px!important;max-height:76px!important;
+  flex:0 0 76px!important;
+  margin:auto auto 0!important;
+}
+html body.ci-page .ci-tips-source{
+  margin:10px 0 0;
+  font:400 10px/1.5 var(--vcc-font-body, "DM Sans", Arial, sans-serif);
+  color:#83756b;text-align:right;
+}
+html body.ci-page .ci-tips-source a{
+  color:#a85a3d;font-weight:700;text-decoration:underline;text-underline-offset:2px;
+}
+html body.ci-page .ci-tip-card h3{overflow-wrap:break-word}
+@media(max-width:600px){
+ html body.ci-page .ci-month-right>.ci-month-vcc,
+ html body.ci-page .ci-month-right>.ci-month-procon+.ci-month-vcc{
+  height:108px!important;min-height:108px!important;max-height:108px!important;
+  flex-basis:108px!important;padding:7px!important;
+ }
+ html body.ci-page .ci-tips-source{text-align:left}
+}
+@media(max-width:380px){
+ html body.ci-page .ci-month-right>.ci-month-vcc,
+ html body.ci-page .ci-month-right>.ci-month-procon+.ci-month-vcc{
+  height:128px!important;min-height:128px!important;max-height:128px!important;
+  flex-basis:128px!important;
+ }
+}
+
+/* 2026-11-09: título de Mejor época apilado a la izquierda; sin resumen redundante. */
+html body.ci-page .ci-objectives>.ci-heading{
+  display:flex!important;
+  flex-direction:column!important;
+  justify-content:flex-start!important;
+  align-items:flex-start!important;
+  gap:2px!important;
+  text-align:left!important;
+  margin-bottom:17px!important;
+}
+html body.ci-page .ci-objectives>.ci-heading .ci-script{
+  display:block;
+  width:auto;
+  text-align:left;
+}
+html body.ci-page .ci-objectives>.ci-heading h2{
+  display:block;
+  width:auto;
+  max-width:100%;
+  text-align:left;
+  margin:0!important;
+}
+html body.ci-page .ci-objectives>.ci-objective-grid{margin-top:0}
+html body.ci-page .ci-objectives>.ci-recommendation{margin-top:24px!important}
+
+/* Mes a mes: más aire antes de Lo mejor / A tener en cuenta, caras VCC naranja. */
+html body.ci-page .ci-month-layout>.ci-month-right{
+  padding-top:22px;
+}
+html body.ci-page .ci-month-right .ci-month-good h4 svg,
+html body.ci-page .ci-month-right .ci-month-bad h4 svg{
+  color:var(--ci-orange)!important;
+  stroke:currentColor!important;
+}
+@media(max-width:1080px){
+  html body.ci-page .ci-month-layout>.ci-month-right{
+    padding-top:22px;
+  }
+}
+@media(max-width:600px){
+  html body.ci-page .ci-objectives>.ci-heading{
+    gap:5px!important;
+    margin-bottom:15px!important;
+  }
+  html body.ci-page .ci-objectives>.ci-heading h2{
+    line-height:1.17;
+  }
+  html body.ci-page .ci-month-layout>.ci-month-right{
+    padding-top:18px;
+  }
+}
+/* VCC 2026-11-09: galería fotográfica real, lectura móvil y consejos sin scroll interno. */
+html body.ci-page .ci-august-experience-layout{
+  display:grid;grid-template-columns:minmax(0,.96fr) minmax(0,1.04fr);
+  align-items:start;gap:23px;margin-bottom:18px;
+}
+html body.ci-page .ci-august-firsthand{min-width:0}
+html body.ci-page .ci-august-firsthand h3{
+  font:600 clamp(21px,2vw,26px)/1.25 var(--vcc-font-heading, "Oswald", sans-serif);
+  color:#302820;margin:0 0 11px;
+}
+html body.ci-page .ci-august-firsthand p{
+  margin:0 0 12px;font:400 12px/1.7 var(--vcc-font-body, "DM Sans", Arial, sans-serif);color:#5b4f47
+}
+html body.ci-page .ci-august-firsthand p strong{color:#332821}
+html body.ci-page .ci-august-firsthand .ci-august-visit{display:block;margin-bottom:8px}
+html body.ci-page .ci-month-right>.ci-month-vcc,
+html body.ci-page .ci-month-right>.ci-month-procon+.ci-month-vcc{
+  overflow:visible!important;overflow-y:visible!important;overflow-x:visible!important;
+  align-content:center;
+  grid-template-columns:69px minmax(0,1fr)!important;
+  gap:7px!important;
+  padding:6px 9px!important;
+}
+html body.ci-page .ci-month-right>.ci-month-vcc>p{
+  text-align:left!important;text-align-last:left!important;
+  font-size:10.4px!important;line-height:1.38!important;
+}
+html body.ci-page .ci-month-vcc-brand{min-width:0;padding-right:7px!important}
+html body.ci-page .ci-month-vcc-brand img{width:30px!important;height:30px!important}
+html body.ci-page .ci-month-vcc-brand strong{font-size:8.2px!important}
+html body.ci-page .ci-calendar-scroll{
+  overflow-x:auto;-webkit-overflow-scrolling:touch;
+  scroll-snap-type:x proximity;
+  overscroll-behavior-x:contain
+}
+html body.ci-page .ci-calendar-month{scroll-snap-align:center}
+html body.ci-page .ci-calendar-month:focus-visible,
+html body.ci-page .ci-objective:focus-visible{
+  outline:2px solid var(--ci-orange)!important;outline-offset:2px
+}
+@media(max-width:1080px){
+  html body.ci-page .ci-august-experience-layout{grid-template-columns:1fr;gap:17px}
+}
+@media(max-width:750px){
+  html body.ci-page .ci-calendar{grid-template-columns:repeat(12,minmax(112px,1fr));min-width:1344px!important}
+  html body.ci-page .ci-calendar-month{min-height:236px}
+  html body.ci-page .ci-calendar-month b{font-size:18px}
+  html body.ci-page .ci-august-experience-layout{gap:15px}
+  html body.ci-page .ci-august-firsthand p{font-size:12px}
+}
+@media(max-width:600px){
+  html body.ci-page .ci-month-right>.ci-month-vcc,
+  html body.ci-page .ci-month-right>.ci-month-procon+.ci-month-vcc{
+    grid-template-columns:66px minmax(0,1fr)!important;
+    gap:7px!important;padding:8px!important;
+  }
+  html body.ci-page .ci-month-right>.ci-month-vcc>p{font-size:10.4px!important}
+}
+@media(prefers-reduced-motion:reduce){
+  html body.ci-page .ci-calendar{scroll-behavior:auto!important}
+}
+
+/* VCC 2026-11-09: galería de Qué ver reutilizada en Cuándo ir.
+   Se aísla la estructura de su plantilla para evitar alterar las otras secciones. */
+html body.ci-page .ci-august-gallery-embed{
+  min-width:0;
+  margin:0;
+  overflow:visible;
+}
+html body.ci-page .ci-august-imp-gallery{
+  width:100%!important;max-width:100%!important;
+  overflow:visible!important;
+}
+html body.ci-page .ci-august-imp-gallery .imp-main{
+  width:100%!important;max-width:100%!important;
+  margin:0!important;padding:0!important;
+}
+html body.ci-page .ci-august-imp-gallery .place.ci-august-gallery-place{
+  display:block!important;
+  width:100%!important;max-width:100%!important;
+  min-height:0!important;height:auto!important;
+  margin:0!important;padding:0!important;
+  border:0!important;box-shadow:none!important;
+  background:transparent!important;
+  grid-template-columns:none!important;
+}
+html body.ci-page .ci-august-imp-gallery .place-heading,
+html body.ci-page .ci-august-imp-gallery .place-copy{
+  display:none!important;
+}
+html body.ci-page .ci-august-imp-gallery .gallery{
+  display:block!important;
+  width:100%!important;max-width:100%!important;
+  margin:0!important;padding:0!important;
+}
+html body.ci-page .ci-august-imp-gallery .gallery-mosaic{
+  width:100%!important;
+  aspect-ratio:1.42!important;
+  border-radius:12px!important;
+  box-shadow:none!important;
+}
+html body.ci-page .ci-august-imp-gallery .ci-august-gallery-loading{
+  display:block;text-align:center;padding:32px;color:#84766b;
+  font:500 12px/1.5 var(--vcc-font-body, "DM Sans", Arial, sans-serif);
+}
+@media(max-width:800px){
+  html body.ci-page .ci-august-imp-gallery .gallery-mosaic{
+    aspect-ratio:1.48!important;
+  }
+}
+@media(max-width:650px){
+  html body.ci-page .ci-august-imp-gallery .gallery-mosaic{
+    aspect-ratio:1.3!important;
+  }
+}
+/* VCC · Cuándo ir · 4 fotos visibles y +2 en la última, como Qué ver. */
+html body.ci-page .ci-august-imp-gallery .gallery-mosaic.count-4{
+  display:grid!important;
+  grid-template-columns:minmax(0,1.7fr) minmax(0,1fr) minmax(0,1fr)!important;
+  grid-template-rows:repeat(2,minmax(0,1fr))!important;
+  gap:6px!important;
+}
+html body.ci-page .ci-august-imp-gallery .gallery-mosaic.count-4>.gallery-tile:nth-child(1){
+  grid-column:1!important;grid-row:1 / 3!important;
+}
+html body.ci-page .ci-august-imp-gallery .gallery-mosaic.count-4>.gallery-tile:nth-child(2){
+  grid-column:2 / 4!important;grid-row:1!important;
+}
+html body.ci-page .ci-august-imp-gallery .gallery-mosaic.count-4>.gallery-tile:nth-child(3){
+  grid-column:2!important;grid-row:2!important;
+}
+html body.ci-page .ci-august-imp-gallery .gallery-mosaic.count-4>.gallery-tile:nth-child(4){
+  grid-column:3!important;grid-row:2!important;
+}
+/* El contador +N fotos hereda la tipografía del componente compartido vcc-gallery-booking.css. */
+/* SEO + lectura: respuesta breve visible inmediatamente bajo el título.
+   No añadir otra tarjeta ni modificar el diseño del selector VCC. */
+html body.ci-page .ci-objectives>.ci-quick-answer{
+  margin:0 0 16px;
+  max-width:920px;
+  font:400 12px/1.65 var(--vcc-font-body, "DM Sans", Arial, sans-serif);
+  color:#645851;
+}
+html body.ci-page .ci-objectives>.ci-quick-answer strong{
+  font-weight:700;
+  color:#3b312a;
+}
+@media(max-width:600px){
+  html body.ci-page .ci-objectives>.ci-quick-answer{
+    font-size:12px;
+    line-height:1.7;
+    margin-bottom:15px;
+  }
+}
+
+/* 2026-11-10 · Mes a mes: tarjetas más bajas y fuentes siempre fuera del marco blanco.
+   Solo afecta a las doce fichas mensuales, no a las demás tarjetas del sitio. */
+html body.ci-page .ci-month-result{
+  display:block;
+  margin-top:13px;
+  min-width:0;
+}
+html body.ci-page .ci-month-result[hidden]{display:none!important}
+html body.ci-page .ci-month-result>.ci-month-detail{
+  padding:15px 19px 17px!important;
+  margin:0!important;
+  gap:0!important;
+}
+html body.ci-page .ci-month-result .ci-month-layout{
+  gap:18px;
+}
+html body.ci-page .ci-month-result .ci-month-heading h3{
+  font-size:calc(30px + var(--vcc-heading-size-adjust,0px));
+  line-height:1.08;
+  margin:0 0 6px;
+}
+html body.ci-page .ci-month-result .ci-month-heading p{
+  min-height:0;
+  margin:0 0 11px;
+  line-height:1.55;
+}
+html body.ci-page .ci-month-result .ci-month-left-columns{gap:13px}
+html body.ci-page .ci-month-result .ci-month-facts{padding:5px 10px}
+html body.ci-page .ci-month-result .ci-month-fact{min-height:31px}
+html body.ci-page .ci-month-result .ci-month-suitability h4{margin-bottom:8px}
+html body.ci-page .ci-month-result .ci-score-rows{gap:5px}
+html body.ci-page .ci-month-result .ci-month-layout>.ci-month-right{
+  padding-top:7px!important;
+  padding-left:19px;
+}
+html body.ci-page .ci-month-result .ci-month-right .ci-month-points h4{
+  margin-bottom:9px;
+  gap:7px;
+}
+html body.ci-page .ci-month-result .ci-month-right .ci-month-points ul{gap:7px}
+html body.ci-page .ci-month-result .ci-month-right>.ci-month-vcc,
+html body.ci-page .ci-month-result .ci-month-right>.ci-month-procon+.ci-month-vcc{
+  min-height:62px!important;
+  height:auto!important;
+  max-height:none!important;
+  flex:0 0 auto!important;
+  padding:4px 9px!important;
+  /* Alineado al pie; solo reducimos la altura del propio Consejo VCC. */
+  margin:auto auto 0!important;
+}
+html body.ci-page .ci-calendar-section>.ci-month-sources{
+  border:0!important;
+  background:transparent!important;
+  margin:9px 3px 0!important;
+  padding:0!important;
+  max-width:none!important;
+  font:400 10px/1.5 var(--vcc-font-body, "DM Sans", Arial, sans-serif)!important;
+  color:#84766d;
+}
+html body.ci-page .ci-calendar-section>.ci-month-sources a{
+  color:#a85a3d;
+  text-decoration:underline;
+  text-underline-offset:2px;
+}
+@media(max-width:1080px){
+  html body.ci-page .ci-month-result .ci-month-layout>.ci-month-right{
+    padding:12px 0 0!important;
+  }
+}
+@media(max-width:600px){
+  html body.ci-page .ci-month-result>.ci-month-detail{
+    padding:14px 14px 16px!important;
+  }
+  html body.ci-page .ci-month-result .ci-month-layout{gap:13px}
+  html body.ci-page .ci-month-result .ci-month-heading h3{font-size:calc(28px + var(--vcc-heading-size-adjust,0px))}
+  html body.ci-page .ci-month-result .ci-month-heading p{margin-bottom:11px}
+  html body.ci-page .ci-month-result .ci-month-left-columns{gap:13px}
+  html body.ci-page .ci-month-result .ci-month-right .ci-month-procon{
+    gap:13px;
+  }
+  html body.ci-page .ci-month-result .ci-month-right>.ci-month-vcc,
+  html body.ci-page .ci-month-result .ci-month-right>.ci-month-procon+.ci-month-vcc{
+    min-height:68px!important;
+    height:auto!important;
+    max-height:none!important;
+    flex:0 0 auto!important;
+    padding:5px 8px!important;
+    margin:auto auto 0!important;
+  }
+  html body.ci-page .ci-calendar-section>.ci-month-sources{
+    margin:8px 2px 0!important;
+    font-size:9.5px!important;
+  }
+}
+
+/* Los pies de sección y las fuentes quedan fuera del marco blanco.
+   Convención visual VCC: el contenido útil dentro; las notas, debajo. */
+html body.ci-page .ci-august-experience>.ci-august-bottom{
+  border:0!important;
+  margin:10px 3px 0!important;
+  padding:0!important;
+  background:transparent!important;
+}
+html body.ci-page .ci-august-experience>.ci-august-bottom>p{
+  font-size:10px;
+  line-height:1.5;
+}
+@media(max-width:600px){
+  html body.ci-page .ci-august-experience>.ci-august-bottom{
+    margin-top:9px!important;
+  }
+}
+
+/* 2026-11-10 · El hero procede del componente compartido en configuracion.
+   Conservar el pequeño distintivo de nuestro viaje sin duplicar el hero. */
+html body.ci-page .ci-visit-mobile-note{display:none}
+@media(max-width:600px){
+  html body.ci-page .vcc-hero .ci-visit-chip{display:none!important}
+  html body.ci-page .ci-visit-mobile-note{
+    display:block!important;
+    margin:0 auto 18px!important;
+    text-align:center!important;
+    color:#95563d!important;
+    font:700 11px/1.5 var(--vcc-font-body, "DM Sans", Arial, sans-serif)!important;
+    letter-spacing:.04em!important;
+  }
+}
+
+/* Rendimiento móvil: la imagen de montañas de 474 KB es decorativa y está
+   al final de la guía. Se activa mediante el observador compartido de VCC.
+   Sin JS, esta regla no se aplica y la fotografía original sigue visible. */
+html.vcc-lazy-bg-js body.ci-page .vcc-discover-section[data-vcc-lazy-background]:not(.vcc-bg-ready){
+  background-image:linear-gradient(90deg,rgba(18,28,30,.72),rgba(18,28,30,.24))!important;
+}
+
+/* La imagen del hero se declara una sola vez en el HTML mediante
+   --vcc-hero-image; el CSS compartido aplica la transparencia en todos
+   los tamaños, sin sobrescribir la foto en dispositivos móviles. */
+
+/* La galería carga fuera del primer viewport. Reservar su geometría
+   mientras llegan CSS y JS evita que el texto posterior salte (CLS).
+   Una vez inicializada, el mosaico universal determina su propia altura. */
+html body.ci-page .ci-august-gallery-embed[data-vcc-lazy-gallery]:not([data-vcc-gallery-loaded]) .gallery{
+  aspect-ratio:1.42;
+}
+@media(max-width:650px){
+  html body.ci-page .ci-august-gallery-embed[data-vcc-lazy-gallery]:not([data-vcc-gallery-loaded]) .gallery{
+    aspect-ratio:1.3;
+  }
+}
+
+/* 2026-11-11 · Carrusel móvil de Nuestra experiencia.
+   Escritorio conserva las tres tarjetas originales; en móvil se muestra
+   una tarjeta completa y legible con navegación táctil y flechas arriba. */
+html body.ci-page .ci-august-weather-head{display:none}
+@media(max-width:800px){
+  html body.ci-page .ci-august-weather-head{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:12px;
+    margin:5px 0 9px;
+  }
+  html body.ci-page .ci-august-weather-head>span{
+    color:#6e5c50;
+    font:700 10px/1.4 var(--vcc-font-body, "DM Sans", Arial, sans-serif);
+    letter-spacing:.07em;
+  }
+  html body.ci-page .ci-august-weather-controls{display:flex;gap:7px;flex:none}
+  html body.ci-page .ci-august-weather-controls button{
+    display:grid;place-items:center;
+    width:33px;height:33px;
+    padding:0;
+    border:1px solid #dfcfc2;
+    border-radius:50%;
+    background:#fff;color:#a65b3f;
+    font:600 20px/1 var(--vcc-font-body, "DM Sans", Arial, sans-serif);
+    cursor:pointer;
+  }
+  html body.ci-page .ci-august-weather-controls button:disabled{
+    opacity:.35;cursor:default;
+  }
+  html body.ci-page .ci-august-weather-controls button:focus-visible,
+  html body.ci-page .ci-august-weather-options:focus-visible{
+    outline:2px solid var(--ci-orange);outline-offset:2px;
+  }
+  html body.ci-page .ci-august-weather-options{
+    display:flex;
+    grid-template-columns:none;
+    gap:10px;
+    min-width:0;
+    width:100%;
+    overflow-x:auto;
+    overflow-y:hidden;
+    scroll-snap-type:x mandatory;
+    overscroll-behavior-x:contain;
+    -webkit-overflow-scrolling:touch;
+    scrollbar-width:none;
+    margin:0 0 14px;
+    padding:1px 0 5px;
+  }
+  html body.ci-page .ci-august-weather-options::-webkit-scrollbar{display:none}
+  html body.ci-page .ci-august-weather-options>.ci-august-plan{
+    flex:0 0 100%;
+    width:100%;
+    min-width:0;
+    min-height:0;
+    box-sizing:border-box;
+    scroll-snap-align:start;
+    scroll-snap-stop:always;
+    padding:15px 14px;
+    gap:11px;
+  }
+  html body.ci-page .ci-august-plan>div{flex:1;min-width:0}
+  html body.ci-page .ci-august-plan h4{font-size:20px;line-height:1.2;margin:0 0 7px}
+  html body.ci-page .ci-august-plan p{
+    font-size:12px;line-height:1.6;
+    overflow-wrap:break-word;
+  }
+}
+@media(prefers-reduced-motion:reduce){
+  html body.ci-page .ci-august-weather-options{scroll-behavior:auto}
+}
