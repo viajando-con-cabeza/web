@@ -28,6 +28,7 @@ jobs:
       - name: Synchronize Spanish site and cached English mirror
         run: |
           npm run site:sync
+          node configuracion/scripts/generar-ui-compartida.mjs
           node configuracion/scripts/traduccions/generar-en.mjs --write
           node configuracion/scripts/traduccions/informe-en.mjs --write
       - name: Commit generated candidate only (never main or quality)
@@ -42,8 +43,10 @@ jobs:
           fi
       - name: Validate release candidate without deploying
         run: |
-          npm run deploy:check-production
-          npm test
-          npm run seo:check
-          node configuracion/scripts/traduccions/verificar-en.mjs
-          node configuracion/scripts/traduccions/informe-en.mjs --strict
+          failures=0
+          for command in 'npm run deploy:check-production' 'npm test' 'npm run seo:check' 'node configuracion/scripts/validar-galeries.mjs' 'node configuracion/scripts/validar-iconos-vcc.mjs' 'node configuracion/scripts/generar-ui-compartida.mjs --check' 'node configuracion/scripts/traduccions/verificar-en.mjs' 'node configuracion/scripts/traduccions/informe-en.mjs --strict'; do
+            echo "::group::$command"
+            if ! bash -c "$command"; then failures=1; fi
+            echo "::endgroup::"
+          done
+          exit "$failures"

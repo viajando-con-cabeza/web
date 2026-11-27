@@ -54,9 +54,15 @@ for(const url of urls){
  const itinerarySource=itineraryLazy&&existsSync(join(root,itineraryPath))
    ?readFileSync(join(root,itineraryPath),'utf8'):'';
  const itineraryBundle='configuracion/css/plantillas/itinerario-compilado-vcc.css';
- const itineraryCss=itineraryLazy&&html.includes('/'+itineraryBundle)
-   &&existsSync(join(root,itineraryBundle))
-   &&readFileSync(join(root,itineraryBundle),'utf8').includes('.vcc-booking-gallery .day-mosaic[data-count]');
+ const mosaicSelector='.vcc-booking-gallery .day-mosaic[data-count]';
+ const staticSharedCSS=[...html.matchAll(/<link\b[^>]*>/gi)].some(m=>
+   /\brel=["']stylesheet["']/i.test(m[0]) &&
+   m[0].includes(sharedCSS));
+ const itineraryCss=itineraryLazy&&(
+   (html.includes('/'+itineraryBundle)&&existsSync(join(root,itineraryBundle))&&
+     readFileSync(join(root,itineraryBundle),'utf8').includes(mosaicSelector)) ||
+   (staticSharedCSS&&existsSync(join(root,sharedCSS.slice(1)))&&
+     readFileSync(join(root,sharedCSS.slice(1)),'utf8').includes(mosaicSelector)));
  const source=lazy?lazySource:onDemand?demandSource:itineraryLazy?itinerarySource:html;
  check(source.includes(sharedCSS)||itineraryCss,
    'falta el CSS de la galeria compartida o al seu carregador');
